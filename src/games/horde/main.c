@@ -85,6 +85,8 @@
 
 #define ZOMBIE_MOVE_LOOPS 2
 
+#define NUMBER_OF_MISSILES 4
+
 static uint8_t loop;
 
 static const uint8_t zombie_points[] = 
@@ -240,7 +242,7 @@ static Item powerUpItem;
 static Item extraPointsItem;
 static Item wallItem;
 
-static Missile beamMissile;
+static Missile beamMissile[NUMBER_OF_MISSILES];
 
 
 void display_remaining_arrows(void)
@@ -432,6 +434,8 @@ void beam_effect(void)
 
 void initialize_items(void)
 {
+    uint8_t i;
+    
     rechargeItem._active = 0;
     rechargeItem._tile = ARROW_TILE_0;
     rechargeItem._color = _XL_YELLOW;
@@ -457,10 +461,13 @@ void initialize_items(void)
     wallItem._color = _XL_YELLOW;
     wallItem._effect = wall_effect; 
     
-    beamMissile._active = 0;
-    beamMissile._tile = BEAM_TILE;
-    beamMissile._color = _XL_CYAN;
-    beamMissile._effect = beam_effect;
+    for(i=0;i<NUMBER_OF_MISSILES;++i)
+    {
+        beamMissile[i]._active = 0;
+        beamMissile[i]._tile = BEAM_TILE;
+        beamMissile[i]._color = _XL_CYAN;
+        beamMissile[i]._effect = beam_effect;
+    }
 }
 
 
@@ -614,15 +621,16 @@ void display_score(void)
     _XL_PRINTD(0,0,5,score);
 }
 
-void drop_item(Item *item)
+void drop_item(Item *item, uint8_t max_counter)
 {
-
-    _XL_TICK_SOUND();
-    item->_active = 1;
-    item->_x = zombie_x;
-    item->_y = zombie_y[zombie_x]+2;
-    item->_counter=20;
-
+    if(zombie_y[zombie_x]<YSize-5)
+    {
+        _XL_TICK_SOUND();
+        item->_active = 1;
+        item->_x = zombie_x;
+        item->_y = zombie_y[zombie_x]+2;
+        item->_counter=max_counter;
+    }
 }
 
 
@@ -640,7 +648,7 @@ void handle_item(Item* item)
             _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
         }
         
-        if((item->_y==BOW_Y) && (item->_counter>0))
+        if((item->_y==BOW_Y) && (item->_counter))
         {
             if(item->_counter&1)
             {
@@ -670,12 +678,18 @@ void handle_item(Item* item)
 
 void handle_items(void)
 {
+    uint8_t i;
+    
     handle_item(&rechargeItem);
     handle_item(&freezeItem);
     handle_item(&powerUpItem);
     handle_item(&extraPointsItem);
     handle_item(&wallItem);
-    handle_item(&beamMissile);
+    
+    for(i=0;i<NUMBER_OF_MISSILES;++i)
+    {
+        handle_item(&beamMissile[i]);
+    }
 }
 
 uint8_t find_inactive(void)
@@ -725,7 +739,7 @@ void spawn_boss(void)
     {
         rank = 1 + ((_XL_RAND())&1);
     }
-    else if(level==2)
+    else if(level<8)
     {
         rank = 1 + (rand()%3);   
     }
@@ -833,35 +847,35 @@ void zombie_die(void)
         {
             if(!extraPointsItem._active)
             {
-                drop_item(&extraPointsItem);
+                drop_item(&extraPointsItem,30);
             }
         }
         else if(rnd<7)
         {
             if(!rechargeItem._active)
             {
-                drop_item(&rechargeItem);
+                drop_item(&rechargeItem,25);
             }
         }
         else if((rnd<8)&&(freeze_appeared<3)&&(powerUp>2)&&(!freeze))
         {
             if(!freezeItem._active)
             {
-                drop_item(&freezeItem);
+                drop_item(&freezeItem,20);
             }
         }
         else if((rnd<9)&&!wall_appeared&&(powerUp>3))
         {
             if(!wallItem._active)
             {
-                drop_item(&wallItem);
+                drop_item(&wallItem,20);
             }
         }
         else 
         {
             if(!powerUpItem._active)
             {
-                drop_item(&powerUpItem);
+                drop_item(&powerUpItem,25);
             }  
         }
         
@@ -1017,7 +1031,29 @@ void handle_zombie_collisions(void)
     }
 }
 
+uint8_t find_inactive_missile(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_MISSILES;++i)
+    {
+        if(!beamMissile[i]._active)
+        {
+            return i;
+        }
+    }
+    return i;
+}
 
+void handle_missile_drop(void)
+{
+    uint8_t missile_index;
+    
+    if((missile_index = find_inactive_missile())!= NUMBER_OF_MISSILES)
+    {
+        drop_item(&beamMissile[missile_index],1);
+    }
+}
 
 void move_zombies(void)
 {
@@ -1032,9 +1068,16 @@ void move_zombies(void)
             display_zombie();
             if(!freeze && (_XL_RAND()<zombie_speed))
             {
+                /*
                 if(zombie_level[zombie_x]>2 && !beamMissile._active && zombie_y[zombie_x]<YSize-5)
                 {
                     drop_item(&beamMissile);
+                }
+                handle_missile_drop();
+                */
+                if(zombie_level[zombie_x]>2)
+                {
+                    handle_missile_drop();
                 }
                 if(zombie_y[zombie_x]<BOW_Y)
                 {
@@ -1486,8 +1529,8 @@ int main(void)
             else
             {
                 --lives;
-                _XL_SET_TEXT_COLOR(_XL_RED);
-                _XL_PRINT_CENTERED(_XL_D _XL_E _XL_A _XL_D);
+                // _XL_SET_TEXT_COLOR(_XL_RED);
+                // _XL_PRINT_CENTERED(_XL_D _XL_E _XL_A _XL_D);
                 _XL_SLEEP(1);
                 _XL_WAIT_FOR_INPUT();
             }

@@ -308,7 +308,11 @@ void freeze_effect(void)
     #else 
         #define SPEED_X 6
     #endif
-    #define POWER_X ((XSize)-9)
+    #if XSize>=32
+        #define POWER_X ((XSize)-10)
+    #else
+        #define POWER_X ((XSize)-9)
+    #endif
 #endif 
 
 #if XSize>=32

@@ -32,8 +32,10 @@
 #include "images.h"
 
 #define INITIAL_LEVEL 0
-#define LAST_LEVEL 9
-#define INITIAL_LIVES 5
+#define LAST_LEVEL 11
+#define INITIAL_LIVES 3
+
+#define NEXT_EXTRA_LIFE 2000U
 
 #define BOW_Y ((YSize)-3)
 #define MAX_BOW_X ((XSize)*2-3)
@@ -60,7 +62,7 @@
 #define MINION_POINTS 5
 #define BOSS_1_POINTS 20
 #define BOSS_2_POINTS 30
-#define BOSS_3_POINTS 50
+#define BOSS_3_POINTS 40
 
 #define EXTRA_POINTS 10
 #define RECHARGE_POINTS 15
@@ -78,18 +80,25 @@
 
 #define MAX_ARROWS 99
 
-#define FREEZE_COUNTER_MAX 200;
+#define FREEZE_COUNTER_MAX 180;
 
-#define NUMBER_OF_LEVELS 20
-
-// #define MIN_OCCUPIED_COLUMNS ((XSize)/8)
 #define MAX_OCCUPIED_COLUMNS (4*(XSize)/5)
 
 #define ZOMBIE_MOVE_LOOPS 2
 
 #define NUMBER_OF_MISSILES 5
 
+#define MINIONS_ON_FIRST_LEVEL ((XSize)+2)
+
+#if XSize<=80
+    #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
+#else
+    #define BOSSES_ON_FIRST_LEVEL 40
+#endif
+
 static uint8_t loop;
+
+static uint8_t next_extra_life_counter;
 
 static const uint8_t zombie_points[] = 
 { 
@@ -101,9 +110,6 @@ static const uint8_t zombie_points[] =
 
 static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
-
-#define MINIONS_ON_FIRST_LEVEL ((XSize)+2)
-#define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
 
 static uint8_t lives;
 static uint8_t level;
@@ -1169,37 +1175,37 @@ do \
         hiscore=score; \
     } \
     score = 0; \
+    next_extra_life_counter = 1; \
     level = INITIAL_LEVEL; \
     killed_bosses = 0; \
     killed_minions = 0; \
     lives = INITIAL_LIVES; \
 } while(0)
 
-void level_initialization(void)
-{   
-    fire_power = 1;
-    freeze = 0;
-    powerUp = 0;
-    next_arrow = 0;
-    arrows_on_screen = 0;
-    bow_load_counter = 0;
-    bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS;
-    wall_appeared = 0;
-    freeze_appeared = 0;
-    auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN;
-    
-    loaded_bow = 1;
-    alive = 1;
-    remaining_arrows = MAX_ARROWS;
-    arrow_range = INITIAL_ARROW_RANGE;
-    bow_x = XSize;
-    bow_shape_tile = 2*((bow_x)&1);
-    bow_color = _XL_CYAN;
-    
-    number_of_arrows_per_shot = 1;
 
-    initialize_items();
-}
+#define level_initialization() \
+do \
+{   \
+    fire_power = 1; \
+    freeze = 0; \
+    powerUp = 0; \
+    next_arrow = 0; \
+    arrows_on_screen = 0; \
+    bow_load_counter = 0; \
+    bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS; \
+    wall_appeared = 0; \
+    freeze_appeared = 0; \
+    auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
+    loaded_bow = 1; \
+    alive = 1; \
+    remaining_arrows = MAX_ARROWS; \
+    arrow_range = INITIAL_ARROW_RANGE; \
+    bow_x = XSize; \
+    bow_shape_tile = 2*((bow_x)&1); \
+    bow_color = _XL_CYAN; \
+    number_of_arrows_per_shot = 1; \
+    initialize_items(); \
+} while(0)
 
 
 void zombie_initialization(void)
@@ -1400,7 +1406,16 @@ int main(void)
                 redraw_wall();  
                 handle_auto_recharge();
                 
-                _XL_SLOW_DOWN(SLOW_DOWN);            
+                _XL_SLOW_DOWN(SLOW_DOWN);     
+                if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter)
+                {
+                    ++lives;
+                    _XL_PING_SOUND();
+                    ++next_extra_life_counter;
+                    _XL_SLOW_DOWN(SLOW_DOWN);
+                    display_lives();
+                    _XL_PING_SOUND();
+                }
                 ++loop;
             }
             if(alive)

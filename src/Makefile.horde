@@ -507,8 +507,10 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	-DCONIO -DVIC20_EXP_8K \
 	-DSLOW_DOWN=1300 \
 	-DREDEFINED_CHARS \
-	$(FULL_FILES) \
+	$(SOURCE_PATH)/main.c \
 	--code-name CODE2 \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+    $(BASIC_CROSS_LIB_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \

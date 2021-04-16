@@ -665,7 +665,7 @@ void drop_item(Item *item, uint8_t max_counter)
 }
 
 
-void handle_item(Item* item)
+void handle_item(register Item* item)
 {
     if(item->_active)
     {

@@ -275,6 +275,49 @@ void freeze_effect(void)
     ++freeze_appeared;
 }
 
+
+#define RANGE_X 0
+
+#if XSize<= 15
+    #define RANGE_STRING _XL_R 
+    #define SPEED_STRING _XL_S 
+    #define POWER_STRING _XL_P 
+    #define SPEED_X 2
+    #define POWER_X ((XSize)-5)
+
+#elif XSize <= 18
+    #define RANGE_STRING _XL_R _XL_N
+    #define SPEED_STRING _XL_S _XL_P
+    #define POWER_STRING _XL_P _XL_O
+    #define SPEED_X 3
+    #define POWER_X ((XSize)-6)
+#elif XSize <= 24
+    #define RANGE_STRING _XL_R _XL_N _XL_G
+    #define SPEED_STRING _XL_S _XL_P _XL_D
+    #define POWER_STRING _XL_P _XL_O _XL_W
+    #define SPEED_X 4
+    #define POWER_X ((XSize)-7)
+#else
+    #define RANGE_STRING _XL_R _XL_A _XL_N _XL_G _XL_E
+    #define SPEED_STRING _XL_S _XL_P _XL_E _XL_E _XL_D
+    #define POWER_STRING _XL_P _XL_O _XL_W _XL_E _XL_R
+    #if XSize>=32
+        #define SPEED_X 8
+    #elif XSize>=25
+        #define SPEED_X 7
+    #else 
+        #define SPEED_X 6
+    #endif
+    #define POWER_X ((XSize)-9)
+#endif 
+
+#if XSize>=32
+    #define ARROWS_X POWER_X-6
+#else
+    #define ARROWS_X POWER_X-4
+#endif
+
+
 void display_power_ups(void)
 {
     uint8_t range_color;
@@ -321,15 +364,24 @@ void display_power_ups(void)
         }
     }
        
+    // _XL_SET_TEXT_COLOR(range_color);
+    // _XL_PRINT(0,POWER_UPS_Y,_XL_R _XL_A _XL_N _XL_G _XL_E);
+    
+    // _XL_SET_TEXT_COLOR(speed_color);
+    // _XL_PRINT(6,POWER_UPS_Y,_XL_S _XL_P _XL_E _XL_E _XL_D);
+    
+    // _XL_SET_TEXT_COLOR(power_color);
+    // _XL_PRINT(XSize-5,POWER_UPS_Y,_XL_P _XL_O _XL_W _XL_E _XL_R);
+
     _XL_SET_TEXT_COLOR(range_color);
-    _XL_PRINT(0,POWER_UPS_Y,_XL_R _XL_A _XL_N _XL_G _XL_E);
+    _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
     
     _XL_SET_TEXT_COLOR(speed_color);
-    _XL_PRINT(6,POWER_UPS_Y,_XL_S _XL_P _XL_E _XL_E _XL_D);
+    _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
     
     _XL_SET_TEXT_COLOR(power_color);
-    _XL_PRINT(XSize-5,POWER_UPS_Y,_XL_P _XL_O _XL_W _XL_E _XL_R);
-    
+    _XL_PRINT(POWER_X,POWER_UPS_Y,POWER_STRING);
+
     for(i=0;i<3;++i)
     {
         if(i<=number_of_arrows_per_shot-1)
@@ -340,7 +392,7 @@ void display_power_ups(void)
         {
            color = _XL_RED;
         }
-        _XL_DRAW(XSize-5-4+i,POWER_UPS_Y,ARROW_TILE_0,color);
+        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
     }
 
 }
@@ -461,10 +513,21 @@ void initialize_items(void)
     }
 }
 
+void display_level(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINTD(XSize-1,0,1,level+1);
+}
+
+
 void display_lives(void)
 {
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    _XL_PRINTD(XSize-1,0,1,lives);
+    // _XL_SET_TEXT_COLOR(_XL_CYAN);
+    // _XL_PRINTD(XSize-1,0,1,lives);
+    _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
+    _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives);
 }
 
 
@@ -1134,6 +1197,7 @@ void fire(void)
 
     bow_load_counter = bow_reload_loops;
     loaded_bow = 0;
+    display_bow();
 }
 
 
@@ -1320,6 +1384,7 @@ do \
     _XL_PRINTD(XSize-8,0,5, hiscore); \
     _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
     display_remaining_arrows(); \
+    display_level(); \
     display_lives(); \
     display_power_ups(); \
 } while(0)

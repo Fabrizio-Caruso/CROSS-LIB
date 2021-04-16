@@ -99,33 +99,11 @@ static const uint8_t zombie_points[] =
     BOSS_3_POINTS, // Demons
 };
 
-/*
-struct LevelDetailsStruct
-{
-    uint16_t minions_to_kill;
-    uint16_t bosses_to_kill;
-    uint16_t initial_zombie_speed;
-};
-typedef struct LevelDetailsStruct LevelDetails;
-*/
-
 static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
 
 #define MINIONS_ON_FIRST_LEVEL ((XSize)+2)
 #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
-// static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
-    // {MINIONS_ON_FIRST_LEVEL,10,5000U},
-    // {MINIONS_ON_FIRST_LEVEL+5,15,5500U},
-    // {MINIONS_ON_FIRST_LEVEL+10,20,5500U},
-    // {MINIONS_ON_FIRST_LEVEL+15,25,5500U},
-    // {MINIONS_ON_FIRST_LEVEL+20,30,5500U},
-    // {MINIONS_ON_FIRST_LEVEL+25,35,6000U},
-    // {MINIONS_ON_FIRST_LEVEL+30,40,6000U},
-    // {MINIONS_ON_FIRST_LEVEL+35,50,6000U},
-    // {MINIONS_ON_FIRST_LEVEL+40,60,6000U}, 
-    // {MINIONS_ON_FIRST_LEVEL+45,99,7000U}, 
-// };
 
 static uint8_t lives;
 static uint8_t level;
@@ -786,7 +764,6 @@ void zombie_die(void)
         display_red_zombie();
         _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
     } 
-    // _XL_PING_SOUND();    
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);

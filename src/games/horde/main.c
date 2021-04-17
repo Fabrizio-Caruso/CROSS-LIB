@@ -1196,7 +1196,6 @@ void fire(void)
             }
         }
     }
-    display_bow();
     display_remaining_arrows();
 
     bow_load_counter = bow_reload_loops;
@@ -1234,6 +1233,7 @@ do \
     _XL_WAIT_FOR_INPUT(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
+
 
 #define global_initialization() \
 do \
@@ -1276,11 +1276,18 @@ do \
 } while(0)
 
 
+void initialize_zombie(void)
+{
+    zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
+    ++loop;
+    display_zombie();
+    _XL_TOCK_SOUND();
+}
+
 void zombie_initialization(void)
 {
     uint8_t minions_to_spawn_initially;
     uint8_t bosses_to_spawn_initially;
-    uint8_t counter;
 
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
@@ -1301,15 +1308,12 @@ void zombie_initialization(void)
         minions_to_spawn_initially=MAX_OCCUPIED_COLUMNS;
     }
     
-    counter = 0;
+    loop = 0;
 
-    while(counter<minions_to_spawn_initially)
+    while(loop<minions_to_spawn_initially)
     {
         spawn_minion();
-        zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
-        ++counter;
-        display_zombie();
-        _XL_TICK_SOUND();
+        initialize_zombie();
     }
     
     minions_to_spawn = minions_to_kill-minions_to_spawn_initially;
@@ -1326,15 +1330,12 @@ void zombie_initialization(void)
         bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially;
     }
    
-    counter = 0;
+    loop = 0;
 
-    while(counter<bosses_to_spawn_initially)
+    while(loop<bosses_to_spawn_initially)
     {
         spawn_boss();
-        zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
-        ++counter;
-        display_zombie();
-        _XL_TOCK_SOUND();
+        initialize_zombie();
     }
    
     bosses_to_spawn = bosses_to_kill-bosses_to_spawn_initially;

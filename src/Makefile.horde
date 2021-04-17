@@ -48,7 +48,7 @@ FULL_FILES ?= \
 
 
 
-SCCZ80_OPTS ?= -O0
+SCCZ80_OPTS ?= -O3
 
 #################################################################
 #     lcc1802_targets 
@@ -1307,7 +1307,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=24 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
-	 -DLESS_TEXT -DSLOW_DOWN=3500 \
+	 -DLESS_TEXT -DSLOW_DOWN=10 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \

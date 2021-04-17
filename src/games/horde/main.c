@@ -35,7 +35,7 @@
 #define LAST_LEVEL 11
 #define INITIAL_LIVES 3
 
-#define NEXT_EXTRA_LIFE 2000U
+#define NEXT_EXTRA_LIFE 5000U
 
 #define BOW_Y ((YSize)-3)
 #define MAX_BOW_X ((XSize)*2-3)
@@ -262,16 +262,30 @@ void recharge_arrows(void)
     display_remaining_arrows();
 }
 
+
+void display_score(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(0,0,5,score);
+}
+
+
+void increase_score(uint8_t value)
+{
+    score+=value;
+    display_score();
+}
+
 void recharge_effect(void)
 {
     recharge_arrows();
-    score+=RECHARGE_POINTS;
+    increase_score(RECHARGE_POINTS);
 }
 
 void freeze_effect(void)
 {
     freeze=FREEZE_COUNTER_MAX;
-    score+=FREEZE_POINTS;
+    increase_score(FREEZE_POINTS);
     ++freeze_appeared;
 }
 
@@ -404,7 +418,7 @@ void display_power_ups(void)
 void power_up_effect(void)
 {
     ++powerUp;
-    score+=POWERUP_POINTS;
+    increase_score(POWERUP_POINTS);
     
     switch(powerUp)
     {
@@ -448,14 +462,14 @@ void power_up_effect(void)
 
 void extra_points_effect(void)
 {
-    score+=EXTRA_POINTS;
+    increase_score(EXTRA_POINTS);
 }
 
 void wall_effect(void)
 {
     uint8_t i;
     
-    score+=WALL_POINTS;
+    increase_score(WALL_POINTS);
     
     for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
     {
@@ -646,12 +660,6 @@ void display_zombie(void)
     }
 }
 
-void display_score(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(0,0,5,score);
-}
-
 void drop_item(Item *item, uint8_t max_counter)
 {
     if(zombie_y[zombie_x]<YSize-8)
@@ -695,7 +703,6 @@ void handle_item(register Item* item)
                 item->_effect();
                 _XL_PING_SOUND();
                 item->_active=0;
-                display_score();
             }
             display_bow();
             --item->_counter;
@@ -907,7 +914,6 @@ void zombie_die(void)
     {
         zombie_y[zombie_x]=0;
     }
-    display_score();
     update_zombie_speed();
 }
 
@@ -1039,7 +1045,7 @@ void handle_zombie_collisions(void)
             }
             else
             {
-                score+=zombie_points[zombie_level[zombie_x]];
+                increase_score(zombie_points[zombie_level[zombie_x]]);
                 zombie_die();
             }
         }

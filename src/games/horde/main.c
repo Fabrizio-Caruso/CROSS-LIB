@@ -54,7 +54,7 @@
 #define AUTO_ARROW_RECAHRGE 9
 
 #define MAX_ZOMBIE_SPEED 20000U
-#define INITIAL_ZOMBIE_SPEED 5000U
+#define INITIAL_ZOMBIE_SPEED 12000U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 #define ZOMBIE_SPEED_INCREASE 50U
@@ -252,6 +252,7 @@ void display_remaining_arrows(void)
     _XL_PRINTD(7,0,2,remaining_arrows);
 }
 
+
 void recharge_arrows(void)
 {
     remaining_arrows+=ARROW_RECHARGE;
@@ -275,6 +276,7 @@ void increase_score(uint8_t value)
     score+=value;
     display_score();
 }
+
 
 void recharge_effect(void)
 {
@@ -374,15 +376,6 @@ void display_power_ups(void)
             }
         }
     }
-       
-    // _XL_SET_TEXT_COLOR(range_color);
-    // _XL_PRINT(0,POWER_UPS_Y,_XL_R _XL_A _XL_N _XL_G _XL_E);
-    
-    // _XL_SET_TEXT_COLOR(speed_color);
-    // _XL_PRINT(6,POWER_UPS_Y,_XL_S _XL_P _XL_E _XL_E _XL_D);
-    
-    // _XL_SET_TEXT_COLOR(power_color);
-    // _XL_PRINT(XSize-5,POWER_UPS_Y,_XL_P _XL_O _XL_W _XL_E _XL_R);
 
     _XL_SET_TEXT_COLOR(range_color);
     _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
@@ -407,6 +400,7 @@ void display_power_ups(void)
     }
 
 }
+
 
 void power_up_effect(void)
 {
@@ -453,10 +447,12 @@ void power_up_effect(void)
     display_power_ups();
 }
 
+
 void extra_points_effect(void)
 {
     increase_score(EXTRA_POINTS);
 }
+
 
 void wall_effect(void)
 {
@@ -478,6 +474,7 @@ void wall_effect(void)
     }
     wall_appeared = 1;
 }
+
 
 void display_minion(void)
 {
@@ -505,6 +502,7 @@ void display_minion(void)
         _XL_DRAW(zombie_x,1 + pos, zombie_tile[1+(status<<1)], color);
     }
 }
+
 
 void display_boss(void)
 {
@@ -560,6 +558,7 @@ void display_zombie(void)
     }
 }
 
+
 void freeze_effect(void)
 {
     freeze=FREEZE_COUNTER_MAX;
@@ -573,6 +572,7 @@ void freeze_effect(void)
     increase_score(FREEZE_POINTS);
     ++freeze_appeared;
 }
+
 
 void beam_effect(void)
 {
@@ -618,6 +618,7 @@ void initialize_items(void)
     }
 }
 
+
 void display_level(void)
 {
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
@@ -627,8 +628,6 @@ void display_level(void)
 
 void display_lives(void)
 {
-    // _XL_SET_TEXT_COLOR(_XL_CYAN);
-    // _XL_PRINTD(XSize-1,0,1,lives);
     _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
     _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -641,6 +640,7 @@ void display_bow(void)
     _XL_DRAW(bow_x/2,BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
     _XL_DRAW(bow_x/2+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
 }
+
 
 void move_left(void)
 {
@@ -665,16 +665,14 @@ void move_right(void)
     display_bow();
 }
 
+
 void drop_item(Item *item, uint8_t max_counter)
 {
-    if(zombie_y[zombie_x]<YSize-8)
-    {
-        _XL_TICK_SOUND();
-        item->_active = 1;
-        item->_x = zombie_x;
-        item->_y = zombie_y[zombie_x]+2;
-        item->_counter=max_counter;
-    }
+    _XL_TICK_SOUND();
+    item->_active = 1;
+    item->_x = zombie_x;
+    item->_y = zombie_y[zombie_x]+2;
+    item->_counter=max_counter;
 }
 
 
@@ -719,6 +717,7 @@ void handle_item(register Item* item)
     }   
 }
 
+
 void handle_items(void)
 {
     uint8_t i;
@@ -734,6 +733,7 @@ void handle_items(void)
         handle_item(&beamMissile[i]);
     }
 }
+
 
 uint8_t find_zombie(uint8_t value)
 {
@@ -752,6 +752,7 @@ uint8_t find_zombie(uint8_t value)
     return XSize;
 }
 
+
 void activate_zombie(void)
 {
     zombie_x = find_zombie(0);
@@ -760,6 +761,7 @@ void activate_zombie(void)
     zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
 }
 
+
 void spawn_minion(void)
 {
     activate_zombie();
@@ -767,6 +769,7 @@ void spawn_minion(void)
     energy[zombie_x]=MINION_ENERGY;  
     --minions_to_spawn;
 }
+
 
 void spawn_boss(void)
 {
@@ -798,7 +801,11 @@ void spawn_boss(void)
 
 void update_zombie_speed(void)
 {
-    if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
+    if(bosses_to_kill<3)
+    {
+        zombie_speed=INITIAL_ZOMBIE_SPEED;
+    }
+    else if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
     {
         zombie_speed+=ZOMBIE_SPEED_INCREASE;
     }
@@ -807,6 +814,7 @@ void update_zombie_speed(void)
         zombie_speed=MAX_ZOMBIE_SPEED;
     }
 }
+
 
 void display_wall(uint8_t y)
 {
@@ -817,6 +825,7 @@ void display_wall(uint8_t y)
         _XL_DRAW(i,y,WALL_TILE,_XL_YELLOW); 
     }
 }
+
 
 void display_red_zombie(void)
 {
@@ -964,6 +973,7 @@ void handle_arrows(void)
     }
 }
 
+
 uint8_t zombie_hit(void)
 {
     uint8_t i;
@@ -991,6 +1001,7 @@ uint8_t zombie_hit(void)
     return 0;
 }
 
+
 void decrease_energy(void)
 {
     if(energy[zombie_x]<=fire_power)
@@ -1002,6 +1013,7 @@ void decrease_energy(void)
         energy[zombie_x]-=fire_power;
     }
 }
+
 
 void redraw_wall(void)
 {
@@ -1015,6 +1027,7 @@ void redraw_wall(void)
         }
     }        
 }
+
 
 void push_zombie(void)
 {
@@ -1030,6 +1043,7 @@ void push_zombie(void)
         display_zombie();
     }
 }
+
 
 void handle_zombie_collisions(void)
 {
@@ -1057,6 +1071,7 @@ void handle_zombie_collisions(void)
     }
 }
 
+
 uint8_t find_inactive_missile(void)
 {
     uint8_t i;
@@ -1071,6 +1086,7 @@ uint8_t find_inactive_missile(void)
     return i;
 }
 
+
 void handle_missile_drop(void)
 {
     uint8_t missile_index;
@@ -1082,65 +1098,55 @@ void handle_missile_drop(void)
 }
 
 
-
 void move_zombies(void)
 {
-    // uint8_t i;
     uint8_t j;
     
-    // for(i=0;i<ZOMBIE_MOVE_LOOPS;++i)
-    // {
-        zombie_x=find_zombie(1);
-        // if(zombie_active[zombie_x])
-        // {
-            display_zombie();
-            // if(!freeze && (_XL_RAND()<zombie_speed))
-            // {
-                if(loop&1 && zombie_level[zombie_x]>2)
-                {
-                    handle_missile_drop();
-                }
-                if(zombie_y[zombie_x]<BOW_Y)
-                {
-                    if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
-                    {
-                        --wall[zombie_x];
-                        
-                        _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
-                        for(j=0;j<2;++j)
-                        {
-                            _XL_TICK_SOUND();
-                            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_YELLOW);
-                        }
-                        if(!wall[zombie_x])
-                        {
-                            _XL_DRAW(zombie_x, WALL_Y, ZOMBIE_DEATH_TILE, _XL_YELLOW);
-                            _XL_EXPLOSION_SOUND();
-                            _XL_DELETE(zombie_x, WALL_Y);
-                        }
-                    }
-                    else
-                    {
-                        ++zombie_shape[zombie_x];
+    zombie_x=find_zombie(1);
 
-                        (zombie_shape[zombie_x])&=3;
-         
-                        if(!zombie_shape[zombie_x])
-                            {
-                                ++zombie_y[zombie_x];
-                            }
-                    }
-                }
-                else
+    if((loop&1) && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<YSize-9)
+    {
+        handle_missile_drop();
+    }
+    if(zombie_y[zombie_x]<BOW_Y)
+    {
+        if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
+        {
+            --wall[zombie_x];
+            
+            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
+            for(j=0;j<2;++j)
+            {
+                _XL_TICK_SOUND();
+                _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_YELLOW);
+            }
+            if(!wall[zombie_x])
+            {
+                _XL_DRAW(zombie_x, WALL_Y, ZOMBIE_DEATH_TILE, _XL_YELLOW);
+                _XL_EXPLOSION_SOUND();
+                _XL_DELETE(zombie_x, WALL_Y);
+            }
+        }
+        else
+        {
+            ++zombie_shape[zombie_x];
+
+            (zombie_shape[zombie_x])&=3;
+
+            if(!zombie_shape[zombie_x])
                 {
-                    alive = 0;
-                    display_red_zombie();
+                    ++zombie_y[zombie_x];
                 }
-            // }
-        // }
-    // }
+        }
+    }
+    else
+    {
+        alive = 0;
+        display_red_zombie();
+    }
+    
+    display_zombie();
 }
-
 
 
 void handle_bow_load(void)
@@ -1155,6 +1161,7 @@ void handle_bow_load(void)
         --bow_load_counter;
     }
 }
+
 
 void fire(void)
 {
@@ -1297,6 +1304,7 @@ void initialize_zombie(void)
     _XL_TOCK_SOUND();
 }
 
+
 void zombie_initialization(void)
 {
     uint8_t minions_to_spawn_initially;
@@ -1310,7 +1318,7 @@ void zombie_initialization(void)
         zombie_active[zombie_x]=0;
     }
     
-    minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<2)-killed_minions; 
+    minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<1)-killed_minions; 
 
     if(minions_to_kill<MAX_OCCUPIED_COLUMNS)
     {
@@ -1360,6 +1368,7 @@ void zombie_initialization(void)
         active_arrow[zombie_x] = 0;
     }
 }
+
 
 void display_initial_screen(void)
 {
@@ -1439,6 +1448,7 @@ do \
     } \
 } while(0)
 
+
 int main(void)
 {           
     _XL_INIT_GRAPHICS();
@@ -1494,7 +1504,7 @@ int main(void)
                     _XL_PING_SOUND();
                 }
                 ++loop;
-                handle_items();
+
                 if(!freeze)
                 {
                     if((_XL_RAND())<zombie_speed)
@@ -1506,6 +1516,7 @@ int main(void)
                 {
                     --freeze;
                 }
+                handle_items();
             }
             if(alive)
             {

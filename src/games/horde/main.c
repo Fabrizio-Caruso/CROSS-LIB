@@ -59,7 +59,7 @@
 #define MAX_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPEED 12000U
 #define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/3)
-#define FEW_ZOMBIE ((XSize)/3)
+#define FEW_ZOMBIES ((XSize)/3)
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 #define ZOMBIE_SPEED_INCREASE 50U
@@ -907,7 +907,7 @@ void spawn_boss(void)
 
 void update_zombie_speed(void)
 {
-    if(bosses_to_kill<=FEW_ZOMBIE)
+    if(bosses_to_kill<=FEW_ZOMBIES)
     {
         zombie_speed=7;
     }
@@ -948,8 +948,8 @@ void zombie_die(void)
     
     uint16_t rnd;
     
-    _XL_DELETE(zombie_x,y_pos-1);    
-    _XL_DELETE(zombie_x,y_pos);
+    // _XL_DELETE(zombie_x,y_pos-1);    
+    // _XL_DELETE(zombie_x,y_pos);
     _XL_DELETE(zombie_x,y_pos+1);
     
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
@@ -1408,8 +1408,7 @@ void initialize_zombie(void)
 
 void zombie_initialization(void)
 {
-    uint8_t minions_to_spawn_initially;
-    uint8_t bosses_to_spawn_initially;
+    uint8_t to_spawn_initially;
 
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
@@ -1427,22 +1426,22 @@ void zombie_initialization(void)
 
     if(minions_to_kill<MAX_OCCUPIED_COLUMNS)
     {
-        minions_to_spawn_initially=minions_to_kill;
+        to_spawn_initially=minions_to_kill;
     }
     else
     {
-        minions_to_spawn_initially=MAX_OCCUPIED_COLUMNS;
+        to_spawn_initially=MAX_OCCUPIED_COLUMNS;
     }
     
     main_loop_counter = 0;
 
-    while(main_loop_counter<minions_to_spawn_initially)
+    while(main_loop_counter<to_spawn_initially)
     {
         spawn_minion();
         initialize_zombie();
     }
     
-    minions_to_spawn = minions_to_kill-minions_to_spawn_initially;
+    minions_to_spawn = minions_to_kill-to_spawn_initially;
     
     #if !defined(DEBUG)
         bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses;
@@ -1450,33 +1449,25 @@ void zombie_initialization(void)
         bosses_to_kill=7;
     #endif
     
-    if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially)
+    if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially)
     {
-        bosses_to_spawn_initially = bosses_to_kill;  
+        to_spawn_initially = bosses_to_kill;  
     }
     else
     {
-        bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially;
+        to_spawn_initially = MAX_OCCUPIED_COLUMNS - to_spawn_initially;
     }
    
     main_loop_counter = 0;
 
-    while(main_loop_counter<bosses_to_spawn_initially)
+    while(main_loop_counter<to_spawn_initially)
     {
         spawn_boss();
         initialize_zombie();
     }
    
-    bosses_to_spawn = bosses_to_kill-bosses_to_spawn_initially;
+    bosses_to_spawn = bosses_to_kill-to_spawn_initially;
     
-    // if(bosses_to_kill<=FEW_ZOMBIE)
-    // {
-        // zombie_speed=1;
-    // }
-    // else
-    // {
-        // zombie_speed=3;
-    // }
     update_zombie_speed();
     
     for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x)
@@ -1492,17 +1483,18 @@ void zombie_initialization(void)
     #define _NEXT_ROW (i<<1)
 #endif
 
-void display_items(void)
-{
-    uint8_t i;
-    
-    for(i=0;i<5;++i)
-    {
-        _XL_DRAW(XSize/2-5,YSize/3+5+_NEXT_ROW, item_tile[i][0], item_tile[i][1]);
-        _XL_SET_TEXT_COLOR(_XL_GREEN);
-        _XL_PRINT(XSize/2-5+3,YSize/3+5+_NEXT_ROW, item_name[i]);
-    }
-}
+#define display_items() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<5;++i) \
+    { \
+        _XL_DRAW(XSize/2-5,YSize/3+5+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+        _XL_SET_TEXT_COLOR(_XL_GREEN); \
+        _XL_PRINT(XSize/2-5+3,YSize/3+5+_NEXT_ROW, item_name[i]); \
+    } \
+} while(0)
 
 #if YSize<=22
     #define _HISCORE_Y 1

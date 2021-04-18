@@ -509,10 +509,14 @@ void power_up_effect(void)
         
         case 9:
             unlock_freeze = 1;
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            _XL_PRINT_CENTERED_ON_ROW(1,_XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E);
         break;
         
         case 10:
             unlock_wall = 1;
+            _XL_SET_TEXT_COLOR(_XL_YELLOW);
+            _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_W _XL_A _XL_L _XL_L _XL_SPACE);
         break;
         
         default:
@@ -1190,15 +1194,15 @@ void move_zombies(void)
         {
             --wall[zombie_x];
             
-            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
-            for(j=0;j<2;++j)
+            for(j=0;j<3;++j)
             {
+                _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
                 _XL_TICK_SOUND();
                 _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_YELLOW);
             }
             if(!wall[zombie_x])
             {
-                _XL_DRAW(zombie_x, WALL_Y, ZOMBIE_DEATH_TILE, _XL_YELLOW);
+                _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
                 _XL_EXPLOSION_SOUND();
                 _XL_DELETE(zombie_x, WALL_Y);
             }

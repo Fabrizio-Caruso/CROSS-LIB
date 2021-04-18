@@ -132,7 +132,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT -DNO_SPACE_TEXT \
-	-DSLOW_DOWN=900 \
+	-DSLOW_DOWN=1200 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -150,7 +150,7 @@ atari_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=900 \
+	-DSLOW_DOWN=1200 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -168,7 +168,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	  \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
-	-DSLOW_DOWN=800 \
+	-DSLOW_DOWN=1200 \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
@@ -228,7 +228,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DUSE_KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=1200 \
+	-DSLOW_DOWN=800 \
 	-DUDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -251,7 +251,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=3200 \
+	-DSLOW_DOWN=800 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -270,7 +270,7 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=1200 \
+	-DSLOW_DOWN=800 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \

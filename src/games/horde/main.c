@@ -297,7 +297,8 @@ void recharge_effect(void)
 #if XSize<= 15
     #define RANGE_STRING _XL_R 
     #define SPEED_STRING _XL_S 
-    #define POWER_STRING _XL_P 
+    #define POWER_STRING _XL_P
+    #define STR_LEN 1
     #define SPEED_X 2
     #define POWER_X ((XSize)-5)
 
@@ -305,18 +306,21 @@ void recharge_effect(void)
     #define RANGE_STRING _XL_R _XL_N
     #define SPEED_STRING _XL_S _XL_P
     #define POWER_STRING _XL_P _XL_O
+    #define STR_LEN 2
     #define SPEED_X 3
     #define POWER_X ((XSize)-6)
 #elif XSize <= 24
     #define RANGE_STRING _XL_R _XL_N _XL_G
     #define SPEED_STRING _XL_S _XL_P _XL_D
     #define POWER_STRING _XL_P _XL_O _XL_W
+    #define STR_LEN 3
     #define SPEED_X 4
     #define POWER_X ((XSize)-7)
 #else
     #define RANGE_STRING _XL_R _XL_A _XL_N _XL_G _XL_E
     #define SPEED_STRING _XL_S _XL_P _XL_E _XL_E _XL_D
     #define POWER_STRING _XL_P _XL_O _XL_W _XL_E _XL_R
+    #define STR_LEN 5    
     #if XSize>=32
         #define SPEED_X 8
     #elif XSize>=25
@@ -337,7 +341,7 @@ void recharge_effect(void)
     #define ARROWS_X POWER_X-4
 #endif
 
-
+#if defined(COLOR)
 void display_power_ups(void)
 {
     uint8_t range_color;
@@ -405,9 +409,64 @@ void display_power_ups(void)
         }
         _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
     }
-
 }
+#else
+void display_power_ups(void)
+{
+    uint8_t range_value;
+    uint8_t speed_value;
+    uint8_t power_value;
+    
+    uint8_t i;
+    
+    speed_value = 1;
+    power_value = 1;
+    
+    if(powerUp<3) // range
+    {
+        range_value = powerUp+1;
+    }
+    else
+    {
+        range_value = 3;
 
+        if(powerUp<5) // speed
+        {
+            speed_value = powerUp+1-2;
+        }
+        else
+        {
+            speed_value = 3;
+    
+            if(powerUp>6)
+            {
+                if(powerUp<9)
+                {
+                    power_value = powerUp+1-6;
+                }
+                else
+                {
+                    power_value = 3;
+                }
+            }
+        }
+    }
+
+    _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
+    _XL_PRINTD(RANGE_X+STR_LEN,POWER_UPS_Y,1,range_value);
+    
+    _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
+    _XL_PRINTD(SPEED_X+STR_LEN,POWER_UPS_Y,1,speed_value);
+    
+    _XL_PRINT(POWER_X,POWER_UPS_Y,POWER_STRING);
+    _XL_PRINTD(POWER_X+STR_LEN,POWER_UPS_Y,1,power_value);
+
+    for(i=0;i<number_of_arrows_per_shot;++i)
+    {
+        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,1);
+    }
+}
+#endif
 
 void power_up_effect(void)
 {

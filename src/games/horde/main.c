@@ -1451,8 +1451,6 @@ void zombie_initialization(void)
     {
         zombie_speed=INITIAL_ZOMBIE_SPEED;
     }
-    // zombie_speed=INITIAL_ZOMBIE_SPEED;
-    // update_zombie_speed();
     
     for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x)
     {
@@ -1487,7 +1485,8 @@ void display_initial_screen(void)
  
     _XL_SET_TEXT_COLOR(_XL_GREEN);
     _XL_PRINT_CENTERED_ON_ROW(YSize/3+8, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E );
-
+    _XL_WAIT_FOR_INPUT();
+    _XL_CLEAR_SCREEN();
 }
 
 
@@ -1541,7 +1540,6 @@ do \
 
 
 #define handle_extra_life() \
-{ \
     if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter) \
     { \
         if(lives<MAX_LIVES) \
@@ -1554,7 +1552,8 @@ do \
         display_lives(); \
         _XL_PING_SOUND(); \
     } \
-}
+
+
 
 #define display_level_at_start_up()  \
 do \
@@ -1567,6 +1566,70 @@ do \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
 } while(0)
 
+
+#define handle_zombie_movement() \
+    if(!freeze) \
+    { \
+        if((_XL_RAND())<zombie_speed) \
+        { \
+            move_zombies(); \
+        } \
+    } \
+    else \
+    { \
+        --freeze; \
+    }
+
+
+#define handle_next_level() \
+do \
+{ \
+    ++level; \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_PRINT_CENTERED(_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D); \
+    _XL_SLEEP(1); \
+    _XL_WAIT_FOR_INPUT(); \
+    killed_bosses = 0; \
+    killed_minions = 0; \
+} while(0)
+
+
+#define player_dies() \
+do \
+{ \
+    --lives; \
+    bow_color=_XL_RED; \
+    display_bow(); \
+    bow_color=_XL_CYAN; \
+    _XL_EXPLOSION_SOUND(); \
+    _XL_SLEEP(1); \
+    _XL_WAIT_FOR_INPUT(); \
+} while(0)
+
+
+#define victory() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_CLEAR_SCREEN(); \
+    _XL_PRINT_CENTERED(_XL_V _XL_I _XL_C _XL_T _XL_O _XL_R _XL_Y); \
+    _XL_SLEEP(1); \
+    _XL_WAIT_FOR_INPUT(); \
+    _XL_CLEAR_SCREEN(); \
+} while(0)
+
+
+#define display_level_screen() \
+do \
+{ \
+    display_top_border(); \
+    display_wall(BOTTOM_WALL_Y); \
+    display_bow(); \
+    display_stats(); \
+    display_level_at_start_up(); \
+} while(0)
+
+
 int main(void)
 {           
     _XL_INIT_GRAPHICS();
@@ -1578,24 +1641,13 @@ int main(void)
     while(1) // Game (re-)start
     {
         global_initialization();
-
         display_initial_screen();
-        _XL_WAIT_FOR_INPUT();
         
-        _XL_CLEAR_SCREEN();
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
-            _XL_CLEAR_SCREEN();
             level_initialization();
             zombie_initialization();
-            
-            display_top_border();
-            display_wall(BOTTOM_WALL_Y);
-            
-            display_bow();
-            display_stats();
-            
-            display_level_at_start_up();
+            display_level_screen();
             
             while(alive && (minions_to_kill || bosses_to_kill) )
             {
@@ -1605,53 +1657,24 @@ int main(void)
                 handle_arrows(); 
                 redraw_wall();  
                 handle_auto_recharge();
-                
-                _XL_SLOW_DOWN(SLOW_DOWN);     
                 handle_extra_life();
-
-                if(!freeze)
-                {
-                    if((_XL_RAND())<zombie_speed)
-                    {
-                        move_zombies();
-                    }
-                }
-                else
-                {
-                    --freeze;
-                }
+                handle_zombie_movement();
                 handle_items();
+                _XL_SLOW_DOWN(SLOW_DOWN);     
                 ++main_loop_counter;
             }
             if(alive)
             {
-                ++level;
-                _XL_SET_TEXT_COLOR(_XL_CYAN);
-                _XL_PRINT_CENTERED(_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
-                _XL_SLEEP(1);
-                _XL_WAIT_FOR_INPUT();
-                killed_bosses = 0;
-                killed_minions = 0;
+                handle_next_level();
             }
             else
             {
-                --lives;
-                bow_color=_XL_RED;
-                display_bow();
-                bow_color=_XL_CYAN;
-                _XL_EXPLOSION_SOUND();
-                _XL_SLEEP(1);
-                _XL_WAIT_FOR_INPUT();
+                player_dies();
             }
         }
         if(lives)
         {
-            _XL_SET_TEXT_COLOR(_XL_RED);
-            _XL_CLEAR_SCREEN();
-            _XL_PRINT_CENTERED(_XL_V _XL_I _XL_C _XL_T _XL_O _XL_R _XL_Y);
-            _XL_SLEEP(1);
-            _XL_WAIT_FOR_INPUT();
-            _XL_CLEAR_SCREEN();
+            victory();
         }
         game_over();
     }

@@ -808,6 +808,11 @@ void handle_items(void)
     }
 }
 
+#if XSize!=13 && XSize!=26 && XSize!=39 && XSize!=52 && XSize!=65 && XSize!=78
+    #define STEP 13
+#else
+    #define STEP 1
+#endif 
 
 uint8_t find_zombie(uint8_t value)
 {
@@ -817,7 +822,7 @@ uint8_t find_zombie(uint8_t value)
     index = (_XL_RAND())%XSize;
     for(i=0;i<XSize;++i)
     {
-        index = (index+1)%XSize;
+        index = (index+STEP)%XSize;
         if(zombie_active[index]==value)
         {
             return index;

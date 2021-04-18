@@ -95,6 +95,7 @@ z88dk_targets: \
     cpc_mode2 \
     cpm \
     gb \
+    gg \
     laser500 \
     mc1000 \
     msx \
@@ -1030,7 +1031,7 @@ ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__  -DSLOW_DOWN=3000 \
+	-D__ACE__  -DSLOW_DOWN=1000 \
 	-DSOUNDS \
 	-DCONIO \
 	-clib=default \
@@ -1077,7 +1078,7 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DSOUNDS -DONLY_CAPITAL_LETTERS \
-	-DFORCE_BIT_BANG -DSLOW_DOWN=1300 -DZ88DK_JOYSTICK \
+	-DFORCE_BIT_BANG -DSLOW_DOWN=400 -DZ88DK_JOYSTICK \
 	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1095,10 +1096,10 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -O3 -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) -DNO_DISPLAY_LEVEL_ANIMATION \
 	-lndos -subtype=disk -DNO_TRANSPARENCY \
-	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=100 \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=10 \
 	-DBULLETS_NUMBER=3 -DFORCE_BIT_BANG \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
-	 -DEND_SCREEN \
+	-DEND_SCREEN \
 	-DLESS_TEXT \
 	-DNO_BLINKING -DSIMPLE_STRATEGY \
 	-DZ88DK_JOYSTICK \
@@ -1124,7 +1125,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
-	 -DSLOW_DOWN=2500 \
+	-DSLOW_DOWN=1500 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -1264,10 +1265,10 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=6000 \
+	-lndos -DSLOW_DOWN=1200 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES_NO_SLEEP) \
+	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_gamegear.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear_BSS.bin
@@ -1328,7 +1329,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
-	 -DSLOW_DOWN=3000 \
+	-DSLOW_DOWN=700 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-D__MC1000__ -DSOUNDS  \
@@ -1398,7 +1399,7 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn \
-	 -DSOUNDS \
+	-DSOUNDS \
 	-DCONIO \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -1416,7 +1417,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn \
-	 -DSOUNDS  \
+	-DSOUNDS  \
 	-DCONIO \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -1456,7 +1457,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	 \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=3500 \
+	-lndos -DSLOW_DOWN=1200 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -1526,7 +1527,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DSOUNDS -vn  -D__VG5K__  -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
-	-DSLOW_DOWN=3000 \
+	-DSLOW_DOWN=1200 \
 	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
 	-DUDG_GRAPHICS \

@@ -31,9 +31,12 @@
 
 #include "images.h"
 
+// #define DEBUG 1
+
 #define INITIAL_LEVEL 0
 #define LAST_LEVEL 11
 #define INITIAL_LIVES 3
+#define MAX_LIVES 9
 
 #define NEXT_EXTRA_LIFE 5000U
 
@@ -55,6 +58,8 @@
 
 #define MAX_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPEED 12000U
+#define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/2)
+#define FEW_ZOMBIE 5
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 #define ZOMBIE_SPEED_INCREASE 50U
@@ -235,6 +240,8 @@ static Item wallItem;
 
 static Missile beamMissile[NUMBER_OF_MISSILES];
 
+static uint8_t unlock_freeze;
+static uint8_t unlock_wall;
 
 void display_remaining_arrows(void)
 {
@@ -439,6 +446,14 @@ void power_up_effect(void)
         
         case 8:
             fire_power = 3;
+        break;
+        
+        case 9:
+            unlock_freeze = 1;
+        break;
+        
+        case 10:
+            unlock_wall = 1;
         break;
         
         default:
@@ -801,9 +816,9 @@ void spawn_boss(void)
 
 void update_zombie_speed(void)
 {
-    if(bosses_to_kill<XSize/2)
+    if(bosses_to_kill<=FEW_ZOMBIE)
     {
-        zombie_speed=INITIAL_ZOMBIE_SPEED/4;
+        zombie_speed=FEW_ZOMBIE_SPEED;
     }
     else if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
     {
@@ -890,14 +905,14 @@ void zombie_die(void)
                 drop_item(&rechargeItem,25);
             }
         }
-        else if((rnd<8)&&(freeze_appeared<3)&&(powerUp>2)&&(!freeze))
+        else if((rnd<8)&&(freeze_appeared<3)&&(unlock_freeze)&&(!freeze))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem,20);
             }
         }
-        else if((rnd<9)&&!wall_appeared&&(powerUp>3))
+        else if((rnd<9)&&!wall_appeared&&(unlock_wall))
         {
             if(!wallItem._active)
             {
@@ -923,10 +938,10 @@ void zombie_die(void)
     {
         spawn_boss();
     }
-    else
-    {
-        zombie_y[zombie_x]=0;
-    }
+    // else
+    // {
+        // zombie_y[zombie_x]=0;
+    // }
     update_zombie_speed();
 }
 
@@ -1279,12 +1294,14 @@ do \
     next_arrow = 0; \
     arrows_on_screen = 0; \
     bow_load_counter = 0; \
-    bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS; \
+    unlock_freeze = 0; \
+    unlock_wall = 0; \
     wall_appeared = 0; \
     freeze_appeared = 0; \
-    auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
     loaded_bow = 1; \
     alive = 1; \
+    bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS; \
+    auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
     remaining_arrows = MAX_ARROWS; \
     arrow_range = INITIAL_ARROW_RANGE; \
     bow_x = XSize; \
@@ -1317,8 +1334,11 @@ void zombie_initialization(void)
         zombie_active[zombie_x]=0;
     }
     
-    minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<1)-killed_minions; 
-    // minions_to_kill = 2;
+    #if !defined(DEBUG)
+        minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<1)-killed_minions; 
+    #else
+        minions_to_kill = 2;
+    #endif
 
     if(minions_to_kill<MAX_OCCUPIED_COLUMNS)
     {
@@ -1338,9 +1358,12 @@ void zombie_initialization(void)
     }
     
     minions_to_spawn = minions_to_kill-minions_to_spawn_initially;
-        
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses;
-    // bosses_to_kill=10;
+    
+    #if !defined(DEBUG)
+        bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses;
+    #else
+        bosses_to_kill=7;
+    #endif
     
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially)
     {
@@ -1361,14 +1384,16 @@ void zombie_initialization(void)
    
     bosses_to_spawn = bosses_to_kill-bosses_to_spawn_initially;
     
-    if(bosses_to_kill<XSize/2)
+    if(bosses_to_kill<=FEW_ZOMBIE)
     {
-        zombie_speed=INITIAL_ZOMBIE_SPEED/4;
+        zombie_speed=FEW_ZOMBIE_SPEED;
     }
     else
     {
         zombie_speed=INITIAL_ZOMBIE_SPEED;
     }
+    // zombie_speed=INITIAL_ZOMBIE_SPEED;
+    // update_zombie_speed();
     
     for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x)
     {
@@ -1503,7 +1528,10 @@ int main(void)
                 _XL_SLOW_DOWN(SLOW_DOWN);     
                 if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter)
                 {
-                    ++lives;
+                    if(lives<MAX_LIVES)
+                    {
+                        ++lives;
+                    }
                     _XL_PING_SOUND();
                     ++next_extra_life_counter;
                     _XL_SLOW_DOWN(SLOW_DOWN);

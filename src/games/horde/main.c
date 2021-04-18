@@ -62,7 +62,6 @@
 #define FEW_ZOMBIES ((XSize)/3)
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
-#define ZOMBIE_SPEED_INCREASE 50U
 
 #define MINION_POINTS 5
 #define BOSS_1_POINTS 20
@@ -762,7 +761,7 @@ void move_right(void)
 }
 
 
-void drop_item(Item *item, uint8_t max_counter)
+void drop_item(register Item *item, uint8_t max_counter)
 {
     _XL_TICK_SOUND();
     item->_active = 1;

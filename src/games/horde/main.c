@@ -126,8 +126,10 @@ static uint8_t minions_to_spawn;
 
 static uint8_t auto_recharge_counter;
 
+#if defined(COLOR)
 static uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 static uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
+#endif
 
 static uint8_t freeze;
 static uint8_t powerUp;

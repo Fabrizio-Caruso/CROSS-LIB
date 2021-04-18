@@ -296,27 +296,27 @@ void recharge_effect(void)
 
 #define RANGE_X 0
 
-#if XSize<= 15
+#if XSize <= 16
     #define RANGE_STRING _XL_R 
     #define SPEED_STRING _XL_S 
     #define POWER_STRING _XL_P
     #define STR_LEN 1
-    #define SPEED_X 2
+    #define SPEED_X 3
     #define POWER_X ((XSize)-5)
 
-#elif XSize <= 18
+#elif XSize <= 19
     #define RANGE_STRING _XL_R _XL_N
     #define SPEED_STRING _XL_S _XL_P
     #define POWER_STRING _XL_P _XL_O
     #define STR_LEN 2
-    #define SPEED_X 3
+    #define SPEED_X 4
     #define POWER_X ((XSize)-6)
-#elif XSize <= 24
+#elif XSize <= 25
     #define RANGE_STRING _XL_R _XL_N _XL_G
     #define SPEED_STRING _XL_S _XL_P _XL_D
     #define POWER_STRING _XL_P _XL_O _XL_W
     #define STR_LEN 3
-    #define SPEED_X 4
+    #define SPEED_X 5
     #define POWER_X ((XSize)-7)
 #else
     #define RANGE_STRING _XL_R _XL_A _XL_N _XL_G _XL_E
@@ -324,11 +324,9 @@ void recharge_effect(void)
     #define POWER_STRING _XL_P _XL_O _XL_W _XL_E _XL_R
     #define STR_LEN 5    
     #if XSize>=32
+        #define SPEED_X 9
+    #else XSize>=27
         #define SPEED_X 8
-    #elif XSize>=25
-        #define SPEED_X 7
-    #else 
-        #define SPEED_X 6
     #endif
     #if XSize>=32
         #define POWER_X ((XSize)-10)
@@ -1542,6 +1540,33 @@ do \
 } while(0)
 
 
+#define handle_extra_life() \
+{ \
+    if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter) \
+    { \
+        if(lives<MAX_LIVES) \
+        { \
+            ++lives; \
+        } \
+        _XL_PING_SOUND(); \
+        ++next_extra_life_counter; \
+        _XL_SLEEP(1); \
+        display_lives(); \
+        _XL_PING_SOUND(); \
+    } \
+}
+
+#define display_level_at_start_up()  \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_PRINT(XSize/2-4, YSize/2,_XL_L _XL_E _XL_V _XL_E _XL_L); \
+    _XL_PRINTD(XSize/2+2,YSize/2,2,level+1); \
+    _XL_SLEEP(1); \
+    _XL_WAIT_FOR_INPUT(); \
+    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
+} while(0)
+
 int main(void)
 {           
     _XL_INIT_GRAPHICS();
@@ -1570,12 +1595,7 @@ int main(void)
             display_bow();
             display_stats();
             
-            _XL_SET_TEXT_COLOR(_XL_CYAN);
-            _XL_PRINT(XSize/2-4, YSize/2,_XL_L _XL_E _XL_V _XL_E _XL_L);
-            _XL_PRINTD(XSize/2+2,YSize/2,2,level+1);
-            _XL_SLEEP(1);
-            _XL_WAIT_FOR_INPUT();
-            _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+            display_level_at_start_up();
             
             while(alive && (minions_to_kill || bosses_to_kill) )
             {
@@ -1587,19 +1607,7 @@ int main(void)
                 handle_auto_recharge();
                 
                 _XL_SLOW_DOWN(SLOW_DOWN);     
-                if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter)
-                {
-                    if(lives<MAX_LIVES)
-                    {
-                        ++lives;
-                    }
-                    _XL_PING_SOUND();
-                    ++next_extra_life_counter;
-                    _XL_SLOW_DOWN(SLOW_DOWN);
-                    display_lives();
-                    _XL_PING_SOUND();
-                }
-                ++main_loop_counter;
+                handle_extra_life();
 
                 if(!freeze)
                 {
@@ -1613,6 +1621,7 @@ int main(void)
                     --freeze;
                 }
                 handle_items();
+                ++main_loop_counter;
             }
             if(alive)
             {

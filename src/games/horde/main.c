@@ -325,7 +325,7 @@ void recharge_effect(void)
     #define STR_LEN 5    
     #if XSize>=32
         #define SPEED_X 9
-    #else XSize>=27
+    #else
         #define SPEED_X 8
     #endif
     #if XSize>=32
@@ -1368,6 +1368,7 @@ do \
     bow_color = _XL_CYAN; \
     number_of_arrows_per_shot = 1; \
     initialize_items(); \
+    _XL_CLEAR_SCREEN(); \
 } while(0)
 
 
@@ -1651,7 +1652,6 @@ int main(void)
             
             while(alive && (minions_to_kill || bosses_to_kill) )
             {
-                handle_zombie_collisions();
                 handle_bow_move();
                 handle_bow_load();
                 handle_arrows(); 
@@ -1659,6 +1659,7 @@ int main(void)
                 handle_auto_recharge();
                 handle_extra_life();
                 handle_zombie_movement();
+                handle_zombie_collisions();
                 handle_items();
                 _XL_SLOW_DOWN(SLOW_DOWN);     
                 ++main_loop_counter;

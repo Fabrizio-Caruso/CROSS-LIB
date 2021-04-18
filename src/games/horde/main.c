@@ -240,6 +240,24 @@ static Item powerUpItem;
 static Item extraPointsItem;
 static Item wallItem;
 
+static uint8_t item_tile[5][2] = 
+{
+    { POWER_UP_TILE, _XL_WHITE },
+    { ARROW_TILE_1, _XL_YELLOW },
+    { EXTRA_POINTS_TILE, _XL_YELLOW },
+    { FREEZE_TILE, _XL_CYAN },
+    { WALL_TILE, _XL_YELLOW },
+};
+
+static char item_name[5][9] = 
+{
+    _XL_P _XL_O _XL_W _XL_E _XL_R _XL_SPACE _XL_U _XL_P,
+    _XL_A _XL_R _XL_R _XL_O _XL_W _XL_S,
+    _XL_P _XL_O _XL_I _XL_N _XL_T _XL_S,
+    _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
+    _XL_W _XL_A _XL_L _XL_L,
+};
+
 static Missile beamMissile[NUMBER_OF_MISSILES];
 
 static uint8_t unlock_freeze;
@@ -1468,32 +1486,69 @@ void zombie_initialization(void)
 }
 
 
+#if YSize<=22
+    #define _NEXT_ROW i
+#else
+    #define _NEXT_ROW (i<<1)
+#endif
+
+void display_items(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<5;++i)
+    {
+        _XL_DRAW(XSize/2-5,YSize/3+5+_NEXT_ROW, item_tile[i][0], item_tile[i][1]);
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(XSize/2-5+3,YSize/3+5+_NEXT_ROW, item_name[i]);
+    }
+}
+
+#if YSize<=22
+    #define _HISCORE_Y 1
+#else
+    #define _HISCORE_Y 2
+#endif
+
+#if XSize>=20
+    #define _CROSS_HORDE_STRING \
+        _XL_C _XL_SPACE _XL_R _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S \
+        _XL_SPACE _XL_SPACE \
+        _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_R _XL_SPACE _XL_D _XL_SPACE _XL_E
+
+#else
+    #define _CROSS_HORDE_STRING \
+        _XL_C _XL_R _XL_O _XL_S _XL_S \
+        _XL_SPACE \
+        _XL_H _XL_O _XL_R _XL_D _XL_E  
+#endif
+
 void display_initial_screen(void)
 {
     _XL_CLEAR_SCREEN();
     
     display_wall(0);
-    display_wall(BOTTOM_WALL_Y);
+    display_wall(BOTTOM_WALL_Y+1);
 
     _XL_SET_TEXT_COLOR(_XL_CYAN);               
-    _XL_PRINT_CENTERED_ON_ROW(2, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
+    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);                
-    _XL_PRINTD(XSize/2-3,3,5,hiscore);
+    _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore);
     
     
     _XL_SET_TEXT_COLOR(_XL_RED);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3,_XL_C _XL_SPACE _XL_R _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S 
-                       _XL_SPACE _XL_SPACE 
-                       _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_R _XL_SPACE _XL_D _XL_SPACE _XL_E);
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3-3,_CROSS_HORDE_STRING);
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);               
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3-1, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
+
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E );
 
     _XL_SLEEP(1);
  
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3+8, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E );
+    display_items();
     _XL_WAIT_FOR_INPUT();
     _XL_CLEAR_SCREEN();
 }

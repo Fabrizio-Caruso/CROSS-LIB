@@ -35,8 +35,8 @@
 
 #define INITIAL_LEVEL 0
 #define LAST_LEVEL 11
-#define INITIAL_LIVES 3
-#define MAX_LIVES 9
+#define INITIAL_LIVES 9
+#define MAX_LIVES 3
 
 #define NEXT_EXTRA_LIFE 5000U
 
@@ -58,8 +58,8 @@
 
 #define MAX_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPEED 12000U
-#define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/2)
-#define FEW_ZOMBIE 5
+#define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/3)
+#define FEW_ZOMBIE ((XSize)/3)
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 #define ZOMBIE_SPEED_INCREASE 50U
@@ -93,7 +93,7 @@
 
 #define NUMBER_OF_MISSILES 5
 
-#define MINIONS_ON_FIRST_LEVEL ((XSize)+2)
+#define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
 
 #if XSize<=80
     #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
@@ -872,20 +872,15 @@ void spawn_boss(void)
     --bosses_to_spawn;
 }
 
-
 void update_zombie_speed(void)
 {
     if(bosses_to_kill<=FEW_ZOMBIE)
     {
-        zombie_speed=FEW_ZOMBIE_SPEED;
-    }
-    else if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
-    {
-        zombie_speed+=ZOMBIE_SPEED_INCREASE;
+        zombie_speed=7;
     }
     else
     {
-        zombie_speed=MAX_ZOMBIE_SPEED;
+        zombie_speed=1;
     }
 }
 
@@ -997,10 +992,7 @@ void zombie_die(void)
     {
         spawn_boss();
     }
-    // else
-    // {
-        // zombie_y[zombie_x]=0;
-    // }
+
     update_zombie_speed();
 }
 
@@ -1177,7 +1169,7 @@ void move_zombies(void)
     
     zombie_x=find_zombie(1);
 
-    if((main_loop_counter&1) && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<YSize-9)
+    if((zombie_level[zombie_x]>2) && zombie_y[zombie_x]<YSize-10)
     {
         handle_missile_drop();
     }
@@ -1211,6 +1203,7 @@ void move_zombies(void)
                     ++zombie_y[zombie_x];
                 }
         }
+        display_zombie();
     }
     else
     {
@@ -1218,7 +1211,6 @@ void move_zombies(void)
         display_red_zombie();
     }
     
-    display_zombie();
 }
 
 
@@ -1395,7 +1387,7 @@ void zombie_initialization(void)
     }
     
     #if !defined(DEBUG)
-        minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<1)-killed_minions; 
+        minions_to_kill = MINIONS_ON_FIRST_LEVEL+level-killed_minions; 
     #else
         minions_to_kill = 2;
     #endif
@@ -1444,14 +1436,15 @@ void zombie_initialization(void)
    
     bosses_to_spawn = bosses_to_kill-bosses_to_spawn_initially;
     
-    if(bosses_to_kill<=FEW_ZOMBIE)
-    {
-        zombie_speed=FEW_ZOMBIE_SPEED;
-    }
-    else
-    {
-        zombie_speed=INITIAL_ZOMBIE_SPEED;
-    }
+    // if(bosses_to_kill<=FEW_ZOMBIE)
+    // {
+        // zombie_speed=1;
+    // }
+    // else
+    // {
+        // zombie_speed=3;
+    // }
+    update_zombie_speed();
     
     for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x)
     {
@@ -1571,7 +1564,7 @@ do \
 #define handle_zombie_movement() \
     if(!freeze) \
     { \
-        if((_XL_RAND())<zombie_speed) \
+        if((main_loop_counter&zombie_speed)==1) \
         { \
             move_zombies(); \
         } \

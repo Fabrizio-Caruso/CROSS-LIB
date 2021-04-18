@@ -35,8 +35,8 @@
 
 #define INITIAL_LEVEL 0
 #define LAST_LEVEL 11
-#define INITIAL_LIVES 9
-#define MAX_LIVES 3
+#define INITIAL_LIVES 3
+#define MAX_LIVES 9
 
 #define NEXT_EXTRA_LIFE 5000U
 
@@ -877,6 +877,12 @@ void spawn_boss(void)
     --bosses_to_spawn;
 }
 
+#if XSize>=32
+    #define NORMAL_ZOMBIE_SPEED 1
+#else
+    #define NORMAL_ZOMBIE_SPEED 3
+#endif 
+
 void update_zombie_speed(void)
 {
     if(bosses_to_kill<=FEW_ZOMBIE)
@@ -885,7 +891,7 @@ void update_zombie_speed(void)
     }
     else
     {
-        zombie_speed=1;
+        zombie_speed=NORMAL_ZOMBIE_SPEED;
     }
 }
 

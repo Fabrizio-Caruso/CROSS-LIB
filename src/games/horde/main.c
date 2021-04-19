@@ -45,7 +45,7 @@
 #define POWER_UPS_Y ((BOW_Y)+2)
 #define WALL_Y ((YSize)-8)
 
-#define INITIAL_ZOMBIE_Y 3
+#define INITIAL_ZOMBIE_Y 4
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
 
 #define POWER_THRESHOLD 4
@@ -63,6 +63,8 @@
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 
+#define MAX_FREEZE 2
+
 #define MINION_POINTS 5
 #define BOSS_1_POINTS 20
 #define BOSS_2_POINTS 30
@@ -78,8 +80,8 @@
 #define ARROW_RECHARGE 25
 #define ITEM_SPAWN_CHANCE 11000U
 
-#define MINION_ENERGY 3
-#define BOSS_BASE_ENERGY 5
+#define MINION_ENERGY 6
+#define BOSS_BASE_ENERGY 10
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
@@ -505,7 +507,7 @@ void power_up_effect(void)
         break;
            
         case 4:
-            bow_reload_loops=2;
+            bow_reload_loops=4;
         break;
         
         case 5:
@@ -517,24 +519,40 @@ void power_up_effect(void)
         break;
         
         case 7:
-            fire_power = 2;
-        break;
-        
-        case 8:
             fire_power = 3;
         break;
         
-        case 9:
+        case 8:
+            fire_power = 4;
+        break;
+        
+        case 11:
             unlock_freeze = 1;
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             _XL_PRINT_CENTERED_ON_ROW(1,_XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E);
         break;
         
-        case 10:
+        case 15:
             unlock_wall = 1;
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_W _XL_A _XL_L _XL_L _XL_SPACE);
         break;
+        
+        case 20:
+            bow_reload_loops=2;
+            _XL_ZAP_SOUND();
+            _XL_SET_TEXT_COLOR(_XL_RED);
+            _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_S _XL_U _XL_P _XL_E _XL_R _XL_SPACE );
+        break;
+        
+        case 30:
+            _XL_ZAP_SOUND();
+            remaining_arrows=99;
+            display_remaining_arrows();
+            freeze_appeared=0;
+            _XL_SET_TEXT_COLOR(_XL_YELLOW);
+            _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T _XL_SPACE);
+        break; 
         
         default:
         break;
@@ -894,7 +912,7 @@ void spawn_boss(void)
     
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_BASE_ENERGY;
+    energy[zombie_x]=BOSS_BASE_ENERGY-1+rank;
     --bosses_to_spawn;
 }
 
@@ -944,11 +962,8 @@ void display_red_zombie(void)
 void zombie_die(void)
 {
     uint8_t y_pos = zombie_y[zombie_x];
+    uint8_t rnd;
     
-    uint16_t rnd;
-    
-    // _XL_DELETE(zombie_x,y_pos-1);    
-    // _XL_DELETE(zombie_x,y_pos);
     _XL_DELETE(zombie_x,y_pos+1);
     
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
@@ -973,32 +988,32 @@ void zombie_die(void)
         ++killed_minions;
         --minions_to_kill;
     }
-    
-    if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||zombie_level[zombie_x])
+   
+    rnd = (uint8_t) (_XL_RAND())&63;   
+    if((rnd<16)||zombie_level[zombie_x])
     {
-        rnd = (_XL_RAND())&15;
-        if(rnd<2)
+        if(rnd<4)
         {
             if(!extraPointsItem._active)
             {
                 drop_item(&extraPointsItem,30);
             }
         }
-        else if(rnd<7)
+        else if(rnd<9)
         {
             if(!rechargeItem._active)
             {
                 drop_item(&rechargeItem,25);
             }
         }
-        else if((rnd<8)&&(freeze_appeared<3)&&(unlock_freeze)&&(!freeze))
+        else if((rnd<11)&&(freeze_appeared<MAX_FREEZE)&&(unlock_freeze)&&(!freeze))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem,20);
             }
         }
-        else if((rnd<9)&&!wall_appeared&&(unlock_wall))
+        else if((rnd<13)&&!wall_appeared&&(unlock_wall))
         {
             if(!wallItem._active)
             {
@@ -1371,7 +1386,7 @@ do \
 #define level_initialization() \
 do \
 {   \
-    fire_power = 1; \
+    fire_power = 2; \
     freeze = 0; \
     powerUp = 0; \
     next_arrow = 0; \
@@ -1603,7 +1618,6 @@ do \
         } \
         _XL_PING_SOUND(); \
         ++next_extra_life_counter; \
-        _XL_SLEEP(1); \
         display_lives(); \
         _XL_PING_SOUND(); \
     } \
@@ -1717,6 +1731,12 @@ int main(void)
                 handle_items();
                 _XL_SLOW_DOWN(SLOW_DOWN);     
                 ++main_loop_counter;
+                // _XL_PRINTD(0,2,2,extraPointsItem._active);
+                // _XL_PRINTD(4,2,2,rechargeItem._active);
+                // _XL_PRINTD(8,2,2,powerUpItem._active);
+                // _XL_PRINTD(12,2,2,freezeItem._active);
+                // _XL_PRINTD(16,2,2,wallItem._active);
+                
             }
             if(alive)
             {

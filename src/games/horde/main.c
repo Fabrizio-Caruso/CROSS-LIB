@@ -112,8 +112,8 @@ static const uint8_t zombie_points[] =
     BOSS_3_POINTS, // Demons
 };
 
-static uint16_t minions_to_kill;
-static uint16_t bosses_to_kill;
+static uint8_t minions_to_kill;
+static uint8_t bosses_to_kill;
 
 static uint8_t lives;
 static uint8_t level;
@@ -840,7 +840,7 @@ uint8_t find_zombie(uint8_t value)
     uint8_t i;
     uint8_t index;
     
-    index = (_XL_RAND())%XSize;
+    index = (uint8_t) (_XL_RAND())%XSize;
     for(i=0;i<XSize;++i)
     {
         index = (index+STEP)%XSize;
@@ -881,15 +881,15 @@ void spawn_boss(void)
     }
     else if(level==1)
     {
-        rank = 1 + ((_XL_RAND())&1);
+        rank = (uint8_t) (1 + ((_XL_RAND())&1));
     }
     else if(level<8)
     {
-        rank = 1 + (rand()%3);   
+        rank = (uint8_t) (1 + ((_XL_RAND())%3));   
     }
     else
     {
-        rank = 2 + ((_XL_RAND())&1); 
+        rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
     }
     
     activate_zombie();

@@ -81,7 +81,7 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 6
-#define BOSS_BASE_ENERGY 10
+#define BOSS_BASE_ENERGY 14
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
@@ -912,7 +912,7 @@ void spawn_boss(void)
     
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_BASE_ENERGY-1+rank;
+    energy[zombie_x]=BOSS_BASE_ENERGY-1;
     --bosses_to_spawn;
 }
 
@@ -1209,6 +1209,17 @@ void handle_missile_drop(void)
     }
 }
 
+void _move_zombie(void)
+{
+    ++zombie_shape[zombie_x];
+
+    (zombie_shape[zombie_x])&=3;
+
+    if(!zombie_shape[zombie_x])
+        {
+            ++zombie_y[zombie_x];
+        }
+}
 
 void move_zombies(void)
 {
@@ -1241,14 +1252,13 @@ void move_zombies(void)
         }
         else
         {
-            ++zombie_shape[zombie_x];
+            _move_zombie();
+            if(zombie_y[zombie_x]<INITIAL_ZOMBIE_Y+3)
+            {
+                display_zombie();
 
-            (zombie_shape[zombie_x])&=3;
-
-            if(!zombie_shape[zombie_x])
-                {
-                    ++zombie_y[zombie_x];
-                }
+                _move_zombie();
+            }
         }
         display_zombie();
     }

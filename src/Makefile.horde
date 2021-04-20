@@ -61,24 +61,45 @@ all: \
     z88dk_targets \
     lcc1802_targets
 
+
 all_8x8: \
-    cc65_targets_8x8 \
-    cmoc_targets_8x8 \
-    z88dk_targets_8x8
+    cc65_8x8_targets \
+    cmoc_8x8_targets \
+    z88dk_8x8_targets
+
+
+all_6x8: \
+    cc65_6x8_targets \
+    lcc1802_6x8_targets
+
+all_ascii: \
+    cc65_ascii_targets \
+    z88dk_ascii_targets \
+    lcc1802_ascii_targets
+
 
 gcc_targets: \
     ncurses  
 
-cc65_targets_8x8: \
+
+cc65_8x8_targets: \
     atari \
     atari5200 \
     c16 \
     c64 \
     nes \
-    pet \
     pce \
     supervision \
     vic20_exp_16k
+
+
+cc65_6x8_targets: \
+    oric
+
+
+cc65_ascii_targets: \
+    pet
+
 
 cc65_targets: \
     atari \
@@ -92,15 +113,17 @@ cc65_targets: \
     supervision \
     vic20
 
+
 cmoc_targets: \
     coco_targets \
     dragon_targets \
     mo5_targets \
     to7_targets
 
-cmoc_targets_8x8: cmoc_targets
+cmoc_8x8_targets: cmoc_targets
 
-z88dk_targets_8x8: \
+
+z88dk_8x8_targets: \
     ace \
     c128_z80_40col \
     c128_z80_80col \
@@ -119,6 +142,14 @@ z88dk_targets_8x8: \
     spectrum \
     vg5k \
     zx81
+
+
+z88dk_ascii_targets: \
+    aquarius \
+    cpm \
+    mz \
+    vz200
+
 
 z88dk_targets: \
     ace \
@@ -152,6 +183,12 @@ lcc1802_targets:
 	make tmc600 -f Makefile.$(GAME_NAME)
 	make micro -f Makefile.$(GAME_NAME)
 
+
+lcc1802_6x8_targets:
+	make comx -f Makefile.$(GAME_NAME)
+	make comx_ntsc -f Makefile.$(GAME_NAME)
+	make pecom -f Makefile.$(GAME_NAME)
+	make micro -f Makefile.$(GAME_NAME)
 
 #################################################################
 # CC65

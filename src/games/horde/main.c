@@ -556,7 +556,7 @@ void power_up_effect(void)
         break;
         
         case 20:
-            bow_reload_loops=1;
+            bow_reload_loops=2;
             fire_power = 6;
             bow_color = _XL_GREEN;
             _XL_ZAP_SOUND();

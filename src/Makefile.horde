@@ -61,10 +61,24 @@ all: \
     z88dk_targets \
     lcc1802_targets
 
+all_8x8: \
+    cc65_targets_8x8 \
+    cmoc_targets_8x8 \
+    z88dk_targets_8x8
 
 gcc_targets: \
     ncurses  
 
+cc65_targets_8x8: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    nes \
+    pet \
+    pce \
+    supervision \
+    vic20_exp_16k
 
 cc65_targets: \
     atari \
@@ -76,7 +90,6 @@ cc65_targets: \
     pet \
     pce \
     supervision \
-    vic20_exp_8k \
     vic20
 
 cmoc_targets: \
@@ -84,6 +97,28 @@ cmoc_targets: \
     dragon_targets \
     mo5_targets \
     to7_targets
+
+cmoc_targets_8x8: cmoc_targets
+
+z88dk_targets_8x8: \
+    ace \
+    c128_z80_40col \
+    c128_z80_80col \
+    coleco \
+    cpc \
+    cpc_mode1 \
+    cpc_mode2 \
+    gb \
+    gg \
+    laser500 \
+    mc1000 \
+    msx \
+    mtx500 \
+    mtx512 \
+    sms \
+    spectrum \
+    vg5k \
+    zx81
 
 z88dk_targets: \
     ace \

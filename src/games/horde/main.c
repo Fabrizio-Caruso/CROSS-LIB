@@ -129,8 +129,8 @@ static uint8_t minions_to_spawn;
 static uint8_t auto_recharge_counter;
 
 #if defined(COLOR)
-const static uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
-const static uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
+static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
+static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
 
 static uint8_t freeze;
@@ -152,7 +152,7 @@ static uint8_t fire_power;
 static uint8_t wall_appeared;
 static uint8_t freeze_appeared;
 
-const static const uint8_t zombie_tile[7+1] = 
+static const uint8_t zombie_tile[7+1] = 
 {
     ZOMBIE_TILE_0, // 0
     ZOMBIE_TILE_0, // 1
@@ -164,7 +164,7 @@ const static const uint8_t zombie_tile[7+1] =
     ZOMBIE_TILE_6
 };
 
-const static const uint8_t boss_tile[7+1] =
+static const uint8_t boss_tile[7+1] =
 {
     BOSS_TILE_0,
     BOSS_TILE_0,
@@ -176,7 +176,7 @@ const static const uint8_t boss_tile[7+1] =
     BOSS_TILE_6,
 };
 
-const static const uint8_t bow_tile[8] =
+static const uint8_t bow_tile[8] =
 {
     EMPTY_BOW_LEFT_TILE_0,
     EMPTY_BOW_RIGHT_TILE_0,
@@ -188,7 +188,7 @@ const static const uint8_t bow_tile[8] =
     LOADED_BOW_RIGHT_TILE_1,
 };
 
-const static const uint8_t arrow_tile[2] =
+static const uint8_t arrow_tile[2] =
 {
     ARROW_TILE_0,
     ARROW_TILE_1,
@@ -239,7 +239,7 @@ static Item freezeItem;
 static Item powerUpItem;
 static Item wallItem;
 
-const static uint8_t item_tile[5][2] = 
+static const uint8_t item_tile[5][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
     { ARROW_TILE_1, _XL_YELLOW },
@@ -248,7 +248,7 @@ const static uint8_t item_tile[5][2] =
     { WALL_TILE, _XL_YELLOW },
 };
 
-const static char item_name[5][9] = 
+static const char item_name[5][9] = 
 {
     _XL_P _XL_O _XL_W _XL_E _XL_R _XL_SPACE _XL_U _XL_P,
     _XL_A _XL_R _XL_R _XL_O _XL_W _XL_S,

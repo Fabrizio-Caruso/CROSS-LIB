@@ -79,11 +79,11 @@
             #define _XL_INIT_INPUT() \
                 do \
                 { \
-                joy_install(joy_static_stddrv); \
-                POKE(657,128); \
+                    joy_install((void *)joy_static_stddrv); \
+                    POKE(657,128); \
                 } while(0);
         #else
-            #define _XL_INIT_INPUT() { joy_install(joy_static_stddrv); };
+            #define _XL_INIT_INPUT() { joy_install((void *)joy_static_stddrv); };
         #endif
 	#endif // defined(Z88DK_JOYSTICK)
 

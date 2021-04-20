@@ -1067,12 +1067,14 @@ void zombie_die(void)
     if(minions_to_spawn)
     {
         spawn_minion();
+        // display_minion();
     }
     else if (bosses_to_spawn)
     {
         spawn_boss();
+        // display_boss();
     }
-    display_zombie();
+    
 
     update_zombie_speed();
 }

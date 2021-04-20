@@ -558,7 +558,7 @@ void power_up_effect(void)
         case 20:
             bow_reload_loops=1;
             fire_power = 6;
-            bow_color = _XL_YELLOW;
+            bow_color = _XL_GREEN;
             _XL_ZAP_SOUND();
             _XL_SET_TEXT_COLOR(_XL_RED);
             _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_S _XL_U _XL_P _XL_E _XL_R _XL_SPACE );
@@ -938,7 +938,7 @@ void spawn_boss(void)
 }
 
 #if XSize>=32
-    #define NORMAL_ZOMBIE_SPEED 3
+    #define NORMAL_ZOMBIE_SPEED 1
 #else
     #define NORMAL_ZOMBIE_SPEED 3
 #endif 

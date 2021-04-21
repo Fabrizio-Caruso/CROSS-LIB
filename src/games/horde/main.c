@@ -988,42 +988,15 @@ void display_red_zombie(void)
     _display_red_zombie(tile);
 }
 
-
-void zombie_die(void)
+void handle_drop_item(void)
 {
-    uint8_t y_pos = zombie_y[zombie_x];
     uint8_t rnd;
     uint8_t index;
     
-    _XL_DELETE(zombie_x,y_pos+1);
-    
-    _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
-
-    _XL_TICK_SOUND();
-    for(rnd=0;rnd<29;++rnd)
+    rnd = (uint8_t) (_XL_RAND());   
+    if((rnd<64)||zombie_level[zombie_x])
     {
-        _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
-        display_red_zombie();
-    } 
-    _XL_SHOOT_SOUND();
-    _XL_DELETE(zombie_x,y_pos);
-    display_wall(BOTTOM_WALL_Y);
-    
-    if(zombie_level[zombie_x])
-    {
-        ++killed_bosses;
-        --bosses_to_kill;
-    }
-    else
-    {
-        ++killed_minions;
-        --minions_to_kill;
-    }
-   
-    rnd = (uint8_t) (_XL_RAND())&63;   
-    if((rnd<16)||zombie_level[zombie_x])
-    {
-        rnd&=0xF;
+        rnd>>=2;
         if(rnd<5) // 0, 1, 2, 3, 4
         {
             if(!powerUpItem._active)
@@ -1061,6 +1034,40 @@ void zombie_die(void)
             }            
         }  
     }
+}
+
+
+void zombie_die(void)
+{
+    uint8_t y_pos = zombie_y[zombie_x];
+    uint8_t i;
+    
+    _XL_DELETE(zombie_x,y_pos+1);
+    
+    _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+
+    _XL_TICK_SOUND();
+    for(i=0;i<29;++i)
+    {
+        _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+        display_red_zombie();
+    } 
+    _XL_SHOOT_SOUND();
+    _XL_DELETE(zombie_x,y_pos);
+    display_wall(BOTTOM_WALL_Y);
+    
+    if(zombie_level[zombie_x])
+    {
+        ++killed_bosses;
+        --bosses_to_kill;
+    }
+    else
+    {
+        ++killed_minions;
+        --minions_to_kill;
+    }
+   
+    handle_drop_item();
     
     zombie_active[zombie_x]=0;
   

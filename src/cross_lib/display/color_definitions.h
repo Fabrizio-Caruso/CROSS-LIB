@@ -173,7 +173,7 @@
     #else
         #define _XL_CYAN COLOR_BLUE
     #endif
-    
+
 #else // Z88DK
     #define _XL_BLACK BLACK
     #if defined(__PC6001__) || defined(__SPC1000__)
@@ -181,12 +181,26 @@
     #else
         #define _XL_WHITE WHITE
     #endif
-    #define _XL_RED RED
-    #define _XL_CYAN CYAN
-    #define _XL_GREEN GREEN
-    #define _XL_MAGENTA MAGENTA
+
+    #if defined(__CPC__) || defined(__LASER500__)
+        #define _XL_CYAN LIGHTCYAN
+    #else
+        #define _XL_CYAN CYAN
+    #endif
+
     #define _XL_YELLOW YELLOW
-    #define _XL_BLUE BLUE
+
+    #if defined(__LASER500__)
+        #define _XL_RED LIGHTRED
+        #define _XL_GREEN LIGHTGREEN
+        #define _XL_MAGENTA LIGHTMAGENTA
+        #define _XL_BLUE LIGHTBLUE
+    #else
+        #define _XL_RED RED
+        #define _XL_GREEN GREEN
+        #define _XL_MAGENTA MAGENTA
+        #define _XL_BLUE BLUE
+    #endif
 #endif
 
 

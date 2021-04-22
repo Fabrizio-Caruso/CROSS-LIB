@@ -34,13 +34,13 @@ void _pause(void)
         } 			
 }
 
-void _explosion_sound(uint8_t freq, uint8_t vol)
+void _explosion_sound(uint8_t freq, uint8_t duration)
 { 
     uint8_t j;
     VIC.noise = freq; 
-    VIC.volume_color |= vol; 
+    VIC.volume_color |= 15; 
 
-    for(j=0;j<18;++j) 
+    for(j=0;j<duration;++j) 
     { 
         _pause();
     } 

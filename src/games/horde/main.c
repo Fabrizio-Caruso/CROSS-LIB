@@ -883,7 +883,7 @@ uint8_t find_zombie(uint8_t value)
 
 void activate_zombie(void)
 {
-    // zombie_x = find_zombie(0);
+    zombie_x = find_zombie(0);
         
     zombie_active[zombie_x]=1;    
     zombie_shape[zombie_x]=0;

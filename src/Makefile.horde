@@ -381,7 +381,7 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-DNES_CONIO -DSLOW_DOWN=8000 \
+	-DNES_CONIO -DSLOW_DOWN=1600 \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \

@@ -68,14 +68,14 @@
 #define MAX_FREEZE 2
 
 #define MINION_POINTS 5
-#define BOSS_1_POINTS 15
-#define BOSS_2_POINTS 20
-#define BOSS_3_POINTS 25
+#define BOSS_1_POINTS 10
+#define BOSS_2_POINTS 15
+#define BOSS_3_POINTS 20
 
 #define EXTRA_POINTS 10
-#define RECHARGE_POINTS 30
-#define POWERUP_POINTS 35
-#define FREEZE_POINTS 40
+#define RECHARGE_POINTS 15
+#define POWERUP_POINTS 20
+#define FREEZE_POINTS 30
 #define WALL_POINTS 50
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
@@ -106,7 +106,7 @@
 
 static uint8_t main_loop_counter;
 
-// static uint8_t power_up_counter;
+static uint8_t item_counter;
 
 static uint8_t next_extra_life_counter;
 
@@ -132,6 +132,8 @@ static uint8_t minions_to_spawn;
 static uint8_t auto_recharge_counter;
 
 #if defined(COLOR)
+static uint8_t arrow_display_color;
+
 static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
@@ -222,7 +224,6 @@ static uint8_t alive;
 
 static uint16_t score;
 static uint16_t hiscore;
-static uint8_t arrow_display_color;
 
 struct ItemStruct
 {
@@ -543,7 +544,7 @@ void power_up_effect(void)
         break;
         #endif
         
-        case 12:
+        case 13:
             bow_reload_loops=2;
             fire_power = 6;
             bow_color = _XL_GREEN;
@@ -552,7 +553,7 @@ void power_up_effect(void)
             _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
         break;
         
-        case 16:
+        case 18:
             _XL_ZAP_SOUND();
             remaining_arrows=99;
             display_remaining_arrows();
@@ -882,7 +883,7 @@ uint8_t find_zombie(uint8_t value)
 
 void activate_zombie(void)
 {
-    zombie_x = find_zombie(0);
+    // zombie_x = find_zombie(0);
         
     zombie_active[zombie_x]=1;    
     zombie_shape[zombie_x]=0;
@@ -985,7 +986,11 @@ void handle_drop_item(void)
     uint8_t rnd;
     uint8_t index;
     
-    // ++power_up_counter;
+    ++item_counter;
+    
+    item_counter&=3;
+    
+    
     // if((power_up_counter>10) && (!powerUpItem._active))
     // {
         // drop_item(&powerUpItem,35);
@@ -996,38 +1001,37 @@ void handle_drop_item(void)
         rnd = (uint8_t) (_XL_RAND());   
         if((rnd<64)||zombie_level[zombie_x])
         {
-            rnd&=0xF;
+            // rnd&=0xF;
             
-            if(rnd<5) // 0, 1, 2, 3, 4
+            if(!item_counter) 
             {
                 if(!powerUpItem._active)
                 {
                     drop_item(&powerUpItem,35);
-                    // power_up_counter = 0;
                 } 
             }
-            else if(rnd<9) // 5, 6, 7, 8
+            else if(item_counter==1)
             {
                 if(!rechargeItem._active)
                 {
                     drop_item(&rechargeItem,45);
                 }
             }
-            else if((rnd<11)&&(freeze_taken<MAX_FREEZE)&&(powerUp>3)&&(!freeze)) // 9, 10
+            else if((freeze_taken<MAX_FREEZE)&&(powerUp>3)&&(!freeze))
             {
                 if(!freezeItem._active)
                 {
                     drop_item(&freezeItem,45);
                 }
             }
-            else if((rnd<13)&&!wall_appeared&&(powerUp>5)) // 11, 12
+            else if(!wall_appeared&&(powerUp>5)) 
             {
                 if(!wallItem._active)
                 {
                     drop_item(&wallItem,35);
                 }
             }
-            else // 13, 14, 15
+            else
             {
                 index = find_inactive(extraPointsItem);
                 if(index!=NUMBER_OF_MISSILES)

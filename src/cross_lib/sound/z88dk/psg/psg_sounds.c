@@ -142,7 +142,7 @@ void _ping_sound(uint8_t freq)
 void _explosion_sound(uint8_t freq)
 { 
 	uint8_t i;
-	uint8_t j;
+	// uint8_t j;
 	
 	set_psg(NOISE,15);
 	set_psg(A_VOLUME,15);
@@ -152,14 +152,14 @@ void _explosion_sound(uint8_t freq)
 	
 	set_psg(CONTROL, 0xFF - 0x08);
 	
-	for(i=0;i<13;i++)
+	for(i=0;i<16;i++)
 	{
 		set_psg(A_VOLUME,15-i);		
-		for(j=0;j<253;++j)
-		{
-		}		
+		// for(j=0;j<40;++j)
+		// {
+		// }		
 	}
 
-	set_psg(A_VOLUME,0);		
+	// set_psg(A_VOLUME,0);		
 }
 

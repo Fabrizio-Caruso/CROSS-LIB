@@ -1107,7 +1107,6 @@ void zombie_die(void)
     
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
 
-    // _XL_TICK_SOUND();
 
     for(i=0;i<29;++i)
     {
@@ -1117,9 +1116,8 @@ void zombie_die(void)
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
-    
-    // _XL_WAIT_FOR_INPUT();
-    
+    display_bow();
+        
     if(zombie_level[zombie_x])
     {
         ++killed_bosses;
@@ -1675,6 +1673,13 @@ void display_initial_screen(void)
 }
 
 
+#if XSize>=22
+    #define HI_X ((XSize-9))
+    #define HISCORE_STRING _XL_H _XL_I
+#else
+    #define HI_X ((XSize-8))
+    #define HISCORE_STRING _XL_H
+#endif
 
 #define display_stats() \
 do \

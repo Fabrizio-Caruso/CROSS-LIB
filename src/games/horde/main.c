@@ -89,6 +89,10 @@
 #define GREEN_SPEED_VALUE 4
 #define HYPER_SPEED_VALUE 2
 
+#define RED_RANGE_VALUE INITIAL_ARROW_RANGE
+#define YELLOW_RANGE_VALUE ((INITIAL_ARROW_RANGE)-2)
+#define GREEN_RANGE_VALUE ((INITIAL_ARROW_RANGE)-4)
+
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
 #define ARROW_RECHARGE 30
 #define ITEM_SPAWN_CHANCE 11000U
@@ -555,11 +559,11 @@ void power_up_effect(void)
     {
         #if !defined(TRAINER)
         case 1:
-            arrow_range=INITIAL_ARROW_RANGE-2;
+            arrow_range=YELLOW_RANGE_VALUE;
         break;
             
         case 2:
-            arrow_range=INITIAL_ARROW_RANGE-4;
+            arrow_range=GREEN_RANGE_VALUE;
         break;
         
         case 3:
@@ -1485,7 +1489,7 @@ do \
             bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
-            arrow_range = INITIAL_ZOMBIE_Y+2; \
+            arrow_range = GREEN_RANGE_VALUE; \
             bow_x = XSize; \
             bow_shape_tile = 2*((bow_x)&1); \
             bow_color = _XL_CYAN; \
@@ -1512,7 +1516,7 @@ do \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
-            arrow_range = INITIAL_ARROW_RANGE; \
+            arrow_range = RED_RANGE_VALUE; \
             bow_x = XSize; \
             bow_shape_tile = 2*((bow_x)&1); \
             bow_color = _XL_CYAN; \

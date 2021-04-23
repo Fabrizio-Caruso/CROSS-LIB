@@ -65,7 +65,7 @@
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 
-#define MAX_FREEZE 2
+#define MAX_FREEZE 1
 
 #define MINION_POINTS 5
 #define BOSS_1_POINTS 10
@@ -77,6 +77,16 @@
 #define POWERUP_POINTS 20
 #define FREEZE_POINTS 30
 #define WALL_POINTS 50
+
+#define RED_FIRE_POWER_VALUE 2
+#define YELLOW_FIRE_POWER_VALUE 3
+#define GREEN_FIRE_POWER_VALUE 4
+#define HYPER_FIRE_POWER_VALUE 6
+
+#define RED_SPEED_VALUE INITIAL_BOW_RELOAD_LOOPS
+#define YELLOW_SPEED_VALUE ((INITIAL_BOW_RELOAD_LOOPS)/2)
+#define GREEN_SPEED_VALUE 4
+#define HYPER_SPEED_VALUE 2
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
 #define ARROW_RECHARGE 30
@@ -104,7 +114,11 @@
     #define BOSSES_ON_FIRST_LEVEL 40
 #endif
 
+#define MAX_HYPER_COUNTER 100
+
 static uint8_t main_loop_counter;
+
+static uint8_t hyper_counter;
 
 static uint8_t item_counter;
 
@@ -503,6 +517,20 @@ void display_power_ups(void)
 }
 #endif
 
+void activate_hyper(void)
+{
+    _XL_ZAP_SOUND();
+    bow_reload_loops=HYPER_SPEED_VALUE;
+    remaining_arrows=99;
+    display_remaining_arrows();
+    fire_power = HYPER_FIRE_POWER_VALUE;
+    hyper_counter = MAX_HYPER_COUNTER;
+    freeze_taken=0;
+    bow_color = _XL_GREEN;
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
+}
+
 void power_up_effect(void)
 {
     ++powerUp;
@@ -520,11 +548,11 @@ void power_up_effect(void)
         break;
         
         case 3:
-            bow_reload_loops=INITIAL_BOW_RELOAD_LOOPS/2;
+            bow_reload_loops=YELLOW_SPEED_VALUE;
         break;
            
         case 4:
-            bow_reload_loops=3;
+            bow_reload_loops=GREEN_SPEED_VALUE;
         break;
         
         case 5:
@@ -536,31 +564,21 @@ void power_up_effect(void)
         break;
         
         case 7:
-            fire_power = 3;
+            fire_power = YELLOW_FIRE_POWER_VALUE;
         break;
         
         case 8:
-            fire_power = 4;
+            fire_power = GREEN_FIRE_POWER_VALUE;
         break;
         #endif
         
-        case 13:
-            bow_reload_loops=2;
-            fire_power = 6;
-            bow_color = _XL_GREEN;
-            _XL_ZAP_SOUND();
-            _XL_SET_TEXT_COLOR(_XL_RED);
-            _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
+        case 10:
+        case 20:
+        case 30:
+        case 40:
+        case 50:
+            activate_hyper();
         break;
-        
-        case 18:
-            _XL_ZAP_SOUND();
-            remaining_arrows=99;
-            display_remaining_arrows();
-            freeze_taken=0;
-            _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T _XL_SPACE);
-        break; 
         
         default:
         break;
@@ -1434,9 +1452,9 @@ do \
     #define level_initialization() \
         do \
         {   \
-            fire_power = 6; \
+            fire_power = GREEN_FIRE_POWER_VALUE; \
             freeze = 0; \
-            powerUp = 19; \
+            powerUp = 8; \
             next_arrow = 0; \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
@@ -1444,7 +1462,7 @@ do \
             freeze_taken = 0; \
             loaded_bow = 1; \
             alive = 1; \
-            bow_reload_loops = 1; \
+            bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
             arrow_range = INITIAL_ZOMBIE_Y+2; \
@@ -1453,6 +1471,7 @@ do \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 3; \
             initialize_items(); \
+            hyper_counter = 0; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 
@@ -1460,7 +1479,7 @@ do \
     #define level_initialization() \
         do \
         {   \
-            fire_power = 2; \
+            fire_power = RED_FIRE_POWER_VALUE; \
             freeze = 0; \
             powerUp = 0; \
             next_arrow = 0; \
@@ -1470,7 +1489,7 @@ do \
             freeze_taken = 0; \
             loaded_bow = 1; \
             alive = 1; \
-            bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS; \
+            bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
             arrow_range = INITIAL_ARROW_RANGE; \
@@ -1479,6 +1498,7 @@ do \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 1; \
             initialize_items(); \
+            hyper_counter = 0; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 
@@ -1650,16 +1670,15 @@ do \
 } while(0)
 
 
-#define display_top_border() \
-do \
-{ \
-    uint8_t i; \
-    \
-    for(i=0;i<XSize;++i) \
-    { \
-        _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN); \
-    } \
-} while(0)
+void display_top_border(void)
+{ 
+    uint8_t i; 
+    
+    for(i=0;i<XSize;++i) 
+    { 
+        _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN);
+    } 
+}
 
 
 #define handle_auto_recharge() \
@@ -1771,7 +1790,21 @@ do \
     display_level_at_start_up(); \
 } while(0)
 
-
+void handle_hyper(void)
+{
+    if(hyper_counter)
+    { 
+        --hyper_counter;
+        
+        if(hyper_counter==1)
+        {
+            fire_power = GREEN_FIRE_POWER_VALUE;
+            bow_color = _XL_CYAN;
+            bow_reload_loops=GREEN_SPEED_VALUE;
+            display_top_border();
+        }
+    }
+}
 
 int main(void)
 {           
@@ -1796,6 +1829,7 @@ int main(void)
             
             while(alive && (minions_to_kill || bosses_to_kill) )
             {
+                handle_hyper();
                 handle_bow_move();
                 handle_bow_load();
                 handle_arrows(); 

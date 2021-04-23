@@ -48,7 +48,7 @@ FULL_FILES ?= \
 
 
 
-SCCZ80_OPTS ?= -O3
+SCCZ80_OPTS += -O3
 
 #################################################################
 #     lcc1802_targets 
@@ -1035,7 +1035,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS   \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=500 \
+	-DSLOW_DOWN=300 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -1066,7 +1066,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=200 \
+	-DSLOW_DOWN=300 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1098,7 +1098,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=400 \
+	-DSLOW_DOWN=10 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \

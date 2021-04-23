@@ -54,7 +54,7 @@
 #define POWER_THRESHOLD 4
 
 #define MAX_ARROWS_ON_SCREEN 12
-#define INITIAL_BOW_RELOAD_LOOPS 14
+#define INITIAL_BOW_RELOAD_LOOPS 12
 
 #define AUTO_RECHARGE_COOL_DOWN 45
 #define AUTO_ARROW_RECAHRGE 9
@@ -1673,7 +1673,7 @@ void display_initial_screen(void)
 }
 
 
-#if XSize>=22
+#if XSize>=23
     #define HI_X ((XSize-9))
     #define HISCORE_STRING _XL_H _XL_I
 #else
@@ -1687,7 +1687,7 @@ do \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     display_score(); \
     _XL_SET_TEXT_COLOR(_XL_GREEN); \
-    _XL_PRINT(XSize-8,0,_XL_H _XL_I); \
+    _XL_PRINT(HI_X,0,_XL_H _XL_I); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize-7,0,5, hiscore); \
     _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \

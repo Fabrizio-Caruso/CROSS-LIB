@@ -36,7 +36,7 @@
 
 #define INITIAL_LEVEL 0
 
-#define LAST_LEVEL 11
+#define LAST_LEVEL 8
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -47,7 +47,8 @@
 #define POWER_UPS_Y ((BOW_Y)+2)
 #define WALL_Y ((YSize)-8)
 
-#define INITIAL_ZOMBIE_Y 4
+#define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
+#define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
 
 #define POWER_THRESHOLD 4
@@ -88,7 +89,7 @@
 #define GREEN_SPEED_VALUE 4
 #define HYPER_SPEED_VALUE 2
 
-#define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
+#define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
 #define ARROW_RECHARGE 30
 #define ITEM_SPAWN_CHANCE 11000U
 
@@ -278,6 +279,19 @@ static const char item_name[5][9] =
 static Missile beamMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
 
+
+#if XSize>=22
+    #define POWER_UP_X 10
+#else
+    #define POWER_UP_X 9
+#endif
+
+
+void display_power_up_counter(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(POWER_UP_X+1,0,2,powerUp);
+}
 
 void display_remaining_arrows(void)
 {
@@ -534,17 +548,18 @@ void activate_hyper(void)
 void power_up_effect(void)
 {
     ++powerUp;
+    display_power_up_counter();
     increase_score(POWERUP_POINTS);
     
     switch(powerUp)
     {
         #if !defined(TRAINER)
         case 1:
-            arrow_range=INITIAL_ZOMBIE_Y+4;
+            arrow_range=INITIAL_ARROW_RANGE-2;
         break;
             
         case 2:
-            arrow_range=INITIAL_ZOMBIE_Y+2;
+            arrow_range=INITIAL_ARROW_RANGE-4;
         break;
         
         case 3:
@@ -576,7 +591,6 @@ void power_up_effect(void)
         case 20:
         case 30:
         case 40:
-        case 50:
             activate_hyper();
         break;
         
@@ -763,7 +777,7 @@ void initialize_items(void)
 void display_level(void)
 {
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINTD(XSize-2,0,2,level+1);
+    _XL_PRINTD(XSize-1,0,1,level+1);
 }
 
 
@@ -901,11 +915,18 @@ uint8_t find_zombie(uint8_t value)
 
 void activate_zombie(void)
 {
-    zombie_x = find_zombie(0);
+    uint8_t old_x;
+    
+    old_x = zombie_x;
+    
+    while(old_x==zombie_x)
+    {
+        zombie_x = find_zombie(0);
+    };
         
     zombie_active[zombie_x]=1;    
     zombie_shape[zombie_x]=0;
-    zombie_y[zombie_x]=INITIAL_ZOMBIE_Y+(level>>1);
+    zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
 }
 
 
@@ -930,7 +951,7 @@ void spawn_boss(void)
     {
         rank = (uint8_t) (1 + ((_XL_RAND())&1));
     }
-    else if(level<8)
+    else if(level<5)
     {
         rank = (uint8_t) (1 + ((_XL_RAND())%3));   
     }
@@ -938,9 +959,7 @@ void spawn_boss(void)
     {
         rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
     }
-    
-    // rank = 2;
-    
+
     activate_zombie();
     zombie_level[zombie_x]=rank;
     energy[zombie_x]=BOSS_BASE_ENERGY-1;
@@ -1061,6 +1080,22 @@ void handle_drop_item(void)
     // }
 }
 
+void respawn(void)
+{
+    if(minions_to_spawn)
+    {
+        spawn_minion();
+        display_minion();
+    }
+    else if (bosses_to_spawn)
+    {
+        spawn_boss();
+        display_boss();
+    }
+
+    update_zombie_speed();
+}
+
 
 void zombie_die(void)
 {
@@ -1099,20 +1134,6 @@ void zombie_die(void)
     handle_drop_item();
     
     zombie_active[zombie_x]=0;
-  
-    if(minions_to_spawn)
-    {
-        spawn_minion();
-        display_minion();
-    }
-    else if (bosses_to_spawn)
-    {
-        spawn_boss();
-        display_boss();
-    }
-    
-
-    update_zombie_speed();
 }
 
 
@@ -1250,6 +1271,7 @@ void handle_zombie_collisions(void)
             {
                 increase_score(zombie_points[zombie_level[zombie_x]]);
                 zombie_die();
+                respawn();
             }
         }
     }
@@ -1506,7 +1528,7 @@ do \
 
 void initialize_zombie(void)
 {
-    zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
+    zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
     ++main_loop_counter;
     display_zombie();
     _XL_TOCK_SOUND();
@@ -1653,17 +1675,20 @@ void display_initial_screen(void)
 }
 
 
+
 #define display_stats() \
 do \
 { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     display_score(); \
     _XL_SET_TEXT_COLOR(_XL_GREEN); \
-    _XL_PRINT(XSize-10,0,_XL_H _XL_I); \
+    _XL_PRINT(XSize-8,0,_XL_H _XL_I); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize-8,0,5, hiscore); \
+    _XL_PRINTD(XSize-7,0,5, hiscore); \
     _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+    _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
     display_remaining_arrows(); \
+    display_power_up_counter(); \
     display_level(); \
     display_lives(); \
     display_power_ups(); \
@@ -1741,13 +1766,12 @@ do \
         --freeze; \
     }
 
-
 #define handle_next_level() \
 do \
 { \
     ++level; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT_CENTERED(_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D); \
+    _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
     killed_bosses = 0; \
@@ -1771,8 +1795,15 @@ do \
 #define victory() \
 do \
 { \
+    for(zombie_x=0;zombie_x<XSize;++zombie_x) \
+    { \
+        zombie_y[zombie_x]=YSize/2-7+((_XL_RAND())&15); \
+        display_minion(); \
+        _XL_SLOW_DOWN(SLOW_DOWN); \
+        zombie_die(); \
+        _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D); \
+    } \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_CLEAR_SCREEN(); \
     _XL_PRINT_CENTERED(_XL_V _XL_I _XL_C _XL_T _XL_O _XL_R _XL_Y); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
@@ -1841,12 +1872,6 @@ int main(void)
                 handle_items();
                 _XL_SLOW_DOWN(SLOW_DOWN);     
                 ++main_loop_counter;
-                // _XL_PRINTD(0,2,2,extraPointsItem._active);
-                // _XL_PRINTD(4,2,2,rechargeItem._active);
-                // _XL_PRINTD(8,2,2,powerUpItem._active);
-                // _XL_PRINTD(12,2,2,freezeItem._active);
-                // _XL_PRINTD(16,2,2,wallItem._active);
-                
             }
             if(alive)
             {
@@ -1860,6 +1885,7 @@ int main(void)
         if(lives)
         {
             victory();
+            
         }
         game_over();
     }

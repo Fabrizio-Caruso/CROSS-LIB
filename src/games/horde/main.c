@@ -63,9 +63,6 @@
 #define INITIAL_ZOMBIE_SPEED 12000U
 #define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/3)
 
-#define INITIAL_ZOMBIE_SPAWN_LOOPS 2
-#define MAX_ZOMBIE_LOOPS 3
-
 #define MAX_FREEZE 1
 
 #define MINION_POINTS 5
@@ -117,6 +114,7 @@
 #define ZOMBIE_MOVE_LOOPS 2
 
 #define NUMBER_OF_MISSILES 5
+#define NUMBER_OF_EXTRA_POINTS NUMBER_OF_MISSILES
 
 #define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
 
@@ -135,6 +133,8 @@
 #endif
 
 static uint8_t main_loop_counter;
+
+static uint8_t max_missiles_in_level;
 
 static uint8_t zombie_at_bottom;
 
@@ -910,8 +910,12 @@ void handle_items(void)
     
     for(i=0;i<NUMBER_OF_MISSILES;++i)
     {
-        handle_item(&beamMissile[i]);
         handle_item(&extraPointsItem[i]);
+    }
+    
+    for(i=0;i<max_missiles_in_level;++i)
+    {
+        handle_item(&beamMissile[i]);
     }
 }
 
@@ -1088,7 +1092,7 @@ void handle_drop_item(void)
             uint8_t index; 
             
             index = find_inactive(extraPointsItem);
-            if(index!=NUMBER_OF_MISSILES)
+            if(index!=NUMBER_OF_EXTRA_POINTS)
             {
                 drop_item(&extraPointsItem[index],90);
             }            
@@ -1302,7 +1306,7 @@ void handle_missile_drop(void)
 {
     uint8_t missile_index;
     
-    if((missile_index = find_inactive(beamMissile))!= NUMBER_OF_MISSILES)
+    if((missile_index = find_inactive(beamMissile)) < max_missiles_in_level)
     {
         drop_item(&beamMissile[missile_index],1);
     }
@@ -1514,6 +1518,7 @@ do \
             zombie_at_bottom = 0; \
             loaded_bow = 1; \
             alive = 1; \
+            max_missiles_in_level = ( level <= NUMBER_OF_MISSILES ) ? level : NUMBER_OF_MISSILES; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -1543,6 +1548,7 @@ do \
             zombie_at_bottom = 0; \
             loaded_bow = 1; \
             alive = 1; \
+            max_missiles_in_level = ( level <= NUMBER_OF_MISSILES ) ? level : NUMBER_OF_MISSILES; \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \

@@ -391,6 +391,8 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	cat bootstrap.cas code.cas > $(BUILD_PATH)/X$(GAME_NAME)_multi8.cas
 	rm bootstrap.cas
 	rm code.cas
+	rm code_BOOTSTRAP.bin
+
 
 
 #############################

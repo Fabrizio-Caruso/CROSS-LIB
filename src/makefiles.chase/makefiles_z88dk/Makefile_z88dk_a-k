@@ -490,6 +490,7 @@ coleco_adam:
 	$(FULL_FILES) \
 	-create-app -oxcadam.bin
 	rm xcadam.bin
+	rm xcadam.com    
 	mv xcadam.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
 
 
@@ -766,6 +767,8 @@ excalibur64:
 	mv xcexca64.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
 	rm xcexca64_HIMEM.bin
 	rm xcexca64.bin
+	rm xcexca64.com    
+    
 #############################
 # FP1100
 

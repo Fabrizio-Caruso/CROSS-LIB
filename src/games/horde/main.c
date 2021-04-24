@@ -94,7 +94,6 @@
 #define GREEN_RANGE_VALUE ((INITIAL_ARROW_RANGE)-4)
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
-#define ARROW_RECHARGE 30
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 6
@@ -102,6 +101,8 @@
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
+#define HYPER_RECHARGE 50
+#define ARROW_RECHARGE 30
 
 #define FREEZE_COUNTER_MAX 180;
 
@@ -558,10 +559,10 @@ void activate_hyper(void)
 {
     _XL_ZAP_SOUND();
     bow_reload_loops=HYPER_SPEED_VALUE;
-    recharge_arrows(MAX_ARROWS);
+    recharge_arrows(HYPER_RECHARGE);
     fire_power = HYPER_FIRE_POWER_VALUE;
     hyper_counter = MAX_HYPER_COUNTER;
-    bow_color = _XL_GREEN;
+    bow_color = _XL_RED;
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
 }
@@ -1050,16 +1051,11 @@ void display_red_zombie(void)
 
 void handle_drop_item(void)
 {
-    uint8_t rnd;
-    uint8_t index;
-    
-    ++item_counter;
-    
-    item_counter&=3;
-    
-    rnd = (uint8_t) (_XL_RAND());   
-    if((rnd<64)||zombie_level[zombie_x])
-    {
+    if(zombie_level[zombie_x] || ((uint8_t) (_XL_RAND()) <64))
+    {        
+        ++item_counter;
+        item_counter&=3;
+        
         if(!item_counter) 
         {
             if(!powerUpItem._active)
@@ -1074,14 +1070,14 @@ void handle_drop_item(void)
                 drop_item(&rechargeItem,45);
             }
         }
-        else if((freeze_taken<MAX_FREEZE)&&(powerUp>3)&&(!freeze))
+        else if((freeze_taken<MAX_FREEZE)&&(powerUp>=5)&&(!freeze))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem,45);
             }
         }
-        else if(!wall_appeared&&(powerUp>5)) 
+        else if(!wall_appeared&&(powerUp>=6)) 
         {
             if(!wallItem._active)
             {
@@ -1090,6 +1086,8 @@ void handle_drop_item(void)
         }
         else
         {
+            uint8_t index; 
+            
             index = find_inactive(extraPointsItem);
             if(index!=NUMBER_OF_MISSILES)
             {
@@ -1884,8 +1882,8 @@ void handle_hyper(void)
         
         if(hyper_counter==1)
         {
-            fire_power = GREEN_FIRE_POWER_VALUE;
             bow_color = _XL_CYAN;
+            fire_power = GREEN_FIRE_POWER_VALUE;
             bow_reload_loops=GREEN_SPEED_VALUE;
             display_top_border();
         }

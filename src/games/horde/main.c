@@ -127,6 +127,12 @@
 
 #define MAX_HYPER_COUNTER 100
 
+#if YSize>=20
+    #define HEIGHT_SHOOT_THRESHOLD YSize-10
+#else
+    #define HEIGHT_SHOOT_THRESHOLD YSize-11
+#endif
+
 static uint8_t main_loop_counter;
 
 static uint8_t hyper_counter;
@@ -770,8 +776,6 @@ void initialize_items(void)
     powerUpItem._color = _XL_WHITE;
     powerUpItem._effect = power_up_effect;    
 
-
-
     wallItem._active = 0;
     wallItem._tile = WALL_TILE;
     wallItem._color = _XL_YELLOW;
@@ -1316,7 +1320,7 @@ void move_zombies(void)
     
     zombie_x=find_zombie(1);
 
-    if((zombie_level[zombie_x]>2) && zombie_y[zombie_x]<YSize-10)
+    if((zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
     {
         handle_missile_drop();
     }

@@ -62,7 +62,7 @@
 #define MAX_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPEED 12000U
 #define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/3)
-#define FEW_ZOMBIES ((MAX_OCCUPIED_COLUMNS)-3)
+
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 
@@ -105,7 +105,13 @@
 
 #define FREEZE_COUNTER_MAX 180;
 
-#define MAX_OCCUPIED_COLUMNS (4*(XSize)/5)
+#if XSize<=22
+    #define MAX_OCCUPIED_COLUMNS (4*(XSize)/5)
+#else
+    #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
+#endif
+
+#define FEW_ZOMBIES ((MAX_OCCUPIED_COLUMNS)-3)
 
 #define ZOMBIE_MOVE_LOOPS 2
 
@@ -545,7 +551,6 @@ void activate_hyper(void)
     recharge_arrows(MAX_ARROWS);
     fire_power = HYPER_FIRE_POWER_VALUE;
     hyper_counter = MAX_HYPER_COUNTER;
-    freeze_taken=0;
     bow_color = _XL_GREEN;
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
@@ -599,6 +604,12 @@ void power_up_effect(void)
         case 30:
         case 40:
             activate_hyper();
+        break;
+        
+        case 15:
+        case 25:
+        case 35:
+            freeze_taken=0;
         break;
         
         default:

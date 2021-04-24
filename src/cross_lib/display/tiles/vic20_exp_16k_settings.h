@@ -1,34 +1,34 @@
 // BLUE
 
 #define _TILE_0 '\''
-#define _TILE_1 0x70
-#define _TILE_2 0x74 
-#define _TILE_3 0x72
+#define _TILE_1 (0x70-12)
+#define _TILE_2 (0x74-12) 
+#define _TILE_3 (0x72-12)
 
-#define _TILE_9 0x7B
+#define _TILE_9 (0x7B-12)
 
 // YELLOW
-#define _TILE_7 0x77
+#define _TILE_7 (0x77-12)
 
-#define _TILE_12 '|'
+#define _TILE_12 ('|'-12)
 #define _TILE_13 0xC3
 #define _TILE_0_B _TILE_0
 #define _DOLLAR_TILE '$'
 
 // GREEN
-#define _TILE_8  0x7A
+#define _TILE_8  (0x7A-12)
 
 // RED
-#define _TILE_5 0x78
+#define _TILE_5 (0x78-12)
 //0x5E
 
 
 // CYAN
-#define _TILE_10 0x73
-#define _TILE_11 0x7C
+#define _TILE_10 (0x73-12)
+#define _TILE_11 (0x7C-12)
 
 // WHITE
-#define _TILE_4 0x76
+#define _TILE_4 (0x76-12)
 
 // TODO: this has to be different
 #define _TILE_6 (_TILE_16+1)
@@ -39,12 +39,6 @@
 #define _TILE_15 '<'
 
 #define _TILE_16 '^'
-
-#define _TILE_5_B _TILE_5
-
-#define _TILE_7_B _TILE_7
-
-#define _TILE_4_B _TILE_4
 
 // 0x79
 #define _TILE_17 (_TILE_8-1)

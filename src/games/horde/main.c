@@ -560,7 +560,6 @@ void activate_hyper(void)
     _XL_ZAP_SOUND();
     bow_reload_loops=HYPER_SPEED_VALUE;
     recharge_arrows(HYPER_RECHARGE);
-    fire_power = HYPER_FIRE_POWER_VALUE;
     hyper_counter = MAX_HYPER_COUNTER;
     bow_color = _XL_RED;
     _XL_SET_TEXT_COLOR(_XL_RED);
@@ -1883,7 +1882,6 @@ void handle_hyper(void)
         if(hyper_counter==1)
         {
             bow_color = _XL_CYAN;
-            fire_power = GREEN_FIRE_POWER_VALUE;
             bow_reload_loops=GREEN_SPEED_VALUE;
             display_top_border();
         }

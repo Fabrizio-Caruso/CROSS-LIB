@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------------------
 # Z88DK Q-Z
-#
+# 	 
 z88dk_targets_q-z: \
 	qc10_targets \
 	rc700_targets \
@@ -149,6 +149,7 @@ qc10_turn_based:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm xcqc10.bin	
+	rm xcqc10.com
 	mv xcqc10.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 
 
@@ -303,6 +304,7 @@ smc777_turn_based:
 	$(FULL_FILES) \
 	-create-app -oxcsmc777.bin
 	rm xcsmc777.bin
+	rm xcsmc777.com
 	mv xcsmc777.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 
 
@@ -802,7 +804,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/X$(GAME_NAME)_tiki100.dsk
 	rm $(SOURCE_PATH)/../../tiki100
 	rm $(SOURCE_PATH)/../../tiki100_HIMEM.bin
-
+	rm $(SOURCE_PATH)/../../tiki100.com
 
 #############################
 # TRS80

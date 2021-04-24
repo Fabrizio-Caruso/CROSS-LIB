@@ -135,6 +135,10 @@
 
 static uint8_t main_loop_counter;
 
+static uint8_t zombie_at_bottom;
+
+static uint8_t at_bottom_x;
+
 static uint8_t hyper_counter;
 
 static uint8_t item_counter;
@@ -1145,6 +1149,11 @@ void zombie_die(void)
         --minions_to_kill;
     }
    
+    if(zombie_x==at_bottom_x)
+    {
+        zombie_at_bottom = 0;
+    }
+    
     handle_drop_item();
     
     zombie_active[zombie_x]=0;
@@ -1318,14 +1327,26 @@ void move_zombies(void)
 {
     uint8_t j;
     
-    zombie_x=find_zombie(1);
-
+    if(zombie_at_bottom)
+    {
+        zombie_x = at_bottom_x;
+    }
+    else
+    {
+        zombie_x=find_zombie(1);
+    }
+    
     if((zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
     {
         handle_missile_drop();
     }
-    if(zombie_y[zombie_x]<BOW_Y)
+    if(zombie_y[zombie_x]<=BOW_Y-1)
     {
+        if(zombie_y[zombie_x]==BOW_Y-1)
+        {
+            zombie_at_bottom = 1;
+            at_bottom_x = zombie_x; 
+        }
         if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
         {
             --wall[zombie_x];
@@ -1346,11 +1367,6 @@ void move_zombies(void)
         else
         {
             _move_zombie();
-            // if(zombie_y[zombie_x]<INITIAL_ZOMBIE_Y+3)
-            // {
-
-                // _move_zombie();
-            // }
         }
         display_zombie();
     }
@@ -1498,6 +1514,7 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             freeze_taken = 0; \
+            zombie_at_bottom = 0; \
             loaded_bow = 1; \
             alive = 1; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
@@ -1525,6 +1542,8 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             freeze_taken = 0; \
+            hyper_counter = 0; \
+            zombie_at_bottom = 0; \
             loaded_bow = 1; \
             alive = 1; \
             bow_reload_loops = RED_SPEED_VALUE; \
@@ -1536,7 +1555,6 @@ do \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 1; \
             initialize_items(); \
-            hyper_counter = 0; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 

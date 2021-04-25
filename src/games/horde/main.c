@@ -1315,16 +1315,14 @@ void handle_missile_drop(void)
 }
 
 
-void _move_zombie(void)
-{
-    ++zombie_shape[zombie_x];
-    (zombie_shape[zombie_x])&=3;
-    if(!zombie_shape[zombie_x])
-        {
-            ++zombie_y[zombie_x];
-        }
-        
-    
+#define _move_zombie() \
+{ \
+    ++zombie_shape[zombie_x]; \
+    (zombie_shape[zombie_x])&=3; \
+    if(!zombie_shape[zombie_x]) \
+        { \
+            ++zombie_y[zombie_x]; \
+        } \
 }
 
 

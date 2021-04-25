@@ -59,10 +59,6 @@
 #define AUTO_RECHARGE_COOL_DOWN 45
 #define AUTO_ARROW_RECAHRGE 9
 
-#define MAX_ZOMBIE_SPEED 20000U
-#define INITIAL_ZOMBIE_SPEED 12000U
-#define FEW_ZOMBIE_SPEED ((INITIAL_ZOMBIE_SPEED)/3)
-
 #define MAX_FREEZE 1
 
 #define MINION_POINTS 5
@@ -79,7 +75,6 @@
 #define RED_FIRE_POWER_VALUE 2
 #define YELLOW_FIRE_POWER_VALUE 3
 #define GREEN_FIRE_POWER_VALUE 4
-#define HYPER_FIRE_POWER_VALUE 6
 
 #define RED_SPEED_VALUE INITIAL_BOW_RELOAD_LOOPS
 #define YELLOW_SPEED_VALUE ((INITIAL_BOW_RELOAD_LOOPS)/2)
@@ -105,6 +100,8 @@
 
 #if XSize<=22
     #define MAX_OCCUPIED_COLUMNS (4*(XSize)/5)
+#elif XSize<=40
+    #define MAX_OCCUPIED_COLUMNS (39*(XSize)/50)
 #else
     #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
 #endif
@@ -1061,17 +1058,17 @@ void handle_drop_item(void)
         
         if(!item_counter) 
         {
-            if(!powerUpItem._active)
-            {
-                drop_item(&powerUpItem,35);
-            } 
-        }
-        else if(item_counter==1)
-        {
             if(!rechargeItem._active)
             {
                 drop_item(&rechargeItem,45);
             }
+        }
+        else if(item_counter==1)
+        {
+            if(!powerUpItem._active)
+            {
+                drop_item(&powerUpItem,35);
+            } 
         }
         else if((freeze_taken<MAX_FREEZE)&&(powerUp>=5)&&(!freeze))
         {

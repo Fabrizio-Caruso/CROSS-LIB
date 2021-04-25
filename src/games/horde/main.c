@@ -133,9 +133,9 @@ static uint8_t main_loop_counter;
 
 static uint8_t max_missiles_in_level;
 
-static uint8_t zombie_at_bottom;
+static uint8_t forced_zombie;
 
-static uint8_t at_bottom_x;
+static uint8_t forced_move_x;
 
 static uint8_t hyper_counter;
 
@@ -972,19 +972,19 @@ void spawn_boss(void)
 {
     uint8_t rank;
     
-    if(!level)
+    if(!level) // 0
     {
         rank = 1;
     }
-    else if(level==1)
+    else if(level==1) // 1
     {
         rank = (uint8_t) (1 + ((_XL_RAND())&1));
     }
-    else if(level<5)
+    else if(level<5) // 2, 3, 4
     {
         rank = (uint8_t) (1 + ((_XL_RAND())%3));   
     }
-    else
+    else // 5, 6, 7, 8
     {
         rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
     }
@@ -1147,9 +1147,9 @@ void zombie_die(void)
         --minions_to_kill;
     }
    
-    if(zombie_x==at_bottom_x)
+    if(zombie_x==forced_move_x)
     {
-        zombie_at_bottom = 0;
+        forced_zombie = 0;
     }
     
     handle_drop_item();
@@ -1325,9 +1325,9 @@ void move_zombies(void)
 {
     uint8_t j;
     
-    if(zombie_at_bottom)
+    if(forced_zombie)
     {
-        zombie_x = at_bottom_x;
+        zombie_x = forced_move_x;
     }
     else
     {
@@ -1340,11 +1340,20 @@ void move_zombies(void)
     }
     if(zombie_y[zombie_x]<=BOW_Y-1)
     {
-        if(zombie_y[zombie_x]==BOW_Y-1)
+        if(zombie_shape[zombie_x]==1)
         {
-            zombie_at_bottom = 1;
-            at_bottom_x = zombie_x; 
+            forced_zombie = 0;
         }
+        else
+        {
+            forced_zombie = 1;
+            forced_move_x = zombie_x; 
+        }
+        // if(zombie_y[zombie_x]==BOW_Y-1)
+        // {
+            // forced_zombie = 1;
+            // forced_move_x = zombie_x; 
+        // }
         if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
         {
             --wall[zombie_x];
@@ -1512,7 +1521,7 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             freeze_taken = 0; \
-            zombie_at_bottom = 0; \
+            forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
             max_missiles_in_level = ( level <= NUMBER_OF_MISSILES ) ? level : NUMBER_OF_MISSILES; \
@@ -1542,7 +1551,7 @@ do \
             wall_appeared = 0; \
             freeze_taken = 0; \
             hyper_counter = 0; \
-            zombie_at_bottom = 0; \
+            forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
             max_missiles_in_level = ( level <= NUMBER_OF_MISSILES ) ? level : NUMBER_OF_MISSILES; \
@@ -1779,6 +1788,7 @@ do \
         _XL_PING_SOUND(); \
         ++next_extra_life_counter; \
         display_lives(); \
+        _XL_SLOW_DOWN(SLOW_DOWN); \
         _XL_PING_SOUND(); \
     } \
 
@@ -1925,7 +1935,7 @@ int main(void)
                 handle_zombie_movement();
                 handle_zombie_collisions();
                 handle_items();
-                _XL_SLOW_DOWN(SLOW_DOWN);     
+                _XL_SLOW_DOWN(2*SLOW_DOWN/3);     
                 ++main_loop_counter;
             }
             if(alive)

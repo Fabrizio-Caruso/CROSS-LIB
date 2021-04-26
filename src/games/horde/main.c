@@ -975,22 +975,27 @@ void spawn_boss(void)
 {
     uint8_t rank;
     
-    if(!level) // 0
+    
+    do
     {
-        rank = 1;
-    }
-    else if(level==1) // 1
-    {
-        rank = (uint8_t) (1 + ((_XL_RAND())&1));
-    }
-    else if(level<5) // 2, 3, 4
-    {
-        rank = (uint8_t) (1 + ((_XL_RAND())%3));   
-    }
-    else // 5, 6, 7, 8
-    {
-        rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
-    }
+        
+        if(!level) // 0
+        {
+            rank = 1;
+        }
+        else if(level==1) // 1
+        {
+            rank = (uint8_t) (1 + ((_XL_RAND())&1));
+        }
+        else if(level<5) // 2, 3, 4
+        {
+            rank = (uint8_t) (1 + ((_XL_RAND())%3));   
+        }
+        else // 5, 6, 7, 8
+        {
+            rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
+        }
+    } while((rank==2)&&(bosses_to_kill<MAX_OCCUPIED_COLUMNS/2));
 
     activate_zombie();
     zombie_level[zombie_x]=rank;
@@ -1344,7 +1349,13 @@ void move_zombies(void)
         handle_missile_drop();
     }
 
-    if((zombie_shape[zombie_x]==3)||((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1)))
+    if((zombie_shape[zombie_x]==3)||
+        (
+            ((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1))
+            &&
+            (zombie_y[zombie_x]!=BOW_Y-1)
+        )
+    )
     {
         forced_zombie = 0;
     }

@@ -1310,7 +1310,7 @@ void handle_missile_drop(void)
 
 void handle_missile_drops(void)
 {
-    zombie_x = (_XL_RAND())%XSize;
+    zombie_x = (uint8_t) (_XL_RAND())%XSize;
     if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
     {
         handle_missile_drop();
@@ -1837,7 +1837,7 @@ do \
 
 void zombie_animation(void)
 {
-        zombie_y[zombie_x]=YSize/2-7+((_XL_RAND())&15);
+        zombie_y[zombie_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
         zombie_level[zombie_x]=0;
         display_zombie();
         _XL_SLOW_DOWN(SLOW_DOWN);

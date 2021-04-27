@@ -191,14 +191,14 @@ static uint8_t freeze_locked;
 
 static const uint8_t zombie_tile[7+1] = 
 {
-    ZOMBIE_TILE_0, // 0
-    ZOMBIE_TILE_0, // 1
-    ZOMBIE_TILE_1, // 2
-    ZOMBIE_TILE_2, // 3
-    ZOMBIE_TILE_3, 
-    ZOMBIE_TILE_4, 
-    ZOMBIE_TILE_5, 
-    ZOMBIE_TILE_6
+    MINION_TILE_0, // 0
+    MINION_TILE_0, // 1
+    MINION_TILE_1, // 2
+    MINION_TILE_2, // 3
+    MINION_TILE_3, 
+    MINION_TILE_4, 
+    MINION_TILE_5, 
+    MINION_TILE_6
 };
 
 static const uint8_t boss_tile[7+1] =
@@ -591,28 +591,6 @@ void power_up_effect(void)
             powerUpItem._color = _XL_RED;
         break;
     }
-    
-    // if(pmod10==4)
-    // {
-        // powerUpItem._color = _XL_CYAN; 
-    // }
-    // else if(pmod10==9)
-    // {
-        
-        // powerUpItem._color = _XL_RED;
-    // }
-    // else if(pmod10==5)
-    // {
-        // freeze_locked=0;
-    // }
-    // else
-    // {
-        // powerUpItem._color = _XL_WHITE;
-    // }
-    // if(!pmod10)
-    // {
-        // activate_hyper();
-    // }
 
     display_power_up_counter();
     increase_score(POWERUP_POINTS);
@@ -646,19 +624,14 @@ void power_up_effect(void)
         
         case 7:
             fire_power = YELLOW_FIRE_POWER_VALUE;
+            powerUpItem._color = _XL_YELLOW;
         break;
         
         case 8:
             fire_power = GREEN_FIRE_POWER_VALUE;
+            powerUpItem._color = _XL_WHITE;
         break;
         #endif
-        
-        // case 5: 
-        // case 15:
-        // case 25:
-        // case 35:
-            // freeze_locked=0;
-        // break;
         
         default:
         break;
@@ -724,7 +697,7 @@ void display_zombie(void)
     }
     else if(!zombie_level[zombie_x])
     {
-        tile0 = ZOMBIE_TILE_0;
+        tile0 = MINION_TILE_0;
         color = _XL_WHITE;
     }
     else 
@@ -1016,7 +989,7 @@ void spawn_boss(void)
 
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_BASE_ENERGY-1;
+    energy[zombie_x]=BOSS_BASE_ENERGY;
     --bosses_to_spawn;
 }
 
@@ -1066,7 +1039,7 @@ void display_red_zombie(void)
     
     if(!zombie_level[zombie_x])
     {
-        tile=ZOMBIE_TILE_0;
+        tile=MINION_TILE_0;
     }
     else
     {
@@ -1097,14 +1070,14 @@ void handle_item_drop(void)
                 drop_item(&powerUpItem,35);
             } 
         }
-        else if((freeze_locked<MAX_FREEZE)&&(powerUp>=5)&&(!freeze))
+        else if((!freeze_locked)&&(!freeze))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem,45);
             }
         }
-        else if(!wall_appeared&&(powerUp>=6)) 
+        else if(!wall_appeared&&(powerUp>=8)) 
         {
             if(!wallItem._active)
             {
@@ -1549,7 +1522,7 @@ do \
         {   \
             fire_power = 2; \
             freeze = 0; \
-            powerUp = 0; \
+            powerUp = 8; \
             next_arrow = 0; \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
@@ -1582,9 +1555,9 @@ do \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
             wall_appeared = 0; \
-            freeze_locked = 1; \
             hyper_counter = 0; \
             forced_zombie = 0; \
+            freeze_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
             bow_reload_loops = RED_SPEED_VALUE; \
@@ -1938,9 +1911,7 @@ void handle_hyper(void)
 int main(void)
 {           
     _XL_INIT_GRAPHICS();
-    
-    _XL_INIT_INPUT()
-    
+    _XL_INIT_INPUT() 
     _XL_INIT_SOUND();
 
     hiscore = 0;

@@ -4,13 +4,13 @@
 #include "cross_lib.h"
 
 
-    #define ZOMBIE_TILE_0 _TILE_0
-    #define ZOMBIE_TILE_1 _TILE_1
-    #define ZOMBIE_TILE_2 _TILE_2
-    #define ZOMBIE_TILE_3 _TILE_3
-    #define ZOMBIE_TILE_4 _TILE_4
-    #define ZOMBIE_TILE_5 _TILE_5
-    #define ZOMBIE_TILE_6 _TILE_6
+    #define MINION_TILE_0 _TILE_0
+    #define MINION_TILE_1 _TILE_1
+    #define MINION_TILE_2 _TILE_2
+    #define MINION_TILE_3 _TILE_3
+    #define MINION_TILE_4 _TILE_4
+    #define MINION_TILE_5 _TILE_5
+    #define MINION_TILE_6 _TILE_6
     
     #define ZOMBIE_DEATH_TILE _TILE_7
     #define POWER_UP_TILE _TILE_8

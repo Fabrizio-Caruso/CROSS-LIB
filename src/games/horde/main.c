@@ -1310,15 +1310,10 @@ void handle_missile_drop(void)
 
 void handle_missile_drops(void)
 {
-    uint8_t i;
-    
-    for(i=0;i<NUMBER_OF_MISSILES/2;++i)
+    zombie_x = (_XL_RAND())%XSize;
+    if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
     {
-        zombie_x = (_XL_RAND())%XSize;
-        if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
-        {
-            handle_missile_drop();
-        }
+        handle_missile_drop();
     }
 }
 

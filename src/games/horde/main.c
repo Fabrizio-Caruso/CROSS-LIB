@@ -187,7 +187,7 @@ static uint8_t zombie_level[XSize];
 static uint8_t fire_power;
 
 static uint8_t wall_appeared;
-static uint8_t freeze_taken;
+static uint8_t freeze_locked;
 
 static const uint8_t zombie_tile[7+1] = 
 {
@@ -565,7 +565,55 @@ void activate_hyper(void)
 
 void power_up_effect(void)
 {
+    uint8_t pmod10;
+    
     ++powerUp;
+    
+    pmod10 = powerUp%10;
+    
+    switch(pmod10)
+    {
+        case 0:
+            activate_hyper();
+            powerUpItem._color = _XL_WHITE;
+        break;
+        
+        case 4:
+            powerUpItem._color = _XL_CYAN; 
+        break;
+        
+        case 5:
+            freeze_locked=0;
+            powerUpItem._color = _XL_WHITE;
+        break;
+        
+        case 9:
+            powerUpItem._color = _XL_RED;
+        break;
+    }
+    
+    // if(pmod10==4)
+    // {
+        // powerUpItem._color = _XL_CYAN; 
+    // }
+    // else if(pmod10==9)
+    // {
+        
+        // powerUpItem._color = _XL_RED;
+    // }
+    // else if(pmod10==5)
+    // {
+        // freeze_locked=0;
+    // }
+    // else
+    // {
+        // powerUpItem._color = _XL_WHITE;
+    // }
+    // if(!pmod10)
+    // {
+        // activate_hyper();
+    // }
+
     display_power_up_counter();
     increase_score(POWERUP_POINTS);
     
@@ -605,18 +653,12 @@ void power_up_effect(void)
         break;
         #endif
         
-        case 10:
-        case 20:
-        case 30:
-        case 40:
-            activate_hyper();
-        break;
-        
-        case 15:
-        case 25:
-        case 35:
-            freeze_taken=0;
-        break;
+        // case 5: 
+        // case 15:
+        // case 25:
+        // case 35:
+            // freeze_locked=0;
+        // break;
         
         default:
         break;
@@ -730,7 +772,7 @@ void freeze_effect(void)
         }
     }
     increase_score(FREEZE_POINTS);
-    ++freeze_taken;
+    ++freeze_locked;
 }
 
 
@@ -1055,7 +1097,7 @@ void handle_item_drop(void)
                 drop_item(&powerUpItem,35);
             } 
         }
-        else if((freeze_taken<MAX_FREEZE)&&(powerUp>=5)&&(!freeze))
+        else if((freeze_locked<MAX_FREEZE)&&(powerUp>=5)&&(!freeze))
         {
             if(!freezeItem._active)
             {
@@ -1507,12 +1549,12 @@ do \
         {   \
             fire_power = 2; \
             freeze = 0; \
-            powerUp = 8; \
+            powerUp = 0; \
             next_arrow = 0; \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
             wall_appeared = 0; \
-            freeze_taken = 0; \
+            freeze_locked = 1; \
             forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
@@ -1540,7 +1582,7 @@ do \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
             wall_appeared = 0; \
-            freeze_taken = 0; \
+            freeze_locked = 1; \
             hyper_counter = 0; \
             forced_zombie = 0; \
             loaded_bow = 1; \
@@ -1788,7 +1830,7 @@ do \
 { \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_L _XL_E _XL_V _XL_E _XL_L); \
-    _XL_PRINTD(XSize/2+2,YSize/2,2,level+1); \
+    _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
@@ -1814,7 +1856,7 @@ do \
 { \
     ++level; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D); \
+    _XL_PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
     killed_bosses = 0; \
@@ -1929,8 +1971,6 @@ int main(void)
                 handle_items();
                 _XL_SLOW_DOWN(SLOW_DOWN);     
                 ++main_loop_counter;
-                
-                // _XL_PRINTD(4,4,2,zombie_speed);
             }
             if(alive)
             {

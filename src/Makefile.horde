@@ -90,7 +90,7 @@ cc65_8x8_targets: \
     nes \
     pce \
     supervision \
-    vic20_exp_16k
+    vic20_exp_8k
 
 
 cc65_6x8_targets: \
@@ -579,7 +579,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=1300 \
+	-DSLOW_DOWN=1000 \
 	-DREDEFINED_CHARS \
 	$(SOURCE_PATH)/main.c \
 	--code-name CODE2 \
@@ -634,7 +634,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=1300 \
+	-DSLOW_DOWN=1000 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
 	--code-name CODE2 \

@@ -455,13 +455,13 @@ pet_16k:
 
 vic20: vic20_exp_8k
 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DSLOW_DOWN=10000 -DCC65_GOTO \
 	-DREDEFINED_CHARS \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(FULL_FILES) \
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -472,13 +472,13 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
 
 vic20_wait_vsync: vic20_exp_16k_wait_vsync
 
-vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K -DUSE_WAIT_V_SYNC -DDEBUG_V_SYNC_DISPLAY \
 	-DSLOW_DOWN=10000 -DCC65_GOTO \
 	-DREDEFINED_CHARS \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(FULL_FILES) \
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \

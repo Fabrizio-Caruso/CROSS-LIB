@@ -662,7 +662,7 @@ void wall_effect(void)
             wall[i]=0;
         }
     }
-    wall_appeared = 1;
+    ++wall_appeared;
 }
 
 
@@ -792,20 +792,28 @@ void initialize_items(void)
 }
 
 
-void display_level(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINTD(XSize-1,0,1,level+1);
+#define display_level() \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
+    _XL_PRINTD(XSize-1,0,1,level+1); \
 }
 
-
-void display_lives(void)
-{
-    _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
-    _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives);
-}
+#if defined(COLOR)
+    void display_lives(uint8_t color)
+    {
+        _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
+        _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
+        _XL_SET_TEXT_COLOR(color);
+        _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives);
+    }
+#else
+    #define display_lives(color) \
+    { \
+        _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
+        _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
+        _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives); \
+    } 
+#endif
 
 
 void display_bow(void)
@@ -815,27 +823,25 @@ void display_bow(void)
 }
 
 
-void move_left(void)
-{
-    bow_shape_tile = 2*((--bow_x)&1);
-    if(bow_shape_tile)
-    {
-        _XL_DELETE(bow_x/2+2,BOW_Y);
-    }
- 
-    display_bow();
+#define move_left() \
+{ \
+    bow_shape_tile = 2*((--bow_x)&1); \
+    if(bow_shape_tile) \
+    { \
+        _XL_DELETE(bow_x/2+2,BOW_Y); \
+    } \
+    display_bow(); \
 }
 
 
-void move_right(void)
-{
-    bow_shape_tile = 2*((++bow_x)&1);
-    if(!bow_shape_tile)
-    {
-        _XL_DELETE(bow_x/2-1,BOW_Y);
-    }
-
-    display_bow();
+#define move_right() \
+{ \
+    bow_shape_tile = 2*((++bow_x)&1); \
+    if(!bow_shape_tile) \
+    { \
+        _XL_DELETE(bow_x/2-1,BOW_Y); \
+    } \
+    display_bow(); \
 }
 
 
@@ -941,7 +947,7 @@ void activate_zombie(void)
     
     old_x = zombie_x;
     
-    while((old_x==zombie_x) && (old_x+1!=zombie_x) && (old_x-1!=zombie_x))
+    while((old_x==zombie_x) || (old_x+1==zombie_x) || (old_x-1==zombie_x))
     {
         zombie_x = find_zombie(0);
     };    
@@ -1132,7 +1138,6 @@ void zombie_die(void)
         display_red_zombie();
     } 
     _XL_SHOOT_SOUND();
-    // delete_above_zombie();
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
     display_bow();
@@ -1229,31 +1234,33 @@ uint8_t zombie_hit(void)
 }
 
 
-void decrease_energy(void)
-{
-    if(energy[zombie_x]<=fire_power)
-    {
-        energy[zombie_x]=0;
-    }
-    else
-    {
-        energy[zombie_x]-=fire_power;
-    }
-}
+#define decrease_energy() \
+do \
+{ \
+    if(energy[zombie_x]<=fire_power) \
+    { \
+        energy[zombie_x]=0; \
+    } \
+    else \
+    { \
+        energy[zombie_x]-=fire_power; \
+    } \
+} while(0)
 
 
-void redraw_wall(void)
-{
-    uint8_t i;
-    
-    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
-    {
-        if(wall[i])
-        {
-            _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW);
-        }
-    }        
-}
+#define redraw_wall() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i) \
+    { \
+        if(wall[i]) \
+        { \
+            _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW); \
+        } \
+    } \
+} while(0)
 
 
 void push_zombie(void)
@@ -1300,14 +1307,14 @@ void handle_zombie_collisions(void)
 }
 
 
-void handle_missile_drop(void)
-{
-    uint8_t missile_index;
-    
-    if(!freeze && ((missile_index = find_inactive(beamMissile)) < NUMBER_OF_MISSILES))
-    {
-        drop_item(&beamMissile[missile_index],1);
-    }
+#define handle_missile_drop() \
+{ \
+    uint8_t missile_index; \
+    \
+    if(!freeze && ((missile_index = find_inactive(beamMissile)) < NUMBER_OF_MISSILES)) \
+    { \
+        drop_item(&beamMissile[missile_index],1); \
+    } \
 }
 
 
@@ -1321,14 +1328,14 @@ void handle_missile_drop(void)
         } \
 }
 
-void handle_missile_drops(void)
-{
-    zombie_x = (uint8_t) (_XL_RAND())%XSize;
-    if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD)
-    {
-        handle_missile_drop();
-    }
-}
+#define handle_missile_drops() \
+{ \
+    zombie_x = (uint8_t) (_XL_RAND())%XSize; \
+    if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+    { \
+        handle_missile_drop(); \
+    } \
+} 
 
 
 void move_zombies(void)
@@ -1391,18 +1398,19 @@ void move_zombies(void)
 }
 
 
-void handle_bow_load(void)
-{
-    if(!loaded_bow && arrows_on_screen<MAX_ARROWS_ON_SCREEN && !bow_load_counter && remaining_arrows)
-    {
-        loaded_bow = 1;
-        display_bow();
-    }
-    if(bow_load_counter)
-    {
-        --bow_load_counter;
-    }
-}
+#define handle_bow_load() \
+do \
+{ \
+    if(!loaded_bow && arrows_on_screen<MAX_ARROWS_ON_SCREEN && !bow_load_counter && remaining_arrows) \
+    { \
+        loaded_bow = 1; \
+        display_bow(); \
+    } \
+    if(bow_load_counter) \
+    { \
+        --bow_load_counter; \
+    } \
+} while(0)
 
 
 void fire(void)
@@ -1410,8 +1418,8 @@ void fire(void)
     uint8_t i;
     uint8_t new_arrow_x;  
     uint8_t offset;
+    
     _XL_TICK_SOUND();
-
     new_arrow_x = (bow_x/2)+(bow_x&1);
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
@@ -1467,23 +1475,24 @@ void fire(void)
 }
 
 
-void handle_bow_move(void)
-{
-    input = _XL_INPUT();
-    
-    if(_XL_LEFT(input) && bow_x)
-    {
-        move_left();
-    }
-    else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X)
-    {
-        move_right();
-    }
-    else if (_XL_FIRE(input) && loaded_bow)
-    {
-        fire();
-    }
-}
+#define handle_bow_move() \
+do \
+{ \
+    input = _XL_INPUT(); \
+    \
+    if(_XL_LEFT(input) && bow_x) \
+    { \
+        move_left(); \
+    } \
+    else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+    { \
+        move_right(); \
+    } \
+    else if (_XL_FIRE(input) && loaded_bow) \
+    { \
+        fire(); \
+    } \
+} while(0)
 
 
 #define game_over() \
@@ -1573,7 +1582,7 @@ do \
 #endif
 
 
-void initialize_zombie(void)
+void initialize_zombie_at_level_restart(void)
 {
     zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
     ++main_loop_counter;
@@ -1614,7 +1623,7 @@ void zombie_initialization(void)
     while(main_loop_counter<to_spawn_initially)
     {
         spawn_minion();
-        initialize_zombie();
+        initialize_zombie_at_level_restart();
     }
     
     minions_to_spawn = minions_to_kill-to_spawn_initially;
@@ -1639,7 +1648,7 @@ void zombie_initialization(void)
     while(main_loop_counter<to_spawn_initially)
     {
         spawn_boss();
-        initialize_zombie();
+        initialize_zombie_at_level_restart();
     }
    
     bosses_to_spawn = bosses_to_kill-to_spawn_initially;
@@ -1692,34 +1701,31 @@ do \
 #endif
 
 
-void display_initial_screen(void)
-{
-    _XL_CLEAR_SCREEN();
-    
-    display_wall(0);
-    display_wall(BOTTOM_WALL_Y+1);
-
-    _XL_SET_TEXT_COLOR(_XL_CYAN);               
-    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
-
-    _XL_SET_TEXT_COLOR(_XL_WHITE);                
-    _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore);
-    
-    
-    _XL_SET_TEXT_COLOR(_XL_RED);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3-3,_CROSS_HORDE_STRING);
-
-    _XL_SET_TEXT_COLOR(_XL_WHITE);               
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3-1, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
-
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E );
-
-    _XL_SLEEP(1);
- 
-    display_items();
-    _XL_WAIT_FOR_INPUT();
-    _XL_CLEAR_SCREEN();
+#define display_initial_screen() \
+{ \
+    _XL_CLEAR_SCREEN(); \
+    \
+    display_wall(0); \
+    display_wall(BOTTOM_WALL_Y+1); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3-3,_CROSS_HORDE_STRING); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3-1, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E ); \
+    \
+    display_items(); \
+    _XL_WAIT_FOR_INPUT(); \
+    _XL_CLEAR_SCREEN(); \
 }
 
 
@@ -1746,7 +1752,7 @@ do \
     display_remaining_arrows(); \
     display_power_up_counter(); \
     display_level(); \
-    display_lives(); \
+    display_lives(_XL_WHITE); \
     display_power_ups(); \
 } while(0)
 
@@ -1781,26 +1787,48 @@ do \
 } while(0)
 
 
+#if defined(COLOR)
+    #define _extra_life_color_effect(color) display_lives(color) 
+#else
+    #define _extra_life_color_effect(color)
+#endif
+
 #define handle_extra_life() \
-    if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter) \
+    do \
     { \
-        if(lives<MAX_LIVES) \
+        uint8_t i; \
+        if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter) \
         { \
-            ++lives; \
+            if(lives<MAX_LIVES) \
+            { \
+                ++lives; \
+            } \
+            ++next_extra_life_counter; \
+            _XL_PING_SOUND(); \
+            \
+            for(i=0;i<5;++i) \
+            { \
+                _extra_life_color_effect(_XL_RED); \
+                _XL_SLOW_DOWN(SLOW_DOWN); \
+                _extra_life_color_effect(_XL_YELLOW); \
+                _XL_SLOW_DOWN(SLOW_DOWN); \
+            } \
+            _XL_PING_SOUND(); \
+            display_lives(_XL_WHITE); \
         } \
-        _XL_PING_SOUND(); \
-        ++next_extra_life_counter; \
-        display_lives(); \
-        _XL_SLOW_DOWN(SLOW_DOWN); \
-        _XL_PING_SOUND(); \
-    } \
+    } while(0)
 
 
 #define display_level_at_start_up()  \
 do \
 { \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
+    if(level==LAST_LEVEL) \
+    { \
+        _XL_PRINT(XSize/2-4, YSize/2-2,_XL_F _XL_I _XL_N _XL_A _XL_L); \
+    } \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,_XL_L _XL_E _XL_V _XL_E _XL_L); \
+    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
@@ -1850,13 +1878,13 @@ do \
 
 void zombie_animation(void)
 {
-        zombie_y[zombie_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
-        zombie_level[zombie_x]=0;
-        display_zombie();
-        _XL_SLOW_DOWN(SLOW_DOWN);
-        zombie_die();
-        _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
+    zombie_y[zombie_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
+    zombie_level[zombie_x]=0;
+    display_zombie();
+    _XL_SLOW_DOWN(SLOW_DOWN);
+    zombie_die();
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
 }
 
 
@@ -1871,8 +1899,6 @@ do \
         zombie_x = XSize-i; \
         zombie_animation(); \
     } \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED(_XL_V _XL_I _XL_C _XL_T _XL_O _XL_R _XL_Y); \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
     _XL_CLEAR_SCREEN(); \
@@ -1890,19 +1916,19 @@ do \
 } while(0)
 
 
-void handle_hyper(void)
-{
-    if(hyper_counter)
-    {   
-        --hyper_counter;
-        
-        if(hyper_counter==1)
-        {
-            bow_color = _XL_CYAN;
-            bow_reload_loops=GREEN_SPEED_VALUE;
-            display_top_border();
-        }
-    }
+#define handle_hyper() \
+{ \
+    if(hyper_counter) \
+    { \
+        --hyper_counter; \
+        \
+        if(hyper_counter==1) \
+        { \
+            bow_color = _XL_CYAN; \
+            bow_reload_loops=GREEN_SPEED_VALUE; \
+            display_top_border(); \
+        } \
+    } \
 }
 
 

@@ -70,7 +70,7 @@
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 50
 #define WALL_POINTS 80
-#define POWER_UP_BONUS 10
+#define POWER_UP_BONUS 25
 
 #define RED_FIRE_POWER_VALUE 2
 #define YELLOW_FIRE_POWER_VALUE 3
@@ -296,6 +296,12 @@ static const char item_name[5][9] =
 static Missile beamMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
 
+
+void sleep_and_wait_for_input(void)
+{
+    _XL_SLEEP(1);
+    _XL_WAIT_FOR_INPUT();
+}
 
 #if XSize>=22
     #define POWER_UP_X 10
@@ -1502,8 +1508,7 @@ do \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
     _XL_PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R); \
-    _XL_SLEEP(1); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
 
@@ -1598,8 +1603,6 @@ void zombie_initialization(void)
 
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_shape[zombie_x]=0;
-        zombie_level[zombie_x]=0;
         wall[zombie_x]=0;
         zombie_active[zombie_x]=0;
     }
@@ -1725,7 +1728,7 @@ do \
     _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E ); \
     \
     display_items(); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 }
 
@@ -1831,8 +1834,7 @@ do \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
-    _XL_SLEEP(1); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
 } while(0)
 
@@ -1862,6 +1864,7 @@ do \
 { \
     ++level; \
     display_cleared(); \
+    sleep_and_wait_for_input(); \
     if(powerUp) \
     { \
         do \
@@ -1874,8 +1877,7 @@ do \
         } while(powerUp); \
     } \
     \
-    _XL_SLEEP(1); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
     killed_bosses = 0; \
     killed_minions = 0; \
 } while(0)
@@ -1889,8 +1891,7 @@ do \
     display_bow(); \
     bow_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
-    _XL_SLEEP(1); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
 } while(0)
 
 
@@ -1916,8 +1917,7 @@ do \
         zombie_x = XSize-i; \
         zombie_animation(); \
     } \
-    _XL_SLEEP(1); \
-    _XL_WAIT_FOR_INPUT(); \
+    sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
 

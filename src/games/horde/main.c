@@ -55,7 +55,6 @@
 
 #define MAX_ARROWS_ON_SCREEN 12
 
-
 #define AUTO_RECHARGE_COOL_DOWN 45
 #define AUTO_ARROW_RECAHRGE 9
 
@@ -99,7 +98,7 @@
 
 #define FREEZE_COUNTER_MAX 180;
 
-#define LEVEL_2_ZOMBIE_THRESHOLD (MAX_OCCUPIED_COLUMNS)
+#define LEVEL_2_ZOMBIE_THRESHOLD (XSize)
 
 #if XSize<=40
     #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
@@ -624,12 +623,11 @@ void power_up_effect(void)
         
         case 7:
             fire_power = YELLOW_FIRE_POWER_VALUE;
-            powerUpItem._color = _XL_YELLOW;
         break;
         
         case 8:
             fire_power = GREEN_FIRE_POWER_VALUE;
-            powerUpItem._color = _XL_WHITE;
+            powerUpItem._color = _XL_YELLOW;
         break;
         #endif
         
@@ -1077,7 +1075,7 @@ void handle_item_drop(void)
                 drop_item(&freezeItem,45);
             }
         }
-        else if(!wall_appeared&&(powerUp>=8)) 
+        else if(!wall_appeared&&(powerUp>=9)) 
         {
             if(!wallItem._active)
             {
@@ -1210,7 +1208,7 @@ uint8_t zombie_hit(void)
     for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
     {
         if(active_arrow[i] && arrow_x[i]==zombie_x
-          && zombie_y[zombie_x]>=arrow_y[i] && zombie_y[zombie_x]<=arrow_y[i]+1)
+          && zombie_y[zombie_x]>=arrow_y[i]-1 && zombie_y[zombie_x]<=arrow_y[i]+1)
            {
                if(freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x])
                {

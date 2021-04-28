@@ -70,6 +70,7 @@
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 50
 #define WALL_POINTS 80
+#define POWER_UP_BONUS 10
 
 #define RED_FIRE_POWER_VALUE 2
 #define YELLOW_FIRE_POWER_VALUE 3
@@ -1849,13 +1850,30 @@ do \
         --freeze; \
     }
 
+void display_cleared(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D);
+}
+
 
 #define handle_next_level() \
 do \
 { \
     ++level; \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D); \
+    display_cleared(); \
+    if(powerUp) \
+    { \
+        do \
+        { \
+            --powerUp; \
+            increase_score(POWER_UP_BONUS); \
+            display_power_up_counter(); \
+            _XL_TICK_SOUND(); \
+            _XL_SLOW_DOWN(SLOW_DOWN*4); \
+        } while(powerUp); \
+    } \
+    \
     _XL_SLEEP(1); \
     _XL_WAIT_FOR_INPUT(); \
     killed_bosses = 0; \
@@ -1883,8 +1901,7 @@ void zombie_animation(void)
     display_zombie();
     _XL_SLOW_DOWN(SLOW_DOWN);
     zombie_die();
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
+    display_cleared();
 }
 
 

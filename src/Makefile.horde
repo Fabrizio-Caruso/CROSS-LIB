@@ -278,7 +278,7 @@ c16_included_gfx: $(ASSETS_PATH)/8x8_chars.h
 	-DFORCE_GHOSTS_NUMBER=8 -DINIT_SET_COLOR \
 	 \
 	-DREDEFINED_CHARS \
-	-DSLOW_DOWN=3200 \
+	-DSLOW_DOWN=800 \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
@@ -344,7 +344,7 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=800 \
+	-DSLOW_DOWN=720 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -915,7 +915,7 @@ ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__  -DSLOW_DOWN=1000 \
+	-D__ACE__  -DSLOW_DOWN=100 \
 	-DSOUNDS \
 	-DCONIO \
 	-clib=default \
@@ -956,13 +956,15 @@ aquarius_exp_16k:
 
 c128: c128_z80_40col
 
+c128_40col: c128_z80_40col
+
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk -clib=gencon \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DSOUNDS -DONLY_CAPITAL_LETTERS \
-	-DFORCE_BIT_BANG -DSLOW_DOWN=2 -DZ88DK_JOYSTICK \
+	-DFORCE_BIT_BANG -DSLOW_DOWN=0 -DZ88DK_JOYSTICK \
 	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -976,11 +978,14 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm A40
 	rm a40.bin
 
+
+c128_80col: c128_z80_80col
+
 c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -O3 -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) -DNO_DISPLAY_LEVEL_ANIMATION \
 	-lndos -subtype=disk -DNO_TRANSPARENCY \
-	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=10 \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=0 \
 	-DBULLETS_NUMBER=3 -DFORCE_BIT_BANG \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
 	-DEND_SCREEN \
@@ -1009,7 +1014,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1500 \
+	-DSLOW_DOWN=600 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -1149,7 +1154,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1200 \
+	-lndos -DSLOW_DOWN=650 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -1171,7 +1176,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1000 \
+	-lndos -DSLOW_DOWN=550 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
@@ -1192,7 +1197,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=24 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
-	 -DLESS_TEXT -DSLOW_DOWN=300 \
+	 -DLESS_TEXT -DSLOW_DOWN=240 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -1213,7 +1218,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=700 \
+	-DSLOW_DOWN=300 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-D__MC1000__ -DSOUNDS  \
@@ -1246,7 +1251,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=200 \
+	-DSLOW_DOWN=160 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1285,6 +1290,7 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oMTX.bin -vn \
 	-DSOUNDS \
 	-DCONIO \
+	-DSLOW_DOWN=400 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -1303,6 +1309,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oMTX500.bin -vn \
 	-DSOUNDS  \
 	-DCONIO \
+	-DSLOW_DOWN=400 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -1341,7 +1348,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	 \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1200 \
+	-lndos -DSLOW_DOWN=400 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -1364,8 +1371,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=500 \
-	 \
+	-DSLOW_DOWN=400 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1411,7 +1417,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DSOUNDS -vn  -D__VG5K__  -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
-	-DSLOW_DOWN=1200 \
+	-DSLOW_DOWN=300 \
 	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
 	-DUDG_GRAPHICS \

@@ -1358,13 +1358,7 @@ void move_zombies(void)
         zombie_x=find_zombie(1);
     }
 
-    if((zombie_shape[zombie_x]==3)||
-        (
-            ((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1))
-            &&
-            (zombie_y[zombie_x]!=BOW_Y-1)
-        )
-    )
+    if((zombie_shape[zombie_x]==3)||(((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1))&&(zombie_y[zombie_x]!=BOW_Y-1)))
     {
         forced_zombie = 0;
     }

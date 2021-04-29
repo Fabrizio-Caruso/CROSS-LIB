@@ -1527,7 +1527,7 @@ do \
     #define level_initialization() \
         do \
         {   \
-            fire_power = 2; \
+            fire_power = GREEN_FIRE_POWER_VALUE; \
             freeze = 0; \
             powerUp = 8; \
             next_arrow = 0; \
@@ -1804,7 +1804,7 @@ do \
             ++next_extra_life_counter; \
             _XL_PING_SOUND(); \
             \
-            for(i=0;i<5;++i) \
+            for(i=0;i<10;++i) \
             { \
                 _extra_life_color_effect(_XL_RED); \
                 _XL_SLOW_DOWN(SLOW_DOWN); \
@@ -1823,10 +1823,11 @@ do \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     if(level==LAST_LEVEL) \
     { \
-        _XL_PRINT(XSize/2-4, YSize/2-2,_XL_F _XL_I _XL_N _XL_A _XL_L); \
+        _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_F _XL_I _XL_N _XL_A _XL_L); \
     } \
+    _XL_SLEEP(1); \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L); \
+    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE ); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     sleep_and_wait_for_input(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \

@@ -188,6 +188,7 @@ static uint8_t fire_power;
 
 static uint8_t wall_appeared;
 static uint8_t freeze_locked;
+static uint8_t zombie_locked;
 
 static const uint8_t zombie_tile[7+1] = 
 {
@@ -274,6 +275,7 @@ static Item rechargeItem;
 static Item freezeItem;
 static Item powerUpItem;
 static Item wallItem;
+static Item zombieItem;
 
 static const uint8_t item_tile[5][2] = 
 {
@@ -636,7 +638,17 @@ void power_up_effect(void)
             fire_power = GREEN_FIRE_POWER_VALUE;
             powerUpItem._color = _XL_YELLOW;
         break;
+        
+
         #endif
+        
+        case 19:
+            powerUpItem._color = _XL_GREEN;
+        break;
+        
+        case 20:
+            zombie_locked = 0;
+        break;
         
         default:
         break;
@@ -671,6 +683,7 @@ void wall_effect(void)
     }
     ++wall_appeared;
 }
+
 
 
 void delete_above_zombie(void)
@@ -739,9 +752,8 @@ void display_zombie(void)
 }
 
 
-void freeze_effect(void)
+void display_zombies(void)
 {
-    freeze=FREEZE_COUNTER_MAX;
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
         if(zombie_active[zombie_x])
@@ -749,10 +761,29 @@ void freeze_effect(void)
             display_zombie();
         }
     }
+}
+
+
+void freeze_effect(void)
+{
+    freeze=FREEZE_COUNTER_MAX;
+
+    display_zombies();
     increase_score(FREEZE_POINTS);
     ++freeze_locked;
 }
 
+
+void zombie_effect(void)
+{
+    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    {
+        zombie_level[zombie_x]=1;
+    }
+    display_zombies();
+
+    zombie_locked = 1;
+}
 
 void beam_effect(void)
 {
@@ -783,6 +814,11 @@ void initialize_items(void)
     wallItem._tile = WALL_TILE;
     wallItem._color = _XL_YELLOW;
     wallItem._effect = wall_effect; 
+   
+    zombieItem._active = 0;
+    zombieItem._tile = BOSS_TILE_0;
+    zombieItem._color = _XL_GREEN;
+    zombieItem._effect = zombie_effect; 
     
     for(i=0;i<NUMBER_OF_MISSILES;++i)
     {
@@ -912,6 +948,7 @@ void handle_items(void)
     handle_item(&freezeItem);
     handle_item(&powerUpItem);
     handle_item(&wallItem);
+    handle_item(&zombieItem);
     
     for(i=0;i<NUMBER_OF_MISSILES;++i)
     {
@@ -1095,6 +1132,10 @@ void handle_item_drop(void)
                 drop_item(&wallItem,35);
             }
         }
+        else if(!zombie_locked && !minions_to_kill && !zombieItem._active)
+            {
+                drop_item(&zombieItem,50);
+            }
         else
         {
             uint8_t index; 
@@ -1535,6 +1576,7 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             freeze_locked = 1; \
+            zombie_locked = 1; \
             forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
@@ -1565,6 +1607,7 @@ do \
             hyper_counter = 0; \
             forced_zombie = 0; \
             freeze_locked = 1; \
+            zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
             bow_reload_loops = RED_SPEED_VALUE; \
@@ -1673,9 +1716,9 @@ do \
     \
     for(i=0;i<5;++i) \
     { \
-        _XL_DRAW(XSize/2-5,YSize/3+5+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+        _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
         _XL_SET_TEXT_COLOR(_XL_GREEN); \
-        _XL_PRINT(XSize/2-5+3,YSize/3+5+_NEXT_ROW, (char *)item_name[i]); \
+        _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
     } \
 } while(0)
 
@@ -1717,9 +1760,6 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT_CENTERED_ON_ROW(YSize/3-1, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E ); \
     \
     display_items(); \
     sleep_and_wait_for_input(); \

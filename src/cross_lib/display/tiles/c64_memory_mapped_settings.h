@@ -34,12 +34,10 @@
 #include "display_macros.h"
 
 #define _TILE_4 (0x76-0x20-13-7)
-#define _TILE_5 (0x78-0x20-13-7)
 
-// #define _TILE_8 (0x7A-0x20-13-7)
-// #define _TILE_9 (0x7B-0x20-13-7)
-// #define _TILE_11 (0x7C-0x20-13-7)
-// #define _TILE_12 ('|'-128-13-7)
+#define _TILE_7 33
+#define _TILE_5 34
+#define _TILE_17 35
 
 #define _TILE_8 44
 #define _TILE_9 45
@@ -58,14 +56,10 @@
 #define _TILE_15 ('<'-2)
 #define _TILE_10 (0x73 - 0x20-13-7)
 
-#define _TILE_7 (0x77 - 0x20-13-7)
-
 #define _TILE_6 (('^'-0x40)+1)
 
 #define _TILE_13 (0xC3-128-7)
 
-
-#define _TILE_17 ((0x78-0x20-13)+1-7)
 #define _TILE_18 (0x75-0x20-13-7)
 
 #define _TILE_19 42

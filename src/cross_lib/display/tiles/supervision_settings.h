@@ -1,13 +1,12 @@
 
 
 
-#define _TILE_4 (char) (0x76-0x20-13-7)
-#define _TILE_5 (char) (0x78-0x20-13-7)
+#define _TILE_4 (0x76-0x20-13-7)
 
 #define _TILE_0 '\''
-#define _TILE_1 ((char) 0x76 - 6 - 0x20-12-7)
-#define _TILE_2 ((char) 0x76 - 2 - 0x20-13-7)
-#define _TILE_3 ((char) 0x76 - 4 -0x20-13-7)
+#define _TILE_1 (0x76 - 6 - 0x20-12-7)
+#define _TILE_2 (0x76 - 2 - 0x20-13-7)
+#define _TILE_3 (0x76 - 4 -0x20-13-7)
 
 #define _TILE_8 44
 #define _TILE_9 45
@@ -20,13 +19,13 @@
 #define _TILE_15 ('<'-2)
 #define _TILE_10 (0x73 - 0x20-13-7)
 
-#define _TILE_7 (char) (0x77 - 0x20-13-7)
+#define _TILE_7 33
+#define _TILE_5 34
+#define _TILE_17 35
 
 #define _TILE_6 (_TILE_16+1)
 
 #define _TILE_13 (0xC3-128-7)
-
-#define _TILE_17 (0x7A-0x20-13-7-1)
 
 #define _TILE_18 (0x7A-0x20-13-7-5)
 

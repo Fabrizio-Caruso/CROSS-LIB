@@ -22,8 +22,9 @@ _udgs:
 .byte <tile_6>; 31
 .byte $00,$00,$00,$00,$00,$00,$00,$00 ; 32
 
-.byte $18,$18,$18,$18,$00,$00,$18,$00 ; 33 
-.byte $66,$66,$66,$00,$00,$00,$00,$00, $66,$66,$ff,$66,$ff,$66,$66,$00; 34 35
+.byte <tile_7>
+.byte <tile_5>
+.byte <tile_17>
 
 .byte $18,$3e,$60,$3c,$06,$7c,$18,$00 ; 36
 .byte <tile_21> ; 
@@ -46,8 +47,6 @@ _udgs:
 
 .byte <tile_15>
 
-;.byte $00,$00,$7e,$00,$7e,$00,$00,$00
-
 .byte <tile_14>
 
 .byte <tile_13>
@@ -62,11 +61,6 @@ _udgs:
 .byte <tile_18>
 
 .byte <tile_4>
-.byte <tile_7>
-
-.byte <tile_5>
-
-.byte <tile_17>
 
 
 

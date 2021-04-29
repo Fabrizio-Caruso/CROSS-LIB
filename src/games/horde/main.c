@@ -70,7 +70,9 @@
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 50
 #define WALL_POINTS 80
+#define ZOMBIE_ITEM_POINTS 100 
 #define POWER_UP_BONUS 25
+
 
 #define RED_FIRE_POWER_VALUE 2
 #define YELLOW_FIRE_POWER_VALUE 3
@@ -783,6 +785,7 @@ void zombie_effect(void)
     display_zombies();
 
     zombie_locked = 1;
+    increase_score(ZOMBIE_ITEM_POINTS);
 }
 
 void beam_effect(void)

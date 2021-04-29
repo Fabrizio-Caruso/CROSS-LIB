@@ -28,8 +28,6 @@ _udgs:
 .byte <tile_0>
 .byte <tile_23>
 .byte <tile_24>
-;.byte $0c,$18,$30,$30,$30,$18,$0c,$00, $30,$18,$0c,$0c,$0c,$18,$30,$00 // TO CHECK
-;.byte $18,$3e,$60,$3c,$06,$7c,$18,$00, $00,$18,$18,$7e,$18,$18,$00,$00
 .byte <tile_19>
 .byte <tile_20>
 .byte $00,$00,$00,$00,$00,$18,$18,$30, $00,$00,$00,$7e,$00,$00,$00,$00
@@ -40,43 +38,41 @@ _udgs:
 .byte $3c,$66,$60,$7c,$66,$66,$3c,$00, $7e,$66,$0c,$18,$18,$18,$18,$00
 .byte $3c,$66,$66,$3c,$66,$66,$3c,$00, $3c,$66,$66,$3e,$06,$66,$3c,$00
 .byte $00,$00,$18,$00,$00,$18,$00,$00, $00,$00,$18,$00,$00,$18,$18,$30
-;.byte $00,$00,$0f,$fe,$fe,$0f,$00,$00
+
 .byte <tile_15>
 .byte $00,$00,$7e,$00,$7e,$00,$00,$00
-;.byte $00,$00,$f0,$7f,$7f,$f0,$00,$00, 
+
 .byte <tile_14>
 .byte $3c,$66,$06,$0c,$18,$00,$18,$00
 .byte $00,$00,$00,$ff,$ff,$00,$00,$00, $08,$1c,$3e,$7f,$7f,$1c,$3e,$00
-; vertical brick
+
 .byte <tile_12>
-; horizontal brick
+
 .byte <tile_13>
 
 .byte <tile_1>
-.byte $00,$3c,$7e,$7e,$7e,$7e,$3c,$00
+;
 .byte <tile_3>
 .byte <tile_10>
 
 .byte <tile_2>
 
-; power-up H
 .byte <tile_18>
 
 .byte <tile_4>
 .byte <tile_7>
 
-; 
+
 .byte <tile_5>
 
-; power-up F
+
 .byte <tile_17>
 
-; power-up S
+
 .byte <tile_8>
 
-;.byte $00,$80,$7e,$c8,$f8,$c0,$80,$00
 .byte <tile_9>
-;.byte $00,$00,$08,$38,$1c,$10,$00,$00
+
 .byte <tile_11>
 .byte <tile_12>
 

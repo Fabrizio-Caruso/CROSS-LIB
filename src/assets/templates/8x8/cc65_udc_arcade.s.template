@@ -53,7 +53,7 @@ _udgs:
 .byte <tile_13>
 
 .byte <tile_1>
-.byte $00,$3c,$7e,$7e,$7e,$7e,$3c,$00
+;
 .byte <tile_3>
 .byte <tile_10>
 

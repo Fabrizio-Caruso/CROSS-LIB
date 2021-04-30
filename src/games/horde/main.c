@@ -166,9 +166,9 @@ static uint8_t minions_to_spawn;
 
 static uint8_t auto_recharge_counter;
 
-#if defined(COLOR)
 static uint8_t arrow_display_color;
 
+#if defined(COLOR) && !defined(NO_TEXT_COLOR)
 static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
@@ -434,7 +434,7 @@ uint8_t find_inactive(Item* itemArray)
 }
 
 
-#if defined(COLOR)
+#if defined(COLOR) && !defined(NO_TEXT_COLOR)
 void display_power_ups(void)
 {
     uint8_t range_color;

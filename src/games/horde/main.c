@@ -321,6 +321,18 @@ void display_power_up_counter(void)
     _XL_PRINTD(POWER_UP_X+1,0,2,powerUp);
 }
 
+#if XSize>=32
+    #define ZOMBIE_COUNTER_X (POWER_UP_X+4)
+    
+    void display_zombie_counter(void)
+    {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(ZOMBIE_COUNTER_X+1,0,3,minions_to_kill+bosses_to_kill);
+    }
+#else
+    #define display_zombie_counter()
+#endif
+
 
 void display_remaining_arrows(void)
 {
@@ -1209,6 +1221,8 @@ void zombie_die(void)
     handle_item_drop();
     
     zombie_active[zombie_x]=0;
+    
+    display_zombie_counter();
 }
 
 
@@ -1776,6 +1790,12 @@ do \
 #endif
 
 
+#if XSize>=32
+    #define draw_zombie_counter_tile() _XL_DRAW(ZOMBIE_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
+#else
+    #define draw_zombie_counter_tile()
+#endif
+
 #define display_stats() \
 do \
 { \
@@ -1787,11 +1807,13 @@ do \
     _XL_PRINTD(XSize-7,0,5, hiscore); \
     _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
     _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
+    draw_zombie_counter_tile(); \
     display_remaining_arrows(); \
     display_power_up_counter(); \
     display_level(); \
     display_lives(_XL_WHITE); \
     display_power_ups(); \
+    display_zombie_counter(); \
 } while(0)
 
 

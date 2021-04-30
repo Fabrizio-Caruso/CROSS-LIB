@@ -1103,7 +1103,7 @@ void display_red_zombie(void)
 
 void handle_item_drop(void)
 {
-    if(zombie_level[zombie_x] || ((uint8_t) (_XL_RAND()) <64))
+    if(zombie_level[zombie_x] || ((uint8_t) (_XL_RAND()) <75))
     {        
         ++item_counter;
         item_counter&=3;

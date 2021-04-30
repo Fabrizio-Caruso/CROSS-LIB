@@ -29,15 +29,11 @@
 #endif
 
 
-#if !defined(__ATMOS__)
-	#if (defined(ALT_PRINT) && !defined(__NCURSES__) \
-            && !defined(__LYNX__) && !defined(__C64__) && !defined(C16_UNEXPANDED) && !defined(__ATARI__) && !defined(__MSX__) \
-            && !defined(VIC20_EXP_8K) && !defined(__TMC600__)) \
-		|| defined(NO_COLOR)
-		#define NO_TEXT_COLOR
-    #else
-        //
-	#endif
+#if defined(NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) \
+    || defined(__CIDELSA__) || defined(__MICRO__) \
+    || defined(__CREATIVISION__)
+    #define NO_TEXT_COLOR
+#else
 #endif
 
 #define BACKGROUND_COLOR _XL_BLACK

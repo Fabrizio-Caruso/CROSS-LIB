@@ -562,15 +562,15 @@ void display_power_ups(void)
 #endif
 
 
-void activate_hyper(void)
-{
-    _XL_ZAP_SOUND();
-    bow_reload_loops=HYPER_SPEED_VALUE;
-    recharge_arrows(HYPER_RECHARGE);
-    hyper_counter = MAX_HYPER_COUNTER;
-    bow_color = _XL_RED;
-    _XL_SET_TEXT_COLOR(_XL_RED);
-    _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE );
+#define activate_hyper() \
+{ \
+    _XL_ZAP_SOUND(); \
+    bow_reload_loops=HYPER_SPEED_VALUE; \
+    recharge_arrows(HYPER_RECHARGE); \
+    hyper_counter = MAX_HYPER_COUNTER; \
+    bow_color = _XL_RED; \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE ); \
 }
 
 
@@ -688,13 +688,6 @@ void wall_effect(void)
 }
 
 
-
-void delete_above_zombie(void)
-{
-    _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
-}
-
-
 void display_zombie(void)
 {
     uint8_t status = zombie_shape[zombie_x];
@@ -732,7 +725,7 @@ void display_zombie(void)
 
     if(!status)
     {
-        delete_above_zombie();
+        _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
         _XL_DRAW(zombie_x, pos, tile0, color);
     }
     else
@@ -795,47 +788,47 @@ void beam_effect(void)
 }
 
 
-void initialize_items(void)
-{
-    uint8_t i;
-    
-    rechargeItem._active = 0;
-    rechargeItem._tile = ARROW_TILE_0;
-    rechargeItem._color = _XL_YELLOW;
-    rechargeItem._effect = recharge_effect;
-    
-    freezeItem._active = 0;
-    freezeItem._tile = FREEZE_TILE;
-    freezeItem._color = _XL_CYAN;
-    freezeItem._effect = freeze_effect;
-
-    powerUpItem._active = 0;
-    powerUpItem._tile = POWER_UP_TILE;
-    powerUpItem._color = _XL_WHITE;
-    powerUpItem._effect = power_up_effect;    
-
-    wallItem._active = 0;
-    wallItem._tile = WALL_TILE;
-    wallItem._color = _XL_YELLOW;
-    wallItem._effect = wall_effect; 
-   
-    zombieItem._active = 0;
-    zombieItem._tile = BOSS_TILE_0;
-    zombieItem._color = _XL_GREEN;
-    zombieItem._effect = zombie_effect; 
-    
-    for(i=0;i<NUMBER_OF_MISSILES;++i)
-    {
-        beamMissile[i]._active = 0;
-        beamMissile[i]._tile = BEAM_TILE;
-        beamMissile[i]._color = _XL_CYAN;
-        beamMissile[i]._effect = beam_effect;
-        
-        extraPointsItem[i]._active = 0;
-        extraPointsItem[i]._tile = EXTRA_POINTS_TILE;
-        extraPointsItem[i]._color = _XL_YELLOW;
-        extraPointsItem[i]._effect = extra_points_effect;
-    }
+#define initialize_items() \
+{ \
+    uint8_t i; \
+    \
+    rechargeItem._active = 0; \
+    rechargeItem._tile = ARROW_TILE_0; \
+    rechargeItem._color = _XL_YELLOW; \
+    rechargeItem._effect = recharge_effect; \
+    \
+    freezeItem._active = 0; \
+    freezeItem._tile = FREEZE_TILE; \
+    freezeItem._color = _XL_CYAN; \
+    freezeItem._effect = freeze_effect; \
+    \
+    powerUpItem._active = 0; \
+    powerUpItem._tile = POWER_UP_TILE; \
+    powerUpItem._color = _XL_WHITE; \
+    powerUpItem._effect = power_up_effect; \
+    \
+    wallItem._active = 0; \
+    wallItem._tile = WALL_TILE; \
+    wallItem._color = _XL_YELLOW; \
+    wallItem._effect = wall_effect; \
+    \
+    zombieItem._active = 0; \
+    zombieItem._tile = BOSS_TILE_0; \
+    zombieItem._color = _XL_GREEN; \
+    zombieItem._effect = zombie_effect; \
+    \
+    for(i=0;i<NUMBER_OF_MISSILES;++i) \
+    { \
+        beamMissile[i]._active = 0; \
+        beamMissile[i]._tile = BEAM_TILE; \
+        beamMissile[i]._color = _XL_CYAN; \
+        beamMissile[i]._effect = beam_effect; \
+        \
+        extraPointsItem[i]._active = 0; \
+        extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
+        extraPointsItem[i]._color = _XL_YELLOW; \
+        extraPointsItem[i]._effect = extra_points_effect; \
+    } \
 }
 
 
@@ -944,21 +937,21 @@ void handle_item(register Item* item)
 }
 
 
-void handle_items(void)
-{
-    uint8_t i;
-    
-    handle_item(&rechargeItem);
-    handle_item(&freezeItem);
-    handle_item(&powerUpItem);
-    handle_item(&wallItem);
-    handle_item(&zombieItem);
-    
-    for(i=0;i<NUMBER_OF_MISSILES;++i)
-    {
-        handle_item(&extraPointsItem[i]);
-        handle_item(&beamMissile[i]);
-    }
+#define handle_items() \
+{ \
+    uint8_t i; \
+    \
+    handle_item(&rechargeItem); \
+    handle_item(&freezeItem); \
+    handle_item(&powerUpItem); \
+    handle_item(&wallItem); \
+    handle_item(&zombieItem); \
+    \
+    for(i=0;i<NUMBER_OF_MISSILES;++i) \
+    { \
+        handle_item(&extraPointsItem[i]); \
+        handle_item(&beamMissile[i]); \
+    } \
 }
 
 
@@ -968,7 +961,6 @@ void handle_items(void)
     #define STEP 17
 #endif 
 
-// #define STEP 1
 
 uint8_t find_zombie(uint8_t value)
 {
@@ -1765,10 +1757,10 @@ do \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3-3,_CROSS_HORDE_STRING); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3-1, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O); \
     \
     display_items(); \
     sleep_and_wait_for_input(); \

@@ -93,7 +93,7 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 6
-#define BOSS_BASE_ENERGY 14
+#define BOSS_ENERGY 14
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
@@ -101,8 +101,6 @@
 #define ARROW_RECHARGE 30
 
 #define FREEZE_COUNTER_MAX 200;
-
-#define LEVEL_2_ZOMBIE_THRESHOLD (XSize)
 
 #if XSize<=40
     #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
@@ -125,7 +123,9 @@
     #define BOSSES_ON_FIRST_LEVEL 40
 #endif
 
-#define MAX_HYPER_COUNTER 160
+#define LEVEL_2_ZOMBIE_THRESHOLD MAX_OCCUPIED_COLUMNS
+
+#define MAX_HYPER_COUNTER 180
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -1032,7 +1032,7 @@ void spawn_boss(void)
 
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_BASE_ENERGY;
+    energy[zombie_x]=BOSS_ENERGY;
     --bosses_to_spawn;
 }
 

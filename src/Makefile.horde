@@ -413,7 +413,7 @@ pce: pce_32k
 
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pce \
-	 -DSLOW_DOWN=6000 \
+	 -DSLOW_DOWN=4000 \
 	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
@@ -431,7 +431,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pce \
 	 \
-	-DSLOW_DOWN=6000 \
+	-DSLOW_DOWN=4000 \
 	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER  \

@@ -908,8 +908,7 @@ void handle_item(register Item* item)
             }
             _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
         }
-        
-        if((item->_y==BOW_Y) && (item->_counter))
+        else //((item->_y==BOW_Y)) //  && (item->_counter)
         {
             if(item->_counter&1)
             {
@@ -927,7 +926,7 @@ void handle_item(register Item* item)
                 item->_active=0;
             }
             display_bow();
-            --item->_counter;
+            --(item->_counter);
             if(!(item->_counter))
             {
                 item->_active=0;

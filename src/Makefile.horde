@@ -412,7 +412,7 @@ pet_16k:
 pce: pce_32k
 
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t pce \
 	 -DSLOW_DOWN=4000 \
 	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -915,7 +915,7 @@ ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__  -DSLOW_DOWN=100 \
+	-D__ACE__  -DSLOW_DOWN=150 \
 	-DSOUNDS \
 	-DCONIO \
 	-clib=default \

@@ -70,8 +70,9 @@
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 50
 #define WALL_POINTS 80
-#define ZOMBIE_ITEM_POINTS 100 
+#define ZOMBIE_ITEM_POINTS 150 
 #define POWER_UP_BONUS 25
+#define LEVEL_BONUS 200
 
 
 #define RED_FIRE_POWER_VALUE 2
@@ -99,7 +100,7 @@
 #define HYPER_RECHARGE 50
 #define ARROW_RECHARGE 30
 
-#define FREEZE_COUNTER_MAX 180;
+#define FREEZE_COUNTER_MAX 200;
 
 #define LEVEL_2_ZOMBIE_THRESHOLD (XSize)
 
@@ -124,7 +125,7 @@
     #define BOSSES_ON_FIRST_LEVEL 40
 #endif
 
-#define MAX_HYPER_COUNTER 100
+#define MAX_HYPER_COUNTER 140
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -1903,6 +1904,8 @@ do \
     ++level; \
     display_cleared(); \
     sleep_and_wait_for_input(); \
+    _XL_TOCK_SOUND(); \
+    increase_score(LEVEL_BONUS); \
     if(powerUp) \
     { \
         do \

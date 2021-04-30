@@ -1108,7 +1108,12 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if(!item_counter) 
+        if((level>=4)&&(powerUp<=3))
+        {
+            item_counter&=1;
+        }
+        
+        if(!item_counter)
         {
             if(!rechargeItem._active)
             {

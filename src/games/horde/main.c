@@ -115,7 +115,11 @@
 #define NUMBER_OF_MISSILES 5
 #define NUMBER_OF_EXTRA_POINTS NUMBER_OF_MISSILES
 
-#define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
+#if XSize<=80
+    #define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
+#else
+    #define MINIONS_ON_FIRST_LEVEL 81
+#endif
 
 #if XSize<=80
     #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
@@ -1659,7 +1663,7 @@ void zombie_initialization(void)
     }
     
     #if !defined(DEBUG)
-        minions_to_kill = MINIONS_ON_FIRST_LEVEL+level-killed_minions; 
+        minions_to_kill = MINIONS_ON_FIRST_LEVEL-killed_minions; 
     #else
         minions_to_kill = 2;
     #endif

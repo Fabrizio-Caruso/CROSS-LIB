@@ -1040,7 +1040,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS   \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=300 \
+	-DSLOW_DOWN=280 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -1071,7 +1071,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=300 \
+	-DSLOW_DOWN=200 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1197,7 +1197,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=24 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
-	 -DLESS_TEXT -DSLOW_DOWN=240 \
+	 -DLESS_TEXT -DSLOW_DOWN=160 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -1218,7 +1218,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=300 \
+	-DSLOW_DOWN=250 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-D__MC1000__ -DSOUNDS  \
@@ -1251,7 +1251,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=160 \
+	-DSLOW_DOWN=200 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1271,7 +1271,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO  -DFORCE_NARROW -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
 	-DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=400 \
+	-DSLOW_DOWN=200 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1290,7 +1290,7 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oMTX.bin -vn \
 	-DSOUNDS \
 	-DCONIO \
-	-DSLOW_DOWN=400 \
+	-DSLOW_DOWN=300 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -1309,7 +1309,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oMTX500.bin -vn \
 	-DSOUNDS  \
 	-DCONIO \
-	-DSLOW_DOWN=400 \
+	-DSLOW_DOWN=300 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \

@@ -125,7 +125,7 @@
     #define BOSSES_ON_FIRST_LEVEL 40
 #endif
 
-#define MAX_HYPER_COUNTER 140
+#define MAX_HYPER_COUNTER 160
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10

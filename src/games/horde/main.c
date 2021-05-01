@@ -1115,7 +1115,7 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if((level>=4)&&(powerUp<=1))
+        if((level>=4)&&(powerUp<=2))
         {
             item_counter&=1;
         }

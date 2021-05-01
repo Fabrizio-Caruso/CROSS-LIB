@@ -29,7 +29,7 @@
 #endif
 
 
-#if defined(NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) \
+#if defined(NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) || defined(__MO5__) || defined(__TO7__) \
     || defined(__CIDELSA__) || defined(__MICRO__) \
     || defined(__CREATIVISION__)
     #define NO_TEXT_COLOR

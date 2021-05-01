@@ -170,10 +170,17 @@ static uint8_t minions_to_spawn;
 
 static uint8_t auto_recharge_counter;
 
-static uint8_t arrow_display_color;
+#if defined(COLOR)
+    static uint8_t arrow_display_color;
+#else
+    #define arrow_display_color _DUMMY_
+#endif
 
 #if defined(COLOR) && !defined(NO_TEXT_COLOR)
 static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
+#endif
+
+#if defined(COLOR)
 static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
 
@@ -519,7 +526,75 @@ void display_power_ups(void)
         _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
     }
 }
-#else
+#elif defined(COLOR) // COLOR but NO TEXT COLOR
+void display_power_ups(void)
+{
+    uint8_t range_value;
+    uint8_t speed_value;
+    uint8_t power_value;
+    uint8_t color;
+    
+    uint8_t i;
+    
+    arrow_display_color = _XL_CYAN;    
+    speed_value = 1;
+    power_value = 1;
+    
+    if(powerUp<3) // range
+    {
+        range_value = powerUp+1;
+    }
+    else
+    {
+        range_value = 3;
+
+        if(powerUp<5) // speed
+        {
+            speed_value = powerUp+1-2;
+        }
+        else
+        {
+            speed_value = 3;
+    
+            if(powerUp>6)
+            {
+                if(powerUp<9)
+                {
+                    power_value = powerUp+1-6;
+                    arrow_display_color = arrow_color[powerUp-6];
+                }
+                else
+                {
+                    power_value = 3;
+                    arrow_display_color = _XL_WHITE;
+                }
+            }
+        }
+    }
+
+    _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
+    _XL_PRINTD(RANGE_X+STR_LEN,POWER_UPS_Y,1,range_value);
+    
+    _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
+    _XL_PRINTD(SPEED_X+STR_LEN,POWER_UPS_Y,1,speed_value);
+    
+    _XL_PRINT(POWER_X,POWER_UPS_Y,POWER_STRING);
+    _XL_PRINTD(POWER_X+STR_LEN,POWER_UPS_Y,1,power_value);
+
+    for(i=0;i<3;++i)
+    {
+        if(i<=number_of_arrows_per_shot-1)
+        {
+           color = arrow_display_color;
+        }
+        else
+        {
+           color = _XL_RED;
+        }
+        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
+    }
+}
+#else // NO COLOR and NO TEXT COLOR
 void display_power_ups(void)
 {
     uint8_t range_value;
@@ -572,7 +647,7 @@ void display_power_ups(void)
 
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
-        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,1);
+        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,_XL_CYAN);
     }
 }
 #endif
@@ -854,20 +929,27 @@ void beam_effect(void)
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
 
+// Required ugly workaround for targets with CR at PRINT
+#if !defined(AVOID_PRINT_AT_BOTTOM_RIGHT_CORNER)
+    #define LIVES_X (XSize-3)
+#else
+    #define LIVES_X (XSize-4)
+#endif
+
 #if defined(COLOR)
     void display_lives(uint8_t color)
     {
-        _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
-        _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
         _XL_SET_TEXT_COLOR(color);
-        _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives);
+        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives);
     }
 #else
     #define display_lives(color) \
     { \
-        _XL_DRAW(XSize-3,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
-        _XL_DRAW(XSize-2,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
-        _XL_PRINTD(XSize-1,POWER_UPS_Y,1,lives); \
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
+        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives); \
     } 
 #endif
 
@@ -1727,18 +1809,23 @@ void zombie_initialization(void)
     #define _NEXT_ROW ((i)<<1)
 #endif
 
-#define display_items() \
-do \
-{ \
-    uint8_t i; \
-    \
-    for(i=0;i<5;++i) \
+#if !defined(NO_EXTRA_TITLE)
+    #define display_items() \
+    do \
     { \
-        _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
-        _XL_SET_TEXT_COLOR(_XL_GREEN); \
-        _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
-    } \
-} while(0)
+        uint8_t i; \
+        \
+        for(i=0;i<5;++i) \
+        { \
+            _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+            _XL_SET_TEXT_COLOR(_XL_GREEN); \
+            _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
+        } \
+    } while(0)
+#else
+    #define display_items()
+#endif
+
 
 #if YSize<=22
     #define _HISCORE_Y 1

@@ -12,23 +12,28 @@
 
 extern uint8_t udgs[];
 
+#if defined(__MO5__) || defined(__TO7__) 
+    #define _BITMAP_XSize 40
+#else
+    #define _BITMAP_XSize (XSize)
+#endif
 
 #define BIT_MAP_DRAW() \
     for(__i=0;__i<7;++__i) \
     { \
         SV_VIDEO[__base+__delta]  = udgs[__offset+__i]; \
-        __delta+=XSize; \
+        __delta+=_BITMAP_XSize; \
     } \
-    SV_VIDEO[__base+(XSize)*7] = udgs[__offset+7]; \
+    SV_VIDEO[__base+(_BITMAP_XSize)*7] = udgs[__offset+7]; \
 
 
 #define BIT_MAP_DELETE() \
     for(__i=0;__i<7;++__i) \
     { \
         SV_VIDEO[(uint16_t) __base+__delta] = 0; \
-        __delta+=XSize; \
+        __delta+=_BITMAP_XSize; \
     } \
-    SV_VIDEO[__base+(XSize)*(uint16_t)7] = 0; \
+    SV_VIDEO[__base+(_BITMAP_XSize)*(uint16_t)7] = 0; \
 
 #if defined(__MO5__) || defined(__TO7__) 
 	#include "conio_patch.h"
@@ -36,7 +41,7 @@ extern uint8_t udgs[];
 	#define _XL_DRAW(x,y,tile,color) \
 	{ \
 		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint16_t __base = (x)+(_BITMAP_XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		uint8_t __offset = (8U*(uint8_t)(tile)) ; \
 		\
@@ -48,15 +53,15 @@ extern uint8_t udgs[];
 		for(__i=0;__i<7;++__i) \
 		{ \
 			SV_VIDEO[__base+__delta]  = (color); \
-			__delta+=XSize; \
+			__delta+=_BITMAP_XSize; \
 		} \
-		SV_VIDEO[__base+(XSize)*(uint16_t)7] = (color); \
+		SV_VIDEO[__base+(_BITMAP_XSize)*(uint16_t)7] = (color); \
 		SWITCH_COLOR_BANK_OFF(); \
 	}
 	#define _XL_DELETE(x,y) \
 	{ \
 		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint16_t __base = (x)+(_BITMAP_XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
@@ -68,7 +73,7 @@ extern uint8_t udgs[];
 	#define _XL_DRAW(x,y,tile,color) \
 	{ \
 		uint16_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint16_t __base = (x)+(_BITMAP_XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		uint16_t __offset = (8U*((uint16_t) tile)) ; \
 		\
@@ -80,7 +85,7 @@ extern uint8_t udgs[];
 	#define _XL_DELETE(x,y) \
 	{ \
 		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint16_t __base = (x)+(_BITMAP_XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		\
 		BIT_MAP_DELETE(); \

@@ -80,13 +80,20 @@
 #define _TILE_4_B _TILE_4
 
 // 0x50 -> 0
-#if defined(__MO5__)||defined(__TO7__)||defined(__COCO__)||defined(__DRAGON__)
+#if defined(__MO5__)||defined(__TO7__)
     #define _TILE_19 49
     #define _TILE_20 50
     #define _TILE_21 51
     #define _TILE_22 52
     #define _TILE_23 53
     #define _TILE_24 54
+#elif defined(__COCO__)||defined(__DRAGON__)
+    #define _TILE_19 (_TILE_16+2)
+    #define _TILE_20 (_TILE_16+3)
+    #define _TILE_21 (_TILE_16+4)
+    #define _TILE_22 (_TILE_16+5)
+    #define _TILE_23 (_TILE_16+6)
+    #define _TILE_24 (_TILE_16+7)
 #else
     #define _TILE_19 (0x3A - _Z88DK_SPRITE_OFFSET)
     #define _TILE_20 (0x40 - _Z88DK_SPRITE_OFFSET)

@@ -109,7 +109,9 @@
     #define _TILE_0_B '*'
 #endif 
 
-#define _DOLLAR_TILE '$'
+#if !defined(_DOLLAR_TILE)
+    #define _DOLLAR_TILE '$'
+#endif
 
 #if !defined(_TILE_8)
     #define _TILE_8  ('S'+INVERTED)

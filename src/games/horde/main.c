@@ -924,7 +924,7 @@ void handle_item(register Item* item)
             }
             _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
         }
-        else //((item->_y==BOW_Y)) //  && (item->_counter)
+        else
         {
             if(item->_counter&1)
             {
@@ -1115,7 +1115,7 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if((level>=4)&&(powerUp<=3))
+        if((level>=4)&&(powerUp<=1))
         {
             item_counter&=1;
         }

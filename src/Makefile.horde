@@ -28,11 +28,7 @@ include makefiles.common/auxiliary/Makefile_assets
 
 
 #####################################################################
-# Draw skip
-LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
-DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
-EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
-ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
+
 
 
 ######################################################################
@@ -45,7 +41,6 @@ FULL_FILES_NO_SLEEP ?= \
 FULL_FILES ?= \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES_NO_SLEEP)
-
 
 
 SCCZ80_OPTS += -O3
@@ -451,16 +446,17 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_16k
+creativision: creativision_color
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
+creativision_color: creativision_color_16k
+
 creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=1 -DREDEFINED_CHARS \
-	-DALT_SLEEP -DCREATIVISION_COLOR \
-	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-DSLOW_DOWN=1500 \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
+	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=24 -DX_OFFSET=4  \
+	-DSLOW_DOWN=1800 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES_NO_SLEEP) \

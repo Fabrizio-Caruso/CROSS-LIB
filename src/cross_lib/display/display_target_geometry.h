@@ -291,10 +291,12 @@
 	#define Y_OFFSET 2
 #endif
 
-#if defined(__ATMOS__)
-	#define X_OFFSET 2
-#else
-	#define X_OFFSET 0
+#if !defined(X_OFFSET)
+    #if defined(__ATMOS__)
+        #define X_OFFSET 2
+    #else
+        #define X_OFFSET 0
+    #endif
 #endif
 
 #endif // _DISPLAY_TARGET_GEOMETRY_H 

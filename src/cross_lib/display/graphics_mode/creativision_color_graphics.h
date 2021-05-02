@@ -3,6 +3,8 @@
 
 #include "standard_libs.h"
 
+#define _CREAT_XSIZE 32
+#define _CREAT_YSIZE 24
 
 #define BASE_ADDR 0x1000
 
@@ -38,7 +40,7 @@ while(0)
     uint16_t loc(uint8_t x, uint8_t y);
 #else
     #include "cross_lib.h"
-    #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET))
+    #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (_CREAT_XSIZE + X_OFFSET))
 #endif
 
 

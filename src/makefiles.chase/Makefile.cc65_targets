@@ -552,6 +552,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 
 pce: pce_16k
 
+# -Or breaks the PCE target
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME -DSLOW_DOWN=3500 \
@@ -570,6 +571,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 
+# -Or breaks the PCE target
 pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
 	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \

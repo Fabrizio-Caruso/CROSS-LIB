@@ -360,6 +360,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 
 pce: pce_32k
 
+# -Or breaks the PCE target
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
@@ -378,6 +379,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 
+# -Or breaks the PCE target
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \

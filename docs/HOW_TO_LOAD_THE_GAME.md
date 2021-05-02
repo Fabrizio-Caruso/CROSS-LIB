@@ -350,7 +350,7 @@ File Manager -> Select cartridge -> Choose the .bin file
 
 
 ---------------------------------------------------------
-### GAMATE
+### GAMEGEAR
 
 Use Emulitious (https://emulicious.net/)
 File -> Open File -> Select .gg file

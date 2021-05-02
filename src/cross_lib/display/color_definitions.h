@@ -188,7 +188,11 @@
         #define _XL_CYAN CYAN
     #endif
 
-    #define _XL_YELLOW YELLOW
+    #if defined(__SMS__) || defined(__GAME_GEAR__)
+        #define _XL_YELLOW LIGHTGRAY
+    #else
+        #define _XL_YELLOW YELLOW
+    #endif
 
     #if defined(__LASER500__)
         #define _XL_RED LIGHTRED
@@ -196,8 +200,14 @@
         #define _XL_MAGENTA LIGHTMAGENTA
         #define _XL_BLUE LIGHTBLUE
     #else
-        #define _XL_RED RED
-        #define _XL_GREEN GREEN
+
+        #if defined(__SMS__) || defined(__GAME_GEAR__)
+            #define _XL_RED LIGHTRED
+            #define _XL_GREEN LIGHTGREEN
+        #else
+            #define _XL_RED RED
+            #define _XL_GREEN GREEN
+        #endif
         #define _XL_MAGENTA MAGENTA
         #define _XL_BLUE BLUE
     #endif

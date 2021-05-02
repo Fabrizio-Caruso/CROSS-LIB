@@ -983,6 +983,7 @@ void beam_effect(void)
 
 #define display_level() \
 { \
+    _XL_DRAW(XSize-2,0,LV_TILE,_XL_CYAN); \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
@@ -1950,6 +1951,7 @@ void zombie_initialization(void)
     #define HISCORE_STRING _XL_H
 #endif
 
+// #define HI_X (XSize-8)
 
 #if XSize>=32
     #define draw_zombie_counter_tile() _XL_DRAW(ZOMBIE_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
@@ -1957,15 +1959,17 @@ void zombie_initialization(void)
     #define draw_zombie_counter_tile()
 #endif
 
+    // _XL_SET_TEXT_COLOR(_XL_GREEN); 
+    // _XL_PRINT(HI_X,0,_XL_H _XL_I); 
+
 #define display_stats() \
 do \
 { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     display_score(); \
-    _XL_SET_TEXT_COLOR(_XL_GREEN); \
-    _XL_PRINT(HI_X,0,_XL_H _XL_I); \
+    _XL_DRAW(HI_X,0,HI_TILE, _XL_GREEN); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize-7,0,5, hiscore); \
+    _XL_PRINTD(HI_X+1,0,5, hiscore); \
     _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
     _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
     draw_zombie_counter_tile(); \

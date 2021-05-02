@@ -53,7 +53,9 @@
 
 #define POWER_THRESHOLD 4
 
-#define MAX_ARROWS_ON_SCREEN 12
+#if !defined(MAX_ARROWS_ON_SCREEN)
+    #define MAX_ARROWS_ON_SCREEN 12
+#endif
 
 #define AUTO_RECHARGE_COOL_DOWN 45
 #define AUTO_ARROW_RECAHRGE 9
@@ -112,8 +114,11 @@
 
 #define ZOMBIE_MOVE_LOOPS 2
 
-#define NUMBER_OF_MISSILES 5
+#if !defined(NUMBER_OF_MISSILES)
+    #define NUMBER_OF_MISSILES 5
+#endif
 #define NUMBER_OF_EXTRA_POINTS NUMBER_OF_MISSILES
+
 
 #if XSize<=80
     #define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
@@ -277,7 +282,9 @@ struct ItemStruct
     uint8_t _x;
     uint8_t _y;
     uint8_t _tile;
+    #if !defined(NO_COLOR)
     uint8_t _color;
+    #endif
     uint8_t _active;
     uint8_t _counter;
     void(*_effect)(void);
@@ -291,6 +298,7 @@ static Item powerUpItem;
 static Item wallItem;
 static Item zombieItem;
 
+#if !defined(NO_EXTRA_TITLE)
 static const uint8_t item_tile[5][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
@@ -308,6 +316,8 @@ static const char item_name[5][9] =
     _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
     _XL_W _XL_A _XL_L _XL_L,
 };
+#endif
+
 
 static Missile beamMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
@@ -677,20 +687,28 @@ void power_up_effect(void)
     {
         case 0:
             activate_hyper();
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_WHITE;
+            #endif
         break;
         
         case 4:
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_CYAN; 
+            #endif
         break;
         
         case 5:
             freeze_locked=0;
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_WHITE;
+            #endif
         break;
         
         case 9:
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_RED;
+            #endif
         break;
     }
 
@@ -730,14 +748,18 @@ void power_up_effect(void)
         
         case 8:
             fire_power = GREEN_FIRE_POWER_VALUE;
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_YELLOW;
+            #endif
         break;
         
 
         #endif
         
         case 19:
+            #if !defined(NO_COLOR)
             powerUpItem._color = _XL_GREEN;
+            #endif
         break;
         
         case 20:
@@ -878,50 +900,86 @@ void beam_effect(void)
     alive=0;
 }
 
-
-#define initialize_items() \
-{ \
-    uint8_t i; \
-    \
-    rechargeItem._active = 0; \
-    rechargeItem._tile = ARROW_TILE_0; \
-    rechargeItem._color = _XL_YELLOW; \
-    rechargeItem._effect = recharge_effect; \
-    \
-    freezeItem._active = 0; \
-    freezeItem._tile = FREEZE_TILE; \
-    freezeItem._color = _XL_CYAN; \
-    freezeItem._effect = freeze_effect; \
-    \
-    powerUpItem._active = 0; \
-    powerUpItem._tile = POWER_UP_TILE; \
-    powerUpItem._color = _XL_WHITE; \
-    powerUpItem._effect = power_up_effect; \
-    \
-    wallItem._active = 0; \
-    wallItem._tile = WALL_TILE; \
-    wallItem._color = _XL_YELLOW; \
-    wallItem._effect = wall_effect; \
-    \
-    zombieItem._active = 0; \
-    zombieItem._tile = BOSS_TILE_0; \
-    zombieItem._color = _XL_GREEN; \
-    zombieItem._effect = zombie_effect; \
-    \
-    for(i=0;i<NUMBER_OF_MISSILES;++i) \
+#if !defined(NO_COLOR)
+    #define initialize_items() \
     { \
-        beamMissile[i]._active = 0; \
-        beamMissile[i]._tile = BEAM_TILE; \
-        beamMissile[i]._color = _XL_CYAN; \
-        beamMissile[i]._effect = beam_effect; \
+        uint8_t i; \
         \
-        extraPointsItem[i]._active = 0; \
-        extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
-        extraPointsItem[i]._color = _XL_YELLOW; \
-        extraPointsItem[i]._effect = extra_points_effect; \
-    } \
-}
-
+        rechargeItem._active = 0; \
+        rechargeItem._tile = ARROW_TILE_0; \
+        rechargeItem._color = _XL_YELLOW; \
+        rechargeItem._effect = recharge_effect; \
+        \
+        freezeItem._active = 0; \
+        freezeItem._tile = FREEZE_TILE; \
+        freezeItem._color = _XL_CYAN; \
+        freezeItem._effect = freeze_effect; \
+        \
+        powerUpItem._active = 0; \
+        powerUpItem._tile = POWER_UP_TILE; \
+        powerUpItem._color = _XL_WHITE; \
+        powerUpItem._effect = power_up_effect; \
+        \
+        wallItem._active = 0; \
+        wallItem._tile = WALL_TILE; \
+        wallItem._color = _XL_YELLOW; \
+        wallItem._effect = wall_effect; \
+        \
+        zombieItem._active = 0; \
+        zombieItem._tile = BOSS_TILE_0; \
+        zombieItem._color = _XL_GREEN; \
+        zombieItem._effect = zombie_effect; \
+        \
+        for(i=0;i<NUMBER_OF_MISSILES;++i) \
+        { \
+            beamMissile[i]._active = 0; \
+            beamMissile[i]._tile = BEAM_TILE; \
+            beamMissile[i]._color = _XL_CYAN; \
+            beamMissile[i]._effect = beam_effect; \
+            \
+            extraPointsItem[i]._active = 0; \
+            extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
+            extraPointsItem[i]._color = _XL_YELLOW; \
+            extraPointsItem[i]._effect = extra_points_effect; \
+        } \
+    }
+#else
+    #define initialize_items() \
+    { \
+        uint8_t i; \
+        \
+        rechargeItem._active = 0; \
+        rechargeItem._tile = ARROW_TILE_0; \
+        rechargeItem._effect = recharge_effect; \
+        \
+        freezeItem._active = 0; \
+        freezeItem._tile = FREEZE_TILE; \
+        freezeItem._effect = freeze_effect; \
+        \
+        powerUpItem._active = 0; \
+        powerUpItem._tile = POWER_UP_TILE; \
+        powerUpItem._effect = power_up_effect; \
+        \
+        wallItem._active = 0; \
+        wallItem._tile = WALL_TILE; \
+        wallItem._effect = wall_effect; \
+        \
+        zombieItem._active = 0; \
+        zombieItem._tile = BOSS_TILE_0; \
+        zombieItem._effect = zombie_effect; \
+        \
+        for(i=0;i<NUMBER_OF_MISSILES;++i) \
+        { \
+            beamMissile[i]._active = 0; \
+            beamMissile[i]._tile = BEAM_TILE; \
+            beamMissile[i]._effect = beam_effect; \
+            \
+            extraPointsItem[i]._active = 0; \
+            extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
+            extraPointsItem[i]._effect = extra_points_effect; \
+        } \
+    }
+#endif
 
 #define display_level() \
 { \
@@ -1004,7 +1062,11 @@ void handle_item(register Item* item)
             {
                 ++(item->_y);
             }
+            #if !defined(NO_COLOR)
             _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
+            #else
+            _XL_DRAW(item->_x,item->_y,item->_tile,0);
+            #endif
         }
         else
         {
@@ -1014,7 +1076,11 @@ void handle_item(register Item* item)
             }
             else
             {
+                #if !defined(NO_COLOR)
                 _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
+                #else
+                _XL_DRAW(item->_x,item->_y,item->_tile,0);
+                #endif
             }
  
             if(item->_x==(bow_x/2)+(bow_x&1))
@@ -1346,7 +1412,11 @@ void handle_arrows(void)
                 --arrow_y[i];
                 if(arrow_y[i]>=(arrow_range))
                 {
+                    #if !defined(NO_COLOR)
                     _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],arrow_display_color);
+                    #else
+                    _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],0);
+                    #endif
                 }
             }
         }

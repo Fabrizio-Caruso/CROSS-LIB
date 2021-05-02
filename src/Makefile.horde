@@ -87,10 +87,12 @@ cc65_8x8_targets: \
     atari5200 \
     c16 \
     c64 \
+    creativision \
+    gamate \
     nes \
     pce \
     supervision \
-    vic20_exp_8k
+    vic20
 
 
 cc65_6x8_targets: \
@@ -365,9 +367,9 @@ c64_crt: c64_exomized
 
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-DFULL_GAME -DSLOW_DOWN=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DFULL_GAME -DSLOW_DOWN=2000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=9 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
 	$(FULL_FILES) \
@@ -453,12 +455,27 @@ creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DALT_SLEEP -DFORCE_XSIZE=9 -DFORCE_YSZIE=1 -DMAX_SNAKE_LENGTH=3 \
+creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=1 -DREDEFINED_CHARS \
+	-DALT_SLEEP -DCREATIVISION_COLOR \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-DSLOW_DOWN=0 \
+	-DSLOW_DOWN=1500 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES_NO_SLEEP) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=1 -DREDEFINED_CHARS \
+	-DALT_SLEEP -DNO_COLOR \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DSLOW_DOWN=1500 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES_NO_SLEEP) \

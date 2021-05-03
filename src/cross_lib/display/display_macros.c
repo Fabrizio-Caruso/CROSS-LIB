@@ -48,6 +48,9 @@ extern uint16_t BASE_ADDR;
     {
         #if !defined(__CIDELSA__)
             #if defined(__CREATIVISION__)
+                #if !defined(_CREAT_XSIZE)
+                    #define _CREAT_XSIZE XSize
+                #endif
                 return ((uint16_t) BASE_ADDR)+(x+X_OFFSET)+(uint8_t)y*((uint16_t) (_CREAT_XSIZE));
             #else
                 return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) ((XSize) + X_OFFSET));

@@ -280,15 +280,16 @@
 	#define NARROW
 #endif
 
-
-#if defined(NARROW)
-	#define Y_OFFSET 0
-#elif defined(WIDE) && XSize>64
-	#define Y_OFFSET 1
-#elif defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
-	#define Y_OFFSET 3
-#else 
-	#define Y_OFFSET 2
+#if !defined(Y_OFFSET)
+    #if defined(NARROW)
+        #define Y_OFFSET 0
+    #elif defined(WIDE) && XSize>64
+        #define Y_OFFSET 1
+    #elif defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
+        #define Y_OFFSET 3
+    #else 
+        #define Y_OFFSET 2
+    #endif
 #endif
 
 #if !defined(X_OFFSET)

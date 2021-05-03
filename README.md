@@ -301,8 +301,11 @@ Therefore the following coding choices and design decisions have been made:
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
 
-The game code is in: 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/chase
+The code of the games is in:
+https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/games
+
+The code of some demos is in:
+https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/demos
 
 
 -------------------------------------------

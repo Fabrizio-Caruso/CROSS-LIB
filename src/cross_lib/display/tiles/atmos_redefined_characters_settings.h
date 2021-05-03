@@ -1,6 +1,6 @@
 
 
-#if !defined(ORIC_COLOR)
+#if !defined(ORIC_COLOR) && !defined(MONO_COLOR)
     #define _INVERTED 128u
 #else
     #define _INVERTED 0

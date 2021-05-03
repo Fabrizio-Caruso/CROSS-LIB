@@ -8,9 +8,13 @@
 
 #define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 
-
-#define _XL_DRAW(x,y,tile,color) \
-    DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)+(color));
+#if defined(MONO_COLOR)
+    #define _XL_DRAW(x,y,tile,color) \
+        DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile));
+#else
+    #define _XL_DRAW(x,y,tile,color) \
+            DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)+(color)); 
+#endif
 
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x+X_OFFSET,y), _SPACE)
 

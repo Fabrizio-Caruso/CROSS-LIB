@@ -195,14 +195,14 @@ typedef struct ImageStruct Image;
     #define _XL_PRINT(x,y,str) \
     do \
     { \
-        gotoxy(x+X_OFFSET,y); \
+        gotoxy(x+X_OFFSET,Y_OFFSET+y); \
         cprintf(str); \
     } while(0)
     
     #define _XL_PRINTD(x,y,length,val) \
     do \
     { \
-        gotoxy(x+X_OFFSET,y); \
+        gotoxy(x+X_OFFSET,Y_OFFSET+y); \
         cprintf("%0" #length "u",val); \
     } while(0)
 #endif

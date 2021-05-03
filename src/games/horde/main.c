@@ -988,12 +988,7 @@ void beam_effect(void)
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
 
-// Required ugly workaround for targets with CR at PRINT
-#if !defined(AVOID_PRINT_AT_BOTTOM_RIGHT_CORNER)
-    #define LIVES_X (XSize-3)
-#else
-    #define LIVES_X (XSize-4)
-#endif
+#define LIVES_X (XSize-3)
 
 #if defined(COLOR)
     void display_lives(uint8_t color)
@@ -1047,7 +1042,7 @@ void drop_item(register Item *item, uint8_t max_counter)
     _XL_TICK_SOUND();
     item->_active = 1;
     item->_x = zombie_x;
-    item->_y = zombie_y[zombie_x]+2;
+    item->_y = zombie_y[zombie_x]+1;
     item->_counter=max_counter;
 }
 
@@ -1371,7 +1366,10 @@ void zombie_die(void)
         forced_zombie = 0;
     }
     
-    handle_item_drop();
+    if(y_pos<BOW_Y-2)
+    {
+        handle_item_drop();
+    }
     
     zombie_active[zombie_x]=0;
     
@@ -1951,16 +1949,12 @@ void zombie_initialization(void)
     #define HISCORE_STRING _XL_H
 #endif
 
-// #define HI_X (XSize-8)
-
 #if XSize>=32
     #define draw_zombie_counter_tile() _XL_DRAW(ZOMBIE_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
 #else
     #define draw_zombie_counter_tile()
 #endif
 
-    // _XL_SET_TEXT_COLOR(_XL_GREEN); 
-    // _XL_PRINT(HI_X,0,_XL_H _XL_I); 
 
 #define display_stats() \
 do \

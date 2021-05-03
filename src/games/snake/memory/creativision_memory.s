@@ -3,16 +3,16 @@
 _snake_x = $0100
 
 .export _snake_y;
-_snake_y = _snake_x + 6 
+_snake_y = _snake_x + 12
 
 .export _snake_copy_x;
-_snake_copy_x = _snake_y + 6
+_snake_copy_x = _snake_y + 12
 
 .export _snake_copy_y;
-_snake_copy_y = _snake_copy_x + 6
+_snake_copy_y = _snake_copy_x + 12
 
 .export _extra_life_achievement;
-_extra_life_achievement = _snake_copy_y + 6
+_extra_life_achievement = _snake_copy_y + 12
 
 .export _magic_wall_achievement;
 _magic_wall_achievement = _extra_life_achievement + 9

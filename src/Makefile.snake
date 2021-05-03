@@ -383,20 +383,35 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_16k
+creativision: creativision_color_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DALT_SLEEP -DX_OFFSET=8 -DY_OFFSET=5 -DFORCE_XSIZE=13 -DFORCE_YSIZE=12 -DMAX_SNAKE_LENGTH=3 \
+	-DALT_SLEEP -DX_OFFSET=8  -DFORCE_XSIZE=13 -DY_OFFSET=6 -DFORCE_YSIZE=12 -DMAX_SNAKE_LENGTH=3 \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
 	-DSLOW_DOWN=0 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES_NO_SLEEP) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DALT_SLEEP -DX_OFFSET=8  -DFORCE_XSIZE=16 -DY_OFFSET=6 -DFORCE_YSIZE=9 -DMAX_SNAKE_LENGTH=3 \
+	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DSLOW_DOWN=5000 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES_NO_SLEEP) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin

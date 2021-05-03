@@ -337,7 +337,6 @@ void build_level(void)
                             uint8_t k;
                             for(k=0;k<20;++k)
                             {
-                                // _XLIB_DRAW(x+1+_XL_RAND()%(length-2),y,&CENTRAL_BRICK_IMAGE);
                                 _XL_DRAW(x+1+_XL_RAND()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             }
                         }
@@ -365,8 +364,6 @@ void build_level(void)
 
 void display_horizontal_transition_mine(uint8_t x, uint8_t y)
 {
-    // _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
-    // _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
     _XL_DRAW(x-1,y,LEFT_MINE_TILE, _XL_CYAN);
     _XL_DRAW(x,y,RIGHT_MINE_TILE, _XL_CYAN);
 }
@@ -443,8 +440,6 @@ void handle_horizontal_mines(void)
 
 void display_vertical_transition_mine(uint8_t x, uint8_t y)
 {
-    // _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
-    // _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
     _XL_DRAW(x,y-1,UP_MINE_TILE,_XL_CYAN);
     _XL_DRAW(x,y,DOWN_MINE_TILE,_XL_CYAN);
 }
@@ -711,10 +706,8 @@ void one_up(void)
     ++lives;
     DISPLAY_LIVES();
     _XL_PING_SOUND();
-    // _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
     _XL_SLOW_DOWN(SLOW_DOWN*5);
-    // _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
     _XL_PING_SOUND();
@@ -1018,20 +1011,28 @@ void magic_wall(void)
     }; \
 }
 
+#if XSize<=19
+    #define display_hi() 
+    #define print_record() 
+#else
+    #define display_hi()  _XL_DRAW(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN);
+    #define print_record()     _XL_PRINTD(XSize-9+HISCORE_OFFSET,0,5,record);
+#endif
+
 #define initialize_map() \
 { \
     DRAW_MAP_BORDERS(); \
     _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE,_XL_GREEN); \
     _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE,_XL_GREEN); \
     _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE,_XL_GREEN); \
-    _XL_DRAW(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN); \
+    display_hi(); \
     _XL_DRAW(8,0,APPLE_TILE,_XL_RED); \
     _XL_DRAW(0,YSize-1,LV_TEXT_TILE,_XL_GREEN); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     DISPLAY_LIVES(); \
     _XL_PRINTD(1,YSize-1,2,level); \
     DISPLAY_REMAINING_APPLES_COUNT(); \
-    _XL_PRINTD(XSize-9+HISCORE_OFFSET,0,5,record); \
+    print_record(); \
     DISPLAY_ENERGY(); \
     init_snake(); \
     DISPLAY_POINTS(); \

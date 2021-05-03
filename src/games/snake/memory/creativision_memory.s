@@ -48,7 +48,7 @@ _snake_head_y = $E8
 _speed_increase_counter = 45
 
 .exportzp _spawned_apples;
-_spawned_apples = 46
+_spawned_apples = $D5
 
 .exportzp _remaining_apples;
 _remaining_apples = $EE
@@ -75,7 +75,7 @@ _snake_direction = $EA
 _apples_on_screen_count = 54
 
 .exportzp _coin_count;
-_coin_count = 55
+_coin_count = $D6
 
 .exportzp _extra_life_counter;
 _extra_life_counter = 56
@@ -114,7 +114,7 @@ _transparent_horizontal_wall_level_flag = 66
 _head_tile = 67;
 
 .exportzp _rings;
-_rings = 69
+_rings = $D7
 
 .export _vertical_mine_x;
 _vertical_mine_x = $E4

@@ -90,10 +90,10 @@ _horizontal_mines_on_current_level = $E6
 _vertical_mines_on_current_level = $E5
 
 .exportzp _transparent_vertical_wall_triggered;
-_transparent_vertical_wall_triggered = 60
+_transparent_vertical_wall_triggered = $D4
 
 .exportzp _transparent_horizontal_wall_triggered;
-_transparent_horizontal_wall_triggered = 61
+_transparent_horizontal_wall_triggered = $D3
 
 .exportzp _secret_level_active;
 _secret_level_active = 62

@@ -1994,6 +1994,20 @@ ncurses:
 	$(FULL_FILES) \
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+
+# -DX_OFFSET=8  -DFORCE_XSIZE=16 -DY_OFFSET=3 -DFORCE_YSIZE=17
+ncurses16x17:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DNO_DO_SLOW_DOWN_MACRO \
+	-DSLOW_DOWN=150 -DNO_UDG \
+	-DCONIO -DX_OFFSET=8  -DFORCE_XSIZE=16 -DY_OFFSET=3 -DFORCE_YSIZE=17 \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
     
 ncurses32x24:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \

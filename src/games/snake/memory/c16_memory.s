@@ -43,6 +43,20 @@ _horizontal_mine_transition = _horizontal_mine_direction + 4
 .export _secret_passage;
 _secret_passage = _horizontal_mine_transition + 4
 
+.export _extra_count;
+_extra_count = $100
+
+.export _third_coin_achievement;
+_third_coin_achievement = _extra_count + 1
+
+.export _fourth_coin_achievement;
+_fourth_coin_achievement = _third_coin_achievement + 1
+
+.export _i;
+_i = _fourth_coin_achievement + 1
+
+.export _j;
+_j = _i + 1
 
 
 .segment "ZEROPAGE"

@@ -38,10 +38,6 @@
 #include "settings.h"
 #include "variables.h"
 
-static uint8_t extra_count;
-static uint8_t third_coin_achievement;
-static uint8_t fourth_coin_achievement;
-
 /*
 #define EMPTY 0
 #define DEADLY 1
@@ -147,40 +143,33 @@ const uint8_t image_colors[] = {
 
 
 // TODO: Maybe only horizontal and vertical checks are necessary
-#define safe_around(x,y) \
-    (!map[x][y] && \
-       (map[x][(y)-1]!=DEADLY) && (map[(x)-1][y]!=DEADLY) && (map[(x)+1][y]!=DEADLY) && (map[x][(y)+1]!=DEADLY))
+#define safe_around(i,j) \
+    (!map[i][j] && \
+       (map[i][(j)-1]!=DEADLY) && (map[(i)-1][j]!=DEADLY) && (map[(i)+1][j]!=DEADLY) && (map[i][(j)+1]!=DEADLY))
 
 
 void spawn(uint8_t type)
 {
-    uint8_t x;
-    uint8_t y;
-    
     _XL_PING_SOUND();
     while(1)
     {
-        x = (uint8_t)(_XL_RAND()%(XSize-2)+1);
-        y = (uint8_t)(_XL_RAND()%(YSize-2)+1);
+        i = (uint8_t)(_XL_RAND()%(XSize-2)+1);
+        j = (uint8_t)(_XL_RAND()%(YSize-2)+1);
         
-        if(safe_around(x,y))
+        if(safe_around(i,j))
         {
             break;
         }
     }
-    map[x][y]=type;
+    map[i][j]=type;
     
-    // _XLIB_DRAW(x,y,images[type]);
-    _XL_DRAW(x,y,images[type],image_colors[type]);
+    _XL_DRAW(i,j,images[type],image_colors[type]);
 
 }
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
-{
-    uint8_t i;
-    uint8_t j;
-    
+{   
     for(i=0;i<x_length;++i)
     {
         for(j=0;j<y_length;++j)
@@ -224,7 +213,7 @@ void DRAW_MAP_BORDERS(void)
 #define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
 #define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/4)+2)
 
-#if XSize<=19
+#if XSize<=16
     #define TRANSPARENT_HORIZONTAL_WALL_LENGTH 2
 #else
     #define TRANSPARENT_HORIZONTAL_WALL_LENGTH ((XSize)/5)
@@ -234,27 +223,24 @@ void DRAW_MAP_BORDERS(void)
 
 void DRAW_MINE(uint8_t x, uint8_t y)
 {
-    // _XLIB_DRAW(x,y,&MINE_IMAGE);
     _XL_DRAW(x,y,MINE_TILE, _XL_CYAN);
-
     map[x][y] = DEADLY;
 }
 
 void build_horizontal_mines(uint8_t level)
 {
-    uint8_t j;
-    uint8_t index =  index = horizontal_mines_on_level_index[level];
+    i = horizontal_mines_on_level_index[level];
     
-    horizontal_mines_on_current_level = horizontal_mines_on_level[index];
+    horizontal_mines_on_current_level = horizontal_mines_on_level[i];
     
-    ++index;
+    ++i;
     #if defined(DEBUG_LEVELS)
         _XL_PRINTD(4,4,1,horizontal_mines_on_current_level);
     #endif
     for(j=0;j<horizontal_mines_on_current_level;++j)
     {
         horizontal_mine_x[j] = XSize/2;
-        horizontal_mine_y[j] = horizontal_mines_on_level[index+j];
+        horizontal_mine_y[j] = horizontal_mines_on_level[i+j];
         DRAW_MINE(XSize/2,horizontal_mine_y[j]);
         horizontal_mine_direction[j] = j&1;
         horizontal_mine_transition[j] = 0;
@@ -263,19 +249,18 @@ void build_horizontal_mines(uint8_t level)
 
 void build_vertical_mines(uint8_t level)
 {
-    uint8_t j;
-    uint8_t index = vertical_mines_on_level_index[level];
+    i = vertical_mines_on_level_index[level];
     
-    vertical_mines_on_current_level = vertical_mines_on_level[index];
+    vertical_mines_on_current_level = vertical_mines_on_level[i];
     
     #if defined(DEBUG_LEVELS)
         _XL_PRINTD(4,8,1,vertical_mines_on_current_level);
     #endif
-    ++index;
+    ++i;
     for(j=0;j<vertical_mines_on_current_level;++j)
     {
         vertical_mine_y[j] = YSize/2-1;
-        vertical_mine_x[j] = vertical_mines_on_level[index+j];
+        vertical_mine_x[j] = vertical_mines_on_level[i+j];
         DRAW_MINE(vertical_mine_x[j],YSize/2-1);
         vertical_mine_direction[j] = j&1;
         vertical_mine_transition[j] = 0;
@@ -285,9 +270,6 @@ void build_vertical_mines(uint8_t level)
 
 void init_map_to_empty(void)
 {
-    uint8_t i;
-    uint8_t j;
-    
     for(i=0;i<XSize;++i)
     {
         for(j=0;j<YSize;++j)
@@ -433,8 +415,6 @@ void handle_horizontal_mine(register uint8_t index)
 
 void handle_horizontal_mines(void)
 {
-    uint8_t i;
-    
     for(i=0;i<horizontal_mines_on_current_level;++i)
     {
         handle_horizontal_mine(i);
@@ -510,8 +490,6 @@ void handle_vertical_mine(register uint8_t index)
 
 void handle_vertical_mines(void)
 {
-    uint8_t i;
-    
     for(i=0;i<vertical_mines_on_current_level;++i)
     {
         handle_vertical_mine(i);
@@ -521,7 +499,7 @@ void handle_vertical_mines(void)
 
 uint8_t empty_vertical_wall_area(void)
 {
-    uint8_t i = 0;
+    i = 0;
     
     while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
     {
@@ -538,7 +516,7 @@ uint8_t empty_vertical_wall_area(void)
 
 uint8_t empty_horizontal_wall_area(void)
 {
-    uint8_t i = 0;
+    i = 0;
     
     while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
     {
@@ -577,7 +555,6 @@ void handle_transparent_vertical_wall(void)
 
 void handle_transparent_horizontal_wall(void)
 {
-    
     if(!transparent_horizontal_wall_triggered)
     {
         if(empty_horizontal_wall_area())
@@ -1051,8 +1028,6 @@ void magic_wall(void)
 
 void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
-    uint8_t i;
-    
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(ACHIEVEMENTS_X_OFFSET+5,row,_XL_O _XL_F);
     _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+8,row,2,max);
@@ -1083,9 +1058,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 }
 
 void display_stats(void)
-{
-    uint8_t i;
-    
+{    
     _XL_CLEAR_SCREEN();
     
     _XL_SET_TEXT_COLOR(_XL_GREEN);

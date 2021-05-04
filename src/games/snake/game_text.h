@@ -32,7 +32,7 @@
         { \
             _XL_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
             _XL_SET_TEXT_COLOR(_XL_WHITE); \
-            _XL_PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
+            _XL_PRINT(XSize/2-4,YSize/8+8+2*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
         } \
     }
 #else

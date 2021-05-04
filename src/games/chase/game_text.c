@@ -81,10 +81,6 @@ extern Image SKULL_IMAGE;
     #endif
 #endif
 
-// #if defined(NO_TEXT_COLOR) && !defined(NO_MESSAGE) && !defined(NO_PRINT)
-	// #define _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(row,col,text) _XL_PRINT_CENTERED_ON_ROW(row,text)
-// #endif
-
 extern uint8_t level;
 extern uint8_t lives;
 
@@ -111,7 +107,6 @@ extern Image PLAYER_IMAGE;
 #else
 	#define TITLE_Y 1
 	#define TITLE_LINE() 
-    //_XL_PRINT(XSize-11,+0,  "-----------")
 #endif
 
 

@@ -68,6 +68,12 @@ uint8_t secret_passage[2*NUMBER_OF_MAPS];
 
 uint8_t rings;
 
+uint8_t extra_count;
+uint8_t third_coin_achievement;
+uint8_t fourth_coin_achievement;
+uint8_t i;
+uint8_t j;
+
 #endif
 
 

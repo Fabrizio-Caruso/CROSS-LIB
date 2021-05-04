@@ -457,7 +457,7 @@ creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
 	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=24 -DX_OFFSET=4  \
 	-DSLOW_DOWN=1800 \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES_NO_SLEEP) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \

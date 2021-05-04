@@ -7,8 +7,7 @@
 #include "init_images.h"
 
 #if !defined(NO_EXTRA_TITLE)
-
-char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
+const char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {
     _XL_M _XL_i _XL_n _XL_e,
     _XL_E _XL_n _XL_e _XL_r _XL_g _XL_y,

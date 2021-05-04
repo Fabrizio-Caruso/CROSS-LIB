@@ -391,10 +391,10 @@ creativision: creativision_color_16k
 creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DALT_SLEEP -DX_OFFSET=8  -DFORCE_XSIZE=16 -DY_OFFSET=3 -DFORCE_YSIZE=17 -DMAX_SNAKE_LENGTH=12 \
+	-DALT_SLEEP -DX_OFFSET=6  -DFORCE_XSIZE=20 -DY_OFFSET=3 -DFORCE_YSIZE=16 -DMAX_SNAKE_LENGTH=12 \
 	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-DSLOW_DOWN=9000 -DNO_DISPLAY_LEVEL_ANIMATION \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	-DSLOW_DOWN=9400 -DNO_DISPLAY_LEVEL_ANIMATION \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-DUSE_MEMORY_BUFFERS \
 	$(SOURCE_PATH)/memory/creativision_memory.s \
@@ -2008,7 +2008,20 @@ ncurses16x17:
 	$(FULL_FILES) \
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
-    
+
+ncurses20x16:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DNO_DO_SLOW_DOWN_MACRO \
+	-DSLOW_DOWN=150 -DNO_UDG \
+	-DCONIO -DX_OFFSET=8  -DFORCE_XSIZE=20 -DY_OFFSET=3 -DFORCE_YSIZE=16 \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+ 
 ncurses32x24:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DNO_DO_SLOW_DOWN_MACRO -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \

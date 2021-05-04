@@ -195,7 +195,7 @@ typedef struct ImageStruct Image;
     #define _XL_PRINT(x,y,str) \
     do \
     { \
-        gotoxy(x+X_OFFSET,Y_OFFSET+y); \
+        gotoxy(X_OFFSET+x,Y_OFFSET+y); \
         cprintf(str); \
     } while(0)
     

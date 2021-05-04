@@ -76,6 +76,7 @@ cc65_targets: \
     c16 \
     c64 \
     creativision \
+    gamate \
     oric  \
     nes \
     pet \
@@ -300,10 +301,12 @@ c64_crt: c64_exomized
 
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-DFULL_GAME -DSLOW_DOWN=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DFULL_GAME -DSLOW_DOWN=10000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
-	-DLESS_TEXT \
+	-DFORCE_XSIZE=20 -DY_OFFSET=2 -DFORCE_YSIZE=14 \
+	-DLESS_TEXT -DUSE_MEMORY_BUFFERS \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/memory/gamate_memory.s \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \

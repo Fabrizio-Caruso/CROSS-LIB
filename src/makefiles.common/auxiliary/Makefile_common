@@ -85,7 +85,7 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o
 
 clean_game_assets: 
-	if [ -d $(ASSETS_PATH) ]; then echo "assets dir exists"; cd $(ASSETS_PATH); pwd; ls -l; rm -rf *.s; rm -rf *.h; rm -rf *.asm; else echo "assets dir does NOT exist"; fi
+	if [ -d $(ASSETS_PATH) ]; then echo "generated assets dir exists"; cd $(ASSETS_PATH); pwd; ls -l; rm -rf *.s; rm -rf *.h; rm -rf *.asm; else echo "generated assets dir does NOT exist"; fi
 
 clean_assets: clean_game_assets
 

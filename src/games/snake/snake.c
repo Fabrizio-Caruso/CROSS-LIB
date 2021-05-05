@@ -24,20 +24,17 @@ void draw_body_part(uint8_t i)
 
 
 void init_snake(void)
-{
-    uint8_t i;
-    uint8_t aux;
-    
+{    
     snake_length = INITIAL_SNAKE_LENGTH;
     
     snake_head = 0;
     
     for(i=0;i<snake_length;++i)
     {
-        aux = (i+snake_head)%snake_length;
-        snake_x[aux] = XSize/2+snake_length/2-i-1;
-        snake_y[aux] = YSize/2;
-        draw_body_part(aux);
+        j = (i+snake_head)%snake_length;
+        snake_x[j] = XSize/2+snake_length/2-i-1;
+        snake_y[j] = YSize/2;
+        draw_body_part(j);
     }
     
     head_tile = HORIZONTAL_HEAD_TILE;
@@ -54,7 +51,6 @@ void init_snake(void)
 #if !defined(NO_GROWTH)
 void snake_grows(void)
 {
-    uint8_t i;
     uint8_t x;
     uint8_t y;
     

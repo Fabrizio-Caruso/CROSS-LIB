@@ -19,8 +19,6 @@ const char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] =
 
 void show_intro_snake(void)
 {
-    uint8_t i;
-    
     for(i=0;i<XSize/2-2;++i)
     {
         _XL_DRAW(XSize/4+i,YSize/8+5,BODY_TILE, _XL_GREEN);

@@ -9,10 +9,11 @@
 
 uint8_t move_snake(uint8_t wished_direction)
 {
-    uint8_t tail = (snake_head+snake_length-1)%snake_length;
     uint8_t candidate_x;
     uint8_t candidate_y;
-        
+    
+    i = (snake_head+snake_length-1)%snake_length;
+
     candidate_selection:
     
     candidate_x = snake_head_x;
@@ -36,9 +37,9 @@ uint8_t move_snake(uint8_t wished_direction)
     if(!hits_wall(candidate_x,candidate_y)) // can move
     {
         snake_direction = wished_direction;
-        delete_body_part(tail);
-        snake_x[tail] = candidate_x;
-        snake_y[tail] = candidate_y;
+        delete_body_part(i);
+        snake_x[i] = candidate_x;
+        snake_y[i] = candidate_y;
         
         if(HORIZONTAL(snake_direction))
         {
@@ -51,7 +52,7 @@ uint8_t move_snake(uint8_t wished_direction)
         
         draw_body_part(snake_head); // Draw old head as body part
         
-        snake_head = tail; // new head uses tail index
+        snake_head = i; // new head uses tail index
         
         draw_head(); // draw new head
         return 1;

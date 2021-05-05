@@ -85,6 +85,8 @@
 		#include "dac_sounds.h"
 	#elif (defined(__MO5__) || defined(__TO7__)) && defined(SOUNDS)
 		#include "dac_sounds.h"
+    #elif defined(__GAMATE__) && defined(SOUNDS)
+        #include "gamate_sounds.h"
 	#else
 		#define _XL_EXPLOSION_SOUND() 
 		#define _XL_PING_SOUND() 

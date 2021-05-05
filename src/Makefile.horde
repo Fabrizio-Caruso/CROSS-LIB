@@ -360,7 +360,7 @@ c64_crt: c64_exomized
 #################################################################
 
 
-gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -DSLOW_DOWN=2000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
@@ -368,6 +368,20 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
 	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+
+
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	-DFULL_GAME -DSLOW_DOWN=2000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
+	-DLESS_TEXT -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=9 \
+	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin

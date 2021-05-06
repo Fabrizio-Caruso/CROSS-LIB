@@ -464,12 +464,27 @@ creativision: creativision_color
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_color: creativision_color_16k
+creativision_color: creativision_sound
+
+creativision_sound: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
+	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=26 -DX_OFFSET=3  \
+	-DSLOW_DOWN=1800 -DSOUNDS \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES_NO_SLEEP) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
-	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=24 -DX_OFFSET=4  \
+	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=26 -DX_OFFSET=3  \
 	-DSLOW_DOWN=1800 \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

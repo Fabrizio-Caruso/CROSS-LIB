@@ -61,13 +61,13 @@ _snake_head_x = $E9
 _snake_head_y = $E8
 
 .exportzp _speed_increase_counter;
-_speed_increase_counter = 45
+_speed_increase_counter = $B4
 
 .exportzp _spawned_apples;
-_spawned_apples = $D5
+_spawned_apples = $B3
 
 .exportzp _remaining_apples;
-_remaining_apples = $EE
+_remaining_apples = $B2
 
 .exportzp _level;
 _level = $EF
@@ -76,7 +76,7 @@ _level = $EF
 _energy = $ED
 
 .exportzp _lives;
-_lives = 50
+_lives = $B5
 
 .exportzp _snake_head;
 _snake_head = $EC
@@ -88,13 +88,13 @@ _snake_length = $EB
 _snake_direction = $EA
 
 .exportzp _apples_on_screen_count;
-_apples_on_screen_count = 54
+_apples_on_screen_count = $B0
 
 .exportzp _coin_count;
 _coin_count = $D6
 
 .exportzp _extra_life_counter;
-_extra_life_counter = 56
+_extra_life_counter = $B1
 
 .exportzp _active_mines;
 _active_mines = $E7
@@ -112,19 +112,19 @@ _transparent_vertical_wall_triggered = $D4
 _transparent_horizontal_wall_triggered = $D3
 
 .exportzp _secret_level_active;
-_secret_level_active = 62
+_secret_level_active = $B6
 
 .exportzp _secret_level_never_activated;
-_secret_level_never_activated = 63
+_secret_level_never_activated = $B7
 
 .exportzp _next_level;
-_next_level = 64
+_next_level = $B8
 
 .exportzp _transparent_vertical_wall_level_flag;
-_transparent_vertical_wall_level_flag = 65
+_transparent_vertical_wall_level_flag = $B9
 
 .exportzp _transparent_horizontal_wall_level_flag;
-_transparent_horizontal_wall_level_flag = 66
+_transparent_horizontal_wall_level_flag = $BA
 
 .exportzp _head_tile;
 _head_tile = 67;

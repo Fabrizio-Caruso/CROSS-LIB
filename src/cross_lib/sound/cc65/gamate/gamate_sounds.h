@@ -24,17 +24,20 @@
 
 #ifndef _GAMATE_SOUNDS
 #define _GAMATE_SOUNDS
-	void _XL_EXPLOSION_SOUND(void);
-	
-	void _XL_PING_SOUND(void);
-	
-	void _XL_SHOOT_SOUND(void);
 
-	void _XL_TICK_SOUND(void);
-	
-	void _XL_TOCK_SOUND(void);
-	
-	void _XL_ZAP_SOUND(void);
+void play_frequency(uint16_t value);
+
+#define _XL_EXPLOSION_SOUND() play_frequency(350)
+
+#define _XL_PING_SOUND() play_frequency(200)
+
+#define _XL_SHOOT_SOUND() play_frequency(600)
+
+#define _XL_TOCK_SOUND() play_frequency(90)
+
+#define _XL_TICK_SOUND() play_frequency(150)
+
+#define _XL_ZAP_SOUND() play_frequency(1200)
 
 #endif // _GAMATE_SOUNDS
 

@@ -524,6 +524,9 @@ cx16:
 #######################################################################################
 # GAMATE
 
+#sound version is buggy (probably because of a memory issue)
+gamate: gamate_no_sound
+
 gamate_no_udg:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -DSLOW_DOWN=1300 -DANIMATE_PLAYER \
@@ -547,7 +550,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 
-gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -DSLOW_DOWN=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \

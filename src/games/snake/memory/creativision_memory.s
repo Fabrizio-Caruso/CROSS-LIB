@@ -133,16 +133,16 @@ _head_tile = 67;
 _rings = $D7
 
 .export _vertical_mine_x;
-_vertical_mine_x = $E4
+_vertical_mine_x = $C1
 
 .exportzp _vertical_mine_y;
-_vertical_mine_y = $E3
+_vertical_mine_y = $C3
 
 .exportzp _vertical_mine_direction;
-_vertical_mine_direction = $E2
+_vertical_mine_direction = $C5
 
 .exportzp _vertical_mine_transition;
-_vertical_mine_transition = $E1
+_vertical_mine_transition = $C7
 
 .exportzp _points;
 _points = $D8

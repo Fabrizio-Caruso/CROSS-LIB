@@ -89,6 +89,8 @@
         #include "gamate_sounds.h"
     #elif defined(__CREATIVISION__) && defined(SOUNDS)
         #include "creativision_sounds.h"
+    #elif defined(__GB__) && defined(SOUNDS)
+        #include "gb_sounds.h"
 	#else
 		#define _XL_EXPLOSION_SOUND() 
 		#define _XL_PING_SOUND() 
@@ -98,8 +100,8 @@
 		#define _XL_ZAP_SOUND() 
 	#endif
     
-    #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
-    //
+    #if defined(SOUNDS) && (defined(__GB__) || defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
+    // _XL_INIT_SOUND() needs to be defined
     #else
         #define _XL_INIT_SOUND()
     #endif

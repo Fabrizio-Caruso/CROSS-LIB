@@ -417,7 +417,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/ALT_FULL_msx_32k.prg 

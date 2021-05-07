@@ -280,7 +280,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
@@ -298,7 +298,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
@@ -385,7 +385,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o code
 	rm code
 	cat bootstrap.cas code.cas > $(BUILD_PATH)/X$(GAME_NAME)_multi8.cas
@@ -409,7 +409,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO -DANIMATE_PLAYER \
 	-lndos -DSOUNDS -DFORCE_PSG \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_myvision.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_myvision.bin
@@ -722,7 +722,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_pc6001_32k.prg \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm $(BUILD_PATH)/X$(GAME_NAME)_pc6001_32k.prg
 	rm $(BUILD_PATH)/X$(GAME_NAME)_pc6001_32k.wav
 	mv $(BUILD_PATH)/X$(GAME_NAME)_pc6001_32k.cas $(BUILD_PATH)/X$(GAME_NAME)_pc6001_32k.cp6

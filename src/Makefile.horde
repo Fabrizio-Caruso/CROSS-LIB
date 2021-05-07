@@ -1087,7 +1087,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_bomber $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
@@ -1121,7 +1121,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
@@ -1153,7 +1153,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
@@ -1192,7 +1192,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SMS__ -D__GAME_GEAR__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
-	-DNO_SET_SCREEN_COLORS \
+	-DNO_SET_SCREEN_COLORS -DFORCE_BIT_BANG \
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
@@ -1296,7 +1296,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DSLOW_DOWN=200 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
@@ -1316,7 +1316,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DSLOW_DOWN=200 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
@@ -1388,7 +1388,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFORCE_YSIZE=24 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	 \
+	-DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=400 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

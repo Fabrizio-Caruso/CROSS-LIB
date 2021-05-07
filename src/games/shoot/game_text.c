@@ -78,9 +78,9 @@ void printKillTheSkulls(void)
 
 void displayStatsTitles(void)
 {                
-    #if defined(WIDE)
-            PRINT_WIDE_TITLE();
-    #endif
+    // #if defined(WIDE)
+            // PRINT_WIDE_TITLE();
+    // #endif
     
     SET_COLOR(TEXT_COLOR);
     
@@ -182,11 +182,11 @@ void displayScoreStats(void)
 {    
     SET_COLOR(TEXT_COLOR);
     
-    #if defined(WIDE)
-        _XL_PRINTD(6,+0,5,points);
-    #else
+    // #if defined(WIDE)
+        // _XL_PRINTD(6,+0,5,points);
+    // #else
         _XL_PRINTD(0,0,5,points);    
-    #endif    
+    // #endif    
 }
 
 #if !defined(LESS_TEXT)    

@@ -10,7 +10,7 @@ cpc_no_gfx:
 	-D__CPC__ -DSOUNDS -DFULL_GAME -DNO_INIT_GRAPHICS -DCONIO \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES) 
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cpc  $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cdt
 	rm -rf WIP_FULL_cpc_no_gfx.dsk

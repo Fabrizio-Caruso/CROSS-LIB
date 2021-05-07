@@ -124,9 +124,9 @@ extern Image PLAYER_IMAGE;
 #if !defined(TINY_GAME) && !defined(NO_STATS)
 	void displayStatsTitles(void)
 	{				
-		#if defined(WIDE)
-				PRINT_WIDE_TITLE();
-		#endif
+		// #if defined(WIDE)
+				// PRINT_WIDE_TITLE();
+		// #endif
 		
 		SET_COLOR(TEXT_COLOR);
 
@@ -200,11 +200,11 @@ void displayStats(void)
 {	
 	SET_COLOR(TEXT_COLOR);
 	
-	#if defined(WIDE) && !defined(TINY_GAME)
-		_XL_PRINTD(6,+0,5,points);
-	#else
+	// #if defined(WIDE) && !defined(TINY_GAME)
+		// _XL_PRINTD(6,+0,5,points);
+	// #else
 		_XL_PRINTD(!EXTRA_TINY,0,5,points);	
-	#endif	
+	// #endif	
 }
 
 #if !defined(LESS_TEXT)	

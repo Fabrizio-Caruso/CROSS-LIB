@@ -149,7 +149,7 @@ cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(TEST_FILES) $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
@@ -266,7 +266,7 @@ mc1000_quick_test:
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS \
 	-vn  -lndos -create-app -Cz--audio -o mc1kt.bin \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(TEST_FILES)
 	mv mc1kt.wav $(BUILD_PATH)/TEST_mc1000.wav
 	rm mc1kt.bin
@@ -295,7 +295,7 @@ msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	-lndos \
 	-DZ88DK_JOYSTICK \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
@@ -374,7 +374,7 @@ pc6001_quick_test:
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_pc6001_32k.prg
 	rm $(BUILD_PATH)/TEST_pc6001_32k.wav
@@ -530,7 +530,7 @@ svi_quick_test:
 	-D__SVI__ \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
 	$(TEST_FILES)
 	mv svit.cas $(BUILD_PATH)/TEST_svi.cas
 	rm svit.bin
@@ -821,7 +821,7 @@ mc1000_zsdcc_quick_test:
 	-D__MC1000__ -DSOUNDS \
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio -o mc1kzt.bin \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TEST_FILES) 
 	mv mc1kzt.wav $(BUILD_PATH)/TEST_ZSDCC_mc1000.wav

@@ -532,7 +532,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -678,7 +678,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
 
@@ -824,7 +824,7 @@ gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFORCE_YSIZE=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	-DFULL_GAME \
+	-DFULL_GAME -DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=1600 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

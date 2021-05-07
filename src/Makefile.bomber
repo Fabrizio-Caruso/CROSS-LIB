@@ -565,7 +565,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
@@ -652,7 +652,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
 	-DNO_SET_SCREEN_COLORS \
-	-DANIMATE_PLAYER \
+	-DANIMATE_PLAYER -DFORCE_BIT_BANG \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=2700 \
@@ -731,7 +731,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DSLOW_DOWN=1300 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
@@ -749,7 +749,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DSLOW_DOWN=2000 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
@@ -767,7 +767,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFORCE_YSIZE=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	-DFULL_GAME \
+	-DFULL_GAME -DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=1600 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

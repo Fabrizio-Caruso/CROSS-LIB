@@ -512,7 +512,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
@@ -658,7 +658,7 @@ sv8000_32k:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -799,7 +799,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o tiki100 \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/X$(GAME_NAME)_tiki100.dsk
 	rm $(SOURCE_PATH)/../../tiki100
@@ -956,7 +956,7 @@ x1:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_x1.bin -vn -lndos \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_x1.bin
 
@@ -1062,7 +1062,7 @@ zxn:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_zxn.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_zxn.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_zxn_UNASSIGNED.bin

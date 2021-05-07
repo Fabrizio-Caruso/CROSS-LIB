@@ -24,7 +24,7 @@
 
 // PSG code for AY-3-8910
 
-#include "psg_sounds.h"
+#include "ay-3-8910_psg_sounds.h"
 #include <psg.h>
 
 #include <stdint.h>

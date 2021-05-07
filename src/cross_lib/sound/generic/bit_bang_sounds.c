@@ -10,7 +10,7 @@ void CLICK(uint8_t duration, uint8_t period)
     
     for(i=0;i<duration;++i)
     {
-        POKE(BIT_BANG_ADDR,0);
+        PEEK(BIT_BANG_ADDR);
         for(j=0;j<period;++j){};
     }
 }

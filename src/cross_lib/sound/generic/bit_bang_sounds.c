@@ -10,10 +10,7 @@ void CLICK(uint8_t duration, uint8_t period)
     
     for(i=0;i<duration;++i)
     {
-        for(j=0;j<period;++j)
-        {
-            PEEK(BIT_BANG_ADDR);
-        };
+        POKE(BIT_BANG_ADDR,0);
         for(j=0;j<period;++j){};
     }
 }
@@ -25,13 +22,12 @@ void NOISE(uint8_t duration, uint16_t period)
     
     for(i=0;i<duration;++i)
     {
-        for(j=0;j<period;++j)
+
+        if(PEEK(ROM_ADDR+i)&1)
         {
-            if((ROM_ADDR+j)&1)
-            {
-                PEEK(BIT_BANG_ADDR);
-            }
-        };
+            POKE(BIT_BANG_ADDR,0);
+        }
+
         for(j=0;j<period;++j){};
     }
 

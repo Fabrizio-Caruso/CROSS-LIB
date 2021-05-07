@@ -44,9 +44,8 @@ void play_frequency(uint16_t value)
     set_volume(0xF);  
     POKE(AUDIO_BASE+4,value&0xFF);
     POKE(AUDIO_BASE+5,(value&0x0F00)>>8);
-    for(i=0;i<600U;++i)
+    for(i=0;i<1200U;++i)
     {
-        // while(1){};
     }
     set_volume(0x0);
 }

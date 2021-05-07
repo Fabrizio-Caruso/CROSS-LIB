@@ -35,51 +35,14 @@
 
 void play_frequency(uint16_t value)
 {
-    uint16_t i;
-    
     psg_outb(value&0xFF); // Latch frequency
     psg_outb((value&0xFF00)>>8); // Frequency byte 2
     psg_outb(0x90); // Channel 0 full volume
-    for(i=0;i<600U;++i)
-    {
-    }
-}
-
-void _XL_EXPLOSION_SOUND(void)
-{
-    play_frequency(350);
+    psg_delay(900);
     psg_silence();
 }
 
-void _XL_PING_SOUND(void)
-{
-    play_frequency(200);
-    psg_silence();
-}
 
-void _XL_SHOOT_SOUND(void)
-{
-    play_frequency(600);
-    psg_silence();
-}
-
-void _XL_TICK_SOUND(void)
-{
-    play_frequency(80);
-    psg_silence();
-}
-
-void _XL_TOCK_SOUND(void)
-{
-    play_frequency(90);
-    psg_silence();
-}
-
-void _XL_ZAP_SOUND(void)
-{
-    play_frequency(1200);
-    psg_silence();
-}
 
 #endif // _GAMATE_SOUNDS
 

@@ -168,9 +168,9 @@
     #define _XL_YELLOW COLOR_YELLOW
     #define _XL_GREEN COLOR_GREEN
     
-    #if defined(COLOR_CYAN)
+    #if defined(__NCURSES__) || defined(COLOR_CYAN)
         #define _XL_CYAN COLOR_CYAN
-    #else
+    #else 
         #define _XL_CYAN COLOR_BLUE
     #endif
 

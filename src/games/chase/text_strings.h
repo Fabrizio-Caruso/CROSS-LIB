@@ -26,182 +26,72 @@
 #ifndef _TEXT_STRINGS_H
 #define _TEXT_STRINGS_H
 
-
-#if defined(ONLY_SMALL_LETTERS)
-	#  if defined(NO_SPACE_TEXT)
-		#define CROSS_CHASE_STRING "cross" _XL_SPACE "chase"
-		#define AUTHOR_STRING "fabrizio" _XL_SPACE "caruso"
-	#elif defined(TINY_GAME) || XSize<=20
-		#define CROSS_CHASE_STRING "cross" _XL_SPACE "chase"
-		#define AUTHOR_STRING "fabrizio" _XL_SPACE "caruso"
-	#else
-		#define CROSS_CHASE_STRING \
-            "c" _XL_SPACE "r" _XL_SPACE "o" _XL_SPACE "s" _XL_SPACE "s" _XL_SPACE "c" _XL_SPACE "h" _XL_SPACE "a" _XL_SPACE "s" _XL_SPACE "e"
-		#define AUTHOR_STRING "by fabrizio caruso"
-	#endif
-	#define KILL_THE_SKULL_STRING       "kill" _XL_SPACE "the" _XL_SPACE "skull"
-	#if XSize<=20
-		#define DESTROY_MISSILES_STRING "destroy" _XL_SPACE "missiles"
-	#else
-		#define DESTROY_MISSILES_STRING "destroy the missiles"
-	#endif
-	#define LURE_THE_ENEMIES_STRING     "lure" _XL_SPACE "the" _XL_SPACE "enemies"
-	#define INTO_THE_MINES_STRING       "into" _XL_SPACE "the" _XL_SPACE "mines"
-	#define SCORE_STRING "score"
-	#define LEVEL_STRING "level"
-	#define START_LEVEL_STRING "level" _XL_SPACE 
-	#define USE_THE_GUN_AGAINST_STRING "shoot" _XL_SPACE "at"
-	#define THE_SKULL_AND_STRING "the" _XL_SPACE "skull" _XL_SPACE "and"
-	#define MISSILE_BASES_STRING "missile" _XL_SPACE "bases"
-	#define FOR_POINTS_AND___STRING "for" _XL_SPACE "points"
-	#define EXTRA_POWERUPS__STRING "and" _XL_SPACE "items"
-#elif defined(ONLY_CAPITAL_LETTERS)
-	#if defined(TINY_GAME) || XSize<=20
-		#define CROSS_CHASE_STRING "CROSS CHASE"
-		#define AUTHOR_STRING "FABRIZIO CARUSO"
-	#else
-		#define CROSS_CHASE_STRING "C R O S S   C H A S E"	
-		#define AUTHOR_STRING "BY FABRIZIO CARUSO"
-	#endif
-	#define KILL_THE_SKULL_STRING       "KILL THE SKULL"
-	#if XSize<=20
-		#define DESTROY_MISSILES_STRING "DESTROY MISSILES"		
-	#else
-		#define DESTROY_MISSILES_STRING "DESTROY THE MISSILES"
-	#endif
-	#define LURE_THE_ENEMIES_STRING     "LURE THE ENEMIES"
-	#define INTO_THE_MINES_STRING     "INTO THE MINES"
-	#define SCORE_STRING "SCORE"
-	#define LEVEL_STRING "LEVEL"
-	#define START_LEVEL_STRING "LEVEL" _XL_SPACE
-	#define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
-	#define THE_SKULL_AND_STRING "THE SKULL AND"
-	#define MISSILE_BASES_STRING "MISSILE BASES"
-	#define FOR_POINTS_AND___STRING "FOR POINTS"
-	#define EXTRA_POWERUPS__STRING "AND ITEMS"
+#if defined(TINY_GAME) || XSize<=22
+    #define CROSS_CHASE_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_C _XL_h _XL_a _XL_s _XL_e 
+    #define AUTHOR_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
 #else
-	#if defined(TINY_GAME) || XSize<=20
-		#define CROSS_CHASE_STRING "C" "R" "O" "S" "S" _XL_SPACE "C" "H" "A" "S" "E"
-		#define AUTHOR_STRING "Fabrizio" _XL_SPACE "Caruso"
-	#else
-		#define CROSS_CHASE_STRING "C" _XL_SPACE "R" _XL_SPACE "O" _XL_SPACE "S" _XL_SPACE "S" _XL_SPACE "C" _XL_SPACE "H" _XL_SPACE "A" _XL_SPACE "S" _XL_SPACE "E"		
-		#define AUTHOR_STRING "by Fabrizio Caruso"
-	#endif
-	#define KILL_THE_SKULL_STRING   "Kill" _XL_SPACE "the" _XL_SPACE "skull"
-	#if XSize<=20
-		#define DESTROY_MISSILES_STRING "Destroy" _XL_SPACE "missiles"
-	#else
-		#define DESTROY_MISSILES_STRING "Destroy" _XL_SPACE "the" _XL_SPACE "missiles"
-	#endif
-	#define LURE_THE_ENEMIES_STRING     "Lure" _XL_SPACE "enemies"
-	#define INTO_THE_MINES_STRING   "into" _XL_SPACE "the" _XL_SPACE "mines"
-	#define SCORE_STRING "SCORE"
-	#define LEVEL_STRING "LEVEL"
-	#define START_LEVEL_STRING "LEVE" _XL_SPACE
-	#define USE_THE_GUN_AGAINST_STRING "Shoot" _XL_SPACE "at"
-	#define THE_SKULL_AND_STRING "the" _XL_SPACE "skull" _XL_SPACE "and"
-	#define MISSILE_BASES_STRING "missile" _XL_SPACE "bases"
-	#define FOR_POINTS_AND___STRING "for" _XL_SPACE "points"
-	#define EXTRA_POWERUPS__STRING "and" _XL_SPACE "items"
+    #define CROSS_CHASE_STRING \
+        _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
+        _XL_SPACE _XL_SPACE \
+        _XL_C _XL_SPACE _XL_h _XL_SPACE _XL_a _XL_SPACE _XL_s _XL_SPACE _XL_e 
+    #define AUTHOR_STRING \
+        _XL_F _XL_SPACE _XL_a _XL_SPACE _XL_b _XL_SPACE _XL_r _XL_SPACE _XL_i _XL_SPACE _XL_z _XL_SPACE _XL_i _XL_SPACE _XL_o \
+        _XL_SPACE _XL_SPACE \
+        _XL_C _XL_SPACE _XL_a _XL_SPACE _XL_r _XL_SPACE _XL_u _XL_SPACE _XL_s _XL_SPACE _XL_o
 #endif
+#define THE_STRING _XL_t _XL_h _XL_e
+#define SKULL_STRING _XL_s _XL_k _XL_u _XL_l _XL_l
+#define MISSILE_STRING _XL_m _XL_i _XL_s _XL_s _XL_i _XL_l _XL_e
+#define MISSILES_STRING  MISSILE_STRING _XL_s
+#define AND_STRING _XL_a _XL_n _XL_d
+#define KILL_THE_SKULL_STRING _XL_K _XL_i _XL_l _XL_l _XL_SPACE THE_STRING _XL_SPACE SKULL_STRING
 
-#if defined(ONLY_SMALL_LETTERS)
-	#if defined(JOYSTICK_CONTROL)
-		#define USE_STRING "use" _XL_SPACE "the" _XL_SPACE "joystick"
-	#elif defined(TINY_GAME) 
-		#define USE_STRING "use ijkl"
-	#elif XSize<=16
-		#define USE_STRING "use ijkl space"	
-	#else
-		#define USE_STRING "use i j k l space"	
-	#endif	
-#elif defined(ONLY_CAPITAL_LETTERS) 
-	#if defined(JOYSTICK_CONTROL)
-		#define USE_STRING "USE THE JOYSTICK"
-	#elif defined(TINY_GAME) 
-		#define USE_STRING "USE IJKL"
-	#elif XSize<=16
-		#define USE_STRING "USE IJKL SPACE"	
-	#else
-		#define USE_STRING "USE I J K L SPACE"	
-	#endif	
+#if XSize<=22
+    #define DESTROY_MISSILES_STRING _XL_D _XL_e _XL_s _XL_t _XL_r _XL_o _XL_y _XL_SPACE MISSILES_STRING
 #else
-	#if defined(JOYSTICK_CONTROL)
-		#define USE_STRING "Use" _XL_SPACE "the" _XL_SPACE "joystick"
-	#elif defined(TINY_GAME) 
-		#define USE_STRING "Use IJKL"
-	#elif XSize<=16
-		#define USE_STRING "Use IJKL SPACE"	
-	#else
-		#define USE_STRING "Use I J K L SPACE"	
-	#endif	
+    #define DESTROY_MISSILES_STRING _XL_D _XL_e _XL_s _XL_t _XL_r _XL_o _XL_y _XL_SPACE THE_STRING _XL_SPACE MISSILES_STRING
 #endif
+#define LURE_THE_ENEMIES_STRING _XL_L _XL_u _XL_r _XL_e _XL_SPACE THE_STRING _XL_SPACE _XL_e _XL_n _XL_e _XL_m _XL_i _XL_e _XL_s
+#define INTO_THE_MINES_STRING   _XL_i _XL_n _XL_t _XL_o _XL_SPACE THE_STRING _XL_SPACE _XL_m _XL_i _XL_n _XL_e _XL_s
+#define SCORE_STRING _XL_S _XL_C _XL_O _XL_R _XL_E
+#define LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
+#define START_LEVEL_STRING LEVEL_STRING _XL_SPACE 
+#define USE_THE_GUN_AGAINST_STRING _XL_S _XL_h _XL_o _XL_o _XL_t _XL_SPACE _XL_a _XL_t
+#define THE_SKULL_AND_STRING THE_STRING _XL_SPACE SKULL_STRING _XL_SPACE AND_STRING
+#define MISSILE_BASES_STRING MISSILE_STRING _XL_SPACE _XL_b _XL_a _XL_s _XL_e _XL_s
+#define FOR_POINTS_AND___STRING "for" _XL_SPACE "points"
+#define EXTRA_POWERUPS__STRING AND_STRING _XL_SPACE "items"
 
-#if defined(QAOPM) && defined(JOYSTICK_CONTROL)
-    #undef USE_STRING
-    #define USE_STRING "USE Q A O P M"
-#endif    
-
-#if defined(ONLY_CAPITAL_LETTERS)
-    #define TITLE_LINE_STRING "CROSS CHASE"
-#else
-    #define TITLE_LINE_STRING "cross chase"
-#endif
 
 #if defined(LESS_TEXT)
-	#if defined(ONLY_SMALL_LETTERS)
-		#define PRESS_STRING "go"
-		#if defined(NO_SPACE_TEXT)
-			#define GAME_OVER_STRING "game" _XL_SPACE "over"
-			#define YOU_MADE_IT_STRING "the" _XL_SPACE "end"
-		#else
-			#define GAME_OVER_STRING "game over"
-			#define YOU_MADE_IT_STRING "the end"
-		#endif
-	#else
-		#define PRESS_STRING "GO"
-		#define GAME_OVER_STRING "GAME OVER"
-		#define YOU_MADE_IT_STRING "THE END"
-	#endif
+    #define PRESS_STRING _XL_G _XL_O
 #else
-	#if defined(ONLY_SMALL_LETTERS)
-		#if defined(JOYSTICK_CONTROL)
-			#define PRESS_STRING "press" _XL_SPACE "fire"
-		#else
-			#define PRESS_STRING "press a key"
-		#endif
-		#define GAME_OVER_STRING "game" _XL_SPACE "over"
-		#define DEFEAT_STRING "you" _XL_SPACE "lost"
-		#define VICTORY_STRING "you" _XL_SPACE "won"
-		#define EXTRA_LIFE_STRING "extra" _XL_SPACE "life"
-		#define YOU_MADE_IT_STRING "you" _XL_SPACE "made" _XL_SPACE "it"
-	#else
-		#if defined(JOYSTICK_CONTROL)
-			#define PRESS_STRING "PRESS" _XL_SPACE "FIRE"
-		#else
-			#define PRESS_STRING "PRESS A KEY"
-		#endif
-		#define GAME_OVER_STRING "GAME OVER"
-		#define DEFEAT_STRING "YOU LOST"	
-		#define VICTORY_STRING "YOU WON"
-		#define EXTRA_LIFE_STRING "EXTRA LIFE"
-		#define YOU_MADE_IT_STRING "YOU MADE IT"	
-	#endif
+    #if defined(JOYSTICK_CONTROL)
+        #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_f _XL_i _XL_r _XL_e
+    #else
+        #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_k _XL_e _XL_y
+    #endif
 #endif
 
-#if defined(ONLY_SMALL_LETTERS)
-	#define BONUS_COLON_STRING "bonus "
-	#define SCORE_COLON__STRING "score "
-	#define HIGH_SCORE_COLON_STRING "high score "
+#define GAME_OVER_STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R
+#define YOU_MADE_IT_STRING THE_STRING _XL_SPACE _XL_E _XL_N _XL_D
+
+#define DEFEAT_STRING _XL_Y _XL_o _XL_u _XL_SPACE _XL_l _XL_o _XL_s _XL_t
+#define VICTORY_STRING _XL_Y _XL_o _XL_u _XL_SPACE _XL_w _XL_o _XL_n
+#define EXTRA_LIFE_STRING _XL_E _XL_x _XL_t _XL_r _XL_a _XL_SPACE _XL_l _XL_i _XL_f _XL_e
+
+#define _USE_STRING _XL_U _XL_s _XL_e
+
+#if defined(JOYSTICK_CONTROL)
+    #define USE_STRING _USE_STRING _XL_SPACE THE_STRING _XL_SPACE _XL_j _XL_o _XL_y _XL_s _XL_t _XL_i _XL_c _XL_k
+#elif defined(TINY_GAME) 
+    #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L
+#elif XSize<=16
+    #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E	
 #else
-	#define BONUS_COLON_STRING "BONUS "
-	#define SCORE_COLON__STRING "SCORE "
-	#if XSize<=16
-		#define HIGH_SCORE_COLON_STRING "HISCORE "
-	#else
-		#define HIGH_SCORE_COLON_STRING "HIGH SCORE "
-	#endif
-#endif
+    #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_SPACE _XL_J _XL_SPACE _XL_K _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E		
+#endif	
+
 
 #endif // _TEXT_STRINGS_H
 

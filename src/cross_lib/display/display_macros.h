@@ -118,8 +118,8 @@ typedef struct ImageStruct Image;
         #define REFRESH() \
             do \
             { \
-                memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,1000); \
-                memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,1000); \
+                memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize); \
+                memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize); \
             } while(0)
     
     #else
@@ -129,7 +129,7 @@ typedef struct ImageStruct Image;
             uint16_t i; \
             \
             _XL_WAIT_VSYNC(); \
-            for(i=0;i<1000;++i) \
+            for(i=0;i<XSize*YSize;++i) \
             { \
                 POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
                 POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \

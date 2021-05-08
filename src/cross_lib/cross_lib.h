@@ -84,7 +84,7 @@
 #if defined(__VIC20__) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) \
     || defined(__APPLE2__) || defined(__C64__) || defined(__ATARI__)  \
-	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__COCO__) || defined(__DRAGON__)
+	|| defined(__ZX80__) || defined(__ZX81__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__COCO__) || defined(__DRAGON__)
 	#define ONLY_SMALL_LETTERS
 #elif defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__)
 	#define ONLY_CAPITAL_LETTERS

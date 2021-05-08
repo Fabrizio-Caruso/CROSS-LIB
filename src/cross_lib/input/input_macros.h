@@ -124,11 +124,12 @@
     #else // CC65
         #include <joystick.h>
         // Support for older CC65 version
-        // #if !defined(JOY_BTN_1_MASK)
-            // #define JOY_BTN_1_MASK JOY_BTN_1
-        // #endif
-        #if !defined(JOY_FIRE)
-            #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
+        #if !defined(JOY_BTN_1_MASK)
+            #define JOY_FIRE(joyKey) JOY_BTN_FIRE(joyKey)
+        #else
+            #if !defined(JOY_FIRE)
+                #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
+            #endif
         #endif
     #endif // defined(Z88DK_JOYSTICK)
     

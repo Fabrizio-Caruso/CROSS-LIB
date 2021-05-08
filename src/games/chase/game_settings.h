@@ -157,8 +157,13 @@
 	#define SKULL_TRIGGER 3
 #endif 
 
-#define TURN_BASED_EFFECT_SCALE 5
-#define TURN_BASED_WAIT_SCALE 4
+#if !defined(TURN_BASED_EFFECT_SCALE)
+    #define TURN_BASED_EFFECT_SCALE 5
+#endif
+
+#if !defined(TURN_BASED_WAIT_SCALE)
+    #define TURN_BASED_WAIT_SCALE 4
+#endif 
 #define ACTION_EFFECT_SCALE 1
 #define ACTION_WAIT_SCALE 1
 

@@ -289,8 +289,7 @@ void _printCrossShoot(void)
             
             SET_COLOR(_XL_CYAN);
             
-            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
-            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, INTO_THE_MINES_STRING);
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)-1, KILL_THEM_ALL_STRING);
             
             SET_COLOR(TEXT_COLOR);    
             

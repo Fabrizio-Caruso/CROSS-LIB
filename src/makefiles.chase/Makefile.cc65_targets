@@ -128,23 +128,9 @@ vic20_targets: \
 #######################################################################################
 # APPLE2
 
+# -O breaks bit-banging
 apple2:	 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
-	-DFULL_GAME -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/apple2.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
-	rm $(BUILD_PATH)/apple2.bin
-
-
-apple2_sound:	 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
@@ -159,11 +145,27 @@ apple2_sound:
 	rm $(BUILD_PATH)/apple2.bin
 
 
+apple2_no_sound:	 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
+	-DFULL_GAME -DALT_SLEEP \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
+	rm $(BUILD_PATH)/apple2.bin
+
+
 #######################################################################################
 # APPLE2ENH
 
+# -O breaks bit-banging
 apple2enh: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -179,7 +181,28 @@ apple2enh:
 	rm $(BUILD_PATH)/apple2enh.bin
 
 
-apple2enh_sound: 
+# -O breaks bit-banging
+apple2enh_80col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh \
+	-DFULL_GAME -DALT_SLEEP \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DSOUNDS \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_GHOSTS_NUMBER=9 \
+	-DAPPLE2ENH_80COL_VIDEO_MODE \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/apple2enh_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2enh_80col.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2enh_80col.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
+	rm $(BUILD_PATH)/apple2enh_80col.bin	
+
+
+apple2enh_no_sound: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -194,7 +217,8 @@ apple2enh_sound:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
-apple2enh_80col: 
+
+apple2enh_80col_no_sound: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \

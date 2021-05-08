@@ -1351,10 +1351,11 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=4000 \
+	-lndos -DSLOW_DOWN=4000 -DSOUNDS \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES_NO_SLEEP) \
+	$(CROSS_LIB_PATH)/sound/z88dk/gb/gb_sounds.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin

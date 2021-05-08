@@ -255,7 +255,7 @@ int main(void)
         
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();
-            
+            REFRESH();
         #else
             printPressKeyToStart();                
         #endif
@@ -264,6 +264,7 @@ int main(void)
 
         #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
             highScoreScreen();
+            REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
         #endif
@@ -378,6 +379,7 @@ int main(void)
             #endif
             
             printPressKeyToStart();
+            REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
             

@@ -34,7 +34,7 @@
 // #define DEBUG 1
 // #define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 
 #define LAST_LEVEL 8
 #define INITIAL_LIVES 3
@@ -1042,7 +1042,7 @@ void drop_item(register Item *item, uint8_t max_counter)
     _XL_TICK_SOUND();
     item->_active = 1;
     item->_x = zombie_x;
-    item->_y = zombie_y[zombie_x]+1;
+    item->_y = zombie_y[zombie_x]+2; // TODO: Replace 2 with 1+!!zombie_shape[zombie_x];
     item->_counter=max_counter;
 }
 

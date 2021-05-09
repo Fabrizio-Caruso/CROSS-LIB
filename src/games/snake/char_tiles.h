@@ -44,7 +44,11 @@
 
 #define _TILE_17 'X'
 
-#define _TILE_18 'S'
+#if !defined(COLOR)
+    #define _TILE_18 'S'
+#else
+    #define _TILE_18 'O'
+#endif
 
 #endif // _CHAR_TILES_H
 

@@ -65,63 +65,105 @@ all: \
     z88dk_targets \
     lcc1802_targets
 
-
 gcc_targets: \
     ncurses  
 
+cc65_ascii_targets: \
+    pet
 
-cc65_targets: \
+z88dk_ascii_targets: \
+    aquarius \
+    cpm \
+    mz \
+    vz200
+    
+lcc1802_ascii_targets: 
+	make tmc600 -f Makefile.$(GAME_NAME)
+
+cc65_8x8_targets: \
     atari \
     atari5200 \
     c16 \
     c64 \
     creativision \
     gamate \
-    oric  \
     nes \
-    pet \
     pce \
     supervision \
     vic20_exp_8k \
     vic20
 
-cmoc_targets: \
-    coco_targets \
-    dragon_targets \
-    mo5_targets \
-    to7_targets
-
-
-z88dk_targets: \
+z88dk_8x8_targets: \
     ace \
-    aquarius \
     c128_z80_40col \
     c128_z80_80col \
     coleco \
     cpc \
     cpc_mode1 \
     cpc_mode2 \
-    cpm \
     gb \
     laser500 \
     mc1000 \
     msx \
     mtx500 \
     mtx512 \
-    mz \
     sms \
     spectrum \
     vg5k \
-    vz200 \
     zx81
 
+cc65_6x8_targets: \
+    oric \
 
-lcc1802_targets: 
+lcc1802_6x8_targets: 
 	make comx -f Makefile.$(GAME_NAME)
 	make comx_ntsc -f Makefile.$(GAME_NAME)
 	make pecom -f Makefile.$(GAME_NAME)
-	make tmc600 -f Makefile.$(GAME_NAME)
 	make micro -f Makefile.$(GAME_NAME)
+
+cmoc_8x8_targets: \
+    coco_targets \
+    dragon_targets \
+    mo5_targets \
+    to7_targets
+
+
+cc65_targets: \
+    cc65_ascii_targets \
+    cc65_8x8_targets \
+    cc65_6x8_targets
+
+cmoc_targets: \
+    cmoc_8x8_targets
+
+
+z88dk_targets: \
+    z88dk_ascii_targets \
+    z88dk_8x8_targets
+
+lcc1802_targets:  \
+    lcc1802_ascii_targets \
+    lcc1802_6x8_targets
+
+all_ascii: \
+    cc65_ascii_targets \
+    z88dk_ascii_targets \
+    lcc1802_ascii_targets
+
+all_8x8: \
+    cc65_8x8_targets \
+    z88dk_8x8_targets \
+    cmoc_8x8_targets
+
+all_6x8: \
+    cc65_6x8_targets \
+    lcc1802_6x8_targets
+
+release: \
+    c64_exomized \
+    all_ascii \
+    all_8x8 \
+    all_6x8
 
 
 #################################################################

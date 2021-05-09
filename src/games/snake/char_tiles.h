@@ -21,7 +21,11 @@
 
 #define _TILE_7 '='
 
-#define _TILE_8 'R'
+#if !defined(COLOR)
+    #define _TILE_8 'R'
+#else
+    #define _TILE_8 'O'
+#endif
 
 #define _TILE_9 'L'
 

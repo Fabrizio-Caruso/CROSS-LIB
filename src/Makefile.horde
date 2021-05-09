@@ -76,6 +76,7 @@ release: \
     c64_exomized \
     all_8x8 \
     all_6x8 \
+    all_ascii \
 
 gcc_targets: \
     ncurses  

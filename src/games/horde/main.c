@@ -121,9 +121,9 @@
 
 
 #if XSize<=80
-    #define MINIONS_ON_FIRST_LEVEL ((XSize)+1)
+    #define MINIONS_ON_FIRST_LEVEL (XSize)
 #else
-    #define MINIONS_ON_FIRST_LEVEL 81
+    #define MINIONS_ON_FIRST_LEVEL 80
 #endif
 
 #if XSize<=80
@@ -1689,26 +1689,53 @@ void fire(void)
     display_bow();
 }
 
-
-#define handle_bow_move() \
-do \
-{ \
-    input = _XL_INPUT(); \
-    \
-    if(_XL_LEFT(input) && bow_x) \
+#if defined(NO_UDG)
+    #define handle_bow_move() \
+    do \
     { \
-        move_left(); \
-    } \
-    else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+        input = _XL_INPUT(); \
+        \
+        if(_XL_LEFT(input) && bow_x) \
+        { \
+            move_left(); \
+            if(bow_x) \
+            { \
+                move_left(); \
+            } \
+        } \
+        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+        { \
+            move_right(); \
+            if(bow_x<MAX_BOW_X) \
+            { \
+                move_right(); \
+            } \
+        } \
+        else if (_XL_FIRE(input) && loaded_bow) \
+        { \
+            fire(); \
+        } \
+    } while(0)
+#else
+    #define handle_bow_move() \
+    do \
     { \
-        move_right(); \
-    } \
-    else if (_XL_FIRE(input) && loaded_bow) \
-    { \
-        fire(); \
-    } \
-} while(0)
-
+        input = _XL_INPUT(); \
+        \
+        if(_XL_LEFT(input) && bow_x) \
+        { \
+            move_left(); \
+        } \
+        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+        { \
+            move_right(); \
+        } \
+        else if (_XL_FIRE(input) && loaded_bow) \
+        { \
+            fire(); \
+        } \
+    } while(0)
+#endif
 
 #define game_over() \
 do \

@@ -191,6 +191,9 @@ lcc1802_6x8_targets:
 	make pecom -f Makefile.$(GAME_NAME)
 	make micro -f Makefile.$(GAME_NAME)
 
+lcc1802_ascii_targets:
+	make tmc600 -f Makefile.$(GAME_NAME)
+
 #################################################################
 # CC65
 
@@ -412,11 +415,11 @@ nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 
 pet: pet_16k
 
-# -m my_map.txt
+# -DASCII_SOUNDS
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t pet \
-	 -DSLOW_DOWN=4000 -DNO_UDG \
-	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG -DASCII_SOUNDS \
+	 -DSLOW_DOWN=400 -DNO_UDG \
+	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG  \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 
@@ -984,7 +987,7 @@ aquarius: aquarius_exp_16k
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ \
-	-lndos -DSLOW_DOWN=3000 -DNO_UDG \
+	-lndos -DSLOW_DOWN=500 -DNO_UDG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
@@ -1179,7 +1182,7 @@ cpm: cpm_z80_adm3a
 cpm_z80_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-DSLOW_DOWN=3000 \
+	-DSLOW_DOWN=700 \
 	-DCONIO_ADM3A -DNO_COLOR \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -DNO_WAIT \
@@ -1376,7 +1379,7 @@ mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	 -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS -DSLOW_DOWN=2500 \
+	-DCONIO -DNO_INIT_GRAPHICS -DSLOW_DOWN=1000 \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
 	$(FULL_FILES)
@@ -1484,7 +1487,7 @@ vz200_24k:
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
-	-DNO_EXTRA_TITLE -DSLOW_DOWN=5500 \
+	-DNO_EXTRA_TITLE -DSLOW_DOWN=500 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
@@ -1811,7 +1814,7 @@ tmc600: tmc600_37k
 # -savetemps -S
 tmc600_37k: reduced_full_lcc1802_combo.c 
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
-	-D__TMC600__  $(EXTRA_DRAW_SKIP)  -DSLOW_DOWN=150 \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP)  -DSLOW_DOWN=0 \
 	 -DSIMPLE_STRATEGY -DNO_UDG \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
@@ -1872,7 +1875,7 @@ ncurses_targets: \
 ncurses:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DNO_DO_SLOW_DOWN_MACRO \
-	 -DSLOW_DOWN=150 -DNO_UDG \
+	 -DSLOW_DOWN=35 -DNO_UDG \
 	-DCONIO \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \

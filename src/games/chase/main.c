@@ -478,6 +478,7 @@ int main(void)
                                 chasedByGhosts=&player;
                             }
                             
+                            // _XL_PRINTD(4,4,5,ghostSlowDown);
                             chaseCharacter(chasedByGhosts);
 
                             #if BOMBS_NUMBER==4
@@ -523,8 +524,6 @@ int main(void)
                         chaseCharacter();
                     #endif
                 #endif
-                
-
                 
                 
                 // Check collisions bombs vs ghosts
@@ -620,7 +619,11 @@ int main(void)
                 
                     
                 #if defined(TURN_BASED) 
+                    #if !defined(EVEN_LOOP_MOVE)
                     if((loop<TURN_BASED_MAX_LOOP) || loop&1)
+                    #else
+                    if(loop<TURN_BASED_MAX_LOOP)   
+                    #endif
                     {
                         MOVE_PLAYER();
                     }                    

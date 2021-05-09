@@ -111,7 +111,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }
-            else
+        else
             { // 5 - 9
                 blindChaseCharacterYStrategy(hunterPtr, preyPtr);
             }

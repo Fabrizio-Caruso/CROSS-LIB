@@ -395,8 +395,9 @@ pet: pet_16k
 # -m my_map.txt
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t pet \
-	 -DSLOW_DOWN=4000 -DNO_UDG \
-	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG -DASCII_SOUNDS \
+	-DSLOW_DOWN=4000 -DNO_UDG -DSOUNDS \
+	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
+	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 

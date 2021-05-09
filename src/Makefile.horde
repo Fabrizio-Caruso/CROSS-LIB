@@ -419,9 +419,10 @@ pet: pet_16k
 # -DASCII_SOUNDS
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t pet \
-	 -DSLOW_DOWN=400 -DNO_UDG \
+	-DSLOW_DOWN=400 -DNO_UDG -DSOUNDS \
 	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG  \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 
 
@@ -1488,7 +1489,7 @@ vz200_24k:
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
-	-DNO_EXTRA_TITLE -DSLOW_DOWN=500 \
+	-DNO_EXTRA_TITLE -DSLOW_DOWN=900 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \

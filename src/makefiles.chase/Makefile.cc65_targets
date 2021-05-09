@@ -682,8 +682,9 @@ pet_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 

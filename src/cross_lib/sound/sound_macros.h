@@ -93,6 +93,8 @@
         #include "gb_sounds.h"
     #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(SOUNDS)
         #include "bit_bang_sounds.h"
+    #elif defined(__PET__) && defined(SOUNDS)
+        #include "pet_sounds.h"
 	#else
 		#define _XL_EXPLOSION_SOUND() 
 		#define _XL_PING_SOUND() 

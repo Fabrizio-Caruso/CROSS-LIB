@@ -47,7 +47,12 @@
 #define POWER_UPS_Y ((BOW_Y)+2)
 #define WALL_Y ((YSize)-8)
 
-#define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
+#if YSize>=18
+    #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
+#else
+    #define INITIAL_ZOMBIE_Y 7
+#endif
+
 #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
 

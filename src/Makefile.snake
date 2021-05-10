@@ -1666,7 +1666,7 @@ vz200_24k_zsdcc:
 vz200_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn -pragma-define:REGISTER_SP=0xc000 \
 	$(INCLUDE_OPTS) \
-	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DSOUNDS -D__VZ__ --generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	-DNO_EXTRA_TITLE -DSLOW_DOWN=5500 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \

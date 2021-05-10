@@ -870,10 +870,10 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 vz200: vz200_24k
 
 vz200_24k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
-	-compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) \
-	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DSOUNDS -D__VZ__ \
 	-DNO_EXTRA_TITLE -DSLOW_DOWN=2200 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \

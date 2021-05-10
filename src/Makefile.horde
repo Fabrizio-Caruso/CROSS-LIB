@@ -1485,11 +1485,11 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 vz200: vz200_24k
 
 vz200_24k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
-	-compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	--generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) \
-	-DSOUNDS -D__VZ__ -clib=ansi \
-	-DNO_EXTRA_TITLE -DSLOW_DOWN=900 \
+	-DSOUNDS -D__VZ__ \
+	-DNO_EXTRA_TITLE -DSLOW_DOWN=400 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \

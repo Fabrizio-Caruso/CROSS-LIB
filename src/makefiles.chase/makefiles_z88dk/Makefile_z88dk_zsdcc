@@ -373,14 +373,13 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 vz200: vz200_18k
 
 vz200_18k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS)  -vn \
-	-compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +vz --hardware-keyboard  --generic-console -vn \
 	$(INCLUDE_OPTS) \
-	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DSOUNDS -D__VZ__ -DHARDWARE_KEYBOARD \
 	-DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos \
+	-lndos -m \
 	-create-app -Cz--audio -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas

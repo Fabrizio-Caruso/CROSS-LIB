@@ -114,4 +114,9 @@ Rings will improve in this order:
 - the power of your bow
 After these improvements, the rings will be necessary to unblock special items and to achieve the temporary "hyper" power.
 
+1. Commodore 264 series (C16/C116/C+4):
+https://plus4world.powweb.com/play/cross_horde
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
+3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
+4. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
  

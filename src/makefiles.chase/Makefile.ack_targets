@@ -78,6 +78,28 @@ cpm_8080_ack_targets: \
 	cpm_8080_ack_buffered
 
 
+# buffered
+msdos86:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__MSDOS86__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv msdos86.exe $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.exe
+	rm $(SOURCE_PATH)/../../*.o
+
 # buffered	
 pc8086:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \

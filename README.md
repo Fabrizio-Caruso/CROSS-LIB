@@ -3,23 +3,33 @@ Cross Lib and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
+-------------------------------------------
+
 ## THE GOAL
 
 *Cross-Lib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked computer toys, etc.). 
 
+-------------------------------------------
+
+## THE GAMES
+
 These games are the proof of the flexibility of *Cross-Lib*:
 
-1. *Cross Chase* is a "universal" 8-bit game that can be compiled for and run
+1. *Cross Chase* is compiled for and run
 on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
 It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
-2. *Cross Shoot* is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
-It requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
-3. *Cross Bomber* is a third "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
-It is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
+It is somehow similar to *Gnome Robots*. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
+2. *Cross Shoot* requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
+It is a shooter somehow similar to Robotron. It has many items and secrets to discover.
+3. *Cross Bomber* is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
 Its code is almost entirely in a single file. It uses pre-shifted tiles to produce smoother movements on graphics-enabled targets.
-4. *Cross Snake* is a fourth "universal" 8-bit game. 
-Its size is similar to Cross Chase and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
-It a my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements.
+4. *Cross Snake* is similar in size to *Cross Chase* and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
+It a my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
+5. *Cross Horde* is similar in size to *Cross Chase* and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
+It is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
+
+You can play the games online and read more about them in:
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.txt
 
 -------------------------------------------
 
@@ -191,101 +201,6 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GA
 This depends on the systems and the format used to store the game. For some hints on this take a look at:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
 
--------------------------------------------
-
-## CROSS CHASE - THE GAME 
-The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
-You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
-All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
-If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
-There are 20 different levels including 4 boss levels.
-
-You can play the game online for different systems:
-
-1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
-2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XChase_vic20_exp_16k.prg
-4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_c64.prg
-5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
-6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_laser500.bin
-
-
--------------------------------------------
-
-## CROSS SHOOT - THE GAME 
-The game's goal is to kill all common enemies or kill all 4 "skulls". 
-Common enemies can be killed quickly if pushed against the walls by shooting at them.
-The "skulls" and the boss cannot be pushed and are harder to kill.
-You have to avoid all enemies, rockets and chasing missiles.
-All flashing items have positive effects and can grant you special powers. 
-Your bullets have a limited power that can be improved by catching the special fire power item. 
-You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
-Discover the 12 items. Some items are secret. In total the game has 16 secrets.
-You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
-The game has 16 different levels including 2 boss levels + 1 secret level.
-
-
-You can play the gamne online:
-
-1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
-2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/FULL_XShoot_vic20_exp_16k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
-5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
-
-
-
--------------------------------------------
-
-## CROSS BOMBER - THE GAME 
-The game's goal is to destroy all buildings so that you can land on an empty road.
-The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
-The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
-Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
-The game has 8 levels and it ends after the eighth level.
-
-You can play the game online:
-
-1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/FULL_Xbomber_vic20_exp_8k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
-5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
-6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
-
-
--------------------------------------------
-
-## CROSS SNAKE - THE GAME
-
-This my own re-interpretation of Nibbler (arcade) and Snake (primarily a cell phone game), to which I have added many more game elements.
-
-You have to go through 32 levels (with 16 different maps) + an optional secret level (with its own map).
-To complete a level you have to eat all the apples while:
-- avoiding your own tail and body
-- avoiding the fixed and bouncing mines
-- avoiding to starve by losing your energy (eat apples to prevent this)
-As you starve, the snake moves faster and faster.
-
-Walls do not kill you and let you pause the game and think about your next move.
-
-You can also catch special items that will help in your quest:
-- ring (collect 3 or even 4 for extra points and to spawn more special items such as "freeze")
-- freeze (special item that freezes the mines and restores your energy
-- $ (extra points... but also some secret effects if you collect many)
-- extra life (special and hard to unlock item that gives 1 extra life)
-
-
-You can play the game online:
-
-1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_snake_2_0
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosssnake
-5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137608
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake1.0/Xsnake_laser500.bin
 
 
 -------------------------------------------

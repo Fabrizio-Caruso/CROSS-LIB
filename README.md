@@ -29,7 +29,7 @@ It a my personal re-interpretation of Nibbler (arcade game) to which I have adde
 It is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
 
 You can play the games online and read more about them in:
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.txt
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 -------------------------------------------
 

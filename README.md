@@ -12,7 +12,6 @@ The universal *retro-hardware abstraction layer*.
 
 
 ![SMS](snapshots/XShoot_sms.png)
-![MSX](snapshots/XSnake_MSX.png)
 ![GB](snapshots/XSnake_GB.png)
 ![Atari](snapshots/XHorde_A8.png)
 ![MSX](snapshots/XSnake_MSX2.png)

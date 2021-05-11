@@ -1,11 +1,14 @@
-# CROSS LIB
-Cross Lib and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber)
-
-by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
-
 ![SMS](snapshots/XHorde_SMS.png)
 ![Atari](snapshots/XChase_A8.png)
 ![CPC](snapshots/XHorde_CPC.png)
+
+# CROSS LIB
+*Cross-Lib* and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber, Cross Snake, Cross Horde)
+
+by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
+
+The universal *retro-hardware abstraction layer*.
+
 ![Atari](snapshots/XBomber_A8.png)
 ![SMS](snapshots/XShoot_sms.png)
 ![MSX](snapshots/XSnake_MSX.png)

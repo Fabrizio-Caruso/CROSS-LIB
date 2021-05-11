@@ -3,7 +3,6 @@ Cross Lib and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
-![C64](snapshots/XSnake_C64.png)
 ![SMS](snapshots/XHorde_SMS.png)
 ![Atari](snapshots/XChase_A8.png)
 ![CPC](snapshots/XBomber_A8.png)

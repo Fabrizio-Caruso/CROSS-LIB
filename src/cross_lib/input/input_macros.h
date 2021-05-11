@@ -56,17 +56,19 @@
 	#elif defined(Z88DK_JOYSTICK)
 		extern uint8_t stick;
 		
-        #if !defined(__ZX81__)
-            #define _XL_INIT_INPUT() \
-            { \
-                stick = 1; \
-            }
-        #else
-            #define _XL_INIT_INPUT() \
-            { \
-                stick = 3; \
-            }            
+        #if !defined(STICK)
+            #if defined(__ZX81__)
+                #define STICK 3
+            #elif defined(__LASER500__)
+                #define STICK 5
+            #else
+                #define STICK 1
+            #endif
         #endif
+        #define _XL_INIT_INPUT() \
+            { \
+                stick = STICK; \
+            }
 	#elif defined(__SMS__) || defined(__LCC1802__)
 		#define _XL_INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200

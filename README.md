@@ -15,7 +15,7 @@ The universal *retro-hardware abstraction layer*.
 ![GB](snapshots/XSnake_GB.png)
 ![Atari](snapshots/XHorde_A8.png)
 ![SMS](snapshots/XHorde_SMS.png)
-![C64](snapshots/XSnake_C64_intro.png)
+
 -------------------------------------------
 
 ## THE GOAL

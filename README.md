@@ -3,11 +3,20 @@ Cross Lib and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
+![C64](snapshots/XSnake_C64.png)
+![SMS](snapshots/XHorde_SMS.png)
+![Atari](snapshots/XChase_A8.png)
+![CPC](snapshots/XBomber_A8.png)
+![Atari](snapshots/XBomber_A8.png)
+![SMS](snapshots/XShoot_sms.png)
+![MSX](snapshots/XSnake_MSX.png)
+![GB](snapshots/XSnake_GB.png)
+
 -------------------------------------------
 
 ## THE GOAL
 
-*Cross-Lib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked computer toys, etc.). 
+*Cross-Lib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.). 
 
 -------------------------------------------
 

@@ -53,7 +53,12 @@
     #define INITIAL_ZOMBIE_Y 7
 #endif
 
-#define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
+#if YSize>=18
+    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
+#else
+    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-3
+#endif
+
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
 
 #define POWER_THRESHOLD 4

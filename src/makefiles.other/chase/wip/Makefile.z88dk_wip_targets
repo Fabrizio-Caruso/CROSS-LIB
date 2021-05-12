@@ -220,9 +220,10 @@ s1mp3:
 # --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
 #  --peep-file "" --list -m --c-code-in-asm
+# -compiler=sdcc -SO0
 spectrum_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -v   \
-	$(INCLUDE_OPTS) -compiler=sdcc -SO0 \
+	$(INCLUDE_OPTS)  \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \

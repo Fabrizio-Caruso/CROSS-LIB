@@ -112,11 +112,11 @@ You can play the game online for different systems:
 
 1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/FULL_Xchase_vic20_exp_16k.prg
+3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vic20_exp_16k.prg
 4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg 
 5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
 6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-7. Video Technology Laser 210 / VZ200 : https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz
+7. Video Technology Laser 210 / VZ200 : https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz
 8. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_laser500.bin
 
 

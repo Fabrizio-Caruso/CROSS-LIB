@@ -93,11 +93,12 @@ The game has 16 different levels including 2 boss levels + 1 secret level.
 You can play the gamne online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
-2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/FULL_XShoot_vic20_exp_16k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
+2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/FULL_XShoot_vic20_exp_16k.prg
+3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_c64.prg 
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
+6. Video Technology Laser 200 / VZ 200: https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_vz200.bin
+7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_laser500.bin
 
 -------------------------------------------
 

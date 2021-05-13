@@ -1,69 +1,28 @@
 # THE GAMES
 
--------------------------------------------
-
-## CROSS CHASE - THE GAME 
-The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
-You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
-All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
-If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
-There are 20 different levels including 4 boss levels.
-
-You can play the game online for different systems:
-
-1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
-2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XChase_vic20_exp_16k.prg
-4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_c64.prg
-5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
-6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_laser500.bin
-
 
 -------------------------------------------
 
-## CROSS SHOOT - THE GAME 
-The game's goal is to kill all common enemies or kill all 4 "skulls". 
-Common enemies can be killed quickly if pushed against the walls by shooting at them.
-The "skulls" and the boss cannot be pushed and are harder to kill.
-You have to avoid all enemies, rockets and chasing missiles.
-All flashing items have positive effects and can grant you special powers. 
-Your bullets have a limited power that can be improved by catching the special fire power item. 
-You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
-Discover the 12 items. Some items are secret. In total the game has 16 secrets.
-You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
-The game has 16 different levels including 2 boss levels + 1 secret level.
 
+## CROSS HORDE
 
-You can play the gamne online:
+Cross Horde is a zombie shooter with several different enemies, levels and power-ups and items to pick.
 
-1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
-2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/FULL_XShoot_vic20_exp_16k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
-5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
+You die if a zombie reaches the wall behind the bow or if a zombie hits you with its bullets.
 
+In order to improve your fire power you can pick up the rings that are dropped when some zombies die.
+Rings will improve in this order:
+- the range of your bow
+- the speed of your bow
+- the number of arrows thrown at once 
+- the power of your bow
+After these improvements, the rings will be necessary to unblock special items and to achieve the temporary "hyper" power.
 
-
--------------------------------------------
-
-## CROSS BOMBER - THE GAME 
-The game's goal is to destroy all buildings so that you can land on an empty road.
-The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
-The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
-Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
-The game has 8 levels and it ends after the eighth level.
-
-You can play the game online:
-
-1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/FULL_Xbomber_vic20_exp_8k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
-5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
-6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
-
+1. Commodore 264 series (C16/C116/C+4):
+https://plus4world.powweb.com/play/cross_horde
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
+3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
+4. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
 
 -------------------------------------------
 
@@ -99,24 +58,68 @@ You can play the game online:
 
 -------------------------------------------
 
+## CROSS BOMBER - THE GAME 
+The game's goal is to destroy all buildings so that you can land on an empty road.
+The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
+The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
+Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
+The game has 8 levels and it ends after the eighth level.
 
-## CROSS HORDE
+You can play the game online:
 
-Cross Horde is a zombie shooter with several different enemies, levels and power-ups and items to pick.
+1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/FULL_Xbomber_vic20_exp_8k.prg
+3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
+4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
+6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
 
-You die if a zombie reaches the wall behind the bow or if a zombie hits you with its bullets.
 
-In order to improve your fire power you can pick up the rings that are dropped when some zombies die.
-Rings will improve in this order:
-- the range of your bow
-- the speed of your bow
-- the number of arrows thrown at once 
-- the power of your bow
-After these improvements, the rings will be necessary to unblock special items and to achieve the temporary "hyper" power.
+-------------------------------------------
 
-1. Commodore 264 series (C16/C116/C+4):
-https://plus4world.powweb.com/play/cross_horde
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
-4. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
+## CROSS SHOOT - THE GAME 
+The game's goal is to kill all common enemies or kill all 4 "skulls". 
+Common enemies can be killed quickly if pushed against the walls by shooting at them.
+The "skulls" and the boss cannot be pushed and are harder to kill.
+You have to avoid all enemies, rockets and chasing missiles.
+All flashing items have positive effects and can grant you special powers. 
+Your bullets have a limited power that can be improved by catching the special fire power item. 
+You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
+Discover the 12 items. Some items are secret. In total the game has 16 secrets.
+You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
+The game has 16 different levels including 2 boss levels + 1 secret level.
+
+
+You can play the gamne online:
+
+1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
+2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/FULL_XShoot_vic20_exp_16k.prg
+3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
+4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
+6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
+
+-------------------------------------------
+
+## CROSS CHASE - THE GAME 
+The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
+You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
+All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
+If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
+There are 20 different levels including 4 boss levels.
+
+You can play the game online for different systems:
+
+1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
+2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
+3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/FULL_Xchase_vic20_exp_16k.prg
+4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg 
+5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
+6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
+7. Video Technology Laser 210 / VZ200 : https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz
+8. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_laser500.bin
+
+
+
+
  

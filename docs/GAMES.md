@@ -72,7 +72,7 @@ You can play the game online:
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
-6. Video technology Laser 200 / VZ200: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vz200_24k.bin
+6. Video technology Laser 200 / VZ200: https://nippur72.github.io/laser310-emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vz200_24k.vz
 7. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
 
 
@@ -98,7 +98,7 @@ You can play the gamne online:
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_c64.prg 
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
-6. Video Technology Laser 200 / VZ 200: https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_vz200_24k.bin
+6. Video Technology Laser 200 / VZ 200: https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_vz200_24k.vz
 7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_laser500.bin
 
 -------------------------------------------

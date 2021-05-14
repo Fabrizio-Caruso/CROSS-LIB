@@ -10,7 +10,6 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 The universal *retro-hardware abstraction layer*.
 
-
 ![SMS](snapshots/XShoot_sms.png)
 ![GB](snapshots/XSnake_GB.png)
 ![Atari](snapshots/XHorde_A8.png)
@@ -261,9 +260,9 @@ The main future goals are
 The tool-chain and Cross-Lib will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
 If colors, graphics and sounds are available the tool-chain and Cross-Lib will produce a game with some simple sound effects and with some possibly colored graphics.
 
-![Vic 20 title](snapshots/vic20_title.jpg)
-![ZX81](snapshots/zx81_1.jpg)
-![C16 first level](snapshots/c264_level1.jpg)
+For example for the game Cross Snake you can see how it is rendered on the MSX and on the Game Boy:
+![MSX](snapshots/XSnake_MSX2.png)
+![GB](snapshots/XSnake_GB.png)
 
 For more snapshots we refer to: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md

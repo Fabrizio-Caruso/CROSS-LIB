@@ -6,9 +6,9 @@
 
 ## CROSS HORDE
 
-![CPC](snapshots/XHorde_CPC.png)
-![Atari](snapshots/XHorde_A8.png)
-![SMS](snapshots/XHorde_SMS.png)
+![CPC](../snapshots/XHorde_CPC.png)
+![Atari](../snapshots/XHorde_A8.png)
+![SMS](../snapshots/XHorde_SMS.png)
 
 Cross Horde is a zombie shooter with several different enemies, levels and power-ups and items to pick.
 
@@ -33,8 +33,8 @@ https://plus4world.powweb.com/play/cross_horde
 
 ## CROSS SNAKE - THE GAME
 
-![MSX](snapshots/XSnake_MSX2.png)
-![GB](snapshots/XSnake_GB.png)
+![MSX](../snapshots/XSnake_MSX2.png)
+![GB](../snapshots/XSnake_GB.png)
 
 This my own re-interpretation of Nibbler (arcade) and Snake (primarily a cell phone game), to which I have added many more game elements.
 
@@ -69,7 +69,7 @@ You can play the game online:
 
 ## CROSS BOMBER - THE GAME
 
-![Atari](snapshots/XBomber_A8.png)
+![Atari](../snapshots/XBomber_A8.png)
  
 The game's goal is to destroy all buildings so that you can land on an empty road.
 The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
@@ -92,7 +92,7 @@ You can play the game online:
 
 ## CROSS SHOOT - THE GAME 
 
-![SMS](snapshots/XShoot_sms.png)
+![SMS](../snapshots/XShoot_sms.png)
 
 The game's goal is to kill all common enemies or kill all 4 "skulls". 
 Common enemies can be killed quickly if pushed against the walls by shooting at them.
@@ -120,7 +120,7 @@ You can play the gamne online:
 
 ## CROSS CHASE - THE GAME 
 
-![Atari](snapshots/XChase_A8.png)
+![Atari](../snapshots/XChase_A8.png)
 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.

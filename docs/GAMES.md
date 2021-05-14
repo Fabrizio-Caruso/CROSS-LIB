@@ -122,7 +122,6 @@ You can play the gamne online:
 ## CROSS CHASE - THE GAME 
 
 ![Atari](../snapshots/XChase_A8.png)
-![VIC20](../snapshots/XChase_VIC20_title.jpg)
 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.

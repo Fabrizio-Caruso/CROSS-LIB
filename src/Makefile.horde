@@ -1491,7 +1491,7 @@ vz200_24k:
 	--generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ \
-	-DSLOW_DOWN=750 \
+	-DSLOW_DOWN=1000 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \

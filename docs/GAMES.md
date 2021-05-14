@@ -35,6 +35,7 @@ https://plus4world.powweb.com/play/cross_horde
 
 ![MSX](../snapshots/XSnake_MSX2.png)
 ![GB](../snapshots/XSnake_GB.png)
+![C64](../snapshots/XSnake_C64_intro.png)
 
 This my own re-interpretation of Nibbler (arcade) and Snake (primarily a cell phone game), to which I have added many more game elements.
 
@@ -121,6 +122,7 @@ You can play the gamne online:
 ## CROSS CHASE - THE GAME 
 
 ![Atari](../snapshots/XChase_A8.png)
+![VIC20](../snapshots/XChase_VIC20_title.jpg)
 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.

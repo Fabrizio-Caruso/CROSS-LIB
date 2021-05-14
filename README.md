@@ -261,6 +261,8 @@ The tool-chain and Cross-Lib will produce a game with simple black and white ASC
 If colors, graphics and sounds are available the tool-chain and Cross-Lib will produce a game with some simple sound effects and with some possibly colored graphics.
 
 For example for the game Cross Snake you can see how it is rendered on the MSX and on the Game Boy:
+
+
 ![MSX](snapshots/XSnake_MSX2.png)
 ![GB](snapshots/XSnake_GB.png)
 

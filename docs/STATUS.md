@@ -10,12 +10,13 @@ target name         | long target name                                     | wor
 *ace*               | Jupiter Ace                                          | YES     | 
 *alphatro*          | Alphatronic                                          | YES     | 
 *altair8800*        | MITS Altair 8800                                     | YES     | 
-*apple2*            | Apple ][                                             | YES     |
+*apple2*            | Apple II                                             | YES     |
 *apple2enh*         | Apple //e                                            | YES     | 
 *aquarius*          | Mattel Aquarius                                      | YES     | 
 *atari5200*         | Atari 5200                                           | YES     | 
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES     | 
 *atari_lynx*        | Atari Lynx                                           | YES     | 
+*atari_jaguar*      | Atari Jaguar                                         |  ?      | 
 *attache*           | Otrona Attache                                       | YES     | 
 *aussie*            | Aussie Byte                                          | YES     | 
 *bbc*               | BBC Micro                                            | YES     | 
@@ -65,6 +66,7 @@ target name         | long target name                                     | wor
 *lambda*            | Lambda 8300                                          | YES     | 
 *laser500*          | Laser 500                                            | YES     | 
 *m5*                | Sord M5                                              | YES     | 
+*mega65*            | Mega 65 / Commodore 65                               |  ?      | 
 *mc1000*            | CCE MC-1000                                          | YES     | 
 *microboard*        | Microboard Computer Development Board                | YES     | 
 *microbee*          | Microobee                                            | YES     | 
@@ -149,11 +151,13 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-TOTAL    : 142
+TOTAL    : 144
 
 OK       : 140
 
 KO       :   2
+
+UNKNOWN  :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -232,11 +236,11 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 162
+TOTAL    : 164
 
 OK       : 151
 
-KO       :   2
+KO       :   4
 
 UNKNOWN  :   9
 

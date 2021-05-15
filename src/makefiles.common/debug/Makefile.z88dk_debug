@@ -154,6 +154,17 @@ sms_hello:
 	mv a.sms $(BUILD_PATH)
 
 
+samcoupe_wait_for_key:
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) -O3 \
+	-vn  \
+	-create-app -o $(BUILD_PATH)/FULL_samcoupe.bin	\
+	$(TEST_PATH)/wait_for_key.c
+	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
+	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
+
+
 abc80_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) \
 	-vn -lndos \

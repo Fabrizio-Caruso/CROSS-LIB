@@ -21,6 +21,7 @@ For most systems, more than one version is built, in order to support different 
 - `aquarius`: Mattel Aquarius 
 - `atari5200`: Atari 5200
 - `atari`: Atari 400/800/600XL/800XL/1200XL/65XE/130XE
+- `atari_jaguar`: Atari Jaguar
 - `atari_lynx`: Atari Lynx
 - `attache`: Otrona Attache
 - `aussie`: Aussie Byte
@@ -72,6 +73,7 @@ For most systems, more than one version is built, in order to support different 
 - `laser500`: Laser 500
 - `m100`: TRS-80 M100 (z88dk lib incomplete, work in progress)
 - `m5`: Sord M5
+- `mega65`: Mega 65 / Commodore 65
 - `mc1000`: CCE MC-1000
 - `microboard`: Microboard Computer Development Board
 - `microbee`: Microobee

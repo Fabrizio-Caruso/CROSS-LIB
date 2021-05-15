@@ -67,6 +67,19 @@ Type RUN
 Type CLOAD
 Then load the other file
 
+-----------------------------------------------------------
+
+### BBC MICRO / BBC MASTER
+It is better to have short simple name files. For example let us assume XCHASE and XCHASE.INF
+Use the binary and .inf files to 
+either 
+create a disk with tools such as bbcim or BBCExplorer-2.01 
+or 
+use BeebEm 4.16 emulator 
+1. to create an empty disk image (File->Disc Options->New Disc 0)
+2. inject the binary into the new disk (Edit->Import files to disc->select .inf file)
+3. (*CAT to verify the disk content) *RUN"XCHASE"
+
 
 -----------------------------------------------------------
 ### BIC / A5105

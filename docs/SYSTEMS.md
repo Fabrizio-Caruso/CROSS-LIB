@@ -24,6 +24,8 @@ For most systems, more than one version is built, in order to support different 
 - `atari_lynx`: Atari Lynx
 - `attache`: Otrona Attache
 - `aussie`: Aussie Byte
+- `bbc`: BBC Micro
+- `bbcmaster`: BBC Master
 - `bic`: BIC/A5105
 - `bit90`: Bit Corporation BIT 90
 - `c128_8502`: Commodore 128 [8502 CPU]

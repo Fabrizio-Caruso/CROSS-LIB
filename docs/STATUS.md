@@ -10,14 +10,16 @@ target name         | long target name                                     | wor
 *ace*               | Jupiter Ace                                          | YES     | 
 *alphatro*          | Alphatronic                                          | YES     | 
 *altair8800*        | MITS Altair 8800                                     | YES     | 
-*apple2*            | Apple //                                             | YES     | 
-*apple2enh*         | Enhanced Apple //e                                   | YES     | 
+*apple2*            | Apple ][                                             | YES     |
+*apple2enh*         | Apple //e                                            | YES     | 
 *aquarius*          | Mattel Aquarius                                      | YES     | 
 *atari5200*         | Atari 5200                                           | YES     | 
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES     | 
 *atari_lynx*        | Atari Lynx                                           | YES     | 
 *attache*           | Otrona Attache                                       | YES     | 
 *aussie*            | Aussie Byte                                          | YES     | 
+*bbc*               | BBC Micro                                            | YES     | 
+*bbcmaster*         | BBC Master                                           | NO      | 
 *bic*               | BIC/A5105                                            | YES     | 
 *bit90*             | Bit Corporation BIT 90                               | YES     | 
 *c128_8502*         | Commodore 128 [8502 CPU]                             | YES     | 
@@ -147,11 +149,11 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-TOTAL    : 140
+TOTAL    : 142
 
-OK       : 139
+OK       : 140
 
-KO       :   1
+KO       :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -230,11 +232,11 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 160
+TOTAL    : 162
 
-OK       : 150
+OK       : 151
 
-KO       :   1
+KO       :   2
 
 UNKNOWN  :   9
 

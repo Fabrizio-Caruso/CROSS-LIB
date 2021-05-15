@@ -53,6 +53,12 @@ GCC ?= gcc $(GLOBAL_OPTS)
 GCC_OPTS ?= -Wpedantic -Wall
 
 
+#############
+
+
+VBCC_COMPILER ?= vc  $(GLOBAL_OPTS) 
+VBCC_OPTS ?= +bbc
+
 
 ###########################
 # GCC TMS9900 

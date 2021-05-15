@@ -124,6 +124,12 @@ include makefiles.chase/Makefile.gcc_targets
 
 
 # ------------------------------------------------------------------------------------------
+# - VBCC
+
+include makefiles.chase/Makefile.vbcc_targets
+
+
+# ------------------------------------------------------------------------------------------
 # - GCC AMIGA
 
 include makefiles.chase/Makefile.gcc_amiga_targets

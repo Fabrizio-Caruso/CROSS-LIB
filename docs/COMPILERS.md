@@ -9,6 +9,7 @@ The program is written in ANSI C and currently compiled with
 - LCC1802 for COSMAC RCA 1802 targets (https://sites.google.com/site/lcc1802/downloads),
 - ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack),
 - XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68),
+- VBCC for BBC Micro, BBC Master and other systems (http://www.compilers.de/vbcc.html)
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
 - "GCC for Amiga" (https://github.com/bebbo/amiga-gcc),

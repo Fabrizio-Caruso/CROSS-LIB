@@ -1917,7 +1917,7 @@ do \
 }
 
 
-#if YSize<=22
+#if YSize<=18
     #define _NEXT_ROW i
 #else
     #define _NEXT_ROW ((i)<<1)

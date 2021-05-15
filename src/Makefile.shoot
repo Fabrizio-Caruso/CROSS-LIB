@@ -98,6 +98,7 @@ z88dk_targets: \
     laser500 \
     mc1000 \
     msx \
+    samcoupe \
     sms \
     spectrum \
     vg5k \
@@ -648,6 +649,26 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
+
+
+#################################################################
+
+
+samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL \
+	-DCONIO -DUDG_GRAPHICS \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DFULL_GAME  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	$(FULL_FILES) -DFORCE_BIT_BANG \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
+	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
+
 
 #################################################################
 

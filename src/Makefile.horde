@@ -104,27 +104,17 @@ cc65_ascii_targets: \
 
 
 cc65_targets: \
-    atari \
-    atari5200 \
-    c16 \
-    c64 \
-    oric  \
-    creativision \
-    gamate \
-    nes \
-    pet \
-    pce \
-    supervision \
-    vic20
+    cc65_ascii_targets \
+    cc65_8x8_targets \
+    cc65_6x8_targets
 
-
-cmoc_targets: \
+cmoc_8x8_targets: \
     coco_targets \
     dragon_targets \
     mo5_targets \
     to7_targets
 
-cmoc_8x8_targets: cmoc_targets
+cmoc_targets: cmoc_8x8_targets
 
 
 z88dk_8x8_targets: \
@@ -142,6 +132,7 @@ z88dk_8x8_targets: \
     msx \
     mtx500 \
     mtx512 \
+    samcoupe \
     sms \
     spectrum \
     vg5k \
@@ -156,36 +147,13 @@ z88dk_ascii_targets: \
 
 
 z88dk_targets: \
-    ace \
-    aquarius \
-    c128_z80_40col \
-    c128_z80_80col \
-    coleco \
-    cpc \
-    cpc_mode1 \
-    cpc_mode2 \
-    cpm \
-    gb \
-    gg \
-    laser500 \
-    mc1000 \
-    msx \
-    mtx500 \
-    mtx512 \
-    mz \
-    sms \
-    spectrum \
-    vg5k \
-    vz200 \
-    zx81
+    z88dk_ascii_targets \
+    z88dk_8x8_targets
 
 
-lcc1802_targets: 
-	make comx -f Makefile.$(GAME_NAME)
-	make comx_ntsc -f Makefile.$(GAME_NAME)
-	make pecom -f Makefile.$(GAME_NAME)
-	make tmc600 -f Makefile.$(GAME_NAME)
-	make micro -f Makefile.$(GAME_NAME)
+lcc1802_targets: \
+    lcc1802_ascii_targets \
+    lcc1802_6x8_targets
 
 
 lcc1802_6x8_targets:
@@ -1389,6 +1357,24 @@ mz:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_mz.prg
 	mv $(BUILD_PATH)/X$(GAME_NAME)_mz.mzt $(BUILD_PATH)/X$(GAME_NAME)_mz.mzf
+
+
+#################################################################
+
+
+samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL \
+	-DCONIO -DUDG_GRAPHICS \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DFULL_GAME -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
+	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
 
 #################################################################

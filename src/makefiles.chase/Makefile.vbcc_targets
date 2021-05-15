@@ -76,25 +76,77 @@ bbc_buffered_no_print:
 	$(TINY_FILES)	
 
 
-bbc_buffered_tiny:
-	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__GCC_BUFFERED__ \
+
+# -----------------------------------------------------------------------
+
+m65: m65_buffered
+
+m65_buffered:
+	$(VBCC_COMPILER) +m65 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__  -DVBCC -D__MEGA65__ \
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
+	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
 	-DNO_COLOR \
-	-DTINY_GAME \
+	-DFULL_GAME -DNO_SLEEP \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_RANDOM_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+	$(FULL_FILES) -o xchase
+	mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
+	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf
 
 
+# -----------------------------------------------------------------------
 
+atari_jaguar: atari_jaguar_buffered
+
+atari_jaguar_buffered:
+	$(VBCC_COMPILER) +jaguar $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ -D__ATARI_JAGUAR__ -DVBCC  \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-DNO_COLOR \
+	-DFULL_GAME -DNO_SLEEP \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
+	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf
+
+# -----------------------------------------------------------------------
+
+amiga_kick13_buffered:
+	$(VBCC_COMPILER) +kick13 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ -D__AMIGA_KICK13__ -DVBCC  \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-DNO_COLOR \
+	-DFULL_GAME -DNO_SLEEP \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
+	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf

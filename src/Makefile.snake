@@ -1668,7 +1668,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 vz200: vz200_24k
 
-vz200_24k_zsdcc: 	
+vz200_zsdcc: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \

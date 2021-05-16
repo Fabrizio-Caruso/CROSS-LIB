@@ -1,26 +1,11 @@
 #include "cross_lib.h"
 
+#include "move_player.h"
+
+#include "images.h"
+
 extern uint8_t ship_x;
 extern uint8_t ship_fire;
-
-
-
-#define _DO_MOVE_LEFT \
-    do \
-    { \
-        delete_ship(); \
-        --ship_x; \
-    } while(0)
-    
-#define _DO_MOVE_RIGHT \
-    do \
-    { \
-        delete_ship(); \
-        ++ship_x; \
-    } while(0)
-
-
-
 
     
 #if defined(NO_INPUT)
@@ -32,15 +17,36 @@ extern uint8_t ship_fire;
         
         if(_XL_LEFT(input))
         {
+            delete_at_the_right();
             --ship_x;
         }
         else if(_XL_RIGHT(input))
         {
+            delete_at_the_left();
             ++ship_x;
         }
         else if(_XL_FIRE(input))
         {
             ship_fire = 1;
+        }
+        
+        switch(ship_x&3)
+        {
+            case 1:
+                draw_ship_1();
+            break;
+            
+            case 2:
+                draw_ship_2();
+            break;
+            
+            case 3:
+                draw_ship_3();
+            break;
+            
+            case 0:
+                draw_ship_4();
+            break;
         }
     }
 #endif

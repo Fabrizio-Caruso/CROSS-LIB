@@ -9,7 +9,32 @@ gcc_targets: \
     
 ###############################################################################################
 
+
+GCC_386_OPTS ?= -std=gnu99 -O0 -nostdlib -m32 -march=i386 -ffreestanding
+
+gcc_386: gcc_386_buffered
+
+gcc_386_buffered:
+	$(GCC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+
+
 gcc: gcc_buffered
+
 
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
@@ -29,6 +54,26 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
 
+
+gcc_386_no_print:
+	$(GCC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB -DNO_CHASE -DNO_INPUT \
+	-DNO_COLOR -DNO_WALL -DNO_GRAPHICS \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	$(TINY_FILES)	
 	
 gcc_no_print:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \

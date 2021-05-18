@@ -2,6 +2,7 @@ deliverables
 *.o
 *.def
 *.swp
+*.img
 build/*
 src/assets/generated_assets/*
 src/demos/matrix/generated_assets/*

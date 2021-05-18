@@ -147,15 +147,19 @@ apple2:
 # 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg 
 apple2_test:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
 	-DCONIO \
+	--code-name LOWCODE \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	--code-name CODE \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/apple2.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin

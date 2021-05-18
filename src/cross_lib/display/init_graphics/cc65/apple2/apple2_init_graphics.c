@@ -128,7 +128,6 @@ uint16_t HB1[]={
 
 void _XL_INIT_GRAPHICS(void)
 {
-    
     // HIGH RES ON
     POKE(0xC057,0);
 
@@ -147,12 +146,19 @@ void _XL_INIT_GRAPHICS(void)
     {
         uint8_t i;
         uint8_t j;
+        uint8_t k;
         
-        for(i=0;i<192;++i)
+        for(i=0;i<192;i+=8)
         {
-            for(j=0;j<40;++j)
+            for(j=0;j<20;++j)
             {
-                POKE(HB1[i]+j,255);
+
+                for(k=0;k<8;++k)
+                {
+                    POKE(HB1[i+k]+2*j,255-3-64);
+                    POKE(HB1[i+k]+2*j+1,255-64-32-1);
+                }
+                cgetc();
             }
             cgetc();
         }

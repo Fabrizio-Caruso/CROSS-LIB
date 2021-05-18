@@ -144,7 +144,7 @@ apple2:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
-
+# 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg 
 apple2_test:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \

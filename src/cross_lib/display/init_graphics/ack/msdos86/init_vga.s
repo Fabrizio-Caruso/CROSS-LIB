@@ -37,7 +37,7 @@ _write_tile:
     mov al, [bp+6]
     shl ax, cl ; cl was still 3, ax = idx*8 - 8 bytes per tile
     mov si, ax
-    mov ax, 0a000h
+    mov ax, 0x0a000
     push ax
     pop es
     xor ax, ax

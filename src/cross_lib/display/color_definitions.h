@@ -2,6 +2,8 @@
 #ifndef _COLOR_DEFINITIONS_H
 #define _COLOR_DEFINITIONS_H
 
+   
+
 #if defined(NO_GRAPHICS) || defined(NO_PRINT) || defined(NO_COLOR)
     #define _XL_BLACK 0
     #define _XL_WHITE 0
@@ -160,6 +162,16 @@
     #define _XL_GREEN _CREAT_GREEN
     #define _XL_CYAN _CREAT_CYAN
 
+#elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
+    #define _XL_RED 1
+    #define _XL_GREEN 4
+    #define _XL_MAGENTA 5 
+    #define _XL_CYAN 2
+    #define _XL_BLUE _XL_CYAN
+    #define _XL_YELLOW _XL_GREEN
+    #define _XL_WHITE 3
+
+
 #elif defined(__CC65__) || defined(__NCURSES__) || defined(__TMC600__)
     #define _XL_BLACK COLOR_BLACK
     #define _XL_RED COLOR_RED
@@ -211,6 +223,7 @@
         #define _XL_MAGENTA MAGENTA
         #define _XL_BLUE BLUE
     #endif
+
 #endif
 
 

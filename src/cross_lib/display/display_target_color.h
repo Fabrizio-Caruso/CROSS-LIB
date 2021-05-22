@@ -14,7 +14,7 @@
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(MEMORY_MAPPED)) \
     || defined(__VZ__) \
     || (defined(__ATARI__) && !defined(ATARI_MODE_1_COLOR)) \
-    || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
+    || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(APPLE2_HGR)) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
     || defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
@@ -31,7 +31,7 @@
 
 #if defined(NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) || defined(__MO5__) || defined(__TO7__) \
     || defined(__CIDELSA__) || defined(__MICRO__) \
-    || defined(__CREATIVISION__)
+    || defined(__CREATIVISION__) || defined(__APPLE2__)
     #define NO_TEXT_COLOR
 #else
 #endif

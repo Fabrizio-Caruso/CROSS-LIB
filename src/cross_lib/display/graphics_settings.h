@@ -4,6 +4,8 @@
 
 #  if defined(MEMORY_MAPPED) && !defined(__CIDELSA__)
 	#include "memory_mapped_graphics.h"
+#elif defined(APPLE2_HGR)
+    #include "apple2_hgr_graphics.h"
 #elif defined(CREATIVISION_COLOR)
 	#include "creativision_color_graphics.h"
 #elif defined(NES_CONIO)

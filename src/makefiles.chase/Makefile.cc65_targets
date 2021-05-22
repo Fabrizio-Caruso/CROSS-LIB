@@ -145,20 +145,20 @@ apple2:
 	rm $(BUILD_PATH)/apple2.bin
 
 # 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg 
-apple2_test:	 
+apple2_hgr:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
+	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
 	-DAPPLE2_HGR \
-	--code-name LOWCODE \
+    --code-name LOWCODE \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+    --code-name CODE \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	--code-name CODE \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/apple2.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk

@@ -17,11 +17,12 @@ target name         | long target name                                     |    
 *atari5200*         | Atari 5200                                           | YES          |      OK         |       OK       |   OK    |
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES          |      OK         |       OK       |   OK    |
 *atari_lynx*        | Atari Lynx                                           | YES          |      OK         |    missing     | missing |
-*atari_jaguar*      | Atari Jaguar                                         |  ?           |    missing      |    missing     | missing |  
 *attache*           | Otrona Attache                                       | YES          |      OK         |       OK       | missing |
 *aussie*            | Aussie Byte (Knight 2000)                            | YES          |      OK         |    missing     |   OK    |
-*bbc*               | BBC Micro                                            | EXPERIMENTAL |    missing      |    missing     | missing |
-*bbcmaster*         | BBC Master                                           | NO           |    missing      |    missing     | missing |
+- ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `*bbc*  `
+             | BBC Micro                                            | EXPERIMENTAL |    missing      |    missing     | missing |
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `*bbcmaster* `
+        | BBC Master                                           | NO           |    missing      |    missing     | missing |
 *bic*               | BIC/A5105                                            | YES          |      OK         |        ?       |    ?    |
 *bit90*             | Bit Corporation BIT 90                               | YES          |      OK         |       OK       | missing | PSG SN76489A
 *c128_8502*         | Commodore 128 [8502 CPU]                             | YES          |      OK         |    missing     |   OK    |
@@ -68,7 +69,8 @@ target name         | long target name                                     |    
 *lambda*            | Lambda 8300                                          | YES          |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                            | YES          |      OK         |       OK       |   OK    |
 *m5*                | Sord M5                                              | YES          |      OK         |       OK       |   OK ?  |
-*mega65*            | Mega 65 / Commodore 65                               |  ?           |    missing      |    missing     | missing |
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `*mega65*`
+            | Mega 65 / Commodore 65                               |  ?           |    missing      |    missing     | missing |
 *mc1000*            | CCE MC-1000                                          | YES          |      OK         |       OK       |   OK    |
 *microboard*        | Microboard Computer Development Board                | YES          |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                            | YES          |      OK         |       OK       |   OK    |
@@ -93,12 +95,14 @@ target name         | long target name                                     |    
 *osic1p*            | Ohio Scientific Challenger 1P                        | YES          |      OK         |      N/A ?     |   N/A ? |
 *oz*                | Sharp OZ-700                                         | YES          |     N/A ?       |      N/A ?     |   N/A ? |
 *p2000*             | Philips P2000                                        | YES          |      OK         |      N/A       |   OK    |
-*pacman*            | Pacman Namco arcade board                            |  NO          |    missing      |    missing     | missing |
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `*pacman*`
+            | Pacman Namco arcade board                            |  NO          |    missing      |    missing     | missing |
 *pasaopia7*         | Toshiba Pasopia 7                                    | YES          |      OK         |    missing     | missing | PSG SN76489 
 *pc6001*            | NEC PC 6001                                          | YES          |      OK         |       OK       |   OK    |    
 *pc88*              | NEC PC 8801                                          | YES          |      OK         |       OK ?     | missing |
 *pce*               | PCEngine                                             | YES          |      OK         |       OK       |   OK    |
-*pcw*               | Amstrad PCW                                          |   ?          |       ?         |    missing     | missing | 
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `*pcw*`
+              | Amstrad PCW                                          |   ?          |       ?         |    missing     | missing | 
 *pecom*             | Pecom 32/64                                          | YES          |      OK         |       OK       |   OK    |
 *pencil2*           | Hanimex Pencil II                                    | YES          |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                                        | YES          |      OK         |      N/A       |   OK    |
@@ -154,13 +158,13 @@ target name         | long target name                                     |    
 *zxn*               | ZX Spectrum Next                                     | YES          |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 146
+TOTAL    : 145
 
 OK       : 141
 
 KO       :   2
 
-UNKNOWN  :   3
+UNKNOWN  :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -239,12 +243,12 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 166
+TOTAL    : 165
 
 OK       : 152
 
 KO       :   4
 
-UNKNOWN  :  10
+UNKNOWN  :   9
 
 

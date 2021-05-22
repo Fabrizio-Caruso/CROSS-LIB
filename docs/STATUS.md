@@ -4,8 +4,8 @@ Last update: 22/05/2021
 ### 8-BIT targets
 
 
-target name         | long target name                                     |    working   | real-time input | hires graphics |  sound  | notes
---------------------|------------------------------------------------------|--------------|-----------------|----------------|---------------------
+target name         | long target name                                     |    working   | real-time input | hires graphics |  sound  | notes      
+--------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|-----------
 *abc80*             | Luxor ABC 80                                         | YES          |      OK         |    missing     | missing |
 *abc800*            | Luxor ABC 800                                        | YES          |      OK         |    missing     | missing |
 *ace*               | Jupiter Ace                                          | YES          |      OK         |       OK       |   OK    |

@@ -109,13 +109,13 @@ vgl_targets: \
 	vgl
 
 x1_targets: \
-	x1
+	x1 x1_no_gfx
 
 z1013_targets: \
 	z1013
 
 z80tvgame_targets: \
-	z80tvgame
+	z80tvgame z80tvgame_no_gfx
 
 z88_targets: \
 	z88
@@ -965,18 +965,34 @@ vgl:
 #############################
 # X1
 
-x1:
+x1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__X1__ \
+	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+x1_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X1__ \
 	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_x1.bin -vn -lndos \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_x1.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
 #############################
@@ -1018,7 +1034,7 @@ z1013:
 #############################
 # Z80TVGAME
 
-z80tvgame: 
+z80tvgame_no_gfx: 
 	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__Z80TVGAME__ \
 	-DNO_SET_SCREEN_COLORS \
@@ -1029,11 +1045,28 @@ z80tvgame:
 	-lndos -DSOUNDS -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_z80tvgame.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_z80tvgame.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_z80tvgame_DATA.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_z80tvgame_BSS.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 
+
+z80tvgame: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__Z80TVGAME__ \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DFORCE_XSIZE=21 -DFORCE_YSIZE=26 -DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 
 #############################
 # Z88

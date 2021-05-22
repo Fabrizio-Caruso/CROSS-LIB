@@ -26,6 +26,7 @@ z88dk_targets_l-p: \
 	p2000_targets \
 	pc6001_targets \
 	pc88_targets \
+	pcw_targets \
 	pmd85_targets \
 	pps_targets \
 	primo_targets \
@@ -82,7 +83,7 @@ newbrain_targets: \
 	newbrain
 
 ondra_targets: \
-	ondra
+	ondra ondra_no_gfx
 
 osborne1_targets: \
 	osborne1 osborne1_chars
@@ -97,22 +98,25 @@ pasopia7_targets: \
 	pasopia7
 
 pencil2_targets: \
-	pencil2
+	pencil2 pencil2_no_gfx
 
 pc6001_targets: \
 	pc6001_16k pc6001_32k
 
 pc88_targets: \
-	pc88
+	pc88 pc88_32k
+
+pcw_targets: \
+	pcw40 pcw80
 
 pmd85_targets: \
-	pmd85
+	pmd85 pmd85_no_gfx
 
 pps_targets: \
 	pps
 
 primo_targets: \
-	primo
+	primo primo_no_gfx
 
 pv2000_targets: \
 	pv2000
@@ -195,7 +199,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DLESS_TEXT \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DBETWEEN_LEVEL -DEND_SCREEN -DFORCE_BIT_BANG \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -317,7 +321,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
-	-DCONIO \
+	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -340,7 +344,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
-	-DCONIO \
+	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -557,15 +561,32 @@ newbrain:
 
 #############################
 # ONDRA
-ondra:
+
+ondra: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORCE_YSIZE=30 -DFULL_GAME  \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME -DZ88DK_JOYSTICK \
+	-DCONIO_VT52 -DUDG_GRAPHICS \
+	-DCONIO -DANIMATE_PLAYER \
+	-lndos \
+	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app 
+	rm a.bin
+	mv a.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv a.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+
+ondra_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORCE_YSIZE=30 -DFULL_GAME  \
 	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_ondra.prg
-	rm $(BUILD_PATH)/X$(GAME_NAME)_ondra.prg
-
+	-create-app 
+	rm a.bin
+	mv a.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv a.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 
 #############################
 # OSCA
@@ -733,7 +754,24 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 pc88: pc88_tiny
 
-pc88_32k:
+pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=25 -DSLOW_DOWN=2500 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DCONIO -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app	\
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv FULL_$@.t88 $(BUILD_PATH)/X$(GAME_NAME)_$@.t88
+
+
+pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500 \
@@ -767,10 +805,44 @@ pc88_tiny:
 
 
 #############################
+# PCW
+
+pcw40:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -DSLOW_DOWN=2500 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app
+	rm a_HIMEM.bin
+	rm a.bin
+	mv a.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv a.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+
+
+pcw: pcw80
+
+pcw80:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -DSLOW_DOWN=2500 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app
+	rm a_HIMEM.bin
+	rm a.bin
+	mv a.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv a.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+
+#############################
 # PENCIL2
 
 # SOUNDS is broken (sound never stops)
-pencil2:
+pencil2_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PENCIL2__ \
 	-DFORCE_XSIZE=32 \
@@ -779,19 +851,38 @@ pencil2:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos -DFORCE_BIT_BANG -DSOUNDS \
+	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pencil2.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pencil2.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pencil2_BSS.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pencil2_DATA.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+pencil2: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PENCIL2__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 
 #############################
 # PMD85
 
-pmd85:
+pmd85_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PMD85__ \
 	-DFORCE_XSIZE=48 \
@@ -804,6 +895,24 @@ pmd85:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
+
+
+pmd85: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PMD85__ \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
 
@@ -828,7 +937,9 @@ pps:
 #############################
 # PRIMO
 
-primo:
+primo: primo_no_gfx
+
+primo_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PRIMO__ \
 	-DFORCE_XSIZE=32 \
@@ -841,8 +952,26 @@ primo:
 	-lndos -DSOUNDS -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_primo.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_primo.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+primo_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PRIMO__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO -DFORCE_BIT_BANG -DSOUNDS \
+	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
 #############################

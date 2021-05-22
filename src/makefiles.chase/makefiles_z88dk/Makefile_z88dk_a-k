@@ -123,7 +123,7 @@ homelab2_targets: \
 	homelab2
 
 kaypro_targets: \
-	kaypro
+	kaypro kaypro83
 
 kc_targets: \
 	kc_tiny kc_light kc
@@ -663,7 +663,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-pragma-redirect:getk=getk_inkey \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DFORCE_BIT_BANG \
 	-D__EG2K__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -686,7 +686,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # EINSTEIN
 
-einstein:
+einstein_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein \
 	-pragma-define:ansicolumns=32 \
 	$(INCLUDE_OPTS) \
@@ -699,6 +699,21 @@ einstein:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_einstein.bin
 
+
+einstein: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein \
+	-pragma-define:ansicolumns=32 \
+	$(INCLUDE_OPTS) \
+	-D__EINSTEIN__ \
+	-DFORCE_CONIO_LIB \
+	-DFULL_GAME -DLESS_TEXT \
+	-clib=ansi \
+	-DCONIO -DUDG_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_einstein.bin \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_einstein.bin
 
 #############################
 # ENTERPRISE
@@ -993,8 +1008,33 @@ hgmc:
 #############################
 # KAYPRO
 
-kaypro: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxkp \
+kaypro: kaypro2x
+
+kaypro84: kaypro2x
+
+# kaypro84 (-subtype=kaypro84)
+kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro84 -lgfxkp \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-D__KAYPRO84__ \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+# kaypro83 (-subtype=kaypro83)
+kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro83 -lgfxkp \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__KAYPRO__ \
 	-DALT_PRINT \
@@ -1002,14 +1042,15 @@ kaypro: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_kaypro.bin \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_kaypro.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_HIMEM.bin   
 
 
 #############################

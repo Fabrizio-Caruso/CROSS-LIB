@@ -151,7 +151,7 @@ apple2_test:
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
-	-DCONIO \
+	-DAPPLE2_HGR \
 	--code-name LOWCODE \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \

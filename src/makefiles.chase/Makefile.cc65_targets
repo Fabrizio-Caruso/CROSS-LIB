@@ -146,7 +146,7 @@ apple2:
 
 # 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg 
 # 	-Wl -D,__STACKSIZE__=$0400,-D,__HIMEM__=$B800,-D,__LCADDR__=$D000,-D,__LCSIZE__=$1000
-apple2_hgr:
+apple2_hgr: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP \
@@ -733,7 +733,7 @@ oric: oric1
 
 oric1: oric1_16k
 
-oric1_16k: $(ASSETS_PATH)/8x8_chars.h
+oric1_16k: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -D__ORIC1__ -DSOUNDS \
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP \
@@ -750,7 +750,7 @@ oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 
 atmos: oric_atmos
 
-oric_atmos: $(ASSETS_PATH)/8x8_chars.h
+oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \

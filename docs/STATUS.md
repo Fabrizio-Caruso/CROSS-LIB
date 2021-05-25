@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 22/05/2021
+Last update: 25/05/2021
 
 ### 8-BIT targets
 
@@ -11,15 +11,15 @@ target name         | long target name                                     |    
 *ace*               | Jupiter Ace                                          | YES          |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                          | YES          |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                                     | YES          |     N/A         |      N/A       |  N/A    |
-*apple2*            | Apple II                                             | YES          |      OK         |    missing     |   OK    |
-*apple2enh*         | Apple //e                                            | YES          |      OK         |    missing     |   OK    |
+*apple2*            | Apple II                                             | YES          |      OK         |       OK       |   OK    | text display missing
+*apple2enh*         | Apple //e                                            | YES          |      OK         |       OK       |   OK    | text display missing
 *aquarius*          | Mattel Aquarius                                      | YES          |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                           | YES          |      OK         |       OK       |   OK    |
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES          |      OK         |       OK       |   OK    |
 *atari_lynx*        | Atari Lynx                                           | YES          |      OK         |    missing     | missing |
 *attache*           | Otrona Attache                                       | YES          |      OK         |       OK       | missing |
 *aussie*            | Aussie Byte (Knight 2000)                            | YES          |      OK         |    missing     |   OK    |
-*bbc*               | BBC Micro                                            | EXPERIMENTAL |    missing      |    missing     | missing |
+*bbc*               | BBC Micro                                            | YES          |    missing      |    missing     | missing |
 *bbcmaster*         | BBC Master                                           | NO           |    missing      |    missing     | missing |
 *bic*               | BIC/A5105                                            | YES          |      OK         |        ?       |    ?    |
 *bit90*             | Bit Corporation BIT 90                               | YES          |      OK         |       OK       | missing | PSG SN76489A

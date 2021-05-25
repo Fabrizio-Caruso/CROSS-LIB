@@ -166,38 +166,38 @@ UNKNOWN  :   2
 ### 8-BIT vintage targets with no known working emulators
 
 
-target name         | long target name                                     |  working   | 
---------------------|------------------------------------------------------|------------| 
-*rex*               | Xircom Rex 6000                                      |  ? no emu  | 
+target name         | long target name                                     |  working   | real-time input | hires graphics |  sound  | notes 
+--------------------|------------------------------------------------------|------------|-----------------|----------------|---------|-----------  
+*rex*               | Xircom Rex 6000                                      |     ?      |    missing      |    missing     | missing | 
 
 
 -----------------------------------------------------------------------------------------
 ### 8-BIT "new-retro" targets with no known emulators
 
 
-target name         | long target name                                     |  working   | 
---------------------|------------------------------------------------------|------------| 
-*hbios*             | HBIOS generic target                                 |  ? no emu  | 
-*scz180*            | SC126 and SC130 boards                               |  ? no emu  | 
-*rc2014*            | RC 2014 board                                        |  ? no emu  | 
-*rcmx00*            | Rabbit Control Module                                |  ? no emu  | 
-*yaz180*            | YAZ 180 board                                        |  ? no emu  | 
+target name         | long target name                                     |  working   | real-time input | hires graphics |  sound  | notes 
+--------------------|------------------------------------------------------|------------|-----------------|----------------|---------|----------- 
+*hbios*             | HBIOS generic target                                 |     ?      |    missing      |    missing     | missing |
+*scz180*            | SC126 and SC130 boards                               |     ?      |    missing      |    missing     | missing | 
+*rc2014*            | RC 2014 board                                        |     ?      |    missing      |    missing     | missing | 
+*rcmx00*            | Rabbit Control Module                                |     ?      |    missing      |    missing     | missing | 
+*yaz180*            | YAZ 180 board                                        |     ?      |    missing      |    missing     | missing | 
 
 
 -----------------------------------------------------------------------------------------
 
 ### 16-BIT targets
 
-target name         | long target name                                     |   working    | 
---------------------|------------------------------------------------------|--------------| 
-*amiga*             | Commodore Amiga                                      | EXPERIMENTAL | 
-*atari_st*          | Atari ST                                             | EXPERIMENTAL | 
-*cx16*              | Commander CX 16                                      |  ?           | 
-*olivetti_m20*      | Olivetti M20                                         | EXPERIMENTAL | 
-*pc8086*            | PC 8088/86                                           | EXPERIMENTAL | 
-*pdp11v7*           | PDP 11 V7                                            |  ?           | 
-*sinclair_ql*       | Sinclair QL                                          | EXPERIMENTAL | 
-*ti99*              | Texas Instruments TI99/4A                            | EXPERIMENTAL | 
+target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes
+--------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|-----------
+*amiga*             | Commodore Amiga                                      |    YES       |    missing      |    missing     | missing |
+*atari_st*          | Atari ST                                             |    YES       |    missing      |    missing     | missing |
+*cx16*              | Commander CX 16                                      |    YES       |    missing      |    missing     | missing |
+*olivetti_m20*      | Olivetti M20                                         |    YES       |    missing      |    missing     | missing |
+*pc8086*            | PC 8088/86                                           |    YES       |    missing      |    missing     | missing |
+*pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
+*sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
+*ti99*              | Texas Instruments TI99/4A                            |    YES       |    missing      |    missing     | missing |
 
 
 OK       :   6
@@ -209,12 +209,12 @@ UNKNOWN  :   2
 
 ### 32-BIT targets
 
-target name         | long target name                                     |   working    | 
---------------------|------------------------------------------------------|--------------| 
-*linux386*          | ELF linux for Intel 386                              | EXPERIMENTAL | 
-*linux68k*          | ELF linux for Motorola 68020                         | EXPERIMENTAL | 
-*linuxppc*          | ELF linux for PPC                                    | EXPERIMENTAL | 
-*linuxmips*         | ELF linux for little endian MIPS32r2                 |  ?           | 
+target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes 
+--------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
+*linux386*          | ELF linux for Intel 386                              |    YES       |    missing      |    missing     | missing |
+*linux68k*          | ELF linux for Motorola 68020                         |    YES       |    missing      |    missing     | missing | 
+*linuxppc*          | ELF linux for PPC                                    |    YES       |    missing      |    missing     | missing |
+*linuxmips*         | ELF linux for little endian MIPS32r2                 |     ?        |    missing      |    missing     | missing | 
 
 
 OK       :   3
@@ -226,9 +226,9 @@ UNKNOWN  :   1
 ### 32-BIT and 64-BIT targets on modern systems
 
 target name         | long target name                                     |   working    | 
---------------------|------------------------------------------------------|--------------| 
-*gcc*               | Native Console version (with or without ncurses)     | YES          | 
-*emcc*              | Emscripten (WebAssembly version)                     | EXPERIMENTAL | 
+--------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
+*gcc*               | Native Console version (with or without ncurses)     |    YES       |    missing      |    missing     | missing | 
+*emcc*              | Emscripten (WebAssembly version)                     |    YES       |    missing      |    missing     | missing | input method
 
 
 OK       :   2

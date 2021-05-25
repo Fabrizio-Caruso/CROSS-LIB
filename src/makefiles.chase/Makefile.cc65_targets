@@ -41,11 +41,11 @@ cc65_targets: \
 
 
 apple2_targets: \
-	apple2
+	apple2 apple2_hgr
 
 
 apple2enh_targets: \
-	apple2enh apple2enh_80col
+	apple2enh apple2enh_80col apple2enh_hgr
 
 
 atari_targets: \
@@ -146,7 +146,7 @@ apple2:
 
 # 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg 
 # 	-Wl -D,__STACKSIZE__=$0400,-D,__HIMEM__=$B800,-D,__LCADDR__=$D000,-D,__LCSIZE__=$1000
-apple2_hgr: $(ASSETS_PATH)/6x8_chars.h
+apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
@@ -160,10 +160,10 @@ apple2_hgr: $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
-	-o $(BUILD_PATH)/apple2.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
-	rm $(BUILD_PATH)/apple2.bin
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
 
 apple2_no_sound:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
@@ -200,6 +200,25 @@ apple2enh:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
+
+apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+    --code-name LOWCODE \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
 
 # -O breaks bit-banging
 apple2enh_80col: 

@@ -18,7 +18,7 @@ $F727 - SCALE
 #include <conio.h>
 #include <peekpoke.h>
 
-#include "6x8_chars.h"
+#include "7x8_chars.h"
 
 uint16_t HB1[]={
 0x2000, 0x2400, 0x2800, 0x2C00, 0x3000, 0x3400, 0x3800, 0x3C00,

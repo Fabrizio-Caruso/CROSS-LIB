@@ -20,6 +20,9 @@ $(ASSETS_PATH)/6x8_chars.h: $(6X8_TILES)
 $(ASSETS_PATH)/6x9_chars.h: $(6X9_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/7x8_chars.h: $(7X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/8x8_chars.h: $(8X8_TILES)
 	$(CREATE_ASSET)
 

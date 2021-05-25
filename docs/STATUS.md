@@ -11,8 +11,8 @@ target name         | long target name                                     |    
 *ace*               | Jupiter Ace                                          | YES          |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                          | YES          |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                                     | YES          |     N/A         |      N/A       |  N/A    |
-*apple2*            | Apple II                                             | YES          |      OK         |       OK       |   OK    | text display missing
-*apple2enh*         | Apple //e                                            | YES          |      OK         |       OK       |   OK    | text display missing
+*apple2*            | Apple II                                             | YES          |      OK         |       OK       |   OK    | text display
+*apple2enh*         | Apple //e                                            | YES          |      OK         |       OK       |   OK    | text display
 *aquarius*          | Mattel Aquarius                                      | YES          |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                           | YES          |      OK         |       OK       |   OK    |
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES          |      OK         |       OK       |   OK    |
@@ -225,10 +225,10 @@ UNKNOWN  :   1
 
 ### 32-BIT and 64-BIT targets on modern systems
 
-target name         | long target name                                     |   working    | 
+target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes  
 --------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
 *gcc*               | Native Console version (with or without ncurses)     |    YES       |    missing      |    missing     | missing | 
-*emcc*              | Emscripten (WebAssembly version)                     |    YES       |    missing      |    missing     | missing | input method
+*emcc*              | Emscripten (WebAssembly version)                     |    YES       |    missing      |    missing     | missing | input
 
 
 OK       :   2

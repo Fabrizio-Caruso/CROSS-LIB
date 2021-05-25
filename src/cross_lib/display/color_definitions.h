@@ -163,12 +163,13 @@
     #define _XL_CYAN _CREAT_CYAN
 
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
-    #define _XL_RED 1
+    #define _XL_PURPLE 1
     #define _XL_GREEN 0
     #define _XL_MAGENTA 1
-    #define _XL_CYAN ((_XL_RED)+4)
+    #define _XL_CYAN ((_XL_PURPLE)+4)
     #define _XL_BLUE _XL_CYAN
     #define _XL_YELLOW ((_XL_GREEN)+4)
+    #define _XL_RED _XL_YELLOW
     #define _XL_WHITE 2
 
 

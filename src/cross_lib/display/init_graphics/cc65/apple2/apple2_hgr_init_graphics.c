@@ -46,13 +46,19 @@ uint16_t HB1[]={
 0x2350, 0x2750, 0x2B50, 0x2F50, 0x3350, 0x3750, 0x3B50, 0x3F50,
 0x23D0, 0x27D0, 0x2BD0, 0x2FD0, 0x33D0, 0x37D0, 0x3BD0, 0x3FD0};
 
-// uint8_t hgr_enc[]={
-// 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-// 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-// 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,};
 
-const static uint8_t tiles[25][8] =
+const static uint8_t tiles[][8] =
 {
+    _TILE_DIGIT_0,
+    _TILE_DIGIT_1,
+    _TILE_DIGIT_2,
+    _TILE_DIGIT_3,
+    _TILE_DIGIT_4,
+    _TILE_DIGIT_5,
+    _TILE_DIGIT_6,
+    _TILE_DIGIT_7,
+    _TILE_DIGIT_8,
+    _TILE_DIGIT_9,
     _TILE_0_UDG,
     _TILE_1_UDG,
     _TILE_2_UDG,
@@ -60,7 +66,33 @@ const static uint8_t tiles[25][8] =
     _TILE_4_UDG,
     _TILE_5_UDG,
     _TILE_6_UDG,
-    _TILE_7_UDG,    
+    _TILE_A,
+    _TILE_B,
+    _TILE_C,
+    _TILE_D,
+    _TILE_E,
+    _TILE_F,
+    _TILE_G,
+    _TILE_H,
+    _TILE_I,
+    _TILE_J,
+    _TILE_K,
+    _TILE_L,
+    _TILE_M,
+    _TILE_N,
+    _TILE_O,
+    _TILE_P,
+    _TILE_Q,
+    _TILE_R,
+    _TILE_S,
+    _TILE_T,
+    _TILE_U,
+    _TILE_V,
+    _TILE_W,
+    _TILE_X,
+    _TILE_Y,
+    _TILE_Z,
+    _TILE_7_UDG, // 43
     _TILE_8_UDG,
     _TILE_9_UDG,
     _TILE_10_UDG,
@@ -79,7 +111,6 @@ const static uint8_t tiles[25][8] =
     _TILE_23_UDG,
     _TILE_24_UDG,
 };
-
 
 
 uint8_t hgr_enc[3*2*128] = 

@@ -88,8 +88,17 @@
 		
 #elif defined(NO_GRAPHICS)
 	#define _DISPLAY(x,y,ch)
-		
-#elif (defined(__C16__) && defined(C16_UNEXPANDED))  && defined(NO_SCREEN_CODES)
+
+#elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
+    #include "cross_lib.h"
+
+    #define _DISPLAY(x,y,ch) \
+        do \
+        { \
+            hgr_draw(x, y, ch-65+17, _XL_WHITE); \
+        } while(0)
+	
+#elif (defined(__C16__) && defined(C16_UNEXPANDED)) && defined(NO_SCREEN_CODES)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \

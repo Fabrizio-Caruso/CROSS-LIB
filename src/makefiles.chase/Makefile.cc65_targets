@@ -151,10 +151,11 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
-	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN \
+	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
     --code-name LOWCODE \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \

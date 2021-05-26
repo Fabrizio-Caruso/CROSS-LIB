@@ -40,8 +40,23 @@
 			return ch-32;
 		}	
 	}
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED) \
-        || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+#elif ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+	char screenCode(char ch)
+	{
+		if(ch==32) 
+		{
+			return 0;
+		}
+		else if(ch<58)
+		{
+			return ch-48+1;
+		}	
+        else
+        {
+            return ch-65-32+18;
+        }
+	}    
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
 	char screenCode(char ch)
 	{
 			return ch-32;
@@ -94,7 +109,7 @@
     #define _DISPLAY(x,y,ch) \
         do \
         { \
-            hgr_draw(x, y, ch-65+17, _XL_WHITE); \
+            hgr_draw(x, y, ch, _XL_WHITE); \
         } while(0)
 	
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) && defined(NO_SCREEN_CODES)
@@ -187,7 +202,11 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
+        #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+        _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
+        #else
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u));
+        #endif
 	}
 }
 

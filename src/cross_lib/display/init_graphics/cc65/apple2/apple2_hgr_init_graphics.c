@@ -46,9 +46,11 @@ uint16_t HB1[]={
 0x2350, 0x2750, 0x2B50, 0x2F50, 0x3350, 0x3750, 0x3B50, 0x3F50,
 0x23D0, 0x27D0, 0x2BD0, 0x2FD0, 0x33D0, 0x37D0, 0x3BD0, 0x3FD0};
 
+#define _SPACE_ {0,0,0,0,0,0,0,0}
 
 const static uint8_t tiles[][8] =
 {
+    _SPACE_,
     _TILE_DIGIT_0,
     _TILE_DIGIT_1,
     _TILE_DIGIT_2,
@@ -110,6 +112,7 @@ const static uint8_t tiles[][8] =
     _TILE_22_UDG,
     _TILE_23_UDG,
     _TILE_24_UDG,
+    {0x18,0x3e,0x60,0x3c,0x06,0x7c,0x18,0x00},
 };
 
 

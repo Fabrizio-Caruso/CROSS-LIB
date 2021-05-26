@@ -73,5 +73,5 @@
 	#define _TILE_22_UDG    {<tile_22>}
 	#define _TILE_23_UDG    {<tile_23>}
 	#define _TILE_24_UDG    {<tile_24>}
-
+	#define _TILE_25_UDG    {<tile_25>}
 #endif // _7x8_CHARS

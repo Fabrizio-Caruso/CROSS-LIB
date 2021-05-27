@@ -384,7 +384,7 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             #if !defined(TINY_GAME) && !defined(NO_BORDERS)
-                (void) DRAW_BORDERS();
+                DRAW_BORDERS();
             #endif
             
             fillLevelWithCharacters();
@@ -606,7 +606,7 @@ int main(void)
                         if(isHorizontalWallsLevel)
                         {                
                             horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);        
-                            (void) DRAW_HORIZONTAL_WALLS(horizontalWallsLength);    
+                            DRAW_HORIZONTAL_WALLS(horizontalWallsLength);    
                         }                        
                     }
                                         

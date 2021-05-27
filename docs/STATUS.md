@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 25/05/2021
+Last update: 27/05/2021
 
 ### 8-BIT targets
 
@@ -11,8 +11,8 @@ target name         | long target name                                     |    
 *ace*               | Jupiter Ace                                          | YES          |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                          | YES          |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                                     | YES          |     N/A         |      N/A       |  N/A    |
-*apple2*            | Apple II                                             | YES          |      OK         |       OK       |   OK    | text display
-*apple2enh*         | Apple //e                                            | YES          |      OK         |       OK       |   OK    | text display
+*apple2*            | Apple II                                             | YES          |      OK         |       OK       |   OK    |
+*apple2enh*         | Apple //e                                            | YES          |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                                      | YES          |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                           | YES          |      OK         |       OK       |   OK    |
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES          |      OK         |       OK       |   OK    |

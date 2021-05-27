@@ -1071,7 +1071,7 @@ LOADM
 EXEC
 
 BASIC 128 (Mo6/Prodest PC 128)
-Attach .k7 image
+Attach .k7 imloadage
 Type
 LOADM"CASS:",&H600
 EXEC
@@ -1090,7 +1090,7 @@ Type
 loadm "FULL_TO7.BIN"
 exec
 
-In order to load at lower address then $A000, you need to use CLEAR:
+In order to load at an address lower than $A000 by <offset> bytes, you need to use CLEAR:
 CLEAR ,,,&h8000
 loadm "FULL_TO7.BIN",<offset>
 exec

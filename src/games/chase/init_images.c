@@ -122,7 +122,7 @@ void INIT_IMAGES(void)
 
 		POWERUP_IMAGE._imageData = _TILE_8;
 		GUN_IMAGE._imageData = _TILE_9;
-		EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
+		EXTRA_POINTS_IMAGE._imageData = _TILE_25;
 		
 		BULLET_IMAGE._imageData = _TILE_11;
 		

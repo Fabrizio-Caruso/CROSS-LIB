@@ -28,7 +28,9 @@ _udgs:
 .byte <tile_5>
 .byte <tile_17>
 
-.byte $18,$3e,$60,$3c,$06,$7c,$18,$00 ; 36
+;.byte $18,$3e,$60,$3c,$06,$7c,$18,$00 ; 36
+.byte <tile_25>
+
 .byte <tile_21>
 .byte <tile_22>
 .byte <tile_0>

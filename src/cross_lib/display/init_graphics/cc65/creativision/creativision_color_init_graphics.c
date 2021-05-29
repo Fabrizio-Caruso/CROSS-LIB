@@ -44,7 +44,7 @@ void set_group_color(uint8_t group, uint8_t color)
 
 
 
-const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 
+// const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 
 
 void set_udg_colors(void)
 {
@@ -129,7 +129,7 @@ void SET_UDG_IMAGES(void)
         for(j=0;j<5;++j)
         {
             redefine(redefine_map[i].ascii+32*j, redefine_map[i].bitmap);
-            redefine(0x24+32*j, dollar);
+            // redefine(0x24+32*j, dollar);
         }
     } 
 }

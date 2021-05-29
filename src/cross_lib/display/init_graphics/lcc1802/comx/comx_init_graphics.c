@@ -77,6 +77,9 @@ const struct redefine_struct redefine_map[] =
     {_TILE_23, _TILE_23_UDG, 3},
     #if NUM_OF_TILES>=25
     {_TILE_24, _TILE_24_UDG, 3},
+    #if NUM_OF_TILES>=26
+    {_TILE_25, _TILE_25_UDG, 3},
+    #endif
     #endif
     #endif
     #endif

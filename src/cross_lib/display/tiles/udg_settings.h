@@ -38,7 +38,7 @@
 #define _TILE_12 (0x26 -_Z88DK_SPRITE_OFFSET)
 #define _TILE_13 (0x2B -_Z88DK_SPRITE_OFFSET)
 #define _TILE_0_B _TILE_0
-#define _DOLLAR_TILE (0x24 - _Z88DK_SPRITE_OFFSET)
+#define _TILE_25 (0x24 - _Z88DK_SPRITE_OFFSET)
 
 // GREEN
 #define _TILE_8  (0x2C - _Z88DK_SPRITE_OFFSET)
@@ -77,7 +77,6 @@
 
 #define _TILE_16 (0x2F - _Z88DK_SPRITE_OFFSET)
 
-#define _TILE_4_B _TILE_4
 
 // 0x50 -> 0
 #if defined(__MO5__)||defined(__TO7__)

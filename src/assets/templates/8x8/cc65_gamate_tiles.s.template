@@ -5,7 +5,7 @@
 .rodata
 
 fontdata:
-.byte   $00, $00, $00, $00, $00, $00, $00, $00
+.byte $00, $00, $00, $00, $00, $00, $00, $00
 .byte <tile_13>
 .byte <tile_12>
 .byte <tile_0>
@@ -18,7 +18,7 @@ fontdata:
 .byte <tile_6>
 .byte <tile_8>
 .byte <tile_17>
-.byte $00,$3c,$5a,$db,$c3,$5A,$3c,$18
+.byte 0,0,0,0,0,0,0,0
 .byte <tile_9>
 .byte <tile_18>
 .byte <tile_11>
@@ -33,7 +33,7 @@ fontdata:
 .byte <tile_22>
 .byte <tile_23>
 .byte <tile_24>
-.byte   $00, $00, $C0, $C0, $C0, $FE, $00, $00
+.byte <tile_25>
 .byte   $00, $24, $66, $FF, $66, $24, $00, $00
 .byte   $00, $18, $3C, $7E, $FF, $FF, $00, $00
 .byte   $00, $FF, $FF, $7E, $3C, $18, $00, $00

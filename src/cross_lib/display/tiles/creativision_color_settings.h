@@ -6,7 +6,7 @@
 #define _TILE_2 (_BASE+2)
 #define _TILE_3 (_BASE+3)
 
-#define _DOLLAR_TILE (_BASE+4)
+#define _TILE_25 (_BASE+4)
 
 #define _TILE_4 (_BASE+5)
 #define _TILE_5 (_BASE+6)
@@ -36,7 +36,5 @@
 #define _TILE_23 (_BASE+25)
 #define _TILE_24 (_BASE+26)
 
-// #define _TILE_4_B _TILE_4
-// #define _TILE_7_B _TILE_7
 
 

@@ -112,7 +112,7 @@ void INIT_IMAGES(void)
     CALM_DOWN_IMAGE._imageData = _TILE_8;
     FIRE_CHARGE_IMAGE._imageData = _TILE_11;
     FIRE_POWER_IMAGE._imageData = _TILE_9;
-    EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
+    EXTRA_POINTS_IMAGE._imageData = _TILE_25;
     
     BULLET_IMAGE._imageData = _TILE_11;
     

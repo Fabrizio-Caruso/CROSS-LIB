@@ -167,8 +167,8 @@
     #define _TILE_0_B _TILE_0
 #endif
 
-#if !defined(_DOLLAR_TILE)
-    #define _DOLLAR_TILE '$'
+#if !defined(_TILE_25)
+    #define _TILE_25 '$'
 #endif
 
 // GREEN

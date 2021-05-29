@@ -49,6 +49,8 @@
 
 #define _TILE_24_UDG    { <tile_24> }
 
+#define _TILE_25_UDG    { <tile_25> }
+
 #endif // _8x8_CHARS
 
 

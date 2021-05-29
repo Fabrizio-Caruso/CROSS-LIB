@@ -75,7 +75,7 @@
 
 #define _TILE_24 121
 
-#define _DOLLAR_TILE 36
+#define _TILE_25 36
 
 
 #endif // _COMX_COLOR_GRAPHICS_SETTINGS

@@ -21,7 +21,7 @@
 #define _TILE_12 0x3E
 #define _TILE_13 0x3D
 #define _TILE_0_B _PLAYER_DOWN
-#define _DOLLAR_TILE ('$'+128)
+#define _TILE_25 ('$'+128)
 
 // GREEN
 #define _TILE_8  0x3C

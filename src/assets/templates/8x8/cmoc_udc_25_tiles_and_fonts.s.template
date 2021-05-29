@@ -56,14 +56,7 @@ _udgs	EQU	*		udgs: uint8_t[]
     FCB <tile_11>
 
 ; dollar $
-	FCB %00000000
-	FCB %00001000
-	FCB %00111110
-	FCB %00101000
-	FCB %00111110
-	FCB %00001010
-	FCB %00111110
-	FCB %00001000
+    FCB <tile_25>
 
 ; power0up F
     FCB <tile_17>

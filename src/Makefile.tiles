@@ -58,13 +58,18 @@ gcc_targets: \
 
 
 cc65_targets: \
+    apple2 \
+    apple2enh \
     atari \
     atari5200 \
     c16 \
     c64 \
+    creativision \
+    gamate \
     oric  \
     nes \
     pce \
+    supervision \
     vic20 
 
 cmoc_targets: \
@@ -96,7 +101,7 @@ lcc1802_targets:
 
 #################################################################
 
-apple: apple2_hgr
+apple2: apple2_hgr
 
 apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
@@ -117,6 +122,30 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
 	rm $(BUILD_PATH)/$@.bin
 
+
+apple2enh: apple2enh_hgr
+
+apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+
+#################################################################
 
 atari: atari_color
 
@@ -855,7 +884,36 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
 
-
+cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	 -DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=2500 \
+	-D__CPC__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
+	rm -rf X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 #################################################################
 
 
@@ -909,8 +967,8 @@ msx: msx_32k_rom
 
 msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
-	-DUSE_MSX_BIOS \
-	-DINITIAL_SLOWDOWN=29000 \
+	-DUSE_MSX_BIOS -DFORCE_NO_CONIO_LIB \
+	-DINITIAL_SLOWDOWN=29000 -DNO_CONIO_PATCH \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
@@ -1367,7 +1425,7 @@ tmc600: tmc600_16k
 tmc600_16k: reduced_full_lcc1802_combo.c 
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME -DSIMPLE_STRATEGY \
+	-DFULL_GAME -DSIMPLE_STRATEGY -DNO_UDG \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
 	$(REDUCED_LCC1802_C_OPTS) \
@@ -1390,7 +1448,7 @@ cidelsa_draco: cidelsa_draco_32k
 cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
-	-DNO_COLOR \
+	-DNO_COLOR -DNO_UDG \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK -DSLOW_DOWN=400 \
 	$(REDUCED_LCC1802_C_OPTS) \
@@ -1441,7 +1499,7 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	-DNO_TITLE_LINE -DNO_UDG \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \

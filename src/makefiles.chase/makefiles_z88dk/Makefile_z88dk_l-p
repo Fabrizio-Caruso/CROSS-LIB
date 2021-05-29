@@ -572,10 +572,11 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app 
-	rm a.bin
-	mv a.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
-	mv a.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 
 ondra_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
@@ -583,10 +584,11 @@ ondra_no_gfx:
 	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORCE_YSIZE=30 -DFULL_GAME  \
 	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app 
-	rm a.bin
-	mv a.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
-	mv a.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 
 #############################
 # OSCA
@@ -815,11 +817,12 @@ pcw40:
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
-	rm a_HIMEM.bin
-	rm a.bin
-	mv a.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	mv a.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	rm -rf FULL_$@_HIMEM.bin
+	mv FULL_$@.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv FULL_$@.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
 
 
 pcw: pcw80
@@ -832,11 +835,12 @@ pcw80:
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
-	rm a_HIMEM.bin
-	rm a.bin
-	mv a.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	mv a.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	rm -rf FULL_$@_HIMEM.bin
+	mv FULL_$@.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv FULL_$@.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
 
 #############################
 # PENCIL2

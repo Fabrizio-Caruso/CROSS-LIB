@@ -70,7 +70,7 @@
     #define _TILE_9 (_TILE_9_OFFSET + _TILE_9_COLOR)
 #endif
 
-#define _DOLLAR_TILE '$'
+#define _TILE_25_OFFSET '$'
 	
 #define _TILE_11 _TILE_11_OFFSET
 
@@ -112,6 +112,11 @@
     #define _TILE_18 (_TILE_18_OFFSET + _TILE_18_COLOR)
 #endif
 
+#if !defined(_TILE_25_COLOR)
+    #define _TILE_25 (_TILE_25_OFFSET + _INVERTED)
+#else
+    #define _TILE_25 (_TILE_25_OFFSET + _TILE_25_COLOR)
+#endif
 
 #define _TILE_15_OFFSET '<'
 #define _TILE_14_OFFSET '>'
@@ -122,8 +127,3 @@
 #define _TILE_15 _TILE_15_OFFSET
 #define _TILE_16 _TILE_16_OFFSET
 
-
-// #define _TILE_0_B (_TILE_0 + _INVERTED)
-// #define _TILE_4_B (_TILE_4 + _INVERTED)
-// #define _TILE_5_B 'X'
-// #define _TILE_7_B (_TILE_7 + _INVERTED)

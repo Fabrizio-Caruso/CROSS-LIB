@@ -46,7 +46,7 @@
 
 #define _TILE_11 37
 #define _TILE_16 94
-#define _DOLLAR_TILE 147
+#define _TILE_25 147
 #define _TILE_14 61
 #define _TILE_15 91
 #define _TILE_10 33
@@ -54,18 +54,13 @@
 #define _TILE_7 22
 
 #define _TILE_6 19
-#define _TILE_0_B _TILE_0
-#define _TILE_7_B _TILE_7
+
 
 #define _TILE_18 126
 #define _TILE_17 123
 
 #define _TILE_12 40
 #define _TILE_13 58
-
-#define _TILE_4_B _TILE_4
-
-#define _TILE_5_B 'X'
 
 #define _TILE_19 129
 #define _TILE_20 132

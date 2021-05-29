@@ -48,7 +48,7 @@
 #define _TILE_23_OFFSET 31
 #define _TILE_24_OFFSET 32
 
-#define _DOLLAR_TILE_OFFSET 4
+#define _TILE_25_OFFSET 4
 
 #if defined(NO_COLOR)
     #if !defined(ALTERNATE_COLORS)
@@ -84,7 +84,7 @@
         #define _TILE_15 (_TILE_15_OFFSET + _ATARI_MODE1_WHITE)	
         #define _TILE_16 (_TILE_16_OFFSET + _ATARI_MODE1_WHITE)
 
-        #define _DOLLAR_TILE (_DOLLAR_TILE_OFFSET + _ATARI_MODE1_YELLOW)
+        #define _TILE_25 (_DOLLAR_TILE_OFFSET + _ATARI_MODE1_YELLOW)
         #define _TILE_12 (5 + _ATARI_MODE1_YELLOW)
         #define _TILE_13 (6 + _ATARI_MODE1_YELLOW)
 
@@ -115,7 +115,7 @@
         #define _TILE_16 (_TILE_16_OFFSET + _ATARI_MODE1_BLUE)
         #define _TILE_17 (_TILE_17_OFFSET + _ATARI_MODE1_WHITE)
         #define _TILE_18 (_TILE_18_OFFSET + _ATARI_MODE1_WHITE)
-        #define _DOLLAR_TILE (_DOLLAR_TILE_OFFSET + _ATARI_MODE1_YELLOW)
+        #define _TILE_25 (_DOLLAR_TILE_OFFSET + _ATARI_MODE1_YELLOW)
 
 
     #endif
@@ -151,7 +151,7 @@
     #define _TILE_15 _TILE_15_OFFSET
     #define _TILE_16 _TILE_16_OFFSET
 
-    #define _DOLLAR_TILE _DOLLAR_TILE_OFFSET
+    #define _TILE_25 _TILE_25_OFFSET
     #define _TILE_12 _TILE_12_OFFSET
     #define _TILE_13 _TILE_13_OFFSET
 

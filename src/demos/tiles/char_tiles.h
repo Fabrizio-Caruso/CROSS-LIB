@@ -54,7 +54,9 @@
 
 #define _TILE_24 (unsigned char) 'O'
 
-#define _DOLLAR_TILE (unsigned char) '$'
+#define _TILE_25 'Q'
+
+//#define _TILE_25 '$'
 
 #endif // _CHAR_TILES_H
 

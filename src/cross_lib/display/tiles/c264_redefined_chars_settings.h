@@ -17,8 +17,7 @@
 #define _TILE_7 0x27
 #define _TILE_12 0x26
 #define _TILE_13 0x2B
-#define _TILE_0_B _TILE_0
-#define _DOLLAR_TILE 0x24
+#define _TILE_25 0x24
 
 // GREEN
 #define _TILE_8  0x2C
@@ -29,10 +28,6 @@
 // CYAN
 #define _TILE_10 0x21
 #define _TILE_11 0x23
-
-#define _TILE_7_B _TILE_7
-
-#define _TILE_5_B _TILE_5
 
 // WHITE
 #define _TILE_4 0x1F
@@ -47,8 +42,6 @@
 
 #define _TILE_17 0x3A
 #define _TILE_18 0x25
-
-#define _TILE_4_B _TILE_4
 
 // OK
 #define _TILE_19 0

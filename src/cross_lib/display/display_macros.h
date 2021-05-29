@@ -36,11 +36,14 @@
     #endif
 #endif
 
-#include "conio_patch.h"
+#if !defined(NO_CONIO_PATCH)
+    #include "conio_patch.h"
+#endif
+
 #include "standard_libs.h"
 
 #if !defined(NUM_OF_TILES)
-    #define NUM_OF_TILES 25
+    #define NUM_OF_TILES 26
 #endif
 
 struct ImageStruct

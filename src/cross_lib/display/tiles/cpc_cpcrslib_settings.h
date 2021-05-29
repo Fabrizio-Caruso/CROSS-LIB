@@ -8,7 +8,7 @@
 #define _TILE_11 4*2
 #define _TILE_8 5*2
 #define _TILE_9 6*2
-#define _DOLLAR_TILE 7*2
+#define _TILE_25 7*2
 #define _TILE_10 8*2
 
 #define _TILE_14 10*2
@@ -23,16 +23,9 @@
 
 #define _TILE_6 9*2
 
-// TODO: UNIMPLEMENTED
 #define _TILE_17 19*2
 #define _TILE_18 20*2
 
-// SPECIAL
-#define _TILE_0_B _TILE_0
-#define _TILE_5_B _TILE_5
-
-#define _TILE_7_B _TILE_7
-#define _TILE_4_B _TILE_4
 
 #define _TILE_19 21*2
 #define _TILE_20 22*2

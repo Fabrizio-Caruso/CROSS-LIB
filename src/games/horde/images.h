@@ -44,7 +44,7 @@
     #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24
     
-    #define EXTRA_POINTS_TILE _DOLLAR_TILE
+    #define EXTRA_POINTS_TILE _TILE_25
     
     #define HI_TILE _TILE_14
     #define LV_TILE _TILE_15

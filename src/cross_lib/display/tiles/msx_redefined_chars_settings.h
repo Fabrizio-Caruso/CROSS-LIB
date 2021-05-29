@@ -20,7 +20,7 @@
     #define _TILE_7 0x27
     #define _TILE_12 0x26
     #define _TILE_13 0x22
-    #define _DOLLAR_TILE 0x24
+    #define _TILE_25 0x24
     #define _TILE_4_B _TILE_4
     #define _TILE_10 0x23
 

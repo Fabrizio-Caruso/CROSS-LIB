@@ -2,6 +2,7 @@
 #define _MOVE_PLAYER_H
 
 #include "images.h"
+#include "cross_lib.h"
 
 #define MAX_Y ((YSize)+(Y_OFFSET))
 

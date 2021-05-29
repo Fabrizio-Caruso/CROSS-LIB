@@ -900,6 +900,9 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
@@ -908,11 +911,11 @@ dragon:
 	display_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o move_player.o
 	rm 	display_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
-	input_macros.o 
+	input_macros.o move_player.o
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
@@ -934,16 +937,19 @@ coco:
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	text_macros.o input_macros.o move_player.o
 	rm 	display_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o 
+	text_macros.o input_macros.o move_player.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
@@ -968,6 +974,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -983,14 +992,14 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o move_player.o
 	rm \
 	mo5_alt_print.o \
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o move_player.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
@@ -1016,6 +1025,9 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1031,14 +1043,14 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o move_player.o
 	rm \
 	mo5_alt_print.o \
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o move_player.o
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN

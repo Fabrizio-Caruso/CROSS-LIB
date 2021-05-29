@@ -161,6 +161,12 @@ const struct redefine_struct
 	#define _TILE_24_OFFSET_ _TILE_24_OFFSET
 #endif
 
+#ifndef _TILE_25_OFFSET
+	#define _TILE_25_OFFSET_ _TILE_25
+#else
+	#define _TILE_25_OFFSET_ _TILE_25_OFFSET
+#endif
+
 #if defined(__C16__) && defined(CONIO)
 	char screenCode(char ch)
 	{
@@ -250,6 +256,10 @@ const struct redefine_struct redefine_map[] =
     
     #if !defined(NO_TILE_24)
 		{_TILE_24_OFFSET_, _TILE_24_UDG},
+    #endif
+
+    #if !defined(NO_TILE_25)
+		{_TILE_25_OFFSET_, _TILE_25_UDG},
     #endif
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},

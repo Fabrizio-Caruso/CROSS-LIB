@@ -13,7 +13,7 @@ if len(sys.argv)<3:
 else:
     parent_dir = sys.argv[2]
 
-NUMBER_OF_TILES = 25
+NUMBER_OF_TILES = 26
 
 tile=[]
 

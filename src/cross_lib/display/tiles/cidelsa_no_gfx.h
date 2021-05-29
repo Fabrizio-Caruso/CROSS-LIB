@@ -94,20 +94,8 @@
     #define _TILE_7 'A'
 #endif
 
-#if !defined(_TILE_7_B)
-    #define _TILE_7_B 'A'
-#endif
-
-#if !defined(_TILE_4_B)
-    #define _TILE_4_B 'O'	
-#endif
-
-#if !defined(_TILE_0_B)
-    #define _TILE_0_B _TILE_0
-#endif
-
-#if !defined(_DOLLAR_TILE)
-    #define _DOLLAR_TILE 'M'
+#if !defined(_TILE_25)
+    #define _TILE_25 'M'
 #endif
 
 // GREEN
@@ -155,9 +143,7 @@
 
 #endif
 
-#if !defined(_TILE_5_B)
-    #define _TILE_5_B _TILE_5
-#endif
+
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

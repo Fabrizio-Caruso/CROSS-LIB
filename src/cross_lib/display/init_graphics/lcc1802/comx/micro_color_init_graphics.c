@@ -13,7 +13,7 @@
     #endif
 #endif
 
-#define _DOLLAR_DEFINITION {0,8, 31, 16, 30,  2,62,  4,NINTH_DOLLAR_LINE}
+// #define _DOLLAR_DEFINITION {0,8, 31, 16, 30,  2,62,  4,NINTH_DOLLAR_LINE}
 
 #include "micro_color_settings.h"
 
@@ -78,14 +78,16 @@ const struct redefine_struct redefine_map[] =
     {_TILE_23, _TILE_23_UDG},
     #if NUM_OF_TILES>=25
     {_TILE_24, _TILE_24_UDG},
+    #if NUM_OF_TILES>=26
+    {_TILE_25, _TILE_25_UDG},
     #endif
     #endif
     #endif
     #endif
     #endif
     #endif
-    {_DOLLAR_TILE, _DOLLAR_DEFINITION},
-    
+    #endif
+    // {_DOLLAR_TILE, _DOLLAR_DEFINITION},
 };
 
 
@@ -105,17 +107,9 @@ void _XL_INIT_GRAPHICS(void)
     character_set(4);
     
     
-    for(i=0;i<NUM_OF_TILES+1;++i)
+    for(i=0;i<NUM_OF_TILES;++i)
     {
         redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
-         // _XLIB_DRAW_TILE(5+i,10,redefine_map[i]._ascii,0);
-         // {
-             // uint16_t j;
-             // for(j=0;j<4000;++j)
-             // {
-             // }
-         // }
-         // WAIT_PRESS();
     }
     
     (void) bgcolor(0);

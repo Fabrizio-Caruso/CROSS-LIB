@@ -53,18 +53,18 @@
 		// EXTRA1_TILE, EXTRA2_TILE, EXTRA3_TILE, EXTRA4_TILE, EXTRA5_TILE, EXTRA6_TILE
 		// };
       
-const uint8_t tiles[NUM_OF_TILES+1] = {
+const uint8_t tiles[] = {
 		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
 		_TILE_4, _TILE_5, _TILE_6, _TILE_7, 
 		_TILE_8, _TILE_9, _TILE_10, _TILE_11, 
 		_TILE_12, _TILE_13, _TILE_14, _TILE_15, 
 		_TILE_16, _TILE_17, _TILE_18, _TILE_19,
 		_TILE_20, _TILE_21, _TILE_22, _TILE_23, 
-        _TILE_24, _DOLLAR_TILE
+        _TILE_24, _TILE_25
 		};
 
       
-const uint8_t tile_colors[NUM_OF_TILES+1] = {
+const uint8_t tile_colors[] = {
 		_PLAYER_COLOR, _PLAYER_COLOR, _PLAYER_COLOR, _PLAYER_COLOR, 
 		_XL_WHITE, _XL_RED, _XL_RED, _XL_YELLOW, 
 		_XL_GREEN, _XL_YELLOW, _XL_WHITE, _XL_YELLOW, 
@@ -107,10 +107,10 @@ int main(void)
         _XL_WAIT_FOR_INPUT();
         _XL_CLEAR_SCREEN();
 
-        for(i=0;i<NUM_OF_TILES+1;++i)
+        for(i=0;i<NUM_OF_TILES;++i)
         {
             _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],tile_colors[i]);
-            _XL_SLOW_DOWN(900);
+            _XL_SLOW_DOWN(300);
         }
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);

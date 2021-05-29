@@ -54,11 +54,8 @@
 
 // YELLOW
 #define _TILE_7 ('q'+PALETTE_SWITCH)
-#define _TILE_7_B 'q'
-#define _TILE_4_B 'p'
 
-#define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
-#define _DOLLAR_TILE '$'
+#define _TILE_25 '$'
 
 // GREEN
 #define _TILE_8 'r'

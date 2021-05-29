@@ -21,7 +21,7 @@
 #define _TILE_12 0x62
 #define _TILE_13 0x63
 #define _TILE_0_B _TILE_0
-#define _DOLLAR_TILE 0x6A
+#define _TILE_25 0x6A
 
 // GREEN
 #define _TILE_8  0x5D

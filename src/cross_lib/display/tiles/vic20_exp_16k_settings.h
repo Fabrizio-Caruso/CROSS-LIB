@@ -17,7 +17,7 @@
 
 #define _TILE_13 ('>'+5-7)
 
-#define _DOLLAR_TILE '$'
+#define _TILE_25 '$'
 
 #define _TILE_10 ('>'+1-2+1+1)
 

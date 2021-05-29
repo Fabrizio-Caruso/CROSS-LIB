@@ -51,7 +51,7 @@
 	
 
 #define _TILE_16 ('^'-0x40)
-#define _DOLLAR_TILE '$'
+#define _TILE_25 '$'
 #define _TILE_14 ('>'-3)
 #define _TILE_15 ('<'-2)
 #define _TILE_10 (0x73 - 0x20-13-7)

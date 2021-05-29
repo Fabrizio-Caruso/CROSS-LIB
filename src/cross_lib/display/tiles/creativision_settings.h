@@ -17,9 +17,8 @@
 #define _TILE_7 0x27
 #define _TILE_12 0x26
 #define _TILE_13 0x22
-#define _DOLLAR_TILE 0x24
-// #define _TILE_4_B 0x28
-#define _TILE_4_B _TILE_4
+#define _TILE_25 0x24
+
 
 
 // GREEN
@@ -28,11 +27,6 @@
 // RED
 #define _TILE_5 0x5E
 #define _TILE_6 0x5B
-// #define _TILE_7_B 0x5A
-#define _TILE_7_B _TILE_7
-
-#define _TILE_0_B _TILE_0
-
 
 // CYAN
 #define _TILE_10 0x08
@@ -47,10 +41,6 @@
 #define _TILE_14 ((uint8_t)0x7B)
 #define _TILE_15 ((uint8_t)0x7D)
 #define _TILE_16 ((uint8_t)0x60)
-
-// TODO: Change it to something different
-// #define _TILE_5_B _TILE_5
-#define _TILE_5_B (_TILE_12)
 
 #define _TILE_19 0x41
 #define _TILE_20 0x42

@@ -77,7 +77,8 @@ _Charset:
 .byte <tile_2>
 
 ; extraPoints
-.byte $18,$3e,$60,$3c,$06,$7c,$18,$00
+;.byte $18,$3e,$60,$3c,$06,$7c,$18,$00
+.byte <tile_25>
 
 ; player up
 .byte <tile_1>

@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 27/05/2021
+Last update: 30/05/2021
 
 ### 8-BIT targets
 
@@ -53,7 +53,7 @@ target name         | long target name                                     |    
 *gal*               | Galaksija                                            | YES          |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                                       | YES          |      OK         |       OK ?     |   N/A   |
 *gamate*            | Gamate                                               | YES          |      OK         |       OK       |   OK    | grey levels
-*gamegear*          | Game Gear                                            | YES          |      OK         |       OK       |   OK    |
+*gamegear*          | Game Gear                                            | YES          |      OK         |       OK       | missing | PSG SN76489
 *gb*                | Game Boy                                             | YES          |      OK         |       OK       |   OK    | grey levels
 *gx4000*            | Amstrad GX-4000                                      | YES          |      OK         |       OK       |   OK    |
 *hemc*              | Huebler/Evert-MC                                     | YES          |      OK         |      N/A       |   N/A ? |
@@ -115,7 +115,7 @@ target name         | long target name                                     |    
 *sc3000*            | Sega SC 3000                                         | YES          |      OK         |       OK       |   OK    |         
 *sg1000*            | Sega SG 1000                                         | YES          |      OK         |       OK       |   OK    | 
 *smc777*            | Sony SMC-70 / SMC-777                                | YES          |    missing      |    missing     | missing | PSG SN76489
-*sms*               | Sega Master System                                   | YES          |      OK         |       OK       |   OK    | 
+*sms*               | Sega Master System                                   | YES          |      OK         |       OK       | missing | PSG SN76489
 *sos*               | S-OS                                                 | YES          |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                                     | YES          |      OK         |       OK       |   OK    | 
 *special*           | Specialist                                           | YES          |      OK         |      N/A ?     |   N/A ? |

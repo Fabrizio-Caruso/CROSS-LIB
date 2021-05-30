@@ -365,8 +365,15 @@ File Manager -> Select cartridge -> Choose the .bin file
 ---------------------------------------------------------
 ### GAMEGEAR
 
+Use Kega Fusion ((https://segaretro.org/Kega_Fusion)
+File -> Open GameGear ROM -> Select .gg file
+
+or
+
 Use Emulitious (https://emulicious.net/)
 File -> Open File -> Select .gg file
+
+
 
 ------------------------------------------------------------
 
@@ -891,7 +898,12 @@ CMT -> Play button
 ### SEGA MSTER SYSTEM
 
 Use Kega Fusion Emulator (https://segaretro.org/Kega_Fusion)
-File -> Load MasterSystem ROM
+File -> Load MasterSystem ROM -> Select .sms file
+
+or
+
+Use Emulitious (https://emulicious.net/)
+File -> Open File -> Select .sms file
 
 ---------------------------------------------------------
 

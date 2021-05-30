@@ -1,6 +1,7 @@
 #ifndef _INIT_IMAGES_H
 #define _INIT_IMAGES_H
 
+#define SKULL_TILE _TILE_7
 
 #define _PLAYER_COLOR _XL_CYAN
 #define _GHOST_COLOR _XL_WHITE

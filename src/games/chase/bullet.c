@@ -34,7 +34,7 @@
 #include "ghost.h"
 #include "strategy.h"
 
-
+#include "init_images.h"
 
 extern uint16_t points;
 extern uint8_t ghostCount;
@@ -159,6 +159,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 		decreaseGhostLevel();
 		#endif
 		reducePowerUpsCoolDowns();
+        _XL_DRAW(skull._x,skull._y,SKULL_TILE, _XL_YELLOW);
 		
 		if(!(--skull._status))
 		{

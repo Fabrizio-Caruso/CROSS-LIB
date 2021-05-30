@@ -319,7 +319,6 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
-	 \
 	-DREDEFINED_CHARS \
 	-DSOUNDS -DUSE_MEMORY_BUFFERS \
 	-DALT_PRINT \
@@ -329,7 +328,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DUSE_KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=3200 \
+	-DSLOW_DOWN=4000 \
 	-DUDG_BASE_FACTOR=15 \
 	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
@@ -353,7 +352,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=3200 \
+	-DSLOW_DOWN=4000 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -1422,7 +1421,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER -DFORCE_BIT_BANG \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=6000 \
+	-lndos -DSLOW_DOWN=5000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES_NO_SLEEP) \
@@ -1632,7 +1631,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=3500 \
+	-lndos -DSLOW_DOWN=4200 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \

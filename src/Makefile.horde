@@ -1437,7 +1437,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=400 \
+	-lndos -DSLOW_DOWN=400 -DSOUNDS \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \

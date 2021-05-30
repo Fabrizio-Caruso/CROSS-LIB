@@ -123,6 +123,51 @@ all:
 
 #################################################################
 
+apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+#################################################################
+
+apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+#################################################################
+
+
 atari: atari_color
 
 atari_color: $(ASSETS_PATH)/8x8_chars.h

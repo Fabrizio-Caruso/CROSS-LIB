@@ -96,15 +96,17 @@ void sound(uint8_t freq_msb);
 
 #define _XL_EXPLOSION_SOUND() sound(1)
 
-#define _XL_ZAP_SOUND() sound(7)
+//#define _XL_ZAP_SOUND() sound(6)
 
-#define _XL_SHOOT_SOUND() sound(3);
+void _XL_ZAP_SOUND(void);
+
+#define _XL_SHOOT_SOUND() sound(2);
  
-#define _XL_PING_SOUND() sound(6);
+#define _XL_PING_SOUND() sound(5);
  
-#define _XL_TICK_SOUND() sound(5);
+#define _XL_TICK_SOUND() sound(4);
  
-#define _XL_TOCK_SOUND() sound(4);
+#define _XL_TOCK_SOUND() sound(3);
  
 #endif // __GB_SOUNDS
 

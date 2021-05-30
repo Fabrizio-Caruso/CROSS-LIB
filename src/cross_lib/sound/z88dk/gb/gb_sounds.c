@@ -41,15 +41,32 @@
 
 #include <gb/gb.h>
 
+void _XL_ZAP_SOUND(void)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    NR10_REG = 0x36;
+    NR11_REG = 0x4F;
+    NR12_REG = 0x73;
+    NR13_REG = 0x80;
+    NR14_REG = 0xC4;
+    for(i=0;i<0x80;++i)
+    {
+        NR13_REG = 0x80+i;
+        for(j=0;j<8;++j)
+        {
+        }
+    }
+}
+
 void sound(uint8_t freq_msb)
 {
-    // uint16_t i;
-    
     NR10_REG = 0x16;
-    NR11_REG = 0x40;
+    NR11_REG = 0x4F;
     NR12_REG = 0x73;
     NR13_REG = 0x00;
     NR14_REG = 0xC0 | freq_msb;
-    // for(i=0;i<duration;++i){};
+
 }
 

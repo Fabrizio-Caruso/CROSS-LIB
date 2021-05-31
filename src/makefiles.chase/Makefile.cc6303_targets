@@ -1,0 +1,32 @@
+# ------------------------------------------------------------------------------------------
+# CC6303
+#
+
+
+
+vbcc_targets: \
+	mc10
+    
+###############################################################################################
+
+mc10: mc10_buffered
+
+mc10_buffered:
+	cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ -D__MC10__ \
+	-DFORCE_XSIZE=31 \
+	-DFORCE_YSIZE=15 \
+	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-DNO_COLOR \
+	-DFULL_GAME -DNO_SLEEP \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	# mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+

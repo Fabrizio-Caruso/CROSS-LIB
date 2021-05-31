@@ -130,6 +130,12 @@ include makefiles.chase/Makefile.vbcc_targets
 
 
 # ------------------------------------------------------------------------------------------
+# - CC6303
+
+include makefiles.chase/Makefile.cc6303_targets
+
+
+# ------------------------------------------------------------------------------------------
 # - GCC AMIGA
 
 include makefiles.chase/Makefile.gcc_amiga_targets

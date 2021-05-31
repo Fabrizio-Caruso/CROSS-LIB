@@ -56,6 +56,12 @@ GCC_OPTS ?= -Wpedantic -Wall
 #############
 
 
+CC6303_COMPILER ?= cc68  $(GLOBAL_OPTS) 
+CC6303_MC10_OPTS ?=
+
+#############
+
+
 VBCC_COMPILER ?= vc  $(GLOBAL_OPTS) 
 VBCC_OPTS ?= +bbc
 

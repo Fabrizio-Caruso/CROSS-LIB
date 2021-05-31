@@ -63,12 +63,12 @@ The most significant supported CPU architecture are described below.
 - Intel 8080 and derivatives
 - MOS 6502 and derivatives
 - Motorola 6809 and derivatives
+- Motorola 6803
 - Zilog 80 and derivatives
 
 
 ### 16-BIT ARCHITECTURES
 - Intel 8088/8086 
-- MOS 65816
 - Motorola 68000/68008
 - PDP11
 - TMS 9900

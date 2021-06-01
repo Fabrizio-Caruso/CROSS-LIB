@@ -44,14 +44,7 @@
 
 // Global initialization
 //<global>
-// const uint8_t tiles[NUM_OF_TILES+1] = {
-		// PLAYER_DOWN_TILE, PLAYER_UP_TILE, PLAYER_RIGHT_TILE, PLAYER_LEFT_TILE, 
-		// GHOST_TILE, BOMB_TILE, DEAD_GHOST_TILE, SKULL_TILE, 
-		// CALM_DOWN_TILE, FIRE_POWER_TILE, BULLET_TILE, VERTICAL_BRICK_TILE, 
-		// HORIZONTAL_BRICK_TILE, LEFT_HORIZONTAL_MISSILE_TILE, RIGHT_HORIZONTAL_MISSILE_TILE, ROCKET_TILE, 
-		// FREEZE_TILE, SUPER_TILE, INVINCIBILITY_TILE, EXTRA_POINTS_TILE,
-		// EXTRA1_TILE, EXTRA2_TILE, EXTRA3_TILE, EXTRA4_TILE, EXTRA5_TILE, EXTRA6_TILE
-		// };
+
       
 const uint8_t tiles[] = {
 		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
@@ -63,12 +56,14 @@ const uint8_t tiles[] = {
         _TILE_24, _TILE_25
 		};
 
+const static uint8_t tile_color[] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+
 //</global>
+
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-const static uint8_t tile_color[] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 
 int main(void)
 {        

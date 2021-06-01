@@ -284,6 +284,20 @@ const uint8_t building_colors[] = {
     _SMALL_TWO_WINDOW_WALL_1_COLOR, _SMALL_TWO_WINDOW_WALL_2_COLOR
     };
 
+#if defined(DEBUG)
+const uint8_t tiles[] = {
+		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
+		_TILE_4, _TILE_5, _TILE_6, _TILE_7, 
+		_TILE_8, _TILE_9, _TILE_10, _TILE_11, 
+		_TILE_12, _TILE_13, _TILE_14, _TILE_15, 
+		_TILE_16, _TILE_17, _TILE_18, _TILE_19,
+		_TILE_20, _TILE_21, _TILE_22, _TILE_23, 
+        _TILE_24, _TILE_25
+		};
+
+const static uint8_t tile_color[] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+#endif
+
 int main(void)
 {        
 
@@ -299,6 +313,28 @@ int main(void)
     
     hiscore = 0;
 
+    #if defined(DEBUG)
+
+        #define COL_OFFSET ((XSize-16)/2-1)
+        #define ROW_OFFSET 3
+        
+        
+        for(buildingColor=0;buildingColor<6;++buildingColor)
+        {
+            _XL_CLEAR_SCREEN();
+
+            for(rnd=0;rnd<26;++rnd)
+            {
+                _XL_DRAW((rnd&7)*2+COL_OFFSET,(rnd/8)*2+ROW_OFFSET,tiles[rnd],tile_color[buildingColor]);
+                _XL_SLOW_DOWN(300);
+            }
+        
+            _XL_WAIT_FOR_INPUT();
+        }
+        
+        
+    
+    #endif
 
     while(1)
     {
@@ -425,6 +461,7 @@ int main(void)
                 {
                     // Draw animated bomb
                     drawAnimatedBomb();
+                    // _XL_WAIT_FOR_INPUT();
                     
                     ++bomb_y;
                 
@@ -462,6 +499,7 @@ int main(void)
                 if(bombActive)
                 {
                     drawBomb();
+                    _XL_WAIT_FOR_INPUT();
                     deleteAnimatedBombUp();
                 }
 

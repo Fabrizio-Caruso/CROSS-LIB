@@ -128,14 +128,7 @@ void _XL_INIT_GRAPHICS(void)
     #if defined(__CIDELSA__) || defined(__MICRO__)
         character_set(4);
     #endif
-    
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        for(i=0;i<26;++i)
-        {
-            redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
-        }
-    #endif
-    
+
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
         (void) bgcolor(0);
     	textcolordefinition(3);
@@ -143,9 +136,17 @@ void _XL_INIT_GRAPHICS(void)
     #endif
     
     #if defined(__PECOM__)
-        shapecolor(36, 22, 2); // to reshape the numbers
+        shapecolor(48, 10, 2); // to reshape the numbers
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
+ 
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
+        for(i=0;i<26;++i)
+        {
+            redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
+        }
+    #endif
+   
 
     setScreenColors();
 }

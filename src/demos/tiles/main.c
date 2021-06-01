@@ -80,24 +80,25 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-    _XL_CLEAR_SCREEN();
-    
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(COL_OFFSET,   2,"0123456789");
-    _XL_PRINTD(COL_OFFSET  ,3,5, 1234U);
-    _XL_PRINTD(COL_OFFSET+5,3,5,56789U);
 
-    _XL_PRINT(COL_OFFSET, 6, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
-    _XL_PRINT(COL_OFFSET, 7, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
-    _XL_PRINT(COL_OFFSET, 8, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
-    _XL_PRINT(COL_OFFSET,10, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
-    _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
-    _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
-    
-    _XL_WAIT_FOR_INPUT();
             
     for(j=0;j<6;++j)
     {
+        _XL_CLEAR_SCREEN();
+        
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINT(COL_OFFSET,   2,"0123456789");
+        _XL_PRINTD(COL_OFFSET  ,3,5, 1234U);
+        _XL_PRINTD(COL_OFFSET+5,3,5,56789U);
+
+        _XL_PRINT(COL_OFFSET, 6, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
+        _XL_PRINT(COL_OFFSET, 7, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
+        _XL_PRINT(COL_OFFSET, 8, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
+        _XL_PRINT(COL_OFFSET,10, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
+        _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
+        _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
+        
+        _XL_WAIT_FOR_INPUT();
 
         _XL_CLEAR_SCREEN();
 

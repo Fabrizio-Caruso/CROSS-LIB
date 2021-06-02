@@ -4,6 +4,12 @@
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
     #include <coco.h>
+#elif defined(__MC10__)
+    #if !defined(_STDINT)
+        #define _STDINT
+        typedef unsigned char uint8_t;
+        typedef unsigned int uint16_t;
+    #endif // _STDINT
 #elif defined(__BBC__) && defined(NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>

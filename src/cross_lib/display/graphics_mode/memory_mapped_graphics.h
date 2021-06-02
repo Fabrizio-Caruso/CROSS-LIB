@@ -15,6 +15,8 @@
         #define BASE_ADDR 0xC000
         #define COLOR_ADDR 0xD800
     #endif
+#elif defined(__MC10__)
+	#define BASE_ADDR 0x4000   
 #elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
 	#define BASE_ADDR 0x1000
 	#define COLOR_ADDR 0x9400

@@ -87,10 +87,10 @@ void deleteCharacter(Character * characterPtr)
 
 #if defined(FULL_GAME)
 	extern uint8_t invincibilityActive;
-	extern uint8_t innerVerticalWallY;
-	extern uint8_t innerVerticalWallLength;
+	extern uint8_t verticalWallY;
+	extern uint8_t verticalWallLength;
 	
-	extern uint8_t horizontalWallsLength;
+	extern uint8_t horizWallsLength;
 	extern uint8_t zombieActive;	
 #endif 
 
@@ -249,14 +249,14 @@ void relocateCharacter(register Character * characterPtr)
 #if defined(FULL_GAME)
 	uint8_t innerWallReached(register Character *characterPtr)
 	{
-		return (characterPtr->_x==XSize/2) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+		return (characterPtr->_x==XSize/2) && (characterPtr->_y >= verticalWallY) && (characterPtr->_y<= (verticalWallY + verticalWallLength-1));
 	}
 
-	uint8_t horizontalWallsReached(void)
+	uint8_t horizWallsReached(void)
 	{
 		return (player._y==YSize/2) && 
-		       ((player._x<=horizontalWallsLength) ||
-			    (player._x>=-1+XSize-horizontalWallsLength));
+		       ((player._x<=horizWallsLength) ||
+			    (player._x>=-1+XSize-horizWallsLength));
 	}	
 	
 #endif

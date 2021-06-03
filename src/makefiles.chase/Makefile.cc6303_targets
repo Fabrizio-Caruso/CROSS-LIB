@@ -33,8 +33,9 @@ vbcc_targets: \
 
 mc10: mc10_no_print
 
+# -S to produce Assembly 
 mc10_no_print:
-	cc68 -tmc10 -s $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
 	-D__MC10__ \
 	-DFORCE_NO_CONIO_LIB \
 	-DFORCE_XSIZE=32 \
@@ -43,9 +44,33 @@ mc10_no_print:
 	-DNO_COLOR \
 	-DFULL_GAME -DNO_SLEEP \
 	-DNO_INIT_GRAPHICS \
-	-DNO_PRINT \
+	-DNO_PRINT -DNO_WAIT \
 	-DNO_INPUT \
 	-DDEFAULT_CLEAR_SCREEN \
-	$(FULL_FILES) -o xchase
-	# mv xchase $(BUILD_PATH)/
-	# mv xchase.inf $(BUILD_PATH)/
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME).c10
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME).c10
+
+
+mc10_tiny: mc10_no_print_tiny
+
+mc10_no_print_tiny:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	-D__MC10__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=16 \
+	-DMEMORY_MAPPED \
+	-DNO_COLOR \
+	-DTINY_GAME -DNO_SLEEP \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT -DNO_WAIT \
+	-DNO_INPUT -DNO_WALL \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/TINY_X$(GAME_NAME).c10
+	mv xchase.c10 $(BUILD_PATH)/TINY_X$(GAME_NAME).c10

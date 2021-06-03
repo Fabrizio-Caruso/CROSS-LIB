@@ -128,23 +128,23 @@ _super_present_on_level = _extraLife_present_on_level + $1
 .export _zombie_present_on_level;
 _zombie_present_on_level = _super_present_on_level + $1
 
-.export _destroyed_bases;
-_destroyed_bases = _zombie_present_on_level + $1
+.export _bases;
+_bases = _zombie_present_on_level + $1
 
 .export _arrowRange;
-_arrowRange = _destroyed_bases + $1
+_arrowRange = _bases + $1
 
 .export _all_skulls_killed_in_completed_levels;
 _all_skulls_killed_in_completed_levels = _arrowRange + $1
 
-.export _destroyed_bases_in_completed_leveles;
-_destroyed_bases_in_completed_leveles = _all_skulls_killed_in_completed_levels + $1
+.export _bases_in_completed_levels;
+_bases_in_completed_levels = _all_skulls_killed_in_completed_levels + $1
 
-.export _horizontalWallsLength;
-_horizontalWallsLength = _destroyed_bases_in_completed_leveles + $1
+.export _horizWallsLength;
+_horizWallsLength = _bases_in_completed_levels + $1
 
 .export _invincibilityActive;
-_invincibilityActive = _horizontalWallsLength + $1
+_invincibilityActive = _horizWallsLength + $1
 
 .export _confuseActive;
 _confuseActive = _invincibilityActive + $1
@@ -152,14 +152,14 @@ _confuseActive = _invincibilityActive + $1
 .export _zombieActive;
 _zombieActive = _confuseActive + $1
 
-.export _innerVerticalWallY;
-_innerVerticalWallY = _zombieActive + $1
+.export _verticalWallY;
+_verticalWallY = _zombieActive + $1
 
-.export _innerVerticalWallLength;
-_innerVerticalWallLength = _innerVerticalWallY + $1
+.export _verticalWallLength;
+_verticalWallLength = _verticalWallY + $1
 
 .export _playerDirection;
-_playerDirection = _innerVerticalWallLength + $1
+_playerDirection = _verticalWallLength + $1
 
 .export _freezeActive;
 _freezeActive = _playerDirection + $1

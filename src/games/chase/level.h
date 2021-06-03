@@ -328,7 +328,7 @@ void fillLevelWithCharacters(void);
 
 	uint8_t bossLevel(void);
 	
-	uint8_t horizontalWallsLevel(void);
+	uint8_t horizWallsLevel(void);
 	
 	void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr);
 

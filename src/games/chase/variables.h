@@ -144,15 +144,15 @@
 		extern uint8_t super_present_on_level;
 		extern uint8_t zombie_present_on_level;
 		
-		extern uint8_t destroyed_bases;
+		extern uint8_t bases;
 		
 		extern uint8_t arrowRange;
 		
 		extern uint8_t all_skulls_killed_in_completed_levels;
 		
-		extern uint8_t destroyed_bases_in_completed_leveles;
+		extern uint8_t bases_in_completed_levels;
 		
-		extern uint8_t horizontalWallsLength;
+		extern uint8_t horizWallsLength;
 		
 		extern uint8_t invincibilityActive;
 		
@@ -160,9 +160,9 @@
 		
 		extern uint8_t zombieActive; 		
 		
-		extern uint8_t innerVerticalWallY; 
-		extern uint8_t innerVerticalWallX; 
-		extern uint8_t innerVerticalWallLength;
+		extern uint8_t verticalWallY; 
+		extern uint8_t verticalWallX; 
+		extern uint8_t verticalWallLength;
 
 	#else
 		Item powerUp2;		
@@ -186,15 +186,15 @@
 		uint8_t super_present_on_level;
 		uint8_t zombie_present_on_level;
 		
-		uint8_t destroyed_bases;
+		uint8_t bases;
 		
 		uint8_t arrowRange;
 		
 		uint8_t all_skulls_killed_in_completed_levels;
 		
-		uint8_t destroyed_bases_in_completed_leveles;
+		uint8_t bases_in_completed_levels;
 		
-		uint8_t horizontalWallsLength;
+		uint8_t horizWallsLength;
 		
 		uint8_t invincibilityActive;
 		
@@ -203,14 +203,14 @@
 		uint8_t zombieActive; 
 
 
-		uint8_t innerVerticalWallY; 
-		uint8_t innerVerticalWallX; 
-		uint8_t innerVerticalWallLength;
+		uint8_t verticalWallY; 
+		uint8_t verticalWallX; 
+		uint8_t verticalWallLength;
 		
 	#endif
 
 	#define chase_present_on_level_condition all_skulls_killed_in_completed_levels
-	#define confuse_present_on_level_condition destroyed_bases_in_completed_leveles
+	#define confuse_present_on_level_condition bases_in_completed_levels
 	
 	#if defined(USE_MEMORY_BUFFERS)
 		extern Character rockets[];
@@ -284,7 +284,7 @@
     uint8_t isOneMissileLevel;
     uint8_t isMissileLevel;
     uint8_t isRocketLevel;
-    uint8_t isHorizontalWallsLevel;
+    uint8_t ishorizWallsLevel;
     
     uint16_t levelSlowDown;
 #endif

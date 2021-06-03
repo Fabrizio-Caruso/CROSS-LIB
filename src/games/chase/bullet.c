@@ -67,8 +67,8 @@ extern Character player;
 	extern Character rightHorizontalMissile;
 	extern uint8_t rockets_x[ROCKETS_NUMBER];
 	extern Character rockets[ROCKETS_NUMBER];
-	extern uint8_t destroyed_bases;
-	extern uint8_t destroyed_bases_in_completed_leveles;
+	extern uint8_t bases;
+	extern uint8_t bases_in_completed_levels;
 
 	extern Character *chasedEnemyPtr;	
     
@@ -123,11 +123,11 @@ void handle_bullet(void)
 
 void checkBullet(Character *bulletPtr)
 {
-	checkBulletVsSkull(bulletPtr);
-	checkBulletVsGhosts(bulletPtr);
+	bulletVsSkull(bulletPtr);
+	bulletVsGhosts(bulletPtr);
 }
 
-void checkBulletVsGhost(Character * bulletPtr,
+void bulletVsGhost(Character * bulletPtr,
 						Character * ghostPtr)
 {
 	if(ghostPtr->_status && areCharctersAtSamePosition(bulletPtr, ghostPtr))
@@ -139,16 +139,16 @@ void checkBulletVsGhost(Character * bulletPtr,
 	}
 }
 	
-void checkBulletVsGhosts(Character * bulletPtr)
+void bulletVsGhosts(Character * bulletPtr)
 {
 	uint8_t i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
-		checkBulletVsGhost(bulletPtr, &ghosts[i]);
+		bulletVsGhost(bulletPtr, &ghosts[i]);
 	};
 }
 
-void checkBulletVsSkull(register Character *bulletPtr)
+void bulletVsSkull(register Character *bulletPtr)
 {
 	if(skullActive && skull._status &&
 	   areCharctersAtSamePosition(bulletPtr, &skull))
@@ -201,7 +201,7 @@ void _moveBullet(register Character *bulletPtr)
 		deleteHorizontalMissile(horizontalMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
-		++destroyed_bases;
+		++bases;
 		reducePowerUpsCoolDowns();		
 	}
 #endif
@@ -252,7 +252,7 @@ void moveBullet(register Character * bulletPtr)
 					if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
 					{
 						rockets[i]._status = 0;
-						++destroyed_bases;
+						++bases;
 						_XL_EXPLOSION_SOUND();
 						deleteRocket(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;

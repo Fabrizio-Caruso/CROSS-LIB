@@ -36,8 +36,8 @@
 uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
-	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
+	void chaseXStrategy(Character* hunterPtr, Character* preyPtr);
+	void chaseYStrategy(Character* hunterPtr, Character* preyPtr);
 #endif
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)

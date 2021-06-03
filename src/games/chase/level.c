@@ -79,8 +79,8 @@ extern Character bombs[BOMBS_NUMBER];
     extern Item chase;
     extern Character chasingBullet;
 
-    extern uint8_t innerVerticalWallY;
-    extern uint8_t innerVerticalWallLength;
+    extern uint8_t verticalWallY;
+    extern uint8_t verticalWallLength;
 
     extern Image ROCKET_IMAGE;
 
@@ -143,20 +143,20 @@ extern Character bombs[BOMBS_NUMBER];
 
         if((lvmod==1)||(lvmod==0))
         {
-            innerVerticalWallLength = 0;
+            verticalWallLength = 0;
         }
         else
         {
             #if defined(WIDE)
-                innerVerticalWallLength = YSize-10+(lvmod-2)*2;
+                verticalWallLength = YSize-10+(lvmod-2)*2;
             #elif YSize<=14
-                innerVerticalWallLength = 4;
+                verticalWallLength = 4;
             #else
-                innerVerticalWallLength = YSize-14+(lvmod-2)*2;        
+                verticalWallLength = YSize-14+(lvmod-2)*2;        
             #endif
         }
 
-        innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
+        verticalWallY = (YSize>>1)-(verticalWallLength>>1);
     }
 
     uint8_t oneMissileLevel(void)
@@ -179,7 +179,7 @@ extern Character bombs[BOMBS_NUMBER];
         return !(level%5);
     }
     
-    uint8_t horizontalWallsLevel(void)
+    uint8_t horizWallsLevel(void)
     {
         return ((level >= FIRST_HORIZONTAL_WALLS_LEVEL) && ((level%5==1) || (level%5==4)));
     }    

@@ -203,7 +203,7 @@ uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList
 
 #if defined(FULL_GAME)
 	uint8_t innerWallReached(register Character *characterPtr);
-	uint8_t horizontalWallsReached(void);
+	uint8_t horizWallsReached(void);
 #endif
 
 #if defined(FULL_GAME)

@@ -26,7 +26,7 @@ extern uint8_t isOneMissileLevel;
 		return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
 	}
 	
-	void _handle_horizontal_missile_from_the_left(void)
+	void handle_from_left(void)
 	{
 		if(leftHorizontalMissile._status)
 		{
@@ -56,7 +56,7 @@ extern uint8_t isOneMissileLevel;
 		}		
 	}
 	
-	void _handle_horizontal_missile_from_the_right(void)
+	void handle_from_right(void)
 	{
 		if(rightHorizontalMissile._status)
 		{
@@ -91,15 +91,15 @@ extern uint8_t isOneMissileLevel;
 		if(isOneMissileLevel)
 		{
 			arrowYPosition = YSize/2;
-			_handle_horizontal_missile_from_the_right();
+			handle_from_right();
 		}	
 		else if(isMissileLevel || isBossLevel)
 		{
 			arrowYPosition = HORIZONTAL_MISSILE_OFFSET;
-			_handle_horizontal_missile_from_the_right();
+			handle_from_right();
 			
 			arrowYPosition = YSize-1-HORIZONTAL_MISSILE_OFFSET; 
-			_handle_horizontal_missile_from_the_left();
+			handle_from_left();
 		}
 
 	}

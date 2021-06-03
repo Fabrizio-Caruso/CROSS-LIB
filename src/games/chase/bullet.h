@@ -35,12 +35,12 @@
 
 	void checkBullet(Character *bulletPtr);
 
-	void checkBulletVsGhost(Character * bulletPtr,
+	void bulletVsGhost(Character * bulletPtr,
 							 Character * ghostPtr);
 		
-	void checkBulletVsGhosts(Character * bulletPtr);
+	void bulletVsGhosts(Character * bulletPtr);
 
-	void checkBulletVsSkull(register Character *bulletPtr);
+	void bulletVsSkull(register Character *bulletPtr);
 				
 	void _moveBullet(register Character * bulletPtr);
 		

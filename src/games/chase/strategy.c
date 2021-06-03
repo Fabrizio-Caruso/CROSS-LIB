@@ -65,7 +65,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-    void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+    void chaseXStrategy(Character* hunterPtr, Character* preyPtr)
     {
         deleteGhost(hunterPtr);
 
@@ -81,7 +81,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         }
     }
 
-    void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
+    void chaseYStrategy(Character* hunterPtr, Character* preyPtr)
     {
         
         deleteGhost(hunterPtr);
@@ -109,11 +109,11 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
     {
         if((_XL_RAND()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
-                blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
+                chaseXStrategy(hunterPtr, preyPtr);    
             }
         else
             { // 5 - 9
-                blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+                chaseYStrategy(hunterPtr, preyPtr);
             }
         displayGhost(hunterPtr);
     }

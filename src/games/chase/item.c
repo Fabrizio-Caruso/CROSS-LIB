@@ -25,7 +25,7 @@ extern uint8_t freeze_count_down;
 	extern uint8_t confuse_count_down;
 	extern uint8_t zombie_count_down;
 	
-	extern uint8_t destroyed_bases_in_completed_leveles;
+	extern uint8_t bases_in_completed_levels;
 	extern uint8_t all_skulls_killed_in_completed_levels;	
 	
 	extern uint8_t extraLife_present_on_level;
@@ -269,7 +269,7 @@ extern Item extraPoints;
 		uint8_t i;
 		
 		zombieActive = 1;
-		destroyed_bases_in_completed_leveles = 1;
+		bases_in_completed_levels = 1;
 		zombie._coolDown = SECOND_ZOMBIE_COOL_DOWN; 
 		zombie_count_down = ZOMBIE_COUNT_DOWN;
 		for(i=0;i<GHOSTS_NUMBER;++i)

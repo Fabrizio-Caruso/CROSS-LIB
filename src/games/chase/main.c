@@ -164,8 +164,8 @@ void initialScreen(void)
     
     void handle_special_triggers(void)
     {
-        // confuse_present_on_level_condition is defined as destroyed_bases_in_completed_leveles
-        zombie_present_on_level = destroyed_bases_in_completed_leveles>=MISSILES_FOR_ZOMBIE;
+        // confuse_present_on_level_condition is defined as bases_in_completed_levels
+        zombie_present_on_level = bases_in_completed_levels>=MISSILES_FOR_ZOMBIE;
         super_present_on_level = all_skulls_killed_in_completed_levels>=SKULLS_FOR_SUPER;
         // chase_present_on_level_condition is defined as all_skulls_killed_in_completed_levels;
         extraLife_present_on_level = super_present_on_level && zombie_present_on_level;
@@ -279,10 +279,10 @@ int main(void)
         ghostCount = GHOSTS_NUMBER;
         #if defined(FULL_GAME)
             #if defined(DEBUG_ITEMS_IN_GAME)
-                destroyed_bases_in_completed_leveles = 99;
+                bases_in_completed_levels = 99;
                 all_skulls_killed_in_completed_levels = 99;
             #else
-                destroyed_bases_in_completed_leveles = 0;
+                bases_in_completed_levels = 0;
                 all_skulls_killed_in_completed_levels = 0;            
             #endif            
         #endif
@@ -296,7 +296,7 @@ int main(void)
                 isRocketLevel = rocketLevel();
                 isOneMissileLevel = oneMissileLevel();
                 isMissileLevel = missileLevel();
-                isHorizontalWallsLevel = horizontalWallsLevel();
+                ishorizWallsLevel = horizWallsLevel();
             #endif
             #if !defined(TINY_GAME) || defined(TURN_BASED)
                 loop = 0;
@@ -310,7 +310,7 @@ int main(void)
             #if defined(FULL_GAME)
                 ghostLevel = 0;
                 
-                destroyed_bases = 0;
+                bases = 0;
                 
                 invincibilityActive = 1;                
                 invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
@@ -580,7 +580,7 @@ int main(void)
                 
                 #if defined(FULL_GAME)
                     if(wallReached(&player) || 
-                       (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached(&player) || (isHorizontalWallsLevel && horizontalWallsReached())))
+                       (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached(&player) || (ishorizWallsLevel && horizWallsReached())))
                       )
                 #else
                     if(wallReached(&player) || playerReachedGhosts() || characterReachedBombs(&player))
@@ -601,12 +601,12 @@ int main(void)
                         #if defined(FULL_GAME)
                             ghostSlowDown = computeGhostSlowDown();
                         #endif
-                        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);            
+                        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(verticalWallLength/2), verticalWallLength);            
                 
-                        if(isHorizontalWallsLevel)
+                        if(ishorizWallsLevel)
                         {                
-                            horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);        
-                            DRAW_HORIZONTAL_WALLS(horizontalWallsLength);    
+                            horizWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);        
+                            DRAW_HORIZONTAL_WALLS(horizWallsLength);    
                         }                        
                     }
                                         
@@ -676,7 +676,7 @@ int main(void)
                         #endif
                         ++lives;
                         all_skulls_killed_in_completed_levels = 1;
-                        destroyed_bases_in_completed_leveles/=2;
+                        bases_in_completed_levels/=2;
                     }
                     else
                     {
@@ -684,7 +684,7 @@ int main(void)
                         {
                             ++all_skulls_killed_in_completed_levels;
                         }
-                        destroyed_bases_in_completed_leveles+=destroyed_bases;
+                        bases_in_completed_levels+=bases;
                     }
                 #endif
                 ++level;

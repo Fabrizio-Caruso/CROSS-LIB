@@ -1486,7 +1486,7 @@ mc10: mc10_no_print
 
 mc10_no_print:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
-	-D__MC10__ \
+	-D__MC10__ -DNO_UDG \
 	-DFORCE_NO_CONIO_LIB \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=16 \

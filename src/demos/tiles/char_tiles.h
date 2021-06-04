@@ -3,7 +3,6 @@
 
 #include "cross_lib.h"
 
-
 #define _TILE_0 (unsigned char) '0'
 #define _TILE_1 (unsigned char) '1'
 
@@ -54,7 +53,7 @@
 
 #define _TILE_24 (unsigned char) 'O'
 
-#define _TILE_25 'Q'
+#define _TILE_25 'P'
 
 //#define _TILE_25 '$'
 

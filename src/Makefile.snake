@@ -1226,7 +1226,7 @@ aquarius_exp_16k:
 
 #################################################################
 
-
+c128: c128_z80_40col
 
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \

@@ -107,7 +107,7 @@ SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
 #-O0
 #-O3
 
-ZSDCC_OPTS ?= -SO0 $(GLOBAL_OPTS)
+ZSDCC_OPTS ?= -SO3 $(GLOBAL_OPTS)
 #-SO0
 # -SO3 --max-allocs-per-node200000
 

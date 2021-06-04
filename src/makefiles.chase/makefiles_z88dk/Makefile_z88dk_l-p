@@ -280,7 +280,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DMEMORY_MAPPED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DNO_CONIO_PATCH \
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\

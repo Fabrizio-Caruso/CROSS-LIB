@@ -1029,7 +1029,7 @@ c128: c128_z80_40col
 c128_40col: c128_z80_40col
 
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk -clib=gencon \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \

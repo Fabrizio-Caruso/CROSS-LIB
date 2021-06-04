@@ -784,7 +784,7 @@ jupiter_ace: ace
 ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ace -compiler=sdcc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DSOUNDS \
 	-DCONIO \
@@ -804,11 +804,12 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 # -DSOUNDS 
 # -DFORCE_BIT_BANG 
 #################################################################
+c128: c128_z80
 
 c128_z80: c128_z80_40col
 
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
@@ -942,7 +943,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 mc1000: mc1000_exp_48k
 
 mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
@@ -966,7 +967,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 msx: msx_32k_rom
 
 msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
+	$(Z88DK_PATH)$(MYZ88DK) +msx -compiler=sdcc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS -DFORCE_NO_CONIO_LIB \
 	-DINITIAL_SLOWDOWN=29000 -DNO_CONIO_PATCH \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -988,7 +989,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 
 
 msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=29000 \
 	-DSOUNDS -DANIMATE_PLAYER \

@@ -33,12 +33,6 @@ z88dk_targets_q-z: \
 	zx80_targets \
 	zxn_targets
 
-ttt: \
-	z1013_targets \
-	z80tvgame_targets \
-	z88_targets \
-	zx80_targets \
-	zxn_targets
 
 # ------------------------------------------------------------------------------------------
 

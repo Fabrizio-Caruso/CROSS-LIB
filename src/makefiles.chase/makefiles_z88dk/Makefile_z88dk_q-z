@@ -33,6 +33,12 @@ z88dk_targets_q-z: \
 	zx80_targets \
 	zxn_targets
 
+ttt: \
+	z1013_targets \
+	z80tvgame_targets \
+	z88_targets \
+	zx80_targets \
+	zxn_targets
 
 # ------------------------------------------------------------------------------------------
 
@@ -944,7 +950,9 @@ vector06c:
 
 #############################
 # V-TECH GENIUS LEADER
-vgl:
+vgl: vgl_buffered
+
+vgl_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +vgl $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__VGL__ \
 	-DFORCE_XSIZE=20 -DNO_LOWER_BORDER \
@@ -955,11 +963,11 @@ vgl:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@_buffered.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_buffered_BSS.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_buffered_DATA.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_buffered_interrupt_vectors.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_buffered_CODE.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_code_crt_interrupt_vector_table.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_CODE.bin
 
 
 #############################

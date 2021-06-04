@@ -86,7 +86,7 @@ extern uint8_t isOneMissileLevel;
 		}		
 	}
 	
-	void handle_horizontal_missiles(void)
+	void handle_missiles(void)
 	{	
 		if(isOneMissileLevel)
 		{

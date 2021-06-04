@@ -441,7 +441,7 @@ int main(void)
                         
                 #if defined(FULL_GAME)
                     handle_rockets();
-                    handle_horizontal_missiles();
+                    handle_missiles();
                 #endif
                 
 

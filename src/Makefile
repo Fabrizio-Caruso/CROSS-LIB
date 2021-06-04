@@ -17,3 +17,6 @@ include makefiles.common/debug/Makefile.lcc1802_debug
 
 # - CMOC
 include makefiles.common/debug/Makefile.cmoc_debug
+
+# - CC6303
+include makefiles.common/debug/Makefile.cc6303_debug

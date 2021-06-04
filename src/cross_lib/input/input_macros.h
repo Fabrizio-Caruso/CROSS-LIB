@@ -242,19 +242,27 @@ window.addEventListener("keydown", function (event) {
     #endif // !defined(NO_INPUT)
 
 
-    // _XL_WAIT_FOR_INPUT
-    #if !defined(NO_WAIT) || !defined(NO_SLEEP)
-        void _XL_WAIT_FOR_INPUT(void);
-    #else // NO_WAIT + NO_SLEEP
+    #if !defined(NO_INPUT)
+        // _XL_WAIT_FOR_INPUT
+        #if !defined(NO_WAIT) || !defined(NO_SLEEP)
+            void _XL_WAIT_FOR_INPUT(void);
+        #else // NO_WAIT + NO_SLEEP
+            #define _XL_WAIT_FOR_INPUT()
+        #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
+    #else
         #define _XL_WAIT_FOR_INPUT()
-    #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
+    #endif
 
 
 // KEY_PRESSED definitions
-#if defined(KEYBOARD_CONTROL)
-    #define _XL_KEY_PRESSED() (GET_CHAR())
+#if !defined(NO_INPUT)
+    #if defined(KEYBOARD_CONTROL)
+        #define _XL_KEY_PRESSED() (GET_CHAR())
+    #else
+        #define _XL_KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
+    #endif
 #else
-    #define _XL_KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
+    #define _XL_KEY_PRESSED() ' '
 #endif
 
 #endif // _INPUT_MACROS

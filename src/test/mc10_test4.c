@@ -55,6 +55,7 @@ int main(void)
         POKE(SCREEN,PEEK(49151U));
         POKE(SCREEN+1,PEEK(17023U));
         POKE(SCREEN+2,PEEK(2));
+        POKE(SCREEN+4,(uint8_t) getk());
     }
 
     while(1){};

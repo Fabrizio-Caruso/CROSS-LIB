@@ -69,11 +69,11 @@ target name         | long target name                                     | wor
 *laser500*          | Laser 500                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *m5*                | Sord M5                                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *mega65*            | Mega 65 / Commodore 65                               |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
-*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    | Motorola 6803 | CC6303  |         |    missing      |    missing     | missing |
+*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    | Motorola 6803 | CC6303  |    missing      |    missing     | missing |
 *mc1000*            | CCE MC-1000                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *microboard*        | Microboard Computer Development System               |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*mikro80*           | Mikro 80                                             |   YES    |  Intel 8080   |  Z88DK  |         |      OK         |      N/A       |   N/A   |
+*mikro80*           | Mikro 80                                             |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |   N/A   |
 *mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
 *msx*               | MSX 1/MSX 2/2+/Turbo                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *mtx*               | Memotech MTX 512                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
@@ -103,7 +103,7 @@ target name         | long target name                                     | wor
 *pecom*             | Pecom 32/64                                          |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *pencil2*           | Hanimex Pencil II                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                                        |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
-*pmd85*             | PMD85                                                |   YES    |  Intel 8080   |  Z88DK  |         |      OK         |       OK ?     | missing |
+*pmd85*             | PMD85                                                |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
 *pv1000*            | Casio PV1000                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |

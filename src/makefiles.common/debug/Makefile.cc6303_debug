@@ -35,5 +35,5 @@ c64_test3:
 
 
 mc10_test4:
-	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test4.c -o $(BUILD_PATH)/$@
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test4.c $(SOURCE_PATH)/../../test/mc10_getk.s -o $(BUILD_PATH)/$@
 

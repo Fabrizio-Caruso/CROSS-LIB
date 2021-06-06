@@ -164,6 +164,27 @@ KO       :   2
 UNKNOWN  :   2
 
 
+Dev-kit | no. 8-bit targets
+--------|--------------------
+  Z88DK | 111
+   CC65 |  21
+LCC1802 |   7 
+   CMOC |   4
+   VBCC |   3
+ CC6303 |   1
+
+
+CPU family    | no. 8-bit targets
+--------------|--------------------
+     Zilog 80 | 105
+     MOS 6502 |  24
+     RCA 1802 |   7
+   Intel 8080 |   5
+Motorola 6809 |   4
+Motorola 6803 |   1
+        GBZ80 |   1
+
+
 -----------------------------------------------------------------------------------------
 ### 8-BIT vintage targets with no known working emulators
 

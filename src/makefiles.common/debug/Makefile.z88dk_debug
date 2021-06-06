@@ -433,6 +433,18 @@ spectrum_bitbang:
 	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
 	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
 
+zx_bit_bang: 
+	zcc.exe +zx -clib=default -lndos $(SOURCE_PATH)/../../test/bit_bang.c -create-app
+
+sms_bit_bang: 
+	zcc.exe +sms -clib=default -lndos $(SOURCE_PATH)/../../test/bit_bang.c -create-app
+
+sms_bitbang: 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OP TS) -clib=default \
+	-lndos \
+	$(SOURCE_PATH)/../../test/bitbang.c
+	-create-app -osms_bitbang.sms
+    
 c128_bitbang: 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \

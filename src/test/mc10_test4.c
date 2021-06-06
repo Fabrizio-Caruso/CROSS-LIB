@@ -50,12 +50,20 @@ extern int getk(void);
 int main(void)
 {
 
+    uint8_t c = 0;
+    uint8_t ch;
+    
     while(1)
     {
         POKE(SCREEN,PEEK(49151U));
         POKE(SCREEN+1,PEEK(17023U));
         POKE(SCREEN+2,PEEK(2));
-        POKE(SCREEN+4,(uint8_t) getk());
+        ch = (uint8_t) getk();
+        POKE(SCREEN+4,(uint8_t) ch);
+        if(ch)
+        {
+            POKE(SCREEN+32+c++,ch);
+        }
     }
 
     while(1){};

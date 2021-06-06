@@ -188,22 +188,25 @@ window.addEventListener("keydown", function (event) {
 */
 
 // TURN_BASED_INPUT definitions
-	#  if defined(__TELESTRAT__)
-		#include <conio.h>
-		#define TURN_BASED_INPUT() cgetc;
-	#elif defined(__EMCC__)
-		#define __() getchar()
-	#elif defined(__NCURSES__) || defined(STDLIB)
-		#define TURN_BASED_INPUT() getchar()
-	#elif defined(Z88DK)
-		#define TURN_BASED_INPUT() getch()
-	#elif defined(ACK)
-		#define TURN_BASED_INPUT() getchar()
-    #elif defined(NO_INPUT)
-        #define TURN_BASED_INPUT()
-	#else
-		#define TURN_BASED_INPUT() cgetc()
-	#endif	// TURN_BASED_INPUT definitions
+#  if defined(__TELESTRAT__)
+    #include <conio.h>
+    #define TURN_BASED_INPUT() cgetc;
+#elif defined(__EMCC__)
+    #define __() getchar()
+#elif defined(__NCURSES__) || defined(STDLIB) || defined(__MC10__)
+    #if defined(__MC10__)
+        #include <stdio.h>
+    #endif
+    #define TURN_BASED_INPUT() getchar()
+#elif defined(Z88DK)
+    #define TURN_BASED_INPUT() getch()
+#elif defined(ACK)
+    #define TURN_BASED_INPUT() getchar()
+#elif defined(NO_INPUT)
+    #define TURN_BASED_INPUT()
+#else
+    #define TURN_BASED_INPUT() cgetc()
+#endif	// TURN_BASED_INPUT definitions
 
 #if defined(TURN_BASED)
     #define _XL_INPUT() TURN_BASED_INPUT()

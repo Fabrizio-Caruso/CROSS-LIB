@@ -45,14 +45,32 @@ mc10_no_print:
 	-DFULL_GAME -DNO_SLEEP \
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT -DNO_WAIT \
-	-DNO_INPUT \
+	-DSLOW_DOWN=3000 -DNO_INPUT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME).c10
-	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME).c10
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
+mc10_turn_based:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	-D__MC10__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=16 \
+	-DMEMORY_MAPPED \
+	-DNO_COLOR \
+	-DFULL_GAME -DNO_SLEEP \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT -DNO_WAIT  \
+	-DTURN_BASED \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 mc10_tiny: mc10_no_print_tiny
 
@@ -72,5 +90,5 @@ mc10_no_print_tiny:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/TINY_X$(GAME_NAME).c10
-	mv xchase.c10 $(BUILD_PATH)/TINY_X$(GAME_NAME).c10
+	mv xchase $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.c10

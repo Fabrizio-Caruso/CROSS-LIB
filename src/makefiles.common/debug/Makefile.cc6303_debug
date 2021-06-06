@@ -33,3 +33,7 @@ vic20_test3:
 c64_test3: 
 	cl65  -D__C64__ $(SOURCE_PATH)/../../test/mc10_test3.c -o$(BUILD_PATH)/$@.prg
 
+
+mc10_test4:
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test4.c -o $(BUILD_PATH)/$@
+

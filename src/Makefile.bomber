@@ -1399,8 +1399,28 @@ mc10_no_print:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME).c10
-	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME).c10
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
+
+mc10_turn_based:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	-D__MC10__ -DNO_UDG \
+	-DFORCE_NO_CONIO_LIB \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=16 \
+	-DMEMORY_MAPPED \
+	-DNO_COLOR -DTURN_BASED \
+	-DTINY_GAME -DNO_SLEEP \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT -DNO_WAIT \
+	-DNO_INPUT -DNO_WALL \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 mc10_buffered:
 	cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
@@ -1417,8 +1437,9 @@ mc10_buffered:
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o x$(GAME_NAME)
-
+	$(FULL_FILES) -o x$(GAME_NAME)_$@
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 ###############################################################################################
 # GCC

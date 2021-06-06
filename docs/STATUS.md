@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 30/05/2021
+Last update: 06/06/2021
 
 ### 8-BIT targets
 
@@ -68,8 +68,9 @@ target name         | long target name                                     |    
 *laser500*          | Laser 500                                            | YES          |      OK         |       OK       |   OK    |
 *m5*                | Sord M5                                              | YES          |      OK         |       OK       |   OK ?  |
 *mega65*            | Mega 65 / Commodore 65                               |  ?           |    missing      |    missing     | missing |
+*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        | YES          |    missing      |    missing     | missing |
 *mc1000*            | CCE MC-1000                                          | YES          |      OK         |       OK       |   OK    |
-*microboard*        | Microboard Computer Development Board                | YES          |      OK         |       OK       |   OK    |
+*microboard*        | Microboard Computer Development System               | YES          |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                            | YES          |      OK         |       OK       |   OK    |
 *mikro80*           | Mikro 80                                             | YES          |      OK         |      N/A       |   N/A   |
 *mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  | YES          |      OK         |       OK       |   OK    |
@@ -153,9 +154,9 @@ target name         | long target name                                     |    
 *zxn*               | ZX Spectrum Next                                     | YES          |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 145
+TOTAL    : 146
 
-OK       : 141
+OK       : 142
 
 KO       :   2
 
@@ -238,9 +239,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 165
+TOTAL    : 166
 
-OK       : 152
+OK       : 153
 
 KO       :   4
 

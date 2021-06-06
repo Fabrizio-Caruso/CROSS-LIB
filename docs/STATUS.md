@@ -1,7 +1,7 @@
 ## STATUS
 Last update: 06/06/2021
 
-### 8-BIT targets
+### 8-BIT targets with known working existing emulators
 
 
 target name         | long target name                                     | working  |   CPU family  | dev-kit | real-time input | hires graphics |  sound  | notes      
@@ -163,22 +163,14 @@ KO       :   2
 
 UNKNOWN  :   2
 
------------------------------------------------------------------------------------------
-### 8-BIT vintage targets with no known working emulators
-
-
-target name         | long target name                                     |  working   | real-time input | hires graphics |  sound  | notes 
---------------------|------------------------------------------------------|------------|-----------------|----------------|---------|-----------  
-*rex*               | Xircom Rex 6000                                      |     ?      |    missing      |    missing     | missing | 
-
-
-
 
 -----------------------------------------------
 
+#### Statistics on 8-bit targets with known existing emulators
+
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 112
+  Z88DK | 111
    CC65 |  21
 LCC1802 |   7 
    CMOC |   4
@@ -190,13 +182,27 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 106                |
+Zilog 80      | 105                |
 MOS 6502      |  24                |
 RCA 1802      |   7                |
 Intel 8080    |   5                |
 Motorola 6809 |   4                |
 Motorola 6803 |   1                |
 GBZ80         |   1                |
+
+
+-----------------------------------------------------------------------------------------
+### 8-BIT vintage targets with no known working emulators
+
+
+target name         | long target name                                     |  working   | CPU family    |      dev-kit    |real-time input | hires graphics |  sound  | notes 
+--------------------|------------------------------------------------------|------------|---------------|-----------------|----------------|----------------|---------  
+*rex*               | Xircom Rex 6000                                      |     ?      |   Zilog 80    |          Z88DK  |    missing     |    missing     | missing | 
+
+
+
+
+
 
 
 

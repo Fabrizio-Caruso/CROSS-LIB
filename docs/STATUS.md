@@ -10,7 +10,7 @@ target name         | long target name                                     | wor
 *abc800*            | Luxor ABC 800                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *ace*               | Jupiter Ace                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
-*altair8800*        | MITS Altair 8800                                     |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |  N/A    |
+*altair8800*        | MITS Altair 8800                                     |   YES    |  Intel 8080   |  Z88DK  |     N/A         |      N/A       |  N/A    |
 *apple2*            | Apple II                                             |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *apple2enh*         | Apple //e                                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
@@ -41,6 +41,7 @@ target name         | long target name                                     | wor
 *cpm_8080*          | CP/M Intel 8080                                      |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100 terminals             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A    | 
 *creativision*      | VTech Creativision                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*cx16*              | Commander CX 16                                      |   YES    |   MOS 6502    |   CC65  |   missing       |    missing     | missing |
 *dai*               | DAI                                                  |   YES    |  Intel 8080   |  Z88DK  |   missing       |      N/A ?     |  N/A ?  |
 *dmv*               | Decision Mate V                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *dragon*            | Dragon 32/64                                         |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
@@ -154,9 +155,9 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 146
+TOTAL    : 147
 
-OK       : 142
+OK       : 143
 
 KO       :   2
 
@@ -193,7 +194,6 @@ target name         | long target name                                     |   w
 --------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|-----------
 *amiga*             | Commodore Amiga                                      |    YES       |    missing      |    missing     | missing |
 *atari_st*          | Atari ST                                             |    YES       |    missing      |    missing     | missing |
-*cx16*              | Commander CX 16                                      |    YES       |    missing      |    missing     | missing |
 *olivetti_m20*      | Olivetti M20                                         |    YES       |    missing      |    missing     | missing |
 *pc8086*            | PC 8088/86                                           |    YES       |    missing      |    missing     | missing |
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
@@ -201,7 +201,7 @@ target name         | long target name                                     |   w
 *ti99*              | Texas Instruments TI99/4A                            |    YES       |    missing      |    missing     | missing |
 
 
-OK       :   6
+OK       :   5
 
 UNKNOWN  :   2
 

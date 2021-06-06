@@ -4,154 +4,154 @@ Last update: 06/06/2021
 ### 8-BIT targets
 
 
-target name         | long target name                                     | working  | real-time input | hires graphics |  sound  | notes      
---------------------|------------------------------------------------------|----------|-----------------|----------------|---------|-----------
-*abc80*             | Luxor ABC 80                                         |   YES    |      OK         |    missing     | missing |
-*abc800*            | Luxor ABC 800                                        |   YES    |      OK         |    missing     | missing |
-*ace*               | Jupiter Ace                                          |   YES    |      OK         |       OK       |   OK    |
-*alphatro*          | Alphatronic                                          |   YES    |      OK         |      N/A       | missing |
-*altair8800*        | MITS Altair 8800                                     |   YES    |     N/A         |      N/A       |  N/A    |
-*apple2*            | Apple II                                             |   YES    |      OK         |       OK       |   OK    |
-*apple2enh*         | Apple //e                                            |   YES    |      OK         |       OK       |   OK    |
-*aquarius*          | Mattel Aquarius                                      |   YES    |      OK         |      N/A       |   OK    |
-*atari5200*         | Atari 5200                                           |   YES    |      OK         |       OK       |   OK    |
-*atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          |   YES    |      OK         |       OK       |   OK    |
-*atari_lynx*        | Atari Lynx                                           |   YES    |      OK         |    missing     | missing |
-*attache*           | Otrona Attache                                       |   YES    |      OK         |       OK       | missing |
-*aussie*            | Aussie Byte (Knight 2000)                            |   YES    |      OK         |    missing     |   OK    |
-*bbc*               | BBC Micro                                            |   YES    |    missing      |    missing     | missing |
-*bbcmaster*         | BBC Master                                           |    NO    |    missing      |    missing     | missing |
-*bic*               | BIC/A5105                                            |   YES    |      OK         |        ?       |    ?    |
-*bit90*             | Bit Corporation BIT 90                               |   YES    |      OK         |       OK       | missing | PSG SN76489A
-*c128_8502*         | Commodore 128 [8502 CPU]                             |   YES    |      OK         |    missing     |   OK    |
-*c128_z80*          | Commodore 128 [Z80 CPU]                              |   YES    |      OK         |       OK       |   OK    |
-*c16*               | Commodore 264 series (16/116/+4)                     |   YES    |      OK         |       OK       |   OK    |
-*c64*               | Commodore 64                                         |   YES    |      OK         |       OK       |   OK    |
-*cbm510*            | Commodore CBM 510                                    |   YES    |      OK         |    missing     | missing |
-*cbm610*            | Commodore CBM 610                                    |   YES    |      OK         |    missing     | missing | 
-*camputers_lynx*    | Camputers Lynx 48k/96k/128k                          |   YES    |      OK         |    missing     | missing |
-*cidelsa_altair*    | Cidelsa Altair arcade board                          |   YES    |      OK         |    missing     |   OK    |
-*cidelsa_destroyer* | Cidelsa Destroyer arcade board                       |   YES    |      OK         |    missing     |   OK    |
-*cidelsa_draco*     | Cidelsa Draco arcade board                           |   YES    |      OK         |    missing     |   OK    |
-*coco*              | Color Computer                                       |   YES    |      OK         |       OK       |   OK    |
-*coleco*            | Colecovision                                         |   YES    |      OK         |       OK       | missing | PSG SN76489A
-*coleco_adam*       | Colecovision Adam                                    |   YES    |      OK         |       OK       | missing | PSG SN76489A 
-*comx*              | COMX-35                                              |   YES    |      OK         |       OK       |   OK    | 
-*cpc*               | Amstrad CPC                                          |   YES    |      OK         |       OK       |   OK    |
-*cpm_8080*          | CP/M Intel 8080                                      |   YES    |      OK         |      N/A       |  N/A    |
-*cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100 terminals             |   YES    |      OK         |      N/A       |  N/A    | 
-*creativision*      | VTech Creativision                                   |   YES    |      OK         |       OK       |   OK    |
-*dai*               | DAI                                                  |   YES    |   missing       |      N/A ?     |  N/A ?  |
-*dmv*               | Decision Mate V                                      |   YES    |      OK         |        ?       |    ?    |
-*dragon*            | Dragon 32/64                                         |   YES    |      OK         |       OK       |   OK    |
-*eg2k*              | EACA EG2000 Color Genie                              |   YES    |      OK         |       OK       |   OK ?  |
-*einstein*          | Tatung Einstein                                      |   YES    |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
-*enterprise*        | Enterprise 64/128                                    |   YES    |   missing       |    missing     | missing | 
-*excalibur64*       | Excalibur64                                          |   YES    |      OK         |      N/A ?     |   N/A ? |
-*fp1100*            | Casio FP-1100                                        |   YES    |      OK         |    missing     |   N/A ? |
-*g800*              | Sharp PC-G800                                        |   YES    |   missing       |    missing     |   N/A ? |
-*gal*               | Galaksija                                            |   YES    |      OK         |      N/A       |   N/A   |
-*gal_plus*          | Galaksija Plus                                       |   YES    |      OK         |       OK ?     |   N/A   |
-*gamate*            | Gamate                                               |   YES    |      OK         |       OK       |   OK    | grey levels
-*gamegear*          | Game Gear                                            |   YES    |      OK         |       OK       | missing | PSG SN76489
-*gb*                | Game Boy                                             |   YES    |      OK         |       OK       |   OK    | grey levels
-*gx4000*            | Amstrad GX-4000                                      |   YES    |      OK         |       OK       |   OK    |
-*hemc*              | Huebler/Evert-MC                                     |   YES    |      OK         |      N/A       |   N/A ? |
-*hgmc*              | Huebler-Grafik-MC                                    |   YES    |      OK         |    missing     |   N/A ? |
-*homelab*           | Homelab 4                                            |   YES    |      OK         |      N/A       |   N/A ? |
-*homelab2*          | Homelab 2                                            |   YES    |      OK         |      N/A       |   N/A ? |
-*kaypro83*          | Kaypro 83                                            |   YES    |      OK         |      N/A       |   N/A ? |
-*kaypro*            | Kaypro 2X                                            |   YES    |      OK         |      N/A ?     |   N/A ? |
-*kramermc*          | Kramer-MC                                            |   YES    |      OK         |      N/A       |   N/A ? |
-*kc*                | Robotron KC-85/2/3/4                                 |   YES    |      OK         |       OK       |   N/A ? |
-*lambda*            | Lambda 8300                                          |   YES    |      OK         |      N/A       |   N/A ? |
-*laser500*          | Laser 500                                            |   YES    |      OK         |       OK       |   OK    |
-*m5*                | Sord M5                                              |   YES    |      OK         |       OK       |   OK ?  |
-*mega65*            | Mega 65 / Commodore 65                               |    ?     |    missing      |    missing     | missing |
-*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    |    missing      |    missing     | missing |
-*mc1000*            | CCE MC-1000                                          |   YES    |      OK         |       OK       |   OK    |
-*microboard*        | Microboard Computer Development System               |   YES    |      OK         |       OK       |   OK    |
-*microbee*          | Microobee                                            |   YES    |      OK         |       OK       |   OK    |
-*mikro80*           | Mikro 80                                             |   YES    |      OK         |      N/A       |   N/A   |
-*mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  |   YES    |      OK         |       OK       |   OK    |
-*msx*               | MSX 1/MSX 2/2+/Turbo                                 |   YES    |      OK         |       OK       |   OK    |
-*mtx*               | Memotech MTX 512                                     |   YES    |      OK         |       OK       |   OK ?  |
-*mtx500*            | Memotech MTX 500                                     |   YES    |      OK         |       OK       |   OK ?  |
-*multi8*            | Mitsubishi Multi 8                                   |   YES    |      OK         |       OK       |   OK    |
-*myvision*          | Nichibutsu My Vision                                 |   YES    |      OK         |       OK       |   OK    |
-*mz*                | Sharp MZ 80/700                                      |   YES    |      OK         |      N/A       |   OK    |
-*mz2500*            | Sharp MZ 2500                                        |   YES    |      OK         |    missing     | missing |
-*nascom*            | Nascom                                               |   YES    |      OK         |      N/A       | missing |
-*nc100*             | Amstrad NC-100/150                                   |   YES    |      OK         |       OK       |   N/A ? |
-*nc200*             | Amstrad NC-200                                       |   YES    |      OK         |       OK       |   N/A ? |
-*nes*               | Nintendo Enterteinment System                        |   YES    |      OK         |       OK       | missing |
-*newbrain*          | Grundy Newbrain                                      |   YES    |    missing      |    missing     | missing |    
-*ondra*             | Tesla Ondra Vili                                     |   YES    |      OK         |       OK ?     | missing |
-*oric*              | Tangerine Oric 1/Atmos                               |   YES    |      OK         |       OK       |   OK    |   
-*osborne1*          | Osborne 1                                            |   YES    |      OK         |      N/A ?     |   N/A ? |
-*osca*              | OSCA v6z80p                                          |   YES    |      OK         |    missing     | missing |
-*osic1p*            | Ohio Scientific Challenger 1P                        |   YES    |      OK         |      N/A ?     |   N/A ? |
-*oz*                | Sharp OZ-700                                         |   YES    |     N/A ?       |      N/A ?     |   N/A ? |
-*p2000*             | Philips P2000                                        |   YES    |      OK         |      N/A       |   OK    |
-*pacman*            | Pacman Namco arcade board                            |    NO    |    missing      |    missing     | missing |
-*pasaopia7*         | Toshiba Pasopia 7                                    |   YES    |      OK         |    missing     | missing | PSG SN76489 
-*pc6001*            | NEC PC 6001                                          |   YES    |      OK         |       OK       |   OK    |    
-*pc88*              | NEC PC 8801                                          |   YES    |      OK         |       OK ?     | missing |
-*pce*               | PCEngine                                             |   YES    |      OK         |       OK       |   OK    |
-*pcw*               | Amstrad PCW                                          |    ?     |       ?         |    missing     | missing | 
-*pecom*             | Pecom 32/64                                          |   YES    |      OK         |       OK       |   OK    |
-*pencil2*           | Hanimex Pencil II                                    |   YES    |      OK         |       OK ?     | missing | PSG SN76489
-*pet*               | Commodore Pet                                        |   YES    |      OK         |      N/A       |   OK    |
-*pmd85*             | PMD85                                                |   YES    |      OK         |       OK ?     | missing |
-*pps*               | Peters Plus Sprinter                                 |   YES    |      OK         |      N/A ?     | missing |
-*primo*             | Primo                                                |   YES    |      OK         |       OK ?     |   OK ?  |
-*pv1000*            | Casio PV1000                                         |   YES    |      OK         |    missing     | missing |
-*pv2000*            | Casio PV2000                                         |   YES    |      OK         |       OK       | missing | PSG SN76489
-*px4*               | Epson PX-4/HC-40                                     |   YES    |      OK         |       OK       |   N/A ? |
-*px8*               | Epson PX-8/HC-80                                     |   YES    |      OK         |       OK       |   N/A ? |
-*qc10*              | Epson QX-10/QC-10                                    |   YES    |      OK         |      N/A ?     |   N/A ? |
-*rc700*             | Regnecentralen RC700                                 |   YES    |      OK         |      N/A ?     |   N/A ? |
-*rx78*              | Bandai RX-78                                         |   YES    |      OK         |       OK       | missing | PSG SN76489
-*samcoupe*          | Sam Coupe                                            |   YES    |      OK         |       OK       |   OK    |     
-*sc3000*            | Sega SC 3000                                         |   YES    |      OK         |       OK       |   OK    |         
-*sg1000*            | Sega SG 1000                                         |   YES    |      OK         |       OK       |   OK    | 
-*smc777*            | Sony SMC-70 / SMC-777                                |   YES    |    missing      |    missing     | missing | PSG SN76489
-*sms*               | Sega Master System                                   |   YES    |      OK         |       OK       | missing | PSG SN76489
-*sos*               | S-OS                                                 |   YES    |     N/A         |      N/A       |   N/A   |
-*spc1000*           | Samsung SPC 1000                                     |   YES    |      OK         |       OK       |   OK    | 
-*special*           | Specialist                                           |   YES    |      OK         |      N/A ?     |   N/A ? |
-*spectrum*          | Sinclair Spectrum 16k/48k/128k                       |   YES    |      OK         |       OK       |   OK    | 
-*srr*               | Exidy Sorcerer                                       |   YES    |      OK         |       OK       |   N/A   |
-*super80*           | Dick Smith Super 80/80d/80e/80m                      |   YES    |      OK         |      N/A       |   OK    |
-*super80r*          | Dick Smith Super 80r/80v                             |   YES    |      OK         |       OK ?     |   OK    |
-*supervision*       | Watara Supervision                                   |   YES    |      OK         |       OK       |   OK    | grey levels
-*sv8000*            | Bandai Supervision 8000                              |   YES    |      OK         |    missing     |   OK ?  | 4k rom limit
-*svi*               | Spectravideo 318/328                                 |   YES    |      OK         |       OK       |   OK    | 
-*telestrat*         | Oric Telestrat                                       |   YES    |    missing      |    missing     | missing |
-*tmc600*            | Telmac TMC-600                                       |   YES    |      OK         |      N/A       |   OK    | 
-*ti82*              | Texas Instruments TI 82                              |   YES    |      OK         |       OK       |   N/A   | 
-*ti83*              | Texas Instruments TI 83                              |   YES    |      OK         |       OK       |   N/A   | 
-*ti8x*              | Texas Instruments TI 83 Plus                         |   YES    |      OK         |       OK       |   N/A   | 
-*ti85*              | Texas Instruments TI 85                              |   YES    |      OK         |       OK       |   N/A   | 
-*ti86*              | Texas Instruments TI 86                              |   YES    |      OK         |       OK       |   N/A   | 
-*tiki100*           | TIKI 100                                             |   YES    |      OK         |       OK       |   OK    | 
-*to7*               | Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+|   YES    |      OK         |       OK       |   OK    | 
-*trs80*             | TRS-80 Model I/III/IV                                |   YES    |      OK         |      N/A       |   OK    |
-*ts2068*            | Timex TS 2068                                        |   YES    |      OK         |       OK       |   OK    | 
-*tvc*               | Videoton TV Computer                                 |   YES    |    missing      |    missing     | missing |     
-*vector06c*         | Вектор-06Ц Vector06c                                 |   YES    |      OK         |    missing     | missing |
-*vg5k*              | VG-5000                                              |   YES    |      OK         |       OK       |   OK    |
-*vgl*               | VTech Genius Leader                                  |   YES    |    missing      |    missing     | missing |
-*vic20*             | Commodore Vic 20                                     |   YES    |      OK         |       OK       |   OK    | 
-*vz200*             | VTech VZ200                                          |   YES    |      OK         |    missing     |   OK    |
-*x1*                | Sharp X1                                             |   YES    |      OK         |       OK ?     |   OK    | mode 0 has udg
-*z1013*             | Robotron Z1013                                       |   YES    |      OK         |      N/A       |  N/A ?  |
-*z80tvgame*         | ZX80 TV Game                                         |   YES    |      OK         |       OK ?     | missing |
-*z88*               | Cambridge Z88                                        |   YES    |      OK         |       OK       |   OK    |
-*z9001*             | Robotron Z9001, Robotron KC 85/1, Robotron KC 87     |   YES    |      OK         |       OK ?     | missing |
-*zx80*              | Sinclair ZX80                                        |   YES    |      OK ?       |       OK       |  N/A    |
-*zx81*              | Sinclair ZX81                                        |   YES    |      OK         |       OK       |  N/A    |
-*zxn*               | ZX Spectrum Next                                     |   YES    |      OK         |    missing     |   OK    |
+target name         | long target name                                     | working  |   CPU family  | dev-kit | real-time input | hires graphics |  sound  | notes      
+--------------------|------------------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
+*abc80*             | Luxor ABC 80                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*abc800*            | Luxor ABC 800                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*ace*               | Jupiter Ace                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*alphatro*          | Alphatronic                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
+*altair8800*        | MITS Altair 8800                                     |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |  N/A    |
+*apple2*            | Apple II                                             |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*apple2enh*         | Apple //e                                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*aquarius*          | Mattel Aquarius                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*atari5200*         | Atari 5200                                           |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*atari_lynx*        | Atari Lynx                                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*attache*           | Otrona Attache                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
+*aussie*            | Aussie Byte (Knight 2000)                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
+*bbc*               | BBC Micro                                            |   YES    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*bbcmaster*         | BBC Master                                           |    NO    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*bic*               | BIC/A5105                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
+*bit90*             | Bit Corporation BIT 90                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
+*c128_8502*         | Commodore 128 [8502 CPU]                             |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     |   OK    |
+*c128_z80*          | Commodore 128 [Z80 CPU]                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*c16*               | Commodore 264 series (16/116/+4)                     |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*c64*               | Commodore 64                                         |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*cbm510*            | Commodore CBM 510                                    |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*cbm610*            | Commodore CBM 610                                    |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing | 
+*camputers_lynx*    | Camputers Lynx 48k/96k/128k                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*cidelsa_altair*    | Cidelsa Altair arcade board                          |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
+*cidelsa_destroyer* | Cidelsa Destroyer arcade board                       |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
+*cidelsa_draco*     | Cidelsa Draco arcade board                           |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
+*coco*              | Color Computer                                       |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*coleco*            | Colecovision                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
+*coleco_adam*       | Colecovision Adam                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A 
+*comx*              | COMX-35                                              |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    | 
+*cpc*               | Amstrad CPC                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*cpm_8080*          | CP/M Intel 8080                                      |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
+*cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100 terminals             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A    | 
+*creativision*      | VTech Creativision                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*dai*               | DAI                                                  |   YES    |  Intel 8080   |  Z88DK  |   missing       |      N/A ?     |  N/A ?  |
+*dmv*               | Decision Mate V                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
+*dragon*            | Dragon 32/64                                         |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*eg2k*              | EACA EG2000 Color Genie                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*einstein*          | Tatung Einstein                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
+*enterprise*        | Enterprise 64/128                                    |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
+*excalibur64*       | Excalibur64                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*fp1100*            | Casio FP-1100                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
+*g800*              | Sharp PC-G800                                        |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     |   N/A ? |
+*gal*               | Galaksija                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
+*gal_plus*          | Galaksija Plus                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
+*gamate*            | Gamate                                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | grey levels
+*gamegear*          | Game Gear                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*gb*                | Game Boy                                             |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
+*gx4000*            | Amstrad GX-4000                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*hemc*              | Huebler/Evert-MC                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*hgmc*              | Huebler-Grafik-MC                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
+*homelab*           | Homelab 4                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*homelab2*          | Homelab 2                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*kaypro83*          | Kaypro 83                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*kaypro*            | Kaypro 2X                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*kramermc*          | Kramer-MC                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*kc*                | Robotron KC-85/2/3/4                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*lambda*            | Lambda 8300                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*laser500*          | Laser 500                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*m5*                | Sord M5                                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*mega65*            | Mega 65 / Commodore 65                               |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    | Motorola 6803 | CC6303  |         |    missing      |    missing     | missing |
+*mc1000*            | CCE MC-1000                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*microboard*        | Microboard Computer Development System               |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
+*microbee*          | Microobee                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*mikro80*           | Mikro 80                                             |   YES    |  Intel 8080   |  Z88DK  |         |      OK         |      N/A       |   N/A   |
+*mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*msx*               | MSX 1/MSX 2/2+/Turbo                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*mtx*               | Memotech MTX 512                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*mtx500*            | Memotech MTX 500                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*multi8*            | Mitsubishi Multi 8                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*myvision*          | Nichibutsu My Vision                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*mz*                | Sharp MZ 80/700                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*mz2500*            | Sharp MZ 2500                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*nascom*            | Nascom                                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
+*nc100*             | Amstrad NC-100/150                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*nc200*             | Amstrad NC-200                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*nes*               | Nintendo Enterteinment System                        |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       | missing |
+*newbrain*          | Grundy Newbrain                                      |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |    
+*ondra*             | Tesla Ondra Vili                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*oric*              | Tangerine Oric 1/Atmos                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |   
+*osborne1*          | Osborne 1                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*osca*              | OSCA v6z80p                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*osic1p*            | Ohio Scientific Challenger 1P                        |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A ?     |   N/A ? |
+*oz*                | Sharp OZ-700                                         |   YES    |   Zilog 80    |  Z88DK  |     N/A ?       |      N/A ?     |   N/A ? |
+*p2000*             | Philips P2000                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*pacman*            | Pacman Namco arcade board                            |    NO    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*pasaopia7*         | Toshiba Pasopia 7                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing | PSG SN76489 
+*pc6001*            | NEC PC 6001                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |    
+*pc88*              | NEC PC 8801                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*pce*               | PCEngine                                             |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*pcw*               | Amstrad PCW                                          |    ?     |   Zilog 80    |  Z88DK  |       ?         |    missing     | missing | 
+*pecom*             | Pecom 32/64                                          |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
+*pencil2*           | Hanimex Pencil II                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
+*pet*               | Commodore Pet                                        |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
+*pmd85*             | PMD85                                                |   YES    |  Intel 8080   |  Z88DK  |         |      OK         |       OK ?     | missing |
+*pps*               | Peters Plus Sprinter                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
+*primo*             | Microkey Primo                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
+*pv1000*            | Casio PV1000                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*pv2000*            | Casio PV2000                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*px4*               | Epson PX-4/HC-40                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*px8*               | Epson PX-8/HC-80                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*qc10*              | Epson QX-10/QC-10                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*rc700*             | Regnecentralen RC700                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*rx78*              | Bandai RX-78                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*samcoupe*          | Sam Coupe                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |     
+*sc3000*            | Sega SC 3000                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |         
+*sg1000*            | Sega SG 1000                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*smc777*            | Sony SMC-70 / SMC-777                                |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing | PSG SN76489
+*sms*               | Sega Master System                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*sos*               | S-OS                                                 |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
+*spc1000*           | Samsung SPC 1000                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*special*           | Specialist                                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*spectrum*          | Sinclair Spectrum 16k/48k/128k                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*srr*               | Exidy Sorcerer                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   |
+*super80*           | Dick Smith Super 80/80d/80e/80m                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*super80r*          | Dick Smith Super 80r/80v                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
+*supervision*       | Watara Supervision                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | grey levels
+*sv8000*            | Bandai Supervision 8000                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK ?  | 4k rom limit
+*svi*               | Spectravideo 318/328                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*telestrat*         | Oric Telestrat                                       |   YES    |   MOS 6502    |   CC65  |    missing      |    missing     | missing |
+*tmc600*            | Telmac TMC-600                                       |   YES    |   RCA 1802    | LCC1802 |      OK         |      N/A       |   OK    | 
+*ti82*              | Texas Instruments TI 82                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
+*ti83*              | Texas Instruments TI 83                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
+*ti8x*              | Texas Instruments TI 83 Plus                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
+*ti85*              | Texas Instruments TI 85                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
+*ti86*              | Texas Instruments TI 86                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
+*tiki100*           | TIKI 100                                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*to7*               | Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+|   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    | 
+*trs80*             | TRS-80 Model I/III/IV                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*ts2068*            | Timex TS 2068                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*tvc*               | Videoton TV Computer                                 |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |     
+*vector06c*         | Вектор-06Ц Vector06c                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*vg5k*              | VG-5000                                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*vgl*               | VTech Genius Leader                                  |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*vic20*             | Commodore Vic 20                                     |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
+*vz200*             | VTech VZ200                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
+*x1*                | Sharp X1                                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
+*z1013*             | Robotron Z1013                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
+*z80tvgame*         | ZX80 TV Game                                         |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*z88*               | Cambridge Z88                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*z9001*             | Robotron Z9001, Robotron KC 85/1, Robotron KC 87     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*zx80*              | Sinclair ZX80                                        |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |       OK       |  N/A    |
+*zx81*              | Sinclair ZX81                                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
+*zxn*               | ZX Spectrum Next                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
 TOTAL    : 146

@@ -9,6 +9,8 @@
 
 void _XL_INIT_GRAPHICS(void)
 {
+    uint16_t i;
+
     // Set 256x192x16 mode
     POKE(0xFF99,0x1A);
 
@@ -20,21 +22,28 @@ void _XL_INIT_GRAPHICS(void)
     POKE(0xFF9E,0x00);
 
     // Set palette
-    /*
-    POKE(0xFFB0,...);
-    ...
-    POKE(0xFFBF,...);
-    */
+    
+    for(i=0;i<16;++i)
+    {
+        POKE(0xFFB0+i,i);
+    }
+
     // Set MMU windows at $8000
     POKE(0xFFA4,0x30);
     POKE(0xFFA5,0x31);
     POKE(0xFFA6,0x32);
-        
-        
+    
     // TODO: Remove this
     
-    // while(1){}
-    setScreenColors();
 
+    for(i=0;i<2000;++i)
+    {
+        POKE(0x8000+i,i&0xFF);
+    }
+
+    // while(1){}
+    // setScreenColors();
+    
+    while(1){};
 }
 

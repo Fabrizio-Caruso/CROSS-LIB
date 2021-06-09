@@ -1,13 +1,10 @@
+#include<coco.h>
+#include<cmoc.h>
 
-#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
-#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(uint8_t*) (addr))
-#define PEEKW(addr)        (*(unsigned*) (addr))
+#define POKE(addr,value) (*(unsigned char *)(addr)=(value))
+#define PEEK(addr) (*(unsigned char *)(addr))
 
-#include "display_macros.h"
-
-
-void _XL_INIT_GRAPHICS(void)
+int main(void)
 {
     uint16_t i;
 
@@ -27,7 +24,7 @@ void _XL_INIT_GRAPHICS(void)
     // Set palette   
     for(i=0;i<16;++i)
     {
-        POKE(0xFFB0+i,i&0xFF);
+        POKE(0xFFB0+i,(unsigned char) i&0xFF);
     }
     
     // Set MMU windows at $8000
@@ -37,12 +34,13 @@ void _XL_INIT_GRAPHICS(void)
 
     for(i=0;i<24000;++i)
     {
-        POKE(0x8000+i,i&0xFF);
+        POKE(0x8000+i,(unsigned char) i&0xFF);
     }
 
     // while(1){}
     // setScreenColors();
     
     while(1){};
+    
+    return 0;
 }
-

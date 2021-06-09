@@ -25,5 +25,14 @@ coco_strings_test:
 	# mv ./mo5.sap $(BUILD_PATH)
 	# mv ./FILE.k5 $(BUILD_PATH)/mo5.k5
 	
-	
+
+coco3_test:
+	cmoc -c ./test/coco3_test.c
+	cmoc -o $(BUILD_PATH)/coco3_test.bin coco3_test.o
+	rm coco3_test.o
+	cp $(BUILD_PATH)/coco3_test.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/$@.dsk
+	rm XCHASE.BIN
+    
 

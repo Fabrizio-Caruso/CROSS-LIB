@@ -34,7 +34,7 @@ int main(void)
 
     for(i=0;i<24000;++i)
     {
-        POKE(0x8000+i,(unsigned char) i&0xFF);
+        POKE(0x8000+i,(unsigned char) 0);
     }
 
     // while(1){}

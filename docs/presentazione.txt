@@ -1,0 +1,38 @@
+CROSS-LIB 
+Una breve presentazione
+
+COSA E'?
+Cross-Lib è una libreria C e alcuni strumenti che permettono di scrivere semplici giochi per computer, consoles 8-bit e 
+altri dispositivi vintage (calcolatrici scientifiche, board arcade, computer giocattolo, etc.).
+Permette di scrivere un gioco UNA SOLA VOLTA e poi compilarlo per circa 200 sistemi vintage senza bisogno di doverlo adattare.
+Quindi si usa come una normale libreria C che non fa altro che estendere il C con alcune funzioni per la grafica e per i suoni.
+I giochi scritti con Cross-Lib sono quindi scritti in C.
+
+COMPILAZIONE
+Cross-Lib è fatta in modo che il codice del gioco possa essere cross-compilato con più di una dozzina di cross-compilatori diversi per centinaia di sistemi diversi.
+In sostanza si usano dei cross-compilatori su PC che producono i binari e eventuali immagini disco/cassetta/cartuccia direttamente da PC.
+
+FLESSIBILITA'
+Cross-Lib supporta pressoché qualsiasi sistema 8-bit tra quelli degli ultimi anni 60 a quelli più recente. Quindi supporta target senza alcuna grafica, colori e suoni come CP/M senza schede grafiche aggiuntive e sistemi con grafica, colori e suoni come il Commodore 64 e la Game Boy.
+Cross-Lib fa la "magia" di adattare durante la compilazione il gioco alla presenza o meno di grafica, colori, suoni e dimensione dello schermo di ogni sistema.
+
+LIMITI
+Questa enorme flessibilità però impone alcuni vincoli su alcuni aspetti tecnici dei giochi che si possono scrivere con Cross-Lib: 
+- grafica a tiles, 
+- suoni limitati, 
+- pochi colori, 
+- velocità del gioco a volte non sempre costante,
+- velocità del gioco non sempre identica tra i diversi sistemi,
+- etc.
+Il risultato è che i giochi scritti con C usano poche tiles (cioè qualcosa di simile a dei caratteri ridefiniti).
+Nonostante questi limiti è comunque possibile creare delle animazioni più fluide del semplice movimento di un carattere.
+I giochi attualmente possibili hanno un aspetto simile a quelli dei primi anni 80 su un Sinclair ZX Spectrum.
+
+SVILUPPO FUTURO
+Cross-Lib NON è un prodotto finito.
+In futuro migliorerò diversi aspetti tra cui:
+- facilità d'uso come framework di sviluppo,
+- possibilità di usare un numero maggiore di tiles,
+- maggiore flessibilità dei suoni.
+
+

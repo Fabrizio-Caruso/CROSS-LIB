@@ -8,6 +8,8 @@ int main(void)
 {
     uint16_t i;
 
+    disableInterrupts();
+    
     // Enable MMU
     POKE(0xFF90,0x40);
 
@@ -34,11 +36,8 @@ int main(void)
 
     for(i=0;i<24000;++i)
     {
-        POKE(0x8000+i,(unsigned char) 0);
+        POKE(0x8000+i,(unsigned char) 255);
     }
-
-    // while(1){}
-    // setScreenColors();
     
     while(1){};
     

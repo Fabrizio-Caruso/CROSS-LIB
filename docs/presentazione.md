@@ -18,14 +18,15 @@ Cross-Lib fa la "magia" di adattare durante la compilazione il gioco alla presen
 
 ## LIMITI
 Questa enorme flessibilità però impone alcuni vincoli su alcuni aspetti tecnici dei giochi che si possono scrivere con Cross-Lib: 
-- grafica a tiles, 
+- grafica a tiles,
+- poche tiles,
 - suoni limitati, 
 - pochi colori, 
 - velocità del gioco a volte non sempre costante,
 - velocità del gioco non sempre identica tra i diversi sistemi,
 - etc.
 
-Il risultato è che i giochi scritti con C usano poche tiles (cioè qualcosa di simile a dei caratteri ridefiniti).
+Il risultato più evidente è che i giochi scritti con C usano poche tiles (cioè qualcosa di simile a dei caratteri ridefiniti).
 Nonostante questi limiti è comunque possibile creare delle animazioni più fluide del semplice movimento di un carattere.
 I giochi attualmente possibili hanno un aspetto simile a quelli dei primi anni 80 su un Sinclair ZX Spectrum.
 

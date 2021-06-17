@@ -13,7 +13,7 @@ Cross-Lib è fatta in modo che il codice del gioco possa essere cross-compilato 
 In sostanza si usano dei cross-compilatori su PC che producono i binari e eventuali immagini disco/cassetta/cartuccia direttamente da PC.
 
 ## FLESSIBILITA'
-Cross-Lib supporta pressoché qualsiasi sistema 8-bit tra quelli degli ultimi anni 60 fino a quelli dei primi anni 90. Quindi supporta sia sistemi senza alcuna grafica, senza colori e suoni (come CP/M senza schede grafiche aggiuntive), sia sistemi con grafica, colori e suoni come il Commodore 64 e la console Sega Master System.
+Cross-Lib supporta pressoché qualsiasi sistema 8-bit tra quelli degli ultimi anni 60 fino a quelli dei primi anni 90. Quindi supporta sia sistemi senza alcuna grafica, senza colori e suoni (come CP/M senza schede grafiche aggiuntive), sia sistemi con grafica, colori e suoni (come il Commodore 64 e la console Sega Master System).
 Cross-Lib fa la "magia" di adattare durante la compilazione il gioco alla presenza o meno di grafica, colori, suoni e adatta il gioco anche rispetto alla dimensione dello schermo di ogni sistema.
 
 ## LIMITI

@@ -1,10 +1,4 @@
 
-![MSX](snapshots/XSnake_MSX2.png)
-![Atari](snapshots/XChase_A8.png)
-
-
-![CPC](snapshots/XHorde_CPC.png)
-![Atari](snapshots/XBomber_A8.png)
 
 # CROSS LIB
 ![LOGO](snapshots/logo_2.jpg)
@@ -15,9 +9,14 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 The universal *retro-hardware abstraction layer*.
 
+![MSX](snapshots/XSnake_MSX2.png)
+![Atari](snapshots/XChase_A8.png)
+
+![CPC](snapshots/XHorde_CPC.png)
+![Atari](snapshots/XBomber_A8.png)
+
 ![SMS](snapshots/XShoot_sms.png)
 ![GB](snapshots/XSnake_GB.png)
-
 
 ![Atari](snapshots/XHorde_A8.png)
 ![SMS](snapshots/XHorde_SMS.png)

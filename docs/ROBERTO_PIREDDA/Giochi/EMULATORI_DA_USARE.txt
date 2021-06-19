@@ -1,0 +1,8 @@
+ATARI 8-bit: Altirra
+Commodore 64: Vice
+Commodore Vic 20 + 8k: Vice (settare memoria a +8k)
+Game Boy: Visual Boy Advance Emulator
+Game Gear: Emulicious (ULTIMA versione)
+Sega Master System: Emulicious (ULTIMA versione)
+Sinclair ZX Spectrum: Fuse
+

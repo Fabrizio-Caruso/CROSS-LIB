@@ -327,9 +327,7 @@ int main(void)
             {
                 _XL_DRAW((rnd&7)*2+COL_OFFSET,(rnd/8)*2+ROW_OFFSET,tiles[rnd],tile_color[buildingColor]);
                 _XL_SLOW_DOWN(300);
-            }
-        
-            _XL_WAIT_FOR_INPUT();
+            }        
         }
         
         
@@ -461,7 +459,6 @@ int main(void)
                 {
                     // Draw animated bomb
                     drawAnimatedBomb();
-                    // _XL_WAIT_FOR_INPUT();
                     
                     ++bomb_y;
                 
@@ -499,7 +496,6 @@ int main(void)
                 if(bombActive)
                 {
                     drawBomb();
-                    _XL_WAIT_FOR_INPUT();
                     deleteAnimatedBombUp();
                 }
 

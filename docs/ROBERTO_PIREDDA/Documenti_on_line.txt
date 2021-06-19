@@ -1,0 +1,9 @@
+CROSS-LIB breve presentazione in italiano: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/presentazione.md
+
+LISTA PARZIALE DEI SISTEMI SUPPORTATI: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
+
+DESCRIZIONE DEI GIOCHI (in italino): https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GIOCHI.md
+
+CROSS-LIB pagina principale (in inglese) : https://github.com/Fabrizio-Caruso/CROSS-LIB
+
+CROSS-LIB presentazione lunga (in inglese) con slides: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CrossLib.odp

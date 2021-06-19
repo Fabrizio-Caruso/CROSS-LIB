@@ -173,7 +173,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DNO_SET_SCREEN_COLORS -DNO_SPACE_TEXT \
 	-DALT_PRINT \
-	-DSLOW_DOWN=600 \
+	-DSLOW_DOWN=700 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -191,7 +191,7 @@ atari_test1: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=600 \
+	-DSLOW_DOWN=700 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(SOURCE_PATH)/tests/atari_test1.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color_test1.xex
@@ -211,7 +211,7 @@ atari_test2: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=600 \
+	-DSLOW_DOWN=700 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -229,7 +229,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
-	-DSLOW_DOWN=600 \
+	-DSLOW_DOWN=700 \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
@@ -707,7 +707,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER -DFORCE_BIT_BANG \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=2700 \
+	-lndos -DSLOW_DOWN=3000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \

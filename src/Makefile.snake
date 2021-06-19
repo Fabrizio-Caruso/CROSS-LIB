@@ -1654,7 +1654,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=2800 \
+	-DSLOW_DOWN=3300 \
 	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
@@ -1676,7 +1676,7 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
-	-DSLOW_DOWN=2800 \
+	-DSLOW_DOWN=3300 \
 	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \

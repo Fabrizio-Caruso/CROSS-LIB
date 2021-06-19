@@ -86,7 +86,7 @@ int main(void)
                 _XL_SLOW_DOWN(900);
             }
         }
-    } // while(1) -> restart from the beginning
+    } 
     return EXIT_SUCCESS;
 }
 

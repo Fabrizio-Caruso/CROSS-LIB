@@ -1,3 +1,4 @@
+
 ![MSX](snapshots/XSnake_MSX2.png)
 ![Atari](snapshots/XChase_A8.png)
 
@@ -6,6 +7,8 @@
 ![Atari](snapshots/XBomber_A8.png)
 
 # CROSS LIB
+![LOGO](logo.jpg)
+
 *Cross-Lib* and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber, Cross Snake, Cross Horde)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)

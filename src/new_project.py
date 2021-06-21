@@ -46,16 +46,26 @@ for file_name in file_names:
     print("Copying file_name: " + file_name)
     shutil.copy(source_path+"/"+file_name, dest_path)
 
-# for file_name in file_names:
-    # print("Copying: ", file_name)
-    # source_path = "./generated_assets/"+game_dir+"/"+file_name
-    # print("from: " + source_path)
-    # dest_path = "../"+parent_dir+"/"+game_dir+"/generated_assets"
-    
-    # if not os.path.exists(dest_path):
-        # print("creating: " + dest_path)
-        # os.makedirs(dest_path)
-    # print("to: " + dest_path)
-    # shutil.copy(source_path, dest_path )
+templated_makefile_path = "./template_projects"
+
+shutil.copy(templated_makefile_path+"/"+"Makefile.template", "./Makefile."+game_dir)
+
+#read input file
+fin = open("./Makefile."+game_dir, "rt")
+#read file contents to string
+data = fin.read()
+#replace all occurrences of the required string
+data = data.replace('_GAME_NAME_', game_dir)
+data = data.replace('_PARENT_DIR_', parent_dir)
+#close the input file
+fin.close()
+#open the input file in write mode
+fin = open("./Makefile."+game_dir, "wt")
+#overrite the input file with the resulting data
+fin.write(data)
+#close the file
+fin.close()
+
+
 
     

@@ -61,6 +61,18 @@
 	{
 			return ch-32;
 	}
+#elif defined(__ZX81__)
+	char screenCode(char ch)
+	{
+        if(ch==32)
+        {
+            return 32;
+        }
+        else
+        {
+			return ch-32;
+        }
+	}
 #elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) 
 	char screenCode(char ch)
 	{
@@ -182,7 +194,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
-            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) || defined(__ZX81__)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

@@ -105,8 +105,9 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
-            _XL_PRINT(COL_OFFSET,   2,"0123456789");
+            // _XL_PRINT(COL_OFFSET, 1, 32+64);
+            //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
+            // _XL_PRINT(COL_OFFSET,   2,"0123456789");
             
             _XL_PRINT(COL_OFFSET,   4,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
             _XL_PRINTD(COL_OFFSET  ,5,5, 1234U);

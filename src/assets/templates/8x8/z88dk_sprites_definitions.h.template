@@ -523,8 +523,6 @@ __asm
 	defb 8,8
     defb <tile_6>
 
-
-#if !defined(FEWER_SPRITES)
 ; 60
 	defb 8,8
     defb <tile_21>
@@ -541,6 +539,7 @@ __asm
 	defb 8,8
     defb <tile_24>
 
+#if !defined(FEWER_SPRITES)
 ; 64
 	defb 8,8
     defb %"--------"

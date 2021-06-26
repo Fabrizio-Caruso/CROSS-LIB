@@ -1,12 +1,13 @@
 #include<stdio.h>
-
-bordercolor(BLACK);
-textbackground(BLACK);
+#include<conio.h>
 
 int main()
 {
-
-    printf("Hello World!\n");
+    bordercolor(BLACK);
+    textbackground(BLACK);
+    textcolor(WHITE);
+    printf("%c",12);
+    printf("hello world\n");
     while(1){};
     return 0;
 }

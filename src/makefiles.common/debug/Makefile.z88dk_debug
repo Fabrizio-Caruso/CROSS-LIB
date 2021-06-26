@@ -89,17 +89,23 @@ cpm_hello:
 	mv A.COM $(BUILD_PATH)/CPMHELLO.COM
 	
 c128_z80_background_color:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -subtype=disk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -subtype=disk \
 	$(TEST_PATH)/helloworld_background_color.c \
 	-create-app -oa40.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
-	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/c128_z80_background_color.d64
 	rm A40.LDR
 	rm A40
 	rm a40.bin
 
+spectrum_background_color:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -lndos \
+	$(TEST_PATH)/helloworld_background_color.c -create-app
+	rm -f a.bin
+	rm -f a_BANK_7.bin
+	mv a.tap $(BUILD_PATH)/spectrum_background_color.tap
 
 aquarius_hello_world:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \

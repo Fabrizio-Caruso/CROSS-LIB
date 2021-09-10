@@ -5,20 +5,23 @@ import shutil
 
 import os,sys
 
-
 if len(sys.argv)<2:
-    game_dir = "foo"
+    project_type = "demo"
 else:
-    game_dir = sys.argv[1]
+    if(sys.argv[1]=="game"):
+        project_type = "game"
+    else:
+        project_type = "demo"
 
 if len(sys.argv)<3:
-    parent_dir = "games"
+    game_dir = "foo_"+project_type
 else:
-    parent_dir = sys.argv[2]
+    game_dir = sys.argv[2]
 
+parent_dir = project_type+"s"
 
 print("New project name: " + game_dir)
-print("New project parent dir: " + parent_dir) 
+print("Project type: " + project_type)
 
 parent_and_game_dir = parent_dir + "/" + game_dir
 
@@ -26,7 +29,7 @@ if not os.path.exists(parent_and_game_dir):
     print("Creating project dir...")
     os.makedirs(parent_and_game_dir)
 
-source_path = "./template_projects/game_code.template"
+source_path = "./template_projects/"+project_type+"_code.template"
 print("source_path: " + source_path)
 dest_path = parent_and_game_dir
 print("dest_path: " + dest_path)
@@ -48,7 +51,7 @@ for file_name in file_names:
 
 templated_makefile_path = "./template_projects"
 
-shutil.copy(templated_makefile_path+"/"+"Makefile.template", "./Makefile."+game_dir)
+shutil.copy(templated_makefile_path+"/"+"Makefile_"+project_type+".template", "./Makefile."+game_dir)
 
 #read input file
 fin = open("./Makefile."+game_dir, "rt")

@@ -38,7 +38,7 @@ else:
 print("Project name: " + game_dir)
 print("Project type: " + project_type)
 
-print("parent_and_game_dir: " + parent_and_game_dir)
+parent_and_game_dir = parent_dir + "/" + game_dir
 
 if os.path.exists(parent_and_game_dir):
     print("Deleting directory " + parent_and_game_dir)

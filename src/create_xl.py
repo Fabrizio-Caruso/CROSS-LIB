@@ -6,19 +6,28 @@ import shutil
 import os,sys
 
 if len(sys.argv)<2:
-    project_type = "demo"
+    project_type = "helloworld"
 else:
     if(sys.argv[1]=="game"):
         project_type = "game"
-    else:
-        project_type = "demo"
+    else: 
+        if(sys.argv[1]=="demo"):
+            project_type = "demo"
+        else:
+            project_type = "helloworld"
 
 if len(sys.argv)<3:
-    game_dir = "foo_"+project_type
+    if(project_type=="helloworld"):
+        game_dir=project_type
+    else:
+        game_dir = "foo_"+project_type
 else:
     game_dir = sys.argv[2]
 
-parent_dir = project_type+"s"
+if(project_type=="helloworld"):
+    parent_dir = "demos"
+else:
+    parent_dir = project_type+"s"
 
 print("New project name: " + game_dir)
 print("Project type: " + project_type)

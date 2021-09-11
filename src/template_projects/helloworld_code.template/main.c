@@ -41,11 +41,7 @@
 #endif
 
 
-
-// Global initialization
-//<global>
-
-      
+ 
 const uint8_t tiles[] = {
 		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
 		_TILE_4, _TILE_5, _TILE_6, _TILE_7, 
@@ -60,7 +56,6 @@ const uint8_t tiles[] = {
 #define MAX_STRING_SIZE 10
 static const uint8_t tile_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 
-// const char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] = 
 {
     _XL_M _XL_i _XL_n _XL_e,
@@ -79,8 +74,6 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 _XL_Y _XL_E _XL_L _XL_L _XL_O _XL_W, 
                                 _XL_B _XL_L _XL_U _XL_E, 
                                 };
-
-//</global>
 
 
 #define COL_OFFSET ((XSize-16)/2-1)
@@ -105,9 +98,7 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            // _XL_PRINT(COL_OFFSET, 1, 32+64);
-            //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
-            // _XL_PRINT(COL_OFFSET,   2,"0123456789");
+
             
             _XL_PRINT(COL_OFFSET,   4,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
             _XL_PRINTD(COL_OFFSET  ,5,5, 1234U);

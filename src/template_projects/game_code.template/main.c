@@ -41,6 +41,7 @@
 #define _LEVEL_COMPLETED__STRING _LEVEL__STRING _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D
 
 #define _LIVES__STRING _XL_L _XL_I _XL_V _XL_E _XL_S
+#define _SCORE__STRING _XL_S _XL_C _XL_O _XL_R _XL_E
 
 #define _YOU_DIED__STRING _XL_Y _XL_O _XL_U _XL_SPACE _XL_D _XL_I _XL_E _XL_D
 
@@ -57,6 +58,7 @@ uint8_t alive;
 uint8_t lives;
 uint8_t input;
 uint8_t level_completed;
+uint8_t counter;
 
 int main(void)
 {        
@@ -69,10 +71,8 @@ int main(void)
     
     hiscore = 0;
 
-
     while(1)
     {
-        alive = 1;
         score = 0;
         level = INITIAL_LEVEL;
         lives = 3;
@@ -80,11 +80,15 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED_ON_ROW(2, _GAME_NAME__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(4, _GAME_NAME__STRING);
         _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT_CENTERED_ON_ROW(4, _BY__STRING _XL_SPACE _AUTHOR__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(6, _BY__STRING _XL_SPACE _AUTHOR__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT_CENTERED_ON_ROW(14, _PRESS_FIRE__STRING);
+        
+        _XL_PRINT_CENTERED_ON_ROW(0, _XL_H _XL_I _SCORE__STRING);
+        _XL_PRINTD(XSize/2-3,1,5,hiscore);
+        
+        _XL_PRINT_CENTERED_ON_ROW(YSize-1, _PRESS_FIRE__STRING);
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
@@ -92,6 +96,9 @@ int main(void)
         {
             // (RE-)START LEVEL
             level_completed = 0;
+            alive = 1;
+            counter = 0;
+            
             _XL_CLEAR_SCREEN();
             
             _XL_PRINT(0,0,_LEVEL__STRING);
@@ -100,31 +107,41 @@ int main(void)
             _XL_PRINT(0,2,_LIVES__STRING);
             _XL_PRINTD(7,2,1,lives);       
             
+            _XL_PRINT_CENTERED_ON_ROW(14, _PRESS_FIRE__STRING);
             _XL_WAIT_FOR_INPUT();
             
+            _XL_CLEAR_SCREEN();
+            
+            _XL_PRINT(0,0, _SCORE__STRING);
+            _XL_PRINTD(7,0,5,score);
+            _XL_PRINTD(XSize-6,YSize-1,5,0);
+
             // LEVEL LOOP
             while(!level_completed && alive)
             {
-                uint8_t counter;
-
-                _XL_PRINTD(0,4,3,input);
-                _XL_PRINTD(0,6,3,counter++);
                 input = _XL_INPUT();
-                _XL_PRINTD(0,6,3,counter++);    
                 
                 if(_XL_DOWN(input))
                 {
                     alive=0;
                     _XL_EXPLOSION_SOUND();
                 }
+                else if (_XL_RIGHT(input) || _XL_LEFT(input) || _XL_UP(input))
+                {
+                    _XL_ZAP_SOUND();
+                    score+=50;
+                    _XL_PRINTD(7,0,5,score);
+                }         
                 else if(_XL_FIRE(input))
                 {
                     _XL_TOCK_SOUND();
-                    ++score;
-                    if(score>=level*10)
-                    {
-                        level_completed = 1;
-                    }
+                    ++counter;
+                    _XL_PRINTD(XSize-6,YSize-2,5,counter);
+
+                }
+                if(counter>=100)
+                {
+                    level_completed = 1;
                 }
             }
             
@@ -133,6 +150,7 @@ int main(void)
             if(alive)
             {
                 ++level;
+                _XL_PRINT_CENTERED(_LEVEL_COMPLETED__STRING);
             }
             else
             {
@@ -152,6 +170,10 @@ int main(void)
         _XL_CLEAR_SCREEN();
         _XL_PRINT_CENTERED(_GAME_OVER__STRING);
         _XL_WAIT_FOR_INPUT();
+        if(score>hiscore) 
+        {
+            hiscore = score;
+        }
     } // while(1) -> restart from level 1
 
     return EXIT_SUCCESS;

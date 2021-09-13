@@ -2,7 +2,7 @@
 # Makefile for CROSS-_GAME_NAME_
 GAME_NAME := _GAME_NAME_
 
-PARENT_DIR = demos
+PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

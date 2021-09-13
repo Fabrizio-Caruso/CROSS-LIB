@@ -71,6 +71,7 @@ int main(void)
     
     hiscore = 0;
 
+    // MAIN END-LESS LOOP
     while(1)
     {
         score = 0;
@@ -92,6 +93,8 @@ int main(void)
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
+        
+        // GAME LOOP
         while(lives && (level<FINAL_LEVEL+1))
         {
             // (RE-)START LEVEL

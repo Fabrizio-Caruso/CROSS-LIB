@@ -31,19 +31,11 @@
 
 #include "images.h"
 
-// TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
-
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19
 #else
     #define MAX_TILES ((YSize)+(Y_OFFSET)-1)
 #endif
-
-
-
-// Global initialization
-//<global>
 
       
 const uint8_t tiles[] = {
@@ -80,8 +72,6 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 _XL_B _XL_L _XL_U _XL_E, 
                                 };
 
-//</global>
-
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
@@ -93,10 +83,14 @@ int main(void)
     uint8_t i;
     uint8_t j;
     uint8_t k;
+    uint8_t counter;
+    uint8_t input;
+    
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
 
+    _XL_INIT_SOUND();
 
     for(k=0;k<3;++k)
     {
@@ -105,9 +99,6 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            // _XL_PRINT(COL_OFFSET, 1, 32+64);
-            //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
-            // _XL_PRINT(COL_OFFSET,   2,"0123456789");
             
             _XL_PRINT(COL_OFFSET,   4,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
             _XL_PRINTD(COL_OFFSET  ,5,5, 1234U);
@@ -127,16 +118,92 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
 
             _XL_CLEAR_SCREEN();
+            
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            _XL_PRINT_CENTERED_ON_ROW(0, _XL_S _XL_O _XL_U _XL_N _XL_D);
+            _XL_WAIT_FOR_INPUT();
 
+            _XL_PRINT_CENTERED_ON_ROW(3, _XL_P _XL_I _XL_N _XL_G);
+            _XL_WAIT_FOR_INPUT();
+            _XL_PING_SOUND();
+            _XL_WAIT_FOR_INPUT();
+   
+            _XL_PRINT_CENTERED_ON_ROW(5, _XL_T _XL_I _XL_C _XL_K);
+            _XL_WAIT_FOR_INPUT();
+            _XL_TOCK_SOUND();
+            _XL_WAIT_FOR_INPUT();
+
+            _XL_PRINT_CENTERED_ON_ROW(7, _XL_T _XL_O _XL_C _XL_K);
+            _XL_WAIT_FOR_INPUT();
+            _XL_TICK_SOUND();
+            _XL_WAIT_FOR_INPUT();
+         
+            _XL_PRINT_CENTERED_ON_ROW(9, _XL_Z _XL_A _XL_P);
+            _XL_WAIT_FOR_INPUT();
+            _XL_ZAP_SOUND();
+            _XL_WAIT_FOR_INPUT();
+            
+            _XL_PRINT_CENTERED_ON_ROW(11, _XL_S _XL_H _XL_O _XL_O _XL_T);
+            _XL_WAIT_FOR_INPUT();
+            _XL_SHOOT_SOUND();
+            _XL_WAIT_FOR_INPUT();
+
+            _XL_PRINT_CENTERED_ON_ROW(13, _XL_E _XL_X _XL_P _XL_L _XL_O _XL_S _XL_I _XL_O _XL_N);
+            _XL_WAIT_FOR_INPUT();
+            _XL_EXPLOSION_SOUND();
+            _XL_WAIT_FOR_INPUT();
+            
+            _XL_CLEAR_SCREEN();
+            
             for(i=0;i<NUM_OF_TILES;++i)
             {
                 _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],tile_color[j]);
-                _XL_SLOW_DOWN(300);
+                _XL_TICK_SOUND();
+                _XL_WAIT_FOR_INPUT();
             }
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             _XL_PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
             _XL_WAIT_FOR_INPUT();
+            
+            _XL_CLEAR_SCREEN();
+            
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            
+            _XL_PRINT_CENTERED_ON_ROW(0, _XL_I _XL_N _XL_P _XL_U _XL_T);
+            counter = 0;
+            while(counter<200)
+            {
+                input = _XL_INPUT();
+                
+                if(_XL_FIRE(input))
+                {
+                    _XL_PRINT_CENTERED(_XL_F _XL_I _XL_R _XL_E _XL_SPACE);
+                    ++counter;
+                }
+                else if(_XL_LEFT(input))
+                {
+                    _XL_PRINT_CENTERED(_XL_L _XL_E _XL_F _XL_T _XL_SPACE);
+                    ++counter;
+                }
+                else if(_XL_RIGHT(input))
+                {
+                    _XL_PRINT_CENTERED(_XL_R _XL_I _XL_G _XL_H _XL_T);
+                    ++counter;
+                }
+                else if(_XL_DOWN(input))
+                {
+                    _XL_PRINT_CENTERED(_XL_D _XL_O _XL_W _XL_N _XL_SPACE);
+                    ++counter;
+                }
+                else if(_XL_UP(input))
+                {
+                    _XL_PRINT_CENTERED(_XL_U _XL_P _XL_SPACE _XL_SPACE _XL_SPACE);
+                    ++counter;
+                }
+
+                _XL_SLOW_DOWN(200);
+            }
         }
     }
     _XL_PRINT(COL_OFFSET,YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);

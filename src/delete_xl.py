@@ -31,7 +31,7 @@ else:
         game_dir = candidate_name
 
 if(project_type=="helloworld"):
-    parent_dir = "demos"
+    parent_dir = "games"
 else:
     parent_dir = project_type+"s"
 

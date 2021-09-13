@@ -1,6 +1,5 @@
 ######################################################################
-# Makefile for CROSS-BOMBER
-
+# Makefile for CROSS-_GAME_NAME_
 GAME_NAME := _GAME_NAME_
 
 PARENT_DIR = games

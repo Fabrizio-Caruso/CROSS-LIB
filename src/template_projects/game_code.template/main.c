@@ -139,7 +139,7 @@ int main(void)
                 {
                     _XL_TOCK_SOUND();
                     ++counter;
-                    _XL_PRINTD(XSize-6,YSize-2,5,counter);
+                    _XL_PRINTD(XSize-6,YSize-1,5,counter);
 
                 }
                 if(counter>=100)

@@ -18,11 +18,12 @@ void _XL_INIT_GRAPHICS(void)
 	#endif
 	
 	POKE(646,1);
-    #if !defined(VIC20_WHITE_BORDER)
-        POKE(36879L,8);
+    
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        POKE(36879L,25);
     #else
-        POKE(36879L,9);
-	#endif 
+        POKE(36879L,8);
+    #endif
     
 	#if defined(DEBUG)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)

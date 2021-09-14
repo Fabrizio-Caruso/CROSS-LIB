@@ -116,7 +116,11 @@ void _XL_INIT_GRAPHICS(void)
             _setcolor_low(1, GTIA_COLOR_WHITE);
             _setcolor_low(2, GTIA_COLOR_CYAN); 	
             _setcolor_low(3, GTIA_COLOR_BROWN);
-            _setcolor_low(4, GTIA_COLOR_BLACK);
+            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+                _setcolor_low(4, GTIA_COLOR_WHITE);
+            #else
+                _setcolor_low(4, GTIA_COLOR_BLACK);
+            #endif
         }
         else
         {
@@ -124,7 +128,11 @@ void _XL_INIT_GRAPHICS(void)
             _setcolor_low(1,GTIA_COLOR_WHITE);
             _setcolor_low(2,GTIA_COLOR_CYAN);
             _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-            _setcolor_low(4,GTIA_COLOR_BLACK);
+            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+                _setcolor_low(4, GTIA_COLOR_WHITE);
+            #else
+                _setcolor_low(4, GTIA_COLOR_BLACK);
+            #endif
         }
     #else
         if(get_tv())
@@ -134,7 +142,11 @@ void _XL_INIT_GRAPHICS(void)
             _setcolor_low(1, GTIA_COLOR_WHITE);
             _setcolor_low(2, GTIA_COLOR_GREEN); 
             _setcolor_low(3, GTIA_COLOR_BROWN);
-            _setcolor_low(4, GTIA_COLOR_BLACK);
+            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+                _setcolor_low(4, GTIA_COLOR_WHITE);
+            #else
+                _setcolor_low(4, GTIA_COLOR_BLACK);
+            #endif
         }
         else
         {
@@ -142,7 +154,11 @@ void _XL_INIT_GRAPHICS(void)
             _setcolor_low(1,GTIA_COLOR_WHITE);
             _setcolor_low(2,_gtia_mkcolor(HUE_GREEN,3));
             _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-            _setcolor_low(4,GTIA_COLOR_BLACK);
+            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+                _setcolor_low(4, GTIA_COLOR_WHITE);
+            #else
+                _setcolor_low(4, GTIA_COLOR_BLACK);
+            #endif
         }
     #endif
 	#if defined(REDEFINED_CHARS)

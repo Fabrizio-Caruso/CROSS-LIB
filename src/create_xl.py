@@ -63,7 +63,7 @@ for file_name in file_names:
 
 templated_makefile_path = "./template_projects"
 
-shutil.copy(templated_makefile_path+"/"+"Makefile_"+project_type+".template", "./Makefile."+game_dir)
+shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./Makefile."+game_dir)
 
 #read input file
 fin = open("./Makefile."+game_dir, "rt")

@@ -311,6 +311,7 @@ atari_lynx:
 	-DTGI \
 	-DFULL_GAME \
 	-DALT_PRINT \
+    -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
 	$(FULL_FILES) \

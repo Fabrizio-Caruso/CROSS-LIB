@@ -28,13 +28,22 @@ void _XL_INIT_GRAPHICS(void)
 		console_ioctl(IOCTL_GENCON_SET_MODE, &mode);
         
 	}
-	#elif defined(__SPECTRUM__)
-	printf("\x01\x20");
-    zx_border(0);
-    textbackground(_XL_BLACK);
-	#endif
+    #endif
+    
+    
+	#if defined(__SPECTRUM__)
+        printf("\x01\x20");
 
-    setScreenColors();
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+            textbackground(_XL_WHITE);
+            zx_border(7);
+        #else
+            textbackground(_XL_BLACK);
+            zx_border(0);
+        #endif
+	#else
+        setScreenColors();
+    #endif
 }
 
 

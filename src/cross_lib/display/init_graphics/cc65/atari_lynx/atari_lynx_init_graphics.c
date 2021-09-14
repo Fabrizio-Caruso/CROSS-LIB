@@ -17,7 +17,12 @@ void _XL_INIT_GRAPHICS(void)
 
 	tgi_setpalette(tgi_getdefpalette());
 	tgi_setcolor(COLOR_WHITE);
-	tgi_setbgcolor(TGI_COLOR_BLACK);
+    
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        tgi_setbgcolor(TGI_COLOR_WHITE);
+	#else
+        tgi_setbgcolor(TGI_COLOR_BLACK);
+    #endif
 
 	_XL_CLEAR_SCREEN();
     

@@ -124,7 +124,11 @@ void _XL_INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
-        (void) bgcolor(0);
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+            (void) bgcolor(7);
+        #else
+            (void) bgcolor(0);
+        #endif
     	textcolordefinition(3);
         monochrome(0);
     #endif

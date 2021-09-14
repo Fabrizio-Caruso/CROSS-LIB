@@ -6,7 +6,8 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW 
+#-D_BACKGROUND_COLOR=_XL_WHITE
 
 #####################################################################
 # Compilers variables

@@ -6,24 +6,24 @@ import shutil
 import os,sys
 
 
-if len(sys.argv)<2:
+if len(sys.argv)<3:
     project_type = "helloworld"
 else:
-    if(sys.argv[1]=="game"):
+    if(sys.argv[2]=="game"):
         project_type = "game"
     else: 
-        if(sys.argv[1]=="demo"):
+        if(sys.argv[2]=="demo"):
             project_type = "demo"
         else:
             project_type = "helloworld"
 
-if len(sys.argv)<3:
+if len(sys.argv)<2:
     if(project_type=="helloworld"):
         game_dir = "helloworld"
     else:
         game_dir = "foo_"+project_type
 else:
-    candidate_name = sys.argv[2]
+    candidate_name = sys.argv[1]
     if(candidate_name in ["bar", "chase", "shoot", "bomber", "snake", "horde", "tiles", "matrix", "invaders", "zombies"]):
         print("invalid name!")
         exit()

@@ -30,10 +30,7 @@ else:
     else:
         game_dir = candidate_name
 
-if(project_type=="helloworld"):
-    parent_dir = "games"
-else:
-    parent_dir = project_type+"s"
+parent_dir = "games"
 
 print("Project name: " + game_dir)
 print("Project type: " + project_type)

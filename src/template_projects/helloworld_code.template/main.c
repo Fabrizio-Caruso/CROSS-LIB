@@ -41,6 +41,8 @@ int main(void)
 
     _XL_CLEAR_SCREEN();
 
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+
     _XL_PRINT_CENTERED(_XL_H _XL_E _XL_L _XL_L _XL_O _XL_SPACE _XL_W _XL_O _XL_R _XL_L _XL_D);
 
     while(1){};

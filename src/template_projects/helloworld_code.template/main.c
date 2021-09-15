@@ -31,6 +31,8 @@
 
 #include "images.h"
 
+#define _HELLO_WORLD__STRING \
+    _XL_H _XL_E _XL_L _XL_L _XL_O _XL_SPACE _XL_W _XL_O _XL_R _XL_L _XL_D
 
 int main(void)
 {        
@@ -43,7 +45,7 @@ int main(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
 
-    _XL_PRINT_CENTERED(_XL_H _XL_E _XL_L _XL_L _XL_O _XL_SPACE _XL_W _XL_O _XL_R _XL_L _XL_D);
+    _XL_PRINT_CENTERED(_HELLO_WORLD__STRING);
 
     while(1){};
     

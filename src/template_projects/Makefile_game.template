@@ -10,6 +10,69 @@ GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 #####################################################################
+# SLOWDOWN VALUES
+
+# CC65
+_APPLE2_SLOWDOWN=500
+_APPLE2ENH_SLOWDOWN=500
+_ATARI_SLOWDOWN=700
+_ATARI5200_SLOWDOWN=700
+_C16_SLOWDOWN=550
+_C64_SLOWDOWN=450
+_CREATIVISION_SLOWDOWN=1000
+_GAMATE_SLOWDOWN=1200
+_ORIC_SLOWDOWN=400
+_NES_SLOWDOWN=800
+_PET_SLOWDOWN=400
+_PCE_SLOWDOWN=5500
+_SUPERVISION_SLOWDOWN=1400
+_VIC20_SLOWDOWN=550
+
+
+# Z88DK
+_AQUARIUS_SLOWDOWN=1050
+_ACE_SLOWDOWN=1000
+_C128_Z80_40COL_SLOWDOWN=4
+_C128_Z80_80COL_SLOWDOWN=1
+_CPC_MODE0_SLOWDOWN=1000
+_CPC_CPCRSLIB_MODE1_SLOWDOWN=900
+_CPC_MODE2_SLOWDOWN=900
+_GB_SLOWDOWN=2800
+_GG_SLOWDOWN=3000
+_LASER5000_SLOWDOWN=2000
+_MC1000_SLOWDOWN=750
+_MSX_SLOWDOWN=2000
+_MTX500_SLOWDOWN=2000
+_MTX512_SLOWDOWN=2000
+_SAMCOUPE_SLOWDOWN=3000
+_SMS_SLOWDOWN=1600
+_SPECTRUM_SLOWDOWN=1600
+_VG5K_SLOWDOWN=750
+_VZ200_SLOWDOWN=2500 
+_ZX81_16K=100
+_ZX81_32K_WRX=10
+
+
+# CMOC
+_COCO_SLOWDOWN=1600
+_DRAGON_SLOWDOWN=1600
+_MO5_SLOWDOWN=1600
+_TO7_SLOWDOWN=1600
+
+
+# LCC1802
+_CMOC_SLOWDOWN=300
+_PECOM_SLOWDOWN=300
+_TMC600_SLOWDOWN=500
+_MICRO_SLOWDOWN=600
+_CIDELSA_SLOWDOWN=400
+
+
+# GCC
+_NCURSES_SLOWDOWN=120
+
+
+#####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers
 
@@ -71,10 +134,12 @@ cc65_targets: \
     c16 \
     c64 \
     creativision \
+    gamate \
     oric  \
     nes \
     pet \
     pce \
+    supervision \
     vic20 
 
 
@@ -569,6 +634,26 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm A80
 	rm a80.bin
 
+#################################################################
+
+coleco: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=1000 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco_BSS.bin
 
 #################################################################
 
@@ -846,6 +931,62 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
+
+
+#################################################################
+
+mtx: mtx512
+
+mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
+	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
+	-create-app -oMTX.bin -vn \
+	-DSOUNDS -DSLOW_DOWN=2000 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) 
+	rm MTX.bin
+	mv MTX.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv MTX.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+
+
+mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MTX__ \
+	-create-app -oMTX500.bin -vn \
+	-DSOUNDS -DSLOW_DOWN=2000 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) 
+	rm MTX500.bin
+	mv MTX500.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv MTX500.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+
+
+#################################################################
+
+
+mz:
+	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -Cz--audio -vn \
+	-DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -DNO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS -DSLOW_DOWN=1500 \
+	-pragma-define:REGISTER_SP=0xd000 \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_mz.prg
+	mv $(BUILD_PATH)/X$(GAME_NAME)_mz.mzt $(BUILD_PATH)/X$(GAME_NAME)_mz.mzf
+
 
 
 #################################################################

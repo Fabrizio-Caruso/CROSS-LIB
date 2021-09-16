@@ -1417,6 +1417,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm basic.rom
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 #################################################################
 
 cpm: cpm_z80_adm3a

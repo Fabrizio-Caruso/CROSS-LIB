@@ -125,9 +125,9 @@ const uint8_t image_colors[] = {
     (map[x][y]==EXTRA_LIFE)
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/2) \
+    if(slow_down>_XL_SLOW_DOWN_FACTOR/2) \
     { \
-        slow_down -= SLOW_DOWN/7; \
+        slow_down -= _XL_SLOW_DOWN_FACTOR/7; \
     } \
     else \
     { \
@@ -136,9 +136,9 @@ const uint8_t image_colors[] = {
     }
 
 #define IF_POSSIBLE_DECREASE_SPEED() \
-    if(slow_down<SLOW_DOWN) \
+    if(slow_down<_XL_SLOW_DOWN_FACTOR) \
     { \
-        slow_down += SLOW_DOWN/5; \
+        slow_down += _XL_SLOW_DOWN_FACTOR/5; \
     }
 
 
@@ -645,7 +645,7 @@ void handle_transparent_horizontal_wall(void)
     energy = MAX_ENERGY; \
     coin_count = 0; \
     speed_increase_counter = 0; \
-    slow_down = SLOW_DOWN; \
+    slow_down = _XL_SLOW_DOWN_FACTOR; \
     apples_on_screen_count = 1+(remaining_apples>>3); \
     spawned_apples = 0; \
     transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
@@ -688,7 +688,7 @@ void one_up(void)
     DISPLAY_LIVES();
     _XL_PING_SOUND();
     _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
-    _XL_SLOW_DOWN(SLOW_DOWN*5);
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*5);
     _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
     _XL_PING_SOUND();
@@ -738,6 +738,7 @@ void one_up(void)
     #define OPEN_X (((XSize)/2)-3)
     #define OPEN_Y 0
 #endif 
+
 
 #define handle_coin_effect() \
     snake_grows(); \
@@ -847,7 +848,7 @@ void magic_wall(void)
 #define handle_super_coin_effect() \
     _XL_ZAP_SOUND(); \
     increase_points(SUPER_RING_POINTS); \
-    slow_down = SLOW_DOWN + SLOW_DOWN/5; \
+    slow_down = _XL_SLOW_DOWN_FACTOR + _XL_SLOW_DOWN_FACTOR/5; \
     if(energy>10) \
     { \
         energy = MAX_ENERGY; \
@@ -906,7 +907,7 @@ void magic_wall(void)
     snake_head_y = snake_y[snake_head];
 
 #define handle_mine_reactivation() \
-    if(slow_down<SLOW_DOWN) \
+    if(slow_down<_XL_SLOW_DOWN_FACTOR) \
     { \
         active_mines = 1; \
     }
@@ -988,7 +989,7 @@ void magic_wall(void)
     for(i=0;i<XSize*2-5;++i) \
     { \
         handle_horizontal_mines(); \
-        _XL_SLOW_DOWN(SLOW_DOWN/ANIMATION_SLOW_FACTOR); \
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/ANIMATION_SLOW_FACTOR); \
     }; \
 }
 
@@ -1035,9 +1036,9 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     {
         _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
         _XL_SHOOT_SOUND();
-        _XL_SLOW_DOWN((SLOW_DOWN/10)*i);
+        _XL_SLOW_DOWN((_XL_SLOW_DOWN_FACTOR/10)*i);
     }
-    _XL_SLOW_DOWN(SLOW_DOWN*4);
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4);
 }
 
 

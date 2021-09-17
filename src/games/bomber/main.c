@@ -31,7 +31,6 @@
 
 #include "images.h"
 
-
 #if !defined(SLOW_DOWN)
     #define SLOW_DOWN 0
 #endif

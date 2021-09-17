@@ -6,6 +6,17 @@ import shutil
 import os,sys
 
 
+if len(sys.argv)<2:
+    game_dir="helloworld"
+else:
+    candidate_name = sys.argv[1]
+    if(candidate_name in ["chase", "shoot", "bomber", "snake", "horde", "tiles", "matrix", "invaders", "zombies", "sounds"]):
+        print("invalid name!")
+        exit()
+    else:
+        game_dir = candidate_name
+
+
 if len(sys.argv)<3:
     project_type = "helloworld"
 else:
@@ -17,23 +28,10 @@ else:
         else:
             project_type = "helloworld"
 
-if len(sys.argv)<2:
-    if(project_type=="helloworld"):
-        game_dir=project_type
-    else:
-        game_dir = "foo_"+project_type
-else:
-    candidate_name = sys.argv[1]
-    if(candidate_name in ["chase", "shoot", "bomber", "snake", "horde", "tiles", "matrix", "invaders", "zombies", "sounds"]):
-        print("invalid name!")
-        exit()
-    else:
-        game_dir = candidate_name
 
 parent_dir = "games"
 
 print("Project name: " + game_dir)
-print("Project type: " + project_type)
 
 parent_and_game_dir = parent_dir + "/" + game_dir
 

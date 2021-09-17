@@ -146,6 +146,7 @@ int main(void)
                 {
                     level_completed = 1;
                 }
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
             
             

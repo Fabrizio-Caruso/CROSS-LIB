@@ -136,6 +136,9 @@
     #endif
 #endif
 
+#if !defined(_XL_SLOW_DOWN_FACTOR)
+    #define _XL_SLOW_DOWN_FACTOR SLOW_DOWN
+#endif
 
 #if !defined(NO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
@@ -144,7 +147,7 @@
         #include <unistd.h>
         #define _XL_SLOW_DOWN(t) \
             usleep((t)*800)
-    #elif defined(SLOW_DOWN) && SLOW_DOWN>0
+    #elif defined(_XL_SLOW_DOWN_FACTOR) && _XL_SLOW_DOWN_FACTOR>0
         #define _XL_SLOW_DOWN(t) \
         do { \
             uint16_t i; \
@@ -153,8 +156,8 @@
             { \
             } \
         } while(0)
-    #else 
-        #define _XL_SLOW_DOWN(t)
+    #else
+       #define _XL_SLOW_DOWN(t)
     #endif
 #else
     void _XL_SLOW_DOWN(uint16_t t);

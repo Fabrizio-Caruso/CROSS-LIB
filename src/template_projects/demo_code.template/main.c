@@ -76,7 +76,6 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-
 int main(void)
 {        
 
@@ -202,7 +201,7 @@ int main(void)
                     ++counter;
                 }
 
-                _XL_SLOW_DOWN(200);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
         }
     }

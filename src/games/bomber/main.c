@@ -31,23 +31,19 @@
 
 #include "images.h"
 
-#if !defined(SLOW_DOWN)
-    #define SLOW_DOWN 0
-#endif
-
-#  if SLOW_DOWN<20
+#  if _XL_SLOW_DOWN_FACTOR<20
     #define LEVEL_SPEED_UP 0
-#elif SLOW_DOWN<100
+#elif _XL_SLOW_DOWN_FACTOR<100
     #define LEVEL_SPEED_UP 2
-#elif SLOW_DOWN<200
+#elif _XL_SLOW_DOWN_FACTOR<200
     #define LEVEL_SPEED_UP 4
-#elif SLOW_DOWN<400
+#elif _XL_SLOW_DOWN_FACTOR<400
     #define LEVEL_SPEED_UP 8
-#elif SLOW_DOWN<800
+#elif _XL_SLOW_DOWN_FACTOR<800
     #define LEVEL_SPEED_UP 16
-#elif SLOW_DOWN<1600
+#elif _XL_SLOW_DOWN_FACTOR<1600
     #define LEVEL_SPEED_UP 32
-#elif SLOW_DOWN<3200
+#elif _XL_SLOW_DOWN_FACTOR<3200
     #define LEVEL_SPEED_UP 64
 #else
     #define LEVEL_SPEED_UP 128
@@ -424,7 +420,7 @@ int main(void)
                     UNSET_DEBUG_BORDER();
                 #endif
                 drawAnimatedPlane();
-                _XL_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP);
                 
 
                 if(!bombActive )
@@ -474,7 +470,7 @@ int main(void)
                         // Delete animated bomb
                         deleteAnimatedBombUp();
                         drawExplosion();
-                        _XL_SLOW_DOWN(5+SLOW_DOWN/4);
+                        _XL_SLOW_DOWN(5+_XL_SLOW_DOWN_FACTOR/4);
                     }
 
                 }
@@ -489,7 +485,7 @@ int main(void)
                 #endif
                 
                 #if !defined(NO_ANIMATION)
-                    _XL_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP);
                 #endif
                 
                 if(bombActive)
@@ -536,8 +532,8 @@ int main(void)
                 {
                     _XL_PRINTD(7,4,5,bonus_ind);
                     _XL_SHOOT_SOUND();
-                    _XL_SLOW_DOWN(SLOW_DOWN);
-                    _XL_SLOW_DOWN(SLOW_DOWN);
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 }
                 displayScore();
                 _XL_SLEEP(1);

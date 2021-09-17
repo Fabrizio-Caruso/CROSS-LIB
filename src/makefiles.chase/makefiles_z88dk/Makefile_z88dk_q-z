@@ -1093,6 +1093,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	-create-app -o z88
 	rm z88
+	rm z88.ap0
 	rm z88_BSS.bin
 	rm z88_DATA.bin
 	rm z88_bss_fardata.bin

@@ -38,6 +38,7 @@
 #include "settings.h"
 #include "variables.h"
 
+
 /*
 #define EMPTY 0
 #define DEADLY 1

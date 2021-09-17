@@ -1521,7 +1521,7 @@ void handle_zombie_collisions(void)
             if(energy[zombie_x])
             {
                 display_red_zombie();
-                _XL_SLOW_DOWN(SLOW_DOWN);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 
                 _XL_TOCK_SOUND();
                 push_zombie();
@@ -2073,9 +2073,9 @@ do \
             for(i=0;i<16;++i) \
             { \
                 _extra_life_color_effect(_XL_RED); \
-                _XL_SLOW_DOWN(SLOW_DOWN); \
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
                 _extra_life_color_effect(_XL_YELLOW); \
-                _XL_SLOW_DOWN(SLOW_DOWN); \
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
             } \
             _XL_PING_SOUND(); \
             display_lives(_XL_WHITE); \
@@ -2136,7 +2136,7 @@ do \
             increase_score(POWER_UP_BONUS); \
             display_power_up_counter(); \
             _XL_TICK_SOUND(); \
-            _XL_SLOW_DOWN(SLOW_DOWN*4); \
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4); \
         } while(powerUp); \
     } \
     \
@@ -2163,7 +2163,7 @@ void zombie_animation(void)
     zombie_y[zombie_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
     zombie_level[zombie_x]=0;
     display_zombie();
-    _XL_SLOW_DOWN(SLOW_DOWN);
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     zombie_die();
     display_cleared();
 }
@@ -2244,7 +2244,7 @@ int main(void)
                 handle_zombie_collisions();
                 handle_missile_drops();
                 handle_items();
-                _XL_SLOW_DOWN(SLOW_DOWN);     
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);     
                 ++main_loop_counter;
             }
             if(alive)

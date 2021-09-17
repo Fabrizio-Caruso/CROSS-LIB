@@ -156,11 +156,16 @@ z88dk_targets: \
     c128_z80_40col \
     c128_z80_80col \
     cpc_mode0 \
+    coleco \
     cpm \
     gb \
+    gg \
     laser500 \
     mc1000 \
     msx \
+    mtx500 \
+    mtx512 \
+    mz \
     samcoupe \
     sms \
     spectrum \

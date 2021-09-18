@@ -1855,12 +1855,10 @@ COMX_COLOR_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(COMX_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c 
+	$(COMX_EXTRA_FILES) 
 
 COMX_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(COMX_COLOR_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c 
+	$(COMX_COLOR_EXTRA_FILES)
 
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
@@ -1871,7 +1869,7 @@ reduced_full_lcc1802_combo.c: full_combo_rand.c
 
 reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(COMX_COLOR_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 
@@ -1944,8 +1942,7 @@ MICRO_COLOR_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(MICRO_COLOR_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c
+	$(MICRO_COLOR_EXTRA_FILES) 
 
 ###############################################################################
 # COMX
@@ -1977,14 +1974,14 @@ comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLCC1802_JOYSTICK \
 	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
 	-DNINTH_CHAR_LINE -DCOMX_COLOR \
-	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	$(LCC1802_COLOR_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
-comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
+comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) -DNTSC \
 	-DFORCE_NARROW -DREDEFINED_CHARS \
@@ -1992,7 +1989,7 @@ comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-DLCC1802_JOYSTICK \
 	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
 	-DNINTH_CHAR_LINE -DCOMX_COLOR \
-	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	$(LCC1802_COLOR_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
@@ -2014,7 +2011,7 @@ micro: micro_pal2
 micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
-	 -DREDEFINED_CHARS \
+	-DREDEFINED_CHARS \
 	-DNO_COLOR -DNO_TITLE_LINE -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
@@ -2033,7 +2030,7 @@ micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2047,13 +2044,12 @@ full_pecom: pecom
 pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
-	 -DREDEFINED_CHARS  -D_XL_SLOW_DOWN_FACTOR=300 \
+	-DREDEFINED_CHARS  -D_XL_SLOW_DOWN_FACTOR=300 \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	 \
-	$(LCC1802_C_OPTS_NO_SOUNDS) \
+	$(LCC1802_COLOR_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2063,13 +2059,12 @@ pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
-	 -DREDEFINED_CHARS  -D_XL_SLOW_DOWN_FACTOR=100 \
+	-DREDEFINED_CHARS  -D_XL_SLOW_DOWN_FACTOR=100 \
 	-DCOMX_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	 \
-	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	$(LCC1802_COLOR_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c

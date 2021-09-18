@@ -53,7 +53,7 @@ TI99_TURN_BASED_OPTS ?= \
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DSLOW_DOWN=50000
+	-D_XL_SLOW_DOWN_FACTOR=50000
 
 
 TI99_OPTS ?= \
@@ -70,7 +70,7 @@ TI99_OPTS ?= \
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DSLOW_DOWN=65000
+	-D_XL_SLOW_DOWN_FACTOR=65000
 
 
 ##################################################################################################

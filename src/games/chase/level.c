@@ -214,7 +214,7 @@ void spiral(register Character *characterPtr)
                 {
                     --(*((uint8_t *) characterPtr + (i&1)));                
                 }
-                #if SLOW_DOWN>0
+                #if _XL_SLOW_DOWN_FACTOR>0
                     _XL_SLOW_DOWN(55);
                 #endif
             }

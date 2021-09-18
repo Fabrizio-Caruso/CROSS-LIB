@@ -526,7 +526,7 @@ int main(void)
                 
 
                 
-                #if SLOW_DOWN>0
+                #if _XL_SLOW_DOWN_FACTOR>0
                 if(invincibilityActive)
                 {
                          SHORT_SLEEP(2);

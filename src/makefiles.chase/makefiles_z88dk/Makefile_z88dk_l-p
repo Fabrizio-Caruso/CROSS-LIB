@@ -174,7 +174,7 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
 	-DFULL_GAME -DLESS_TEXT \
-	-DBETWEEN_LEVEL -DEND_SCREEN -DSLOW_DOWN=400 \
+	-DBETWEEN_LEVEL -DEND_SCREEN -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -759,7 +759,7 @@ pc88: pc88_tiny
 pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=25 -DSLOW_DOWN=2500 \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -776,7 +776,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500 \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -790,7 +790,7 @@ pc88_32k_no_gfx:
 pc88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-D__PC88__ -DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING  \
-	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500  \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
@@ -812,7 +812,7 @@ pc88_tiny:
 pcw40:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -DSLOW_DOWN=2500 \
+	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -830,7 +830,7 @@ pcw: pcw80
 pcw80:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -DSLOW_DOWN=2500 \
+	-lndos -DFORCE_XSIZE=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -899,8 +899,8 @@ pmd85_no_gfx:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pmd85.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pmd85_no_gfx.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_pmd85_no_gfx.bin
 
 
 pmd85: $(ASSETS_PATH)/z88dk_xchase.asm

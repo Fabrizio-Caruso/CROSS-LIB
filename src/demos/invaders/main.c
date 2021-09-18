@@ -32,23 +32,23 @@
 #include "move_player.h"
 #include "images.h"
 
-#if !defined(SLOW_DOWN)
-    #define SLOW_DOWN 0
+#if !defined(_XL_SLOW_DOWN_FACTOR)
+    #define _XL_SLOW_DOWN_FACTOR 0
 #endif
 
-#  if SLOW_DOWN<20
+#  if _XL_SLOW_DOWN_FACTOR<20
     #define LEVEL_SPEED_UP 0
-#elif SLOW_DOWN<100
+#elif _XL_SLOW_DOWN_FACTOR<100
     #define LEVEL_SPEED_UP 2
-#elif SLOW_DOWN<200
+#elif _XL_SLOW_DOWN_FACTOR<200
     #define LEVEL_SPEED_UP 4
-#elif SLOW_DOWN<400
+#elif _XL_SLOW_DOWN_FACTOR<400
     #define LEVEL_SPEED_UP 8
-#elif SLOW_DOWN<800
+#elif _XL_SLOW_DOWN_FACTOR<800
     #define LEVEL_SPEED_UP 16
-#elif SLOW_DOWN<1600
+#elif _XL_SLOW_DOWN_FACTOR<1600
     #define LEVEL_SPEED_UP 32
-#elif SLOW_DOWN<3200
+#elif _XL_SLOW_DOWN_FACTOR<3200
     #define LEVEL_SPEED_UP 64
 #else
     #define LEVEL_SPEED_UP 128
@@ -260,7 +260,7 @@ int main(void)
                 }
             }
             
-            _XL_SLOW_DOWN(SLOW_DOWN/8);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
             
             if(x&1)
             {
@@ -298,7 +298,7 @@ int main(void)
             
             // _XL_WAIT_VSYNC();
             // REFRESH();
-            // _XL_SLOW_DOWN(SLOW_DOWN);
+            // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
         
     }

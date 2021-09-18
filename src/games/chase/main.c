@@ -633,8 +633,8 @@ int main(void)
                     ++loop;
                 #endif
                 
-                #if defined(SLOW_DOWN) && SLOW_DOWN>0
-                    _XL_SLOW_DOWN(SLOW_DOWN);
+                #if defined(_XL_SLOW_DOWN_FACTOR) && _XL_SLOW_DOWN_FACTOR>0
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 #endif
                 REFRESH();
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]

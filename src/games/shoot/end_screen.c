@@ -67,7 +67,7 @@
 			displaySkull(&skulls[0]);
 		
 			_XL_PRINT_CENTERED_ON_ROW(MESSAGE_START,  YOU_MADE_IT_STRING);
-			#if SLOW_DOWN>0
+			#if _XL_SLOW_DOWN_FACTOR>0
 				for(ind=0;ind<254;++ind){};
 			#endif
 					

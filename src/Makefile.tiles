@@ -160,7 +160,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=200 \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -179,7 +179,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
-	-DSLOW_DOWN=200 \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
@@ -220,7 +220,7 @@ c16_16k_linked: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=300 \
+	-D_XL_SLOW_DOWN_FACTOR=300 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -245,7 +245,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=300 \
+	-D_XL_SLOW_DOWN_FACTOR=300 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -258,14 +258,14 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 
 #################################################################
 
-	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
+	# -D_XL_SLOW_DOWN_FACTOR=990 -DINITIAL_GHOST_SLOWDOWN=31000 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=250 \
+	-D_XL_SLOW_DOWN_FACTOR=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -279,7 +279,7 @@ c64_non_arcade: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=250 \
+	-D_XL_SLOW_DOWN_FACTOR=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -377,7 +377,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-DSLOW_DOWN=1000 \
+	-D_XL_SLOW_DOWN_FACTOR=1000 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
@@ -392,7 +392,7 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-DSLOW_DOWN=1000 \
+	-D_XL_SLOW_DOWN_FACTOR=1000 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
@@ -433,7 +433,7 @@ creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-DFULL_GAME -DSLOW_DOWN=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -471,7 +471,7 @@ supervision: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN  -DSLOW_DOWN=300 \
+	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=300 \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -487,7 +487,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX_25_tiles.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
-	-DSLOW_DOWN=750 \
+	-D_XL_SLOW_DOWN_FACTOR=750 \
 	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
@@ -505,7 +505,7 @@ vic20_large_assets: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-D_XL_SLOW_DOWN_FACTOR=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(FULL_FILES) \
@@ -533,16 +533,16 @@ vic20_large_assets: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=1600 -DFORCE_NO_CONIO_LIB -DNO_SLEEP  -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=1600 -DFORCE_NO_CONIO_LIB -DNO_SLEEP  -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 
 CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_EXTRA_TITLE -DSOUNDS
 
-NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -DSLOW_DOWN=4000
+NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
-GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -DSLOW_DOWN=500
+GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=500
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -DNO_COLOR
 
@@ -865,7 +865,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=100 \
+	-D_XL_SLOW_DOWN_FACTOR=100 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -893,7 +893,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=2500 \
+	-D_XL_SLOW_DOWN_FACTOR=2500 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -928,7 +928,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=2000 \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=2000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
@@ -980,7 +980,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=800 \
+	-D_XL_SLOW_DOWN_FACTOR=800 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -999,7 +999,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
 	-DCONIO -DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=800 \
+	-D_XL_SLOW_DOWN_FACTOR=800 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1014,7 +1014,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL \
-	-DCONIO -DUDG_GRAPHICS 	-DSLOW_DOWN=3000 \
+	-DCONIO -DUDG_GRAPHICS 	-D_XL_SLOW_DOWN_FACTOR=3000 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(FULL_FILES) \
@@ -1037,7 +1037,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=200 \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
@@ -1063,7 +1063,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
-	-DSLOW_DOWN=300 \
+	-D_XL_SLOW_DOWN_FACTOR=300 \
 	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
 	-DUDG_GRAPHICS \
@@ -1082,7 +1082,7 @@ zx81_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DSLOW_DOWN=10 -DNO_ANIMATION -DNO_DISPLAY_LEVEL_ANIMATION \
+	-D_XL_SLOW_DOWN_FACTOR=10 -DNO_ANIMATION -DNO_DISPLAY_LEVEL_ANIMATION \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=22 \
 	-vn \
@@ -1357,7 +1357,7 @@ micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
-	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DNO_COLOR -DNO_TITLE_LINE -D_XL_SLOW_DOWN_FACTOR=600 \
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
@@ -1371,7 +1371,7 @@ micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
-	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DCOMX_COLOR -DNO_TITLE_LINE -D_XL_SLOW_DOWN_FACTOR=600 \
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
@@ -1384,7 +1384,7 @@ micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_1_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
-	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DCOMX_COLOR -DNO_TITLE_LINE -D_XL_SLOW_DOWN_FACTOR=600 \
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
@@ -1398,7 +1398,7 @@ micro_ntsc1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_NTSC1_OPTS)  \
 	-D__MICRO__ -DNTSC \
 	-DFULL_GAME -DREDEFINED_CHARS \
-	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DCOMX_COLOR -DNO_TITLE_LINE -D_XL_SLOW_DOWN_FACTOR=600 \
 	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
@@ -1483,7 +1483,7 @@ cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
 	-DNO_COLOR -DNO_UDG \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK -DSLOW_DOWN=400 \
+	-DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=400 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -1494,7 +1494,7 @@ cidelsa_test: reduced_full_lcc1802_color_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
 	-DCIDELSA_COLOR -DCOMX_COLOR -DNO_BLINKING \
-	-DLCC1802_JOYSTICK -DSLOW_DOWN=400 \
+	-DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=400 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c

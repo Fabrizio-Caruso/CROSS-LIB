@@ -137,7 +137,7 @@
 #endif
 
 #if !defined(_XL_SLOW_DOWN_FACTOR)
-    #define _XL_SLOW_DOWN_FACTOR _XL_SLOW_DOWN_FACTOR
+    #define _XL_SLOW_DOWN_FACTOR 0
 #endif
 
 #if !defined(NO_SLOW_DOWN_MACRO)

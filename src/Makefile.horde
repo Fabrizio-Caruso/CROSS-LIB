@@ -1625,14 +1625,6 @@ COMX_COLOR_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
-COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(COMX_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c 
-
-COMX_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(COMX_COLOR_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c 
-
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
@@ -1648,7 +1640,7 @@ reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	$(COMX_EXTRA_FILES) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 
@@ -1715,8 +1707,7 @@ MICRO_COLOR_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(MICRO_COLOR_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c
+	$(MICRO_COLOR_EXTRA_FILES)
 
 ###############################################################################
 # COMX

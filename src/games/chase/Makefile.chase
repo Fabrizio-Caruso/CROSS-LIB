@@ -10,9 +10,30 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 GLOBAL_OPTS = -DFORCE_NARROW 
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
+
+SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+ZSDCC_OPTS ?= -SO3 $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+#-SO0
+# -SO3 --max-allocs-per-node200000
+
+ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
+Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
+#-j 8
+
 #####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers
+
 
 #####################################################################
 # Common includes and targets
@@ -98,102 +119,102 @@ include makefiles.other/chase/tests/Makefile.tests
 # ------------------------------------------------------------------------------------------
 # - CC65 
 
-include makefiles.chase/Makefile.cc65_targets
+include games/chase/makefiles.chase/Makefile.cc65_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - Z88DK 
 
-include makefiles.chase/Makefile.z88dk_targets
+include games/chase/makefiles.chase/Makefile.z88dk_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - CMOC
 
-include makefiles.chase/Makefile.cmoc_targets
+include games/chase/makefiles.chase/Makefile.cmoc_targets
 
 # ------------------------------------------------------------------------------------------
 # - ACK
 
-include makefiles.chase/Makefile.ack_targets
+include games/chase/makefiles.chase/Makefile.ack_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC
 
-include makefiles.chase/Makefile.gcc_targets
+include games/chase/makefiles.chase/Makefile.gcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - VBCC
 
-include makefiles.chase/Makefile.vbcc_targets
+include games/chase/makefiles.chase/Makefile.vbcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - CC6303
 
-include makefiles.chase/Makefile.cc6303_targets
+include games/chase/makefiles.chase/Makefile.cc6303_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC AMIGA
 
-include makefiles.chase/Makefile.gcc_amiga_targets
+include games/chase/makefiles.chase/Makefile.gcc_amiga_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC ATARI_ST
 
-include makefiles.chase/Makefile.gcc_atari_st_targets
+include games/chase/makefiles.chase/Makefile.gcc_atari_st_targets
 
 # ------------------------------------------------------------------------------------------
 # - XTC68
 
-include makefiles.chase/Makefile.xtc68_targets
+include games/chase/makefiles.chase/Makefile.xtc68_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - LCC1802
 
-include makefiles.chase/Makefile.lcc1802_targets
+include games/chase/makefiles.chase/Makefile.lcc1802_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC Z8K PCOS
 
-include makefiles.chase/Makefile.gcc_z8k_pcos_targets
+include games/chase/makefiles.chase/Makefile.gcc_z8k_pcos_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - EMCC
 
-include makefiles.chase/Makefile.emcc_targets
+include games/chase/makefiles.chase/Makefile.emcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC TMS9900
 
-include makefiles.chase/Makefile.gcc_tms9900_targets
+include games/chase/makefiles.chase/Makefile.gcc_tms9900_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - SDCC
 
-include makefiles.chase/Makefile.sdcc_targets
+include games/chase/makefiles.chase/Makefile.sdcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - WINCMOC
 #
 
-#include makefiles.chase/Makefile.wincmoc_targets
+#include games/chase/makefiles.chase/Makefile.wincmoc_targets
 
 
 
 #############################################################################################################################################
 # Cross dev-kit 
-#include makefiles.chase/Makefile.cross-dev-kit_targets
+#include games/chase/makefiles.chase/Makefile.cross-dev-kit_targets
 
 
 ####################################################################################################################

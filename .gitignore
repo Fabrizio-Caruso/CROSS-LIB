@@ -45,5 +45,4 @@ src/demos/reduced_full_lcc1802_color_combo.c
 src/games/reduced_full_lcc1802_combo.c
 src/games/reduced_full_lcc1802_color_combo.c
 src/games/reduced_full_lcc1802_micro_combo.c
-
-
+src/games/reduced_full_lcc1802_combo_no_sounds.c

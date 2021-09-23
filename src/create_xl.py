@@ -58,10 +58,10 @@ for file_name in file_names:
 
 templated_makefile_path = "./template_projects"
 
-shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./Makefile."+game_dir)
+shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
 
 #read input file
-fin = open("./Makefile."+game_dir, "rt")
+fin = open("./"+dest_path+"/Makefile."+game_dir, "rt")
 #read file contents to string
 data = fin.read()
 #replace all occurrences of the required string
@@ -69,8 +69,8 @@ data = data.replace('_GAME_NAME_', game_dir)
 data = data.replace('_PARENT_DIR_', parent_dir)
 #close the input file
 fin.close()
-#open the input file in write mode
-fin = open("./Makefile."+game_dir, "wt")
+#open the file in write mode
+fin = open("./"+dest_path+"/Makefile."+game_dir, "wt")
 #overrite the input file with the resulting data
 fin.write(data)
 #close the file

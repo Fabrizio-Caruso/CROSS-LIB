@@ -28,10 +28,10 @@ else:
     threads = sys.argv[3]
 
 
-if len(sys.argv)<5:
-    optimization = ""
+if len(sys.argv)>=5 and sys.argv[4]=="on":
+    optimization = "--max-allocs-per-node200000"
 else:
-    optimization = sys.argv[4]
+    optimization = ""
 
 
 print("Project name       : " + game_dir)

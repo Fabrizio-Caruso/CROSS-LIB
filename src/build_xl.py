@@ -23,30 +23,33 @@ else:
     target = sys.argv[2]
 
 if len(sys.argv)<4:
-    compile_mode = "parallel"
+    threads = "8"
 else:
-    if(sys.argv[3] != "parallel"):
-        compile_mode = "sequential"
-    else:
-        compile_mode = "parallel"
+    threads = sys.argv[3]
+
 
 if len(sys.argv)<5:
-    optimization = "no"
+    optimization = ""
 else:
-    optimization = "yes"
+    optimization = sys.argv[4]
 
-print("Project name: " + game_dir)
-print("Project type: " + project_type)
-print("Compile mode: " + compile_mode)
-print("Optimization: " + optimization)
+
+print("Project name       : " + game_dir)
+print("Project type       : " + project_type)
+print("Number of threads  : " + threads)
+print("Extra optimization : " + optimization)
 
 parent_and_game_dir = parent_dir + "/" + game_dir
 
 if not os.path.exists(parent_and_game_dir):
-    print("Game project not found!")
+    print("Project not found!")
     exit();
 
-make_command = "make " + target + " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+make_command = \
+    "make " + target + \
+        " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+        " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
+        " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
 print("run command : " + make_command)
 print("\n")

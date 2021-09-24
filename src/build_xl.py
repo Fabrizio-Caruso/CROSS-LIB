@@ -4,6 +4,25 @@ import shutil
 
 import os,sys
 
+from os import walk
+
+def multiple_run(mypath,target,threads,optimization):
+    projects = []
+    for (dirpath, dirnames, filenames) in walk(mypath):
+        projects.extend(dirnames)
+        break
+            
+    for project_name in projects:
+        make_command = \
+            "make " + target + \
+                " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+                " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
+                " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+
+        print("run command : " + make_command)
+        print("\n")
+        
+        os.system(make_command)
 
 if len(sys.argv)<2:
     game_dir = "helloworld"
@@ -41,17 +60,31 @@ print("Extra optimization : " + optimization)
 
 parent_and_game_dir = parent_dir + "/" + game_dir
 
-if not os.path.exists(parent_and_game_dir):
-    print("Project not found!")
-    exit();
+if(game_dir != "all" and game_dir != "all_games" and game_dir != "all_demos"):
+    if not os.path.exists(parent_and_game_dir):
+        print("Project not found!")
+        exit();
 
-make_command = \
-    "make " + target + \
-        " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-        " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
-        " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    make_command = \
+        "make " + target + \
+            " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+            " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
+            " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
-print("run command : " + make_command)
-print("\n")
+    print("run command : " + make_command)
+    print("\n")
 
-os.system(make_command)
+    os.system(make_command)
+    
+else:
+    if game_dir=="all_games":
+        multiple_run("games",target,threads,optimization)
+    elif game_dir=="all_demos":
+        multiple_run("demos",target,threads,optimization)
+    elif game_dir=="all":
+        multiple_run("games",target,threads,optimization)
+        multiple_run("demos",target,threads,optimization)
+    else:
+        exit()
+        
+

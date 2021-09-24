@@ -9,6 +9,30 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 GLOBAL_OPTS = -DNO_WALL
 
+
+#######################################################################
+# Use parameters (env variables) to modify compilation parameters
+
+SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+ZSDCC_OPTS ?= -SO3 $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+#-SO0
+# -SO3 --max-allocs-per-node200000
+
+ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
+Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
+#-j 8
+
+
 #####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers
@@ -53,12 +77,13 @@ Z88DK_MAKE_OPTS ?= -j 8
 #     lcc1802_targets 
 
 
-all:
-	make gcc_targets -f Makefile.$(GAME_NAME) 
-	make cc65_targets -f Makefile.$(GAME_NAME) 
-	make lcc1802_targets -f Makefile.$(GAME_NAME) 
-	make cmoc_targets -f Makefile.$(GAME_NAME) 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets -f Makefile.$(GAME_NAME) 
+
+all: \
+    gcc_targets \
+    cc65_targets \
+    cmoc_targets \
+    lcc1802_targets \
+    z88dk_targets
 
 
 gcc_targets: \
@@ -100,12 +125,28 @@ z88dk_targets: \
     vg5k
 
 
-lcc1802_targets: 
-	make comx -f Makefile.$(GAME_NAME)
-	make pecom -f Makefile.$(GAME_NAME)
-	make tmc600 -f Makefile.$(GAME_NAME)
-	make cidelsa -f Makefile.$(GAME_NAME)
-	make micro -f Makefile.$(GAME_NAME)
+_lcc1802_6x8_targets: \
+    _comx \
+    _pecom \
+    _micro
+
+lcc1802_6x8_targets: \
+    _lcc1802_6x8_targets \
+    clean_combo_files
+    
+_lcc1802_ascii_targets: \
+	_tmc600 \
+    _cidelsa
+
+lcc1802_ascii_targets: \
+	_tmc600 \
+    _cidelsa \
+	clean_combo_files
+
+lcc1802_targets: \
+	_lcc1802_6x8_targets \
+	_lcc1802_ascii_targets \
+    clean_combo_files
 
 
 #################################################################
@@ -1119,14 +1160,19 @@ reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm $(SOURCE_PATH)/../full_combo_rand.c
+	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
-	rm $(SOURCE_PATH)/../full_combo_rand.c
+	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
+clean_combo_files:
+	rm -rf $(SOURCE_PATH)/../full_combo_rand.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 
 LCC1802_BASIC_C_OPTS ?= \
 	-D__LCC1802__ \
@@ -1158,10 +1204,10 @@ REDUCED_LCC1802_C_OPTS ?= \
 ###############################################################################
 # COMX
 
-full_comx: comx
+_full_comx: _comx
 
 
-comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+_comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) -DCHAR_GRAPHICS \
 	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
@@ -1173,17 +1219,20 @@ comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+comx: \
+    _comx \
+    clean_combo_files
 
 ###############################################################################
 # PECOM
 
 
-full_pecom: pecom
+_full_pecom: _pecom
 
-pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+_pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DREDEFINED_CHARS \
@@ -1195,20 +1244,23 @@ pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+pecom: \
+    _pecom \
+    clean_combo_files
 
 ###############################################################################
 # TMC600
 
 
-full_tmc600: tmc600_16k
-tmc600: tmc600_16k
+_full_tmc600: _tmc600_16k
+_tmc600: _tmc600_16k
 
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
 # -savetemps -S
-tmc600_16k: reduced_full_lcc1802_combo.c
+_tmc600_16k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) -DNO_UDG -D_XL_SLOW_DOWN_FACTOR=600  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DSIMPLE_STRATEGY -DCHAR_GRAPHICS \
@@ -1217,20 +1269,23 @@ tmc600_16k: reduced_full_lcc1802_combo.c
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+tmc600: \
+    _tmc600 \
+    clean_combo_files
 
 ###############################################################################
 # CIDELSA DRACO
 
 
-cidelsa: cidelsa_draco
+_cidelsa: _cidelsa_draco
 
-cidelsa_draco: cidelsa_draco_32k
+_cidelsa_draco: _cidelsa_draco_32k
 
 # -DREDEFINED_CHARS
-cidelsa_draco_32k: reduced_full_lcc1802_combo.c
+_cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
 	-DNO_COLOR \
@@ -1238,16 +1293,21 @@ cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 	-DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=400 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+cidelsa_draco: \
+    _cidelsa_draco \
+    clean_combo_files
+
+cidelsa: cidelsa_draco
 
 ###############################################################################
 # MICRO
 
-micro: micro_pal2
+_micro: _micro_pal2
 
-micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+_micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
@@ -1257,16 +1317,24 @@ micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	 -DNINTH_CHAR_LINE \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+micro_pal2: \
+    _micro_pal2 \
+    clean_combo_files
+    
+micro: \
+    _micro \
+    clean_combo_files
 
 comx_targets: comx
 
 pecom_targets: pecom
 
-tmc600_targets: tmc600_37k
+tmc600_targets: tmc600
 
-cidelsa_targets: make cidelsa_draco_32k
+cidelsa_targets: cidelsa_draco_32k
 
 
 

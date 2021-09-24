@@ -32,7 +32,11 @@
 #include "images.h"
 
 // TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
+#if ((YSize)+(Y_OFFSET)-19)>=1
+    #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
+#else
+    #define MAX_INIT_Y_POS 1
+#endif
 
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19

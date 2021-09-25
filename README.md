@@ -242,20 +242,51 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GA
 -------------------------------------------
 
 
-## THE GAME CODE
+## THE UNIVESAL CODE
 
-The game code is *hardware-agnostic* and has to be as portable as possible.
-Therefore the following coding choices and design decisions have been made:
-1. ANSI C (for the game logic);
-2. strictly separated input/output and hardware-dependent code (in Cross-Lib) from the game logic;
-3. input for keyboard/joystick and output for sound and display are provided by Cross-Lib
+Thanks to Cross-Lib APIs, the game code can be *hardware-agnostic*.
+Using only Cross-Lib APIs is not enough, though, as Cross-Lib covers targets that may have a different screen size and shape and lack some hardware features such as graphics, colors, sounds.
 
-Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
+### ANSI C89 (A sub-set of)
+The code has to be compiled by sevaral different compilers. Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
+
+This sub-set of ANSI C89 is mostly ANSI C89 without:
+- `float` types,
+- `struct` copies, assignments, parameters (use pointers to `struct` instead).
+
+Moreover for performance reasons it is better to avoid:
+- recursion (as this has an extreme high cost on MOS 6502 targets);
+- 32-bit types because of their cost.
+
+Remark: Modern `//` comments are allowed.
+
+### Screen size
+Using Cross-Lib APIs is not enough as the screen size and shape may be different.
+So the game code should rely on fractions of the height (`YSize`) and width (`XSize`) of the screen and never use hard-coded sizes.
+
+### Colors
+Some targets have no colors. So do not write some logic that relies only on colors.
+
+### Sounds
+Some targets may have no sounds. So do not write some logic that relies only on sounds.
+
+### Graphics
+Some targets have no graphics. So do not write logic that only depends on the presense of graphics or if you do, 
+use some conditional directives to implement a version with no graphics.
+
+### Tile Shapes
+Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
+So do not implement logic that only assumes 8x8 pixel tiles (e.g. software sprites with pre-shifted tiles). 
+
+### Built-in games and tests
+Cross-Lib comes with games and tests whose code can be used to learn how to code universal games.
 
 The code of the games is in:
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/games
 
 The code of some tests is in:
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/tests
 
 
@@ -275,9 +306,16 @@ The main future goals are
 
 ## ADAPTIVE GRAPHICS
 
+Graphics in Cross-Lib is implemented in a way that can be rendered in the same way on all targets.
 
+### Tile-based 
+Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
+For targets with graphics, tiles are only defined at compilation time and cannot be re-defined.
+So smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
+
+### Adaptivity
 If colors, graphics and sounds are available the tool-chain and Cross-Lib will produce a game with some simple sound effects and with some possibly colored graphics.
-Otherwise Cross-Lib will produce a game with just ASCII graphics, no sound and no colors if these no graphics, no sound and no colors are available on a specific target.
+Otherwise Cross-Lib will produce a game with just ASCII graphics or no sound or no colors if no graphics or no sound or no colors are available on a specific target.
 
 For example for the game Cross Snake you can see how it is rendered on the MSX (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
 

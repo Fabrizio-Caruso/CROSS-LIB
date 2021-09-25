@@ -54,9 +54,6 @@ A partial list of the supported systems with their status is in:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
-The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
-
-
 The most significant supported 8-bit CPU architectures are:
 
 - COSMAC RCA 1802 and derivates
@@ -78,7 +75,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md
 
 Cross-Lib provides:
 - hardware-agnostic APIs for game development;
-- scripts that convert automatically compiler-agnostic graphics assets to different graphics assets formats
+- scripts that convert automatically compiler-agnostic graphics assets to different graphics assets formats;
 - makefiles that handle the build process
 - user-friendly scripts to manage game projects (see the subsequent sections below)
 
@@ -90,9 +87,9 @@ For a more complete list of supported compilers we refer to:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 When a game is built for a specific target, Cross-Lib will:
-- convert the abstract graphics assets in graphics assets for the given target on the fly;
-- compile the game by using the appropriate compiler;
-- if needed, create a disk/cassette/cartridge image.
+1. convert the abstract graphics assets in graphics assets for the given target on the fly;
+2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
+3. if needed, create a disk/cassette/cartridge image.
 
 -------------------------------------------
 

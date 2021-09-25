@@ -114,7 +114,8 @@ In order to compile the game you need:
 - a POSIX environment (e.g., Windows+Cygwin, Linux)
 - `make`
 - `python` (2.x or 3.x)
-- `gcc` and `ncurses` (necessary only for native builds).
+- `gcc` and `ncurses` (necessary only for native builds)
+- cross-compilers (necessary to build for vintage targets). 
 
 For more details on the prerequisites we refer to: 
 
@@ -189,11 +190,11 @@ Examples:
 -------------------------------------------
 ## LISTING PROJECTS
 
-You can list all current game and test projects with the `./list_xl.py` script with no arguments.
+You can list all current game and test projects with 
 
-Example:
+`./list_xl.py`
 
-`./list_xl.py` -> It searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
+which searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
 
 --------------------------------------------
 ## DELETING PROJECTS

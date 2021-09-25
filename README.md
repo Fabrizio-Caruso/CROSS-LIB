@@ -113,6 +113,21 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
+## HOW TO START USING CROSS-LIB
+
+Inside the project main directory, you find the `src` and the `build` directories:
+- `src` contains the source code and all other files that are necessary to build the games and tests
+- `build` is supposed to be empty at first and it is the target directory for the build process.
+
+
+Remark: In order to use Cross-Lib scripts to build, create or delete game projects you need to be in the `src` directory.
+
+You can use some scripts (and the `make` command) to do different operations on projects (such as create, build, delete, list).
+
+For a description of the script commands and their parameters, take a look at the next sections.
+
+-------------------------------------------
+
 ## HOW TO COMPILE GAMES AND TESTS
 
 In order to compile the game you need:
@@ -125,7 +140,6 @@ For more details on the prerequisites we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
-In order to build a game or a test, you need to be in the `src` directory.
 You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
 ### Using `build_xl.py` (recommended)
@@ -163,8 +177,6 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
 In order to build a new game project we can use the `create_xl.py` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
 
-Remark: You need to be in the `src` directory.
-
 The script is used as follows:
 
 `./create_xl.py [game project name] [initial code type]`
@@ -186,8 +198,6 @@ Remark: All binaries will be in the `build` directory (same depth level as `src`
 
 In order to remove binaries and temporary files that are produced during a build you can se the 'clean_xl' script.
 
-Remark: You need to be in the `src` directory.
-
 `./clean_xl [optional project name]`
 
 If you provide a project name, then project specific temporary files are removed but *ALL* built binaries are removed anyway.
@@ -197,18 +207,16 @@ Examples:
 - `./clean_xl.py foo` -> It deletes the same files as `./clean_xl.py` and also deletes specific temporary files found inside `foo` folder.
 
 -------------------------------------------
-## LISTING GAME PROJECTS
+## LISTING PROJECTS
 
 You can list all current game and test projects with the `./list_xl.py` script with no arguments.
-
-Remark: You need to be in the `src` directory.
 
 Example:
 
 `./list_xl.py` -> It searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
 
 --------------------------------------------
-## DELETING GAME PROJECTS
+## DELETING PROJECTS
 
 Non-built-in game projects can be deleted trhough the `./delete_xl.py` script in a very simple way:
 
@@ -288,27 +296,6 @@ For example for the game Cross Snake you can see how it is rendered on the MSX a
 For more snapshots we refer to: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
 
--------------------------------------------
-
-## CROSSLIB
-Cross-Lib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
-
-Cross-Lib code is in: 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/cross_lib
-
-### Sound
-Sound abstraction is achieved by providing common APIs for the (few) sounds that Cross-Lib provides.
-
-### Input
-Input abstraction is also achieved by common APIs that support either keyboard and/or joystick input for each possible target.
-
-### Display
-Display abstraction is provided by (at least) two levels of abstraction:
-- Common APIs that, for each target, implement one of several graphics modes;
-- Generic graphics modes that may be shared among a few targets.
-
-For more details on Cross-Lib we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSSLIB.md
 
 
 -------------------------------------------

@@ -25,7 +25,7 @@ The universal *retro-hardware abstraction layer*.
 
 ## THE GOAL
 
-*Cross-Lib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.). 
+*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.). 
 
 -------------------------------------------
 
@@ -55,7 +55,7 @@ It is a zombie shooter with several different enemies, levels, power-ups and spe
 -------------------------------------------
 
 
-## CURRENTLY SUPPORTED ARCHITECTURES
+## CURRENTLY SUPPORTED SYSTEMS AND ARCHITECTURES
 
 Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, hand-helds, arcade boards, scientifica calculators, etc.). 
 A partial list of the supported systems with their status is in: 
@@ -65,9 +65,8 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
 
 
-The most significant supported CPU architectures are described below.
+The most significant supported 8-bit CPU architectures are:
 
-### 8-BIT ARCHITECTURES
 - COSMAC RCA 1802 and derivates
 - Intel 8080 and derivatives
 - MOS 6502 and derivatives
@@ -75,39 +74,33 @@ The most significant supported CPU architectures are described below.
 - Motorola 6803
 - Zilog 80 and derivatives
 
+Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.
 
-### 16-BIT ARCHITECTURES
-- Intel 8088/8086 
-- Motorola 68000/68008
-- PDP11
-- TMS 9900
-- Zilog Z8000
+For a more complete list of architectures you can look at:
 
-### 32-BIT ARCHITECTURES
-- PowerPC
-- Intel 386
-- Motorola 68020
-- MIPS32r2 (little-endian)
-
-### 32/64-BIT ARCHITECTURE
-We also support any current architecture for which GCC can produce a working binary.
-
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md
 
 -------------------------------------------
 
 ## THE TOOL-CHAIN
 
-How is it this done?
-This is achieved  by having "Cross Lib" provide APIs for the game code.
-The game and library code are  separated: 
-- the game code only depends on the APIs interface and 
-- the APIs do not depend on the game code. Therefore it must be possible to re-use the same library for other games/programs.
+Cross-Lib provides:
+- hardware-agnostic APIs for game development;
+- scripts that convert automatically compiler-agnostic graphics assets to different graphics assets formats
+- makefiles that handle the build process
+- user-friendly scripts to manage game projects (see the subsequent sections below)
+
+Code written in C with Cross-Lib can be compiled by several diffrent cross-compilers and natively on the PC.
 
 The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
-
-For more details look at: 
+For a more complete list of supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
+
+When a game is built for a specific target, Cross-Lib will:
+- convert the abstract graphics assets in graphics assets for the given target on the fly;
+- compile the game by using the appropriate compiler;
+- if needed, create a disk/cassette/cartridge image.
 
 -------------------------------------------
 

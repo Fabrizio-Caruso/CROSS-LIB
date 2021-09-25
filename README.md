@@ -49,7 +49,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 ## CURRENTLY SUPPORTED SYSTEMS AND ARCHITECTURES
 
-Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, hand-helds, arcade boards, scientifica calculators, etc.). 
+Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, hand-helds, arcade boards, scientific pocket calculators, etc.). 
 A partial list of the supported systems with their status is in: 
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
@@ -85,7 +85,7 @@ Cross-Lib provides:
 
 ### The compilers
 
-Code written in C with Cross-Lib can be compiled by several diffrent cross-compilers and natively on the PC.
+Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
 
 The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
 For a more complete list of supported compilers we refer to:
@@ -242,21 +242,19 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GA
 -------------------------------------------
 
 
-## THE UNIVESAL CODE
+## HARDWARE-AGNOSTIC CODE
 
 Thanks to Cross-Lib APIs, the game code can be *hardware-agnostic*.
-Using only Cross-Lib APIs is not enough, though, as Cross-Lib covers targets that may have a different screen size and shape and lack some hardware features such as graphics, colors, sounds.
+Using only Cross-Lib APIs is not enough, though, as Cross-Lib covers targets that have different screen size, screen shape and targets that lack some hardware features such as graphics, colors, sounds.
 
 ### ANSI C89 (A sub-set of)
-The code has to be compiled by sevaral different compilers. Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
+The code has to be compiled by several different compilers. Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
 
-This sub-set of ANSI C89 is mostly ANSI C89 without:
+This sub-set is mostly ANSI C89 without:
 - `float` types,
 - `struct` copies, assignments, parameters (use pointers to `struct` instead).
 
-Moreover for performance reasons it is better to avoid:
-- recursion (as this has an extreme high cost on MOS 6502 targets);
-- 32-bit types because of their cost.
+Moreover for performance reasons it is better to avoid recursion (as this has an extreme high cost on MOS 6502 targets).
 
 Remark: Modern `//` comments are allowed.
 
@@ -271,7 +269,7 @@ Some targets have no colors. So do not write some logic that relies only on colo
 Some targets may have no sounds. So do not write some logic that relies only on sounds.
 
 ### Graphics
-Some targets have no graphics. So do not write logic that only depends on the presense of graphics or if you do, 
+Some targets have no graphics. So do not write logic that only depends on the presence of graphics or if you do, 
 use some conditional directives to implement a version with no graphics.
 
 ### Tile Shapes

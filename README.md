@@ -62,7 +62,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
 
 
-The most significant supported CPU architecture are described below.
+The most significant supported CPU architectures are described below.
 
 ### 8-BIT ARCHITECTURES
 - COSMAC RCA 1802 and derivates
@@ -89,18 +89,10 @@ The most significant supported CPU architecture are described below.
 ### 32/64-BIT ARCHITECTURE
 We also support any current architecture for which GCC can produce a working binary.
 
-
--------------------------------------------
-
-## SUPPORTED SYSTEMS AND THEIR STATUS
-
-
+### 200 DIFFERENT SYSTEMS
 For most vintage systems (more than 200 different systems and sub-systems), you can build a version of the game with some graphics, sounds and real time input.
 In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
 You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
-
-For a complete list of the supported systems and their status look at:
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 
 -------------------------------------------
@@ -116,6 +108,7 @@ The game and library code are  separated:
 The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
 
 For more details look at: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
@@ -126,10 +119,10 @@ In order to compile the game you need:
 - a POSIX environment (e.g., Windows+Cygwin, Linux)
 - `make`
 - `python` (2.x or 3.x)
-
-I recommend also `gcc` and `ncurses` so that natives builds are possible.
+- `gcc` and `ncurses` (necessary only for native builds).
 
 For more details on the prerequisites we refer to: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 In order to build a game or a test, you need to be in the `src` directory.
@@ -168,9 +161,12 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 -------------------------------------------
 ## BUILDING A NEW GAME PROJECT
 
-In order to build a new game project we can use the `create_xl.py` scripts that will create the necessary file and Makefile inside the `games` folder.
+In order to build a new game project we can use the `create_xl.py` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
+
+Remark: You need to be in the `src` directory.
 
 The script is used as follows:
+
 `./create_xl.py [game project name] [initial code type]`
 
 where `[initial code type]` can be 
@@ -179,9 +175,48 @@ where `[initial code type]` can be
 - `apis` for an initial code that uses most APIs.
 
 Examples:
-- `./create_xl.py foo` -> builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
-- `./create_xl.py bar game` -> builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
-- `./create_xl.py foobar apis` -> builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
+- `./create_xl.py foo` -> It builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
+- `./create_xl.py bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
+- `./create_xl.py foobar apis` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
+
+Remark: All binaries will be in the `build` directory (same depth level as `src`).
+
+-------------------------------------------
+## CLEANING TEMPORARY FILES AND BINARIES
+
+In order to remove binaries and temporary files that are produced during a build you can se the 'clean_xl' script.
+
+Remark: You need to be in the `src` directory.
+
+`./clean_xl [optional project name]`
+
+If you provide a project name, then project specific temporary files are removed but *ALL* built binaries are removed anyway.
+
+Examples:
+- `./clean_xl.py` -> It deletes all built binaries and some generic temporary files
+- `./clean_xl.py foo` -> It deletes the same files as `./clean_xl.py` and also deletes specific temporary files found inside `foo` folder.
+
+-------------------------------------------
+## LISTING GAME PROJECTS
+
+You can list all current game and test projects with the `./list_xl.py` script with no arguments.
+
+Remark: You need to be in the `src` directory.
+
+Example:
+
+`./list_xl.py` -> It searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
+
+--------------------------------------------
+## DELETING GAME PROJECTS
+
+Non-built-in game projects can be deleted trhough the `./delete_xl.py` script in a very simple way:
+
+`./delete_xl.py [game project name]`
+
+Example: 
+
+`./delete_xl.py foo` -> It removes the `foo` source code, assets and Makefile files
 
 -------------------------------------------
 ## CROSS-LIB APIs

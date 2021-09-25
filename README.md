@@ -34,6 +34,7 @@ The universal *retro-hardware abstraction layer*.
 These games are the proof of the flexibility of *Cross-Lib*.
 
 Play the games online:
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 1. *Cross Chase* is compiled for and run
@@ -56,7 +57,9 @@ It is a zombie shooter with several different enemies, levels, power-ups and spe
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
 
+Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, hand-helds, arcade boards, scientifica calculators, etc.). 
 A partial list of the supported systems with their status is in: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
@@ -88,11 +91,6 @@ The most significant supported CPU architectures are described below.
 
 ### 32/64-BIT ARCHITECTURE
 We also support any current architecture for which GCC can produce a working binary.
-
-### 200 DIFFERENT SYSTEMS
-For most vintage systems (more than 200 different systems and sub-systems), you can build a version of the game with some graphics, sounds and real time input.
-In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
-You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
 
 
 -------------------------------------------
@@ -229,7 +227,9 @@ Example:
 -------------------------------------------
 ## CROSS-LIB APIs
 
+Cross-Lib provides several APIs that allow to code games in a hardware-agnostic way for all supported targets.
 The currently available APIs are described at
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 
 -------------------------------------------

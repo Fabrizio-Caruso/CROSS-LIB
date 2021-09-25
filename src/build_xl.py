@@ -30,7 +30,7 @@ else:
     game_dir = sys.argv[1]
 
 if(game_dir in ["tiles","sounds","matrix","invaders","zombies"]):
-    project_type = "demo"
+    project_type = "test"
 else:
     project_type = "game" 
 
@@ -60,7 +60,7 @@ print("Extra optimization : " + optimization)
 
 parent_and_game_dir = parent_dir + "/" + game_dir
 
-if(game_dir != "all" and game_dir != "all_games" and game_dir != "all_demos"):
+if(game_dir not in ["games", "tests", "all"]):
     if not os.path.exists(parent_and_game_dir):
         print("Project not found!")
         exit();
@@ -77,13 +77,13 @@ if(game_dir != "all" and game_dir != "all_games" and game_dir != "all_demos"):
     os.system(make_command)
     
 else:
-    if game_dir=="all_games":
+    if game_dir=="games":
         multiple_run("games",target,threads,optimization)
-    elif game_dir=="all_demos":
-        multiple_run("demos",target,threads,optimization)
+    elif game_dir=="tests":
+        multiple_run("tests",target,threads,optimization)
     elif game_dir=="all":
         multiple_run("games",target,threads,optimization)
-        multiple_run("demos",target,threads,optimization)
+        multiple_run("tests",target,threads,optimization)
     else:
         exit()
         

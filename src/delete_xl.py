@@ -23,8 +23,8 @@ else:
     if(sys.argv[2]=="game"):
         project_type = "game"
     else: 
-        if(sys.argv[2]=="demo"):
-            project_type = "demo"
+        if(sys.argv[2]=="test"):
+            project_type = "test"
         else:
             project_type = "helloworld"
 

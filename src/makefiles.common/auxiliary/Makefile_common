@@ -116,11 +116,16 @@ clean_lis:
 clean_obj: \
 	clean_chase_obj \
 	clean_chase_temp \
-	clean_lib_obj
+	clean_lib_obj \
+    clean_lis
 
 clean_build:
 	rm -rf $(BUILD_PATH)/*
 
+clean_generic: \
+    clean_build \
+    clean_lib_obj \
+    clean_lis
 
 clean: \
 	clean_obj \

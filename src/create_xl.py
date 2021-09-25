@@ -20,7 +20,7 @@ else:
     if(sys.argv[2]=="game"):
         project_type = "game"
     else: 
-        if(sys.argv[2]=="demo"):
+        if(sys.argv[2] in ["apis","show_apis","test","show"]):
             project_type = "demo"
         else:
             project_type = "helloworld"

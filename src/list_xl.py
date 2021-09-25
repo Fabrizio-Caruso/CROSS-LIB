@@ -7,7 +7,7 @@ import os,sys
 from os import walk
 
 
-project_dirs = ["demos", "games"]
+project_dirs = ["tests", "games"]
 
 projects = []
 

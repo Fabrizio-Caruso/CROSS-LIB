@@ -6,12 +6,17 @@ import os,sys
 
 
 if len(sys.argv)<2:
-    game_dir = "helloworld"
+    make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
+
+    print("run command : " + make_command)
+    print("")
+    os.system(make_command)
+    exit();
 else:
     game_dir = sys.argv[1]
 
 if(game_dir in ["tiles","sounds","matrix","invaders","zombies"]):
-    project_type = "demo"
+    project_type = "test"
 else:
     project_type = "game" 
 

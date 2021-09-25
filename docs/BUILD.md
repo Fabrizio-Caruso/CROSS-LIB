@@ -1,75 +1,85 @@
 
 
-
 # BUILD INSTRUCTIONS
 
-If you just want to build the game only for a specific system without choosing a specific version, 
-you can build the default target for a given system with
+## Build the default target for a given system
 
-`make [system_name] -f Makefile.[game name]`
+In order to build a game or a test, you need to be in the `src` directory.
+You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
+### Using `build_xl.py`
 
-For the list of systems either run `make list` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+I recommend that you use `build_xl.py` as follows:
 
-The following sections are meant for *Cross Chase* and so the commands can omit `-f Makefile.[game name]`.
-For the other games the same target names are used but fewer targets exist.
+`./build_xl [game_or_test_name] [optional system_name]`
 
-## Compile a specific target
-For this you may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
-The name of the default target for a given system is given by `[system name]`. For the list of systems either run `make list` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+Built-in games are 
 
-Examples: 
-- `make c64` builds a Commodore 64 binary.
-- `make nes` builds a binary for the Nintendo NES videogame console.
-- `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
+`chase`, `shoot`, `bomber`, `snake`, `horde`. 
 
-The name of the target is given by the `[system name]_[optional attribute(s)]`.
-The most common attributes are:
-- memory (e.g., `exp`, `3k`, `8k`, `16k`, `32k`, etc.);
-- target video mode (e.g., `40col`, `80col`, `wrx`, `adm3a`, `vt52`, `vt100`, etc.);
-- display mode (e.g., `buffered`, `udg`, etc.);
-- CPU used for models with more than one CPU architecture (e.g., for the Commodore 128 you may have `z80` or `8502`);
-- game mode (`turnbased`);
-- input mode (e.g., `qaopm`, `ijkl`, `joystick`, etc.)
-- binary format (e.g., `wav`, `crt`, `cmd`, etc.)
+Built-in tests are 
 
-Examples: 
-- `make gcc_buffered` builds a GCC buffered and turn-based version for the host console.
-- `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
-- `make vic20_exp_8k` builds a binary for the Commodore Vic 20 with an 8k memory expansion (`exp` means that the expansion brings 8k of "additional" memory)
+`tiles`, `sounds`, `matrix`, `zombies`, `invaders`.
 
+For the list of supported systems look at 
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
-## Compile all targets for a given system 
-Run `make [system name]_targets`, where [system name] is one of the systems listed in link in the section "SUPPORTED TARGETS " of this document.
+If no system name is given, a native version of the game or test is built by using `gcc` and `ncurses`.
+
+*Only when using the script*: If you use the script you can pass `games`, `tests` or `all` as `[game_or_test_name]` to build all games, tests or all projects (games and tests) for a specific system or list of systems.
+
+As system you can also pass a group of systems such as: 
+- `[compiler name]_targets` to build a given project for all targets compiled by a given compiler (e.g., `cc65_targets`, `z88dk_targets`, `cmoc_targets`, etc.)
+- `all` to build a given project on all possible targets (avoid this if you are not sure as it fails if you have not installed *all* compilers).
 
 Examples:
-- `make vic20_targets` builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations).
-- `make spectrum_targets` builds all Sinclair Spectrum binaries (different versions of the game for different memory configurations).
-- `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
+- `./build_xl.py snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `./build_xl.py chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
+- `./build_xl.py bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `./build_xl.py snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `./build_xl.py games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `./build_xl.py bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `./build_xl.py tests c64` -> It builds all tests for the Commodore 64 target
+- `./build_xl.py all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
 
 
+### Using `make`
+Using a standard `make` comamnd is possible but you will get fewer options.
 
-## Compile all targets for a given cross-compiler
-Run `make [compiler name]_targets` where the [compiler name] is of one the supported compilers and dev-kits as shown in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
+For game projects you can use:
+
+`make [system_name] -f ./games/[game_name]/Makefile.[game_name]`
+
+For test projects you can use:
+`make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
 
 Examples: 
-- `make cmoc_targets` builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.
-- `make gcc_targets` builds all targets by using GCC for the host console (e.g., CYGWIN, Linux, etc. console).
-- `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
-- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
-
+- `make vic20 -f ./games/horde/Makefile.horde` builds *Cross Horde* for Commodore Vic 20.
+- `make c64 -f ./games/chase/Makefile.chase` builds *Cross Chase* for Commodore 64.
+- `make nes -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for the Nintendo NES videogame console.
+- `make spectrum -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for the Sinclair ZX Spectrum.
+- `make ti83 -f ./games/chase/Makefile.chase` builds *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
+- `make ncurses -f ./games/chase/Makefile.chase` builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+- `make cc65_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make cmoc_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
+- `make z88dk_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make cc65_targets -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make z88dk_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make lcc1802_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
 
 ## Special cases
 Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.
 In such cases we can specify the version or architecture:
 
-Examples:
+Examples for games:
 - `make c128_targets` builds all Commodore 128 targets for both the MOS 8502 and for the more exotic Zilog 80 non-CP/M mode.
 - `make c128_8502_targets` builds all Commodore 128 targets for the MOS 8502 architecture in both 40 and 80 column mode.
 - `make c128_z80_targets` builds all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode.
 - `make cpm_targets` builds all "generic" CP/M targets for both the Intel 8080 and Zilog 80 architecture.
 - `make cpm_8080_targets` builds all "generic" CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
 - `make cpm_z80_targets` builds all "generic" CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
+
+Examples for tests:
+- `make vic20 -f ./tests/tiles/Makefile.tiles` builds the test `tiles` for the Commodore Vic 20.
+- `make cpc -f ./tests/sounds/Makefile.sounds` builds the test `sounds` for the Amstrad CPC computer.
+- `make atari -f ./tests/invaders/Makefile.invaders` builds the tests `invaders` for the Atari 8-bit computer.

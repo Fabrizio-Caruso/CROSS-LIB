@@ -69,7 +69,7 @@ supervision_dummy:
 	
 
 atari_lynx_hello_test:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../debug/tgi_lynx_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
     
 atari_lynx_black_test:

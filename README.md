@@ -120,37 +120,26 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
-## HOW TO COMPILE THE GAMES AND TESTS
-In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
+## HOW TO COMPILE GAMES AND TESTS
 
-For more details we refer to: 
+In order to compile the game you need:
+- a POSIX environment (e.g., Windows+Cygwin, Linux)
+- `make`
+- `python` (2.x or 3.x)
+
+I recommend also `gcc` and `ncurses` so that natives builds are possible.
+
+For more details on the prerequisites we refer to: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
-
-
-### Build the default target for a given system
 
 In order to build a game or a test, you need to be in the `src` directory.
 You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-#### Using `build_xl.py`
+### Using `build_xl.py`
 
 I recommend that you use `build_xl.py` as follows:
 
 `./build_xl [game_or_test_name] [optional system_name]`
-
-Built-in games are `chase`, `shoot`, `bomber`, `snake`, `horde`. 
-Built-in tests are `tiles`, `sounds`, `matrix`, `zombies`, `invaders`.
-
-For the list of supported systems look at 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
-
-If no system name is given, a native version of the game or test is built by using `gcc` and `ncurses`.
-
-*Only when using the script*: If you use the script you can pass `games`, `tests` or `all` as `[game_or_test_name]` to build all games, tests or all projects (games and tests) for a specific system or list of systems.
-
-As system you can also pass a group of systems such as: 
-- `[compiler name]_targets` to build a given project for all targets compiled by a given compiler (e.g., `cc65_targets`, `z88dk_targets`, `cmoc_targets`, etc.)
-- `all` to build a given project on all possible targets (avoid this if you are not sure as it fails if you have not installed *all* compilers).
 
 Examples:
 - `./build_xl.py snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
@@ -158,12 +147,9 @@ Examples:
 - `./build_xl.py bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
 - `./build_xl.py snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
 - `./build_xl.py games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `./build_xl.py bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
-- `./build_xl.py tests c64` -> It builds all tests for the Commodore 64 target
-- `./build_xl.py all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
 
+### Using `make`
 
-#### Using `make`
 Using a standard `make` comamnd is possible but you will get fewer options.
 
 For game projects you can use:
@@ -171,20 +157,27 @@ For game projects you can use:
 `make [system_name] -f ./games/[game_name]/Makefile.[game_name]`
 
 For test projects you can use:
+
 `make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
 
-Examples: 
-- `make c64 -f ./games/chase/Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.
-- `make nes -f ./games/shoot/Makefile.shoot` builds the default binary of *Cross Shoot* for the Nintendo NES videogame console.
-- `make spectrum -f ./games/bomber/Makefile.bomber` builds the default binary of *Cross Bomber* for the Sinclair ZX Spectrum.
-- `make ti83 -f ./games/chase/Makefile.chase` (or equivalently `make ti83`) builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
-- `make gcc_targets -f ./games/chase/Makefile.chase` (or equivalently `make gcc_targets`) builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+Examples for games:
+- `make vic20 -f ./games/horde/Makefile.horde` builds *Cross Horde* for the Commodore Vic 20.
+- `make nes -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for the Nintendo NES videogame console.
+- `make spectrum -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for the Sinclair ZX Spectrum.
+- `make ti83 -f ./games/chase/Makefile.chase` builds *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
+- `make ncurses -f ./games/chase/Makefile.chase` builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
 - `make cc65_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
 - `make cmoc_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
 - `make z88dk_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
-- `make cc65_targets -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
-- `make z88dk_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
-- `make lcc1802_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
+
+Examples for tests:
+- `make vic20 -f ./tests/tiles/Makefile.tiles` builds the test `tiles` for the Commodore Vic 20.
+- `make cpc -f ./tests/sounds/Makefile.sounds` builds the test `sounds` for the Amstrad CPC computer.
+- `make atari -f ./tests/invaders/Makefile.invaders` builds the tests `invaders` for the Atari 8-bit computer.
+
+For more details on build instructions look at:
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
+
 
 -------------------------------------------
 ## CROSS-LIB APIs
@@ -224,16 +217,10 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 The code of the games is in:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/games
 
-The code of some demos is in:
+The code of some tests is in:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/demos
 
 
--------------------------------------------
-
-## KNOWN ISSUES
-
-Z80-based targets:
-https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3xNY/edit?usp=sharing
 
 -------------------------------------------
 

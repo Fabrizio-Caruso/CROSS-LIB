@@ -214,7 +214,7 @@ include games/chase/makefiles.chase/Makefile.sdcc_targets
 
 #############################################################################################################################################
 # Cross dev-kit 
-#include games/chase/makefiles.chase/Makefile.cross-dev-kit_targets
+include games/chase/makefiles.chase/Makefile.cross-dev-kit_targets
 
 
 ####################################################################################################################

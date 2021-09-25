@@ -135,7 +135,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 In order to build a game or a test, you need to be in the `src` directory.
 You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-### Using `build_xl.py`
+### Using `build_xl.py` (recommended)
 
 I recommend that you use `build_xl.py` as follows:
 
@@ -143,10 +143,11 @@ I recommend that you use `build_xl.py` as follows:
 
 Examples:
 - `./build_xl.py snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `./build_xl.py chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
 - `./build_xl.py bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
 - `./build_xl.py snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
 - `./build_xl.py games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `./build_xl.py bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `./build_xl.py tests c64` -> It builds all tests for the Commodore 64 target
 
 ### Using `make`
 
@@ -160,24 +161,27 @@ For test projects you can use:
 
 `make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
 
-Examples for games:
-- `make vic20 -f ./games/horde/Makefile.horde` builds *Cross Horde* for the Commodore Vic 20.
-- `make nes -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for the Nintendo NES videogame console.
-- `make spectrum -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for the Sinclair ZX Spectrum.
-- `make ti83 -f ./games/chase/Makefile.chase` builds *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
-- `make ncurses -f ./games/chase/Makefile.chase` builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
-- `make cc65_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
-- `make cmoc_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
-- `make z88dk_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+For more details and examples on build instructions for both `build_xl.py` and `make` we refer to:
 
-Examples for tests:
-- `make vic20 -f ./tests/tiles/Makefile.tiles` builds the test `tiles` for the Commodore Vic 20.
-- `make cpc -f ./tests/sounds/Makefile.sounds` builds the test `sounds` for the Amstrad CPC computer.
-- `make atari -f ./tests/invaders/Makefile.invaders` builds the tests `invaders` for the Atari 8-bit computer.
-
-For more details on build instructions look at:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
+-------------------------------------------
+## BUILDING A NEW GAME PROJECT
+
+In order to build a new game project we can use the `create_xl.py` scripts that will create the necessary file and Makefile inside the `games` folder.
+
+The script is used as follows:
+`./create_xl.py [game project name] [initial code type]`
+
+where `[initial code type]` can be 
+- empty for a helloworld initial code
+- `game` for an initial code for a standard game with a main loop and a level loop
+- `apis` for an initial code that uses most APIs.
+
+Examples:
+- `./create_xl.py foo` -> builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
+- `./create_xl.py bar game` -> builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
+- `./create_xl.py foobar apis` -> builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
 
 -------------------------------------------
 ## CROSS-LIB APIs

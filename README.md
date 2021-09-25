@@ -31,7 +31,10 @@ The universal *retro-hardware abstraction layer*.
 
 ## THE GAMES
 
-These games are the proof of the flexibility of *Cross-Lib*:
+These games are the proof of the flexibility of *Cross-Lib*.
+
+Play the games online:
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 1. *Cross Chase* is compiled for and run
 on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
@@ -46,16 +49,17 @@ It a my personal re-interpretation of Nibbler (arcade game) to which I have adde
 5. *Cross Horde* is similar in size to *Cross Chase* and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
 It is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
 
-You can play the games online and read more about them in:
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
+
 
 -------------------------------------------
 
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
-The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
+
 A partial list of the supported systems with their status is in: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
+
+The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
 
 
 The most significant supported CPU architecture are described below.
@@ -116,88 +120,71 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
-## HOW TO COMPILE THE GAMES
+## HOW TO COMPILE THE GAMES AND TESTS
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 For more details we refer to: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 
-### Compilation tests
-
-You can quickly test the native compilation with `GCC` on the full code of *Cross Chase* by running 
-
-`make simple_test` 
-
-If you want to run multiple tests (based on the code of *Cross Chase*) you can use: 
-
-`make no_z88dk_test`    -> runs tests on few targets excluding the ones that use Z88DK on the full code
-
-`make z88dk_test`       -> runs tests on few targets that use Z88DK on the full code
-
-`make test`             -> runs tests on few targets including the ones that use Z88DK on the full code
-
-`make z88dk_quick_test` -> runs tests on many targets that only use Z88DK on a sub-set of the code
-
-
 ### Build the default target for a given system
 
-If you just want to build the game only for a specific system without choosing a specific version, 
-you can build the default target for a given system with
+In order to build a game or a test, you need to be in the `src` directory.
+You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-`make [system_name] -f Makefile.[game_name]`
+#### Using `build_xl.py`
 
-where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
+I recommend that you use `build_xl.py` as follows:
 
-For the list of systems either run `make status`or look at 
+`./build_xl [game_or_test_name] [optional system_name]`
+
+Built-in games are `chase`, `shoot`, `bomber`, `snake`, `horde`. 
+Built-in tests are `tiles`, `sounds`, `matrix`, `zombies`, `invaders`.
+
+For the list of supported systems look at 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
+If no system name is given, a native version of the game or test is built by using `gcc` and `ncurses`.
+
+*Only when using the script*: If you use the script you can pass `games`, `tests` or `all` as `[game_or_test_name]` to build all games, tests or all projects (games and tests) for a specific system or list of systems.
+
+As system you can also pass a group of systems such as: 
+- `[compiler name]_targets` to build a given project for all targets compiled by a given compiler (e.g., `cc65_targets`, `z88dk_targets`, `cmoc_targets`, etc.)
+- `all` to build a given project on all possible targets (avoid this if you are not sure as it fails if you have not installed *all* compilers).
+
+Examples:
+- `./build_xl.py snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `./build_xl.py chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
+- `./build_xl.py bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `./build_xl.py snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `./build_xl.py games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `./build_xl.py bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `./build_xl.py tests c64` -> It builds all tests for the Commodore 64 target
+- `./build_xl.py all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
+
+
+#### Using `make`
+Using a standard `make` comamnd is possible but you will get fewer options.
+
+For game projects you can use:
+
+`make [system_name] -f ./games/[game_name]/Makefile.[game_name]`
+
+For test projects you can use:
+`make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
+
 Examples: 
-- `make c64 -f Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.
-- `make nes -f Makefile.shoot` builds the default binary of *Cross Shoot* for the Nintendo NES videogame console.
-- `make spectrum -f Makefile.bomber` builds the default binary of *Cross Bomber* for the Sinclair ZX Spectrum.
-- `make ti83 -f Makefile.chase` (or equivalently `make ti83`) builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
-
-
-### Build all targets for a given system 
-
-You can build all targets for a given system with
-
-`make [system_name]_targets`
-
-These targets currently exist mostly for *Cross Chase*. So no need to specify `-f Makefile.chase`.
-
-See the list of the supported systems follow the link above or run `make list`.
-
-Examples:
-- `make vic20_targets` builds all *Cross Chase* binaries for the Commodore Vic 20.
-- `make spectrum_targets` builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
-
-
-### Build all targets that are built by a given compiler or devkit:
-
-`make [compiler_name]_targets -f Makefile.[game_name]`
-
-where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
-
-You can find the list of compilers and dev-kit if you either run `make help` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILER_NAMES.md
-
-
-Examples:
-- `make gcc_targets -f Makefile.chase` (or equivalently `make gcc_targets`) builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
-- `make cc65_targets` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
-- `make cmoc_targets` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
-- `make z88dk_targets` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
-- `make cc65_targets -f Makefile.shoot` builds *Cross Shoot* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
-- `make z88dk_targets -f Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
-- `make lcc1802_targets -f Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
-
-
-### Detailed build instructions 
-
-For more details on how to build either run `make help` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
+- `make c64 -f ./games/chase/Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.
+- `make nes -f ./games/shoot/Makefile.shoot` builds the default binary of *Cross Shoot* for the Nintendo NES videogame console.
+- `make spectrum -f ./games/bomber/Makefile.bomber` builds the default binary of *Cross Bomber* for the Sinclair ZX Spectrum.
+- `make ti83 -f ./games/chase/Makefile.chase` (or equivalently `make ti83`) builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
+- `make gcc_targets -f ./games/chase/Makefile.chase` (or equivalently `make gcc_targets`) builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+- `make cc65_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make cmoc_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
+- `make z88dk_targets ./games/chase/Makefile.chase` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make cc65_targets -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make z88dk_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make lcc1802_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
 
 -------------------------------------------
 ## CROSS-LIB APIs

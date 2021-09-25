@@ -37,19 +37,11 @@ Play the games online:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
-1. *Cross Chase* is compiled for and run
-on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
-It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
-It is somehow similar to *Gnome Robots*. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
-2. *Cross Shoot* requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
-It is a shooter somehow similar to Robotron. It has many items and secrets to discover.
-3. *Cross Bomber* is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
-Its code is almost entirely in a single file. It uses pre-shifted tiles to produce smoother movements on graphics-enabled targets.
-4. *Cross Snake* is similar in size to *Cross Chase* and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
-It a my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
-5. *Cross Horde* is similar in size to *Cross Chase* and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
-It is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
-
+1. *Cross Chase* is somehow similar to *Gnome Robots*. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
+2. *Cross Shoot* is a shooter somehow similar to Robotron. It has many items and secrets to discover.
+3. *Cross Bomber* is a mini-game and clone of Air Attack (aka Blitz).
+4. *Cross Snake* is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
+5. *Cross Horde* is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
 
 
 -------------------------------------------

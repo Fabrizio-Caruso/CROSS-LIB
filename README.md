@@ -73,11 +73,17 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md
 
 ## THE TOOL-CHAIN
 
+Cross-Lib provides a full tool-chain to build universal vintage 8-bit games. 
+
+### Cross-Lib components
+
 Cross-Lib provides:
-- hardware-agnostic APIs for game development;
-- scripts that convert automatically compiler-agnostic graphics assets to different graphics assets formats;
-- makefiles that handle the build process
-- user-friendly scripts to manage game projects (see the subsequent sections below)
+- a library with hardware-agnostic APIs for game development;
+- scripts that convert automatically compiler-agnostic graphics assets to target-specific graphics assets formats;
+- makefiles that handle the build process;
+- user-friendly scripts to manage game projects (see the subsequent sections below).
+
+### The compilers
 
 Code written in C with Cross-Lib can be compiled by several diffrent cross-compilers and natively on the PC.
 
@@ -85,6 +91,8 @@ The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC
 For a more complete list of supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
+
+### The build process
 
 When a game is built for a specific target, Cross-Lib will:
 1. convert the abstract graphics assets in graphics assets for the given target on the fly;

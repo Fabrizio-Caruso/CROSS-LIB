@@ -8,13 +8,6 @@
 #include "memory_mapped_graphics.h"
 #include "display_macros.h"
 
-
-void set_group_color(uint8_t group, uint8_t color)
-{
-	DISPLAY_POKE((uint16_t) COLOR_DEF + (uint16_t) group, ((uint16_t) color)<<4);
-}
-
-
 /*
 
 0 Transparent
@@ -41,7 +34,18 @@ void set_group_color(uint8_t group, uint8_t color)
 #define _CREAT_VDP_RED 9
 #define _CREAT_VDP_YELLOW 10
 #define _CREAT_VDP_WHITE 15
+#define _CREAT_VDP_BLACK 0
 
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #define _CREAT_BACKGROUND_COLOR _CREAT_VDP_WHITE
+#else
+    #define _CREAT_BACKGROUND_COLOR _CREAT_VDP_BLACK
+#endif
+
+void set_group_color(uint8_t group, uint8_t color)
+{
+	DISPLAY_POKE((uint16_t) COLOR_DEF + (uint16_t) group, (((uint16_t) color)<<4)+_CREAT_BACKGROUND_COLOR);
+}
 
 
 // const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 

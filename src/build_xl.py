@@ -29,7 +29,7 @@ if len(sys.argv)<2:
 else:
     game_dir = sys.argv[1]
 
-if(game_dir in ["tiles","sounds","matrix","invaders","zombies"]):
+if(game_dir in ["tiles","sounds","input","matrix","invaders","zombies"]):
     project_type = "test"
 else:
     project_type = "game" 

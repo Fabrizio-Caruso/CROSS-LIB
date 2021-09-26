@@ -10,7 +10,7 @@ if len(sys.argv)<2:
     game_dir="helloworld"
 else:
     candidate_name = sys.argv[1]
-    if(candidate_name in ["chase", "shoot", "bomber", "snake", "horde", "tiles", "matrix", "invaders", "zombies", "sounds"]):
+    if(candidate_name in ["chase", "shoot", "bomber", "snake", "horde", "tiles", "matrix", "invaders", "zombies", "sounds","input"]):
         print("invalid name!")
         exit()
     else:

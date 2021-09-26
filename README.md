@@ -273,6 +273,7 @@ Some targets have no graphics. So do not write logic that only depends on the pr
 use some conditional directives to implement a version with no graphics.
 
 ### Tile Shapes
+Cross-Lib APIs only support tile-based graphics with pre-defined (at compilation time) tile shapes in order to support all targets. 
 Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
 So do not implement logic that only assumes 8x8 pixel tiles (e.g. software sprites with pre-shifted tiles). 
 
@@ -288,6 +289,30 @@ The code of some tests is in:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/tests
 
 
+-------------------------------------------
+
+## ADAPTIVE GRAPHICS
+
+Graphics in Cross-Lib is implemented in a way that can be rendered in the same way on all targets.
+
+### Tile-based 
+Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
+For targets with graphics, tiles are only defined at compilation time and cannot be re-defined.
+So, for targets with graphics, smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
+
+### Adaptivity
+If colors, graphics and sounds are available on a specific target, the tool-chain will produce a game with possibly some sound effects and colored graphics.
+Otherwise Cross-Lib will produce a game with just ASCII graphics or no sound or no colors on a specific target that lacks some hardware feature.
+
+For example for the game Cross Snake you can see how it is rendered on the MSX (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
+
+![MSX](snapshots/XSnake_MSX2.png)
+![GB](snapshots/XSnake_GB.png)
+
+For more snapshots we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
+
+
 
 -------------------------------------------
 
@@ -299,30 +324,6 @@ The main future goals are
 - supporting more cross-compilers, native compilers, systems and sub-targets
 - adding more features to Cross-Lib (e.g., more redefinable tiles, more sound effects, etc.)
 - coding more universal games and demos
-
--------------------------------------------
-
-## ADAPTIVE GRAPHICS
-
-Graphics in Cross-Lib is implemented in a way that can be rendered in the same way on all targets.
-
-### Tile-based 
-Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
-For targets with graphics, tiles are only defined at compilation time and cannot be re-defined.
-So smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
-
-### Adaptivity
-If colors, graphics and sounds are available the tool-chain and Cross-Lib will produce a game with some simple sound effects and with some possibly colored graphics.
-Otherwise Cross-Lib will produce a game with just ASCII graphics or no sound or no colors if no graphics or no sound or no colors are available on a specific target.
-
-For example for the game Cross Snake you can see how it is rendered on the MSX (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
-
-![MSX](snapshots/XSnake_MSX2.png)
-![GB](snapshots/XSnake_GB.png)
-
-For more snapshots we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
-
 
 
 -------------------------------------------

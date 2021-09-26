@@ -122,12 +122,20 @@ clean_obj: \
 clean_build:
 	rm -rf $(BUILD_PATH)/*
 
+clean_generic_combo:
+	rm -rf games/reduced_full_lcc1802_combo_no_sounds.*
+	rm -rf tests/reduced_full_lcc1802_combo_no_sounds.*
+	rm -rf games/full_lcc1802_combo.*
+	rm -rf tests/full_lcc1802_combo.*
+
 clean_generic: \
+    clean_generic_combo \
     clean_build \
     clean_lib_obj \
     clean_lis
 
 clean: \
+    clean_generic_combo \
 	clean_obj \
 	clean_build \
 	clean_game_assets

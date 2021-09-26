@@ -263,21 +263,20 @@ Using Cross-Lib APIs is not enough as the screen size and shape may be different
 So the game code should rely on fractions of the height (`YSize`) and width (`XSize`) of the screen and never use hard-coded sizes.
 
 ### Colors
-Some targets have no colors. So do not write some logic that relies only on colors.
+Some targets have no colors. So do not write any logic that relies only on colors or if you do, use conditional directives to implement an alternative for targets with no colors.
 
 ### Sounds
-Some targets may have no sounds. So do not write some logic that relies only on sounds.
+Some targets may have no sounds. So do not write any logic that relies only on sounds or if you do, use conditional directives to implement an alternative for targets with no sounds.
 
 ### Graphics
-Some targets have no graphics. So do not write logic that only depends on the presence of graphics or if you do, 
-use some conditional directives to implement a version with no graphics.
+Some targets have no graphics. So do not write logic that only depends on the presence of graphics or if you do, use some conditional directives to implement a version with no graphics.
 
 ### Tile Shapes
 Cross-Lib APIs only support tile-based graphics with pre-defined (at compilation time) tile shapes in order to support all targets. 
 Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
 So do not implement logic that only assumes 8x8 pixel tiles (e.g. software sprites with pre-shifted tiles). 
 
-### Built-in games and tests
+### Learn from the built-in games and tests
 Cross-Lib comes with games and tests whose code can be used to learn how to code universal games.
 
 The code of the games is in:

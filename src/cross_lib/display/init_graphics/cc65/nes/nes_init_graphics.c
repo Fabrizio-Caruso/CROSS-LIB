@@ -48,6 +48,11 @@ void Reset_Scroll(void)
 
 
 //
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #define NES_BACKGROUND_COLOR COLOR_WHITE
+#else
+    #define NES_BACKGROUND_COLOR COLOR_BLACK
+#endif
 
 
 void _XL_INIT_GRAPHICS(void)
@@ -105,6 +110,6 @@ void _XL_INIT_GRAPHICS(void)
 	Reset_Scroll();
 	All_On();
 
-    setScreenColors();
+    bgcolor(NES_BACKGROUND_COLOR);
 }
 

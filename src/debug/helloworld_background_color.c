@@ -1,13 +1,11 @@
-#include<stdio.h>
 #include<conio.h>
 
 int main()
 {
-    bordercolor(BLACK);
-    textbackground(BLACK);
-    textcolor(WHITE);
-    printf("%c",12);
-    printf("hello world\n");
+    bgcolor(COLOR_BLACK);
+    textcolor(COLOR_BLACK);
+    gotoxy(2,2);
+    cprintf("hello world\n");
     while(1){};
     return 0;
 }

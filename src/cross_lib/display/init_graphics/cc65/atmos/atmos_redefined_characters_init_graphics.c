@@ -14,6 +14,15 @@
 
 #include "udg_map.h"
 
+
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #define ORIC_BACKGROUND_COLOR 23
+    #define ORIC_INK_COLOR 0
+#else
+    #define ORIC_BACKGROUND_COLOR 16
+    #define ORIC_INK_COLOR 2  3
+#endif
+
 void init_colors(void)
 {
 	uint8_t i;
@@ -24,7 +33,7 @@ void init_colors(void)
     for(i=0;i<2;++i)
     {
         // red on black (inverted: cyan on white)		
-        POKE(0xBB80+i*40,16);
+        POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
         POKE(0xBB81+i*40,1); 
     }
 
@@ -34,8 +43,8 @@ void init_colors(void)
 	#endif
 	{
 		// yellow on black (inverted: blue on white)
-		POKE(0xBB80+i*40,16);
-		POKE(0xBB81+i*40,3); 
+		POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
+		POKE(0xBB81+i*40,ORIC_INK_COLOR); 
 	}
 }
 

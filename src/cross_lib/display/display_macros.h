@@ -356,7 +356,7 @@ typedef struct ImageStruct Image;
 #if defined(CC65) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && !(defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED))
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
-#elif defined(__LASER500__) || ((defined(__CPC__) && !defined(CPCRSLIB))) || defined(UDG_GRAPHICS) || defined(__AQUARIUS__)
+#elif defined(__LASER500__) || defined(UDG_GRAPHICS) || defined(__AQUARIUS__)
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) textbackground(c)
 #else

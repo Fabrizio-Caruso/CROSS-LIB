@@ -106,6 +106,7 @@ full_lcc1802_combo.c: full_combo_rand.c
 
 clean_combo_files:
 	rm -rf $(SOURCE_PATH)/../full_combo_rand.c
+	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c

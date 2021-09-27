@@ -116,6 +116,23 @@ For a description of the script commands and their parameters, take a look at th
 
 -------------------------------------------
 
+## THE `xl.py` SCRIPT
+
+Inside the `src` directory, you will find the `xl.py` script. 
+Make sure that it has execution rights (`chmod +x ./xl.py`) and, for your convenience, that the current directory `.` is included in `$PATH`.
+This script can be used to create, build, delete and perform other operations on all Cross-Lib projects (tests, built-in games and custom games). 
+
+`xl.py` is used as follows:
+```
+xl.py <command> <[optional] parameters>
+```
+
+You can display its instructions and some examples by using:
+```
+xl.py <help> <[optional] command>
+```
+where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
+
 ## HOW TO COMPILE GAMES AND TESTS
 
 In order to compile the game you need:
@@ -131,20 +148,6 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-### Using the `xl.py` script
-Inside the `src` directory, you will find the `xl.py` script.
-Make sure that it has execution rights (`chmod +x ./xl.py`) and, for your convenience, that the current directory `.` is included in `$PATH`.
-
-`xl.py` is used as follows:
-```
-xl.py <command> <[optional] parameters>
-```
-
-You can display its instructions and some examples by using:
-```
-xl.py <help> <[optional] command>
-```
-where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
 
 ### Using `xl.py build` (recommended)
 

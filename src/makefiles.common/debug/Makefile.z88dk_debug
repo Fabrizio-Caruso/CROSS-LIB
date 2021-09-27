@@ -343,6 +343,11 @@ cpc_test:
 	# rm basic.rom
 	# rm $(BUILD_PATH)/HELLO_cpc.cpc 
 
+
+msx_bgcolor:
+	$(Z88DK_PATH)$(MYZ88DK) +msx -lndos -pragma-redirect:fputc_cons=fputc_cons_generic   -create-app -subtype=rom -o$(BUILD_PATH)/bgcolor  -vn \
+	$(TEST_PATH)/helloworld_background_color.c
+    
 cpc_bgcolor:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -pragma-define:REGISTER_SP=-1 	-pragma-redirect:fputc_cons=fputc_cons_generic   -create-app -subtype=dsk -o$(BUILD_PATH)/bgcolor  -vn \
 	$(TEST_PATH)/helloworld_background_color.c

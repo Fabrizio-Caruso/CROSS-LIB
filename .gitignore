@@ -48,4 +48,5 @@ src/games/reduced_full_lcc1802_micro_combo.c
 src/games/reduced_full_lcc1802_combo_no_sounds.c
 src/debug/*.bin
 src/debug/*.dsk
+src/debug/*.nes
 

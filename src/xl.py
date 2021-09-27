@@ -8,6 +8,11 @@ import time
 
 from os import walk
 
+def are_you_sure():
+    if sys.version_info[0] < 3:
+        return raw_input("Are you sure [Y/N]? ").lower()
+    else:
+        return input("Are you sure [Y/N]? ").lower()
 
 def multiple_run(mypath,target,threads,optimization):
     projects = []
@@ -171,10 +176,14 @@ def clean(params):
     if len(params)<2:
         make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("run command : " + make_command)
-        print("")
-        os.system(make_command)
-        exit();
+        print("Delete all built binaries and non-project specific temporary files")
+        if(are_you_sure()=="y"):
+            print("run command : " + make_command)
+            print("")
+            os.system(make_command)
+            exit();
+        else:
+            exit();
     else:
         game_dir = params[1]
 
@@ -194,13 +203,16 @@ def clean(params):
         print("Project not found!")
         exit();
 
-    make_command = "make clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
-    print("run command : " + make_command)
-    print("\n")
+    if(are_you_sure()=="y"):
+        make_command = "make clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
-    os.system(make_command)
+        print("run command : " + make_command)
+        print("\n")
 
+        os.system(make_command)
+    
 
 def delete(params):
     if len(params)<2:
@@ -231,16 +243,17 @@ def delete(params):
     print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
+    print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")        
+    if are_you_sure()=="y":
+        if os.path.exists(parent_and_game_dir):
+            print("Deleting directory " + parent_and_game_dir)
+            shutil.rmtree(parent_and_game_dir)
 
-    if os.path.exists(parent_and_game_dir):
-        print("Deleting directory " + parent_and_game_dir)
-        shutil.rmtree(parent_and_game_dir)
-
-    makefile_name = "Makefile."+game_dir
-    if os.path.exists(makefile_name):
-        print("Deleting..." + makefile_name)
-        os.remove(makefile_name)
-
+        makefile_name = "Makefile."+game_dir
+        if os.path.exists(makefile_name):
+            print("Deleting..." + makefile_name)
+            os.remove(makefile_name)
+    print("'" + game_dir + "' deleted")
 
 def list():
     project_dirs = ["tests", "games"]
@@ -251,7 +264,7 @@ def list():
     for mypath in project_dirs:
         print(mypath)
 
-    print()
+    print("")
 
     for mypath in project_dirs:
         for (dirpath, dirnames, filenames) in walk(mypath):
@@ -260,7 +273,7 @@ def list():
 
     print("Found: " + str(len(projects)))
 
-    print()
+    print("")
 
     for project in projects:
         print(project)
@@ -269,7 +282,7 @@ def list():
 def help_help():
     print("Possible commands:")
     print("build, clean, create, delete, help, list")  
-    print()
+    print("")
     print("Use xl.py help <command> for <command>-specific help")
     print("\nExample:")
     print("\nxl.py help create              \n  It displays the help page for the 'create' command")
@@ -294,12 +307,12 @@ def help(params):
         print("Possible dev-kits are: 'cc65', 'z88dk', 'cmoc', 'lcc1802'.") 
         print("\n[NOT recommended] If 'all' is passed as <target>, then the given project/s is/are built for all targets (it may take very long and it requires all supported compilers.") 
         
-     
+        print("\nPress ENTER to continue...")
+        time.sleep(1)
+
         if sys.version_info[0] < 3:
-            time.sleep(3)
+            raw_input()
         else:
-            print("\nPRESS ENTER TO CONTINUE")
-            time.sleep(1)
             input()
         
         print("\nExamples:")

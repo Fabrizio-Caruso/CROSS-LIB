@@ -133,6 +133,8 @@ xl.py <help> <[optional] command>
 ```
 where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
 
+The following sections will show how to use this script in the my common use-cases.
+
 ## HOW TO COMPILE GAMES AND TESTS
 
 In order to compile the game you need:

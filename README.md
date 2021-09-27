@@ -131,21 +131,36 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
-### Using `build_xl.py` (recommended)
+### Using the `xl.py` script
+Inside the `src` directory, you will find the `xl.py` script.
+Make sure that it has execution rights (`chmod +x ./xl.py`) and, for your convenience, that the current directory `.` is included in `$PATH`.
 
-I recommend that you use `build_xl.py` as follows:
+`xl.py` is used as follows:
+```
+xl.py <command> <[optional] parameters>
+```
 
-`./build_xl [game_or_test_name] [optional system_name]`
+You can display its instructions and some examples by using:
+```
+xl.py <help> <[optional] command>
+```
+where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
+
+### Using `xl.py build` (recommended)
+
+I recommend that you use `xl.py build` as follows:
+
+`xl.py build [game_or_test_name] [optional system_name]`
 
 Examples:
-- `./build_xl.py snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `./build_xl.py bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
-- `./build_xl.py snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
-- `./build_xl.py games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `./build_xl.py bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
-- `./build_xl.py tests c64` -> It builds all tests for the Commodore 64 target
+- `xl.py build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `xl.py build bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `xl.py build snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `xl.py build games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `xl.py build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `xl.py build tests c64` -> It builds all tests for the Commodore 64 target
 
-### Using `make`
+### Using `make` (NOT recommended)
 
 Using a standard `make` comamnd is possible but you will get fewer options.
 
@@ -168,7 +183,7 @@ In order to build a new game project we can use the `create_xl.py` scripts that 
 
 The script is used as follows:
 
-`./create_xl.py [game project name] [initial code type]`
+`xl.py create [game project name] [initial code type]`
 
 where `[initial code type]` can be 
 - empty for a helloworld initial code
@@ -176,9 +191,9 @@ where `[initial code type]` can be
 - `apis` for an initial code that uses most APIs.
 
 Examples:
-- `./create_xl.py foo` -> It builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
-- `./create_xl.py bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
-- `./create_xl.py foobar apis` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
+- `xl.py create foo` -> It builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
+- `xl.py create bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
+- `xl.py create foobar apis` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
 
 Remark: All binaries will be in the `build` directory (same depth level as `src`).
 
@@ -187,20 +202,20 @@ Remark: All binaries will be in the `build` directory (same depth level as `src`
 
 In order to remove binaries and temporary files that are produced during a build you can se the 'clean_xl' script.
 
-`./clean_xl [optional project name]`
+`xl.py clean [optional project name]`
 
 If you provide a project name, then project specific temporary files are removed but *ALL* built binaries are removed anyway.
 
 Examples:
-- `./clean_xl.py` -> It deletes all built binaries and some generic temporary files
-- `./clean_xl.py foo` -> It deletes the same files as `./clean_xl.py` and also deletes specific temporary files found inside `foo` folder.
+- `xl.py clean` -> It deletes all built binaries and some generic temporary files
+- `xl.py clean foo` -> It deletes the same files as `xl.py clean` and also deletes specific temporary files found inside `foo` folder.
 
 -------------------------------------------
 ## LISTING PROJECTS
 
 You can list all current game and test projects with 
 
-`./list_xl.py`
+`xl.py list`
 
 which searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
 
@@ -209,11 +224,11 @@ which searches both `tests` and `games` folders for projects (both built-in and 
 
 Non-built-in game projects can be deleted trhough the `./delete_xl.py` script in a very simple way:
 
-`./delete_xl.py [game project name]`
+`xl.py delete [game project name]`
 
 Example: 
 
-`./delete_xl.py foo` -> It removes the `foo` source code, assets and Makefile files
+`xl.py delete foo` -> It removes the `foo` source code, assets and Makefile files
 
 -------------------------------------------
 ## CROSS-LIB APIs

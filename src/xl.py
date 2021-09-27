@@ -320,7 +320,7 @@ def help(params):
         print("\nxl.py build snake              \n  It builds Cross Snake for the native target (terminal console).")
         print("\nxl.py build chase cc65_targets \n  It builds Cross Chase for all targets that use CC65 to be built.")
         print("\nxl.py build games cpc          \n  It builds all games for the Amstrad CPC using Z88DK.")
-        print("\nxl.py build tests c64          \n  It buidls all tests for the Commodore 64 using CC65.")
+        print("\nxl.py build tests c64          \n  It builds all tests for the Commodore 64 using CC65.")
         print("\nxl.py build horde all          \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
         print("\nxl.py build all c16            \n  It builds all projects (games and tests) for the Commodore 264 series using CC65.")
     elif params[1]=="create":
@@ -328,7 +328,7 @@ def help(params):
         print("It creates <project>")
         
         print("\n<type>")
-        print("If no <type> is passed, then a helloworld initial code is created.")
+        print("If no <type> is passed, then the initial code will just display 'hello world'")
         print("If 'game' is passed as <type>, then the project is build with some initial template game code.")
         print("If 'apis' is passed as <type>, then the project is build with some code that shows how to use all APIs.")
         

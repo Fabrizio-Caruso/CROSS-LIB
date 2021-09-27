@@ -197,8 +197,8 @@ where `[initial code type]` can be
 
 Examples:
 - `xl.py create foo` -> It builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
-- `xl.py create bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game
-- `xl.py create foobar apis` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs
+- `xl.py create bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game.
+- `xl.py create foobar apis` -> It builds a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
 
 Remark: All binaries will be in the `build` directory (same depth level as `src`).
 

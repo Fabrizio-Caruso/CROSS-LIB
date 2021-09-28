@@ -135,7 +135,7 @@ where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
 
 The following sections will show how to use this script in the my common use-cases.
 
-## HOW TO COMPILE GAMES AND TESTS
+## HOW TO BUILD GAMES AND TESTS
 
 In order to compile the game you need:
 - a POSIX environment (e.g., Windows+Cygwin, Linux)
@@ -165,9 +165,11 @@ Examples:
 - `xl.py build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
 - `xl.py build tests c64` -> It builds all tests for the Commodore 64 target
 
+Remark: All binaries will be in the `build` directory (same depth level as `src`).
+
 ### Using `make` (NOT recommended)
 
-Using a standard `make` comamnd is possible but you will get fewer options.
+Using a standard `make` command is possible but you will get fewer options.
 
 For game projects you can use:
 
@@ -177,14 +179,14 @@ For test projects you can use:
 
 `make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
 
-For more details and examples on build instructions for both `build_xl.py` and `make` we refer to:
+For more details and examples on build instructions for both `xl.py build` and `make` we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
 -------------------------------------------
-## BUILDING A NEW GAME PROJECT
+## CREATING A NEW GAME PROJECT
 
-In order to build a new game project we can use the `create_xl.py` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
+In order to create a new game project we can use the `create_xl.py` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
 
 The script is used as follows:
 
@@ -196,11 +198,10 @@ where `[initial code type]` can be
 - `apis` for an initial code that uses most APIs.
 
 Examples:
-- `xl.py create foo` -> It builds a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
-- `xl.py create bar game` -> It builds a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game.
-- `xl.py create foobar apis` -> It builds a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
+- `xl.py create foo` -> It creates a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
+- `xl.py create bar game` -> It creates a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game.
+- `xl.py create foobar apis` -> It creates a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
 
-Remark: All binaries will be in the `build` directory (same depth level as `src`).
 
 -------------------------------------------
 ## CLEANING TEMPORARY FILES AND BINARIES

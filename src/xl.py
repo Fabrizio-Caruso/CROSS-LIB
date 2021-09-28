@@ -194,6 +194,11 @@ def clean(params):
 
     parent_dir = project_type + "s"
 
+    if (len(params)>2) and (params[2]=="-y"):
+        interactive = False
+    else:
+        interactive = True
+
     print("Project name: " + game_dir)
 
 
@@ -205,7 +210,7 @@ def clean(params):
 
     print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
-    if(are_you_sure()=="y"):
+    if (not interactive) or (are_you_sure()=="y"):
         make_command = "make clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         print("run command : " + make_command)
@@ -225,26 +230,19 @@ def delete(params):
         else:
             game_dir = candidate_name
 
-
-    if len(params)<3:
-        project_type = "helloworld"
+    if (len(params)>2) and (params[2]=="-y"):
+        interactive = False
     else:
-        if(params[2]=="game"):
-            project_type = "game"
-        else: 
-            if(params[2]=="test"):
-                project_type = "test"
-            else:
-                project_type = "helloworld"
+        interactive = True
 
-
+    print("Interactive: " + str(interactive))
     parent_dir = "games"
 
     print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
     print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")        
-    if are_you_sure()=="y":
+    if (not interactive) or (are_you_sure()=="y"):
         if os.path.exists(parent_and_game_dir):
             print("Deleting directory " + parent_and_game_dir)
             shutil.rmtree(parent_and_game_dir)
@@ -253,7 +251,10 @@ def delete(params):
         if os.path.exists(makefile_name):
             print("Deleting..." + makefile_name)
             os.remove(makefile_name)
-    print("'" + game_dir + "' deleted")
+        print("'" + game_dir + "' deleted")
+    else:
+        exit()
+
 
 def list():
     project_dirs = ["tests", "games"]
@@ -280,7 +281,7 @@ def list():
 
 
 def help_help():
-    print("Possible commands:")
+    print("Possible values for <command>:")
     print("build, clean, create, delete, help, list")  
     print("")
     print("Use xl.py help <command> for <command>-specific help")
@@ -336,24 +337,33 @@ def help(params):
         print("\nxl.py create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
         print("\nxl.py create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
     elif params[1]=="delete":
-        print("xl.py delete <project>")
+        print("xl.py delete <project> <[optiona] interactive>")
         print("It removes <project>, i.e., it deletes its folder with its content (source code, graphics assets, makefile).")
         
         print("\n<project>")
         print("<project> cannot be a built-in project.")
-        
+
+        print("\n<interactive>")
+        print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
+
         print("\nExample:")
         print("\nxl.py delete foo               \n  It deletes the project 'foo'.")
+        print("\nxl.py delete foo -y            \n  Same as above but no confirmation is asked.")   
     elif params[1]=="clean": 
-        print("xl.py clean <[optional] project>")
+        print("xl.py clean <[optional] project> <interactive>")
         print("It deletes both built binaries and temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.") 
         print("If the <project> parameter is used, then also project-specific temporary files are deleted (e.g., generated graphics assets).")
         
+        print("\n<interactive>")
+        print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
+        
         print("\nExamples:")
         print("\nxl.py clean                    \n  It deletes all built binaries and non-project specific temporary files.")
         print("\nxl.py clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
+        print("\nxl.py clean foo -y             \n  Same as above but no confirmation is asked.")
+
     elif params[1]=="list":  
         print("xl.py list")
         print("It lists all current projects (test projects, built-in games and user-defined games).")

@@ -191,8 +191,6 @@ cmoc_targets: \
 z88dk_targets_sequential: \
     aquarius \
     ace \
-    c128_z80_40col \
-    c128_z80_80col \
     cpc_mode0 \
     coleco \
     cpm \
@@ -1277,7 +1275,6 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	-compiler=sdcc \
 	--opt-code-size \
 	-vn \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) \

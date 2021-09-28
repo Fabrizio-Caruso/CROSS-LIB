@@ -233,7 +233,7 @@ else
 z88dk_targets_sequential: \
     aquarius \
     ace \
-    cpc
+    cpc \
     coleco \
     cpm \
     gb \

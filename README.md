@@ -152,6 +152,10 @@ where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
 
 The following sections will show how to use this script in the my common use-cases.
 
+-------------------------------------------
+## BUILDING PROJECTS
+
+We recommend to use `xl.py build` to build projects. Alternatively you can use `make`.
 
 ### Using `xl.py build` (recommended)
 

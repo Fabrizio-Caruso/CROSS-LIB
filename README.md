@@ -137,12 +137,13 @@ The following sections will show how to use this script in the my common use-cas
 
 ## HOW TO BUILD GAMES AND TESTS
 
-In order to compile the game you need:
+In order to compile games on all `default targets` you need:
 - a POSIX environment (e.g., Windows+Cygwin, Linux)
 - `make`
 - `python` (2.x or 3.x)
 - `gcc` and `ncurses` (necessary only for native builds)
-- cross-compilers (necessary to build for vintage targets). 
+- cross-compilers (necessary to build for vintage targets)
+- `java` only to build disk images for the Apple//e and Apple\]\[ targets 
 
 For more details on the prerequisites we refer to: 
 

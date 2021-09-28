@@ -781,6 +781,28 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 cpc: cpc_mode0
 
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
+	-DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
+	-D__CPC__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+
+cpc_mode0_prev: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
@@ -810,7 +832,6 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm basic.rom
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

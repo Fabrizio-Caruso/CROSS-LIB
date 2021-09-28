@@ -270,34 +270,34 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GA
 Thanks to Cross-Lib APIs, the game code can be *hardware-agnostic*.
 Using only Cross-Lib APIs is not enough, though, as Cross-Lib covers targets that have different screen size, screen shape and targets that lack some hardware features such as graphics, colors, sounds.
 
-### ANSI C89 (A sub-set of)
-The code has to be compiled by several different compilers. Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
+### ANSI C (A sub-set of)
+The code has to be compiled by several different compilers that do not necessarily support the latest version of the C standard.
+Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
 
-This sub-set is mostly ANSI C89 without:
+This sub-set can be described as (mostly) ANSI C89 without:
 - `float` types,
 - `struct` copies, assignments, parameters (use pointers to `struct` instead).
 
 Moreover for performance reasons it is better to avoid recursion (as this has an extreme high cost on MOS 6502 targets).
 
-Remark: Modern `//` comments are allowed.
+Some C99 features are available:
+- Modern `//` comments are allowed.
+- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no extra include). 
 
 ### Screen size
 Using Cross-Lib APIs is not enough as the screen size and shape may be different.
-So the game code should rely on fractions of the height (`YSize`) and width (`XSize`) of the screen and never use hard-coded sizes.
+Cross-Lib exposes a constant `XSize` for the width of the screen and a constant `YSize` for the height of the screen.
+The game code should rely on fractions of `XSize` and of `YSize` and never use hard-coded sizes.
+By doing so, upon compilation, the game will auto-adapt to the target's screen size.
 
-### Colors
-Some targets have no colors. So do not write any logic that relies only on colors or if you do, use conditional directives to implement an alternative for targets with no colors.
-
-### Sounds
-Some targets may have no sounds. So do not write any logic that relies only on sounds or if you do, use conditional directives to implement an alternative for targets with no sounds.
-
-### Graphics
-Some targets have no graphics. So do not write logic that only depends on the presence of graphics or if you do, use some conditional directives to implement a version with no graphics.
+### Colors, Sounds and Graphics
+Some targets have no colors or no color on text, or no sounds, or no graphics.
+So do not write any logic that relies only on the pressence of colors/sounds/graphics; or if you do, use conditional directives to implement an alternative for targets with no colors.
 
 ### Tile Shapes
-Cross-Lib APIs only support tile-based graphics with pre-defined (at compilation time) tile shapes in order to support all targets. 
+Cross-Lib APIs only support tile-based graphics with pre-defined  tile shapes (at compilation time) in order to support all targets. 
 Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
-So do not implement logic that only assumes 8x8 pixel tiles (e.g. software sprites with pre-shifted tiles). 
+So do not implement logic that only assumes 8x8 pixel tiles (e.g. when implementing software sprites with pre-shifted tiles). 
 
 ### Learn from the built-in games and tests
 Cross-Lib comes with games and tests whose code can be used to learn how to code universal games.
@@ -326,7 +326,7 @@ So, for targets with graphics, smoothly moving sprites can only be implemented a
 If colors, graphics and sounds are available on a specific target, the tool-chain will produce a game with possibly some sound effects and colored graphics.
 Otherwise Cross-Lib will produce a game with just ASCII graphics or no sound or no colors on a specific target that lacks some hardware feature.
 
-For example for the game Cross Snake you can see how it is rendered on the MSX (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
+For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
 
 ![MSX](snapshots/XSnake_MSX2.png)
 ![GB](snapshots/XSnake_GB.png)

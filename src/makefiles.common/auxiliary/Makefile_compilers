@@ -81,7 +81,8 @@ Z8K-PCOS-GCC_OPTS ?= -Wno-cpg
 
 ###########################
 # LCC1802 
-LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
+# LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
+LCC1802_PATH ?= 
 LCC1802_EXE ?= lcc$(EXEEXT) $(GLOBAL_OPTS)
 LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 

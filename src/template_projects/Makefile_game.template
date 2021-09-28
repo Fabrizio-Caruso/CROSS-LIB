@@ -157,7 +157,9 @@ all: \
     cc65_targets \
     cmoc_targets \
     z88dk_targets
-else
+endif
+
+ifneq ($(DO_WIN),1)
 all: \
     gcc_targets \
     cc65_targets \

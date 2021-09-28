@@ -87,8 +87,8 @@ Cross-Lib provides:
 
 Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
 
-The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
-For a more complete list of supported compilers we refer to:
+The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
+For more details on the supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
@@ -195,7 +195,7 @@ The script is used as follows:
 `xl.py create [game project name] [initial code type]`
 
 where `[initial code type]` can be 
-- empty for a helloworld initial code
+- `helloworld` or empty for initial code that only displays 'hello world'
 - `game` for an initial code for a standard game with a main loop and a level loop
 - `apis` for an initial code that uses most APIs.
 
@@ -292,7 +292,7 @@ By doing so, upon compilation, the game will auto-adapt to the target's screen s
 
 ### Colors, Sounds and Graphics
 Some targets have no colors or no color on text, or no sounds, or no graphics.
-So do not write any logic that relies only on the pressence of colors/sounds/graphics; or if you do, use conditional directives to implement an alternative for targets with no colors.
+So do not write any logic that relies only on the presence of colors/sounds/graphics; or if you do, use conditional directives to implement an alternative logic for targets with no colors/sounds/graphics.
 
 ### Tile Shapes
 Cross-Lib APIs only support tile-based graphics with pre-defined  tile shapes (at compilation time) in order to support all targets. 

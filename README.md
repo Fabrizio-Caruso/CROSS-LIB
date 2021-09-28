@@ -56,12 +56,12 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 The most significant supported 8-bit CPU architectures are:
 
-- COSMAC RCA 1802 and derivates
-- Intel 8080 and derivatives
-- MOS 6502 and derivatives
-- Motorola 6809 and derivatives
-- Motorola 6803
-- Zilog 80 and derivatives
+- COSMAC RCA 1802 
+- Intel 8080 
+- MOS 6502 
+- Motorola 6809 
+- Motorola 6803 
+- Zilog 80 
 
 Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.
 
@@ -101,16 +101,33 @@ When a game is built for a specific target, Cross-Lib will:
 
 -------------------------------------------
 
-## HOW TO START USING CROSS-LIB
+## PREREQUISITES
+
+In order to be able to build the games and tests on all `default targets` you need:
+- a POSIX environment (e.g., Windows+Cygwin, Linux)
+- `make`
+- `python` (2.x or 3.x)
+- `gcc` and `ncurses` (necessary only for native builds)
+- cross-compilers (necessary to build for vintage targets)
+- `java` only to build disk images for the Apple//e and Apple\]\[ targets 
+
+For the compilers to work, you may need to add the location of their binaries to the `$PATH` environment variable and to add the execution rights to those binaries.
+If the compiler's binary cannot be found, you may have to set their paths in: `src\makefiles.common\auxiliary/Makefile_compilers`, e.g., `Z88DK_PATH`, `LCC1802_PATH`, etc..
+
+For more details on the prerequisites we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
+
+
+
+## HOW TO START
 
 Inside the project main directory, you find the `src` and the `build` directories:
 - `src` contains the source code and all other files that are necessary to build the games and tests
 - `build` is supposed to be empty at first and it is the target directory for the build process.
 
+In order to use Cross-Lib scripts to build, create or delete game projects you need to be in the `src` directory.
 
-Remark: In order to use Cross-Lib scripts to build, create or delete game projects you need to be in the `src` directory.
-
-You can use some scripts (and the `make` command) to do different operations on projects (such as create, build, delete, list).
+You can use the `xl.py` script (or the `make` command) to do different operations on projects (such as create, build, delete, list).
 
 For a description of the script commands and their parameters, take a look at the next sections.
 
@@ -134,22 +151,6 @@ xl.py <help> <[optional] command>
 where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
 
 The following sections will show how to use this script in the my common use-cases.
-
-## HOW TO BUILD GAMES AND TESTS
-
-In order to compile games on all `default targets` you need:
-- a POSIX environment (e.g., Windows+Cygwin, Linux)
-- `make`
-- `python` (2.x or 3.x)
-- `gcc` and `ncurses` (necessary only for native builds)
-- cross-compilers (necessary to build for vintage targets)
-- `java` only to build disk images for the Apple//e and Apple\]\[ targets 
-
-For more details on the prerequisites we refer to: 
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
-
-You  build a project (either a game or a test) for a specific system by either using the `build_xl.py` script or an equivalent `make` command. 
 
 
 ### Using `xl.py build` (recommended)

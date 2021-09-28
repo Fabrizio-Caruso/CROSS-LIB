@@ -230,6 +230,7 @@ z88dk_targets_sequential: \
     vg5k \
     vz200 
 else
+z88dk_targets_sequential: \
     aquarius \
     ace \
     cpc

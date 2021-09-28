@@ -156,13 +156,13 @@ all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
+    lcc1802_targets \
     z88dk_targets
 else
 all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
-    lcc1802_targets \
     z88dk_targets
 endif
 

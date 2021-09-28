@@ -48,8 +48,6 @@ void set_group_color(uint8_t group, uint8_t color)
 }
 
 
-// const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 
-
 void set_udg_colors(void)
 {
 
@@ -141,15 +139,11 @@ void SET_UDG_IMAGES(void)
 
 void _XL_INIT_GRAPHICS(void)
 {
-    
     SET_UDG_IMAGES();
     
-    // redefine(0x24, dollar);
-
     set_udg_colors();
 
     setScreenColors();
-
 }
 
 

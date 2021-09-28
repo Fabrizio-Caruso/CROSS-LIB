@@ -41,9 +41,15 @@
 
     #define BORDER_COLOR _XL_WHITE
 #else
-    #define BACKGROUND_COLOR _XL_BLACK
+    #if defined(_XL_BLACK)
+        #define BACKGROUND_COLOR _XL_BLACK
 
-    #define BORDER_COLOR _XL_BLACK  
+        #define BORDER_COLOR _XL_BLACK  
+    #else
+        #define BACKGROUND_COLOR 0
+
+        #define BORDER_COLOR 0 
+    #endif
 #endif
 
 #endif // _DISPLAY_TARGET_COLOR

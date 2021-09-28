@@ -20,7 +20,7 @@
     #define ORIC_INK_COLOR 0
 #else
     #define ORIC_BACKGROUND_COLOR 16
-    #define ORIC_INK_COLOR 2  3
+    #define ORIC_INK_COLOR 3
 #endif
 
 void init_colors(void)

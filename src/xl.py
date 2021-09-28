@@ -176,7 +176,7 @@ def clean(params):
     if len(params)<2:
         make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all built binaries and non-project specific temporary files")
+        print("Delete all built binaries and non-projectspecific temporary files")
         if(are_you_sure()=="y"):
             print("run command : " + make_command)
             print("")
@@ -184,6 +184,15 @@ def clean(params):
             exit();
         else:
             exit();
+    elif (len(params)==2) and (params[1]=='-y'):
+        make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
+
+        print("Delete all built binaries and non-projectspecific temporary files")
+
+        print("run command : " + make_command)
+        print("")
+        os.system(make_command)
+        exit();
     else:
         game_dir = params[1]
 

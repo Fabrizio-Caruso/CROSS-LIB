@@ -169,7 +169,7 @@ endif
 gcc_targets: \
 	ncurses  
 
-
+ifeq ($(DO_WIN),1)
 cc65_targets: \
     apple2 \
     apple2enh \
@@ -185,7 +185,22 @@ cc65_targets: \
     pce \
     supervision \
     vic20 
-
+else
+cc65_targets: \
+    apple2 \
+    apple2enh \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    oric  \
+    nes \
+    pet \
+    pce \
+    supervision \
+    vic20 
+endif
 
 cmoc_targets: \
     coco_targets \
@@ -194,10 +209,12 @@ cmoc_targets: \
     to7_targets
 
 
+ifeq ($(DO_WIN),1)
 z88dk_targets_sequential: \
     aquarius \
     ace \
-    cpc_mode0 \
+    cpc \
+    c128_z80_40col \
     coleco \
     cpm \
     gb \
@@ -213,6 +230,26 @@ z88dk_targets_sequential: \
     spectrum \
     vg5k \
     vz200 
+else
+    aquarius \
+    ace \
+    cpc
+    coleco \
+    cpm \
+    gb \
+    gg \
+    laser500 \
+    mc1000 \
+    msx \
+    mtx500 \
+    mtx512 \
+    mz \
+    samcoupe \
+    sms \
+    spectrum \
+    vg5k \
+    vz200 
+endif
 
 
 z88dk_targets:

@@ -128,6 +128,11 @@ clean_generic_combo:
 	rm -rf games/full_lcc1802_combo.*
 	rm -rf tests/full_lcc1802_combo.*
 
+clean_generic_no_built_in: \
+    clean_generic_combo \
+    clean_lib_obj \
+    clean_lis
+
 clean_generic: \
     clean_generic_combo \
     clean_build \
@@ -140,6 +145,10 @@ clean: \
 	clean_build \
 	clean_game_assets
 
+clean_no_built_in: \
+    clean_generic_combo \
+	clean_obj \
+	clean_game_assets
 
 help:
 	cat ../docs/BUILD.md

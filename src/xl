@@ -171,12 +171,66 @@ def create(params):
     fin.close()
 
 
+def reset(params):
+    if len(params)<2:
+        make_command = "make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+
+        print("Delete all non-project-specific temporary files")
+        if(are_you_sure()=="y"):
+            print("run command : " + make_command)
+            print("")
+            os.system(make_command)
+            exit();
+        else:
+            exit();
+    elif (len(params)==2) and (params[1]=='-y'):
+        make_command = "make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+
+        print("Delete all non-project-specific temporary files")
+
+        print("run command : " + make_command)
+        print("")
+        os.system(make_command)
+        exit();
+    else:
+        game_dir = params[1]
+
+    if(game_dir in ["tiles","sounds","input","matrix","invaders","zombies"]):
+        project_type = "test"
+    else:
+        project_type = "game" 
+
+    parent_dir = project_type + "s"
+
+    if (len(params)>2) and (params[2]=="-y"):
+        interactive = False
+    else:
+        interactive = True
+
+    print("Project name: " + game_dir)
+
+
+    parent_and_game_dir = parent_dir + "/" + game_dir
+
+    if not os.path.exists(parent_and_game_dir):
+        print("Project not found!")
+        exit();
+
+    print("Delete all temporary files including generated assets for '"+game_dir+"'")
+
+    if (not interactive) or (are_you_sure()=="y"):
+        make_command = "make clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+
+        print("run command : " + make_command)
+        print("\n")
+
+        os.system(make_command)
 
 def clean(params):
     if len(params)<2:
         make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all built binaries and non-projectspecific temporary files")
+        print("Delete all built binaries and non-project=specific temporary files")
         if(are_you_sure()=="y"):
             print("run command : " + make_command)
             print("")
@@ -187,7 +241,7 @@ def clean(params):
     elif (len(params)==2) and (params[1]=='-y'):
         make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all built binaries and non-projectspecific temporary files")
+        print("Delete all built binaries and non-project-specific temporary files")
 
         print("run command : " + make_command)
         print("")
@@ -226,7 +280,8 @@ def clean(params):
         print("\n")
 
         os.system(make_command)
-    
+
+
 
 def delete(params):
     if len(params)<2:
@@ -291,7 +346,7 @@ def list():
 
 def help_help():
     print("Possible values for <command>:")
-    print("build, clean, create, delete, help, list")  
+    print("build, clean, create, delete, help, list, reset")  
     print("")
     print("Use xl help <command> for <command>-specific help")
     print("\nExample:")
@@ -358,6 +413,20 @@ def help(params):
         print("\nExample:")
         print("\nxl delete foo               \n  It deletes the project 'foo'.")
         print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")   
+    elif params[1]=="reset":
+        print("xl reset <[optional] project> <interactive>")
+        print("It deletes temporary files created during the build process.")
+        print("\n<project>")
+        print("If no <project> is passed, only non-project specific temporary files are deleted.") 
+        print("If the <project> parameter is used, then also project-specific temporary files are deleted (and in particular generated graphics assets).")
+        
+        print("\n<interactive>")
+        print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
+        
+        print("\nExamples:")
+        print("\nxl reset                    \n  It deletes non-project specific temporary files.")
+        print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
+        print("\nxl reset foo -y             \n  Same as above but no confirmation is asked.")
     elif params[1]=="clean": 
         print("xl clean <[optional] project> <interactive>")
         print("It deletes both built binaries and temporary files created during the build process.")
@@ -397,6 +466,8 @@ elif sys.argv[1]=="create":
     create(sys.argv[1:])
 elif sys.argv[1]=="clean":
     clean(sys.argv[1:])
+elif sys.argv[1]=="reset":
+    reset(sys.argv[1:])
 elif sys.argv[1]=="delete":
     delete(sys.argv[1:])
 elif sys.argv[1]=="list":

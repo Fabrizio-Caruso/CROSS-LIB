@@ -1386,7 +1386,7 @@ ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 else
-	cp $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 dragon_targets: \
@@ -1423,7 +1423,7 @@ ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 else
-	cp $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif	
 
 coco_targets: \
@@ -1474,7 +1474,7 @@ ifeq ($(DO_WIN),1)
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 else
-	cp $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif	
 
 
@@ -1523,7 +1523,7 @@ ifeq ($(DO_WIN),1)
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
 else
-	cp $(BUILD_PATH)/FULL_TO7.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/FULL_TO7.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 to7_targets: \

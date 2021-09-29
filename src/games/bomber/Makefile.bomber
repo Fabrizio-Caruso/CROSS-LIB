@@ -91,7 +91,22 @@ endif
 gcc_targets: \
 	ncurses  
 
-
+ifeq ($(DO_WIN),1)
+cc65_targets: \
+    apple2 \
+    apple2enh \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    gamate \
+    oric  \
+    nes \
+    pet \
+    pce \
+    vic20 
+else
 cc65_targets: \
     apple2 \
     apple2enh \
@@ -105,7 +120,7 @@ cc65_targets: \
     pet \
     pce \
     vic20 
-
+endif
 
 cmoc_targets: \
     coco_targets \
@@ -655,6 +670,37 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 #################################################################
 
 cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	-D__CPC__ \
+	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCPCRSLIB \
+	-DZ88DK_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=1900 \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME) \
+	-DCPCRSLIB_GRAPHICS \
+	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME).cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME).com
+	rm $(BUILD_PATH)/X$(GAME_NAME)
+	mv $(BUILD_PATH)/X$(GAME_NAME).dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
+	# rm -rf X$(GAME_NAME)_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
+	# mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
+	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	# rm os.rom
+	# rm amsdos.rom
+	# rm basic.rom
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
+
+cpc_prev: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

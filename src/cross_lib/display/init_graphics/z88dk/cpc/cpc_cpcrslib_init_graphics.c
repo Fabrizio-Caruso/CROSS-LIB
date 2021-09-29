@@ -4,7 +4,7 @@
 #define UDG_N 26
 
 
-char char_list[UDG_N*2] = 
+char char_list[] = 
 { 
 33, '\0', // TILE_
 37, '\0', // TILE_
@@ -32,7 +32,7 @@ char char_list[UDG_N*2] =
 124, '\0',
 125, '\0',
 126, '\0',
-127, '\0',
+127, '\0'
 };
 
 char space_str[2] = {' ', '\0'};

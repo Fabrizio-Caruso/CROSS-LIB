@@ -132,6 +132,7 @@ z88dk_targets: \
     spectrum \
     vg5k
 else
+z88dk_targets: \
     aquarius \
     ace \
     cpc \

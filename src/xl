@@ -390,7 +390,7 @@ def help(params):
         print("\nxl build all c16            \n  It builds all projects (games and tests) for the Commodore 264 series using CC65.")
     elif params[1]=="create":
         print("xl create <project> <[optional] type>")
-        print("It creates <project>")
+        print("It creates <project>.")
         
         print("\n<type>")
         print("If no <type> is passed, then the initial code will just display 'hello world'")
@@ -414,7 +414,7 @@ def help(params):
         print("\nxl delete foo               \n  It deletes the project 'foo'.")
         print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")   
     elif params[1]=="reset":
-        print("xl reset <[optional] project> <interactive>")
+        print("xl reset <[optional] project> <[optiona] interactive>")
         print("It deletes temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only non-project specific temporary files are deleted.") 
@@ -428,7 +428,7 @@ def help(params):
         print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
         print("\nxl reset foo -y             \n  Same as above but no confirmation is asked.")
     elif params[1]=="clean": 
-        print("xl clean <[optional] project> <interactive>")
+        print("xl clean <[optional] project> <[optiona] interactive>")
         print("It deletes both built binaries and temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.") 

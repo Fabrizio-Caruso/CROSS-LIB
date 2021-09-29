@@ -211,16 +211,30 @@ Examples:
 
 
 -------------------------------------------
+## RESETTING TEMPORARY FILES AND BINARIES
+
+In order to remove temporary files that are produced during a build you can se the 'xl reset' script.
+
+`xl reset [optional project name]`
+
+If you provide a project name, then also project specific temporary files are removed including generated project-specific graphics assets.
+Removing generated graphics assets is useful to rebuild a game or test with updated graphics assets.
+
+Examples:
+- `xl reset` -> It temporary files (not the once inside specific project folders)
+- `xl reset foo` -> It deletes the same files as `xl reset` and also deletes specific temporary files found inside `foo` folder.
+
+-------------------------------------------
 ## CLEANING TEMPORARY FILES AND BINARIES
 
-In order to remove binaries and temporary files that are produced during a build you can se the 'clean_xl' script.
+If you  want to remove to remove binaries and temporary files that are produced during a build you can se the 'xl clean' script.
 
 `xl clean [optional project name]`
 
-If you provide a project name, then project specific temporary files are removed but *ALL* built binaries are removed anyway.
+If you provide a project name, then also project specific temporary files are removed including generated project-specific graphics assets.
 
 Examples:
-- `xl clean` -> It deletes all built binaries and some generic temporary files
+- `xl clean` -> It deletes all built binaries and some generic temporary files.
 - `xl clean foo` -> It deletes the same files as `xl clean` and also deletes specific temporary files found inside `foo` folder.
 
 -------------------------------------------

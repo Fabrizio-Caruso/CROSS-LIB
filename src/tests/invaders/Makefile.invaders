@@ -78,12 +78,20 @@ Z88DK_MAKE_OPTS ?= -j 8
 
 
 
+ifeq ($(DO_WIN),1)
 all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
     lcc1802_targets \
     z88dk_targets
+else
+all: \
+    gcc_targets \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
 
 
 gcc_targets: \
@@ -109,7 +117,7 @@ cmoc_targets: \
     mo5_targets \
     to7_targets
 
-
+ifeq ($(DO_WIN),1)
 z88dk_targets: \
     aquarius \
     ace \
@@ -123,7 +131,19 @@ z88dk_targets: \
     sms \
     spectrum \
     vg5k
-
+else
+    aquarius \
+    ace \
+    cpc \
+    cpm \
+    gb \
+    laser500 \
+    mc1000 \
+    msx \
+    sms \
+    spectrum \
+    vg5k
+endif
 
 _lcc1802_6x8_targets: \
     _comx \
@@ -1041,6 +1061,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o move_player.o
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
@@ -1048,7 +1069,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	rm ./FULL_MO5.bin
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
-	
+endif
 
 
 mo5_targets: \
@@ -1092,11 +1113,13 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o move_player.o
+ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+endif
 
 to7_targets: \
 	to7

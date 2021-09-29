@@ -1,5 +1,5 @@
 ######################################################################
-# Makefile for CROSS-input
+# Makefile for CROSS-INPUT
 GAME_NAME := input
 
 PARENT_DIR = tests
@@ -151,19 +151,25 @@ Z88DK_MAKE_OPTS ?= -j 8
 #################################################################
 #    Grouped Targets 
 
-
+ifeq ($(DO_WIN),1)
 all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
     lcc1802_targets \
     z88dk_targets
-
+else
+all: \
+    gcc_targets \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
 
 gcc_targets: \
 	ncurses  
 
-
+ifeq ($(DO_WIN),1)
 cc65_targets: \
     apple2 \
     apple2enh \
@@ -179,7 +185,21 @@ cc65_targets: \
     pce \
     supervision \
     vic20 
-
+else
+cc65_targets: \
+    apple2 \
+    apple2enh \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    oric  \
+    nes \
+    pet \
+    pce \
+    vic20 
+endif
 
 cmoc_targets: \
     coco_targets \
@@ -188,12 +208,12 @@ cmoc_targets: \
     to7_targets
 
 
+ifeq ($(DO_WIN),1)
 z88dk_targets_sequential: \
     aquarius \
     ace \
+    cpc \
     c128_z80_40col \
-    c128_z80_80col \
-    cpc_mode0 \
     coleco \
     cpm \
     gb \
@@ -209,6 +229,27 @@ z88dk_targets_sequential: \
     spectrum \
     vg5k \
     vz200 
+else
+z88dk_targets_sequential: \
+    aquarius \
+    ace \
+    cpc \
+    coleco \
+    cpm \
+    gb \
+    gg \
+    laser500 \
+    mc1000 \
+    msx \
+    mtx500 \
+    mtx512 \
+    mz \
+    samcoupe \
+    sms \
+    spectrum \
+    vg5k \
+    vz200 
+endif
 
 
 z88dk_targets:
@@ -781,6 +822,28 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 cpc: cpc_mode0
 
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
+	-DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
+	-D__CPC__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+
+cpc_mode0_prev: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
@@ -810,7 +873,6 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm basic.rom
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -1256,7 +1318,6 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	-compiler=sdcc \
 	--opt-code-size \
 	-vn \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) \
@@ -1319,10 +1380,12 @@ dragon:
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	input_macros.o 
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_Dragon.bin
+endif
 
 dragon_targets: \
 	dragon
@@ -1350,13 +1413,14 @@ coco:
 	rm 	display_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
+ifeq ($(DO_WIN),1)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	
+endif	
 
 coco_targets: \
 	coco
@@ -1397,6 +1461,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
@@ -1404,7 +1469,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	rm ./FULL_MO5.bin
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
-	
+endif	
 
 
 mo5_targets: \
@@ -1445,11 +1510,13 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+endif
 
 to7_targets: \
 	to7
@@ -1524,26 +1591,22 @@ reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
 reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_COLOR_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
-	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
 
 reduced_full_lcc1802_micro_combo.c: full_combo_rand.c
 	cat \
 	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
-	# rm $(SOURCE_PATH)/../full_combo_rand.c
 
 
 clean_combo_files:

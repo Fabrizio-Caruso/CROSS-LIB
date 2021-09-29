@@ -211,7 +211,7 @@ Examples:
 
 
 -------------------------------------------
-## RESETTING TEMPORARY FILES AND BINARIES
+## RESETTING TEMPORARY FILES
 
 In order to remove temporary files that are produced during a build you can se the 'xl reset' script.
 

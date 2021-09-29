@@ -984,7 +984,7 @@ ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_Dragon.bin
 else
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_&@.bin
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 
@@ -1025,7 +1025,7 @@ ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 else
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_&@.bin
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 coco_targets: \

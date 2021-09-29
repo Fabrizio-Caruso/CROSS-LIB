@@ -293,18 +293,18 @@ def help_help():
     print("Possible values for <command>:")
     print("build, clean, create, delete, help, list")  
     print("")
-    print("Use xl.py help <command> for <command>-specific help")
+    print("Use xl help <command> for <command>-specific help")
     print("\nExample:")
-    print("\nxl.py help create              \n  It displays the help page for the 'create' command")
+    print("\nxl help create              \n  It displays the help page for the 'create' command")
 
 
 def help(params):
     if len(params)<2:
-        print("\nxl.py <command> <[optional] parameters>")   
+        print("\nxl <command> <[optional] parameters>")   
         print("\n<parameters>")
         help_help()
     elif params[1]=="build":
-        print("xl.py build <project> <[optional] target>")
+        print("xl build <project> <[optional] target>")
         print("It builds <project> (game or test) for <target>.")
         print("The built binaries will be in the 'build' directory.")
 
@@ -326,15 +326,15 @@ def help(params):
             input()
         
         print("\nExamples:")
-        print("\nxl.py build bomber vic20       \n  It builds Cross Bomber for the Commodore Vic 20 using CC65.")
-        print("\nxl.py build snake              \n  It builds Cross Snake for the native target (terminal console).")
-        print("\nxl.py build chase cc65_targets \n  It builds Cross Chase for all targets that use CC65 to be built.")
-        print("\nxl.py build games cpc          \n  It builds all games for the Amstrad CPC using Z88DK.")
-        print("\nxl.py build tests c64          \n  It builds all tests for the Commodore 64 using CC65.")
-        print("\nxl.py build horde all          \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
-        print("\nxl.py build all c16            \n  It builds all projects (games and tests) for the Commodore 264 series using CC65.")
+        print("\nxl build bomber vic20       \n  It builds Cross Bomber for the Commodore Vic 20 using CC65.")
+        print("\nxl build snake              \n  It builds Cross Snake for the native target (terminal console).")
+        print("\nxl build chase cc65_targets \n  It builds Cross Chase for all targets that use CC65 to be built.")
+        print("\nxl build games cpc          \n  It builds all games for the Amstrad CPC using Z88DK.")
+        print("\nxl build tests c64          \n  It builds all tests for the Commodore 64 using CC65.")
+        print("\nxl build horde all          \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
+        print("\nxl build all c16            \n  It builds all projects (games and tests) for the Commodore 264 series using CC65.")
     elif params[1]=="create":
-        print("xl.py create <project> <[optional] type>")
+        print("xl create <project> <[optional] type>")
         print("It creates <project>")
         
         print("\n<type>")
@@ -343,10 +343,10 @@ def help(params):
         print("If 'apis' is passed as <type>, then the project is build with some code that shows how to use all APIs.")
         
         print("\nExamples:");
-        print("\nxl.py create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
-        print("\nxl.py create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
+        print("\nxl create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
+        print("\nxl create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
     elif params[1]=="delete":
-        print("xl.py delete <project> <[optiona] interactive>")
+        print("xl delete <project> <[optiona] interactive>")
         print("It removes <project>, i.e., it deletes its folder with its content (source code, graphics assets, makefile).")
         
         print("\n<project>")
@@ -356,10 +356,10 @@ def help(params):
         print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
 
         print("\nExample:")
-        print("\nxl.py delete foo               \n  It deletes the project 'foo'.")
-        print("\nxl.py delete foo -y            \n  Same as above but no confirmation is asked.")   
+        print("\nxl delete foo               \n  It deletes the project 'foo'.")
+        print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")   
     elif params[1]=="clean": 
-        print("xl.py clean <[optional] project> <interactive>")
+        print("xl clean <[optional] project> <interactive>")
         print("It deletes both built binaries and temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.") 
@@ -369,15 +369,15 @@ def help(params):
         print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
         
         print("\nExamples:")
-        print("\nxl.py clean                    \n  It deletes all built binaries and non-project specific temporary files.")
-        print("\nxl.py clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
-        print("\nxl.py clean foo -y             \n  Same as above but no confirmation is asked.")
+        print("\nxl clean                    \n  It deletes all built binaries and non-project specific temporary files.")
+        print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
+        print("\nxl clean foo -y             \n  Same as above but no confirmation is asked.")
 
     elif params[1]=="list":  
-        print("xl.py list")
+        print("xl list")
         print("It lists all current projects (test projects, built-in games and user-defined games).")
     elif params[1]=="help":
-        print("xl.py help <[optional] command>")
+        print("xl help <[optional] command>")
         print("It displays help instructions.")
         
         print("\n<command>")

@@ -219,15 +219,11 @@ ifeq ($(DO_WIN),1)
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-    
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-ifeq ($(DO_WIN),1)
-dragon_targets: \
-	dragon_no_gfx dragon
-else
+
 dragon_targets: \
 	dragon_gfx
-endif
 
 
 coco: coco_gfx
@@ -408,14 +404,12 @@ ifeq ($(DO_WIN),1)
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-ifeq ($(DO_WIN),1)
-coco_targets: \
-	coco_no_gfx coco
-else
+
 coco_targets: \
 	coco
-endif
+
 
 coco3: coco3_gfx
 	
@@ -786,7 +780,7 @@ ifeq ($(DO_WIN),1)
 	mv ./FULL_TO7.BIN $(BUILD_PATH)/X$(GAME_NAME)_TO7.BIN
 	mv ./FULL_TO7.sap $(BUILD_PATH)/X$(GAME_NAME)_TO7.sap
 else
-	mv $(BUILD_PATH)/FULL_TO7.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/FULL_TO7.BIN $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 to7_targets: \

@@ -213,16 +213,15 @@ Examples:
 
 
 -------------------------------------------
-## RESETTING TEMPORARY FILES
+## RESETTING A PROJECT BUILD
 
-In order to remove temporary files that are produced during a build you can use 'xl reset', which keeps all built binaries.
+In order to remove generated graphics assets of a specific project and other temporary files that are produced during a build, you can use 'xl reset '.
 
+`xl reset [project name]`
 
-`xl reset [optional project name]`
-
-If you provide a project name, then also project specific temporary files are removed including generated project-specific graphics assets.
-Built binaries are kept anyway.
-Removing generated graphics assets is useful to rebuild a game or test with updated graphics assets.
+Project specific temporary files are removed including generated project-specific graphics assets.
+Built binaries are not deleted by this command.
+Removing generated graphics assets is useful to rebuild a project with updated graphics assets.
 
 Examples:
 - `xl reset` -> It deletes temporary files (not the once inside specific project folders)

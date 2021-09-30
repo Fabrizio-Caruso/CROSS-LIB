@@ -36,13 +36,25 @@ z88dk_targets_sccz80_more: \
 	z88dk_targets_l-p_more \
 	z88dk_targets_q-z_more
 
+ifeq ($(DO_WIN),1)
 z88dk_targets: \
 	z88dk_targets_sccz80 \
 	z88dk_targets_zsdcc 
 
 z88dk_targets_more: \
 	z88dk_targets_sccz80_more \
-	z88dk_targets_zsdcc_more
+	z88dk_targets_zsdcc_more    
+
+else
+
+z88dk_targets: \
+	z88dk_targets_sccz80
+    
+z88dk_targets_more: \
+	z88dk_targets_sccz80_more
+endif
+
+
 
 # z88dk_targets_sccz80:
 	# make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k 

@@ -2,6 +2,7 @@
 # Z88DK A-K
 #
 
+ifeq ($(DO_WIN),1)
 
 z88dk_targets_a-k: \
 	ace_targets \
@@ -44,6 +45,48 @@ z88dk_targets_a-k_more: \
 	kc_targets \
 	kramermc_targets
 
+else
+
+z88dk_targets_a-k: \
+	ace_targets \
+	coleco_targets \
+	coleco_adam_targets \
+	cpc_targets \
+	cpm_targets \
+	gb_targets
+
+z88dk_targets_a-k_more: \
+	abc80_targets \
+	abc800_targets \
+	ace_targets \
+	alphatro_targets \
+	altair8800_targets \
+	attache_targets \
+	aussie_targets \
+	bic_targets \
+	camputers_lynx_targets \
+	coleco_targets \
+	coleco_adam_targets \
+	cpc_targets \
+	cpm_targets \
+	dai_targets \
+	dmv_targets \
+ 	eg2k_targets \
+	einstein_targets \
+	enterprise_targets \
+	excalibur64_targets \
+	fp1100_targets \
+	g800_targets \
+	gb_targets \
+	hemc_targets \
+	hgmc_targets \
+	homelab_targets \
+	homelab2_targets \
+	kaypro_targets \
+	kc_targets \
+	kramermc_targets
+
+endif
 
 # z88dk_targets_a-k:
 	# make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k_sequential -f games/$(GAME_NAME)/makefiles.chase/makefiles_z88dk/Makefile_z88dk_a-k
@@ -535,7 +578,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 # CPC
 
 cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DZ88DK_JOYSTICK \
 	-DSOUNDS -DFORCE_PSG -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -548,18 +591,18 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
-	rm -rf X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc xchase
-	mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"xchase'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
-	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
+	# rm -rf X$(GAME_NAME)_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc xchase
+	# mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
+	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"xchase'
+	# rm os.rom
+	# rm amsdos.rom
+	# rm basic.rom
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
 
 
 #############################

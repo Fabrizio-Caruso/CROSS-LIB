@@ -82,12 +82,21 @@ SCCZ80_OPTS ?= -O0
 #################################################################
 #     lcc1802_targets 
 
+ifeq ($(DO_WIN),1)
 all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
     lcc1802_targets \
     z88dk_targets
+else
+all: \
+    gcc_targets \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
+
 
 gcc_targets: \
     ncurses  
@@ -116,19 +125,9 @@ cc65_7x8_targets: \
     apple2 \
     apple2enh
 
-cc65_8x8_targets: \
-    atari \
-    atari5200 \
-    c16 \
-    c64 \
-    creativision \
-    gamate \
-    nes \
-    pce \
-    supervision \
-    vic20_exp_8k \
-    vic20
 
+
+ifeq ($(DO_WIN),1)
 z88dk_8x8_targets_sequential: \
     ace \
     c128_z80_80col \
@@ -145,6 +144,37 @@ z88dk_8x8_targets_sequential: \
     spectrum \
     vg5k \
     zx81
+
+cc65_8x8_targets: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    nes \
+    pce \
+    supervision \
+    vic20_exp_8k \
+    vic20
+
+else
+
+z88dk_8x8_targets_sequential: \
+    ace \
+    coleco \
+    cpc \
+    gb \
+    laser500 \
+    mc1000 \
+    msx \
+    mtx500 \
+    mtx512 \
+    samcoupe \
+    sms \
+    spectrum \
+    vg5k \
+    zx81
+endif
 
 z88dk_8x8_targets:
 	make $(Z88DK_MAKE_OPTS) z88dk_8x8_targets_sequential -f ./games/$(GAME_NAME)/Makefile.$(GAME_NAME)
@@ -440,7 +470,9 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+endif
 
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
@@ -455,8 +487,9 @@ gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
-
+endif
 
 #################################################################
 
@@ -1114,7 +1147,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o  dac_sounds.o  \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
-	 \
 	text_macros.o variables.o \
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
@@ -1127,14 +1159,15 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
-	# mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
 	rm ./FULL_MO5.bin
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+endif
 
 mo5_test: 
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5_ex1-1.bin
@@ -1190,7 +1223,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o \
 	display_macros.o  dac_sounds.o  \
 	cmoc_udc_25_tiles.o \
-	 \
 	text_macros.o variables.o \
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
@@ -1203,12 +1235,13 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
-    
+endif
 
 to7_targets: \
 	to7
@@ -1392,7 +1425,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 cpc: cpc_mode0
 
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subdisk=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	 -DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
 	-DANIMATE_PLAYER \
@@ -1405,22 +1438,22 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
-	rm -rf X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
-	mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# $(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
+	# rm -rf X$(GAME_NAME)_$@.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
+	# mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
+	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	# rm os.rom
+	# rm amsdos.rom
+	# rm basic.rom
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 

@@ -584,7 +584,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS -DFORCE_PSG -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB -D_XL_SLOW_DOWN_FACTOR=600 \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -601,8 +601,9 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	# rm os.rom
 	# rm amsdos.rom
 	# rm basic.rom
-	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
-	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.com 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc
 
 
 #############################

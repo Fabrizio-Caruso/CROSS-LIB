@@ -667,7 +667,7 @@ cpm_8080_buffered:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	rm $(BUILD_PATH)/X$(GAME_NAME)_CPM_8080_BUFFERED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_CPM_8080_buffered.bin
 
 
 #############################

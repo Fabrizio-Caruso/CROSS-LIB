@@ -12,7 +12,7 @@
 # No. of systems: 19
 # ------------
 
-
+ifeq ($(DO_WIN),1)
 cc65_targets: \
 	apple2_targets \
 	apple2enh_targets \
@@ -35,7 +35,27 @@ cc65_targets: \
 	supervision_targets \
 	telestrat_targets \
 	vic20_targets
-
+else
+	apple2_targets \
+	apple2enh_targets \
+	atari_targets \
+	atari5200_targets \
+	atari_lynx_targets \
+	c128_8502_targets \
+	c16_targets \
+	c64_targets \
+	cbm510_targets \
+	cbm610_targets \
+	creativision_targets \
+	cx16_targets \
+	nes_targets \
+	pce_targets \
+	pet_targets \
+	oric_targets \
+	osic1p_targets \
+	telestrat_targets \
+	vic20_targets
+endif
 
 ################################################################################################
 

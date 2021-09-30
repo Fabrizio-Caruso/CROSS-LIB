@@ -91,7 +91,7 @@ include makefiles.common/auxiliary/Makefile_combo
 #############################################################################################################################################
 
 # All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
-all: \
+extras: \
     cc65_targets \
     cmoc_targets \
     ack_targets \
@@ -103,6 +103,18 @@ all: \
     gcc_ti99_targets \
     z88dk_targets
 
+ifeq ($(DO_WIN),1)
+all: \
+    cc65_targets \
+    cmoc_targets \
+    lcc1802_targets \
+    z88dk_targets
+else
+all: \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
 
 
 ####################################################################################################################

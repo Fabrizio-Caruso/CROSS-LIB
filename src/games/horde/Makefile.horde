@@ -984,6 +984,8 @@ ifeq ($(DO_WIN),1)
 	rm ./FULL_MO5.bin
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 mo5_test: 
@@ -1040,6 +1042,8 @@ ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+else
+	mv $(BUILD_PATH)/FULL_TO7.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 to7_targets: \

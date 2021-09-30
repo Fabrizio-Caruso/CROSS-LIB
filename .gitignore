@@ -4,6 +4,7 @@ deliverables
 *.swp
 *.img
 build/*
+**generated_assets/*
 src/assets/generated_assets/*
 src/demos/matrix/generated_assets/*
 src/demos/tiles/generated_assets/*

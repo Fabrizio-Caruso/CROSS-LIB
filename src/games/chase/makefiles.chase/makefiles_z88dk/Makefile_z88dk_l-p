@@ -3,6 +3,15 @@
 #
 
 z88dk_targets_l-p: \
+	laser500_targets \
+	m5_targets \
+	microbee_targets \
+	msx_targets \
+	mtx_targets \
+	mz_targets
+
+
+z88dk_targets_l-p_more: \
 	lambda_targets \
 	laser500_targets \
 	m5_targets \

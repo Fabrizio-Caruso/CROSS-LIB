@@ -2,8 +2,16 @@
 # Z88DK ZSDCC
 #
 
-
 z88dk_targets_zsdcc: \
+	aquarius_targets \
+	gal_targets \
+	mc1000_targets \
+	svi_targets \
+	vg5k_targets \
+	vz200_targets \
+	zx81_targets
+
+z88dk_targets_zsdcc_more: \
 	aquarius_targets \
 	gal_targets \
 	mc1000_targets \

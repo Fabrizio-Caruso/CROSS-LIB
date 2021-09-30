@@ -31,10 +31,18 @@ z88dk_targets_sccz80: \
 	z88dk_targets_l-p \
 	z88dk_targets_q-z
 
+z88dk_targets_sccz80_more: \
+	z88dk_targets_a-k_more \
+	z88dk_targets_l-p_more \
+	z88dk_targets_q-z_more
+
 z88dk_targets: \
 	z88dk_targets_sccz80 \
 	z88dk_targets_zsdcc 
 
+z88dk_targets_more: \
+	z88dk_targets_sccz80_more \
+	z88dk_targets_zsdcc_more
 
 # z88dk_targets_sccz80:
 	# make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k 

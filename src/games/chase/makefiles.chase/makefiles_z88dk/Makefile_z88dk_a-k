@@ -4,6 +4,15 @@
 
 
 z88dk_targets_a-k: \
+	ace_targets \
+	c128_z80_targets \
+	coleco_targets \
+	coleco_adam_targets \
+	cpc_targets \
+	cpm_targets \
+	gb_targets
+
+z88dk_targets_a-k_more: \
 	abc80_targets \
 	abc800_targets \
 	ace_targets \

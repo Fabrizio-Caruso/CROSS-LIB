@@ -101,7 +101,7 @@ extras: \
     gcc_atari_st_targets \
     gcc_amiga_targets \
     gcc_ti99_targets \
-    z88dk_targets
+    z88dk_targets_more
 
 ifeq ($(DO_WIN),1)
 all: \

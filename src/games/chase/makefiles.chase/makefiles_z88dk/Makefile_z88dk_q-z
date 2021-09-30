@@ -1,7 +1,14 @@
 # ------------------------------------------------------------------------------------------
 # Z88DK Q-Z
-# 	 
+#
+
 z88dk_targets_q-z: \
+	samcoupe_targets \
+	sc3000_targets \
+	sms_targets \
+	spectrum_targets
+
+z88dk_targets_q-z_more: \
 	qc10_targets \
 	rc700_targets \
 	rx78_targets \

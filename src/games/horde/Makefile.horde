@@ -68,13 +68,22 @@ SCCZ80_OPTS += -O3
 #################################################################
 #     lcc1802_targets 
 
-#     
+
+ifeq ($(DO_WIN),1)
 all: \
     gcc_targets \
     cc65_targets \
     cmoc_targets \
-    z88dk_targets \
-    lcc1802_targets
+    lcc1802_targets \
+    z88dk_targets
+
+else
+all: \
+    gcc_targets \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
 
 
 all_8x8: \
@@ -102,6 +111,7 @@ gcc_targets: \
     ncurses  
 
 
+ifeq ($(DO_WIN),1)
 cc65_8x8_targets: \
     atari \
     atari5200 \
@@ -113,7 +123,17 @@ cc65_8x8_targets: \
     pce \
     supervision \
     vic20
-
+else
+cc65_8x8_targets: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    nes \
+    pce \
+    vic20
+endif
 
 cc65_6x8_targets: \
     oric
@@ -141,6 +161,7 @@ cmoc_8x8_targets: \
 cmoc_targets: cmoc_8x8_targets
 
 
+ifeq ($(DO_WIN),1)
 z88dk_8x8_targets: \
     ace \
     c128_z80_80col \
@@ -158,7 +179,24 @@ z88dk_8x8_targets: \
     spectrum \
     vg5k \
     zx81
-
+else
+z88dk_8x8_targets: \
+    ace \
+    coleco \
+    cpc \
+    gb \
+    gg \
+    laser500 \
+    mc1000 \
+    msx \
+    mtx500 \
+    mtx512 \
+    samcoupe \
+    sms \
+    spectrum \
+    vg5k \
+    zx81
+endif
 
 z88dk_ascii_targets: \
     aquarius \
@@ -833,12 +871,15 @@ dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+endif
 	rm $(BUILD_PATH)/xchase.bin
 
 dragon_targets: \
 	dragon
+
 
 coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	$(CMOC) \
@@ -879,13 +920,16 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	cmoc_udc_25_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifeq ($(DO_WIN),1)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+endif
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	
 
 coco_targets: \
 	coco
@@ -923,7 +967,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o  dac_sounds.o  \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
-	 \
 	text_macros.o \
 	input_macros.o
 	rm \
@@ -933,14 +976,15 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
-	# mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
 	rm ./FULL_MO5.bin
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+endif
 
 mo5_test: 
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5_ex1-1.bin
@@ -981,7 +1025,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o \
 	display_macros.o  dac_sounds.o  \
 	cmoc_udc_25_tiles.o \
-	 \
 	text_macros.o \
 	input_macros.o
 	rm \
@@ -991,12 +1034,13 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
+ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
 	rm ./FULL_TO7.BIN
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
-    
+endif
 
 to7_targets: \
 	to7

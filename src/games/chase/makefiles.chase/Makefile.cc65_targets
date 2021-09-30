@@ -36,6 +36,7 @@ cc65_targets: \
 	telestrat_targets \
 	vic20_targets
 else
+cc65_targets: \
 	apple2_targets \
 	apple2enh_targets \
 	atari_targets \

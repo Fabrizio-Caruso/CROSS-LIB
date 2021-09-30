@@ -29,7 +29,7 @@ MO5_OPTS        ?= -O0 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=800 -DFORCE_NO_CO
 TO7_OPTS        ?= -O2 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=1000 -DFORCE_NO_CONIO_LIB -DMACRO_SLEEP  -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME
 
 TO7_ORG_DATA    ?= --org=a000 
-# £--data=D400
+# --data=D400
 
 ################################################################################
 
@@ -213,10 +213,13 @@ dragon_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	rocket.o horizontal_missile.o end_screen.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+    
 
 
 
@@ -396,8 +399,10 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	rocket.o horizontal_missile.o end_screen.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
@@ -493,8 +498,10 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	rocket.o horizontal_missile.o end_screen.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
@@ -668,6 +675,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_MO5.sap
@@ -675,7 +683,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
-	
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif	
 
 
 to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
@@ -767,14 +777,15 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o 
-    #end_screen.o
+ifeq ($(DO_WIN),1)
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_TO7.sap FULL_TO7.BIN
 	mv ./FULL_TO7.BIN $(BUILD_PATH)/X$(GAME_NAME)_TO7.BIN
 	mv ./FULL_TO7.sap $(BUILD_PATH)/X$(GAME_NAME)_TO7.sap
-
-
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
 
 to7_targets: \
 	to7

@@ -151,6 +151,7 @@ cc65_8x8_targets: \
     c16 \
     c64 \
     creativision \
+    gamate \
     nes \
     pce \
     supervision \
@@ -174,6 +175,19 @@ z88dk_8x8_targets_sequential: \
     spectrum \
     vg5k \
     zx81
+
+cc65_8x8_targets: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    nes \
+    pce \
+    supervision \
+    vic20_exp_8k \
+    vic20
+
 endif
 
 z88dk_8x8_targets:

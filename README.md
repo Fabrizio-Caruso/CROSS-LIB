@@ -115,9 +115,11 @@ For the compilers to work, you may need to add the location of their binaries to
 If the compiler's binary cannot be found, you may have to set their paths in: `src\makefiles.common\auxiliary/Makefile_compilers`, e.g., `Z88DK_PATH`, `LCC1802_PATH`, etc..
 
 For more details on the prerequisites we refer to: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 
+-------------------------------------------
 
 ## HOW TO START
 
@@ -149,7 +151,7 @@ You can display its instructions and some examples by using:
 ```
 xl help <[optional] command>
 ```
-where commands are `create`,`build`,`delete`,`clean`,`list`,`help`.
+where commands are `build`, `clean`, `create`,`delete`, `list`, `help`, `reset`.
 
 The following sections will show how to use this script in the my common use-cases.
 
@@ -213,29 +215,31 @@ Examples:
 -------------------------------------------
 ## RESETTING TEMPORARY FILES
 
-In order to remove temporary files that are produced during a build you can se the 'xl reset' script.
+In order to remove temporary files that are produced during a build you can use 'xl reset', which keeps all built binaries.
+
 
 `xl reset [optional project name]`
 
 If you provide a project name, then also project specific temporary files are removed including generated project-specific graphics assets.
+Built binaries are kept anyway.
 Removing generated graphics assets is useful to rebuild a game or test with updated graphics assets.
 
 Examples:
-- `xl reset` -> It temporary files (not the once inside specific project folders)
+- `xl reset` -> It deletes temporary files (not the once inside specific project folders)
 - `xl reset foo` -> It deletes the same files as `xl reset` and also deletes specific temporary files found inside `foo` folder.
 
 -------------------------------------------
 ## CLEANING TEMPORARY FILES AND BINARIES
 
-If you  want to remove to remove binaries and temporary files that are produced during a build you can se the 'xl clean' script.
+If you  want to remove built binaries and temporary files that are produced during a build you can use 'xl clean'.
 
 `xl clean [optional project name]`
 
-If you provide a project name, then also project specific temporary files are removed including generated project-specific graphics assets.
+If you provide a project name, then also project-specific temporary files are removed including generated project-specific graphics assets.
 
 Examples:
-- `xl clean` -> It deletes all built binaries and some generic temporary files.
-- `xl clean foo` -> It deletes the same files as `xl clean` and also deletes specific temporary files found inside `foo` folder.
+- `xl clean` -> It deletes all built binaries and some generic temporary files (not the once inside project directories).
+- `xl clean foo` -> It deletes the same files as `xl clean` and also deletes temporary files found inside the `foo` folder.
 
 -------------------------------------------
 ## LISTING PROJECTS
@@ -273,10 +277,12 @@ In order to run the game you will have to follow a different procedure depending
 ### Loading the game into an emulated vintage system
 In most cases loading an executable into an emulator is straightforward. 
 For a detailed guide on how to load the game on several emulated systems for which the procedure is not obvious, we refer to: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME.md
 
 ### Loading the game into a real vintage system
 This depends on the systems and the format used to store the game. For some hints on this take a look at:
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
 
 
@@ -351,6 +357,7 @@ For example for the game Cross Snake you can see how it is rendered on the MSX 1
 ![GB](snapshots/XSnake_GB.png)
 
 For more snapshots we refer to: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
 
 

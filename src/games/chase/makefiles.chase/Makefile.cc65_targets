@@ -53,7 +53,6 @@ cc65_targets: \
 	pce_targets \
 	pet_targets \
 	oric_targets \
-	osic1p_targets \
 	telestrat_targets \
 	vic20_targets
 endif
@@ -885,7 +884,7 @@ telestrat_buffered:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+	# cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 
 telestrat_joy_buffered: 

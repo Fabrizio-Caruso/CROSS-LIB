@@ -13,14 +13,25 @@
     #define _XL_YELLOW 0
     #define _XL_BLUE 0
 #elif defined(__MO5__)
-    #define _XL_BLACK 0
-    #define _XL_RED 16
-    #define _XL_GREEN 32
-    #define _XL_YELLOW 48
-    #define _XL_BLUE 64
-    #define _XL_MAGENTA 80
-    #define _XL_CYAN 96
-    #define _XL_WHITE 112
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #define _XL_BLACK (0+7)
+        #define _XL_RED (16+7)
+        #define _XL_GREEN (32+7)
+        #define _XL_YELLOW (48+7)
+        #define _XL_BLUE (64+7)
+        #define _XL_MAGENTA (80+7)
+        #define _XL_CYAN (96+7)
+        #define _XL_WHITE (112+7)
+    #else
+        #define _XL_BLACK 0
+        #define _XL_RED 16
+        #define _XL_GREEN 32
+        #define _XL_YELLOW 48
+        #define _XL_BLUE 64
+        #define _XL_MAGENTA 80
+        #define _XL_CYAN 96
+        #define _XL_WHITE 112
+    #endif
 #elif defined(__TO7__)
     #define TO7_PASTEL_OFF 192
     #define _XL_BLACK (0+TO7_PASTEL_OFF)

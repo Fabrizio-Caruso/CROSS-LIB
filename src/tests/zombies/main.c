@@ -119,9 +119,9 @@ int main(void)
         
     while(1)
     {
-        zombie_index=_XL_RAND()%XSize;
+        zombie_index= (uint8_t) _XL_RAND()%XSize;
         
-        move_or_die=_XL_RAND()%XSize;
+        move_or_die= (uint8_t) _XL_RAND()%XSize;
         
         if(move_or_die>XSize-2)
         {

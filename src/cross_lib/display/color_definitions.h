@@ -33,12 +33,12 @@
         #define _XL_WHITE 112
     #endif
 #elif defined(__TO7__)
-    #define TO7_PASTEL_OFF 192
+    #define TO7_PASTEL_OFF 192U
     #define _XL_BLACK (0+TO7_PASTEL_OFF)
     #define _XL_RED (8+TO7_PASTEL_OFF)
     #define _XL_GREEN (16+TO7_PASTEL_OFF)
     #define _XL_YELLOW (24+TO7_PASTEL_OFF)
-    #define _XL_BLUE (64+TO7_PASTEL_OFF)
+    #define _XL_BLUE (48+TO7_PASTEL_OFF)
     #define _XL_MAGENTA (40+TO7_PASTEL_OFF)
     #define _XL_CYAN (48+TO7_PASTEL_OFF)
     #define _XL_WHITE (56+TO7_PASTEL_OFF)

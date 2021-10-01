@@ -920,11 +920,9 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	cmoc_udc_25_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
-endif
-	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
-ifeq ($(DO_WIN),1)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif

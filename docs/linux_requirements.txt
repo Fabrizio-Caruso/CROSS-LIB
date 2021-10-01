@@ -77,7 +77,7 @@ export ZCCCFG=${HOME}/z88dk/lib/config
 
 https://github.com/davidgiven/ack
 
-(flex and yacc)
+(It requies flex and yacc/bison)
 
 make
 sudo make install

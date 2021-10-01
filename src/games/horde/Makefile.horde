@@ -80,9 +80,9 @@ all: \
 else
 all: \
     gcc_targets \
-    cc65_targets \
     cmoc_targets \
-    z88dk_targets
+    z88dk_targets \
+    cc65_targets
 endif
 
 
@@ -148,9 +148,9 @@ cc65_7x8_targets: \
 
 cc65_targets: \
     cc65_ascii_targets \
-    cc65_8x8_targets \
     cc65_7x8_targets \
-    cc65_6x8_targets
+    cc65_6x8_targets \
+    cc65_8x8_targets
 
 cmoc_8x8_targets: \
     coco_targets \

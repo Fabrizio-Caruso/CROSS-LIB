@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 06/06/2021
+Last update: 02/10/2021
 
 ### 8-BIT targets with known working existing emulators
 
@@ -142,7 +142,8 @@ target name         | long target name                                     | wor
 *tvc*               | Videoton TV Computer                                 |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |     
 *vector06c*         | Вектор-06Ц Vector06c                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *vg5k*              | VG-5000                                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*vgl*               | VTech Genius Leader                                  |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*gl4000*            | VTech Genius Leader 4000                             |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*gl6000sl*          | VTech Genius Leader 6000sl                           |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *vic20*             | Commodore Vic 20                                     |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
 *vz200*             | VTech VZ200                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 *x1*                | Sharp X1                                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
@@ -155,9 +156,9 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 147
+TOTAL    : 148
 
-OK       : 143
+OK       : 144
 
 KO       :   2
 
@@ -272,9 +273,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 166
+TOTAL    : 167
 
-OK       : 153
+OK       : 154
 
 KO       :   4
 

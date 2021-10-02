@@ -32,7 +32,7 @@ z88dk_targets_q-z_more: \
 	ts2068_targets \
 	tvc_targets \
 	vector06c_targets \
-	vgl_targets \
+	gl_targets \
 	x1_targets \
 	z1013_targets \
 	z80tvgame_targets \
@@ -112,8 +112,8 @@ tvc_targets: \
 vector06c_targets: \
 	vector06c
 
-vgl_targets: \
-	vgl
+gl_targets: \
+	gl4000 gl6000sl
 
 x1_targets: \
 	x1 x1_no_gfx
@@ -951,10 +951,10 @@ vector06c:
 
 #############################
 # V-TECH GENIUS LEADER
-vgl: vgl_buffered
+gl4000: gl4000_buffered
 
-vgl_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +vgl $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+gl4000_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +gl -clib=gl4000 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__VGL__ \
 	-DFORCE_XSIZE=20 -DNO_LOWER_BORDER \
 	-DFORCE_YSIZE=6 \
@@ -967,9 +967,26 @@ vgl_buffered:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_code_crt_interrupt_vector_table.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_CODE.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+
+gl6000sl: gl6000sl_buffered
+
+gl6000sl_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +gl -clib=gl6000sl $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__VGL__ \
+	-DFORCE_XSIZE=30 -DNO_LOWER_BORDER \
+	-DFORCE_YSIZE=12 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 #############################
 # X1

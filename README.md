@@ -97,7 +97,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 When a game is built for a specific target, Cross-Lib will:
 1. convert the abstract graphics assets in graphics assets for the given target on the fly;
 2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
-3. if needed, create a disk/cassette/cartridge image.
+3. if needed, whenever possible, create a disk/cassette/cartridge image.
 
 -------------------------------------------
 
@@ -127,11 +127,10 @@ Inside the project main directory, you find the `src` and the `build` directorie
 - `src` contains the source code and all other files that are necessary to build the games and tests
 - `build` is supposed to be empty at first and it is the target directory for the build process.
 
-In order to use Cross-Lib scripts to build, create or delete game projects you need to be in the `src` directory.
+First of all you need to be in the `src` directory.
+From `src` you can use the `xl` script (or the `make` command) to do different operations on projects.
 
-You can use the `xl` script (or the `make` command) to do different operations on projects (such as create, build, delete, list).
-
-For a description of the script commands and their parameters, take a look at the next sections.
+For a description of the `xl` script and its parameters, take a look at the next sections.
 
 -------------------------------------------
 
@@ -216,15 +215,14 @@ Examples:
 ## RESETTING A PROJECT BUILD
 
 In order to remove generated graphics assets of a specific project and other temporary files that are produced during a build, you can use 'xl reset '.
+Use this command if you want to regenerate the graphics assets of a specific project.
 
 `xl reset [project name]`
 
-Project specific temporary files are removed including generated project-specific graphics assets.
-Built binaries are not deleted by this command.
-Removing generated graphics assets is useful to rebuild a project with updated graphics assets.
+Project-specific graphics assets and temporary files including project-specific ones are removed.
+Built binaries are preserved.
 
-Examples:
-- `xl reset` -> It deletes temporary files (not the once inside specific project folders)
+Example:
 - `xl reset foo` -> It deletes the same files as `xl reset` and also deletes specific temporary files found inside `foo` folder.
 
 -------------------------------------------
@@ -306,7 +304,7 @@ Moreover for performance reasons it is better to avoid recursion (as this has an
 
 Some C99 features are available:
 - Modern `//` comments are allowed.
-- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no extra include). 
+- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no extra include directive). 
 
 ### Screen size
 Using Cross-Lib APIs is not enough as the screen size and shape may be different.

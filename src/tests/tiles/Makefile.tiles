@@ -350,8 +350,26 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
+atari_v2: atari_color_v2
+
+atari_color_v2: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS -D_API_VERSION=2 \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC \
+	-DNO_SET_SCREEN_COLORS -DNO_SPACE_TEXT \
+	-DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 #################################################################
 
@@ -375,6 +393,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 
 c16: c16_16k
 
+c16_v2: c16_16k_v2
 
 plus4: c16_32k
 
@@ -402,6 +421,30 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_63_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_16k.prg
+
+
+c16_16k_v2: $(ASSETS_PATH)/cc65_udc_63_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	-DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -D_API_VERSION=2 \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED -DNO_SET_SCREEN_COLORS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-DDANCE -DUDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
@@ -1338,7 +1381,7 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-CMOC_OPTS       ?= -O0 -Wno-const  -DNO_SLEEP -DNO_WAIT -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME
+CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME
 
 COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS) $(NO_UDG_FLAG) -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
 

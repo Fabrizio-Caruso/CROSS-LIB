@@ -94,6 +94,8 @@ int main(void)
     uint8_t j;
     uint8_t k;
     _XL_INIT_GRAPHICS();
+    
+    _XL_INIT_SOUND();
 
     _XL_INIT_INPUT();
 
@@ -109,20 +111,25 @@ int main(void)
             //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
             // _XL_PRINT(COL_OFFSET,   2,"0123456789");
             
-            _XL_PRINT(COL_OFFSET,   4,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
-            _XL_PRINTD(COL_OFFSET  ,5,5, 1234U);
-            _XL_PRINTD(COL_OFFSET+5,5,5,56789U);
+            _XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
+            _XL_PRINTD(COL_OFFSET  ,2,5, 1234U);
+            _XL_PRINTD(COL_OFFSET+5,2,5,56789U);
 
             _XL_SET_TEXT_COLOR(tile_color[j]);
             
-            _XL_PRINT(COL_OFFSET, 7, (char *) color_name[j]);
+            _XL_PRINT(COL_OFFSET, 4, (char *) color_name[j]);
             
-            _XL_PRINT(COL_OFFSET, 9, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
-            _XL_PRINT(COL_OFFSET,10, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
-            _XL_PRINT(COL_OFFSET,11, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
-            _XL_PRINT(COL_OFFSET,13, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
-            _XL_PRINT(COL_OFFSET,14, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
-            _XL_PRINT(COL_OFFSET,15, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
+            _XL_PRINT(COL_OFFSET, 6, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
+            _XL_PRINT(COL_OFFSET, 7, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
+            _XL_PRINT(COL_OFFSET, 8, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
+            _XL_PRINT(COL_OFFSET,10, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
+            _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
+            _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
+
+            #if defined(_API_VERSION) && _API_VERSION>=2
+            _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM ");
+            _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ ");
+            #endif
             
             _XL_WAIT_FOR_INPUT();
 

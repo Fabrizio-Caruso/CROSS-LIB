@@ -86,6 +86,7 @@
 		}	
 	}
 #elif ((defined(__C16__) && defined(C16_UNEXPANDED))) 
+    #if defined(_API_VERSION) && _API_VERSION<2
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -97,6 +98,19 @@
 			return ch;
 		}	
 	}
+    #else
+	char screenCode(char ch)
+	{
+		if(ch<128)
+		{
+			return ch;
+		}
+		else
+		{
+			return ch-128;
+		}	
+	}  
+    #endif
 #endif
 
 #  if defined(Z88DK_SPRITES)

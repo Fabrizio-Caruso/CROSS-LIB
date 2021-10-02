@@ -31,7 +31,11 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 
     while(str[i]!='\0')
     {
+        #if defined(_API_VERSION) & _API_VERSION<2
         DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x40u);
+        #else
+        DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x20u);
+        #endif
         ++i;
 	}
 }

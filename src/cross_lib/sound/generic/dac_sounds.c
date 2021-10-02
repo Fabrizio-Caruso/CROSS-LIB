@@ -38,11 +38,11 @@ void _XL_INIT_SOUND(void)
         andcc #$af
     }
     // TODO: Remove this HACK to reset border color by fixing the Assembly code above
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-        PUTCH(0x1B);PUTCH(103);
-    #else
-        PUTCH(0x1B);PUTCH(96);
-    #endif
+    // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        // PUTCH(0x1B);PUTCH(103);
+    // #else
+        // PUTCH(0x1B);PUTCH(96);
+    // #endif
 }
 
 #elif defined(__TO7__)

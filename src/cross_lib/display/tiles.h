@@ -12,11 +12,15 @@
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K) && defined(REDEFINED_CHARS)
 	#include "vic20_exp_3k_light_settings.h"
 #elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_3K)) && defined(REDEFINED_CHARS)
-	#include "vic20_rom_chars_and_25_tiles_settings.h"
+	#include "vic20_rom_chars_and_26_tiles_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
 #elif defined(__VIC20__) && defined(CONIO)
-	#include "vic20_exp_16k_settings.h"
+    #if defined(_API_VERSION) && _API_VERSION>=2
+        #include "vic20_exp_16k_v2_settings.h"
+    #else
+        #include "vic20_exp_16k_settings.h"
+    #endif
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(C16_UNEXPANDED)
 	#include "c264_redefined_chars_settings.h"
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)

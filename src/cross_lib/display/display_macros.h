@@ -292,7 +292,7 @@ typedef struct ImageStruct Image;
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
     #if defined(FEWER_SPRITES)
-        #define _SPACE 60
+        #define _SPACE 64
     #else
         #define _SPACE 96
     #endif

@@ -37,7 +37,7 @@ Play the games online:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
-1. *Cross Chase* is somehow similar to *Gnome Robots*. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
+1.  <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-chase"><b>Cross Chase</b></a> is somehow similar to *Gnome Robots*. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
 2. *Cross Shoot* is a shooter somehow similar to Robotron. It has many items and secrets to discover.
 3. *Cross Bomber* is a mini-game and clone of Air Attack (aka Blitz).
 4. *Cross Snake* is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.

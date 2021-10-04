@@ -1,0 +1,5 @@
+# DISCLAIMER
+
+All information on the site (https://github.com/Fabrizio-Caruso/CROSS-LIB) and the software it describes is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information on the site https://github.com/Fabrizio-Caruso/CROSS-LIB and the software it provides.
+
+Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the aforementioned site and any software it provides (games, tests, tools, library, source code, scripts. etc.) or reliance on any information provided on the site. Your use of the site and the software it provides and your reliance on any information on the site is solely at your own risk.

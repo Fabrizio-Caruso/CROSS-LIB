@@ -21,6 +21,9 @@ The universal *retro-hardware abstraction layer*.
 ![Atari](snapshots/XHorde_A8.png)
 ![SMS](snapshots/XHorde_SMS.png)
 
+
+<a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer</b></a>
+
 -------------------------------------------
 
 ## THE GOAL
@@ -193,7 +196,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 -------------------------------------------
 ## CREATING A NEW GAME PROJECT
 
-In order to create a new game project we can use the `create_xl` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
+In order to create a new game project we can use the `xl create` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
 
 The script is used as follows:
 
@@ -213,7 +216,7 @@ Examples:
 -------------------------------------------
 ## RESETTING A PROJECT BUILD
 
-In order to remove generated graphics assets of a specific project and other temporary files that are produced during a build, you can use 'xl reset '.
+In order to remove generated graphics assets of a specific project and other temporary files that are produced during a build, you can use `xl reset`.
 Use this command if you want to regenerate the graphics assets of a specific project.
 
 `xl reset [project name]`

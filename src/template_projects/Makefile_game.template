@@ -442,13 +442,55 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 c64_exomized: c64
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+
+
+c64_v2: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -DALT_PRINT -D_API_VERSION=2 \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DMEMORY_MAPPED -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+######
+
+c64_alt: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=2 \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DMEMORY_MAPPED -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64_alt_exomized: c64_alt
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64_alt.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+########
+
+c64_v2_exomized: c64_v2
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64_v2.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_v2_exomized.prg
+
+c64_v2_crt: c64_v2_exomized
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_v2_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_v2_exomized.crt
+
 
 #################################################################
 

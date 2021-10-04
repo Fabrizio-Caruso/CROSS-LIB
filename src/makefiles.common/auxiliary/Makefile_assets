@@ -28,7 +28,6 @@ $(ASSETS_PATH)/8x8_chars.h: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_nes_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-
 $(ASSETS_PATH)/cc65_nes_color_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
@@ -42,6 +41,9 @@ $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/cc65_udc_arcade.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/cc65_udc_arcade_v2.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s: $(8X8_TILES)

@@ -278,6 +278,26 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
 	rm $(BUILD_PATH)/$@.bin
 
+apple2_v2: apple2_hgr_v2
+
+apple2_hgr_v2: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
+	-D_XL_SLOW_DOWN_FACTOR=500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DSOUNDS -DALT_PRINT -D_API_VERSION=2 \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
 #################################################################
 
 apple2enh: apple2enh_hgr
@@ -308,6 +328,25 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DINLINE_LOC -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER  -DATARI_MODE_1_COLOR -DATARI_MODE1 -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT -DNO_SPACE_TEXT \
+	-D_XL_SLOW_DOWN_FACTOR=6300 \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
+
+atari_v2: atari_color_v2
+
+atari_color_v2: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DREDEFINED_CHARS -DINLINE_LOC -DALTERNATE_COLORS \
+	-DINITIAL_SLOWDOWN=31500 -D_API_VERSION=2 \
 	-DANIMATE_PLAYER  -DATARI_MODE_1_COLOR -DATARI_MODE1 -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -419,6 +458,30 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+c16_v2: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
+	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
+	-DREDEFINED_CHARS -D_API_VERSION=2 \
+	-DSOUNDS -DUSE_MEMORY_BUFFERS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DUSE_ASSEMBLY_CLEAR_SCREEN \
+	-DC16_UNEXPANDED \
+	-DUSE_KERNAL_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=4000 \
+	-DUDG_BASE_FACTOR=15 \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
 # Lacks one tile
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
@@ -466,6 +529,21 @@ c64_exomized: c64
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
 
+c64_v2: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=2 \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DMEMORY_MAPPED -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=2800 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64_v2_exomized: c64_v2
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64_v2.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 #################################################################
@@ -816,7 +894,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 #################################################################
 
-CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_EXTRA_TITLE -DSOUNDS
+CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 
 NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
@@ -829,6 +907,8 @@ COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -DNO_COLOR
 COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
 
 COCO_GFX_COMPILE_OPTS   ?= $(COCO_GFX_OPTS)
+
+COCO_GFX_COMPILE_OPTS_V2?= $(COCO_GFX_OPTS) -D_API_VERSION=2
 
 DRAGON_OPTS             ?= --dragon -D__DRAGON__ $(NO_UDG_OPS)
 
@@ -1101,7 +1181,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
@@ -1110,7 +1190,75 @@ endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
-	
+
+
+coco_v2: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o dac_sounds.o \
+	 memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_25_tiles_and_fonts.o \
+	text_macros.o input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_25_tiles_and_fonts.o \
+	 variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	text_macros.o input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+
 
 coco_targets: \
 	coco
@@ -1869,7 +2017,6 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__ZX81__ \
 	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
 	-DLESS_PRINT \
-	 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \

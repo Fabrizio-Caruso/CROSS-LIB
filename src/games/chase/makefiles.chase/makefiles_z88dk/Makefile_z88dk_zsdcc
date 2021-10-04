@@ -446,8 +446,7 @@ zx81: zx81_16k
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	-compiler=sdcc \
-	--opt-code-size \
+	--opt-code-size  -compiler=sdcc  \
 	-vn \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -458,6 +457,21 @@ zx81_16k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
 
+zx81_v2: zx81_v2_16k
+
+zx81_v2_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS)  -compiler=sdcc  \
+	--opt-code-size \
+	-vn -D_API_VERSION=2 \
+	-D__ZX81__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_v2_16k.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -O3 -subtype=wrx -clib=wrx \

@@ -15,7 +15,12 @@
 #endif
 
 
-#if defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
+#  if defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2)
+	char screenCode(char ch)
+	{
+        return 64+ch;
+	}
+#elif defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -28,40 +33,103 @@
 		}
 		return ch;
 	}
+
+
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(MEMORY_MAPPED)
-	char screenCode(char ch)
-	{
-		if(ch==32) 
-		{
-			return 32+64;
-		}
-		else
-		{
-			return ch-32;
-		}	
-	}
+
+   #if defined(_API_VERSION) && (_API_VERSION>=2)
+        char screenCode(char ch)
+        {
+            if(ch==32)
+            {
+                return 96;
+            }
+            else
+            {
+                return ch;
+            }        
+        }
+    #else
+        char screenCode(char ch)
+        {
+            if(ch==32)
+            {
+                return 32+64;
+            }
+            else
+            {
+                return ch-32;
+            }
+        }
+    #endif
+
 #elif ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+    #if defined(_API_VERSION) && (_API_VERSION>=2)
+        char screenCode(char ch)
+        {
+            if(ch==32) 
+            {
+                return 0;
+            }
+            else if(ch<58)
+            {
+                return ch-48+1-64;
+            }	
+            else
+            {
+                return ch+18-65;
+            }
+        }    
+    #else
+        char screenCode(char ch)
+        {
+            if(ch==32) 
+            {
+                return 0;
+            }
+            else if(ch<58)
+            {
+                return ch-48+1;
+            }	
+            else
+            {
+                return ch-65-32+18;
+            }
+        }    
+    #endif
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+   #if defined(_API_VERSION) && (_API_VERSION>=2)
 	char screenCode(char ch)
 	{
-		if(ch==32) 
-		{
-			return 0;
-		}
-		else if(ch<58)
-		{
-			return ch-48+1;
-		}	
+        if(ch==32)
+        {
+            return 0;
+        }
         else
         {
-            return ch-65-32+18;
+			return ch;
         }
-	}    
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+	}
+    #else
 	char screenCode(char ch)
 	{
-			return ch-32;
-	}
+        return ch-32;
+	}   
+    #endif
 #elif defined(__ZX81__)
+    #if defined(_API_VERSION) && _API_VERSION>=2
+	char screenCode(char ch)
+	{
+        if(ch==32)
+        {
+            return 32;
+        }
+        else
+        {
+			return ch-32-64;
+        }
+	}
+    #else
 	char screenCode(char ch)
 	{
         if(ch==32)
@@ -73,6 +141,7 @@
 			return ch-32;
         }
 	}
+    #endif
 #elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) 
 	char screenCode(char ch)
 	{
@@ -86,7 +155,26 @@
 		}	
 	}
 #elif ((defined(__C16__) && defined(C16_UNEXPANDED))) 
-    #if defined(_API_VERSION) && _API_VERSION<2
+    #if defined(_API_VERSION) && _API_VERSION>=2
+	char screenCode(char ch)
+	{
+		if(ch<128)
+		{
+            if(ch<58)
+            {
+                return 64+ch;
+            }
+            else
+            {
+                return ch;
+            }
+		}
+		else
+		{
+			return ch-128;
+		}	
+	}  
+    #else
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -98,18 +186,6 @@
 			return ch;
 		}	
 	}
-    #else
-	char screenCode(char ch)
-	{
-		if(ch<128)
-		{
-			return ch;
-		}
-		else
-		{
-			return ch-128;
-		}	
-	}  
     #endif
 #endif
 
@@ -163,7 +239,7 @@
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \
-			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
+			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
 #elif defined(__SUPERVISION__)
@@ -208,7 +284,9 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
-            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) || defined(__ZX81__)
+            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) \
+            || (defined(__ZX81__) && !(defined(_API_VERSION) && _API_VERSION>=2))  \
+            || (defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2))
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

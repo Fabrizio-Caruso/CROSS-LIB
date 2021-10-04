@@ -1035,12 +1035,29 @@ zx80_16k_turn_based:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx80_16k_turn_based.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_zx80_16k_turn_based.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+
+zx80_v2: zx80_16k_turn_based_v2
+
+zx80_16k_turn_based_v2:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
+	-D__ZX80__ -DFULL_GAME \
+	-DEND_SCREEN -DAPI_VERSION=2 \
+	-DTURN_BASED \
+	-DALT_SLEEP \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 #############################
 # Z1013

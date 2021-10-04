@@ -222,7 +222,7 @@ Project-specific graphics assets and temporary files including project-specific 
 Built binaries are preserved.
 
 Example:
-- `xl reset foo` -> It deletes the same files as `xl reset` and also deletes specific temporary files found inside `foo` folder.
+- `xl reset foo` -> It deletes generated graphics assets and temporary files for `foo`.
 
 -------------------------------------------
 ## CLEANING TEMPORARY FILES AND BINARIES

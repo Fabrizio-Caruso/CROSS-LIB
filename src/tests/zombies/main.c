@@ -37,6 +37,7 @@
 // #define FRAME_2 2
 // #define FRAME_3 3
 
+#define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
 
 static uint8_t zombie_pos[XSize];
 static uint8_t zombie_status[XSize];
@@ -114,9 +115,13 @@ int main(void)
     _XL_CLEAR_SCREEN();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
+    
+    _XL_PRINT_CENTERED(_PRESS_FIRE__STRING);
 
     _XL_WAIT_FOR_INPUT();
-        
+
+    _XL_CLEAR_SCREEN();
+
     while(1)
     {
         zombie_index= (uint8_t) _XL_RAND()%XSize;

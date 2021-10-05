@@ -9,11 +9,13 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 The universal *retro-hardware abstraction layer*.
 
-<p></p>
-
-The logo designed by *Hamlet*.
-
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
+
+<br />
+
+The logo was designed by *Hamlet*.
+
+
 
 
 ![MSX](snapshots/XSnake_MSX2.png)

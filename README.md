@@ -1,7 +1,7 @@
 
 
 # CROSS LIB
-![LOGO](snapshots/logo_2.jpg)
+![LOGO](snapshots/CrossLib3.jpg)
 
 *Cross-Lib* and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber, Cross Snake, Cross Horde)
 

@@ -1,7 +1,7 @@
 
 
 # CROSS LIB
-![LOGO](snapshots/CrossLib3.jpg)
+![LOGO](snapshots/CrossLibLogoByHamletShorter.jpg)
 
 *Cross-Lib* and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber, Cross Snake, Cross Horde)
 
@@ -9,8 +9,9 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 The universal *retro-hardware abstraction layer*.
 
+<p></p>
 
-The logo was designed by *Hamlet*.
+The logo designed by *Hamlet*.
 
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
 

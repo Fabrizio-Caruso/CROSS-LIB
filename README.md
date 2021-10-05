@@ -253,7 +253,7 @@ which searches both `tests` and `games` folders for projects (both built-in and 
 --------------------------------------------
 ## DELETING PROJECTS
 
-Non-built-in game projects can be deleted trhough the `./delete_xl` script in a very simple way:
+Non-built-in game projects can be deleted trhough the `xl delete` script in a very simple way:
 
 `xl delete [game project name]`
 

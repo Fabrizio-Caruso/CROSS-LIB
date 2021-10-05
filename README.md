@@ -9,6 +9,9 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 The universal *retro-hardware abstraction layer*.
 
+Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
+
+
 ![MSX](snapshots/XSnake_MSX2.png)
 ![Atari](snapshots/XChase_A8.png)
 
@@ -21,8 +24,6 @@ The universal *retro-hardware abstraction layer*.
 ![Atari](snapshots/XHorde_A8.png)
 ![SMS](snapshots/XHorde_SMS.png)
 
-
-<a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer</b></a>
 
 -------------------------------------------
 
@@ -83,7 +84,7 @@ Cross-Lib provides:
 - a library with hardware-agnostic APIs for game development;
 - scripts that convert automatically compiler-agnostic graphics assets to target-specific graphics assets formats;
 - makefiles that handle the build process;
-- user-friendly scripts to manage game projects (see the subsequent sections below).
+- the "user-friendly" script `xl` to manage game projects (see the subsequent sections below).
 
 ### The compilers
 
@@ -96,8 +97,8 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 ### The build process
 
-When a game is built for a specific target, Cross-Lib will:
-1. convert the abstract graphics assets in graphics assets for the given target on the fly;
+When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
+1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
 2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
 3. if needed, whenever possible, create a disk/cassette/cartridge image.
 

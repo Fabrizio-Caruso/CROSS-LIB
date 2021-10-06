@@ -18,7 +18,14 @@
 #  if defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2)
 	char screenCode(char ch)
 	{
-        return 64+ch;
+        if(ch>=65)
+        {
+            return 64+ch;
+        }
+        else
+        {
+            return ch;
+        }
 	}
 #elif defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
 	char screenCode(char ch)

@@ -93,6 +93,7 @@ int main(void)
     uint8_t i;
     uint8_t j;
     uint8_t k;
+    
     _XL_INIT_GRAPHICS();
     
     _XL_INIT_SOUND();
@@ -111,6 +112,8 @@ int main(void)
             //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
             // _XL_PRINT(COL_OFFSET,   2,"0123456789");
             
+            _XL_PRINT(XSize-11,0,"0123456789");
+            
             _XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
             _XL_PRINTD(COL_OFFSET  ,2,5, 1234U);
             _XL_PRINTD(COL_OFFSET+5,2,5,56789U);
@@ -126,9 +129,11 @@ int main(void)
             _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
             _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
 
+
+
             #if defined(_API_VERSION) && _API_VERSION>=2
-            _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM ");
-            _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ ");
+            _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM");
+            _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ");
             #endif
             
             _XL_WAIT_FOR_INPUT();

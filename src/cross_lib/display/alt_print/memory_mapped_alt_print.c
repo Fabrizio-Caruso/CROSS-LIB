@@ -42,7 +42,7 @@
 	}
 
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(MEMORY_MAPPED)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED)
 
    #if defined(_API_VERSION) && (_API_VERSION>=2)
         char screenCode(char ch)
@@ -50,6 +50,10 @@
             if(ch==32)
             {
                 return 96;
+            }
+            else if((ch>='0')&&(ch<='9'))
+            {
+                return 64+ch;
             }
             else
             {
@@ -62,6 +66,10 @@
             if(ch==32)
             {
                 return 32+64;
+            }
+            else if((ch>='0')&&(ch<='9'))
+            {
+                return 64+ch;
             }
             else
             {
@@ -124,7 +132,19 @@
     #else
 	char screenCode(char ch)
 	{
-        return ch-32;
+        if(ch==32)
+        {
+            return 0;
+        }
+        else if ((ch>='0')&&(ch<='9'))
+        {
+            return ch+1;
+        }
+        else
+        {
+            return ch-32;
+        } 
+
 	}   
     #endif
 #elif defined(__ZX81__)
@@ -319,6 +339,8 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		val/=10;
         #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
+        #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(BIT_MAPPED))
+        _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
         #else
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u));
         #endif

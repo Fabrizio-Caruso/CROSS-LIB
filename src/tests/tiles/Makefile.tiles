@@ -1582,37 +1582,28 @@ zx81_16k_v2:
 
 # COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-CMOC_NO_UDG_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME
+CMOC_NO_UDG_OPTS        ?= -O0 -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 
-NO_UDG_OPS      ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
-
-COCO_NO_UDG_OPTS       ?= -D__COCO__ $(CMOC_NO_UDG_OPTS) -DNO_UDG -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
-
-# COCO_OPTS_V2    ?= $(COCO_OPTS) -D_API_VERSION=2
-
-# DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_DRAGON_SLOWDOWN)
-
-# VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME
-
-# GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=150
-
-# COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -DNO_COLOR
-
-# COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
-
-# COCO_GFX_COMPILE_OPTS   ?= $(COCO_GFX_OPTS)
-
-CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
-
-NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
-
-GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=150
+NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -DNO_COLOR
 
+COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
+
+COCO_V2_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -DNO_COLOR -D_API_VERSION=2
+
+COCO_COMPILE_V2_OPTS    ?= $(COCO_OPTS) -D_API_VERSION=2
+
+
+
+CMOC_OPTS               ?= -O0 -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
+
+
+GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=150
+
+
 COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -DNO_COLOR
 
-COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
 
 COCO_GFX_COMPILE_OPTS   ?= $(COCO_GFX_OPTS)
 
@@ -1764,27 +1755,27 @@ endif
 	
 coco_no_gfx:
 	$(CMOC) \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(CMOC_NO_UDG_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o \
+	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
-	rm 	display_macros.o \
+	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1802,24 +1793,27 @@ coco_no_gfx_targets: \
 
 coco_no_gfx_v2:
 	$(CMOC) \
-	$(COCO_OPTS_V2) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_V2_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_COMPILE_V2_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(COCO_OPTS_V2) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_V2_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(COCO_OPTS_V2) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_V2_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO_OPTS_V2) $(INCLUDE_OPTS) \
+	$(COCO_COMPILE_V2_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO_OPTS_V2) $(INCLUDE_OPTS) \
+	$(COCO_V2_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o \
+	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
-	rm 	display_macros.o \
+	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1830,6 +1824,10 @@ ifeq ($(DO_WIN),1)
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+	
+
+coco_no_gfx_v2_targets: \
+	coco_no_gfx_v2
 	
 
 

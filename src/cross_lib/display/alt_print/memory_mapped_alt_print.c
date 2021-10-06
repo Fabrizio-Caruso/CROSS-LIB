@@ -78,6 +78,10 @@
             {
                 return 0;
             }
+            else if((ch>='0')&&(ch<='9'))
+            {
+                return ch-48+1;
+            }
             else if(ch<58)
             {
                 return ch-48+1-64;

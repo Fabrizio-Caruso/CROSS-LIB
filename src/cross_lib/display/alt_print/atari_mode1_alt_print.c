@@ -23,7 +23,41 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
     cprintf(str); 
 };
 #else
-extern uint8_t text_color;
+    extern uint8_t text_color;
+
+#if defined(_API_VERSION) && (_API_VERSION>=2)
+
+    uint8_t screenCode(uint8_t ch)
+    {
+        if(ch==32)
+        {
+            return 0;
+        }
+        else
+        {
+            return ch+(text_color)-0x20u;
+        }
+    }
+
+#else
+    extern uint8_t text_color;
+
+    uint8_t screenCode(uint8_t ch)
+    {
+        if(ch==32)
+        {
+            return 0;
+        }
+        else if ((ch>='0')&&(ch<='9'))
+        {
+            return ch+(text_color)-0x20u;
+        }
+        else
+        {
+            return ch+(text_color)-0x40u;
+        }
+    }  
+#endif
 
 void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
@@ -31,10 +65,13 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 
     while(str[i]!='\0')
     {
-        #if !defined(_API_VERSION) || (_API_VERSION<2)
-        DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x40u);
+        #if defined(_API_VERSION) && (_API_VERSION>=2)
+        // DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x20u);
+            DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
         #else
-        DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x20u);
+        // DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x40u);
+            DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
+
         #endif
         ++i;
 	}

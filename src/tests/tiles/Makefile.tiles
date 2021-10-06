@@ -429,8 +429,23 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
+
+atari5200_v2: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
+	-D__ATARI5200__ -D_API_VERSION=2 \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DFULL_GAME \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
 #################################################################
 

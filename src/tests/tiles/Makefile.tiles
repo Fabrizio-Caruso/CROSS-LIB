@@ -1469,6 +1469,7 @@ vz200_24k:
 
 zx81_no_gfx: zx81_no_gfx_16k
 
+# -pragma-define:ZX_CHAR_XLATE_MODE=1
 zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -1485,6 +1486,7 @@ zx81_no_gfx_16k:
 
 zx81_no_gfx_v2: zx81_no_gfx_16k_v2
 
+# -pragma-define:ZX_CHAR_XLATE_MODE=1
 zx81_no_gfx_16k_v2:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -2385,7 +2387,7 @@ ncurses_targets: \
 
 
 ncurses:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO $(NO_UDG_FLAG) \

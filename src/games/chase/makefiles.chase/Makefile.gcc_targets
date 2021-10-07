@@ -15,7 +15,7 @@ GCC_386_OPTS ?= -std=gnu99 -O0 -nostdlib -m32 -march=i386 -ffreestanding
 gcc_386: gcc_386_buffered
 
 gcc_386_buffered:
-	$(GCC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	$(NATIVE_CC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -37,7 +37,7 @@ gcc: gcc_buffered
 
 
 gcc_buffered:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -56,7 +56,7 @@ gcc_buffered:
 
 
 gcc_386_no_print:
-	$(GCC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	$(NATIVE_CC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -76,7 +76,7 @@ gcc_386_no_print:
 	$(TINY_FILES)	
 	
 gcc_no_print:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -97,7 +97,7 @@ gcc_no_print:
 
 
 gcc_tiny_buffered:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -118,7 +118,7 @@ gcc_tiny_buffered:
 
 
 ncurses_turn_based:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -133,7 +133,7 @@ ncurses_turn_based:
 
 
 ncurses:
-	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \

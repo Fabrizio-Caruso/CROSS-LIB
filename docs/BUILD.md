@@ -5,13 +5,13 @@
 ## Build the default target for a given system
 
 In order to build a game or a test, you need to be in the `src` directory.
-You  build a project (either a game or a test) for a specific system by either using the `xl.py build` script or an equivalent `make` command. 
+You  build a project (either a game or a test) for a specific system by either using the `xl build` script or an equivalent `make` command. 
 
-### Using `build_xl.py`
+### Using `build_xl`
 
-I recommend that you use `xl.py build` as follows:
+I recommend that you use `xl build` as follows:
 
-`xl.py build [game_or_test_name] [optional system_name]`
+`xl build [game_or_test_name] [optional system_name]`
 
 Built-in games are 
 
@@ -33,14 +33,14 @@ As system you can also pass a group of systems such as:
 - `all` to build a given project on all possible targets (avoid this if you are not sure as it fails if you have not installed *all* compilers).
 
 Examples:
-- `xl.py build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `xl.py build chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
-- `xl.py build bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
-- `xl.py build snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
-- `xl.py build games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `xl.py build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
-- `xl.py build tests c64` -> It builds all tests for the Commodore 64 target
-- `xl.py build all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
+- `xl build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `xl build chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
+- `xl build bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `xl build snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `xl build games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `xl build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `xl build tests c64` -> It builds all tests for the Commodore 64 target
+- `xl build all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
 
 
 ### Using `make`
@@ -53,7 +53,7 @@ For game projects you can use:
 For test projects you can use:
 `make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
 
-Examples: 
+Examples for games: 
 - `make vic20 -f ./games/horde/Makefile.horde` builds *Cross Horde* for Commodore Vic 20.
 - `make c64 -f ./games/chase/Makefile.chase` builds *Cross Chase* for Commodore 64.
 - `make nes -f ./games/shoot/Makefile.shoot` builds *Cross Shoot* for the Nintendo NES videogame console.
@@ -67,19 +67,30 @@ Examples:
 - `make z88dk_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
 - `make lcc1802_targets -f ./games/bomber/Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
 
-## Special cases
-Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.
-In such cases we can specify the version or architecture:
-
-Examples for games:
-- `make c128_targets` builds all Commodore 128 targets for both the MOS 8502 and for the more exotic Zilog 80 non-CP/M mode.
-- `make c128_8502_targets` builds all Commodore 128 targets for the MOS 8502 architecture in both 40 and 80 column mode.
-- `make c128_z80_targets` builds all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode.
-- `make cpm_targets` builds all "generic" CP/M targets for both the Intel 8080 and Zilog 80 architecture.
-- `make cpm_8080_targets` builds all "generic" CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
-- `make cpm_z80_targets` builds all "generic" CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
-
 Examples for tests:
 - `make vic20 -f ./tests/tiles/Makefile.tiles` builds the test `tiles` for the Commodore Vic 20.
 - `make cpc -f ./tests/sounds/Makefile.sounds` builds the test `sounds` for the Amstrad CPC computer.
 - `make atari -f ./tests/invaders/Makefile.invaders` builds the tests `invaders` for the Atari 8-bit computer.
+
+
+## Targets built by multiple dev-kits
+Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.
+In such cases we can specify the CPU in the target name:
+
+Examples using `xl build`
+- `xl build chase c128_targets` builds Cross Chase for all Commodore 128 targets for both the MOS 8502 and for the more exotic Zilog 80 non-CP/M mode.
+- `xl build chase c128_8502_targets` builds Cross Chase for all Commodore 128 targets for the MOS 8502 architecture in both 40 and 80 column mode.
+- `xl build chase c128_z80_targets` builds Cross Chase for all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode.
+- `xl build chase cpm_targets` builds Cross Chase for all "generic" CP/M targets for both the Intel 8080 and Zilog 80 architecture.
+- `xl build chase cpm_8080_targets` builds Cross Chase for all "generic" CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
+- `xl build chase cpm_z80_targets` builds Cross Chase  for all "generic" CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
+
+Examples using `make`:
+- `make c128_targets -f ./games/chase/Makefile.chase` builds Cross Chase for all Commodore 128 targets for both the MOS 8502 and for the more exotic Zilog 80 non-CP/M mode.
+- `make c128_8502_targets -f ./games/chase/Makefile.chase` builds Cross Chase for all Commodore 128 targets for the MOS 8502 architecture in both 40 and 80 column mode.
+- `make c128_z80_targets -f ./games/chase/Makefile.chase` builds Cross Chase for all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode.
+- `make cpm_targets -f ./games/chase/Makefile.chase` builds Cross Chase for all "generic" CP/M targets for both the Intel 8080 and Zilog 80 architecture.
+- `make cpm_8080_targets -f ./games/chase/Makefile.chase` builds Cross Chase for all "generic" CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
+- `make cpm_z80_targets -f ./games/chase/Makefile.chase` builds Cross Chase  for all "generic" CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
+
+

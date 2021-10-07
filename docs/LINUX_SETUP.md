@@ -3,15 +3,16 @@
 We give here the procedure to install Cross-Lib and its dependencies under Linux.
 In particular this procedure is the one used for LUBUNTU 21.10.
 On other distributions the same procedure or a similar one can be used depending on how packages are handled.
-Even under Windows with Cygwin many of these steps are similar but no `apt` commands are used. Use the `setup.exe` instead.
+Even under Windows with Cygwin many of these steps are similar but no `apt` commands are used.
 
 We do not cover *all* supported compilers here. We cover the fully supported ones under Linux.
 In particular we describe how to install:
 - `GCC` for native compilation
-- `CC65` for MOS 6502 targets
-- `Z88DK` for Zilog 80, Intel 8080/5 and GBZ80 targets
-- `CMOC` for Motorola 6809 targets
-- `ACK` for Intel 8088 and other targets (partially supported and currently only used for one game)
+- `CC65` for MOS 6502-based targets
+- `Z88DK` for Zilog 80, Intel 8080-based targets
+- `CMOC` for Motorola 6809-based targets
+- `ACK` for Intel 8088-based targets and other targets (partially supported and currently only used for one game)
+- `LCC1802` for RCA COSMAC 1802-based targets has experimental support under Linux (not tested)
 
 -----------------------------
 ## Python Installation
@@ -48,7 +49,7 @@ Currently the native target is just an ncurses-enabled terminal target. So no gr
 In order to build some of the games you can just do something `xl build [name of the game or test]`. 
 
 Example:
-The following commands will be three games for the native t:
+The following commands will be three games for the native target:
 ```
 xl build bomber
 xl build snake
@@ -149,8 +150,19 @@ export ZCCCFG=${HOME}/z88dk/lib/config
 ```
 
 ----------------------------------------------------------
+## Enable builds for RCA COSMAC 1802-based targets
 
-## Enable builds for INTEL 8088-based targets 
+The build process for RCA COSMAC 1802-based targets relies on the `LCC1802` compiler.
+
+This has not been tested, yet, under Linux.
+
+Its installation procedure under Linux is described in:
+
+https://github.com/bill2009/lcc1802
+
+----------------------------------------------------------
+
+## Enable builds for Intel 8088-based targets 
 
 In order to use Cross-Lib for targets based on the Intel 8088 and some other 16 and 32-bit vintage targets you can use `ACK`.
 Support for these targets is currently only experimental.

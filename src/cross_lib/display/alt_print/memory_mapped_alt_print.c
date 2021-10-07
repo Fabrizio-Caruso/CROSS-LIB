@@ -147,7 +147,7 @@
 
 	}   
     #endif
-#elif defined(__ZX81__)
+#elif defined(__ZX81__) && defined(Z88DK_SPRITES)
     #if defined(_API_VERSION) && _API_VERSION>=2
 	char screenCode(char ch)
 	{
@@ -166,6 +166,10 @@
         if(ch==32)
         {
             return 32;
+        }
+        else if ((ch>='0')&&(ch<='9'))
+        {
+            return ch;
         }
         else
         {

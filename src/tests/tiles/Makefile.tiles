@@ -1482,6 +1482,22 @@ zx81_no_gfx_16k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+
+zx81_no_gfx_v2: zx81_no_gfx_16k_v2
+
+zx81_no_gfx_16k_v2:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	--opt-code-size \
+	-vn -D_API_VERSION=2 \
+	-D__ZX81__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 zx81: zx81_32k_wrx
 
 zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
@@ -1513,18 +1529,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-zx81_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) \
-	--opt-code-size \
-	-vn \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) \
-	-D__ZX81__ -DFULL_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 
 
 zx81_v2: zx81_32k_wrx_v2

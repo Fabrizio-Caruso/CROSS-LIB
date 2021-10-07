@@ -140,7 +140,10 @@ cd z88dk
 export BUILD_SDCC=1
 chmod 777 build.sh
 ./build.sh
+```
 
+In order to finalize the installation and to be able to use Z88DK from any location you need to set the following environment variables:
+```
 export PATH=${PATH}:${HOME}/z88dk/bin
 export ZCCCFG=${HOME}/z88dk/lib/config
 ```
@@ -152,7 +155,7 @@ export ZCCCFG=${HOME}/z88dk/lib/config
 In order to use Cross-Lib for targets based on the Intel 8080 and some other 16 and 32-bit vintage targets you can use `ACK`.
 Support for these targets is currently only experimental.
 
-`ÀCK` can be downloaded from https://github.com/davidgiven/ack.
+`ACK` can be downloaded from https://github.com/davidgiven/ack.
 
 It depends only on `flex` and `yacc` or `bison` and it is installed with:
 ```

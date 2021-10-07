@@ -1,25 +1,28 @@
-# LINUX INSTALLATION
+# CROSS-LIB SET-UP UNDER LINUX
 
 We give here the procedure to install Cross-Lib and its dependencies under Linux.
-In particular this procedure is the one used for LUBUNTU 21.10.
+In particular this procedure is the one I have used under LUBUNTU 21.10.
 On other distributions the same procedure or a similar one can be used depending on how packages are handled.
-Even under Windows with Cygwin many of these steps are similar but no `apt` commands are used.
+Even under Windows with Cygwin many of these steps are similar but the way packages are installed is very different (i.e., using Cygwin's `setup.exe`).
 
-We do not cover *all* supported compilers here. We cover the fully supported ones under Linux.
+We do not cover *all* supported compilers here. We only fully covered the fully supported ones under Linux.
 In particular we describe how to install:
 - `GCC` for native compilation
 - `CC65` for MOS 6502-based targets
 - `Z88DK` for Zilog 80, Intel 8080-based targets
 - `CMOC` for Motorola 6809-based targets
+
+We give some information on how to install some experimentally supported compilers:
 - `ACK` for Intel 8088-based targets and other targets (partially supported and currently only used for one game)
-- `LCC1802` for RCA COSMAC 1802-based targets has experimental support under Linux (not tested)
+- `LCC1802` for RCA COSMAC 1802-based targets (with only experimental support under Linux)
 
 -----------------------------
 ## Python Installation
 
-The tool-chain uses heavily Python scripts. So we need Python to do anything.
+The whole tool-chain uses heavily Python scripts. So we need Python to do anything. 
+Python 2.7 or Python 3.X can used.
 
-Python is trivially installed with:
+Under any recent Ubuntu distribution, Python is trivially installed with:
 ```
 sudo apt install python
 ```
@@ -32,7 +35,7 @@ By default Cross-Lib expects `gcc` to be the native compiler.
 A different one can be used (including a non-native one, which would defeat the purpose of a native compiler).
 In order to select a different compiler edit the `NATIVE_CC` variable in `src/makefiles.common/auxiliary/Makefile.compilers`.
 
-If not pre-installed, `gcc` is trivially installed with
+The `gcc` compiler may be pre-installed. In not present, `gcc` is trivially installed with
 ```
 sudo apt install gcc
 ```
@@ -46,7 +49,10 @@ The native target is the default target for the script command `xl build`.
 This makes it possible to try and debug the code natively if desired. No emulator and no cross-compiler is necessary to start using Cross-Lib.
 Currently the native target is just an ncurses-enabled terminal target. So no graphics. Only ASCII characters will be displayed.
 
-In order to build some of the games you can just do something `xl build [name of the game or test]`. 
+So you can use Cross-Lib to build old and new games and to create new ones by using the `xl` command and by providing no target or equivalently the `ncurses` target.
+
+
+To get started you can build some of the games by using `xl build [name of the game or test]`. 
 
 Example:
 The following commands will be three games for the native target:

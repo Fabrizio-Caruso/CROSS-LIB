@@ -160,6 +160,7 @@ For Windows + Cygwin the tested and verified installation procedure uses:
 For Linux (native or under thw Windows Subsystem), the tested and verified procedure both standard repositories and installation from sources.
 
 A detailed procedure for recent Ubuntu distributions is described here: 
+
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
 
 -------------------------------------------

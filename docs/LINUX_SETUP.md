@@ -24,7 +24,7 @@ sudo apt install python
 ```
 
 -----------------------------
-## Enable builds for the host ("native build") 
+## Enable builds for the host 
 
 Native builds can be performed as long as an ANSI C compiler and the `ncurses` libraries are installed.
 By default Cross-Lib expects `gcc` to be the native compiler.
@@ -97,7 +97,7 @@ sudo make install
 ```
 ----------------------
 
-## Enable builds for targets based on Zilog 80, Intel 8080/5, GBZ80 
+## Enable builds for targets based on Zilog 80 and Intel 8080 
 
 Cross-Lib relies on the `Z88DK` dev-kit for all its targets based on the Zilog 80, Intel 8080/5, and GBZ80.
 `Z88DK` contains two separate cross-compilers: `SCCZ80` and `ZSDCC`. Using `SCCZ80` is enough to build most Cross-Lib targets.
@@ -150,9 +150,9 @@ export ZCCCFG=${HOME}/z88dk/lib/config
 
 ----------------------------------------------------------
 
-## Enable builds for INTEL 8080-based targets 
+## Enable builds for INTEL 8088-based targets 
 
-In order to use Cross-Lib for targets based on the Intel 8080 and some other 16 and 32-bit vintage targets you can use `ACK`.
+In order to use Cross-Lib for targets based on the Intel 8088 and some other 16 and 32-bit vintage targets you can use `ACK`.
 Support for these targets is currently only experimental.
 
 `ACK` can be downloaded from https://github.com/davidgiven/ack.

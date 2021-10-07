@@ -61,11 +61,11 @@ endif
 
 
 apple2_targets: \
-	apple2_text apple2_hgr
+	apple2_no_gfx apple2_hgr
 
 
 apple2enh_targets: \
-	apple2enh_text apple2enh_80col apple2enh_hgr
+	apple2enh_no_gfx apple2enh_80col apple2enh_hgr
 
 
 atari_targets: \
@@ -149,7 +149,7 @@ vic20_targets: \
 # APPLE2
 
 # -O breaks bit-banging
-apple2_text:	 
+apple2_no_gfx:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -164,7 +164,7 @@ apple2_text:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
-apple2_text_v2:	 
+apple2_no_gfx_v2:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
 	-DFULL_GAME -DALT_SLEEP -D_API_VERSION=2 \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -229,7 +229,7 @@ apple2_hgr_v2: $(ASSETS_PATH)/7x8_chars.h
 # APPLE2ENH
 
 # -O breaks bit-banging
-apple2enh_text: 
+apple2enh_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -245,7 +245,7 @@ apple2enh_text:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
-apple2enh_text_v2: 
+apple2enh_no_gfx_v2: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP -D_API_VERSION=2 \
 	-DINITIAL_SLOWDOWN=31500 \

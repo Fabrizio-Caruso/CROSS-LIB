@@ -81,14 +81,12 @@
 
 
 #if defined(_API_VERSION) && (_API_VERSION>=2)
-    #if (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR))
-        #define ONLY_SMALL_LETTERS
-        
-    #elif defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(MEMORY_MAPPED)) \
+    #  if defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(MEMORY_MAPPED)) \
         || (defined(__C16__) && defined(ALT_PRINT))  || defined(__ATARI__) \
         || defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__) \
         || defined(__ZX80__) || defined(__ZX81__) \
-        || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__)
+        || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
+        || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR))
 
         #define ONLY_CAPITAL_LETTERS
 

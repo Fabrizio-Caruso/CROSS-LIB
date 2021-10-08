@@ -114,7 +114,7 @@ int main(void)
             //_XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T);
             // _XL_PRINT(COL_OFFSET,   2,"0123456789");
             
-            _XL_PRINT(XSize-11,0,"0123456789");
+            _XL_PRINT(XSize-12,0,"01234567890");
             
             _XL_PRINT(COL_OFFSET,   1,_XL_P _XL_R _XL_I _XL_N _XL_T _XL_D);
             _XL_PRINTD(COL_OFFSET  ,2,5, 1234U);

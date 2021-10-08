@@ -138,7 +138,7 @@
         }
         else if ((ch>='0')&&(ch<='9'))
         {
-            return ch+1;
+            return ch;
         }
         else
         {

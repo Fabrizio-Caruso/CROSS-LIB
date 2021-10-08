@@ -475,5 +475,5 @@ elif sys.argv[1]=="list":
 elif sys.argv[1]=="help":
     help(sys.argv[1:])
 else:
-    print("Command not recognized")
-    help()
+    print(sys.argv)
+    build(sys.argv)

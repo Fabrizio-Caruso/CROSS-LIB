@@ -71,7 +71,7 @@ def build(params):
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
-    if(game_dir not in ["games", "tests", "all"]):
+    if(game_dir not in ["games", "tests", "test", "all"]):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             exit();
@@ -90,7 +90,7 @@ def build(params):
     else:
         if game_dir=="games":
             multiple_run("games",target,threads,optimization)
-        elif game_dir=="tests":
+        elif game_dir=="tests" or game_dir=="test":
             multiple_run("tests",target,threads,optimization)
         elif game_dir=="all":
             multiple_run("games",target,threads,optimization)
@@ -356,6 +356,7 @@ def help_help():
 def help(params):
     if len(params)<2:
         print("\nxl <command> <[optional] parameters>")   
+        print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
     elif params[1]=="build":
@@ -364,7 +365,7 @@ def help(params):
         print("The built binaries will be in the 'build' directory.")
 
         print("\n<project>")
-        print("If 'games'/'tests'/'all' is used as <project>, then all games/tests/projects are built")   
+        print("If 'games'/'test(s)'/'all' is used as <project>, then all games/tests/projects are built")   
         
         print("\n<target>")
         print("If no <target> is passed, then the native target (terminal console) is considered.")
@@ -458,7 +459,7 @@ def help(params):
 # --------------------------
 
 if len(sys.argv)<2:
-    print("You need to provide a command")
+    print("You need to provide a command or a project name")
     help(sys.argv[1:])
 elif sys.argv[1]=="build":
     build(sys.argv[1:])

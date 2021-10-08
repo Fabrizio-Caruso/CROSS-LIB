@@ -38,7 +38,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
 	-DLESS_TEXT \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
@@ -69,7 +69,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-DALT_MOVE \
 	-DNO_SET_SCREEN_COLORS \

@@ -11,7 +11,7 @@
 	_XL_PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
-#if !defined(NO_TEXT_COLOR) && !defined(NO_PRINT)
+#if !defined(_XL_NO_TEXT_COLOR) && !defined(NO_PRINT)
 	#define _XL_PRINT_CENTERED_WITH_COLOR(col, Text) \
 		_XL_PRINT_CENTERED_ON_ROW_WITH_COLOR((YSize>>1), col, Text)	
 #else
@@ -21,7 +21,7 @@
 
 
 #if !defined(NO_PRINT)
-    #if !defined(NO_TEXT_COLOR) 
+    #if !defined(_XL_NO_TEXT_COLOR) 
         void _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(uint8_t row, uint8_t col, char *Text);
     #else
         #define _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(row,col,Text) _XL_PRINT_CENTERED_ON_ROW(row,Text)

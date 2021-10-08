@@ -21,18 +21,16 @@
     || defined(__KC__) || (defined(__ATMOS__) && !defined(ORIC_COLOR))|| defined(__SUPERVISION__) \
     || defined(__VECTREX__) || defined(__GB__) \
     || defined(__NC100__) || defined(__NC200__)
-    #if !defined(NO_COLOR)
-        #define NO_COLOR 
+    #if !defined(_XL_NO_COLOR)
+        #define _XL_NO_COLOR 
     #endif
-#else
-	#define COLOR
 #endif
 
 
-#if defined(NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) || defined(__MO5__) || defined(__TO7__) \
+#if defined(_XL_NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) || defined(__MO5__) || defined(__TO7__) \
     || defined(__CIDELSA__) || defined(__MICRO__) \
     || defined(__CREATIVISION__) || defined(__APPLE2__)
-    #define NO_TEXT_COLOR
+    #define _XL_NO_TEXT_COLOR
 #else
 #endif
 

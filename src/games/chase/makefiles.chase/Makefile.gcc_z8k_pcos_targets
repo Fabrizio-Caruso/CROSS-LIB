@@ -30,7 +30,7 @@ olivetti_m20_buffered:
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \
@@ -51,7 +51,7 @@ olivetti_m20_no_graphics:
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \

@@ -128,7 +128,7 @@ aussie_buffered:
 	-DFORCE_BIT_BANG \
 	-DFORCE_XSIZE=16 \
 	-DFORCE_YSIZE=12 \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \
@@ -173,7 +173,7 @@ camputers_lynx_tiny:
 	-D__CAMPUTERS_LYNX__ \
 	-vn \
 	-DCONIO_VT52 \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DTINY_GAME -DNO_WALL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -192,7 +192,7 @@ cpm_z80_tiny_buffered:
 	-DSTDLIB \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DTINY_GAME -DNO_WALL \
 	-DTURN_BASED \
 	-DBUFFERED \
@@ -212,7 +212,7 @@ cpm_z80_buffered:
 	-DSTDLIB \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \

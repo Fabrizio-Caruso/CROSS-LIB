@@ -37,9 +37,6 @@
     
     #define EXPLOSION_TILE _TILE_18
 
-
-
-// #if !defined(NO_COLOR)
     #define _PLANE_COLOR _XL_CYAN
     #define _SMALL_TWO_WINDOW_WALL_1_COLOR _XL_WHITE
     #define _TWO_WINDOW_WALL_1_COLOR _XL_YELLOW
@@ -52,7 +49,6 @@
     #define _THREE_WINDOW_WALL_2_COLOR _XL_WHITE
     #define _TWO_WINDOW_WALL_2_COLOR _XL_RED
     #define _SMALL_TWO_WINDOW_WALL_2_COLOR _XL_YELLOW
-// #endif
 
 #endif // _TILES_H
 

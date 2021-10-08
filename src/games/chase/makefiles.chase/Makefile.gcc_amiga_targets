@@ -25,7 +25,7 @@ amiga_buffered:
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DNO_SLEEP \
 	-DFULL_GAME \
 	-DTURN_BASED \

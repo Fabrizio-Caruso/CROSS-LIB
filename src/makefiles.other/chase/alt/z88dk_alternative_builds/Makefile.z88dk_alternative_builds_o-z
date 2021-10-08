@@ -86,7 +86,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
 	-DALT_MOVE \
@@ -247,7 +247,7 @@ ti83_turn_based:
 	-DFULL_GAME  \
 	-DTURN_BASED \
 	-DNO_WAIT \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -D_XL_NO_COLOR \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -303,7 +303,7 @@ ti86_full:
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-DLESS_TEXT	\
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DNO_HINTS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -371,7 +371,7 @@ ts2068_turn_based:
 	-clib=ansi \
 	-DTURN_BASED \
 	-D__TS2068__ \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-vn \
 	-DFULL_GAME \
 	-lndos \
@@ -409,7 +409,7 @@ z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-DNO_WAIT -DBAD_PAGES=1 \
 	-DNO_SLEEP \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -437,7 +437,7 @@ z88_tiny_buffered:
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED \
 	-DLESS_TEXT \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \

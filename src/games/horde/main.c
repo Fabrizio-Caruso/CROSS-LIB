@@ -185,17 +185,17 @@ static uint8_t minions_to_spawn;
 
 static uint8_t auto_recharge_counter;
 
-#if defined(COLOR)
+#if !defined(_XL_NO_COLOR)
     static uint8_t arrow_display_color;
 #else
     #define arrow_display_color _DUMMY_
 #endif
 
-#if defined(COLOR) && !defined(NO_TEXT_COLOR)
+#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
 static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 #endif
 
-#if defined(COLOR)
+#if !defined(_XL_NO_COLOR)
 static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
 
@@ -292,7 +292,7 @@ struct ItemStruct
     uint8_t _x;
     uint8_t _y;
     uint8_t _tile;
-    #if !defined(NO_COLOR)
+    #if !defined(_XL_NO_COLOR)
     uint8_t _color;
     #endif
     uint8_t _active;
@@ -477,7 +477,7 @@ uint8_t find_inactive(Item* itemArray)
 }
 
 
-#if defined(COLOR) && !defined(NO_TEXT_COLOR)
+#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
 void display_power_ups(void)
 {
     uint8_t range_color;
@@ -546,7 +546,7 @@ void display_power_ups(void)
         _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
     }
 }
-#elif defined(COLOR) // COLOR but NO TEXT COLOR
+#elif !defined(_XL_NO_COLOR) // COLOR but NO TEXT COLOR
 void display_power_ups(void)
 {
     uint8_t range_value;
@@ -697,26 +697,26 @@ void power_up_effect(void)
     {
         case 0:
             activate_hyper();
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
         break;
         
         case 4:
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_CYAN; 
             #endif
         break;
         
         case 5:
             freeze_locked=0;
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
         break;
         
         case 9:
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_RED;
             #endif
         break;
@@ -758,7 +758,7 @@ void power_up_effect(void)
         
         case 8:
             fire_power = GREEN_FIRE_POWER_VALUE;
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_YELLOW;
             #endif
         break;
@@ -767,7 +767,7 @@ void power_up_effect(void)
         #endif
         
         case 19:
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_GREEN;
             #endif
         break;
@@ -910,7 +910,7 @@ void beam_effect(void)
     alive=0;
 }
 
-#if !defined(NO_COLOR)
+#if !defined(_XL_NO_COLOR)
     #define initialize_items() \
     { \
         uint8_t i; \
@@ -1000,7 +1000,7 @@ void beam_effect(void)
 
 #define LIVES_X (XSize-3)
 
-#if defined(COLOR)
+#if !defined(_XL_NO_COLOR)
     void display_lives(uint8_t color)
     {
         _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
@@ -1078,7 +1078,7 @@ void handle_item(register Item* item)
             {
                 ++(item->_y);
             }
-            #if !defined(NO_COLOR)
+            #if !defined(_XL_NO_COLOR)
             _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
             #else
             _XL_DRAW(item->_x,item->_y,item->_tile,0);
@@ -1092,7 +1092,7 @@ void handle_item(register Item* item)
             }
             else
             {
-                #if !defined(NO_COLOR)
+                #if !defined(_XL_NO_COLOR)
                 _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
                 #else
                 _XL_DRAW(item->_x,item->_y,item->_tile,0);
@@ -1426,7 +1426,7 @@ void handle_arrows(void)
                 --arrow_y[i];
                 if(arrow_y[i]>=(arrow_range))
                 {
-                    #if !defined(NO_COLOR)
+                    #if !defined(_XL_NO_COLOR)
                     _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],arrow_display_color);
                     #else
                     _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],0);
@@ -2051,7 +2051,7 @@ do \
 } while(0)
 
 
-#if defined(COLOR)
+#if !defined(_XL_NO_COLOR)
     #define _extra_life_color_effect(color) display_lives(color) 
 #else
     #define _extra_life_color_effect(color)

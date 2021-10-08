@@ -58,7 +58,7 @@ const uint8_t tiles[] = {
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
-#if defined(COLOR)
+#if !defined(_XL_NO_COLOR)
 static const uint8_t tile_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
 

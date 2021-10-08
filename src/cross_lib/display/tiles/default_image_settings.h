@@ -232,13 +232,6 @@
     #endif
 #endif
 
-#if !defined(_TILE_5_B)
-    #if !defined(NO_COLOR)
-        #define _TILE_5_B _TILE_5
-    #else
-        #define _TILE_5_B '8'
-    #endif
-#endif
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

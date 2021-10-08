@@ -116,7 +116,7 @@ void printGunsStats(void)
 
 void printFirePowerStats(void)
 {
-    #if !defined(NO_TEXT_COLOR)
+    #if !defined(_XL_NO_TEXT_COLOR)
     if(bulletStrength<4)
     {
         SET_COLOR(TEXT_COLOR);

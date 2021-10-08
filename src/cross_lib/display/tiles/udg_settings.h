@@ -54,14 +54,6 @@
 #define _TILE_10 (0x21 - _Z88DK_SPRITE_OFFSET)
 #define _TILE_11 (0x23 - _Z88DK_SPRITE_OFFSET)
 
-#define _TILE_7_B _TILE_7
-
-#if !defined(NO_COLOR)
-    #define _TILE_5_B _TILE_5
-#else
-    #define _TILE_5_B 'X'
-#endif
-
 // WHITE
 #define _TILE_4  (0x28 - _Z88DK_SPRITE_OFFSET)
 

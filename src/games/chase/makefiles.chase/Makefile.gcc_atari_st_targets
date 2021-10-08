@@ -19,7 +19,7 @@ atari_st_buffered:
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \

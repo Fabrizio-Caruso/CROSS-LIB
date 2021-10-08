@@ -21,7 +21,7 @@
 
 #define _TILE_7 '='
 
-#if !defined(COLOR)
+#if defined(_XL_NO_COLOR)
     #define _TILE_8 'R'
 #else
     #define _TILE_8 'O'
@@ -44,7 +44,7 @@
 
 #define _TILE_17 'X'
 
-#if !defined(COLOR)
+#if defined(_XL_NO_COLOR)
     #define _TILE_18 'S'
 #else
     #define _TILE_18 'O'

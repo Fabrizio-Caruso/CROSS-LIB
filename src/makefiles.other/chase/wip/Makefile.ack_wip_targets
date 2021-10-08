@@ -16,7 +16,7 @@ pdp11v7_buffered:
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
 	-DCONIO_PDP \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
 	-DFULL_GAME \
@@ -36,7 +36,7 @@ pdp11v7:
 	-DFORCE_YSIZE=22 \
 	-DCONIO_PDP \
 	-DCONIO \
-	-DNO_COLOR \
+	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
 	-DFULL_GAME \

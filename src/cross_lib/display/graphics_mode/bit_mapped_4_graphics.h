@@ -29,7 +29,7 @@ uint8_t right_map_one_to_two(uint8_t n);
     }
 
 
-#if defined(NO_COLOR)
+#if defined(_XL_NO_COLOR)
     #define _XL_DELETE(x,y) \
     { \
         uint16_t k; \

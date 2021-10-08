@@ -2,7 +2,7 @@
 #define _CONIO_GRAPHICS
 
 
-#if !defined(NO_COLOR)
+#if !defined(_XL_NO_COLOR)
 
 	#define _XL_DRAW(x,y,tile,color) \
 	do \

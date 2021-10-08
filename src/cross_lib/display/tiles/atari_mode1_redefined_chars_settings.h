@@ -50,7 +50,7 @@
 
 #define _TILE_25_OFFSET 4
 
-#if defined(NO_COLOR)
+#if defined(_XL_NO_COLOR)
     #if !defined(ALTERNATE_COLORS)
         #define _TILE_19 (_TILE_19_OFFSET + _ATARI_MODE1_BLUE)
         #define _TILE_20 (_TILE_20_OFFSET + _ATARI_MODE1_BLUE)

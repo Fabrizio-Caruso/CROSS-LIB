@@ -4,7 +4,7 @@
 
    
 
-#if defined(NO_GRAPHICS) || defined(NO_PRINT) || defined(NO_COLOR)
+#if defined(NO_GRAPHICS) || defined(NO_PRINT) || defined(_XL_NO_COLOR)
     #define _XL_BLACK 0
     #define _XL_WHITE 0
     #define _XL_RED 0

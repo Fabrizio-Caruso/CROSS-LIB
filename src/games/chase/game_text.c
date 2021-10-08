@@ -35,7 +35,7 @@ extern uint8_t guns;
 extern Image GUN_IMAGE;
 extern Image SKULL_IMAGE;
 
-#if !defined(NO_TEXT_COLOR) || defined(NO_GRAPHICS)
+#if !defined(_XL_NO_TEXT_COLOR) || defined(NO_GRAPHICS)
 	#define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
 #else
 	#define SET_COLOR(c)

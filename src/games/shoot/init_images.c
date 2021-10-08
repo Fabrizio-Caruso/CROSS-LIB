@@ -48,7 +48,7 @@ void INIT_IMAGES(void)
 {
 # if !defined(NO_GRAPHICS)
 	// Set color data 
-	#if !defined(NO_COLOR)
+	#if !defined(_XL_NO_COLOR)
 		
 		#if defined(ANIMATE_PLAYER)
 			PLAYER_DOWN_IMAGE._color = _PLAYER_COLOR;

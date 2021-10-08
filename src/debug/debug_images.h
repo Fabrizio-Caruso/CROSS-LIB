@@ -8,7 +8,7 @@ typedef unsigned char uint8_t;
 struct ImageStruct
 {
 	uint8_t _imageData;
-	#if !defined(NO_COLOR)
+	#if !defined(_XL_NO_COLOR)
 		uint8_t _color;
 	#endif
 };

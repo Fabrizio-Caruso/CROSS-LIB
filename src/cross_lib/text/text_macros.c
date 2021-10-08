@@ -12,23 +12,13 @@
 	#endif
 
 
-	#if !defined(NO_TEXT_COLOR)
-		// #if defined(__ATMOS__)
-			// #include <peekpoke.h>
-			// void _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(uint8_t row, uint8_t col, char *Text)
-			// {
-				// POKE(0xBB80+3+(row)*40,16);POKE(0xBB80+3+1+(row)*40,col);
-				// _XL_PRINT_CENTERED_ON_ROW(row, Text);
-				// POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);
-			// }			
-		// #else	
+	#if !defined(_XL_NO_TEXT_COLOR)	
 			void _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(uint8_t row, uint8_t col, char *Text)
 			{
 				_XL_SET_TEXT_COLOR(col);
 				_XL_PRINT_CENTERED_ON_ROW(row, Text);
 			}
 					
-		// #endif
 	#endif
 
 #endif

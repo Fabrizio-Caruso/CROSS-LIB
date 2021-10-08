@@ -469,32 +469,28 @@ c16: c16_16k
 
 c16_v2: c16_16k_v2
 
-plus4: c16_32k
-
-# TODO: This should use
-# c16_linked_redefined_chars_init_graphics
-c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
-	-DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
+	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
 	-DREDEFINED_CHARS \
 	-DSOUNDS \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	-DC16_UNEXPANDED -DNO_SCREEN_CODES -DNO_SET_SCREEN_COLORS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-DUSE_ASSEMBLY_CLEAR_SCREEN \
+	-DC16_UNEXPANDED \
+	-DUSE_KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
-	-DDANCE -DUDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
+	-D_XL_SLOW_DOWN_FACTOR=4000 \
+	-DUDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_16k.prg
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 c16_16k_v2: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
@@ -512,6 +508,7 @@ c16_16k_v2: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=4000 \
 	-DUDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -519,57 +516,10 @@ c16_16k_v2: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-# c16_16k_v2: $(ASSETS_PATH)/cc65_udc_63_chars.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	# --config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
-	# -DFORCE_NO_CONIO_LIB \
-	# -DFULL_GAME -D_API_VERSION=2 \
-	# -DREDEFINED_CHARS \
-	# -DSOUNDS \
-	# -DALT_PRINT \
-	# -DANIMATE_PLAYER \
-	# -DMEMORY_MAPPED \
-	# -DC16_UNEXPANDED -DNO_SET_SCREEN_COLORS \
-	# -DDEFAULT_CLEAR_SCREEN \
-	# -DALT_SLEEP \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
-	# -DDANCE -DUDG_BASE_FACTOR=15 \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	# $(FULL_FILES) \
-	# $(ASSETS_PATH)/cc65_udc_63_chars.s \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
-c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
-	-DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME \
-	-DREDEFINED_CHARS \
-	-DSOUNDS \
-	-DALT_PRINT \
-	-DANIMATE_PLAYER \
-	-DMEMORY_MAPPED \
-	-DC16_UNEXPANDED \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
-	-DDANCE -DUDG_BASE_FACTOR=23 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
-
 
 #################################################################
 
-c64: $(ASSETS_PATH)/cc65_udc.s
+c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -577,14 +527,18 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	-DMEMORY_MAPPED \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 c64_exomized: c64
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64_crt: c64_exomized
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt
+
 
 c64_v2: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
@@ -599,24 +553,11 @@ c64_v2: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
     
-# c64_v2: $(ASSETS_PATH)/cc65_udc.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
-	# -DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=2 \
-	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	# -DMEMORY_MAPPED -DALT_PRINT \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	# $(ASSETS_PATH)/cc65_udc.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(FULL_FILES) \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 c64_v2_exomized: c64_v2
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64_v2.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-c64_crt: c64_exomized
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+c64_crt_v2: c64_v2_exomized
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt
 
 #################################################################
 
@@ -806,7 +747,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 vic20_v2: vic20_exp_8k_v2
 
-vic20_exp_8k_v2: $(ASSETS_PATH)/cc65_udc_arcade.s
+vic20_exp_8k_v2: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
 	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=2 \
@@ -820,8 +761,6 @@ vic20_exp_8k_v2: $(ASSETS_PATH)/cc65_udc_arcade.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-vic20_wait_vsync: vic20_exp_16k_wait_vsync
-
 vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
@@ -834,6 +773,8 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
 
 
 
@@ -1584,10 +1525,6 @@ zx81_16k_v2:
 
 
 #################################################################
-
-# COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
-
-# COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
 CMOC_NO_UDG_OPTS        ?= -O0 -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 

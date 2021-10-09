@@ -26,7 +26,7 @@
 
 #include "cross_lib.h"
 
-#if defined(NO_UDG)
+#if !defined(_DEFAULT_ASCII)
     #include "char_tiles.h"
 #endif
 

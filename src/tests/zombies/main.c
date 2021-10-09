@@ -146,8 +146,7 @@ int main(void)
                 ++zombie_pos[zombie_index];
             }
         }
-        _XL_SLOW_DOWN(1500);
-        // _XL_WAIT_FOR_INPUT();
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
 
 

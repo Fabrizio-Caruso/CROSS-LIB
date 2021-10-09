@@ -25,7 +25,7 @@
 #ifndef _DEFAULT_GRAPHICS_SETTINGS
 #define _DEFAULT_GRAPHICS_SETTINGS
 
-#if defined(NO_UDG)
+#if !defined(_DEFAULT_ASCII)
     #include "char_tiles.h"
 #endif
 

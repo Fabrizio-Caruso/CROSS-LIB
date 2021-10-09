@@ -8,7 +8,7 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW
+GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII
 
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters

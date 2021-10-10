@@ -330,14 +330,31 @@ Cross-Lib exposes a constant `XSize` for the width of the screen and a constant 
 The game code should rely on fractions of `XSize` and of `YSize` and never use hard-coded sizes.
 By doing so, upon compilation, the game will auto-adapt to the target's screen size.
 
+
+### Tile-based Graphics
+
+Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
+For targets with graphics, the shapes of tiles are only defined at compilation time and cannot be re-defined.
+So, for targets with graphics, smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
+
+Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
+So do not implement logic that only assumes 8x8 pixel tiles (e.g. when implementing software sprites with pre-shifted tiles). 
+If you want to support targets with no graphics (i.e., tiles are just mapped to ASCII characters), you either avoid code that depends on tile shapes or if you, you have to implement an alternative version for non-graphics targets.
+
+For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
+
+![MSX](snapshots/XSnake_MSX2.png)
+![GB](snapshots/XSnake_GB.png)
+
+For more snapshots we refer to: 
+
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
+
+
 ### Colors, Sounds and Graphics
 Some targets have no colors or no color on text, or no sounds, or no graphics.
 So do not write any logic that relies only on the presence of colors/sounds/graphics; or if you do, use conditional directives to implement an alternative logic for targets with no colors/sounds/graphics.
 
-### Tile Shapes
-Cross-Lib APIs only support tile-based graphics with pre-defined  tile shapes (at compilation time) in order to support all targets. 
-Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
-So do not implement logic that only assumes 8x8 pixel tiles (e.g. when implementing software sprites with pre-shifted tiles). 
 
 ### Learn from the built-in games and tests
 Cross-Lib comes with games and tests whose code can be used to learn how to code universal games.
@@ -359,29 +376,6 @@ The currently available APIs are described at
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 
--------------------------------------------
-
-## ADAPTIVE GRAPHICS
-
-Graphics in Cross-Lib is implemented in a way that can be rendered in the same way on all targets.
-
-### Tile-based 
-Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
-For targets with graphics, tiles are only defined at compilation time and cannot be re-defined.
-So, for targets with graphics, smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
-
-### Adaptivity
-If colors, graphics and sounds are available on a specific target, the tool-chain will produce a game with possibly some sound effects and colored graphics.
-Otherwise Cross-Lib will produce a game with just ASCII graphics or no sound or no colors on a specific target that lacks some hardware feature.
-
-For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
-
-![MSX](snapshots/XSnake_MSX2.png)
-![GB](snapshots/XSnake_GB.png)
-
-For more snapshots we refer to: 
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
 
 -------------------------------------------
 

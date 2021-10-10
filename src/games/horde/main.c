@@ -1924,6 +1924,13 @@ do \
 #endif
 
 #if !defined(NO_EXTRA_TITLE)
+    #if defined(CONTROL_INSTRUCTIONS)
+        #define control_instructions() _XL_PRINT_CENTERED_ON_ROW(YSize-3,\
+                                        _XL_U _XL_S _XL_E _XL_SPACE _XL_J _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E)
+    #else
+        #define control_instructions()
+    #endif
+
     #define display_items() \
     do \
     { \
@@ -1935,6 +1942,7 @@ do \
             _XL_SET_TEXT_COLOR(_XL_GREEN); \
             _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
         } \
+        control_instructions(); \
     } while(0)
 #else
     #define display_items()

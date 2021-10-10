@@ -12,11 +12,11 @@ GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DALT_SLEEP -DNO_SLOW_DOWN_MACR
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters
 
-SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
+SCCZ80_OPTS =  -O2 $(GLOBAL_OPTS)
 #-O0
 #-O3
 
-SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
+SCCZ80_ROMS_OPTS ?= -O2 $(GLOBAL_OPTS)
 #-O0
 #-O3
 
@@ -63,7 +63,7 @@ FULL_FILES ?= \
 	$(FULL_FILES_NO_SLEEP)
 
 
-SCCZ80_OPTS += -O3
+# SCCZ80_OPTS += -O3
 
 #################################################################
 #     lcc1802_targets 
@@ -1527,6 +1527,10 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 
 spectrum: spectrum_48k
 
+spectrum_ijkl: spectrum_48k_keyboard
+
+spectrum_keyboard: spectrum_ijkl
+
 spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -1553,14 +1557,12 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	 \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-D_XL_SLOW_DOWN_FACTOR=500 \
-	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
-	-DCONIO \
+	-DCONIO -DCONTROL_INSTRUCTIONS \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \

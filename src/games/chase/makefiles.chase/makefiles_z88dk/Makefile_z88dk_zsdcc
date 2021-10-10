@@ -445,8 +445,8 @@ zx81: zx81_16k
 
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) \
-	--opt-code-size  -compiler=sdcc  \
+	$(INCLUDE_OPTS)  \
+	--opt-code-size  \
 	-vn \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -461,7 +461,7 @@ zx81_v2: zx81_v2_16k
 
 zx81_v2_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS)  -compiler=sdcc  \
+	$(INCLUDE_OPTS)  -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	--opt-code-size \
 	-vn -D_API_VERSION=2 \
 	-D__ZX81__ -DFULL_GAME \

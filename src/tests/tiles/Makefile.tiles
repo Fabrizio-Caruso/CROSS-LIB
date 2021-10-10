@@ -8,7 +8,10 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 API_VERSION=2
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW -D_DEFAULT_ASCII -D_API_VERSION=$(API_VERSION)
+#-D_DEFAULT_ASCII
+DEFAULT_ASCII=
+
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION)
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 
@@ -20,11 +23,11 @@ SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
 #-O0
 #-O3
 
-SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
+SCCZ80_ROMS_OPTS ?= -O2 $(GLOBAL_OPTS)
 #-O0
 #-O3
 
-ZSDCC_OPTS ?= -SO3 $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+ZSDCC_OPTS ?= -SO2 $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
 #-SO0
 # -SO3 --max-allocs-per-node200000
 
@@ -230,6 +233,7 @@ z88dk_targets_sequential: \
     spectrum \
     vg5k \
     vz200 \
+    zx81_wrx \
     zx81
 else
 z88dk_targets_sequential: \
@@ -251,7 +255,8 @@ z88dk_targets_sequential: \
     spectrum \
     vg5k \
     vz200 \
-    zx81
+    zx81_wrx \
+    zx81 
 endif
 
 
@@ -1443,7 +1448,7 @@ zx81_no_gfx: zx81_no_gfx_16k
 zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	--opt-code-size \
+	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	-vn -D_API_VERSION=$(API_VERSION) \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -1454,8 +1459,9 @@ zx81_no_gfx_16k:
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-zx81: zx81_32k_wrx
+zx81: zx81_no_gfx
 
+zx81_wrx: zx81_32k_wrx
 
 zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
@@ -1504,7 +1510,9 @@ zx81_no_gfx_16k:
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-zx81: zx81_32k_wrx
+zx81: zx81_no_gfx
+
+zx81_wrx: zx81_32k_wrx
 
 zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
@@ -1738,7 +1746,7 @@ coco_no_gfx:
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO_V2_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \

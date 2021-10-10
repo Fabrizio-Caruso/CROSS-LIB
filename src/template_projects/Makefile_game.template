@@ -1,5 +1,5 @@
 ######################################################################
-# Makefile for CROSS-_GAME_NAME_
+# Makefile for CROSS-_GAME_NAME_CAPITAL
 GAME_NAME := _GAME_NAME_
 
 PARENT_DIR = games

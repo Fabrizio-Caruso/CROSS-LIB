@@ -64,7 +64,7 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED_ON_ROW(4, _GAME_NAME_CAPITAL);
+        _XL_PRINT_CENTERED_ON_ROW(4, "_GAME_NAME_CAPITAL");
         _XL_SET_TEXT_COLOR(_XL_CYAN);
         _XL_PRINT_CENTERED_ON_ROW(6, "BY AUTHOR");
         _XL_SET_TEXT_COLOR(_XL_WHITE);

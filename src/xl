@@ -99,6 +99,10 @@ def build(params):
             exit()     
 
 
+
+def only_upper(s):
+    return "".join(c for c in s if c.isupper() or c==" ")
+
 def create(params):
     if len(params)<2:
         game_dir = "helloworld"
@@ -150,6 +154,15 @@ def create(params):
         print("Copying file_name: " + file_name)
         shutil.copy(source_path+"/"+file_name, dest_path)
 
+    game_dir_capital = only_upper(game_dir.upper().replace("-"," ").replace("_"," "))
+    fin = open("./"+dest_path+"/main.c", "rt")
+    data = fin.read()
+    data = data.replace('_GAME_NAME_CAPITAL','"'+game_dir_capital+'"')
+    fin.close()
+    fin = open("./"+dest_path+"/main.c", "wt")
+    #overrite the input file with the resulting data
+    fin.write(data)
+    
     templated_makefile_path = "./template_projects"
 
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)

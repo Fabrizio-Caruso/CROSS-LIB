@@ -31,23 +31,6 @@
 
 #include "images.h"
 
-#define _GAME_NAME__STRING _XL_M _XL_Y _XL_SPACE _XL_G _XL_A _XL_M _XL_E
-#define _BY__STRING _XL_B _XL_Y
-#define _AUTHOR__STRING _XL_A _XL_U _XL_T _XL_H _XL_O _XL_R 
-
-#define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
-
-#define _LEVEL__STRING _XL_L _XL_E _XL_V _XL_E _XL_L
-#define _LEVEL_COMPLETED__STRING _LEVEL__STRING _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D
-
-#define _LIVES__STRING _XL_L _XL_I _XL_V _XL_E _XL_S
-#define _SCORE__STRING _XL_S _XL_C _XL_O _XL_R _XL_E
-
-#define _YOU_DIED__STRING _XL_Y _XL_O _XL_U _XL_SPACE _XL_D _XL_I _XL_E _XL_D
-
-#define _GAME_COMPLETED__STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_E _XL_T _XL_E _XL_D
-#define _GAME_OVER__STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R
-
 #define INITIAL_LEVEL 1
 #define FINAL_LEVEL 8
 
@@ -81,15 +64,15 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED_ON_ROW(4, _GAME_NAME__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(4, _GAME_NAME_CAPITAL);
         _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT_CENTERED_ON_ROW(6, _BY__STRING _XL_SPACE _AUTHOR__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(6, "BY AUTHOR");
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         
-        _XL_PRINT_CENTERED_ON_ROW(0, _XL_H _XL_I _SCORE__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(0, "HISCORE");
         _XL_PRINTD(XSize/2-3,1,5,hiscore);
         
-        _XL_PRINT_CENTERED_ON_ROW(YSize-1, _PRESS_FIRE__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(YSize-1, "PRESS FIRE");
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
@@ -104,18 +87,19 @@ int main(void)
             
             _XL_CLEAR_SCREEN();
             
-            _XL_PRINT(0,0,_LEVEL__STRING);
+            _XL_PRINT(0,0,"LEVEL");
             _XL_PRINTD(7,0,1,level);
             
-            _XL_PRINT(0,2,_LIVES__STRING);
+            _XL_PRINT(0,2,"LIVES");
             _XL_PRINTD(7,2,1,lives);       
             
-            _XL_PRINT_CENTERED_ON_ROW(14, _PRESS_FIRE__STRING);
+            _XL_SLEEP(1);
+            _XL_PRINT_CENTERED_ON_ROW(14, "PRESS FIRE");
             _XL_WAIT_FOR_INPUT();
             
             _XL_CLEAR_SCREEN();
             
-            _XL_PRINT(0,0, _SCORE__STRING);
+            _XL_PRINT(0,0, "SCORE");
             _XL_PRINTD(7,0,5,score);
             _XL_PRINTD(XSize-6,YSize-1,5,0);
 
@@ -154,12 +138,12 @@ int main(void)
             if(alive)
             {
                 ++level;
-                _XL_PRINT_CENTERED(_LEVEL_COMPLETED__STRING);
+                _XL_PRINT_CENTERED("LEVEL COMPLETED");
             }
             else
             {
                 --lives;
-                _XL_PRINT_CENTERED(_YOU_DIED__STRING);
+                _XL_PRINT_CENTERED("YOU DIED");
                 _XL_SLEEP(1);
             }
         } // (lives && (level<FINAL_LEVEL+1)) 
@@ -167,12 +151,12 @@ int main(void)
         {
             // GAME COMPLETED
             _XL_CLEAR_SCREEN();
-            _XL_PRINT_CENTERED(_GAME_COMPLETED__STRING);
+            _XL_PRINT_CENTERED("GAME COMPLETED");
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
         }
         _XL_CLEAR_SCREEN();
-        _XL_PRINT_CENTERED(_GAME_OVER__STRING);
+        _XL_PRINT_CENTERED("GAME OVER");
         _XL_WAIT_FOR_INPUT();
         if(score>hiscore) 
         {

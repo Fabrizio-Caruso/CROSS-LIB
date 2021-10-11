@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 import shutil
 
 import os,sys
@@ -7,6 +8,8 @@ import os,sys
 import time
 
 from os import walk
+
+
 
 def are_you_sure():
     if sys.version_info[0] < 3:
@@ -22,7 +25,7 @@ def multiple_run(mypath,target,threads,optimization):
             
     for project_name in projects:
         make_command = \
-            "make " + target + \
+            GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
@@ -87,7 +90,7 @@ def build(params):
             exit();
 
         make_command = \
-            "make " + target + \
+            GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
@@ -200,7 +203,7 @@ def create(params):
 
 def reset(params):
     if len(params)<2:
-        make_command = "make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
         print("Delete all non-project-specific temporary files")
         if(are_you_sure()=="y"):
@@ -211,7 +214,7 @@ def reset(params):
         else:
             exit();
     elif (len(params)==2) and (params[1]=='-y'):
-        make_command = "make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
         print("Delete all non-project-specific temporary files")
 
@@ -246,7 +249,7 @@ def reset(params):
     print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
     if (not interactive) or (are_you_sure()=="y"):
-        make_command = "make clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+        make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         print("run command : " + make_command)
         print("\n")
@@ -255,7 +258,7 @@ def reset(params):
 
 def clean(params):
     if len(params)<2:
-        make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
         print("Delete all built binaries and non-project=specific temporary files")
         if(are_you_sure()=="y"):
@@ -266,7 +269,7 @@ def clean(params):
         else:
             exit();
     elif (len(params)==2) and (params[1]=='-y'):
-        make_command = "make clean_generic -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
         print("Delete all built binaries and non-project-specific temporary files")
 
@@ -301,7 +304,7 @@ def clean(params):
     print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
     if (not interactive) or (are_you_sure()=="y"):
-        make_command = "make clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+        make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         print("run command : " + make_command)
         print("\n")
@@ -483,25 +486,61 @@ def help(params):
         print("Command not recognized")
         exit()
 
-# --------------------------
+# ---------------------------------------------
 
-if len(sys.argv)<2:
-    print("You need to provide a command or a project name")
-    help(sys.argv[1:])
-elif sys.argv[1]=="build":
-    build(sys.argv[1:])
-elif sys.argv[1]=="create":
-    create(sys.argv[1:])
-elif sys.argv[1]=="clean":
-    clean(sys.argv[1:])
-elif sys.argv[1]=="reset":
-    reset(sys.argv[1:])
-elif sys.argv[1]=="delete":
-    delete(sys.argv[1:])
-elif sys.argv[1]=="list":
-    list()
-elif sys.argv[1]=="help":
-    help(sys.argv[1:])
-else:
-    print(sys.argv)
-    build(sys.argv)
+
+# ---------------------------------------------
+# │ System              │ Value               │
+# ---------------------------------------------
+# │ Linux               │ linux or linux2 (*) │
+# │ Windows             │ win32               │
+# │ Windows/Cygwin      │ cygwin              │
+# │ Windows/MSYS2       │ msys                │
+# │ Mac OS X            │ darwin              │
+# │ OS/2                │ os2                 │
+# │ OS/2 EMX            │ os2emx              │
+# │ RiscOS              │ riscos              │
+# │ AtheOS              │ atheos              │
+# │ FreeBSD 7           │ freebsd7            │
+# │ FreeBSD 8           │ freebsd8            │
+# │ FreeBSD N           │ freebsdN            │
+# │ OpenBSD 6           │ openbsd6            │
+# ---------------------------------------------
+
+
+# ---------------------------------------------
+if __name__ == "__main__":
+    platform = sys.platform
+    
+    print("----------------------------")
+    print("Cross-Lib `xl` helper script")
+    print("----------------------------")
+    print("Platform: " + platform)
+    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "win32"]):
+        GNU_MAKE="make"
+    else:
+        GNU_MAKE="gmake"
+        
+    print("GNU MAKE command: " + GNU_MAKE)
+    print("----------------------------")
+
+    if len(sys.argv)<2:
+        print("You need to provide a command or a project name")
+        help(sys.argv[1:])
+    elif sys.argv[1]=="build":
+        build(sys.argv[1:])
+    elif sys.argv[1]=="create":
+        create(sys.argv[1:])
+    elif sys.argv[1]=="clean":
+        clean(sys.argv[1:])
+    elif sys.argv[1]=="reset":
+        reset(sys.argv[1:])
+    elif sys.argv[1]=="delete":
+        delete(sys.argv[1:])
+    elif sys.argv[1]=="list":
+        list()
+    elif sys.argv[1]=="help":
+        help(sys.argv[1:])
+    else:
+        print(sys.argv)
+        build(sys.argv)

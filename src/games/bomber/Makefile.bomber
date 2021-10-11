@@ -163,7 +163,7 @@ z88dk_targets_aux: \
 endif
 
 z88dk_targets: 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_aux -f ./games/$(GAME_NAME)/Makefile.$(GAME_NAME)
+	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_targets_aux -f ./games/$(GAME_NAME)/Makefile.$(GAME_NAME)
     
 lcc1802_targets: \
 	_comx \
@@ -1509,7 +1509,7 @@ pecom_targets: pecom
 
 tmc600_targets: tmc600_37k
 
-cidelsa_targets: make cidelsa_draco_32k
+cidelsa_targets: $(MAKE) cidelsa_draco_32k
 
 
 ###############################################################################################

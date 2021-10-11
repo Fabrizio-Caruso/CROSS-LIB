@@ -260,7 +260,7 @@ endif
 
 
 z88dk_targets:
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_sequential -f ./$(PARENT_DIR)/$(GAME_NAME)/Makefile.$(GAME_NAME)
+	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_targets_sequential -f ./$(PARENT_DIR)/$(GAME_NAME)/Makefile.$(GAME_NAME)
 
 
 _lcc1802_6x8_targets: \
@@ -1992,7 +1992,7 @@ pecom_targets: pecom
 
 tmc600_targets: tmc600_37k
 
-cidelsa_targets: make cidelsa_draco_32k
+cidelsa_targets: $(MAKE) cidelsa_draco_32k
 
 
 

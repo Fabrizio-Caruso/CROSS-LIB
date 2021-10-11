@@ -89,7 +89,7 @@ z88dk_targets_a-k_more: \
 endif
 
 # z88dk_targets_a-k:
-	# make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k_sequential -f games/$(GAME_NAME)/makefiles.chase/makefiles_z88dk/Makefile_z88dk_a-k
+	# $(MAKE) $(Z88DK_MAKE_OPTS) z88dk_targets_a-k_sequential -f games/$(GAME_NAME)/makefiles.chase/makefiles_z88dk/Makefile_z88dk_a-k
 
 # ------------------------------------------------------------------------------------------
 

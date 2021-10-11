@@ -206,8 +206,8 @@ z88dk_ascii_targets: \
 
 
 z88dk_targets:
-	make $(Z88DK_MAKE_OPTS) z88dk_ascii_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
-	make $(Z88DK_MAKE_OPTS) z88dk_8x8_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
+	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_ascii_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
+	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_8x8_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
 
 _lcc1802_6x8_targets: \
     _comx \

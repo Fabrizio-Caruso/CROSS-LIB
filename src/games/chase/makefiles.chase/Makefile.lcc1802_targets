@@ -583,19 +583,19 @@ comx_targets: comx
 pecom_targets: pecom
 
 tmc600_targets:
-	make tmc600_8k
-	make tmc600_16k
-	make tmc600_24k
-	make tmc600_37k
+	$(MAKE) tmc600_8k
+	$(MAKE) tmc600_16k
+	$(MAKE) tmc600_24k
+	$(MAKE) tmc600_37k
 
 cidelsa_targets:
-	make cidelsa_draco_16k
-	make cidelsa_draco_32k
-	make cidelsa_altair_12k
-	make cidelsa_altair_24k
-	make cidelsa_destroyer_8k
-	make cidelsa_destroyer_12k
+	$(MAKE) cidelsa_draco_16k
+	$(MAKE) cidelsa_draco_32k
+	$(MAKE) cidelsa_altair_12k
+	$(MAKE) cidelsa_altair_24k
+	$(MAKE) cidelsa_destroyer_8k
+	$(MAKE) cidelsa_destroyer_12k
 
 micro_targets:
-	make micro_pal2
+	$(MAKE) micro_pal2
 

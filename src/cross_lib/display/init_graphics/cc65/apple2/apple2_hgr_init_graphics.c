@@ -140,8 +140,14 @@ void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     
     for(k=0;k<8;++k)
     {
-        POKE(HB1[8*y+k]+2*x,hgr_enc[(uint16_t) (tiles[tile][k])*2u+((256U)*(color))]|extra_color);//(uint16_t) 256u*color]);
-        POKE(HB1[8*y+k]+2*x+1,hgr_enc[(uint16_t)(tiles[tile][k])*2u+((256U)*(color))+1]|extra_color);//(uint16_t)256u*color+1]);
+        // TODO: COLORS ARE INVERTED
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        POKE(HB1[8*y+k]+2*x,(hgr_enc[(uint16_t) (tiles[tile][k])*2u+((256U)*(color))]^0x7F)|extra_color);
+        POKE(HB1[8*y+k]+2*x+1,(hgr_enc[(uint16_t)(tiles[tile][k])*2u+((256U)*(color))+1]^0x7F)|extra_color);
+        #else
+        POKE(HB1[8*y+k]+2*x,hgr_enc[(uint16_t) (tiles[tile][k])*2u+((256U)*(color))]|extra_color);
+        POKE(HB1[8*y+k]+2*x+1,hgr_enc[(uint16_t)(tiles[tile][k])*2u+((256U)*(color))+1]|extra_color);
+        #endif
     }
 }
 
@@ -151,8 +157,13 @@ void hgr_delete(uint8_t x, uint8_t y)
     
     for(k=0;k<8;++k)
     {
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        POKE(HB1[8*y+k]+2*x,0x7F);
+        POKE(HB1[8*y+k]+2*x+1,0x7F);
+        #else
         POKE(HB1[8*y+k]+2*x,0);
-        POKE(HB1[8*y+k]+2*x+1,0);
+        POKE(HB1[8*y+k]+2*x+1,0);   
+        #endif
     }
 }
 

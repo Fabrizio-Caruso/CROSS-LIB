@@ -123,10 +123,14 @@ clean_build:
 	rm -rf $(BUILD_PATH)/*
 
 clean_generic_combo:
+	rm -rf games/reduced_full_lcc1802_color_combo.c
 	rm -rf games/reduced_full_lcc1802_combo_no_sounds.*
-	rm -rf tests/reduced_full_lcc1802_combo_no_sounds.*
 	rm -rf games/full_lcc1802_combo.*
-	rm -rf tests/full_lcc1802_combo.*
+	rm -rf games/full_combo_rand.c  
+	rm -rf examples/reduced_full_lcc1802_color_combo.c
+	rm -rf examples/reduced_full_lcc1802_combo_no_sounds.*
+	rm -rf examples/full_lcc1802_combo.*
+	rm -rf examples/full_combo_rand.c 
 
 clean_generic_no_built_in: \
     clean_generic_combo \

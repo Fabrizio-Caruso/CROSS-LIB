@@ -1,5 +1,5 @@
 ######################################################################
-# Makefile for CROSS-tiles
+# Makefile for CROSS-TILES
 GAME_NAME := tiles
 
 PARENT_DIR = examples

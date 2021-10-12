@@ -205,9 +205,17 @@ We recommend to use `xl build` to build projects. Alternatively you can use `mak
 
 ### Using `xl build` (recommended)
 
-I recommend that you use `xl build` as follows:
+I recommend that you use `xl build`:
 
-`xl build [game_or_test_name] [optional system_name]`
+`xl build [game_or_test_name] [optional system_name] [optional number of threads]`
+
+A convenient shortcut is using just `xl` as follows:
+
+`xl [project_name] [optional system_name] [optional number of threads]`
+
+The `[optional system_name]` parameter is the name of the target. If no target is specified then the native target (the host terminal) is implied.
+
+The `[optional number of threads]` is used to specify the number of threads to use for multiple targets that can be built in parallel.
 
 Examples:
 - `xl build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.

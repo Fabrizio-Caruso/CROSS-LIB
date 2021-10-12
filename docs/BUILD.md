@@ -6,20 +6,31 @@
 
 In order to build a game or a test, you need to be in the `src` directory.
 You  build a project (either a game or a test) for a specific system by either using the `xl build` script or an equivalent `make` command. 
-
-### Using `build_xl`
+A convenient shortcut is 
+### Using `xl build`
 
 I recommend that you use `xl build` as follows:
 
-`xl build [game_or_test_name] [optional system_name]`
+`xl build [project_name] [optional system_name] [optional number of threads]`
+
+where `[project name]` is either an example, a built-in game or user-defined project.
+
+A convenient shortcut is using just `xl` as follows:
+
+`xl [project_name] [optional system_name] [optional number of threads]`
+
+The `[optional system_name]` parameter is the name of the target. If no target is specified then the native target (the host terminal) is implied.
+
+The `[optional number of threads]` is used to specify the number of threads to use for multiple targets that can be built in parallel.
+
 
 Built-in games are 
 
 `chase`, `shoot`, `bomber`, `snake`, `horde`. 
 
-Built-in tests are 
+Current examples are:
 
-`tiles`, `sounds`, `matrix`, `zombies`, `invaders`.
+`helloworld`, `text`, `pause`, `background`, `tiles`, `input`, `sounds`, `matrix`, `zombies`, `invaders`.
 
 For the list of supported systems look at 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
@@ -32,15 +43,15 @@ As system you can also pass a group of systems such as:
 - `[compiler name]_targets` to build a given project for all targets compiled by a given compiler (e.g., `cc65_targets`, `z88dk_targets`, `cmoc_targets`, etc.)
 - `all` to build a given project on all possible targets (avoid this if you are not sure as it fails if you have not installed *all* compilers).
 
-Examples:
-- `xl build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `xl build chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
-- `xl build bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
-- `xl build snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
-- `xl build games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `xl build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
-- `xl build tests c64` -> It builds all tests for the Commodore 64 target
-- `xl build all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
+Examples (`xl build` is shortened to `xl`):
+- `xl snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `xl chase` -> It builds Cross Chase for the native console by using `gcc` and `ncurses`.
+- `xl bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `xl snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `xl games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `xl bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
+- `xl tests c64` -> It builds all tests for the Commodore 64 target
+- `xl all coco` -> It builds all projects (games and tests) for the TRS-80 Color Computer (by using the appropriate cross-compiler, i.e., CMOC)
 
 
 ### Using `make`

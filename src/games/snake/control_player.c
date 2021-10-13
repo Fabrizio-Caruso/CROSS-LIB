@@ -31,21 +31,10 @@ uint8_t _MOVE_PLAYER(uint8_t control_input)
     }
 }
 
+uint8_t MOVE_PLAYER(void)
+{
+    return _MOVE_PLAYER(_XL_INPUT());
+}
 
-    
-#if defined(NO_INPUT)
-    uint8_t MOVE_PLAYER(void) {}
-#elif defined(KEYBOARD_CONTROL)
-    uint8_t MOVE_PLAYER(void) 
-    { 
-        return _MOVE_PLAYER(GET_CHAR()); 
-    }
-#else
-    
-    uint8_t MOVE_PLAYER(void)
-    { 
-        return _MOVE_PLAYER(JOY_INPUT()); 
-    }
-#endif
 
 

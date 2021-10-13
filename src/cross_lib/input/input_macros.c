@@ -34,7 +34,7 @@
 
 
 // GET_CHAR() definitions
-#if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
+#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
         #if !defined(LCC1802_JOYSTICK)
             #include <devkit/input/keyboard.h>

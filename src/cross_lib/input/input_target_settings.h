@@ -39,15 +39,15 @@
 		|| defined(Z88DK_JOYSTICK) || defined(__SMS__) || defined(LCC1802_JOYSTICK)
 	#define JOYSTICK_CONTROL
 #else
-	#define KEYBOARD_CONTROL
+	#define _XL_NO_JOYSTICK
 #endif
 
 #if defined FORCE_KEYBOARD
 	#undef JOYSTICK_CONTROL
-	#define KEYBOARD_CONTROL
+	#define _XL_NO_JOYSTICK
 #endif
 
-#if defined(KEYBOARD_CONTROL)
+#if defined(_XL_NO_JOYSTICK)
 	#define WAIT_FOR_KEY
 #else
 	#define WAIT_FOR_JOY

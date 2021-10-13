@@ -75,7 +75,7 @@ int main(void)
     #endif
 
     _XL_PRINT(0,   12,"CONTROLS ");
-    #if !defined(KEYBOARD_CONTROL)
+    #if !defined(_XL_NO_JOYSTICK)
         _XL_PRINT(9,12,"JOY");
     #else
         _XL_PRINT(9,12,"KEYS");

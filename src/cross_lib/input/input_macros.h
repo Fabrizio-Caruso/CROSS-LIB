@@ -28,7 +28,7 @@
 	#include "input_target_settings.h"
 
     // _XL_INIT_INPUT
-	#if defined(KEYBOARD_CONTROL)
+	#if defined(_XL_NO_JOYSTICK)
 		#if defined(__ATMOS__)
 			#include <peekpoke.h>
 			#define _XL_INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
@@ -217,7 +217,7 @@ window.addEventListener("keydown", function (event) {
 #endif
 
 
-#if defined(KEYBOARD_CONTROL)
+#if defined(_XL_NO_JOYSTICK)
     #define _XL_UP(input) ((input)==_MOVE_UP)
     #define _XL_DOWN(input) ((input)==_MOVE_DOWN)
     #define _XL_LEFT(input) ((input)==_MOVE_LEFT)
@@ -233,7 +233,7 @@ window.addEventListener("keydown", function (event) {
 #endif
 
     // GET_CHAR
-	#if !defined(NO_INPUT) && defined(KEYBOARD_CONTROL)
+	#if !defined(NO_INPUT) && defined(_XL_NO_JOYSTICK)
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
@@ -259,7 +259,7 @@ window.addEventListener("keydown", function (event) {
 
 // KEY_PRESSED definitions
 #if !defined(NO_INPUT)
-    #if defined(KEYBOARD_CONTROL)
+    #if defined(_XL_NO_JOYSTICK)
         #define _XL_KEY_PRESSED() (GET_CHAR())
     #else
         #define _XL_KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))

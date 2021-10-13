@@ -228,8 +228,8 @@ typedef struct ImageStruct Image;
 #if defined(__ATARI5200__)
     #define _XL_SET_TEXT_COLOR(c) textcolor(c>>6)
 #elif defined(__ATARI__) && (defined(ATARI_MODE_1_COLOR))
-    extern uint8_t text_color;
-    #define _XL_SET_TEXT_COLOR(c) text_color = (c)
+    extern uint8_t _atari_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _atari_text_color = (c)
 #elif defined(_XL_NO_COLOR) \
     || defined(__ATARI5200__) \
     || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__TO7__)|| defined(__WINCMOC__) \

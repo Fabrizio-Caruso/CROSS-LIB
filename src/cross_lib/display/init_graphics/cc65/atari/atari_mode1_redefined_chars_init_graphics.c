@@ -59,7 +59,7 @@ void set_udg(void)
 uint16_t BASE_ADDR;
 
 #if defined(ATARI_MODE_1_COLOR)
-uint8_t text_color;
+uint8_t _atari_text_color;
 #endif
 
 void _XL_INIT_GRAPHICS(void)

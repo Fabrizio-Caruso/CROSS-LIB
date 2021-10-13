@@ -23,7 +23,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
     cprintf(str); 
 };
 #else
-    extern uint8_t text_color;
+    extern uint8_t _atari_text_color;
 
 #if defined(_API_VERSION) && (_API_VERSION>=2)
 
@@ -35,12 +35,12 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
         }
         else
         {
-            return ch+(text_color)-0x20u;
+            return ch+(_atari_text_color)-0x20u;
         }
     }
 
 #else
-    extern uint8_t text_color;
+    extern uint8_t _atari_text_color;
 
     uint8_t screenCode(uint8_t ch)
     {
@@ -50,11 +50,11 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
         }
         else if ((ch>='0')&&(ch<='9'))
         {
-            return ch+(text_color)-0x20u;
+            return ch+(_atari_text_color)-0x20u;
         }
         else
         {
-            return ch+(text_color)-0x40u;
+            return ch+(_atari_text_color)-0x40u;
         }
     }  
 #endif
@@ -66,10 +66,10 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
     while(str[i]!='\0')
     {
         #if defined(_API_VERSION) && (_API_VERSION>=2)
-        // DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x20u);
+        // DISPLAY_POKE(loc(x+i,y), str[i]+(_atari_text_color)-0x20u);
             DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
         #else
-        // DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x40u);
+        // DISPLAY_POKE(loc(x+i,y), str[i]+(_atari_text_color)-0x40u);
             DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
 
         #endif
@@ -89,7 +89,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		val-= digit;
 		val/=10;
 #if defined(ATARI_MODE_1_COLOR)
-		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + text_color));
+		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + _atari_text_color));
 #else
 		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + 64));
 

@@ -1,5 +1,5 @@
 #ifndef _TILES_H
-#define _TILES_h
+#define _TILES_H
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"

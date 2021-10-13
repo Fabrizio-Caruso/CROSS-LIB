@@ -150,9 +150,9 @@
     #elif defined(_XL_SLOW_DOWN_FACTOR) && _XL_SLOW_DOWN_FACTOR>0
         #define _XL_SLOW_DOWN(t) \
         do { \
-            uint16_t i; \
+            uint16_t __i; \
             \
-            for(i=0;i<(t);++i) \
+            for(__i=0;__i<(t);++__i) \
             { \
             } \
         } while(0)

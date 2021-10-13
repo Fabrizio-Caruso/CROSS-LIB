@@ -1,5 +1,5 @@
-#ifndef _TILES_H
-#define _TILES_H
+#ifndef _IMAGES_H
+#define _IMAGES_H
 
 #include "cross_lib.h"
 
@@ -51,5 +51,5 @@
     #define _TWO_WINDOW_WALL_2_COLOR _XL_RED
     #define _SMALL_TWO_WINDOW_WALL_2_COLOR _XL_YELLOW
 
-#endif // _TILES_H
+#endif // _IMAGES_H
 

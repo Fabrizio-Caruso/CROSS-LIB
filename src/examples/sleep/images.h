@@ -1,5 +1,6 @@
-#ifndef _TILES_H
-#define _TILES_H
+#ifndef _IMAGES_H
+#define _IMAGES_H
+
 
 #include "cross_lib.h"
 
@@ -47,5 +48,5 @@
     #define _PLAYER_COLOR _XL_CYAN
 
 
-#endif // _TILES_H
+#endif // _IMAGES_H
 

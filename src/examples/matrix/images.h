@@ -1,5 +1,6 @@
-#ifndef _TILES_H
-#define _TILES_H
+#ifndef _IMAGES_H
+#define _IMAGES_H
+
 
 #include "cross_lib.h"
 
@@ -72,5 +73,5 @@
 
     // EXTRA_POINTS_TILE._imageData = _DOLLAR_TILE _TILE_
 
-#endif // _TILES_H
+#endif // _IMaGES_H
 

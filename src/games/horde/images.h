@@ -1,5 +1,5 @@
-#ifndef _TILES_H
-#define _TILES_H
+#ifndef _IMAGES_H
+#define _IMAGES_H
 
 #include "cross_lib.h"
 
@@ -49,5 +49,5 @@
     #define HI_TILE _TILE_14
     #define LV_TILE _TILE_15
 
-#endif // _TILES_H
+#endif // _IMAGES_H
 

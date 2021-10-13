@@ -33,10 +33,14 @@
 
 #define COL_OFFSET ((XSize)/2-9)
 
+#define ITERATIONS 1
+
 int main(void)
 {        
     uint16_t i;
     uint8_t j;
+    uint8_t k;
+    uint8_t m;
     
     _XL_INIT_GRAPHICS();
     
@@ -73,7 +77,7 @@ int main(void)
         
         _XL_CLEAR_SCREEN();
         
-        i = (_XL_RAND()&0xFF)*_XL_SLOW_DOWN_FACTOR;
+        i = j*_XL_SLOW_DOWN_FACTOR;
 
         _XL_PRINT(COL_OFFSET     ,1,"PAUSE");
         _XL_PRINTD(COL_OFFSET+7  ,1,5, i);
@@ -87,7 +91,14 @@ int main(void)
         
         _XL_PRINT(COL_OFFSET     ,5,"PAUSING");
         
-        _XL_SLOW_DOWN(i);
+        for(m=0;m<ITERATIONS;++m)
+        {
+            for(k=1+XSize/5;k<XSize-1-XSize/5;++k)
+            {
+                _XL_DRAW(k,7+m,_TILE_0,_XL_WHITE);
+                _XL_SLOW_DOWN(i);
+            }
+        }
         
         _XL_PRINT(COL_OFFSET     ,YSize-3,"END OF PAUSE");
         

@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 #!/usr/bin/perl -wT
 
 # bin2cas.pl - convert binary data to CAS or WAV with optional autorun

@@ -381,7 +381,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 vz200: vz200_18k
 
 vz200_18k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz -Cz--audio --hardware-keyboard  --generic-console -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +vz -Cz--audio --hardware-keyboard $(SCCZ80_OPTS) --generic-console -vn \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -DHARDWARE_KEYBOARD \
 	-DFULL_GAME \

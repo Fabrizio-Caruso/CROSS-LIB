@@ -66,19 +66,19 @@ const struct redefine_struct redefine_map[] =
     {_TILE_16, _TILE_16_UDG},
     {_TILE_17, _TILE_17_UDG},
     {_TILE_18, _TILE_18_UDG},
-    #if NUM_OF_TILES>=20
+    #if _XL_NUMBER_OF_TILES>=20
     {_TILE_19, _TILE_19_UDG},
-    #if NUM_OF_TILES>=21
+    #if _XL_NUMBER_OF_TILES>=21
     {_TILE_20, _TILE_20_UDG},
-    #if NUM_OF_TILES>=22
+    #if _XL_NUMBER_OF_TILES>=22
     {_TILE_21, _TILE_21_UDG},
-    #if NUM_OF_TILES>=23
+    #if _XL_NUMBER_OF_TILES>=23
     {_TILE_22, _TILE_22_UDG},
-    #if NUM_OF_TILES>=24
+    #if _XL_NUMBER_OF_TILES>=24
     {_TILE_23, _TILE_23_UDG},
-    #if NUM_OF_TILES>=25
+    #if _XL_NUMBER_OF_TILES>=25
     {_TILE_24, _TILE_24_UDG},
-    #if NUM_OF_TILES>=26
+    #if _XL_NUMBER_OF_TILES>=26
     {_TILE_25, _TILE_25_UDG},
     #endif
     #endif
@@ -107,7 +107,7 @@ void _XL_INIT_GRAPHICS(void)
     character_set(4);
     
     
-    for(i=0;i<NUM_OF_TILES;++i)
+    for(i=0;i<_XL_NUMBER_OF_TILES;++i)
     {
         redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
     }

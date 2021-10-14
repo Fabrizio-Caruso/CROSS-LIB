@@ -57,6 +57,10 @@
 #endif
 
 
+#if !defined(_XL_NUMBER_OF_TILES)
+    #define _XL_NUMBER_OF_TILES 26
+#endif
+
 #if defined(TURN_BASED)
 	#if !defined(NO_BLINKING)
 		#define NO_BLINKING

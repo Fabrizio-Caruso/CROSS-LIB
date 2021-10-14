@@ -109,9 +109,9 @@ int main(void)
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             _XL_PRINT_CENTERED("  TILES   ");
           
-            for(i=0;i<NUM_OF_TILES;++i)
+            for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {   
-                _XL_DRAW(XSize/2-NUM_OF_TILES/2+i%XSize,YSize/2+2+i/XSize,tile[i],color_code[j]);   
+                _XL_DRAW(XSize/2-_XL_NUMBER_OF_TILES/2+i%XSize,YSize/2+2+i/XSize,tile[i],color_code[j]);   
             }       
             
             _XL_WAIT_FOR_INPUT();

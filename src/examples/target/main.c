@@ -31,7 +31,11 @@
 
 #include "images.h"
 
-
+#if YSize>=17
+    #define LINE_SKIP 2
+#else
+    #define LINE_SKIP 1
+#endif
 
 int main(void)
 {        
@@ -47,40 +51,49 @@ int main(void)
     
     _XL_PRINT(0,   0,"TARGET INFORMATION");
 
-    _XL_PRINT(0,   2,"XSIZE ");
-    _XL_PRINTD(6,  2,3,XSize);
+    _XL_PRINT(0,   1*LINE_SKIP,"XSIZE ");
+    _XL_PRINTD(6,  1*LINE_SKIP,3,XSize);
 
-    _XL_PRINT(0,   4,"YSIZE ");
-    _XL_PRINTD(6,  4,3,YSize);     
+    _XL_PRINT(0,   2*LINE_SKIP,"YSIZE ");
+    _XL_PRINTD(6,  2*LINE_SKIP,3,YSize);     
     
-    _XL_PRINT(0,   6,"GRAPHICS ");
+    _XL_PRINT(0,   3*LINE_SKIP,"TILES ");
+    _XL_PRINTD(6,  3*LINE_SKIP,3,_XL_NUMBER_OF_TILES);   
+    
+    _XL_PRINT(0,   4*LINE_SKIP,"GRAPHICS ");
     #if !defined(_XL_NO_UDG)
-        _XL_PRINT(9,6,"ON");
+        _XL_PRINT(11,4*LINE_SKIP,"ON");
     #else
-        _XL_PRINT(9,6,"OFF");
+        _XL_PRINT(11,4*LINE_SKIP,"OFF");
     #endif
 
-    _XL_PRINT(0,   8,"COLOR ");
+    _XL_PRINT(0,     5*LINE_SKIP,"COLOR ");
     #if !defined(_XL_NO_COLOR)
-        _XL_PRINT(6,8,"ON");
+        _XL_PRINT(11,5*LINE_SKIP,"ON");
     #else
-        _XL_PRINT(6,8,"OFF");
+        _XL_PRINT(11,5*LINE_SKIP,"OFF");
     #endif
 
-    _XL_PRINT(0,   10,"TEXT COLOR ");
+    _XL_PRINT(0,     6*LINE_SKIP,"TEXT COLOR ");
     #if !defined(_XL_NO_TEXT_COLOR)
-        _XL_PRINT(11,10,"ON");
+        _XL_PRINT(11,6*LINE_SKIP,"ON");
     #else
-        _XL_PRINT(11,10,"OFF");
+        _XL_PRINT(11,6*LINE_SKIP,"OFF");
     #endif
 
-    _XL_PRINT(0,   12,"CONTROLS ");
+    _XL_PRINT(0,     7*LINE_SKIP,"JOYSTICK ");
     #if !defined(_XL_NO_JOYSTICK)
-        _XL_PRINT(9,12,"JOY");
+        _XL_PRINT(11,7*LINE_SKIP,"ON");
     #else
-        _XL_PRINT(9,12,"KEYS");
-    #endif 
+        _XL_PRINT(11,7*LINE_SKIP,"OFF");
+    #endif
 
+    _XL_PRINT(0,     8*LINE_SKIP,"SOUND ");
+    #if !defined(_XL_NO_SOUND)
+        _XL_PRINT(11,8*LINE_SKIP,"ON");
+    #else
+        _XL_PRINT(11,8*LINE_SKIP,"OFF");
+    #endif
     while(1){};
     
     return EXIT_SUCCESS;

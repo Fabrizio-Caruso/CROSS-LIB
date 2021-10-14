@@ -147,7 +147,7 @@ int main(void)
             
             _XL_CLEAR_SCREEN();
             
-            for(i=0;i<NUM_OF_TILES;++i)
+            for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {
                 _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],tile_color[j]);
                 _XL_TICK_SOUND();

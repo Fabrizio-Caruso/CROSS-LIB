@@ -42,8 +42,8 @@
 
 #include "standard_libs.h"
 
-#if !defined(NUM_OF_TILES)
-    #define NUM_OF_TILES 26
+#if !defined(_XL_NUMBER_OF_TILES)
+    #define _XL_NUMBER_OF_TILES 26
 #endif
 
 struct ImageStruct

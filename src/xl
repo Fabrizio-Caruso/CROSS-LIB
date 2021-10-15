@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+DEBUG_TARGET = "ncurses_debug"
 
 import shutil
 
@@ -23,6 +24,23 @@ def dirs_in_path(mypath):
         projects.extend(dirnames)
         break
     return projects
+
+def multiple_debug_run(mypath,target,xsize,ysize):
+    projects = []
+    for (dirpath, dirnames, filenames) in walk(mypath):
+        projects.extend(dirnames)
+        break
+            
+    for project_name in projects:
+        make_command = \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
+                " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+
+
+        print("run command : " + make_command)
+        print("\n")
+        
+        os.system(make_command)
 
 def multiple_run(mypath,target,threads,optimization):
     projects = []
@@ -71,6 +89,7 @@ def debug(params):
 
     xsize = params[2]
     ysize = params[3]
+    target = DEBUG_TARGET
 
     print("Project name       : " + game_dir)
     print("Project type       : " + project_type)
@@ -85,13 +104,23 @@ def debug(params):
             exit();
 
         make_command = \
-            GNU_MAKE + " ncurses_debug XSIZE=" + xsize +  " YSIZE=" + ysize + \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         print("run command : " + make_command)
         print("\n")
 
         os.system(make_command)
+    else:
+        if game_dir=="games":
+            multiple_debug_run("games",target,xsize,ysize)
+        elif game_dir=="examples":
+            multiple_debug_run("examples",target,xsize,ysize)
+        elif game_dir=="all":
+            multiple_debug_run("games",target,xsize,ysize)
+            multiple_debug_run("examples",target,xsize,ysize)
+        else:
+            exit()
 
 def build(params):
 
@@ -582,7 +611,7 @@ if __name__ == "__main__":
     builtin_games = ["chase","shoot","bomber","snake","horde"]
     game_projects = dirs_in_path("./games")
     example_projects = dirs_in_path("./examples")
-    commands = ["build", "clean", "create", "delete", "help", "list", "reset"]
+    commands = ["build", "clean", "create", "delete", "help", "list", "reset","debug"]
 
     print("game projects   : "+str(game_projects))
     print("example projects: "+str(example_projects))

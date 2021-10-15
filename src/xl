@@ -473,9 +473,21 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="debug":
+        print("xl debug <project> <XSize> <YSize>")
+        print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")
+        print("The built binaries will be in the 'build' directory.")
+
+        print("\n<project>")
+        print("If 'games'/'test(s)'/'all' is used as <project>, then all game/example projects are built")   
+        
+        print("\nxl debug bomber 20 20       \n  It builds Cross Bomber for the native host in debug mode with screen size 20x20.")
+        print("\nxl debug examples 16 12     \n  It builds all examples for the native host in debug mode with screen size 16x12.")
+        
     elif params[1]=="build":
         print("xl build <project> <[optional] target>")
-        print("It builds <project> (game or test) for <target>.")
+        print("It builds <project> for <target>.")
+        print("Remark: The 'build' command can be omitted.")
         print("The built binaries will be in the 'build' directory.")
 
         print("\n<project>")
@@ -497,12 +509,12 @@ def help(params):
         
         print("\nExamples:")
         print("\nxl build bomber vic20       \n  It builds Cross Bomber for the Commodore Vic 20 using CC65.")
-        print("\nxl build snake              \n  It builds Cross Snake for the native target (terminal console).")
-        print("\nxl build chase cc65_targets \n  It builds Cross Chase for all targets that use CC65 to be built.")
-        print("\nxl build games cpc          \n  It builds all games for the Amstrad CPC using Z88DK.")
-        print("\nxl build examples c64       \n  It builds all examples for the Commodore 64 using CC65.")
-        print("\nxl build horde all          \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
-        print("\nxl build all c16            \n  It builds all projects (games and examples) for the Commodore 264 series using CC65.")
+        print("\nxl snake                    \n  It builds Cross Snake for the native target (terminal console).")
+        print("\nxl chase cc65_targets       \n  It builds Cross Chase for all targets that use CC65 to be built.")
+        print("\nxl games cpc                \n  It builds all games for the Amstrad CPC using Z88DK.")
+        print("\nxl examples c64             \n  It builds all examples for the Commodore 64 using CC65.")
+        print("\nxl horde all                \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
+        print("\nxl all c16                  \n  It builds all projects (games and examples) for the Commodore 264 series using CC65.")
     elif params[1]=="create":
         print("xl create <project> <[optional] type>")
         print("It creates <project>.")

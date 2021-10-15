@@ -2,7 +2,7 @@
 # Makefile for CROSS-_GAME_NAME_CAPITAL
 GAME_NAME := _GAME_NAME_
 
-PARENT_DIR = games
+PARENT_DIR = projects
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
@@ -11,7 +11,7 @@ API_VERSION=2
 #-D_DEFAULT_ASCII
 DEFAULT_ASCII=
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) $(COMPILER_OPTS)
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 
@@ -37,6 +37,7 @@ ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
 
 Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
+
 
 
 #####################################################################
@@ -1583,7 +1584,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c	
-    $(CMOC) \
+	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
@@ -2075,6 +2076,19 @@ ncurses_targets: \
 	ncurses
     
 ###############################################################################################
+
+ncurses_debug:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DFULL_GAME -DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_NCURSES \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
+	-DCONIO -D_XL_NO_UDG \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
 ncurses:

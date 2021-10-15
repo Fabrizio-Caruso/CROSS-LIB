@@ -32,6 +32,7 @@ void _XL_INIT_GRAPHICS(void)
 	init_pair(COLOR_MAGENTA, COLOR_MAGENTA, _NCURSES_BACKGROUND_COLOR);
 	init_pair(COLOR_BLACK, COLOR_BLACK, _NCURSES_BACKGROUND_COLOR);
     wbkgd(stdscr, COLOR_PAIR(1));
+    
     refresh();
     setScreenColors();
 }

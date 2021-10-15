@@ -91,8 +91,7 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR))
-
-        #define ONLY_CAPITAL_LETTERS
+        #define _XL_NO_SMALL_LETTERS
 
     #else
         
@@ -108,15 +107,33 @@
         #define ONLY_SMALL_LETTERS
         
     #elif defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__)
-        #define ONLY_CAPITAL_LETTERS
+        #define _XL_NO_SMALL_LETTERS
         
     #else
-
         #define SMALL_AND_CAPITAL_LETTERS
     
     #endif
 #endif
 
+#if defined(_XL_NO_UDG)
+    #define _XL_TILE_X_SIZE 1
+#elif defined(__ORIC__) || defined(__ATMOS__) \
+    || defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)
+    #define _XL_TILE_X_SIZE 6
+#elif defined(__APPLE2__) || defined(__APPLE2__)
+    #define _XL_TILE_X_SIZE 7
+#else
+    #define _XL_TILE_X_SIZE 8
+#endif
+
+
+#if defined(_XL_NO_UDG)
+    #define _XL_TILE_Y_SIZE 1
+#elif (defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)) && !defined(NTSC)
+    #define _XL_TILE_Y_SIZE 9
+#else
+    #define _XL_TILE_Y_SIZE 8
+#endif
 
 
 #if defined(__GAMATE__)

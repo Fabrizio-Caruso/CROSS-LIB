@@ -96,7 +96,7 @@
     #elif defined(__PET__) && defined(SOUNDS)
         #include "pet_sounds.h"
 	#else
-        #define _XL_NO_SOUND 1
+        #define _XL_NO_SOUND
 		#define _XL_EXPLOSION_SOUND() 
 		#define _XL_PING_SOUND() 
 		#define _XL_SHOOT_SOUND() 

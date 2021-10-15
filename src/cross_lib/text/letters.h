@@ -31,7 +31,7 @@
         #define _XL_Z "z"
         
 
-    #elif defined(ONLY_CAPITAL_LETTERS)
+    #elif defined(_XL_NO_SMALL_LETTERS)
     
         #define _XL_a "A"
         #define _XL_b "B"
@@ -91,7 +91,7 @@
         #define _XL_Z "Z"
     #endif
     
-    #if !defined(ONLY_CAPITAL_LETTERS)
+    #if !defined(_XL_NO_SMALL_LETTERS)
         #define _XL_a "a"
         #define _XL_b "b"
         #define _XL_c "c"

@@ -16,6 +16,13 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 }
 
 
+void _XL_CHAR(uint8_t x, uint8_t y, char ch)
+{
+    gotoxy(x,y);
+    PUTCH(ch);
+}
+
+
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
@@ -33,26 +40,5 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 	
 }	
 
-
-
-// void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
-// {
-	// uint8_t i;
-	// uint8_t digits[5];
-	
-    
-	// for(i=0;i<length;++i)
-	// {
-		// digits[i] = (uint8_t) ((val)%10);
-		// val-= digits[i];
-		// val/=10;
-	// }
-	
-	// gotoxy(x,y);
-	// for(i=0;i<length;++i)
-	// {
-		// PUTCH((uint8_t) (digits[length-i-1])+48);
-	// }
-// }
 
 

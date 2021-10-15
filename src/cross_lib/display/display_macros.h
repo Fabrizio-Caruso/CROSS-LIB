@@ -176,13 +176,16 @@ typedef struct ImageStruct Image;
     #define _XL_PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
+    #define _XL_CHAR(x,y,ch)
 #elif defined(NO_PRINT)
     #define _XL_PRINT(x,y,str)
     #define _XL_PRINTD(x,y,length, val)
+    #define _XL_CHAR(x,y,ch)
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
     void _GOTOXY(uint8_t x, uint8_t y);
     void _XL_PRINT(uint8_t x, uint8_t y, char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 #elif defined(__NCURSES__)
     void _XL_PRINT(uint8_t x, uint8_t y, char * str);
     #define _XL_PRINTD(x,y,length,val) \
@@ -191,9 +194,16 @@ typedef struct ImageStruct Image;
         printw("%0" #length "u",val); \
         refresh(); \
     } while(0)
+        
+    #define _XL_CHAR(x,y,ch) \
+    do { \
+        move(y,x); \
+        cputc(ch); \
+    } while(0)
 #elif defined(ALT_PRINT)
     void _XL_PRINT(uint8_t x, uint8_t y, char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 #else
     #define _XL_PRINT(x,y,str) \
     do \
@@ -207,6 +217,13 @@ typedef struct ImageStruct Image;
     { \
         gotoxy(x+X_OFFSET,Y_OFFSET+y); \
         cprintf("%0" #length "u",val); \
+    } while(0)
+        
+    #define _XL_CHAR(x,y,ch) \
+    do \
+    { \
+        gotoxy(x+X_OFFSET,Y_OFFSET+y); \
+        cputc(ch); \
     } while(0)
 #endif
 
@@ -326,13 +343,33 @@ typedef struct ImageStruct Image;
     #else
         #include <ncurses.h>
     #endif
-    #define _XL_CLEAR_SCREEN() clear()
+    #if defined(_DEBUG_NCURSES)
+        #define _XL_CLEAR_SCREEN() \
+            do \
+            { \
+                uint8_t i; \
+                \
+                clear(); \
+                \
+                for(i=0;i<YSize;++i) \
+                { \
+                    _XL_DRAW(XSize,i,_TILE_0,_XL_WHITE); \
+                } \
+                for(i=0;i<XSize;++i) \
+                { \
+                    _XL_DRAW(i,YSize,_TILE_0,_XL_WHITE); \
+                } \
+            } while(0)
+    #else
+        #define _XL_CLEAR_SCREEN() clear()
+    #endif
 #elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__))
     #include <devkit/video/vis_video.h>
     
     #define _XL_CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
     #define _XL_CLEAR_SCREEN() PUTCH(12);
+            
 #elif defined(USE_ASSEMBLY_CLEAR_SCREEN)
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() \

@@ -31,7 +31,6 @@
 
 int main(void)
 {        
-
     uint8_t k;
     
     _XL_INIT_GRAPHICS();

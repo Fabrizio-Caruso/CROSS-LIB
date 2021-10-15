@@ -33,6 +33,8 @@
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
+#define NUMBER_OF_CHARS 26
+
 #if !defined(_XL_NO_COLOR)
 static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
@@ -46,6 +48,10 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 _XL_B _XL_L _XL_U _XL_E, 
                                 };
 
+const char chars[NUMBER_OF_CHARS] = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
@@ -55,6 +61,7 @@ int main(void)
 {        
     uint8_t j;
     uint8_t k;
+    uint8_t i;
     
     _XL_INIT_GRAPHICS();
     
@@ -88,6 +95,17 @@ int main(void)
 
             _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM");
             _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ");
+            
+            _XL_WAIT_FOR_INPUT();
+            
+            _XL_CLEAR_SCREEN();
+            
+            // _XL_SET_TEXT_COLOR(text_color[j]);
+            
+            for(i=0;i<NUMBER_OF_CHARS;++i)
+            {
+                _XL_CHAR(2*(i%(XSize/2)),6+2*(i/(XSize/2)),chars[i]);
+            }
             
             _XL_WAIT_FOR_INPUT();
 

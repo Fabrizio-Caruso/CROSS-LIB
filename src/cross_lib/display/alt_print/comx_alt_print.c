@@ -40,6 +40,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
     #define _DISPLAY(__x,__y,__ch) vidchar((uint16_t)0xF800+XSize*YSize-YSize -(__x)*40+(__y), (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
+#define _XL_CHAR(x,y,ch) _DISPLAY(x,y,(ch+80+128))
 
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {

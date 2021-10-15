@@ -5,77 +5,81 @@
 #include "cross_lib.h"
 
 #if !defined(ATARI_MODE_1_COLOR)
-void _GOTOXY(uint8_t x, uint8_t y)
-{ 
-	if((y)&1) 
-	{ 
-		gotoxy(x+20,(y)/2);
-	} 
-	else 
-	{ 
-		gotoxy(x, (y)/2);
-	} 
-};
+    void _GOTOXY(uint8_t x, uint8_t y)
+    { 
+        if((y)&1) 
+        { 
+            gotoxy(x+20,(y)/2);
+        } 
+        else 
+        { 
+            gotoxy(x, (y)/2);
+        } 
+    };
 
-void _XL_PRINT(uint8_t x, uint8_t y, char * str)
-{ 
-    _GOTOXY(x,y);
-    cprintf(str); 
-};
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+    { 
+        _GOTOXY(x,y);
+        cprintf(str); 
+    };
+
+    // void _XL_CHAR(uint8_t x, uint8_t y, char ch) 
+    // {
+        // DISPLAY_POKE(loc(x,y),screenCode(ch));
+    // }
 #else
     extern uint8_t _atari_text_color;
 
-#if defined(_API_VERSION) && (_API_VERSION>=2)
+    #if defined(_API_VERSION) && (_API_VERSION>=2)
 
-    uint8_t screenCode(uint8_t ch)
-    {
-        if(ch==32)
+        uint8_t screenCode(uint8_t ch)
         {
-            return 0;
+            if(ch==32)
+            {
+                return 0;
+            }
+            else
+            {
+                return ch+(_atari_text_color)-0x20u;
+            }
         }
-        else
+
+    #else
+        extern uint8_t _atari_text_color;
+
+        uint8_t screenCode(uint8_t ch)
         {
-            return ch+(_atari_text_color)-0x20u;
+            if(ch==32)
+            {
+                return 0;
+            }
+            else if ((ch>='0')&&(ch<='9'))
+            {
+                return ch+(_atari_text_color)-0x20u;
+            }
+            else
+            {
+                return ch+(_atari_text_color)-0x40u;
+            }
+        }  
+    #endif
+
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+    {
+        uint8_t i = 0;
+
+        while(str[i]!='\0')
+        {
+
+            DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
+            ++i;
         }
     }
-
-#else
-    extern uint8_t _atari_text_color;
-
-    uint8_t screenCode(uint8_t ch)
+    
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch) 
     {
-        if(ch==32)
-        {
-            return 0;
-        }
-        else if ((ch>='0')&&(ch<='9'))
-        {
-            return ch+(_atari_text_color)-0x20u;
-        }
-        else
-        {
-            return ch+(_atari_text_color)-0x40u;
-        }
-    }  
-#endif
-
-void _XL_PRINT(uint8_t x, uint8_t y, char * str)
-{
-    uint8_t i = 0;
-
-    while(str[i]!='\0')
-    {
-        #if defined(_API_VERSION) && (_API_VERSION>=2)
-        // DISPLAY_POKE(loc(x+i,y), str[i]+(_atari_text_color)-0x20u);
-            DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
-        #else
-        // DISPLAY_POKE(loc(x+i,y), str[i]+(_atari_text_color)-0x40u);
-            DISPLAY_POKE(loc(x+i,y), screenCode(str[i]));
-
-        #endif
-        ++i;
-	}
-}
+        DISPLAY_POKE(loc(x,y),screenCode(ch));
+    }
 #endif
 
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)

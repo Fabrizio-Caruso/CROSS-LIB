@@ -90,7 +90,7 @@ int main(void)
                 _XL_PRINT(XSize-1-8, 2,"COLOR ON");
             #endif 
             
-            _XL_PRINT_CENTERED_ON_ROW(2,"PRESS FIRE");
+            _XL_PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
 
             _XL_SET_TEXT_COLOR(color_code[j]);
             

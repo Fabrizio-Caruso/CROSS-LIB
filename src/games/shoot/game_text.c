@@ -223,12 +223,14 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)
     void printExtraLife(void)
     {
-        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, EXTRA_LIFE_STRING); 
+        SET_COLOR(_XL_RED);
+        _XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
     }
 
     void printVictoryMessage(void)
     {
-        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, VICTORY_STRING);
+        SET_COLOR(_XL_RED);
+        _XL_PRINT_CENTERED(VICTORY_STRING);
     }    
 #endif
 
@@ -236,7 +238,8 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)    
     void printDefeatMessage(void)
     {            
-        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, DEFEAT_STRING);
+        SET_COLOR(_XL_RED);
+        _XL_PRINT_CENTERED(DEFEAT_STRING);
     }    
 #endif
     
@@ -244,7 +247,8 @@ void displayScoreStats(void)
 #if !defined(NO_MESSAGE)
     void printGameOver(void)
     {
-        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, GAME_OVER_STRING);
+        SET_COLOR(_XL_RED);
+        _XL_PRINT_CENTERED(GAME_OVER_STRING);
     }    
 #endif
 
@@ -253,7 +257,8 @@ void displayScoreStats(void)
 
 void _printCrossShoot(void)
 {
-    _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(3, _XL_RED,  CROSS_SHOOT_STRING);        
+    SET_COLOR(_XL_RED);
+    _XL_PRINT_CENTERED_ON_ROW(3,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }

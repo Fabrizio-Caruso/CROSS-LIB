@@ -124,10 +124,6 @@ extern Image PLAYER_IMAGE;
 #if !defined(TINY_GAME) && !defined(NO_STATS)
 	void displayStatsTitles(void)
 	{				
-		// #if defined(WIDE)
-				// PRINT_WIDE_TITLE();
-		// #endif
-		
 		SET_COLOR(TEXT_COLOR);
 
 		_draw_stat(GUN_IMAGE_X, GUN_IMAGE_Y, &GUN_IMAGE);
@@ -242,20 +238,23 @@ void displayStats(void)
 #if !defined(LESS_TEXT)
 	void printExtraLife(void)
 	{
-		_XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, EXTRA_LIFE_STRING); 
+        SET_COLOR(_XL_RED);
+		_XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
 	}
 
 	void printVictoryMessage(void)
 	{
-		_XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, VICTORY_STRING);
+        SET_COLOR(_XL_RED);
+		_XL_PRINT_CENTERED(VICTORY_STRING);
 	}	
 #endif
 
 
 #if !defined(LESS_TEXT)	
 	void printDefeatMessage(void)
-	{			
-		_XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, DEFEAT_STRING);
+	{		
+        SET_COLOR(_XL_RED);
+		_XL_PRINT_CENTERED(DEFEAT_STRING);
 	}	
 #endif
 	
@@ -263,7 +262,8 @@ void displayStats(void)
 #if !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
-		_XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, GAME_OVER_STRING);
+        SET_COLOR(_XL_RED);
+		_XL_PRINT_CENTERED(GAME_OVER_STRING);
 	}	
 #endif
 
@@ -294,13 +294,15 @@ void displayStats(void)
 	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
-		_XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(CROSS_CHASE_Y, _XL_RED,  CROSS_CHASE_STRING);		
+        SET_COLOR(_XL_RED);
+		_XL_PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
 	#else
 		#define _printCrossChase() \
-			_XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(CROSS_CHASE_Y, _XL_RED,  CROSS_CHASE_STRING);	\
+            SET_COLOR(_XL_RED); \
+			_XL_PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif

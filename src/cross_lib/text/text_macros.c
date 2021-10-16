@@ -11,16 +11,6 @@
 	}
 	#endif
 
-
-	#if !defined(_XL_NO_TEXT_COLOR)	
-			void _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(uint8_t row, uint8_t col, char *Text)
-			{
-				_XL_SET_TEXT_COLOR(col);
-				_XL_PRINT_CENTERED_ON_ROW(row, Text);
-			}
-					
-	#endif
-
 #endif
 
 

@@ -65,7 +65,7 @@ gcc_full_tests: \
     ncurses
 
 lcc1802_full_tests: \
-    full_comx
+    comx
 
 
 

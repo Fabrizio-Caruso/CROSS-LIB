@@ -131,6 +131,7 @@ clean_generic_combo:
 	rm -rf examples/reduced_full_lcc1802_combo_no_sounds.*
 	rm -rf examples/full_lcc1802_combo.*
 	rm -rf examples/full_combo_rand.c 
+	rm -rf *.stackdump
 
 clean_generic_no_built_in: \
     clean_generic_combo \

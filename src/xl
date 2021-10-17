@@ -10,7 +10,7 @@ import time
 
 from os import walk
 
-
+COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset","debug"]
 
 def are_you_sure():
     if sys.version_info[0] < 3:
@@ -209,7 +209,7 @@ def create(params):
         
         game_dir = no_space(game_dir)
         
-        if(game_dir in example_projects or game_dir in builtin_games or game_dir in commands):
+        if(game_dir in example_projects or game_dir in builtin_games or game_dir in COMMANDS_LIST):
             print("invalid name!")
             exit()
 
@@ -402,7 +402,7 @@ def delete(params):
         game_dir="helloworld"
     else:
         candidate_name = params[1]
-        if(candidate_name in example_projects or candidate_name in builtin_games or candidate_name in commands):
+        if(candidate_name in example_projects or candidate_name in builtin_games or candidate_name in COMMANDS_LIST):
             print("invalid name!")
             exit()
         else:
@@ -623,7 +623,6 @@ if __name__ == "__main__":
     builtin_games = ["chase","shoot","bomber","snake","horde"]
     game_projects = dirs_in_path("./games")
     example_projects = dirs_in_path("./examples")
-    commands = ["build", "clean", "create", "delete", "help", "list", "reset","debug"]
 
     print("game projects   : "+str(game_projects))
     print("example projects: "+str(example_projects))

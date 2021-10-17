@@ -10,7 +10,7 @@ import time
 
 from os import walk
 
-COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset","debug"]
+COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset", "debug", "test"]
 
 def are_you_sure():
     if sys.version_info[0] < 3:
@@ -98,7 +98,7 @@ def debug(params):
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
-    if(game_dir not in ["games", "examples", "all"]):
+    if(game_dir not in ["games", "examples", "projects", "all"]):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             exit();
@@ -112,13 +112,17 @@ def debug(params):
 
         os.system(make_command)
     else:
-        if game_dir=="games":
+        if game_dir in["games","examples","projects"]:
+            multiple_debug_run(game_dir,target,xsize,ysize)
+        elif game_dir in["new"]:
+            multiple_debug_run("projects",target,xsize,ysize)
+        elif game_dir in["builtin","built-in"]:
             multiple_debug_run("games",target,xsize,ysize)
-        elif game_dir=="examples":
             multiple_debug_run("examples",target,xsize,ysize)
         elif game_dir=="all":
             multiple_debug_run("games",target,xsize,ysize)
             multiple_debug_run("examples",target,xsize,ysize)
+            multiple_debug_run("projects",target,xsize,ysize)
         else:
             exit()
 
@@ -168,7 +172,7 @@ def build(params):
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
-    if(game_dir not in ["games", "examples", "all"]):
+    if(game_dir not in ["games", "examples", "projects", "all"]):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             exit();
@@ -186,13 +190,17 @@ def build(params):
         os.system(make_command)
         
     else:
-        if game_dir=="games":
+        if game_dir in ["games","examples","projects"]:
+            multiple_run(game_dir,target,threads,optimization)
+        elif game_dir=="new":
+            multiple_run("projects",target,threads,optimization)
+        elif game_dir in ["builtin","built-in"]:
             multiple_run("games",target,threads,optimization)
-        elif game_dir=="examples":
             multiple_run("examples",target,threads,optimization)
         elif game_dir=="all":
             multiple_run("games",target,threads,optimization)
             multiple_run("examples",target,threads,optimization)
+            multiple_run("projects",target,threads,optimization)
         else:
             exit()     
 
@@ -434,8 +442,44 @@ def delete(params):
         exit()
 
 
-def list():
-    project_dirs = ["examples", "games", "projects"]
+def test(params):
+    if(len(params)<2) or params[1]=="self":
+        original_projects = list(["list"])
+
+        create(["create", "_test_project"])
+        projects_after_create = list(["list"])
+        if("_test_project" not in projects_after_create):
+            print("\nERROR: project not created") 
+
+        build(["build", "_test_project"])
+
+        delete(["delete","_test_project","-y"])
+        projects_after_delete = list(["list"])
+        if("_test_project" in projects_after_delete):
+            print("\nERROR: project not deleted")
+    elif params[1]=="compile":
+        make_command = GNU_MAKE + " test"
+        os.system(make_command)        
+    elif params[1]=="z88dk_quick":
+        make_command = GNU_MAKE + " z88dk_quick_test"
+        os.system(make_command)  
+        
+
+    
+def list(params):
+
+    if(len(params)<2):
+        project_dirs = ["examples", "games", "projects"]
+    elif(params[1]=="all"):
+        project_dirs = ["examples", "games", "projects"]
+    elif params[1] in ["games", "examples", "projects"]:
+        project_dirs = [params[1]]
+    elif params[1] in ["new"]:
+        project_dirs = ["projects"]
+    elif params[1] in ["built-in", "builtin"]:
+        project_dirs = ["games", "examples"]
+    else:
+        exit()
 
     projects = []
 
@@ -449,7 +493,7 @@ def list():
         for (dirpath, dirnames, filenames) in walk(mypath):
             projects.extend(dirnames)
             break
-
+    
     print("Found: " + str(len(projects)))
 
     print("")
@@ -457,10 +501,11 @@ def list():
     for project in projects:
         print(project)
 
+    return projects
 
 def help_help():
     print("Possible values for <command>:")
-    print("build, clean, create, delete, help, list, reset")  
+    print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
     print("")
     print("Use xl help <command> for <command>-specific help")
     print("\nExample:")
@@ -473,13 +518,21 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="test":
+        print("xl test <[optional] params>")
+        print("It runs some operations to test 'xl'.")
+        print("")
+        print("<params>")
+        print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
+        print("If 'compile' is passed to <params>, then it compiles a test program for some targets with different compilers.")
+        print("If 'z88dk_quick' is passed to <params>, then it compiles a test program using both Z88DK compilers.")
     elif params[1]=="debug":
         print("xl debug <project> <XSize> <YSize>")
         print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")
         print("The built binaries will be in the 'build' directory.")
 
         print("\n<project>")
-        print("If 'games'/'test(s)'/'all' is used as <project>, then all game/example projects are built")   
+        print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects.")   
         
         print("\nxl debug bomber 20 20       \n  It builds Cross Bomber for the native host in debug mode with screen size 20x20.")
         print("\nxl debug examples 16 12     \n  It builds all examples for the native host in debug mode with screen size 16x12.")
@@ -491,7 +544,7 @@ def help(params):
         print("The built binaries will be in the 'build' directory.")
 
         print("\n<project>")
-        print("If 'games'/'test(s)'/'all' is used as <project>, then all game/example projects are built")   
+        print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects")   
         
         print("\n<target>")
         print("If no <target> is passed, then the native target (terminal console) is considered.")
@@ -514,7 +567,8 @@ def help(params):
         print("\nxl games cpc                \n  It builds all games for the Amstrad CPC using Z88DK.")
         print("\nxl examples c64             \n  It builds all examples for the Commodore 64 using CC65.")
         print("\nxl horde all                \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
-        print("\nxl all c16                  \n  It builds all projects (games and examples) for the Commodore 264 series using CC65.")
+        print("\nxl projects all             \n  It builds all built-in projects for all supported targets using all supported necessary compilers.")
+        print("\nxl all c16                  \n  It builds all projects (games and examples and user-defined projects) for the Commodore 264 series using CC65.")
     elif params[1]=="create":
         print("xl create <project> <[optional] type>")
         print("It creates <project>.")
@@ -570,8 +624,15 @@ def help(params):
         print("\nxl clean foo -y             \n  Same as above but no confirmation is asked.")
 
     elif params[1]=="list":  
-        print("xl list")
-        print("It lists all current projects (test projects, built-in games and user-defined games).")
+        print("xl list <[optional] params>")
+        print("It lists current projects in a given category or all projects.")
+        print("")
+        print("<params>")
+        print("If nothing is passed as <params> then all projects are built")
+        print("If 'games','examples' or 'projects' is passed as <params> then only projects in the respective directory are listed")
+        print("\nExamples:")
+        print("xl list                       \n  It lists all projects (games, examples and new projects)")
+        print("xl list projects              \n  It lists all user-defined projects") 
     elif params[1]=="help":
         print("xl help <[optional] command>")
         print("It displays help instructions.")
@@ -623,14 +684,12 @@ if __name__ == "__main__":
     builtin_games = ["chase","shoot","bomber","snake","horde"]
     game_projects = dirs_in_path("./games")
     example_projects = dirs_in_path("./examples")
-
-    print("game projects   : "+str(game_projects))
-    print("example projects: "+str(example_projects))
-    print("----------------------------")
     
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")
         help(sys.argv[1:])
+    elif sys.argv[1]=="test":
+        test(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
     elif sys.argv[1]=="debug":
@@ -644,7 +703,7 @@ if __name__ == "__main__":
     elif sys.argv[1]=="delete":
         delete(sys.argv[1:])
     elif sys.argv[1]=="list":
-        list()
+        list(sys.argv[1:])
     elif sys.argv[1]=="help":
         help(sys.argv[1:])
     else:

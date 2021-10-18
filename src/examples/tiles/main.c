@@ -70,6 +70,11 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
+#if YSize<=15
+    #define LINE_SKIP 1
+#else
+    #define LINE_SKIP 2
+#endif    
 
 int main(void)
 {        
@@ -99,12 +104,12 @@ int main(void)
 
             for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {
-                _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],tile_color[j]);
+                _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*LINE_SKIP+ROW_OFFSET,tiles[i],tile_color[j]);
                 _XL_SLOW_DOWN(300);
             }
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT(COL_OFFSET,YSize-5, "PRESS FIRE");
+            _XL_PRINT(COL_OFFSET,YSize-4, "PRESS FIRE");
             _XL_WAIT_FOR_INPUT();
         }
     }

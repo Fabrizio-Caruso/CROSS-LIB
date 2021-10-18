@@ -503,6 +503,14 @@ def list(params):
 
     return projects
 
+def tile(params):
+    fin = open(params[1], "rt")
+    data = fin.read()
+    print(data)
+    fin.close()
+    
+
+
 def help_help():
     print("Possible values for <command>:")
     print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
@@ -518,6 +526,8 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    # elif params[1]=="tile":
+        
     elif params[1]=="test":
         print("xl test <[optional] params>")
         print("It runs some operations to test 'xl'.")
@@ -690,6 +700,8 @@ if __name__ == "__main__":
         help(sys.argv[1:])
     elif sys.argv[1]=="test":
         test(sys.argv[1:])
+    elif sys.argv[1]=="tile":
+        tile(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
     elif sys.argv[1]=="debug":

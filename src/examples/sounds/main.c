@@ -29,6 +29,12 @@
 
 #include "cross_lib.h"
 
+#if YSize<=15
+    #define LINE_SKIP 1
+#else
+    #define LINE_SKIP 2
+#endif    
+
 int main(void)
 {        
     uint8_t k;
@@ -48,38 +54,38 @@ int main(void)
         _XL_PRINT_CENTERED_ON_ROW(0, _XL_S _XL_O _XL_U _XL_N _XL_D);
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(3, _XL_P _XL_I _XL_N _XL_G);
+        _XL_PRINT_CENTERED_ON_ROW(1+1*LINE_SKIP, _XL_P _XL_I _XL_N _XL_G);
         _XL_WAIT_FOR_INPUT();
         _XL_PING_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(5, _XL_T _XL_I _XL_C _XL_K);
+        _XL_PRINT_CENTERED_ON_ROW(1+2*LINE_SKIP, _XL_T _XL_I _XL_C _XL_K);
         _XL_WAIT_FOR_INPUT();
         _XL_TOCK_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(7, _XL_T _XL_O _XL_C _XL_K);
+        _XL_PRINT_CENTERED_ON_ROW(1+3*LINE_SKIP, _XL_T _XL_O _XL_C _XL_K);
         _XL_WAIT_FOR_INPUT();
         _XL_TICK_SOUND();
         _XL_WAIT_FOR_INPUT();
      
-        _XL_PRINT_CENTERED_ON_ROW(9, _XL_Z _XL_A _XL_P);
+        _XL_PRINT_CENTERED_ON_ROW(1+4*LINE_SKIP, _XL_Z _XL_A _XL_P);
         _XL_WAIT_FOR_INPUT();
         _XL_ZAP_SOUND();
         _XL_WAIT_FOR_INPUT();
         
-        _XL_PRINT_CENTERED_ON_ROW(11, _XL_S _XL_H _XL_O _XL_O _XL_T);
+        _XL_PRINT_CENTERED_ON_ROW(1+5*LINE_SKIP, _XL_S _XL_H _XL_O _XL_O _XL_T);
         _XL_WAIT_FOR_INPUT();
         _XL_SHOOT_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(13, _XL_E _XL_X _XL_P _XL_L _XL_O _XL_S _XL_I _XL_O _XL_N);
+        _XL_PRINT_CENTERED_ON_ROW(1+6*LINE_SKIP, _XL_E _XL_X _XL_P _XL_L _XL_O _XL_S _XL_I _XL_O _XL_N);
         _XL_WAIT_FOR_INPUT();
         _XL_EXPLOSION_SOUND();
         _XL_WAIT_FOR_INPUT();
 
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);
+    _XL_PRINT_CENTERED_ON_ROW(YSize-3, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);
 
     while(1){};
     

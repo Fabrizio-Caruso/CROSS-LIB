@@ -93,18 +93,21 @@ int main(void)
             _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
             _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
 
-            _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM");
-            _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ");
+            _XL_WAIT_FOR_INPUT();
+            
+            _XL_CLEAR_SCREEN();
+
+            _XL_PRINT(COL_OFFSET,YSize/2-1, " ABCDEFG HIJKLM");
+            _XL_PRINT(COL_OFFSET,YSize/2+1, " NOPQRST UVWXYZ");
             
             _XL_WAIT_FOR_INPUT();
             
             _XL_CLEAR_SCREEN();
             
-            // _XL_SET_TEXT_COLOR(text_color[j]);
             
             for(i=0;i<NUMBER_OF_CHARS;++i)
             {
-                _XL_CHAR(2*(i%(XSize/2)),6+2*(i/(XSize/2)),chars[i]);
+                _XL_CHAR(2*(i%(XSize/2)),YSize/3+2*(i/(XSize/2)),chars[i]);
             }
             
             _XL_WAIT_FOR_INPUT();

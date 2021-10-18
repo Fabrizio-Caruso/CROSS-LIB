@@ -82,6 +82,11 @@ int main(void)
             _XL_DELETE(x,y);
             ++x;
         }
+        else if(_XL_FIRE(input))
+        {
+            _XL_DRAW(x,y,_TILE_1,_XL_WHITE);
+            _XL_SLEEP(1);
+        }
         
         
         if((y>MIN_Y)&&(y<MAX_Y)&&(x>MIN_X)&&(x<MAX_X))
@@ -95,7 +100,7 @@ int main(void)
             y = YSize/2;
         }
         
-        _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+        _XL_SLOW_DOWN(8*_XL_SLOW_DOWN_FACTOR);
         
 
     }

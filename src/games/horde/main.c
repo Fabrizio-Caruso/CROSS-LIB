@@ -45,18 +45,27 @@
 #define BOW_Y ((YSize)-3)
 #define MAX_BOW_X ((XSize)*2-3)
 #define POWER_UPS_Y ((BOW_Y)+2)
-#define WALL_Y ((YSize)-8)
+
+#if YSize<=16
+    #define WALL_Y ((YSize)-8)
+#else
+    #define WALL_Y ((YSize)-6)
+#endif
 
 #if YSize>=18
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
-#else
+#elif YSize>=16
     #define INITIAL_ZOMBIE_Y 7
+#else
+    #define INITIAL_ZOMBIE_Y 5
 #endif
 
 #if YSize>=18
     #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
-#else
+#elif YSize>=16
     #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-3
+#else 
+    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-2
 #endif
 
 #define BOTTOM_WALL_Y ((BOW_Y)+1)

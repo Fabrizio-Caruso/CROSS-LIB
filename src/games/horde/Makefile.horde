@@ -428,6 +428,23 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
+#################################################################
+
+atari_lynx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
+	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=1000 \
+	-DNO_SET_SCREEN_COLORS -DNO_EXTRA_TITLE -D_XL_NO_UDG \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DTGI \
+	-DFULL_GAME \
+	-DALT_PRINT \
+    -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_ATARI_LYNX.lnx
+
+
 
 #################################################################
 

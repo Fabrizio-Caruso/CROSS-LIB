@@ -53,6 +53,8 @@
 
 #define MIN_BUILDING_HEIGHT 2
 
+#define INITIAL_PLANE_Y 2
+
 
 #if XSize>78
     #define BUILDINGS_NUMBER (XSize-24)
@@ -66,16 +68,15 @@
 #elif XSize>32
     #define BUILDINGS_NUMBER (XSize-10)
     #define FIRST_BULDING_X_POS 5
-#elif XSize>27
-    #define BUILDINGS_NUMBER (XSize-8)
-    #define FIRST_BULDING_X_POS 4
 #else
-    #define BUILDINGS_NUMBER (XSize-7)
-    #define FIRST_BULDING_X_POS 4
+    #if YSize<=16
+        #define BUILDINGS_NUMBER (XSize-10)
+        #define FIRST_BULDING_X_POS 5
+    #else
+        #define BUILDINGS_NUMBER (XSize-8)
+        #define FIRST_BULDING_X_POS 4
+    #endif
 #endif
-
-// #define BUILDINGS_NUMBER 1
-// #define FIRST_BULDING_X_POS 10
 
 
 // String definitions
@@ -233,11 +234,20 @@ do { \
 } while(0)
 
 #if MAX_Y<24
-    #define LEVEL_FACTOR_SPEED_UP 3
+    #if YSize<=16
+        #define LEVEL_FACTOR_SPEED_UP 4
+    #else
+        #define LEVEL_FACTOR_SPEED_UP 3
+    #endif
 #else
     #define LEVEL_FACTOR_SPEED_UP 2
 #endif 
 
+#if YSize<=16
+    #define AND_MASK 3
+#else
+    #define AND_MASK 7
+#endif
 
 #define INITIAL_LEVEL 1
 #define FINAL_LEVEL 8
@@ -373,7 +383,7 @@ int main(void)
             }
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
-                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&7);
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&AND_MASK);
                 rnd = ((uint8_t) _XL_RAND())&7;
                 buildingType=building_tiles[rnd];
                 buildingColor=building_colors[rnd];
@@ -386,7 +396,7 @@ int main(void)
             }
 
             _XL_SLEEP(1);
-            y = 2;
+            y = INITIAL_PLANE_Y;
             x = 1;
             
             displayScore();

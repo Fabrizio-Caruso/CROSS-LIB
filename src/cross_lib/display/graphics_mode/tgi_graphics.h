@@ -9,13 +9,13 @@
     chString[0] = tile; \
     chString[1]='\0'; \
     tgi_setcolor(color); \
-    tgi_outtextxy((((uint16_t)__x)*8),((((uint16_t)__y)<<3)),chString); \
+    tgi_outtextxy((((uint16_t)__x)*(uint16_t)8U),((((uint16_t)__y)<<3)),chString); \
 }
 
 
 #define _XL_DELETE(__x,__y) \
 { \
-    tgi_outtextxy((__x*8),(__y*8)," "); \
+    tgi_outtextxy((((uint16_t)__x)<<3),(((uint16_t)__y)<<3)," "); \
 }    
     
 #endif // _TGI_GRAPHICS

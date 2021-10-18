@@ -45,13 +45,6 @@ extern uint8_t bulletStrength;
 
 #define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
 
-
-
-// #if defined(ALT_DISPLAY_STATS)
-    // #define _XL_PRINT_CENTERED_ON_ROW(row, text) _XL_PRINT(6,row,text)
-// #endif
-
-
 extern uint8_t level;
 extern uint8_t lives;
 
@@ -78,12 +71,7 @@ void printKillTheSkulls(void)
 
 void displayStatsTitles(void)
 {                
-    // #if defined(WIDE)
-            // PRINT_WIDE_TITLE();
-    // #endif
-    
     SET_COLOR(TEXT_COLOR);
-    
 
     _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
     _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
@@ -182,11 +170,7 @@ void displayScoreStats(void)
 {    
     SET_COLOR(TEXT_COLOR);
     
-    // #if defined(WIDE)
-        // _XL_PRINTD(6,+0,5,points);
-    // #else
-        _XL_PRINTD(0,0,5,points);    
-    // #endif    
+    _XL_PRINTD(0,0,5,points);    
 }
 
 #if !defined(LESS_TEXT)    
@@ -258,27 +242,32 @@ void displayScoreStats(void)
 void _printCrossShoot(void)
 {
     SET_COLOR(_XL_RED);
-    _XL_PRINT_CENTERED_ON_ROW(3,  CROSS_SHOOT_STRING);        
+    _XL_PRINT_CENTERED_ON_ROW(1,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }
 #endif
 
+#if YSize<=15
+    #define LINE_SKIP 1
+#else
+    #define LINE_SKIP 2
+#endif
 
 #if !defined(NO_HINTS)
     void printHints(void)
     {
         _printCrossShoot();
         
-        _XL_PRINT_CENTERED_ON_ROW(6,  USE_THE_GUN_AGAINST_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(1+2*LINE_SKIP,  USE_THE_GUN_AGAINST_STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(8,  THE_SKULL_AND_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(1+3*LINE_SKIP,  THE_SKULL_AND_STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(10, MISSILE_BASES_STRING);    
+        _XL_PRINT_CENTERED_ON_ROW(1+4*LINE_SKIP, MISSILE_BASES_STRING);    
         
-        _XL_PRINT_CENTERED_ON_ROW(12, FOR_POINTS_AND___STRING);
+        _XL_PRINT_CENTERED_ON_ROW(1+5*LINE_SKIP, FOR_POINTS_AND___STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(14, EXTRA_POWERUPS__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(1+6*LINE_SKIP, EXTRA_POWERUPS__STRING);
     }
 #endif
 
@@ -294,7 +283,7 @@ void _printCrossShoot(void)
             
             SET_COLOR(_XL_CYAN);
             
-            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)-1, KILL_THEM_ALL_STRING);
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
             
             SET_COLOR(TEXT_COLOR);    
             

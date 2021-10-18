@@ -377,6 +377,22 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
+atari_lynx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
+	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=3000 -D_XL_NO_UDG \
+	-DNO_SET_SCREEN_COLORS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DTGI \
+	-DFULL_GAME \
+	-DALT_PRINT \
+    -DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_ATARI_LYNX.lnx
+    
+
+
 c16: c16_16k
 
 

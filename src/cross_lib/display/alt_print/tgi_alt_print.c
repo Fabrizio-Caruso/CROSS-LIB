@@ -10,7 +10,7 @@ void _XL_CHAR(uint8_t x, uint8_t y,  char ch)
     str[1]='\0';
     str[0] = (uint8_t) ch;
     
-    tgi_outtextxy(x,y,str);
+    tgi_outtextxy(x*8,y*8,str);
 }
 
 void _XL_PRINT(uint8_t x, uint8_t y, char * str)

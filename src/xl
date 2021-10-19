@@ -10,7 +10,7 @@ import time
 
 from os import walk
 
-COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset", "debug", "test"]
+COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset", "debug", "test", "tile"]
 
 def are_you_sure():
     if sys.version_info[0] < 3:
@@ -503,10 +503,23 @@ def list(params):
 
     return projects
 
+
+ONE_REPPRESENTATIONS = ["#","X","1","+","@","$","O"]
+
 def tile(params):
     fin = open(params[1], "rt")
-    data = fin.read()
-    print(data)
+    lines = fin.readlines()
+    res = ""
+    for line_index in range(len(lines)):
+        number_of_bits = len(lines[line_index])-1
+        value = 0
+        for i in range(number_of_bits):
+            if lines[line_index][i] in ONE_REPPRESENTATIONS:
+                value+=2**(number_of_bits-1-i)
+        res += str(value)
+        if line_index!=len(lines)-1:
+            res += ","
+    print(res)
     fin.close()
     
 
@@ -526,7 +539,28 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
-    # elif params[1]=="tile":
+    elif params[1]=="tile":
+        print("xl tile <shape_file>")
+        print("It converts the file <shape_file> into a line that can be used as an asset file.")
+        print("")  
+        print("<shape_file>")
+        print("The file <shape_file> describes with '#' and '.' the shape of a tile.")
+        print("\nExample in 'src/examples/tiles/tile_shape0.txt':")
+        print("...##...")
+        print("..#..#..")
+        print("...##...")
+        print(".##..##.")
+        print("#.####.#")
+        print("# ####.#")
+        print("..#..#..")
+        print("..#..#..")
+        print("")
+        print("xl tile ./examples/tiles/tile_shape0.txt")
+        print("produces: ")
+        print("24,36,24,102,189,189,36,36")
+        print("")
+        print("To be copied in 'tile_<index>.txt' in '<project>/tiles/8x8' to modify the shape.")
+        print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
         
     elif params[1]=="test":
         print("xl test <[optional] params>")

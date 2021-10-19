@@ -54,6 +54,7 @@ _APPLE2_HGR_SLOWDOWN=50
 _APPLE2ENH_HGR_SLOWDOWN=50
 _ATARI_SLOWDOWN=70
 _ATARI5200_SLOWDOWN=70
+_ATARI_LYNX_SLOWDOWN=200
 _C16_SLOWDOWN=55
 _C64_SLOWDOWN=45
 _CREATIVISION_SLOWDOWN=100
@@ -179,6 +180,7 @@ cc65_targets: \
     apple2 \
     apple2enh \
     atari \
+    atari_lynx \
     atari5200 \
     c16 \
     c64 \
@@ -195,6 +197,7 @@ cc65_targets: \
     apple2 \
     apple2enh \
     atari \
+    atari_lynx \
     atari5200 \
     c16 \
     c64 \
@@ -387,7 +390,8 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
-	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-D__ATARI_LYNX__  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_LYNX_SLOWDOWN) \
 	-DNO_SET_SCREEN_COLORS -D_XL_NO_UDG \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DTGI \

@@ -27,8 +27,9 @@ https://plus4world.powweb.com/play/cross_horde
 2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosshorde
-5. Video Technology Laser 200 / VZ200: https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vz200_24k.vz
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
+5. Sinclair ZX Spectrum 48K: http://torinak.com/qaop#~128#l=https://spectrumcomputing.co.uk/temp/0874EOMKTsDMsX3Lj5jQDEjQ86vY49G250gJ9oDr.tap
+6. Video Technology Laser 200 / VZ200: https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vz200_24k.vz
+7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
 
 -------------------------------------------
 

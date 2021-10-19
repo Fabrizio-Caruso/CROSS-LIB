@@ -510,16 +510,27 @@ def tile(params):
     fin = open(params[1], "rt")
     lines = fin.readlines()
     res = ""
-    for line_index in range(len(lines)):
+    xsize = len(lines[0])-1
+    ysize = len(lines)
+    dir = str(xsize)+"X"+str(ysize)
+    print("Tile shape: " + dir)
+    for line_index in range(ysize):
         number_of_bits = len(lines[line_index])-1
         value = 0
         for i in range(number_of_bits):
             if lines[line_index][i] in ONE_REPPRESENTATIONS:
                 value+=2**(number_of_bits-1-i)
         res += str(value)
-        if line_index!=len(lines)-1:
+        if line_index!=ysize-1:
             res += ","
     print(res)
+    if(len(params)>=3):
+        print("project    : " + params[2])
+        print("tile index : " + params[3])
+        dest = "./projects/" + params[2] + "/tiles/" + dir + "/tile" + params[3] + ".txt"
+        print("Copy/Overwrite : " + dest)
+        shutil.copy(params[1], dest)
+    
     fin.close()
     
 
@@ -681,6 +692,7 @@ def help(params):
         print("xl help <[optional] command>")
         print("It displays help instructions.")
         
+        
         print("\n<command>")
         help_help()
     else:
@@ -724,7 +736,7 @@ if __name__ == "__main__":
         
     print("GNU MAKE command: " + GNU_MAKE)
     print("----------------------------")
-
+    print("")
     builtin_games = ["chase","shoot","bomber","snake","horde"]
     game_projects = dirs_in_path("./games")
     example_projects = dirs_in_path("./examples")

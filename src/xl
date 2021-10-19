@@ -10,7 +10,12 @@ import time
 
 from os import walk
 
-COMMANDS_LIST = ["build", "clean", "create", "delete", "help", "list", "reset", "debug", "test", "tile"]
+COMMANDS_LIST = \
+    [ \
+    "build", "clean", "create", "delete", "help", \
+    "list", "reset", "debug", "test", "tile", \
+    "rebuild", "import" \
+    ]
 
 def are_you_sure():
     if sys.version_info[0] < 3:
@@ -125,6 +130,10 @@ def debug(params):
             multiple_debug_run("projects",target,xsize,ysize)
         else:
             exit()
+
+def rebuild(params):
+    reset(params)
+    build(params)
 
 def build(params):
 
@@ -503,6 +512,34 @@ def list(params):
 
     return projects
 
+NUMBER_OF_TILES = 26
+
+def charpad_import(params):
+    fin = open(params[1], "rt")
+    lines = fin.readlines()[8:]
+    res = ""
+    tiles = []
+    for i in range(NUMBER_OF_TILES//2):
+        trimmed_line = lines[i][6:]
+        left_tile=trimmed_line[0:31]
+        right_tile=trimmed_line[32:63]
+        print(left_tile)
+        print(right_tile)
+        tiles+= [left_tile,right_tile]
+        
+    print(tiles)
+    if(len(params)>=3):
+        print("project    : " + params[2])
+
+        main_path = "./projects/" + params[2] + "/tiles/8x8/tile"
+        print("main_path: " + main_path)
+        for index in range(NUMBER_OF_TILES):
+            dest = main_path + str(index) + ".txt"
+            print("Copy/Overwrite : " + dest)
+            fin = open(dest, "wt")
+            fin.write(tiles[index])
+            fin.close()
+
 
 ONE_REPPRESENTATIONS = ["#","X","1","+","@","$","O"]
 
@@ -523,15 +560,20 @@ def tile(params):
         res += str(value)
         if line_index!=ysize-1:
             res += ","
+    fin.close()
+    
     print(res)
     if(len(params)>=3):
         print("project    : " + params[2])
         print("tile index : " + params[3])
         dest = "./projects/" + params[2] + "/tiles/" + dir + "/tile" + params[3] + ".txt"
         print("Copy/Overwrite : " + dest)
-        shutil.copy(params[1], dest)
-    
-    fin.close()
+
+        fin = open(dest, "wt")
+        fin.write(res)
+        fin.close()
+
+
     
 
 
@@ -744,6 +786,10 @@ if __name__ == "__main__":
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")
         help(sys.argv[1:])
+    elif sys.argv[1]=="import":
+        charpad_import(sys.argv[1:])
+    elif sys.argv[1]=="rebuild":
+        rebuild(sys.argv[1:])
     elif sys.argv[1]=="test":
         test(sys.argv[1:])
     elif sys.argv[1]=="tile":

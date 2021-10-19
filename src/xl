@@ -598,12 +598,47 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="rebuild":
+        print("xl rebuild <project> <[optional] target>")
+        print("It rebuilds <project>.")
+        print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
+        print("Use 'xl help reset' and 'xl help build' for more information")
+    elif params[1]=="import":
+        print("xl import <charpad_asm_file> <[optional] project>")
+        print("")
+        print("<charpad_asm_file>")
+        print("It is an exported asm CharPad file")
+        print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
+        print("")
+        print("<project>")
+        print("If a project name is passed then the tiles are imported into <project>")
+        print("")
+        print("Example:")
+        print("If you create a new project 'myname' with")
+        print("xl create myname")
+        print("You can import from an Assembly CharPad exported file with something like:")
+        print("xl import ./examples/tiles/tiles_all.asm")
     elif params[1]=="tile":
-        print("xl tile <shape_file>")
+        print("xl tile <shape_file> <[optional] project> <[optional] tile_index>")
         print("It converts the file <shape_file> into a line that can be used as an asset file.")
         print("")  
         print("<shape_file>")
         print("The file <shape_file> describes with '#' and '.' the shape of a tile.")
+        print("")
+        print("<project>")
+        print("This optional parameter specifies the project whose tile we want to modify")
+        print("")
+        print("<tile_index>")
+        print("This parameter is the index of the tile we want to modify")
+        
+        print("\nPress ENTER to continue...")
+        time.sleep(1)
+
+        if sys.version_info[0] < 3:
+            raw_input()
+        else:
+            input()
+            
         print("\nExample in 'src/examples/tiles/tile_shape0.txt':")
         print("...##...")
         print("..#..#..")

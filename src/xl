@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-DEBUG_TARGET = "ncurses_debug"
+DEBUG_TARGET  = "ncurses_debug"
+NATIVE_TARGET = "ncurses_debug"
 
 import shutil
 
@@ -14,7 +15,7 @@ COMMANDS_LIST = \
     [ \
     "build", "clean", "create", "delete", "help", \
     "list", "reset", "debug", "test", "tile", \
-    "rebuild", "import" \
+    "rebuild", "import", "resize", "show" \
     ]
 
 def are_you_sure():
@@ -30,7 +31,7 @@ def dirs_in_path(mypath):
         break
     return projects
 
-def multiple_debug_run(mypath,target,xsize,ysize):
+def multiple_debug_run(mypath,target,xsize,ysize,debug):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
@@ -38,10 +39,9 @@ def multiple_debug_run(mypath,target,xsize,ysize):
             
     for project_name in projects:
         make_command = \
-            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
-
-
+                
         print("run command : " + make_command)
         print("\n")
         
@@ -76,7 +76,7 @@ def no_space(s):
     return "".join(c for c in s if c!=" ")
 
 
-def debug(params):
+def resize(params,debug):
 
     if len(params)<2:
         game_dir = "helloworld"
@@ -94,7 +94,8 @@ def debug(params):
 
     xsize = params[2]
     ysize = params[3]
-    target = DEBUG_TARGET
+
+    target = NATIVE_TARGET
 
     print("Project name       : " + game_dir)
     print("Project type       : " + project_type)
@@ -109,7 +110,7 @@ def debug(params):
             exit();
 
         make_command = \
-            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) +  \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         print("run command : " + make_command)
@@ -118,16 +119,16 @@ def debug(params):
         os.system(make_command)
     else:
         if game_dir in["games","examples","projects"]:
-            multiple_debug_run(game_dir,target,xsize,ysize)
+            multiple_debug_run(game_dir,target,xsize,ysize,debug)
         elif game_dir in["new"]:
-            multiple_debug_run("projects",target,xsize,ysize)
+            multiple_debug_run("projects",target,xsize,ysize,debug)
         elif game_dir in["builtin","built-in"]:
-            multiple_debug_run("games",target,xsize,ysize)
-            multiple_debug_run("examples",target,xsize,ysize)
+            multiple_debug_run("games",target,xsize,ysize,debug)
+            multiple_debug_run("examples",target,xsize,ysize,debug)
         elif game_dir=="all":
-            multiple_debug_run("games",target,xsize,ysize)
-            multiple_debug_run("examples",target,xsize,ysize)
-            multiple_debug_run("projects",target,xsize,ysize)
+            multiple_debug_run("games",target,xsize,ysize,debug)
+            multiple_debug_run("examples",target,xsize,ysize,debug)
+            multiple_debug_run("projects",target,xsize,ysize,debug)
         else:
             exit()
 
@@ -580,7 +581,8 @@ def tile(params):
         fin.close()
 
 
-    
+def show():
+    pass
 
 
 def help_help():
@@ -598,6 +600,17 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="resize":
+        print("xl resize <project> <XSize> <YSize>")
+        print("It builds <project> for the native host with screen size provided by <XSize> and <YSize>.")
+        print("The built binaries will be in the 'build' directory.")
+
+        print("\n<project>")
+        print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects.")   
+        
+        print("\nxl resize bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
+        print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
+      
     elif params[1]=="rebuild":
         print("xl rebuild <project> <[optional] target>")
         print("It rebuilds <project>.")
@@ -831,14 +844,18 @@ if __name__ == "__main__":
         charpad_import(sys.argv[1:])
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
+    elif sys.argv[1]=="show":
+        show(sys.argv[1:])
     elif sys.argv[1]=="test":
         test(sys.argv[1:])
     elif sys.argv[1]=="tile":
         tile(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
+    elif sys.argv[1]=="resize":
+        resize(sys.argv[1:],0)
     elif sys.argv[1]=="debug":
-        debug(sys.argv[1:])
+        resize(sys.argv[1:],1)
     elif sys.argv[1]=="create":
         create(sys.argv[1:])
     elif sys.argv[1]=="clean":

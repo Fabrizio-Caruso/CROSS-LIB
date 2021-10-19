@@ -140,9 +140,11 @@ extern uint8_t rocketsOnScreen;
 
 void updateInnerVerticalWall(void)
 {    
+    #if YSize>17
     uint8_t lvmod;
-
+    
     lvmod = level&7;
+    #endif
     
     if(!isInnerVerticalWallLevel)
     {

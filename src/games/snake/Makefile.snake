@@ -2476,16 +2476,21 @@ ncurses_targets: \
 
 ncurses_debug:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	-DFULL_GAME -DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_NCURSES \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) -DALT_SLEEP \
+	-DFULL_GAME \
+	-DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
-	-DALT_PRINT \
+	-DALT_PRINT -DALT_SLEEP \
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
+ifeq ($(_DEBUG_FLAG),1)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_debug_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+else
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+endif
 
 
 ncurses:

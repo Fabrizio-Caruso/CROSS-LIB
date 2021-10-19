@@ -343,7 +343,7 @@ typedef struct ImageStruct Image;
     #else
         #include <ncurses.h>
     #endif
-    #if defined(_DEBUG_NCURSES)
+    #if defined(_DEBUG_FLAG) && _DEBUG_FLAG==1
         #define _XL_CLEAR_SCREEN() \
             do \
             { \

@@ -516,18 +516,24 @@ NUMBER_OF_TILES = 26
 
 def charpad_import(params):
     fin = open(params[1], "rt")
+    # lines = fin.readlines()[8:]
+    
     lines = fin.readlines()[8:]
+    trimmed_lines = []
+    for line in lines:
+        if line.startswith(".byte "):
+            trimmed_lines.append(line)
+        
     res = ""
     tiles = []
     for i in range(NUMBER_OF_TILES//2):
-        trimmed_line = lines[i][6:]
+        trimmed_line = trimmed_lines[i][6:]
         left_tile=trimmed_line[0:31]
         right_tile=trimmed_line[32:63]
         print(left_tile)
         print(right_tile)
         tiles+= [left_tile,right_tile]
         
-    print(tiles)
     if(len(params)>=3):
         print("project    : " + params[2])
 

@@ -76,6 +76,15 @@ def no_space(s):
     return "".join(c for c in s if c!=" ")
 
 
+def project_category(game_dir):
+    if(game_dir in example_projects):
+        return "example"
+    elif game_dir in game_projects:
+        return "game" 
+    else:
+        return "project" 
+    
+    
 def resize(params,debug):
 
     if len(params)<2:
@@ -83,12 +92,7 @@ def resize(params,debug):
     else:
         game_dir = params[1]
 
-    if(game_dir in example_projects):
-        project_type = "example"
-    elif game_dir in game_projects:
-        project_type = "game" 
-    else:
-        project_type = "project" 
+    project_type = project_category(game_dir)
 
     parent_dir = project_type + "s"
 
@@ -132,9 +136,11 @@ def resize(params,debug):
         else:
             exit()
 
+
 def rebuild(params):
     reset(params)
     build(params)
+
 
 def build(params):
 
@@ -143,13 +149,7 @@ def build(params):
     else:
         game_dir = params[1]
 
-    if(game_dir in example_projects):
-        project_type = "example"
-    elif game_dir in game_projects:
-        project_type = "game" 
-    else:
-        project_type = "project" 
-
+    project_type = project_category(game_dir)
     parent_dir = project_type + "s"
 
     if len(params)<3:
@@ -215,8 +215,6 @@ def build(params):
             exit()     
 
 
-
-
 def create(params):
     if len(params)<2:
         game_dir = "helloworld"
@@ -234,7 +232,7 @@ def create(params):
     if len(params)<3:
         project_type = "helloworld"
     else:
-        if(params[2]=="game"):
+        if(params[2]=="game" or params[2]=="arcade"):
             project_type = "game"
         else: 
             if(params[2] in ["apis","show_apis","example","show"]):
@@ -328,10 +326,7 @@ def reset(params):
     else:
         game_dir = params[1]
 
-    if(game_dir in example_projects):
-        project_type = "test"
-    else:
-        project_type = "game" 
+    project_type = project_category(game_dir)
 
     parent_dir = project_type + "s"
 
@@ -383,10 +378,7 @@ def clean(params):
     else:
         game_dir = params[1]
 
-    if(game_dir in example_projects):
-        project_type = "test"
-    else:
-        project_type = "game" 
+    project_type = project_category(game_dir)
 
     parent_dir = project_type + "s"
 
@@ -581,9 +573,47 @@ def tile(params):
         fin.close()
 
 
-def show():
-    pass
+def show(params):
+    parent_dir = project_category(params[1])+"s"
+    
+    if len(params)<=4:
+        xsize = 8
+        ysize = 8
+    else:
+        xsize = params[2]
+        ysize = params[3]
+    
+    dir = xsize+"x"+ysize
+    
+    if len(params)>=5:
+        index = params[4]
+    else:
+        index = 0;
+    
+    dest = "./" + parent_dir + "/" + params[1] + "/tiles/" + dir + "/tile" + str(index) + ".txt"
+    print("Decoding file tile: " + dest)
+    print("")
+    fin = open(dest, "rt")
+    tile_data = fin.read()
+    string_items = tile_data.split(",");
+    items = []
+    for string_item in string_items:
+        bin_string=bin(int(string_item))[2:]
+        missing_zeros = int(xsize) - len(bin_string)
+        padded_bin_string = ""
+        for i in range(missing_zeros):
+            padded_bin_string += "0"
+        padded_bin_string+=bin_string
 
+        padded_bin_string = padded_bin_string.replace("0",".").replace("1","#")
+        
+        items.append(padded_bin_string)
+  
+    for item in items:
+        print(item)
+
+    fin.close()
+    
 
 def help_help():
     print("Possible values for <command>:")

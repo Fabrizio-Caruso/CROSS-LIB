@@ -3,7 +3,7 @@
 DEBUG_TARGET  = "ncurses_debug"
 NATIVE_TARGET = "ncurses_debug"
 NUMBER_OF_TILES = 26
-ONE_REPPRESENTATIONS = ["#","X","1","+","@","$","O"]
+ONE_REPPRESENTATIONS = ["#","*","X","x","1","+","@","$","O","o"]
 
 import shutil
 

@@ -27,15 +27,15 @@ void NOISE(uint8_t duration, uint16_t period);
 
 #define _XL_EXPLOSION_SOUND() NOISE(60,5)
 
-#define _XL_ZAP_SOUND() CLICK(30,100)
+#define _XL_ZAP_SOUND() CLICK(10,150)
 
 #define _XL_SHOOT_SOUND() NOISE(30,10)
 
-#define _XL_PING_SOUND() CLICK(20,20)
+#define _XL_PING_SOUND() CLICK(5,20)
 
-#define _XL_TICK_SOUND() CLICK(20,40)
+#define _XL_TICK_SOUND() CLICK(5,40)
 
-#define _XL_TOCK_SOUND() CLICK(20,80)
+#define _XL_TOCK_SOUND() CLICK(5,80)
 
 #endif // __DAC_SOUNDS
 

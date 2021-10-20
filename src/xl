@@ -523,7 +523,9 @@ def asm_import(params):
     fin = open(params[1], "rt")
     
     lines = fin.readlines()
-        
+    
+    xsize = 8
+    
     trimmed_lines = []
     filtered_lines = []
 
@@ -563,7 +565,7 @@ def asm_import(params):
     for line in trimmed_lines:
         if line.startswith(directive) or line.startswith(directive.upper()):
             filtered_lines.append(line)
-                            
+ 
     res = ""
     tiles = []
     tile_count = 0
@@ -583,6 +585,7 @@ def asm_import(params):
                 single_byte_count=0
                 tiles.append(new_tile)
                 print(new_tile)
+                print_shape(new_tile,xsize)
                 tile_count+=1
                 new_tile=""
             else:
@@ -634,15 +637,8 @@ def tile(params):
         fin.close()
 
 
-def print_shape(parent_dir, project_name, xsize, ysize, index):
-    dir = xsize+"x"+ysize
-    dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
-    print("Decoding file tile: " + dest)
-    print("")
-    fin = open(dest, "rt")
-    tile_data = fin.read()
-    fin.close()
-    string_items = tile_data.split(",");
+def print_shape(string, xsize):
+    string_items = string.split(",");
     items = []
     for string_item in string_items:
         no_dollar_item = string_item.replace("$","0x")
@@ -661,11 +657,22 @@ def print_shape(parent_dir, project_name, xsize, ysize, index):
         
         items.append(padded_bin_string)
 
-  
     for item in items:
         print(item)
     print("")
     print("")
+
+
+def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
+    dir = xsize+"x"+ysize
+    dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
+    print("Decoding file tile: " + dest)
+    print("")
+    fin = open(dest, "rt")
+    tile_data = fin.read()
+    fin.close()
+    print_shape(tile_data,xsize)
+
 
 def show(params):
     parent_dir = project_category(params[1])+"s"
@@ -683,11 +690,11 @@ def show(params):
         index = "";
     
     if index!="":
-        print_shape(parent_dir, params[1], xsize, ysize, index)
+        print_shape_from_file(parent_dir, params[1], xsize, ysize, index)
     
     else:
         for i in range(NUMBER_OF_TILES):
-            print_shape(parent_dir, params[1], xsize, ysize, i)
+            print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
     
 
 def help_help():

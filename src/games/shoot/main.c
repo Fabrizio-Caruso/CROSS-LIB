@@ -238,7 +238,7 @@ void initialScreen(void)
     printStartMessage();
     _XL_WAIT_FOR_INPUT();
     
-    #if !defined(NO_HINTS)
+    #if !defined(NO_HINTS) && XSize>=14
         _XL_CLEAR_SCREEN();
         printHints();    
     #endif

@@ -190,7 +190,9 @@ void printStartMessage(void);
     #define highScoreScreen() _printScore(highScore);  	
 #endif
 
+#if XSize>=14
 void printHints(void);
+#endif
 
 void printAchievements(void);
 

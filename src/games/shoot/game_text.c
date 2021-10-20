@@ -254,7 +254,7 @@ void _printCrossShoot(void)
     #define LINE_SKIP 2
 #endif
 
-#if !defined(NO_HINTS)
+#if !defined(NO_HINTS) && XSize>=14
     void printHints(void)
     {
         _printCrossShoot();
@@ -276,20 +276,24 @@ void _printCrossShoot(void)
     {
         _printCrossShoot();
         
+        #if XSize>=16
         _XL_PRINT_CENTERED_ON_ROW(5, AUTHOR_STRING);    
+        #endif
 
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
             
             SET_COLOR(_XL_CYAN);
             
+            #if XSize>= 14
             _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
+            #endif
             
             SET_COLOR(TEXT_COLOR);    
             
         #endif
 
-        #if !defined(NO_CONTROL_INSTRUCTIONS)
+        #if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
             _XL_PRINT_CENTERED_ON_ROW(YSize-3, USE_STRING);
         #endif
     }

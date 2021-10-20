@@ -169,7 +169,9 @@ void updateInnerVerticalWall(void)
 
 void updateInnerHorizontalWall(void)
 {    
+    #if defined(WIDE) || YSize>12
     uint8_t lvmod = level&7;
+    #endif
     
     if(!isInnerHorizontalWallLevel)
     {

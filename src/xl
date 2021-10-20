@@ -2,10 +2,12 @@
 
 DEBUG_TARGET  = "ncurses_debug"
 NATIVE_TARGET = "ncurses_debug"
+NUMBER_OF_TILES = 26
+ONE_REPPRESENTATIONS = ["#","X","1","+","@","$","O"]
 
 import shutil
 
-import os,sys
+import os,sys,re
 
 import time
 
@@ -15,7 +17,7 @@ COMMANDS_LIST = \
     [ \
     "build", "clean", "create", "delete", "help", \
     "list", "reset", "debug", "test", "tile", \
-    "rebuild", "import", "resize", "show" \
+    "rebuild", "import", "resize", "show", "string" \
     ]
 
 def are_you_sure():
@@ -24,12 +26,14 @@ def are_you_sure():
     else:
         return input("Are you sure [Y/N]? ").lower()
 
+
 def dirs_in_path(mypath):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
         break
     return projects
+
 
 def multiple_debug_run(mypath,target,xsize,ysize,debug):
     projects = []
@@ -46,6 +50,7 @@ def multiple_debug_run(mypath,target,xsize,ysize,debug):
         print("\n")
         
         os.system(make_command)
+
 
 def multiple_run(mypath,target,threads,optimization):
     projects = []
@@ -69,8 +74,10 @@ def multiple_run(mypath,target,threads,optimization):
 def only_upper_and_digits(s):
     return "".join(c for c in s if c.isupper() or c in ["0","1","2","3","4","5","6","7","8","9"])
 
+
 def only_upper_digits_and_space(s):
     return "".join(c for c in s if c.isupper() or c in [" ", "0","1","2","3","4","5","6","7","8","9"])
+
 
 def no_space(s):
     return "".join(c for c in s if c!=" ")
@@ -84,7 +91,26 @@ def project_category(game_dir):
     else:
         return "project" 
     
+
+def string(params):
+    string = params[1]
+    m = re.search('[a-zA-Z0-9 ]*',string)
+    string = m.group(0)
     
+    string = string.replace(" ", "@")
+    converted_string = ""
+    
+    for ch in string:
+        converted_string+= "_XL_"+ch+" "
+    
+    converted_string = converted_string.replace("_XL_@", "_XL_SPACE")
+    
+    for i in range(9):
+        converted_string = converted_string.replace("_XL_"+str(i),'"'+str(i)+'"')
+    
+    print(converted_string)
+
+
 def resize(params,debug):
 
     if len(params)<2:
@@ -354,6 +380,7 @@ def reset(params):
 
         os.system(make_command)
 
+
 def clean(params):
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
@@ -404,7 +431,6 @@ def clean(params):
         print("\n")
 
         os.system(make_command)
-
 
 
 def delete(params):
@@ -464,8 +490,7 @@ def test(params):
         os.system(make_command)        
     elif params[1]=="z88dk_quick":
         make_command = GNU_MAKE + " z88dk_quick_test"
-        os.system(make_command)  
-        
+        os.system(make_command)     
 
     
 def list(params):
@@ -505,19 +530,22 @@ def list(params):
 
     return projects
 
-NUMBER_OF_TILES = 26
 
 def starts_with_dot_byte_directive(line):
     return line.startswith(".byte") or line.startswith(".BYTE")
-    
+  
+  
 def starts_with_dot_decb_directive(line):
     return line.startswith(".DECB") or line.startswith(".decb")
-    
+ 
+ 
 def starts_with_fcb_directive(line):
     return line.startswith("FCB") or line.startswith("fcb")
 
+
 def starts_with_db_directive(line):
     return line.startswith("db") or line.startswith("DB")
+
 
 def asm_import(params):
     fin = open(params[1], "rt")
@@ -603,8 +631,6 @@ def asm_import(params):
             fin.write(tiles[index])
             fin.close()
 
-
-ONE_REPPRESENTATIONS = ["#","X","1","+","@","$","O"]
 
 def tile(params):
     fin = open(params[1], "rt")
@@ -749,7 +775,17 @@ def help(params):
         
         print("\nxl resize bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
         print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
-      
+
+    elif params[1]=="string":
+        print("xl string <string>")
+        print("It converts a string litteral into a concatenation of")
+        print('_XL_A,..., _XL_Z, _XL_a, ..., _XL_z, _XL_SPACE, "0", ..., "9"')
+        print("<string>")
+        print("This parameter is the string to convert. It has to match the regular expression '[A-Za-z0-9 ]*'.")
+        print("")
+        print("Example:")
+        print('xl string "1 Hello World 2"')
+        print('"1" _XL_SPACE _XL_H _XL_e _XL_l _XL_l _XL_o _XL_SPACE _XL_W _XL_o _XL_r _XL_l _XL_d _XL_SPACE "2"')
     elif params[1]=="rebuild":
         print("xl rebuild <project> <[optional] target>")
         print("It rebuilds <project>.")
@@ -979,6 +1015,8 @@ if __name__ == "__main__":
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")
         help(sys.argv[1:])
+    elif sys.argv[1]=="string":
+        string(sys.argv[1:])
     elif sys.argv[1]=="import":
         asm_import(sys.argv[1:])
     elif sys.argv[1]=="rebuild":

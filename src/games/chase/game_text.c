@@ -196,11 +196,7 @@ void displayStats(void)
 {	
 	SET_COLOR(TEXT_COLOR);
 	
-	// #if defined(WIDE) && !defined(TINY_GAME)
-		// _XL_PRINTD(6,+0,5,points);
-	// #else
-		_XL_PRINTD(!EXTRA_TINY,0,5,points);	
-	// #endif	
+    _XL_PRINTD(!EXTRA_TINY,0,5,points);	
 }
 
 #if !defined(LESS_TEXT)	
@@ -308,7 +304,7 @@ void displayStats(void)
 #endif
 
 
-#if defined(FULL_GAME) && !defined(NO_HINTS)
+#if defined(FULL_GAME) && !defined(NO_HINTS) && XSize>=14
 	void printHints(void)
 	{
 		_printCrossChase();
@@ -332,21 +328,26 @@ void displayStats(void)
 	{
 		_printCrossChase();
 		
+        #if XSize>=16
 		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING);	
+        #endif
 
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(_XL_CYAN);
 			
+            #if XSize>=16
+            SET_COLOR(_XL_CYAN);
+
 			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
 			
+            #endif
 			SET_COLOR(TEXT_COLOR);	
 			
 		#endif
 
-		#if !defined(NO_CONTROL_INSTRUCTIONS)
+		#if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
 			_XL_PRINT_CENTERED_ON_ROW(YSize-INSTR_Y_OFFSET, USE_STRING);
 		#endif
 	}

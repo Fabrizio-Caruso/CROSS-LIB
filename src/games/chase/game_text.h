@@ -114,7 +114,7 @@ void printStartMessage(void);
     #define highScoreScreen() _printScore(highScore);
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && XSize>=14
 	void printHints(void);
 #endif
 

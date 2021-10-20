@@ -507,25 +507,95 @@ def list(params):
 
 NUMBER_OF_TILES = 26
 
-def charpad_import(params):
-    fin = open(params[1], "rt")
-    # lines = fin.readlines()[8:]
+def starts_with_dot_byte_directive(line):
+    return line.startswith(".byte") or line.startswith(".BYTE")
     
-    lines = fin.readlines()[8:]
-    trimmed_lines = []
-    for line in lines:
-        if line.startswith(".byte "):
-            trimmed_lines.append(line)
+def starts_with_dot_decb_directive(line):
+    return line.startswith(".DECB") or line.startswith(".decb")
+    
+def starts_with_fcb_directive(line):
+    return line.startswith("FCB") or line.startswith("fcb")
+
+def starts_with_db_directive(line):
+    return line.startswith("db") or line.startswith("DB")
+
+def asm_import(params):
+    fin = open(params[1], "rt")
+    
+    lines = fin.readlines()
         
+    trimmed_lines = []
+    filtered_lines = []
+
+    dot_byte_count = 0
+    dot_decb_count = 0
+    fcb_count = 0
+    db_count = 0
+
+    for line in lines:
+        line = line.replace(" ","").replace("\n","")
+        trimmed_lines.append(line)
+        if starts_with_dot_byte_directive(line):
+            dot_byte_count+=1
+        elif starts_with_dot_decb_directive(line):
+            dot_decb_count+=1
+        elif starts_with_fcb_directive(line):
+            fcb_count+=1
+        elif starts_with_db_directive(line):
+            db_count+=1
+            
+    directive_counts = [dot_byte_count, dot_decb_count, fcb_count, db_count]
+    max_directive_count = max(directive_counts)
+    max_index = directive_counts.index(max_directive_count)
+    
+    # print(directive_counts)
+    # print(max_directive_count)
+    # print(max_index)
+    
+    if max_index==0:
+        directive = ".byte"   
+    elif max_indxe==1:
+        directive = ".decb"
+    elif max_index==2:
+        directive = "fcb"
+    else:
+        directive = "db"
+    
+    print("Detected directive: " + directive)
+    directive_length = len(directive)
+
+    for line in trimmed_lines:
+        if line.startswith(directive) or line.startswith(directive.upper()):
+            filtered_lines.append(line)
+                
+            
     res = ""
     tiles = []
-    for i in range(NUMBER_OF_TILES//2):
-        trimmed_line = trimmed_lines[i][6:]
-        left_tile=trimmed_line[0:31]
-        right_tile=trimmed_line[32:63]
-        print(left_tile)
-        print(right_tile)
-        tiles+= [left_tile,right_tile]
+    tile_count = 0
+    line_index = 0
+    new_tile=""
+    single_byte_count = 0
+
+
+    while(tile_count<NUMBER_OF_TILES):
+        trimmed_line = filtered_lines[line_index][directive_length:]
+        line_index+=1
+        data_list = trimmed_line.split(",")
+
+        # print(data_list)
+        for data in data_list:
+            new_tile+=data
+            single_byte_count+=1
+            if single_byte_count==8:
+                single_byte_count=0
+                tiles.append(new_tile)
+                print(new_tile)
+                tile_count+=1
+                new_tile=""
+            else:
+                new_tile+=","
+                                
+        # print(tiles)
         
     if(len(params)>=3):
         print("project    : " + params[2])
@@ -912,7 +982,7 @@ if __name__ == "__main__":
         print("You need to provide a command or a project name")
         help(sys.argv[1:])
     elif sys.argv[1]=="import":
-        charpad_import(sys.argv[1:])
+        asm_import(sys.argv[1:])
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
     elif sys.argv[1]=="show":

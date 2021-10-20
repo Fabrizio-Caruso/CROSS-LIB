@@ -978,6 +978,262 @@ vz200_24k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
+
+
+#################################################################
+# ------------------------------------------------------------------------------------------
+# CMOC
+#
+COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
+
+COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
+
+CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_SLEEP -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+NO_UDG_OPS      ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS  -D_XL_SLOW_DOWN_FACTOR=4000
+
+GFX_OPTS        ?= $(CMOC_OPTS) -DBIT_MAPPED -D_XL_SLOW_DOWN_FACTOR=150
+
+COCO_OPTS       ?= -D__COCO__ $(NO_UDG_OPS) 
+
+COCO_GFX_OPTS   ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -DANIMATE_PLAYER
+
+COCO3_GFX_OPTS  ?= -D__COCO__ $(CMOC_OPTS)
+
+DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
+
+DRAGON_GFX_OPTS   ?= -D__DRAGON__ $(GFX_OPTS) -D_XL_NO_COLOR -DANIMATE_PLAYER
+
+VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+# -DDEFAULT_CLEAR_SCREEN
+MO5_OPTS        ?= -O0 -DANIMATE_PLAYER -DSOUNDS -D_XL_SLOW_DOWN_FACTOR=150 -DFORCE_NO_CONIO_LIB -DMACRO_SLEEP  -Wno-const  -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+TO7_OPTS        ?= -O2 -DANIMATE_PLAYER -DSOUNDS -D_XL_SLOW_DOWN_FACTOR=200 -DFORCE_NO_CONIO_LIB -DMACRO_SLEEP  -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME
+
+TO7_ORG_DATA    ?= --org=a000 
+# --data=D400
+
+################################################################################
+
+
+cmoc_targets: \
+	coco_targets \
+	dragon_targets \
+	mo5_targets \
+	to7_targets
+
+# BROKEN (OUT OF MEMORY?)
+coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o sleep.o \
+	init_images.o  coco_init_graphics.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o cmoc_udc_25_tiles_and_fonts.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o sleep.o \
+	init_images.o  coco_init_graphics.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o cmoc_udc_25_tiles_and_fonts.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+coco: coco_gfx
+
+coco_targets: \
+	coco
+
+
+mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s	
+	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_25_tiles.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	cmoc_udc_25_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+ifeq ($(DO_WIN),1)
+	$(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_MO5.sap FULL_MO5.bin
+	rm ./FULL_MO5.bin
+	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
+	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif	
+
+
+
 #################################################################
 # LCC1802
 

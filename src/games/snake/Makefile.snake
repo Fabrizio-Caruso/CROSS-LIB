@@ -7,10 +7,13 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
+API_VERSION=1
+
 GLOBAL_OPTS_WITH_SLEEP_MACRO = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_BLINKING
 
 GLOBAL_OPTS = $(GLOBAL_OPTS_WITH_SLEEP_MACRO) 
 #-D_BACKGROUND_COLOR=_XL_WHITE
+#-D_API_VERSION=$(API_VERSION)
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -219,7 +222,8 @@ z88dk_8x8_targets_sequential: \
     sms \
     spectrum \
     vg5k \
-    zx81
+    zx81 \
+    zx81_gfx
 
 cc65_8x8_targets: \
     atari \
@@ -250,7 +254,8 @@ z88dk_8x8_targets_sequential: \
     sms \
     spectrum \
     vg5k \
-    zx81
+    zx81 \
+    zx81_gfx
 
 cc65_8x8_targets: \
     atari \
@@ -2076,8 +2081,23 @@ vz200_24k:
 
 #################################################################
 
-zx81: zx81_32k_wrx
+zx81_gfx: zx81_32k_wrx
 
+zx81: zx81_no_gfx
+
+zx81_no_gfx: zx81_no_gfx_16k
+
+zx81_no_gfx_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS)  \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1100 \
+	-vn -D_API_VERSION=2 -DALT_SLEEP \
+	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
 
 zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \

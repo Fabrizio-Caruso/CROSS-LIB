@@ -8,7 +8,9 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII
+API_VERSION=1
+
+GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII -D_API_VERSION=$(API_VERSION)
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -980,6 +982,26 @@ vz200_24k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
+
+#################################################################
+
+zx81: zx81_no_gfx
+
+zx81_no_gfx: zx81_no_gfx_16k
+
+# BROKEN (OUT OF MEMORY?)
+zx81_no_gfx_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS)  \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
+	-vn -D_API_VERSION=$(API_VERSION) \
+	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \
+	-DLESS_TEXT  \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
 
 
 #################################################################

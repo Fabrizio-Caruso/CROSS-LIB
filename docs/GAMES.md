@@ -45,6 +45,9 @@ https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/
 7. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
 
+Binaries are in the release section (Click on Assets): \
+https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XHorde1.0
+
 -------------------------------------------
 
 ## CROSS SNAKE - THE GAME
@@ -73,29 +76,31 @@ You can also catch special items that will help in your quest:
 
 You can play the game online:
 
-1. Commodore 264 series (C16/C116/C+4):
+1. Commodore 264 series (C16/C116/C+4): \
 http://plus4world.powweb.com/play/cross_snake_2_0
 
-2. Commodore Vic 20: 
+2. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
 
-3. Commodore 64: 
+3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
 
-4. MSX 1: 
+4. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crosssnake
 
-5. Sinclair ZX Spectrum 48K:
+5. Sinclair ZX Spectrum 48K: \
 https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137608 
 
 https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137608
 
-6. Video Technology Laser 200 / VZ200: 
+6. Video Technology Laser 200 / VZ200: \
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vz200_24k.vz
 
-7. Video Technology Laser 500: 
+7. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_laser500.bin
 
+Binaries are in the release section (Click on Assets): \
+https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XSnake2.0
 
 -------------------------------------------
 
@@ -111,29 +116,31 @@ The game has 8 levels and it ends after the eighth level.
 
 You can play the game online:
 
-1. Commodore 264 series (C16/C116/C+4): 
+1. Commodore 264 series (C16/C116/C+4): \
 http://plus4world.powweb.com/play/cross_bomber
 
-2. Commodore Vic 20: 
+2. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vic20_exp_8k.prg
 
-3. Commodore 64: 
+3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_c64.prg
 
-4. MSX 1: 
+4. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crossbomber
 
-5. Sinclair ZX Spectrum 48K: 
+5. Sinclair ZX Spectrum 48K: \
 https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137605
 
 https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
 
-6. Video technology Laser 200 / VZ200: 
+6. Video technology Laser 200 / VZ200: \
 https://nippur72.github.io/laser310-emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vz200_24k.vz
 
-7. Video technology Laser 500: 
+7. Video technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
 
+Binaries are in the release section (Click on Assets): \
+https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XBomber
 
 -------------------------------------------
 
@@ -155,28 +162,31 @@ The game has 16 different levels including 2 boss levels + 1 secret level.
 
 You can play the gamne online:
 
-1. Commodore 264 series (C16/C116/C+4): 
+1. Commodore 264 series (C16/C116/C+4): \
 http://plus4world.powweb.com/play/cross_shoot
 
-2. Commodore VIC 20: 
+2. Commodore VIC 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/XShoot_vic20_exp_16k.prg
 
-3. Commodore 64: 
+3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_c64.prg 
 
-4. MSX 1: 
+4. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crossshoot
 
-5. Sinclair ZX Spectrum 48K: 
+5. Sinclair ZX Spectrum 48K: \
 https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137606
 
 https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
 
-6. Video Technology Laser 200 / VZ 200: 
+6. Video Technology Laser 200 / VZ 200: \
 https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_vz200_24k.vz
 
-7. Video Technology Laser 500: 
+7. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_laser500.bin
+
+Binaries are in the release section (Click on Assets): \
+https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XShootRebuild
 
 -------------------------------------------
 
@@ -192,33 +202,34 @@ There are 20 different levels including 4 boss levels.
 
 You can play the game online for different systems:
 
-1. Atari LYNX: 
+1. Atari LYNX: \
 https://atarigamer.com/lynx/play/CrossChase/675300242
 
-2. Commodore 264 series (C16/C116/C+4): 
+2. Commodore 264 series (C16/C116/C+4): \
 http://plus4world.powweb.com/play/cross_chase_32k_v0_9
 
-3. Commodore Vic 20: 
+3. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vic20_exp_16k.prg
 
-4. Commodore 64: 
+4. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg 
 
-5. MSX 1: 
+5. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crosschase
 
-6. Sinclair ZX Spectrum 48K: 
+6. Sinclair ZX Spectrum 48K: \
 https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=112056
 
 https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 
-7. Video Technology Laser 210 / VZ200 : 
+7. Video Technology Laser 210 / VZ200 : \
 https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz
 
-8. Video Technology Laser 500: 
+8. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_laser500.bin
 
-
+Binaries are in the release section (Click on Assets): \
+https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XChase
 
 
  

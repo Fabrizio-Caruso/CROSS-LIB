@@ -177,7 +177,8 @@ gcc_targets: \
     ncurses  
 
 cc65_ascii_targets: \
-    pet
+    pet \
+    atari_lynx
 
 z88dk_ascii_targets_sequential: \
     aquarius \

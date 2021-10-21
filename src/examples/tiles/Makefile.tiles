@@ -11,7 +11,7 @@ API_VERSION=2
 #-D_DEFAULT_ASCII
 DEFAULT_ASCII=
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) 
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 
@@ -178,6 +178,7 @@ cc65_targets: \
     apple2enh \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     creativision \
@@ -194,6 +195,7 @@ cc65_targets: \
     apple2enh \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     creativision \

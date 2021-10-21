@@ -175,6 +175,7 @@ gcc_targets: \
 cc65_targets: \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     creativision \

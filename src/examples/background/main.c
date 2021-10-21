@@ -31,18 +31,19 @@
 
 #include "images.h"
 
-#define NUMBER_OF_COLORS 5
+#define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
 #if !defined(_XL_NO_COLOR)
-static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_BLACK, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-                                _XL_R _XL_E _XL_D, 
-                                _XL_C _XL_Y _XL_A _XL_N, 
-                                _XL_G _XL_R _XL_E _XL_E _XL_N, 
-                                _XL_Y _XL_E _XL_L _XL_L _XL_O _XL_W, 
-                                _XL_B _XL_L _XL_U _XL_E, 
+                                "BLACK",
+                                "RED", 
+                                "CYAN", 
+                                "GREEN", 
+                                "YELLOW", 
+                                "BLUE", 
                                 };
 
 

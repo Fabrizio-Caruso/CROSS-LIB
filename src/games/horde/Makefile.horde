@@ -215,7 +215,8 @@ cc65_6x8_targets: \
 
 
 cc65_ascii_targets: \
-    pet
+    pet \
+    atari_lynx
 
 cc65_7x8_targets: \
     apple2 \
@@ -1720,7 +1721,6 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__ZX81__ \
 	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
 	-DLESS_PRINT \
-	 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \

@@ -7,9 +7,9 @@
 #include "display_macros.h"
 
 #if defined(_BACKGROUND_COLOR) && BACKGROUND_COLOR==_XL_WHITE
-    #define _NCURSES_BACKGROUND_COLOR COLOR_WHITE
+    #define _NCURSES_BACKGROUND_COLOR _XL_WHITE
 #else
-    #define _NCURSES_BACKGROUND_COLOR COLOR_BLACK
+    #define _NCURSES_BACKGROUND_COLOR _XL_BLACK
 #endif
 
 void _XL_INIT_GRAPHICS(void)

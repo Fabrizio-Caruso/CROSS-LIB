@@ -43,8 +43,17 @@ const uint8_t tiles[] = {
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
+
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #define FIRST_COLOR _XL_BLACK
+#else
+    #define FIRST_COLOR _XL_WHITE
+#endif
+
 #if !defined(_XL_NO_COLOR)
-static const uint8_t tile_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+static const uint8_t tile_color[NUMBER_OF_COLORS] = {
+    FIRST_COLOR,
+    _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
 
 const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] = 
@@ -57,13 +66,19 @@ const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] =
     _XL_A _XL_p _XL_p _XL_l _XL_e,
 };
 
+
+
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-                                _XL_W _XL_H _XL_I _XL_T _XL_E, 
-                                _XL_R _XL_E _XL_D, 
-                                _XL_C _XL_Y _XL_A _XL_N, 
-                                _XL_G _XL_R _XL_E _XL_E _XL_N, 
-                                _XL_Y _XL_E _XL_L _XL_L _XL_O _XL_W, 
-                                _XL_B _XL_L _XL_U _XL_E, 
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+                                "BLACK",
+    #else
+                                "WHITE",
+    #endif
+                                "RED", 
+                                "CYAN", 
+                                "GREEN", 
+                                "YELLOW", 
+                                "BLUE", 
                                 };
 
 
@@ -108,7 +123,7 @@ int main(void)
                 _XL_SLOW_DOWN(300);
             }
             
-            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            _XL_SET_TEXT_COLOR(FIRST_COLOR);
             _XL_PRINT(COL_OFFSET,YSize-4, "PRESS FIRE");
             _XL_WAIT_FOR_INPUT();
         }

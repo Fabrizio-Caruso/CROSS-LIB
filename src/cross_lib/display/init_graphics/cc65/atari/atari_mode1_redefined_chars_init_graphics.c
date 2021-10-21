@@ -62,11 +62,6 @@ uint16_t BASE_ADDR;
 uint8_t _atari_text_color;
 #endif
 
-void _XL_INIT_GRAPHICS(void)
-{
-	// Mode 12 with no last monochromatic lines (12+16)
-	_graphics(GRAPHICS_MODE_1);
-	
 // ; Hue values
 
 // HUE_GREY        = 0
@@ -105,60 +100,58 @@ void _XL_INIT_GRAPHICS(void)
 // GTIA_COLOR_LIGHTBLUE  = (HUE_BLUE << 4 | 6 << 1)
 // GTIA_COLOR_GRAY3      = (HUE_GREY << 4 | 5 << 1)
     
-    // #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
+// #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
 
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #define _ATARI_BACKGROUND_COLOR GTIA_COLOR_WHITE
+    #define _ATARI_EXTRA_COLOR GTIA_COLOR_BLACK
+#else
+    #define _ATARI_BACKGROUND_COLOR GTIA_COLOR_BLACK
+    #define _ATARI_EXTRA_COLOR GTIA_COLOR_WHITE
+#endif
+
+
+void _XL_INIT_GRAPHICS(void)
+{
+	// Mode 12 with no last monochromatic lines (12+16)
+	_graphics(GRAPHICS_MODE_1);
     
     #if !defined(ALTERNATE_COLORS)
         if(get_tv())
         {
             // PAL Settings
             _setcolor_low(0, GTIA_COLOR_RED);
-            _setcolor_low(1, GTIA_COLOR_WHITE);
+            _setcolor_low(1, _ATARI_EXTRA_COLOR);
             _setcolor_low(2, GTIA_COLOR_CYAN); 	
             _setcolor_low(3, GTIA_COLOR_BROWN);
-            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-                _setcolor_low(4, GTIA_COLOR_WHITE);
-            #else
-                _setcolor_low(4, GTIA_COLOR_BLACK);
-            #endif
+            _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
         }
         else
         {
             _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
-            _setcolor_low(1,GTIA_COLOR_WHITE);
+            _setcolor_low(1,_ATARI_EXTRA_COLOR);
             _setcolor_low(2,GTIA_COLOR_CYAN);
             _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-                _setcolor_low(4, GTIA_COLOR_WHITE);
-            #else
-                _setcolor_low(4, GTIA_COLOR_BLACK);
-            #endif
+            _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
         }
     #else
         if(get_tv())
         {
             // PAL Settings
             _setcolor_low(0, GTIA_COLOR_RED);
-            _setcolor_low(1, GTIA_COLOR_WHITE);
+            _setcolor_low(1, _ATARI_EXTRA_COLOR);
             _setcolor_low(2, GTIA_COLOR_GREEN); 
             _setcolor_low(3, GTIA_COLOR_BROWN);
-            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-                _setcolor_low(4, GTIA_COLOR_WHITE);
-            #else
-                _setcolor_low(4, GTIA_COLOR_BLACK);
-            #endif
+            _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
+
         }
         else
         {
             _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
-            _setcolor_low(1,GTIA_COLOR_WHITE);
+            _setcolor_low(1,_ATARI_EXTRA_COLOR);
             _setcolor_low(2,_gtia_mkcolor(HUE_GREEN,3));
             _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-            #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-                _setcolor_low(4, GTIA_COLOR_WHITE);
-            #else
-                _setcolor_low(4, GTIA_COLOR_BLACK);
-            #endif
+            _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
         }
     #endif
 	#if defined(REDEFINED_CHARS)

@@ -284,7 +284,11 @@ typedef struct ImageStruct Image;
     }
      
 #else
-    #define _XL_SET_TEXT_COLOR(c) textcolor(c)
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #define _XL_SET_TEXT_COLOR(c) textcolor(1)
+    #else
+        #define _XL_SET_TEXT_COLOR(c) textcolor(c)
+    #endif
 #endif
 
 #if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__)

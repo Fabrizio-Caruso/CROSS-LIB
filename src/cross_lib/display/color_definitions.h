@@ -65,12 +65,14 @@
 
     #define _ATARI_MODE1_RED 0
     #define _ATARI_MODE1_WHITE 64
+    #define _ATARI_MODE1_BLACK 64
     #define _ATARI_MODE1_CYAN 128
     #define _ATARI_MODE1_GREEN 128
     #define _ATARI_MODE1_YELLOW 192
 
     #define _XL_RED _ATARI_MODE1_RED
     #define _XL_WHITE _ATARI_MODE1_WHITE
+    #define _XL_BLACK _ATARI_MODE1_BLACK
     #define _XL_BLUE _ATARI_MODE1_CYAN
     #define _XL_YELLOW _ATARI_MODE1_YELLOW
     
@@ -112,6 +114,8 @@
         #define _XL_YELLOW _COMX_YELLOW
         #define _XL_GREEN _COMX_GREEN
         #define _XL_CYAN _COMX_CYAN
+        
+        #define _XL_BLACK 0
     
     #elif defined(__CIDELSA__)
         #define _COMX_BLUE 0
@@ -128,6 +132,8 @@
         #define _XL_GREEN _COMX_GREEN
         #define _XL_CYAN _COMX_CYAN
         
+        #define _XL_BLACK 0
+        
     #else
         #define _COMX_BLUE 0
         #define _COMX_GREEN 1
@@ -142,6 +148,8 @@
         #define _XL_YELLOW _COMX_YELLOW
         #define _XL_GREEN _COMX_GREEN
         #define _XL_CYAN _COMX_CYAN
+        
+        #define _XL_BLACK 3
     #endif
 #elif defined(ORIC_COLOR)
 
@@ -172,20 +180,45 @@
     #define _XL_YELLOW _CREAT_YELLOW
     #define _XL_GREEN _CREAT_GREEN
     #define _XL_CYAN _CREAT_CYAN
+    
+    #define _XL_BLACK _CREAT_WHITE
 
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
-    #define _XL_PURPLE 1
-    #define _XL_GREEN 0
-    #define _XL_MAGENTA 1
-    #define _XL_CYAN ((_XL_PURPLE)+4)
-    #define _XL_BLUE _XL_CYAN
-    #define _XL_YELLOW ((_XL_GREEN)+4)
-    #define _XL_RED _XL_YELLOW
-    #define _XL_WHITE 2
-
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #define _XL_PURPLE 0
+        #define _XL_GREEN 1
+        #define _XL_MAGENTA 0
+        #define _XL_CYAN ((_XL_PURPLE)+4)
+        #define _XL_BLUE _XL_CYAN
+        #define _XL_YELLOW ((_XL_GREEN)+4)
+        #define _XL_RED _XL_YELLOW
+        #define _XL_BLACK 2
+        
+        // TODO: Remove this hack and handle real black on white background
+        #define _XL_WHITE _XL_BLUE
+    #else
+        #define _XL_PURPLE 1
+        #define _XL_GREEN 0
+        #define _XL_MAGENTA 1
+        #define _XL_CYAN ((_XL_PURPLE)+4)
+        #define _XL_BLUE _XL_CYAN
+        #define _XL_YELLOW ((_XL_GREEN)+4)
+        #define _XL_RED _XL_YELLOW
+        #define _XL_WHITE 2
+        
+        // TODO: Remove this hack and handle real black on white background
+        #define _XL_BLACK _XL_BLUE
+    #endif
 
 #elif defined(__CC65__) || defined(__NCURSES__) || defined(__TMC600__)
-    #define _XL_BLACK COLOR_BLACK
+    // TODO: Remove this hack
+    #if defined(__NCURSES__)
+        #define _XL_BLACK COLOR_BLUE
+    #elif defined(__ATARI_LYNX__)
+        #define _XL_BLACK COLOR_BLUE
+    #else
+        #define _XL_BLACK COLOR_BLACK
+    #endif
     #define _XL_RED COLOR_RED
     #define _XL_WHITE COLOR_WHITE
     #define _XL_BLUE COLOR_BLUE

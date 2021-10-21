@@ -38,14 +38,17 @@
 
 #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
     #define _CREAT_BACKGROUND_COLOR _CREAT_VDP_WHITE
+    #define _CREAT_TEXT_COLOR _CREAT_VDP_BLACK
 #else
     #define _CREAT_BACKGROUND_COLOR _CREAT_VDP_BLACK
+    #define _CREAT_TEXT_COLOR _CREAT_VDP_WHITE
 #endif
 
 void set_group_color(uint8_t group, uint8_t color)
 {
 	DISPLAY_POKE((uint16_t) COLOR_DEF + (uint16_t) group, (((uint16_t) color)<<4)+_CREAT_BACKGROUND_COLOR);
 }
+
 
 
 void set_udg_colors(void)
@@ -70,10 +73,17 @@ void set_udg_colors(void)
 	set_group_color(11,_CREAT_VDP_YELLOW);
 
 // 96
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+	set_group_color(12,_CREAT_VDP_BLACK);
+	set_group_color(13,_CREAT_VDP_BLACK);
+	set_group_color(14,_CREAT_VDP_BLACK);
+	set_group_color(15,_CREAT_VDP_BLACK);
+    #else
 	set_group_color(12,_CREAT_VDP_WHITE);
 	set_group_color(13,_CREAT_VDP_WHITE);
 	set_group_color(14,_CREAT_VDP_WHITE);
 	set_group_color(15,_CREAT_VDP_WHITE);
+    #endif
 
 // 128
 	set_group_color(16,_CREAT_VDP_CYAN);
@@ -88,16 +98,16 @@ void set_udg_colors(void)
 	set_group_color(23,_CREAT_VDP_RED);
 
 // 192
-	set_group_color(24,_CREAT_VDP_WHITE);
-	set_group_color(25,_CREAT_VDP_WHITE);
-	set_group_color(26,_CREAT_VDP_WHITE);
-	set_group_color(27,_CREAT_VDP_WHITE);
+	set_group_color(24,_CREAT_TEXT_COLOR);
+	set_group_color(25,_CREAT_TEXT_COLOR);
+	set_group_color(26,_CREAT_TEXT_COLOR);
+	set_group_color(27,_CREAT_TEXT_COLOR);
 
 // 224
-	set_group_color(28,_CREAT_VDP_WHITE);
-	set_group_color(29,_CREAT_VDP_WHITE);
-	set_group_color(30,_CREAT_VDP_WHITE);
-	set_group_color(31,_CREAT_VDP_WHITE);
+	set_group_color(28,_CREAT_TEXT_COLOR);
+	set_group_color(29,_CREAT_TEXT_COLOR);
+	set_group_color(30,_CREAT_TEXT_COLOR);
+	set_group_color(31,_CREAT_TEXT_COLOR);
 
 
 	// set_group_color(5,2);

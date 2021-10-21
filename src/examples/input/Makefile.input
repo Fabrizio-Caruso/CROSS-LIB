@@ -178,6 +178,7 @@ cc65_targets: \
     apple2enh \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     creativision \
@@ -194,6 +195,7 @@ cc65_targets: \
     apple2enh \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     creativision \

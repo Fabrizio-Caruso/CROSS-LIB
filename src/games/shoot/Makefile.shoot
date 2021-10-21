@@ -179,6 +179,7 @@ ifeq ($(DO_WIN),1)
 cc65_targets: \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     oric  \
@@ -205,6 +206,7 @@ else
 cc65_targets: \
     atari \
     atari5200 \
+    atari_lynx \
     c16 \
     c64 \
     oric  \

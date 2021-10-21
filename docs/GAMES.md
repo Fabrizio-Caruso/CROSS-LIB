@@ -34,10 +34,8 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 4. MSX 1:
 https://homebrew.file-hunter.com/index.php?id=crosshorde
 
-5. Sinclair ZX Spectrum 48K:
-https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=140691
-
-https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=140691
+5. Sinclair ZX Spectrum 48K: \
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=140691 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=140691
 
 6. Video Technology Laser 200 / VZ200: 
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vz200_24k.vz
@@ -89,9 +87,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 https://homebrew.file-hunter.com/index.php?id=crosssnake
 
 5. Sinclair ZX Spectrum 48K: \
-https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137608 
-
-https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137608
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137608 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137608
 
 6. Video Technology Laser 200 / VZ200: \
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vz200_24k.vz
@@ -129,9 +125,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 https://homebrew.file-hunter.com/index.php?id=crossbomber
 
 5. Sinclair ZX Spectrum 48K: \
-https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137605
-
-https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137605 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137605
 
 6. Video technology Laser 200 / VZ200: \
 https://nippur72.github.io/laser310-emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vz200_24k.vz
@@ -175,9 +169,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 https://homebrew.file-hunter.com/index.php?id=crossshoot
 
 5. Sinclair ZX Spectrum 48K: \
-https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137606
-
-https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=137606 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=137606
 
 6. Video Technology Laser 200 / VZ 200: \
 https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_vz200_24k.vz
@@ -218,9 +210,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 https://homebrew.file-hunter.com/index.php?id=crosschase
 
 6. Sinclair ZX Spectrum 48K: \
-https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=112056
-
-https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=112056 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 
 7. Video Technology Laser 210 / VZ200 : \
 https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz

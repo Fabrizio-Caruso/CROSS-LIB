@@ -23,13 +23,34 @@ Rings will improve in this order:
 After these improvements, the rings will be necessary to unblock special items and to achieve the temporary "hyper" power.
 
 1. Commodore 264 series (C16/C116/C+4):
+
 https://plus4world.powweb.com/play/cross_horde
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
-3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
-4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosshorde
-5. Sinclair ZX Spectrum 48K:http://torinak.com/qaop#~128#l=https://spectrumcomputing.co.uk/temp/V8PQ061Zj2MH9URXO7Bv06sYeSPgRC6b8t3Dh720.tap or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=140691
-6. Video Technology Laser 200 / VZ200: https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vz200_24k.vz
-7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
+
+2. Commodore Vic 20: 
+
+https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
+
+3. Commodore 64: 
+
+https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
+
+4. MSX 1:
+
+https://homebrew.file-hunter.com/index.php?id=crosshorde
+
+5. Sinclair ZX Spectrum 48K:
+
+https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=140691
+
+https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=140691
+
+6. Video Technology Laser 200 / VZ200: 
+
+https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vz200_24k.vz
+
+7. Video Technology Laser 500: 
+
+https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
 
 -------------------------------------------
 

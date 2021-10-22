@@ -1708,7 +1708,7 @@ void fire(void)
     display_bow();
 }
 
-#if defined(NO_UDG)
+#if defined(_XL_NO_UDG)
     #define handle_bow_move() \
     do \
     { \
@@ -1932,10 +1932,22 @@ do \
     #define _NEXT_ROW ((i)<<1)
 #endif
 
+#if defined(_XL_NO_JOYSTICK)
+    #define CONTROLS_STRING "USE J L SPACE"
+#else
+    #define CONTROLS_STRING "USE JOYSTICK"
+#endif
+
+#if YSize==23
+    #define CONTROLS_Y YSize-2
+#else
+    #define CONTROLS_Y YSize-3
+#endif
+
 #if !defined(NO_EXTRA_TITLE)
-    #if defined(CONTROL_INSTRUCTIONS)
-        #define control_instructions() _XL_PRINT_CENTERED_ON_ROW(YSize-3,\
-                                        _XL_U _XL_S _XL_E _XL_SPACE _XL_J _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E)
+    #if defined(CONTROL_INSTRUCTIONS) || YSize>=23
+        #define control_instructions() _XL_PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
+                                       CONTROLS_STRING)
     #else
         #define control_instructions()
     #endif
@@ -1966,15 +1978,11 @@ do \
 
 #if XSize>=20
     #define _CROSS_HORDE_STRING \
-        _XL_C _XL_SPACE _XL_R _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S \
-        _XL_SPACE _XL_SPACE \
-        _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_R _XL_SPACE _XL_D _XL_SPACE _XL_E
+        "C R O S S  H O R D E"
 
 #else
     #define _CROSS_HORDE_STRING \
-        _XL_C _XL_R _XL_O _XL_S _XL_S \
-        _XL_SPACE \
-        _XL_H _XL_O _XL_R _XL_D _XL_E  
+        "CROSS HORDE"
 #endif
 
 
@@ -1986,7 +1994,7 @@ do \
     display_wall(BOTTOM_WALL_Y+1); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); \
+    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
@@ -1995,7 +2003,7 @@ do \
     _XL_PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
     sleep_and_wait_for_input(); \

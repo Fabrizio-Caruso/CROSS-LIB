@@ -681,7 +681,8 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
-	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_ace_exp_16k.wav
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	cp ace.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 	rm ace.wav
 	rm ace.tap
 	rm ace

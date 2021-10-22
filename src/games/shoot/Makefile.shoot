@@ -619,7 +619,8 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
-	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_ace_exp_16k.wav
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	cp ace.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 	rm ace.wav
 	rm ace.tap
 	rm ace
@@ -988,21 +989,34 @@ vz200_24k:
 
 zx81: zx81_no_gfx
 
-zx81_no_gfx: zx81_no_gfx_16k
+zx81_no_gfx: zx81_no_gfx_32k
 
-# BROKEN (OUT OF MEMORY?)
-zx81_no_gfx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS)  \
+zx81_no_gfx_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) -compiler=sdcc  \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
-	-vn -D_API_VERSION=2 \
-	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \
-	-DLESS_TEXT  \
+	-vn \
+	-D__ZX81__ -DFULL_GAME  \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+zx81_no_gfx_32k_v2:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) -compiler=sdcc \
+	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
+	-vn -pragma-define:REGISTER_SP=49151 \
+	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 #################################################################
@@ -1015,7 +1029,7 @@ COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
 CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_SLEEP -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-NO_UDG_OPS      ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS  -D_XL_SLOW_DOWN_FACTOR=4000
+NO_UDG_OPS      ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS  -D_XL_SLOW_DOWN_FACTOR=7000 -DSOUNDS
 
 GFX_OPTS        ?= $(CMOC_OPTS) -DBIT_MAPPED -D_XL_SLOW_DOWN_FACTOR=150
 
@@ -1047,6 +1061,97 @@ cmoc_targets: \
 	dragon_targets \
 	mo5_targets \
 	to7_targets
+
+coco_no_gfx:
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o sleep.o dac_sounds.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o dac_sounds.o \
+	init_images.o sleep.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+
 
 # BROKEN (OUT OF MEMORY?)
 coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
@@ -1145,7 +1250,7 @@ endif
 	rm XCHASE.BIN
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-coco: coco_gfx
+coco: coco_no_gfx
 
 coco_targets: \
 	coco

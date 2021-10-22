@@ -445,7 +445,7 @@ zx81: zx81_16k
 
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS)  \
+	$(INCLUDE_OPTS) -compiler=sdcc  \
 	--opt-code-size  \
 	-vn \
 	-D__ZX81__ -DFULL_GAME \

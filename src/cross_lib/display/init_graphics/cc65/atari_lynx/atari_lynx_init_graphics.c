@@ -16,7 +16,6 @@ void _XL_INIT_GRAPHICS(void)
 	while (tgi_busy())  {  };
 
 	tgi_setpalette(tgi_getdefpalette());
-	tgi_setcolor(COLOR_WHITE);
     
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
         tgi_setbgcolor(TGI_COLOR_WHITE);

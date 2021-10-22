@@ -212,10 +212,8 @@
 
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
-    #if defined(__NCURSES__)
-        #define _XL_BLACK COLOR_BLUE
-    #elif defined(__ATARI_LYNX__)
-        #define _XL_BLACK COLOR_BLUE
+    #if defined(__ATARI_LYNX__)
+        #define _XL_BLACK COLOR_GREY
     #else
         #define _XL_BLACK COLOR_BLACK
     #endif

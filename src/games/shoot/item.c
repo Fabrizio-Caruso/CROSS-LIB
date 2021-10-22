@@ -418,7 +418,7 @@ void destroyerEffect(void)
 {
     destroyerActive = 1;
     invincibilityActive = 1;
-    invincibility_count_down= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
+    invincibility_count_down= 255;
     destroyer_count_down = DESTROYER_COUNT_DOWN;
     destroyer._coolDown = DESTROYER_COOL_DOWN;
 }

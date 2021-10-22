@@ -1735,7 +1735,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
-	-pragma-define:hrgpage=36096 \
+	-pragma-define:hrgpage=36096 -DNO_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=10 -DNO_ANIMATION -DNO_DISPLAY_LEVEL_ANIMATION \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=22 \

@@ -110,7 +110,7 @@ _CIDELSA_SLOWDOWN=40
 
 
 # GCC
-_NCURSES_SLOWDOWN=12
+_NCURSES_SLOWDOWN=2
 
 
 #####################################################################

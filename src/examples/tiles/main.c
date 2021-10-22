@@ -120,7 +120,7 @@ int main(void)
             for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {
                 _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*LINE_SKIP+ROW_OFFSET,tiles[i],tile_color[j]);
-                _XL_SLOW_DOWN(300);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
             
             _XL_SET_TEXT_COLOR(FIRST_COLOR);

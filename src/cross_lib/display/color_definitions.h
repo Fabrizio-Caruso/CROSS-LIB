@@ -210,7 +210,7 @@
         #define _XL_BLACK _XL_BLUE
     #endif
 
-#elif defined(__CC65__) || defined(__NCURSES__) || defined(__TMC600__)
+#elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
     #if defined(__NCURSES__)
         #define _XL_BLACK COLOR_BLUE
@@ -231,6 +231,15 @@
         #define _XL_CYAN COLOR_BLUE
     #endif
 
+#elif defined(__NCURSES__)
+    #define _XL_YELLOW 1
+    #define _XL_CYAN 2
+    #define _XL_RED 3
+    #define _XL_GREEN 4
+    #define _XL_BLUE 5
+    #define _XL_WHITE 6
+    #define _XL_MAGENTA 7
+    #define _XL_BLACK 8
 #else // Z88DK
     #define _XL_BLACK BLACK
     #if defined(__PC6001__) || defined(__SPC1000__)

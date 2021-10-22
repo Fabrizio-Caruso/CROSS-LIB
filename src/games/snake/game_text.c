@@ -49,6 +49,27 @@ void PRESS_KEY(void)
     _XL_WAIT_FOR_INPUT();
 }
 
+
+#if defined(_XL_NO_JOYSTICK)
+    #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E
+#else
+    #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_J _XL_O _XL_Y _XL_S _XL_T _XL_I _XL_C _XL_K
+#endif
+
+#define CONTROLS_Y (YSize-2)
+
+#if defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
+
+    #define CONTROL_INSTRUCTIONS()
+#else
+    void CONTROL_INSTRUCTIONS(void)
+        {
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            _XL_PRINT_CENTERED_ON_ROW(CONTROLS_Y, CONTROLS_STRING);
+            _XL_WAIT_FOR_INPUT();
+        }
+#endif
+
 void DISPLAY_POINTS(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);

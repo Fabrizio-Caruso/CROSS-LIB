@@ -43,6 +43,12 @@
     }
 #endif
 
+#if !defined(NO_CONTROL_INSTRUCTIONS)
+    #define TILE_PRESS_KEY() CONTROL_INSTRUCTIONS()
+#else
+    #define TILE_PRESS_KEY() PRESS_KEY()
+#endif
+
 #define title() \
     _XL_CLEAR_SCREEN(); \
     _XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED); \
@@ -53,7 +59,7 @@
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
     extra_title(); \
-    PRESS_KEY();
+    TILE_PRESS_KEY();
  
 
 
@@ -71,6 +77,10 @@ void DISPLAY_REMAINING_APPLES_COUNT(void);
 void DISPLAY_LIVES(void);
 
 void show_intro_snake(void);
+
+#if !defined(NO_CONTROL_INSTRUCTIONS)
+void CONTROL_INSTRUCTIONS(void);
+#endif
 
 #endif // _GAME_TEXT_H
 

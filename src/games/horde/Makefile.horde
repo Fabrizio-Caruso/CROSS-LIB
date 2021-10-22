@@ -7,10 +7,9 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-API_VERSION=1
+API_VERSION=2
 
-GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DNO_WALL -DNO_BLINKING 
-#-D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DNO_WALL -DNO_BLINKING -D_API_VERSION=$(API_VERSION)
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -526,19 +525,32 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 #################################################################
 
 	# -D_XL_SLOW_DOWN_FACTOR=990 -DINITIAL_GHOST_SLOWDOWN=31000 
+# c64: $(ASSETS_PATH)/cc65_udc_arcade.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	# -DANIMATE_PLAYER -DSOUNDS  \
+	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	# -DCBM_SCREEN_CODES \
+	# -DMEMORY_MAPPED \
+	# -D_XL_SLOW_DOWN_FACTOR=500 \
+	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	# $(ASSETS_PATH)/cc65_udc_arcade.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
-	-DANIMATE_PLAYER -DSOUNDS  \
+	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=$(API_VERSION) \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
+	-DMEMORY_MAPPED -DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=500 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 c64_exomized: c64
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
@@ -811,21 +823,18 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 vic20: vic20_exp_8k
 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
-	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_8K \
-	-D_XL_SLOW_DOWN_FACTOR=1000 \
+	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
+	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-DREDEFINED_CHARS \
-	$(SOURCE_PATH)/main.c \
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	$(FULL_FILES) \
 	--code-name CODE2 \
-    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-    $(BASIC_CROSS_LIB_FILES) \
-	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 
 vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
@@ -1720,8 +1729,8 @@ zx81_no_gfx: zx81_no_gfx_16k
 
 
 zx81_no_gfx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS)  \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) -compiler-sdcc  \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
 	-vn -D_API_VERSION=2 \
 	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \

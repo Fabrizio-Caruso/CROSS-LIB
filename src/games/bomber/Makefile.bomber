@@ -90,7 +90,7 @@ _NCURSES_SLOWDOWN=12
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters
 
-SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
+SCCZ80_OPTS ?=  -O3 $(GLOBAL_OPTS)
 #-O0
 #-O3
 
@@ -1159,8 +1159,7 @@ zx81_no_gfx_16k:
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=900 \
 	-vn -D_API_VERSION=2 \
 	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -DNO_INIT_GRAPHICS -DNO_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
 	$(FULL_FILES)

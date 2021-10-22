@@ -26,8 +26,13 @@
 #define _SLEEP_MACROS
 
     #include <standard_libs.h>
-    #define ALT_SLEEP_SCALE 4000
     
+    #if defined(_ZX81__)
+        #define ALT_SLEEP_SCALE 1000
+    #else
+        #define ALT_SLEEP_SCALE 4000
+    #endif
+  
     #if !defined(NO_SLEEP)
         #  if !defined(__CMOC__) && !defined(__LCC1802__) && !defined(__TI99__)
             #include <time.h>

@@ -29,219 +29,440 @@
     #include "char_tiles.h"
 #endif
 
-#if !defined(_TILE_19)
-    #if !defined(__CIDELSA__)
-        #define _TILE_19 '*'
-    #else
-        #define _TILE_19 'H'
-    #endif
-#endif 
+#if defined(_API_VERSION) && _API_VERSION>=2
 
-#if !defined(_TILE_20)
-    #if !defined(__CIDELSA__)
-        #define _TILE_20 '*'
-    #else
-        #define _TILE_20 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_21)
-    #if !defined(__CIDELSA__)
-        #define _TILE_21 '*'
-    #else
-        #define _TILE_21 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_22)
-    #if !defined(__CIDELSA__)
-        #define _TILE_22 '*'
-    #else
-        #define _TILE_22 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_23)
-    #if !defined(__CIDELSA__)
-        #define _TILE_23 '*'
-    #else
-        #define _TILE_23 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_24)
-    #if !defined(__CIDELSA__)
-        #define _TILE_24 '*'
-    #else
-        #define _TILE_24 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_1)
-    #if !defined(__CIDELSA__)
-        #define _TILE_1 '*'
-    #else
-        #define _TILE_1 'H'
-    #endif
-#endif 
-
-#if !defined(_TILE_3)
-    #if !defined(__CIDELSA__)
-        #define _TILE_3 '*'
-    #else
-        #define _TILE_3 'H'
-    #endif
-#endif
-
-#if !defined(_TILE_2)
-    #if !defined(__CIDELSA__)
-        #define _TILE_2 '*'
-    #else
-        #define _TILE_2 'H'
-    #endif
-#endif
-
-#if !defined(_TILE_0)
-    #if !defined(__CIDELSA__)
-        #define _TILE_0 '*'
-    #else
-        #define _TILE_0 'H'
-    #endif
-#endif
-// RED
-
-#if !defined(_TILE_5)
-    #if defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_5 'x'
-    #else
-        #define _TILE_5 'X'
-    #endif
-#endif
-
-// WHITE
-#if !defined(_TILE_4)
-    #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__)
-        #define _TILE_4 'O'
-    #else
-        #define _TILE_4 'o'
-    #endif
-#endif
-
-#if !defined(_TILE_6)
-    #if defined(__ALPHATRO__)
-        #define _TILE_6 'm'
-    #elif defined(__CIDELSA__)
-        #define _TILE_6 'M'
-    #else
-        #define _TILE_6 '#'
-    #endif
-#endif
-
-// BLUE
-#if !defined(_TILE_9)
-    #if defined(__ZX80__) || defined(__CIDELSA__)
-        #define _TILE_9 'G'
-    #else
-        #define _TILE_9 '!'
-    #endif
-#endif
-
-// YELLOW
-#if !defined(_TILE_7)
-    #if !defined(__CIDELSA__)
-        #define _TILE_7 '+'
-    #elif defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_7 'a'
-    #else
-        #define _TILE_7 'A'
-    #endif
-#endif
-
-
-#if !defined(_TILE_25)
-    #define _TILE_25 '$'
-#endif
-
-// GREEN
-#if !defined(_TILE_8)
-    #if defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_8 's'
-    #else
-        #define _TILE_8  'S'
-    #endif
-#endif
-
-#if !defined(_TILE_17)
-    #if defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_17 'f'
-    #else
-        #define _TILE_17 'F'
-    #endif
-#endif
-
-#if !defined(_TILE_18)
-    #if defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_18 'h'
-    #else
-        #define _TILE_18 'H'
-    #endif
-#endif
-
-// CYAN
-#if !defined(_TILE_10)
-    #if defined(__ZX81__) || defined(__ZX80__)
-        #define _TILE_10 'v'
-    #else
-        #define _TILE_10 'V'
-    #endif
-#endif
-
-#if !defined(_TILE_11)
-    #if defined(__CIDELSA__)
-        #define _TILE_11 'O'
-    #else
-        #define _TILE_11 '.'
-    #endif
-#endif
-
-#if !defined(_TILE_14)
-    #define _TILE_14 '>'
-#endif
-
-#if !defined(_TILE_15)
-    #define _TILE_15 '<'
-#endif
-
-#if !defined(_TILE_16)
-    #if defined(__ZX80__) || defined(__ZX81__) 
-        #define _TILE_16 'i'
-    #elif defined(__CIDELSA__)
-        #define _TILE_16 'I'
-    #else
-        #define _TILE_16 ('^')
-    #endif
-#endif
-
-#if !defined(_TILE_12)
-    #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__)
-        #define _TILE_12 'i'
-    #elif defined(__APPLE2__) || defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
-    || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) \
-    || defined(__ZX80__) || defined(__ZX81__) 
-        #define _TILE_12 'I' 
-    #else
-        #define _TILE_12 ('|')
+    #if !defined(_TILE_19)
+        #if !defined(__CIDELSA__)
+            #define _TILE_19 '*'
+        #else
+            #define _TILE_19 'H'
+        #endif
     #endif 
-#endif
 
-#if !defined(_TILE_13)
-    #if defined(__CIDELSA__)
-        #define _TILE_13 'I'
-    #else
-        #define _TILE_13 '-'
+    #if !defined(_TILE_20)
+        #if !defined(__CIDELSA__)
+            #define _TILE_20 '*'
+        #else
+            #define _TILE_20 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_21)
+        #if !defined(__CIDELSA__)
+            #define _TILE_21 '*'
+        #else
+            #define _TILE_21 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_22)
+        #if !defined(__CIDELSA__)
+            #define _TILE_22 '*'
+        #else
+            #define _TILE_22 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_23)
+        #if !defined(__CIDELSA__)
+            #define _TILE_23 '*'
+        #else
+            #define _TILE_23 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_24)
+        #if !defined(__CIDELSA__)
+            #define _TILE_24 '*'
+        #else
+            #define _TILE_24 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_1)
+        #if !defined(__CIDELSA__)
+            #define _TILE_1 '*'
+        #else
+            #define _TILE_1 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_3)
+        #if !defined(__CIDELSA__)
+            #define _TILE_3 '*'
+        #else
+            #define _TILE_3 'H'
+        #endif
     #endif
-#endif
 
+    #if !defined(_TILE_2)
+        #if !defined(__CIDELSA__)
+            #define _TILE_2 '*'
+        #else
+            #define _TILE_2 'H'
+        #endif
+    #endif
+
+    #if !defined(_TILE_0)
+        #if !defined(__CIDELSA__)
+            #define _TILE_0 '*'
+        #else
+            #define _TILE_0 'H'
+        #endif
+    #endif
+    // RED
+
+    #if !defined(_TILE_5)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_5 'x'
+        #else
+            #define _TILE_5 'X'
+        #endif
+    #endif
+
+    // WHITE
+    #if !defined(_TILE_4)
+        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__)
+            #define _TILE_4 'O'
+        #else
+            #define _TILE_4 'o'
+        #endif
+    #endif
+
+    #if !defined(_TILE_6)
+        #if defined(__ALPHATRO__)
+            #define _TILE_6 'm'
+        #elif defined(__CIDELSA__)
+            #define _TILE_6 'M'
+        #else
+            #define _TILE_6 '#'
+        #endif
+    #endif
+
+    // BLUE
+    #if !defined(_TILE_9)
+        #if defined(__ZX80__) || defined(__CIDELSA__)
+            #define _TILE_9 'G'
+        #else
+            #define _TILE_9 '!'
+        #endif
+    #endif
+
+    // YELLOW
+    #if !defined(_TILE_7)
+        #if !defined(__CIDELSA__)
+            #define _TILE_7 '+'
+        #elif defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_7 'a'
+        #else
+            #define _TILE_7 'A'
+        #endif
+    #endif
+
+
+    #if !defined(_TILE_25)
+        #define _TILE_25 '$'
+    #endif
+
+    // GREEN
+    #if !defined(_TILE_8)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_8 's'
+        #else
+            #define _TILE_8  'S'
+        #endif
+    #endif
+
+    #if !defined(_TILE_17)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_17 'f'
+        #else
+            #define _TILE_17 'F'
+        #endif
+    #endif
+
+    #if !defined(_TILE_18)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_18 'h'
+        #else
+            #define _TILE_18 'H'
+        #endif
+    #endif
+
+    // CYAN
+    #if !defined(_TILE_10)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_10 'v'
+        #else
+            #define _TILE_10 'V'
+        #endif
+    #endif
+
+    #if !defined(_TILE_11)
+        #if defined(__CIDELSA__)
+            #define _TILE_11 'O'
+        #else
+            #define _TILE_11 '.'
+        #endif
+    #endif
+
+    #if !defined(_TILE_14)
+        #define _TILE_14 '>'
+    #endif
+
+    #if !defined(_TILE_15)
+        #define _TILE_15 '<'
+    #endif
+
+    #if !defined(_TILE_16)
+        #if defined(__ZX80__) || defined(__ZX81__) 
+            #define _TILE_16 'i'
+        #elif defined(__CIDELSA__)
+            #define _TILE_16 'I'
+        #else
+            #define _TILE_16 ('^')
+        #endif
+    #endif
+
+    #if !defined(_TILE_12)
+        #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__)
+            #define _TILE_12 'i'
+        #elif defined(__APPLE2__) || defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
+        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) \
+        || defined(__ZX80__) || defined(__ZX81__) 
+            #define _TILE_12 'I' 
+        #else
+            #define _TILE_12 ('|')
+        #endif 
+    #endif
+
+    #if !defined(_TILE_13)
+        #if defined(__CIDELSA__)
+            #define _TILE_13 'I'
+        #else
+            #define _TILE_13 '-'
+        #endif
+    #endif
+
+// _API_VERSION=1
+#else 
+
+    #if !defined(_TILE_19)
+        #if !defined(__CIDELSA__)
+            #define _TILE_19 '*'
+        #else
+            #define _TILE_19 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_20)
+        #if !defined(__CIDELSA__)
+            #define _TILE_20 '*'
+        #else
+            #define _TILE_20 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_21)
+        #if !defined(__CIDELSA__)
+            #define _TILE_21 '*'
+        #else
+            #define _TILE_21 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_22)
+        #if !defined(__CIDELSA__)
+            #define _TILE_22 '*'
+        #else
+            #define _TILE_22 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_23)
+        #if !defined(__CIDELSA__)
+            #define _TILE_23 '*'
+        #else
+            #define _TILE_23 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_24)
+        #if !defined(__CIDELSA__)
+            #define _TILE_24 '*'
+        #else
+            #define _TILE_24 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_1)
+        #if !defined(__CIDELSA__)
+            #define _TILE_1 '*'
+        #else
+            #define _TILE_1 'H'
+        #endif
+    #endif 
+
+    #if !defined(_TILE_3)
+        #if !defined(__CIDELSA__)
+            #define _TILE_3 '*'
+        #else
+            #define _TILE_3 'H'
+        #endif
+    #endif
+
+    #if !defined(_TILE_2)
+        #if !defined(__CIDELSA__)
+            #define _TILE_2 '*'
+        #else
+            #define _TILE_2 'H'
+        #endif
+    #endif
+
+    #if !defined(_TILE_0)
+        #if !defined(__CIDELSA__)
+            #define _TILE_0 '*'
+        #else
+            #define _TILE_0 'H'
+        #endif
+    #endif
+    // RED
+
+    #if !defined(_TILE_5)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_5 'X'
+        #else
+            #define _TILE_5 'X'
+        #endif
+    #endif
+
+    // WHITE
+    #if !defined(_TILE_4)
+        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__)
+            #define _TILE_4 'O'
+        #else
+            #define _TILE_4 'o'
+        #endif
+    #endif
+
+    #if !defined(_TILE_6)
+        #if defined(__ALPHATRO__)
+            #define _TILE_6 'm'
+        #elif defined(__CIDELSA__)
+            #define _TILE_6 'M'
+        #else
+            #define _TILE_6 '#'
+        #endif
+    #endif
+
+    // BLUE
+    #if !defined(_TILE_9)
+        #if defined(__ZX80__) || defined(__CIDELSA__)
+            #define _TILE_9 'G'
+        #else
+            #define _TILE_9 '!'
+        #endif
+    #endif
+
+    // YELLOW
+    #if !defined(_TILE_7)
+        #if !defined(__CIDELSA__)
+            #define _TILE_7 '+'
+        #elif defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_7 'a'
+        #else
+            #define _TILE_7 'A'
+        #endif
+    #endif
+
+
+    #if !defined(_TILE_25)
+        #define _TILE_25 '$'
+    #endif
+
+    // GREEN
+    #if !defined(_TILE_8)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_8 'S'
+        #else
+            #define _TILE_8  'S'
+        #endif
+    #endif
+
+    #if !defined(_TILE_17)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_17 'F'
+        #else
+            #define _TILE_17 'F'
+        #endif
+    #endif
+
+    #if !defined(_TILE_18)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_18 'H'
+        #else
+            #define _TILE_18 'H'
+        #endif
+    #endif
+
+    // CYAN
+    #if !defined(_TILE_10)
+        #if defined(__ZX81__) || defined(__ZX80__)
+            #define _TILE_10 'V'
+        #else
+            #define _TILE_10 'V'
+        #endif
+    #endif
+
+    #if !defined(_TILE_11)
+        #if defined(__CIDELSA__)
+            #define _TILE_11 'O'
+        #else
+            #define _TILE_11 '.'
+        #endif
+    #endif
+
+    #if !defined(_TILE_14)
+        #define _TILE_14 '>'
+    #endif
+
+    #if !defined(_TILE_15)
+        #define _TILE_15 '<'
+    #endif
+
+    #if !defined(_TILE_16)
+        #if defined(__ZX80__) || defined(__ZX81__) 
+            #define _TILE_16 'i'
+        #elif defined(__CIDELSA__)
+            #define _TILE_16 'I'
+        #else
+            #define _TILE_16 ('^')
+        #endif
+    #endif
+
+    #if !defined(_TILE_12)
+        #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__)
+            #define _TILE_12 'i'
+        #elif defined(__ZX80__) || defined(__ZX81__) 
+            #define _TILE_12 'i'
+        #elif defined(__APPLE2__) || defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
+        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) \
+        || defined(__ZX80__) || defined(__ZX81__) 
+            #define _TILE_12 'I' 
+        #else
+            #define _TILE_12 ('|')
+        #endif 
+    #endif
+
+    #if !defined(_TILE_13)
+        #if defined(__CIDELSA__)
+            #define _TILE_13 'I'
+        #else
+            #define _TILE_13 '-'
+        #endif
+    #endif
+
+#endif
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

@@ -105,10 +105,6 @@
     #define _TILE_7 ('+'+NOT_INVERTED)
 #endif
 
-#if !defined(TILE_0_B)
-    #define _TILE_0_B '*'
-#endif 
-
 #if !defined(_TILE_25)
     #define _TILE_25 '$'
 #endif
@@ -154,20 +150,12 @@
 #endif
 
 #if !defined(_TILE_16)
-    #define _TILE_16 ('^'+NOT_INVERTED)
+    #define _TILE_16 ('#'+NOT_INVERTED)
 #endif
 
 #if !defined(_TILE_18)
     #define _TILE_18 ('H'+INVERTED)
 #endif 
-
-#if !defined(_TILE_7_B)
-    #define _TILE_7_B ('C'+INVERTED)
-#endif 
-
-#if !defined(_TILE_4_B)
-    #define _TILE_4_B ('Z'+INVERTED)	
-#endif
 
 #if !defined(_TILE_12)
     #define _TILE_12 ('#'+NOT_INVERTED)
@@ -175,10 +163,6 @@
 
 #if !defined(_TILE_13)
     #define _TILE_13 ('-'+NOT_INVERTED)
-#endif
-
-#if !defined(_TILE_5_B)
-    #define _TILE_5_B 'X'
 #endif
 
 

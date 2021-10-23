@@ -48,6 +48,32 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 };
 
 
+char *small_letters = 
+    _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j _XL_k _XL_l _XL_m \
+    _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z;
+
+
+void print_text(uint8_t x, uint8_t y, const char *str)
+{
+    uint8_t i;
+    char ch;
+    
+    i=0;
+    
+    while((ch=str[i]))
+    {
+        if((ch>='a')&&(ch<='z'))
+        {
+            _XL_CHAR(x+i,y,small_letters[ch-'a']);
+        }
+        else
+        {
+            _XL_CHAR(x+i,y,ch);
+        }
+        ++i;
+    }
+}
+
 int main(void)
 {        
     uint8_t i;
@@ -72,12 +98,12 @@ int main(void)
             _XL_PRINT(0,0, (char *) color_name[j]);
             
             #if defined(_XL_NO_TEXT_COLOR)
-                _XL_PRINT(10,0,"NO TEXT COLOR");
+                _XL_PRINT(XSize-9,1,"COLOR OFF");
             #else
-                _XL_PRINT(10,0,"TEXT COLOR");
+                _XL_PRINT(XSize-8,1,"COLOR ON");
             #endif
             
-            _XL_PRINT_CENTERED_ON_ROW(5,"SCREEN CENTERED");
+            _XL_PRINT_CENTERED_ON_ROW(5,"CENTERED");
             
             _XL_WAIT_FOR_INPUT();
 
@@ -117,8 +143,20 @@ int main(void)
                 _XL_WAIT_FOR_INPUT();
                 
                 _XL_CLEAR_SCREEN();
-   
-            }            
+            }    
+
+            print_text(XSize/2-6,YSize/2-5+0,"Ab Bb Cc Dd");
+            print_text(XSize/2-6,YSize/2-5+1,"Ee Ff Gg Hh");
+            print_text(XSize/2-6,YSize/2-5+2,"Ii Jj Kk Ll");
+            print_text(XSize/2-6,YSize/2-5+3,"Mm Nn Oo Pp");
+            print_text(XSize/2-6,YSize/2-5+4,"Qq Rr Ss Tt");
+            print_text(XSize/2-6,YSize/2-5+5,"Uu Vv Ww Xx");
+            print_text(XSize/2-6,YSize/2-5+6,"Yy Zz");
+            print_text(XSize/2-6,YSize/2-5+8," 0 1 2 3 4");
+            print_text(XSize/2-6,YSize/2-5+9," 5 6 7 8 9");
+            
+            _XL_WAIT_FOR_INPUT();
+
         }
     }
     _XL_PRINT_CENTERED_ON_ROW(YSize-5, "END OF DEMO");

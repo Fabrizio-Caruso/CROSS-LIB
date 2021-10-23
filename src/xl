@@ -258,10 +258,12 @@ def create(params):
     if len(params)<3:
         project_type = "helloworld"
     else:
-        if(params[2]=="game" or params[2]=="arcade"):
-            project_type = "game"
+        if params[2]=="game" or params[2]=="arcade":
+            project_type = "arcade_game"
+        elif params[2]=="text":
+            project_type = "text_game"
         else: 
-            if(params[2] in ["apis","show_apis","example","show"]):
+            if params[2] in ["apis","show_apis","example","show"]:
                 project_type = "demo"
             else:
                 project_type = "helloworld"

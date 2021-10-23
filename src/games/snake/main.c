@@ -936,6 +936,32 @@ void magic_wall(void)
     _XL_PRINT_CENTERED_ON_ROW(YSize/2+2, _BONUS_STRING); \
     _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
 
+
+void increase_points(uint16_t value)
+{
+    points+=value;
+    DISPLAY_POINTS();
+}
+
+
+#if !defined(NO_BONUS_ANIMATION)
+    void get_level_bonus(uint16_t level_bonus) 
+    {
+        uint16_t i;
+        
+        _XL_WAIT_FOR_INPUT();
+        for(i=0;i<level_bonus;i+=10)
+        {
+            increase_points(10);
+            _XL_TICK_SOUND();
+            _XL_SLOW_DOWN(level_bonus-i);
+        }
+    }
+
+#else
+    #define get_level_bonus(level_bonux)  increase_points(level_bonus)
+#endif
+
 #define handle_next_level() \
     rings+=coin_count; \
     if(level) \
@@ -956,7 +982,7 @@ void magic_wall(void)
         level = next_level; \
     } \
     update_remaining_apples(); \
-    increase_points(level_bonus); \
+    get_level_bonus(level_bonus); \
     _XL_WAIT_FOR_INPUT();
 
 #define handle_final_screen() \
@@ -1133,11 +1159,6 @@ void display_stats(void)
     _XL_INIT_SOUND(); \
     record = 0;
 
-void increase_points(uint16_t value)
-{
-    points+=value;
-    DISPLAY_POINTS();
-}
 
 
 int main(void)

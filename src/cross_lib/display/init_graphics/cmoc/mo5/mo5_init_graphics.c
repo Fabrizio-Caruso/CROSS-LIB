@@ -6,8 +6,7 @@ void _XL_INIT_GRAPHICS(void)
 {               
 		// Hide blinking cursor
 		PUTCH(0x14);	
-		
-
+	
 		
         #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
             

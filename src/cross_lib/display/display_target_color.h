@@ -27,7 +27,7 @@
 #endif
 
 
-#if defined(_XL_NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) || defined(__MO5__) || defined(__TO7__) \
+#if defined(_XL_NO_COLOR) || defined(__NES__) || defined(__COMX__) || defined(__PECOM__) \
     || defined(__CIDELSA__) || defined(__MICRO__) \
     || defined(__CREATIVISION__) || defined(__ORIC__) || defined(__ATMOS__)
     #define _XL_NO_TEXT_COLOR

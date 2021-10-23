@@ -250,9 +250,10 @@ typedef struct ImageStruct Image;
 #elif defined(__APPLE2__) && (defined(APPLE2_HGR))
     extern uint8_t _apple2_text_color;
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)
+#elif  defined(__MO5__) || defined(__TO7__)
+    void _XL_SET_TEXT_COLOR(uint8_t c);
 #elif defined(_XL_NO_COLOR) \
-    || defined(__ATARI5200__) \
-    || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__TO7__)|| defined(__WINCMOC__) \
+    || defined(__COCO__) || defined(__DRAGON__) || defined(__WINCMOC__) \
     || (defined(__SVI__) && defined(MSX_MODE0)) || (defined(__MSX__) && defined(MEMORY_MAPPED)) \
     || defined(__ATMOS__) \
     || defined(Z88DK_SPRITES)

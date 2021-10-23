@@ -93,7 +93,6 @@ extern uint16_t BASE_ADDR;
     }
 #elif defined(__MO5__)
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
-
 /*
 COLOR:
 lda $a7c0
@@ -211,6 +210,56 @@ lda $a7c0
     
 #ifndef Y_OFFSET
   COMPILATION ERROR
+#endif
+
+#if defined(__MO5__) || defined(__TO7__)
+
+    #define _THOMSON_BLACK 64
+    #define _THOMSON_RED 65
+    #define _THOMSON_GREEN 66
+    #define _THOMSON_YELLOW 67
+    #define _THOMSON_BLUE 68
+    #define _THOMSON_MAGENTA 69
+    #define _THOMSON_CYAN 70
+    #define _THOMSON_WHITE 71
+    #define _THOMSON_GREY 72
+
+    void _XL_SET_TEXT_COLOR(uint8_t c)
+    {
+        PUTCH(0x1B);
+        if(c==_XL_WHITE)
+        {
+            PUTCH(_THOMSON_WHITE);
+        }
+        else if(c==_XL_RED)
+        {
+            PUTCH(_THOMSON_RED);
+        }
+        else if(c==_XL_GREEN)
+        {
+            PUTCH(_THOMSON_GREEN);
+        }
+        else if (c==_XL_YELLOW)
+        {
+            PUTCH(_THOMSON_YELLOW);
+        }
+        else if(c==_XL_BLUE)
+        {
+            PUTCH(_THOMSON_BLUE);
+        }
+        else if(c==_XL_CYAN)
+        {
+            PUTCH(_THOMSON_CYAN);
+        }
+        else if(c==_XL_WHITE)
+        {
+            PUTCH(_THOMSON_WHITE);
+        }
+        else
+        {
+            PUTCH(_THOMSON_BLACK);
+        }
+    }
 #endif
 
 

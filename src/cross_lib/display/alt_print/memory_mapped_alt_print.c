@@ -243,10 +243,12 @@
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
     #include "cross_lib.h"
 
+    extern uint8_t _apple2_text_color;
+
     #define _DISPLAY(x,y,ch) \
         do \
         { \
-            hgr_draw(x, y, ch, _XL_WHITE); \
+            hgr_draw(x, y, ch, _apple2_text_color); \
         } while(0)
 	
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) && defined(NO_SCREEN_CODES)

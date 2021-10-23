@@ -23,10 +23,6 @@
         cprintf(str); 
     };
 
-    // void _XL_CHAR(uint8_t x, uint8_t y, char ch) 
-    // {
-        // DISPLAY_POKE(loc(x,y),screenCode(ch));
-    // }
 #else
     extern uint8_t _atari_text_color;
 

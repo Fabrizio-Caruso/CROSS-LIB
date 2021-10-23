@@ -30,7 +30,7 @@
 
 #if !defined(NO_SLEEP)
 
-	#if defined(__OSIC1P__)
+	#if defined(__OSIC1P__) || defined(__ZX81__)
 		#define CYCLES 500
 	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__VIC20__)
         #define CYCLES 2000
@@ -47,7 +47,8 @@
 
 #endif
 
-#if defined(NO__XL_SLOW_DOWN_MACRO) || defined(NO_SLOW_DOWN_MACRO)
+
+#if defined(NO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
         #include <stdint.h>
         #include <time.h>
@@ -62,7 +63,7 @@
             uint16_t i;
             for(i=0;i<(t);++i)
             {
-            }
+            }           
         }
     #endif
 #endif

@@ -950,11 +950,11 @@ void increase_points(uint16_t value)
         uint16_t i;
         
         _XL_WAIT_FOR_INPUT();
-        for(i=0;i<level_bonus;i+=10)
+        for(i=0;i<level_bonus;i+=5)
         {
             increase_points(10);
             _XL_TICK_SOUND();
-            _XL_SLOW_DOWN(level_bonus-i);
+            _XL_SLOW_DOWN(4*i);
         }
     }
 

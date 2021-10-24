@@ -206,7 +206,7 @@
 		}
 		else
 		{
-			return ch-128;
+			return ch&0x7F;
 		}	
 	}  
     #else

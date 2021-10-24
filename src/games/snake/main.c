@@ -56,6 +56,13 @@
 #endif
 
 #if !defined(NO_SECRET_ANIMATION)
+    void display_secret_string(uint8_t i)
+    {
+        _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+        _XL_TICK_SOUND();
+        _XL_SLOW_DOWN(32*i);
+    }
+
     void set_secret(uint8_t *secret_ptr)
     {   
         if(!(*secret_ptr))
@@ -67,18 +74,13 @@
             for(i=0;i<10;++i)
             {
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
-                _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
-                _XL_TICK_SOUND();
-                _XL_SLOW_DOWN(32*i);
+                display_secret_string(i);
+
                 #if !defined(_XL_NO_TEXT_COLOR)
-                _XL_SET_TEXT_COLOR(_XL_RED);
-                _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+                _XL_SET_TEXT_COLOR(_XL_CYAN);
+                display_secret_string(i);
                 #endif
-                _XL_TICK_SOUND();
             }
-            _XL_SHOOT_SOUND();
-            _XL_SET_TEXT_COLOR(_XL_CYAN);
-            _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
         }
     }
 #else
@@ -160,12 +162,17 @@ const uint8_t image_colors[] = {
        DISPLAY_ENERGY(); \
     }
 
-#define IF_POSSIBLE_DECREASE_SPEED() \
-    if(slow_down<_XL_SLOW_DOWN_FACTOR) \
-    { \
-        slow_down += _XL_SLOW_DOWN_FACTOR/5; \
-    }
 
+#define IF_POSSIBLE_DECREASE_SPEED() \
+    do \
+    { \
+        if(slow_down<_XL_SLOW_DOWN_FACTOR) \
+        { \
+            slow_down += _XL_SLOW_DOWN_FACTOR/5; \
+        } \
+        speed_increase_counter=0; \
+    } while(0)
+    
 
 // TODO: Maybe only horizontal and vertical checks are necessary
 #define safe_around(i,j) \
@@ -790,30 +797,33 @@ void handle_transparent_horizontal_wall(void)
 
 
 #define handle_coin_effect() \
-    snake_grows(); \
-    increase_points(RING_POINTS<<coin_count); \
-    _XL_ZAP_SOUND(); \
-    _XL_DRAW(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
-    if(coin_count>=2) \
+    do \
     { \
-        set_secret(&third_coin_achievement); \
-        spawn(SUPER_RING); \
-    } \
-    if(coin_count>=3) \
-    { \
-        set_secret(&fourth_coin_achievement); \
-        spawn_extra(SOME_EXTRA); \
-    } \
-    if(coin_count>=4) \
-    { \
-        if(secret_level_never_activated) \
+        snake_grows(); \
+        increase_points(RING_POINTS<<coin_count); \
+        _XL_ZAP_SOUND(); \
+        _XL_DRAW(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
+        if(coin_count>=2) \
         { \
-            secret_level_active = 1; \
-            _XL_SET_TEXT_COLOR(_XL_RED); \
-            _XL_PRINT(OPEN_X,OPEN_Y,_XL_O _XL_P _XL_E _XL_N "00"); \
+            set_secret(&third_coin_achievement); \
+            spawn(SUPER_RING); \
         } \
-    } \
-    ++coin_count;
+        if(coin_count>=3) \
+        { \
+            set_secret(&fourth_coin_achievement); \
+            spawn_extra(SOME_EXTRA); \
+        } \
+        if(coin_count>=4) \
+        { \
+            if(secret_level_never_activated) \
+            { \
+                secret_level_active = 1; \
+                _XL_SET_TEXT_COLOR(_XL_RED); \
+                _XL_PRINT(OPEN_X,OPEN_Y,_XL_O _XL_P _XL_E _XL_N "00"); \
+            } \
+        } \
+        ++coin_count; \
+    } while(0)
 
 
 
@@ -1273,7 +1283,8 @@ int main(void)
                     handle_collisions_with_objects();
                     
                     #if defined(DEBUG_SLOWDOWN)
-                    _XL_PRINTD(XSize+4,YSize-2,5,slow_down);
+                    _XL_PRINTD(XSize-1-5,YSize-1,5,slow_down);
+                    _XL_PRINTD(XSize-1-5-6,YSize-1,5,speed_increase_counter);
                     #endif
                 }
                 handle_mines();

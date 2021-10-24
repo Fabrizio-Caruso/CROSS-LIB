@@ -22,11 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
 
 #include "images.h"
@@ -132,8 +127,7 @@ int main(void)
                 }
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
-            
-            
+                        
             // ALIVE OR LEVEL_COMPLETED?
             if(alive)
             {

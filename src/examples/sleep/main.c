@@ -22,14 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
 
 #define COL_OFFSET ((XSize)/2-9)
 
@@ -44,8 +37,6 @@ int main(void)
     
     _XL_INIT_GRAPHICS();
     
-    _XL_INIT_SOUND();
-
     _XL_INIT_INPUT();
 
 

@@ -22,14 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10

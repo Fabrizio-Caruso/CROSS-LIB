@@ -22,22 +22,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
 
 #include "images.h"
 
-
-// #define FRAME_0 0
-// #define FRAME_1 1
-// #define FRAME_2 2
-// #define FRAME_3 3
-
-#define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
+#define _PRESS_FIRE__STRING "PRESS FIRE"
 
 static uint8_t zombie_pos[XSize];
 static uint8_t zombie_status[XSize];
@@ -83,14 +72,9 @@ void die(void)
     _XL_DELETE(zombie_index,pos+1);
     _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
     _XL_SHOOT_SOUND();
-    // _XL_WAIT_FOR_INPUT();
     _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
-    // _XL_WAIT_FOR_INPUT();
     _XL_EXPLOSION_SOUND();
     _XL_DELETE(zombie_index,pos);
-    
-    // _XL_WAIT_FOR_INPUT();
-
     zombie_status[zombie_index]=0;
     zombie_pos[zombie_index]=1;
 }
@@ -148,7 +132,6 @@ int main(void)
         }
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
-
 
     return EXIT_SUCCESS;
 }

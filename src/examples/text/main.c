@@ -23,20 +23,14 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
 
-// #if !defined(_XL_NO_TEXT_COLOR)
+#if !defined(_XL_NO_TEXT_COLOR)
 static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
-// #endif
+#endif
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
                                 "WHITE", 
@@ -82,8 +76,6 @@ int main(void)
     
     _XL_INIT_GRAPHICS();
     
-    _XL_INIT_SOUND();
-
     _XL_INIT_INPUT();
 
     for(k=0;k<3;++k)
@@ -92,8 +84,9 @@ int main(void)
         {
             _XL_CLEAR_SCREEN();
             
-            
+            #if !defined(_XL_NO_TEXT_COLOR)
             _XL_SET_TEXT_COLOR(text_color[j]);
+            #endif
             
             _XL_PRINT(0,0, (char *) color_name[j]);
             

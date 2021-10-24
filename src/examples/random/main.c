@@ -22,15 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
-
 
 int main(void)
 {        
@@ -39,8 +31,6 @@ int main(void)
     
     _XL_INIT_GRAPHICS();
     
-    _XL_INIT_SOUND();
-
     _XL_INIT_INPUT();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);

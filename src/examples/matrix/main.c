@@ -22,16 +22,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
 
 #include "images.h"
 
-// TODO: REMOVE THIS
 #if ((YSize)+(Y_OFFSET)-19)>=1
     #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
 #else

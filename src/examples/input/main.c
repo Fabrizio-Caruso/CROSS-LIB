@@ -22,20 +22,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
-
-
 
 int main(void)
 {        
-
     uint8_t counter;
     uint8_t input;
     
@@ -43,19 +33,17 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-    _XL_INIT_SOUND();
-
     _XL_CLEAR_SCREEN();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/4, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+    _XL_PRINT_CENTERED_ON_ROW(YSize/4, "PRESS FIRE");
     _XL_WAIT_FOR_INPUT();
     
     _XL_CLEAR_SCREEN();
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINT_CENTERED_ON_ROW(0, _XL_I _XL_N _XL_P _XL_U _XL_T);
+    _XL_PRINT_CENTERED_ON_ROW(0, "INPUT");
     counter = 0;
     while(counter<200)
     {
@@ -63,33 +51,33 @@ int main(void)
         
         if(_XL_FIRE(input))
         {
-            _XL_PRINT_CENTERED(_XL_F _XL_I _XL_R _XL_E _XL_SPACE);
+            _XL_PRINT_CENTERED("FIRE ");
             ++counter;
         }
         else if(_XL_LEFT(input))
         {
-            _XL_PRINT_CENTERED(_XL_L _XL_E _XL_F _XL_T _XL_SPACE);
+            _XL_PRINT_CENTERED("LEFT ");
             ++counter;
         }
         else if(_XL_RIGHT(input))
         {
-            _XL_PRINT_CENTERED(_XL_R _XL_I _XL_G _XL_H _XL_T);
+            _XL_PRINT_CENTERED("RIGHT");
             ++counter;
         }
         else if(_XL_DOWN(input))
         {
-            _XL_PRINT_CENTERED(_XL_D _XL_O _XL_W _XL_N _XL_SPACE);
+            _XL_PRINT_CENTERED("DOWN ");
             ++counter;
         }
         else if(_XL_UP(input))
         {
-            _XL_PRINT_CENTERED(_XL_U _XL_P _XL_SPACE _XL_SPACE _XL_SPACE);
+            _XL_PRINT_CENTERED("UP   ");
             ++counter;
         }
 
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_T _XL_E _XL_S _XL_T);
+    _XL_PRINT_CENTERED_ON_ROW(YSize-5, "END OF TEST");
 
     while(1){};
     

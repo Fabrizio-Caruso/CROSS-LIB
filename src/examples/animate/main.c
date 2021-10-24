@@ -23,13 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
 
 #define MIN_X 1
 #define MAX_X (XSize-2)
@@ -102,7 +96,6 @@ int main(void)
         
         _XL_SLOW_DOWN(8*_XL_SLOW_DOWN_FACTOR);
         
-
     }
     
     return EXIT_SUCCESS;

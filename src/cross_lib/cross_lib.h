@@ -26,6 +26,10 @@
 #include "standard_libs.h"
 #endif
 
+#if !defined EXIT_SUCCESS
+    #define EXIT_SUCCESS 0
+#endif
+
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 

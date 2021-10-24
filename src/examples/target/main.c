@@ -22,14 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
-
-#include "images.h"
 
 #if YSize>=17
     #define LINE_SKIP 2
@@ -51,8 +44,6 @@ int main(void)
 {        
     _XL_INIT_GRAPHICS();
     
-    _XL_INIT_SOUND();
-
     _XL_INIT_INPUT();
 
     _XL_CLEAR_SCREEN();

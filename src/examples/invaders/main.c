@@ -22,11 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
 
 #include "move_player.h"
@@ -286,19 +281,8 @@ int main(void)
                     }
                 }
             }
-            // delete_ship();
-            // if(++ship_x==XSize-2)
-            // {
-                // ship_x=0;
-                // redraw();
-            // };
+
             ++x;
-            // _XL_PRINTD(0,0,3,x);
-            // _XL_PRINTD(0,2,3,ship_x&3);
-            
-            // _XL_WAIT_VSYNC();
-            // REFRESH();
-            // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
         
     }

@@ -15,9 +15,9 @@ from os import walk
 
 COMMANDS_LIST = \
     [ \
-    "build", "clean", "create", "delete", "help", \
-    "list", "reset", "debug", "test", "tile", \
-    "rebuild", "import", "resize", "show", "string" \
+    "build", "clean", "create", "c", "delete", "help", "h", \
+    "list", "l", "reset", "debug", "d", "test", "tile", \
+    "rebuild", "import", "resize", "show", "string", "run", "r" \
     ]
 
 def are_you_sure():
@@ -734,6 +734,19 @@ def help_help():
     print("\nxl help create              \n  It displays the help page for the 'create' command")
 
 
+
+def run(params):
+    command_prefix = "../build/X" + params[1] + "_ncurses"
+    if len(params)>=4:
+        xsize = params[2]
+        ysize = params[3]
+        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + EXTENSION
+    else:
+        command_string = command_prefix + "." + EXTENSION
+    print("Going to run: " + command_string)
+    os.system(command_string)
+
+
 def help(params):
     if len(params)<2:
         print("\nxl <command> <[optional] parameters>")   
@@ -777,6 +790,20 @@ def help(params):
         
         print("\nxl resize bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
         print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
+
+    elif params[1]=="run" or params[1]=="r":
+        print("xl run <project> <xsize> <ysize>")
+        print("It runs the previously compiled native version of <project> with size <xsize> X <ysize>.")
+        print("")
+        print("<project>")
+        print("This parameter is the name of the project that we want to run.")
+        print("")
+        print("Examples:")
+        print("xl run snake")
+        print("It runs the previously built (e.g., with 'xl build snake') native version of Cross Snake.")
+        print("")  
+        print("xl run snake 16 16")
+        print("It runs the previously built with size 16X16 (with 'xl resize snake 16 16') native version of Cross Snake.")
 
     elif params[1]=="string":
         print("xl string <string>")
@@ -854,7 +881,7 @@ def help(params):
         print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
         print("If 'compile' is passed to <params>, then it compiles a test program for some targets with different compilers.")
         print("If 'z88dk_quick' is passed to <params>, then it compiles a test program using both Z88DK compilers.")
-    elif params[1]=="debug":
+    elif params[1]=="debug" or params[1]=="d":
         print("xl debug <project> <XSize> <YSize>")
         print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")
         print("The built binaries will be in the 'build' directory.")
@@ -897,7 +924,7 @@ def help(params):
         print("\nxl horde all                \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
         print("\nxl projects all             \n  It builds all built-in projects for all supported targets using all supported necessary compilers.")
         print("\nxl all c16                  \n  It builds all projects (games and examples and user-defined projects) for the Commodore 264 series using CC65.")
-    elif params[1]=="create":
+    elif params[1]=="create" or params[1]=="c":
         print("xl create <project> <[optional] type>")
         print("It creates <project>.")
         
@@ -951,7 +978,7 @@ def help(params):
         print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
         print("\nxl clean foo -y             \n  Same as above but no confirmation is asked.")
 
-    elif params[1]=="list":  
+    elif params[1]=="list" or params[1]=="l":  
         print("xl list <[optional] params>")
         print("It lists current projects in a given category or all projects.")
         print("")
@@ -961,7 +988,7 @@ def help(params):
         print("\nExamples:")
         print("xl list                       \n  It lists all projects (games, examples and new projects)")
         print("xl list projects              \n  It lists all user-defined projects") 
-    elif params[1]=="help":
+    elif params[1]=="help" or params[1]=="h":
         print("xl help <[optional] command>")
         print("It displays help instructions.")
         
@@ -1006,6 +1033,11 @@ if __name__ == "__main__":
         GNU_MAKE="make"
     else:
         GNU_MAKE="gmake"
+
+    if(platform in ["cygwin", "msys"]):
+        EXTENSION="exe"
+    else:
+        EXTENSION="out"
         
     print("GNU MAKE command: " + GNU_MAKE)
     print("----------------------------")
@@ -1017,6 +1049,8 @@ if __name__ == "__main__":
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")
         help(sys.argv[1:])
+    elif sys.argv[1]=="run" or sys.argv[1]=="r":
+        run(sys.argv[1:])
     elif sys.argv[1]=="string":
         string(sys.argv[1:])
     elif sys.argv[1]=="import":
@@ -1033,9 +1067,9 @@ if __name__ == "__main__":
         build(sys.argv[1:])
     elif sys.argv[1]=="resize":
         resize(sys.argv[1:],0)
-    elif sys.argv[1]=="debug":
+    elif sys.argv[1]=="debug" or sys.argv[1]=="d":
         resize(sys.argv[1:],1)
-    elif sys.argv[1]=="create":
+    elif sys.argv[1]=="create" or sys.argv[1]=="c":
         create(sys.argv[1:])
     elif sys.argv[1]=="clean":
         clean(sys.argv[1:])
@@ -1043,9 +1077,9 @@ if __name__ == "__main__":
         reset(sys.argv[1:])
     elif sys.argv[1]=="delete":
         delete(sys.argv[1:])
-    elif sys.argv[1]=="list":
+    elif sys.argv[1]=="list" or sys.argv[1]=="l":
         list(sys.argv[1:])
-    elif sys.argv[1]=="help":
+    elif sys.argv[1]=="help" or sys.argv[1]=="h":
         help(sys.argv[1:])
     else:
         print(sys.argv)

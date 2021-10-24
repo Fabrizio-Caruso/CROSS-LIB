@@ -60,16 +60,45 @@
     #define SECRET_X 4
 #endif
 
-void set_secret(uint8_t *secret_ptr)
-{
-    if(!(*secret_ptr))
-    {
-        (*secret_ptr)=1;
-        _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
-        _XL_SHOOT_SOUND();
+#if !defined(NO_SECRET_ANIMATION)
+    void set_secret(uint8_t *secret_ptr)
+    {   
+        if(!(*secret_ptr))
+        {
+            uint16_t i;
+            
+            (*secret_ptr)=1;
+            
+            for(i=0;i<10;++i)
+            {
+                _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+                _XL_TICK_SOUND();
+                _XL_SLOW_DOWN(32*i);
+                #if !defined(_XL_NO_TEXT_COLOR)
+                _XL_SET_TEXT_COLOR(_XL_RED);
+                _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+                #endif
+                _XL_TICK_SOUND();
+            }
+            _XL_SHOOT_SOUND();
+            _XL_SET_TEXT_COLOR(_XL_CYAN);
+            _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+        }
     }
-}
+#else
+    void set_secret(uint8_t *secret_ptr)
+    {
+        if(!(*secret_ptr))
+        {
+            (*secret_ptr)=1;
+            _XL_SET_TEXT_COLOR(_XL_CYAN);
+            _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
+            _XL_SHOOT_SOUND();
+        }
+    }  
+
+#endif
 
 
 
@@ -683,17 +712,41 @@ void handle_transparent_horizontal_wall(void)
         build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT); \
     }
 
-void one_up(void)
-{
-    ++lives;
-    DISPLAY_LIVES();
-    _XL_PING_SOUND();
-    _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*5);
-    _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
+#if !defined(NO_EXTRA_LIFE_ANIMATION)
+    void one_up(void)
+    {
+        uint16_t i;
+        
+        ++lives;
+        DISPLAY_LIVES();
+        
+        for(i=0;i<10;++i)
+        {
+            _XL_TOCK_SOUND();
+            _XL_SLOW_DOWN(32*i);
 
-    _XL_PING_SOUND();
-}
+            _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_RED);
+            _XL_TICK_SOUND();
+            _XL_SLOW_DOWN(32*i);
+            _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_YELLOW);
+        }
+        _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
+
+    }
+#else
+    void one_up(void)
+    {
+        ++lives;
+        DISPLAY_LIVES();
+        _XL_PING_SOUND();
+        _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_RED);
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*5);
+        _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
+
+        _XL_PING_SOUND();
+    }
+#endif
+
 
 #define handle_extra_life() \
     if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD) \
@@ -871,12 +924,13 @@ void magic_wall(void)
     _XL_ZAP_SOUND(); \
     IF_POSSIBLE_DECREASE_SPEED();
 
+
 #define handle_extra_life_effect() \
     _XL_ZAP_SOUND(); \
     one_up(); \
     set_secret(&extra_life_achievement[level>>2]);
 
-// TODO: All these IFs are mutually exclusive
+
 #define handle_collisions_with_objects() \
     if(hits_coin(snake_head_x,snake_head_y)) \
     { \
@@ -950,11 +1004,11 @@ void increase_points(uint16_t value)
         uint16_t i;
         
         _XL_WAIT_FOR_INPUT();
-        for(i=0;i<level_bonus;i+=5)
+        for(i=0;i<level_bonus;i+=10)
         {
             increase_points(10);
             _XL_TICK_SOUND();
-            _XL_SLOW_DOWN(4*i);
+            _XL_SLOW_DOWN(2*i);
         }
     }
 

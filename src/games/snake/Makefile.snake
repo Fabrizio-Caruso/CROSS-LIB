@@ -537,7 +537,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
-	-DREDEFINED_CHARS \
+	-DREDEFINED_CHARS -DNO_SECRET_ANIMATION -DNO_EXTRA_LIFE_ANIMATION \
 	-DSOUNDS -DUSE_MEMORY_BUFFERS \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
@@ -762,7 +762,8 @@ creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS -DNO_CONTROL_INSTRUCTIONS \
 	-DALT_SLEEP -DX_OFFSET=6  -DFORCE_XSIZE=20 -DY_OFFSET=3 -DFORCE_YSIZE=16 -DMAX_SNAKE_LENGTH=12 \
-	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE -DNO_BONUS_ANIMATION \
+	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DNO_SECRET_ANIMATION -DNO_EXTRA_LIFE_ANIMATION -DNO_BONUS_ANIMATION \
 	-D_XL_SLOW_DOWN_FACTOR=12000 -DNO_DISPLAY_LEVEL_ANIMATION \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -877,6 +878,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_2.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DALT_PRINT   -DNO_SLEEP \
+	-DNO_SECRET_ANIMATION -DNO_EXTRA_LIFE_ANIMATION \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=9000 -D_XL_NO_COLOR \
 	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
@@ -885,18 +887,6 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
 
-# supervision_test: $(ASSETS_PATH)/cc65_udc.s 
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t supervision  \
-	# --config $(CFG_PATH)/cc65/supervision-16k_GFX_2.cfg \
-	# $(ASSETS_PATH)/cc65_udc.s \
-	# -DALT_PRINT   -DNO_SLEEP \
-	# -DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	# -DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=4000 -D_XL_NO_COLOR -DNO_EXTRA_TITLE \
-	# -DANIMATE_PLAYER -DNO_EXTRA_TITLE \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(FULL_FILES) \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
 
 
 #################################################################

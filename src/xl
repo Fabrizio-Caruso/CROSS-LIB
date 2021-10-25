@@ -736,15 +736,38 @@ def help_help():
 
 
 def run(params):
-    command_prefix = "../build/X" + params[1] + "_ncurses"
-    if len(params)>=4:
-        xsize = params[2]
-        ysize = params[3]
-        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + EXTENSION
-    else:
-        command_string = command_prefix + "." + EXTENSION
-    print("Going to run: " + command_string)
-    os.system(command_string)
+    
+    if len(params)>=3:
+        target = params[2]
+        if target in ["c64","vic20","plus4","c128","xpet","cbm-ii"]:
+            extension = "prg"
+            if target=="c64":
+                emulator = "x64"
+            elif target=="vic20":
+                emulator = "xvic +drive8ram2000 +drive8ram4000 +drive8ram6000"
+            elif target=="plus4":
+                emulator = "xplus4"
+            elif target=="c128":
+                emulator = "x128"
+            elif target=="pet":
+                emulator = "xpet"
+            elif target=="cbm-ii":
+                emulator = "xcbm2"
+            
+            command_string = emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            print("Going to run: " + command_string)
+
+        else:
+            command_prefix = "../build/X" + params[1] + "_ncurses"
+
+            if len(params)>=4:
+                xsize = params[2]
+                ysize = params[3]
+                command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
+            else:
+                command_string = command_prefix + "." + NATIVE_EXTENSION
+            print("Going to run: " + command_string)
+            os.system(command_string)
 
 
 def help(params):
@@ -1035,9 +1058,9 @@ if __name__ == "__main__":
         GNU_MAKE="gmake"
 
     if(platform in ["cygwin", "msys"]):
-        EXTENSION="exe"
+        NATIVE_EXTENSION="exe"
     else:
-        EXTENSION="out"
+        NATIVE_EXTENSION="out"
         
     print("GNU MAKE command: " + GNU_MAKE)
     print("----------------------------")

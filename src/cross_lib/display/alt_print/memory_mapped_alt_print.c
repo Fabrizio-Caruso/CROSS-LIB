@@ -193,28 +193,28 @@
     #if defined(_API_VERSION) && _API_VERSION>=2
 	char screenCode(char ch)
 	{
-		if(ch<128)
+		if(ch&0x80)
+        {
+			return ch&0x7F;
+		}
+        else
 		{
-            if(ch<58)
+            if(ch<58) // TODO: Use bitwise operator <64?
             {
-                return 64+ch;
+                return ch|64;
             }
             else
             {
                 return ch;
             }
 		}
-		else
-		{
-			return ch&0x7F;
-		}	
 	}  
     #else
 	char screenCode(char ch)
 	{
-		if(ch<64)
+		if(ch<64) // TODO: Use bitwise operator
 		{
-			return 64+ch;
+			return 64+ch; // TODO: Use bitwise operator
 		}
 		else
 		{

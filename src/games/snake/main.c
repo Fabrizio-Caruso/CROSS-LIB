@@ -56,29 +56,30 @@
 #endif
 
 #if !defined(NO_SECRET_ANIMATION)
-    void display_secret_string(uint8_t i)
+    void display_secret_string(void)
     {
         _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
-        _XL_TICK_SOUND();
-        _XL_SLOW_DOWN(32*i);
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
 
     void set_secret(uint8_t *secret_ptr)
     {   
         if(!(*secret_ptr))
-        {
-            uint16_t i;
-            
+        {            
             (*secret_ptr)=1;
             
-            for(i=0;i<10;++i)
+            _XL_EXPLOSION_SOUND();
+
+            for(i=0;i<5;++i)
             {
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
-                display_secret_string(i);
+                display_secret_string();
 
                 #if !defined(_XL_NO_TEXT_COLOR)
                 _XL_SET_TEXT_COLOR(_XL_CYAN);
-                display_secret_string(i);
+                display_secret_string();
+                #else
+                _XL_PRINT(SECRET_X,YSize-1,"     ");
                 #endif
             }
         }
@@ -94,7 +95,6 @@
             _XL_SHOOT_SOUND();
         }
     }  
-
 #endif
 
 
@@ -656,6 +656,7 @@ void handle_transparent_horizontal_wall(void)
 
 #define DISPLAY_LEVEL_SCREEN() \
     _XL_CLEAR_SCREEN(); \
+    DISPLAY_RINGS(); \
     if(!level) \
     { \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \
@@ -671,7 +672,8 @@ void handle_transparent_horizontal_wall(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT(XSize/2-4,YSize/2+2,       _LEVEL_STRING); \
     _XL_PRINTD(XSize/2-4+6,YSize/2+2,2,level); \
-    _XL_WAIT_FOR_INPUT();
+    _XL_WAIT_FOR_INPUT(); \
+    DELETE_RINGS(); 
 
 #define initialize_level_variables() \
     energy = MAX_ENERGY; \
@@ -781,10 +783,20 @@ void handle_transparent_horizontal_wall(void)
         ++spawned_apples; \
     }
 
-#define handle_secret_hole() \
-    spawn_extra(SOME_EXTRA); \
-    spawn(RING); \
-    set_secret(&secret_passage[level]);
+
+#if !defined(NO_HOLE_ANIMATION)
+    #define handle_secret_hole() \
+        _XL_DRAW(snake_head_x,snake_head_y,TRANSPARENT_BRICK_TILE,_XL_YELLOW); \
+        spawn_extra(SOME_EXTRA); \
+        spawn(RING); \
+        _XL_DRAW(snake_head_x,snake_head_y,VERTICAL_HEAD_TILE,_XL_GREEN); \
+        set_secret(&secret_passage[level]);
+#else
+    #define handle_secret_hole() \
+        spawn_extra(SOME_EXTRA); \
+        spawn(RING); \
+        set_secret(&secret_passage[level]); 
+#endif
 
 
 #if XSize<30
@@ -881,6 +893,7 @@ void magic_wall(void)
         snake_grows(); \
         _XL_TICK_SOUND(); \
         increase_points(EXTRA_POINTS); \
+        speed_increase_counter = 0; \
         if(!(level&3)) \
         { \
             if(extra_count==MAGIC_WALL_THRESHOLD) \
@@ -993,7 +1006,8 @@ void magic_wall(void)
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT_CENTERED_ON_ROW(YSize/2+2, _BONUS_STRING); \
-    _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
+    _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus); \
+    rings+=coin_count;
 
 
 void increase_points(uint16_t value)
@@ -1009,9 +1023,10 @@ void increase_points(uint16_t value)
         uint16_t i;
         
         _XL_WAIT_FOR_INPUT();
-        for(i=0;i<level_bonus;i+=10)
+        increase_points(level_bonus%8);
+        for(i=level_bonus%8;i<level_bonus;i+=8)
         {
-            increase_points(10);
+            increase_points(8);
             _XL_TICK_SOUND();
             _XL_SLOW_DOWN(2*i);
         }
@@ -1022,7 +1037,6 @@ void increase_points(uint16_t value)
 #endif
 
 #define handle_next_level() \
-    rings+=coin_count; \
     if(level) \
     { \
         if(!secret_level_active) \
@@ -1137,13 +1151,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
         _XL_PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
-#define DISPLAY_RINGS() \
-{ \
-    _XL_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
-}
-
+    
 void display_stats(void)
 {    
     _XL_CLEAR_SCREEN();

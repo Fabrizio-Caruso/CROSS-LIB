@@ -9,6 +9,20 @@
     #define HISCORE_OFFSET 0
 #endif
 
+#define ACHIEVEMENTS_X_OFFSET ((XSize)/4)
+#define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
+
+#if !defined(NO_DISPLAY_RINGS)
+    void DISPLAY_RINGS(void);
+
+    #define DELETE_RINGS() \
+        _XL_PRINT(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, "     ")
+#else
+    #define DISPLAY_RINGS()
+
+    #define DELETE_RINGS()
+#endif
+
 
 
 #define _NO_ENERGY_STRING _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y

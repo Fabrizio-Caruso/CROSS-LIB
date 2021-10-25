@@ -6,6 +6,15 @@
 
 #include "init_images.h"
 
+#if !defined(NO_DISPLAY_RINGS)
+void DISPLAY_RINGS(void)
+{
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); 
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings);
+}
+#endif
+
 #if !defined(NO_EXTRA_TITLE)
 const char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {

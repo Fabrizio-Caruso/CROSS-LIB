@@ -734,16 +734,36 @@ def help_help():
     print("\nxl help create              \n  It displays the help page for the 'create' command")
 
 
+def run_native(params):
+    command_prefix = "../build/X" + params[1] + "_ncurses"
+
+    if len(params)>=4:
+        xsize = params[2]
+        ysize = params[3]
+        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
+    else:
+        command_string = command_prefix + "." + NATIVE_EXTENSION
+    print("Going to run: " + command_string)
+    os.system(command_string)
 
 def run(params):
     
+    if len(params)==2:
+        run_native(params)
+    
     if len(params)>=3:
         target = params[2]
-        if target in ["c64","vic20","plus4","c128","xpet","cbm-ii"]:
+        if target=="vic20":
+            target = "vic20_exp_8k"
+        if target=="ncurses":
+            run_native(params[0:2]+params[3:])
+        
+            
+        elif target in ["c64","vic20_exp_8k","vic20_exp_16k","plus4","c128","xpet","cbm-ii"]:
             extension = "prg"
             if target=="c64":
                 emulator = "x64"
-            elif target=="vic20":
+            elif target.startswith("vic20"):
                 emulator = "xvic +drive8ram2000 +drive8ram4000 +drive8ram6000"
             elif target=="plus4":
                 emulator = "xplus4"
@@ -753,21 +773,13 @@ def run(params):
                 emulator = "xpet"
             elif target=="cbm-ii":
                 emulator = "xcbm2"
-            
+                        
             command_string = emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             print("Going to run: " + command_string)
+            os.system(command_string)
 
         else:
-            command_prefix = "../build/X" + params[1] + "_ncurses"
-
-            if len(params)>=4:
-                xsize = params[2]
-                ysize = params[3]
-                command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
-            else:
-                command_string = command_prefix + "." + NATIVE_EXTENSION
-            print("Going to run: " + command_string)
-            os.system(command_string)
+            run_native(params)
 
 
 def help(params):

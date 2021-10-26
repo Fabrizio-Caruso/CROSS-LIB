@@ -36,24 +36,34 @@
 #define _Fabrizio_Caruso_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
 #define _PRESS_FIRE_STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
 
-#if !defined(NO_EXTRA_TITLE)
+#if YSize>=20
+    #define LINE_SKIP 2
+    #define LINE_OFFSET 8
+    #define SNAKE_LINE_OFFSET 5
+#else
+    #define SNAKE_LINE_OFFSET 4
+    #define LINE_OFFSET 6
+    #define LINE_SKIP 1
+#endif
+
+#if !defined(NO_EXTRA_TITLE) && YSize>=16
     #define extra_title() \
     { \
         uint8_t i; \
         show_intro_snake(); \
-        _XL_DRAW(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,_XL_RED); \
+        _XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
         for(i=0;i<NUMBER_OF_STRINGS;++i) \
         { \
-            _XL_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
+            _XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
             _XL_SET_TEXT_COLOR(_XL_WHITE); \
-            _XL_PRINT(XSize/2-4,YSize/8+8+2*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
+            _XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
         } \
     }
 #else
     #define extra_title() \
     { \
         show_intro_snake(); \
-        _XL_DRAW(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,_XL_RED); \
+        _XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
     }
 #endif
 

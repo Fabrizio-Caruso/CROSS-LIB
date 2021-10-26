@@ -30,10 +30,10 @@ void show_intro_snake(void)
 {
     for(i=0;i<XSize/2-2;++i)
     {
-        _XL_DRAW(XSize/4+i,YSize/8+5,BODY_TILE, _XL_GREEN);
+        _XL_DRAW(XSize/4+i,YSize/8+SNAKE_LINE_OFFSET,BODY_TILE, _XL_GREEN);
         
     }
-    _XL_DRAW(XSize/4+XSize/2-2,YSize/8+5,HORIZONTAL_HEAD_TILE, _XL_GREEN);
+    _XL_DRAW(XSize/4+XSize/2-2,YSize/8+SNAKE_LINE_OFFSET,HORIZONTAL_HEAD_TILE, _XL_GREEN);
 
 }
 

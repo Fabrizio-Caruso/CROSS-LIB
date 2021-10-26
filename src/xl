@@ -764,7 +764,7 @@ def run(params):
             if target=="c64":
                 emulator = "x64"
             elif target.startswith("vic20"):
-                emulator = "xvic +drive8ram2000 +drive8ram4000 +drive8ram6000"
+                emulator = "xvic -memory 24k"
             elif target=="plus4":
                 emulator = "xplus4"
             elif target=="c128":

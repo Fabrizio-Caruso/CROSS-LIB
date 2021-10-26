@@ -9,8 +9,21 @@
     #define HISCORE_OFFSET 0
 #endif
 
-#define ACHIEVEMENTS_X_OFFSET ((XSize)/4)
+#define ACHIEVEMENTS_X_OFFSET (((XSize)/2)-5)
 #define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
+
+#if YSize>=20
+    #define STAT_OFFSET 4
+#else
+    #define STAT_OFFSET 2
+#endif
+
+
+#if YSize>=15
+    #define LEVEL_OFFSET 2
+#else
+    #define LEVEL_OFFSET 0
+#endif
 
 #if !defined(NO_DISPLAY_RINGS)
     void DISPLAY_RINGS(void);

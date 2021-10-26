@@ -1122,10 +1122,6 @@ void increase_points(uint16_t value)
 
 #if !defined(NO_ACHIEVEMENTS_SCREEN)
 
-#define ACHIEVEMENTS_X_OFFSET ((XSize)/4)
-#define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
-
-
 
 void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
@@ -1197,9 +1193,9 @@ void display_stats(void)
     
     
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINT(ACHIEVEMENTS_X_OFFSET+2,ACHIEVEMENTS_Y_OFFSET+7,_SECRET_STRING _XL_S);
+    _XL_PRINT(ACHIEVEMENTS_X_OFFSET+2,ACHIEVEMENTS_Y_OFFSET+STAT_OFFSET+3,_SECRET_STRING _XL_S);
 
-    display_achievements(ACHIEVEMENTS_Y_OFFSET+9,lives, 50);
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+STAT_OFFSET+5,lives, 50);
     
     if(!level)
     {
@@ -1207,14 +1203,14 @@ void display_stats(void)
     }
     --level;
 
-    _XL_DRAW(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,LV_TEXT_TILE,_XL_GREEN);    
-    display_achievements(ACHIEVEMENTS_Y_OFFSET+14,level,32);
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+STAT_OFFSET+LEVEL_OFFSET+7,LV_TEXT_TILE,_XL_GREEN);    
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+STAT_OFFSET+LEVEL_OFFSET+7,level,32);
     
     
     if(!secret_level_never_activated)
     {
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+16,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+        _XL_PRINT(ACHIEVEMENTS_X_OFFSET-1,ACHIEVEMENTS_Y_OFFSET+STAT_OFFSET+LEVEL_OFFSET+8,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
 #endif

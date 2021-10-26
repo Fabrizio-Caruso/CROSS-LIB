@@ -332,9 +332,7 @@ apple2enh_80col:
 #######################################################################################
 # ATARI
 
-atari: atari_color
-
-atari_color: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -350,7 +348,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \

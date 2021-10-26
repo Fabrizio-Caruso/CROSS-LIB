@@ -346,9 +346,8 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 
 #################################################################
 
-atari: atari_color
 
-atari_color: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS -D_API_VERSION=$(API_VERSION) \
 	-DINITIAL_SLOWDOWN=31500 \

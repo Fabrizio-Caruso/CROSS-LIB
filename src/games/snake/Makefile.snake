@@ -403,9 +403,8 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 
 #################################################################
 
-atari: atari_color
 
-atari_color: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DINLINE_LOC -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 -DALT_SLEEP \
@@ -422,9 +421,8 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
-atari_v2: atari_color_v2
 
-atari_color_v2: $(ASSETS_PATH)/8x8_chars.h
+atari_v2: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DINLINE_LOC -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 -D_API_VERSION=2 \
@@ -440,6 +438,7 @@ atari_color_v2: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
+
 
 atari_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \

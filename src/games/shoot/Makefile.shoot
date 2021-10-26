@@ -307,9 +307,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 #################################################################
 
 
-atari: atari_color
-
-atari_color: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -325,7 +323,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 #################################################################
 
@@ -343,7 +341,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
 
 #################################################################

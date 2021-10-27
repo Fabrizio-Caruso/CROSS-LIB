@@ -24,8 +24,6 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
-
 #define INITIAL_LEVEL 1
 #define FINAL_LEVEL 8
 

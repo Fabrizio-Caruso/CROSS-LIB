@@ -25,7 +25,8 @@
 #include "cross_lib.h"
 
 #include "move_player.h"
-#include "images.h"
+
+#include "tile_aliases.h"
 
 #if !defined(_XL_SLOW_DOWN_FACTOR)
     #define _XL_SLOW_DOWN_FACTOR 0

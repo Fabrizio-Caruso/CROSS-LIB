@@ -24,7 +24,6 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
 
 int main(void)
 {        

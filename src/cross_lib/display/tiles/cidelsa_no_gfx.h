@@ -26,7 +26,7 @@
 #define _DEFAULT_GRAPHICS_SETTINGS
 
 #if !defined(_DEFAULT_ASCII)
-    #include "char_tiles.h"
+    #include "tiles/ASCII/char_tiles.h"
 #endif
 
 #if !defined(_TILE_19)

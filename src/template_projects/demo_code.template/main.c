@@ -24,7 +24,6 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
 
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19

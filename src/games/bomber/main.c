@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
+#include "tile_aliases.h"
 
 #  if _XL_SLOW_DOWN_FACTOR<20
     #define LEVEL_SPEED_UP 0

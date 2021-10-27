@@ -22,14 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
-#if !defined EXIT_SUCCESS
-    #define EXIT_SUCCESS 0
-#endif
-
 #include "cross_lib.h"
 
-#include "images.h"
 
 #define INITIAL_LEVEL 1
 #define FINAL_LEVEL 4

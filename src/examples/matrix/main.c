@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
+#include "tile_aliases.h"
 
 #if ((YSize)+(Y_OFFSET)-19)>=1
     #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)

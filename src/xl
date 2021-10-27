@@ -292,7 +292,7 @@ def create(params):
         print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
-    file_names = ["char_tiles.h", "images.h", "main.c"]
+    file_names = ["main.c"]
 
 
     for file_name in file_names:

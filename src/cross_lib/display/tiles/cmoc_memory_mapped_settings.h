@@ -27,7 +27,7 @@
 #include "cross_lib.h"
 
 #if !defined(_DEFAULT_ASCII)
-    #include "char_tiles.h"
+    #include "tiles/ASCII/char_tiles.h"
 #endif
 
 

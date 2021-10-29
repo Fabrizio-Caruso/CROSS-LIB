@@ -108,9 +108,10 @@ In most cases the user will just have to
 
 ![User](snapshots/User.bmp)
 
-The `xl` script will trigger the full build process which will produce the target specific version of the game 
-or massively build the same game for several targets (or even build several games for one or more targets).
-For example for the sole GameBoy target we may repressent the interractions of various Cross-Lib components with this diagram:
+The `xl` script will trigger the full build process which will produce the target specific version of the project 
+or massively build the same project for several targets (or even build several projects for one or more targets).
+For example for the build of a project for the sole GameBoy target we may repressent 
+the interractions of various Cross-Lib components with this diagram:
 
 ![User](snapshots/CrossLibFlow7.png)
 
@@ -340,19 +341,22 @@ The code has to be compiled by several different compilers that do not necessari
 Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
 
 This sub-set can be described as (mostly) ANSI C89 without:
-- `float` types,
-- `struct` copies, assignments, parameters (use pointers to `struct` instead).
+- `float` types;
+- `struct` copies, assignments, parameters (use pointers to `struct` instead);
+- dynamically allocated memory (`malloc`, `free`).
 
 Moreover for performance reasons it is better to avoid recursion (as this has an extreme high cost on MOS 6502 targets).
 
 Some C99 features are available:
 - Modern `//` comments are allowed.
-- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no extra include directive). 
+- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no need for extra include directive). 
+
 
 ### Screen size
 Using Cross-Lib APIs is not enough as the screen size and shape may be different.
 Cross-Lib exposes a constant `XSize` for the width of the screen and a constant `YSize` for the height of the screen.
-The game code should rely on fractions of `XSize` and of `YSize` and never use hard-coded sizes.
+Both these macros are measured in terms of numbers of *tiles* (see next section).
+The game code should rely on fractions of `XSize` and of `YSize` and never use hard-coded sizes or use conditional directives to cover all sizes.
 By doing so, upon compilation, the game will auto-adapt to the target's screen size.
 
 
@@ -364,7 +368,8 @@ So, for targets with graphics, smoothly moving sprites can only be implemented a
 
 Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
 So do not implement logic that only assumes 8x8 pixel tiles (e.g. when implementing software sprites with pre-shifted tiles). 
-If you want to support targets with no graphics (i.e., tiles are just mapped to ASCII characters), you either avoid code that depends on tile shapes or if you, you have to implement an alternative version for non-graphics targets.
+If you want to support targets with no graphics (i.e., tiles are just mapped to ASCII characters), 
+you either avoid code that depends on tile shapes or if you, you have to implement an alternative version for non-graphics targets.
 
 For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
 
@@ -388,9 +393,9 @@ The code of the games is in:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/games
 
-The code of some tests is in:
+The code of the examples is in:
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/tests
+https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/examples
 
 
 -------------------------------------------

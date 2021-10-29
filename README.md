@@ -106,7 +106,7 @@ In most cases the user will just have to
 - draw the graphics assets;
 - run the `xl` script to create, build and test the game.
 
-![User](snapshots/User.png)
+![User](snapshots/User.bmp)
 
 The `xl` script will trigger the full build process which will produce the target specific version of the game 
 or massively build the same game for several targets (or even build several games for one or more targets).

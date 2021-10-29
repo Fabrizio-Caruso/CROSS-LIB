@@ -92,6 +92,29 @@ Cross-Lib provides:
 - makefiles that handle the build process;
 - the "user-friendly" script `xl` to manage game projects (see the subsequent sections below).
 
+
+
+### The build process
+
+When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
+1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
+2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
+3. if needed, whenever possible, create a disk/cassette/cartridge image.
+
+In most cases the user will just have to
+- code in C a game that uses Cross-Lib APIs;
+- draw the graphics assets;
+- run the `xl` script to create, build and test the game.
+
+![User](snapshots/User.png)
+
+The `xl` script will trigger the full build process which will produce the target specific version of the game 
+or massively build the same game for several targets (or even build several games for one or more targets).
+For example for the sole GameBoy target we may repressent the interractions of various Cross-Lib components with this diagram:
+
+![User](snapshots/CrossLibFlow7.png)
+
+
 ### The compilers
 
 Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
@@ -100,13 +123,6 @@ The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC
 For more details on the supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
-
-### The build process
-
-When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
-1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
-2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
-3. if needed, whenever possible, create a disk/cassette/cartridge image.
 
 -------------------------------------------
 

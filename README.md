@@ -131,7 +131,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 Cross-Lib is meant to be used under a POSIX environment (Windows+Cygwin, Linux, etc.).
 
 In order to be able to build the games and tests on all `default targets` you need:
-- `make`
+- GNU `make`
 - `python` (2.x or 3.x)
 - `gcc` and `ncurses` (necessary only for native builds)
 - cross-compilers (necessary to build for vintage targets)
@@ -153,6 +153,7 @@ It has been tested on:
 - Windows (7, 10) + `Cygwin`
 - Linux Ubuntu 18.04 under the Windows Subsystem
 - Linux (KUbuntu 18.04, Lubuntu 21.10) 
+- FreeBSD 13.0
 
 Cross-Lib itself does not require any installation. It is just a source library and scripts that is ready to use as is, by just downloading or cloning the content of this repository.
 For example you can do it by:

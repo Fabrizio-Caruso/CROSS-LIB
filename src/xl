@@ -539,8 +539,8 @@ def starts_with_dot_byte_directive(line):
 def starts_with_exclamation_byte_directive(line):
     return line.startswith("!byte") or line.startswith("!BYTE")
   
-def starts_with_dot_decb_directive(line):
-    return line.startswith(".DECB") or line.startswith(".decb")
+def starts_with_defb_directive(line):
+    return line.startswith("DEFB") or line.startswith("defb")
  
  
 def starts_with_fcb_directive(line):
@@ -562,7 +562,7 @@ def asm_import(params):
     filtered_lines = []
 
     dot_byte_count = 0
-    dot_decb_count = 0
+    defb_count = 0
     fcb_count = 0
     db_count = 0
     exclamation_byte_count = 0
@@ -573,8 +573,8 @@ def asm_import(params):
         trimmed_lines.append(line)
         if starts_with_dot_byte_directive(line):
             dot_byte_count+=1
-        elif starts_with_dot_decb_directive(line):
-            dot_decb_count+=1
+        elif starts_with_defb_directive(line):
+            defb_count+=1
         elif starts_with_fcb_directive(line):
             fcb_count+=1
         elif starts_with_db_directive(line):
@@ -582,14 +582,14 @@ def asm_import(params):
         elif starts_with_exclamation_byte_directive(line):
             exclamation_byte_count+=1
             
-    directive_counts = [dot_byte_count, dot_decb_count, fcb_count, db_count, exclamation_byte_count]
+    directive_counts = [dot_byte_count, defb_count, fcb_count, db_count, exclamation_byte_count]
     max_directive_count = max(directive_counts)
     max_index = directive_counts.index(max_directive_count)
 
     if max_index==0:
         directive = ".byte"   
     elif max_indxe==1:
-        directive = ".decb"
+        directive = "defb"
     elif max_index==2:
         directive = "fcb"
     elif max_index==3:

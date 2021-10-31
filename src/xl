@@ -550,6 +550,10 @@ def starts_with_fcb_directive(line):
 def starts_with_db_directive(line):
     return line.startswith("db") or line.startswith("DB")
 
+def starts_with_dc_dot_b_directive(line):
+    return line.startswith("dc.b") or line.startswith("DC.B")
+
+
 
 def asm_import(params):
     fin = open(params[1], "rt")
@@ -566,6 +570,7 @@ def asm_import(params):
     fcb_count = 0
     db_count = 0
     exclamation_byte_count = 0
+    dc_dot_b_count = 0
 
     for line in lines:
         line = line.split(";")[0]
@@ -581,8 +586,11 @@ def asm_import(params):
             db_count+=1
         elif starts_with_exclamation_byte_directive(line):
             exclamation_byte_count+=1
+        elif starts_with_dc_dot_b_directive(line):
+            dc_dot_b_count+=1
             
-    directive_counts = [dot_byte_count, defb_count, fcb_count, db_count, exclamation_byte_count]
+            
+    directive_counts = [dot_byte_count, defb_count, fcb_count, db_count, exclamation_byte_count, dc_dot_b_count]
     max_directive_count = max(directive_counts)
     max_index = directive_counts.index(max_directive_count)
 
@@ -594,8 +602,10 @@ def asm_import(params):
         directive = "fcb"
     elif max_index==3:
         directive = "db"
-    else:
+    elif max_index==4:
         directive = "!byte"
+    else:
+        directive = "dc.b"
     
     print("Detected directive: " + directive)
     directive_length = len(directive)

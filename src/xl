@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 
 DEBUG_TARGET  = "ncurses_debug"
+
 NATIVE_TARGET = "ncurses_debug"
+
 NUMBER_OF_TILES = 26
+
 ONE_REPPRESENTATIONS = ["#","*","X","x","1","+","@","$","O","o"]
+
+PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","data"] 
+
 
 import shutil
 
@@ -533,26 +539,17 @@ def list(params):
     return projects
 
 
-def starts_with_dot_byte_directive(line):
-    return line.startswith(".byte") or line.startswith(".BYTE")
-  
-def starts_with_exclamation_byte_directive(line):
-    return line.startswith("!byte") or line.startswith("!BYTE")
-  
-def starts_with_defb_directive(line):
-    return line.startswith("DEFB") or line.startswith("defb")
- 
- 
-def starts_with_fcb_directive(line):
-    return line.startswith("FCB") or line.startswith("fcb")
+def starts_with(line, pattern):
+    return line.startswith(pattern) or line.startswith(pattern.upper())
 
 
-def starts_with_db_directive(line):
-    return line.startswith("db") or line.startswith("DB")
-
-def starts_with_dc_dot_b_directive(line):
-    return line.startswith("dc.b") or line.startswith("DC.B")
-
+def line_pattern(line):
+    for i in range(len(PATTERN_LIST)):
+        if starts_with(line,PATTERN_LIST[i]):
+            return i
+    
+    return -1
+            
 
 
 def asm_import(params):
@@ -565,49 +562,23 @@ def asm_import(params):
     trimmed_lines = []
     filtered_lines = []
 
-    dot_byte_count = 0
-    defb_count = 0
-    fcb_count = 0
-    db_count = 0
-    exclamation_byte_count = 0
-    dc_dot_b_count = 0
-
+    pattern_count = [0] * len(PATTERN_LIST)
+            
     for line in lines:
         line = line.split(";")[0]
         line = line.replace(" ","").replace("\n","")
         trimmed_lines.append(line)
-        if starts_with_dot_byte_directive(line):
-            dot_byte_count+=1
-        elif starts_with_defb_directive(line):
-            defb_count+=1
-        elif starts_with_fcb_directive(line):
-            fcb_count+=1
-        elif starts_with_db_directive(line):
-            db_count+=1
-        elif starts_with_exclamation_byte_directive(line):
-            exclamation_byte_count+=1
-        elif starts_with_dc_dot_b_directive(line):
-            dc_dot_b_count+=1
-            
-            
-    directive_counts = [dot_byte_count, defb_count, fcb_count, db_count, exclamation_byte_count, dc_dot_b_count]
-    max_directive_count = max(directive_counts)
-    max_index = directive_counts.index(max_directive_count)
+        pattern_index = line_pattern(line)
+        if pattern_index>=0:
+            pattern_count[pattern_index]+=1
 
-    if max_index==0:
-        directive = ".byte"   
-    elif max_indxe==1:
-        directive = "defb"
-    elif max_index==2:
-        directive = "fcb"
-    elif max_index==3:
-        directive = "db"
-    elif max_index==4:
-        directive = "!byte"
-    else:
-        directive = "dc.b"
-    
+    max_directive_count = max(pattern_count)
+    max_index = pattern_count.index(max_directive_count)  
+        
+    directive = PATTERN_LIST[max_index]
+        
     print("Detected directive: " + directive)
+        
     directive_length = len(directive)
 
     for line in trimmed_lines:
@@ -878,7 +849,7 @@ def help(params):
         print("")
         print("<asm_file>")
         print("It is an Assembly file (e.g., a file an asm file exported from CharPad or VChar64).")
-        print("For example in CharPad you can export it with:")
+        print("For example in CharPad you can export the tile data with:")
         print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
         print("")
         print("<project>")

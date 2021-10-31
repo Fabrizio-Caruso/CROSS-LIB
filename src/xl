@@ -565,6 +565,7 @@ def asm_import(params):
     db_count = 0
 
     for line in lines:
+        line = line.split(";")[0]
         line = line.replace(" ","").replace("\n","")
         trimmed_lines.append(line)
         if starts_with_dot_byte_directive(line):
@@ -856,10 +857,11 @@ def help(params):
         print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
         print("Use 'xl help reset' and 'xl help build' for more information")
     elif params[1]=="import":
-        print("xl import <charpad_asm_file> <[optional] project>")
+        print("xl import <asm_file> <[optional] project>")
         print("")
-        print("<charpad_asm_file>")
-        print("It is an exported asm CharPad file")
+        print("<asm_file>")
+        print("It is an Assembly file (e.g., a file an asm file exported from CharPad or VChar64).")
+        print("For example in CharPad you can export it with:")
         print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
         print("")
         print("<project>")
@@ -868,7 +870,7 @@ def help(params):
         print("Example:")
         print("If you create a new project 'myname' with")
         print("xl create myname")
-        print("You can import from an Assembly CharPad exported file with something like:")
+        print("You can import from an Assembly file with something like:")
         print("xl import ./examples/tiles/tiles_all.asm")
     elif params[1]=="tile":
         print("xl tile <shape_file> <[optional] project> <[optional] tile_index>")

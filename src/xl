@@ -12,7 +12,7 @@ ASSEMBLY_EXTENSIONS = [".s",".S",".asm",".a99",".as"]
 
 BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE"] 
 WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA"] 
-BASIC_PATTERN_LIST = ["symbol", "SYMBOL"]
+BASIC_PATTERN_LIST = ["symbol", "SYMBOL", "dA"]
 
 PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST + BASIC_PATTERN_LIST
 
@@ -620,8 +620,9 @@ def import_from_source(params):
     new_tile=""
     single_byte_count = 0
 
+    print(len(filtered_lines))
 
-    while tile_count<min(NUMBER_OF_TILES,len(filtered_lines)):
+    while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
         trimmed_line = filtered_lines[line_index].split(directive)[1]
         line_index+=1
         data_list = trimmed_line.split(",")
@@ -782,8 +783,7 @@ def run(params):
             target = "vic20_exp_8k"
         if target=="ncurses":
             run_native(params[0:2]+params[3:])
-        
-            
+
         elif target in ["c64","vic20_exp_8k","vic20_exp_16k","plus4","c128","xpet","cbm-ii"]:
             extension = "prg"
             if target=="c64":

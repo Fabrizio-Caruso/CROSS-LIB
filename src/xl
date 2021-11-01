@@ -563,26 +563,28 @@ def asm_import(params):
     filtered_lines = []
 
     pattern_count = [0] * len(PATTERN_LIST)
-            
+          
+    # Do some filtering and count most common candidate directive
     for line in lines:
+        # Remove comments 
         line = line.split(";")[0]
+        
+        # Remove spaces and convert hex notation to $
         line = line.replace(" ","").replace("\n","").replace(">","$").replace("&","$")
+        
         trimmed_lines.append(line)
         pattern_index = line_pattern(line)
         if pattern_index>=0:
             pattern_count[pattern_index]+=1
 
     max_directive_count = max(pattern_count)
-    max_index = pattern_count.index(max_directive_count)  
-        
+    max_index = pattern_count.index(max_directive_count)      
     directive = PATTERN_LIST[max_index]
         
     print("Detected directive: " + directive)
         
-    directive_length = len(directive)
-
     for line in trimmed_lines:
-        if line.startswith(directive) or line.startswith(directive.upper()):
+        if directive in line or directive.upper() in line:
             filtered_lines.append(line)
  
     res = ""
@@ -593,7 +595,7 @@ def asm_import(params):
     single_byte_count = 0
 
     while(tile_count<NUMBER_OF_TILES):
-        trimmed_line = filtered_lines[line_index][directive_length:]
+        trimmed_line = filtered_lines[line_index].split(directive)[1]
         line_index+=1
         data_list = trimmed_line.split(",")
 

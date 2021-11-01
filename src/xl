@@ -639,10 +639,6 @@ def import_from_source(params):
     line_index = 0
     new_tile=""
     single_byte_count = 0
-    
-    print(filtered_lines)
-
-    print(len(filtered_lines))
 
     while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
         trimmed_line = filtered_lines[line_index].split(directive)[1]
@@ -653,7 +649,6 @@ def import_from_source(params):
         
         line_index+=1
         data_list = trimmed_line.split(",")
-        print(data_list)
         if basic_code:
             data_list = fill_empty_slots_with_zero(data_list)
     

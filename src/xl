@@ -8,10 +8,13 @@ NUMBER_OF_TILES = 26
 
 ONE_REPPRESENTATIONS = ["#","*","X","x","1","+","@","$","O","o"]
 
+ASSEMBLY_EXTENSIONS = [".s",".S",".asm",".a99",".as"]
+
 BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE"] 
 WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA"] 
+BASIC_PATTERN_LIST = ["symbol", "SYMBOL"]
 
-PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST
+PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST + BASIC_PATTERN_LIST
 
 import shutil
 
@@ -549,9 +552,24 @@ def line_pattern(line):
     return -1
 
 
-def asm_import(params):
-    fin = open(params[1], "rt")
+def has_assembly_extension(string, patterns):
+    for i in range(len(patterns)):
+        if string.endswith(patterns[i]) or string.endswith(patterns[i].upper()):
+            return True
+    return False
+
+
+def import_from_source(params):
+    filename = params[1]
+    fin = open(filename, "rt")
     
+    if has_assembly_extension(filename,ASSEMBLY_EXTENSIONS):
+        assembly_extension = True
+    else:
+        assembly_extension = False
+     
+    print("Assembly extension: " + str(assembly_extension)) 
+     
     lines = fin.readlines()
     
     xsize = 8
@@ -578,7 +596,10 @@ def asm_import(params):
     max_index = pattern_count.index(max_directive_count)      
     directive = PATTERN_LIST[max_index]
         
-    if directive in WORD_PATTERN_LIST:
+    # DATA can be both an Assembly (TMS9900) directive or a BASIC command
+    if (directive=="data" or directive=="DATA") and not assembly_extension:
+        word_data = False
+    elif directive in WORD_PATTERN_LIST:
         word_data = True
     else:
         word_data = False
@@ -612,7 +633,6 @@ def asm_import(params):
                 new_data_list += [data_list[i][0:3],"$"+data_list[i][3:5]]
             data_list = new_data_list
         
-
         for data in data_list:
             new_tile+=data
             single_byte_count+=1
@@ -861,10 +881,10 @@ def help(params):
         print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
         print("Use 'xl help reset' and 'xl help build' for more information")
     elif params[1]=="import":
-        print("xl import <asm_file> <[optional] project>")
+        print("xl import <source_file> <[optional] project>")
         print("")
-        print("<asm_file>")
-        print("It is an Assembly file (e.g., a file an asm file exported from CharPad or VChar64).")
+        print("<source_file>")
+        print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
         print("For example in CharPad you can export the tile data with:")
         print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
         print("")
@@ -1095,7 +1115,7 @@ if __name__ == "__main__":
     elif sys.argv[1]=="string":
         string(sys.argv[1:])
     elif sys.argv[1]=="import":
-        asm_import(sys.argv[1:])
+        import_from_source(sys.argv[1:])
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
     elif sys.argv[1]=="show":

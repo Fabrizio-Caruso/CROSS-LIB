@@ -559,6 +559,17 @@ def has_assembly_extension(string, patterns):
     return False
 
 
+def fill_empty_slots_with_zero(data_list):
+    new_list = []
+    for i in range(len(data_list)):
+        if data_list[i]=="":
+            new_list.append("0")
+        else:
+            new_list.append(data_list[i])
+    
+    return new_list
+
+
 def import_from_source(params):
     filename = params[1]
     fin = open(filename, "rt")
@@ -581,9 +592,6 @@ def import_from_source(params):
           
     # Do some filtering and count most common candidate directive
     for line in lines:
-        # Remove comments 
-        line = line.split(";")[0]
-        
         # Remove spaces and convert hex notation to $
         line = line.replace(" ","").replace("\n","").replace(">","$").replace("&","$")
         
@@ -596,21 +604,33 @@ def import_from_source(params):
     max_index = pattern_count.index(max_directive_count)      
     directive = PATTERN_LIST[max_index]
         
+    if directive in BASIC_PATTERN_LIST:
+        basic_code = True
+    else:
+        basic_code = False
     # DATA can be both an Assembly (TMS9900) directive or a BASIC command
     if (directive=="data" or directive=="DATA") and not assembly_extension:
         word_data = False
+        basic_code = True
     elif directive in WORD_PATTERN_LIST:
         word_data = True
     else:
         word_data = False
     
-    print("pattern_count: " + str(pattern_count))
+    print("Pattern count: " + str(pattern_count))
     print("Detected directive: " + directive)
     print("16-bit data detected: " + str(word_data))
+    print("BASIC code: " + str(basic_code))
     print("")
         
     for line in trimmed_lines:
+     
         if directive in line or directive.upper() in line:
+            if basic_code:
+                line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
+            else:
+                # Remove comments 
+                line = line.split(";")[0]
             filtered_lines.append(line)
  
     res = ""
@@ -619,13 +639,23 @@ def import_from_source(params):
     line_index = 0
     new_tile=""
     single_byte_count = 0
+    
+    print(filtered_lines)
 
     print(len(filtered_lines))
 
     while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
         trimmed_line = filtered_lines[line_index].split(directive)[1]
+        
+        # Add extra 0 if data lines ends with a comma
+        # if basic_code and trimmed_line.endswith(","):
+            # trimmed_line+="0"
+        
         line_index+=1
         data_list = trimmed_line.split(",")
+        print(data_list)
+        if basic_code:
+            data_list = fill_empty_slots_with_zero(data_list)
     
         # Remark: It only works for hex notation: Split word into two bytes 
         if word_data:

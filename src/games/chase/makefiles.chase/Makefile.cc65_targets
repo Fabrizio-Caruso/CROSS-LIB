@@ -69,7 +69,7 @@ apple2enh_targets: \
 
 
 atari_targets: \
-	atari_color atari_no_color
+	atari atari_no_color
 
 
 atari5200_targets: \

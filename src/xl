@@ -628,6 +628,11 @@ def import_from_source(params):
         if directive in line or directive.upper() in line:
             if basic_code:
                 line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
+                line = line.split(":REM")[0]
+                line = line.split(":rem")[0]
+                line = line.split(": REM")[0]
+                line = line.split(": rem")[0]
+                line = line.split("'")[0]
             else:
                 # Remove comments 
                 line = line.split(";")[0]
@@ -660,6 +665,9 @@ def import_from_source(params):
             data_list = new_data_list
         
         for data in data_list:
+            # TODO: This should be done at the beginning: Interpret as hex 
+            if not data.isnumeric() and data[0]!= "$":
+                data = "$" + data
             new_tile+=data
             single_byte_count+=1
             if single_byte_count==8:

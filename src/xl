@@ -570,6 +570,23 @@ def fill_empty_slots_with_zero(data_list):
     return new_list
 
 
+def has_headless_hex(trimmed_lines):
+    if "$" not in str(trimmed_lines) and "&" not in str(trimmed_lines):
+        for i in range(len(trimmed_lines)):
+            data = trimmed_lines[i].split(",")
+            # print("data: " + str(data))
+            for j in range(len(data)):
+                if len(data[j])!=2:
+                    return False
+        return True
+    else:
+        return False
+
+
+# It should be able to import from 
+# - Assembly files that use byte directives with either decimal and hex notation
+# - Assembly files that use word directives with hex notation ONLY
+# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
 def import_from_source(params):
     filename = params[1]
     fin = open(filename, "rt")
@@ -604,6 +621,7 @@ def import_from_source(params):
     max_index = pattern_count.index(max_directive_count)      
     directive = PATTERN_LIST[max_index]
         
+    # Guess if file is BASIC and if data are 8-bit or 16-bit values
     if directive in BASIC_PATTERN_LIST:
         basic_code = True
     else:
@@ -621,8 +639,7 @@ def import_from_source(params):
     print("Detected directive: " + directive)
     print("16-bit data detected: " + str(word_data))
     print("BASIC code: " + str(basic_code))
-    print("")
-        
+  
     for line in trimmed_lines:
      
         if directive in line or directive.upper() in line:
@@ -645,13 +662,29 @@ def import_from_source(params):
     new_tile=""
     single_byte_count = 0
 
+    trimmed_lines = []
+    
+    while line_index<len(filtered_lines):
+        trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
+        line_index+=1
+
+    # Heuristic to guess BASIC code with hex data without a hex prefix
+    if basic_code:
+        headless_hex = has_headless_hex(trimmed_lines)
+    else:
+        headless_hex = False
+
+    line_index = 0
+
+    
+    # print("trimmed_lines : " + str(trimmed_lines))
+    print("Headless hex data: " + str(headless_hex))
+    print("")
+    
     while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
-        trimmed_line = filtered_lines[line_index].split(directive)[1]
-        
-        # Add extra 0 if data lines ends with a comma
-        # if basic_code and trimmed_line.endswith(","):
-            # trimmed_line+="0"
-        
+        # trimmed_line = filtered_lines[line_index].split(directive)[1]
+        trimmed_line = trimmed_lines[line_index]
+
         line_index+=1
         data_list = trimmed_line.split(",")
         if basic_code:
@@ -666,7 +699,7 @@ def import_from_source(params):
         
         for data in data_list:
             # TODO: This should be done at the beginning: Interpret as hex 
-            if not data.isnumeric() and data[0]!= "$":
+            if headless_hex and data[0]!= "$":
                 data = "$" + data
             new_tile+=data
             single_byte_count+=1

@@ -623,16 +623,10 @@ def import_from_source(params):
         
     # Guess if file is BASIC and if data are 8-bit or 16-bit values
     # Remark: DATA can be both an Assembly (TMS9900) directive or a BASIC command
-    if directive in BASIC_ONLY_PATTERN_LIST or ((directive=="data" or directive=="DATA") and not assembly_extension):
-        basic_code = True
-    else:
-        basic_code = False
+    basic_code = directive in BASIC_ONLY_PATTERN_LIST or ((directive=="data" or directive=="DATA") and not assembly_extension)
         
-    if directive in WORD_PATTERN_LIST and not basic_code:
-        word_data = True
-    else:
-        word_data = False
-    
+    word_data =  directive in WORD_PATTERN_LIST and not basic_code
+ 
     print("Pattern count: " + str(pattern_count))
     print("Detected directive: " + directive)
     print("16-bit data detected: " + str(word_data))

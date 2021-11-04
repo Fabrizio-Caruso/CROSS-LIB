@@ -12,7 +12,7 @@ ASSEMBLY_EXTENSIONS = [".s",".asm",".a99",".as", ".acme"]
 
 BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE","!Byte",".Byte"] 
 WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA","!Word",".Word"] 
-BASIC_ONLY_PATTERN_LIST = ["symbol", "SYMBOL", "dA"]
+BASIC_ONLY_PATTERN_LIST = ["symbol", "SYMBOL", "dA", "BIN"]
 
 PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 
@@ -587,6 +587,15 @@ def has_headless_hex(trimmed_lines):
         return False
 
 
+def has_header_byte(trimmed_lines):
+    for i in range(len(trimmed_lines)):
+        length = len(trimmed_lines[i].split(","))
+        if length!=9:
+            return False
+    return True
+
+
+
 # Does a line contain a given keyword?
 def has_keyword(line,keyword):
     return keyword in line or keyword.upper() in line
@@ -621,9 +630,18 @@ def import_from_source(params):
           
     # Do some filtering and count most common candidate directive
     for line in lines:
-        # Remove spaces and convert hex notation to $
-        line = line.replace(" ","").replace("\n","").replace(">","$").replace("&","$")
-        
+        # Remove spaces and new lines
+        line = line.replace(" ","").replace("\n","")
+
+        # Convert hex notation to $
+        line = line.replace(">","$").replace("&","$")
+
+        # Convert bin notation to %
+        line = line.replace("%","@").replace("0b","@")
+
+        # Capture binary BIN UDG in Sinclair BASIC
+        line = line.replace("BIN", "\nBIN@")
+                
         if not has_keyword(line,"symbolafter"):            
             trimmed_lines.append(line)
             pattern_index = line_pattern(line)
@@ -640,16 +658,13 @@ def import_from_source(params):
         
     word_data =  directive in WORD_PATTERN_LIST and not basic_code
  
-    skip_first = skip_option or ((directive=="symbol" or directive=="SYMBOL") and basic_code)
  
     print("Pattern count: " + str(pattern_count))
     print("Detected directive: " + directive)
     print("16-bit data detected: " + str(word_data))
     print("BASIC code: " + str(basic_code))
-    print("Skip first: " + str(skip_first))
   
     for line in trimmed_lines:
-     
         if (directive in line or directive.upper() in line):
             if basic_code:
                 line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
@@ -672,15 +687,25 @@ def import_from_source(params):
 
     trimmed_lines = []
     
+    # print(filtered_lines)
+    
     while line_index<len(filtered_lines):
         trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
         line_index+=1
 
+    # print(trimmed_lines)
+    
     # Heuristic to guess BASIC code with hex data without a hex prefix
     if basic_code:
         headless_hex = has_headless_hex(trimmed_lines)
+        header_byte = has_header_byte(trimmed_lines)
     else:
         headless_hex = False
+        header_byte = False
+
+    skip_first = skip_option or header_byte or ((directive=="symbol" or directive=="SYMBOL") and basic_code)
+
+    print("Skip first: " + str(skip_first))
 
     line_index = 0
     
@@ -694,7 +719,7 @@ def import_from_source(params):
 
         line_index+=1
         data_list = trimmed_line.split(",")
-        
+                        
         if skip_first:
             data_list = data_list[1:]
             
@@ -712,6 +737,8 @@ def import_from_source(params):
             # TODO: This should be done at the beginning: Interpret as hex 
             if headless_hex and data[0]!= "$":
                 data = "$" + data
+            if data.startswith("@"):
+                data = str(int(data[1:],2))
             new_tile+=data
             single_byte_count+=1
             if single_byte_count==8:
@@ -776,6 +803,9 @@ def print_shape(string, xsize):
         no_dollar_item = string_item.replace("$","0x")
         if no_dollar_item.startswith("0x"):
             base = 16
+        elif no_dollar_item.startswith("@"):
+            no_dollar_item = no_dollar_item[1:]
+            base = 2
         else:
             base = 10
         bin_string=bin(int(no_dollar_item,base))[2:]

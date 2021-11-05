@@ -6,17 +6,15 @@ NATIVE_TARGET = "ncurses_debug"
 
 NUMBER_OF_TILES = 26
 
+# Patterns used to rip and import tile data
 ONE_REPPRESENTATIONS = ["#","*","X","x","1","+","@","$","O","o"]
-
 ASSEMBLY_EXTENSIONS = [".s",".asm",".a99",".as", ".acme"]
-
+BASIC_EXTENSIONS    = [".bas", ".lb", ".b", ".lst"]
 BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE","!Byte",".Byte"] 
 WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA","!Word",".Word"] 
 BASIC_ONLY_NO_SKIP_PATTERN_LIST = ["dA", "BIN", "d.", "D."] 
 BASIC_ONLY_SKIP_PATTERN_LIST = [ "symbol", "SYMBOL", "vdu 23", "VDU 23", "vdu23", "VDU23"]
-
 BASIC_ONLY_PATTERN_LIST = BASIC_ONLY_NO_SKIP_PATTERN_LIST + BASIC_ONLY_SKIP_PATTERN_LIST
-
 PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 
 import shutil
@@ -558,7 +556,7 @@ def line_pattern(line):
 
 
 # Detect Assembly extension
-def has_assembly_extension(string, patterns):
+def has_extension(string, patterns):
     for i in range(len(patterns)):
         if string.endswith(patterns[i]) or string.endswith(patterns[i].upper()):
             return True
@@ -615,13 +613,12 @@ def import_from_source(params):
        
     fin = open(filename, "rt")
     
-    if has_assembly_extension(filename,ASSEMBLY_EXTENSIONS):
-        assembly_extension = True
-    else:
-        assembly_extension = False
+    assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
+    basic_extension = has_extension(filename,BASIC_EXTENSIONS)
      
-    print("Assembly extension: " + str(assembly_extension)) 
-     
+    print("Assembly extension   : " + str(assembly_extension)) 
+    print("BASIC extension      : " + str(basic_extension)) 
+
     lines = fin.readlines()
     
     xsize = 8
@@ -663,9 +660,15 @@ def import_from_source(params):
  
  
     print("Pattern count: " + str(pattern_count))
-    print("Detected directive: " + directive)
-    print("16-bit data detected: " + str(word_data))
-    print("BASIC code: " + str(basic_code))
+    print("Detected directive   : " + directive)
+    
+    if word_data:
+        data_type = "16-bit"
+    else:
+        data_type = "8-bit"
+    
+    print("Data type detected   : " + data_type)
+    print("BASIC code           : " + str(basic_code))
   
     for line in trimmed_lines:
         if (directive in line or directive.upper() in line):
@@ -689,14 +692,10 @@ def import_from_source(params):
     single_byte_count = 0
 
     trimmed_lines = []
-    
-    # print(filtered_lines)
-    
+        
     while line_index<len(filtered_lines):
         trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
         line_index+=1
-
-    # print(trimmed_lines)
     
     # Heuristic to guess BASIC code with hex data without a hex prefix
     if basic_code:
@@ -708,12 +707,12 @@ def import_from_source(params):
 
     skip_first = skip_option or header_byte or directive in BASIC_ONLY_SKIP_PATTERN_LIST and basic_code
 
-    print("Skip first: " + str(skip_first))
+    print("Skip first           : " + str(skip_first))
 
     line_index = 0
     
     # print("trimmed_lines : " + str(trimmed_lines))
-    print("Headless hex data: " + str(headless_hex))
+    print("Headless hex data    : " + str(headless_hex))
     print("")
     
     while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):

@@ -682,137 +682,145 @@ def import_from_source(params):
 
     skip_option = params[len(params)-1]=="-skip"
        
-    fin = open(filename, "rt")
-    
-    assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
-    basic_extension = has_extension(filename,BASIC_EXTENSIONS)
-    
-    xsize = 8
-    ysize = 8
-    
-    display_extension_type(assembly_extension,basic_extension)
-
-    lines = fin.readlines()
+    try:
+        fin = open(filename, "rt")
         
-    trimmed_lines = []
-    filtered_lines = []
-
-    pattern_count = [0] * len(PATTERN_LIST)
-          
-    # Do some filtering and count most common candidate directive
-    for line in lines:
-        line = normalize_line(line)
+        assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
+        basic_extension = has_extension(filename,BASIC_EXTENSIONS)
         
-        trimmed_lines.append(line)
-        pattern_index = line_pattern(line)
-        if pattern_index>=0:
-            pattern_count[pattern_index]+=1
+        xsize = 8
+        ysize = 8
+        
+
+        lines = fin.readlines()
             
-    max_directive_count = max(pattern_count)
-    max_index = pattern_count.index(max_directive_count)      
-    directive = PATTERN_LIST[max_index]
+        trimmed_lines = []
+        filtered_lines = []
+
+        pattern_count = [0] * len(PATTERN_LIST)
+              
+        # Do some filtering and count most common candidate directive
+        for line in lines:
+            line = normalize_line(line)
+            
+            trimmed_lines.append(line)
+            pattern_index = line_pattern(line)
+            if pattern_index>=0:
+                pattern_count[pattern_index]+=1
+                
+        max_directive_count = max(pattern_count)
         
-    # Guess if file is BASIC and if data are 8-bit or 16-bit values
-    # Remark: DATA can be both an Assembly (TMS9900) directive or a BASIC command
-    basic_code = is_basic_code(directive, assembly_extension)
+        if max_directive_count==0:
+            raise ValueError("No pattern found")
         
-    word_data =  directive in WORD_PATTERN_LIST and not basic_code
- 
-    # print("Pattern count: " + str(pattern_count))
-    print("Detected pattern     : " + directive)
-    
-    display_data_type(word_data)
-    display_code_type(basic_code)
-  
-    for line in trimmed_lines:
-        if (directive in line or directive.upper() in line):
+        display_extension_type(assembly_extension,basic_extension)
+        
+        max_index = pattern_count.index(max_directive_count)      
+        directive = PATTERN_LIST[max_index]
+            
+        # Guess if file is BASIC and if data are 8-bit or 16-bit values
+        # Remark: DATA can be both an Assembly (TMS9900) directive or a BASIC command
+        basic_code = is_basic_code(directive, assembly_extension)
+            
+        word_data =  directive in WORD_PATTERN_LIST and not basic_code
+     
+        # print("Pattern count: " + str(pattern_count))
+        print("Detected pattern     : " + directive)
+        
+        display_data_type(word_data)
+        display_code_type(basic_code)
+      
+        for line in trimmed_lines:
+            if (directive in line or directive.upper() in line):
+                if basic_code:
+                    line = remove_basic_comments(line)
+                else:
+                    # Remove comments 
+                    line = remove_assembly_comments(line)
+                filtered_lines.append(line)
+     
+        res = ""
+        tiles = []
+        tile_count = 0
+        line_index = 0
+        new_tile=""
+        single_byte_count = 0
+
+        trimmed_lines = []
+            
+        while line_index<len(filtered_lines):
+            trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
+            line_index+=1
+        
+        # Heuristic to guess BASIC code with hex data without a hex prefix
+        headless_hex = has_headless_hex(trimmed_lines)
+        
+        # Heuristic to guess the presence of an initial header byte (to be skipped)
+        header_byte = has_nine_byte_lines(trimmed_lines)
+
+
+        skip_first = skip_option or header_byte or (directive in SKIP_PATTERN_LIST)
+
+        print("Skip first item      : " + str(skip_first))
+
+        line_index = 0
+        
+        print("Headless hex data    : " + str(headless_hex))
+        print("")
+        
+        while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
+            trimmed_line = trimmed_lines[line_index]
+
+            line_index+=1
+            data_list = trimmed_line.split(",")
+                            
+            if skip_first:
+                data_list = data_list[1:]
+                
             if basic_code:
-                line = remove_basic_comments(line)
-            else:
-                # Remove comments 
-                line = remove_assembly_comments(line)
-            filtered_lines.append(line)
- 
-    res = ""
-    tiles = []
-    tile_count = 0
-    line_index = 0
-    new_tile=""
-    single_byte_count = 0
-
-    trimmed_lines = []
+                data_list = fill_empty_slots_with_zero(data_list)
         
-    while line_index<len(filtered_lines):
-        trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
-        line_index+=1
-    
-    # Heuristic to guess BASIC code with hex data without a hex prefix
-    headless_hex = has_headless_hex(trimmed_lines)
-    
-    # Heuristic to guess the presence of an initial header byte (to be skipped)
-    header_byte = has_nine_byte_lines(trimmed_lines)
-
-
-    skip_first = skip_option or header_byte or directive in SKIP_PATTERN_LIST
-
-    print("Skip first item      : " + str(skip_first))
-
-    line_index = 0
-    
-    print("Headless hex data    : " + str(headless_hex))
-    print("")
-    
-    while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
-        # trimmed_line = filtered_lines[line_index].split(directive)[1]
-        trimmed_line = trimmed_lines[line_index]
-
-        line_index+=1
-        data_list = trimmed_line.split(",")
-                        
-        if skip_first:
-            data_list = data_list[1:]
+            # Remark: It only works for hex notation: Split word into two bytes 
+            if word_data:
+                new_data_list = []
+                for i in range(len(data_list)):
+                    new_data_list += [data_list[i][0:3],"$"+data_list[i][3:5]]
+                data_list = new_data_list
             
-        if basic_code:
-            data_list = fill_empty_slots_with_zero(data_list)
-    
-        # Remark: It only works for hex notation: Split word into two bytes 
-        if word_data:
-            new_data_list = []
-            for i in range(len(data_list)):
-                new_data_list += [data_list[i][0:3],"$"+data_list[i][3:5]]
-            data_list = new_data_list
-        
-        for data in data_list:
-            # TODO: This should be done at the beginning: Interpret as hex 
-            if headless_hex and data[0]!= "$":
-                data = "$" + data
-            if data.startswith("@"):
-                data = str(int(data[1:],2))
-            new_tile+=data
-            single_byte_count+=1
-            if single_byte_count==ysize:
-                single_byte_count=0
-                tiles.append(new_tile)
-                print(new_tile)
-                print_shape(new_tile,xsize)
-                tile_count+=1
-                new_tile=""
-            else:
-                new_tile+=","
+            for data in data_list:
+                # TODO: This should be done at the beginning: Interpret as hex 
+                if headless_hex and data[0]!= "$":
+                    data = "$" + data
+                if data.startswith("@"):
+                    data = str(int(data[1:],2))
+                new_tile+=data
+                single_byte_count+=1
+                if single_byte_count==ysize:
+                    single_byte_count=0
+                    tiles.append(new_tile)
+                    print(new_tile)
+                    print_shape(new_tile,xsize)
+                    tile_count+=1
+                    new_tile=""
+                else:
+                    new_tile+=","
 
-    if(len(params)>=3) and "-" not in params[2]:
-        print("project    : " + params[2])
+        if(len(params)>=3) and "-" not in params[2]:
+            print("project    : " + params[2])
 
-        main_path = "./projects/" + params[2] + "/tiles/"+str(xsixe)+"x"+str(ysize)+"/tile"
-        print("main_path: " + main_path)
-        for index in range(len(tiles)):
-            dest = main_path + str(index) + ".txt"
-            print("Copy/Overwrite : " + dest)
-            fin = open(dest, "wt")
-            fin.write(tiles[index])
-            fin.close()
+            main_path = "./projects/" + params[2] + "/tiles/"+str(xsixe)+"x"+str(ysize)+"/tile"
+            print("main_path: " + main_path)
+            for index in range(len(tiles)):
+                dest = main_path + str(index) + ".txt"
+                print("Copy/Overwrite : " + dest)
+                fin = open(dest, "wt")
+                fin.write(tiles[index])
+                fin.close()
+    except ValueError as valueError:
+        print(str(valueError.args[0]))
+    except Exception as exception:
+        print("Sorry! Failed to extract tile data from file")
 
- 
 # Import a single tile from a text file that describes its shape with characters
 def tile(params):
     fin = open(params[1], "rt")

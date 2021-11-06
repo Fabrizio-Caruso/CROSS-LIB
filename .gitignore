@@ -5,6 +5,7 @@ deliverables
 *.img
 build/*
 **generated_assets
+**__pycache__
 src/assets/generated_assets/*
 src/examples/matrix/generated_assets/*
 src/examples/tiles/generated_assets/*

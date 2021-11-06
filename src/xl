@@ -12,10 +12,13 @@ ASSEMBLY_EXTENSIONS = [".s",".asm",".a99",".as", ".acme"]
 BASIC_EXTENSIONS    = [".bas", ".lb", ".b", ".lst"]
 BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE","!Byte",".Byte"] 
 WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA","!Word",".Word"] 
+ASSEMBLY_PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST
 BASIC_ONLY_NO_SKIP_PATTERN_LIST = ["dA", "BIN", "d.", "D."] 
-BASIC_ONLY_SKIP_PATTERN_LIST = [ "symbol", "SYMBOL", "vdu 23", "VDU 23", "vdu23", "VDU23"]
+BASIC_ONLY_SKIP_PATTERN_LIST = [ "symbol", "SYMBOL", "vdu 23,", "VDU 23,", "vdu23,", "VDU23,"]
 BASIC_ONLY_PATTERN_LIST = BASIC_ONLY_NO_SKIP_PATTERN_LIST + BASIC_ONLY_SKIP_PATTERN_LIST
-PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
+PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
+SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
+
 
 import shutil
 
@@ -588,7 +591,7 @@ def has_headless_hex(trimmed_lines):
         return False
 
 
-def has_header_byte(trimmed_lines):
+def has_nine_byte_lines(trimmed_lines):
     for i in range(len(trimmed_lines)):
         length = len(trimmed_lines[i].split(","))
         if length!=9:
@@ -597,9 +600,77 @@ def has_header_byte(trimmed_lines):
 
 
 
-# Does a line contain a given keyword?
-def has_keyword(line,keyword):
-    return keyword in line or keyword.upper() in line
+def normalize_line(line):
+    # Remove spaces and new lines
+    line = line.replace(" ","").replace("\n","")
+
+    # Convert hex notation to $
+    line = line.replace(">","$").replace("&","$")
+
+    # Convert bin notation to %
+    line = line.replace("%","@").replace("0b","@")
+
+    # Capture binary BIN UDG in Sinclair BASIC
+    line = line.replace("BIN", "\nBIN@")
+
+    if("symbolafter" in line):
+        # line = line.replace("symbolafter","")
+        # line = line+"symbol"
+        line = ""
+    if("SYMBOLAFTER" in line):
+        # line = line.replace("SYMBOLAFTER","")
+        # line = line+"SYMBOL"
+        line = ""
+    
+    return line
+
+
+def remove_basic_comments(line):
+    line = line.split(":REM")[0]
+    line = line.split(":rem")[0]
+    line = line.split(": REM")[0]
+    line = line.split(": rem")[0]
+    line = line.split("'")[0]
+    line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
+    return line
+
+
+def remove_assembly_comments(line):
+    line = line.split(";")[0]
+    return line
+
+
+def display_data_type(word_data):
+    if word_data:
+        data_type = "16-bit"
+    else:
+        data_type = "8-bit"
+    
+    print("Data type detected   : " + data_type)
+
+
+def display_code_type(basic_code):
+    if basic_code:
+        code_type = "BASIC"
+    else:
+        code_type = "Assembly"
+        
+    print("Code type            : " + code_type)
+
+
+def display_extension_type(assembly_extension, basic_code):
+    if assembly_extension:
+        extension_type = "Assembly"
+    elif basic_code:
+        extension_type = "BASIC"
+    else:
+        extension_type = "Undefined"
+    
+    print("File extension type  : " + extension_type)
+
+
+def is_basic_code(directive,assembly_extension):
+    return (directive in BASIC_ONLY_PATTERN_LIST) or ((directive=="data" or directive=="DATA") and not assembly_extension)
 
 
 # It should be able to import from 
@@ -615,14 +686,14 @@ def import_from_source(params):
     
     assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
     basic_extension = has_extension(filename,BASIC_EXTENSIONS)
-     
-    print("Assembly extension   : " + str(assembly_extension)) 
-    print("BASIC extension      : " + str(basic_extension)) 
-
-    lines = fin.readlines()
     
     xsize = 8
+    ysize = 8
     
+    display_extension_type(assembly_extension,basic_extension)
+
+    lines = fin.readlines()
+        
     trimmed_lines = []
     filtered_lines = []
 
@@ -630,23 +701,12 @@ def import_from_source(params):
           
     # Do some filtering and count most common candidate directive
     for line in lines:
-        # Remove spaces and new lines
-        line = line.replace(" ","").replace("\n","")
-
-        # Convert hex notation to $
-        line = line.replace(">","$").replace("&","$")
-
-        # Convert bin notation to %
-        line = line.replace("%","@").replace("0b","@")
-
-        # Capture binary BIN UDG in Sinclair BASIC
-        line = line.replace("BIN", "\nBIN@")
-                
-        if not has_keyword(line,"symbolafter"):            
-            trimmed_lines.append(line)
-            pattern_index = line_pattern(line)
-            if pattern_index>=0:
-                pattern_count[pattern_index]+=1
+        line = normalize_line(line)
+        
+        trimmed_lines.append(line)
+        pattern_index = line_pattern(line)
+        if pattern_index>=0:
+            pattern_count[pattern_index]+=1
             
     max_directive_count = max(pattern_count)
     max_index = pattern_count.index(max_directive_count)      
@@ -654,34 +714,23 @@ def import_from_source(params):
         
     # Guess if file is BASIC and if data are 8-bit or 16-bit values
     # Remark: DATA can be both an Assembly (TMS9900) directive or a BASIC command
-    basic_code = directive in BASIC_ONLY_PATTERN_LIST or ((directive=="data" or directive=="DATA") and not assembly_extension)
+    basic_code = is_basic_code(directive, assembly_extension)
         
     word_data =  directive in WORD_PATTERN_LIST and not basic_code
  
- 
-    print("Pattern count: " + str(pattern_count))
-    print("Detected directive   : " + directive)
+    # print("Pattern count: " + str(pattern_count))
+    print("Detected pattern     : " + directive)
     
-    if word_data:
-        data_type = "16-bit"
-    else:
-        data_type = "8-bit"
-    
-    print("Data type detected   : " + data_type)
-    print("BASIC code           : " + str(basic_code))
+    display_data_type(word_data)
+    display_code_type(basic_code)
   
     for line in trimmed_lines:
         if (directive in line or directive.upper() in line):
             if basic_code:
-                line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
-                line = line.split(":REM")[0]
-                line = line.split(":rem")[0]
-                line = line.split(": REM")[0]
-                line = line.split(": rem")[0]
-                line = line.split("'")[0]
+                line = remove_basic_comments(line)
             else:
                 # Remove comments 
-                line = line.split(";")[0]
+                line = remove_assembly_comments(line)
             filtered_lines.append(line)
  
     res = ""
@@ -698,20 +747,18 @@ def import_from_source(params):
         line_index+=1
     
     # Heuristic to guess BASIC code with hex data without a hex prefix
-    if basic_code:
-        headless_hex = has_headless_hex(trimmed_lines)
-        header_byte = has_header_byte(trimmed_lines)
-    else:
-        headless_hex = False
-        header_byte = False
+    headless_hex = has_headless_hex(trimmed_lines)
+    
+    # Heuristic to guess the presence of an initial header byte (to be skipped)
+    header_byte = has_nine_byte_lines(trimmed_lines)
 
-    skip_first = skip_option or header_byte or directive in BASIC_ONLY_SKIP_PATTERN_LIST and basic_code
 
-    print("Skip first           : " + str(skip_first))
+    skip_first = skip_option or header_byte or directive in SKIP_PATTERN_LIST
+
+    print("Skip first item      : " + str(skip_first))
 
     line_index = 0
     
-    # print("trimmed_lines : " + str(trimmed_lines))
     print("Headless hex data    : " + str(headless_hex))
     print("")
     
@@ -743,7 +790,7 @@ def import_from_source(params):
                 data = str(int(data[1:],2))
             new_tile+=data
             single_byte_count+=1
-            if single_byte_count==8:
+            if single_byte_count==ysize:
                 single_byte_count=0
                 tiles.append(new_tile)
                 print(new_tile)
@@ -756,7 +803,7 @@ def import_from_source(params):
     if(len(params)>=3) and "-" not in params[2]:
         print("project    : " + params[2])
 
-        main_path = "./projects/" + params[2] + "/tiles/8x8/tile"
+        main_path = "./projects/" + params[2] + "/tiles/"+str(xsixe)+"x"+str(ysize)+"/tile"
         print("main_path: " + main_path)
         for index in range(len(tiles)):
             dest = main_path + str(index) + ".txt"

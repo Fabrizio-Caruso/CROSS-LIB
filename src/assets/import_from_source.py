@@ -21,15 +21,15 @@ def print_shape(string, xsize):
     string_items = string.split(",");
     items = []
     for string_item in string_items:
-        no_dollar_item = string_item.replace("$","0x")
-        if no_dollar_item.startswith("0x"):
+        string_item = string_item.replace("$","0x")
+        if string_item.startswith("0x"):
             base = 16
-        elif no_dollar_item.startswith("@"):
-            no_dollar_item = no_dollar_item[1:]
+        elif string_item.startswith("@"):
+            string_item = string_item[1:]
             base = 2
         else:
             base = 10
-        bin_string=bin(int(no_dollar_item,base))[2:]
+        bin_string=bin(int(string_item,base))[2:]
         missing_zeros = int(xsize) - len(bin_string)
         padded_bin_string = ""
         for i in range(missing_zeros):
@@ -56,29 +56,6 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     fin.close()
     print_shape(tile_data,xsize)
 
-
-def show(params):
-    parent_dir = project_category(params[1])+"s"
-    
-    if len(params)<4:
-        xsize = "8"
-        ysize = "8"
-    else:
-        xsize = params[2]
-        ysize = params[3]
-
-    if len(params)>=5:
-        index = params[4]
-    else:
-        index = "";
-    
-    if index!="":
-        print_shape_from_file(parent_dir, params[1], xsize, ysize, index)
-    
-    else:
-        for i in range(NUMBER_OF_TILES):
-            print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
-    
 
 
 # Detect Assembly extension
@@ -139,7 +116,7 @@ def normalize_basic_line(line):
 
 def normalize_assembly_line(line):
     # Convert hex notation to $
-    line = line.replace(">","$").replace("#","$").replace("0x","$")
+    line = line.replace(">","$").replace("#","$").replace("0x","$").replace("&H","$").replace("&h","$")
 
     # Convert bin notation to @
     line = line.replace("%","@").replace("0b","@")
@@ -226,23 +203,13 @@ def remove_comments(line,basic_code):
     return line
 
 
-# It should be able to import from 
-# - Assembly files that use byte directives with either decimal and hex notation
-# - Assembly files that use word directives with ONLY hex notation
-# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
-def import_from_source(params):
-    filename = params[1]
-
-    skip_option = params[len(params)-1]=="-skip"
+def import_tiles_from(filename, xsize, ysize, skip_option):
        
     try:
         fin = open(filename, "rt")
         
         assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
         basic_extension = has_extension(filename,BASIC_EXTENSIONS)
-        
-        xsize = 8
-        ysize = 8
 
         lines = fin.readlines()
             
@@ -351,22 +318,45 @@ def import_from_source(params):
                     new_tile=""
                 else:
                     new_tile+=","
-
-        if(len(params)>=3) and "-" not in params[2]:
-            print("project    : " + params[2])
-
-            main_path = "./projects/" + params[2] + "/tiles/"+str(xsixe)+"x"+str(ysize)+"/tile"
-            print("main_path: " + main_path)
-            for index in range(len(tiles)):
-                dest = main_path + str(index) + ".txt"
-                print("Copy/Overwrite : " + dest)
-                fin = open(dest, "wt")
-                fin.write(tiles[index])
-                fin.close()
+        return tiles
+    
     except ValueError as valueError:
         print(str(valueError.args[0]))
     except Exception as exception:
         print("Sorry! Failed to extract tile data from file: \n" + str(exception.args))
+
+
+def store_tiles(project, tiles, xsize, ysize):
+    print("project    : " + project)
+
+    main_path = "./projects/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
+    print("main_path: " + main_path)
+    for index in range(len(tiles)):
+        dest = main_path + str(index) + ".txt"
+        print("Copy/Overwrite : " + dest)
+        fin = open(dest, "wt")
+        fin.write(tiles[index])
+        fin.close()
+
+# It should be able to import from 
+# - Assembly files that use byte directives with either decimal and hex notation
+# - Assembly files that use word directives with ONLY hex notation
+# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
+def import_from_source(params):
+    filename = params[1]
+
+    skip_option = params[len(params)-1]=="-skip"
+
+    xsize = 8
+    ysize = 8
+
+    tiles = import_tiles_from(filename, xsize, ysize, skip_option)
+
+    try:
+        if(len(params)>=3) and "-" not in params[2]:
+            store_tiles(params[2],tiles, xsize,ysize)
+    except Exception as exception:
+        print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
 
 
@@ -391,6 +381,8 @@ def tile(params):
     fin.close()
     
     print(res)
+    print_shape(res,xsize)
+    
     if(len(params)>=3):
         print("project    : " + params[2])
         print("tile index : " + params[3])

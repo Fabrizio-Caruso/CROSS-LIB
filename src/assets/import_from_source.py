@@ -203,7 +203,8 @@ def remove_comments(line,basic_code):
     return line
 
 
-def import_tiles_from(filename, xsize, ysize, skip_option):
+# It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
+def rip_tiles(filename, xsize, ysize, skip_option):
        
     try:
         fin = open(filename, "rt")
@@ -336,25 +337,6 @@ def store_tiles(project, tiles, xsize, ysize):
         store_tile(project,tiles[index],xsize,ysize,str(index))
 
 
-# It should be able to import from 
-# - Assembly files that use byte directives with either decimal and hex notation
-# - Assembly files that use word directives with ONLY hex notation
-# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
-def import_from_source(params):
-    filename = params[1]
-
-    skip_option = params[len(params)-1]=="-skip"
-
-    xsize = 8
-    ysize = 8
-
-    tiles = import_tiles_from(filename, xsize, ysize, skip_option)
-
-    try:
-        if(len(params)>=3) and "-" not in params[2]:
-            store_tiles(params[2],tiles, xsize,ysize)
-    except Exception as exception:
-        print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
 
 def store_tile(project, tile, xsize, ysize, index):
@@ -371,11 +353,8 @@ def store_tile(project, tile, xsize, ysize, index):
     fin.close()
 
 
-#def import tile
-
-# Import a single tile from a text file that describes its shape with characters
-def tile(params):
-    fin = open(params[1], "rt")
+def import_tile(file_name):
+    fin = open(file_name, "rt")
     lines = fin.readlines()
     tile = ""
     xsize = len(lines[0])-1
@@ -393,9 +372,9 @@ def tile(params):
             tile += ","
     fin.close()
     
-    print(tile)
-    print_shape(tile,xsize)
+    return tile,xsize,ysize
 
-    if(len(params)>=3):
-        store_tile(params[2], tile, xsize, ysize, params[3])
+    
+
+
 

@@ -327,16 +327,14 @@ def import_tiles_from(filename, xsize, ysize, skip_option):
 
 
 def store_tiles(project, tiles, xsize, ysize):
+    
     print("project    : " + project)
-
+    
     main_path = "./projects/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
     print("main_path: " + main_path)
     for index in range(len(tiles)):
-        dest = main_path + str(index) + ".txt"
-        print("Copy/Overwrite : " + dest)
-        fin = open(dest, "wt")
-        fin.write(tiles[index])
-        fin.close()
+        store_tile(project,tiles[index],xsize,ysize,str(index))
+
 
 # It should be able to import from 
 # - Assembly files that use byte directives with either decimal and hex notation
@@ -359,12 +357,27 @@ def import_from_source(params):
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
 
+def store_tile(project, tile, xsize, ysize, index):
+
+    print("(store tile) project    : " + project)
+    print("tile index : " + str(index))
+    dir = str(xsize)+"X"+str(ysize)
+    print("directory: " + dir)
+    dest = "./projects/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
+    print("Copy/Overwrite : " + dest)
+
+    fin = open(dest, "wt")
+    fin.write(tile)
+    fin.close()
+
+
+#def import tile
 
 # Import a single tile from a text file that describes its shape with characters
 def tile(params):
     fin = open(params[1], "rt")
     lines = fin.readlines()
-    res = ""
+    tile = ""
     xsize = len(lines[0])-1
     ysize = len(lines)
     dir = str(xsize)+"X"+str(ysize)
@@ -375,20 +388,14 @@ def tile(params):
         for i in range(number_of_bits):
             if lines[line_index][i] in ONE_REPPRESENTATIONS:
                 value+=2**(number_of_bits-1-i)
-        res += str(value)
+        tile += str(value)
         if line_index!=ysize-1:
-            res += ","
+            tile += ","
     fin.close()
     
-    print(res)
-    print_shape(res,xsize)
-    
-    if(len(params)>=3):
-        print("project    : " + params[2])
-        print("tile index : " + params[3])
-        dest = "./projects/" + params[2] + "/tiles/" + dir + "/tile" + params[3] + ".txt"
-        print("Copy/Overwrite : " + dest)
+    print(tile)
+    print_shape(tile,xsize)
 
-        fin = open(dest, "wt")
-        fin.write(res)
-        fin.close()
+    if(len(params)>=3):
+        store_tile(params[2], tile, xsize, ysize, params[3])
+

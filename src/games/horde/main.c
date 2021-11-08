@@ -2113,7 +2113,7 @@ do \
     } \
     _XL_SLEEP(1); \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE ); \
+    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L ); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     sleep_and_wait_for_input(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \

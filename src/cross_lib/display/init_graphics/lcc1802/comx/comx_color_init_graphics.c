@@ -3,15 +3,12 @@
 
 #if !defined(NTSC)
     #define NUMBER_OF_LINES 9
-    #define NINTH_DOLLAR_LINE 0 
     #include "6x9_chars.h"
 #else
     #define NUMBER_OF_LINES 8
     #include "6x8_chars.h"
-    #define NINTH_DOLLAR_LINE
 #endif
 
-// #define _DOLLAR_DEFINITION {0, 8, 31, 16, 30,  2, 62,  4, NINTH_DOLLAR_LINE}
 
 #if defined(__COMX__) || defined(__PECOM__) 
     #include "comx_color_settings.h"
@@ -47,7 +44,7 @@
         {
             for(i=0;i<NUMBER_OF_LINES;++i)
             {
-               colored_shape[i]=shapelocation[i]+COLOR_OFFSET+color*64;
+               colored_shape[i]=shapelocation[i]+COLOR_OFFSET+color*64U;
             }
             shapechar(colored_shape, ch+color, 1);
         }
@@ -60,10 +57,8 @@
     } ;
 
 
-// {0,16, 62, 32, 60,  4,124,  8,  0}},
 const struct redefine_struct redefine_map[] =
 {
-    // {_DOLLAR_TILE, _DOLLAR_DEFINITION},
     {_TILE_0, _TILE_0_UDG},
     {_TILE_1, _TILE_1_UDG},
     {_TILE_2, _TILE_2_UDG},

@@ -29,14 +29,14 @@
 
     void _ping_sound(uint8_t freq);
     
-	#define _XL_PING_SOUND() _ping_sound(0x40)
+	#define _XL_PING_SOUND() _ping_sound(0x80)
 	#define _XL_TOCK_SOUND() _ping_sound(0x20)
-	#define _XL_TICK_SOUND() _ping_sound(0x30)	
+	#define _XL_TICK_SOUND() _ping_sound(0x50)	
 	
-    void _explosion_sound(uint8_t range);
+    void _explosion_sound(uint8_t range, uint8_t duration);
     
-	#define _XL_SHOOT_SOUND() _explosion_sound(0x4)
-	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x2)
+	#define _XL_SHOOT_SOUND() _explosion_sound(0x4,30)
+	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x2,80)
 	
 	void _XL_ZAP_SOUND(void);
 	

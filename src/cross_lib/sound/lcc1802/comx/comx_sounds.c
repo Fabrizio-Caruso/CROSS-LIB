@@ -10,7 +10,7 @@ void _ping_sound(uint8_t freq)
     
     for(j=7;j>0;--j)
     {
-        for(i=0;i<100;++i){};
+        for(i=0;i<90;++i){};
         generatetone(freq,80,j);
     }
     
@@ -43,7 +43,7 @@ void _XL_ZAP_SOUND(void)
     
     for(i=0;i<40;++i)
     {
-        generatetone(i/2,10+i,7);
+        generatetone(i/2,i,7);
     }
     generatetone(0,0,0);
 }

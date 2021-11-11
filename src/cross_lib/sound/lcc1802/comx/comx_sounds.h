@@ -29,9 +29,9 @@
 
     void _ping_sound(uint8_t freq);
     
-	#define _XL_PING_SOUND() _ping_sound(0x80)
+	#define _XL_PING_SOUND() _ping_sound(0x75)
 	#define _XL_TOCK_SOUND() _ping_sound(0x20)
-	#define _XL_TICK_SOUND() _ping_sound(0x50)	
+	#define _XL_TICK_SOUND() _ping_sound(0x45)	
 	
     void _explosion_sound(uint8_t range, uint8_t duration);
     

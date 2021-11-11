@@ -20,6 +20,7 @@ SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 def print_shape(string, xsize):
     string_items = string.split(",");
     items = []
+    values = []
     for string_item in string_items:
         string_item = string_item.replace("$","0x")
         if string_item.startswith("0x"):
@@ -29,7 +30,9 @@ def print_shape(string, xsize):
             base = 2
         else:
             base = 10
-        bin_string=bin(int(string_item,base))[2:]
+        value = int(string_item,base)
+        values.append(value)
+        bin_string=bin(value)[2:]
         missing_zeros = int(xsize) - len(bin_string)
         padded_bin_string = ""
         for i in range(missing_zeros):
@@ -40,8 +43,8 @@ def print_shape(string, xsize):
         
         items.append(padded_bin_string)
 
-    for item in items:
-        print(item)
+    for i in range(len(items)):
+        print(items[i] + "  " + "{:3d}".format(values[i]))
     print("")
     print("")
 

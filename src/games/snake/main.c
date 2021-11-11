@@ -72,15 +72,16 @@
 
             for(i=0;i<5;++i)
             {
+                #if defined(_XL_NO_TEXT_COLOR)
+                _XL_PRINT(SECRET_X,YSize-1,"      ");
+                _XL_SLOW_DOWN(10);
+                #else
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
                 display_secret_string();
+                #endif
 
-                #if !defined(_XL_NO_TEXT_COLOR)
                 _XL_SET_TEXT_COLOR(_XL_CYAN);
                 display_secret_string();
-                #else
-                _XL_PRINT(SECRET_X,YSize-1,"     ");
-                #endif
             }
         }
     }

@@ -156,6 +156,8 @@
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
 
+static uint16_t next_threshold;
+
 static uint8_t main_loop_counter;
 
 static uint8_t forced_zombie;
@@ -165,8 +167,6 @@ static uint8_t forced_zombie_x;
 static uint8_t hyper_counter;
 
 static uint8_t item_counter;
-
-static uint8_t next_extra_life_counter;
 
 static const uint8_t zombie_points[] = 
 { 
@@ -1770,11 +1770,11 @@ do \
         hiscore=score; \
     } \
     score = 0; \
-    next_extra_life_counter = 1; \
     level = INITIAL_LEVEL; \
     killed_bosses = 0; \
     killed_minions = 0; \
     lives = INITIAL_LIVES; \
+    next_threshold = NEXT_EXTRA_LIFE; \
 } while(0)
 
 
@@ -2081,13 +2081,13 @@ do \
     do \
     { \
         uint8_t i; \
-        if(score>=NEXT_EXTRA_LIFE*next_extra_life_counter) \
+        if(score>=next_threshold) \
         { \
             if(lives<MAX_LIVES) \
             { \
                 ++lives; \
             } \
-            ++next_extra_life_counter; \
+            next_threshold+=NEXT_EXTRA_LIFE; \
             _XL_PING_SOUND(); \
             \
             for(i=0;i<16;++i) \

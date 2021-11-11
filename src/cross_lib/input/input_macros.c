@@ -321,6 +321,9 @@ out            stb res
         
         void _XL_WAIT_FOR_INPUT(void)
         {
+            // Flush the video buffer to make sure that the latest character is displayed
+            vidflush();
+            
             while(!get_stick(0))
             {
             }

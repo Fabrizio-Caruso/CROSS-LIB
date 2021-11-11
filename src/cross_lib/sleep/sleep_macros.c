@@ -41,7 +41,12 @@
 	void _XL_SLEEP(uint8_t sec)
 	{
 		uint16_t ii;
-		
+        
+        // Flush the video buffer to make sure that the latest character is displayed
+        #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)
+            vidflush();
+        #endif
+	
 		for(ii=0;ii<sec*CYCLES;++ii){}; 
 	}
 
@@ -58,6 +63,7 @@
             usleep((t)*800);
         }
     #else
+            
         void _XL_SLOW_DOWN(uint16_t t)
         {
             uint16_t i;

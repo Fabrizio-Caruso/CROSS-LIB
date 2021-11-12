@@ -111,7 +111,7 @@
     uint16_t loc(uint8_t x, uint8_t y);
 #else
     #include "cross_lib.h"
-    #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET))
+    #define loc(x,y) (((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET)))
 #endif
 
 #endif

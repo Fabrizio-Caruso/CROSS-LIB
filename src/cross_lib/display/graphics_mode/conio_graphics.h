@@ -7,7 +7,7 @@
 	#define _XL_DRAW(x,y,tile,color) \
 	do \
 	{ \
-		gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
+		gotoxy((X_OFFSET+(x)),(Y_OFFSET+(y))); \
 		_XL_SET_TEXT_COLOR(color); \
 		cputc(tile); \
 	} \

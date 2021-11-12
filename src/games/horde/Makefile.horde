@@ -791,7 +791,7 @@ oric1_fixed_colors: $(ASSETS_PATH)/6x8_chars.h
 
 
 oric_48k: $(ASSETS_PATH)/6x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -DSOUNDS -DANIMATE_PLAYER   \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -DSOUNDS -DANIMATE_PLAYER   \
 	-t atmos -DINLINE_LOC -DORIC_COLOR -DMONO_COLOR -D_XL_NO_COLOR \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-D_XL_SLOW_DOWN_FACTOR=500 \
@@ -2215,6 +2215,7 @@ ncurses_debug:
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	-lncurses
 ifeq ($(_DEBUG_FLAG),1)

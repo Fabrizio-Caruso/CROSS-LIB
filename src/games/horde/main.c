@@ -1063,7 +1063,7 @@ void beam_effect(void)
 
 void display_bow(void)
 {
-    _XL_DRAW(bow_x>>1,BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
+    _XL_DRAW((bow_x>>1),BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
     _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
 }
 

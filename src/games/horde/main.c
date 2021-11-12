@@ -154,6 +154,8 @@
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
 
+static uint8_t active_wall;
+
 static uint16_t next_threshold;
 
 static uint8_t main_loop_counter;
@@ -331,7 +333,7 @@ static const char item_name[5][9] =
 #endif
 
 
-static Missile beamMissile[NUMBER_OF_MISSILES];
+static Missile enemyMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
 
 
@@ -849,8 +851,12 @@ void wall_effect(void)
     uint8_t i;
     
     increase_score(WALL_POINTS);
-    
+
+#if defined(SMALL_WALL)
+    for(i=7*(XSize)/16;i<1+7*(XSize)/16+(XSize)/8;++i)
+#else    
     for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
+#endif
     {
         if(zombie_y[i]<WALL_Y-1 || !zombie_active[i])
         {
@@ -863,6 +869,7 @@ void wall_effect(void)
         }
     }
     ++wall_appeared;
+    active_wall = 1;
 }
 
 
@@ -997,10 +1004,10 @@ void beam_effect(void)
         \
         for(i=0;i<NUMBER_OF_MISSILES;++i) \
         { \
-            beamMissile[i]._active = 0; \
-            beamMissile[i]._tile = BEAM_TILE; \
-            beamMissile[i]._color = _XL_CYAN; \
-            beamMissile[i]._effect = beam_effect; \
+            enemyMissile[i]._active = 0; \
+            enemyMissile[i]._tile = BEAM_TILE; \
+            enemyMissile[i]._color = _XL_CYAN; \
+            enemyMissile[i]._effect = beam_effect; \
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
@@ -1035,9 +1042,9 @@ void beam_effect(void)
         \
         for(i=0;i<NUMBER_OF_MISSILES;++i) \
         { \
-            beamMissile[i]._active = 0; \
-            beamMissile[i]._tile = BEAM_TILE; \
-            beamMissile[i]._effect = beam_effect; \
+            enemyMissile[i]._active = 0; \
+            enemyMissile[i]._tile = BEAM_TILE; \
+            enemyMissile[i]._effect = beam_effect; \
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
@@ -1165,7 +1172,7 @@ void handle_item(register Item* item)
     for(i=0;i<NUMBER_OF_MISSILES;++i) \
     { \
         handle_item(&extraPointsItem[i]); \
-        handle_item(&beamMissile[i]); \
+        handle_item(&enemyMissile[i]); \
     } \
 }
 
@@ -1176,13 +1183,18 @@ void handle_item(register Item* item)
     #define STEP 17
 #endif 
 
+#if XSize<=40
+    #define RANDOM_ZOMBIE_RANGE_START (31)
+#else
+    #define RANDOM_ZOMBIE_RANGE_START (63)
+#endif
 
-uint8_t find_zombie(uint8_t value)
+uint8_t find_random_zombie(uint8_t value)
 {
     uint8_t i;
     uint8_t index;
     
-    index = (uint8_t) (_XL_RAND())%XSize;
+    index = (uint8_t) (_XL_RAND())&RANDOM_ZOMBIE_RANGE_START;
 
     for(i=0;i<XSize;++i)
     {
@@ -1204,7 +1216,7 @@ void activate_zombie(void)
     
     while((old_x==zombie_x) || (old_x+1==zombie_x) || (old_x-1==zombie_x))
     {
-        zombie_x = find_zombie(0);
+        zombie_x = find_random_zombie(0);
     };    
   
     zombie_active[zombie_x]=1;    
@@ -1516,20 +1528,40 @@ do \
 } while(0)
 
 
-#define redraw_wall() \
-do \
-{ \
-    uint8_t i; \
-    \
-    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i) \
-    { \
-        if(wall[i]) \
-        { \
-            _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW); \
-        } \
-    } \
-} while(0)
+#if defined(SMALL_WALL)
 
+    #define redraw_wall() \
+    do \
+    { \
+        uint8_t i; \
+        \
+        for(i=7*(XSize)/16;i<1+7*(XSize)/16+(XSize)/8;++i) \
+        { \
+            if(wall[i]) \
+            { \
+                _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW); \
+            } \
+        } \
+    } while(0)
+
+#else
+
+    #define redraw_wall() \
+    do \
+    { \
+        uint8_t i; \
+        \
+        for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i) \
+        { \
+            if(wall[i]) \
+            { \
+                _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW); \
+            } \
+        } \
+    } while(0)
+
+
+#endif
 
 void push_zombie(void)
 {
@@ -1574,15 +1606,7 @@ void handle_zombie_collisions(void)
 }
 
 
-#define handle_missile_drop() \
-{ \
-    uint8_t missile_index; \
-    \
-    if(!freeze && ((missile_index = find_inactive(beamMissile)) < NUMBER_OF_MISSILES)) \
-    { \
-        drop_item(&beamMissile[missile_index],1); \
-    } \
-}
+
 
 
 #define _move_zombie() \
@@ -1595,14 +1619,24 @@ void handle_zombie_collisions(void)
         } \
 }
 
+
+#if !defined(MISSILE_DROP_LOOP_MASK)
+    #define MISSILE_DROP_LOOP_MASK (1)
+#endif
+
+
 #define handle_missile_drops() \
 { \
-    if((level>=2)&& !(main_loop_counter&3)) \
+    if((level>=2)&& !(main_loop_counter&MISSILE_DROP_LOOP_MASK) && !freeze) \
     { \
-        zombie_x = (uint8_t) (_XL_RAND())%XSize; \
-        if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+        uint8_t missile_index; \
+        if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
         { \
-            handle_missile_drop(); \
+            zombie_x = (uint8_t) (_XL_RAND())%XSize; \
+            if((zombie_level[zombie_x]>2) && zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+            { \
+                drop_item(&enemyMissile[missile_index],1); \
+            } \
         } \
     } \
 } 
@@ -1618,7 +1652,7 @@ void move_zombies(void)
     }
     else
     {
-        zombie_x=find_zombie(1);
+        zombie_x=find_random_zombie(1);
     }
 
     if((zombie_shape[zombie_x]==3)||(((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1))&&(zombie_y[zombie_x]!=BOW_Y-1)))
@@ -1818,6 +1852,7 @@ do \
         do \
         {   \
             fire_power = GREEN_FIRE_POWER_VALUE; \
+            active_wall = 0; \
             freeze = 0; \
             powerUp = 8; \
             next_arrow = 0; \
@@ -2112,11 +2147,11 @@ do \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     if(level==LAST_LEVEL) \
     { \
-        _XL_PRINT(XSize/2-4, YSize/2," FINAL"); \
+        _XL_PRINT(XSize/2-4, YSize/2,  "F I N A L"); \
     } \
     _XL_SLEEP(1); \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL " ); \
+    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " ); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     sleep_and_wait_for_input(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
@@ -2260,7 +2295,7 @@ int main(void)
                 handle_bow_move();
                 handle_bow_load();
                 handle_arrows(); 
-                redraw_wall();  
+                redraw_wall();  // TODO: Optimize this
                 handle_auto_recharge();
                 handle_zombie_movement();
                 handle_zombie_collisions();

@@ -360,15 +360,27 @@ def import_tile(file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
     tile = ""
-    xsize = len(lines[0])-1
-    ysize = len(lines)
+
+    filtered_lines = []
+    for line in lines:
+        if not(line=="\n" or line=="\r" or line== "\r\n"):
+            filtered_lines.append(line)
+
+    xsize = 8
+    for line in filtered_lines:
+        if len(line)<xsize:
+            xsize = len(line)
+
+    ysize = len(filtered_lines)
     dir = str(xsize)+"X"+str(ysize)
     print("Tile shape: " + dir)
     for line_index in range(ysize):
-        number_of_bits = len(lines[line_index])-1
+        number_of_bits = len(filtered_lines[line_index])-1
+        if number_of_bits>8:
+            number_of_bits=8
         value = 0
         for i in range(number_of_bits):
-            if lines[line_index][i] in ONE_REPPRESENTATIONS:
+            if filtered_lines[line_index][i] in ONE_REPPRESENTATIONS:
                 value+=2**(number_of_bits-1-i)
         tile += str(value)
         if line_index!=ysize-1:

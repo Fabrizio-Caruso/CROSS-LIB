@@ -1397,7 +1397,7 @@ void respawn(void)
 }
 
 
-void zombie_die(void)
+void zombie_dies(void)
 {
     uint8_t y_pos = zombie_y[zombie_x];
     uint8_t i;
@@ -1415,7 +1415,12 @@ void zombie_die(void)
     } 
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,y_pos);
-    display_wall(BOTTOM_WALL_Y);
+    
+    #if defined(NO_BOTTOM_WALL_REDRAW)
+    #else
+        display_wall(BOTTOM_WALL_Y);
+    #endif
+    
     display_bow();
         
     if(zombie_level[zombie_x])
@@ -1598,7 +1603,7 @@ void handle_zombie_collisions(void)
             else
             {
                 increase_score(zombie_points[zombie_level[zombie_x]]);
-                zombie_die();
+                zombie_dies();
                 respawn();
             }
         }
@@ -2222,7 +2227,7 @@ void zombie_animation(void)
     zombie_level[zombie_x]=0;
     display_zombie();
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    zombie_die();
+    zombie_dies();
     display_cleared();
 }
 

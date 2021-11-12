@@ -126,8 +126,6 @@
 
 #define FEW_ZOMBIES (2*(MAX_OCCUPIED_COLUMNS)/3)
 
-#define ZOMBIE_MOVE_LOOPS 2
-
 #if !defined(NUMBER_OF_MISSILES)
     #define NUMBER_OF_MISSILES 5
 #endif
@@ -403,11 +401,64 @@ void display_score(void)
     _XL_PRINTD(0,0,5,score);
 }
 
+#define LIVES_X (XSize-3)
+
+#if !defined(_XL_NO_COLOR)
+    void display_lives(uint8_t color)
+    {
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
+        _XL_SET_TEXT_COLOR(color);
+        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives);
+    }
+#else
+    #define display_lives(color) \
+    { \
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
+        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives); \
+    } 
+#endif
+
+
+#if !defined(_XL_NO_COLOR)
+    #define _extra_life_color_effect(color) display_lives(color) 
+#else
+    #define _extra_life_color_effect(color)
+#endif
+
+
+#define handle_extra_life() \
+    do \
+    { \
+        uint8_t i; \
+        if(score>=next_threshold) \
+        { \
+            if(lives<MAX_LIVES) \
+            { \
+                ++lives; \
+            } \
+            next_threshold+=NEXT_EXTRA_LIFE; \
+            _XL_PING_SOUND(); \
+            \
+            for(i=0;i<16;++i) \
+            { \
+                _extra_life_color_effect(_XL_RED); \
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
+                _extra_life_color_effect(_XL_YELLOW); \
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
+            } \
+            _XL_PING_SOUND(); \
+            display_lives(_XL_WHITE); \
+        } \
+    } while(0)
+
 
 void increase_score(uint8_t value)
 {
     score+=value;
     display_score();
+    handle_extra_life();
 }
 
 
@@ -1002,30 +1053,11 @@ void beam_effect(void)
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
 
-#define LIVES_X (XSize-3)
-
-#if !defined(_XL_NO_COLOR)
-    void display_lives(uint8_t color)
-    {
-        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
-        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
-        _XL_SET_TEXT_COLOR(color);
-        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives);
-    }
-#else
-    #define display_lives(color) \
-    { \
-        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
-        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
-        _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives); \
-    } 
-#endif
-
 
 void display_bow(void)
 {
-    _XL_DRAW(bow_x/2,BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
-    _XL_DRAW(bow_x/2+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
+    _XL_DRAW(bow_x>>1,BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
+    _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
 }
 
 
@@ -1034,7 +1066,7 @@ void display_bow(void)
     bow_shape_tile = 2*((--bow_x)&1); \
     if(bow_shape_tile) \
     { \
-        _XL_DELETE(bow_x/2+2,BOW_Y); \
+        _XL_DELETE((bow_x>>1)+2,BOW_Y); \
     } \
     display_bow(); \
 }
@@ -1045,7 +1077,7 @@ void display_bow(void)
     bow_shape_tile = 2*((++bow_x)&1); \
     if(!bow_shape_tile) \
     { \
-        _XL_DELETE(bow_x/2-1,BOW_Y); \
+        _XL_DELETE((bow_x>>1)-1,BOW_Y); \
     } \
     display_bow(); \
 }
@@ -1103,7 +1135,7 @@ void handle_item(register Item* item)
                 #endif
             }
  
-            if(item->_x==(bow_x/2)+(bow_x&1))
+            if(item->_x==(bow_x>>1)+(bow_x&1))
             {
                 item->_effect();
                 _XL_PING_SOUND();
@@ -1565,10 +1597,13 @@ void handle_zombie_collisions(void)
 
 #define handle_missile_drops() \
 { \
-    zombie_x = (uint8_t) (_XL_RAND())%XSize; \
-    if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+    if((level>=2)&& !(main_loop_counter&3)) \
     { \
-        handle_missile_drop(); \
+        zombie_x = (uint8_t) (_XL_RAND())%XSize; \
+        if(zombie_active[zombie_x] && (zombie_level[zombie_x]>2) && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+        { \
+            handle_missile_drop(); \
+        } \
     } \
 } 
 
@@ -1649,7 +1684,7 @@ void fire(void)
     uint8_t offset;
     
     _XL_TICK_SOUND();
-    new_arrow_x = (bow_x/2)+(bow_x&1);
+    new_arrow_x = (bow_x>>1)+(bow_x&1);
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
         if(remaining_arrows && arrows_on_screen<MAX_ARROWS_ON_SCREEN)
@@ -2071,49 +2106,17 @@ do \
 } while(0)
 
 
-#if !defined(_XL_NO_COLOR)
-    #define _extra_life_color_effect(color) display_lives(color) 
-#else
-    #define _extra_life_color_effect(color)
-#endif
-
-#define handle_extra_life() \
-    do \
-    { \
-        uint8_t i; \
-        if(score>=next_threshold) \
-        { \
-            if(lives<MAX_LIVES) \
-            { \
-                ++lives; \
-            } \
-            next_threshold+=NEXT_EXTRA_LIFE; \
-            _XL_PING_SOUND(); \
-            \
-            for(i=0;i<16;++i) \
-            { \
-                _extra_life_color_effect(_XL_RED); \
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
-                _extra_life_color_effect(_XL_YELLOW); \
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
-            } \
-            _XL_PING_SOUND(); \
-            display_lives(_XL_WHITE); \
-        } \
-    } while(0)
-
-
 #define display_level_at_start_up()  \
 do \
 { \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     if(level==LAST_LEVEL) \
     { \
-        _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_F _XL_I _XL_N _XL_A _XL_L); \
+        _XL_PRINT(XSize/2-4, YSize/2," FINAL"); \
     } \
     _XL_SLEEP(1); \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,      _XL_L _XL_E _XL_V _XL_E _XL_L ); \
+    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL " ); \
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
     sleep_and_wait_for_input(); \
     _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
@@ -2259,7 +2262,6 @@ int main(void)
                 handle_arrows(); 
                 redraw_wall();  
                 handle_auto_recharge();
-                handle_extra_life();
                 handle_zombie_movement();
                 handle_zombie_collisions();
                 handle_missile_drops();

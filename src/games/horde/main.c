@@ -2005,7 +2005,17 @@ do \
 #if defined(_XL_NO_JOYSTICK)
     #define CONTROLS_STRING "USE J L SPACE"
 #else
-    #define CONTROLS_STRING "USE JOYSTICK"
+    #if defined(_XL_CURSORS)
+        #if XSize>=21
+            #define CONTROLS_STRING "USE CURSORS AND SPACE"
+        #elif XSize>=19
+            #define CONTROLS_STRING "USE CURSORS AND SPC"
+        #else
+            #define CONTROLS_STRING "CURSORS AND SPC"
+        #endif
+    #else
+        #define CONTROLS_STRING "USE JOYSTICK"
+    #endif
 #endif
 
 #if YSize==23

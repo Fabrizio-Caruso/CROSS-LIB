@@ -488,7 +488,7 @@ void recharge_effect(void)
     #define STR_LEN 2
     #define SPEED_X 4
     #define POWER_X ((XSize)-6)
-#elif XSize <= 25
+#elif XSize <= 26
     #define RANGE_STRING _XL_R _XL_N _XL_G
     #define SPEED_STRING _XL_S _XL_P _XL_D
     #define POWER_STRING _XL_P _XL_O _XL_W

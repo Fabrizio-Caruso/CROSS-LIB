@@ -572,7 +572,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-DINITIAL_SLOWDOWN=31500 \
 	-DLESS_TEXT -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=9 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -D_XL_NO_COLOR -DNO_BOTTOM_WALL_REDRAW \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
@@ -585,7 +585,7 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-DINITIAL_SLOWDOWN=31500 \
 	-DLESS_TEXT -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=9 \
 	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS \
-	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -D_XL_NO_COLOR -DNO_BOTTOM_WALL_REDRAW \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
@@ -680,7 +680,7 @@ creativision_color: creativision_sound
 
 creativision_sound: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS -DNO_BOTTOM_WALL_REDRAW \
 	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=26 -DX_OFFSET=3  \
 	-D_XL_SLOW_DOWN_FACTOR=1800 -DSOUNDS \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
@@ -692,77 +692,6 @@ creativision_sound: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
-creativision_color_16k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS \
-	-DALT_SLEEP -DCREATIVISION_COLOR -DFORCE_XSIZE=26 -DX_OFFSET=3  \
-	-D_XL_SLOW_DOWN_FACTOR=1800 \
-	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=1 -DMAX_ARROWS_ON_SCREEN=1 -DREDEFINED_CHARS \
-	-DALT_SLEEP -D_XL_NO_COLOR  \
-	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=1500 \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
-creativision_test: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DALT_SLEEP -DFORCE_XSIZE=9 -DFORCE_YSZIE=1 -DMAX_SNAKE_LENGTH=3 \
-	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=0 \
-	--config $(CFG_PATH)/cc65/creativision-16k_2.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
-creativision_32k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT   -DREDEFINED_CHARS \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_32k.bin
-
-creativision_24k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT   \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
-
-creativision_18k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT   -DREDEFINED_CHARS \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_18k.bin
 
 
 #################################################################

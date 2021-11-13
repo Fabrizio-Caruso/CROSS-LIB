@@ -1264,15 +1264,15 @@ void spawn_boss(void)
     --bosses_to_spawn;
 }
 
-
-#if XSize>=32
-    #define NORMAL_ZOMBIE_SPEED 1
-    #define SLOW_ZOMBIE_SPEED 7
-#else
-    #define NORMAL_ZOMBIE_SPEED 3
-    #define SLOW_ZOMBIE_SPEED 7
-#endif 
-
+#if !defined(NORMAL_ZOMBIE_SPEED) && !defined(SLOW_ZOMBIE_SPEED)
+    #if XSize>=32
+        #define NORMAL_ZOMBIE_SPEED 1
+        #define SLOW_ZOMBIE_SPEED 7
+    #else
+        #define NORMAL_ZOMBIE_SPEED 3
+        #define SLOW_ZOMBIE_SPEED 7
+    #endif 
+#endif
 
 void update_zombie_speed(void)
 {
@@ -1632,7 +1632,7 @@ void handle_zombie_collisions(void)
 
 #define handle_missile_drops() \
 { \
-    if((level>=2)&& !(main_loop_counter&MISSILE_DROP_LOOP_MASK) && !freeze) \
+    if((level>=2)&& !freeze) \
     { \
         uint8_t missile_index; \
         if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
@@ -2236,6 +2236,9 @@ void zombie_animation(void)
 do \
 { \
     uint8_t i; \
+    \
+    minions_to_kill = XSize*2; \
+    display_zombie_counter(); \
     for(i=0;i<XSize;++i) \
     { \
         zombie_x = i; \
@@ -2275,6 +2278,13 @@ do \
 }
 
 
+#define handle_wall() \
+    if(active_wall) \
+    { \
+        redraw_wall(); \
+    }
+
+
 int main(void)
 {           
     _XL_INIT_GRAPHICS();
@@ -2300,7 +2310,7 @@ int main(void)
                 handle_bow_move();
                 handle_bow_load();
                 handle_arrows(); 
-                redraw_wall();  // TODO: Optimize this
+                handle_wall();
                 handle_auto_recharge();
                 handle_zombie_movement();
                 handle_zombie_collisions();

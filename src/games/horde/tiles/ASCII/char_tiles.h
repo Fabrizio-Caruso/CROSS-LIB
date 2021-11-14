@@ -17,7 +17,7 @@
 
 #define _TILE_6 ' '
 
-#define _TILE_7 '='
+
 
 #define _TILE_8 'O'
 
@@ -48,9 +48,18 @@
 
 #define _TILE_22 'V'
 
-#define _TILE_23 '*'
+#if !defined(__CIDELSA__)
+    #define _TILE_7 '='
+    #define _TILE_23 '*'
+    #define _TILE_24 '-'
+    
+#else
+    #define _TILE_7  'Z'
+    #define _TILE_23 'X'
+    #define _TILE_24 'M'
+#endif
 
-#define _TILE_24 '-'
+#define _TILE_25 'S'
 
 #endif // _CHAR_TILES_H
 

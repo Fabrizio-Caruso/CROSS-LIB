@@ -51,18 +51,18 @@
 	#include "nes_settings.h"
 #elif defined(__NES__) && defined(NES_CONIO)
 	#include "nes_conio_settings.h"
+#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
+    #include "cidelsa_no_gfx.h"
 #elif defined(COMX_COLOR) && !defined(__MICRO__)
 	#include "comx_color_settings.h"
 #elif defined(__COMX__) || defined(__PECOM__) || ((defined(__CIDELSA__) && defined(REDEFINED_CHARS)))
-	#include "comx_settings.h"
+    #include "comx_settings.h"
 #elif defined(__MICRO__)
 	// #include "micro_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && defined(REDEFINED_CHARS))
 	#include "pce_settings.h"
-#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
-    #include "cidelsa_no_gfx.h"
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__))&&defined(APPLE2_HGR)
     #include "apple2_hgr_settings.h"
 #else

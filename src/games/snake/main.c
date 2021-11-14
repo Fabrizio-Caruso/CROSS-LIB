@@ -100,7 +100,7 @@
 
 
 
-const uint8_t images[] = {
+static const uint8_t images[] = {
     0, 
     MINE_TILE, 
     SUPER_RING_TILE, 
@@ -115,7 +115,7 @@ const uint8_t images[] = {
     TRANSPARENT_BRICK_TILE,
     };
 
-const uint8_t image_colors[] = {
+static const uint8_t image_colors[] = {
     0, 
     _XL_CYAN, 
     _XL_CYAN, 
@@ -1222,7 +1222,6 @@ void display_stats(void)
     _XL_INIT_INPUT(); \
     _XL_INIT_SOUND(); \
     record = 0;
-
 
 
 int main(void)

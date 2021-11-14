@@ -26,6 +26,10 @@
 
 #include "tile_aliases.h"
 
+
+// #define DEBUG
+
+
 #  if _XL_SLOW_DOWN_FACTOR<20
     #define LEVEL_SPEED_UP 0
 #elif _XL_SLOW_DOWN_FACTOR<100
@@ -95,7 +99,6 @@ do { \
 } while(0)
 
 
-
 #define drawPlaneBack() \
     _XL_DRAW(x,y,PLANE_BACK_TILE,_PLANE_COLOR);
 
@@ -104,7 +107,6 @@ do { \
 
 #define deletePlaneFront() \
     _XL_DELETE(x+1,y);
-
 
 
 #define deleteAnimatedPlaneBack() \
@@ -270,40 +272,41 @@ uint8_t alive;
 uint8_t explosion;
 
 
-const uint8_t building_tiles[] = {
+static const uint8_t building_tiles[] = {
     WALL_1_TILE, WALL_2_TILE, 
     TWO_WINDOW_WALL_1_TILE, TWO_WINDOW_WALL_2_TILE, 
     THREE_WINDOW_WALL_1_TILE, THREE_WINDOW_WALL_2_TILE, 
     SMALL_TWO_WINDOW_WALL_1_TILE, SMALL_TWO_WINDOW_WALL_2_TILE
     };
 
-const uint8_t building_colors[] = {
+static const uint8_t building_colors[] = {
     _WALL_1_COLOR, _WALL_2_COLOR, 
     _TWO_WINDOW_WALL_1_COLOR, _TWO_WINDOW_WALL_2_COLOR, 
     _THREE_WINDOW_WALL_1_COLOR, _THREE_WINDOW_WALL_2_COLOR, 
     _SMALL_TWO_WINDOW_WALL_1_COLOR, _SMALL_TWO_WINDOW_WALL_2_COLOR
     };
 
-#if defined(DEBUG)
-const uint8_t tiles[] = {
-		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
-		_TILE_4, _TILE_5, _TILE_6, _TILE_7, 
-		_TILE_8, _TILE_9, _TILE_10, _TILE_11, 
-		_TILE_12, _TILE_13, _TILE_14, _TILE_15, 
-		_TILE_16, _TILE_17, _TILE_18, _TILE_19,
-		_TILE_20, _TILE_21, _TILE_22, _TILE_23, 
-        _TILE_24, _TILE_25
-		};
 
-const static uint8_t tile_color[] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+#if defined(DEBUG)
+    static const uint8_t tiles[] = {
+            _TILE_0, _TILE_1, _TILE_2, _TILE_3, 
+            _TILE_4, _TILE_5, _TILE_6, _TILE_7, 
+            _TILE_8, _TILE_9, _TILE_10, _TILE_11, 
+            _TILE_12, _TILE_13, _TILE_14, _TILE_15, 
+            _TILE_16, _TILE_17, _TILE_18, _TILE_19,
+            _TILE_20, _TILE_21, _TILE_22, _TILE_23, 
+            _TILE_24, _TILE_25
+            };
+
+    static const static uint8_t tile_color[] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
+
 
 int main(void)
 {        
-
     uint8_t buildingType;
     uint8_t buildingColor;
-    uint8_t rnd;
+    uint8_t index;
 
     _XL_INIT_GRAPHICS();
 
@@ -318,20 +321,17 @@ int main(void)
         #define COL_OFFSET ((XSize-16)/2-1)
         #define ROW_OFFSET 3
         
-        
         for(buildingColor=0;buildingColor<6;++buildingColor)
         {
             _XL_CLEAR_SCREEN();
 
-            for(rnd=0;rnd<26;++rnd)
+            for(index=0;index<26;++index)
             {
-                _XL_DRAW((rnd&7)*2+COL_OFFSET,(rnd/8)*2+ROW_OFFSET,tiles[rnd],tile_color[buildingColor]);
+                _XL_DRAW((index&7)*2+COL_OFFSET,(index/8)*2+ROW_OFFSET,tiles[index],tile_color[buildingColor]);
                 _XL_SLOW_DOWN(300);
             }        
         }
         
-        
-    
     #endif
 
     while(1)
@@ -379,13 +379,13 @@ int main(void)
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&AND_MASK);
-                rnd = ((uint8_t) _XL_RAND())&7;
-                buildingType=building_tiles[rnd];
-                buildingColor=building_colors[rnd];
+                index = ((uint8_t) _XL_RAND())&7;
+                buildingType=building_tiles[index];
+                buildingColor=building_colors[index];
                 
                 for(y=1;y<building_height[x];++y)
                 {
-                    drawBuilding();     
+                    drawBuilding();   
                 }
                 _XL_PING_SOUND();
             }

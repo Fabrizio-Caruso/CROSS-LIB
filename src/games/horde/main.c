@@ -49,10 +49,8 @@
 
 #if YSize>=18
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
-#elif YSize>=16
-    #define INITIAL_ZOMBIE_Y 7
 #else
-    #define INITIAL_ZOMBIE_Y 5
+    #define INITIAL_ZOMBIE_Y ((((YSize)/2)-2)+1)
 #endif
 
 #if YSize>=18
@@ -153,6 +151,8 @@
 #else
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
+
+static uint8_t nastiness;
 
 static uint8_t active_wall;
 
@@ -738,7 +738,7 @@ void display_power_ups(void)
     hyper_counter = MAX_HYPER_COUNTER; \
     bow_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(1,_XL_SPACE _XL_H _XL_Y _XL_P _XL_E _XL_R _XL_SPACE ); \
+    _XL_PRINT_CENTERED_ON_ROW(1," HYPER " ); \
 }
 
 
@@ -1221,7 +1221,11 @@ void activate_zombie(void)
   
     zombie_active[zombie_x]=1;    
     zombie_shape[zombie_x]=0;
-    zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
+    #if YSize<=16
+        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
+    #else
+        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
+    #endif
 }
 
 
@@ -1360,7 +1364,7 @@ void handle_item_drop(void)
                 drop_item(&wallItem,35);
             }
         }
-        else if(!zombie_locked && !minions_to_kill && !zombieItem._active)
+        else if(!zombie_locked && !zombieItem._active)
             {
                 drop_item(&zombieItem,50);
             }
@@ -1629,23 +1633,46 @@ void handle_zombie_collisions(void)
     #define MISSILE_DROP_LOOP_MASK (1)
 #endif
 
-
-#define handle_missile_drops() \
-{ \
-    if((level>=2)&& !freeze) \
+#if !defined(NO_NASTY_DROP)
+    #define handle_missile_drops() \
     { \
-        uint8_t missile_index; \
-        if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
+        if((level>=2)&& !freeze) \
         { \
-            zombie_x = (uint8_t) (_XL_RAND())%XSize; \
-            if((zombie_level[zombie_x]>2) && zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+            uint8_t missile_index; \
+            if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
             { \
-                drop_item(&enemyMissile[missile_index],1); \
+                if(!(main_loop_counter&nastiness)) \
+                { \
+                    zombie_x = (bow_x>>1)+(bow_x&1); \
+                } \
+                else \
+                { \
+                    zombie_x = (uint8_t) (_XL_RAND())%XSize; \
+                } \
+                if((zombie_level[zombie_x]>2) && zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+                { \
+                    drop_item(&enemyMissile[missile_index],1); \
+                } \
             } \
         } \
-    } \
-} 
-
+    } 
+#else
+    #define handle_missile_drops() \
+    { \
+        if((level>=2)&& !freeze) \
+        { \
+            uint8_t missile_index; \
+            if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
+            { \
+                zombie_x = (uint8_t) (_XL_RAND())%XSize; \
+                if((zombie_level[zombie_x]>2) && zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
+                { \
+                    drop_item(&enemyMissile[missile_index],1); \
+                } \
+            } \
+        } \
+    } 
+#endif
 
 void move_zombies(void)
 {
@@ -1879,6 +1906,7 @@ do \
             number_of_arrows_per_shot = 3; \
             initialize_items(); \
             hyper_counter = 0; \
+            nastiness = 255; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 
@@ -1899,6 +1927,18 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
+            if(level<=3) \
+            { \
+                nastiness = 255; \
+            } \
+            else if(level<=6) \
+            { \
+                nastiness = 127; \
+            } \
+            else \
+            { \
+                nastiness = 7; \
+            } \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -2126,15 +2166,23 @@ do \
 } while(0)
 
 
-void display_top_border(void)
-{ 
-    uint8_t i; 
-    
-    for(i=0;i<XSize;++i) 
+# if YSize>=20
+    void display_top_border(void)
     { 
-        _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN);
-    } 
-}
+        uint8_t i; 
+        
+        for(i=0;i<XSize;++i) 
+        { 
+            _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN);
+        } 
+    }
+#else
+    void display_top_border(void)
+    {
+        _XL_PRINT_CENTERED_ON_ROW(1,"       " );
+        display_zombies();
+    }
+#endif
 
 
 #define handle_auto_recharge() \

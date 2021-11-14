@@ -16,13 +16,13 @@ extern uint8_t udgs[];
 uint8_t left_map_one_to_two(uint8_t n);
 uint8_t right_map_one_to_two(uint8_t n);
 
-void supervision_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+void supervision_draw(uint8_t x, uint8_t y, uint8_t tile);
 
 void supervision_delete(uint8_t x, uint8_t y);
 
 
 #define _XL_DRAW(x,y,tile,color) \
-    supervision_draw(x,y,tile,color)
+    supervision_draw(x,y,tile)
 
 #define _XL_DELETE(x,y) \
     supervision_delete(x,y)

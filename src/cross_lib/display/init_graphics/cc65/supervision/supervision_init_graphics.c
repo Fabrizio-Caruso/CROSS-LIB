@@ -2,7 +2,8 @@
 #include "display_macros.h"
 
 
-void supervision_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+// TODO: Implement color
+void supervision_draw(uint8_t x, uint8_t y, uint8_t tile)
     {
         uint8_t k;
         uint16_t offset = (8*(uint8_t)(tile)) ;

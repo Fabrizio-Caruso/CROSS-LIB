@@ -50,7 +50,7 @@
 #if YSize>=18
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
 #else
-    #define INITIAL_ZOMBIE_Y ((((YSize)/2)-2)+1)
+    #define INITIAL_ZOMBIE_Y (((YSize)/2)-1)
 #endif
 
 #if YSize>=18
@@ -430,6 +430,74 @@ void display_score(void)
 #endif
 
 
+void display_bow(void)
+{
+    _XL_DRAW((bow_x>>1),BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
+    _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
+}
+
+
+
+void display_zombie(void)
+{
+    uint8_t status = zombie_shape[zombie_x];
+    uint8_t pos = zombie_y[zombie_x];
+    uint8_t color;
+    uint8_t tile0;
+
+    tile0 = BOSS_TILE_0;
+
+    if(zombie_level[zombie_x]==1)
+    {
+        color = _XL_GREEN;
+    }
+    else if(zombie_level[zombie_x]==2)
+    {
+        if(!freeze)
+        {
+            tile0 = ZOMBIE_DEATH_TILE;
+            color = _XL_YELLOW;
+        }
+    }
+    else if(!zombie_level[zombie_x])
+    {
+        tile0 = MINION_TILE_0;
+        color = _XL_WHITE;
+    }
+    else 
+    {
+        color = _XL_RED;
+    }
+    if(freeze)
+    {
+        color = _XL_CYAN;  
+    }
+
+    if(!status)
+    {
+        _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
+        _XL_DRAW(zombie_x, pos, tile0, color);
+    }
+    else
+    {
+        uint8_t tile1;
+
+        if(!zombie_level[zombie_x])
+        {
+            tile0 = zombie_tile[status<<1];
+            tile1 = zombie_tile[1+(status<<1)];
+        }
+        else
+        {
+            tile0 = boss_tile[status<<1];
+            tile1 = boss_tile[1+(status<<1)]; 
+        }
+        _XL_DRAW(zombie_x, pos, tile0, color);
+        _XL_DRAW(zombie_x,1 + pos, tile1, color);
+    }
+}
+
+
 #define handle_extra_life() \
     do \
     { \
@@ -445,8 +513,12 @@ void display_score(void)
             \
             for(i=0;i<16;++i) \
             { \
+                bow_color = _XL_YELLOW; \
+                display_bow(); \
                 _extra_life_color_effect(_XL_RED); \
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
+                bow_color = _XL_CYAN; \
+                display_bow(); \
                 _extra_life_color_effect(_XL_YELLOW); \
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
             } \
@@ -873,65 +945,6 @@ void wall_effect(void)
 }
 
 
-void display_zombie(void)
-{
-    uint8_t status = zombie_shape[zombie_x];
-    uint8_t pos = zombie_y[zombie_x];
-    uint8_t color;
-    uint8_t tile0;
-
-    tile0 = BOSS_TILE_0;
-
-    if(zombie_level[zombie_x]==1)
-    {
-        color = _XL_GREEN;
-    }
-    else if(zombie_level[zombie_x]==2)
-    {
-        if(!freeze)
-        {
-            tile0 = ZOMBIE_DEATH_TILE;
-            color = _XL_YELLOW;
-        }
-    }
-    else if(!zombie_level[zombie_x])
-    {
-        tile0 = MINION_TILE_0;
-        color = _XL_WHITE;
-    }
-    else 
-    {
-        color = _XL_RED;
-    }
-    if(freeze)
-    {
-        color = _XL_CYAN;  
-    }
-
-    if(!status)
-    {
-        _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
-        _XL_DRAW(zombie_x, pos, tile0, color);
-    }
-    else
-    {
-        uint8_t tile1;
-
-        if(!zombie_level[zombie_x])
-        {
-            tile0 = zombie_tile[status<<1];
-            tile1 = zombie_tile[1+(status<<1)];
-        }
-        else
-        {
-            tile0 = boss_tile[status<<1];
-            tile1 = boss_tile[1+(status<<1)]; 
-        }
-        _XL_DRAW(zombie_x, pos, tile0, color);
-        _XL_DRAW(zombie_x,1 + pos, tile1, color);
-    }
-}
-
 
 void display_zombies(void)
 {
@@ -1060,12 +1073,6 @@ void beam_effect(void)
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
 
-
-void display_bow(void)
-{
-    _XL_DRAW((bow_x>>1),BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
-    _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
-}
 
 
 #define move_left() \
@@ -1406,6 +1413,8 @@ void zombie_dies(void)
     uint8_t y_pos = zombie_y[zombie_x];
     uint8_t i;
     
+    // _XL_DELETE(zombie_x,y_pos-1);
+    // _XL_DELETE(zombie_x,y_pos);
 
     _XL_DELETE(zombie_x,y_pos+1);
     
@@ -1606,8 +1615,8 @@ void handle_zombie_collisions(void)
             }
             else
             {
-                increase_score(zombie_points[zombie_level[zombie_x]]);
                 zombie_dies();
+                increase_score(zombie_points[zombie_level[zombie_x]]);
                 respawn();
             }
         }
@@ -1933,7 +1942,7 @@ do \
             } \
             else if(level<=6) \
             { \
-                nastiness = 127; \
+                nastiness = 63; \
             } \
             else \
             { \

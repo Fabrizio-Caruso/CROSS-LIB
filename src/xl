@@ -21,7 +21,7 @@ COMMANDS_LIST = \
     [ \
     "build", "clean", "create", "c", "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
-    "rebuild", "import", "resize", "show", "string", "run", "r" \
+    "rebuild", "import", "size", "show", "string", "run", "r" \
     ]
 
 def are_you_sure():
@@ -115,7 +115,7 @@ def string(params):
     print(converted_string)
 
 
-def resize(params,debug):
+def size(params,debug):
 
     if len(params)<2:
         game_dir = "helloworld"
@@ -683,15 +683,15 @@ def help(params):
         print(".#....#.")
         print("..####..")
         
-    elif params[1]=="resize":
-        print("xl resize <project> <XSize> <YSize>")
+    elif params[1]=="size":
+        print("xl size <project> <XSize> <YSize>")
         print("It builds <project> for the native host with screen size provided by <XSize> and <YSize>.")
         print("The built binaries will be in the 'build' directory.")
 
         print("\n<project>")
         print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects.")   
         
-        print("\nxl resize bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
+        print("\nxl size bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
         print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
 
     elif params[1]=="run" or params[1]=="r":
@@ -706,7 +706,7 @@ def help(params):
         print("It runs the previously built (e.g., with 'xl build snake') native version of Cross Snake.")
         print("")  
         print("xl run snake 16 16")
-        print("It runs the previously built with size 16X16 (with 'xl resize snake 16 16') native version of Cross Snake.")
+        print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
 
     elif params[1]=="string":
         print("xl string <string>")
@@ -969,10 +969,10 @@ if __name__ == "__main__":
         tile(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
-    elif sys.argv[1]=="resize":
-        resize(sys.argv[1:],0)
+    elif sys.argv[1]=="size":
+        size(sys.argv[1:],0)
     elif sys.argv[1]=="debug" or sys.argv[1]=="d":
-        resize(sys.argv[1:],1)
+        size(sys.argv[1:],1)
     elif sys.argv[1]=="create" or sys.argv[1]=="c":
         create(sys.argv[1:])
     elif sys.argv[1]=="clean":

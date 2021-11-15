@@ -152,7 +152,7 @@
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
 
-static uint8_t nastiness;
+static uint8_t missile_randomness_mask;
 
 static uint8_t active_wall;
 
@@ -1650,7 +1650,7 @@ void handle_zombie_collisions(void)
             uint8_t missile_index; \
             if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
             { \
-                if(!(main_loop_counter&nastiness)) \
+                if(!(main_loop_counter&missile_randomness_mask)) \
                 { \
                     zombie_x = (bow_x>>1)+(bow_x&1); \
                 } \
@@ -1915,7 +1915,7 @@ do \
             number_of_arrows_per_shot = 3; \
             initialize_items(); \
             hyper_counter = 0; \
-            nastiness = 255; \
+            missile_randomness_mask = 255; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 
@@ -1936,7 +1936,7 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-            nastiness = 255>>(level-1); \
+            missile_randomness_mask = 255>>(level-1); \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \

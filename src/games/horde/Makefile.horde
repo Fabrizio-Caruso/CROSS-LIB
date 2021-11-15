@@ -477,7 +477,7 @@ c16_included_gfx: $(ASSETS_PATH)/8x8_chars.h
 # TILE_21 and TILE_22 are corrupted on the UNEXPANDED C16
 # -DUSE_KERNAL_CLEAR_SCREEN
 c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
 	-DREDEFINED_CHARS \
@@ -489,7 +489,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DUSE_KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=500 \
+	-D_XL_SLOW_DOWN_FACTOR=800 \
 	-DUDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -501,7 +501,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 
 # Lacks one tile
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16  \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	 \
@@ -528,7 +528,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 
 	# -D_XL_SLOW_DOWN_FACTOR=990 -DINITIAL_GHOST_SLOWDOWN=31000 
 # c64: $(ASSETS_PATH)/cc65_udc_arcade.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64  \
 	# -DANIMATE_PLAYER -DSOUNDS  \
 	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	# -DCBM_SCREEN_CODES \
@@ -542,7 +542,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	# -o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64  \
 	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=$(API_VERSION) \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DMEMORY_MAPPED -DALT_PRINT \
@@ -988,28 +988,28 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) $(MO5_ORG_DATA) -o $(BUILD_PATH)/FULL_MO5.bin \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep_macros.o \
 	mo5_init_graphics.o  dac_sounds.o  \
@@ -1048,28 +1048,28 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_COMPILE_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.bin \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep_macros.o \
 	mo5_init_graphics.o \

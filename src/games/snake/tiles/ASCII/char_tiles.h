@@ -50,5 +50,7 @@
     #define _TILE_18 'O'
 #endif
 
+#define _TILE_25 '$'
+
 #endif // _CHAR_TILES_H
 

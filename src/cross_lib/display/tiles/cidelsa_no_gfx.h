@@ -27,8 +27,8 @@
 
 #if !defined(_DEFAULT_ASCII)
     #include "tiles/ASCII/char_tiles.h"
-// #endif
-#else
+#endif
+// #else
 
     #if !defined(_TILE_19)
         #define _TILE_19 'T'
@@ -144,7 +144,7 @@
 
     #endif
 
-#endif
+// #endif
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

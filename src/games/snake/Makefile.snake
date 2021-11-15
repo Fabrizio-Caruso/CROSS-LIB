@@ -2448,18 +2448,31 @@ _cidelsa: _cidelsa_draco
 
 _cidelsa_draco: _cidelsa_draco_32k
 
+
 # Probably broken because of OUT OF MEMORY RAM
+# TODO: Need to have OFFSETS work
 # -DREDEFINED_CHARS
 _cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
-	-D__CIDELSA__ -D__DRACO__ -D_XL_NO_UDG  -D_XL_SLOW_DOWN_FACTOR=500 \
+	-D__CIDELSA__ -D__DRACO__ -D_XL_NO_UDG  \
 	-D_XL_NO_COLOR -DNO_ANIMATION -DNO_BONUS_ANIMATION -DNO_CONTROL_INSTRUCTIONS -DNO_DISPLAY_LEVEL_ANIMATION \
-	-DX_OFFSET=6  -DFORCE_XSIZE=20 -DY_OFFSET=3 -DFORCE_YSIZE=16 -DMAX_SNAKE_LENGTH=12 \
-	-DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=400 \
+	-DX_OFFSET=6  -DFORCE_XSIZE=10 -DY_OFFSET=3 -DFORCE_YSIZE=10 -DMAX_SNAKE_LENGTH=12 \
+	-DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=200 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+# _cidelsa_draco_32k: reduced_full_lcc1802_combo.c
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
+	# -D__CIDELSA__ -D__DRACO__  \
+	# -D_XL_NO_COLOR -D_XL_NO_UDG \
+	# -DLCC1802_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=300 \
+	# -DX_OFFSET=6 -DFORCE_XSIZE=20 -DY_OFFSET=3 -DFORCE_YSIZE=16 -DMAX_SNAKE_LENGTH=12 \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
 
 cidelsa: \
     _cidelsa_draco \

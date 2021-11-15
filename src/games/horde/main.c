@@ -1936,18 +1936,7 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-            if(level<=3) \
-            { \
-                nastiness = 255; \
-            } \
-            else if(level<=6) \
-            { \
-                nastiness = 63; \
-            } \
-            else \
-            { \
-                nastiness = 7; \
-            } \
+            nastiness = 255>>(level-1); \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \

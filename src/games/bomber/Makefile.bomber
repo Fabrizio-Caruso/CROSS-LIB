@@ -269,7 +269,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-D_XL_SLOW_DOWN_FACTOR=500 -DXSize=20 -DYSize=24 \
 	-DSOUNDS -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -292,7 +292,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-D_XL_SLOW_DOWN_FACTOR=500 -DXSize=20 -DYSize=24 \
 	-DSOUNDS -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -851,8 +851,8 @@ cpm_z80_adm3a:
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb -v $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME -DSOUNDS \
@@ -872,8 +872,8 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DANIMATE_PLAYER -DUSE_WAIT_V_SYNC \
 	-DFULL_GAME \
@@ -896,8 +896,8 @@ gg: gamegear
 gamegear: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ -D__GAME_GEAR__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER -DFORCE_BIT_BANG \
 	-DFULL_GAME -DNO_EXTRA_TITLE \
@@ -920,7 +920,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
 	-DFULL_GAME -DLESS_TEXT -D_XL_SLOW_DOWN_FACTOR=2000 \
 	-DCONIO \
@@ -990,7 +990,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-vn   -D__MSX__  \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DCONIO  -DFORCE_NARROW -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
+	-DCONIO  -DFORCE_NARROW -DXSize=32 -DYSize=24 \
 	-DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
@@ -1028,8 +1028,8 @@ sms: sms_gfx
 sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=32 \
+	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DFORCE_BIT_BANG \
@@ -1172,8 +1172,8 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-D_XL_SLOW_DOWN_FACTOR=10 -DNO_ANIMATION \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=32 \
+	-DYSize=22 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
@@ -1635,8 +1635,8 @@ mc10_no_print:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
 	-D__MC10__ -DNO_UDG \
 	-DFORCE_NO_CONIO_LIB \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=32 \
+	-DYSize=16 \
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME -DNO_SLEEP \
@@ -1655,8 +1655,8 @@ mc10_turn_based:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
 	-D__MC10__ -DNO_UDG \
 	-DFORCE_NO_CONIO_LIB \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=32 \
+	-DYSize=16 \
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR -DTURN_BASED \
 	-DTINY_GAME -DNO_SLEEP \
@@ -1673,8 +1673,8 @@ mc10_turn_based:
 mc10_buffered:
 	cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ -D__MC10__ \
-	-DFORCE_XSIZE=31 \
-	-DFORCE_YSIZE=15 \
+	-DXSize=31 \
+	-DYSize=15 \
 	-DSTDLIB -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
 	-DINITIAL_SLOWDOWN=25000 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
 	-D_XL_NO_COLOR \
@@ -1702,7 +1702,7 @@ ncurses_targets: \
 ncurses_debug:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \

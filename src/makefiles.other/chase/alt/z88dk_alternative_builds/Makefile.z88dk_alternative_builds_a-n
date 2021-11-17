@@ -126,8 +126,8 @@ aussie_buffered:
 	-D__AUSSIE__ \
 	-DSOUNDS \
 	-DFORCE_BIT_BANG \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
+	-DXSize=16 \
+	-DYSize=12 \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -147,7 +147,7 @@ aussie_buffered:
 c128_z80_40col_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DXSize=40 \
 	-DFULL_GAME -DEND_SCREEN \
 	-DTURN_BASED \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -190,8 +190,8 @@ cpm_z80_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSTDLIB \
-	-DFORCE_XSIZE=24 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=24 \
+	-DYSize=16 \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME -DNO_WALL \
 	-DTURN_BASED \
@@ -210,8 +210,8 @@ cpm_z80_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSTDLIB \
-	-DFORCE_XSIZE=24 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=24 \
+	-DYSize=16 \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \

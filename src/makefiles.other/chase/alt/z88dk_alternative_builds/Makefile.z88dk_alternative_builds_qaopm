@@ -85,8 +85,8 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=15000 \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
@@ -117,8 +117,8 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DINITIAL_SLOWDOWN=15000 \
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-DZ88DK_JOYSTICK \
 	-DQAOPM \
 	-vn \
@@ -152,8 +152,8 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
 	-DTURN_BASED \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \

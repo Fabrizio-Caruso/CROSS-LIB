@@ -18,8 +18,8 @@ emcc_buffered:
 	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__EMCC__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=48 \
-	-DFORCE_YSIZE=9 \
+	-DXSize=48 \
+	-DYSize=9 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DNO_SLEEP \
@@ -41,8 +41,8 @@ emcc_exp:
 	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__EMCC__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=80 \
-	-DFORCE_YSIZE=24 \
+	-DXSize=80 \
+	-DYSize=24 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DNO_SLEEP -DNO_INPUT -DNO_WAIT \

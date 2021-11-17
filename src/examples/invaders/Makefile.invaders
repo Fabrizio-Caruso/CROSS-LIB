@@ -769,8 +769,8 @@ cpm_z80_adm3a:
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR  \
 	-DFULL_GAME \
@@ -789,8 +789,8 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR  -DUSE_WAIT_V_SYNC \
 	-DFULL_GAME \
@@ -812,7 +812,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
 	-DFULL_GAME -DLESS_TEXT -D_XL_SLOW_DOWN_FACTOR=800 \
 	-DCONIO \
@@ -902,8 +902,8 @@ sms: sms_gfx
 sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=32 \
+	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	 \
 	-DFULL_GAME \
@@ -977,8 +977,8 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-D_XL_SLOW_DOWN_FACTOR=10 -DNO_ANIMATION \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=32 \
+	-DYSize=22 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
@@ -1461,7 +1461,7 @@ ncurses_targets: \
 ncurses_debug:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \

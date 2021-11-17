@@ -22,8 +22,8 @@ amiga_buffered:
 	$(AMIGA_CC) $(INCLUDE_OPTS) -mcrt=nix13 \
 	-D__AMIGA__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=39 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=39 \
+	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DNO_SLEEP \

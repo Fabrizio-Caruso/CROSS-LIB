@@ -16,8 +16,8 @@ ack_targets: \
 
 pc8086_tiny_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=20 \
+	-DXSize=20 \
+	-DYSize=20 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -35,8 +35,8 @@ pc8086_tiny_buffered:
 
 cpm_8080_buffered_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
-	-DFORCE_XSIZE=39 \
-	-DFORCE_YSIZE=23 \
+	-DXSize=39 \
+	-DYSize=23 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -58,8 +58,8 @@ cpm_8080_buffered_ack:
 	
 cpm_8080_adm3a_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=78 \
+	-DYSize=22 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -81,8 +81,8 @@ cpm_8080_ack_targets: \
 # buffered
 msdos86:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=78 \
+	-DYSize=22 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -103,8 +103,8 @@ msdos86:
 
 msdos86_test:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=78 \
+	-DYSize=22 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -126,8 +126,8 @@ msdos86_test:
 # buffered	
 pc8086:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=78 \
+	-DYSize=22 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -152,8 +152,8 @@ pc8086_targets: \
 # buffered
 linuxppc:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=78 \
+	-DYSize=21 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -178,8 +178,8 @@ linuxppc_targets: \
 #buffered
 linux68k:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux68k \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=78 \
+	-DYSize=21 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -204,8 +204,8 @@ linux68k_targets: \
 # buffered
 linux386:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux386 \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=78 \
+	-DYSize=21 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
@@ -230,8 +230,8 @@ linux386_targets: \
 # buffered
 linuxmips:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=78 \
+	-DYSize=21 \
 	-DCONIO_ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \

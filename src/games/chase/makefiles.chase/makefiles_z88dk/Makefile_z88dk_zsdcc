@@ -240,8 +240,8 @@ oz_tiny_buffered:
 	-ooz.bin \
 	-D__OZ__ \
 	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
-	-DFORCE_XSIZE=59 \
-	-DFORCE_YSIZE=9 \
+	-DXSize=59 \
+	-DYSize=9 \
 	-DFORCE_NARROW \
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
@@ -482,8 +482,8 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
 	-DTURN_BASED \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \

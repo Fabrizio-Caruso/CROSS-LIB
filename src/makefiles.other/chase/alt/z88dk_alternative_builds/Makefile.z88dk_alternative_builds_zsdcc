@@ -28,8 +28,8 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=21150 \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
@@ -59,8 +59,8 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DINITIAL_SLOWDOWN=21150 \
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=35 \
+	-DXSize=36 \
+	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \

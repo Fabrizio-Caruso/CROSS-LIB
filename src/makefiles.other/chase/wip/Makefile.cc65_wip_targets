@@ -6,8 +6,8 @@ bbc_no_graphics:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=79 \
+	-DYSize=22 \
 	-DNO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \

@@ -127,7 +127,7 @@ aquarius_quick_test:
 c128_z80_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DXSize=40 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DFORCE_CONIO_LIB \
 	-DCONIO \
@@ -834,7 +834,7 @@ c128_z80_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-compiler=sdcc \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DXSize=40 \
 	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \

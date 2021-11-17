@@ -27,8 +27,8 @@ olivetti_m20_buffered:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-D__OLIVETTI_M20__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=79 \
+	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
@@ -48,8 +48,8 @@ olivetti_m20_buffered:
 olivetti_m20_no_graphics:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=79 \
+	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \

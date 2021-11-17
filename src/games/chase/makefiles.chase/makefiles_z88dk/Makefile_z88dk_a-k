@@ -248,7 +248,7 @@ abc800_buffered:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos \
 	-DSTDLIB \
-	-D_XL_NO_COLOR -DNO_BLINKING -DFORCE_XSIZE=39 -DFORCE_YSIZE=22 \
+	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
 	-DBUFFERED -DALT_PRINT \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
@@ -371,8 +371,8 @@ altair8800: altair8800_tiny_buffered
 altair8800_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
+	-DXSize=16 \
+	-DYSize=12 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-D__ALTAIR8800__ \
@@ -410,8 +410,8 @@ bic: bic_buffered
 bic_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
 	$(INCLUDE_OPTS) \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=79 \
+	-DYSize=21 \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -492,7 +492,7 @@ c128_z80_40col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DXSize=40 \
 	-DSOUNDS \
 	-DFORCE_BIT_BANG \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
@@ -539,7 +539,7 @@ coleco_adam:
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
-	-DCONIO -DFORCE_XSIZE=29 -DFORCE_YSIZE=20 \
+	-DCONIO -DXSize=29 -DYSize=20 \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -654,8 +654,8 @@ cpm_buffered: cpm_8080_buffered
 cpm_8080_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -m8080 -clib=8080 \
 	$(INCLUDE_OPTS) \
-	-DFORCE_XSIZE=39 \
-	-DFORCE_YSIZE=23 \
+	-DXSize=39 \
+	-DYSize=23 \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -680,8 +680,8 @@ dai: dai_buffered
 dai_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +dai $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__DAI__ \
-	-DFORCE_XSIZE=47 \
-	-DFORCE_YSIZE=21 \
+	-DXSize=47 \
+	-DYSize=21 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
@@ -783,8 +783,8 @@ enterprise_buffered:
 	$(INCLUDE_OPTS) \
 	-vn \
 	-D__ENTERPRISE__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=20 \
+	-DYSize=16 \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -892,8 +892,8 @@ gamegear: gamegear_gfx
 gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ -D__GAME_GEAR__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DFORCE_BIT_BANG \
@@ -913,8 +913,8 @@ gamegear_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -subtype=gamegear -clib=sdcc_iy -startup=17 \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
-	-DFORCE_XSIZE=19 \
-	-DFORCE_YSIZE=15 \
+	-DXSize=19 \
+	-DYSize=15 \
 	-D__SMS__ \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
@@ -948,8 +948,8 @@ gb: gb_gfx
 gb_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME  \
@@ -966,8 +966,8 @@ gb_no_gfx:
 gb_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \
@@ -990,8 +990,8 @@ gb_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm
 homelab:
 	$(Z88DK_PATH)$(MYZ88DK) +homelab $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__HOMELAB__ \
-	-DFORCE_XSIZE=64 \
-	-DFORCE_YSIZE=30 \
+	-DXSize=64 \
+	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME  \
@@ -1010,8 +1010,8 @@ homelab:
 homelab2:
 	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__HOMELAB2__ \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=23 \
+	-DXSize=40 \
+	-DYSize=23 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME  \
@@ -1030,8 +1030,8 @@ homelab2:
 hemc:
 	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__HEMC__ \
-	-DFORCE_XSIZE=64 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=64 \
+	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
@@ -1049,8 +1049,8 @@ hemc:
 hgmc:
 	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__HGMC__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=30 \
+	-DXSize=32 \
+	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
@@ -1172,8 +1172,8 @@ kramermc:
 	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__KRAMERMC__ \
-	-DFORCE_XSIZE=64 \
-	-DFORCE_YSIZE=16 \
+	-DXSize=64 \
+	-DYSize=16 \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \

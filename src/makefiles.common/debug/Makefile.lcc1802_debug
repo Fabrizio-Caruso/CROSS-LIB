@@ -100,8 +100,8 @@ comx_pointer2func:
 
 comx_pp_debug: 
 	$(LCC1802)  $(LC1802_OPTS) $(COMX_OPTS) \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=24 \
+	-DXSize=40 \
+	-DYSize=24 \
 	-D__COMX__ \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \

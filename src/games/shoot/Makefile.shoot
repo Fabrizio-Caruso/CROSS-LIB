@@ -266,7 +266,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -288,7 +288,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-DINITIAL_SLOWDOWN=31500 -DFORCE_XSIZE=20 -DFORCE_YSIZE=24 \
+	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
 	-DBETWEEN_LEVEL -DSOUNDS -DEND_SCREEN -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -714,8 +714,8 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DANIMATE_PLAYER  \
 	-DFULL_GAME \
@@ -741,8 +741,8 @@ gamegear: gamegear_gfx
 gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ -D__GAME_GEAR__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DXSize=20 \
+	-DYSize=18 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DFORCE_BIT_BANG \
@@ -765,7 +765,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
 	-DFULL_GAME -DLESS_TEXT -D_XL_SLOW_DOWN_FACTOR=80 \
 	-DCONIO \
@@ -878,8 +878,8 @@ sms: sms_gfx
 sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=22 \
+	-DXSize=32 \
+	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DFORCE_BIT_BANG \
@@ -1612,7 +1612,7 @@ ncurses_targets: \
 ncurses_debug:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DFORCE_XSIZE=$(XSIZE) -DFORCE_YSIZE=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \

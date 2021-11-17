@@ -83,20 +83,31 @@
 
 #if defined(__TMC600__)
     #include <devkit/video/vis_video.h>
-    #define COLOR_POKE(addr,val) setcolor(addr,val)
+    #define COLOR_POKE(addr,color) setcolor(addr,color)
 #else
-    #define COLOR_POKE(addr, val) DISPLAY_POKE(addr,val)
+    #define COLOR_POKE(addr, color) DISPLAY_POKE(addr, color)
 #endif
 
 #if !defined(_XL_NO_COLOR)
 
-	#define _XL_DRAW(x,y,tile,color) \
-	do \
-	{ \
-		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
-		DISPLAY_POKE(loc(x,y), (tile)); \
-	} \
-	while(0)
+    #if defined(__TMC600__)
+        #define _XL_DRAW(x,y,tile,color) \
+        do \
+        { \
+            DISPLAY_POKE(loc(x,y), (tile)); \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
+        } \
+        while(0)
+    #else
+        #define _XL_DRAW(x,y,tile,color) \
+        do \
+        { \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
+            DISPLAY_POKE(loc(x,y), (tile)); \
+        } \
+        while(0)
+    #endif
+        
 #else
 	#define _XL_DRAW(x,y,tile,color) \
 		DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), tile);

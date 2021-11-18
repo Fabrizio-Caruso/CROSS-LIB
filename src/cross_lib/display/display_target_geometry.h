@@ -41,7 +41,8 @@
 	#endif
 #endif
 
-#if !defined(FORCE_YSIZE)
+
+#if !defined(YSize)
 	#  if defined(__NCURSES__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__CIDELSA__) // DRACO/DESTROYER/ALTAIR
@@ -150,12 +151,10 @@
 	#else
 		#define YSize 16
 	#endif
-#else
-	#define YSize FORCE_YSIZE
 #endif
 
 
-#if !defined(FORCE_XSIZE)
+#if !defined(XSize)
 	#  if defined(__NCURSES__)
 		#define XSize 80
 	#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
@@ -243,9 +242,9 @@
 		#define XSize 32
 	#elif defined(__PV1000__)
 		#define XSize 28
-	#elif defined(__DRACO__)
+	#elif defined(__CIDELSA__) && defined(__DRACO__)
 		#define XSize 27
-	#elif defined(__DESTROYER__) || defined(__ALTAIR__)
+	#elif defined(__CIDELSA__) && (defined(__DESTROYER__) || defined(__ALTAIR__))
 		#define XSize 25
 	#elif defined(__OSIC1P__) || defined(__G800__) || defined(__RX78__) 
 		#define XSize 24
@@ -260,8 +259,6 @@
 	#else
 		#define XSize 16
 	#endif
-#else
-	#define XSize FORCE_XSIZE
 #endif
 
 #if XSize < YSize

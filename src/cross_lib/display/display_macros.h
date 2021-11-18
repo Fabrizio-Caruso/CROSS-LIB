@@ -369,7 +369,11 @@ typedef struct ImageStruct Image;
     #endif
 #elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__))
     #include <devkit/video/vis_video.h>
-    
+    #if defined(__DRACO__)
+        #define REAL_XSIZE 27
+    #else
+        #define REAL_XSIZE 25
+    #endif    
     #define _XL_CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
     #define _XL_CLEAR_SCREEN() PUTCH(12);

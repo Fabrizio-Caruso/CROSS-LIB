@@ -172,6 +172,64 @@ def rebuild(params):
     build(params)
 
 
+def clone(params):
+    if len(params)<2:
+        source_game_dir = "helloworld"
+    else:
+        source_game_dir = params[1]
+        
+    if len(params)<3:
+        exit()
+        
+    target_game_dir = params[2]
+        
+        
+    source_project_type = project_category(source_game_dir)
+    source_parent_dir = source_project_type + "s"
+    source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
+
+    target_project_type = "project"
+    target_parent_dir = target_project_type + "s"
+    target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
+
+    print("Source project name    : " + source_game_dir)
+    print("Source Project type    : " + source_project_type)
+    print("Path to source project : " + source_parent_and_game_dir)
+    print("")
+    print("Target project name    : " + target_game_dir)
+    print("target Project type    : " + target_project_type)
+    print("Path to target project : " + target_parent_dir_and_game_dir)
+
+    # if not os.path.exists(target_parent_dir_and_game_dir):
+        # print("Creating project dir...")
+        # os.makedirs(target_parent_dir_and_game_dir)
+
+    source_path = source_parent_and_game_dir
+    print("source_path: " + source_path)
+    dest_path = target_parent_dir_and_game_dir
+    print("dest_path: " + dest_path)
+
+    if not os.path.exists(dest_path+"/tiles"):
+        print("Copying tiles...")
+        shutil.copytree(source_path, dest_path)
+
+    if not os.path.exists(dest_path+"/generated_assets"):
+        print("Create empty generated_assets directory...")
+        os.makedirs(dest_path+"/generated_assets")
+
+    fin = open("./"+dest_path+"/Makefile."+source_game_dir, "rt")
+    data = fin.read()
+    data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
+    data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
+    data = data.replace('PARENT_DIR = ' + source_parent_dir, 'PARENT_DIR = ' + target_parent_dir)
+    fin.close()
+    fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
+    fin.write(data)
+    fin.close()
+    
+    os.remove("./"+dest_path+"/Makefile."+source_game_dir)
+
+
 def build(params):
 
     if len(params)<2:
@@ -297,7 +355,6 @@ def create(params):
         os.makedirs(dest_path+"/generated_assets")
 
     file_names = ["main.c"]
-
 
     for file_name in file_names:
         print("Copying file_name: " + file_name)
@@ -656,6 +713,11 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="clone":
+        print("\nxl clone <source project> <target project>")   
+        print("It clones an existing project to create a new user-defined project")
+        print("")
+        print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
     elif params[1]=="show":
         print("xl show <project> <[optional] XTileSize> <[optional] YTileSize> <[optional] TileIndex> ")
         print("It displays the shape of graphics tiles of a given project")
@@ -961,6 +1023,8 @@ if __name__ == "__main__":
         import_from_source(sys.argv[1:])
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
+    elif sys.argv[1]=="clone":
+        clone(sys.argv[1:])
     elif sys.argv[1]=="show":
         show(sys.argv[1:])
     elif sys.argv[1]=="test":

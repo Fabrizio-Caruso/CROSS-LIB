@@ -24,7 +24,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 #if !defined(__CIDELSA__)
     vidstrcpy((uint16_t) BASE_ADDR+x+y*40,str);
 #else
-    vidstrcpy((uint16_t) 0xF800+XSize*YSize-YSize -x*40+y,str);
+    vidstrcpy((uint16_t) 0xF800+REAL_XSIZE*40-40 -(uint16_t)(x+X_OFFSET)*(uint16_t)40+(y+Y_OFFSET),str);
 #endif
 }
 
@@ -35,9 +35,9 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 #endif
 
 #if !defined(__CIDELSA__)
-    #define _DISPLAY(x,y,ch) vidchar((uint16_t)BASE_ADDR+(x)+(y)*40, (uint8_t) (ch+CHAR_OFFSET))
+    #define _DISPLAY(x,y,ch) vidcharxy(x,y, (uint8_t) (ch+CHAR_OFFSET))
 #else
-    #define _DISPLAY(__x,__y,__ch) vidchar((uint16_t)0xF800+XSize*YSize-YSize -(__x)*40+(__y), (uint8_t) (__ch+CHAR_OFFSET))
+    #define _DISPLAY(__x,__y,__ch) vidcharxy(__x+X_OFFSET,__y+Y_OFFSET, (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
 #define _XL_CHAR(x,y,ch) _DISPLAY(x,y,(ch+80+128))

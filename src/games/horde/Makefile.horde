@@ -1,5 +1,5 @@
 ######################################################################
-# Makefile for CROSS-BOMBER
+# Makefile for CROSS-HORDE
 
 GAME_NAME := horde
 

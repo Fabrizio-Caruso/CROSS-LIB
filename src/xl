@@ -21,7 +21,8 @@ COMMANDS_LIST = \
     [ \
     "build", "clean", "create", "c", "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
-    "rebuild", "import", "size", "show", "string", "run", "r" \
+    "rebuild", "import", "size", "show", "string", "run", "r", \
+    "clone",
     ]
 
 def are_you_sure():

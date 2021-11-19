@@ -550,6 +550,7 @@ cidelsa_destroyer_8k: \
 
 ###############################################################################
 
+
 _microboard: _micro
 
 _micro: _micro_pal2
@@ -575,6 +576,8 @@ _micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 micro_pal2: \
     _micro_pal2 \
     clean_combo_files
+
+micro: micro_pal2
 
 ###############################################################################
 

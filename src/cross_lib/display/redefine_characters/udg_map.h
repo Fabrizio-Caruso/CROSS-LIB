@@ -18,16 +18,19 @@ const struct redefine_struct
 #else
 	#define _TILE_0_OFFSET_ _TILE_0_OFFSET
 #endif
+
 #ifndef _TILE_1_OFFSET
 	#define _TILE_1_OFFSET_ _TILE_1
 #else
 	#define _TILE_1_OFFSET_ _TILE_1_OFFSET
 #endif
+
 #ifndef _TILE_3_OFFSET
 	#define _TILE_3_OFFSET_ _TILE_3
 #else
 	#define _TILE_3_OFFSET_ _TILE_3_OFFSET	
 #endif
+
 #ifndef _TILE_2_OFFSET
 	#define _TILE_2_OFFSET_ _TILE_2
 #else 
@@ -45,39 +48,42 @@ const struct redefine_struct
 	#define _TILE_5_OFFSET_ _TILE_5_OFFSET
 #endif
 
-
 #ifndef _TILE_6_OFFSET
 	#define _TILE_6_OFFSET_ _TILE_6
 #else
 	#define _TILE_6_OFFSET_ _TILE_6_OFFSET
 #endif
 
-
 #ifndef _TILE_7_OFFSET
 	#define _TILE_7_OFFSET_ _TILE_7
 #else
 	#define _TILE_7_OFFSET_ _TILE_7_OFFSET
 #endif
+
 #ifndef _TILE_9_OFFSET
 	#define _TILE_9_OFFSET_ _TILE_9
 #else
 	#define _TILE_9_OFFSET_ _TILE_9_OFFSET
 #endif
+
 #ifndef _TILE_8_OFFSET
 	#define _TILE_8_OFFSET_ _TILE_8
 #else
 	#define _TILE_8_OFFSET_ _TILE_8_OFFSET
 #endif
+
 #ifndef _TILE_11_OFFSET
 	#define _TILE_11_OFFSET_ _TILE_11
 #else
 	#define _TILE_11_OFFSET_ _TILE_11_OFFSET
 #endif
+
 #ifndef _TILE_12_OFFSET 
 	#define _TILE_12_OFFSET_ _TILE_12
 #else
 	#define _TILE_12_OFFSET_ _TILE_12_OFFSET
 #endif
+
 #ifndef _TILE_13_OFFSET
 	#define _TILE_13_OFFSET_ _TILE_13
 #else
@@ -95,6 +101,7 @@ const struct redefine_struct
 #else
 	#define _TILE_15_OFFSET_ _TILE_15_OFFSET
 #endif
+
 #ifndef _TILE_14_OFFSET
 	#define _TILE_14_OFFSET_ _TILE_14
 #else
@@ -105,12 +112,6 @@ const struct redefine_struct
 	#define _TILE_10_OFFSET_ _TILE_10
 #else
 	#define _TILE_10_OFFSET_ _TILE_10_OFFSET
-#endif
-
-#ifndef _TILE_0_B_OFFSET
-	#define _TILE_0_B_OFFSET_ _TILE_0_B
-#else
-	#define _TILE_0_B_OFFSET_ _TILE_0_B_OFFSET
 #endif
 
 #ifndef _TILE_18_OFFSET
@@ -167,6 +168,13 @@ const struct redefine_struct
 	#define _TILE_25_OFFSET_ _TILE_25_OFFSET
 #endif
 
+#ifndef _TILE_26_OFFSET
+	#define _TILE_26_OFFSET_ _TILE_26
+#else
+	#define _TILE_26_OFFSET_ _TILE_26_OFFSET
+#endif
+
+
 #if defined(__C16__) && defined(CONIO)
 	char screenCode(char ch)
 	{
@@ -196,8 +204,6 @@ const struct redefine_struct redefine_map[] =
 	#if !defined(NO_TILE_6)
 		{_TILE_6_OFFSET_, _TILE_6_UDG},
 	#endif
-	
-    
     
 	#if !defined(NO_TILE_7)
 		{_TILE_7_OFFSET_, _TILE_7_UDG},
@@ -218,7 +224,6 @@ const struct redefine_struct redefine_map[] =
 		{_TILE_13_OFFSET_, _TILE_13_UDG},
 	#endif	
 	
-    
     
 	#if !defined(NO_TILE_16)
 		{_TILE_16_OFFSET_, _TILE_16_UDG},
@@ -264,6 +269,10 @@ const struct redefine_struct redefine_map[] =
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},
     {_TILE_17_OFFSET_, _TILE_17_UDG},
+
+    #if !defined(NO_TILE_26)
+		{_TILE_26_OFFSET_, _TILE_26_UDG},
+    #endif
 
 };
 

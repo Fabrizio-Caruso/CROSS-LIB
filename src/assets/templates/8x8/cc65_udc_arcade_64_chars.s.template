@@ -87,7 +87,7 @@ _Charset:
 .byte <tile_6>
 
 ; dash
-.byte $00,$00,$00,$7e,$00,$00,$00,$00
+.byte <tile_26>
 
 ; period
 ;.byte $00,$00,$00,$00,$00,$18,$18,$00

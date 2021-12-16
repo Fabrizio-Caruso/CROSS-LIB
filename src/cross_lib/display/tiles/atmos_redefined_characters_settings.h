@@ -24,6 +24,8 @@
 
 #define _TILE_24_OFFSET ('?')
 
+#define _TILE_26_OFFSET ('@')
+
 #define _TILE_19 _TILE_19_OFFSET
 #define _TILE_20 _TILE_20_OFFSET
 #define _TILE_21 _TILE_21_OFFSET
@@ -85,7 +87,6 @@
 #define _TILE_13 _TILE_13_OFFSET
 
 
-#define _TILE_0_B_OFFSET _TILE_0
 #define _TILE_10_OFFSET 0x3B  
 
 #define _TILE_17_OFFSET 0x28
@@ -127,3 +128,4 @@
 #define _TILE_15 _TILE_15_OFFSET
 #define _TILE_16 _TILE_16_OFFSET
 
+#define _TILE_26 _TILE_26_OFFSET

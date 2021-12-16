@@ -82,14 +82,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 ; power-up S
     FCB <tile_8>
 
-	FCB %00000000
-	FCB %00000000
-	FCB %00000000
-	FCB %00000000
-	FCB %00111110
-	FCB %00000000
-	FCB %00000000
-	FCB %00000000
+	FCB <tile_26>
 
 ; right missile
     FCB <tile_15>

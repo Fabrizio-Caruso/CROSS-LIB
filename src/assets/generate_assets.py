@@ -13,18 +13,24 @@ if len(sys.argv)<3:
 else:
     parent_dir = sys.argv[2]
 
-NUMBER_OF_TILES = 26
+MAX_NUMBER_OF_TILES = 27
 
 tile=[]
+
 
 def read_tiles_from_dir(dir_name):
     global tile
     tile = []
-    for i in range(NUMBER_OF_TILES):
+    for i in range(MAX_NUMBER_OF_TILES):
         file_to_open = "../"+parent_dir+"/"+game_dir+"/tiles/"+dir_name+"/tile"+str(i)+".txt"
-        with open(file_to_open, 'r') as myfile:
-            print("Opening file tile"+file_to_open)
-            tile.append(myfile.read())
+        if os.path.exists(file_to_open):
+            with open(file_to_open, 'r') as myfile:
+                print("Opening file tile"+file_to_open)
+                tile.append(myfile.read())
+        else:
+            y = int(dir_name[2])
+            zerolist = str([0]*y)
+            tile.append(zerolist[1:len(zerolist)-1])
 
 
 def read_templates_from_dir(dir_name):
@@ -67,7 +73,7 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
         for line in fin:
             newline = line
             # print("initial line: "+newline)
-            for i in range(NUMBER_OF_TILES):
+            for i in range(len(tile)):
                 if stripped_template_file_name.startswith("cmoc"):
                     tile_data = tile[i].replace(","," \n    FCB ")
                 else:

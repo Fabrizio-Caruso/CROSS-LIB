@@ -92,6 +92,8 @@
             {_TILE_24, _TILE_24_UDG},
             // #if _XL_NUMBER_OF_TILES>=26
             {_TILE_25, _TILE_25_UDG},
+            // #if _XL_NUMBER_OF_TILES>=27
+            {_TILE_26, _TILE_26_UDG},
             // #endif
             // #endif
             // #endif
@@ -99,7 +101,7 @@
             // #endif
             // #endif
             // #endif
-            
+            // #endif
         };
 
     #endif
@@ -141,7 +143,7 @@ void _XL_INIT_GRAPHICS(void)
     #endif
  
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        for(i=0;i<26;++i)
+        for(i=0;i<_XL_NUMBER_OF_TILES;++i)
         {
             redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
         }

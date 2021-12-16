@@ -77,6 +77,7 @@
 
 #define _TILE_25 36
 
+#define _TILE_26 124
 
 #endif // _COMX_COLOR_GRAPHICS_SETTINGS
 

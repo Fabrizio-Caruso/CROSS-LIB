@@ -36,6 +36,7 @@
 #define _TILE_24_OFFSET 61
 
 #define _TILE_25_OFFSET 62
+#define _TILE_26_OFFSET 63
 
 #define _TILE_19 _TILE_19_OFFSET
 #define _TILE_20 _TILE_20_OFFSET
@@ -72,7 +73,7 @@
 #define _TILE_13 _TILE_13_OFFSET
 
 #define _TILE_25 _TILE_25_OFFSET
-
+#define _TILE_26 _TILE_26_OFFSET
 
 
 #endif // _APPLE2_HGR_SETTINGS

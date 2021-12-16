@@ -10,7 +10,7 @@
 .rodata
 
 _pce_font:
-.byte   $00, $00, $00, $00, $00, $00, $00, $00
+.byte  <tile_26>
 
 .byte <tile_13>
 
@@ -84,7 +84,6 @@ _pce_font:
 
 .byte <tile_24>
 
-;.byte   $00, $00, $C0, $C0, $C0, $FE, $00, $00
 .byte <tile_25>
 
 .byte   $00, $24, $66, $FF, $66, $24, $00, $00

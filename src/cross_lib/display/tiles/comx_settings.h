@@ -57,6 +57,8 @@
 
 #define _TILE_25 '$'
 
+#define _TILE_26 'g'
+
 // GREEN
 #define _TILE_8 'r'
 

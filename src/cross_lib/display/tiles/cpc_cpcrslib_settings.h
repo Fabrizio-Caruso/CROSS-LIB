@@ -34,6 +34,8 @@
 #define _TILE_23 25*2
 #define _TILE_24 26*2
 
+#define _TILE_26 27*2
+
 
 #endif // _CPC_CPCRSLIB_SETTINGS
 

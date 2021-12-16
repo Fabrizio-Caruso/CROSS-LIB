@@ -68,3 +68,5 @@
 #define _TILE_22 38
 #define _TILE_23 40
 #define _TILE_24 41
+
+#define _TILE_26 0

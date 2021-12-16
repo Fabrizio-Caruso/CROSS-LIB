@@ -204,7 +204,8 @@ z88dk_targets_aux: \
     sms \
     spectrum \
     vg5k \
-    vz200
+    vz200 \
+    zx81
 else
 cc65_targets: \
     atari \
@@ -248,12 +249,14 @@ ifeq ($(DO_WIN),1)
 all: \
 	gcc_targets \
 	cc65_targets \
+	cmoc_targets \
 	lcc1802_targets \
 	z88dk_targets
 else
 all: \
 	gcc_targets \
 	cc65_targets \
+	cmoc_targets \
 	z88dk_targets
 endif
 
@@ -1056,9 +1059,7 @@ TO7_ORG_DATA    ?= --org=a000
 
 cmoc_targets: \
 	coco_targets \
-	dragon_targets \
-	mo5_targets \
-	to7_targets
+	mo5_targets
 
 coco_no_gfx:
 	$(CMOC) \
@@ -1360,6 +1361,8 @@ else
 	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif	
 
+
+mo5_targets: mo5
 
 
 #################################################################

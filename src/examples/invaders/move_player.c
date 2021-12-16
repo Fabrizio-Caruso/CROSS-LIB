@@ -2,7 +2,7 @@
 
 #include "move_player.h"
 
-#include "images.h"
+#include "tile_aliases.h"
 
 extern uint8_t ship_x;
 extern uint8_t ship_fire;

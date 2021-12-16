@@ -43,6 +43,9 @@ $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc_arcade.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_arcade_27_tiles_v2.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cc65_udc_arcade_v2.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
@@ -67,10 +70,10 @@ $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(8X8_TILES)
+$(ASSETS_PATH)/cmoc_udc_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s: $(8X8_TILES)
+$(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(8X8_TILES)

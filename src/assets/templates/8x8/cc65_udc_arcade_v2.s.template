@@ -53,7 +53,7 @@ _udgs:
 .byte $c6,$ee,$7c,$38,$7c,$ee,$c6,$00,$cc,$cc,$cc,$78,$30,$30,$30,$00
 .byte $fe,$0e,$1c,$38,$70,$e0,$fe,$00 ; z (90)
 
-.byte $00,$00,$00,$ff,$ff,$00,$00,$00 ; (91) unused (future 27th tile)
+.byte <tile_26> ; (91) unused (future 27th tile)
 
 .byte <tile_4>  ; (92)
 .byte <tile_18> ; (93)

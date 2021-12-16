@@ -52,7 +52,6 @@
 
 #define _TILE_7 8
 
-// #define _TILE_25 '$'
 #define _TILE_25 28
 
 // GREEN
@@ -84,6 +83,8 @@
 #define _TILE_22 25
 #define _TILE_23 26
 #define _TILE_24 27
+
+#define _TILE_26 0
 
 #endif // _PCE_GRAPHICS_SETTINGS
 

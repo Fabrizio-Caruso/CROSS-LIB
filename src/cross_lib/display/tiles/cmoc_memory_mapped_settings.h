@@ -166,5 +166,9 @@
 #endif
 
 
+#if !defined(_TILE_26)
+    #define _TILE_26 ('-'+NOT_INVERTED)
+#endif
+
 #endif // _CMOC_GRAPHICS_SETTINGS
 

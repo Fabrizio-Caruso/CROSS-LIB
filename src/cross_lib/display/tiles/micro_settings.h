@@ -90,6 +90,7 @@
 #define _TILE_23 (61)
 #define _TILE_24 (62)
 
+#define _TILE_26 (63)
 
 #endif // _MICRO_GRAPHICS_SETTINGS
 

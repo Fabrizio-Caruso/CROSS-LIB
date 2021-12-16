@@ -3,7 +3,7 @@
 
 _udgs:
 
-.byte 0,0,0,0,0,0,0,0                 
+.byte <tile_26>                 
 .byte $38,$6c,$c6,$c6,$fe,$c6,$c6,$00 ; a
 .byte $fc,$c6,$c6,$fc,$c6,$c6,$fc,$00,$3c,$66,$c0,$c0,$c0,$66,$3c,$00
 .byte $f8,$cc,$c6,$c6,$c6,$cc,$f8,$00,$fc,$c0,$c0,$f8,$c0,$c0,$fe,$00

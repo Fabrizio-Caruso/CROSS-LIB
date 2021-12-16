@@ -141,7 +141,6 @@ void SET_UDG_IMAGES(void)
         for(j=0;j<5;++j)
         {
             redefine(redefine_map[i].ascii+32*j, redefine_map[i].bitmap);
-            // redefine(0x24+32*j, dollar);
         }
     } 
 }

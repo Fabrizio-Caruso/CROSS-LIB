@@ -51,6 +51,9 @@
 
 #define _TILE_25_UDG    { <tile_25> }
 
+#define _TILE_26_UDG    { <tile_26> }
+
+
 #endif // _8x8_CHARS
 
 

@@ -78,6 +78,7 @@
     #define _TILE_22 52
     #define _TILE_23 53
     #define _TILE_24 54
+    #define _TILE_26 (_TILE_8+1)
 #elif defined(__COCO__)||defined(__DRAGON__)
     #define _TILE_19 (_TILE_16+2)
     #define _TILE_20 (_TILE_16+3)
@@ -85,6 +86,7 @@
     #define _TILE_22 (_TILE_16+5)
     #define _TILE_23 (_TILE_16+6)
     #define _TILE_24 (_TILE_16+7)
+    #define _TILE_26 (_TILE_8+1)
 #else
     #define _TILE_19 (0x3A - _Z88DK_SPRITE_OFFSET)
     #define _TILE_20 (0x40 - _Z88DK_SPRITE_OFFSET)
@@ -92,7 +94,10 @@
     #define _TILE_22 (0x5D - _Z88DK_SPRITE_OFFSET)
     #define _TILE_23 (0x5E - _Z88DK_SPRITE_OFFSET)
     #define _TILE_24 (0x5F - _Z88DK_SPRITE_OFFSET)
+    #define _TILE_26 (_TILE_8+1)
 #endif
+
+
 
 #endif // _UDG_SETTINGS
 

@@ -117,6 +117,7 @@ const static uint8_t tiles[][8] =
     _TILE_23_UDG,
     _TILE_24_UDG,
     _TILE_25_UDG,
+    _TILE_26_UDG,
     // {0x18,0x3e,0x60,0x3c,0x06,0x7c,0x18,0x00},
 };
 
@@ -188,30 +189,4 @@ void _XL_INIT_GRAPHICS(void)
     // MIXED OFF
     POKE(0xC052,0);
     
-    // foo(0,0,0,0);
-    // cgetc();
-    // foo(10,10,0,0);
-    // cgetc();
-    
-    /*
-    {
-        uint8_t i;
-        uint8_t j;
-        uint8_t k;
-        
-        for(i=0;i<192;i+=8)
-        {
-            for(j=0;j<20;++j)
-            {
-
-                for(k=0;k<8;++k)
-                {
-                    POKE(HB1[i+k]+2*j,255);
-                    POKE(HB1[i+k]+2*j+1,255);
-                }
-            }
-            cgetc();
-        }
-    }    
-    */
 }

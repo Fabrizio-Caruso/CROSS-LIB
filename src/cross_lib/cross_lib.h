@@ -90,7 +90,7 @@
 
 #if defined(_API_VERSION) && (_API_VERSION>=2)
     #  if defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(MEMORY_MAPPED)) \
-        || (defined(__C16__) && defined(ALT_PRINT))  || defined(__ATARI__) \
+        || (defined(__C16__) && defined(ALT_PRINT))  || (defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
         || defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || (defined(__MSX__)&&defined(MEMORY_MAPPED)) \
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
@@ -104,13 +104,13 @@
     #endif  
 #else
     #if defined(__VIC20__)  \
-        || defined(__WINCMOC__) \
+        || defined(__WINCMOC__) || defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__)) ||  (defined(__APPLE2ENH__) && defined(APPLE2_HGR))  \
-        || defined(__C64__) || defined(__ATARI__)  \
+        || defined(__C64__) \
         || defined(__ZX80__) || defined(__ZX81__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__COCO__) || defined(__DRAGON__)
         #define ONLY_SMALL_LETTERS
         
-    #elif defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__)
+    #elif defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__) 
         #define _XL_NO_SMALL_LETTERS
         
     #else

@@ -239,38 +239,38 @@ const struct redefine_struct redefine_map[] =
 		{_TILE_14_OFFSET_, _TILE_14_UDG},
 	#endif
 	
-    #if !defined(NO_TILE_19)
+    #if !defined(NO_TILE_19) && _XL_NUMBER_OF_TILES>=20
 		{_TILE_19_OFFSET_, _TILE_19_UDG},
     #endif
     
-    #if !defined(NO_TILE_20)
+    #if !defined(NO_TILE_20) && _XL_NUMBER_OF_TILES>=21
 		{_TILE_20_OFFSET_, _TILE_20_UDG},
     #endif
     
-    #if !defined(NO_TILE_21)
+    #if !defined(NO_TILE_21) && _XL_NUMBER_OF_TILES>=22
 		{_TILE_21_OFFSET_, _TILE_21_UDG},
     #endif
     
-    #if !defined(NO_TILE_22)
+    #if !defined(NO_TILE_22) && _XL_NUMBER_OF_TILES>=23
 		{_TILE_22_OFFSET_, _TILE_22_UDG},
     #endif
     
-    #if !defined(NO_TILE_23)
+    #if !defined(NO_TILE_23) && _XL_NUMBER_OF_TILES>=24
 		{_TILE_23_OFFSET_, _TILE_23_UDG},
     #endif
     
-    #if !defined(NO_TILE_24)
+    #if !defined(NO_TILE_24) && _XL_NUMBER_OF_TILES>=25
 		{_TILE_24_OFFSET_, _TILE_24_UDG},
     #endif
 
-    #if !defined(NO_TILE_25)
+    #if !defined(NO_TILE_25) && _XL_NUMBER_OF_TILES>=26
 		{_TILE_25_OFFSET_, _TILE_25_UDG},
     #endif
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},
     {_TILE_17_OFFSET_, _TILE_17_UDG},
 
-    #if !defined(NO_TILE_26)
+    #if !defined(NO_TILE_26) && _XL_NUMBER_OF_TILES>=27
 		{_TILE_26_OFFSET_, _TILE_26_UDG},
     #endif
 

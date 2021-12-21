@@ -352,7 +352,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
-	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_COLOR \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \

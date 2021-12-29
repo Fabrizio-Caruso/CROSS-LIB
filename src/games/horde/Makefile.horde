@@ -381,6 +381,18 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
+
+atari_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DFULL_GAME -DSOUNDS -D_XL_NO_COLOR -D_XL_NO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=300 \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_no_color.xex
+
+
 atari_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DALTERNATE_COLORS \

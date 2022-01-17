@@ -104,7 +104,7 @@
     #endif  
 #else
     #if defined(__VIC20__)  \
-        || defined(__WINCMOC__) || defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
+        || defined(__WINCMOC__) || (defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__)) ||  (defined(__APPLE2ENH__) && defined(APPLE2_HGR))  \
         || defined(__C64__) \
         || defined(__ZX80__) || defined(__ZX81__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__COCO__) || defined(__DRAGON__)

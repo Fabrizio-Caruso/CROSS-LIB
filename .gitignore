@@ -4,6 +4,7 @@ deliverables
 *.swp
 *.img
 build/*
+src/projects/*
 **generated_assets
 **__pycache__
 src/assets/generated_assets/*

@@ -221,7 +221,8 @@ s1mp3:
 # -compiler=sdcc -SO0
 #  --peep-file "" --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
-spectrum_16k_light:
+#spectrum_16k_light
+spectrum_test_sdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -v -compiler=sdcc -SO0  \
 	$(INCLUDE_OPTS)  \
 	-zorg=24055 \
@@ -241,12 +242,39 @@ spectrum_16k_light:
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg \
+	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg
-	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k_BANK_7.bin
+	rm $(BUILD_PATH)/WIP_LIGHT_$@.prg
+	rm $(BUILD_PATH)/WIP_LIGHT_$@_BANK_7.bin
+
+spectrum_test_sccz80:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -v  \
+	$(INCLUDE_OPTS)  \
+	-zorg=24055 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DLESS_TEXT -DANIMATE_PLAYER \
+	-DFORCE_NARROW -DNO_BLINKING \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_SLEEP -DNO_WALL \
+	-DNO_MESSAGE -DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -DNO_SET_SCREEN_COLORS \
+	-DNO_TITLE_LINE -DNO_INITIAL_SCREEN \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-D__SPECTRUM__ \
+	-DALT_MOVE \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/WIP_LIGHT_$@.prg
+	rm $(BUILD_PATH)/WIP_LIGHT_$@_BANK_7.bin
 
 
 spectrum_buffered:

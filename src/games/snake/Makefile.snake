@@ -1704,7 +1704,8 @@ cpc: $(ASSETS_PATH)/z88dk_xchase.asm
 	# rm basic.rom
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.com
+	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
+
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

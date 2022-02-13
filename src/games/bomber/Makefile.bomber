@@ -795,7 +795,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME).cpc 
-	rm $(BUILD_PATH)/X$(GAME_NAME).com
+	rm $(BUILD_PATH)/X$(GAME_NAME)_BANK_7.bin    
 	rm $(BUILD_PATH)/X$(GAME_NAME)
 	mv $(BUILD_PATH)/X$(GAME_NAME).dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt

@@ -602,7 +602,8 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	# rm os.rom
 	# rm amsdos.rom
 	# rm basic.rom
-	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.com 
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_cpc
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc_BANK_7.bin    
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc
 

@@ -222,10 +222,10 @@ s1mp3:
 #  --peep-file "" --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
 #spectrum_16k_light
-spectrum_test_sdcc:
+spectrum_test_sdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx -v -compiler=sdcc -SO0  \
 	$(INCLUDE_OPTS)  \
-	-zorg=24055 \
+	-zorg=24055 --reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT -DANIMATE_PLAYER \
@@ -249,7 +249,7 @@ spectrum_test_sdcc:
 	rm $(BUILD_PATH)/WIP_LIGHT_$@.prg
 	rm $(BUILD_PATH)/WIP_LIGHT_$@_BANK_7.bin
 
-spectrum_test_sccz80:
+spectrum_test_sccz80: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx -v  \
 	$(INCLUDE_OPTS)  \
 	-zorg=24055 \

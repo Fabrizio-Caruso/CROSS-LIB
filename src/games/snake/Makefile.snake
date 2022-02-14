@@ -2059,18 +2059,18 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 vz200: vz200_24k
 
+
 vz200_zsdcc: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn -pragma-define:REGISTER_SP=0xc000 \
+	$(INCLUDE_OPTS)  -Cz--audio -DALT_SLEEP \
 	-compiler=sdcc \
-	$(INCLUDE_OPTS) \
-	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DSOUNDS -D__VZ__ --generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	-DNO_EXTRA_TITLE -D_XL_SLOW_DOWN_FACTOR=5500 \
 	-DCONIO -DNO_INIT_GRAPHICS  -D_XL_NO_UDG \
-	-lndos \
+	-lndos  \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
-
 
 vz200_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn -pragma-define:REGISTER_SP=0xc000 \
@@ -2078,7 +2078,7 @@ vz200_24k:
 	-DSOUNDS -D__VZ__ --generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	-DNO_EXTRA_TITLE -D_XL_SLOW_DOWN_FACTOR=5500 \
 	-DCONIO -DNO_INIT_GRAPHICS  -D_XL_NO_UDG \
-	-lndos \
+	-lndos  \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas

@@ -1144,7 +1144,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 vz200: vz200_24k
 
 vz200_24k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn -Cz--audio \
 	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ \

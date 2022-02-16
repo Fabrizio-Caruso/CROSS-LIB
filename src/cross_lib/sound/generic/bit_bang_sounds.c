@@ -6,6 +6,14 @@
     // #define _click() \
         // __asm__("LDA $C030")
 // #else
+
+void _click(void)
+{
+    uint8_t k;
+    k = PEEK(BIT_BANG_ADDR);
+}
+
+/*
 #define _click() \
 do \
 { \
@@ -14,7 +22,7 @@ do \
    k = PEEK(BIT_BANG_ADDR); \
 } while(0)
 // #endif
-
+*/
 
 void CLICK(uint16_t duration, uint8_t period) 
 {

@@ -364,23 +364,30 @@ def import_tile(file_name):
     filtered_lines = []
     for line in lines:
         if not(line=="\n" or line=="\r" or line== "\r\n"):
-            filtered_lines.append(line)
+            filtered_lines.append(line.replace('\n','').replace('\r',''))
 
     xsize = 8
     for line in filtered_lines:
         if len(line)<xsize:
             xsize = len(line)
 
-    ysize = len(filtered_lines)
+    trimmed_lines = []
+    for line in filtered_lines:
+        trimmed_lines.append(line[:xsize])
+    print(str(trimmed_lines))
+
+    ysize = len(trimmed_lines)
     dir = str(xsize)+"X"+str(ysize)
     print("Tile shape: " + dir)
     for line_index in range(ysize):
-        number_of_bits = len(filtered_lines[line_index])-1
+        number_of_bits = len(trimmed_lines[line_index])
         if number_of_bits>8:
+            print("WARNING: more than 8 bits detected in line " + line_index)
             number_of_bits=8
+            
         value = 0
         for i in range(number_of_bits):
-            if filtered_lines[line_index][i] in ONE_REPPRESENTATIONS:
+            if trimmed_lines[line_index][i] in ONE_REPPRESENTATIONS:
                 value+=2**(number_of_bits-1-i)
         tile += str(value)
         if line_index!=ysize-1:

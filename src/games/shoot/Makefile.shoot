@@ -267,7 +267,7 @@ endif
 
 #################################################################
 
-apple2: apple2_gfx
+apple2: apple2_hgr
 
 apple2_no_gfx:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 \
@@ -306,7 +306,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 
 #################################################################
 
-apple2enh: apple2enh_gfx
+apple2enh: apple2enh_hgr
 
 apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \

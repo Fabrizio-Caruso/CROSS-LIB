@@ -519,7 +519,6 @@ int main(void)
                     checkBombsVsSkulls();
                 }
                 
-
                 
                 #if _XL_SLOW_DOWN_FACTOR>0
                 if(invincibilityActive)
@@ -529,7 +528,11 @@ int main(void)
                 #endif
                 
                 
-
+                if(invincibilityActive)
+                {
+                    _XL_DELETE(player._x, player._y);
+                }  
+                
                 SHORT_SLEEP(6);
                 
                 handle_calmDown_item();
@@ -566,7 +569,7 @@ int main(void)
                     {
                         handle_suicide_item();
                     }
-                }
+                }              
                 
                 reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
                 
@@ -583,8 +586,6 @@ int main(void)
                 }
 
                     
-                
-                    
                 SKIP_WALL_DRAW
                 {
                     ghostSlowDown = computeGhostSlowDown();
@@ -599,12 +600,12 @@ int main(void)
                     }
                     displayBombs();                                                        
                 }
-                    
+                
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
-            _DRAW_PLAYER();
             if(player._status) // if level finished
             {
+                _DRAW_PLAYER();
                 #if defined(BETWEEN_LEVEL)
                     chasedEnemyPtr = &player;
                     SHOW_DOWN();

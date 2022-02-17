@@ -137,10 +137,6 @@ void deleteCharacter(Character * characterPtr);
         { \
             DRAW_PLAYER(player._x, player._y, &BROKEN_BRICK_IMAGE); \
         } \
-        else if(invincibilityActive) \
-        { \
-            DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-        } \
         else \
         { \
             DRAW_PLAYER(player._x, player._y, player._imagePtr); \

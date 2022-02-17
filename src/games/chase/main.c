@@ -507,6 +507,7 @@ int main(void)
                     {
                         checkBullet(&bullet);
                     }
+                    
                 #else
                     #if !defined(NO_CHASE)
                         chaseCharacter();
@@ -605,7 +606,12 @@ int main(void)
                     }
                 #endif
                 
-                    
+                #if defined(FULL_GAME) && !defined(NO_BLINKING)
+                    if(invincibilityActive)
+                        {
+                            DELETE_CHARACTER(player._x, player._y);
+                        }    
+                #endif
                 #if defined(TURN_BASED) 
                     #if !defined(EVEN_LOOP_MOVE)
                     if((loop<TURN_BASED_MAX_LOOP) || loop&1)
@@ -637,6 +643,12 @@ int main(void)
 
             if(player._status) // if level finished
             {
+                
+                #if defined(FULL_GAME)
+                    _DRAW_PLAYER();
+                    _XL_SLEEP(1);
+                #endif
+                
                 #if defined(BETWEEN_LEVEL)
                     chasedEnemyPtr = &player;
                     SHOW_DOWN();
@@ -718,6 +730,7 @@ int main(void)
         }
 
         // GAME OVER    
+        _XL_SLEEP(1);
         _XL_CLEAR_SCREEN();
         printGameOver();
         

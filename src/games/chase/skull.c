@@ -125,6 +125,12 @@ void handle_skull(void)
 				moveTowardCharacter(&skull);
 			#endif
 		}
+        #if defined(FULL_GAME)
+        else
+        {
+            displayCharacter(&skull);
+        }
+        #endif
 		#if defined(FULL_GAME)
 		if (playerKilledBy(&skull))
 		#else

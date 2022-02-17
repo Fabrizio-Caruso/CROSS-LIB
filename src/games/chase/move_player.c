@@ -19,7 +19,7 @@ extern Character player;
 
 #if defined(FULL_GAME)
     extern uint8_t player_invincibility;
-    extern uint8_t playerBlink;    
+    // extern uint8_t playerBlink;    
 #endif
 
 #if !defined(TINY_GAME) 

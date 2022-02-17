@@ -23,13 +23,13 @@
 #endif
 
 
-#if defined(FULL_GAME) && !defined(NO_BLINKING)
-	#if defined(USE_MEMORY_BUFFERS)
-		extern uint8_t playerBlink;	
-	#else
-		uint8_t playerBlink;
-	#endif
-#endif
+// #if defined(FULL_GAME) && !defined(NO_BLINKING)
+	// #if defined(USE_MEMORY_BUFFERS)
+		// extern uint8_t playerBlink;	
+	// #else
+		// uint8_t playerBlink;
+	// #endif
+// #endif
 
 
 #if defined(FULL_GAME) 

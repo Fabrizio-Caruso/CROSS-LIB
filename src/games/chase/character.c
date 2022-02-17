@@ -164,6 +164,9 @@ void ghostDies(Character * ghostPtr)
 		
 	#if !defined(NO_DEAD_GHOSTS)
 		ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
+        #if defined(FULL_GAME)
+        displayCharacter(ghostPtr);
+        #endif
 	#elif !defined(TINY_GAME)
 		ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
 	#endif

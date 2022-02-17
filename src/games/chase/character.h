@@ -108,14 +108,7 @@ void deleteCharacter(Character * characterPtr);
 			}	
 	#else
 		#define _DRAW_PLAYER() \
-			if(invincibilityActive) \
-			{ \
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-			} \
-			else \
-			{ \
-				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-			}
+            DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	#endif
 #else
 	#define _DRAW_PLAYER() \

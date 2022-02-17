@@ -1707,10 +1707,10 @@ zx81_gfx: zx81_32k_wrx
 
 zx81_no_gfx: zx81_no_gfx_16k
 
-
+# -compiler=sdcc is broken
 zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) -compiler-sdcc  \
+	$(INCLUDE_OPTS)   \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
 	-vn -D_API_VERSION=2 \
 	-D__ZX81__ -DFULL_GAME -pragma-define:ZX_CHAR_XLATE_MODE=1 \

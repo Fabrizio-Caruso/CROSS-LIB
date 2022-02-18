@@ -59,14 +59,6 @@
 
 #include "variables.h"
 
-#define handle_secret_item_at_start_up(secretFlag, item, secretIndex) \
-    if(secretFlag) \
-    { \
-        item._coolDown = 2; \
-        setSecret(secretIndex); \
-        secretFlag = 0; \
-    }\
-
 #if defined(DEBUG_ITEMS)
 
 
@@ -154,6 +146,60 @@ void DO_DEBUG_ITEMS(void)
 }
 #endif
 
+
+#if defined(EXTRA_TITLE)
+static const uint8_t item_tile[6][2] = 
+{
+    { _GHOST_TILE, _XL_WHITE },
+    { _SKULL_TILE, _XL_YELLOW },
+    { _BOSS_TILE, _XL_RED },
+    { _BULLET_TILE, _XL_WHITE},
+    { _FIRE_POWER_TILE, _FIRE_POWER_COLOR },
+    { _BOMB_TILE, _XL_RED },
+};
+
+static const char item_name[6][8] = 
+{
+    _XL_E _XL_N _XL_E _XL_M _XL_Y,
+    _XL_S _XL_K _XL_U _XL_L _XL_L,
+    _XL_B _XL_O _XL_S _XL_S,
+    _XL_B _XL_U _XL_L _XL_L _XL_E _XL_T _XL_S,
+    _XL_P _XL_O _XL_W _XL_E _XL_R,
+    _XL_M _XL_I _XL_N _XL_E,
+};
+
+#if XSize>16
+    #define _NEXT_ROW 2
+#else
+    #define _NEWT_ROW 1
+#endif
+
+
+#define display_items() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<6;++i) \
+    { \
+        _XL_DRAW(XSize/2-5,YSize/3+1+i*_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+        _XL_SET_TEXT_COLOR(_XL_GREEN); \
+        _XL_PRINT(XSize/2-5+3,YSize/3+1+i*_NEXT_ROW, (char *)item_name[i]); \
+    } \
+} while(0)
+
+#endif
+
+
+#define handle_secret_item_at_start_up(secretFlag, item, secretIndex) \
+    if(secretFlag) \
+    { \
+        item._coolDown = 2; \
+        setSecret(secretIndex); \
+        secretFlag = 0; \
+    }\
+
+
 void resetSecrets(void)
 {
     uint8_t i;
@@ -231,7 +277,11 @@ void initialScreen(void)
 {    
     _XL_CLEAR_SCREEN();                    
     printStartMessage();
+    
+    display_items();
+    
     _XL_WAIT_FOR_INPUT();
+    
     
     #if !defined(NO_HINTS) && XSize>=14
         _XL_CLEAR_SCREEN();

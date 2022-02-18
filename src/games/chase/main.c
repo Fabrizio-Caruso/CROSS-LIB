@@ -97,6 +97,48 @@
 
 
 
+#if defined(EXTRA_TITLE)
+static const uint8_t item_tile[5][6] = 
+{
+    { _GHOST_TILE, _XL_WHITE },
+    { _SKULL_TILE, _XL_YELLOW },
+    { _BOMB_TILE, _XL_RED },
+    { _GUN_TILE, _GUN_COLOR},
+    { _POWER_UP_TILE, _XL_GREEN },
+};
+
+static const char item_name[5][6] = 
+{
+    _XL_E _XL_N _XL_E _XL_M _XL_Y,
+    _XL_S _XL_K _XL_U _XL_L _XL_L,
+    _XL_M _XL_I _XL_N _XL_E,
+    _XL_G _XL_U _XL_N,
+    _XL_S _XL_L _XL_O _XL_W,
+};
+
+#if XSize>16
+    #define _NEXT_ROW 2
+#else
+    #define _NEWT_ROW 1
+#endif
+
+
+#define display_items() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<6;++i) \
+    { \
+        _XL_DRAW(XSize/2-5,YSize/3+1+i*_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+        _XL_SET_TEXT_COLOR(_XL_GREEN); \
+        _XL_PRINT(XSize/2-5+3,YSize/3+1+i*_NEXT_ROW, (char *)item_name[i]); \
+    } \
+} while(0)
+
+#endif
+
+
 #if !defined(TINY_GAME)
     void resetItems(void)
     {

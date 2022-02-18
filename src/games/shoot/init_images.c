@@ -68,7 +68,7 @@ void INIT_IMAGES(void)
         SKULL_IMAGE._color = _SKULL_COLOR;
         CALM_DOWN_IMAGE._color = _CALM_DOWN_COLOR;
         FIRE_CHARGE_IMAGE._color = _FIRE_CHARGE_COLOR;
-        FIRE_POWER_IMAGE._color = _GUN_COLOR;
+        FIRE_POWER_IMAGE._color = _FIRE_POWER_COLOR;
         EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
         BULLET_IMAGE._color = _BULLET_COLOR;
         
@@ -101,20 +101,20 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._imageData = _TILE_0;
 	#endif
 	
-	GHOST_IMAGE._imageData = _TILE_4;
-	BOMB_IMAGE._imageData = _TILE_5;
+	GHOST_IMAGE._imageData = _GHOST_TILE;
+	BOMB_IMAGE._imageData = _BOMB_TILE;
 	
 
-	DEAD_GHOST_IMAGE._imageData = _TILE_6;
+	DEAD_GHOST_IMAGE._imageData = _BOSS_TILE;
 	
-    SKULL_IMAGE._imageData = _TILE_7;
+    SKULL_IMAGE._imageData = _SKULL_TILE;
 
     CALM_DOWN_IMAGE._imageData = _TILE_8;
-    FIRE_CHARGE_IMAGE._imageData = _TILE_11;
-    FIRE_POWER_IMAGE._imageData = _TILE_9;
+    FIRE_CHARGE_IMAGE._imageData = _BULLET_TILE;
+    FIRE_POWER_IMAGE._imageData = _FIRE_POWER_TILE;
     EXTRA_POINTS_IMAGE._imageData = _TILE_25;
     
-    BULLET_IMAGE._imageData = _TILE_11;
+    BULLET_IMAGE._imageData = _BULLET_TILE;
     
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;

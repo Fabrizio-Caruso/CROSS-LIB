@@ -186,7 +186,7 @@ void displayScoreStats(void)
 #if !defined(NO_MESSAGE)
     void _printScoreOnRow(uint8_t row, uint16_t score)
     {
-        _XL_PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
+        _XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
     }    
     
     void _printScore(uint16_t score)
@@ -242,7 +242,7 @@ void displayScoreStats(void)
 void _printCrossShoot(void)
 {
     SET_COLOR(_XL_RED);
-    _XL_PRINT_CENTERED_ON_ROW(1,  CROSS_SHOOT_STRING);        
+    _XL_PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }
@@ -283,18 +283,18 @@ void _printCrossShoot(void)
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
             
-            SET_COLOR(_XL_CYAN);
+            // SET_COLOR(_XL_CYAN);
             
-            #if XSize>= 14
-            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
-            #endif
+            // #if XSize>= 14
+            // _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
+            // #endif
             
             SET_COLOR(TEXT_COLOR);    
             
         #endif
 
         #if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
-            _XL_PRINT_CENTERED_ON_ROW(YSize-3, USE_STRING);
+            _XL_PRINT_CENTERED_ON_ROW(YSize-2, USE_STRING);
         #endif
     }
 #endif

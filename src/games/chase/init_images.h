@@ -1,7 +1,12 @@
 #ifndef _INIT_IMAGES_H
 #define _INIT_IMAGES_H
 
-#define SKULL_TILE _TILE_7
+#define _SKULL_TILE   _TILE_7
+#define _GHOST_TILE   _TILE_4
+#define _BOMB_TILE    _TILE_5
+#define _GUN_TILE     _TILE_9
+#define _POWERUP_TILE _TILE_8
+#define _FREEZE_TILE  _TILE_17
 
 #define _PLAYER_COLOR _XL_CYAN
 #define _GHOST_COLOR _XL_WHITE

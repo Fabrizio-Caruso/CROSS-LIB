@@ -261,7 +261,29 @@ void fillLevelWithCharacters(void)
     #else
         FLAT_SIX_GHOSTS();
     #endif
-            
+
+    #if defined(FULL_GAME)
+        #if !defined(_XL_NO_COLOR)
+        if(isBossLevel)
+        {
+            SKULL_IMAGE._color = _XL_CYAN;
+        }
+        else
+        {
+            SKULL_IMAGE._color = _XL_YELLOW;
+        }
+        
+        if(isBossLevel && level>=10)
+        {
+            BOMB_IMAGE._color = _XL_CYAN;
+        }
+        else
+        {
+            BOMB_IMAGE._color = _XL_RED;
+        }
+        #endif
+    #endif
+  
     #if BOMBS_NUMBER==4
         FOUR_BOMBS();
     #elif BOMBS_NUMBER==3    

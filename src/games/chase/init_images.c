@@ -110,18 +110,18 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._imageData = _TILE_0;
 	#endif
 	
-	GHOST_IMAGE._imageData = _TILE_4;
-	BOMB_IMAGE._imageData = _TILE_5;
+	GHOST_IMAGE._imageData = _GHOST_TILE;
+	BOMB_IMAGE._imageData = _BOMB_TILE;
 	
 	#if !defined(NO_DEAD_GHOSTS)
 		DEAD_GHOST_IMAGE._imageData = _TILE_6;
 	#endif
 	
 	#if !defined(TINY_GAME)
-		SKULL_IMAGE._imageData = _TILE_7;
+		SKULL_IMAGE._imageData = _SKULL_TILE;
 
-		POWERUP_IMAGE._imageData = _TILE_8;
-		GUN_IMAGE._imageData = _TILE_9;
+		POWERUP_IMAGE._imageData = _POWERUP_TILE;
+		GUN_IMAGE._imageData = _GUN_TILE;
 		EXTRA_POINTS_IMAGE._imageData = _TILE_25;
 		
 		BULLET_IMAGE._imageData = _TILE_11;
@@ -137,7 +137,7 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._imageData = _TILE_16;
 		
-        FREEZE_IMAGE._imageData = _TILE_17;
+        FREEZE_IMAGE._imageData = _FREEZE_TILE;
         SUPER_IMAGE._imageData = _TILE_18;
 
 		EXTRA_LIFE_IMAGE._imageData = _TILE_0;

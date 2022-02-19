@@ -159,7 +159,7 @@ void bulletVsSkull(register Character *bulletPtr)
 		decreaseGhostLevel();
 		#endif
 		reducePowerUpsCoolDowns();
-        _XL_DRAW(skull._x,skull._y,SKULL_TILE, _XL_YELLOW);
+        _XL_DRAW(skull._x,skull._y,_SKULL_TILE, _XL_YELLOW);
 		
 		if(!(--skull._status))
 		{

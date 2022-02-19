@@ -29,6 +29,7 @@
 #include "text_strings.h"
 
 #include "cross_lib.h"
+#include "init_images.h"
 
 
 extern uint8_t guns;
@@ -211,7 +212,7 @@ void displayStats(void)
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, uint16_t score)
 	{
-		_XL_PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
+		_XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
 	}	
 	
 	#if !defined(LESS_TEXT)
@@ -264,13 +265,18 @@ void displayStats(void)
 #endif
 
 
+#if YSize>=21
+    #define AUTHOR_Y_SPACE 1
+#else
+    #define AUTHOR_Y_SPACE 0
+#endif
 
 #if YSize>=20
 	#define EXTRA_Y 1
-	#define AUTHOR_Y 5
+	#define AUTHOR_Y 4
 	#define CROSS_CHASE_Y 2
 	#define INTERLINE 2
-	#define INSTR_Y_OFFSET 3
+	#define INSTR_Y_OFFSET 2
 #else
 	#define EXTRA_Y 0
 	#define AUTHOR_Y 3
@@ -308,19 +314,62 @@ void displayStats(void)
 	void printHints(void)
 	{
 		_printCrossChase();
-		
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
+        
+        _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);
+                    
+		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
 
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING);
+		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING);
 
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING);	
+		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING);	
 		
 		#if YSize>=14
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING);
+			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+6*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING);
 
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING);
+			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+7*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING);
 		#endif
 	}
+#endif
+
+#if defined(EXTRA_TITLE)
+
+    #define ITEMS_TO_DISPLAY 6
+
+    static const uint8_t item_tile[ITEMS_TO_DISPLAY][2] = 
+    {
+        { _GHOST_TILE, _XL_WHITE },
+        { _SKULL_TILE, _XL_YELLOW },
+        { _BOMB_TILE, _XL_RED },
+        { _GUN_TILE, _XL_WHITE},
+        { _POWERUP_TILE, _XL_GREEN},
+        { _FREEZE_TILE, _XL_CYAN},
+    };
+
+    static const char item_name[ITEMS_TO_DISPLAY][7] = 
+    {
+        _XL_E _XL_N _XL_E _XL_M _XL_Y,
+        _XL_S _XL_K _XL_U _XL_L _XL_L,
+        _XL_M _XL_I _XL_N _XL_E,
+        _XL_G _XL_U _XL_N,
+        _XL_S _XL_L _XL_O _XL_W,
+        _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
+    };
+
+
+    #define display_items() \
+    do \
+    { \
+        uint8_t i; \
+        \
+        for(i=0;i<ITEMS_TO_DISPLAY;++i) \
+        { \
+            _XL_DRAW(XSize/2-5,AUTHOR_Y+AUTHOR_Y_SPACE+2+i*INTERLINE, item_tile[i][0], item_tile[i][1]); \
+            _XL_SET_TEXT_COLOR(_XL_GREEN); \
+            _XL_PRINT(XSize/2-5+3,AUTHOR_Y+AUTHOR_Y_SPACE+2+i*INTERLINE, (char *)item_name[i]); \
+        } \
+    } while(0)
+    
 #endif
 
 #if !defined(NO_INITIAL_SCREEN)
@@ -337,11 +386,14 @@ void displayStats(void)
 			
 			
             #if XSize>=16
-            SET_COLOR(_XL_CYAN);
+                #if defined(EXTRA_TITLE)
+                    display_items();
+                #else
+                    SET_COLOR(_XL_CYAN);
 
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
-			
+                    _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
+                    _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
+                #endif
             #endif
 			SET_COLOR(TEXT_COLOR);	
 			

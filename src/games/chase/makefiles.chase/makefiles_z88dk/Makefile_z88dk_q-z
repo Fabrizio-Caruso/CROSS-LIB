@@ -212,7 +212,7 @@ samcoupe: samcoupe_gfx
 # import as data into ram at 32768 - call 32768
 samcoupe_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL \
+	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-DCONIO -D_XL_SLOW_DOWN_FACTOR=2000 -DUDG_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
@@ -228,7 +228,7 @@ samcoupe_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 
 samcoupe_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
@@ -261,7 +261,7 @@ sc3000_16k:
 sc3000: sc3000_32k
 
 sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	-DFULL_GAME \
@@ -288,7 +288,7 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -342,7 +342,7 @@ sms: sms_gfx
 
 sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SMS__ \
+	-D__SMS__ -DEXTRA_TITLE \
 	-DXSize=32 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
@@ -499,7 +499,7 @@ spectrum: spectrum_48k
 spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-pragma-redirect:getk=getk_inkey \
+	-pragma-redirect:getk=getk_inkey -DEXTRA_TITLE \
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -521,7 +521,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -DEXTRA_TITLE \
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
@@ -993,7 +993,7 @@ gl6000sl_buffered:
 
 x1: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__X1__ \
 	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
@@ -1147,7 +1147,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 zxn:
 	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
-	-D__ZXN__ \
+	-D__ZXN__ -DEXTRA_TITLE \
 	-DXSize=64 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \

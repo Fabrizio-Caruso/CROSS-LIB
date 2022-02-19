@@ -312,7 +312,7 @@ svi: svi_328
 
 svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
-	-DZ88DK_JOYSTICK \
+	-DZ88DK_JOYSTICK -DEXTRA_TITLE \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
@@ -337,7 +337,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 
 vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
@@ -382,7 +382,7 @@ vz200: vz200_18k
 
 vz200_18k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz -Cz--audio --hardware-keyboard $(SCCZ80_OPTS) --generic-console -vn \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-DSOUNDS -D__VZ__ -DHARDWARE_KEYBOARD \
 	-DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -475,7 +475,7 @@ zx81_v2_16k:
 
 zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -O3 -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -DNO_TRANSPARENCY \
+	$(INCLUDE_OPTS) -DNO_TRANSPARENCY -DEXTRA_TITLE \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=9 \

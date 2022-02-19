@@ -183,7 +183,7 @@
         } \
     }
     
-#define PLACE_BOMBS() \
+#define INITIALIZE_BOMBS() \
     do \
     { \
         for(i=0;i<BOMBS_NUMBER;++i) \
@@ -267,6 +267,6 @@ uint8_t bossLevel(void);
 
 void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr);
 
-void placeBombs(void);
+void initializeBombs(void);
 
 #endif // _LEVEL

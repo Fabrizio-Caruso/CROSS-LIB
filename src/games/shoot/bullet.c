@@ -32,6 +32,7 @@
 #include "ghost.h"
 #include "strategy.h"
 #include "skull.h"
+#include "init_images.h"
 
 extern uint8_t bombCount;
 extern Character bombs[BOMBS_NUMBER];
@@ -98,48 +99,74 @@ uint8_t availableBullet(void)
 }
 
 
+uint8_t not_stacked(uint8_t candidate_x, uint8_t candidate_y)
+{
+    uint8_t i;
+    
+    for(i=0;i<BOMBS_NUMBER;++i)
+    {
+        if((candidate_x==bombs[i]._x)&&(candidate_y==bombs[i]._y)&&bombs[i]._status)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
 void handle_bomb(void)
 {
+    uint8_t candidate_bomb_x;
+    uint8_t candidate_bomb_y;
+
     // Check if player has fired the gun
     if(playerFire && bombCount<BOMBS_NUMBER)
     {
-        _XL_SHOOT_SOUND();
         
-        deleteCharacter(&bombs[bombCount]);
-        
-        bombs[bombCount]._status=1;
-        
+        // deleteCharacter(&bombs[bombCount]);
+
         if(playerDirection==RIGHT)
         {
-            bombs[bombCount]._x = player._x+1; 
+            candidate_bomb_x = player._x+1; 
         }
         else if(playerDirection==LEFT)
         {
-            bombs[bombCount]._x = player._x-1;             
+            candidate_bomb_x = player._x-1;             
         }
         else
         {
-            bombs[bombCount]._x = player._x;            
+            candidate_bomb_x = player._x;            
         }
         
         if(playerDirection==UP)
         {
-            bombs[bombCount]._y = player._y-1;        
+            candidate_bomb_y = player._y-1;        
         }
         else if(playerDirection==DOWN)
         {
-            bombs[bombCount]._y = player._y+1;        
+            candidate_bomb_y = player._y+1;        
         }
         else
         {
-            bombs[bombCount]._y = player._y;        
+            candidate_bomb_y = player._y;        
         }
         
-        displayBomb(&bombs[bombCount]);
+        if(not_stacked(candidate_bomb_x,candidate_bomb_y))
+        {
+            _XL_SHOOT_SOUND();
 
-        ++bombCount;
+            bombs[bombCount]._x = candidate_bomb_x;
+            bombs[bombCount]._y = candidate_bomb_y;
+            bombs[bombCount]._status=1;
+            displayBomb(&bombs[bombCount]);
 
-        playerFire = 0;    
+            ++bombCount;
+        }
+        else
+        {
+            _XL_TICK_SOUND();
+        }
+        playerFire = 0;
     }
 }        
 
@@ -157,10 +184,16 @@ void handle_bullet_fire(uint8_t bulletIndex)
         
         if(playerDirection==LEFT)
         {
+            #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
+            _XL_DRAW(player._x, player._y, _PLAYER_RIGHT_TILE, _PLAYER_COLOR);
+            #endif
             bullets[bulletIndex]._x = player._x-1;             
         }
         else if(playerDirection==RIGHT)
         {
+            #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
+            _XL_DRAW(player._x, player._y, _PLAYER_LEFT_TILE, _PLAYER_COLOR);
+            #endif
             bullets[bulletIndex]._x = player._x+1;                
         }
         else
@@ -170,10 +203,18 @@ void handle_bullet_fire(uint8_t bulletIndex)
         
         if(playerDirection==UP)
         {
+            #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
+            _XL_DRAW(player._x, player._y, _PLAYER_DOWN_TILE, _PLAYER_COLOR);
+            #endif
+
             bullets[bulletIndex]._y = player._y-1;        
         }
         else if(playerDirection==DOWN)
         {
+            #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
+            _XL_DRAW(player._x, player._y, _PLAYER_UP_TILE, _PLAYER_COLOR);
+            #endif
+
             bullets[bulletIndex]._y = player._y+1;        
         }
         else

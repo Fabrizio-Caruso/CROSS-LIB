@@ -126,10 +126,10 @@ void itemReached(Character * itemPtr)
 
 void relocateAwayFromWalls(Character * itemPtr)
 {        
-        do
-        {
-            relocateNearBy(itemPtr);
-        } while(nearInnerVerticalWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
+    do
+    {
+        relocateNearBy(itemPtr);
+    } while(nearInnerVerticalWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
 
 }    
 
@@ -184,7 +184,7 @@ void bombChargeEffect(void)
         }
     }
 
-    placeBombs();
+    initializeBombs();
     bombCount = 0;
     // TODO: delete Bombs
     bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;    

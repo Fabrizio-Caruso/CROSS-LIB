@@ -83,7 +83,7 @@
 #define MISSILE_DESTROYER_TRIGGER 3
 #define BOMB_DESTROYER_TRIGGER 6
 
-#define DESTROYER_COUNT_DOWN 220
+#define DESTROYER_COUNT_DOWN 120
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 40
@@ -162,12 +162,10 @@
 
 
 #if !defined(INITIAL_GHOST_SLOWDOWN)
-    #  if defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_GHOST_SLOWDOWN 31500
-    #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
-        #define INITIAL_GHOST_SLOWDOWN 30000
+    #if defined(WIDE)
+        #define INITIAL_GHOST_SLOWDOWN 27000
     #else
-        #define INITIAL_GHOST_SLOWDOWN 31000
+        #define INITIAL_GHOST_SLOWDOWN 28000
     #endif
 #endif
 
@@ -256,11 +254,11 @@
 #define SKULL_COUNT_DOWN 130
 
 #if defined(WIDE)
-    #define SKULL_MIN_SLOWDOWN 5000
-    #define GHOST_MIN_SLOWDOWN 3000
+    #define SKULL_MIN_SLOWDOWN 100
+    #define GHOST_MIN_SLOWDOWN 500
 #else
-    #define SKULL_MIN_SLOWDOWN 15000
-    #define GHOST_MIN_SLOWDOWN 13000
+    #define SKULL_MIN_SLOWDOWN 8000
+    #define GHOST_MIN_SLOWDOWN 6000
 #endif
 
 
@@ -274,11 +272,11 @@
 
 #define MAX_GHOST_LEVEL (1400/MAX_GHOST_LEVEL_SCALE)
 
-#define MAX_SKULL_LOOP (2200/MAX_SKULL_LOOP_SCALE)
+#define MAX_SKULL_LOOP (2000/MAX_SKULL_LOOP_SCALE)
 
 #define TURN_BASED_MAX_LOOP MAX_SKULL_LOOP
 
-#define GHOST_LEVEL_DECREASE (MAX_GHOST_LEVEL/280)
+#define GHOST_LEVEL_DECREASE (MAX_GHOST_LEVEL/560)
 
 #define MISSILES_FOR_SUICIDE 5
 

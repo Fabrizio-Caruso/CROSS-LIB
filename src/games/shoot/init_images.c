@@ -93,12 +93,12 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
 	#if defined(ANIMATE_PLAYER)
-		PLAYER_DOWN_IMAGE._imageData = _TILE_0;
-		PLAYER_UP_IMAGE._imageData = _TILE_1;
-		PLAYER_RIGHT_IMAGE._imageData = _TILE_2;
-		PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
+		PLAYER_DOWN_IMAGE._imageData = _PLAYER_DOWN_TILE;
+		PLAYER_UP_IMAGE._imageData = _PLAYER_UP_TILE;
+		PLAYER_RIGHT_IMAGE._imageData = _PLAYER_RIGHT_TILE;
+		PLAYER_LEFT_IMAGE._imageData = _PLAYER_LEFT_TILE;	
 	#else
-		PLAYER_IMAGE._imageData = _TILE_0;
+		PLAYER_IMAGE._imageData = _PLAYER_DOWN_TILE;
 	#endif
 	
 	GHOST_IMAGE._imageData = _GHOST_TILE;
@@ -129,7 +129,7 @@ void INIT_IMAGES(void)
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
-    EXTRA_LIFE_IMAGE._imageData = _TILE_0;
+    EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN_TILE;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
 
     

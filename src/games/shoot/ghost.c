@@ -41,8 +41,6 @@ extern Character bombs[BOMBS_NUMBER];
 
 extern uint8_t isBossLevel;
 
-extern uint16_t levelSlowDown;
-
 extern uint8_t exploded_bombs;
 
 
@@ -135,9 +133,9 @@ uint16_t computeGhostSlowDown(void)
     if(ghostLevel<MAX_GHOST_LEVEL)
     {
         #if !defined(WIDE)
-            return levelSlowDown-ghostLevel*4;        
+            return INITIAL_GHOST_SLOWDOWN-ghostLevel*4;        
         #else
-            return levelSlowDown-ghostLevel*8;
+            return INITIAL_GHOST_SLOWDOWN-ghostLevel*8;
         #endif
     }
     return GHOST_MIN_SLOWDOWN;

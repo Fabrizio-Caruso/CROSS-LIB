@@ -62,7 +62,7 @@ extern Character ghosts[];
 
 extern Image GHOST_IMAGE;
 
-extern uint16_t levelSlowDown;
+// extern uint16_t levelSlowDown;
 
 extern uint8_t exploded_bombs;
 
@@ -71,9 +71,9 @@ uint16_t computeSkullSlowDown(void)
     if(loop<MAX_SKULL_LOOP)
     {
         #if !defined(WIDE)
-            return levelSlowDown - ghostLevel*4;                
+            return INITIAL_GHOST_SLOWDOWN - ghostLevel*4;                
         #else
-            return levelSlowDown - ghostLevel*8;        
+            return INITIAL_GHOST_SLOWDOWN - ghostLevel*8;        
         #endif
     }
     return SKULL_MIN_SLOWDOWN; // You must die!

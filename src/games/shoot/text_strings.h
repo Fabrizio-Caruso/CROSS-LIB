@@ -25,18 +25,16 @@
 #ifndef _TEXT_STRINGS_H
 #define _TEXT_STRINGS_H
 
+#define AUTHOR_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
+
 #if defined(TINY_GAME) || XSize<=22
     #define CROSS_SHOOT_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_S _XL_h _XL_o _XL_o _XL_t 
-    #define AUTHOR_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
 #else
     #define CROSS_SHOOT_STRING \
         _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
         _XL_SPACE _XL_SPACE \
         _XL_S _XL_SPACE _XL_h _XL_SPACE _XL_o _XL_SPACE _XL_o _XL_SPACE _XL_t 
-    #define AUTHOR_STRING \
-        _XL_F _XL_SPACE _XL_a _XL_SPACE _XL_b _XL_SPACE _XL_r _XL_SPACE _XL_i _XL_SPACE _XL_z _XL_SPACE _XL_i _XL_SPACE _XL_o \
-        _XL_SPACE _XL_SPACE \
-        _XL_C _XL_SPACE _XL_a _XL_SPACE _XL_r _XL_SPACE _XL_u _XL_SPACE _XL_s _XL_SPACE _XL_o
+
 #endif
 #define THE_STRING _XL_t _XL_h _XL_e
 #define SKULL_STRING _XL_s _XL_k _XL_u _XL_l _XL_l

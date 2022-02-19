@@ -278,7 +278,9 @@ void initialScreen(void)
     _XL_CLEAR_SCREEN();                    
     printStartMessage();
     
+    #if defined(EXTRA_TITLE)
     display_items();
+    #endif 
     
     _XL_WAIT_FOR_INPUT();
     
@@ -391,7 +393,7 @@ int main(void)
             
             loop = 0;
             
-            ghostLevel = 0;
+            ghostLevel = 32*level;
         
             
             destroyed_bases = 0;
@@ -432,7 +434,7 @@ int main(void)
             
             computeSkullParameters();                
             
-            levelSlowDown = INITIAL_GHOST_SLOWDOWN;
+            // levelSlowDown = INITIAL_GHOST_SLOWDOWN;
             ghostSlowDown = computeGhostSlowDown();
             
             _XL_CLEAR_SCREEN();

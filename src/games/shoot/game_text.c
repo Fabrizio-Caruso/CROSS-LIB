@@ -250,8 +250,10 @@ void _printCrossShoot(void)
 
 #if YSize<=15
     #define LINE_SKIP 1
+    #define INIT_HINT_LINE 1
 #else
     #define LINE_SKIP 2
+    #define INIT_HINT_LINE 1+(YSize/8)
 #endif
 
 #if !defined(NO_HINTS) && XSize>=14
@@ -259,15 +261,15 @@ void _printCrossShoot(void)
     {
         _printCrossShoot();
         
-        _XL_PRINT_CENTERED_ON_ROW(1+2*LINE_SKIP,  USE_THE_GUN_AGAINST_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+2*LINE_SKIP,  USE_THE_GUN_AGAINST_STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(1+3*LINE_SKIP,  THE_SKULL_AND_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+3*LINE_SKIP,  THE_SKULL_AND_STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(1+4*LINE_SKIP, MISSILE_BASES_STRING);    
+        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+4*LINE_SKIP, MISSILE_BASES_STRING);    
         
-        _XL_PRINT_CENTERED_ON_ROW(1+5*LINE_SKIP, FOR_POINTS_AND___STRING);
+        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+5*LINE_SKIP, FOR_POINTS_AND___STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(1+6*LINE_SKIP, EXTRA_POWERUPS__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+6*LINE_SKIP, EXTRA_POWERUPS__STRING);
     }
 #endif
 
@@ -285,9 +287,9 @@ void _printCrossShoot(void)
             
             // SET_COLOR(_XL_CYAN);
             
-            // #if XSize>= 14
-            // _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
-            // #endif
+            #if XSize>= 14 && !defined(EXTRA_TITLE)
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
+            #endif
             
             SET_COLOR(TEXT_COLOR);    
             

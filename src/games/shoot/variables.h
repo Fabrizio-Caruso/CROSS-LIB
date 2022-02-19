@@ -276,9 +276,6 @@ uint8_t isRocketLevel;
 uint8_t isInnerHorizontalWallLevel;
 uint8_t isInnerVerticalWallLevel;
 
-uint16_t levelSlowDown;
-
-
 uint8_t skullsCount;
 
 uint8_t bulletStrength;

@@ -147,7 +147,7 @@ void DO_DEBUG_ITEMS(void)
 #endif
 
 
-#if defined(EXTRA_TITLE)
+#if defined(EXTRA_TITLE) && YSize>=20
 static const uint8_t item_tile[6][2] = 
 {
     { _GHOST_TILE, _XL_WHITE },
@@ -278,7 +278,7 @@ void initialScreen(void)
     _XL_CLEAR_SCREEN();                    
     printStartMessage();
     
-    #if defined(EXTRA_TITLE)
+    #if defined(EXTRA_TITLE) && YSize>=20
     display_items();
     #endif 
     
@@ -338,7 +338,6 @@ int main(void)
         
         ghostCount = FIRST_LEVEL_GHOSTS_NUMBER; 
          
-        
         destroyed_bases_in_completed_levels = 0;
         all_skulls_killed_in_completed_levels = 0;
         
@@ -414,7 +413,7 @@ int main(void)
             #if defined(DEBUG_ITEMS_IN_GAME)
                 destroyed_bases_in_completed_levels = 2;
                 all_skulls_killed_in_completed_levels = 2;
-                
+
             #endif
 
             handle_special_triggers();
@@ -445,12 +444,9 @@ int main(void)
                 _XL_SLEEP(1);
                 _XL_CLEAR_SCREEN();
             #endif
-                
-            
-                        
+                  
             arrowRange = computeArrowRange();
             
-        
             if(isBossLevel)
             {
                 printKillTheSkulls();
@@ -467,12 +463,8 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
             
-            
-            #if !defined(NO_BORDERS)
-                DRAW_BORDERS();
-            #endif
-            
             playerFire = 0;
+            
             fillLevelWithCharacters();            
             
             if(firePowerLevelSecret)

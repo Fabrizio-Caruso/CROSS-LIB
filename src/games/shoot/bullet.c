@@ -184,17 +184,17 @@ void handle_bullet_fire(uint8_t bulletIndex)
         
         if(playerDirection==LEFT)
         {
+            bullets[bulletIndex]._x = player._x-1;    
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
             _XL_DRAW(player._x, player._y, _PLAYER_RIGHT_TILE, _PLAYER_COLOR);
-            #endif
-            bullets[bulletIndex]._x = player._x-1;             
+            #endif            
         }
         else if(playerDirection==RIGHT)
         {
+            bullets[bulletIndex]._x = player._x+1;  
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
             _XL_DRAW(player._x, player._y, _PLAYER_LEFT_TILE, _PLAYER_COLOR);
-            #endif
-            bullets[bulletIndex]._x = player._x+1;                
+            #endif            
         }
         else
         {
@@ -203,19 +203,17 @@ void handle_bullet_fire(uint8_t bulletIndex)
         
         if(playerDirection==UP)
         {
+            bullets[bulletIndex]._y = player._y-1;  
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
             _XL_DRAW(player._x, player._y, _PLAYER_DOWN_TILE, _PLAYER_COLOR);
-            #endif
-
-            bullets[bulletIndex]._y = player._y-1;        
+            #endif            
         }
         else if(playerDirection==DOWN)
         {
+            bullets[bulletIndex]._y = player._y+1;    
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
             _XL_DRAW(player._x, player._y, _PLAYER_UP_TILE, _PLAYER_COLOR);
-            #endif
-
-            bullets[bulletIndex]._y = player._y+1;        
+            #endif            
         }
         else
         {

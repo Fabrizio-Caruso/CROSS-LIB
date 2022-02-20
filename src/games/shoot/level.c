@@ -280,13 +280,42 @@ void fillLevelWithCharacters(void)
     uint8_t i;
     uint8_t count;
     
+    #if !defined(_XL_NO_COLOR)
+    switch(level&3)
+    {
+        case 0:
+            HORIZONTAL_BRICK_IMAGE._color = _XL_RED;
+            VERTICAL_BRICK_IMAGE._color = _XL_RED;
+        break;
+        case 1:
+            HORIZONTAL_BRICK_IMAGE._color = _XL_GREEN;
+            VERTICAL_BRICK_IMAGE._color = _XL_GREEN;
+        break;
+        case 2:
+            HORIZONTAL_BRICK_IMAGE._color = _XL_YELLOW;
+            VERTICAL_BRICK_IMAGE._color = _XL_YELLOW;
+        break;
+        default:
+            HORIZONTAL_BRICK_IMAGE._color = _XL_CYAN;
+            VERTICAL_BRICK_IMAGE._color = _XL_CYAN;  
+    }
+    #endif
+    
+    #if !defined(NO_BORDERS)
+        DRAW_BORDERS();
+    #endif
+            
     if(isRocketLevel)
     {
         if(isBossLevel)
         {
+            rocketsOnScreen = 4;
+        }
+        else if (!isInnerVerticalWallLevel)
+        {
             rocketsOnScreen = ROCKETS_NUMBER;
         }
-        else if((level>=6) && !isInnerVerticalWallLevel)
+        else if(level>=6)
         {
             rocketsOnScreen = 3;
         }

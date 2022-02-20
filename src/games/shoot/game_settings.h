@@ -77,8 +77,11 @@
 #define FIRST_LEVEL_GHOSTS_NUMBER 10
 #define ZERO_LEVEL_GHOSTS_NUMBER 99
 
-#define ROCKETS_NUMBER 4
-
+#if XSize>=22
+    #define ROCKETS_NUMBER 6
+#else
+    #define ROCKETS_NUMBER 5
+#endif
 
 #define MISSILE_DESTROYER_TRIGGER 3
 #define BOMB_DESTROYER_TRIGGER 6
@@ -198,9 +201,9 @@
 // -----------------------------------------------------------------------------------
 
 #if GHOSTS_NUMBER>=8
-    #define SKULL_TRIGGER 1
+    #define SKULL_TRIGGER 2
 #else
-    #define SKULL_TRIGGER 1
+    #define SKULL_TRIGGER 2
 #endif 
 
     

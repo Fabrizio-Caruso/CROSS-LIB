@@ -204,7 +204,7 @@ http://plus4world.powweb.com/play/cross_chase_32k_v0_9
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vic20_exp_16k.prg
 
 4. Commodore 64: \
-https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg 
+https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg
 
 5. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crosschase

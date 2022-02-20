@@ -789,7 +789,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER -DALT_SLEEP \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-D_XL_SLOW_DOWN_FACTOR=200 \
+	-D_XL_SLOW_DOWN_FACTOR=1900 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \

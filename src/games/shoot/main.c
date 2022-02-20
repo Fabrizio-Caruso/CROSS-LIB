@@ -422,9 +422,7 @@ int main(void)
                 computeStrategy();            
             #endif
                             
-            
             skullActive = 0;
-            
             
             #if defined(INITIAL_GHOST_FREEZE)
                 freezeActive = 1;
@@ -777,11 +775,11 @@ int main(void)
         {
             gameCompleted();
             _XL_SLEEP(1);
-            #if !defined(NO_SLEEP)
-                _XL_SLEEP(1);
-            #else
-                _XL_WAIT_FOR_INPUT();
-            #endif
+            // #if !defined(NO_SLEEP)
+                // _XL_SLEEP(1);
+            // #else
+                // _XL_WAIT_FOR_INPUT();
+            // #endif
         }
         
         _XL_CLEAR_SCREEN();
@@ -793,7 +791,6 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
         #endif
         
-
         
     } // while(1) -> restart from the beginning
 

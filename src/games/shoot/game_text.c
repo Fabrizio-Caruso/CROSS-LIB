@@ -200,6 +200,7 @@ void displayScoreStats(void)
     {
         _XL_CLEAR_SCREEN();
         _XL_PRINT_CENTERED(YOU_MADE_IT_STRING); 
+        _XL_WAIT_FOR_INPUT();
     }
 #endif
 

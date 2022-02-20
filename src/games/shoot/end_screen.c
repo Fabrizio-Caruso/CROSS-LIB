@@ -24,6 +24,7 @@
     extern uint8_t maxGhostsOnScreen;
     
     extern uint8_t isBossLevel;
+    extern uint8_t innerVerticalWallLength;
 #endif
 
 
@@ -47,9 +48,9 @@
 		_XL_CLEAR_SCREEN();
         ghostCount = 8;
         maxGhostsOnScreen = 8;
-        level = 1;
         isBossLevel = 0;
 		fillLevelWithCharacters();
+        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 
 		playerFire = 0;
 		skulls[0]._x = player._x-4;
@@ -66,7 +67,7 @@
 			displayPlayer(&player);
 			displaySkull(&skulls[0]);
 		
-			_XL_PRINT_CENTERED_ON_ROW(MESSAGE_START,  YOU_MADE_IT_STRING);
+			_XL_PRINT(XSize/2-3, MESSAGE_START,  YOU_MADE_IT_STRING);
 			#if _XL_SLOW_DOWN_FACTOR>0
 				for(ind=0;ind<254;++ind){};
 			#endif

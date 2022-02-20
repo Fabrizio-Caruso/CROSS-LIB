@@ -233,12 +233,6 @@ void displayStats(void)
 
 
 #if !defined(LESS_TEXT)
-	void printExtraLife(void)
-	{
-        SET_COLOR(_XL_RED);
-		_XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
-	}
-
 	void printVictoryMessage(void)
 	{
         SET_COLOR(_XL_RED);
@@ -338,12 +332,12 @@ void displayStats(void)
 
     static const uint8_t item_tile[ITEMS_TO_DISPLAY][2] = 
     {
-        { _GHOST_TILE, _XL_WHITE },
-        { _SKULL_TILE, _XL_YELLOW },
-        { _BOMB_TILE, _XL_RED },
-        { _GUN_TILE, _XL_WHITE},
-        { _POWERUP_TILE, _XL_GREEN},
-        { _FREEZE_TILE, _XL_CYAN},
+        { _GHOST_TILE, _GHOST_COLOR },
+        { _SKULL_TILE, _SKULL_COLOR },
+        { _BOMB_TILE, _BOMB_COLOR },
+        { _GUN_TILE, _GUN_COLOR},
+        { _POWERUP_TILE, _POWERUP_COLOR},
+        { _FREEZE_TILE, _FREEZE_COLOR},
     };
 
     static const char item_name[ITEMS_TO_DISPLAY][7] = 

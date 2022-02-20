@@ -53,17 +53,15 @@
 #endif
 
 #if YSize < 20
-	#define MESSAGE_START 1
-	#define MESSAGE_RANGE 7
+	#define MESSAGE_START 5
 #else
-	#define MESSAGE_START 4
-	#define MESSAGE_RANGE 15
+	#define MESSAGE_START 6
 #endif
 
 #if defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)
 	{
-		level = 1;
+		level = 0;
 		
 		_XL_CLEAR_SCREEN();
         ghostCount = GHOSTS_NUMBER;

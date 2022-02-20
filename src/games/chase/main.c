@@ -469,7 +469,7 @@ int main(void)
                             chaseCharacter(chasedByGhosts);
 
                             #if BOMBS_NUMBER==4
-                                if(isBossLevel && level>=10 && ghostCount<=2)
+                                if(isBossLevel && ghostCount<=2)
                                 {
                                     #if defined(SIMPLE_STRATEGY)
                                         moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
@@ -668,12 +668,6 @@ int main(void)
                 #if defined(FULL_GAME)            
                     if(isBossLevel)
                     {    
-                        _XL_PING_SOUND();
-                        #if !defined(LESS_TEXT)
-                            printExtraLife();
-                            _XL_SLEEP(2);
-                        #endif
-                        ++lives;
                         all_skulls_killed_in_completed_levels = 1;
                         bases_in_completed_levels/=2;
                     }

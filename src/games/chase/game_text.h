@@ -58,7 +58,6 @@ void displayStats(void);
 
 	void printVictoryMessage(void);
 
-	void printExtraLife(void);
 #endif
 
 #if !defined(NO_MESSAGE)

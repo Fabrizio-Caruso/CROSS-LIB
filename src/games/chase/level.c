@@ -231,11 +231,22 @@ void fillLevelWithCharacters(void)
     uint8_t count = 0;
     
     #if defined(FULL_GAME)
-    
-        if(isBossLevel)
+
+        if(isBossLevel && level) // level 0 is the final screen and ghostCount should remain at GHOSTS_NUMBER
         {
-            ghostCount = 1+(level>>2);
+            ghostCount = 2+(level>>2);
+            #if !defined(_XL_NO_COLOR)
+                SKULL_IMAGE._color = _XL_WHITE;
+                BOMB_IMAGE._color = _XL_CYAN;
+            #endif
         }
+        #if !defined(_XL_NO_COLOR)
+        else
+        {
+            SKULL_IMAGE._color = _XL_YELLOW;
+            BOMB_IMAGE._color = _XL_RED;
+        }
+        #endif
     
         if(isRocketLevel || isBossLevel)
         {
@@ -260,28 +271,6 @@ void fillLevelWithCharacters(void)
         ROUND_SEVEN_GHOSTS();
     #else
         FLAT_SIX_GHOSTS();
-    #endif
-
-    #if defined(FULL_GAME)
-        #if !defined(_XL_NO_COLOR)
-        if(isBossLevel)
-        {
-            SKULL_IMAGE._color = _XL_CYAN;
-        }
-        else
-        {
-            SKULL_IMAGE._color = _XL_YELLOW;
-        }
-        
-        if(isBossLevel && level>=10)
-        {
-            BOMB_IMAGE._color = _XL_CYAN;
-        }
-        else
-        {
-            BOMB_IMAGE._color = _XL_RED;
-        }
-        #endif
     #endif
   
     #if BOMBS_NUMBER==4
@@ -343,7 +332,7 @@ void fillLevelWithCharacters(void)
         initializeCharacter(&bullet, 0, 0,0,&BULLET_IMAGE);
 
         #if defined(FULL_GAME)
-            initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS + (isBossLevel<<2), &SKULL_IMAGE);        
+            initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS + (isBossLevel<<3), &SKULL_IMAGE);        
         #else
             initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS, &SKULL_IMAGE);                    
         #endif

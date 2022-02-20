@@ -299,6 +299,7 @@ void fillLevelWithCharacters(void)
             HORIZONTAL_BRICK_IMAGE._color = _XL_CYAN;
             VERTICAL_BRICK_IMAGE._color = _XL_CYAN;  
     }
+    
     #endif
     
     #if !defined(NO_BORDERS)

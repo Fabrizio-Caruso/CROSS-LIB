@@ -214,7 +214,7 @@ void displayScoreStats(void)
     void printVictoryMessage(void)
     {
         SET_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED(VICTORY_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,VICTORY_STRING);
     }    
 #endif
 
@@ -223,7 +223,7 @@ void displayScoreStats(void)
     void printDefeatMessage(void)
     {            
         SET_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED(DEFEAT_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,DEFEAT_STRING);
     }    
 #endif
     

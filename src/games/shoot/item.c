@@ -449,13 +449,13 @@ void setSecret(uint8_t secretIndex)
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
         #if !defined(NO_MESSAGE)
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT_CENTERED(SECRET_FOUND_STRING);
+            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
         #endif
         _XL_SLEEP(1);
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
         #if !defined(NO_MESSAGE)
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT_CENTERED(EMPTY_STRING);
+            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,EMPTY_STRING);
         #endif
         discoveredSecrets[secretIndex] = 1;
     }

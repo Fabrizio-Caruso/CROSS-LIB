@@ -1041,7 +1041,7 @@ zx81_no_gfx: zx81_no_gfx_32k
 
 zx81_no_gfx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) -compiler=sdcc  -DEXTRA_TITLE  \
+	$(INCLUDE_OPTS) -compiler=sdcc   \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
 	-vn \
 	-D__ZX81__ -DFULL_GAME  \

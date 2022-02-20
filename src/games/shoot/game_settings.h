@@ -145,7 +145,7 @@
     #define BOSS_HITS 254
     #define GHOST_LIFE 30
 #else
-    #define MIN_SKULL_HITS 48
+    #define MIN_SKULL_HITS 50
     #define BOSS_HITS 190
     #define GHOST_LIFE 25
 #endif    
@@ -155,8 +155,8 @@
 
 #define GHOST_SLOW_DOWN_THRESHOLD 5
 
-#if defined(WIDE) || defined(FORCE_NARROW)
-    #define BOSS_LEVEL_SKULL_INCREASE 6
+#if defined(WIDE) 
+    #define BOSS_LEVEL_SKULL_INCREASE 5
     #define BOSS_LEVEL_GHOSTS_NUMBER GHOSTS_NUMBER
 #else
     #define BOSS_LEVEL_SKULL_INCREASE 4

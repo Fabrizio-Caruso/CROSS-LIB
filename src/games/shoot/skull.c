@@ -122,7 +122,6 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
     {
         if(!freezeActive && SKULL_RAND_CONDITION)
         {
-            _XL_TOCK_SOUND();
             skullMoveTowardCharacter(skullPtr, strategy);
         }
         displaySkull(skullPtr);
@@ -137,9 +136,8 @@ void handle_skulls(void)
 {
     if(!skullActive)
     {   
-        if(skullsCount==SKULLS_NUMBER && 
-            ((!isBossLevel && NON_BOSS_TRIGGER_REACHED) || 
-             (isBossLevel && BOSS_LOOP_TRIGGER_REACHED)))
+        if((!isBossLevel && NON_BOSS_TRIGGER_REACHED) || 
+           (isBossLevel && BOSS_LOOP_TRIGGER_REACHED))
         {
             #if !defined(DEBUG_NO_SKULL)
             skullActive = 1;

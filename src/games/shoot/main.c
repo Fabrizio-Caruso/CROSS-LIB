@@ -530,10 +530,8 @@ int main(void)
                     printLivesStats();
                 }
                 
-
                 handle_bullets();
                 handle_bomb();
-                
 
                 if(!freezeActive)
                 {

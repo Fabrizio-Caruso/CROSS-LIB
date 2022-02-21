@@ -153,18 +153,18 @@ void bulletVsSkull(register Character *bulletPtr)
 	if(skullActive && skull._status &&
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
+        _XL_DRAW(skull._x,skull._y,_SKULL_TILE, _XL_RED);
 		_XL_PING_SOUND();
 		bulletPtr->_status=0;
 		#if defined(FULL_GAME)
 		decreaseGhostLevel();
 		#endif
 		reducePowerUpsCoolDowns();
-        _XL_DRAW(skull._x,skull._y,_SKULL_TILE, _XL_YELLOW);
 		
 		if(!(--skull._status))
 		{
-			deleteSkull(&skull);
 			_XL_EXPLOSION_SOUND();
+            deleteSkull(&skull);
 			points+=SKULL_POINTS;
 			displayStats();
 		}

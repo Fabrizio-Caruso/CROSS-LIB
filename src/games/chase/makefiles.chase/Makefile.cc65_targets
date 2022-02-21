@@ -1089,8 +1089,8 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/horizontal_missile.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/init_images.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

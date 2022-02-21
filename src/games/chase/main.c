@@ -370,10 +370,6 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
             
-            #if !defined(TINY_GAME) && !defined(NO_BORDERS)
-                DRAW_BORDERS();
-            #endif
-            
             fillLevelWithCharacters();
             #if !defined(TINY_GAME)
                 constructItems();    

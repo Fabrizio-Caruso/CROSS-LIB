@@ -230,6 +230,29 @@ void fillLevelWithCharacters(void)
     uint8_t j;
     uint8_t count = 0;
     
+    #if !defined(_XL_NO_COLOR)
+    if(isBossLevel)
+    {
+            HORIZONTAL_BRICK_IMAGE._color = _XL_RED;
+            VERTICAL_BRICK_IMAGE._color = _XL_RED;
+    }
+    else if(level&1)
+    {
+        HORIZONTAL_BRICK_IMAGE._color = _XL_YELLOW;
+        VERTICAL_BRICK_IMAGE._color = _XL_YELLOW;
+    }
+    else
+    {
+        HORIZONTAL_BRICK_IMAGE._color = _XL_CYAN;
+        VERTICAL_BRICK_IMAGE._color = _XL_CYAN;
+    }
+
+    #endif
+    
+    #if !defined(TINY_GAME) && !defined(NO_BORDERS)
+        DRAW_BORDERS();
+    #endif    
+    
     #if defined(FULL_GAME)
 
         if(isBossLevel && level) // level 0 is the final screen and ghostCount should remain at GHOSTS_NUMBER

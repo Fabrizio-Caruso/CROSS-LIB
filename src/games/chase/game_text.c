@@ -343,7 +343,7 @@ void displayStats(void)
     static const char item_name[ITEMS_TO_DISPLAY][7] = 
     {
         _XL_E _XL_N _XL_E _XL_M _XL_Y,
-        _XL_S _XL_K _XL_U _XL_L _XL_L,
+        _XL_B _XL_O _XL_S _XL_S,
         _XL_M _XL_I _XL_N _XL_E,
         _XL_G _XL_U _XL_N,
         _XL_S _XL_L _XL_O _XL_W,

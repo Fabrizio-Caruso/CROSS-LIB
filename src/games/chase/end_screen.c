@@ -65,7 +65,8 @@
 		
 		_XL_CLEAR_SCREEN();
         ghostCount = GHOSTS_NUMBER;
-		fillLevelWithCharacters();	
+		fillLevelWithCharacters();
+        displayScore();
 
 		playerFire = 0;
 		skull._x = player._x-4;

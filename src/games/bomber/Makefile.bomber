@@ -419,9 +419,9 @@ plus4: c16_32k
 
 # TODO: This should use
 # c16_linked_redefined_chars_init_graphics
-c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -439,13 +439,13 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	$(ASSETS_PATH)/cc65_udc_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_16k.prg
 
 
-c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -463,7 +463,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	$(ASSETS_PATH)/cc65_udc_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 

@@ -12,7 +12,8 @@ _Charset:
 
 .byte <tile_23>
 
-.byte <tile_24>
+; formerly 24
+.byte <tile_17>
 
 ; A-Z
 .byte $18,$3c,$66,$7e,$66,$66,$66,$00
@@ -109,7 +110,8 @@ _Charset:
 
 
 ; 0xFD freeze
-.byte <tile_17>
+; formerly 17
+.byte <tile_24>
 
 
 

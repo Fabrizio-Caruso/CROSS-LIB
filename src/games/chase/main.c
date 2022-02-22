@@ -55,6 +55,8 @@
 
 #include "cross_lib.h"
 
+// #define DEBUG_ITEMS
+
 #if defined(DEBUG_ITEMS)
     #if defined(ANIMATE_PLAYER)
         extern Image PLAYER_DOWN_IMAGE;
@@ -348,7 +350,7 @@ int main(void)
                 // Clear the screen, put cursor in upper left corner
                 printLevel();
                 _XL_SLEEP(1);
-                _XL_CLEAR_SCREEN();
+                // _XL_CLEAR_SCREEN();
             #endif
                 
             #if defined(FULL_GAME)
@@ -379,7 +381,7 @@ int main(void)
                 #endif
             #endif
             
-            displayStats();        
+            displayScore();        
             #if !defined(NO_STATS)    
                 printLevelStats();
                 printLivesStats();
@@ -461,7 +463,6 @@ int main(void)
                                 chasedByGhosts=&player;
                             }
                             
-                            // _XL_PRINTD(4,4,5,ghostSlowDown);
                             chaseCharacter(chasedByGhosts);
 
                             #if BOMBS_NUMBER==4
@@ -554,7 +555,7 @@ int main(void)
                             if(zombieActive && !(loop&15))
                             {
                                 points+=ZOMBIE_BONUS;
-                                displayStats();
+                                displayScore();
                                 reducePowerUpsCoolDowns();
                             }
                         }
@@ -650,13 +651,17 @@ int main(void)
                 #endif
                 
                 #if defined(FULL_GAME)
-                    _XL_SLEEP(1);
                     #if !defined(LESS_TEXT)
                         printVictoryMessage();
-                        _XL_SLEEP(2);
+                    // #else
+                        // _XL_SLEEP(2);
+                        // _XL_CLEAR_SCREEN();
                     #endif
-
                     points+= LEVEL_BONUS;
+                    displayScore();
+                    _XL_SLEEP(1);
+                    // _XL_WAIT_FOR_INPUT();
+
                 #endif            
 
                 ghostCount = GHOSTS_NUMBER;
@@ -702,44 +707,31 @@ int main(void)
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr);
-                _XL_SLEEP(1);
+                _XL_SLEEP(2);
             #endif                
             
             #endif
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
             
+        // _XL_SLEEP(2);
         if(level==FINAL_LEVEL+1) // if completed game
         {
+            // _XL_WAIT_FOR_INPUT();
             gameCompleted();
             #if !defined(NO_SLEEP)
-                _XL_SLEEP(1);
+                _XL_SLEEP(2);
             #else
                 _XL_WAIT_FOR_INPUT();
             #endif
         }
 
         // GAME OVER    
-        _XL_SLEEP(1);
         _XL_CLEAR_SCREEN();
+        displayScore();
         printGameOver();
         
-        #if !defined(NO_SLEEP)
-            _XL_SLEEP(1);
-        #else
-            _XL_WAIT_FOR_INPUT();
-        #endif
+        _XL_WAIT_FOR_INPUT();
         
-        #if !defined(TINY_GAME) && !defined(LESS_TEXT)
-            _XL_CLEAR_SCREEN();
-            finalScore();
-        
-            #if !defined(NO_SLEEP)
-                _XL_SLEEP(2);
-            #else
-                _XL_WAIT_FOR_INPUT();
-            #endif
-        
-        #endif
         if(points>highScore)
         {
             highScore = points;

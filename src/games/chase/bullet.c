@@ -166,7 +166,7 @@ void bulletVsSkull(register Character *bulletPtr)
 			_XL_EXPLOSION_SOUND();
             deleteSkull(&skull);
 			points+=SKULL_POINTS;
-			displayStats();
+			displayScore();
 		}
 	}	
 }
@@ -186,9 +186,10 @@ void _moveBullet(register Character *bulletPtr)
 		case UP:
 			--bulletPtr->_y;
 		break;
-		case LEFT:
+        default:
+		// case LEFT:
 			--bulletPtr->_x;
-		break;
+		// break;
 	}	
 }
 
@@ -200,7 +201,7 @@ void _moveBullet(register Character *bulletPtr)
 		_XL_EXPLOSION_SOUND();
 		deleteHorizontalMissile(horizontalMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
-		displayStats();				
+		displayScore();				
 		++bases;
 		reducePowerUpsCoolDowns();		
 	}
@@ -256,7 +257,7 @@ void moveBullet(register Character * bulletPtr)
 						_XL_EXPLOSION_SOUND();
 						deleteRocket(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;
-						displayStats();		
+						displayScore();		
 					}
 				}
 			}			

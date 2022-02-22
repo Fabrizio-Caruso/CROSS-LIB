@@ -73,7 +73,7 @@ extern Item extraPoints;
 			displayPlayer(&player);
 		#endif
 		itemPtr->_status = 0;
-		displayStats();
+		displayScore();
 	}
 
 	void relocateItem(Character * itemPtr)

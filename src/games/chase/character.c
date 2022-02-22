@@ -138,7 +138,7 @@ void ghostDies(Character * ghostPtr)
 	_XL_EXPLOSION_SOUND();
 	
 	ghostPtr->_status=0;
-	displayStats();
+	displayScore();
 	
 	#if defined(FULL_GAME)
 		if(level>=FIRST_MOVING_BOMBS_LEVEL)

@@ -32,7 +32,7 @@
 
 
 // game_stat
-void displayStats(void);
+void displayScore(void);
 
 #if !defined(TINY_GAME)
 	void displayStatsTitles(void);
@@ -103,13 +103,9 @@ void printStartMessage(void);
 		#define highScoreScreen()
 	#endif
 #elif defined(LESS_TEXT) 
-		#define printLevelBonus(bonus) 
-		#define finalScore()
 		#define highScoreScreen() 
 		
 #else
-    #define printLevelBonus(bonus) _printScore(bonus);
-    #define finalScore() _printScore(points);
     #define highScoreScreen() _printScore(highScore);
 #endif
 

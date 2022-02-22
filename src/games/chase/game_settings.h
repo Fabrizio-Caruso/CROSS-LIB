@@ -42,6 +42,8 @@
 // Final level 
 #define FINAL_LEVEL 20
 
+#define LIVES_NUMBER 5
+
 #define MAX_TURN_BASES_LOOP 400
 
 #if defined(FORCE_BOMBS_NUMBER)
@@ -72,7 +74,6 @@
     #define ROCKETS_NUMBER 4
 #endif
 
-#define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
 
 #define EXTRA_LIFE_THROUGH_POINTS 2000

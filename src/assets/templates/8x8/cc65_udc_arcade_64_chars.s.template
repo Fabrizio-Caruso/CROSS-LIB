@@ -13,7 +13,8 @@ _Charset:
 
 .byte <tile_23>
 
-.byte <tile_24>
+; formerly 24
+.byte <tile_17>
 
 ; A-Z
 .byte $38,$6c,$c6,$c6,$fe,$c6,$c6,$00 ; a
@@ -109,7 +110,8 @@ _Charset:
 
 
 ; 0xFD freeze
-.byte <tile_17>
+; formerly 17
+.byte <tile_24>
 
 ; ------------------------------------------------------------------------
 ; Unused - Conflict?

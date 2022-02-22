@@ -62,7 +62,7 @@ extern Image SKULL_IMAGE;
 	#define GHOST_IMAGE_Y 0
 	#define PLAYER_IMAGE_X 16
 	#define PLAYER_IMAGE_Y (1+SKIP_ROW)
-	#define LEVEL_X 6
+	#define LEVEL_X (XSize-2)
 	#define LEVEL_Y (1+SKIP_ROW)
 #else
 	#define GUN_IMAGE_X (11-EXTRA_TINY)
@@ -71,7 +71,7 @@ extern Image SKULL_IMAGE;
 	#define GHOST_IMAGE_Y 0
 	#define PLAYER_IMAGE_X (14-EXTRA_TINY)
 	#define PLAYER_IMAGE_Y 0
-	#define LEVEL_X 18
+	#define LEVEL_X (XSize-2)
 	#define LEVEL_Y 0
 #endif
 
@@ -193,7 +193,7 @@ extern Image PLAYER_IMAGE;
 #endif
 
 
-void displayStats(void)
+void displayScore(void)
 {	
 	SET_COLOR(TEXT_COLOR);
 	
@@ -203,8 +203,8 @@ void displayStats(void)
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
 	{
-		_XL_PRINT(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING);
-        _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
+		_XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, START_LEVEL_STRING);
+        _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1)-2, 2, level);
 	}
 #endif
 

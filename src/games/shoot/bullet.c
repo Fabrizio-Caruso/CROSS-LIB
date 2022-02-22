@@ -268,9 +268,10 @@ void pushGhost(Character * ghostPtr, uint8_t bulletDirection)
         case LEFT:
             --(ghostPtr->_x);
         break;
-        case RIGHT:
+        default:
+        // case RIGHT:
             ++(ghostPtr->_x);
-        break;        
+        // break;        
     }
 }
 
@@ -416,9 +417,10 @@ void _moveBullet(register Character *bulletPtr, uint8_t bulletDirection)
         case UP:
             --bulletPtr->_y;
         break;
-        case LEFT:
+        default:
+        // case LEFT:
             --bulletPtr->_x;
-        break;
+        // break;
     }    
 }
 

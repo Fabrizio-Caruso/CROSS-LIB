@@ -62,7 +62,6 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._color = _BOMB_COLOR;
 		GHOST_IMAGE._color = _GHOST_COLOR;		
 		
-
 		DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
 		
         SKULL_IMAGE._color = _SKULL_COLOR;
@@ -119,7 +118,6 @@ void INIT_IMAGES(void)
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 
-
     LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_14;
     
     RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
@@ -131,7 +129,6 @@ void INIT_IMAGES(void)
 
     EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN_TILE;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
-
     
     CONFUSE_IMAGE._imageData = _TILE_7;
     SUICIDE_IMAGE._imageData = _TILE_4;

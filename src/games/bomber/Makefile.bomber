@@ -411,6 +411,7 @@ atari_lynx:
 	-o $(BUILD_PATH)/X$(GAME_NAME)_ATARI_LYNX.lnx
     
 
+#################################################################
 
 c16: c16_16k
 
@@ -445,8 +446,8 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
-	-DFORCE_NO_CONIO_LIB \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
+	-DFORCE_NO_CONIO_LIB -DEXTRA_TITLE \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DSOUNDS \
@@ -456,7 +457,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=450 \
+	-D_XL_SLOW_DOWN_FACTOR=550 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -469,7 +470,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 
 #################################################################
 
-c64: $(ASSETS_PATH)/cc65_udc.s
+c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -477,7 +478,7 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	-DMEMORY_MAPPED \
 	-D_XL_SLOW_DOWN_FACTOR=440 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \

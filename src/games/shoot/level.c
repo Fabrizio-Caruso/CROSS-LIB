@@ -382,9 +382,13 @@ void fillLevelWithCharacters(void)
     initializeAwayFromWall(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);
     initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);
     initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);        
-    initializeAwayFromWall(&(suicide._character), (XSize>>1), (YSize>>1), 0, &SUICIDE_IMAGE);    
-    initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
+    initializeAwayFromWall(&(suicide._character), (XSize>>1), (YSize>>1), 0, &SUICIDE_IMAGE); 
 
+    #if !defined(NO_BLINKING) && !defined(_XL_NO_COLOR)
+        initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
+    #else
+        initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &HORIZONTAL_BRICK_IMAGE);     
+    #endif
     
     initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 

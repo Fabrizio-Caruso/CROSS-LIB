@@ -230,7 +230,7 @@ void fillLevelWithCharacters(void)
     uint8_t j;
     uint8_t count = 0;
     
-    #if !defined(_XL_NO_COLOR)
+    #if defined(FULL_GAME) && !defined(_XL_NO_COLOR)
     if(isBossLevel)
     {
             HORIZONTAL_BRICK_IMAGE._color = _XL_RED;
@@ -246,7 +246,6 @@ void fillLevelWithCharacters(void)
         HORIZONTAL_BRICK_IMAGE._color = _XL_CYAN;
         VERTICAL_BRICK_IMAGE._color = _XL_CYAN;
     }
-
     #endif
     
     #if !defined(TINY_GAME) && !defined(NO_BORDERS)

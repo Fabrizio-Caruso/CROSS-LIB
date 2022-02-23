@@ -25,6 +25,8 @@
 
 #include "../cross_lib/display/display_macros.h"
 
+#include "settings.h"
+
 struct CharacterStruct
 {
     // character coordinates
@@ -41,7 +43,6 @@ typedef struct CharacterStruct Character;
 
 
 
-#include "settings.h"
 
 #if defined(ANIMATE_PLAYER)
     #define PLAYER_IMAGE PLAYER_DOWN_IMAGE

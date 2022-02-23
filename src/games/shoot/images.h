@@ -1,6 +1,8 @@
 #ifndef _IMAGES_H
 #define _IMAGES_H
 
+#include "settings.h"
+
 #if !defined(ANIMATE_PLAYER)
 	Image PLAYER_IMAGE;
 #else

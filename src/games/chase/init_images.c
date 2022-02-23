@@ -3,6 +3,7 @@
 #include "images.h"
 #include "init_images.h"
 
+#include "settings.h"
 
 #include "cross_lib.h"
 

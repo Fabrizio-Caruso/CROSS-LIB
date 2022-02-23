@@ -782,7 +782,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 # -Or breaks the PCE target
 pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING -D_XL_NO_COLOR \
 	-DANIMATE_PLAYER -DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \

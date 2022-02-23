@@ -3,6 +3,8 @@
 
 #include "cross_lib.h"
 
+#include "settings.h"
+
 #if !defined(ANIMATE_PLAYER)
 	Image PLAYER_IMAGE;
 #else

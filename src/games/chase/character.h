@@ -25,6 +25,8 @@
 
 #include "cross_lib.h"
 
+#include "settings.h"
+
 struct CharacterStruct
 {
 	// character coordinates
@@ -39,6 +41,9 @@ struct CharacterStruct
 
 typedef struct CharacterStruct Character;
 
+#if !defined(NO_BLINKING)
+void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
+#endif
 
 #include "settings.h"
 
@@ -171,10 +176,6 @@ void deleteCharacter(Character * characterPtr);
 #define deleteSkull(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 
-
-#if !defined(NO_BLINKING)
-void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
-#endif
 
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr);
 

@@ -59,6 +59,8 @@
 
 #include "variables.h"
 
+// #define DEBUG_ITEMS
+
 #if defined(DEBUG_ITEMS)
 
 
@@ -355,11 +357,12 @@ int main(void)
         do // Level (Re-)Start
         {
             isBossLevel = bossLevel();
-            isRocketLevel = rocketLevel();
+            // isRocketLevel = rocketLevel();
             isOneMissileLevel = oneMissileLevel();
             isMissileLevel = missileLevel();
             isInnerHorizontalWallLevel = innerHorizontalWallLevel();
             isInnerVerticalWallLevel = innerVerticalWallLevel();
+            setNumberOfRocketsOnScreen();
             
             #if defined(DEBUG_STRATEGY)
             maxGhostsOnScreen = 1;
@@ -372,13 +375,13 @@ int main(void)
             {
                 maxGhostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
             }
-            else if(isMissileLevel && isRocketLevel)
-            {
-                maxGhostsOnScreen = GHOSTS_NUMBER-3;
-            }
-            else if(isMissileLevel || isRocketLevel)
+            else if(isMissileLevel && rocketsOnScreen)
             {
                 maxGhostsOnScreen = GHOSTS_NUMBER-2;
+            }
+            else if(isMissileLevel || rocketsOnScreen)
+            {
+                maxGhostsOnScreen = GHOSTS_NUMBER-1;
             }
             else
             {
@@ -613,7 +616,7 @@ int main(void)
                 
                 reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
                 
-                if(destroyerActive && reachedByGhost < maxGhostsOnScreen)
+                if(destroyerActive && (reachedByGhost < maxGhostsOnScreen))
                 {
                     points += GHOST_VS_BOMBS_BONUS;
                     ghostDiesAndSpawns(&ghosts[reachedByGhost]);
@@ -757,15 +760,15 @@ int main(void)
                 _XL_SLEEP(1);
             #endif
             
-        } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
-            
-
+        } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game     
 
         // GAME OVER    
         if(points>highScore)
         {
             highScore = points;
         }
+        _XL_WAIT_FOR_INPUT();
+
         _XL_CLEAR_SCREEN();
         printAchievements();
         _XL_SLEEP(1);

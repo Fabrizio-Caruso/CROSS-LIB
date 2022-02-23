@@ -101,14 +101,14 @@ extern Item confuse;
 extern Item suicide;
 extern Item destroyer;
 
-extern Character rockets[ROCKETS_NUMBER];
+extern Character rockets[MAX_ROCKETS_NUMBER];
 
-extern uint8_t rockets_x[ROCKETS_NUMBER];
+extern uint8_t rockets_x[MAX_ROCKETS_NUMBER];
 
 extern uint8_t isBossLevel;
 extern uint8_t isOneMissileLevel;
 extern uint8_t isMissileLevel;
-extern uint8_t isRocketLevel;
+// extern uint8_t isRocketLevel;
 extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;
 
@@ -194,27 +194,33 @@ void updateInnerHorizontalWall(void)
 
 uint8_t innerHorizontalWallLevel(void)
 {
-    return ((level&7)==2) || ((level&7)==4) || ((level&7)==6);
+    // 2, 5, 7, 10, 13, 16
+    return ((level&7)==2) || ((level&7)==5) || ((level&7)==7);
+    // return ((level&7)==2) || ((level&7)==4) || ((level&7)==6);
 }
 
 uint8_t innerVerticalWallLevel(void)
 {
-    return !level || ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
+    // 0, 1, 4, 8, 9, 12, 16
+    return ((level&7)==1) || ((level&7)==4) || ((level&7)==0);
+    // return !level || ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
 }    
 
 uint8_t oneMissileLevel(void)
 {
-    return ((level&7)==3) || ((level&7)==7) || (level==9);
+    return (level==3) || (level==4);
+    // return ((level&7)==3) || ((level&7)==7) || (level==9);
 }
 
-uint8_t rocketLevel(void)
-{
-    return !level || ((level==3) || (level>=6));
-}
+// uint8_t rocketLevel(void)
+// {
+    // return !level || ((level==3) || (level>=6));
+// }
 
 uint8_t missileLevel(void)
 {
-    return ((level&7)==0) || ((level&7)==6) || ((level&7)==5) || ((level&7)==4);
+    return level>=5;
+    // return ((level&7)==0) || ((level&7)==6) || ((level&7)==5) || ((level&7)==4);
 }    
 
 uint8_t bossLevel(void)
@@ -274,7 +280,37 @@ void initializeBombs(void)
     INITIALIZE_BOMBS();
 }
 
-
+void setNumberOfRocketsOnScreen(void)
+{
+    if(!level)
+    {
+        #if MAX_ROCKETS_NUMBER<4
+        rocketsOnScreen = MAX_ROCKETS_NUMBER;
+        #else
+        rocketsOnScreen = 4;
+        #endif
+    }
+    else if(level<=4)
+    {
+        rocketsOnScreen = 0;
+    }
+    else if(level<=9)
+    {
+        rocketsOnScreen = 2;
+    }
+    else if(level<12)
+    {
+        #if MAX_ROCKETS_NUMBER<4
+        rocketsOnScreen = MAX_ROCKETS_NUMBER;
+        #else
+        rocketsOnScreen = 4;
+        #endif
+    }
+    else
+    {
+        rocketsOnScreen = MAX_ROCKETS_NUMBER;
+    }    
+}
 void fillLevelWithCharacters(void)
 {
     uint8_t i;
@@ -305,36 +341,37 @@ void fillLevelWithCharacters(void)
     #if !defined(NO_BORDERS)
         DRAW_BORDERS();
     #endif
-            
-    if(isRocketLevel)
-    {
-        if(isBossLevel)
-        {
-            rocketsOnScreen = 4;
-        }
-        else if (!isInnerVerticalWallLevel)
-        {
-            rocketsOnScreen = ROCKETS_NUMBER;
-        }
-        else if(level>=6)
-        {
-            rocketsOnScreen = 3;
-        }
-        else 
-        {
-            rocketsOnScreen = 2;
-        }
-    }
     
-    if(isRocketLevel || isBossLevel)
+    
+    // if(isRocketLevel)
+    // {
+        // if(isBossLevel)
+        // {
+            // rocketsOnScreen = 4;
+        // }
+        // else if (!isInnerVerticalWallLevel)
+        // {
+            // rocketsOnScreen = MAX_ROCKETS_NUMBER;
+        // }
+        // else if(level>=6)
+        // {
+            // rocketsOnScreen = 3;
+        // }
+        // else 
+        // {
+            // rocketsOnScreen = 2;
+        // }
+    // }
+    
+    // if(rocketsOnScreen)
+    // {
+    for(i=0;i<rocketsOnScreen;i++)
     {
-        for(i=0;i<rocketsOnScreen;i++)
-        {
-            rockets_x[i] = (uint8_t) (i+1)*(XSize/(rocketsOnScreen+1));
-            initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
-            displayRocket(&rockets[i]);
-        }
+        rockets_x[i] = (uint8_t) (i+1)*(XSize/(rocketsOnScreen+1));
+        initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
+        displayRocket(&rockets[i]);
     }
+    // }
     
     if(ghostCount>maxGhostsOnScreen)
     {
@@ -366,7 +403,6 @@ void fillLevelWithCharacters(void)
             displayCharacter((Character *)&ghosts[i]);
         #endif        
     }
-    
     
     initializeBombs();
     
@@ -402,13 +438,12 @@ void fillLevelWithCharacters(void)
     {
         initializeCharacter(&rightHorizontalMissile,         XSize-1,                      (YSize>>1), 1,&RIGHT_HORIZONTAL_MISSILE_IMAGE);            
     }
-    else if(isMissileLevel || isBossLevel)
+    else if(isMissileLevel)
     {    
         initializeCharacter(&rightHorizontalMissile,         XSize-1,         HORIZONTAL_MISSILE_OFFSET, 1,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
         initializeCharacter(&leftHorizontalMissile,                0, YSize-1-HORIZONTAL_MISSILE_OFFSET, 1,&LEFT_HORIZONTAL_MISSILE_IMAGE);        
     }        
         
-
     displayPlayer(&player);
         
     for(i=0;i<BULLETS_NUMBER;++i)

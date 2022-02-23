@@ -257,7 +257,7 @@ uint8_t innerHorizontalWallLevel(void);
 
 uint8_t oneMissileLevel(void);
 
-uint8_t rocketLevel(void);
+// uint8_t rocketLevel(void);
 
 uint8_t missileLevel(void);    
 
@@ -268,5 +268,7 @@ uint8_t bossLevel(void);
 void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr);
 
 void initializeBombs(void);
+
+void setNumberOfRocketsOnScreen(void);
 
 #endif // _LEVEL

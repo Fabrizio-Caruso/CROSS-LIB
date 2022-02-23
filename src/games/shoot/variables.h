@@ -178,7 +178,7 @@ extern Image DEAD_GHOST_IMAGE;
     
     Character * chasedEnemyPtr;
     Character * chasedByGhosts;
-    uint8_t rockets_x[ROCKETS_NUMBER];		
+    uint8_t rockets_x[MAX_ROCKETS_NUMBER];		
     
     uint8_t extraLife_present_on_level;
     uint8_t super_present_on_level;
@@ -219,7 +219,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     extern uint8_t confuse_count_down;
 #else
-    Character rockets[ROCKETS_NUMBER];
+    Character rockets[MAX_ROCKETS_NUMBER];
 
     uint8_t invincibility_count_down;	
 
@@ -272,7 +272,7 @@ extern Image DEAD_GHOST_IMAGE;
 uint8_t isBossLevel;
 uint8_t isOneMissileLevel;
 uint8_t isMissileLevel;
-uint8_t isRocketLevel;
+// uint8_t isRocketLevel;
 uint8_t isInnerHorizontalWallLevel;
 uint8_t isInnerVerticalWallLevel;
 

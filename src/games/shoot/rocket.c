@@ -31,16 +31,16 @@
 
 extern uint8_t rocketsOnScreen;
 
-extern Character rockets[ROCKETS_NUMBER];
+extern Character rockets[MAX_ROCKETS_NUMBER];
 
 extern uint8_t ghostCount;
 
-extern uint8_t isRocketLevel;
+// extern uint8_t isRocketLevel;
 extern uint8_t isBossLevel;
 
     void handle_rockets(void)
     {    
-        if((ghostCount<=MAX_GHOST_COUNT_FOR_ROCKETS && isRocketLevel) || isBossLevel)
+        if((ghostCount<=MAX_GHOST_COUNT_FOR_ROCKETS) || isBossLevel)
         { 
             uint8_t i;
 

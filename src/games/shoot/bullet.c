@@ -48,7 +48,7 @@ extern uint16_t loop;
 extern uint8_t isOneMissileLevel;
 extern uint8_t isMissileLevel;
 extern uint8_t isBossLevel;
-extern uint8_t isRocketLevel;
+// extern uint8_t isRocketLevel;
 
 extern Character ghosts[GHOSTS_NUMBER];
 
@@ -78,11 +78,11 @@ extern Item invincibility;
     
 extern Character leftHorizontalMissile;
 extern Character rightHorizontalMissile;
-extern uint8_t rockets_x[ROCKETS_NUMBER];
-extern Character rockets[ROCKETS_NUMBER];
+extern uint8_t rockets_x[MAX_ROCKETS_NUMBER];
+extern Character rockets[MAX_ROCKETS_NUMBER];
 extern uint8_t destroyed_bases;
 extern uint8_t destroyed_bases_in_completed_levels;
-
+extern uint8_t destroyerActive;
 
 uint8_t availableBullet(void)
 {
@@ -186,14 +186,20 @@ void handle_bullet_fire(uint8_t bulletIndex)
         {
             bullets[bulletIndex]._x = player._x-1;    
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
-            _XL_DRAW(player._x, player._y, _PLAYER_RIGHT_TILE, _PLAYER_COLOR);
+            if(!destroyerActive)
+            {
+                _XL_DRAW(player._x, player._y, _PLAYER_RIGHT_TILE, _PLAYER_COLOR);
+            }
             #endif            
         }
         else if(playerDirection==RIGHT)
         {
             bullets[bulletIndex]._x = player._x+1;  
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
-            _XL_DRAW(player._x, player._y, _PLAYER_LEFT_TILE, _PLAYER_COLOR);
+            if(!destroyerActive)
+            {
+                _XL_DRAW(player._x, player._y, _PLAYER_LEFT_TILE, _PLAYER_COLOR);
+            }
             #endif            
         }
         else
@@ -205,14 +211,20 @@ void handle_bullet_fire(uint8_t bulletIndex)
         {
             bullets[bulletIndex]._y = player._y-1;  
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
-            _XL_DRAW(player._x, player._y, _PLAYER_DOWN_TILE, _PLAYER_COLOR);
+            if(!destroyerActive)
+            {
+                _XL_DRAW(player._x, player._y, _PLAYER_DOWN_TILE, _PLAYER_COLOR);
+            }
             #endif            
         }
         else if(playerDirection==DOWN)
         {
             bullets[bulletIndex]._y = player._y+1;    
             #if !defined(NO_PLAYER_SHOOT_ANIMATION) && defined(ANIMATE_PLAYER)
-            _XL_DRAW(player._x, player._y, _PLAYER_UP_TILE, _PLAYER_COLOR);
+            if(!destroyerActive)
+            {
+                _XL_DRAW(player._x, player._y, _PLAYER_UP_TILE, _PLAYER_COLOR);
+            }
             #endif            
         }
         else
@@ -222,6 +234,7 @@ void handle_bullet_fire(uint8_t bulletIndex)
         displayBullet(&bullets[bulletIndex]);
         playerFire = 0;    
         checkBullet(&bullets[bulletIndex],playerDirection);
+        displayCharacter(&player);
     }    
 }    
 
@@ -367,6 +380,7 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
     if(skullPtr->_status && 
        areCharctersAtSamePosition(bulletPtr, skullPtr))
     {
+        _XL_DRAW(skullPtr->_x,skullPtr->_y,skullPtr->_imagePtr->_imageData, _XL_RED);
         _XL_PING_SOUND();
         
         bulletPtr->_status=0;
@@ -450,7 +464,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 destroyHorizontalMissile(&rightHorizontalMissile);
             }
         }                
-        else if(isMissileLevel || isBossLevel)
+        else if(isMissileLevel)
         {
             if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
             {
@@ -461,7 +475,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 destroyHorizontalMissile(&leftHorizontalMissile);    
             }
         }
-        if((isRocketLevel || isBossLevel) && bulletPtr->_y==YSize-1)
+        if(bulletPtr->_y==YSize-1)
         {
             uint8_t i;
             for(i=0;i<rocketsOnScreen;++i)

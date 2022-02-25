@@ -349,9 +349,8 @@ void checkBulletVsGhost(Character * bulletPtr,
                         {
                             spawnGhost(ghostPtr,ghostCount);
                         }
-                    #if !defined(WIDE) && !defined(FORCE_NARROW)
-                        displayStatsTitles();
-                    #endif
+                    displayStatsTitles();
+                    displayStats();
                     break;
                 }
                 displayGhost(ghostPtr);
@@ -386,7 +385,8 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
         bulletPtr->_status=0;
         
         deleteBullet(bulletPtr);
-        bulletPtr->_x = 0; bulletPtr->_y = 0;
+        bulletPtr->_x = 0; 
+        bulletPtr->_y = 0;
         decreaseGhostLevel();
         reduceItemCoolDowns();
         
@@ -492,10 +492,8 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
             }
         }            
         DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
-        #if !defined(WIDE) && !defined(FORCE_NARROW)
-            displayStatsTitles();
-            displayStats();
-        #endif
+        displayStatsTitles();
+        displayStats();
     }
     else
     {

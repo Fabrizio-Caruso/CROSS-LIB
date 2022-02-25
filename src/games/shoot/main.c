@@ -483,7 +483,7 @@ int main(void)
             
             displayStatsTitles();
             
-            displayStats();
+            // displayStats();
             
             resetItems();
             

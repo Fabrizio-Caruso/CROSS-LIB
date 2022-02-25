@@ -371,8 +371,9 @@ void confuseEffect(void)
             {
                 if(skulls[i]._status && (skulls[i]._imagePtr==&SKULL_IMAGE))
                 {
-                    skulls[i]._imagePtr=&CONFUSE_IMAGE;
-                    displaySkull(&skulls[i]);
+                    // skulls[i]._imagePtr=&CONFUSE_IMAGE;
+                    // displaySkull(&skulls[i]);
+                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_CYAN);
                     SHORT_SLEEP(2);
                     skulls[i]._imagePtr=&SKULL_IMAGE;
                     displaySkull(&skulls[i]);

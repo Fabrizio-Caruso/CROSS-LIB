@@ -70,7 +70,7 @@
     #if defined(WIDE) || defined(FORCE_NARROW)
         #define GHOSTS_NUMBER 10
     #else
-        #define GHOSTS_NUMBER 8
+        #define GHOSTS_NUMBER 9
     #endif
 #endif
 

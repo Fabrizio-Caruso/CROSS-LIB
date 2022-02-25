@@ -28,6 +28,7 @@
 #include "game_text.h"
 #include "level.h"
 #include "character.h"
+#include "init_images.h"
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -105,8 +106,9 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 
 void ghostDies(Character * ghostPtr)
 {
-    ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-    displayGhost(ghostPtr);
+    // ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+    // displayGhost(ghostPtr);
+    _XL_DRAW(ghostPtr->_x, ghostPtr->_y, _GHOST_TILE, _XL_RED);
     _XL_EXPLOSION_SOUND();
     
     ghostPtr->_status=0;

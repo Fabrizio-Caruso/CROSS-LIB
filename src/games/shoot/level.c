@@ -365,9 +365,16 @@ void fillLevelWithCharacters(void)
     
     // if(rocketsOnScreen)
     // {
+        
+    #if XSize==40
+        #define NEXT_ROCKET_INDEX (((i+1)*(XSize))/(rocketsOnScreen+1))
+    #else
+        #define NEXT_ROCKET_INDEX (i+1)*(XSize/(rocketsOnScreen+1))
+    #endif        
+        
     for(i=0;i<rocketsOnScreen;i++)
     {
-        rockets_x[i] = (uint8_t) (i+1)*(XSize/(rocketsOnScreen+1));
+        rockets_x[i] = (uint8_t) NEXT_ROCKET_INDEX;
         initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
         displayRocket(&rockets[i]);
     }

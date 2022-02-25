@@ -234,7 +234,7 @@ void handle_bullet_fire(uint8_t bulletIndex)
         displayBullet(&bullets[bulletIndex]);
         playerFire = 0;    
         checkBullet(&bullets[bulletIndex],playerDirection);
-        displayCharacter(&player);
+        // displayCharacter(&player);
     }    
 }    
 

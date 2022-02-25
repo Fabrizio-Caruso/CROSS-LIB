@@ -314,11 +314,13 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER  -D_XL_SLOW_DOWN_FACTOR=0  \
 	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 -DGHOSTS_NUMBER=7 \
 	-DALT_PRINT -DSOUNDS \
-	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN -DEXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
-	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/skull.c \
     --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(SOURCE_PATH)/item.c  $(SOURCE_PATH)/bullet.c \
 	$(FULL_ONLY_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

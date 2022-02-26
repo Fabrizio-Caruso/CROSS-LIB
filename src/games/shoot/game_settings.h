@@ -126,6 +126,8 @@
 
 #define GHOSTS_VS_SUICIDE_BONUS 10U
 
+#define GHOSTS_LEFT_BONUS 15U
+
 // Extra points for fire charge (more bullets)
 #define CALM_DOWN_BONUS 10U
 

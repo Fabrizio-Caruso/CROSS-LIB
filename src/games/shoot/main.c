@@ -659,11 +659,10 @@ int main(void)
                     printVictoryMessage();
                     _XL_SLEEP(2);
 
-                    _XL_CLEAR_SCREEN();
+                    // _XL_CLEAR_SCREEN();
                 #endif
 
-                points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS;
-                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS);
+                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_LEFT_BONUS);
 
                 if(!isBossLevel)
                 {
@@ -685,9 +684,8 @@ int main(void)
                     }
                 }
 
-                _XL_SLEEP(2);
-                _XL_CLEAR_SCREEN();                        
-
+                _XL_SLEEP(1);
+                _XL_WAIT_FOR_INPUT();
                 
                 if(isBossLevel && !(level==FINAL_LEVEL))
                 {    

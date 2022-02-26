@@ -185,7 +185,9 @@ void printStartMessage(void);
 		#define highScoreScreen() 
 		
 #else
-    #define printLevelBonus(bonus) _XL_PRINTD(XSize/2-3,YSize/2,4,bonus)
+    void printLevelBonus(uint16_t score); // _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
+
+    // #define printLevelBonus(bonus) _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
     #define finalScore() _printScore(points)
     #define highScoreScreen() _printScore(highScore)  	
 #endif

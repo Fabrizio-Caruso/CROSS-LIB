@@ -1195,8 +1195,10 @@ coco_no_gfx:
 	rocket.o horizontal_missile.o end_screen.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 

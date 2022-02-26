@@ -315,7 +315,7 @@ void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
 
 void checkBulletVsGhost(Character * bulletPtr,
                         uint8_t bulletDirection,
-                        Character * ghostPtr)
+                        register Character * ghostPtr)
 {
     if(ghostPtr->_status &&
        areCharctersAtSamePosition(bulletPtr, ghostPtr))
@@ -374,7 +374,7 @@ void checkBulletVsGhosts(Character * bulletPtr, uint8_t bulletDirection)
 }
 
 
-void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
+void checkBulletVsSkull(register Character *bulletPtr, register Character *skullPtr)
 {
     if(skullPtr->_status && 
        areCharctersAtSamePosition(bulletPtr, skullPtr))

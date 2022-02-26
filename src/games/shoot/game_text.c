@@ -33,6 +33,7 @@
 #include "sleep_macros.h"
 #include "item.h"
 #include "sleep.h"
+#include "init_images.h"
 
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
@@ -257,20 +258,24 @@ void _printCrossShoot(void)
     #define INIT_HINT_LINE 1+(YSize/8)
 #endif
 
-#if !defined(NO_HINTS) && XSize>=14
+#if !defined(NO_HINTS) && XSize>=18
     void printHints(void)
     {
         _printCrossShoot();
         
-        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+2*LINE_SKIP, USE_THE_GUN_AGAINST_STRING);
+        _XL_PRINT(XSize/2-9,INIT_HINT_LINE+2*LINE_SKIP, KILL_ALL_SKULLS__STRING);
+        _XL_PRINT(XSize/2-10, INIT_HINT_LINE+3*LINE_SKIP, BEFORE__TO_UNLOCK__STRING);  
+        _XL_PRINT(XSize/2-7,INIT_HINT_LINE+4*LINE_SKIP, ITEMS__STRING);    
+        _XL_PRINT(XSize/2-9,INIT_HINT_LINE+5*LINE_SKIP+1, DESTROY_MISSILES__STRING);
 
-        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+3*LINE_SKIP, THE_SKULL_AND_STRING);
+        _XL_DRAW(XSize/2+7,INIT_HINT_LINE+2*LINE_SKIP, _SKULL_TILE, _XL_YELLOW);
+        _XL_DRAW(XSize/2-3,INIT_HINT_LINE+3*LINE_SKIP, _GHOST_TILE, _XL_WHITE);
+        _XL_DRAW(XSize/2-1,INIT_HINT_LINE+4*LINE_SKIP, _EXTRA_POINTS_TILE, _XL_YELLOW);
+        _XL_DRAW(XSize/2+1,INIT_HINT_LINE+4*LINE_SKIP, _FREEZE_TILE, _XL_CYAN);
+        _XL_DRAW(XSize/2+3,INIT_HINT_LINE+4*LINE_SKIP, _INVINCIBILITY_TILE, _XL_YELLOW);
 
-        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+4*LINE_SKIP, MISSILE_BASES_STRING);    
-        
-        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+5*LINE_SKIP, FOR_POINTS_AND___STRING);
-
-        _XL_PRINT_CENTERED_ON_ROW(INIT_HINT_LINE+6*LINE_SKIP, EXTRA_POWERUPS__STRING);
+        _XL_DRAW(XSize/2-2,INIT_HINT_LINE+6*LINE_SKIP+1, _ROCKET_TILE, _XL_WHITE);
+        _XL_DRAW(XSize/2+0,INIT_HINT_LINE+6*LINE_SKIP+1, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
     }
 #endif
 
@@ -289,7 +294,7 @@ void _printCrossShoot(void)
             // SET_COLOR(_XL_CYAN);
             
             #if XSize>= 14 && !defined(EXTRA_TITLE)
-            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL_STRING);
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
             #endif
             
             SET_COLOR(TEXT_COLOR);    

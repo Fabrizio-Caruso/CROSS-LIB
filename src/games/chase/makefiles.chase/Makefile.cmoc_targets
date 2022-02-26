@@ -131,13 +131,13 @@ dragon_no_gfx:
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
-dragon_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+dragon_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -203,7 +203,7 @@ dragon_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	level.o character.o \
 	text_macros.o game_text.o \
 	strategy.o \
-	input_macros.o cmoc_udc_25_tiles_and_fonts.o \
+	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o dac_sounds.o \
@@ -213,7 +213,7 @@ dragon_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	move_player.o \
 	level.o character.o \
 	game_text.o text_macros.o \
-	strategy.o cmoc_udc_25_tiles_and_fonts.o \
+	strategy.o cmoc_udc_tiles_and_fonts.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
@@ -322,13 +322,13 @@ coco_no_gfx:
 	rm XCHASE.BIN
 
 
-coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -394,7 +394,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	level.o character.o \
 	text_macros.o game_text.o \
 	strategy.o \
-	input_macros.o cmoc_udc_25_tiles_and_fonts.o \
+	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o dac_sounds.o \
@@ -404,7 +404,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	move_player.o \
 	level.o character.o \
 	game_text.o text_macros.o \
-	strategy.o cmoc_udc_25_tiles_and_fonts.o \
+	strategy.o cmoc_udc_tiles_and_fonts.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
@@ -425,10 +425,10 @@ coco_targets: \
 
 coco3: coco3_gfx
 	
-coco3_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -494,7 +494,7 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	level.o character.o \
 	text_macros.o game_text.o \
 	strategy.o \
-	input_macros.o cmoc_udc_25_tiles_and_fonts.o \
+	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o \
@@ -504,7 +504,7 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	move_player.o \
 	level.o character.o \
 	game_text.o text_macros.o \
-	strategy.o cmoc_udc_25_tiles_and_fonts.o \
+	strategy.o cmoc_udc_tiles_and_fonts.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o

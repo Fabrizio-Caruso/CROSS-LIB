@@ -1358,7 +1358,7 @@ TO7_ORG_DATA    ?= --org=a000
 #############################################################################################
 
 
-dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1373,7 +1373,7 @@ dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
@@ -1391,10 +1391,10 @@ dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	main.o  dac_sounds.o  coco_init_graphics.o \
 	display_macros.o sleep_macros.o \
 	memory_mapped_alt_print.o \
-	cmoc_udc_25_tiles_and_fonts.o \
+	cmoc_udc_tiles_and_fonts.o \
 	text_macros.o input_macros.o
 	rm main.o  dac_sounds.o  coco_init_graphics.o display_macros.o \
-	cmoc_udc_25_tiles_and_fonts.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o sleep_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
@@ -1407,7 +1407,7 @@ endif
 dragon_targets: \
 	dragon
 
-coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1422,7 +1422,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
@@ -1440,10 +1440,10 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \
-	cmoc_udc_25_tiles_and_fonts.o \
+	cmoc_udc_tiles_and_fonts.o \
 	text_macros.o input_macros.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
-	cmoc_udc_25_tiles_and_fonts.o \
+	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN

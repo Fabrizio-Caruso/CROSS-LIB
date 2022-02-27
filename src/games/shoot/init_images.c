@@ -125,7 +125,7 @@ void INIT_IMAGES(void)
     ROCKET_IMAGE._imageData = _ROCKET_TILE;
     
     FREEZE_IMAGE._imageData = _FREEZE_TILE;
-    SUPER_IMAGE._imageData = _TILE_18;
+    SUPER_IMAGE._imageData = _SUPER_TILE;
 
     EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN_TILE;
     INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY_TILE;

@@ -18,6 +18,7 @@
 #define _EXTRA_POINTS_TILE             _TILE_25
 #define _FREEZE_TILE                   _TILE_17
 #define _INVINCIBILITY_TILE            _TILE_10
+#define _SUPER_TILE                    _TILE_18
 
 #define _PLAYER_COLOR _XL_CYAN
 #define _GHOST_COLOR _XL_WHITE

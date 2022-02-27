@@ -213,7 +213,7 @@ void resetSecrets(void)
 }
 
 
-void resetItems()
+void resetItems(void)
 {
 
     calmDown._coolDown = CALM_DOWN_COOL_DOWN;
@@ -257,7 +257,7 @@ void resetItems()
 
 
 // Constructor for all items
-void constructItems()
+void constructItems(void)
 {
     calmDown._effect = &calmDownEffect;
     fireCharge._effect = &fireChargeEffect;

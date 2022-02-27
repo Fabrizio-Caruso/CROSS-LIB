@@ -104,7 +104,7 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
     }
 }
 
-void ghostDies(Character * ghostPtr)
+void ghostDies(register Character * ghostPtr)
 {
     // ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
     // displayGhost(ghostPtr);

@@ -237,7 +237,7 @@ void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint
 
 #if defined(BETWEEN_LEVEL)
 
-void _spiral_slow_down()
+void _spiral_slow_down(void)
 {
     uint8_t k;
     
@@ -311,6 +311,8 @@ void setNumberOfRocketsOnScreen(void)
         rocketsOnScreen = MAX_ROCKETS_NUMBER;
     }    
 }
+
+
 void fillLevelWithCharacters(void)
 {
     uint8_t i;

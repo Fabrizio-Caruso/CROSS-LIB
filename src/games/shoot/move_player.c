@@ -48,70 +48,186 @@ extern uint8_t player_invincibility;
 extern uint8_t playerBlink;    
 
 
-
-#define _DO_MOVE_UP \
-    deletePlayer(&player); \
-    --player._y; \
-    SHOW_UP(); \
-    skullYCountDown = SKULL_COUNT_DOWN; \
-    playerDirection = UP; \
-    playerFire = 0;
-#define _DO_MOVE_DOWN \
-    deletePlayer(&player); \
-    ++player._y; \
-    SHOW_DOWN(); \
-    skullYCountDown = SKULL_COUNT_DOWN; \
-    playerDirection = DOWN; \
-    playerFire = 0;
-#define _DO_MOVE_LEFT \
-    deletePlayer(&player); \
-    --player._x; \
-    SHOW_LEFT(); \
-    skullXCountDown = SKULL_COUNT_DOWN; \
-    playerDirection = LEFT; \
-    playerFire = 0;
-#define _DO_MOVE_RIGHT \
-    deletePlayer(&player); \
-    ++player._x; \
-    SHOW_RIGHT(); \
-    skullXCountDown = SKULL_COUNT_DOWN; \
-    playerDirection = RIGHT; \
-    playerFire = 0;
-
-
 uint8_t innerWallReached(uint8_t x, uint8_t y)
 {
     return innerVerticalWallReached(x,y) || innerHorizontalWallReached(x,y);
 }
 
+// #if defined(WIDE) && defined(ANIMATE_PLAYER)
+    // #define PLAYER_DIRECTION_CHANGE
+// #endif
 
-#if defined(NO_INPUT)
-    void MOVE_PLAYER(void) {}
-#else
-    void MOVE_PLAYER(void)
+#if defined(PLAYER_DIRECTION_CHANGE)
+
+    void up_direction(void)
     {
-        uint8_t input = _XL_INPUT();
-        
-        if(_XL_UP(input) && (player._y>1) && !innerWallReached(player._x,player._y-1))
-        {
-            _DO_MOVE_UP
-        }
-        else if(_XL_DOWN(input) && (player._y<YSize-2) && !innerWallReached(player._x,player._y+1))
-        {
-            _DO_MOVE_DOWN
-        }
-        else if(_XL_LEFT(input) && (player._x>1) && !innerWallReached(player._x-1,player._y))
-        {
-            _DO_MOVE_LEFT
-        }
-        else if(_XL_RIGHT(input) && (player._x<XSize-2) && !innerWallReached(player._x+1,player._y))
-        {
-            _DO_MOVE_RIGHT
-        }
-        else if(_XL_FIRE(input) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
-        {
-            playerFire = 1;
-        }
+        playerDirection = UP;
+        SHOW_UP();  
     }
+
+    void down_direction(void)
+    {
+        playerDirection = DOWN;
+        SHOW_DOWN();  
+    }
+
+    void left_direction(void)
+    {
+        playerDirection = LEFT;
+        SHOW_LEFT();  
+    }
+
+    void right_direction(void)
+    {
+        playerDirection = RIGHT;
+        SHOW_RIGHT();  
+    }
+
+
+    #define _DO_MOVE_UP \
+        deletePlayer(&player); \
+        --player._y; \
+        skullYCountDown = SKULL_COUNT_DOWN; \
+        playerFire = 0; \
+        up_direction();
+    #define _DO_MOVE_DOWN \
+        deletePlayer(&player); \
+        ++player._y; \
+        skullYCountDown = SKULL_COUNT_DOWN; \
+        playerFire = 0; \
+        down_direction();
+    #define _DO_MOVE_LEFT \
+        deletePlayer(&player); \
+        --player._x; \
+        skullXCountDown = SKULL_COUNT_DOWN; \
+        playerFire = 0; \
+        left_direction();
+    #define _DO_MOVE_RIGHT \
+        deletePlayer(&player); \
+        ++player._x; \
+        skullXCountDown = SKULL_COUNT_DOWN; \
+        playerFire = 0; \
+        right_direction();
+
+
+    #if defined(NO_INPUT)
+        void MOVE_PLAYER(void) {}
+    #else
+        void MOVE_PLAYER(void)
+        {
+            uint8_t input = _XL_INPUT();
+            
+            
+            if(_XL_UP(input))
+            {
+                if(playerDirection != UP)
+                {
+                    up_direction();
+                }
+                else if((player._y>1) && !innerWallReached(player._x,player._y-1))
+                {
+                    _DO_MOVE_UP
+                }
+            }
+            else if(_XL_DOWN(input))
+            {
+                if(playerDirection != DOWN)
+                {
+                    down_direction();
+                }
+                else if((player._y<YSize-2) && !innerWallReached(player._x,player._y+1))
+                {
+                    _DO_MOVE_DOWN
+                }
+            }
+            else if(_XL_LEFT(input))
+            {
+                if(playerDirection != LEFT)
+                {
+                    left_direction();
+                }
+                else if((player._x>1) && !innerWallReached(player._x-1,player._y))
+                {
+                    _DO_MOVE_LEFT
+                }
+            }
+            else if(_XL_RIGHT(input))
+            {
+                if(playerDirection != RIGHT)
+                {
+                    right_direction();
+                }
+                else if((player._x<XSize-2) && !innerWallReached(player._x+1,player._y))
+                {
+                    _DO_MOVE_RIGHT
+                }
+            }
+            else if(_XL_FIRE(input) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
+            {
+                playerFire = 1;
+            }
+        }
+    #endif
+#else
+
+    #define _DO_MOVE_UP \
+        deletePlayer(&player); \
+        --player._y; \
+        SHOW_UP(); \
+        skullYCountDown = SKULL_COUNT_DOWN; \
+        playerDirection = UP; \
+        playerFire = 0;
+    #define _DO_MOVE_DOWN \
+        deletePlayer(&player); \
+        ++player._y; \
+        SHOW_DOWN(); \
+        skullYCountDown = SKULL_COUNT_DOWN; \
+        playerDirection = DOWN; \
+        playerFire = 0;
+    #define _DO_MOVE_LEFT \
+        deletePlayer(&player); \
+        --player._x; \
+        SHOW_LEFT(); \
+        skullXCountDown = SKULL_COUNT_DOWN; \
+        playerDirection = LEFT; \
+        playerFire = 0;
+    #define _DO_MOVE_RIGHT \
+        deletePlayer(&player); \
+        ++player._x; \
+        SHOW_RIGHT(); \
+        skullXCountDown = SKULL_COUNT_DOWN; \
+        playerDirection = RIGHT; \
+        playerFire = 0;
+
+
+    #if defined(NO_INPUT)
+        void MOVE_PLAYER(void) {}
+    #else
+        void MOVE_PLAYER(void)
+        {
+            uint8_t input = _XL_INPUT();
+            
+            if(_XL_UP(input) && (player._y>1) && !innerWallReached(player._x,player._y-1))
+            {
+                _DO_MOVE_UP
+            }
+            else if(_XL_DOWN(input) && (player._y<YSize-2) && !innerWallReached(player._x,player._y+1))
+            {
+                _DO_MOVE_DOWN
+            }
+            else if(_XL_LEFT(input) && (player._x>1) && !innerWallReached(player._x-1,player._y))
+            {
+                _DO_MOVE_LEFT
+            }
+            else if(_XL_RIGHT(input) && (player._x<XSize-2) && !innerWallReached(player._x+1,player._y))
+            {
+                _DO_MOVE_RIGHT
+            }
+            else if(_XL_FIRE(input) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
+            {
+                playerFire = 1;
+            }
+        }
+    #endif
 #endif
 

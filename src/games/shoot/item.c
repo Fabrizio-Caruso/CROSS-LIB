@@ -448,6 +448,7 @@ void setSecret(uint8_t secretIndex)
     {        
         _XL_TICK_SOUND();
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
+        displayPlayer(&player);
         #if !defined(NO_MESSAGE)
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);

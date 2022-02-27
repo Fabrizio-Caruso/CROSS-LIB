@@ -139,6 +139,8 @@
 
 #define FREEZE_BONUS 15U
 
+#define BASE_LEVEL_BONUS 20U
+
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
 

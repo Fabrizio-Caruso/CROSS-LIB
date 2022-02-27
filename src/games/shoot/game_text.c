@@ -308,7 +308,7 @@ void _printCrossShoot(void)
 #endif
 
 #if !defined(LESS_TEXT)
-void printLevelBonus(uint16_t bonus)
+void handleLevelBonus(uint16_t bonus)
 {
     uint16_t i;
     
@@ -318,7 +318,7 @@ void printLevelBonus(uint16_t bonus)
     {
         _XL_PRINTD(XSize/2-1,YSize/2,3,i);
         points+=5;
-        SHORT_SLEEP(1+i>>6);
+        SHORT_SLEEP(1+(i>>6));
         displayScoreStats();
         _XL_TICK_SOUND();
     }

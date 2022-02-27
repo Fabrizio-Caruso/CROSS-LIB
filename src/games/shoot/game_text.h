@@ -180,12 +180,17 @@ void printStartMessage(void);
 
 
 #if defined(LESS_TEXT) 
-		#define printLevelBonus(bonus) 
+		#define handleLevelBonus(bonus) \
+            do \
+            { \
+                points+=(bonus); \
+            } while(0) 
+                
 		#define finalScore()
 		#define highScoreScreen() 
 		
 #else
-    void printLevelBonus(uint16_t score); // _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
+    void handleLevelBonus(uint16_t score); // _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
 
     // #define printLevelBonus(bonus) _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
     #define finalScore() _printScore(points)

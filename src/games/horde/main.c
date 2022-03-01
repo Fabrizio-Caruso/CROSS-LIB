@@ -1936,13 +1936,13 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-            missile_randomness_mask = 255>>(level-1); \
+            missile_randomness_mask = (uint8_t) (255>>(level-1)); \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
             arrow_range = RED_RANGE_VALUE; \
             bow_x = XSize; \
-            bow_shape_tile = 2*((bow_x)&1); \
+            bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 1; \
             initialize_items(); \

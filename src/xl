@@ -244,7 +244,10 @@ def rebuild(params):
             # exit()
     
     reset(params)
-    build(params)
+    if(params[len(params)-1]=="-y"):
+        build(params[:-1])
+    else:
+        build(params)
 
 
 def convert_makefile(dir,old_type,old_name,new_name):

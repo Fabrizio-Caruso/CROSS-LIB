@@ -65,12 +65,6 @@
     #define _XL_NUMBER_OF_TILES 26
 #endif
 
-#if defined(TURN_BASED)
-	#if !defined(NO_BLINKING)
-		#define NO_BLINKING
-	#endif
-#endif
-
 
 #  if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
     || defined(__ATARI__) \

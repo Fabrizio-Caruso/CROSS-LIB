@@ -26,8 +26,13 @@
 #ifndef _SETTINGS
 #define _SETTINGS
 
-#include "cross_lib.h"
+#if defined(TURN_BASED)
+	#if !defined(NO_BLINKING)
+		#define NO_BLINKING
+	#endif
+#endif
 
+#include "cross_lib.h"
 
 struct ImageStruct
 {

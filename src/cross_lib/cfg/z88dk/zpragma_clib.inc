@@ -6,7 +6,7 @@
 #pragma-define:CRT_INITIALIZE_BSS=0
 
 // move the stack to available memory
-#pragma output REGISTER_SP = -1      // must be placed somewhere in the 16k ram
+//#pragma output REGISTER_SP = -1      // must be placed somewhere in the 16k ram
 
 // halt program on exit, no need to play well with basic
 #pragma output CRT_ON_EXIT = 0x10001

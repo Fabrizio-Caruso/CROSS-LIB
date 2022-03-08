@@ -24,6 +24,8 @@
 	#include "buffered_graphics.h"
 #elif defined(Z88DK_SPRITES)
 	#include "z88dk_sprites_graphics.h"
+#elif defined(TGI_GFX)
+    #include "tgi_gfx_graphics.h"
 #elif defined(TGI)
 	#include "tgi_graphics.h"
 #elif defined(CPCRSLIB)

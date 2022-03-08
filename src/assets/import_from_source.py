@@ -344,13 +344,16 @@ def rip_tiles(filename, xsize, ysize, skip_option, rotate = False):
                     single_byte_count=0
                     tiles.append(new_tile)
                     
-                    print(new_tile)
+                    # print(new_tile)
                 
                     shape = compute_shape(new_tile,xsize)
                     
                     
                     if(rotate):
-                        shape = compute_shape(str(compute_rotated_shape(shape)).replace('[','').replace(']',''),ysize)
+                        new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
+                        shape = compute_shape(new_tile,ysize)
+                    
+                    print(new_tile)
                     print_shape(shape)
                         # print_shape(shape)
                     # else:

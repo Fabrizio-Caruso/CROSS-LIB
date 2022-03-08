@@ -17,7 +17,8 @@ SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
 
 
-def print_shape(string, xsize):
+# It outputs a list of strings
+def compute_shape(string, xsize):
     string_items = string.split(",");
     items = []
     values = []
@@ -42,12 +43,38 @@ def print_shape(string, xsize):
         padded_bin_string = padded_bin_string.replace("0",".").replace("1","#")
         
         items.append(padded_bin_string)
+    return(items)
 
+
+def print_shape(items):
+    # items = compute_shape(string, xsize)
     for i in range(len(items)):
-        print(items[i] + "  " + "{:3d}".format(values[i]))
+        print(items[i]) # + "  ") # + "{:3d}".format(values[i]))
     print("")
     print("")
 
+
+# It takes the output of print_shape
+def compute_rotated_shape(items):
+    # print(str(items))
+    # return(items)
+    xsize = len(items[0])
+    ysize = len(items)
+    val = [0]*xsize;
+    for j in range(xsize):
+        tmp = 0
+        for i in range(ysize):
+            if(items[i][j]=='#'):
+                tmp+=2**i
+        val[j] = tmp
+        
+    str_res = []
+    for i in range(xsize):
+        str_res.append(val[i])
+
+    return(str_res)
+    
+    
 
 def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     dir = xsize+"x"+ysize
@@ -57,7 +84,7 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     fin = open(dest, "rt")
     tile_data = fin.read()
     fin.close()
-    print_shape(tile_data,xsize)
+    print_shape(compute_shape(tile_data,xsize))
 
 
 
@@ -207,7 +234,7 @@ def remove_comments(line,basic_code):
 
 
 # It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
-def rip_tiles(filename, xsize, ysize, skip_option):
+def rip_tiles(filename, xsize, ysize, skip_option, rotate = False):
        
     try:
         fin = open(filename, "rt")
@@ -316,12 +343,30 @@ def rip_tiles(filename, xsize, ysize, skip_option):
                 if single_byte_count==ysize:
                     single_byte_count=0
                     tiles.append(new_tile)
+                    
                     print(new_tile)
-                    print_shape(new_tile,xsize)
+                
+                    shape = compute_shape(new_tile,xsize)
+                    
+                    
+                    if(rotate):
+                        shape = compute_shape(str(compute_rotated_shape(shape)).replace('[','').replace(']',''),ysize)
+                    print_shape(shape)
+                        # print_shape(shape)
+                    # else:
+                        # print_shape(shape)
+
+                    # if(rotate):
+                        # shape = compute_rotated_shape(shape)
+                        # print_shape(shape.replace('\n','').replace('\r',''))
+                    # else:
+                        # print_shape(shape)
                     tile_count+=1
+                    # print("new_tile: " + str(new_tile))
                     new_tile=""
                 else:
                     new_tile+=","
+        # print("tiles: " + str(tiles))
         return tiles
     
     except ValueError as valueError:

@@ -22,7 +22,7 @@ COMMANDS_LIST = \
     "build", "clean", "create", "c", "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
-    "clone", "rename"
+    "clone", "rename", "rotate"
     ]
 
 def are_you_sure():
@@ -811,7 +811,7 @@ def run(params):
 # - Assembly files that use byte directives with either decimal and hex notation
 # - Assembly files that use word directives with ONLY hex notation
 # - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
-def import_from_source(params):
+def import_from_source(params, rotate = False):
     filename = params[1]
 
     skip_option = params[len(params)-1]=="-skip"
@@ -819,7 +819,7 @@ def import_from_source(params):
     xsize = 8
     ysize = 8
 
-    tiles = rip_tiles(filename, xsize, ysize, skip_option)
+    tiles = rip_tiles(filename, xsize, ysize, skip_option, rotate)
 
     try:
         if(len(params)>=3) and "-" not in params[2]:
@@ -828,13 +828,30 @@ def import_from_source(params):
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
 
+# def rotate_from_source(params):
+    # filename = params[1]
+
+    # skip_option = params[len(params)-1]=="-skip"
+
+    # xsize = 8
+    # ysize = 8
+
+    # tiles = rip_tiles(filename, xsize, ysize, skip_option, True)
+
+    # try:
+        # if(len(params)>=3) and "-" not in params[2]:
+            # store_tiles(params[2],tiles, xsize,ysize)
+    # except Exception as exception:
+        # print("Sorry! Failed to store tiles: \n" + str(exception.args))
+
+
 # Import a single tile from a text file that describes its shape with characters
 def tile(params):
 
     tile,xsize,ysize = import_tile(params[1])
     
     print(tile)
-    print_shape(tile,xsize)
+    print_shape(compute_shape(tile,xsize))
     
     if(len(params)>=3):
         store_tile(params[2], tile, xsize, ysize, params[3])
@@ -976,6 +993,24 @@ def help(params):
         print("xl create myname")
         print("You can import from an Assembly file with something like:")
         print("xl import ./examples/tiles/tiles_all.asm")
+    elif params[1]=="rotate":
+        print("xl rotate <source_file> <[optional] project>")
+        print("")
+        print("This command works like 'xl import <source> <[optional] project>' but it outputs a rotated result")
+        print("")
+        print("<source_file>")
+        print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
+        print("For example in CharPad you can export the tile data with:")
+        print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
+        print("")
+        print("<project>")
+        print("If a project name is passed then the tiles are imported into <project>")
+        print("")
+        print("Example:")
+        print("If you create a new project 'myname' with")
+        print("xl create myname")
+        print("You can import from an Assembly file with something like:")
+        print("xl rotate ./examples/tiles/tiles_all.asm")
     elif params[1]=="tile":
         print("xl tile <shape_file> <[optional] project> <[optional] tile_index>")
         print("It converts the file <shape_file> into a line that can be used as an asset file.")
@@ -1007,7 +1042,7 @@ def help(params):
         print("..#..#..")
         print("..#..#..")
         print("")
-        print("xl tile ./examples/tiles/tile_shape0.txt")
+        print("xl tile ./assets/examples/single_tiles/tile_shape0.txt")
         print("produces: ")
         print("24,36,24,102,189,189,36,36")
         print("")
@@ -1195,7 +1230,9 @@ if __name__ == "__main__":
     elif sys.argv[1]=="string":
         string(sys.argv[1:])
     elif sys.argv[1]=="import":
-        import_from_source(sys.argv[1:])
+        import_from_source(sys.argv[1:],False)
+    elif sys.argv[1]=="rotate":
+        import_from_source(sys.argv[1:],True)
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
     elif sys.argv[1]=="rename":

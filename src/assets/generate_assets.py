@@ -104,7 +104,8 @@ def generate_assets_from_dir(dir_name):
 
 def main():
 
-    for dir_name in ["8x8", "7x8", "6x8","6x9"]:
+    for dir_name in ["8x8", "7x8", "6x8", "6x9", "8x6"]:
+        print("dir name: " + dir_name)
         read_tiles_from_dir(dir_name)
         read_templates_from_dir(dir_name)
         generate_assets_from_dir(dir_name)

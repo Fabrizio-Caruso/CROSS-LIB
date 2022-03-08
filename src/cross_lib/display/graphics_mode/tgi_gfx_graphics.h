@@ -11,9 +11,9 @@ extern SCB_REHV_PAL *empty_spr;
 #define _XL_DRAW(__x,__y,tile,color) \
 do \
 { \
-    _tgi_tile[0].hpos = (__x)*8; \
-    _tgi_tile[0].vpos = (__y)*6; \
-    tgi_sprite(&(_tgi_tile[0])); \
+    _tgi_tile[tile].hpos = (__x)*8; \
+    _tgi_tile[tile].vpos = (__y)*6; \
+    tgi_sprite(&(_tgi_tile[tile])); \
 } while(0)
 
 

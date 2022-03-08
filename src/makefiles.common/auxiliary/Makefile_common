@@ -25,11 +25,11 @@ BUILD_PATH ?= ../build
 
 TILES_PATH ?= $(SOURCE_PATH)/tiles
 
-8X8_TILES_PATH ?= $(TILES_PATH)/8x8
-7X8_TILES_PATH ?= $(TILES_PATH)/7x8
-6X8_TILES_PATH ?= $(TILES_PATH)/6x8
-6X9_TILES_PATH ?= $(TILES_PATH)/6x9
-
+# 8X8_TILES_PATH ?= $(TILES_PATH)/8x8
+# 7X8_TILES_PATH ?= $(TILES_PATH)/7x8
+# 6X8_TILES_PATH ?= $(TILES_PATH)/6x8
+# 6X9_TILES_PATH ?= $(TILES_PATH)/6x9
+# 8x6_TILES_PATH ?= $(TILES_PATH)/8x6
 
 #######################################################################
 # Cross Lib includes + game's graphics data

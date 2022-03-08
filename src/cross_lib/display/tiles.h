@@ -59,6 +59,8 @@
     #include "comx_settings.h"
 #elif defined(__MICRO__)
 	// #include "micro_settings.h"
+#elif defined(__ATARI_LYNX__) && defined(TGI_GFX)
+    #include "tgi_gfx_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && defined(REDEFINED_CHARS))

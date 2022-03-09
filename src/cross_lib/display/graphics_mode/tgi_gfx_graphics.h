@@ -13,6 +13,7 @@ do \
 { \
     _tgi_tile[tile].hpos = (__x)*8; \
     _tgi_tile[tile].vpos = (__y)*6; \
+    _tgi_tile[tile].penpal[0]=(unsigned char) (0x11+(color)); \
     tgi_sprite(&(_tgi_tile[tile])); \
 } while(0)
 

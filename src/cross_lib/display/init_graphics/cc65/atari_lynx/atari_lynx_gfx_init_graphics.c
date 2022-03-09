@@ -7,7 +7,7 @@
 #include <lynx.h>
 #include <time.h>
 
-extern uint8_t _compressed_tile_data[_XL_NUMBER_OF_TILES][6+1];
+extern uint8_t _compressed_tile_data[_XL_NUMBER_OF_TILES][6];
 
 uint8_t _tile_data[_XL_NUMBER_OF_TILES][2*6+1];
 

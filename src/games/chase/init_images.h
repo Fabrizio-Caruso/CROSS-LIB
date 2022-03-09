@@ -1,6 +1,11 @@
 #ifndef _INIT_IMAGES_H
 #define _INIT_IMAGES_H
 
+#define _PLAYER_DOWN_TILE  _TILE_0
+#define _PLAYER_UP_TILE    _TILE_1
+#define _PLAYER_RIGHT_TILE _TILE_2
+#define _PLAYER_LEFT_TILE  _TILE_3
+
 #define _SKULL_TILE   _TILE_7
 #define _GHOST_TILE   _TILE_4
 #define _BOMB_TILE    _TILE_5

@@ -103,10 +103,10 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
 	#if defined(ANIMATE_PLAYER)
-		PLAYER_DOWN_IMAGE._imageData = _TILE_0;
-		PLAYER_UP_IMAGE._imageData = _TILE_1;
-		PLAYER_RIGHT_IMAGE._imageData = _TILE_2;
-		PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
+		PLAYER_DOWN_IMAGE._imageData = _PLAYER_DOWN_TILE; //_TILE_0;
+		PLAYER_UP_IMAGE._imageData = _PLAYER_UP_TILE; // _TILE_1;
+		PLAYER_RIGHT_IMAGE._imageData = _PLAYER_RIGHT_TILE; //_TILE_2;
+		PLAYER_LEFT_IMAGE._imageData = _PLAYER_LEFT_TILE; // _TILE_3;	
 	#else
 		PLAYER_IMAGE._imageData = _TILE_0;
 	#endif

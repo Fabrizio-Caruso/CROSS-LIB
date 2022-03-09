@@ -2,9 +2,9 @@
 #ifndef _COLOR_DEFINITIONS_H
 #define _COLOR_DEFINITIONS_H
 
-   
 
-#if defined(NO_GRAPHICS) || defined(NO_PRINT) || defined(_XL_NO_COLOR)
+
+#if defined(NO_GRAPHICS) || defined(_XL_NO_COLOR)
     #define _XL_BLACK 0
     #define _XL_WHITE 0
     #define _XL_RED 0
@@ -220,22 +220,35 @@
         #define _XL_BLACK _XL_BLUE
     #endif
 
+#elif defined(__ATARI_LYNX__) && defined(TGI_GFX)
+    #define _XL_BLACK 0x0
+    #define _XL_RED 0x6
+    #define _XL_WHITE 0xE
+    #define _XL_BLUE 0x2
+    #define _XL_YELLOW 0x8
+    #define _XL_GREEN 0xA
+    #define _XL_CYAN 0xD
+
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
-    #if defined(__ATARI_LYNX__)
-        #define _XL_BLACK COLOR_GREY
-    #else
+    #if defined(__ATARI_LYNX__) && !defined(TGI_GFX)
         #define _XL_BLACK COLOR_BLACK
     #endif
-    #define _XL_RED COLOR_RED
-    #define _XL_WHITE COLOR_WHITE
-    #define _XL_BLUE COLOR_BLUE
-    #define _XL_YELLOW COLOR_YELLOW
-    #define _XL_GREEN COLOR_GREEN
     
-    #if defined(__NCURSES__) || defined(COLOR_CYAN)
+
+    // #else
+        #define _XL_BLACK COLOR_BLACK
+        #define _XL_RED COLOR_RED
+        #define _XL_WHITE COLOR_WHITE
+        #define _XL_BLUE COLOR_BLUE
+        #define _XL_YELLOW COLOR_YELLOW
+        #define _XL_GREEN COLOR_GREEN
+        // #if !defined(
+        // #define _XL_CYAN COLOR_CYAN
+    // #endif
+    #if defined(COLOR_CYAN)
         #define _XL_CYAN COLOR_CYAN
-    #else 
+    #else
         #define _XL_CYAN COLOR_BLUE
     #endif
 

@@ -725,7 +725,7 @@ aquarius: aquarius_exp_16k
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=1050 -DNO_UDG \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=1500 -DNO_UDG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\

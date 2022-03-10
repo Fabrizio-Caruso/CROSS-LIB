@@ -195,6 +195,7 @@ cc65_targets: \
 
 
 z88dk_targets_aux: \
+    aquarius \
     ace \
     c128_z80_80col \
     cpc \
@@ -222,6 +223,7 @@ cc65_targets: \
 
 
 z88dk_targets_aux: \
+    aquarius \
     ace \
     cpc \
     gb \
@@ -684,7 +686,7 @@ aquarius: aquarius_exp_32k
 aquarius_exp_32k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__  -DEXTRA_TITLE \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=900 \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=1200 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \

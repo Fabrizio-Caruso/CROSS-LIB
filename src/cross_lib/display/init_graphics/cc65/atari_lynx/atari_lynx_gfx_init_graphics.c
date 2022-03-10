@@ -40,6 +40,16 @@ const unsigned char empty[] = {
 };
 
 
+const unsigned char _clean_bug[] = {
+    0x02,1,
+    0x02,1,
+    0x02,1,
+    0x02,1,
+    0x02,1,
+    0x02,1,
+    0x00,
+};
+
 SCB_REHV_PAL _tgi_tile[_XL_NUMBER_OF_TILES];
 
 void init_tgi_tile(void)
@@ -71,13 +81,24 @@ SCB_REHV_PAL Sempty= {
         {0x11}
 };
 
-// #include<stdio.h>
+SCB_REHV_PAL Sclean_bug= {
+        BPP_1 | TYPE_NORMAL,
+        LITERAL | REHV,
+        NO_COLLIDE,
+        0,
+        (unsigned char *) _clean_bug,
+        10, 10,
+        0x100, 0x100,
+        {0x01}
+};
 
 SCB_REHV_PAL *empty_spr;   
+SCB_REHV_PAL *clean_bug_spr;
 
 void _XL_INIT_GRAPHICS(void)
 {
     empty_spr = &Sempty;
+    clean_bug_spr = &Sclean_bug;
     
     tgi_install (tgi_static_stddrv);
 

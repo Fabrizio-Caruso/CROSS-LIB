@@ -108,14 +108,14 @@ void INIT_IMAGES(void)
 		PLAYER_RIGHT_IMAGE._imageData = _PLAYER_RIGHT_TILE; //_TILE_2;
 		PLAYER_LEFT_IMAGE._imageData = _PLAYER_LEFT_TILE; // _TILE_3;	
 	#else
-		PLAYER_IMAGE._imageData = _TILE_0;
+		PLAYER_IMAGE._imageData = _PLAYER_DOWN_TILE;
 	#endif
 	
 	GHOST_IMAGE._imageData = _GHOST_TILE;
 	BOMB_IMAGE._imageData = _BOMB_TILE;
 	
 	#if !defined(NO_DEAD_GHOSTS)
-		DEAD_GHOST_IMAGE._imageData = _TILE_6;
+		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST_TILE;
 	#endif
 	
 	#if !defined(TINY_GAME)
@@ -123,31 +123,31 @@ void INIT_IMAGES(void)
 
 		POWERUP_IMAGE._imageData = _POWERUP_TILE;
 		GUN_IMAGE._imageData = _GUN_TILE;
-		EXTRA_POINTS_IMAGE._imageData = _TILE_25;
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS_TILE;
 		
-		BULLET_IMAGE._imageData = _TILE_11;
+		BULLET_IMAGE._imageData = _BULLET_TILE;
 		
-		VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
-		HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
+		VERTICAL_BRICK_IMAGE._imageData = _VERTICAL_BRICK_TILE;
+		HORIZONTAL_BRICK_IMAGE._imageData = _HORIZONTAL_BRICK_TILE;
 	#endif
 	
 	#if defined(FULL_GAME)
-		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_14;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_MISSILE_TILE;
 		
-		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_MISSILE_TILE;
 		
-		ROCKET_IMAGE._imageData = _TILE_16;
+		ROCKET_IMAGE._imageData = _ROCKET_TILE;
 		
         FREEZE_IMAGE._imageData = _FREEZE_TILE;
-        SUPER_IMAGE._imageData = _TILE_18;
+        SUPER_IMAGE._imageData = _SUPER_TILE;
 
-		EXTRA_LIFE_IMAGE._imageData = _TILE_0;
-		INVINCIBILITY_IMAGE._imageData = _TILE_10;
+		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN_TILE;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY_TILE;
         
-        CONFUSE_IMAGE._imageData = _TILE_7;
-        ZOMBIE_IMAGE._imageData = _TILE_4;
+        CONFUSE_IMAGE._imageData = _SKULL_TILE;
+        ZOMBIE_IMAGE._imageData = _GHOST_TILE;
 		
-		BROKEN_BRICK_IMAGE._imageData = _TILE_5;
+		BROKEN_BRICK_IMAGE._imageData = _BOMB_TILE;
 	#endif
 #endif 
 }

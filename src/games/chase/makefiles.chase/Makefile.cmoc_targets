@@ -599,7 +599,7 @@ vectrex:
 vectrex_targets: \
 	vectrex
 
-mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -656,14 +656,14 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s	
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_tiles.o \
 	init_images.o \
 	ghost.o \
 	move_player.o \
@@ -675,7 +675,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
 	mo5_alt_print.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \
@@ -700,7 +700,7 @@ else
 endif	
 
 
-to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -754,14 +754,14 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(SOURCE_PATH)/rocket.c 
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s	
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.BIN \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_tiles.o \
 	init_images.o \
 	ghost.o \
 	move_player.o \
@@ -773,7 +773,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	rocket.o horizontal_missile.o 
 	rm \
 	mo5_alt_print.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \

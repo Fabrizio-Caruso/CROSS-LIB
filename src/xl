@@ -68,6 +68,7 @@ def multiple_project_rebuild(params):
         break
             
     for project_name in projects:
+        print("\n")
         print("PROJECT: " + project_name)
         print("\n")
         reset([mypath, project_name]+reset_opts)

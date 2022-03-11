@@ -416,10 +416,11 @@ atari_lynx:
 atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t lynx \
 	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=4000 -DANIMATE_PLAYER \
-	-DNO_SET_SCREEN_COLORS  -DXSize=20 -DYSize=17 \
+	-DNO_SET_SCREEN_COLORS  -DXSize=20 -DYSize=17 -D_XL_NUMBER_OF_TILES=27 \
 	-DTGI_GFX \
 	-DFULL_GAME \
-	-DNO_PRINT \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
 	$(ASSETS_PATH)/8x6_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
 	$(FULL_FILES) \

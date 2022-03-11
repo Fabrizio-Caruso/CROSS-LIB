@@ -993,11 +993,11 @@ def help(params):
         print("If you create a new project 'myname' with")
         print("xl create myname")
         print("You can import from an Assembly file with something like:")
-        print("xl import ./examples/tiles/tiles_all.asm")
+        print("xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt")
     elif params[1]=="rotate":
         print("xl rotate <source_file> <[optional] project>")
         print("")
-        print("This command works like 'xl import <source> <[optional] project>' but it outputs a rotated result")
+        print("It works similarly to 'xl import <source> <[optional] project>' but rotates the result.")
         print("")
         print("<source_file>")
         print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -1011,7 +1011,7 @@ def help(params):
         print("If you create a new project 'myname' with")
         print("xl create myname")
         print("You can import from an Assembly file with something like:")
-        print("xl rotate ./examples/tiles/tiles_all.asm")
+        print("xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt")
     elif params[1]=="tile":
         print("xl tile <shape_file> <[optional] project> <[optional] tile_index>")
         print("It converts the file <shape_file> into a line that can be used as an asset file.")

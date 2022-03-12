@@ -16,7 +16,7 @@ target name         | long target name                                     | wor
 *aquarius*          | Mattel Aquarius                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                           |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
-*atari_lynx*        | Atari Lynx                                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*atari_lynx*        | Atari Lynx                                           |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       | missing |
 *attache*           | Otrona Attache                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *aussie*            | Aussie Byte (Knight 2000)                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 *bbc*               | BBC Micro                                            |   YES    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |

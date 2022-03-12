@@ -602,12 +602,7 @@ int main(void)
                     }
                 #endif
                 
-                #if defined(FULL_GAME) && !defined(NO_BLINKING)
-                    if(invincibilityActive)
-                        {
-                            DELETE_CHARACTER(player._x, player._y);
-                        }    
-                #endif
+
                 #if defined(TURN_BASED) 
                     #if !defined(EVEN_LOOP_MOVE)
                     if((loop<TURN_BASED_MAX_LOOP) || loop&1)
@@ -622,7 +617,12 @@ int main(void)
                 #if !defined(TINY_GAME) || defined(TURN_BASED)
                     ++loop;
                 #endif
-                
+                #if defined(FULL_GAME) && !defined(NO_BLINKING)
+                    if(invincibilityActive)
+                        {
+                            DELETE_CHARACTER(player._x, player._y);
+                        }    
+                #endif
                 #if defined(_XL_SLOW_DOWN_FACTOR) && _XL_SLOW_DOWN_FACTOR>0
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 #endif

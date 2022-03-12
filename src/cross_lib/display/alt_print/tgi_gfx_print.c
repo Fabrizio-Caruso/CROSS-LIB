@@ -18,7 +18,7 @@ void _XL_CHAR(uint8_t x, uint8_t y,  char ch)
         }
         else
         {
-            _XL_DRAW(x,y,ch-'0'+_XL_NUMBER_OF_TILES+FONT_SIZE,_XL_WHITE);
+            _XL_DRAW(x,y,ch-'0'+_XL_NUMBER_OF_TILES+26,_XL_WHITE);
         }
     }
 }

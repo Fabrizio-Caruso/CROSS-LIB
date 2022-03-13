@@ -23,7 +23,7 @@ def compute_shape(string, xsize):
     items = []
     values = []
     for string_item in string_items:
-        string_item = string_item.replace("$","0x")
+        string_item = string_item.replace("$","0x").replace(" ","")
         if string_item.startswith("0x"):
             base = 16
         elif string_item.startswith("@"):
@@ -43,6 +43,7 @@ def compute_shape(string, xsize):
         padded_bin_string = padded_bin_string.replace("0",".").replace("1","#")
         
         items.append(padded_bin_string)
+        # print("items :" + str(items))
     return(items)
 
 
@@ -84,6 +85,8 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     fin = open(dest, "rt")
     tile_data = fin.read()
     fin.close()
+    # computed_shape = compute_shape(tile_data,xsize)
+    # print("computed shape: " + str(computed_shape))
     print_shape(compute_shape(tile_data,xsize))
 
 

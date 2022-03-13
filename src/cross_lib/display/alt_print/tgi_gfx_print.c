@@ -2,23 +2,25 @@
 
 #include "standard_libs.h"
 
+extern uint8_t _atari_lynx_text_color;
+
 #include "cross_lib.h"
 
 void _XL_CHAR(uint8_t x, uint8_t y,  char ch)
 {
     if(ch==' ')
     {
-        _XL_DRAW(x,y,_XL_NUMBER_OF_TILES+FONT_SIZE-1,_XL_WHITE);
+        _XL_DRAW(x,y,_XL_NUMBER_OF_TILES+FONT_SIZE-1, _atari_lynx_text_color);
     }
     else
     {
         if((ch>='A')&&(ch<='Z'))
         {
-            _XL_DRAW(x,y,ch-'A'+_XL_NUMBER_OF_TILES,_XL_WHITE);
+            _XL_DRAW(x,y,ch-'A'+_XL_NUMBER_OF_TILES, _atari_lynx_text_color);
         }
         else
         {
-            _XL_DRAW(x,y,ch-'0'+_XL_NUMBER_OF_TILES+26,_XL_WHITE);
+            _XL_DRAW(x,y,ch-'0'+_XL_NUMBER_OF_TILES+26, _atari_lynx_text_color);
         }
     }
 }

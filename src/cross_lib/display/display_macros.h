@@ -235,7 +235,12 @@
 #elif defined(_XL_NO_TEXT_COLOR)
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__ATARI_LYNX__)
-    #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
+    #if defined(TGI_GFX)
+        extern uint8_t _atari_lynx_text_color;
+        #define _XL_SET_TEXT_COLOR(c) _atari_lynx_text_color=(c)
+    #else
+        #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
+    #endif
 #elif defined(__NCURSES__)
     #if defined(__ATARI_ST__)
         #include <ncurses/curses.h>

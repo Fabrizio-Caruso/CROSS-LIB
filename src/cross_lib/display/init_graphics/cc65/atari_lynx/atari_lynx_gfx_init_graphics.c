@@ -8,6 +8,9 @@
 #include <time.h>
 
 
+uint8_t _atari_lynx_text_color;
+
+
 extern uint8_t _compressed_tile_data[_XL_NUMBER_OF_TILES][6];
 
 uint8_t _compressed_font_data[FONT_SIZE][6] = 

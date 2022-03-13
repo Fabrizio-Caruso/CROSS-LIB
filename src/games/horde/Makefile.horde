@@ -446,7 +446,7 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
-atari_lynx: atari_lynx_no_gfx
+atari_lynx: atari_lynx_gfx
 
 atari_lynx_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
@@ -474,7 +474,8 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
 	$(ASSETS_PATH)/8x6_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
-	$(FULL_FILES_NO_SLEEP) \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.lnx
 
 #################################################################

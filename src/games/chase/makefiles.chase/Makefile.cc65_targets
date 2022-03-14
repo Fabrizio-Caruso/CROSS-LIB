@@ -423,6 +423,8 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	-DFULL_GAME \
 	-DALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/chibisound.asm \
 	$(ASSETS_PATH)/8x6_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
 	$(FULL_FILES) \

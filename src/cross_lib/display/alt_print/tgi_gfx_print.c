@@ -52,7 +52,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-        _XL_DRAW((x+length-1-i),y,(uint8_t) (digit+_XL_NUMBER_OF_TILES+26),_XL_WHITE);
+        _XL_DRAW((x+length-1-i),y,(uint8_t) (digit+_XL_NUMBER_OF_TILES+26),_atari_lynx_text_color);
 	}
     
 }

@@ -47,6 +47,7 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
 -I$(CROSS_LIB_PATH)/sound/cc65/gamate \
 -I$(CROSS_LIB_PATH)/sound/cc65/creativision \
+-I$(CROSS_LIB_PATH)/sound/cc65/atari_lynx \
 -I$(CROSS_LIB_PATH)/sound/cc65/pet \
 -I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
 -I$(CROSS_LIB_PATH)/sound/z88dk/gb \

@@ -400,8 +400,11 @@ void _XL_INIT_GRAPHICS(void)
 
 	while (tgi_busy())  {  };
 
-    tgi_setcolor(TGI_COLOR_BLACK);
-    // tgi_setcolor(TGI_COLOR_WHITE);
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        tgi_setcolor(TGI_COLOR_WHITE);
+	#else
+        tgi_setcolor(TGI_COLOR_BLACK);
+    #endif
 
     tgi_bar(0,0,159,101);
 

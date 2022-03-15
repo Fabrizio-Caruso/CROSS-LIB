@@ -237,7 +237,7 @@
 #elif defined(__ATARI_LYNX__)
     #if defined(TGI_GFX)
         extern uint8_t _atari_lynx_text_color;
-        #define _XL_SET_TEXT_COLOR(c) _atari_lynx_text_color=(c)
+        #define _XL_SET_TEXT_COLOR(c) (_atari_lynx_text_color=(c))
     #else
         #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
     #endif
@@ -268,11 +268,7 @@
         textcolor(CPC_TEXT_YELLOW); \
     }
 #else
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-        #define _XL_SET_TEXT_COLOR(c) textcolor(1)
-    #else
-        #define _XL_SET_TEXT_COLOR(c) textcolor(c)
-    #endif
+    #define _XL_SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
 

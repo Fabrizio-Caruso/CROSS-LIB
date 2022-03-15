@@ -1,0 +1,191 @@
+1. Introduction
+---------------
+Le système d'archivage SAP, conçu par Alexandre Pukall, est l'outil utilisé
+par les émulateurs Thomson pour manipuler de façon souple et sécurisée les
+disquettes 3"5 ou 5"25 au format Thomson. L'idée directrice de SAP est de
+reproduire les disquettes physiques Thomson sous forme de fichiers "images",
+stockables sur disque dur et lisibles directement par les émulateurs: toutes
+les opérations de lecture/écriture sont ainsi réalisées sur ces images et
+non pas sur les disquettes originales.
+
+Ce système permet de copier facilement les disquettes, de les diffuser par
+tout moyen numérique et assure in fine la préservation de leurs données au
+delà de la durée de vie du support physique.
+
+L'utilitaire SAP est le pont qui permet de faire le lien entre les deux
+modes de stockage. La version originale en a été écrite par Alexandre Pukall
+lui-même; la version étendue SAP2 présentée ci-dessous, disponible pour
+MSDOS et Linux, en reprend intégralement les fonctionnalités.
+
+
+2. Comment l'obtenir ?
+----------------------
+En le téléchargeant depuis la page Web:
+http://nostalgies.thomsonistes.org/utilitaires.html
+
+
+3. Fonctionnement du programme
+------------------------------
+SAP2 peut fonctionner selon deux modes: si aucun argument ne lui est passé
+sur la ligne de commandes, il entre en mode interactif et propose un menu des
+commandes disponibles; si au moins un argument lui est passé sur la ligne de
+commandes, il entre en mode batch et décode l'argument pour éxécuter la
+commande spécifiée.
+
+
+4. Commandes du programme en mode interactif
+--------------------------------------------
+Les commandes se répartissent en trois catégories: transfert TO-->PC,
+transfert PC-->TO et autres commandes.
+
+  4.1 Transfert TO-->PC
+  ---------------------
+  Commande 1: Visualiser le contenu d'une disquette Thomson
+    Cette commande peut être utile *avant* de lancer le processus
+    d'archivage proprement dit: elle affiche le répertoire d'une
+    disquette 3"5 ou 5"25 au format Thomson introduite dans un des
+    lecteurs (elle réalise l'équivalent de la commande DIR du BASIC).
+
+  Commande 2: Créer une archive SAP vide
+    Cette commande peut être éxécutée sans disquettes au format Thomson.
+    Elle crée une archive SAP vide et formatée (elle réalise l'équivalent
+    de la commande DSKINI du BASIC sur une archive SAP nouvellement créée),
+    soit au format 3"5 (80 pistes, 320 ko), soit au format 5"25 DD (40 pistes,
+    160 ko) ou 5"25 SD (40 pistes, 80 ko).
+
+  Commande 3: Archiver une disquette Thomson vers une archive SAP
+    Cette commande est la véritable commande d'archivage: elle lit le
+    contenu de la disquette 3"5 ou 5"25 au format Thomson introduite dans un
+    des lecteurs du PC et le restitue sous la forme d'une archive SAP sur le
+    disque dur du PC. Elle détecte les secteurs illisibles ou défectueux et
+    active le mécanisme que le format SAP définit dans ce cas.
+
+
+  4.2 Transfert PC-->TO
+  ---------------------
+  Commande 4: Visualiser le contenu d'une archive SAP
+    Cette commande peut être utile *avant* de lancer le processus de
+    désarchivage proprement dit: elle affiche la liste des fichiers
+    contenus dans l'archive SAP spécifiée. 
+
+  Commande 5: Formater une disquette 3"5 ou 5"25 au format Thomson
+    Le désarchivage (commande 6) d'une archive SAP vers une
+    disquette 3"5 ou 5"25 ne peut être réalisé que si la disquette est
+    au *préalable* formatée au format Thomson. Cette commande permet
+    d'appliquer ce formatage à une disquette 3"5 ou 5"25 introduite dans
+    un des lecteurs du PC; si la disquette est une disquette 3"5 - 1.44 Mo,
+    il est nécessaire d'occulter l'encoche de droite (recto et verso) avec
+    un morceau de scotch.
+
+  Commande 6: Désarchiver une archive SAP vers une disquette Thomson
+    Cette commande est la véritable commande de désarchivage: elle lit le
+    contenu d'une archive SAP et l'écrit sur la disquette 3"5 ou 5"25 au
+    format Thomson introduite dans un des lecteurs du PC. Attention: (voir
+    commande 5) la disquette doit être au *préalable* formatée au format
+    Thomson.
+
+
+  4.3 Autres commandes
+  --------------------
+  Commande 7: Quitter
+    Comme son nom ne l'indique pas ;-) elle permet de quitter le programme.
+
+
+5. Commandes du programme en mode batch
+---------------------------------------
+Une des commandes suivantes doit être passée à SAP2 comme premier argument:
+
+  -h, --help
+                    affiche l'aide en ligne du programme.
+                    ex:  sap2 --help
+
+  -v, --version
+                    affiche la version du programme.
+                    ex:  sap2 --version
+
+  -t, --list archive.sap
+                    affiche la liste des fichiers de l'archive SAP dont le
+                    nom complet est spécifié comme second argument.
+                    ex:  sap2 --list foo.sap
+                    [voir la commande 4 du mode interactif]
+
+  -p, --pack archive.sap lecteur [densité]
+                    archive une disquette Thomson vers une archive SAP dont
+                    le nom complet est spécifié comme deuxième argument; le
+                    numéro du lecteur dans lequel est inséré la disquette
+                    est spécifié comme troisième argument; si ce lecteur est
+                    un 5"25, la densité peut être spécifiée comme troisième
+                    argument (1 ou 2, 2 par défault).
+                    ex:  sap2 --pack foo.sap 0
+                    [voir la commande 3 du mode interactif]
+
+  -u, --unpack archive.sap lecteur [densité]
+                    désarchive une archive SAP, dont le nom complet est
+                    spécifié comme deuxième argument, vers une disquette
+                    Thomson insérée dans le lecteur dont le numéro est
+                    spécifié comme troisième argument; si ce lecteur est
+                    un 5"25, la densité peut être spécifiée comme troisième
+                    argument (1 ou 2, 2 par défault).
+                    ex:  sap2 --unpack foo.sap 0
+                    [voir la commande 6 du mode interactif]
+
+  -c, --create archive.sap [nb pistes] [densité]
+                    crée une archive SAP vide dont le nom complet est
+                    spécifié comme second argument; le format peut être
+                    spécifié comme troisième argument sous la forme du
+                    nombre de pistes (40 ou 80, 80 par défaut) et comme
+                    quatrième argument sous la forme de la densité (1 ou
+                    2, 2 par défault).
+                    ex:  sap2 --create foo.sap
+                         sap2 --create foo.sap 40
+                    [voir la commande 2 du mode interactif]
+
+  -d, --dir lecteur [densité]
+                    affiche le contenu de la disquette Thomson insérée dans
+                    le lecteur dont le numéro est spécifié comme second
+                    argument (0=lecteur A face 0, 1=lecteur A face 1,
+                    2=lecteur B face 0, 3=lecteur B face 1); si ce lecteur
+                    est un 5"25, la densité peut être spécifiée comme
+                    troisième argument (1 ou 2, 2 par défault).
+                    ex:  sap2 --dir 0
+                    [voir la commande 1 du mode interactif]
+
+  -f, --format lecteur [densité] [entrelacement]
+                    formate une disquette 3"5 ou 5"25 au format Thomson,
+                    insérée dans le lecteur dont le numéro est spécifié
+                    comme second argument; si ce lecteur est un 5"25, la
+                    densité peut être spécifiée comme troisième argument
+                    (1 ou 2, 2 par défault); le facteur d'entrelacement du
+                    formatage peut être spécifié comme quatrième argument
+                    (7 par défault).
+                    ex:  sap2 --format 0 6
+                         sap2 --format 1
+                    [voir la commande 5 du mode interactif]
+
+
+6. Problèmes connus
+-------------------
+- la version MSDOS peut fonctionner sous Windows 95 et 98; néanmoins, et
+  notamment si un logiciel anti-virus tourne en tâche de fond, il peut être
+  nécessaire de redémarrer l'ordinateur et d'ouvrir une session MS-DOS pure.
+- la version MSDOS de SAP ne permet pas d'archiver à partir ou de
+  désarchiver vers la face 1 d'une disquette Thomson; il s'agit d'une
+  impossibilité définitive dûe à une incompatibilité entre le DOS TO et
+  le BIOS PC. A contrario, la version Linux n'est pas concernée par ce
+  problème.
+- la version MSDOS de SAP ne permet pas d'accéder aux disquettes 5"25 simple
+  densité; il s'agit là encore d'une impossibilité définitive dûe aux
+  limitations du BIOS PC. A contrario, la version Linux n'est pas concernée
+  par ce problème.
+- il se peut que MSDOS ne puisse plus reformater au format standard une
+  disquette formatée au format Thomson.
+
+
+7. Conclusion
+-------------
+J'espère que cette version de SAP répondra à vos attentes; n'hésitez pas à
+me faire part de vos remarques et suggestions.
+
+
+Eric Botcazou
+e-mail: <ebotcazou@libertysurf.fr>

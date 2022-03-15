@@ -197,7 +197,8 @@ endif
 # TESTS
 
 
-include makefiles.other/chase/tests/Makefile.tests
+include makefiles.common/auxiliary/Makefile_tools
+
 
 ####################################################################################################################
 # TARGETS PER DEV-KIT
@@ -297,6 +298,10 @@ include games/chase/makefiles.chase/Makefile.sdcc_targets
 
 #include games/chase/makefiles.chase/Makefile.wincmoc_targets
 
+
+#############################################################################################################################################
+# Tools
+include 
 
 
 #############################################################################################################################################

@@ -1,0 +1,191 @@
+LibSAP est une librarie de manipulation des archives SAP écrite en ANSI C.
+Elle fournit à la fois des routines de manipulation bas-niveau des archives
+SAP considérées comme format physique (images de disquettes) et des routines
+de manipulation haut-niveau des archives SAP considérées comme format
+logique (compatible avec le DOS BASIC Thomson).
+
+
+
+1. Routines de manipulation du format physique:
+
+sapID sap_OpenArchive(const char filename[], int *format);
+   Cette routine ouvre l'archive SAP dont le nom est spécifié par 'filename' et
+  retourne le numéro d'identification (sapID) attaché à cette archive à partir
+  de cet instant. Ce numéro d'identification sera passé aux autres routines de
+  la librairie pour désigner l'archive SAP sur laquelle elle devront agir.
+   Le paramètre 'format' retourne le format de l'archive SAP, qui peut-être
+  SAP_FORMAT1 ou SAP_FORMAT2.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_ETOOMANY: trop d'archives SAP sont ouvertes simultanément.
+  SAP_ENOENT: l'archive SAP spécifiée n'existe pas.
+  SAP_EBADF: le fichier spécifié n'est pas une archive SAP.
+
+
+sapID sap_CreateArchive(const char filename[], int format);
+   Cette routine crée une archive SAP dont le nom est spécifié par 'filename'
+  et retourne le numéro d'identification (sapID) attaché à cette archive à
+  partir de cet instant. Ce numéro d'identification sera passé aux autres
+  routines de la librairie pour désigner l'archive SAP sur laquelle elle
+  devront agir.
+   Le paramètre 'format' spécifie le format de l'archive SAP, qui peut-être
+  SAP_FORMAT1 ou SAP_FORMAT2.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_ETOOMANY: trop d'archives SAP sont ouvertes simultanément.
+  SAP_EPERM: impossible de créer le fichier sur le support d'enregistrement.
+
+
+int sap_CloseArchive(sapID id);
+   Cette routine ferme une archive SAP ouverte par sap_OpenArchive() ou créée
+  par sap_CreateArchive() et retourne SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+
+
+int sap_FillArchive(sapID id, sapsector_t *sapsector);
+   Cette routine remplie une archive créée par sap_CreateArchive() secteur
+  par secteur, en commençant par le secteur 1 de la piste 0. A chaque appel
+  le numéro de secteur est incrémenté de 1 et, si la piste courante devient
+  pleine, la piste suivante est sélectionnée. Retourne SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_ENOSPC: l'archive SAP est pleine.
+
+
+int sap_ReadSector(sapID id, int track, int sect, sapsector_t *sapsector);
+   Cette routine lit le secteur numéro 'sect' de la piste numéro 'track' et
+  place le résultat dans la structure désignée par 'sapsector', retournant
+  SAP_OK ou une combinaison des flags suivants:
+  SAP_NO_STD_FMT: le format du secteur est non standard.
+  SAP_PROTECTED : le secteur est protégé en écriture.
+  SAP_BAD_SECTOR: le secteur a de mauvais identificateurs (piste, secteur)
+  SAP_CRC_ERROR : erreur de CRC sur les données du secteur.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+int sap_ReadSectorEx(sapID id, int track, int sect, int nsects, unsigned char data[]);
+   Cette routine lit 'nsects' secteurs de la piste 'track' à partir du
+  secteur 'sect' et place le résultat dans le tableau 'data'. Retourne
+  SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+int sap_WriteSector(sapID id, int track, int sect, sapsector_t *sapsector);
+   Cette routine écrit le secteur désigné par 'sapsector' au secteur numéro
+  'sect' de la piste numéro 'track'. Tous les champs du secteur doivent être
+  spécifiés, exceptés les deux champs relatifs au CRC qui seront calculés
+  par la routine elle-même. Retourne SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+int sap_WriteSectorEx(sapID id, int track, int sect, int nsects, const unsigned char data[])
+   Cette routine écrit 'nsects' secteurs dans la piste 'track' à partir du
+  secteur 'sect' en utilisant les données du tableau 'data'. Retourne
+  SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+
+2. Routines de manipulation du format logique:
+
+int sap_FormatArchive(sapID id, int capacity);
+   Cette routine formate une archive SAP au format DOS BASIC Thomson et
+  retourne SAP_OK. Elle supporte les capacités SAP_TRK80 (80 pistes) et
+  SAP_TRK40 (40 pistes). Elle peut être utilisée à la fois sur une archive
+  créée par sap_CreateArchive() ou ouverte par sap_OpenArchive().
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) ou le format est invalide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+int sap_ListArchive(sapID id, char buffer[], int buffer_size);
+   Cette routine copie la liste des fichiers (au sens du DOS BASIC Thomson)
+  présents dans l'archive SAP dans le tampon 'buffer' dont la taille est en
+  octets est spécifiée par 'buffer_size' et retourne le nombre de ligne de
+  cette liste.
+   Si une erreur survient, la routine retourne 0 et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+
+
+int sap_AddFile(sapID id, const char filename[]);
+   Cette routine ajoute le fichier spécifié par 'filename' à l'archive SAP
+  (en tant que fichier au sens du DOS BASIC Thomson) et retourne la taille
+  du fichier en octets.
+   Si une erreur survient, la routine retourne 0 et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+  SAP_ENOENT: le fichier n'existe pas.
+  SAP_ENFILE: le fichier est vide.
+  SAP_ENOSPC: le répertoire de l'archive SAP est plein.
+  SAP_EFBIG: le fichier est trop gros pour l'espace libre de l'archive SAP.
+
+
+int sap_DeleteFile(sapID id, const char pattern[]);
+   Cette routine efface le fichier spécifié par 'pattern' de l'archive SAP
+  et retourne la taille du fichier en octets. Elle traite la présence des
+  wildcards '*' et '?' dans la chaîne 'pattern' et retourne dans ce cas la
+  taille totale de tous les fichiers effacés (éventuellement nulle).
+   Si une erreur survient, la routine retourne 0 et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+  SAP_ENOENT: le fichier n'existe pas dans l'archive SAP (erreur non valide
+              lorsque 'pattern' contient au moins une wilcard).
+
+
+int sap_ExtractFile(sapID id, const char pattern[]);
+   Cette routine extrait le fichier spécifié par 'pattern' de l'archive SAP
+  et retourne la taille du fichier en octets. Elle traite la présence des
+  wildcards '*' et '?' dans la chaîne 'pattern' et retourne dans ce cas la
+  taille totale de tous les fichiers extraits (éventuellement nulle).
+   Si une erreur survient, la routine retourne 0 et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+  SAP_ENOENT: le fichier n'existe pas dans l'archive SAP (erreur non valide
+              lorsque 'pattern' contient au moins une wilcard).
+  SAP_EPERM: impossible d'écrire le ou les fichiers sur le support.
+
+
+
+int sap_GetFileInfo(sapID id, const char filename[], sapfileinfo_t *info);
+   Cette routine remplit les champs de la structure 'info' avec les
+  informations relatives au fichier 'filename' spécifié. Retourne SAP_OK.
+   Si une erreur survient, la routine retourne SAP_ERROR et stocke le numéro
+  d'erreur dans la variable sap_errno:
+  SAP_EINVAL: le numéro d'identification (sapID) est invalide.
+  SAP_EEMPTY: l'archive SAP est vide.
+  SAP_EBUSY: l'archive SAP est en train d'être remplie par sap_FillArchive()
+  SAP_ENOENT: le fichier n'existe pas dans l'archive SAP.
+
+
+
+Eric Botcazou
+e-mail: <ebotcazou@libertysurf.fr>

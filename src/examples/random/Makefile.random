@@ -1560,7 +1560,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
 	text_macros.o \
 	input_macros.o
 ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
+	$(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin

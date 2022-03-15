@@ -17,7 +17,7 @@ coco_strings_test:
 	cmoc -c $(MO5_OPTS) $(INCLUDE_OPTS) ./test/coco_strings_test.c
 	cmoc  $(MO5_OPTS) $(INCLUDE_OPTS) -o $(BUILD_PATH)/coco_strings_test.bin ./coco_strings_test.o
 	# rm ./mo5.o
-	# $(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5.bin
+	# $(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/mo5.bin
 	# mv $(BUILD_PATH)/mo5.bin .
 	# $(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c mo5.sap
 	# $(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add mo5.sap mo5.bin

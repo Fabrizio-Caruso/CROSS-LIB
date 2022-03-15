@@ -22,7 +22,7 @@ COMMANDS_LIST = \
     "build", "clean", "create", "c", "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
-    "clone", "rename", "rotate"
+    "clone", "rename", "rotate", "tools"
     ]
 
 def are_you_sure():
@@ -38,18 +38,6 @@ def dirs_in_path(mypath):
         projects.extend(dirnames)
         break
     return projects
-
-
-
-# def multiple_target_rebuild(params):
-    # mypath = params[1]
-    # target = params[2]
-    
-    # print("mypath: " + mypath)
-    # print("target: " + target)
-    
-    # multiple_project_reset(params)
-    # multiple_build(params)
 
 
 def multiple_project_rebuild(params):
@@ -236,13 +224,6 @@ def rebuild(params):
         multiple_project_rebuild(["examples"]+params[2:])
         multiple_project_rebuild(["projects"]+params[2:])
         exit()
-
-    # if len(params)>=3:
-        # target = params[2]
-        # if(target=="all"):
-            # print("Build for all targets")
-            # multiple_target_rebuild(params)
-            # exit()
     
     reset(params)
     if(params[len(params)-1]=="-y"):
@@ -355,25 +336,25 @@ def clone(params):
     convert_makefile(target_game_dir, source_project_type, source_game_dir, target_game_dir)
 
 
-    # fin = open("./"+dest_path+"/Makefile."+source_game_dir, "rt")
-    # data = fin.read()
-    # data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
-    # data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
-    # data = data.replace('PARENT_DIR = ' + source_parent_dir, 'PARENT_DIR = ' + target_parent_dir)
-    # fin.close()
-    # fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
-    # fin.write(data)
-    # fin.close()
-    
-    # os.remove("./"+dest_path+"/Makefile."+source_game_dir)
+def tools():
+    make_command = \
+        GNU_MAKE + " tools"
+    print("run command : " + make_command)
+    print("\n")
+
+    os.system(make_command)  
+        
 
 
 def build(params):
-
     if len(params)<2:
         game_dir = "helloworld"
     else:
         game_dir = params[1]
+
+    if len(params)>=1 and game_dir=="tools":
+        tools()
+        exit()
 
     project_type = project_category(game_dir)
     parent_dir = project_type + "s"
@@ -887,9 +868,16 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="tools":
+        print("\nxl tools")
+        print("\n(or xl build tools)")
+        print("")
+        print("It builds some post-processing tools from their source code.")
+        print("")
+        print("This command has to be run only once to build the tools. The tools are used by few targets to generate ready to use images.")
     elif params[1]=="rename":
         print("\nxl rename <old project name> <new project name>")   
-        print("It renames an existing user-defined project <old project name> to <new project name>")
+        print("It renames an existing user-defined project <old project name> to <new project name>.")
         print("")
         print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
         print("")
@@ -1264,6 +1252,8 @@ if __name__ == "__main__":
         list(sys.argv[1:])
     elif sys.argv[1]=="help" or sys.argv[1]=="h":
         help(sys.argv[1:])
+    elif sys.argv[1]=="tools":
+        tools()
     else:
         print(sys.argv)
         build(sys.argv)

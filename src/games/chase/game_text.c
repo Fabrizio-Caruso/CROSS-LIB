@@ -111,16 +111,6 @@ extern Image PLAYER_IMAGE;
 #endif
 
 
-#define PRINT_WIDE_TITLE() \
-	SET_COLOR( _XL_CYAN); \
-	_XL_PRINT(0,       0, SCORE_STRING); \
-	_XL_PRINT(0, LEVEL_Y, LEVEL_STRING); \
-	\
-	SET_COLOR( _XL_RED); \
-	TITLE_LINE(); \
-	_XL_PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
-
-
 // TODO: This is SLOW
 #if !defined(TINY_GAME) && !defined(NO_STATS)
 	void displayStatsTitles(void)
@@ -188,6 +178,7 @@ extern Image PLAYER_IMAGE;
 #if !defined(NO_MESSAGE) && !defined(NO_PRINT)
 	void printPressKeyToStart(void)
 	{
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
 		_XL_PRINT_CENTERED(PRESS_STRING);
 	}	
 #endif
@@ -203,6 +194,7 @@ void displayScore(void)
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
 	{
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
 		_XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, START_LEVEL_STRING);
         _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1)-2, 2, level);
 	}

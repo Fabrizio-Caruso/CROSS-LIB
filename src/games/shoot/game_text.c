@@ -162,6 +162,7 @@ void printFirePowerStats(void)
 #if !defined(NO_MESSAGE)
     void printPressKeyToStart(void)
     {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED(PRESS_STRING);
     }    
 #endif

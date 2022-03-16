@@ -79,31 +79,6 @@
 #endif
 
 
-#if XSize>64
-    #define PRINT_WIDE_TITLE() \
-        do \
-        { \
-            SET_COLOR(_XL_CYAN); \
-            _XL_PRINT(0, +0,   SCORE_STRING); \
-            \
-            SET_COLOR(_XL_RED); \
-            _XL_PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
-        } while(0)
-
-#else
-    #define PRINT_WIDE_TITLE() \
-        do \
-        { \
-            SET_COLOR(_XL_CYAN); \
-            _XL_PRINT(0, +0,   SCORE_STRING); \
-            _XL_PRINT(0, LEVEL_Y, LEVEL_STRING); \
-            \
-            SET_COLOR(_XL_RED); \
-            TITLE_LINE(); \
-            _XL_PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
-        } while(0)
-#endif
-
 // game_stat
 void displayScoreStats(void);
 

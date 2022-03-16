@@ -15,6 +15,7 @@ GLOBAL_OPTS = $(GLOBAL_OPTS_WITH_SLEEP_MACRO)
 #-D_BACKGROUND_COLOR=_XL_WHITE
 #-D_API_VERSION=$(API_VERSION)
 
+
 #####################################################################
 # SLOWDOWN VALUES
 
@@ -113,21 +114,10 @@ Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
 
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
+####################################################################################################################
+# COMMON INCLUDES
 
-
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
-
-
-#####################################################################
-# Assets
-include makefiles.common/auxiliary/Makefile_assets
-
-
+include makefiles.common/auxiliary/Makefile_ALL
 
 #####################################################################
 # Draw skip
@@ -672,7 +662,7 @@ c64_v2_exomized: c64_v2
 #################################################################
 gamate: gamate_sound
 
-gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=10000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE -DNO_TITLE -DALT_SLEEP -DNO_CONTROL_INSTRUCTIONS \
@@ -688,7 +678,7 @@ ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 endif
 
-gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=10000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DALT_SLEEP  \
@@ -1381,7 +1371,7 @@ coco_targets: \
 	coco
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c

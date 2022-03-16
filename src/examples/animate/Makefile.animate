@@ -114,20 +114,12 @@ _CIDELSA_SLOWDOWN=40
 _NCURSES_SLOWDOWN=12
 
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
 
 
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
+####################################################################################################################
+# COMMON INCLUDES
 
-
-#####################################################################
-# Assets
-include makefiles.common/auxiliary/Makefile_assets
-
+include makefiles.common/auxiliary/Makefile_ALL
 
 
 #####################################################################
@@ -451,7 +443,7 @@ c64_crt: c64_exomized
 
 #################################################################
 
-gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
@@ -1525,7 +1517,7 @@ coco_no_gfx_targets: \
 ########################################
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 

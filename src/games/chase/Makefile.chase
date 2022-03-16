@@ -106,19 +106,6 @@ ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
 Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
-
-
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
-
-#####################################################################
-# Assets
-include makefiles.common/auxiliary/Makefile_assets
-
 
 #####################################################################
 # Draw skip
@@ -158,13 +145,6 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 
 #############################################################################################################################################
-# Auxiliary targets
-
-# - Combine source files
-include makefiles.common/auxiliary/Makefile_combo
-
-
-#############################################################################################################################################
 
 # All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
 all_more: \
@@ -194,10 +174,9 @@ endif
 
 
 ####################################################################################################################
-# TESTS
+# COMMON INCLUDES
 
-
-include makefiles.common/auxiliary/Makefile_tools
+include makefiles.common/auxiliary/Makefile_ALL
 
 
 ####################################################################################################################
@@ -297,11 +276,6 @@ include games/chase/makefiles.chase/Makefile.sdcc_targets
 #
 
 #include games/chase/makefiles.chase/Makefile.wincmoc_targets
-
-
-#############################################################################################################################################
-# Tools
-include 
 
 
 #############################################################################################################################################

@@ -111,20 +111,10 @@ Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
 
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
+####################################################################################################################
+# COMMON INCLUDES
 
-
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
-
-
-#####################################################################
-# Assets
-
-include makefiles.common/auxiliary/Makefile_assets
+include makefiles.common/auxiliary/Makefile_ALL
 
 
 #####################################################################
@@ -1362,7 +1352,7 @@ coco_targets: \
 	coco
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1478,7 +1468,6 @@ mo5_targets: mo5
 
 #################################################################
 
-include makefiles.common/auxiliary/Makefile_combo
 
 # ------------------------------------------------------------------------------------------
 # LCC1802
@@ -1523,6 +1512,55 @@ COMX_EXTRA_FILES ?= \
 COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
 	$(COMX_EXTRA_FILES) \
 	$(SOURCE_PATH)/end_screen.c 
+
+
+#
+
+tiny_combo.c:
+	cat \
+	$(TINY_FILES) \
+	> $(SOURCE_PATH)/../tiny_combo.c
+
+
+light_combo.c: tiny_combo.c
+	cat \
+	$(SOURCE_PATH)/../tiny_combo.c \
+	$(LIGHT_ONLY_FILES) \
+	> $(SOURCE_PATH)/../light_combo.c
+	rm $(SOURCE_PATH)/../tiny_combo.c
+
+
+full_combo.c: light_combo.c
+	cat \
+	$(SOURCE_PATH)/../light_combo.c \
+	$(FULL_ONLY_FILES) \
+	> $(SOURCE_PATH)/../full_combo.c
+	rm $(SOURCE_PATH)/../light_combo.c
+
+
+tiny_combo_rand.c: tiny_combo.c
+	cat \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(SOURCE_PATH)/../tiny_combo.c \
+	> $(SOURCE_PATH)/../tiny_combo_rand.c
+	rm  $(SOURCE_PATH)/../tiny_combo.c
+    
+light_combo_rand.c: light_combo.c
+	cat \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(SOURCE_PATH)/../light_combo.c \
+	> $(SOURCE_PATH)/../light_combo_rand.c
+	rm $(SOURCE_PATH)/../light_combo.c
+    
+    
+full_combo_rand.c: full_combo.c
+	cat \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(SOURCE_PATH)/../full_combo.c \
+	> $(SOURCE_PATH)/../full_combo_rand.c
+	rm $(SOURCE_PATH)/../full_combo.c
+
+#
 
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
@@ -1587,6 +1625,7 @@ _comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
 
 comx: \
     _comx \

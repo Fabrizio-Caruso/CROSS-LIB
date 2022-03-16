@@ -11,6 +11,11 @@ API_VERSION=2
 
 GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DNO_WALL -DNO_BLINKING -D_API_VERSION=$(API_VERSION)
 
+####################################################################################################################
+# COMMON INCLUDES
+
+include makefiles.common/auxiliary/Makefile_ALL
+
 #####################################################################
 # SLOWDOWN VALUES
 
@@ -108,23 +113,6 @@ ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
 Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
-
-
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
-
-
-#####################################################################
-# Assets
-include makefiles.common/auxiliary/Makefile_assets
-
-
-
-#####################################################################
 
 
 
@@ -595,7 +583,7 @@ c64_crt: c64_exomized
 #################################################################
 
 
-gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=2000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -608,7 +596,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 
 
-gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=2000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -1012,7 +1000,7 @@ coco_targets: \
 	coco
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c

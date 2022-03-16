@@ -107,20 +107,11 @@ Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
 #-j 8
 
 
-#####################################################################
-# Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
 
+####################################################################################################################
+# COMMON INCLUDES
 
-#####################################################################
-# Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
-
-
-#####################################################################
-# Assets
-include makefiles.common/auxiliary/Makefile_assets
-
+include makefiles.common/auxiliary/Makefile_ALL
 
 
 #####################################################################
@@ -1104,7 +1095,7 @@ coco_targets: \
 	coco
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 

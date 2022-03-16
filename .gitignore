@@ -55,4 +55,8 @@ src/debug/*.bin
 src/debug/*.dsk
 src/debug/*.nes
 src/assets/*.pyc
+tools/cc65/gamate/gamate-fixcart.exe
+tools/cmoc/mo5/f2k5.exe
+tools/cc65/gamate/gamate-fixcart.out
+tools/cmoc/mo5/f2k5.out
 

@@ -717,7 +717,7 @@ cx16:
 #sound version is buggy (probably because of a memory issue)
 gamate: gamate_no_sound
 
-gamate_no_udg:
+gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=5000 -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -728,7 +728,7 @@ gamate_no_udg:
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate_no_udg.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate_no_udg.bin
 
-gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=6000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -740,7 +740,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 
-gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s
+gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=6000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 -DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -DNO_SLEEP -DNO_WAIT -DNO_TITLE   \

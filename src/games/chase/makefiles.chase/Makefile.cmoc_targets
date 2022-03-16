@@ -696,7 +696,11 @@ ifeq ($(DO_WIN),1)
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 else
-	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	$(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	rm ./FULL_MO5.bin
+	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5   
 endif	
 
 

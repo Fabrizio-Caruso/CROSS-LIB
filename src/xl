@@ -584,7 +584,7 @@ def reset(params):
 
 def clean(params):
 
-    if(len(params)>=1) and params[1]=="tools":
+    if(len(params)>=2) and params[1]=="tools":
         make_command = GNU_MAKE + " clean_tools"
 
         print("run command : " + make_command)
@@ -645,7 +645,7 @@ def clean(params):
 
 
 def delete(params):
-    if(len(params)>=1) and params[1]=="tools":
+    if(len(params)>=2) and params[1]=="tools":
         make_command = GNU_MAKE + " clean_tools"
 
         print("run command : " + make_command)

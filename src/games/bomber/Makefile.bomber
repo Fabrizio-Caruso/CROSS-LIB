@@ -531,7 +531,7 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
-	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
     
 #################################################################
 

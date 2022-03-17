@@ -1,0 +1,38 @@
+bbcim: BBC microcomputer diskimage manipulation program
+-------------------------------------------------------
+Version 1.0.1, 16-4-2017.
+
+This is the final version of the original bbcim program that was released way back in 1996, and which was based on a combination of a few separate utility programs that I had released in 1995 to do BBC micro computer diskimage manipulation on a PC which when combined into a single program I expanded with lots of functions.
+
+In 2009 I revised the old and trusted 0.95-beta 5 to fix several small issues, the last update being bbcim 0.95-beta 11 which I released on 20 May 2009. After those 6 updates I should have named it 1.0, which after some more cleanups is what I did in 2014, and now I finally decided to support long filenames in the 1.0 branch of bbcim, so this is version 1.0.1
+
+See the file src/bbcim.c for a version history and you can select some compile time changes there too, such as to give messages in Dutch instead of English. For a unix like OS you don't need to change anything there.
+
+
+
+Making and installing the program:
+----------------------------------
+To make the program, type:
+   make
+
+To make a postscript version of the manual page (directory doc/), type:
+   make postscript
+
+To make a pdf version of the manual page (directory doc/), type:
+   make pdf
+
+To install in $(HOME)/bin, $(HOME)/man/man1, type:
+   make install
+
+To install in a system location such as /usr/local/bin, /usr/local/man, change the Makefile or copy things by hand (e.g.: cp bbcim /usr/local/bin/)
+
+
+Licence:
+--------
+Basically you can do what you want with it as long as you keep the copyright notices in tact, see doc/LICENCE.
+
+
+Email & website:
+----------------
+W.H.Scholten (swhs-web@xs4all.nl)
+website: http://wouter.bbcmicro.net/

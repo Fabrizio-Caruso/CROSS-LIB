@@ -1558,8 +1558,8 @@ ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
-	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 endif	
+	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 	rm ./FULL_MO5.bin
 
 

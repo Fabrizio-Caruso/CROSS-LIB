@@ -1539,7 +1539,7 @@ coco_no_gfx_targets: \
 ########################################
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) 
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) 
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c

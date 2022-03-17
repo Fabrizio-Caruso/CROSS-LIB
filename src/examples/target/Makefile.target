@@ -839,7 +839,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.com
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.com
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 

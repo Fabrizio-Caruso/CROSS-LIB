@@ -59,4 +59,6 @@ tools/cc65/gamate/gamate-fixcart.exe
 tools/cmoc/mo5/f2k5.exe
 tools/cc65/gamate/gamate-fixcart.out
 tools/cmoc/mo5/f2k5.out
+tools/bbc/bbcim-1.0.1/bbcim.exe
+tools/bbc/bbcim-1.0.1/bbcim.out
 

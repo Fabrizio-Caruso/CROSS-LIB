@@ -1207,27 +1207,28 @@ Use the VTI emulator
 
 Alternative instructions:
 
-    Install the emulator program VTI.
-    Download the TI85.ROM and put it into VTI directory.
-    Download and extract Rigel Shell.
-    Start VTI. Select TI85.
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Choose the file rigel.85b from the Backups directory of the Rigel Shell.
-    Quickly press F1 to confirm Warning about Memory backup, before transmission error message.
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Select spice.85s.
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click Custom, then F1, and select SPICE program.
+Install the emulator program VTI.
+Download the TI85.ROM and put it into VTI directory.
+Download and extract Rigel Shell.
+Start VTI. Select TI85.
+Click 2nd Link, then press F2 to receive.
+Right Mouse click and choose Send File to VTI. Choose the file rigel.85b from the Backups directory of the Rigel Shell.
+Quickly press F1 to confirm Warning about Memory backup, before transmission error message.
+Click 2nd OFF On, to init the Rigel Shell.
+Click 2nd Link, then press F2 to receive.
+Right Mouse click and choose Send File to VTI. Select spice.85s.
+Click 2nd OFF On, to init the Rigel Shell.
+Click Custom, then F1, and select SPICE program.
 
 
 QUICK
-	Load Rigel savestate 
-	Click 2nd OFF On
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Choose the .85s file
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click Custom, then F1, and select A program.	
+
+Load Rigel savestate 
+Click 2nd OFF On
+Click 2nd Link, then press F2 to receive.
+Right Mouse click and choose Send File to VTI. Choose the .85s file
+Click 2nd OFF On, to init the Rigel Shell.
+Click Custom, then F1, and select A program.	
 	
 		
 	

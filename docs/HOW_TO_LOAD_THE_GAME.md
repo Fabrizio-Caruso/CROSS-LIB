@@ -1170,18 +1170,18 @@ Use the VTI emulator
 
 Alternative load instructions:
 
-Use VTI 2.5 beta 4 or beta 5.
-Select TI83 (v1.07)
-Reset calculator (MEM CLEARED)
-2nd, LINK, RECEIVE (do not press ENTER, yet)
-Look for ION.83G (memory dump)
-Press ENTER on ION
-Drag the file onto VTI
-Transmission error. Retry.
-PRGM -> ION (see prgmION) -> press Enter (INSTALLED)
-Compile your program with a name different from default abc80
-Transfer program as done with ION.83G
-Start the shell and program
+- Use VTI 2.5 beta 4 or beta 5.
+- Select TI83 (v1.07)
+- Reset calculator (MEM CLEARED)
+- 2nd, LINK, RECEIVE (do not press ENTER, yet)
+- Look for ION.83G (memory dump)
+- Press ENTER on ION
+- Drag the file onto VTI
+- Transmission error. Retry.
+- PRGM -> ION (see prgmION) -> press Enter (INSTALLED)
+- Compile your program with a name different from default abc80
+- Transfer program as done with ION.83G
+- Start the shell and program
 
 
 -----------------------------------------------------------
@@ -1207,28 +1207,28 @@ Use the VTI emulator
 
 Alternative instructions:
 
-    Install the emulator program VTI.
-    Download the TI85.ROM and put it into VTI directory.
-    Download and extract Rigel Shell.
-    Start VTI. Select TI85.
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Choose the file rigel.85b from the Backups directory of the Rigel Shell.
-    Quickly press F1 to confirm Warning about Memory backup, before transmission error message.
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Select spice.85s.
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click Custom, then F1, and select SPICE program.
+- Install the emulator program VTI.
+- Download the TI85.ROM and put it into VTI directory.
+- Download and extract Rigel Shell.
+- Start VTI. Select TI85.
+- Click 2nd Link, then press F2 to receive.
+- Right Mouse click and choose Send File to VTI. Choose the file rigel.85b from the Backups directory of the Rigel Shell.
+- Quickly press F1 to confirm Warning about Memory backup, before transmission error message.
+- Click 2nd OFF On, to init the Rigel Shell.
+- Click 2nd Link, then press F2 to receive.
+- Right Mouse click and choose Send File to VTI. Select spice.85s.
+- Click 2nd OFF On, to init the Rigel Shell.
+- Click Custom, then F1, and select SPICE program.
 
 
 QUICK
 
-	Load Rigel savestate 
-	Click 2nd OFF On
-    Click 2nd Link, then press F2 to receive.
-    Right Mouse click and choose Send File to VTI. Choose the .85s file
-    Click 2nd OFF On, to init the Rigel Shell.
-    Click Custom, then F1, and select A program.	
+- Load Rigel savestate 
+- Click 2nd OFF On
+- Click 2nd Link, then press F2 to receive.
+- Right Mouse click and choose Send File to VTI. Choose the .85s file
+- Click 2nd OFF On, to init the Rigel Shell.
+- Click Custom, then F1, and select A program.	
 	
 		
 	
@@ -1240,13 +1240,14 @@ Use Wabbitemu
 
 You can load the .86p files by directly dragging them on VTI, 
 no need to go through the 'link" sequence, they'l be pushed in the TI86 memory.
-So, first drag InstLASM.86p, then enter:
-asm(InstLASM)
-press F5 and confirm the reset process
-once you get the message "MEM CLEARED", 
-drag LargeLd.86p on the calculator.
-Now you can upload ONE SINGLE "big" executable (built with the LASM startup option), just drag it on the calculator.
-To run: asm(LargeLd)
+
+- So, first drag InstLASM.86p, 
+- then enter: `asm(InstLASM)`
+- press `F5` and confirm the reset process
+- once you get the message "MEM CLEARED", 
+- drag LargeLd.86p on the calculator.
+- Now you can upload *ONE SINGLE* "big" executable (built with the LASM startup option), just drag it on the calculator.
+- To run: asm(LargeLd)
 
 -----------------------------------------------------------
 

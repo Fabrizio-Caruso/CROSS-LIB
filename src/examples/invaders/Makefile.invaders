@@ -723,6 +723,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_cpc.com 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin    
 	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
 	# rm -rf X$(GAME_NAME)_cpc.dsk
 	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk

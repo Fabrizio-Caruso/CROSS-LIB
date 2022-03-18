@@ -832,6 +832,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.com
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -864,6 +865,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm basic.rom
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
 
 #################################################################
 

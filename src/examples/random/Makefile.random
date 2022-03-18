@@ -815,7 +815,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
 	-DYSize=25 -DXSize=20 -DFORCE_SCREEN_MODE=0 \
-	-DANIMATE_PLAYER \
+	-DANIMATE_PLAYER -DALT_SLEEP \
 	-DSOUNDS  -D_API_VERSION=$(API_VERSION) \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
@@ -832,13 +832,14 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.com
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=80 -DFORCE_SCREEN_MODE=2 \
-	-DANIMATE_PLAYER \
+	-DANIMATE_PLAYER -DALT_SLEEP \
 	-DSOUNDS -D_API_VERSION=$(API_VERSION) \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_MODE2_SLOWDOWN) \
@@ -864,6 +865,8 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm basic.rom
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
+
 
 #################################################################
 

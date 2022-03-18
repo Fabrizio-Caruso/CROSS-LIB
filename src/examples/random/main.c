@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-uint8_t colors[] = { _XL_WHITE, _XL_RED, _XL_GREEN, _XL_YELLOW };
+uint8_t random_colors[] = { _XL_WHITE, _XL_RED, _XL_GREEN, _XL_YELLOW };
 
 int main(void)
 {        
@@ -39,7 +39,7 @@ int main(void)
         _XL_CLEAR_SCREEN();        
         for(i=1;i<YSize-2;i+=2)
         {
-            _XL_SET_TEXT_COLOR(colors[_XL_RAND()&3]);
+            _XL_SET_TEXT_COLOR(random_colors[_XL_RAND()&3]);
             _XL_PRINTD(XSize/2-3,i,5,_XL_RAND());
         }
         _XL_WAIT_FOR_INPUT();

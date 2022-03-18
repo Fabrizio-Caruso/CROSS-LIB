@@ -1415,7 +1415,7 @@ endif
 dragon_targets: \
 	dragon
 
-coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1457,7 +1457,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
@@ -1499,7 +1499,7 @@ ifeq ($(DO_WIN),1)
 endif
 	rm $(BUILD_PATH)/xchase.bin
 
-coco_no_gfx:
+coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1527,7 +1527,7 @@ coco_no_gfx:
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A

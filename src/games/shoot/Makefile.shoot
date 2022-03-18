@@ -1156,7 +1156,7 @@ cmoc_targets: \
 	coco_targets \
 	mo5_targets
 
-coco_no_gfx:
+coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1242,7 +1242,7 @@ coco_no_gfx:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
@@ -1250,7 +1250,7 @@ endif
 
 
 # BROKEN (OUT OF MEMORY?)
-coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
@@ -1339,7 +1339,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A

@@ -17,7 +17,11 @@ $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT): $(TOOLS_PATH)/bbc/bbcim-1.0.1
 $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/oz/makewzd.c
 	$(NATIVE_CC) $(TOOLS_PATH)/z88dk/oz/makewzd.c -o $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 
-tools: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk.c
+	cd $(TOOLS_PATH)/cmoc/coco/file2dsk/Source && make
+	mv $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+
+tools: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 
 
 clean_tools:
@@ -25,6 +29,8 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+
 
 
 

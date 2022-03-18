@@ -1230,7 +1230,7 @@ coco_no_gfx:
 	rm XCHASE.BIN
 
 
-coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1291,7 +1291,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
@@ -1299,7 +1299,7 @@ endif
 
 
 
-coco_v2: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+coco_v2: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1346,21 +1346,21 @@ coco_v2: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
-	 memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_tiles_and_fonts.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
-	 variables.o \
+	variables.o \
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A

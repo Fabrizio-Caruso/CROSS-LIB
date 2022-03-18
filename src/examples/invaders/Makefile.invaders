@@ -1058,7 +1058,7 @@ dragon_targets: \
 	dragon
 
 	
-coco:
+coco: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -1086,7 +1086,7 @@ coco:
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 ifeq ($(DO_WIN),1)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A

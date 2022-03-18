@@ -148,7 +148,7 @@ Type the binary name (no extension) contained in B:
 
 -------------------------------------------------------------
 
-### Color Computer
+### Color Computer (CoCo)
 
 - Tape
 Use XROAR emulator
@@ -161,7 +161,9 @@ Remark: You can also simply use the "run" option
 
 - Disk
 Use XROAR emulator (Emulate CoCo DISK EXTENDED)
-Attach the .dsk disk image
+Disable "keyboard translation" in the "Tool" tab
+Select a CoCO machine to emulate in the "Hardware" tab
+Attach the .dsk disk image in "File->Drive 1"
 Type:
 LOADM"XCHASE
 EXEC

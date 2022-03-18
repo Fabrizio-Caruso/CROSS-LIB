@@ -1,0 +1,124 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 2001, 2003, 2006-2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.\" LSM = Linux Software Module, an archive description file
+.\"
+.\" Descriptions of the LSM file format can be found in the
+.\" /pub/Linux/docs directories of sunsite.unc.edu and tsx-11.mit.edu.
+.\"
+.ad l
+.hy 0
+.de SH
+.in 0
+.br
+\\$1
+'in 8n
+..
+.so etc/version.so
+.SH Begin3
+.SH Title:
+SRecord
+.SH Version:
+\*(v)
+.SH Entered-date:
+.ds MO1 JAN
+.ds MO2 FEB
+.ds MO3 MAR
+.ds MO4 APR
+.ds MO5 MAY
+.ds MO6 JUN
+.ds MO7 JUL
+.ds MO8 AUG
+.ds MO9 SEP
+.ds MO10 OCT
+.ds MO11 NOV
+.ds MO12 DEC
+.nr y4 \n[yr]+1900
+\n[dy]\*[MO\n[mo]]\n[y4]
+.SH Description:
+The \fISRecord\fP package is a collection of powerful tools for
+manipulating EPROM load files.
+.sp
+*
+'in +2n
+The SRecord package understands a number of file formats:
+Motorola S-Record,
+Intel,
+Tektronix,
+Binary.
+These file formats may be read and written.
+Also, C array definitions for output only.
+.in -2n
+.sp
+*
+'in +2n
+The SRecord package has a number of tools:
+\fIsrec_cat\fP for copying and and converting files,
+\fIsrec_cmp\fP for comparing files,
+and
+\fIsrec_info\fP for examining files.
+.in -2n
+.sp
+*
+'in +2n
+The SRecord package has a number for filters:
+\fIchecksum\fP to insert checksums,
+\fIcrop\fP to keep address ranges,
+\fIexclude\fP to remove address ranges,
+\fIfill\fP to fill data holes,
+\fIlength\fP to insert data length,
+\fImaximum\fP to insert data address maximum,
+\fIminimum\fP to insert data address minimum,
+and
+\fIoffset\fP to adjust addresses.
+.in -2n
+.sp
+More than one filter may be applied to each input file.
+Different filters may be applied to each input file.
+All filters may be applied to all file formats.
+.sp
+SRecord runs on almost any flavor of UNIX.
+Self configuring using a GNU Autoconf generated configure script.
+There are no modifications required to compile it for Linux.
+.SH Keywords:
+EPROM, srecord, motorola, intel
+.SH Author:
+pmiller@opensource.org.au (Peter Miller)
+.SH Primary-site:
+http://srecord.sourceforge.net/
+.TS
+lf(CW) l.
+srecord-\*(v).README    Description, from the tar file
+srecord-\*(v).lsm       Description, LSM format
+srecord-\*(v).spec      RedHat package specification
+srecord-\*(v).tar.gz    The complete sources.
+srecord-\*(v).pdf       Reference Manual, Acrobat format
+.TE
+.SH Secondary-site:
+metalab.unc.edu /pub/Linux/apps/circuits
+.TS
+lf(CW) l.
+srecord-\*(v).README    Description, from the tar file
+srecord-\*(v).lsm       Description, LSM format
+srecord-\*(v).spec      RedHat package specification
+srecord-\*(v).tar.gz    The complete sources.
+srecord-\*(v).pdf       Reference Manual, Acrobat format
+.TE
+.SH Copying-policy:
+GPL 2.0
+.SH End

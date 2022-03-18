@@ -1,0 +1,61 @@
+'\" t
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_ppx
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_ppx \- Stag Prom Programmer hexadecimal format
+.if require_index \{
+.XX "srec_ppx(5)" "Stag Prom Programmer hexadecimal format"
+.\}
+.SH DESCRIPTION
+This is the native hexadecimal format of the Stag Prom Programmer.
+.SS Format
+The file must start with an asterisk '*' on a line by itself.
+.PP
+Each line has a 16\[hy]bit address, followed by 8\[hy]bit bytes.
+.PP
+The end is indicated by '$S' folloowed by a 16\[hy]bit checksum of the
+data bytes as 4 hex digits.
+.SS Command Line Option
+This format is specified using the \fB\-PPX\fP
+command line option.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 3 times
+when represented with this format (worse if you use shorter lines).
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example PPX file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at bytes address 0x0000
+(but remember, the file contents are always multiples of four bytes).
+.RS
+.nf
+.ft CW
+*
+0000 48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21 0A $S0473
+.ft P
+.fi
+.RE
+.SH SEE ALSO
+http://matthieu.benoit.free.fr/pdf/pp39.pdf
+http://www.stag.co.uk/
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

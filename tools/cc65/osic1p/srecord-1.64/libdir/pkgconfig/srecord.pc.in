@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+libdir=@libdir@
+mandir=@mandir@
+datarootdir=@datarootdir@
+includedir=@includedir@
+
+Name: srecord
+Description: Manipulate EPROM load files
+Version: 1.64.D001
+URL: http://srecord.sourceforge.net
+Libs: -L${libdir} -lsrecord
+Libs.private: @LIBS@
+Cflags: -I${includedir}

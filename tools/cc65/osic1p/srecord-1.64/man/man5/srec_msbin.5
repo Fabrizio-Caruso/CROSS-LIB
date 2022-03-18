@@ -1,0 +1,155 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2009-2011 Peter Miller
+.\"
+.\" Original code contribution by David Kozub <zub@linux.fjfi.cvut.cz>
+.\" Copyright assigned to Peter Miller 28-Jan-2010
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_msbin
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_msbin \- Windows CE Binary Image Data Format
+.if require_index \{
+.XX "srec_msbin(5)" "Windows CE Binary Image Data Format"
+.\}
+.SH DESCRIPTION
+This format is the output of the Microsoft WinCE Platform Builder.
+This is a binary (non\[hy]text) file format.
+File names in this format typically (ambiguously) use the \f[CW].bin\fP suffix.
+.SS File Format
+Files in this format start with a header record.
+.PP
+Then comes the data itself, organized into records.
+.PP
+The file finishes with an execution start address record.
+This is mandatory.
+.SS File Header Record
+Data in this format start with an optional header containing the magic
+\[lq]B000FF\en\[rq], followed by the image start (four bytes, little
+endian) address and the span of the image (highest address \- lowest
+address + 1) (four bytes, little endian).
+The file header does not have a checksum;
+it is therefore possible that a corrupt file header will go undetected.
+.TS
+allbox,tab(;);
+ce ce ce.
+T{
+Magic
+.br
+\[lq]B000FF\en\[rq]
+.br
+(7 bytes)
+T};T{
+Least
+.br
+Address
+.br
+(4 bytes)
+T};T{
+Greatest
+.br
+Address
+.br
+(4 bytes)
+T}
+.TE
+There is no provision for a file comment of any kind.
+.SS Data Record
+Each record consists of a record start address (four bytes, little endian),
+a record length (four bytes, little endian),
+a record checksum (four bytes, little endian),
+followed by the record data.
+The data part of each record is raw byte values, no encoding.
+.TS
+allbox,tab(;);
+ce ce ce ce.
+T{
+Start
+.br
+address
+.br
+(4 bytes)
+T};T{
+Length
+.br
+(4 bytes)
+T};T{
+Checksum
+.br
+(4 bytes)
+T};T{
+Data
+T}
+.TE
+.PP
+The checksum is calculated by a simple sum of unsigned bytes
+into a 32\[hy]bit accumulator.
+.PP
+The 12 record header bytes are not included in the record checksums;
+it is therefore possible that a corrupt record header will go undetected.
+.PP
+It is not possible to place data at address zero with this format.
+Address zero is reserved for use by the execution start address record.
+.PP
+There is effectively no limit on the length of a record (2^32\-1).  It is
+not uncommon for a MsBin file to contain records with sizes in the tens
+of megabytes.
+.SS Execution Start Address Record
+Last comes a special record with the record address set to zero and
+record length set to the image execution start address.
+According to specification the record describing the execution start
+address must be always present, and must always be the last record in the file.
+.TS
+allbox,tab(;);
+ce ce ce.
+T{
+Zero
+.br
+(4 bytes)
+T};T{
+Start
+.br
+Address
+.br
+(4 bytes)
+T};T{
+Checksum
+.br
+= 0
+.br
+(4 bytes)
+T}
+.TE
+.SS Commentary
+The MsBin files produced by SRecord are valid and can be
+successfully parsed by the command line utilities \f[CW]viewbin\fP and
+\f[CW]cvrtbin\fP (part of Windows CE platform).
+.PP
+For a MsBin file to be usable in Microsoft WinCE Platform Builder it has
+to contain a TOC meta\[hy]structure.  This is data embedded in the file by
+Microsoft WinCE Platform Builder itself.
+.PP
+The opposite conversion \- from MsBin \- comes in handy when analyzing
+a MsBin file (\f[I]i.e.\fP a WinCE image).
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 1.0
+times (approaching asymptotically from above) when represented with
+this format, as the 15\[hy]byte file header is averaged over the data
+content.  Holes in the data will also increase the size.
+.SH SOURCE
+http://msdn.microsoft.com/en\-us/library/ms924510.aspx
+.ds n) srec_cat
+.so man/man1/z_copyright.so

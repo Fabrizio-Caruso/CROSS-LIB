@@ -1,0 +1,151 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 1999, 2001, 2003, 2004, 2006-2009, 2014 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.\" Format and print this file using the GNU groff command
+.\"     groff -s -p -t -ms -I. -I../man/man1 -I../man/man5 main.man | lpr
+.\"
+.\" Some of the formatting constructs used in this document assume GNU groff.
+.\"
+.pn -1 \" the first (unnumbered) is -1, second is 0,
+.\"       the third is 1, just like I wanted.  Sheesh!
+.so etc/ref-toc.so \"from the etc directory
+.so etc/version.so \"from the etc directory
+.if n .ftr CB B
+.if n .ftr CI I
+.if n .ftr CW R
+.if n .ftr C  R
+.\" ---------------------------------------------------------------------------
+.\" enable the .XX macro
+.nr equire_index 1
+.\" ---------------------------------------------------------------------------
+.\" stuff for figuring dates
+.\"
+.lg 0
+.ds MONTH1 January
+.ds MONTH2 February
+.ds MONTH3 March
+.ds MONTH4 April
+.ds MONTH5 May
+.ds MONTH6 June
+.ds MONTH7 July
+.ds MONTH8 August
+.ds MONTH9 September
+.ds MONTH10 October
+.ds MONTH11 November
+.ds MONTH12 December
+.ds MO \\*[MONTH\n[mo]]
+.nr *year \n[yr]+1900
+.ds DY \n[dy] \*[MO] \n[*year]
+.\" ---------------------------------------------------------------------------
+\&.
+.sp 2i
+.ps 36
+.vs 38
+.ce 2
+SRecord
+.sp 0.5i
+.ps 28
+.vs 30
+.ce 1
+Reference Manual
+.sp 1i
+.ps 18
+.vs 20
+.ce 2
+Scott Finneran <scottfinneran@yahoo.com.au>
+Peter Miller <pmiller@opensource.org.au>
+.ft P
+.\" ---------------------------------------------------------------------------
+.bp
+.ps 12
+.vs 14
+\&.
+.sp 2i
+This document describes SRecord version \*(v)
+.br
+and was prepared \*(DY.
+.br
+.sp 1i
+.if n .ds C) (C)
+.if t .ds C) \(co
+This document describing the SRecord program,
+and the SRecord program itself,
+are
+.ce 2
+Copyright \(o) 2014 Scott Finneran <scottfinneran@yahoo.com.au>
+Copyright \(o) Peter Miller <pmiller@opensource.org.au>
+.sp
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+.sp
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+.sp
+You should have received a copy of the GNU General Public License along
+with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ----------  Include the Other Stuff  --------------------------------------
+.\"
+.nr C 1 \"continuous page numbers (see GNU groff tmac.an)
+.so etc/README.man
+.so etc/BUILDING.man
+.so etc/new-file-format.so
+.so etc/new-filter.so
+.\"
+.\" ----------  Include the Manual Pages  -------------------------------------
+.\"
+.so etc/ref-parts.so
+.\"
+.\" ----------  Include the Table of Contents  --------------------------------
+.\"
+.if o .bp \" because .TH is going to throw another one
+.nr % 1000
+.TH "Table of Contents" "SRecord" "SRecord" "Reference Manual"
+.\"
+.\"     -----
+.\" This next section redefines the page footer to use roman numbering
+.\" from "iii" onwards.  It is overly GNU Groff specific.
+.\" Fortunately, the page number does not appear in the page header.
+.\"
+.nr an-page-origin \n%-3
+.af an-page-letter i
+.de an-p-footer
+.ev 1
+.nr an-page-letter \\n%-\\n[an-page-origin]
+.ds an-page-string \\n[an-page-letter]
+.ie \\nD \{\
+.       if o .tl '\\*[an-extra2]'\\*[an-extra1]'\\*[an-page-string]'
+.       if e .tl '\\*[an-page-string]'\\*[an-extra1]'\\*[an-extra2]'
+.\}
+.el .tl '\\*[an-extra2]'\\*[an-extra1]'\\*[an-page-string]'
+.ev
+..
+.\"     -----
+.in 0
+.TC
+.\"
+.\" ----------  Include the Permuted Index  -----------------------------------
+.\"
+.bp
+.in 0
+.so etc/ref-index.so
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,61 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2008, 2009 Peter Miller
+.\" Copyright (C) 2008 Torsten Sadowski
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_forth
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_forth \- FORTH file format
+.if require_index \{
+.XX "srec_forth(5)" "FORTH file format"
+.\}
+.SH DESCRIPTION
+This format can be read by FORTH interpreters
+.PP
+The file starts with HEX to set the number base.
+.PP
+Each line contains the address, the byte and a store command, either
+C! for RAM or EEC! for EEPROM
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example srec[hy]forth file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at address 0x1000.
+.RS
+.nf
+.ft CW
+HEX
+48 1000 C!
+65 1001 C!
+6C 1002 C!
+6C 1003 C!
+6F 1004 C!
+2C 1005 C!
+20 1006 C!
+57 1007 C!
+6F 1008 C!
+72 1009 C!
+6C 100A C!
+64 100B C!
+0A 100C C!
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

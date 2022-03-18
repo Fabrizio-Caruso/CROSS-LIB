@@ -1,0 +1,47 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2009-2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 22, 21, 16
+The CRC16 code has been enhanced to provide low\[hy]to\[hy]high bit order, in
+addition to the previous high\[hy]to\[hy]low bit order.
+It is also possible to specify the polynomial, with the default the
+CCITT standard polynomial, as was in the previous code.
+See \f[I]srec_input\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 20, 19, 15, 12
+The MD5, RipeMD\[hy]160, SHA1, SHA224, SHA256, SHA384, SHA 512 and Whirlpool
+message digests are now supported.
+See \f[I]srec_input\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.49.D005
+.\" Change 17, 18
+.\" pmiller, Sun Jun 21 17:23:13 2009, bitrev
+There is a new \f[I]srec_cat \-bit\[hy]reverse\fP filter, that may be used to
+reverse the bits in each data byte.
+See \f[I]srec_input\fP(1) for more information.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.49 (2009\[hy]May\[hy]17)
+.\" vim: set ts=8 sw=4 et :

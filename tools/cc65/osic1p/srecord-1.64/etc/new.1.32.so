@@ -1,0 +1,52 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2007, 2010, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18, 19, 20
+More examples have been added to the documentation.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+It is now possible to perform set intersection and set
+difference on address ranges on the command line.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+There is a new category of data source: generators.
+You can generate constant data, random data and repeating data.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11, 12
+The assembler and C\[hy]Array outputs now support additional options to
+facilitate MSP430 systems.  They can also optionally write shorts rather
+than bytes.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+You can now round address ranges on the command line to be whole
+multiples of a number of bytes.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.32 (2007\[hy]Apr\[hy]24)
+.\" vim: set ts=8 sw=4 et :

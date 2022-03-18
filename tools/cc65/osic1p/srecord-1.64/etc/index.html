@@ -1,0 +1,597 @@
+.\"
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 1998, 2000-2004, 2006-2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ad l
+.hy 0
+.so etc/version.so
+.nf
+<html>
+<head>
+<link rel="icon" href="srecord.ico" type="image/x-icon">
+<link rel="shortcut icon" href="srecord.ico" type="image/x-icon">
+<title>SRecord \*(v)</title></head>
+<body bgcolor=white><h1>
+<img src="srecord-64.png" align="left" />
+<img src="srecord-64.png" align="right" />
+<center>SRecord \*(v)</center></h1>
+The <i>SRecord</i> package is a collection of powerful tools for
+manipulating EPROM load files.
+<p>
+I wrote SRecord because when I was looking for programs to manipulate EPROM
+load files, I could not find very many.  The ones that I could find only did a
+few of the things I needed.  SRecord is written in C++ and polymorphism is used
+to provide the file format flexibility and arbitrary filter chaining.  Adding
+more file formats and filters is relatively simple,
+see the <a href="srecord-\*(v).pdf" >Reference Manual</a>.
+<p align=center>
+[ <a href="download.html">Download</a> |
+<a href="mailing-list.html">Mailing List</a> |
+<a href="windows.html">Windows</a> |
+<a
+href="http://aegis.sourceforge.net/cgi-bin/aeget/srecord.\*(v)?menu"
+>Aegis</a> |
+<a
+href="http://aegis.sourceforge.net/cgi-bin/aeget/srecord.\*(v)/?\
+rss+completed.xml"
+><img src="http://aegis.sourceforge.net/cgi-bin/aeget/icon/rss.gif"
+border=0 alt="RSS"></a> ]
+<br>
+[ Sourceforge: <a href="http://sourceforge.net/projects/srecord"
+>Project</a> |
+<a
+href="http://sourceforge.net/project/stats/?group_id=72866"
+>Statistics</a> ]
+</p>
+<p>
+SRecord runs on almost any flavor of UNIX.  The source distribution is
+self configuring using a GNU Autoconf generated configure script.
+<p>
+<blockquote>
+SRecord also runs on Windows.
+You can build SRecord for Windows using
+<a href="http://www.cygwin.com/">Cygwin</a> or
+<a href="http://www.delorie.com/djgpp/">DJGPP</a>,
+see the <a href="windows.html">Windows</a> page.
+<p>
+<a href="windows.html" >FAQ</a>:
+<i>Please, <b>please</b>, couldn't you just build a Windows executable for
+me?</i></br>
+<b>No.</b>  I rarely use Windows.
+Besides, SRecord is <a href="http://www.opensource.org/"
+>open source</a>, so you have the source code, so you can <a
+href="windows.html" >do it yourself</a>.  It is very easy to <a
+href="windows.html" >do it yourself</a>, or you could consider upgrading
+to Linux.
+</blockquote>
+<p><br clear="all" />
+<table><tr><td valign="top" width="60%" rowspan=5 bgcolor="#ccffcc">
+<p align=center>
+<img src="doc_chip.png" align="right" width=98 height=128 />
+<b>The File Formats</b></p>
+<p>
+The <i>SRecord</i> package understands a huge number of file formats:
+<dl>
+<dt>
+<a href="man/man5/srec_ascii_hex.html" >Ascii-Hex</a>
+<dd>
+The Ascii-Hex format is understood for both reading and writing.
+(Also known as the Ascii-Space-Hex format.)
+<p>
+.\" ----------  A  ---------------------------------------------------------
+<dt>
+ASM
+<dd>
+It is possible, for output only, to produce a series of DB statements
+containing the data.  This can be useful for embedding data into assembler
+programs.
+<p>
+<dt>
+<a href="man/man5/srec_atmel_generic.html" >Atmel Generic</a>
+<dd>
+This format is produced by the Atmel AVR assembler.
+It is understood for both reading and writing.
+<p>
+.\" ----------  B  ---------------------------------------------------------
+<dt>
+BASIC
+<dd>
+It is possible, for output only, to produce a series of DATA statements
+containing the data.  This can be useful for embedding data into BASIC
+programs.
+<p>
+<dt>
+<a href="man/man5/srec_binary.html" >Binary</a>
+<dd>
+Binary files can both be read and written.
+<p>
+<dt>
+<a href="man/man5/srec_brecord.html" >B-Record</a>
+<dd>
+Files in Freescale Dragonball bootstrap b-record format can be read and written.
+<p>
+.\" ----------  C  ---------------------------------------------------------
+<dt>
+C Array
+<dd>
+It is possible, for output only, to produce a C array definition containing
+the data.  This can be useful for embedding data into other programs.
+<p>
+<dt>
+<a href="man/man5/srec_coe.html" >Coefficient File format</a>
+<dd>
+The Coefficient File Format (.coe) by Xilinx is understood for writing only.
+<p>
+<dt>
+<a href="man/man5/srec_cosmac.html" >Cosmac</a>
+<dd>
+The RCA Cosmac Elf format is understood for both reading and writing.
+<p>
+.\" ----------  D  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_dec_binary.html" >DEC Binary</a>
+<dd>
+The DEC Binary (XXDP) format is understood for both reading and writing.
+<p>
+.\" ----------  E  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_emon52.html" >Elektor Monitor</a> (EMON52)
+<dd>
+The EMON52 format is understood for both reading and writing.
+<p>
+.\" ----------  F  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_fairchild.html" >Fairchild Fairbug</a>
+<dd>
+The Fairchild Fairbug format is understood for both reading and writing.
+<p>
+<dt>
+LSI Logic <a href="man/man5/srec_fastload.html" >Fast Load</a>
+<dd>
+The LSI Logic Fast Load format is understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_formatted_binary.html" >Formatted Binary</a>
+<dd>
+The Formatted Binary (XXDP) format is understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_fpc.html" >Four Packed Code</a> (FPC)
+<dd>
+The FPC format is understood for both reading and writing.
+<p>
+.\" ----------  G  ---------------------------------------------------------
+.\" ----------  H  ---------------------------------------------------------
+<dt>
+Hexdump
+<dd>
+It is possible, for output only, to produce a simple hexadecimal listing.
+This can be useful for developer debugging.
+<p>
+.\" ----------  I  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_idt.html" >IDT/sim</a>
+<dd>
+The IDT/sim binary file format is understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_intel.html" >Intel</a>
+<dd>
+The Intel hexadecimal format is understood for both reading and writing.
+(Also known as the Intel MCS-86 Object format.)
+<p>
+<dt>
+<a href="man/man5/srec_aomf.html" >Intel AOMF</a>
+<dd>
+The Intel Absolute Object Module Format (AOMF) is understood for both
+reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_intel16.html" >Intel 16</a>
+<dd>
+The Intel hexadecimal 16 format is understood for both reading and writing.
+(Also known as the INHX16 file format.)
+<p>
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_logisim.html" >Logisim</a></dt>
+<dd>
+The <a href="man/man5/srec_logisim.html" >Logisim</a></dt>
+format is understood for reading and writing.
+<p>
+</dd>
+.\" ----------  M  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_mem.html"
+>Memory Initialization Format</a>
+<dd>
+The Memory Initialization Format (.mem) format by Lattice Semiconductor
+is understood for writing only.
+.\" http://help.latticesemi.com/docs/webhelp/eng/wwhelp/wwhimpl/common/\
+.\" html/wwhelp.htm#href=Design%20Entry/memory_initialization_file.htm#\
+.\" 1371843&single=true
+<p>
+<dt>
+<a href="man/man5/srec_mif.html" >MIF</a>
+<dd>
+The Memory Initialization File (MIF) format by Altera is understood for
+both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_mips_flash.html" >MIPS-Flash</a>
+<dd>
+The MIPS Flash file format is understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_mos_tech.html" >MOS Technology</a>
+<dd>
+The MOS Technology hexadecimal format is understood for both reading
+and writing.
+<p>
+<dt>
+<a href="man/man5/srec_motorola.html" >Motorola S-Record</a>
+<dd>
+The Motorola hexadecimal S-Record format is understood for both reading
+and writing.
+(Also known as the Exorciser, Exormacs or Exormax format.)
+<p>
+<dt>
+<a href="man/man5/srec_msbin.html" >MsBin</a>
+<dd>
+The Windows CE Binary Image Data Format is supported both for reading
+and writing.
+<p>
+.\" ----------  N  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_needham.html" >Needham Electronics</a>
+<dd>
+The Needham Electronics ASCII file format is understood for both reading
+and writing.
+<p>
+.\" ----------  O  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_os65v.html" >Ohio Scientific</a> (OS65V)
+<dd>
+The Ohio Scientific hexadecimal format is understood for both reading
+and writing.
+<p>
+.\" ----------  P  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_ppb.html" >PPB</a>
+<dd>
+The Stag Prom Programmer binary format is understood for both reading
+and writing.
+<p>
+<dt>
+<a href="man/man5/srec_ppx.html" >PPX</a>
+<dd>
+The Stag Prom Programmer hexadecimal format is understood for both reading
+and writing.
+<p>
+.\" ----------  Q  ---------------------------------------------------------
+.\" ----------  R  ---------------------------------------------------------
+.\" ----------  S  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_signetics.html" >Signetics</a>
+<dd>
+The Signetics format is understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_spasm.html" >SPASM</a>
+<dd>
+The SPASM format is used by a variety of PIC programmers; it is understood
+for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_spectrum.html" >Spectrum</a>
+<dd>
+The Spectrum format is understood for both reading and writing.
+<p>
+.\" ----------  T  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_tektronix.html" >Tektronix</a>
+(<a href="man/man5/srec_tektronix_extended.html" >Extended</a>)
+<dd>
+The Tektronix hexadecimal format and the Tektronix extended hexadecimal
+format are understood for both reading and writing.
+<p>
+<dt>
+<a href="man/man5/srec_ti_tagged.html" >Texas Instruments Tagged</a>
+<dd>
+The Texas Instruments Tagged hexadecimal format is understood for both
+reading and writing (both 8 and 16 bits).  Also known as the TI-Tagged
+or TI-SDSMAC object format.
+<p>
+<dt>
+<a href="man/man5/srec_ti_txt.html" >ti-txt</a>
+<dd>
+The TI-TXT format is understood for reading and writing.  This format is
+used with the bootstrap loader of the Texas Instruments MSP430 family of
+processors.
+<p>
+<dt>
+<a href="man/man5/srec_trs80.html" >TRS-80</a>
+<dd>
+The Radio Shack TRS\[hy]80 object file format is understood for reading
+and writing.
+<p>
+.\" ----------  U  ---------------------------------------------------------
+.\" ----------  V  ---------------------------------------------------------
+<dt>
+VHDL
+<dd>
+It is possible, for output only, to produce a VHDL definition containing
+the data.  This can be useful for some embedded development systems.
+<p>
+<dt>
+Verilog <a href="man/man5/srec_vmem.html" >VMEM</a>
+<dd>
+It is possible to write a Verilog VMEM file suitable for loading with
+\f[CW]$readmemh()\fP.  This format is supported for reading and writing.
+<p>
+.\" ----------  W  ---------------------------------------------------------
+<dt>
+<a href="man/man5/srec_wilson.html" >Wilson</a>
+<dd>
+The Wilson format is understood for both reading and writing.
+This mystery format was added for a mysterious type of EPROM writer.
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.\" ----------  End of Format Names  ---------------------------------------
+<dt>
+<p>
+If you have a description of other EPROM load file formats that SRecord
+does not yet understand, please <a href="mailto:pmiller@opensource.org.au"
+>let me know</a>, and they can be added.
+</dl>
+<p>
+The manual pages are also available <a href="man/index.html"
+>from this web site</a>.
+</td><td valign="top" width="40%" bgcolor="#ccccff">
+<p align=center>
+<img src="doc_cat.png" align="right" width=98 height=128 />
+<b>The Tools</b></p>
+<p>
+A number of tools are include in the <i>SRecord</i> package.
+All of the tools understand all of the file formats, and all of the filters.
+<dl><dt>
+<a href="man/man1/srec_cat.html" >srec_cat</a>
+<dd>
+The <i>srec_cat</i> program may be used to catenate (join) EPROM load
+files, or portions of EPROM load files, together.  Because it understands
+all of the input and output formats, it can also be used to convert
+files from one format to another.
+It also understands <i>filters</i>, see below.
+<p>
+<dt>
+<a href="man/man1/srec_cmp.html" >srec_cmp</a>
+<dd>
+The <i>srec_cmp</i> program may be used to compare EPROM load files,
+or portions of EPROM load files, for equality.
+<p>
+<dt>
+<a href="man/man1/srec_info.html" >srec_info</a>
+<dd>
+The <i>srec_info</i> program may be used to print summary information
+about EPROM load files.
+</dl>
+<p>
+The manual pages are also available <a href="man/index.html"
+>from this web site</a>.
+</td></tr>
+<tr><td bgcolor="#ffffcc">
+<p align=center>
+<img src="doc_lens.png" align="right" width=98 height=128 />
+<b>The Filters</b></p>
+<p>
+The <i>SRecord</i> package is made more powerful by the concept of <i>input
+filters</i>.  Wherever an input file may be specified, filters may also
+be applied to that input file.
+The following are only some of the filters are available:
+<dl><dt>
+crc
+<dd>
+The various <i>crc</i> filters may be used to insert an inustry standard cyclic
+redundancy check (CRC) into the data.
+<p>
+<dt>
+checksum
+<dd>
+The <i>checksum</i> filters may be used to insert a checksum into
+the data.  Positive, negative and bit-not checksums are available,
+as well as big-endian and little-endian byte orders.
+<p>
+<dt>
+crop
+<dd>
+The <i>crop</i> filter may be used to isolate an input address range,
+or ranges, and discard the rest.
+<p>
+<dt>
+exclude
+<dd>
+The <i>exclude</i> filter may be used to exclude an input address range,
+or ranges, and keep the rest.
+<p>
+<dt>
+fill
+<dd>
+The <i>fill</i> filter may be used to fill holes in the data with a
+given byte value.
+<p>
+<dt>
+unfill
+<dd>
+The <i>unfill</i> filter may be used to make holes in the data for bytes
+with a given value.
+<p>
+<dt>
+random fill
+<dd>
+The <i>random fill</i> filter may be used to fill holes in the data with
+random byte values.
+<p>
+<dt>
+length
+<dd>
+The <i>length</i> filter may be used to insert the data length into
+the data.
+<p>
+<dt>
+offset
+<dd>
+The <i>offset</i> filter may be used to offset the address of data records,
+both forwards and backwards.
+<p>
+<dt>
+split
+<dd>
+The <i>split</i> filter may be used to split EPROM images for wide data
+buses or other memory striping schemes.
+<p>
+<dt>
+unsplit
+<dd>
+The <i>unsplit</i> filter may be used to
+reverse the effects of the <i>split</i> filter.
+</dl>
+<p>
+More than one filter may be applied to each input file.
+Different filters may be applied to each input file.
+All filters may be applied to all file formats.
+<p>
+There are many more filters available, see the <a
+href="man/man1/srec_input.html" ><i>srec_input</i>(1)</a> man page for
+more information.
+</td></tr>
+<tr><td bgcolor="#ffccff">
+<p align=center>
+<img src="doc_gen.png" align="right" width=98 height=128 />
+<b>The Generators</b></p>
+<p>
+The <i>SRecord</i> package is made more powerful by the concept of
+<i>input generators</i>.  Wherever an input file may be specified,
+a generator may be specified instead.  The following generators are
+available:
+<dl>
+<dt>constant
+<dd>The <i>constant</i> generator may be used to create constant value bytes.
+<p>
+<dt>random
+<dd>The <i>random</i> generator may be used to create random bytes.
+<p>
+<dt>repeated data
+<dd>The <i>repeated data</i> generator may be used to create data which
+repeats a sequence of byte values over and over again.
+</dl>
+<p>
+Generators and data files can be combined on the same command line.
+</td></tr>
+<tr><td bgcolor="#ccccff">
+<p align=center>
+<img src="doc_lib.png" align="right" width=98 height=128 />
+<b> The Library </b></p>
+<p>
+The project includes a shared library.  The documentation for this
+library is available <a href="srecord/index.html" >here on the web
+site</a>.  The shared library may be used to read and write all of the
+formats, and use all of the filters, in your own projects.
+It also makes the installed executables smaller.
+</td></tr>
+<tr><td bgcolor="ffffcc">
+<p align=center>
+<img src="doc_chip.png" align="right" width=98 height=128 />
+<b> Documentation </b></p>
+<p>
+<ul>
+<li> The complete project documentation, including all of the manual pages, is
+    <a href="srecord-\*(v).pdf" >available as a single PDF file</a>.
+<li> The Manual Pages are also <a href="man/index.html"
+     >available as individual HTML pages</a>.
+</ul>
+</td></tr>
+</table>
+
+<h2> See Also </h2>
+For a similar idea, applied to text files rather than EPROM load files,
+see the <a href="http://uncia.sourceforge.net/" >Uncia</a> project.
+<br/>
+For a similar idea, applied to file systems rather than EPROM load files,
+see the <a href="http://plasticfs.sourceforge.net/" >PlasticFS</a> project.
+<br/>
+For a similar idea, applied to archive files (tar, cpio, ar) rather
+than EPROM load files, see the <a href="http://tardy.sourceforge.net/"
+>Tardy</a> project.
+.\" ------------------------------------------------------------------------
+<hr>
+<table border=0><tr><td valign="top">
+<a href="http://www.fsf.org/">
+<img
+src="http://upload.wikimedia.org/wikipedia/commons/b/bf/\
+GNU-FDL-ic%C3%B4ne-Transparente.PNG"
+border=0 alt="" ></a>
+</td><td valign="top" width="35%">
+SRecord is maintained by
+<a href="mailto:scottfinneran@yahoo.com.au"
+>Scott Finneran &lt;scottfinneran@yahoo.com.aud&gt;</a>
+and is freely distributable under the terms and conditions of the
+<a href="http://www.gnu.org/licenses/gpl.txt" >GNU GPL</a>.
+</td><td valign="top">
+<a href="http://www.opensource.org/docs/definition.php" ><img
+src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png"
+border="0" /></a>
+</td>
+<td valign="top" align="right">
+There is more <a
+href="http://miller.emu.id.au/pmiller/software/"
+>Software by Peter Miller</a>
+at his home page.
+</td><td valign="top">
+<a href="http://miller.emu.id.au/pmiller/" ><img
+src="http://miller.emu.id.au/pmiller/pmiller_2003_colour.64.png"
+border=0 /></a>
+</td></tr></table>
+.\" ------------------------------------------------------------------------
+<hr>
+<a href="http://sourceforge.net/"><img
+src="http://sourceforge.net/sflogo.php?group_id=72866&amp;type=5"
+width="210" height="62" border="0" alt="SourceForge.net Logo"
+align="right"></a>
+This page is hosted by <a href="http://sourceforge.net/" >SourceForge</a>.
+<br>
+This page has been accessed approximately
+<img
+src="http://miller.emu.id.au/cgi-bin/web_hit_counter?pmiller_srecord_\*(v)"
+> times since
+.ds MO1 Jan
+.ds MO2 Feb
+.ds MO3 Mar
+.ds MO4 Apr
+.ds MO5 May
+.ds MO6 Jun
+.ds MO7 Jul
+.ds MO8 Aug
+.ds MO9 Sep
+.ds MO10 Oct
+.ds MO11 Nov
+.ds MO12 Dec
+.nr y4 \n[yr]+1900
+\n[dy]-\*[MO\n[mo]]-\n[y4].
+</body></html>
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,275 @@
+.\"
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2003, 2006-2011, 2013, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ad l
+.hy 0
+.so etc/version.so
+.nf
+<html>
+<head>
+<link rel="icon" href="srecord.ico" type="image/x-icon">
+<link rel="shortcut icon" href="srecord.ico" type="image/x-icon">
+<title>SRecord \*(v)</title></head>
+<body bgcolor=white>
+<img src="srecord-64.png" align=left>
+<img src="srecord-64.png" align=right>
+<h1 align="center" >
+<a href="index.html" >SRecord</a> \*(v)<br>
+For Windows
+</h1>
+<a href="http://www.cygwin.com/"
+><img src="http://www.cygwin.com/cygwin-icon.gif" align="right" border=0 /></a>
+The <a href="http://www.cygwin.com/" >Cygwin</a> tools are ports of the
+popular GNU development tools and utilities for Windows 95, 98, NT, XP,
+Vista, <i>etc</i>.  They function by using the Cygwin library which
+provides a UNIX-like API on top of the Win32 API.
+<p>
+This means that you can compile SRecord for Windows
+95, 98, NT, XP, Vista, <i>etc</i>.  SRecord was tested
+on Windows in this way.  Other tools, such as <a
+href="http://www.scl.com/products/mks/datasheets/nutcracker.html"
+>Nutcracker</a>, are expected to work but have not been confirmed.
+<p>
+<a href="http://www.delorie.com/djgpp/" >DJGPP</a> is a complete 32-bit
+C++ development system for Intel 80386 (and higher) PCs running DOS.
+It includes ports of many GNU development utilities.
+<p>
+<a href="http://www.cygwin.com/"
+><img src="http://www.cygwin.com/cygwin-icon.gif" align="right" border=0 /></a>
+Once you have <a href="http://www.cygwin.com/" >Cygwin</a> or <a
+href="http://www.delorie.com/djgpp/" >DJGPP</a> installed, simply follow
+the instructions in the BUILDING file, as if it were Unix.
+<p>
+Pre-built MS Windows binaries are available from <a
+href="http://sourceforge.net/projects/srecord/files/srecord-win32/"
+>sourceforge.net</a>, although they tend to lag behind the current release.
+<p>
+These instructions have been improved greatly with the assistance of
+<a href="mailto:jens@familie-heilig.net"
+>Jens Heilig &lt;jens@familie-heilig.net&gt;</a>,
+who is often the person who builds the MS Windows binaries you see on
+SourceForge.  Thank you, Jens.
+<h2>FAQ</h2>
+<img src="whining-64.png" align="right" />
+<i>Please, <b>please</b>, can you just build it for me?</i>
+<p>
+No.  The author rarely uses Windows for anything.  No.
+<p>
+<a href="http://www.opensource.org/" ><img
+src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png"
+align="left" border=0 /></a>
+Besides, SRecord is <a href="http://www.opensource.org/" ><i>Open
+Source</i></a>.  That means you can <i>get the <a href="srecord-\*(v).tar.gz"
+>source code</a></i>.
+That means you can build it youself.
+<p>
+If you let the author know the URL to get your compiled binaries from,
+after some-one else confirms they work, he will upload them to <a
+href="http://sourceforge.net/projects/srecord/files/" >SourceForge</a>
+in the <a
+href="http://sourceforge.net/projects/srecord/files/srecord-win32/"
+>srecord-win32</a> directory.  If a Windows user has built the most
+recent SRecord version for windows, it will be available in the <a
+href="http://sourceforge.net/projects/srecord/files/srecord-win32/\*(v)/"
+>\*(v)</a> directory as the <a
+href="http://sourceforge.net/projects/srecord/files/srecord-win32/\*(v)/\
+srecord-\*(v)-win32.zip" >srecord-\*(v)-win32.zip</a> file.
+If the link is broken, it means no MS Windows user has built SRecord and
+sent the author a zip file for upload.
+<br clear="all" />
+
+<h2>Prerequisites</h2>
+There are three pieces of software that must be installed before you can
+build SRecord for Windows.
+<dl>
+<dt>MinGW<dd>
+    Download and install <tt>mingw-get-inst</tt> (I used version
+    20110530) from the <a href="http://mingw.sourceforge.net/"
+    >MinGW project page</a>.  Select C++ and MinGW Developer Toolkit during
+    installation.
+    <p>
+    Start MinGW Shell from the Windows Start Menu.
+    Install additional packages by entering following commands at the prompt:
+    (the &ldquo;<tt>$</tt>&rdquo; sign indicates the shell-prompt,
+    do not type it)
+    <blockquote>
+<pre>$ <b>mingw-get.exe install msys-groff-ext</b>
+$ <b>mingw-get.exe install gettext</b>
+$</pre>
+    </blockquote>
+
+<dt>The Boost Library<dd>
+    Download and install the Boost library from <a
+    href="http://ascend4.org/Binary_installer_for_Boost_on_MinGW"
+    >http://ascend4.org/Binary_installer_for_Boost_on_MinGW</a>.
+    Copy the newly installed files to you MinGW directory:
+    <blockquote>
+<pre>$ <b>cp <i>boost-install-dir</i>/lib/* /lib/</b>
+$ <b>cp -r <i>boost-install-dir</i>/include/boost-1_41/boost /include/</b>
+$</pre>
+    </blockquote>
+
+<dt>The libgcrpyt Library<dd>
+    Download libgcrypt-1.5.0.tar.bz2 and
+    libgpg-error-1.10.tar.bz2 (newer versions should also work)
+    from <a href="http://www.gnupg.org/download/index.en.html"
+    >http://www.gnupg.org/download/index.en.html</a>.  cd to the directory
+    where the two downloaded files are (make sure the path to this directory
+    does not contain spaces)
+    <blockquote>
+<pre>$ <b>tar xjf libgpg-error-1.10.tar.bz2</b>
+$ <b>cd libgpg-error-1.10</b>
+$ <b>./configure --disable-shared --enable-static</b>
+<i>lots of output</i>
+$ <b>make</b>
+<i>lots of output</i>
+$ <b>make install</b>
+<i>lots of output</i>
+$</pre>
+    </blockquote>
+    (the previous step might hang when converting from ISO-8859-2 to
+    UTF-8 late in the build process. Press ctrl-c and proceed)
+    <blockquote>
+<pre>$ <b>cd ..</b>
+$ <b>tar xjf libgcrypt-1.5.0.tar.bz2</b>
+$ <b>cd libgcrypt</b>
+$ <b>./configure --disable-shared --enable-static</b>
+<i>lots of output</i>
+$ <b>make</b>
+<i>lots of output</i>
+$ <b>make install</b>
+<i>lots of output</i>
+$</pre>
+    </blockquote>
+</dl>
+<p>
+You now have all the prerequisites required to build the srecord tools.
+
+<h2> Building SRecord </h2>
+cd to the directory where you unpacked the srecord source code.
+<p>
+Now we can start the actual build process:
+<p>
+Start configure for srecord:
+<blockquote>
+<pre>$ <b>CPPFLAGS="-static -I/include -I/usr/local/include" \
+LDFLAGS=" -L/lib -L/usr/local/lib" \
+CC='gcc -static-libgcc' \
+CXX='g++ -static-libgcc -static-libstdc++' \
+LIBS=-lgpg-error \
+./configure</b>
+<i>lots of output</i>
+$</pre>
+</blockquote>
+<p>
+After configure has run successfully, start the build process:
+<p>
+<blockquote>
+<pre>$ <b>make</b>
+<i>lots of output</i>
+$</pre>
+</blockquote>
+<p>
+After successful build process, run the tests:
+<p>
+<blockquote>
+<pre>$ <b>make -i sure</b>
+<i>lots of output</i>
+$</pre>
+</blockquote>
+<p>
+All tests should succeed.
+<p>
+Next, reduce the size of the built programs by removing debugging information:
+<p>
+<blockquote>
+<pre>$ <b>cd bin</b>
+$ <b>strip *.exe</b>
+$</pre>
+</blockquote>
+<p>
+Finally, move <tt>srec_cat.exe</tt>,
+<tt>srec_info.exe</tt> and
+<tt>srec_cmp.exe</tt>
+from the bin directory to where you want them, you can then delete
+everything else in the bin-directory.
+<p>
+You should now have working SRecord tools.
+<p>
+This is how the executables on <a
+href="http://sourceforge.net/projects/srecord/files/srecord-win32/"
+>sourceforge.net</a> were built.
+
+.\" ------------------------------------------------------------------------
+<hr>
+<table border=0><tr><td valign="top">
+<a href="http://www.fsf.org/" ><img
+src="http://upload.wikimedia.org/wikipedia/commons/b/bf/\
+GNU-FDL-ic%C3%B4ne-Transparente.PNG"
+border=0 alt="" /></a>
+</td><td valign="top" width="35%">
+SRecord is maintained by
+<a href="mailto:scottfinneran@yahoo.com.au"
+>Scott Finneran &lt;scottfinneran@yahoo.com.au&gt;</a>
+and is freely distributable under the terms and conditions of the
+<a href="http://www.gnu.org/licenses/gpl.txt">GNU GPL</a>.
+</td>
+<td valign="top">
+<a href="http://www.opensource.org/docs/definition.php" ><img
+src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png"
+border="0" /></a>
+</td>
+<td valign="top" align="right">
+There is more <a
+href="http://miller.emu.id.au/pmiller/software/"
+>Software by Peter Miller</a>
+at his home page.
+</td><td valign="top">
+<a href="http://miller.emu.id.au/pmiller/" ><img
+src="http://miller.emu.id.au/pmiller/pmiller_2003_colour.64.png"
+border=0 ></a>
+</td></tr></table>
+.\" ------------------------------------------------------------------------
+<hr>
+<a href="http://sourceforge.net/"><img
+src="http://sourceforge.net/sflogo.php?group_id=72866&amp;type=5"
+width="210" height="62" border="0" alt="SourceForge.net Logo"
+align="right"></a>
+This page is hosted by <a href="http://sourceforge.net/">SourceForge</a>.
+<br>
+This page has been accessed approximately
+<img
+src="http://miller.emu.id.au/cgi-bin/web_hit_counter?pmiller_srecord_\*(v)_win"
+> times since
+.ds MO1 Jan
+.ds MO2 Feb
+.ds MO3 Mar
+.ds MO4 Apr
+.ds MO5 May
+.ds MO6 Jun
+.ds MO7 Jul
+.ds MO8 Aug
+.ds MO9 Sep
+.ds MO10 Oct
+.ds MO11 Nov
+.ds MO12 Dec
+.nr y4 \n[yr]+1900
+\n[dy]-\*[MO\n[mo]]-\n[y4].
+</body></html>
+
+
+/* vim: set ts=8 sw=4 et : */

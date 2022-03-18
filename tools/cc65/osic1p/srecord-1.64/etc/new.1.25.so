@@ -1,0 +1,40 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.25.D002
+.\" Change 11
+.\" pmiller, Fri May 26 14:46:33 2006, --maximum parse bug
+It is now possible to place parentheses on the command line in
+more places to clarify your intent.
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.25.D001
+.\" Change 10
+.\" pmiller, Thu May 18 20:01:22 2006, prepare for release
+This change prepares SRecord for the next public release.
+.\" .TP 2n
+.\" .if n *
+.\" .if t \(bu
+.\" .\" Change N
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.25 (2006-May-18)

@@ -1,0 +1,86 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2003, 2006, 2007, 2009, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 20
+There is now a command line option to guess the input file format;
+all of the tools understand this option.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 19
+The \[lq]MOS Technologies\[rq] file format is now understood for reading
+and writing.
+See \fIsrec_mos_tech\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18
+The \[lq]Tektronix Extended\[rq] file format is now understood for reading
+and writing.
+See \fIsrec_tektronix_extended\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+The \[lq]Texas Instruments Tagged\[rq] file format is now understood for
+reading and writing.
+(Also known as the TI\[hy]Tagged or SDSMAC format.)
+See \fIsrec_ti_tagged\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+The \[lq]ascii\[hy]hex\[rq] file format is now understood for reading
+and writing.
+(Also known as the ascii\[hy]space\[hy]hex format.)
+See \fIsrec_ascii_hex\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+There is a new \fIbyte swap\fP input filter, allowing pairs of odd and
+even input bytes to be swapped.
+See \fIsrec_cat\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 14
+The \[lq]wilson\[rq] file format is now understood for reading and writing.
+This mystery format was added for a mysterious type of EPROM writer.
+See \fIsrec_wilson\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 13
+The \fIsrec_cat\fP program now has a \fB\-data\[hy]only\fP option, which
+suppresses all output except for the data records.  This helps when
+talking to brain\[hy]dead EPROM programmers which barf at anything but data.
+See \fIsrec_cat\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+There is a new \fI\-Line\[hy]Length\fP option for the \fIsrec_cat\fP program,
+allowing you to specify the maximum width of output lines.
+See \fIsrec_cat\fP(1) for more information.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.4 (2000\[hy]Jan\[hy]13)

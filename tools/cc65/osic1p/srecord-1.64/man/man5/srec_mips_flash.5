@@ -1,0 +1,84 @@
+'\" t
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2011, 2012 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_mips_flash.5
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_mips_flash \- MIPS\[hy]Flash file format
+.if require_index \{
+.XX "srec_mips_flash(5)" "MIPS-Flash file format"
+.\}
+.SH DESCRIPTION
+The MIPS SDE tool chain has a \f[I]convert\fP program that is able to
+output this format.  I have no idea what reads it, some kind of flash
+programmer I suppose.
+.SS Format
+The file must start with '!R' to reset the state machine.
+White space appears to be ignored, except as it serves to separate tokens.
+.PP
+Data is presented as 32\[hy]bit hexadecimal numbers, in the normal
+big\[hy]endian text number format.  To write them to memory, you have to
+know if the target is big\[hy]endian or little\[hy]endian. for little endian
+targets, reverse the order of the bytes in this number.
+.PP
+The eight bytes following a '>' are a sort of comment.  The SDE code
+reads like they are displayed in the flash programmer as a kind of
+progress indicator.
+.PP
+The number following '@' is a new address for the following data.
+.PP
+Each segment must be erased before it can be written, this is done with
+the '!E' command.  Each segment is assumed to be 128kB in size.
+.PP
+Special segments must unlocked (with the '!C' command) and locked again
+(with the '!S' command).
+.PP
+This file format contains no checksum mechanism.
+.PP
+.SS Command Line Options
+This format is specified using one of the \fB\-Mips\[hy]Flash\[hy]Big_Endian\fP
+or \fB\-Mips\[hy]Flash\[hy]Little_Endian\fP options.  The endian\[hy]ness must
+be specified on the command line, because there is nothing in the file contents
+to indicate the endian\[hy]ness of the data it contains.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.3 times
+when represented with this format (worse if you use shorter lines).
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example MIPS\[hy]Flash file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at bytes address 0x0000
+(but remember, the file contents are always multiples of four bytes).
+.RS
+.nf
+.ft CW
+!R
+>00000xxx @00000000 !E
+@00000000
+>00000000
+48656C6C 6F2C2057 6F726C64 210A0000
+>#DL_DONE
+>FINISHED
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

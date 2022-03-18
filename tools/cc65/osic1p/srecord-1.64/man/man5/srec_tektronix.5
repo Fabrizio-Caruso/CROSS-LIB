@@ -1,0 +1,111 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 2000, 2001, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_tektronix
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_tektronix \- Tektronix hexadecimal file format
+.if require_index \{
+.XX "srec_tektronix(5)" "Tektronix hexadecimal file format"
+.\}
+.SH DESCRIPTION
+.\" ------------------------------------------------------------------------
+The Tektronix hexadecimal file format is no longer very common.
+It serves a similar purpose to the Motorola and Intel formats,
+usually used to transfer data into EPROM programmers.
+.SS The Lines
+Most Tektronix hex files contain only Tektronix hex lines (see
+the next section), which always start with a slash (\[lq]/[rq]) character.
+There are only two types of lines \- data lines and a termination line.
+.br
+.ne 2i
+.SS Data Lines
+Data lines have five fields:
+address, length, checksum 1, data and checksum 2.
+The lines always start with a slash (\[lq]/[rq]) character.
+.TS
+allbox,center,tab(;);
+lf(CW) l l l l l.
+/;Address;Length;Checksum1;Data;Checksum2
+.TE
+.TP 8n
+Address
+This is a 4 character (2 byte) address that specifies where the data in
+the record is to be loaded into memory.
+.TP 8n
+Data Length
+The data length field is a 2 character (1 byte) field that specifies the
+number of character pairs (bytes) in the data field.
+This field never has a value of zero.
+.TP 8n
+Checksum 1
+The checksum 1 field is a 2 character (1 byte) field.  Its value is
+the 8\[hy]bit sum of the six 4\[hy]bit values which make up the address and
+length fields.
+.TP 8n
+Data
+The data field contains character pairs (bytes); the number of character
+pairs (bytes) is indicated by the length field.
+.TP 8n
+Checksum 2
+The checksum 2 field is a 2 character (1 byte) field.  Its value is
+the least significant byte of the sum of the all the 4\[hy]bit values of
+the data field.
+.br
+.ne 2i
+.SS Termination Line
+Termination lines have three fields:
+address, zero and checksum.
+The lines always start with a slash (\[lq]/[rq]) character.
+.TS
+allbox,center,tab(;);
+lf(CW) l l l.
+/;Address;Zero;Checksum
+.TE
+.TP 8n
+Address
+This is a 4 character (2 byte) address that specifies where to begin
+execution.
+.TP 8n
+Zero
+The data length field is a 2 character (1 byte) field of value zero.
+.TP 8n
+Checksum
+The checksum 1 field is a 2 character (1 byte) field.  Its value is
+the 8\[hy]bit sum of the six 4\[hy]bit values which make up the address and
+zero fields.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.4 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Tektronix hex file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0.
+.RS
+.nf
+.ft CW
+/00000D0D48656C6C6F2C20576F726C640A52
+/00000000
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

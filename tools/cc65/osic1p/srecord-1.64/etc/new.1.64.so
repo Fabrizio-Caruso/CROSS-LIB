@@ -1,0 +1,122 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2014 Scott Finneran
+.\"
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the Free
+.\" Software Foundation; either version 3 of the License, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+.\" or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+.\" for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.\"
+.ne 2i
+.SS Version 1.64 (2014\[hy]Jun\[hy]22)
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D012
+.\" Change 11
+.\" sfinneran, Sat Jun 21 19:57:55 2014, Maintainer's name
+Cleaned up a few references to the maintainer's name.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D011
+.\" Change 16
+.\" sfinneran, Sat Jun 21 19:18:38 2014, Fix test warnings
+Fixed some warnings in test 38
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D010
+.\" Change 33
+.\" sfinneran, Sat Jun 21 19:09:51 2014, Mike's roff bugs
+Fixed bugs discovered by Mike <russiane39@gmail.com> regarding
+the formatting of some of the examples where lines were wrapping
+the wrong way.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D009
+.\" Change 26
+.\" sfinneran, Sat Jun 21 16:49:49 2014, Optionally compile without libgrcypt
+Added the ability to compile without libgcrypt if the user
+specifies the option \[hy]\[hy]without\[hy]gcrypt to configure. If gcrypt is
+missing, the user is prompted to either install it or explicitly
+compile with it disabled.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D008
+.\" Change 27
+.\" sfinneran, Fri Jun 20 08:10:58 2014, Fix compiler warnings and doco
+Cleaned up a few recent compiler and doxygen warnings.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D007
+.\" Change 20
+.\" sfinneran, Mon Apr 28 18:04:20 2014, Fix for srec_memory::find_next_chunk
+Added Sourceforge Patch #4 contributed by Stas
+Sergeev <stsp@sourceforge.net> which contributed get_upper_bound() and makes
+it and the lower equivalent public (for use from libsrecord).
+Also fixed a bug in srec_memory::find_next_chunk() where it
+would fail to reset the find_next_chunk_index once it became
+equal to nchunks. After that, find_next_chunk() would always
+fail.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D006
+.\" Change 19
+.\" sfinneran, Sun Apr 27 19:50:54 2014, C Array Prefix and Postfix Strings
+Added prefix and postfix strings to the C Array format which are
+applied at each end of the data array declaration. This allows
+the user to add various compiler directives such as location
+flags or non\[hy]standard load address specifiers.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D005
+.\" Change 17
+.\" sfinneran, Tue Apr 22 18:11:41 2014, Spurious start address generated
+when converting from AOMF
+Fixed Sourceforge bug 11 raised by patryks. In the analysis, it
+was discovered that a start address (of zero) was being
+generated when converting from AOMF. AOMF does not support the
+concept of an execution start address.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D004
+.\" Change 18
+.\" sfinneran, Mon Apr 21 20:13:29 2014, Update website Download page
+The Windows build instructions have been updated by Jens Heilig
+<jens@familie\[hy]heilig.net>.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D003
+.\" Change 15
+.\" sfinneran, Fri Apr 18 16:39:28 2014, Fix length field in tek ext doco
+Fixed the length field description in extended tektronix
+documentation. The implementation was already correct.
+.PP
+.if n *
+.if t \(bu
+.\" srecord.1.63.D002
+.\" Change 12
+.\" sfinneran, Thu Apr 17 21:35:01 2014, Add test for calc address for CRC
+Added a regression test for calculated address for CRC
+(Sourceforge bug 19).
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.\" vim: set ts=8 sw=4 et :

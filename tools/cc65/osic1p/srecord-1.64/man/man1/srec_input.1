@@ -1,0 +1,1212 @@
+'\" t
+.\" srecord - The "srecord" program.
+.\" Copyright (C) 1998-2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_input
+.TH \*(n) 1 SRecord "Reference Manual"
+.SH NAME
+\*(n) \- input file specifications
+.if require_index \{
+.XX "srec_input(1)" "Input file specifications"
+.\}
+.SH SYNOPSIS
+\f[B]srec_*\fP \f[I]filename\fP [ \f[I]format\fP ]
+.SH DESCRIPTION
+This manual page describes the input file specifications for the
+\f[I]srec_cat\fP(1), \f[I]srec_cmp\fP(1) and \f[I]srec_info\fP(1)
+commands.
+.PP
+Input files may be qualified in a number of ways: you may specify their
+format and you may specify filters to apply to them.
+An input file specification looks like this:
+.RS
+\f[I]filename\fP [ \f[I]format\fP ][ \-ignore\[hy]checksums ]\
+[ \f[I]filter\fP \&... ]
+.RE
+.PP
+The
+.I filename
+may be specified as a file name,
+or the special name \(lq\-\(rq which is understood to mean the standard input.
+.SS Grouping with Parentheses
+There are some cases where operator precedence of the filters can
+be ambiguous.  Input specifications may also be enclosed by \fB(\fP
+parentheses \fB)\fP to make grouping explicit.  Remember that the
+parentheses must be separate words, \f[I]i.e.\fP surrounded by
+spaces, and they will need to be quoted to get them past the shell's
+interpretation of parentheses.
+.SS Those Option Names Sure Are Long
+.so man/man1/z_options.so
+.SS File Formats
+The
+.I format
+is specified by the argument \f[I]after\fP the file name.
+The format defaults to Motorola S\[hy]Record if not specified.
+The format specifiers are:
+.\" ----------  A  ---------------------------------------------------------
+.TP 8n
+\fB\-Absolute_Object_Module_Format\fP
+This option says to use the Intel Absolute Object Module Format (AOMF) to read
+the file.  (See \f[I]srec_aomf\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-Ascii_Hex\fP
+This option says to use the Ascii\[hy]Hex format to read the file.
+See
+.IR srec_ascii_hex (5)
+for a description of this file format.
+.TP 8n
+\fB\-Atmel_Generic\fP
+This option says to use the Atmel Generic format to read the file.
+See
+.IR srec_atmel_genetic (5)
+for a description of this file format.
+.\" ----------  B  ---------------------------------------------------------
+.TP 8n
+\fB\-Binary\fP
+This option says the file is a raw binary file, and should be read literally.
+(This option may also be written \-Raw.)
+See \f[I]srec_binary\fP(5) for more information.
+.TP 8n
+\fB\-B\[hy]Record\fP
+This option says to use the Freescale MC68EZ328 Dragonball bootstrap
+b\[hy]record format to read the file.
+See \f[I]srec_brecord\fP(5) for a description of this file format.
+.\" ----------  C  ---------------------------------------------------------
+.TP 8n
+\fB\-COsmac\fP
+This option says to use the RCA Cosmac Elf format to read the file.
+See \f[I]srec_cosmac\fP(5) for a description of this file format.
+.\" ----------  D  ---------------------------------------------------------
+.TP 8n
+\fB\-Dec_Binary\fP
+This option says to use the DEC Binary (XXDP) format to read the file.
+See \f[I]srec_dec_binary\fP(5) for a description of this file format.
+.\" ----------  E  ---------------------------------------------------------
+.TP 8n
+\fB\-Elektor_Monitor52\fP
+This option says to use the EMON52 format to read the file.
+See \f[I]srec_emon52\fP(5) for a description of this file format.
+.\" ----------  F  ---------------------------------------------------------
+.TP 8n
+\fB\-FAIrchild\fP
+This option says to use the Fairchild Fairbug format to read the file.
+See \f[I]srec_fairchild\fP(5) for a description of this file format.
+.TP 8n
+\fB\-Fast_Load\fP
+This option says to use the LSI Logic Fast Load format to read the file.
+See \f[I]srec_fastload\fP(5) for a description of this file format.
+.TP 8n
+\fB\-Formatted_Binary\fP
+This option says to use the Formatted Binary format to read the file.
+See \f[I]srec_formatted_binary\fP(5) for a description of this file format.
+.TP 8n
+\fB\-Four_Packed_Code\fP
+This option says to use the FPC format to read the file.
+See \f[I]srec_fpc\fP(5) for a description of this file format.
+.\" ----------  G  ---------------------------------------------------------
+.TP 8n
+\fB\-Guess\fP
+This option may be used to ask the command to guess the input format.
+This is slower than specifying an explicit format,
+as it may open and scan and close the file a number of times.
+.\" ----------  H  ---------------------------------------------------------
+.TP 8n
+\fB\-HEX_Dump\fP
+This option says to try to read a hexadecimal dump file, more or less
+in the style output by the same option.  This is not an exact reverse
+mapping, because if there are ASCII equivalents on the right hand side,
+these may be confused for data bytes.  Also, it doesn't understand white
+space representing holes in the data in the line.
+.\" ----------  I  ---------------------------------------------------------
+.TP 8n
+\fB\-IDT\fP
+This option says to the the IDT/sim binary format to read the file.
+See \f[I]srec_idt\fP(5) for a description of this file format.
+.TP 8n
+\fB\-Intel\fP
+This option says to use the Intel hex format to read the file.
+See
+.IR srec_intel (5)
+for a description of this file format.
+.TP 8n
+\fB\-INtel_HeX_16\fP
+This option says to use the Intel hex 16 (INHX16) format to read the file.
+See
+.IR srec_intel16 (5)
+for a description of this file format.
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+.TP 8n
+\fB\-LOGIsim\fP
+This format is read and written by the open source Logisim program.
+See \f[I]srec_logisim\fP(5) for more informatuion.
+.\" ----------  M  ---------------------------------------------------------
+.TP 8n
+\fB\-Memory_Initialization_File\fP
+This option says to use the Memory Initialization File (MIF) format by
+Altera to read the file.
+See \f[I]srec_mif\fP (5) for a description of this file format.
+.TP 8n
+\fB\-Mips_Flash_Big_Endian\fP
+.TP 8n
+\fB\-Mips_Flash_Little_Endian\fP
+These options say to use the MIPS Flash file format to read the file.
+See \f[I]srec_mips_flash\fP (5) for a description of this file format.
+.TP 8n
+\fB\-MOS_Technologies\fP
+This option says to use the Mos Technologies format to read the file.
+See
+.IR srec_mos_tech (5)
+for a description of this file format.
+.TP 8n
+\fB\-Motorola\fP [ \f[I]width\fP ]
+.RS
+This option says to use the Motorola S\[hy]Record format to read the file.
+(May be written \fB\-S\[hy]Record\fP as well.)
+See
+.IR srec_motorola (5)
+for a description of this file format.
+.PP
+The optional \f[I]width\fP argument describes the number of bytes which
+form each address multiple.  For normal uses the default of one (1) byte
+is appropriate.  Some systems with 16\[hy]bit or 32\[hy]bit targets mutilate the
+addresses in the file; this option will correct for that.
+Unlike most other parameters, this one cannot be guessed.
+.RE
+.TP 8n
+\fB\-MsBin\fP
+This option says to use the Windows CE Binary Image Data Format to
+read the file.  See \f[I]srec_msbin\fP(5) for a description of this
+file format.
+.\" ----------  N  ---------------------------------------------------------
+.TP 8n
+\fB\-Needham_Hexadecimal\fP
+This option says to use the Needham Electronics ASCII file format to
+read the file.  See \f[I]srec_needham\fP(5) for a description of this
+file format.
+.\" ----------  O  ---------------------------------------------------------
+.TP 8n
+\fB\-Ohio_Scientific\fP
+This option says to use the Ohio Scientific format.
+See \f[I]srec_os65v\fP(5) for a description of this file format.
+.\" ----------  P  ---------------------------------------------------------
+.TP 8n
+\fB\-PPB\fP
+This option says to use the Stag Prom Programmer binary format.
+See \f[I]srec_ppb\fP(5) for a description of this file format.
+.TP 8n
+\fB\-PPX\fP
+This option says to use the Stag Prom Programmer hexadecimal format.
+See \f[I]srec_ppx\fP(5) for a description of this file format.
+.\" ----------  Q  ---------------------------------------------------------
+.\" ----------  R  ---------------------------------------------------------
+.\" ----------  S  ---------------------------------------------------------
+.TP 8n
+\fB\-SIGnetics\fP
+This option says to use the Signetics format.
+See \f[I]srec_spasm\fP(5) for a description of this file format.
+.TP 8n
+\fB\-SPAsm\fP
+This is a synonym for the \fB\-SPAsm_Big_Endian\fP option.
+.TP 8n
+\fB\-SPAsm_Big_Endian\fP
+This option says to use the SPASM assembler output format (commonly used
+by PIC programmers).
+See \f[I]srec_spasm\fP(5) for a description of this file format.
+.TP 8n
+\fB\-SPAsm_Little_Endian\fP
+This option says to use the SPASM assembler output format,
+but with the data the other way around.
+.TP 8n
+\fB\-STewie\fP
+This option says to use the Stewie binary format to read the file.
+See
+.IR srec_stewie (5)
+for a description of this file format.
+.\" ----------  T  ---------------------------------------------------------
+.TP 8n
+\fB\-Tektronix\fP
+This option says to use the Tektronix hex format to read the file.
+See
+.IR srec_tektronix (5)
+for a description of this file format.
+.TP 8n
+\fB\-Tektronix_Extended\fP
+This option says to use the Tektronix extended hex format to read the file.
+See
+.IR srec_tektronix_extended (5)
+for a description of this file format.
+.TP 8n
+\fB\-Texas_Instruments_Tagged\fP
+This option says to use the Texas Instruments Tagged format to read the file.
+See
+.IR srec_ti_tagged (5)
+for a description of this file format.
+.TP 8n
+\fB\-Texas_Instruments_Tagged_16\fP
+This option says to use the Texas Instruments SDSMAC 320 format to read
+the file.  See
+.IR srec_ti_tagged_16 (5)
+for a description of this file format.
+.TP 8n
+\fB\-Texas_Instruments_TeXT\fP
+This option says to use the Texas Instruments TXT (MSP430) format to
+read the file.  See \f[I]srec_ti_txt\fP(5) for a description of this
+file format.
+.TP 8n
+\fB\-TRS80\fP
+This option says to use the Radio Shack TRS\[hy]80 object file format to
+read the file.  See \f[I]srec_trs80\fP(5) for a description of this file
+format.
+.\" ----------  U  ---------------------------------------------------------
+.\" ----------  V  ---------------------------------------------------------
+.TP 8n
+\fB\-VMem\fP
+This option says to use the Verilog VMEM format to read the file.
+See \f[I]srec_vmem\fP(5) for a description of this file format.
+.\" ----------  W  ---------------------------------------------------------
+.TP 8n
+\fB\-WILson\fP
+This option says to use the wilson format to read the file.
+See
+.IR srec_wilson (5)
+for a description of this file format.
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.SS Ignore Checksums
+.so man/man1/o_ignore_checksums.so
+.so man/man1/o_multiple.so
+.SS Generators
+It is also possible to generate data, rather than read it from a file.
+You may use a generator anywhere you could use a file.
+An input generator specification looks like this:
+.PP
+.in +0.25i
+\fB\-GENerate\fP \f[I]address\[hy]range\fP \fB\-\fP\f[I]data\[hy]source\fP
+.in -0.25i
+.PP
+The \fB\-\fP\f[I]data\[hy]source\fP may be one of the following:
+.TP 8n
+\fB\-CONSTant\fP \f[I]byte\[hy]value\fP
+.RS
+This generator manufactures data with the given byte value of the
+the given address range.
+It is an error if the byte\[hy]value is not in the range 0..255.
+.PP
+For example, to fill memory addresses 100..199 with newlines (0x0A),
+you could use a command like
+.PP
+.nf
+.in +0.25i
+.ft CW
+srec_cat \-generate 100 200 \-constant 10 \-o newlines.srec
+.ft P
+.in -0.25i
+.fi
+.PP
+This can, of course, be combined with data from files.
+.RE
+.TP 8n
+\fB\-REPeat_Data\fP \f[I]byte\[hy]value\fP...
+.RS
+This generator manufactures data with the given byte values repeating
+over the the given address range.
+It is an error if any of the the byte\[hy]values are not in the range 0..255.
+.PP
+For example, to create a data region with 0xDE in the even bytes and 0xAD
+in the odd bytes, use a generator like this:
+.PP
+.nf
+.in +0.25i
+.ft CW
+srec_cat \-generate 0x1000 0x2000 \-repeat\[hy]data 0xDE 0xAD
+.ft P
+.in -0.25i
+.fi
+.PP
+The repeat boundaries are aligned with the base of the address range,
+modulo the number of bytes.
+.RE
+.TP 8n
+\fB\-REPeat_String\fP \f[I]text\fP
+.RS
+This generator is almost identical to \-repeat\[hy]data except that the data
+to be repeated is the text of the given string.
+.PP
+For example, to fill the holes in an EPROM image \f[I]eprom.srec\fP with the
+text \(lqCopyright (C) 1812 Tchaikovsky\(rq, combine a generator and an
+\-exclude filter, such as the command
+.PP
+If you need to inject binary data into the string (e.g. a terminating NUL
+character), use the URL encoding that uses % followed by two hexadeimal
+characters.  For example a backspace would be encoded as \[lq]%08\[rq].
+.PP
+.nf
+.in +0.25i
+.ft CW
+srec_cat eprom.srec \e
+    \-generate 0 0x100000 \e
+        \-repeat\[hy]string 'Copyright (C) 1812 Tchaikovsky. ' \e
+        \-exclude \-within eprom.srec \e
+    \-o eprom.filled.srec
+.ft R
+.in -0.25i
+.fi
+.PP
+The thing to note is that we have two data sources: the \f[I]eprom.srec\fP
+file, and generated data over an address range which covers first
+megabyte of memory but excluding areas covered by the \f[I]eprom.srec\fP data.
+.RE
+.TP 8n
+\fB\-CONSTant_Little_Endian\fP \f[I]value\fP \f[I]width\fP
+.RS
+This generator manufactures data with the given numeric value,
+of a given byte width, in little\[hy]endian byte order.
+It is an error if the given value does not fit into the given byte width.
+It will repeat over and over within the address range range.
+.PP
+For example, to insert a subversion commit number
+into 4 bytes at 0x0008..0x000B you would use
+a command like
+.PP
+.nf
+.in +0.25i
+.ft CW
+srec_cat \-generate 8 12 \-constant\[hy]l\[hy]e $VERSION 4 \e
+    \-o version.srec
+.ft P
+.in -0.25i
+.fi
+.PP
+This generator is a convenience wrapper around the \fB\-REPeat_Data\fP
+generator.  It can, of course, be combined with data from files.
+.RE
+.TP 8n
+\fB\-CONSTant_Big_Endian\fP \f[I]value\fP \f[I]width\fP
+.RS
+As above, but using big\[hy]endian byte ordering.
+.RE
+.PP
+Anything else will result in an error.
+.SS Input Filters
+You may specify zero or more \f[I]filters\fP to be applied.
+Filters are applied in the order the user specifies.
+.\" ----------  A  ---------------------------------------------------------
+.\"             adler 16, big endian
+.TP 8n
+\fB\-Adler_16_Big_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert an \[lq]Adler\[rq] 16\[hy]bit checksum
+of the data into the data.
+Two bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\fBNote:\fP If you have holes in your data, you will get a different
+Adler checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Adler checksum filters.
+You will receive a warning if the data presented for Adler checksum has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Adler\[hy]32
+.RE
+.\"             adler 16, little endian
+.TP 8n
+\fB\-Adler_16_Little_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert an Adler 16\[hy]bit checksum
+of the data into the data.  Two bytes, in little\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\f[B]Note:\fP If you have holes in your data, you will get a different
+Adler checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Adler filters.
+You will receive a warning if the data presented for Adler checksum has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Adler\[hy]32
+.RE
+.\"             adler 32, big endian
+.TP 8n
+\fB\-Adler_32_Big_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert a Adler 32\[hy]bit checksum
+of the data into the data.  Four bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\fBNote:\fP If you have holes in your data, you will get a different
+Adler checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Adler checksum filters.
+You will receive a warning if the data presented for Adler checksum has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Adler\[hy]32
+.RE
+.\"             adler 32, little endian
+.TP 8n
+\fB\-Adler_32_Little_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert a Adler 32\[hy]bit checksum
+of the data into the data.  Four bytes, in little\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\f[B]Note:\fP If you have holes in your data, you will get a different
+Adler checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Adler checksum filters.
+You will receive a warning if the data presented for Adler checksum has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Adler\[hy]32
+.RE
+.\"             and
+.TP 8n
+\fB\-AND\fP \f[I]value\fP
+This filter may be used to bit\[hy]wise AND a \f[I]value\fP to every data byte.
+This is useful if you need to clear bits.
+Only existing data is altered, no holes are filled.
+.\" ----------  B  ---------------------------------------------------------
+.\"             bit reverse
+.TP 8n
+\fB\-Bit_Reverse\fP [ \f[I]width\fP ]
+This filter may be used to reverse the order of the bits in each data byte.
+By specifying a width (in bytes) it is possible to reverse the order
+multi\[hy]byte values; this is implemented using the byte\[hy]swap filter.
+.\"             byte swap
+.TP 8n
+\fB\-Byte_Swap\fP [ \f[I]width\fP ]
+This filter may be used to swap pairs of odd and even bytes.
+By specifying a width (in bytes) it is possible to reverse the order
+of 4 and 8 bytes, the default is 2 bytes.  (Widths in excess of 8 are
+assumed to be number of bits.)
+It is not possible to swap non\[hy]power\[hy]of\[hy]two addresses.
+To change the alignment, use the offset filter before and after.
+.\" ----------  C  ---------------------------------------------------------
+.\"             checksum bitnot, big endian
+.TP 8n
+\fB\-Checksum_BitNot_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the one's complement checksum of the
+data into the data, most significant byte first.
+The data is literally summed; if there are duplicate bytes, this will
+produce an incorrect result, if there are holes, it will be as if they were
+filled with zeros.
+If the data already contains bytes at the checksum location,
+you need to use an exclude filter, or this will generate errors.
+You need to apply and crop or fill filters before this filter.
+The value will be written with the most significant byte first.
+The number of bytes of resulting checksum defaults to 4.
+The width (the width in bytes of the values being summed) defaults to 1.
+.\"             checksum bitnot, bittle endian
+.TP 8n
+\fB\-Checksum_BitNot_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the one's complement (bitnot)
+checksum of the data into the data, least significant byte first.
+Otherwise similar to the above.
+.\"             checksum negative, big endian
+.TP 8n
+\fB\-Checksum_Negative_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the two's complement (negative)
+checksum of the data into the data.  Otherwise similar to the above.
+.\"             checksum negative, little endian
+.TP 8n
+\fB\-Checksum_Negative_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the two's complement (negative)
+checksum of the data into the data.  Otherwise similar to the above.
+.\"             checksum positive, big endian
+.TP 8n
+\fB\-Checksum_Positive_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the simple checksum of the data into
+the data.  Otherwise similar to the above.
+.\"             checksum positive, little endian
+.TP 8n
+\fB\-Checksum_Positive_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \
+\f[I]width\fP ]]
+This filter may be used to insert the simple checksum of the data into
+the data.  Otherwise similar to the above.
+.\"             crc16, big endian
+.TP 8n
+\fB\-CRC16_Big_Endian\fP \f[I]address\fP [ \f[I]modifier\fP... ]
+.RS
+This filter may be used to insert an industry standard 16\[hy]bit CRC checksum
+of the data into the data.  Two bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+The following additional modifiers are understood:
+.TP 8n
+\f[I]number\fP
+Set the polynomial to be used to the given number.
+.TP 8n
+\fB\-POLYnomial\fP \f[I]name\fP
+.RS
+This option may be used to set the CRC polynomial to be used, by name.
+The known names include:
+.RS
+.TS
+tab(;);
+l r.
+ibm;0x8005
+ansi;0x8005
+ccitt;0x1021
+t10\[hy]dif;0x8bb7
+dnp;0x3d65
+dect;0x0589
+.TE
+.RE
+.PP
+See http://en.wikipedia.org/wiki/Cyclic_redundancy_check for a table of
+names and values.
+.RE
+.TP 8n
+\fB\-Most_To_Least\fP
+The CRC calculation is performed with the most significant bit in each
+byte processed first, and then proceeding towards the least significant
+bit.  This is the default.
+.TP 8n
+\fB\-Least_To_Most\fP
+The CRC calculation is performed with the least significant bit in each
+byte processed first, and then proceeding towards the most significant
+bit.
+.TP 8n
+\fB\-CCITT
+The CCITT calculation is performed.
+The initial seed is 0xFFFF.
+This is the default.
+.TP 8n
+\fB\-XMODEM\fP
+The alternate XMODEM calculation is performed.
+The initial seed is 0x0000.
+.TP 8n
+\fB\-BROKEN\fP
+A common\[hy]but\[hy]broken calculation is performed (see note 2 below).
+The initial seed is 0x84CF.
+.TP 8n
+\fB\-AUGment
+The CRC is augmented by sixteen zero bits at the end of the calculation.
+This is the default.
+.TP 8n
+\fB\-No\[hy]AUGment
+The CRC is not augmented at the end of the calculation.
+This is less standard conforming, but some implementations do this.
+.PP
+\fBNote:\fP If you have holes in your data, you will get a different CRC
+than if there were no holes.  This is important because the in\[hy]memory
+EPROM image will not have holes.  You almost always want to use the
+\fB\-fill\fP filter before any of the CRC filters.
+You will receive a warning if the data presented for CRC has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+\f[B]Note 2:\fP there are a great many CRC16 implementations out there,
+see http://www.joegeluso.com\%/software\%/articles\%/ccitt.htm (now gone,
+reproduced at http://\%srecord.sourceforge.net\%/crc16\-ccitt.html)
+and \[lq]A painless guide to CRC error detection algorithms\[rq]
+http://www.repairfaq.org/filipg/LINK/F_crc_v3.html for more
+information.  If all else fails, SRecord is open source software:
+read the SRecord source code.  The CRC16 source code (found in the
+\f[CW]srecord/crc16.cc\fP file of the distribution tarball) has a great
+many explanatory comments.
+.PP
+Please try all twelve combinations of the above options before reporting a
+bug in the CRC16 calculation.
+.RE
+.\"             crc16, little endian
+.TP 8n
+\fB\-CRC16_Little_Endian\fP \f[I]address\fP [ \f[I]modifier\fP... ]
+The same as the \fB\-CRC16_Big_Endian\fP filter,
+except in little\[hy]endian byte order.
+.\"             crc32, big endian
+.TP 8n
+\fB\-CRC32_Big_Endian\fP \f[I]address\fP [ \f[I]modifier\fP... ]
+.RS
+This filter may be used to insert an industry standard 32\[hy]bit CRC checksum
+of the data into the data.  Four bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+See also the note about holes, above.
+.PP
+The following additional modifiers are understood:
+.TP 8n
+\fB\-CCITT
+The CCITT calculation is performed.
+The initial seed is all one bits.
+This is the default.
+.TP 8n
+\fB\-XMODEM\fP
+An alternate XMODEM\[hy]style calculation is performed.
+The initial seed is all zero bits.
+.RE
+.\"             crc32, little endian
+.TP 8n
+\fB\-CRC32_Little_Endian\fP \f[I]address\fP
+The same as the \fB\-CRC32_Big_Endian\fP filter,
+except in little\[hy]endian byte order.
+.\"             crop
+.TP 8n
+\fB\-Crop\fP \f[I]address\[hy]range\fP
+This filter may be used to isolate a section of data, and discard the
+rest.
+.\" ----------  D  ---------------------------------------------------------
+.\" ----------  E  ---------------------------------------------------------
+.\"             exclude
+.TP 8n
+\fB\-Exclude\fP \f[I]address\[hy]range\fP
+This filter may be used to exclude a section of data, and keep the rest.
+The is the logical complement of the \fB\-Crop\fP filter.
+.\"             exclusive length, big endian
+.TP 8n
+\fB\-Exclusive_Length_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP \
+[ \f[I]width\fP ]]
+The same as the \fB\-Length_Big_Endian\fP filter,
+except that the result does \f[B]not\fP include the length itself.
+.\"             exclusive length, little endian
+.TP 8n
+\fB\-Exclusive_Length_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP \
+[ \f[I]width\fP ]]
+The same as the \fB\-Length_Little_Endian\fP filter,
+except that the result does \f[B]not\fP include the length itself.
+.\"             exclusive maximum, big endian
+.TP 8n
+\fB\-Exclusive_MAXimum_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MAXimum_Big_Endian\fP filter,
+except that the result does \f[B]not\fP include the maximum itself.
+.\"             exclusive maximum, little endian
+.TP 8n
+\fB\-Exclusive_MAXimum_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MAXimum_Little_Endian\fP filter,
+except that the result does \f[B]not\fP include the maximum itself.
+.\"             exclusive minimum, big endian
+.TP 8n
+\fB\-Exclusive_MINimum_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MINimum_Big_Endian\fP filter,
+except that the result does \f[B]not\fP include the minimum itself.
+.\"             exclusive minimum, little endian
+.TP 8n
+\fB\-Exclusive_MINimum_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MINimum_Little_Endian\fP filter,
+except that the result does \f[B]not\fP include the minimum itself.
+.\"             exclusive or
+.TP 8n
+\fB\-eXclusive\[hy]OR\fP \f[I]value\fP
+This filter may be used to bit\[hy]wise XOR a \f[I]value\fP to every data byte.
+This is useful if you need to invert bits.
+Only existing data is altered, no holes are filled.
+.\" ----------  F  ---------------------------------------------------------
+.\"             fill
+.TP 8n
+\fB\-Fill\fP \f[I]value\fP \f[I]address\[hy]range\fP
+This filter may be used to fill any gaps in the data with bytes equal
+to \f[I]value\fP.  The fill will only occur in the address range given.
+.\"             fletcher 16, big endian
+.TP 8n
+\fB\-Fletcher_16_Big_Endian\fP \f[I]address\fP \
+[ \f[I]sum1\fP \f[I]sum2\fP [ \f[I]answer\fP ]]
+.RS
+This filter may be used to insert an Fletcher 16\[hy]bit checksum
+of the data into the data.
+Two bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\fBNote:\fP If you have holes in your data, you will get a different
+Fletcher checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Fletcher checksum filters.
+You will receive a warning if the data presented for Fletcher checksum
+has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Fletcher%27s_checksum
+.PP
+It is possible to select seed values for \f[I]sum1\fP and \f[I]sum2\fP
+in the algorithm, by adding seed values on the command line.  They each
+default to 0xFF if not explicitly stated.  The default values (0) means
+that an empty EPROM (all 0x00 or all 0xFF) will sum to zero; by changing
+the seeds, an empty EPROM will always fail.
+.PP
+The third optional argument is the desired sum, when the checksum itself
+is summed.  A common value is 0x0000, placed in the last two bytes of an
+EPROM, so that the Fletcher 16 checksum of the EPROM is exactly 0x0000.
+No manipulation of the final value is performed if this value if not specified.
+.RE
+.\"             fletcher 16, little endian
+.TP 8n
+\fB\-Fletcher_16_Little_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert an Fletcher 16\[hy]bit checksum
+of the data into the data.  Two bytes, in little\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\f[B]Note:\fP If you have holes in your data, you will get a different
+Fletcher checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Fletcher filters.
+You will receive a warning if the data presented for Fletcher checksum
+has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Fletcher%27s_checksum
+.RE
+.\"             fletcher 32, big endian
+.TP 8n
+\fB\-Fletcher_32_Big_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert a Fletcher 32\[hy]bit checksum
+of the data into the data.  Four bytes, big\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\fBNote:\fP If you have holes in your data, you will get a different
+Fletcher checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Fletcher checksum filters.
+You will receive a warning if the data presented for Fletcher checksum
+has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Fletcher%27s_checksum
+.RE
+.\"             fletcher 32, little endian
+.TP 8n
+\fB\-Fletcher_32_Little_Endian\fP \f[I]address\fP
+.RS
+This filter may be used to insert a Fletcher 32\[hy]bit checksum
+of the data into the data.  Four bytes, in little\[hy]endian order, are inserted
+at the address given.  Holes in the input data are ignored.  Bytes are
+processed in ascending address order (\f[I]not\fP in the order they appear
+in the input).
+.PP
+\f[B]Note:\fP If you have holes in your data, you will get a different
+Fletcher checksum than if there were no holes.  This is important because
+the in\[hy]memory EPROM image will not have holes.  You almost always want
+to use the \fB\-fill\fP filter before any of the Fletcher checksum filters.
+You will receive a warning if the data presented for Fletcher checksum
+has holes.
+.PP
+You should also be aware that the lower and upper bounds of your data
+may not be the same as the lower and upper bounds of your EPROM.  This
+is another reason to use the \fB\-fill\fP filter, because it will
+establish the data across the full EPROM address range.
+.PP
+http://en.wikipedia.org/wiki/Fletcher%27s_checksum
+.RE
+.\" ----------  G  ---------------------------------------------------------
+.\" ----------  H  ---------------------------------------------------------
+.\" ----------  I  ---------------------------------------------------------
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+.\"             length, big endian
+.TP 8n
+\fB\-Length_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \f[I]width\fP ]]
+This filter may be used to insert the length of the data (high water
+minus low water) into the data.  This includes the length itself.
+If the data already contains bytes at the length location,
+you need to use an exclude filter, or this will generate errors.
+The value will be written with the most significant byte first.
+The number of bytes defaults to 4.
+The width defaults to 1, and is divided into the actual length,
+thus you can insert the width in units of words (2) or longs (4).
+.\"             length, little endian
+.TP 8n
+\fB\-Length_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP [ \f[I]width\fP ]]
+The same as the \fB\-Length_Big_Endian\fP filter,
+except the value will be written with the least significant byte first.
+.\" ----------  M  ---------------------------------------------------------
+.\"             maximum, big endian
+.TP 8n
+\fB\-MAXimum_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+This filter may be used to insert the maximum address of the data (high water
+ + 1) into the data.  This includes the maximum itself.
+If the data already contains bytes at the given address,
+you need to use an exclude filter, or this will generate errors.
+The value will be written with the most significant byte first.
+The number of bytes defaults to 4.
+.\"             maximum, little endian
+.TP 8n
+\fB\-MAXimum_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MAXimum_Big_Endian\fP filter,
+except the value will be written with the least significant byte first.
+.\"             message digest 2 -- place holder, gcrypt does not implement yet
+.\"             message digest 5
+.TP 8n
+\fB\-Message_Digest_5 \f[I]address\fP
+This filter may be used to insert a 16 byte MD5 hash into the data,
+at the address given.
+.\"             minimum, big endian
+.TP 8n
+\fB\-MINimum_Big_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+This filter may be used to insert the minimum address of the data (low
+water) into the data.  This includes the minimum itself.
+If the data already contains bytes at the given address,
+you need to use an exclude filter, or this will generate errors.
+The value will be written with the most significant byte first.
+The number of bytes defaults to 4.
+.\"             minimum, little endian
+.TP 8n
+\fB\-MINimum_Little_Endian\fP \f[I]address\fP [ \f[I]nbytes\fP ]
+The same as the \fB\-MINimum_Big_Endian\fP filter,
+except the value will be written with the least significant byte first.
+.\" ----------  N  ---------------------------------------------------------
+.\"             not
+.TP 8n
+\fB\-NOT\fP
+This filter may be used to bit\[hy]wise NOT the value of every data byte.
+This is useful if you need to invert the data.
+Only existing data is altered, no holes are filled.
+.\" ----------  O  ---------------------------------------------------------
+.\"             offset
+.TP 8n
+\fB\-OFfset\fP \f[I]nbytes\fP
+.RS
+This filter may be used to
+offset the addresses by the given number of bytes.
+No data is lost, the addresses will wrap around in 32 bits, if necessary.
+You may use negative numbers for the offset,
+if you wish to move data lower in memory.
+.PP
+Please note: the execution start address is a different concept than the
+first address in memory of your data.  If you want to change where your
+monitor will start executing, use the \fB\-execution\[hy]start\[hy]address\fP
+option (\f[I]srec_cat\fP(1) only).
+.RE
+.\"             or
+.TP 8n
+\fB\-OR\fP \f[I]value\fP
+This filter may be used to bit\[hy]wise OR a \f[I]value\fP to every data byte.
+This is useful if you need to set bits.
+Only existing data is altered, no holes are filled.
+.\" ----------  P  ---------------------------------------------------------
+.\" ----------  Q  ---------------------------------------------------------
+.\" ----------  R  ---------------------------------------------------------
+.\"             random fill
+.TP 8n
+\fB\-Random_Fill\fP \f[I]address\[hy]range\fP
+This filter may be used to fill any gaps in the data with random bytes.
+The fill will only occur in the address range given.
+.\"             ripe message digest 160
+.TP 8n
+\fB\-Ripe_Message_Digest_160 \f[I]address\fP
+This filter may be used to insert an RMD160 hash into the data.
+.\" ----------  S  ---------------------------------------------------------
+.\"             secure hash algorithm 1
+.TP 8n
+\fB\-Secure_Hash_Algorithm_1 \f[I]address\fP
+This filter may be used to insert a 20 byte SHA1 hash into the data,
+at the address given.
+.\"             secure hash algorithm 224
+.TP 8n
+\fB\-Secure_Hash_Algorithm_224 \f[I]address\fP
+This filter may be used to insert a 28 byte SHA224 hash into the data,
+at the address given.
+See Change Notice 1 for FIPS 180\[hy]2 for the specification.
+.\"             secure hash algorithm 256
+.TP 8n
+\fB\-Secure_Hash_Algorithm_256 \f[I]address\fP
+This filter may be used to insert a 32 byte SHA256 hash into the data,
+at the address given.
+See FIPS 180\[hy]2 for the specification.
+.\"             secure hash algorithm 384
+.TP 8n
+\fB\-Secure_Hash_Algorithm_384 \f[I]address\fP
+This filter may be used to insert a 48 byte SHA384 hash into the data,
+at the address given.
+See FIPS 180\[hy]2 for the specification.
+.\"             secure hash algorithm 512
+.TP 8n
+\fB\-Secure_Hash_Algorithm_512 \f[I]address\fP
+This filter may be used to insert a 64 byte SHA512 hash into the data,
+at the address given.
+See FIPS 180\[hy]2 for the specification.
+.\"             split
+.TP 8n
+\fB\-SPlit\fP \f[I]multiple\fP [ \f[I]offset\fP [ \f[I]width\fP ] ]
+This filter may be used to split the input into a subset of the data,
+and compress the address range so as to leave no gaps.  This useful for
+wide data buses and memory striping.  The \f[I]multiple\fP is the bytes
+multiple to split over, the \f[I]offset\fP is the byte offset into this
+range (defaults to 0), the \f[I]width\fP is the number of bytes to extract
+(defaults to 1) within the multiple.  In order to leave no gaps, the
+output addresses are (\f[I]width\fP / \f[I]multiple\fP) times the input
+addresses.
+.\"             stm32
+.TP 8n
+\fB\-STM32\fP \f[I]address\fP
+This is a synonym for the \fB\-STM32_Little_Endian\fP filter.
+.TP 8n
+\fB\-STM32_Little_Endian\fP \f[I]address\fP
+.TP 8n
+\fB\-STM32_Big_Endian\fP \f[I]address\fP
+.RS
+These filters many be use to generate the CRC used by the hardware
+CRC unit on the STM32 series of ARM MPUs.  The algorithm used by the
+STM32 hardware unit is just a CRC32 with a different polynomial and
+word\[hy]fed instead of byte\[hy]fed.
+.PP
+The \f[I]address\fP is where to place the 4\[hy]byte STM32 CRC.
+.PP
+The CRC used is documented in \[lq]RM0041, STM32F100xx reference manual\[rq],
+page 46, chapter \[lq]CRC Calculation Unit\[rq], which can be found at
+.br
+http://www.st.com/internet/mcu/product/216844.jsp
+.RE
+.\" ----------  T  ---------------------------------------------------------
+.\"             tiger
+.TP 8n
+\fB\-TIGer\fP \f[I]address\fP
+This filter may be used to insert a 24 byte TIGER/192 hash into the data
+at the address given.
+.\" ----------  U  ---------------------------------------------------------
+.\"             unfill
+.TP 8n
+\fB\-UnFill\fP \f[I]value\fP [ \f[I]min\[hy]run\[hy]length\fP ]
+This filter may be used to create gaps in the data with bytes equal
+to \f[I]value\fP.  You can think of it as reversing the effects of the
+\fB\-Fill\fP filter.  The gaps will only be created if the are at least
+\f[I]min\[hy]run\[hy]length\fP bytes in a row (defaults to 1).
+.\"             unsplit
+.TP 8n
+\fB\-Un_SPlit\fP \f[I]multiple\fP [ \f[I]offset\fP [ \f[I]width\fP ] ]
+This filter may be used to reverse the effects of the split filter.
+The arguments are identical.
+Note that the address range is expanded (\f[I]multiple\fP / \f[I]width\fP)
+times, leaving holes between the stripes.
+.\" ----------  W  ---------------------------------------------------------
+.\"             whirlpool
+.TP 8n
+\fB\-WHIrlpool \f[I]address\fP
+This filter may be used to insert a 64 byte WHIRLPOOL hash into the data,
+at the address given.
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.SS Address Ranges
+There are eight ways to specify an address range:
+.TP 8n
+\f[I]minimum\fP \f[I]maximum\fP
+If you specify two number on the command line (decimal, octal and
+hexadecimal are understood, using the C conventions) this is an explicit
+address range.  The minimum is inclusive, the maximum is exclusive (one
+more than the last address).  If the maximum is given as zero then the
+range extends to the end of the address space.
+.TP 8n
+\fB\-Within\fP \f[I]input\[hy]specification\fP
+.RS
+This says to use the specified input file as a mask.  The range
+includes all the places the specified input has data, and holes where
+it has holes.  The input specification need not be just a file name,
+it may be anything any other input specification can be.
+.PP
+See also the \fB\-over\fP option for a discussion on operator precedence.
+.RE
+.TP 8n
+\fB\-OVER\fP \f[I]input\[hy]specification\fP
+.RS
+This says to use the specified input file as a mask.  The range extends
+from the minimum to the maximum address used by the input, without any
+holes, even if the input has holes.  The input specification need not be
+just a file name, it may be anything any other input specification can
+be.
+.PP
+You may need to enclose \f[I]input\[hy]specification\fP in parentheses
+to make sure it can't misinterpret which arguments go with which input
+specification.
+This is particularly important when a filter
+is to follow.  For example
+.RS
+\f[I]filename\fP \-fill 0 \-over \f[I]filename2\fP \-swap\[hy]bytes
+.RE
+groups as
+.RS
+\f[I]filename\fP \-fill 0 \-over '(' \f[I]filename2\fP \-swap\[hy]bytes ')'
+.RE
+when what you actually wanted was
+.RS
+\&'(' \f[I]filename\fP \-fill 0 \-over \f[I]filename2\fP ')' \-swap\[hy]bytes
+.RE
+The command line expression parsing tends to be \[lq]greedy\[rq] (or
+right associative) rather than conservative (or left associative).
+.RE
+.TP 8n
+\f[I]address\[hy]range\fP \fB\-RAnge\[hy]PADding\fP \f[I]number\fP
+.RS
+It is also possible to pad ranges to be whole aligned multiples of the
+given number.  For example
+.RS
+\f[I]input\[hy]file\fP \-fill 0xFF \-within \f[I]input\[hy]file\fP \
+\-range\[hy]pad 512
+.RE
+will fill the \f[I]input\[hy]file\fP so that it consists of whole 512\[hy]byte
+blocks, aligned on 512 byte boundaries.  Any large holes in the data
+will also be multiples of 512 bytes, though they may have been shrunk as
+blocks before and after are padded.
+.PP
+This operator has the same precedence as the explicit union operator.
+.RE
+.TP 8n
+\f[I]address\[hy]range\fP \fB\-INTERsect\fP \f[I]address\[hy]range\fP
+You can intersect two address ranges to produce a smaller address range.
+The intersection operator has higher precedence than the implicit union
+operator (evaluated left to right).
+.TP 8n
+\f[I]address\[hy]range\fP \fB\-UNIon\fP \f[I]address\[hy]range\fP
+You can union two address ranges to produce a larger address range.  The
+union operator has lower precedence than the intersection operator
+(evaluated left to right).
+.TP 8n
+\f[I]address\[hy]range\fP \fB\-DIFference\fP \f[I]address\[hy]range\fP
+You can difference two address ranges to produce a smaller address
+range.  The result is the left hand range with all of the right hand
+range removed.  The difference operator has the same precedence as the
+implicit union operator (evaluated left to right).
+.TP 8n
+\f[I]address\[hy]range\fP \f[I]address\[hy]range\fP
+In addition, all of these methods may be used, and used more than
+once, and the results will be combined (implicit union operator, same
+precedence as explicit union operator).
+.SS Calculated Values
+Most of the places above where a number is expected, you may supply one
+of the following:
+.TP 8n
+\f[B]\-\fP \f[I]value\fP
+.RS
+The value of this expression is the negative of the expression argument.
+Note the \f[B]space\fP between the minus sign and its argument:
+this space is mandatory.
+.RS
+.ft CW
+srec_cat in.srec \-offset \[mi] \-minimum\[hy]addr in.srec \-o out.srec
+.ft P
+.RE
+This example shows how to move data to the base of memory.
+.RE
+.TP 8n
+\f[CW](\fP \f[I]value\fP \f[CW])\fP
+You may use parentheses for grouping.
+When using parentheses,
+they must each be a separate command line argument,
+they can't be within the text of the preceding or following option,
+and you will need to quote them to get them past the shell,
+such as \f[CW]'('\fP and \f[CW]')'\fP.
+.TP 8n
+\fB\-MINimum\[hy]Address\fP \f[I]input\[hy]specification\fP
+.RS
+This inserts the minimum address of the specified input file.
+The input specification need not be just a file name,
+it may be anything any other input specification can be.
+.PP
+See also the \fB\-over\fP option for a discussion on operator precedence.
+.RE
+.TP 8n
+\fB\-MAXimum\[hy]Address\fP \f[I]input\[hy]specification\fP
+.RS
+This inserts the maximum address of the specified input file, plus one.
+The input specification need not be just a file name,
+it may be anything any other input specification can be.
+.PP
+See also the \fB\-over\fP option for a discussion on operator precedence.
+.RE
+.TP 8n
+\fB\-Length\fP \f[I]input\[hy]specification\fP
+.RS
+This inserts the length of the address range in the specified input file,
+ignoring any holes.  The input specification need not be just a file name,
+it may be anything any other input specification can be.
+.PP
+See also the \fB\-over\fP option for a discussion on operator precedence.
+.RE
+.PP
+For example, the \fB\-OVER\fP \f[I]input\[hy]specification\fP
+option can be thought of as short\[hy]hand for
+\fB'(' \-min\fP \f[I]file\fP \fB\-max\fP \f[I]file\fP \fB')'\fP,
+except that it is
+much easier to type, and also more efficient.
+.PP
+In addition, calculated values may optionally be rounded in one of three ways:
+.TP 8n
+\f[I]value\fP \fB\-Round_Down\fP \f[I]number\fP
+The \f[I]value\fP is rounded down to the the largest integer smaller than
+or equal to a whole multiple of the \f[I]number\fP.
+.TP 8n
+\f[I]value\fP \fB\-Round_Nearest\fP \f[I]number\fP
+The \f[I]value\fP is rounded to the the nearest whole multiple of
+the \f[I]number\fP.
+.TP 8n
+\f[I]value\fP \fB\-Round_Up\fP \f[I]number\fP
+The \f[I]value\fP is rounded up to the the smallest integer larger than
+or equal to a whole multiple of the \f[I]number\fP.
+.PP
+When using parentheses,
+they must each be a separate command line argument,
+they can't be within the text of the preceding or following option,
+and you will need to quote them to get them past the shell,
+as \f[CW]'('\fP and \f[CW]')'\fP.
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

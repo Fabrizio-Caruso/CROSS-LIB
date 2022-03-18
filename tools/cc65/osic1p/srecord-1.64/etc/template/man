@@ -1,0 +1,62 @@
+'\" t
+.\" ${project trunk_name} - ${project trunk_description}
+.\" Copyright (C) ${date %Y} ${copyright_owner}
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) ${basename $fn .1}
+.TH \*(n) 1 SRecord "Reference Manual"
+.SH NAME
+\*(n) \- manipulate eprom load files
+.if require_index \{
+.XX "${trim_ext ${basename $fn}}(1)" "manipulate eprom load files"
+.\}
+.SH SYNOPSIS
+.B \*(n)
+[
+.IR option \&...
+]
+.IR filename \&...
+.br
+.B \*(n)
+.B -Help
+.br
+.B \*(n)
+.B -VERSion
+.SH DESCRIPTION
+The
+.I \*(n)
+program is used to
+.br
+.ne 1i
+.SH OPTIONS
+The following options are understood:
+.TP 8n
+.B -Help
+.br
+Provide some help with using the
+.I \*(n)
+program.
+.TP 8n
+.B -VERSion
+.br
+Print the version of the
+.I \*(n)
+program being executed.
+.PP
+All other options will produce a diagnostic error.
+.so z_options.so
+.so z_exit.so
+.so z_copyright.so
+.\" vim: set ts=8 sw=4 et :

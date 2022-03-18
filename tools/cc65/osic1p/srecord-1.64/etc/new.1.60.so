@@ -1,0 +1,42 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2012, 2013 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the Free
+.\" Software Foundation; either version 3 of the License, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+.\" or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+.\" for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 19
+Izzet Ozcelik <izzetozcelik@cscope.co.uk> discovered a bug in the
+Tektronix\[hy]Extenden format line checksum calculations. The comparison
+should have been in 8 bits, not int.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+Daniel Anselmi <danselmi@gmx.ch> contributed a Memory
+Initialization Format by Lattice Semiconductor, for output only.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+Daniel Anselmi <danselmi@gmx.ch> contributed a Xilinx
+Coefficient File Format (.coe) output class.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.ne 2i
+.SS Version 1.60 (2012\[hy]May\[hy]19)
+.\" vim: set ts=8 sw=4 et :

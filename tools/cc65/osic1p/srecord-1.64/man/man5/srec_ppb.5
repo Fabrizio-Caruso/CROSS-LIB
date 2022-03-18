@@ -1,0 +1,51 @@
+'\" t
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_ppb
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_ppb \- Stag Prom Programmer binary format
+.if require_index \{
+.XX "srec_ppb(5)" "Stag Prom Programmer binary format"
+.\}
+.SH DESCRIPTION
+This is the native binary format of the Stag Prom Programmer.
+.SS Format
+The format is packet based.
+The packet is somposed of an 0x01 byte,
+the packet payload size (4 bytes, big\[hy]endian),
+the packet address size (4 bytes, big\[hy]endian),
+the packet data,
+and a one\[hy]byte simple sum of the payload data.
+.PP
+If the packet payload is more than 1024 bytes, there is an
+intermediate checksum after each 1024th payload pyte.
+.PP
+The end of file is indicated by a packet with a zero\[hy]length payload.
+.SS Command Line Option
+This format is specified using the \fB\-PPB\fP command line option.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 1.002
+times when represented with this format (worse if there are many short
+data regions).
+.\" ------------------------------------------------------------------------
+.SH SEE ALSO
+http://www.stag.co.uk/
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

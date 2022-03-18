@@ -1,0 +1,1010 @@
+.hy 0
+.nf
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<!--
+    Copyright (C) 2001-2007 Joe Geluso.com
+
+    File archived on 20071229021252 and retrieved from the
+    internet archive on 20100330232203.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Joe Geluso">
+<title>CRC-CCITT -- 16-bit</title>
+</head>
+<body>
+<h1>CRC16-CCITT</h1>
+Copyright &copy; 2001-2007 <a href="http://www.joegeluso.com/" >Joe Geluso</a>
+<p>
+<ul>
+<li> <a href="#original">Document Original</a></li>
+<li> <a href="#overview">Overview</a></li>
+<li> <a href="#general">General</a></li>
+<li> <a href="#results">Results from the C-language Implementations</a></li>
+<li> <a href="#long-hand">Long-hand Calculation for a One-byte Message</a></li>
+<li> <a href="#source">Source Code for the C-language Implementations</a></li>
+<li> <a href="#refs">References</a> &mdash; updated April 4, 2003</li>
+<li> <a href="#style">Style Notes</a></li>
+<li> <a href="#addendum">Addendum</a> &mdash; added April 4, 2003
+(perhaps a little less confrontational than other sections)</li>
+<li> <a href="#addendum-2">Addendum #2</a> &mdash; added July 4, 2003
+&mdash; ITU/CCITT publications and &ldquo;the&rdquo; CRC16-CCITT</li>
+</ul>
+
+<h2><a name="original"></a>Document Original</h2>
+This page was originally available as
+<a href="http://www.joegeluso.com/software/articles/ccitt.htm"
+>http://www.joegeluso.com/software/articles/ccitt.htm</a>,
+but has since disappeared.  The <a
+href="http://web.archive.org/web/*/\
+http://www.joegeluso.com/software/articles/ccitt.htm"
+>Internet Archive Wayback Machine</a> was used to retrieve
+the latest version before it disappeared.
+
+<h2><a NAME="overview"></a>Overview</h2>
+This page presents accurate implementations (long-hand and programmed)
+of the 16-bit CRC-CCITT specification, which is:
+<ul>
+<li>Width = 16 bits</li>
+<li>Truncated polynomial = 0x1021</li>
+<li>Initial value = 0xFFFF</li>
+<li>Input data is NOT reflected</li>
+<li>Output CRC is NOT reflected</li>
+<li> No XOR is performed on the output CRC</li>
+</ul>
+
+<p>
+A C-language program is included which produces CRC values which conform
+to this specification.&nbsp; The program also includes a routine
+which demonstrates how an incorrect &ldquo;<a href="#results" >check
+value</a>&rdquo; which has been found on the web may be generated.
+
+<h2><a NAME="general"></a>General</h2>
+Why yet another document on calculating CRCs?&nbsp;
+Because this one:
+<ul>
+<li>
+Indicates that some common implementations of the 16-bit CRC-CCITT may
+produce incorrect values.</li>
+<li>
+Provides source code for the 16-bit CRC-CCITT without using tables or
+reversed polynomials.&nbsp; The program <a href="#source" >below</a>
+implements the concepts presented in the first 8 sections of &ldquo;<a
+href="http://www.ross.net/crc/crcpaper.html" >A Painless Guide to CRC
+Error Detection Algorithms</a>&rdquo; by Ross Williams.&nbsp; Things become
+significantly more complex in progressing beyond section 8 of that
+document.&nbsp; If a table-driven implementation of the 16-bit CRC-CCITT
+is to be developed, a solid reference is needed to ensure that it is
+working correctly.&nbsp; The source code in this document may fill
+that role.</li>
+</ul>
+<p>
+Important features of a standard CRC are that it:
+<blockquote>
+<li>
+Can be used to validate data</li>
+<li>
+Is reproducible by others</li>
+</blockquote>
+<p>
+The first feature above is easy to realize in a closed system if
+corruption of data is infrequent (but substantial when it occurs).&nbsp;
+The term &ldquo;closed system&rdquo; refers to a situation where the
+CRC need not be communicated to others.&nbsp; A correct implementation
+of a 16-bit CRC will detect a change in a single bit in a message of
+over 8000 bytes.&nbsp; An erroneous CRC implementation may not be able
+to detect such subtle errors.&nbsp; If errors are usually both rare and
+large (affecting several bits), then a faulty 16-bit CRC implementation
+may still be adequate in a closed system.
+<p>
+The second feature above &mdash; that the CRC is reproducible by others
+&mdash; is crucial in an open system; that is, when the CRC must be
+communicated to others.&nbsp; If the integrity of data passed between
+two applications is to be verified using a CRC defined by a particular
+standard, then the implementation of that standard must produce the
+same result in both applications &mdash; otherwise, valid data will be
+reported as corrupt.
+<p>
+Reproducibility may be satisfied by even a botched implementation of a
+standard CRC in most cases &mdash; if everyone uses the same erroneous
+implementation of the standard.&nbsp; But this approach:
+<ul>
+<li>
+Modifies the standard in ways that are both unofficial and undocumented.</li>
+
+<li>
+Creates confusion when communicating with others who have not adopted the
+botched implementation as the implied standard.</li>
+</ul>
+<p>
+It appears that some CRC implementations available on the web produce
+incorrect values for the 16-bit CRC-CCITT.&nbsp; How to tell if a
+CRC16-CCITT implementation was botched?&nbsp; By calculating the CRC for
+a reference string.
+<p>
+The CRC value for the 9-byte reference string, &ldquo;123456789&rdquo;
+is <b>0xE5CC</b>.&nbsp; Some web pages report that the value for
+reference string should be <i>0x29B1</i> &mdash; but this value
+is returned by an implementation which does NOT conform to the
+specification above.&nbsp; CRC values for other reference strings are
+listed <a href="#results" >elsewhere</a> in this document.
+<p>
+The <b>bolding</b> and <i>italics</i> above are used to emphasize the
+correct value and distort the incorrect value in the hope that it will
+discourage propagation of the incorrect value.
+<p>
+Why focus on the 16-bit CRC-CCITT (polynomial 0x1021) and not CRC16
+(polynomial 0x8005), which appears to have wider use?&nbsp; Because the
+16-bit CRC-CCITT:
+<ul>
+<li>
+Is a straightforward 16-bit CRC implementation in that it doesn't involve:</li>
+
+<ul>
+<li>
+reflection of data</li>
+
+<li>
+reflection of the final CRC value</li>
+</ul>
+
+<li>
+Starts with a non-zero initial value &mdash; leading zero bits can't affect
+the CRC16 used by LHA, ARC, etc., because its initial value is zero.</li>
+
+<li>
+It requires no additional XOR operation after everything else is done.&nbsp;
+The CRC32 implementation used by Ethernet, Pkzip, etc., requires this operation;
+less common 16-bit CRCs may require it as well.</li>
+</ul>
+Why use a 16-bit CRC instead of a 32-bit CRC?&nbsp; Because it:
+<ul>
+<li>
+Can be calculated faster than a 32-bit CRC.</li>
+
+<li>
+Requires less space than a 32-bit CRC for storage, display or printing.</li>
+
+<li>
+Is usually long enough if the data being safeguarded is fewer than several
+thousand bytes in length, e.g., individual records in a database.</li>
+</ul>
+
+<h2><a NAME="results" ></a>Results from the C-language Implementations</h2>
+<p>
+The following CRC values were produced by the program whose source
+code is listed <a href="#source" >elsewhere</a> in this document.&nbsp;
+The &ldquo;Good_CRC&rdquo; values are in accordance with the CRC-CCITT
+specification as defined at the <a href="#overview" >top of this
+document</a>.&nbsp; The &ldquo;Bad_CRC&rdquo; values are produced by an
+implementation which reports the incorrect check value that is reported
+on some web pages for the reference string &ldquo;123456789&rdquo;.&nbsp;
+The validity of the &ldquo;Good_CRC&rdquo; values below is demonstrated
+<a href="#long-hand" >elsewhere</a> in this document.
+<p>
+<table border=1 >
+<tr>
+<td>
+<center>
+<h4>
+Message</h4></center>
+</td>
+
+<td>
+<h4>
+Good_CRC</h4>
+</td>
+
+<td>
+<h4>
+Bad_CRC</h4>
+</td>
+
+<td>
+<h4>
+Message Length (bytes)</h4>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><i>-None-</i></center>
+</td>
+
+<td>
+<center>0x1D0F</center>
+</td>
+
+<td>
+<center>0xFFFF</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>A</center>
+</td>
+
+<td>
+<center>0x9479</center>
+</td>
+
+<td>
+<center>0xB915</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>123456789</center>
+</td>
+
+<td>
+<center>0xE5CC</center>
+</td>
+
+<td>
+<center>0x29B1</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+</tr>
+
+<tr>
+<td>A string of 256 upper case &ldquo;A&rdquo;&nbsp;
+<br>characters with no line breaks</td>
+
+<td>
+<center>0xE938</center>
+</td>
+
+<td>
+<center>0xEA0B</center>
+</td>
+
+<td>
+<center>256</center>
+</td>
+</tr>
+</table>
+
+<p>
+Among the problems with the &ldquo;Bad_CRC&rdquo; implementation is
+that it does not augment a zero-length message with 16 zero bits, as
+is required (either implicitly or explicitly) when calculating the
+standard CRC.&nbsp; Thus, it reports a CRC of <i>0xFFFF</i> &mdash; not
+<b>0x1D0F</b> &mdash; for a zero-length message.
+
+<h2><a NAME="long-hand" ></a>Long-hand Calculation for a One-byte Message</h2>
+<p>
+The purpose of this section is to demonstrate that the
+&ldquo;Good_CRC&rdquo; values listed in the previous section do, in
+fact, conform to the CRC-CCITT specification as defined at the <a
+href="#overview" >top of this document</a>.
+<br>&nbsp;
+<table border=1 >
+<tr>
+<td><tt>Calculation of the 16-bit CRC-CCITT for a one-byte message consisting
+of the letter &ldquo;A&rdquo;:</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Quotient=&nbsp; 111100001110111101011001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poly=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+------------------------------------------</tt>
+<br><tt>10001000000100001 ) <font color="#FF0000">1111111111111111</font><b>01000001</b><font color="#3366FF">0000000000000000</font></tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FF0000">red
+bits</font> are initial value</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11101111110111111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>bold bits</b> are message</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3366FF">blue
+bits</font> are augmentation</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11001111100111100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001111000111010</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00001110000110110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00011100001101100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00111000011011000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+01110000110110001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11100001101100010</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11010011010000110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10110110101001110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+01111101011011110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11111010110111100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11100101100111010</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11011011000110110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10100110000101110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+01011100000011110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10111000000111100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+01100000000111010</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11000000001110100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10010000010101010</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00110000100010110</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+01100001000101100</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+00000000000000000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11000010001011000</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+10001000000100001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-----------------</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1001010001111001 = CRC</tt>
+<br>&nbsp;</td>
+</tr>
+
+<tr>
+<td><tt>Conversion of the binary value above to hexadecimal by segmenting
+the bits to nibbles:</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+binary nibbles&nbsp;&nbsp; 1001 0100 0111 1001</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+hexadecimal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9&nbsp;&nbsp;&nbsp;
+4&nbsp;&nbsp;&nbsp; 7&nbsp;&nbsp;&nbsp; 9</tt></td>
+</tr>
+</table>
+
+<h2><a NAME="source" ></a>Source Code for the C-language Implementations</h2>
+&nbsp;
+<table border=1 >
+<tr>
+<td><tt>/*</tt>
+<br><tt>demonstrates how the incorrect check value of 0x29B1 may be reported</tt>
+<br><tt>for the test string &ldquo;123456789&rdquo; when it should be 0xE5CC.</tt>
+<br><tt>*/</tt>
+<p><tt>#include &lt;stdio.h></tt>
+<br><tt>#include &lt;string.h></tt>
+<p><tt>#define&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+poly&nbsp;&nbsp;&nbsp;&nbsp; 0x1021&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* crc-ccitt mask */</tt>
+<p><tt>/* global variables */</tt>
+<br><tt>char text[1000];</tt>
+<br><tt>unsigned short good_crc;</tt>
+<br><tt>unsigned short bad_crc;</tt>
+<br><tt>unsigned short text_length;</tt>
+<p><tt>int main(void)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; void go();</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; void repeat_character(unsigned char, unsigned
+short);</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; sprintf(text, "%s", "");</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; go();</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; sprintf(text, "%s", "A");</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; go();</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; sprintf(text, "%s", "123456789");</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; go();</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; repeat_character(65, 256);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; go();</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; return 0;</tt>
+<br><tt>}</tt>
+<p><tt>void go(void)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; void update_good_crc(unsigned short);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; void augment_message_for_good_crc();</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; void update_bad_crc(unsigned short);</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; unsigned short ch, i;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; good_crc = 0xffff;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; bad_crc = 0xffff;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; i = 0;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; text_length= 0;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; while((ch=text[i])!=0)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; update_good_crc(ch);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; update_bad_crc(ch);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i++;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text_length++;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; augment_message_for_good_crc();</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; printf(</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; "\nGood_CRC = %04X,&nbsp; Bad_CRC = %04X,&nbsp;
+Length = %u,&nbsp; Text = \"%s\"",</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; good_crc,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bad_crc,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text_length,&nbsp;
+text</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; );</tt>
+<br><tt>}</tt>
+<p><tt>void repeat_character(unsigned char ch, unsigned short n)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; unsigned short i;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; for (i=0; i&lt;n; i++)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text[i] = ch;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; text[n] = 0;</tt>
+<br><tt>}</tt>
+<p><tt>void update_good_crc(unsigned short ch)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; unsigned short i, v, xor_flag;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /*</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; Align test bit with leftmost bit of the message
+byte.</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; v = 0x80;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; for (i=0; i&lt;8; i++)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (good_crc &amp; 0x8000)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag= 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag= 0;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; good_crc = good_crc
+&lt;&lt; 1;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ch &amp; v)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/*</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Append next bit of message to end of CRC if it is not zero.</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The zero bit placed there by the shift above need not be</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+changed if the next bit of the message is zero.</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*/</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+good_crc= good_crc + 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (xor_flag)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+good_crc = good_crc ^ poly;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Align test bit with
+next bit of the message byte.</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v = v >> 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>}</tt>
+<p><tt>void augment_message_for_good_crc()</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; unsigned short i, xor_flag;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; for (i=0; i&lt;16; i++)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (good_crc &amp; 0x8000)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag= 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag= 0;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; good_crc = good_crc
+&lt;&lt; 1;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (xor_flag)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+good_crc = good_crc ^ poly;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>}</tt>
+<p><tt>void update_bad_crc(unsigned short ch)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; /* based on code found at</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; http://www.programmingparadise.com/utility/crc.html</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; */</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; unsigned short i, xor_flag;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /*</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; Why are they shifting this byte left by 8 bits??</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; How do the low bits of the poly ever see it?</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; ch&lt;&lt;=8;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; for(i=0; i&lt;8; i++)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((bad_crc ^ ch) &amp;
+0x8000)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag = 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+xor_flag = 0;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bad_crc = bad_crc &lt;&lt;
+1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (xor_flag)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bad_crc = bad_crc ^ poly;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ch = ch &lt;&lt; 1;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>}</tt></td>
+</tr>
+</table>
+
+<h2><a NAME="refs" ></a>References</h2>
+The following web page contains a javascript calculator that is handy for
+what-if comparisons in calculating various CRCs by slightly different methods
+and with any initial value &mdash; very well done:
+<ul>
+<li>
+<a href="http://www.zorc.breitbandkatze.de/crc.html"
+>http://www.zorc.breitbandkatze.de/crc.html</a>
+&mdash; CRC calculation, by Sven Reifegerste.</li>
+</ul>
+
+<p>
+The following web pages were among those which were helpful in developing
+the text and program in this document:
+<ul>
+<li>
+<a href="http://www.ross.net/crc/crcpaper.html"
+>http://www.ross.net/crc/crcpaper.html</a> &mdash; &ldquo;A Painless
+Guide to CRC Error Detection Algorithms&rdquo;</li>
+<li>
+<a href="http://www.embedded.com/internet/0001/0001connect.htm"
+>http://www.embedded.com/internet/0001/0001connect.htm</a> &mdash;
+another detailed discussion which includes a table containing check values
+which were not included in the first document above.&nbsp; The table is
+at <a href="http://www.embedded.com/internet/0001/0001contable1.htm"
+>http://www.embedded.com/internet/0001/0001contable1.htm</a>, but the
+check value for the 16-bit CRC-CCITT seems to be incorrect (the others
+seem to be correct).</li>
+<li>
+The following page also contained the seemingly
+incorrect check value for the 16-bit CRC-CCITT: <a
+href="http://www.aerospacesoftware.com/checks.htm"
+>http://www.aerospacesoftware.com/checks.htm</a></li>
+<li>
+Link not functioning on 3-April-2003 &mdash; C-language source
+code which allowed reproducing the seemingly incorrect
+check value for the 16-bit CRC-CCITT was found at: <a
+href="http://www.programmingparadise.com/utility/crc.html"
+>http://www.programmingparadise.com/utility/crc.html</a></li>
+<li>
+Link not functioning (but still cached by Google) on April 3, 2003 &mdash; The
+first external indication that the 16-bit CRC-CCITT values which seemed
+to be incorrect above may actually be incorrect was gleaned from: <a
+href="http://www.cs.ucla.edu/classes/spring00/cs33/proj/PROJECT_3.html"
+>http://www.cs.ucla.edu/classes/spring00/cs33/proj/PROJECT_3.html</a></li>
+</ul>
+
+<h2><a NAME="style" ></a>Style Notes</h2>
+<ul>
+<li>
+Why are the long-hand example and source code embedded in HTML
+tables?&nbsp; Because they are in fixed-width font and confining the
+font tags within tables aids in editing the document.</li>
+<li>
+Why isn't the source code written using more of the compact forms
+allowed by the C-language?&nbsp; To make it more accessible to BASIC
+programmers.&nbsp; Note that the variables in these C-language routines
+hold 16-bit values.&nbsp; Shifting the value 0x8000 (32,768 decimal) by
+left one bit is equivalent to multiplying by two; but a 16-bit variable
+cannot hold 0x10000 &mdash; it becomes zero, not 65,536.</li>
+</ul>
+
+
+<h2>
+<a NAME="addendum" ></a>Addendum</h2>
+This addendum is a quick attempt to address &ldquo;the rest of the
+story&rdquo; as it has become more clear to me after several e-mail
+exchanges with Sven Reifegerste, whose web page is linked <a href="#refs"
+>above</a>.
+<p>
+To begin with, I have yet to see a specific reference to an <a
+href="http://www.itu.int" >ITU</a> (formerly CCITT) document that clearly
+identifies exactly where &ldquo;the&rdquo; algorithm for the CRC16-CCITT
+is given.&nbsp; If anyone can cite &ldquo;<a href="#addendum-2" >chapter
+and verse</a>&rdquo;, please let me know where the official specification
+may be found.
+<p>
+At this point, I'm left with what I can find on the web and what
+seems most credible to me.&nbsp; The article by Ross Williams, cited
+<a href="#refs" >above</a>, seems to have stood the test of time and
+explains things in a way that (eventually) make sense to me.&nbsp;
+I count it as very credible.
+<p>
+The snippets of C code scattered around the web which claim to produce a
+CRC16-CCITT have taken on a life of their own, whether they are actually
+doing what they advertise or not.
+<p>
+I have not yet made a thorough investigation into everything that will
+be said below, so it may be subject to extensive revision once I find
+time to do so.
+<p>
+It seems that most of the CRC code on the web actually does implement
+some form of CRC algorithm &mdash; as opposed to some less-robust kind
+of checksum.&nbsp; It is questionable in some cases whether their
+algorithm actually implements the CRC that they claim it does.
+<p>
+Assuming that an algorithm is actually implementing some kind of
+CRC, certain features of that algorithm are crucial when accurately
+implementing a particular CRC:
+<ol>
+<li>The polynomial</li>
+<li>The initial value</li>
+<li>Whether or not &ldquo;zero&rdquo; bits are explicitly appended to
+the message</li>
+</ol>
+<p>
+There seems to be no controversy that the &ldquo;correct&rdquo;
+(truncated) polynomial is for the CRC16-CCITT is 0x1021.
+<p>
+According to the document by Ross Williams, the initial value for
+&ldquo;the&rdquo; CRC16-CCITT is 0xFFFF.&nbsp; There seems to be little
+controversy over this, either.
+<p>
+It is usually the case that no one really wants to explicitly append
+&ldquo;zero&rdquo; bits to the end of a message to calculate a
+CRC.&nbsp; The mathematics of calculating a CRC do allow a shortcut to
+avoid this time-wasting exercise &mdash; but if the shortcut is taken
+without making a corresponding change in the initial value, then the
+result is a <b>different</b> CRC.
+<p>
+The question at this point is:
+<blockquote>
+Does the official specification for the CRC16-CCITT say that initial
+value of 0xFFFF applies to a message <b>with</b> or <b>without</b>
+&ldquo;zero&rdquo; bits explicitly appended to the message?
+</blockquote>
+<p>
+It makes sense to me that the initial value of 0xFFFF applies to a
+message <b>with</b> &ldquo;zero&rdquo; bits explicitly appended to the
+message.&nbsp; Why?&nbsp; Because the purpose of a CRC is to detect
+errors, not necessarily to be implemented in a compact algorithm or to
+have parameters that are easy to remember.
+<p>
+Whatever clever technique is used to calculate a CRC, it is always
+emulating a simple implementation in which &ldquo;zero&rdquo; bit
+<b>are</b> explicitly appended to the message.&nbsp; I think it unlikely
+that the official specification for the CRC16-CCITT would be in terms of
+anything but the most basic implementation.
+<p>
+The paper by Ross Williams says:
+<blockquote>
+&ldquo;In theory (i.e. with no assumptions about the message), the
+initial value has no affect on the strength of the CRC algorithm&rdquo;
+</blockquote>
+<p>
+But did the committee that designed the CRC16-CCITT make <b>no</b>
+assumptions about the message?&nbsp; I suspect that they made one or
+more assumptions about the kinds of messages that were important to
+them.&nbsp; If the &ldquo;correct&rdquo; check value for message,
+&ldquo;123456789&rdquo;, using &ldquo;the&rdquo; CRC16-CCITT is 0x29B1,
+why would they choose an initial value of 0x84CF (see table below) for
+the initial value?&nbsp; Remember, the ultimate definition of a CRC
+requires &ldquo;zero&rdquo; bits to be explicitly added to the end
+of the message &mdash; all other implementations use tricks (clever
+techniques) to accomplish an equivalent calculation.&nbsp; Why would
+the CCITT (now ITU) want to specify an initial value of 0x84CF to
+error-check the kinds of messages that were important to them?
+<p>
+It seems that the same CRC can be calculated using the parameters below:
+<br>&nbsp;
+<table border=1 >
+<tr>
+<td><b>Initial Value</b></td>
+
+<td><b>&ldquo;Zero&rdquo; bits explicitly</b>
+<br><b>appended to message</b></td>
+
+<td>
+<center><b>CRC for the test message,</b></center>
+<b>&ldquo;123456789&rdquo;</b></td>
+</tr>
+
+<tr>
+<td>
+<center>0xFFFF</center>
+</td>
+
+<td>
+<center>Yes</center>
+</td>
+
+<td>
+<center>0xE5CC</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>0x1D0F</center>
+</td>
+
+<td>
+<center>No</center>
+</td>
+
+<td>
+<center>0xE5CC</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>---</center>
+</td>
+
+<td>
+<center>---</center>
+</td>
+
+<td>
+<center>---</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>0x84CF</center>
+</td>
+
+<td>
+<center>Yes</center>
+</td>
+
+<td>
+<center>0x29B1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>0xFFFF</center>
+</td>
+
+<td>
+<center>No</center>
+</td>
+
+<td>
+<center>0x29B1</center>
+</td>
+</tr>
+</table>
+
+<p>
+Which is &ldquo;the&rdquo; CRC16-CCITT?&nbsp; I think it is 0xE5CC.
+<p>
+Because I haven't seen &ldquo;<a href="#addendum-2" >chapter and
+verse</a>&rdquo; from an ITU document clearly calling for some
+&ldquo;shortcut&rdquo; algorithm using the 0xFFFF initial value, I
+remain convinced that the &ldquo;correct&rdquo; check value for message,
+&ldquo;123456789&rdquo;, using &ldquo;the&rdquo; CRC16-CCITT is 0xE5CC
+&mdash; not 0x29B1, as is more widely claimed.
+<p>
+Is this spitting into the wind?&nbsp; Probably so.&nbsp; I don't imagine
+that <font color="#000000" >publishing this page is going to cause the
+&ldquo;incorrect&rdquo; implementations to disappear.</font>&nbsp; It is
+offered mainly to help others avoid the frustration that I experienced
+&mdash; what almost everyone else said was the &ldquo;correct&rdquo;
+check value doesn't seem to be correct when trying to calculate the
+CRC16-CCITT from first principles.&nbsp; This page attempts to provide
+information which may be helpful in resolving this issue.
+<p>
+As Sven Reifegerste pointed out to me, the &ldquo;correct&rdquo; check
+value for the CRC32 seems to be calculated in a way that is similar
+to most implementations of the CRC16-CCITT &mdash; everyone seems to
+calculate CRC32 with an initial value of 0xFFFFFFFF but <b>without</b>
+&ldquo;zero&rdquo; bits explicitly appended to the message.&nbsp; The
+CRC32 is much more widely used &mdash; it is calculated and stored
+for each file that is archived in a .zip (compressed) file.&nbsp;
+I'm not prepared to spit into that hurricane.&nbsp; And I think that
+those who are trying to come to grips with exactly how to implement a
+CRC calculation will find that beginning with a 16-bit CRC, such as
+CRC16-CCITT, may be more manageable than wrestling with a 32-bit CRC
+algorithm.
+
+<h2><a NAME="addendum-2" ></a>Addendum #2 &mdash; ITU/CCITT publications
+and &ldquo;the&rdquo; CRC16-CCITT</h2>
+<p>
+Thank you to the several people who responded to the request for
+&ldquo;chapter and verse&rdquo; where the official specification may be
+found for &ldquo;the&rdquo; CRC16-CCITT.
+<p>
+The ITU (formerly CCITT) documents that have come to my attention so
+far are:
+<ol>
+<li>
+Recommendation V.41 &mdash; &ldquo;Code-Independent Error Control
+System.&rdquo;</li>
+<li>
+Recommendation X.25 &mdash; &ldquo;Interface between Data Terminal
+Equipment (DTE) and Data Circuit-terminating Equipment (DCE) for terminals
+operating in the packet mode and connected to public data networks by
+dedicated circuit&rdquo;</li>
+<li>
+Recommendation T.30 &mdash; &ldquo;Procedures for document facsimile
+transmission in the general switched telephone network&rdquo;</li>
+</ol>
+<p>
+ITU allows three free downloads (another page on their site says three
+free downloads per year?) of their standards, as mentioned here:
+<blockquote>
+<a href="http://www.itu.int/publications/index.html"
+>http://www.itu.int/publications/index.html</a>
+</blockquote>
+<p>
+Do be careful to follow the instructions as they are presented &mdash; I
+wasted a free download by not doing so.
+<p>
+All three documents mentioned above use the same truncated polynomial
+&mdash; 0x1021.
+<p>
+Recommendation V.41 seems to specify an initial value of
+&ldquo;zero&rdquo; &mdash; which differs from the usual implementations
+of CRC16-CCITT.
+<p>
+Recommendation X.25 seems to:
+<ol>
+<li>Use an initial value of 0xFFFF, but</li>
+<li>Require the step of performing one's complement, and</li>
+<li>Be composed of the sum of two remainders obtained from two separate
+polynomial divisions.</li>
+</ol>
+<p>
+The result from the X.25 calculation may be mathematically equivalent to
+a usual implementation of CRC16-CCITT, but that isn't clear to me at this
+point.
+<p>
+Recommendation T.30 seems to:
+<ol>
+<li>Use an initial value of 0xFFFF, but</li>
+<li>Require the step of performing one's complement</li>
+</ol>
+<p>
+Thus, T.30 seems to depart from usual implementations of CRC16-CCITT in
+that it requires performing one's complement.
+<p>
+There seems to be relatively good agreement among the routines found on
+the web concerning <b>some</b> parts of &ldquo;the&rdquo; CRC16-CCITT
+specification.&nbsp; But at this point (July 2003), I am not aware of
+an ITU/CCITT document that agrees with other parts of &ldquo;the&rdquo;
+CRC16-CCITT specification (as it is normally rendered in routines found
+on the web), and:
+<ol>
+<li> Requires a non-zero initial value</li>
+<li> Does not require the step of performing one's complement</li>
+</ol>
+<p>
+Perhaps I missed something in one of the documents mentioned above?
+<p>
+It is also becoming less clear to me that the ITU/CCITT intended or
+documented the calculation of a stand-alone CRC.&nbsp; Their documents
+seem to be more focused on a FCS (Frame Check Sequence) that can be used
+to validate a serial transmission immediately upon receipt rather than
+being concerned about ensuring that disk files (static data) are intact
+or unmodified (to the extent that a CRC is good for such a purpose)
+after a period of months or years.
+<p><br><p>
+<hr/>
+<p><br><p>
+Copyright &copy; 2001-2007 Joe Geluso
+<br>
+All disclaimers apply &mdash; use at your own risk.
+<br>
+This page may reproduced only if it is not altered and it is reproduced
+in its entirety &mdash; including the <a href="http://www.joegeluso.com/"
+>link to the author's web site</a> (now gone).
+</body>
+</html>

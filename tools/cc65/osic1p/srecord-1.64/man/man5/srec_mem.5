@@ -1,0 +1,155 @@
+'\" t
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2012 Lattice Semiconductor
+.\" Copyright (C) 2012 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_mem
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_mem \- Lattice Memory Initialization format
+.if require_index \{
+.XX "srec_mem(5)" "Lattice Memory Initialization format"
+.\}
+.SH DESCRIPTION
+A Lattice Memory Initialization format (.mem), by Lattice Semiconductor,
+file is an ASCII text file that consists of a header followed by lines
+of memory data.
+.SS Syntax
+The data must be in one of the following formats: Bin
+(binary), Hex (hexadecimal), or Address\[hy]Hex (described below).
+.PP
+For hexadecimal values, both upper and lower case can be used.  If the
+data has fewer bits than the specified data width, the most significant
+bits are filled with 0.  Any address not specified will be filled with 0.
+.PP
+Comments can be added at any point after the header (defined below) by
+starting the comment with a pound sign (#) or two slashes (//).  The
+comment then includes everything to the end of the line.  Comments may be
+added to any of the data, but never add comments to the header.
+.SS Header
+A \f[CW].mem\fP file starts with a header, which declares the file
+format, memory size, and address and data display radix for Memory
+Generator.  The syntax of the header is:
+.RS
+.nf
+.ft CW
+#Format=Bin | Hex | AddrHex
+#Depth=1 \f[I]to\fP 65536
+#Width=1 \f[I]to\fP 256
+#AddrRadix=\f[I]index\[hy]number\fP
+#DataRadix=\f[I]index\[hy]number\fP
+#Data
+.ft R
+.fi
+.RE
+The \f[I]index\[hy]number\fP can be one of the following numbers.
+AddrRadix and DataRadix can have different values.
+.RS
+.nf
+Binary: 0
+Octal: 1
+Decimal: 2
+Hexadecimal: 3
+.fi
+.RE
+.PP
+For example, the following header says the .mem file is using the
+binary format for a 32x8 memory.  When displayed in Memory Generator,
+the address will be shown in hexadecimal and the data will be shown in
+binary.
+.RS
+.nf
+.ft CW
+#Format=Bin
+#Depth=32
+#Width=8
+#AddrRadix=3
+#DataRadix=0
+#Data
+.ft R
+.fi
+.RE
+.SS Bin and Hex Formats
+The data is represented in binary or hexadecimal format.  Each line of
+data specifies the contents for one memory location, starting with
+address 0.  That is, the first line is for address 0, the second line
+is for address 1, and so on.  For each line, the data is interpreted as
+least significant bit on the right.
+.PP
+For example, in the Bin format, the following lines will initialize
+address 0 to \[lq]00011011\[rq], address 1 to \[lq]11111010\[rq]
+(assuming it is a 32x8 memory).
+.RS
+.nf
+# for a 32x8 memory
+11011
+11111010
+.fi
+.RE
+.PP
+In the Hex format, the following lines will initialize address 0 to
+\[lq]003B\[rq], address 1 to \[lq]FB0A\[rq] (assuming it is a 32x16 memory).
+.RS
+.nf
+# for a 32x16 memory
+3B
+FB0A
+.fi
+.RE
+.SS AddrHex
+The data is represented in hexadecimal format.  Each line consists of an
+address followed by a colon and then any number of data words, separated
+by spaces:
+.RS
+\f[I]address\fP\fB:\fP \f[I]data data> data\fP...
+.RE
+The data will be applied starting at <address> and filling in
+sequentially from there.
+.PP
+For example:
+.RS
+.nf
+A0:03 F3 3E 4F
+B2:3B 9F
+.fi
+.RE
+will initialize A0 with 03, A1 with F3, A2 with 3E, A3 with 4F, B2 with
+3B, and B3 with 9F.  The other addresses will be initialized to 0.  So A4
+through B1 will be set to 0.
+.SS See Also
+.nf
+http://help.latticesemi.com/docs/webhelp/eng/wwhelp/wwhimpl/common/html/\
+wwhelp.htm#href=Design%20Entry/memory_initialization_file.htm\
+#1371843&single=true
+.fi
+.SS Size Multiplier
+The size multiplier depends on the width selected.  As files grow larger,
+their size multipliers will approach those in the table, from above.
+.TS
+tab(;);
+c c c
+n n n.
+Width;Linux;Windows
+8;2.96;3.0
+16;2.47;2.5
+32;2.25;2.28
+64;2.13;2.15
+.TE
+.SS Byte Order
+This format is implicitly big\[hy]endian.
+Use a \-byte\[hy]swap filter if you need something different.
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

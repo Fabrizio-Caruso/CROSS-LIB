@@ -1,0 +1,57 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2003, 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 19
+The ASCII\[hy]Hex implementation is now slightly more complete.
+I still haven't found a definitive description.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 18
+The Fairchild Fairbug format has been added for reading and writing.
+See \fIsrec_fairchild\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 17
+The Spectrum format has been added for reading and writing.
+See \fIsrec_spectrum\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 16
+The Formatted Binary format has been added for reading and writing.
+See \fIsrec_formatted_binary\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 12
+The RCA Cosmac Elf format has been added for reading and writing.
+See \fIsrec_cosmac\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 11
+The Needham EMP programmer format has been added for reading and writing.
+See \fIsrec_needham\fP(5) for more information.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.14 (2003\[hy]Mar\[hy]11)

@@ -1,0 +1,41 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008-2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+There is a new option for the \-\-\f[I]x\fP\[hy]e\[hy]length filters,
+they can now
+accept a width, and this is divided into the byte lenght, so
+that you can insert the length in units of words (2) or longs (4).
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12, 15
+Some small corrections have been made to the documentation.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11
+The \-minimum and \-maximum options have been renamed \-minimum\[hy]address
+and \-maximum\[hy]address, to avoid a command line grammar syntax problem.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.45 (2008\[hy]Sep\[hy]30)
+.\" vim: set ts=8 sw=4 et :

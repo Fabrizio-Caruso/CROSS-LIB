@@ -1,0 +1,50 @@
+.\"
+.\" srecord - The "srecord" program.
+.\" Copyright (C) 2007, 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+The CRC16 filters now support a \-Broken option, to perform a
+common\[hy]but\[hy]broken CRC16 calculation, in addition to the CCITT
+and XMODEM calculations.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+A link has been added to the CRC16 man page section
+to the www.joegeluso.com/software/articles/ccitt.htm web page,
+to explain the difficulties in seeding CRC16 calculations.
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.37.D003
+.\" Change 12
+A buglet has been fixed in the \f[I]srec_motorola\fP(5) man page, it now
+includes \f[CW]S6\fP in the list of things that can appear in the type
+field.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11
+The ability to negate expressions is now mentioned in the
+\f[I]srec_examples\fP(1) man page.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.37 (2007\[hy]Oct\[hy]29)
+.\" vim: set ts=8 sw=4 et :

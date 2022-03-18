@@ -1,0 +1,478 @@
+
+
+
+Project "srecord.1.7"                                             Page 1
+List of Changes                                 Mon Apr 30 21:23:01 2001
+
+Change  State           Description
+------- -------         -------------
+  10    completed       prepare for release
+  11    completed       web moved
+  12    completed       CRC error messages bug
+  15    completed       memory bug
+  16    completed       build glitch
+  17    completed       bit-wise not filter
+  18    completed       crc32, again
+  19    completed       unfill
+
+
+
+Project "srecord.1.7", Change 10                                  Page 1
+Change Details                                  Mon Apr 30 21:23:02 2001
+
+NAME
+        Project "srecord.1.7", Delta 1, Change 10.
+
+SUMMARY
+        prepare for release
+
+DESCRIPTION
+        This change prepares SRecord for its next public release.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  create    1.1         etc/CHANGES.1.6
+        source  create    1.1         etc/new.1.7.so
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Mar 19      pmiller
+                        10:48:13 2001
+        develop_begin   Mon Mar 19      pmiller  Elapsed time: 0.053
+                        10:48:14 2001            days.
+        develop_end     Mon Mar 19      pmiller
+                        11:12:06 2001
+        review_pass     Mon Mar 19      pmiller
+                        11:12:09 2001
+        integrate_begin Mon Mar 19      pmiller
+                        11:12:13 2001
+        integrate_pass  Mon Mar 19      pmiller
+                        11:14:42 2001
+
+
+
+Project "srecord.1.7", Change 11                                  Page 1
+Change Details                                  Mon Apr 30 21:23:04 2001
+
+NAME
+        Project "srecord.1.7", Delta 2, Change 11.
+
+SUMMARY
+        web moved
+
+DESCRIPTION
+        This change updates the web pages to cope with a small move of
+        the files.
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.7 -> 1.8  etc/BUILDING.man
+        source  modify   1.25 -> 1.26 etc/README.man
+        source  modify   1.10 -> 1.11 etc/spec.sh
+        source  modify   1.24 -> 1.25 etc/srecord.html
+        source  modify   1.12 -> 1.13 etc/srecord.lsm
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Mar 19      pmiller
+                        11:37:02 2001
+        develop_begin   Mon Mar 19      pmiller
+                        11:37:03 2001
+        develop_end     Mon Mar 19      pmiller
+                        11:46:25 2001
+        review_pass     Mon Mar 19      pmiller  Elapsed time: 0.233
+                        11:46:25 2001            days.
+        integrate_begin Mon Mar 19      pmiller
+                        13:31:14 2001
+        integrate_pass  Mon Mar 19      pmiller
+                        13:32:41 2001
+
+
+
+Project "srecord.1.7", Change 12                                  Page 1
+Change Details                                  Mon Apr 30 21:23:05 2001
+
+NAME
+        Project "srecord.1.7", Delta 3, Change 12.
+
+SUMMARY
+        CRC error messages bug
+
+DESCRIPTION
+        This change fixed a problem with the error reporting in the
+        CRC16 and CRC32 filter classes.
+
+        My thanks to Dimitris Beletsiotis <dbele@intracom.gr> for
+        reporting this problem.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.9 -> 1.10 include/srec/input/filter.h
+        source  modify    1.4 -> 1.5  include/srec/input/filter/and.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/byte_
+                                      swap.h
+        source  modify    1.8 -> 1.9  include/srec/input/filter/
+                                      checksum.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/
+                                      checksum/bitnot.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/
+                                      checksum/negative.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/
+                                      checksum/positive.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/crc16.h
+        source  modify    1.2 -> 1.3  include/srec/input/filter/crc32.h
+        source  modify    1.7 -> 1.8  include/srec/input/filter/crop.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/fill.h
+        source  modify    1.7 -> 1.8  include/srec/input/filter/length.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/
+                                      maximum.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/
+                                      minimum.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/offset.h
+        source  modify    1.4 -> 1.5  include/srec/input/filter/or.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/split.h
+        source  modify    1.6 -> 1.7  include/srec/input/filter/
+                                      unsplit.h
+        source  modify    1.4 -> 1.5  include/srec/input/filter/xor.h
+        source  modify    1.4 -> 1.5  lib/srec/input/filter/and.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/byte_swap.cc
+
+
+
+Project "srecord.1.7", Change 12                                  Page 2
+Change Details                                  Mon Apr 30 21:23:05 2001
+
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.8 -> 1.9  lib/srec/input/filter/checksum.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/checksum/
+                                      bitnot.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/checksum/
+                                      negative.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/checksum/
+                                      positive.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/crc16.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/filter/crc32.cc
+        source  modify    1.7 -> 1.8  lib/srec/input/filter/crop.cc
+        source  modify    1.7 -> 1.8  lib/srec/input/filter/fill.cc
+        source  modify    1.7 -> 1.8  lib/srec/input/filter/length.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/filter/maximum.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/filter/minimum.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/filter/offset.cc
+        source  modify    1.4 -> 1.5  lib/srec/input/filter/or.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/filter/split.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/filter/unsplit.cc
+        source  modify    1.4 -> 1.5  lib/srec/input/filter/xor.cc
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Tue Apr 24      pmiller
+                        07:49:06 2001
+        develop_begin   Tue Apr 24      pmiller  Elapsed time: 0.343
+                        07:49:07 2001            days.
+        develop_end     Tue Apr 24      pmiller
+                        10:23:31 2001
+        review_pass     Tue Apr 24      pmiller
+                        10:26:28 2001
+        integrate_begin Tue Apr 24      pmiller
+                        10:26:31 2001
+        integrate_pass  Tue Apr 24      pmiller
+                        10:29:57 2001
+
+
+
+Project "srecord.1.7", Change 15                                  Page 1
+Change Details                                  Mon Apr 30 21:23:10 2001
+
+NAME
+        Project "srecord.1.7", Delta 4, Change 15.
+
+SUMMARY
+        memory bug
+
+DESCRIPTION
+        This change fixes a bug in the memory chunk iterator code.  This
+        affected CRC16 and CRC32 functionality.
+
+        My thanks to Dimitris Beletsiotis <dbele@intracom.gr> for
+        reporting this problem.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.8 -> 1.9  lib/srec/memory/chunk.cc
+        test    create    1.1         test/00/t0060a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu Apr 26      pmiller
+                        08:44:28 2001
+        develop_begin   Thu Apr 26      pmiller  Elapsed time: 0.127
+                        08:44:30 2001            days.
+        develop_end     Thu Apr 26      pmiller
+                        09:41:51 2001
+        review_pass     Thu Apr 26      pmiller
+                        09:42:02 2001
+        integrate_begin Thu Apr 26      pmiller
+                        09:42:05 2001
+        integrate_pass  Thu Apr 26      pmiller
+                        09:44:05 2001
+
+
+
+Project "srecord.1.7", Change 16                                  Page 1
+Change Details                                  Mon Apr 30 21:23:11 2001
+
+NAME
+        Project "srecord.1.7", Delta 5, Change 16.
+
+SUMMARY
+        build glitch
+
+DESCRIPTION
+        This change fixes a couple of build problems.  My thanks to
+        Holger Mueller <hmueller@sitronic.com> for reporting them.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.11 -> 1.12 etc/spec.sh
+        source  modify    1.7 -> 1.8  lib/srec/record.cc
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu Apr 26      pmiller
+                        12:40:24 2001
+        develop_begin   Thu Apr 26      pmiller  Elapsed time: 0.068
+                        12:40:27 2001            days.
+        develop_end     Thu Apr 26      pmiller
+                        13:11:08 2001
+        review_pass     Thu Apr 26      pmiller
+                        13:11:11 2001
+        integrate_begin Thu Apr 26      pmiller
+                        13:11:14 2001
+        integrate_pass  Thu Apr 26      pmiller
+                        13:13:22 2001
+
+
+
+Project "srecord.1.7", Change 17                                  Page 1
+Change Details                                  Mon Apr 30 21:23:13 2001
+
+NAME
+        Project "srecord.1.7", Delta 6, Change 17.
+
+SUMMARY
+        bit-wise not filter
+
+DESCRIPTION
+        This change adds a bit-wise not filter.
+
+        My thanks to Holger Mueller <hmueller@sitronic.com> for this
+        contribution.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.1 -> 1.2  etc/new.1.7.so
+        source  modify   1.35 -> 1.36 include/srec/arglex.h
+        source  create    1.1         include/srec/input/filter/not.h
+        source  modify   1.37 -> 1.38 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/input/filter/not.cc
+        source  modify   1.31 -> 1.32 man/man1/o_input.so
+        test    create    1.1         test/00/t0061a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Apr 27      pmiller
+                        08:46:44 2001
+        develop_begin   Fri Apr 27      pmiller  Elapsed time: 0.083
+                        08:46:46 2001            days.
+        develop_end     Fri Apr 27      pmiller
+                        09:24:06 2001
+        review_pass     Fri Apr 27      pmiller
+                        09:25:24 2001
+        integrate_begin Fri Apr 27      pmiller
+                        09:25:26 2001
+        integrate_pass  Fri Apr 27      pmiller
+                        09:28:03 2001
+
+
+
+Project "srecord.1.7", Change 18                                  Page 1
+Change Details                                  Mon Apr 30 21:23:15 2001
+
+NAME
+        Project "srecord.1.7", Delta 7, Change 18.
+
+SUMMARY
+        crc32, again
+
+DESCRIPTION
+        This change fixes a bug in the CRC16 and CRC32 calculations. The
+        code on which the implementation was originally based was wrong.
+        This implementation produces results which agree with many
+        implementations available on the Internet.
+
+        My thanks to Dimitris Beletsiotis" <dbele@intracom.gr> for
+        reporting this problem.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  include/crc16.h
+        source  modify    1.2 -> 1.3  include/crc32.h
+        source  modify    1.2 -> 1.3  lib/common/crc16.cc
+        source  modify    1.2 -> 1.3  lib/common/crc32.cc
+        source  modify    1.2 -> 1.3  lib/srec/memory/walker/crc16.cc
+        source  modify    1.2 -> 1.3  lib/srec/memory/walker/crc32.cc
+        test    modify    1.2 -> 1.3  test/00/t0053a.sh
+        test    modify    1.2 -> 1.3  test/00/t0055a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sun Apr 29      pmiller
+                        09:16:08 2001
+        develop_begin   Sun Apr 29      pmiller  Elapsed time: 1.160
+                        09:16:09 2001            days.
+        develop_end     Mon Apr 30      pmiller
+                        10:28:19 2001
+        review_pass     Mon Apr 30      pmiller
+                        10:28:23 2001
+        integrate_begin Mon Apr 30      pmiller
+                        10:28:26 2001
+        integrate_pass  Mon Apr 30      pmiller
+                        10:31:13 2001
+
+
+
+Project "srecord.1.7", Change 19                                  Page 1
+Change Details                                  Mon Apr 30 21:23:17 2001
+
+NAME
+        Project "srecord.1.7", Delta 8, Change 19.
+
+SUMMARY
+        unfill
+
+DESCRIPTION
+        This change adds the unfill filter, used to reverse the effects
+        of the "fill" filter.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  etc/new.1.7.so
+        source  modify   1.36 -> 1.37 include/srec/arglex.h
+        source  create    1.1         include/srec/input/filter/unfill.h
+        source  modify   1.38 -> 1.39 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/input/filter/unfill.cc
+        source  modify   1.32 -> 1.33 man/man1/o_input.so
+        source  modify   1.20 -> 1.21 man/man1/srec_cat.1
+        test    create    1.1         test/00/t0062a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Apr 30      pmiller
+                        10:36:03 2001
+        develop_begin   Mon Apr 30      pmiller  Elapsed time: 0.122
+                        10:36:04 2001            days.
+        develop_end     Mon Apr 30      pmiller
+                        11:30:58 2001
+        review_pass     Mon Apr 30      pmiller
+                        11:33:47 2001
+        integrate_begin Mon Apr 30      pmiller
+                        11:33:50 2001
+        integrate_pass  Mon Apr 30      pmiller
+                        11:37:56 2001

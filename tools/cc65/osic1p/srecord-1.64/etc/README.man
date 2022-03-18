@@ -1,0 +1,418 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 1998, 2000-2004, 2006-2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TH "Read Me" SRecord SRecord "Reference Manual"
+.so etc/version.so
+.hy 0
+.ad l
+.SH NAME
+SRecord \- manipulate EPROM load files
+.XX "" "The README file"
+.SH DESCRIPTION
+The \f[I]SRecord\fP package is a collection of powerful tools for
+manipulating EPROM load files.
+.PP
+I wrote SRecord because when I was looking for programs to manipulate
+EPROM load files, I could not find very many.  The ones that I could
+find only did a few of the things I needed.  SRecord is written in C++
+and polymorphism is used to provide the file format flexibility and
+arbitrary filter chaining.  Adding more file formats and filters is
+relatively simple.
+.SS The File Formats
+The SRecord package understands a number of file formats:
+.\" ----------  A  ---------------------------------------------------------
+.TP 8n
+Ascii\[hy]Hex
+The ascii\[hy]hex format is understood for both reading and writing.
+(Also known as the ascii\[hy]space\[hy]hex format.)
+.TP
+ASM
+It is possible, for output only, to produce a serices of DB statements
+containing the data.  This can be useful for embedding data into assembler
+programs.
+This format cannot be read.
+.TP 8n
+Atmel Generic
+This format is produced by the Atmel AVR assembler.
+It is understood for both reading and writing.
+.\" ----------  B  ---------------------------------------------------------
+.TP
+BASIC
+It is possible, for output only, to produce a serices of DATA statements
+containing the data.  This can be useful for embedding data into BASIC
+programs.
+This format cannot be read.
+.TP 8n
+Binary
+Binary files can both be read and written.
+.TP 8n
+B\[hy]Record
+Files in Freescale Dragonball bootstrap b\[hy]record format can be read
+and written.
+.\" ----------  C  ---------------------------------------------------------
+.TP 8n
+C
+It is also possible to write a C array declaration which contains the data.
+This can be useful when you want to embed download data into C programs.
+This format cannot be read.
+.TP 8n
+COE
+The Xilinx Coefficient File Format (.coe) is understood for output only.
+.TP 8n
+Cosmac
+The RCA Cosmac Elf format is understood for both reading and writing.
+.\" ----------  D ---------------------------------------------------------
+.TP
+DEC Binary
+The DEC Binary (XXDP) format is understood for both reading and writing.
+.TP
+Elektor Monitor (EMON52)
+The EMON52 format is understood for both reading and writing.
+.\" ----------  E  ---------------------------------------------------------
+.\" ----------  F  ---------------------------------------------------------
+.TP
+Fairchild Fairbug
+The Fairchild Fairbug format is understood for both reading and writing.
+.TP
+Formatted Binary
+The Formatted Binary format is understood for both reading and writing.
+.TP
+Four Packed Code (FPC)
+The FPC format is understood for both reading and writing.
+.\" ----------  G  ---------------------------------------------------------
+.\" ----------  H  ---------------------------------------------------------
+.TP
+Hexdump
+It is possible to get a simple hexdump as output.
+.\" ----------  I  ---------------------------------------------------------
+.TP 8n
+IDT/sim
+The IDT/sim binary file format is understood for both reading and writing.
+.TP 8n
+Intel
+The Intel hexadecimal format is understood for both reading and writing.
+(Also known as the Intel MCS\[hy]86 Object format.)
+.TP 8n
+Intel AOMF
+The Intel Absolute Object Module Format (AOMF) is understood for both
+reading and writing.
+.TP 8n
+Intel 16
+The Intel hexadecimal 16 format is understood for both reading and writing.
+(Also known as the INHX16 file format.)
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+.TP
+LSI Logic Fast Load
+The LSI Logic Fast Load format is understood for both reading and writing.
+.YP
+Logisim
+The Logisim format is understood for both reading and writing.
+See \f[I]srec_logisim\fP(5) for more information.
+.\" ----------  M  ---------------------------------------------------------
+.TP 8n
+Memory Initialization Format
+The Memory Initialization Format (.mem) by Lattice Semiconductor is
+understood for writing only.
+.TP 8n
+MIF
+The Memory Initialization File format by Altera is supported for both
+reading and writing.
+.TP 8n
+MOS Technology
+The MOS Technology hexadecimal format is understood for both reading
+and writing.
+.TP 8n
+MIPS\[hy]Flash
+The MIPS Flash file format is supported for both reading and writing.
+.TP 8n
+Motorola S\[hy]Record
+The Motorola hexadecimal S\[hy]Record format is understood for both reading
+and writing.
+(Also known as the Exorciser, Exormacs or Exormax format.)
+.TP 8n
+MsBin
+The Windows CE Binary Image Data Format is supported both for reading
+and writing.
+.\" ----------  N  ---------------------------------------------------------
+.TP 8n
+Needham
+The Needham Electronics ASCII file format is understood for both reading
+and writing.
+.\" ----------  O  ---------------------------------------------------------
+.TP 8n
+OS65V
+The Ohio Scientific hexadecimal format is understood for both reading
+and writing.
+.\" ----------  P  ---------------------------------------------------------
+.TP 8n
+PPB
+The Stag Prom Programmer binary format is understood for both reading
+and writing.
+.TP 8n
+PPX
+The Stag Prom Programmer hexadecimal format is understood for both
+reading and writing.
+.\" ----------  Q  ---------------------------------------------------------
+.\" ----------  R  ---------------------------------------------------------
+.\" ----------  S  ---------------------------------------------------------
+.TP 8n
+Signetics
+The Signetics format is understood for both reading and writing.
+.TP 8n
+SPASM
+The SPASM format is used by a variety of PIC programmers; it is understood
+for both reading and writing.
+.TP 8n
+Spectrum
+The Spectrum format is understood for both reading and writing.
+.\" ----------  T  ---------------------------------------------------------
+.TP 8n
+Tektronix (Extended)
+The Tektronix hexadecimal format and the Tektronix Extended hexadecimal
+format are both understood for both reading and writing.
+.TP 8n
+Texas Instruments Tagged
+The Texas Instruments Tagged format is understood for both reading and
+writing (both 8 and 16 bit).  Also known as the TI\[hy]tagged or TI\[hy]SDSMAC
+format.
+.TP 8n
+Texas Instruments ti\[hy]txt
+The TI\[hy]TXT format is understood for reading and writing.  This format is
+used with the bootstrap loader of the Texas Instruments MSP430 family of
+processors.
+.TP 8n
+TRS\[hy]80
+The Radio Shack TRS\[hy]80 object file format is understood for reading
+and writing.
+.\" ----------  T  ---------------------------------------------------------
+.\" ----------  U  ---------------------------------------------------------
+.\" ----------  V  ---------------------------------------------------------
+.TP 8n
+VHDL
+It is possible to write VHDL file.
+This is only supported for output.
+.TP 8n
+Verilog VMEM
+It is possible to write a Verilog VMEM file suitable for loading with
+\f[CW]$readmemh()\fP.  This format is supported for reading and writing.
+.\" ----------  W  ---------------------------------------------------------
+.TP 8n
+Wilson
+The Wilson format is understood for both reading and writing.
+This mystery format was added for a mysterious type of EPROM writer.
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.\" ----------  End of Format Names  --------------------------------------
+.SS The Tools
+The primary tools of the package are \f[I]srec_cat\fP and \f[I]srec_cmp\fP.
+All of the tools understand all of the file formats, and all of the filters.
+.TP 8n
+.I srec_cat
+The \f[I]srec_cat\fP program may be used to catenate (join) EPROM load
+files, or portions of EPROM load files, together.  Because it understands
+all of the input and output formats, it can also be used to convert
+files from one format to another.
+.TP 8n
+.I srec_cmp
+The \f[I]srec_cmp\fP program may be use to compare EPROM load files,
+or portions of EPROM load files, for equality.
+.TP 8n
+.I srec_info
+The \f[I]srec_info\fP program may be used to print summary information
+about EPROM load files.
+.SS The Filters
+The \f[I]SRecord\fP package is made more powerful by the concept of \f[I]input
+filters\fP.  Wherever an input file may be specified, filters may also
+be applied to that input file.  The following filters are available:
+.\" ----------  A  ---------------------------------------------------------
+.\" ----------  B  ---------------------------------------------------------
+.TP 8n
+bit reverse
+The \f[I]bit\[hy]reverse\fP filter may be used to
+reverse the order of bits in each data byte.
+.TP 8n
+byte swap
+The \f[I]byte swap\fP filter may be used to swap pairs of add and even bytes.
+.\" ----------  C  ---------------------------------------------------------
+.TP 8n
+CRC
+The various \f[I]crc\fP filters may be used to insert a CRC into the data.
+.TP 8n
+.TP
+checksum
+The \f[I]checksum\fP filters may be used to insert a checksum into
+the data.  Positive, negative and bit\[hy]not checksums are available,
+as well as big\[hy]endian and little\[hy]endian byte orders.
+.TP 8n
+crop
+The \f[I]crop\fP filter may be used to isolate an input address range,
+or ranges, and discard the rest.
+.\" ----------  D  ---------------------------------------------------------
+.\" ----------  E  ---------------------------------------------------------
+.TP 8n
+exclude
+The \f[I]exclude\fP filter may be used to exclude an input address range,
+or ranges, and keep the rest.
+.\" ----------  F  ---------------------------------------------------------
+.TP 8n
+fill
+The \f[I]fill\fP filter may be used to fill any holes in the data
+with a nominated value.
+.\" ----------  G  ---------------------------------------------------------
+.\" ----------  H  ---------------------------------------------------------
+.\" ----------  I  ---------------------------------------------------------
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+.TP 8n
+length
+The \f[I]length\fP filter may be used to insert the data length into the data.
+.\" ----------  M  ---------------------------------------------------------
+.TP 8n
+maximum
+The \f[I]maximum\fP filter may be used to insert the maximum data address
+into the data.
+.TP 8n
+minimum
+The \f[I]minimum\fP filter may be used to insert the minimum data address
+into the data.
+.\" ----------  N  ---------------------------------------------------------
+.\" ----------  O  ---------------------------------------------------------
+.TP 8n
+offset
+The \f[I]offset\fP filter may be used to offset the address of data records,
+both forwards and backwards.
+.\" ----------  P  ---------------------------------------------------------
+.\" ----------  Q  ---------------------------------------------------------
+.\" ----------  R  ---------------------------------------------------------
+.TP 8n
+random fill
+The \f[I]random fill\fP filter may be used to fill holes in the data with
+random byte values.
+.\" ----------  S  ---------------------------------------------------------
+.TP 8n
+split
+The \f[I]split\fP filter may be used to split EPROM images for wide data
+buses or other memory striping schemes.
+.\" ----------  T  ---------------------------------------------------------
+.\" ----------  U  ---------------------------------------------------------
+.TP 8n
+unfill
+The \f[I]unfill\fP filter may be used to make holes in the data at bytes
+with a nominated value.
+.TP 8n
+unsplit
+The \f[I]unsplit\fP filter may be reverse the effects of the split filter.
+.\" ----------  V  ---------------------------------------------------------
+.\" ----------  W  ---------------------------------------------------------
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.\" ----------  End of Filter Names  ---------------------------------------
+.PP
+More than one filter may be applied to each input file.
+Different filters may be applied to each input file.
+All filters may be applied to all file formats.
+.br
+.ne 1i
+.SH ARCHIVE SITE
+The latest version of
+.I SRecord
+is available on the Web from:
+.TS
+center,tab(;);
+l l s
+l l l.
+URL:;http://srecord.sourceforge.net/
+File:;index.html;# the SRecord page
+File:;srecord\-\*(v).README;# Description, from the tar file
+File:;srecord\-\*(v).lsm;# Description, LSM format
+File:;srecord\-\*(v).spec;# RedHat package specification
+File:;srecord\-\*(v).tar.gz;# the complete source
+File:;srecord\-\*(v).pdf;# Reference Manual
+.TE
+.br
+.ne 1i
+.SH BUILDING SRECORD
+Full instructions for building
+.I SRecord
+may be found in the
+.I BUILDING
+file included in this distribution.
+.LP
+It is also possible to build \f[I]SRecord\fP on Windows using the
+Cygwin (www.cygwin.com) or DJGPP (www.delorie.com/djgpp) environments.
+Instructions are in the \f[I]BUILDING\fP file, including how to get native
+Windows binaries.
+.br
+.ne 1i
+.SH COPYRIGHT
+.I srecord
+version \*(v)
+.br
+Copyright
+.if t \(co
+.if n (C)
+Scott Finneran <scottfinneran@yahoo.com.au>
+.br
+Copyright
+.if t \(co
+.if n (C)
+\*(Y) Peter Miller <pmiller@opensource.org.au>
+.PP
+This program is free software;
+you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation;
+either version 3 of the License,
+or (at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY;
+without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.
+See the GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License along
+with this program. If not, see <http://www.gnu.org/licenses/>.
+.PP
+It should be in the
+.I LICENSE
+file included with this distribution.
+.br
+.ne 1i
+.SH AUTHOR
+.TS
+tab(;);
+l l l.
+Peter Miller;E\[hy]Mail:;pmiller@opensource.org.au
+\f(CW/\e/\e*\fP;WWW:;http://miller.emu.id.au/pmiller/
+.TE
+.br
+.bp
+.SH RELEASE NOTES
+.XX "" "Release Notes"
+This section details the various features and bug fixes of the various
+releases.  For excruciating and complete detail, and also credits for
+those of you who have generously sent me suggestions and bug reports,
+see the \f[I]etc/CHANGES.*\fP files.
+.so etc/new.so
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,163 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2009-2012, 2014 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TH "New Filter" "SRecord" "SRecord" "Reference Manual"
+.SH NAME
+How to add a new filter
+.XX "" "How to add a new filter"
+.SH DESCRIPTION
+This section describes how to add a new filter.  It's mostly a set
+of reminders for the maintainer.  If you want a filter added to the
+distribution, use this method and e\[hy]mail the maintainer a patch
+(generated with \f[CW]diff \-Nur\fP, usually) and it can be added to the
+sources if appropriate.
+.SS New Files
+The directory hierarchy is an echo of the class hierarchy, making it
+easy to guess the filename of a class, and to work out the appropriate
+file name of a new class.  You get used to it.  It is suggested that you
+simply work in the root of the source tree (exploiting tab\[hy]completion in
+your shell and your editor) rather than continually changing directories
+up and down the source tree.  All of the file names below assume this.
+.PP
+The following files need to be created for a new filter.
+.TP 8n
+srecord/input/filter/\f[I]name\fP.cc
+This file is how to process the new filter.
+Take a look at the other files in the same directory for examples.
+Also read \f[I]srecord/input.h\fP and \f[I]srecord/input/filter.h\fP
+for various helper methods.
+.TP 8n
+srecord/input/filter/\f[I]name\fP.h
+This is the class declaration for the above file.
+.TP 8n
+srecord/input/filter/message/\f[I]name\fP.cc
+If your filter needs all of the data to be known before it can proceed,
+or it needs all of the data to appear in ascending address order,
+derive from the \f[CW]srec_input_filter_message\fP class, instead.
+This takes care of all data handling,
+you only have to write the method that computes the result from the data.
+Take a look at the other files in the same directory for examples.
+.TP 8n
+srecord/input/filter/message/\f[I]name\fP.h
+This is the class declaration for the above file.
+.TP 8n
+test/\f[I]nn\fP/t\f[I]nnmm\fPa.sh
+You may have noticed that SRecord comes with a lot of tests.  You are
+more likely to get the patch for your new filter accepted rapidly if it
+comes with at least one test.
+.SS Modified Files
+The following files need to be updated to mention the new filter.
+.TP 8n
+srecord/srecord.h
+Add the new include file to the list.  This file controls what files are
+installed into the \f[CW]/usr/include\fP directory.  Not all of them,
+just the public interface.
+.TP 8n
+etc/README.man
+Mention the new filter in the section of this file which describes
+the supported filters.
+.TP 8n
+etc/index.html
+Mention the new filter in the section of this file which describes
+the supported filters.
+.TP 8n
+srecord/arglex/tool.h
+.RS
+Add the new filter to the command line argument type enum.
+.PP
+If your filter has endian\[hy]ness, add one for each endian, using
+\[lq]_be\[rq] and \[lq]_le\[rq] suffixes.
+.RE
+.TP 8n
+srecord/arglex/tool.cc
+.RS
+Add the new filter to the array of command line arguments types.
+.PP
+If your filter has endian\[hy]ness, add one for each endian, using
+\[lq]_Big_Endian\[rq] and \[lq]_Little_Endian\[rq] suffixes.
+.RE
+.TP 8n
+srecord/arglex/tool/input.cc
+.RS
+Add the new filter to the code which parses input filters.
+.PP
+If your filter has endian\[hy]ness, add your command line tokens to the switch
+in the srecord::arglex_tool::get_endian_by_token method.
+.RE
+.TP 8n
+man/man1/o_input.so
+Mention the new filter in the section of this file which describes
+the supported input filters.
+.TP 8n
+Makefile
+Actually, the system the maintainer has Aegis automatically generate
+this file, but if you aren't using Aegis you will need to edit this file
+for your own use.
+.SS Tests
+You may have noticed that SRecord comes with a lot of tests.  You are
+more likely to get the patch for your new filter accepted rapidly if it
+comes with at least one test.
+.PP
+If your filter has endian\[hy]ness, add tests for each endian.
+.SH IMPLEMENTATION ISSUES
+In implementing a new filter, there are a couple of philosophical
+issues which affect technical decissions:
+.TP 3n
+\(bu
+Be liberal in what you accept.  Where ever possible, consume the widest
+possible interpretation of \[lq]valid\[rq] data.  You especially need
+to cope with data with holes, and data records out of order, and data
+records not nicely aligned.
+.PP
+If your filter has endian\[hy]ness, add tests for each endian.
+.TP 3n
+\(bu
+Be conservative in what you produce.
+Even when the input is weird, the output produced by the filter must be
+conforming.
+\f[I]E.g.\fP the byte\[hy]swap filter still works when it has only one
+of the two bytes, and the other is a hole; it swaps the byte and the hole.
+.TP 3n
+\(bu
+If the input has no header record, the output should not have one either.
+.TP 3n
+\(bu
+If the input has no execution start address record, the output should
+not have one either.
+.TP 3n
+\(bu
+Do not to fill in holes in the data, unless you are a writing a
+\[lq]fill\[rq] filter.
+See the \f[CW]srecord/input/filter/message.cc\fP file for an example of
+issuing a warning in the presence of holes.
+.TP 3n
+\(bu
+If the new filter is supposed to be its own inverse (\f[I]e.g.\fP
+byte\[hy]swap), or a pair of filters are supposed to be inverses
+(\f[I]e.g.\fP split and unsplit) be sure to write a test to confirm
+this.  The tests should exersize all of the boundary conditions
+(\f[I]e.g.\fP around the edges of holes, extremes of data ranges).
+.so etc/coding-style.so
+.SH AUTHOR
+.TS
+tab(;);
+l l l.
+Scott Finneran;E\[hy]Mail:;scottfinneran@yahoo.com.au
+Peter Miller;E\[hy]Mail:;pmiller@opensource.org.au
+.TE
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,605 @@
+
+
+
+Project "srecord.1.1"                                            Page 1
+List of Changes                                Wed Nov  4 22:10:16 1998
+
+Change  State           Description
+------- -------         -------------
+  10    completed       prepare for release
+  11    completed       change sunsite directory
+  12    completed       file format manuals
+  13    completed       tektronix file format
+  14    completed       reference manual
+  15    completed       complete intel format
+  16    completed       tektronix, again
+  17    completed       installation build
+  18    completed       split filter
+  19    completed       unplit filter
+
+
+
+Project "srecord.1.1", Change 10                                 Page 1
+Change Details                                 Wed Nov  4 22:10:16 1998
+
+NAME
+        Project "srecord.1.1", Delta 1, Change 10.
+
+SUMMARY
+        prepare for release
+
+DESCRIPTION
+        This change tidies up loose ends (and cranks on the version
+        number) in preparation for release.
+
+        This change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.5 -> 1.6  etc/archive.cook
+        test    modify    1.2 -> 1.3  test/00/t0018a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sun Mar 22      pmiller
+                        12:02:50 1998
+        develop_begin   Sun Mar 22      pmiller  Elapsed time: 0.047
+                        12:02:53 1998            days.
+        develop_end     Sun Mar 22      pmiller
+                        12:23:54 1998
+        review_pass     Sun Mar 22      pmiller
+                        12:24:00 1998
+        integrate_begin Sun Mar 22      pmiller
+                        12:24:08 1998
+        integrate_fail  Sun Mar 22      pmiller  need to shallow
+                        12:25:35 1998            archive targets
+                                                 Elapsed time: 0.022
+                                                 days.
+        develop_end     Sun Mar 22      pmiller
+                        12:35:37 1998
+        review_pass     Sun Mar 22      pmiller
+                        12:36:23 1998
+        integrate_begin Sun Mar 22      pmiller
+                        12:37:12 1998
+        integrate_fail  Sun Mar 22      pmiller  rsolve missing
+                        12:39:47 1998
+        develop_end     Sun Mar 22      pmiller
+                        12:43:35 1998
+        review_pass     Sun Mar 22      pmiller
+                        12:43:44 1998
+        integrate_begin Sun Mar 22      pmiller
+                        12:43:49 1998
+
+
+
+Project "srecord.1.1", Change 10                                 Page 2
+Change Details                                 Wed Nov  4 22:10:16 1998
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        integrate_pass  Sun Mar 22      pmiller
+                        12:47:34 1998
+
+
+
+Project "srecord.1.1", Change 11                                 Page 1
+Change Details                                 Wed Nov  4 22:10:16 1998
+
+NAME
+        Project "srecord.1.1", Delta 2, Change 11.
+
+SUMMARY
+        change sunsite directory
+
+DESCRIPTION
+        This change updates the LSM, etc, to reflect where the
+        SunSite.unc maintainers chose to put the software.
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.6 -> 1.7  etc/README.man
+        source  modify    1.5 -> 1.6  etc/srecord.html
+        source  modify    1.5 -> 1.6  etc/srecord.lsm
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu Mar 26      pmiller
+                        09:59:42 1998
+        develop_begin   Thu Mar 26      pmiller
+                        09:59:45 1998
+        develop_end     Thu Mar 26      pmiller
+                        10:06:56 1998
+        review_pass     Thu Mar 26      pmiller
+                        10:07:00 1998
+        integrate_begin Thu Mar 26      pmiller
+                        10:07:03 1998
+        integrate_pass  Thu Mar 26      pmiller
+                        10:07:52 1998
+
+
+
+Project "srecord.1.1", Change 12                                 Page 1
+Change Details                                 Wed Nov  4 22:10:16 1998
+
+NAME
+        Project "srecord.1.1", Delta 3, Change 12.
+
+SUMMARY
+        file format manuals
+
+DESCRIPTION
+        This change adds file format man pages.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  etc/Makefile.sh
+        source  create    1.1         man/man5/srec_intel.5
+        source  create    1.1         man/man5/srec_motorola.5
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Jun 29      pmiller
+                        08:55:11 1998
+        develop_begin   Mon Jun 29      pmiller  Elapsed time: 0.230
+                        08:55:15 1998            days.
+        develop_end     Mon Jun 29      pmiller
+                        10:38:52 1998
+        review_pass     Mon Jun 29      pmiller
+                        10:38:55 1998
+        integrate_begin Mon Jun 29      pmiller
+                        10:38:57 1998
+        integrate_pass  Mon Jun 29      pmiller
+                        10:39:49 1998
+
+
+
+Project "srecord.1.1", Change 13                                 Page 1
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+NAME
+        Project "srecord.1.1", Delta 5, Change 13.
+
+SUMMARY
+        tektronix file format
+
+DESCRIPTION
+        This change adds reading and writing of the Tektronix hex file
+        format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.8 -> 1.9  etc/README.man
+        source  modify    1.7 -> 1.8  etc/srecord.html
+        source  modify    1.6 -> 1.7  etc/srecord.lsm
+        source  modify   1.10 -> 1.11 include/srec/arglex.h
+        source  create    1.1         include/srec/input/file/
+                                      tektronix.h
+        source  create    1.1         include/srec/output/file/
+                                      tektronix.h
+        source  modify   1.11 -> 1.12 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/input/file/tektronix.cc
+        source  create    1.1         lib/srec/output/file/tektronix.cc
+        source  modify   1.11 -> 1.12 man/man1/o_input.so
+        source  create    1.1         man/man5/srec_tektronix.5
+        test    create    1.1         test/00/t0019a.sh
+        test    create    1.1         test/00/t0020a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Oct 30      pmiller
+                        17:42:39 1998
+        develop_begin   Fri Oct 30      pmiller  Elapsed time: 0.795
+                        17:42:41 1998            days.
+        develop_end     Fri Oct 30      pmiller
+                        23:40:27 1998
+        review_pass     Fri Oct 30      pmiller
+                        23:40:30 1998
+        integrate_begin Fri Oct 30      pmiller
+                        23:40:32 1998
+        integrate_pass  Fri Oct 30      pmiller
+                        23:42:06 1998
+
+
+
+Project "srecord.1.1", Change 14                                 Page 1
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+NAME
+        Project "srecord.1.1", Delta 4, Change 14.
+
+SUMMARY
+        reference manual
+
+DESCRIPTION
+        This change adds a reference manual, constructed from the
+        readme and building files, and the manual pages.
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  etc/BUILDING.man
+        source  modify    1.7 -> 1.8  etc/Howto.cook
+        source  modify    1.7 -> 1.8  etc/README.man
+        source  modify    1.6 -> 1.7  etc/archive.cook
+        source  modify    1.4 -> 1.5  etc/documentation.cook
+        source  create    1.1         etc/ref-ptx.ignore
+        source  create    1.1         etc/ref-ptx.sh
+        source  create    1.1         etc/ref-ptx1.awk
+        source  create    1.1         etc/ref-ptx2.awk
+        source  create    1.1         etc/ref-toc.so
+        source  create    1.1         etc/reference.man
+        source  modify    1.6 -> 1.7  etc/srecord.html
+        source  modify   1.10 -> 1.11 man/man1/o_input.so
+        source  modify    1.4 -> 1.5  man/man1/srec_cat.1
+        source  modify    1.4 -> 1.5  man/man1/srec_cmp.1
+        source  modify    1.2 -> 1.3  man/man1/srec_info.1
+        source  modify    1.2 -> 1.3  man/man1/srec_license.1
+        source  modify    1.1 -> 1.2  man/man5/srec_intel.5
+        source  modify    1.1 -> 1.2  man/man5/srec_motorola.5
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Oct 30      pmiller
+                        23:03:09 1998
+        develop_begin   Fri Oct 30      pmiller  Elapsed time: 0.058
+                        23:03:09 1998            days.
+        develop_end     Fri Oct 30      pmiller
+                        23:29:20 1998
+        review_pass     Fri Oct 30      pmiller
+                        23:29:23 1998
+        integrate_begin Fri Oct 30      pmiller
+
+
+
+Project "srecord.1.1", Change 14                                 Page 2
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+                        23:29:26 1998
+        integrate_pass  Fri Oct 30      pmiller
+                        23:30:52 1998
+
+
+
+Project "srecord.1.1", Change 15                                 Page 1
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+NAME
+        Project "srecord.1.1", Delta 6, Change 15.
+
+SUMMARY
+        complete intel format
+
+DESCRIPTION
+        This change completes the support for Intel mode.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.4 -> 1.5  include/srec/input/file.h
+        source  modify    1.4 -> 1.5  include/srec/input/file/intel.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/intel.h
+        source  modify    1.5 -> 1.6  lib/srec/input/file.cc
+        source  modify    1.4 -> 1.5  lib/srec/input/file/intel.cc
+        source  modify    1.2 -> 1.3  lib/srec/output/file/intel.cc
+        source  modify    1.2 -> 1.3  man/man5/srec_intel.5
+        test    modify    1.3 -> 1.4  test/00/t0003a.sh
+        test    modify    1.2 -> 1.3  test/00/t0007a.sh
+        test    create    1.1         test/00/t0021a.sh
+        test    create    1.1         test/00/t0022a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sat Oct 31      pmiller
+                        23:03:07 1998
+        develop_begin   Sat Oct 31      pmiller  Elapsed time: 1.000
+                        23:03:10 1998            days.
+        develop_end     Sun Nov  1      pmiller
+                        12:09:38 1998
+        review_pass     Sun Nov  1      pmiller
+                        12:09:41 1998
+        integrate_begin Sun Nov  1      pmiller
+                        12:09:46 1998
+        integrate_pass  Sun Nov  1      pmiller
+                        12:11:49 1998
+
+
+
+Project "srecord.1.1", Change 16                                 Page 1
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+NAME
+        Project "srecord.1.1", Delta 7, Change 16.
+
+SUMMARY
+        tektronix, again
+
+DESCRIPTION
+        This change adds support for Tektronix abort records.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.1 -> 1.2  lib/srec/input/file/tektronix.cc
+        test    create    1.1         test/00/t0023a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sun Nov  1      pmiller
+                        23:47:52 1998
+        develop_begin   Sun Nov  1      pmiller  Elapsed time: 0.032
+                        23:47:57 1998            days.
+        develop_end     Mon Nov  2      pmiller
+                        00:02:31 1998
+        review_pass     Mon Nov  2      pmiller
+                        00:02:35 1998
+        integrate_begin Mon Nov  2      pmiller
+                        00:02:37 1998
+        integrate_pass  Mon Nov  2      pmiller
+                        00:03:50 1998
+
+
+
+Project "srecord.1.1", Change 17                                 Page 1
+Change Details                                 Wed Nov  4 22:10:17 1998
+
+NAME
+        Project "srecord.1.1", Delta 9, Change 17.
+
+SUMMARY
+        installation build
+
+DESCRIPTION
+        This change updates the installation build to include the
+        reference manual.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.3 -> 1.4  etc/BUILDING.man
+        source  create    1.1         etc/CHANGES.1.0
+        source  create    1.1         etc/CHANGES.sh
+        source  modify    1.8 -> 1.9  etc/Howto.cook
+        source  modify    1.2 -> 1.3  etc/Makefile.file.sh
+        source  modify    1.2 -> 1.3  etc/Makefile.head
+        source  modify    1.3 -> 1.4  etc/Makefile.sh
+        source  modify   1.10 -> 1.11 etc/README.man
+        source  modify    1.7 -> 1.8  etc/archive.cook
+        source  modify    1.2 -> 1.3  etc/configure.in
+        source  modify    1.5 -> 1.6  etc/documentation.cook
+        source  create    1.1         etc/new.1.1.so
+        source  create    1.1         etc/new.sh
+        test    modify    1.4 -> 1.5  test/00/t0003a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Nov  2      pmiller
+                        13:16:51 1998
+        develop_begin   Mon Nov  2      pmiller  Elapsed time: 2.000
+                        13:19:28 1998            days.
+        develop_end     Wed Nov  4      pmiller  Elapsed time: 1.000
+                        00:31:29 1998            days.
+        review_pass     Wed Nov  4      pmiller
+                        14:49:26 1998
+        integrate_begin Wed Nov  4      pmiller
+                        14:49:29 1998
+        integrate_pass  Wed Nov  4      pmiller
+                        14:52:18 1998
+
+
+
+Project "srecord.1.1", Change 18                                 Page 1
+Change Details                                 Wed Nov  4 22:10:18 1998
+
+NAME
+        Project "srecord.1.1", Delta 8, Change 18.
+
+SUMMARY
+        split filter
+
+DESCRIPTION
+        This change adds the split filter, for splitting wide eprom
+        images.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.9 -> 1.10 etc/README.man
+        source  modify    1.6 -> 1.7  etc/spec.sh
+        source  modify    1.8 -> 1.9  etc/srecord.html
+        source  modify   1.11 -> 1.12 include/srec/arglex.h
+        source  create    1.1         include/srec/input/filter/split.h
+        source  modify   1.12 -> 1.13 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/input/filter/split.cc
+        source  modify   1.12 -> 1.13 man/man1/o_input.so
+        source  modify    1.5 -> 1.6  man/man1/srec_cat.1
+        test    create    1.1         test/00/t0024a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Nov  2      pmiller
+                        16:24:14 1998
+        develop_begin   Mon Nov  2      pmiller  Elapsed time: 1.234
+                        16:24:17 1998            days.
+        develop_end     Tue Nov  3      pmiller
+                        18:09:33 1998
+        review_pass     Tue Nov  3      pmiller
+                        18:10:53 1998
+        integrate_begin Tue Nov  3      pmiller
+                        18:10:57 1998
+        integrate_pass  Tue Nov  3      pmiller
+                        18:12:52 1998
+
+
+
+Project "srecord.1.1", Change 19                                 Page 1
+Change Details                                 Wed Nov  4 22:10:18 1998
+
+NAME
+        Project "srecord.1.1", Delta 10, Change 19.
+
+SUMMARY
+        unplit filter
+
+DESCRIPTION
+        This change adds the --unsplit filter, used to do the reverse
+        of the --split filter
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.11 -> 1.12 etc/README.man
+        source  modify    1.1 -> 1.2  etc/new.1.1.so
+        source  modify    1.9 -> 1.10 etc/srecord.html
+        source  modify   1.12 -> 1.13 include/srec/arglex.h
+        source  create    1.1         include/srec/input/filter/
+                                      unsplit.h
+        source  modify   1.13 -> 1.14 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/input/filter/unsplit.cc
+        source  modify   1.13 -> 1.14 man/man1/o_input.so
+        source  modify    1.6 -> 1.7  man/man1/srec_cat.1
+        test    create    1.1         test/00/t0025a.sh
+        test    create    1.1         test/00/t0026a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Wed Nov  4      pmiller
+                        17:43:34 1998
+        develop_begin   Wed Nov  4      pmiller  Elapsed time: 0.052
+                        17:43:40 1998            days.
+        develop_end     Wed Nov  4      pmiller
+                        18:07:06 1998
+        review_pass     Wed Nov  4      pmiller
+                        18:07:10 1998
+        integrate_begin Wed Nov  4      pmiller
+                        18:07:13 1998
+        integrate_      Wed Nov  4      pmiller
+        begin_undo      18:07:33 1998
+        develop_end_    Wed Nov  4      pmiller  Elapsed time: 0.026
+        undo            18:07:47 1998            days.
+        develop_end     Wed Nov  4      pmiller
+                        18:19:40 1998
+        review_pass     Wed Nov  4      pmiller
+                        18:19:40 1998
+        integrate_begin Wed Nov  4      pmiller
+                        18:19:43 1998
+
+
+
+Project "srecord.1.1", Change 19                                 Page 2
+Change Details                                 Wed Nov  4 22:10:18 1998
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        integrate_pass  Wed Nov  4      pmiller
+                        18:25:04 1998

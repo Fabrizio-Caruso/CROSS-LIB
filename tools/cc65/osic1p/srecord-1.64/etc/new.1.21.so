@@ -1,0 +1,69 @@
+.\"
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2005-2007, 2010 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 22
+The \fB\-byte\[hy]swap\fP filter now has an optional \fIwidth\fP argument,
+to specify the address width to swap.  The default is two bytes.
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.21.D010
+.\" Change 20
+.\" pmiller, Thu Jul 14 00:11:27 2005, motorola address multiplier
+The motorola file format now accepts an additional 'width'
+command line argument, so you can have 16\[hy]bit and 32\[hy]bit address
+multiples.
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.21.D008
+.\" Change 19
+.\" pmiller, Wed Jul 13 22:34:43 2005, vmem address bug (SF 1119786)
+A bug has been fixed in the VMEM output format. It was failing
+to correctly set the next address in some cases.
+This fixes SourceForge bug 1119786.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+The \-C\[hy]Array output format now uses the \f[CW]const\fP keyword by
+default, you can turn it off with the \-no\[hy]const option.  The \-C\[hy]Array
+output format can now generate an additional include file if you use the
+\-INClude option.
+This answers SourceForge feature request 942132.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+A fix for the "undefined symbols" problem when using g++ 3.x on Cygwin
+and MacOsX has been added to the ./configure script.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+There is a new \-ignore\[hy]checksum command line option.
+The \-ignore\[hy]checksums option may be used to disable checksum
+validation of input files, for those formats which have
+checksums at all.  Note that the checksum values are still read
+in and parsed (so it is still an error if they are missing) but
+their values are not checked.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.21 (2005\[hy]Feb\[hy]07)

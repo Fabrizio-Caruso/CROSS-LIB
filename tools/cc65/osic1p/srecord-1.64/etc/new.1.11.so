@@ -1,0 +1,38 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2002, 2003, 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 16
+It is now possible to put \fB\-minimum\fP \fIinput.spec\fP (also
+\fB\-maximum\fP and \fB\-length\fP) almost anywhere on the command line
+that you can put a number.  It allows, for example, the \-offset value
+to be calculated from the maximum of the previous file.
+The values calculated by \fB\-Minimum\fP, \fB\-Maximum\fP and
+\fB\-Length\fP may also be rounded to arbitrary boundaries, using
+\fB\-Round_Down\fP, \fB\-Round_Nearest\fP and \fB\-Round_Up\fP.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 12
+The malformed Motorola S5 records output by the Green Hills tool chain are
+now understood.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.11 (2002-Oct-21)

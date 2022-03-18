@@ -1,0 +1,1089 @@
+
+
+
+Project "srecord.1.8"                                             Page 1
+List of Changes                                 Tue Nov 27 10:01:35 2001
+
+Change  State           Description
+------- -------         -------------
+  10    completed       prepare for release
+  11    completed       hex addresses from srec_cmp -v
+  12    completed       spasm
+  15    completed       tektronix bug
+  16    completed       tektronix, again
+  17    completed       djgpp
+  18    completed       fill bug
+  19    completed       Atmel Generic format
+  20    completed       preserve headers
+  21    completed       FPC file format
+  22    completed       signetics format
+  23    completed       doxygen
+  25    completed       emon52
+  26    completed       output address range checking
+  27    completed       dec binary format
+  28    completed       header option
+
+
+
+Project "srecord.1.8", Change 10                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 1, Change 10.
+
+SUMMARY
+        prepare for release
+
+DESCRIPTION
+        This change prepares SRecord for the next public release.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  create    1.1         etc/CHANGES.1.7
+        source  modify    1.4 -> 1.5  etc/new.1.7.so
+        source  create    1.1         etc/new.1.8.so
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Apr 30      pmiller
+                        21:22:08 2001
+        develop_begin   Mon Apr 30      pmiller
+                        21:22:09 2001
+        develop_end     Mon Apr 30      pmiller
+                        21:27:46 2001
+        review_pass     Mon Apr 30      pmiller
+                        21:27:52 2001
+        integrate_begin Mon Apr 30      pmiller
+                        21:27:55 2001
+        integrate_pass  Mon Apr 30      pmiller
+                        21:32:00 2001
+
+
+
+Project "srecord.1.8", Change 11                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 2, Change 11.
+
+SUMMARY
+        hex addresses from srec_cmp -v
+
+DESCRIPTION
+        This change causes srec_cmp -v to emit hexadecimal addresses,
+        rather than decimals ones.  This is usually more useful.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.11 -> 1.12 lib/common/interval.cc
+        source  modify    1.3 -> 1.4  lib/srec/memory/walker/compare.cc
+        source  modify   1.10 -> 1.11 prog/srec_cmp/main.cc
+        test    modify    1.2 -> 1.3  test/00/t0040a.sh
+        test    modify    1.2 -> 1.3  test/00/t0060a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Tue May 15      pmiller
+                        11:50:03 2001
+        develop_begin   Tue May 15      pmiller  Elapsed time: 0.098
+                        11:50:04 2001            days.
+        develop_end     Tue May 15      pmiller
+                        12:34:06 2001
+        review_pass     Tue May 15      pmiller
+                        12:34:09 2001
+        integrate_begin Tue May 15      pmiller  Elapsed time: 0.182
+                        12:34:12 2001            days.
+        integrate_pass  Tue May 15      pmiller
+                        13:55:57 2001
+
+
+
+Project "srecord.1.8", Change 12                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 3, Change 12.
+
+SUMMARY
+        spasm
+
+DESCRIPTION
+        This change adds the SPASM format for reading and writing.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.27 -> 1.28 etc/README.man
+        source  modify   1.26 -> 1.27 etc/srecord.html
+        source  modify   1.38 -> 1.39 include/srec/arglex.h
+        source  create    1.1         include/srec/input/file/spasm.h
+        source  modify   1.10 -> 1.11 include/srec/output/file/c.h
+        source  create    1.1         include/srec/output/file/spasm.h
+        source  modify   1.40 -> 1.41 lib/srec/arglex.cc
+        source  create    1.1         lib/srec/arglex_output.cc
+        source  modify    1.2 -> 1.3  lib/srec/input/file/guess.cc
+        source  create    1.1         lib/srec/input/file/spasm.cc
+        source  create    1.1         lib/srec/output/file/spasm.cc
+        source  modify   1.34 -> 1.35 man/man1/o_input.so
+        source  modify   1.22 -> 1.23 man/man1/srec_cat.1
+        source  create    1.1         man/man5/srec_spasm.5
+        test    create    1.1         test/00/t0063a.sh
+        test    create    1.1         test/00/t0065a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu May 24      pmiller
+                        09:20:52 2001
+        develop_begin   Thu May 24      pmiller  Elapsed time: 0.391
+                        09:20:53 2001            days.
+        develop_end     Thu May 24      pmiller
+                        12:16:59 2001
+        review_pass     Thu May 24      pmiller
+                        12:17:02 2001
+        integrate_begin Thu May 24      pmiller
+                        12:17:05 2001
+        integrate_pass  Thu May 24      pmiller
+                        12:20:09 2001
+
+
+
+Project "srecord.1.8", Change 15                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 4, Change 15.
+
+SUMMARY
+        tektronix bug
+
+DESCRIPTION
+        This change fixed a bug in the Tektronix file format. It was
+        checksumming bytes when it should have checksummed nybbles.
+
+        My thanks to Jim Purcell <jim@needhams.com> for reporting this
+        problem.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.1 -> 1.2  etc/new.1.8.so
+        source  modify    1.8 -> 1.9  include/srec/input/file/
+                                      tektronix.h
+        source  modify   1.10 -> 1.11 include/srec/output/file/
+                                      tektronix.h
+        source  modify    1.9 -> 1.10 lib/srec/input/file/tektronix.cc
+        source  modify   1.11 -> 1.12 lib/srec/output/file/tektronix.cc
+        source  modify    1.6 -> 1.7  man/man5/srec_tektronix.5
+        test    modify    1.4 -> 1.5  test/00/t0019a.sh
+        test    modify    1.4 -> 1.5  test/00/t0020a.sh
+        test    modify    1.4 -> 1.5  test/00/t0023a.sh
+        test    modify    1.4 -> 1.5  test/00/t0032a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu May 24      pmiller
+                        12:21:15 2001
+        develop_begin   Thu May 24      pmiller  Elapsed time: 0.063
+                        12:21:17 2001            days.
+        develop_end     Thu May 24      pmiller
+                        12:49:36 2001
+        review_pass     Thu May 24      pmiller
+                        12:49:39 2001
+        integrate_begin Thu May 24      pmiller
+                        12:49:42 2001
+        integrate_pass  Thu May 24      pmiller
+                        12:52:13 2001
+
+
+
+Project "srecord.1.8", Change 16                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 5, Change 16.
+
+SUMMARY
+        tektronix, again
+
+DESCRIPTION
+        This change fixes a typo in the tektronix output class.
+
+        My thanks to Jim Purcell <jim@needhams.com> for his assistance
+        in finding this bug.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by chain.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.12 -> 1.13 lib/srec/output/file/tektronix.cc
+        test    create    1.1         test/00/t0066a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri May 25      pmiller
+                        06:53:52 2001
+        develop_begin   Fri May 25      pmiller  Elapsed time: 0.034
+                        06:53:53 2001            days.
+        develop_end     Fri May 25      pmiller
+                        07:09:19 2001
+        review_pass     Fri May 25      pmiller
+                        07:09:24 2001
+        integrate_begin Fri May 25      pmiller
+                        07:09:29 2001
+        integrate_pass  Fri May 25      pmiller
+                        07:11:39 2001
+
+
+
+Project "srecord.1.8", Change 17                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 6, Change 17.
+
+SUMMARY
+        djgpp
+
+DESCRIPTION
+        This change adds a note to the documentation about DJGPP.
+        My thanks to Shankar Chakkere <shankar_
+        chakkere@denro.littonas.com> for this information.
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_improvement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.9 -> 1.10 etc/BUILDING.man
+        source  modify   1.28 -> 1.29 etc/README.man
+        source  modify   1.27 -> 1.28 etc/srecord.html
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Wed Jul 18      pmiller
+                        08:17:00 2001
+        develop_begin   Wed Jul 18      pmiller  Elapsed time: 0.032
+                        08:17:01 2001            days.
+        develop_end     Wed Jul 18      pmiller
+                        08:31:22 2001
+        review_pass     Wed Jul 18      pmiller
+                        08:34:45 2001
+        integrate_begin Wed Jul 18      pmiller
+                        08:34:55 2001
+        integrate_pass  Wed Jul 18      pmiller
+                        08:37:32 2001
+
+
+
+Project "srecord.1.8", Change 18                                  Page 1
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+NAME
+        Project "srecord.1.8", Delta 7, Change 18.
+
+SUMMARY
+        fill bug
+
+DESCRIPTION
+        This change fixes a bug filling intel hex files. It turns out
+        that a number of filters, not just the fill filter, assume that
+        the termination record is the last record in the file. For some
+        formats this is not true, so they have been re-coded without
+        this assumption. The "termination" record has been renamed the
+        "execution start address" record, to more accurately refect
+        what it does, and to remove the expectation that it is the last
+        record in the file.
+
+        My thanks to Neil Viberg <Neil.Viberg@cmcelectronics.ca> for
+        reporting this problem.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.10 -> 1.11 include/srec/input/filter/
+                                      checksum.h
+        source  modify    1.8 -> 1.9  include/srec/input/filter/fill.h
+        source  modify    1.9 -> 1.10 include/srec/input/filter/length.h
+        source  modify    1.8 -> 1.9  include/srec/input/filter/
+                                      maximum.h
+        source  modify    1.8 -> 1.9  include/srec/input/filter/
+                                      minimum.h
+        source  modify   1.12 -> 1.13 include/srec/record.h
+        source  modify   1.12 -> 1.13 lib/srec/input/file/intel.cc
+        source  modify   1.11 -> 1.12 lib/srec/input/file/srecord.cc
+        source  modify   1.10 -> 1.11 lib/srec/input/file/tektronix.cc
+        source  modify    1.3 -> 1.4  lib/srec/input/file/tektronix_
+                                      extended.cc
+        source  modify    1.5 -> 1.6  lib/srec/input/file/wilson.cc
+        source  modify   1.10 -> 1.11 lib/srec/input/filter/checksum.cc
+        source  modify    1.9 -> 1.10 lib/srec/input/filter/crop.cc
+        source  modify    1.9 -> 1.10 lib/srec/input/filter/fill.cc
+        source  modify    1.9 -> 1.10 lib/srec/input/filter/length.cc
+        source  modify    1.8 -> 1.9  lib/srec/input/filter/maximum.cc
+        source  modify    1.8 -> 1.9  lib/srec/input/filter/minimum.cc
+        source  modify   1.14 -> 1.15 lib/srec/memory.cc
+        source  modify    1.9 -> 1.10 lib/srec/output.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/ascii_hex.cc
+        source  modify   1.14 -> 1.15 lib/srec/output/file/c.cc
+        source  modify   1.13 -> 1.14 lib/srec/output/file/intel.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/mos_tech.cc
+
+
+
+Project "srecord.1.8", Change 18                                  Page 2
+Change Details                                  Tue Nov 27 10:01:35 2001
+
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.12 -> 1.13 lib/srec/output/file/srecord.cc
+        source  modify   1.13 -> 1.14 lib/srec/output/file/tektronix.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/tektronix_
+                                      extended.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/ti_tagged.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/vhdl.cc
+        source  modify    1.6 -> 1.7  lib/srec/output/file/wilson.cc
+        source  modify    1.8 -> 1.9  prog/srec_info/main.cc
+        test    create    1.1         test/00/t0067a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Wed Aug 22      pmiller
+                        10:07:43 2001
+        develop_begin   Wed Aug 22      pmiller  Elapsed time: 0.502
+                        10:07:44 2001            days.
+        develop_end     Wed Aug 22      pmiller
+                        13:53:27 2001
+        review_pass     Wed Aug 22      pmiller
+                        13:53:30 2001
+        integrate_begin Wed Aug 22      pmiller  Elapsed time: 0.068
+                        13:53:32 2001            days.
+        integrate_pass  Wed Aug 22      pmiller
+                        14:24:09 2001
+
+
+
+Project "srecord.1.8", Change 19                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 8, Change 19.
+
+SUMMARY
+        Atmel Generic format
+
+DESCRIPTION
+        This change adds the ATMEL Generic file format for input and
+        output.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.29 -> 1.30 etc/README.man
+        source  modify    1.2 -> 1.3  etc/new.1.8.so
+        source  modify   1.28 -> 1.29 etc/srecord.html
+        source  modify   1.39 -> 1.40 include/srec/arglex.h
+        source  modify   1.16 -> 1.17 include/srec/input/file.h
+        source  create    1.1         include/srec/input/file/atmel_
+                                      generic.h
+        source  modify   1.15 -> 1.16 include/srec/output/file.h
+        source  create    1.1         include/srec/output/file/atmel_
+                                      generic.h
+        source  modify   1.41 -> 1.42 lib/srec/arglex.cc
+        source  modify    1.1 -> 1.2  lib/srec/arglex_output.cc
+        source  modify   1.17 -> 1.18 lib/srec/input/file.cc
+        source  create    1.1         lib/srec/input/file/atmel_
+                                      generic.cc
+        source  modify    1.3 -> 1.4  lib/srec/input/file/guess.cc
+        source  modify    1.1 -> 1.2  lib/srec/input/file/spasm.cc
+        source  modify   1.16 -> 1.17 lib/srec/output/file.cc
+        source  create    1.1         lib/srec/output/file/atmel_
+                                      generic.cc
+        source  modify    1.1 -> 1.2  lib/srec/output/file/spasm.cc
+        source  modify   1.35 -> 1.36 man/man1/o_input.so
+        source  modify   1.23 -> 1.24 man/man1/srec_cat.1
+        source  create    1.1         man/man5/srec_atmel_generic.5
+        source  modify    1.1 -> 1.2  man/man5/srec_spasm.5
+        test    create    1.1         test/00/t0068a.sh
+        test    create    1.1         test/00/t0069a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Tue Sep  4      pmiller
+                        13:10:02 2001
+        develop_begin   Tue Sep  4      pmiller  Elapsed time: 0.984
+                        13:10:03 2001            days.
+
+
+
+
+Project "srecord.1.8", Change 19                                  Page 2
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        develop_end     Tue Sep  4      pmiller
+                        20:33:04 2001
+        review_pass     Tue Sep  4      pmiller
+                        20:33:08 2001
+        integrate_begin Tue Sep  4      pmiller
+                        20:33:11 2001
+        integrate_pass  Tue Sep  4      pmiller
+                        20:41:18 2001
+
+
+
+Project "srecord.1.8", Change 20                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 9, Change 20.
+
+SUMMARY
+        preserve headers
+
+DESCRIPTION
+        This change preserves headers as they are processed by srec_cat.
+        It also improves the header handling in the TI-tagged format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.3 -> 1.4  etc/new.1.8.so
+        source  modify   1.13 -> 1.14 include/srec/memory.h
+        source  modify   1.10 -> 1.11 include/srec/output.h
+        source  modify    1.3 -> 1.4  lib/srec/input/file/ti_tagged.cc
+        source  modify   1.15 -> 1.16 lib/srec/memory.cc
+        source  modify   1.10 -> 1.11 lib/srec/output.cc
+        source  modify    1.5 -> 1.6  lib/srec/output/file/ascii_hex.cc
+        source  modify    1.1 -> 1.2  lib/srec/output/file/atmel_
+                                      generic.cc
+        source  modify   1.11 -> 1.12 lib/srec/output/file/binary.cc
+        source  modify   1.15 -> 1.16 lib/srec/output/file/c.cc
+        source  modify   1.14 -> 1.15 lib/srec/output/file/intel.cc
+        source  modify    1.5 -> 1.6  lib/srec/output/file/mos_tech.cc
+        source  modify    1.2 -> 1.3  lib/srec/output/file/spasm.cc
+        source  modify   1.13 -> 1.14 lib/srec/output/file/srecord.cc
+        source  modify   1.14 -> 1.15 lib/srec/output/file/tektronix.cc
+        source  modify    1.5 -> 1.6  lib/srec/output/file/tektronix_
+                                      extended.cc
+        source  modify    1.5 -> 1.6  lib/srec/output/file/ti_tagged.cc
+        source  modify    1.5 -> 1.6  lib/srec/output/file/vhdl.cc
+        source  modify    1.7 -> 1.8  lib/srec/output/file/wilson.cc
+        source  modify   1.15 -> 1.16 prog/srec_cat/main.cc
+        test    modify    1.4 -> 1.5  test/00/t0010a.sh
+        test    modify    1.2 -> 1.3  test/00/t0036a.sh
+        test    modify    1.2 -> 1.3  test/00/t0056a.sh
+        test    modify    1.2 -> 1.3  test/00/t0057a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Nov 23      pmiller
+                        09:55:34 2001
+        develop_begin   Fri Nov 23      pmiller  Elapsed time: 0.797
+                        09:55:34 2001            days.
+        develop_end     Fri Nov 23      pmiller
+                        15:54:06 2001
+
+
+
+Project "srecord.1.8", Change 20                                  Page 2
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        review_pass     Fri Nov 23      pmiller
+                        15:54:10 2001
+        integrate_begin Fri Nov 23      pmiller
+                        15:54:12 2001
+        integrate_pass  Fri Nov 23      pmiller
+                        15:56:29 2001
+
+
+
+Project "srecord.1.8", Change 21                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 10, Change 21.
+
+SUMMARY
+        FPC file format
+
+DESCRIPTION
+        This change adds the Four Packed Code (FPC) file format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.30 -> 1.31 etc/README.man
+        source  create    1.1         etc/new-file-format.so
+        source  modify    1.4 -> 1.5  etc/new.1.8.so
+        source  modify    1.6 -> 1.7  etc/reference.man
+        source  modify   1.29 -> 1.30 etc/srecord.html
+        source  modify   1.40 -> 1.41 include/srec/arglex.h
+        source  modify   1.17 -> 1.18 include/srec/input/file.h
+        source  create    1.1         include/srec/input/file/four_
+                                      packed_code.h
+        source  create    1.1         include/srec/output/file/four_
+                                      packed_code.h
+        source  modify   1.42 -> 1.43 lib/srec/arglex.cc
+        source  modify    1.2 -> 1.3  lib/srec/arglex_output.cc
+        source  modify   1.18 -> 1.19 lib/srec/input/file.cc
+        source  create    1.1         lib/srec/input/file/four_packed_
+                                      code.cc
+        source  modify    1.4 -> 1.5  lib/srec/input/file/guess.cc
+        source  create    1.1         lib/srec/output/file/four_packed_
+                                      code.cc
+        source  modify   1.36 -> 1.37 man/man1/o_input.so
+        source  modify   1.24 -> 1.25 man/man1/srec_cat.1
+        source  create    1.1         man/man5/srec_fpc.5
+        test    create    1.1         test/00/t0070a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Nov 23      pmiller
+                        20:29:37 2001
+        develop_begin   Fri Nov 23      pmiller  Elapsed time: 1.000
+                        20:29:37 2001            days.
+        develop_end     Sat Nov 24      pmiller
+                        16:28:14 2001
+        review_pass     Sat Nov 24      pmiller
+                        16:28:17 2001
+        develop_end_    Sat Nov 24      pmiller
+        undo            16:28:23 2001
+
+
+
+Project "srecord.1.8", Change 21                                  Page 2
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        develop_end     Sat Nov 24      pmiller
+                        16:30:04 2001
+        review_pass     Sat Nov 24      pmiller
+                        16:30:06 2001
+        integrate_begin Sat Nov 24      pmiller
+                        16:30:08 2001
+        integrate_pass  Sat Nov 24      pmiller
+                        16:31:23 2001
+
+
+
+Project "srecord.1.8", Change 22                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 11, Change 22.
+
+SUMMARY
+        signetics format
+
+DESCRIPTION
+        This change adds the Signetics file format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.31 -> 1.32 etc/README.man
+        source  modify    1.5 -> 1.6  etc/new.1.8.so
+        source  modify   1.30 -> 1.31 etc/srecord.html
+        source  create    1.1         include/format_printf.h
+        source  modify    1.2 -> 1.3  include/quit.h
+        source  modify   1.41 -> 1.42 include/srec/arglex.h
+        source  modify    1.9 -> 1.10 include/srec/input.h
+        source  modify   1.18 -> 1.19 include/srec/input/file.h
+        source  create    1.1         include/srec/input/file/
+                                      signetics.h
+        source  modify   1.11 -> 1.12 include/srec/output.h
+        source  modify   1.16 -> 1.17 include/srec/output/file.h
+        source  create    1.1         include/srec/output/file/
+                                      signetics.h
+        source  modify   1.43 -> 1.44 lib/srec/arglex.cc
+        source  modify    1.3 -> 1.4  lib/srec/arglex_output.cc
+        source  modify   1.19 -> 1.20 lib/srec/input/file.cc
+        source  create    1.1         lib/srec/input/file/signetics.cc
+        source  modify   1.17 -> 1.18 lib/srec/output/file.cc
+        source  modify    1.6 -> 1.7  lib/srec/output/file/ascii_hex.cc
+        source  create    1.1         lib/srec/output/file/signetics.cc
+        source  modify    1.1 -> 1.2  man/man5/srec_fpc.5
+        source  create    1.1         man/man5/srec_signetics.5
+        test    create    1.1         test/00/t0071a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sat Nov 24      pmiller
+                        00:15:02 2001
+        develop_begin   Sat Nov 24      pmiller  Elapsed time: 1.000
+                        00:15:02 2001            days.
+        develop_end     Sat Nov 24      pmiller
+                        20:47:43 2001
+        review_pass     Sat Nov 24      pmiller
+                        20:47:46 2001
+
+
+
+
+Project "srecord.1.8", Change 22                                  Page 2
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        integrate_begin Sat Nov 24      pmiller
+                        20:47:47 2001
+        integrate_pass  Sat Nov 24      pmiller
+                        20:49:48 2001
+
+
+
+Project "srecord.1.8", Change 23                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 12, Change 23.
+
+SUMMARY
+        doxygen
+
+DESCRIPTION
+        This change tells the build system how to construct the
+        documentation HTML files from the .h file using Doxygen.  Some
+        improvements to header files were also made.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.18 -> 1.19 etc/Howto.cook
+        source  create    1.1         etc/doxygen.cfg
+        source  create    1.1         etc/doxygen.cook
+        source  modify    1.9 -> 1.10 etc/template/h
+        source  modify    1.9 -> 1.10 include/arglex.h
+        source  modify    1.3 -> 1.4  include/quit.h
+        source  modify    1.2 -> 1.3  include/quit/exception.h
+        source  modify    1.2 -> 1.3  include/quit/normal.h
+        source  modify    1.2 -> 1.3  include/quit/prefix.h
+        source  modify   1.42 -> 1.43 include/srec/arglex.h
+        source  modify   1.10 -> 1.11 include/srec/input.h
+        source  modify   1.19 -> 1.20 include/srec/input/file.h
+        source  modify    1.1 -> 1.2  include/srec/input/file/four_
+                                      packed_code.h
+        source  modify    1.1 -> 1.2  include/srec/input/file/
+                                      signetics.h
+        source  modify   1.12 -> 1.13 include/srec/output.h
+        source  modify   1.17 -> 1.18 include/srec/output/file.h
+        source  modify    1.4 -> 1.5  include/srec/output/file/ascii_
+                                      hex.h
+        source  modify    1.1 -> 1.2  include/srec/output/file/atmel_
+                                      generic.h
+        source  modify    1.1 -> 1.2  include/srec/output/file/four_
+                                      packed_code.h
+        source  modify    1.4 -> 1.5  include/srec/output/file/mos_
+                                      tech.h
+        source  modify    1.1 -> 1.2  include/srec/output/file/
+                                      signetics.h
+        source  modify   1.10 -> 1.11 include/srec/output/file/srecord.h
+        source  modify    1.4 -> 1.5  include/srec/output/file/
+                                      tektronix_extended.h
+
+
+
+Project "srecord.1.8", Change 23                                  Page 2
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.4 -> 1.5  include/srec/output/file/ti_
+                                      tagged.h
+        source  modify    1.5 -> 1.6  include/srec/output/file/wilson.h
+        source  modify   1.13 -> 1.14 include/srec/record.h
+        source  modify    1.9 -> 1.10 lib/common/arglex.cc
+        source  modify    1.1 -> 1.2  lib/srec/input/file/four_packed_
+                                      code.cc
+        source  modify   1.13 -> 1.14 lib/srec/input/file/intel.cc
+        source  modify    1.3 -> 1.4  lib/srec/input/file/mos_tech.cc
+        source  modify    1.1 -> 1.2  lib/srec/input/file/signetics.cc
+        source  modify   1.12 -> 1.13 lib/srec/input/file/srecord.cc
+        source  modify    1.4 -> 1.5  lib/srec/input/file/tektronix_
+                                      extended.cc
+        source  modify    1.6 -> 1.7  lib/srec/input/file/wilson.cc
+        source  modify    1.9 -> 1.10 lib/srec/record.cc
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sat Nov 24      pmiller
+                        17:20:12 2001
+        develop_begin   Sat Nov 24      pmiller  Elapsed time: 0.875
+                        17:20:13 2001            days.
+        develop_end     Sat Nov 24      pmiller
+                        23:54:00 2001
+        review_pass     Sat Nov 24      pmiller
+                        23:54:03 2001
+        integrate_begin Sat Nov 24      pmiller
+                        23:54:05 2001
+        integrate_pass  Sat Nov 24      pmiller
+                        23:57:08 2001
+
+
+
+Project "srecord.1.8", Change 25                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 14, Change 25.
+
+SUMMARY
+        emon52
+
+DESCRIPTION
+        This change adds the Elektor Monitor (EMON52) file format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.32 -> 1.33 etc/README.man
+        source  modify    1.6 -> 1.7  etc/new.1.8.so
+        source  modify   1.31 -> 1.32 etc/srecord.html
+        source  modify   1.43 -> 1.44 include/srec/arglex.h
+        source  create    1.1         include/srec/input/file/emon52.h
+        source  modify    1.3 -> 1.4  include/srec/input/file/mos_tech.h
+        source  create    1.1         include/srec/output/file/emon52.h
+        source  modify    1.5 -> 1.6  include/srec/output/file/mos_
+                                      tech.h
+        source  modify   1.44 -> 1.45 lib/srec/arglex.cc
+        source  modify    1.4 -> 1.5  lib/srec/arglex_output.cc
+        source  create    1.1         lib/srec/input/file/emon52.cc
+        source  create    1.1         lib/srec/output/file/emon52.cc
+        source  create    1.1         man/man5/srec_emon52.5
+        test    create    1.1         test/00/t0072a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sat Nov 24      pmiller
+                        23:49:13 2001
+        develop_begin   Sat Nov 24      pmiller  Elapsed time: 1.000
+                        23:49:13 2001            days.
+        develop_end     Mon Nov 26      pmiller
+                        13:58:22 2001
+        review_pass     Mon Nov 26      pmiller
+                        13:58:25 2001
+        integrate_begin Mon Nov 26      pmiller
+                        13:58:28 2001
+        integrate_pass  Mon Nov 26      pmiller
+                        13:59:38 2001
+
+
+
+Project "srecord.1.8", Change 26                                  Page 1
+Change Details                                  Tue Nov 27 10:01:36 2001
+
+NAME
+        Project "srecord.1.8", Delta 13, Change 26.
+
+SUMMARY
+        output address range checking
+
+DESCRIPTION
+        This change inserts the output address range checking into all
+        of the 16-bit output formats.  This should always have been
+        there, and was present in a partial form in some formats.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  lib/srec/output/file/atmel_
+                                      generic.cc
+        source  modify    1.1 -> 1.2  lib/srec/output/file/four_packed_
+                                      code.cc
+        source  modify    1.6 -> 1.7  lib/srec/output/file/mos_tech.cc
+        source  modify    1.1 -> 1.2  lib/srec/output/file/signetics.cc
+        source  modify    1.3 -> 1.4  lib/srec/output/file/spasm.cc
+        source  modify   1.15 -> 1.16 lib/srec/output/file/tektronix.cc
+        source  modify    1.6 -> 1.7  lib/srec/output/file/ti_tagged.cc
+        source  modify    1.1 -> 1.2  man/man5/srec_signetics.5
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Nov 26      pmiller  Cloned from change 25.
+                        11:38:45 2001
+        develop_begin   Mon Nov 26      pmiller
+                        11:38:45 2001
+        develop_end     Mon Nov 26      pmiller
+                        11:41:49 2001
+        review_pass     Mon Nov 26      pmiller
+                        11:42:00 2001
+        integrate_begin Mon Nov 26      pmiller
+                        11:42:00 2001
+        integrate_pass  Mon Nov 26      pmiller
+                        11:42:40 2001
+
+
+
+Project "srecord.1.8", Change 27                                  Page 1
+Change Details                                  Tue Nov 27 10:01:37 2001
+
+NAME
+        Project "srecord.1.8", Delta 16, Change 27.
+
+SUMMARY
+        dec binary format
+
+DESCRIPTION
+        This change adds the DEC Binary (XXDP) format.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.33 -> 1.34 etc/README.man
+        source  modify    1.7 -> 1.8  etc/new.1.8.so
+        source  modify   1.32 -> 1.33 etc/srecord.html
+        source  modify   1.44 -> 1.45 include/srec/arglex.h
+        source  create    1.1         include/srec/input/file/dec_
+                                      binary.h
+        source  modify   1.18 -> 1.19 include/srec/output/file.h
+        source  create    1.1         include/srec/output/file/dec_
+                                      binary.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/four_
+                                      packed_code.h
+        source  modify   1.11 -> 1.12 include/srec/output/file/
+                                      tektronix.h
+        source  modify    1.6 -> 1.7  include/srec/output/file/wilson.h
+        source  modify   1.45 -> 1.46 lib/srec/arglex.cc
+        source  modify    1.5 -> 1.6  lib/srec/arglex_output.cc
+        source  create    1.1         lib/srec/input/file/dec_binary.cc
+        source  modify    1.5 -> 1.6  lib/srec/input/file/guess.cc
+        source  modify   1.18 -> 1.19 lib/srec/output/file.cc
+        source  create    1.1         lib/srec/output/file/dec_binary.cc
+        source  modify   1.16 -> 1.17 lib/srec/output/file/tektronix.cc
+        source  modify    1.8 -> 1.9  lib/srec/output/file/wilson.cc
+        source  modify   1.37 -> 1.38 man/man1/o_input.so
+        source  modify   1.26 -> 1.27 man/man1/srec_cat.1
+        source  create    1.1         man/man5/srec_dec_binary.5
+        test    create    1.1         test/00/t0075a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Nov 26      pmiller
+                        13:58:18 2001
+        develop_begin   Mon Nov 26      pmiller  Elapsed time: 1.000
+                        13:58:18 2001            days.
+        develop_end     Mon Nov 26      pmiller
+                        22:53:19 2001
+
+
+
+
+Project "srecord.1.8", Change 27                                  Page 2
+Change Details                                  Tue Nov 27 10:01:37 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        review_pass     Mon Nov 26      pmiller
+                        22:53:32 2001
+        integrate_begin Mon Nov 26      pmiller
+                        22:53:34 2001
+        integrate_pass  Mon Nov 26      pmiller
+                        22:56:07 2001
+
+
+
+Project "srecord.1.8", Change 28                                  Page 1
+Change Details                                  Tue Nov 27 10:01:37 2001
+
+NAME
+        Project "srecord.1.8", Delta 15, Change 28.
+
+SUMMARY
+        header option
+
+DESCRIPTION
+        This change adds a command line option to the srec_cat program
+        sho that you can set the header comment from the command line,
+        for those formats which support header comments.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.14 -> 1.15 include/srec/memory.h
+        source  modify   1.16 -> 1.17 lib/srec/memory.cc
+        source  modify   1.25 -> 1.26 man/man1/srec_cat.1
+        source  modify    1.5 -> 1.6  prog/srec_cat/arglex3.cc
+        source  modify    1.5 -> 1.6  prog/srec_cat/arglex3.h
+        source  modify   1.16 -> 1.17 prog/srec_cat/main.cc
+        test    create    1.1         test/00/t0073a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Nov 26      pmiller
+                        14:47:29 2001
+        develop_begin   Mon Nov 26      pmiller  Elapsed time: 0.712
+                        14:47:29 2001            days.
+        develop_end     Mon Nov 26      pmiller
+                        20:08:01 2001
+        review_pass     Mon Nov 26      pmiller
+                        20:08:06 2001
+        integrate_begin Mon Nov 26      pmiller
+                        20:08:09 2001
+        integrate_pass  Mon Nov 26      pmiller
+                        20:10:02 2001

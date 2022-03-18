@@ -1,0 +1,60 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2003, 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 20
+A bug has been fixed in the C array output.
+(Holes in the input caused an invalid C file to be produced.)
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 18+19
+There is are new CRC input filters, both 16\[hy]bit and 32\[hy]bit,
+both big and little endian.
+See \fIsrec_cat\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 16
+There is a new VHDL output format.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 14
+There are new checksum filters: in addition to the existing one's
+complement (bit not) checksum filter, there are now negative and positive
+checksum filters.
+See \fIsrec_cat\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 14
+The checksum filters are now able to sum over 16\[hy]bit and 32\[hy]bit values,
+in addition to the existing byte sums.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 13
+The \fIsrec_cmp\fP program now has a \fB\-\-verbose\fP option,
+which gives more information about how the two inputs differ.
+See \fIsrec_cmp\fP(1) for more information.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.5 (2000\[hy]Mar\[hy]06)

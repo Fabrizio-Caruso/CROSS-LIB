@@ -1,0 +1,53 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 2001, 2006, 2007 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.\" ----------  XX  -----------------------------------------------------------
+.\"
+.\" The XX macro accumulates table of contents entries.  It takes two
+.\" arguments, first is the page title, the second is the page
+.\" description.  The current page number in the \n% register is
+.\" consulted to obtain the page number.
+.\"
+.de XX
+.ds Page*Of*\\$1 \\n%
+.da toc*div
+.ev h
+.ds toc*num \\n%
+.ll -8n
+.in 0
+\\$1\\t\\$2
+\\a\\t\\*[toc*num]
+.br
+.ll +8n
+.rm toc*num
+.ev
+.di
+..
+.\" ----------  TC  -----------------------------------------------------------
+.\"
+.\" The TC macro prints the table of contents collected by uses of the
+.\" XX macro.
+.\"
+.de TC
+.nf
+.char \[toc*leader-char] .\h'1m'
+.lc \[toc*leader-char]
+.ta 2i (u;\\n[.l]-\\n[.i]-\w'000') (u;\\n[.l]-\\n[.i])R
+.toc*div
+.fi
+..

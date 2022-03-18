@@ -1,0 +1,49 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998-2007, 2009, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.SH INPUT FILE SPECIFICATIONS
+Input may be qualified in two ways:
+you may specify a data file or a data generator.
+format and you may specify filters to apply to them.
+An input file specification looks like this:
+.RS
+\f[I]data\[hy]file\fP [ \f[I]filter\fP \&... ]
+.br
+\f[I]data\[hy]generator\fP [ \f[I]filter\fP \&... ]
+.RE
+.SS Data Files
+Input from data files is
+specified by file name and format name.
+An input file specification looks like this:
+.RS
+\f[I]filename\fP [ \f[I]format\fP ][ \-ignore\[hy]checksums ]
+.RE
+The default format is Motorola S\[hy]Record format,
+but \f[I]many\fP others are also understood.
+.SS Data Generators
+It is also possible to generate data, rather than read it from a file.
+You may use a generator anywhere you could use a file.
+An input generator specification looks like this:
+.RS
+\fB\-GENerate\fP \f[I]address\[hy]range\fP \fB\-\fP\f[I]data\[hy]source\fP
+.RE
+Generators include random data and various forms of constant data.
+.SS Common Manual Page
+See \f[I]srec_input\fP(1) for complete details of input specifiers.
+This description is in a separate manual page
+because it is common to more than one SRecord command.

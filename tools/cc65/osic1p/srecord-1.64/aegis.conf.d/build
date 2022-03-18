@@ -1,0 +1,46 @@
+#
+#       srecord - The "srecord" program.
+#       Copyright (C) 2007, 2010, 2011 Peter Miller
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program. If not, see
+#       <http://www.gnu.org/licenses/>.
+#
+
+
+/*
+ * The build_command field of the config file is used to invoke the relevant
+ * build command.  The following command tells cook where to find the recipes.
+ * The ${s howto.cook} expands to a path into the baseline during development
+ * if the file is not in the change.  Look in aesub(5) for more information
+ * about command substitutions.
+ */
+build_command =
+    "cook -b ${s etc/howto.cook} "
+    "project=$p "
+    "change=$c "
+    "version=$v "
+    "arch=$arch "
+    "-nl "
+    "search_path=$search_path"
+    ;
+
+/*
+ * The recipes in the User Guide will all remove their targets before
+ * constructing them, which qualifies them to use the following entry in the
+ * config file.  The targets MUST be removed first if this field is true,
+ * otherwise the baseline would cease to be self-consistent.
+ */
+link_integration_directory = true;
+
+# vim: set ts=8 sw=4 et :

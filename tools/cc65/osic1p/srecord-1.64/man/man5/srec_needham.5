@@ -1,0 +1,60 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2003, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_needham
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_needham \- Needham EMP\[hy]series programmer ASCII file format
+.if require_index \{
+.XX "srec_needham(5)" "Needham EMP\[hy]series programmer ASCII file format"
+.\}
+.SH DESCRIPTION
+This format is understood by Needham Electronics' EMP\[hy]series programmers.
+See \f[CW]www.needhams.com/winman.pdf\fP for more information.
+(This format is very similar to the ASCII\[hy]Hex format, but without the ^B
+and ^C guard characters.)
+.PP
+Each data byte is represented as 2 hexadecimal characters,
+and is separated by white space from all other data bytes.
+.LP
+The address for data bytes is set by using a sequence of
+\f[CW]$A\fP\f[CI]nnnn\fP\f[CW],\fP characters, where \fInnnn\fP is the
+8\[hy]character ascii representation of the address.  The comma is required.
+There is no need for an address record unless there are gaps.  Implicitly,
+the file starts a address 0 if no address is set before the first
+data byte.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 3.0 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example ascii\[hy]hex file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x1000.
+.RS
+.nf
+.ft CW
+$A1000,
+48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 0A
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

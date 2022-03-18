@@ -1,0 +1,115 @@
+#
+# srecord - Manipulate EPROM load files
+# Copyright (C) 2009-2011, 2014 Peter Miller
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+project_specific =
+[
+    {
+        name = "aemakegen:libtool";
+        value = "true";
+    },
+    {
+        name = "aemakegen:libtool-la";
+        value = "false";
+    },
+    {
+        name = "aemakegen:version-info";
+        value = "0:0:0";
+    },
+    {
+        name = "aemakegen:library-directory";
+        value = "srecord";
+    },
+    {
+        name = "aemakegen:debian:build-depends";
+        value = "groff, libboost-dev, libgcrypt11-dev";
+    },
+    {
+        name = "aemakegen:rpm-spec:build-requires";
+        value = "groff, boost-devel, libgcrypt-devel";
+    },
+    {
+        name = "aemakegen:debian:copyright";
+        value = "false";
+    },
+    {
+        name = "aemakegen:debian:description:srecord";
+        value =
+            "A collection of powerful tools for manipulating EPROM load files";
+    },
+    {
+        name = "aemakegen:debian:extended-description:srecord";
+        value =
+@The srecord package is a collection of powerful tools for manipulating EPROM
+load files. It reads and writes numerous EPROM file formats, and can perform
+many different manipulations.
+
+The tools include:
+ * The srec_cat program may be used to catenate (join) EPROM load files, or
+   portions of EPROM load files, together. Because it understands all of the
+   input and output formats, it can also be used to convert files from one
+   format to another. It also understands filters.
+ * The srec_cmp program may be used to compare EPROM load files, or portions
+   of EPROM load files, for equality.
+ * The srec_info program may be used to print summary information about EPROM
+   load files.@;
+    },
+    {
+        name = "aemakegen:rpm-spec:description:srecord";
+        value =
+@The srecord package is a collection of powerful tools for manipulating EPROM
+load files. It reads and writes numerous EPROM file formats, and can perform
+many different manipulations.@;
+    },
+    {
+        name = "aemakegen:debian:extended-description:libsrecord";
+        value =
+@This package is a collection of powerful C++ classes for manipulating EPROM
+load files. It reads and writes numerous EPROM file formats, and can perform
+many different manipulations.@;
+    },
+    {
+        name = "aemakegen:rpm-spec:description:srecord-libs";
+        value =
+@This package contains the shared libraries for programs that manipulate EPROM
+load files.@;
+    },
+    {
+        name = "aemakegen:rpm-spec:description:srecord-devel";
+        value =
+@This package contains static libraries and header files for compiling programs
+that manipulate EPROM load files.@;
+    },
+    {
+        name = "aemakegen:debian:homepage";
+        value = "http://srecord.sourceforge.net";
+    },
+    {
+        name = "aemakegen:debian:maintainer";
+        value = "Scott Finneran <scottfinneran@yahoo.com.au>";
+    },
+    {
+        name = "aemakegen:debian:priority";
+        value = "extra";
+    },
+    {
+        name = "aemakegen:debian:section";
+        value = "utils";
+    },
+];
+
+# vim: set ts=8 sw=4 et :

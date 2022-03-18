@@ -1,0 +1,60 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18
+Some compilers issue a warning when const appears before extern.
+"warning: storage class is not first".  The C output has been
+updated to conform to this expectation.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+The manual page for \f[I]srec_cat\fP(1) has been enhanced to describe
+the in\[hy]memory data model, and the resulting output data order.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+The \fB\-motorola\fP optional width argument now produces a better
+error message when it is out of range.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+The \fB\-fill\fP filter now checks the size, and fails for absurdly
+large fills, with a \fB\-big\fP override if they really want >1GB
+fills.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+A bug in the .spec file for rpmbuild has been fixed, it now
+takes notice of $RPM_BUILD_ROOT
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11
+There is a new \fB\-line\[hy]termination\fP option, which may be
+used to select the desired line termination of output text files.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.43 (2008\[hy]Jul\[hy]06)
+.\" vim: set ts=8 sw=4 et :

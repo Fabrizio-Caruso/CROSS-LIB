@@ -1,0 +1,51 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2013 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the Free
+.\" Software Foundation; either version 3 of the License, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+.\" or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+.\" for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+Luc Steynen <LucSteynen@edna.be> discovered that the
+\-hecksum\[hy]big\[hy]endian opion was a counter\[hy]intuitive alias for
+the the \-checksum\[hy]bitnot\[hy]big\[hy]endian option.
+The \-checksum\[hy]big\[hy]endian option is now deprecated, in favor
+of the \-checksum\[hy]bitnot\[hy]big\[hy]endian option; the code will warn
+uers of the old option they will need to change.
+Ditto little\[hy]endian variants
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 19
+Alin Pilkington <apilkington@moog.com> found that the Tektronics
+Extended format was calculating the record length incorrectory.
+Thanks you for the bug report.
+This has been fixed for both reading and writing.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+Dr. Benedikt Schmitt <Benedikt.Schmitt@safeintrain.de> suggested
+being able to inject arbitrary data into the file header (such as
+NUL termination characters). This change set adds URL\[hy]style
+escapes (e.g. %25) to the string on he command line. For example:
+\-header or \-generate \-string
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.ne 2i
+.SS Version 1.61 (2013\[hy]Jan\[hy]04)
+.\" vim: set ts=8 sw=4 et :

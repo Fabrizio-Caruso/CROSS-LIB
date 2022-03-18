@@ -1,0 +1,79 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+CFLAGS = -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+CFLAGS += -O0
+else
+CFLAGS += -O2
+endif
+
+config.status: configure
+	dh_testdir
+	dh_autotools-dev_updateconfig
+	dh_autoreconf
+	sh configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc \
+		--mandir=/usr/share/man CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"
+
+build: build-arch build-indep
+
+build-arch: build-stamp
+
+build-indep: build-stamp
+
+# Build and test the tarball.
+build-stamp: config.status
+	dh_testdir
+	$(MAKE)
+	$(MAKE) check
+	touch $@
+
+# dpkg-buildpackage (step 3) invokes 'fakeroot debian/rules clean', and after
+# that (step 5) does the actual build.
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	test ! -f Makefile || $(MAKE) distclean
+	dh_autoreconf_clean
+	dh_autotools-dev_restoreconfig
+	dh_clean
+
+# Install the built tarball into the temporary install tree. It depends on the
+# 'build' target, so the tarball is also built by this rule.
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs -A
+	mkdir -p $(CURDIR)/debian/tmp/usr/lib
+	mkdir -p $(CURDIR)/debian/tmp/usr/share
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
+	-rm $(CURDIR)/debian/tmp/usr/lib/*.la
+	-rm -f $(CURDIR)/debian/tmp/usr/share/man/man1/srec_license.1
+	-rm -f $(CURDIR)/debian/tmp/usr/share/man/man3/srecord_license.3
+
+# Build the binary package files here.
+binary binary-arch binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs -A
+	dh_install --fail-missing --sourcedir=debian/tmp
+	dh_installman -A
+	dh_strip --dbg-package=libsrecord0-dbg
+	dh_compress -A
+	dh_fixperms
+	dh_makeshlibs
+	dh_shlibdeps
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+.PHONY: binary binary-arch binary-indep build build-arch build-indep clean \
+		install
+
+# vim: set ts=8 sw=8 noet :

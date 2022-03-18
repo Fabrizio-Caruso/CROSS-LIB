@@ -1,0 +1,627 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 1998, 2000-2014 Peter Miller
+.\" Copyright (C) 2014 Scott Finneran
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_cat
+.TH \*(n) 1 SRecord "Reference Manual"
+.SH NAME
+srec_cat \- manipulate EPROM load files
+.if require_index \{
+.XX "srec_cat(1)" "Manipulate EPROM load files"
+.\}
+.SH SYNOPSIS
+.B \*(n)
+[
+.IR option \&...
+]
+.IR filename \&...
+.br
+.B \*(n)
+.B \-Help
+.br
+.B \*(n)
+.B \-VERSion
+.SH DESCRIPTION
+The
+.I \*(n)
+program is used to assemble the given input files into a single output
+file.
+The use of filters (see below) allows significant manipulations to be
+performed by this command.
+.SS Data Order
+The data from the input files is not immediately written to the output,
+but is stored in memory until the complete EPROM image has been
+assembled.  Data is then written to the output file in ascending address
+order.  The original ordering of the data (in those formats capable of
+random record ordering) is \f[I]not\fP preserved.
+.SS Data Comparison
+Because input record order is not preserved, textual comparison of input
+and output (such as the \f[I]diff\fP(1) or \f[I]tkdiff\fP(1) commands)
+can be misleading.
+Not only can lines appear in different address orders, but line lengths
+and line termination can differ as well.
+Use the \f[I]srec_cmp\fP(1) program to compare two EPROM load files.
+If a text comparison is essential, run both files through the
+\f[I]srec_cat\fP(1) program to ensure both files to be compared have
+identical record ordering and line lengths.
+.SS Data Conflicts
+The storing of data in memory enables the detection of data conflicts,
+typically caused by linker sections unintentionally overlapping.
+.TP 2n
+\[bu]
+A warning will be issued for each address which is redundantly set to the
+same value.
+.TP 2n
+\[bu]
+A fatal error will be issued if any address is set with
+contradictory values.
+To avoid this error use an \fB\-exclude \-within\fP filter
+(see \f[I]srec_input\fP(1)) or, to make it a warning, use the
+\fB\-contradictory\[hy]bytes\fP option (see below).
+.TP 2n
+\[bu]
+A warning will be issued for input files where the data records are not
+in strictly ascending address order.  To suppress this warning, use the
+\fB\-disable\[hy]sequence\[hy]warning\fP option (see below).
+.PP
+These features are designed to detect problems which are difficult to
+debug, and detects them \f[I]before\fP the data is written to an EPROM
+and run in your embedded system.
+.so man/man1/o_input.so
+.br
+.ne 1i
+.SH OPTIONS
+The following options are understood:
+.so man/man1/o_at.so
+.TP 8n
+\fB\-Output\fP \f[I]filename\fP [ \f[I]format\fP ]
+.RS
+This option may be used to specify the output file to be used.
+The special file name \[lq]\-[rq] is understood to mean the standard output.
+Output defaults to the standard output if this option is not used.
+.PP
+The \f[I]format\fP may be specified as:
+.\" -----   --output -A* ---------------------------------------------------
+.TP 8n
+\fB\-Absolute_Object_Module_Format\fP
+An Intel Absolute Object Module Format file will be written.
+(See
+.IR srec_aomf (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Ascii_Hex\fP
+An Ascii\[hy]Hex file will be written.
+(See
+.IR srec_ascii_hex (5)
+for a description of this file format.)
+.TP 8n
+\fB\-ASM\fP [ \f[I]prefix\fP ][ \-\f[I]option\fP... ]
+.RS
+A series of assembler DB statements will be written.
+.PP
+The optional \f[I]prefix\fP may be specified to change the names of the
+symbols generated.  The defaults to "\f[CW]eprom\fP" if not set.
+.PP
+Several options are available to modify the style of output:
+.TP 8n
+\fB\-Dot_STyle\fP
+Use "dot" style pseudo\[hy]ops instead of words.
+For example \f[CW].byte\fP instead of the \f[CW]DB\fP default.
+.TP 8n
+\fB\-HEXadecimal_STyle\fP
+Use hexadecimal numbers in the output,
+rather than the default decimal numbers.
+.TP 8n
+\fB\-Section_STyle\fP
+By default the generated assemble of placed at the correct address using
+\f[CW]ORG\fP pseudo\[hy]ops.  Section style output emits tables of section
+addresses and lengths, so the data may be related at runtime.
+.TP 8n
+\fB\-A430\fP
+Generate output which is compliant to the \f[CW]a430.exe\fP compiler as
+it is used, \f[I]e.g.\fP in IAR Embedded Workbench.
+This is short\[hy]hand for \-section\[hy]style \-hex\[hy]style
+.TP 8n
+\fB\-CL430\fP
+Generate  output which is Code Composer Essentials compliant,
+\f[I]i.e.\fP the compiler of it.
+This is short\[hy]hand for \-section\[hy]style \-hex\[hy]style \-dot\[hy]style
+.TP 8n
+\fB\-Output_Word\fP
+Generate output which is in two\[hy]byte words rather than bytes.
+This assumes little\[hy]endian words; you will need to use the
+\-Byte\[hy]Swap filter if your target is big\[hy]endian.  No attempt
+is made to align the words onto even address boundaries; use and input
+filter such as
+.nf
+.in +8n
+\f[I]input\[hy]file\fP \-fill 0xFF \-within \f[I]input\[hy]file\fP
+\-range\[hy]pad 2
+.in -8n
+.fi
+to pad the data to whole words first.
+.RE
+.TP 8n
+\fB\-Atmel_Generic\fP
+An Atmel Generic file will be written.
+(See
+.IR srec_atmel_generic (5)
+for a description of this file format.)
+.\" -----   --output -B*   -------------------------------------------------
+.TP 8n
+\fB\-BASic\fP
+A series of BASIC DATA statements will be written.
+.TP 8n
+\fB\-B\[hy]Record\fP
+A Freescale MC68EZ328 Dragonball bootstrap b\[hy]record format file will
+be written.
+(See
+.IR srec_brecord (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Binary\fP
+A raw binary file will be written.
+If you get unexpected results \f[B]please\fP see the
+\f[I]srec_binary\fP(5) manual for more information.
+.\" -----   --output -C*   -------------------------------------------------
+.TP 8n
+\fB\-C\[hy]Array\fP [ \f[I]identifier\fP ][ \-\f[I]option\fP... ]
+.RS
+A C array defintion will be written.
+.PP
+The optional \f[I]identifier\fP is the name of the variable to be defined,
+or \f[CW]bugus\fP if not specified.
+.TP 8n
+\fB\-INClude\fP
+This option asks for an include file to be generated as well.
+.TP 8n
+\fB\-No\[hy]CONST
+This options asks for the variables to not use the const
+keyword (they are declared constant be default, so that they are placed
+into the read\[hy]only segment in embedded systems).
+.TP 8n
+\fB\-C_COMpressed\fP
+These options ask for an compressed c\[hy]array whose memory
+gaps will not be filled.
+.TP 8n
+\fB\-Output_Word\fP
+This option asks for an output which is in words not in
+bytes.  This is little endian, so you may need to
+.TP 8n
+\fB\-PREfix\fP \f[I]string\fP
+This option allows a string to be prepended to the array definition. This
+is commonly used for non\[hy]standard options common to cross compilers.
+.TP 8n
+\fB\-POSTfix\fP \f[I]string\fP
+This option allows a string to be appended to the array definition. This
+is commonly used for non\[hy]standard options common to cross compilers.
+.RE
+.TP 8n
+\fB\-COE\fP
+This option says to use the
+Xilinx Coefficient File Format (.coe) for output.
+(See \f[I]srec_coe\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-COsmac\fP
+An RCA Cosmac Elf format file will be written.
+(See \f[I]srec_cosmac\fP(5) for a description of this file format.)
+.\" -----   --output -D*   -------------------------------------------------
+.TP 8n
+\fB\-Dec_Binary\fP
+A DEC Binary (XXDP) format file will be written.
+(See
+.IR srec_dec_binary (5)
+for a description of this file format.)
+.\" -----   --output -E*   -------------------------------------------------
+.TP 8n
+\fB\-Elektor_Monitor52\fP
+This option says to use the EMON52 format file when writing the file.
+(See
+.IR srec_emon52 (5)
+for a description of this file format.)
+.\" -----   --output -F*   -------------------------------------------------
+.TP 8n
+\fB\-FAIrchild\fP
+This option says to use the Fairchild Fairbug format file when writing the file.
+(See \f[I]srec_fairchild\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-Fast_Load\fP
+This option says to use the LSI Logic Fast Load format file when writing
+the file.
+(See \f[I]srec_fastload\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-Formatted_Binary\fP
+A Formatted Binary format file will be written.
+(See \f[I]srec_formatted_binary\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-FORTH\fP [ \-\f[I]option\fP ]
+.RS
+A FORTH input file will be written.
+Each line of output includes a byte value, an address, and a command.
+.TP 8n
+\fB\-RAM\fP
+The store command is C!
+This is the default.
+.TP 8n
+\fB\-EEPROM
+The store command is EEC!
+.RE
+.TP 8n
+\fB\-Four_Packed_Code\fP
+This option says to use the PFC format file when writing the file.
+(See
+.IR srec_fpd (5)
+for a description of this file format.)
+.\" -----   --output -G*   -------------------------------------------------
+.\" -----   --output -H*   -------------------------------------------------
+.TP 8n
+\fB\-HEX_Dump
+A human readable hexadecimal dump (including ASCII)
+will be printed.
+.\" -----   --output -I*   -------------------------------------------------
+.TP 8n
+\fB\-IDT\fP
+An IDT System Integration Manager (IDT/sim) binary file will be written.
+(See \f[I]srec_idt\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-Intel\fP
+An Intel hex format file will be written.
+(See
+.IR srec_intel (5)
+for a description of this file format.)
+The default is to emit \[lq]i32hex\[rq] 32\[hy]bit linear addressing;
+if you want \[lq]i16hex\[rq] 20\[hy]bit extended segment addressing
+use the \fB\-address\[hy]length=3\fP option,
+if you want \[lq]i8hex\[rq] 16\[hy]bit addressing
+use the \fB\-address\[hy]length=2\fP option.
+.TP 8n
+\fB\-Intel_HeX_16\fP
+An Intel\[hy]16 hex format (INHX16) file will be written.
+(See
+.IR srec_intel16 (5)
+for a description of this file format.)
+.\" -----   --output -J*   -------------------------------------------------
+.\" -----   --output -K*   -------------------------------------------------
+.\" -----   --output -L*   -------------------------------------------------
+.TP 8n
+\fB\-Lattice_Memory_Initialization_Format [ \f[I]width\fP ]
+The Memory Initialization Format (.mem) by Lattice Semiconductor is
+understood for writing only.  (A.k.a. \fB\-MEM\fP)
+(See \f[I]srec_mem\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-LOGisim
+LOginsim logic simuator uses the format
+See \fB\-srec_logisim\fP(5) form more information.
+.\" -----   --output -M*   -------------------------------------------------
+.TP 8n
+\fB\-Memory_Initialization_File\fP [ \f[I]width\fP ]
+Memory Initialization File (MIF) by Altera format will be written.
+The \f[I]width\fP defaults to 8 bits.
+(See \f[I]srec_mif\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-Mips_Flash_Big_Endian\fP
+.TP 8n
+\fB\-Mips_Flash_Little_Endian\fP
+MIPS Flash file format will be written.
+(See \f[I]srec_mips_flash\fP(5) for a description of this file format.)
+.TP 8n
+\fB\-MOS_Technologies\fP
+An Mos Technologies format file will be written.
+(See
+.IR srec_mos_tech (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Motorola\fP [ \f[I]width\fP ]
+.RS
+A Motorola S\[hy]Record file will be written.
+(See
+.IR srec_motorola (5)
+for a description of this file format.)
+This is the default output format.
+By default, the smallest possible address length is emitted,
+this will be S19 for data in the first 64KB;
+if you wish to force S28 use the \fB\-address\[hy]length=3\fP option;
+if you wish to force S37 use the \fB\-address\[hy]length=4\fP option
+.PP
+The optional \f[I]width\fP argument describes the number of bytes which
+form each address multiple.  For normal uses the default of one (1) byte
+is appropriate.  Some systems with 16\[hy]bit or 32\[hy]bit targets mutilate the
+addresses in the file; this option will imitate that behavior.
+Unlike most other parameters, this one cannot be guessed.
+.RE
+.TP 8n
+\fB\-MsBin\fP
+This option says to use the Windows CE Binary Image Data Format to
+write the file.  See \f[I]srec_msbin\fP(5) for a description of this
+file format.
+.\" -----   --output -N*   -------------------------------------------------
+.TP 8n
+\fB\-Needham_Hexadecimal\fP
+This option says to use the Needham Electronics ASCII file format to
+write the file.  See \f[I]srec_needham\fP(5) for a description of this
+file format.
+.\" -----   --output -O*   -------------------------------------------------
+.TP 8n
+\fB\-Ohio_Scientific\fP
+This option says to use the Ohio Scientific hexadecimal format.
+See \f[I]srec_os65v\fP(5) for a description of this format.
+.\" -----   --output -P*   -------------------------------------------------
+.TP 8n
+\fB\-PPB\fP
+This option says to use the Stag Prom Programmer binary format.
+See \f[I]srec_ppb\fP(5) for a description of this format.
+.TP 8n
+\fB\-PPX\fP
+This option says to use the Stag Prom Programmer hexadecimal format.
+See \f[I]srec_ppx\fP(5) for a description of this format.
+.\" -----   --output -Q*   -------------------------------------------------
+.\" -----   --output -R*   -------------------------------------------------
+.\" -----   --output -S*   -------------------------------------------------
+.TP 8n
+\fB\-SIGnetics\fP
+This option says to use the Signetics hex format.
+See \f[I]srec_signetics\fP(5) for a description of this format.
+.TP 8n
+\fB\-SPAsm\fP
+This option says to use the SPASM assembler output format (commonly used
+by PIC programmers).
+See \f[I]srec_spasm\fP(5) for a description of this format.
+.TP 8n
+\fB\-SPAsm_Little_Endian\fP
+This option says to use the SPASM assembler output format (commonly used
+by PIC programmers).  But with the data the other way around.
+.TP 8n
+\fB\-STewie\fP
+A Stewie binary format file will be written.
+(See
+.IR srec_stewie (5)
+for a description of this file format.)
+.\" -----   --output -T*   -------------------------------------------------
+.TP 8n
+\fB\-Tektronix\fP
+A Tektronix hex format file will be written.
+(See
+.IR srec_tektronix (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Tektronix_Extended\fP
+A Tektronix extended hex format file will be written.
+(See
+.IR srec_tektronix_extended (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Texas_Instruments_Tagged\fP
+A TI\[hy]Tagged format file will be written.
+(See
+.IR srec_ti_tagged (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Texas_Instruments_Tagged_16\fP
+A Texas Instruments SDSMAC 320 format file will be written.
+(See
+.IR srec_ti_tagged_16 (5)
+for a description of this file format.)
+.TP 8n
+\fB\-Texas_Instruments_TeXT\fP
+This option says to use the Texas Instruments TXT (MSP430) format to
+write the file.  See \f[I]srec_ti_txt\fP(5) for a description of this
+file format.
+.TP 8n
+\fB\-TRS80\fP
+This option says to use the Radio Shack TRS\[hy]80 object file format
+to write the file.  See \f[I]srec_trs80\fP(5) for a description of this
+file format.
+.\" -----   --output -U*   -------------------------------------------------
+.\" -----   --output -V*   -------------------------------------------------
+.TP 8n
+\fB\-VHdl\fP [ \f[I]bytes\[hy]per\[hy]word\fP [ \f[I]name\fP ]]
+A VHDL format file will be written.
+The \f[I]bytes\[hy]per\[hy]word\fP defaults to one,
+the \f[I]name\fP defaults to \f[CW]eprom\fP.
+The \f[I]etc/x_defs_pack.vhd\fP file in the source distribution contains an
+example ROM definitions pack for the type\[hy]independent output.
+You may need to use the \-byte\[hy]swap filter to get the byte order you want.
+.TP 8n
+\fB\-VMem\fP [ \f[I]memory\[hy]width\fP ]
+A Verilog VMEM format file will be written.
+The \f[I]memory\[hy]width\fP may be 8, 16, 32, 64 or 128 bits;
+.\"
+.\" The default number of bits is 32.
+.\" If you change this, you must also change the following files:
+.\"     lib/srec/arglex_output.cc
+.\"     lib/srec/output/file/vmem.cc
+.\"
+defaults to 32 if unspecified.
+(See \f[I]srec_vmem\fP(5) for a description of this file format.)
+You may need to use the \-byte\[hy]swap filter to get the byte order you want.
+.\" -----   --output -W*   -------------------------------------------------
+.TP 8n
+\fB\-WILson\fP
+A wilson format file will be written.
+(See
+.IR srec_wilson (5)
+for a description of this file format.)
+.\" -----   --output -X*   -------------------------------------------------
+.\" -----   --output -Y*   -------------------------------------------------
+.\" -----   --output -Z*   -------------------------------------------------
+.RE
+.\" ----------  A  ---------------------------------------------------------
+.TP 8n
+\fB\-Address_Length\fP \f[I]number\fP
+This option many be used to specify the minimum number of bytes to be
+used in the output to represent an address (padding with leading zeros
+if necessary).
+This helps when talking to imbecilic EPROM programmer devices which do not
+fully implement the format specification.
+.\" ----------  B  ---------------------------------------------------------
+.\" ----------  C  ---------------------------------------------------------
+.TP 8n
+.B \-CRLF
+This option is short\[hy]hand for the \fB\-line\[hy]termination=crlf\fP option.
+For use with hare\[hy]brained EPROM programmer devices which assume all the
+world uses Evil Bill's operating system's line termination.
+.\" ----------  D  ---------------------------------------------------------
+.TP 8n
+.B \-Data_Only
+This option implies the \fB\-disable=header\fP,
+\fB\-disable=data\[hy]count\fP, \fB\-disable=exec\[hy]start\[hy]address\fP and
+\fB\-disable=footer\fP options.
+.TP 8n
+.B \-DISable\fP \f[I]feature\[hy]name\fP
+This option is used to disable the output of a named feature.
+See the \fB\-enable\fP option for a description of the available features.
+.\" ----------  E  ---------------------------------------------------------
+.TP 8n
+.B \-ENable\fP \f[I]feature\[hy]name\fP
+.RS
+This option is used to enable the output of a named feature.
+.TP 8n
+Header
+This feature controls the presence of header records, records which
+appear before the data itself.
+Headers often, but not always, include descriptive text.
+.TP 8n
+Execution_Start_Address
+This feature controls the presence of execution start address records,
+which is where the monitor will jump to and start executing code once
+the hex file has finished loading.
+.TP 8n
+Data_Count
+This feature controls the presence of data record count records, which
+appear aftre the data, and state how many data records preceeded them.
+Usually a data integrity mechanism.
+.TP 8n
+Footer
+This feature controls the presence of a file termination record,
+one that \f[I]does not\fP double as an execution start address record.
+.TP
+Optional_Address
+In formats that have the address and the data separated or partially
+separated (as opposed to having a complete address in every record) it
+is possible to disable emitting the first address where that address
+would be zero, as these format often default the address to zero if
+no address is seen beofre the first data record.  This is disabled by
+default, the zero address is always emitted.
+.PP
+Not all formats have all of the above features.
+Not all formats are able to optionally omit any or all the above features.
+Feature names may be abbreviated like command line option names.
+.RE
+.TP 8n
+\fB\-Execution_Start_Address\fP \f[I]number\fP
+.RS
+This option may be used to set the execution start address,
+in those formats which support it.
+The execution start address is where the monitor will jump to and start
+executing code once the hex file has finished loading,
+think of it as a \[lq]goto\[rq] address.
+Usually ignored by EPROM programmer devices.
+This option implies the \fB\-enable=exec\[hy]start\[hy]addr\fP option.
+.PP
+Please note: the execution start address is a different concept than the
+first address in memory of your data.  If you want to change where your
+data starts in memory, use the \fB\-offset\fP filter.
+.RE
+.\" ----------  F  ---------------------------------------------------------
+.\" ----------  G  ---------------------------------------------------------
+.\" ----------  H  ---------------------------------------------------------
+.TP 8n
+\fB\-HEAder\fP \f[I]string\fP
+.RS
+This option may be used to set the header comment,
+in those formats which support it.
+This option implies the \fB\-enable=header\fP option.
+.PP
+If you need to inject binary data into the header, use the URL encoding
+that uses % followed by two hexadeimal characters.  For example a
+backspace would be encoded as \[lq]%08\[rq].
+.RE
+.\" ----------  I  ---------------------------------------------------------
+.TP 8n
+\fB\-IGnore_Checksums\fP
+.so man/man1/o_ignore_checksums.so
+.\" ----------  J  ---------------------------------------------------------
+.\" ----------  K  ---------------------------------------------------------
+.\" ----------  L  ---------------------------------------------------------
+.TP
+\fB\-Line_Termination \f[I]style\[hy]name\fP
+.RS
+This option may be used to specify line termination style for text
+output.  The default is to use the host operating system's default line
+termination style (but Cygwin behaves as if it's Unix).  Use this option with
+caution, because it will also introduce extra (i.e. wrong) CR bytes into
+binary formats.
+.TP 4n
+Carriage_Return_Line_Feed
+Use the CRLF line termination style, typical of DOS and M$ Windows.
+.TP 4n
+NewLine
+Use the NL line termination style, typical of Unix and Linux.
+.TP 4n
+Carriage_Return
+Use the CR line termination style, typical of Apple Macintosh.
+.PP
+All other line termination style names will produce a fatal error.
+Style names may be abbreviated like command line option names.
+.RE
+.\" ----------  L  ---------------------------------------------------------
+.TP 8n
+\fB\-Line_Length\fP \f[I]number\fP
+This option may be used to limit the length of the output lines to at
+most \f[I]number\fP characters.  (Not meaningful for binary file format.)
+Defaults to something less than 80 characters, depending on the format.
+If you need to control the maximum number of bytes in each output record,
+use the \fB\-\-Ouput_Block_Size\fP option.
+.\" ----------  M  ---------------------------------------------------------
+.\" ----------  N  ---------------------------------------------------------
+.\" ----------  O  ---------------------------------------------------------
+.TP 8n
+\fB\-Output_Block_Size\fP \f[I]number\fP
+This option may be used to specify the exact number of data bytes to
+appear in each output record.  There are format\[hy]specific limitations on
+this value, you will get an error if the value isn't valid.
+If you need to control the maximum number of characters on a line of
+text output, use the \fB\-\-Line_Length\fP option.
+.TP 8n
+\fB\-Output_Block_Packing\fP
+From time to time, with large files, you may notice that your data
+records are spit unexpectedly on output.  This usually happens where
+record lengths are not a power of 2.  If this bothers you (or your
+comparison tools) this option may be used to repack the output so that
+SRecord's internal block boundaries are not visable in the output.
+.\" ----------  O  ---------------------------------------------------------
+.TP 8n
+\fB\-Output_Block_Alignment\fP
+This option is similar to the \fB\-Output_Block_Packing\fP option,
+except that short records are used after holes to cause subsequent
+records to be placed on a block size boundary.
+.\" ----------  R  ---------------------------------------------------------
+.\" ----------  S  ---------------------------------------------------------
+.so man/man1/o_sequence.so
+.\" ----------  T  ---------------------------------------------------------
+.\" ----------  U  ---------------------------------------------------------
+.\" ----------  V  ---------------------------------------------------------
+.\" ----------  W  ---------------------------------------------------------
+.\" ----------  X  ---------------------------------------------------------
+.\" ----------  Y  ---------------------------------------------------------
+.\" ----------  Z  ---------------------------------------------------------
+.PP
+All other options will produce a diagnostic error.
+.so man/man1/z_options.so
+.so man/man1/z_exit.so
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

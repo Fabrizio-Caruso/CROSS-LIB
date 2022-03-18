@@ -1,0 +1,2297 @@
+.hy 0
+.de TH
+..
+.TS H
+l r lw(2.5i) lw(2.5i).
+.TH
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec info - information
+T}	T{
+.ad l
+about EPROM load files
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec aomf - Intel
+T}	T{
+.ad l
+Absolute Object Module Format
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+aomf - Intel Absolute Object Module Format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham EMP-series programmer
+T}	T{
+.ad l
+ASCII file format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ascii hex - Ascii-Hex file format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec ascii hex -
+T}	T{
+.ad l
+Ascii-Hex file format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+atmel generic - Atmel Generic file format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec atmel generic -
+T}	T{
+.ad l
+Atmel Generic file format
+T}
+srec_binary(5)	\*[Page*Of*srec_binary(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+binary - binary file format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec
+T}	T{
+.ad l
+binary - DEC Binary (XXDP) file format
+T}
+srec_binary(5)	\*[Page*Of*srec_binary(5)]	T{
+.ad r
+srec binary -
+T}	T{
+.ad l
+binary file format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec formatted binary - Formatted
+T}	T{
+.ad l
+Binary file format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec idt - IDT/sim
+T}	T{
+.ad l
+binary file format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec stewie - Stewie's
+T}	T{
+.ad l
+binary file format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec ppb - Stag Prom Programmer
+T}	T{
+.ad l
+binary format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec formatted
+T}	T{
+.ad l
+binary - Formatted Binary file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin - Windows CE
+T}	T{
+.ad l
+Binary Image Data Format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec binary - DEC
+T}	T{
+.ad l
+Binary (XXDP) file format
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 - Intel Hexadecimal 16-
+T}	T{
+.ad l
+bit file format specification
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale MC68EZ328 Dragonball
+T}	T{
+.ad l
+bootstrap record format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+brecord - Freescale MC68EZ328 Dragonball bootstrap record format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+cat - manipulate EPROM load files
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin - Windows
+T}	T{
+.ad l
+CE Binary Image Data Format
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+cmp - compare two EPROM load files for equality
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec fpc - four packed
+T}	T{
+.ad l
+code file format
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+srec coe - Xilinx
+T}	T{
+.ad l
+Coefficient File Format
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+coe - Xilinx Coefficient File Format
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp -
+T}	T{
+.ad l
+compare two EPROM load files for equality
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec cosmac - RCA
+T}	T{
+.ad l
+Cosmac Elf file format
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+cosmac - RCA Cosmac Elf file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin - Windows CE Binary Image
+T}	T{
+.ad l
+Data Format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+dec binary - DEC Binary (XXDP) file format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec binary -
+T}	T{
+.ad l
+DEC Binary (XXDP) file format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale MC68EZ328
+T}	T{
+.ad l
+Dragonball bootstrap record format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec emon52 -
+T}	T{
+.ad l
+Elektor Monitor (EMON52) file format
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec cosmac - RCA Cosmac
+T}	T{
+.ad l
+Elf file format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+emon52 - Elektor Monitor (EMON52) file format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec emon52 - Elektor Monitor (
+T}	T{
+.ad l
+EMON52) file format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham
+T}	T{
+.ad l
+EMP-series programmer ASCII file format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+srec cat - manipulate
+T}	T{
+.ad l
+EPROM load files
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec info - information about
+T}	T{
+.ad l
+EPROM load files
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec logisim - format Logisim
+T}	T{
+.ad l
+EPROM load files
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+srecord - library to manipulate
+T}	T{
+.ad l
+EPROM load files
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare two
+T}	T{
+.ad l
+EPROM load files for equality
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare two EPROM load files for
+T}	T{
+.ad l
+equality
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+examples - examples of how to use SRecord
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+srec examples -
+T}	T{
+.ad l
+examples of how to use SRecord
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix extended - Tektronix
+T}	T{
+.ad l
+Extended hexadecimal file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix
+T}	T{
+.ad l
+extended - Tektronix Extended hexadecimal file format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale MC68
+T}	T{
+.ad l
+EZ328 Dragonball bootstrap record format
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+srec fairchild - Fairchild
+T}	T{
+.ad l
+Fairbug file format
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+srec fairchild -
+T}	T{
+.ad l
+Fairchild Fairbug file format
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+fairchild - Fairchild Fairbug file format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload - LSI Logic
+T}	T{
+.ad l
+Fast Load file format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+fastload - LSI Logic Fast Load file format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec ascii hex - Ascii-Hex
+T}	T{
+.ad l
+file format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec atmel generic - Atmel Generic
+T}	T{
+.ad l
+file format
+T}
+srec_binary(5)	\*[Page*Of*srec_binary(5)]	T{
+.ad r
+srec binary - binary
+T}	T{
+.ad l
+file format
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+srec coe - Xilinx Coefficient
+T}	T{
+.ad l
+File Format
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec cosmac - RCA Cosmac Elf
+T}	T{
+.ad l
+file format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec binary - DEC Binary (XXDP)
+T}	T{
+.ad l
+file format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec emon52 - Elektor Monitor (EMON52)
+T}	T{
+.ad l
+file format
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+srec fairchild - Fairchild Fairbug
+T}	T{
+.ad l
+file format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload - LSI Logic Fast Load
+T}	T{
+.ad l
+file format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec formatted binary - Formatted Binary
+T}	T{
+.ad l
+file format
+T}
+srec_forth(5)	\*[Page*Of*srec_forth(5)]	T{
+.ad r
+srec forth - FORTH
+T}	T{
+.ad l
+file format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec fpc - four packed code
+T}	T{
+.ad l
+file format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec idt - IDT/sim binary
+T}	T{
+.ad l
+file format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec mips flash - MIPS-Flash
+T}	T{
+.ad l
+file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec mos tech - MOS Technology
+T}	T{
+.ad l
+file format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola - Motorola S-Record hexadecimal
+T}	T{
+.ad l
+file format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham EMP-series programmer ASCII
+T}	T{
+.ad l
+file format
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65v - OS65V Loader
+T}	T{
+.ad l
+file format
+T}
+srec_signetics(5)	\*[Page*Of*srec_signetics(5)]	T{
+.ad r
+srec signetics - Signetics
+T}	T{
+.ad l
+file format
+T}
+srec_spasm(5)	\*[Page*Of*srec_spasm(5)]	T{
+.ad r
+srec spasm - SPASM
+T}	T{
+.ad l
+file format
+T}
+srec_spectrum(5)	\*[Page*Of*srec_spectrum(5)]	T{
+.ad r
+srec spectrum - Spectrum
+T}	T{
+.ad l
+file format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec stewie - Stewie's binary
+T}	T{
+.ad l
+file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix extended - Tektronix Extended hexadecimal
+T}	T{
+.ad l
+file format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+srec tektronix - Tektronix hexadecimal
+T}	T{
+.ad l
+file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 - Texas Instruments Tagged (SDSMAC 320)
+T}	T{
+.ad l
+file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged - Texas Instruments Tagged (SDSMAC)
+T}	T{
+.ad l
+file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas Instruments ti-txt (MSP430)
+T}	T{
+.ad l
+file format
+T}
+srec_vmem(5)	\*[Page*Of*srec_vmem(5)]	T{
+.ad r
+srec vmem - vmem
+T}	T{
+.ad l
+file format
+T}
+srec_wilson(5)	\*[Page*Of*srec_wilson(5)]	T{
+.ad r
+srec wilson - wilson
+T}	T{
+.ad l
+file format
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 - Intel Hexadecimal 16-bit
+T}	T{
+.ad l
+file format specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel - Intel Hexadecimal object
+T}	T{
+.ad l
+file format specification
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio Shack TRS-80 object
+T}	T{
+.ad l
+file format specification
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec mif - Memory Initialization
+T}	T{
+.ad l
+File (MIF) format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+srec cat - manipulate EPROM load
+T}	T{
+.ad l
+files
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec info - information about EPROM load
+T}	T{
+.ad l
+files
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec logisim - format Logisim EPROM load
+T}	T{
+.ad l
+files
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+srecord - library to manipulate EPROM load
+T}	T{
+.ad l
+files
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare two EPROM load
+T}	T{
+.ad l
+files for equality
+T}
+srec_input(1)	\*[Page*Of*srec_input(1)]	T{
+.ad r
+SRecord - input
+T}	T{
+.ad l
+file specifications
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec mips flash - MIPS-
+T}	T{
+.ad l
+Flash file format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec mips
+T}	T{
+.ad l
+flash - MIPS-Flash file format
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare two EPROM load files
+T}	T{
+.ad l
+for equality
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec aomf - Intel Absolute Object Module
+T}	T{
+.ad l
+Format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec ascii hex - Ascii-Hex file
+T}	T{
+.ad l
+format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec atmel generic - Atmel Generic file
+T}	T{
+.ad l
+format
+T}
+srec_binary(5)	\*[Page*Of*srec_binary(5)]	T{
+.ad r
+srec binary - binary file
+T}	T{
+.ad l
+format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale MC68EZ328 Dragonball bootstrap record
+T}	T{
+.ad l
+format
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+srec coe - Xilinx Coefficient File
+T}	T{
+.ad l
+Format
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec cosmac - RCA Cosmac Elf file
+T}	T{
+.ad l
+format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec binary - DEC Binary (XXDP) file
+T}	T{
+.ad l
+format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec emon52 - Elektor Monitor (EMON52) file
+T}	T{
+.ad l
+format
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+srec fairchild - Fairchild Fairbug file
+T}	T{
+.ad l
+format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload - LSI Logic Fast Load file
+T}	T{
+.ad l
+format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec formatted binary - Formatted Binary file
+T}	T{
+.ad l
+format
+T}
+srec_forth(5)	\*[Page*Of*srec_forth(5)]	T{
+.ad r
+srec forth - FORTH file
+T}	T{
+.ad l
+format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec fpc - four packed code file
+T}	T{
+.ad l
+format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec idt - IDT/sim binary file
+T}	T{
+.ad l
+format
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+srec mem - Lattice Memory Initialization
+T}	T{
+.ad l
+format
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec mif - Memory Initialization File (MIF)
+T}	T{
+.ad l
+format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec mips flash - MIPS-Flash file
+T}	T{
+.ad l
+format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec mos tech - MOS Technology file
+T}	T{
+.ad l
+format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola - Motorola S-Record hexadecimal file
+T}	T{
+.ad l
+format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin - Windows CE Binary Image Data
+T}	T{
+.ad l
+Format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham EMP-series programmer ASCII file
+T}	T{
+.ad l
+format
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65v - OS65V Loader file
+T}	T{
+.ad l
+format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec ppb - Stag Prom Programmer binary
+T}	T{
+.ad l
+format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec ppx - Stag Prom Programmer hexadecimal
+T}	T{
+.ad l
+format
+T}
+srec_signetics(5)	\*[Page*Of*srec_signetics(5)]	T{
+.ad r
+srec signetics - Signetics file
+T}	T{
+.ad l
+format
+T}
+srec_spasm(5)	\*[Page*Of*srec_spasm(5)]	T{
+.ad r
+srec spasm - SPASM file
+T}	T{
+.ad l
+format
+T}
+srec_spectrum(5)	\*[Page*Of*srec_spectrum(5)]	T{
+.ad r
+srec spectrum - Spectrum file
+T}	T{
+.ad l
+format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec stewie - Stewie's binary file
+T}	T{
+.ad l
+format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix extended - Tektronix Extended hexadecimal file
+T}	T{
+.ad l
+format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+srec tektronix - Tektronix hexadecimal file
+T}	T{
+.ad l
+format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 - Texas Instruments Tagged (SDSMAC 320) file
+T}	T{
+.ad l
+format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged - Texas Instruments Tagged (SDSMAC) file
+T}	T{
+.ad l
+format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas Instruments ti-txt (MSP430) file
+T}	T{
+.ad l
+format
+T}
+srec_vmem(5)	\*[Page*Of*srec_vmem(5)]	T{
+.ad r
+srec vmem - vmem file
+T}	T{
+.ad l
+format
+T}
+srec_wilson(5)	\*[Page*Of*srec_wilson(5)]	T{
+.ad r
+srec wilson - wilson file
+T}	T{
+.ad l
+format
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec logisim -
+T}	T{
+.ad l
+format Logisim EPROM load files
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 - Intel Hexadecimal 16-bit file
+T}	T{
+.ad l
+format specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel - Intel Hexadecimal object file
+T}	T{
+.ad l
+format specification
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio Shack TRS-80 object file
+T}	T{
+.ad l
+format specification
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec formatted binary -
+T}	T{
+.ad l
+Formatted Binary file format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+formatted binary - Formatted Binary file format
+T}
+srec_forth(5)	\*[Page*Of*srec_forth(5)]	T{
+.ad r
+srec forth -
+T}	T{
+.ad l
+FORTH file format
+T}
+srec_forth(5)	\*[Page*Of*srec_forth(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+forth - FORTH file format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec fpc -
+T}	T{
+.ad l
+four packed code file format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+fpc - four packed code file format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord -
+T}	T{
+.ad l
+Freescale MC68EZ328 Dragonball bootstrap record format
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+LGPG - GNU Lesser
+T}	T{
+.ad l
+General Public License
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec atmel
+T}	T{
+.ad l
+generic - Atmel Generic file format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+srec atmel generic - Atmel
+T}	T{
+.ad l
+Generic file format
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+LGPG -
+T}	T{
+.ad l
+GNU Lesser General Public License
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 - Intel
+T}	T{
+.ad l
+Hexadecimal 16-bit file format specification
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola - Motorola S-Record
+T}	T{
+.ad l
+hexadecimal file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix extended - Tektronix Extended
+T}	T{
+.ad l
+hexadecimal file format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+srec tektronix - Tektronix
+T}	T{
+.ad l
+hexadecimal file format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec ppx - Stag Prom Programmer
+T}	T{
+.ad l
+hexadecimal format
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel - Intel
+T}	T{
+.ad l
+Hexadecimal object file format specification
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec ascii
+T}	T{
+.ad l
+hex - Ascii-Hex file format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+srec ascii hex - Ascii-
+T}	T{
+.ad l
+Hex file format
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+srec examples - examples of
+T}	T{
+.ad l
+how to use SRecord
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+idt - IDT/sim binary file format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec idt -
+T}	T{
+.ad l
+IDT/sim binary file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin - Windows CE Binary
+T}	T{
+.ad l
+Image Data Format
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+info - information about EPROM load files
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec info -
+T}	T{
+.ad l
+information about EPROM load files
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec mif - Memory
+T}	T{
+.ad l
+Initialization File (MIF) format
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+srec mem - Lattice Memory
+T}	T{
+.ad l
+Initialization format
+T}
+srec_input(1)	\*[Page*Of*srec_input(1)]	T{
+.ad r
+SRecord -
+T}	T{
+.ad l
+input file specifications
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 - Texas
+T}	T{
+.ad l
+Instruments Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged - Texas
+T}	T{
+.ad l
+Instruments Tagged (SDSMAC) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas
+T}	T{
+.ad l
+Instruments ti-txt (MSP430) file format
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+intel16 - Intel Hexadecimal 16-bit file format specification
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec aomf -
+T}	T{
+.ad l
+Intel Absolute Object Module Format
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 -
+T}	T{
+.ad l
+Intel Hexadecimal 16-bit file format specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel -
+T}	T{
+.ad l
+Intel Hexadecimal object file format specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+intel - Intel Hexadecimal object file format specification
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+srec mem -
+T}	T{
+.ad l
+Lattice Memory Initialization format
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+LGPG - GNU
+T}	T{
+.ad l
+Lesser General Public License
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+
+T}	T{
+.ad l
+LGPG - GNU Lesser General Public License
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+srecord -
+T}	T{
+.ad l
+library to manipulate EPROM load files
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+LGPG - GNU Lesser General Public
+T}	T{
+.ad l
+License
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65v - OS65V
+T}	T{
+.ad l
+Loader file format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload - LSI Logic Fast
+T}	T{
+.ad l
+Load file format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+srec cat - manipulate EPROM
+T}	T{
+.ad l
+load files
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+srec info - information about EPROM
+T}	T{
+.ad l
+load files
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec logisim - format Logisim EPROM
+T}	T{
+.ad l
+load files
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+srecord - library to manipulate EPROM
+T}	T{
+.ad l
+load files
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare two EPROM
+T}	T{
+.ad l
+load files for equality
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload - LSI
+T}	T{
+.ad l
+Logic Fast Load file format
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec logisim - format
+T}	T{
+.ad l
+Logisim EPROM load files
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+logisim - format Logisim EPROM load files
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+srec fastload -
+T}	T{
+.ad l
+LSI Logic Fast Load file format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+srec cat -
+T}	T{
+.ad l
+manipulate EPROM load files
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+srecord - library to
+T}	T{
+.ad l
+manipulate EPROM load files
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale
+T}	T{
+.ad l
+MC68EZ328 Dragonball bootstrap record format
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+mem - Lattice Memory Initialization format
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec mif -
+T}	T{
+.ad l
+Memory Initialization File (MIF) format
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+srec mem - Lattice
+T}	T{
+.ad l
+Memory Initialization format
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec mif - Memory Initialization File (
+T}	T{
+.ad l
+MIF) format
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+mif - Memory Initialization File (MIF) format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec mips flash -
+T}	T{
+.ad l
+MIPS-Flash file format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+mips flash - MIPS-Flash file format
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec aomf - Intel Absolute Object
+T}	T{
+.ad l
+Module Format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+srec emon52 - Elektor
+T}	T{
+.ad l
+Monitor (EMON52) file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+mos tech - MOS Technology file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec mos tech -
+T}	T{
+.ad l
+MOS Technology file format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+motorola - Motorola S-Record hexadecimal file format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola -
+T}	T{
+.ad l
+Motorola S-Record hexadecimal file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+msbin - Windows CE Binary Image Data Format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas Instruments ti-txt (
+T}	T{
+.ad l
+MSP430) file format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham -
+T}	T{
+.ad l
+Needham EMP-series programmer ASCII file format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+needham - Needham EMP-series programmer ASCII file format
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel - Intel Hexadecimal
+T}	T{
+.ad l
+object file format specification
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio Shack TRS-80
+T}	T{
+.ad l
+object file format specification
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+srec aomf - Intel Absolute
+T}	T{
+.ad l
+Object Module Format
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65v -
+T}	T{
+.ad l
+OS65V Loader file format
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+os65v - OS65V Loader file format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+srec fpc - four
+T}	T{
+.ad l
+packed code file format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ppb - Stag Prom Programmer binary format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ppx - Stag Prom Programmer hexadecimal format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham EMP-series
+T}	T{
+.ad l
+programmer ASCII file format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec ppb - Stag Prom
+T}	T{
+.ad l
+Programmer binary format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec ppx - Stag Prom
+T}	T{
+.ad l
+Programmer hexadecimal format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec ppb - Stag
+T}	T{
+.ad l
+Prom Programmer binary format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec ppx - Stag
+T}	T{
+.ad l
+Prom Programmer hexadecimal format
+T}
+srecord_license(3)	\*[Page*Of*srecord_license(3)]	T{
+.ad r
+LGPG - GNU Lesser General
+T}	T{
+.ad l
+Public License
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 -
+T}	T{
+.ad l
+Radio Shack TRS-80 object file format specification
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+srec cosmac -
+T}	T{
+.ad l
+RCA Cosmac Elf file format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+srec brecord - Freescale MC68EZ328 Dragonball bootstrap
+T}	T{
+.ad l
+record format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola - Motorola S-
+T}	T{
+.ad l
+Record hexadecimal file format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec stewie - Stewie'
+T}	T{
+.ad l
+s binary file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 - Texas Instruments Tagged (
+T}	T{
+.ad l
+SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged - Texas Instruments Tagged (
+T}	T{
+.ad l
+SDSMAC) file format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+srec needham - Needham EMP-
+T}	T{
+.ad l
+series programmer ASCII file format
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio
+T}	T{
+.ad l
+Shack TRS-80 object file format specification
+T}
+srec_signetics(5)	\*[Page*Of*srec_signetics(5)]	T{
+.ad r
+srec signetics -
+T}	T{
+.ad l
+Signetics file format
+T}
+srec_signetics(5)	\*[Page*Of*srec_signetics(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+signetics - Signetics file format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+srec idt - IDT/
+T}	T{
+.ad l
+sim binary file format
+T}
+srec_spasm(5)	\*[Page*Of*srec_spasm(5)]	T{
+.ad r
+srec spasm -
+T}	T{
+.ad l
+SPASM file format
+T}
+srec_spasm(5)	\*[Page*Of*srec_spasm(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+spasm - SPASM file format
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+srec intel16 - Intel Hexadecimal 16-bit file format
+T}	T{
+.ad l
+specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+srec intel - Intel Hexadecimal object file format
+T}	T{
+.ad l
+specification
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio Shack TRS-80 object file format
+T}	T{
+.ad l
+specification
+T}
+srec_input(1)	\*[Page*Of*srec_input(1)]	T{
+.ad r
+SRecord - input file
+T}	T{
+.ad l
+specifications
+T}
+srec_spectrum(5)	\*[Page*Of*srec_spectrum(5)]	T{
+.ad r
+srec spectrum -
+T}	T{
+.ad l
+Spectrum file format
+T}
+srec_spectrum(5)	\*[Page*Of*srec_spectrum(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+spectrum - Spectrum file format
+T}
+srec_aomf(5)	\*[Page*Of*srec_aomf(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec aomf - Intel Absolute Object Module Format
+T}
+srec_ascii_hex(5)	\*[Page*Of*srec_ascii_hex(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ascii hex - Ascii-Hex file format
+T}
+srec_atmel_generic(5)	\*[Page*Of*srec_atmel_generic(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec atmel generic - Atmel Generic file format
+T}
+srec_binary(5)	\*[Page*Of*srec_binary(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec binary - binary file format
+T}
+srec_brecord(5)	\*[Page*Of*srec_brecord(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec brecord - Freescale MC68EZ328 Dragonball bootstrap record format
+T}
+srec_cat(1)	\*[Page*Of*srec_cat(1)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec cat - manipulate EPROM load files
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec cmp - compare two EPROM load files for equality
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec coe - Xilinx Coefficient File Format
+T}
+srec_cosmac(5)	\*[Page*Of*srec_cosmac(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec cosmac - RCA Cosmac Elf file format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec dec binary - DEC Binary (XXDP) file format
+T}
+srec_emon52(5)	\*[Page*Of*srec_emon52(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec emon52 - Elektor Monitor (EMON52) file format
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec examples - examples of how to use SRecord
+T}
+srec_fairchild(5)	\*[Page*Of*srec_fairchild(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec fairchild - Fairchild Fairbug file format
+T}
+srec_fastload(5)	\*[Page*Of*srec_fastload(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec fastload - LSI Logic Fast Load file format
+T}
+srec_formatted_binary(5)	\*[Page*Of*srec_formatted_binary(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec formatted binary - Formatted Binary file format
+T}
+srec_forth(5)	\*[Page*Of*srec_forth(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec forth - FORTH file format
+T}
+srec_fpc(5)	\*[Page*Of*srec_fpc(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec fpc - four packed code file format
+T}
+srec_idt(5)	\*[Page*Of*srec_idt(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec idt - IDT/sim binary file format
+T}
+srec_info(1)	\*[Page*Of*srec_info(1)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec info - information about EPROM load files
+T}
+srec_intel16(5)	\*[Page*Of*srec_intel16(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec intel16 - Intel Hexadecimal 16-bit file format specification
+T}
+srec_intel(5)	\*[Page*Of*srec_intel(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec intel - Intel Hexadecimal object file format specification
+T}
+srec_logisim(5)	\*[Page*Of*srec_logisim(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec logisim - format Logisim EPROM load files
+T}
+srec_mem(5)	\*[Page*Of*srec_mem(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec mem - Lattice Memory Initialization format
+T}
+srec_mif(5)	\*[Page*Of*srec_mif(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec mif - Memory Initialization File (MIF) format
+T}
+srec_mips_flash(5)	\*[Page*Of*srec_mips_flash(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec mips flash - MIPS-Flash file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec mos tech - MOS Technology file format
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec motorola - Motorola S-Record hexadecimal file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec msbin - Windows CE Binary Image Data Format
+T}
+srec_needham(5)	\*[Page*Of*srec_needham(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec needham - Needham EMP-series programmer ASCII file format
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+srec examples - examples of how to use
+T}	T{
+.ad l
+SRecord
+T}
+srec_motorola(5)	\*[Page*Of*srec_motorola(5)]	T{
+.ad r
+srec motorola - Motorola
+T}	T{
+.ad l
+S-Record hexadecimal file format
+T}
+srec_input(1)	\*[Page*Of*srec_input(1)]	T{
+.ad r
+
+T}	T{
+.ad l
+SRecord - input file specifications
+T}
+srecord(3)	\*[Page*Of*srecord(3)]	T{
+.ad r
+
+T}	T{
+.ad l
+srecord - library to manipulate EPROM load files
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec os65v - OS65V Loader file format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ppb - Stag Prom Programmer binary format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ppx - Stag Prom Programmer hexadecimal format
+T}
+srec_signetics(5)	\*[Page*Of*srec_signetics(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec signetics - Signetics file format
+T}
+srec_spasm(5)	\*[Page*Of*srec_spasm(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec spasm - SPASM file format
+T}
+srec_spectrum(5)	\*[Page*Of*srec_spectrum(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec spectrum - Spectrum file format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec stewie - Stewie's binary file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec tektronix extended - Tektronix Extended hexadecimal file format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec tektronix - Tektronix hexadecimal file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ti tagged 16 - Texas Instruments Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ti tagged - Texas Instruments Tagged (SDSMAC) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec ti txt - Texas Instruments ti-txt (MSP430) file format
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec trs80 - Radio Shack TRS-80 object file format specification
+T}
+srec_vmem(5)	\*[Page*Of*srec_vmem(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec vmem - vmem file format
+T}
+srec_wilson(5)	\*[Page*Of*srec_wilson(5)]	T{
+.ad r
+
+T}	T{
+.ad l
+srec wilson - wilson file format
+T}
+srec_ppb(5)	\*[Page*Of*srec_ppb(5)]	T{
+.ad r
+srec ppb -
+T}	T{
+.ad l
+Stag Prom Programmer binary format
+T}
+srec_ppx(5)	\*[Page*Of*srec_ppx(5)]	T{
+.ad r
+srec ppx -
+T}	T{
+.ad l
+Stag Prom Programmer hexadecimal format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec stewie -
+T}	T{
+.ad l
+Stewie's binary file format
+T}
+srec_stewie(5)	\*[Page*Of*srec_stewie(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+stewie - Stewie's binary file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti
+T}	T{
+.ad l
+tagged 16 - Texas Instruments Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 - Texas Instruments
+T}	T{
+.ad l
+Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged - Texas Instruments
+T}	T{
+.ad l
+Tagged (SDSMAC) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti
+T}	T{
+.ad l
+tagged - Texas Instruments Tagged (SDSMAC) file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec mos
+T}	T{
+.ad l
+tech - MOS Technology file format
+T}
+srec_mos_tech(5)	\*[Page*Of*srec_mos_tech(5)]	T{
+.ad r
+srec mos tech - MOS
+T}	T{
+.ad l
+Technology file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec tektronix extended -
+T}	T{
+.ad l
+Tektronix Extended hexadecimal file format
+T}
+srec_tektronix_extended(5)	\*[Page*Of*srec_tektronix_extended(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+tektronix extended - Tektronix Extended hexadecimal file format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+srec tektronix -
+T}	T{
+.ad l
+Tektronix hexadecimal file format
+T}
+srec_tektronix(5)	\*[Page*Of*srec_tektronix(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+tektronix - Tektronix hexadecimal file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec ti tagged 16 -
+T}	T{
+.ad l
+Texas Instruments Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec ti tagged -
+T}	T{
+.ad l
+Texas Instruments Tagged (SDSMAC) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt -
+T}	T{
+.ad l
+Texas Instruments ti-txt (MSP430) file format
+T}
+srec_ti_tagged_16(5)	\*[Page*Of*srec_ti_tagged_16(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ti tagged 16 - Texas Instruments Tagged (SDSMAC 320) file format
+T}
+srec_ti_tagged(5)	\*[Page*Of*srec_ti_tagged(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ti tagged - Texas Instruments Tagged (SDSMAC) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas Instruments
+T}	T{
+.ad l
+ti-txt (MSP430) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+ti txt - Texas Instruments ti-txt (MSP430) file format
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec trs80 - Radio Shack
+T}	T{
+.ad l
+TRS-80 object file format specification
+T}
+srec_trs80(5)	\*[Page*Of*srec_trs80(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+trs80 - Radio Shack TRS-80 object file format specification
+T}
+srec_cmp(1)	\*[Page*Of*srec_cmp(1)]	T{
+.ad r
+srec cmp - compare
+T}	T{
+.ad l
+two EPROM load files for equality
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti txt - Texas Instruments ti-
+T}	T{
+.ad l
+txt (MSP430) file format
+T}
+srec_ti_txt(5)	\*[Page*Of*srec_ti_txt(5)]	T{
+.ad r
+srec ti
+T}	T{
+.ad l
+txt - Texas Instruments ti-txt (MSP430) file format
+T}
+srec_examples(1)	\*[Page*Of*srec_examples(1)]	T{
+.ad r
+srec examples - examples of how to
+T}	T{
+.ad l
+use SRecord
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65v - OS65
+T}	T{
+.ad l
+V Loader file format
+T}
+srec_vmem(5)	\*[Page*Of*srec_vmem(5)]	T{
+.ad r
+srec vmem -
+T}	T{
+.ad l
+vmem file format
+T}
+srec_vmem(5)	\*[Page*Of*srec_vmem(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+vmem - vmem file format
+T}
+srec_os65v(5)	\*[Page*Of*srec_os65v(5)]	T{
+.ad r
+srec os65
+T}	T{
+.ad l
+v - OS65V Loader file format
+T}
+srec_wilson(5)	\*[Page*Of*srec_wilson(5)]	T{
+.ad r
+srec wilson -
+T}	T{
+.ad l
+wilson file format
+T}
+srec_wilson(5)	\*[Page*Of*srec_wilson(5)]	T{
+.ad r
+srec
+T}	T{
+.ad l
+wilson - wilson file format
+T}
+srec_msbin(5)	\*[Page*Of*srec_msbin(5)]	T{
+.ad r
+srec msbin -
+T}	T{
+.ad l
+Windows CE Binary Image Data Format
+T}
+srec_coe(5)	\*[Page*Of*srec_coe(5)]	T{
+.ad r
+srec coe -
+T}	T{
+.ad l
+Xilinx Coefficient File Format
+T}
+srec_dec_binary(5)	\*[Page*Of*srec_dec_binary(5)]	T{
+.ad r
+srec dec binary - DEC Binary (
+T}	T{
+.ad l
+XXDP) file format
+T}
+.TE
+.ad b

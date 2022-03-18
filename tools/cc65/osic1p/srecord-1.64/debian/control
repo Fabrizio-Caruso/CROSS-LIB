@@ -1,0 +1,103 @@
+Source: srecord
+Section: utils
+Priority: extra
+Maintainer: Scott Finneran <scottfinneran@yahoo.com.au>
+Homepage: http://srecord.sourceforge.net
+DM-Upload-Allowed: yes
+Build-Depends: autotools-dev, debhelper (>= 5), dh-autoreconf, ghostscript,
+ groff, libboost-dev, libgcrypt11-dev, libtool
+Standards-Version: 3.9.3
+
+Package: srecord
+Architecture: any
+Description: A collection of powerful tools for manipulating EPROM load files
+ The srecord package is a collection of powerful tools for manipulating EPROM
+ load files. It reads and writes numerous EPROM file formats, and can perform
+ many different manipulations.
+ .
+ The tools include:
+  * The srec_cat program may be used to catenate (join) EPROM load files, or
+    portions of EPROM load files, together. Because it understands all of the
+    input and output formats, it can also be used to convert files from one
+    format to another. It also understands filters.
+  * The srec_cmp program may be used to compare EPROM load files, or portions
+    of EPROM load files, for equality.
+  * The srec_info program may be used to print summary information about EPROM
+    load files.
+Depends: ${misc:Depends}, ${shlibs:Depends}, libsrecord0
+
+Package: srecord-doc
+Architecture: all
+Section: doc
+Description: Manipulate EPROM load files - documentation
+ The srecord package is a collection of powerful tools for manipulating EPROM
+ load files. It reads and writes numerous EPROM file formats, and can perform
+ many different manipulations.
+ .
+ The tools include:
+  * The srec_cat program may be used to catenate (join) EPROM load files, or
+    portions of EPROM load files, together. Because it understands all of the
+    input and output formats, it can also be used to convert files from one
+    format to another. It also understands filters.
+  * The srec_cmp program may be used to compare EPROM load files, or portions
+    of EPROM load files, for equality.
+  * The srec_info program may be used to print summary information about EPROM
+    load files.
+Depends: ${misc:Depends}
+
+Package: libsrecord0
+Section: libs
+Architecture: any
+Description: Manipulate EPROM load files - runtime library
+ The srecord package is a collection of powerful tools for manipulating EPROM
+ load files. It reads and writes numerous EPROM file formats, and can perform
+ many different manipulations.
+ .
+ The tools include:
+  * The srec_cat program may be used to catenate (join) EPROM load files, or
+    portions of EPROM load files, together. Because it understands all of the
+    input and output formats, it can also be used to convert files from one
+    format to another. It also understands filters.
+  * The srec_cmp program may be used to compare EPROM load files, or portions
+    of EPROM load files, for equality.
+  * The srec_info program may be used to print summary information about EPROM
+    load files.
+Depends: ${misc:Depends}, ${shlibs:Depends}
+
+Package: libsrecord0-dbg
+Section: debug
+Architecture: any
+Description: Manipulate EPROM load files - debugging symbols
+ The srecord package is a collection of powerful tools for manipulating EPROM
+ load files. It reads and writes numerous EPROM file formats, and can perform
+ many different manipulations.
+ .
+ The tools include:
+  * The srec_cat program may be used to catenate (join) EPROM load files, or
+    portions of EPROM load files, together. Because it understands all of the
+    input and output formats, it can also be used to convert files from one
+    format to another. It also understands filters.
+  * The srec_cmp program may be used to compare EPROM load files, or portions
+    of EPROM load files, for equality.
+  * The srec_info program may be used to print summary information about EPROM
+    load files.
+Depends: ${misc:Depends}, ${shlibs:Depends}, libsrecord0 (= ${binary:Version})
+
+Package: libsrecord-dev
+Section: libdevel
+Architecture: any
+Description: Manipulate EPROM load files - development files
+ The srecord package is a collection of powerful tools for manipulating EPROM
+ load files. It reads and writes numerous EPROM file formats, and can perform
+ many different manipulations.
+ .
+ The tools include:
+  * The srec_cat program may be used to catenate (join) EPROM load files, or
+    portions of EPROM load files, together. Because it understands all of the
+    input and output formats, it can also be used to convert files from one
+    format to another. It also understands filters.
+  * The srec_cmp program may be used to compare EPROM load files, or portions
+    of EPROM load files, for equality.
+  * The srec_info program may be used to print summary information about EPROM
+    load files.
+Depends: ${misc:Depends}, ${shlibs:Depends}, libsrecord0 (= ${binary:Version})

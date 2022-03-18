@@ -1,0 +1,25 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2005-2007, 2009, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+The \fB\-IGnore\[hy]Checksums\fP option may be used to disable checksum
+validation
+of input files, for those formats which have checksums at all.  Note
+that the checksum values are still read in and parsed (so it is still an
+error if they are missing) but their values are not checked.
+Used after an input file name, the option affects that file alone;
+used anywhere else on the command line, it applies to all following files.

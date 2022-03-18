@@ -1,0 +1,126 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_mos_tech
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_mos_tech \- MOS Technology file format
+.if require_index \{
+.XX "srec_mos_tech(5)" "MOS Technology file format"
+.\}
+.SH DESCRIPTION
+.\" ------------------------------------------------------------------------
+The MOS Technology format allows binary files to be uploaded and
+downloaded between between a computer system (such as a PC, Macintosh,
+or workstation) and an emulator or evaluation board for microcontrollers
+and microprocessors.
+.SS The Lines
+Each line consists of 5 fields.  These are the
+length field, address field, data field, and the checksum.
+The lines always start with a semicolon (;) character.
+.br
+.ne 2i
+.SS The Fields
+.TS
+allbox,center,tab(&);
+lf(CW) l l l l l.
+;&Length&Address&Data&Checksum&CRLF
+.TE
+.TP 8n
+Length
+The record length field is a 2 character (1 byte) field that specifies
+the number of data bytes in the record.
+Typically this is 24 or less.
+.TP 8n
+Address
+This is a 2\[hy]byte address that specifies where the data
+in the record is to be loaded into memory, big\[hy]endian.
+.TP 8n
+Data
+The data field contains the executable code, memory\[hy]loadable data
+or descriptive information to be transferred.
+.TP 8n
+Checksum
+The checksum is an 2\[hy]byte field that represents the least significant
+two bytes of the the sum of the values represented
+by the pairs of characters making up the record's length, address, and
+data fields, big\[hy]endian.
+.SS End of File
+The final line should have a data length of zero, and the data line
+count in the address field.  The checksum is not the usual checksum, it
+is instead a repeat of the data line count.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.54 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example MOS Technology format file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at address 0.
+.RS
+.nf
+.ft CW
+;0C000048656C6C6F2C20576F726C640454
+;0000010001
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so
+.SH KIM\[hy]1 User Manual \- Appendix F \- Paper Tape Format
+\fI(The following information is reproduced from
+http://users.telenet.be/kim1\[hy]6502/6502/usrman.html#F
+just in case it vanishes from the Web.)\fP
+.PP
+The paper tape LOAD and DUMP routines store and retrieve data in a
+specific format designed to insure error free recovery.  Each byte
+of data to be stored is converted to two half bytes.  The half bytes
+(whose possible values are 0 to F HEX) are translated into their ASCII
+equivalents and written out onto paper tape in this form.
+.PP
+Each record outputted begins with a \[lq];\[rq] character (ASCII 3B) to
+mark the start of a valid record.  The next byte transmitted (18HEX)
+or (24 decimal) is the number of data bytes contained in the record.
+The record's starting address High (1 byte, 2 characters), starting
+address Lo (1 byte, 2 characters), and data (24 bytes, 48 characters)
+follow.  Each record is terminated by the record's check\[hy]sum (2 bytes, 4
+characters), a carriage return (ASCII 0D), line feed (ASCII 0A), and six
+\[lq]NULL\[rq] characters (ASCII 00).
+(NULL characters cause a blank area on the paper tape.)
+.PP
+The last record transmitted has zero data bytes (indicated by ;00)
+The starting address field is replaced by a four digit Hex number
+representing the total number of data records contained in the
+transmission, followed by the records usual check\[hy]sum digits.  An
+\[lq]XOFF\[rq] character ends the transmission.
+.RS
+;180000FFEEDDCCBBAA0099887766554433221122334455667788990AFC
+.br
+;0000010001
+.RE
+During a \[lq]LOAD\[rq] all incoming data is ignored until a \[lq];\[rq]
+character is received.  The receipt of non ASCII data or a mismatch
+between a records calculated check\[hy]sum and the check\[hy]sum read from tape
+will cause an error condition to be recognized by KIM.  The check\[hy]sum
+is calculated by adding all data in the record except the \[lq];\[rq]
+character.
+.PP
+The paper tape format described is compatible with all other
+MOS Technology, Inc. software support programs.

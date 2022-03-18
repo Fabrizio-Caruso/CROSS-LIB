@@ -1,0 +1,444 @@
+/*
+ * srecord - manipulate eprom load files
+ * Copyright (C) 1998-2000, 2003, 2004, 2006-2014 Peter Miller
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+if [not [defined integration-build-targets]] then
+    integration-build-targets = ;
+integration-build-targets += web-site;
+
+web-site: [web-site];
+
+web-site =
+    archive/change_log.txt
+    archive/[project_minus].README
+    archive/[project_minus].lsm
+    archive/[project_minus].spec
+    archive/[project_minus].tar.gz
+    archive/[project_minus].pdf
+    archive/[project_short].png
+    archive/[project_short].ico
+    archive/[project_short]-128.png
+    archive/[project_short]-64.png
+    archive/[project_short]-32.png
+    archive/[project_short]-16.png
+    archive/whining-64.png
+    [fromto etc/%.html archive/%.html
+        [match_mask etc/%.html [source_files]]
+    ]
+    [fromto etc/%.png.uue archive/%.png
+        [match_mask etc/%.png.uue [source_files]]
+    ]
+    html-documentation
+    ;
+
+source_file_order =
+    README
+    [sort
+        [stringset
+            [source_files]
+            BUILDING
+            LICENSE
+
+            /*
+             * These two are for time stamping the distribution.
+             */
+            etc/version.so
+            srecord/patchlevel.h
+
+            /*
+             * These four are for building the distribution.
+             */
+            Makefile.in
+            srecord/config.h.in
+            install-sh
+            configure
+
+            /*
+             * This is for building the RPM package
+             */
+            [project_minus].spec
+
+            /*
+             * for the reference manual
+             */
+            etc/ref-index.so
+            etc/ref-parts.so
+            etc/new.so
+
+            /*
+             * For pkg-config
+             */
+            libdir/pkgconfig/[project_short].pc.in
+        -
+            README
+        ]
+    ]
+    ;
+
+
+/*
+ * These recipes build a Makefile for a user.  They do not build a
+ * Makefile useful for a development build, because no arch
+ * information is included in the Makefile.
+ */
+
+aemakegen = aemakegen;
+
+Makefile.in: [source_files]
+{
+    function if_quiet Gneerate;
+
+    [aemakegen] -p [project] -c [change] -o [target]
+        libdir/pkgconfig/[project_short].pc.in
+        set meter;
+}
+
+archive/[project_minus].tar.gz: [source_file_order] [arch]/bin/test_gecos
+        debian/control /* et al */
+    set shallow
+{
+    function if_quiet Generate;
+
+    tar cf - [resolve [source_file_order]]
+        debian/changelog
+        debian/compat
+        debian/control
+        debian/rules
+        'debian/*.install'
+    | tardy
+        [collect [arch]/bin/test_gecos]
+        -unu 0 -gnu 0
+        -ms 0644 -mc 07022
+        -now
+        -prefix\=[project_minus]
+        [prepost "-rp=" "" [search_list]]
+    | gzip -9
+    > [target];
+}
+
+archive/[project_minus].%: %
+    set shallow
+{
+    function if_quiet Copy;
+
+    cat [resolve [need]] > [target];
+}
+
+archive/[project_minus].pdf: etc/reference.pdf
+    set shallow
+{
+    function if_quiet Copy;
+
+    cat [resolve [need]] > [target];
+}
+
+%: etc/%.man
+{
+    function if_quiet Groff;
+
+    roffpp
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        [resolve etc/%.man]
+    | groff -Tascii -t -P-bcu -man
+    > [target];
+}
+
+archive/%.txt: etc/%.man
+    set shallow
+{
+    function if_quiet Generate;
+
+    roffpp
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        [resolve etc/%.man]
+    | groff -Tascii -t -P-bcu -man
+    > [target];
+}
+
+etc/%.man.d: etc/%.man
+    set no-cascade
+{
+    [c_incl] -nc -ns -api -nrec
+        --lang\=roff
+        [addprefix "-I" [search_list]]
+        [resolve etc/%.man]
+        -prefix "'cascade etc/%.man ='"
+        -suffix "';'"
+        [addprefix "-rlp=" [search_list]]
+        -o [target];
+}
+
+#include-cooked [addsuffix ".d" [match_mask etc/%.man [source_files]]]
+
+
+/*
+ * This is not in the integration-build-targets because it takes far
+ * too long to do.
+ */
+
+RPM: archive/[project_minus]-1.i386.rpm;
+
+archive/[project_minus]-1.i386.rpm archive/[project_minus]-1.src.rpm:
+        archive/[project_minus].tar.gz etc/rpm-build.sh
+    set shallow
+{
+    function if_quiet Generate;
+
+    sh [resolve etc/rpm-build.sh]
+        RPM-temporary
+        [resolve archive/[project_minus].tar.gz]
+        ;
+    mv RPM-temporary/RPMS/i386/[project_minus]-1.i386.rpm
+        archive/[project_minus]-1.i386.rpm
+        ;
+    mv RPM-temporary/SRPMS/[project_minus]-1.src.rpm
+        archive/[project_minus]-1.src.rpm
+        ;
+    rm -r RPM-temporary;
+}
+
+[project_minus].spec: [source_files]
+{
+    function if_quiet Generate;
+
+    [aemakegen] --target\=rpm-spec -p [project] -c [change] -o [target]
+        libdir/pkgconfig/[project_short].pc.in
+        ;
+}
+
+archive/[project_minus].spec: [project_minus].spec
+    set shallow
+{
+    cat [resolve [need]] > [target];
+}
+
+archive/%: etc/%.uue
+    set shallow
+{
+    uudecode -o [target] [resolve [need]];
+}
+
+
+etc/%.html.d: etc/%.html
+    set no-cascade
+{
+    c_incl -nc -ns -eia -r -nrec
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        -prefix "'cascade etc/"%".html ='"
+        -suffix "';'"
+        [resolve etc/%.html]
+        [prepost "-rlp=" "" [search_list]] /* remove leading path */
+        -slp [arch] "'[arch]'" /* substitute leading path */
+        -o [target];
+}
+
+#include-cooked [addsuffix ".d" [match_mask etc/%.html [source_files]]]
+
+archive/%.html: etc/%.html: etc/ssp.awk etc/version.so
+    set shallow
+{
+    function if_quiet Groff;
+
+    roffpp
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        [resolve etc/%.html]
+    | groff -Tascii -t -P-bcu -man
+    | [awk] -f [resolve etc/ssp.awk]
+    > [target];
+}
+
+
+etc/[project_short].lsm.d: etc/[project_short].lsm
+    set no-cascade
+{
+    c_incl -nc -ns -eia -r -nrec
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        -prefix "'cascade etc/"[project_short]".lsm ='"
+        -suffix "';'"
+        [resolve etc/[project_short].lsm]
+        [prepost "-rlp=" "" [search_list]] /* remove leading path */
+        -slp [arch] "'[arch]'" /* substitute leading path */
+        -o [target];
+}
+
+#include-cooked-nowarn etc/[project_short].lsm.d
+
+archive/[project_minus].lsm: etc/[project_short].lsm etc/ssp.awk
+    set shallow
+{
+    function if_quiet Generate;
+
+    roffpp
+        [prepost "-I" /[arch] [search_list]]
+        [addprefix "-I" [search_list]]
+        [resolve etc/[project_short].lsm]
+    | groff -Tascii -t -P-bcu -man
+    | [awk] -f [resolve etc/ssp.awk]
+    > [target];
+}
+
+LICENSE: man/cat1/srec_license.1
+{
+    cat [resolve [need]] > [target];
+}
+
+archive/%1-%2.png: archive/%1.png
+{
+    function if_quiet Generate;
+
+    if [find_command pngcrush] then
+    {
+        convert [resolve archive/%1.png] -scale %2 archive/%1-%2.tmp.png;
+        pngcrush -bkgd 255 255 255 -brute -q archive/%1-%2.tmp.png [target];
+        rm archive/%1-%2.tmp.png;
+    }
+    else
+    {
+        convert [resolve archive/%1.png] -scale %2 [target];
+    }
+}
+
+archive/srecord.ico:
+    archive/srecord-16.png
+    archive/srecord-24.png
+    archive/srecord-32.png
+    archive/srecord-48.png
+    archive/srecord-64.png
+    archive/srecord-96.png
+    archive/srecord-128.png
+{
+    function if_quiet Generate;
+
+    convert [resolve [need]] -colors 256 [target];
+}
+
+
+check-tarball: etc/check-tarball.sh archive/[project_minus].tar.gz
+{
+    sh [resolve etc/check-tarball.sh archive/[project_minus].tar.gz];
+}
+
+
+libdir/pkgconfig/[project_short].pc.in: [source_files]
+{
+    function if_quiet Generate;
+
+    [aemakegen] -p\=[project] -c\=[change] --target\=pkg-config
+        > [target];
+}
+
+
+debian/changelog
+debian/control
+debian/rules
+debian/srecord.install: [source_files]
+    set shallow
+{
+    function if_quiet Generate;
+
+    /* This actually makes more files than just debian/control */
+    [aemakegen] -project\=[project] -change\=[change] --target\=debian
+        libdir/pkgconfig/[project_short].pc.in
+        ;
+    local tempfile = [collect mktemp] ;
+    tr "\\\\t" "' '" < debian/changelog > [tempfile] ;
+    mv [tempfile] debian/changelog ;
+}
+
+
+/*
+ * if [or
+ *     [in [fromto %1D%2 %2 [version]] 001 002 003 004]
+ *     [collect "set +e; on_ac_power; expr 1 - $?; exit 0" ]
+ * ] then
+ */
+if [in [fromto %1D%2 %2 [version]] 001 002 003 004] then
+{
+    web-site += debian-package;
+}
+
+debian-package: archive/[project_minus].tar.gz
+    debian/changelog
+{
+    function if_quiet Generate;
+    local vsn = [collect head -1 [resolve debian/changelog]
+                         | sed "'s|.*(\\([^()]*\\).*|\\1|'" ];
+    vsn = [fromto %-1 % [vsn]];
+    function print "vsn = '"[vsn]"'";
+    if [not [in [count [vsn]] 1]] then
+        fail "debian version not right";
+    local tarball = [project_short]_[vsn].orig.tar.gz;
+
+    local user = [collect id -un];
+    local key = ;
+    if [in [user] archives] then
+        key = -k19CEC7D5;
+    else
+        key = -us -uc;
+
+    /*
+     * We fake the .orig.tar.gz file to not have a debian/ directory,
+     * by filtering it out with tardy.  This silences a PITA lintian
+     * warning, for no real benefit.
+     */
+
+    unset GPG_AGENT_INFO &&
+    rm -rf archive/debian &&
+    mkdir -p archive/debian &&
+    cd archive/debian &&
+    echo Options Indexes > .htaccess &&
+    gunzip < ../[project_minus].tar.gz
+        | tardy -exclude "'"[project_minus]"/debian/*'"
+                -exclude [project_minus]/etc/crc16-ccitt.html /*not free enuf*/
+        | gzip -9 > [tarball] &&
+    tar xzf ../[project_minus].tar.gz &&
+    cd [project_minus] &&
+    cp etc/configure.ac . &&
+#if 0
+    dpkg-buildpackage -sgpg [key] -sa
+#else
+    debuild [key] -sa
+        --changes-option\=-DDistribution\=[collect
+            gawk -F\= "'/CODENAME/{print $2}'" /etc/lsb-release]
+#endif
+    &&
+    cd .. &&
+    rm -rf [project_minus] &&
+    lintian -iIv --pedantic *.changes
+    ;
+}
+
+
+archive/man/index.html: [stringset [html-documentation] - [target]]
+    etc/man-html-index.sh
+    set shallow
+{
+    function if_quiet Generate;
+
+    sh [resolve etc/man-html-index.sh]
+        [stringset [need] - etc/man-html-index.sh]
+        > [target]
+        ;
+}
+
+
+/* vim: set ts=8 sw=4 et : */

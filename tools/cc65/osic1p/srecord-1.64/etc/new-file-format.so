@@ -1,0 +1,268 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2001, 2002, 2004, 2006-2012, 2014 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TH "New Format" "SRecord" "SRecord" "Reference Manual"
+.SH NAME
+How to add a new file format
+.XX "" "How to add a new file format"
+.SH DESCRIPTION
+This section describes how to add a new file format.  It's mostly a
+set of reminders for the maintainer.  If you want a format added to
+the distribution, use this method and e\[hy]mail the maintainer a patch
+(generated with \f[CW]diff \-Nur\fP, usually) and it can be added to the
+sources if appropriate.
+.SS New Files
+The directory hierarchy is an echo of the class hierarchy, making it
+easy to guess the filename of a class, and to work out the appropriate
+file name of a new class.  You get used to it.  It is suggested that you
+simply work in the root of the source tree (exploiting tab\[hy]completion in
+your shell and your editor) rather than continually changing directories
+up and down the source tree.  All of the file names below assume this.
+.PP
+The following files need to be creates for a new format.
+.TP 8n
+srecord/output/file/\f[I]name\fP.cc
+This file is how to write the new format.
+Take a look at the other files in the same directory
+for examples.  Also check out \f[I]srecord/output/file.h\fP and
+\f[I]srecord/output.h\fP for various helper methods.
+.TP 8n
+srecord/output/file/\f[I]name\fP.h
+This is the class declaration for the above file.
+.TP 8n
+srecord/input/file/\f[I]name\fP.cc
+This file is how to read the new format.
+Take a look at the other files in the same directory
+for examples.  Also check out \f[I]srecord/input/file.h\fP and
+\f[I]srecord/input.h\fP for various helper methods.
+.TP 8n
+srecord/input/file/\f[I]name\fP.h
+This is the class declaration for the above file.
+.TP 8n
+man/man5/srec_\f[I]name\fP.5
+.RS
+This file describes the format.  Take a look at the other files in the
+same directory for examples.
+.PP
+If you need to describe something as \[lq]stupid\[rq],
+as is all too often the case,
+use \f[CW]thesaurus.com\fP to find a synonym.
+Use the following command
+.RS
+\f[CW]find man/. \-type f | xargs grep \-i \fP\f[I]synonym\fP
+.RE
+to make sure it hasn't been used yet.
+.RE
+.TP 8n
+test/\f[I]nn\fP/t\f[I]nnmm\fPa.sh
+.RS
+You may have noticed that SRecord comes with a lot of tests.  You are
+more likely to get the patch for your new format accepted rapidly if it
+comes with at least one test for its output class, and at least one test
+for its input class.
+.PP
+If your filter has endian\[hy]ness, add tests for each endian.
+.RE
+.SS Modified Files
+The following files need to be updated to mention the new format.
+.TP 8n
+srecord/srecord.h
+Add the new include file to the list.  This file controls what files are
+installed into the \f[CW]/usr/include\fP directory.  Not all of them,
+just the public interface.
+.TP 8n
+etc/README.man
+Mention the new format in the section of this file which describes
+the supported file formats.
+.TP 8n
+etc/index.html
+Mention the new format in the section of this file which describes
+the supported file formats.
+.TP 8n
+srecord/arglex/tool.h
+.RS
+Add the new format to the command line argument type enum.
+.PP
+If your filter has endian\[hy]ness, add one for each endian, using
+\[lq]_be\[rq] and \[lq]_le\[rq] suffixes.
+.RE
+.TP 8n
+srecord/arglex/tool.cc
+.RS
+Add the new format to the array of command line arguments types.
+.PP
+If your filter has endian\[hy]ness, add one for each endian, using
+\[lq]_Big_Endian\[rq] and \[lq]_Little_Endian\[rq] suffixes.
+.RE
+.TP 8n
+srecord/arglex/tool/input.cc
+Add the new format to the code which parses input formats.
+.TP 8n
+srecord/arglex/tool/output.cc
+Add the new format to the code which parses output formats.
+.TP 8n
+srecord/input/file/guess.cc
+Add the new format to the list of formats which are tested.
+.TP 8n
+man/man1/srec_input.1
+Mention the new format in the section of this file which describes
+the supported input file formats.
+.TP 8n
+man/man1/srec_cat.1
+Mention the new format in the section of this file which describes
+the supported output file formats.
+.TP 8n
+Makefile
+Actually, the system the maintainer uses automatically generates this
+file, but if you aren't using Aegis you will need to edit this file for
+your own use.
+.SS Tests
+You may have noticed that SRecord comes with a lot of tests.  You are
+more likely to get the patch for your new format accepted rapidly if it
+comes with at least one test for its output class, and at least one test
+for its input class.
+.PP
+If your filter has endian\[hy]ness, add tests for each endian.
+.SH IMPLEMENTATION ISSUES
+In implementing a new file format, there are a couple of philosophical
+issues which affect technical decisions:
+.TP 8n
+Be liberal in what you accept
+Where ever possible, consume the widest possible interpretation of
+valid data.  This includes treating mandatory input fields as optional
+(\f[I]e.g.\fP file headers and execution start addresses), and coping
+with input definitions to their logical extremes (\f[I]e.g.\fP 255 byte
+data records in Motorola format).
+Checksums should always be checked on input, only ignore them if the
+\-ignore\[hy]checksums command line option has been given.
+Absurd line lengths must be tolerated.
+.TP 8n
+Be conservative in what you produce
+Even when the input is questionable, the output produced by
+\f[I]srec_cat\fP must always be strictly conforming with the format
+definition (except as mandated by command line options, see below).
+Checksums, if the format has them, must always be correct on output.
+Line lengths should default to something reasonable (about 80 characters
+or less).
+.TP 8n
+Eat Your Own Dog Food
+You input class must always be able to consume what your output class
+produces, no matter what combination of command line options (see below)
+has been selected.
+.TP 8n
+Round Trip
+.RS
+.TP 3n
+In general, what went in is what comes out.
+.TP 3n
+\(bu
+The data may be re\[hy]arranged in order, the line lengths may change, but
+the same data should go out as came in.
+(The data should be unchanged even if the format changed,
+assuming equally capable formats.)
+The \f[I]srec_cmp\fP(1) command may be used to verify this.
+.TP 3n
+\(bu
+If the input has no header record, the output should not have one either
+(if at all possible).  This means not automatically inserting a header
+record if the output file code sees data as the first method call.
+(The \-disable=header option affects this, too.)
+.TP 3n
+\(bu
+If the input has no execution start address record, the output should
+not have one either (if at all possible).  This means not automatically
+inserting an execution start address record if the output file code does
+not see one by the time the destructor is called.
+(The \-disable=exec\[hy]start\[hy]addr flag affects this, too.)
+.TP 3n
+\(bu
+Write at least one \f[B]test\fP that does a \[lq]round trip\[rq] of
+data through the new format and back again, exercising any interesting
+boundary conditions along the way (\f[I]e.g.\fP data records spanning
+segment boundaries).
+.RE
+.TP 8n
+Holes
+Do not to fill in holes in the data.  That said, sometimes you
+\f[I]have\fP to fill holes in the data.  This happens, for example, when
+a 16\[hy]bit format is faced with an 8\[hy]bit byte of data for one or other
+half of a 16\[hy]bit word.
+If there is no other way around it, call the fatal_alignment_error method,
+which will suggest a suitable input filter.
+.SH OPTIONS
+There are also some command line arguments you will need to take into account:
+.TP 8n
+\f[B]\-address\[hy]length\fP
+This options is used to specify the minimum address length, if your new
+format has a choice about how many bytes of address it produces.
+.TP 8n
+\f[B]\-data\[hy]only\fP
+This option implies all of the \f[B]\-disable=header\fP,
+\f[B]\-disable=data\[hy]count\fP \f[B]\-disable=exec\[hy]start\[hy]addr\fP and
+\f[B]\-disable=footer\fP options.
+Only the essential data records are produced.
+.TP 8n
+\f[B]\-disable=header\fP
+If this option is used, no header records are to be produced (or minimal
+header records).  This is available as the \f[CW]enable_header_flag\fP
+class variable in the methods of your derived class.
+.TP 8n
+\f[B]\-disable=data\[hy]count\fP
+If this option is used, no data record count records are to be produced.
+This is available as the \f[CW]enable_data_count_flag\fP class variable
+in the methods of your derived class.
+.TP 8n
+\f[B]\-disable=exec\[hy]start\[hy]addr\fP
+If this option is used, no execution start address records are to be
+produced.  This is available as the \f[CW]enable_goto_addr_flag\fP class
+variable in the methods of your derived class.
+.TP 8n
+\f[B]\-disable=footer\fP
+If this option is used, no end\[hy]of\[hy]file records are to be produced.  This
+is available as the \f[CW]enable_footer_flag\fP class variable in the
+methods of your derived class.
+.TP 8n
+\fB\-enable=optional\[hy]address
+If this option is used, in combination with a format that does not have
+an address on every line, the the first zero address many be omitted.
+All subsequent addresses are not optional, just the first zero address.
+Defaults to disabled.
+.TP 8n
+\f[B]\-ignore\[hy]checksums\fP
+If this flag is set, your file input methods must parse \f[I]but not
+check\fP checksums, if the format has checksums.  You can tell if you
+need to use checksums by calling the \f[CW]use_checksums()\fP method
+within the implementation of your derived class.  This only applies to
+input; output must always produce correct checksums.
+.TP 8n
+\f[B]\-line\[hy]length\fP
+Where your output format is text, and there exists the possibility of
+putting more or less text on each line (\f[I]e.g.\fP the Motorola format
+allows a variable number of data bytes per record) then this should be
+controllable.  This manifests in the \f[CW]address_length_set\fP and
+\f[CW]preferred_block_size_get\fP methods you must implement in your
+derived class.
+.so etc/coding-style.so
+.SH AUTHOR
+.TS
+tab(;);
+l l l.
+Scott Finneran;E\[hy]Mail:;scottfinneran@yahoo.com.au
+Peter Miller;E\[hy]Mail:;pmiller@opensource.org.au
+.TE
+.\" vim: set ts=8 sw=4 et :

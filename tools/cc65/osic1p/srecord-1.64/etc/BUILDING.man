@@ -1,0 +1,541 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 1998, 2001, 2003, 2006-2010, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TH Build SRecord SRecord "Reference Manual"
+.so etc/version.so
+.if n .hy 0
+.if n .ad l
+.if n .nr IN 8n
+.SH NAME
+How to build SRecord
+.XX "" "How to build SRecord"
+.SH SPACE REQUIREMENTS
+You will need about 3MB to unpack and build the
+.I SRecord
+package.
+Your milage may vary.
+.br
+.ne 1i
+.SH BEFORE YOU START
+There are a few pieces of software you may want to
+fetch and install before you proceed with your installation of SRecord.
+.TP 8n
+Boost Library
+You will need the C++ Boost Library.
+If you are using a package based system, you will need the
+libboost\[hy]devel package, or one named something very similar.
+.br
+http://boost.org/
+.TP 8n
+Libgcrypt Library
+You will need the GNU Crypt library.
+If you are using a package based system, you will need the
+libgcrypt\[hy]devel package, or one named something very similar.
+.br
+http://directory.fsf.org/project/libgcrypt/
+.TP 8n
+GNU Libtool
+You will need the GNU Libtool software, used to build shared libraries
+on a variety of systems.
+.br
+http://www.gnu.org/software/libtool/
+.TP 8n
+GNU Groff
+The documentation for the
+.I SRecord
+package was prepared using the GNU Groff package (version 1.14 or later).
+This distribution includes full documentation,
+which may be processed into PostScript or DVI files
+at install time \- if GNU Groff has been installed.
+.TP 8n
+GCC
+You may also want to consider fetching and installing the GNU C Compiler
+if you have not done so already.  This is not essential.
+SRecord was developed using the GNU C++ compiler, and the GNU C++ libraries.
+.PP
+The GNU FTP archives may be found at \f[CW]ftp.gnu.org\fP,
+and are mirrored around the world.
+.br
+.ne 1i
+.SH SITE CONFIGURATION
+The
+.B SRecord
+package is configured using the
+.I configure
+program included in this distribution.
+.PP
+The
+.I configure
+shell script attempts to guess correct values for
+various system\[hy]dependent variables used during compilation,
+and creates the
+.I Makefile
+and
+.I lib/config.h
+files.
+It also creates a shell script
+.I config.status
+that you can run in the future to recreate the current configuration.
+.PP
+Normally,
+you just
+.I cd
+to the directory containing
+.IR SRecord "'s"
+source code and then type
+.RS
+.ft CW
+.nf
+\f[B]% \fP./configure
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+If you're using
+.I csh
+on an old version of System V,
+you might need to type
+.RS
+.ft CW
+.nf
+\f[B]% \fPsh configure
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+instead to prevent
+.I csh
+from trying to execute
+.I configure
+itself.
+.PP
+Running
+.I configure
+takes a minute or two.
+While it is running,
+it prints some messages that tell what it is doing.
+If you don't want to see the messages,
+run
+.I configure
+using the quiet option;
+for example,
+.RS
+.FT CW
+.nf
+\f[B]% \fP./configure \-\-quiet
+\bB%\fP
+.fi
+.ft R
+.RE
+.PP
+To compile the
+.B SRecord
+package in a different directory from the one
+containing the source code,
+you must use a version of
+.I make
+that supports the
+.I VPATH variable,
+such as
+.IR "GNU make" .
+.I cd
+to the directory where you want the object files and executables to go and run
+the
+.I configure
+script.
+.I configure
+automatically checks for the source code in the directory that
+.I configure
+is in and in
+.IR \&..
+(the parent directory).
+If for some reason
+.I configure
+is not in the source code directory that you are configuring,
+then it will report that it can't find the source code.
+In that case,
+run
+.I configure
+with the option \f[CW]\-\-srcdir=\fP\f[I]DIR\fP,
+where
+.I DIR
+is the directory that contains the source code.
+.PP
+By default,
+.I configure
+will arrange for the
+.I "make install"
+command to install the
+.B SRecord
+package's files in
+.IR /usr/local/bin ,
+and
+.IR /usr/local/man .
+There are options which allow you to control the placement
+of these files.
+.TP 8n
+\f[CW]\-\-prefix=\fP\f[I]PATH\fP
+This specifies the path prefix to be used in the installation.
+Defaults to \f[I]/usr/local\fP unless otherwise specified.
+.TP 8n
+\f[CW]\-\-exec\-prefix=\fP\f[I]PATH\fP
+You can specify separate installation prefixes for
+architecture\[hy]specific files files.
+Defaults to \f[I]${prefix}\fP unless otherwise specified.
+.TP 8n
+\f[CW]\-\-bindir=\fP\f[I]PATH\fP
+This directory contains executable programs.  On a network, this
+directory may be shared between machines with identical hardware and
+operating systems; it may be mounted read\[hy]only.  Defaults to
+\f[I]${exec_prefix}/bin\fP unless otherwise specified.
+.TP 8n
+\f[CW]\-\-mandir=\fP\f[I]PATH\fP
+This directory contains the on\[hy]line manual entries.  On a network, this
+directory may be shared between all machines; it may be mounted
+read\[hy]only.  Defaults to \f[I]${prefix}/man\fP unless otherwise specified.
+.PP
+.I configure
+ignores most other arguments that you give it;
+use the \f[CW]\-\-help\fP option for a complete list.
+.br
+.ne 2i
+.PP
+On systems that require unusual options for compilation or linking
+that the
+.I SRecord
+package's
+.I configure
+script does not know about,
+you can give
+.I configure
+initial values for variables by setting them in the environment.
+In Bourne\[hy]compatible shells,
+you can do that on the command line like this:
+.RS
+.ft CW
+.nf
+\f[B]$ \fPCXX='g++ \-traditional' LIBS=\-lposix ./configure
+\f[I]\&...lots of output...\fP
+\f[B]$\fP
+.fi
+.ft R
+.RE
+Here are the
+.I make
+variables that you might want to override with
+environment variables when running
+.IR configure .
+.TP 8n
+Variable: CXX
+C++ compiler program.
+The default is
+.IR c++ .
+.TP 8n
+Variable: CPPFLAGS
+Preprocessor flags, commonly defines and include search paths.
+Defaults to empty.
+It is common to use \f[CW]CPPFLAGS=\-I/usr/local/include\fP to access other
+installed packages.
+.TP 8n
+Variable: INSTALL
+Program to use to install files.
+The default is
+.I install
+if you have it,
+.I cp
+otherwise.
+.TP 8n
+Variable: LIBS
+Libraries to link with,
+in the form \f[CW]\-l\fP\f[I]foo\fP \f[CW]\-l\fP\f[I]bar\fP.
+The
+.I configure
+script will append to this,
+rather than replace it.
+It is common to use \f[CW]LIBS=\-L/usr/local/lib\fP to access other
+installed packages.
+.PP
+If you need to do unusual things to compile the package,
+the author encourages you to figure out how
+.I configure
+could check whether to do them,
+and mail diffs or instructions to the author
+so that they can be included in the next release.
+.br
+.ne 1i
+.SH BUILDING SRECORD
+All you should need to do is use the
+.RS
+.ft CW
+.nf
+\f[B]% \fPmake
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+command and wait.
+When this finishes you should see a directory called
+.I bin
+containing three files:
+.IR srec_cat ,
+.IR srec_cmp
+and
+.IR srec_info .
+.TP 8n
+.B srec_cat
+.The
+.I srec_cat
+program is used to manipulate and convert EPROM load files.
+For more information, see
+.IR srec_cat (1).
+.TP 8n
+.B srec_cmp
+The
+.I srec_cmp
+program is used to compare EPROM load files.
+For more information, see
+.IR srec_cmp (1).
+.TP 8n
+.B srec_info
+The
+.I srec_info
+program is used to print information about EPROM load files.
+For more information, see
+.IR srec_info (1).
+.br
+.ne 1.5i
+.PP
+If you have GNU Groff installed, the build will also create a
+.I etc/reference.ps
+file.  This contains the README file, this BUILDING file,
+and all of the man pages.
+.PP
+You can remove the program binaries and object files from the
+source directory by using the
+.RS
+.ft CW
+.nf
+\f[B]% \fPmake clean
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+command.
+To remove all of the above files, and also remove the
+.I Makefile
+and
+.I lib/config.h
+and
+.I config.status
+files, use the
+.RS
+.ft CW
+.nf
+\f[B]% \fPmake distclean
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+command.
+.PP
+The file
+.I etc/configure.in
+is used to create
+.I configure
+by a GNU program called
+.IR autoconf .
+You only need to know this if you want to regenerate
+.I configure
+using a newer version of
+.IR autoconf .
+.SS Windows NT
+It is possible to build SRecord on MS Windows platforms, using the Cygwin
+(see \f[CW]www.cygwin.com\fP) or DJGPP (see
+\f[CW]www.delorie.com/djgpp\fP) environments.  This provides the
+\&\[lq]porting layer\[rq] necessary to run Unix programs on Windows.  The build
+process is exactly as described above.
+.PP
+You may need to pass in the include path to the Boost library.
+This is most simply done as
+.RS
+.ft CW
+.nf
+CC='gcc \-no\-cygwin' \e
+CXX='g++ \-mno\-cygwin \-I/usr/include/boost\-1_33_1' \e
+./configure
+.fi
+.ft R
+.RE
+.PP
+DJGPP always produces native binaries, however
+if you want to make native binaries with Cygwin (\f[I]i.e.\fP ones which
+work outside Cygwin) there is one extra step you need after running
+\f[CW]./configure\fP and before you run \f[CW]make\fP.  You need to
+edit the \f[I]Makefile\fP file, and add \f[CW]\-mno\-cygwin\fP to the end of
+the \f[CW]CXX=g++\fP line.
+.PP
+Once built (using either tool set) Windows binaries should be testable
+in the same way as described in the next section.
+However, there may be some CRLF issues in the text file comparisons
+which give false negatives, depending on the CRLF setting of your Cygwin
+file system when you unpacked the tarball.
+.br
+.ne 1i
+.SH TESTING SRECORD
+The
+.I SRecord
+package comes with a test suite.
+To run this test suite, use the command
+.RS
+.ft CW
+.nf
+\f[B]% \fPmake sure
+\f[I]\&...lots of output...\fP
+.if n \f[B]Passed All Tests\fP
+.if t \f[CB]Passed All Tests\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+.PP
+The tests take a few seconds each,
+with a few very fast,
+and a couple very slow,
+but it varies greatly depending on your CPU.
+.PP
+If all went well, the message
+.RS
+.ft CW
+Passed All Tests
+.ft R
+.RE
+should appear at the end of the make.
+.br
+.ne 1i
+.SH INSTALLING SRECORD
+As explained in the
+.I "SITE CONFIGURATION"
+section, above,
+the
+.I SRecord
+package is installed under the
+.I /usr/local
+tree by default.
+Use the \f[CW]\-\-prefix=\fP\f[I]PATH\fP option to
+.I configure
+if you want some other path.
+More specific installation locations are assignable,
+use the \f[CW]\-\-help\fP option to
+.I configure
+for details.
+.PP
+All that is required to install the
+.I SRecord
+package is to use the
+.RS
+.ft CW
+.nf
+\f[B]% \fPmake install
+\f[I]\&...lots of output...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+command.
+Control of the directories used may be found in the first
+few lines of the
+.I Makefile
+file and the other files written by the
+.I configure
+script;
+it is best to reconfigure using the
+.I configure
+script, rather than attempting to do this by hand.
+.br
+.ne 1i
+.SH GETTING HELP
+If you need assistance with the
+.I SRecord
+package,
+please post to the srecord\[hy]users mailing list
+.RS
+.ft CW
+srecord\[hy]users@lists.sourceforge.net
+.ft R
+.RE
+For information obout the srecord\[hy]users mailing list.
+http://srecord.sourceforge.net/mailing\[hy]list.html
+.PP
+When reporting problems,
+please include the version number
+given by the
+.RS
+.ft CW
+.nf
+\f[B]% \fPsrec_cat \-version
+.if n \f[B]srecord version\fP \f[I]\*(V)\fP
+.if t \f[CB]srecord version\fP \f[I]\*(V)\fP
+\f[I]\&...warranty disclaimer...\fP
+\f[B]%\fP
+.fi
+.ft R
+.RE
+command.
+Please do not send this example;
+run the program for the exact version number.
+.br
+.ne 2i
+.SH COPYRIGHT
+.I srecord
+version \*(v)
+.br
+Copyright
+.if n (C)
+.if t \(co
+\*(Y) Peter Miller
+.br
+Copyright
+.if n (C)
+.if t \(co
+\*(Y) SCott Finneran
+.PP
+The
+.I SRecord
+package is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+.PP
+It should be in the
+.I LICENSE
+file included with this distribution.
+.br
+.ne 1i
+.SH AUTHOR
+.TS
+tab(;);
+l r l.
+Scott Finneran;E\[hy]Mail:;scottfinneran@yahoo.com.au
+Peter Miller;E\[hy]Mail:;pmiller@opensource.org.au
+.TE
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,73 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2009, 2010, 2012, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or (at
+.\" your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.SH CODING STYLE
+Please following the coding style of the existing code.
+It makes your patches and contributions more likely to be accepted
+if they don't have to be extensively reformatted.
+.PP
+Indent increments are four characters.
+Do not use tab characters at all,
+nobody can agree how wide they are supposed to be.
+Line length is 80 characters or fewer, no exceptions.
+.PP
+Please follow the existing convention of
+always using Doxygen comments on all your instance variables and methods,
+even for private methods.
+Always document all arguments of all methods, even private methods,
+using \f[CW]@param\fP tags; see existing style.
+Always use whole sentences in your Doxygen documentation,
+see existing code for examples.
+.PP
+Do not use upper case letters in file names.
+Do not use white space or shell special characters in file names.
+.PP
+When sending a patch please use \[lq]diff \-Nur\[rq], as this will
+include your new files in the patch, and you will not need additional
+attachments in your email.  Patches are preferred over tarballs.
+.PP
+Include tests.
+It makes your patches and contributions more likely to be accepted
+if the maintainer doesn't have to write your tests for you.
+See sources for examples of existing tests.
+.SH CONTRACT RATES
+It is possible to have the maintainer write your new file format or new
+filter for you.  However, if you want it done for nothing, you will be
+put at the end of a (very) long queue of other \f[I]gratis\fP open
+source work the maintainer has yet to do.  You can jump the queue if you
+want to pay the maintainer to do the work for you.
+.PP
+The maintainer's rates are AU$100 per hour.
+.PP
+A well document new format typically takes six hours to write and
+test, this includes both reading and writing the new format.  A well
+documented new filter typically takes three hours to write and test.
+.PP
+Examples make these tasks easier.
+Poor documentation makes these tasks take longer.
+A mystery format that requires reverse engineering may take \f[I]much\fP
+longer; ask again once you have figured it out.
+.PP
+All code written for you will be included in the project source tarball
+in its next release.  All formats and filters written for you will be
+copyright Scott Finneran;E\[hy]Mail:;scottfinneran@yahoo.com.au, and
+they will be GNU GPL licensed.  If you \f[I]need\fP a format or filter
+written, it has value to you; the issue of freeloaders is irrelevant.
+.PP
+Conversely, integrating complete open source contributions and patches
+is done \f[I]gratis\fP, and usually done as promptly as time permits.
+.\" vim: set ts=8 sw=4 et :

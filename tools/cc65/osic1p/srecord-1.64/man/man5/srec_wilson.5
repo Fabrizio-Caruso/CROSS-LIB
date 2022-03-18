@@ -1,0 +1,107 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_wilson
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_wilson \- wilson file format
+.if require_index \{
+.XX "srec_wilson(5)" "Wilson file format"
+.\}
+.SH DESCRIPTION
+This is a mystery format, added to support a mysery EPROM loader
+used by Alan Wilson <dvdsales@dvdlibrary.co.uk>
+.LP
+If you know the true name of this format, please let me know!
+It bears a remarkable similarity to the Motorola S\[hy]Record format,
+however I can find no reference to a "compressed" Motorola format.
+.SS The Lines
+Each line contains normal ASCII characters, and \[lq]high bit on[rq]
+characters, but the ASCII control characters are avoided (the
+high\[hy]bit\[hy]on con characters are not avoided).  Normal line
+termination characters (CRLF or LF, depending on your system) are used.
+.LP
+The presence of high\[hy]bit\[hy]on characters makes this format unattractive to
+send via email, as it must be wrapped as a binary attachment, increasing
+its size.
+.LP
+In general, a single
+byte per byte is used to encode values, however some values use two bytes,
+according to the following table:
+.TS
+center,tab(;);
+c c.
+Byte Value;Encoding (1 or 2 chars)
+0x00 .. 0x9F;0x40 .. 0xDF
+0xA0 .. 0xAF;0x3A 0x30 .. 0x3A 0x3F
+0xB0 .. 0xBF;0x3B 0x30 .. 0x3B 0x3F
+0xC0 .. 0xCF;0x3C 0x30 .. 0x3C 0x3F
+0xD0 .. 0xDF;0x3D 0x30 .. 0x3D 0x3F
+oxE0 .. 0xFF;0xE0 .. 0xFF
+.TE
+The rest of this description, when refering to \[lq]bytes[rq] means byte
+values encoded using the above table.
+.br
+.ne 2i
+.SS The Fields
+Each line consists of 5 fields. These are the type field,
+length field, address field, data field, and the checksum.
+.TS
+allbox,center,tab(;);
+lf(CW) l l l l.
+Type;Record Length;Address;Data;Checksum
+.TE
+.TP 8n
+Type
+The type field is a 1 character field that specifies whether
+the record is data (0x43), or termination (0x47).
+.TP 8n
+Record Length
+The record length field is a 1 byte field that specifies the
+number of bytes in the record, excluding the type and
+record length fields.
+.TP 8n
+Address
+This is a 4\[hy]byte address that specifies where the data
+is to be loaded into memory.
+.TP 8n
+Data
+The data field contains the executable code, memory\[hy]loadable data
+or descriptive information to be transferred.
+.TP 8n
+Checksum
+The checksum is an 1\[hy]byte field that represents the least significant
+byte of the one's complement of the sum of the values represented by
+the bytes making up the length, address, and data fields.
+.br
+.ne 2i
+.SS Record Types
+.TP 8n
+0x43 (#)
+A record containing data and the 4\[hy]byte address at which the data is
+to reside.
+.TP 8n
+0x47 (')
+A termination record.  The address field may contain the 4\[hy]byte address
+of the instruction to which control is passed.  There is no data field.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 1.5 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

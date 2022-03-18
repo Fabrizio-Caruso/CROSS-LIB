@@ -1,0 +1,92 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2003, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_fairchild
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_fairchild \- Fairchild Fairbug file format
+.if require_index \{
+.XX "srec_fairchild(5)" "Fairchild Fairbug file format"
+.\}
+.SH DESCRIPTION
+The Fairchild Fairbug format has 8\[hy]byte records.
+A file begins with an address record and ends with an
+end\[hy]of\[hy]file record.
+.PP
+.PP
+There are three record types in this file format.
+.PP
+Address records are of the form
+.TS
+allbox,center,tab(;);
+lf(CW) l.
+S;\fInnnn\fP
+.TE
+indicating the address for the following data records.
+.PP
+Data records are of the form
+.TS
+allbox,center,tab(;);
+lf(CW) l l.
+X;\fIffffffffffffffff\fP;\fIc\fP
+.TE
+Each data record begins with an X and always contains 8 data bytes.
+The \fIff\fP characters are hexadecimal byte values (8 bytes).
+Each data byte is represented by 2
+hexadecimal characters.
+The \fIc\fP character is a hex digit being the the nibble\[hy]sum of the
+data bytes.
+A 1\[hy]digit hexadecimal checksum follows the data in each data record.
+The checksum represents, in hexadecimal notation, the sum of the binary
+equivalents of the 16 digits in the record;
+the half carry from the fourth bit is ignored.
+The programmer ignores any character (except for address characters and
+the asterisk character, which terminates the data transfer) between a
+checksum and the start character of the next data record. This space can
+be used for comments.
+.PP
+The end\[hy]of\[hy]file record has the form
+.TS
+allbox,center,tab(;);
+lf(CW).
+*
+.TE
+The last record consists of an asterisk only, which indicates the end of file.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.4 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Fairchild Fairbug file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x1000.
+Notice how the last record is padded with 0xFF bytes.
+.RS
+.nf
+.ft CW
+S1000
+X48656C6C6F2C2057C
+X6F726C64210AFFFF3
+*
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

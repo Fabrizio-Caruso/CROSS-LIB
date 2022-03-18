@@ -1,0 +1,107 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2014 Scott Finneran
+.\"
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the Free
+.\" Software Foundation; either version 3 of the License, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+.\" or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+.\" for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.ne 2i
+.SS Version 1.63 (2014\[hy]Apr\[hy]07)
+.PP
+.if n *
+.if t \(bu
+.\" Changes 12 and 15
+The srec_tools now understand how to read and write Logisim formt.
+.PP
+.if n *
+.if t \(bu
+.\" Change 31
+Daniel Anselmi <danselmi@gmx.ch> fixed a bug with
+generating Lattice Memory init files.
+.PP
+.if n *
+.if t \(bu
+.\" Change 20
+This change set generalises the code that handles redundant byte
+settings and contradictory byte settings. The defcon_t type
+describes what to do: ignore, warn or error.
+The \-\-multiple option is no more.
+.PP
+.if n *
+.if t \(bu
+.\" Change 26
+Daniel Anselmi <danselmi@gmx.ch> discovered that the "mem"
+output format was malformed. The lines now break every "width"
+bits.
+.PP
+.if n *
+.if t \(bu
+.\" Change 25
+Hanspeter Niederstrasser disoverd some false negatives in the
+test suite, when used on OSX.
+Thank you for the bug report. This has been fixed.
+.PP
+.if n *
+.if t \(bu
+.\" Change 23
+Simplification of selection code to choose which CRC16 implmentation
+is used.
+.PP
+.if n *
+.if t \(bu
+.\" Change 22
+Juliano MourÃ£o Vieira <juliano@utfpr.edu.br> discovered a
+problem with the srec_mif.5 description. This mistake is not
+present in the code.
+.PP
+.if n *
+.if t \(bu
+.\" Change 16
+Liju Prasanth Nivas (RBEI/ECA1)
+<Liju.PrasanthNivas@in.bosch.com> suggsted another use case for
+the examples. In the case of "joining" files that are meant to be
+\[lq]stacked in layers\[rq].
+Contributions for the examples are always appreciated. Thank you.
+.PP
+.if n *
+.if t \(bu
+.\" Change 51
+Added more comments to the code, so that the use
+of URL_deode for the command line is better explained. And
+comment to explain why not to do turl_encode when building
+header records.
+.PP
+.if n *
+.if t \(bu
+.\" Change 17
+Added URL quoting to the command line. There are
+times you need to be able to insert unprintable characters on
+the command line. The immediate use case prompting this was a
+user wanting to put a NUL in the header string. So now you can,
+as "%00". The other choice was quoted printable encoding, but
+that was a bit obscure.
+.PP
+.if n *
+.if t \(bu
+.\" Change 30
+Fixed new warnings when building with g++ 4.8.1
+.PP
+.if n *
+.if t \(bu
+.\" Change 11
+Added more links to the windows files on SourceForge, maybe it
+will boost download numbers.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.\" vim: set ts=8 sw=4 et :

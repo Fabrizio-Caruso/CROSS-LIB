@@ -1,0 +1,53 @@
+.\"
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2001, 2006, 2007, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TP 8n
+\fB\-redundant\[hy]bytes=\fP\f[I]value\fP
+.RS
+Use this option to permit a file to contain redundant values for some
+memory locations.  The default is for this condition to be a warning.
+.TP 4n
+ignore
+No warning or error is issued whena redundant settings are detected.
+.TP 4n
+warning
+A warning is issued when a redundant settings are observed, the warning
+includes the problematic address.
+.TP 4n
+error
+A fatal error is issued when a redundant settings are observed, the
+fatal error message includes the problematic address and byte value.
+.RE
+.TP 8n
+\fB\-contradictory\[hy]bytes=\fP\f[I]value\fP
+.RS
+Use this option to permit a file to contain contradictory values for
+some memory locations.  The last value in the input(s) will be used.
+The default is for this condition to be a fatal error.
+.TP 4n
+ignore
+No warning or error is issued when contradictory setting is detected.
+.TP 4n
+warning
+A warning is issued when a vontradictory settings are observed, the warning
+includes the problematic address, and values.
+.TP 4n
+error
+A fatal error is issued when contradictory settings are observed, the
+fatal error message includes the problematic address and byte values.
+.RE
+.\" vim: set ts=8 sw=4 et :

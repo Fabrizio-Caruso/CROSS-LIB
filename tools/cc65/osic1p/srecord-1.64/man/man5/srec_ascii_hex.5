@@ -1,0 +1,82 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2001, 2003, 2006-2009, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_ascii_hex
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_ascii_hex \- Ascii\[hy]Hex file format
+.if require_index \{
+.XX "srec_ascii_hex(5)" "Ascii\[hy]Hex file format"
+.\}
+.SH DESCRIPTION
+This format is also known as the \fIAscii\[hy]Space\[hy]Hex\fP or
+\fIAscii\[hy]Hex\[hy]Space\fP format.
+If you know who invented this format, please let me know.  If you have
+a better or more complete description, I'd like to know that, too.
+.PP
+The file starts with a start\[hy]of\[hy]text (STX or Control\[hy]B)
+character (0x02).
+Everything before the STX is ignored.
+.LP
+Each data byte is represented as 2 hexadecimal characters, followed by
+an "execution character".  The default execution character is a space,
+although many programs which write this format omit the space
+character immediately preceding end\[hy]of\[hy]line.
+.LP
+The address for data bytes is set by using a sequence of
+\f[CW]$A\fP\f[CI]nnnn\fP\f[CW],\fP characters, where \fInnnn\fP is the
+4\[hy]character ascii representation of the address.  The comma is required.
+There is no need for an address record unless there are gaps.  Implicitly,
+the file starts a address 0 if no address is set before the first
+data byte.
+.PP
+The file ends with an end\[hy]of\[hy]text (ETX or Control\[hy]C)
+character (0x03).
+Everything following the ETX is ignored.
+.PP
+It is also possible to specify a running 16\[hy]bit checksum using a sequence
+of \f[CW]$S\fP\f[CI]nnnn\fP\f[CW],\fP characters, although this usually
+appears \fIafter\fP the ETX character and is thus often ignored.
+.SS Variant Forms
+In addition to a space character, the execution character can also be
+percent (%) called "ascii\[hy]hex\[hy]percent" format, apostrophe (') or comma
+(,) called "ascii\[hy]hex\[hy]comma" format.  The file must use the same
+execution character throughout.
+.PP
+If the execution character is a comma, the address and checksum commands
+are terminated by a dot (.) rather than a comma (,).
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 3.0 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example ascii\[hy]hex file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x1000.
+.RS
+.nf
+.ft CW
+^B $A1000,
+48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 0A ^C
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

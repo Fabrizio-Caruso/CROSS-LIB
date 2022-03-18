@@ -1,0 +1,35 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+The MOS Technology format was not reading and writing end
+records correctly, this has been fixed.
+The name of the company has been corrected.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11
+Some examples of how to insert constant or scripted data into your EPROM
+load files have been added to the \f[I]srec_examples\fP(1) man page.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.41 (2008-May-12)
+.\" vim: set ts=8 sw=4 et :

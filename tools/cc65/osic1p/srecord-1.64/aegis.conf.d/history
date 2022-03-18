@@ -1,0 +1,131 @@
+#
+#       srecord - The "srecord" program.
+#       Copyright (C) 2007, 2011 Peter Miller
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program. If not, see
+#       <http://www.gnu.org/licenses/>.
+#
+
+/*
+ * RCS uses a slightly different model than aegis wants, so some
+ * maneuvering is required.  The command strings in this section assume
+ * that the RCS commands ci and co and rcs and rlog are in the command
+ * search PATH, but you may like to hard-wire the paths, or set PATH at
+ * the start of each.  You should also note that the strings are always
+ * handed to the Bourne shell to be executed, and are set to exit with
+ * an error immediately a sub-command fails.
+ *
+ * In these commands, the RCS file is kept unlocked, since only the owner will
+ * be checking changes in.  The RCS functionality for coordinating shared
+ * access is not required.
+ *
+ * One advantage of using RCS version 5.6 or later is that binary files are
+ * supported, should you want to have binary files in the baseline.
+ */
+
+/*
+ * This command is used to create a new file history.
+ * This command is always executed as the project owner.
+ * The following substitutions are available:
+ *
+ * ${Input}
+ *      absolute path of the source file
+ * ${History}
+ *      absolute path of the history file
+ *
+ * The "ci -f" option is used to specify that a copy is to be checked-in even
+ *      if there are no changes.
+ * The "ci -u" option is used to specify that an unlocked copy will remain in
+ *      the baseline.
+ * The "ci -d" option is used to specify that the file time rather than the
+ *      current time is to be used for the new revision.
+ * The "ci -M" option is used to specify that the mode date on the original
+ *      file is not to be altered.
+ * The "ci -t" option is used to specify that there is to be no description
+ *      text for the new RCS file.
+ * The "ci -m" option is used to specify that the change number is to be stored
+ *      in the file log if this is actually an update (typically from aenf
+ *      after aerm on the same file name).
+ * The "rcs -U" option is used to specify that the new RCS file is to have
+ *      unstrict locking.
+ */
+history_create_command =
+    "ci -f -u -d -M -m$c -t/dev/null $i $h,v; rcs -U $h,v";
+
+/*
+ * This command is used to get a specific edit back from history.
+ * This command is always executed as the project owner.
+ * The following substitutions are available:
+ *
+ * ${History}
+ *      absolute path of the history file
+ * ${Edit}
+ *      edit number, as given by history_\%query_\%command
+ * ${Output}
+ *      absolute path of the destination file
+ *
+ * The "co -r" option is used to specify the edit to be retrieved.
+ * The "co -p" option is used to specify that the results be printed on the
+ *      standard output; this is because the destination filename will never
+ *      look anything like the history source filename.
+ */
+history_get_command =
+    "co -r'$e' -p $h,v > $o";
+
+/*
+ * This command is used to add a new "top-most" entry to the history file.
+ * This command is always executed as the project owner.
+ * The following substitutions are available:
+ *
+ * ${Input}
+ *      absolute path of source file
+ * ${History}
+ *      absolute path of history file
+ *
+ * The "ci -f" option is used to specify that a copy is to be checked-in even
+ *      if there are no changes.
+ * The "ci -u" option is used to specify that an unlocked copy will remain in
+ *      the baseline.
+ * The "ci -d" option is used to specify that the file time rather than the
+ *      current time is to be used for the new revision.
+ * The "ci -M" option is used to specify that the mode date on the original
+ *      file is not to be altered.
+ * The "ci -m" option is used to specify that the change number is to be stored
+ *      in the file log, which allows rlog to be used to find the change
+ *      numbers to which each revision of the file corresponds.
+ *
+ * It is possible for a a very cautious approach has been taken, in which case
+ * the history_put_command may be set to the same string specified above for
+ * the history_create_command.
+ */
+history_put_command =
+    "ci -f -u -d -M -m$c $i $h,v";
+
+/*
+ * This command is used to query what the history mechanism calls the top-most
+ * edit of a history file.  The result may be any arbitrary string, it need not
+ * be anything like a number, just so long as it uniquely identifies the edit
+ * for use by the history_get_command at a later date.  The edit number is to
+ * be printed on the standard output.  This command is always executed as the
+ * project owner.
+ *
+ * The following substitutions are available:
+ *
+ * ${History}
+ *      absolute path of the history file
+ */
+history_query_command =
+    "rlog -r $h,v | awk '/^head:/ {print $$2}'";
+
+# vim: set ts=8 sw=4 et :

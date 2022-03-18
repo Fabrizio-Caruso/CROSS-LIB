@@ -1,0 +1,96 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_tektronix_extended
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_tektronix_extended \- Tektronix Extended hexadecimal file format
+.if require_index \{
+.XX "srec_tektronix_extended(5)" "Tektronix Extended hexadecimal file format"
+.\}
+.SH DESCRIPTION
+.\" ------------------------------------------------------------------------
+This format allows binary files to be uploaded and downloaded between
+two computer systems, typically between a computer system (such as a
+PC, Macintosh, or workstation) and an emulator or evaluation board for
+microcontrollers and microprocessors.
+.SS The Lines
+Lines always start with a percent (%) character.  Each line consists
+of 5 fields.  These are the length field, the type field, the checksum,
+the address field (including address length), and the data field.
+.br
+.ne 2i
+.SS The Fields
+.TS
+allbox,center,tab(;);
+lf(CW) l l l l l.
+%;Length;Type;Checksum;Address;Data
+.TE
+.TP 8n
+Record Length
+The record length field is a 2 character (1 byte) field that specifies
+the number of characters (not bytes) in the record, excluding the percent.
+.TP 8n
+Type
+The type field is a 1 character field that specifies whether
+the record is data (6) or termination (8).
+.TP 8n
+Checksum
+The checksum is an 2 character (1 byte) field that represents the
+sum of all the nibbles on the line, excluding the checksum.
+.TP 8n
+Address
+This is a 9 character field.  The first character is the address size;
+it is always 8.  The remaining 8 chgaracters are the 4\[hy]byte address that
+specifies where the data is to be loaded into memory.
+.TP 8n
+Data
+The data field contains the executable code, memory\[hy]loadable data
+or descriptive information to be transferred.
+.br
+.ne 2i
+.SS Record Types
+.TP 8n
+6
+A record containing data.
+The data is placed at the address specified.
+.TP 8n
+8
+A termination record.
+The address field may optionally contain the address of the instruction
+to which control is passed.  There is no data field.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.5 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Tektronix extended file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at address 0x006B.
+.RS
+.nf
+.ft CW
+%256D980000006B48656C6C6F2C20576F726C64210A
+%09819800000000
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

@@ -1,0 +1,61 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2002, 2004, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_os65v
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_os65v \- OS65V Loader file format
+.if require_index \{
+.XX "srec_os65v(5)" "OS65V Loader file format"
+.\}
+.SH DESCRIPTION
+This format is used by Ohio Scientific OS65V\[hy]compatible loaders.  This
+family of machines includes the OSI C1P, Superboard II, C2, C4, C8,
+and Challenger III, as well as the UK101, and Elektor Junior.
+.PP
+The file startes with a period '.' (0x2E), to ensure address entry
+mode.  then a 4\[hy]digit hex address, followed by a slash '/' (0X2F) to
+enter the data entry mode.  The initial address is always present.
+There is no need for an additional address record unless there are
+gaps.
+.LP
+Each data byte is represented as 2 hexadecimal characters, and is
+separated by a carriage return character (0x0D) (advance address).
+The final return character may be omitted.
+.LP
+The data is concluded with a period '.' (0x2E) to re\[hy]enter address
+mode.  If an address to start execution is specified, then the last 5
+bytes are \fInnnn\fPG where \fInnnn\fP is the 4\[hy]digit execution
+address, and G is the 'Go' command.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 3.0 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example ascii\[hy]hex file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x1000,
+with execution at 0x1003.  (On a 6502, this is the opcode for indirect
+jump to 0x2C6F.)
+.LP
+1000/48^M65^M6C^M6C^M6F^M2C^M20^M57^M6F^M72^M6C^M64^M0A^M.1010G
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

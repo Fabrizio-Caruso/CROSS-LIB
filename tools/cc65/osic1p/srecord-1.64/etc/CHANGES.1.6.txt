@@ -1,0 +1,507 @@
+
+
+
+Project "srecord.1.6"                                             Page 1
+List of Changes                                 Mon Mar 19 11:02:24 2001
+
+Change  State           Description
+------- -------         -------------
+  10    completed       prepare for release
+  11    completed       C Array
+  12    completed       build glitch
+  15    completed       allow overwriting
+  16    completed       Srec_cat --address-length
+  17    completed       documentation tweaks
+  18    completed       prepare to end branch
+  19    completed       build issues
+
+
+
+Project "srecord.1.6", Change 10                                  Page 1
+Change Details                                  Mon Mar 19 11:02:25 2001
+
+NAME
+        Project "srecord.1.6", Delta 1, Change 10.
+
+SUMMARY
+        prepare for release
+
+DESCRIPTION
+        This change prepares SRecord for the next public release.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_improvement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  create    1.1         etc/CHANGES.1.5
+        source  modify   1.11 -> 1.12 etc/archive.cook
+        source  modify   1.11 -> 1.12 etc/documentation.cook
+        source  modify    1.6 -> 1.7  etc/new.1.5.so
+        source  create    1.1         etc/new.1.6.so
+        source  modify   1.22 -> 1.23 etc/srecord.html
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sun Dec  3      pmiller
+                        19:46:50 2000
+        develop_begin   Sun Dec  3      pmiller  Elapsed time: 0.031
+                        19:46:51 2000            days.
+        develop_end     Sun Dec  3      pmiller
+                        20:01:00 2000
+        review_pass     Sun Dec  3      pmiller
+                        20:01:03 2000
+        integrate_begin Sun Dec  3      pmiller
+                        20:01:06 2000
+        integrate_      Sun Dec  3      pmiller
+        begin_undo      20:04:11 2000
+        develop_end_    Sun Dec  3      pmiller  Elapsed time: 0.062
+        undo            20:04:19 2000            days.
+        develop_end     Sun Dec  3      pmiller  Elapsed time: 0.128
+                        20:32:13 2000            days.
+        review_pass     Sun Dec  3      pmiller
+                        21:29:44 2000
+        integrate_begin Sun Dec  3      pmiller  Elapsed time: 0.105
+                        21:29:47 2000            days.
+        integrate_pass  Sun Dec  3      pmiller
+                        22:17:00 2000
+
+
+
+Project "srecord.1.6", Change 11                                  Page 1
+Change Details                                  Mon Mar 19 11:02:27 2001
+
+NAME
+        Project "srecord.1.6", Delta 2, Change 11.
+
+SUMMARY
+        C Array
+
+DESCRIPTION
+        This change fixes another bug in the C Array output.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by chain.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.11 -> 1.12 lib/srec/output/file/c.cc
+        test    create    1.1         test/00/t0057a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Dec  4      pmiller
+                        08:39:55 2000
+        develop_begin   Mon Dec  4      pmiller  Elapsed time: 0.114
+                        08:39:58 2000            days.
+        develop_end     Mon Dec  4      pmiller
+                        09:31:27 2000
+        review_pass     Mon Dec  4      pmiller
+                        09:31:42 2000
+        integrate_begin Mon Dec  4      pmiller  Elapsed time: 0.027
+                        09:31:45 2000            days.
+        integrate_pass  Mon Dec  4      pmiller
+                        09:43:45 2000
+
+
+
+Project "srecord.1.6", Change 12                                  Page 1
+Change Details                                  Mon Mar 19 11:02:29 2001
+
+NAME
+        Project "srecord.1.6", Delta 3, Change 12.
+
+SUMMARY
+        build glitch
+
+DESCRIPTION
+        This change adds an include of <stddef.h> to include/srec/
+        memory/chunk.h because it cauased a build problem on some
+        platforms.
+
+        My thanks to Hendrik De Vloed <hendrik.devloed@barco.com> for
+        reporting this problem.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.8 -> 1.9  include/srec/memory/chunk.h
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu Dec  7      pmiller
+                        08:10:21 2000
+        develop_begin   Thu Dec  7      pmiller
+                        08:10:21 2000
+        develop_end     Thu Dec  7      pmiller
+                        08:13:07 2000
+        review_pass     Thu Dec  7      pmiller
+                        08:13:40 2000
+        integrate_begin Thu Dec  7      pmiller
+                        08:13:43 2000
+        integrate_pass  Thu Dec  7      pmiller
+                        08:16:07 2000
+
+
+
+Project "srecord.1.6", Change 15                                  Page 1
+Change Details                                  Mon Mar 19 11:02:30 2001
+
+NAME
+        Project "srecord.1.6", Delta 5, Change 15.
+
+SUMMARY
+        allow overwriting
+
+DESCRIPTION
+        This change adds an option so that locations in memory may be
+        overwritten.
+        There is a new --multiple option to the commands, which permits
+        an input file to contain multiple (contradictory) values for
+        some memory locations.  The last value in the file will be used.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.2 -> 1.3  etc/new.1.6.so
+        source  modify   1.33 -> 1.34 include/srec/arglex.h
+        source  modify   1.11 -> 1.12 include/srec/memory.h
+        source  modify   1.35 -> 1.36 lib/srec/arglex.cc
+        source  modify   1.12 -> 1.13 lib/srec/memory.cc
+        source  create    1.1         man/man1/o_multiple.so
+        source  modify   1.18 -> 1.19 man/man1/srec_cat.1
+        source  modify    1.8 -> 1.9  man/man1/srec_cmp.1
+        source  modify    1.4 -> 1.5  man/man1/srec_info.1
+        source  modify   1.13 -> 1.14 prog/srec_cat/main.cc
+        source  modify    1.8 -> 1.9  prog/srec_cmp/main.cc
+        source  modify    1.6 -> 1.7  prog/srec_info/main.cc
+        test    create    1.1         test/00/t0058a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Wed Feb  7      pmiller
+                        07:47:04 2001
+        develop_begin   Wed Feb  7      pmiller  Elapsed time: 2.740
+                        07:47:05 2001            days.
+        develop_end     Fri Feb  9      pmiller
+                        13:20:18 2001
+        review_pass     Fri Feb  9      pmiller
+                        13:20:21 2001
+        integrate_begin Fri Feb  9      pmiller
+                        13:20:25 2001
+        integrate_pass  Fri Feb  9      pmiller
+                        13:25:42 2001
+
+
+
+Project "srecord.1.6", Change 16                                  Page 1
+Change Details                                  Mon Mar 19 11:02:32 2001
+
+NAME
+        Project "srecord.1.6", Delta 4, Change 16.
+
+SUMMARY
+        Srec_cat --address-length
+
+DESCRIPTION
+        This change adds the srec_cat --address-length option, used to
+        force the minimum address length of the output format, if
+        possible.  Some output formats to do permit this.
+
+        My thanks to Steve Ferree <s.ferree@cummins.com> for this
+        suggestion.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.1 -> 1.2  etc/new.1.6.so
+        source  modify    1.8 -> 1.9  include/srec/output.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/ascii_
+                                      hex.h
+        source  modify    1.9 -> 1.10 include/srec/output/file/binary.h
+        source  modify    1.8 -> 1.9  include/srec/output/file/c.h
+        source  modify   1.10 -> 1.11 include/srec/output/file/intel.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/mos_
+                                      tech.h
+        source  modify    1.8 -> 1.9  include/srec/output/file/srecord.h
+        source  modify    1.8 -> 1.9  include/srec/output/file/
+                                      tektronix.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/
+                                      tektronix_extended.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/ti_
+                                      tagged.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/vhdl.h
+        source  modify    1.2 -> 1.3  include/srec/output/file/wilson.h
+        source  modify    1.2 -> 1.3  lib/srec/output/file/ascii_hex.cc
+        source  modify    1.9 -> 1.10 lib/srec/output/file/binary.cc
+        source  modify   1.12 -> 1.13 lib/srec/output/file/c.cc
+        source  modify   1.11 -> 1.12 lib/srec/output/file/intel.cc
+        source  remove    1.2         lib/srec/output/file/man/man5/
+                                      srec_ti_tagged.5
+        source  modify    1.2 -> 1.3  lib/srec/output/file/mos_tech.cc
+        source  modify   1.10 -> 1.11 lib/srec/output/file/srecord.cc
+        source  modify    1.9 -> 1.10 lib/srec/output/file/tektronix.cc
+        source  modify    1.2 -> 1.3  lib/srec/output/file/tektronix_
+                                      extended.cc
+        source  modify    1.2 -> 1.3  lib/srec/output/file/ti_tagged.cc
+        source  modify    1.2 -> 1.3  lib/srec/output/file/vhdl.cc
+        source  modify    1.3 -> 1.4  lib/srec/output/file/wilson.cc
+
+
+
+Project "srecord.1.6", Change 16                                  Page 2
+Change Details                                  Mon Mar 19 11:02:32 2001
+
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.17 -> 1.18 man/man1/srec_cat.1
+        source  modify    1.3 -> 1.4  prog/srec_cat/arglex3.cc
+        source  modify    1.3 -> 1.4  prog/srec_cat/arglex3.h
+        source  modify   1.12 -> 1.13 prog/srec_cat/main.cc
+        test    create    1.1         test/00/t0059a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Feb  9      pmiller
+                        08:50:43 2001
+        develop_begin   Fri Feb  9      pmiller  Elapsed time: 0.553
+                        08:50:45 2001            days.
+        develop_end     Fri Feb  9      pmiller
+                        12:59:28 2001
+        review_pass     Fri Feb  9      pmiller
+                        12:59:32 2001
+        integrate_begin Fri Feb  9      pmiller
+                        12:59:36 2001
+        integrate_      Fri Feb  9      pmiller
+        begin_undo      13:00:03 2001
+        develop_end_    Fri Feb  9      pmiller
+        undo            13:01:07 2001
+        develop_end     Fri Feb  9      pmiller
+                        13:06:52 2001
+        review_pass     Fri Feb  9      pmiller
+                        13:08:27 2001
+        integrate_begin Fri Feb  9      pmiller
+                        13:08:30 2001
+        integrate_pass  Fri Feb  9      pmiller
+                        13:12:32 2001
+
+
+
+Project "srecord.1.6", Change 17                                  Page 1
+Change Details                                  Mon Mar 19 11:02:36 2001
+
+NAME
+        Project "srecord.1.6", Delta 6, Change 17.
+
+SUMMARY
+        documentation tweaks
+
+DESCRIPTION
+        This change fixes some of the documentation, particularly
+        removing the last few references to .ps.gz files (replaced by
+        pdf).
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.5 -> 1.6  etc/BUILDING.man
+        source  modify   1.14 -> 1.15 etc/Howto.cook
+        source  modify   1.23 -> 1.24 etc/README.man
+        source  modify   1.12 -> 1.13 etc/documentation.cook
+        source  modify    1.3 -> 1.4  etc/new.1.6.so
+        source  create    1.1         etc/page-list.awk
+        source  modify    1.2 -> 1.3  etc/ref-toc.so
+        source  modify    1.4 -> 1.5  etc/reference.man
+        source  modify   1.10 -> 1.11 etc/srecord.lsm
+        source  modify    1.3 -> 1.4  include/srec/input/file/wilson.h
+        source  modify    1.3 -> 1.4  include/srec/output/file/wilson.h
+        source  modify    1.3 -> 1.4  lib/srec/input/file/wilson.cc
+        source  modify    1.4 -> 1.5  lib/srec/output/file/wilson.cc
+        source  modify    1.2 -> 1.3  man/man5/srec_ascii_hex.5
+        source  modify    1.7 -> 1.8  man/man5/srec_intel.5
+        source  modify    1.7 -> 1.8  man/man5/srec_motorola.5
+        source  modify    1.2 -> 1.3  man/man5/srec_ti_tagged.5
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Feb  9      pmiller
+                        13:35:14 2001
+        develop_begin   Fri Feb  9      pmiller  Elapsed time: 24.000
+                        13:35:15 2001            days.
+        develop_end     Thu Mar 15      pmiller
+                        09:07:05 2001
+        develop_end_    Thu Mar 15      pmiller
+        undo            09:10:04 2001
+        develop_end     Thu Mar 15      pmiller
+                        09:17:33 2001
+
+
+
+Project "srecord.1.6", Change 17                                  Page 2
+Change Details                                  Mon Mar 19 11:02:36 2001
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        review_pass     Thu Mar 15      pmiller
+                        09:17:38 2001
+        integrate_begin Thu Mar 15      pmiller
+                        09:17:41 2001
+        integrate_pass  Thu Mar 15      pmiller
+                        09:20:10 2001
+
+
+
+Project "srecord.1.6", Change 18                                  Page 1
+Change Details                                  Mon Mar 19 11:02:39 2001
+
+NAME
+        Project "srecord.1.6", Delta 7, Change 18.
+
+SUMMARY
+        prepare to end branch
+
+DESCRIPTION
+        This change fixes a couple of problems found when attempting to
+        end the branch.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.15 -> 1.16 etc/Howto.cook
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Mar 19      pmiller
+                        08:44:38 2001
+        develop_begin   Mon Mar 19      pmiller  Elapsed time: 0.130
+                        08:44:39 2001            days.
+        develop_end     Mon Mar 19      pmiller
+                        09:43:11 2001
+        review_pass     Mon Mar 19      pmiller  Elapsed time: 0.060
+                        09:43:12 2001            days.
+        integrate_begin Mon Mar 19      pmiller
+                        10:10:06 2001
+        integrate_pass  Mon Mar 19      pmiller
+                        10:12:03 2001
+
+
+
+Project "srecord.1.6", Change 19                                  Page 1
+Change Details                                  Mon Mar 19 11:02:40 2001
+
+NAME
+        Project "srecord.1.6", Delta 8, Change 19.
+
+SUMMARY
+        build issues
+
+DESCRIPTION
+        This change fixes some build problems.
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.16 -> 1.17 etc/Howto.cook
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Mar 19      pmiller
+                        10:20:06 2001
+        develop_begin   Mon Mar 19      pmiller
+                        10:20:07 2001
+        develop_end     Mon Mar 19      pmiller
+                        10:22:36 2001
+        review_pass     Mon Mar 19      pmiller
+                        10:22:39 2001
+        integrate_begin Mon Mar 19      pmiller
+                        10:22:42 2001
+        integrate_pass  Mon Mar 19      pmiller
+                        10:24:16 2001

@@ -1,0 +1,79 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or (at
+.\" your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 23
+The \fB\-guess\fP command line option, for guessing the file format,
+now also tells you the command line option you could have used
+instead of \fB\-guess\fP for the exact format.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 26
+The Intergated Device Technology (IDT) system integration
+manager (IDT/sim) binary format is now understood for both
+reading and writing.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 28
+The Stag Prom Programmer binary format is now supported for both
+reading and writing.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 25
+The Stag Prom Programer hexadecimal format is now understood for
+both reading and writing.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 27
+The MIPS\[hy]Flash fiel format is now supported for both reading and
+writing.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 21
+Bernhard Weirich \f[CW]<Bernhard.Weirich@riedel.net>\fP discovered that a
+backward compatible option had been omitted when the \fB\-INtel_16\fP
+option was renamed \fB\-INtel_HeX_16\fP to more closely match the usual
+abbreviation (INHX16) for this format.
+The backwards compatible option name has been reintroduced.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 20
+The windows build instructions have been greatly imptoved, based
+on the experiences of Jens Heilig \f[CW]<jens@familie\[hy]heilig.net>\fP
+which he has generously shared.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18
+The documentation in the manual about sequence warnings has been
+improved.  The \f[B]\-disable\[hy]sequence\[hy]warnings\fP option must
+come before the input file on the command line.
+My thanks to Emil Gracic \f[CW]<emil_kruki@yahoo.com>\fP for reporting
+this problem.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.57 (2011-Jun-09)
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,80 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2001-2003, 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 27
+The DEC Binary (XXDP) format
+is now understood for both reading and writing.
+See \fIsrec_dec_binary\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 25
+The Elektor Monitor (EMON52) format
+is now understood for both reading and writing.
+See \fIsrec_emon52\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 22
+The Signetics format
+is now understood for both reading and writing.
+See \fIsrec_signetics\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 21
+The Four Packed Code (FPC) format
+is now understood for both reading and writing.
+See \fIsrec_fpc\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 20, 28
+Wherever possible, header data is now passed through by \fIsrec_cat\fP(1).
+There is also a new \fIsrec_cat \-header\fP option, so that you can set
+the header comment from the command line.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 19
+The Atmel Generic format for Atmel AVR programmers
+is now understood for both reading and writing.
+See \fIsrec_atmel_generic\fP(5) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 18
+The handling of termination records has been improved.
+It caused problems for a number of filters, including the \-fill filter.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 15
+A bug has been fixed in the checksum calculations for the Tektronix format.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 12
+There is a new SPASM format for PIC programmers.
+See \fIsrec_spasm\fP(5) for more information.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.8 (2001-Apr-20)

@@ -1,0 +1,271 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2004, 2006-2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_aomf
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_aomf \- Intel Absolute Object Module Format
+.if require_index \{
+.XX "srec_aomf(5)" "Intel Absolute Object Module Format"
+.\}
+.SH DESCRIPTION
+The Absolute Object Module Format (AOMF) is a subset of the 8051 OMF.
+The structure of an absolute object file (the order of the records in
+it) is similar to that of a relocatable object file.  There are three
+main differences:  the first is that an absolute object file contains
+one module only, the second is that not all the records can appear in
+the absolute file and the third is that the records can contain only
+absolute information.
+.SS Generic Record Format
+Each record starts with a record type which indicates the type of the
+record, and record length which contain the number of bytes in the record
+exclusive of the first two fields. The record ends with a checksum byte
+which contains the 2s complement of the sum (modulo 256) of all other
+bytes in the record.  Therefore the sum (modulo 256) of all bytes in
+the record is zero.
+.PP
+The record length includes the payload and checksum fields, but excludes
+the type and length fields.
+.PP
+All 16\[hy]bit fields are little\[hy]endian.
+.TS
+tab(;),center,allbox;
+ce ce ce ce.
+T{
+REC
+.br
+TYP
+.br
+8 bits
+T};T{
+Record
+.br
+Length
+.br
+16 bits
+T};T{
+Payload
+T};T{
+CHK
+.br
+SUM
+.br
+8 bits
+T}
+.TE
+.PP
+Here are some of the relevant record types:
+.TS
+tab(;),center;
+l l.
+0x01;Scope Definition Record
+0x02;Module Start Record
+0x04;Module End Record
+0x06;Content Record
+0x0E;Segment Definition Record
+0x12;Debug Items Record
+0x16;Public Definition Record
+0x18;External Definition Record
+.TE
+.PP
+Names are not stored as C strings.  Names are stored as a length byte
+followed by the contents.
+.SS Structure
+An AOMF file consists of a module header record (0x02), followed by one
+or more content (0x06), scope (0x01) or debug (0x12) records, and ends
+in a module end record (0x04).
+.PP
+The records with the following types are extraneous (they may appear
+in the file but are ignored):  0x0E, 0x16 and 0x18 (definition records).
+All records which are not part of the AOMF and are not extraneous are
+considered erroneous.
+.SS Module Header Record
+.TS
+tab(;),center,allbox;
+ce ce ce ce ce ce.
+T{
+REC
+.br
+TYP
+.br
+0x02
+T};T{
+Record
+.br
+Length
+.br
+16 bits
+T};T{
+Module
+.br
+Name
+T};T{
+TRN ID
+.br
+8 bits
+T};T{
+zero
+.br
+8 bits
+T};T{
+CHK
+.br
+SUM
+.br
+8 bits
+T}
+.TE
+.PP
+Each module must starts with a module header record.  It is used to
+identify the module for the RL51 and other future processors of 8051
+object files.  In addition to the Module Name the record contains:
+.TP 8n
+TRN ID
+The byte identifies the program which has generated this module:
+.TS
+tab(;),center;
+l l.
+0xFD;ASM51
+0xFE;PL/M\-51
+0xFF;RL51.
+.TE
+.SS Module End Record
+.TS
+tab(;),center,allbox;
+ce ce ce ce ce ce ce.
+T{
+REC
+.br
+TYP
+.br
+0x04
+T};T{
+Record
+.br
+Length
+.br
+16 bits
+T};T{
+Module
+.br
+Name
+T};T{
+zero
+.br
+16 bits
+T};T{
+REG
+.br
+MSK
+.br
+8 bits
+T};T{
+zero
+.br
+8 bits
+T};T{
+CHK
+.br
+SUM
+.br
+8 bits
+T}
+.TE
+.PP
+The record ends the module sequence and contains the following
+information:  characteristics
+.TP 8n
+MODULE NAME
+The name of the module is given here for a consistency check.  It must
+match the name given in the Module Header Record.
+.TP 8n
+REGISTER MASK (REG MSK)
+.RS
+The field contains a bit for each of the four register banks.  Each bit,
+when set specifies that the corresponding bank is used by the module:
+.TP 8n
+Bit 0 (the least significant bit)
+bank #0.
+.TP 8n
+Bit 1
+bank #1.
+.TP 8n
+Bit 2
+bank #2.
+.TP 8n
+Bit 3
+bank #3.
+.RE
+.SS Content Record
+.TS
+tab(;),center,allbox;
+ce ce ce ce ce ce.
+T{
+REC
+.br
+TYP
+.br
+0x06
+T};T{
+Record
+.br
+Length
+.br
+16 bits
+T};T{
+SEG ID
+.br
+8 bits
+T};T{
+Offset
+.br
+16 bits
+T};T{
+DATA
+T};T{
+CHK
+.br
+SUM
+.br
+8 bits
+T}
+.TE
+.PP
+This record provides one or more bytes of contiguous data, from which
+a portion of a memory image may be constructed.
+.TP 8n
+SEG ID
+This field must be zero.
+.TP 8n
+OFFSET
+Gives the absolute address of the first byte of data in the record,
+within the CODE address space.
+.TP 8n
+DATA
+A sequence of data bytes to be loaded from OFFSET to OFFSET+RECORDLENGTH\[mi]5.
+.SS Size Multiplier
+In general, raw binary data will expand in sized by approximately 1.02 times
+when represented with this format.
+.SH SOURCE
+.nf
+http://www.intel.com/design/mcs96/swsup/omf96_pi.pdf
+ftp://download.intel.com/design/mcs51/SWSUP/omf51.exe (zip archive)
+http://www.elsist.net/WebSite/ftp/various/OMF51EPS.pdf
+.fi
+.ds n) srec_cat
+.so man/man1/z_copyright.so

@@ -1,0 +1,65 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2003, 2006-2009, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_spectrum
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_spectrum \- Spectrum file format
+.if require_index \{
+.XX "srec_spectrum(5)" "Spectrum file format"
+.\}
+.SH DESCRIPTION
+.\" ftp://ftp.dataio.com/main/Manuals/UniFam/Translation%20Formats.pdf
+In this format, bytes are recorded as ASCII code with binary digits
+represented by 1s and 0s.  Each byte is preceded by a decimal address.
+.PP
+The file ends with a Control\[hy]C character (0x03).
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 14 times
+when represented with this format (or 15 times on DOS or Windows).
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Spectrum file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x0.
+.RS
+.nf
+.ft CW
+\fB^B\fP
+0000 01001000
+0001 01100101
+0002 01101100
+0003 01101100
+0004 01101111
+0005 00101100
+0006 00100000
+0007 01010111
+0008 01101111
+0009 01110010
+0010 01101100
+0011 01100100
+0012 00100001
+0013 00001010
+\fB^C\fP
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

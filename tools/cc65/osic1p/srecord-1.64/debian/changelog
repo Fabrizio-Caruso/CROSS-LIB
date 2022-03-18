@@ -1,0 +1,3999 @@
+srecord (1.64.D001-1) unstable; urgency=low
+
+  * Prep next public release of SRecord. This will be srecord.1.63
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sun, 22 Jun 2014 15:31:32 +1000
+
+srecord (1.63.D012-1) unstable; urgency=low
+
+  * Cleaned up a few references to the maintainer's name.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sat, 21 Jun 2014 19:57:55 +1000
+
+srecord (1.63.D011-1) unstable; urgency=low
+
+  * Fixed some warnings in test 38
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sat, 21 Jun 2014 19:18:38 +1000
+
+srecord (1.63.D010-1) unstable; urgency=low
+
+  * Fixed bugs discovered by Mike <russiane39@gmail.com> regarding the
+    formatting of some of the examples where lines were wrapping the wrong way.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sat, 21 Jun 2014 19:09:51 +1000
+
+srecord (1.63.D009-1) unstable; urgency=low
+
+  * Added the ability to compile without libgcrypt if the user specifies the
+    option --without-gcrypt to configure. If gcrypt is missing, the user is
+    prompted to either install it or explicitly compile with it disabled.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sat, 21 Jun 2014 16:49:49 +1000
+
+srecord (1.63.D008-1) unstable; urgency=low
+
+  * Cleaned up a few recent compiler and doxygen warnings.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Fri, 20 Jun 2014 08:10:58 +1000
+
+srecord (1.63.D007-1) unstable; urgency=low
+
+  * This change adds Sourceforge Patch #4 contributed by Stas Sergeev
+    <stsp@sourceforge.net>. Adds get_upper_bound() and makes it and the lower
+    equivalent public (for use from libsrecord).
+  * Also fixed a bug in srec_memory::find_next_chunk() where it would fail to
+    reset the find_next_chunk_index once it became equal to nchunks. After that,
+    find_next_chunk() would always fail.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 28 Apr 2014 18:04:20 +1000
+
+srecord (1.63.D006-1) unstable; urgency=low
+
+  * Added prefix and postfix strings to the C-Array format which are applied at
+    each end of the data array declaration. This allows the user to add various
+    compiler directives such as location flags or non-standard load address
+    specifiers.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sun, 27 Apr 2014 19:50:54 +1000
+
+srecord (1.63.D005-1) unstable; urgency=low
+
+  * Fixed Sourceforge bug 11 raised by patryks. In the analysis, it was
+    discovered that a start address (of zero) was being generated when
+    converting from AOMF. AOMF does not support the concept of an execution
+    start address.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Tue, 22 Apr 2014 18:11:41 +1000
+
+srecord (1.63.D004-1) unstable; urgency=low
+
+  * The Windows build instructions have been updated by Jens Heilig
+    <jens@familie-heilig.net>.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 21 Apr 2014 20:13:29 +1000
+
+srecord (1.63.D003-1) unstable; urgency=low
+
+  * Fixed the length field description in extended tektronix documentation. The
+    implementation was already correct.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Fri, 18 Apr 2014 16:39:28 +1000
+
+srecord (1.63.D002-1) unstable; urgency=low
+
+  * Added a regression test for calculated address for CRC (Sourceforge bug 19).
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Thu, 17 Apr 2014 21:35:01 +1000
+
+srecord (1.63.D001-1) unstable; urgency=low
+
+  * Prep next public release of SRecord. This will be srecord.1.63
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Sun, 13 Apr 2014 21:23:11 +1000
+
+srecord (1.62.D017-1) unstable; urgency=low
+
+  * Add release instructions based on instructions from Peter
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 07 Apr 2014 18:17:27 +1000
+
+srecord (1.62.D016-1) unstable; urgency=low
+
+  * This change does a minor refactoring of the output_file class
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 07 Apr 2014 18:02:52 +1000
+
+srecord (1.62.D015-1) unstable; urgency=low
+
+  * This change from Daniel Anselmi fixes an issue with generating Lattice
+    Memory init files.
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 07 Apr 2014 17:55:20 +1000
+
+srecord (1.62.D014-1) unstable; urgency=low
+
+  * Fixed new warnings from g++ 4.8.1
+
+ -- Scott Finneran <scottfinneran@yahoo.com.au>  Mon, 07 Apr 2014 17:47:58 +1000
+
+srecord (1.62.D013-1) unstable; urgency=low
+
+  * This change set generalises the code that handles redundant byte settings
+    and contradictory byte settings.  The defcon_t type describes what to do:
+    ignore, warn or error.
+  * The --multiple option is no more.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 Apr 2014 21:45:14 +1000
+
+srecord (1.62.D012-1) unstable; urgency=low
+
+  * Daniel Anselmi <danselmi@gmx.ch> discovered that the "mem" output format was
+    malformed. The lines now break every "width" bits.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Mar 2014 19:11:30 +1100
+
+srecord (1.62.D011-1) unstable; urgency=low
+
+  * Hanspeter Niederstrasser  disoverd some false negatices in the test suite,
+    when used on OSX.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Mar 2014 17:53:04 +1100
+
+srecord (1.62.D010-1) unstable; urgency=low
+
+  * This change set adds simpler seletion code to choose whivh CRC16
+    implmentation to be used.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Mar 2014 17:40:45 +1100
+
+srecord (1.62.D009-1) unstable; urgency=low
+
+  * Juliano MourÃ£o Vieira <juliano@utfpr.edu.br> discovered a problem with the
+    srec_mif.5 description. This mistake is not present in the code.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Mar 2014 10:07:40 +1100
+
+srecord (1.62.D008-1) unstable; urgency=low
+
+  * This change set adds more comments to the code, so that the use of URL_deode
+    for the command line is better explained. And comment to explain why not to
+    do turl_encode when building header records.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 04 Feb 2014 12:52:57 +1100
+
+srecord (1.62.D007-1) unstable; urgency=low
+
+  * This change makes a start at replacing Peter as the maintainer.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 02 Feb 2014 22:20:19 +1100
+
+srecord (1.62.D006-1) unstable; urgency=low
+
+  * This change set adds URL quoting to the command line. There are times you
+    need to be abase to insert unprintable characters on the command line. The
+    immediate use case prompting this was a user wanting to put a NUL in the
+    header string. So now you can, as "%00". The other choice was quoted
+    printable encoding, but that was a bit obscure.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 02 Feb 2014 19:59:03 +1100
+
+srecord (1.62.D005-1) unstable; urgency=low
+
+  * Liju Prasanth Nivas (RBEI/ECA1) <Liju.PrasanthNivas@in.bosch.com> suggsted
+    another use case for the examples. I the case of "joining" files that are
+    meant to be \[lq]stacked in layers\[rq].
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 30 Aug 2013 11:20:16 +1000
+
+srecord (1.62.D004-1) unstable; urgency=low
+
+  * The srec_tools now understand how to read and write Logisim formt.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 29 Aug 2013 13:15:02 +1000
+
+srecord (1.62.D003-1) unstable; urgency=low
+
+  * The tools now recogise the Logisim file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Aug 2013 10:46:51 +1000
+
+srecord (1.62.D002-1) unstable; urgency=low
+
+  * This change set adds more links to the windows files on SourceForge, maybe
+    it will boost donload numbers.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 11 Jun 2013 19:48:29 +1000
+
+srecord (1.62.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecored for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 05 Jun 2013 14:29:37 +1000
+
+srecord (1.61.D006-1) unstable; urgency=low
+
+  * * Luc Steynen <LucSteynen@edna.be> discovered that the --checksum-big-endian
+    opion was a counter-intuitive alias for the the --checksum-bitnot-big-endian
+    option.
+  * * The --checksum-big-endian option is now deprecated, in favor of the --
+    checksum-bitnot-big-endian option; the code will warn uers of the old option
+    they will need to change.
+  * * Ditto little-endian variants
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 05 Jun 2013 12:04:34 +1000
+
+srecord (1.61.D005-1) unstable; urgency=low
+
+  * Alin Pilkington <apilkington@moog.com> found that the Tektronics Extended
+    format was calculating the record length incorrectory.
+  * Thanks you for the bug report.
+  * This has been fixed for both reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 04 Jun 2013 09:53:04 +1000
+
+srecord (1.61.D004-1) unstable; urgency=low
+
+  * Dr. Benedikt Schmitt <Benedikt.Schmitt@safeintrain.de> suggted bein able o
+    inject arbitrary data into the file header (suh as NUL termination
+    characters.  This change set adds URL-style escapes (e.g. %25) to the string
+    on he command line.  E.g. --header or --generate --string
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 30 May 2013 22:17:00 +1000
+
+srecord (1.61.D003-1) unstable; urgency=low
+
+  * This change set fixes the Distribution: line in the debian/*.changes file,
+    to cater to Ubuntu's recent changes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Feb 2013 18:15:24 +1100
+
+srecord (1.61.D002-1) unstable; urgency=low
+
+  * This change set improves some of the links to the wind32 binaries on sf.net
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Feb 2013 15:31:58 +1100
+
+srecord (1.61.D001-1) unstable; urgency=low
+
+  * This change ser prepares the srecord project for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jan 2013 12:40:20 +1100
+
+srecord (1.60.D014-1) unstable; urgency=low
+
+  * This change set fixes yet another build glitch concerning the test_prelude
+    file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jan 2013 12:12:33 +1100
+
+srecord (1.60.D013-1) unstable; urgency=low
+
+  * This change set tries once again to get test_prelude to build properly.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jan 2013 10:51:07 +1100
+
+srecord (1.60.D012-1) unstable; urgency=low
+
+  * This change set fixes another problem with building the test_prelude script.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jan 2013 09:54:35 +1100
+
+srecord (1.60.D011-1) unstable; urgency=low
+
+  * This change set fixes a coupel of small build glitches.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jan 2013 07:57:54 +1100
+
+srecord (1.60.D010-1) unstable; urgency=low
+
+  * This change set adds checks for ambiguous option abbreviations. This will be
+    of most use when adding additional command line options.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 03 Jan 2013 21:37:28 +1100
+
+srecord (1.60.D009-1) unstable; urgency=low
+
+  * This change set replaces input_file::format_option_name with input_
+    file::format_option_number, so that the --guess error messages always agree
+    with the actual option names.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 03 Jan 2013 20:43:30 +1100
+
+srecord (1.60.D008-1) unstable; urgency=low
+
+  * This change moves the apt-get of essential packages into its own .cook file,
+    and improves some aspects of the quiet build.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 03 Jan 2013 16:29:50 +1100
+
+srecord (1.60.D007-1) unstable; urgency=low
+
+  * This change set fixes a bug in the Tektronix-Extenden format line checksum
+    calculations.  The comparison should have been in 8 bits, not int.
+  * My thanks to Izzet Ozcelik <izzetozcelik@cscope.co.uk> for reporting this
+    bug.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 03 Jan 2013 11:49:36 +1100
+
+srecord (1.60.D006-1) unstable; urgency=low
+
+  * This change set adds ~pm~ to the ppa version numbers, so the source is
+    obvious when installed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Nov 2012 20:10:15 +1100
+
+srecord (1.60.D005-1) unstable; urgency=low
+
+  * This change set replaces the png2ico command woth convert(1) from the
+    imagemagick package.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 05 Nov 2012 21:56:15 +1100
+
+srecord (1.60.D004-1) unstable; urgency=low
+
+  * Daniel Anselmi <danselmi@gmx.ch> contributed a Memory Initialization Format
+    by Lattice Semiconductor, for output only.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Sep 2012 16:16:39 +1000
+
+srecord (1.60.D003-1) unstable; urgency=low
+
+  * Daniel Anselmi <danselmi@gmx.ch> contributed a Xilinx Coefficient File
+    Format (.coe) output class.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Sep 2012 11:25:06 +1000
+
+srecord (1.60.D002-1) unstable; urgency=low
+
+  * This change set fixes the problem of the Doxygen documentation missing from
+    the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Jul 2012 21:04:56 +1000
+
+srecord (1.60.D001-1) unstable; urgency=low
+
+  * This change set prepares the SRecord project for its next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 19 May 2012 19:48:28 +1000
+
+srecord (1.59.D014-1) unstable; urgency=low
+
+  * This change et fixes a typo in the STM copyright assignment.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 21:43:46 +1000
+
+srecord (1.59.D013-1) unstable; urgency=low
+
+  * This change set fixes the TRS80 input format, so that we can cope with the
+    longest of the possible data records.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 21:26:58 +1000
+
+srecord (1.59.D012-1) unstable; urgency=low
+
+  * This change et adds a reference to the STM data sheet, for details of the
+    STM32 algorithm.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 19:59:59 +1000
+
+srecord (1.59.D011-1) unstable; urgency=low
+
+  * Hendrik Beijeman <hbeyeman@gmail.com> contributed a patch that adds support
+    for generating a CRC used by the hardware CRC unit on the STM32 series of
+    ARM MPUs.  The algorithm used by the STM32 hardware unit is just a CRC with
+    a different polynomial and word-fed instead of byte-fed.  The MPU is little
+    endian.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 19:51:41 +1000
+
+srecord (1.59.D010-1) unstable; urgency=low
+
+  * This change set updates the srec_examples(1) page, to use the new suffix for
+    m of the filter command line options.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 16:55:56 +1000
+
+srecord (1.59.D009-1) unstable; urgency=low
+
+  * The names of the command line options have been changed (with backwards
+    compatibility) to consistently use _Big_Endian and _Little_Endian suffixes.
+    Previously there was an inconsistent mixture of prefixes and suffixes.  By
+    using suffixes, the emphasis on the purpose of the command line option,
+    rather then the endian-ness.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 16:18:05 +1000
+
+srecord (1.59.D008-1) unstable; urgency=low
+
+  * This change set adds strict unchange file policy.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 12:58:00 +1000
+
+srecord (1.59.D007-1) unstable; urgency=low
+
+  * This change set adds automation for needed packages, so does it
+    automagically after upgrades.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 May 2012 12:04:22 +1000
+
+srecord (1.59.D006-1) unstable; urgency=low
+
+  * This change refactors output-file::put-word into a big-endian and little-
+    endian form, because code duplication was creeping in for the little-endian
+    case.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 16 Mar 2012 23:24:31 +1100
+
+srecord (1.59.D005-1) unstable; urgency=low
+
+  * This change set refactors the input_file::get_word implementation into
+    specific get_word_be for big-endian and get_word_le for little-endian
+    because there was code duplication appearing for the little endian variety.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 16 Mar 2012 23:10:27 +1100
+
+srecord (1.59.D004-1) unstable; urgency=low
+
+  * Eric Smith <eric@brouhaha.com> contributed code to read and write TRS-80
+    binary load module format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 16 Mar 2012 22:49:25 +1100
+
+srecord (1.59.D003-1) unstable; urgency=low
+
+  * This change set makes sure the images are placed in the appropriate place
+    when turning man pages into web pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Feb 2012 21:25:19 +1100
+
+srecord (1.59.D002-1) unstable; urgency=low
+
+  * This change set adds links from the format names on the front page to the
+    format manual pages on the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Feb 2012 20:18:28 +1100
+
+srecord (1.59.D001-1) unstable; urgency=low
+
+  * This change set prepares the SReocrd project for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 10 Feb 2012 12:34:20 +1100
+
+srecord (1.58.D004-1) unstable; urgency=low
+
+  * This change set adds a number of additional CRC-16 polynomials, plus the
+    ability to select a polynomial by name, rather than by value. See http://
+    en.wikipedia.org/wiki/Cyclic_redundancy_check for a table of names and
+    values.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Feb 2012 20:26:23 +1100
+
+srecord (1.58.D003-1) unstable; urgency=low
+
+  * This change set provides all of the man pages on the web site, with suitable
+    links from the front page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 19 Dec 2011 12:01:10 +1100
+
+srecord (1.58.D002-1) unstable; urgency=low
+
+  * This change set fixes several errors reported by lintian(1).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 21:15:27 +1100
+
+srecord (1.58.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 20:29:31 +1100
+
+srecord (1.57.D017-1) unstable; urgency=low
+
+  * This change set fixes several spelling errors in the manual pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 19:31:34 +1100
+
+srecord (1.57.D016-1) unstable; urgency=low
+
+  * For symmetry with output_file::is_binary the output_file::mode method has
+    been replaced with output_file::is_binary
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 19:24:19 +1100
+
+srecord (1.57.D015-1) unstable; urgency=low
+
+  * The --guess command line option, for guessing the file format, now also
+    tells you the command line option you could have used instead of --guess.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 19:04:32 +1100
+
+srecord (1.57.D014-1) unstable; urgency=low
+
+  * The Intergated Device Technology (IDT) system integration manager (IDT/sim)
+    binary format is now understood for both reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 18 Dec 2011 10:56:34 +1100
+
+srecord (1.57.D013-1) unstable; urgency=low
+
+  * The Stag Prom Programmer binary format is now supported for both reading and
+    writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 17 Dec 2011 23:04:20 +1100
+
+srecord (1.57.D012-1) unstable; urgency=low
+
+  * The Stag Prom Programer hexadecimal format is now understood for both
+    reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 17 Dec 2011 18:47:19 +1100
+
+srecord (1.57.D011-1) unstable; urgency=low
+
+  * The MIPS-Flash fiel format is now supported for both reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 17 Dec 2011 14:15:05 +1100
+
+srecord (1.57.D010-1) unstable; urgency=low
+
+  * This change set adds some more cross references to the srec_binary(5) man
+    page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 15 Sep 2011 22:02:22 +1000
+
+srecord (1.57.D009-1) unstable; urgency=low
+
+  * Bernhard Weirich <Bernhard.Weirich@riedel.net> discovered that a backward
+    compatible option had been omitted when the -INtel_16 option was renamed -
+    INtel_HeX_16 to more closely match the usual abbreviation (INHX16) for this
+    format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Sep 2011 21:46:54 +1000
+
+srecord (1.57.D008-1) unstable; urgency=low
+
+  * The windows build instructions have been greatly imptoved, based on the
+    experiences of Jens Heilig <jens@familie-heilig.net> which he has generously
+    shared.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 31 Jul 2011 20:41:17 +1000
+
+srecord (1.57.D007-1) unstable; urgency=low
+
+  * The srec_cat command is now able to read some hexdump files (although it is
+    possible for it to guess wrong about where data bytes appear in each line).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 23 Jul 2011 23:38:26 +1000
+
+srecord (1.57.D006-1) unstable; urgency=low
+
+  * This change set improves the documentation in the manual about sequence
+    warnings.  The -disable-sequence-warnings must come before the input file on
+    the command line.
+  * My thanks to emil gracic <emil_kruki@yahoo.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Jul 2011 09:27:20 +1000
+
+srecord (1.57.D005-1) unstable; urgency=low
+
+  * This change set fixes bugs found by the cppcheck(1) command.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 29 Jun 2011 19:15:39 +1000
+
+srecord (1.57.D004-1) unstable; urgency=low
+
+  * The debian folk take exception to the "almost always useless" *.la files
+    install by libtool.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 29 Jun 2011 19:05:52 +1000
+
+srecord (1.57.D003-1) unstable; urgency=low
+
+  * This change set silences the Lintian warning about unnecessaryily linked
+    shared libraries.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Jun 2011 17:02:07 +1000
+
+srecord (1.57.D002-1) unstable; urgency=low
+
+  * This change set adds an "apt:" link to the download page, for automagic
+    software install on Ubuntu.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Jun 2011 09:40:47 +1000
+
+srecord (1.57.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Jun 2011 10:42:06 +1000
+
+srecord (1.56.D011-1) unstable; urgency=low
+
+  * This change set updates the fletcher16 code to be consistent with http://
+    en.wikipedia.org/wiki/Fletcher%27s_checksum, and also with RFC 1146, and
+    also with RFC 905 Annex B
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Jun 2011 23:19:34 +1000
+
+srecord (1.56.D010-1) unstable; urgency=low
+
+  * The meaning of the --address-length option has been change for the Intel
+    output format.  Previously, 2 meant using i16hex 20-bit segmented
+    addressing, and >2 meant using i32hex extended addressing. This has been
+    changed: a value of 2 requests i8hex 16-bit addressing, a value of 3
+    requests i16hex 20-bit segment addressing, and a value >=4 requests i32hex
+    32-bit addressing.
+  * My thanks to Stephen R. Phillips <srp@CSECorporation.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Jun 2011 23:03:57 +1000
+
+srecord (1.56.D009-1) unstable; urgency=low
+
+  * This change set refactors how address ranges are check in the various output
+    formats, to use the same consistent test.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Jun 2011 22:26:31 +1000
+
+srecord (1.56.D008-1) unstable; urgency=low
+
+  * The --generate --repeat-string option is now able to take a string that
+    looks like a number as the text to be repeated.  My thanks to Stephen R.
+    Phillips <srp@CSECorporation.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Jun 2011 22:05:56 +1000
+
+srecord (1.56.D007-1) unstable; urgency=low
+
+  * This change set fixes the vim mode lines.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 15 Apr 2011 23:51:03 +1000
+
+srecord (1.56.D006-1) unstable; urgency=low
+
+  * Luca Giancristofaro <luca.giancristofaro@prosa.com> discovered a WinAVR
+    linker that is a sandwich short of a picnic: it generated non-conforming
+    Intel hex end-of-file records.  This is no longer an error, but only a
+    warning.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 19 Jan 2011 23:51:04 +1100
+
+srecord (1.56.D005-1) unstable; urgency=low
+
+  * This change set fixes a small grammatical error in the o_input.so file, used
+    by the 3 command line tools.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 06 Jan 2011 18:24:37 +1100
+
+srecord (1.56.D004-1) unstable; urgency=low
+
+  * This change set adds Ubuntu Natty to the list of releases to upload against.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 06 Jan 2011 16:11:27 +1100
+
+srecord (1.56.D003-1) unstable; urgency=low
+
+  * This change set fixes some problems with the RPM spec file.  My thanks to
+    Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 07 Nov 2010 17:32:35 +1100
+
+srecord (1.56.D002-1) unstable; urgency=low
+
+  * This change set adds a hit counter to the download page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Oct 2010 21:52:53 +1100
+
+srecord (1.56.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 15 Sep 2010 21:46:01 +1000
+
+srecord (1.55.D017-1) unstable; urgency=low
+
+  * False negative for two tests (for gcrypt functionality) have been fixed,
+    they can now cope with SHA224 and WHIRLPOOL being absent from the gcrypt
+    library.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 13 Sep 2010 14:26:25 +1000
+
+srecord (1.55.D016-1) unstable; urgency=low
+
+  * The version of libgcrypt in Hardy does not have SHA224.  The test suite now
+    copes with this, rather than giving a false negative.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Sep 2010 23:14:01 +1000
+
+srecord (1.55.D015-1) unstable; urgency=low
+
+  * This change set adds a LP PPA link to the download page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Sep 2010 22:53:47 +1000
+
+srecord (1.55.D014-1) unstable; urgency=low
+
+  * This change set cleans up some of the terminology in the msbin sourec files.
+  * My thanks to David Kozub <zub@linux.fjfi.cvut.cz> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Aug 2010 11:10:05 +1000
+
+srecord (1.55.D013-1) unstable; urgency=low
+
+  * the aede-policy now includes comment checking.  Problems found have been
+    fixed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Aug 2010 22:07:30 +1000
+
+srecord (1.55.D012-1) unstable; urgency=low
+
+  * Three noisy tests have been silenced; though they are functionally
+    unchanged.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Aug 2010 22:03:25 +1000
+
+srecord (1.55.D011-1) unstable; urgency=low
+
+  * A bug has been fixed in the MsBin output, it now concatenates records
+    correctly, and calaulate checksums appropriately.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 06 Aug 2010 13:01:19 +1000
+
+srecord (1.55.D010-1) unstable; urgency=low
+
+  * Additional build steps have been added to ensure that trhe Lintina hyphen
+    warning does not occur.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 03 Aug 2010 15:55:20 +1000
+
+srecord (1.55.D009-1) unstable; urgency=low
+
+  * It is now possible to ask the Fletcher 16 filter to give you a specific
+    answer, and adjusting the checksum to achieve that result. It is also
+    possible to specify different seed values for the sums.
+  * My thanks to Gene Smith <Gene.Smith@siemens.com> for this patch, although
+    heavily modified.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 17 Jul 2010 17:20:52 +1000
+
+srecord (1.55.D008-1) unstable; urgency=low
+
+  * This change set adds a request to include "srecord" in the Subject: of all
+    emails about srecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 15 Jul 2010 11:35:18 +1000
+
+srecord (1.55.D007-1) unstable; urgency=low
+
+  * There is a new srec_cat --enable=optional-address to cause coutpit formats
+    capable of omitting addresses, to omit a leading zero address, as those
+    formats usually default the address to zero, if no address information is
+    seen before the first data record. Defaults to false (disabled).
+  * My thanks to Stuart MacDonald <stuart.macdonald@christiedigital.com> for
+    this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 28 Apr 2010 01:08:13 +1000
+
+srecord (1.55.D006-1) unstable; urgency=low
+
+  * There is a new srec_cat --output-block-packing option, that may be used to
+    pack output records even when they cross internal SRecord boundaries.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Apr 2010 23:33:46 +1000
+
+srecord (1.55.D005-1) unstable; urgency=low
+
+  * There is a new srec_cat --output-block-size so that you can specify the
+    block size exactly, rather than implying it with the line length option.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Apr 2010 23:01:27 +1000
+
+srecord (1.55.D004-1) unstable; urgency=low
+
+  * This change set fixes various typos found in code comments.
+  * My thanks to Stuart MacDonald <stuart.macdonald@christiedigital.com>  for
+    this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Apr 2010 15:12:41 +1000
+
+srecord (1.55.D003-1) unstable; urgency=low
+
+  * This change set fixes a couple of signed-ness warnings frok gcc.
+  * My thanks to Stuart MacDonald <stuart.macdonald@christiedigital.com> for
+    this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Apr 2010 14:58:10 +1000
+
+srecord (1.55.D002-1) unstable; urgency=low
+
+  * This change set adds some additional text to the srec_input(1) man page, and
+    also mirrors the Joe Geluso document (now gone from the interwebs).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 31 Mar 2010 11:52:09 +1100
+
+srecord (1.55.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord foe the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 11 Feb 2010 00:09:02 +1100
+
+srecord (1.54.D004-1) unstable; urgency=low
+
+  * The rpm.spec file has been improved, it now separates the commands, shared
+    libraries and development files.
+  * This change set also rebuilds the Makefile.in file, now that aemakegen has
+    the bug fixed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 10 Feb 2010 23:27:43 +1100
+
+srecord (1.54.D003-1) unstable; urgency=low
+
+  * This change set changes the way recipes are echoed during the build, for a
+    much cleaner experience.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Feb 2010 12:00:04 +1100
+
+srecord (1.54.D002-1) unstable; urgency=low
+
+  * This change set corrects a number of read_inner classes to return bool (the
+    int was left-over C from years ago).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 01 Feb 2010 08:47:08 +1100
+
+srecord (1.54.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jan 2010 16:14:20 +1100
+
+srecord (1.53.D031-1) unstable; urgency=low
+
+  * The web site Download page now includes a link to the pre-build Debian
+    packages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jan 2010 15:09:33 +1100
+
+srecord (1.53.D030-1) unstable; urgency=low
+
+  * This change set adds debian packaging to the routine build, to ensure there
+    are no problems.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jan 2010 14:46:14 +1100
+
+srecord (1.53.D029-1) unstable; urgency=low
+
+  * This change set fixes soem lintian warnings in man pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jan 2010 14:37:42 +1100
+
+srecord (1.53.D028-1) unstable; urgency=low
+
+  * The license on the shared library code has been updated to be LGPLv3+ to
+    permit use under the "system library" provisions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jan 2010 08:42:13 +1100
+
+srecord (1.53.D027-1) unstable; urgency=low
+
+  * Some versions of gcrypt.h are so old the fail to define gcry_md_hd_t and
+    thus everything fails messily.  Code has been added to etc/configure.ac to
+    cope with this situation.
+  * My thanks to Michel Dubois <dubois.michel@gmail.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 28 Jan 2010 07:53:26 +1100
+
+srecord (1.53.D026-1) unstable; urgency=low
+
+  * The license on the shared library code has been updated to be LGPLv3+ to
+    permit use under the "system library" provisions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 28 Jan 2010 07:30:24 +1100
+
+srecord (1.53.D025-1) unstable; urgency=low
+
+  * The license on the shared library code has been updated to be LGPLv3+ to
+    permit use under the "system library" provisions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 19:52:35 +1100
+
+srecord (1.53.D024-1) unstable; urgency=low
+
+  * The license on the shared library code has been updated to be LGPLv3+ to
+    permit use under the "system library" provisions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 15:26:36 +1100
+
+srecord (1.53.D023-1) unstable; urgency=low
+
+  * This change set is merely a rebuild so the test execution estimates are
+    better for the new architecture.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 14:31:04 +1100
+
+srecord (1.53.D022-1) unstable; urgency=low
+
+  * The shared library is now mentioned in the Reference Manual.  It simply
+    points to the Doxygen documentation on the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 14:28:36 +1100
+
+srecord (1.53.D021-1) unstable; urgency=low
+
+  * This change set adds some additional authors detail.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 14:17:09 +1100
+
+srecord (1.53.D020-1) unstable; urgency=low
+
+  * The .spec file is now generated by aegis' aemakegen tool.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 13:49:18 +1100
+
+srecord (1.53.D019-1) unstable; urgency=low
+
+  * This change set chases $(libdir) to be left unmolested, so that the shared
+    library is installed into the cirrect place.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 09:17:28 +1100
+
+srecord (1.53.D018-1) unstable; urgency=low
+
+  * This change set adds GNU Libtool to the configure.ac file, and also mentions
+    it in the Building instructions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Jan 2010 08:56:49 +1100
+
+srecord (1.53.D017-1) unstable; urgency=low
+
+  * This change set adds the pkgconfig file to the installed files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 26 Jan 2010 23:23:48 +1100
+
+srecord (1.53.D016-1) unstable; urgency=low
+
+  * This change set adds an icon for the library on the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 26 Jan 2010 21:52:36 +1100
+
+srecord (1.53.D015-1) unstable; urgency=low
+
+  * This change set adds the library's Doxygen documentation to the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 25 Jan 2010 22:47:46 +1100
+
+srecord (1.53.D014-1) unstable; urgency=low
+
+  * This change set completes applying the namespace to the remaining few
+    library functions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 25 Jan 2010 21:45:32 +1100
+
+srecord (1.53.D013-1) unstable; urgency=low
+
+  * This change set renames srecord::input_file_srecord to srecord::input_file_
+    motorola, and renames srecord::output_file_srecord to srecord::output_file_
+    motorola, in order to be consistent with other vendor-specific file format
+    names.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 25 Jan 2010 20:28:04 +1100
+
+srecord (1.53.D012-1) unstable; urgency=low
+
+  * This change set starts the introduction of the "srecord" name space.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 25 Jan 2010 20:10:31 +1100
+
+srecord (1.53.D011-1) unstable; urgency=low
+
+  * This change set changes the build system to use libtool to build the shared
+    library.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Jan 2010 14:07:30 +1100
+
+srecord (1.53.D010-1) unstable; urgency=low
+
+  * This change set adds the necessary foo to have Makefile.in build and install
+    a shared library.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Jan 2010 08:09:11 +1100
+
+srecord (1.53.D009-1) unstable; urgency=low
+
+  * This change continues moving files under srecord/ for the library, when it
+    happens.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Jan 2010 12:21:26 +1100
+
+srecord (1.53.D008-1) unstable; urgency=low
+
+  * This change set continues the work to put everythinbg into a shared library.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Jan 2010 12:00:56 +1100
+
+srecord (1.53.D007-1) unstable; urgency=low
+
+  * This change set starts moving the library to a better name to be installed
+    as.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Jan 2010 09:37:42 +1100
+
+srecord (1.53.D006-1) unstable; urgency=low
+
+  * This change set fixes the order of entries in the Release Notes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Jan 2010 09:11:57 +1100
+
+srecord (1.53.D005-1) unstable; urgency=low
+
+  * This change set fixes a typo in the release notes.
+  * My thanks to John McMaster <johndmcmaster@gmail.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Jan 2010 08:52:41 +1100
+
+srecord (1.53.D004-1) unstable; urgency=low
+
+  * The code is now more able to cope with ancient libgcrypt versions, that
+    don't have SHA224 or WHIRLPOOL algorithms.
+  * My thanks to Gaysinsky Valery-BVG004 <BVG004@motorola.com> for reporting
+    this bug.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 01 Dec 2009 23:09:30 +1100
+
+srecord (1.53.D003-1) unstable; urgency=low
+
+  * The srec_example(1) page has been made slightly more explicit about
+    exclusive min, max and len.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Nov 2009 17:06:35 +1100
+
+srecord (1.53.D002-1) unstable; urgency=low
+
+  * This change set adds another architecture pattern, to account for 64-bit
+    machines.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Nov 2009 15:55:40 +1100
+
+srecord (1.53.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Nov 2009 14:31:00 +1100
+
+srecord (1.52.D011-1) unstable; urgency=low
+
+  * Microchip Inc. has thrown us a
+  * curve ball and I am curious to know if you already have dealt with this.
+  * If not, I can easily write a C# application. I just don't want to
+  * re-invent the wheel. Basically, the Microchip dsPIC33F microcontrollers
+  * have a weird memory storage pattern and they are able to store 3 bytes
+  * in an address that should only contain 2 bytes. The result is a HEX
+  * file that has zero-filled the top byte, and all addresses are doubled
+  * from what they are in the chip. Here is an example:
+  * :20316000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0
+  * 067
+  * :20318000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0
+  * 047
+  * I would like to use the -unfill parameter to get rid of the extra space
+  * since our EEPROM chips are filling up. However, the -unfill parameter
+  * assumes single byte patterns. I theoretically could find a way around
+  * this with an entire batch file filled with srec_cat -crop routines, but
+  * I was hoping there was a better way. If you don't have anything to
+  * easily fix this, no worries. Just thought I would ask. Thanks again!!!
+  * my thanks to Daniel Jones <Daniel.Jones@mceinc.com> for this example.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Nov 2009 13:40:42 +1100
+
+srecord (1.52.D010-1) unstable; urgency=low
+
+  * This change set make some improvements to the MsBin code.
+  * My thanks to David Kozub <zub@linux.fjfi.cvut.cz> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Nov 2009 13:05:31 +1100
+
+srecord (1.52.D009-1) unstable; urgency=low
+
+  * This change set adds more detail (well, documents the lack of detail) for S5
+    and S6 records.
+  * My thanks to eustace@users.sourceforge.net for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 2009 13:03:07 +1100
+
+srecord (1.52.D008-1) unstable; urgency=low
+
+  * This change set gets rid of the last of the TAB characters in the sources.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 2009 12:40:39 +1100
+
+srecord (1.52.D007-1) unstable; urgency=low
+
+  * This change set adds a coding style section to each of the "how to add a new
+    format" and "how to add a new filter" sections of the reference manual.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 2009 12:23:07 +1100
+
+srecord (1.52.D006-1) unstable; urgency=low
+
+  * There is a new MsBin (Windows CE Binary Image Data) file format.
+  * My thanks to David Kozub <zub@linux.fjfi.cvut.cz> for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 2009 11:37:55 +1100
+
+srecord (1.52.D005-1) unstable; urgency=low
+
+  * The web site has been updated to be less subtle about windows users building
+    SRecord or themselves.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Nov 2009 23:53:09 +1100
+
+srecord (1.52.D004-1) unstable; urgency=low
+
+  * The code now make use of <stding.h> to define address sizes.  It also uses
+    size_t more correctly.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Nov 2009 14:49:44 +1100
+
+srecord (1.52.D003-1) unstable; urgency=low
+
+  * The warning about hyphen in the manual pages has been silenced, by careful
+    use of \-, \[hy\ and \[mi] as appropriate.  Sure makes some of the sources
+    ugly, tho.
+  * The warning about the undefined .XX macro has been silenced, by making it
+    conditional.
+  * I am not completely happy with the fundamentalist pedantry preached by some
+    Debian packagers.  These are only warnings, after all.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 15 Oct 2009 23:25:42 +1100
+
+srecord (1.52.D002-1) unstable; urgency=low
+
+  * This change adds conditionals so that the code will build without libgcrypt
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 Sep 2009 15:31:02 +1000
+
+srecord (1.52.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 17 Sep 2009 11:18:12 +1000
+
+srecord (1.51.D002-1) unstable; urgency=low
+
+  * There is a new srec_cat -generator -l-e-constant data generator (and also -
+    b-e-const) that may be used to insert multi-byte constants into your data.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 17 Sep 2009 10:44:28 +1000
+
+srecord (1.51.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 13 Sep 2009 08:38:36 +1000
+
+srecord (1.50.D006-1) unstable; urgency=low
+
+  * The link to the official Debian package has been updated.
+  * My thanks to Fathi Boudra <fabo@debian.org> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 27 Aug 2009 12:11:34 +1000
+
+srecord (1.50.D005-1) unstable; urgency=low
+
+  * please find attached a patch to build srecord with gcc 4.4.
+  * could you also update srecord informations related to Debian on the
+    homepage:
+  * > The Debian package is maintained by Stephen Moraco <stephen@debian.org>
+    and
+  * > is available at http://packages.debian.org/unstable/utils/srecord.html
+  * Stephen isn't anymore srecord Debian maintainer and the following link is
+    more
+  * appropriate: http://packages.qa.debian.org/s/srecord.html
+  * Thanks.
+  * Fathi Boudra <fabo@debian.org>
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 11 Aug 2009 08:18:36 +1000
+
+srecord (1.50.D004-1) unstable; urgency=low
+
+  * The use of two back ticks as an open quote has been replaced, particularly
+    in the man pages.  There are much nicer forms available these days.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Jul 2009 21:10:23 +1000
+
+srecord (1.50.D003-1) unstable; urgency=low
+
+  * A bugs has been fixed in the Intel output format.  When using the segemented
+    format (address-length=2) records that spand the end of segment boundary are
+    tricky.  The code now carefully splits such output records, to ensure the
+    two parts are explicitly placed into separate segments.
+  * My thanks to jxta@users.sourceforge.net for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Jul 2009 20:18:00 +1000
+
+srecord (1.50.D002-1) unstable; urgency=low
+
+  * A build problem has been fixed.  It is now possible to compile with gcc 4.4.
+  * My thanks to Tom "spot" Callaway <tcallawa@redhat.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 11 Jul 2009 12:33:34 +1000
+
+srecord (1.50.D001-1) unstable; urgency=low
+
+  * This change prepares Aegis for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Jul 2009 16:48:56 +1000
+
+srecord (1.49.D012-1) unstable; urgency=low
+
+  * The code has been enhanced to provide high-to-low bit order CRC16 (as was
+    already available) and also low-to-high bit order. This is confirmed to
+    produce the same results as reversing the order of bits within bytes *prior*
+    to feeding it to the algorithm.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Jul 2009 16:27:35 +1000
+
+srecord (1.49.D011-1) unstable; urgency=low
+
+  * This change set removes the Ciommunity Choice nominatiob button.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Jun 2009 18:51:47 +1000
+
+srecord (1.49.D010-1) unstable; urgency=low
+
+  * The CRC-16 filters have been enhanved.  Originally they processed the bits
+    in each byte from most significant bit to least significant bit.  The
+    filters are now able to process in the opposite order: least significant bit
+    to most significant bit.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 22 Jun 2009 15:55:45 +1000
+
+srecord (1.49.D009-1) unstable; urgency=low
+
+  * The SHA224, SHA256, SHA384, SHA 512 and Whirlpool message digests are now
+    supported.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 20:19:17 +1000
+
+srecord (1.49.D008-1) unstable; urgency=low
+
+  * The RipeMD-160 crypto hash function is how supported.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 18:21:45 +1000
+
+srecord (1.49.D007-1) unstable; urgency=low
+
+  * The CRC-16 base class is now able to be passed a polynomial for
+    calculations, rather than assuming CCITT standard polynomial.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 17:53:19 +1000
+
+srecord (1.49.D006-1) unstable; urgency=low
+
+  * The command line now allows a number of bytes to be passed to the --bitrev
+    option; this is implemented using the byte-swap filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 17:42:10 +1000
+
+srecord (1.49.D005-1) unstable; urgency=low
+
+  * There is a new srec_cat -bit-reverse filter, that may be ised to reverse the
+    bits in each data byte.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 17:23:13 +1000
+
+srecord (1.49.D004-1) unstable; urgency=low
+
+  * The SHA1 secure hash is now supported.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 21 Jun 2009 00:03:16 +1000
+
+srecord (1.49.D003-1) unstable; urgency=low
+
+  * There is a new MD5 input filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 19 Jun 2009 22:30:56 +1000
+
+srecord (1.49.D002-1) unstable; urgency=low
+
+  * The filters that requires the complete input data before they can beging
+    processing have been refactored to have a common base class.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 19 Jun 2009 16:29:17 +1000
+
+srecord (1.49.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 17 May 2009 20:53:14 +1000
+
+srecord (1.48.D003-1) unstable; urgency=low
+
+  * This change set adds a link to the SourceForge community choice awards.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 17 May 2009 20:46:51 +1000
+
+srecord (1.48.D002-1) unstable; urgency=low
+
+  * A typo in the srec_input(1) man page has been fixed.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 22 Apr 2009 14:26:33 +1000
+
+srecord (1.48.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord the the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 19 Apr 2009 20:32:13 +1000
+
+srecord (1.47.D006-1) unstable; urgency=low
+
+  * This change fixesa typo in the srec_ti_tagged_16(5) man page.
+  * My thanks to Jason Armistead for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 19 Apr 2009 20:15:15 +1000
+
+srecord (1.47.D005-1) unstable; urgency=low
+
+  * There are new Fletcher Checksum filters, both 32-bits and 16-bits, both
+    little-endian and big-endian.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 24 Mar 2009 20:36:46 +1100
+
+srecord (1.47.D004-1) unstable; urgency=low
+
+  * There is a new pair of "Adler 16" filters.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Mar 2009 21:53:33 +1100
+
+srecord (1.47.D003-1) unstable; urgency=low
+
+  * There is now a input filter that may be used to calculate Adler 32 bit
+    checksums. It has two command line forms, --big-endian-adler32 and --
+    little-endian-adler32.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Mar 2009 18:29:05 +1100
+
+srecord (1.47.D002-1) unstable; urgency=low
+
+  * Some more colour has been added to the web site, and some cute document
+    icons.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 19 Feb 2009 22:34:12 +1100
+
+srecord (1.47.D001-1) unstable; urgency=low
+
+  * This change set preparse SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 19 Feb 2009 18:54:39 +1100
+
+srecord (1.46.D005-1) unstable; urgency=low
+
+  * The DEPTH field when writing Altera MIF file has been corrected, it no
+    longer appears at the end.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 19 Feb 2009 17:02:54 +1100
+
+srecord (1.46.D004-1) unstable; urgency=low
+
+  * The Altera MIF input class now understads address ranges, provided they fit
+    into a record buffer.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 19 Feb 2009 16:46:40 +1100
+
+srecord (1.46.D003-1) unstable; urgency=low
+
+  * The Altera MIF format is now supported for reading.
+  * My thanks to Arnim Laeuger for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 18 Feb 2009 23:18:58 +1100
+
+srecord (1.46.D002-1) unstable; urgency=low
+
+  * The Altera MIF format is now understood for writing.
+  * My thanks to Arnim Laeuger for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 18 Feb 2009 18:03:40 +1100
+
+srecord (1.46.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Jan 2009 12:40:06 +1100
+
+srecord (1.45.D006-1) unstable; urgency=low
+
+  * There is a new option for the --x-e-length filters, they can now accept a
+    width, and this is divided into the byte lenght, so that youcan inert the
+    length in mulrips of words (2) or longs (4).
+  * My thanks to Bruno Pape <bruno.pape@unh.edu> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Jan 2009 12:22:49 +1100
+
+srecord (1.45.D005-1) unstable; urgency=low
+
+  * The email addresses have all been replaced with my new address.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 10 Jan 2009 20:00:27 +1100
+
+srecord (1.45.D004-1) unstable; urgency=low
+
+  * This change fixes an error in the --be-e-length example.
+  * My thanks to Bruno Pape <bruno.pape@unh.edu> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 10 Jan 2009 19:50:14 +1100
+
+srecord (1.45.D003-1) unstable; urgency=low
+
+  * This change set fixes a couple of small problems with the documentation.  My
+    thanks to Garbergs Henrik <henrik.garbergs@space.se> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 17 Dec 2008 19:56:01 +1100
+
+srecord (1.45.D002-1) unstable; urgency=low
+
+  * The --minimum and --maximum options have been renamed --minimum-address and
+    --maximum-address, to avoid a grammar syntax problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 13 Dec 2008 23:48:38 +1100
+
+srecord (1.45.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 30 Sep 2008 19:02:27 +1000
+
+srecord (1.44.D006-1) unstable; urgency=low
+
+  * A bug has been fixed in the srec_cat command.  You are now able to specify
+    several inputs within parentheses, instead of just one.  This allows filters
+    to be allpied to the concatenation of several inputs.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 30 Sep 2008 09:53:10 +1000
+
+srecord (1.44.D005-1) unstable; urgency=low
+
+  * The formatting of the text in the srec_cat(1) man page has been improved.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 30 Sep 2008 08:46:43 +1000
+
+srecord (1.44.D004-1) unstable; urgency=low
+
+  * The new file templates have had their initial comment blocks tweaked.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Sep 2008 12:03:12 +1000
+
+srecord (1.44.D003-1) unstable; urgency=low
+
+  * This change set fixes the .h files' #define insularor names.  They weren't
+    fixed when the files were renamed from the include/ directory, and they
+    shpuld have been.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Sep 2008 11:17:23 +1000
+
+srecord (1.44.D002-1) unstable; urgency=low
+
+  * The srec_cat command is now able to write FORTH output.
+  * My thanks to Torsten Sadowski <tsadowski@gmx.net> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Sep 2008 08:49:38 +1000
+
+srecord (1.44.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Aug 2008 16:05:19 +1000
+
+srecord (1.43.D008-1) unstable; urgency=low
+
+  * The web page now cross references the Uncia project.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Aug 2008 15:50:50 +1000
+
+srecord (1.43.D007-1) unstable; urgency=low
+
+  * Some compilers issue a warning when const appears before extern.  "warning:
+    storage class is not first".  The C output has been updated to conform to
+    this expectation.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 07 Aug 2008 21:19:21 +1000
+
+srecord (1.43.D006-1) unstable; urgency=low
+
+  * The manual page for srec_cat(1) has been enhanced to describe the in-memory
+    data model, and the resulting output data order.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 Jul 2008 20:25:01 +1000
+
+srecord (1.43.D005-1) unstable; urgency=low
+
+  * The -motorola optional width argument now produces a better error message
+    when it is out of range.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+  * The --fill filter now checks the size, and fails for absurdly large fills,
+    with a --big override if they really want >1GB fills.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 09 Jul 2008 10:00:26 +1000
+
+srecord (1.43.D004-1) unstable; urgency=low
+
+  * A bug in the .spec file for rpmbuild has been fixed, not now takes notice of
+    $RPM_BUILD_ROOT
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 09 Jul 2008 09:36:11 +1000
+
+srecord (1.43.D003-1) unstable; urgency=low
+
+  * There is a new srec_cat --line-termination option, which may be used to
+    select the desired line termination of output text files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 08 Jul 2008 09:12:17 +1000
+
+srecord (1.43.D002-1) unstable; urgency=low
+
+  * Several typographical errors on a number of man pages have been fixed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 07 Jul 2008 09:58:54 +1000
+
+srecord (1.43.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 Jul 2008 15:25:06 +1000
+
+srecord (1.42.D008-1) unstable; urgency=low
+
+  * A bug has been fixed in the handling of the --enable and --disable options;
+    it no longer drops a command line argument and giving incorrect usage
+    messages
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 Jul 2008 22:38:34 +1000
+
+srecord (1.42.D007-1) unstable; urgency=low
+
+  * The srec-cat --data-only option has been broken down into four separate
+    controls.  It is now possible to --enable and --disable individual features,
+    such as 'header', 'data-count', 'execution-start-address' and 'footer'.
+  * My thanks to Wouter <wutje@users.sourceforge.net> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jul 2008 14:44:25 +1000
+
+srecord (1.42.D006-1) unstable; urgency=low
+
+  * All of the "using namespace std;" lines have been removed, and the necessary
+    corrections have been made.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 04 Jul 2008 13:03:20 +1000
+
+srecord (1.42.D005-1) unstable; urgency=low
+
+  * The srec_cat -start-address option has been renamed -execution-start-address
+    to remove any confusion with the -offset filter.  The documentation now
+    explicitly explains the difference between the two.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 26 Jun 2008 14:38:45 +1000
+
+srecord (1.42.D004-1) unstable; urgency=low
+
+  * Examples of converting to and from binary files have been added.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 24 Jun 2008 08:48:58 +1000
+
+srecord (1.42.D003-1) unstable; urgency=low
+
+  * This change set causes the MOS Tech format to emit an end record, even when
+    there is no start address passed in.
+  * My thanks to Ed <dxforth@netbay.com.au> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 07 Jun 2008 17:38:59 +1000
+
+srecord (1.42.D002-1) unstable; urgency=low
+
+  * Not all of the web pages were being rebuild when the version number changed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 02 Jun 2008 08:39:32 +1000
+
+srecord (1.42.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 01 Jun 2008 22:15:09 +1000
+
+srecord (1.41.D003-1) unstable; urgency=low
+
+  * The MOS Technology format was not reading and writing end records correctly,
+    this has been fixed.  The name of the company has been fixed, too.
+  * My thanks to Ed <dxforth@netbay.com.au> for reporting these problems.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 01 Jun 2008 22:03:26 +1000
+
+srecord (1.41.D002-1) unstable; urgency=low
+
+  * Some examples of how to insert constant or scripted data into your EPROM
+    load files has been added to the srec_examples(1) man page.
+  * My thanks to Brad Schick <schickb@gmail.com> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 May 2008 13:03:44 +1000
+
+srecord (1.41.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 12 May 2008 10:59:10 +1000
+
+srecord (1.40.D016-1) unstable; urgency=low
+
+  * This change set fixed two tests which were giving false negatives on Cygwin.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 12 May 2008 10:39:55 +1000
+
+srecord (1.40.D015-1) unstable; urgency=low
+
+  * The handling of the program name has been changed, so that any trailing .exe
+    is removed.  This was giving false negatives in tests.
+  * Also, the GNU diff --strip-trailing-cr option is exploited if available,
+    dealing with a number of other false negatives.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 12 May 2008 09:50:46 +1000
+
+srecord (1.40.D014-1) unstable; urgency=low
+
+  * The handling of endian-ness within the srec_arglex::get_input method has
+    been reworked so that there are half as many cases (i.e. switch cases which
+    differe only in endian-ness have been merged).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 Apr 2008 10:43:58 +1000
+
+srecord (1.40.D013-1) unstable; urgency=low
+
+  * The interval classes have been extended with an inclusive/exclusive
+    parameters to their constructors, rendering the specific classes obsolete.
+    So by adding 99 lines of code, we could remove 750 lines of code.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 Apr 2008 09:44:50 +1000
+
+srecord (1.40.D012-1) unstable; urgency=low
+
+  * There are six new filters (-be-exclusive-length, -le-exclusive-length, -be-
+    exclusive-maximum, -le-exclusive-maximum, -be-exclusive-minimum and -le-
+    exclusive-minimum) which are very similar to their non-exclusive
+    equivalents, except that they do not include the adress range covered by
+    their output in their output.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 17 Apr 2008 22:53:59 +1000
+
+srecord (1.40.D011-1) unstable; urgency=low
+
+  * Due to an uncaught merge problem, the deference manual was including the
+    content twice, in such a way that the automagic bring-the-content-to-the-
+    front script was getting it wrong - ugly wrong.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 Apr 2008 15:00:10 +1000
+
+srecord (1.40.D010-1) unstable; urgency=low
+
+  * This change set adds endian-conditional encode and decode functions to srec_
+    record
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 Apr 2008 14:35:59 +1000
+
+srecord (1.40.D009-1) unstable; urgency=low
+
+  * The use of boolean to represent endian-ness has been removed.  It was
+    confusing because it was not consistent.  There is now and explicit endian_t
+    type and associated enum tags, to make the code more consistent and more
+    readable.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 Apr 2008 11:54:08 +1000
+
+srecord (1.40.D008-1) unstable; urgency=low
+
+  * The srec_input::reda method now returns a bool, rather than an int which was
+    everywhere treated like a bool.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 Apr 2008 11:41:58 +1000
+
+srecord (1.40.D007-1) unstable; urgency=low
+
+  * This change adds a new word wise eprom_address array for the C array output
+    format when in word output mode and also in compressed output mode.
+  * The existing foo_address array is correct but assumes that the memory map of
+    the device being programmed is 8 bits. As such, a new foo_word_address array
+    is added as an alternative in the case of 16 bit addresses.
+  * My thanks to Scott Finneran for this change set.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 30 Mar 2008 10:53:39 +1100
+
+srecord (1.40.D006-1) unstable; urgency=low
+
+  * This change adds the missing section descriptor arrays to the generated
+    header file when using the c_compressed (section) option in c_array output
+    mode.
+  * My thanks to Scott Finneran for this change set.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 30 Mar 2008 10:48:35 +1100
+
+srecord (1.40.D005-1) unstable; urgency=low
+
+  * Minor changes to accomodate the acceptable options to the emacs version of
+    etags in the build system.
+  * My thanks to Soctt Finneran for this change set.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 29 Mar 2008 17:16:49 +1100
+
+srecord (1.40.D004-1) unstable; urgency=low
+
+  * A bugs has been fixed with the C array output format when using the output_
+    word and include options.  The generated header file incorrectly declared
+    the data as being an array of unsigned char regardless of the output_word
+    option, it now outputs an array of unsigned short.
+  * My thanks to Scott Finneran for this change set.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 29 Mar 2008 17:08:29 +1100
+
+srecord (1.40.D003-1) unstable; urgency=low
+
+  * A problem with the names of the executables in the .spec file has been
+    fixed, and the BuildRequires has been updated.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 20 Mar 2008 13:54:52 +1100
+
+srecord (1.40.D002-1) unstable; urgency=low
+
+  * The web pages were missing the version numbers, which was particularly nasty
+    for the download page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 13 Mar 2008 22:14:42 +1100
+
+srecord (1.40.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 13 Mar 2008 21:55:48 +1100
+
+srecord (1.39.D019-1) unstable; urgency=low
+
+  * This change set fixes an RPM build problem.  The spec file needed some
+    tweaking.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 13 Mar 2008 13:56:16 +1100
+
+srecord (1.39.D018-1) unstable; urgency=low
+
+  * This change set removes some left-over includes used in the past for
+    debugging.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 01 Mar 2008 22:11:57 +1100
+
+srecord (1.39.D017-1) unstable; urgency=low
+
+  * The srec_output_file_hexdump Doxygen documentation has been improved.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 01 Mar 2008 20:34:01 +1100
+
+srecord (1.39.D016-1) unstable; urgency=low
+
+  * There was no need to dynamically allocate the memory image used by srec_cat,
+    and several other places.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 01 Mar 2008 20:22:33 +1100
+
+srecord (1.39.D015-1) unstable; urgency=low
+
+  * The use of srec_memory_walker has been refactored to habe a pointer type,
+    and the derived classes refactpred to enforce this.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 01 Mar 2008 20:02:58 +1100
+
+srecord (1.39.D014-1) unstable; urgency=low
+
+  * The srec_output* has been refactored as srec_output::pointer instead, with
+    create class methods to enforce it.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 01 Mar 2008 18:23:19 +1100
+
+srecord (1.39.D013-1) unstable; urgency=low
+
+  * An example has been added which shows how to use the hex-dump output format
+    to look at the checksum or CRC of a file's data.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Feb 2008 23:57:02 +1100
+
+srecord (1.39.D012-1) unstable; urgency=low
+
+  * The BUILDING file now tells you about the Boost library dependency.  And the
+    ./configure script now fails if it is not installed.
+  * My thanks to Chris Teague for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Feb 2008 23:37:00 +1100
+
+srecord (1.39.D011-1) unstable; urgency=low
+
+  * The release notes (and changelog.txt) were being built incorrectly, and
+    severely truncated.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 27 Feb 2008 08:25:58 +1100
+
+srecord (1.39.D010-1) unstable; urgency=low
+
+  * The code has been refactored to use srec_input::pointer instead of srec_
+    input *
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 18 Feb 2008 02:10:50 +1100
+
+srecord (1.39.D009-1) unstable; urgency=low
+
+  * This change set fixes build problems found with g++ 4.3
+  * My thanks to Fathi Boudra <fabo@debian.org> for reporting this problem.
+    Fathi is the Debian maintainer for SRecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 16 Feb 2008 23:24:30 +1100
+
+srecord (1.39.D008-1) unstable; urgency=low
+
+  * The handling of groff in the Makefile.in file has been improved.  Mostly
+    this was an Aegis bug, but not completely.
+  * My thanks to Fathi Boudra <fabo@debian.org> for this patch.  Fathi is the
+    Debian maintainer for SRecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 16 Feb 2008 22:00:08 +1100
+
+srecord (1.39.D007-1) unstable; urgency=low
+
+  * An incorrect section number on the srec_fastload(5) man page has been fixed.
+  * My thanks to Fathi Boudra <fabo@debian.org> for this patch.  Fathi is the
+    Debian maintainer for SRecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 16 Feb 2008 16:47:58 +1100
+
+srecord (1.39.D006-1) unstable; urgency=low
+
+  * This change set removes several useless includes of <cstdio>
+  * My thanks to Fathi Boudra <fabo@debian.org> for this patch.  Fathi is the
+    Debian maintainer for SRecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 16 Feb 2008 16:08:39 +1100
+
+srecord (1.39.D005-1) unstable; urgency=low
+
+  * This change set adds support for GCC 4.3 to the code base.
+  * My thanks to Fathi Boudra <fabo@debian.org> for this patch.  Fathi is the
+    Debian maintainer for SRecord.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 16 Feb 2008 16:03:16 +1100
+
+srecord (1.39.D004-1) unstable; urgency=low
+
+  * A bug has been fixed in the calculation of ranges on the command line, it no
+    longer goes into an infinite loop for "--fill 0xFF -over { foo.hex -exclude
+    -within foo.hex }" construct, which should have been calculating an empty
+    fill set, but was instead calculating a 4GB fill set.
+  * The baseline text exemption is because it takes a couple of days to run when
+    it gets the wrong answer!
+  * My thanks to Dan Norstedt <dan@norstedt.net> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 14 Feb 2008 10:29:06 +1100
+
+srecord (1.39.D003-1) unstable; urgency=low
+
+  * This change set adds processing for the datarootdir value to the ./configure
+    file.  Mostly to silence an autoconf warning.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 14 Feb 2008 08:29:49 +1100
+
+srecord (1.39.D002-1) unstable; urgency=low
+
+  * The CRC32 filters now take an optional -xmodem option, to use an xmodem-like
+    (all bit zero) initial state, rather than the default CCITT (all bits on)
+    initial state.
+  * My thanks to Krauss Manfred (LLI) <Manfred.Krauss@liebherr.com> for this
+    suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 07 Feb 2008 12:02:21 +1100
+
+srecord (1.39.D001-1) unstable; urgency=low
+
+  * This change set prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 04 Feb 2008 12:44:06 +1100
+
+srecord (1.38.D003-1) unstable; urgency=low
+
+  * The test have been changed to use a common test_prelude.  This allows the
+    $PATH to be used to find commands, and will eventually allow a shared
+    librray to be used.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 04 Feb 2008 12:31:44 +1100
+
+srecord (1.38.D002-1) unstable; urgency=low
+
+  * A bug has been fixed in the use of parentheses to group filters and override
+    the default precedences.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 03 Feb 2008 14:23:14 +1100
+
+srecord (1.38.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 14 Jan 2008 10:38:22 +1100
+
+srecord (1.37.D005-1) unstable; urgency=low
+
+  * The CRC16 filters now support a -Broken option, to perform a common-but-
+    broken CRC16 calculation, in addition to the CCITT and XMODEM calculations.
+  * My thanks to Manfred Kaiser <kaiser.m.6@pg.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 14 Jan 2008 10:23:47 +1100
+
+srecord (1.37.D004-1) unstable; urgency=low
+
+  * A link has been added to the CRC16 man page section, with a link to the
+    www.joegeluso.com/software/articles/ccitt.htm web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 10 Jan 2008 23:47:00 +1100
+
+srecord (1.37.D003-1) unstable; urgency=low
+
+  * A buglet has been fixed in the srec-motorola(5) man page, it now includes S6
+    in the list of things that can appear in the type field.
+  * My thanks to Curtis Wald <cwald@watchguardvideo.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 10 Jan 2008 08:19:43 +1100
+
+srecord (1.37.D002-1) unstable; urgency=low
+
+  * The new ability to negate expressions is now mentioned int he srec_
+    examples(1) man page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Oct 2007 15:04:39 +1100
+
+srecord (1.37.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Oct 2007 14:14:27 +1100
+
+srecord (1.36.D004-1) unstable; urgency=low
+
+  * It is now possible to have negative expressions on the command line, to
+    facilitate ''--offset - -minimum foo'' usages.
+  * My thanks to Craig McQueen <Craig_McQueen@aapl.com.au> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Oct 2007 13:50:10 +1100
+
+srecord (1.36.D003-1) unstable; urgency=low
+
+  * The srec_cat command now has a simple hexadecimal dump output format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 17 Sep 2007 18:41:07 +1000
+
+srecord (1.36.D002-1) unstable; urgency=low
+
+  * The use of uudecode in test 60 has been removed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Aug 2007 20:27:09 +1000
+
+srecord (1.36.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Aug 2007 18:32:09 +1000
+
+srecord (1.35.D014-1) unstable; urgency=low
+
+  * The CRC16 filters have a new --no-augment option, to omit the 16 zero bits
+    augmenting the message.  This is not CCITT standard conforming, but some
+    sites need it.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Aug 2007 14:17:56 +1000
+
+srecord (1.35.D013-1) unstable; urgency=low
+
+  * A bug has been fixed in the cookbook, it was not correctly working ou all
+    the .d files it was supposed to build.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Aug 2007 13:41:44 +1000
+
+srecord (1.35.D012-1) unstable; urgency=low
+
+  * The crc16 class now takes a flag to indicate whether or not augmentation is
+    desired.  The output is unchganged, using the default values.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Aug 2007 23:37:05 +1000
+
+srecord (1.35.D011-1) unstable; urgency=low
+
+  * A bugs has been fixed in the CRC-16 CCITT calculation.
+  * My thanks to Craig McQueen <Craig_McQueen@aapl.com.au> for reporting this
+    problem, and for reporting the fix, too, at http://www.joegeluso.com/
+    software/articles/ccitt.htm
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Aug 2007 22:30:12 +1000
+
+srecord (1.35.D010-1) unstable; urgency=low
+
+  * A test of the CRC16 algorithm for XMODEM has been added, to make sure that
+    when I fix the CCITT case I don't break the XMODEM case.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Aug 2007 17:18:59 +1000
+
+srecord (1.35.D009-1) unstable; urgency=low
+
+  * There is a new test_crc16 program, which is built for testing purpose, and
+    intentionally never installed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Aug 2007 16:40:11 +1000
+
+srecord (1.35.D008-1) unstable; urgency=low
+
+  * The MANIFEST file is a dinosaur from a previous era.  It is not more.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 05 Aug 2007 21:42:09 +1000
+
+srecord (1.35.D007-1) unstable; urgency=low
+
+  * The aegis.conf file has been split into more pieces.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 05 Aug 2007 21:15:58 +1000
+
+srecord (1.35.D006-1) unstable; urgency=low
+
+  * A problem has been fixed in the generated Makefile.in file found in the
+    tarball.  The generatic script had not been updated to cope with the change
+    in the directory location of the programs.
+  * My thanks to Joel Stanley <joel@laptop.org> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 05 Aug 2007 18:20:06 +1000
+
+srecord (1.35.D005-1) unstable; urgency=low
+
+  * An RSS feed has been added to the web site.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 05 Aug 2007 17:56:40 +1000
+
+srecord (1.35.D004-1) unstable; urgency=low
+
+  * The prog/ directory is gone, the commands each appear in the top level
+    directpry.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Jul 2007 22:54:51 +1000
+
+srecord (1.35.D003-1) unstable; urgency=low
+
+  * The license has been changed from GPLv2 to GPLv3.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 05 Jul 2007 13:53:03 +1000
+
+srecord (1.35.D002-1) unstable; urgency=low
+
+  * The Free Software Foundation postal address has been updated in all of the
+    source files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 29 Jun 2007 15:59:58 +1000
+
+srecord (1.35.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 23 Jun 2007 19:05:59 +1000
+
+srecord (1.34.D002-1) unstable; urgency=low
+
+  * A major build problem with the generated makefile has been fxed.
+  * My thanks to Eric Weddington for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 23 Jun 2007 18:55:14 +1000
+
+srecord (1.34.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Jun 2007 20:58:34 +1000
+
+srecord (1.33.D016-1) unstable; urgency=low
+
+  * The C and ASM output formats have been improved in the word mode.
+  * My thanks to the MSP430 Group at Texas Instruments for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 06 Jun 2007 22:47:07 +1000
+
+srecord (1.33.D015-1) unstable; urgency=low
+
+  * The generated makefile did not correctly install the man pages.
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 06 Jun 2007 22:22:26 +1000
+
+srecord (1.33.D014-1) unstable; urgency=low
+
+  * The class declarations for a number of output classes have been made more
+    consistent.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 13:51:12 +1000
+
+srecord (1.33.D013-1) unstable; urgency=low
+
+  * The Vmem format has been changed so that it is an error if it sees not-16-
+    bit aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 13:45:54 +1000
+
+srecord (1.33.D012-1) unstable; urgency=low
+
+  * The VHDL format has been changed so that it is an error if it sees unaligned
+    data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 12:14:25 +1000
+
+srecord (1.33.D011-1) unstable; urgency=low
+
+  * The Spasm format has been changed so that it is an error if it sees not-16-
+    bit aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 11:17:26 +1000
+
+srecord (1.33.D010-1) unstable; urgency=low
+
+  * The Spasm format has been changed so that it is an error if it sees not-16-
+    bit aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 11:01:38 +1000
+
+srecord (1.33.D009-1) unstable; urgency=low
+
+  * The Fairchild format has been changed so that is an error if it sees not-8-
+    byte aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 10:48:36 +1000
+
+srecord (1.33.D008-1) unstable; urgency=low
+
+  * The -intel-hex16 format has been changed so that it is an error if it sees
+    not-16-bit aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 10:05:06 +1000
+
+srecord (1.33.D007-1) unstable; urgency=low
+
+  * The C-Array -output-words format has been changed so that is an error if it
+    sees not-16-bit aligned data, and suggests a -fill -within -range-padding
+    filter.  The 8-bit form is unaffected.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 09:56:47 +1000
+
+srecord (1.33.D006-1) unstable; urgency=low
+
+  * The atmel-generic format has been changed so that it is an error if it sees
+    not-16-bit aligned data, and suggests a -fill -within -range-padding filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 09:45:48 +1000
+
+srecord (1.33.D005-1) unstable; urgency=low
+
+  * The assembler output has been changed to request the user manually pad their
+    data, rather than the output format making up data.  This only applies when
+    the user has requested 16-bit output, 8-bit output is not affected.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 09:37:18 +1000
+
+srecord (1.33.D004-1) unstable; urgency=low
+
+  * The output classes now send error messages through quit_defualt
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 00:25:55 +1000
+
+srecord (1.33.D003-1) unstable; urgency=low
+
+  * There is a new output::format_name method, which may be used to obtain the
+    name of the format of an output.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 20 May 2007 00:13:32 +1000
+
+srecord (1.33.D002-1) unstable; urgency=low
+
+  * The gcc -Eextra flag has been added to the compiles, and problems thus
+    revealed have been fixed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 May 2007 21:39:50 +1000
+
+srecord (1.33.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 May 2007 21:09:25 +1000
+
+srecord (1.32.D009-1) unstable; urgency=low
+
+  * More examples have been added to the examples page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 May 2007 20:52:51 +1000
+
+srecord (1.32.D008-1) unstable; urgency=low
+
+  * More examples have been added to the documentation.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 18 May 2007 10:11:26 +1000
+
+srecord (1.32.D007-1) unstable; urgency=low
+
+  * The examples from the srec_cat(1) man page have been moved to theor own man
+    page, and expanded somewhat, tho more work is needed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 17 May 2007 23:40:37 +1000
+
+srecord (1.32.D006-1) unstable; urgency=low
+
+  * It is now possible to perform set intersection and set difference on
+    intervals.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 May 2007 22:06:55 +1000
+
+srecord (1.32.D005-1) unstable; urgency=low
+
+  * There is a new type of data source: the generator. There are three
+    different generators, more are likely.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 16 May 2007 18:07:52 +1000
+
+srecord (1.32.D004-1) unstable; urgency=low
+
+  * The C-Array output is now able to emit sectioned output, similar to the -asm
+    -a430 option.  It can also optionally write shorts rather than bytes.
+  * My thanks to the MSP430 Group at Texas Instruments for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 May 2007 16:45:22 +1000
+
+srecord (1.32.D003-1) unstable; urgency=low
+
+  * The assembler output now supports additional options to facilitate MSP430
+    systems.
+  * My thanks to the MSP430 Group at Texas Instruments for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 May 2007 12:43:36 +1000
+
+srecord (1.32.D002-1) unstable; urgency=low
+
+  * There is a new option for claculating address ranges: you can now round
+    randges to be whole mutiples of bytes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 May 2007 12:15:11 +1000
+
+srecord (1.32.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 24 Apr 2007 09:09:55 +1000
+
+srecord (1.31.D003-1) unstable; urgency=low
+
+  * It turns out the TI-TXT spec I was using is incorrect.  You don't have to
+    have even addresses, and you don't have to have even byte counts.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 20 Apr 2007 10:53:56 +1000
+
+srecord (1.31.D002-1) unstable; urgency=low
+
+  * The end character is 'q' not 'Q'.  It also appears that http://www.ti.com/
+    lit/pdf/slau101 section A.2 is wrong about start addresses having to be
+    even.
+  * My thanks to Stefan Schauer <s-schauer1@ti.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 19 Apr 2007 23:10:06 +1000
+
+srecord (1.31.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 03 Apr 2007 21:19:04 +1000
+
+srecord (1.30.D006-1) unstable; urgency=low
+
+  * The verilog format now also suppresses comments when you specify the data-
+    onloy flag.
+  * My thanks to Stefan Schauer <s-schauer1@ti.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 03 Apr 2007 20:57:40 +1000
+
+srecord (1.30.D005-1) unstable; urgency=low
+
+  * There is a new SEEK_HOLE on Solaris, for navigating around file data holes.
+    This could one day be used to report holes via the srec API.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 03 Apr 2007 20:09:38 +1000
+
+srecord (1.30.D004-1) unstable; urgency=low
+
+  * The ways file names are passed around has been made more consistent; they
+    are all std::strings now.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 28 Mar 2007 21:50:38 +1000
+
+srecord (1.30.D003-1) unstable; urgency=low
+
+  * There is a new srec_binary(5) man page describing binary files, and what can
+    happen when you create them with srec_cat(1).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 28 Mar 2007 14:22:11 +1000
+
+srecord (1.30.D002-1) unstable; urgency=low
+
+  * The Texas Instruments ti-txt (MSP430) format is now understood for reading
+    and writing.
+  * My thanks to Stefan Schauer <s-schauer1@ti.com> for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 28 Mar 2007 11:49:56 +1000
+
+srecord (1.30.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release,
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 21 Mar 2007 19:32:44 +1100
+
+srecord (1.29.D007-1) unstable; urgency=low
+
+  * The ascii-hex format has been improved, so that it does much better line
+    length accounting. It also ensures the ^C is present even for the -data-
+    only option.
+  * My thanks to Simon Manderson <phmilesc@blueyonder.co.uk> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 21 Mar 2007 11:18:12 +1100
+
+srecord (1.29.D006-1) unstable; urgency=low
+
+  * Some more detail has been added to the section on adding new formats.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Mar 2007 18:53:06 +1100
+
+srecord (1.29.D005-1) unstable; urgency=low
+
+  * The new ti-tagged-16 format is now mentioned in the man pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Mar 2007 15:44:37 +1100
+
+srecord (1.29.D004-1) unstable; urgency=low
+
+  * The new file format instructions now include some discussions of
+    implementation issues.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Mar 2007 15:29:36 +1100
+
+srecord (1.29.D003-1) unstable; urgency=low
+
+  * The Intel code warned if there was no start address record.  It was a
+    warning, not an error, but still some folks complained.  The warning has
+    been removed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Mar 2007 13:45:17 +1100
+
+srecord (1.29.D002-1) unstable; urgency=low
+
+  * A bug in the ti-tagged format has been fixed, it now understands the '0'
+    tag.
+  * My thanks to OZ_Rhett <armistej@users.sourceforge.net> for reporting this
+    problem.
+  * As a side-effect of this fix, the ti-tagged-16 format can now be read and
+    written.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 14 Mar 2007 12:24:50 +1100
+
+srecord (1.29.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Mar 2007 20:50:01 +1100
+
+srecord (1.28.D004-1) unstable; urgency=low
+
+  * The generated Makefile was broken by the tab replacement.  This is fixed,
+    and there is also a new "check-tarball" build target, so this is less likely
+    in the future.
+  * My thanks to Rene Rebe <rene@exactcode.de> and Eric Weddington
+    <eweddington@cso.atmel.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Mar 2007 20:23:48 +1100
+
+srecord (1.28.D003-1) unstable; urgency=low
+
+  * The home page on the web site now has various free software and open source
+    software links and icons.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 08 Mar 2007 10:06:26 +1100
+
+srecord (1.28.D002-1) unstable; urgency=low
+
+  * The develop end policy has been tightened, to disallow tabs (for consistent
+    formatting), no white space on the ends of lines, and a maximum ine length
+    of 80 characters.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 08 Mar 2007 09:37:44 +1100
+
+srecord (1.28.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 08 Mar 2007 08:23:07 +1100
+
+srecord (1.27.D004-1) unstable; urgency=low
+
+  * It is now possible to read and write files in the Motorola MC68EZ328
+    Dragonball bootstrap b-record format
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 08 Mar 2007 08:14:33 +1100
+
+srecord (1.27.D003-1) unstable; urgency=low
+
+  * The logo on the aeget HTML pages is now a reasonable size (it was too big).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 13:14:07 +1100
+
+srecord (1.27.D002-1) unstable; urgency=low
+
+  * The web interface links have been updated to use the new aeget interface.
+    Some logos and links have been added to the aeget HTML pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 13:11:17 +1100
+
+srecord (1.27.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 12:37:23 +1100
+
+srecord (1.26.D014-1) unstable; urgency=low
+
+  * The copyright norices have been changed to remove the "all rights reserved"
+    phrase.  It did not represent the GPL spirit.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 11:33:44 +1100
+
+srecord (1.26.D013-1) unstable; urgency=low
+
+  * The copyright norices have been changed to remove the "all rights reserved"
+    phrase.  It did not represent the GPL spirit.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 10:26:23 +1100
+
+srecord (1.26.D012-1) unstable; urgency=low
+
+  * A bug has been fixed in the out-of-sequence warnings; it was complaining
+    about synthesized data (while is often all over the place) when it should
+    only have been complaining about file data.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Dec 2006 00:05:54 +1100
+
+srecord (1.26.D011-1) unstable; urgency=low
+
+  * There is a new warning issued when input data records are not in strictly
+    ascending address order. There is a new option to silence the warning.
+  * My thanks to Frieder Ferlemann <frief@users.sourceforge.net> for this
+    suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 20 Dec 2006 22:51:01 +1100
+
+srecord (1.26.D010-1) unstable; urgency=low
+
+  * The include files have been folded back into the lib tree, it makes for a
+    more natural development environment.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 10 Dec 2006 18:19:03 +1100
+
+srecord (1.26.D009-1) unstable; urgency=low
+
+  * The #pragma directives have been removed, g++ no longer needs them, and most
+    folks couldn't work out how to use them.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 10 Dec 2006 14:39:17 +1100
+
+srecord (1.26.D008-1) unstable; urgency=low
+
+  * The command line processing (of all srec_* commands) now understand @file
+    command line options, filled with space separated strings.
+  * My thanks to <jtxa@users.sourceforge.net> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 10 Dec 2006 13:22:20 +1100
+
+srecord (1.26.D007-1) unstable; urgency=low
+
+  * More sizes have been added to the srecord.ico file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 26 Sep 2006 20:23:50 +1000
+
+srecord (1.26.D006-1) unstable; urgency=low
+
+  * M$IE has a BUG and it gets transparency in PNG files WRONG.  Morons.  The
+    fix is to tell the pngcrush program to use a white background.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 26 Sep 2006 12:45:06 +1000
+
+srecord (1.26.D005-1) unstable; urgency=low
+
+  * The availability of precompiled Windows executable is now proclaimed more
+    loudly than ever before on the Download page.  One wonders if Windows
+    victims have completely lost the ability to read.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 26 Sep 2006 12:23:24 +1000
+
+srecord (1.26.D004-1) unstable; urgency=low
+
+  * The rest of the web pages now use the new icon and favicon.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 21 Jul 2006 10:05:52 +1000
+
+srecord (1.26.D003-1) unstable; urgency=low
+
+  * The icon for the project has been changed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 20 Jul 2006 23:40:20 +1000
+
+srecord (1.26.D002-1) unstable; urgency=low
+
+  * The crc32 class has had a few comments added to it, to assist programmers
+    find the orignal C code, if they need to incorporate C code into their
+    embedded programs.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Jul 2006 11:46:07 +1000
+
+srecord (1.26.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public elease.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 26 May 2006 15:18:15 +1000
+
+srecord (1.25.D004-1) unstable; urgency=low
+
+  * The download page now has a link to the SourceForge downloads page.
+  * My thanks to Craig McQueen <craig_mcqueen@aapl.com.au> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 26 May 2006 14:58:59 +1000
+
+srecord (1.25.D003-1) unstable; urgency=low
+
+  * The developer build now construts TAGS and tags files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 26 May 2006 14:47:15 +1000
+
+srecord (1.25.D002-1) unstable; urgency=low
+
+  * It is now possible to place parenteses on the command line in more places to
+    clariy your intent.
+  * My thanks to Craig McQueen <craig_mcqueen@aapl.com.au> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 26 May 2006 14:46:33 +1000
+
+srecord (1.25.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 18 May 2006 20:01:22 +1000
+
+srecord (1.24.D007-1) unstable; urgency=low
+
+  * The manual pages have been updated to produce a prominent warning about how
+    holes in the data give wonky results.  The code now also produces a warning
+    when there ARE holes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 17 May 2006 09:41:33 +1000
+
+srecord (1.24.D006-1) unstable; urgency=low
+
+  * The assembler output has been enhanced to produce ORG directives, if
+    necessary, to change the data address.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 29 Mar 2006 21:17:59 +1100
+
+srecord (1.24.D005-1) unstable; urgency=low
+
+  * A couple of noisy tests have been silenced, they will only produce output on
+    error from now on.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 29 Mar 2006 20:48:33 +1100
+
+srecord (1.24.D004-1) unstable; urgency=low
+
+  * The srec_cat(1) command now only writes a start address into the output if
+    there was a start address present in the input.
+  * If you wish to specify a start address for input which have no start
+    address, you may use the existing srec_cat -Start_Address command line
+    option - note that this specifies the start address in the *output* address
+    space.
+  * My thanks to Jan Bendixen <jbendixen@sauer-danfoss.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 15 Mar 2006 11:25:46 +1100
+
+srecord (1.24.D003-1) unstable; urgency=low
+
+  * Additional build instructions have been added to the Windows web page.  Now
+    windows developers can re-build for themselves, if they wish to add more
+    features.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 13 Mar 2006 10:35:45 +1100
+
+srecord (1.24.D002-1) unstable; urgency=low
+
+  * The programne functions are now smarter about directory separators, so that
+    they work nicely with mingw.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 13 Mar 2006 10:06:46 +1100
+
+srecord (1.24.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Mar 2006 21:33:27 +1100
+
+srecord (1.23.D005-1) unstable; urgency=low
+
+  * Additional information has been added to the lseek error when they try to
+    seek to addresses >= 2**31
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Mar 2006 12:39:30 +1100
+
+srecord (1.23.D004-1) unstable; urgency=low
+
+  * The CRC 16 filters have been enhanced to accept an argument to specify
+    whether CCITT or XMODEM calculations are to be performed.
+  * My thanks to Aleix Conchillo Flaqué <aconchillo@gmail.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 27 Jan 2006 23:14:15 +1100
+
+srecord (1.23.D003-1) unstable; urgency=low
+
+  * The new aede-policy command is used to check things.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 27 Jan 2006 23:06:47 +1100
+
+srecord (1.23.D002-1) unstable; urgency=low
+
+  * The spec file (used by RPM packagers) has bene improved.
+  * My thanks to Jose Pedro Oliveira <jpo@di.uminho.pt> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 26 Sep 2005 08:54:38 +1000
+
+srecord (1.23.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 23 Sep 2005 19:53:32 +1000
+
+srecord (1.22.D003-1) unstable; urgency=low
+
+  * This change fixes a segfault on x86_64 when running the regression test
+    suite.
+  * My thanks to the good folks at SourceForge who provide their compile farm
+    free of charge for the community to use.  It was essential in reproducing
+    this bug.
+  * My thanks to Jose Pedro Oliveira <jpo@di.uminho.pt> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 23 Sep 2005 15:35:43 +1000
+
+srecord (1.22.D002-1) unstable; urgency=low
+
+  * This change fixes a compile problem with the lib/srec/output/file/c.cc file.
+  * My thanks to Matthias Voss <matthias.voss@philips.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 22 Aug 2005 22:48:27 +1000
+
+srecord (1.22.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 12 Aug 2005 22:59:35 +1000
+
+srecord (1.21.D011-1) unstable; urgency=low
+
+  * The byte swap filter is now able to reverse 32-bit and 64-bit data, in
+    addition to the 16-bits it previously performed.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 11 Aug 2005 17:35:55 +1000
+
+srecord (1.21.D010-1) unstable; urgency=low
+
+  * The motorola file format now accepts an additional 'width' command line
+    argument, so you can have 16-bit and 32-bit address multiples.
+  * My thanks to Christoph Franck <ihlosi@arcor.de> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 14 Jul 2005 00:11:27 +1000
+
+srecord (1.21.D009-1) unstable; urgency=low
+
+  * The handling of extra command line arguments for formats and filters has
+    been refactored, so that arglex knows less about individual formats and
+    filters.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 13 Jul 2005 22:57:04 +1000
+
+srecord (1.21.D008-1) unstable; urgency=low
+
+  * A bug has been fixed in the VMEM output format.  It was failing to correctly
+    set the next address in some cases.
+  * My thanks to "dbaloun" for reporting this problem.
+  * Source Forge Bug 1119786
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 13 Jul 2005 22:34:43 +1000
+
+srecord (1.21.D007-1) unstable; urgency=low
+
+  * The vmem output class has been refactored to use the new command_)line
+    method from arglex output parser.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 13 Jul 2005 21:57:08 +1000
+
+srecord (1.21.D006-1) unstable; urgency=low
+
+  * The vhdl output format has beem reworked to use the new virtual method for
+    parsing extra arguments.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 13 Jul 2005 21:29:37 +1000
+
+srecord (1.21.D005-1) unstable; urgency=low
+
+  * The c-array format is now able to add the const keyword, and generate an
+    include file.  It also produces some #define constants.
+  * My thanks to Maarten Brock and and "thomas" for these suggestions.
+  * Source Forge Feature Request 942132
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 13 Jul 2005 20:07:58 +1000
+
+srecord (1.21.D004-1) unstable; urgency=low
+
+  * The ./configure script now adds -fno-rtti to the CXXFLAGS to avoid the
+    undefined symbols problem on Cygwin and MacOsX.
+  * My thanks to Sriram Srinivasan <sriram@malhar.net> for this fix.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 08 Jun 2005 20:11:15 +1000
+
+srecord (1.21.D003-1) unstable; urgency=low
+
+  * There is a new --ignore-checksum command line option.  The --ignore-
+    checksums option may be used to disable checksum validation of input files,
+    for those formats which have checksums at all.  Note that trhe checksum
+    values are still read in and parse (so it is still an error if they are
+    missing) but their values are not checked. Used after an input file name,
+    the option affects that file alone; used anywhere else on the command line,
+    it applies to all following files.
+  * My thanks to Jochen Betz <betz@sitronic.com> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Jun 2005 23:54:56 +1000
+
+srecord (1.21.D002-1) unstable; urgency=low
+
+  * This change fixes a build problem with the web pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 07 Feb 2005 23:19:44 +1100
+
+srecord (1.21.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 07 Feb 2005 23:10:36 +1100
+
+srecord (1.20.D015-1) unstable; urgency=low
+
+  * This change adds some release notes for the coming release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 07 Feb 2005 22:49:40 +1100
+
+srecord (1.20.D014-1) unstable; urgency=low
+
+  * This change adds more Doxygen comments to the class header files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 07 Feb 2005 20:22:08 +1100
+
+srecord (1.20.D013-1) unstable; urgency=low
+
+  * This change adds more Doxygen comments to the class header files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 Feb 2005 23:28:57 +1100
+
+srecord (1.20.D012-1) unstable; urgency=low
+
+  * This change adds more Doxygen comments to the class headre files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 Feb 2005 17:58:06 +1100
+
+srecord (1.20.D011-1) unstable; urgency=low
+
+  * There is a new srec_cat --crlf option, which may be used for force CRLF
+    output on operating systems which don't use that line termination.
+  * My thanks to Adam Gibson for this suggestion:
+  * "Some software that uploads firmware expect the hexfiles to be in CR/LF
+    format.  To keep from needing another tool dependancy it would be nice if
+    there were an option to output in CR/LF format."
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 Feb 2005 10:59:30 +1100
+
+srecord (1.20.D010-1) unstable; urgency=low
+
+  * This change fixed several Doxygen warnings.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 05 Feb 2005 10:52:53 +1100
+
+srecord (1.20.D009-1) unstable; urgency=low
+
+  * This change updates some of the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Nov 2004 18:53:51 +1100
+
+srecord (1.20.D008-1) unstable; urgency=low
+
+  * This change fixes a typo in the documentation.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 02 Nov 2004 18:31:51 +1100
+
+srecord (1.20.D007-1) unstable; urgency=low
+
+  * This change doscuments the problems with the early 3.x series, and fixes
+    things that 3.4 whines about.
+  * My thanks to Scott Finneran for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 21 Oct 2004 16:17:28 +1000
+
+srecord (1.20.D006-1) unstable; urgency=low
+
+  * There is a new "Stewie" format, an undocumented format loosely based on the
+    Motorola S-Record format, apparently used in mobile phones.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 05 Sep 2004 16:40:49 +1000
+
+srecord (1.20.D005-1) unstable; urgency=low
+
+  * An inconsistency between the class declaration and the implementation in the
+    AOMF output filter has been fixed.
+  * My thanks to R. op het Roodt <rroo@mail.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 21 Jul 2004 11:30:21 +1000
+
+srecord (1.20.D004-1) unstable; urgency=low
+
+  * This change fixes some array delete problems.
+  * My thanks to Yi Yan <yiyan97@hotmail.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 09 May 2004 22:08:55 +1000
+
+srecord (1.20.D003-1) unstable; urgency=low
+
+  * This change fixes some bugs in the memory simulator code.
+  * My thanks to Yi Yan <yiyan97@hotmail.com> for reporting these problems.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 04 May 2004 09:14:54 +1000
+
+srecord (1.20.D002-1) unstable; urgency=low
+
+  * This change fixes some missing files on the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Feb 2004 01:13:24 +1100
+
+srecord (1.20.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Feb 2004 00:55:35 +1100
+
+srecord (1.19.D002-1) unstable; urgency=low
+
+  * The AOMF format now accepts (and ignores) more record types.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Feb 2004 00:33:04 +1100
+
+srecord (1.19.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 03 Jan 2004 11:03:14 +1100
+
+srecord (1.18.D007-1) unstable; urgency=low
+
+  * It is now possible to set the start address in the output using the srec_cat
+    -Start_Address command line option.  (Requested by anonymous user on
+    SourceForge.)
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 02 Jan 2004 12:00:26 +1100
+
+srecord (1.18.D006-1) unstable; urgency=low
+
+  * The Intel Absolute Object Module Format is now supported for reading and
+    writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 02 Jan 2004 11:25:13 +1100
+
+srecord (1.18.D005-1) unstable; urgency=low
+
+  * There is a new -Random_Fill filter, like the -Fill filter except that it
+    uses random values.  (Submitted by anonymous user on SourceForge.)
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 20:56:02 +1100
+
+srecord (1.18.D004-1) unstable; urgency=low
+
+  * This change moves the main srecord web page name to something more standard.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 20:20:14 +1100
+
+srecord (1.18.D003-1) unstable; urgency=low
+
+  * This change re-arranges the lib/srec/arglex.cc file so that the most often
+    edited method (get_input) is in a file by itself.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 18:04:59 +1100
+
+srecord (1.18.D002-1) unstable; urgency=low
+
+  * This change fixes a copy-and-paste erro on the srec_os65(5) man page.
+  * My thanks to Stephen M. Moraco for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 17:47:49 +1100
+
+srecord (1.18.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 16:19:30 +1100
+
+srecord (1.17.D005-1) unstable; urgency=low
+
+  * The VMEM format is now able to output data for 64 and 128 bits wide
+    memories.
+  * My thanks to Jim Holt <Jim.Holt@motorola.com> for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 01 Jan 2004 15:05:21 +1100
+
+srecord (1.17.D004-1) unstable; urgency=low
+
+  * A in the SRecord reference manuals; the CRCxx had a copy-and-paste glitch
+    and always said big-endian where little endian was intended half the time.
+  * My thanks to idefixx2@gmx.at for reprting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 19 Oct 2003 11:15:08 +1000
+
+srecord (1.17.D003-1) unstable; urgency=low
+
+  * This change adds the archive/change_log.txt with just the release notes in
+    it.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Oct 2003 10:07:52 +1000
+
+srecord (1.17.D002-1) unstable; urgency=low
+
+  * This change makes the README file more comprehensible by removing the
+    terminal escapes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Oct 2003 08:47:16 +1000
+
+srecord (1.17.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 12 Oct 2003 08:33:26 +1000
+
+srecord (1.16.D007-1) unstable; urgency=low
+
+  * This change addes support for Intel Extended Segment aasddressing output,
+    via the --address-length=2 option.
+  * My thanks to Alfred Kögel <alfred@mpt-koegel.de> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Oct 2003 13:35:02 +1000
+
+srecord (1.16.D006-1) unstable; urgency=low
+
+  * This change updates the link to the GNU GPL on the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Aug 2003 13:25:35 +1000
+
+srecord (1.16.D005-1) unstable; urgency=low
+
+  * This change adds more information to the Verilog VMEM man page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Aug 2003 12:39:28 +1000
+
+srecord (1.16.D004-1) unstable; urgency=low
+
+  * This change adds the Verilog VMEM format.
+  * My thanks to Jim Holt <Jim.Holt@motorola.com> for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Aug 2003 11:44:22 +1000
+
+srecord (1.16.D003-1) unstable; urgency=low
+
+  * This change adds the INHX16 format, used in various PIC programmers.  It
+    looks just like the Indtel Hex format, except that the bytes counts and the
+    addresses refer to words (hi,lo) rather than bytes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 01 Aug 2003 20:56:21 +1000
+
+srecord (1.16.D002-1) unstable; urgency=low
+
+  * This change makes some improvements to the SRecord web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Jul 2003 21:03:05 +1000
+
+srecord (1.16.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Jul 2003 20:37:07 +1000
+
+srecord (1.15.D006-1) unstable; urgency=low
+
+  * This change adds some more notes about building on Cygwin.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Jul 2003 15:33:31 +1000
+
+srecord (1.15.D005-1) unstable; urgency=low
+
+  * This change fixes a compiler warning on a format string.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Jul 2003 15:11:59 +1000
+
+srecord (1.15.D004-1) unstable; urgency=low
+
+  * This change makes more of the arglex strings constant.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Jul 2003 15:09:01 +1000
+
+srecord (1.15.D003-1) unstable; urgency=low
+
+  * This change improves the srecord.spec file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 27 Jul 2003 21:24:48 +1000
+
+srecord (1.15.D002-1) unstable; urgency=low
+
+  * This change copes with gcc 3.2 differences.
+  * It also looks in the new place for the install-sh file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 06 Jul 2003 21:20:12 +1000
+
+srecord (1.15.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 16 Jun 2003 22:22:17 +1000
+
+srecord (1.14.D008-1) unstable; urgency=low
+
+  * This change adds more capabilities to the Ascii-Hex format
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 16 Jun 2003 21:37:13 +1000
+
+srecord (1.14.D007-1) unstable; urgency=low
+
+  * This change adds the Fairchild Fairbug file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 16 Jun 2003 11:22:13 +1000
+
+srecord (1.14.D006-1) unstable; urgency=low
+
+  * This change adds the Spectrum format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 14 Jun 2003 17:12:28 +1000
+
+srecord (1.14.D005-1) unstable; urgency=low
+
+  * This change adds the formatted binary format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 13 Jun 2003 23:32:56 +1000
+
+srecord (1.14.D004-1) unstable; urgency=low
+
+  * This change adds more Doxygen comments to the include files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 12 Jun 2003 10:38:08 +1000
+
+srecord (1.14.D003-1) unstable; urgency=low
+
+  * This change adds the RCA Cosmac file format for reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Jun 2003 21:06:07 +1000
+
+srecord (1.14.D002-1) unstable; urgency=low
+
+  * This change adds the needham hexadecimal format for reading and writing.
+  * This format is used with Needham EMP series programmers.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Jun 2003 11:15:44 +1000
+
+srecord (1.14.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 11 Mar 2003 09:01:02 +1100
+
+srecord (1.13.D005-1) unstable; urgency=low
+
+  * This change adds a link to the web page pointing users at pre-built windows
+    binaries.
+  * My thanks to E. Weddington <eric@umginc.net> for this link, and for building
+    the binaries.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 11 Mar 2003 08:51:14 +1100
+
+srecord (1.13.D004-1) unstable; urgency=low
+
+  * This change fixes a bug which prevented setting an empty header.
+  * My thanks to Christian Richter <crichter@sbs-europe.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 12 Feb 2003 21:23:23 +1100
+
+srecord (1.13.D003-1) unstable; urgency=low
+
+  * This change fixes some GCC 3.2 build problems.
+  * My thanks to Caminati Carlo <C.Caminati@selta.it> and doj@cubic.org for this
+    patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 07 Feb 2003 09:03:10 +1100
+
+srecord (1.13.D002-1) unstable; urgency=low
+
+  * This change adds the sourceforge logo to the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 06 Feb 2003 09:06:31 +1100
+
+srecord (1.13.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 05 Feb 2003 21:26:23 +1100
+
+srecord (1.12.D008-1) unstable; urgency=low
+
+  * This change moves the archive location to srecord.sourceforge.net
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 05 Feb 2003 20:53:15 +1100
+
+srecord (1.12.D007-1) unstable; urgency=low
+
+  * This change adds basic file metrics.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 05 Feb 2003 20:48:27 +1100
+
+srecord (1.12.D006-1) unstable; urgency=low
+
+  * This change fixes problems with uninitialized instance variables in the
+    Texas Instruments Tagged and VHDL formats.
+  * My thanks to Eric Weddington <eric@umginc.net> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 27 Jan 2003 17:29:32 +1100
+
+srecord (1.12.D005-1) unstable; urgency=low
+
+  * This change fixes a compiler warning.
+  * My thanks to Eric Weddington <eric@umginc.net> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 27 Jan 2003 15:03:44 +1100
+
+srecord (1.12.D004-1) unstable; urgency=low
+
+  * This change adds information about building SRecord on Cygwin.
+  * My thanks to Eric Weddington <eric@umginc.net> for this fix.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 27 Jan 2003 14:53:54 +1100
+
+srecord (1.12.D003-1) unstable; urgency=low
+
+  * This change fixes some more GCC 3.x issues.
+  * My thanks to E. Weddington <eric@umginc.net> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 20 Jan 2003 22:57:42 +1100
+
+srecord (1.12.D002-1) unstable; urgency=low
+
+  * This change adds the ASM and BASIC output formats.
+  * My thanks to silva@pacificcoast.net for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 19 Jan 2003 00:43:08 +1100
+
+srecord (1.12.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 06 Dec 2002 10:55:33 +1100
+
+srecord (1.11.D005-1) unstable; urgency=low
+
+  * This change adds the ability to put -min, -man or -len almost anywhere on
+    the command line that you can put a number.  It allows, for example, the -
+    offset value to be calculated from the maximum of the previous file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 06 Dec 2002 10:35:42 +1100
+
+srecord (1.11.D004-1) unstable; urgency=low
+
+  * This change fixes the comment style to be exclusively C++
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Nov 2002 15:12:58 +1100
+
+srecord (1.11.D003-1) unstable; urgency=low
+
+  * This change has the S5 records cope with the wird stuff GreenHills compiler
+    produces.
+  * My thanks to Warren Farber <wfarber@dekaresearch.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 22 Nov 2002 10:47:44 +1100
+
+srecord (1.11.D002-1) unstable; urgency=low
+
+  * This change rebuilds the tarball, because it was messed up due to some other
+    cause outside the project.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 21 Oct 2002 21:51:06 +1000
+
+srecord (1.11.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 21 Oct 2002 21:20:49 +1000
+
+srecord (1.10.D006-1) unstable; urgency=low
+
+  * This change fixes the build to cope with recent (2.5x) GNU Autoconf changes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 21 Oct 2002 17:39:24 +1000
+
+srecord (1.10.D005-1) unstable; urgency=low
+
+  * This change adds the OS65V format.
+  * "The old Ohio Scientific machines contained a monitor, OS65V, which
+    downloaded
+  * hex files in its own simple format."
+  * My thanks to David Fenyes <dave@fenyes.net> for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 21 Oct 2002 17:21:43 +1000
+
+srecord (1.10.D004-1) unstable; urgency=low
+
+  * This change adds ./configure insulation for vsnprintf
+  * My thanks to shankara <shankara@spearnet.net> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 15 Aug 2002 21:25:31 +1000
+
+srecord (1.10.D003-1) unstable; urgency=low
+
+  * This change adds a link to the Debian page for SRecord.
+  * My thanks to Stephen Moraco <stephen@debian.org>, who is the Debian
+    maintainer.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Jul 2002 09:46:22 +1000
+
+srecord (1.10.D002-1) unstable; urgency=low
+
+  * This change copes with some Cygwin build issues.
+  * My thanks to Ian Ridley <iridley@btr-auto.aust.com> for reporting this
+    problem: "use of vsnprintf & snprintf, these are not defined in msvcrt, but
+    _vsnprintf & _snprintf are defined"
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 09 Jul 2002 15:03:57 +1000
+
+srecord (1.10.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 14 Jun 2002 09:19:36 +1000
+
+srecord (1.9.D008-1) unstable; urgency=low
+
+  * This change updates the Intel Hex format to emit the first (usually
+    redundant) extended linear address record (type 4) before the first file
+    data.  Previously it was omitted until the 2nd 64K was accessed.
+  * My thanks to Stuart Warren <Stuart.WARREN@dds.delphiauto.com> for reporting
+    this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 14 Jun 2002 09:05:47 +1000
+
+srecord (1.9.D007-1) unstable; urgency=low
+
+  * This change causes srec_cat to seek less when it outputs to binary files.
+    This was not a problem for regular files, but it made a mess when piping the
+    standard output to some other program (you can't seek on pipes).  Most of
+    the the the seeks were unnecessary, so they are avoided whenever possible.
+  * My thanks to Stuart Warren <Stuart.WARREN@dds.delphiauto.com> for this
+    suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 11 Jun 2002 12:05:07 +1000
+
+srecord (1.9.D006-1) unstable; urgency=low
+
+  * This change adds the S6 record type to the Motorola S-Record format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 May 2002 09:33:48 +1000
+
+srecord (1.9.D005-1) unstable; urgency=low
+
+  * This change fixes a problem with DEC Binary output on Windows machines.
+  * "I brought your software to my NT machine, and built it using cygwin. Once
+  * I got the right cygwin software downloaded, the build went fine. However,
+  * when I did the make sure, I got the error below:
+  * /bin/sh test/00/t0075a.sh
+  * srec_cmp: test.out: 2: checksum mismatch (D5)
+  * FAILED test of the DEC Binary functionality"
+  * My thanks to Andy Levin <levina@netscout.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 19 Feb 2002 22:43:56 +1100
+
+srecord (1.9.D004-1) unstable; urgency=low
+
+  * This change adds the LSI Logic fastload format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 31 Dec 2001 21:29:26 +1100
+
+srecord (1.9.D003-1) unstable; urgency=low
+
+  * This change makes SRecord compile using GCC 3.0.2. This should fix the
+    Cygwin build problems, too.
+  * My thanks to doj@cubic.org for this patch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 29 Nov 2001 10:18:52 +1100
+
+srecord (1.9.D002-1) unstable; urgency=low
+
+  * This change fixes an uglyness on the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Nov 2001 10:18:37 +1100
+
+srecord (1.9.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for its next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 27 Nov 2001 10:05:06 +1100
+
+srecord (1.8.D016-1) unstable; urgency=low
+
+  * This change adds the DEC Binary (XXDP) format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 26 Nov 2001 22:56:07 +1100
+
+srecord (1.8.D015-1) unstable; urgency=low
+
+  * This change adds a command line option to the srec_cat program sho that you
+    can set the header comment from the command line, for those formats which
+    support header comments.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 26 Nov 2001 20:10:02 +1100
+
+srecord (1.8.D014-1) unstable; urgency=low
+
+  * This change adds the Elektor Monitor (EMON52) file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 26 Nov 2001 13:59:38 +1100
+
+srecord (1.8.D013-1) unstable; urgency=low
+
+  * This change inserts the output address range checking into all of the 16-bit
+    output formats.  This should always have been there, and was present in a
+    partial form in some formats.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 26 Nov 2001 11:42:40 +1100
+
+srecord (1.8.D012-1) unstable; urgency=low
+
+  * This change tells the build system how to construct the documentation HTML
+    files from the .h file using Doxygen.  Some improvements to header files
+    were also made.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 24 Nov 2001 23:57:08 +1100
+
+srecord (1.8.D011-1) unstable; urgency=low
+
+  * This change adds the Signetics file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 24 Nov 2001 20:49:48 +1100
+
+srecord (1.8.D010-1) unstable; urgency=low
+
+  * This change adds the Four Packed Code (FPC) file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 24 Nov 2001 16:31:23 +1100
+
+srecord (1.8.D009-1) unstable; urgency=low
+
+  * This change preserves headers as they are processed by srec_cat.  It also
+    improves the header handling in the TI-tagged format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 23 Nov 2001 15:56:29 +1100
+
+srecord (1.8.D008-1) unstable; urgency=low
+
+  * This change adds the ATMEL Generic file format for input and output.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 04 Sep 2001 20:41:18 +1000
+
+srecord (1.8.D007-1) unstable; urgency=low
+
+  * This change fixes a bug filling intel hex files. It turns out that a number
+    of filters, not just the fill filter, assume that the termination record is
+    the last record in the file. For some formats this is not true, so they have
+    been re-coded without this assumption. The "termination" record has been
+    renamed the "start address" record, to more accurately refect what it does,
+    and to remove the expectation that it is the last record in the file.
+  * My thanks to Neil Viberg <Neil.Viberg@cmcelectronics.ca> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 22 Aug 2001 14:24:09 +1000
+
+srecord (1.8.D006-1) unstable; urgency=low
+
+  * This change adds a note to the documentation about DJGPP.
+  * My thanks to Shankar Chakkere <shankar_chakkere@denro.littonas.com> for this
+    information.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 18 Jul 2001 08:37:32 +1000
+
+srecord (1.8.D005-1) unstable; urgency=low
+
+  * This change fixes a typo in the tektronix output class.
+  * My thanks to Jim Purcell <jim@needhams.com> for his assistance in finding
+    this bug.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 25 May 2001 07:11:39 +1000
+
+srecord (1.8.D004-1) unstable; urgency=low
+
+  * This change fixed a bug in the Tektronix file format. It was checksumming
+    bytes when it should have checksummed nybbles.
+  * My thanks to Jim Purcell <jim@needhams.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 24 May 2001 12:52:13 +1000
+
+srecord (1.8.D003-1) unstable; urgency=low
+
+  * This change adds the SPASM format for reading and writing.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 24 May 2001 12:20:09 +1000
+
+srecord (1.8.D002-1) unstable; urgency=low
+
+  * This change causes srec_cmp -v to emit hexadecimal addresses, rather than
+    decimals ones.  This is usually more useful.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 15 May 2001 13:55:57 +1000
+
+srecord (1.8.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 30 Apr 2001 21:32:00 +1000
+
+srecord (1.7.D008-1) unstable; urgency=low
+
+  * This change adds the unfill filter, used to reverse the effects of the
+    "fill" filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 30 Apr 2001 11:37:56 +1000
+
+srecord (1.7.D007-1) unstable; urgency=low
+
+  * This change fixes a bug in the CRC16 and CRC32 calculations. The code on
+    which the implementation was originally based was wrong. This implementation
+    produces results which agree with many implementations available on the
+    Internet.
+  * My thanks to Dimitris Beletsiotis" <dbele@intracom.gr> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 30 Apr 2001 10:31:13 +1000
+
+srecord (1.7.D006-1) unstable; urgency=low
+
+  * This change adds a bit-wise not filter.
+  * My thanks to Holger Mueller <hmueller@sitronic.com> for this contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 27 Apr 2001 09:28:03 +1000
+
+srecord (1.7.D005-1) unstable; urgency=low
+
+  * This change fixes a couple of build problems.  My thanks to Holger Mueller
+    <hmueller@sitronic.com> for reporting them.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 26 Apr 2001 13:13:22 +1000
+
+srecord (1.7.D004-1) unstable; urgency=low
+
+  * This change fixes a bug in the memory chunk iterator code. This affected
+    CRC16 and CRC32 functionality.
+  * My thanks to Dimitris Beletsiotis <dbele@intracom.gr> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 26 Apr 2001 09:44:05 +1000
+
+srecord (1.7.D003-1) unstable; urgency=low
+
+  * This change fixed a problem with the error reporting in the CRC16 and CRC32
+    filter classes.
+  * My thanks to Dimitris Beletsiotis <dbele@intracom.gr> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 24 Apr 2001 10:29:57 +1000
+
+srecord (1.7.D002-1) unstable; urgency=low
+
+  * This change updates the web pages to cope with a small move of the files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 19 Mar 2001 13:32:41 +1100
+
+srecord (1.7.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for its next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 19 Mar 2001 11:14:42 +1100
+
+srecord (1.6.D008-1) unstable; urgency=low
+
+  * This change fixes some build problems.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 19 Mar 2001 10:24:16 +1100
+
+srecord (1.6.D007-1) unstable; urgency=low
+
+  * This change fixes a couple of problems found when attempting to end the
+    branch.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 19 Mar 2001 10:12:03 +1100
+
+srecord (1.6.D006-1) unstable; urgency=low
+
+  * This change fixes some of the documentation, particularly removing the last
+    few references to .ps.gz files (replaced by pdf).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 15 Mar 2001 09:20:10 +1100
+
+srecord (1.6.D005-1) unstable; urgency=low
+
+  * This change adds an option so that locations in memory may be overwritten.
+  * There is a new --multiple option to the commands, which permits an input
+    file to contain multiple (contradictory) values for some memory locations.
+    The last value in the file will be used.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 09 Feb 2001 13:25:42 +1100
+
+srecord (1.6.D004-1) unstable; urgency=low
+
+  * This change adds the srec_cat --address-length option, used to force the
+    minimum address length of the output format, if possible.  Some output
+    formats to do permit this.
+  * My thanks to Steve Ferree <s.ferree@cummins.com> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 09 Feb 2001 13:12:32 +1100
+
+srecord (1.6.D003-1) unstable; urgency=low
+
+  * This change adds an include of <stddef.h> to include/srec/memory/chunk.h
+    because it cauased a build problem on some platforms.
+  * My thanks to Hendrik De Vloed <hendrik.devloed@barco.com> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 07 Dec 2000 08:16:07 +1100
+
+srecord (1.6.D002-1) unstable; urgency=low
+
+  * This change fixes another bug in the C Array output.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 04 Dec 2000 09:43:45 +1100
+
+srecord (1.6.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 03 Dec 2000 22:17:00 +1100
+
+srecord (1.5.D011-1) unstable; urgency=low
+
+  * This change fixes a bug in the C-Array output format.  Holes in the input
+    resulted in syntax errors in the output.
+  * My thanks to Chris Maynard <Chris.Maynard@GTECH.COM> for reporting this
+    problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 21 Nov 2000 08:59:18 +1100
+
+srecord (1.5.D010-1) unstable; urgency=low
+
+  * This change adds a CRC 32 input filter (big endian and little endian).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 16 Nov 2000 21:52:49 +1100
+
+srecord (1.5.D009-1) unstable; urgency=low
+
+  * This change adds a CRC 16 input filter (big endian and little endian).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 14 Nov 2000 22:32:41 +1100
+
+srecord (1.5.D008-1) unstable; urgency=low
+
+  * This change adds VHDL output format.
+  * My thanks to Hendrik De Vloed <hendrik.devloed@barco.com> for this
+    contribution.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Oct 2000 17:40:08 +1100
+
+srecord (1.5.D007-1) unstable; urgency=low
+
+  * This change adds some instructions about Windows NT
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 05 Sep 2000 10:22:24 +1100
+
+srecord (1.5.D006-1) unstable; urgency=low
+
+  * This change makes the srec_cmp -verbose option more efficient, so that it
+    runs much faster for large files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 13 Jun 2000 12:49:10 +1000
+
+srecord (1.5.D005-1) unstable; urgency=low
+
+  * This change adds a 2s complement checksum filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 04 Apr 2000 22:42:23 +1000
+
+srecord (1.5.D004-1) unstable; urgency=low
+
+  * This change adds a -verbose option to the srec_cmp program, so that it gives
+    a summary of all the way in which the two files differ, if they do.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 02 Apr 2000 15:06:42 +1000
+
+srecord (1.5.D003-1) unstable; urgency=low
+
+  * This change fixed abug in the error message prefixes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 09 Mar 2000 10:14:19 +1100
+
+srecord (1.5.D002-1) unstable; urgency=low
+
+  * This change makes some changes to make srecord more portable to Windows (to
+    the tests, actually, the code was fine).
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 07 Mar 2000 20:27:42 +1100
+
+srecord (1.5.D001-1) unstable; urgency=low
+
+  * This change prepares S-Record for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Mar 2000 22:16:40 +1100
+
+srecord (1.4.D011-1) unstable; urgency=low
+
+  * This change adds code to automatically guess input file formats.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 06 Mar 2000 21:36:13 +1100
+
+srecord (1.4.D010-1) unstable; urgency=low
+
+  * This change adds the MOS Technology file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 04 Mar 2000 22:09:38 +1100
+
+srecord (1.4.D009-1) unstable; urgency=low
+
+  * This change adds the extended tektronix file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 04 Mar 2000 19:50:30 +1100
+
+srecord (1.4.D008-1) unstable; urgency=low
+
+  * This change adds the Texas Instruments SDSMAC tagged object format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 03 Mar 2000 23:13:23 +1100
+
+srecord (1.4.D007-1) unstable; urgency=low
+
+  * This change adds the ASCII hex file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 02 Mar 2000 22:19:59 +1100
+
+srecord (1.4.D006-1) unstable; urgency=low
+
+  * This change adds the ``Wilson'' file format.  The actual name of this format
+    is unknown.
+  * This format was put together for Alan Wilson <dvdsales@dvdlibrary.co.uk> to
+    drive some unusual equipment he uses.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 02 Mar 2000 17:09:48 +1100
+
+srecord (1.4.D005-1) unstable; urgency=low
+
+  * This change adds the byte swap filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 02 Mar 2000 13:02:03 +1100
+
+srecord (1.4.D004-1) unstable; urgency=low
+
+  * This change adds the srec_cat -data-only option, which causes the output
+    (all formats) to include only the data, and not the header or footer records
+    (or any other non-data records, for that matter).
+  * My thanks to Russel Lemon <russell@nautitech.com.au> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 28 Feb 2000 17:46:44 +1100
+
+srecord (1.4.D003-1) unstable; urgency=low
+
+  * This change fixes a Y2K glitch on the web page.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 19 Jan 2000 11:24:56 +1100
+
+srecord (1.4.D002-1) unstable; urgency=low
+
+  * This change adds a line length option to srec_cat, so that the user may
+    specify then maximum line length of the output.
+  * My thanks to Paolo Monari <paolomonari@digitek.it> for this suggestion.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 17 Jan 2000 14:10:58 +1100
+
+srecord (1.4.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 13 Jan 2000 13:33:14 +1100
+
+srecord (1.3.D003-1) unstable; urgency=low
+
+  * This change makes the text input more robust when faced with CRLF files
+    (caused by DOS and UNIX sharing the same file server).
+  * My thanks to Galen Seitz <galens@seitzassoc.com> for reporting this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 04 Nov 1999 13:16:00 +1100
+
+srecord (1.3.D002-1) unstable; urgency=low
+
+  * This change updates the FSF address in the GPL file headers.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 05 Aug 1999 13:01:38 +1000
+
+srecord (1.3.D001-1) unstable; urgency=low
+
+  * This change prepares SRecord for the next public release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 12 May 1999 14:52:51 +1000
+
+srecord (1.2.D006-1) unstable; urgency=low
+
+  * This change corrects a bug on Windows NT where binary files are being opened
+    in text mode.  For Unix this doesn't matter, but for Windows NT this is a
+    disaster.
+  * My thanks to Angel Jimenez Jimenez <angel.jimenez@ALCATEL.ES> for reporting
+    this problem.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 12 May 1999 12:52:53 +1000
+
+srecord (1.2.D005-1) unstable; urgency=low
+
+  * This change adds the xor data filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 12 Nov 1998 17:54:29 +1100
+
+srecord (1.2.D004-1) unstable; urgency=low
+
+  * This change adds a bit-wise AND filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 11 Nov 1998 18:14:05 +1100
+
+srecord (1.2.D003-1) unstable; urgency=low
+
+  * This change adds a filter allowing you to OR a constant into the data.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 1998 18:22:39 +1100
+
+srecord (1.2.D002-1) unstable; urgency=low
+
+  * This change improves the use of the #pragma implementation and #pragma
+    interface to cope with older and dumber G++ versions.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 09 Nov 1998 17:59:02 +1100
+
+srecord (1.2.D001-1) unstable; urgency=low
+
+  * This change prepares this next version for release.  The releases are post-
+    numbered.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 05 Nov 1998 10:49:49 +1100
+
+srecord (1.1.D010-1) unstable; urgency=low
+
+  * This change adds the --unsplit filter, used to do the reverse of the --split
+    filter
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 04 Nov 1998 18:25:04 +1100
+
+srecord (1.1.D009-1) unstable; urgency=low
+
+  * This change updates the installation build to include the reference manual.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Wed, 04 Nov 1998 14:52:18 +1100
+
+srecord (1.1.D008-1) unstable; urgency=low
+
+  * This change adds the split filter, for splitting wide eprom images.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 03 Nov 1998 18:12:52 +1100
+
+srecord (1.1.D007-1) unstable; urgency=low
+
+  * This change adds support for Tektronix abort records.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 02 Nov 1998 00:03:50 +1100
+
+srecord (1.1.D006-1) unstable; urgency=low
+
+  * This change completes the support for Intel mode.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 01 Nov 1998 12:11:49 +1100
+
+srecord (1.1.D005-1) unstable; urgency=low
+
+  * This change adds reading and writing of the Tektronix hex file format.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 30 Oct 1998 23:42:06 +1100
+
+srecord (1.1.D004-1) unstable; urgency=low
+
+  * This change adds a reference manual, constructed from the readme and
+    building files, and the manual pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 30 Oct 1998 23:30:52 +1100
+
+srecord (1.1.D003-1) unstable; urgency=low
+
+  * This change adds file format man pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 29 Jun 1998 10:39:49 +1000
+
+srecord (1.1.D002-1) unstable; urgency=low
+
+  * This change updates the LSM, etc, to reflect where the SunSite.unc
+    maintainers chose to put the software.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Thu, 26 Mar 1998 10:07:52 +1100
+
+srecord (1.1.D001-1) unstable; urgency=low
+
+  * This change tidies up loose ends (and cranks on the version number) in
+    preparation for release.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Mar 1998 12:47:34 +1100
+
+srecord (1.0.D020-1) unstable; urgency=low
+
+  * This change makes the input formts more generous about garbage lines on
+    input.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Mar 1998 10:55:06 +1100
+
+srecord (1.0.D019-1) unstable; urgency=low
+
+  * This change adds a file manifest to the distribution set.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 22 Mar 1998 09:03:34 +1100
+
+srecord (1.0.D018-1) unstable; urgency=low
+
+  * Thsi change adds the minimum and maximum filters.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 21 Mar 1998 23:00:11 +1100
+
+srecord (1.0.D017-1) unstable; urgency=low
+
+  * This change adds a checksum filter, to insert checksums into the data.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 21 Mar 1998 21:12:16 +1100
+
+srecord (1.0.D016-1) unstable; urgency=low
+
+  * This change adds the srec_info command, use to obtain information about data
+    files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 21 Mar 1998 20:53:07 +1100
+
+srecord (1.0.D015-1) unstable; urgency=low
+
+  * This change adds help and version options to all of the commands.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 20 Mar 1998 12:22:28 +1100
+
+srecord (1.0.D014-1) unstable; urgency=low
+
+  * 1. This change adds the C output filter.      This allows a C source file
+    containing an array initialized with the input data.
+  * 2. This change adds the -over and -within address range specifiers.
+  * 3. This change adds a variety of examples to the man pages.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Mon, 16 Mar 1998 17:12:45 +1100
+
+srecord (1.0.D013-1) unstable; urgency=low
+
+  * This change adds the length filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 15 Mar 1998 22:39:55 +1100
+
+srecord (1.0.D012-1) unstable; urgency=low
+
+  * This change adds the fill filter, to fill hols in the input files.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 15 Mar 1998 18:01:57 +1100
+
+srecord (1.0.D011-1) unstable; urgency=low
+
+  * 1. This change refines the description in the README file.
+  * 2. This change refines the description in the spec file.
+  * 3. This change adds an LSM file and a HTML home page with icon
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 15 Mar 1998 15:41:54 +1100
+
+srecord (1.0.D010-1) unstable; urgency=low
+
+  * This change adds the exclude filter, the opposite of the crop filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 15 Mar 1998 09:51:44 +1100
+
+srecord (1.0.D009-1) unstable; urgency=low
+
+  * This change s the first round in preparing the code for release.      It
+    constructs a Makefile, a tar file, and an RPM spec file.  RPM package build
+    s are supported, but are not an integration build target, because they take
+    so long.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 13 Mar 1998 12:09:49 +1100
+
+srecord (1.0.D008-1) unstable; urgency=low
+
+  * This change adds the crop filter, to remove portions of a file.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Mar 1998 22:11:43 +1100
+
+srecord (1.0.D007-1) unstable; urgency=low
+
+  * This change corrects a problem where the tests were leaving their working
+    directory behind.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Mar 1998 22:01:50 +1100
+
+srecord (1.0.D006-1) unstable; urgency=low
+
+  * This change adds the binary file type.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Mar 1998 13:50:22 +1100
+
+srecord (1.0.D005-1) unstable; urgency=low
+
+  * 1. This change adds the intel hex format for input and output.
+  * 2. This change adds the offset filter.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Tue, 10 Mar 1998 13:17:06 +1100
+
+srecord (1.0.D004-1) unstable; urgency=low
+
+  * This change adds the srec_cmp command, used to compare srec files. It is
+    not sufficient to use cmp(1) or diff(1), because the record boundaries are
+    arbitrary.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Mar 1998 21:48:34 +1100
+
+srecord (1.0.D003-1) unstable; urgency=low
+
+  * This change adds a memory store for grouping.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sun, 08 Mar 1998 21:11:14 +1100
+
+srecord (1.0.D002-1) unstable; urgency=low
+
+  * This change adds the fundamental library classes.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Sat, 07 Mar 1998 21:59:29 +1100
+
+srecord (1.0.D001-1) unstable; urgency=low
+
+  * This change introduces the initial build skeleton.
+
+ -- Peter Miller <pmiller@opensource.org.au>  Fri, 06 Mar 1998 14:55:52 +1100
+

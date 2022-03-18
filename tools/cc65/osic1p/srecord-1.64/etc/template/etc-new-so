@@ -1,0 +1,33 @@
+.\"
+.\" ${project trunk_name} - ${project trunk_description}
+.\" Copyright (C) ${date %Y} ${user name}
+.\"
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the Free
+.\" Software Foundation; either version 3 of the License, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+.\" or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+.\" for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.\"
+.\" you can create the initial cut of this file using the
+.\"
+.\"     aereport -f /usr/local/share/aegis/report/chan_so.rpt \
+.\"             -p ${project trunk_name}.${trim_ext ${project version}
+} -c ${substring ${project version}  ${length ${trim-ext ${project version}}.
+} 9} -unf
+.\"
+.\" command, and then editing it to be more appropriate.
+.\"
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.ne 2i
+.SS Version ${project version} (${date %Y\\[hy]%b\\[hy]%d})
+.\" vim: set ts=8 sw=4 et :

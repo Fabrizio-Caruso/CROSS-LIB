@@ -1,0 +1,45 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.PP
+All options may be abbreviated;
+the abbreviation is documented as the upper case letters,
+all lower case letters and underscores (_) are optional.
+You must use consecutive sequences of optional letters.
+.PP
+All options are case insensitive,
+you may type them in upper case or lower case or a combination of both,
+case is not important.
+.PP
+For example:
+the arguments \[lq]\-help\[rq], \[lq]\-HEL\[rq] and \[lq]\-h\[rq] are
+all interpreted to mean the \fB\-Help\fP option.
+The argument \[lq]\-hlp\[rq] will not be understood,
+because consecutive optional characters were not supplied.
+.PP
+Options and other command line arguments may be
+mixed arbitrarily on the command line.
+.br
+.ne 4
+.PP
+The GNU long option names are understood.
+Since all option names for
+.I \*(n)
+are long,
+this means ignoring the extra leading \[lq]\-\[rq].
+The \[lq]\fB\-\-\fIoption\fB=\fIvalue\fR\[rq] convention is also understood.

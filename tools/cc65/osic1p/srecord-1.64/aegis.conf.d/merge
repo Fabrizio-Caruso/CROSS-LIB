@@ -1,0 +1,62 @@
+#
+#       srecord - The "srecord" program.
+#       Copyright (C) 2007, 2011 Peter Miller
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program. If not, see
+#       <http://www.gnu.org/licenses/>.
+#
+
+/*
+ * RCS also provides a merge program, which can be used to provide a three-way
+ * merge.  It has an ouput format some sites prefer to the fmerge output.
+ *
+ * This command is used by aed(1) to produce a difference listing when a file
+ * in the development directory is out of date compared to the current version
+ * in the baseline.
+ *
+ * All of the command substitutions described in aesub(5) are available.
+ * In addition, the following substitutions are also available:
+ *
+ * ${ORiginal}
+ *      The absolute path name of a file containing the common ancestor
+ *      version of ${MostRecent} and {$Input}.  Usually the version originally
+ *      copied into the change.  Usually in a temporary file.
+ * ${Most_Recent}
+ *      The absolute path name of a file containing the most recent version.
+ *      Usually in the baseline.
+ * ${Input}
+ *      The absolute path name of the edited version of the file.  Usually in
+ *      the development directory.
+ * ${Output}
+ *      The absolute path name of the file in which to write the difference
+ *      listing.  Usually in the development directory.
+ *
+ * An exit status of 0 means successful, even of the files differ (and they
+ * usually do).  An exit status which is non-zero means something is wrong.
+ *
+ * The "merge -L" options are used to specify labels for the baseline and the
+ *      development directory, respecticvely, when conflict lines are inserted
+ *      into the result.
+ * The "merge -p" options is used to specify that the results are to be printed
+ *      on the standard output.
+ */
+
+merge_command =
+    "set +e; "
+    "merge -p -L baseline -L C$c $mr $orig $in > $out; "
+    "test $? -le 1"
+    ;
+
+
+# vim: set ts=8 sw=4 et :

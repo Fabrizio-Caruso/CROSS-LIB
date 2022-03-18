@@ -1,0 +1,170 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 1998, 2000-2002, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_motorola
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_motorola \- Motorola S\[hy]Record hexadecimal file format
+.if require_index \{
+.XX "srec_motorola(5)" "Motorola S\[hy]Record hexadecimal file format"
+.\}
+.SH DESCRIPTION
+This format is also known as the \fIExorciser\fP, \fIExormacs\fP or
+\fIExormax\fP format.
+.PP
+.\" ------------------------------------------------------------------------
+.\" Derived from http://freeware.mcu.motsps.com/lit/faq/as-80.htm
+Motorola's S\[hy]record format allows binary files to be uploaded and
+downloaded between two computer systems.  This type of format is widely
+used when transferring programs and data between a computer system (such
+as a PC, Macintosh, or workstation) and an emulator or evaluation board
+for Motorola microcontrollers and microprocessors.
+.SS The Lines
+Most S\[hy]Record file contain only S\[hy]Record lines (see the next section),
+which always start with a capital S character.  Some systems generate
+various \[lq]extensions[rq] which usually manifest as lines which start with
+something else.  These \[lq]extension[rq] lines may or may not break other
+systems made by other vendors.  Caveat emptor.
+.br
+.ne 2i
+.SS The Fields
+The S\[hy]Record format consists of 5 fields. These are the type field,
+length field, address field, data field, and the checksum.
+The lines always start with a capital S character.
+.TS
+allbox,center,tab(;);
+lf(CW) l l l l l.
+S;Type;Record Length;Address;Data;Checksum
+.TE
+.TP 8n
+Type
+The type field is a 1 character field that specifies whether
+the record is an S0, S1, S2, S3, S5, S6, S7, S8 or S9 field.
+.TP 8n
+Record Length
+The record length field is a 2 character (1 byte) field that specifies the
+number of character pairs (bytes) in the record, excluding the type and
+record length fields.
+.TP 8n
+Address
+This is a 2\[hy], 3\[hy] or 4\[hy]byte address that specifies where the data
+in the S\[hy]Record is to be loaded into memory.
+.TP 8n
+Data
+The data field contains the executable code, memory\[hy]loadable data
+or descriptive information to be transferred.
+.TP 8n
+Checksum
+The checksum is an 8\[hy]bit field that represents the least significant
+byte of the one's complement of the sum of the values represented
+by the pairs of characters making up the record's length, address, and
+data fields.
+.br
+.ne 2i
+.SS Record Types
+.TP 8n
+S0
+This type of record is the header record for each block of S\[hy]Records.
+The data field may contain any descriptive information identifying the
+following block of S\[hy]Records.  (It is commonly \[lq]HDR[rq] on many
+systems.)
+The address field is normally zero.
+.TP 8n
+S1
+A record containing data and the 2\[hy]byte address at which the data is
+to reside.
+.TP 8n
+S2
+A record containing data and the 3\[hy]byte address at which the data is
+to reside.
+.TP 8n
+S3
+A record containing data and the 4\[hy]byte address at which the data is
+to reside.
+.TP 8n
+S5
+.RS
+An optional record containing the number of S1, S2 and S3 records
+transmitted in a particular block.
+The count appears in the two\[hy]byte address field.
+There is no data field.
+.PP
+This record is optional, you do not have to use it.
+Nobody knows if you can have more than one in a file; and if you do,
+nobody knows whether or not the line count resets after each one.
+.PP
+The \f[I]srec_cat\fP command will only ever use one,
+provided the number of lines fits in 16 bits,
+otherwise it will use S6.
+.RS
+.TP 8n
+S6
+.RS
+An optional record containing the number of S1, S2 and S3 records
+transmitted in a particular block.
+The count appears in the three\[hy]byte address field.
+There is no data field.
+.PP
+This record is optional, you do not have to use it.
+Nobody knows if you can have more than one in a file; and if you do,
+nobody knows whether or not the line count resets after each one.
+.PP
+Nobody knows what happens if you mix S5 and S6 records in a file.
+.PP
+The \f[I]srec_cat\fP command will only ever use one,
+provided the number of lines fits in 24 bits.
+.RE
+.TP 8n
+S7
+A termination record for a block of S3 records.  The address field may
+contain the 4\[hy]byte address of the instruction to which control is passed.
+There is no data field.
+.TP 8n
+S8
+A termination record for a block of S2 records.  The address field may
+optionally contain the 3\[hy]byte address of the instruction to which control
+is passed.  There is no data field.
+.TP
+S9
+A termination record for a block of S1 records.  The address field
+may optionally contain the 2\[hy]byte address of the instruction to
+which control is passed.  If not specified, the first entry point
+specification encountered in the object module input will be used.
+There is no data field.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 2.4 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example S\[hy]Record file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0.
+.RS
+.nf
+.ft CW
+S00600004844521B
+S110000048656C6C6F2C20576F726C640A9D
+S5030001FB
+S9030000FC
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

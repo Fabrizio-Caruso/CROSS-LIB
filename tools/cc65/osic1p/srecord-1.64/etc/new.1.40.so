@@ -1,0 +1,55 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 28, 27
+False negative being reported by tests on Cygwin have been fixed.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 19
+There are six new filters (\-be\[hy]exclusive\[hy]length,
+\-le\[hy]exclusive\[hy]length, \-be\[hy]exclusive\[hy]maximum,
+\-le\[hy]exclusive\[hy]maximum, \-be\[hy]exclusive\[hy]minimum and
+\-le\[hy]exclusive\[hy]minimum) which are very similar to their
+non\[hy]exclusive equivalents, except that they do not include the
+adress range covered by their output in their output.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18, 16
+A bug has been fixed in the C word\[hy]array output.
+It was getting offsets and lengths wrong in some cases.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 14
+A bug has been fixed in the generated C array header file,
+it no longer omits the section descriptor arrays.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+A problem with building RPM packages with the names of the executables
+in the .spec file has been fixed, and the BuildRequires has been
+updated.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.40 (2008\[hy]Mar\[hy]13)
+.\" vim: set ts=8 sw=4 et :

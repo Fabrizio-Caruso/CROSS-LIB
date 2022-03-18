@@ -1,0 +1,62 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or (at
+.\" your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 20
+The byte order of the fletcher16 output has been reversed.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 22
+The meaning of the \fB\-address\[hy]length\fP option has been change for
+the Intel output format. Previously, 2 meant using i16hex 20\[hy]bit
+segmented addressing, and >2 meant using i32hex extended
+addressing. This has been changed: a value of 2 requests i8hex
+16\[hy]bit addressing, a value of 3 requests i16hex 20\[hy]bit segment
+addressing, and a value >=4 requests i32hex 32\[hy]bit addressing.
+My thanks to Stephen R. Phillips \f[CW]<srp@CSECorporation.com>\fP for
+reporting the absence of i8hex support.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 23
+The \fB\-generate \-repeat\[hy]string\fP option is now able to take a
+string that looks like a number as the text to be repeated. My
+thanks to Stephen R. Phillips \f[CW]<srp@CSECorporation.com>\fP for
+reporting this problem.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 19
+Luca Giancristofaro \f[CW]<luca.giancristofaro@prosa.com>\fP discovered a
+WinAVR linker that is a sandwich short of a picnic: it generated
+non\[hy]conforming Intel hex end\[hy]of\[hy]file records.  This is no longer
+an error, but only a warning.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+There were some problems with the RPM spec file, these have been
+improved.  My thanks to Galen Seitz \f[CW]<galens@seitzassoc.com>\fP for
+reporting this problem.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.56 (2010\[hy]Sep\[hy]15)
+.\" vim: set ts=8 sw=4 et :

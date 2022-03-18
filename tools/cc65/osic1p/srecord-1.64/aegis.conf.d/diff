@@ -1,0 +1,54 @@
+#
+#       srecord - The "srecord" program.
+#       Copyright (C) 2007, 2011 Peter Miller
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program. If not, see
+#       <http://www.gnu.org/licenses/>.
+#
+
+/*
+ * Compare two files using fcomp.  The -w option produces an output of the
+ * entire file, with insertions an deletions marked by "change bars" in the
+ * left margin.  This is superior to context difference, as it shows the entire
+ * file as context.  The -s option could be added to compare runs of white
+ * space as equal.
+ *
+ * This command is used by aed(1) to produce a difference listing when file in
+ * the development directory was originally copied from the current version in
+ * the baseline.
+ *
+ * All of the command substitutions described in aesub(5) are available.
+ * In addition, the following substitutions are also available:
+ *
+ * ${ORiginal}
+ *      The absolute path name of a file containing the version originally
+ *      copied.  Usually in the baseline.
+ * ${Input}
+ *      The absolute path name of the edited version of the file.  Usually in
+ *      the development directory.
+ * ${Output}
+ *      The absolute path name of the file in which to write the difference
+ *      listing.  Usually in the development directory.
+ *
+ * An exit status of 0 means successful, even of the files differ (and they
+ * usually do).  An exit status which is non-zero means something is wrong.
+ *
+ * The non-zero exit status may be used to overload this command with extra
+ * tests, such as line length limits.  The difference files must be produced
+ * in addition to these extra tests.
+ */
+diff_command = "fcomp -w -s $original $input -o $output";
+
+
+# vim: set ts=8 sw=4 et :

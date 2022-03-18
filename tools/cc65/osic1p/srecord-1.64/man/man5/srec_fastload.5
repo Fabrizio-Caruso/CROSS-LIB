@@ -1,0 +1,84 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2001, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_fastload
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_fastload \- LSI Logic Fast Load file format
+.if require_index \{
+.XX "srec_fastload(5)" "LSI Logic Fast Load file format"
+.\}
+.SH DESCRIPTION
+The FastLoad Format uses a compressed ASCII format that permits files
+to be downloaded in less than half the time taken for Motorola S\[hy]records.
+.PP
+The base\[hy]64 encoding used is "A\[hy]Za\[hy]z0\[mi]9,.".  The data is
+encoded in groups of 4 characters (3 bytes, 24 bits).
+.PP
+The character '/' is used to introduce
+a special function.
+Special functions are:
+.TP 8n
+A\fInnnnnn\fP
+Defines an address.
+.TP 8n
+B\fInn\fP
+Define a single byte.
+.TP 8n
+C\fInnnn\fP
+Compare the checksums.
+The checksum is a simple positive 16\[hy]bit sum,
+of the data bytes only.
+.TP 8n
+EAA
+Define the program's entry point.
+The address will be the current address as defined by the \fBA\fP command.
+(The \fIAA\fP number in this command is ignored.)
+This must be the last entry in the file.
+.TP 8n
+KAA
+Clear the checksum.
+(The \fIAA\fP number in this command is ignored.)
+.TP 8n
+S\fIname\fP,X
+Define a symbol.
+The address of the symbol will be the current address as defined by the
+\fBA\fP command.
+.TP 8n
+Z\fInn\fP
+Clear a number of bytes.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 1.4 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example LSI Logic Fast Load format file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0.
+.RS
+.nf
+.ft CW
+/AAAA
+SGVsbG8sIFdvcmxk/BAK/CARS/AAAA/EAA
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

@@ -1,0 +1,53 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 31
+An RPM build problem has been fixed.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 25
+The dependency on the Boost library is now documented in the BUILDING file.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 21, 16
+Some build problems with g++ 4.3 have been fixed
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+A bug has been fixed in the calculation of ranges on the command
+line, it no longer goes into an infinite loop for "\-fill 0xFF
+\-over { foo.hex \-exclude \-within foo.hex }" construct, which
+should have been calculating an empty fill set, but was instead
+calculating a 4GB fill set.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+The CRC32 filters now take an \-xmodem option, to use an
+xmodem\[hy]like (all bit zero) initial state, rather than the
+default CCITT (all bits on) initial state.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.39 (2008\[hy]Feb\[hy]04)
+.\" vim: set ts=8 sw=4 et :

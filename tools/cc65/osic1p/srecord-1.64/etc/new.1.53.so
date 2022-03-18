@@ -1,0 +1,46 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2009-2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or (at
+.\" your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16, 20, 21, 22, 23, 25, 27, 28, 29, 30, 32
+There is now a shared library installed, including the
+necessary header files so that you can use all of the file formats and
+filters in your own projects.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 35, 39, 50, 51
+The license on the shared library code is
+GNU Lesser General Public License, version 3.0 or later.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15, 52
+The code can cope with older versions of GNU Libgcrypt.
+In the case of very old versions, by ignoring it.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 18, 33, 36
+A number of build problems have been fixed.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.53 (2009-Nov-10)
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,60 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2001, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_atmel_generic
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_atmel_generic \- Atmel Generic file format
+.if require_index \{
+.XX "srec_atmel_generic(5)" "Atmel Generic file format"
+.\}
+.SH DESCRIPTION
+This format is the output of the Atmel AVR assembler.
+The file contains two columns of hexadecimal coded values.
+The first column is the 24\[hy]bit word address,
+the second column is the 16\[hy]bit word data.
+The columns are separated by a colon (`:') character.
+.PP
+By default, SRecord treats this is little\[hy]endian data (the least
+significant byte first).  If you want big endian order,
+use the \-atmel\[hy]generic\[hy]be argument instead.
+.SS Size Multiplier
+In general, binary data will expand in sized by approximately 6.0 times
+when represented with this format (6.5 times in Windows).
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Atmel Generic file.
+It contains the data \[lq]Hello, World[rq] to be loaded at bytes address 0x0100
+(but remember, the file contents are word addressed).
+.RS
+.nf
+.ft CW
+000080:4865
+000081:6C6C
+000082:6F2C
+000083:2057
+000084:6F72
+000085:6C64
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

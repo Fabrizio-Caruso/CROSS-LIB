@@ -1,0 +1,52 @@
+'\" t
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2012 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_coe.5
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_coe \- Xilinx Coefficient File Format
+.if require_index \{
+.XX "srec_coe(5)" "Xilinx Coefficient File Format"
+.\}
+.SH DESCRIPTION
+The Xilinx Coefficient File Format
+has a general syntax of the form:
+.TS
+tab(*);
+l l l l l
+l l l l l
+l l l s s.
+\f[I]keyword\fP*\[eq]*\f[I]value\fP*;*\f[I]optional comment\fP
+\f[I]radix\[hy]keyword\fP*\[eq]*\f[I]value\fP*;*\f[I]optional comment\fP
+\f[I]data\[hy]keyword\fP*\[eq]*\f[I]value\fP, ..., \f[I]value\fP\f[B];\fP
+.TE
+.PP
+There are numerous keywords, only the \[lq]memory_initialization_radix\[rq]
+and \[lq]memory_initialization_vector\[rq] keywords are used.
+The semicolons are mandatory.
+.SS Size Multiplier
+Binary data stored in this format expand approximately 4 times
+(5 time on Windows).
+.\" We could get this to approach 4 on windows (and remain 4 on Linux)
+.\" if we put more than one value per line, with commas and speces
+.\" between.
+.SS See Also
+http://www.xilinx.com/support/documentation/sw_manuals/xilinx11/\
+cgn_r_coe_file_syntax.htm
+.ne 1i
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

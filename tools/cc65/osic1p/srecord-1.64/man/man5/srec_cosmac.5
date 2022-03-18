@@ -1,0 +1,79 @@
+'\" t
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2003, 2006-2009 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_cosmac
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_cosmac \- RCA Cosmac Elf file format
+.if require_index \{
+.XX "srec_cosmac(5)" "RCA Cosmac Elf file format"
+.\}
+.SH DESCRIPTION
+This file takes the form of one or more RCA Cosmac Elf monitor commands,
+also known as the IDIOT/4 monitor.
+Only the change memory command (\f[CW]!M\fP) is allowed.
+.PP
+The general form of the \f[CW]!M\fP command takes the form
+.RS
+!M\fIaaaa\fP \fIdd\fP ... \fIdd\fP
+.RE
+The \f[CW]!M\fP command writes data byte bytes (represented by character
+pairs \fIdd\fP) into successive memory locations, started at address
+\fIaaaa\fP.
+Spaces between data bytes are ignored.
+.PP
+Using the comma (\f[CW],\fP) line continuation character resumes from
+the next address in sequence.
+.RS
+!M\fIaaaa\fP \fIdd\fP ... \fIdd\fP,
+\fIdd\fP ... \fIdd\fP
+.RE
+.PP
+Using the semicolon (\f[CW];\fP) line continuation character
+takes an address on the next line
+.RS
+!M\fIaaaa\fP \fIdd\fP ... \fIdd\fP;
+\fIaaaa\fP \fIdd\fP ... \fIdd\fP
+.RE
+.PP
+It is also possible to have the semicolon immediately after the command.
+.RS
+!M;
+\fIaaaa\fP \fIdd\fP ... \fIdd\fP
+.RE
+.PP
+All of these forms may be used in combination.
+.SS Size Multiplier
+In general, binary data will expand in size by approximately 2.0 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example Cosmac file.
+It contains the data \[lq]Hello, World[rq] to be loaded at address 0x1000.
+.RS
+.nf
+.ft CW
+!M1000 48656C6C6F2C20576F726C640A
+.ft P
+.fi
+.RE
+.\" ------------------------------------------------------------------------
+.ds n) srec_cat
+.so man/man1/z_copyright.so

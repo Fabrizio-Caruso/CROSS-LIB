@@ -1,0 +1,135 @@
+/*
+ * srecord - manipulate eprom load files
+ * Copyright (C) 2006, 2007, 2009, 2010, 2013 Peter Miller
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+if [find_command ctags] then
+{
+    /*
+     * There are three different versions of these commands,
+     * and they take completely different command line options.  We
+     * assume minimal posix syntax if nothing better is available.
+     * (What were they thinking?  Were they even thinking?)
+     */
+    ctags-variant = posix;
+
+    /*
+     *  The '|| true' is needed because if ctags fails the build stops.
+     */
+    ctags-version = [collect ctags --version || true];
+    if [in Exuberant [ctags-version]] then
+    {
+        ctags-variant = exuberant;
+    }
+    else
+    if [in Emacs [ctags-version]] then
+    {
+        ctags-variant = emacs;
+    }
+
+    all += tags;
+
+    if [find_command etags] then
+    {
+        etags = etags;
+        all += TAGS;
+    }
+
+    /*
+     * xargs can invoke ctags/etags more than once if the underling
+     * shell does not handle so much arguments.  In order to not
+     * truncate the target the '-a' options must be used.  It is posix
+     * compliant and should be supported by different ctags variant.
+     */
+    ctags-opts = -a;
+
+    if [in posix [ctags-variant]] then
+        ctags-opts += -f;
+
+    if [in exuberant [ctags-variant]] then
+    {
+        ctags-opts += --c-types\=+px -f;
+        etags = ctags -e;
+        all += TAGS;
+    }
+
+    etags-opts = [ctags-opts];
+
+    /*
+     * The (GNU) Emacs variant of ctags (based an Exuberant) use -o
+     * to set the output file name.
+     */
+    if [in emacs [ctags-variant]] then
+    {
+        ctags-opts += --declarations --defines --globals --members --typedefs
+            /* --no-warn (the man page says the --no-warn option exists,
+               but is doesn't, really) */
+            -o
+            ;
+
+        /*
+         * Turns out that the emacs version of etags doesn't offer the
+         * same options as ctags when those options would simply
+         * confirm the default values. Sigh.
+         */
+        etags-opts += --declarations --members
+            /* --no-warn (the man page says the --no-warn option exists,
+               but is doesn't, really) */
+            -o
+            ;
+
+    }
+}
+
+tags: [change_source_files]
+    set shallow no-cascade
+{
+    function if_quiet Generate;
+
+    xargs ctags [ctags-opts] [target]
+            set meter;
+data
+[unsplit "\n"
+    [resolve
+        [stringset [source_files] - [match_mask %0%.h [source_files]]]
+        [match_mask %0%.h [source_files]]
+        [fromto %0%.def %0%.cc [match_mask %0%.def [source_files]]]
+        [fromto %0%.def %0%.h [match_mask %0%.def [source_files]]]
+    ]
+]
+dataend
+}
+
+TAGS: [change_source_files]
+    set shallow no-cascade
+{
+    function if_quiet Generate;
+
+    xargs [etags] [etags-opts] [target]
+        set meter;
+data
+[unsplit "\n"
+    [resolve
+        [source_files]
+        [fromto %0%.def %0%.cc [match_mask %0%.def [source_files]]]
+        [fromto %0%.def %0%.h [match_mask %0%.def [source_files]]]
+    ]
+]
+dataend
+}
+
+
+/* vim: set ts=8 sw=4 et : */

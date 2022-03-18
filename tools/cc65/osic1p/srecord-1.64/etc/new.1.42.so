@@ -1,0 +1,53 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" srecord.1.42.D007
+.\" Change 17, 19
+.\" pmiller, Fri Jul  4 14:44:25 2008, srec_cat --disable=data-count
+The \f[I]srec\[hy]cat \-data\[hy]only\fP option has been broken down into four
+separate controls.  It is now possible to \fB\-enable\fP and \fB\-disable\fP
+individual features, such as \[lq]header\[rq], \[lq]data\[hy]count\[rq],
+\[lq]execution\[hy]start\[hy]address\[rq] and \[lq]footer\[rq].
+See \f[I]srec_cat\fP(1) for more information.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 16
+The \f[I]srec_cat \-start\[hy]address\fP option has been renamed
+\fB\-execution\[hy]start\[hy]address\fP to remove any confusion with the
+\fB\-offset\fP filter.  The documentation now explicitly explains the
+difference between the two.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 15
+Examples of converting to and from binary files have been added
+to the \f[I]srec_examples\fP(1) man page.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 12
+A bug has been fixed in the MOS Tech format, it now emits an end record
+even when there is no execution start address passed in.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.42 (2008\[hy]Jun\[hy]01)
+.\" vim: set ts=8 sw=4 et :

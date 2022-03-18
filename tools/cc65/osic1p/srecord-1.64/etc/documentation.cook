@@ -1,0 +1,169 @@
+/*
+ * srecord - manipulate eprom load files
+ * Copyright (C) 1998-2001, 2003, 2006-2008, 2010-2013 Peter Miller
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+all = [all] documentation;
+
+man_src = [match_mask man/man%1/%2.%1 [source_files]];
+
+documentation:
+    [fromto man/man%1/%2.%1 man/cat%1/%2.%1 [man_src] ]
+    etc/reference.pdf
+    ;
+
+html-documentation: [html-documentation];
+
+html-documentation =
+    [fromto man/man%1/%2.%1 archive/man/man%1/%2.html [man_src] ]
+    archive/man/index.html
+    ;
+
+/* Sigh */
+cascade etc/srecord.html = etc/version.so(exists);
+
+man/cat%1/%2.%1: man/man%1/%2.%1
+    etc/groff.sh
+{
+    function if_quiet Generate;
+
+    sh [resolve etc/groff.sh]
+        [addprefix "-I" [search_list]]
+        -Tascii -t -P-c -man
+        [resolve man/man%1/%2.%1]
+    > [target];
+}
+
+archive/man/man%1/%2.html: man/man%1/%2.%1: etc/groff.sh
+    set shallow
+{
+    function if_quiet Groff;
+
+    sh [resolve etc/groff.sh]
+        [addprefix "-I" [search_list]]
+        -Thtml -t -man
+        -P-I%2_
+        [resolve man/man%1/%2.%1]
+    > [target];
+
+    local images = [wildcard %2_*.png];
+    if [count [images]] then
+        mv [images] archive/man/man%1/.;
+}
+
+man/man%1/%2.%1.d: man/man%1/%2.%1
+    set no-cascade
+{
+    function if_quiet Depends;
+    [c_incl] -nc -ns -api -nrec
+        --lang\=roff
+        [addprefix "-I" [search_list]]
+        [resolve man/man%1/%2.%1]
+        -prefix "'cascade man/man%1/%2.%1 ='"
+        -suffix "';'"
+        [addprefix "-rlp=" [search_list]]
+        -o [target];
+}
+
+man/man%1/%2.so.d: man/man%1/%2.so
+    set no-cascade
+{
+    function if_quiet Depends;
+    [c_incl] -nc -ns -api -nrec
+        --lang\=roff
+        [addprefix "-I" [search_list]]
+        [resolve man/man%1/%2.so]
+        -prefix "'cascade man/man%1/%2.so ='"
+        -suffix "';'"
+        [addprefix "-rlp=" [search_list]]
+        -o [target];
+}
+
+etc/%.so.d: etc/%.so
+    set no-cascade
+{
+    function if_quiet Depends;
+    [c_incl] -nc -ns -api -nrec
+        --lang\=roff
+        [addprefix "-I" [search_list]]
+        [resolve etc/%.so]
+        -prefix "'cascade etc/%.so ='"
+        -suffix "';'"
+        [addprefix "-rlp=" [search_list]]
+        -o [target];
+}
+
+#include-cooked [addsuffix ".d" [match_mask etc/%.man [source_files]]]
+#include-cooked [addsuffix ".d" [match_mask man/man%1/%2.%1 [source_files]]]
+#include-cooked [addsuffix ".d" [match_mask man/%0%.so [source_files]]]
+
+etc/%.pdf: etc/%.man etc/page-list.awk
+    etc/groff.sh
+{
+    function if_quiet Groff;
+
+    sh [resolve etc/groff.sh]
+        [addprefix "-I" [search_list]]
+        -t -man
+        [resolve etc/%.man]
+        > %.ps.tmp;
+    psselect -p`awk -f [resolve etc/page-list.awk] %.ps.tmp`
+        ['if' [quiet] 'then' -q ]
+        %.ps.tmp > %.ps;
+    rm %.ps.tmp
+        set silent;
+    ps2pdf %.ps [target];
+    rm %.ps
+        set silent;
+}
+
+cascade etc/reference.man = etc/ref-index.so etc/ref-parts.so;
+
+etc/ref-index.so: [match_mask man/man%1/%2.%1 [source_files]]
+        etc/ref-ptx1.awk etc/ref-ptx.ignore etc/ref-ptx2.awk
+{
+    function if_quiet Generate;
+
+    [awk] -f [resolve etc/ref-ptx1.awk]
+        [resolve [match_mask man/man%1/%2.%1 [source_files]]]
+    | ptx -O -r -w1000 -i[resolve etc/ref-ptx.ignore]
+    | sort -t'\'"\'' -f -d +5 -6 +3 -4
+    | [awk] -F'\'"\'' -f [resolve etc/ref-ptx2.awk]
+    > [target];
+}
+
+etc/ref-parts.so: [match_mask man/man%1/%2.%1 [source_files]]
+        etc/ref-ptx.sh
+{
+    function if_quiet Generate;
+
+    sh -f [resolve etc/ref-ptx.sh]
+        [match_mask man/man%1/%2.%1 [source_files]]
+        > [target];
+}
+
+#if [count [match_mask etc/new.%.so [source_files]]]
+etc/new.so: : etc/new.sh [match_mask etc/new.%.so [source_files]]
+{
+    function if_quiet Generate;
+
+    sh [resolve etc/new.sh] -r [match_mask etc/new.%.so [need]] > [target];
+}
+#include-cooked-nowarn etc/new.so.d
+#endif
+
+
+/* vim: set ts=8 sw=4 et : */

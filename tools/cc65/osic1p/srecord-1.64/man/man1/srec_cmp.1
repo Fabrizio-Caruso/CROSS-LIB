@@ -1,0 +1,94 @@
+'\" t
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 1998, 2000, 2001, 2005-2009, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_cmp
+.TH \*(n) 1 SRecord "Reference Manual"
+.SH NAME
+srec_cmp \- compare two EPROM load files for equality
+.if require_index \{
+.XX "srec_cmp(1)" "Compare two EPROM load files for equality"
+.\}
+.SH SYNOPSIS
+.B \*(n)
+[
+.IR option \&...
+]
+.IR filename \&...
+.br
+.B \*(n)
+.B \-Help
+.br
+.B \*(n)
+.B \-VERSion
+.SH DESCRIPTION
+The
+.I \*(n)
+program is used to compare two EPROM load files for equality.  This
+comparison is performed irrespective of the load order of the data in
+each of the files.
+.so man/man1/o_input.so
+.br
+.ne 1i
+.SH OPTIONS
+The following options are understood:
+.so man/man1/o_at.so
+.TP 8n
+.B \-Help
+.br
+Provide some help with using the
+.I \*(n)
+program.
+.TP 8n
+\fB\-IGnore_Checksums\fP
+.so man/man1/o_ignore_checksums.so
+.so man/man1/o_sequence.so
+.so man/man1/o_multiple.so
+.TP 8n
+.B \-VERSion
+.br
+Print the version of the
+.I \*(n)
+program being executed.
+.TP 8n
+.B \-Verbose
+.br
+This option may be used to obtain more information about how and where
+the two files differ.  Please note that this takes longer, and the output
+can be voluminous.
+.PP
+All other options will produce a diagnostic error.
+.so man/man1/z_options.so
+.so man/man1/z_exit.so
+.SH EXAMPLE
+A common use for the \fI\*(n)\fP command is to verify that a particular
+signature is present in the code.  In this example, the signature is
+in a file called \[lq]signature[rq], and the EPROM image is in a file
+called \[lq]image[rq].  We assume they are both Motorola S\[hy]Record format,
+although this will work for all formats:
+.sp 0.25
+.RS
+.ft CW
+\*(n) signature  image \-crop \-within signature
+.ft R
+.RE
+.sp 0.25
+The signature need not be at the start of memory, nor need it be one
+single contiguous piece of memory.  In the above example, the portions
+of the image which have the same address range as the signature are
+compared with the signature.
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

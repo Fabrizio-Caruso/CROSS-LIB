@@ -1,0 +1,94 @@
+'\" t
+.\" srecord - The "srecord" program.
+.\" Copyright (C) 2007-2009, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_binary
+.TH srec_binary 5 SRecord "Reference Manual"
+.SH NAME
+srec_binary \- binary file format
+.if require_index \{
+.XX "srec_binary(5)" "Binary file format"
+.\}
+.SH DESCRIPTION
+It is possible to read and write binary files using \f[I]srec_cat\fP(1).
+.SS File Holes
+A file hole is a portion of a regular file that contains NUL characters
+and is not stored in any data block on disk.  Holes are a long\[hy]standing
+feature of Unix files.  For instance, the following Unix command creates
+a file in which the first bytes are a hole:
+.PP
+.RS
+.nf
+.ft CW
+$ echo \-n "X" | dd of=/tmp/hole bs=1024 seek=6
+$
+.ft P
+.fi
+.RE
+.PP
+Now \f[CW]/tmp/hole\fP has 6,145 characters (6,144 NUL characters
+plus an X character), yet the file occupies just one data block on
+disk.
+.PP
+File holes were introduced to avoid wasting disk space.  They are
+used extensively by database applications and, more generally, by all
+applications that perform hashing on files.
+.PP
+See
+http://www.oreilly.com/catalog/linuxkernel2/chapter/ch17.pdf
+for more information.
+.SS Reading
+The size of binary files is taken from the size of the file on the file system.
+If the file has holes these will read as blocks of NUL (zero) data,
+as there is no elegant way to detect Unix file holes.
+In general, you probably want to use the \fB\-unfill\fP filter
+to find and remove large swathes of zero bytes.
+.SS Writing
+In producing a binary file, \f[I]srec_cat\fP(1) honours the address
+information and places the data into the binary file at the addresses
+specified in the hex file.  This usually results on holes in the file.
+Sometimes alarmingly large file sizes are reported as a result.
+.PP
+If you are on a brain\[hy]dead operating system without file holes then
+there are going to be real data blocks containing real zero bytes,
+and consuming real amounts of disk space.  Upgrade \- I suggest Linux.
+.PP
+To make a file of the size you expect, use
+.PP
+.RS
+srec_info foo.s19
+.RE
+.PP
+to find the lowest address, then use
+.PP
+.RS
+srec_cat foo.s19 \-intel \-offset \-\f[I]n\fP \-o foo.bin \-binary
+.RE
+.PP
+where \f[I]n\fP is the lowest address present in the \f[CW]foo.s19\fP
+file, as reported by \f[I]srec_info\fP(1).  The \f[B]negative\fP offset
+serves to move the data down to have an origin of zero.
+.SH SEE ALSO
+.TP 8n
+\f[I]srec_input\fP(1)
+for a description of the \fB\-unfill\fP filter
+.TP 8n
+\f[I]srec_examples\fP(1)
+has a section about binary files, and ways of automagically
+offseting the data back to zero in a single command.
+.ds n) SRrecord
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

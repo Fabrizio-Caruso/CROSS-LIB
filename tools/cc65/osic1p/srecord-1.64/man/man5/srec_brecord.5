@@ -1,0 +1,96 @@
+'\" t
+.\"     srecord - The "srecord" program.
+.\"     Copyright (C) 2007-2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.ds n) srec_brecord
+.TH \*(n) 5 SRecord "Reference Manual"
+.SH NAME
+srec_brecord \- Freescale MC68EZ328 Dragonball bootstrap record format
+.if require_index \{
+.XX "srec_brecord(5)" "Freescale MC68EZ328 Dragonball bootstrap record format"
+.\}
+.\" ------------------------------------------------------------------------
+.SH DESCRIPTION
+This data format is understood by Freescale MC68EZ328 Dragonball series
+processors on their internal UART.
+.SS Lines
+Each line contains hexadecimal data, each byte represented by two
+hexadecimal nybbles in upper case.  Characters not in this set, but
+larger than 0x30 (e.g. lower case) will be ignored, less than 0x30
+(e.g. CR or LF) are considered record terminators.
+Comments are problematic; don't try this at home.
+.SS Fields
+Each line contains a 4\[hy]byte address (big endian), a 1\[hy]byte
+length\[hy]and\[hy]mode, and then data bytes as dictated by the length.
+There is \f[B]no\fP checksum.
+A zero length record is an execution start address record,
+non\[hy]zero length records are data.
+.TS
+allbox,center,tab(/);
+c c c c c c c c c c c c.
+1/2/3/4/5/6/7/8/9/10/\&.../\f[I]n\fP
+.T&
+c s s s s s s s c s c s.
+Address/Length/Data
+.TE
+.LP
+The length\[hy]and\[hy]mode byte is formatted as follows:
+.TS
+allbox,center,tab(/);
+c c c c c c c c.
+7/6/5/4/3/2/1/0
+.T&
+c s c c s s s s.
+Mode/R/Length
+.TE
+.TP 8n
+\f[I]Mode\fP
+These bits are ignored by SRecord in input
+(00 = bytes, 01 = half words, 10 is
+reserved, 11 = long words).
+These bits are always zero on output by SRecord.
+.TP 8n
+\f[I]R\fP
+This bit indicates a data read rather than a data write;
+SRecord does not accept input files with this bit set,
+and will not set it on output.
+.TP 8n
+\f[I]Length\fP
+The length of the records data bytes.
+It does not include the address or length bytes.
+The maximum payload of a record is 31 bytes of data.
+.SS Size Multiplier
+In general, binary data will expand in sized by at least 2.35 times
+when represented with this format.
+.\" ------------------------------------------------------------------------
+.br
+.ne 2i
+.SH EXAMPLE
+Here is an example b\[hy]record format file.
+It contains the data \[lq]Hello, World\[rq] to be loaded at address 0.
+.RS
+.nf
+.ft CW
+000000000D48656C6C6F2C20576F726C640A
+.ft P
+.fi
+.RE
+.SH SEE ALSO
+http://www.freescale.com/files/32bit/doc/ref_manual/MC68VZ328UM.pdf
+.ds n) srec_cat
+.so man/man1/z_copyright.so
+.\" vim: set ts=8 sw=4 et :

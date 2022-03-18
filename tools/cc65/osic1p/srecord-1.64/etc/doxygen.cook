@@ -1,0 +1,64 @@
+/*
+ * srecord - manipulate eprom load files
+ * Copyright (C) 2001, 2006, 2007, 2010, 2012, 2013 Peter Miller
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+doxygen = [find_command doxygen];
+if [not [doxygen]] then
+    doxygen = doxygen;
+all += archive/srecord/index.html;
+
+archive/%0index.html: [match_mask %0%%0%%.h [source_files]] etc/doxygen.cfg
+    set shallow
+{
+    function if_quiet Doxygen;
+
+    cat [resolve etc/doxygen.cfg] - > Doxyfile;
+data
+# The OUTPUT_DIRECTORY tag is used to specify the (relative or
+# absolute) base path where the generated documentation will be
+# put.  If a relative path is entered, it will be relative to the
+# location where doxygen was started. If left blank the current
+# directory will be used.
+OUTPUT_DIRECTORY       = doxygen-tmp
+
+# documented source files. You may enter file names like "myfile.cpp"
+# or directories like "/usr/src/myproject". Separate the files or
+# directories with spaces.
+INPUT = [unsplit " \\\n" [resolve [stringset [need] - etc/Doxygen.cfg]]]
+
+# The PROJECT_NUMBER tag can be used to enter a project or revision
+# number.  This could be handy for archiving the generated
+# documentation or if some version control system is used.
+PROJECT_NUMBER = [version]
+dataend
+        [doxygen] Doxyfile
+                -d [reldir archive/%0index.html]
+                [resolve [stringset [need] - etc/doxygen.cfg]]
+                                                /*
+                                                 * have Cook tell use how long
+                                                 * it takes to cook.
+                                                 */
+                                                set meter
+                ;
+        rm -rf [reldir archive/%0index.html]
+                set silent errok;
+        mv doxygen-tmp/html [reldir archive/%0index.html];
+        rm -rf Doxyfile doxygen-tmp
+                set errok silent;
+}
+
+/* vim: set ts=8 sw=4 et : */

@@ -1,0 +1,348 @@
+
+
+
+Project "srecord.1.10"                                            Page 1
+List of Changes                                 Mon Oct 21 21:08:47 2002
+
+Change  State           Description
+------- -------         -------------
+  10    completed       prepare for release
+  11    completed       cygwin
+  12    completed       debian link
+  15    completed       vsnprintf
+  16    completed       Ohio Scientific format
+  17    completed       cope with GNU Autoconf changes
+
+
+
+Project "srecord.1.10", Change 10                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 1, Change 10.
+
+SUMMARY
+        prepare for release
+
+DESCRIPTION
+        This change prepares SRecord for the next public release.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  create    1.1         etc/CHANGES.1.9
+        source  create    1.1         etc/new.1.10.so
+        source  modify   1.11 -> 1.12 etc/new.1.8.so
+        source  modify    1.4 -> 1.5  etc/new.1.9.so
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Fri Jun 14      pmiller
+                        09:09:29 2002
+        develop_begin   Fri Jun 14      pmiller
+                        09:09:30 2002
+        develop_end     Fri Jun 14      pmiller
+                        09:18:51 2002
+        review_pass     Fri Jun 14      pmiller
+                        09:18:53 2002
+        integrate_begin Fri Jun 14      pmiller
+                        09:18:55 2002
+        integrate_pass  Fri Jun 14      pmiller
+                        09:19:36 2002
+
+
+
+Project "srecord.1.10", Change 11                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 2, Change 11.
+
+SUMMARY
+        cygwin
+
+DESCRIPTION
+        This change copes with some Cygwin build issues.
+
+        My thanks to Ian Ridley <iridley@btr-auto.aust.com> for
+        reporting this problem: "use of vsnprintf & snprintf, these are
+        not defined in msvcrt, but _vsnprintf & _snprintf are defined"
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.8 -> 1.9  etc/Makefile.head
+        source  modify    1.7 -> 1.8  etc/Makefile.sh
+        source  modify    1.2 -> 1.3  etc/config.h.in.tail
+        source  create    1.1         include/config.messy.h
+        source  modify   1.13 -> 1.14 lib/common/arglex.cc
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Tue Jul  9      pmiller
+                        14:33:16 2002
+        develop_begin   Tue Jul  9      pmiller  Elapsed time: 0.066
+                        14:33:16 2002            days.
+        develop_end     Tue Jul  9      pmiller
+                        15:02:53 2002
+        review_pass     Tue Jul  9      pmiller
+                        15:02:56 2002
+        integrate_begin Tue Jul  9      pmiller
+                        15:02:59 2002
+        integrate_pass  Tue Jul  9      pmiller
+                        15:03:57 2002
+
+
+
+Project "srecord.1.10", Change 12                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 3, Change 12.
+
+SUMMARY
+        debian link
+
+DESCRIPTION
+        This change adds a link to the Debian page for SRecord.
+
+        My thanks to Stephen Moraco <stephen@debian.org>, who is the
+        Debian maintainer.
+
+
+        This change is exempt from testing against the development
+        directory.  This change is exempt from testing against the
+        baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_improvement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.37 -> 1.38 etc/srecord.html
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Jul 29      pmiller
+                        08:51:59 2002
+        develop_begin   Mon Jul 29      pmiller
+                        08:51:59 2002
+        develop_end     Mon Jul 29      pmiller  Elapsed time: 0.109
+                        08:56:33 2002            days.
+        review_pass     Mon Jul 29      pmiller
+                        09:45:44 2002
+        integrate_begin Mon Jul 29      pmiller
+                        09:45:46 2002
+        integrate_pass  Mon Jul 29      pmiller
+                        09:46:22 2002
+
+
+
+Project "srecord.1.10", Change 15                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 4, Change 15.
+
+SUMMARY
+        vsnprintf
+
+DESCRIPTION
+        This change adds ./configure insulation for vsnprintf
+
+        My thanks to shankara <shankara@spearnet.net> for reporting this
+        problem.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.20 -> 1.21 etc/Howto.cook
+        source  modify    1.2 -> 1.3  etc/autoconf.cook
+        source  modify    1.8 -> 1.9  etc/configure.in
+        source  create    1.1         lib/common/vsnprintf.cc
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Thu Aug 15      pmiller
+                        20:59:05 2002
+        develop_begin   Thu Aug 15      pmiller  Elapsed time: 0.056
+                        20:59:05 2002            days.
+        develop_end     Thu Aug 15      pmiller
+                        21:24:28 2002
+        review_pass     Thu Aug 15      pmiller
+                        21:24:31 2002
+        integrate_begin Thu Aug 15      pmiller
+                        21:24:34 2002
+        integrate_pass  Thu Aug 15      pmiller
+                        21:25:31 2002
+
+
+
+Project "srecord.1.10", Change 16                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 5, Change 16.
+
+SUMMARY
+        Ohio Scientific format
+
+DESCRIPTION
+        This change adds the OS65V format.
+
+        "The old Ohio Scientific machines contained a monitor, OS65V,
+        which downloaded
+        hex files in its own simple format."
+
+        My thanks to David Fenyes <dave@fenyes.net> for this
+        contribution.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by external_enhancement.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify   1.37 -> 1.38 etc/README.man
+        source  modify    1.2 -> 1.3  etc/new-file-format.so
+        source  modify   1.38 -> 1.39 etc/srecord.html
+        source  modify   1.11 -> 1.12 etc/template/h
+        source  modify   1.48 -> 1.49 include/srec/arglex.h
+        source  create    1.1         include/srec/input/file/os65v.h
+        source  create    1.1         include/srec/output/file/os65v.h
+        source  modify   1.50 -> 1.51 lib/srec/arglex.cc
+        source  modify    1.9 -> 1.10 lib/srec/arglex_output.cc
+        source  modify    1.9 -> 1.10 lib/srec/input/file/guess.cc
+        source  create    1.1         lib/srec/input/file/os65v.cc
+        source  create    1.1         lib/srec/output/file/os65v.cc
+        source  modify   1.41 -> 1.42 man/man1/o_input.so
+        source  modify   1.30 -> 1.31 man/man1/srec_cat.1
+        source  create    1.1         man/man5/srec_os65v.5
+        test    create    1.1         test/00/t0077a.sh
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Sun Oct 20      pmiller
+                        17:12:37 2002
+        develop_begin   Sun Oct 20      pmiller  Elapsed time: 1.017
+                        17:12:37 2002            days.
+        develop_end     Mon Oct 21      pmiller
+                        17:20:24 2002
+        review_pass     Mon Oct 21      pmiller
+                        17:20:29 2002
+        integrate_begin Mon Oct 21      pmiller
+                        17:20:32 2002
+
+
+
+Project "srecord.1.10", Change 16                                 Page 2
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        integrate_pass  Mon Oct 21      pmiller
+                        17:21:43 2002
+
+
+
+Project "srecord.1.10", Change 17                                 Page 1
+Change Details                                  Mon Oct 21 21:08:47 2002
+
+NAME
+        Project "srecord.1.10", Delta 6, Change 17.
+
+SUMMARY
+        cope with GNU Autoconf changes
+
+DESCRIPTION
+        This change fixes the build to cope with recent (2.5x) GNU
+        Autoconf changes.
+
+        This change must pass a full regression test.  This change is
+        exempt from testing against the development directory.  This
+        change is exempt from testing against the baseline.
+
+
+ARCHITECTURE
+        This change must build and test in the "linux-i486"
+        architecture.
+
+CAUSE
+        This change was caused by internal_bug.
+
+FILES
+        Type    Action   Edit         File Name
+        ------- -------- -------      -----------
+        source  modify    1.3 -> 1.4  etc/autoconf.cook
+        source  remove    1.2         etc/config.h.in.body
+        source  remove    1.2         etc/config.h.in.head
+        source  remove    1.3         etc/config.h.in.tail
+        source  modify    1.9 -> 1.10 etc/configure.in
+
+HISTORY
+        What            When            Who      Comment
+        ------          ------          -----    ---------
+        new_change      Mon Oct 21      pmiller
+                        17:25:36 2002
+        develop_begin   Mon Oct 21      pmiller  Elapsed time: 0.028
+                        17:25:36 2002            days.
+        develop_end     Mon Oct 21      pmiller
+                        17:38:17 2002
+        review_pass     Mon Oct 21      pmiller
+                        17:38:23 2002
+        integrate_begin Mon Oct 21      pmiller
+                        17:38:25 2002
+        integrate_pass  Mon Oct 21      pmiller
+                        17:39:24 2002

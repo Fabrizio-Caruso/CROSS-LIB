@@ -233,7 +233,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 oz: oz_tiny_buffered
 
-oz_tiny_buffered: 	
+oz_tiny_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
@@ -253,7 +253,7 @@ oz_tiny_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../../oz
+	$(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) $(SOURCE_PATH)/../../oz
 	rm $(SOURCE_PATH)/../../oz.bin
 	mv oz.wzd $(BUILD_PATH)/X$(GAME_NAME)_TINY_oz_buffered.wzd
 

@@ -61,4 +61,6 @@ tools/cc65/gamate/gamate-fixcart.out
 tools/cmoc/mo5/f2k5.out
 tools/bbc/bbcim-1.0.1/bbcim.exe
 tools/bbc/bbcim-1.0.1/bbcim.out
+tools/z88dk/oz/makewzd.exe
+tools/z88dk/oz/makewzd.out
 

@@ -1,0 +1,44 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2006, 2007, 2011 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 8n
+\fB\-Enable_Sequence_Warnings\fP
+.RS
+This option may be used to enable warnings about input files where the
+data records are not in strictly ascending address order.
+Only one warning is issued per input file.
+This is the default.
+.PP
+\f[B]Note:\fP the output of \fIsrec_cat\fP(1) is always in this order.
+.PP
+\f[B]Note:\fP This option must be used \f[I]before\fP the input file.
+This is because if there are several files on the command line, each may
+need different settings.  The setting remains in force until the next
+\fB\-Disable_Sequence_Warnings\fP option.
+.RE
+.TP 8n
+\fB\-Disable_Sequence_Warnings\fP
+.RS
+This option may be used to disable warnings about input files where the
+data records are not in strictly ascending address order.
+.PP
+\f[B]Note:\fP This option must be used \f[I]before\fP the offending
+input file.  This is because if there are several files on the command
+line, each may need different settings.  The setting remains in force
+until the next \fB\-Ensable_Sequence_Warnings\fP option.
+.RE

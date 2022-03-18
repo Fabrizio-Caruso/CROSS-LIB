@@ -1,0 +1,452 @@
+/*
+ * srecord - manipulate eprom load files
+ * Copyright (C) 1998, 1999, 2001-2003, 2006-2010, 2012, 2013 Peter Miller
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "functions"
+
+set mkdir;
+set unlink;
+set time-adjust;
+
+awk = gawk;
+
+/*
+ * See how verbose we have decided to be.
+ */
+if [not [defined verbose]] then
+    verbose = [match %1D%2 [version]];
+quiet = [not [verbose]];
+libtool-quiet = ;
+if [quiet] then
+{
+    set silent;
+    libtool-quiet = --quiet;
+    set no-star;
+}
+else
+{
+    set no-silent tell-position;
+    libtool-quiet = ;
+    set star;
+}
+
+function if_quiet =
+{
+    if [quiet] then
+        function print /*[@1]*/ [target];
+    else if [in [count [younger]] 0] then
+        function print Building [target] because it doesn\'t exist yet;
+    else if [in [count [younger]] 0 1 2 3] then
+        function print Building [target] because of [younger];
+    else
+        function print Building [target] because of [wordlist 1 3 [younger]]...;
+}
+
+/*
+ * The first item in search list should be the absolute path of the
+ * current directory.  Assume that it is.
+ */
+search_list = .;
+search_tmp = [tail [split ':' [search_path]]];
+
+/*
+ * Try to shorten the search path in command lines, too.
+ *
+ * This takes a little getting used to....
+ * 1. For development builds, the search path is dev dir, then branch bl,
+ *    then ... project bl.  Thus, bl in a dev dir winds up pointing to
+ *    the branch reporitory.
+ * 2. For integration builds, aegis deliberately omits the branch
+ *    baseline from the path, but include's the branch's parents and
+ *    ancestors.  Thus, bl in an int dir winds up pointing to the
+ *    branch's parent's reporitory.
+ * The idea is that integration builds in a branch are like a
+ * development build of the branch's dev dir.
+ */
+search_name = bl;
+loop
+{
+    search_dir = [head [search_tmp]];
+    if [not [search_dir]] then
+        loopstop;
+    search_tmp = [tail [search_tmp]];
+
+    if [not [exists [search_name]]] then
+        ln -s [search_dir] [search_name]
+            set clearstat;
+    search_list = [search_list] [search_name];
+    search_name = [search_name]bl;
+}
+
+#include-cooked etc/apt-get-depends.cook
+
+/*
+ * determine the short version:
+ * no change or delta number
+ */
+version_short = [fromto %1.C%2 %1 [subst D C [version]]];
+
+version_shorter = [split "." [version_short]] _ _;
+version_shorter = [unsplit "." [word 1 [version_shorter]]
+    [word 2 [version_shorter]]];
+project_short = [fromto %.[version_short] % [project]];
+project_minus = [project_short]-[version_short];
+
+change_source_files = ;
+#include-cooked-nowarn etc/cook/change_files.[version]
+etc/cook/change_files.[version]:
+    set shallow nodefault
+{
+    function if_quiet;
+    echo "'change_source_files ='" > [target];
+    aegis -l cf -p [project] -c [change] -terse >> [target];
+    echo "';'" >> [target];
+}
+project_source_files = ;
+#include-cooked-nowarn etc/cook/project_files.[version]
+etc/cook/project_files.[version]:
+    set shallow nodefault
+{
+    function if_quiet;
+    echo "'project_source_files ='" > [target];
+    aegis -l pf -p [project] -c [change] -terse >> [target];
+    echo "';'" >> [target];
+}
+source_files = [sort [project_source_files] [change_source_files]];
+
+/*
+ * Speed up graph building by stating the leaves explictly.
+ * This also gives more useful error messages.
+ */
+if [count [project_source_files]] then
+if [count [change_source_files]] then
+{
+    leaf_file_accept = [project_source_files] [change_source_files];
+    leaf_pattern_accept = /%0%;
+}
+
+debug = /* -g */ ;      /* g++ takes forever if you say -g for complex
+                        template usage */
+
+all = ;
+
+/* the right hand side is deferred until triggered */
+all: [all];
+
+/*
+ * Howto use GNU Autoconf.
+ */
+#include-cooked etc/autoconf.cook
+
+
+/*
+ * The files which are linked to form the common library for the programs.
+ */
+[arch]/[project_short]/lib[project_short].la_obj =
+    [addprefix [arch]/
+        [fromto %0%.cc %0%.lo
+            [match_mask srecord/%0%.cc [source_files]]
+        ]
+    ];
+
+/*
+ * Generate lists of object files for programs
+ */
+program_list =
+    [stringset /* remove duplicates */
+        [patsubst %0%/main.cc %0% [filter %0%/main.cc [source_files]]]
+    ];
+
+function prog-var-from-prog-path =
+{
+    local prog = [@1];
+    local prog_var =;
+    if [in [substr 1 5 [prog] ] "test/"] then
+        prog_var = [subst "/" "_" [prog]];
+    else
+        prog_var = [subst "/" "-" [prog]];
+    return [prog_var];
+}
+
+loop prog = [program_list]
+{
+    prog_var = [prog-var-from-prog-path [prog]];
+    [prog_var]_obj =
+        [patsubst %0%.cc     %0%.lo [filter [prog]/%0%.cc [source_files]]]
+        [patsubst %0%.y %0%.yacc.lo [filter [prog]/%0%.y  [source_files]]]
+        [patsubst %0%.l  %0%.lex.lo [filter [prog]/%0%.l  [source_files]]]
+        ;
+    [prog_var]_libs = [project_short]/lib[project_short].la;
+    all += [arch]/bin/[prog_var];
+}
+
+integration-build-targets = ;
+integration-build-targets: [integration-build-targets];
+
+if [match %1C%2 [version]] then
+{
+    baseline = bl;
+}
+else
+{
+    /*
+     * this is essential so that aeipass does the right thing
+     *
+     * It also means that generated files (e.g. from objen) have consistent
+     * mod-times after integration, sop everythign does not immediately
+     * re-build.
+     */
+    set time-adjust-back;
+    all += integration-build-targets;
+}
+
+
+/*
+ * Note: this must come *after* the etc/autoconf.cook include.
+ */
+if [not [defined c++]] then
+    c++ = g++;
+cc_include_flags =
+    [prepost "-I" "" [search_list]]
+    [prepost "-I" /[arch] [search_list]]
+    ;
+if [not [defined c++_flags]] then
+    c++_flags = -O [debug];
+c++_flags = [c++_flags] -Wall -Wextra -Werror;
+if [not [defined ld_flags]] then
+    ld_flags = [debug];
+if [not [defined libs]] then
+    libs = ;
+
+cascade %0%.lo = %0%.o %0.libs/%.lo;
+
+[arch]/%0%.lo [arch]/%0%.o [arch]/%0.libs/%.o: %0%.cc [arch]/srecord/config.h
+{
+    function if_quiet Compile;
+
+    rm -f [arch]/%0%.lo [arch]/%0.libs/%.o [arch]/%0.libs/%.lo;
+    libtool [libtool-quiet] --mode\=compile
+    [c++] [c++_flags]
+        [defined-or-null %0%.cc_c++_flags]
+        [defined-or-null [dir %0%.cc]_c++_flags]
+        [cc_include_flags]
+        -c [resolve %0%.cc]
+        -o [target];
+    md5sum [arch]/%0%.o [arch]/%0.libs/%.o | sed "'s|^|# |'" >> [target];
+}
+
+
+c_incl = c_incl;
+
+%0%.h.d: %0%.h
+    set no-cascade
+{
+    function if_quiet Depends;
+    [c_incl] -nc -ns -nrec
+        [cc_include_flags]
+        [resolve %0%.h]
+        -prefix "'cascade %0%.h ='"
+        -suffix "';'"
+        -nsri
+        [prepost "-rlp=" "" [search_list]]
+        -slp [arch] "'[arch]'"
+        -o [target];
+}
+
+%0%.cc.d: %0%.cc
+        set no-cascade
+{
+    function if_quiet Depends;
+    [c_incl] -nc -ns -nrec
+        [cc_include_flags]
+        [resolve %0%.cc]
+        -prefix "'cascade %0%.cc ='"
+        -suffix "';'"
+        -nsri
+        [prepost "-rlp=" "" [search_list]]
+        -slp [arch] "'[arch]'"
+        -o [target];
+}
+
+cc_dep_files =
+        [fromto %0%.c %0%.c.d [match_mask %1/%0%.c [source_files]]]
+        [fromto %0%.h %0%.h.d [match_mask %1/%0%.h [source_files]]]
+        [fromto %0%.cc %0%.cc.d [match_mask %1/%0%.cc [source_files]]]
+        [fromto %0%.y %0%.gen.c.d [match_mask %1/%0%.y [source_files]]]
+        ;
+
+#include-cooked-nowarn [cc_dep_files]
+
+[arch]/bin/% [arch]/bin/.libs/%:
+    [addprefix [arch]/ [%_obj] [defined-or-null %_libs]]
+    set gate-first shallow /* tests need them */
+    if [defined %_obj]
+{
+    function if_quiet Link;
+
+    rm -f bin/.libs/lt-%;
+    libtool [libtool-quiet] --mode\=link
+    [c++] -o [target]
+        [cc_include_flags]
+        [ld_flags]
+        [resolve [addprefix [arch]/ [%_obj] [defined-or-null %_libs]]]
+        [libs]
+        ;
+
+    /*
+     * Libtool makes intermediate shell scripts.
+     * Make sure the fingerprint changes when it rebuilds,
+     * otherwise some tests get confused.
+     */
+    date "'+# %%c'" >> [target]
+        set silent;
+
+    /*
+     * libtool creates bin/% as a script, which, when executed, does the
+     * actual link.  But this link puts its results in bin/.libs, and
+     * that directory will not be writable for executables sourced from
+     * the baseline.  So we goose it into linking now, which would seem
+     * to defeat the purpose.
+     */
+    [target] --version > /dev/null;
+}
+
+[arch]/%/lib%.la [arch]/%/.libs/lib%.a [arch]/%/.libs/lib%.so:
+        [[target]_obj]
+    set unlink ingredients-fingerprint
+
+{
+    function if_quiet Link;
+
+    /*
+     * We include the "hidden" libtool output files because we need to
+     * fingerprint something that actually changes, and the .la file is
+     * pretty much static.
+     */
+    local version-info =
+        [collect aesub "'${project_specific aemakegen:version-info}'" ];
+    libtool [libtool-quiet] --mode\=link
+    [c++] [c++_flags]
+        -o [target]
+        [resolve [[target]_obj]]
+        [libs]
+        -version-info [version-info]
+
+        /*
+         * If you don't specify -rpath it doesn't make the shared library, even
+         * though the Debian people Really Don't Like Rpath.  We really really
+         * want the .so so we can check out version-info using the aede-policy
+         * soname.
+         */
+        -rpath /usr/local/bin
+        ;
+}
+
+[arch]/bin/%: [arch]/script/%.sh
+{
+    function if_quiet Copy;
+    cat [resolve [arch]/script/%.sh] > [target];
+    chmod a+rx [target];
+}
+
+all +=
+    [fromto script/%.sh.in [arch]/bin/%
+        [match_mask script/%.sh.in [source_files]]
+    ];
+
+
+/*
+ * How to build the release sets.
+ */
+#include-cooked etc/archive.cook
+
+/*
+ * How to build the documentation.
+ */
+#include-cooked etc/documentation.cook
+
+/*
+ * Explicit include dependencies.
+ */
+#if [count [cc_dep_files]]
+[cc_dep_files]: [arch]/srecord/config.h;
+#endif
+
+
+/*
+ * The version stamp is to be updated for every
+ * integration and development build.
+ * (The integrate_begin_command in the config file
+ * deletes them for integration builds.)
+ */
+
+srecord/patchlevel.h:
+    set shallow
+{
+    function if_quiet;
+
+    copyright_years =
+        [collect
+            aegis -list version -p [project] -c [change]
+            | [awk] "-F'[[\\\\]]'" "'/^copyright_years/{print $2}'"
+        ];
+    echo "'#define PATCHLEVEL \""[version]"\"'" > [target];
+    echo "'#define COPYRIGHT_YEARS \""[copyright_years]"\"'" >> [target];
+}
+
+/*
+ * Build the version include, but not too often.
+ */
+etc/version.so:
+    set ['if' [or [not [defined baseline] ] [not [exists bl/etc/version.so
+                ] ] ] 'then' shallow]
+{
+    function if_quiet;
+
+    copyright_years =
+        [collect
+            aegis -list version -p [project] -c [change]
+            | [awk] "-F'[[\\\\]]'" "'/^copyright_years/{print $2}'"
+        ];
+    echo "'.ds V) "[version]"'" > [target];
+    echo "'.ds v) "[version_short]"'" >> [target];
+    aegis -list version -p [project] -c [change]
+        | [awk] -F'\'"\'' "'/previous/{print $2}'"
+        | [awk] -F. "'{print \".ds w) \"$1\".\"$2}'"
+        >> [target];
+    echo "'.ds Y) "[copyright_years]"'" >> [target];
+}
+
+
+/*
+ * Catch 22: If the relationship between a target and a derived ingredient
+ * appears only in a derived cookbook, it is likely that a clean build
+ * (solely from primary source files) will fail.  It is recommended that
+ * relationships such as this be placed in a primary source cookbook.
+ */
+cascade etc/BUILDING.man = etc/version.so ;
+cascade etc/README.man = etc/version.so etc/new.so;
+cascade etc/change_log.man = etc/version.so etc/new.so;
+cascade etc/reference.man = etc/version.so ;
+cascade etc/srecord.lsm = etc/version.so ;
+cascade srecord/versn_stamp.cc = srecord/patchlevel.h ;
+cascade man/man1/z_copyright.so = etc/version.so ;
+
+#include [resolve etc/doxygen.cook etc/metrics.cook etc/tags.cook ]
+#include [resolve test_hyphen/module.cook ]
+
+/* vim: set ts=8 sw=4 et : */

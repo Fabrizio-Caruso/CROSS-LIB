@@ -1,0 +1,55 @@
+.\"
+.\"     srecord - manipulate eprom load files
+.\"     Copyright (C) 2000, 2001, 2003, 2006, 2007, 2010 Peter Miller
+.\"
+.\"     This program is free software; you can redistribute it and/or modify
+.\"     it under the terms of the GNU General Public License as published by
+.\"     the Free Software Foundation; either version 3 of the License, or
+.\"     (at your option) any later version.
+.\"
+.\"     This program is distributed in the hope that it will be useful,
+.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"     GNU General Public License for more details.
+.\"
+.\"     You should have received a copy of the GNU General Public License
+.\"     along with this program. If not, see
+.\"     <http://www.gnu.org/licenses/>.
+.\"
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 17
+The documentation is now in PDF format.  This was in order to make it
+more accessible to a wider range of people.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 16
+There is a new \fIsrec_cat \-\-address\[hy]length\fP option, so that you can set
+the length of the address fields in the output file.  For example, if you
+always want S3 data records in a Motorola hex file, use the
+\f[CW]\-\-address\[hy]length=4\fP option.
+This helps when talking to brain\[hy]dead EPROM programmers which do not
+fully implement the format specification.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 15
+There is a new \fI\-\-multiple\fP option to the commands, which permits
+an input file to contain multiple (contradictory) values for some memory
+locations.  The last value in the file will be used.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 12
+A problem has been fixed which stopped SRecord from building under Cygwin.
+.TP 2n
+.if n *
+.if t \(bu
+.\" change 11
+A bug has been fixed in the C array output.  It used to generate invalid
+output when the input had holes in the data.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.6 (2000\[hy]Dec\[hy]03)

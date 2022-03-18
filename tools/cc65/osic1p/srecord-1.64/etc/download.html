@@ -1,0 +1,286 @@
+.\"
+.\" srecord - manipulate eprom load files
+.\" Copyright (C) 2003, 2006-2011, 2013, 2014 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.ad l
+.hy 0
+.so etc/version.so
+.nf
+<html>
+<head>
+<link rel="icon" href="srecord.ico" type="image/x-icon">
+<link rel="shortcut icon" href="srecord.ico" type="image/x-icon">
+<title>SRecord \*(v)</title></head>
+<body bgcolor=white><h1>
+<img src="srecord-64.png" align=left>
+<img src="srecord-64.png" align=right>
+<center>SRecord \*(v)<br>
+Files for Download
+</center></h1>
+There are several ways you can obtain the software,
+as either source code or pre-compiled binaries.
+<br clear="all" />
+<p>
+<table>
+
+<tr>
+    <td valign="top" align="center" >
+    <img src="srecord-64.png" alt="[*]" />
+    </td>
+    <td valign="top" >
+        <h2> The Master Sources </h2>
+        The following files are available for download from this web site:
+        <p>
+        <table>
+        <tr>
+        <th>File Name</th>
+        <th>Description</th>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="srecord-\*(v).README"><tt>srecord-\*(v).README</tt></a></td>
+        <td valign="top" >
+        The <tt>README</tt> file from the tar distribution.</td>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="change_log.txt"><tt>change_log.txt</tt></a></td>
+        <td valign="top">
+        The release notes describing the changes in this version.</td>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="srecord-\*(v).lsm"><tt>srecord-\*(v).lsm</tt></a></td>
+        <td valign="top">
+        Brief description in
+        <a href="ftp://sunsite.unc.edu/pub/Linux/LSM-TEMPLATE">LSM</a>
+        format.</td>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="srecord-\*(v).spec"><tt>srecord-\*(v).spec</tt></a></td>
+        <td valign="top">
+        RedHat package manager specification file (<a
+        href="http://www.rpm.org/">RPM</a>)</td>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="srecord-\*(v).tar.gz"><tt>srecord-\*(v).tar.gz</tt></a></td>
+        <td valign="top">
+        The complete source.</td>
+        </tr>
+        <tr>
+        <td valign="top" nowrap>
+        <a href="srecord-\*(v).pdf"><tt>srecord-\*(v).pdf</tt></a></td>
+        <td valign="top">
+        SRecord Reference Manual, in Adobe Acrobat format.</td>
+        </tr>
+        </table>
+        <p><br/>
+    </td>
+    </tr>
+
+<tr>
+    <td valign="top" align="center" >
+    <img src="http://libexplain.sourceforge.net/sf.png" alt="[*]" />
+    </td>
+    <td valign="top" >
+        <H2> SourceForge Downloads </h2>
+        The best possible download speed for the source tarball will be
+        from the
+        <ul>
+.\" ...............................................
+        <li> SourceForge
+            <ul><li><a
+                href="http://sourceforge.net/projects/srecord/files/"
+                >SourceForge download pages</a>...
+            <li> See also the <a
+                href="http://sourceforge.net/projects/srecord"
+                >Project</a> page.
+            <li> See also the <a
+                 href="https://sourceforge.net/project/stats/\
+?group_id=72866&ugn=srecord"
+                >Statistics</a> page.
+            </ul>
+.\" ................................................
+        <li> Unix and Linux and Downloads
+        <ul><li> The <a
+            href="https://sourceforge.net/projects/srecord/files/srecord/\*(v)/"
+            >\*(v) release</a> folder.
+        <li> The <a
+            href="https://sourceforge.net/projects/srecord/files/srecord/\*(v)/\
+srecord-\*(v).tar.gz" >release \*(v) tarball</a>.
+            </ul>
+.\" ................................................
+        <li> MS Windows downloads
+            <ul>
+            <li>The <a
+                href="http://sourceforge.net/projects/srecord/files/\
+srecord-win32/\*(v)/"
+                >\*(v) release</a> folder.
+        <li>The <a
+                href="http://sourceforge.net/projects/srecord/files/\
+srecord-win32/\*(v)/srecord-1.63-win32.zip"
+                >\*(v) release .zip file</a>.
+            </ul>
+.\" ................................................
+        </ul>
+        <p><br/>
+    </td>
+    </tr>
+
+<tr>
+    <td valign="top" align="center" >
+    <img src="http://miller.emu.id.au/pmiller/software/launchpad-logo.png"
+        alt="[*]" />
+    </td>
+    <td valign="top" >
+        <h2> Ubuntu Packages </h2>
+        If you use Ubuntu Linux, there are pre-built packages available
+        for installation using the normal <tt>sudo apt-get install</tt>
+        method, from <a
+        href="https://launchpad.net/~pmiller-opensource/+archive/ppa"
+        >this package archive</a> (<a
+        href="https://help.launchpad.net/Packaging/PPA" >PPA</a>).
+        <p>
+        Instructions are available there for how to manually add the PPA
+        to your <tt>/etc/apt/sources.list</tt> file, but the following
+        commands are sufficient on recent versions of Ubuntu:
+        <blockquote>
+<pre>sudo add-apt-repository ppa:pmiller-opensource/ppa
+sudo apt-get update
+sudo apt-get install srecord</pre>
+        </blockquote>
+        <p>
+        If you already have the PPA installed but not the <tt>srecord</tt>
+        package, this link <a href="apt:srecord" >apt:srecord</a> should do
+        the install.
+.\"     <p>
+.\"     There is some suggestion that, one day, maybe, this link
+.\"     <a href="ppa:pmiller-opensource/ppa" >ppa:pmiller-opensource/ppa</a>
+.\"     will install the package archive (PPA) for you.
+        <p><br/>
+    </td>
+    </tr>
+
+<tr>
+    <td valign="top" align="center" >
+    <img src="debian.png" alt="[*]" />
+    </td>
+    <td valign="top" >
+        <h2> Debian Packages </h2>
+        The SRecord Debian packages are maintained by
+        <a href="mailto:fabo@debian.org"
+        >Fathi Boudra &lt;fabo@debian.org&gt;</a>.
+        The Debian packages are available at <a
+        href="http://packages.qa.debian.org/s/srecord.html"
+        >http://packages.qa.debian.org/s/srecord.html</a>
+        <p><br/>
+    </td>
+    </tr>
+
+<tr>
+    <td valign="top" align="center" >
+        <a href="http://aegis.sourceforge.net/cgi-bin/aeget/srecord.\*(v)?menu"
+        ><img src="http://aegis.sourceforge.net/aegis.png" border=0 /></a>
+    </td>
+    <td valign="top" >
+        <h2>Aegis Repo</h2>
+        SRecord is developed using <a
+        href="http://aegis.sourceforge.net/">Aegis</a>, a transaction based
+        software configuration management system.
+        The Aegis <a
+        href="http://aegis.sourceforge.net/cgi-bin/aeget/srecord.\*(v)?menu"
+        >repository</a> for this project is available.
+        <p><br/>
+    </td>
+    </tr>
+
+<tr>
+    <td valign="top" align="center" >
+    <img src="whining-64.png" alt="[*]" />
+    </td>
+    <td valign="top" >
+        <h2>Pre-compiled Windows Executables</h2>
+        See the <a
+        href="http://sourceforge.net/projects/srecord/files/srecord-win32/"
+        >SourceForge.net download mirrors</a> for pre-compiled windows
+        executables.  They tend to be less up-to-date than the Ubuntu binaries,
+        see <a href="windows.html" >here for how to build</a> up-to-date
+        binaries yourself.
+        <p><br/>
+    </td>
+    </tr>
+
+</table>
+
+.\" ------------------------------------------------------------------------
+<hr>
+<table border=0><tr><td valign="top">
+<a href="http://www.fsf.org/" ><img
+src="http://upload.wikimedia.org/wikipedia/commons/b/bf/\
+GNU-FDL-ic%C3%B4ne-Transparente.PNG"
+border=0 alt="" /></a>
+</td><td valign="top" width="35%">
+SRecord is maintained by
+<a href="mailto:scottfinneran@yahoo.com.au"
+>Scott Finneran &lt;scottfinneran@yahoo.com.au&gt;</a>
+and is freely distributable under the terms and conditions of the
+<a href="http://www.gnu.org/licenses/gpl.txt">GNU GPL</a>.
+</td>
+<td valign="top">
+<a href="http://www.opensource.org/docs/definition.php" ><img
+src="http://www.opensource.org/trademarks/opensource/web/opensource-110x95.png"
+border="0" /></a>
+</td>
+<td valign="top" align="right">
+There is more <a
+href="http://miller.emu.id.au/pmiller/software/"
+>Software by Peter Miller</a>
+at his home page.
+</td><td valign="top">
+<a href="http://miller.emu.id.au/pmiller/" ><img
+src="http://miller.emu.id.au/pmiller/pmiller_2003_colour.64.png"
+border=0 ></a>
+</td></tr></table>
+.\" ------------------------------------------------------------------------
+<hr>
+<a href="http://sourceforge.net/"><img
+src="http://sourceforge.net/sflogo.php?group_id=72866&amp;type=5"
+width="210" height="62" border="0" alt="SourceForge.net Logo"
+align="right"></a>
+This page is hosted by <a href="http://sourceforge.net/">SourceForge</a>.
+<br>
+This page has been accessed approximately
+<img
+src="http://miller.emu.id.au/cgi-bin/web_hit_counter?pmiller_srecord_\*(v)_dl"
+> times since
+.ds MO1 Jan
+.ds MO2 Feb
+.ds MO3 Mar
+.ds MO4 Apr
+.ds MO5 May
+.ds MO6 Jun
+.ds MO7 Jul
+.ds MO8 Aug
+.ds MO9 Sep
+.ds MO10 Oct
+.ds MO11 Nov
+.ds MO12 Dec
+.nr y4 \n[yr]+1900
+\n[dy]-\*[MO\n[mo]]-\n[y4].
+</body></html>
+.\" vim: set ts=8 sw=4 et :

@@ -1,0 +1,64 @@
+#
+# srecord - Manipulate EPROM load files
+# Copyright (C) 2010-2012 Peter Miller
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+file_template =
+[
+        {
+                pattern = [ "srecord/*.cc" ];
+                body = "${read_file ${source etc/template/lib_cc abs}}";
+        },
+        {
+                pattern = [ "*.cc" ];
+                body = "${read_file ${source etc/template/cc abs}}";
+        },
+        {
+                pattern = [ "*.c" ];
+                body = "${read_file ${source etc/template/c abs}}";
+        },
+        {
+                pattern = [ "srecord/*.h", ];
+                body = "${read_file ${source etc/template/lib_h abs}}";
+        },
+        {
+                pattern = [ "*.h", "*.g", "*.hh" ];
+                body = "${read_file ${source etc/template/h abs}}";
+        },
+        {
+                pattern = [ "test/*/*.sh" ];
+                body = "${read_file ${source etc/template/test abs}}";
+        },
+        {
+                pattern = [ "*.sh" ];
+                body = "${read_file ${source etc/template/sh abs}}";
+        },
+        {
+                pattern = [ "*.[1-9]" ];
+                body = "${read_file ${source etc/template/man abs}}";
+        },
+        {
+                pattern = [ "etc/new.*.so" ];
+                body = "${read_file ${source etc/template/etc-new-so abs}}";
+        },
+        {
+                /* This one must be last. */
+                pattern = [ "*" ];
+                body = "${read_file ${source etc/template/generic abs}}";
+        }
+];
+
+# vim: set ts=8 sw=4 et :

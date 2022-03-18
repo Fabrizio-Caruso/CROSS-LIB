@@ -1,0 +1,35 @@
+.\"
+.\" srecord - Manipulate EPROM load files
+.\" Copyright (C) 2008, 2010, 2011 Peter Miller
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" ------------------------------------------------------------------------
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 17
+A bug has been fixed in the \f[I]srec_cat\fP(1) command.  You are now
+able to specify several inputs within parentheses, instead of just
+one.  This allows filters to be applied to the concatenation of several
+inputs.
+.TP 2n
+.if n *
+.if t \(bu
+.\" Change 11
+The \f[I]srec_cat\fP(1) command is now able to write FORTH output.
+.\" ------------------------------------------------------------------------
+.\" Add new entries above this line.
+.SS Version 1.44 (2008-Aug-29)
+.\" vim: set ts=8 sw=4 et :

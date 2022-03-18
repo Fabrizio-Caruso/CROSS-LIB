@@ -1204,7 +1204,6 @@ Use the VTI emulator
 -  Custom + F1 (to select Rigel)
 - Select the game
 
-----
 
 Alternative instructions:
 

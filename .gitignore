@@ -63,4 +63,6 @@ tools/bbc/bbcim-1.0.1/bbcim.exe
 tools/bbc/bbcim-1.0.1/bbcim.out
 tools/z88dk/oz/makewzd.exe
 tools/z88dk/oz/makewzd.out
+tools/cmoc/coco/file2dsk/file2dsk.exe
+tools/cmoc/coco/file2dsk/file2dsk.out
 

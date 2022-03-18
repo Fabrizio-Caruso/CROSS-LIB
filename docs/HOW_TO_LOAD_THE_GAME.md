@@ -1222,6 +1222,7 @@ Alternative instructions:
 
 
 QUICK
+
 	Load Rigel savestate 
 	Click 2nd OFF On
     Click 2nd Link, then press F2 to receive.

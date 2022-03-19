@@ -65,4 +65,8 @@ tools/z88dk/oz/makewzd.exe
 tools/z88dk/oz/makewzd.out
 tools/cmoc/coco/file2dsk/file2dsk.exe
 tools/cmoc/coco/file2dsk/file2dsk.out
+tools/cmoc/mo5/sap/*.exe
+tools/cmoc/mo5/sao/*.out
+tools/cmoc/mo5/sapfs.exe
+tools/cmoc/mo5/sapfs.out
 

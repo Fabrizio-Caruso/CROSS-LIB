@@ -770,7 +770,7 @@ int main(int argc, char *argv[])
 #else
     char *lang=getenv("LANG");
     if (lang==NULL) lang="fr_FR";
-    setlocale(LC_ALL, "fr_FR.UTF8");
+    //setlocale(LC_ALL, "fr_FR.UTF8");
     if (strncmp(lang,"fr",2)==0)
         is_fr=-1;
     else

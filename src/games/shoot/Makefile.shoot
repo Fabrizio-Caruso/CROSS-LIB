@@ -1349,7 +1349,7 @@ coco_targets: \
 	coco
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1445,11 +1445,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	rocket.o horizontal_missile.o end_screen.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
-ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
-endif	
 	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 	rm ./FULL_MO5.bin
 

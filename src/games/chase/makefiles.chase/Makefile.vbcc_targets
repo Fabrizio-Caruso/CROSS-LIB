@@ -11,7 +11,7 @@ vbcc_targets: \
 
 bbc: bbc_buffered
 
-bbc_buffered: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
+bbc_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ -D__BBC__ -DVBCC \
 	-DXSize=39 \
@@ -27,7 +27,7 @@ bbc_buffered: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase
 	rm -rf xchase.inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
@@ -35,7 +35,7 @@ bbc_buffered: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
 
 bbcmaster: bbcmaster_buffered
 
-bbcmaster_buffered: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
+bbcmaster_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	$(VBCC_COMPILER) +bbcmaster $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ -D__BBCMASTER__ -DVBCC \
 	-DXSize=39 \
@@ -51,7 +51,7 @@ bbcmaster_buffered: $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT)
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase 
 	rm -rf xchase.inf 
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)

@@ -1513,7 +1513,7 @@ coco_no_gfx_targets: \
 ########################################
 
 
-mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -1550,11 +1550,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	input_macros.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
-ifeq ($(DO_WIN),1)
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
-endif	
 	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 	rm ./FULL_MO5.bin
 
@@ -1562,7 +1560,7 @@ endif
 mo5_targets: \
 	mo5
 
-to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -1597,15 +1595,12 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
-ifeq ($(DO_WIN),1)
-	mv $(BUILD_PATH)/FULL_TO7.BIN .
+	mv $(BUILD_PATH)/FULL_TO7.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
-	rm ./FULL_TO7.BIN
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.bin
+	rm ./FULL_TO7.bin
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
-else
-	mv $(BUILD_PATH)/FULL_TO7.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-endif
+
 
 to7_targets: \
 	to7

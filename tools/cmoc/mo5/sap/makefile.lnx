@@ -1,0 +1,59 @@
+##########################################################################
+# targets:                                                               #
+#  all (default) : build sap2 and sapfs                                  #
+#  install       : build and install sap2 and sapfs in $(HOME)/emu/sap   #
+#  clean         : delete all rebuildable files                          #
+########################################################################## 
+
+
+################
+# object files #
+################
+
+OBJ_DIR =
+OBJ_SAP = $(OBJ_DIR)sap2.o $(OBJ_DIR)libsap.o $(OBJ_DIR)lfloppy.o
+OBJ_SAPFS = $(OBJ_DIR)sapfs.o $(OBJ_DIR)libsap.o
+
+
+##################
+# compiler flags #
+##################
+
+# default to gcc compiler
+ifeq (default,$(origin CC))
+  CC = gcc
+endif
+
+WFLAGS = 
+#-Wall -W -Werror
+#WFLAGS = -Wall -W
+
+OFLAGS = -fsigned-char -O2 -fomit-frame-pointer
+
+CFLAGS += $(WFLAGS)
+CFLAGS += $(OFLAGS)
+
+
+################
+# target rules #
+################
+
+.PHONY: all install clean
+
+all: sap2 sapfs
+
+install: sap2 sapfs
+	cp sap2 sapfs licence.txt sap2.txt sapfs.txt $(HOME)/emu/sap
+
+clean:
+	rm -f sap2 sapfs $(OBJ_DIR)*.o
+
+sap2: $(OBJ_SAP) 
+	$(CC) -s -o sap2 $(OBJ_SAP)
+
+sapfs: $(OBJ_SAPFS)
+	$(CC) -s -o sapfs $(OBJ_SAPFS)
+
+$(OBJ_DIR)%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+

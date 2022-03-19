@@ -23,7 +23,7 @@ File2VDK.exe https://github.com/rolfmichelsen/dragontools
 
 - cmoc/mo5
 f2k5.exe  http://pulkomandy.tk/projects/thomson/browser/Thomson/tools/
-sapfs.exe http://pulkomandy.tk/projects/thomson/browser/Thomson/tools/
+sapfs.exe https://sourceforge.net/p/teoemulator/code/ci/default/tree/tools/sap/ (also in http://pulkomandy.tk/projects/thomson/browser/Thomson/tools/)
 
 - gcc
 libncurses https://www.gnu.org/software/ncurses/

@@ -1,0 +1,32 @@
+##################
+# compiler flags #
+##################
+
+# default to gcc compiler
+ifeq (default,$(origin CC))
+  CC = gcc
+endif
+
+WFLAGS = -Wall
+
+OFLAGS = -O2
+
+CFLAGS += $(WFLAGS)
+CFLAGS += $(OFLAGS)
+
+LDFLAGS += -s
+
+linux = 1
+
+################
+# target rules #
+################
+
+BINARIES = getmemo7 getrom wav2k7
+
+.PHONY: all clean
+
+all: $(BINARIES)
+
+clean:
+	$(RM) $(BINARIES)

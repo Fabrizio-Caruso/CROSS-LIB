@@ -1,0 +1,41 @@
+##################
+# compiler flags #
+##################
+
+CC = gcc
+
+WFLAGS = -Wall
+
+OFLAGS = -O2
+
+CFLAGS = $(WFLAGS) $(OFLAGS)
+
+msdos = 1
+
+ifdef ENGLISH
+    CFLAGS += -DENGLISH_LANGUAGE
+else
+    CFLAGS += -DFRENCH_LANGUAGE
+endif
+
+################
+# target rules #
+################
+
+.PHONY: all clean
+
+all: getmemo7.exe getrom.exe wav2k7.exe
+
+getmemo7.exe: getmemo7.c
+	$(CC) -s $(CFLAGS) -o getmemo7.exe getmemo7.c
+
+getrom.exe: getrom.c
+	$(CC) -s $(CFLAGS) -o getrom.exe getrom.c
+
+wav2k7.exe: wav2k7.c
+	$(CC) -s $(CFLAGS) -o wav2k7.exe wav2k7.c
+
+clean:
+	if exist getmemo7.exe del getmemo7.exe
+	if exist getrom.exe del getrom.exe
+	if exist wav2k7.exe del wav2k7.exe

@@ -1,0 +1,72 @@
+##########################################################################
+# targets:                                                               #
+#  all (default) : build sap2 and sapfs                                  #
+#  clean         : delete all rebuildable files                          #
+########################################################################## 
+
+
+################
+# object files #
+################ 
+
+OBJ_DIR =
+OBJ_SAP = $(OBJ_DIR)sap2.o $(OBJ_DIR)libsap.o $(OBJ_DIR)dfloppy.o
+OBJ_SAPFS = $(OBJ_DIR)sapfs.o $(OBJ_DIR)libsap.o
+
+
+##################
+# compiler flags #
+##################
+
+CC = gcc
+
+WFLAGS = 
+#-Wall -W -Werror
+
+DFLAGS = -g
+
+OFLAGS = -fsigned-char -O2 -fomit-frame-pointer
+
+ifdef DEBUGMODE
+   CFLAGS = $(WFLAGS) $(DFLAGS)
+else
+   CFLAGS = $(WFLAGS) $(OFLAGS)
+endif
+
+ifdef ENGLISH
+    CFLAGS += -DENGLISH_LANGUAGE
+else
+    CFLAGS += -DFRENCH_LANGUAGE
+endif
+
+
+################
+# target rules #
+################
+
+.PHONY: all install clean
+
+all: sap2.exe sapfs.exe
+
+clean:
+	if exist sap2.exe del sap2.exe
+	if exist sapfs.exe del sapfs.exe
+	del $(OBJ_DIR)*.o
+
+sap2.exe: $(OBJ_SAP)
+ifdef DEBUGMODE
+	$(CC) -o sap2.exe $(OBJ_SAP)
+else
+	$(CC) -s -o sap2.exe $(OBJ_SAP)
+endif
+
+sapfs.exe: $(OBJ_SAPFS)
+ifdef DEBUGMODE
+	$(CC) -o sapfs.exe $(OBJ_SAPFS)
+else
+	$(CC) -s -o sapfs.exe $(OBJ_SAPFS)
+endif
+
+$(OBJ_DIR)%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+

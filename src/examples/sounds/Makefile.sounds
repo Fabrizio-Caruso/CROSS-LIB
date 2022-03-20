@@ -858,7 +858,7 @@ endif
 	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	rm -rf xbin_BANK_7.bin
 	rm -rf xbin.cpc
-	rm -rf $(BUILD_PATH)/xbin    
+	rm -rf xbin    
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 

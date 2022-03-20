@@ -1596,8 +1596,8 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	text_macros.o \
 	input_macros.o
 	mv $(BUILD_PATH)/FULL_TO7.bin .
-	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.bin
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap FULL_TO7.bin
 	rm ./FULL_TO7.bin
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
 

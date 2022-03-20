@@ -594,27 +594,24 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/X$(GAME_NAME)XXX_$@ \
+	-o xbin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME)XXX $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cdt
-	# rm -rf X$(GAME_NAME)XXX_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)XXX_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)XXX_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc x$(GAME_NAME)XXX
-	# mv X$(GAME_NAME)XXX_$@.dsk $(BUILD_PATH)/
-	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
-	# rm os.rom
-	# rm amsdos.rom
-	# rm basic.rom
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
-	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.COM
+	mv xbin $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	rm -rf xbin_BANK_7.bin
+	rm -rf xbin.cpc
+	rm -rf $(BUILD_PATH)/xbin
+
 
 cpc_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \

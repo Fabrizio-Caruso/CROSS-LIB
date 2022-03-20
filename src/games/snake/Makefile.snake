@@ -1683,24 +1683,21 @@ cpc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/X$(GAME_NAME)XXX_$@ \
+	-o xbin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
-	# rm -rf X$(GAME_NAME)_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
-	# mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
-	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
-	# rm os.rom
-	# rm amsdos.rom
-	# rm basic.rom
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@.cpc 
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
+	mv xbin $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	rm -rf xbin_BANK_7.bin
+	rm -rf xbin.cpc
+	rm -rf $(BUILD_PATH)/xbin   
 
 
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 

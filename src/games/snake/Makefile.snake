@@ -1689,11 +1689,13 @@ cpc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	mv xbin $(BUILD_PATH)/
+ifeq ($(DO_WIN),1)  
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
+endif
 	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	rm -rf xbin_BANK_7.bin
 	rm -rf xbin.cpc

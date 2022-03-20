@@ -9,6 +9,8 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 GLOBAL_OPTS = -DNO_WALL
 
+API_VERSION=2
+
 #####################################################################
 # SLOWDOWN VALUES
 
@@ -166,7 +168,6 @@ gcc_targets: \
 cc65_targets: \
     atari \
     atari5200 \
-    atari_lynx \
     c16 \
     c64 \
     creativision \
@@ -706,7 +707,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 #################################################################
 
-cpc: cpc_cpcrslib_mode1
+cpc: cpc_mode0
 
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -721,11 +722,11 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o xbin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	-o xbin
 ifeq ($(DO_WIN),1)  
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
 	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
@@ -736,7 +737,7 @@ endif
 	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	rm -rf xbin_BANK_7.bin
 	rm -rf xbin.cpc
-	rm -rf $(BUILD_PATH)/xbin  
+	rm -rf xbin  
 
 
 cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm

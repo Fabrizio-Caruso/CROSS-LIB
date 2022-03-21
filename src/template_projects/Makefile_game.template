@@ -806,7 +806,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -D_API_VERSION=$(API_VERSION) \
 	-DSOUNDS -DFULL_GAME \
@@ -826,7 +826,7 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)XXX_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc x$(GAME_NAME)XXX
 	mv X$(GAME_NAME)XXX_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)XXX_gx4000.cpr   -c 'run"x$(GAME_NAME)XXX'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)XXX_gx4000.cpr   -c 'run"x$(GAME_NAME)XXX'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
@@ -835,7 +835,7 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 cpc: cpc_mode0
 
-cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
 	-DYSize=25 -DXSize=20 -DFORCE_SCREEN_MODE=0 \
@@ -855,7 +855,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	mv xbin $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
@@ -865,7 +865,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/xbin  
 
 
-cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
+cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=80 -DFORCE_SCREEN_MODE=2 \

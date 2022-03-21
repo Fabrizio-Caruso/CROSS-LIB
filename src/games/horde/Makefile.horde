@@ -1274,7 +1274,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 cpc: cpc_mode0
 
-cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=20 -DFORCE_SCREEN_MODE=0 \

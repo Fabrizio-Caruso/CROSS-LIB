@@ -70,5 +70,7 @@ tools/cmoc/mo5/sap/*.out
 tools/cmoc/mo5/sapfs.exe
 tools/cmoc/mo5/sapfs.out
 tools/cmoc/mo5/sap/sap2
+tools/z88dk/cpc/nocart/nocart.exe
+tools/z88dk/cpc/nocart/nocart.out
 
 

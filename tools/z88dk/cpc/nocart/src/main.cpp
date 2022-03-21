@@ -63,7 +63,7 @@ typedef struct
 	unsigned char Filler;
 	unsigned char N;
 	unsigned char RecordsPerSector;
-} XPDB;
+} XPDB_t;
 #pragma pack()
 
 
@@ -73,7 +73,7 @@ typedef struct
 	int SectorIDMin;
 	int MaxTracks;
 	int SPT;
-	XPDB XPDB;
+	XPDB_t XPDB;
 } SupportedFormat;
 
 const SupportedFormat SupportedFormats[1]=
@@ -1004,7 +1004,7 @@ UsesExtendedFormat = 0;
 								{
 									fseek(fhOut, currentPosition, SEEK_SET);
 									fseek(fhOut, -16384 + SYSTEM_XPDB_OFFSET, SEEK_CUR);
-									fwrite(&SupportedFormats[ChosenExtendedFormat].XPDB, sizeof(XPDB), 1, fhOut);
+									fwrite(&SupportedFormats[ChosenExtendedFormat].XPDB, sizeof(XPDB_t), 1, fhOut);
 								}
 
 								/* write sector id to support data or system */

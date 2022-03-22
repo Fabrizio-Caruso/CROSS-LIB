@@ -1,0 +1,57 @@
+#!/bin/bash -xe
+
+project=abcdisk
+windll=''
+winlib="$HOME/winlib"
+reldir=../rel
+here="$(pwd)"
+
+pv="$(git describe --abbrev=4)"
+
+mkdir -p $reldir/"$pv"
+cd $reldir/"$pv"
+
+( cd "$here" && git archive --format=tar --prefix="$pv"/ HEAD ) | \
+    tar xvvf -
+cd "$pv"
+./autogen.sh
+./configure
+make asmsrc
+make clean confclean
+cd ..
+tar cvvf "$pv".tar "$pv"
+rm -f "$pv".tar.xz "$pv".tar.gz
+xz -9ek "$pv".tar
+gzip -9 "$pv".tar
+
+for target in x86_64-w64-mingw32; do
+    rm -rf "$target"
+    mkdir "$target"
+    cd "$target"
+    dlldir="/usr/$target/sys-root/mingw/bin"
+    libsndfile="$winlib/$target/libsndfile"
+    tar xfz ../"$pv".tar.gz
+    cd "$pv"
+    ./configure --host="$target" --with-libsndfile="$libsndfile"
+    make clean
+    make -j
+    cd ..
+    mv "$pv" _build
+    mkdir "$pv"
+    cp $(find _build -type f -name '*.exe') "$pv"/
+    for f in $(find _build -type f -name '*.txt'); do
+	todos < "$f" > "$pv"/"$(basename "$f")"
+    done
+    for d in $windll; do
+	cp -l "$dlldir"/"$d" "$pv"/
+    done
+    cp -l "$libsndfile"/*/libsndfile*.dll "$pv"/
+    zip -9r -o "$pv".zip "$pv"
+    cd ..
+done
+
+(
+set +xe
+ln x86_64-w64-mingw32/"$pv".zip "$pv"-win64.zip
+ln i686-w64-mingw32/"$pv".zip   "$pv"-win32.zip
+) 2>/dev/null

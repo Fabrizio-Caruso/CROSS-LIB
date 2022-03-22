@@ -1,0 +1,115 @@
+MAKEFLAGS += -R -r
+
+top_srcdir      = @top_srcdir@
+srcdir          = @srcdir@
+VPATH           = @srcdir@
+prefix          = @prefix@
+exec_prefix     = @exec_prefix@
+bindir          = @bindir@
+mandir          = @mandir@
+datarootdir     = @datarootdir@
+
+CC		= @CC@
+CPPFLAGS	= @CPPFLAGS@ @DEFS@ -I.
+CFLAGS		= $(CPPFLAGS) @CFLAGS@
+LDFLAGS		= $(CFLAGS) @LDFLAGS@
+LIBS		= @LIBS@
+
+MKDIR		= @MKDIR_P@
+PERL		= perl
+RM_F		= rm -f
+Z80ASM          = @Z80ASM@
+INSTALL         = @INSTALL@
+
+O		= @OBJEXT@
+X		= @EXEEXT@
+
+# Programs that may require libraries not on this system
+EXTRA_PROGS     = @EXTRA_PROGS@
+
+.SUFFIXES:
+
+.SECONDARY:
+
+.DELETE_ON_ERROR:
+
+DIRS  = . asmsrc
+
+ASM    = $(wildcard asmsrc/*.asm)
+ASMINC = $(wildcard asmsrc/*.inc)
+ASMC   = $(ASM:.asm=.c)
+ASMH   = $(ASM:.asm=.h)
+ASMO   = $(ASM:.asm=.$(O))
+
+PROGS  = abcwrite abcread deinter abctext $(EXTRA_PROGS)
+EXE    = $(patsubst %,%$(X),$(PROGS))
+HDRS   = $(wildcard *.h)
+
+all : $(EXE)
+
+%.bin %.map: %.asm $(ASMINC)
+	$(Z80ASM) -b -l -m -s -I$(<D) $<
+
+.PHONY: asmsrc
+asmsrc: $(ASMC) $(ASMH)
+
+MKCSRC = asmsrc/mkcsrc.pl
+%.c %.h: %.bin %.map $(MKCSRC)
+	$(PERL) $(MKCSRC) $(*F) $*.bin $*.map $*.c $*.h
+
+asmsrc/%.$(O): asmsrc/%.c asmsrc/%.h
+
+%.$(O): %.c $(HDRS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+abcwrite$(X): abcwrite.$(O) mangle.$(O) util.$(O) formats.$(O) \
+		abcfile.$(O) clib/dirent.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+abcread$(X): abcread.$(O) unmangle.$(O) util.$(O) formats.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+abctext$(X): abctext.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+deinter$(X): deinter.$(O) util.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+casdecode$(X): casdecode.$(O) unmangle.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+casencode$(X): casencode.$(O) mangle.$(O) unmangle.$(O) abcfile.$(O) util.$(O)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+bac80.$(O): asmsrc/bac80.h asmsrc/bac80r.h
+
+bac800.$(O): asmsrc/bac800.h asmsrc/bac800d.h
+
+bin2abc$(X): bin2abc.$(O) ihex.$(O) abs.$(O) bas.$(O) relocs.$(O) \
+		bac80.$(O) bac800.$(O) mangle.$(O) $(ASMO)
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	rm -f $(EXE)
+	for d in $(DIRS); do \
+		for e in .$(O) .s .i .bak '~' .lis .lst .def .sym .err; do \
+			rm -f $${d}/*$${e} ; \
+		done ; \
+		rm -f $${d}/\#* ; \
+	done
+
+confclean:
+	rm -f config/config.h config.*
+
+asmclean:
+	rm -f asmsrc/*.c asmsrc/*.h asmsrc/*.bin asmsrc/*.map \
+	      asmsrc/*.lis asmsrc/*.lst
+
+allclean: clean asmclean confclean
+
+spotless: allclean confclean
+	rm -f config/configure config/aclocal.m4 \
+	      config/config.h.in config/unconfig.h
+
+install: all
+	$(INSTALL) $(EXE) $(bindir)

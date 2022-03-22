@@ -1,0 +1,18 @@
+#!/bin/bash
+
+project='abcdisk'
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 version" 1>&2
+    exit 1
+fi
+
+if [ "$(git diff --cached | wc -l)" != 0 ]; then
+    echo "$0: changes already in git cache" 1>&2
+    exit 1
+fi
+
+echo "#define VERSION \"$1\"" > patchlevel.h
+git add patchlevel.h
+git commit -m "$project $1"
+git tag -a -m "$project $1" "$project-$1"

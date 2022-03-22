@@ -7,6 +7,7 @@
 
 GMAKE=make
 
+
 $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT): $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c
 	$(NATIVE_CC) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c -o $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
     
@@ -26,12 +27,15 @@ $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/coco
 
 $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/sap/sapfs.c
 	cd $(TOOLS_PATH)/cmoc/mo5/sap/ && $(GMAKE)
-	mv $(TOOLS_PATH)/cmoc/mo5/sap/sapfs$(EXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+	mv $(TOOLS_PATH)/cmoc/mo5/sap/sapfs $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 
 $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/cpc/nocart/src/main.cpp
-	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GMAKE) && mv nocart$(EXE) ../nocart$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GMAKE) && mv nocart ../nocart$(COMPILEDEXT)
 
-    
+$(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
+	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(COMPILEDEXT) ..
+
+
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
@@ -39,7 +43,8 @@ tools: \
     $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 
 clean_tools:
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
@@ -49,6 +54,7 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 
 
 

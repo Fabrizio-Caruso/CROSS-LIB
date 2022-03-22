@@ -1,0 +1,184 @@
+$Id: README,v 1.7 2006/10/30 20:21:47 chris Exp $
+
+Olivetti M20 floppy tools, (c) Christian Groessler, chris@groessler.org
+=======================================================================
+
+See the file COPYING for license details.
+
+This is a tool to access Olivetti M20 floppies and their images. Reading
+and writing files is supported.
+
+
+Installing on Linux/x86:
+------------------------
+
+type "make"
+some files will be compiled, generating a executable called "m20"
+
+
+Installing on other systems:
+----------------------------
+
+edit Makefile and type "make"
+I've tried it on Solaris/x86 and it worked, for other systems your
+mileage may vary.
+This version worked on disk images only, to access real M20 floppies
+you'll need Linux or NetBSD.
+The DOS version supports only 40track/360K floppy drives. It does not
+work with 1.2M drives.
+
+
+Other software that's required:
+-------------------------------
+
+In order to read and write real M20 floppies, a dd like tool which
+supports skipping (not by reading and discarding, but by seeking) the
+input and output files is needed.
+I use sdd by Jörg Schilling <schilling@fokus.gmd.de>, you can find it
+on ftp://ftp.fokus.gmd.de/pub/unix/sdd .
+
+fdutils-5.4 for Linux, you can get it from
+ftp://metalab.unc.edu/pub/Linux/utils/disk-management/fdutils-5.4.tar.gz
+or the newest version at
+ftp://ftp.tux.org/pub/knaff/fdutils
+The fdutils are needed to access non-standard (e.g. 256 byte sectors)
+floppies, like those used on the M20.
+
+On NetBSD, you'll need the patch in PR15199 to access non-standard
+floppies.
+
+
+Reading and writing diskette images
+-----------------------------------
+
+After installing fdutils and sdd, you can get an image of an existing
+M20 floppy by issuing the commands
+
+
+# set floppy parameters (here we're using the 2nd drive)
+# do this after inserting the disk into the drive
+setfdprm /dev/fd1 OLI320
+
+# read diskette image
+sdd iseek=4096 oseek=4096 if=/dev/fd1 of=m20disk.img bs=256 count=1104
+
+
+Please note that we're skipping the first 4096 bytes of the
+floppy. These are the blocks of Track 0/Head 0. Track 0/Head 0 is
+formatted in FM mode, which isn't readable by many PC floppy
+controllers.
+
+This is no problem when reading existing M20 floppies as there seems
+nothing important to be stored in this area. I was able to read all
+files of a full disk without reading this area.
+
+It _is_ a problem when creating new disks on the PC as the M20 doesn't
+accept disks where this area is formatted differently. So you cannot
+create new M20 disks on the PC.
+What is possible is to format the disk on the M20 and then write a
+new image to it on the PC.
+
+The command to write a new/modified M20 image to floppy disk is
+something like this:
+
+
+# set floppy parameters (here we're using the 2nd drive)
+# do this after inserting the disk into the drive
+setfdprm /dev/fd1 OLI320
+
+# write image to diskette
+sdd iseek=4096 oseek=4096 of=/dev/fd1 if=m20disk.img bs=256 count=1104
+
+
+In the time between reading the image and writing the image back
+you can modify the image's contents with the supplied "m20" command :-)
+
+
+Using the m20 command
+---------------------
+
+If you start m20 w/o arguments it will print a short usage overview:
+
+
+usage: m20 <image file> <option>
+       option can be one of
+          ls      - list files on image
+          lsl     - verbosely list files on image
+          cat     - show file from image
+          get     - get file from image
+          mget    - get multiple files from image
+          put     - put file onto image
+          mput    - put multiple files onto image
+          rm      - delete file on image
+          new     - create a new empty image
+          version - display program version
+
+
+Short description of the options:
+
+ls:	display contents of image (file names). Only the file names
+	are listed, one in each line, for easy use with the mget
+	option.
+	e.g.
+		m20 m20disk.img ls | xargs m20 m20disk.img mget
+
+lsl:	display contents of image (file names) in a format similar to
+	the PCOS vl command.
+	e.g.
+		m20 m20disk.img lsl
+
+cat:	print contents of (ascii) file from image
+	e.g.
+		m20 m20disk.img cat file.txt
+
+get:	get a file from the image (i.e. copy to host file system),
+	optionally renaming it
+	e.g.
+		m20 m20disk.img get PCOS.SAV
+		(this will copy the PCOS.SAV file from the image to a
+		PCOS.SAV file on the host file system)
+	or
+		m20 m20disk.img get PCOS.SAV newname.bin
+		(this will copy the PCOS.SAV file from the image to a
+		newname.bin file on the host file system)
+
+mget:	get multiple files from the image (i.e. copy to host file
+	system)
+	e.g.
+		m20 m20disk.img get PCOS.SAV file1 file2
+		(this will copy the PCOS.SAV, file1, and file2 files
+		from the image to a files with the same name on the
+		host file system)
+
+put:	put host file onto image, optionally renaming it
+	e.g.
+		m20 m20disk.img put runz.batz
+		(this will copy the file runz.batz onto the image)
+	or
+		m20 m20disk.img put runz.batz newname.bin
+		(this will copy the file runz.batz onto the image and
+		name it newname.bin there)
+
+mput:	put host files onto image
+	e.g.
+		m20 m20disk.img put runz.batz file1 file2
+		(this will copy the files runz.batz, file1, and file2
+		onto the image)
+
+rm:	remove files from image
+	e.g.
+		m20 m20disk.img rm basic.cmd file1 file2
+		(this will delete the files basic.cmd, file1, and
+		file2 from the image)
+
+new:	create a fresh empty image (format disk)
+	e.g.
+		m20 newimage.img new
+		(you will have to populate the image with the put
+		command)
+
+What else?
+----------
+
+Nothing I know of. If you have comments/suggestions/etc., please
+contact me at chris@groessler.org

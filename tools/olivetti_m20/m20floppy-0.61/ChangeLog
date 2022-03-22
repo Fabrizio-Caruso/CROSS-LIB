@@ -1,0 +1,62 @@
+Mon Oct 30 21:09:52 2006  Christian Groessler  <chris@groessler.org>
+
+	* blockop.c (dos_bios_write): implemented
+	* version.h: version updated to 0.61
+
+Mon Oct 19 20:41:32 2006  Christian Groessler  <chris@groessler.org>
+
+	* Makefile: add support for compiling with djgpp.
+	* blockop.c (read_phys_block, write_phys_block): add DOS support.
+	(cleanup_int1e, setup_int1e, blkno_to_chs, dos_bios_read):
+	implemented for DOS support.
+	* imgopen.c (open_img_rw, open_img_ro, open_img_new): add DOS
+	support.
+	(is_dos_drive): implemented for DOS support.
+	main.c (main): add DOS support.
+
+Wed Oct 18 22:08:28 2006  Christian Groessler  <chris@groessler.org>
+
+	* rwserv.c (do_rm): more than one file to delete can be
+	specified.
+	* version.h: version updated to 0.60
+
+Wed Jul 12 00:19:36 2006  Christian Groessler  <cpg@aladdin.de>
+
+	* Makefile: fix dependencies for main.o, roserv.o, and rwserv.o.
+	* roserv.c (do_get, do_mget): close files after usage.
+	* rwserv.c (do_put_one_file): ditto.
+	* cmdopts.h, main.c, roprotos.h, roserv.c: add "lsl" command line
+	parameter.
+
+Wed Apr  5 20:28:36 2006  Christian Groessler  <cpg@aladdin.de>
+
+	* util.c (get_file): skip remaining extents if file is already
+	completely written.  add a debug message
+	* main.c (main): add support for mget and mput commands
+	* roserv.c (do_mget): implemented
+	* rwprotos.h: add do_mget prototype
+	* rwserv.c (do_put_one_file, do_put): rename do_put to
+	do_put_one_file and change argments.  implement new do_put which
+	uses do_put_one_file.
+	(do_mput): implemented
+	* version.h: version updated to 0.59
+
+Fri Jan 16 21:39:26 2004  Christian Groessler  <cpg@aladdin.de>
+
+	* Makefile: add MacOS-X/Darwin CFLAGS
+	* blockop.c (read_file_block, write_file_block): skip 0x10 blocks
+	at block 0x200, not 0x201
+	* main.c, rwserv.c, util.c: fix/add debug messages
+	* version.h: version updated to 0.58
+
+Fri Nov 23 02:17:37 2001  Christian Groessler  <cpg@aladdin.de>
+
+	* blockop.c: included stdlib.h to suppress warning
+	* main.c: use COPYRIGHT_STRING from version.h
+	* version.h: COPYRIGHT_STRING added.  version updated to 0.57
+
+Mon Nov 19 01:40:59 2001  Christian Groessler  <cpg@aladdin.de>
+
+	* pcosdir.h: add volname to disk_header structure
+	* roserv.c (do_ls): display volume label if present
+	* rwserv.c (do_new): remove paths in generated PCOS file names

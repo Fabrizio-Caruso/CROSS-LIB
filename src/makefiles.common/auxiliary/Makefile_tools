@@ -33,7 +33,7 @@ $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/cpc/noc
 	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GMAKE) && mv nocart ../nocart$(COMPILEDEXT)
 
 $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
-	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(COMPILEDEXT) ..
+	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
 
 
 tools: \

@@ -578,11 +578,13 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-c64_exomized: c64
+c64_exomized: $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 
-c64_crt: c64_exomized
+# prg2crt not compatible with Python 3
+c64_crt: $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+	# /usr/bin/python2 $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
 
 
 

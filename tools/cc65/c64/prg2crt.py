@@ -68,7 +68,7 @@ content += bytearray.fromhex(
 # add program size, minus the first two bytes for start address
 size = len(prg) - 2
 content.append(size & 0xff)
-content.append(size / 0x100)
+content.append(int(size / 0x100))
 
 # add program, with start address
 content += prg
@@ -79,7 +79,7 @@ while (len(content) & 0x1fff) != 0:
 
 
 # save content as Chip blocks
-banks = len(content) / 0x2000
+banks = int(len(content) / 0x2000)
 for bank in range(0, banks):
 	# CHIP
 	writeHex('43484950')

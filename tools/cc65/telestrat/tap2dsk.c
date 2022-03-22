@@ -7,6 +7,8 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #define NBTRACKS 21
 #define NBSECT 17
 

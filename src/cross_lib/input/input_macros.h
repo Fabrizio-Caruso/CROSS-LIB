@@ -190,7 +190,7 @@ window.addEventListener("keydown", function (event) {
 // TURN_BASED_INPUT definitions
 #  if defined(__TELESTRAT__)
     #include <conio.h>
-    #define TURN_BASED_INPUT() cgetc;
+    #define TURN_BASED_INPUT() cgetc();
 #elif defined(__EMCC__)
     #define __() getchar()
 #elif defined(__NCURSES__) || defined(STDLIB) || defined(__MC10__)

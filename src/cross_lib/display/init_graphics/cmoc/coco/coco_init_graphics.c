@@ -32,7 +32,11 @@ POKE(0xFFA6,0x32);
 void _XL_INIT_GRAPHICS(void)
 {
     // Set monochromatic black/white ($F0 for green)
-    POKE(0xFF22,0xF8);
+    // 0xF8    -> 2 colors (black and white)
+    // 0XF0    -> 2 colors (dark green and light green)
+    // 0xF8-16 -> 4 colors with white background
+    // 0xF0-16 -> 4 colors with green background
+    POKE(0xFF22,0XF0);
     
     // Set resolution to 256x192
     POKE(0xFFC3,1);

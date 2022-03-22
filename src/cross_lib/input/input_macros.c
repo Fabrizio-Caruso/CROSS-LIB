@@ -205,7 +205,9 @@ out            stb res
         }
         
         if(res == 0)
+        {
             return inkey();
+        }
         return res;
         
     #elif defined(__SRR__)

@@ -204,10 +204,21 @@ test        lda $ff00
 out            stb res
         }
         
-        if(res == 0)
+        #if defined(__COCO__)
+            #define _SPACE_BIT_MASK 0x08
+        #else
+            #define _SPACE_BIT_MASK 0x20
+        #endif
+        
+        POKE(0xFF02,0x7F);
+        if(!(PEEK(0xFF00)&_SPACE_BIT_MASK))
         {
-            return inkey();
+            return ' ';
         }
+        // if(res == 0)
+        // {
+            // return inkey();
+        // }
         return res;
         
     #elif defined(__SRR__)

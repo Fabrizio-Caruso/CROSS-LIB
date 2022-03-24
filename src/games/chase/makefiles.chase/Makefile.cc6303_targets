@@ -45,10 +45,11 @@ mc10_no_print:
 	-DFULL_GAME -DNO_SLEEP \
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT -DNO_WAIT \
-	-D_XL_SLOW_DOWN_FACTOR=3000 -DNO_INPUT \
+	-D_XL_SLOW_DOWN_FACTOR=3000  \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/input/mc10_poll.s \
 	-o xchase
 	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10

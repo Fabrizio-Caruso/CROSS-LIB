@@ -1262,6 +1262,18 @@ folowed by enter.
 
 ----------------------------------------------------------
 
+### TRS-80 MC-10
+
+Use VMC-10 emulator (https://github.com/PhoenixInteractiveNL/emuDownloadCenter/wiki/Emulator-virtualmc10#downloads)
+Enable 16k (at least): Configure -> Memory -> 16k
+Run:
+CLOADM
+Load the .c10 file: File->Play cassette file
+Run:
+EXEC
+
+----------------------------------------------------------
+
 ### TRS-80 Model 1/2/4
 
 .cas version:

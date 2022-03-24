@@ -32,6 +32,9 @@
 	uint8_t stick;
 #endif
 
+#define PEEK(addr)         (*(uint8_t*) (addr))    
+
+uint8_t mc10_poll(void);
 
 // GET_CHAR() definitions
 #if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(STDLIB)
@@ -58,6 +61,12 @@
             return 9;
         }
     
+
+    #elif defined(__MC10__)
+    
+        return mc10_poll();
+        // return PEEK(0xFFDC)-0x20;
+        
     #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
     || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__) || defined(__CX16__)
         if(kbhit())
@@ -108,7 +117,6 @@
     
     #elif defined(__MO5__) 
         #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
-        #define PEEK(addr)         (*(uint8_t*) (addr))    
 
         #define KEYREG 0xA7C1
         

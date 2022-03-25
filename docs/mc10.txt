@@ -1,0 +1,8 @@
+Multicolor graphics
+
+Disable Interrupt with SEI
+CLI to enable
+
+POKE 49151,36
+
+$4000

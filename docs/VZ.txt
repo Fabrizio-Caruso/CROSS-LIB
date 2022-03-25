@@ -1,0 +1,3 @@
+VZ keyboard echo fix
+
+*((byte *)0x7839) |= 1; (that is, set bit 0 to "1")

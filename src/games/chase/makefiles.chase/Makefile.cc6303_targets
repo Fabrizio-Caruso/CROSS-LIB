@@ -49,7 +49,6 @@ mc10_no_print:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(CROSS_LIB_PATH)/input/mc10_poll.s \
 	-o xchase
 	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10

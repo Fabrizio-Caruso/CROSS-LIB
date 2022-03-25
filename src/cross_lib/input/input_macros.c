@@ -32,9 +32,10 @@
 	uint8_t stick;
 #endif
 
+#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
 #define PEEK(addr)         (*(uint8_t*) (addr))    
 
-uint8_t mc10_poll(void);
+// uint8_t mc10_poll(void);
 
 // GET_CHAR() definitions
 #if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(STDLIB)
@@ -64,7 +65,36 @@ uint8_t mc10_poll(void);
 
     #elif defined(__MC10__)
     
-        return mc10_poll();
+        POKE(2u,0xFFu-0x10u);
+        if(!(PEEK((volatile uint16_t) 49151u)&2))
+        {
+            return 'L';
+        }
+        POKE(2u,0xFFu-0x08u);
+        if(!(PEEK((volatile uint16_t)49151u)&2))
+        {
+            return 'K';
+        }
+        POKE(2u,0xFFu-0x04u);
+        if(!(PEEK((volatile uint16_t)49151u)&2))
+        {
+            return 'J';
+        }
+        POKE(2u,0xFFu-0x2u);
+        if(!(PEEK((volatile uint16_t)49151u)&2))
+        {
+            return 'I';
+        }
+        POKE(2u,0xFFu-0x80u);
+        if(!(PEEK((volatile uint16_t)49151u)&4))
+        {
+            return ' ';
+        }
+        else
+        {
+            return 0;
+        }
+        // return mc10_poll();
         // return PEEK(0xFFDC)-0x20;
         
     #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
@@ -112,7 +142,6 @@ uint8_t mc10_poll(void);
             stb res
         }
         return res; 
-        #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
         #define PEEK(addr)         (*(uint8_t*) (addr))    
     
     #elif defined(__MO5__) 

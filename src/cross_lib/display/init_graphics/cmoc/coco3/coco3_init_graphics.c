@@ -12,7 +12,8 @@ void _XL_INIT_GRAPHICS(void)
     uint16_t i;
 
     // Enable MMU
-    POKE(0xFF90,0x40);
+    // POKE(0xFF90,0x40);
+    POKE(0xFF90,0x44);
 
     // Set graphics ON
     POKE(0xFF98,0x80);
@@ -29,6 +30,7 @@ void _XL_INIT_GRAPHICS(void)
     {
         POKE(0xFFB0+i,i&0xFF);
     }
+    POKE(0xFFB,0x3F);
     
     // Set MMU windows at $8000
     POKE(0xFFA4,0x30);

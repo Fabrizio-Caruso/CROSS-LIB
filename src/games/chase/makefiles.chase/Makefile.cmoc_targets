@@ -423,6 +423,9 @@ coco3: coco3_gfx
 	
 coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
@@ -482,7 +485,7 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fil
 	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o \
+	display_macros.o dac_sounds.o \
 	init_images.o  coco3_init_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
@@ -493,7 +496,7 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fil
 	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o \
+	rm 	display_macros.o dac_sounds.o \
 	init_images.o  coco3_init_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \

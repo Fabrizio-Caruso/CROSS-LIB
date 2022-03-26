@@ -1683,7 +1683,7 @@ vz200_24k:
 	--generic-console --hardware-keyboard -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ \
-	-D_XL_SLOW_DOWN_FACTOR=1000 \
+	-D_XL_SLOW_DOWN_FACTOR=500 \
 	-DCONIO -D_XL_NO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \

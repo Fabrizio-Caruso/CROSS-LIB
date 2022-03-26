@@ -77,6 +77,9 @@
 #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__)
     #include <devkit/video/vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
+#elif defined(__MC10__)
+    void mc10_display_poke(uint16_t addr, uint8_t val);
+    #define DISPLAY_POKE(addr,val) mc10_display_poke(addr,val)
 #else
 	#define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 #endif

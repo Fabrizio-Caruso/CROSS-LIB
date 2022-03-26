@@ -22,9 +22,27 @@
 
 #include "cross_lib.h"
 
+    #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
+
 
 #if defined(__ATARI__) && (defined(ATARI_MODE1) ) 
 extern uint16_t BASE_ADDR;
+#endif
+
+#if defined(__MC10__)
+    void mc10_display_poke(uint16_t addr, uint8_t val)
+    {
+        // if((val>='a')&&(val<='b'))
+        // {
+            // val = val+32;
+        // }
+        // else 
+        if((val>='A')&&(val<='Z'))
+        {
+            val = val-64;
+        }
+        POKE(addr,val);
+    }
 #endif
 
 
@@ -92,7 +110,6 @@ extern uint16_t BASE_ADDR;
         }
     }
 #elif defined(__MO5__)
-    #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 /*
 COLOR:
 lda $a7c0

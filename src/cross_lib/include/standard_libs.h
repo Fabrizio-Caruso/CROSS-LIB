@@ -6,6 +6,7 @@
     #include <coco.h>
 #elif defined(__MC10__)
     #include <stdint.h>
+    #include <stdio.h>
     // #include <stdlib.h>
     // #if !defined(_STDINT)
         // #define _STDINT

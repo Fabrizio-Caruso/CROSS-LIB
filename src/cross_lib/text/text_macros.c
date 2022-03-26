@@ -1,7 +1,11 @@
 #include "cross_lib.h"
 
 #include "text_macros.h"
+#include "standard_libs.h"
 
+#if defined(__MC10__)
+extern uint8_t strlen(char *);
+#endif 
 
 #if !defined(NO_PRINT) && !defined(NO_MESSAGE)
 	#if !defined(ALT_DISPLAY_STATS)

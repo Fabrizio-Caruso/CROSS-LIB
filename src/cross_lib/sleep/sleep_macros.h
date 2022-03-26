@@ -34,7 +34,7 @@
     #endif
   
     #if !defined(NO_SLEEP)
-        #  if !defined(__CMOC__) && !defined(__LCC1802__) && !defined(__TI99__)
+        #  if !defined(__CMOC__) && !defined(__LCC1802__) && !defined(__TI99__) && !defined(__MC10__)
             #include <time.h>
             #include <unistd.h>
             #include <stdlib.h>        

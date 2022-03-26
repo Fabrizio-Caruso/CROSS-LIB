@@ -159,7 +159,7 @@ void printFirePowerStats(void)
     
 #endif
 
-#if !defined(NO_MESSAGE)
+#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
     void printPressKeyToStart(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);

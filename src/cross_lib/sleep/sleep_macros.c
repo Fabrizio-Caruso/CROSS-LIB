@@ -63,7 +63,6 @@
             usleep((t)*800);
         }
     #else
-            
         void _XL_SLOW_DOWN(uint16_t t)
         {
             uint16_t i;

@@ -2130,6 +2130,31 @@ cidelsa_targets: \
     clean_combo_files
 
 
+###############################################################################
+
+mc10: mc10_no_print
+
+# -S to produce Assembly 
+mc10_no_print:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DXSize=32 \
+	-DYSize=16 \
+	-DMEMORY_MAPPED \
+	-D_XL_NO_COLOR \
+	-DFULL_GAME \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=2000 -DNO_WAIT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
 ###############################################################################################
 # GCC
 #

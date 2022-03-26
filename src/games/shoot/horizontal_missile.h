@@ -27,9 +27,9 @@
 
     #define computeArrowRange() ((level)>>2)
     
-    void _handle_horizontal_missile_from_the_left(void);
+    void _handle_from_the_left(void);
     
-    void _handle_horizontal_missile_from_the_right(void);
+    void _handle_from_the_right(void);
     
     void handle_horizontal_missiles(void);
     

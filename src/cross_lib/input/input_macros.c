@@ -142,7 +142,7 @@
         #define PEEK(addr)         (*(uint8_t*) (addr))    
     
     #elif defined(__MO5__) 
-        #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
+        // #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
 
         #define KEYREG 0xA7C1
         

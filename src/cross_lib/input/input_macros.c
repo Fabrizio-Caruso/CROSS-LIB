@@ -86,14 +86,11 @@
             return 'I';
         }
         POKE(2u,0xFFu-0x80u);
-        if(!(PEEK((volatile uint16_t)49151u)&4))
+        if(!(PEEK((volatile uint16_t)49151u)&8))
         {
             return ' ';
         }
-        else
-        {
-            return 0;
-        }
+        return 0;
         // return mc10_poll();
         // return PEEK(0xFFDC)-0x20;
         

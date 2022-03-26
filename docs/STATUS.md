@@ -69,7 +69,7 @@ target name         | long target name                                     | wor
 *laser500*          | Laser 500                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *m5*                | Sord M5                                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *mega65*            | Mega 65 / Commodore 65                               |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
-*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    | Motorola 6803 | CC6303  |    missing      |    missing     | missing |
+*mc10*              | TRS-80 MC-10 / Alice Matra 4k                        |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     | missing |
 *mc1000*            | CCE MC-1000                                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *microboard*        | Microboard Computer Development System               |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |

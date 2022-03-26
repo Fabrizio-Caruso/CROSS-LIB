@@ -11,7 +11,7 @@
 	_XL_PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
-#if !defined(NO_PRINT)
+#if !defined(NO_PRINT) && !defined(NO_MESSAGE)
     void _XL_PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 #else
 	#define _XL_PRINT_CENTERED_ON_ROW(row,Text)

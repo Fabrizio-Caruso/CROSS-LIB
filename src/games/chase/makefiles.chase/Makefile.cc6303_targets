@@ -31,10 +31,8 @@ vbcc_targets: \
 	# mv xchase.inf $(BUILD_PATH)/
 
 
-mc10: mc10_no_print
-
 # -S to produce Assembly 
-mc10_no_print:
+mc10:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
 	-D__MC10__ \
 	-DFORCE_NO_CONIO_LIB \
@@ -46,9 +44,11 @@ mc10_no_print:
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT -DNO_WAIT -DNO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
-	-DDEFAULT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN -DNO_MESSAGE -DALT_PRINT \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xchase
 	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10

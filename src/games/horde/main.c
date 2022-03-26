@@ -47,7 +47,7 @@
     #define WALL_Y ((YSize)-6)
 #endif
 
-#if YSize>=18
+#if YSize>=16
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
 #else
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-1)

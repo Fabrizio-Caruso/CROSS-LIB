@@ -1245,9 +1245,10 @@ vz200_24k:
 	-DSOUNDS -D__VZ__ \
 	-DNO_EXTRA_TITLE \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
-	-DCONIO -DNO_INIT_GRAPHICS  -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 

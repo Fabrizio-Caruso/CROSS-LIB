@@ -1684,10 +1684,11 @@ vz200_24k:
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ \
 	-D_XL_SLOW_DOWN_FACTOR=1000 \
-	-DCONIO -DNO_INIT_GRAPHICS  -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 

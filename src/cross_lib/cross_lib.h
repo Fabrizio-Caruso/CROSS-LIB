@@ -89,7 +89,7 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \
-        || (defined(__ATARI_LYNX__) && defined(TGI_GFX))
+        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__)
         #define _XL_NO_SMALL_LETTERS
 
     #else
@@ -98,7 +98,7 @@
 
     #endif  
 #else
-    #if defined(__VIC20__)  \
+    #if defined(__MC10__) || defined(__VIC20__)  \
         || defined(__WINCMOC__) || (defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__)) ||  (defined(__APPLE2ENH__) && defined(APPLE2_HGR))  \
         || defined(__C64__) \

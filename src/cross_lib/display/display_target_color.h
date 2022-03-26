@@ -31,7 +31,6 @@
     || defined(__CIDELSA__) || defined(__MICRO__) \
     || defined(__CREATIVISION__) || defined(__ORIC__) || defined(__ATMOS__)
     #define _XL_NO_TEXT_COLOR
-#else
 #endif
 
 #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE

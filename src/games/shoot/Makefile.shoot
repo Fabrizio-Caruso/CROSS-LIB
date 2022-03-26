@@ -1748,10 +1748,10 @@ mc10_no_print:
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
-	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=400 -DNO_WAIT -DNO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase

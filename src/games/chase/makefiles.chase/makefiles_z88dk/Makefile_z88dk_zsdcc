@@ -386,10 +386,11 @@ vz200_18k:
 	-DSOUNDS -D__VZ__ -DHARDWARE_KEYBOARD \
 	-DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
 	-lndos \
 	-create-app -Cz--audio -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c
 	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas
 
 

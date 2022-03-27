@@ -32,11 +32,6 @@ extern uint16_t BASE_ADDR;
 #if defined(__MC10__)
     void mc10_display_poke(uint16_t addr, uint8_t val)
     {
-        // if((val>='a')&&(val<='b'))
-        // {
-            // val = val+32;
-        // }
-        // else 
         if((val>='A')&&(val<='Z'))
         {
             val = val-64;
@@ -203,7 +198,7 @@ lda $a7c0
 
 #elif defined(__SUPERVISION__)
     uint8_t reversed_map_one_to_two_lookup[16] = 
-    {
+    {      
         0x00, 0xC0, 0x30, 0xF0, 0x0C, 0xCC, 0x3C, 0xFC,
         0x03, 0xC3, 0x33, 0xF3, 0x0F, 0xCF, 0x3F, 0xFF
     };

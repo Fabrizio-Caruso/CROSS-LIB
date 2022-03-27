@@ -18,7 +18,7 @@
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
     || defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
-    || defined(__KC__) || (defined(__ATMOS__) && !defined(ORIC_COLOR))|| defined(__SUPERVISION__) \
+    || defined(__KC__) || (defined(__ATMOS__) && !defined(ORIC_COLOR)) \
     || defined(__VECTREX__) || defined(__GB__) \
     || defined(__NC100__) || defined(__NC200__)
     #if !defined(_XL_NO_COLOR)

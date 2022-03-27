@@ -125,7 +125,7 @@ target name         | long target name                                     | wor
 *srr*               | Exidy Sorcerer                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   |
 *super80*           | Dick Smith Super 80/80d/80e/80m                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *super80r*          | Dick Smith Super 80r/80v                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
-*supervision*       | Watara Supervision                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | grey levels
+*supervision*       | Watara Supervision                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *sv8000*            | Bandai Supervision 8000                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK ?  | 4k rom limit
 *svi*               | Spectravideo 318/328                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *telestrat*         | Oric Telestrat                                       |   YES    |   MOS 6502    |   CC65  |    missing      |    missing     | missing |

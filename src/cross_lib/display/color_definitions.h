@@ -229,6 +229,16 @@
     #define _XL_GREEN 0xA
     #define _XL_CYAN 0xD
 
+#elif defined(__SUPERVISION__)
+    #define _XL_BLACK 0xFF
+    #define _XL_WHITE 0xFF
+    #define _XL_YELLOW 0xAA
+    #define _XL_RED 0x55
+    #define _XL_GREEN 0xFF
+    #define _XL_CYAN 0xAA
+    #define _XL_BLUE 0x55
+    
+
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
     #if defined(__ATARI_LYNX__) && !defined(TGI_GFX)

@@ -34,6 +34,8 @@
 		#define CYCLES 500
 	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__VIC20__)
         #define CYCLES 2000
+    #elif defined(__SUPERVISION__)
+        #define CYCLES 6000
     #else
 		#define CYCLES 1000
 	#endif

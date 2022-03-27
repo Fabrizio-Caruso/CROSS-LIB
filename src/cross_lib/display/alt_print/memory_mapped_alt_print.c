@@ -282,6 +282,9 @@
 #elif defined(__SUPERVISION__)
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
+    
+    extern uint8_t _supervision_text_color;
+    
     #define _DISPLAY(x,y,ch) \
 		do \
 		{ \
@@ -291,8 +294,8 @@
             \
             for(__k=0;__k<8;++__k) \
             { \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k]); \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k]); \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k])&_supervision_text_color; \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k])&_supervision_text_color; \
             } \
 		} while(0)
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)

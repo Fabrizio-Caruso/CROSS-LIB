@@ -752,9 +752,9 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_2.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
-	-DALT_PRINT   -DNO_SLEEP \
+	-DALT_PRINT -DALT_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2700 -D_XL_NO_COLOR \
+	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2700 \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \

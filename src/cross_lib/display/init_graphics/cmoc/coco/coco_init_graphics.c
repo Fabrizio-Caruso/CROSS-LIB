@@ -29,6 +29,11 @@ POKE(0xFFA6,0x32);
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
+#define _MONO_WHITE_ON_BLACK 0xF8
+#define _MONO_GREEN_ON_DARK_GREEN 0xF0
+#define _MULTI_COLOR_ON_WHITE (0xF8-0x10)
+#define _MULTI_COLOR_ON_GREEN (0xF0-0x10)
+
 void _XL_INIT_GRAPHICS(void)
 {
     // Set monochromatic black/white ($F0 for green)
@@ -36,7 +41,16 @@ void _XL_INIT_GRAPHICS(void)
     // 0XF0    -> 2 colors (dark green and light green)
     // 0xF8-16 -> 4 colors with white background
     // 0xF0-16 -> 4 colors with green background
-    POKE(0xFF22,0XF0);
+    
+    #if defined(COCO_MULTI_COLOR)
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+            POKE(0xFF22,_MULTI_COLOR_ON_WHITE);
+        #else
+            POKE(0xFF22,_MULTI_COLOR_ON_GREEN);
+        #endif
+    #else
+        POKE(0xFF22,_MONO_GREEN_ON_DARK_GREEN);
+    #endif
     
     // Set resolution to 256x192
     POKE(0xFFC3,1);

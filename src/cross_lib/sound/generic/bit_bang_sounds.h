@@ -9,7 +9,7 @@
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #define PEEK(addr)         (*(uint8_t*) (addr))
 
-void _XL_INIT_SOUND(void);
+//void _XL_INIT_SOUND(void);
 
 void CLICK(uint16_t duration, uint8_t period);
 

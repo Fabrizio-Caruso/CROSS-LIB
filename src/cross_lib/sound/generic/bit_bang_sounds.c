@@ -7,22 +7,20 @@
         // __asm__("LDA $C030")
 // #else
 
-void _click(void)
-{
-    uint8_t k;
-    k = PEEK(BIT_BANG_ADDR);
-}
+#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+    void _click(void)
+    {
+        uint8_t k;
+        k = PEEK(BIT_BANG_ADDR);
+    }
+#else if defined(__MC10__)
+    void _click(void)
+    {
+        POKE(0xBFFF,0x80);
+        POKE(0xBFFF,0x00);
+    }
+#endif
 
-/*
-#define _click() \
-do \
-{ \
-   uint8_t k; \
-   \
-   k = PEEK(BIT_BANG_ADDR); \
-} while(0)
-// #endif
-*/
 
 void CLICK(uint16_t duration, uint8_t period) 
 {
@@ -31,9 +29,6 @@ void CLICK(uint16_t duration, uint8_t period)
     
     for(i=0;i<duration;++i)
     {
-        // k = PEEK(BIT_BANG_ADDR);
-        // __asm__("LDA $C030");
-        // (void) PEEK(BIT_BANG_ADDR);
         _click();
         for(j=0;j<period;++j){};
     }
@@ -50,9 +45,6 @@ void NOISE(uint16_t duration, uint8_t period)
 
         if(rand()&1)
         {
-            // k = PEEK(BIT_BANG_ADDR);
-            // __asm__("LDA $C030");
-            // (void) PEEK(BIT_BANG_ADDR);
             _click();
             for(j=0;j<period;++j){};
         }

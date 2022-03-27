@@ -1,0 +1,4528 @@
+; Radio Shack MC-10 Disassembly
+; (C) Copyright 1999 Kevin Timmerman
+;	Additional annotation by Greg D.
+;	Fixed and modified by James Tamer for use with TASM cross-assembler
+
+; A few handy defines to make TASM more like typcial 
+; motorola syntax
+
+.MSFIRST        ; Most Significant byte first
+
+; .ADDINSTR inst args opcode nbytes rule class shift binor
+.ADDINSTR JSRE * BD 3 SWAP 1 shift binor
+
+#define EQU     .EQU
+#define ORG     .ORG
+#define RMB     .BLOCK
+#define FCB     .BYTE
+#define FCC     .TEXT
+#define FDB     .WORD
+
+#define equ     .EQU
+#define org     .ORG
+#define rmb     .BLOCK
+#define fcb     .BYTE
+#define fcc     .TEXT
+#define fdb     .WORD
+; end a few handy defines
+
+
+
+
+
+
+ram00   equ     $00 ;Port 1/2 Data Directon Register 1=Output 0=Input
+ram01	equ		$01
+ram02   equ     $02 ;Port 1 Data Register
+ram03   equ     $03 ;Port 2 Data Register
+ram08   equ     $08 ;Timer control and status register
+ram09   equ     $09 ;Counter        (2 bytes)
+ram0B   equ     $0B ;Output Compare (2 bytes)
+
+ram80   equ     $80 ;number build store MSB
+ram81   equ     $81 ;number build store LSB
+ram82   equ     $82 ;logic AND/OR function store
+ram83   equ     $83
+ram84   equ     $84 ;vartype flag
+ram85   equ     $85 ;data token flag
+ram86   equ     $86
+ram87   equ     $87 ;READ cmd status flag
+ram88   equ     $88
+ram89   equ     $89 ;address temp store
+ram8B   equ     $8B
+TBL008C equ     $8C
+TBL008D equ     $8D ; DIGIT 4 MSB
+ram8E   equ     $8E ;       3
+ram8F   equ     $8F ;       2
+ram90   equ     $90 ;       1 LSB
+ram91   equ     $91 ; stack pointer store
+ram93   equ     $93 ; start of BASIC memory
+ram95   equ     $95 ; start of variable space
+ram97   equ     $97 ; start of dimensioned variable space
+ram99   equ     $99 ; end of variables.
+ram9B   equ     $9B ; start of string space
+ram9D   equ     $9D ; next free string store
+ram9F   equ     $9F ; address build store
+ramA1   equ     $A1 ; top of string storage
+ramA3   equ     $A3
+ramA5   equ     $A5
+ramA7   equ     $A7 ; program break address MSB
+ramA8   equ     $A8 ; program break address LSB
+ramA9   equ     $A9
+ramAB   equ     $AB
+ramAD   equ     $AD ; DATA pointer
+ramAF   equ     $AF ; LIST command end line no.
+ramB1   equ     $B1
+ramB2   equ     $B2
+ramB3   equ     $B3
+ramB5   equ     $B5 ; FOR-NEXT var pointer
+ramB7   equ     $B7
+ramB9   equ     $B9
+TBL00BA equ     $BA ; EXPONENT
+ramBB   equ     $BB ; DIGIT 4-3
+ramBD   equ     $BD ; DIGIT 2-1
+ramBF   equ     $BF ; SIGN
+ramC0   equ     $C0
+ramC1   equ     $C1
+ramC2   equ     $C2
+TBL00C4 equ     $C4
+ramC5   equ     $C5
+ramC7   equ     $C7
+ramC9   equ     $C9 ; EXPONENT        [FPA0]
+ramCA   equ     $CA ; DIGIT 4 MSB
+ramCB   equ     $CB ; DIGIT 3
+ramCC   equ     $CC ; DIGIT 2
+ramCD   equ     $CD ; DIGIT 1 LSB
+ramCE   equ     $CE ; SIGN
+ramCF   equ     $CF
+ramD0   equ     $D0
+ramD2   equ     $D2
+ramD5   equ     $D5
+ramD6   equ     $D6 ; EXPONENT        [FPA1]
+ramD7   equ     $D7 ; DIGIT 4 MSB
+ramD8   equ     $D8 ; DIGIT 3
+ramD9   equ     $D9 ; DIGIT 2
+ramDA   equ     $DA ; DIGIT 1 LSB
+ramDB   equ     $DB ; SIGN 
+ramDC   equ     $DC ; SIGN
+ramDD   equ     $DD
+ramDE   equ     $DE ; end of string address MSB
+ramDF   equ     $DF ; end of string address LSB
+ramE2   equ     $E2 ; filename screen pointer
+ramE4   equ     $E4 ; i/o tab field
+ramE5   equ     $E5 ; i/o last tab field
+ramE6   equ     $E6 ; max line length MSB
+ramE7   equ     $E7 ; max line length LSB
+ramE8   equ     $E8 ; I/O select 0=screen -1=printer
+ramE9   equ     $E9
+ramEA   equ     $EA ; warm start setup flag =$55
+LBL00EB equ     $EB ; bump interpreter pointer
+LBL00F3 equ     $F3 ; A <- [address ptr]
+ramF4   equ     $F4 ; address ptr MSB
+ramF5   equ     $F5 ; address ptr LSB
+
+
+TBL4000 equ     $4000 ; start of screen mem
+TBL41FD equ     $41FD ; start clearing.
+FNC_USR equ     $4215 ; USR command address
+ram4218 equ     $4218 ; random number seed word 1
+ram421A equ     $421A ; random number seed word 2
+ram421C equ     $421C ; upcase flag
+ram421D equ     $421D ; keyboard debounce delay $045E
+ram421F equ     $421F ; default EXEC address    $EC2E
+ram4221	equ		$4221
+ram4223 equ     $4223 ; printer baud rate  $0080
+ram4225 equ     $4225 ; cr. delay count    $0001
+ram4227 equ     $4227 ; tab field width    16
+ram4229 equ     $4229 ; last tab zone      112
+ram422A equ     $422A ; printer line length max MSB 88
+ram422B equ     $422B ; printer line length max LSB 132
+ram422C equ     $422C ; cassette 1200/2400Hz partition  21 ($15)
+ram422D equ     $422D ; upper limit of 1200 Hz
+ram422E equ     $422E ; lower limit of 2400 Hz
+ram422F equ     $422F ; number of 55's in leader MSB
+TBL4230 equ     $4230 ; number of 55's in leader LSB 128; kyboard scan buff 4231-8.
+ram4239 equ     $4239 ; keyboard strobe store
+ram423A equ     $423A ; keyboard control key flag
+ram423B equ     $423B ; keyboard break flag
+ram423C equ     $423C
+ram423D equ     $423D ; string buffer pointer
+ram423F equ     $423F
+TBL4241 equ     $4241 ; string buffer
+ram4250 equ     $4250 ; end of memory pointer
+ram4252 equ     $4252
+ram4253 equ     $4253
+ram4254 equ     $4254 ; random number store 1
+ram4255 equ     $4255 ; random number store 2
+TBL4256 equ     $4256 ; file name length
+TBL4257 equ     $4257 ; SKIP/LOAD file name
+TBL425F equ     $425F ; TAPE file name block
+ram4267 equ     $4267 ; file type flag
+ram426A equ     $426A ; EXEC address offset
+ram426C equ     $426C ; LOAD address
+ram426E equ     $426E ; NEW command status flag
+ram426F equ     $426F
+ram4271 equ     $4271
+ram4273 equ     $4273
+ram4274 equ     $4274
+ram4275 equ     $4275 ; cass block type flag
+ram4276 equ     $4276 ; cass block length
+ram4278 equ     $4278 ; cass buffer address
+ram427A equ     $427A ; cass sumcheck
+ram427B equ     $427B ; cass load status flag
+ram427C equ     $427C ; cass byte load bit counter
+ram427D equ     $427D ; tone duration counter
+ram427E equ     $427E ; cass polarity flag
+ram427F equ     $427F ; last keyboard input char
+ram4280 equ     $4280 ; cursor address MSB
+ram4281 equ     $4281 ; cursor address LSB
+ram4282 equ     $4282 ; cursor color
+ram4283 equ     $4283 ; break status flag
+ram4284 equ     $4284 ; LIST command status flag
+LBL4285 equ     $4285 ; input char command extension
+LBL4288 equ     $4288 ; output char command extension
+LBL428B equ     $428B ; output char command extension
+LBL428E equ     $428E ; NEW command extension
+LBL4291 equ     $4291 ; build command line extension
+LBL4294 equ     $4294 ; maths command extension
+LBL4297 equ     $4297 ; error return extension 1
+LBL429A equ     $429A ; error return extension 2
+LBL429D equ     $429D ; fp-acc number transfer extension
+LBL42A0 equ     $42A0 ; RUN command extension
+LBL42A3 equ     $42A3 ; command token lookup extension
+LBL42A6 equ     $42A6 ; LIST command extension
+LBL42A9 equ     $42A9
+LBL42AC equ     $42AC
+ram42AF	equ	    $42AF
+ram42B0 equ     $42B0
+TBL42B1 equ     $42B1
+TBL42B2 equ     $42B2 ; command line buffer
+TBL4333 equ     $4333
+TBL4334 equ     $4334
+TBL4335 equ     $4335 ; binary-decimal conversion buffer
+TBL4346	equ		$4346
+
+
+ioBFFF  equ     $BFFF
+
+
+        org     $E000
+
+                ; --- Function vector table ---
+TBLE000 FDB     FNC_SGN       ; $F2BA  SGN
+        FDB     FNC_INT       ; $F335  INT
+        FDB     FNC_ABS       ; $F2D5  ABS
+        FDB     FNC_USR       ; $4215  USR
+        FDB     FNC_RND       ; $F62A  RND
+        FDB     FNC_SQR       ; $F54D  SQR
+        FDB     FNC_LOG       ; $F0B9  LOG
+        FDB     FNC_EXP       ; $F5C9  EXP
+        FDB     FNC_SIN       ; $F68C  SIN
+        FDB     FNC_COS       ; $F686  COS
+        FDB     FNC_TAN       ; $F6D2  TAN
+        FDB     FNC_PEEK      ; $EF5F  PEEK
+        FDB     FNC_LEN       ; $EE82  LEN
+        FDB     FNC_STR       ; $ECED  STR$
+        FDB     FNC_VAL       ; $EF1C  VAL
+        FDB     FNC_ASC       ; $EEA2  ASC
+        FDB     FNC_CHR       ; $EE8E  CHR$
+        FDB     FNC_LEFT      ; $EEAD  LEFT$
+        FDB     FNC_RIGHT     ; $EEC8  RIGHT$
+        FDB     FNC_MID       ; $EECF  MID$
+        FDB     FNC_POINT     ; $FB9C  POINT
+        FDB     FNC_VARPTR    ; $FC11  VARPTR
+        FDB     FNC_INKEY     ; $FBED  INKEY$
+        FDB     FNC_MEM       ; $ECDB  MEM
+
+
+TBLE030 FCB     $79
+		FDB		fp_ADD    ; $EF80 +
+        FCB     $79
+		FDB		fp_SUB    ; $EF75 -
+        FCB     $7B
+		FDB		fp_MUL    ; $F0F1 *
+        FCB     $7B
+		FDB		fp_DIV    ; $F1C8 /
+        FCB     $7F
+		FDB		fp_POW    ; $F556 ^
+        FCB     $50
+		FDB		fp_OR+1   ; $EA8E AND (fp_AND)
+        FCB     $46
+		FDB		fp_OR     ; $EA8D OR
+
+                ;--- Tokens ---
+TBLE045 FCB     $46,$4F,$D2             ;FOR           80
+        FCB     $47,$4F,$54,$CF         ;GOTO          81
+        FCB     $47,$4F,$53,$55,$C2     ;GOSUB         82
+        FCB     $52,$45,$CD             ;REM           83
+        FCB     $49,$C6                 ;IF            84
+        FCB     $44,$41,$54,$C1         ;DATA          85
+        FCB     $50,$52,$49,$4E,$D4     ;PRINT         86
+        FCB     $4F,$CE                 ;ON            87
+        FCB     $49,$4E,$50,$55,$D4     ;INPUT         88
+        FCB     $45,$4E,$C4             ;END           89
+        FCB     $4E,$45,$58,$D4         ;NEXT          8A
+        FCB     $44,$49,$CD             ;DIM           8B
+        FCB     $52,$45,$41,$C4         ;READ          8C
+        FCB     $4C,$45,$D4             ;LET           8D
+        FCB     $52,$55,$CE             ;RUN           8E
+        FCB     $52,$45,$53,$54,$4F,$52,$C5 ;RESTORE   8F
+        FCB     $52,$45,$54,$55,$52,$CE ;RETURN        90
+        FCB     $53,$54,$4F,$D0         ;STOP          91
+        FCB     $50,$4F,$4B,$C5         ;POKE          92
+        FCB     $43,$4F,$4E,$D4         ;CONT          93
+        FCB     $4C,$49,$53,$D4         ;LIST          94
+        FCB     $43,$4C,$45,$41,$D2     ;CLEAR         95
+        FCB     $4E,$45,$D7             ;NEW           96
+        FCB     $43,$4C,$4F,$41,$C4     ;CLOAD         97
+        FCB     $43,$53,$41,$56,$C5     ;CSAVE         98
+        FCB     $4C,$4C,$49,$53,$D4     ;LLIST         99
+        FCB     $4C,$50,$52,$49,$4E,$D4 ;LPRINT        9A
+        FCB     $53,$45,$D4             ;SET           9B
+        FCB     $52,$45,$53,$45,$D4     ;RESET         9C
+        FCB     $43,$4C,$D3             ;CLS           9D
+        FCB     $53,$4F,$55,$4E,$C4     ;SOUND         9E
+        FCB     $45,$58,$45,$C3         ;EXEC          9F
+        FCB     $53,$4B,$49,$50,$C6     ;SKIPF         A0        
+        FCB     $54,$41,$42,$A8         ;TAB(          A1
+        FCB     $54,$CF                 ;TO            A2
+        FCB     $54,$48,$45,$CE         ;THEN          A3
+        FCB     $4E,$4F,$D4             ;NOT           A4
+        FCB     $53,$54,$45,$D0         ;STEP          A5
+        FCB     $4F,$46,$C6             ;OFF           A6
+        FCB     $AB                     ;+             A7
+        FCB     $AD                     ;-             A8
+        FCB     $AA                     ;*             A9
+        FCB     $AF                     ;/             AA
+        FCB     $DE                     ;^             AB
+        FCB     $41,$4E,$C4             ;AND           AC
+        FCB     $4F,$D2                 ;OR            AD
+        FCB     $BE                     ;>             AE
+        FCB     $BD                     ;=             AF
+        FCB     $BC                     ;<             B0
+        FCB     $53,$47,$CE             ;SGN           B1
+        FCB     $49,$4E,$D4             ;INT           B2
+        FCB     $41,$42,$D3             ;ABS           B3
+        FCB     $55,$53,$D2             ;USR           B4
+        FCB     $52,$4E,$C4             ;RND           B5
+        FCB     $53,$51,$D2             ;SQR           B6
+        FCB     $4C,$4F,$C7             ;LOG           B7
+        FCB     $45,$58,$D0             ;EXP           B8
+        FCB     $53,$49,$CE             ;SIN           B9
+        FCB     $43,$4F,$D3             ;COS           BA
+        FCB     $54,$41,$CE             ;TAN           BB
+        FCB     $50,$45,$45,$CB         ;PEEK          BC
+        FCB     $4C,$45,$CE             ;LEN           BD
+        FCB     $53,$54,$52,$A4         ;STR$          BE
+        FCB     $56,$41,$CC             ;VAL           BF
+        FCB     $41,$53,$C3             ;ASC           C0
+        FCB     $43,$48,$52,$A4         ;CHR$          C1
+        FCB     $4C,$45,$46,$54,$A4     ;LEFT$         C2
+        FCB     $52,$49,$47,$48,$54,$A4 ;RIGHT$        C3
+        FCB     $4D,$49,$44,$A4         ;MID$          C4
+        FCB     $50,$4F,$49,$4E,$D4     ;POINT         C5
+        FCB     $56,$41,$52,$50,$54,$D2 ;VARPTR        C6
+        FCB     $49,$4E,$4B,$45,$59,$A4 ;INKEY$        C7
+        FCB     $4D,$45,$CD             ;MEM           C8
+        FCB     $00
+
+                ; --- Command vector table ---
+TBLE148 FDB     CMD_FOR         ; $E4C4  FOR
+        FDB     CMD_GOTO        ; $E61A  GOTO
+        FDB     CMD_GOSUB       ; $E604  GOSUB
+        FDB     CMD_REM         ; $E685  REM
+        FDB     CMD_IF          ; $E672  IF
+        FDB     CMD_DATA        ; $E651  DATA
+        FDB     CMD_PRINT       ; $E71F  PRINT
+        FDB     CMD_ON          ; $E692  ON
+        FDB     CMD_INPUT       ; $E7DE  INPUT
+        FDB     CMD_END         ; $E57F  END
+        FDB     CMD_NEXT        ; $E8BB  NEXT
+        FDB     CMD_DIM         ; $EB12  DIM
+        FDB     CMD_READ        ; $E80E  READ
+        FDB     CMD_LET         ; $E6D3  LET
+        FDB     CMD_RUN         ; $E5FA  RUN
+        FDB     CMD_RESTORE     ; $E560  RESTORE
+        FDB     CMD_RETURN      ; $E631  RETURN
+        FDB     CMD_STOP        ; $E57E  STOP
+        FDB     CMD_POKE        ; $EF66  POKE
+        FDB     CMD_CONT        ; $E5A6  CONT
+        FDB     CMD_LIST        ; $E40D  LIST
+        FDB     CMD_CLEAR       ; $E5B8  CLEAR
+        FDB     CMD_NEW         ; $E3CD  NEW
+        FDB     CMD_CLOAD       ; $FD5C  CLOAD
+        FDB     CMD_CSAVE       ; $FC3B  CSAVE
+        FDB     CMD_LLIST       ; $E40B  LLIST
+        FDB     CMD_LPRINT      ; $E71C  LPRINT
+        FDB     CMD_SET         ; $FB25  SET
+        FDB     CMD_RESET       ; $FB55  RESET
+        FDB     CMD_CLS         ; $FBBF  CLS
+        FDB     CMD_SOUND       ; $FFA5  SOUND
+        FDB     CMD_EXEC        ; $FC04  EXEC
+        FDB     CMD_SKIPF       ; $FE2F  SKIPF
+
+                ; --- Errors ---
+TBLE18A FCB     $4E,$46         ;$00 NF NEXT without FOR                      
+        FCB     $53,$4E         ;$02 SN Syntax Error                          
+        FCB     $52,$47         ;$04 RG RETURN without GOSUB                  
+        FCB     $4F,$44         ;$06 OD Out of Data                           
+        FCB     $46,$43         ;$08 FC Illegal Function Call                 
+        FCB     $4F,$56         ;$0A OV Overflow                              
+        FCB     $4F,$4D         ;$0C OM Out of Memory                         
+        FCB     $55,$4C         ;$0E UL Undefined Line                        
+        FCB     $42,$53         ;$20 BS Bad Subscript                         
+        FCB     $44,$44         ;$22 DD Double Dimensioned Array              
+        FCB     $2F,$30         ;$24 /0 Division by 0                         
+        FCB     $49,$44         ;$26 ID Illegal Direct Statement              
+        FCB     $54,$4D         ;$28 TM Type Mismatch                         
+        FCB     $4F,$53         ;$2A OS Out of String Space                   
+        FCB     $4C,$53         ;$2C LS Long String (exceeds 255 characters)  
+        FCB     $53,$54         ;$2E ST String Formula Too Complex ? ""+(""+(""+""))
+        FCB     $43,$4E         ;$30 CN Can't Continue                        
+        FCB     $49,$4F         ;$32 IO Input/Output Error                    
+        FCB     $46,$4D         ;$34 FM File Mode Error                       
+
+
+TBLE1B0 FCB     $20,$45,$52,$52,$4F,$52,$00     ; ERROR
+TBLE1B7 FCB     $20,$49,$4E,$20,$00             ; IN 
+TBLE1BC FCB     $0D,$4F,$4B,$0D,$00             ; OK
+TBLE1C1 FCB     $0D,$42,$52,$45,$41,$4B,$00     ; BREAK
+
+
+LBLE1C8 CMPA    #$3A    ;Leave if non-numeric. Z=':' or NULL
+        BHS     LBLE1D7 ;                      C=Numeric
+        CMPA    #$20    ;skip whitespace
+        BNE     LBLE1D3
+        JMP     LBL00EB
+LBLE1D3 SUBA    #$30
+        SUBA    #$D0    ;Set Carry if numeric.
+LBLE1D7 RTS     
+LBLE1D8 TSX           
+        LDAB    #$04
+        ABX     
+LBLE1DC LDAB    #$12
+        STX     ram89
+        LDAA    ,X   ; SP+0==return addr.  SP+2==?.  SP+4->A
+        SUBA    #$80
+        BNE     LBLE1FA
+        LDX     1,X
+        STX     ram8B
+        LDX     ramB5
+        BEQ     LBLE1F6
+        CPX     ram8B
+        BEQ     LBLE1FA
+        BSR     LBLE22F
+        BRA     LBLE1DC
+LBLE1F6 LDX     ram8B
+        STX     ramB5
+LBLE1FA LDX     ram89
+        TSTA
+        RTS
+
+                ; -- copy [C1:BD]->[bf:BB]
+LBLE1FE BSR     LBLE21E; see if D bytes fit on stack
+LBLE200 TPA     
+        PSHA    
+        STS     ram91
+        SEI     
+        LDS     ramBB   ; store in [BB]
+        LDX     ramBD   ; start at [BD]
+        INX    
+LBLE20A DEX    
+        LDAA    ,X
+        PSHA    
+        CPX     ramC1   ; stop at [C1]
+        BNE     LBLE20A
+        INS    
+        STS     ramBF   ; store end in [BF]
+        LDS     ram91
+        PULA    
+        TAP     
+        RTS     
+LBLE21A CLRA           ; return with 2*B+#$3A+ram99
+        ASLB           ;
+        ADDD    ram99  ; check if 2*B+3A+ram99>0xffff
+LBLE21E ADDD    #$003A
+        BLO     LBLE236; ?OM error
+        STS     ram91
+        SUBD    ram91
+        BHS     LBLE236; ?OM if greater than stack
+        ADDD    ram91
+        RTS     
+
+LBLE22C CLRA          ; B+X->D,X
+LBLE22D STX     ram89 ; D+X->D,X (save old X in 89.  New X,D in 8B)
+LBLE22F ADDD    ram89 ; D+ram89->D,X.
+        STD     ram8B
+        LDX     ram8B
+        RTS
+
+
+LBLE236 LDAB    #$0C    ;?OM error
+LBLE238 JSR     LBL4297 ;error return extension 1
+        JSR     LBL429A ;error return extension 2
+        JSR     LBLFC86
+        LDAA    ram426E
+        BEQ     LBLE249
+        JSR     LBLE3CF
+LBLE249 JSR     LBLE3EE
+        CLR     ramE8   ;turn off printer
+        JSR     LBLE76A
+        JSR     LBLE7BB+1
+        LDX     #TBLE18A        ;Error table
+        ABX     
+        LDAA    ,X
+        JSR     LBLE7BE    ;A->SCN
+        LDAA    1,X
+        JSR     LBLE7BE    ;A->SCN
+        LDX     #TBLE1B0-1      ;"ERROR"
+LBLE266 JSR     LBLE7A8         ;Write string
+        LDX     ramE2
+        INX    
+        BEQ     LBLE271
+        JSR     LBLF412         ;' IN ' line
+LBLE271 JSR     LBLE76A
+        LDX     #TBLE1BC        ;"OK"
+        JSR     LBLE7A8         ;Write string
+LBLE27A LDX     #$FFFF
+        STX     ramE2
+        JSR     LBLFAA4         ;Get Command Line
+        BLO     LBLE27A         ;Try again if carry set (BREAK)
+        STX     ramF4
+        JSRE    LBL00EB 
+        BEQ     LBLE27A         ;Try again if blank line
+        BLO     LBLE293
+        JSR     LBLE311         ;immediate mode - compile line.
+        JMP     LBLE53D
+LBLE293 JSR     LBLE6B2         ;get line number->ramA5
+        LDX     ramA5
+        STX     ram42B0         ;store line number
+        JSR     LBLE311         ;compile line
+        STAB    ram82           ;length of line
+        JSR     LBLE3B9         ;find first line greater than line number
+        BLO     LBLE2C1         ; none found, insert at end.
+        LDD     ramC1
+        SUBD    ,X
+        ADDD    ram95
+        STD     ram95
+        TPA     
+        PSHA    
+        STS     ram91
+        SEI     
+        LDS     ,X
+        DES    
+LBLE2B5 PULA    
+        STAA    ,X
+        INX    
+        CPX     ram95
+        BNE     LBLE2B5
+        LDS     ram91
+        PULA    
+        TAP     
+LBLE2C1 LDAA    TBL42B2
+        BEQ     LBLE2EB
+        LDD     ram95
+        STD     ramBD
+        ADDB    ram82
+        ADCA    #$00
+        STD     ramBB
+        JSR     LBLE1FE  ;copy [C1:BD]->[bf:BB]
+        TPA     
+        PSHA    
+        STS     ram91
+        SEI     
+        LDS     #$42AD
+LBLE2DB PULA    
+        STAA    ,X
+        INX    
+        CPX     ramBF  
+        BNE     LBLE2DB
+        LDS     ram91
+        PULA    
+        TAP     
+        LDX     ramBB
+        STX     ram95
+LBLE2EB JSR     LBLE3D9  ;reset variables
+        BSR     LBLE2F3  ;adjust next statement pointers
+        JMP     LBLE27A  ;get command line
+                         ; adjust next statement pointers
+LBLE2F3 LDX     ram93    ;start of basic
+LBLE2F5 LDD     ,X       ;return if last statement.
+        BNE     LBLE2FA
+        RTS     
+LBLE2FA PSHX             ;push address of statement
+        LDAB    #$04
+        ABX     
+LBLE2FE INX    
+        LDAA    ,X
+        BNE     LBLE2FE
+        INX    
+        PSHX           ;push address of next statement
+        TSX     
+        LDD     ,X     ;addr of next statement -> D
+        LDX     2,X    ;addr of prev statement -> X
+        STD     ,X     ;update addr of prev statment to point to next statement.
+        PULX    
+        INS    
+        INS    
+        BRA     LBLE2F5
+
+LBLE311 CLR     ram85    ;clear DATA token flag
+        LDX     ramF4    ;reset pointer back to start of line.
+        DEX    
+        STX     ramF4
+        LDX     #TBL42B1 ;start of command line buffer-1
+        STX     ramDE
+        STS     ram91
+        TPA             ; save interrupt flag
+        STAA    ram87
+LBLE323 NOP     
+        SEI             ; disable interrupts
+        LDS     ramF4
+        PULB    
+        CMPB    #$20    ; ' '
+        BEQ     LBLE364
+        STAB    ram81
+        CMPB    #$22    ; '"'
+        BEQ     LBLE38D
+        LDAA    ram85
+        BNE     LBLE364
+        CMPB    #$3F    ; '?'
+        BNE     LBLE33E
+        LDAB    #$86    ; 'PRINT' code
+        BRA     LBLE364
+LBLE33E CMPB    #$30    ; '0'
+        BLO     LBLE346
+        CMPB    #$3C    ; '<'
+        BLO     LBLE364
+LBLE346 TSTB            ; use ! for non-printing input chars
+        BMI     LBLE361+1
+        LDX     #TBLE045-1 ; start matching tokens
+        LDS     ramF4
+        CLRB    
+LBLE34F INX    
+LBLE350 PULA    
+        CMPA    #$20    ; skip whitespace when matching tokens
+        BEQ     LBLE350
+        SUBA    ,X
+        BEQ     LBLE34F
+        CMPA    #$80
+        BNE     LBLE392
+        ORAB    #$80    ; found match, store token.
+LBLE35F LDX     ramDE
+LBLE361 CPX     #$C621          ;LDAB  #$21 '!'
+LBLE364 STS     ramF4
+        LDS     ram91
+        LDAA    ram87   ; restore interrupt
+        TAP     
+        INX    
+        STX     ramDE
+        STAB    ,X
+        BEQ     LBLE3AA
+        SUBB    #$3A    ; ':'
+        BEQ     LBLE37A
+        CMPB    #$4B    ; 'DATA' encountered
+        BNE     LBLE37C
+LBLE37A STAB    ram85   ; set DATA token flag
+LBLE37C SUBB    #$49    ; 'REM' 
+        BNE     LBLE323 ; get next char.
+        STAB    ram81   ; 'REM' found, clear ram81
+        SEI     
+        LDS     ramF4
+LBLE385 PULB           ; copy until 0 or ram81 encountered.
+        TSTB    
+        BEQ     LBLE364
+        CMPB    ram81
+        BEQ     LBLE364
+LBLE38D INX    
+        STAB    ,X
+        BRA     LBLE385
+LBLE392 LDS     ramF4   ; token failed match
+        INCB            ;  inc token count
+LBLE395 LDAA    ,X      ;  
+        INX    
+        BPL     LBLE395
+        LDAA    ,X
+        BNE     LBLE350
+        STS     ramF4   ; no tokens matched.
+        LDS     ram91
+        JSR     LBL42A3
+        LDS     ramF4
+        PULB    
+        BRA     LBLE35F
+LBLE3AA STAB    1,X     ; clear next two bytes
+        STAB    2,X
+        LDD     ramDE
+        SUBD    #$42AD  ; length of buff in D.
+        LDX     #TBL42B1
+        STX     ramF4
+        RTS     
+LBLE3B9 LDX     ram93
+LBLE3BB LDD     ,X
+        BEQ     LBLE3C9
+        LDD     ramA5
+        SUBD    2,X
+        BLS     LBLE3CA
+        LDX     ,X
+        BRA     LBLE3BB
+LBLE3C9 SEC     
+LBLE3CA STX     ramC1
+        RTS
+
+                ; --- NEW command ---
+CMD_NEW
+        BNE     LBLE3CA ; cause syntax error
+LBLE3CF LDX     ram93   ; start of BASIC 
+        CLR     ,X      ; clear line
+        INX            
+        CLR     ,X
+        INX    
+        STX     ram95   ; end of BASIC
+LBLE3D9 LDX     ram93   ; transfer control to program
+        DEX    
+        STX     ramF4   ; read pointer
+LBLE3DE JSR     LBL428E ; NEW command extension
+        LDX     ramA1   ; top of string storage
+        STX     ram9D   ; avail string storage.
+        JSR     CMD_RESTORE
+        LDX     ram95   ; end of BASIC
+        STX     ram97   ; DATA pointer
+        STX     ram99   ; 
+LBLE3EE LDX     #TBL4241  ; string buff.
+        STX     ram423D   ; string ptr.
+        PULX    
+        LDS     ram9B   ; bottom of system stack 
+        CLRA    
+        PSHA    
+        STAA    ramA7   ; program BREAK address
+        STAA    ramA8   ; program BREAK address
+        STAA    ram86   ; ?
+        STAA    ram426E ; NEW command status flag
+        JMP     ,X      ; RTS
+
+
+LBLE404 LDAB    #$FE    ; select printer
+        STAB    ramE8   ; turn on printer
+LBLE408 JMP     LBL00F3
+
+                ; --- LLIST command ---
+CMD_LLIST
+        BSR     LBLE404
+
+                ; --- LIST command ---
+CMD_LIST
+        TPA     
+        PSHA    
+        BSR     LBLE408 ; Get char
+        JSR     LBLE6B2 ; Get line number
+        BSR     LBLE3B9 ; Find line number in program
+        PULA    
+        TAP     
+        PSHX    
+        BEQ     LBLE431
+        JSRE    LBL00F3
+        BEQ     LBLE436
+        CMPA    #$A8    ; '-'
+        BNE     LBLE42E
+        JSRE    LBL00EB
+        BEQ     LBLE431
+        JSR     LBLE6B2
+        BEQ     LBLE436
+LBLE42E JMP     LBLEA3C  ;?SN ERROR
+LBLE431 LDX     #$FFFF
+        STX     ramA5
+LBLE436 PULX    
+        INS    
+        INS    
+LBLE439 JSR     LBLE76A
+        JSR     LBLE566
+        LDD     ,X
+        BNE     LBLE449
+LBLE443 CLR     ramE8   ; set output to printer
+        JMP     LBLE271
+LBLE449 LDD     2,X
+        SUBD    ramA5
+        BHI     LBLE443
+        LDD     2,X
+        PSHX    
+        JSR     LBLF419
+        PULX    
+        INX    
+        INX    
+        INX    
+        INX    
+        STX     ram89
+        CLR     ram4284
+        LDAA    #$20
+LBLE461 CPX     #$8621          ;LDAA  #$21
+LBLE464 LDX     ram89
+        ANDA    #$7F
+LBLE468 JSR     LBLE7BE  ;A->SCN
+        LDAA    ,X
+        INX    
+        TSTA    
+        BEQ     LBLE439
+        LDAB    ram4284
+        CMPA    #$22   ; '"'
+        BNE     LBLE47D
+        EORB    #$01
+        STAB    ram4284
+LBLE47D CMPA    #$3A   ; ':'
+        BNE     LBLE48A
+        BITB    #$01
+        BNE     LBLE48A
+        ANDB    #$FD
+        STAB    ram4284
+LBLE48A TSTA    
+        BPL     LBLE468
+        TSTB    
+        BNE     LBLE468
+        CMPA    #$85   ; 'DATA'
+        BNE     LBLE496
+        ORAB    #$02
+LBLE496 CMPA    #$83   ; 'REM'
+        BNE     LBLE49C
+        ORAB    #$04
+LBLE49C STAB    ram4284
+        JSR     LBL42A6
+        CMPA    #$C8       ; 'MEM'
+        BHI     LBLE461+1  ; write ! for unknown print
+        BSR     LBLE4B2
+LBLE4A8 LDAA    ,X     ; write token
+        BMI     LBLE464
+        INX    
+        JSR     LBLE7BE;A->SCN
+        BRA     LBLE4A8
+
+LBLE4B2 SUBA    #$7F     ;Find address of matching token->X
+        STX     ram89    ;save X into ram89
+        LDX     #TBLE045
+LBLE4B9 DECA    
+        BNE     LBLE4BD
+        RTS     
+LBLE4BD TST     ,X
+        INX    
+        BPL     LBLE4BD
+        BRA     LBLE4B9
+
+                 ; --- FOR Command ---
+CMD_FOR LDAA    #$80
+        STAA    ram86
+        JSR     CMD_LET
+        JSR     LBLE1D8
+        PULX    
+        BNE     LBLE4D5
+        LDX     ram89
+        ABX     
+        TXS     
+LBLE4D5 LDAB    #$09
+        JSR     LBLE21A  ; Verify 9 words will fit on stack
+        JSR     LBLE656  ; ignore rest of line until ':' seen
+        PSHX    
+        LDX     ramE2
+        PSHX    
+        LDAB    #$A2     ;'TO' index
+        JSR     LBLEA31
+        JSR     LBLE90E  ; expect numeric
+        JSR     LBLE90C  ; Get numeric value
+        LDAB    ramCE
+        ORAB    #$7F
+        ANDB    ramCA
+        STAB    ramCA
+        LDX     #LBLE4FA  ; push C9-CA onto stack
+        JMP     LBLE9A4
+LBLE4FA LDX     #TBLF08B  ; 1.0
+        JSR     LBLF251  ;X->C9-E
+        JSRE    LBL00F3
+        CMPA    #$A5     ;'STEP' index
+        BNE     LBLE50D
+        JSRE    LBL00EB
+        JSR     LBLE90C  ; Get numeric value
+LBLE50D JSR     LBLF2AD  ;Sign C9-E -> B -1 0 1
+        JSR     LBLE9A2
+        LDX     ramB5
+        PSHX    
+        LDAA    #$80
+        PSHA    
+LBLE519 BSR     LBLE566  ; check for BREAK or PAUSE
+        LDX     ramF4
+        STX     ramA9
+        LDAA    ,X
+        BEQ     LBLE52A
+        CMPA    #$3A     ; ':'
+        BEQ     LBLE53D
+LBLE527 JMP     LBLEA3C  ; ?SN ERROR
+LBLE52A INX              ; check for next line
+        LDAA    ,X
+        INX    
+        ORAA    ,X
+        STAA    ram4283  ; 0 if at last line number
+        BEQ     LBLE589  ; Implicit END if no next line.
+        INX    
+        LDD     ,X
+        STD     ramE2    ; Otherwise store current line in E2.
+        INX    
+        STX     ramF4
+LBLE53D JSRE    LBL00EB  ; get token
+        BSR     LBLE544
+        BRA     LBLE519  ; continue executing line
+LBLE544 BEQ     LBLE5B7  ; RTS if 0 encountered.
+LBLE546 JSR     LBL42A0  ; Run command extension
+        TSTA    
+        BMI     LBLE54F  ; Command encountered.
+        JMP     CMD_LET  ; otherwise, this must be an assignment.
+LBLE54F CMPA    #$A0     ; SKIPF is the last valid command.
+        BHI     LBLE527  ; ?SN ERROR
+        ASLA             ; lookup command.
+        TAB     
+        LDX     #TBLE148
+        ABX     
+        LDX     ,X
+        JSRE    LBL00EB  ; prefetch next character.
+        JMP     ,X       ; GO! [to command]
+
+                ; --- RESTORE command ---
+CMD_RESTORE
+        LDX     ram93
+        DEX    
+LBLE563 STX     ramAD  ;DATA pointer
+        RTS
+
+
+LBLE566 JSR     LBLF879
+        BEQ     LBLE576
+LBLE56B CMPA    #$03     ; 'break pressed?
+        BEQ     CMD_STOP
+        CMPA    #$13     ; 'shift+@ pressed (pause)
+        BEQ     LBLE577  ;  wait for next key.
+        STAA    ram427F
+LBLE576 RTS
+
+LBLE577 JSR     LBLF883
+        BEQ     LBLE577
+        BRA     LBLE56B
+
+                ; --- STOP command ---
+CMD_STOP
+        SEC
+                ; --- END command ---
+CMD_END
+        BNE     LBLE5B7
+        LDX     ramF4
+        STX     ramA9
+LBLE585 ROR     ram4283 ; break status flag 
+        PULX    
+LBLE589 LDX     ramE2
+        INX    
+        BEQ     LBLE595
+        DEX    
+        STX     ramA3
+        LDX     ramA9
+        STX     ramA7
+LBLE595 CLR     ramE8      ; turn off printing
+        LDX     #TBLE1C1-1 ; 'BREAK'
+        TST     ram4283
+        BPL     LBLE5A3
+        JMP     LBLE266    ; in program 
+LBLE5A3 JMP     LBLE271    ; not in program
+
+                ; --- CONT command ---
+CMD_CONT
+        BNE     LBLE5B7
+        LDAB    #$20     ;?CN error
+        LDX     ramA7
+        BNE     LBLE5B1
+        JMP     LBLE238  ;write ?CN error
+LBLE5B1 STX     ramF4
+        LDX     ramA3
+        STX     ramE2
+LBLE5B7 RTS
+
+                ; --- CLEAR command ---
+CMD_CLEAR
+        BEQ     LBLE5F4
+        JSR     LBLEBBD
+        PSHB    
+        PSHA    
+        LDX     ramA1   ; top of string storage
+        STX     ramCC
+        JSRE    LBL00F3
+        BEQ     LBLE5DA
+        JSR     LBLEA2E+1  ; get ','
+        JSR     LBLEF4C
+        LDX     ramCC
+        DEX    
+        STX     ramCC
+        LDD     ram4250 ; end of memory pointer
+        SUBD    ramCC
+        BLO     LBLE5F7 ; ?OM error
+LBLE5DA LDD     ramCC
+        PSHB    
+        PSHA    
+        TSX     
+        SUBD    2,X
+        BLO     LBLE5F7 ; ?OM error
+        STD     2,X
+        SUBD    #$003A
+        BLO     LBLE5F7 ; ?OM error
+        SUBD    ram95
+        BLO     LBLE5F7 ; ?OM error
+        PULX    
+        STX     ramA1 ; top of string storage
+        PULX    
+        STX     ram9B   ; bottom of system stack
+LBLE5F4 JMP     LBLE3DE ; reset variables
+LBLE5F7 JMP     LBLE236 ; ?OM ERROR
+
+                ; --- RUN command ---
+CMD_RUN
+        BNE     LBLE5FF
+        JMP     LBLE3D9 ; transfer control to program / reset variables
+LBLE5FF JSR     LBLE3DE ; reset data variables
+        BRA     LBLE612
+
+                ; --- GOSUB command ---
+CMD_GOSUB
+        LDAB    #$03   
+        JSR     LBLE21A ; verify 3 words on stack
+        LDX     ramF4
+        PSHX    
+        LDX     ramE2
+        PSHX    
+        LDAA    #$82
+        PSHA    
+LBLE612 JSRE    LBL00F3
+        BSR     CMD_GOTO
+        JMP     LBLE519 ; Continue executing line
+
+                ; --- GOTO command ---
+CMD_GOTO
+        JSR     LBLE6B2
+        BSR     LBLE658+1
+        INX    
+        LDD     ramA5
+        SUBD    ramE2
+        BHI     LBLE628
+        LDX     ram93
+LBLE628 JSR     LBLE3BB
+        BLO     LBLE641+1 ;?UL error
+        DEX    
+        STX     ramF4
+LBLE630 RTS
+
+                ; --- RETURN command ---
+CMD_RETURN
+        BNE     LBLE630 ; will ultimately result in ?SN error
+        LDAA    #$FF
+        STAA    ramB5
+        JSR     LBLE1D8
+        TXS     
+        CMPA    #$02
+        BEQ     LBLE64A
+        LDAB    #$04    ;?RG error
+LBLE641 CPX     #$C60E          ;LDAB  #$0E ?UL error
+        JMP     LBLE238 ;Write error
+LBLE647 JMP     LBLEA3C ;?SN error
+LBLE64A PULA    
+        PULX    
+        STX     ramE2
+        PULX    
+        STX     ramF4
+
+
+                ; --- DATA command ---
+CMD_DATA
+        BSR     LBLE656 ; ignore rest of line until ':' or 0 reached.
+        STX     ramF4
+LBLE655 RTS
+
+
+
+LBLE656 LDAB    #$3A   ; ignore rest of line until ':' or 0 reached.
+LBLE658 LDAA    #$5F            ;CLRB; ignore rest of line
+        STAB    ram80
+        CLRB    
+        LDX     ramF4
+LBLE65F TBA     
+        LDAB    ram80
+        STAA    ram80
+LBLE664 LDAA    ,X
+        BEQ     LBLE655
+        CBA     
+        BEQ     LBLE655
+        INX    
+        CMPA    #$22   ; '"'
+        BEQ     LBLE65F
+        BRA     LBLE664
+
+
+                ; --- IF command ---
+CMD_IF
+        JSR     LBLE90C ; Get numeric value
+        JSRE    LBL00F3
+        CMPA    #$81    ; GOTO
+        BEQ     LBLE681
+        LDAB    #$A3    ; THEN
+        JSR     LBLEA31
+LBLE681 LDAA    ramC9
+        BNE     LBLE68A
+
+
+                ; --- REM command ---
+CMD_REM BSR     LBLE658+1
+        STX     ramF4
+        RTS
+
+
+LBLE68A JSRE    LBL00F3
+        BLO     CMD_GOTO
+        JMP     LBLE544
+
+                ; --- ON command ----
+CMD_ON  JSR     LBLEF0D ; Arg->ramCD
+        PSHA    
+        CMPA    #$82    ; GOSUB
+        BEQ     LBLE69E
+        CMPA    #$81    ; GOTO
+LBLE69C BNE     LBLE647 ; ?SN ERROR
+LBLE69E DEC     ramCD
+        BNE     LBLE6A7
+        PULA    
+        JMP     LBLE546
+LBLE6A7 JSRE    LBL00EB
+        BSR     LBLE6B2 ; get line number->A5
+        CMPA    #$2C    ; ','
+        BEQ     LBLE69E
+        INS    
+LBLE6B1 RTS            ; bug -- "0 ON 2 GOTO 4,#,4,4#" hangs the MC-10 on RUN.
+
+LBLE6B2 LDX     #$0000   ; get line number->ramA5
+        STX     ramA5
+LBLE6B7 BHS     LBLE6B1
+        SUBA    #$30
+        STAA    ram80
+        LDD     ramA5   ; Get line number
+        CMPA    #$18    ; err if > 6399
+        BHI     LBLE69C ; ?SN ERROR
+        ASLD            ; ramA5 = 10*ramA5 + ram80
+        ASLD    
+        ADDD    ramA5
+        ASLD    
+        ADDB    ram80  
+        ADCA    #$00
+        STD     ramA5
+        JSRE    LBL00EB
+        BRA     LBLE6B7
+
+                ; --- LET command ---
+CMD_LET
+        JSR     LBLEB1B
+        STX     ramB5
+        LDAB    #$AF
+        JSR     LBLEA31
+        LDAA    ram84  ; vartype flag
+        PSHA    
+        JSR     LBLE91A
+        PULA    
+        RORA    
+        JSR     LBLE910 ;check for ?TM and get next number
+        BEQ     LBLE719
+LBLE6EA LDX     ramCC
+        LDD     ram9B   ; bottom of system stack
+        SUBD    2,X
+        BHS     LBLE705
+        LDD     ram95
+        SUBD    ramCC
+        BHI     LBLE705
+        LDAB    ,X
+        JSR     LBLECFC
+        LDX     ramC7
+        JSR     LBLEE38
+        LDX     #ramD0
+LBLE705 STX     ramC7
+        JSR     LBLEE70
+        LDX     ramC7
+        LDAA    ,X
+        PSHA    
+        LDD     2,X
+        LDX     ramB5
+        STD     2,X
+        PULA    
+        STAA    ,X
+        RTS     
+LBLE719 JMP     LBLF26F+1
+
+                ; --- LPRINT command ---
+CMD_LPRINT
+        JSR     LBLE404
+
+                ; --- PRINT command ---
+CMD_PRINT
+        BSR     LBLE725
+        CLR     ramE8  ; turn off printing
+        RTS     
+LBLE725 BEQ     LBLE766
+        CMPA    #$40      ; '@'
+        BNE     LBLE736
+        JSR     LBLFC29
+        JSRE    LBL00F3
+        BEQ     LBLE766
+        JSR     LBLEA2E+1 ; get ','
+LBLE736 BEQ     LBLE773
+LBLE738 CMPA    #$A1
+        BEQ     LBLE78C
+        CMPA    #$2C
+        BEQ     LBLE774
+        CMPA    #$3B
+        BEQ     LBLE7A2
+        JSR     LBLE91A
+        LDAA    ram84   ; vartype flag
+        PSHA    
+        BNE     LBLE752
+        JSR     LBLF426
+        JSR     LBLED05
+LBLE752 BSR     LBLE7AB
+        PULB    
+        TSTB    
+        BNE     LBLE761
+        JSRE    LBL00F3
+        CMPA    #$2C
+        BEQ     LBLE774
+        BSR     LBLE7B9
+LBLE761 JSRE    LBL00F3
+        BNE     LBLE738
+LBLE766 LDAA    #$0D
+        BRA     LBLE7BE ;A->SCN
+LBLE76A JSR     LBLFA7B
+        BEQ     LBLE766
+        LDAA    ramE6
+        BNE     LBLE766
+LBLE773 RTS     
+LBLE774 JSR     LBLFA7B
+        BEQ     LBLE783
+        LDAB    ramE6
+        CMPB    ramE5
+        BLO     LBLE785
+        BSR     LBLE766
+        BRA     LBLE7A2
+LBLE783 LDAB    ramE6
+LBLE785 SUBB    ramE4
+        BHS     LBLE785
+        NEGB    
+        BRA     LBLE79D
+LBLE78C JSR     LBLEF0A
+        CMPA    #$29
+        BEQ     LBLE796
+        JMP     LBLEA3C ;?SN ERROR
+LBLE796 JSR     LBLFA7B
+        SUBB    ramE6
+        BLS     LBLE7A2
+LBLE79D BSR     LBLE7B9
+        DECB    
+        BNE     LBLE79D
+LBLE7A2 JSRE    LBL00EB
+        JMP     LBLE736
+
+
+                ; --- Write string to screen ---
+LBLE7A8 JSR     LBLED06  ;Calc string length
+LBLE7AB JSR     LBLEE56  ;Get length to B, start address to X
+        INCB
+LBLE7AF DECB             ;Dec char count
+        BEQ     LBLE773  ;RTS
+        LDAA    ,X       ;Get char
+        INX              ;Inc char ptr
+        BSR     LBLE7BE  ;A->SCN   Write char
+        BRA     LBLE7AF  ;Next char
+
+
+LBLE7B9 LDAA    #$20
+LBLE7BB CPX     #$863F          ;LDAA  #$3F
+LBLE7BE JMP     LBLF9C6  ;A->SCN
+
+
+TBLE7C1 FCB     $3F,$52,$45,$44,$4F,$0D,$00     ;?REDO
+
+
+LBLE7C8 LDAA    ram87
+        BEQ     LBLE7D3
+        LDX     ramAB
+        STX     ramE2
+        JMP     LBLEA3C  ;?SN ERROR
+LBLE7D3 LDX     #TBLE7C1-1
+        JSR     LBLE7A8
+        LDX     ramA9
+        STX     ramF4
+LBLE7DD RTS
+
+
+                ; --- INPUT command ---
+CMD_INPUT
+        LDAB    #$16     ;?ID error
+        LDX     ramE2
+        INX    
+        BNE     LBLE7E8
+        JMP     LBLE238  ;write ?ID error
+LBLE7E8 CMPA    #$22     ;check for "Prompt";
+        BNE     LBLE7F7
+        JSR     LBLEA07  ; scan string until '"' reached.
+        LDAB    #$3B
+        JSR     LBLEA31  ;expect and skip ';'
+        JSR     LBLE7AB  ;write string to screen.
+LBLE7F7 BSR     LBLE7FF  ;"? " and get command line
+        LDAB    #$2C
+        STAB    ,X
+        BRA     LBLE810+1
+LBLE7FF JSR     LBLE7BB+1 ; "?"->SCN
+        JSR     LBLE7B9   ; " "->SCN
+        JSR     LBLFAA4   ; get command line
+        BHS     LBLE7DD  
+        PULX    
+        JMP     LBLE585  ;break pressed - abort prog
+
+                ; --- READ command ---
+CMD_READ
+        LDX     ramAD    ;DATA pointer
+LBLE810 LDAA    #$4F            ;CLRA [used during INPUT command]
+        STAA    ram87
+        STX     ramAF
+LBLE816 JSR     LBLEB1B  ; Get Var
+        STX     ramB5
+        LDX     ramF4
+        STX     ramA5
+        LDX     ramAF
+        LDAA    ,X
+        BNE     LBLE82E
+        LDAA    ram87
+        BNE     LBLE877
+        JSR     LBLE7BB+1
+        BSR     LBLE7FF
+LBLE82E STX     ramF4
+        JSRE    LBL00EB
+        LDAB    ram84    ;vartype flag
+        BEQ     LBLE853
+        LDX     ramF4
+        STAA    ram80
+        CMPA    #$22
+        BEQ     LBLE846
+        DEX    
+        LDAA    #$3A
+        STAA    ram80
+        LDAA    #$2C
+LBLE846 STAA    ram81
+        JSR     LBLED0C
+        JSR     LBLEF3E
+        JSR     LBLE6EA
+        BRA     LBLE859
+LBLE853 JSR     LBLF359
+        JSR     LBLF26F+1
+LBLE859 JSRE    LBL00F3
+        BEQ     LBLE865
+        CMPA    #$2C
+        BEQ     LBLE865
+        JMP     LBLE7C8
+LBLE865 LDX     ramF4
+        STX     ramAF
+        LDX     ramA5
+        STX     ramF4
+        JSRE    LBL00F3
+        BEQ     LBLE897
+        JSR     LBLEA2E+1 ; get ','
+        BRA     LBLE816
+LBLE877 STX     ramF4
+        JSR     LBLE656  ; ignore rest of line thru ':'
+        INX    
+        TSTA    
+        BNE     LBLE88F
+        LDAB    #$06
+        LDAA    ,X
+        ORAA    1,X
+        BEQ     LBLE8CE
+        LDD     2,X
+        STD     ramAB
+        LDAB    #$04
+        ABX     
+LBLE88F LDAA    ,X
+        CMPA    #$85
+        BNE     LBLE877
+        BRA     LBLE82E
+LBLE897 LDX     ramAF
+        LDAB    ram87
+        BEQ     LBLE8A0
+        JMP     LBLE563
+LBLE8A0 LDAA    ,X
+        BEQ     LBLE8AA
+        LDX     #LBLE8AB-1
+        JMP     LBLE7A8
+LBLE8AA RTS
+
+
+LBLE8AB FCB     $3F,$45,$58,$54,$52,$41,$20,$49,$47,$4E,$4F,$52,$45,$44,$0D,$00 ;?EXTRA IGNORED
+
+
+                ; --- NEXT command ---
+CMD_NEXT
+        BNE     LBLE8C2
+        LDX     #$0000
+        BRA     LBLE8C5
+LBLE8C2 JSR     LBLEB1B ;Get Var
+LBLE8C5 STX     ramB5
+        JSR     LBLE1D8
+        BEQ     LBLE8D0
+        LDAB    #$00    ;?NF error
+LBLE8CE BRA     LBLE917 ;write error
+LBLE8D0 TXS     
+        INX    
+        INX    
+        INX    
+        JSR     LBLF251 ;X->C9-E
+        TSX     
+        LDAA    $08,X
+        STAA    ramCE
+        LDX     ramB5
+        JSR     LBLEF7D
+        JSR     LBLF26F+1
+        TSX     
+        LDAB    #$09
+        ABX     
+        JSR     LBLF2D9
+        TSX     
+        SUBB    $08,X
+        BEQ     LBLE8FC
+        LDX     $0E,X
+        STX     ramE2
+        TSX     
+        LDX     $10,X
+        STX     ramF4
+LBLE8F9 JMP     LBLE519  ; continue executing line
+
+
+
+LBLE8FC LDAB    #$12
+        ABX     
+        TXS     
+        JSRE    LBL00F3
+        CMPA    #$2C    ; ','
+        BNE     LBLE8F9 ; continue executing line
+        JSRE    LBL00EB
+        BSR     LBLE8C2
+LBLE90C BSR     LBLE91A
+LBLE90E TST     $0D,X           ;SEC  E-expect numeric? F-expect string?
+LBLE910 ROR     ram84   ;vartype flag
+        BVC     LBLE8AA ;RTS
+        LDAB    #$18        ;?TM error
+LBLE917 JMP     LBLE238
+LBLE91A LDX     ramF4
+        DEX    
+        STX     ramF4
+        CLRA    
+LBLE920 LDAB    #$37            ;PSHB
+        PSHA    
+        LDAB    #$01
+        JSR     LBLE21A  ; see if 1 word fits on stack
+        JSR     LBLE9E5
+        CLR     ramB9
+LBLE92E JSRE    LBL00F3
+LBLE931 SUBA    #$AE    ; '>'  ; + - * / ^ AND OR > = <
+        BLO     LBLE949
+        CMPA    #$03    ; SGN
+        BHS     LBLE949
+        CMPA    #$01
+        ROLA    
+        EORA    ramB9
+        CMPA    ramB9
+        BLO     LBLE99B
+        STAA    ramB9
+        JSRE    LBL00EB
+        BRA     LBLE931
+LBLE949 LDAB    ramB9
+        BNE     LBLE978
+        BHS     LBLE9B5
+        ADDA    #$07    ; + - * / ^ AND OR > = <
+        BHS     LBLE9B5
+        ADCA    ram84   ; vartype flag
+        BNE     LBLE95A
+        JMP     LBLEE06
+LBLE95A ADCA    #$FF
+        TAB             ; B = A*3
+        ASLA    
+        ABA     
+        TAB     
+        LDX     #TBLE030
+        ABX     
+LBLE964 PULA    
+        CMPA    ,X
+        BHS     LBLE9BC
+        BSR     LBLE90E ;expect numeric
+LBLE96B PSHA    
+        BSR     LBLE991
+        LDX     ramB7
+        PULA    
+        BNE     LBLE98B
+        TSTA    
+        BEQ     LBLE9E2
+        BRA     LBLE9C5
+LBLE978 ASL     ram84
+        ROLB    
+        LDX     ramF4
+        DEX    
+        STX     ramF4
+        LDX     #TBLE988
+        STAB    ramB9
+        BRA     LBLE964
+TBLE988 FCB     $64,$EA,$AE
+LBLE98B CMPA    ,X
+        BHS     LBLE9C5
+        BRA     LBLE96B
+LBLE991 LDD     1,X
+        PSHB           ;push binary fp operation onto stack.
+        PSHA    
+        BSR     LBLE99E  ;push CE onto stack.
+        LDAB    ramB9
+        BRA     LBLE920+1
+
+LBLE99B JMP     LBLEA3C  ;?SN ERROR
+
+LBLE99E LDAB    ramCE  ;push C9-CE onto stack.
+        LDAA    ,X  
+LBLE9A2 PULX    
+        PSHB         
+LBLE9A4 LDAB    ramCD  ;push C9 onto stack and return.
+        PSHB    
+        LDAB    ramCC
+        PSHB    
+        LDAB    ramCB
+        PSHB    
+        LDAB    ramCA
+        PSHB    
+        LDAB    ramC9
+        PSHB    
+        JMP     ,X
+
+LBLE9B5 LDX     #$0000
+        PULA    
+        TSTA    
+        BEQ     LBLE9E2
+LBLE9BC CMPA    #$64
+        BEQ     LBLE9C3
+        JSR     LBLE90E ; expect numeric
+LBLE9C3 STX     ramB7
+LBLE9C5 PULB    
+        CMPA    #$5A
+        BEQ     LBLE9E4  ;RTS
+        CMPA    #$7D
+        BEQ     LBLE9E4  ;RTS
+        LSRB    
+        STAB    ram88
+        PULA    
+        PULB    
+        STD     ramD6
+        PULX    
+        STX     ramD8
+        PULB    
+        STAB    ramDA
+        PULB    
+        STAB    ramDB
+        EORB    ramCE
+        STAB    ramDC
+LBLE9E2 LDAB    ramC9
+LBLE9E4 RTS     
+LBLE9E5 JSR     LBL4294 ; maths command extension
+        CLR     ram84   ; vartype flag
+        BSR     LBLEA39 ; get next char
+        BHS     LBLE9F2 ; go if not numeric
+LBLE9EF JMP     LBLF359 ; get FP number
+LBLE9F2 JSR     LBLEB76 ; is_alpha()?
+        BHS     LBLEA49 ; go if alpha()
+        CMPA    #$2E   ; '.'
+        BEQ     LBLE9EF
+        CMPA    #$A8   ; '-'
+        BEQ     LBLEA41
+        CMPA    #$A7   ; '+'
+        BEQ     LBLE9E5
+        CMPA    #$22   ; '"'
+        BNE     LBLEA0F
+LBLEA07 LDX     ramF4
+        JSR     LBLED06
+        JMP     LBLEF3E
+LBLEA0F CMPA    #$A4   ;    ? NOT
+        BNE     LBLEA20
+        LDAA    #$5A
+        JSR     LBLE920+1
+        JSR     LBLEBC7    ;get result into D
+        COMA               ;perform bitwise negation
+        COMB    
+        JMP     LBLECE3    ;return D
+LBLEA20 SUBA    #$B1       ; start of function tokens [SGN()]
+        BHS     LBLEA55    ;go if a function
+LBLEA24 BSR     LBLEA2B+1  ;otherwise, must be a parenthetical expression
+        JSR     LBLE91A
+LBLEA29 LDAB    #$29       ;           ')' expect and skip char.
+LBLEA2B CPX     #$C628     ;LDAB  #$28 '('
+LBLEA2E CPX     #$C62C     ;LDAB  #$2C ','
+LBLEA31 PSHX    
+        LDX     ramF4
+        CMPB    ,X
+        PULX    
+        BNE     LBLEA3C  ;?SN error
+LBLEA39 JMP     LBL00EB
+LBLEA3C LDAB    #$02     ;?SN error
+        JMP     LBLE238
+LBLEA41 LDAA    #$7D
+        JSR     LBLE920+1
+        JMP     LBLF593
+LBLEA49 JSR     LBLEB1B   ; :get/init var
+        STX     ramCC
+        LDAA    ram84    ;vartype flag
+        BNE     LBLE9E4
+        JMP     LBLF251  ;X->C9-E
+LBLEA55 TAB     
+        ASLB    
+        BSR     LBLEA39 ;get next char
+        PSHB    
+        CMPB    #$22    ;'"'
+        BLO     LBLEA7F
+        CMPB    #$2C    ;','
+        BHS     LBLEA81
+        BSR     LBLEA2B+1         ;get '('
+        PULB    
+        CMPB    #$28     ;'('
+        BHS     LBLEA82
+        PSHB    
+        JSR     LBLE91A
+        BSR     LBLEA2E+1  ;get ','
+        JSR     LBLE90E+1  ;expect string
+        PULA    
+        LDX     ramCC
+        PSHX    
+        PSHA    
+        JSR     LBLEF0D
+        PULA    
+        PSHB    
+        TAB     
+        BRA     LBLEA82
+LBLEA7F BSR     LBLEA24
+LBLEA81 PULB    
+LBLEA82 LDX     #TBLE000
+        ABX     
+        LDX     ,X
+        JSR     ,X
+        JMP     LBLE90E ; expect numeric
+fp_OR   LDAA    #$4F    ; perform fp OR.  CLRA -- perform fp_AND.
+        STAA    ram82
+        JSR     LBLEBC7 ; get result->D
+        STD     ram80
+        JSR     LBLF28B ; copy D6->C9.  Clear DD.
+        JSR     LBLEBC7 ; get result->D
+        TST     ram82
+        BNE     LBLEAA7
+        ANDA    ram80   ; perform the AND
+        ANDB    ram81
+        BRA     LBLEAAB
+LBLEAA7 ORAA    ram80   ; perform the OR
+        ORAB    ram81
+LBLEAAB JMP     LBLECE3 ; return D.
+                                       ; probably < = > ??
+fp_EAAE JSR     LBLE910 ; check for ?TM and get next number
+        BNE     LBLEAC3
+        LDAA    ramDB
+        ORAA    #$7F
+        ANDA    ramD7
+        STAA    ramD7
+        LDX     #ramD6
+        JSR     LBLF2D9
+        BRA     LBLEB03
+LBLEAC3 CLR     ram84   ; vartype flag
+        DEC     ramB9
+        JSR     LBLEE56
+        STAB    ramD0
+        STX     ramD2
+        LDX     ramD9
+        JSR     LBLEE58
+        LDAA    ramD0
+        SBA     
+        BEQ     LBLEAE1
+        LDAA    #$01
+        BHS     LBLEAE1
+        LDAB    ramD0
+        NEGA    
+LBLEAE1 STAA    ramCE
+        TPA     
+        PSHA    
+        STS     ram91
+        SEI     
+        TXS     
+        LDX     ramD2
+        INCB    
+        DEX    
+LBLEAED DECB    
+        BNE     LBLEAF4
+        LDAB    ramCE
+        BRA     LBLEAFF
+LBLEAF4 PULA    
+        INX    
+        CMPA    ,X
+        BEQ     LBLEAED
+        LDAB    #$FF
+        BHS     LBLEAFF
+        NEGB    
+LBLEAFF LDS     ram91
+        PULA    
+        TAP     
+LBLEB03 ADDB    #$01
+        ROLB    
+        ANDB    ram88
+        BEQ     LBLEB0C
+        LDAB    #$FF
+LBLEB0C JMP     LBLF2BC
+LBLEB0F JSR     LBLEA2E+1  ; get ','
+
+
+                ; --- DIM command ---
+CMD_DIM
+        TAB     
+        BSR     LBLEB1F
+        JSRE    LBL00F3
+        BNE     LBLEB0F
+        RTS     
+LBLEB1B CLRB    
+        JSRE    LBL00F3 ;Get current char
+LBLEB1F STAB    ram83   ; 
+        STAA    ramB1
+        JSRE    LBL00F3
+        BSR     LBLEB76 ;Check for A-Z
+        BHS     LBLEB2D
+        JMP     LBLEA3C ;?SN error
+LBLEB2D CLRB    
+        STAB    ram84   ; vartype flag
+        JSRE    LBL00EB ; get next char
+        BLO     LBLEB39 ; go if numeric
+        BSR     LBLEB76 ; check for A-Z
+        BLO     LBLEB43 ; go if not
+LBLEB39 TAB             ; B holds second char (0) if none.
+LBLEB3A JSRE    LBL00EB ; skip until first non-alphanumeric char
+        BLO     LBLEB3A ;  '
+        BSR     LBLEB76 ;  '
+        BHS     LBLEB3A ;  '
+LBLEB43 CMPA    #$24    ; check for $
+        BNE     LBLEB4F
+        COM     ram84   ; vartype flag FF=string 00=numeric
+        ADDB    #$80    ; mask second char of B if string
+        JSRE    LBL00EB ; get next char
+LBLEB4F STAB    ramB2   ; B1-B2 hold varname.
+        LDAB    ram86   ; 01 if in CSAVE* or CLOAD* 80 if in FOR 0 else?
+        DECB    
+        BNE     LBLEB59
+        JMP     LBLEC07
+LBLEB59 ADDA    ram86
+        SUBA    #$28    ;'('
+        BNE     LBLEB62
+        JMP     LBLEBDE
+LBLEB62 CLR     ram86
+        LDX     ram95   ; start of variable space
+LBLEB67 CPX     ram97   ; start of dim variable space
+        BEQ     LBLEB7F ; go if varname not found
+        LDD     ramB1
+        SUBD    ,X
+        BEQ     LBLEBB0 ; go if varname found
+        LDAB    #$07
+        ABX     
+        BRA     LBLEB67 ; try again
+
+LBLEB76 CMPA    #$41     ; 'A'
+        BLO     LBLEB7E
+        SUBA    #$5B     ; 'Z'
+        SUBA    #$A5     ;-'Z'
+LBLEB7E RTS     
+
+LBLEB7F PULX             ;Varname not found.  find caller
+        PSHX    
+        CPX     #$EA4C   ;were we called from EA49?
+        BNE     LBLEB8A  ;yes, insert variable
+        LDX     #TBLEBB7 ;[X]=0
+        RTS     
+LBLEB8A LDD     ram99    ;end of arrays  
+        STD     ramBD    ;
+        ADDD    #$0007   ;length of var
+        STD     ramBB    ;
+        LDX     ram97    ;start of arrays
+        STX     ramC1    ;
+        JSR     LBLE1FE  ;copy [C1:BD]->[bf:BB]
+        LDX     ramBB    ;
+        STX     ram99    ;bump end of arrays
+        LDX     ramBF    ;
+        STX     ram97    ;bump start of arrays
+        LDX     ramC1    ;get destination of variable
+        LDD     ramB1    ;get varname
+        STD     ,X       ;store varname
+        CLRA    
+        CLRB    
+        STD     2,X      ;initialize variable to zero
+        STD     4,X
+        STAA    6,X
+LBLEBB0 INX    
+        INX    
+        STX     ramB3    ;?start of array data
+        RTS     
+TBLEBB5 FCB     $90
+        FCB     $80
+TBLEBB7 FCB     $00
+        FCB     $00
+        FCB     $00
+LBLEBBA JSRE    LBL00EB
+LBLEBBD JSR     LBLE90C
+LBLEBC0 JSR     LBLE90E    ;expect numeric
+        LDAA    ramCE
+        BMI     LBLEC2D+1  ;?FC error
+LBLEBC7 JSR     LBLE90E    ;expect numeric
+        LDAA    ramC9
+        CMPA    #$90
+        BLO     LBLEBD8
+        LDX     #TBLEBB5  ; -32768.0
+        JSR     LBLF2D9   ; compare [X] with C9-E.
+        BNE     LBLEC2D+1 ;?FC error
+LBLEBD8 JSR     LBLF30B   ; C9-x -> integer
+        LDD     ramCC
+LBLEBDD RTS     
+
+LBLEBDE LDX     ram83 ; Array detected...
+        PSHX    
+        CLRB    
+LBLEBE2 PSHB    
+        LDX     ramB1
+        PSHX    
+        BSR     LBLEBBA
+        PULX    
+        STX     ramB1
+        PULB    
+        INCB    
+        STAB    ram82
+        PULA    
+        PULB    
+        LDX     ramCC
+        PSHX    
+        PSHB    
+        PSHA    
+        LDAB    ram82
+        JSRE    LBL00F3
+        CMPA    #$2C
+        BEQ     LBLEBE2
+        JSR     LBLEA29; get ')'
+        PULX    
+        STX     ram83
+        LDAB    #$FF
+LBLEC07 PSHB    
+        LDX     ram97
+LBLEC0A CPX     ram99
+        BEQ     LBLEC33 ; go if not found
+        LDD     ramB1   ; get varname
+        SUBD    ,X
+        BEQ     LBLEC1B ; go if found
+        LDD     2,X     ; get length of current var
+        JSR     LBLE22D ; D+X->D,X
+        BRA     LBLEC0A
+LBLEC1B LDAB    #$12    ;?DD error
+        PULA    
+        TSTA    
+        BEQ     LBLEBDD ; RTS - if found and 0 on stack
+        LDAA    ram83
+        BNE     LBLEC30 ;write error if in a DIM command on a previously alloc'd var.
+        LDAB    ram82
+        CMPB    4,X
+        BEQ     LBLEC87
+LBLEC2B LDAB    #$10    ;?BS error
+LBLEC2D CPX     #$C608          ;LDAB  #$08 ?FC error
+LBLEC30 JMP     LBLE238
+LBLEC33 PULA    
+        TSTA    
+        BEQ     LBLEC2D+1  ;?FC error
+        LDD     #$0005
+        STD     ramDE
+        LDD     ramB1
+        STD     ,X
+        LDAB    ram82
+        STAB    4,X
+        JSR     LBLE21A  ; see if B words fit on stack
+        STX     ramBB
+LBLEC49 LDAB    #$0B
+        CLRA    
+        TST     ram83
+        BEQ     LBLEC56
+        PULA    
+        PULB    
+        ADDD    #$0001
+LBLEC56 STD     5,X
+        BSR     LBLECB9
+        STD     ramDE
+        INX    
+        INX    
+        DEC     ram82
+        BNE     LBLEC49
+        JSR     LBLE22D ; D+X->D,X
+        BHS     LBLEC6B
+        JMP     LBLE236 ; ?OM ERROR
+LBLEC6B JSR     LBLE21E ; see if D bytes fit on stack
+        SUBD    #$0035
+        STD     ram99
+        CLRA    
+LBLEC74 DEX    
+        STAA    5,X
+        CPX     ram89
+        BNE     LBLEC74
+        LDX     ramBB
+        LDAA    ram99
+        SUBD    ramBB
+        STD     2,X
+        LDAA    ram83
+        BNE     LBLECB8
+LBLEC87 LDAB    4,X
+        STAB    ram82
+        CLRA    
+        CLRB    
+LBLEC8D STD     ramDE
+        PULA    
+        PULB    
+        STD     ramCC
+        PSHB    
+        PSHA    
+        SUBD    5,X
+        BHS     LBLECD8
+        LDD     ramDE
+        PULA    
+        PULB    
+        BEQ     LBLECA3
+        BSR     LBLECB9
+        ADDD    ramCC
+LBLECA3 INX    
+        INX    
+        DEC     ram82
+        BNE     LBLEC8D
+        STD     ram89
+        ASLD    
+        ASLD    
+        ADDD    ram89
+        ADDD    #$0005
+        JSR     LBLE22D ;D+X->D,X
+        STX     ramB3
+LBLECB8 RTS     
+
+LBLECB9 LDAA    #$10
+        STAA    ramBF  
+        LDD     5,X
+        STD     ram91
+        CLRA    
+        CLRB    
+LBLECC3 ASLD    
+        BLO     LBLECD8
+        ASL     ramDF
+        ROL     ramDE
+        BHS     LBLECD2
+        ADDD    ram91
+        BLO     LBLECD8
+LBLECD2 DEC     ramBF  
+        BNE     LBLECC3
+        RTS     
+LBLECD8 JMP     LBLEC2B
+
+                ; --- MEM function ---
+FNC_MEM STS     ram91
+        LDD     ram91
+        SUBD    ram99
+        FCB     $21             ;"BRN CLRA"
+LBLECE2 CLRA           ; return value of B.  
+LBLECE3 CLR     ram84  ; vartype flag = 0 (numeric)
+        STD     ramCA
+        LDAB    #$90
+        JMP     LBLF2C3
+
+                ; --- STR$ function ---
+FNC_STR JSR     LBLE90E  ; expect numeric
+        LDX     #TBL4334
+        JSR     LBLF429
+        PULX    
+        LDX     #TBL4333
+        BRA     LBLED06
+
+LBLECFC STX     ramC7
+LBLECFE BSR     LBLED5F
+LBLED00 STX     ramD2
+        STAB    ramD0
+        RTS
+
+LBLED05 DEX    
+LBLED06 LDAA    #$22
+        STAA    ram80  ;String term char #1
+        STAA    ram81  ;String term char #2 
+LBLED0C INX    
+        STX     ramDC
+        STX     ramD2
+        LDAB    #$FF
+LBLED13 INCB    
+        LDAA    ,X
+        BEQ     LBLED26  ;Null char term
+        INX    
+        CMPA    ram80
+        BEQ     LBLED21
+        CMPA    ram81
+        BNE     LBLED13
+LBLED21 CMPA    #$22
+        BEQ     LBLED26
+        DEX    
+LBLED26 STX     ramDE  ;Points to non-null, non-" term char.
+        STAB    ramD0  ;stringsize->D0
+        PSHB    
+        LDD     ramDC
+        SUBD    #$4334  ;See if in command buffer
+        PULB            
+        BHI     LBLED3A ;Jump if in program
+        BSR     LBLECFC
+        LDX     ramDC
+        JSR     LBLEE3A
+LBLED3A LDX     ram423D ;string buff pointer
+        CPX     #$4250  ;end of pointer space
+        BNE     LBLED47
+        LDAB    #$1E    ;?ST error
+LBLED44 JMP     LBLE238
+LBLED47 LDAA    ramD0   ;stringsize
+        STAA    ,X
+        LDD     ramD2
+        STD     2,X
+        LDAA    #$FF
+        STAA    ram84   ;vartype flag
+        STX     ram423F ;temp str buff ptr
+        STX     ramCC
+        LDAB    #$05
+        ABX     
+        STX     ram423D ;string buff pointer
+        RTS
+
+
+LBLED5F CLR     ram85
+LBLED62 PSHB    
+        CLRA    
+        STD     ram89
+        LDD     ram9D
+        SUBD    ram89
+        SUBD    ram9B ; bottom of system stack
+        BLO     LBLED79
+        ADDD    ram9B ; bottom of system stack
+        STD     ram9D
+        LDX     ram9D
+        INX    
+        STX     ram9F
+        PULB    
+        RTS     
+
+LBLED79 LDAB    #$1A    ;?OS error
+        COM     ram85
+        BEQ     LBLED44 ;write error
+        BSR     LBLED85
+        PULB    
+        BRA     LBLED62
+LBLED85 LDX     ramA1
+LBLED87 STX     ram9D
+        CLRA    
+        CLRB    
+        STD     ramC5
+        LDX     ram9B ; bottom of system stack
+        STX     ramC1
+        LDX     #TBL4241
+LBLED94 CPX     ram423D ;string buff pointer
+        BEQ     LBLED9D
+        BSR     LBLEDCD
+        BRA     LBLED94
+LBLED9D LDX     ram95
+LBLED9F CPX     ram97
+        BEQ     LBLEDA7
+        BSR     LBLEDC7
+        BRA     LBLED9F
+LBLEDA7 STX     ramBB
+LBLEDA9 LDX     ramBB
+LBLEDAB CPX     ram99
+        BEQ     LBLEDE7
+        LDD     2,X
+        ADDD    ramBB
+        STD     ramBB
+        LDAA    1,X
+        BPL     LBLEDA9
+        LDAB    4,X
+        ASLB    
+        ADDB    #$05
+        ABX     
+LBLEDBF CPX     ramBB
+        BEQ     LBLEDAB
+        BSR     LBLEDCD
+        BRA     LBLEDBF
+LBLEDC7 LDAA    1,X
+        INX    
+        INX    
+        BPL     LBLEDE3
+LBLEDCD LDAB    ,X
+        BEQ     LBLEDE3
+        LDD     2,X
+        SUBD    ram9D
+        BHI     LBLEDE3
+        LDD     2,X
+        SUBD    ramC1
+        BLS     LBLEDE3
+        STX     ramC5
+        LDD     2,X
+        STD     ramC1
+LBLEDE3 LDAB    #$05
+        ABX     
+LBLEDE6 RTS     
+LBLEDE7 LDX     ramC5
+        BEQ     LBLEDE6
+        CLRA    
+        LDAB    ,X
+        DECB    
+        ADDD    ramC1
+        STD     ramBD
+        LDX     ram9D
+        STX     ramBB
+        JSR     LBLE200
+        LDX     ramC5
+        LDD     ramBF  
+        STD     2,X
+        LDX     ramBF  
+        DEX    
+        JMP     LBLED87
+LBLEE06 LDX     ramCC
+        PSHX    
+        JSR     LBLE9E5
+        JSR     LBLE90E+1 ; expect string
+        PULX    
+        STX     ramDC
+        LDAB    ,X
+        LDX     ramCC
+        ADDB    ,X
+        BHS     LBLEE1F
+        LDAB    #$1C    ;?LS error
+        JMP     LBLE238
+LBLEE1F JSR     LBLECFC
+        LDX     ramDC
+        LDAB    ,X
+        BSR     LBLEE38
+        LDX     ramC7
+        BSR     LBLEE58
+        BSR     LBLEE3A
+        LDX     ramDC
+        BSR     LBLEE58
+        JSR     LBLED3A
+        JMP     LBLE92E
+LBLEE38 LDX     2,X
+LBLEE3A TPA     
+        PSHA    
+        STS     ram91
+        SEI     
+        TXS     
+        LDX     ram9F
+        INCB    
+        BRA     LBLEE49
+LBLEE45 PULA    
+        STAA    ,X
+        INX    
+LBLEE49 DECB    
+        BNE     LBLEE45
+        STX     ram9F
+        LDS     ram91
+        PULA    
+        TAP     
+        RTS
+
+
+LBLEE53 JSR     LBLE90E+1 ;expect string
+LBLEE56 LDX     ramCC
+LBLEE58 LDAB    ,X
+        BSR     LBLEE70
+        BNE     LBLEE6D
+        LDX     7,X
+        DEX    
+        CPX     ram9D     ; next free string store
+        BNE     LBLEE6B
+        PSHB    
+        ADDD    ram9D
+        STD     ram9D
+        PULB    
+LBLEE6B INX    
+        RTS
+
+LBLEE6D LDX     2,X
+        RTS
+
+LBLEE70 CPX     ram423F ;tmp str buff ptr
+        BNE     LBLEE81
+        STX     ram423D ;string buff pointer
+        DEX    
+        DEX    
+        DEX    
+        DEX    
+        DEX    
+        STX     ram423F ;tmp str buff ptr
+        CLRA    
+LBLEE81 RTS
+
+
+                ; --- LEN function ---
+FNC_LEN
+        BSR     LBLEE87 ; stringlen->B
+LBLEE84 JMP     LBLECE2
+LBLEE87 BSR     LBLEE53
+        CLR     ram84   ; vartype flag
+        TSTB    
+        RTS
+
+
+                ; --- CHR$ function ---
+FNC_CHR
+        JSR     LBLEF10
+LBLEE91 LDAB    #$01
+        JSR     LBLED5F
+        LDAA    ramCD
+        JSR     LBLED00
+        STAA    ,X
+LBLEE9D INS    
+        INS    
+LBLEE9F JMP     LBLED3A
+
+                ; --- ASC function ---
+FNC_ASC
+        BSR     LBLEEA6
+        BRA     LBLEE84
+LBLEEA6 BSR     LBLEE87
+        BEQ     LBLEF07    ;?FC error
+        LDAB    ,X
+        RTS
+
+                ; --- LEFT$ function ---
+FNC_LEFT
+        BSR     LBLEEF2
+        CLRA    
+LBLEEB0 CMPB    ,X
+        BLS     LBLEEB7
+        LDAB    ,X
+        CLRA    
+LBLEEB7 PSHB    
+        PSHA    
+        JSR     LBLECFE
+        LDX     ramC7
+        BSR     LBLEE58
+        PULB    
+        ABX     
+        PULB    
+        JSR     LBLEE3A
+        BRA     LBLEE9F
+
+                ; --- RIGHT$ function ---
+FNC_RIGHT
+        BSR     LBLEEF2
+        LDAA    ,X
+        SBA     
+        BRA     LBLEEB0
+
+                ; --- MID$ function ---
+FNC_MID
+        LDAB    #$FF
+        STAB    ramCD
+        BSR     LBLEF19
+        CMPA    #$29    ;')'
+        BEQ     LBLEEDC
+        JSR     LBLEF47
+LBLEEDC BSR     LBLEEF2
+        BEQ     LBLEF07    ;?FC error
+        CLRB    
+        DECA    
+        CMPA    ,X
+        BHS     LBLEEB7
+        TAB     
+        SUBB    ,X
+        NEGB    
+        CMPB    ramCD
+        BLS     LBLEEB7
+        LDAB    ramCD
+        BRA     LBLEEB7
+        
+LBLEEF2 JSR     LBLEA29; get ')'
+        TSX     
+        LDD     5,X
+        STD     ramC7
+        LDD     ,X
+        STD     5,X
+        INS    
+        INS    
+        INS    
+        INS    
+        PULA    
+        LDX     ramC7
+        TAB     
+        RTS     
+
+
+LBLEF07 JMP     LBLEC2D+1  ;?FC error
+LBLEF0A JSRE    LBL00EB
+;get arg -> B
+LBLEF0D JSR     LBLE90C
+LBLEF10 JSR     LBLEBC0
+        LDAA    ramCC      ; err if result >255
+        BNE     LBLEF07    ;?FC error    
+        LDAB    ramCD
+LBLEF19 JMP     LBL00F3
+
+                ; --- VAL function ---
+FNC_VAL
+        JSR     LBLEE87
+        BNE     LBLEF24
+        JMP     LBLEFF4
+LBLEF24 JSR     LBLE22C
+        LDAA    ,X
+        PSHA    
+        CLR     ,X
+        LDX     ramF4
+        STX     ramDE
+        LDX     ram89
+        STX     ramF4
+        BSR     LBLEF19
+        JSR     LBLF359  ; get FP number
+        PULA    
+        LDX     ram8B
+        STAA    ,X
+LBLEF3E LDX     ramDE
+        STX     ramF4
+        RTS     
+
+LBLEF43 BSR     LBLEF4C
+        STX     ramA5
+LBLEF47 JSR     LBLEA2E+1 ;get ','
+        BRA     LBLEF0D   ;get arg into B
+
+                ; get 0-65535 into X
+LBLEF4C JSR     LBLE90C   ;get numeric var.
+LBLEF4F LDAA    ramCE
+        BMI     LBLEF07   ;?FC error
+        LDAA    ramC9
+        CMPA    #$90
+        BHI     LBLEF07   ;?FC error
+        JSR     LBLF30B   ;C9->integer
+        LDX     ramCC
+        RTS
+
+
+                ; --- PEEK function ---
+FNC_PEEK
+        BSR     LBLEF4F
+        LDAB    ,X
+        JMP     LBLECE2; return B
+
+                ; --- POKE function ---
+CMD_POKE
+        BSR     LBLEF43
+        LDX     ramA5
+        STAB    ,X
+        RTS     
+        
+LBLEF6D LDX     #TBLF524
+        BRA     LBLEF7D
+LBLEF72 JSR     LBLF160
+                           ; perform fp -
+fp_SUB  COM     ramCE
+        COM     ramDC
+        BRA     fp_ADD
+
+LBLEF7D JSR     LBLF160
+                           ; peform fp +
+fp_ADD  TSTB    
+        BNE     LBLEF86
+        JMP     LBLF28B ; copy D6->C9.  Clear DD.
+LBLEF86 LDX     #ramD6
+LBLEF89 TAB     
+        BEQ     LBLEFF9 ; RTS
+        SUBB    ramC9
+        BEQ     LBLEFFA
+        BMI     LBLEF9C
+        STAA    ramC9
+        LDAA    ramDB
+        STAA    ramCE
+        LDX     #ramC9
+        NEGB    
+LBLEF9C CMPB    #$F8
+        BLE     LBLEFFA
+        CLRA    
+        LSR     1,X
+        JSR     LBLF080
+LBLEFA6 LDAB    ramDC
+        BPL     LBLEFB5
+        COM     1,X
+        COM     2,X
+        COM     3,X
+        COM     4,X
+        COMA    
+        ADCA    #$00
+LBLEFB5 STAA    ramDD
+        LDAA    ramCD
+        ADCA    ramDA
+        STAA    ramCD
+        LDAA    ramCC
+        ADCA    ramD9
+        STAA    ramCC
+        LDAA    ramCB
+        ADCA    ramD8
+        STAA    ramCB
+        LDAA    ramCA
+        ADCA    ramD7
+        STAA    ramCA
+        TBA     
+        BPL     LBLF018+1
+LBLEFD2 BLO     LBLEFD6
+        BSR     LBLF03C ; negate C9-E
+LBLEFD6 CLRB    
+LBLEFD7 LDAA    ramCA   
+        BNE     LBLF00F
+        LDAA    ramCB   ;shift digits left by one byte
+        STAA    ramCA
+        LDAA    ramCC
+        STAA    ramCB
+        LDAA    ramCD
+        STAA    ramCC
+        LDAA    ramDD
+        STAA    ramCD
+        CLR     ramDD
+        ADDB    #$08
+        CMPB    #$28
+        BLT     LBLEFD7
+LBLEFF4 CLRA    
+LBLEFF5 STAA    ramC9
+LBLEFF7 STAA    ramCE
+LBLEFF9 RTS     
+LBLEFFA BSR     LBLF074 ;shift digits right by -B bits
+        CLC     
+        BRA     LBLEFA6
+LBLEFFF INCB    
+        ASL     ramDD
+        ROL     ramCD
+        ROL     ramCC
+        ROL     ramCB
+        ROL     ramCA
+LBLF00F BPL     LBLEFFF
+        LDAA    ramC9
+        SBA     
+        STAA    ramC9
+        BLS     LBLEFF4
+LBLF018 CPX     #$2509          ;BLO LBLF024
+        ASL     ramDD
+        LDAA    #$00
+        STAA    ramDD
+        BRA     LBLF035
+LBLF024 INC     ramC9   ;mul by 2
+        BEQ     LBLF058 ;?OV ERROR
+        ROR     ramCA   ;div digits by 2
+        ROR     ramCB
+        ROR     ramCC
+        ROR     ramCD
+LBLF035 BHS     LBLF03B ; leave if we don't need to round up
+        BSR     LBLF04B ; increment CA-CD
+        BEQ     LBLF024 ; adjust exponenent if we broke the bank
+LBLF03B RTS     
+LBLF03C COM     ramCE   ; negate C9-E
+LBLF03F COM     ramCA   ; negate C9-D
+        COM     ramCB
+        COM     ramCC
+        COM     ramCD
+LBLF04B LDX     ramCC
+        INX    
+        STX     ramCC
+        BNE     LBLF057
+        LDX     ramCA
+        INX    
+        STX     ramCA
+LBLF057 RTS     
+LBLF058 LDAB    #$0A       ;?OV error
+        JMP     LBLE238
+LBLF05D LDX     #TBL008C
+LBLF060 LDAA    4,X        ;shift digits right one byte.
+        STAA    ramDD
+        LDAA    3,X
+        STAA    4,X
+        LDAA    2,X
+        STAA    3,X
+        LDAA    1,X
+        STAA    2,X
+        LDAA    ramD5
+        STAA    1,X
+LBLF074 ADDB    #$08       ;if B<-8, shift digits right one byte.
+        BLE     LBLF060
+        LDAA    ramDD
+        SUBB    #$08
+        BEQ     LBLF08A
+LBLF07E ASR     1,X        ;if B<0 shift digits right one bit
+LBLF080 ROR     2,X
+        ROR     3,X
+        ROR     4,X
+        RORA    
+        INCB    
+        BNE     LBLF07E
+LBLF08A RTS
+
+
+TBLF08B FCB     $81,$00,$00,$00,$00  ; 1.0
+TBLF090 FCB     $03
+        FCB     $7F,$5E,$56,$CB,$79  ;0.43425594
+        FCB     $80,$13,$9B,$0B,$64  ;0.57658454
+        FCB     $80,$76,$38,$93,$16  ;0.96180076
+        FCB     $82,$38,$AA,$3B,$20  ;2.88539007
+TBLF0A5 FCB     $80,$35,$04,$F3,$34  ;SQR(0.5)
+TBLF0AA FCB     $81,$35,$04,$F3,$34  ;SQR(2.0)
+TBLF0AF FCB     $80,$80,$00,$00,$00  ;-0.5
+TBLF0B4 FCB     $80,$31,$72,$17,$F8  ;LOG(2.0)
+
+
+                ; --- LOG function ---
+LBLF0B9
+FNC_LOG
+        JSR     LBLF2AD ;Test C9-E
+        BGT     LBLF0C1
+        JMP     LBLEC2D+1  ;?FC error
+LBLF0C1 LDX     #TBLF0A5
+        LDAA    ramC9
+        SUBA    #$80
+        PSHA    
+        LDAA    #$80
+        STAA    ramC9
+        JSR     LBLEF7D
+        LDX     #TBLF0AA
+        JSR     LBLF1C5+1
+        LDX     #TBLF08B  ; 1.0
+        JSR     LBLEF72
+        LDX     #TBLF090
+        JSR     LBLF5F8
+        LDX     #TBLF0AF
+        JSR     LBLEF7D
+        PULB    
+        JSR     LBLF3E9
+        LDX     #TBLF0B4
+LBLF0EF BSR     LBLF160
+
+                ; perform fp *
+fp_MUL  BEQ     LBLF15F
+        JSR     LBLF179
+LBLF0F6 LDAA    #$00
+        STAA    TBL008D
+        STAA    ram8E
+        STAA    ram8F
+        STAA    ram90
+        LDAB    ramCD
+        BSR     LBLF12A
+        LDAB    ramDD
+        STAB    ram4255
+        LDAB    ramCC
+        BSR     LBLF12A
+        LDAB    ramDD
+        STAB    ram4254
+        LDAB    ramCB
+        BSR     LBLF12A
+        LDAB    ramDD
+        STAB    ram4253
+        LDAB    ramCA
+        BSR     LBLF12F
+        LDAB    ramDD
+        STAB    ram4252
+        JSR     LBLF248
+        JMP     LBLEFD6
+LBLF12A BNE     LBLF12F
+        JMP     LBLF05D
+LBLF12F SEC     
+LBLF130 LDAA    TBL008D
+        RORB    
+        BEQ     LBLF15F
+        BHS     LBLF14D
+        LDAA    ram90
+        ADDA    ramDA
+        STAA    ram90
+        LDAA    ram8F
+        ADCA    ramD9
+        STAA    ram8F
+        LDAA    ram8E
+        ADCA    ramD8
+        STAA    ram8E
+        LDAA    TBL008D
+        ADCA    ramD7
+LBLF14D RORA    
+        STAA    TBL008D
+        ROR     ram8E
+        ROR     ram8F
+        ROR     ram90
+        ROR     ramDD
+        CLC     
+        BRA     LBLF130
+LBLF15F RTS     
+LBLF160 LDD     1,X
+        STAA    ramDB
+        ORAA    #$80
+        STD     ramD7
+        LDAB    ramDB
+        EORB    ramCE
+        STAB    ramDC
+        LDD     3,X
+        STD     ramD9
+        LDAA    ,X
+        STAA    ramD6
+        LDAB    ramC9
+        RTS     
+LBLF179 TSTA    
+        BEQ     LBLF195
+        ADDA    ramC9
+        RORA    
+        ROLA    
+        BVC     LBLF195
+        ADDA    #$80
+        STAA    ramC9
+        BNE     LBLF18B
+        JMP     LBLEFF7
+LBLF18B LDAA    ramDC
+        STAA    ramCE
+        RTS     
+LBLF190 LDAA    ramCE
+        COMA    
+        BRA     LBLF197
+LBLF195 PULA    
+        PULA    
+LBLF197 BMI     LBLF19C
+        JMP     LBLEFF4
+LBLF19C JMP     LBLF058  ; ?OV ERROR
+LBLF19F JSR     LBLF29F  ; copy fp C9->D6
+        BEQ     LBLF1B3  ; RTS
+        ADDA    #$02
+        BLO     LBLF19C  ; ?OV ERROR
+        CLR     ramDC
+        JSR     LBLEF89
+        INC     ramC9
+        BEQ     LBLF19C  ; ?OV ERROR
+LBLF1B3 RTS
+
+TBLF1B4 FCB     $84,$20,$00,$00,$00  ; 10.0
+
+LBLF1B9 JSR     LBLF29F  ;copy fp C9->D6
+        LDX     #TBLF1B4 ;10.0
+        CLRB    
+LBLF1C0 STAB    ramDC
+        JSR     LBLF251 ;X->C9-E
+LBLF1C5 CPX     #$8D98          ;BSR LBLF160
+
+                ; perform fp /
+fp_DIV  BEQ     LBLF243  ; ?/0 error
+        NEG     ramC9
+        BSR     LBLF179
+        INC     ramC9
+        BEQ     LBLF19C
+        LDX     #TBL008D
+        LDAB    #$04
+        STAB    ram82
+        LDAB    #$01
+LBLF1DD LDAA    ramCA
+        CMPA    ramD7
+        BNE     LBLF1F6
+        LDAA    ramCB
+        CMPA    ramD8
+        BNE     LBLF1F6
+        LDAA    ramCC
+        CMPA    ramD9
+        BNE     LBLF1F6
+        LDAA    ramCD
+        CMPA    ramDA
+        BNE     LBLF1F6
+        SEC     
+LBLF1F6 TPA     
+        ROLB    
+        BHS     LBLF206
+        STAB    ,X
+        INX    
+        DEC     ram82
+        BMI     LBLF239
+        BEQ     LBLF235
+        LDAB    #$01
+LBLF206 TAP     
+        BLO     LBLF21B
+LBLF209 ASL     ramDA
+        ROL     ramD9
+        ROL     ramD8
+        ROL     ramD7
+        BLO     LBLF1F6
+        BMI     LBLF1DD
+        BRA     LBLF1F6
+LBLF21B LDAA    ramDA
+        SUBA    ramCD
+        STAA    ramDA
+        LDAA    ramD9
+        SBCA    ramCC
+        STAA    ramD9
+        LDAA    ramD8
+        SBCA    ramCB
+        STAA    ramD8
+        LDAA    ramD7
+        SBCA    ramCA
+        STAA    ramD7
+        BRA     LBLF209
+LBLF235 LDAB    #$40
+        BRA     LBLF206
+LBLF239 RORB    
+        RORB    
+        RORB    
+        STAB    ramDD
+        BSR     LBLF248
+        JMP     LBLEFD6
+LBLF243 LDAB    #$14     ;?/0 error
+        JMP     LBLE238
+LBLF248 LDX     TBL008D
+        STX     ramCA
+        LDX     ram8F
+        STX     ramCC
+        RTS     
+LBLF251 PSHA    
+        LDD     1,X
+        STAA    ramCE
+        ORAA    #$80
+        STD     ramCA
+        CLR     ramDD
+        LDAB    ,X
+        LDX     3,X
+        STX     ramCC
+        STAB    ramC9
+        PULA    
+        RTS     
+LBLF267 LDX     #ramBF  
+        BRA     LBLF272  ;FPA->X
+LBLF26C LDX     #TBL00BA
+LBLF26F CPX     #$DEB5          ;LDX ramB5
+LBLF272 LDAA    ramC9  ; Load floating-point ACOI storage-> X.
+        STAA    ,X
+        LDAA    ramCE
+        ORAA    #$7F
+        ANDA    ramCA
+        STAA    1,X
+        LDAA    ramCB
+        STAA    2,X
+        LDAA    ramCC
+        STAA    3,X
+        LDAA    ramCD
+        STAA    4,X
+        RTS     
+                ; copy D6->C9.  Clear DD.
+LBLF28B LDAA    ramDB
+LBLF28D	STAA    ramCE
+        LDX     ramD6
+        STX     ramC9
+        CLR     ramDD
+        LDX     ramD8
+        STX     ramCB
+        LDX     ramD9
+        STX     ramCC
+        RTS     
+LBLF29F LDD     ramC9
+        STD     ramD6
+        LDX     ramCB
+        STX     ramD8
+        LDX     ramCD
+        STX     ramDA
+        TSTA    
+        RTS     
+LBLF2AD LDAB    ramC9
+        BEQ     LBLF2B9
+LBLF2B1 LDAB    ramCE
+LBLF2B3 ROLB    
+        LDAB    #$FF   ; return -1 in B.
+        BLO     LBLF2B9
+        NEGB           ; return 1 in B.
+LBLF2B9 RTS
+
+
+                ; --- SGN function ---
+FNC_SGN
+        BSR     LBLF2AD  ; Test C9-E.  B = -1 0 +1
+LBLF2BC STAB    ramCA
+        CLR     ramCB
+        LDAB    #$88
+LBLF2C3 LDAA    ramCA
+        SUBA    #$80
+LBLF2C7 STAB    ramC9
+        LDAA    #$00
+        TAB     
+        STD     ramCC
+        STAA    ramDD
+        STAA    ramCE
+        JMP     LBLEFD2
+
+
+                ; --- ABS function ---
+FNC_ABS
+        CLR     ramCE   ; clear sign bit
+        RTS
+
+                ; Compare C9-E with X, returning in B
+                ; =1 if C>X, =-1 if C<X =0 if equal.
+LBLF2D9 LDAB    ,X
+        BEQ     LBLF2AD
+        LDAB    1,X
+        EORB    ramCE
+        BMI     LBLF2B1 ; go if args differ in sign
+LBLF2E3 LDAB    ramC9
+        CMPB    ,X
+        BNE     LBLF306
+        LDAB    1,X
+        ORAB    #$7F
+        ANDB    ramCA
+        CMPB    1,X
+        BNE     LBLF306
+        LDAB    ramCB
+        CMPB    2,X
+        BNE     LBLF306
+        LDAB    ramCC
+        CMPB    3,X
+        BNE     LBLF306
+        LDAB    ramCD
+        SUBB    4,X
+        BNE     LBLF306
+        RTS             ; 0->B if equal
+LBLF306 RORB    
+        EORB    ramCE
+        BRA     LBLF2B3
+
+                ; convert C9-x to integer (contained in CC-D)
+LBLF30B LDAB    ramC9  
+        BEQ     LBLF350
+        SUBB    #$A0
+        LDAA    ramCE  ;test sign byte
+        BPL     LBLF31B
+        COM     ramD5
+        JSR     LBLF03F ;negate CA-CD
+LBLF31B LDX     #ramC9
+        CMPB    #$F8
+        BGT     LBLF329
+        JSR     LBLF074 ;shift digits right by -B bits
+        CLR     ramD5
+        RTS     
+LBLF329 CLR     ramD5
+        LDAA    ramCE
+        ROLA    
+        ROR     ramCA
+        JMP     LBLF080 ;divide CA-CD by 2^($100-B).
+
+                ; --- INT function ---
+LBLF335
+FNC_INT
+        LDAB    ramC9
+        CMPB    #$A0
+        BHS     LBLF358
+        BSR     LBLF30B ; C9-x -> integer
+        STAB    ramDD
+        LDAA    ramCE
+        STAB    ramCE
+        SUBA    #$80
+        LDAA    #$A0
+        STAA    ramC9
+        LDAA    ramCD
+        STAA    ram80
+        JMP     LBLEFD2
+
+
+LBLF350 STAB    ramCA
+        STAB    ramCB
+        STAB    ramCC
+        STAB    ramCD
+LBLF358 RTS     
+
+
+LBLF359 JSR     LBL429D ;fp-acc number transfer extension
+        LDX     #$0000
+        STX     ramCE   ;clear C9
+        STX     ramC9
+        STX     ramCB
+        STX     ramCC
+        STX     ramC1   ;clear C1
+        STX     ramBF  
+        BLO     LBLF3D8 ;go if numeric
+        CMPA    #$2D   ; '-'
+        BNE     LBLF376
+        COM     ramCF
+        BRA     LBLF37A
+LBLF376 CMPA    #$2B   ; '+'
+        BNE     LBLF37F
+LBLF37A JSRE    LBL00EB
+        BLO     LBLF3D8
+LBLF37F CMPA    #$2E   ; '.'
+        BEQ     LBLF3B0
+        CMPA    #$45   ; 'E'
+        BNE     LBLF3B5
+        JSRE    LBL00EB
+        BLO     LBLF3F5
+        CMPA    #$A8   ; '-'
+        BEQ     LBLF39E
+        CMPA    #$2D   ; '-'
+        BEQ     LBLF39E
+        CMPA    #$A7   ; '+'
+        BEQ     LBLF3A1
+        CMPA    #$2B   ; '+'
+        BEQ     LBLF3A1
+        BRA     LBLF3A6
+LBLF39E COM     ramC2
+LBLF3A1 JSRE    LBL00EB
+        BLO     LBLF3F5
+LBLF3A6 TST     ramC2
+        BEQ     LBLF3B5
+        NEG     ramC1
+        BRA     LBLF3B5
+LBLF3B0 COM     ramC0
+        BNE     LBLF37A
+LBLF3B5 LDAA    ramC1
+        SUBA    ramBF  
+        STAA    ramC1
+        BEQ     LBLF3D1
+        BPL     LBLF3C9
+LBLF3BF JSR     LBLF1B9
+        INC     ramC1
+        BNE     LBLF3BF
+        BRA     LBLF3D1
+LBLF3C9 JSR     LBLF19F
+        DEC     ramC1
+        BNE     LBLF3C9
+LBLF3D1 LDAA    ramCF
+        BPL     LBLF358
+        JMP     LBLF593
+LBLF3D8 LDAB    ramBF  
+        SUBB    ramC0
+        STAB    ramBF  
+        PSHA    
+        JSR     LBLF19F
+        PULB    
+        SUBB    #$30
+        BSR     LBLF3E9
+        BRA     LBLF37A
+LBLF3E9 JSR     LBLF26C ;C9->BA
+        JSR     LBLF2BC
+        LDX     #TBL00BA
+        JMP     LBLEF7D
+
+                ;ramC1 = 10*ramC1+(A-$30).  
+LBLF3F5 LDAB    ramC1
+        ASLB    
+        ASLB    
+        ADDB    ramC1
+        ASLB    
+        SUBA    #$30
+        ABA     
+        STAA    ramC1
+        BRA     LBLF3A1
+
+
+TBLF403 FCB     $9B,$3E,$BC,$1F,$FD  ;  99999999.90625
+TBLF408 FCB     $9E,$6E,$6B,$27,$FD  ; 999999999.25000
+TBLF40D FCB     $9E,$6E,$6B,$28,$00  ;1000000000.00000
+
+
+LBLF412 LDX     #TBLE1B7-1; ' IN '
+        BSR     LBLF423
+        LDD     ramE2     ; line number
+LBLF419 STD     ramCA
+        LDAB    #$90
+        SEC     
+        JSR     LBLF2C7
+        BSR     LBLF426
+LBLF423 JMP     LBLE7A8
+LBLF426 LDX     #TBL4335
+LBLF429 LDAA    #$20
+        LDAB    ramCE
+        BPL     LBLF431
+        LDAA    #$2D
+LBLF431 STAA    ,X
+        STAA    ramCE
+        STX     ramDE
+        INX    
+        LDAA    #$30
+        LDAB    ramC9
+        BNE     LBLF441
+        JMP     LBLF51C
+LBLF441 CLRA    
+        CMPB    #$80
+        BHI     LBLF44E
+        LDX     #TBLF40D
+        JSR     LBLF0EF
+        LDAA    #$F7
+LBLF44E STAA    ramBF  
+LBLF450 LDX     #TBLF408
+        JSR     LBLF2E3
+        BGT     LBLF468
+LBLF458 LDX     #TBLF403
+        JSR     LBLF2E3
+        BGT     LBLF470
+        JSR     LBLF19F
+        DEC     ramBF  
+        BRA     LBLF458
+LBLF468 JSR     LBLF1B9
+        INC     ramBF  
+        BRA     LBLF450
+LBLF470 JSR     LBLEF6D
+        JSR     LBLF30B ;C9-x -> integer 
+        LDAB    #$01
+        LDAA    ramBF  
+        ADDA    #$0A
+        BMI     LBLF486
+        CMPA    #$0B
+        BHS     LBLF486
+        DECA    
+        TAB     
+        LDAA    #$02
+LBLF486 DECA    
+        DECA    
+        STAA    ramC1
+        STAB    ramBF  
+        BGT     LBLF49F
+        LDX     ramDE
+        LDAA    #$2E
+        INX    
+        STAA    ,X
+        TSTB    
+        BEQ     LBLF49D
+        LDAA    #$30
+        INX    
+        STAA    ,X
+LBLF49D STX     ramDE
+LBLF49F LDX     #TBLF529
+        LDAB    #$80
+LBLF4A4 LDAA    ramCD
+        ADDA    3,X
+        STAA    ramCD
+        LDAA    ramCC
+        ADCA    2,X
+        STAA    ramCC
+        LDAA    ramCB
+        ADCA    1,X
+        STAA    ramCB
+        LDAA    ramCA
+        ADCA    ,X
+        STAA    ramCA
+        INCB    
+        RORB    
+        ROLB    
+        BVC     LBLF4A4
+        BHS     LBLF4C6
+        SUBB    #$0B
+        NEGB    
+LBLF4C6 ADDB    #$2F
+        INX    
+        INX    
+        INX    
+        INX    
+        STX     ramB3
+        LDX     ramDE
+        INX    
+        TBA     
+        ANDA    #$7F
+        STAA    ,X
+        DEC     ramBF  
+        BNE     LBLF4E0
+        LDAA    #$2E
+        INX    
+        STAA    ,X
+LBLF4E0 STX     ramDE
+        LDX     ramB3
+        COMB    
+        ANDB    #$80
+        CPX     #$F54D
+        BNE     LBLF4A4
+        LDX     ramDE
+LBLF4EE LDAA    ,X
+        DEX    
+        CMPA    #$30   ; '0'
+        BEQ     LBLF4EE
+        CMPA    #$2E   ; '.'
+        BEQ     LBLF4FA
+        INX    
+LBLF4FA LDAA    #$2B   ; '+'
+        LDAB    ramC1
+        BEQ     LBLF51E
+        BPL     LBLF505
+        LDAA    #$2D   ; '-'
+        NEGB    
+LBLF505 STAA    2,X
+        LDAA    #$45
+        STAA    1,X
+        LDAA    #$2F
+LBLF50D INCA    
+        SUBB    #$0A
+        BHS     LBLF50D
+        ADDB    #$3A
+        STAA    3,X
+        STAB    4,X
+        CLR     5,X
+        BRA     LBLF520
+LBLF51C STAA    ,X
+LBLF51E CLR     1,X
+LBLF520 LDX     #TBL4335
+LBLF523	RTS
+
+
+TBLF524 FCB     $80,$00,$00,$00,$00     ; 0.5
+TBLF529 FCB     $FA,$0A,$1F,$00 ;-100,000,000
+        FCB     $00,$98,$96,$80 ;  10,000,000
+        FCB     $FF,$F0,$BD,$C0 ;  -1,000,000
+        FCB     $00,$01,$86,$A0 ;     100,000
+        FCB     $FF,$FF,$D8,$F0 ;     -10,000
+        FCB     $00,$00,$03,$E8 ;       1,000
+        FCB     $FF,$FF,$FF,$9C ;        -100
+        FCB     $00,$00,$00,$0A ;          10
+        FCB     $FF,$FF,$FF,$FF ;          -1
+
+
+                ; --- SQR function ---
+FNC_SQR
+        JSR     LBLF29F  ;copy fp C9->D6
+        LDX     #TBLF524 ;0.5
+        JSR     LBLF251  ;X->C9-E
+
+                ; perform fp ^
+fp_POW  BEQ     LBLF5C9
+        TSTA
+        BNE     LBLF565
+        LDAA    ramCE
+        BPL     LBLF562
+        JMP     LBLF243  ; ?/0 error
+LBLF562 JMP     LBLEFF5
+LBLF565 LDX     #TBL00C4
+        JSR     LBLF272  ;FPA->X
+        CLRB
+        LDAA    ramDB
+        BPL     LBLF580
+        JSR     FNC_INT  ; LBLF335
+        LDX     #TBL00C4
+        LDAA    ramDB
+        JSR     LBLF2E3
+        BNE     LBLF580
+        COMA
+        LDAB    ram80    ; TBL0080
+LBLF580 JSR     LBLF28D
+        PSHB
+        JSR     FNC_LOG	 ; LBLF0B9
+        LDX     #TBL00C4
+        JSR     LBLF0EF
+        BSR     LBLF5C9
+        PULA
+        RORA
+        BHS     LBLF523
+LBLF593 LDAA    ramC9
+        BEQ     LBLF59A
+        COM     ramCE
+LBLF59A RTS
+
+
+
+TBLF59B FCB     $81,$38,$AA,$3B,$29 ;1.44269504 (CF) correction factor for EXP function
+TBLF5A0 FCB     $07		   ;eight coeff's...  tchebyshev modified taylor series coeffs for exp(x)
+        FCB     $71,$34,$58,$3E,$56 ;0.00002150 1/(7! * CF^7)
+        FCB     $74,$16,$7E,$B3,$1B ;0.00014352 1/(6! * CF^6)
+        FCB     $77,$2F,$EE,$E3,$85 ;0.00134226 1/(5! * CF^5)
+        FCB     $7A,$1D,$84,$1C,$2A ;0.00961402 1/(4! * CF^4)
+        FCB     $7C,$63,$59,$58,$0A ;0.05550513 1/(3! * CF^3)
+        FCB     $7E,$75,$FD,$E7,$C6 ;0.24022638 1/(2! * CF^2)
+        FCB     $80,$31,$72,$18,$10 ;0.69314719 1/(1! * CF^1)
+        FCB     $81,$00,$00,$00,$00 ; 1.0
+
+
+                ; --- EXP function ---
+LBLF5C9:
+FNC_EXP LDX     #TBLF59B	;Get correction factor
+        BSR     LBLF604		;Multiply FPA0 by X
+        JSR     LBLF26C		;pack fpa0 and store in fpa3
+        LDAA    ramC9		;get exponent of fpa0 and compare to max value
+        CMPA    #$88		; (128)
+        BLO     LBLF5DA		;br if fpa0 < 128
+LBLF5D7 JMP     LBLF190		;set fpa0 = 0 or ?OV ERROR
+LBLF5DA JSR     FNC_INT		;convert fpa0 to integer
+        LDAA    ram80		;get least significant byte of integer
+        ADDA    #$81		; =127?
+        BEQ     LBLF5D7		;  ?OV ERROR
+        DECA    		;  adds bias of 80 (since 81 used above)
+        PSHA    		;save exponent on stack
+        LDX     #TBL00BA	;point (x) to FPa3
+        JSR     LBLEF72		;subtract fpa0 from (x)
+        LDX     #TBLF5A0	;point x to coeffs
+        BSR     LBLF607		;eval polynomial for frac part
+        CLR     ramDC		;force mantissa to be positive
+        PULA    
+        JSR     LBLF179		;calc exp of new fpa0 by adding exps of integer and frac'l parts.
+        RTS     
+LBLF5F8 STX     ramDE
+        JSR     LBLF26C
+        BSR     LBLF604
+        BSR     LBLF609
+        LDX     #TBL00BA
+LBLF604 JMP     LBLF0EF
+LBLF607 STX     ramDE
+LBLF609 JSR     LBLF267
+        LDX     ramDE
+        LDAB    ,X
+        STAB    ramCF
+        INX    
+        STX     ramDE
+LBLF615 BSR     LBLF604
+        LDX     ramDE
+        LDAB    #$05
+        ABX     
+        STX     ramDE
+        JSR     LBLEF7D
+        LDX     #ramBF  
+        DEC     ramCF
+        BNE     LBLF615
+        RTS
+
+                ; --- RND function ---
+FNC_RND
+        JSR     LBLF2AD  ; Test C9-E
+        BMI     LBLF650
+        BEQ     LBLF646
+        BSR     LBLF643
+        JSR     LBLF26C
+        BSR     LBLF646
+        LDX     #TBL00BA
+        BSR     LBLF604
+        LDX     #TBLF08B  ; 1.0
+        JSR     LBLEF7D
+LBLF643 JMP     FNC_INT
+LBLF646 LDX     ram4218
+        STX     ramCA
+        LDX     ram421A
+        STX     ramCC
+LBLF650 LDX     CONF682
+        STX     ramD7
+        LDX     CONF684
+        STX     ramD9
+        JSR     LBLF0F6
+        LDD     ram4254
+        ADDD    #$658B
+        STD     ram421A
+        STD     ramCC
+        LDD     ram4252
+        ADCB    #$B0
+        ADCA    #$05
+        STD     ram4218
+        STD     ramCA
+        CLR     ramCE
+        LDAA    #$80
+        STAA    ramC9
+        LDAA    ram8F
+        STAA    ramDD
+        JMP     LBLEFD6
+CONF682 FDB     $40E6
+CONF684 FDB     $4DAB
+
+                ; --- COS function ---
+FNC_COS
+        LDX     #TBLF6F6  ; Pi/2
+        JSR     LBLEF7D
+
+                ; --- SIN function ---
+FNC_SIN
+        JSR     LBLF29F     ; copy FPA0 to FPA1
+        LDX     #TBLF6FB    ; point X to 2*Pi
+        LDAB    ramDB       ; get mantissa sign of fpa1
+        JSR     LBLF1C0     ; divide fpa0 by X
+        JSR     LBLF29F     ; copy FPA0 to FPA1
+        JSR     FNC_INT     ; convert FPA0 to integer
+        CLR     ramDC       ; set result sign to positive
+        LDAA    ramD6       ; get exponent of fpa1
+        LDAB    ramC9       ; get exponent of fpa0
+        JSR     fp_SUB      ; subtract fpa0 from fpa1
+        LDX     #TBLF700    ; point X to 0.25
+        JSR     LBLEF72     ; subtract fpa0 from 0.25 (pi/2)
+        LDAA    ramCE       ; get mantissa sign of fpa0
+        PSHA                ;    save on stack
+        BPL     LBLF6BC     ; branch if mantissa positive
+        JSR     LBLEF6D     ; add 0.5 (pi) to fpa0
+        LDAA    ramCE       ; get sign of fpa0
+        BMI     LBLF6BF     ; branch if negative
+        COM     ram88       ; com if 3pi/2 > arg > pi/2  [quadrant flag]
+LBLF6BC JSR     LBLF593     ; toggle mantissa sign of fpa0
+LBLF6BF LDX     #TBLF700    ; point X to 0.25
+        JSR     LBLEF7D     ; add it to fpa0
+        PULA                ; get the old sign
+        TSTA                ; 
+        BPL     LBLF6CC     ; branch if old sign was positve
+        JSR     LBLF593     ; toggle mantissa sign
+LBLF6CC LDX     #TBLF705    ; point x to table of coeff's
+        JMP     LBLF5F8     ; calculate polynomial value
+
+                ; --- TAN function ---
+FNC_TAN
+        JSR     LBLF26C
+        CLR     ram88
+        BSR     FNC_SIN
+        LDX     #TBL00C4
+        JSR     LBLF272  ;FPA->X
+        LDX     #TBL00BA
+        JSR     LBLF251  ;X->C9-E
+        CLR     ramCE
+        LDAA    ram88
+        BSR     LBLF6F3
+        LDX     #TBL00C4
+        JMP     LBLF1C5+1
+LBLF6F3 PSHA    
+        BRA     LBLF6BC
+
+
+TBLF6F6 FCB     $81,$49,$0F,$DA,$A2 ;  1.57079632  Pi/2
+TBLF6FB FCB     $83,$49,$0F,$DA,$A2 ;  6.28318531  2*Pi
+TBLF700 FCB     $7F,$00,$00,$00,$00 ;  0.25         1/4
+TBLF705 FCB     $05
+        FCB     $84,$E6,$1A,$2D,$1B ;-14.38139067 -(2*Pi)^11/11! should be -15.094642578 ($84,$F1,$83,$A7,$EF)
+        FCB     $86,$28,$07,$FB,$F8 ; 42.00779712  (2*Pi)^9 / 9! should be  42.058693944 ($86,$28,$3C,$1A,$44)
+        FCB     $87,$99,$68,$89,$01 ;-76.70417026 -(2*Pi)^7 / 7! should be -76.705859753 ($87,$99,$69,$66,$73)
+        FCB     $87,$23,$35,$DF,$E1 ; 81.60522369  (2*Pi)^5 / 5! should be  81.605249276 ($87,$23,$35,$E3,$3C)
+        FCB     $86,$A5,$5D,$E7,$28 ;-41.34170210 -(2*Pi)^3 / 3! should be -41.341702240 ($86,$A5,$5D,$E7,$31)
+        FCB     $83,$49,$0F,$DA,$A2 ;  6.28318531  (2*Pi)^1 / 1! should be   6.283185307 ($86,$49,$0F,$DA,$A2)
+
+        FCB     $A1,$54,$46,$8F,$13 ; 7122787878.0 unused?
+        FCB     $8F,$52,$43,$89,$CD ; 26913.76914  unused?
+
+
+                ; --- Reset Vector ---
+                ;Reset I/O
+LBLF72E LDAA    #$FF
+        STAA    ram00
+        LDAA    #$01
+        STAA    ram01
+        LDAA    #$01
+        STAA    ram03
+
+        LDAA    ramEA       ;Check for warm boot flag
+        CMPA    #$55
+        BNE     LBLF74A     ;Not warm boot
+        LDX     ram4221
+        LDAA    ,X
+        DECA    
+        BNE     LBLF74A
+        JMP     ,X          ;Warm boot
+
+                            ;Cold boot
+LBLF74A LDX     #$0080      ;Clear 6803 RAM
+LBLF74D CLR     ,X
+        INX    
+        CPX     #$0100
+        BNE     LBLF74D
+
+        LDX     #TBL41FD    ;Size and clear external RAM
+LBLF758 INX    
+        LDAA    2,X         ;Get a byte
+        COM     2,X         ;Complement
+        LDAB    2,X         ;Get the complement
+        CLR     2,X         ;Clear
+        COMA    
+        CBA                 ;Complement successful?
+        BEQ     LBLF758     ;Next...
+
+        STX     ram4250     ;Save top of RAM
+        STX     ramA1
+        STX     ram9D
+        LDD     ram9D
+        SUBD    #100        ;Reserve 100 bytes for string space
+        STD     ram9B       ;bottom of system stack
+        LDS     ram9B 
+
+        LDX     #TBLF7CF    ;Init 6803 RAM
+        LDD     #$00EB
+        BSR     LBLF7AD
+
+        LDX     #TBLF7DE    ;Init external RAM
+        LDD     #$4200
+        BSR     LBLF7AD
+
+        LDAA    #$39        ;==RTS
+        LDX     #LBL4285    ;4285 to 42AE set to RTS
+LBLF78A STAA    ,X
+        INX    
+        CPX     #$42AF
+        BNE     LBLF78A
+
+        COM     ram42AF         ;???
+
+        LDX     #TBL4346    ;init start of prog mem.
+        STX     ram93
+
+        JSR     LBLE3CF     ;NEW command
+        JSR     LBLFBD3+1   ;Clear screen
+
+        LDX     #TBLF810-1  ;Copyright message
+        JSR     LBLE7A8
+
+        LDAA    #$55        ;Flag warm boot
+        STAA    ramEA
+
+LBLF7AA JMP     LBLE271
+
+                ;Copy block of memory from [X+1] to [D], length at [X]
+LBLF7AD STD     ramBF       ;Save destination
+        LDAB    ,X          ;Get length
+LBLF7B1 INX                 ;Inc start
+                ;Copy block of memory from [X] to [$00BF], length in B
+LBLF7B2 LDAA    ,X          ;Get byte
+        STX     ramC1       ;Save source
+        LDX     ramBF       ;Get dest
+        STAA    ,X          ;Put byte
+        INX                 ;Inc dest
+        STX     ramBF       ;Save dest
+        LDX     ramC1       ;Get source
+        DECB                ;Dec count
+        BNE     LBLF7B1     ;More...
+        RTS
+
+;DEFAULT RESET WARM-BOOT (F7C3)
+        NOP     
+        CLR     ramE8       ;turn off printing
+        JSR     LBLE3EE
+        JSR     LBLFBD3+1   ;Clear screen
+        BRA     LBLF7AA
+
+                                ;Copied to $00EB                
+TBLF7CF FCB     14          ;14 bytes to copy
+        INC     ramF5
+        BNE     LBLF7D8
+        INC     ramF4
+LBLF7D8 LDAA    >ram00
+        JMP     LBLE1C8
+
+                ;Copied to $4200
+TBLF7DE FCB     49          ;49 bytes to copy
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        RTI     
+        FCB     $00
+        FCB     $00
+        JMP     LBLEC2D+1  ;?FC error
+        FCB     $4F,$C7,$52,$59,$FF,$04,$5E,$EC,$2E,$F7,$C3,$00,$76,$00,$01,$10
+        FCB     $70,$84,$00,$01,$15,$1A,$0B,$00,$80
+        
+
+TBLF810 FCB     $4D,$49,$43,$52,$4F,$43,$4F,$4C,$4F,$52,$20,$42,$41,$53,$49,$43 ;MICROCOLOR BASIC
+        FCB     $20,$31,$2E,$30,$0D                                             ; 1.0
+        FCB     $43,$4F,$50,$59,$52,$49,$47,$48,$54,$20,$31,$39,$38,$32,$20     ;COPYRIGHT 1982
+TBLF834 FCB     $4D,$49,$43,$52,$4F,$53,$4F,$46,$54,$0D,$00                     ;MICROSOFT
+
+
+                ; --- Flash cursor ---
+LBLF83F DEC     ram422B         ;cursor flash delay counter
+        BNE     LBLF85E
+        LDAA    ram4282         ;cursor color
+        EORA    #$0F
+        STAA    ram4282
+        ORAA    #$80
+        LDX     ram4280
+        STAA    ,X
+        LDAB    #$16
+        ANDA    #$0F
+        BEQ     LBLF85B
+        LDAB    #$58    ;flash color longer than black.
+LBLF85B STAB    ram422B
+
+LBLF85E LDX     #$03FA
+LBLF861 DEX    
+        BNE     LBLF861
+        RTS
+
+
+                ; --- Idle loop ---
+LBLF865 JSR     LBL4285 ;input char command extension
+        PSHX    
+        PSHB
+LBLF86A BSR     LBLF83F     ;Flash cursor
+        BSR     LBLF883     ;Scan keyboard
+        BEQ     LBLF86A     ;Repeat if no key pressed
+        LDAB    #$60
+        LDX     ram4280     ;cursor address
+        STAB    ,X
+        BRA     LBLF8CB
+
+
+LBLF879 CLRA    
+        BSR     LBLF8D0
+        BNE     LBLF883
+        BSR     LBLF8E4
+        INCA    
+        BEQ     LBLF8CD
+
+                ; --- Scan keyboard ---
+LBLF883 JSR     LBL42A9                 ; Keyscan command extension
+        PSHX    
+        PSHB    
+        LDAA    #$FB      ; Port code for BREAK key.
+        BSR     LBLF8D0
+        TAB     
+        BEQ     LBLF892
+        EORB    ram423B   ; keyboard BREAK flag.
+LBLF892 STAA    ram423B
+        TSTB    
+        BEQ     LBLF89E
+        BSR     LBLF8DC   ; delay
+        BSR     LBLF8D2   ; still a break?
+        BNE     LBLF8C7+1 ; return BREAK code 03
+LBLF89E LDX     #TBL4230
+        CLRB    
+        DECB    
+        STAB    ram4239
+LBLF8A6 ROLB    
+        BHS     LBLF8C6
+        INC     ram4239
+        BSR     LBLF8E2
+        PSHB    
+        TAB     
+        INX    
+        EORA    ,X
+        ANDA    ,X
+        STAB    ,X
+        PULB    
+        TSTA    
+        SEC     
+        BEQ     LBLF8A6
+        PSHA    
+        BSR     LBLF8DC
+        BSR     LBLF8E4
+        CMPA    ,X
+        PULA    
+        BNE     LBLF8EA
+LBLF8C6 CLRA    
+LBLF8C7 CPX     #$8603          ;LDAA  #$03
+LBLF8CA TSTA    
+LBLF8CB PULB                    ;Restore clobbered registers    
+        PULX    
+LBLF8CD RTS                     ; End Scan Keyboard subroutine
+
+LBLF8CE LDAA    #$7F        ; Port code for SHIFT key
+LBLF8D0 STAA    ram02       ; Keyboard port i/o sequence
+LBLF8D2 LDAA    ram03       ; A=0x00=found
+        COMA                ; A=0xff=not found
+        ANDA    #$02
+        BEQ     LBLF8DB
+        LDAA    #$FF
+LBLF8DB RTS     
+LBLF8DC LDX     ram421D ;keyboard debounce delay
+        JMP     LBLF861
+LBLF8E2 STAB    ram02
+LBLF8E4 LDAA    ioBFFF
+        ORAA    #$C0
+        RTS     
+LBLF8EA LDAB    #$F8
+LBLF8EC ADDB    #$08
+        LSRA    
+        BHS     LBLF8EC
+        ADDB    ram4239  ; keyboard strobe store
+        LDAA    #$FE     ; Port code for CONTROL key
+        BSR     LBLF8D0
+        STAA    ram423A  ; keyboard control key flag
+        JSR     LBL42AC  ; keyboard control extension
+        BEQ     LBLF911
+        LDX     #TBLF97C
+        CMPB    #$20
+        BNE     LBLF92E
+        LDAA    ram4282
+        ADDA    #$10
+        STAA    ram4282
+        BRA     LBLF8C6
+LBLF911 TBA     
+        BEQ     LBLF918+1
+        CMPB    #$1A
+        BLS     LBLF933
+LBLF918 CPX     #$C61D          ;LDAB  #$1D
+        LDX     #TBLF956-$1D
+        BSR     LBLF8CE
+        BEQ     LBLF92E
+        LDX     #TBLF969-$1D
+        CMPB    #$20
+        BNE     LBLF92E
+        COM     ram421C
+        BRA     LBLF8C6
+LBLF92E ABX     
+        LDAA    ,X
+        BRA     LBLF8CA
+LBLF933 BSR     LBLF8CE
+        EORA    ram421C
+        BNE     LBLF941
+        LDAA    ram421C
+        BNE     LBLF946
+        ORAB    #$20
+LBLF941 TBA     
+        ORAA    #$40
+LBLF944 BRA     LBLF8CA
+LBLF946 LDX     #TBLF9AB
+        ABX     
+        LDAA    ,X
+        BPL     LBLF944
+        LDAB    ram4282
+        ANDB    #$70
+        ABA
+        BRA     LBLF944
+
+TBLF956 FCB     $40,$0D,$20                         ;@- 
+        FCB     $30,$31,$32,$33,$34,$35,$36,$37     ;01234567
+        FCB     $38,$39,$3A,$3B,$2C,$2D,$2E,$2F     ;89:;,-./
+
+TBLF969 FCB     $13,$0D,$20                         ;-- 
+        FCB     $00,$21,$22,$23,$24,$25,$26,$27     ;-!"#$%&'
+        FCB     $28,$29,$2A,$2B,$3C,$3D,$3E,$3F     ;()*+<=>?
+
+                                                   ;Tokens
+TBLF97C FCB     $88,$08,$B3,$B2,$82,$9B,$90,$84     ;--------
+        FCB     $A3,$8A,$81,$9E,$BC,$BA,$B9,$A5     ;--------
+        FCB     $C7,$15,$9C,$09,$8C,$80,$B5,$5E     ;-------^
+        FCB     $B1,$8F,$0A,$00,$00,$00,$0D,$20     ;------- 
+        FCB     $00,$8E,$93,$98,$97,$96,$94,$95     ;--------
+        FCB     $9D,$86,$89,$92,$BB,$91,$B7         ;-------
+
+                                                   ;Graphic chars
+TBLF9AB FCB     $B6,$89,$80,$82,$87,$8D,$86,$85     ;--------
+        FCB     $48,$49,$4A,$4B,$4C,$4D,$4E,$4F     ;HIJKLMNO
+        FCB     $50,$8F,$8C,$88,$8B,$55,$81,$8E     ;P----U--
+        FCB     $83,$8A,$84                         ;---
+
+
+LBLF9C6 JSR     LBL4288         ; --- Write char to screen ---
+        PSHX    
+        PSHB    
+        PSHA    
+        LDAB    ramE8       ;Ouput device #
+        BEQ     LBLFA1B     ;Video...
+
+
+                            ;Assume printer
+        TAB     
+        TPA     
+        PSHA    
+        SEI     
+        TBA     
+LBLF9D5 LDAB    ram03       ;Wait for handshake
+        ANDB    #$04
+        BNE     LBLF9D5
+        BSR     LBLFA0A     ;Idle bit
+        CLRB    
+        BSR     LBLFA0C     ;Start bit
+        LDAB    #$08
+LBLF9E2 PSHB    
+        CLRB    
+        LSRA    
+        ROLB    
+        BSR     LBLFA0C     ;Bit out
+        PULB    
+        DECB    
+        BNE     LBLF9E2     ;Next bit
+        BSR     LBLFA0A     ;Stop bit
+        PULA    
+        TAP     
+        PULA    
+        CMPA    #$0D
+        BEQ     LBLFA00
+        INC     ram422A
+        LDAB    ram422A
+        CMPB    ram4229
+        BLO     LBLFA07
+LBLFA00 CLR     ram422A
+        BSR     LBLFA15
+        BSR     LBLFA15
+LBLFA07 PULB    
+        PULX    
+        RTS
+
+LBLFA0A LDAB    #$01
+LBLFA0C STAB    ram03       ;Printer bit output
+        BSR     LBLFA10
+LBLFA10 LDX     ram4223
+        BRA     LBLFA18
+LBLFA15 LDX     ram4225
+LBLFA18 JMP     LBLF861
+
+; A->SCN
+LBLFA1B LDX     ram4280
+        CMPA    #$08   ; backspace
+        BNE     LBLFA2E
+        CPX     #$4000
+        BEQ     LBLFA77
+        LDAA    #$60
+        DEX    
+        STAA    ,X
+        BRA     LBLFA5C
+LBLFA2E CMPA    #$0D   ; carriage return
+        BNE     LBLFA46
+        LDX     ram4280
+LBLFA35 LDAA    #$60
+        STAA    ,X
+        INX    
+        STX     ram4280
+        LDAB    ram4281
+        BITB    #$1F
+        BNE     LBLFA35
+        BRA     LBLFA5C
+LBLFA46 CMPA    #$20
+        BLO     LBLFA77
+        TSTA    
+        BMI     LBLFA59
+        CMPA    #$40
+        BLO     LBLFA57
+        CMPA    #$60
+        BLO     LBLFA59
+        ANDA    #$DF
+LBLFA57 EORA    #$40
+LBLFA59 STAA    ,X
+        INX    
+LBLFA5C STX     ram4280
+        CPX     #$4200
+        BNE     LBLFA77
+        LDX     #$4000  ; scroll up
+LBLFA67 LDD     $20,X
+        STD     ,X
+        INX    
+        INX    
+        CPX     #$41E0
+        BNE     LBLFA67
+        LDAB    #$60
+        JSR     LBLFBD9
+LBLFA77 PULA    
+        PULB    
+        PULX    
+        RTS     
+LBLFA7B JSR     LBL428B   ;I/O pointer setup command extenstion
+        PSHX    
+        PSHB    
+        PSHA    
+        LDAA    ramE8   ;Get device output 0=screen, -1 printer
+        BEQ     LBLFA8D ;go if on screen
+        LDX     ram4227 ;tab field width 16/last tab zone 112
+        LDD     ram4229 ;printer line length max
+        BRA     LBLFA97
+LBLFA8D LDAB    ram4281 ;cursor address lsb
+        ANDB    #$1F
+        LDX     #$1010
+        LDAA    #$20
+LBLFA97 STX     ramE4 ;i/o tab and last tab field
+        STAB    ramE6 ;max line length msb
+        STAA    ramE7 ;max line length lsb
+        PULA    
+        PULB    
+        PULX    
+        RTS
+
+
+LBLFAA1 JSR     LBLFBD3+1       ;Clear screen
+LBLFAA4 JSR     LBL4291   ;build command line extension
+LBLFAA7 CLR     ram427F   ;last keyboard input char
+        LDX     #TBL42B2  ;command line buffer
+        LDAB    #$01
+LBLFAAF JSR     LBLF865   ;Cursor loop return with KEY->A
+        TST     ramE9     ;Punt if set. (by cmd extension?)
+        BNE     LBLFB04   
+        TST     ramE8     ;check output flag
+        BNE     LBLFB00   ;go if printer
+        TSTA    
+        BPL     LBLFADD
+        TST     ram423A   ;control key flag
+        BEQ     LBLFADD
+        JSR     LBLE4B2   ;address of token->X (save X->ram89)
+LBLFAC7 LDAA    ,X
+        INX    
+        PSHX    
+        PSHA    
+        ANDA    #$7F
+        LDX     ram89
+        BSR     LBLFB1A
+        STX     ram89
+        PULA    
+        PULX    
+        TSTA    
+        BPL     LBLFAC7
+        LDX     ram89
+        BRA     LBLFAAF
+LBLFADD CMPA    #$0C      ;unimplemented clearscreen key?
+        BEQ     LBLFAA1
+        CMPA    #$08      ;backspace
+        BNE     LBLFAED
+        DECB    
+        BEQ     LBLFAA7   ;don't go before stop
+        DEX    
+        BSR     LBLFB22   ;A->SCN
+        BRA     LBLFAAF
+LBLFAED CMPA    #$15      ;L. DEL
+        BNE     LBLFAFB
+LBLFAF1 DECB              ;keep backspacing until stop
+        BEQ     LBLFAA7
+        LDAA    #$08
+        JSR     LBLF9C6   ;A->SCN
+        BRA     LBLFAF1
+LBLFAFB CMPA    #$03      ;break
+        SEC     
+        BEQ     LBLFB05
+LBLFB00 CMPA    #$0D      ;ENTER key
+        BNE     LBLFB12
+LBLFB04 CLRA              ;clear carry flag
+LBLFB05 TPA     
+        PSHA    
+        JSR     LBLE766   ;#0D->SCN
+        CLR     ,X        ;terminate scratch
+        LDX     #TBL42B1  ;command line buff-1
+        PULA              ;carry set if BREAK'd.
+        TAP     
+LBLFB11 RTS     
+LBLFB12 CMPA    #$20
+        BLO     LBLFAAF   ;ignore any non-printing char's
+        BSR     LBLFB1A
+        BRA     LBLFAAF
+LBLFB1A CMPB    #$80      ;don't go more than 128 chars.
+        BHS     LBLFB11
+        STAA    ,X        ;store char into command line buffer
+        INX    
+        INCB    
+LBLFB22 JMP     LBLF9C6 ;A->SCN
+
+
+                ; --- SET command ---
+CMD_SET
+        BSR     LBLFB6A   ; get (x,y arg into memloc into X
+        PSHX    
+        JSR     LBLEF47   ; get ,c    (B holds color code )
+        PULX    
+        CMPB    #$08      
+        BHI     LBLFB67   ; ?FC error if color > 8
+        DECB    
+        BMI     LBLFB38   
+        LDAA    #$10      ; LSLB LSLB LSLB LSLB
+        MUL     
+        BRA     LBLFB40  
+LBLFB38 LDAB    ,X        ; Get color from screen
+        BPL     LBLFB3F   ; Set to zero if text encountered
+        ANDB    #$70
+        FCB     $21             ;"BRN CLRB"
+LBLFB3F CLRB
+LBLFB40 STAB    ram82     ; save color
+        BSR     LBLFBB4   ; get trailing ')'
+        LDAA    ,X
+        BMI     LBLFB49   ; make sure its graphics
+        CLRA              ; clear if a text char
+LBLFB49 ANDA    #$0F      ; ignore color bits
+        ORAA    ram423C   ; holds desired bit
+        ORAA    ram82     ; get color
+LBLFB50 ORAA    #$80      ; make a graphics char
+        STAA    ,X        ; write value to screen
+        RTS
+
+                ; --- RESET command ---
+CMD_RESET
+        BSR     LBLFB6A   ; get (x,y arg into memloc into X
+        BSR     LBLFBB4   ; get trailing ')'
+        CLRA    
+        LDAB    ,X
+        BPL     LBLFB50   ; clear if it's a text char
+        COM     ram423C
+        ANDB    ram423C
+        STAB    ,X
+        RTS     
+
+
+LBLFB67 JMP     LBLEC2D+1  ; ?FC error
+
+LBLFB6A JSR     LBLEA2B+1  ; get '('
+LBLFB6D JSR     LBLEF0D    ; get x position
+        CMPB    #$3F
+        BHI     LBLFB67    ; ?FC error if > 63
+        PSHB               ; push x on stack
+        JSR     LBLEF47    ; get y position
+        CMPB    #$1F
+        BHI     LBLFB67    ; ?FC error if > 31
+        PSHB               ; push y on stack
+        LSRB               ; y=y/2
+        LDAA    #$20
+        MUL     
+        ADDD    #$4000     ; get address of left side of screen from y
+        PSHB               ; push onto stack
+        PSHA               
+        TSX     
+        LDAB    3,X        ; take x/2 and add to left side of screen
+        LSRB               
+        PULX               
+        ABX     
+        PULA               ; now construct mask for char block and store in 423C
+        PULB    
+        ANDA    #$01
+        RORB    
+        ROLA               ; A holds 2's complement of bit pos
+        LDAB    #$10       ; start B with bit 4
+LBLFB94 LSRB               ; shift right until A is zero
+        DECA    
+        BPL     LBLFB94    
+        STAB    ram423C    ; done, store into 423C
+        RTS
+
+                ; --- POINT command ---
+FNC_POINT
+        BSR     LBLFB6D    ; get '(x,y' into X and mask into 423C
+        LDAB    #$FF
+        LDAA    ,X
+        BPL     LBLFBB2    ; need to return -1 if text char
+        ANDA    ram423C    
+        BEQ     LBLFBB1    ; not set, return 0
+        LDAB    ,X   
+        LSRB    
+        LSRB    
+        LSRB    
+        LSRB    
+        ANDB    #$07
+LBLFBB1 INCB    
+LBLFBB2 BSR     LBLFBB7   ; return B (sign extended)
+LBLFBB4 JMP     LBLEA29   ; get ')'
+LBLFBB7 CLRA              ; return B (sign extended)
+        TSTB    
+        BPL     LBLFBBC
+        COMA    
+LBLFBBC JMP     LBLECE3 ; return D
+
+                ; --- CLS command ---
+CMD_CLS
+        BEQ     LBLFBD3+1       ;No args - default clear
+        JSR     LBLEF0D         ;Get integer arg into B between 0-255.
+        CMPB    #$08
+        BHI     LBLFBE5         ;If > 8 - Clear screen and print Microsoft message
+        TSTB    
+        BEQ     LBLFBD1         ;CLS 0...
+        DECB    
+        LDAA    #$10
+        MUL     
+        ORAB    #$0F
+LBLFBD1 ORAB    #$80            ;0=$80, 1=$8F, 2=$9F, 3=$AF, 4=$BF, 5=$CF, 6=$DF, 7=$EF, 8=$FF
+
+LBLFBD3 CPX     #$C660          ;==LDAB  #$60 - Default clear char
+        LDX     #TBL4000        ;Start of video memory
+LBLFBD9 STX     ram4280
+LBLFBDC STAB    ,X              ;Set mem
+        INX                     ;Next
+        CPX     #$4200          ;Done?
+        BNE     LBLFBDC         ;More...
+        RTS
+
+LBLFBE5 BSR     LBLFBD3+1       ;Clear screen
+        LDX     #TBLF834-1      ;Microsoft message
+        JMP     LBLE7A8         ;Write string
+
+
+                ; --- INKEY$ function ---
+FNC_INKEY
+        LDAA    ram427F ;last keyboard input char
+        BNE     LBLFBF5
+        JSR     LBLF883
+LBLFBF5 CLR     ram427F
+        STAA    ramCD
+        BEQ     LBLFBFF
+        JMP     LBLEE91
+LBLFBFF STAA    ramD0
+        JMP     LBLEE9D
+
+
+                ; --- EXEC function ---        
+CMD_EXEC
+        BEQ     LBLFC0C
+        JSR     LBLEF4C  ; Get address to X
+        STX     ram421F
+LBLFC0C LDX     ram421F
+        JMP     ,X
+
+
+                ; --- VARPTR function ---
+FNC_VARPTR
+        LDX     ram99
+        PSHX    
+        JSR     LBLEB1B
+        JSR     LBLEA29 ; get ')'
+        STX     ram89
+        PULX    
+        LDD     ram89
+        CPX     ram99
+        BEQ     LBLFC26
+        JMP     LBLEC2D+1  ; ?FC error
+LBLFC26 JMP     LBLECE3 ; return D
+
+                ; --- PRINT @expression  ---
+LBLFC29 JSR     LBLEBBA
+        SUBD    #$01FF
+        BLS     LBLFC34
+        JMP     LBLEC2D+1  ; ?FC error
+LBLFC34 ADDD    #$41FF
+        STD     ram4280
+        RTS
+
+                ; --- CSAVE command ---
+CMD_CSAVE
+        LDX     ram93
+        STX     ram426F ; start
+        LDX     ram95
+        STX     ram4271 ; end
+        CLRB    
+        CMPA    #$A9   ; CSAVE*
+        BNE     LBLFC4F
+        JSR     LBLFDDB
+        LDAB    #$04
+LBLFC4F STAB    ram4267  ;file type flag
+        LDD     ram4271  ; end
+        SUBD    ram426F  ; start
+        STD     ram426C  ;LOAD address
+        BSR     LBLFC8B
+        LDX     ram426F  ; start
+LBLFC60 STX     ram4278  ;cass buffer address
+        LDAA    #$FF
+        STAA    ram4276  ;cass block length
+        LDD     ram4271
+        SUBD    ram4278  ;cass buffer address
+        BLS     LBLFC7E
+        TSTA    
+        BNE     LBLFC7A
+        CMPB    #$FF
+        BEQ     LBLFC7A
+        STAB    ram4276  ;cass block length
+LBLFC7A BSR     LBLFCC0  ;write cassette block
+        BRA     LBLFC60
+LBLFC7E NEG     ram4275  ;cass block type flag
+        CLR     ram4276  ;cass block length
+        BSR     LBLFCC0  ;write cassette block
+LBLFC86 LDAA    #$01
+        STAA    ram03
+        RTS
+
+
+LBLFC8B JSR     LBLFD29
+        LDX     #TBL425F ;tape filename block
+        STX     ram4278  ;cass buffer address
+        STX     ramBF  
+        CLR     $09,X    ;ram4268
+        CLR     $0A,X    ;ram4269
+        LDX     #TBL4257 ;skip/load filename
+        LDAB    #$08
+        JSR     LBLF7B2  ;Copy block of memory from [X] to [$00BF], length in B
+        CLR     ram4275  ;cass block type flag
+        LDAA    #$0F
+        STAA    ram4276  ;cass block length
+        BSR     LBLFCB7  ;write cassette leader
+        BSR     LBLFCC0  ;write cassette block
+        INC     ram4275  ;cass block type flag
+        LDX     #$0000
+        JSR     LBLF861
+
+
+                ;Write cassette leader
+LBLFCB7 LDX     ram422F  ; numer of $55's in leader
+LBLFCBA BSR     LBLFD01
+        DEX    
+        BNE     LBLFCBA
+        RTS
+
+
+LBLFCC0 NOP      ;Write cassette block
+        SEI     
+        LDAB    ram4276  ;cass block length
+        STAB    ram427B  ;cass load status flag
+        LDAA    ram4276  ;cass block length
+        BEQ     LBLFCD6
+        LDX     ram4278  ;cass buffer address
+LBLFCD0 ADDA    ,X
+        INX    
+        DECB    
+        BNE     LBLFCD0
+LBLFCD6 ADDA    ram4275  ;cass block type flag
+        STAA    ram427A  ;cass sumcheck
+        LDX     ram4278  ;cass buffer address
+        BSR     LBLFD01
+        LDAA    #$3C
+        BSR     LBLFD03
+        LDAA    ram4275
+        BSR     LBLFD03
+        LDAA    ram4276  ;cass block length
+        BSR     LBLFD03
+        TSTA    
+        BEQ     LBLFCFC
+LBLFCF2 LDAA    ,X
+        INX    
+        BSR     LBLFD03
+        DEC     ram427B  ;cass load status flag
+        BNE     LBLFCF2
+LBLFCFC LDAA    ram427A  ;cass sumcheck
+        BSR     LBLFD03
+LBLFD01 LDAA    #$55
+
+                ;Write cassette char
+LBLFD03 PSHX    
+        PSHA    
+        PSHA    
+        LDAB    #$08
+LBLFD08 TSX     
+        LSR     ,X
+        LDX     #$0020
+        BLO     LBLFD13
+        LDX     #$0040
+LBLFD13 PSHX    
+        LDAA    #$01
+        STAA    ram03
+LBLFD18 DEX    
+        BNE     LBLFD18
+        CLRA    
+        STAA    ram03
+        PULX    
+LBLFD1F DEX    
+        BNE     LBLFD1F
+        DECB    
+        BNE     LBLFD08
+        PULA    
+        PULA    
+        PULX    
+LBLFD28 RTS
+
+
+LBLFD29 BSR     LBLFD33
+        JSRE    LBL00F3
+        BEQ     LBLFD28
+        JMP     LBLEA3C;?SN ERROR
+
+LBLFD33 LDX     #TBL4256      ; file name length
+        CLR     ,X
+        LDAA    #$20          ; pad filename with space chars
+LBLFD3A INX    
+        STAA    ,X
+        CPX     #$425F    ;tape filename block
+        BNE     LBLFD3A
+        JSRE    LBL00F3      ; load input char
+        BEQ     LBLFD28      ; return if no filename
+        JSR     LBLE91A      ; evaulate arg
+        JSR     LBLEE53      ; get string?
+        STAB    TBL4256      ; length of string to filename len.
+        BEQ     LBLFD28 ; RTS
+        PSHB    
+        LDD     #$4257  ;skip/load filename
+        STD     ramBF  
+        PULB    
+        JMP     LBLF7B2  ;Copy block of memory from [X] to [$00BF], length in B
+
+                ; --- CLOAD command ---
+CMD_CLOAD
+        CMPA    #$A9                    ; CLOAD*
+        BNE     LBLFD63
+        JMP     LBLFDB1
+LBLFD63 CMPA    #$4D                    ; CLOADM 
+        BNE     LBLFD6A
+        JMP     LBLFE06
+LBLFD6A CLRA           ; program data
+        BSR     LBLFD8F
+        JSR     LBLE3CF  ; NEW command status flag
+        COM     ram426E  ; unset new command flag
+        LDD     ram426C  ; LOAD address
+        ADDD    ram93
+        JSR     LBLE21E  ; see if D bytes fit on stack
+        LDX     ram93
+LBLFD7D STX     ram4278  ; cass buffer address
+        BSR     LBLFDD0
+        BPL     LBLFD7D
+        STX     ram95
+        LDX     #TBLE1BC-1 ; "OK"
+        JSR     LBLE7A8    ; Write string
+        JMP     LBLE2EB    ; adjust next line pointers, and return to command mode
+
+LBLFD8F PSHA           ; A: 00=program 02=machine code 04=array data
+        BSR     LBLFDA2
+        PULA    
+        TST     ram4274
+        BNE     LBLFDCF
+        CMPA    ram4267  ;File type flag
+        BEQ     LBLFDCF
+        LDAB    #$24     ;?FM error
+        JMP     LBLE238  ;write error
+
+LBLFDA2 BSR     LBLFD33
+        JSR     LBLFE37
+        BNE     LBLFDAC  ;?IO error
+        JMP     LBLFF4E  ;Read cassette leader
+
+LBLFDAC LDAB    #$22     ;?IO error
+        JMP     LBLE238
+;CLOAD*
+LBLFDB1 BSR     LBLFDDB
+        LDAA    #$04     ;array data
+        BSR     LBLFD8F
+        LDD     ram4271  ;end
+        SUBD    ram426F  ;start
+        SUBD    ram426C  ; LOAD address
+        BHS     LBLFDC5
+        JMP     LBLE236 ;?OM error
+
+
+LBLFDC5 LDX     ram426F
+LBLFDC8 STX     ram4278  ;cass buffer address
+        BSR     LBLFDD0
+        BPL     LBLFDC8
+LBLFDCF RTS
+
+
+LBLFDD0 JSR     LBLFEB5+1 ;disable blocklength limit, enable writing, read block->X
+LBLFDD3 BNE     LBLFDAC   ; ?IO error
+        LDAA    ram4275   ; Cass block type flag
+        BEQ     LBLFDAC   ; ?IO error
+        RTS
+
+;CSAVE*
+LBLFDDB JSRE    LBL00EB ;get next char
+        LDAB    #$01
+        STAB    ram86
+        JSR     LBLEB1B ;get init/var
+        CLR     ram86
+        JSR     LBLE90E ;expect string
+        LDD     2,X
+        JSR     LBLE22D ;D+X->D,X
+        STX     ram4271
+        LDX     ram89
+        LDAB    4,X
+        ASLB    
+        ADDB    #$05
+        ABX     
+        STX     ram426F
+        JSRE    LBL00F3
+        BEQ     LBLFDCF
+        JMP     LBLEA2E+1 ; get ','
+
+;CLOADM 
+LBLFE06 JSRE    LBL00EB    ; Get next input char
+        LDAA    #$02    ; machine code
+        BSR     LBLFD8F
+        LDX     #$0000
+        JSRE    LBL00F3
+        BEQ     LBLFE1B
+        JSR     LBLEA2E+1 ; get ','
+        JSR     LBLEF4C   ; get address offset to X
+LBLFE1B STX     ram89
+        LDD     ram426A   ;EXEC address offset
+        ADDD    ram89
+        STD     ram421F   ;default EXEC address
+        LDD     ram426C   ;LOAD address
+        ADDD    ram89
+        PSHB    
+        PSHA    
+        PULX    
+        BRA     LBLFDC8
+
+                ; --- SKIPF command ---
+CMD_SKIPF
+        JSR     LBLFDA2
+        BSR     LBLFE8A
+        BNE     LBLFDD3
+        RTS     
+
+LBLFE37 LDAA    ramE2
+        INCA    
+        BNE     LBLFE46
+        JSR     LBLFBD3+1    ;Clear screen
+        LDAA    #$53         ;write 'S' to screen
+        BSR     LBLFE81
+        JSR     LBLE7B9
+LBLFE46 BSR     LBLFEAA
+        ORAA    ram4275  ; Cass block type flag
+        BNE     LBLFE80
+        CLRB    
+        PSHB    
+LBLFE4F LDX     #TBL425F  ;tape filename block
+        ABX     
+        LDAA    ,X
+        LDX     ramE2
+        INX    
+        BNE     LBLFE5C
+        BSR     LBLFE81
+LBLFE5C LDX     #TBL4257  ;skip/load filename
+        ABX     
+        SUBA    ,X
+        TSX     
+        ORAA    ,X
+        STAA    ,X
+        INCB    
+        CMPB    #$08
+        BNE     LBLFE4F
+        PULA    
+        TSTA    
+        BEQ     LBLFE7B
+        TST     TBL4256
+        BEQ     LBLFE7B
+        BSR     LBLFE87
+        BNE     LBLFE80
+        BRA     LBLFE37
+LBLFE7B LDAA    #$46
+        BSR     LBLFEA1
+        CLRA    
+LBLFE80 RTS
+
+
+LBLFE81 CLR     ramE8   ;turn off printer
+        JMP     LBLF9C6 ;A->SCN
+
+LBLFE87 JSR     LBLFF4E ;Read cassette leader
+LBLFE8A LDAA    #$FF    ;disable blocklength limit
+        TAB             ;disable writing (B=$FF)
+        BSR     LBLFEB9
+        BNE     LBLFE98
+        LDAA    ram4275 ;cass block type flag
+        NEGA    
+        BMI     LBLFE8A
+        DECA    
+LBLFE98 STAA    ram427B ;cass load status flag
+        RTS
+
+
+LBLFE9C LDAA    TBL4000
+        EORA    #$40
+LBLFEA1 LDAB    ramE2
+        INCB    
+        BNE     LBLFEA9
+        STAA    TBL4000
+LBLFEA9 RTS
+
+
+LBLFEAA JSR     LBLFF4E  ;Read cassette leader
+        LDX     #TBL425F ;tape filename block
+        STX     ram4278  ;cass buffer address
+        LDAA    #$0F    ;15 byte block length limit
+LBLFEB5 CPX     #$86FF    ;LDAA  #$FF (disable blocklength limit)
+        CLRB             ;enable writing
+
+LBLFEB9 PSHA     ;Read cassette block
+        STAB    ram4273
+        NOP     
+        SEI     
+        BSR     LBLFE9C
+        LDX     ram4278  ;cass buffer address
+        CLRA    
+LBLFEC5 BSR     LBLFF22  ;Read cassette bit
+        RORA    
+        CMPA    #$3C     ;00111100
+        BNE     LBLFEC5
+        BSR     LBLFF14   ;Read cassette char
+        STAA    ram4275   ;cass block type flag
+        BSR     LBLFF14   ;Read cassette char
+        STAA    ram4276   ;cass block length
+        PULB    
+        CBA     
+        BHI     LBLFF0A+1
+        ADDA    ram4275  ;cass block type flag
+        STAA    ram427A  ;cass sumcheck
+        LDAA    ram4276  ;cass block length
+        STAA    ram427B  ;cass load status flag
+        BEQ     LBLFF01
+LBLFEE8 BSR     LBLFF14  ;Read cassette char
+        TST     ram4273
+        BNE     LBLFEF6  ;don't write if set
+        STAA    ,X
+        CMPA    ,X
+        BNE     LBLFF0D+1
+        INX    
+LBLFEF6 ADDA    ram427A   ;cass sumcheck
+        STAA    ram427A   ;cass sumcheck
+        DEC     ram427B   ;cass load status flag
+        BNE     LBLFEE8
+LBLFF01 BSR     LBLFF14   ;Read cassette char
+        SUBA    ram427A   ;cass sumcheck
+        BEQ     LBLFF10
+        LDAA    #$01      ;     #$01 - bad sumcheck
+LBLFF0A CPX     #$8603    ;LDAA  #$03 - unexpected block length
+LBLFF0D CPX     #$8602    ;LDAA  #$02 - store failed
+LBLFF10 STAA    ram427B   ;cass load status flag
+        RTS
+
+
+LBLFF14 LDAA    #$08            ;Read cassette char->A
+        STAA    ram427C   ;cass byte load bit counter
+LBLFF19 BSR     LBLFF22   ;read cassette bit
+        RORA    
+        DEC     ram427C   ;cass byte load bit counter
+        BNE     LBLFF19
+        RTS
+
+
+LBLFF22 BSR     LBLFF2C         ;Read cassette bit->C
+        LDAB    ram427D   ;tone duration counter
+        DECB    
+        CMPB    ram422C   ;cassette 1200/2400Hz partition
+        RTS
+
+
+LBLFF2C CLR     ram427D  ;tone duration counter
+        TST     ram427E  ;cass polarity flag
+        BNE     LBLFF45  ;get 1->0 transition
+
+                         ;get 0->1 transition
+LBLFF34 BSR     LBLFF3D  ;Inc duration until 0
+        BNE     LBLFF34
+LBLFF38 BSR     LBLFF3D  ;Inc duration until 1
+        BEQ     LBLFF38
+        RTS
+
+
+LBLFF3D INC     ram427D  ;tone duration counter
+        LDAB    ram03
+        ANDB    #$10
+        RTS
+
+                       ;get 1->0 transition
+LBLFF45 BSR     LBLFF3D  ;Inc duration until 1
+        BEQ     LBLFF45
+LBLFF49 BSR     LBLFF3D  ;Inc duration until 0
+        BNE     LBLFF49
+        RTS
+
+
+LBLFF4E NOP     ;Read cassette leader
+        SEI     
+        CLR     ram427C  ;cass byte load bit counter
+LBLFF53 BSR     LBLFF34  ;get 0->1 xsition
+LBLFF55 BSR     LBLFF84  ;clear counter, count until 0, compare counter against limit
+        BHI     LBLFF6B
+LBLFF59 BSR     LBLFF7D  ;clear counter, count until 1, compare counter against limit
+        BLO     LBLFF6F
+        DEC     ram427C  ;cass byte load bit counter
+        LDAA    ram427C  ;cass byte load bit counter
+        CMPA    #$A0
+LBLFF65 BNE     LBLFF53
+        STAA    ram427E  ;cass polarity flag
+        RTS
+
+
+LBLFF6B BSR     LBLFF7D  ;clear counter, count until 1, compare counter against limit
+        BHI     LBLFF55
+LBLFF6F BSR     LBLFF84  ;clear counter, count until 0, compare counter against limit
+        BLO     LBLFF59
+        INC     ram427C  ;cass byte load bit counter
+        LDAA    ram427C  ;cass byte load bit counter
+        SUBA    #$60
+        BRA     LBLFF65
+
+LBLFF7D CLR     ram427D  ;tone duration counter
+        BSR     LBLFF38  ;incr duration until 1
+        BRA     LBLFF89
+LBLFF84 CLR     ram427D  ;tone duration counter
+        BSR     LBLFF49  ;incr duration until 0
+LBLFF89 LDAB    ram427D  ;tone duration counter
+        CMPB    ram422D  ;upper limit of 1200 Hz
+        BHI     LBLFF95
+        CMPB    ram422E  ;lower limit of 2400 Hz
+        RTS
+
+
+LBLFF95 CLR     ram427C  ;cass byte load bit counter
+        RTS
+
+
+LBLFF99 JSR     LBLEA2E+1 ; get ','
+LBLFF9C JSR     LBLEF0D   ; get num->B
+        TSTB    
+        BNE     LBLFFD1
+        JMP     LBLEC2D+1  ;?FC error if B=0
+
+                ; --- SOUND command ---
+CMD_SOUND
+        BSR     LBLFF9C   ;get num->B
+        PSHB    
+        BSR     LBLFF99	  ;get ,num->B
+        PULA    
+LBLFFAB PSHA    	  ;A=PITCH, B=DURATION
+        PSHB    
+        CLRA    
+LBLFFAE LDX     ram09   ;4; read counter
+        LDAB    ram08   ;3; read timer control and status reg [req'd to clear OCF flag] (ICF OCF TOF EICI EOCI ETOI IEDG OLVL)
+        STX     ram0B   ;4; store counter to output compare register
+LBLFFB4 EORA    #$80    ;2; toggle speaker coil output
+        STAA    ioBFFF  ;4;
+        TSX             ;3;
+        LDAB    1,X	;4; get pitch
+LBLFFBC INX            ;3; timewaste 
+        INX            ;3; timewaste 
+        INCB            ;2; 
+        BNE     LBLFFBC ;3; (11 cycles per loop)
+        LDAB    ram08   ;3; 
+        ANDB    #$40    ;2; get output compare flag  
+        BEQ     LBLFFB4 ;3; toggle again if still clear... (freq = 1MHz/(11*(256-PITCH)+21))
+        TSX             ;4;
+        DEC     ,X      ;6; dec duration (=DURATION * 65.56ms)
+        BNE     LBLFFAE ;3;
+        CLRA    
+        STAA    ioBFFF
+        PULX    
+LBLFFD1 RTS
+
+
+        FCB     $6E,$69,$6C,$72,$65,$62,$6D,$61,$68,$43 ; nilrebmahC (spell it backwards)
+
+                ; --- User ROM routines---
+
+        FDB     LBLF883         ;Scan keyboard
+        FDB     LBLF9C6         ;Write char to screen
+        FDB     LBLFF4E         ;Read cassette leader
+        FDB     LBLFEB9         ;Read cassette block
+        FDB     LBLFCC0         ;Write cassette block
+        FDB     LBLFFAB         ;Sound
+        FDB     LBLFCB7         ;Write cassette leader
+        FDB     LBLECE3		; return D to BASIC
+        FDB     LBLEBC7		; get result -> D
+
+        FCB     $00,$C9
+
+                                        ; 6803 vectors
+        FDB     $4200		;SCI   (TDRE + RDRF + ORFE)
+        FDB     $4203		;TOF   Timer overflow interrupt
+        FDB     $4206		;OCF   Output compare interrupt
+        FDB     $4209		;ICF   Input capture interrupt
+        FDB     $420C		;IRQ1  Maskable interrupt req 1.
+        FDB     $420F		;SWI   Software interrupt
+        FDB     $4212		;NMI   Non-maskable interrupt
+        FDB     LBLF72E         ;Reset
+
+        .end
+
+
+;        { 0xE000, VECTOR },
+;        { 0xE030, TABLE },
+;        { 0xE045, TABLE_ASCII },
+;        { 0xE148, VECTOR },
+;        { 0xE18A, TABLE_ASCII },
+;        { 0xE1C8, CODE },
+;        { 0xE7C1, TABLE_ASCII },
+;        { 0xE7C8, CODE },
+;        { 0xE8AB, TABLE_ASCII },
+;        { 0xE8BB, CODE },
+;        { 0xE988, TABLE },
+;        { 0xE98B, CODE },
+;        { 0xF08B, TABLE },
+;        { 0xF0B9, CODE },
+;        { 0xF403, TABLE },
+;        { 0xF412, CODE },
+;        { 0xF524, TABLE },
+;        { 0xF54D, CODE },
+;        { 0xF59B, TABLE },
+;        { 0xF5C9, CODE },
+;        { 0xF682, TABLE_WORD },
+;        { 0xF686, CODE },
+;        { 0xF6F6, TABLE },
+;        { 0xF72E, CODE },
+;        { 0xF7F7, TABLE },
+;        { 0xF810, TABLE_ASCII },
+;        { 0xF83F, CODE },
+;        { 0xF956, TABLE_ASCII },
+;        { 0xF9C6, CODE },
+;        { 0xFFD2, TABLE_ASCII },
+;        { 0xFFDC, VECTOR },
+;        { 0xFFEE, TABLE },
+;        { 0xFFF0, TABLE_WORD },
+;        { 0x10000, DISASM_END },

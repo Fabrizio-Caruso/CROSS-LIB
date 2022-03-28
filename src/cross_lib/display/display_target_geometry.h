@@ -228,6 +228,8 @@
 		#define XSize (256/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
+    #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED_4)
+        #define XSize 16
 	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\

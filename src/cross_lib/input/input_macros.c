@@ -32,8 +32,13 @@
 	uint8_t stick;
 #endif
 
+#ifndef POKE
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
+#endif
+
+#ifndef PEEK
 #define PEEK(addr)         (*(uint8_t*) (addr))    
+#endif
 
 // uint8_t mc10_poll(void);
 

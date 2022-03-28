@@ -236,8 +236,22 @@
     #define _XL_RED 0x55
     #define _XL_GREEN 0xFF
     #define _XL_CYAN 0xAA
-    #define _XL_BLUE 0x55
+    #define _XL_BLUE 0xAA
     
+
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED_4)
+
+    #define _COCO_RED 0xFF
+    #define _COCO_YELLOW 0x55
+    #define _COCO_CYAN 0xAA
+
+    #define _XL_BLACK _COCO_CYAN
+    #define _XL_WHITE _COCO_RED
+    #define _XL_YELLOW _COCO_YELLOW
+    #define _XL_RED _COCO_RED
+    #define _XL_GREEN _COCO_CYAN
+    #define _XL_CYAN _COCO_CYAN
+    #define _XL_BLUE _COCO_CYAN
 
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack

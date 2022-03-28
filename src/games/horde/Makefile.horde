@@ -854,46 +854,53 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 #################################################################
 
-CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
+CMOC_OPTS                   ?= -O2 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 
-NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
+NO_UDG_OPS                  ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
-GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=150
+GFX_OPTS                    ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=150
 
-COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR
+GFX_COLOR_OPTS              ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT
 
-COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR
+COCO_OPTS                   ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR
 
-COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
+COCO_GFX_OPTS               ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR
 
-COCO_GFX_COMPILE_OPTS   ?= $(COCO_GFX_OPTS)
+COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 -DMAX_ARROWS_ON_SCREEN=7 -DFASTER_WALL_REDRAW -DNUMBER_OF_MISSILES=2 -DSMALL_WALL -D_XL_SLOW_DOWN_FACTOR=0
 
-DRAGON_OPTS             ?= --dragon -D__DRAGON__ $(NO_UDG_OPS)
+COCO_COMPILE_OPTS           ?= $(COCO_OPTS)
 
-DRAGON_GFX_OPTS         ?= --dragon -D__DRAGON__ $(GFX_OPTS)
+COCO_GFX_COMPILE_OPTS       ?= $(COCO_GFX_OPTS)
 
-DRAGON_GFX_COMPILE_OPTS ?= $(DRAGON_GFX_OPTS)
+COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
 
-DRAGON_COMPILE_OPTS     ?= $(DRAGON_OPTS)
 
-VECTREX_OPTS          ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT  
+DRAGON_OPTS                 ?= --dragon -D__DRAGON__ $(NO_UDG_OPS)
+
+DRAGON_GFX_OPTS             ?= --dragon -D__DRAGON__ $(GFX_OPTS)
+
+DRAGON_GFX_COMPILE_OPTS     ?= $(DRAGON_GFX_OPTS)
+
+DRAGON_COMPILE_OPTS         ?= $(DRAGON_OPTS)
+
+VECTREX_OPTS                ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT  
 
 ##########
 
-THOMSON_OPTS          ?= -O2 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=100 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DSOUNDS -DXSize=39
+THOMSON_OPTS                ?= -O2 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=100 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DSOUNDS -DXSize=39
 
 # -DDEFAULT_CLEAR_SCREEN 
-MO5_OPTS              ?= $(THOMSON_OPTS) -D__MO5__ 
+MO5_OPTS                    ?= $(THOMSON_OPTS) -D__MO5__ 
 
-MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
+MO5_COMPILE_OPTS            ?= $(MO5_OPTS)
 
-MO5_ORG_DATA          ?= --org=2700 
+MO5_ORG_DATA                ?= --org=2700 
 
-TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__ 
+TO7_OPTS                    ?= $(THOMSON_OPTS) -D__TO7__ 
 
-TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
+TO7_COMPILE_OPTS            ?= $(TO7_OPTS)
 
-TO7_ORG_DATA          ?= --org=A000 
+TO7_ORG_DATA                ?= --org=A000 
 
 #############################################################################################
 
@@ -946,6 +953,54 @@ endif
 
 dragon_targets: \
 	dragon
+
+
+coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o dac_sounds.o \
+	memory_mapped_alt_print.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	text_macros.o input_macros.o
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	memory_mapped_alt_print.o \
+	text_macros.o input_macros.o
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+
 
 
 coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)

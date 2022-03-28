@@ -22,12 +22,42 @@
 
 #include "cross_lib.h"
 
+#ifndef POKE
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
-
+#endif
 
 #if defined(__ATARI__) && (defined(ATARI_MODE1) ) 
 extern uint16_t BASE_ADDR;
 #endif
+
+
+#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(BIT_MAPPED_4))
+
+    uint8_t _bitmap4_text_color;
+
+    void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+        {
+            uint8_t k;
+            uint16_t offset = (8*(uint8_t)(tile)) ;
+            
+            for(k=0;k<8;++k)
+            {
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[offset+k])&color;
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[offset+k])&color;
+            }
+        }
+
+    void _color_delete(uint8_t x, uint8_t y)
+    {
+        uint16_t k;
+        for(k=0;k<8;++k)
+        {
+            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]=0;
+            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]=0;
+        }
+    }
+#endif 
+
 
 #if defined(__MC10__)
     void mc10_display_poke(uint16_t addr, uint8_t val)
@@ -194,7 +224,22 @@ lda $a7c0
         PUTCH(0x41+x);
     }    
     
+#elif defined(__COCO__) && defined(BIT_MAPPED_4)
+    uint8_t map_one_to_two_lookup[16] = 
+    {      
+        0x00,0x03,0x0C,0x0F,0x30,0x33,0x3C,0x3F,
+        0xC0,0xC3,0xCC,0xCF,0xF0,0xF3,0xFC,0xFF
+    };
     
+    uint8_t left_map_one_to_two(uint8_t n)
+    {
+        return map_one_to_two_lookup[n >> 4];
+    }
+    
+    uint8_t right_map_one_to_two(uint8_t n)
+    {
+        return map_one_to_two_lookup[n&0x0F];
+    }
 
 #elif defined(__SUPERVISION__)
     uint8_t reversed_map_one_to_two_lookup[16] = 
@@ -212,6 +257,7 @@ lda $a7c0
     {
         return reversed_map_one_to_two_lookup[n&0x0F];
     }
+
 
 #endif
 

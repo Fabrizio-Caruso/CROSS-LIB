@@ -42,7 +42,7 @@
 	}
 
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED) && !defined(BIT_MAPPED_4)
 
    #if defined(_API_VERSION) && (_API_VERSION>=2)
         char screenCode(char ch)
@@ -116,13 +116,19 @@
             }
         }    
     #endif
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(BIT_MAPPED) || defined(BIT_MAPPED_4))
    #if defined(_API_VERSION) && (_API_VERSION>=2)
+
+    #if defined(BIT_MAPPED_4)
+        #define _SPACE_OFFSET 13
+    #else
+        #define _SPACE_OFFSET 0
+    #endif
 	char screenCode(char ch)
 	{
         if(ch==32)
         {
-            return 0;
+            return 0+_SPACE_OFFSET;
         }
         else
         {
@@ -279,23 +285,29 @@
 			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
-#elif defined(__SUPERVISION__)
+#elif defined(__SUPERVISION__) || ((defined(__COCO__) || defined(__DRAGON__))&&defined(BIT_MAPPED_4))
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
     
-    extern uint8_t _supervision_text_color;
+    #if ((defined(__COCO__) || defined(__DRAGON__))&&defined(BIT_MAPPED_4))
+        #define _CHAR_OFFSET 13
+    #else
+        #define _CHAR_OFFSET 0
+    #endif
+    
+    extern uint8_t _bitmap4_text_color;
     
     #define _DISPLAY(x,y,ch) \
 		do \
 		{ \
             uint8_t __k; \
             uint16_t __base = (x)+(XSize)*8*(y); \
-            uint16_t __offset = (8*(uint8_t)(ch)) ; \
+            uint16_t __offset = (8*(uint16_t)(ch-_CHAR_OFFSET)) ; \
             \
             for(__k=0;__k<8;++__k) \
             { \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k])&_supervision_text_color; \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k])&_supervision_text_color; \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k])&_bitmap4_text_color; \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k])&_bitmap4_text_color; \
             } \
 		} while(0)
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)

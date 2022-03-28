@@ -545,7 +545,7 @@ void recharge_effect(void)
 
 #define RANGE_X 0
 
-#if XSize <= 16
+#if XSize <= 15
     #define RANGE_STRING _XL_R 
     #define SPEED_STRING _XL_S 
     #define POWER_STRING _XL_P
@@ -556,7 +556,7 @@ void recharge_effect(void)
 #elif XSize <= 19
     #define RANGE_STRING _XL_R _XL_N
     #define SPEED_STRING _XL_S _XL_P
-    #define POWER_STRING _XL_P _XL_O
+    #define POWER_STRING _XL_P _XL_W
     #define STR_LEN 2
     #define SPEED_X 4
     #define POWER_X ((XSize)-6)
@@ -1421,7 +1421,7 @@ void zombie_dies(void)
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
 
 
-    for(i=0;i<29;++i)
+    for(i=0;i<17;++i)
     {
         _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
         display_red_zombie();
@@ -2333,13 +2333,25 @@ do \
     } \
 }
 
-
-#define handle_wall() \
-    if(active_wall) \
-    { \
-        redraw_wall(); \
-    }
-
+#if defined(FASTER_WALL_REDRAW)
+    #define handle_wall() \
+        do \
+        { \
+            if(!(main_loop_counter&3)) \
+            { \
+                if(active_wall) \
+                { \
+                    redraw_wall(); \
+                } \
+            } \
+        } while(0)
+#else
+    #define handle_wall() \
+        if(active_wall) \
+        { \
+            redraw_wall(); \
+        }
+#endif
 
 int main(void)
 {           

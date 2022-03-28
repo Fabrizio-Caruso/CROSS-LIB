@@ -232,9 +232,9 @@
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)
 #elif defined(__MO5__) || defined(__TO7__)
     void _XL_SET_TEXT_COLOR(uint8_t c);
-#elif defined(__SUPERVISION__)
-    extern uint8_t _supervision_text_color;
-    #define _XL_SET_TEXT_COLOR(c) _supervision_text_color = (c)
+#elif defined(__SUPERVISION__) || (defined(__COCO__)&&defined(BIT_MAPPED_4))
+    extern uint8_t _bitmap4_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _bitmap4_text_color = (c)
 #elif defined(_XL_NO_TEXT_COLOR)
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__ATARI_LYNX__)

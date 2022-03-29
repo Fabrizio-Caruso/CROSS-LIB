@@ -40,20 +40,29 @@ extern uint16_t BASE_ADDR;
             uint8_t k;
             uint16_t offset = (8*(uint8_t)(tile)) ;
             
+            uint16_t base = 2*x+BYTES_PER_LINE*8*(y);
+            uint16_t delta = 0;
+            
             for(k=0;k<8;++k)
             {
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[offset+k])&color;
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[offset+k])&color;
+                SV_VIDEO[base+delta]    = left_map_one_to_two(udgs[offset+k])&color;
+                SV_VIDEO[base+delta+1]  = right_map_one_to_two(udgs[offset+k])&color;
+                delta+=BYTES_PER_LINE;
             }
         }
 
     void _color_delete(uint8_t x, uint8_t y)
     {
-        uint16_t k;
+        uint8_t k;
+        uint16_t base = 2*x+BYTES_PER_LINE*8*(y);
+        uint16_t delta = 0;
+        
         for(k=0;k<8;++k)
         {
-            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]=0;
-            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]=0;
+
+            SV_VIDEO[base+delta]=0;
+            SV_VIDEO[base+delta+1]=0;
+            delta+=BYTES_PER_LINE;
         }
     }
 #endif 

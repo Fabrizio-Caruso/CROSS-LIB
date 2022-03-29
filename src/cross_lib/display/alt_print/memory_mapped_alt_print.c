@@ -285,11 +285,11 @@
 			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
-#elif defined(__SUPERVISION__) || ((defined(__COCO__) || defined(__DRAGON__))&&defined(BIT_MAPPED_4))
+#elif defined(BIT_MAPPED_4)
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
     
-    #if ((defined(__COCO__) || defined(__DRAGON__))&&defined(BIT_MAPPED_4))
+    #if defined(__COCO__) || defined(__DRAGON__)
         #define _CHAR_OFFSET 13
     #else
         #define _CHAR_OFFSET 0

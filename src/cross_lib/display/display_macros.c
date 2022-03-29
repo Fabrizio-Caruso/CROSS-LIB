@@ -233,13 +233,18 @@ lda $a7c0
         PUTCH(0x41+x);
     }    
     
-#elif defined(__COCO__) && defined(BIT_MAPPED_4)
+#elif defined(BIT_MAPPED_4)
     uint8_t map_one_to_two_lookup[16] = 
-    {      
-        0x00,0x03,0x0C,0x0F,0x30,0x33,0x3C,0x3F,
-        0xC0,0xC3,0xCC,0xCF,0xF0,0xF3,0xFC,0xFF
-    };
-    
+    {  
+    #if defined(__COCO__) || defined(__DRAGON__)   
+        0x00, 0x03, 0x0C, 0x0F, 0x30, 0x33, 0x3C, 0x3F,
+        0xC0, 0xC3, 0xCC, 0xCF, 0xF0, 0xF3, 0xFC, 0xFF
+    #elif defined(__SUPERVISION__)
+        0x00, 0xC0, 0x30, 0xF0, 0x0C, 0xCC, 0x3C, 0xFC,
+        0x03, 0xC3, 0x33, 0xF3, 0x0F, 0xCF, 0x3F, 0xFF
+    #endif
+    }; 
+        
     uint8_t left_map_one_to_two(uint8_t n)
     {
         return map_one_to_two_lookup[n >> 4];
@@ -249,25 +254,6 @@ lda $a7c0
     {
         return map_one_to_two_lookup[n&0x0F];
     }
-
-#elif defined(__SUPERVISION__)
-    uint8_t reversed_map_one_to_two_lookup[16] = 
-    {      
-        0x00, 0xC0, 0x30, 0xF0, 0x0C, 0xCC, 0x3C, 0xFC,
-        0x03, 0xC3, 0x33, 0xF3, 0x0F, 0xCF, 0x3F, 0xFF
-    };
-    
-    uint8_t left_map_one_to_two(uint8_t n)
-    {
-        return reversed_map_one_to_two_lookup[n >> 4];
-    }
-    
-    uint8_t right_map_one_to_two(uint8_t n)
-    {
-        return reversed_map_one_to_two_lookup[n&0x0F];
-    }
-
-
 #endif
 
 

@@ -38,7 +38,7 @@ extern uint16_t BASE_ADDR;
     void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {
             uint8_t k;
-            uint16_t offset = (8*(uint8_t)(tile)) ;
+            uint16_t offset = (8*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
             
             uint16_t base = 2*x+BYTES_PER_LINE*8*(y);
             uint16_t delta = 0;

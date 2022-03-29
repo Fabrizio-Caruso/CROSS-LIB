@@ -296,20 +296,10 @@
     #endif
     
     extern uint8_t _bitmap4_text_color;
-    
-    #define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-            uint8_t __k; \
-            uint16_t __base = (x)+(XSize)*8*(y); \
-            uint16_t __offset = (8*(uint16_t)(ch-_CHAR_OFFSET)) ; \
-            \
-            for(__k=0;__k<8;++__k) \
-            { \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k])&_bitmap4_text_color; \
-                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k])&_bitmap4_text_color; \
-            } \
-		} while(0)
+
+    #define _DISPLAY(x,y,c) \
+        _color_draw(x,y,c-_CHAR_OFFSET,_bitmap4_text_color)
+
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"

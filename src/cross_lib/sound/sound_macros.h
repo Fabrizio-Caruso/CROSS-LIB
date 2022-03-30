@@ -99,6 +99,8 @@
         #include "atari_lynx_sounds.h"
     #elif defined(__MC10__) && defined(SOUNDS)
         #include "bit_bang_sounds.h"
+    #elif defined(__SUPERVISION__) && defined(SOUNDS)
+        #include "supervision_sounds.h"
     #else
         #define _XL_NO_SOUND
 		#define _XL_EXPLOSION_SOUND() 

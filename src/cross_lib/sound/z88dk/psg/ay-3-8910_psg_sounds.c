@@ -22,12 +22,14 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-// PSG code for AY-3-8910
 
-#include "ay-3-8910_psg_sounds.h"
+#include "psg_sounds.h"
 #include <psg.h>
 
 #include <stdint.h>
+
+// PSG code for AY-3-8910
+
 
 /*
 R0	Channel A Period	pa7	pa6	pa5	pa4	pa3	pa2	pa1	pa0

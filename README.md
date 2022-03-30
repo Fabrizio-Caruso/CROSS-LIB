@@ -35,8 +35,9 @@ The logo was designed by *Hamlet*.
 
 ## THE GOAL
 
-*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.). 
-*Cross-Lib* is *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
+*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.).
+
+*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
 
 -------------------------------------------
 

@@ -54,7 +54,7 @@ target name         | long target name                            | working  |  
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
 *gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | grey levels
-*gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  | PSG SN76489 Mednafen OK 
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
@@ -117,7 +117,7 @@ target name         | long target name                            | working  |  
 *sc3000*            | Sega SC 3000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |         
 *sg1000*            | Sega SG 1000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *smc777*            | Sony SMC-70 / SMC-777                       |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing | PSG SN76489
-*sms*               | Sega Master System                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
+*sms*               | Sega Master System                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK?   | PSG SN76489 Mednafen OK 
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *special*           | Specialist                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |

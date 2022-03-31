@@ -1251,6 +1251,21 @@ no need to go through the 'link" sequence, they'l be pushed in the TI86 memory.
 
 -----------------------------------------------------------
 
+### TI99/4A
+
+Use Classic99 (http://www.harmlesslion.com/cgi-bin/onesoft.cgi?1).
+
+EA5 files are loaded as follows:
+- Have one of the disks, e.g DSK1., point to the directory that contains the EA5 file: DSK1-> Set DSK1 -> Disk Type: FIAD
+- Go to Cartridge->Apps->Editor/Assembler
+- Press 2 to enter the Editor/Assembler
+- Press 5 to run a file
+- Enter DSK1.<file name>
+
+
+-----------------------------------------------------------
+
+
 ### TIKI-100
 
 Use TIKI-100_emul (http://www.djupdal.org/tiki/emulator/)

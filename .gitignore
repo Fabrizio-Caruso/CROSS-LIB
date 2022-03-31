@@ -76,5 +76,7 @@ tools/olivetti_m20/m20.exe
 tools/olivetti_m20/m20.out
 tools/ti99/elf2ea5.exe
 tools/ti99/elf2ea5.out
+tools/ti99/ea5split.exe
+tools/ti99/ea5split.out
 
 

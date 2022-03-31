@@ -7,7 +7,7 @@
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
-The universal *retro-hardware abstraction layer*: Use **very same code** for about 200 vintage computers, consoles, calculators and other devices.
+The universal *retro-hardware abstraction layer*: Use the **very same code** for about 200 vintage computers, consoles, calculators and other devices.
 
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
 
@@ -35,8 +35,9 @@ The logo was designed by *Hamlet*.
 
 ## THE GOAL
 
-*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.). 
-*Cross-Lib* is a *WORA* (Write Once Run Anywhere) for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
+*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.).
+
+*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
 
 -------------------------------------------
 

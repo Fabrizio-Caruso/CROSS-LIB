@@ -38,12 +38,12 @@ extern uint16_t BASE_ADDR;
     void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {
             uint8_t k;
-            uint16_t offset = (8*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
+            uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
             
-            uint16_t base = 2*x+BYTES_PER_LINE*8*(y);
+            uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
             uint16_t delta = 0;
             
-            for(k=0;k<8;++k)
+            for(k=0;k<_XL_TILE_Y_SIZE;++k)
             {
                 SV_VIDEO[base+delta]    = left_map_one_to_two(udgs[offset+k])&color;
                 SV_VIDEO[base+delta+1]  = right_map_one_to_two(udgs[offset+k])&color;
@@ -54,10 +54,10 @@ extern uint16_t BASE_ADDR;
     void _color_delete(uint8_t x, uint8_t y)
     {
         uint8_t k;
-        uint16_t base = 2*x+BYTES_PER_LINE*8*(y);
+        uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
         uint16_t delta = 0;
         
-        for(k=0;k<8;++k)
+        for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
 
             SV_VIDEO[base+delta]=0;

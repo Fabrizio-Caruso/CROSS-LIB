@@ -74,5 +74,7 @@ tools/z88dk/cpc/nocart/nocart.exe
 tools/z88dk/cpc/nocart/nocart.out
 tools/olivetti_m20/m20.exe
 tools/olivetti_m20/m20.out
+tools/ti99/elf2ea5.exe
+tools/ti99/elf2ea5.out
 
 

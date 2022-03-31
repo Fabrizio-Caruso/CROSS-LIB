@@ -36,6 +36,9 @@ $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
 	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
 
 
+$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
+	cd	$(TOOLS_PATH)/ti99/elf2ea5/ && $(GMAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
+
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
@@ -44,7 +47,8 @@ tools: \
     $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT)
 
 clean_tools:
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
@@ -55,6 +59,6 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
-
+	rm -rf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT)
 
 

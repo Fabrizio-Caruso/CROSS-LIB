@@ -22,7 +22,7 @@ COMMANDS_LIST = \
     "build", "clean", "create", "c", "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
-    "clone", "rename", "rotate", "tools"
+    "clone", "rename", "rotate", "tools", "files", "f"
     ]
 
 def are_you_sure():
@@ -829,21 +829,9 @@ def import_from_source(params, rotate = False):
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
 
-# def rotate_from_source(params):
-    # filename = params[1]
-
-    # skip_option = params[len(params)-1]=="-skip"
-
-    # xsize = 8
-    # ysize = 8
-
-    # tiles = rip_tiles(filename, xsize, ysize, skip_option, True)
-
-    # try:
-        # if(len(params)>=3) and "-" not in params[2]:
-            # store_tiles(params[2],tiles, xsize,ysize)
-    # except Exception as exception:
-        # print("Sorry! Failed to store tiles: \n" + str(exception.args))
+def files():
+    make_command = "ls -ls ../build"
+    os.system(make_command)   
 
 
 # Import a single tile from a text file that describes its shape with characters
@@ -880,6 +868,7 @@ def show(params):
         for i in range(NUMBER_OF_TILES):
             print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
     
+
 
 def help(params):
     if len(params)<2:
@@ -1075,7 +1064,12 @@ def help(params):
         
         print("\nxl debug bomber 20 20       \n  It builds Cross Bomber for the native host in debug mode with screen size 20x20.")
         print("\nxl debug examples 16 12     \n  It builds all examples for the native host in debug mode with screen size 16x12.")
+
         
+    elif params[1]=="files":
+        print("xl files")
+        print("It shows the built binary files (the conent of the `build` directory).")
+        print("Remark: 'xl files' can be shorten with `xl f`.")
     elif params[1]=="build":
         print("xl build <project> <[optional] target>")
         print("It builds <project> for <target>.")
@@ -1255,6 +1249,8 @@ if __name__ == "__main__":
         tile(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
+    elif sys.argv[1]=="files" or sys.argv[1]=="f":
+        files()
     elif sys.argv[1]=="size":
         size(sys.argv[1:],0)
     elif sys.argv[1]=="debug" or sys.argv[1]=="d":

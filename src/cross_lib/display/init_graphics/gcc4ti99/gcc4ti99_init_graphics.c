@@ -15,6 +15,5 @@ void _XL_INIT_GRAPHICS(void)
     bgcolor(COLOR_BLACK);
 
     setScreenColors();
-
 }
 

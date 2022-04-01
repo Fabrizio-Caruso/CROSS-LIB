@@ -151,7 +151,7 @@ target name         | long target name                            | working  |  
 *z80tvgame*         | ZX80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *z88*               | Cambridge Z88                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *z9001*             | Robotron Z9001, KC 85/1, KC 87              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
-*zx80*              | Sinclair ZX80                               |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |       OK       |  N/A    |
+*zx80*              | Sinclair ZX80                               |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |    missing     |  N/A    |
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
@@ -232,7 +232,7 @@ target name         | long target name                                     |   w
 *pc8086*            | PC 8088/86                                           |    YES       |    missing      |    missing     | missing |
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
 *sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
-*ti99*              | Texas Instruments TI99/4A                            |    YES       |    missing      |    missing     | missing |
+*ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |    missing     | missing |
 
 
 OK       :   5

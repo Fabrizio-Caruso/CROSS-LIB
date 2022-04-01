@@ -35,10 +35,8 @@ $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/cpc/noc
 $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
 	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
 
-
 $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
 	cd	$(TOOLS_PATH)/ti99/elf2ea5/ && $(GMAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
-
 
 $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
 	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GMAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)

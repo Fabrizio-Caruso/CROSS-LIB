@@ -267,7 +267,13 @@ out            stb res
     #elif defined(__SRR__)
         return getk_inkey();     
     #elif defined(__TI99__)
-        return cgetc();     
+        
+        POKE(0x83C8,0);
+        POKE(0x83CA,0);
+        if(kbhit())
+            return cgetc();
+        else
+            return 0;    
     #else
         return getk();
     #endif

@@ -184,6 +184,12 @@
     void _XL_PRINT(uint8_t x, uint8_t y, char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
+
+// TODO: Implement this
+// #elif defined(__TI99__) 
+    // #define _XL_PRINT(x,y,str)
+    // #define _XL_PRINTD(x,y,length, val)
+    // #define _XL_CHAR(x,y,ch)
 #else
     #define _XL_PRINT(x,y,str) \
     do \
@@ -316,15 +322,6 @@
 #  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
 #elif defined(__ATARI_LYNX__)
-/*
-    #define _XL_CLEAR_SCREEN() \
-    do \
-    { \
-        tgi_setcolor(TGI_COLOR_BLACK); \
-        tgi_bar(0,0,159,101); \
-        tgi_updatedisplay(); \
-    } while(0)
-        */
     #define _XL_CLEAR_SCREEN() tgi_clear()
 #elif defined(__CPC__) && defined(CPCRSLIB)
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")

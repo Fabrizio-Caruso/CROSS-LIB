@@ -7,7 +7,7 @@
 
 void _XL_INIT_GRAPHICS(void)
 {
-    set_text();
+    // set_text();
     charsetlc();
     cursor(0);
     textcolor(COLOR_WHITE);

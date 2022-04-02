@@ -77,6 +77,10 @@
 	#define CMOC
 #elif defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__) || defined(__LCC1802__)
 	//
+#elif defined(__TI99__)
+    //
+#elif defined(__CC6303__)
+    //
 #else
 	#define Z88DK
 #endif

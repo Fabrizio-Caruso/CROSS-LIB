@@ -253,23 +253,27 @@
     #define _XL_CYAN _COCO_CYAN
     #define _XL_BLUE _COCO_CYAN
 
+#elif defined(__TI99__)
+    #define _XL_BLACK COLOR_BLACK
+    #define _XL_RED COLOR_LTRED
+    #define _XL_WHITE COLOR_WHITE
+    #define _XL_BLUE COLOR_DKBLUE
+    #define _XL_YELLOW COLOR_YELLOW
+    #define _XL_GREEN COLOR_GREEN
+    #define _XL_CYAN COLOR_LTBLUE
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
     #if defined(__ATARI_LYNX__) && !defined(TGI_GFX)
         #define _XL_BLACK COLOR_BLACK
     #endif
     
+    #define _XL_BLACK COLOR_BLACK
+    #define _XL_RED COLOR_RED
+    #define _XL_WHITE COLOR_WHITE
+    #define _XL_BLUE COLOR_BLUE
+    #define _XL_YELLOW COLOR_YELLOW
+    #define _XL_GREEN COLOR_GREEN
 
-    // #else
-        #define _XL_BLACK COLOR_BLACK
-        #define _XL_RED COLOR_RED
-        #define _XL_WHITE COLOR_WHITE
-        #define _XL_BLUE COLOR_BLUE
-        #define _XL_YELLOW COLOR_YELLOW
-        #define _XL_GREEN COLOR_GREEN
-        // #if !defined(
-        // #define _XL_CYAN COLOR_CYAN
-    // #endif
     #if defined(COLOR_CYAN)
         #define _XL_CYAN COLOR_CYAN
     #else

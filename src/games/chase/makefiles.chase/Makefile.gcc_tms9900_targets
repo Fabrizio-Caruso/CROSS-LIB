@@ -37,7 +37,6 @@ C_FLAGS=\
 
 
 
-
 TI99_CC ?= tms9900-gcc 
 TI99_TURN_BASED_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
@@ -62,12 +61,9 @@ TI99_OPTS ?= \
 	-DXSize=32 \
 	-DYSize=22 \
 	-DALT_SLEEP \
-	-DNO_PRINT  \
 	-DTINY_GAME -DNO_WALL \
 	-DNO_WAIT \
-	-D_XL_NO_COLOR \
-	-DCONIO \
-	-DALT_PRINT \
+	-DCONIO -DNO_PRINT -D_XL_NO_COLOR \
 	-DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-D_XL_SLOW_DOWN_FACTOR=65000
@@ -147,7 +143,6 @@ ti99_cross_chase_turn_based.elf: $(PREREQUISITES_TURN_BASED)
 	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
 
-
 # Recipe to compile the executable
 ti99: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
 	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
@@ -155,7 +150,8 @@ ti99: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
+	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
+	mv XCHASE $(BUILD_PATH)/xchase
 	rm -rf xchase.ea5.bin
 
 
@@ -165,7 +161,8 @@ ti99_turn_based: ti99_cross_chase_turn_based.elf $(TOOLS_PATH)/ti99/elf2ea5$(COM
 	rm -rf xchase_tb.map
 	rm -rf ea5.map
 	rm -rf xchase_tb.ea5.elf
-	mv XCHASE_TB $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a_turn_based
+	# mv XCHASE_TB $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a_turn_based
+	mv XCHASE_TB $(BUILD_PATH)/xchasetb
 	rm -rf xchase_tb.ea5.bin
 
 

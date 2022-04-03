@@ -230,14 +230,34 @@
     #define _XL_CYAN 0xD
 
 #elif defined(__SUPERVISION__)
-    #define _XL_BLACK 0xFF
-    #define _XL_WHITE 0xFF
-    #define _XL_YELLOW 0xAA
-    #define _XL_RED 0x55
-    #define _XL_GREEN 0xFF
-    #define _XL_CYAN 0xAA
-    #define _XL_BLUE 0xAA
+
+    #define _AUX_BLACK 0xFF
+    #define _AUX_DARK_GREY 0xAA
+    #define _AUX_LIGHT_GREY 0x55
+    #define _AUX_WHITE 0x00
+
+    #define _XL_BLACK _AUX_BLACK
+    #define _XL_WHITE _AUX_BLACK
+    #define _XL_YELLOW _AUX_DARK_GREY
+    #define _XL_RED _AUX_LIGHT_GREY
+    #define _XL_GREEN _AUX_BLACK
+    #define _XL_CYAN _AUX_DARK_GREY
+    #define _XL_BLUE _AUX_DARK_GREY
     
+
+#elif defined(__GAMATE__)
+    #define _AUX_BLACK COLOR_BLACK
+    #define _AUX_DARK_GREY 2
+    #define _AUX_LIGHT_GREY 1
+    #define _AUX_WHITE 0
+
+    #define _XL_BLACK _AUX_BLACK
+    #define _XL_WHITE _AUX_BLACK
+    #define _XL_YELLOW _AUX_DARK_GREY
+    #define _XL_RED _AUX_LIGHT_GREY
+    #define _XL_GREEN _AUX_BLACK
+    #define _XL_CYAN _AUX_DARK_GREY
+    #define _XL_BLUE _AUX_DARK_GREY
 
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED_4)
 

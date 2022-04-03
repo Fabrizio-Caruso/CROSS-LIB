@@ -53,7 +53,7 @@ target name         | long target name                            | working  |  
 *g800*              | Sharp PC-G800                               |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     |   N/A ? |
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
-*gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | grey levels
+*gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  | PSG SN76489 Mednafen OK 
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |

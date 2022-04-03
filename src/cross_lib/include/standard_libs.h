@@ -1,18 +1,14 @@
 #ifndef _STANDARD_LIBS_H
 #define _STANDARD_LIBS_H
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
+#if defined(__COCO__) || defined(__DRAGON__) || (defined(__CMOC__) && !defined(__WINCMOC__))
 	#include <cmoc.h>
     #include <coco.h>
+
 #elif defined(__MC10__)
     #include <stdint.h>
     #include <stdio.h>
-    // #include <stdlib.h>
-    // #if !defined(_STDINT)
-        // #define _STDINT
-        // typedef unsigned char uint8_t;
-        // typedef unsigned int uint16_t;
-    // #endif // _STDINT
+
 #elif defined(__BBC__) && defined(NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>

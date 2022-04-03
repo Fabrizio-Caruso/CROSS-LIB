@@ -11,9 +11,7 @@ _ACK_OPTS ?= -O6
 
 ###########################
 # CC65
-CC65_PATH ?= 
-
-#/home/fabri/CC65_FIX/cc65/bin/
+CC65_PATH ?= /home/fabri/CC65_FIX/cc65/bin/
 
 MYCC65 ?= cl65$(EXEEXT) $(GLOBAL_OPTS)
 

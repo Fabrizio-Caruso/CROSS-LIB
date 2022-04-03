@@ -6,7 +6,7 @@
 #include "display_target_geometry.h"
 
 
-#if defined(__GAL__) || defined(__GAMATE__) \
+#if defined(__GAL__) \
     || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) \
     || (defined(__ATARI5200__) && !defined(ATARI_MODE_1_COLOR)) \
     || (defined(__CREATIVISION__) && !defined(CREATIVISION_COLOR)) \

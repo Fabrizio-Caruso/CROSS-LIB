@@ -43,7 +43,12 @@
 #define _BONUS_STRING _XL_B _XL_O _XL_N _XL_U _XL_S
 #define _THE_END_STRING _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D
 #define _GAME_OVER_STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R
-#define _SECRET_STRING _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T
+
+#if XSize<20
+    #define _SECRET_STRING _XL_W _XL_O _XL_W
+#else
+    #define _SECRET_STRING _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T
+#endif
 #define _LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
 #define _CROSS_SNAKE_STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E
 #define _Fabrizio_Caruso_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o

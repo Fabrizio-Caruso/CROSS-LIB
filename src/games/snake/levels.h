@@ -10,7 +10,11 @@ const uint8_t map_walls[] =
     0,
 // map 1 (3) 
     2, 
+    #if YSize<20
+        XSize/3,       YSize/3+1,     XSize/3,
+    #else
         XSize/3,       YSize/3,     XSize/3,
+    #endif
         XSize/3,     2*YSize/3,     XSize/3,
     2,  
         XSize/5,             1,     YSize/4,
@@ -85,11 +89,19 @@ const uint8_t map_walls[] =
 // map 9 (143)
     0,
     0,
+    #if YSize<20
+    4,
+        2,2,XSize/4,YSize/4,WALL,
+        2,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
+        XSize-2-XSize/4,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
+        XSize-2-XSize/4,2,XSize/4,YSize/4,WALL,
+    #else
     4,
         2,2,XSize/3,YSize/3,WALL,
         2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
         XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
         XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
+    #endif
 // map 10
     2, 
         XSize/3-1,       YSize/3,     XSize/2-1,
@@ -101,11 +113,20 @@ const uint8_t map_walls[] =
         XSize/4, YSize/2-2,XSize/2,
         XSize/4, YSize/2+2,XSize/2,
     0,
+    
+    #if YSize<20
+    4,
+        2,2,2,2,DEADLY,
+        2,YSize-2-2,2,2,DEADLY,
+        XSize-2-XSize/5,YSize-2-2,2,2,DEADLY,
+        XSize-2-XSize/5,2,2,2,DEADLY,
+    #else
     4,
         2,2,XSize/5,YSize/5,DEADLY,
         2,YSize-2-YSize/5,XSize/5,YSize/5,DEADLY,
         XSize-2-XSize/5,YSize-2-YSize/5,XSize/5,YSize/5,DEADLY,
         XSize-2-XSize/5,2,XSize/5,YSize/5,DEADLY,
+    #endif
 // map 12(204)
     0,
     2,
@@ -130,8 +151,13 @@ const uint8_t map_walls[] =
     1,
         5,YSize/2+1,XSize-10,
     0,
+    #if YSize<20
+    1,
+        XSize/2-1,YSize/2+3,3,3,DEADLY,
+    #else
     1,
         XSize/2-3,YSize/2+4,6,6,DEADLY,
+    #endif
 // map 16 (245)
     0,
     2,

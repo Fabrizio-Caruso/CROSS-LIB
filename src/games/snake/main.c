@@ -1133,7 +1133,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     {
         _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
         _XL_SHOOT_SOUND();
-        _XL_SLOW_DOWN((_XL_SLOW_DOWN_FACTOR/10)*i);
+        _XL_SLOW_DOWN((_XL_SLOW_DOWN_FACTOR/2));
     }
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4);
 }

@@ -7,7 +7,7 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-API_VERSION=1
+API_VERSION=2
 
 GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW 
 #-D_API_VERSION=$(API_VERSION)
@@ -225,6 +225,7 @@ z88dk_targets_aux: \
     cpc \
     cpm \
     gb \
+    gamegear \
     laser500 \
     mc1000 \
     msx \
@@ -500,23 +501,6 @@ c64_exomized: c64
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
 
-
-# c64_exomized: $(ASSETS_PATH)/cc65_udc.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
-	# -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
-	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	# -DCBM_SCREEN_CODES \
-	# -DMEMORY_MAPPED \
-	# -D_XL_SLOW_DOWN_FACTOR=440 \
-	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	# $(ASSETS_PATH)/cc65_udc.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(FULL_FILES) \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
-	# $(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
-	# python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
-	# rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 #################################################################
 
@@ -1061,7 +1045,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFULL_GAME -DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=1600 \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -1580,6 +1564,25 @@ REDUCED_LCC1802_C_OPTS ?= \
 
 _full_comx: _comx
 
+
+# TODO: currently broken because it needs reduced_full_lcc1802_color_combo.c
+_comx_color: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__ -D_XL_CURSORS  \
+	-DMAX_ARROWS_ON_SCREEN=6 -DNUMBER_OF_MISSILES=3 -DMISSILE_DROP_LOOP_MASK=1 -DSMALL_WALL -DNO_BOTTOM_WALL_REDRAW \
+	-DNORMAL_ZOMBIE_SPEED=1 -DSLOW_ZOMBIE_SPEED=7 \
+	-DFORCE_NARROW -DREDEFINED_CHARS \
+	-DNO_BLINKING -DTINY_TEXT \
+	-D_XL_SLOW_DOWN_FACTOR=300 \
+	-DLCC1802_JOYSTICK \
+	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
+	-DCOMX_COLOR \
+	$(LCC1802_COLOR_C_OPTS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+_comx_fixed_colors: _comx
 
 _comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \

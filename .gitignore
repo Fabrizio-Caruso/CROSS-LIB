@@ -56,6 +56,7 @@ src/debug/*.dsk
 src/debug/*.nes
 src/assets/*.pyc
 src/debug/gamate_conio_test
+src/debug/gamate_conio_test2
 tools/cc65/gamate/gamate-fixcart.exe
 tools/cmoc/mo5/f2k5.exe
 tools/cc65/gamate/gamate-fixcart.out

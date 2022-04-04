@@ -139,11 +139,12 @@ void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     
     uint8_t extra_color = color>3;
     
-    uint8_t d_x = 2*x;
-    uint8_t o_y = 8*y;
-    uint16_t cc = (256U)*(color);
+    uint8_t d_x = 2*x; 
+    uint16_t o_y = 8*y;
+    uint16_t cc; 
     
     color = color-4*extra_color;
+    cc = (256U)*(color);
     
     extra_color<<=7;
     
@@ -162,8 +163,8 @@ void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 void hgr_delete(uint8_t x, uint8_t y)
 {
     uint8_t k;
-    uint8_t d_x = 2*x;
-    uint8_t o_y = 8*y;
+    uint8_t d_x = 2*x; 
+    uint16_t o_y = 8*y;
     
     for(k=0;k<8;++k)
     {

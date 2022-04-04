@@ -9,8 +9,7 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 API_VERSION=2
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW 
-#-D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW -D_API_VERSION=$(API_VERSION)
 
 
 #####################################################################
@@ -507,6 +506,19 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 #################################################################
 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64  \
+	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=$(API_VERSION) \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DMEMORY_MAPPED -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=500 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -678,7 +690,20 @@ pet_16k:
 
 vic20: vic20_exp_8k
 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
+	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
+	-DREDEFINED_CHARS \
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	$(FULL_FILES) \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+vic20_exp_8k_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
@@ -1288,16 +1313,19 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
-	memory_mapped_alt_print.o \
+	memory_mapped_alt_print.o sleep_macros.o \
 	text_macros.o \
 	input_macros.o
-	rm 	display_macros.o \
+	rm 	display_macros.o sleep_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	input_macros.o 

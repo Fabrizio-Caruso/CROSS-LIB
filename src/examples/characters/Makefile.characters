@@ -109,8 +109,8 @@ _MICRO_SLOWDOWN=60
 _CIDELSA_SLOWDOWN=40
 
 
-# MC10
-_MC10_SLOWDOWN=300
+# CC6303
+_MC10_SLOWDOWN=14
 
 
 # GCC
@@ -2012,6 +2012,7 @@ mc10:
 	-o xchase
 	rm xchase
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
 
 
 mc10_turn_based:

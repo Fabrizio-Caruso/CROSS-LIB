@@ -8,9 +8,9 @@ void _XL_INIT_GRAPHICS(void)
 {
 	#if defined(REDEFINED_CHARS)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
-            #if defined(_API_VERSION) && _API_VERSION>=2
+            #if !defined(VIC20_USE_0X0F) && ((!defined(MEMORY_MAPPED) && defined(_API_VERSION) && _API_VERSION>=2))
                 uint8_t tmp;
-            
+
                 tmp = ~0x0F & PEEK(&(VIC.addr));
                 POKE(&(VIC.addr), tmp | 0x0E); // 1110 -> character map at $1800
             #else

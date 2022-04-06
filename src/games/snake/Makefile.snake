@@ -11,7 +11,7 @@ API_VERSION=2
 
 GLOBAL_OPTS_WITH_SLEEP_MACRO = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_BLINKING
 
-GLOBAL_OPTS = $(GLOBAL_OPTS_WITH_SLEEP_MACRO) 
+GLOBAL_OPTS = $(GLOBAL_OPTS_WITH_SLEEP_MACRO) -D_API_VERSION=$(API_VERSION)
 #-D_BACKGROUND_COLOR=_XL_WHITE
 #-D_API_VERSION=$(API_VERSION)
 
@@ -941,13 +941,15 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 vic20: vic20_exp_16k
 
+
+
 # 	-DSIMPLE_TITLE 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX_stack_0x1B.cfg \
 	-DSOUNDS -DANIMATE_PLAYER -DALT_SLEEP \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_HOLE_ANIMATION \
-	-D_XL_SLOW_DOWN_FACTOR=6000 \
+	-D_XL_SLOW_DOWN_FACTOR=5000 \
 	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
 	-DSIMPLE_STRATEGY \
 	-DREDEFINED_CHARS \
@@ -972,31 +974,6 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
-	-DSOUNDS -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=4200 \
-	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
-	 \
-	-DSIMPLE_STRATEGY \
-	-DREDEFINED_CHARS \
-	-DALT_PRINT \
-	-DLESS_TEXT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DUSE_MEMORY_BUFFERS \
-	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
-	$(SOURCE_PATH)/game_text.c  \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/snake.c  \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
-	$(SOURCE_PATH)/control_player.c \
-	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
-	$(SOURCE_PATH)/move_snake.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS \
@@ -1012,10 +989,24 @@ vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc_arcade.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
+	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
+	-D_XL_SLOW_DOWN_FACTOR=5100 \
+	-DREDEFINED_CHARS \
+	$(FULL_FILES_NO_SLEEP) \
+	--code-name CODE2 \
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+# V1
+vic20_exp_16k_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)cl65$(EXEEXT) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_8K -DALT_SLEEP \
+	-DCONIO -DVIC20_EXP_8K -DALT_SLEEP -DVIC20_USE_0X0F \
 	-D_XL_SLOW_DOWN_FACTOR=6000 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
@@ -1024,6 +1015,26 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+# vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	# --config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
+	# -DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
+	# -DREDEFINED_CHARS \
+	# $(SOURCE_PATH)/main.c \
+	# $(SOURCE_PATH)/move_snake.c $(BASIC_CROSS_LIB_FILES) \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	# $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/control_player.c \
+	# $(SOURCE_PATH)/snake.c \
+	# $(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	# --code-name CODE2 \
+	# $(SOURCE_PATH)/variables.c \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 
 #################################################################
 # CMOC

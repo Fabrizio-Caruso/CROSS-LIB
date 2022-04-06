@@ -782,50 +782,26 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
-	-DSOUNDS -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=4200 \
-	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
-	-DSIMPLE_STRATEGY \
-	-DREDEFINED_CHARS \
-	-DALT_PRINT \
-	-DLESS_TEXT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DUSE_MEMORY_BUFFERS \
-	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
-	$(SOURCE_PATH)/game_text.c  \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/snake.c  \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
-	$(SOURCE_PATH)/control_player.c \
-	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
-	$(SOURCE_PATH)/move_snake.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS \
-	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_8K \
-	-D_XL_SLOW_DOWN_FACTOR=4200 \
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
+	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE2 \
-	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+# V1 (broken characters) 
+vic20_exp_16k_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)cl65$(EXEEXT) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_8K \
+	-DCONIO -DVIC20_EXP_8K -DVIC20_USE_0X0F -DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=1000 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \

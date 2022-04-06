@@ -328,7 +328,8 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) \
             || (defined(__ZX81__) && !(defined(_API_VERSION) && _API_VERSION>=2))  \
-            || (defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2))
+            || (defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2))  \
+            || (defined(__VIC20__) && (defined(_API_VERSION) && _API_VERSION>=2))
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

@@ -15,18 +15,19 @@ void CLICK(uint16_t duration, uint8_t period);
 
 void NOISE(uint16_t duration, uint8_t period);
 
+void _XL_ZAP_SOUND(void);
 
-#define _XL_EXPLOSION_SOUND() NOISE(90,15)
+#define _XL_EXPLOSION_SOUND() NOISE(75,9)
 
-#define _XL_ZAP_SOUND() CLICK(150,2)
+// #define _XL_ZAP_SOUND() CLICK(150,2)
 
-#define _XL_SHOOT_SOUND() NOISE(110,5)
+#define _XL_SHOOT_SOUND() NOISE(100,5)
 
-#define _XL_PING_SOUND() CLICK(40,5)
+#define _XL_PING_SOUND() CLICK(55,5)
 
-#define _XL_TICK_SOUND() CLICK(30,4)
+#define _XL_TICK_SOUND() CLICK(45,4)
 
-#define _XL_TOCK_SOUND() CLICK(20,3)
+#define _XL_TOCK_SOUND() CLICK(35,3)
 
 #endif // __BIT_BANG_SOUNDS
 

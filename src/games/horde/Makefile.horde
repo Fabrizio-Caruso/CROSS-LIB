@@ -2165,9 +2165,9 @@ mc10:
 	-DYSize=16 \
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	-DFULL_GAME -DALT_SLEEP \
 	-DNO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=250 -DNO_WAIT \
+	-D_XL_SLOW_DOWN_FACTOR=140 \
 	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT -DSOUNDS \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) \
@@ -2175,7 +2175,7 @@ mc10:
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm xchase
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 ###############################################################################################

@@ -2549,14 +2549,15 @@ mc10:
 	-D_XL_NO_COLOR \
 	-DFULL_GAME \
 	-DNO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=1400 -DNO_WAIT -DALT_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=1400 -DALT_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT -DSOUNDS \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES_NO_SLEEP) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm xchase
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 

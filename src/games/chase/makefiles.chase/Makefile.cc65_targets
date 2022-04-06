@@ -231,22 +231,6 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 #######################################################################################
 # APPLE2ENH
 
-# -O breaks bit-banging
-apple2enh_no_gfx: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
-	-DFULL_GAME -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS -DSOUNDS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/apple2enh.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2enh.bin
-	rm $(BUILD_PATH)/apple2enh.bin
 
 apple2enh_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \

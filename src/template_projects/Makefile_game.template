@@ -112,6 +112,9 @@ _MICRO_SLOWDOWN=60
 _CIDELSA_SLOWDOWN=40
 
 
+# MC10
+_MC10_SLOWDOWN=50
+
 # GCC
 _NCURSES_SLOWDOWN=12
 
@@ -2077,22 +2080,24 @@ cidelsa_targets: $(MAKE) cidelsa_draco_32k
 
 
 mc10:
-	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
-	-D__MC10__ -D_XL_NO_UDG \
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
 	-DFORCE_NO_CONIO_LIB \
 	-DXSize=32 \
 	-DYSize=16 \
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
+	-DFULL_GAME -DALT_SLEEP \
 	-DNO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=250 -DNO_WAIT -DALT_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
+	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT -DSOUNDS \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm xchase
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 

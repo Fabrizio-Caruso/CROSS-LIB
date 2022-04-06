@@ -296,6 +296,11 @@ out            stb res
         {
             getchar();
         }
+    #elif defined(__MC10__)
+        void _XL_WAIT_FOR_INPUT(void)
+        {
+            getchar();
+        }
     #elif defined(__NCURSES__)
         #if defined(__ATARI_ST__)
             #include <ncurses/curses.h>

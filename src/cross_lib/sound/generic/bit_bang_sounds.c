@@ -22,6 +22,19 @@
 #endif
 
 
+void _XL_ZAP_SOUND(void)
+{
+    uint16_t i;
+    uint8_t j;
+    
+    for(i=1;i<6;++i)
+    {
+        CLICK(50-i,i);
+        for(j=0;j<5;++j){};
+    }
+}
+
+
 void CLICK(uint16_t duration, uint8_t period) 
 {
     uint16_t i;

@@ -115,6 +115,7 @@ static const uint8_t images[] = {
     TRANSPARENT_BRICK_TILE,
     };
 
+#if !defined(_XL_NO_COLOR)
 static const uint8_t image_colors[] = {
     0, 
     _XL_CYAN, 
@@ -129,6 +130,7 @@ static const uint8_t image_colors[] = {
     _XL_YELLOW, 
     _XL_YELLOW,
     };
+#endif
 
 #define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==6)||((level&15)==9)||((level&15)==14))
 #define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==4)||((level&15)==7)||((level&15)== 8)||((level&15)==12)||(!level))

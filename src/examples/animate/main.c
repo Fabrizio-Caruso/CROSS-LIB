@@ -96,6 +96,7 @@ int main(void)
         if((y>=MIN_Y)&&(y<=MAX_Y)&&(x>=MIN_X)&&(x<=MAX_X))
         {
             _XL_DRAW(x,y,tile,_XL_WHITE);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
         else
         {

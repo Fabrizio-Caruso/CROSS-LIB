@@ -116,7 +116,7 @@ ti99_test: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	mv XCHASE $(BUILD_PATH)/xchase
+	mv XCHASE $(BUILD_PATH)/ti99ConioTest
 	rm -rf xchase.ea5.bin
 
 

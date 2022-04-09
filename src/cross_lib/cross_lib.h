@@ -93,7 +93,7 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \
-        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__)
+        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__) || defined(__TI99__)
         #define _XL_NO_SMALL_LETTERS
 
     #else
@@ -109,7 +109,9 @@
         || defined(__ZX80__) || defined(__ZX81__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__COCO__) || defined(__DRAGON__)
         #define ONLY_SMALL_LETTERS
         
-    #elif defined(__MC10__) || defined(__VIC20__) || defined(__LCC1802__) || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__) || (defined(__ATARI_LYNX__) && defined(TGI_GFX))
+    #elif defined(__MC10__) || defined(__VIC20__) || defined(__LCC1802__) \
+        || defined(FEWER_SPRITES) || defined(__SUPERVISION__) || defined(__MSX__) \
+        || (defined(__ATARI_LYNX__) && defined(TGI_GFX))  || defined(__TI99__)
         #define _XL_NO_SMALL_LETTERS
         
     #else

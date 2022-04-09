@@ -109,15 +109,6 @@ void set_udg_colors(void)
 	set_group_color(30,_CREAT_TEXT_COLOR);
 	set_group_color(31,_CREAT_TEXT_COLOR);
 
-
-	// set_group_color(5,2);
-	// set_group_color(6,4);
-	// set_group_color(7,4);
-	
-	// for(i=8;i<=11;++i)
-	// {
-		// set_group_color(i,8);
-	// }
 }
 
 void redefine(const uint8_t ch, const uint8_t* image) 

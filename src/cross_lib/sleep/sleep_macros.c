@@ -38,6 +38,8 @@
         #define CYCLES 3500
     #elif defined(__SUPERVISION__)
         #define CYCLES 6000
+    #elif defined(__TI99__)
+        #define CYCLES 25000
     #else
 		#define CYCLES 1000
 	#endif
@@ -50,7 +52,6 @@
         #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)
             vidflush();
         #endif
-	
 		for(ii=0;ii<sec*CYCLES;++ii){}; 
 	}
 
@@ -58,7 +59,7 @@
 
 
 #if defined(NO_SLOW_DOWN_MACRO)
-    #if defined(__NCURSES__)
+    #if defined(__NCURSES__) 
         #include <stdint.h>
         #include <time.h>
         #include <unistd.h>
@@ -66,13 +67,24 @@
         {
             usleep((t)*800);
         }
+        
+    #elif defined(__TI99__)
+        void _XL_SLOW_DOWN(uint16_t t)
+        {
+            volatile uint16_t i;
+
+            for(i=0;i<(t);++i)
+            {
+            }
+        }
     #else
         void _XL_SLOW_DOWN(uint16_t t)
         {
             uint16_t i;
+
             for(i=0;i<(t);++i)
             {
-            }           
+            }       
         }
     #endif
 #endif

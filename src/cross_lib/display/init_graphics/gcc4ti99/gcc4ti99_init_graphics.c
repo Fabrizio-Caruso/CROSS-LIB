@@ -2,6 +2,10 @@
 #include <system.h>
 #include <conio.h>
 
+#include "8x8_chars.h"
+
+#include "udg_map.h"
+
 #include "display_macros.h"
 // #include <stdint.h>
 
@@ -30,10 +34,10 @@ void set_udg_colors(void)
 	set_group_color(7,COLOR_LTGREEN);
 
 // 64
-	set_group_color(8,COLOR_WHITE);
-	set_group_color(9,COLOR_WHITE);
-	set_group_color(10,COLOR_WHITE);
-	set_group_color(11,COLOR_WHITE);
+	set_group_color(8,COLOR_LTYELLOW);
+	set_group_color(9,COLOR_LTYELLOW);
+	set_group_color(10,COLOR_LTYELLOW);
+	set_group_color(11,COLOR_LTYELLOW);
 
 // 96
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
@@ -71,7 +75,33 @@ void set_udg_colors(void)
 	set_group_color(29,COLOR_WHITE);
 	set_group_color(30,COLOR_WHITE);
 	set_group_color(31,COLOR_WHITE);
+}
 
+
+void redefine(const uint8_t ch, const uint8_t* image) 
+{ 
+    // uint8_t i; 
+    
+    // for(i=0;i<8;++i) 
+    // { 
+//     vdpmemcpy(gPattern+42*8, newDef, 8); 
+        vdpmemcpy(gPattern +(uint16_t)(ch<<3),image,8); 
+    // } 
+} 
+
+
+void SET_UDG_IMAGES(void) 
+{ 
+    uint8_t i;
+    uint8_t j;
+
+    for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
+    {
+        for(j=0;j<5;++j)
+        {
+            redefine(redefine_map[i].ascii+32*j, redefine_map[i].bitmap);
+        }
+    } 
 }
 
 
@@ -85,6 +115,8 @@ void _XL_INIT_GRAPHICS(void)
     VDP_SET_REGISTER(VDP_REG_COL, COLOR_BLACK);      // set screen color
     
     set_udg_colors();
+    
+    SET_UDG_IMAGES();
 
     setScreenColors();
 }

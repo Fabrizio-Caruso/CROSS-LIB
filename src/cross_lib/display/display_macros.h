@@ -321,6 +321,9 @@
 // CLEAR SCREEN
 #  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
+#elif defined(__TI99__)
+    #include <vdp.h>
+    #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768); 
 #elif defined(__ATARI_LYNX__)
     #define _XL_CLEAR_SCREEN() tgi_clear()
 #elif defined(__CPC__) && defined(CPCRSLIB)

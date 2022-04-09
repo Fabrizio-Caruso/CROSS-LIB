@@ -57,15 +57,13 @@ TI99_TURN_BASED_OPTS ?= \
 TI99_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
-	-DXSize=32 \
+	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
 	-DYSize=22 \
-	-DALT_SLEEP \
+	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO \
 	-DTINY_GAME -DNO_WALL \
-	-DNO_WAIT \
 	-DCONIO -D_XL_NO_COLOR \
 	-DNO_SET_SCREEN_COLORS \
-	-DDEFAULT_CLEAR_SCREEN \
-	-D_XL_SLOW_DOWN_FACTOR=65000
+	-D_XL_SLOW_DOWN_FACTOR=900
 
 
 ##################################################################################################

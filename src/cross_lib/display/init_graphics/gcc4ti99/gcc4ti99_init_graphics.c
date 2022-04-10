@@ -117,6 +117,11 @@ void _XL_INIT_GRAPHICS(void)
     set_udg_colors();
     
     SET_UDG_IMAGES();
+        // for(i=0;i<255;++i)
+        // {
+            // vdpmemset(gImage+i,i,1);
+        // }
+        // while(1){};
 
     setScreenColors();
 }

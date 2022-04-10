@@ -165,7 +165,7 @@
     #define _XL_CYAN _ORIC_NORMAL
     
 
-#elif defined(CREATIVISION_COLOR)
+#elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 
     #define _CREAT_YELLOW 32
     #define _CREAT_GREEN   0

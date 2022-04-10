@@ -6,7 +6,7 @@
 	#include "memory_mapped_graphics.h"
 #elif defined(APPLE2_HGR)
     #include "apple2_hgr_graphics.h"
-#elif defined(CREATIVISION_COLOR)
+#elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 	#include "creativision_color_graphics.h"
 #elif defined(NES_CONIO)
 	#include "nes_conio_graphics.h"

@@ -276,6 +276,8 @@
     { \
         textcolor(CPC_TEXT_YELLOW); \
     }
+#elif defined(__MC10__)
+    #define _XL_SET_TEXT_COLOR(c)
 #else
     #define _XL_SET_TEXT_COLOR(c) textcolor(c)
 #endif

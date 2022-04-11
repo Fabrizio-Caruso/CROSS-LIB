@@ -58,10 +58,10 @@ TI99_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
-	-DYSize=22 \
+	-DYSize=24 \
 	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO \
-	-DTINY_GAME -DNO_WALL \
-	-DTI99_COLOR -DNO_PRINT \
+	-DTINY_GAME -DNO_WALL  \
+	-DTI99_COLOR \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_SLOW_DOWN_FACTOR=900
 
@@ -148,7 +148,7 @@ ti99: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
 	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
-	mv XCHASE $(BUILD_PATH)/xchase
+	mv XCHAS* $(BUILD_PATH)/
 	rm -rf xchase.ea5.bin
 
 

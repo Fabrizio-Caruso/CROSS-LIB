@@ -259,7 +259,7 @@
     #define _XL_CYAN _AUX_DARK_GREY
     #define _XL_BLUE _AUX_DARK_GREY
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED_4)
+#elif (defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)) && defined(BIT_MAPPED_4)
 
     #define _COCO_RED 0xFF
     #define _COCO_YELLOW 0x55

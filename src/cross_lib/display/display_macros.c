@@ -31,7 +31,8 @@ extern uint16_t BASE_ADDR;
 #endif
 
 
-#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(BIT_MAPPED_4))
+#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(BIT_MAPPED_4)) || (defined(__MC10__) && defined(BIT_MAPPED_4))
+    extern uint8_t udgs[];
 
     uint8_t _bitmap4_text_color;
 

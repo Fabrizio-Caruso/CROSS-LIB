@@ -405,7 +405,7 @@ void display_score(void)
 
 #define LIVES_X (XSize-3)
 
-#if !defined(_XL_NO_COLOR)
+#if !defined(_XL_NO_TEXT_COLOR)
     void display_lives(uint8_t color)
     {
         _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);

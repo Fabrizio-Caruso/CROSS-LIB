@@ -90,3 +90,6 @@ $(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(8x8_TILES)
 
 $(ASSETS_PATH)/8x6_tiles.s: $(8x6_TILES)
 	$(CREATE_ASSET)
+    
+$(ASSETS_PATH)/8x6_c_definition.h: $(8x6_TILES)
+	$(CREATE_ASSET)

@@ -7,6 +7,8 @@
 // 
 #elif defined(__COCO__)
 	#define SV_VIDEO  ((uint8_t*)0x0E00)
+#elif defined(__MC10__)
+    #define SV_VIDEO  ((uint8_t*)0x4000)
 #endif
 
 // TODO: Make this more general 
@@ -33,8 +35,9 @@ color 3
 
 #define BYTES_PER_LINE ((XSize)*2+EXTRA_PADDING)
 
-
-extern uint8_t udgs[];
+#if defined(__MC10__)
+    #include "8x6_c_definition.h"
+#endif
 
 uint8_t left_map_one_to_two(uint8_t n);
 uint8_t right_map_one_to_two(uint8_t n);

@@ -172,9 +172,14 @@
     #else
         #define _COLOR_OFFSET 0
     #endif
-    
-    #define _CREAT_GREEN  ( 0 +_COLOR_OFFSET)
-    #define _CREAT_YELLOW (32 +_COLOR_OFFSET)
+        
+    #if defined(__TI99__)
+        #define _CREAT_YELLOW (192+_COLOR_OFFSET)
+        #define _CREAT_GREEN  (160+_COLOR_OFFSET)
+    #else
+        #define _CREAT_YELLOW (32 +_COLOR_OFFSET)
+        #define _CREAT_GREEN  (0 +_COLOR_OFFSET)
+    #endif
     #define _CREAT_WHITE  (64 +_COLOR_OFFSET)
     #define _CREAT_CYAN   (96 +_COLOR_OFFSET)
     #define _CREAT_RED    (128+_COLOR_OFFSET)
@@ -186,7 +191,6 @@
     #define _XL_YELLOW _CREAT_YELLOW
     #define _XL_GREEN _CREAT_GREEN
     #define _XL_CYAN _CREAT_CYAN
-    
     #define _XL_BLACK _CREAT_WHITE
 
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)

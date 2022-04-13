@@ -161,7 +161,11 @@ extern Character bombs[BOMBS_NUMBER];
 
     uint8_t oneMissileLevel(void)
     {
-        return ((level%5)==3) || (level==5);
+        #if defined(BUGGY_MOD5)
+            return (level==3) || (level==8) || (level==11) || (level==16) || (level==5);
+        #else
+            return ((level%5)==3) || (level==5);  
+        #endif
     }
 
     uint8_t rocketLevel(void)
@@ -171,12 +175,25 @@ extern Character bombs[BOMBS_NUMBER];
 
     uint8_t missileLevel(void)
     {
-        return level%5==4;
+        #if defined(BUGGY_MOD5)
+            return (level==4) || (level==9) || (level==14) || (level==19);
+        #else
+            return (level%5)==4;
+        #endif
     }    
 
     uint8_t bossLevel(void)
     {
-        return !(level%5);
+        
+        #if defined(BUGGY_MOD5)
+            if(level==5 || level==10 || level==15 || level==20)
+            {
+                return 1;
+            }
+            return 0;
+        #else
+            return !(level%5);
+        #endif
     }
     
     uint8_t horizWallsLevel(void)

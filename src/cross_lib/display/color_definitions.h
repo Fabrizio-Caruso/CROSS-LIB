@@ -167,11 +167,17 @@
 
 #elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 
-    #define _CREAT_YELLOW 32
-    #define _CREAT_GREEN   0
-    #define _CREAT_WHITE  64
-    #define _CREAT_CYAN   96
-    #define _CREAT_RED   128
+    #if defined(TI99_COLOR)
+        #define _COLOR_OFFSET -64
+    #else
+        #define _COLOR_OFFSET 0
+    #endif
+    
+    #define _CREAT_GREEN  ( 0 +_COLOR_OFFSET)
+    #define _CREAT_YELLOW (32 +_COLOR_OFFSET)
+    #define _CREAT_WHITE  (64 +_COLOR_OFFSET)
+    #define _CREAT_CYAN   (96 +_COLOR_OFFSET)
+    #define _CREAT_RED    (128+_COLOR_OFFSET)
     #define _CREAT_BLUE _CREAT_CYAN
 
     #define _XL_RED _CREAT_RED

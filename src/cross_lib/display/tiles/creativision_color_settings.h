@@ -1,5 +1,9 @@
 
-#define _BASE 32
+#if defined(__TI99__)
+    #define _BASE 96
+#else
+    #define _BASE 32
+#endif
 
 #define _TILE_0 (_BASE+27)
 #define _TILE_1 (_BASE+1)

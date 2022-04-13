@@ -18,6 +18,11 @@
         vdpmemset(gColor+group,COLOR_BLACK+16*color,1)
 #endif
 
+#define _GROUP_COLOR_OFFSET 8
+
+// COLOR_LTGREEN
+// COLOR_LTYELLOW
+
 void set_udg_colors(void)
 {
 
@@ -27,17 +32,17 @@ void set_udg_colors(void)
 	set_group_color(2,COLOR_LTBLUE);
 	set_group_color(3,COLOR_LTBLUE);
 
-// 32
-	set_group_color(4,COLOR_LTGREEN);
-	set_group_color(5,COLOR_LTGREEN);
-	set_group_color(6,COLOR_LTGREEN);
-	set_group_color(7,COLOR_LTGREEN);
+// 32 - Digits
+	set_group_color(4,COLOR_WHITE);
+	set_group_color(5,COLOR_WHITE);
+	set_group_color(6,COLOR_WHITE);
+	set_group_color(7,COLOR_WHITE);
 
-// 64
-	set_group_color(8,COLOR_LTYELLOW);
-	set_group_color(9,COLOR_LTYELLOW);
-	set_group_color(10,COLOR_LTYELLOW);
-	set_group_color(11,COLOR_LTYELLOW);
+// 64 - Alphabet
+	set_group_color(8,COLOR_WHITE);
+	set_group_color(9,COLOR_WHITE);
+	set_group_color(10,COLOR_WHITE);
+	set_group_color(11,COLOR_WHITE);
 
 // 96
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
@@ -65,16 +70,16 @@ void set_udg_colors(void)
 	set_group_color(23,COLOR_LTRED);
 
 // 192
-	set_group_color(24,COLOR_WHITE);
-	set_group_color(25,COLOR_WHITE);
-	set_group_color(26,COLOR_WHITE);
-	set_group_color(27,COLOR_WHITE);
+	set_group_color(24,COLOR_LTGREEN);
+	set_group_color(25,COLOR_LTGREEN);
+	set_group_color(26,COLOR_LTGREEN);
+	set_group_color(27,COLOR_LTGREEN);
 
 // 224
-	set_group_color(28,COLOR_WHITE);
-	set_group_color(29,COLOR_WHITE);
-	set_group_color(30,COLOR_WHITE);
-	set_group_color(31,COLOR_WHITE);
+	set_group_color(28,COLOR_LTYELLOW);
+	set_group_color(29,COLOR_LTYELLOW);
+	set_group_color(30,COLOR_LTYELLOW);
+	set_group_color(31,COLOR_LTYELLOW);
 }
 
 

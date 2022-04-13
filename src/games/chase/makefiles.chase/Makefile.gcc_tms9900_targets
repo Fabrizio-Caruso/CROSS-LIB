@@ -29,29 +29,7 @@ C_FLAGS=\
 
 
 
-# test: library testlib.o $(OBJECT_LIST_EA5) 
-	# $(LD) $(OBJECT_LIST_EA5) testlib.o $(LDFLAGS_EA5) -L. -lti99 -o testlib.ea5.elf > ea5.map
-	# $(ELF2EA5) testlib.ea5.elf testlib.ea5.bin
-	# $(EA5_SPLIT) testlib.ea5.bin
-	# cp TESTLI* $(CLASSIC99_DSK1)
-
-
-
 TI99_CC ?= tms9900-gcc 
-TI99_TURN_BASED_OPTS ?= \
-	$(C_FLAGS) $(GLOBAL_OPTS) \
-	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
-	-DXSize=32 \
-	-DYSize=22 \
-	-DALT_SLEEP \
-	-DTURN-BASED \
-	-DTINY_GAME -DNO_WALL \
-	-DNO_WAIT \
-	-D_XL_NO_COLOR \
-	-DCONIO \
-	-DNO_SET_SCREEN_COLORS \
-	-DDEFAULT_CLEAR_SCREEN \
-	-D_XL_SLOW_DOWN_FACTOR=50000
 
 
 TI99_OPTS ?= \
@@ -65,6 +43,16 @@ TI99_OPTS ?= \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_SLOW_DOWN_FACTOR=900
 
+
+TI99_FULL_OPTS ?= \
+	$(C_FLAGS) $(GLOBAL_OPTS) \
+	-D__TI99__ -nostdlib \
+	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
+	-DYSize=24  \
+	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DFULL_GAME \
+	-DTI99_COLOR \
+	-DNO_SET_SCREEN_COLORS \
+	-D_XL_SLOW_DOWN_FACTOR=900
 
 ##################################################################################################
 
@@ -98,19 +86,22 @@ OBJECT_LIST= \
   $(SOURCE_PATH)/main.o
   
 
-OBJECT_LIST_TURN_BASED= \
+OBJECT_FULL_LIST= \
   $(TOOLS_PATH)/ti99/crt0_ea5.o \
   $(CROSS_LIB_PATH)/display/display_macros.o \
-  $(CROSS_LIB_PATH)/input/input_macros_turn_based.o \
+  $(CROSS_LIB_PATH)/input/input_macros.o \
   $(CROSS_LIB_PATH)/text/text_macros.o \
   $(CROSS_LIB_PATH)/rand/rand.o \
   $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
   $(SOURCE_PATH)/init_images.o \
-  $(SOURCE_PATH)/move_player_turn_based.o \
-  $(SOURCE_PATH)/strategy_turn_based.o \
+  $(SOURCE_PATH)/move_player.o \
+  $(SOURCE_PATH)/rocket.o $(SOURCE_PATH)/skull.o $(SOURCE_PATH)/end_screen.o \
+  $(SOURCE_PATH)/bullet.o $(SOURCE_PATH)/horizontal_missile.o \
+  $(SOURCE_PATH)/strategy.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
-  $(SOURCE_PATH)/ghost_turn_based.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
-  $(SOURCE_PATH)/main_turn_based.o
+  $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
+  $(SOURCE_PATH)/main.o
+
 
 TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 
@@ -120,32 +111,15 @@ TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 %.o: %.c
 	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
 
-%_turn_based.o: %.c
-	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_TURN_BASED_OPTS) -c $< -o $@
+# 	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_FULL_OPTS) -c $< -o $@
+
 
 # List of all files needed in executable
 PREREQUISITES=\
   $(OBJECT_LIST)
 
-PREREQUISITES_TURN_BASED=\
-  $(OBJECT_LIST_TURN_BASED)
-
-
-ti99_cross_chase_turn_based.elf: $(PREREQUISITES_TURN_BASED)
-	$(LD) $(OBJECT_LIST_TURN_BASED) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase_tb.ea5.elf > xchase_tb.map
-	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
-
-
-
-ti99_turn_based: ti99_cross_chase_turn_based.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
-	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase_tb.ea5.elf xchase_tb.ea5.bin
-	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase_tb.ea5.bin
-	rm -rf xchase_tb.map
-	rm -rf ea5.map
-	rm -rf xchase_tb.ea5.elf
-	# mv XCHASE_TB $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a_turn_based
-	mv XCHASE_TB $(BUILD_PATH)/xchasetb
-	rm -rf xchase_tb.ea5.bin
+FULL_PREREQUISITES=\
+  $(OBJECT_FULL_LIST)
 
 
 #####################################################################
@@ -159,6 +133,22 @@ xchase.ea5.elf: $(PREREQUISITES)
 # Recipe to compile the executable
 ti99: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
 	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
+	rm -rf xchase.map
+	rm -rf ea5.map
+	rm -rf xchase.ea5.elf
+	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
+	mv XCHAS* $(BUILD_PATH)/
+	rm -rf xchase.ea5.bin
+
+
+xchase_full.ea5.elf: $(FULL_PREREQUISITES)
+	$(LD) $(OBJECT_FULL_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase_full.ea5.elf > xchase.map
+	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
+
+
+ti99_full: xchase_full.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase_full.ea5.elf xchase.ea5.bin
 	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
 	rm -rf xchase.map
 	rm -rf ea5.map

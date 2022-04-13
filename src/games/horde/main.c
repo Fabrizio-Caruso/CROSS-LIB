@@ -27,7 +27,7 @@
 #include "images.h"
 
 // #define DEBUG 1
-// #define TRAINER 1
+//#define TRAINER 1
 
 #define INITIAL_LEVEL 0
 
@@ -820,79 +820,107 @@ void power_up_effect(void)
     
     ++powerUp;
     
-    pmod10 = powerUp%10;
-    
-    switch(pmod10)
-    {
-        case 0:
+    pmod10 = powerUp%10;    
+
+    #if defined(BUGGY_MOD10)
+        if(pmod10==0)
+        {
             activate_hyper();
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
-        break;
-        
-        case 4:
+        } 
+        else if(pmod10==4)
+        {
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_CYAN; 
             #endif
-        break;
-        
-        case 5:
+        } 
+        else if(pmod10==5)
+        {
             freeze_locked=0;
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
-        break;
-        
-        case 9:
+        }  
+        else if(pmod10==9)
+        {
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_RED;
             #endif
-        break;
-    }
-
+        }
+    #else
+        switch(pmod10)
+        {
+            case 0:
+                activate_hyper();
+                #if !defined(_XL_NO_COLOR)
+                powerUpItem._color = _XL_WHITE;
+                #endif
+            break;
+            
+            case 4:
+                #if !defined(_XL_NO_COLOR)
+                powerUpItem._color = _XL_CYAN; 
+                #endif
+            break;
+            
+            case 5:
+                freeze_locked=0;
+                #if !defined(_XL_NO_COLOR)
+                powerUpItem._color = _XL_WHITE;
+                #endif
+            break;
+            
+            case 9:
+                #if !defined(_XL_NO_COLOR)
+                powerUpItem._color = _XL_RED;
+                #endif
+            break;
+        } 
+    #endif
+    
     display_power_up_counter();
     increase_score(POWERUP_POINTS);
     
     switch(powerUp)
     {
         #if !defined(TRAINER)
-        case 1:
-            arrow_range=YELLOW_RANGE_VALUE;
-        break;
+            case 1:
+                arrow_range=YELLOW_RANGE_VALUE;
+            break;
+                
+            case 2:
+                arrow_range=GREEN_RANGE_VALUE;
+            break;
             
-        case 2:
-            arrow_range=GREEN_RANGE_VALUE;
-        break;
-        
-        case 3:
-            bow_reload_loops=YELLOW_SPEED_VALUE;
-        break;
-           
-        case 4:
-            bow_reload_loops=GREEN_SPEED_VALUE;
-        break;
-        
-        case 5:
-            number_of_arrows_per_shot = 2;
-        break;
-        
-        case 6:
-            number_of_arrows_per_shot = 3;
-        break;
-        
-        case 7:
-            fire_power = YELLOW_FIRE_POWER_VALUE;
-        break;
-        
-        case 8:
-            fire_power = GREEN_FIRE_POWER_VALUE;
-            #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_YELLOW;
-            #endif
-        break;
-        
-
+            case 3:
+                bow_reload_loops=YELLOW_SPEED_VALUE;
+            break;
+               
+            case 4:
+                bow_reload_loops=GREEN_SPEED_VALUE;
+            break;
+            
+            case 5:
+                number_of_arrows_per_shot = 2;
+            break;
+            
+            case 6:
+                number_of_arrows_per_shot = 3;
+            break;
+            
+            case 7:
+                fire_power = YELLOW_FIRE_POWER_VALUE;
+            break;
+            
+            case 8:
+                fire_power = GREEN_FIRE_POWER_VALUE;
+                #if !defined(_XL_NO_COLOR)
+                powerUpItem._color = _XL_YELLOW;
+                #endif
+            break;
+       
         #endif
         
         case 19:
@@ -910,7 +938,6 @@ void power_up_effect(void)
     }
     display_power_ups();
 }
-
 
 void extra_points_effect(void)
 {
@@ -1129,9 +1156,10 @@ void handle_item(register Item* item)
                 ++(item->_y);
             }
             #if !defined(_XL_NO_COLOR)
-            _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
+                    // TODO: GCC for TI99 does not display the correct tile
+                    _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
             #else
-            _XL_DRAW(item->_x,item->_y,item->_tile,0);
+                _XL_DRAW(item->_x,item->_y,item->_tile,0);
             #endif
         }
         else

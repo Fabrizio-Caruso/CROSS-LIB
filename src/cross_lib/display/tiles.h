@@ -4,9 +4,9 @@
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
 #elif defined(__CREATIVISION__) && defined(CREATIVISION_COLOR) && defined(REDEFINED_CHARS)
-    #include "creativision_color_settings.h"
+    #include "vdp_mode1_settings.h"
 #elif defined(__TI99__) && defined(REDEFINED_CHARS)
-    #include "creativision_color_settings.h"
+    #include "vdp_mode1_settings.h"
 #elif defined(__CREATIVISION__) && defined(REDEFINED_CHARS)
     #include "creativision_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(REDEFINED_CHARS)

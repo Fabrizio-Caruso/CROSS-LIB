@@ -2368,7 +2368,7 @@ xchase.ea5.elf: $(PREREQUISITES)
 
 
 # Recipe to compile the executable
-ti99: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+ti99: $(ASSETS_PATH)/8x8_chars.h  xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
 	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
 	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
 	rm -rf xchase.map

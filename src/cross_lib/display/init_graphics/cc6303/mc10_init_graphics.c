@@ -25,7 +25,7 @@ void _XL_INIT_GRAPHICS(void)
     __asm__("sei"   );
     POKE(49151U,36); 
     
-    // for(j=0;j<128;++j)
+    // for(j=0;j<6 ;++j)
     // {
         // if((j&3)==0)
         // {

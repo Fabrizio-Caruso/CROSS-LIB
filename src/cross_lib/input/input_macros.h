@@ -208,7 +208,9 @@ window.addEventListener("keydown", function (event) {
     #define TURN_BASED_INPUT() cgetc()
 #endif	// TURN_BASED_INPUT definitions
 
-#if defined(TURN_BASED)
+#if defined(NO_INPUT)
+    #define _XL_INPUT() 0
+#elif defined(TURN_BASED)
     #define _XL_INPUT() TURN_BASED_INPUT()
 #elif defined(JOYSTICK_CONTROL)
     #define _XL_INPUT() JOY_INPUT()

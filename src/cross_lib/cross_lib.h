@@ -136,6 +136,8 @@
     #define _XL_TILE_Y_SIZE 1
 #elif (defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)) && !defined(NTSC)
     #define _XL_TILE_Y_SIZE 9
+#elif (defined(__MC10__) && defined(BIT_MAPPED_4))
+    #define _XL_TILE_Y_SIZE 6
 #else
     #define _XL_TILE_Y_SIZE 8
 #endif

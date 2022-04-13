@@ -37,20 +37,20 @@ extern uint16_t BASE_ADDR;
     uint8_t _bitmap4_text_color;
 
     void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+    {
+        uint8_t k;
+        uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
+        
+        uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
+        uint16_t delta = 0;
+        
+        for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
-            uint8_t k;
-            uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
-            
-            uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
-            uint16_t delta = 0;
-            
-            for(k=0;k<_XL_TILE_Y_SIZE;++k)
-            {
-                SV_VIDEO[base+delta]    = left_map_one_to_two(udgs[offset+k])&color;
-                SV_VIDEO[base+delta+1]  = right_map_one_to_two(udgs[offset+k])&color;
-                delta+=BYTES_PER_LINE;
-            }
+            SV_VIDEO[base+delta]    = left_map_one_to_two(udgs[offset+k])&color;
+            SV_VIDEO[base+delta+1]  = right_map_one_to_two(udgs[offset+k])&color;
+            delta+=BYTES_PER_LINE;
         }
+    }
 
     void _color_delete(uint8_t x, uint8_t y)
     {
@@ -66,6 +66,7 @@ extern uint16_t BASE_ADDR;
             delta+=BYTES_PER_LINE;
         }
     }
+
 #endif 
 
 
@@ -237,7 +238,7 @@ lda $a7c0
 #elif defined(BIT_MAPPED_4)
     uint8_t map_one_to_two_lookup[16] = 
     {  
-    #if defined(__COCO__) || defined(__DRAGON__)   
+    #if defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)
         0x00, 0x03, 0x0C, 0x0F, 0x30, 0x33, 0x3C, 0x3F,
         0xC0, 0xC3, 0xCC, 0xCF, 0xF0, 0xF3, 0xFC, 0xFF
     #elif defined(__SUPERVISION__)

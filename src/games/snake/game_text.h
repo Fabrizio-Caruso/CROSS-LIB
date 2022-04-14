@@ -64,6 +64,7 @@
     #define LINE_SKIP 1
 #endif
 
+// Adding this sensical line _XL_PRINT(0,i,""); fixes a bug for GCC for TI99
 #if !defined(NO_EXTRA_TITLE) && YSize>=16
     #define extra_title() \
     { \

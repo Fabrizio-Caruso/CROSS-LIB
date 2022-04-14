@@ -1,20 +1,39 @@
+#include <system.h>
+#include <conio.h>
 
-unsigned char level = 42;
+#define NUMBER_OF_STRINGS 5
+#define MAX_STRING_SIZE 7
 
-unsigned char bossLevel(void)
+const char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {
-    return !(level%5);
-}
-    
+    "Mine",
+    "Energy",
+    "Bonus",
+    "Points",
+    "Apple"
+};
+
+
 int main(void)
 {
-    if(bossLevel())
+    uint8_i;
+    
+    set_graphics(VDP_SPR_16x16);                        // set video mode
+    charsetlc();                                        // load character set with lowercase
+    vdpmemset(gImage, 32, 768);                         // clear screen
+    VDP_SET_REGISTER(VDP_REG_COL, COLOR_BLACK);      // set screen color
+    
+
+    
+    for(i=0;i<NUMBER_OF_STRINGS;++i)
     {
-        level=1;
+        gotoxy(2,2+i);
+        cprintf(strings[i]);
     }
-    else
-    {
-        level =0;
-    }
+    
+    
+    while(1){};
+    
     return 0;
 }
+

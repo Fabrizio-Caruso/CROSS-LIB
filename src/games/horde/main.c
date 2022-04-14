@@ -291,7 +291,7 @@ static uint8_t alive;
 static uint16_t score;
 static uint16_t hiscore;
 
-struct ItemStruct
+struct  ItemStruct
 {
     uint8_t _x;
     uint8_t _y;
@@ -302,7 +302,7 @@ struct ItemStruct
     uint8_t _active;
     uint8_t _counter;
     void(*_effect)(void);
-};
+} ;
 typedef struct ItemStruct Item;
 typedef struct ItemStruct Missile;
 
@@ -1148,6 +1148,9 @@ void handle_item(register Item* item)
 {
     if(item->_active)
     {
+        // TODO: Necessary for GCC for TI99
+        uint8_t item_tile = item->_tile;
+        
         if(item->_y<BOW_Y)
         {
             _XL_DELETE(item->_x,item->_y);
@@ -1155,11 +1158,12 @@ void handle_item(register Item* item)
             {
                 ++(item->_y);
             }
+                  
             #if !defined(_XL_NO_COLOR)
-                    // TODO: GCC for TI99 does not display the correct tile
-                    _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
+                    // TODO: GCC for TI99 does not display the correct tile with item->_tile
+                    _XL_DRAW(item->_x,item->_y,item_tile,item->_color);
             #else
-                _XL_DRAW(item->_x,item->_y,item->_tile,0);
+                _XL_DRAW(item->_x,item->_y,item_tile,0);
             #endif
         }
         else
@@ -1171,9 +1175,9 @@ void handle_item(register Item* item)
             else
             {
                 #if !defined(_XL_NO_COLOR)
-                _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
+                _XL_DRAW(item->_x,item->_y,item_tile,item->_color);
                 #else
-                _XL_DRAW(item->_x,item->_y,item->_tile,0);
+                _XL_DRAW(item->_x,item->_y,item_tile,0);
                 #endif
             }
  

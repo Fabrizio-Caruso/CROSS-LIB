@@ -50,7 +50,7 @@ TI99_OPTS ?= \
 	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
 	-DYSize=24 -DBUGGY_MOD5 \
 	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DFULL_GAME \
-	-DTI99_COLOR \
+	-DTI99_COLOR -DSOUNDS \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_SLOW_DOWN_FACTOR=900
 
@@ -100,6 +100,7 @@ OBJECT_LIST= \
   $(SOURCE_PATH)/bullet.o $(SOURCE_PATH)/horizontal_missile.o \
   $(SOURCE_PATH)/strategy.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
+  $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o \
   $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
   $(SOURCE_PATH)/main.o
 
@@ -149,14 +150,13 @@ xchase_tiny.ea5.elf: $(TINY_PREREQUISITES)
 
 
 ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
-	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
-	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf x$(GAME_NAME)1.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
-	mv XCHAS* $(BUILD_PATH)/
-	rm -rf xchase.ea5.bin
+	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
+	rm -rf x$(GAME_NAME)1.ea5.bin
 
 
 ti99_targets: \

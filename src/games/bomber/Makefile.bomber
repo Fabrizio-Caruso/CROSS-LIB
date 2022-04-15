@@ -1973,7 +1973,7 @@ TI99_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
-	-DYSize=23 \
+	-DYSize=23 -DSOUNDS \
 	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO \
 	-DTINY_GAME -DNO_WALL -DBUGGY_MOD10 \
 	-DTI99_COLOR \
@@ -2005,6 +2005,7 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/text/text_macros.o \
   $(CROSS_LIB_PATH)/rand/rand.o \
   $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
+  $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
   $(SOURCE_PATH)/main.o
 
@@ -2035,15 +2036,14 @@ xchase.ea5.elf: $(PREREQUISITES)
 
 
 # Recipe to compile the executable
-ti99: $(ASSETS_PATH)/8x8_chars.h  xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
-	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
-	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
+ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf x$(GAME_NAME)1.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
-	mv XCHAS* $(BUILD_PATH)/
-	rm -rf xchase.ea5.bin
+	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
+	rm -rf x$(GAME_NAME)1.ea5.bin
 
 ti99_targets: \
 	ti99 \

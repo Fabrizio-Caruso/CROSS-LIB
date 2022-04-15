@@ -65,13 +65,14 @@ A partial list of the supported systems with their status is in:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
-The most significant supported 8-bit CPU architectures are:
+The most significant supported vintage CPU architectures are:
 
 - COSMAC RCA 1802 
 - Intel 8080 
 - MOS 6502 
-- Motorola 6809 
 - Motorola 6803 
+- Motorola 6809
+- TMS 9900
 - Zilog 80 
 
 Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.

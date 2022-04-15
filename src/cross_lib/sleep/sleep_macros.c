@@ -39,14 +39,18 @@
     #elif defined(__SUPERVISION__)
         #define CYCLES 6000
     #elif defined(__TI99__)
-        #define CYCLES 25000
+        #define CYCLES 17000
     #else
 		#define CYCLES 1000
 	#endif
 
 	void _XL_SLEEP(uint8_t sec)
 	{
+        #if defined(__TI99__)
+        volatile uint16_t ii;
+        #else
 		uint16_t ii;
+        #endif
         
         // Flush the video buffer to make sure that the latest character is displayed
         #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)

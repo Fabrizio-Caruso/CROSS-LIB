@@ -31,6 +31,8 @@
 	#elif defined(ASCII_SOUNDS)
 		#define _XL_INIT_SOUND()
 		#include "ascii_sounds.h"
+    #elif defined(__TI99__) && defined(SOUNDS)
+        #include "ti99_sounds.h"
 	#elif defined(__ACE__) && defined(SOUNDS)
 		#include "z88dk_bit_bang_sounds.h"
 	#elif (defined(__ATARI__) && defined(SOUNDS))

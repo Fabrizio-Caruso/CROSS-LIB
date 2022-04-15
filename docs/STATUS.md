@@ -232,7 +232,7 @@ target name         | long target name                                     |   w
 *pc8086*            | PC 8088/86                                           |    YES       |    missing      |    missing     | missing |
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
 *sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
-*ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        | missing |
+*ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        |   OK    |
 
 
 OK       :   5

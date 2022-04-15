@@ -2309,7 +2309,7 @@ TI99_OPTS ?= \
 	-DYSize=23 \
 	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO \
 	-DTINY_GAME -DNO_WALL -DBUGGY_MOD10 \
-	-DTI99_COLOR \
+	-DTI99_COLOR -DSOUNDS \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_SLOW_DOWN_FACTOR=200
 
@@ -2339,6 +2339,7 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/rand/rand.o \
   $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
+  $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o \
   $(SOURCE_PATH)/main.o
 
 

@@ -187,8 +187,8 @@ Zilog 80      | 105                |
 MOS 6502      |  24                |
 RCA 1802      |   7                |
 Intel 8080    |   5                |
-Motorola 6809 |   4                |
 Motorola 6803 |   1                |
+Motorola 6809 |   4                |
 GBZ80         |   1                |
 
 

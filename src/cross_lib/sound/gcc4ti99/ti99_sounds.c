@@ -39,10 +39,11 @@ void _XL_ZAP_SOUND(void)
 {
     uint8_t i;
     
-    for(i=1;i<90;++i)
+    for(i=1;i<16;++i)
     {
-        CLICK(250-i,i);
+        CLICK(120-i,i);
     }
+    SOUND=TONE1_VOL|0x0F;
 }
 
 

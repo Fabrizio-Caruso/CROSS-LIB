@@ -22,6 +22,8 @@ Rings will improve in this order:
 - the power of your bow
 After these improvements, the rings will be necessary to unblock special items and to achieve the temporary "hyper" power.
 
+CONTROLS: either the joystick or J (left), L (right), SPACE (fire).
+
 1. Commodore 264 series (C16/C116/C+4):
 https://plus4world.powweb.com/play/cross_horde
 
@@ -71,6 +73,7 @@ You can also catch special items that will help in your quest:
 - $ (extra points... but also some secret effects if you collect many)
 - extra life (special and hard to unlock item that gives 1 extra life)
 
+CONTROLS: either the joystick or I J K L to move and SPACE to start/continue.
 
 You can play the game online:
 
@@ -109,6 +112,8 @@ The game is a clone of Air Attack (aka Blitz) game that was first developed on t
 The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
 Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
 The game has 8 levels and it ends after the eighth level.
+
+CONTROLS: either the joystick fire button or SPACE.
 
 You can play the game online:
 
@@ -153,6 +158,7 @@ Discover the 12 items. Some items are secret. In total the game has 16 secrets.
 You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
 The game has 16 different levels including 2 boss levels + 1 secret level.
 
+CONTROLS: either the joystick or I J K L to move and SPACE to fire.
 
 You can play the gamne online:
 
@@ -191,6 +197,8 @@ You have to avoid all enemies, the mines, all walls, rockets and chasing missile
 All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
 If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
 There are 20 different levels including 4 boss levels.
+
+CONTROLS: either the joystick or I J K L (to move) and SPACE to fire.
 
 You can play the game online for different systems:
 

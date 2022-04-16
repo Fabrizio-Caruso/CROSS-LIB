@@ -639,7 +639,11 @@ int main(void)
                     }
                     else if(isInnerHorizontalWallLevel)
                     {
-                        DRAW_HORIZONTAL_LINE(XSize/2-(innerHorizontalWallLength/2), YSize/2, innerHorizontalWallLength);                                
+                        #if defined(BUGGY_HORIZ_DRAW)
+                        DRAW_HORIZONTAL_LINE(1+(XSize>>1)-(innerHorizontalWallLength>>1), YSize/2, innerHorizontalWallLength);
+                        #else
+                        DRAW_HORIZONTAL_LINE((XSize>>1)-(innerHorizontalWallLength>>1), YSize/2, innerHorizontalWallLength);
+                        #endif
                     }
                     displayBombs();                                                        
                 }

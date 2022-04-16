@@ -1,6 +1,7 @@
 
 #include <system.h>
 #include <conio.h>
+#include <vdp.h>
 
 #include "8x8_chars.h"
 

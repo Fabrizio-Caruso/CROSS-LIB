@@ -7,18 +7,22 @@
 #define _PLAYER_LEFT_TILE              _TILE_3
 
 #define _GHOST_TILE                    _TILE_4
-#define _SKULL_TILE                    _TILE_7
-#define _BOSS_TILE                     _TILE_6
-#define _BULLET_TILE                   _TILE_11
-#define _FIRE_POWER_TILE               _TILE_9
 #define _BOMB_TILE                     _TILE_5
-#define _ROCKET_TILE                   _TILE_16
+#define _BOSS_TILE                     _TILE_6
+#define _SKULL_TILE                    _TILE_7
+#define _CALM_DOWN_TILE                _TILE_8
+#define _FIRE_POWER_TILE               _TILE_9
+#define _INVINCIBILITY_TILE            _TILE_10
+#define _BULLET_TILE                   _TILE_11
+#define _VERTICAL_BRICK_TILE           _TILE_12
+#define _HORIZONTAL_BRICK_TILE         _TILE_13
 #define _LEFT_HORIZONTAL_MISSILE_TILE  _TILE_14
 #define _RIGHT_HORIZONTAL_MISSILE_TILE _TILE_15
-#define _EXTRA_POINTS_TILE             _TILE_25
+#define _ROCKET_TILE                   _TILE_16
 #define _FREEZE_TILE                   _TILE_17
-#define _INVINCIBILITY_TILE            _TILE_10
 #define _SUPER_TILE                    _TILE_18
+
+#define _EXTRA_POINTS_TILE             _TILE_25
 
 #define _PLAYER_COLOR _XL_CYAN
 #define _GHOST_COLOR _XL_WHITE

@@ -382,6 +382,28 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
 
 
+
+#################################################################
+
+atari7800: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ \
+	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=20 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+
+
+atari7800_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=40 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+    
+
+
 #######################################################################################
 # ATARI LYNX
 

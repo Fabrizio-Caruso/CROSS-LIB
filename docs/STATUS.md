@@ -15,6 +15,7 @@ target name         | long target name                            | working  |  
 *apple2enh*         | Apple //e                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*atari7800*         | Atari 7800                                  |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
 *atari*             | Atari 8-bit (e.g., Atari 800)               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *atari_lynx*        | Atari Lynx                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *attache*           | Otrona Attache                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
@@ -156,9 +157,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 148
+TOTAL    : 149
 
-OK       : 144
+OK       : 145
 
 KO       :   2
 
@@ -172,7 +173,7 @@ UNKNOWN  :   2
 Dev-kit | no. 8-bit targets
 --------|--------------------
   Z88DK | 111
-   CC65 |  21
+   CC65 |  22
 LCC1802 |   7 
    CMOC |   4
    VBCC |   3
@@ -273,9 +274,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 167
+TOTAL    : 168
 
-OK       : 154
+OK       : 155
 
 KO       :   4
 

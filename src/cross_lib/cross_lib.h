@@ -69,7 +69,7 @@
 #  if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
     || defined(__ATARI__) \
 	|| defined(__VIC20__) || defined(__GAMATE__) \
-    || defined(__ATARI5200__) || defined(__OSIC1P__) || defined(__SUPERVISION__) \
+    || defined(__ATARI5200__) || defined(__ATARI7800__) || defined(__OSIC1P__) || defined(__SUPERVISION__) \
 	|| defined(__TELESTRAT__) || defined(__PCE__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__ATARI_LYNX__) \
     || defined(__CX16__)
 	#define CC65
@@ -93,7 +93,8 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \
-        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__) || defined(__TI99__)
+        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__) || defined(__TI99__) \
+        || (defined(__ATARI7800__) &&  !defined(_XL_NO_COLOR))
         #define _XL_NO_SMALL_LETTERS
 
     #else

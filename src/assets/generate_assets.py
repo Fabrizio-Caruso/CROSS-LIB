@@ -18,6 +18,7 @@ MAX_NUMBER_OF_TILES = 27
 tile=[]
 
 
+# Read tile files from a given directory and store them into the tile variable
 def read_tiles_from_dir(dir_name):
     global tile
     tile = []
@@ -26,7 +27,7 @@ def read_tiles_from_dir(dir_name):
         if os.path.exists(file_to_open):
             with open(file_to_open, 'r') as myfile:
                 print("Opening file tile"+file_to_open)
-                tile.append(myfile.read())
+                tile.append(myfile.read().replace('\n',''))
         else:
             y = int(dir_name[2])
             zerolist = str([0]*y)

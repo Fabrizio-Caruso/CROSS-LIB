@@ -5,7 +5,7 @@
 
 #define POKE(addr,val) (*(uint8_t*) (addr) = (val))
 
-uint8_t udgs[] =
+const uint8_t udgs[] =
 {
     _TILE_0_UDG,  _TILE_1_UDG,  _TILE_2_UDG,  _TILE_4_UDG, 
     _TILE_5_UDG,  _TILE_6_UDG,  _TILE_7_UDG,  _TILE_8_UDG, 

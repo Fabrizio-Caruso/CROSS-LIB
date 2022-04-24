@@ -31,10 +31,10 @@ Image DEAD_GHOST_IMAGE;
 
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-    extern Image CALM_DOWN_IMAGE;
-    extern Image FIRE_CHARGE_IMAGE;
+    Image CALM_DOWN_IMAGE;
+    Image FIRE_CHARGE_IMAGE;
     extern Image BULLET_IMAGE;
-    extern Image FIRE_POWER_IMAGE;	
+    Image FIRE_POWER_IMAGE;	
     extern Image SKULL_IMAGE;		
     extern Image EXTRA_POINTS_IMAGE;	
     
@@ -68,7 +68,7 @@ Image DEAD_GHOST_IMAGE;
     
     extern Image SUPER_IMAGE;
     extern Image CONFUSE_IMAGE;
-    extern Image SUICIDE_IMAGE;
+    Image SUICIDE_IMAGE;
     
     extern Image BROKEN_BRICK_IMAGE;
 

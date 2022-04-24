@@ -506,8 +506,10 @@ int main(void)
                 #endif
                     
                 #if !defined(TURN_BASED)
-                    MOVE_PLAYER();                
-                    _DRAW_PLAYER();    
+                    MOVE_PLAYER();  
+                    #if !defined(TRANSITION_ANIMATION)
+                        _DRAW_PLAYER();    
+                    #endif
                 #endif
                         
                 handle_rockets();
@@ -555,6 +557,15 @@ int main(void)
                 checkBullets();
 
                 
+                #if defined(TRANSITION_ANIMATION)
+                    if(moved)
+                    {
+                        _XL_DELETE(old_x,old_y);
+                        moved = 0;
+                    }
+                    _DRAW_PLAYER();
+                #endif                
+                
                 // Check collisions bombs vs ghosts
                 checkBombsVsGhosts();
                 if(skullActive)
@@ -562,20 +573,14 @@ int main(void)
                     checkBombsVsSkulls();
                 }
                 
-                
-                #if _XL_SLOW_DOWN_FACTOR>0
                 if(invincibilityActive)
                 {
-                         SHORT_SLEEP(2);
-                }
-                #endif
-                
-                
-                if(invincibilityActive)
-                {
+                    #if _XL_SLOW_DOWN_FACTOR>0
+                    SHORT_SLEEP(2);
+                    #endif
                     _XL_DELETE(player._x, player._y);
-                }  
-                
+                }
+
                 SHORT_SLEEP(6);
                 
                 handle_calmDown_item();

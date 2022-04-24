@@ -1849,6 +1849,27 @@ mc10:
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 
+mc10_gfx: $(ASSETS_PATH)/8x6_c_definition.h 
+	cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	-DFORCE_NO_CONIO_LIB -DNO_EXTRA_TITLE \
+	-DXSize=16 \
+	-DYSize=16  \
+	-DBIT_MAPPED_4 \
+	-DFULL_GAME -DALT_SLEEP -DNO_WAIT -DNO_INPUT -DNO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
+	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT -DSOUNDS \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc6303/mc10_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
+
 mc10_turn_based:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
 	-D__MC10__ -DNO_UDG \

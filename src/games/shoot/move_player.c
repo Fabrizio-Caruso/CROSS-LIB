@@ -57,10 +57,11 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
     // #define PLAYER_DIRECTION_CHANGE
 // #endif
 
-#if defined(PLAYER_DIRECTION_CHANGE)
+#if defined(PLAYER_DIRECTION_CHANGE)    
 
     void up_direction(void)
     {
+        up_transiction();
         playerDirection = UP;
         SHOW_UP();  
     }
@@ -82,7 +83,6 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
         playerDirection = RIGHT;
         SHOW_RIGHT();  
     }
-
 
     #define _DO_MOVE_UP \
         deletePlayer(&player); \
@@ -108,7 +108,6 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
         skullXCountDown = SKULL_COUNT_DOWN; \
         playerFire = 0; \
         right_direction();
-
 
     #if defined(NO_INPUT)
         void MOVE_PLAYER(void) {}
@@ -169,36 +168,91 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
         }
     #endif
 #else
+    extern uint8_t old_x;
+    extern uint8_t old_y;
+    extern uint8_t moved;
+    #if defined(TRANSITION_ANIMATION)
+    
+        void _set_old(void)
+        {
+            old_x = player._x;
+            old_y = player._y;
+            moved = 1;
+        }
+        
+    
+        #include "init_images.h"
+        
+        #define _DO_MOVE_UP \
+            _set_old(); \
+            _XL_DRAW(old_x, old_y-1, _PLAYER_UP_TOP_TILE, _XL_CYAN); \
+            _XL_DRAW(old_x, old_y, _PLAYER_BOTTOM_TILE, _XL_CYAN); \
+            --player._y; \
+            SHOW_UP(); \
+            skullYCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = UP; \
+            playerFire = 0;
 
-    #define _DO_MOVE_UP \
-        deletePlayer(&player); \
-        --player._y; \
-        SHOW_UP(); \
-        skullYCountDown = SKULL_COUNT_DOWN; \
-        playerDirection = UP; \
-        playerFire = 0;
-    #define _DO_MOVE_DOWN \
-        deletePlayer(&player); \
-        ++player._y; \
-        SHOW_DOWN(); \
-        skullYCountDown = SKULL_COUNT_DOWN; \
-        playerDirection = DOWN; \
-        playerFire = 0;
-    #define _DO_MOVE_LEFT \
-        deletePlayer(&player); \
-        --player._x; \
-        SHOW_LEFT(); \
-        skullXCountDown = SKULL_COUNT_DOWN; \
-        playerDirection = LEFT; \
-        playerFire = 0;
-    #define _DO_MOVE_RIGHT \
-        deletePlayer(&player); \
-        ++player._x; \
-        SHOW_RIGHT(); \
-        skullXCountDown = SKULL_COUNT_DOWN; \
-        playerDirection = RIGHT; \
-        playerFire = 0;
+        #define _DO_MOVE_DOWN \
+            _set_old(); \
+            _XL_DRAW(old_x, old_y, _PLAYER_DOWN_TOP_TILE, _XL_CYAN); \
+            _XL_DRAW(old_x, old_y+1, _PLAYER_BOTTOM_TILE, _XL_CYAN); \
+            ++player._y; \
+            SHOW_DOWN(); \
+            skullYCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = DOWN; \
+            playerFire = 0;
 
+        #define _DO_MOVE_LEFT \
+            _set_old(); \
+            _XL_DRAW(old_x-1, old_y, _PLAYER_LEFT_MOVE_TILE, _XL_CYAN); \
+            _XL_DRAW(old_x, old_y, _PLAYER_RIGHT_MOVE_TILE, _XL_CYAN); \
+            --player._x; \
+            SHOW_LEFT(); \
+            skullXCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = LEFT; \
+            playerFire = 0;
+
+        #define _DO_MOVE_RIGHT \
+            _set_old(); \
+            _XL_DRAW(old_x, old_y, _PLAYER_LEFT_MOVE_TILE, _XL_CYAN); \
+            _XL_DRAW(old_x+1, old_y, _PLAYER_RIGHT_MOVE_TILE, _XL_CYAN); \
+            ++player._x; \
+            SHOW_RIGHT(); \
+            skullXCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = RIGHT; \
+            playerFire = 0;
+
+    #else
+        #define _DO_MOVE_UP \
+            deletePlayer(&player); \
+            --player._y; \
+            SHOW_UP(); \
+            skullYCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = UP; \
+            playerFire = 0;
+        #define _DO_MOVE_DOWN \
+            deletePlayer(&player); \
+            ++player._y; \
+            SHOW_DOWN(); \
+            skullYCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = DOWN; \
+            playerFire = 0;
+        #define _DO_MOVE_LEFT \
+            deletePlayer(&player); \
+            --player._x; \
+            SHOW_LEFT(); \
+            skullXCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = LEFT; \
+            playerFire = 0;
+        #define _DO_MOVE_RIGHT \
+            deletePlayer(&player); \
+            ++player._x; \
+            SHOW_RIGHT(); \
+            skullXCountDown = SKULL_COUNT_DOWN; \
+            playerDirection = RIGHT; \
+            playerFire = 0;
+    #endif
 
     #if defined(NO_INPUT)
         void MOVE_PLAYER(void) {}

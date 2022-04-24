@@ -21,7 +21,11 @@
 #define _ROCKET_TILE                   _TILE_16
 #define _FREEZE_TILE                   _TILE_17
 #define _SUPER_TILE                    _TILE_18
-
+#define _PLAYER_DOWN_TOP_TILE          _TILE_19
+#define _PLAYER_BOTTOM_TILE            _TILE_20
+#define _PLAYER_UP_TOP_TILE            _TILE_21
+#define _PLAYER_LEFT_MOVE_TILE         _TILE_22
+#define _PLAYER_RIGHT_MOVE_TILE        _TILE_23
 #define _EXTRA_POINTS_TILE             _TILE_25
 
 #define _PLAYER_COLOR _XL_CYAN

@@ -13,6 +13,11 @@
     uint16_t benchmark_count;
 #endif
 
+#if defined(TRANSITION_ANIMATION)
+    uint8_t old_x;
+    uint8_t old_y;
+    uint8_t moved;
+#endif
 
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))
@@ -63,8 +68,8 @@ extern Image DEAD_GHOST_IMAGE;
     extern Character skull;
     extern Character bullet;	
 
-    extern Item fireCharge;
-    extern Item firePower;
+    Item fireCharge;
+    Item firePower;
     extern Item extraPoints;	
 #else
     Character skull;
@@ -113,15 +118,15 @@ extern Image DEAD_GHOST_IMAGE;
 
 
 #if defined(USE_MEMORY_BUFFERS)
-    extern Item calmDown;
-    extern Item bombCharge;
+    Item calmDown;
+    Item bombCharge;
     extern Item freeze;
     extern Item invincibility;
     extern Item extraLife;
     extern Item super;
     extern Item confuse;
-    extern Item suicide;
-    extern Item destroyer;
+    Item suicide;
+    Item destroyer;
 
     extern Character leftHorizontalMissile;
     extern Character rightHorizontalMissile;
@@ -130,20 +135,20 @@ extern Image DEAD_GHOST_IMAGE;
     extern Character * chasedEnemyPtr;
     extern Character * chasedByGhosts;
     extern uint8_t rockets_x[];
-    extern uint8_t rocketsOnScreen;
+    uint8_t rocketsOnScreen;
 
     extern uint8_t extraLife_present_on_level;
     extern uint8_t super_present_on_level;
-    extern uint8_t confuse_present_on_level;
-    extern uint8_t suicide_present_on_level;
+    uint8_t confuse_present_on_level;
+    uint8_t suicide_present_on_level;
     
-    extern uint8_t destroyed_bases;
+    uint8_t destroyed_bases;
     
     extern uint8_t arrowRange;
     
     extern uint8_t all_skulls_killed_in_completed_levels;
     
-    extern uint8_t destroyed_bases_in_completed_levels;
+    uint8_t destroyed_bases_in_completed_levels;
     
     extern uint8_t horizontalWallsLength;
     
@@ -151,15 +156,15 @@ extern Image DEAD_GHOST_IMAGE;
     
     extern uint8_t confuseActive; 
         
-    extern uint8_t innerVerticalWallY; 
-    extern uint8_t innerVerticalWallX; 
-    extern uint8_t innerVerticalWallLength;
+    uint8_t innerVerticalWallY; 
+    uint8_t innerVerticalWallX; 
+    uint8_t innerVerticalWallLength;
 
-    extern uint8_t missileDestroyerActivated;
-    extern uint8_t bombDestroyerActivated;
-    extern uint8_t destroyerActive;
-    extern uint8_t destroyer_count_down;
-    extern uint8_t exploded_bombs;
+    uint8_t missileDestroyerActivated;
+    uint8_t bombDestroyerActivated;
+    uint8_t destroyerActive;
+    uint8_t destroyer_count_down;
+    uint8_t exploded_bombs;
 
 #else
     Item calmDown; 

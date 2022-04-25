@@ -440,7 +440,7 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 #################################################################
 
 atari7800: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl -O -t atari7800 --force-import __EXEHDR__ \
 	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG \
 	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=340 -DXSize=20 -DYSize=28 \
@@ -450,7 +450,7 @@ atari7800:
 
 
 atari7800_no_color: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG -D_XL_NO_COLOR \
 	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=340 -DXSize=40 -DYSize=28 \

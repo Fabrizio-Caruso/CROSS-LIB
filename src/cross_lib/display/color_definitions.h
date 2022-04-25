@@ -165,12 +165,12 @@
     #define _XL_CYAN _ORIC_NORMAL
     
 #elif defined(__ATARI7800__)
-    #define _XL_WHITE COLOR_WHITE
-    #define _XL_YELLOW COLOR_WHITE
-    #define _XL_RED 1
-    #define _XL_CYAN 2
-    #define _XL_BLUE 2
-    #define _XL_GREEN 3
+    #define _XL_WHITE 3
+    #define _XL_YELLOW 3
+    #define _XL_CYAN 1
+    #define _XL_BLUE _XL_CYAN
+    #define _XL_RED 0
+    #define _XL_GREEN _XL_CYAN
     
 #elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 

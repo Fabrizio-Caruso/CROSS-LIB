@@ -450,10 +450,10 @@ atari7800:
 
 
 atari7800_no_color: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
-	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG -D_XL_NO_COLOR \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg -DFULL_GAME -DSOUNDS -D_XL_NO_UDG -D_XL_NO_COLOR \
 	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=340 -DXSize=40 -DYSize=28 \
+	-D_XL_SLOW_DOWN_FACTOR=200 -DXSize=34 -DX_OFFSET=3 -DYSize=28 \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78

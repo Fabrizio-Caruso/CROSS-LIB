@@ -2066,7 +2066,7 @@ do \
 }
 
 
-#if YSize<=18
+#if YSize<=20
     #define _NEXT_ROW i
 #else
     #define _NEXT_ROW ((i)<<1)
@@ -2088,14 +2088,14 @@ do \
     #endif
 #endif
 
-#if YSize==23
+#if YSize<=23
     #define CONTROLS_Y YSize-2
 #else
     #define CONTROLS_Y YSize-3
 #endif
 
 #if !defined(NO_EXTRA_TITLE)
-    #if defined(CONTROL_INSTRUCTIONS) || YSize>=23
+    #if !defined(NO_CONTROL_INSTRUCTIONS) && YSize>=15
         #define control_instructions() _XL_PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
                                        CONTROLS_STRING)
     #else

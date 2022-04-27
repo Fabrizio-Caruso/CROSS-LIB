@@ -157,10 +157,10 @@ gal_6k:
 	#rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.wav
 
 
-gal_plus:
+gal_plus_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-pragma-need=ansiterminal \
+	-pragma-need=ansiterminal -D_XL_SLOW_DOWN_FACTOR=400 \
 	-D__GAL__ -D__GAL_PLUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
@@ -168,10 +168,13 @@ gal_plus:
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg
 
+
+gal_plus: gal_plus_no_gfx
+
 gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-pragma-need=ansiterminal \
+	-pragma-need=ansiterminal -D_XL_SLOW_DOWN_FACTOR=400 \
 	-D__GAL__ -D__GAL_PLUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DUDG_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \

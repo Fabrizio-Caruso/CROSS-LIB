@@ -413,7 +413,8 @@ Type LOADG
 
 ### Galaksija
 
-Use the MESS emulator.
+Use the MESS emulator or 
+(for debugging) the online emulator https://galaksija.net/?i=2
 
 Use File Manager to attach the WAV file
 

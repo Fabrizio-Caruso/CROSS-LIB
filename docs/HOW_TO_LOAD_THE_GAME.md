@@ -1452,6 +1452,12 @@ loadm "FULL_TO7.BIN",<offset>
 
 exec
 
+Example:
+Cross Snake may need to be loaded at a lower start address than $A000, so you need to do:
+
+CLEAR ,,,&h8000
+
+loadm "FULL_TO7.BIN",-1024
 
 
 -----------------------------------------------------------

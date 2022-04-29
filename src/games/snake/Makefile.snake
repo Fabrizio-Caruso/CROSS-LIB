@@ -1109,7 +1109,7 @@ MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
 
 MO5_ORG_DATA          ?= --org=2700 
 
-TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__ 
+TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__
 
 TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
 

@@ -44,6 +44,10 @@
                 POKE(0x028A ,0xFF) \
                 POKE(657,128); \
             } while(0)
+        #elif defined(__TO7__)
+			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
+			#define PEEK(addr)         (*(uint8_t*) (addr))
+            #define _XL_INIT_INPUT() POKE(0x6067,0);
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define _XL_INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)

@@ -269,6 +269,7 @@ void handle_item(register Item *itemPtr)
         itemPtr->_character._status = 1;
         relocateAwayFromWalls((Character *) itemPtr);
 
+        // TODO: Is this really necessary??
         _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
     }
     else

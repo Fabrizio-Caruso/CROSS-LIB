@@ -47,6 +47,8 @@ extern Image FIRE_CHARGE_IMAGE;
 extern Image FIRE_POWER_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
+extern Image DESTROYER_IMAGE;
+
 extern Character player; 
 
 extern Character skulls[SKULLS_NUMBER];
@@ -429,12 +431,14 @@ void fillLevelWithCharacters(void)
     initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);        
     initializeAwayFromWall(&(suicide._character), (XSize>>1), (YSize>>1), 0, &SUICIDE_IMAGE); 
 
-    #if !defined(NO_BLINKING) && !defined(_XL_NO_COLOR)
-        initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
-    #else
-        initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &HORIZONTAL_BRICK_IMAGE);     
-    #endif
+    // #if !defined(NO_BLINKING) && !defined(_XL_NO_COLOR)
+        // initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
+    // #else
+        // initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &HORIZONTAL_BRICK_IMAGE);     
+    // #endif
     
+    initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &DESTROYER_IMAGE);    
+
     initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 
     initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(_XL_RAND()&1)),(uint8_t) ((YSize>>1)+(_XL_RAND()&1)),1,&PLAYER_IMAGE);

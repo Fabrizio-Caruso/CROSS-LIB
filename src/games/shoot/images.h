@@ -71,7 +71,7 @@ Image DEAD_GHOST_IMAGE;
     Image SUICIDE_IMAGE;
     
     extern Image BROKEN_BRICK_IMAGE;
-
+    Image DESTROYER_IMAGE;
 #else	
     
     Image LEFT_HORIZONTAL_MISSILE_IMAGE;
@@ -91,6 +91,8 @@ Image DEAD_GHOST_IMAGE;
     Image SUICIDE_IMAGE;
     
     Image BROKEN_BRICK_IMAGE;
+    
+    Image DESTROYER_IMAGE;
 #endif
 
 

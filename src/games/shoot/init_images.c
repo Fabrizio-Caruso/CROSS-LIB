@@ -18,6 +18,8 @@
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
+extern Image DESTROYER_IMAGE;
+
 extern Image DEAD_GHOST_IMAGE;
 
 extern Image SKULL_IMAGE;
@@ -88,6 +90,8 @@ void INIT_IMAGES(void)
         SUICIDE_IMAGE._color = _SUICIDE_COLOR;
         
         BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
+        
+        DESTROYER_IMAGE._color = _DESTROYER_COLOR;
 	#endif	
 
 	// Set Image Data
@@ -134,6 +138,8 @@ void INIT_IMAGES(void)
     SUICIDE_IMAGE._imageData = _GHOST_TILE;
     
     BROKEN_BRICK_IMAGE._imageData = _BOMB_TILE;
+    
+    DESTROYER_IMAGE._imageData = _DESTROYER_TILE;
 #endif 
 }
 

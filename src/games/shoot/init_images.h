@@ -26,6 +26,7 @@
 #define _PLAYER_UP_TOP_TILE            _TILE_21
 #define _PLAYER_LEFT_MOVE_TILE         _TILE_22
 #define _PLAYER_RIGHT_MOVE_TILE        _TILE_23
+#define _DESTROYER_TILE                _TILE_24
 #define _EXTRA_POINTS_TILE             _TILE_25
 
 #define _PLAYER_COLOR _XL_CYAN
@@ -48,6 +49,7 @@
 #define _INVINCIBILITY_COLOR _XL_YELLOW
 #define _CONFUSE_COLOR _XL_RED
 #define _SUICIDE_COLOR _XL_YELLOW
+#define _DESTROYER_COLOR _XL_YELLOW
 
 
 void INIT_IMAGES(void);

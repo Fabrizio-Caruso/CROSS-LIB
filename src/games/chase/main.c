@@ -360,7 +360,8 @@ int main(void)
                 if(isBossLevel)
                 {
                     printKillTheSkull();
-                    _XL_SLEEP(2);
+                    _XL_SLEEP(1);
+                    _XL_WAIT_FOR_INPUT();
                 }
                 _XL_CLEAR_SCREEN();
                 

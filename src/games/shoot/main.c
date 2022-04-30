@@ -666,7 +666,7 @@ int main(void)
                 #if !defined(LESS_TEXT)
                     _XL_SLEEP(1);
                     printVictoryMessage();
-                    _XL_SLEEP(2);
+                    _XL_WAIT_FOR_INPUT();
 
                     // _XL_CLEAR_SCREEN();
                 #endif
@@ -703,8 +703,11 @@ int main(void)
                     _XL_PING_SOUND();
                     #if !defined(LESS_TEXT)
                         printExtraLife();
+                        _XL_SLEEP(1);
+                        _XL_WAIT_FOR_INPUT();
+                    #else
+                        _XL_SLEEP(2);
                     #endif
-                    _XL_SLEEP(2);
                     ++lives;
                     all_skulls_killed_in_completed_levels = 1;
                     destroyed_bases_in_completed_levels/=2;
@@ -774,7 +777,6 @@ int main(void)
         {
             highScore = points;
         }
-        _XL_WAIT_FOR_INPUT();
 
         _XL_CLEAR_SCREEN();
         printAchievements();
@@ -790,11 +792,8 @@ int main(void)
         _XL_CLEAR_SCREEN();
         printGameOver();
         
-        #if !defined(NO_SLEEP)
-            _XL_SLEEP(1);
-        #else
-            _XL_WAIT_FOR_INPUT();
-        #endif
+        _XL_SLEEP(1);
+        _XL_WAIT_FOR_INPUT();
         
         
     } // while(1) -> restart from the beginning

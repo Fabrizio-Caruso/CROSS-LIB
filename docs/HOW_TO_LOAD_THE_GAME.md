@@ -1452,13 +1452,21 @@ loadm "FULL_TO7.BIN",<offset>
 
 exec
 
-Example:
+Example 1:
 Cross Snake may need to be loaded at a lower start address than $A000, so you need to do:
 
 CLEAR ,,,&h8000
 
 loadm "FULL_TO7.BIN",-1024
 
+Example 2:
+Cross Shoot may need even more memory than Cross Snake. So you need to do:
+
+CLEAR ,,,&H7FFF
+
+LOADM"0:FULL_TO7.bin",-&HA000
+
+EXEC
 
 -----------------------------------------------------------
 

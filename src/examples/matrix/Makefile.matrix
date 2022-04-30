@@ -1593,7 +1593,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s  $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
-	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/XLIB.bin \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
@@ -1609,10 +1609,10 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s  $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	display_macros.o \
 	text_macros.o \
 	input_macros.o
-	mv $(BUILD_PATH)/FULL_TO7.bin .
+	mv $(BUILD_PATH)/XLIB.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap FULL_TO7.bin
-	rm ./FULL_TO7.bin
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
+	rm ./XLIB.bin
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
 
 

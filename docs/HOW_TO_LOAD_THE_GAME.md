@@ -1439,7 +1439,7 @@ Attach .sap image
 
 Type
 
-loadm "FULL_TO7.BIN"
+loadm "XLIB.bin"
 
 exec
 
@@ -1448,7 +1448,7 @@ In order to load at an address lower than $A000 by <offset> bytes, you need to u
 
 CLEAR ,,,&h8000
 
-loadm "FULL_TO7.BIN",<offset>
+loadm "XLIB.bin",<offset>
 
 exec
 
@@ -1457,7 +1457,7 @@ Cross Snake may need to be loaded at a lower start address than $A000, so you ne
 
 CLEAR ,,,&h8000
 
-loadm "FULL_TO7.BIN",-1024
+loadm "XLIB.bin",-1024
 
 Example 2:
 Cross Shoot may need even more memory than Cross Snake. So you need to do:

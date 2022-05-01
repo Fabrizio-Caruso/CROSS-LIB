@@ -60,6 +60,7 @@ extern uint16_t points;
 extern uint8_t ghostCount;
 
 extern Image BROKEN_BRICK_IMAGE;
+extern Image DESTROYER_IMAGE;
 extern Image INVINCIBILITY_IMAGE;
 
 uint8_t playerKilledBy(Character *enemyPtr);
@@ -122,7 +123,7 @@ void deleteCharacter(Character * characterPtr);
     #define _DRAW_PLAYER() \
         if(destroyerActive)\
         { \
-            DRAW_PLAYER(player._x, player._y, &BROKEN_BRICK_IMAGE); \
+            DRAW_PLAYER(player._x, player._y, &DESTROYER_IMAGE); \
         } \
         else if(invincibilityActive) \
         { \

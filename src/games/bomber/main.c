@@ -244,7 +244,7 @@ do { \
     #define LEVEL_FACTOR_SPEED_UP 2
 #endif 
 
-#if YSize<=16
+#if YSize<=17
     #define AND_MASK 3
 #else
     #define AND_MASK 7

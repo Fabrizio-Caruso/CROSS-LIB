@@ -219,19 +219,20 @@
         // TODO: Remove this hack and handle real black on white background
         #define _XL_WHITE _XL_BLUE
     #else
+        #define _XL_WHITE 2
+
         #define _XL_PURPLE 1
         #define _XL_GREEN 0
         #define _XL_MAGENTA 1
         #define _XL_CYAN ((_XL_PURPLE)+4)
         #define _XL_BLUE _XL_CYAN
         #if !defined(ALTERNATE_COLORS)
-            #define _XL_YELLOW ((_XL_GREEN)+4)
-            #define _XL_RED _XL_YELLOW
+            #define _XL_RED ((_XL_GREEN)+4)
+            #define _XL_YELLOW _XL_WHITE
         #else
             #define _XL_RED ((_XL_GREEN)+4)
             #define _XL_YELLOW _XL_MAGENTA   
         #endif
-        #define _XL_WHITE 2
         
         // TODO: Remove this hack and handle real black on white background
         #define _XL_BLACK _XL_BLUE

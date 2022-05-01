@@ -149,7 +149,7 @@ void DO_DEBUG_ITEMS(void)
 #endif
 
 
-#if defined(EXTRA_TITLE) && YSize>=20
+#if defined(EXTRA_TITLE) && YSize>=17
 static const uint8_t item_tile[6][2] = 
 {
     { _GHOST_TILE, _XL_WHITE },
@@ -170,10 +170,12 @@ static const char item_name[6][8] =
     _XL_M _XL_I _XL_N _XL_E,
 };
 
-#if XSize>16
+#if XSize>16 && YSize>19
     #define _NEXT_ROW 2
+    #define _Y_ITEMS_OFFSET 0
 #else
-    #define _NEWT_ROW 1
+    #define _NEXT_ROW 1
+    #define _Y_ITEMS_OFFSET 1
 #endif
 
 
@@ -184,9 +186,9 @@ do \
     \
     for(i=0;i<6;++i) \
     { \
-        _XL_DRAW(XSize/2-5,YSize/3+1+i*_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+        _XL_DRAW(XSize/2-5,YSize/3+1+i*_NEXT_ROW+_Y_ITEMS_OFFSET, item_tile[i][0], item_tile[i][1]); \
         _XL_SET_TEXT_COLOR(_XL_GREEN); \
-        _XL_PRINT(XSize/2-5+3,YSize/3+1+i*_NEXT_ROW, (char *)item_name[i]); \
+        _XL_PRINT(XSize/2-5+3,YSize/3+1+i*_NEXT_ROW+_Y_ITEMS_OFFSET, (char *)item_name[i]); \
     } \
 } while(0)
 
@@ -280,7 +282,7 @@ void initialScreen(void)
     _XL_CLEAR_SCREEN();                    
     printStartMessage();
     
-    #if defined(EXTRA_TITLE) && YSize>=20
+    #if defined(EXTRA_TITLE) && YSize>=17
     display_items();
     #endif 
     

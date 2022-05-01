@@ -184,7 +184,7 @@ do { \
 #define displayScore() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(2,0,5,score); \
+    _XL_PRINTD(2,0,4,score); \
 } while(0)
 
 #define displayRemainingBuilings() \
@@ -193,17 +193,17 @@ do { \
     _XL_PRINTD(9,0,2,remaining_buildings); \
 } while(0)
 
-#define displayHiScore() \
+#define displayHiScore(xpos) \
 do { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize-5,0,5,hiscore); \
+    _XL_PRINTD(xpos,0,4,hiscore); \
 } while(0)
 
 
 #define displayLevel() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize-8,0,1,level); \
+    _XL_PRINTD(XSize-7,0,1,level); \
 } while(0)
 
 #define displayLevelMessage() \
@@ -346,6 +346,10 @@ int main(void)
         explosion = 0;
 
         _XL_CLEAR_SCREEN();
+        
+        _XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED);
+        
+        displayHiScore(XSize/2-2);
             
         _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
@@ -404,9 +408,9 @@ int main(void)
             _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE, _XL_CYAN);
             _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE, _XL_CYAN);
             
-            _XL_DRAW(XSize-6,0,HI_TEXT_TILE, _XL_RED);
+            _XL_DRAW(XSize-5,0,HI_TEXT_TILE, _XL_RED);
             #if XSize>=20
-                _XL_DRAW(XSize-9,0,LV_TEXT_TILE, _XL_GREEN);
+                _XL_DRAW(XSize-8,0,LV_TEXT_TILE, _XL_GREEN);
                 displayLevel();
             #endif
             #if XSize>=20
@@ -415,7 +419,7 @@ int main(void)
             #endif
             
             
-            displayHiScore();
+            displayHiScore(XSize-4);
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
             {
                 // Land safely
@@ -539,7 +543,7 @@ int main(void)
                 _XL_PRINT(1,4,_BONUS__STRING);
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
                 {
-                    _XL_PRINTD(7,4,5,bonus_ind);
+                    _XL_PRINTD(7,4,4,bonus_ind);
                     _XL_SHOOT_SOUND();
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

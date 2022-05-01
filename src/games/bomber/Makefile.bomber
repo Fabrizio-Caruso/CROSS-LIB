@@ -264,7 +264,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DXSize=20 -DYSize=24 \
+	-D_XL_SLOW_DOWN_FACTOR=400 -DXSize=20 -DYSize=24 \
 	-DSOUNDS -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -287,7 +287,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	-DFULL_GAME -DALT_SLEEP -DANIMATE_PLAYER \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DXSize=20 -DYSize=24 \
+	-D_XL_SLOW_DOWN_FACTOR=400 -DXSize=20 -DYSize=24 \
 	-DSOUNDS -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \

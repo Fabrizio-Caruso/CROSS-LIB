@@ -73,9 +73,9 @@
 
     #if !defined(_TILE_24)
         #if !defined(__CIDELSA__)
-            #define _TILE_24 '*'
+            #define _TILE_24 'W'
         #else
-            #define _TILE_24 'H'
+            #define _TILE_24 'W'
         #endif
     #endif 
 
@@ -289,9 +289,9 @@
 
     #if !defined(_TILE_24)
         #if !defined(__CIDELSA__)
-            #define _TILE_24 '*'
+            #define _TILE_24 'W'
         #else
-            #define _TILE_24 'H'
+            #define _TILE_24 'W'
         #endif
     #endif 
 

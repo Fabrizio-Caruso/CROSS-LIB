@@ -113,7 +113,19 @@ void deleteCharacter(Character * characterPtr);
 			}	
 	#else
 		#define _DRAW_PLAYER() \
-            DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			do \
+            { \
+                if(invincibilityActive) \
+                { \
+                    player._imagePtr->_color = _XL_YELLOW; \
+                } \
+                else \
+                { \
+                    player._imagePtr->_color = _XL_CYAN; \
+                } \
+				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+            } while(0)
+            
 	#endif
 #else
 	#define _DRAW_PLAYER() \

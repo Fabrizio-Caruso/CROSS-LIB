@@ -208,8 +208,12 @@
         #define _XL_CYAN ((_XL_PURPLE)+4)
         #define _XL_BLUE _XL_CYAN
         #if !defined(ALTERNATE_COLORS)
-            #define _XL_YELLOW ((_XL_GREEN)+4)
-            #define _XL_RED _XL_YELLOW
+            #define _XL_RED ((_XL_GREEN)+4)
+            #if !defined(_APPLE_YELLOW_IS_PURPLE)
+                #define _XL_YELLOW _XL_WHITE
+            #else
+                #define _XL_YELLOW _XL_MAGENTA
+            #endif
         #else
             #define _XL_RED ((_XL_GREEN)+4)
             #define _XL_YELLOW _XL_MAGENTA   
@@ -228,7 +232,11 @@
         #define _XL_BLUE _XL_CYAN
         #if !defined(ALTERNATE_COLORS)
             #define _XL_RED ((_XL_GREEN)+4)
-            #define _XL_YELLOW _XL_WHITE
+            #if !defined(_APPLE_YELLOW_IS_PURPLE)
+                #define _XL_YELLOW _XL_WHITE
+            #else
+                #define _XL_YELLOW _XL_MAGENTA
+            #endif
         #else
             #define _XL_RED ((_XL_GREEN)+4)
             #define _XL_YELLOW _XL_MAGENTA   

@@ -275,8 +275,8 @@ void fillLevelWithCharacters(void)
         {
             ghostCount = 2+(level>>2);
             #if !defined(_XL_NO_COLOR)
-                SKULL_IMAGE._color = _XL_WHITE;
-                BOMB_IMAGE._color = _XL_CYAN;
+                SKULL_IMAGE._color = _XL_CYAN;
+                BOMB_IMAGE._color = _XL_YELLOW;
             #endif
         }
         #if !defined(_XL_NO_COLOR)

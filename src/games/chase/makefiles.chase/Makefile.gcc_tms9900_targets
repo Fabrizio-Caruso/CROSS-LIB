@@ -49,10 +49,10 @@ TI99_OPTS ?= \
 	-D__TI99__ -nostdlib \
 	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
 	-DYSize=24 -DBUGGY_MOD5 -DBUGGY_VERTICAL_DRAW \
-	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DFULL_GAME \
+	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DFULL_GAME -DEXTRA_TITLE \
 	-DTI99_COLOR -DSOUNDS \
 	-DNO_SET_SCREEN_COLORS \
-	-D_XL_SLOW_DOWN_FACTOR=900
+	-D_XL_SLOW_DOWN_FACTOR=1200
 
 ##################################################################################################
 

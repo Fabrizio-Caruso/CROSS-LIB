@@ -112,20 +112,24 @@ void deleteCharacter(Character * characterPtr);
 				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
 			}	
 	#else
-		#define _DRAW_PLAYER() \
-			do \
-            { \
-                if(invincibilityActive) \
+        #if !defined(_XL_NO_COLOR)
+            #define _DRAW_PLAYER() \
+                do \
                 { \
-                    player._imagePtr->_color = _XL_YELLOW; \
-                } \
-                else \
-                { \
-                    player._imagePtr->_color = _XL_CYAN; \
-                } \
-				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-            } while(0)
-            
+                    if(invincibilityActive) \
+                    { \
+                        player._imagePtr->_color = _XL_YELLOW; \
+                    } \
+                    else \
+                    { \
+                        player._imagePtr->_color = _XL_CYAN; \
+                    } \
+                    DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+                } while(0)
+        #else
+            #define _DRAW_PLAYER() \
+                DRAW_PLAYER(player._x, player._y, player._imagePtr);
+        #endif
 	#endif
 #else
 	#define _DRAW_PLAYER() \

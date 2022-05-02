@@ -9,7 +9,7 @@ void NOISE(uint16_t duration, uint8_t period);
 
 void CLICK(uint16_t duration, uint8_t period);
 
-#define _XL_EXPLOSION_SOUND() NOISE(1000,5)
+#define _XL_EXPLOSION_SOUND() NOISE(1000,4)
 
 #define _XL_SHOOT_SOUND() NOISE(400,6)
 

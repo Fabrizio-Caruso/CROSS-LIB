@@ -1710,7 +1710,9 @@ EA5 files are loaded as follows:
 
 - Press 5 to run a file
 
-- Enter DSK1.<file name>
+- Enter DSK1.(file name)1
+
+Example: DSK1.XCHASE1 -> loads Cross Chase
 
 
 

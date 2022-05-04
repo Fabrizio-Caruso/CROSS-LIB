@@ -70,6 +70,8 @@ void displayCharacter(Character * characterPtr);
 
 void deleteCharacter(Character * characterPtr);
 
+uint8_t onWall(uint8_t x, uint8_t y);
+
 //
 
 #if defined(ANIMATE_PLAYER)

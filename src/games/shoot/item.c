@@ -174,14 +174,14 @@ void bombChargeEffect(void)
     
     for(i=0;i<BOMBS_NUMBER;++i)
     {
-        if(wallReached(&bombs[i]))
-        {
-            DRAW_BROKEN_BRICK(bombs[i]._x, bombs[i]._y);
-        }
-        else
-        {
+        // if(wallReached(&bombs[i]))
+        // {
+            // DRAW_BROKEN_BRICK(bombs[i]._x, bombs[i]._y);
+        // }
+        // else
+        // {
             deleteBomb(&bombs[i]);
-        }
+        // }
     }
 
     initializeBombs();

@@ -154,6 +154,12 @@ uint8_t isCharacterAtLocation(uint8_t x, uint8_t y, Character * characterPtr)
 }
 
 
+uint8_t onWall(uint8_t x, uint8_t y)
+{
+    return(x==0)||(x==XSize-1) || 
+          (y==0)||(y==YSize-1);
+}
+
 uint8_t wallReached(register Character *characterPtr)
 {
     return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 

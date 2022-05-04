@@ -153,7 +153,7 @@ void handle_bomb(void)
             candidate_bomb_y = player._y;        
         }
         
-        if(not_stacked(candidate_bomb_x,candidate_bomb_y))
+        if(not_stacked(candidate_bomb_x,candidate_bomb_y) && !onWall(candidate_bomb_x,candidate_bomb_y))
         {
             _XL_SHOOT_SOUND();
 
@@ -315,6 +315,20 @@ void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
 }
 
 
+
+void restoreWall(uint8_t x, uint8_t y)
+{
+    if((y==0) || (y==YSize-1))
+    {
+        DRAW_CHARACTER(x,y,&HORIZONTAL_BRICK_IMAGE);
+    }
+    else
+    {
+        DRAW_CHARACTER(x,y,&VERTICAL_BRICK_IMAGE);
+    }
+}
+
+
 void checkBulletVsGhost(Character * bulletPtr,
                         uint8_t bulletDirection,
                         register Character * ghostPtr)
@@ -346,7 +360,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                 {
                     points+=GHOST_VS_WALL_BONUS;
                     ghostDies(ghostPtr);
-                    DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
+                    restoreWall(ghostPtr->_x, ghostPtr->_y);
                     if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
                         {
                             spawnGhost(ghostPtr,ghostCount);
@@ -452,18 +466,6 @@ void destroyHorizontalMissile(Character * horizontalMissilePtr)
     reduceItemCoolDowns();        
 }
 
-
-void restoreWall(uint8_t x, uint8_t y)
-{
-    if((y==0) || (y==YSize-1))
-    {
-        DRAW_CHARACTER(x,y,&HORIZONTAL_BRICK_IMAGE);
-    }
-    else
-    {
-        DRAW_CHARACTER(x,y,&VERTICAL_BRICK_IMAGE);
-    }
-}
 
 void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
 {

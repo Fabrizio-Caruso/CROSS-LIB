@@ -199,7 +199,7 @@
     #endif
 
     #if !defined(_TILE_11)
-        #if defined(__CIDELSA__) || defined(__MC10__)
+        #if defined(__CIDELSA__)
             #define _TILE_11 'O'
         #else
             #define _TILE_11 '.'

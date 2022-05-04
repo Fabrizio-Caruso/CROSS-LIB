@@ -8,10 +8,9 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-API_VERSION=1
+API_VERSION=2
 
-GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII 
-#-D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII -D_API_VERSION=$(API_VERSION)
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -485,17 +484,31 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 
+
 #################################################################
 
 # c64: c64_exomized
+
+
+c64_test: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64  \
+	-DANIMATE_PLAYER -DSOUNDS -D_API_VERSION=$(API_VERSION) \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DMEMORY_MAPPED -DALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=250 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 	# -D_XL_SLOW_DOWN_FACTOR=990 -DINITIAL_GHOST_SLOWDOWN=31000 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg -DEXTRA_TITLE  \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
+	-DMEMORY_MAPPED  -DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
@@ -557,7 +570,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
-	-DFULL_GAME \
+	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=1000 \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER -DTRANSITION_ANIMATION \
@@ -599,11 +612,11 @@ creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
 
-creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
+creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	--config $(CFG_PATH)/cc65/creativision-16k_2.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_18k.bin
@@ -653,20 +666,20 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 vic20: vic20_exp_16k
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
-	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
+	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DUSE_MEMORY_BUFFERS \
 	-D_XL_SLOW_DOWN_FACTOR=800 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
-	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
+	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/sleep.c \
+	$(SOURCE_PATH)/end_screen.c \
 	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/sleep.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
@@ -1149,7 +1162,7 @@ zx81: zx81_no_gfx
 
 zx81_no_gfx: zx81_no_gfx_32k
 
-zx81_no_gfx_32k:
+zx81_no_gfx_32k_v1:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) -compiler=sdcc   \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
@@ -1162,12 +1175,15 @@ zx81_no_gfx_32k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-zx81_no_gfx_32k_v2:
+# v2
+# -DEXTRA_TITLE
+# -pragma-define:REGISTER_SP=49151
+zx81_no_gfx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) -compiler=sdcc  -DEXTRA_TITLE \
+	$(INCLUDE_OPTS) -compiler=sdcc   \
 	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
-	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=1 \
-	-vn -pragma-define:REGISTER_SP=49151 \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
+	-vn  \
 	-D__ZX81__ -DFULL_GAME \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1189,7 +1205,7 @@ CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DALT_PRIN
 
 NO_UDG_OPS      ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS  -D_XL_SLOW_DOWN_FACTOR=20 -DSOUNDS
 
-GFX_OPTS        ?= $(CMOC_OPTS) -DBIT_MAPPED -D_XL_SLOW_DOWN_FACTOR=150  -DEXTRA_TITLE
+GFX_OPTS        ?= $(CMOC_OPTS) -DBIT_MAPPED -D_XL_SLOW_DOWN_FACTOR=300  -DEXTRA_TITLE
 
 COCO_OPTS       ?= -D__COCO__ $(NO_UDG_OPS)  -DEXTRA_TITLE -DALT_SLEEP
 

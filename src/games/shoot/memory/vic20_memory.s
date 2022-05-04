@@ -213,11 +213,11 @@ _BOMB_IMAGE = _GHOST_IMAGE + $2
 .export _ind;
 _ind = _BOMB_IMAGE + $2
 
-.export _POWERUP_IMAGE;
-_POWERUP_IMAGE = _ind + 1
+.export _CALM_DOWN_IMAGE;
+_CALM_DOWN_IMAGE = _ind + 1
 
 .export _BULLET_IMAGE;
-_BULLET_IMAGE = _POWERUP_IMAGE + $2
+_BULLET_IMAGE = _CALM_DOWN_IMAGE + $2
 
 .export _GUN_IMAGE;
 _GUN_IMAGE = _BULLET_IMAGE + $2

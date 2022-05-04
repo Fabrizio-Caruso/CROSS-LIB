@@ -1128,7 +1128,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg  -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg  -DEXTRA_TITLE -DNO_COLORED_PLAYER \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCC65_GOTO -D_XL_SLOW_DOWN_FACTOR=2800 \

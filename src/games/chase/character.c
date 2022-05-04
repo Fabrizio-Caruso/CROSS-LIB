@@ -49,6 +49,7 @@ extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 extern Character player;
 
+extern uint8_t invincibilityActive;
 
 #if !defined(NO_BLINKING)
 void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter) 
@@ -66,6 +67,17 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 }
 #endif
 
+#if defined(FULL_GAME) && !defined(_XL_NO_COLOR) && !defined(NO_COLORED_PLAYER)
+void _DRAW_PLAYER(void)
+{
+    if(invincibilityActive)
+    {
+        player._imagePtr->_color = _XL_YELLOW;
+    }
+    DRAW_PLAYER(player._x, player._y, player._imagePtr);
+    player._imagePtr->_color = _XL_CYAN;
+}
+#endif
 
 void displayCharacter(register Character * characterPtr)
 {

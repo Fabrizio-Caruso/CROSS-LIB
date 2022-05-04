@@ -27,6 +27,7 @@
 
 #include "settings.h"
 
+
 struct CharacterStruct
 {
     // character coordinates
@@ -117,34 +118,7 @@ void deleteCharacter(Character * characterPtr);
 #define DRAW_BOMB(x,y,image) DRAW_CHARACTER(x,y,image)
 #define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
 
-
-
-#if defined(NO_BLINKING)
-    #define _DRAW_PLAYER() \
-        if(destroyerActive)\
-        { \
-            DRAW_PLAYER(player._x, player._y, &DESTROYER_IMAGE); \
-        } \
-        else if(invincibilityActive) \
-        { \
-            DRAW_PLAYER(player._x, player._y, &INVINCIBILITY_IMAGE); \
-        } \
-        else \
-        { \
-            DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-        }    
-#else
-    #define _DRAW_PLAYER() \
-        if(destroyerActive)\
-        { \
-            DRAW_PLAYER(player._x, player._y, &BROKEN_BRICK_IMAGE); \
-        } \
-        else \
-        { \
-            DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-        }
-#endif
-
+void _DRAW_PLAYER(void);
 
 #if !defined(NO_BLINKING)
 void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);

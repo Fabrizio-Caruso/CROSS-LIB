@@ -58,6 +58,29 @@ extern uint8_t maxGhostsOnScreen;
 extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;
 
+extern uint8_t invincibilityActive;
+extern uint8_t destroyerActive;
+
+void _DRAW_PLAYER(void)
+{
+    if(destroyerActive)
+    {
+        DRAW_PLAYER(player._x, player._y, &DESTROYER_IMAGE);
+    }
+#if !defined(_XL_NO_COLOR)
+    // Color case: player gets a different color when invincible
+    else if(invincibilityActive)
+    {
+        player._imagePtr->_color = _XL_YELLOW;
+        DRAW_PLAYER(player._x, player._y, player._imagePtr);
+        player._imagePtr->_color = _XL_CYAN;
+    }
+#endif
+    else
+    {
+        DRAW_PLAYER(player._x, player._y, player._imagePtr);
+    }
+}
 
 
 #if !defined(NO_BLINKING)

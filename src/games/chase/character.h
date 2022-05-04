@@ -99,42 +99,12 @@ void deleteCharacter(Character * characterPtr);
 #define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
 
 
-
-#if defined(FULL_GAME) 
-	#if defined(NO_BLINKING)
-		#define _DRAW_PLAYER() \
-			if(invincibilityActive) \
-			{ \
-				DRAW_PLAYER(player._x, player._y, &INVINCIBILITY_IMAGE); \
-			} \
-			else \
-			{ \
-				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-			}	
-	#else
-        #if !defined(_XL_NO_COLOR)
-            #define _DRAW_PLAYER() \
-                do \
-                { \
-                    if(invincibilityActive) \
-                    { \
-                        player._imagePtr->_color = _XL_YELLOW; \
-                    } \
-                    else \
-                    { \
-                        player._imagePtr->_color = _XL_CYAN; \
-                    } \
-                    DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-                } while(0)
-        #else
-            #define _DRAW_PLAYER() \
-                DRAW_PLAYER(player._x, player._y, player._imagePtr);
-        #endif
-	#endif
+#if defined(FULL_GAME) && !defined(_XL_NO_COLOR) && !defined(NO_COLORED_PLAYER)
+    void _DRAW_PLAYER(void);
 #else
-	#define _DRAW_PLAYER() \
-		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
+    #define _DRAW_PLAYER() DRAW_PLAYER(player._x, player._y, player._imagePtr)
 #endif
+
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 

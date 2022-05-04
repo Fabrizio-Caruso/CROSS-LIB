@@ -575,7 +575,7 @@ int main(void)
                         playerDies();
                     }
 
-                #if defined(FULL_GAME) && !defined(NO_BLINKING)
+                #if defined(FULL_GAME)
                     if(invincibilityActive)
                         {
                             DELETE_CHARACTER(player._x, player._y);

@@ -53,6 +53,8 @@ extern uint8_t isBossLevel;
 extern Character ghosts[GHOSTS_NUMBER];
 
 extern Image DEAD_GHOST_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
+extern Image HORIZONTAL_BRICK_IMAGE;
 
 extern uint8_t level;
 
@@ -451,6 +453,18 @@ void destroyHorizontalMissile(Character * horizontalMissilePtr)
 }
 
 
+void restoreWall(uint8_t x, uint8_t y)
+{
+    if((y==0) || (y==YSize-1))
+    {
+        DRAW_CHARACTER(x,y,&HORIZONTAL_BRICK_IMAGE);
+    }
+    else
+    {
+        DRAW_CHARACTER(x,y,&VERTICAL_BRICK_IMAGE);
+    }
+}
+
 void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
 {
     if(bulletPtr->_status && (wallReached(bulletPtr) || innerVerticalWallReached(bulletPtr->_x, bulletPtr->_y) || innerHorizontalWallReached(bulletPtr->_x, bulletPtr->_y)))
@@ -491,7 +505,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 }
             }
         }            
-        DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
+        restoreWall(bulletPtr->_x, bulletPtr->_y);
         displayStatsTitles();
         displayStats();
     }

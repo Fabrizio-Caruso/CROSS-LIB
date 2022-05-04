@@ -421,7 +421,11 @@ void fillLevelWithCharacters(void)
     initializeAwayFromWall(&(fireCharge._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
     
     #if defined(NO_BLINKING)
+        #if !(_XL_NO_COLOR)
+        initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BROKEN_BRICK_IMAGE);
+        #else
         initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&VERTICAL_BRICK_IMAGE);
+        #endif
     #else
         initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
     #endif

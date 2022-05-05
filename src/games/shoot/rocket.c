@@ -67,7 +67,6 @@ extern uint8_t isBossLevel;
                     if(rockets[i]._y<=1)
                     {    
                         deleteRocket(&rockets[i]);
-                        rockets[i]._x = (i+1)*(XSize/(rocketsOnScreen+1));
                         rockets[i]._y = YSize-2;                            
                     }
                 }

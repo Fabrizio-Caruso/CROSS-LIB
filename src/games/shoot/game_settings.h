@@ -75,7 +75,12 @@
 #endif
 
 #define FIRST_LEVEL_GHOSTS_NUMBER 10
-#define ZERO_LEVEL_GHOSTS_NUMBER 99
+
+// 65 is the max value that does not exceed 1000 points
+// bonus = 20 + 25 * [level] + 15 * [ghosts left]
+// level  0: 20 + 25* 0 + 15 * 65 = 20 +   0 + 975 = 995
+// level 15: 20 + 25*15 + 15 * 30 = 20 + 375 + 450 = 845
+#define ZERO_LEVEL_GHOSTS_NUMBER 65
 
 #if XSize>=22
     #define MAX_ROCKETS_NUMBER 6

@@ -127,7 +127,7 @@ _chasedByGhosts = _chasedEnemyPtr + $2
 _rockets_x = _chasedByGhosts + $2
 
 .export _extraLife_present_on_level;
-_extraLife_present_on_level = _rockets_x + $4
+_extraLife_present_on_level = _rockets_x + $6
 
 .export _super_present_on_level;
 _super_present_on_level = _extraLife_present_on_level + $1

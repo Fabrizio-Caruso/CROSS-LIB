@@ -78,8 +78,9 @@
 
 // 65 is the max value that does not exceed 1000 points
 // bonus = 20 + 25 * [level] + 15 * [ghosts left]
-// level  0: 20 + 25* 0 + 15 * 65 = 20 +   0 + 975 = 995
-// level 15: 20 + 25*15 + 15 * 30 = 20 + 375 + 450 = 845
+// level  0: 20 + 25* 0 + 15*65 = 20 +   0 + 975 = 995
+// level 15: 20 + 25*15 + 15*30 = 20 + 375 + 450 = 845
+// level 16: 20 + 25*16 + 15*10 = 20 + 400 + 150 = 570
 #define ZERO_LEVEL_GHOSTS_NUMBER 65
 
 #if XSize>=22

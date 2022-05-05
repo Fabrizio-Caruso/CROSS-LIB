@@ -315,12 +315,23 @@ void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
 }
 
 
-
-void restoreWall(uint8_t x, uint8_t y)
+// TODO: Restore missile bases if still active
+void restoreRocketsOnWall(uint8_t x, uint8_t y)
 {
     if((y==0) || (y==YSize-1))
     {
         DRAW_CHARACTER(x,y,&HORIZONTAL_BRICK_IMAGE);
+        if(ghostCount>MAX_GHOST_COUNT_FOR_ROCKETS)
+        {
+            uint8_t i;
+            for(i=0;i<rocketsOnScreen;i++)
+            {
+                if(rockets[i]._status)
+                {
+                    displayRocket(&rockets[i]);
+                }
+            }
+        }
     }
     else
     {
@@ -360,7 +371,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                 {
                     points+=GHOST_VS_WALL_BONUS;
                     ghostDies(ghostPtr);
-                    restoreWall(ghostPtr->_x, ghostPtr->_y);
+                    restoreRocketsOnWall(ghostPtr->_x, ghostPtr->_y);
                     if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
                         {
                             spawnGhost(ghostPtr,ghostCount);
@@ -496,7 +507,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
             uint8_t i;
             for(i=0;i<rocketsOnScreen;++i)
             {
-                if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
+                if((bulletPtr->_x==rockets_x[i]) && rockets[i]._status)
                 {
                     rockets[i]._status = 0;
                     ++destroyed_bases;
@@ -507,7 +518,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 }
             }
         }            
-        restoreWall(bulletPtr->_x, bulletPtr->_y);
+        restoreRocketsOnWall(bulletPtr->_x, bulletPtr->_y);
         displayStatsTitles();
         displayStats();
     }

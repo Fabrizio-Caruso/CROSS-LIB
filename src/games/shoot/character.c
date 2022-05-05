@@ -160,10 +160,11 @@ uint8_t onWall(uint8_t x, uint8_t y)
           (y==0)||(y==YSize-1);
 }
 
-uint8_t wallReached(register Character *characterPtr)
+uint8_t wallReached(Character *characterPtr)
 {
-    return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
-           (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
+    // return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
+           // (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
+   return onWall(characterPtr->_x, characterPtr->_y);
 }
 
 

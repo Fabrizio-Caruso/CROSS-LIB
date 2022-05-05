@@ -346,30 +346,7 @@ void fillLevelWithCharacters(void)
         DRAW_BORDERS();
     #endif
     
-    
-    // if(isRocketLevel)
-    // {
-        // if(isBossLevel)
-        // {
-            // rocketsOnScreen = 4;
-        // }
-        // else if (!isInnerVerticalWallLevel)
-        // {
-            // rocketsOnScreen = MAX_ROCKETS_NUMBER;
-        // }
-        // else if(level>=6)
-        // {
-            // rocketsOnScreen = 3;
-        // }
-        // else 
-        // {
-            // rocketsOnScreen = 2;
-        // }
-    // }
-    
-    // if(rocketsOnScreen)
-    // {
-        
+
     #if XSize==40
         #define NEXT_ROCKET_INDEX (((i+1)*(XSize))/(rocketsOnScreen+1))
     #else

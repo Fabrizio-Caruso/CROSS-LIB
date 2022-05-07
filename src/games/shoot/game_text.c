@@ -83,7 +83,13 @@ void displayStatsTitles(void)
 
 void displayStats(void)
 {
-    displayScoreStats();            
+    displayScoreStats();
+    #if XSize>=32
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT(XSize-10,0,"HI");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-8, 0, 5, highScore );  
+    #endif
     printLevelStats();
     printLivesStats();
     printGunsStats();

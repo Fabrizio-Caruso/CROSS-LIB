@@ -28,6 +28,7 @@
 #define _PLAYER_RIGHT_MOVE_TILE        _TILE_23
 #define _DESTROYER_TILE                _TILE_24
 #define _EXTRA_POINTS_TILE             _TILE_25
+#define _FAST_GHOST_TILE               _TILE_26
 
 #define _PLAYER_COLOR _XL_CYAN
 #define _GHOST_COLOR _XL_WHITE
@@ -50,7 +51,7 @@
 #define _CONFUSE_COLOR _XL_RED
 #define _SUICIDE_COLOR _XL_YELLOW
 #define _DESTROYER_COLOR _XL_YELLOW
-
+#define _FAST_GHOST_COLOR _XL_GREEN
 
 void INIT_IMAGES(void);
 

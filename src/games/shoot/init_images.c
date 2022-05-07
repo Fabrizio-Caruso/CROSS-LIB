@@ -61,6 +61,7 @@ void INIT_IMAGES(void)
 			PLAYER_IMAGE._color = _PLAYER_COLOR;
 		#endif	
 	
+        FAST_GHOST_IMAGE._color = _FAST_GHOST_COLOR;
 		BOMB_IMAGE._color = _BOMB_COLOR;
 		GHOST_IMAGE._color = _GHOST_COLOR;		
 		
@@ -140,6 +141,7 @@ void INIT_IMAGES(void)
     BROKEN_BRICK_IMAGE._imageData = _BOMB_TILE;
     
     DESTROYER_IMAGE._imageData = _DESTROYER_TILE;
+    FAST_GHOST_IMAGE._imageData = _FAST_GHOST_TILE;
 #endif 
 }
 

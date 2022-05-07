@@ -467,7 +467,18 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             playerFire = 0;
-            
+
+            if(fireChargeSecret)
+            {
+                guns = SECRET_GUNS;
+                setSecret(FIRE_CHARGE_AT_START_SECRET_INDEX);
+                fireChargeSecret = 0;
+            }
+            else
+            {
+                guns = 0;
+            }
+
             fillLevelWithCharacters();            
             
             if(firePowerLevelSecret)
@@ -489,16 +500,7 @@ int main(void)
             
             resetItems();
             
-            if(fireChargeSecret)
-            {
-                guns = SECRET_GUNS;
-                setSecret(FIRE_CHARGE_AT_START_SECRET_INDEX);
-                fireChargeSecret = 0;
-            }
-            else
-            {
-                guns = 0;
-            }
+
             displayStats();
 
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts

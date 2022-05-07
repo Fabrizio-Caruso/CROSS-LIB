@@ -50,30 +50,21 @@
         maxGhostsOnScreen = 8;
         isBossLevel = 0;
 		fillLevelWithCharacters();
-        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 
-		playerFire = 0;
 		skulls[0]._x = player._x-4;
 		skulls[0]._y = player._y;
-		bullet._status = 0;
-		guns = 1;
-		while(!playerFire && !wallReached(&player))
-		{
-			for(ind=0;ind<maxGhostsOnScreen;++ind)
-			{
-				displayCharacter(&ghosts[ind]);
-			}
-			
-			displayPlayer(&player);
-			displaySkull(&skulls[0]);
-		
-			_XL_PRINT(XSize/2-3, MESSAGE_START,  YOU_MADE_IT_STRING);
-			#if _XL_SLOW_DOWN_FACTOR>0
-				for(ind=0;ind<254;++ind){};
-			#endif
-					
-			MOVE_PLAYER();
-		}
+
+        for(ind=0;ind<maxGhostsOnScreen;++ind)
+        {
+            displayCharacter(&ghosts[ind]);
+        }
+        
+        displayPlayer(&player);
+        displaySkull(&skulls[0]);
+    
+        _XL_PRINT(XSize/2-3, MESSAGE_START,  YOU_MADE_IT_STRING);
+
+        _XL_WAIT_FOR_INPUT();
 	}
 #endif
 

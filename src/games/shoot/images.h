@@ -72,6 +72,7 @@ Image DEAD_GHOST_IMAGE;
     
     extern Image BROKEN_BRICK_IMAGE;
     Image DESTROYER_IMAGE;
+    Image FAST_GHOST_IMAGE;
 #else	
     
     Image LEFT_HORIZONTAL_MISSILE_IMAGE;
@@ -93,6 +94,7 @@ Image DEAD_GHOST_IMAGE;
     Image BROKEN_BRICK_IMAGE;
     
     Image DESTROYER_IMAGE;
+    Image FAST_GHOST_IMAGE;
 #endif
 
 

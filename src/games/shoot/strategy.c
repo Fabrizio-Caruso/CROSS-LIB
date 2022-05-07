@@ -52,11 +52,21 @@ extern uint8_t isInnerVerticalWallLevel;
 extern uint16_t ghostSlowDown;
 
 
-#if defined(__NCURSES__)
-    #define GHOST_RANDOM_CONDITION ((_XL_RAND())>ghostSlowDown)
-#else
-    #define GHOST_RANDOM_CONDITION ((_XL_RAND())>ghostSlowDown)
-#endif
+
+#define GHOST_RANDOM_CONDITION() ((_XL_RAND())>ghostSlowDown)
+
+#define FAST_GHOST_RANDOM_CONDITION() ((_XL_RAND())>(ghostSlowDown>>1))
+
+
+uint8_t ghost_move_condition(void)
+{
+    return GHOST_RANDOM_CONDITION();
+}
+
+uint8_t fast_ghost_move_condition(void)
+{
+    return FAST_GHOST_RANDOM_CONDITION();
+}
 
 
 // Required by horizontal missile
@@ -423,13 +433,41 @@ void chaseCharacter(void)
     #if defined(DEBUG_GHOST_DISPLAY)
         SET_DEBUG_BORDER();
     #endif
+    for(i=0;i<maxGhostsOnScreen;++i)
+    {
+        if(ghosts[i]._status)    
+        {
+            if(((ghosts[i]._status==2)&&(fast_ghost_move_condition())) || ghost_move_condition())
+            {
+                if(isInnerVerticalWallLevel)
+                {
+                    #if !defined(SIMPLE_STRATEGY)
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    #else
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i]);        
+                    #endif
+                }
+                else
+                {
+                    #if !defined(SIMPLE_STRATEGY)
+                        horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    #else
+                        horizontalWallMoveTowardCharacter((Character *)&ghosts[i]);        
+                    #endif
+                }
+            }
+            displayGhost(&ghosts[i]);
+        }
+    }
+    /*
+    
     if(isInnerVerticalWallLevel)
     {
         for(i=0;i<maxGhostsOnScreen;++i)
         {
             if(ghosts[i]._status)    
             {
-                if(GHOST_RANDOM_CONDITION)
+                if(((ghosts[i]._status==2)&&(fast_ghost_move_condition())) || ghost_move_condition())
                 {
                     #if !defined(SIMPLE_STRATEGY)
                         verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
@@ -447,7 +485,7 @@ void chaseCharacter(void)
         {
             if(ghosts[i]._status)
             {
-                if(GHOST_RANDOM_CONDITION)
+                if(((ghosts[i]._status==2)&&(fast_ghost_move_condition())) || ghost_move_condition())
                 {
                     #if !defined(SIMPLE_STRATEGY)
                         horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
@@ -459,6 +497,8 @@ void chaseCharacter(void)
             }
         }  
     }
+    
+    */
     #if defined(DEBUG_GHOST_DISPLAY)
         UNSET_DEBUG_BORDER();
     #endif

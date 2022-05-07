@@ -460,7 +460,7 @@ plus4: c16_32k
 
 
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB -DEXTRA_TITLE -DTRANSITION_ANIMATION \
 	-DFULL_GAME \
@@ -472,7 +472,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=300 \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -505,11 +505,11 @@ c64_test: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 	# -D_XL_SLOW_DOWN_FACTOR=990 -DINITIAL_GHOST_SLOWDOWN=31000 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg -DEXTRA_TITLE  \
 	-DMEMORY_MAPPED  -DALT_PRINT \
-	-D_XL_SLOW_DOWN_FACTOR=250 \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -651,8 +651,8 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_3.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DALT_PRINT -DALT_SLEEP \
-	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2000 -DTRANSITION_ANIMATION \
+	-DBIT_MAPPED_4 \
+	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2500 -DTRANSITION_ANIMATION \
 	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_ONLY_FILES) \
@@ -673,12 +673,12 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	-D_XL_SLOW_DOWN_FACTOR=800 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/sleep.c \
-	$(SOURCE_PATH)/end_screen.c \
+	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/end_screen.c $(SOURCE_PATH)/sleep.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 vic20_exp_16k_broken: $(ASSETS_PATH)/cc65_udc_arcade_v2.s

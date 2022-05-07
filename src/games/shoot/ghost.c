@@ -32,6 +32,7 @@
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
+extern Image FAST_GHOST_IMAGE;
 
 extern uint8_t maxGhostsOnScreen;
 extern uint16_t ghostLevel;
@@ -39,6 +40,8 @@ extern uint8_t level;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
+
+extern uint8_t guns;
 
 extern uint8_t isBossLevel;
 
@@ -74,32 +77,48 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 
     if(!isBossLevel)
     {
-        switch(ghostIndex % 8)
+        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && ((ghostIndex % 4)==2) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD))
         {
-            case 0:
-                initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 1:
-                initializeCharacter(ghostPtr, XSize-2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 2:
-                initializeCharacter(ghostPtr, 1      , YSize-2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 3:
-                initializeCharacter(ghostPtr, XSize-2,       1, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 4:
-                initializeCharacter(ghostPtr  , 1    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 5:
-                initializeCharacter(ghostPtr, XSize/2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 6:
-                initializeCharacter(ghostPtr, XSize-2, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 7:
-                initializeCharacter(ghostPtr, XSize/2,       1, GHOST_LIFE, &GHOST_IMAGE);
-            break;    
+            initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
+            ghostPtr->_status = 2;
+        }
+        else
+        {
+            switch(ghostIndex % 8)
+            {
+                case 0:
+                    // if(guns>=FAST_GHOST_GUN_THRESHOLD && ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD  && level>=FAST_GHOST_LEVEL_THRESHOLD)
+                    // {
+                        // initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE/8, &FAST_GHOST_IMAGE);
+                        // ghostPtr->_status = 2;
+                    // }
+                    // else
+                    // {
+                        initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE, &GHOST_IMAGE);
+                    // }
+                break;
+                case 1:
+                    initializeCharacter(ghostPtr, XSize-2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 2:
+                    initializeCharacter(ghostPtr, 1      , YSize-2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 3:
+                    initializeCharacter(ghostPtr, XSize-2,       1, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 4:
+                    initializeCharacter(ghostPtr  , 1    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 5:
+                    initializeCharacter(ghostPtr, XSize/2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 6:
+                    initializeCharacter(ghostPtr, XSize-2, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 7:
+                    initializeCharacter(ghostPtr, XSize/2,       1, GHOST_LIFE, &GHOST_IMAGE);
+                break;    
+            }
         }
     }
 }

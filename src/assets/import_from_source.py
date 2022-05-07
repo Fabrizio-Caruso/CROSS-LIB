@@ -1,5 +1,5 @@
 
-NUMBER_OF_TILES = 26
+NUMBER_OF_TILES = 27
 
 
 # Patterns used to rip and import tile data
@@ -82,12 +82,17 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
     print("Decoding file tile: " + dest)
     print("")
-    fin = open(dest, "rt")
-    tile_data = fin.read()
-    fin.close()
-    # computed_shape = compute_shape(tile_data,xsize)
-    # print("computed shape: " + str(computed_shape))
-    print_shape(compute_shape(tile_data,xsize))
+    try:
+        fin = open(dest, "rt")
+
+        tile_data = fin.read()
+        # computed_shape = compute_shape(tile_data,xsize)
+        # print("computed shape: " + str(computed_shape))
+        print_shape(compute_shape(tile_data,xsize))
+        
+    except Exception as ex:
+        print("File skipped");
+
 
 
 

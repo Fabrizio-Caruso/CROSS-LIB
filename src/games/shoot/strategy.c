@@ -51,6 +51,7 @@ extern uint8_t isInnerVerticalWallLevel;
 
 extern uint16_t ghostSlowDown;
 
+extern Image FAST_GHOST_IMAGE;
 
 
 #define GHOST_RANDOM_CONDITION() ((_XL_RAND())>ghostSlowDown)
@@ -437,7 +438,7 @@ void chaseCharacter(void)
     {
         if(ghosts[i]._status)    
         {
-            if(((ghosts[i]._status==2)&&(fast_ghost_move_condition())) || ghost_move_condition())
+            if(((ghosts[i]._imagePtr==&FAST_GHOST_IMAGE)&&(fast_ghost_move_condition())) || ghost_move_condition())
             {
                 if(isInnerVerticalWallLevel)
                 {

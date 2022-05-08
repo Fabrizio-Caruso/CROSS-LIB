@@ -79,23 +79,21 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
     {
         if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && ((ghostIndex % 4)==2) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD))
         {
-            initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
-            ghostPtr->_status = 2;
+            if((ghostIndex % 8)==2)
+            {
+                initializeCharacter(ghostPtr  ,  1      ,     1, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
+            }
+            else
+            {
+                initializeCharacter(ghostPtr  ,XSize-2, YSize-2, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
+            }
         }
         else
         {
             switch(ghostIndex % 8)
             {
                 case 0:
-                    // if(guns>=FAST_GHOST_GUN_THRESHOLD && ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD  && level>=FAST_GHOST_LEVEL_THRESHOLD)
-                    // {
-                        // initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE/8, &FAST_GHOST_IMAGE);
-                        // ghostPtr->_status = 2;
-                    // }
-                    // else
-                    // {
-                        initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE, &GHOST_IMAGE);
-                    // }
+                    initializeCharacter(ghostPtr  , 1      ,     1, GHOST_LIFE, &GHOST_IMAGE);
                 break;
                 case 1:
                     initializeCharacter(ghostPtr, XSize-2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);

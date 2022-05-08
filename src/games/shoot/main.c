@@ -675,7 +675,7 @@ int main(void)
                     // _XL_CLEAR_SCREEN();
                 #endif
 
-                handleLevelBonus(BASE_LEVEL_BONUS+LEVEL_BONUS*level+ghostCount*GHOSTS_LEFT_BONUS);
+                handleLevelBonus(((uint16_t)BASE_LEVEL_BONUS)+((uint16_t) LEVEL_BONUS)*((uint16_t) level)+ghostCount*GHOSTS_LEFT_BONUS);
 
                 if(!isBossLevel)
                 {

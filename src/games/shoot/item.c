@@ -366,7 +366,7 @@ void confuseEffect(void)
     
     if(skullActive)
     {
-        for(j=0;j<8;++j)
+        for(j=0;j<12;++j)
         {
             for(i=0;i<SKULLS_NUMBER;++i)
             {
@@ -375,10 +375,10 @@ void confuseEffect(void)
                     // skulls[i]._imagePtr=&CONFUSE_IMAGE;
                     // displaySkull(&skulls[i]);
                     _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_CYAN);
-                    SHORT_SLEEP(2);
                     skulls[i]._imagePtr=&SKULL_IMAGE;
+                    SHORT_SLEEP(6);
                     displaySkull(&skulls[i]);
-                    SHORT_SLEEP(1);
+                    SHORT_SLEEP(3);
                 }
             }
         }
@@ -446,20 +446,25 @@ void handle_destroyer_triggers(void)
 
 void setSecret(uint8_t secretIndex)
 {   if(!discoveredSecrets[secretIndex])
-    {        
-        _XL_TICK_SOUND();
-        _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
-        displayPlayer(&player);
-        #if !defined(NO_MESSAGE)
+    {   
+        #if !defined(_XL_NO_COLOR)
+        uint8_t i;
+        
+        for(i=0;i<5;++i)
+        {
+            _XL_SET_TEXT_COLOR(_XL_RED);
+            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
+            _XL_TOCK_SOUND();
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
+            _XL_TICK_SOUND();
+        }
+        #else
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING); 
         #endif
         _XL_SLEEP(1);
-        _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
-        #if !defined(NO_MESSAGE)
-            _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,EMPTY_STRING);
-        #endif
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,EMPTY_STRING);        
         discoveredSecrets[secretIndex] = 1;
     }
 }

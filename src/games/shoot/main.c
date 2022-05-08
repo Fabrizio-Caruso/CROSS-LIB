@@ -527,6 +527,7 @@ int main(void)
                     _XL_PING_SOUND();
                     ++lives;
                     printLivesStats();
+                    _XL_TICK_SOUND();
                 }
                 
                 handle_bullets();

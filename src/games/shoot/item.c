@@ -366,17 +366,17 @@ void confuseEffect(void)
     
     if(skullActive)
     {
-        for(j=0;j<12;++j)
+        for(j=0;j<9;++j)
         {
             for(i=0;i<SKULLS_NUMBER;++i)
             {
                 if(skulls[i]._status)
                 {
-                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_GFREEN);
-                    skulls[i]._imagePtr=&SKULL_IMAGE;
+                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_GREEN);
+                    SHORT_SLEEP(2);
+                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_RED);
                     SHORT_SLEEP(2);
                     displaySkull(&skulls[i]);
-                    SHORT_SLEEP(1);
                 }
             }
         }

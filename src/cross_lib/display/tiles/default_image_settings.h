@@ -243,7 +243,14 @@
             #define _TILE_13 '-'
         #endif
     #endif
-
+    
+    #if !defined(_TILE_26)
+        #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__) || defined(__COCO__) || defined(__DRAGON__) 
+            #define _TILE_26 't'
+        #else
+            #define _TILE_26 'T'
+        #endif
+    #endif
 // _API_VERSION=1
 #else 
 
@@ -459,6 +466,16 @@
             #define _TILE_13 'I'
         #else
             #define _TILE_13 '-'
+        #endif
+    #endif
+
+
+
+    #if !defined(_TILE_26)
+        #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__) || defined(__COCO__) || defined(__DRAGON__) 
+            #define _TILE_26 't'
+        #else
+            #define _TILE_26 'T'
         #endif
     #endif
 

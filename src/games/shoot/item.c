@@ -370,15 +370,13 @@ void confuseEffect(void)
         {
             for(i=0;i<SKULLS_NUMBER;++i)
             {
-                if(skulls[i]._status && (skulls[i]._imagePtr==&SKULL_IMAGE))
+                if(skulls[i]._status)
                 {
-                    // skulls[i]._imagePtr=&CONFUSE_IMAGE;
-                    // displaySkull(&skulls[i]);
-                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_CYAN);
+                    _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_GFREEN);
                     skulls[i]._imagePtr=&SKULL_IMAGE;
-                    SHORT_SLEEP(6);
+                    SHORT_SLEEP(2);
                     displaySkull(&skulls[i]);
-                    SHORT_SLEEP(3);
+                    SHORT_SLEEP(1);
                 }
             }
         }

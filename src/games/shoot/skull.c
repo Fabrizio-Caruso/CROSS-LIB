@@ -61,6 +61,7 @@ extern uint8_t maxGhostsOnScreen;
 extern Character ghosts[]; 
 
 extern Image GHOST_IMAGE;
+extern Image FAST_GHOST_IMAGE;
 
 // extern uint16_t levelSlowDown;
 
@@ -168,17 +169,24 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=maxGhostsOnScreen))
+        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=BOSS_LEVEL_GHOSTS_NUMBER))
         {
             i=0;
-            while((i<maxGhostsOnScreen)&&(ghosts[i]._status))
+            while((i<BOSS_LEVEL_GHOSTS_NUMBER)&&(ghosts[i]._status))
             {
                 ++i;
             }
-            if(i<maxGhostsOnScreen)
+            if(i<BOSS_LEVEL_GHOSTS_NUMBER)
             {
                 ++ghostCount;
-                initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
+                if(!(_XL_RAND()&7))
+                {
+                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE/2,&FAST_GHOST_IMAGE);
+                }
+                else
+                {
+                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
+                }
                 printGhostCountStats();
             }
             

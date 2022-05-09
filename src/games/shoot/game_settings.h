@@ -161,9 +161,9 @@
     #define BOSS_HITS 254
     #define GHOST_LIFE 30
 #else
-    #define MIN_SKULL_HITS 50
-    #define BOSS_HITS 190
-    #define GHOST_LIFE 25
+    #define MIN_SKULL_HITS 40
+    #define BOSS_HITS 170
+    #define GHOST_LIFE 20
 #endif    
 
 #define BOSS_INDEX 2

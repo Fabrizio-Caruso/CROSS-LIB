@@ -80,7 +80,7 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
     if(!isBossLevel)
     {
-        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (bulletStrength>=FAST_GHOST_FIRE_POWER_THRESHOLD))
+        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD) && (bulletStrength>=FAST_GHOST_FIRE_POWER_THRESHOLD))
         {
             if(!(ghostIndex % 8))
             {

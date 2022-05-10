@@ -148,16 +148,22 @@ void printStartMessage(void);
 	#define printKillTheSkulls()
 #endif
 
-#if !defined(NO_MESSAGE)
-	void _printScoreOnRow(uint8_t row, uint16_t score);
-	void _printScore(uint16_t score);
 
+#if !defined(_XL_NO_TEXT_COLOR)
+    #define _printTopScore() \
+        do \
+        { \
+            _XL_PRINTD((uint8_t) ((XSize)>>1)-1, 0, 5, highScore); \
+            _XL_SET_TEXT_COLOR(_XL_CYAN); \
+            _XL_PRINT(((XSize)>>1)-3,0,"HI"); \
+        } while(0)
 #else
-	#define _printScoreOnRow(r,score)
-	#define _printScore(s)
+    #define _printTopScore() \
+        do \
+        { \
+            _XL_PRINTD((uint8_t) ((XSize)>>1)-2, 0, 5, highScore); \
+        } while(0)
 #endif
-
-#define _printTopScore() _printScoreOnRow(0,highScore);
 
 
 #if defined(LESS_TEXT) 
@@ -174,8 +180,8 @@ void printStartMessage(void);
     void handleLevelBonus(uint16_t score); // _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
 
     // #define printLevelBonus(bonus) _XL_PRINTD(XSize/2-2,YSize/2,3,bonus)
-    #define finalScore() _printScore(points)
-    #define highScoreScreen() _printScore(highScore)  	
+    // #define finalScore() _printScore(points)
+    // #define highScoreScreen() _printScore(highScore)  	
 #endif
 
 #if XSize>=14

@@ -197,18 +197,13 @@ void displayScoreStats(void)
 #endif
 
 
-#if !defined(NO_MESSAGE)
-    void _printScoreOnRow(uint8_t row, uint16_t score)
-    {
-        _XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
-    }    
+// #if !defined(NO_MESSAGE)
+    // void _printScoreOnRow(uint8_t row, uint16_t score)
+    // {
+        // _XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
+    // }    
 
-    
-    void _printScore(uint16_t score)
-    {
-        _printScoreOnRow((YSize>>1), score);
-    }
-#endif
+// #endif
 
 
 #if !defined(END_SCREEN) && !defined(NO_MESSAGE)

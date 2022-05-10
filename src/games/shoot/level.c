@@ -439,7 +439,10 @@ void fillLevelWithCharacters(void)
     }        
         
     displayPlayer(&player);
-        
+    
+    #if !defined(_XL_NO_COLOR)
+    BULLET_IMAGE._color = _XL_WHITE;
+    #endif
     for(i=0;i<BULLETS_NUMBER;++i)
     {
         initializeCharacter(&bullets[i], 0, 0,0,&BULLET_IMAGE);

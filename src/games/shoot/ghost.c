@@ -51,6 +51,7 @@ extern uint8_t exploded_bombs;
 void checkBombsVsGhost(register Character * ghostPtr)
 {
     uint8_t reachedBombInd = characterReachedBombs(ghostPtr);
+    
     if(ghostPtr->_status && reachedBombInd<BOMBS_NUMBER)
     {
         points+=GHOST_VS_BOMBS_BONUS;
@@ -65,6 +66,7 @@ void checkBombsVsGhost(register Character * ghostPtr)
 void checkBombsVsGhosts(void)
 {
     uint8_t i;
+    
     for(i=0;i<maxGhostsOnScreen;++i)
       {
          checkBombsVsGhost(&ghosts[i]);
@@ -77,9 +79,9 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 
     if(!isBossLevel)
     {
-        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && ((ghostIndex % 4)==2) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD))
+        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD))
         {
-            if((ghostIndex % 8)==2)
+            if(!(ghostIndex % 8))
             {
                 initializeCharacter(ghostPtr  ,  1      ,     1, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
             }

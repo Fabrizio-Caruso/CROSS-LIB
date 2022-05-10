@@ -376,7 +376,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                         {
                             spawnGhost(ghostPtr,ghostCount);
                         }
-                    displayStatsTitles();
+                    // displayStatsTitles();
                     displayStats();
                     break;
                 }
@@ -519,7 +519,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
             }
         }            
         restoreRocketsOnWall(bulletPtr->_x, bulletPtr->_y);
-        displayStatsTitles();
+        // displayStatsTitles();
         displayStats();
     }
     else

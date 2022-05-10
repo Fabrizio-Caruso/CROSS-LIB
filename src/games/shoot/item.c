@@ -110,6 +110,7 @@ extern Character skulls[];
 extern Image SKULL_IMAGE;
 extern Image CONFUSE_IMAGE;
 extern Image PLAYER_IMAGE;
+extern Image BULLET_IMAGE;
 
 extern uint8_t skullActive;
 
@@ -117,8 +118,8 @@ extern uint8_t skullActive;
 void itemReached(Character * itemPtr)
 {
     _XL_ZAP_SOUND();
-    deleteItem(itemPtr);
-    displayPlayer(&player);
+    // deleteItem(itemPtr);
+    // displayPlayer(&player);
     itemPtr->_status = 0;
     displayScoreStats();
 }
@@ -221,7 +222,11 @@ void _firePowerEffect(void)
         firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+3;
     }
     points+=FIRE_POWER_BONUS;
-    printFirePowerStats();
+    #if !defined(_XL_NO_COLOR)
+        displayStats();
+    #else
+        printFirePowerStats();
+    #endif
 }
 
 

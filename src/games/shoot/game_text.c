@@ -72,7 +72,7 @@ void printKillTheSkulls(void)
 
 void displayStatsTitles(void)
 {                
-    SET_COLOR(TEXT_COLOR);
+    // SET_COLOR(TEXT_COLOR);
 
     _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
     _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
@@ -83,13 +83,25 @@ void displayStatsTitles(void)
 
 void displayStats(void)
 {
+    #if !defined(_XL_NO_COLOR)
+    if(bulletStrength>=COLOR_BULLET_SECOND_THRESHOLD)
+    {
+        BULLET_IMAGE._color = SECOND_THRESHOLD_BULLET_COLOR;
+    }    
+    else if(bulletStrength>=COLOR_BULLET_FIRST_THRESHOLD)
+    {
+        BULLET_IMAGE._color = FIRST_THRESHOLD_BULLET_COLOR; 
+    }
+    #endif
     displayScoreStats();
+    displayStatsTitles();
     #if XSize>=32
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-10,0,"HI");
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(XSize-8, 0, 5, highScore );  
     #endif
+
     printLevelStats();
     printLivesStats();
     printGunsStats();
@@ -112,13 +124,35 @@ void printGunsStats(void)
 void printFirePowerStats(void)
 {
     #if !defined(_XL_NO_TEXT_COLOR)
-    if(bulletStrength<4)
+    
+    /*
+    switch(bulletStrength)
+    {   
+        case 2:
+        case 3:
+            SET_COLOR(_XL_WHITE);
+            break;
+        case 4:
+        case 5:
+            SET_COLOR(_XL_CYAN);
+            break;
+        default:
+            SET_COLOR(_XL_GREEN);
+    }
+    */
+
+    
+    if(bulletStrength<COLOR_BULLET_FIRST_THRESHOLD)
     {
-        SET_COLOR(TEXT_COLOR);
+        SET_COLOR(INITIAL_BULLET_COLOR);
+    }
+    else if(bulletStrength<COLOR_BULLET_SECOND_THRESHOLD)
+    {
+        SET_COLOR(FIRST_THRESHOLD_BULLET_COLOR);
     }
     else
     {
-        SET_COLOR(_XL_RED);
+        SET_COLOR(SECOND_THRESHOLD_BULLET_COLOR);
     }
     #endif
     
@@ -156,15 +190,12 @@ void printFirePowerStats(void)
     {
         SET_COLOR(TEXT_COLOR);
         
-        #if defined(WIDE)
-            _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);
-        #else
-            _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
-        #endif
+        _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
     }    
     
 #endif
 
+/*
 #if !defined(NO_MESSAGE) && !defined(NO_PRINT)
     void printPressKeyToStart(void)
     {
@@ -172,7 +203,7 @@ void printFirePowerStats(void)
         _XL_PRINT_CENTERED(PRESS_STRING);
     }    
 #endif
-
+*/
 
 void displayScoreStats(void)
 {    

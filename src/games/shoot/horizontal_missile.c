@@ -41,7 +41,7 @@ extern uint8_t isOneMissileLevel;
 extern uint8_t isMissileLevel;
 extern uint8_t isBossLevel;
 
-    uint8_t _playerInArrowRange()
+    uint8_t _playerInArrowRange(void)
     {
         return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
     }

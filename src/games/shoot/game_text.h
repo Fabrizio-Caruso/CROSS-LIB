@@ -131,7 +131,13 @@ void printStartMessage(void);
 #endif
 
 #if !defined(NO_MESSAGE) && !defined(NO_PRINT)
-	void printPressKeyToStart(void);
+	// void printPressKeyToStart(void);
+    #define printPressKeyToStart() \
+        do \
+        { \
+            _XL_SET_TEXT_COLOR(_XL_WHITE); \
+            _XL_PRINT_CENTERED(PRESS_STRING); \
+        } while(0)
 #else
 	#define printPressKeyToStart()
 #endif

@@ -494,7 +494,7 @@ int main(void)
             
             constructItems();    
             
-            displayStatsTitles();
+            // displayStatsTitles();
             
             // displayStats();
             

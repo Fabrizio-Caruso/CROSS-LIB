@@ -43,6 +43,8 @@ extern Character bombs[BOMBS_NUMBER];
 
 extern uint8_t guns;
 
+extern uint8_t bulletStrength;
+
 extern uint8_t isBossLevel;
 
 extern uint8_t exploded_bombs;
@@ -76,18 +78,17 @@ void checkBombsVsGhosts(void)
 
 void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
-
     if(!isBossLevel)
     {
-        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD))
+        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (bulletStrength>=FAST_GHOST_FIRE_POWER_THRESHOLD))
         {
             if(!(ghostIndex % 8))
             {
-                initializeCharacter(ghostPtr  ,  1      ,     1, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
+                initializeCharacter(ghostPtr  ,  1      ,     1, FAST_GHOST_LIFE, &FAST_GHOST_IMAGE);
             }
             else
             {
-                initializeCharacter(ghostPtr  ,XSize-2, YSize-2, GHOST_LIFE/2, &FAST_GHOST_IMAGE);
+                initializeCharacter(ghostPtr  ,XSize-2, YSize-2, FAST_GHOST_LIFE, &FAST_GHOST_IMAGE);
             }
         }
         else
@@ -123,10 +124,9 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
     }
 }
 
+
 void ghostDies(register Character * ghostPtr)
 {
-    // ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-    // displayGhost(ghostPtr);
     _XL_DRAW(ghostPtr->_x, ghostPtr->_y, _GHOST_TILE, _XL_RED);
     _XL_EXPLOSION_SOUND();
     
@@ -170,6 +170,7 @@ void decreaseGhostLevel(void)
     else
         ghostLevel=0;
 }
+
 
 void displayBombs(void)
 {

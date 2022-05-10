@@ -127,7 +127,7 @@
 #define FIRE_POWER_ITEM_THRESHOLD 4
 #define FIRE_POWER_LEVEL_THRESHOLD 7
 
-
+#define FAST_GHOST_FIRE_POWER_THRESHOLD 3
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS + level X EXTRA_POINTS_LEVEL_INCREASE
@@ -167,10 +167,12 @@
     #define MIN_SKULL_HITS 60
     #define BOSS_HITS 254
     #define GHOST_LIFE 30
+    #define FAST_GHOST_LIFE ((GHOST_LIFE)/2)
 #else
     #define MIN_SKULL_HITS 40
     #define BOSS_HITS 170
     #define GHOST_LIFE 20
+    #define FAST_GHOST_LIFE ((GHOST_LIFE)/4)
 #endif    
 
 #define BOSS_INDEX 2

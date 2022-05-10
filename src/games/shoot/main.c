@@ -479,8 +479,6 @@ int main(void)
                 guns = 0;
             }
 
-            fillLevelWithCharacters();            
-            
             if(firePowerLevelSecret)
             {
                 bulletStrength = firePowerLevelSecret;
@@ -491,6 +489,8 @@ int main(void)
             {
                 bulletStrength = 2;
             }
+
+            fillLevelWithCharacters();            
             
             constructItems();    
             

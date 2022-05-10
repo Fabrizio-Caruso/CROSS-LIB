@@ -60,6 +60,7 @@ extern uint8_t discoveredSecrets[];
 
 extern uint8_t  secretLevelActivated;
 
+
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
 {
@@ -72,8 +73,6 @@ void printKillTheSkulls(void)
 
 void displayStatsTitles(void)
 {                
-    // SET_COLOR(TEXT_COLOR);
-
     _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
     _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
     _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);                    
@@ -121,27 +120,10 @@ void printGunsStats(void)
     #endif
 }
 
+
 void printFirePowerStats(void)
 {
     #if !defined(_XL_NO_TEXT_COLOR)
-    
-    /*
-    switch(bulletStrength)
-    {   
-        case 2:
-        case 3:
-            SET_COLOR(_XL_WHITE);
-            break;
-        case 4:
-        case 5:
-            SET_COLOR(_XL_CYAN);
-            break;
-        default:
-            SET_COLOR(_XL_GREEN);
-    }
-    */
-
-    
     if(bulletStrength<COLOR_BULLET_FIRST_THRESHOLD)
     {
         SET_COLOR(INITIAL_BULLET_COLOR);
@@ -162,6 +144,7 @@ void printFirePowerStats(void)
         _XL_PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
     #endif
 }
+
 
 #if !defined(NO_STATS) || defined(LESS_TEXT)
     #if XSize>20
@@ -195,15 +178,6 @@ void printFirePowerStats(void)
     
 #endif
 
-/*
-#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
-    void printPressKeyToStart(void)
-    {
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT_CENTERED(PRESS_STRING);
-    }    
-#endif
-*/
 
 void displayScoreStats(void)
 {    
@@ -211,6 +185,7 @@ void displayScoreStats(void)
     
     _XL_PRINTD(0,0,5,points);    
 }
+
 
 #if !defined(LESS_TEXT)    
     void printLevel(void)
@@ -227,12 +202,14 @@ void displayScoreStats(void)
     {
         _XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
     }    
+
     
     void _printScore(uint16_t score)
     {
         _printScoreOnRow((YSize>>1), score);
     }
 #endif
+
 
 #if !defined(END_SCREEN) && !defined(NO_MESSAGE)
     void gameCompleted(void)    
@@ -250,6 +227,7 @@ void displayScoreStats(void)
         SET_COLOR(_XL_RED);
         _XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
     }
+
 
     void printVictoryMessage(void)
     {
@@ -284,9 +262,9 @@ void _printCrossShoot(void)
     SET_COLOR(_XL_RED);
     _XL_PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
-    
 }
 #endif
+
 
 #if YSize<=15
     #define LINE_SKIP 1
@@ -295,6 +273,7 @@ void _printCrossShoot(void)
     #define LINE_SKIP 2
     #define INIT_HINT_LINE 1+(YSize/8)
 #endif
+
 
 #if !defined(NO_HINTS) && !defined(NO_INITIAL_SCREEN) && XSize>=18
     void printHints(void)
@@ -311,13 +290,9 @@ void _printCrossShoot(void)
         _XL_DRAW(XSize/2-1+1,INIT_HINT_LINE+4*LINE_SKIP, _SUPER_TILE, _XL_RED);
         _XL_DRAW(XSize/2+1+1,INIT_HINT_LINE+4*LINE_SKIP, _FREEZE_TILE, _XL_CYAN);
         _XL_DRAW(XSize/2+3+1,INIT_HINT_LINE+4*LINE_SKIP, _INVINCIBILITY_TILE, _XL_YELLOW);
-        // _XL_DRAW(XSize/2+5,INIT_HINT_LINE+4*LINE_SKIP, _SUPER_TILE, _XL_RED);
-
-        // _XL_DRAW(XSize/2-3,INIT_HINT_LINE+6*LINE_SKIP+1, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
-        // _XL_DRAW(XSize/2-2,INIT_HINT_LINE+6*LINE_SKIP+1, _ROCKET_TILE, _XL_WHITE);
-        // _XL_DRAW(XSize/2+0,INIT_HINT_LINE+6*LINE_SKIP+1, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
     }
 #endif
+
 
 #if !defined(NO_INITIAL_SCREEN)
     void printStartMessage(void)
@@ -330,9 +305,7 @@ void _printCrossShoot(void)
 
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
-            
-            // SET_COLOR(_XL_CYAN);
-            
+
             #if XSize>= 14 && !defined(EXTRA_TITLE)
             _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
             #endif
@@ -346,6 +319,7 @@ void _printCrossShoot(void)
         #endif
     }
 #endif
+
 
 #if !defined(LESS_TEXT)
 void handleLevelBonus(uint16_t bonus)
@@ -364,6 +338,7 @@ void handleLevelBonus(uint16_t bonus)
     }
 }
 #endif
+
 
 uint8_t countDiscoveredSecrets(void)
 {
@@ -453,14 +428,12 @@ void printAchievements(void)
         ++i;
     } while(i<=foundSecrets);
     
-    
     SHORT_SLEEP(10);
     if(secretLevelActivated)
     {
         SET_COLOR(_XL_YELLOW);    
         _XL_PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
     }
-
 }
 
 

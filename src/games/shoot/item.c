@@ -175,14 +175,7 @@ void bombChargeEffect(void)
     
     for(i=0;i<BOMBS_NUMBER;++i)
     {
-        // if(wallReached(&bombs[i]))
-        // {
-            // DRAW_BROKEN_BRICK(bombs[i]._x, bombs[i]._y);
-        // }
-        // else
-        // {
-            deleteBomb(&bombs[i]);
-        // }
+        deleteBomb(&bombs[i]);
     }
 
     initializeBombs();
@@ -275,7 +268,7 @@ void handle_item(register Item *itemPtr)
         relocateAwayFromWalls((Character *) itemPtr);
 
         // TODO: Is this really necessary??
-        _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
+        // _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
     }
     else
     {

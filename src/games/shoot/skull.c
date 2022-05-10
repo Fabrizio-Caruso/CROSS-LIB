@@ -159,7 +159,7 @@ void handle_skulls(void)
     {     
         uint8_t i;
 
-        if(!confuseActive || !(loop&15))
+        if(!confuseActive || !(loop&7))
         {
             skullSlowDown = computeSkullSlowDown();
 
@@ -181,7 +181,7 @@ void handle_skulls(void)
                 ++ghostCount;
                 if(!(_XL_RAND()&7))
                 {
-                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE/2,&FAST_GHOST_IMAGE);
+                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
                 }
                 else
                 {

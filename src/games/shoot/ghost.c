@@ -49,6 +49,7 @@ extern uint8_t isBossLevel;
 
 extern uint8_t exploded_bombs;
 
+extern uint8_t restart;
 
 void checkBombsVsGhost(register Character * ghostPtr)
 {
@@ -80,7 +81,7 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
     if(!isBossLevel)
     {
-        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (level>=FAST_GHOST_LEVEL_THRESHOLD) && (guns>=FAST_GHOST_GUN_THRESHOLD) && (bulletStrength>=FAST_GHOST_FIRE_POWER_THRESHOLD))
+        if((ghostCount>=FAST_GHOST_COUNT_MIN_THRESHOLD) && (!(ghostIndex % 4)) && (guns>=FAST_GHOST_GUN_THRESHOLD) && !restart)
         {
             if(!(ghostIndex % 8))
             {
@@ -108,16 +109,16 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
                     initializeCharacter(ghostPtr, XSize-2,       1, GHOST_LIFE, &GHOST_IMAGE);
                 break;
                 case 4:
-                    initializeCharacter(ghostPtr  , 1    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-                break;
-                case 5:
-                    initializeCharacter(ghostPtr, XSize/2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
-                break;
-                case 6:
                     initializeCharacter(ghostPtr, XSize-2, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
                 break;
-                case 7:
+                case 5:
+                    initializeCharacter(ghostPtr  , 1    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 6:
                     initializeCharacter(ghostPtr, XSize/2,       1, GHOST_LIFE, &GHOST_IMAGE);
+                break;
+                case 7:
+                    initializeCharacter(ghostPtr, XSize/2, YSize-2, GHOST_LIFE, &GHOST_IMAGE);
                 break;    
             }
         }

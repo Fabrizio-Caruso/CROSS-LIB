@@ -364,18 +364,23 @@ void confuseEffect(void)
     
     if(skullActive)
     {
-        for(j=0;j<9;++j)
+
+        for(i=0;i<SKULLS_NUMBER;++i)
         {
-            for(i=0;i<SKULLS_NUMBER;++i)
+            if(skulls[i]._status>CONFUSE_DAMAGE)
             {
-                if(skulls[i]._status)
+                for(j=0;j<4;++j)
                 {
                     _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_GREEN);
-                    SHORT_SLEEP(2);
+                    SHORT_SLEEP(3);
                     _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_RED);
-                    SHORT_SLEEP(2);
-                    displaySkull(&skulls[i]);
+                    _XL_TOCK_SOUND();
+                    SHORT_SLEEP(1);
                 }
+
+                skulls[i]._status-=CONFUSE_DAMAGE;
+                _XL_EXPLOSION_SOUND();
+                displaySkull(&skulls[i]);
             }
         }
     }

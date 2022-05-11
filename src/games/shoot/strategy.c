@@ -56,7 +56,7 @@ extern Image FAST_GHOST_IMAGE;
 
 #define GHOST_RANDOM_CONDITION() ((_XL_RAND())>ghostSlowDown)
 
-#define FAST_GHOST_RANDOM_CONDITION() ((_XL_RAND())>(ghostSlowDown>>1))
+#define FAST_GHOST_RANDOM_CONDITION() ((_XL_RAND())>FAST_GHOST_SLOWDOWN)
 
 
 uint8_t ghost_move_condition(void)

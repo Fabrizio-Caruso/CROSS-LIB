@@ -166,6 +166,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t destroyer_count_down;
     uint8_t exploded_bombs;
 
+    uint8_t restart;
 #else
     Item calmDown; 
     Item bombCharge;		
@@ -215,6 +216,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t destroyerActive;
     uint8_t destroyer_count_down;
     uint8_t exploded_bombs;
+    uint8_t restart;
 #endif
 
 #if defined(USE_MEMORY_BUFFERS)

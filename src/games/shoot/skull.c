@@ -159,7 +159,7 @@ void handle_skulls(void)
     {     
         uint8_t i;
 
-        if(!confuseActive || !(loop&7))
+        if(!confuseActive || !(loop&3))
         {
             skullSlowDown = computeSkullSlowDown();
 

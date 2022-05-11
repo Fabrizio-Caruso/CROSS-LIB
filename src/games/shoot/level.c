@@ -116,6 +116,8 @@ extern uint8_t isInnerVerticalWallLevel;
 
 extern uint8_t rocketsOnScreen;
 
+extern uint8_t restart;
+
 #if !defined(NO_WALL)
 
     extern Image HORIZONTAL_BRICK_IMAGE;
@@ -314,6 +316,7 @@ void setNumberOfRocketsOnScreen(void)
     }    
 }
 
+// #define DEBUG_LEVEL
 
 void fillLevelWithCharacters(void)
 {
@@ -370,16 +373,19 @@ void fillLevelWithCharacters(void)
         count = ghostCount;
     }
     
+    restart = 1;
     for(i=0;i<count;++i)
     {
         spawnGhost(&ghosts[i],i);
         #if defined(DEBUG_LEVEL)
-        PRINT(0,i,"ghost spawned.......");        
+        // _XL_PRINT(0,i,"ghost spawned.......");        
         #endif
         #if defined(DEBUG_LEVEL)
             displayCharacter((Character *)&ghosts[i]);
+            _XL_WAIT_FOR_INPUT();
         #endif          
     }
+    restart = 0;
     
     for(i=count;i<GHOSTS_NUMBER;++i)
     {
@@ -411,12 +417,6 @@ void fillLevelWithCharacters(void)
     initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);
     initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);        
     initializeAwayFromWall(&(suicide._character), (XSize>>1), (YSize>>1), 0, &SUICIDE_IMAGE); 
-
-    // #if !defined(NO_BLINKING) && !defined(_XL_NO_COLOR)
-        // initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
-    // #else
-        // initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &HORIZONTAL_BRICK_IMAGE);     
-    // #endif
     
     initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &DESTROYER_IMAGE);    
 

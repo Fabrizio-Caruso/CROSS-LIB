@@ -379,6 +379,7 @@ void confuseEffect(void)
                 }
 
                 skulls[i]._status-=CONFUSE_DAMAGE;
+                SHORT_SLEEP(3);
                 _XL_EXPLOSION_SOUND();
                 displaySkull(&skulls[i]);
             }

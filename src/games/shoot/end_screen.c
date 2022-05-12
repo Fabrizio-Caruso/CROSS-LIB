@@ -51,8 +51,8 @@
         isBossLevel = 0;
 		fillLevelWithCharacters();
 
-		skulls[0]._x = player._x-4;
-		skulls[0]._y = player._y;
+		// skulls[0]._x = player._x-4;
+		// skulls[0]._y = player._y;
 
         for(ind=0;ind<maxGhostsOnScreen;++ind)
         {
@@ -60,7 +60,7 @@
         }
         
         displayPlayer(&player);
-        displaySkull(&skulls[0]);
+        // displaySkull(&skulls[0]);
     
         _XL_PRINT(XSize/2-3, MESSAGE_START,  YOU_MADE_IT_STRING);
 

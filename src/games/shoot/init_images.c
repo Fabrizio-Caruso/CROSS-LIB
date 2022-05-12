@@ -90,7 +90,9 @@ void INIT_IMAGES(void)
         CONFUSE_IMAGE._color = _CONFUSE_COLOR;
         SUICIDE_IMAGE._color = _SUICIDE_COLOR;
         
+        #if !defined(_XL_NO_COLOR) && defined(NO_BLINKING)
         BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
+        #endif
         
         DESTROYER_IMAGE._color = _DESTROYER_COLOR;
 	#endif	
@@ -138,7 +140,9 @@ void INIT_IMAGES(void)
     CONFUSE_IMAGE._imageData = _SKULL_TILE;
     SUICIDE_IMAGE._imageData = _GHOST_TILE;
     
+    #if !defined(_XL_NO_COLOR) && defined(NO_BLINKING)
     BROKEN_BRICK_IMAGE._imageData = _BOMB_TILE;
+    #endif
     
     DESTROYER_IMAGE._imageData = _DESTROYER_TILE;
     FAST_GHOST_IMAGE._imageData = _FAST_GHOST_TILE;

@@ -367,7 +367,7 @@ void confuseEffect(void)
 
         for(i=0;i<SKULLS_NUMBER;++i)
         {
-            if(skulls[i]._status>CONFUSE_DAMAGE)
+            if(skulls[i]._status)
             {
                 for(j=0;j<4;++j)
                 {
@@ -378,7 +378,10 @@ void confuseEffect(void)
                     SHORT_SLEEP(1);
                 }
 
-                skulls[i]._status-=CONFUSE_DAMAGE;
+                if(skulls[i]._status>CONFUSE_DAMAGE)
+                {
+                    skulls[i]._status-=CONFUSE_DAMAGE;
+                }
                 SHORT_SLEEP(3);
                 _XL_EXPLOSION_SOUND();
                 displaySkull(&skulls[i]);

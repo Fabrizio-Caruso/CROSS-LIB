@@ -91,7 +91,9 @@ Image DEAD_GHOST_IMAGE;
     Image CONFUSE_IMAGE;
     Image SUICIDE_IMAGE;
     
+    #if !defined(_XL_NO_COLOR) && defined(NO_BLINKING)
     Image BROKEN_BRICK_IMAGE;
+    #endif
     
     Image DESTROYER_IMAGE;
     Image FAST_GHOST_IMAGE;

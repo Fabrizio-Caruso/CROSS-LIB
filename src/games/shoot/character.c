@@ -240,8 +240,8 @@ uint8_t nearInnerHorizontalWall(register Character *characterPtr)
 }    
 
 
-void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
-{
-    _draw(x,y,&BROKEN_BRICK_IMAGE);        
-}
+// void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
+// {
+    // _draw(x,y,&BROKEN_BRICK_IMAGE);        
+// }
 

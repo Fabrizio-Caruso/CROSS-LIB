@@ -30,6 +30,7 @@
 #include "strategy.h"
 #include "game_text.h"
 #include "item.h"
+#include "init_images.h"
 
 extern uint8_t level;
 extern uint16_t loop;
@@ -66,6 +67,7 @@ extern Image FAST_GHOST_IMAGE;
 // extern uint16_t levelSlowDown;
 
 extern uint8_t exploded_bombs;
+
 
 uint16_t computeSkullSlowDown(void)
 {
@@ -104,7 +106,8 @@ void computeSkullParameters(void)
 
 void skullDies(register Character * skullPtr)
 {
-        DRAW_BROKEN_BRICK(skullPtr->_x, skullPtr->_y);
+        // DRAW_BROKEN_BRICK(skullPtr->_x, skullPtr->_y);
+        _XL_DRAW(skullPtr->_x, skullPtr->_y,_SKULL_TILE, _XL_RED);
         skullPtr->_status=0;
         if(!(--skullsCount))
         {
@@ -179,7 +182,7 @@ void handle_skulls(void)
             if(i<BOSS_LEVEL_GHOSTS_NUMBER)
             {
                 ++ghostCount;
-                if(!(_XL_RAND()&7))
+                if(!(_XL_RAND()&3))
                 {
                     initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
                 }

@@ -64,6 +64,8 @@ extern Character ghosts[];
 extern Image GHOST_IMAGE;
 extern Image FAST_GHOST_IMAGE;
 
+extern Image BOSS_IMAGE;
+
 // extern uint16_t levelSlowDown;
 
 extern uint8_t exploded_bombs;
@@ -114,8 +116,19 @@ void skullDies(register Character * skullPtr)
             skullActive = 0;
         }
         _XL_EXPLOSION_SOUND();
-        points+=SKULL_POINTS;
-        displayScoreStats();
+        // points+=SKULL_POINTS;
+        increasePoints(SKULL_POINTS);
+        if(isBossLevel)
+        {
+            // points+=SKULL_POINTS;
+            increasePoints(SKULL_POINTS);
+            if(skullPtr->_imagePtr==&BOSS_IMAGE)
+            {
+                increasePoints(SKULL_POINTS);
+            }
+        }
+
+        // displayScoreStats();
         deleteSkull(skullPtr);
 }
 
@@ -135,6 +148,12 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
         }
     }
 }
+
+#if defined(WIDE)
+    #define BOSS_LEVEL_SPAWN_AND_MASK 1
+#else
+    #define BOSS_LEVEL_SPAWN_AND_MASK 3
+#endif
 
 void handle_skulls(void)
 {
@@ -172,24 +191,24 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=BOSS_LEVEL_GHOSTS_NUMBER))
+        if(isBossLevel && !(loop&63) && (ghostCount<=BOSS_LEVEL_GHOSTS_NUMBER) && skulls[BOSS_INDEX]._status && skulls[BOSS_INDEX]._x!=XSize/2 )
         {
-            i=0;
-            while((i<BOSS_LEVEL_GHOSTS_NUMBER)&&(ghosts[i]._status))
+            // i=0;
+            // while((i<BOSS_LEVEL_GHOSTS_NUMBER)&&(ghosts[i]._status))
+            // {
+                // ++i;
+            // }
+            if(ghostCount<BOSS_LEVEL_GHOSTS_NUMBER)
             {
-                ++i;
-            }
-            if(i<BOSS_LEVEL_GHOSTS_NUMBER)
-            {
-                ++ghostCount;
-                if(!(_XL_RAND()&3))
+                if(!(_XL_RAND()&BOSS_LEVEL_SPAWN_AND_MASK)) // Avoid spawning on the vertical wall
                 {
-                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
+                    initializeCharacter(&ghosts[ghostCount],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
                 }
                 else
                 {
-                    initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
+                    initializeCharacter(&ghosts[ghostCount],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
                 }
+                ++ghostCount;
                 printGhostCountStats();
             }
             
@@ -203,7 +222,8 @@ void checkBombsVsSkull(register Character * skullPtr)
     
     if(skullPtr->_status && reachedBombInd<BOMBS_NUMBER)
     {        
-        points+=GHOST_VS_BOMBS_BONUS;
+        // points+=GHOST_VS_BOMBS_BONUS;
+        increasePoints(GHOST_VS_BOMBS_BONUS);
         
         bombs[reachedBombInd]._status = 0;
         deleteBomb(&bombs[reachedBombInd]);

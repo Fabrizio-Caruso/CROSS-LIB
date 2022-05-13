@@ -39,7 +39,7 @@ extern uint8_t maxGhostsOnScreen;
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
+extern Image BOSS_IMAGE;
 
 extern Image SKULL_IMAGE;
 extern Image BULLET_IMAGE;
@@ -68,12 +68,12 @@ extern Character bombs[BOMBS_NUMBER];
 extern Item chase;
 extern Character chasingBullet;
 
-extern uint8_t innerVerticalWallX;
+// extern uint8_t innerVerticalWallX;
 extern uint8_t innerVerticalWallY;
 extern uint8_t innerVerticalWallLength;
 
 extern uint8_t innerHorizontalWallX;
-extern uint8_t innerHorizontalWallY;
+// extern uint8_t innerHorizontalWallY;
 extern uint8_t innerHorizontalWallLength;
 
 extern Image ROCKET_IMAGE;
@@ -166,7 +166,7 @@ void updateInnerVerticalWall(void)
         #endif
     }
 
-    innerVerticalWallX = (XSize>>1);
+    // innerVerticalWallX = (XSize>>1);
     innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
 }
 
@@ -193,7 +193,7 @@ void updateInnerHorizontalWall(void)
     }
 
     innerHorizontalWallX = (XSize>>1)-(innerHorizontalWallLength>>1);
-    innerHorizontalWallY = (YSize>>1);
+    // innerHorizontalWallY = (YSize>>1);
 }
 
 uint8_t innerHorizontalWallLevel(void)
@@ -207,7 +207,6 @@ uint8_t innerVerticalWallLevel(void)
 {
     // 0, 1, 4, 8, 9, 12, 16
     return ((level&7)==1) || ((level&7)==4) || ((level&7)==0);
-    // return !level || ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
 }    
 
 uint8_t oneMissileLevel(void)
@@ -450,7 +449,7 @@ void fillLevelWithCharacters(void)
     
     if(isBossLevel)
     {
-        initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, BOSS_HITS, &DEAD_GHOST_IMAGE);
+        initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, BOSS_HITS, &BOSS_IMAGE);
         #if !defined(_XL_NO_COLOR)
         SKULL_IMAGE._color = _XL_CYAN;
         #endif

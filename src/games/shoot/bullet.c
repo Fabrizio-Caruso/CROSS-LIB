@@ -163,6 +163,7 @@ void handle_bomb(void)
             displayBomb(&bombs[bombCount]);
 
             ++bombCount;
+            printGunsStats();
         }
         else
         {
@@ -355,7 +356,8 @@ void checkBulletVsGhost(Character * bulletPtr,
         if((ghostPtr->_status)<=bulletStrength)
         {
             ghostDiesAndSpawns(ghostPtr);
-            points+=GHOST_VS_MISSILE;
+            // points+=GHOST_VS_MISSILE;
+            increasePoints(GHOST_VS_MISSILE);
         }
         else
         {
@@ -369,14 +371,15 @@ void checkBulletVsGhost(Character * bulletPtr,
                 pushGhost(ghostPtr, bulletDirection);
                 if(wallReached(ghostPtr) || innerVerticalWallReached(ghostPtr->_x, ghostPtr->_y) || innerHorizontalWallReached(ghostPtr->_x, ghostPtr->_y))
                 {
-                    points+=GHOST_VS_WALL_BONUS;
+                    // points+=GHOST_VS_WALL_BONUS;
+                    increasePoints(GHOST_VS_WALL_BONUS);
                     ghostDies(ghostPtr);
                     restoreRocketsOnWall(ghostPtr->_x, ghostPtr->_y);
                     if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
                         {
                             spawnGhost(ghostPtr,ghostCount);
                         }
-                    displayStats();
+                    // displayStats();
                     break;
                 }
                 displayGhost(ghostPtr);
@@ -470,8 +473,9 @@ void destroyHorizontalMissile(Character * horizontalMissilePtr)
     horizontalMissilePtr->_status = 0;
     _XL_EXPLOSION_SOUND();
     deleteHorizontalMissile(horizontalMissilePtr);
-    points+=HORIZONTAL_MISSILE_BONUS;
-    displayScoreStats();                
+    // points+=HORIZONTAL_MISSILE_BONUS;
+    increasePoints(HORIZONTAL_MISSILE_BONUS);
+    // displayScoreStats();                
     ++destroyed_bases;
     reduceItemCoolDowns();        
 }
@@ -512,8 +516,9 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                     ++destroyed_bases;
                     _XL_EXPLOSION_SOUND();
                     deleteRocket(&rockets[i]);
-                    points+=VERTICAL_MISSILE_BONUS;
-                    displayScoreStats();        
+                    // points+=VERTICAL_MISSILE_BONUS;
+                    increasePoints(VERTICAL_MISSILE_BONUS);
+                    // displayScoreStats();        
                 }
             }
         }            

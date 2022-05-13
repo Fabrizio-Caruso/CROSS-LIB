@@ -121,7 +121,7 @@ void itemReached(Character * itemPtr)
     // deleteItem(itemPtr);
     // displayPlayer(&player);
     itemPtr->_status = 0;
-    displayScoreStats();
+    // displayScoreStats();
 }
 
 
@@ -130,8 +130,7 @@ void relocateAwayFromWalls(Character * itemPtr)
     do
     {
         relocateNearBy(itemPtr);
-    } while(nearInnerVerticalWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
-
+    } while(innerVerticalWallReached(itemPtr->_x, itemPtr->_y)||innerHorizontalWallReached(itemPtr->_x,itemPtr->_y));        
 }    
 
 
@@ -139,7 +138,8 @@ void _freezeEffect(void)
 {
     decreaseGhostLevel();
     freezeActive = 1;    
-    points+=FREEZE_BONUS;
+    // points+=FREEZE_BONUS;
+    increasePoints(FREEZE_BONUS);
     freeze_count_down += FREEZE_COUNT_DOWN;    
 }
 
@@ -164,7 +164,8 @@ void _increaseBullets(uint8_t bullets)
 void fireChargeEffect(void)
 {
     _increaseBullets(BULLET_GUNS);
-    points+=FIRE_CHARGE_BONUS;
+    // points+=FIRE_CHARGE_BONUS;
+    increasePoints(FIRE_CHARGE_BONUS);
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;        
 }
 
@@ -181,7 +182,8 @@ void bombChargeEffect(void)
     initializeBombs();
     bombCount = 0;
     // TODO: delete Bombs
-    bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;    
+    bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN; 
+    printGunsStats();
 }
 
 
@@ -193,7 +195,8 @@ void calmDownEffect(void)
     {
         decreaseGhostLevel();
     }
-    points+=CALM_DOWN_BONUS;
+    // points+=CALM_DOWN_BONUS;
+    increasePoints(CALM_DOWN_BONUS);
     freezeActive = 1;
     freeze_count_down += FREEZE_COUNT_DOWN/4;
     calmDown._coolDown = CALM_DOWN_COOL_DOWN*2;    
@@ -214,12 +217,13 @@ void _firePowerEffect(void)
     {
         firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+3;
     }
-    points+=FIRE_POWER_BONUS;
-    #if !defined(_XL_NO_COLOR)
-        displayStats();
-    #else
-        printFirePowerStats();
-    #endif
+    // points+=FIRE_POWER_BONUS;
+    increasePoints(FIRE_POWER_BONUS);
+    // #if !defined(_XL_NO_COLOR)
+        // displayStats();
+    // #else
+        // printFirePowerStats();
+    // #endif
 }
 
 
@@ -235,12 +239,14 @@ void extraPointsEffect(void)
     
     if(level)
     {
-        points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+        // points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+        increasePoints(EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE);
         extraPoints._coolDown = SECOND_EXTRA_POINTS_COOL_DOWN;
     }
     else
     {
-        points+=SECRET_LEVEL_EXTRA_POINTS;
+        // points+=SECRET_LEVEL_EXTRA_POINTS;
+        increasePoints(SECRET_LEVEL_EXTRA_POINTS);
         extraPoints._coolDown = 4;
     }
     setSecret(EXTRA_POINTS_EFFECT_SECRET_INDEX);
@@ -415,7 +421,8 @@ void suicideEffect(void)
         if(ghosts[i]._status)
         {
             ghostDiesAndSpawns(&ghosts[i]);
-            points+=GHOST_VS_BOMBS_BONUS;
+            // points+=GHOST_VS_BOMBS_BONUS;
+            increasePoints(GHOST_VS_BOMBS_BONUS);
         }
     }
 }
@@ -455,7 +462,7 @@ void setSecret(uint8_t secretIndex)
         #if !defined(_XL_NO_COLOR)
         uint8_t i;
         
-        for(i=0;i<5;++i)
+        for(i=0;i<8;++i)
         {
             _XL_SET_TEXT_COLOR(_XL_RED);
             _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);

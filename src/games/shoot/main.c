@@ -578,7 +578,7 @@ int main(void)
                     checkBombsVsSkulls();
                 }
                 
-                SHORT_SLEEP(2);
+                SHORT_SLEEP(3);
                 if(invincibilityActive)
                 {
                     #if _XL_SLOW_DOWN_FACTOR>0
@@ -587,7 +587,7 @@ int main(void)
                     _XL_DELETE(player._x, player._y);
                 }
 
-                SHORT_SLEEP(4);
+                SHORT_SLEEP(3);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();

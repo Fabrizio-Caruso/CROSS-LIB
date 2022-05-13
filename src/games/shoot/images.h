@@ -27,7 +27,7 @@
 	Image BOMB_IMAGE;	
 #endif
 
-Image DEAD_GHOST_IMAGE;
+Image BOSS_IMAGE;
 
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)

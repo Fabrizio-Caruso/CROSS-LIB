@@ -55,11 +55,13 @@ extern uint16_t ghostLevel;
 extern uint16_t highScore;
 
 extern Image BULLET_IMAGE;
+extern Image BOMB_IMAGE;
 
 extern uint8_t discoveredSecrets[];
 
 extern uint8_t  secretLevelActivated;
 
+extern uint8_t bombCount;
 
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
@@ -73,7 +75,6 @@ void printKillTheSkulls(void)
 
 void displayStatsTitles(void)
 {                
-    _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
     _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
     _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);                    
     _draw_stat(FIRE_POWER_IMAGE_X, FIRE_POWER_IMAGE_Y, &FIRE_POWER_IMAGE); 
@@ -111,13 +112,30 @@ void displayStats(void)
 
 void printGunsStats(void)
 {
-    SET_COLOR(TEXT_COLOR);    
+    SET_COLOR(_XL_WHITE);    
+
+
+    if(bombCount<BOMBS_NUMBER)
+    {
+
+        #if defined(WIDE)
+            _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,BOMBS_NUMBER-bombCount);
+        #else
+            _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,BOMBS_NUMBER-bombCount);
+        #endif
+        _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BOMB_IMAGE);
+    }
+    else
+    {
+        #if defined(WIDE)
+            _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
+        #else
+            _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
+        #endif
+        _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
+    }  
     
-    #if defined(WIDE)
-        _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
-    #else
-        _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
-    #endif
+
 }
 
 
@@ -150,7 +168,7 @@ void printFirePowerStats(void)
     #if XSize>20
     void printLevelStats(void)
     {    
-        SET_COLOR(TEXT_COLOR);
+        SET_COLOR(_XL_WHITE);
     
         _XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
     }
@@ -159,7 +177,7 @@ void printFirePowerStats(void)
 
     void printGhostCountStats(void)
     {
-        SET_COLOR(TEXT_COLOR);        
+        SET_COLOR(_XL_WHITE);        
         
         #if defined(WIDE)
             _XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
@@ -171,7 +189,7 @@ void printFirePowerStats(void)
 
     void printLivesStats(void)
     {
-        SET_COLOR(TEXT_COLOR);
+        SET_COLOR(_XL_WHITE);
         
         _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
     }    
@@ -181,16 +199,15 @@ void printFirePowerStats(void)
 
 void displayScoreStats(void)
 {    
-    SET_COLOR(TEXT_COLOR);
-    
-    _XL_PRINTD(0,0,5,points);    
+    SET_COLOR(_XL_WHITE);
+    _XL_PRINTD(0,0,5,points);  
 }
 
 
 #if !defined(LESS_TEXT)    
     void printLevel(void)
     {
-        SET_COLOR(TEXT_COLOR);
+        SET_COLOR(_XL_WHITE);
         _XL_PRINT(((XSize -7)>>1), (YSize>>1), LEVEL_STRING);
         _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
     }
@@ -256,7 +273,7 @@ void _printCrossShoot(void)
 {
     SET_COLOR(_XL_RED);
     _XL_PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING);        
-    SET_COLOR(TEXT_COLOR);
+    SET_COLOR(_XL_WHITE);
 }
 #endif
 
@@ -305,7 +322,7 @@ void _printCrossShoot(void)
             _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
             #endif
             
-            SET_COLOR(TEXT_COLOR);    
+            SET_COLOR(_XL_WHITE);    
             
         #endif
 
@@ -326,9 +343,10 @@ void handleLevelBonus(uint16_t bonus)
     for(i=0;i<=bonus;i+=5)
     {
         _XL_PRINTD(XSize/2-1,YSize/2,3,i);
-        points+=5;
+        // points+=5;
+        increasePoints(5);
         SHORT_SLEEP((uint8_t) (1+(i>>6)));
-        displayScoreStats();
+        // displayScoreStats();
         _XL_TICK_SOUND();
     }
 }
@@ -342,7 +360,7 @@ uint8_t countDiscoveredSecrets(void)
     
     total = 0;
     #if defined(DEBUG_SECRETS)
-    SET_COLOR(TEXT_COLOR);    
+    SET_COLOR(_XL_WHITE);    
     #endif
     for(i=0;i<SECRETS_NUMBER;++i)
     {
@@ -400,7 +418,7 @@ void printAchievements(void)
     
     _XL_PRINTD(15, (YSize>>1)+2, 2, SECRETS_NUMBER);
 
-    SET_COLOR(TEXT_COLOR);    
+    SET_COLOR(_XL_WHITE);    
 
     _XL_PRINTD(9, (YSize>>1)-4, 5, highScore );
 

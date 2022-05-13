@@ -157,7 +157,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t confuseActive; 
         
     uint8_t innerVerticalWallY; 
-    uint8_t innerVerticalWallX; 
+    // uint8_t innerVerticalWallX; 
     uint8_t innerVerticalWallLength;
 
     uint8_t missileDestroyerActivated;
@@ -208,7 +208,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t confuseActive; 
     
     uint8_t innerVerticalWallY; 
-    uint8_t innerVerticalWallX; 
+    // uint8_t innerVerticalWallX; 
     uint8_t innerVerticalWallLength;
 
     uint8_t missileDestroyerActivated;
@@ -296,7 +296,7 @@ Character bullets[BULLETS_NUMBER];
 Character skulls[SKULLS_NUMBER];
 
 
-uint8_t innerHorizontalWallY; 
+// uint8_t innerHorizontalWallY; 
 uint8_t innerHorizontalWallX; 
 uint8_t innerHorizontalWallLength;
 

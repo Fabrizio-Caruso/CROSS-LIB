@@ -20,7 +20,7 @@ extern Image BOMB_IMAGE;
 
 extern Image DESTROYER_IMAGE;
 
-extern Image DEAD_GHOST_IMAGE;
+extern Image BOSS_IMAGE;
 
 extern Image SKULL_IMAGE;
 extern Image FIRE_CHARGE_IMAGE;
@@ -46,6 +46,7 @@ extern Image SUICIDE_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
 
 
+
 void INIT_IMAGES(void)
 {
 # if !defined(NO_GRAPHICS)
@@ -65,7 +66,7 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._color = _BOMB_COLOR;
 		GHOST_IMAGE._color = _GHOST_COLOR;		
 		
-		DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
+		BOSS_IMAGE._color = _DEAD_GHOST_COLOR;
 		
         SKULL_IMAGE._color = _SKULL_COLOR;
         CALM_DOWN_IMAGE._color = _CALM_DOWN_COLOR;
@@ -111,7 +112,7 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = _BOMB_TILE;
 	
 
-	DEAD_GHOST_IMAGE._imageData = _BOSS_TILE;
+	BOSS_IMAGE._imageData = _BOSS_TILE;
 	
     SKULL_IMAGE._imageData = _SKULL_TILE;
 

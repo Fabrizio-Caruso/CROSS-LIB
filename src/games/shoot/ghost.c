@@ -57,7 +57,8 @@ void checkBombsVsGhost(register Character * ghostPtr)
     
     if(ghostPtr->_status && reachedBombInd<BOMBS_NUMBER)
     {
-        points+=GHOST_VS_BOMBS_BONUS;
+        // points+=GHOST_VS_BOMBS_BONUS;
+        increasePoints(GHOST_VS_BOMBS_BONUS);
         bombs[reachedBombInd]._status = 0;
         ghostDiesAndSpawns(ghostPtr);
         ++exploded_bombs;
@@ -130,6 +131,11 @@ void ghostDies(register Character * ghostPtr)
 {
     _XL_DRAW(ghostPtr->_x, ghostPtr->_y, _GHOST_TILE, _XL_RED);
     _XL_EXPLOSION_SOUND();
+    
+    if(ghostPtr->_imagePtr==&FAST_GHOST_IMAGE)
+    {
+        increasePoints(GHOST_VS_BOMBS_BONUS);
+    }
     
     ghostPtr->_status=0;
     displayScoreStats();

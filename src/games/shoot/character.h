@@ -74,6 +74,7 @@ uint8_t onWall(uint8_t x, uint8_t y);
 
 //
 
+
 #if defined(ANIMATE_PLAYER)
     extern Image PLAYER_LEFT_IMAGE;
     extern Image PLAYER_RIGHT_IMAGE;
@@ -172,6 +173,8 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
 #define deleteChasingBullet(characterPtr) deleteCharacter(characterPtr);
 #define deleteSkull(characterPtr) deleteCharacter(characterPtr);
 #define deleteItem(characterPtr) deleteCharacter(characterPtr);
+
+void increasePoints(uint8_t score);
 
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr);
 

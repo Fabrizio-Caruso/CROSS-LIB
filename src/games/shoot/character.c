@@ -112,13 +112,20 @@ void deleteCharacter(Character * characterPtr)
 
 extern uint8_t invincibilityActive;
 
-extern uint8_t innerVerticalWallX;
 extern uint8_t innerVerticalWallY;
 extern uint8_t innerVerticalWallLength;
 
 extern uint8_t innerHorizontalWallX;
-extern uint8_t innerHorizontalWallY;
+
 extern uint8_t innerHorizontalWallLength;
+
+
+void increasePoints(uint8_t score)
+{
+    points+=score;
+    displayStats();
+}
+
 
 void playerDies(void)
 {
@@ -215,29 +222,29 @@ void relocateNearBy(register Character * characterPtr)
 
 uint8_t innerVerticalWallReached(uint8_t x, uint8_t y)
 {
-    return (x==innerVerticalWallX) && (y >= innerVerticalWallY) && (y <= (innerVerticalWallY + innerVerticalWallLength-1));
+    return (x==XSize/2) && (y >= innerVerticalWallY) && (y <= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
 
-uint8_t nearInnerVerticalWall(register Character *characterPtr)
-{
-    return isInnerVerticalWallLevel && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
-           (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
-}
+// uint8_t nearInnerVerticalWall(register Character *characterPtr)
+// {
+    // return isInnerVerticalWallLevel && (characterPtr->_x>=(XSize/2)-1) && (characterPtr->_x<=(XSize/2)+1) &&
+           // (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+// }
 
 
 
 uint8_t innerHorizontalWallReached(uint8_t x, uint8_t y)
 {
-    return (y==innerHorizontalWallY) && (x >= innerHorizontalWallX) && (x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
+    return (y==(YSize/2)) && (x >= innerHorizontalWallX) && (x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
 }
 
 
-uint8_t nearInnerHorizontalWall(register Character *characterPtr)
-{
-    return isInnerHorizontalWallLevel && (characterPtr->_y>=innerHorizontalWallY-1) && (characterPtr->_y<=innerHorizontalWallY+1) &&
-           (characterPtr->_x >= innerHorizontalWallX-1) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength));
-}    
+// uint8_t nearInnerHorizontalWall(register Character *characterPtr)
+// {
+    // return isInnerHorizontalWallLevel && (characterPtr->_y>=(YSize/2)-1) && (characterPtr->_y<=(YSize/2)+1) &&
+           // (characterPtr->_x >= innerHorizontalWallX-1) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength));
+// }    
 
 
 // void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)

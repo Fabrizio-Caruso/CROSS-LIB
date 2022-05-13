@@ -121,10 +121,10 @@ void skullDies(register Character * skullPtr)
         if(isBossLevel)
         {
             // points+=SKULL_POINTS;
-            increasePoints(SKULL_POINTS);
+            increasePoints(BOSS_LEVEL_SKULL_EXTRA_POINTS);
             if(skullPtr->_imagePtr==&BOSS_IMAGE)
             {
-                increasePoints(SKULL_POINTS);
+                increasePoints(BOSS_EXTRA_POINTS);
             }
         }
 

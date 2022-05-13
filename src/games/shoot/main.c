@@ -377,14 +377,14 @@ int main(void)
             {
                 maxGhostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
             }
-            else if(isMissileLevel && rocketsOnScreen)
+            else if(isInnerHorizontalWallLevel || isInnerVerticalWallLevel)
             {
-                maxGhostsOnScreen = GHOSTS_NUMBER-2;
+                maxGhostsOnScreen = GHOSTS_NUMBER-GHOST_DECREASE;
             }
-            else if(isMissileLevel || rocketsOnScreen)
-            {
-                maxGhostsOnScreen = GHOSTS_NUMBER-1;
-            }
+            // else if(isMissileLevel && rocketsOnScreen)
+            // {
+                // maxGhostsOnScreen = GHOSTS_NUMBER-1;
+            // }
             else
             {
                 maxGhostsOnScreen = GHOSTS_NUMBER;

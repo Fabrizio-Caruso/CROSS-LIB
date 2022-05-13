@@ -134,7 +134,7 @@ void ghostDies(register Character * ghostPtr)
     
     if(ghostPtr->_imagePtr==&FAST_GHOST_IMAGE)
     {
-        increasePoints(GHOST_VS_BOMBS_BONUS);
+        increasePoints(FAST_GHOST_EXTRA_POINTS);
     }
     
     ghostPtr->_status=0;

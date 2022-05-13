@@ -89,6 +89,16 @@
     #endif
 #endif
 
+#if !defined(GHOST_DECREASE)
+    #define GHOST_DECREASE 1
+#endif
+
+#define FAST_GHOST_EXTRA_POINTS 20U
+
+#define BOSS_EXTRA_POINTS 100U
+
+#define BOSS_LEVEL_SKULL_EXTRA_POINTS 50U
+
 #define FIRST_LEVEL_GHOSTS_NUMBER 10
 
 // 65 is the max value that does not exceed 1000 points
@@ -129,7 +139,7 @@
 #define FIRE_POWER_ITEM_THRESHOLD 4
 #define FIRE_POWER_LEVEL_THRESHOLD 7
 
-#define FAST_GHOST_FIRE_POWER_THRESHOLD 3
+// #define FAST_GHOST_FIRE_POWER_THRESHOLD 3
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS + level X EXTRA_POINTS_LEVEL_INCREASE

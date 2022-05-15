@@ -149,10 +149,14 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
     }
 }
 
+// FAST_SPAWN_SPAWN_AND_MASK: frequency (probability) of spawning a fast ghost vs normal ghost
+// GHOST_SPAWN_LOOP_END_MASK: frequency of spawning a ghost (or fast ghost)
 #if defined(WIDE)
-    #define BOSS_LEVEL_SPAWN_AND_MASK 1
+    #define FAST_SPAWN_SPAWN_AND_MASK 1
+    #define GHOST_SPAWN_LOOP_END_MASK 31
 #else
-    #define BOSS_LEVEL_SPAWN_AND_MASK 3
+    #define FAST_SPAWN_SPAWN_AND_MASK 3
+    #define GHOST_SPAWN_LOOP_END_MASK 63
 #endif
 
 void handle_skulls(void)
@@ -191,26 +195,30 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && !(loop&63) && (ghostCount<=BOSS_LEVEL_GHOSTS_NUMBER) && skulls[BOSS_INDEX]._status && skulls[BOSS_INDEX]._x!=XSize/2 )
+         // Boss spawns only in boss level and: 
+         // it spawns only every 32nd loop or 64th loop (non-wide)
+         // it spawns only if boss is alive
+         // it spawns only if not on vertical wall (always present on boss levels)
+        if(isBossLevel && !(loop&GHOST_SPAWN_LOOP_END_MASK) && (ghostCount<BOSS_LEVEL_GHOSTS_NUMBER) && skulls[BOSS_INDEX]._status && skulls[BOSS_INDEX]._x!=XSize/2 )
         {
-            // i=0;
-            // while((i<BOSS_LEVEL_GHOSTS_NUMBER)&&(ghosts[i]._status))
-            // {
-                // ++i;
-            // }
-            if(ghostCount<BOSS_LEVEL_GHOSTS_NUMBER)
+            i=0;
+            while((i<BOSS_LEVEL_GHOSTS_NUMBER)&&(ghosts[i]._status))
             {
-                if(!(_XL_RAND()&BOSS_LEVEL_SPAWN_AND_MASK)) // Avoid spawning on the vertical wall
-                {
-                    initializeCharacter(&ghosts[ghostCount],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
-                }
-                else
-                {
-                    initializeCharacter(&ghosts[ghostCount],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
-                }
-                ++ghostCount;
-                printGhostCountStats();
+                ++i;
             }
+            // if(ghostCount<BOSS_LEVEL_GHOSTS_NUMBER)
+            // {
+            if(!(_XL_RAND()&FAST_SPAWN_SPAWN_AND_MASK))
+            {
+                initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,FAST_GHOST_LIFE,&FAST_GHOST_IMAGE);
+            }
+            else
+            {
+                initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
+            }
+            ++ghostCount;
+            printGhostCountStats();
+            // }
             
         }
     }

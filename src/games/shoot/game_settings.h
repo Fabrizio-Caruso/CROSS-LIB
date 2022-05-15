@@ -93,6 +93,9 @@
     #define GHOST_DECREASE 1
 #endif
 
+// Bonus for completing the game =  number of lives left X LIVES_LEFT_BONUS
+#define LIVES_LEFT_BONUS 1500U
+
 #define FAST_GHOST_EXTRA_POINTS 20U
 
 #define BOSS_EXTRA_POINTS 100U

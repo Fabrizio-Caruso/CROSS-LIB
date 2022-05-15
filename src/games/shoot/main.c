@@ -369,7 +369,7 @@ int main(void)
             #if defined(DEBUG_STRATEGY)
             maxGhostsOnScreen = 1;
             #else
-            if(!level)
+            if(!level) // TODO: Do I need this check for the zero level?
             {
                 maxGhostsOnScreen = GHOSTS_NUMBER;
             }
@@ -381,10 +381,6 @@ int main(void)
             {
                 maxGhostsOnScreen = GHOSTS_NUMBER-GHOST_DECREASE;
             }
-            // else if(isMissileLevel && rocketsOnScreen)
-            // {
-                // maxGhostsOnScreen = GHOSTS_NUMBER-1;
-            // }
             else
             {
                 maxGhostsOnScreen = GHOSTS_NUMBER;
@@ -779,6 +775,25 @@ int main(void)
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game     
 
         // GAME OVER    
+
+        if(level==FINAL_LEVEL+1) // if completed game
+        {
+            uint8_t i;
+            uint8_t lives_left = lives;
+            for(i=0;i<lives_left;++i)
+            {
+                points+=LIVES_LEFT_BONUS;
+                --lives;
+                _XL_ZAP_SOUND();
+                displayStats();
+                SHORT_SLEEP(i<<3);
+            }
+            _XL_SLEEP(2);
+            _XL_WAIT_FOR_INPUT();
+            gameCompleted();
+            _XL_SLEEP(1);
+        }
+
         if(points>highScore)
         {
             highScore = points;
@@ -789,11 +804,7 @@ int main(void)
         _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
         
-        if(level==FINAL_LEVEL+1) // if completed game
-        {
-            gameCompleted();
-            _XL_SLEEP(1);
-        }
+
         
         _XL_CLEAR_SCREEN();
         printGameOver();

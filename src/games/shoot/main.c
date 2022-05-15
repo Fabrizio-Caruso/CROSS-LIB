@@ -793,8 +793,9 @@ int main(void)
                 points+=LIVES_LEFT_BONUS;
                 --lives;
                 _XL_ZAP_SOUND();
-                displayStats();
-                SHORT_SLEEP(i<<3);
+                displayScoreStats();
+                printLivesStats();
+                SHORT_SLEEP(30);
             }
             _XL_SLEEP(2);
             _XL_WAIT_FOR_INPUT();

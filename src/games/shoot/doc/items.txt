@@ -14,7 +14,7 @@ Secret item triggered by killing 2 times all 4 skulls in non-boss levels
 - Super         (Fire Power + Freeze + Invincibility)\
 
 Secret items triggered by completing levels with destroyed bases 
-- Confuse       (Skulls are much slower)
+- Confuse       (Skulls lose some energy and are temporarily much slower)
 - Suicide       (All ghots on screen die + constant point increase + standard and some secret items are spawned)
 
 Secret items triggered by both killing 2 times all 4 skulls in non-boss levels and by completing levels with a total of at least 3 destroyed bases 

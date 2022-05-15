@@ -736,13 +736,21 @@ int main(void)
                 {
                     if(!level)
                     {
+                        // Restart at the next level after the one you left when entering the secret zero level
                         level = nextLevel;
                     }
                     else
                     {
                         ++level;
                     }
-                    ghostCount = GHOSTS_NUMBER + 2*level;
+                    if(level>8)
+                    {
+                        ghostCount = 40;
+                    }
+                    else
+                    {
+                        ghostCount = GHOSTS_NUMBER + 2*level;
+                    }
                 }
                 
 

@@ -50,6 +50,8 @@
     #define BULLETS_NUMBER 6
 #endif
 
+#define SECOND_ROUND_GHOST_COUNT_INCREASE 0
+
 #define INITIAL_BULLET_COLOR _XL_WHITE
 #define FIRST_THRESHOLD_BULLET_COLOR _XL_GREEN
 #define SECOND_THRESHOLD_BULLET_COLOR _XL_RED
@@ -107,7 +109,7 @@
 // 65 is the max value that does not exceed 1000 points
 // bonus = 20 + 25 * [level] + 15 * [ghosts left]
 // level  0: 20 + 25* 0 + 15*65 = 20 +   0 + 975 = 995
-// level 15: 20 + 25*15 + 15*30 = 20 + 375 + 450 = 845
+// level 15: 20 + 25*15 + 15*40 = 20 + 375 + 600 = 995
 // level 16: 20 + 25*16 + 15*10 = 20 + 400 + 150 = 570
 #define ZERO_LEVEL_GHOSTS_NUMBER 65
 

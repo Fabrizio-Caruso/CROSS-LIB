@@ -27,6 +27,7 @@
 // #define DEBUG_ITEMS
 // #define DEBUG_END
 // #define DEBUG_ITEMS_IN_GAME
+// #define DEBUG_EASY_BOSS_LEVEL
 
 #include "settings.h"
 
@@ -301,7 +302,7 @@ void handle_special_triggers(void)
     confuse_present_on_level = !level || destroyed_bases_in_completed_levels;
     suicide_present_on_level = !level || (destroyed_bases_in_completed_levels>=2);
     super_present_on_level = all_skulls_killed_in_completed_levels>=2;
-    extraLife_present_on_level = super_present_on_level && suicide_present_on_level;
+    extraLife_present_on_level = super_present_on_level && suicide_present_on_level && !discoveredSecrets[EXTRA_LIFE_EFFECT_SECRET_INDEX];
 }
 
 
@@ -698,19 +699,19 @@ int main(void)
                 _XL_SLEEP(1);
                 _XL_WAIT_FOR_INPUT();
                 
-                if(isBossLevel && !(level==FINAL_LEVEL))
+                if(isBossLevel && level!=FINAL_LEVEL)
                 {    
-                    _XL_CLEAR_SCREEN();
-                    _XL_SLEEP(1);
-                    _XL_PING_SOUND();
-                    #if !defined(LESS_TEXT)
-                        printExtraLife();
-                        _XL_SLEEP(1);
-                        _XL_WAIT_FOR_INPUT();
-                    #else
-                        _XL_SLEEP(2);
-                    #endif
-                    ++lives;
+                    // _XL_CLEAR_SCREEN();
+                    // _XL_SLEEP(1);
+                    // _XL_PING_SOUND();
+                    // #if !defined(LESS_TEXT)
+                        // printExtraLife();
+                        // _XL_SLEEP(1);
+                        // _XL_WAIT_FOR_INPUT();
+                    // #else
+                        // _XL_SLEEP(2);
+                    // #endif
+                    // ++lives;
                     all_skulls_killed_in_completed_levels = 1;
                     destroyed_bases_in_completed_levels/=2;
                 }
@@ -786,17 +787,17 @@ int main(void)
 
         if(level==FINAL_LEVEL+1) // if completed game
         {
-            uint8_t i;
-            uint8_t lives_left = lives;
-            for(i=0;i<lives_left;++i)
+            // uint8_t i;
+            // uint8_t lives_left = lives;
+            do
             {
                 points+=LIVES_LEFT_BONUS;
                 --lives;
-                _XL_ZAP_SOUND();
                 displayScoreStats();
                 printLivesStats();
-                SHORT_SLEEP(30);
-            }
+                _XL_ZAP_SOUND();
+                _XL_SLEEP(1);
+            } while(lives);
             _XL_SLEEP(2);
             _XL_WAIT_FOR_INPUT();
             gameCompleted();
@@ -813,14 +814,11 @@ int main(void)
         _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
         
-
-        
         _XL_CLEAR_SCREEN();
         printGameOver();
         
         _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
-        
         
     } // while(1) -> restart from the beginning
 

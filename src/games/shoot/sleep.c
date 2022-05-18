@@ -7,7 +7,7 @@
 #include "cross_lib.h"
 
 #if _XL_SLOW_DOWN_FACTOR>0
-void _do_sleep(uint8_t t)
+void SHORT_SLEEP(uint8_t t)
 {
     uint8_t i;
     

@@ -30,6 +30,8 @@
 // #define DEBUG_NO_SKULL
 // #define SECRET_LEVEL
 
+// #define DEBUG_EASY_BOSS_LEVEL
+
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
@@ -180,17 +182,25 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
 
-#if defined(WIDE) || defined(FORCE_NARROW)
-    #define MIN_SKULL_HITS 60
-    #define BOSS_HITS 254
-    #define GHOST_LIFE 30
-    #define FAST_GHOST_LIFE ((GHOST_LIFE)/2)
-#else
-    #define MIN_SKULL_HITS 40
-    #define BOSS_HITS 170
-    #define GHOST_LIFE 20
+#if defined(DEBUG_EASY_BOSS_LEVEL)
+    #define MIN_SKULL_HITS 10
+    #define BOSS_HITS 30
+    #define GHOST_LIFE 5
     #define FAST_GHOST_LIFE ((GHOST_LIFE)/4)
-#endif    
+
+#else
+    #if defined(WIDE) || defined(FORCE_NARROW)
+        #define MIN_SKULL_HITS 60
+        #define BOSS_HITS 254
+        #define GHOST_LIFE 30
+        #define FAST_GHOST_LIFE ((GHOST_LIFE)/2)
+    #else
+        #define MIN_SKULL_HITS 40
+        #define BOSS_HITS 170
+        #define GHOST_LIFE 20
+        #define FAST_GHOST_LIFE ((GHOST_LIFE)/4)
+    #endif    
+#endif
 
 #define BOSS_INDEX 2
 

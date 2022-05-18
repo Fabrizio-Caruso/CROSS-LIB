@@ -319,7 +319,7 @@ void freezeEffect(void)
 void extraLifeEffect(void)
 {
     ++lives;
-    all_skulls_killed_in_completed_levels=1;
+    // all_skulls_killed_in_completed_levels=1;
     // destroyed_bases_in_completed_levels = 0;
     extraLife_present_on_level = 0;
     // extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible

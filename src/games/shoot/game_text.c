@@ -46,6 +46,20 @@ extern uint8_t bulletStrength;
 
 #define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
 
+#if defined(WIDE)
+
+    // SLOWER SECRETS FOUND DISPLAY
+    #define DISPLAY_SPEED_FACTOR 5
+    
+    // SLOWER BONUS DISPLAY
+    #define DISPLAY_SPEED_RIGHT_SHIFT 5
+#else
+    #define DISPLAY_SPEED_FACTOR 3
+
+    #define DISPLAY_SPEED_RIGHT_SHIFT 6
+#endif
+
+
 extern uint8_t level;
 extern uint8_t lives;
 
@@ -66,9 +80,9 @@ extern uint8_t bombCount;
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
 {
-    _XL_PRINT_CENTERED(KILL_THE_BOSS);    
-    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
-    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2-2,KILL_THE_BOSS);    
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING);    
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
 }
 #endif
 
@@ -234,11 +248,11 @@ void displayScoreStats(void)
 
 
 #if !defined(LESS_TEXT)
-    void printExtraLife(void)
-    {
-        SET_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
-    }
+    // void printExtraLife(void)
+    // {
+        // SET_COLOR(_XL_RED);
+        // _XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
+    // }
 
 
     void printVictoryMessage(void)
@@ -334,20 +348,34 @@ void _printCrossShoot(void)
 
 
 #if !defined(LESS_TEXT)
+
+#define MAX_DELAY 995
+
 void handleLevelBonus(uint16_t bonus)
 {
     uint16_t i;
+    uint16_t j;
+    
+    const uint16_t delay = MAX_DELAY/bonus;
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
+    // TODO: REMOVE THIS DEBUG CODE
+    // bonus=995;
+    
     for(i=0;i<=bonus;i+=5)
     {
+        // delay = (MAX_DELAY+i-bonus)/(bonus-i+1);
         _XL_PRINTD(XSize/2-1,YSize/2,3,i);
-        // points+=5;
         increasePoints(5);
-        SHORT_SLEEP((uint8_t) (1+(i>>6)));
-        // displayScoreStats();
+        // SHORT_SLEEP((uint8_t) (2+(i>>DISPLAY_SPEED_RIGHT_SHIFT)));
+        
         _XL_TICK_SOUND();
+
+        for(j=0;j<(i>>DISPLAY_SPEED_RIGHT_SHIFT);++j)
+        {
+            SHORT_SLEEP(delay);
+        }
     }
 }
 #endif
@@ -435,7 +463,7 @@ void printAchievements(void)
         _XL_PRINTD(9, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
         {
-            SHORT_SLEEP(2);
+            SHORT_SLEEP(DISPLAY_SPEED_FACTOR);
         }
         _XL_SHOOT_SOUND();
         ++i;

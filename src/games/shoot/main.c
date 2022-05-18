@@ -151,27 +151,29 @@ void DO_DEBUG_ITEMS(void)
 
 
 #if defined(EXTRA_TITLE) && YSize>=17
-static const uint8_t item_tile[6][2] = 
+static const uint8_t item_tile[7][2] = 
 {
-    { _GHOST_TILE, _XL_WHITE },
-    { _SKULL_TILE, _XL_YELLOW },
-    { _BOSS_TILE, _XL_RED },
-    { _BULLET_TILE, _XL_WHITE},
-    { _FIRE_POWER_TILE, _FIRE_POWER_COLOR },
-    { _BOMB_TILE, _XL_RED },
+    { _GHOST_TILE      , _XL_WHITE },
+    { _FAST_GHOST_TILE , _XL_GREEN },
+    { _SKULL_TILE      , _XL_YELLOW },
+    { _BOSS_TILE       , _XL_RED },
+    { _BULLET_TILE     , _XL_WHITE},
+    { _FIRE_POWER_TILE , _FIRE_POWER_COLOR },
+    { _BOMB_TILE       , _XL_RED },
 };
 
-static const char item_name[6][8] = 
+static const char item_name[7][9] = 
 {
-    _XL_E _XL_N _XL_E _XL_M _XL_Y,
+    _XL_G _XL_H _XL_O _XL_S _XL_T,
+    _XL_S _XL_P _XL_E _XL_C _XL_T _XL_R _XL_E,
     _XL_S _XL_K _XL_U _XL_L _XL_L,
     _XL_B _XL_O _XL_S _XL_S,
     _XL_B _XL_U _XL_L _XL_L _XL_E _XL_T _XL_S,
-    _XL_P _XL_O _XL_W _XL_E _XL_R,
+    _XL_P _XL_O _XL_W _XL_E _XL_R _XL_SPACE _XL_U _XL_P,
     _XL_M _XL_I _XL_N _XL_E,
 };
 
-#if XSize>16 && YSize>19
+#if XSize>16 && YSize>20
     #define _NEXT_ROW 2
     #define _Y_ITEMS_OFFSET 0
 #else
@@ -185,7 +187,7 @@ do \
 { \
     uint8_t i; \
     \
-    for(i=0;i<6;++i) \
+    for(i=0;i<7;++i) \
     { \
         _XL_DRAW(XSize/2-5,YSize/3+1+i*_NEXT_ROW+_Y_ITEMS_OFFSET, item_tile[i][0], item_tile[i][1]); \
         _XL_SET_TEXT_COLOR(_XL_GREEN); \

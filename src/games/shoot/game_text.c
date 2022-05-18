@@ -313,6 +313,8 @@ void _printCrossShoot(void)
 
         _XL_DRAW(XSize/2+7+1,INIT_HINT_LINE+2*LINE_SKIP, _SKULL_TILE, _XL_YELLOW);
         _XL_DRAW(XSize/2-3+1,INIT_HINT_LINE+3*LINE_SKIP, _GHOST_TILE, _XL_WHITE);
+        // _XL_DRAW(XSize/2-3+1,INIT_HINT_LINE+3*LINE_SKIP, _FAST_GHOST_TILE, _XL_WHITE);
+
         _XL_DRAW(XSize/2-1+1,INIT_HINT_LINE+4*LINE_SKIP, _SUPER_TILE, _XL_RED);
         _XL_DRAW(XSize/2+1+1,INIT_HINT_LINE+4*LINE_SKIP, _FREEZE_TILE, _XL_CYAN);
         _XL_DRAW(XSize/2+3+1,INIT_HINT_LINE+4*LINE_SKIP, _INVINCIBILITY_TILE, _XL_YELLOW);
@@ -341,7 +343,11 @@ void _printCrossShoot(void)
         #endif
 
         #if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
-            _XL_PRINT_CENTERED_ON_ROW(YSize-2, USE_STRING);
+            #if YSize<25
+                _XL_PRINT_CENTERED_ON_ROW(YSize-1, USE_STRING);
+            #else
+                _XL_PRINT_CENTERED_ON_ROW(YSize-2, USE_STRING);
+            #endif
         #endif
     }
 #endif

@@ -290,7 +290,10 @@ void initialScreen(void)
     #endif 
     
     _XL_WAIT_FOR_INPUT();
-    
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _printCrossShoot();
+    _XL_ZAP_SOUND();
+    _XL_SLEEP(1);
     
     #if !defined(NO_HINTS) && XSize>=18
         _XL_CLEAR_SCREEN();
@@ -327,6 +330,11 @@ int main(void)
             initialScreen();
             
             _XL_WAIT_FOR_INPUT();
+            _XL_SET_TEXT_COLOR(_XL_YELLOW);
+
+            _printCrossShoot();
+            _XL_ZAP_SOUND();
+            _XL_SLEEP(1);
             _XL_CLEAR_SCREEN();    
         #else
             _XL_CLEAR_SCREEN();    
@@ -444,6 +452,7 @@ int main(void)
 
                 printLevel();
                 _XL_SLEEP(1);
+                _XL_WAIT_FOR_INPUT();
                 _XL_CLEAR_SCREEN();
             #endif
                   
@@ -452,7 +461,8 @@ int main(void)
             if(isBossLevel)
             {
                 printKillTheSkulls();
-                _XL_SLEEP(2);
+                _XL_SLEEP(1);
+                _XL_WAIT_FOR_INPUT();
                 ghostCount = 0;
             }
             _XL_CLEAR_SCREEN();
@@ -461,9 +471,9 @@ int main(void)
             
             updateInnerHorizontalWall();                
             
-            printPressKeyToStart();
-            _XL_WAIT_FOR_INPUT();
-            _XL_CLEAR_SCREEN();
+            // printPressKeyToStart();
+            // _XL_WAIT_FOR_INPUT();
+            // _XL_CLEAR_SCREEN();
             
             playerFire = 0;
 

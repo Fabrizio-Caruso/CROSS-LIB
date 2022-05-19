@@ -105,6 +105,8 @@ void displayStats(void);
 #endif
 
 
+void _printCrossShoot(void);
+
 // game_text
 #if !defined(LESS_TEXT)
 	void printLevel(void);

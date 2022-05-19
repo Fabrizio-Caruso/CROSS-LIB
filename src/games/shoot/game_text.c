@@ -60,6 +60,15 @@ extern uint8_t bulletStrength;
 #endif
 
 
+#if YSize<=15
+    #define LINE_SKIP 1
+    #define INIT_HINT_LINE 1
+#else
+    #define LINE_SKIP 2
+    #define INIT_HINT_LINE 1+(YSize/8)
+#endif
+
+
 extern uint8_t level;
 extern uint8_t lives;
 
@@ -77,12 +86,41 @@ extern uint8_t  secretLevelActivated;
 
 extern uint8_t bombCount;
 
+
+
+#if !defined(LESS_TEXT)
+
+void print_destroy_missiles(uint8_t row)
+{
+    _XL_PRINT(XSize/2-9+1,row, DESTROY_MISSILES__STRING);
+    
+    _XL_DRAW(XSize/2-2, row+LINE_SKIP, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
+    _XL_DRAW(XSize/2-0, row+LINE_SKIP, _ROCKET_TILE, _XL_WHITE);
+    _XL_DRAW(XSize/2+2, row+LINE_SKIP, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE); 
+   
+}
+
+#endif
+
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
 {
+    _XL_DRAW(XSize/2-3, YSize/2-4, _BOSS_TILE, _XL_RED);
+    _XL_DRAW(XSize/2-1, YSize/2-4, _SKULL_TILE, _XL_CYAN);
+    _XL_DRAW(XSize/2+1, YSize/2-4, _SKULL_TILE, _XL_CYAN);
+    _XL_DRAW(XSize/2+3, YSize/2-4, _SKULL_TILE, _XL_CYAN);
+
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2-2,KILL_THE_BOSS);    
-    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING);    
-    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING);   
+
+    print_destroy_missiles(((uint8_t)YSize)/2+2);
+    
+    // _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
+    
+    // _XL_DRAW(XSize/2-2, YSize/2+4, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
+    // _XL_DRAW(XSize/2-0, YSize/2+4, _ROCKET_TILE, _XL_WHITE);
+    // _XL_DRAW(XSize/2+2, YSize/2+4, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
 }
 #endif
 
@@ -285,31 +323,28 @@ void displayScoreStats(void)
 
 void _printCrossShoot(void)
 {
-    SET_COLOR(_XL_RED);
     _XL_PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING);        
     SET_COLOR(_XL_WHITE);
 }
 #endif
 
 
-#if YSize<=15
-    #define LINE_SKIP 1
-    #define INIT_HINT_LINE 1
-#else
-    #define LINE_SKIP 2
-    #define INIT_HINT_LINE 1+(YSize/8)
-#endif
-
-
 #if !defined(NO_HINTS) && !defined(NO_INITIAL_SCREEN) && XSize>=18
     void printHints(void)
     {
+        SET_COLOR(_XL_RED);
+
         _printCrossShoot();
         
         _XL_PRINT(XSize/2-9+1,INIT_HINT_LINE+2*LINE_SKIP, KILL_ALL_SKULLS__STRING);
         _XL_PRINT(XSize/2-10+1, INIT_HINT_LINE+3*LINE_SKIP, BEFORE__TO_UNLOCK__STRING);  
         _XL_PRINT(XSize/2-7+1,INIT_HINT_LINE+4*LINE_SKIP, ITEMS__STRING);    
         _XL_PRINT(XSize/2-9+1,INIT_HINT_LINE+5*LINE_SKIP+1, DESTROY_MISSILES__STRING);
+        
+        _XL_DRAW(XSize/2-2, INIT_HINT_LINE+6*LINE_SKIP+1, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
+        _XL_DRAW(XSize/2-0, INIT_HINT_LINE+6*LINE_SKIP+1, _ROCKET_TILE, _XL_WHITE);
+        _XL_DRAW(XSize/2+2, INIT_HINT_LINE+6*LINE_SKIP+1, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);   
+
 
         _XL_DRAW(XSize/2+7+1,INIT_HINT_LINE+2*LINE_SKIP, _SKULL_TILE, _XL_YELLOW);
         _XL_DRAW(XSize/2-3+1,INIT_HINT_LINE+3*LINE_SKIP, _GHOST_TILE, _XL_WHITE);
@@ -325,6 +360,8 @@ void _printCrossShoot(void)
 #if !defined(NO_INITIAL_SCREEN)
     void printStartMessage(void)
     {
+        SET_COLOR(_XL_RED);
+
         _printCrossShoot();
         
         #if XSize>=16

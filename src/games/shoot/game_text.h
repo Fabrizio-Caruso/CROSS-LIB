@@ -113,7 +113,7 @@ void _printCrossShoot(void);
 
 	void printVictoryMessage(void);
 
-	void printExtraLife(void);
+    // void printSecondRound(void);
 #endif
 
 #if !defined(NO_MESSAGE)

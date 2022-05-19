@@ -105,10 +105,14 @@ void print_destroy_missiles(uint8_t row)
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
 {
+    uint8_t i;
+    
     _XL_DRAW(XSize/2-3, YSize/2-4, _BOSS_TILE, _XL_RED);
-    _XL_DRAW(XSize/2-1, YSize/2-4, _SKULL_TILE, _XL_CYAN);
-    _XL_DRAW(XSize/2+1, YSize/2-4, _SKULL_TILE, _XL_CYAN);
-    _XL_DRAW(XSize/2+3, YSize/2-4, _SKULL_TILE, _XL_CYAN);
+    
+    for(i=0;i<3;++i)
+    {
+        _XL_DRAW(XSize/2-1+(i<<1), YSize/2-4, _SKULL_TILE, _XL_CYAN);
+    }
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2-2,KILL_THE_BOSS);    
@@ -286,10 +290,10 @@ void displayScoreStats(void)
 
 
 #if !defined(LESS_TEXT)
-    // void printExtraLife(void)
+    // void printSecondRound(void)
     // {
         // SET_COLOR(_XL_RED);
-        // _XL_PRINT_CENTERED(EXTRA_LIFE_STRING); 
+        // _XL_PRINT_CENTERED(SECOND_ROUND_STRING); 
     // }
 
 

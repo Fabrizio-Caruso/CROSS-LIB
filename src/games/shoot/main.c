@@ -293,7 +293,7 @@ void initialScreen(void)
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
     _printCrossShoot();
     _XL_ZAP_SOUND();
-    _XL_SLEEP(1);
+    SHORT_SLEEP(3);
     
     #if !defined(NO_HINTS) && XSize>=18
         _XL_CLEAR_SCREEN();
@@ -334,7 +334,7 @@ int main(void)
 
             _printCrossShoot();
             _XL_ZAP_SOUND();
-            _XL_SLEEP(1);
+            SHORT_SLEEP(9);
             _XL_CLEAR_SCREEN();    
         #else
             _XL_CLEAR_SCREEN();    
@@ -717,9 +717,10 @@ int main(void)
                     // _XL_SLEEP(1);
                     // _XL_PING_SOUND();
                     // #if !defined(LESS_TEXT)
-                        // printExtraLife();
+                        // printSecondRound();
                         // _XL_SLEEP(1);
                         // _XL_WAIT_FOR_INPUT();
+                    // #endif
                     // #else
                         // _XL_SLEEP(2);
                     // #endif

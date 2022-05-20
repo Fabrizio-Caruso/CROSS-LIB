@@ -713,7 +713,6 @@ int main(void)
                 
                 if(isBossLevel && level!=FINAL_LEVEL)
                 {    
-                    // _XL_CLEAR_SCREEN();
                     // _XL_SLEEP(1);
                     // _XL_PING_SOUND();
                     // #if !defined(LESS_TEXT)
@@ -759,12 +758,20 @@ int main(void)
                     }
                     if(level>8)
                     {
-                        ghostCount = 40;
+                        ghostCount = NUMBER_OF_GHOSTS_ON_PART_II;
                     }
                     else
                     {
                         ghostCount = GHOSTS_NUMBER + 2*level;
                     }
+                    // if(level==9)
+                    // {
+                        // _XL_CLEAR_SCREEN();
+                        
+                        // _XL_PRINT_CENTERED_ON_ROW(YSize/2-1, SECOND_ROUND_STRING);
+                        // _XL_PING_SOUND();
+                        // _XL_WAIT_FOR_INPUT();
+                    // }
                 }
                 
 
@@ -791,7 +798,7 @@ int main(void)
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
-                _XL_SLEEP(1);
+                // _XL_SLEEP(1);
             #endif
             
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game     

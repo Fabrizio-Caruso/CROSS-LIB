@@ -77,7 +77,7 @@
 
 #define DEFEAT_STRING _XL_Y _XL_o _XL_u _XL_SPACE _XL_l _XL_o _XL_s _XL_t
 #define VICTORY_STRING _XL_Y _XL_o _XL_u _XL_SPACE _XL_w _XL_o _XL_n
-#define SECOND_ROUND_STRING "2" _XL_N _XL_D _XL_SPACE _XL_R _XL_O _XL_U _XL_N _XL_D
+#define SECOND_ROUND_STRING _XL_W _XL_E _XL_L _XL_L _XL_SPACE _XL_D _XL_O _XL_N _XL_E
 
 
 #define _USE_STRING _XL_U _XL_s _XL_e

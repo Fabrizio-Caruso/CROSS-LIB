@@ -65,6 +65,11 @@
         _XL_PRINT(XSize/2-3, MESSAGE_START,  YOU_MADE_IT_STRING);
 
         _XL_WAIT_FOR_INPUT();
+        
+        #if defined(BETWEEN_LEVEL)
+            spiral(&player, 2*MIN_SIZE-18);
+            // _XL_SLEEP(1);
+        #endif
 	}
 #endif
 

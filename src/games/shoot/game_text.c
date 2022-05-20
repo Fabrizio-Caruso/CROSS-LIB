@@ -27,7 +27,7 @@
 
 #include "game_text.h"
 #include "character.h"
-#include "settings.h"
+// #include "settings.h"
 #include "text_strings.h"
 #include "sound_macros.h"
 #include "sleep_macros.h"
@@ -45,20 +45,6 @@ extern uint8_t guns;
 extern uint8_t bulletStrength;
 
 #define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
-
-#if defined(WIDE)
-
-    // SLOWER SECRETS FOUND DISPLAY
-    #define DISPLAY_SPEED_FACTOR 5
-    
-    // SLOWER BONUS DISPLAY
-    #define DISPLAY_SPEED_RIGHT_SHIFT 5
-#else
-    #define DISPLAY_SPEED_FACTOR 3
-
-    #define DISPLAY_SPEED_RIGHT_SHIFT 6
-#endif
-
 
 #if YSize<=15
     #define LINE_SKIP 1
@@ -225,7 +211,7 @@ void printFirePowerStats(void)
     void printLevelStats(void)
     {    
         SET_COLOR(_XL_WHITE);
-    
+
         _XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
     }
     #endif
@@ -263,7 +249,43 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)    
     void printLevel(void)
     {
+        uint8_t i;
+        
+
+        if(!level)
+        {
+            SET_COLOR(_XL_YELLOW);
+            _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T); 
+        }
+        else if(!(level&7))
+        {
+            SET_COLOR(_XL_RED);
+            _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_B _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S);
+
+        }
+        // else if(level==8)
+        // {
+            // SET_COLOR(_XL_RED);
+            // _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_B _XL_O _XL_S _XL_S);
+        // }
+        else
+        {
+            for(i=0;i<(level&7);++i)
+            {
+                _draw_stat(((XSize -7)>>1)+i,(YSize>>1)-4,&GHOST_IMAGE);
+            }
+            SET_COLOR(_XL_WHITE);
+            
+            _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_P _XL_A _XL_R _XL_T _XL_SPACE _XL_I);
+
+
+            if(level>8)
+            {
+                _XL_CHAR(((XSize -7)>>1)+6, (YSize>>1)-2, 'I');
+            }
+        }
         SET_COLOR(_XL_WHITE);
+
         _XL_PRINT(((XSize -7)>>1), (YSize>>1), LEVEL_STRING);
         _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
     }

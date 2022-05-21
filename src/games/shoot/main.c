@@ -762,7 +762,7 @@ int main(void)
                     }
                     else
                     {
-                        ghostCount = GHOSTS_NUMBER + 2*level;
+                        ghostCount = FIRST_LEVEL_GHOSTS_NUMBER + 2*level;
                     }
                     // if(level==9)
                     // {

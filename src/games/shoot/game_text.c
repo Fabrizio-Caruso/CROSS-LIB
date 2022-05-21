@@ -80,9 +80,9 @@ void print_destroy_missiles(uint8_t row)
 {
     _XL_PRINT(XSize/2-9+1,row, DESTROY_MISSILES__STRING);
     
-    _XL_DRAW(XSize/2-2, row+LINE_SKIP, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
-    _XL_DRAW(XSize/2-0, row+LINE_SKIP, _ROCKET_TILE, _XL_WHITE);
-    _XL_DRAW(XSize/2+2, row+LINE_SKIP, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE); 
+    _XL_DRAW(XSize/2-3, row+LINE_SKIP, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
+    _XL_DRAW(XSize/2-1, row+LINE_SKIP, _ROCKET_TILE, _XL_WHITE);
+    _XL_DRAW(XSize/2+1, row+LINE_SKIP, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE); 
    
 }
 
@@ -93,11 +93,11 @@ void printKillTheSkulls(void)
 {
     uint8_t i;
     
-    _XL_DRAW(XSize/2-3, YSize/2-4, _BOSS_TILE, _XL_RED);
+    _XL_DRAW(XSize/2-4, YSize/2-4, _BOSS_TILE, _XL_RED);
     
     for(i=0;i<3;++i)
     {
-        _XL_DRAW(XSize/2-1+(i<<1), YSize/2-4, _SKULL_TILE, _XL_CYAN);
+        _XL_DRAW(XSize/2-2+(i<<1), YSize/2-4, _SKULL_TILE, _XL_CYAN);
     }
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -251,23 +251,23 @@ void displayScoreStats(void)
     {
         uint8_t i;
         
+        SET_COLOR(_XL_YELLOW);
 
         if(!level)
         {
-            SET_COLOR(_XL_YELLOW);
             _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T); 
         }
-        else if(!(level&7))
+        else if(level==8)//(!(level&7))
         {
-            SET_COLOR(_XL_RED);
+            // SET_COLOR(_XL_RED);
             _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_B _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S);
 
         }
-        // else if(level==8)
-        // {
-            // SET_COLOR(_XL_RED);
-            // _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_B _XL_O _XL_S _XL_S);
-        // }
+        else if(level==16)
+        {
+            // SET_COLOR(_XL_CYAN);
+            _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_F _XL_I _XL_N _XL_A _XL_L);
+        }
         else
         {
             for(i=0;i<(level&7);++i)
@@ -362,7 +362,7 @@ void _printCrossShoot(void)
 
         _printCrossShoot();
         
-        _XL_PRINT(XSize/2-9+1,INIT_HINT_LINE+2*LINE_SKIP, KILL_ALL_SKULLS__STRING);
+        _XL_PRINT(XSize/2-7+1,INIT_HINT_LINE+2*LINE_SKIP, KILL_SKULLS__STRING);
         _XL_PRINT(XSize/2-10+1, INIT_HINT_LINE+3*LINE_SKIP, BEFORE__TO_UNLOCK__STRING);  
         _XL_PRINT(XSize/2-7+1,INIT_HINT_LINE+4*LINE_SKIP, ITEMS__STRING);    
         _XL_PRINT(XSize/2-9+1,INIT_HINT_LINE+5*LINE_SKIP+1, DESTROY_MISSILES__STRING);
@@ -372,7 +372,7 @@ void _printCrossShoot(void)
         _XL_DRAW(XSize/2+2, INIT_HINT_LINE+6*LINE_SKIP+1, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);   
 
 
-        _XL_DRAW(XSize/2+7+1,INIT_HINT_LINE+2*LINE_SKIP, _SKULL_TILE, _XL_YELLOW);
+        _XL_DRAW(XSize/2+5+1,INIT_HINT_LINE+2*LINE_SKIP, _SKULL_TILE, _XL_YELLOW);
         _XL_DRAW(XSize/2-3+1,INIT_HINT_LINE+3*LINE_SKIP, _GHOST_TILE, _XL_WHITE);
         // _XL_DRAW(XSize/2-3+1,INIT_HINT_LINE+3*LINE_SKIP, _FAST_GHOST_TILE, _XL_WHITE);
 
@@ -538,7 +538,7 @@ void printAchievements(void)
         ++i;
     } while(i<=foundSecrets);
     
-    SHORT_SLEEP(10);
+    // SHORT_SLEEP(10);
     if(secretLevelActivated)
     {
         SET_COLOR(_XL_YELLOW);    

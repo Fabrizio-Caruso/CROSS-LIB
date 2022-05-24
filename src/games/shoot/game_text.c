@@ -418,26 +418,22 @@ void _printCrossShoot(void)
 
 #if !defined(LESS_TEXT)
 
-#define MAX_DELAY 995
+#define MAX_BONUS 995
 
 void handleLevelBonus(uint16_t bonus)
 {
     uint16_t i;
     uint16_t j;
     
-    const uint16_t delay = MAX_DELAY/bonus;
+    const uint8_t delay = (MAX_BONUS/bonus); // Minimum bonus = 20. So 995/20<255
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    
-    // TODO: REMOVE THIS DEBUG CODE
-    // bonus=995;
     
     for(i=0;i<=bonus;i+=5)
     {
         // delay = (MAX_DELAY+i-bonus)/(bonus-i+1);
         _XL_PRINTD(XSize/2-1,YSize/2,3,i);
         increasePoints(5);
-        // SHORT_SLEEP((uint8_t) (2+(i>>DISPLAY_SPEED_RIGHT_SHIFT)));
         
         _XL_TICK_SOUND();
 
@@ -502,6 +498,7 @@ void printAchievements(void)
     if(level<=FINAL_LEVEL)
     {
         _XL_PRINT(1, (YSize>>1),    LEVEL_STRING);
+        _XL_PRINTD(9, (YSize>>1), 2,   level);
     }
     else
     {
@@ -521,10 +518,9 @@ void printAchievements(void)
 
     _XL_PRINTD(9, (YSize>>1)-2, 5, points);
 
-    if(level<=FINAL_LEVEL)
-    {
-        _XL_PRINTD(9, (YSize>>1), 2,   level);
-    }
+    // if(level<=FINAL_LEVEL)
+    // {
+    // }
 
     i=0;
     do

@@ -138,7 +138,6 @@ void _freezeEffect(void)
 {
     decreaseGhostLevel();
     freezeActive = 1;    
-    // points+=FREEZE_BONUS;
     increasePoints(FREEZE_BONUS);
     freeze_count_down += FREEZE_COUNT_DOWN;    
 }
@@ -331,6 +330,7 @@ void extraLifeEffect(void)
 void _invincibilityEffect(void)
 {
     invincibilityActive = 1;
+    // Remark: The invincibility count-down could be higher than the standard threshold if the destroyer is active
     if(invincibility_count_down<INVINCIBILITY_COUNT_DOWN)
     {
         invincibility_count_down = INVINCIBILITY_COUNT_DOWN;
@@ -375,20 +375,20 @@ void confuseEffect(void)
         {
             if(skulls[i]._status)
             {
-                for(j=0;j<4;++j)
+                for(j=0;j<5;++j)
                 {
                     _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_GREEN);
                     SHORT_SLEEP(3);
                     _XL_DRAW(skulls[i]._x,skulls[i]._y,SKULL_IMAGE._imageData,_XL_RED);
                     _XL_TOCK_SOUND();
-                    SHORT_SLEEP(1);
+                    SHORT_SLEEP(2);
                 }
 
                 if(skulls[i]._status>CONFUSE_DAMAGE)
                 {
                     skulls[i]._status-=CONFUSE_DAMAGE;
                 }
-                SHORT_SLEEP(3);
+                // SHORT_SLEEP(3);
                 _XL_EXPLOSION_SOUND();
                 displaySkull(&skulls[i]);
             }
@@ -413,7 +413,7 @@ void suicideEffect(void)
     }
     else
     {
-    suicide._coolDown = SECOND_SUICIDE_COOL_DOWN;
+        suicide._coolDown = SECOND_SUICIDE_COOL_DOWN;
     }    
     setSecret(SUICIDE_EFFECT_SECRET_INDEX);
     for(i=0;i<maxGhostsOnScreen;++i)
@@ -462,11 +462,12 @@ void setSecret(uint8_t secretIndex)
         #if !defined(_XL_NO_COLOR)
         uint8_t i;
         
-        for(i=0;i<8;++i)
+        for(i=0;i<10;++i)
         {
             _XL_SET_TEXT_COLOR(_XL_RED);
             _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
             _XL_TOCK_SOUND();
+            SHORT_SLEEP(2);
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
             _XL_TICK_SOUND();

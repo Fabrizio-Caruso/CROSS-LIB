@@ -6,12 +6,12 @@
 #if XSize>=32
 
     // SLOWER SECRETS FOUND DISPLAY
-    #define DISPLAY_SPEED_FACTOR 5
+    #define DISPLAY_SPEED_FACTOR 2
     
     // SLOWER BONUS DISPLAY
     #define DISPLAY_SPEED_RIGHT_SHIFT 5
 #else
-    #define DISPLAY_SPEED_FACTOR 3
+    #define DISPLAY_SPEED_FACTOR 1
 
     #define DISPLAY_SPEED_RIGHT_SHIFT 6
 #endif

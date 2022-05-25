@@ -289,7 +289,7 @@ uint8_t bulletStrength;
 
 uint8_t bombCount;
 
-uint8_t reachedByGhost;
+// uint8_t reachedByGhost;
     
 Character bullets[BULLETS_NUMBER];
 

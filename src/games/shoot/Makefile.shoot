@@ -677,7 +677,13 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	-D_XL_SLOW_DOWN_FACTOR=500 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c \
+	$(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE2 \

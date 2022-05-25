@@ -28,6 +28,7 @@
 // #define DEBUG_END
 // #define DEBUG_ITEMS_IN_GAME
 // #define DEBUG_EASY_BOSS_LEVEL
+// #define NO_CHASE
 
 #include "settings.h"
 
@@ -311,6 +312,23 @@ void handle_special_triggers(void)
 }
 
 
+void handle_player_killed_by_ghost(void)
+{
+    uint8_t reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
+    
+    if(destroyerActive && (reachedByGhost < maxGhostsOnScreen))
+    {
+        points += GHOST_VS_BOMBS_BONUS;
+        ghostDiesAndSpawns(&ghosts[reachedByGhost]);
+    }
+    
+    
+    if((!invincibilityActive && ((reachedByGhost<maxGhostsOnScreen))))
+    {
+        playerDies();
+    }
+}
+
 int main(void)
 {        
     _XL_INIT_GRAPHICS();
@@ -542,6 +560,9 @@ int main(void)
                 handle_bullets();
                 handle_bomb();
 
+                handle_player_killed_by_ghost();
+
+                #if !defined(NO_CHASE)
                 if(!freezeActive)
                 {
                     if(ghostCount)
@@ -561,9 +582,18 @@ int main(void)
                         }
                     }
                 }
+                #else
+                    for(ind=0;ind<GHOSTS_NUMBER;++ind)
+                    {
+                        if(ghosts[ind]._status)
+                        {
+                            displayGhost(&ghosts[ind]);
+                        }
+                    }
+                #endif
                                 
                 
-                #if !defined(DEBUG_STRATEGY)
+                #if !defined(DEBUG_STRATEGY) && !defined(NO_CHASE)
                 handle_skulls();
                 #endif
             
@@ -634,19 +664,20 @@ int main(void)
                     }
                 }              
                 
-                reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
+                handle_player_killed_by_ghost();
+                // reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
                 
-                if(destroyerActive && (reachedByGhost < maxGhostsOnScreen))
-                {
-                    points += GHOST_VS_BOMBS_BONUS;
-                    ghostDiesAndSpawns(&ghosts[reachedByGhost]);
-                }
+                // if(destroyerActive && (reachedByGhost < maxGhostsOnScreen))
+                // {
+                    // points += GHOST_VS_BOMBS_BONUS;
+                    // ghostDiesAndSpawns(&ghosts[reachedByGhost]);
+                // }
                 
                 
-                if((!invincibilityActive && ((reachedByGhost<maxGhostsOnScreen))))
-                {
-                    playerDies();
-                }
+                // if((!invincibilityActive && ((reachedByGhost<maxGhostsOnScreen))))
+                // {
+                    // playerDies();
+                // }
 
                     
                 SKIP_WALL_DRAW
@@ -713,17 +744,6 @@ int main(void)
                 
                 if(isBossLevel && level!=FINAL_LEVEL)
                 {    
-                    // _XL_SLEEP(1);
-                    // _XL_PING_SOUND();
-                    // #if !defined(LESS_TEXT)
-                        // printSecondRound();
-                        // _XL_SLEEP(1);
-                        // _XL_WAIT_FOR_INPUT();
-                    // #endif
-                    // #else
-                        // _XL_SLEEP(2);
-                    // #endif
-                    // ++lives;
                     all_skulls_killed_in_completed_levels = 1;
                     destroyed_bases_in_completed_levels/=2;
                 }
@@ -764,14 +784,6 @@ int main(void)
                     {
                         ghostCount = FIRST_LEVEL_GHOSTS_NUMBER + 2*level;
                     }
-                    // if(level==9)
-                    // {
-                        // _XL_CLEAR_SCREEN();
-                        
-                        // _XL_PRINT_CENTERED_ON_ROW(YSize/2-1, SECOND_ROUND_STRING);
-                        // _XL_PING_SOUND();
-                        // _XL_WAIT_FOR_INPUT();
-                    // }
                 }
                 
 

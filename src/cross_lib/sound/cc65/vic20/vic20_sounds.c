@@ -34,6 +34,13 @@ void _pause(void)
         } 			
 }
 
+void silence(void)
+{
+    VIC.noise = 0x00; 
+    VIC.voice1 = 0x00;
+    VIC.volume_color = 0x00;    
+}
+
 void _explosion_sound(uint8_t freq, uint8_t duration)
 { 
     uint8_t j;
@@ -44,17 +51,15 @@ void _explosion_sound(uint8_t freq, uint8_t duration)
     { 
         _pause();
     } 
-    VIC.noise = 0x00; 
-    VIC.volume_color = 0x00; 
+    silence();
 };	
 
 void _ping_sound(uint8_t freq)
 { 
     VIC.voice1 = freq; 
     VIC.volume_color |= 0x08; 
-    _pause(); _pause();
-    VIC.voice1 = 0x00; 
-    VIC.volume_color = 0x00; 
+    _pause();
+    silence();
 };
 
 
@@ -62,13 +67,12 @@ void _XL_ZAP_SOUND()
 { 
     uint8_t j;
     VIC.volume_color |= 0x0B; 
-    for(j=0;j<15;++j) 
+    for(j=0;j<14;++j) 
     { \
-        VIC.voice1 = j*15;
-        _pause(); _pause(); _pause();
+        VIC.voice1 = j<<4;
+        _pause(); _pause();
     } \
-    VIC.voice1 = 0x00; 
-    VIC.volume_color = 0x00; 
+    silence();
 };		
 
     

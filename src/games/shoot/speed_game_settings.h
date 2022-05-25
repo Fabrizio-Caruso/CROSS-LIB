@@ -22,13 +22,13 @@
 
 
 	
-#if defined(WIDE) && !defined(SLOW_MISSILE)
+// #if defined(XSize>=32) && !defined(SLOW_MISSILE)
 	#define ADVANCED_LEFT_MISSILE()  ++leftHorizontalMissile._x
 	#define ADVANCED_RIGHT_MISSILE() --rightHorizontalMissile._x	
-#else
-	#define ADVANCED_LEFT_MISSILE()  do{if(loop&1)++leftHorizontalMissile._x;}while(0)
-	#define ADVANCED_RIGHT_MISSILE() do{if(loop&1)--rightHorizontalMissile._x;}while(0)
-#endif
+// #else
+	// #define ADVANCED_LEFT_MISSILE()  do{if(loop&1)++leftHorizontalMissile._x;}while(0)
+	// #define ADVANCED_RIGHT_MISSILE() do{if(loop&1)--rightHorizontalMissile._x;}while(0)
+// #endif
 	
 
 

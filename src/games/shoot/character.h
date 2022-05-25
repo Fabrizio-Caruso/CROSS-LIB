@@ -184,6 +184,8 @@ uint8_t wallReached(register Character *characterPtr);
 
 void playerDies(void);
 
+uint8_t handle_player_killed(Character *characterPtr);
+
 uint8_t safeLocation(uint8_t x, uint8_t y);
 
 void relocateNearBy(register Character * characterPtr);

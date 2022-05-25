@@ -142,6 +142,16 @@ uint8_t playerKilledBy(Character *enemyPtr)
     return (!invincibilityActive) && areCharctersAtSamePosition(enemyPtr,&player);
 }
 
+uint8_t handle_player_killed(Character *enemyPtr)
+{
+    if(playerKilledBy(enemyPtr))
+    {
+        playerDies();
+        return 1;
+    }
+    return 0;
+}
+
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr)
 {
     characterPtr->_x = x;

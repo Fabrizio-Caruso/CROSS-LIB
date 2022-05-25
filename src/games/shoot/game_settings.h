@@ -117,10 +117,12 @@
 // level 16: 20 + 25*16 + 15*10 = 20 + 400 + 150 = 570
 #define ZERO_LEVEL_GHOSTS_NUMBER 65
 
-#if XSize>=22
-    #define MAX_ROCKETS_NUMBER 6
-#else
+#if XSize<=22
+    #define MAX_ROCKETS_NUMBER 4
+#elif XSisize<=32
     #define MAX_ROCKETS_NUMBER 5
+#else 
+    #define MAX_ROCKETS_NUMBER 6
 #endif
 
 #define MISSILE_DESTROYER_TRIGGER 3
@@ -236,7 +238,7 @@
 
 #define FIRST_MOVING_BOMBS_LEVEL 11
 
-#if defined(WIDE)
+#if XSize>=32
     #define RELOCATE_RANGE 7
     #define HORIZONTAL_WALLS_INITIAL_LENGTH 2
     #define HORIZONTAL_WALLS_INCREASE_LOOP 200
@@ -251,7 +253,7 @@
 // Maximum number of ghost that co-exist with rockets (in non-boss levels)
 #define MAX_GHOST_COUNT_FOR_ROCKETS 4
 
-#if defined(WIDE)
+#if XSize>=32
     #define HORIZONTAL_MISSILE_OFFSET 3
 #else
     #define HORIZONTAL_MISSILE_OFFSET 2

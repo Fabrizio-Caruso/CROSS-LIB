@@ -137,15 +137,21 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
 {
     if(skullPtr->_status)
     {
+        if(handle_player_killed(skullPtr))
+        {
+            return;
+        }
+
         if(!freezeActive && SKULL_RAND_CONDITION)
         {
             skullMoveTowardCharacter(skullPtr, strategy);
         }
         displaySkull(skullPtr);
-        if (playerKilledBy(skullPtr))
-        {
-            playerDies();
-        }
+        // if (playerKilledBy(skullPtr))
+        // {
+            // playerDies();
+        // }
+        handle_player_killed(skullPtr);
     }
 }
 

@@ -46,10 +46,23 @@ extern uint8_t isBossLevel;
         return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
     }
     
+    
+    // void _display_and_handle_player(Character *missilePtr)
+    // {
+            // displayHorizontalMissile(&missilePtr);
+            
+            // handle_player_killed(&missilePtr);
+    // }
+    
     void _handle_from_the_left(void)
     {
         if(leftHorizontalMissile._status)
         {
+            if(handle_player_killed(&leftHorizontalMissile))
+            {
+                return;
+            }
+
             deleteHorizontalMissile(&leftHorizontalMissile);
             if(leftHorizontalMissile._x==XSize-2)
             {
@@ -69,10 +82,7 @@ extern uint8_t isBossLevel;
             }
             displayHorizontalMissile(&leftHorizontalMissile);
             
-            if(playerKilledBy(&leftHorizontalMissile))
-            {
-                playerDies();
-            }
+            handle_player_killed(&leftHorizontalMissile);
         }        
     }
     
@@ -80,6 +90,11 @@ extern uint8_t isBossLevel;
     {
         if(rightHorizontalMissile._status)
         {
+            if(handle_player_killed(&rightHorizontalMissile))
+            {
+                return;
+            }
+
             deleteHorizontalMissile(&rightHorizontalMissile);
             if(rightHorizontalMissile._x==1)
             {
@@ -89,6 +104,7 @@ extern uint8_t isBossLevel;
             else
             {
                 ADVANCED_RIGHT_MISSILE();
+
                 if(_playerInArrowRange())
                 {
                     if(player._x<= rightHorizontalMissile._x)    
@@ -99,10 +115,7 @@ extern uint8_t isBossLevel;
             }
             displayHorizontalMissile(&rightHorizontalMissile);    
             
-            if(playerKilledBy(&rightHorizontalMissile))
-            {
-                playerDies();
-            }
+            handle_player_killed(&rightHorizontalMissile);
         }        
     }
     

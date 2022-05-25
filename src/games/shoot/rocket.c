@@ -48,9 +48,13 @@ extern uint8_t isBossLevel;
             {
                 if(rockets[i]._status)
                 {
-                    if(playerKilledBy(&rockets[i]))
+                    // if(playerKilledBy(&rockets[i]))
+                    // {
+                        // playerDies();
+                    // }
+                    if(handle_player_killed(&rockets[i]))
                     {
-                        playerDies();
+                        return;
                     }
                     
                     #if defined(TURNED_BASED)
@@ -69,6 +73,12 @@ extern uint8_t isBossLevel;
                         deleteRocket(&rockets[i]);
                         rockets[i]._y = YSize-1;                            
                     }
+                    
+                    // if(playerKilledBy(&rockets[i]))
+                    // {
+                        // playerDies();
+                    // }
+                    handle_player_killed(&rockets[i]);
                 }
             }
         }

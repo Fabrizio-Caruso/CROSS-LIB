@@ -166,7 +166,7 @@ static const uint8_t item_tile[7][2] =
 static const char item_name[7][9] = 
 {
     _XL_G _XL_H _XL_O _XL_S _XL_T,
-    _XL_S _XL_P _XL_E _XL_C _XL_T _XL_R _XL_E,
+    _XL_S _XL_P _XL_E _XL_C _XL_T _XL_E _XL_R,
     _XL_S _XL_K _XL_U _XL_L _XL_L,
     _XL_B _XL_O _XL_S _XL_S,
     _XL_B _XL_U _XL_L _XL_L _XL_E _XL_T _XL_S,

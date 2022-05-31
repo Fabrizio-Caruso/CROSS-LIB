@@ -138,11 +138,12 @@ void ghostDies(register Character * ghostPtr)
     }
     
     ghostPtr->_status=0;
-    displayScoreStats();
+    // displayScoreStats();
     
     --ghostCount;
     deleteGhost(ghostPtr);
-    printGhostCountStats();
+    // printGhostCountStats();
+    displayStats();
 }
 
 

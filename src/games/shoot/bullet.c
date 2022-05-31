@@ -379,7 +379,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                         {
                             spawnGhost(ghostPtr,ghostCount);
                         }
-                    // displayStats();
+                    displayStats();
                     break;
                 }
                 displayGhost(ghostPtr);

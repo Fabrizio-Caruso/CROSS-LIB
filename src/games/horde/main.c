@@ -345,8 +345,10 @@ void sleep_and_wait_for_input(void)
 
 #if XSize>=22
     #define POWER_UP_X 10
-#else
+#elif XSize>=20
     #define POWER_UP_X 9
+#else
+    #define POWER_UP_X 10
 #endif
 
 
@@ -2176,25 +2178,42 @@ do \
 #endif
 
 
-#define display_stats() \
-do \
-{ \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    display_score(); \
-    _XL_DRAW(HI_X,0,HI_TILE, _XL_GREEN); \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(HI_X+1,0,5, hiscore); \
-    _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
-    _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
-    draw_zombie_counter_tile(); \
-    display_remaining_arrows(); \
-    display_power_up_counter(); \
-    display_level(); \
-    display_lives(_XL_WHITE); \
-    display_power_ups(); \
-    display_zombie_counter(); \
-} while(0)
-
+#if XSize>=20
+    #define display_stats() \
+    do \
+    { \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        display_score(); \
+        _XL_DRAW(HI_X,0,HI_TILE, _XL_GREEN); \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINTD(HI_X+1,0,5, hiscore); \
+        _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+        _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
+        draw_zombie_counter_tile(); \
+        display_remaining_arrows(); \
+        display_power_up_counter(); \
+        display_level(); \
+        display_lives(_XL_WHITE); \
+        display_power_ups(); \
+        display_zombie_counter(); \
+    } while(0)
+#else
+    #define display_stats() \
+    do \
+    { \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        display_score(); \
+        _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+        _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
+        draw_zombie_counter_tile(); \
+        display_remaining_arrows(); \
+        display_power_up_counter(); \
+        display_level(); \
+        display_lives(_XL_WHITE); \
+        display_power_ups(); \
+        display_zombie_counter(); \
+    } while(0)
+#endif
 
 # if YSize>=20
     void display_top_border(void)

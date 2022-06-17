@@ -45,7 +45,7 @@ The logo was designed by *Hamlet*.
 
 Here you find an article (first appeared in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details (currently only in French but there will be an English and Italian version in future).
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/article/CROSS_LIB_PUBLIC.pdf
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf
 
 -------------------------------------------
 

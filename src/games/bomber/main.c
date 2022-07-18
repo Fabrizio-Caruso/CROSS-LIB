@@ -458,9 +458,9 @@ int main(void)
                             --remaining_buildings;
                             if(!remaining_buildings)
                             {
-                                bonus = (uint16_t)10u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
+                                bonus = (uint16_t)20u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
                             }
-                            displayScore();
+                            // displayScore();
                         }
                     }
                 }
@@ -480,6 +480,7 @@ int main(void)
                         
                         #if XSize>=20
                             displayRemainingBuilings();
+                            displayScore();
                         #endif
                         // Delete animated bomb
                         deleteAnimatedBombUp();
@@ -558,6 +559,7 @@ int main(void)
             {
                 drawPlaneBack();
                 _XL_EXPLOSION_SOUND();
+                displayScore();
                 displayGameOverMessage();
                 _XL_SLEEP(2);
                 alive = 0;

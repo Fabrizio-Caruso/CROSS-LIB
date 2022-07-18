@@ -92,6 +92,7 @@
 #define _LEVEL_COMPLETED__STRING _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D
 #define _BONUS__STRING _XL_B _XL_O _XL_N _XL_U _XL_S
 #define _GAME_COMPLETED__STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_E _XL_T _XL_E _XL_D
+#define _DEL_STR _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE
 #define _NEW_HISCORE__STRING _XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E
 #define _GAME_OVER__STRING _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R
 
@@ -457,7 +458,7 @@ int main(void)
                             --remaining_buildings;
                             if(!remaining_buildings)
                             {
-                                bonus = 10*(MAX_Y-y)+level*20;
+                                bonus = (uint16_t)10u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
                             }
                             displayScore();
                         }
@@ -548,6 +549,8 @@ int main(void)
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 }
+                _XL_PRINTD(7,4,4,bonus);
+
                 displayScore();
                 _XL_SLEEP(1);
             }
@@ -568,6 +571,7 @@ int main(void)
             _XL_PRINT_CENTERED(_GAME_COMPLETED__STRING);
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
+            _XL_PRINT(1,2,_DEL_STR);
             for(y=2;y<MAX_Y-1;++y)
             {
                 for(x=1;x<XSize-2;x+=2)

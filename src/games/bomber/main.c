@@ -188,10 +188,17 @@ do { \
     _XL_PRINTD(2,0,4,score); \
 } while(0)
 
+
+#if XSize<20
+    #define REMAINING_X 8
+#else
+    #define REMAINING_X 9
+#endif
+
 #define displayRemainingBuilings() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(9,0,2,remaining_buildings); \
+    _XL_PRINTD(REMAINING_X,0,2,remaining_buildings); \
 } while(0)
 
 #define displayHiScore(xpos) \
@@ -210,7 +217,7 @@ do { \
 #define displayLevelMessage() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize/2+2,4,2,level); \
+    _XL_PRINTD(XSize/2+2,4,1,level); \
 } while(0)
 
 #define displayNewHiScoreMessage() \
@@ -252,7 +259,7 @@ do { \
 #endif
 
 #define INITIAL_LEVEL 1
-#define FINAL_LEVEL 8
+#define FINAL_LEVEL 9
 
 uint16_t building_height[XSize];
 
@@ -414,8 +421,8 @@ int main(void)
                 _XL_DRAW(XSize-8,0,LV_TEXT_TILE, _XL_GREEN);
                 displayLevel();
             #endif
-            #if XSize>=20
-                _XL_DRAW(8,0,TWO_WINDOW_WALL_2_TILE, _XL_YELLOW);
+            #if XSize>=16
+                _XL_DRAW(REMAINING_X-1,0,TWO_WINDOW_WALL_2_TILE, _XL_YELLOW);
                 displayRemainingBuilings();
             #endif
             
@@ -451,6 +458,7 @@ int main(void)
                         ++bombActive;
                         bomb_x = x;
                         bomb_y = y;
+                        
                         if(building_height[x])
                         {
                             building_height[x] = 0;
@@ -460,8 +468,8 @@ int main(void)
                             {
                                 bonus = (uint16_t)20u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
                             }
-                            // displayScore();
                         }
+                        
                     }
                 }
                 else
@@ -477,11 +485,24 @@ int main(void)
                         bombActive = 0;
                         explosion = 1;
                         
+                        /*
+                        if(building_height[bomb_x])
+                        {
+                            building_height[bomb_x] = 0;
+                            score+=10;
+                            --remaining_buildings;
+                            if(!remaining_buildings)
+                            {
+                                bonus = (uint16_t)20u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
+                            }
+                        }
+                        */
                         
-                        #if XSize>=20
+                        #if XSize>=16
                             displayRemainingBuilings();
-                            displayScore();
                         #endif
+                        displayScore();
+
                         // Delete animated bomb
                         deleteAnimatedBombUp();
                         drawExplosion();

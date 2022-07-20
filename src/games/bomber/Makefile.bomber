@@ -1320,7 +1320,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 CMOC_OPTS               ?= -O2 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 
-NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
+NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=3000
 
 GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT 
 
@@ -1347,7 +1347,7 @@ COCO_COLOR_GFX_OPTS     ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 -DBIT_MAP
 COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS) -DYSize=24
 
 
-DRAGON_OPTS             ?= --dragon -D__DRAGON__ $(NO_UDG_OPS)
+DRAGON_OPTS             ?= --dragon -D__DRAGON__ $(NO_UDG_OPS) -D_XL_NO_COLOR -DNO_EXTRA_TITLE
 
 DRAGON_GFX_OPTS         ?= --dragon -D__DRAGON__ $(GFX_OPTS)
 
@@ -1370,6 +1370,9 @@ TO7_ORG_DATA    ?= --org=a000
 dragon:
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -1389,8 +1392,8 @@ dragon:
 	display_macros.o \
 	memory_mapped_alt_print.o sleep_macros.o \
 	text_macros.o \
-	input_macros.o
-	rm 	display_macros.o sleep_macros.o \
+	input_macros.o dac_sounds.o
+	rm 	display_macros.o sleep_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	input_macros.o 
@@ -1429,10 +1432,10 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(SOURCE_PATH)/main.c \
 	display_macros.o sleep_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	text_macros.o input_macros.o dac_sounds.o
 	rm 	display_macros.o sleep_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o 
+	text_macros.o input_macros.o dac_sounds.o
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
@@ -1488,7 +1491,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk
 	rm XCHASE.BIN
 
 coco_targets: \
-	coco
+	coco coco_color
 
 
 

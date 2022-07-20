@@ -111,7 +111,7 @@ The game's goal is to destroy all buildings so that you can land on an empty roa
 The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
 The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
 Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
-The game has 8 levels and it ends after the eighth level.
+The game has 9 levels and it ends after the eighth level.
 
 CONTROLS: either the joystick fire button or SPACE.
 

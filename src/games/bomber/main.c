@@ -54,29 +54,30 @@
 
 #define INITIAL_PLANE_Y 2
 
-
-#if XSize>78
-    #define BUILDINGS_NUMBER (XSize-24)
-    #define FIRST_BULDING_X_POS 12
-#elif XSize>63
-    #define BUILDINGS_NUMBER (XSize-22)
-    #define FIRST_BULDING_X_POS 10
-#elif XSize>48
-    #define BUILDINGS_NUMBER (XSize-14)
-    #define FIRST_BULDING_X_POS 8
-#elif XSize>32
-    #define BUILDINGS_NUMBER (XSize-10)
-    #define FIRST_BULDING_X_POS 5
-#else
-    #if YSize<=16
+#if YSize>16
+    #if XSize>78
+        #define BUILDINGS_NUMBER (XSize-24)
+        #define FIRST_BULDING_X_POS 12
+    #elif XSize>63
+        #define BUILDINGS_NUMBER (XSize-22)
+        #define FIRST_BULDING_X_POS 10
+    #elif XSize>48
+        #define BUILDINGS_NUMBER (XSize-14)
+        #define FIRST_BULDING_X_POS 8
+    #elif XSize>32
         #define BUILDINGS_NUMBER (XSize-10)
         #define FIRST_BULDING_X_POS 5
+    #elif XSize>16
+        #define BUILDINGS_NUMBER (XSize-9)
+        #define FIRST_BULDING_X_POS 5
     #else
-        #define BUILDINGS_NUMBER (XSize-8)
+        #define BUILDINGS_NUMBER (XSize-7)
         #define FIRST_BULDING_X_POS 4
     #endif
-#endif
-
+#else
+    #define BUILDINGS_NUMBER (XSize/2)
+    #define FIRST_BULDING_X_POS (XSize/4)  
+#endif  
 
 // String definitions
 #define _CROSS_BOMBER__STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R
@@ -222,7 +223,7 @@ do { \
 
 #define displayNewHiScoreMessage() \
 do { \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINT(1,4,_NEW_HISCORE__STRING); \
 } while(0)
 
@@ -369,9 +370,9 @@ int main(void)
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
         
-        x=XSize/2-2;
+        x=XSize/2-1;
         y=6;
-        drawPlane();
+        drawAnimatedPlane();
         
         _XL_DRAW(XSize/2-2,YSize/2+3,WALL_1_TILE,_XL_RED);
         _XL_DRAW(XSize/2-1,YSize/2+3,TWO_WINDOW_WALL_1_TILE,_XL_YELLOW);

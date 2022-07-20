@@ -88,7 +88,13 @@
 #endif
 #define _DESTROY_ALL__STRING _XL_D _XL_E _XL_S _XL_T _XL_R _XL_O _XL_Y _XL_SPACE _XL_A _XL_L _XL_L
 #define _BUILDINGS__STRING _XL_B _XL_U _XL_I _XL_L _XL_D _XL_I _XL_N _XL_G _XL_S
-#define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
+
+#if !defined(_XL_NO_JOYSTICK)
+    #define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
+#else
+    #define _PRESS_FIRE__STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_A _XL_SPACE _XL_K _XL_E _XL_Y
+    
+#endif
 #define _LEVEL__STRING _XL_L _XL_E _XL_V _XL_E _XL_L
 #define _LEVEL_COMPLETED__STRING _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D
 #define _BONUS__STRING _XL_B _XL_O _XL_N _XL_U _XL_S
@@ -531,7 +537,7 @@ int main(void)
                 #endif
                 
                 #if !defined(NO_ANIMATION)
-                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP);
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP); // e.g., lv:9, slow-down fact:1800 -> 1800/2-9*32=900-288=612
                 #endif
                 
                 if(bombActive)

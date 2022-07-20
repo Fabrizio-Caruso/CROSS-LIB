@@ -361,13 +361,22 @@ int main(void)
             
         _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
-        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         _XL_PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING);
         _XL_PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
+        
+        x=XSize/2-2;
+        y=6;
+        drawPlane();
+        
+        _XL_DRAW(XSize/2-2,YSize/2+3,WALL_1_TILE,_XL_RED);
+        _XL_DRAW(XSize/2-1,YSize/2+3,TWO_WINDOW_WALL_1_TILE,_XL_YELLOW);
+        _XL_DRAW(XSize/2-0,YSize/2+3,THREE_WINDOW_WALL_1_TILE,_XL_WHITE);        
+        
         _XL_WAIT_FOR_INPUT();
         while(alive && (level < FINAL_LEVEL+1))
         {

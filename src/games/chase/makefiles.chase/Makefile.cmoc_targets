@@ -5,7 +5,7 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_SLEEP -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DSOUNDS
+CMOC_OPTS       ?= -O2 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DALT_SLEEP -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DSOUNDS
 
 NO_UDG_OPS      ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS  -D_XL_SLOW_DOWN_FACTOR=4000
 
@@ -13,7 +13,13 @@ GFX_OPTS        ?= $(CMOC_OPTS) -DBIT_MAPPED -D_XL_SLOW_DOWN_FACTOR=150
 
 COCO_OPTS       ?= -D__COCO__ $(NO_UDG_OPS) -DEXTRA_TITLE
 
-COCO_GFX_OPTS   ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -DANIMATE_PLAYER
+COCO_GFX_OPTS   ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -DANIMATE_PLAYER -DEXTRA_TITLE
+
+GFX_COLOR_OPTS          ?= $(CMOC_OPTS) -DALT_PRINT
+
+COCO_COLOR_GFX_OPTS     ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 -DBIT_MAPPED -D_API_VERSION=2 -DMAX_ARROWS_ON_SCREEN=7 $(DRAW_SKIP) -DFASTER_WALL_REDRAW -DNUMBER_OF_MISSILES=4 -D_XL_SLOW_DOWN_FACTOR=1800
+
+COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS) -DYSize=24 -DANIMATE_PLAYER -DEXTRA_TITLE
 
 COCO3_GFX_OPTS  ?= -D__COCO__ $(CMOC_OPTS)
 
@@ -48,6 +54,9 @@ dragon: dragon_gfx
 dragon_no_gfx:
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -102,7 +111,7 @@ dragon_no_gfx:
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/main.c sleep_macros.o \
 	display_macros.o dac_sounds.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
@@ -114,7 +123,7 @@ dragon_no_gfx:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o dac_sounds.o \
+	rm 	display_macros.o dac_sounds.o sleep_macros.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
@@ -132,6 +141,9 @@ dragon_no_gfx:
 
 
 dragon_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -194,7 +206,7 @@ dragon_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	-c $(SOURCE_PATH)/end_screen.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/main.c sleep_macros.o \
 	display_macros.o \
 	init_images.o  coco_init_graphics.o \
 	memory_mapped_alt_print.o \
@@ -206,7 +218,7 @@ dragon_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o dac_sounds.o \
+	rm 	display_macros.o dac_sounds.o sleep_macros.o \
 	init_images.o  coco_init_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
@@ -235,6 +247,9 @@ coco: coco_gfx
 coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
@@ -289,7 +304,7 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/main.c sleep_macros.o \
 	display_macros.o dac_sounds.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
@@ -301,7 +316,7 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o dac_sounds.o \
+	rm 	display_macros.o dac_sounds.o sleep_macros.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
@@ -325,7 +340,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -381,9 +396,111 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
+	display_macros.o sleep_macros.o \
+	init_images.o  coco_init_graphics.o \
+	memory_mapped_alt_print.o \
+	ghost.o dac_sounds.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o cmoc_udc_tiles_and_fonts.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o dac_sounds.o sleep_macros.o \
+	init_images.o  coco_init_graphics.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o cmoc_udc_tiles_and_fonts.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+
+coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c sleep_macros.o \
 	display_macros.o \
 	init_images.o  coco_init_graphics.o \
 	memory_mapped_alt_print.o \
@@ -395,7 +512,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o dac_sounds.o \
+	rm 	display_macros.o dac_sounds.o sleep_macros.o \
 	init_images.o  coco_init_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \

@@ -10,7 +10,7 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 API_VERSION=2
 
-GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII -D_API_VERSION=$(API_VERSION)
+GLOBAL_OPTS = -DFULL_LOWER_BORDER -DFORCE_NARROW -D_DEFAULT_ASCII -D_API_VERSION=$(API_VERSION) -D_XL_NUMBER_OF_TILES=27
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -1353,7 +1353,7 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
 # BROKEN (OUT OF MEMORY?)
@@ -1449,7 +1449,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 coco: coco_no_gfx
 
@@ -2074,11 +2074,11 @@ TI99_TINY_OPTS ?= \
 TI99_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib \
-	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER \
+	-DXSize=32 -DREDEFINED_CHARS -DANIMATE_PLAYER -DEXTRA_TITLE \
 	-DYSize=24 -DBUGGY_MOD5 -DBUGGY_HORIZ_DRAW \
 	-DALT_SLEEP -DNO_SLOW_DOWN_MACRO -DFULL_GAME \
 	-DTI99_COLOR -DSOUNDS -DTRANSITION_ANIMATION \
-	-DNO_SET_SCREEN_COLORS \
+	-DNO_SET_SCREEN_COLORS -D_XL_NUMBER_OF_TILES=27 \
 	-D_XL_SLOW_DOWN_FACTOR=300
 
 ##################################################################################################

@@ -762,7 +762,7 @@ aquarius: aquarius_exp_32k
 aquarius_exp_32k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__  -DEXTRA_TITLE \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=1200 \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=700 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \
@@ -774,6 +774,15 @@ aquarius_exp_32k:
 	# mv X$(GAME_NAME)_aquarius_exp_16k.zip $(BUILD_PATH)
 
 
+aquarius_quad: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=600 -DNO_UDG -DNO_PRINT \
+	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
 
 # -DSOUNDS 
 # -DFORCE_BIT_BANG 

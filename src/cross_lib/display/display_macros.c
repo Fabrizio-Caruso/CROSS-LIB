@@ -97,7 +97,16 @@ extern uint16_t BASE_ADDR;
 #endif
 
 #if !defined(INLINE_LOC) && \
-    (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(ORIC_COLOR))
+    (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR))
+    
+    #if defined(QUAD_MEMORY_MAPPED)
+        #define X_MULT 2
+        #define Y_MULT 2
+    #else
+        #define X_MULT 1
+        #define Y_MULT 1
+    #endif
+    
     uint16_t loc(uint8_t x, uint8_t y)
     {
         #if !defined(__CIDELSA__)
@@ -107,7 +116,7 @@ extern uint16_t BASE_ADDR;
                 #endif
                 return ((uint16_t) BASE_ADDR)+(x+X_OFFSET)+(uint8_t)(Y_OFFSET+y)*((uint16_t) (_CREAT_XSIZE));
             #else
-                return ((uint16_t) BASE_ADDR)+x+(uint8_t)(y)*((uint16_t) ((XSize) + X_OFFSET));
+                return ((uint16_t) BASE_ADDR)+(X_MULT)*x+(uint8_t)((Y_MULT)*y)*((uint16_t) ((XSize) + X_OFFSET));
             #endif
         #else
             return ((uint16_t) 0xF800+XSize*YSize-YSize)-x*YSize+(uint8_t)y;

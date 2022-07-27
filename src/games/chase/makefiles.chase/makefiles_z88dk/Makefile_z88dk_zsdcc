@@ -112,6 +112,16 @@ aquarius_exp_16k:
 	# mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)
 
 
+aquarius_quad: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=1500 -DNO_UDG -DNO_PRINT \
+	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+
 #############################
 # GAL
 

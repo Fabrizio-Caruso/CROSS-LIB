@@ -3,7 +3,6 @@
 #define _COLOR_DEFINITIONS_H
 
 
-
 #if defined(NO_GRAPHICS) || defined(_XL_NO_COLOR)
     #define _XL_BLACK 0
     #define _XL_WHITE 0
@@ -12,6 +11,16 @@
     #define _XL_GREEN 0
     #define _XL_YELLOW 0
     #define _XL_BLUE 0
+    
+#elif defined(AQUARIUS) && !defined(CONIO)
+    #define _XL_CYAN (16*RED)
+    #define _XL_BLUE _XL_CYAN
+    #define _XL_YELLOW (16*CYAN)
+    #define _XL_RED BLUE
+    #define _XL_WHITE (16*7)
+    #define _XL_GREEN (16*GREEN)
+    #define _XL_BLACK (16*BLACK)
+
 #elif defined(__MO5__)
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
         #define _XL_BLACK (0+7)

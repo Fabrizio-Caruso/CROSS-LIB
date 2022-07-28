@@ -47,8 +47,9 @@
 #elif defined(__CREATIVISION__) && defined(_QUAD_MEMORY_MAPPED)
     #define BASE_ADDR 0x1000
 #elif defined(__AQUARIUS__)
-    #if !defined(QUAD_MEMORY_MAPPED)
-        #define BASE_ADDR (12288)
+    // TODO: it could be 12288 with X_OFFSET 1 to avoid using the first character that also sets the border character
+    #if defined(QUAD_MEMORY_MAPPED)
+        #define BASE_ADDR (12288+40)
     #else
         #define BASE_ADDR (12288+40)
     #endif
@@ -111,22 +112,33 @@
         DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(2*(y)+2)*((uint16_t) (XSize))), (tile)); \
         */
 
+
+#if defined(__AQUARIUS__) 
+    #define HARD_Y_LIMIT (YSize-1)
+#else
+    #define HARD_Y_LIMIT (YSize+1)
+#endif
+
+
 #if !defined(_XL_NO_COLOR)
 
     #define _XL_DRAW(x,y,tile,color) \
     do \
     { \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y))*(XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y))*((uint16_t) (XSize))), (tile)); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)((y))*(4*XSize)),(color)); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((y))*((uint16_t) (4*XSize))), (tile)); \
         \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y))*(XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y))*((uint16_t) (XSize))), (tile)); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((y))*(4*XSize)),(color)); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((y))*((uint16_t) (4*XSize))), (tile)); \
         \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
-        \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
+        if(y<HARD_Y_LIMIT) \
+        { \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
+            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
+            \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
+            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
+        } \
     } \
     while(0)
     
@@ -138,8 +150,8 @@
         \
         DISPLAY_POKE(computed_loc, (tile)); \
         DISPLAY_POKE(computed_loc+2, (tile)); \
-        DISPLAY_POKE(computed_loc+2*XSize, (tile)); \
-        DISPLAY_POKE(computed_loc+2+2*XSize, (tile)); \
+        DISPLAY_POKE(computed_loc+4*XSize, (tile)); \
+        DISPLAY_POKE(computed_loc+2+4*XSize, (tile)); \
     } \
     while(0)
 
@@ -149,30 +161,23 @@
 #define _XL_DELETE(x,y) \
 do \
 { \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y))*(XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y))*((uint16_t) (XSize))), _SPACE); \
+    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)((y))*(4*XSize)), _XL_BLACK); \
+    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((y))*((uint16_t) (4*XSize))), _SPACE); \
     \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y))*(XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y))*((uint16_t) (XSize))), _SPACE); \
+    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((y))*(4*XSize)), _XL_BLACK); \
+    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((y))*((uint16_t) (4*XSize))), _SPACE); \
     \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y))*((uint16_t) (XSize))), _SPACE); \
-    \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y)+2)*(XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y))*((uint16_t) (XSize))), _SPACE); \
+    if(y<HARD_Y_LIMIT) \
+    { \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)), _XL_BLACK); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((4*(y)+2))*((uint16_t) (XSize))), _SPACE); \
+        \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((4*(y))+2)*(XSize)), _XL_BLACK); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((4*(y)+2))*((uint16_t) (XSize))), _SPACE); \
+    } \
 } \
 while(0)
 
-// TODO: Optimize this
-
-
-
-// #if !defined(INLINE_LOC)
-    // uint16_t loc(uint8_t x, uint8_t y);
-// #else
-    // #include "cross_lib.h"
-    // #define loc(x,y) (((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(2*(y))*((uint16_t) (XSize + X_OFFSET)))
-// #endif
 
 #endif
 

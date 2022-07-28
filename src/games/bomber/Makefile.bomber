@@ -830,6 +830,17 @@ aquarius_quad:
 	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
 
 
+aquarius_dual: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=3000 -DNO_UDG -DALT_PRINT \
+	-DDUAL_MEMORY_MAPPED -DXSize=20 -DYSize=24 -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+
 
 # experimental
 aquarius_exp_4k: 

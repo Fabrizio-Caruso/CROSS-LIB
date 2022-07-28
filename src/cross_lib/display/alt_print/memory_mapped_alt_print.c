@@ -2,6 +2,8 @@
 #if !defined(Z88DK_SPRITES)
     #if defined(QUAD_MEMORY_MAPPED)
         #include "quad_memory_mapped_graphics.h"
+    #elif defined(DUAL_MEMORY_MAPPED)
+        #include "dual_memory_mapped_graphics.h"
     #else
         #include "memory_mapped_graphics.h"
     #endif
@@ -316,7 +318,7 @@
         { \
             _XL_DRAW(x,y,(ch-13),0); \
         }
-#elif defined(QUAD_MEMORY_MAPPED)
+#elif defined(QUAD_MEMORY_MAPPED) || defined(DUAL_MEMORY_MAPPED)
 	#define _DISPLAY(x,y,ch) \
         if(ch==0) \
         { \

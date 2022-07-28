@@ -6,6 +6,8 @@
 	#include "memory_mapped_graphics.h"
 #elif defined(QUAD_MEMORY_MAPPED)
 	#include "quad_memory_mapped_graphics.h"
+#elif defined(DUAL_MEMORY_MAPPED)
+	#include "dual_memory_mapped_graphics.h" 
 #elif defined(APPLE2_HGR)
     #include "apple2_hgr_graphics.h"
 #elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)

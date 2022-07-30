@@ -3,7 +3,10 @@
 
 #include "cross_lib.h"
 
-
+#if defined(TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAPPED) && !defined(DUAL_MEMORY_MAPPED)
+    #include "aquarius/aquarius_char_tiles.h"
+#else
+    
 #define _TILE_0 '*'
 #define _TILE_1 '*'
 
@@ -51,6 +54,8 @@
 #endif
 
 #define _TILE_25 '$'
+
+#endif
 
 #endif // _CHAR_TILES_H
 

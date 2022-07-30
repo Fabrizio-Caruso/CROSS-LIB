@@ -482,6 +482,7 @@ void display_zombie(void)
     }
     else
     {
+        #if !defined(_XL_NO_UDG)
         uint8_t tile1;
 
         if(!zombie_level[zombie_x])
@@ -496,6 +497,24 @@ void display_zombie(void)
         }
         _XL_DRAW(zombie_x, pos, tile0, color);
         _XL_DRAW(zombie_x,1 + pos, tile1, color);
+        #else
+        // Avoid using the upper border / beam tile in ASCII mode
+        uint8_t tile1;
+
+        if(!zombie_level[zombie_x])
+        {
+            
+            tile0 = MINION_TILE_0; //zombie_tile[status<<1];
+            tile1 = zombie_tile[1+(status<<1)];
+        }
+        else
+        {
+            tile0 = BOSS_TILE_0; //boss_tile[status<<1];
+            tile1 = boss_tile[1+(status<<1)]; 
+        }
+        _XL_DRAW(zombie_x, pos, tile0, color);
+        _XL_DRAW(zombie_x,1 + pos, tile1, color);   
+        #endif
     }
 }
 

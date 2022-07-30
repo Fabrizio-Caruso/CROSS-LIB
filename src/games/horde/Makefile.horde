@@ -1191,16 +1191,25 @@ aquarius: aquarius_exp_16k
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=500 -D_XL_NO_UDG \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=300 -D_XL_NO_UDG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-create-app	\
-	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
-	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
-
+aquarius_alt: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ -DTARGET_SPECIFIC_ASCII \
+	-lndos -D_XL_SLOW_DOWN_FACTOR=300 -D_XL_NO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 # -DSOUNDS 
 # -DFORCE_BIT_BANG 

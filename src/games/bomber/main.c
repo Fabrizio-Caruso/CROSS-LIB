@@ -325,7 +325,8 @@ int main(void)
 {        
     uint8_t buildingType;
     uint8_t buildingColor;
-    uint8_t index;
+    uint8_t tile_index;
+    uint8_t color_index;
 
     _XL_INIT_GRAPHICS();
 
@@ -411,9 +412,10 @@ int main(void)
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&AND_MASK);
-                index = ((uint8_t) _XL_RAND())&7;
-                buildingType=building_tiles[index];
-                buildingColor=building_colors[index];
+                tile_index = ((uint8_t) _XL_RAND())&7;
+                buildingType=building_tiles[tile_index];
+                color_index = ((uint8_t) _XL_RAND())&7;
+                buildingColor=building_colors[color_index];
                 
                 for(y=1;y<building_height[x];++y)
                 {

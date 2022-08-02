@@ -218,10 +218,11 @@ cc65_targets: \
     cc65_6x8_targets \
     cc65_8x8_targets
 
+# TODO:      
 cmoc_8x8_targets: \
     coco_targets \
-    dragon_targets \
     mo5_targets \
+    dragon_targets \
     to7_targets
 
 cmoc_targets: cmoc_8x8_targets
@@ -859,8 +860,11 @@ GFX_OPTS                    ?= $(CMOC_OPTS) -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=1
 
 COCO_GFX_OPTS               ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -DBIT_MAPPED
 
+DRAGON_GFX_OPTS             ?= --dragon -D__DRAGON__ $(GFX_OPTS) -D_XL_NO_COLOR -DBIT_MAPPED
+
 COCO_GFX_COMPILE_OPTS       ?= $(COCO_GFX_OPTS)
 
+DRAGON_GFX_COMPILE_OPTS     ?= $(DRAGON_GFX_OPTS)
 
 GFX_COLOR_OPTS              ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT
 
@@ -871,7 +875,7 @@ COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
 
 DRAGON_OPTS                 ?= --dragon -D__DRAGON__ $(NO_UDG_OPS)
 
-DRAGON_GFX_OPTS             ?= --dragon -D__DRAGON__ $(GFX_OPTS)
+# DRAGON_GFX_OPTS             ?= --dragon -D__DRAGON__ $(DRAGON_GFX_COMPILE_OPTS)
 
 DRAGON_GFX_COMPILE_OPTS     ?= $(DRAGON_GFX_OPTS)
 
@@ -928,7 +932,7 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	main.o  dac_sounds.o  coco_init_graphics.o \
 	display_macros.o \
 	memory_mapped_alt_print.o sleep_macros.o \
@@ -1044,7 +1048,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk
 	rm XCHASE.BIN
 
 coco_targets: \
-	coco
+	coco coco_color
 
 
 mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)

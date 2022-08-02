@@ -318,6 +318,16 @@
         { \
             _XL_DRAW(x,y,(ch-13),0); \
         }
+#elif defined(__AQUARIUS__) || defined(MEMORY_MAPPED)
+	#define _DISPLAY(x,y,ch) \
+        if(ch==0) \
+        { \
+            _XL_DELETE(x,y); \
+        } \
+        else \
+        { \
+            _XL_DRAW(x,y,ch,_XL_WHITE); \
+        }
 #elif defined(QUAD_MEMORY_MAPPED) || defined(DUAL_MEMORY_MAPPED)
 	#define _DISPLAY(x,y,ch) \
         if(ch==0) \

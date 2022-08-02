@@ -1302,7 +1302,7 @@ coco_no_gfx:
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
-	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
@@ -1509,7 +1509,7 @@ coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fi
 
 
 coco_targets: \
-	coco
+	coco coco_color
 
 
 mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)

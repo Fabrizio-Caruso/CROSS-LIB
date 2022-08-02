@@ -84,32 +84,48 @@ aquarius_exp_4k:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_aquarius_exp_16k
-	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_aquarius_exp_16k
-	# rm TINY_aquarius_exp_4k
-	# tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
-	# rm TINY_aquarius_exp_4k.caq
-	# rm _TINY_aquarius_exp_4k.caq
-	# mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@
+
 
 
 aquarius: aquarius_exp_16k
 
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
-	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
-	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
-	# rm FULL_aquarius_exp_16k
-	# tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
-	# rm FULL_aquarius_exp_16k.caq
-	# rm _FULL_aquarius_exp_16k.caq
-	# mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+aquarius_alt: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+aquarius_alt_memory_mapped: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE -DANIMATE_PLAYER \
+	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
 aquarius_quad: 
@@ -119,8 +135,8 @@ aquarius_quad:
 	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
-	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
-	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 #############################
 # GAL

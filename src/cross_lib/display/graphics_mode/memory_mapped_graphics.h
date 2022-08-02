@@ -3,6 +3,11 @@
 
 #include "standard_libs.h"
 
+#if (defined(__PET__) && defined(MEMORY_MAPPED)) || defined(__MC10__) || defined(__AQUARIUS__) || \
+    (defined(__COCO__) && !defined(BIT_MAPPED)) || (defined(__DRAGON__) && !defined(BIT_MAPPED))
+    #include "display_macros.h"
+#endif
+
 #if defined(MEMORY_MAPPED)
 
 #  if defined(__C64__) || defined(__C128__)
@@ -107,9 +112,7 @@
 
 #endif
 
-
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
-
 
 #if !defined(INLINE_LOC)
     uint16_t loc(uint8_t x, uint8_t y);

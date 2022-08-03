@@ -17,28 +17,38 @@
 
 
 
-#define _TILE_8 135
+#define _TILE_8 'o'
+//150
+//135
 //'O'
 
-#define _TILE_9 'I'
-
+// Bow parts 
 #define _TILE_10 ' '
-
 #define _TILE_11 ' '
-#define _TILE_12 'I'
 
-#define _TILE_13 'T' 
+// Loaded bow
+#if defined(MEMORY_MAPPED)
+#define _TILE_9  8
+#define _TILE_12 8
+#endif
+
+// Empty bow
+#define _TILE_13 214 
+#define _TILE_16 214
+
+
 
 #define _TILE_14 'H'
 
 #define _TILE_15 'L'
 
-#define _TILE_16 'T'
 
-#define _TILE_17 124
+#define _TILE_17 94
+//124
 //'I'
 
-#define _TILE_18 124
+#define _TILE_18 94
+//124
 //'I'
 
 #define _TILE_19 157
@@ -51,11 +61,15 @@
 // Beam and top border
 #define _TILE_22 211
 
-#define _TILE_7 209
+#define _TILE_7 213
+//209
 //'='
 
 #define _TILE_23 '*'
-#define _TILE_24 134
+
+// Wall
+#define _TILE_24 253
+//134
 
 
 #define _TILE_25 '$'

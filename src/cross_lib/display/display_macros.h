@@ -278,6 +278,8 @@
     }
 #elif defined(__MC10__)
     #define _XL_SET_TEXT_COLOR(c)
+#elif defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
+    void _XL_SET_TEXT_COLOR(uint8_t c);
 #else
     #define _XL_SET_TEXT_COLOR(c) textcolor(c)
 #endif

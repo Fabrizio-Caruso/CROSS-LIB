@@ -30,6 +30,35 @@
 extern uint16_t BASE_ADDR;
 #endif
 
+#if defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
+void _XL_SET_TEXT_COLOR(uint8_t c)
+{
+    if(c==_XL_WHITE)
+    {
+        textcolor(WHITE);
+    }
+    else if(c==_XL_RED)
+    {
+        textcolor(RED);
+    }
+    else if(c==_XL_YELLOW)
+    {
+        textcolor(YELLOW);
+    }
+    else if(c==_XL_GREEN)
+    {
+        textcolor(GREEN);
+    }
+    else if(c==_XL_CYAN)
+    {
+        textcolor(CYAN);
+    }
+    else if(c==_XL_BLUE)
+    {
+        textcolor(BLUE);
+    }
+}
+#endif
 
 #if defined(__SUPERVISION__) || (defined(__COCO__) && defined(BIT_MAPPED_4)) || (defined(__MC10__) && defined(BIT_MAPPED_4))
     extern uint8_t udgs[];

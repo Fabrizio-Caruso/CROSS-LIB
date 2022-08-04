@@ -49,7 +49,7 @@
 #elif defined(__AQUARIUS__)
     // TODO: it could be 12288 with X_OFFSET 1 to avoid using the first character that also sets the border character
     #if defined(QUAD_MEMORY_MAPPED)
-        #define BASE_ADDR (12288+40)
+        #define BASE_ADDR (12288)
     #else
         #define BASE_ADDR (12288+40)
     #endif
@@ -119,25 +119,27 @@
     #define HARD_Y_LIMIT (YSize+1)
 #endif
 
+#define SCREEN_XSIZE (XSize+X_OFFSET)
+
 
 #if !defined(_XL_NO_COLOR)
 
     #define _XL_DRAW(x,y,tile,color) \
     do \
     { \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)((y))*(4*XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((y))*((uint16_t) (4*XSize))), (tile)); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+X_OFFSET)) +(uint16_t)((y))*(4*SCREEN_XSIZE)),(color)); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+X_OFFSET)+(uint8_t)((y))*((uint16_t) (4*SCREEN_XSIZE))), (tile)); \
         \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((y))*(4*XSize)),(color)); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((y))*((uint16_t) (4*XSize))), (tile)); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1+X_OFFSET)) +(uint16_t)((y))*(4*SCREEN_XSIZE)),(color)); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1+X_OFFSET)+(uint8_t)((y))*((uint16_t) (4*SCREEN_XSIZE))), (tile)); \
         \
         if(y<HARD_Y_LIMIT) \
         { \
-            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
-            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+X_OFFSET)) +(uint16_t)(4*(y)+2)*(SCREEN_XSIZE)),(color)); \
+            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+X_OFFSET)+(uint8_t)(4*(y)+2)*((uint16_t) (SCREEN_XSIZE))), (tile)); \
             \
-            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)(4*(y)+2)*(XSize)),(color)); \
-            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)(4*(y)+2)*((uint16_t) (XSize))), (tile)); \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1+X_OFFSET)) +(uint16_t)(4*(y)+2)*(SCREEN_XSIZE)),(color)); \
+            DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1+X_OFFSET)+(uint8_t)(4*(y)+2)*((uint16_t) (SCREEN_XSIZE))), (tile)); \
         } \
     } \
     while(0)
@@ -146,12 +148,12 @@
     #define _XL_DRAW(x,y,tile,color) \
     do \
     { \
-        uint8_t computed_loc = (((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(2*(y))*((uint16_t) (XSize + X_OFFSET))); \
+        uint8_t computed_loc = (((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)(2*(y))*((uint16_t) (SCREEN_XSIZE + X_OFFSET))); \
         \
         DISPLAY_POKE(computed_loc, (tile)); \
         DISPLAY_POKE(computed_loc+2, (tile)); \
-        DISPLAY_POKE(computed_loc+4*XSize, (tile)); \
-        DISPLAY_POKE(computed_loc+2+4*XSize, (tile)); \
+        DISPLAY_POKE(computed_loc+4*SCREEN_XSIZE, (tile)); \
+        DISPLAY_POKE(computed_loc+2+4*SCREEN_XSIZE, (tile)); \
     } \
     while(0)
 
@@ -161,19 +163,19 @@
 #define _XL_DELETE(x,y) \
 do \
 { \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)((y))*(4*XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((y))*((uint16_t) (4*XSize))), _SPACE); \
+    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+X_OFFSET)) +(uint16_t)((y))*(4*SCREEN_XSIZE)), _XL_BLACK); \
+    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+X_OFFSET)+(uint8_t)((y))*((uint16_t) (4*SCREEN_XSIZE))), _SPACE); \
     \
-    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((y))*(4*XSize)), _XL_BLACK); \
-    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((y))*((uint16_t) (4*XSize))), _SPACE); \
+    COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1+X_OFFSET)) +(uint16_t)((y))*(4*SCREEN_XSIZE)), _XL_BLACK); \
+    DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1+X_OFFSET)+(uint8_t)((y))*((uint16_t) (4*SCREEN_XSIZE))), _SPACE); \
     \
     if(y<HARD_Y_LIMIT) \
     { \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x))) +(uint16_t)(4*(y)+2)*(XSize)), _XL_BLACK); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x))+(uint8_t)((4*(y)+2))*((uint16_t) (XSize))), _SPACE); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+X_OFFSET)) +(uint16_t)(4*(y)+2)*(SCREEN_XSIZE)), _XL_BLACK); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+X_OFFSET)+(uint8_t)((4*(y)+2))*((uint16_t) (SCREEN_XSIZE))), _SPACE); \
         \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1)) +(uint16_t)((4*(y))+2)*(XSize)), _XL_BLACK); \
-        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1)+(uint8_t)((4*(y)+2))*((uint16_t) (XSize))), _SPACE); \
+        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(2*(x)+1+X_OFFSET)) +(uint16_t)((4*(y))+2)*(SCREEN_XSIZE)), _XL_BLACK); \
+        DISPLAY_POKE((((uint16_t) BASE_ADDR)+(2*(x)+1+X_OFFSET)+(uint8_t)((4*(y)+2))*((uint16_t) (SCREEN_XSIZE))), _SPACE); \
     } \
 } \
 while(0)

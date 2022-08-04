@@ -51,17 +51,19 @@
 //124
 //'I'
 
-#define _TILE_19 157
+#define _TILE_19 146
+//157
 //'V'
 
-#define _TILE_20 157
+#define _TILE_20 147
 
-#define _TILE_21 157
+#define _TILE_21 146
 
 // Beam and top border
 #define _TILE_22 211
 
-#define _TILE_7 213
+// Dead
+#define _TILE_7 19
 //209
 //'='
 

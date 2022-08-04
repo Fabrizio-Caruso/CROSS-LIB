@@ -505,15 +505,22 @@ void display_zombie(void)
         {
             
             tile0 = MINION_TILE_0; //zombie_tile[status<<1];
-            tile1 = zombie_tile[1+(status<<1)];
+            // tile1 = zombie_tile[1+(status<<1)];
         }
         else
         {
-            tile0 = BOSS_TILE_0; //boss_tile[status<<1];
-            tile1 = boss_tile[1+(status<<1)]; 
+            if((zombie_y[zombie_x])&1)
+            {
+                tile0 = BOSS_TILE_0; //boss_tile[status<<1];
+            }
+            else
+            {
+                tile0 = BOSS_TILE_1; //boss_tile[status<<1];
+            }
+            // tile1 = boss_tile[1+(status<<1)]; 
         }
         _XL_DRAW(zombie_x, pos, tile0, color);
-        _XL_DRAW(zombie_x,1 + pos, tile1, color);   
+        // _XL_DRAW(zombie_x,1 + pos, tile1, color);   
         #endif
     }
 }
@@ -1665,6 +1672,9 @@ void handle_zombie_collisions(void)
                 _XL_TOCK_SOUND();
                 push_zombie();
                 display_zombie();
+                #if defined(_XL_NO_UDG)
+                _XL_DELETE(zombie_x,zombie_y[zombie_x]+1);
+                #endif
             }
             else
             {

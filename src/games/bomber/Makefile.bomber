@@ -828,7 +828,7 @@ aquarius_quad:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=3000 -DNO_UDG -DALT_PRINT \
-	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
+	-DQUAD_MEMORY_MAPPED -DXSize=19 -DYSize=13 -DX_OFFSET=1 -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app	\

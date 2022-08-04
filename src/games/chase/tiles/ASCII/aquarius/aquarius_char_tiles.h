@@ -27,19 +27,23 @@
 
     #if defined(ANIMATE_PLAYER)
         // UP
-        #define _TILE_1 138
+        #define _TILE_1 14
+        // 138
         // '*'
 
         // LEFT
-        #define _TILE_3 155
+        #define _TILE_3 140
+        //155
         // '*'
 
         // RIGHT
-        #define _TILE_2 154
+        #define _TILE_2 23
+        //154
         // '*'
 
         // DOWN
-        #define _TILE_0 139
+        #define _TILE_0 19
+        //139
         // '*'
     #else
         // UP
@@ -61,7 +65,8 @@
 
 
     // BOMB
-    #define _TILE_5 211
+    #define _TILE_5 216
+    // 211
     // 'X'
 
     // GHOST
@@ -75,7 +80,8 @@
     // '!'
 
     // SKULL
-    #define _TILE_7 200
+    #define _TILE_7 146
+    // 200
     // '+'
 
     #define _TILE_25 '$'

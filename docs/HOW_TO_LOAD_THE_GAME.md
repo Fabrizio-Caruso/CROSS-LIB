@@ -424,6 +424,14 @@ Start the tape
 
 In BASIC run: RUN
 
+---------------------------------------------------------
+
+### Galaksija Plus
+
+Use GALe emualtor:  https://galaksija.net/?i=1
+
+Drop the .gtp file into the browser.
+
 
 ---------------------------------------------------------
 ### GAMATE

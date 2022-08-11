@@ -33,6 +33,12 @@
             return ch;
         }
 	}
+    
+#elif defined(QUAD_MEMORY_MAPPED)
+	char screenCode(char ch)
+	{
+        return ch-(uint8_t) 32u;
+	}  
 #elif defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
 	char screenCode(char ch)
 	{
@@ -330,15 +336,7 @@
         }
 #elif defined(QUAD_MEMORY_MAPPED) || defined(DUAL_MEMORY_MAPPED)
 	#define _DISPLAY(x,y,ch) \
-        if(ch==0) \
-        { \
-            _XL_DELETE(x,y); \
-        } \
-        else \
-        { \
-            _XL_DRAW(x,y,ch,_XL_WHITE); \
-        }
-
+        _XL_DRAW(x,y,ch-32,_XL_WHITE);
 #else
 	#define _DISPLAY(x,y,ch) \
 		DISPLAY_POKE((loc(x,y)), (ch))
@@ -355,8 +353,11 @@ void _XL_PRINT(uint8_t x, uint8_t y, char * str)
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) \
             || (defined(__ZX81__) && !(defined(_API_VERSION) && _API_VERSION>=2))  \
             || (defined(__C64__) && (defined(_API_VERSION) && _API_VERSION>=2))  \
-            || (defined(__VIC20__) && (defined(_API_VERSION) && _API_VERSION>=2))
+            || (defined(__VIC20__) && (defined(_API_VERSION) && _API_VERSION>=2)) \
+            || defined(QUAD_MEMORY_MAPPED)
 			_DISPLAY(x+i,y, screenCode(str[i]));
+        // #elif defined(QUAD_MEMORY_MAPPED)
+			// _DISPLAY(x+i,y, str[i]-32u);
 		#else
 			_DISPLAY(x+i,y, str[i]);
 		#endif
@@ -379,6 +380,10 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
         #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(BIT_MAPPED))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
+        // #elif defined(QUAD_MEMORY_MAPPED)
+        // DRAW_QUAD_CHAR(x+length-1-i,y,(digit+(uint8_t) 48u),_XL_WHITE);
+        #elif defined(QUAD_MEMORY_MAPPED)
+		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u-32u));
         #else
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u));
         #endif

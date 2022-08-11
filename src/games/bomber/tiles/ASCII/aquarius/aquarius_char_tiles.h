@@ -1,7 +1,6 @@
 #ifndef _AQUARIUS_CHAR_TILES_H
 #define _AQUARIUS_CHAR_TILES_H
 
-
      // Plane
     #define _TILE_1 154
     #define _TILE_2 172
@@ -13,13 +12,6 @@
     #define _TILE_17 _TILE_2    
 
     // Building
-    
-    // #define _TILE_4 134
-    // #define _TILE_5 134
-    // #define _TILE_7 134
-    // #define _TILE_11 135
-    // #define _TILE_15 135
-    
     #define _TILE_4 134
     #define _TILE_5 216
     #define _TILE_7 251

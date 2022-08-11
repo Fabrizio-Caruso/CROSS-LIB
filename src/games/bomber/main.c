@@ -371,9 +371,13 @@ int main(void)
         _XL_PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
+        
+        #if YSize>=16
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         _XL_PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING);
         _XL_PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING);
+        #endif
+        
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
         

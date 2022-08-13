@@ -1,0 +1,24 @@
+eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__EG2K__ \
+	-subtype=eg2000disk \
+	-pragma-redirect:getk=getk_inkey \
+	$(INCLUDE_OPTS) -DFORCE_BIT_BANG \
+	-D__EG2K__ \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DLESS_TEXT -DSOUNDS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin

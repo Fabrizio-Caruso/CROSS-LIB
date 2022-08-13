@@ -85,7 +85,7 @@ aquarius_exp_4k:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@
 
 
 
@@ -100,7 +100,7 @@ aquarius_exp_16k:
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
 aquarius_alt: 
@@ -112,7 +112,7 @@ aquarius_alt:
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
 aquarius_alt_memory_mapped: 
@@ -124,7 +124,7 @@ aquarius_alt_memory_mapped:
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
 aquarius_quad: 
@@ -135,7 +135,7 @@ aquarius_quad:
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 #############################
 # GAL
@@ -151,7 +151,7 @@ gal_22k:
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg
 
 
 # --opt-code-size 
@@ -178,8 +178,8 @@ gal_6k:
 	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg \
 	$(TINY_FILES) \
 	$(SOURCE_PATH)/memory/gal_memory.asm
-	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg
-	#rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.wav
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg
+	#rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.wav
 
 
 gal_plus_no_gfx:
@@ -191,7 +191,7 @@ gal_plus_no_gfx:
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	rm $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg
 
 
 gal_plus: gal_plus_no_gfx
@@ -206,7 +206,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
-	rm $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg
 
 
 #############################
@@ -282,7 +282,7 @@ oz_tiny_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) $(SOURCE_PATH)/../../oz
-	rm $(SOURCE_PATH)/../../oz.bin
+	rm -rf $(SOURCE_PATH)/../../oz.bin
 	mv oz.wzd $(BUILD_PATH)/X$(GAME_NAME)_TINY_oz_buffered.wzd
 
 
@@ -308,9 +308,9 @@ pv1000:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pv1000.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pv1000.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pv1000_DATA.bin
-	rm $(BUILD_PATH)/X$(GAME_NAME)_pv1000_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pv1000.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pv1000_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pv1000_BSS.bin
 
 
 #############################
@@ -377,7 +377,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg
 
 
 vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -400,7 +400,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k_less_text.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_vg5k_less_text.prg
 
 
 #############################
@@ -419,7 +419,7 @@ vz200_18k:
 	-create-app -Cz--audio -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c
-	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas
 
 
 vz200_8k:
@@ -445,7 +445,7 @@ vz200_8k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.vz \
 	$(TINY_FILES) 
-	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.cas
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.cas
 
 
 vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
@@ -464,7 +464,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.cas
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.cas
 
 
 #############################
@@ -484,7 +484,7 @@ zx81_16k:
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
 
 zx81_v2: zx81_v2_16k
 
@@ -500,7 +500,7 @@ zx81_v2_16k:
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_v2_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -O3 -subtype=wrx -clib=wrx \
@@ -530,7 +530,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx_turn_based.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx_turn_based.prg
 
 
 #############################
@@ -549,7 +549,7 @@ z9001_16k_full:
 	-DSIMPLE_STRATEGY -DSOUNDS -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
 
 
 z9001_32k_no_gfx:
@@ -559,7 +559,7 @@ z9001_32k_no_gfx:
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
 
 
 z9001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -571,5 +571,5 @@ z9001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
 

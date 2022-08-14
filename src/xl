@@ -919,6 +919,11 @@ def help(params):
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
+    elif params[1]=="add":
+        print("\nxl add <project> <target>")
+        print("")
+        print("It adds support for the new target <target> into <project> by modifying its Makefile.")
+        print("")
     elif params[1]=="tools":
         print("\nxl tools")
         print("\n(or xl build tools)")

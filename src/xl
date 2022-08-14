@@ -870,14 +870,14 @@ def show(params):
 
 
 def add(params):
-    game_dir = params[1]
+    project = params[1]
     
     target = params[2]
     
-    print("game_dir: " + game_dir)
+    print("project: " + project)
     print("target: " + target)
     
-    proj_cat = project_category(game_dir)
+    proj_cat = project_category(project)
     print("project category: " + proj_cat)
     
     if(proj_cat != "project"):
@@ -898,9 +898,20 @@ def add(params):
         print("target not found")
         exit()
     
-    command_string = "cat " + new_target_path + new_Makefile
-    run_command_verbosely(command_string)
+    full_new_target_path = new_target_path + new_Makefile
     
+    print("Adding this Makefile target(s)")
+    command_string = "cat " + full_new_target_path
+    run_command_verbosely(command_string)
+    print("\n")
+    
+    project_path = "projects/" +  project
+    
+    full_project_path = project_path + "/Makefile." + project
+    
+    command_string = "cat " + full_new_target_path + " >> " + full_project_path
+    run_command_verbosely(command_string)
+
 
 def help(params):
     if len(params)<2:

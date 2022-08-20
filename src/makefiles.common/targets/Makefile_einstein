@@ -1,0 +1,22 @@
+
+
+##############################################################################
+
+
+einstein: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein \
+	-pragma-define:ansicolumns=32 \
+	$(INCLUDE_OPTS) \
+	-D__EINSTEIN__ \
+	-DFORCE_CONIO_LIB \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EINSTEIN_SLOWDOWN) \
+	-DFULL_GAME -DLESS_TEXT \
+	-clib=ansi \
+	-DCONIO -DUDG_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_einstein.bin \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_einstein.bin
+
+

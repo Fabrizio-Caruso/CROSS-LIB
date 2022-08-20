@@ -1,4 +1,5 @@
 
+
 ##############################################################################
 
 eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -7,6 +8,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-pragma-redirect:getk=getk_inkey \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EG2K_SLOWDOWN) \
 	$(INCLUDE_OPTS) -DFORCE_BIT_BANG \
 	-D__EG2K__ \
 	-DFULL_GAME  \
@@ -20,10 +22,8 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
-
 

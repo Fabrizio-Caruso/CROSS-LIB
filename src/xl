@@ -897,6 +897,17 @@ def add(params):
     else:
         print("target not found")
         exit()
+
+    project_path = "projects/" +  project
+
+    full_project_path = project_path + "/Makefile." + project
+    
+    with open(full_project_path) as file:
+        project_makefile_content = file.read()
+        
+    if(target+":" in project_makefile_content):
+        print("Target already present. First delete it from " + full_project_path)
+        exit()
     
     full_new_target_path = new_target_path + new_Makefile
     
@@ -905,9 +916,8 @@ def add(params):
     run_command_verbosely(command_string)
     print("\n")
     
-    project_path = "projects/" +  project
     
-    full_project_path = project_path + "/Makefile." + project
+
     
     command_string = "cat " + full_new_target_path + " >> " + full_project_path
     run_command_verbosely(command_string)
@@ -924,6 +934,11 @@ def help(params):
         print("")
         print("It adds support for the new target <target> into <project> by modifying its Makefile.")
         print("")
+        print("Example:")
+        print("If you have previously created a new project 'foo'")
+        print("(e.g., by cloning it with 'xl clone bomber foo'),")
+        print("then you can add support for the 'einstein' target to it with")
+        print("xl add foo einstein")
     elif params[1]=="tools":
         print("\nxl tools")
         print("\n(or xl build tools)")

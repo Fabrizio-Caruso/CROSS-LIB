@@ -11,6 +11,8 @@ import os,sys,re
 
 import time
 
+import re
+
 from os import walk
 
 sys.path.append("assets")
@@ -868,6 +870,61 @@ def show(params):
             print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
     
 
+def remove(params):
+    project = params[1]
+    
+    target = params[2]
+    
+    print("project: " + project)
+    print("target: " + target)
+    
+    proj_cat = project_category(project)
+    print("project category: " + proj_cat)
+    
+    if(proj_cat != "project"):
+        print("You cannot modify a built-in project")
+        
+    new_target_path = "makefiles.common/targets/"
+    
+    print("path: " + new_target_path)
+    
+    possible_targets = files_in_path(new_target_path)
+    print(possible_targets)
+    
+    new_Makefile = "Makefile_" + target
+    
+    if new_Makefile in possible_targets:
+        print("Target found in list of candidate extra targets")
+    else:
+        print("Target not found in list of candidate extra targets")
+
+    project_path = "projects/" +  project
+
+    full_project_path = project_path + "/Makefile." + project
+    
+    with open(full_project_path) as file:
+        project_makefile = file.read()
+        
+    if(target+":" in project_makefile):
+        print("Target present in " + full_project_path)
+    else:
+        print("Target not present in " + full_project_path)
+        exit()
+    
+    full_new_target_path = new_target_path + new_Makefile
+
+# einstein:(.*?)(?:\r*\n){2}
+    # regex = re.compile("einstein(.*?)(?:\r*\n){2}", re.IGNORECASE)
+    cleaned_project_makefile = re.sub(target+":(.*)(\r*\n){2}","",project_makefile, flags=re.MULTILINE|re.DOTALL)
+    
+    # print(cleaned_project_makefile)
+    
+    command_string = "mv " + full_project_path + " " + full_project_path + "_BACKUP"
+    run_command_verbosely(command_string)
+    
+    with open(full_project_path,'w') as file:
+        file.write(cleaned_project_makefile)
+
 
 def add(params):
     project = params[1]
@@ -893,9 +950,9 @@ def add(params):
     new_Makefile = "Makefile_" + target
     
     if new_Makefile in possible_targets:
-        print("target found")
+        print("Target found in list of candidate extra targets")
     else:
-        print("target not found")
+        print("Target not found in list of candidate extra targets")
         exit()
 
     project_path = "projects/" +  project
@@ -903,9 +960,9 @@ def add(params):
     full_project_path = project_path + "/Makefile." + project
     
     with open(full_project_path) as file:
-        project_makefile_content = file.read()
+        project_makefile = file.read()
         
-    if(target+":" in project_makefile_content):
+    if(target+":" in project_makefile):
         print("Target already present. First delete it from " + full_project_path)
         exit()
     
@@ -915,9 +972,6 @@ def add(params):
     command_string = "cat " + full_new_target_path
     run_command_verbosely(command_string)
     print("\n")
-    
-    
-
     
     command_string = "cat " + full_new_target_path + " >> " + full_project_path
     run_command_verbosely(command_string)
@@ -1308,6 +1362,8 @@ if __name__ == "__main__":
         run(sys.argv[1:])
     elif sys.argv[1]=="add":
         add(sys.argv[1:])
+    elif sys.argv[1]=="remove":
+        remove(sys.argv[1:])
     elif sys.argv[1]=="string":
         string(sys.argv[1:])
     elif sys.argv[1]=="commands":

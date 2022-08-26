@@ -225,6 +225,7 @@ else
 z88dk_targets_aux: \
     aquarius \
     ace \
+    coleco \    
     cpc \
     cpm \
     gb \
@@ -897,6 +898,29 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm A80.LDR
 	rm A80
 	rm a80.bin
+
+
+#################################################################
+
+coleco: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=1200 \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+
 
 
 #################################################################

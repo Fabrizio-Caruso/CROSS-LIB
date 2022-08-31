@@ -59,75 +59,81 @@ void _XL_INIT_SOUND(void)
 {
     POKE(0xF3DB,0);
 }
-#elif defined(__SMS__)
+// #elif defined(__SMS__)
 
+// #include <psg.h>
+
+// void _XL_INIT_SOUND(void)
+// {
+    // psg_init();
+  
+// }
+#else
+    
 #include <psg.h>
 
 void _XL_INIT_SOUND(void)
 {
     psg_init();
-  
 }
 #endif
 
-/*
-
-psg_init();                       // questo di solito lo si sposta in main() o nella sezione di inzializzazione
-               
-                //set_psg(A_VOLUME,15);
-                psg_volume(0, 15);
-               
-                //psg_envelope(0, 500, chanAll);  // con questo avresti un suono che termina da solo, senza settare volume a 0 in fondo
-               
-                psg_channels(chan0, chanNone); // set first channel to tone generation, reset noise channels
-               
-                //set_psg(A_PERIOD_LOW,255);
-               
-                //set_psg(A_PERIOD_HI, 15);
-               
-                //set_psg(CONTROL, 0xFF  - 0x01);
-               
-                for(i=0;i<16;i++)
-                {
-                                //set_psg(A_PERIOD_HI,15-i);                   
-                                psg_tone(0, 500-(i*16));
-                                for(j=0;j<150;++j)
-                                {
-                                }
-                }
-               
-                //set_psg(A_VOLUME,0);                            
-                psg_volume(0, 0);
- 
-
-*/
 
 void _ping_sound(uint8_t freq)
 {
 	uint16_t i;
     
-	psg_volume(1,15);
+	psg_volume(0,15);
     
     psg_tone(0,freq);
-    // psg_channels(1, 0);
 
-    for(i=0;i<120;i++)
+    for(i=0;i<220;i++)
     {
     }
 
-	// psg_volume(0,0); 
-    psg_volume(1,0);
-    // psg_volume(2,0);
+    psg_volume(0,0);
 }
+
 
 void _XL_ZAP_SOUND(void) 
 {
-    //
+    uint8_t i;
+    uint8_t j;
+
+	psg_volume(0,15);
+    
+    for(i=0;i<30;i++)
+    {
+        for(j=0;j<i;++j)
+        {
+        }
+        psg_tone(0,i*4);
+        
+    }   
+    psg_volume(0,0);
 }
+
 
 
 void _explosion_sound(uint8_t freq)
 { 
-    //
+    uint8_t i;
+    uint8_t j;
+
+	psg_volume(0,15);
+    
+    for(i=0;i<30;i++)
+    {
+        psg_tone(0,freq);
+        for(j=0;j<i;++j)
+        {
+        }
+        psg_tone(0,i&3);
+        for(j=0;j<i;++j)
+        {
+        }
+        
+    }   
+    psg_volume(0,0);
 }
 

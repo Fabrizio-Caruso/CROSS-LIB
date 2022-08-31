@@ -1304,7 +1304,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/sn76489a_psg_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin

@@ -3,6 +3,7 @@ deliverables
 *.def
 *.swp
 *.img
+*.tap
 build/*
 src/projects/*
 **generated_assets

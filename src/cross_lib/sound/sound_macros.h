@@ -113,7 +113,7 @@
 		#define _XL_ZAP_SOUND() 
 	#endif
     
-    #if defined(SOUNDS) && (defined(__GB__) || defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
+    #if defined(SOUNDS) && (defined(FORCE_PSG) || defined(__GB__) || defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
     // _XL_INIT_SOUND() needs to be defined
     #else
         #define _XL_INIT_SOUND()

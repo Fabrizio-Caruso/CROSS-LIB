@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add" \
+    "commands",  "add", "remove" \
     ]
 
 
@@ -913,11 +913,7 @@ def remove(params):
     
     full_new_target_path = new_target_path + new_Makefile
 
-# einstein:(.*?)(?:\r*\n){2}
-    # regex = re.compile("einstein(.*?)(?:\r*\n){2}", re.IGNORECASE)
     cleaned_project_makefile = re.sub(target+":(.*)(\r*\n){2}","",project_makefile, flags=re.MULTILINE|re.DOTALL)
-    
-    # print(cleaned_project_makefile)
     
     command_string = "mv " + full_project_path + " " + full_project_path + "_BACKUP"
     run_command_verbosely(command_string)

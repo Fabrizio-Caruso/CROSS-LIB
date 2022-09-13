@@ -33,9 +33,9 @@
 void draw_jump_dino(uint8_t height)
 {
     // Initial tiles
-    _XL_DRAW(X_DINO+1,Y_DINO-height,_TILE_0,_XL_WHITE);
-    _XL_DRAW(X_DINO+1,Y_DINO+1-height,_TILE_3,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1-height,_TILE_2,_XL_WHITE);
+    _XL_DRAW(X_DINO+1,Y_DINO-height,TOP_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO,Y_DINO+1-height,TAIL_DINO_0,_XL_WHITE);
 }    
 
 void delete_feet(uint8_t height)
@@ -46,15 +46,15 @@ void delete_feet(uint8_t height)
 
 void draw_dino_feet_0(void)
 {
-    _XL_DRAW(X_DINO+1,Y_DINO+1,_TILE_3,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1,_TILE_4,_XL_WHITE);
+    _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO,Y_DINO+1,TAIL_RAISED_DINO,_XL_WHITE);
 }
 
 
 void draw_dino_feet_1(void)
 {
-    _XL_DRAW(X_DINO+1,Y_DINO+1,_TILE_1,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1,_TILE_2,_XL_WHITE);
+    _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_RAISED_DINO,_XL_WHITE);
+    _XL_DRAW(X_DINO,Y_DINO+1,TAIL_DINO_0,_XL_WHITE);
 }
 
 

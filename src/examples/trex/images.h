@@ -10,8 +10,8 @@
     #define BOTTOM_DINO_0   _TILE_3
 
     // Dino lower feet
-    #define TAIL_LOW_DINO   _TILE_4
-    #define BOTTOM_LOW_DINO _TILE_1
+    #define TAIL_RAISED_DINO   _TILE_4
+    #define BOTTOM_RAISED_DINO _TILE_1
 
     // Dino with +4 pixel offset
     #define TOP_DINO_1      _TILE_5

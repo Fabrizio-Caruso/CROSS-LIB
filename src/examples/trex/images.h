@@ -29,6 +29,7 @@
     #define TAIL_DINO_2     _TILE_13
     #define FOOT_DINO_2     _TILE_14
 
+    #define TERRAIN         _TILE_15
 
 #endif // _IMAGES_H
 

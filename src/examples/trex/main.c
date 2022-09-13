@@ -27,7 +27,7 @@
 #include "images.h"
 
 
-#define X_DINO (XSize/4)
+#define X_DINO (XSize/8)
 #define Y_DINO (YSize/2)
 
 void draw_jump_dino(uint8_t height)
@@ -62,6 +62,7 @@ int main(void)
 {        
     uint8_t i;
     uint8_t j;
+    uint8_t k;
     
     _XL_INIT_GRAPHICS();
     
@@ -69,80 +70,51 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-    _XL_CLEAR_SCREEN();
-
     for(i=0;i<9;++i)
     {
+
+        _XL_CLEAR_SCREEN();
+
+        for(j=0;j<XSize;++j)
+        {
+            _XL_DRAW(j,Y_DINO+2,TERRAIN,_XL_WHITE);
+        }
+
 
         draw_jump_dino(0);
         
         _XL_WAIT_FOR_INPUT();
  
-        for(j=0;j<99;++j)
+        for(j=0;j<3;++j)
         {
         
-            delete_feet(0);
-            
-            draw_dino_feet_0();
-            
-            _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
-            
-            delete_feet(0);
-            
-            draw_dino_feet_1();
-            
-            _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+            for(k=0;k<20;++k)
+            {
+                delete_feet(0);
+                
+                draw_dino_feet_0();
+                
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR>>j);
+                
+                delete_feet(0);
+                
+                draw_dino_feet_1();
+                
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR>>j);
+            }
         }
         
-        delete_feet(0);
-        
-        draw_jump_dino(1);
+        for(j=0;j<5;++j)
+        {
+            delete_feet(j);
+            
+            draw_jump_dino(j+1);
+            
+            _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        }
         
         _XL_WAIT_FOR_INPUT();
-
-        _XL_CLEAR_SCREEN();
-        
-        // _XL_DRAW(XSize/2+1,YSize/2,tiles[0],tile_color[j]);
-        // _XL_DRAW(XSize/2+1,YSize/2+1,tiles[1],tile_color[j]);
-        // _XL_DRAW(XSize/2,YSize/2+1,tiles[2],tile_color[j]);
-
-        // _XL_WAIT_FOR_INPUT();
-        
-        // _XL_DRAW(XSize/2+1,YSize/2+1,tiles[3],tile_color[j]);
-        // _XL_DRAW(XSize/2,YSize/2+1,tiles[4],tile_color[j]);  
-
-        // _XL_WAIT_FOR_INPUT();
-        
-        // _XL_DRAW(XSize/2+1,YSize/2+1,tiles[3],tile_color[j]);
-        // _XL_DRAW(XSize/2,YSize/2+1,tiles[2],tile_color[j]); 
-
-        // _XL_WAIT_FOR_INPUT();
-        
-        // _XL_DELETE(XSize/2,YSize/2+1);
-        // _XL_DELETE(XSize/2+1,YSize/2+1);
-        
-        // _XL_DRAW(XSize/2+1,YSize/2-1,tiles[5],tile_color[j]);
-        // _XL_DRAW(XSize/2+1,YSize/2,tiles[6],tile_color[j]);
-        // _XL_DRAW(XSize/2+1,YSize/2+1,tiles[7],tile_color[j]);
-
-        // _XL_DRAW(XSize/2,YSize/2,tiles[8],tile_color[j]);
-        // _XL_DRAW(XSize/2,YSize/2+1,tiles[9],tile_color[j]);
-        
-        // _XL_WAIT_FOR_INPUT();
-        
-        // _XL_DELETE(XSize/2,YSize/2+1);
-        // _XL_DELETE(XSize/2+1,YSize/2+1);
-                        
-        // _XL_DRAW(XSize/2+1,YSize/2-1-1,tiles[10],tile_color[j]);
-        // _XL_DRAW(XSize/2+1,YSize/2-1,tiles[11],tile_color[j]);
-        // _XL_DRAW(XSize/2+1,YSize/2+1-1,tiles[12],tile_color[j]);
-
-        // _XL_DRAW(XSize/2,YSize/2-1,tiles[13],tile_color[j]);
-        // _XL_DRAW(XSize/2,YSize/2+1-1,tiles[14],tile_color[j]);   
-        
-        // _XL_WAIT_FOR_INPUT();
-        
-        // _XL_CLEAR_SCREEN();
+     
     }
 
     _XL_PRINT(XSize/4,YSize-5, "END OF DEMO");

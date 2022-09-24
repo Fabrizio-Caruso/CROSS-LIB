@@ -83,6 +83,8 @@ void draw_dino_feet_1(void)
 }
 
 
+#define RUN_SLOW_DOWN 3
+
 int main(void)
 {        
     uint8_t i;
@@ -107,13 +109,11 @@ int main(void)
 
 
         draw_jump_dino_0(0);
-        
-        _XL_WAIT_FOR_INPUT();
- 
+         
         for(j=0;j<2;++j)
         {
         
-            for(k=0;k<10;++k)
+            for(k=0;k<6;++k)
             {
                 delete_feet(0);
                 
@@ -135,30 +135,39 @@ int main(void)
             
             draw_jump_dino_0(j+1);
             
-            _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
             
             draw_jump_dino_1(j+1);
             
-            _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);  
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
         }
                 
         delete_feet(j);
         
         draw_jump_dino_0(j+1);
         
-        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        _XL_SLOW_DOWN((RUN_SLOW_DOWN+RUN_SLOW_DOWN/2)*_XL_SLOW_DOWN_FACTOR);
         
         delete_feet(j);
         
         draw_jump_dino_2(j+1);
         
-        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-                
-        delete_top(j+1);
-                
-        draw_jump_dino_0(j+1);
-                
-        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        _XL_SLOW_DOWN(2*RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+        
+        for(j=4;j>0;--j)
+        {
+            delete_top(j+1);
+
+            draw_jump_dino_0(j+1);
+            
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            
+            delete_top(j); 
+            
+            draw_jump_dino_1(j);
+            
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
+        }
         
     }
 

@@ -225,7 +225,7 @@ else
 z88dk_targets_aux: \
     aquarius \
     ace \
-    coleco \    
+    coleco \
     cpc \
     cpm \
     gb \

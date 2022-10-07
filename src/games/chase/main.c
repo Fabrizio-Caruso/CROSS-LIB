@@ -576,7 +576,7 @@ int main(void)
                     }
 
                 #if defined(FULL_GAME)
-                    if(invincibilityActive)
+                    if(invincibilityActive && (loop&1))
                         {
                             DELETE_CHARACTER(player._x, player._y);
                         }    

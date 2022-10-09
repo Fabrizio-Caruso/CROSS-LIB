@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add", "remove" \
+    "commands",  "add", "remove", "shape" \
     ]
 
 
@@ -839,6 +839,34 @@ def tile(params):
         store_tile(params[2], tile, xsize, ysize, params[3])
 
 
+# Import all tiles from files inside shape directory of a given project
+def shape(params):
+    project_cat = project_category(params[1])
+    
+    if(len(params)>3):
+        xsize_str,ysize_str = params[2:]
+    else:
+        xsize_str = "8"
+        ysize_str = "8"
+    print("xsize: " + xsize_str)
+    print("ysize: " + ysize_str)
+    path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
+    print("path to shape files: " + path_to_files)
+    shape_files = files_in_path(path_to_files)
+    for shape_file in shape_files:
+        path_to_shape_file = path_to_files + "/" + shape_file
+        
+        tile_number_str = shape_file[5:].replace(".txt","")
+        
+        print(tile_number_str)
+        
+        tile,xsize,ysize = import_tile(path_to_shape_file)
+        print(tile)
+        print_shape(compute_shape(tile,xsize))
+        
+        
+
+
 # Show all commands
 def commands(params):
     for command in COMMANDS_LIST:
@@ -1393,6 +1421,8 @@ if __name__ == "__main__":
         test(sys.argv[1:])
     elif sys.argv[1]=="tile":
         tile(sys.argv[1:])
+    elif sys.argv[1]=="shape":
+        shape(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
     elif sys.argv[1]=="files" or sys.argv[1]=="f":

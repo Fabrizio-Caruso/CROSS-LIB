@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add", "remove", "shape" \
+    "commands",  "add", "remove", "tiles" \
     ]
 
 
@@ -827,7 +827,7 @@ def files():
     os.system(make_command)   
 
 
-# Import a single tile from a text file that describes its shape with characters
+# Import a shape as single tile from a text file that describes its shape with characters
 def tile(params):
 
     tile,xsize,ysize = import_tile(params[1])
@@ -839,9 +839,11 @@ def tile(params):
         store_tile(params[2], tile, xsize, ysize, params[3])
 
 
-# Import all tiles from files inside shape directory of a given project
-def shape(params):
-    project_cat = project_category(params[1])
+# Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
+def tiles(params):
+    project_name = params[1]
+    
+    project_cat = project_category(project_name)
     
     if(len(params)>3):
         xsize_str,ysize_str = params[2:]
@@ -858,11 +860,15 @@ def shape(params):
         
         tile_number_str = shape_file[5:].replace(".txt","")
         
-        print(tile_number_str)
+        print("tile number: " + tile_number_str)
         
         tile,xsize,ysize = import_tile(path_to_shape_file)
         print(tile)
         print_shape(compute_shape(tile,xsize))
+        
+        store_tile(project_name, tile, xsize, ysize, tile_number_str)
+        
+        print("")
         
         
 
@@ -1208,6 +1214,17 @@ def help(params):
         print("")
         print("To be copied in 'tile_<index>.txt' in '<project>/tiles/8x8' to modify the shape.")
         print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
+
+    elif params[1]=="tiles":
+        print("xl tiles <project> <[optional] xsize> <[optional] ysize>")
+        print("It converts all shape files into tiles and stores them as such in the project.") 
+        print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
+        print("If no optional parameter is passed, then 8x8 shape is assumed")
+        print("")
+        print("Example: ")
+        print("Provided that you have a project named 'foo', the command")
+        print("xl tiles foo 6 8")
+        print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
         
     elif params[1]=="test":
         print("xl test <[optional] params>")
@@ -1421,8 +1438,8 @@ if __name__ == "__main__":
         test(sys.argv[1:])
     elif sys.argv[1]=="tile":
         tile(sys.argv[1:])
-    elif sys.argv[1]=="shape":
-        shape(sys.argv[1:])
+    elif sys.argv[1]=="tiles":
+        tiles(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
     elif sys.argv[1]=="files" or sys.argv[1]=="f":

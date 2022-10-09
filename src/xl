@@ -1219,6 +1219,7 @@ def help(params):
         print("xl tiles <project> <[optional] xsize> <[optional] ysize>")
         print("It converts all shape files into tiles and stores them as such in the project.") 
         print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
+        print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information")
         print("If no optional parameter is passed, then 8x8 shape is assumed")
         print("")
         print("Example: ")

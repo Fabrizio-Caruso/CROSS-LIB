@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add", "remove", "tiles", "rip" \
+    "commands",  "add", "remove", "tiles", "rip", "manual" \
     ]
 
 
@@ -1145,7 +1145,9 @@ def help(params):
         print("")  
         print("xl run snake 16 16")
         print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
-
+    elif params[1]=="manual":
+        print("xl manual")
+        print("It displays and describes CROSS-LIB APIs")
     elif params[1]=="string":
         print("xl string <string>")
         print("It converts a string litteral into a concatenation of")
@@ -1399,6 +1401,10 @@ def help(params):
         print("Command not recognized")
         exit()
 
+
+def manual():
+    run_command_verbosely("cat ../docs/CROSS_LIB_APIS.txt")
+
 # ---------------------------------------------
 
 
@@ -1481,6 +1487,8 @@ if __name__ == "__main__":
         tiles(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
+    elif sys.argv[1]=="manual":
+        manual()
     elif sys.argv[1]=="files" or sys.argv[1]=="f":
         files()
     elif sys.argv[1]=="size":

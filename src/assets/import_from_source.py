@@ -242,12 +242,13 @@ def remove_comments(line,basic_code):
 
 
 # It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
-def rip_tiles(filename, xsize, ysize, skip_option, rotate = False):
+def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
        
     try:
         fin = open(filename, "rt")
         
         assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
+
         basic_extension = has_extension(filename,BASIC_EXTENSIONS)
 
         lines = fin.readlines()
@@ -305,20 +306,23 @@ def rip_tiles(filename, xsize, ysize, skip_option, rotate = False):
             trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
             line_index+=1
         
-        # Heuristic to guess BASIC code with hex data without a hex prefix
-        headless_hex = has_headless_hex(trimmed_lines)
-        
-        # Heuristic to guess the presence of an initial header byte (to be skipped)
-        header_byte = has_nine_byte_lines(trimmed_lines)
-
-
-        skip_first = skip_option or header_byte or (directive in SKIP_PATTERN_LIST)
+        if(rip):
+            # Heuristic to guess BASIC code with hex data without a hex prefix
+            headless_hex = has_headless_hex(trimmed_lines)
+            
+            # Heuristic to guess the presence of an initial header byte (to be skipped)
+            header_byte = has_nine_byte_lines(trimmed_lines)
+            skip_first = header_byte or (directive in SKIP_PATTERN_LIST)
+        else:
+            headless_hex = False
+            header_byte = False
+            skip_first = False
 
         print("Skip first item      : " + str(skip_first))
+        print("Headless hex data    : " + str(headless_hex))
 
         line_index = 0
         
-        print("Headless hex data    : " + str(headless_hex))
         print("")
         
         while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):

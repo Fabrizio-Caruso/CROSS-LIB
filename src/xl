@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add", "remove", "tiles" \
+    "commands",  "add", "remove", "tiles", "rip" \
     ]
 
 
@@ -803,16 +803,15 @@ def run(params):
 # It should be able to import from 
 # - Assembly files that use byte directives with either decimal and hex notation
 # - Assembly files that use word directives with ONLY hex notation
-# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
 def import_from_source(params, rotate = False):
     filename = params[1]
 
-    skip_option = params[len(params)-1]=="-skip"
+    rip_option = params[len(params)-1]=="-rip"
 
     xsize = 8
     ysize = 8
 
-    tiles = rip_tiles(filename, xsize, ysize, skip_option, rotate)
+    tiles = rip_tiles(filename, xsize, ysize, rip_option, rotate)
 
     try:
         if(len(params)>=3) and "-" not in params[2]:
@@ -820,6 +819,25 @@ def import_from_source(params, rotate = False):
     except Exception as exception:
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
 
+
+# It should be able to import from 
+# - Assembly files that use byte directives with either decimal and hex notation
+# - Assembly files that use word directives with ONLY hex notation
+# - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
+# Remark: This function is like "import_from_source" with the "-rip" option
+def rip(params, rotate = False):
+    filename = params[1]
+
+    xsize = 8
+    ysize = 8
+
+    tiles = rip_tiles(filename, xsize, ysize, True, rotate)
+
+    try:
+        if(len(params)>=3) and "-" not in params[2]:
+            store_tiles(params[2],tiles, xsize, ysize)
+    except Exception as exception:
+        print("Sorry! Failed to store tiles: \n" + str(exception.args))    
 
 # Show all generated files
 def files():
@@ -1154,15 +1172,33 @@ def help(params):
         print("<project>")
         print("If a project name is passed then the tiles are imported into <project> as 8x8 tiles")
         print("")
+        print("Remark: For extra heuristics and some BASIC files use '-rip' option or 'xl rip'")
+        print("")
         print("Example:")
         print("If you create a new project 'myname' with")
         print("xl create myname")
         print("You can import a tile into it from an Assembly file with something like this:")
         print("xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+    elif params[1]=="rip":
+        print("xl rip <source_file> <[optional] project>")
+        print("")
+        print("<source_file>")
+        print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
+        print("For example in CharPad you can export the tile data with:")
+        print("File->Import/Export->Text/Asm->Export All or File->Import/Export->Text/Asm->Export All")
+        print("")
+        print("<project>")
+        print("If a project name is passed then the tiles are imported into <project> as 8x8 tiles")
+        print("")
+        print("Example:")
+        print("If you create a new project 'myname' with")
+        print("xl create myname")
+        print("You can import a tile into it from an Assembly file with something like this:")
+        print("xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
     elif params[1]=="rotate":
         print("xl rotate <source_file> <[optional] project>")
         print("")
-        print("It works similarly to 'xl import <source> <[optional] project>' but rotates the result.")
+        print("It works similarly to 'xl rip <source> <[optional] project>' but rotates the result.")
         print("")
         print("<source_file>")
         print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -1219,7 +1255,7 @@ def help(params):
         print("xl tiles <project> <[optional] xsize> <[optional] ysize>")
         print("It converts all shape files into tiles and stores them as such in the project.") 
         print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
-        print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information")
+        print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")
         print("If no optional parameter is passed, then 8x8 shape is assumed")
         print("")
         print("Example: ")
@@ -1426,7 +1462,9 @@ if __name__ == "__main__":
     elif sys.argv[1]=="import":
         import_from_source(sys.argv[1:],False)
     elif sys.argv[1]=="rotate":
-        import_from_source(sys.argv[1:],True)
+        rip(sys.argv[1:],True)
+    elif sys.argv[1]=="rip":
+        rip(sys.argv[1:],False)
     elif sys.argv[1]=="rebuild":
         rebuild(sys.argv[1:])
     elif sys.argv[1]=="rename":

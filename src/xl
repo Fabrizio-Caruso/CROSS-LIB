@@ -34,19 +34,13 @@ def run_command_verbosely(command_string):
     print("Going to run: " + command_string)
     os.system(command_string)
 
+
 def are_you_sure():
     if sys.version_info[0] < 3:
         return raw_input("Are you sure [Y/N]? ").lower()
     else:
         return input("Are you sure [Y/N]? ").lower()
 
-
-def dirs_in_path(mypath):
-    dirs = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
-        dirs.extend(dirnames)
-        break
-    return dirs
 
 def files_in_path(mypath):
     files = []
@@ -131,15 +125,6 @@ def only_upper_digits_and_space(s):
 
 def no_space(s):
     return "".join(c for c in s if c!=" ")
-
-
-def project_category(game_dir):
-    if(game_dir in example_projects):
-        return "example"
-    elif game_dir in game_projects:
-        return "game" 
-    else:
-        return "project" 
     
 
 # Convert a string into a sequence of macros that can be used in the code (only necessary for small letters)
@@ -1449,8 +1434,6 @@ if __name__ == "__main__":
     print("----------------------------")
     print("")
     builtin_games = ["chase","shoot","bomber","snake","horde"]
-    game_projects = dirs_in_path("./games")
-    example_projects = dirs_in_path("./examples")
     
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")

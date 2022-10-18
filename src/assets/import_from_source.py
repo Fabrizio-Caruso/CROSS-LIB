@@ -1,4 +1,6 @@
 
+from init import *
+
 NUMBER_OF_TILES = 27
 
 
@@ -15,6 +17,15 @@ BASIC_ONLY_PATTERN_LIST = BASIC_ONLY_NO_SKIP_PATTERN_LIST + BASIC_ONLY_SKIP_PATT
 PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
+
+# It computes the type of project
+def project_category(game_dir):
+    if(game_dir in example_projects):
+        return "example"
+    elif game_dir in game_projects:
+        return "game" 
+    else:
+        return "project" 
 
 
 # It outputs a list of strings

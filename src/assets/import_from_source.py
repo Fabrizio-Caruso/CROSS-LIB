@@ -403,9 +403,11 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
 
 def store_tiles(project, tiles, xsize, ysize):
     
-    print("project    : " + project)
+    print("project          : " + project)
     
-    main_path = "./projects/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
+    category = project_category(project)
+        
+    main_path = "./" + category + "s/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
     print("main_path: " + main_path)
     for index in range(len(tiles)):
         store_tile(project,tiles[index],xsize,ysize,str(index))
@@ -419,7 +421,12 @@ def store_tile(project, tile, xsize, ysize, index):
     print("tile index : " + str(index))
     dir = str(xsize)+"X"+str(ysize)
     print("directory: " + dir)
-    dest = "./projects/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
+    
+    category = project_category(project)
+    
+    print("project category : " + category)
+    
+    dest = "./" + category + "s/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
     print("Copy/Overwrite : " + dest)
 
     fin = open(dest, "wt")

@@ -11,5 +11,5 @@ def dirs_in_path(mypath):
 game_projects = dirs_in_path("./games")
 example_projects = dirs_in_path("./examples")
 
-
+    
         

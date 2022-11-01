@@ -298,6 +298,7 @@ def clone(params):
         
         
     source_project_type = project_category(source_game_dir)
+    print("source project category: " + source_project_type)
     source_parent_dir = source_project_type + "s"
     source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
 

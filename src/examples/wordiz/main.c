@@ -47,6 +47,8 @@
 
 #define ALPHABET_SIZE 16
 
+#define NUMBER_OF_NEXT_WORDS 1
+
 #include "dictionary.h"
 
 uint8_t player_x;
@@ -58,6 +60,8 @@ uint8_t victory;
 uint8_t counter;
 uint8_t first_index;
 uint8_t last_index;
+uint8_t next_letters[NUMBER_OF_NEXT_WORDS][NUMBER_OF_LETTERS];
+uint8_t next_word_index[NUMBER_OF_NEXT_WORDS];
 
 // E A R I O T N S L C U D P M H (G->Y)
 
@@ -112,10 +116,18 @@ void drop_letter(void)
 {
     uint8_t height;
     uint8_t new_letter;
+    uint8_t word_index;
     
     height = matrix_height[slot_index];
     
-    new_letter = letters[_XL_RAND()&15];
+    word_index = _XL_RAND()%NUMBER_OF_NEXT_WORDS;
+    //new_letter = letters[_XL_RAND()&15];
+    new_letter = letters[next_letters[word_index][next_word_index[word_index]]];
+    ++next_word_index[word_index];
+    if(next_word_index[word_index]==NUMBER_OF_LETTERS)
+    {
+        next_word_index[word_index]=0;
+    }
     matrix[slot_index][height]=new_letter;
     display_char(slot_index,height,new_letter);
     if(height==HEIGHT-1)
@@ -252,6 +264,26 @@ uint8_t letter_index(uint8_t letter)
 }
 
 
+extern const uint16_t dictionary_index[16+1];
+
+uint8_t first_letter(uint16_t index)
+{
+    uint8_t i;
+    
+    i = 1;
+    
+    while(i<15)
+    {
+        if(index<dictionary[i])
+        {
+            return i-1;
+        }
+        ++i;
+    }
+    return 15;
+}
+
+
 // It compresses the last 4 letters of the bottom matrix in 4-bit per letter format
 uint16_t compress_bottom_word(void)
 {    
@@ -264,39 +296,45 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
     uint16_t middle_index;
     uint16_t middle_word;
     
-    _XL_PRINT(0,0,"BINARY SEARCH");
-    _XL_PRINTD(0,1,4,first_index);
-    _XL_PRINTD(20,1,4,last_index);
-    _XL_SLEEP(1);
+    // _XL_PRINT(0,0,"BINARY SEARCH");
+    // _XL_PRINTD(0,1,4,first_index);
+    // _XL_PRINTD(20,1,4,last_index);    // _XL_PRINT(0,0,"BINARY SEARCH");
+    // _XL_PRINTD(0,1,4,first_index);
+    // _XL_PRINTD(20,1,4,last_index);
+    //_XL_SLEEP(1);
     // _XL_WAIT_FOR_INPUT();
     
-    while(last_index-first_index>1)
+    while(last_index>=first_index)
     {    
         middle_index = (first_index+last_index)/2;
         middle_word = dictionary[middle_index];
 
-        _XL_PRINTD(0,1,4,first_index);
-        _XL_PRINTD(10,1,4,middle_index);
-        _XL_PRINTD(20,1,4,last_index);
-        _XL_PRINTD(30,1,4,middle_word);
-        _XL_PRINTD(0,3,4,search_word);
+        // _XL_PRINTD(0,1,4,first_index);
+        // _XL_PRINTD(10,1,4,middle_index);
+        // _XL_PRINTD(20,1,4,last_index);
+        // _XL_PRINTD(30,1,4,middle_word);
+        // _XL_PRINTD(0,3,4,search_word);
 
-        if(middle_word<search_word)
+        if(dictionary[middle_index]==search_word)
+        {
+            return 1;
+        }
+        else if(middle_word<search_word)
         {
             first_index = middle_index + 1;
         }
         else
         {
-            last_index = middle_index;
+            last_index = middle_index - 1;
         }
         
-        _XL_SLEEP(1);
+        //_XL_SLEEP(1);
         // _XL_WAIT_FOR_INPUT();
     }
-    if((dictionary[first_index]==search_word)||(dictionary[last_index]==search_word))
-    {
-        return 1;
-    }
+    // if((dictionary[first_index]==search_word)||(dictionary[last_index]==search_word))
+    // {
+        // return 1;
+    // }
     return 0;
 }
 
@@ -416,6 +454,9 @@ void initialize_input_output(void)
 void initialize_game(void)
 {
     uint8_t i;
+    // uint8_t j;
+    uint16_t compressed_word;
+    uint16_t random_index;
     
     alive = 1;
     victory = 0;
@@ -428,11 +469,40 @@ void initialize_game(void)
         matrix_height[i]=0;
     }
     
+
+    
+    for(i=0;i<NUMBER_OF_NEXT_WORDS;++i)
+    {
+        random_index = 1; //_XL_RAND()%DICTIONARY_SIZE;
+        compressed_word = dictionary[random_index];
+        // _XL_PRINTD(0,YSize-1, 5,compressed_word);
+        // _XL_SLEEP(1);
+        // _XL_WAIT_FOR_INPUT();
+        
+        next_letters[i][0]=first_letter(random_index);
+        
+        next_letters[i][1]=compressed_word>>12;
+        // _XL_PRINTD(10,YSize-1, 2, next_letters[i][0]);
+        
+        next_letters[i][2]=(compressed_word&0x0FFF)>>8;
+        // _XL_PRINTD(20,YSize-1, 2, next_letters[i][1]);
+
+        next_letters[i][3]=(compressed_word&0x00FF)>>4;
+        // _XL_PRINTD(30,YSize-1, 2, next_letters[i][2]);
+
+        next_letters[i][4]=compressed_word&0x000F;
+        // _XL_PRINTD(40,YSize-1, 2, next_letters[i][3]);
+
+        next_word_index[i]=0;
+        
+        // _XL_SLEEP(1);
+        // _XL_WAIT_FOR_INPUT();
+    }
     for(i=0;i<INITIAL_DROP;++i)
     {
         drop_letter();
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    }
+    }  
 }
 
 
@@ -484,7 +554,7 @@ int main(void)
             
             ++counter;
             
-            _XL_PRINTD(10,0,5,compress_bottom_word());
+            // _XL_PRINTD(10,0,5,compress_bottom_word());
         }
         end_game();
     }

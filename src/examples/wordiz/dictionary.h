@@ -3,6 +3,9 @@
 #ifndef _DICTIONARY_H
 #define _DICTIONARY_H
 
+#define ALPHABET_SIZE 16
+
+
 #define DICTIONARY_SIZE 2656
 //2546
 
@@ -17,7 +20,7 @@
     // };
 
 
-const uint16_t dictionary_index[16+1] = 
+const uint16_t dictionary_index[ALPHABET_SIZE+1] = 
     {
            0,   72,  235,  397, 
          448,  503,  752,  827, 

@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define NUMBER_OF_LETTERS 5
+#define WORD_SIZE 5
 
 #define MAX_HEIGHT 11
 
@@ -32,7 +32,7 @@
 #define START_Y (((YSize)-(MAX_HEIGHT)/2)-4)
 
 #define MIN_PLAYER_X 0
-#define MAX_PLAYER_X (1+NUMBER_OF_LETTERS)
+#define MAX_PLAYER_X (1+WORD_SIZE)
 
 #define PLAYER_Y (START_Y+1)
 
@@ -47,19 +47,18 @@
 #define EMPTY_SLOT_COLOR _XL_WHITE
 
 
-#define INITIAL_DROP ((NUMBER_OF_LETTERS)*3)
+#define INITIAL_DROP ((WORD_SIZE)*3)
 
-#define ALPHABET_SIZE 16
 
-#define MAX_NUMBER_OF_WORDS 10
+#define NUMBER_OF_WORDS 10
 
 #include "dictionary.h"
 
 uint8_t player_x;
 uint8_t alive;
 uint8_t slot_index;
-uint8_t matrix[NUMBER_OF_LETTERS][MAX_HEIGHT];
-uint8_t matrix_height[NUMBER_OF_LETTERS];
+uint8_t matrix[WORD_SIZE][MAX_HEIGHT];
+uint8_t matrix_height[WORD_SIZE];
 uint8_t victory;
 uint8_t counter;
 uint8_t first_index;
@@ -67,16 +66,12 @@ uint8_t last_index;
 uint16_t points;
 uint8_t level;
 
-uint8_t generated_letter[MAX_NUMBER_OF_WORDS][NUMBER_OF_LETTERS];
-uint8_t number_of_generated_words;
-
+// First letter position indices
+extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
 
 // 16 most common letters in English 5-letter words
 // E A R I O T N S L C U D P M H Y
 const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
-
-
-extern const uint16_t dictionary_index[16+1];
 
 
 void display_char(uint8_t x, uint8_t y, uint8_t letter)
@@ -89,7 +84,7 @@ void display_bottom_row(void)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_LETTERS;++i)
+    for(i=0;i<WORD_SIZE;++i)
     {
         display_char(i,0,matrix[i][0]);
     }
@@ -124,7 +119,7 @@ void display_matrix(void)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_LETTERS;i++)
+    for(i=0;i<WORD_SIZE;i++)
     {
         display_column(i);
     }
@@ -136,14 +131,11 @@ void drop_letter(void)
 {
     uint8_t height;
     uint8_t new_letter;
-    uint8_t word_index;
     
     height = matrix_height[slot_index];
-    
-    word_index = _XL_RAND()%number_of_generated_words;
-    new_letter = letter[generated_letter[word_index][_XL_RAND()%NUMBER_OF_LETTERS]];
+    new_letter = letter[_XL_RAND()%ALPHABET_SIZE];
 
-    matrix[slot_index][height]=new_letter;
+    matrix[slot_index][height]= new_letter;
     display_char(slot_index,height,new_letter);
     if(height==MAX_HEIGHT-1)
     {
@@ -152,7 +144,7 @@ void drop_letter(void)
     
     ++matrix_height[slot_index];
                 
-    slot_index = (slot_index + 1) % NUMBER_OF_LETTERS;
+    slot_index = (slot_index + 1) % WORD_SIZE;
 }
 
 
@@ -175,12 +167,12 @@ void right_rotate_row(void)
     
     old_first = matrix[0][0];
     
-    for(i=0;i<NUMBER_OF_LETTERS-1;++i)
+    for(i=0;i<WORD_SIZE-1;++i)
     {
         matrix[i][0] = matrix[i+1][0];
     }
   
-    matrix[NUMBER_OF_LETTERS-1][0] = old_first;
+    matrix[WORD_SIZE-1][0] = old_first;
 }
 
 
@@ -189,9 +181,9 @@ void left_rotate_row(void)
     uint8_t old_last;
     uint8_t i;
     
-    old_last = matrix[NUMBER_OF_LETTERS-1][0];
+    old_last = matrix[WORD_SIZE-1][0];
     
-    for(i=NUMBER_OF_LETTERS-1;i>0;--i)
+    for(i=WORD_SIZE-1;i>0;--i)
     {
         matrix[i][0] = matrix[i-1][0];
     }
@@ -289,7 +281,7 @@ uint16_t word_score(void)
     uint16_t score = 0;
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_LETTERS;++i)
+    for(i=0;i<WORD_SIZE;++i)
     {
         score+=1+((letter_index(matrix[i][0])>>2));
         // _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
@@ -319,6 +311,7 @@ uint8_t first_letter(uint16_t index)
 // It compresses the last 4 letters of the bottom matrix in 4-bit per letter format
 uint16_t compress_bottom_word(void)
 {    
+    // TODO: Optimize space with a loop
     return (uint16_t)letter_index(matrix[4][0])+(((uint16_t)letter_index(matrix[3][0]))<<4)+(((uint16_t)letter_index(matrix[2][0]))<<8)+(((uint16_t)letter_index(matrix[1][0]))<<12);
 }
 
@@ -365,7 +358,7 @@ void remove_bottom_word(void)
     uint8_t i;
     uint8_t j;
     
-    for(i=0;i<NUMBER_OF_LETTERS;++i)
+    for(i=0;i<WORD_SIZE;++i)
     {
         
         for(j=0;j<matrix_height[i]-1;++j)
@@ -496,8 +489,8 @@ void display_level(void)
 void initialize_level(void)
 {
     uint8_t i;
-    uint16_t compressed_word;
-    uint16_t random_index;
+    // uint16_t compressed_word;
+    // uint16_t random_index;
     
     alive = 1;
     victory = 0;
@@ -508,28 +501,9 @@ void initialize_level(void)
     display_player();
     
     
-    for(i=0;i<NUMBER_OF_LETTERS;++i)
+    for(i=0;i<WORD_SIZE;++i)
     {
         matrix_height[i]=0;
-    }
-    
-    number_of_generated_words = MAX_NUMBER_OF_WORDS;
-    
-    for(i=0;i<number_of_generated_words;++i)
-    {
-        random_index = _XL_RAND()%DICTIONARY_SIZE;
-        compressed_word = dictionary[random_index];
-
-        generated_letter[i][0]=first_letter(random_index);
-        
-        generated_letter[i][1]=compressed_word>>12;
-        
-        generated_letter[i][2]=(compressed_word&0x0FFF)>>8;
-
-        generated_letter[i][3]=(compressed_word&0x00FF)>>4;
-
-        generated_letter[i][4]=compressed_word&0x000F;
-
     }
     
     display_matrix();

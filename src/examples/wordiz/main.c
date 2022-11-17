@@ -74,9 +74,9 @@ extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
 const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
 
 
-void display_char(uint8_t x, uint8_t y, uint8_t letter)
+void display_char(uint8_t x, uint8_t y, uint8_t letter_index)
 {
-    _XL_CHAR(START_X+x,START_Y-y,letter);
+    _XL_CHAR(START_X+x,START_Y-y,letter[letter_index]);
 }
 
 
@@ -133,7 +133,8 @@ void drop_letter(void)
     uint8_t new_letter;
     
     height = matrix_height[slot_index];
-    new_letter = letter[_XL_RAND()%ALPHABET_SIZE];
+    // new_letter = letter[_XL_RAND()%ALPHABET_SIZE];
+    new_letter = _XL_RAND()%ALPHABET_SIZE;
 
     matrix[slot_index][height]= new_letter;
     display_char(slot_index,height,new_letter);
@@ -147,7 +148,7 @@ void drop_letter(void)
     slot_index = (slot_index + 1) % WORD_SIZE;
 }
 
-
+// Player display routines
 void delete_player(void)
 {
     _XL_DELETE(START_X-1+player_x, PLAYER_Y);
@@ -158,7 +159,7 @@ void display_player(void)
 {
     _XL_DRAW(START_X-1+player_x, PLAYER_Y, PLAYER_TILE, PLAYER_COLOR);
 }
-
+//
 
 void right_rotate_row(void)
 {
@@ -283,7 +284,9 @@ uint16_t word_score(void)
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        score+=1+((letter_index(matrix[i][0])>>2));
+        // score+=1+((letter_index(matrix[i][0])>>2));
+        score+=1+((matrix[i][0])>>2);
+
         // _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
     }
     return score;
@@ -312,7 +315,9 @@ uint8_t first_letter(uint16_t index)
 uint16_t compress_bottom_word(void)
 {    
     // TODO: Optimize space with a loop
-    return (uint16_t)letter_index(matrix[4][0])+(((uint16_t)letter_index(matrix[3][0]))<<4)+(((uint16_t)letter_index(matrix[2][0]))<<8)+(((uint16_t)letter_index(matrix[1][0]))<<12);
+    // return (uint16_t)letter_index(matrix[4][0])+(((uint16_t)letter_index(matrix[3][0]))<<4)+(((uint16_t)letter_index(matrix[2][0]))<<8)+(((uint16_t)letter_index(matrix[1][0]))<<12);
+    return (uint16_t)matrix[4][0]+(((uint16_t)matrix[3][0])<<4)+(((uint16_t)matrix[2][0])<<8)+(((uint16_t)matrix[1][0])<<12);
+
 }
 
 
@@ -347,9 +352,10 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
 
 uint8_t word_in_dictionary(void)
 {
-    uint8_t first_char_index = letter_index(matrix[0][0]);
+    // uint8_t first_char_index = letter_index(matrix[0][0]);
+    uint8_t first_char_index = matrix[0][0];
     
-    return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1  );
+    return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
 }
 
 
@@ -547,7 +553,6 @@ void handle_drop(void)
 
 int main(void)
 {        
-    
     initialize_input_output();
     
     // main loop

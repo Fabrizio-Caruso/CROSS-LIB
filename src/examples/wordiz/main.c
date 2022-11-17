@@ -26,10 +26,10 @@
 
 #define NUMBER_OF_LETTERS 5
 
-#define HEIGHT 11
+#define MAX_HEIGHT 11
 
 #define START_X ((XSize)/2-3)
-#define START_Y (((YSize)-(HEIGHT)/2)-4)
+#define START_Y (((YSize)-(MAX_HEIGHT)/2)-4)
 
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+NUMBER_OF_LETTERS)
@@ -39,33 +39,43 @@
 
 #define END_Y (START_Y+10)
 
+#define LAST_LEVEL 10
 
 #define PLAYER_TILE _TILE_0
 #define PLAYER_COLOR _XL_WHITE
+#define EMPTY_SLOT_TILE _TILE_1
+#define EMPTY_SLOT_COLOR _XL_WHITE
+
 
 #define INITIAL_DROP ((NUMBER_OF_LETTERS)*3)
 
 #define ALPHABET_SIZE 16
 
-#define NUMBER_OF_NEXT_WORDS 1
+#define MAX_NUMBER_OF_WORDS 10
 
 #include "dictionary.h"
 
 uint8_t player_x;
 uint8_t alive;
 uint8_t slot_index;
-uint8_t matrix[NUMBER_OF_LETTERS][HEIGHT];
+uint8_t matrix[NUMBER_OF_LETTERS][MAX_HEIGHT];
 uint8_t matrix_height[NUMBER_OF_LETTERS];
 uint8_t victory;
 uint8_t counter;
 uint8_t first_index;
 uint8_t last_index;
-uint8_t next_letters[NUMBER_OF_NEXT_WORDS][NUMBER_OF_LETTERS];
-uint8_t next_word_index[NUMBER_OF_NEXT_WORDS];
+uint8_t generated_letters[MAX_NUMBER_OF_WORDS][NUMBER_OF_LETTERS];
+uint8_t number_of_generated_words;
+uint16_t points;
+uint8_t level;
 
-// E A R I O T N S L C U D P M H (G->Y)
-
+// 16 most common letters in English 5-letter words
+// E A R I O T N S L C U D P M H Y
 const uint8_t letters[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
+
+
+extern const uint16_t dictionary_index[16+1];
+
 
 void display_char(uint8_t x, uint8_t y, uint8_t letter)
 {
@@ -84,7 +94,7 @@ void display_bottom_row(void)
 }
 
 
-void display_row(uint8_t row)
+void display_column(uint8_t row)
 {
     uint8_t i;
     
@@ -92,12 +102,19 @@ void display_row(uint8_t row)
     {
         display_char(row,i,matrix[row][i]);
     }  
+    for(;i<MAX_HEIGHT;++i)
+    {
+        //_XL_DELETE(row,i);
+        // TODO: Debug
+        // display_char(row,i,'.');
+        _XL_DRAW(START_X+row,START_Y-i,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
+    }
 }
 
 
-void display_player_row(void)
+void display_player_column(void)
 {
-    display_row(player_x-1);
+    display_column(player_x-1);
 }
 
 
@@ -107,8 +124,9 @@ void display_matrix(void)
     
     for(i=0;i<NUMBER_OF_LETTERS;i++)
     {
-        display_row(i);
+        display_column(i);
     }
+
 }
 
 
@@ -120,17 +138,12 @@ void drop_letter(void)
     
     height = matrix_height[slot_index];
     
-    word_index = _XL_RAND()%NUMBER_OF_NEXT_WORDS;
-    //new_letter = letters[_XL_RAND()&15];
-    new_letter = letters[next_letters[word_index][next_word_index[word_index]]];
-    ++next_word_index[word_index];
-    if(next_word_index[word_index]==NUMBER_OF_LETTERS)
-    {
-        next_word_index[word_index]=0;
-    }
+    word_index = _XL_RAND()%number_of_generated_words;
+    new_letter = letters[generated_letters[word_index][_XL_RAND()%NUMBER_OF_LETTERS]];
+
     matrix[slot_index][height]=new_letter;
     display_char(slot_index,height,new_letter);
-    if(height==HEIGHT-1)
+    if(height==MAX_HEIGHT-1)
     {
         alive = 0;
     }
@@ -264,7 +277,24 @@ uint8_t letter_index(uint8_t letter)
 }
 
 
-extern const uint16_t dictionary_index[16+1];
+// Score for guessed word (less common letters give more points)
+// 'E', 'A', 'R', 'I',  -> 1 point
+// 'O', 'T', 'N', 'S' , -> 2 points
+// 'L', 'C', 'U', 'D',  -> 3 points
+// 'P', 'M', 'H', 'Y'   -> 4 points
+uint16_t word_score(void)
+{
+    uint16_t score = 0;
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_LETTERS;++i)
+    {
+        score+=1+((letter_index(matrix[i][0])>>2));
+        _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
+    }
+    return score;
+}
+
 
 uint8_t first_letter(uint16_t index)
 {
@@ -274,7 +304,7 @@ uint8_t first_letter(uint16_t index)
     
     while(i<15)
     {
-        if(index<dictionary[i])
+        if(index<dictionary_index[i])
         {
             return i-1;
         }
@@ -296,24 +326,10 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
     uint16_t middle_index;
     uint16_t middle_word;
     
-    // _XL_PRINT(0,0,"BINARY SEARCH");
-    // _XL_PRINTD(0,1,4,first_index);
-    // _XL_PRINTD(20,1,4,last_index);    // _XL_PRINT(0,0,"BINARY SEARCH");
-    // _XL_PRINTD(0,1,4,first_index);
-    // _XL_PRINTD(20,1,4,last_index);
-    //_XL_SLEEP(1);
-    // _XL_WAIT_FOR_INPUT();
-    
     while(last_index>=first_index)
     {    
         middle_index = (first_index+last_index)/2;
         middle_word = dictionary[middle_index];
-
-        // _XL_PRINTD(0,1,4,first_index);
-        // _XL_PRINTD(10,1,4,middle_index);
-        // _XL_PRINTD(20,1,4,last_index);
-        // _XL_PRINTD(30,1,4,middle_word);
-        // _XL_PRINTD(0,3,4,search_word);
 
         if(dictionary[middle_index]==search_word)
         {
@@ -327,14 +343,9 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         {
             last_index = middle_index - 1;
         }
-        
-        //_XL_SLEEP(1);
-        // _XL_WAIT_FOR_INPUT();
+
     }
-    // if((dictionary[first_index]==search_word)||(dictionary[last_index]==search_word))
-    // {
-        // return 1;
-    // }
+
     return 0;
 }
 
@@ -368,8 +379,13 @@ void remove_bottom_word(void)
             victory = 1;
         }
     }
-    _XL_CLEAR_SCREEN();
     display_matrix();
+}
+
+
+void display_score(void)
+{
+    _XL_PRINTD(0,0,4,points);
 }
 
 
@@ -407,22 +423,30 @@ void handle_input(void)
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
         up_rotate_letters();
-        display_player_row();
+        display_player_column();
     }
     else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
         down_rotate_letters();
-        display_player_row();
+        display_player_column();
     }
     else if(_XL_FIRE(input))
     {
+        // TODO: DEBUG
         if(word_in_dictionary())
         {
-            remove_bottom_word();
             
-            _XL_PRINT(XSize/2-3,YSize-1, "WORD FOUND");
-            _XL_SLEEP(2);
-            _XL_WAIT_FOR_INPUT();
+            _XL_PRINT(XSize/2-3,YSize-3, "WORD FOUND");
+            
+            points += word_score();
+            display_score();
+            _XL_SLEEP(1);
+            _XL_PRINT(XSize/2-3,YSize-1, "          ");
+            remove_bottom_word();
+        }
+        else
+        {
+            drop_letter();
         }
     }
     display_player();
@@ -453,8 +477,23 @@ void initialize_input_output(void)
 
 void initialize_game(void)
 {
+    
+    points = 0;
+    level = 1; 
+    alive = 1;
+    
+}
+
+
+void display_level(void)
+{
+    _XL_PRINTD(XSize-3,0,2,level);
+}
+
+
+void initialize_level(void)
+{
     uint8_t i;
-    // uint8_t j;
     uint16_t compressed_word;
     uint16_t random_index;
     
@@ -462,49 +501,44 @@ void initialize_game(void)
     victory = 0;
     slot_index = 0;
     player_x = 2;
+    counter = 1;
+    
     display_player();
+    
     
     for(i=0;i<NUMBER_OF_LETTERS;++i)
     {
         matrix_height[i]=0;
     }
     
-
+    number_of_generated_words = MAX_NUMBER_OF_WORDS;
     
-    for(i=0;i<NUMBER_OF_NEXT_WORDS;++i)
+    for(i=0;i<number_of_generated_words;++i)
     {
-        random_index = 1; //_XL_RAND()%DICTIONARY_SIZE;
+        random_index = _XL_RAND()%DICTIONARY_SIZE;
         compressed_word = dictionary[random_index];
-        // _XL_PRINTD(0,YSize-1, 5,compressed_word);
-        // _XL_SLEEP(1);
-        // _XL_WAIT_FOR_INPUT();
-        
-        next_letters[i][0]=first_letter(random_index);
-        
-        next_letters[i][1]=compressed_word>>12;
-        // _XL_PRINTD(10,YSize-1, 2, next_letters[i][0]);
-        
-        next_letters[i][2]=(compressed_word&0x0FFF)>>8;
-        // _XL_PRINTD(20,YSize-1, 2, next_letters[i][1]);
 
-        next_letters[i][3]=(compressed_word&0x00FF)>>4;
-        // _XL_PRINTD(30,YSize-1, 2, next_letters[i][2]);
-
-        next_letters[i][4]=compressed_word&0x000F;
-        // _XL_PRINTD(40,YSize-1, 2, next_letters[i][3]);
-
-        next_word_index[i]=0;
+        generated_letters[i][0]=first_letter(random_index);
         
-        // _XL_SLEEP(1);
-        // _XL_WAIT_FOR_INPUT();
+        generated_letters[i][1]=compressed_word>>12;
+        
+        generated_letters[i][2]=(compressed_word&0x0FFF)>>8;
+
+        generated_letters[i][3]=(compressed_word&0x00FF)>>4;
+
+        generated_letters[i][4]=compressed_word&0x000F;
+
     }
+    
+    display_matrix();
     for(i=0;i<INITIAL_DROP;++i)
     {
         drop_letter();
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    }  
+    }     
+    
+    display_level();
 }
-
 
 void re_start_game(void)
 {
@@ -513,6 +547,8 @@ void re_start_game(void)
     _XL_CLEAR_SCREEN();
 
     initialize_game();
+    
+    display_score();
 }
 
 
@@ -538,23 +574,29 @@ int main(void)
     
     initialize_input_output();
     
+    // main loop
     while(1)
     {
-
         re_start_game();
 
-        while(alive && !victory)
+        // game main loop
+        while((level<LAST_LEVEL+1) && alive)
         {
-            
-            handle_drop();
-            
-            handle_input();
-            
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
-            
-            ++counter;
-            
-            // _XL_PRINTD(10,0,5,compress_bottom_word());
+            initialize_level();
+
+            // level main loop
+            while(alive && !victory)
+            {    
+                handle_drop();
+                
+                handle_input();
+                
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                
+                ++counter;
+                
+            }
+            _XL_CLEAR_SCREEN();
         }
         end_game();
     }

@@ -64,14 +64,16 @@ uint8_t victory;
 uint8_t counter;
 uint8_t first_index;
 uint8_t last_index;
-uint8_t generated_letters[MAX_NUMBER_OF_WORDS][NUMBER_OF_LETTERS];
-uint8_t number_of_generated_words;
 uint16_t points;
 uint8_t level;
 
+uint8_t generated_letter[MAX_NUMBER_OF_WORDS][NUMBER_OF_LETTERS];
+uint8_t number_of_generated_words;
+
+
 // 16 most common letters in English 5-letter words
 // E A R I O T N S L C U D P M H Y
-const uint8_t letters[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
+const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
 
 
 extern const uint16_t dictionary_index[16+1];
@@ -139,7 +141,7 @@ void drop_letter(void)
     height = matrix_height[slot_index];
     
     word_index = _XL_RAND()%number_of_generated_words;
-    new_letter = letters[generated_letters[word_index][_XL_RAND()%NUMBER_OF_LETTERS]];
+    new_letter = letter[generated_letter[word_index][_XL_RAND()%NUMBER_OF_LETTERS]];
 
     matrix[slot_index][height]=new_letter;
     display_char(slot_index,height,new_letter);
@@ -166,7 +168,7 @@ void display_player(void)
 }
 
 
-void right_rotate_letters(void)
+void right_rotate_row(void)
 {
     uint8_t old_first;
     uint8_t i;
@@ -182,7 +184,7 @@ void right_rotate_letters(void)
 }
 
 
-void left_rotate_letters(void)
+void left_rotate_row(void)
 {
     uint8_t old_last;
     uint8_t i;
@@ -198,7 +200,7 @@ void left_rotate_letters(void)
 }
 
 
-void up_rotate_letters(void)
+void up_rotate_column(void)
 {
     uint8_t old_top;
     uint8_t i;
@@ -214,7 +216,7 @@ void up_rotate_letters(void)
 }
 
 
-void down_rotate_letters(void)
+void down_rotate_column(void)
 {
     uint8_t old_bottom;
     uint8_t i;
@@ -290,7 +292,7 @@ uint16_t word_score(void)
     for(i=0;i<NUMBER_OF_LETTERS;++i)
     {
         score+=1+((letter_index(matrix[i][0])>>2));
-        _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
+        // _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
     }
     return score;
 }
@@ -403,7 +405,7 @@ void handle_input(void)
         }
         else
         {
-            right_rotate_letters();
+            right_rotate_row();
             display_bottom_row();
         }
     }
@@ -416,18 +418,18 @@ void handle_input(void)
         }
         else
         {
-            left_rotate_letters();
+            left_rotate_row();
             display_bottom_row();
         }
     }
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-        up_rotate_letters();
+        up_rotate_column();
         display_player_column();
     }
     else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-        down_rotate_letters();
+        down_rotate_column();
         display_player_column();
     }
     else if(_XL_FIRE(input))
@@ -441,7 +443,7 @@ void handle_input(void)
             points += word_score();
             display_score();
             _XL_SLEEP(1);
-            _XL_PRINT(XSize/2-3,YSize-1, "          ");
+            _XL_PRINT(XSize/2-3,YSize-3, "          ");
             remove_bottom_word();
         }
         else
@@ -518,15 +520,15 @@ void initialize_level(void)
         random_index = _XL_RAND()%DICTIONARY_SIZE;
         compressed_word = dictionary[random_index];
 
-        generated_letters[i][0]=first_letter(random_index);
+        generated_letter[i][0]=first_letter(random_index);
         
-        generated_letters[i][1]=compressed_word>>12;
+        generated_letter[i][1]=compressed_word>>12;
         
-        generated_letters[i][2]=(compressed_word&0x0FFF)>>8;
+        generated_letter[i][2]=(compressed_word&0x0FFF)>>8;
 
-        generated_letters[i][3]=(compressed_word&0x00FF)>>4;
+        generated_letter[i][3]=(compressed_word&0x00FF)>>4;
 
-        generated_letters[i][4]=compressed_word&0x000F;
+        generated_letter[i][4]=compressed_word&0x000F;
 
     }
     

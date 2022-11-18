@@ -535,6 +535,29 @@ void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
 }
 
 
+// TODO: check whether XOR trick is better
+void swap(uint8_t i, uint8_t j)
+{
+    uint8_t aux;
+    
+    aux = precomputed_letter[i];
+    precomputed_letter[i] = precomputed_letter[j];
+    precomputed_letter[j] = aux;
+}
+
+
+// Shuffle with Fisher-Yates algorithm
+void shuffle(void)
+{
+    uint8_t i;
+    
+    for(i=NO_OF_PRECOMPUTED_LETTERS-1;i>0;--i)
+    {
+        swap(i,(_XL_RAND())%i);
+    }
+}
+
+
 void initialize_level(void)
 {
     uint8_t i;
@@ -578,12 +601,9 @@ void initialize_level(void)
     {
         precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
     }
-    // for(i=NO_OF_RANDOM_LETTERS;i<NO_OF_PRECOMPUTED_LETTERS;++i)
-    // {
-        // precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
-    // }
 
-    // TODO: Fisher-Yates shuffle
+    // Fisher-Yates shuffle
+    shuffle();
 
     display_matrix();
     for(i=0;i<INITIAL_DROP;++i)

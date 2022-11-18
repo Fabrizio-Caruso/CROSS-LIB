@@ -49,11 +49,13 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*3)
 
-#define NO_OF_PRECOMPUTED_WORDS 5
+#define NO_OF_PRECOMPUTED_WORDS 4
 
-#define NO_OF_RANDOM_LETTERS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE)/2)
+#define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_PRECOMPUTED_LETTERS (((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))+NO_OF_RANDOM_LETTERS)
+#define NO_OF_RANDOM_LETTERS SIZE_OF_PRECOMPUTED_WORDS
+
+#define NO_OF_PRECOMPUTED_LETTERS (2*(SIZE_OF_PRECOMPUTED_WORDS))
 
 #include "dictionary.h"
 
@@ -517,9 +519,29 @@ void display_level(void)
 }
 
 
+// TODO: Broken
+void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
+{
+    uint8_t i;
+    
+    uint16_t compressed_code = dictionary[dictionary_index];
+
+    
+    _XL_CHAR(x,y,letter[first_letter(dictionary_index)]);
+    for(i=1;i<WORD_SIZE;++i)
+    {
+        _XL_CHAR(x+i,y,letter[(compressed_code>>((4-i)*4))&0x000F]);
+    }
+}
+
+
 void initialize_level(void)
 {
     uint8_t i;
+    uint8_t j;
+    
+    uint16_t random_dictionary_index;
+    uint16_t compressed_code;
     
     alive = 1;
     victory = 0;
@@ -536,10 +558,32 @@ void initialize_level(void)
         matrix_height[i]=0;
     }
 
-    for(i=0;i<NO_OF_PRECOMPUTED_LETTERS;++i)
+    for(i=0;i<NO_OF_PRECOMPUTED_WORDS;++i)
+    {
+        random_dictionary_index = _XL_RAND()%DICTIONARY_SIZE;
+        
+        print_word(0,YSize-2, random_dictionary_index); //random_word);
+        _XL_WAIT_FOR_INPUT();
+        
+        compressed_code = dictionary[random_dictionary_index];
+        
+        precomputed_letter[WORD_SIZE*i] = first_letter(random_dictionary_index);
+        for(j=1;j<WORD_SIZE;++j)
+        {
+            precomputed_letter[WORD_SIZE*i+j]=(compressed_code>>((4-j)*4))&0x000F;
+        }
+    }
+
+    for(i=SIZE_OF_PRECOMPUTED_WORDS;i<NO_OF_PRECOMPUTED_LETTERS;++i)
     {
         precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
     }
+    // for(i=NO_OF_RANDOM_LETTERS;i<NO_OF_PRECOMPUTED_LETTERS;++i)
+    // {
+        // precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
+    // }
+
+    // TODO: Fisher-Yates shuffle
 
     display_matrix();
     for(i=0;i<INITIAL_DROP;++i)
@@ -550,6 +594,7 @@ void initialize_level(void)
     
     display_level();
 }
+
 
 void re_start_game(void)
 {

@@ -49,8 +49,11 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*3)
 
+#define NO_OF_PRECOMPUTED_WORDS 5
 
-#define NUMBER_OF_WORDS 10
+#define NO_OF_RANDOM_LETTERS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE)/2)
+
+#define NO_OF_PRECOMPUTED_LETTERS (((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))+NO_OF_RANDOM_LETTERS)
 
 #include "dictionary.h"
 
@@ -65,6 +68,9 @@ uint8_t first_index;
 uint8_t last_index;
 uint16_t points;
 uint8_t level;
+
+uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
+uint8_t next_letter_index;
 
 // First letter position indices
 extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
@@ -133,8 +139,23 @@ void drop_letter(void)
     uint8_t new_letter;
     
     height = matrix_height[slot_index];
-    // new_letter = letter[_XL_RAND()%ALPHABET_SIZE];
-    new_letter = _XL_RAND()%ALPHABET_SIZE;
+    
+    
+    // TODO: DEBUGGING why EEEEE (0,0,0,0,0) is seen in the dictionary
+    // new_letter = 0;
+    
+    
+    if(next_letter_index<NO_OF_PRECOMPUTED_LETTERS)
+    {
+        new_letter = precomputed_letter[next_letter_index];
+        ++next_letter_index;
+    }
+    else
+    {
+        new_letter = _XL_RAND()%ALPHABET_SIZE;
+    }
+    _XL_PRINTD(30,0,4,next_letter_index);
+
 
     matrix[slot_index][height]= new_letter;
     display_char(slot_index,height,new_letter);
@@ -329,8 +350,9 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
     while(last_index>=first_index)
     {    
         middle_index = (first_index+last_index)/2;
+        
         middle_word = dictionary[middle_index];
-
+        
         if(dictionary[middle_index]==search_word)
         {
             return 1;
@@ -338,6 +360,10 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         else if(middle_word<search_word)
         {
             first_index = middle_index + 1;
+        }
+        else if(!last_index) // To avoid underflow of -1 == 65535
+        {
+            return 0;
         }
         else
         {
@@ -352,8 +378,7 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
 
 uint8_t word_in_dictionary(void)
 {
-    // uint8_t first_char_index = letter_index(matrix[0][0]);
-    uint8_t first_char_index = matrix[0][0];
+    uint8_t first_char_index = matrix[0][0];    
     
     return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
 }
@@ -495,14 +520,13 @@ void display_level(void)
 void initialize_level(void)
 {
     uint8_t i;
-    // uint16_t compressed_word;
-    // uint16_t random_index;
     
     alive = 1;
     victory = 0;
     slot_index = 0;
     player_x = 2;
     counter = 1;
+    next_letter_index = 0;
     
     display_player();
     
@@ -511,7 +535,12 @@ void initialize_level(void)
     {
         matrix_height[i]=0;
     }
-    
+
+    for(i=0;i<NO_OF_PRECOMPUTED_LETTERS;++i)
+    {
+        precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
+    }
+
     display_matrix();
     for(i=0;i<INITIAL_DROP;++i)
     {

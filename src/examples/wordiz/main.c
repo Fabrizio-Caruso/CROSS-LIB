@@ -76,6 +76,7 @@ uint8_t counter;
 uint8_t first_index;
 uint8_t last_index;
 uint16_t points;
+uint16_t record;
 uint8_t level;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
@@ -89,9 +90,14 @@ extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
 const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
 
 
+const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
+
+
 void display_char(uint8_t x, uint8_t y, uint8_t letter_index)
 {
+    _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
     _XL_CHAR(START_X+x,START_Y-y,letter[letter_index]);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
 }
 
 

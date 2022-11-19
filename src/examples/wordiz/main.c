@@ -395,6 +395,8 @@ uint16_t compress_bottom_word(void)
 }
 
 
+// Indices are unsigned and the minimum input for last_index is 1
+// If last_index becomes 0, then first_index>last_index and it returns 0
 uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_index)
 {
     uint16_t middle_index;
@@ -414,10 +416,10 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         {
             first_index = middle_index + 1;
         }
-        else if(!last_index) // To avoid underflow of -1 == 65535
-        {
-            return 0;
-        }
+        // else if(!last_index) // To avoid underflow of -1 == 65535
+        // {
+            // return 0;
+        // }
         else
         {
             last_index = middle_index - 1;
@@ -642,8 +644,8 @@ void initialize_level(void)
     {
         random_dictionary_index = _XL_RAND()%DICTIONARY_SIZE;
         
-        print_word(0,YSize-2, random_dictionary_index); //random_word);
-        _XL_WAIT_FOR_INPUT();
+        // print_word(0,YSize-2, random_dictionary_index);
+        // _XL_WAIT_FOR_INPUT();
         
         compressed_code = dictionary[random_dictionary_index];
         

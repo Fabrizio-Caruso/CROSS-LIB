@@ -148,6 +148,12 @@ void display_matrix(void)
 }
 
 
+void display_dropped_letters(void)
+{
+    _XL_PRINTD(30,0,4,next_letter_index);
+}
+
+
 void drop_letter(void)
 {
     uint8_t height;
@@ -169,7 +175,8 @@ void drop_letter(void)
     {
         new_letter = _XL_RAND()%ALPHABET_SIZE;
     }
-    _XL_PRINTD(30,0,4,next_letter_index);
+
+    display_dropped_letters();
 
 
     matrix[slot_index][height]= new_letter;
@@ -422,10 +429,6 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         {
             first_index = middle_index + 1;
         }
-        // else if(!last_index) // To avoid underflow of -1 == 65535
-        // {
-            // return 0;
-        // }
         else
         {
             last_index = middle_index - 1;
@@ -525,7 +528,6 @@ void handle_input(void)
     }
     else if(_XL_FIRE(input))
     {
-        // TODO: DEBUG
         if(word_in_dictionary())
         {
             
@@ -623,6 +625,47 @@ void shuffle(void)
 }
 
 
+void display_record(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(6,0,"HI");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(8,0,4,record);
+}
+
+
+// Score for guessed word (less common letters give more points)
+// 'E', 'A', 'R', 'I',  ->  1 point
+// 'O', 'T', 'N', 'S' , ->  4 points
+// 'L', 'C', 'U', 'D',  ->  7 points
+// 'P', 'M', 'H', 'Y'   -> 10 points
+
+#define INSTRUCTIONS_START_Y YSize/4
+
+void display_instructions(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    
+    _XL_PRINTD(10,INSTRUCTIONS_START_Y,  2, 1);
+    _XL_PRINTD(10,INSTRUCTIONS_START_Y+2,2, 4);
+    _XL_PRINTD(10,INSTRUCTIONS_START_Y+4,2, 7);
+    _XL_PRINTD(10,INSTRUCTIONS_START_Y+6,2,10);
+    
+    
+    _XL_PRINT(1,INSTRUCTIONS_START_Y,   "E A R I");
+    
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(1,INSTRUCTIONS_START_Y+2, "O T N S");
+    
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(1,INSTRUCTIONS_START_Y+4, "L C U D");
+
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(1,INSTRUCTIONS_START_Y+6, "P M H Y");
+    
+}
+
+
 void initialize_level(void)
 {
     uint8_t i;
@@ -671,13 +714,13 @@ void initialize_level(void)
     shuffle();
 
     display_matrix();
-    for(i=0;i<INITIAL_DROP;++i)
-    {
-        drop_letter();
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    }     
     
-    display_level();
+    display_instructions();
+    
+    display_dropped_letters();
+    
+    display_record();
+    
 }
 
 
@@ -695,7 +738,7 @@ void re_start_game(void)
 
 void end_game(void)
 {
-    _XL_PRINT(XSize/2-4, YSize-3, "THE END");
+    _XL_PRINT(XSize/2-4, YSize-3, "GAME OVER");
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
 }
@@ -710,9 +753,38 @@ void handle_drop(void)
 }
 
 
+void handle_record_update(void)
+{
+    if(points>record)
+    {
+        record = points;
+    }
+}
+
+
+void initial_letter_drop(void)
+{
+    uint8_t i;
+    
+    _XL_WAIT_FOR_INPUT();
+    
+    for(i=0;i<INITIAL_DROP;++i)
+    {
+        drop_letter();
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+    }     
+    
+    display_level();
+}
+
+
+
+//
 int main(void)
 {        
     initialize_input_output();
+    
+    record = 0;
     
     // main loop
     while(1)
@@ -723,6 +795,8 @@ int main(void)
         while((level<LAST_LEVEL+1) && alive)
         {
             initialize_level();
+
+            initial_letter_drop();
 
             // level main loop
             while(alive && !victory)
@@ -739,6 +813,7 @@ int main(void)
             _XL_CLEAR_SCREEN();
         }
         end_game();
+        handle_record_update();
     }
 
     return EXIT_SUCCESS;

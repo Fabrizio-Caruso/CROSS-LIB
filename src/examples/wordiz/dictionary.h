@@ -7,17 +7,10 @@
 
 
 #define DICTIONARY_SIZE 2656
-//2546
+
 
 // E A R I O T N S L C U D P M H Y
 
-// const uint16_t bucket_size[16] = 
-    // {
-        // 72, 163, 162, 51, 
-        // 55, 249, 75, 436, 
-        // 168, 296, 48, 191,
-        // 277, 226, 161, 26
-    // };
 
 
 const uint16_t dictionary_index[ALPHABET_SIZE+1] = 

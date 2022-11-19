@@ -3,20 +3,18 @@
 
 #include "cross_lib.h"
 
-#define _TILE_0 (unsigned char) '*'
+#define _TILE_0 (unsigned char) '|'
 #define _TILE_1 (unsigned char) '.'
 
-#define _TILE_2 (unsigned char) '2'
+#define _TILE_2 (unsigned char) '-'
 
-#define _TILE_3 (unsigned char) '3'
+#define _TILE_3 (unsigned char) '<'
 
-// Apple
-#define _TILE_4 (unsigned char) '4'
+#define _TILE_4 (unsigned char) '>'
 
-// Body
-#define _TILE_5 (unsigned char) '5'
+#define _TILE_5 (unsigned char) '^'
 
-#define _TILE_6 (unsigned char) '6'
+#define _TILE_6 (unsigned char) 'V'
 
 #define _TILE_7 (unsigned char) '7'
 

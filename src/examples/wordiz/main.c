@@ -41,7 +41,13 @@
 
 #define LAST_LEVEL 10
 
-#define PLAYER_TILE _TILE_0
+#define VERTICAL_PLAYER_TILE _TILE_0
+#define UP_PLAYER_TILE _TILE_5
+#define DOWN_PLAYER_TILE _TILE_6
+#define LEFT_PLAYER_TILE _TILE_3 
+#define RIGHT_PLAYER_TILE _TILE_4
+#define HORIZONTAL_PLAYER_TILE _TILE_2
+
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_TILE _TILE_1
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -175,14 +181,56 @@ void drop_letter(void)
 // Player display routines
 void delete_player(void)
 {
-    _XL_DELETE(START_X-1+player_x, PLAYER_Y);
+    if(player_x==MIN_PLAYER_X)
+    {
+        _XL_DELETE(START_X-1+MIN_PLAYER_X, PLAYER_Y-1);
+    }
+    else if(player_x==MAX_PLAYER_X)
+    {
+        _XL_DELETE(START_X-1+MAX_PLAYER_X, PLAYER_Y-1);
+    }
+    else
+    {
+        _XL_DELETE(START_X-1+player_x, PLAYER_Y);
+    }
+}
+
+
+void display_vertical_player(uint8_t player_tile)
+{
+    _XL_DRAW(START_X-1+player_x, PLAYER_Y, player_tile, PLAYER_COLOR);
+}
+
+
+void display_horizontal_left_player(uint8_t player_tile)
+{
+    _XL_DRAW(START_X-1+MIN_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR);
+}
+
+
+void display_horizontal_right_player(uint8_t player_tile)
+{
+    _XL_DRAW(START_X-1+MAX_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
 }
 
 
 void display_player(void)
 {
-    _XL_DRAW(START_X-1+player_x, PLAYER_Y, PLAYER_TILE, PLAYER_COLOR);
+    
+    if(player_x==MIN_PLAYER_X)
+    {
+        display_horizontal_left_player(HORIZONTAL_PLAYER_TILE);
+    }
+    else if(player_x==MAX_PLAYER_X)
+    {
+        display_horizontal_right_player(HORIZONTAL_PLAYER_TILE);
+    }
+    else
+    {
+        display_vertical_player(VERTICAL_PLAYER_TILE);
+    }
 }
+    
 //
 
 void right_rotate_row(void)
@@ -230,6 +278,7 @@ void up_rotate_column(void)
     }
   
     matrix[player_x-1][0] = old_top;
+    
 }
 
 
@@ -246,6 +295,7 @@ void down_rotate_column(void)
     }
   
     matrix[player_x-1][matrix_height[player_x-1]-1] = old_bottom;
+    
 }
 
 
@@ -297,10 +347,10 @@ uint8_t letter_index(uint8_t letter)
 
 
 // Score for guessed word (less common letters give more points)
-// 'E', 'A', 'R', 'I',  -> 1 point
-// 'O', 'T', 'N', 'S' , -> 2 points
-// 'L', 'C', 'U', 'D',  -> 3 points
-// 'P', 'M', 'H', 'Y'   -> 4 points
+// 'E', 'A', 'R', 'I',  ->  1 point
+// 'O', 'T', 'N', 'S' , ->  4 points
+// 'L', 'C', 'U', 'D',  ->  7 points
+// 'P', 'M', 'H', 'Y'   -> 10 points
 uint16_t word_score(void)
 {
     uint16_t score = 0;
@@ -309,7 +359,7 @@ uint16_t word_score(void)
     for(i=0;i<WORD_SIZE;++i)
     {
         // score+=1+((letter_index(matrix[i][0])>>2));
-        score+=1+((matrix[i][0])>>2);
+        score+=1+3*((matrix[i][0])>>2);
 
         // _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
     }
@@ -432,6 +482,8 @@ void handle_input(void)
         }
         else
         {
+            display_horizontal_left_player(LEFT_PLAYER_TILE);
+
             right_rotate_row();
             display_bottom_row();
         }
@@ -445,18 +497,22 @@ void handle_input(void)
         }
         else
         {
+            display_horizontal_right_player(RIGHT_PLAYER_TILE);
+    
             left_rotate_row();
             display_bottom_row();
         }
     }
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
+        display_vertical_player(UP_PLAYER_TILE);
         up_rotate_column();
         display_player_column();
     }
     else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-        down_rotate_column();
+        display_vertical_player(VERTICAL_PLAYER_TILE);
+        down_rotate_column();   
         display_player_column();
     }
     else if(_XL_FIRE(input))

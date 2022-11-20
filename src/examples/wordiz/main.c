@@ -214,11 +214,11 @@ void delete_player(void)
 {
     if(player_x==MIN_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X+1, PLAYER_Y-1);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X-1, PLAYER_Y-1);
     }
     else
     {
@@ -235,13 +235,13 @@ void display_vertical_player(uint8_t player_tile)
 
 void display_horizontal_left_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X+1, PLAYER_Y-1, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_right_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
+    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X-1, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
 }
 
 

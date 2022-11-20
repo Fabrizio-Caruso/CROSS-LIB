@@ -18,7 +18,7 @@
 
 #define _TILE_7 (unsigned char) 'V'
 
-#define _TILE_8 (unsigned char) '8'
+#define _TILE_8 (unsigned char) '-'
 
 #define _TILE_9 (unsigned char) '9'
 

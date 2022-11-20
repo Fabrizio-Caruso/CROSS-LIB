@@ -34,7 +34,7 @@
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+WORD_SIZE)
 
-#define PLAYER_Y (START_Y+1)
+#define PLAYER_Y (START_Y+2)
 
 
 #define END_Y (START_Y+10)
@@ -49,11 +49,13 @@
 #define RIGHT_ARROW_TILE _TILE_4
 #define HORIZONTAL_LEFT_PLAYER_TILE _TILE_2
 #define HORIZONTAL_RIGHT_PLAYER_TILE _TILE_8
-
+#define VERTICAL_WALL_TILE _TILE_12
+#define HORIZONTAL_WALL_TILE _TILE_13
+#define EMPTY_SLOT_TILE _TILE_1
 
 #define PLAYER_COLOR _XL_WHITE
-#define EMPTY_SLOT_TILE _TILE_1
 #define EMPTY_SLOT_COLOR _XL_WHITE
+#define WALL_COLOR _XL_RED
 
 
 #define INITIAL_DROP ((WORD_SIZE)*3)
@@ -214,11 +216,11 @@ void delete_player(void)
 {
     if(player_x==MIN_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X+1, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X, START_Y);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X-1, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, START_Y);
     }
     else
     {
@@ -235,13 +237,13 @@ void display_vertical_player(uint8_t player_tile)
 
 void display_horizontal_left_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X+1, PLAYER_Y-1, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X, START_Y, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_right_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X-1, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
+    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, START_Y, player_tile, PLAYER_COLOR); 
 }
 
 
@@ -735,6 +737,40 @@ void display_instructions(void)
 }
 
 
+void display_walls(void)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    for(i=0;i<MAX_HEIGHT*2;++i)
+    {
+        _XL_DRAW(START_X-1,START_Y-i,VERTICAL_WALL_TILE, WALL_COLOR);
+        _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i,VERTICAL_WALL_TILE, WALL_COLOR);
+        for(j=0;j<WORD_SIZE*2-1;++j)
+        {
+            // _XL_DRAW(START_X+j,START_Y-i,VERTICAL_PLAYER_TILE, WALL_COLOR);
+            // _XL_SLEEP(1);
+            if(!(i&1))
+            {
+                _XL_DRAW(START_X+j,START_Y-i+1,HORIZONTAL_WALL_TILE, WALL_COLOR);
+            }
+            // _XL_SLEEP(1);
+
+        }
+        if(i&1)
+        {
+            for(j=0;j<WORD_SIZE*2-1;j+=2)
+            {  
+                _XL_DRAW(START_X+j+1,START_Y-i+1,VERTICAL_PLAYER_TILE, WALL_COLOR);
+                // _XL_SLEEP(1);
+            }
+        }
+    }
+    
+
+}
+
+
 void initialize_level(void)
 {
     uint8_t i;
@@ -782,7 +818,7 @@ void initialize_level(void)
     // Fisher-Yates shuffle
     shuffle();
 
-    // display_borders();
+    display_walls();
 
     display_matrix();
     

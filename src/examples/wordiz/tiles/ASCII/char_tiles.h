@@ -25,9 +25,10 @@
 #define _TILE_10 (unsigned char) 'A'
 
 #define _TILE_11 (unsigned char) 'B'
-#define _TILE_12 (unsigned char) 'C'
 
-#define _TILE_13 (unsigned char) 'D'
+#define _TILE_12 (unsigned char) '|'
+
+#define _TILE_13 (unsigned char) '-'
 
 #define _TILE_14 (unsigned char) 'E'
 

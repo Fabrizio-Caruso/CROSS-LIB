@@ -538,7 +538,7 @@ void handle_input(void)
     {
         if(player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
         {
-            display_vertical_player(VERTICAL_PLAYER_TILE);
+            display_vertical_player(DOWN_PLAYER_TILE);
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             down_rotate_column();   

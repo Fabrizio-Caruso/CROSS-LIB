@@ -43,7 +43,7 @@
 
 #define VERTICAL_PLAYER_TILE _TILE_0
 #define UP_PLAYER_TILE _TILE_5
-#define DOWN_PLAYER_TILE _TILE_6
+#define DOWN_PLAYER_TILE _TILE_7
 #define LEFT_PLAYER_TILE _TILE_3 
 #define RIGHT_PLAYER_TILE _TILE_4
 #define HORIZONTAL_PLAYER_TILE _TILE_2
@@ -159,6 +159,8 @@ void drop_letter(void)
     uint8_t height;
     uint8_t new_letter;
     
+    _XL_PING_SOUND();
+    
     height = matrix_height[slot_index];
     
     
@@ -251,6 +253,8 @@ void right_rotate_row(void)
     uint8_t old_first;
     uint8_t i;
     
+    _XL_TICK_SOUND();
+
     old_first = matrix[0][0];
     
     for(i=0;i<WORD_SIZE-1;++i)
@@ -266,6 +270,8 @@ void left_rotate_row(void)
 {
     uint8_t old_last;
     uint8_t i;
+    
+    _XL_TICK_SOUND();
     
     old_last = matrix[WORD_SIZE-1][0];
     
@@ -283,6 +289,8 @@ void up_rotate_column(void)
     uint8_t old_top;
     uint8_t i;
     
+    _XL_TICK_SOUND();    
+    
     old_top = matrix[player_x-1][matrix_height[player_x-1]-1];
     
     for(i=matrix_height[player_x-1]-1;i>0;--i)
@@ -299,6 +307,8 @@ void down_rotate_column(void)
 {
     uint8_t old_bottom;
     uint8_t i;
+
+    _XL_TICK_SOUND();
     
     old_bottom = matrix[player_x-1][0];
     
@@ -494,6 +504,7 @@ void handle_input(void)
         else
         {
             display_horizontal_left_player(LEFT_PLAYER_TILE);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             right_rotate_row();
             display_bottom_row();
@@ -509,6 +520,7 @@ void handle_input(void)
         else
         {
             display_horizontal_right_player(RIGHT_PLAYER_TILE);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     
             left_rotate_row();
             display_bottom_row();
@@ -517,30 +529,51 @@ void handle_input(void)
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
         display_vertical_player(UP_PLAYER_TILE);
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+
         up_rotate_column();
         display_player_column();
     }
-    else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
+    else if(_XL_DOWN(input))
     {
-        display_vertical_player(VERTICAL_PLAYER_TILE);
-        down_rotate_column();   
-        display_player_column();
+        if(player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
+        {
+            display_vertical_player(VERTICAL_PLAYER_TILE);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+
+            down_rotate_column();   
+            display_player_column();
+        }
+        else if(player_x==MIN_PLAYER_X)
+        {
+            delete_player();
+            ++player_x;
+        }
+        else if(player_x==MAX_PLAYER_X)
+        {
+            delete_player();
+            --player_x;
+        }
     }
     else if(_XL_FIRE(input))
     {
         if(word_in_dictionary())
         {
             
+            _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT(XSize/2-3,YSize-3, "WORD FOUND");
+            _XL_ZAP_SOUND();
             
             points += word_score();
             display_score();
-            _XL_SLEEP(1);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             _XL_PRINT(XSize/2-3,YSize-3, "          ");
+            _XL_EXPLOSION_SOUND();
             remove_bottom_word();
         }
         else
         {
+            _XL_PING_SOUND();
             drop_letter();
         }
     }
@@ -651,7 +684,6 @@ void display_instructions(void)
     _XL_PRINTD(10,INSTRUCTIONS_START_Y+4,2, 7);
     _XL_PRINTD(10,INSTRUCTIONS_START_Y+6,2,10);
     
-    
     _XL_PRINT(1,INSTRUCTIONS_START_Y,   "E A R I");
     
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
@@ -712,6 +744,8 @@ void initialize_level(void)
 
     // Fisher-Yates shuffle
     shuffle();
+
+    // display_borders();
 
     display_matrix();
     
@@ -810,7 +844,14 @@ int main(void)
                 ++counter;
                 
             }
-            _XL_CLEAR_SCREEN();
+            if(alive)
+            {
+                ++level;
+            }
+            else
+            {
+               _XL_SHOOT_SOUND();   
+            }
         }
         end_game();
         handle_record_update();

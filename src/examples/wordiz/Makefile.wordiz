@@ -64,7 +64,7 @@ _NES_SLOWDOWN=80
 _PET_SLOWDOWN=40
 _PCE_SLOWDOWN=550
 _SUPERVISION_SLOWDOWN=140
-_VIC20_SLOWDOWN=55
+_VIC20_SLOWDOWN=500
 
 
 # Z88DK
@@ -637,7 +637,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 #################################################################
 
 
-vic20: vic20_exp_8k
+vic20: vic20_exp_16k
 
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \

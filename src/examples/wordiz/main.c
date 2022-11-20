@@ -26,10 +26,10 @@
 
 #define WORD_SIZE 5
 
-#define MAX_HEIGHT 11
+#define MAX_HEIGHT 8
 
 #define START_X ((XSize)/2-3)
-#define START_Y (((YSize)-(MAX_HEIGHT)/2)-4)
+#define START_Y (((YSize)-(MAX_HEIGHT)/2)-2)
 
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+WORD_SIZE)
@@ -42,11 +42,14 @@
 #define LAST_LEVEL 10
 
 #define VERTICAL_PLAYER_TILE _TILE_0
-#define UP_PLAYER_TILE _TILE_5
-#define DOWN_PLAYER_TILE _TILE_7
-#define LEFT_PLAYER_TILE _TILE_3 
-#define RIGHT_PLAYER_TILE _TILE_4
-#define HORIZONTAL_PLAYER_TILE _TILE_2
+
+#define UP_ARROW_TILE _TILE_5
+#define DOWN_ARROW_TILE _TILE_7
+#define LEFT_ARROW_TILE _TILE_3 
+#define RIGHT_ARROW_TILE _TILE_4
+#define HORIZONTAL_LEFT_PLAYER_TILE _TILE_2
+#define HORIZONTAL_RIGHT_PLAYER_TILE _TILE_8
+
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_TILE _TILE_1
@@ -93,11 +96,18 @@ const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
 
 
-void display_char(uint8_t x, uint8_t y, uint8_t letter_index)
+#define SLOT_SPACING 2
+
+void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
 {
     _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
-    _XL_CHAR(START_X+x,START_Y-y,letter[letter_index]);
+    _XL_CHAR(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,letter[letter_index]);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
+}
+
+void draw_empty_slot(uint8_t x, uint8_t y)
+{
+    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
 }
 
 
@@ -107,7 +117,7 @@ void display_bottom_row(void)
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        display_char(i,0,matrix[i][0]);
+        draw_slot(i,0,matrix[i][0]);
     }
 }
 
@@ -118,14 +128,14 @@ void display_column(uint8_t row)
     
     for(i=0;i<matrix_height[row];++i)
     {
-        display_char(row,i,matrix[row][i]);
+        draw_slot(row,i,matrix[row][i]);
     }  
     for(;i<MAX_HEIGHT;++i)
     {
         //_XL_DELETE(row,i);
         // TODO: Debug
-        // display_char(row,i,'.');
-        _XL_DRAW(START_X+row,START_Y-i,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
+        draw_empty_slot(row,i);
+        //_XL_DRAW(START_X+row,START_Y-i,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
     }
 }
 
@@ -147,11 +157,16 @@ void display_matrix(void)
 
 }
 
+#if XSize>=32 
+    #define DISPLAY_DROPPED_LETTERS
+#endif
 
+#if defined(DISPLAY_DROPPED_LETTERS)
 void display_dropped_letters(void)
 {
     _XL_PRINTD(30,0,4,next_letter_index);
 }
+#endif
 
 
 void drop_letter(void)
@@ -178,11 +193,12 @@ void drop_letter(void)
         new_letter = _XL_RAND()%ALPHABET_SIZE;
     }
 
+    #if defined(DISPLAY_DROPPED_LETTERS)
     display_dropped_letters();
-
+    #endif
 
     matrix[slot_index][height]= new_letter;
-    display_char(slot_index,height,new_letter);
+    draw_slot(slot_index,height,new_letter);
     if(height==MAX_HEIGHT-1)
     {
         alive = 0;
@@ -198,34 +214,34 @@ void delete_player(void)
 {
     if(player_x==MIN_PLAYER_X)
     {
-        _XL_DELETE(START_X-1+MIN_PLAYER_X, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X, PLAYER_Y-1);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        _XL_DELETE(START_X-1+MAX_PLAYER_X, PLAYER_Y-1);
+        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, PLAYER_Y-1);
     }
     else
     {
-        _XL_DELETE(START_X-1+player_x, PLAYER_Y);
+        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*player_x, PLAYER_Y);
     }
 }
 
 
 void display_vertical_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-1+player_x, PLAYER_Y, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*player_x, PLAYER_Y, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_left_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-1+MIN_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_right_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-1+MAX_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
+    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, PLAYER_Y-1, player_tile, PLAYER_COLOR); 
 }
 
 
@@ -234,11 +250,11 @@ void display_player(void)
     
     if(player_x==MIN_PLAYER_X)
     {
-        display_horizontal_left_player(HORIZONTAL_PLAYER_TILE);
+        display_horizontal_left_player(HORIZONTAL_LEFT_PLAYER_TILE);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        display_horizontal_right_player(HORIZONTAL_PLAYER_TILE);
+        display_horizontal_right_player(HORIZONTAL_RIGHT_PLAYER_TILE);
     }
     else
     {
@@ -503,7 +519,7 @@ void handle_input(void)
         }
         else
         {
-            display_horizontal_left_player(LEFT_PLAYER_TILE);
+            display_horizontal_left_player(LEFT_ARROW_TILE);
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             right_rotate_row();
@@ -519,7 +535,7 @@ void handle_input(void)
         }
         else
         {
-            display_horizontal_right_player(RIGHT_PLAYER_TILE);
+            display_horizontal_right_player(RIGHT_ARROW_TILE);
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     
             left_rotate_row();
@@ -528,7 +544,7 @@ void handle_input(void)
     }
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-        display_vertical_player(UP_PLAYER_TILE);
+        display_vertical_player(UP_ARROW_TILE);
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
         up_rotate_column();
@@ -538,7 +554,7 @@ void handle_input(void)
     {
         if(player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
         {
-            display_vertical_player(DOWN_PLAYER_TILE);
+            display_vertical_player(DOWN_ARROW_TILE);
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             down_rotate_column();   
@@ -675,25 +691,46 @@ void display_record(void)
 
 #define INSTRUCTIONS_START_Y YSize/4
 
+#if XSize>=32
+    #define INSTR_X_SPACING 2
+#else
+    #define INSTR_X_SPACING 1
+#endif
+
+
+
 void display_instructions(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINTD(10,INSTRUCTIONS_START_Y,  2, 1);
-    _XL_PRINTD(10,INSTRUCTIONS_START_Y+2,2, 4);
-    _XL_PRINTD(10,INSTRUCTIONS_START_Y+4,2, 7);
-    _XL_PRINTD(10,INSTRUCTIONS_START_Y+6,2,10);
+    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y,  2, 1);
+    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+2,2, 4);
+    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+4,2, 7);
+    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+6,2,10);
     
-    _XL_PRINT(1,INSTRUCTIONS_START_Y,   "E A R I");
-    
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINT(1,INSTRUCTIONS_START_Y+2, "O T N S");
-    
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    _XL_PRINT(1,INSTRUCTIONS_START_Y+4, "L C U D");
+    #if INSTR_X_SPACING==2
+        _XL_PRINT(1,INSTRUCTIONS_START_Y,   "E A R I");
+        
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        _XL_PRINT(1,INSTRUCTIONS_START_Y+2, "O T N S");
+        
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_PRINT(1,INSTRUCTIONS_START_Y+4, "L C U D");
 
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(1,INSTRUCTIONS_START_Y+6, "P M H Y");
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(1,INSTRUCTIONS_START_Y+6, "P M H Y");
+    #else
+        _XL_PRINT(0,INSTRUCTIONS_START_Y,   "EARI");
+        
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        _XL_PRINT(0,INSTRUCTIONS_START_Y+2, "OTNS");
+        
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_PRINT(0,INSTRUCTIONS_START_Y+4, "LCUD");
+
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(0,INSTRUCTIONS_START_Y+6, "PMHY");        
+    #endif
     
 }
 
@@ -751,7 +788,9 @@ void initialize_level(void)
     
     display_instructions();
     
+    #if defined(DISPLAY_DROPPED_LETTERS)
     display_dropped_letters();
+    #endif
     
     display_record();
     

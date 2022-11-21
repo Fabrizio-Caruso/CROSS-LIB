@@ -744,8 +744,8 @@ void display_walls(void)
     
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
-        _XL_DRAW(START_X-1,START_Y-i,VERTICAL_WALL_TILE, WALL_COLOR);
-        _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i,VERTICAL_WALL_TILE, WALL_COLOR);
+        _XL_DRAW(START_X-1,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
+        _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
             // _XL_DRAW(START_X+j,START_Y-i,VERTICAL_PLAYER_TILE, WALL_COLOR);
@@ -761,7 +761,7 @@ void display_walls(void)
         {
             for(j=0;j<WORD_SIZE*2-1;j+=2)
             {  
-                _XL_DRAW(START_X+j+1,START_Y-i+1,VERTICAL_PLAYER_TILE, WALL_COLOR);
+                _XL_DRAW(START_X+j+1,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
                 // _XL_SLEEP(1);
             }
         }

@@ -54,6 +54,10 @@
 #define EMPTY_SLOT_TILE              _TILE_1
 #define HORIZONTAL_BAR_TILE          _TILE_11
 #define VERTICAL_BAR_TILE            _TILE_15
+#define SCORE_LHS_TILE               _TILE_14
+#define SCORE_RHS_TILE               _TILE_16
+#define HI_TILE                      _TILE_6
+#define LV_TILE                      _TILE_9
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -135,7 +139,7 @@ void display_column(uint8_t row)
     {
         draw_slot(row,i,matrix[row][i]);
     }  
-    for(;i<MAX_HEIGHT;++i)
+    for(;i<MAX_HEIGHT-1;++i)
     {
         draw_empty_slot(row,i);
     }
@@ -158,11 +162,8 @@ void display_matrix(void)
     }
 }
 
-#if XSize>=32 
-    #define DISPLAY_DROPPED_LETTERS
-#endif
 
-#if defined(DISPLAY_DROPPED_LETTERS)
+#if defined(DEBUG)
 void display_dropped_letters(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -502,7 +503,7 @@ void remove_bottom_word(void)
 
 void display_score(void)
 {
-    _XL_PRINTD(0,0,4,points);
+    _XL_PRINTD(2,0,4,points);
 }
 
 
@@ -576,9 +577,6 @@ void handle_input(void)
     {
         if(word_in_dictionary())
         {
-            
-            // _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            // _XL_PRINT(XSize/2-3,YSize-3, "WORD FOUND");
             _XL_ZAP_SOUND();
             
             points += word_score();
@@ -590,7 +588,6 @@ void handle_input(void)
         }
         else
         {
-            _XL_PING_SOUND();
             drop_letter();
         }
     }
@@ -598,17 +595,21 @@ void handle_input(void)
 }
 
 
+
+
 #if defined(_XL_NO_JOYSTICK)
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "SPACE TO START"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE IJKL SPACE"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+7, "SPACE TO START"); \
     } while(0)
 #else
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "FIRE TO START"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE JOYSTICK"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+7, "PRESS FIRE"); \
     } while(0)
 #endif
 
@@ -618,9 +619,11 @@ do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
+    display_record(XSize/2-3); \
+    \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2-7,"QUINTIX"); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2-7,"Q U I N T I X"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT_CENTERED_ON_ROW(YSize/2-5,"FABRIZIO CARUSO"); \
@@ -657,7 +660,9 @@ do \
 #define display_level() \
 do \
 { \
-    _XL_PRINTD(XSize-3,0,2,level); \
+    _XL_DRAW(XSize-3,0,LV_TILE,_XL_CYAN); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(XSize-2,0,2,level); \
 } while(0)
 
 
@@ -698,12 +703,14 @@ void shuffle(void)
 }
 
 
-void display_record(void)
+void display_record(uint8_t x)
 {
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    _XL_PRINT(6,0,"HI");
+    // _XL_SET_TEXT_COLOR(_XL_CYAN);
+    // _XL_PRINT(6,0,"HI");
+    
+    _XL_DRAW(x,0,HI_TILE, _XL_RED);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(8,0,4,record);
+    _XL_PRINTD(x+1,0,4,record);
 }
 
 
@@ -769,6 +776,9 @@ void display_walls(void)
     uint8_t horizontal_wall_tile;
     uint8_t vertical_wall_tile;
     uint8_t wall_color;
+    
+    _XL_DRAW(0,0,SCORE_LHS_TILE,_XL_GREEN);
+    _XL_DRAW(1,0,SCORE_RHS_TILE,_XL_GREEN);
     
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
@@ -859,11 +869,7 @@ void initialize_level(void)
     
     display_instructions();
     
-    #if defined(DISPLAY_DROPPED_LETTERS)
-    display_dropped_letters();
-    #endif
-    
-    display_record();
+    display_record(8);
     
 }
 

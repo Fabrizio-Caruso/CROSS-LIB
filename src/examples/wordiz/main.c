@@ -828,7 +828,7 @@ void initialize_level(void)
     alive = 1;
     victory = 0;
     slot_index = 0;
-    player_x = 2;
+    player_x = 3;
     counter = 1;
     next_letter_index = 0;
     
@@ -844,9 +844,6 @@ void initialize_level(void)
     {
         random_dictionary_index = _XL_RAND()%DICTIONARY_SIZE;
         
-        // print_word(0,YSize-2, random_dictionary_index);
-        // _XL_WAIT_FOR_INPUT();
-        
         compressed_code = dictionary[random_dictionary_index];
         
         precomputed_letter[WORD_SIZE*i] = first_letter(random_dictionary_index);
@@ -861,7 +858,7 @@ void initialize_level(void)
         precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
     }
 
-    // Fisher-Yates shuffle
+    // Fisher-Yates shuffle on precomputed words
     shuffle();
 
     display_walls();
@@ -869,7 +866,6 @@ void initialize_level(void)
     display_matrix();
         
     display_record();
-    
 }
 
 
@@ -916,7 +912,7 @@ void initial_letter_drop(void)
 {
     uint8_t i;
     
-    // _XL_WAIT_FOR_INPUT();
+    display_level();
     
     for(i=0;i<INITIAL_DROP;++i)
     {
@@ -924,7 +920,6 @@ void initial_letter_drop(void)
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }     
     
-    display_level();
 }
 
 

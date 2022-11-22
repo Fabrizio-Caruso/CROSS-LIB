@@ -26,10 +26,10 @@
 
 #define WORD_SIZE 5
 
-#define MAX_HEIGHT 8
+#define MAX_HEIGHT ((YSize/2)-1)
 
-#define START_X ((XSize)/2-3)
-#define START_Y (((YSize)-(MAX_HEIGHT)/2)-2)
+#define START_X ((XSize)/2-2)
+#define START_Y ((YSize)-3)
 
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+WORD_SIZE)
@@ -43,15 +43,17 @@
 
 #define VERTICAL_PLAYER_TILE _TILE_0
 
-#define UP_ARROW_TILE _TILE_5
-#define DOWN_ARROW_TILE _TILE_7
-#define LEFT_ARROW_TILE _TILE_3 
-#define RIGHT_ARROW_TILE _TILE_4
-#define HORIZONTAL_LEFT_PLAYER_TILE _TILE_2
+#define UP_ARROW_TILE                _TILE_5
+#define DOWN_ARROW_TILE              _TILE_7
+#define LEFT_ARROW_TILE              _TILE_3 
+#define RIGHT_ARROW_TILE             _TILE_4
+#define HORIZONTAL_LEFT_PLAYER_TILE  _TILE_2
 #define HORIZONTAL_RIGHT_PLAYER_TILE _TILE_8
-#define VERTICAL_WALL_TILE _TILE_12
-#define HORIZONTAL_WALL_TILE _TILE_13
-#define EMPTY_SLOT_TILE _TILE_1
+#define VERTICAL_WALL_TILE           _TILE_12
+#define HORIZONTAL_WALL_TILE         _TILE_13
+#define EMPTY_SLOT_TILE              _TILE_1
+#define HORIZONTAL_BAR_TILE          _TILE_11
+#define VERTICAL_BAR_TILE            _TILE_15
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -107,10 +109,11 @@ void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
 }
 
-void draw_empty_slot(uint8_t x, uint8_t y)
-{
-    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
-}
+#define draw_empty_slot(x,y) \
+do \
+{ \
+    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR); \
+} while(0)
 
 
 void display_bottom_row(void)
@@ -134,10 +137,7 @@ void display_column(uint8_t row)
     }  
     for(;i<MAX_HEIGHT;++i)
     {
-        //_XL_DELETE(row,i);
-        // TODO: Debug
         draw_empty_slot(row,i);
-        //_XL_DRAW(START_X+row,START_Y-i,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
     }
 }
 
@@ -156,7 +156,6 @@ void display_matrix(void)
     {
         display_column(i);
     }
-
 }
 
 #if XSize>=32 
@@ -166,6 +165,7 @@ void display_matrix(void)
 #if defined(DISPLAY_DROPPED_LETTERS)
 void display_dropped_letters(void)
 {
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(30,0,4,next_letter_index);
 }
 #endif
@@ -461,7 +461,6 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         {
             last_index = middle_index - 1;
         }
-
     }
 
     return 0;
@@ -578,14 +577,14 @@ void handle_input(void)
         if(word_in_dictionary())
         {
             
-            _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT(XSize/2-3,YSize-3, "WORD FOUND");
+            // _XL_SET_TEXT_COLOR(_XL_YELLOW);
+            // _XL_PRINT(XSize/2-3,YSize-3, "WORD FOUND");
             _XL_ZAP_SOUND();
             
             points += word_score();
             display_score();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            _XL_PRINT(XSize/2-3,YSize-3, "          ");
+            // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
         }
@@ -599,58 +598,57 @@ void handle_input(void)
 }
 
 
-void title_screen(void)
-{
-    _XL_CLEAR_SCREEN();
-
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-
-    _XL_PRINT_CENTERED("WORDIZ");
-    
-    _XL_WAIT_FOR_INPUT();
-}
-
-
-void initialize_input_output(void)
-{
-    _XL_INIT_GRAPHICS();
-
-    _XL_INIT_INPUT();
-    
-    _XL_INIT_SOUND();
-}
+#define title_screen() \
+{ \
+    _XL_CLEAR_SCREEN(); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    \
+    _XL_PRINT_CENTERED("WORDIZ"); \
+    \
+    _XL_WAIT_FOR_INPUT(); \
+} while(0)
 
 
-void initialize_game(void)
-{
-    
-    points = 0;
-    level = 1; 
-    alive = 1;
-    
-}
+#define initialize_input_output() \
+do \
+{ \
+    _XL_INIT_GRAPHICS(); \
+    \
+    _XL_INIT_INPUT(); \
+    \
+    _XL_INIT_SOUND(); \
+} while(0)
 
 
-void display_level(void)
-{
-    _XL_PRINTD(XSize-3,0,2,level);
-}
+#define initialize_game() \
+do \
+{ \
+    points = 0; \
+    level = 1; \
+    alive = 1; \
+} while(0)
 
 
-// TODO: Broken
+#define display_level() \
+do \
+{ \
+    _XL_PRINTD(XSize-3,0,2,level); \
+} while(0)
+
+
+#if defined(DEBUG)
 void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
 {
     uint8_t i;
     
-    uint16_t compressed_code = dictionary[dictionary_index];
-
-    
     _XL_CHAR(x,y,letter[first_letter(dictionary_index)]);
     for(i=1;i<WORD_SIZE;++i)
     {
-        _XL_CHAR(x+i,y,letter[(compressed_code>>((4-i)*4))&0x000F]);
+        _XL_CHAR(x+i,y,letter[(dictionary[dictionary_index]>>((4-i)*4))&0x000F]);
     }
 }
+#endif
 
 
 // TODO: check whether XOR trick is better
@@ -694,13 +692,15 @@ void display_record(void)
 #define INSTRUCTIONS_START_Y YSize/4
 
 #if XSize>=32
-    #define INSTR_X_SPACING 2
+    #define INSTR_X_SPACING 1
 #else
     #define INSTR_X_SPACING 1
 #endif
 
 
-
+#if defined(NO_INSTRUCTIONS)
+    #define display_instructions()
+#else
 void display_instructions(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -735,39 +735,50 @@ void display_instructions(void)
     #endif
     
 }
+#endif
 
 
 void display_walls(void)
 {
     uint8_t i;
     uint8_t j;
+    uint8_t horizontal_wall_tile;
+    uint8_t vertical_wall_tile;
+    uint8_t wall_color;
     
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
-        _XL_DRAW(START_X-1,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
-        _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
+        if(i<=2)
+        {
+            horizontal_wall_tile = HORIZONTAL_BAR_TILE;
+            vertical_wall_tile = VERTICAL_BAR_TILE;
+            wall_color = _XL_RED;
+        }
+        else
+        {
+            horizontal_wall_tile = HORIZONTAL_WALL_TILE;
+            vertical_wall_tile = VERTICAL_WALL_TILE;
+            wall_color = _XL_GREEN;
+        }
+        _XL_DRAW(START_X-1,START_Y-i+1,vertical_wall_tile, wall_color);
+        _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
+        
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
-            // _XL_DRAW(START_X+j,START_Y-i,VERTICAL_PLAYER_TILE, WALL_COLOR);
-            // _XL_SLEEP(1);
             if(!(i&1))
             {
-                _XL_DRAW(START_X+j,START_Y-i+1,HORIZONTAL_WALL_TILE, WALL_COLOR);
+                _XL_DRAW(START_X+j,START_Y-i+1,horizontal_wall_tile, wall_color);
             }
-            // _XL_SLEEP(1);
 
         }
         if(i&1)
         {
-            for(j=0;j<WORD_SIZE*2-1;j+=2)
+            for(j=0;j<WORD_SIZE*2-2;j+=2)
             {  
-                _XL_DRAW(START_X+j+1,START_Y-i+1,VERTICAL_WALL_TILE, WALL_COLOR);
-                // _XL_SLEEP(1);
+                _XL_DRAW(START_X+j+1,START_Y-i+1,vertical_wall_tile, wall_color);
             }
         }
     }
-    
-
 }
 
 
@@ -847,7 +858,8 @@ void re_start_game(void)
 
 void end_game(void)
 {
-    _XL_PRINT(XSize/2-4, YSize-3, "GAME OVER");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(START_X, START_Y+2, "GAME OVER");
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
 }

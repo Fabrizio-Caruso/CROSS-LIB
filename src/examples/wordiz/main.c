@@ -28,7 +28,7 @@
 
 #define MAX_HEIGHT ((YSize/2)-1)
 
-#define START_X ((XSize)/2-2)
+#define START_X ((XSize)/2-4)
 #define START_Y ((YSize)-3)
 
 #define MIN_PLAYER_X 0
@@ -503,6 +503,7 @@ void remove_bottom_word(void)
 
 void display_score(void)
 {
+    _XL_SET_TEXT_COLOR(_XL_WHITE); 
     _XL_PRINTD(2,0,4,points);
 }
 
@@ -619,7 +620,7 @@ do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
-    display_record(XSize/2-3); \
+    display_record(); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
@@ -634,6 +635,8 @@ do \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     press_fire(); \
     _XL_WAIT_FOR_INPUT(); \
+    _XL_CLEAR_SCREEN(); \
+    display_letter_values(); \
 } while(0)
 
 
@@ -703,14 +706,11 @@ void shuffle(void)
 }
 
 
-void display_record(uint8_t x)
+void display_record(void)
 {
-    // _XL_SET_TEXT_COLOR(_XL_CYAN);
-    // _XL_PRINT(6,0,"HI");
-    
-    _XL_DRAW(x,0,HI_TILE, _XL_RED);
+    _XL_DRAW(XSize/2-3,0,HI_TILE, _XL_RED);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(x+1,0,4,record);
+    _XL_PRINTD(XSize/2-2,0,4,record);
 }
 
 
@@ -729,10 +729,10 @@ void display_record(uint8_t x)
 #endif
 
 
-#if defined(NO_INSTRUCTIONS)
-    #define display_instructions()
+#if defined(NO_LETTER_VALUES)
+    #define display_letter_values()
 #else
-void display_instructions(void)
+void display_letter_values(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
@@ -764,7 +764,8 @@ void display_instructions(void)
         _XL_SET_TEXT_COLOR(_XL_GREEN);
         _XL_PRINT(0,INSTRUCTIONS_START_Y+6, "PMHY");        
     #endif
-    
+    _XL_WAIT_FOR_INPUT();
+    _XL_CLEAR_SCREEN();    
 }
 #endif
 
@@ -866,10 +867,8 @@ void initialize_level(void)
     display_walls();
 
     display_matrix();
-    
-    display_instructions();
-    
-    display_record(8);
+        
+    display_record();
     
 }
 

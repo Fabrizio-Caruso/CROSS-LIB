@@ -598,14 +598,38 @@ void handle_input(void)
 }
 
 
+#if defined(_XL_NO_JOYSTICK)
+    #define press_fire() \
+    do \
+    { \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "SPACE TO START"); \
+    } while(0)
+#else
+    #define press_fire() \
+    do \
+    { \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "FIRE TO START"); \
+    } while(0)
+#endif
+
+
 #define title_screen() \
+do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2-7,"QUINTIX"); \
+    \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2-5,"FABRIZIO CARUSO"); \
     \
-    _XL_PRINT_CENTERED("WORDIZ"); \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "FIND ENGLISH WORDS"); \
     \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    press_fire(); \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)
 
@@ -887,7 +911,7 @@ void initial_letter_drop(void)
 {
     uint8_t i;
     
-    _XL_WAIT_FOR_INPUT();
+    // _XL_WAIT_FOR_INPUT();
     
     for(i=0;i<INITIAL_DROP;++i)
     {

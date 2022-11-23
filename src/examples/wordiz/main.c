@@ -172,8 +172,8 @@ void display_matrix(void)
 }
 
 
-#define REMAINING_WORD_X 1
-#define REMAINING_WORD_Y 6
+#define REMAINING_WORD_X (XSize-6)
+#define REMAINING_WORD_Y 0
 
 void display_remaining_words(void)
 {
@@ -777,8 +777,8 @@ do \
 { \
     _XL_DRAW(0,0,SCORE_LHS_TILE,_XL_GREEN); \
     _XL_DRAW(1,0,SCORE_RHS_TILE,_XL_GREEN); \
-    _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y-1,LEFT_LEFT_TILE,_XL_RED); \
-    _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y-1,LEFT_RIGHT_TILE,_XL_RED); \
+    _XL_DRAW(REMAINING_WORD_X-2,REMAINING_WORD_Y,LEFT_LEFT_TILE,_XL_YELLOW); \
+    _XL_DRAW(REMAINING_WORD_X-1,REMAINING_WORD_Y,LEFT_RIGHT_TILE,_XL_YELLOW); \
 } while(0)
 
 
@@ -944,7 +944,7 @@ do \
     if(alive) \
     { \
         ++level; \
-        _XL_SET_TEXT_COLOR(_XL_RED); \
+        _XL_SET_TEXT_COLOR(_XL_YELLOW); \
         _XL_PRINT(START_X, START_Y+2, "LEVEL  UP"); \
         _XL_SLEEP(1); \
         _XL_WAIT_FOR_INPUT(); \

@@ -317,8 +317,7 @@ void up_rotate_column(void)
         matrix[player_x-1][i] = matrix[player_x-1][i-1];
     }
   
-    matrix[player_x-1][0] = old_top;
-    
+    matrix[player_x-1][0] = old_top;    
 }
 
 
@@ -345,8 +344,6 @@ void down_rotate_column(void)
 // 'O', 'T', 'N', 'S' ,
 // 'L', 'C', 'U', 'D', 
 // 'P', 'M', 'H', 'Y'
-
-
 uint8_t letter_index(uint8_t letter)
 {
     switch(letter)
@@ -381,10 +378,10 @@ uint8_t letter_index(uint8_t letter)
             return 13;
         case 'H':
             return 14;
-        case 'Y':
-            return 15;
+        // case 'Y':
+            // return 15;
     }
-    return 16;
+    return 15; // 'Y'
 }
 
 
@@ -395,15 +392,13 @@ uint8_t letter_index(uint8_t letter)
 // 'P', 'M', 'H', 'Y'   -> 10 points
 uint16_t word_score(void)
 {
-    uint16_t score = 0;
+    uint16_t score = 1;
     uint8_t i;
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        // score+=1+((letter_index(matrix[i][0])>>2));
-        score+=1+3*((matrix[i][0])>>2);
+        score+=3*((matrix[i][0])>>2);
 
-        // _XL_PRINTD(i*4,YSize-2,2,1+((letter_index(matrix[i][0])>>2)));
     }
     return score;
 }
@@ -415,7 +410,7 @@ uint8_t first_letter(uint16_t index)
     
     i = 1;
     
-    while(i<15)
+    while(i<16)
     {
         if(index<dictionary_index[i])
         {
@@ -423,17 +418,14 @@ uint8_t first_letter(uint16_t index)
         }
         ++i;
     }
-    return 15;
+    return 0; // Impossible case
 }
 
 
 // It compresses the last 4 letters of the bottom matrix in 4-bit per letter format
 uint16_t compress_bottom_word(void)
 {    
-    // TODO: Optimize space with a loop
-    // return (uint16_t)letter_index(matrix[4][0])+(((uint16_t)letter_index(matrix[3][0]))<<4)+(((uint16_t)letter_index(matrix[2][0]))<<8)+(((uint16_t)letter_index(matrix[1][0]))<<12);
     return (uint16_t)matrix[4][0]+(((uint16_t)matrix[3][0])<<4)+(((uint16_t)matrix[2][0])<<8)+(((uint16_t)matrix[1][0])<<12);
-
 }
 
 
@@ -899,13 +891,14 @@ void handle_drop(void)
 }
 
 
-void handle_record_update(void)
-{
-    if(points>record)
-    {
-        record = points;
-    }
-}
+#define handle_record_update() \
+do \
+{ \
+    if(points>record) \
+    { \
+        record = points; \
+    } \
+} while(0)
 
 
 void initial_letter_drop(void)

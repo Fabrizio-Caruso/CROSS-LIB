@@ -26,7 +26,9 @@
 
 #define WORD_SIZE 5
 
+
 #define MAX_HEIGHT ((YSize/2)-1)
+
 
 #define START_X ((XSize)/2-4)
 #define START_Y ((YSize)-3)
@@ -39,10 +41,9 @@
 
 #define END_Y (START_Y+10)
 
-#define LAST_LEVEL 10
+#define LAST_LEVEL 20
 
-#define VERTICAL_PLAYER_TILE _TILE_0
-
+#define VERTICAL_PLAYER_TILE         _TILE_0
 #define UP_ARROW_TILE                _TILE_5
 #define DOWN_ARROW_TILE              _TILE_7
 #define LEFT_ARROW_TILE              _TILE_3 
@@ -58,6 +59,8 @@
 #define SCORE_RHS_TILE               _TILE_16
 #define HI_TILE                      _TILE_6
 #define LV_TILE                      _TILE_9
+#define LEFT_LEFT_TILE               _TILE_10
+#define LEFT_RIGHT_TILE              _TILE_17
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -66,11 +69,11 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*3)
 
-#define NO_OF_PRECOMPUTED_WORDS 4
+#define NO_OF_PRECOMPUTED_WORDS 3
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_RANDOM_LETTERS SIZE_OF_PRECOMPUTED_WORDS
+#define NO_OF_RANDOM_LETTERS 3
 //SIZE_OF_PRECOMPUTED_WORDS
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
@@ -82,13 +85,13 @@ uint8_t alive;
 uint8_t slot_index;
 uint8_t matrix[WORD_SIZE][MAX_HEIGHT];
 uint8_t matrix_height[WORD_SIZE];
-uint8_t victory;
 uint8_t counter;
 uint8_t first_index;
 uint8_t last_index;
 uint16_t points;
 uint16_t record;
 uint8_t level;
+uint8_t remaining_words;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -110,7 +113,7 @@ void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
 {
     _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
     _XL_CHAR(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,letter[letter_index]);
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    // _XL_SET_TEXT_COLOR(_XL_WHITE);
 }
 
 #define draw_empty_slot(x,y) \
@@ -163,13 +166,15 @@ void display_matrix(void)
 }
 
 
-#if defined(DEBUG)
-void display_dropped_letters(void)
+#define REMAINING_WORD_X 1
+#define REMAINING_WORD_Y 6
+
+void display_remaining_words(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(30,0,4,next_letter_index);
+    _XL_PRINTD(REMAINING_WORD_X,REMAINING_WORD_Y,2,remaining_words);
 }
-#endif
+
 
 
 void drop_letter(void)
@@ -196,9 +201,8 @@ void drop_letter(void)
         new_letter = _XL_RAND()%ALPHABET_SIZE;
     }
 
-    #if defined(DISPLAY_DROPPED_LETTERS)
-    display_dropped_letters();
-    #endif
+    // #if defined(DISPLAY_DROPPED_LETTERS)
+    // #endif
 
     matrix[slot_index][height]= new_letter;
     draw_slot(slot_index,height,new_letter);
@@ -462,9 +466,10 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
 
 uint8_t word_in_dictionary(void)
 {
-    uint8_t first_char_index = matrix[0][0];    
+    // uint8_t first_char_index = matrix[0][0];    
     
-    return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
+    // return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
+    return binary_search(compress_bottom_word(),dictionary_index[matrix[0][0]], dictionary_index[matrix[0][0]+1]-1);
 }
 
 
@@ -486,7 +491,7 @@ void remove_bottom_word(void)
         }
         if(!matrix_height[i])
         {
-            victory = 1;
+            remaining_words=0;
         }
     }
     display_matrix();
@@ -578,6 +583,8 @@ void handle_input(void)
             // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
+            --remaining_words;
+            display_remaining_words();
         }
         else
         {
@@ -661,7 +668,7 @@ do \
 } while(0)
 
 
-#if defined(DEBUG)
+// #if defined(DEBUG)
 void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
 {
     uint8_t i;
@@ -672,7 +679,7 @@ void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
         _XL_CHAR(x+i,y,letter[(dictionary[dictionary_index]>>((4-i)*4))&0x000F]);
     }
 }
-#endif
+// #endif
 
 
 // TODO: check whether XOR trick is better
@@ -762,6 +769,16 @@ void display_letter_values(void)
 #endif
 
 
+#define display_score_glyphs() \
+do \
+{ \
+    _XL_DRAW(0,0,SCORE_LHS_TILE,_XL_GREEN); \
+    _XL_DRAW(1,0,SCORE_RHS_TILE,_XL_GREEN); \
+    _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y-1,LEFT_LEFT_TILE,_XL_RED); \
+    _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y-1,LEFT_RIGHT_TILE,_XL_RED); \
+} while(0)
+
+
 void display_walls(void)
 {
     uint8_t i;
@@ -769,9 +786,6 @@ void display_walls(void)
     uint8_t horizontal_wall_tile;
     uint8_t vertical_wall_tile;
     uint8_t wall_color;
-    
-    _XL_DRAW(0,0,SCORE_LHS_TILE,_XL_GREEN);
-    _XL_DRAW(1,0,SCORE_RHS_TILE,_XL_GREEN);
     
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
@@ -818,14 +832,15 @@ void initialize_level(void)
     uint16_t compressed_code;
     
     alive = 1;
-    victory = 0;
     slot_index = 0;
     player_x = 3;
     counter = 1;
     next_letter_index = 0;
+    remaining_words = level+2;
+    
+    _XL_CLEAR_SCREEN();
     
     display_player();
-    
     
     for(i=0;i<WORD_SIZE;++i)
     {
@@ -853,23 +868,29 @@ void initialize_level(void)
     // Fisher-Yates shuffle on precomputed words
     shuffle();
 
+    display_level();
+    
+    display_score();
+
     display_walls();
 
     display_matrix();
         
+    display_score_glyphs();        
+        
     display_record();
+    
+    display_remaining_words();
 }
 
 
-void re_start_game(void)
+void restart_game(void)
 {
     title_screen();
     
     _XL_CLEAR_SCREEN();
 
-    initialize_game();
-    
-    display_score();
+    initialize_game();    
 }
 
 
@@ -904,9 +925,7 @@ do \
 void initial_letter_drop(void)
 {
     uint8_t i;
-    
-    display_level();
-    
+        
     for(i=0;i<INITIAL_DROP;++i)
     {
         drop_letter();
@@ -915,6 +934,33 @@ void initial_letter_drop(void)
     
 }
 
+
+#define handle_level_end() \
+do \
+{ \
+    if(alive) \
+    { \
+        ++level; \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
+        _XL_PRINT(START_X, START_Y+2, "LEVEL  UP"); \
+        _XL_SLEEP(1); \
+        _XL_WAIT_FOR_INPUT(); \
+    } \
+    else \
+    { \
+       _XL_SHOOT_SOUND(); \
+    } \
+} while(0)
+
+
+#define victory_message() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT_CENTERED("YOU COMPLETED QUINTIX"); \
+    _XL_SLEEP(2); \
+    _XL_WAIT_FOR_INPUT(); \
+} while(0)
 
 
 //
@@ -927,7 +973,7 @@ int main(void)
     // main loop
     while(1)
     {
-        re_start_game();
+        restart_game();
 
         // game main loop
         while((level<LAST_LEVEL+1) && alive)
@@ -937,7 +983,7 @@ int main(void)
             initial_letter_drop();
 
             // level main loop
-            while(alive && !victory)
+            while(alive && remaining_words)
             {    
                 handle_drop();
                 
@@ -948,14 +994,11 @@ int main(void)
                 ++counter;
                 
             }
-            if(alive)
-            {
-                ++level;
-            }
-            else
-            {
-               _XL_SHOOT_SOUND();   
-            }
+            handle_level_end();
+        }
+        if(alive) // game completed alive
+        {
+            victory_message();
         }
         end_game();
         handle_record_update();

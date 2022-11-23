@@ -20,23 +20,23 @@
 
 #define _TILE_8 (unsigned char) '-'
 
-#define _TILE_9 (unsigned char) '9'
+#define _TILE_9 (unsigned char) 'L'
 
-#define _TILE_10 (unsigned char) 'A'
+#define _TILE_10 (unsigned char) 'L'
 
-#define _TILE_11 (unsigned char) 'B'
+#define _TILE_11 (unsigned char) '='
 
 #define _TILE_12 (unsigned char) '|'
 
 #define _TILE_13 (unsigned char) '-'
 
-#define _TILE_14 (unsigned char) 'E'
+#define _TILE_14 (unsigned char) 'S'
 
-#define _TILE_15 (unsigned char) 'F'
+#define _TILE_15 (unsigned char) '|'
 
-#define _TILE_16 (unsigned char) 'G'
+#define _TILE_16 (unsigned char) 'C'
 
-#define _TILE_17 (unsigned char) 'H'
+#define _TILE_17 (unsigned char) 'F'
 
 #define _TILE_18 (unsigned char) 'I'
 

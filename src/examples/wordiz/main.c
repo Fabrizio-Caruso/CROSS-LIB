@@ -107,6 +107,12 @@ const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
 
 
+void small_pause(void)
+{
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+}
+
+
 #define SLOT_SPACING 2
 
 void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
@@ -267,6 +273,7 @@ void display_player(void)
     {
         display_vertical_player(VERTICAL_PLAYER_TILE);
     }
+    small_pause();
 }
     
 //
@@ -520,7 +527,6 @@ void handle_input(void)
         else
         {
             display_horizontal_left_player(LEFT_ARROW_TILE);
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             right_rotate_row();
             display_bottom_row();
@@ -536,7 +542,6 @@ void handle_input(void)
         else
         {
             display_horizontal_right_player(RIGHT_ARROW_TILE);
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     
             left_rotate_row();
             display_bottom_row();
@@ -545,7 +550,6 @@ void handle_input(void)
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
         display_vertical_player(UP_ARROW_TILE);
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
         up_rotate_column();
         display_player_column();
@@ -555,7 +559,6 @@ void handle_input(void)
         if(player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
         {
             display_vertical_player(DOWN_ARROW_TILE);
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             down_rotate_column();   
             display_player_column();
@@ -579,7 +582,7 @@ void handle_input(void)
             
             points += word_score();
             display_score();
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+            small_pause();
             // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
@@ -929,7 +932,7 @@ void initial_letter_drop(void)
     for(i=0;i<INITIAL_DROP;++i)
     {
         drop_letter();
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+        small_pause();
     }     
     
 }
@@ -989,7 +992,7 @@ int main(void)
                 
                 handle_input();
                 
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                small_pause();
                 
                 ++counter;
                 

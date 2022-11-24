@@ -860,6 +860,12 @@ void display_walls(void)
 }
 
 
+#if XSize>=40
+    #define LETTERS_X ((XSize-32)/2)
+#else
+    #define LETTERS_X 2  
+#endif
+
 #if XSize>=32
     #define LETTERS_BIT_MASK 7
 #elif XSize>=22
@@ -875,8 +881,8 @@ void display_letters(void)
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
     for(i=0;i<ALPHABET_SIZE;++i)
     {
-        _XL_CHAR(2+(i&LETTERS_BIT_MASK),i+3,letter[i]);
-        _XL_CHAR(XSize-2-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
+        _XL_CHAR(LETTERS_X+(i&LETTERS_BIT_MASK),i+3,letter[i]);
+        _XL_CHAR(XSize-LETTERS_X-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
     }
 }
 

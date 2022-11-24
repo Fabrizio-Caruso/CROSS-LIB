@@ -107,7 +107,7 @@ const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
 
 
-void small_pause(void)
+void short_pause(void)
 {
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 }
@@ -273,7 +273,7 @@ void display_player(void)
     {
         display_vertical_player(VERTICAL_PLAYER_TILE);
     }
-    small_pause();
+    short_pause();
 }
     
 //
@@ -293,6 +293,7 @@ void right_rotate_row(void)
     }
   
     matrix[WORD_SIZE-1][0] = old_first;
+    
 }
 
 
@@ -582,7 +583,7 @@ void handle_input(void)
             
             points += word_score();
             display_score();
-            small_pause();
+            short_pause();
             // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
@@ -771,12 +772,14 @@ void display_letter_values(void)
 }
 #endif
 
+// TODO: Maybe this should depend on the parity of XSize
+#define SCORE_X 1
 
 #define display_score_glyphs() \
 do \
 { \
-    _XL_DRAW(0,0,SCORE_LHS_TILE,_XL_GREEN); \
-    _XL_DRAW(1,0,SCORE_RHS_TILE,_XL_GREEN); \
+    _XL_DRAW(SCORE_X,0,SCORE_LHS_TILE,_XL_GREEN); \
+    _XL_DRAW(SCORE_X+1,0,SCORE_RHS_TILE,_XL_GREEN); \
     _XL_DRAW(REMAINING_WORD_X-2,REMAINING_WORD_Y,LEFT_LEFT_TILE,_XL_YELLOW); \
     _XL_DRAW(REMAINING_WORD_X-1,REMAINING_WORD_Y,LEFT_RIGHT_TILE,_XL_YELLOW); \
 } while(0)
@@ -806,6 +809,15 @@ void display_walls(void)
         }
         _XL_DRAW(START_X-1,START_Y-i+1,vertical_wall_tile, wall_color);
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
+        
+        
+        _XL_DRAW(1,i+2,VERTICAL_BAR_TILE, _XL_CYAN);
+        _XL_DRAW(XSize-1,i+2,VERTICAL_BAR_TILE, _XL_CYAN);          
+        // for(j=0;j<2;++j)
+        // {
+            // _XL_DRAW(j,i+2+j,VERTICAL_BAR_TILE, _XL_CYAN);
+            // _XL_DRAW(XSize-1-j,i+2+j,VERTICAL_BAR_TILE, _XL_CYAN);    
+        // }
         
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
@@ -932,7 +944,7 @@ void initial_letter_drop(void)
     for(i=0;i<INITIAL_DROP;++i)
     {
         drop_letter();
-        small_pause();
+        short_pause();
     }     
     
 }
@@ -991,9 +1003,7 @@ int main(void)
                 handle_drop();
                 
                 handle_input();
-                
-                small_pause();
-                
+                                
                 ++counter;
                 
             }

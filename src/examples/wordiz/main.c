@@ -61,6 +61,7 @@
 #define LV_TILE                      _TILE_9
 #define LEFT_LEFT_TILE               _TILE_10
 #define LEFT_RIGHT_TILE              _TILE_17
+#define BORDER_TILE                  _TILE_18
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -260,6 +261,7 @@ void display_horizontal_right_player(uint8_t player_tile)
 
 void display_player(void)
 {
+    // short_pause();
     
     if(player_x==MIN_PLAYER_X)
     {
@@ -273,6 +275,7 @@ void display_player(void)
     {
         display_vertical_player(VERTICAL_PLAYER_TILE);
     }
+    
     short_pause();
 }
     
@@ -672,7 +675,7 @@ do \
 } while(0)
 
 
-// #if defined(DEBUG)
+#if defined(DEBUG)
 void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
 {
     uint8_t i;
@@ -683,7 +686,7 @@ void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
         _XL_CHAR(x+i,y,letter[(dictionary[dictionary_index]>>((4-i)*4))&0x000F]);
     }
 }
-// #endif
+#endif
 
 
 // TODO: check whether XOR trick is better
@@ -709,11 +712,13 @@ void shuffle(void)
 }
 
 
+#define HI_X ((XSize)/2-3)
+
 void display_record(void)
 {
-    _XL_DRAW(XSize/2-3,0,HI_TILE, _XL_RED);
+    _XL_DRAW(HI_X,0,HI_TILE, _XL_RED);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(XSize/2-2,0,4,record);
+    _XL_PRINTD(HI_X+1,0,4,record);
 }
 
 
@@ -811,8 +816,8 @@ void display_walls(void)
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
         
         
-        _XL_DRAW(1,i+2,VERTICAL_BAR_TILE, _XL_CYAN);
-        _XL_DRAW(XSize-1,i+2,VERTICAL_BAR_TILE, _XL_CYAN);          
+        _XL_DRAW(1,i+2,BORDER_TILE, _XL_CYAN);
+        _XL_DRAW(XSize-1,i+2,BORDER_TILE, _XL_CYAN);          
         // for(j=0;j<2;++j)
         // {
             // _XL_DRAW(j,i+2+j,VERTICAL_BAR_TILE, _XL_CYAN);

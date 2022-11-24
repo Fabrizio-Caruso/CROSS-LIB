@@ -41,8 +41,6 @@
 
 #define END_Y (START_Y+10)
 
-#define LAST_LEVEL 20
-
 #define VERTICAL_PLAYER_TILE         _TILE_0
 #define UP_ARROW_TILE                _TILE_5
 #define DOWN_ARROW_TILE              _TILE_7
@@ -79,6 +77,12 @@
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
 
+// TODO: Maybe this should depend on the parity of XSize
+#define SCORE_X 1
+
+#define INITIAL_LEVEL 1
+#define LAST_LEVEL 20
+
 #include "dictionary.h"
 
 uint8_t player_x;
@@ -93,6 +97,7 @@ uint16_t points;
 uint16_t record;
 uint8_t level;
 uint8_t remaining_words;
+uint8_t max_counter;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -106,6 +111,7 @@ const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'
 
 
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
+
 
 
 void short_pause(void)
@@ -274,9 +280,7 @@ void display_player(void)
     else
     {
         display_vertical_player(VERTICAL_PLAYER_TILE);
-    }
-    
-    short_pause();
+    }    
 }
     
 //
@@ -484,6 +488,20 @@ uint8_t word_in_dictionary(void)
 }
 
 
+void display_score(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE); 
+    _XL_PRINTD(SCORE_X+2,0,4,points);
+}
+
+
+void increase_score(uint8_t value)
+{
+    points+=value;
+    display_score();
+}
+
+
 void remove_bottom_word(void)
 {
     uint8_t i;
@@ -502,17 +520,11 @@ void remove_bottom_word(void)
         }
         if(!matrix_height[i])
         {
+            increase_score(remaining_words*10);
             remaining_words=0;
         }
     }
     display_matrix();
-}
-
-
-void display_score(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE); 
-    _XL_PRINTD(2,0,4,points);
 }
 
 
@@ -527,6 +539,7 @@ void handle_input(void)
         {
             delete_player();
             --player_x;
+            display_player();
         }
         else
         {
@@ -542,6 +555,7 @@ void handle_input(void)
         {
             delete_player();
             ++player_x;
+            display_player();
         }
         else
         {
@@ -567,16 +581,16 @@ void handle_input(void)
             down_rotate_column();   
             display_player_column();
         }
-        else if(player_x==MIN_PLAYER_X)
-        {
-            delete_player();
-            ++player_x;
-        }
-        else if(player_x==MAX_PLAYER_X)
-        {
-            delete_player();
-            --player_x;
-        }
+        // else if(player_x==MIN_PLAYER_X)
+        // {
+            // delete_player();
+            // ++player_x;
+        // }
+        // else if(player_x==MAX_PLAYER_X)
+        // {
+            // delete_player();
+            // --player_x;
+        // }
     }
     else if(_XL_FIRE(input))
     {
@@ -584,8 +598,7 @@ void handle_input(void)
         {
             _XL_ZAP_SOUND();
             
-            points += word_score();
-            display_score();
+            increase_score(word_score());
             short_pause();
             // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
@@ -598,7 +611,11 @@ void handle_input(void)
             drop_letter();
         }
     }
-    display_player();
+    else
+    {
+        display_player();
+    }
+    short_pause();
 }
 
 
@@ -615,7 +632,7 @@ void handle_input(void)
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE JOYSTICK"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE STICK"); \
         _XL_PRINT_CENTERED_ON_ROW(YSize/2+7, "PRESS FIRE"); \
     } while(0)
 #endif
@@ -636,13 +653,12 @@ do \
     _XL_PRINT_CENTERED_ON_ROW(YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "FIND ENGLISH WORDS"); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "FIND WORDS"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     press_fire(); \
     _XL_WAIT_FOR_INPUT(); \
     _XL_CLEAR_SCREEN(); \
-    display_letter_values(); \
 } while(0)
 
 
@@ -661,7 +677,7 @@ do \
 do \
 { \
     points = 0; \
-    level = 1; \
+    level = INITIAL_LEVEL; \
     alive = 1; \
 } while(0)
 
@@ -728,6 +744,7 @@ void display_record(void)
 // 'L', 'C', 'U', 'D',  ->  7 points
 // 'P', 'M', 'H', 'Y'   -> 10 points
 
+/*
 #define INSTRUCTIONS_START_Y YSize/4
 
 #if XSize>=32
@@ -776,9 +793,7 @@ void display_letter_values(void)
     _XL_CLEAR_SCREEN();    
 }
 #endif
-
-// TODO: Maybe this should depend on the parity of XSize
-#define SCORE_X 1
+*/
 
 #define display_score_glyphs() \
 do \
@@ -843,6 +858,27 @@ void display_walls(void)
 }
 
 
+#if XSize>=32
+    #define LETTERS_BIT_MASK 7
+#elif XSize>=22
+    #define LETTERS_BIT_MASK 3
+#else
+    #define LETTERS_BIT_MASK 1
+#endif
+
+void display_letters(void)
+{
+    uint8_t i;
+    
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    for(i=0;i<ALPHABET_SIZE;++i)
+    {
+        _XL_CHAR(2+(i&LETTERS_BIT_MASK),i+3,letter[i]);
+        _XL_CHAR(XSize-2-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
+    }
+}
+
+
 void initialize_level(void)
 {
     uint8_t i;
@@ -857,6 +893,7 @@ void initialize_level(void)
     counter = 1;
     next_letter_index = 0;
     remaining_words = level+2;
+    max_counter = 255/level;
     
     _XL_CLEAR_SCREEN();
     
@@ -894,6 +931,8 @@ void initialize_level(void)
 
     display_walls();
 
+    display_letters();
+
     display_matrix();
         
     display_score_glyphs();        
@@ -925,9 +964,11 @@ void end_game(void)
 
 void handle_drop(void)
 {
-    if(!(counter&63))
+    // if(!(counter&63))
+    if(counter==max_counter)
     {
         drop_letter();
+        counter=0;
     }
 }
 
@@ -1009,8 +1050,7 @@ int main(void)
                 
                 handle_input();
                                 
-                ++counter;
-                
+                ++counter;                
             }
             handle_level_end();
         }

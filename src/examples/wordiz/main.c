@@ -80,6 +80,8 @@
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
+#define MAX_LETTER_SCORE 10
+
 #define INITIAL_LEVEL 1
 #define LAST_LEVEL 20
 
@@ -520,7 +522,7 @@ void remove_bottom_word(void)
         }
         if(!matrix_height[i])
         {
-            increase_score(remaining_words*10);
+            increase_score(remaining_words*MAX_LETTER_SCORE*WORD_SIZE);
             remaining_words=0;
         }
     }

@@ -1,8 +1,8 @@
 ######################################################################
-# Makefile for CROSS-TESTW
-GAME_NAME := wordiz
+# Makefile for CROSS-QUINTIX
+GAME_NAME := quintix
 
-PARENT_DIR = examples
+PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

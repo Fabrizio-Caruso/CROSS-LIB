@@ -60,6 +60,7 @@
 #define LEFT_LEFT_TILE               _TILE_10
 #define LEFT_RIGHT_TILE              _TILE_17
 #define BORDER_TILE                  _TILE_18
+#define CROSS_TILE                   _TILE_19
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -128,8 +129,26 @@ void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
 {
     _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
     _XL_CHAR(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,letter[letter_index]);
-    // _XL_SET_TEXT_COLOR(_XL_WHITE);
 }
+
+// TODO: Maybe this could be optimized
+#define draw_cross(x) \
+do \
+{ \
+    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y,CROSS_TILE,_XL_RED); \
+} while(0)
+
+// TODO: Maybe this could be optimized
+void draw_crosses(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<WORD_SIZE;++i)
+    {
+        draw_cross(i);
+    }
+}
+
 
 #define draw_empty_slot(x,y) \
 do \
@@ -610,6 +629,11 @@ void handle_input(void)
         }
         else
         {
+            draw_crosses();
+            _XL_PING_SOUND();
+            short_pause();
+            display_bottom_row();
+            
             drop_letter();
         }
     }

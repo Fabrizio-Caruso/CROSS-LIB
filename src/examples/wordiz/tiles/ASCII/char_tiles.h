@@ -40,7 +40,7 @@
 
 #define _TILE_18 (unsigned char) 'I'
 
-#define _TILE_19 (unsigned char) 'J'
+#define _TILE_19 (unsigned char) 'X'
 
 #define _TILE_20 (unsigned char) 'K'
 

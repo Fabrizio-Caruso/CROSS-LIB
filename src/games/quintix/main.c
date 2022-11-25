@@ -81,7 +81,7 @@
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
-#define MAX_LETTER_SCORE 10
+#define LETTER_BONUS_SCORE 50U
 
 #define INITIAL_LEVEL 1
 #define LAST_LEVEL 20
@@ -384,6 +384,8 @@ void down_rotate_column(void)
 // 'O', 'T', 'N', 'S' ,
 // 'L', 'C', 'U', 'D', 
 // 'P', 'M', 'H', 'Y'
+
+#if defined(SWITCH_CASE_LETTER_INDEX)
 uint8_t letter_index(uint8_t letter)
 {
     switch(letter)
@@ -418,12 +420,24 @@ uint8_t letter_index(uint8_t letter)
             return 13;
         case 'H':
             return 14;
-        // case 'Y':
-            // return 15;
     }
     return 15; // 'Y'
 }
-
+#else
+uint8_t letter_index(uint8_t letter_to_check)
+{
+    uint8_t i;
+    
+    for(i=0;i<16;++i)
+    {
+        if(letter_to_check==letter[i])
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+#endif
 
 // Score for guessed word (less common letters give more points)
 // 'E', 'A', 'R', 'I',  ->  1 point
@@ -432,25 +446,35 @@ uint8_t letter_index(uint8_t letter)
 // 'P', 'M', 'H', 'Y'   -> 10 points
 uint16_t word_score(void)
 {
-    uint16_t score = 1;
+    uint16_t score = 0;
     uint8_t i;
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        score+=3*((matrix[i][0])>>2);
+        // TODO: DEBUG
+        // _XL_PRINTD(2,YSize-3,3,score);
+        // _XL_SLEEP(1);
+        // _XL_WAIT_FOR_INPUT();
+        
+        score+=1+(((matrix[i][0])>>2)<<1);
 
     }
+    // TODO: DEBUG
+    // _XL_PRINTD(2,YSize-3,3,score);
+    // _XL_SLEEP(1);
+    // _XL_WAIT_FOR_INPUT();    
+
+    //
+    
     return score;
 }
 
 
 uint8_t first_letter(uint16_t index)
 {
-    uint8_t i;
+    uint8_t i=1;
     
-    i = 1;
-    
-    while(i<16)
+    while(1)
     {
         if(index<dictionary_index[i])
         {
@@ -503,7 +527,6 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
 uint8_t word_in_dictionary(void)
 {
     // uint8_t first_char_index = matrix[0][0];    
-    
     // return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
     return binary_search(compress_bottom_word(),dictionary_index[matrix[0][0]], dictionary_index[matrix[0][0]+1]-1);
 }
@@ -527,21 +550,22 @@ void remove_bottom_word(void)
 {
     uint8_t i;
     uint8_t j;
+    // uint8_t height  ;
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        
+        // height = matrix_height[i];
         for(j=0;j<matrix_height[i]-1;++j)
         {
             matrix[i][j]=matrix[i][j+1];
         }
-        if(matrix_height[i])
+        // if(height)
+        // {
+        --matrix_height[i]; 
+        // }
+        if(matrix_height[i]==1)
         {
-           --matrix_height[i]; 
-        }
-        if(!matrix_height[i])
-        {
-            increase_score(remaining_words*MAX_LETTER_SCORE*WORD_SIZE);
+            increase_score(remaining_words*LETTER_BONUS_SCORE);
             remaining_words=0;
         }
     }

@@ -123,6 +123,35 @@ void short_pause(void)
 }
 
 
+// TODO: Better compute LETTERS_X
+#if XSize>=40
+    #define LETTERS_X ((XSize-32)/2)
+#else
+    #define LETTERS_X 2  
+#endif
+
+#if XSize>=32
+    #define LETTERS_BIT_MASK 7
+#elif XSize>=22
+    #define LETTERS_BIT_MASK 3
+#else
+    #define LETTERS_BIT_MASK 1
+#endif
+
+void display_letters(uint8_t color)
+{
+    uint8_t i;
+    
+    _XL_SET_TEXT_COLOR(color);
+    for(i=0;i<ALPHABET_SIZE;++i)
+    {
+        _XL_CHAR(LETTERS_X+(i&LETTERS_BIT_MASK),i+3,letter[i]);
+        _XL_CHAR(XSize-LETTERS_X-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
+    }
+}
+
+
+
 #define SLOT_SPACING 2
 
 void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
@@ -641,12 +670,14 @@ void handle_input(void)
     {
         if(word_in_dictionary())
         {
+            display_letters(_XL_RED);
             _XL_ZAP_SOUND();
             
             increase_score(word_score());
             short_pause();
             // _XL_PRINT(XSize/2-3,YSize-3, "          ");
             _XL_EXPLOSION_SOUND();
+            display_letters(_XL_YELLOW);
             remove_bottom_word();
             --remaining_words;
             display_remaining_words();
@@ -908,34 +939,6 @@ void display_walls(void)
 }
 
 
-// TODO: Better compute LETTERS_X
-#if XSize>=40
-    #define LETTERS_X ((XSize-32)/2)
-#else
-    #define LETTERS_X 2  
-#endif
-
-#if XSize>=32
-    #define LETTERS_BIT_MASK 7
-#elif XSize>=22
-    #define LETTERS_BIT_MASK 3
-#else
-    #define LETTERS_BIT_MASK 1
-#endif
-
-void display_letters(void)
-{
-    uint8_t i;
-    
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    for(i=0;i<ALPHABET_SIZE;++i)
-    {
-        _XL_CHAR(LETTERS_X+(i&LETTERS_BIT_MASK),i+3,letter[i]);
-        _XL_CHAR(XSize-LETTERS_X-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
-    }
-}
-
-
 void initialize_level(void)
 {
     uint8_t i;
@@ -988,7 +991,7 @@ void initialize_level(void)
 
     display_walls();
 
-    display_letters();
+    display_letters(_XL_YELLOW);
 
     display_matrix();
         

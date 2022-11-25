@@ -860,6 +860,7 @@ void display_walls(void)
 }
 
 
+// TODO: Better compute LETTERS_X
 #if XSize>=40
     #define LETTERS_X ((XSize-32)/2)
 #else

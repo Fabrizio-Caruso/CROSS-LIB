@@ -263,11 +263,11 @@
 	#endif
 #endif
 
-#if XSize < YSize
-	#define MIN_SIZE XSize
-#else
-	#define MIN_SIZE YSize
-#endif
+// #if XSize < YSize
+	// #define MIN_SIZE XSize
+// #else
+	// #define MIN_SIZE YSize
+// #endif
 
 #  if XSize>=32 && YSize>=20
 	#define WIDE

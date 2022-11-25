@@ -28,6 +28,17 @@
 #include "character.h"
 #include "ghost.h"
 
+#if XSize<YSize
+    #define MIN_SIZE XSize
+#else
+    #define MIN_SIZE YSize
+#endif
+
+#if MIN_SIZE>12
+    #define SPIRAL_LOOPS (2*MIN_SIZE-21)
+#else
+    #define SPIRAL_LOOPS (2*MIN_SIZE-18)
+#endif
 
 // DRAW HORIZONTAL AND VERTICAL LINES
 #if !defined(NO_WALL)

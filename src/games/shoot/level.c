@@ -249,13 +249,6 @@ void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint
 
 #if defined(BETWEEN_LEVEL)
 
-// void _spiral_slow_down(void)
-// {
-    // uint8_t k;
-    
-    // for(k=0;k<254;++k){};
-// }
-
 void spiral(register Character *characterPtr, uint8_t length)
 {
     uint8_t i;
@@ -278,7 +271,7 @@ void spiral(register Character *characterPtr, uint8_t length)
                 }
                 #if defined(_XL_SLOW_DOWN_FACTOR)
                 // SHORT_SLEEP(DISPLAY_SPEED_FACTOR/2);    
-                _XL_SLOW_DOWN(254);
+                _XL_SLOW_DOWN(180);
                 #endif
             }
     }

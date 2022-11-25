@@ -809,7 +809,7 @@ int main(void)
                 zeroLevelSecret = 0;
             }
             #if defined(BETWEEN_LEVEL)
-                spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
+                spiral(chasedEnemyPtr, SPIRAL_LOOPS);
                 // _XL_SLEEP(1);
             #endif
             

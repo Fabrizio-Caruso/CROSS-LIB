@@ -210,7 +210,21 @@ extern Character bombs[BOMBS_NUMBER];
     }
 #endif 
 
+
 #if defined(BETWEEN_LEVEL)
+
+#if XSize<YSize
+    #define MIN_SIZE XSize
+#else
+    #define MIN_SIZE YSize
+#endif
+
+#if MIN_SIZE>12
+    #define SPIRAL_LOOPS (2*MIN_SIZE-21)
+#else
+    #define SPIRAL_LOOPS (2*MIN_SIZE-18)
+#endif
+
 void spiral(register Character *characterPtr)
 {
     uint8_t i;
@@ -218,7 +232,7 @@ void spiral(register Character *characterPtr)
     
     characterPtr->_x = XSize/2;
     characterPtr->_y = YSize/2;
-    for(i=0;i<2*MIN_SIZE-18;++i)
+    for(i=0;i<SPIRAL_LOOPS;++i)
     {
         for(j=0;j<i/2;++j)
             {

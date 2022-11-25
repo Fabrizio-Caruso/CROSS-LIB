@@ -73,7 +73,7 @@
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_RANDOM_LETTERS 3
+#define NO_OF_RANDOM_LETTERS 2
 //SIZE_OF_PRECOMPUTED_WORDS
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
@@ -81,7 +81,7 @@
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
-#define LETTER_BONUS_SCORE 50U
+#define BONUS_POINTS 50U
 
 #define INITIAL_LEVEL 1
 #define LAST_LEVEL 20
@@ -100,7 +100,8 @@ uint16_t points;
 uint16_t record;
 uint8_t level;
 uint8_t remaining_words;
-uint8_t max_counter;
+uint8_t max_level_counter;
+uint8_t low_letter_bonus;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -592,10 +593,9 @@ void remove_bottom_word(void)
         // {
         --matrix_height[i]; 
         // }
-        if(matrix_height[i]==1)
+        if(!matrix_height[i])
         {
-            increase_score(remaining_words*LETTER_BONUS_SCORE);
-            remaining_words=0;
+            low_letter_bonus = 1;
         }
     }
     display_matrix();
@@ -670,14 +670,16 @@ void handle_input(void)
     {
         if(word_in_dictionary())
         {
-            display_letters(_XL_RED);
             _XL_ZAP_SOUND();
             
             increase_score(word_score());
-            short_pause();
-            // _XL_PRINT(XSize/2-3,YSize-3, "          ");
+            for(input=0;input<5;++input)
+            {
+                display_letters(_XL_RED);
+                short_pause();
+                display_letters(_XL_YELLOW);
+            }
             _XL_EXPLOSION_SOUND();
-            display_letters(_XL_YELLOW);
             remove_bottom_word();
             --remaining_words;
             display_remaining_words();
@@ -939,6 +941,7 @@ void display_walls(void)
 }
 
 
+// TODO: nearly all display elements do not need to be redisplayed
 void initialize_level(void)
 {
     uint8_t i;
@@ -952,8 +955,9 @@ void initialize_level(void)
     player_x = 3;
     counter = 1;
     next_letter_index = 0;
-    remaining_words = level+2;
-    max_counter = 255/level;
+    remaining_words = 2+level;
+    max_level_counter = 255/level;
+    low_letter_bonus = 0;
     
     _XL_CLEAR_SCREEN();
     
@@ -1025,7 +1029,7 @@ void end_game(void)
 void handle_drop(void)
 {
     // if(!(counter&63))
-    if(counter==max_counter)
+    if(counter==max_level_counter)
     {
         drop_letter();
         counter=0;
@@ -1061,6 +1065,7 @@ do \
 { \
     if(alive) \
     { \
+        increase_score(BONUS_POINTS*remaining_words); \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \
         _XL_PRINT(START_X, START_Y+2, "LEVEL  UP"); \
@@ -1104,7 +1109,7 @@ int main(void)
             initial_letter_drop();
 
             // level main loop
-            while(alive && remaining_words)
+            while(alive && remaining_words && !low_letter_bonus)
             {    
                 handle_drop();
                 

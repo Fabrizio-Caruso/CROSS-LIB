@@ -197,8 +197,8 @@
         #define INPUT_LOOPS 10
         
         unsigned long delay = 0;
-        char _ch;
-        char ch;
+        volatile char _ch;
+        volatile char ch = 0;
 
         while(delay<INPUT_LOOPS)
         {    

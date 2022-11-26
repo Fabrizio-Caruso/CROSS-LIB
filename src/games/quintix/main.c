@@ -61,6 +61,7 @@
 #define LEFT_RIGHT_TILE              _TILE_17
 #define BORDER_TILE                  _TILE_18
 #define CROSS_TILE                   _TILE_19
+#define RING_TILE                    _TILE_20
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -88,7 +89,7 @@
 #define HI_X (REMAINING_WORD_X-6)
 #define HI_Y 0
 
-
+#define SLOT_SPACING 2
 
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
@@ -143,6 +144,7 @@ void short_pause(void)
     #define LETTERS_X 2  
 #endif
 
+
 #if XSize>=32
     #define LETTERS_BIT_MASK 7
 #elif XSize>=22
@@ -150,6 +152,7 @@ void short_pause(void)
 #else
     #define LETTERS_BIT_MASK 1
 #endif
+
 
 void display_letters(uint8_t color)
 {
@@ -162,10 +165,6 @@ void display_letters(uint8_t color)
         _XL_CHAR(XSize-LETTERS_X-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
     }
 }
-
-
-
-#define SLOT_SPACING 2
 
 
 uint8_t x_slot(uint8_t x)
@@ -186,12 +185,14 @@ void draw_letter(uint8_t x, uint8_t y, uint8_t letter_index)
     _XL_CHAR(x_slot(x),y_slot(y),letter[letter_index]);
 }
 
+
 // TODO: Maybe this could be optimized
 #define draw_cross(x) \
 do \
 { \
     _XL_DRAW(x_slot(x),START_Y,CROSS_TILE,_XL_RED); \
 } while(0)
+
 
 // TODO: Maybe this could be optimized
 void draw_crosses(void)
@@ -210,6 +211,31 @@ do \
 { \
     _XL_DRAW(x_slot(x),y_slot(y),EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR); \
 } while(0)
+
+// void draw_empty_slot(uint8_t x, uint8_t y)
+// {
+    // _XL_DRAW(x_slot(x),y_slot(y),EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
+// }
+
+
+void display_empty_bottom_row(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<WORD_SIZE;++i)
+    {
+        _XL_DRAW(x_slot(i),START_Y,RING_TILE,_XL_WHITE);
+        short_pause();
+        _XL_PING_SOUND();
+    }
+}
+    // for(i=0;i<WORD_SIZE;++i)
+    // {
+        // _XL_DRAW(x_slot(i),START_Y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
+        // short_pause();
+        // _XL_PING_SOUND();
+    // }
+// }
 
 
 void display_bottom_row(void)
@@ -302,6 +328,13 @@ void drop_letter(void)
     slot_index = (slot_index + 1) % WORD_SIZE;
 }
 
+
+uint8_t player_slot_x(void)
+{
+    return START_X-SLOT_SPACING+SLOT_SPACING*player_x;
+}
+
+
 // Player display routines
 void delete_player(void)
 {
@@ -315,14 +348,15 @@ void delete_player(void)
     }
     else
     {
-        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*player_x, PLAYER_Y);
+        _XL_DELETE(player_slot_x(), PLAYER_Y);
     }
 }
 
 
 void display_vertical_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*player_x, PLAYER_Y, player_tile, PLAYER_COLOR);
+    _XL_DRAW(player_slot_x(), PLAYER_Y, player_tile, PLAYER_COLOR);
+
 }
 
 
@@ -480,22 +514,22 @@ uint8_t letter_index(uint8_t letter_to_check)
 {
     uint8_t i;
     
-    for(i=0;i<16;++i)
+    while(1) // We exit this loop with return
     {
         if(letter_to_check==letter[i])
         {
             return i;
         }
     }
-    return 0;
+    return 0; // Never reached
 }
 #endif
 
 // Score for guessed word (less common letters give more points)
 // 'E', 'A', 'R', 'I',  ->  1 point
-// 'O', 'T', 'N', 'S' , ->  4 points
-// 'L', 'C', 'U', 'D',  ->  7 points
-// 'P', 'M', 'H', 'Y'   -> 10 points
+// 'O', 'T', 'N', 'S' , ->  3 points
+// 'L', 'C', 'U', 'D',  ->  5 points
+// 'P', 'M', 'H', 'Y'   ->  7 points
 uint16_t word_score(void)
 {
     uint16_t score = 0;
@@ -526,7 +560,7 @@ uint8_t first_letter(uint16_t index)
 {
     uint8_t i=1;
     
-    while(1)
+    while(1) // We know exit with return
     {
         if(index<dictionary_index[i])
         {
@@ -661,6 +695,7 @@ void handle_input(void)
             display_bottom_row();
         }
     }
+
     else if(_XL_UP(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
         display_vertical_player(UP_ARROW_TILE);
@@ -668,31 +703,20 @@ void handle_input(void)
         up_rotate_column();
         display_player_column();
     }
-    else if(_XL_DOWN(input))
+    else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-        if(player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
-        {
-            display_vertical_player(DOWN_ARROW_TILE);
 
-            down_rotate_column();   
-            display_player_column();
-        }
-        // else if(player_x==MIN_PLAYER_X)
-        // {
-            // delete_player();
-            // ++player_x;
-        // }
-        // else if(player_x==MAX_PLAYER_X)
-        // {
-            // delete_player();
-            // --player_x;
-        // }
+        display_vertical_player(DOWN_ARROW_TILE);
+
+        down_rotate_column();   
+        display_player_column();
     }
     else if(_XL_FIRE(input))
     {
         if(word_in_dictionary())
         {
             _XL_ZAP_SOUND();
+            display_empty_bottom_row();
             
             increase_score(word_score());
 
@@ -738,6 +762,24 @@ void handle_input(void)
 #endif
 
 
+#if defined(NO_RANDOMIZE)
+#define wait_for_input() \
+do \
+{ \
+    _XL_WAIT_FOR_INPUT(); \
+} while(0)
+    
+#else
+void wait_for_input(void)
+{
+    while(!_XL_KEY_PRESSED())
+    {
+        points=_XL_RAND();
+    }
+}
+#endif
+
+
 #define title_screen() \
 do \
 { \
@@ -757,7 +799,7 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     press_fire(); \
-    _XL_WAIT_FOR_INPUT(); \
+    wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
 
@@ -967,7 +1009,7 @@ void initialize_level(void)
     player_x = 3;
     counter = 1;
     next_letter_index = 0;
-    remaining_words = 2+level;
+    remaining_words = level;
     max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     low_letter_bonus = 0;
     
@@ -1080,7 +1122,7 @@ do \
 { \
     if(alive) \
     { \
-        display_letters(_XL_CYAN); \
+        display_letters(_XL_WHITE); \
         increase_score(BONUS_POINTS*remaining_words); \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \
@@ -1098,8 +1140,8 @@ do \
 #define victory_message() \
 do \
 { \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED("YOU COMPLETED QUINTIX"); \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
+    _XL_PRINT(START_X,YSize/2," THE END "); \
     _XL_SLEEP(2); \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)

@@ -157,12 +157,14 @@ void short_pause(void)
 void display_letters(uint8_t color)
 {
     uint8_t i;
+    uint8_t offset;
     
     _XL_SET_TEXT_COLOR(color);
     for(i=0;i<ALPHABET_SIZE;++i)
     {
-        _XL_CHAR(LETTERS_X+(i&LETTERS_BIT_MASK),i+3,letter[i]);
-        _XL_CHAR(XSize-LETTERS_X-(i&LETTERS_BIT_MASK),i+3,letter[i]); 
+        offset = LETTERS_X+(i&LETTERS_BIT_MASK);
+        _XL_CHAR(offset,i+3,letter[i]);
+        _XL_CHAR(XSize-offset,i+3,letter[i]); 
     }
 }
 
@@ -212,11 +214,6 @@ do \
     _XL_DRAW(x_slot(x),y_slot(y),EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR); \
 } while(0)
 
-// void draw_empty_slot(uint8_t x, uint8_t y)
-// {
-    // _XL_DRAW(x_slot(x),y_slot(y),EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
-// }
-
 
 void display_empty_bottom_row(void)
 {
@@ -229,13 +226,7 @@ void display_empty_bottom_row(void)
         _XL_PING_SOUND();
     }
 }
-    // for(i=0;i<WORD_SIZE;++i)
-    // {
-        // _XL_DRAW(x_slot(i),START_Y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR);
-        // short_pause();
-        // _XL_PING_SOUND();
-    // }
-// }
+
 
 
 void display_bottom_row(void)

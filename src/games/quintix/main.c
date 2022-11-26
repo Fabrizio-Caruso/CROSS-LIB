@@ -767,7 +767,6 @@ do \
 { \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)
-    
 #else
 #define wait_for_input() \
 do \
@@ -795,8 +794,9 @@ do \
     _XL_PRINT_CENTERED_ON_ROW(YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "FIND WORDS"); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "WORD GAME"); \
     \
+    short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     press_fire(); \
     wait_for_input(); \
@@ -1065,8 +1065,6 @@ void restart_game(void)
 {
     title_screen();
     
-    _XL_CLEAR_SCREEN();
-
     initialize_game();    
 }
 

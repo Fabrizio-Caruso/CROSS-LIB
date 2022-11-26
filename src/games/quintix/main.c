@@ -78,13 +78,20 @@
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
 
+
+#define REMAINING_WORD_X (XSize-7)
+#define REMAINING_WORD_Y 0
+
+#define LEVEL_X (XSize-2)
+#define LEVEL_Y 0
+
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
 #define BONUS_POINTS 50U
 
 #define INITIAL_LEVEL 1
-#define LAST_LEVEL 20
+#define LAST_LEVEL 9
 
 #include "dictionary.h"
 
@@ -230,13 +237,10 @@ void display_matrix(void)
 }
 
 
-#define REMAINING_WORD_X (XSize-6)
-#define REMAINING_WORD_Y 0
-
 void display_remaining_words(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(REMAINING_WORD_X,REMAINING_WORD_Y,2,remaining_words);
+    _XL_PRINTD(REMAINING_WORD_X+2,REMAINING_WORD_Y,2,remaining_words);
 }
 
 
@@ -673,12 +677,12 @@ void handle_input(void)
             _XL_ZAP_SOUND();
             
             increase_score(word_score());
-            for(input=0;input<5;++input)
-            {
+            // for(input=0;input<5;++input)
+            // {
                 display_letters(_XL_RED);
                 short_pause();
                 display_letters(_XL_YELLOW);
-            }
+            // }
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
             --remaining_words;
@@ -768,9 +772,9 @@ do \
 #define display_level() \
 do \
 { \
-    _XL_DRAW(XSize-3,0,LV_TILE,_XL_CYAN); \
+    _XL_DRAW(LEVEL_X,LEVEL_Y,LV_TILE,_XL_CYAN); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize-2,0,2,level); \
+    _XL_PRINTD(LEVEL_X+1,LEVEL_Y,1,level); \
 } while(0)
 
 
@@ -883,8 +887,8 @@ do \
 { \
     _XL_DRAW(SCORE_X,0,SCORE_LHS_TILE,_XL_GREEN); \
     _XL_DRAW(SCORE_X+1,0,SCORE_RHS_TILE,_XL_GREEN); \
-    _XL_DRAW(REMAINING_WORD_X-2,REMAINING_WORD_Y,LEFT_LEFT_TILE,_XL_YELLOW); \
-    _XL_DRAW(REMAINING_WORD_X-1,REMAINING_WORD_Y,LEFT_RIGHT_TILE,_XL_YELLOW); \
+    _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y,LEFT_LEFT_TILE,_XL_YELLOW); \
+    _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y,LEFT_RIGHT_TILE,_XL_YELLOW); \
 } while(0)
 
 
@@ -941,6 +945,8 @@ void display_walls(void)
 }
 
 
+#define INITIAL_MAX_LEVEL_COUNT 220
+
 // TODO: nearly all display elements do not need to be redisplayed
 void initialize_level(void)
 {
@@ -956,7 +962,7 @@ void initialize_level(void)
     counter = 1;
     next_letter_index = 0;
     remaining_words = 2+level;
-    max_level_counter = 255/level;
+    max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     low_letter_bonus = 0;
     
     _XL_CLEAR_SCREEN();
@@ -1026,6 +1032,8 @@ void end_game(void)
 }
 
 
+// #define MAX_LEVEL_COUNT_INCREASE 10
+
 void handle_drop(void)
 {
     // if(!(counter&63))
@@ -1033,6 +1041,7 @@ void handle_drop(void)
     {
         drop_letter();
         counter=0;
+        // max_level_counter+=MAX_LEVEL_COUNT_INCREASE;
     }
 }
 

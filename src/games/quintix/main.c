@@ -79,11 +79,16 @@
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
 
 
-#define REMAINING_WORD_X (XSize-7)
-#define REMAINING_WORD_Y 0
-
 #define LEVEL_X (XSize-2)
 #define LEVEL_Y 0
+
+#define REMAINING_WORD_X ((LEVEL_X)-4)
+#define REMAINING_WORD_Y 0
+
+#define HI_X (REMAINING_WORD_X-6)
+#define HI_Y 0
+
+
 
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
@@ -162,17 +167,30 @@ void display_letters(uint8_t color)
 
 #define SLOT_SPACING 2
 
-void draw_slot(uint8_t x, uint8_t y, uint8_t letter_index)
+
+uint8_t x_slot(uint8_t x)
+{
+    return START_X+SLOT_SPACING*x;
+}
+
+
+uint8_t y_slot(uint8_t y)
+{
+    return START_Y-SLOT_SPACING*y;
+}
+
+
+void draw_letter(uint8_t x, uint8_t y, uint8_t letter_index)
 {
     _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
-    _XL_CHAR(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,letter[letter_index]);
+    _XL_CHAR(x_slot(x),y_slot(y),letter[letter_index]);
 }
 
 // TODO: Maybe this could be optimized
 #define draw_cross(x) \
 do \
 { \
-    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y,CROSS_TILE,_XL_RED); \
+    _XL_DRAW(x_slot(x),START_Y,CROSS_TILE,_XL_RED); \
 } while(0)
 
 // TODO: Maybe this could be optimized
@@ -190,7 +208,7 @@ void draw_crosses(void)
 #define draw_empty_slot(x,y) \
 do \
 { \
-    _XL_DRAW(START_X+SLOT_SPACING*x,START_Y-SLOT_SPACING*y,EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR); \
+    _XL_DRAW(x_slot(x),y_slot(y),EMPTY_SLOT_TILE,EMPTY_SLOT_COLOR); \
 } while(0)
 
 
@@ -200,7 +218,7 @@ void display_bottom_row(void)
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        draw_slot(i,0,matrix[i][0]);
+        draw_letter(i,0,matrix[i][0]);
     }
 }
 
@@ -211,7 +229,7 @@ void display_column(uint8_t row)
     
     for(i=0;i<matrix_height[row];++i)
     {
-        draw_slot(row,i,matrix[row][i]);
+        draw_letter(row,i,matrix[row][i]);
     }  
     for(;i<MAX_HEIGHT-1;++i)
     {
@@ -240,7 +258,7 @@ void display_matrix(void)
 void display_remaining_words(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(REMAINING_WORD_X+2,REMAINING_WORD_Y,2,remaining_words);
+    _XL_PRINTD(REMAINING_WORD_X+2,REMAINING_WORD_Y,1,remaining_words);
 }
 
 
@@ -273,7 +291,7 @@ void drop_letter(void)
     // #endif
 
     matrix[slot_index][height]= new_letter;
-    draw_slot(slot_index,height,new_letter);
+    draw_letter(slot_index,height,new_letter);
     if(height==MAX_HEIGHT-1)
     {
         alive = 0;
@@ -677,12 +695,7 @@ void handle_input(void)
             _XL_ZAP_SOUND();
             
             increase_score(word_score());
-            // for(input=0;input<5;++input)
-            // {
-                display_letters(_XL_RED);
-                short_pause();
-                display_letters(_XL_YELLOW);
-            // }
+
             _XL_EXPLOSION_SOUND();
             remove_bottom_word();
             --remaining_words;
@@ -712,15 +725,15 @@ void handle_input(void)
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE IJKL SPACE"); \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+7, "SPACE TO START"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+4, "USE IJKL SPACE"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "SPACE TO START"); \
     } while(0)
 #else
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+3, "USE STICK"); \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+7, "PRESS FIRE"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+4, "USE STICK"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "PRESS FIRE"); \
     } while(0)
 #endif
 
@@ -730,7 +743,7 @@ do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
-    display_record(); \
+    display_record((XSize/2)-3); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
@@ -815,13 +828,11 @@ void shuffle(void)
 }
 
 
-#define HI_X ((XSize)/2-3)
-
-void display_record(void)
+void display_record(uint8_t x)
 {
-    _XL_DRAW(HI_X,0,HI_TILE, _XL_RED);
+    _XL_DRAW(x,HI_Y,HI_TILE, _XL_RED);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(HI_X+1,0,4,record);
+    _XL_PRINTD(x+1,HI_Y,4,record);
 }
 
 
@@ -920,11 +931,6 @@ void display_walls(void)
         
         _XL_DRAW(1,i+2,BORDER_TILE, _XL_CYAN);
         _XL_DRAW(XSize-1,i+2,BORDER_TILE, _XL_CYAN);          
-        // for(j=0;j<2;++j)
-        // {
-            // _XL_DRAW(j,i+2+j,VERTICAL_BAR_TILE, _XL_CYAN);
-            // _XL_DRAW(XSize-1-j,i+2+j,VERTICAL_BAR_TILE, _XL_CYAN);    
-        // }
         
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
@@ -1007,7 +1013,7 @@ void initialize_level(void)
         
     display_score_glyphs();        
         
-    display_record();
+    display_record(HI_X);
     
     display_remaining_words();
 }
@@ -1074,6 +1080,7 @@ do \
 { \
     if(alive) \
     { \
+        display_letters(_XL_CYAN); \
         increase_score(BONUS_POINTS*remaining_words); \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \

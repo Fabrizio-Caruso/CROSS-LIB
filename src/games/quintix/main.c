@@ -744,7 +744,6 @@ void handle_input(void)
 
 
 
-
 #if defined(_XL_NO_JOYSTICK)
     #define press_fire() \
     do \
@@ -770,13 +769,14 @@ do \
 } while(0)
     
 #else
-void wait_for_input(void)
-{
-    while(!_XL_KEY_PRESSED())
-    {
-        points=_XL_RAND();
-    }
-}
+#define wait_for_input() \
+do \
+{ \
+    while(!_XL_KEY_PRESSED()) \
+    { \
+        points=_XL_RAND(); \
+    } \
+} while(0)
 #endif
 
 

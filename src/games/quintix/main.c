@@ -67,8 +67,13 @@
 #define EMPTY_SLOT_COLOR _XL_WHITE
 #define WALL_COLOR _XL_RED
 
+#if YSize<=18
+    #define INITIAL_ROWS 2
+#else
+    #define INITIAL_ROWS 3
+#endif
 
-#define INITIAL_DROP ((WORD_SIZE)*3)
+#define INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
 
 #define NO_OF_PRECOMPUTED_WORDS 3
 
@@ -119,6 +124,8 @@ uint8_t low_letter_bonus;
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
 
+uint8_t aux; // Used to swap values in several functions
+
 // First letter position indices
 extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
 
@@ -144,6 +151,11 @@ void short_pause(void)
     #define LETTERS_X 2  
 #endif
 
+#if YSize<=18
+    #define LETTERS_Y 1
+#else
+    #define LETTERS_Y 3
+#endif
 
 #if XSize>=32
     #define LETTERS_BIT_MASK 7
@@ -154,17 +166,17 @@ void short_pause(void)
 #endif
 
 
-void display_letters(uint8_t color)
+void display_letters(void)
 {
     uint8_t i;
-    uint8_t offset;
+    // aux: offset
     
-    _XL_SET_TEXT_COLOR(color);
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
     for(i=0;i<ALPHABET_SIZE;++i)
     {
-        offset = LETTERS_X+(i&LETTERS_BIT_MASK);
-        _XL_CHAR(offset,i+3,letter[i]);
-        _XL_CHAR(XSize-offset,i+3,letter[i]); 
+        aux = LETTERS_X+(i&LETTERS_BIT_MASK);
+        _XL_CHAR(aux,i+LETTERS_Y,letter[i]);
+        _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
     }
 }
 
@@ -304,9 +316,6 @@ void drop_letter(void)
         new_letter = _XL_RAND()%ALPHABET_SIZE;
     }
 
-    // #if defined(DISPLAY_DROPPED_LETTERS)
-    // #endif
-
     matrix[slot_index][height]= new_letter;
     draw_letter(slot_index,height,new_letter);
     if(height==MAX_HEIGHT-1)
@@ -385,74 +394,79 @@ void display_player(void)
 
 void right_rotate_row(void)
 {
-    uint8_t old_first;
+    //uint8_t old_first;
+    // aux: old_first
     uint8_t i;
+    
     
     _XL_TICK_SOUND();
 
-    old_first = matrix[0][0];
+    aux = matrix[0][0];
     
     for(i=0;i<WORD_SIZE-1;++i)
     {
         matrix[i][0] = matrix[i+1][0];
     }
   
-    matrix[WORD_SIZE-1][0] = old_first;
+    matrix[WORD_SIZE-1][0] = aux;
     
 }
 
 
 void left_rotate_row(void)
 {
-    uint8_t old_last;
+    // uint8_t old_last;
+    // aux: old_last
     uint8_t i;
     
     _XL_TICK_SOUND();
     
-    old_last = matrix[WORD_SIZE-1][0];
+    aux = matrix[WORD_SIZE-1][0];
     
     for(i=WORD_SIZE-1;i>0;--i)
     {
         matrix[i][0] = matrix[i-1][0];
     }
   
-    matrix[0][0] = old_last;
+    matrix[0][0] = aux;
 }
 
 
 void up_rotate_column(void)
 {
-    uint8_t old_top;
+    // uint8_t old_top;
+    // aux: old_top
     uint8_t i;
     
     _XL_TICK_SOUND();    
     
-    old_top = matrix[player_x-1][matrix_height[player_x-1]-1];
+    aux = matrix[player_x-1][matrix_height[player_x-1]-1];
     
     for(i=matrix_height[player_x-1]-1;i>0;--i)
     {
         matrix[player_x-1][i] = matrix[player_x-1][i-1];
     }
   
-    matrix[player_x-1][0] = old_top;    
+    matrix[player_x-1][0] = aux;    
 }
 
 
 void down_rotate_column(void)
 {
-    uint8_t old_bottom;
+    // uint8_t old_bottom;
+    // aux: old_bottom
     uint8_t i;
 
     _XL_TICK_SOUND();
     
-    old_bottom = matrix[player_x-1][0];
+    aux = matrix[player_x-1][0];
     
     for(i=0;i<matrix_height[player_x-1]-1;++i)
     {
         matrix[player_x-1][i] = matrix[player_x-1][i+1];
     }
   
-    matrix[player_x-1][matrix_height[player_x-1]-1] = old_bottom;
+    matrix[player_x-1][matrix_height[player_x-1]-1] = aux;
     
 }
 
@@ -739,14 +753,14 @@ void handle_input(void)
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+4, "USE IJKL SPACE"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "USE IJKL SPACE"); \
         _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "SPACE TO START"); \
     } while(0)
 #else
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+4, "USE STICK"); \
+        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "USE STICK"); \
         _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "PRESS FIRE"); \
     } while(0)
 #endif
@@ -841,7 +855,7 @@ void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
 // TODO: check whether XOR trick is better
 void swap(uint8_t i, uint8_t j)
 {
-    uint8_t aux;
+    // aux: swap variable
     
     aux = precomputed_letter[i];
     precomputed_letter[i] = precomputed_letter[j];
@@ -1040,7 +1054,7 @@ void initialize_level(void)
 
     display_walls();
 
-    display_letters(_XL_YELLOW);
+    display_letters();
 
     display_matrix();
         
@@ -1111,7 +1125,6 @@ do \
 { \
     if(alive) \
     { \
-        display_letters(_XL_WHITE); \
         increase_score(BONUS_POINTS*remaining_words); \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \

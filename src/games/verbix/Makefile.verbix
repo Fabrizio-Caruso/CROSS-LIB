@@ -1,6 +1,6 @@
 ######################################################################
-# Makefile for CROSS-QUINTIX
-GAME_NAME := quintix
+# Makefile for CROSS-VERBIX
+GAME_NAME := verbix
 
 PARENT_DIR = games
 

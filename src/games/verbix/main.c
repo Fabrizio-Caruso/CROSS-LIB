@@ -808,7 +808,7 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
-    _XL_PRINT(XSize/2-6,YSize/2-7,"Q U I N T I X"); \
+    _XL_PRINT(XSize/2-5,YSize/2-7,"V E R B I X"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT(XSize/2-7,YSize/2-5,"FABRIZIO CARUSO"); \

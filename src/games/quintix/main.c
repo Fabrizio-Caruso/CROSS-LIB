@@ -75,11 +75,11 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
 
-#define NO_OF_PRECOMPUTED_WORDS 5
+#define NO_OF_PRECOMPUTED_WORDS 3
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_RANDOM_LETTERS 3
+#define NO_OF_RANDOM_LETTERS 2
 //SIZE_OF_PRECOMPUTED_WORDS
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
@@ -93,7 +93,6 @@
 
 #if XSize<=22
     #define HI_X (REMAINING_WORD_X-6)
-
 #else
     #define HI_X (((REMAINING_WORD_X)/2))
 #endif
@@ -663,6 +662,7 @@ void remove_bottom_word(void)
         if(!matrix_height[i])
         {
             low_letter_bonus = 1;
+            _XL_SHOOT_SOUND();
         }
     }
     display_matrix();
@@ -1158,7 +1158,7 @@ do \
     } \
     else \
     { \
-       _XL_SHOOT_SOUND(); \
+       _XL_EXPLOSION_SOUND(); \
     } \
 } while(0)
 

@@ -52,7 +52,7 @@ _APPLE2_SLOWDOWN=30
 _APPLE2ENH_SLOWDOWN=30
 _APPLE2_HGR_SLOWDOWN=50
 _APPLE2ENH_HGR_SLOWDOWN=50
-_ATARI_SLOWDOWN=70
+_ATARI_SLOWDOWN=140
 _ATARI5200_SLOWDOWN=70
 _ATARI_LYNX_SLOWDOWN=200
 _C16_SLOWDOWN=55
@@ -419,8 +419,8 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 c16: c16_16k
 
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x1C.cfg \
 	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS -DNO_LETTER_VALUES  \
 	-DREDEFINED_CHARS -D_API_VERSION=$(API_VERSION) \
 	-DSOUNDS \
@@ -440,6 +440,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 
 
 #################################################################

@@ -75,11 +75,11 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
 
-#define NO_OF_PRECOMPUTED_WORDS 3
+#define NO_OF_PRECOMPUTED_WORDS 5
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_RANDOM_LETTERS 2
+#define NO_OF_RANDOM_LETTERS 3
 //SIZE_OF_PRECOMPUTED_WORDS
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
@@ -91,7 +91,13 @@
 #define REMAINING_WORD_X ((LEVEL_X)-4)
 #define REMAINING_WORD_Y 0
 
-#define HI_X (REMAINING_WORD_X-6)
+#if XSize<=22
+    #define HI_X (REMAINING_WORD_X-6)
+
+#else
+    #define HI_X (((REMAINING_WORD_X)/2))
+#endif
+
 #define HI_Y 0
 
 #define SLOT_SPACING 2
@@ -99,7 +105,7 @@
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
-#define BONUS_POINTS 50U
+#define BONUS_POINTS 100U
 
 #define INITIAL_LEVEL 1
 #define LAST_LEVEL 9
@@ -531,10 +537,10 @@ uint8_t letter_index(uint8_t letter_to_check)
 #endif
 
 // Score for guessed word (less common letters give more points)
-// 'E', 'A', 'R', 'I',  ->  1 point
-// 'O', 'T', 'N', 'S' , ->  3 points
-// 'L', 'C', 'U', 'D',  ->  5 points
-// 'P', 'M', 'H', 'Y'   ->  7 points
+// 'E', 'A', 'R', 'I',  ->   3 point
+// 'O', 'T', 'N', 'S' , ->   7 points
+// 'L', 'C', 'U', 'D',  ->  11 points
+// 'P', 'M', 'H', 'Y'   ->  15 points
 uint16_t word_score(void)
 {
     uint16_t score = 0;
@@ -547,7 +553,7 @@ uint16_t word_score(void)
         // _XL_SLEEP(1);
         // _XL_WAIT_FOR_INPUT();
         
-        score+=1+(((matrix[i][0])>>2)<<1);
+        score+=3+(((matrix[i][0])>>2)<<1);
 
     }
     // TODO: DEBUG
@@ -725,7 +731,6 @@ void handle_input(void)
             
             increase_score(word_score());
 
-            _XL_EXPLOSION_SOUND();
             remove_bottom_word();
             --remaining_words;
             display_remaining_words();
@@ -753,15 +758,13 @@ void handle_input(void)
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "USE IJKL SPACE"); \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "SPACE TO START"); \
+        _XL_PRINT(XSize/2-4, YSize/2+5, "USE IJKL SPACE"); \
     } while(0)
 #else
     #define press_fire() \
     do \
     { \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+5, "USE STICK"); \
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2+8, "PRESS FIRE"); \
+        _XL_PRINT(XSize/2-4, YSize/2+5, "USE STICK"); \
     } while(0)
 #endif
 
@@ -784,22 +787,36 @@ do \
 #endif
 
 
+void display_borders(void)
+{
+    uint8_t i;
+    
+    for(i=2;i<YSize-1;++i)
+    {
+        _XL_DRAW(1,i,BORDER_TILE, _XL_CYAN);
+        _XL_DRAW(XSize-1,i,BORDER_TILE, _XL_CYAN);  
+    }        
+}
+
+
 #define title_screen() \
 do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
-    display_record((XSize/2)-3); \
+    display_record((XSize/2)-2); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2-7,"Q U I N T I X"); \
+    _XL_PRINT(XSize/2-6,YSize/2-7,"Q U I N T I X"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2-5,"FABRIZIO CARUSO"); \
+    _XL_PRINT(XSize/2-7,YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/2, "WORD GAME"); \
+    _XL_PRINT(XSize/2-4,YSize/2, "WORD GAME"); \
+    \
+    display_borders(); \
     \
     short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
@@ -974,10 +991,7 @@ void display_walls(void)
         }
         _XL_DRAW(START_X-1,START_Y-i+1,vertical_wall_tile, wall_color);
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
-        
-        
-        _XL_DRAW(1,i+2,BORDER_TILE, _XL_CYAN);
-        _XL_DRAW(XSize-1,i+2,BORDER_TILE, _XL_CYAN);          
+             
         
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
@@ -1014,7 +1028,15 @@ void initialize_level(void)
     player_x = 3;
     counter = 1;
     next_letter_index = 0;
-    remaining_words = level;
+    if(level<=6)
+    {
+        remaining_words = 2+level;
+    }
+    else
+    {
+        remaining_words = 9;
+    }
+    // remaining_words = level;
     max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     low_letter_bonus = 0;
     
@@ -1051,6 +1073,8 @@ void initialize_level(void)
     display_level();
     
     display_score();
+
+    display_borders();
 
     display_walls();
 

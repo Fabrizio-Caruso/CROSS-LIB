@@ -223,6 +223,7 @@ static uint8_t wall_appeared;
 static uint8_t freeze_locked;
 static uint8_t zombie_locked;
 
+#if !defined(_XL_NO_UDG)
 static const uint8_t zombie_tile[7+1] = 
 {
     MINION_TILE_0, // 0
@@ -246,6 +247,7 @@ static const uint8_t boss_tile[7+1] =
     BOSS_TILE_5,
     BOSS_TILE_6,
 };
+#endif
 
 static const uint8_t bow_tile[8] =
 {
@@ -499,28 +501,24 @@ void display_zombie(void)
         _XL_DRAW(zombie_x,1 + pos, tile1, color);
         #else
         // Avoid using the upper border / beam tile in ASCII mode
-        uint8_t tile1;
 
         if(!zombie_level[zombie_x])
         {
             
-            tile0 = MINION_TILE_0; //zombie_tile[status<<1];
-            // tile1 = zombie_tile[1+(status<<1)];
+            tile0 = MINION_TILE_0;
         }
         else
         {
             if((zombie_y[zombie_x])&1)
             {
-                tile0 = BOSS_TILE_0; //boss_tile[status<<1];
+                tile0 = BOSS_TILE_0;
             }
             else
             {
-                tile0 = BOSS_TILE_1; //boss_tile[status<<1];
+                tile0 = BOSS_TILE_1;
             }
-            // tile1 = boss_tile[1+(status<<1)]; 
         }
         _XL_DRAW(zombie_x, pos, tile0, color);
-        // _XL_DRAW(zombie_x,1 + pos, tile1, color);   
         #endif
     }
 }

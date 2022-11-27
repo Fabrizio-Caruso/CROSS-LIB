@@ -215,7 +215,7 @@ do \
 } while(0)
 
 
-void display_empty_bottom_row(void)
+void display_rings(void)
 {
     uint8_t i;
     
@@ -707,7 +707,7 @@ void handle_input(void)
         if(word_in_dictionary())
         {
             _XL_ZAP_SOUND();
-            display_empty_bottom_row();
+            display_rings();
             
             increase_score(word_score());
 

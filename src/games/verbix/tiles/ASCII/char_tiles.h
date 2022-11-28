@@ -42,9 +42,9 @@
 
 #define _TILE_19 (unsigned char) 'X'
 
-#define _TILE_20 (unsigned char) 'K'
+#define _TILE_20 (unsigned char) 'O'
 
-#define _TILE_21 (unsigned char) 'L'
+#define _TILE_21 (unsigned char) '-'
 
 #define _TILE_22 (unsigned char) 'M'
 

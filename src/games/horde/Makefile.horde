@@ -696,9 +696,10 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 
+# TODO: Use -Or when bug is fixed in CC65
 # -Or breaks the PCE target
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl -O -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl -t pce \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=4000 \
 	 \
@@ -776,8 +777,9 @@ oric_48k: $(ASSETS_PATH)/6x8_chars.h
 
 #################################################################
 
+# TODO: Use -Or when bug is fixed in CC65
 supervision: $(ASSETS_PATH)/cc65_udc.s 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t supervision  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -r -Cl -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_2.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DALT_PRINT -DALT_SLEEP -DSOUNDS \

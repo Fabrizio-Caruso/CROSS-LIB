@@ -25,7 +25,7 @@ COMMANDS_LIST = \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
-    "commands",  "add", "remove", "tiles", "rip", "manual" \
+    "commands",  "add", "remove", "shapes", "rip", "manual" \
     ]
 
 
@@ -844,7 +844,7 @@ def tile(params):
 
 
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
-def tiles(params):
+def shapes(params):
     project_name = params[1]
     
     project_cat = project_category(project_name)
@@ -1239,8 +1239,8 @@ def help(params):
         print("To be copied in 'tile_<index>.txt' in '<project>/tiles/8x8' to modify the shape.")
         print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
 
-    elif params[1]=="tiles":
-        print("xl tiles <project> <[optional] xsize> <[optional] ysize>")
+    elif params[1]=="shapes":
+        print("xl shapes <project> <[optional] xsize> <[optional] ysize>")
         print("It converts all shape files into tiles and stores them as such in the project.") 
         print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
         print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")
@@ -1248,7 +1248,7 @@ def help(params):
         print("")
         print("Example: ")
         print("Provided that you have a project named 'foo', the command")
-        print("xl tiles foo 6 8")
+        print("xl shapes foo 6 8")
         print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
         
     elif params[1]=="test":
@@ -1467,8 +1467,8 @@ if __name__ == "__main__":
         test(sys.argv[1:])
     elif sys.argv[1]=="tile":
         tile(sys.argv[1:])
-    elif sys.argv[1]=="tiles":
-        tiles(sys.argv[1:])
+    elif sys.argv[1]=="shapes":
+        shapes(sys.argv[1:])
     elif sys.argv[1]=="build":
         build(sys.argv[1:])
     elif sys.argv[1]=="manual":

@@ -92,8 +92,14 @@ uint8_t onWall(uint8_t x, uint8_t y);
     #define SHOW_DOWN() { }        
 #endif
 
-#define __DRAW(x,y,image) \
-    _XL_DRAW(x,y, (image)->_imageData,(image)->_color) 
+#if !defined(_XL_NO_COLOR)
+    #define __DRAW(x,y,image) \
+        _XL_DRAW(x,y, (image)->_imageData,(image)->_color) 
+#else
+    #define __DRAW(x,y,image) \
+        _XL_DRAW(x,y, (image)->_imageData,0)    
+#endif
+
 
 #define _draw_stat(x, y, image) \
     __DRAW((x),(y),(image))

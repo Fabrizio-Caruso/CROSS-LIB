@@ -108,8 +108,14 @@ void deleteCharacter(Character * characterPtr);
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
-#define __DRAW(x,y,image) \
-    _XL_DRAW(x,y, (image)->_imageData,(image)->_color) 
+#if !defined(_XL_NO_COLOR)
+    #define __DRAW(x,y,image) \
+        _XL_DRAW(x,y, (image)->_imageData,(image)->_color) 
+#else
+    #define __DRAW(x,y,image) \
+        _XL_DRAW(x,y, (image)->_imageData,0) 
+#endif
+
 
 #define _draw_stat(x, y, image) \
     __DRAW((x),(y),(image))

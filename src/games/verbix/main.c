@@ -62,6 +62,7 @@
 #define BORDER_TILE                  _TILE_18
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
+#define BONUS_LINE_TILE              _TILE_21
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -75,11 +76,15 @@
 
 #define INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
 
-#define NO_OF_PRECOMPUTED_WORDS 3
+#if !defined(NO_OF_PRECOMPUTED_WORDS)
+    #define NO_OF_PRECOMPUTED_WORDS 6
+#endif
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
-#define NO_OF_RANDOM_LETTERS 2
+#if !defined(NO_OF_RANDOM_LETTERS)
+    #define NO_OF_RANDOM_LETTERS NO_OF_PRECOMPUTED_WORDS
+#endif
 //SIZE_OF_PRECOMPUTED_WORDS
 
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
@@ -101,10 +106,14 @@
 
 #define SLOT_SPACING 2
 
+#define BONUS_HEIGHT 2
+
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1
 
 #define BONUS_POINTS 100U
+
+#define INITIAL_MAX_LEVEL_COUNT 254
 
 #define INITIAL_LEVEL 1
 #define LAST_LEVEL 9
@@ -142,13 +151,6 @@ const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
 
 
-
-void short_pause(void)
-{
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-}
-
-
 // TODO: Better compute LETTERS_X
 #if XSize>=40
     #define LETTERS_X ((XSize-32)/2)
@@ -169,6 +171,15 @@ void short_pause(void)
 #else
     #define LETTERS_BIT_MASK 1
 #endif
+
+
+#define player_slot() \
+    player_x-1
+
+void short_pause(void)
+{
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+}
 
 
 void display_letters(void)
@@ -274,7 +285,7 @@ void display_column(uint8_t row)
 
 void display_player_column(void)
 {
-    display_column(player_x-1);
+    display_column(player_slot());
 }
 
 
@@ -303,6 +314,8 @@ void drop_letter(void)
     uint8_t new_letter;
     
     _XL_PING_SOUND();
+
+    max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     
     height = matrix_height[slot_index];
     
@@ -445,14 +458,14 @@ void up_rotate_column(void)
     
     _XL_TICK_SOUND();    
     
-    aux = matrix[player_x-1][matrix_height[player_x-1]-1];
+    aux = matrix[player_slot()][matrix_height[player_slot()]-1];
     
-    for(i=matrix_height[player_x-1]-1;i>0;--i)
+    for(i=matrix_height[player_slot()]-1;i>0;--i)
     {
-        matrix[player_x-1][i] = matrix[player_x-1][i-1];
+        matrix[player_slot()][i] = matrix[player_slot()][i-1];
     }
   
-    matrix[player_x-1][0] = aux;    
+    matrix[player_slot()][0] = aux;    
 }
 
 
@@ -464,14 +477,14 @@ void down_rotate_column(void)
 
     _XL_TICK_SOUND();
     
-    aux = matrix[player_x-1][0];
+    aux = matrix[player_slot()][0];
     
-    for(i=0;i<matrix_height[player_x-1]-1;++i)
+    for(i=0;i<matrix_height[player_slot()]-1;++i)
     {
-        matrix[player_x-1][i] = matrix[player_x-1][i+1];
+        matrix[player_slot()][i] = matrix[player_slot()][i+1];
     }
   
-    matrix[player_x-1][matrix_height[player_x-1]-1] = aux;
+    matrix[player_slot()][matrix_height[player_slot()]-1] = aux;
     
 }
 
@@ -522,7 +535,7 @@ uint8_t letter_index(uint8_t letter)
 #else
 uint8_t letter_index(uint8_t letter_to_check)
 {
-    uint8_t i;
+    uint8_t i = 0;
     
     while(1) // We exit this loop with return
     {
@@ -648,6 +661,7 @@ void remove_bottom_word(void)
     uint8_t j;
     // uint8_t height  ;
     
+    low_letter_bonus = 1;
     for(i=0;i<WORD_SIZE;++i)
     {
         // height = matrix_height[i];
@@ -655,15 +669,22 @@ void remove_bottom_word(void)
         {
             matrix[i][j]=matrix[i][j+1];
         }
-        // if(height)
-        // {
+        
+        // _XL_PRINTD(0,YSize-3,1,i);
+
+        
+        // _XL_PRINTD(0,YSize-1,2,matrix_height[i]);
+        // _XL_WAIT_FOR_INPUT();
+        
         --matrix_height[i]; 
-        // }
-        if(!matrix_height[i])
+        
+        // One single letter above BONUS_HEIGHT prevents disables the bonus
+        if(matrix_height[i]>BONUS_HEIGHT) 
         {
-            low_letter_bonus = 1;
-            _XL_SHOOT_SOUND();
+            low_letter_bonus = 0;
         }
+        // _XL_PRINTD(XSize-3,YSize-1,2,matrix_height[i]);
+        // _XL_WAIT_FOR_INPUT();
     }
     display_matrix();
 }
@@ -734,6 +755,8 @@ void handle_input(void)
             remove_bottom_word();
             --remaining_words;
             display_remaining_words();
+            max_level_counter = INITIAL_MAX_LEVEL_COUNT; // slow down next drop
+            counter = 0;                                 // re-start counter to slow down next drop
         }
         else
         {
@@ -755,13 +778,13 @@ void handle_input(void)
 
 
 #if defined(_XL_NO_JOYSTICK)
-    #define press_fire() \
+    #define control_instructions() \
     do \
     { \
         _XL_PRINT(XSize/2-4, YSize/2+5, "USE IJKL SPACE"); \
     } while(0)
 #else
-    #define press_fire() \
+    #define control_instructions() \
     do \
     { \
         _XL_PRINT(XSize/2-4, YSize/2+5, "USE STICK"); \
@@ -814,13 +837,13 @@ do \
     _XL_PRINT(XSize/2-7,YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT(XSize/2-4,YSize/2, "WORD GAME"); \
+    _XL_PRINT(XSize/2-4,YSize/2, "FIND WORDS"); \
     \
     display_borders(); \
     \
     short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    press_fire(); \
+    control_instructions(); \
     wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -1009,10 +1032,15 @@ void display_walls(void)
             }
         }
     }
+    
+    // Draw bonus limit
+    for(i=0;i<2;++i)
+    {
+        _XL_DRAW(START_X-2-i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
+        _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
+    }
 }
 
-
-#define INITIAL_MAX_LEVEL_COUNT 220
 
 // TODO: nearly all display elements do not need to be redisplayed
 void initialize_level(void)
@@ -1037,7 +1065,6 @@ void initialize_level(void)
         remaining_words = 9;
     }
     // remaining_words = level;
-    max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     low_letter_bonus = 0;
     
     _XL_CLEAR_SCREEN();
@@ -1147,12 +1174,29 @@ void initial_letter_drop(void)
 #define handle_level_end() \
 do \
 { \
+    \
     if(alive) \
     { \
-        increase_score(BONUS_POINTS*remaining_words); \
+        if(low_letter_bonus) \
+        { \
+            _XL_EXPLOSION_SOUND(); \
+            _XL_SET_TEXT_COLOR(_XL_WHITE); \
+            _XL_PRINT(START_X-1, START_Y+2, "EXTRA BONUS"); \
+            _XL_SLEEP(1); \
+            _XL_WAIT_FOR_INPUT(); \
+        } \
+        ++remaining_words; \
+        \
+        for(aux=0;aux<remaining_words;++aux) \
+        { \
+            increase_score(BONUS_POINTS*remaining_words); \
+            _XL_PING_SOUND(); \
+            short_pause(); \
+            short_pause(); \
+        } \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \
-        _XL_PRINT(START_X, START_Y+2, "LEVEL  UP"); \
+        _XL_PRINT(START_X-1, START_Y+2, " LEVEL  UP "); \
         _XL_SLEEP(1); \
         _XL_WAIT_FOR_INPUT(); \
     } \
@@ -1166,8 +1210,18 @@ do \
 #define victory_message() \
 do \
 { \
+    \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINT(START_X,YSize/2," THE END "); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    for(aux=0;aux<11;++aux) \
+    { \
+        _XL_CHAR(START_X-1+aux,YSize/2-1,'W'); \
+        _XL_CHAR(START_X+9-aux,YSize/2+1,'W'); \
+        short_pause(); \
+    } \
+    \
     _XL_SLEEP(2); \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)

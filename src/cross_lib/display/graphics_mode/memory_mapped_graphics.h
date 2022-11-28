@@ -96,19 +96,26 @@
     #define COLOR_POKE(addr, color) DISPLAY_POKE(addr, color)
 #endif
 
-#if !defined(_XL_NO_COLOR)
+#if defined(INLINE_DRAW)
 
-    #define _XL_DRAW(x,y,tile,color) \
-    do \
-    { \
-        COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
-        DISPLAY_POKE(loc(x,y), (tile)); \
-    } \
-    while(0)
-        
+    #if !defined(_XL_NO_COLOR)
+
+        #define _XL_DRAW(x,y,tile,color) \
+        do \
+        { \
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
+            DISPLAY_POKE(loc(x,y), (tile)); \
+        } \
+        while(0)
+            
+    #else
+        #define _XL_DRAW(x,y,tile,color) \
+            DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), tile);
+
+    #endif
+
 #else
-	#define _XL_DRAW(x,y,tile,color) \
-		DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), tile);
+    void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
 
 #endif
 

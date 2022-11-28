@@ -46,15 +46,15 @@
 
 #define _TILE_21 (unsigned char) '-'
 
-#define _TILE_22 (unsigned char) 'M'
+#define _TILE_22 
 
-#define _TILE_23 (unsigned char) 'N'
+#define _TILE_23 
 
-#define _TILE_24 (unsigned char) 'O'
+#define _TILE_24
 
-#define _TILE_25 'P'
+#define _TILE_25 
 
-//#define _TILE_25 '$'
+#define _TILE_26 
 
 #endif // _CHAR_TILES_H
 

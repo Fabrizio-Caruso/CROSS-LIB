@@ -465,4 +465,17 @@ lda $a7c0
 #endif
 
 
-
+#if !defined(INLINE_DRAW) && defined(MEMORY_MAPPED)
+    #if !defined(_XL_NO_COLOR)
+        void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+        {
+            COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color));
+            DISPLAY_POKE(loc(x,y), (tile));
+        }
+    #else
+        void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+        {
+            DISPLAY_POKE(loc(x,y), (tile));
+        }   
+    #endif
+#endif

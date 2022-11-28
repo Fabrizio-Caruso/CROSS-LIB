@@ -63,6 +63,9 @@
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
 #define BONUS_LINE_TILE              _TILE_21
+#define VERTICAL_BONUS_WALL_TILE     _TILE_22
+#define HORIZONTAL_BONUS_WALL_TILE   _TILE_23
+
 
 #define PLAYER_COLOR _XL_WHITE
 #define EMPTY_SLOT_COLOR _XL_WHITE
@@ -153,7 +156,7 @@ const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, 
 
 // TODO: Better compute LETTERS_X
 #if XSize>=40
-    #define LETTERS_X ((XSize-32)/2)
+    #define LETTERS_X 2
 #else
     #define LETTERS_X 2  
 #endif
@@ -164,9 +167,9 @@ const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, 
     #define LETTERS_Y 3
 #endif
 
-#if XSize>=32
+#if XSize>32
     #define LETTERS_BIT_MASK 7
-#elif XSize>=22
+#elif XSize>=24
     #define LETTERS_BIT_MASK 3
 #else
     #define LETTERS_BIT_MASK 1
@@ -193,6 +196,18 @@ void display_letters(void)
         aux = LETTERS_X+(i&LETTERS_BIT_MASK);
         _XL_CHAR(aux,i+LETTERS_Y,letter[i]);
         _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
+    }
+}
+
+void display_vertical_letters(void)
+{
+    uint8_t i;
+    
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    for(i=0;i<ALPHABET_SIZE;++i)
+    {
+        _XL_CHAR(LETTERS_X,i+LETTERS_Y,letter[i]);
+        _XL_CHAR(XSize-LETTERS_X,i+LETTERS_Y,letter[i]); 
     }
 }
 
@@ -318,11 +333,6 @@ void drop_letter(void)
     max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
     
     height = matrix_height[slot_index];
-    
-    
-    // TODO: DEBUGGING why EEEEE (0,0,0,0,0) is seen in the dictionary
-    // new_letter = 0;
-    
     
     if(next_letter_index<NO_OF_PRECOMPUTED_LETTERS)
     {
@@ -661,7 +671,7 @@ void remove_bottom_word(void)
     uint8_t j;
     // uint8_t height  ;
     
-    low_letter_bonus = 1;
+    low_letter_bonus = remaining_words;
     for(i=0;i<WORD_SIZE;++i)
     {
         // height = matrix_height[i];
@@ -752,8 +762,8 @@ void handle_input(void)
             
             increase_score(word_score());
 
-            remove_bottom_word();
             --remaining_words;
+            remove_bottom_word();
             display_remaining_words();
             max_level_counter = INITIAL_MAX_LEVEL_COUNT; // slow down next drop
             counter = 0;                                 // re-start counter to slow down next drop
@@ -781,13 +791,13 @@ void handle_input(void)
     #define control_instructions() \
     do \
     { \
-        _XL_PRINT(XSize/2-4, YSize/2+5, "USE IJKL SPACE"); \
+        _XL_PRINT(XSize/2-5, YSize/2+6, "USE IJKL SPACE"); \
     } while(0)
 #else
     #define control_instructions() \
     do \
     { \
-        _XL_PRINT(XSize/2-4, YSize/2+5, "USE STICK"); \
+        _XL_PRINT(XSize/2-5, YSize/2+6, "USE JOYSTICK"); \
     } while(0)
 #endif
 
@@ -837,9 +847,11 @@ do \
     _XL_PRINT(XSize/2-7,YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT(XSize/2-4,YSize/2, "FIND WORDS"); \
+    _XL_PRINT(XSize/2-1,YSize/2, "FIND"); \
+    _XL_PRINT(XSize/2-6,YSize/2+2,"5 LETTER WORDS"); \
     \
     display_borders(); \
+    display_vertical_letters(); \
     \
     short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
@@ -1000,17 +1012,25 @@ void display_walls(void)
     
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
-        if(i<=2)
-        {
-            horizontal_wall_tile = HORIZONTAL_BAR_TILE;
-            vertical_wall_tile = VERTICAL_BAR_TILE;
-            wall_color = _XL_RED;
-        }
-        else
+        
+
+        if(i>4)
         {
             horizontal_wall_tile = HORIZONTAL_WALL_TILE;
             vertical_wall_tile = VERTICAL_WALL_TILE;
             wall_color = _XL_GREEN;
+        }
+        else if(i>2)
+        {
+            horizontal_wall_tile = HORIZONTAL_BONUS_WALL_TILE;
+            vertical_wall_tile = VERTICAL_BONUS_WALL_TILE;
+            wall_color = _XL_YELLOW;
+        }
+        else
+        {
+            horizontal_wall_tile = HORIZONTAL_BAR_TILE;
+            vertical_wall_tile = VERTICAL_BAR_TILE;
+            wall_color = _XL_RED;  
         }
         _XL_DRAW(START_X-1,START_Y-i+1,vertical_wall_tile, wall_color);
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
@@ -1185,11 +1205,12 @@ do \
             _XL_SLEEP(1); \
             _XL_WAIT_FOR_INPUT(); \
         } \
-        ++remaining_words; \
         \
-        for(aux=0;aux<remaining_words;++aux) \
+        for(aux=0;aux<low_letter_bonus;++aux) \
         { \
-            increase_score(BONUS_POINTS*remaining_words); \
+            --remaining_words; \
+            display_remaining_words(); \
+            increase_score(BONUS_POINTS); \
             _XL_PING_SOUND(); \
             short_pause(); \
             short_pause(); \
@@ -1207,6 +1228,7 @@ do \
 } while(0)
 
 
+// TODO: Use _XL_DRAW
 #define victory_message() \
 do \
 { \

@@ -26,7 +26,7 @@ void _XL_CHAR(uint8_t x, uint8_t y,  char ch)
 }
 
 
-void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 {
     uint8_t i;
     

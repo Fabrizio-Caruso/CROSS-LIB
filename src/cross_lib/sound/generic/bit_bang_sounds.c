@@ -13,7 +13,7 @@
         uint8_t k;
         k = PEEK(BIT_BANG_ADDR);
     }
-#else if defined(__MC10__)
+#elif defined(__MC10__)
     void _click(void)
     {
         POKE(0xBFFF,0x80);

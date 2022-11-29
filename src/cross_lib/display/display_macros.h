@@ -152,7 +152,7 @@
 
 // PRINT AND PRINTD
 #  if defined(ALT_DISPLAY_STATS) 
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #define _XL_PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
@@ -163,11 +163,11 @@
     #define _XL_CHAR(x,y,ch)
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
     void _GOTOXY(uint8_t x, uint8_t y);
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 #elif defined(__NCURSES__)
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #define _XL_PRINTD(x,y,length,val) \
     do { \
         move(y,x); \
@@ -181,7 +181,7 @@
         cputc(ch); \
     } while(0)
 #elif defined(ALT_PRINT)
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 

@@ -17,7 +17,7 @@
         } 
     };
 
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     { 
         _GOTOXY(x,y);
         cprintf(str); 
@@ -60,7 +60,7 @@
         }  
     #endif
 
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     {
         uint8_t i = 0;
 

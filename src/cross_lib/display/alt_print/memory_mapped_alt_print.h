@@ -14,7 +14,7 @@
 	char screenCode(char ch);
 #endif
 
-void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
 
 void print_05u0(uint8_t x, uint8_t y, uint16_t val);
 

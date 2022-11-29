@@ -13,7 +13,7 @@ void _XL_CHAR(uint8_t x, uint8_t y,  char ch)
     tgi_outtextxy(x*8,y*8,str);
 }
 
-void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 {
 	tgi_outtextxy(x*8,y*8,str);
 }

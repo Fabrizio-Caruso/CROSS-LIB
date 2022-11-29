@@ -57,8 +57,8 @@
 #define SCORE_RHS_TILE               _TILE_16
 #define HI_TILE                      _TILE_6
 #define LV_TILE                      _TILE_9
-#define LEFT_LEFT_TILE               _TILE_10
-#define LEFT_RIGHT_TILE              _TILE_17
+#define LEFT_LHS_TILE                _TILE_10
+#define LEFT_RHS_TILE                _TILE_17
 #define BORDER_TILE                  _TILE_18
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
@@ -99,7 +99,7 @@
 #define REMAINING_WORD_X ((LEVEL_X)-4)
 #define REMAINING_WORD_Y 0
 
-#if XSize<=22
+#if XSize<22
     #define HI_X (REMAINING_WORD_X-6)
 #else
     #define HI_X (((REMAINING_WORD_X)/2))
@@ -148,7 +148,8 @@ extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
 
 // 16 most common letters in English 5-letter words
 // E A R I O T N S L C U D P M H Y
-const uint8_t letter[ALPHABET_SIZE] = {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
+const char *letter = "EARIOTNSLCUDPMHY";
+// {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
 
 
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
@@ -167,7 +168,7 @@ const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, 
     #define LETTERS_Y 3
 #endif
 
-#if XSize>32
+#if XSize>40
     #define LETTERS_BIT_MASK 7
 #elif XSize>=24
     #define LETTERS_BIT_MASK 3
@@ -199,17 +200,17 @@ void display_letters(void)
     }
 }
 
-void display_vertical_letters(void)
-{
-    uint8_t i;
+// void display_vertical_letters(void)
+// {
+    // uint8_t i;
     
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    for(i=0;i<ALPHABET_SIZE;++i)
-    {
-        _XL_CHAR(LETTERS_X,i+LETTERS_Y,letter[i]);
-        _XL_CHAR(XSize-LETTERS_X,i+LETTERS_Y,letter[i]); 
-    }
-}
+    // _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    // for(i=0;i<ALPHABET_SIZE;++i)
+    // {
+        // _XL_CHAR(LETTERS_X,i+LETTERS_Y,letter[i]);
+        // _XL_CHAR(XSize-LETTERS_X,i+LETTERS_Y,letter[i]); 
+    // }
+// }
 
 
 uint8_t x_slot(uint8_t x)
@@ -839,7 +840,7 @@ do \
     \
     display_record((XSize/2)-2); \
     \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     \
     _XL_PRINT(XSize/2-5,YSize/2-7,"V E R B I X"); \
     \
@@ -847,17 +848,18 @@ do \
     _XL_PRINT(XSize/2-7,YSize/2-5,"FABRIZIO CARUSO"); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT(XSize/2-1,YSize/2, "FIND"); \
-    _XL_PRINT(XSize/2-6,YSize/2+2,"5 LETTER WORDS"); \
+    _XL_PRINT(XSize/2-7,YSize/2-1, "FIND WORDS WITH"); \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    _XL_PRINT(XSize/2-7,YSize/2+2,letter); \
     \
     display_borders(); \
-    display_vertical_letters(); \
     \
     short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     control_instructions(); \
     wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
+    display_letter_values(); \
 } while(0)
 
 
@@ -941,14 +943,11 @@ void display_record(uint8_t x)
 // 'L', 'C', 'U', 'D',  ->  7 points
 // 'P', 'M', 'H', 'Y'   -> 10 points
 
-/*
-#define INSTRUCTIONS_START_Y YSize/4
 
-#if XSize>=32
-    #define INSTR_X_SPACING 1
-#else
-    #define INSTR_X_SPACING 1
-#endif
+#define INSTRUCTIONS_START_Y ((YSize)/2-3)
+
+#define INSTRUCTIONS_START_X ((XSize)/2-3)
+
 
 
 #if defined(NO_LETTER_VALUES)
@@ -956,50 +955,60 @@ void display_record(uint8_t x)
 #else
 void display_letter_values(void)
 {
+    
+    // _XL_DRAW(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y-2,SCORE_LHS_TILE, _XL_RED);
+    // _XL_DRAW(INSTRUCTIONS_START_X+1,INSTRUCTIONS_START_Y-2,SCORE_RHS_TILE, _XL_RED);
+    
+
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y,  2, 1);
-    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+2,2, 4);
-    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+4,2, 7);
-    _XL_PRINTD(5*INSTR_X_SPACING,INSTRUCTIONS_START_Y+6,2,10);
+    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y,  1, 3);
+    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y+2,1, 7);
+    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+4,2,11);
+    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+6,2,15);
     
-    #if INSTR_X_SPACING==2
-        _XL_PRINT(1,INSTRUCTIONS_START_Y,   "E A R I");
+    
+    _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y,   "EARI");
+    
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y+2, "OTNS");
+    
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
         
-        _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT(1,INSTRUCTIONS_START_Y+2, "O T N S");
-        
-        _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT(1,INSTRUCTIONS_START_Y+4, "L C U D");
+    _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y+4, "LCUD");
 
-        _XL_SET_TEXT_COLOR(_XL_GREEN);
-        _XL_PRINT(1,INSTRUCTIONS_START_Y+6, "P M H Y");
-    #else
-        _XL_PRINT(0,INSTRUCTIONS_START_Y,   "EARI");
-        
-        _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT(0,INSTRUCTIONS_START_Y+2, "OTNS");
-        
-        _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT(0,INSTRUCTIONS_START_Y+4, "LCUD");
-
-        _XL_SET_TEXT_COLOR(_XL_GREEN);
-        _XL_PRINT(0,INSTRUCTIONS_START_Y+6, "PMHY");        
-    #endif
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y+6, "PMHY");        
+    
+    _XL_PRINT(INSTRUCTIONS_START_X, INSTRUCTIONS_START_Y-2, "POINTS");
+    
     _XL_WAIT_FOR_INPUT();
     _XL_CLEAR_SCREEN();    
 }
 #endif
-*/
+
 
 #define display_score_glyphs() \
 do \
 { \
     _XL_DRAW(SCORE_X,0,SCORE_LHS_TILE,_XL_GREEN); \
     _XL_DRAW(SCORE_X+1,0,SCORE_RHS_TILE,_XL_GREEN); \
-    _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y,LEFT_LEFT_TILE,_XL_YELLOW); \
-    _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y,LEFT_RIGHT_TILE,_XL_YELLOW); \
+    _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y,LEFT_LHS_TILE,_XL_YELLOW); \
+    _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y,LEFT_RHS_TILE,_XL_YELLOW); \
 } while(0)
+
+
+#if XSize>40
+    #define BONUS_LINE_SIZE 6
+#elif XSize>=40
+    #define BONUS_LINE_SIZE 5
+#elif XSize>=32
+    #define BONUS_LINE_SIZE 4
+#elif XSize>20
+    #define BONUS_LINE_SIZE 3
+#else
+    #define BONUS_LINE_SIZE 2
+#endif
 
 
 void display_walls(void)
@@ -1013,7 +1022,6 @@ void display_walls(void)
     for(i=0;i<MAX_HEIGHT*2;++i)
     {
         
-
         if(i>4)
         {
             horizontal_wall_tile = HORIZONTAL_WALL_TILE;
@@ -1054,7 +1062,7 @@ void display_walls(void)
     }
     
     // Draw bonus limit
-    for(i=0;i<2;++i)
+    for(i=0;i<BONUS_LINE_SIZE;++i)
     {
         _XL_DRAW(START_X-2-i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
         _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);

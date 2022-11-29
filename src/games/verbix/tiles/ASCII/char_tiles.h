@@ -46,9 +46,9 @@
 
 #define _TILE_21 (unsigned char) '-'
 
-#define _TILE_22 
+#define _TILE_22 (unsigned char) '|'
 
-#define _TILE_23 
+#define _TILE_23 (unsigned char) '='
 
 #define _TILE_24
 

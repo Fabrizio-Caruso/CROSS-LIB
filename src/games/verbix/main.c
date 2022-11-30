@@ -59,12 +59,15 @@
 #define LV_TILE                      _TILE_9
 #define LEFT_LHS_TILE                _TILE_10
 #define LEFT_RHS_TILE                _TILE_17
-#define BORDER_TILE                  _TILE_18
+#define BORDER_TILE0                 _TILE_24
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
 #define BONUS_LINE_TILE              _TILE_21
 #define VERTICAL_BONUS_WALL_TILE     _TILE_22
 #define HORIZONTAL_BONUS_WALL_TILE   _TILE_23
+#define BORDER_TILE1                 _TILE_18
+#define BORDER_TILE2                 _TILE_25
+#define BORDER_TILE3                 _TILE_26
 
 
 #define PLAYER_COLOR _XL_WHITE
@@ -145,6 +148,9 @@ uint8_t aux; // Used to swap values in several functions
 
 // First letter position indices
 extern const uint16_t dictionary_index[ALPHABET_SIZE+1];
+
+
+const uint8_t border_tile[4] = {BORDER_TILE0, BORDER_TILE1, BORDER_TILE2, BORDER_TILE3};
 
 // 16 most common letters in English 5-letter words
 // E A R I O T N S L C U D P M H Y
@@ -821,16 +827,28 @@ do \
 #endif
 
 
-void display_borders(void)
+void display_borders(uint8_t offset, uint8_t tile)
 {
     uint8_t i;
     
     for(i=2;i<YSize-1;++i)
     {
-        _XL_DRAW(1,i,BORDER_TILE, _XL_CYAN);
-        _XL_DRAW(XSize-1,i,BORDER_TILE, _XL_CYAN);  
+        _XL_DRAW(1+offset,i,tile, _XL_CYAN);
+        _XL_DRAW(XSize-1-offset,i,tile, _XL_CYAN);  
     }        
 }
+
+#if XSize<=20
+    #define BORDER_OFFSET 0
+#elif XSize<=22
+    #define BORDER_OFFSET 0
+#elif XSize<=32
+    #define BORDER_OFFSET 3
+#elif XSize<=40
+    #define BORDER_OFFSET 5
+#else
+    #define BORDER_OFFSET ((XSize)/10)
+#endif
 
 
 #define title_screen() \
@@ -852,7 +870,7 @@ do \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     _XL_PRINT(XSize/2-7,YSize/2+2,letter); \
     \
-    display_borders(); \
+    display_borders(BORDER_OFFSET, BORDER_TILE1); \
     \
     short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
@@ -949,7 +967,6 @@ void display_record(uint8_t x)
 #define INSTRUCTIONS_START_X ((XSize)/2-3)
 
 
-
 #if defined(NO_LETTER_VALUES)
     #define display_letter_values()
 #else
@@ -959,7 +976,8 @@ void display_letter_values(void)
     // _XL_DRAW(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y-2,SCORE_LHS_TILE, _XL_RED);
     // _XL_DRAW(INSTRUCTIONS_START_X+1,INSTRUCTIONS_START_Y-2,SCORE_RHS_TILE, _XL_RED);
     
-
+    display_borders(BORDER_OFFSET+4,BORDER_TILE3);
+    
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
     _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y,  1, 3);
@@ -1129,7 +1147,7 @@ void initialize_level(void)
     
     display_score();
 
-    display_borders();
+    display_borders(0,border_tile[level&3]);
 
     display_walls();
 

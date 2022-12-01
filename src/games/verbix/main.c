@@ -80,10 +80,10 @@
     #define INITIAL_ROWS 3
 #endif
 
-#define INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
+#define MIN_INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
 
 #if !defined(NO_OF_PRECOMPUTED_WORDS)
-    #define NO_OF_PRECOMPUTED_WORDS 6
+    #define NO_OF_PRECOMPUTED_WORDS 6U
 #endif
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
@@ -96,11 +96,11 @@
 #define NO_OF_PRECOMPUTED_LETTERS ((SIZE_OF_PRECOMPUTED_WORDS)+(NO_OF_RANDOM_LETTERS))
 
 
-#define LEVEL_X (XSize-2)
-#define LEVEL_Y 0
+#define LEVEL_X ((XSize)-2)
+#define LEVEL_Y 0U
 
 #define REMAINING_WORD_X ((LEVEL_X)-4)
-#define REMAINING_WORD_Y 0
+#define REMAINING_WORD_Y 0U
 
 #if XSize<22
     #define HI_X (REMAINING_WORD_X-6)
@@ -108,21 +108,21 @@
     #define HI_X (((REMAINING_WORD_X)/2))
 #endif
 
-#define HI_Y 0
+#define HI_Y 0U
 
-#define SLOT_SPACING 2
+#define SLOT_SPACING 2U
 
-#define BONUS_HEIGHT 2
+#define MIN_BONUS_HEIGHT 2U
 
 // TODO: Maybe this should depend on the parity of XSize
-#define SCORE_X 1
+#define SCORE_X 1U
 
 #define BONUS_POINTS 100U
 
-#define INITIAL_MAX_LEVEL_COUNT 254
+#define INITIAL_MAX_LEVEL_COUNT 254U
 
-#define INITIAL_LEVEL 1
-#define LAST_LEVEL 9
+#define INITIAL_LEVEL 1U
+#define LAST_LEVEL 9U
 
 #include "dictionary.h"
 
@@ -140,6 +140,8 @@ uint8_t level;
 uint8_t remaining_words;
 uint8_t max_level_counter;
 uint8_t low_letter_bonus;
+uint8_t initial_drop;
+uint8_t bonus_height;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -192,6 +194,12 @@ void short_pause(void)
 }
 
 
+void one_second_pause(void)
+{
+    _XL_SLEEP(1);
+}
+
+
 void display_letters(void)
 {
     uint8_t i;
@@ -205,18 +213,6 @@ void display_letters(void)
         _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
     }
 }
-
-// void display_vertical_letters(void)
-// {
-    // uint8_t i;
-    
-    // _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    // for(i=0;i<ALPHABET_SIZE;++i)
-    // {
-        // _XL_CHAR(LETTERS_X,i+LETTERS_Y,letter[i]);
-        // _XL_CHAR(XSize-LETTERS_X,i+LETTERS_Y,letter[i]); 
-    // }
-// }
 
 
 uint8_t x_slot(uint8_t x)
@@ -360,7 +356,7 @@ void drop_letter(void)
     
     ++matrix_height[slot_index];
                 
-    slot_index = (slot_index + 1) % WORD_SIZE;
+    slot_index = (slot_index + 1U) % WORD_SIZE;
 }
 
 
@@ -511,45 +507,7 @@ void down_rotate_column(void)
 // 'L', 'C', 'U', 'D', 
 // 'P', 'M', 'H', 'Y'
 
-#if defined(SWITCH_CASE_LETTER_INDEX)
-uint8_t letter_index(uint8_t letter)
-{
-    switch(letter)
-    {
-        case 'E':
-            return 0;
-        case 'A':
-            return 1;
-        case 'R':
-            return 2;
-        case 'I':
-            return 3;
-        case 'O':
-            return 4;
-        case 'T':
-            return 5;
-        case 'N':
-            return 6;
-        case 'S':
-            return 7;
-        case 'L':
-            return 8;
-        case 'C':
-            return 9;
-        case 'U':
-            return 10;
-        case 'D':
-            return 11;
-        case 'P':
-            return 12;
-        case 'M':
-            return 13;
-        case 'H':
-            return 14;
-    }
-    return 15; // 'Y'
-}
-#else
+
 uint8_t letter_index(uint8_t letter_to_check)
 {
     uint8_t i = 0;
@@ -561,9 +519,9 @@ uint8_t letter_index(uint8_t letter_to_check)
             return i;
         }
     }
-    return 0; // Never reached
+    return 0U; // Never reached
 }
-#endif
+
 
 // Score for guessed word (less common letters give more points)
 // 'E', 'A', 'R', 'I',  ->   3 point
@@ -579,7 +537,7 @@ uint16_t word_score(void)
     {
         // TODO: DEBUG
         // _XL_PRINTD(2,YSize-3,3,score);
-        // _XL_SLEEP(1);
+        // one_second_pause();
         // _XL_WAIT_FOR_INPUT();
         
         score+=3+(((matrix[i][0])>>2)<<1);
@@ -587,7 +545,7 @@ uint16_t word_score(void)
     }
     // TODO: DEBUG
     // _XL_PRINTD(2,YSize-3,3,score);
-    // _XL_SLEEP(1);
+    // one_second_pause();
     // _XL_WAIT_FOR_INPUT();    
 
     //
@@ -598,13 +556,13 @@ uint16_t word_score(void)
 
 uint8_t first_letter(uint16_t index)
 {
-    uint8_t i=1;
+    uint8_t i=0;
     
-    while(1) // We know exit with return
+    while(1) // We know that we will exit with return
     {
-        if(index<dictionary_index[i])
+        if(index<dictionary_index[i+1])
         {
-            return i-1;
+            return i;
         }
         ++i;
     }
@@ -638,11 +596,11 @@ uint8_t binary_search(uint16_t search_word, uint16_t first_index, uint16_t last_
         }
         else if(middle_word<search_word)
         {
-            first_index = middle_index + 1;
+            first_index = middle_index + 1U;
         }
         else
         {
-            last_index = middle_index - 1;
+            last_index = middle_index - 1U;
         }
     }
 
@@ -654,7 +612,7 @@ uint8_t word_in_dictionary(void)
 {
     // uint8_t first_char_index = matrix[0][0];    
     // return binary_search(compress_bottom_word(),dictionary_index[first_char_index], dictionary_index[first_char_index+1]-1);
-    return binary_search(compress_bottom_word(),dictionary_index[matrix[0][0]], dictionary_index[matrix[0][0]+1]-1);
+    return binary_search(compress_bottom_word(),dictionary_index[matrix[0][0]], dictionary_index[matrix[0][0]+1]-1U);
 }
 
 
@@ -667,6 +625,7 @@ void display_score(void)
 
 void increase_score(uint8_t value)
 {
+    _XL_ZAP_SOUND();
     points+=value;
     display_score();
 }
@@ -696,7 +655,7 @@ void remove_bottom_word(void)
         --matrix_height[i]; 
         
         // One single letter above BONUS_HEIGHT prevents disables the bonus
-        if(matrix_height[i]>BONUS_HEIGHT) 
+        if(matrix_height[i]>bonus_height) 
         {
             low_letter_bonus = 0;
         }
@@ -764,7 +723,7 @@ void handle_input(void)
     {
         if(word_in_dictionary())
         {
-            _XL_ZAP_SOUND();
+            // _XL_ZAP_SOUND();
             display_rings();
             
             increase_score(word_score());
@@ -910,18 +869,18 @@ do \
 } while(0)
 
 
-#if defined(DEBUG)
-void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
-{
-    uint8_t i;
+// #if defined(DEBUG)
+// void print_word(uint8_t x, uint8_t y, uint16_t dictionary_index)
+// {
+    // uint8_t i;
     
-    _XL_CHAR(x,y,letter[first_letter(dictionary_index)]);
-    for(i=1;i<WORD_SIZE;++i)
-    {
-        _XL_CHAR(x+i,y,letter[(dictionary[dictionary_index]>>((4-i)*4))&0x000F]);
-    }
-}
-#endif
+    // _XL_CHAR(x,y,letter[first_letter(dictionary_index)]);
+    // for(i=1;i<WORD_SIZE;++i)
+    // {
+        // _XL_CHAR(x+i,y,letter[(dictionary[dictionary_index]>>((4-i)*4))&0x000F]);
+    // }
+// }
+// #endif
 
 
 // TODO: check whether XOR trick is better
@@ -980,10 +939,10 @@ void display_letter_values(void)
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y,  1, 3);
-    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y+2,1, 7);
-    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+4,2,11);
-    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+6,2,15);
+    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y,  1, 3U);
+    _XL_PRINTD(INSTRUCTIONS_START_X+6,INSTRUCTIONS_START_Y+2,1, 7U);
+    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+4,2,11U);
+    _XL_PRINTD(INSTRUCTIONS_START_X+5,INSTRUCTIONS_START_Y+6,2,15U);
     
     
     _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y,   "EARI");
@@ -1082,8 +1041,8 @@ void display_walls(void)
     // Draw bonus limit
     for(i=0;i<BONUS_LINE_SIZE;++i)
     {
-        _XL_DRAW(START_X-2-i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
-        _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
+        _XL_DRAW(START_X-2-i,START_Y-2*bonus_height+1,BONUS_LINE_TILE,_XL_WHITE);
+        _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*bonus_height+1,BONUS_LINE_TILE,_XL_WHITE);
     }
 }
 
@@ -1099,9 +1058,12 @@ void initialize_level(void)
     
     alive = 1;
     slot_index = 0;
-    player_x = 3;
+    player_x = 3U;
     counter = 1;
     next_letter_index = 0;
+    initial_drop = MIN_INITIAL_DROP;
+    bonus_height = MIN_BONUS_HEIGHT;
+    
     if(level<=6)
     {
         remaining_words = 2+level;
@@ -1131,7 +1093,7 @@ void initialize_level(void)
         precomputed_letter[WORD_SIZE*i] = first_letter(random_dictionary_index);
         for(j=1;j<WORD_SIZE;++j)
         {
-            precomputed_letter[WORD_SIZE*i+j]=(compressed_code>>((4-j)*4))&0x000F;
+            precomputed_letter[WORD_SIZE*i+j]=(compressed_code>>((4U-j)*4U))&0x000F;
         }
     }
 
@@ -1175,7 +1137,7 @@ void end_game(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(START_X, START_Y+2, "GAME OVER");
-    _XL_SLEEP(1);
+    one_second_pause();
     _XL_WAIT_FOR_INPUT();
 }
 
@@ -1208,7 +1170,7 @@ void initial_letter_drop(void)
 {
     uint8_t i;
         
-    for(i=0;i<INITIAL_DROP;++i)
+    for(i=0;i<initial_drop;++i)
     {
         drop_letter();
         short_pause();
@@ -1228,7 +1190,7 @@ do \
             _XL_EXPLOSION_SOUND(); \
             _XL_SET_TEXT_COLOR(_XL_WHITE); \
             _XL_PRINT(START_X-1, START_Y+2, "EXTRA BONUS"); \
-            _XL_SLEEP(1); \
+            one_second_pause(); \
             _XL_WAIT_FOR_INPUT(); \
         } \
         \
@@ -1244,8 +1206,13 @@ do \
         ++level; \
         _XL_SET_TEXT_COLOR(_XL_YELLOW); \
         _XL_PRINT(START_X-1, START_Y+2, " LEVEL  UP "); \
-        _XL_SLEEP(1); \
+        one_second_pause(); \
         _XL_WAIT_FOR_INPUT(); \
+        for(aux=0;aux<WORD_SIZE*2+1;++aux) \
+        { \
+            display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3); \
+        } \
+        one_second_paues(); \
     } \
     else \
     { \
@@ -1255,6 +1222,7 @@ do \
 
 
 // TODO: Use _XL_DRAW
+// TODO: Implement some animation
 #define victory_message() \
 do \
 { \
@@ -1262,15 +1230,8 @@ do \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINT(START_X,YSize/2," THE END "); \
     \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    for(aux=0;aux<11;++aux) \
-    { \
-        _XL_CHAR(START_X-1+aux,YSize/2-1,'W'); \
-        _XL_CHAR(START_X+9-aux,YSize/2+1,'W'); \
-        short_pause(); \
-    } \
     \
-    _XL_SLEEP(2); \
+    one_second_pause(); \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)
 

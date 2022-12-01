@@ -1135,12 +1135,26 @@ void restart_game(void)
 }
 
 
+// TODO: Verify offset
+void level_end(void)
+{
+    for(aux=0;aux<WORD_SIZE*2+1;++aux)
+    {
+        display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3);
+        short_pause();
+    }
+}
+
+
+
 void end_game(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(START_X, START_Y+2, "GAME OVER");
     one_second_pause();
+    one_second_pause();
     _XL_WAIT_FOR_INPUT();
+    level_end();
 }
 
 
@@ -1178,17 +1192,6 @@ void initial_letter_drop(void)
         short_pause();
     }     
     
-}
-
-
-// TODO: Verify offset
-void level_end(void)
-{
-    for(aux=0;aux<WORD_SIZE*2+1;++aux)
-    {
-        display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3);
-        short_pause();
-    }
 }
 
 

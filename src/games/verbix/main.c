@@ -59,14 +59,14 @@
 #define LV_TILE                      _TILE_9
 #define LEFT_LHS_TILE                _TILE_10
 #define LEFT_RHS_TILE                _TILE_17
-#define BORDER_TILE0                 _TILE_24
+#define BORDER_TILE0                 _TILE_25
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
 #define BONUS_LINE_TILE              _TILE_21
 #define VERTICAL_BONUS_WALL_TILE     _TILE_22
 #define HORIZONTAL_BONUS_WALL_TILE   _TILE_23
 #define BORDER_TILE1                 _TILE_18
-#define BORDER_TILE2                 _TILE_25
+#define BORDER_TILE2                 _TILE_24
 #define BORDER_TILE3                 _TILE_26
 
 
@@ -958,6 +958,9 @@ void display_letter_values(void)
     _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y+6, "PMHY");        
     
     _XL_PRINT(INSTRUCTIONS_START_X, INSTRUCTIONS_START_Y-2, "POINTS");
+    // _XL_DRAW(INSTRUCTIONS_START_X, INSTRUCTIONS_START_Y-2, SCORE_LHS_TILE, _XL_RED);
+    // _XL_DRAW(INSTRUCTIONS_START_X+1, INSTRUCTIONS_START_Y-2, SCORE_RHS_TILE, _XL_RED);
+
     
     _XL_WAIT_FOR_INPUT();
     _XL_CLEAR_SCREEN();    

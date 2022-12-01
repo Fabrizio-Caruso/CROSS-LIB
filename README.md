@@ -59,7 +59,7 @@ Play the games online:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
-2. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-verbix---the-game"><b>Cross Verbix</b></a> sort of Tetrix with letters.
+1. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-verbix---the-game"><b>Cross Verbix</b></a> sort of Tetrix with letters.
 2. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-horde---the-game"><b>Cross Horde</b></a> is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
 3. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-snake---the-game"><b>Cross Snake</b></a> is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
 4. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#cross-bomber---the-game"><b>Cross Bomber</b></a> is a mini-game and clone of Air Attack (aka Blitz).

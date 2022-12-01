@@ -1178,6 +1178,17 @@ void initial_letter_drop(void)
 }
 
 
+// TODO: Verify offset
+void level_end(void)
+{
+    for(aux=0;aux<WORD_SIZE*2+1;++aux)
+    {
+        display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3);
+        short_pause();
+    }
+}
+
+
 #define handle_level_end() \
 do \
 { \
@@ -1207,11 +1218,7 @@ do \
         _XL_PRINT(START_X-1, START_Y+2, " LEVEL  UP "); \
         one_second_pause(); \
         _XL_WAIT_FOR_INPUT(); \
-        for(aux=0;aux<WORD_SIZE*2+1;++aux) \
-        { \
-            display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3); \
-            short_pause(); \
-        } \
+        level_end(); \
     } \
 } while(0)
 
@@ -1224,10 +1231,9 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINT(START_X,YSize/2," THE END "); \
-    \
-    \
     one_second_pause(); \
     _XL_WAIT_FOR_INPUT(); \
+    level_end(); \
 } while(0)
 
 

@@ -80,7 +80,7 @@
     #define INITIAL_ROWS 3
 #endif
 
-#define MIN_INITIAL_DROP ((WORD_SIZE)*INITIAL_ROWS)
+#define MIN_INITIAL_DROP (((WORD_SIZE)*INITIAL_ROWS)-1)
 
 #if !defined(NO_OF_PRECOMPUTED_WORDS)
     #define NO_OF_PRECOMPUTED_WORDS 6U
@@ -112,7 +112,7 @@
 
 #define SLOT_SPACING 2U
 
-#define MIN_BONUS_HEIGHT 2U
+#define BONUS_HEIGHT 2U
 
 // TODO: Maybe this should depend on the parity of XSize
 #define SCORE_X 1U
@@ -141,7 +141,7 @@ uint8_t remaining_words;
 uint8_t max_level_counter;
 uint8_t low_letter_bonus;
 uint8_t initial_drop;
-uint8_t bonus_height;
+// uint8_t bonus_height;
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -655,7 +655,7 @@ void remove_bottom_word(void)
         --matrix_height[i]; 
         
         // One single letter above BONUS_HEIGHT prevents disables the bonus
-        if(matrix_height[i]>bonus_height) 
+        if(matrix_height[i]>BONUS_HEIGHT) 
         {
             low_letter_bonus = 0;
         }
@@ -1041,8 +1041,8 @@ void display_walls(void)
     // Draw bonus limit
     for(i=0;i<BONUS_LINE_SIZE;++i)
     {
-        _XL_DRAW(START_X-2-i,START_Y-2*bonus_height+1,BONUS_LINE_TILE,_XL_WHITE);
-        _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*bonus_height+1,BONUS_LINE_TILE,_XL_WHITE);
+        _XL_DRAW(START_X-2-i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
+        _XL_DRAW(START_X-1+WORD_SIZE*2+1+i,START_Y-2*BONUS_HEIGHT+1,BONUS_LINE_TILE,_XL_WHITE);
     }
 }
 
@@ -1056,13 +1056,12 @@ void initialize_level(void)
     uint16_t random_dictionary_index;
     uint16_t compressed_code;
     
-    alive = 1;
-    slot_index = 0;
+    alive = 1U;
+    slot_index = 0U;
     player_x = 3U;
-    counter = 1;
-    next_letter_index = 0;
-    initial_drop = MIN_INITIAL_DROP;
-    bonus_height = MIN_BONUS_HEIGHT;
+    counter = 1U;
+    next_letter_index = 0U;
+    initial_drop = MIN_INITIAL_DROP + level;
     
     if(level<=6)
     {
@@ -1211,12 +1210,8 @@ do \
         for(aux=0;aux<WORD_SIZE*2+1;++aux) \
         { \
             display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3); \
+            short_pause(); \
         } \
-        one_second_paues(); \
-    } \
-    else \
-    { \
-       _XL_EXPLOSION_SOUND(); \
     } \
 } while(0)
 
@@ -1241,7 +1236,7 @@ int main(void)
 {        
     initialize_input_output();
     
-    record = 0;
+    // record = 0;
     
     // main loop
     while(1)

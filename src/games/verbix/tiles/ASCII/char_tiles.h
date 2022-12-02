@@ -50,11 +50,11 @@
 
 #define _TILE_23 (unsigned char) '='
 
-#define _TILE_24
+#define _TILE_24 (unsigned char) '|'
 
-#define _TILE_25 
+#define _TILE_25 (unsigned char) '|'
 
-#define _TILE_26 
+#define _TILE_26 (unsigned char) '|'
 
 #endif // _CHAR_TILES_H
 

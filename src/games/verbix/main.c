@@ -119,7 +119,7 @@
 
 #define BONUS_POINTS 100U
 
-#define INITIAL_MAX_LEVEL_COUNT 254U
+#define INITIAL_MAX_LEVEL_COUNT 230U
 
 #define INITIAL_LEVEL 1U
 #define LAST_LEVEL 9U
@@ -1138,9 +1138,9 @@ void restart_game(void)
 // TODO: Verify offset
 void level_end(void)
 {
-    for(aux=0;aux<WORD_SIZE*2+1;++aux)
+    for(aux=1;aux<XSize/2;++aux)
     {
-        display_borders(XSize/2-2*WORD_SIZE+aux, BORDER_TILE3);
+        display_borders(aux, BORDER_TILE3);
         short_pause();
     }
 }

@@ -1048,7 +1048,7 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-msx: msx_32k_rom
+msx: msx_16k
 
 msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
@@ -1071,13 +1071,13 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
-msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm   
+msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn   -D__MSX__  \
 	-lndos -subtype=rom \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
 	-DCONIO  -DFORCE_NARROW -DXSize=32 -DYSize=24 \
 	-DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
@@ -1086,8 +1086,8 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 
 #################################################################

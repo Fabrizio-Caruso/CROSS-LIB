@@ -80,16 +80,16 @@
     #define INITIAL_ROWS 3
 #endif
 
-#define MIN_INITIAL_DROP (((WORD_SIZE)*INITIAL_ROWS)-1)
+#define MIN_INITIAL_DROP (((WORD_SIZE)*INITIAL_ROWS))
 
 #if !defined(NO_OF_PRECOMPUTED_WORDS)
-    #define NO_OF_PRECOMPUTED_WORDS 6U
+    #define NO_OF_PRECOMPUTED_WORDS 8U
 #endif
 
 #define SIZE_OF_PRECOMPUTED_WORDS ((NO_OF_PRECOMPUTED_WORDS)*(WORD_SIZE))
 
 #if !defined(NO_OF_RANDOM_LETTERS)
-    #define NO_OF_RANDOM_LETTERS NO_OF_PRECOMPUTED_WORDS
+    #define NO_OF_RANDOM_LETTERS ((NO_OF_PRECOMPUTED_WORDS/2))
 #endif
 //SIZE_OF_PRECOMPUTED_WORDS
 
@@ -119,7 +119,19 @@
 
 #define BONUS_POINTS 100U
 
-#define INITIAL_MAX_LEVEL_COUNT 230U
+// remaining = 9 -> max_level_count = INITIAL_MAX_LEVEL_COUNT/level + (remaining x 8)
+// level 1 with 3 remaining words: (240-72)/1 + (3x8) = 168 + 27 = 195
+// level 1 with 1 remaining word : (240-72)/1 + (1x8) = 168 +  9 = 177
+//
+// level 2 with 4 remaining words: (240-72)/2 + (4x8) =  84 + 32 = 116
+// level 2 with 1 remaining word : (240-72)/2 + (1x8) =  84 +  9 =  93
+//
+// level 3 with 9 remaining words: (240-72)/3 + (5x8) =  56 + 40 = 106
+// level 3 with 1 remaining word : (240-72)/3 + (1x8) =  56 +  9 =  65
+// .....
+// level 9 with 9 remaining words: (240-72)/9 + (9x8) =  18 + 72 =  90
+// level 9 with 1 remaining word : (240-72)/9 + (1x8) =  18 +  9 =  27
+#define INITIAL_MAX_LEVEL_COUNT (240U-72U)
 
 #define INITIAL_LEVEL 1U
 #define LAST_LEVEL 9U
@@ -140,8 +152,7 @@ uint8_t level;
 uint8_t remaining_words;
 uint8_t max_level_counter;
 uint8_t low_letter_bonus;
-uint8_t initial_drop;
-// uint8_t bonus_height;
+
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
 uint8_t next_letter_index;
@@ -157,8 +168,6 @@ const uint8_t border_tile[4] = {BORDER_TILE0, BORDER_TILE1, BORDER_TILE2, BORDER
 // 16 most common letters in English 5-letter words
 // E A R I O T N S L C U D P M H Y
 const char *letter = "EARIOTNSLCUDPMHY";
-// {'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S' ,'L', 'C', 'U', 'D', 'P', 'M', 'H', 'Y'};
-
 
 const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, _XL_GREEN };
 
@@ -191,6 +200,12 @@ const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, 
 void short_pause(void)
 {
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+}
+
+
+void tiny_pause(void)
+{
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
 }
 
 
@@ -333,7 +348,7 @@ void drop_letter(void)
     
     _XL_PING_SOUND();
 
-    max_level_counter = INITIAL_MAX_LEVEL_COUNT/level;
+    max_level_counter = ((INITIAL_MAX_LEVEL_COUNT)/level+(remaining_words>>3));
     
     height = matrix_height[slot_index];
     
@@ -534,21 +549,10 @@ uint16_t word_score(void)
     uint8_t i;
     
     for(i=0;i<WORD_SIZE;++i)
-    {
-        // TODO: DEBUG
-        // _XL_PRINTD(2,YSize-3,3,score);
-        // one_second_pause();
-        // _XL_WAIT_FOR_INPUT();
-        
+    {       
         score+=3+(((matrix[i][0])>>2)<<1);
 
     }
-    // TODO: DEBUG
-    // _XL_PRINTD(2,YSize-3,3,score);
-    // one_second_pause();
-    // _XL_WAIT_FOR_INPUT();    
-
-    //
     
     return score;
 }
@@ -678,6 +682,7 @@ void handle_input(void)
             delete_player();
             --player_x;
             display_player();
+            tiny_pause();
         }
         else
         {
@@ -694,6 +699,7 @@ void handle_input(void)
             delete_player();
             ++player_x;
             display_player();
+            tiny_pause();
         }
         else
         {
@@ -831,7 +837,6 @@ do \
     \
     display_borders(BORDER_OFFSET, BORDER_TILE1); \
     \
-    short_pause(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     control_instructions(); \
     wait_for_input(); \
@@ -1064,7 +1069,6 @@ void initialize_level(void)
     player_x = 3U;
     counter = 1U;
     next_letter_index = 0U;
-    initial_drop = MIN_INITIAL_DROP + level;
     
     if(level<=6)
     {
@@ -1147,29 +1151,28 @@ void level_end(void)
 
 
 
-void end_game(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(START_X, START_Y+2, "GAME OVER");
-    one_second_pause();
-    one_second_pause();
-    _XL_WAIT_FOR_INPUT();
-    level_end();
-}
+#define end_game() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINT(START_X, START_Y+2, "GAME OVER"); \
+    one_second_pause(); \
+    _XL_WAIT_FOR_INPUT(); \
+    level_end(); \
+} while(0)
 
 
 // #define MAX_LEVEL_COUNT_INCREASE 10
 
-void handle_drop(void)
-{
-    // if(!(counter&63))
-    if(counter==max_level_counter)
-    {
-        drop_letter();
-        counter=0;
-        // max_level_counter+=MAX_LEVEL_COUNT_INCREASE;
-    }
-}
+#define handle_drop() \
+do \
+{ \
+    if(counter==max_level_counter) \
+    { \
+        drop_letter(); \
+        counter=0; \
+    } \
+} while(0)
 
 
 #define handle_record_update() \
@@ -1182,17 +1185,17 @@ do \
 } while(0)
 
 
-void initial_letter_drop(void)
-{
-    uint8_t i;
-        
-    for(i=0;i<initial_drop;++i)
-    {
-        drop_letter();
-        short_pause();
-    }     
-    
-}
+#define initial_letter_drop() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<MIN_INITIAL_DROP + level;++i) \
+    { \
+        drop_letter(); \
+        short_pause(); \
+    } \
+} while(0)
 
 
 #define handle_level_end() \
@@ -1248,7 +1251,7 @@ int main(void)
 {        
     initialize_input_output();
     
-    // record = 0;
+    // record is set to zero because it is a global variable
     
     // main loop
     while(1)

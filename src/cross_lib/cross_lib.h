@@ -62,7 +62,7 @@
 
 
 #if !defined(_XL_NUMBER_OF_TILES)
-    #define _XL_NUMBER_OF_TILES 26
+    #define _XL_NUMBER_OF_TILES 27
 #endif
 
 

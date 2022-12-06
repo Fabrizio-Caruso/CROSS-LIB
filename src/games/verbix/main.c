@@ -80,7 +80,14 @@
     #define INITIAL_ROWS 3
 #endif
 
-#define MIN_INITIAL_DROP (((WORD_SIZE)*INITIAL_ROWS))
+
+#if YSize<20
+    #define SMALL_SCREEN_REDUCTION 1
+#else
+    #define SMALL_SCREEN_REDUCTION 0
+#endif
+
+#define MIN_INITIAL_DROP ((((WORD_SIZE)*INITIAL_ROWS))+SMALL_SCREEN_REDUCTION)
 
 #if !defined(NO_OF_PRECOMPUTED_WORDS)
     #define NO_OF_PRECOMPUTED_WORDS 8U
@@ -1185,17 +1192,29 @@ do \
 } while(0)
 
 
+// CC65 produces broken code with an infinite loop if we use (level>>SMALL_SCREEN_REDUCTION) 
 #define initial_letter_drop() \
 do \
 { \
     uint8_t i; \
     \
-    for(i=0;i<MIN_INITIAL_DROP + level;++i) \
+    for(i=0;i<(uint8_t) MIN_INITIAL_DROP + (level/(1+SMALL_SCREEN_REDUCTION));++i) \
     { \
         drop_letter(); \
         short_pause(); \
     } \
 } while(0)
+
+// void initial_letter_drop(void)
+// {
+    // uint8_t i;
+   
+    // for(i=0;i<(uint8_t) MIN_INITIAL_DROP + (level>>0);++i)
+    // {
+        // drop_letter();
+        // short_pause();
+    // } 
+// }
 
 
 #define handle_level_end() \

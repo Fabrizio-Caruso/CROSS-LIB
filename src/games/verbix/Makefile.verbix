@@ -11,7 +11,7 @@ API_VERSION=2
 #-D_DEFAULT_ASCII
 DEFAULT_ASCII=
 
-GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) $(COMPILER_OPTS)
+GLOBAL_OPTS = -DNO_WALL -DFORCE_NARROW $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) $(COMPILER_OPTS) -DNO_SLOW_DOWN_MACRO
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 
@@ -132,6 +132,7 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 #
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c 
 
 SCCZ80_OPTS ?= -O0
@@ -307,7 +308,6 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
     --code-name LOWCODE \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
@@ -334,7 +334,6 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
     --code-name LOWCODE \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
@@ -354,7 +353,6 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	-DNO_SET_SCREEN_COLORS -DNO_SPACE_TEXT \
 	-DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -434,7 +432,6 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=4000 \
 	-DUDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -458,7 +455,6 @@ c16_16k_prev: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=4000 \
 	-DUDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -578,7 +574,6 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_FIXED_COLORS_SLOWDOWN) \
 	-DSOUNDS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
@@ -596,7 +591,6 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_SLOWDOWN) \
 	-DSOUNDS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
@@ -655,7 +649,6 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
 
@@ -669,10 +662,9 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
 	-DCONIO -DVIC20_EXP_8K -D_API_VERSION=$(API_VERSION) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) -DNO_SLOW_DOWN_MACRO -DALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) -DNO_SLOW_DOWN_MACRO \
 	-DREDEFINED_CHARS \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1597,6 +1589,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
@@ -1618,7 +1613,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
-	text_macros.o \
+	text_macros.o sleep_macros.o \
 	input_macros.o
 	rm \
 	mo5_alt_print.o dac_sounds.o \
@@ -1626,7 +1621,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o sleep_macros.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
@@ -1653,6 +1648,9 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
@@ -1669,14 +1667,14 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	display_macros.o \
 	cmoc_udc_tiles.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o sleep_macros.o
 	rm \
 	mo5_alt_print.o dac_sounds.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o
+	input_macros.o sleep_macros.o
 	mv $(BUILD_PATH)/XLIB.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
@@ -1759,12 +1757,10 @@ COMX_COLOR_REDUCED_EXTRA_FILES ?= \
 COMX_EXTRA_FILES ?= \
 	$(COMX_REDUCED_EXTRA_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 COMX_COLOR_EXTRA_FILES ?= \
 	$(COMX_COLOR_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
@@ -1863,7 +1859,6 @@ MICRO_COLOR_REDUCED_EXTRA_FILES ?= \
 
 MICRO_COLOR_EXTRA_FILES ?= \
 	$(MICRO_COLOR_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
@@ -2133,7 +2128,6 @@ mc10:
 	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT -DSOUNDS \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xchase

@@ -44,6 +44,7 @@
 		#define CYCLES 1000
 	#endif
 
+    #if defined(ALT_SLEEP)
 	void _XL_SLEEP(uint8_t sec)
 	{
         #if defined(__TI99__)
@@ -58,7 +59,7 @@
         #endif
 		for(ii=0;ii<sec*CYCLES;++ii){}; 
 	}
-
+    #endif
 #endif
 
 

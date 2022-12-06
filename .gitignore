@@ -4,6 +4,7 @@ deliverables
 *.swp
 *.img
 *.tap
+*.prg
 build/*
 src/projects/*
 **generated_assets

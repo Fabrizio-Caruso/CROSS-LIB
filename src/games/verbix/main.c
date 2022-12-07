@@ -770,7 +770,7 @@ void handle_input(void)
     #define control_instructions() \
     do \
     { \
-        _XL_PRINT(XSize/2-5, YSize/2+6, "USE IJKL SPACE"); \
+        _XL_PRINT(XSize/2-6, YSize/2+6, "USE IJKL SPACE"); \
     } while(0)
 #else
     #define control_instructions() \
@@ -1147,15 +1147,19 @@ void restart_game(void)
 
 
 // TODO: Verify offset
-void level_end(void)
-{
-    for(aux=1;aux<XSize/2;++aux)
-    {
-        display_borders(aux, BORDER_TILE3);
-        short_pause();
-    }
-}
+#if defined(NO_LEVEL_END)
+    #define level_end() 
+#else
 
+    void level_end(void)
+    {
+        for(aux=1;aux<XSize/2;++aux)
+        {
+            display_borders(aux, BORDER_TILE3);
+            short_pause();
+        }
+    }
+#endif
 
 
 #define end_game() \

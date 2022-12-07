@@ -243,11 +243,6 @@ test        lda $ff00
 out            stb res
         }
         
-        // #if defined(__COCO__)
-            // #define _SPACE_BIT_MASK 0x08
-        // #else
-            // #define _SPACE_BIT_MASK 0x20
-        // #endif
         #define _COCO_SPACE_BIT_MASK 0x08
         
         #define _DRAGON_SPACE_BIT_MASK 0x20
@@ -258,10 +253,6 @@ out            stb res
             return ' ';
         }
 
-        // if(res == 0)
-        // {
-            // return inkey();
-        // }
         return res;
         
     #elif defined(__SRR__)

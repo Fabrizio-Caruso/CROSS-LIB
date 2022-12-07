@@ -1263,7 +1263,7 @@ zx81_no_gfx: zx81_no_gfx_16k
 # -pragma-define:ZX_CHAR_XLATE_MODE=1
 zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -DFORCE_CAPITAL_CONTROLS \
 	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	-vn -D_API_VERSION=$(API_VERSION) \
 	-D__ZX81__ -DFULL_GAME \

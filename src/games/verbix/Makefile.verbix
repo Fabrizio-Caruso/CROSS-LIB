@@ -1322,7 +1322,7 @@ zx81_no_gfx_16k:
 	$(INCLUDE_OPTS) \
 	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	-vn -D_API_VERSION=$(API_VERSION) \
-	-D__ZX81__ -DFULL_GAME \
+	-D__ZX81__ -DFULL_GAME -DFORCE_CAPITAL_CONTROLS  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -1340,7 +1340,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DNO_ANIMATION \
+	-DNO_ANIMATION -DNO_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) \
 	-DXSize=32 \
 	-DYSize=22 \

@@ -7,8 +7,8 @@
 ![Vic20](/snapshots/XVerbix_Vic20_gameplay.jpg)
 ![Vic20](/snapshots/XVerbix_Vic20_title.jpg)
 
-Cross Verbix is a word game with some Tetrix elements: you must construct correct English words by rotating columns of letters or by rotating the bottom row.
-You can get extra points if you complete the level early by lowering the stack of letters below the second row.
+Cross Verbix is a word game somehow similar to Scrabble and to a much lesser extent similar to Tetris: you must construct correct English words by rotating columns of letters or by rotating the bottom row before the letters reach the top level.
+You can get extra points if you complete the level earlier by lowering the stack of letters below the second row.
 
 CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (down rotate), L(move right, right rotate), SPACE (check word)
 

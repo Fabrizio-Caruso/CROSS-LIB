@@ -1289,7 +1289,7 @@ zx81_no_gfx: zx81_no_gfx_16k
 zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
+	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 -DFORCE_CAPITAL_CONTROLS \
 	-vn -D_API_VERSION=$(API_VERSION) \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \

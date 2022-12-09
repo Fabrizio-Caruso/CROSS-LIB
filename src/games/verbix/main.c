@@ -42,31 +42,31 @@
 #define END_Y (START_Y+10)
 
 #define VERTICAL_PLAYER_TILE         _TILE_0
-#define UP_ARROW_TILE                _TILE_5
-#define DOWN_ARROW_TILE              _TILE_7
+#define EMPTY_SLOT_TILE              _TILE_1
+#define HORIZONTAL_LEFT_PLAYER_TILE  _TILE_2
 #define LEFT_ARROW_TILE              _TILE_3 
 #define RIGHT_ARROW_TILE             _TILE_4
-#define HORIZONTAL_LEFT_PLAYER_TILE  _TILE_2
-#define HORIZONTAL_RIGHT_PLAYER_TILE _TILE_8
-#define VERTICAL_WALL_TILE           _TILE_12
-#define HORIZONTAL_WALL_TILE         _TILE_13
-#define EMPTY_SLOT_TILE              _TILE_1
-#define HORIZONTAL_BAR_TILE          _TILE_11
-#define VERTICAL_BAR_TILE            _TILE_15
-#define SCORE_LHS_TILE               _TILE_14
-#define SCORE_RHS_TILE               _TILE_16
+#define UP_ARROW_TILE                _TILE_5
 #define HI_TILE                      _TILE_6
+#define DOWN_ARROW_TILE              _TILE_7
+#define HORIZONTAL_RIGHT_PLAYER_TILE _TILE_8
 #define LV_TILE                      _TILE_9
 #define LEFT_LHS_TILE                _TILE_10
+#define HORIZONTAL_BAR_TILE          _TILE_11
+#define VERTICAL_WALL_TILE           _TILE_12
+#define HORIZONTAL_WALL_TILE         _TILE_13
+#define SCORE_LHS_TILE               _TILE_14
+#define VERTICAL_BAR_TILE            _TILE_15
+#define SCORE_RHS_TILE               _TILE_16
 #define LEFT_RHS_TILE                _TILE_17
-#define BORDER_TILE0                 _TILE_25
+#define BORDER_TILE1                 _TILE_18
 #define CROSS_TILE                   _TILE_19
 #define RING_TILE                    _TILE_20
 #define BONUS_LINE_TILE              _TILE_21
 #define VERTICAL_BONUS_WALL_TILE     _TILE_22
 #define HORIZONTAL_BONUS_WALL_TILE   _TILE_23
-#define BORDER_TILE1                 _TILE_18
 #define BORDER_TILE2                 _TILE_24
+#define BORDER_TILE0                 _TILE_25
 #define BORDER_TILE3                 _TILE_26
 
 

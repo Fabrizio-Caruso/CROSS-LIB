@@ -88,6 +88,9 @@
     #if defined(ALTERNATE_COLORS)
         #define _XL_GREEN _ATARI_MODE1_GREEN
         #define _XL_CYAN _ATARI_MODE1_WHITE
+    #elif defined(ALTERNATE_COLORS2)
+        #define _XL_GREEN _ATARI_MODE1_GREEN
+        #define _XL_CYAN _ATARI_MODE1_CYAN
     #else
         #define _XL_GREEN _ATARI_MODE1_YELLOW
         #define _XL_CYAN _ATARI_MODE1_CYAN

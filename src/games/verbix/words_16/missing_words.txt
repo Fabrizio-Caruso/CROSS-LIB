@@ -5,3 +5,6 @@ DIDNT
 SAMOA
 NORSE
 MORSE
+SCUMM
+
+Country names

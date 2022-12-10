@@ -11,7 +11,7 @@ int main(void)
     foo = 1U;
     bar = 3U;  // Without this there is no bug
 
-    for(i=0;i<foo>>0;++i)
+    for(i=0;i<(int16_t) foo;++i)
     {
         printf("foo\n");
     }

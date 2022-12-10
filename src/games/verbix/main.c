@@ -222,20 +222,26 @@ void one_second_pause(void)
 }
 
 
-void display_letters(void)
-{
-    uint8_t i;
-    // aux: offset
-    
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    for(i=0;i<ALPHABET_SIZE;++i)
-    {
-        aux = LETTERS_X+(i&LETTERS_BIT_MASK);
-        _XL_CHAR(aux,i+LETTERS_Y,letter[i]);
-        _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
-    }
-}
+#if XSize>17
 
+    void display_letters(void)
+    {
+        uint8_t i;
+        // aux: offset
+        
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        for(i=0;i<ALPHABET_SIZE;++i)
+        {
+            aux = LETTERS_X+(i&LETTERS_BIT_MASK);
+            _XL_CHAR(aux,i+LETTERS_Y,letter[i]);
+            _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
+        }
+    }
+
+#else
+    
+    #define display_letters()
+#endif
 
 uint8_t x_slot(uint8_t x)
 {
@@ -823,6 +829,20 @@ void display_borders(uint8_t offset, uint8_t tile)
 #endif
 
 
+#if XSize>17
+    #define title_borders() display_borders(BORDER_OFFSET, BORDER_TILE1)
+#else
+    #define title_borders()
+#endif
+
+
+#if XSize>17
+    #define LETTERS_X XSize/2-7
+#else
+    #define LETTERS_X 0
+#endif
+
+
 #define title_screen() \
 do \
 { \
@@ -840,9 +860,9 @@ do \
     _XL_SET_TEXT_COLOR(_XL_RED); \
     _XL_PRINT(XSize/2-7,YSize/2-1, "FIND WORDS WITH"); \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-7,YSize/2+2,letter); \
+    _XL_PRINT(LETTERS_X,YSize/2+2,letter); \
     \
-    display_borders(BORDER_OFFSET, BORDER_TILE1); \
+    title_borders(); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     control_instructions(); \
@@ -938,16 +958,19 @@ void display_record(uint8_t x)
 #define INSTRUCTIONS_START_X ((XSize)/2-3)
 
 
+#if XSize>17
+    #define letter_values_borders() display_borders(BORDER_OFFSET+4,BORDER_TILE3);
+#else
+    #define letter_values_borders() display_borders(1,BORDER_TILE3);
+#endif
+
 #if defined(NO_LETTER_VALUES)
     #define display_letter_values()
 #else
 void display_letter_values(void)
 {
     
-    // _XL_DRAW(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y-2,SCORE_LHS_TILE, _XL_RED);
-    // _XL_DRAW(INSTRUCTIONS_START_X+1,INSTRUCTIONS_START_Y-2,SCORE_RHS_TILE, _XL_RED);
-    
-    display_borders(BORDER_OFFSET+4,BORDER_TILE3);
+    letter_values_borders();
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
@@ -970,9 +993,6 @@ void display_letter_values(void)
     _XL_PRINT(INSTRUCTIONS_START_X,INSTRUCTIONS_START_Y+6, "PMHY");        
     
     _XL_PRINT(INSTRUCTIONS_START_X, INSTRUCTIONS_START_Y-2, "POINTS");
-    // _XL_DRAW(INSTRUCTIONS_START_X, INSTRUCTIONS_START_Y-2, SCORE_LHS_TILE, _XL_RED);
-    // _XL_DRAW(INSTRUCTIONS_START_X+1, INSTRUCTIONS_START_Y-2, SCORE_RHS_TILE, _XL_RED);
-
     
     _XL_WAIT_FOR_INPUT();
     _XL_CLEAR_SCREEN();    
@@ -998,8 +1018,10 @@ do \
     #define BONUS_LINE_SIZE 4
 #elif XSize>20
     #define BONUS_LINE_SIZE 3
-#else
+#elif XSize>17
     #define BONUS_LINE_SIZE 2
+#else
+    #define BONUS_LINE_SIZE 1 
 #endif
 
 

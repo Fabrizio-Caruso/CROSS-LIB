@@ -82,6 +82,17 @@
             {
             }
         }
+    #elif defined(__CMOC__) // TODO: There should be a less hackish way
+        void _XL_SLOW_DOWN(uint16_t t)
+        {
+            volatile uint16_t i;
+            volatile uint16_t foo;
+
+            for(i=0;i<(t);++i)
+            {
+                foo=42+i;
+            }
+        }
     #else
         void _XL_SLOW_DOWN(uint16_t t)
         {

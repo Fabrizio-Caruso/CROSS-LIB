@@ -106,10 +106,17 @@
 #define LEVEL_X ((XSize)-2)
 #define LEVEL_Y 0U
 
-#define REMAINING_WORD_X ((LEVEL_X)-4)
-#define REMAINING_WORD_Y 0U
+    #define REMAINING_WORD_Y 0U
 
-#if XSize<22
+#if XSize>=17
+    #define REMAINING_WORD_X ((LEVEL_X)-4)
+#else
+    #define REMAINING_WORD_X ((LEVEL_X)-3)
+#endif
+
+#if XSize<17
+    #define HI_X 6
+#elif XSize<22
     #define HI_X (REMAINING_WORD_X-6)
 #else
     #define HI_X (((REMAINING_WORD_X)/2))
@@ -180,11 +187,17 @@ const uint8_t LETTER_COLOR[ALPHABET_SIZE/4] = {_XL_WHITE, _XL_YELLOW, _XL_CYAN, 
 
 
 // TODO: Better compute LETTERS_X
-#if XSize>=40
-    #define LETTERS_X 2
+// #if XSize>=40
+    // #define LETTERS_X 2
+// #else
+    // #define LETTERS_X 2  
+// #endif
+#if XSize>17
+    #define LETTERS_X XSize/2-7
 #else
-    #define LETTERS_X 2  
+    #define LETTERS_X 0
 #endif
+
 
 #if YSize<=18
     #define LETTERS_Y 1
@@ -223,6 +236,7 @@ void one_second_pause(void)
 
 
 #if XSize>17
+    #define DISPLAY_LETTERS_X 2
 
     void display_letters(void)
     {
@@ -232,7 +246,7 @@ void one_second_pause(void)
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         for(i=0;i<ALPHABET_SIZE;++i)
         {
-            aux = LETTERS_X+(i&LETTERS_BIT_MASK);
+            aux = DISPLAY_LETTERS_X+(i&LETTERS_BIT_MASK);
             _XL_CHAR(aux,i+LETTERS_Y,letter[i]);
             _XL_CHAR(XSize-aux,i+LETTERS_Y,letter[i]); 
         }
@@ -632,11 +646,16 @@ uint8_t word_in_dictionary(void)
     return binary_search(compress_bottom_word(),dictionary_index[matrix[0][0]], dictionary_index[matrix[0][0]+1]-1U);
 }
 
+#if XSize>17
+    #define SCORE_X_OFFSET 2
+#else
+    #define SCORE_X_OFFSET 0
+#endif
 
 void display_score(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE); 
-    _XL_PRINTD(SCORE_X+2,0,4,points);
+    _XL_PRINTD(SCORE_X+SCORE_X_OFFSET,0,4,points);
 }
 
 
@@ -836,13 +855,6 @@ void display_borders(uint8_t offset, uint8_t tile)
 #endif
 
 
-#if XSize>17
-    #define LETTERS_X XSize/2-7
-#else
-    #define LETTERS_X 0
-#endif
-
-
 #define title_screen() \
 do \
 { \
@@ -961,7 +973,7 @@ void display_record(uint8_t x)
 #if XSize>17
     #define letter_values_borders() display_borders(BORDER_OFFSET+4,BORDER_TILE3);
 #else
-    #define letter_values_borders() display_borders(1,BORDER_TILE3);
+    #define letter_values_borders() display_borders(2,BORDER_TILE3);
 #endif
 
 #if defined(NO_LETTER_VALUES)
@@ -1000,11 +1012,21 @@ void display_letter_values(void)
 #endif
 
 
+#if XSize>17
+    #define display_score_text() \
+    do \
+    { \
+        _XL_DRAW(SCORE_X,0,SCORE_LHS_TILE,_XL_GREEN); \
+        _XL_DRAW(SCORE_X+1,0,SCORE_RHS_TILE,_XL_GREEN); \
+    } while(0)
+#else
+    #define display_score_text()
+#endif
+
 #define display_score_glyphs() \
 do \
 { \
-    _XL_DRAW(SCORE_X,0,SCORE_LHS_TILE,_XL_GREEN); \
-    _XL_DRAW(SCORE_X+1,0,SCORE_RHS_TILE,_XL_GREEN); \
+    display_score_text(); \
     _XL_DRAW(REMAINING_WORD_X,REMAINING_WORD_Y,LEFT_LHS_TILE,_XL_YELLOW); \
     _XL_DRAW(REMAINING_WORD_X+1,REMAINING_WORD_Y,LEFT_RHS_TILE,_XL_YELLOW); \
 } while(0)

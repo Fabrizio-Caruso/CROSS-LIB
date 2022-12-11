@@ -2,11 +2,13 @@
 #define _CHAR_TILES_H
 
 #if defined(TARGET_SPECIFIC_ASCII)
+
     #if defined(__ZX81__)
         #include "zx81/zx81_char_tiles.h"
+    #elif defined(__MC10__)
+        #include "mc10/mc10_char_tiles.h"
     #endif
 #else
-
     #define _TILE_0 (unsigned char) '|'
     #define _TILE_1 (unsigned char) '.'
 

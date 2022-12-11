@@ -235,7 +235,7 @@ void one_second_pause(void)
 }
 
 
-#if XSize>17
+#if XSize>17 && YSize>16
     #define DISPLAY_LETTERS_X 2
 
     void display_letters(void)

@@ -179,10 +179,12 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 #if defined(__MC10__)
     void mc10_display_poke(uint16_t addr, uint8_t val)
     {
-        if((val>='A')&&(val<='Z'))
+        #if !defined(REVERSE_LETTERS)
+        if((val>='A')&&(val<='Z')) // TODO: Change this to allow negative letters
         {
             val = val-64;
         }
+        #endif
         POKE(addr,val);
     }
 #endif

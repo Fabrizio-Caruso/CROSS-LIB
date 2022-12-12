@@ -30,11 +30,16 @@
 #define CYAN_BLOCK (BLOCK_BASE+MC10_CYAN_OFFSET)
 #define ORANGE_BLOCK (BLOCK_BASE+MC10_ORANGE_OFFSET)
 
+#define T_LETTER 20
+#define V_LETTER 22
+#define QUESTION_MARK 33
+#define DOUBLE_QUOTES 34
+#define COLUMNS 58
 
 #define DIAMOND 42
 
-    #define _TILE_0 (unsigned char) 33
-    #define _TILE_1 (unsigned char) 34
+    #define _TILE_0 (unsigned char) QUESTION_MARK
+    #define _TILE_1 (unsigned char) COLUMNS
 
     #define _TILE_2 (unsigned char) '-'
 
@@ -42,11 +47,11 @@
 
     #define _TILE_4 (unsigned char) '>'
 
-    #define _TILE_5 (unsigned char) 'T'
+    #define _TILE_5 (unsigned char) 20
 
     #define _TILE_6 (unsigned char) 'H'
 
-    #define _TILE_7 (unsigned char) 'V'
+    #define _TILE_7 (unsigned char) 22
 
     #define _TILE_8 (unsigned char) '-'
 

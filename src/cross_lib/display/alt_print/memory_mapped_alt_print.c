@@ -356,8 +356,6 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
             || (defined(__VIC20__) && (defined(_API_VERSION) && _API_VERSION>=2)) \
             || defined(QUAD_MEMORY_MAPPED)
 			_DISPLAY(x+i,y, screenCode(str[i]));
-        // #elif defined(QUAD_MEMORY_MAPPED)
-			// _DISPLAY(x+i,y, str[i]-32u);
 		#else
 			_DISPLAY(x+i,y, str[i]);
 		#endif

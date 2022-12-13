@@ -1,5 +1,9 @@
-#ifndef _MC10_CHAR_TILES_H
-#define _MC10_CHAR_TILES_H
+#ifndef _VZ_CHAR_TILES_H
+#define _VZ_CHAR_TILES_H
+
+
+#define YELLOW_BLOCK 159
+
 
 
 #define MC10_GREEN_OFFSET 0
@@ -25,18 +29,16 @@
 #define RED_BLOCK (BLOCK_BASE+MC10_RED_OFFSET)
 #define CYAN_BLOCK (BLOCK_BASE+MC10_CYAN_OFFSET)
 #define ORANGE_BLOCK (BLOCK_BASE+MC10_ORANGE_OFFSET)
-#define YELLOW_BLOCK (BLOCK_BASE+MC10_YELLOW_OFFSET)
-
 
 #define T_LETTER 20
 #define V_LETTER 22
-#define EXPLAMATION_MARK 33
+#define QUESTION_MARK 33
 #define DOUBLE_QUOTES 34
 #define COLUMNS 58
 
 #define DIAMOND 42
 
-    #define _TILE_0 (unsigned char) EXPLAMATION_MARK
+    #define _TILE_0 (unsigned char) QUESTION_MARK
     #define _TILE_1 (unsigned char) COLUMNS
 
     #define _TILE_2 (unsigned char) '-'
@@ -45,11 +47,11 @@
 
     #define _TILE_4 (unsigned char) '>'
 
-    #define _TILE_5 (unsigned char) T_LETTER
+    #define _TILE_5 (unsigned char) 20
 
     #define _TILE_6 (unsigned char) 'H'
 
-    #define _TILE_7 (unsigned char) V_LETTER
+    #define _TILE_7 (unsigned char) 22
 
     #define _TILE_8 (unsigned char) '-'
 
@@ -91,5 +93,5 @@
 
 
 
-#endif // _MC10_CHAR_TILES_H
+#endif // _VZ_CHAR_TILES_H
 

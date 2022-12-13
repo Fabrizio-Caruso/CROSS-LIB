@@ -7,6 +7,10 @@
         #include "zx81/zx81_char_tiles.h"
     #elif defined(__MC10__)
         #include "mc10/mc10_char_tiles.h"
+    #elif defined(__VZ__)
+        #include "vz/vz_char_tiles.h"
+    #else
+        ERROR
     #endif
 #else
     #define _TILE_0 (unsigned char) '|'

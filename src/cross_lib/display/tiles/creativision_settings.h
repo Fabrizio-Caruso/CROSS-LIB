@@ -49,5 +49,8 @@
 #define _TILE_23 0x45
 #define _TILE_24 0x46
 
+// TODO: Check this
+#define _TILE_26 0x47
+
 #endif // _CREATIVISION_COLOR_REDEFINED_CHARS_SETTINGS
 

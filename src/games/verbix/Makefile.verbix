@@ -92,7 +92,7 @@ _SAMCOUPE_SLOWDOWN=300
 _SMS_SLOWDOWN=160
 _SPECTRUM_SLOWDOWN=160
 _VG5K_SLOWDOWN=75
-_VZ200_SLOWDOWN=250 
+_VZ200_SLOWDOWN=170 
 _ZX81_SLOWDOWN=60
 _ZX81_WRX_SLOWDOWN=1
 
@@ -1298,7 +1298,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 #################################################################
 vz200: vz200_24k
 
-vz200_24k: 	
+vz200_cconio_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
@@ -1312,6 +1312,21 @@ vz200_24k:
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
+
+vz200_24k: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
+	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
+	-DSOUNDS -D__VZ__ -D_XL_NO_COLOR -DALT_PRINT \
+	-DNO_EXTRA_TITLE \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
+	-DMEMORY_MAPPED -D_XL_NO_UDG \
+	-lndos \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/vz200/vz200_init_graphics.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 #################################################################
 

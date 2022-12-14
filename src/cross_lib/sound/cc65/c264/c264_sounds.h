@@ -24,7 +24,10 @@
 
 #ifndef __C264_SOUNDS
 #define __C264_SOUNDS
-	#include<peekpoke.h>
+    #if !defined(PEEK)
+        #include<peekpoke.h>
+    #endif
+    
     #include<stdint.h>
 	
 	#define NOISE 64

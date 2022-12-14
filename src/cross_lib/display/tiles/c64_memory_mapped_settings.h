@@ -24,7 +24,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include<conio.h>
-#include <peekpoke.h>
+// #include <peekpoke.h>
 
 #include <stdio.h>
 #include <stdlib.h>

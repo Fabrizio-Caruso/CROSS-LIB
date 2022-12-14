@@ -20,7 +20,10 @@
 #else
     
     #if defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED)
-        #include<peekpoke.h>
+
+        #if !defined(PEEK)
+            #include <peekpoke.h>
+        #endif
         #define textcolor(c) POKE(0x053B,c)
         #define bgcolor(c)
         #define bordercolor(c)

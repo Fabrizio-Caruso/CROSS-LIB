@@ -1,9 +1,5 @@
-#ifndef _VZ200_CHAR_TILES_H
-#define _VZ200_CHAR_TILES_H
-
-
-#define YELLOW_BLOCK 159
-
+#ifndef _VZ_CHAR_TILES_H
+#define _VZ_CHAR_TILES_H
 
 
 #define MC10_GREEN_OFFSET 0
@@ -18,43 +14,27 @@
 #define CHEQUERED_BASE 137
 #define BLOCK_BASE 143
 
-// #define GREEN_CHEQUERED (CHEQUERED_BASE+MC10_GREEN_OFFSET)
-// #define YELLOW_CHEQUERED (CHEQUERED_BASE+MC10_YELLOW_OFFSET)
-// #define BLUE_CHEQUERED (CHEQUERED_BASE+MC10_BLUE_OFFSET)
-// #define RED_CHEQUERED (CHEQUERED_BASE+MC10_RED_OFFSET)
-// #define WHITE_CHEQUERED (CHEQUERED_BASE+MC10_WHITE_OFFSET)
-// #define CYAN_CHEQUERED (CHEQUERED_BASE+MC10_CYAN_OFFSET)
-#define GREEN_CHEQUERED '-'
-#define YELLOW_CHEQUERED '-'
-#define BLUE_CHEQUERED '-'
-#define RED_CHEQUERED '-'
-#define WHITE_CHEQUERED '-'
-#define CYAN_CHEQUERED '-'
+#define GREEN_CHEQUERED (CHEQUERED_BASE+MC10_GREEN_OFFSET)
+#define YELLOW_CHEQUERED (CHEQUERED_BASE+MC10_YELLOW_OFFSET)
+#define BLUE_CHEQUERED (CHEQUERED_BASE+MC10_BLUE_OFFSET)
+#define RED_CHEQUERED (CHEQUERED_BASE+MC10_RED_OFFSET)
+#define WHITE_CHEQUERED (CHEQUERED_BASE+MC10_WHITE_OFFSET)
+#define CYAN_CHEQUERED (CHEQUERED_BASE+MC10_CYAN_OFFSET)
 
 
-// #define RED_BLOCK (BLOCK_BASE+MC10_RED_OFFSET)
-// #define CYAN_BLOCK (BLOCK_BASE+MC10_CYAN_OFFSET)
-// #define ORANGE_BLOCK (BLOCK_BASE+MC10_ORANGE_OFFSET)
+#define RED_BLOCK (BLOCK_BASE+MC10_RED_OFFSET)
+#define CYAN_BLOCK (BLOCK_BASE+MC10_CYAN_OFFSET)
+#define ORANGE_BLOCK (BLOCK_BASE+MC10_ORANGE_OFFSET)
+#define YELLOW_BLOCK (BLOCK_BASE+MC10_YELLOW_OFFSET)
 
-#define RED_BLOCK ' '
-#define CYAN_BLOCK ' '
-#define ORANGE_BLOCK ' '
 
-#define T_LETTER 'T'
-#define V_LETTER 'V'
+#define T_LETTER 20
+#define V_LETTER 22
 #define EXPLAMATION_MARK 33
-// #define DOUBLE_QUOTES '"'
-#define COLUMNS ':'
+#define DOUBLE_QUOTES 34
+#define COLUMNS 58
 
-#define BORDER_A 'X'
-#define BORDER_B 'X'
-#define BORDER_C 'X'
-#define BORDER_D 'X'
-
-
-// #define DIAMOND 42
-#define DIAMOND ' '
-
+#define DIAMOND 42
 
     #define _TILE_0 (unsigned char) EXPLAMATION_MARK
     #define _TILE_1 (unsigned char) COLUMNS
@@ -65,11 +45,11 @@
 
     #define _TILE_4 (unsigned char) '>'
 
-    #define _TILE_5 (unsigned char) 'T'
+    #define _TILE_5 (unsigned char) T_LETTER
 
     #define _TILE_6 (unsigned char) 'H'
 
-    #define _TILE_7 (unsigned char) 'V'
+    #define _TILE_7 (unsigned char) V_LETTER
 
     #define _TILE_8 (unsigned char) '-'
 
@@ -77,7 +57,7 @@
 
     #define _TILE_10 (unsigned char) 'W'
 
-    #define _TILE_11 (unsigned char) ' '
+    #define _TILE_11 (unsigned char) RED_BLOCK
 
     #define _TILE_12 (unsigned char) CYAN_BLOCK
 
@@ -85,31 +65,31 @@
 
     #define _TILE_14 (unsigned char) 'S'
 
-    #define _TILE_15 (unsigned char) ' '
+    #define _TILE_15 (unsigned char) RED_BLOCK
 
     #define _TILE_16 (unsigned char) 'C'
 
     #define _TILE_17 (unsigned char) 'D'
 
-    #define _TILE_18 (unsigned char) BORDER_A
+    #define _TILE_18 (unsigned char) 217
 
-    #define _TILE_19 (unsigned char) 'X'
+    #define _TILE_19 (unsigned char) ORANGE_BLOCK
 
     #define _TILE_20 (unsigned char) DIAMOND
 
-    #define _TILE_21 (unsigned char) '-'
+    #define _TILE_21 (unsigned char) 150
 
-    #define _TILE_22 (unsigned char) ' '
+    #define _TILE_22 (unsigned char) YELLOW_BLOCK
 
-    #define _TILE_23 (unsigned char) ' '
+    #define _TILE_23 (unsigned char) YELLOW_BLOCK
 
-    #define _TILE_24 (unsigned char) BORDER_B
+    #define _TILE_24 (unsigned char) 137
 
-    #define _TILE_25 (unsigned char) BORDER_C
+    #define _TILE_25 (unsigned char) 166
 
-    #define _TILE_26 (unsigned char) BORDER_D
+    #define _TILE_26 (unsigned char) 233
 
 
 
-#endif // _VZ200_CHAR_TILES_H
+#endif // _VZ_CHAR_TILES_H
 

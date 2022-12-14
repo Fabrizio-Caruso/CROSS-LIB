@@ -20,6 +20,8 @@
         #define BASE_ADDR 0xC000
         #define COLOR_ADDR 0xD800
     #endif
+#elif defined(__VZ__)
+    #define BASE_ADDR 0x7000
 #elif defined(__MC10__)
 	#define BASE_ADDR 0x4000   
 #elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
@@ -66,7 +68,10 @@
 #elif defined(__CREATIVISION__)
     #define VDP_DATA  0x3000
     #define VDP_CONTROL 0x3001
-    #include <peekpoke.h>
+
+    #if !defined(PEEK)
+        #include <peekpoke.h>
+    #endif
         
     #define CHAR_BASE ((uint16_t) 0x0000)
     #define COLOR_DEF ((uint16_t) 0x1800)   

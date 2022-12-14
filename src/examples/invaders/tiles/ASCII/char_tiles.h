@@ -28,5 +28,7 @@
 
 #define _TILE_8 '='
 
+#define _TILE_26 'A'
+
 #endif // _CHAR_TILES_H
 

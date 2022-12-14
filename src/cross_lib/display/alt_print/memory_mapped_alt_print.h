@@ -16,12 +16,6 @@
 
 void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
 
-void print_05u0(uint8_t x, uint8_t y, uint16_t val);
-
-void print_02u(uint8_t x, uint8_t y, uint16_t val);
-
-void print_u(uint8_t x, uint8_t y, uint16_t val);
-
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 
 #endif // _MEMORY_MAPPED_ALT_PRINT

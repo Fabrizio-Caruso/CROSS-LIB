@@ -8,10 +8,13 @@
         #include "memory_mapped_graphics.h"
     #endif
 #endif
+
+
 #include "memory_mapped_alt_print.h"
 
 #include "standard_libs.h"
 
+#include "display_macros.h"
 
 #if defined(BUFFERED)	
 

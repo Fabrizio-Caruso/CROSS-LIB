@@ -1,4 +1,7 @@
-#include <peekpoke.h>
+
+#if !defined(PEEK)
+    #include <peekpoke.h>
+#endif
 #include <vic20.h>
 #include <stdint.h>
 

@@ -18,6 +18,10 @@ https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caru
 2. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_laser500.bin
 
+3. Video Technology Laser 200 / VZ200: 
+https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vz200_24k.vz
+
+
 ## CROSS HORDE
 
 ![CPC](../snapshots/XHorde_CPC.png)

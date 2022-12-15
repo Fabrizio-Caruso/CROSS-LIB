@@ -166,6 +166,7 @@ uint8_t level;
 uint8_t remaining_words;
 uint8_t max_level_counter;
 uint8_t low_letter_bonus;
+uint8_t refresh;
 
 
 uint8_t precomputed_letter[NO_OF_PRECOMPUTED_LETTERS];
@@ -327,6 +328,7 @@ void display_bottom_row(void)
     {
         draw_letter(i,0);
     }
+    refresh = 1;
 }
 
 
@@ -430,6 +432,7 @@ void delete_player(void)
 
 void display_vertical_player(uint8_t player_tile)
 {
+    refresh = 1;
     _XL_DRAW(player_slot_x(), PLAYER_Y, player_tile, PLAYER_COLOR);
 
 }
@@ -450,7 +453,6 @@ void display_horizontal_right_player(uint8_t player_tile)
 void display_player(void)
 {
     // short_pause();
-    
     if(player_x==MIN_PLAYER_X)
     {
         display_horizontal_left_player(HORIZONTAL_LEFT_PLAYER_TILE);
@@ -462,7 +464,8 @@ void display_player(void)
     else
     {
         display_vertical_player(VERTICAL_PLAYER_TILE);
-    }    
+    }   
+    refresh = 0;    
 }
     
 //
@@ -706,7 +709,8 @@ void remove_bottom_word(void)
 
 void handle_input(void)
 {
-    uint8_t input; 
+    uint8_t input;
+    
     input = _XL_INPUT();
         
     if(_XL_LEFT(input))
@@ -784,7 +788,7 @@ void handle_input(void)
             drop_letter();
         }
     }
-    else
+    else if(refresh)
     {
         display_player();
     }

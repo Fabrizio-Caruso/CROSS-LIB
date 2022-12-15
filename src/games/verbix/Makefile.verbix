@@ -1583,54 +1583,6 @@ coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fi
 	rm XCHASE.BIN
 
 
-
-coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/main.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
-	main.o coco_init_graphics.o \
-	display_macros.o dac_sounds.o \
-	memory_mapped_alt_print.o sleep_macros.o \
-	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o
-	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
-	cmoc_udc_tiles_and_fonts.o \
-	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
-	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
-	rm XCHASE.BIN
-
-
 dragon_no_gfx:
 	$(CMOC) \
 	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \

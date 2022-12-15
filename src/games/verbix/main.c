@@ -390,7 +390,7 @@ void drop_letter(void)
     }
     else
     {
-        new_letter = _XL_RAND()%ALPHABET_SIZE;
+        new_letter = (uint8_t) _XL_RAND()%ALPHABET_SIZE;
     }
 
     matrix[slot_index][height]= new_letter;
@@ -575,9 +575,9 @@ uint8_t letter_index(uint8_t letter_to_check)
 // 'O', 'T', 'N', 'S' , ->   7 points
 // 'L', 'C', 'U', 'D',  ->  11 points
 // 'P', 'M', 'H', 'Y'   ->  15 points
-uint16_t word_score(void)
+uint8_t word_score(void)
 {
-    uint16_t score = 0;
+    uint8_t score = 0;
     uint8_t i;
     
     for(i=0;i<WORD_SIZE;++i)
@@ -951,7 +951,7 @@ void shuffle(void)
     
     for(i=NO_OF_PRECOMPUTED_LETTERS-1;i>0;--i)
     {
-        swap(i,(_XL_RAND())%i);
+        swap(i,(uint8_t) (_XL_RAND())%i);
     }
 }
 
@@ -1156,13 +1156,15 @@ void initialize_level(void)
         precomputed_letter[WORD_SIZE*i] = first_letter(random_dictionary_index);
         for(j=1;j<WORD_SIZE;++j)
         {
-            precomputed_letter[WORD_SIZE*i+j]=(compressed_code>>((4U-j)*4U))&0x000F;
+            // Extract the nibble from compressed_code corresponding to the letters starting from second (j=1) till fifth position (j=4)
+            precomputed_letter[WORD_SIZE*i+j]=(uint8_t) ((compressed_code>>((4U-j)*4U))&0x000F);
         }
     }
 
     for(i=SIZE_OF_PRECOMPUTED_WORDS;i<NO_OF_PRECOMPUTED_LETTERS;++i)
     {
-        precomputed_letter[i]=_XL_RAND()%ALPHABET_SIZE;
+        // No need to apply cast to the full operation as ALPHABET_SIZE is 16, which is a divisor of 256
+        precomputed_letter[i]=(uint8_t) _XL_RAND()%ALPHABET_SIZE; 
     }
 
     // Fisher-Yates shuffle on precomputed words

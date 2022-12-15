@@ -55,6 +55,8 @@ _APPLE2ENH_HGR_SLOWDOWN=50
 _ATARI_SLOWDOWN=120
 _ATARI5200_SLOWDOWN=120
 _ATARI_LYNX_SLOWDOWN=200
+_ATARI7800_NO_COLOR_SLOWDOWN=50
+_ATARI7800_SLOWDOWN=400
 _C16_SLOWDOWN=55
 _C64_SLOWDOWN=45
 _CREATIVISION_SLOWDOWN=100
@@ -412,6 +414,29 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.lnx
+
+
+#################################################################
+
+atari7800: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl -O -t atari7800 --force-import __EXEHDR__ \
+	-DFULL_GAME -DSOUNDS -D_XL_NO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) -DXSize=20 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+
+
+atari7800_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg -DFULL_GAME -DSOUNDS -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -DNO_SET_SCREEN_COLORS -DNO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_NO_COLOR_SLOWDOWN) -DXSize=34 -DX_OFFSET=3 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+    
+
+
 
 #################################################################
 

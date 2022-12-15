@@ -269,8 +269,10 @@ uint8_t y_slot(uint8_t y)
 }
 
 
-void draw_letter(uint8_t x, uint8_t y, uint8_t letter_index)
+void draw_letter(uint8_t x, uint8_t y)
 {
+    uint8_t letter_index = matrix[x][y];
+    
     _XL_SET_TEXT_COLOR(LETTER_COLOR[letter_index>>2]);
     _XL_CHAR(x_slot(x),y_slot(y),letter[letter_index]);
 }
@@ -323,7 +325,7 @@ void display_bottom_row(void)
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        draw_letter(i,0,matrix[i][0]);
+        draw_letter(i,0);
     }
 }
 
@@ -334,7 +336,7 @@ void display_column(uint8_t row)
     
     for(i=0;i<matrix_height[row];++i)
     {
-        draw_letter(row,i,matrix[row][i]);
+        draw_letter(row,i);
     }  
     for(;i<MAX_HEIGHT-1;++i)
     {
@@ -390,7 +392,7 @@ void drop_letter(void)
     }
 
     matrix[slot_index][height]= new_letter;
-    draw_letter(slot_index,height,new_letter);
+    draw_letter(slot_index,height);
     if(height==MAX_HEIGHT-1)
     {
         alive = 0;

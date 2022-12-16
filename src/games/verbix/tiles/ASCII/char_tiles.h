@@ -9,6 +9,10 @@
         #include "mc10/mc10_char_tiles.h"
     #elif defined(__VZ__)
         #include "vz/vz_char_tiles.h"
+    #elif defined(__ATARI7800__) && !defined(_XL_NO_COLOR)
+        #include "atari7800/atari7800_char_tiles.h"
+    #elif defined(__ATARI7800__) && defined(_XL_NO_COLOR)
+        #include "atari7800/atari7800_no_color_char_tiles.h" 
     #else
         ERROR
     #endif

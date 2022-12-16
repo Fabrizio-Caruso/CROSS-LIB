@@ -1326,6 +1326,33 @@ int main(void)
 {        
     initialize_input_output();
     
+    // DEBUG --------------------
+    // { 
+        // uint8_t i;
+        // uint8_t j;
+        // uint8_t k;
+        // i=0;
+        // j=0;
+        // k=0;
+        // do
+        // {
+            // if(!i)
+            // {
+                // _XL_PRINTD(0,j,3,k);
+            // }
+            // _XL_CHAR(i+5,j,k);
+            // ++i;
+            // if(i==16)
+            // {
+                // i=0;
+                // ++j;
+            // }
+            // ++k;
+        // } while(k!=255);
+    // }
+    // while(1){};
+    // --------------------------
+    
     // record is set to zero because it is a global variable
     
     // main loop

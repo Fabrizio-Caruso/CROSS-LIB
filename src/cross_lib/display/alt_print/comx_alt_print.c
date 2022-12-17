@@ -19,6 +19,7 @@ unsigned int strlen(char *str)
 }
 #endif
 
+// TODO: This is broken with a const parameter
 void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
 #if !defined(__CIDELSA__)

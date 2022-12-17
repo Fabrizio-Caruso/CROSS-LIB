@@ -285,6 +285,9 @@
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
     void _XL_SET_TEXT_COLOR(uint8_t c);
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
+    #define _XL_SET_TEXT_COLOR(c) textcolor(_COMX_TEXT_WHITE)
+    // #define _XL_SET_TEXT_COLOR(c)
 #else
     #define _XL_SET_TEXT_COLOR(c) textcolor(c)
 #endif

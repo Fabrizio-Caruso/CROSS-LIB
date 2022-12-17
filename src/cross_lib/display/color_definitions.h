@@ -112,6 +112,28 @@
 
 #elif defined(COMX_COLOR)
 
+    /*
+    
+    _textcolor:             ; set text to 'color' in R12.0
+                            ; 0: black
+                            ; 1: green
+                            ; 2: blue
+                            ; 3: cyan
+                            ; 4: red
+                            ; 5: yellow
+                            ; 6: magenta
+                            ; 7: white
+--
+    _textcolor:             ; set text to 'color' in R12.0
+                            ; 0: 'low' character color (character 0-127)
+                            ; 1: 'high' chatacter color (character 128-255)
+    */
+    #define _COMX_TEXT_CYAN 128
+    #define _COMX_TEXT_GREEN 128
+    #define _COMX_TEXT_YELLOW 0
+    #define _COMX_TEXT_RED 0
+    #define _COMX_TEXT_WHITE 0
+
     #if defined(__MICRO__) 
         #define _COMX_BLUE 0
         #define _COMX_GREEN 0

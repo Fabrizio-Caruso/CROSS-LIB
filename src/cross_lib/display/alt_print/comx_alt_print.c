@@ -41,7 +41,12 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     #define _DISPLAY(__x,__y,__ch) vidcharxy(__x+X_OFFSET,__y+Y_OFFSET, (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
-#define _XL_CHAR(x,y,ch) _DISPLAY(x,y,(ch+80+128))
+// #define _COMX_CYAN 128
+// #define _COMX_WHITE 0
+
+#define COLOR_BIT 0
+
+#define _XL_CHAR(x,y,ch) _DISPLAY(x,y,(ch+80+COLOR_BIT))
 
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
@@ -53,7 +58,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-		_DISPLAY(x+length-1-i,y, (uint8_t) (digit));
+		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+128));
 	}
 }	
 

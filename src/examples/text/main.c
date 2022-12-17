@@ -68,6 +68,13 @@ void print_text(uint8_t x, uint8_t y, const char *str)
     }
 }
 
+
+void small_pause(void)
+{
+    _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+}
+
+
 int main(void)
 {        
     uint8_t i;
@@ -122,17 +129,22 @@ int main(void)
                 _XL_WAIT_FOR_INPUT();
 
                 _XL_PRINT_CENTERED_ON_ROW(i,"0123456789");
+                small_pause();
                 
                 _XL_WAIT_FOR_INPUT();
                 
                 _XL_PRINT_CENTERED_ON_ROW(i-1,"ABCDEFGHIJ");
                 _XL_PRINT_CENTERED_ON_ROW(i,  "KLMNOPQRST");
-                _XL_PRINT_CENTERED_ON_ROW(i+1,"UVWXYZ    ");                
+                _XL_PRINT_CENTERED_ON_ROW(i+1,"UVWXYZ    ");      
+                small_pause();
+                
                 _XL_WAIT_FOR_INPUT();
 
                 _XL_PRINT_CENTERED_ON_ROW(i-1,_XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
                 _XL_PRINT_CENTERED_ON_ROW(i,  _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
-                _XL_PRINT_CENTERED_ON_ROW(i+1,_XL_u _XL_v _XL_w _XL_x _XL_y _XL_z _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);                
+                _XL_PRINT_CENTERED_ON_ROW(i+1,_XL_u _XL_v _XL_w _XL_x _XL_y _XL_z _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+                small_pause();
+                
                 _XL_WAIT_FOR_INPUT();
                 
                 _XL_CLEAR_SCREEN();

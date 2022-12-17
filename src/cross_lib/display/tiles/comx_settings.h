@@ -57,7 +57,7 @@
 
 #define _TILE_25 '$'
 
-#define _TILE_26 'g'
+#define _TILE_26 ('a'-2)
 
 // GREEN
 #define _TILE_8 'r'
@@ -81,7 +81,6 @@
 
 #define _TILE_13 ('z'+PALETTE_SWITCH)
 
-#define _TILE_5_B ('X'+PALETTE_SWITCH)
 
 #if !defined(__COMX__)
 #define _TILE_19 ('a')

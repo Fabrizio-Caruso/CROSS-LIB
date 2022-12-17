@@ -181,7 +181,12 @@
         cputc(ch); \
     } while(0)
 #elif defined(ALT_PRINT)
-    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
+    // TODO: Hack to avoid a problem with LCC1802
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    #else
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);   
+    #endif
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 

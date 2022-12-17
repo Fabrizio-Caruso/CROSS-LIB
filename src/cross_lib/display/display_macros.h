@@ -183,7 +183,7 @@
 #elif defined(ALT_PRINT)
     // TODO: Hack to avoid a problem with _XL_PRINT when using LCC1802
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)
-    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #else
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);   
     #endif

@@ -20,12 +20,12 @@ unsigned int strlen(char *str)
 #endif
 
 // TODO: This is broken with a const parameter
-void _XL_PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 {
 #if !defined(__CIDELSA__)
-    vidstrcpy((uint16_t) BASE_ADDR+x+y*40,str);
+    vidstrcpy((uint16_t) BASE_ADDR+x+y*40,(char *)str);
 #else
-    vidstrcpy((uint16_t) 0xF800+REAL_XSIZE*40-40 -(uint16_t)(x+X_OFFSET)*(uint16_t)40+(y+Y_OFFSET),str);
+    vidstrcpy((uint16_t) 0xF800+REAL_XSIZE*40-40 -(uint16_t)(x+X_OFFSET)*(uint16_t)40+(y+Y_OFFSET),(char *)str);
 #endif
 }
 

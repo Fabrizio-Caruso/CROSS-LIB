@@ -659,6 +659,17 @@ run
 
 Use Bill's MEMU (http://www.primrosebank.net/computers/mtx/emulators/Bills_MEMU_ds.htm)
 
+memu -tape-overwrite -vid-win-big -snd-portaudio <path to the .mtx file>
+
+Type:
+LO.""
+
+Then:
+
+RUN
+
+
+---
 Place the .mtx binary into the directory "tapes"
 
 Use memu-cfg.exe 

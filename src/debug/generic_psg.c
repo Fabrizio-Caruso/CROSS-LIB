@@ -7,7 +7,7 @@ int main(void)
     
     psg_init();                       
     psg_volume(0, 15);        
-    psg_channels(1, 0); // set first channel to tone generation, reset noise channels
+    //psg_channels(1, 0); // set first channel to tone generation, reset noise channels
           
     for(i=0;i<16;i++)
     {

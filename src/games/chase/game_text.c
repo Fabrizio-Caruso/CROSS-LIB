@@ -31,6 +31,7 @@
 #include "cross_lib.h"
 #include "init_images.h"
 
+#define TEXT_COLOR _XL_WHITE
 
 extern uint8_t guns;
 extern Image GUN_IMAGE;

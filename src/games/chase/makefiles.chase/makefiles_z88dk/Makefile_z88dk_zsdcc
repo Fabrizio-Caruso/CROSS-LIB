@@ -215,7 +215,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 
 mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
-	-subtype=gaming \
+	-subtype=gaming -DYSize=24 \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \
@@ -237,7 +237,7 @@ mc1000: mc1000_16k
 
 mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(INCLUDE_OPTS) \
-	-subtype=gaming \
+	-subtype=gaming -DYSize=24 \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \

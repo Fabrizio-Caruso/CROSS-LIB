@@ -89,7 +89,7 @@ _MSX_SLOWDOWN=250
 _MSX_FIXED_COLORS_SLOWDOWN=300
 _MTX500_SLOWDOWN=250
 _MTX512_SLOWDOWN=250
-_MZ_SLOWDOWN=25s0
+_MZ_SLOWDOWN=250
 _SAMCOUPE_SLOWDOWN=300
 _SMS_SLOWDOWN=260
 _SPECTRUM_SLOWDOWN=160
@@ -1109,14 +1109,35 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MC1000__ -DSOUNDS-DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
-	-create-app -o mc1000.bin \
+	-create-app -o $@.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/X$(GAME_NAME)_mc1000_joystick.wav
-	rm mc1000.bin
-	rm mc1000.cas
+	mv $@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	rm $@.bin
+	rm $@.cas
+
+
+mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-define:REGISTER_SP=0x3fff \
+	-subtype=gaming \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC1000_SLOWDOWN) \
+	-DZ88DK_JOYSTICK  \
+	-DFULL_GAME -DFORCE_SCREEN_MODE=2 -DXSize=16 -D_BACKGROUND_COLOR=_XL_WHITE -DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-D__MC1000__ -DSOUNDS-DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -Cz--audio \
+	-create-app -o $@.bin \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	mv $@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	rm $@.bin
+	rm $@.cas
 
 
 #################################################################
@@ -1167,11 +1188,13 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 mtx: mtx512
 
+# $(CROSS_LIB_PATH)/sound/z88dk/psg/sn76489a_psg_sounds.c
+# -DFORCE_PSG_SOUND
 mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn \
-	-DSOUNDS  \
+	-DSOUNDS -DPSG_SOUNDS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MTX512_SLOWDOWN) \
 	-DCONIO \
 	-lndos \

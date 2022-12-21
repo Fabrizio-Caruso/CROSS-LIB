@@ -24,7 +24,13 @@ void _XL_INIT_GRAPHICS(void)
 		#else
 			#define SCREEN_MODE 2
 		#endif
-		int mode = SCREEN_MODE;
+        
+        #if defined(__MC1000__) && defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+            int mode = SCREEN_MODE + 32;
+        #else
+            int mode = SCREEN_MODE;
+        #endif
+            
 		console_ioctl(IOCTL_GENCON_SET_MODE, &mode);
         
 	}

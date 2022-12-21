@@ -369,6 +369,25 @@
     #define _XL_WHITE 6
     #define _XL_MAGENTA 7
     #define _XL_BLACK 8
+    
+#elif defined(__MC1000__)
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #define _XL_WHITE MAGENTA
+        #define _XL_CYAN CYAN
+        #define _XL_YELLOW MAGENTA
+        #define _XL_GREEN CYAN
+        #define _XL_RED RED
+        #define _XL_MAGENTA MAGENTA
+        #define _XL_BLUE BLUE
+    #else
+        #define _XL_BLACK CYAN
+        #define _XL_WHITE RED
+        #define _XL_YELLOW YELLOW
+        #define _XL_RED RED
+        #define _XL_GREEN BLUE
+        #define _XL_CYAN BLUE
+        #define _XL_BLUE BLUE
+    #endif
 #else // Z88DK
     #define _XL_BLACK BLACK
     #if defined(__PC6001__) || defined(__SPC1000__)
@@ -406,6 +425,8 @@
         #define _XL_MAGENTA MAGENTA
         #define _XL_BLUE BLUE
     #endif
+
+   
 
 #endif
 

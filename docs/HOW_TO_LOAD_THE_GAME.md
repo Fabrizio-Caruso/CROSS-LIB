@@ -147,7 +147,10 @@ Reset
 
 ### CCE MC-1000
 
-Use the MESS emulator.
+Use the MESS emulator 
+e.g. 
+mess64.exe mc1000 -uimodekey DEL -window 
+mess64.exe mc1000 -uimodekey DEL -window -ramsize 48k (for the 48k expansion)       )   
 
 Use File Manager to attach the WAV file
 

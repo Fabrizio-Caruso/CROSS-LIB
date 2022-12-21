@@ -218,14 +218,13 @@
     } while(0)
 #endif
 
-
+//         _XL_SET_TEXT_COLOR(TEXT_COLOR);
 #if defined(NO_SET_SCREEN_COLORS) || defined(NO_GRAPHICS)
     #define setScreenColors()
 #else
     #define setScreenColors() \
     do \
     { \
-        _XL_SET_TEXT_COLOR(TEXT_COLOR); \
         SET_BORDER_COLOR(BORDER_COLOR); \
         SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
     } while(0)

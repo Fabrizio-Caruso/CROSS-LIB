@@ -10,7 +10,8 @@
     || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) \
     || (defined(__ATARI5200__) && !defined(ATARI_MODE_1_COLOR)) \
     || (defined(__CREATIVISION__) && !defined(CREATIVISION_COLOR)) \
-    || defined(__WINCMOC__) || (defined(__COCO__)&&!defined(BIT_MAPPED_4)) || (defined(__DRAGON__)&&!defined(BIT_MAPPED_4)) || defined(__OSIC1P__) || defined(__MC1000__) \
+    || defined(__WINCMOC__) || (defined(__COCO__)&&!defined(BIT_MAPPED_4)) || (defined(__DRAGON__)&&!defined(BIT_MAPPED_4)) || defined(__OSIC1P__) \
+    || (defined(__MC1000__)  && !defined(FORCE_SCREEN_MODE)) \
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(MEMORY_MAPPED)) \
     || defined(__VZ__) \
     || (defined(__ATARI__) && !defined(ATARI_MODE_1_COLOR)) \
@@ -33,9 +34,16 @@
 #endif
 
 #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-    #define BACKGROUND_COLOR _XL_WHITE
 
-    #define BORDER_COLOR _XL_WHITE
+    #if defined(WHITE)
+        #define BACKGROUND_COLOR WHITE
+
+        #define BORDER_COLOR WHITE
+    #else
+        #define BACKGROUND_COLOR _XL_WHITE
+
+        #define BORDER_COLOR _XL_WHITE
+    #endif
 #else
     #if defined(_XL_BLACK)
         #define BACKGROUND_COLOR _XL_BLACK

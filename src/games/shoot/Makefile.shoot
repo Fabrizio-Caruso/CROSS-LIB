@@ -1013,9 +1013,9 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-mc1000: mc1000_exp_48k
+mc1000: mc1000_48k
 
-mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
+mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming  -DEXTRA_TITLE \
 	-DZ88DK_JOYSTICK \
@@ -1025,15 +1025,15 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
-	-create-app -o mc1000.bin \
+	-create-app -o $@.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/X$(GAME_NAME)_mc1000_X$(GAME_NAME)_exp_48k_joystick.wav
-	rm mc1000.bin
-	rm mc1000.cas
+	mv $@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@_X$(GAME_NAME).wav
+	rm $@.bin
+	rm $@.cas
 
 
 #################################################################

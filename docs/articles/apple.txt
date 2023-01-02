@@ -1,26 +1,26 @@
+
+# INTRODUCTION
 Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for more than 200 8-bit systems from the ‘80s (computers, consoles, calculators, arcade boards, etc.) 
 such as Commodore 64, Commodore VIC 20, other Commodore computers, Thomson Mo5 and To7, Apple ][, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, 
 MSX, Oric-1, Oric Atmos, BBC Micro, TRS-80 CoCo, Dragon 32, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
-and other devices such as Texas Instruments calculators such as the TI 83, etc. with main CPU architectures Zilog 80, MOS 6502 and Motorola 6809. 
-A partial list with more than 160 supported systems is at the page: 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
+and other devices such as Texas Instruments calculators such as the TI 83, etc. with main CPU architectures such as  Zilog 80, MOS 6502, Intel 8080, Motorola 6803, Motorola 6809 and RCA 1802. 
 Cross-Lib also supports several quite rare systems such as the Philips VG-5000, the Jupiter Ace, the Alice Matra, etc. 
+A partial list of the supported systems is at the page: 
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
 and some very rare and exotic systems such as for example several computers for Eastern Europe such as the yugoslav Galaksija, the Hungarian Homlab-2, 
 several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
 
-Nowadays, there are several tool that allow to code for retro-systems very easily on a modern PC. We refer to this as cross-development.
+Nowadays, there are several tool that allow to code for retro-systems very easily on a modern PC.
 Historically, 8-bit systems were programmed directly on the system mostly in Assembly, or for simpler programs in interpreted BASIC.
-Today cross-development simplies a lot developers’ tasks (modern editors, simplfied debugging, efficient and quick compilation, etc.). Programming for these machines is still often done in Assembly in order to maximally exploit the hardware resources of these machines at the cost of not having portable code.
+Today cross-development simplifies a lot developers’ tasks (modern editors, simplified debugging, efficient and quick compilation, etc.). Programming for these machines is still often done in Assembly in order to maximally exploit the hardware resources of these machines at the cost of not having portable code.
 Most retro-developers want to exploit the machine optimally. In the past, portability was not a priority for retro-coding because it was hard to have it on machines that were so diverse and because it would have imposed limitations on the possibility to exploit each machine’s features. The most evident example of retro-development that exploits the limits (and even goes beyond the previously know hardware limits) are the demo-scene productions. We see some very recent games for certain 8-bit computers (such as the Commodores, the Sinclairs and the Ataris) that have graphics features, which were considered impossible on such computers, 20 years ago, even if the hardware has not changed. For example we now have games with multi-color sprites on the Sinclair ZX Spectrum, which does not have hardware sprites not any multi-color graphics.
 
-Recently we have seen the release of tools that enable us to write partially portable code for several different systems. One example is Z88DK with its C libraries for almost a hundred computers and consoles based on the Zilog 80 and Intel 8080 architectures. Two other examples are the CC65 dev-kit and 8-bit-Unity [un8] (based on CC65) for the development in C on MOS6502-based architectures. Thanks to these tools we have started to see 8-bit multi-platform games, which do not necessarily exploit all details of each machine but are nevertheless well-done and with nice eye-candy such as 8-bit-Slick (written with 8-bit-Unity and CC65).
-
 The problem with the portability of C code comes from the diversity of the machines and from the fact that ANSI C does not provide a standard library for graphics, sounds, input, etc.
-A partial solution is given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. By using one of these dev-kits, we can exploit its libraries for input and output that are compatible across multiple systems of the same architecture.
+A partial solution is given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. 
+By using one of these dev-kits, we can exploit its libraries for input and output that are compatible across multiple systems of the same architecture.
 On the other hand we still have some problems:
 1. Each dev-kit only covers a subset of the 8-bit architectures.
 2. The libraries provided by the dev-kits do not always cover all graphics features, sound and input on its supported machines.
-
 
 Cross-Lib allows you to do certain things that you cannot do with other tools:
 1. cover all vintage 8- it architectures, including the most exotic ones;
@@ -35,12 +35,88 @@ On the other hand Cross-Lib is not a compiler. It uses several compilers to buil
 for retro-consoles and retro-computers.
 Cross-Lib is also a set of tools (scripts) for the build process and automatic graphics asset adaptation to all systems.
 By providing an abstraction layer for all 8-bit systems, Cross-Lib is making some compromises with respect to what one could do for a specific system if we wanted 
-to code just for that system. In particular graphics is limited by what is possible on all system. Also sound effects are very limited.
-There are several dev-kits for multiple systems but very few support WORA development such as for example Z88DK and 8-Bit-Unity. 
-There are others that are not WORA and that, in some cases, do not use C as it is the case for TRSE [trse] (“Turbo Rascal Syntax Error”).
-
+to code just for that system. In particular graphics is limited by what is possible on all systems. Also sound effects are very limited.
+There are several dev-kits for multiple systems but very few support WORA development. 
 
 Cross-Lib is the only WORA dev-kit that allows to code for nearly all 8-bit architectures and systems. On the other hand, 
 Cross-Lib does not provide APIs for sprites nor any other high level APIs. The reason is that Cross-Lib covers all systems, 
 including the ones that do not have no hardware sprites or not even real graphics at all. 
 The only way to implement sprites with Cross-Lib is to use pre-shifted tiles whose use will be covered in the next sections.
+
+
+
+# COMPILERS
+
+Cross-Lib is supposed to be used with C compilers but which ones? 
+
+A native compiler (for example GCC) can be used to build native binaries that can be run, for instance, under Windows. Today the support for native compilation is limited to the text terminal, which means no graphics other than ASCII on the host machine.
+
+Currently Cross-Lib fully supports the following cross-compilers and dev-kits with graphics and sound effects:
+- CC65 [cc65] for most systems based on the MOS 6502 architecture; 
+- Z88DK [z88dk] for systems based on the Zilog 80 and Intel 8080 architectures;
+- CMOC [cmoc] for systems that use the Motorola 6809;
+- LCC1802 [lcc1802] for systems that use the COSMAC RCA 1802 ;
+- GCC for TI [ti] for the Texas Instruments TI99/4A based on the 16-bit TMS9900.
+
+Cross-Lib also supports other compilers (currently without graphics and sound effects) such as 
+ACK [ack] for 8088/8086, 
+Intel 8080 CP/M, 386/68K/PPC/MIPS Linux and PDP11, 
+XTC68 [xtc69] for the Sinclair QL, 
+VBCC [vbcc] for the BBC Micro, BBC Master, the Amiga and others, 
+CC6303 [cc6303] for the Motorola 6803; 
+several versions of modded GCC to target vintage computers (Atari ST [st], Olivetti M20 [m20]).
+
+Cross-Lib only supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of C89.
+Therefore we write in C (a sub-set of ANSI C C89) with Cross-Lib APIs for graphics, sounds, input and other functions that allow us to write universal code for cases where there is no uniquely defined standard C equivalent.
+
+In particular we must avoid:
+- "float" and "double", 
+- copies and parameters by value of "struct" objects,
+- any use of the heap.
+
+
+# INSTALLATION
+
+Cross-Lib does not require any real installation. It is enough to download the repository files (from the GitHub page(  or to clone the repository with:
+git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
+
+On the other hand it requires:
+- a POSIX environment (e.g., Windows with Cygwin, Linux or FreeBSD);
+- Makefile (GNU Make);
+- Python 2.7 or Python 3.*;
+- [optional but required for the Apple //] JAVA;
+- [optional] GCC compiler with ncurses libraries;
+- [optional] any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.).
+
+Once you have Cross-Lib with its dependencies in a POSIX environment, you should move to the "src" directory.
+Inside "src" you will find the following directories 
+- "cross-lib", which contains the library code;
+- "games" with built-in games;
+- "examples" with built-in examples;
+- "projects" with user-defined projetcs.
+
+
+If you have correctly installed Makefile, Python and (native) GCC in a any POSIX environment and nothing else, 
+it is already possible to minimally use Cross-Lib to build the XChase game with:
+"xl chase gcc", which will build Chase in turn-based mode for the native console.
+
+
+# HOW TO USE THE XL SCRIPT
+
+If one of the supported compilers, it can be used with the "xl" Python script inside the "src" directory.
+If GCC with ncurses is installed, a native version of the games and examples can be built with:
+"xl build <project name>" or just "xl <project name>"
+For example "xl snake" builds the "snake" game for the native console.
+
+If a cross compiler (CC65, Z88DK, CMOC, CC6303, LCC1802, etc) is installed, the games and examples can be built for the corresponding systems.
+For example, if CC65 is installed, "xl horde apple2" builds the "horde" game for the Apple ][.
+
+The "xl" script takes many commands. In particular you can see a list of the available commands with "xl commands".
+You can get an explanation of each command with examples with "xl help <command name>".
+
+If we want to create a new project, we need to use "xl create <project name>", 
+which will create a project with a trivial "hello world" example inside the "projects" directory.
+We can start with a template code for a game if we pass an additional parameter: "xl create <project name> game".
+
+ 
+# HOW TO CODE

@@ -9,27 +9,28 @@ A partial list of the supported systems is at the page:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
 and some very rare and exotic systems such as for example several computers for Eastern Europe such as the yugoslav Galaksija, the Hungarian Homlab-2, 
 several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
+I have chosen the name Cross-Lib as a contraction for “cross-compilable library”. Therefore Cross-Lib is (above all) a C software library that can be compiled by several cross-compilers for almost 
+all 8-bit consoles and computers from the ‘80s. It allows writing universal games for more than 200 different vintage machines (mostly 8-bit but not limited to 8-bit).
+
 
 Nowadays, there are several tool that allow to code for retro-systems very easily on a modern PC.
 Historically, 8-bit systems were programmed directly on the system mostly in Assembly, or for simpler programs in interpreted BASIC.
 Today cross-development simplifies a lot developers’ tasks (modern editors, simplified debugging, efficient and quick compilation, etc.). Programming for these machines is still often done in Assembly in order to maximally exploit the hardware resources of these machines at the cost of not having portable code.
-Most retro-developers want to exploit the machine optimally. In the past, portability was not a priority for retro-coding because it was hard to have it on machines that were so diverse and because it would have imposed limitations on the possibility to exploit each machine’s features. The most evident example of retro-development that exploits the limits (and even goes beyond the previously know hardware limits) are the demo-scene productions. We see some very recent games for certain 8-bit computers (such as the Commodores, the Sinclairs and the Ataris) that have graphics features, which were considered impossible on such computers, 20 years ago, even if the hardware has not changed. For example we now have games with multi-color sprites on the Sinclair ZX Spectrum, which does not have hardware sprites not any multi-color graphics.
+Most retro-developers want to exploit the machine optimally.
 
 The problem with the portability of C code comes from the diversity of the machines and from the fact that ANSI C does not provide a standard library for graphics, sounds, input, etc.
 A partial solution is given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. 
-By using one of these dev-kits, we can exploit its libraries for input and output that are compatible across multiple systems of the same architecture.
+By using one of these dev-kits, we can exploit their cross-compatible libraries for input and output.
 On the other hand we still have some problems:
 1. Each dev-kit only covers a subset of the 8-bit architectures.
 2. The libraries provided by the dev-kits do not always cover all graphics features, sound and input on its supported machines.
 
 Cross-Lib allows you to do certain things that you cannot do with other tools:
-1. cover all vintage 8- it architectures, including the most exotic ones;
+1. cover many more vintage 8-bit architectures, including very exotic ones;
 2. writing 100% WORA ("write once, run anywhere") code;
 3. using WORA graphics resources, i.e., you can define graphics elements (“tiles”) once for (nearly) all systems;
 4. using a simplified tool-chain to create, compile and test the games.
 
-I have chosen the name Cross-Lib as a contraction for “cross-compilable library”. Therefore Cross-Lib is (above all) a C software library that can be compiled by several cross-compilers for almost 
-all 8-bit consoles and computers from the ‘80s. It allows writing universal games for more than 200 different vintage machines (mostly 8-bit but not limited to 8-bit).
 
 On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executables, disk images, tape images, cartridge images, etc.) 
 for retro-consoles and retro-computers.
@@ -40,8 +41,8 @@ There are several dev-kits for multiple systems but very few support WORA develo
 
 Cross-Lib is the only WORA dev-kit that allows to code for nearly all 8-bit architectures and systems. On the other hand, 
 Cross-Lib does not provide APIs for sprites nor any other high level APIs. The reason is that Cross-Lib covers all systems, 
-including the ones that do not have no hardware sprites or not even real graphics at all. 
-The only way to implement sprites with Cross-Lib is to use pre-shifted tiles whose use will be covered in the next sections.
+including the ones that do not have hardware sprites or not even real graphics at all. 
+The only way to implement sprites with Cross-Lib is to use pre-shifted tiles.
 
 
 
@@ -106,17 +107,114 @@ it is already possible to minimally use Cross-Lib to build the XChase game with:
 If one of the supported compilers, it can be used with the "xl" Python script inside the "src" directory.
 If GCC with ncurses is installed, a native version of the games and examples can be built with:
 "xl build <project name>" or just "xl <project name>"
-For example "xl snake" builds the "snake" game for the native console.
+For example 
+"xl snake" 
+builds the "snake" game for the native console.
 
 If a cross compiler (CC65, Z88DK, CMOC, CC6303, LCC1802, etc) is installed, the games and examples can be built for the corresponding systems.
-For example, if CC65 is installed, "xl horde apple2" builds the "horde" game for the Apple ][.
+For example, if CC65 is installed, 
+"xl horde apple2" 
+builds the "horde" game for the Apple ][.
 
 The "xl" script takes many commands. In particular you can see a list of the available commands with "xl commands".
-You can get an explanation of each command with examples with "xl help <command name>".
+You can get an explanation of each command with examples with 
+"xl help <command name>".
 
-If we want to create a new project, we need to use "xl create <project name>", 
+If we want to create a new project, we need to use 
+"xl create <project name>", 
 which will create a project with a trivial "hello world" example inside the "projects" directory.
 We can start with a template code for a game if we pass an additional parameter: "xl create <project name> game".
 
  
-# HOW TO CODE
+# HOW TO CODE WITH THE EXAMPLES
+
+Coding with Cross-Lib is like normal coding with ANSI C89 with the only difference that all input/output is done through Cross-Lib APIs.
+
+Cross-Lib comes with many examples in the src/examples/ directory as well as a few games in src/games.
+Both of which can be used to learn how to code with Cross-Lib.
+
+We could start to look at src/examples/helloworld/, whose main.c files contains: 
+
+#include "cross_lib.h"
+
+int main(void)
+{        
+    _XL_INIT_GRAPHICS();
+
+    _XL_CLEAR_SCREEN();
+
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+
+    _XL_PRINT_CENTERED("HELLO WORLD");
+
+    while(1){};
+    
+    return EXIT_SUCCESS;
+}
+
+We remark that all Cross-Lib specific functions start with the _XL_ prefix: 
+1. _XL_INIT_GRAPHICS() required to initialize the display ;
+2. _XL_CLEAR_SCREEN()  which cleans the content of the screen ;
+3. _XL_SET_TEXT_COLOR(_XL_WHITE) which defines the color to be used by the text and characters ;
+4. _XL_PRINT_CENTERED("HELLO WORLD") which displays "HELLO WORLD" on the center of the screen.
+
+If we want to use one of the examples or even games as a starting point we can clone the project with:
+xl clone <existing project to clone> <new project name>
+
+Or we can start from (almost) scratch with
+xl create <new project name>
+
+Once we have a new project, we can build it with
+xl <project> <target>
+
+or
+
+xl <project>
+if we want to build the project for the native terminal.
+
+We can run the project for the native terminal with:
+xl run <project>
+
+For example we could do the following operations:
+xl clone helloworld myhelloworld [to clone helloworld and create myhellworld]
+We modify the project myhelloworld (found inside ./src/projects/myhelloworld/)
+xl build myhelloworld (or equivalently xl myhelloworld) [to build a native binary of the new project]
+xl run myhelloworld [to run the new project]
+
+
+# CODING WITH ABSTRACTIONS
+
+In order to code with Cross-Lib for all targets at the same time, Cross-Lib uses several abstractions.
+
+Sound is currently only limited to few sound effects that are rendered somehow similarly across multiple targets.
+
+Input is only limited to 4 directions and a single fire button. On each target this will be mapped to either 5 keys (usually I J K L SPACE)
+or the main joystick/controller/gamepad.
+
+Graphics is only tile-based and it is performed by either displaying "tiles", whose shape can be freely defined or 
+by "characters" (letters, digits and the space character).
+Each concrete target will interpret tiles in two different ways depending on whether the target can or cannot assign free shapes to tiles.
+ASCII-only targets will be able to assign ASCII shapes to characters, whereas targets with real graphics will assign a "freely defined" shape to the tile.
+
+
+
+# GRAPHICS
+
+As graphics is only tile-based. The actual drawings boil down to the shapes of each tile. The definition of these shapes is not done in the C code.
+Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and for the different tile shapes, 
+e.g., 8x8 (for most targets), 7x8 (for Apple //), 6x8 (for Oric and NTSC COMX-35), etc... 
+
+In the aforementioned files the shapes are described by either ASCII codes for ASCII-only targets or sequences of bytes for graphics-enabled targets.
+
+These files can be:
+1. either edited manually or 
+2. automatically imported from several programs such as CharPad (with "xl import <file> <project>") or 
+3. automatically ripped from BASIC or Assembly listings (with "xl rip <file> <project>") or
+4. generated by some simple "pictorial" text files with drawings made of "#" and "." characters 
+(with "xl shapes <project> <x_size> <y_size> or "xl tile <file> <project> <tile number>".
+
+You can see how to use these commands by running "xl help <command name>".
+
+
+
+

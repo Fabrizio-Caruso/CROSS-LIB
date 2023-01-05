@@ -131,7 +131,7 @@ which will create a project with a trivial "hello world" example inside the "pro
 We can start with a template code for a game if we pass an additional parameter: "xl create <project name> game".
 
  
-# HELLOWORLD
+# HELLO WORLD
 
 Coding with Cross-Lib is like normal coding in C (with ANSI C89) with the only addition that all input/output is done through Cross-Lib APIs.
 
@@ -207,20 +207,33 @@ Running "xl manual" will output a manual with all commands.
 
 # MAIN DEVELOPMENT FLOW
 
-...
+Producing "universal" games with Cross-Lib for the developer boils down to these main steps:
+- Creating or cloning a project (with xl create or xl clone);
+- Writing the abstract game code in ANSI C with Cross-Lib APIs for input/output;
+- Manually creating or automatically importing abstract assets (with commands such as e.g., xl shapes, xl import, xl rip, xl tile);
+- Running the xl script to build the project for one or multiple targets (with xl build).
+
+The "xl build <project> <target>" command (or its equivalent short form "xl <project> <target>") 
+executes one or several Makefile targets, which generally:
+- generate a concrete asset file from the abstract asset files
+- compile the source code
+- link the source code with the asset files
+- if necessary a tool is used to create a usable disk/floppy/rom/cartridge image
+
+
 
 
 # GRAPHICS
 
 Graphics is performed by either displaying "tiles", whose shape can be freely defined or by "characters" (letters, digits and the space character).
-Characters and tiles have the same size. Characters are used for the text, whereas tiles are mostly used for graphics.
+Characters and tiles have the same size. Characters are used for the text, whereas tiles are used for graphics.
 
-ASCII-only targets will be able to assign ASCII shapes to tiles, whereas targets with real graphics will assign a "freely defined" shape to the tile.
+ASCII-only targets will be able to only assign ASCII shapes to tiles, whereas targets with real graphics will assign a "freely defined" shape to the tile.
 
-Currently each tile only has one foreground color and a common background color. The actual drawings boil down to the shapes of each tile. 
-The definition of these shapes is not done in the C code.
-Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and for the graphics-enabled targets, 
-e.g., 8x8 (for most targets), 7x8 (for Apple //), 6x8 (for Oric and NTSC COMX-35), etc... 
+Currently each tile only has one tile-specific foreground color and a common background color.
+The definition of their shapes is not done in the C code.
+Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and 
+for the graphics-enabled targets, e.g., 8x8 (for most targets), 7x8 (for Apple //), 6x8 (for Oric and NTSC COMX-35), etc... 
 
 In the aforementioned files the shapes are described by either ASCII codes for ASCII-only targets or sequences of bytes for graphics-enabled targets.
 
@@ -233,7 +246,7 @@ These files can be:
 
 You can see how to use these commands by running "xl help <command name>".
 
-In the code tile graphics is primarily performed by these commands to display a tile and to delete it (restore with an empty space filled with sthe background color):
+In the code tile graphics is primarily performed by these commands that display a tile or delete it:
 void _XL_DRAW_TILE(uint8_t x, uint8_t y, uint8_t tile_number, uint8_t tile_color);
 void _XL_DELETE(uint8_t x, uint8_t y);
 
@@ -263,7 +276,7 @@ uint8_t _XL_FIRE(uint8_t input);
 # GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
 
 Inside the src/examples/animate directory you can find the following example that could be used as a blueprint for a simple game.
-This examples has graphics, input and sound.
+This trivial example has graphics, input and sound.
 When compiled for any of the possible systems, it will produce the very same program but the exact tile shapes and sounds will depend on the target.
 For example it can be compiled for the native console with:
 xl animate

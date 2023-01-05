@@ -367,3 +367,27 @@ int main(void)
     return EXIT_SUCCESS;
 }
 
+
+# THE GAMES
+
+Cross-Lib comes with some games I have written with it. As for January 2023, it includes six games:
+- Cross Verbix
+- Cross Horde
+- Cross Snake
+- Cross Bomber
+- Cross Shoot
+- Cross Chase
+which are also refered to as Verbix, Horde, Snake, Bomber, Shoot, Chase.
+
+## VERBIX
+
+Verbix is a Scrabble-like game that looks a bit like Tetrix.
+In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
+You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
+
+    Cross Horde is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
+    Cross Snake is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
+    Cross Bomber is a mini-game and clone of Air Attack (aka Blitz).
+    Cross Shoot is a shooter somehow similar to Robotron. It has many items and secrets to discover.
+    Cross Chase is somehow similar to Gnome Robots. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
+

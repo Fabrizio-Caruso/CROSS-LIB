@@ -1,5 +1,16 @@
-
 # INTRODUCTION
+
+The goal of this article is three-fold:
+1. I present the Cross-Lib framework, its goals, its architecture.
+2. I give a short description of how it is used.
+3. I present the 6 "universal" games I have written with it.
+
+By "universal" here I mean that these games will run on about 200 different systems (consoles, computers, arcade boards, pocket calculators, etc.) despite using the very same game code.
+
+A detailed description of Cross-Lib is not in the scope of this article.
+For more details we refer to the GitHub page: http://www.github.com/Fabrizio-Caruso/CROSS-LIB/
+
+# WHAT IS CROSS-LIB?
 Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for more than 200 8-bit systems from the ‘80s (computers, consoles, calculators, arcade boards, etc.) 
 such as Commodore 64, Commodore VIC 20, other Commodore computers, Thomson Mo5 and To7, Apple ][, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, 
 MSX, Oric-1, Oric Atmos, BBC Micro, TRS-80 CoCo, Dragon 32, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
@@ -9,17 +20,16 @@ A partial list of the supported systems is at the page:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
 and some very rare and exotic systems such as for example several computers for Eastern Europe such as the yugoslav Galaksija, the Hungarian Homlab-2, 
 several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
-I have chosen the name Cross-Lib as a contraction for “cross-compilable library”. Therefore Cross-Lib is (above all) a C software library that can be compiled by several cross-compilers for almost 
-all 8-bit consoles and computers from the ‘80s. It allows writing universal games for more than 200 different vintage machines (mostly 8-bit but not limited to 8-bit).
 
+Cross-Lib is made of:
+1. A "universal" C library (e.g., a collection of C APIs);
+2. Scripts to manage game projects (e.g., build, create, etc.) and manipulate graphics assets (e.g., import, create, etc.)
 
-Nowadays, there are several tool that allow to code for retro-systems very easily on a modern PC.
 Historically, 8-bit systems were programmed directly on the system mostly in Assembly, or for simpler programs in interpreted BASIC.
-Today cross-development simplifies a lot developers’ tasks (modern editors, simplified debugging, efficient and quick compilation, etc.). Programming for these machines is still often done in Assembly in order to maximally exploit the hardware resources of these machines at the cost of not having portable code.
-Most retro-developers want to exploit the machine optimally.
+Today cross-development simplifies a lot developers’ tasks (modern editors, simplified debugging, efficient and quick compilation, etc.). 
 
 The problem with the portability of C code comes from the diversity of the machines and from the fact that ANSI C does not provide a standard library for graphics, sounds, input, etc.
-A partial solution is given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. 
+A partial solution is already given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. 
 By using one of these dev-kits, we can exploit their cross-compatible libraries for input and output.
 On the other hand we still have some problems:
 1. Each dev-kit only covers a subset of the 8-bit architectures.
@@ -28,22 +38,16 @@ On the other hand we still have some problems:
 Cross-Lib allows you to do certain things that you cannot do with other tools:
 1. cover many more vintage 8-bit architectures, including very exotic ones;
 2. writing 100% WORA ("write once, run anywhere") code;
-3. using WORA graphics resources, i.e., you can define graphics elements (“tiles”) once for (nearly) all systems;
+3. using WORA graphics resources, i.e., you can define graphics elements (“tiles”) once for several totally different systems;
 4. using a simplified tool-chain to create, compile and test the games.
-
 
 On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executables, disk images, tape images, cartridge images, etc.) 
 for retro-consoles and retro-computers.
-Cross-Lib is also a set of tools (scripts) for the build process and automatic graphics asset adaptation to all systems.
+
 By providing an abstraction layer for all 8-bit systems, Cross-Lib is making some compromises with respect to what one could do for a specific system if we wanted 
-to code just for that system. In particular graphics is limited by what is possible on all systems. Also sound effects are very limited.
-There are several dev-kits for multiple systems but very few support WORA development. 
+to code just for that system. In particular, graphics is limited by what is possible on all systems. Also sound effects are very limited.
 
-Cross-Lib is the only WORA dev-kit that allows to code for nearly all 8-bit architectures and systems. On the other hand, 
-Cross-Lib does not provide APIs for sprites nor any other high level APIs. The reason is that Cross-Lib covers all systems, 
-including the ones that do not have hardware sprites or not even real graphics at all. 
-The only way to implement sprites with Cross-Lib is to use pre-shifted tiles.
-
+Cross-Lib is the only WORA dev-kit that allows to code for nearly all 8-bit architectures and systems.
 
 
 # COMPILERS
@@ -78,12 +82,13 @@ In particular we must avoid:
 
 # INSTALLATION
 
-Cross-Lib does not require any real installation. It is enough to download the repository files (from the GitHub page(  or to clone the repository with:
+Cross-Lib does not require any real installation. 
+It is enough to download the repository files (from the GitHub page)  or to clone the repository with:
 git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 
 On the other hand it requires:
 - a POSIX environment (e.g., Windows with Cygwin, Linux or FreeBSD);
-- Makefile (GNU Make);
+- Make (GNU Make);
 - Python 2.7 or Python 3.*;
 - [optional but required for the Apple //] JAVA;
 - [optional] GCC compiler with ncurses libraries;
@@ -97,14 +102,14 @@ Inside "src" you will find the following directories
 - "projects" with user-defined projetcs.
 
 
-If you have correctly installed Makefile, Python and (native) GCC in a any POSIX environment and nothing else, 
-it is already possible to minimally use Cross-Lib to build the XChase game with:
+If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, 
+it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
 "xl chase gcc", which will build Chase in turn-based mode for the native console.
 
 
 # HOW TO USE THE XL SCRIPT
 
-If one of the supported compilers, it can be used with the "xl" Python script inside the "src" directory.
+If just one of the supported compilers is installed, Cross-Lib can be used with the "xl" Python script inside the "src" directory.
 If GCC with ncurses is installed, a native version of the games and examples can be built with:
 "xl build <project name>" or just "xl <project name>"
 For example 
@@ -114,7 +119,7 @@ builds the "snake" game for the native console.
 If a cross compiler (CC65, Z88DK, CMOC, CC6303, LCC1802, etc) is installed, the games and examples can be built for the corresponding systems.
 For example, if CC65 is installed, 
 "xl horde apple2" 
-builds the "horde" game for the Apple ][.
+builds the "horde" game for the Apple //.
 
 The "xl" script takes many commands. In particular you can see a list of the available commands with "xl commands".
 You can get an explanation of each command with examples with 
@@ -126,11 +131,11 @@ which will create a project with a trivial "hello world" example inside the "pro
 We can start with a template code for a game if we pass an additional parameter: "xl create <project name> game".
 
  
-# HOW TO CODE WITH THE EXAMPLES
+# HELLOWORLD
 
-Coding with Cross-Lib is like normal coding with ANSI C89 with the only difference that all input/output is done through Cross-Lib APIs.
+Coding with Cross-Lib is like normal coding in C (with ANSI C89) with the only addition that all input/output is done through Cross-Lib APIs.
 
-Cross-Lib comes with many examples in the src/examples/ directory as well as a few games in src/games.
+Cross-Lib comes with many examples in the src/examples/ directory as well as a few games in the src/games directory.
 Both of which can be used to learn how to code with Cross-Lib.
 
 We could start to look at src/examples/helloworld/, whose main.c files contains: 
@@ -158,7 +163,7 @@ We remark that all Cross-Lib specific functions start with the _XL_ prefix:
 3. _XL_SET_TEXT_COLOR(_XL_WHITE) which defines the color to be used by the text and characters ;
 4. _XL_PRINT_CENTERED("HELLO WORLD") which displays "HELLO WORLD" on the center of the screen.
 
-If we want to use one of the examples or even games as a starting point we can clone the project with:
+If we want to use one of the examples or games as a starting point we can clone the project with:
 xl clone <existing project to clone> <new project name>
 
 Or we can start from (almost) scratch with
@@ -175,33 +180,46 @@ if we want to build the project for the native terminal.
 We can run the project for the native terminal with:
 xl run <project>
 
-For example we could do the following operations:
+For example we could run these commands:
 xl clone helloworld myhelloworld [to clone helloworld and create myhellworld]
 We modify the project myhelloworld (found inside ./src/projects/myhelloworld/)
 xl build myhelloworld (or equivalently xl myhelloworld) [to build a native binary of the new project]
 xl run myhelloworld [to run the new project]
+xl build myhelloworld apple2 [to build the same project for the Apple //]
 
 
 # CODING WITH ABSTRACTIONS
 
 In order to code with Cross-Lib for all targets at the same time, Cross-Lib uses several abstractions.
 
+Graphics is only tile-based. In the code, tiles are abstract as their exact shape will depend on the target type.
+The code only sees the macros _TILE_0, _TILE_1, _TILE_2, etc. that contain uint_8t values (which depend on the target).
+Each concrete target will interpret tiles in different ways depending on whether the target can or cannot assign free shapes to tiles and 
+on the number of pixels that define tiles on that system.
+
 Sound is currently only limited to few sound effects that are rendered somehow similarly across multiple targets.
 
 Input is only limited to 4 directions and a single fire button. On each target this will be mapped to either 5 keys (usually I J K L SPACE)
 or the main joystick/controller/gamepad.
 
-Graphics is only tile-based and it is performed by either displaying "tiles", whose shape can be freely defined or 
-by "characters" (letters, digits and the space character).
-Each concrete target will interpret tiles in two different ways depending on whether the target can or cannot assign free shapes to tiles.
-ASCII-only targets will be able to assign ASCII shapes to characters, whereas targets with real graphics will assign a "freely defined" shape to the tile.
+Running "xl manual" will output a manual with all commands.
 
+
+# MAIN DEVELOPMENT FLOW
+
+...
 
 
 # GRAPHICS
 
-As graphics is only tile-based. The actual drawings boil down to the shapes of each tile. The definition of these shapes is not done in the C code.
-Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and for the different tile shapes, 
+Graphics is performed by either displaying "tiles", whose shape can be freely defined or by "characters" (letters, digits and the space character).
+Characters and tiles have the same size. Characters are used for the text, whereas tiles are mostly used for graphics.
+
+ASCII-only targets will be able to assign ASCII shapes to tiles, whereas targets with real graphics will assign a "freely defined" shape to the tile.
+
+Currently each tile only has one foreground color and a common background color. The actual drawings boil down to the shapes of each tile. 
+The definition of these shapes is not done in the C code.
+Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and for the graphics-enabled targets, 
 e.g., 8x8 (for most targets), 7x8 (for Apple //), 6x8 (for Oric and NTSC COMX-35), etc... 
 
 In the aforementioned files the shapes are described by either ASCII codes for ASCII-only targets or sequences of bytes for graphics-enabled targets.
@@ -215,6 +233,124 @@ These files can be:
 
 You can see how to use these commands by running "xl help <command name>".
 
+In the code tile graphics is primarily performed by these commands to display a tile and to delete it (restore with an empty space filled with sthe background color):
+void _XL_DRAW_TILE(uint8_t x, uint8_t y, uint8_t tile_number, uint8_t tile_color);
+void _XL_DELETE(uint8_t x, uint8_t y);
 
 
+# SOUND
+
+Sound is even more limited than graphics and it is limited to a few predefined effects.
+The sound commands have this form:
+void _XL_<effect name>_SOUND(void);
+
+For example:
+XL_EXPLOSION_SOUND() produces an explosion sound (or something vaguely similar to it depending on the target)
+
+
+# INPUT
+
+Input is limited to four directions and a single fire button.
+The input APIs are:
+uint8_t _XL_INPUT(void);
+uint8_t _XL_LEFT(uint8_t input);
+uint8_t _XL_RIGHT(uint8_t input);
+uint8_t _XL_UP(uint8_t input);
+uint8_t _XL_DOWN(uint8_t input);
+uint8_t _XL_FIRE(uint8_t input);
+
+
+# GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
+
+Inside the src/examples/animate directory you can find the following example that could be used as a blueprint for a simple game.
+This examples has graphics, input and sound.
+When compiled for any of the possible systems, it will produce the very same program but the exact tile shapes and sounds will depend on the target.
+For example it can be compiled for the native console with:
+xl animate
+or for the Apple // with
+xl animate apple2
+
+
+#include "cross_lib.h"
+
+#define MIN_X 1
+#define MAX_X (XSize-2)
+#define MIN_Y 1
+#define MAX_Y (YSize-2)
+#define DOWN_TILE  _TILE_0
+#define UP_TILE    _TILE_1 
+#define RIGHT_TILE _TILE_2
+#define LEFT_TILE  _TILE_3 
+#define FIRE_TILE  _TILE_4
+
+int main(void)
+{ 
+ uint8_t x;
+ uint8_t y;
+ uint8_t input;
+ uint8_t tile;
+
+ _XL_INIT_GRAPHICS();
+ _XL_INIT_SOUND();
+ _XL_INIT_INPUT();
+
+ _XL_CLEAR_SCREEN();
+
+ x = XSize/2;
+ y = YSize/2;
+ tile = DOWN_TILE;
+ hile(1)
+ {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(0,0,3,x);
+        _XL_PRINTD(5,0,3,y);
+        
+        input = _XL_INPUT();
+        if(_XL_UP(input))
+        {
+            _XL_DELETE(x,y);
+            tile = UP_TILE;
+            --y;
+        }
+        else if (_XL_DOWN(input))
+        {
+            _XL_DELETE(x,y);
+            tile = DOWN_TILE;
+            ++y;
+        }
+        else if (_XL_LEFT(input))
+        {
+            _XL_DELETE(x,y);
+            tile = LEFT_TILE;
+            --x;
+        }
+        else if(_XL_RIGHT(input))
+        {
+            _XL_DELETE(x,y);
+            tile = RIGHT_TILE;
+            ++x;
+        }
+        else if(_XL_FIRE(input))
+        {
+            _XL_DRAW(x,y,FIRE_TILE,_XL_WHITE);
+            _XL_EXPLOSION_SOUND();
+            _XL_SLOW_DOWN(16*_XL_SLOW_DOWN_FACTOR);  
+        }
+        
+        if((y>=MIN_Y)&&(y<=MAX_Y)&&(x>=MIN_X)&&(x<=MAX_X))
+        {
+            _XL_DRAW(x,y,tile,_XL_WHITE);
+        }
+        else
+        {
+            _XL_DELETE(x,y);
+            _XL_ZAP_SOUND();
+            _XL_SLOW_DOWN(16*_XL_SLOW_DOWN_FACTOR);  
+            x = XSize/2;
+            y = YSize/2;
+        }    
+        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);    
+    }
+    return EXIT_SUCCESS;
+}
 

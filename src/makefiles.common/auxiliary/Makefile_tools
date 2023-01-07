@@ -42,17 +42,19 @@ $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
 	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GMAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
 
 
+
+
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
     $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 
 clean_tools:
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
@@ -61,8 +63,11 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/mo5/sap/*.o
 	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/src/*.o
 	rm -rf $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/*.o
 	rm -rf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
 

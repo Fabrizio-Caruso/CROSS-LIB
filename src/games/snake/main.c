@@ -747,7 +747,7 @@ void handle_transparent_horizontal_wall(void)
         DISPLAY_LIVES();
         _XL_PING_SOUND();
         _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_RED);
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*5);
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*5U);
         _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
         _XL_PING_SOUND();
@@ -1137,7 +1137,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
         _XL_SHOOT_SOUND();
         _XL_SLOW_DOWN((_XL_SLOW_DOWN_FACTOR/2));
     }
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4);
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4U);
 }
 
 

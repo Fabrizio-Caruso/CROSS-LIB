@@ -1,0 +1,83 @@
+From FunnyMu source code:
+
+-----------------------------------
+
+Reset CPU -> PC counter is initialized from values in $FFFC,$FFFD?
+
+-----------------------------------
+
+  if(F=fopen(Cartridge, "rb")) {
+    CartSize=fread(CART, 1, 0x8000, F);		        // read a max of 32KB in CART
+    rewind(F);                                          // rewinds reading to 0
+
+    if (CartSize==0x1000) {				// cart is 4KB
+      printf("4KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xB000, 1, 0x1000, F);			// main 4Kb	at 0xB000
+      memcpy(RAM+0x9000, RAM+0xA000, 0x1000);			// mirror 4KB	at 0x9000
+    } else
+    if (CartSize==0x1800) {				// cart is 6KB
+      printf("6KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xB000, 1, 0x1000, F);			// main 4Kb	at 0xB000
+      memcpy(RAM+0x9000, RAM+0xB000, 0x1000);			// mirror 4KB	at 0x9000
+      CartSize=fread(RAM+0xA800, 1, 0x0800, F);			// main 2Kb	at 0xA800
+      memcpy(RAM+0xA000, RAM+0xA800, 0x0800);			// mirror 2KB	at 0xA000
+      memcpy(RAM+0x8800, RAM+0xA800, 0x0800);			// mirror 2KB	at 0x8800
+      memcpy(RAM+0x8000, RAM+0xA800, 0x0800);			// mirror 2KB	at 0x8000
+    } else
+    if (CartSize==0x2000) {				// cart is 8KB
+      printf("8KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xA000, 1, 0x2000, F);			// main 8Kb	at 0xA000
+      memcpy(RAM+0x8000, RAM+0xA000, 0x2000);			// mirror 8KB	at 0x8000
+    } else
+    if (CartSize==0x2800) {				// cart is 10KB
+      printf("10KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xA000, 1, 0x2000, F);			// main 8Kb	at 0xA000
+      memcpy(RAM+0x8000, RAM+0xA000, 0x2000);			// mirror 8KB	at 0x8000
+      CartSize=fread(RAM+0x7800, 1, 0x0800, F);			// main 2KB	at 0x7800
+      memcpy(RAM+0x5800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x5800
+
+      memcpy(RAM+0x7000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x7000
+      memcpy(RAM+0x6800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x6800
+      memcpy(RAM+0x6000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x6000
+      memcpy(RAM+0x5000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x5000
+      memcpy(RAM+0x4800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x4800
+      memcpy(RAM+0x4000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x4000 (needed by Werben ++++ Informieren)
+    } else
+    if (CartSize==0x3000) {				// cart is 12KB
+      printf("12KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xA000, 1, 0x2000, F);			// main 8Kb	at 0xA000
+      memcpy(RAM+0x8000, RAM+0xA000, 0x2000);			// mirror 8KB	at 0x8000
+      CartSize=fread(RAM+0x7000, 1, 0x1000, F);			// main 4Kb	at 0x7000
+      memcpy(RAM+0x5000, RAM+0x7000, 0x1000);			// mirror 4KB	at 0x5000
+
+      memcpy(RAM+0x6000, RAM+0x7000, 0x1000);			// mirror 4KB	at 0x6000
+      memcpy(RAM+0x4000, RAM+0x7000, 0x1000);			// mirror 4KB	at 0x4000 (needed by Basic 82)
+    } else
+    if (CartSize==0x4000) {				// cart is 16KB
+      printf("16KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xA000, 1, 0x2000, F);			// main 8Kb	at 0xA000
+      CartSize=fread(RAM+0x8000, 1, 0x2000, F);			// second 8Kb	at 0x8000
+    } else
+    if (CartSize==0x4800) {				// cart is 18KB
+      printf("18KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0xA000, 1, 0x2000, F);			// main 8Kb	at 0xA000
+      CartSize=fread(RAM+0x8000, 1, 0x2000, F);			// second 8Kb	at 0x8000
+      CartSize=fread(RAM+0x7800, 1, 0x0800, F);			// main 2KB	at 0x7800
+      memcpy(RAM+0x6800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x6800
+      memcpy(RAM+0x5800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x5800
+      memcpy(RAM+0x4800, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x4800
+
+      memcpy(RAM+0x7000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x7000
+      memcpy(RAM+0x6000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x6000
+      memcpy(RAM+0x5000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x5000
+      memcpy(RAM+0x4000, RAM+0x7800, 0x0800);			// mirror 2Kb	at 0x4000
+    } else
+    if (CartSize==0x8000) {				// cart is 32KB
+      printf("32KBytes cartridge found...OK\n");
+      CartSize=fread(RAM+0x4000, 1, 0x8000, F);			// main 32Kb	at 0x4000
+    }
+    fclose(F);
+  }
+  else
+    P="NOT FOUND";
+	

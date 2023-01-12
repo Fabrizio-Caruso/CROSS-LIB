@@ -883,22 +883,25 @@ creativision_color_16k_no_memory_buffers: $(ASSETS_PATH)/8x8_chars.h
 
 creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT   -DREDEFINED_CHARS \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
+	-DNO_SLEEP -DLESS_TEXT   -DREDEFINED_CHARS \
+	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=5 \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_32k.bin
 
-creativision_24k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT   \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
+
+creativision_test: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS -DNO_CONTROL_INSTRUCTIONS \
+	-DALT_SLEEP -DX_OFFSET=8  -DXSize=13 -DY_OFFSET=6 -DYSize=12 -DMAX_SNAKE_LENGTH=3 \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE -DNO_BONUS_ANIMATION \
+	-D_XL_SLOW_DOWN_FACTOR=4 \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES_NO_SLEEP) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \

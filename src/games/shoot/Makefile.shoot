@@ -591,40 +591,87 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_18k
+creativision: creativision_32k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1  -DEXTRA_TITLE \
+creativision_32k_conio: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
+	-DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT -DNO_SLEEP \
+	-DNO_SET_SCREEN_COLORS \
+	-DFLAT_ENEMIES \
+	-DNO_RANDOM_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS -D_XL_NO_COLOR \
+	-DFORCE_NARROW \
+	-DALT_SLEEP \
+	-DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_32k.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin	
 
-creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
+creativision_32k_alt: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
-	$(FULL_FILES) \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=2 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=2000 -DSOUNDS \
+	--config $(CFG_PATH)/cc65/creativision-32k_alt.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+# colored tiles
+creativision_32k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL  -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=3 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=2000 -DSOUNDS -DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+creativision_32k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DLESS_TEXT -DFULL_GAME \
+	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_SLEEP -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1  -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)\sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-16k_2.cfg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_18k.bin
 
+
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS -DNO_CONTROL_INSTRUCTIONS \
+	-DALT_SLEEP -DX_OFFSET=8  -DXSize=13 -DY_OFFSET=6 -DYSize=12 -DMAX_SNAKE_LENGTH=3 \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE -DNO_BONUS_ANIMATION \
+	-D_XL_SLOW_DOWN_FACTOR=4 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 #################################################################
 
@@ -692,21 +739,6 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(SOURCE_PATH)/end_screen.c $(SOURCE_PATH)/sleep.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-vic20_exp_16k_broken: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
-	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
-	-DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DUSE_MEMORY_BUFFERS \
-	-D_XL_SLOW_DOWN_FACTOR=800 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
-	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
-	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
-	$(SOURCE_PATH)/memory/vic20_memory.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/sleep.c \
-	$(SOURCE_PATH)/end_screen.c \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c  \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \

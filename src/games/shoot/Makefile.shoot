@@ -595,8 +595,8 @@ creativision: creativision_32k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_32k_conio: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
+creativision_conio: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
 	-DLESS_TEXT -DNO_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
@@ -605,10 +605,16 @@ creativision_32k_conio:
 	-DCONIO -DNO_INIT_GRAPHICS -D_XL_NO_COLOR \
 	-DFORCE_NARROW \
 	-DALT_SLEEP \
-	-DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	-DGHOSTS_NUMBER=4 -DBULLETS_NUMBER=3 \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin	
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=5 count=4 > $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=1 count=4 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin	
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 creativision_32k_alt: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
@@ -653,10 +659,13 @@ creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-16k_2.cfg \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_18k.bin
-
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=5 count=4 > $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=1 count=4 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin	
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \

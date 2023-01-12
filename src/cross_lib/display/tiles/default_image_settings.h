@@ -32,7 +32,7 @@
 #if defined(_API_VERSION) && _API_VERSION>=2
 
     #if !defined(_TILE_19)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_19 '*'
         #else
             #define _TILE_19 'H'
@@ -40,7 +40,7 @@
     #endif 
 
     #if !defined(_TILE_20)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_20 '*'
         #else
             #define _TILE_20 'H'
@@ -48,7 +48,7 @@
     #endif 
 
     #if !defined(_TILE_21)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_21 '*'
         #else
             #define _TILE_21 'H'
@@ -56,7 +56,7 @@
     #endif 
 
     #if !defined(_TILE_22)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_22 '*'
         #else
             #define _TILE_22 'H'
@@ -64,7 +64,7 @@
     #endif 
 
     #if !defined(_TILE_23)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_23 '*'
         #else
             #define _TILE_23 'H'
@@ -72,7 +72,7 @@
     #endif 
 
     #if !defined(_TILE_24)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_24 'W'
         #else
             #define _TILE_24 'W'
@@ -80,7 +80,7 @@
     #endif 
 
     #if !defined(_TILE_1)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_1 '*'
         #else
             #define _TILE_1 'H'
@@ -88,7 +88,7 @@
     #endif 
 
     #if !defined(_TILE_3)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_3 '*'
         #else
             #define _TILE_3 'H'
@@ -96,7 +96,7 @@
     #endif
 
     #if !defined(_TILE_2)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_2 '*'
         #else
             #define _TILE_2 'H'
@@ -104,7 +104,7 @@
     #endif
 
     #if !defined(_TILE_0)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_0 '*'
         #else
             #define _TILE_0 'H'
@@ -122,9 +122,11 @@
 
     // WHITE
     #if !defined(_TILE_4)
-        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__) || defined(__MC10__)
+        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__) || defined(__MC10__) 
             #define _TILE_4 'O'
-        #else
+        #elif defined(__CREATIVISION__)
+			#define _TILE_4 'Q'
+		#else
             #define _TILE_4 'o'
         #endif
     #endif
@@ -132,7 +134,7 @@
     #if !defined(_TILE_6)
         #if defined(__ALPHATRO__)
             #define _TILE_6 'm'
-        #elif defined(__CIDELSA__)
+        #elif defined(__CIDELSA__) || defined(__CREATIVISION__)
             #define _TILE_6 'M'
         #else
             #define _TILE_6 '#'
@@ -141,7 +143,7 @@
 
     // BLUE
     #if !defined(_TILE_9)
-        #if defined(__ZX80__) || defined(__CIDELSA__)
+        #if defined(__ZX80__) || defined(__CIDELSA__) || defined(__CREATIVISION__)
             #define _TILE_9 'G'
         #else
             #define _TILE_9 '!'
@@ -150,7 +152,7 @@
 
     // YELLOW
     #if !defined(_TILE_7)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_7 '+'
         #elif defined(__ZX81__) || defined(__ZX80__)
             #define _TILE_7 'a'
@@ -161,7 +163,11 @@
 
 
     #if !defined(_TILE_25)
-        #define _TILE_25 '$'
+		#if !defined(__CREATIVISION__)
+			#define _TILE_25 '$'
+		#else
+			#define _TILE_25 'M'
+		#endif
     #endif
 
     // GREEN
@@ -199,25 +205,33 @@
     #endif
 
     #if !defined(_TILE_11)
-        #if defined(__CIDELSA__)
+        #if defined(__CIDELSA__) || defined(__CREATIVISION__)
             #define _TILE_11 'O'
         #else
             #define _TILE_11 '.'
         #endif
     #endif
 
-    #if !defined(_TILE_14)
-        #define _TILE_14 '>'
+    #if !defined(_TILE_14) 
+		#if !defined(__CREATIVISION__)
+			#define _TILE_14 '>'
+		#else
+			#define _TILE_14 'N'
+		#endif
     #endif
 
     #if !defined(_TILE_15)
-        #define _TILE_15 '<'
+		#if !defined(__CREATIVISION__)
+			#define _TILE_15 '<'
+		#else
+			#define _TILE_15 'N'
+		#endif
     #endif
 
     #if !defined(_TILE_16)
         #if defined(__ZX80__) || defined(__ZX81__) 
             #define _TILE_16 'i'
-        #elif defined(__CIDELSA__) || defined(__MC10__)
+        #elif defined(__CIDELSA__) || defined(__CREATIVISION__) || defined(__MC10__)
             #define _TILE_16 'I'
         #else
             #define _TILE_16 ('^')
@@ -228,7 +242,7 @@
         #if defined(__C128_Z80__) || defined(__GAL__)  || defined(__VZ__) || defined(__COCO__) || defined(__DRAGON__) 
             #define _TILE_12 'i'
         #elif defined(__APPLE2__) || defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
-        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) \
+        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) || defined(__CREATIVISION__) \
         || defined(__ZX80__) || defined(__ZX81__) || defined(__MC10__)
             #define _TILE_12 'I' 
         #else
@@ -239,7 +253,9 @@
     #if !defined(_TILE_13)
         #if defined(__CIDELSA__)
             #define _TILE_13 'I'
-        #else
+        #elif defined(__CREATIVISION__)
+			#define _TILE_13 'N'
+		#else
             #define _TILE_13 '-'
         #endif
     #endif
@@ -255,7 +271,7 @@
 #else 
 
     #if !defined(_TILE_19)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_19 '*'
         #else
             #define _TILE_19 'H'
@@ -263,7 +279,7 @@
     #endif 
 
     #if !defined(_TILE_20)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_20 '*'
         #else
             #define _TILE_20 'H'
@@ -271,7 +287,7 @@
     #endif 
 
     #if !defined(_TILE_21)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_21 '*'
         #else
             #define _TILE_21 'H'
@@ -279,7 +295,7 @@
     #endif 
 
     #if !defined(_TILE_22)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_22 '*'
         #else
             #define _TILE_22 'H'
@@ -287,7 +303,7 @@
     #endif 
 
     #if !defined(_TILE_23)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_23 '*'
         #else
             #define _TILE_23 'H'
@@ -295,7 +311,7 @@
     #endif 
 
     #if !defined(_TILE_24)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_24 'W'
         #else
             #define _TILE_24 'W'
@@ -303,7 +319,7 @@
     #endif 
 
     #if !defined(_TILE_1)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_1 '*'
         #else
             #define _TILE_1 'H'
@@ -311,7 +327,7 @@
     #endif 
 
     #if !defined(_TILE_3)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_3 '*'
         #else
             #define _TILE_3 'H'
@@ -319,7 +335,7 @@
     #endif
 
     #if !defined(_TILE_2)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_2 '*'
         #else
             #define _TILE_2 'H'
@@ -327,7 +343,7 @@
     #endif
 
     #if !defined(_TILE_0)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_0 '*'
         #else
             #define _TILE_0 'H'
@@ -345,8 +361,10 @@
 
     // WHITE
     #if !defined(_TILE_4)
-        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__)|| defined(__MC10__) || defined(__COCO__) || defined(__DRAGON__) 
+        #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__) || defined(__MC10__) || defined(__COCO__) || defined(__DRAGON__) 
             #define _TILE_4 'O'
+		#elsif defined(__CREATIVISION__)
+			#define _TILE_4 'Q'
         #else
             #define _TILE_4 'o'
         #endif
@@ -355,7 +373,7 @@
     #if !defined(_TILE_6)
         #if defined(__ALPHATRO__)
             #define _TILE_6 'm'
-        #elif defined(__CIDELSA__)
+        #elif defined(__CIDELSA__) || defined(__CREATIVISION__) 
             #define _TILE_6 'M'
         #else
             #define _TILE_6 '#'
@@ -364,7 +382,7 @@
 
     // BLUE
     #if !defined(_TILE_9)
-        #if defined(__ZX80__) || defined(__CIDELSA__)
+        #if defined(__ZX80__) || defined(__CIDELSA__) || defined(__CREATIVISION__) 
             #define _TILE_9 'G'
         #else
             #define _TILE_9 '!'
@@ -373,7 +391,7 @@
 
     // YELLOW
     #if !defined(_TILE_7)
-        #if !defined(__CIDELSA__)
+        #if !defined(__CIDELSA__) && !defined(__CREATIVISION__)
             #define _TILE_7 '+'
         #elif defined(__ZX81__) || defined(__ZX80__)
             #define _TILE_7 'a'
@@ -384,7 +402,11 @@
 
 
     #if !defined(_TILE_25)
-        #define _TILE_25 '$'
+		#if !defined(__CREATIVISION__)
+			#define _TILE_25 '$'
+		#else
+			#define _TILE_25 'M'
+		#endif
     #endif
 
     // GREEN
@@ -422,7 +444,7 @@
     #endif
 
     #if !defined(_TILE_11)
-        #if defined(__CIDELSA__) 
+        #if defined(__CIDELSA__) || defined(__CREATIVISION__) 
             #define _TILE_11 'O'
         #else
             #define _TILE_11 '.'
@@ -430,18 +452,26 @@
     #endif
 
     #if !defined(_TILE_14)
-        #define _TILE_14 '>'
+		#if !defined(__CREATIVISION__)
+			#define _TILE_14 '>'
+		#else
+			#define _TILE_14 'N'
+		#endif
     #endif
 
     #if !defined(_TILE_15)
-        #define _TILE_15 '<'
+		#if !defined(__CREATIVISION__)
+			#define _TILE_15 '<'
+		#else
+			#define _TILE_15 'N'
+		#endif
     #endif
 
     #if !defined(_TILE_16)
         #if defined(__ZX80__) || defined(__ZX81__) 
             #define _TILE_16 'i'
-        #elif defined(__CIDELSA__)
-            #define _TILE_16 'I' || defined(__MC10__)
+        #elif defined(__CIDELSA__) || defined(__CREATIVISION__) || defined(__MC10__)
+            #define _TILE_16 'I' 
         #else
             #define _TILE_16 ('^')
         #endif
@@ -453,7 +483,7 @@
         #elif defined(__ZX80__) || defined(__ZX81__) 
             #define _TILE_12 'i'
         #elif defined(__APPLE2__) || defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
-        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) \
+        || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__) || defined(__CREATIVISION__)  \
         || defined(__ZX80__) || defined(__ZX81__) || defined(__MC10__)
             #define _TILE_12 'I' 
         #else
@@ -464,7 +494,9 @@
     #if !defined(_TILE_13)
         #if defined(__CIDELSA__)
             #define _TILE_13 'I'
-        #else
+        #elif defined(__CREATIVISION__)
+			#define _TILE_13 'N'
+		#else
             #define _TILE_13 '-'
         #endif
     #endif

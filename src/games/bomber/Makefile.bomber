@@ -659,6 +659,20 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 
+creativision_8k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DSOUNDS \
+	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
@@ -670,10 +684,29 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+creativision_18k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DSOUNDS \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=5 count=4 > $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=1 count=4 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin	
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 creativision_test: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \

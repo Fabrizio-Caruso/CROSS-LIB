@@ -377,17 +377,46 @@ Cross-Lib comes with some games I have written with it. As for January 2023, it 
 - Cross Bomber
 - Cross Shoot
 - Cross Chase
-which are also refered to as Verbix, Horde, Snake, Bomber, Shoot, Chase.
+which are also referred to as Verbix, Horde, Snake, Bomber, Shoot, Chase.
 
 ## VERBIX
 
-Verbix is a Scrabble-like game that looks a bit like Tetrix.
+Verbix is a Scrabble-like game that looks a bit like Tetris.
 In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
 You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
 
-    Cross Horde is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
-    Cross Snake is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements. It has 50 secrets and several items to discover.
-    Cross Bomber is a mini-game and clone of Air Attack (aka Blitz).
-    Cross Shoot is a shooter somehow similar to Robotron. It has many items and secrets to discover.
-    Cross Chase is somehow similar to Gnome Robots. The main difference is that it is a real-time game and that it has several items and power-ups to pick.
+## HORDE
+Horde is a zombie-themed shooter with many power-ups and several different enemies, levels and special items to pick.
+You control a bow with a limited number of arrows. You get more arrows as a possible reward for killing some zombies.
+If you run out of arrows, you will get a few arrows after a short period.
+In each level you are confronted with a horde of zombies that become harder as you progress.
+
+## SNAKE
+Snake is my personal re-interpretation of Nibbler (arcade game) and the Nokia Snake game to which I have added more game elements. 
+As in Nibbler the walls do not kill you and can be used to stop you and let you better control your movements.
+As in Nokia Snake the main goal is to eat apples. If you do not eat any apple for too long, the snake becomes faster and harder to control and ultimately consume its energy.
+In each level you are also confronted with mines that kill you if the snake's head touches them.
+As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with some bonus items.
+
+## BOMBER
+Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
+The game is about a rather horrible idea (not mine) but it can become addictive nevertheless.
+You need to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
+
+## SHOOT
+Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
+You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
+You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly normal items.
+At the end of each level when only few ghosts are left or in boss levels, you are confronted by 4 hard-to-kill skulls.
+You can complete the level by killing the 4 skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
+Destroying the missile bases can also unlock items.
+The game has many secrets and items to discover.
+
+## CHASE
+Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
+The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
+Similarly to Shoot, at the end of each level or in boss levels, you are confronted to a skull, which can only be killed by a few bullets fire by the gun item.
+You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
+Destroying the missile bases can also unlock items.
+
 

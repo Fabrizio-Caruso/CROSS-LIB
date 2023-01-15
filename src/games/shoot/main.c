@@ -842,11 +842,13 @@ int main(void)
         }
 
         _XL_CLEAR_SCREEN();
+		#if !defined(NO_ACHIEVEMENTS)
         printAchievements();
         _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
+		#endif
         printGameOver();
         
         _XL_SLEEP(1);

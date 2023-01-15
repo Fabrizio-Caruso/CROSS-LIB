@@ -591,7 +591,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_32k
+creativision: creativision_18k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
@@ -636,7 +636,8 @@ creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL  -DALT_SLEEP \
 	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=3 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=2000 -DSOUNDS -DUSE_TINY_MEMORY_BUFFERS \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DSOUNDS -DUSE_TINY_MEMORY_BUFFERS \
+	-DNO_SET_SCREEN_COLORS \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
@@ -656,11 +657,16 @@ creativision_32k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 creativision_18k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 -D_XL_SLOW_DOWN_FACTOR=500 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
+	-D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME  -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=2 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_TINY_MEMORY_BUFFERS -DNO_ACHIEVEMENTS -DNO_BLINKING \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=5 count=4 > $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k skip=1 count=4 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin

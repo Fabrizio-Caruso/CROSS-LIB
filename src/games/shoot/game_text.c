@@ -480,7 +480,7 @@ uint8_t countDiscoveredSecrets(void)
     return total;
 }
 
-
+#if !defined(NO_ACHIEVEMENTS)
 void printAchievements(void)
 {
     uint8_t i;
@@ -541,5 +541,5 @@ void printAchievements(void)
         _XL_PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
     }
 }
-
+#endif
 

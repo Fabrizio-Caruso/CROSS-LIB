@@ -30,7 +30,7 @@
 Image BOSS_IMAGE;
 
 
-#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+#if defined(USE_MEMORY_BUFFERS)
     extern Image CALM_DOWN_IMAGE;
     Image FIRE_CHARGE_IMAGE;
     extern Image BULLET_IMAGE;

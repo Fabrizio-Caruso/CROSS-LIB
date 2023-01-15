@@ -21,7 +21,7 @@ from import_from_source import *
 
 COMMANDS_LIST = \
     [ \
-    "build", "clean", "create", "c", "delete", "help", "h", \
+    "build", "clean", "c", "create",  "delete", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
@@ -1307,7 +1307,7 @@ def help(params):
         print("\nxl horde all                \n  It builds Cross Horde for all its supported targets using all supported necessary compilers.")
         print("\nxl projects all             \n  It builds all built-in projects for all supported targets using all supported necessary compilers.")
         print("\nxl all c16                  \n  It builds all projects (games and examples and user-defined projects) for the Commodore 264 series using CC65.")
-    elif params[1]=="create" or params[1]=="c":
+    elif params[1]=="create":
         print("xl create <project> <[optional] type>")
         print("It creates <project>.")
         
@@ -1346,7 +1346,7 @@ def help(params):
         print("\nxl reset                    \n  It deletes non-project specific temporary files.")
         print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
         print("\nxl reset foo -y             \n  Same as above but no confirmation is asked.")
-    elif params[1]=="clean": 
+    elif params[1]=="clean" or params[1]=="c": 
         print("xl clean <[optional] project> <[optiona] interactive>")
         print("It deletes both built binaries and temporary files created during the build process.")
         print("\n<project>")
@@ -1479,9 +1479,9 @@ if __name__ == "__main__":
         size(sys.argv[1:],0)
     elif sys.argv[1]=="debug" or sys.argv[1]=="d":
         size(sys.argv[1:],1)
-    elif sys.argv[1]=="create" or sys.argv[1]=="c":
+    elif sys.argv[1]=="create":
         create(sys.argv[1:])
-    elif sys.argv[1]=="clean":
+    elif sys.argv[1]=="clean" or sys.argv[1]=="c":
         clean(sys.argv[1:])
     elif sys.argv[1]=="reset":
         reset(sys.argv[1:])

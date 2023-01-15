@@ -64,7 +64,7 @@ extern Image EXTRA_POINTS_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 
 
-#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+#if defined(USE_MEMORY_BUFFERS)
     extern Character skull;
     extern Character bullet;	
 

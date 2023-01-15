@@ -49,23 +49,38 @@ _ind = _PLAYER_RIGHT_IMAGE + $2
 
 ; LIGHT
 
-.export skullSlowDown;
-skullSlowDown = _ind + $1
+.export _skullSlowDown;
+_skullSlowDown = _ind + $1
 
-.export skullXCountDown;
-skullXCountDown = skullSlowDown + $2
+.export _skullXCountDown;
+_skullXCountDown = _skullSlowDown + $2
 
-.export skullYCountDown;
-skullYCountDown = skullXCountDown + $1
+.export _skullYCountDown;
+_skullYCountDown = _skullXCountDown + $1
 
-; BULLETS_NUMBER = 4
-.export bulletDirection;
-bulletDirection = skullYCountDown + $1
+.export _bulletDirection;
+_bulletDirection = _skullYCountDown + $1
 
-.export fireCharge;
-fireCharge = bulletDirection + $4
+.export _freeze_count_down;
+_freeze_count_down = _bulletDirection + $4
 
-.export firePower;
-firePower = fireCharge + $4
+.export _playerDirection;
+_playerDirection = _freeze_count_down + $1
 
+.export _freezeActive;
+_freezeActive = _playerDirection + $1
 
+.export _extraLifeThroughPointsCounter;
+_extraLifeThroughPointsCounter = _freezeActive + $1
+
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
+
+.export _guns;
+_guns = _playerFire + $1
+
+.export _skullActive;
+_skullActive = _guns + $1
+
+.export _loop;
+_loop = _skullActive + $1

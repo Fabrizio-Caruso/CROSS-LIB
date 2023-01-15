@@ -647,24 +647,18 @@ creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-creativision_32k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DLESS_TEXT -DFULL_GAME \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_SLEEP -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1  -DEXTRA_TITLE \
-	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)\sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+# 18k cartridge files use this convention 7800(2k)|8000(8k)|A000(8k) -> A000(8k)|8000(8k)|7800(2k) 
+# This means that the binary has to be split in 3 blocks that need to be swapped
 creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME  -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=2 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_TINY_MEMORY_BUFFERS -DNO_ACHIEVEMENTS -DNO_BLINKING \
+	-DCREATIVISION_COLOR -DBULLETS_NUMBER=4 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_LIGHT_MEMORY_BUFFERS -DNO_ACHIEVEMENTS -DNO_BLINKING \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(SOURCE_PATH)/memory/creativision_memory_light.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/memory/creativision_memory.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -673,20 +667,6 @@ creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin	
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS -DNO_CONTROL_INSTRUCTIONS \
-	-DALT_SLEEP -DX_OFFSET=8  -DXSize=13 -DY_OFFSET=6 -DYSize=12 -DMAX_SNAKE_LENGTH=3 \
-	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE -DNO_BONUS_ANIMATION \
-	-D_XL_SLOW_DOWN_FACTOR=4 \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 #################################################################
 

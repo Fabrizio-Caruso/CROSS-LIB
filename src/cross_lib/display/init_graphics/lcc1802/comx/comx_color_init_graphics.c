@@ -116,8 +116,10 @@ void _XL_INIT_GRAPHICS(void)
     initvideo();
     setvideobase(BASE_ADDR);
     
-    disableinterrupt();
-    
+	#if !defined(VIS_INT)
+		disableinterrupt();
+    #endif
+	
     #if defined(__TMC600__)
     	textcolor(5);
     #endif

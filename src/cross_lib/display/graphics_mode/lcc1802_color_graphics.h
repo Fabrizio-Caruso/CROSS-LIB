@@ -3,13 +3,25 @@
 
 #define BASE_ADDR 0xF800
 
-#if !defined(_XL_NO_COLOR)
-    #define _XL_DRAW(x,y,tile,color) vidcharxy(((x)+X_OFFSET),((y)+Y_OFFSET),(tile)+(color))
+#if defined(LCC1802_UNBUFFERED)
+	#define VIDCHARXY(x,y,ch) vidcharnobufxy(x,y,ch)
+	#define VIDFLUSH()
+#elif defined(VIS_INT)
+	#define VIDCHARXY(x,y,ch) vidcharxy(x,y,ch)
+	#define VIDFLUSH() vidflush()
 #else
-    #define _XL_DRAW(x,y,tile,color) vidcharxy(((x)+X_OFFSET),((y)+Y_OFFSET),(tile))
+	#define VIDCHARXY(x,y,ch) vidcharxy(x,y,ch)
+	#define VIDFLUSH() vidflush()
 #endif
 
-#define _XL_DELETE(x,y) vidcharxy(((x)+X_OFFSET),((y)+Y_OFFSET),' ')
+
+#if !defined(_XL_NO_COLOR)
+    #define _XL_DRAW(x,y,tile,color) VIDCHARXY(((x)+X_OFFSET),((y)+Y_OFFSET),(tile)+(color))
+#else
+    #define _XL_DRAW(x,y,tile,color) VIDCHARXY(((x)+X_OFFSET),((y)+Y_OFFSET),(tile))
+#endif
+
+#define _XL_DELETE(x,y) VIDCHARXY(((x)+X_OFFSET),((y)+Y_OFFSET),' ')
 
     
 

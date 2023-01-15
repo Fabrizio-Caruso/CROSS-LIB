@@ -2025,8 +2025,9 @@ comx_fixed_colors: \
     _comx_fixed_colors \
     clean_combo_files
 
+# -DLCC1802_UNBUFFERED
 _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DLCC1802_UNBUFFERED  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFORCE_NARROW -DREDEFINED_CHARS \
 	-DNO_BLINKING -DTINY_TEXT \
@@ -2043,6 +2044,26 @@ _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 comx: \
     _comx \
     clean_combo_files
+
+_comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DVIS_INT  \
+	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	-DFORCE_NARROW -DREDEFINED_CHARS \
+	-DNO_BLINKING -DTINY_TEXT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
+	-DLCC1802_JOYSTICK \
+	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
+	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+comx_int: \
+    _comx_int \
+    clean_combo_files
+
 
 _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \

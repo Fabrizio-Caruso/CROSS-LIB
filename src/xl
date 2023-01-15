@@ -28,7 +28,15 @@ COMMANDS_LIST = \
     "commands",  "add", "remove", "shapes", "rip", "manual" \
     ]
 
-
+SHORT_COMMANDS_LIST = \
+    [ \
+        ["c", "clean"], \
+        ["f", "file"], \
+        ["l", "list"], \
+        ["d", "debug"], \
+        ["r", "run"], \
+        ["f", "files"] \
+    ]
 
 def run_command_verbosely(command_string):
     print("Going to run: " + command_string)
@@ -873,15 +881,19 @@ def shapes(params):
         store_tile(project_name, tile, xsize, ysize, tile_number_str)
         
         print("")
-        
-        
 
 
 # Show all commands
 def commands(params):
+    # Show full length commands
     for command in COMMANDS_LIST:
         if len(command)>1:
             print(command)
+
+    # Show short-hands
+    print("")
+    for short_command in SHORT_COMMANDS_LIST:
+        print(short_command[0] + " -> " + short_command[1])
 
 
 # Show tile shapes of a given project
@@ -1271,10 +1283,11 @@ def help(params):
         print("\nxl debug examples 16 12     \n  It builds all examples for the native host in debug mode with screen size 16x12.")
 
         
-    elif params[1]=="files":
+    elif params[1]=="files" or params[1]=="f":
         print("xl files")
         print("It shows the built binary files (the conent of the `build` directory).")
         print("Remark: 'xl files' can be shorten with `xl f`.")
+        
     elif params[1]=="build":
         print("xl build <project> <[optional] target>")
         print("It builds <project> for <target>.")

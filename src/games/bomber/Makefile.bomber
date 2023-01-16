@@ -638,7 +638,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_16k
+creativision: creativision_8k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 #  -m mapfile.txt

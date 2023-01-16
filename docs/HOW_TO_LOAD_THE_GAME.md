@@ -270,6 +270,7 @@ Mess 0.148 with crvision works fine:
 
 mess64.exe crvision -window -uimodekey DEL -cart1 c:\Retro\CROSS-CHASE\build\FULL_creativision_16k_SWAPPED.bin
 
+mess64.exe crvision -window -uimodekey DEL -cart c:\Retro\CROSS-LIB\build\Xshoot_creativision_18k_SWAPPED.bin
 
 -------------------------------------------------------------
 ### DAI

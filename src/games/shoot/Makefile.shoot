@@ -180,6 +180,7 @@ cc65_targets: \
     atari_lynx \
     c16 \
     c64 \
+    creativision \
     oric  \
     nes \
     pce \
@@ -210,6 +211,7 @@ cc65_targets: \
     atari_lynx \
     c16 \
     c64 \
+    creativision \
     oric  \
     nes \
     pce \
@@ -616,33 +618,18 @@ creativision_conio:
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_$@.bin bs=2k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_$@_SWAPPED.bin	
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-creativision_32k_alt: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=2 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=2000 -DSOUNDS \
-	--config $(CFG_PATH)/cc65/creativision-32k_alt.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-# colored tiles
+# 
 creativision_32k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DFULL_GAME -DBETWEEN_LEVEL  -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=3 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=300 -DSOUNDS -DUSE_TINY_MEMORY_BUFFERS \
-	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME  -DALT_SLEEP -DSOUNDS \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=4 -DLESS_TEXT -DANIMATE_PLAYER -DTRANSITION_ANIMATION  \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_LIGHT_MEMORY_BUFFERS -DNO_BLINKING -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/memory/creativision_memory_light.s \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
-	$(SOURCE_PATH)/memory/creativision_memory.s \
-	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -654,8 +641,8 @@ creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME  -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DBULLETS_NUMBER=4 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_LIGHT_MEMORY_BUFFERS -DNO_ACHIEVEMENTS -DNO_BLINKING \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=4 -DLESS_TEXT -DANIMATE_PLAYER \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_LIGHT_MEMORY_BUFFERS -DNO_ACHIEVEMENTS -DNO_BLINKING  \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(SOURCE_PATH)/memory/creativision_memory_light.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

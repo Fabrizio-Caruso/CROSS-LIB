@@ -593,7 +593,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_18k
+creativision: creativision_32k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
@@ -619,7 +619,8 @@ creativision_conio:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
-# 
+# MAME/MESS may not support this
+# Load this with FunnyMu or use the 18k light version with MAME 
 creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
@@ -634,10 +635,11 @@ creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+creativision_18k: creativision_light_18k
 
 # 18k cartridge files use this convention 7800(2k)|8000(8k)|A000(8k) -> A000(8k)|8000(8k)|7800(2k) 
 # This means that the binary has to be split in 3 blocks that need to be swapped
-creativision_18k: $(ASSETS_PATH)/8x8_chars.h
+creativision_light_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME  -DALT_SLEEP \

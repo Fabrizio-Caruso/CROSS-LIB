@@ -1,53 +1,57 @@
 # INTRODUCTION
 
-The goal of this article is three-fold:
-1. I present the Cross-Lib framework, its goals, its architecture.
-2. I give a short description of how it is used.
-3. I present the 6 "universal" games I have written with it.
-
+The goal of this article is to present Cross-Lib, briefly show how to use it and present the 6 "universal" games I have written with it.
 By "universal" here I mean that these games will run on about 200 different systems (consoles, computers, arcade boards, pocket calculators, etc.) despite using the very same game code.
-
 A detailed description of Cross-Lib is not in the scope of this article.
 For more details we refer to the GitHub page: http://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 
 # WHAT IS CROSS-LIB?
-Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for more than 200 8-bit systems from the ‘80s (computers, consoles, calculators, arcade boards, etc.) 
-such as Commodore 64, Commodore VIC 20, other Commodore computers, Thomson Mo5 and To7, Apple ][, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, 
-MSX, Oric-1, Oric Atmos, BBC Micro, TRS-80 CoCo, Dragon 32, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
-and other devices such as Texas Instruments calculators such as the TI 83, etc. with main CPU architectures such as  Zilog 80, MOS 6502, Intel 8080, Motorola 6803, Motorola 6809 and RCA 1802. 
-Cross-Lib also supports several quite rare systems such as the Philips VG-5000, the Jupiter Ace, the Alice Matra, etc. 
+Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for a multitude of 8-bit and vintage systems from the ‘80s (computers, consoles, pocket calculators, arcade boards, etc.) 
+such as Apple //, all 8-bit Commodore computers, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, TRS-80 CoCo, Dragon 32, TRS-80 MC-10, Thomson Mo5 and To7, 
+MSX, Oric-1, Oric Atmos, BBC Micro, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
+and other devices such as Texas Instruments pocket calculators. The main CPU architectures are Zilog 80, MOS 6502, Intel 8080, Motorola 6803, Motorola 6809 and RCA 1802. 
+Cross-Lib also supports several lesser known systems such as the Philips VG-5000, the Jupiter Ace and several exotic and rare systems such as the yugoslav Galaksija, the Hungarian Homlab-2, 
+several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
+For the Apple //, Cross-Lib currently supports the 6-color HGR mode for graphics, joystick input and a few 1-bit sound effects.
+
 A partial list of the supported systems is at the page: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
-and some very rare and exotic systems such as for example several computers for Eastern Europe such as the yugoslav Galaksija, the Hungarian Homlab-2, 
-several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
+and some very rare and exotic systems such as for example several computers for Eastern Europe such 
 
-Cross-Lib is made of:
-1. A "universal" C library (e.g., a collection of C APIs);
-2. Scripts to manage game projects (e.g., build, create, etc.) and manipulate graphics assets (e.g., import, create, etc.)
+Cross-Lib has two main components:
+1. A "universal" C library (e.g., a collection of C APIs mostly for input/output);
+2. A Python script to manage game projects (e.g., to build, create game projects, etc.) and manipulate graphics assets (e.g., to create, import or rip assets)
 
-Historically, 8-bit systems were programmed directly on the system mostly in Assembly, or for simpler programs in interpreted BASIC.
-Today cross-development simplifies a lot developers’ tasks (modern editors, simplified debugging, efficient and quick compilation, etc.). 
+The main goal of Cross-Lib is to provide a hardware abstraction layer for hundreds of vintage systems so that the *very same* game code without any adaptation can be used for all its supported systems.
+
+
+# CROSS-LIB VS OTHER DEV-KITS
+
+Historically, 8-bit systems were programmed directly on the system and mostly in Assembly, or for simpler programs in interpreted BASIC.
+Today cross-development can be done in C and it simplifies developers’ tasks a lot (modern editors, simplified debugging, efficient and quick compilation, etc.). 
 
 The problem with the portability of C code comes from the diversity of the machines and from the fact that ANSI C does not provide a standard library for graphics, sounds, input, etc.
-A partial solution is already given by some dev-kits such as CC65, Z88DK, LCC1802 (for the RCA 1802 architecture), CMOC (for the Motorola 6890), etc. 
+A partial solution is already given by some dev-kits such as CC65 (for MOS 6502), Z88DK (for the Zilog 80 and Intel 8080), LCC1802 (for the RCA 1802), CMOC (for the Motorola 6890), etc. 
 By using one of these dev-kits, we can exploit their cross-compatible libraries for input and output.
-On the other hand we still have some problems:
-1. Each dev-kit only covers a subset of the 8-bit architectures.
-2. The libraries provided by the dev-kits do not always cover all graphics features, sound and input on its supported machines.
+On the other hand:
+1. Each dev-kit only covers a subset of all 8-bit architectures.
+2. Even within a given dev-kit, its libraries do not necessarily provide the very same input/output APIs across the entirety of its supported targets.
 
-Cross-Lib allows you to do certain things that you cannot do with other tools:
+Cross-Lib improves on these points and lets you do things that you cannot do with other tools:
 1. cover many more vintage 8-bit architectures, including very exotic ones;
-2. writing 100% WORA ("write once, run anywhere") code;
-3. using WORA graphics resources, i.e., you can define graphics elements (“tiles”) once for several totally different systems;
+2. writing 100% WORA code, i.e., "write once, run anywhere" (after re-compilation);
+3. using WORA graphics resources, i.e., define abstract graphics assets for several totally different systems;
 4. using a simplified tool-chain to create, compile and test the games.
 
-On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executables, disk images, tape images, cartridge images, etc.) 
+The closest dev-kits to Cross-Lib with respect to these points are 
+- 8-bit-Unity (meant to be used with CC65), which does incredible things but only for very few MOS6502-based systems;
+- Z88DK, which has huge libraries but only covers Zilog 80 and Intel 8080 systems.
+
+On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executable files, disk images, tape images, cartridge images, etc.) 
 for retro-consoles and retro-computers.
 
-By providing an abstraction layer for all 8-bit systems, Cross-Lib is making some compromises with respect to what one could do for a specific system if we wanted 
-to code just for that system. In particular, graphics is limited by what is possible on all systems. Also sound effects are very limited.
-
-Cross-Lib is the only WORA dev-kit that allows to code for nearly all 8-bit architectures and systems.
+By providing an abstraction layer for all 8-bit systems, Cross-Lib makes some compromises with respect to what we could do if we were coding only for a specific system.
+In particular, graphics is somehow limited by what is possible on all systems. Sound effects are even more limited.
 
 
 # COMPILERS
@@ -63,15 +67,14 @@ Currently Cross-Lib fully supports the following cross-compilers and dev-kits wi
 - LCC1802 [lcc1802] for systems that use the COSMAC RCA 1802 ;
 - GCC for TI [ti] for the Texas Instruments TI99/4A based on the 16-bit TMS9900.
 
-Cross-Lib also supports other compilers (currently without graphics and sound effects) such as 
-ACK [ack] for 8088/8086, 
-Intel 8080 CP/M, 386/68K/PPC/MIPS Linux and PDP11, 
-XTC68 [xtc69] for the Sinclair QL, 
-VBCC [vbcc] for the BBC Micro, BBC Master, the Amiga and others, 
-CC6303 [cc6303] for the Motorola 6803; 
-several versions of modded GCC to target vintage computers (Atari ST [st], Olivetti M20 [m20]).
+Cross-Lib also supports other compilers (currently with limited or absent graphics and sound effects) such as 
+- ACK [ack] for 8088/8086, Intel 8080 CP/M, 386/68K/PPC/MIPS Linux and PDP11, 
+- XTC68 [xtc69] for the Sinclair QL, 
+- VBCC [vbcc] for the BBC Micro, BBC Master, the Amiga and others, 
+- CC6303 [cc6303] for the Motorola 6803; 
+- several versions of modded GCC to target vintage computers (Atari ST [st], Olivetti M20 [m20]).
 
-Cross-Lib only supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of C89.
+Cross-Lib only supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of ANSI C89.
 Therefore we write in C (a sub-set of ANSI C C89) with Cross-Lib APIs for graphics, sounds, input and other functions that allow us to write universal code for cases where there is no uniquely defined standard C equivalent.
 
 In particular we must avoid:
@@ -83,7 +86,7 @@ In particular we must avoid:
 # INSTALLATION
 
 Cross-Lib does not require any real installation. 
-It is enough to download the repository files (from the GitHub page)  or to clone the repository with:
+It is enough to download the repository files (from the GitHub page) or to clone the repository with:
 git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 
 On the other hand it requires:
@@ -92,7 +95,7 @@ On the other hand it requires:
 - Python 2.7 or Python 3.*;
 - [optional but required for the Apple //] JAVA;
 - [optional] GCC compiler with ncurses libraries;
-- [optional] any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.).
+- [optional but CC65 is necessary for the Apple //] any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.).
 
 Once you have Cross-Lib with its dependencies in a POSIX environment, you should move to the "src" directory.
 Inside "src" you will find the following directories 

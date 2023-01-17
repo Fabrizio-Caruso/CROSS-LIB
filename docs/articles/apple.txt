@@ -76,7 +76,6 @@ Cross-Lib also supports other compilers (currently with limited or absent graphi
 
 Cross-Lib only supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of ANSI C89.
 Therefore we write in C (a sub-set of ANSI C C89) with Cross-Lib APIs for graphics, sounds, input and other functions that allow us to write universal code for cases where there is no uniquely defined standard C equivalent.
-
 In particular we must avoid:
 - "float" and "double", 
 - copies and parameters by value of "struct" objects,
@@ -85,12 +84,12 @@ In particular we must avoid:
 
 # INSTALLATION
 
-Cross-Lib does not require any real installation. 
+Cross-Lib itself does not require any real installation. 
 It is enough to download the repository files (from the GitHub page) or to clone the repository with:
 git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 
 On the other hand it requires:
-- a POSIX environment (e.g., Windows with Cygwin, Linux or FreeBSD);
+- a POSIX environment (e.g., Windows with Cygwin, Linux, FreeBSD, etc.);
 - Make (GNU Make);
 - Python 2.7 or Python 3.*;
 - [optional but required for the Apple //] JAVA;
@@ -98,7 +97,7 @@ On the other hand it requires:
 - [optional but CC65 is necessary for the Apple //] any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.).
 
 Once you have Cross-Lib with its dependencies in a POSIX environment, you should move to the "src" directory.
-Inside "src" you will find the following directories 
+Inside "src" you will find the "xl" Python script and the following directories 
 - "cross-lib", which contains the library code;
 - "games" with built-in games;
 - "examples" with built-in examples;
@@ -107,7 +106,7 @@ Inside "src" you will find the following directories
 
 If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, 
 it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
-"xl chase gcc", which will build Chase in turn-based mode for the native console.
+"xl chase gcc", which will build the game Chase in turn-based mode for the native console.
 
 
 # HOW TO USE THE XL SCRIPT
@@ -122,9 +121,9 @@ builds the "snake" game for the native console.
 If a cross compiler (CC65, Z88DK, CMOC, CC6303, LCC1802, etc) is installed, the games and examples can be built for the corresponding systems.
 For example, if CC65 is installed, 
 "xl horde apple2" 
-builds the "horde" game for the Apple //.
+builds the "horde" game for the Apple // with 6-color HGR graphics. 
 
-The "xl" script takes many commands. In particular you can see a list of the available commands with "xl commands".
+The "xl" script takes several commands. In particular you can see a list of the available commands with "xl commands".
 You can get an explanation of each command with examples with 
 "xl help <command name>".
 
@@ -196,7 +195,7 @@ xl build myhelloworld apple2 [to build the same project for the Apple //]
 In order to code with Cross-Lib for all targets at the same time, Cross-Lib uses several abstractions.
 
 Graphics is only tile-based. In the code, tiles are abstract as their exact shape will depend on the target type.
-The code only sees the macros _TILE_0, _TILE_1, _TILE_2, etc. that contain uint_8t values (which depend on the target).
+The code only sees tiles as macros _TILE_0, _TILE_1, _TILE_2, etc. that contain uint_8t values (which depend on the target).
 Each concrete target will interpret tiles in different ways depending on whether the target can or cannot assign free shapes to tiles and 
 on the number of pixels that define tiles on that system.
 
@@ -219,19 +218,20 @@ Producing "universal" games with Cross-Lib for the developer boils down to these
 The "xl build <project> <target>" command (or its equivalent short form "xl <project> <target>") 
 executes one or several Makefile targets, which generally:
 - generate a concrete asset file from the abstract asset files
-- compile the source code
-- link the source code with the asset files
-- if necessary a tool is used to create a usable disk/floppy/rom/cartridge image
+- compile the source code;
+- link or include the asset files with/in the compiled source code;
+- if necessary a tool is used to create a usable disk/floppy/rom/cartridge image (this is the case for the Apple // for which disk images are generated).
 
-
+[INSERT FLOW PICTURE HERE]
 
 
 # GRAPHICS
 
-Graphics is performed by either displaying "tiles", whose shape can be freely defined or by "characters" (letters, digits and the space character).
+Graphics is performed by either displaying "tiles", whose shape can be defined.
+We can also display "characters" (letters, digits and the space character) but their shape is (currently) fixed.
 Characters and tiles have the same size. Characters are used for the text, whereas tiles are used for graphics.
 
-ASCII-only targets will be able to only assign ASCII shapes to tiles, whereas targets with real graphics will assign a "freely defined" shape to the tile.
+ASCII-only targets will be able to only assign ASCII shapes to tiles, whereas targets with real graphics will assign a "freely defined" shape to tiles.
 
 Currently each tile only has one tile-specific foreground color and a common background color.
 The definition of their shapes is not done in the C code.
@@ -249,7 +249,7 @@ These files can be:
 
 You can see how to use these commands by running "xl help <command name>".
 
-In the code tile graphics is primarily performed by these commands that display a tile or delete it:
+Tile graphics is primarily performed by these functions that display a tile or delete it:
 void _XL_DRAW_TILE(uint8_t x, uint8_t y, uint8_t tile_number, uint8_t tile_color);
 void _XL_DELETE(uint8_t x, uint8_t y);
 
@@ -263,17 +263,20 @@ void _XL_<effect name>_SOUND(void);
 For example:
 XL_EXPLOSION_SOUND() produces an explosion sound (or something vaguely similar to it depending on the target)
 
+For the Apple //, the sound effects are produced by simple 1-bit banging.
 
 # INPUT
 
 Input is limited to four directions and a single fire button.
-The input APIs are:
+The primary input APIs are:
 uint8_t _XL_INPUT(void);
 uint8_t _XL_LEFT(uint8_t input);
 uint8_t _XL_RIGHT(uint8_t input);
 uint8_t _XL_UP(uint8_t input);
 uint8_t _XL_DOWN(uint8_t input);
 uint8_t _XL_FIRE(uint8_t input);
+
+where _XL_INPUT polls the input and the other functions are used to determined the specific input.
 
 
 # GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
@@ -315,7 +318,7 @@ int main(void)
  x = XSize/2;
  y = YSize/2;
  tile = DOWN_TILE;
- hile(1)
+ while(1)
  {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINTD(0,0,3,x);
@@ -384,7 +387,7 @@ which are also referred to as Verbix, Horde, Snake, Bomber, Shoot, Chase.
 
 ## VERBIX
 
-Verbix is a Scrabble-like game that looks a bit like Tetris.
+Verbix is a Scrabble-like game that looks also a bit like Tetris.
 In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
 You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
 
@@ -395,31 +398,38 @@ If you run out of arrows, you will get a few arrows after a short period.
 In each level you are confronted with a horde of zombies that become harder as you progress.
 
 ## SNAKE
-Snake is my personal re-interpretation of Nibbler (arcade game) and the Nokia Snake game to which I have added more game elements. 
+Snake is my personal interpretation of a hybrid game between Nibbler (arcade game) and the Nokia Snake game to which I have added more game elements. 
 As in Nibbler the walls do not kill you and can be used to stop you and let you better control your movements.
 As in Nokia Snake the main goal is to eat apples. If you do not eat any apple for too long, the snake becomes faster and harder to control and ultimately consume its energy.
 In each level you are also confronted with mines that kill you if the snake's head touches them.
-As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with some bonus items.
+As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with bonus items.
 
 ## BOMBER
 Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
-The game is about a rather horrible idea (not mine) but it can become addictive nevertheless.
+The game is about a rather horrible idea (not mine) but it can be addictive nevertheless.
 You need to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
 
 ## SHOOT
 Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
 You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
-You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly normal items.
-At the end of each level when only few ghosts are left or in boss levels, you are confronted by 4 hard-to-kill skulls.
-You can complete the level by killing the 4 skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
+You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly common enemies.
+At the end of each level when only few ghosts are left or if you survive without killing enemies long enough or in boss levels, you are confronted by some hard-to-kill skulls.
+Optionally you can complete the level by killing the skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
 Destroying the missile bases can also unlock items.
 The game has many secrets and items to discover.
 
 ## CHASE
 Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
 The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
-Similarly to Shoot, at the end of each level or in boss levels, you are confronted to a skull, which can only be killed by a few bullets fire by the gun item.
+Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by a few bullets fired by the gun item.
 You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
 Destroying the missile bases can also unlock items.
 
 
+# FUTURE DEVELOPMENT
+Planned future developments are: 
+- support for more targets and architectures;
+- improved current targets with limited input/output;
+- improved APIs (more tiles, improved sounds, etc.);
+- more games;
+- simplified setup (docker file).

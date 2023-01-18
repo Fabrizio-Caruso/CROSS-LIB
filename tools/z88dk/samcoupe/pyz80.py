@@ -242,7 +242,7 @@ def add_file_to_disk_image(image, filename, codestartpage, codestartoffset, exec
 
 
 def save_disk_image(image, pathname):
-    imagestr = image.tostring()
+    imagestr = image.tobytes() if sys.version_info[0] >= 3 and sys.version_info[1] >= 2 else image.tostring()
     if ZIP:
         dskfile = gzip.open(pathname, 'wb')
     else:

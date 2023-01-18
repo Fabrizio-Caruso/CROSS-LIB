@@ -19,6 +19,7 @@ sys.path.append("assets")
 
 from import_from_source import *
 
+
 COMMANDS_LIST = \
     [ \
     "build", "clean", "c", "create",  "delete", "help", "h", \
@@ -1434,6 +1435,7 @@ if __name__ == "__main__":
     print("Cross-Lib `xl` helper script")
     print("----------------------------")
     print("Platform: " + platform)
+    print("Python:   " + str(sys.version_info[0]) + "." + str(sys.version_info[1]))
     if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "win32"]):
         GNU_MAKE="make"
     else:

@@ -7,31 +7,29 @@ For more details we refer to the GitHub page: http://www.github.com/Fabrizio-Car
 
 # WHAT IS CROSS-LIB?
 Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for a multitude of 8-bit and vintage systems from the ‘80s (computers, consoles, pocket calculators, arcade boards, etc.) 
-such as Apple //, all 8-bit Commodore computers, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, TRS-80 CoCo, Dragon 32, TRS-80 MC-10, Thomson Mo5 and To7, 
-MSX, Oric-1, Oric Atmos, BBC Micro, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
+such as Apple //, all 8-bit Commodore computers, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, TRS-80 CoCo, Dragon 32, TRS-80 MC-10, Thomson Mo5 and To7, MSX, Oric-1, Oric Atmos, BBC Micro, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
 and other devices such as Texas Instruments pocket calculators. The main CPU architectures are Zilog 80, MOS 6502, Intel 8080, Motorola 6803, Motorola 6809 and RCA 1802. 
 Cross-Lib also supports several lesser known systems such as the Philips VG-5000, the Jupiter Ace and several exotic and rare systems such as the yugoslav Galaksija, the Hungarian Homlab-2, 
 several computers from the Eastern German Robotron series such as the Robotron KC 85, etc. 
-For the Apple //, Cross-Lib currently supports the 6-color HGR mode for graphics, joystick input and a few 1-bit sound effects.
+In particular for the Apple //, Cross-Lib currently supports the 6-color HGR mode for graphics, joystick input and a few 1-bit sound effects.
 
-A partial list of the supported systems is at the page: 
+A large but partial list of the supported systems is at the page: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md. 
-and some very rare and exotic systems such as for example several computers for Eastern Europe such 
 
 Cross-Lib has two main components:
 1. A "universal" C library (e.g., a collection of C APIs mostly for input/output);
 2. A Python script to manage game projects (e.g., to build, create game projects, etc.) and manipulate graphics assets (e.g., to create, import or rip assets)
 
-The main goal of Cross-Lib is to provide a hardware abstraction layer for hundreds of vintage systems so that the *very same* game code without any adaptation can be used for all its supported systems.
+The main goal of Cross-Lib is to provide a *hardware abstraction layer* for hundreds of vintage systems so that the *very same* game code can be used without any adaptation for all its supported systems.
 
 
 # CROSS-LIB VS OTHER DEV-KITS
 
 Historically, 8-bit systems were programmed directly on the system and mostly in Assembly, or for simpler programs in interpreted BASIC.
-Today cross-development can be done in C and it simplifies developers’ tasks a lot (modern editors, simplified debugging, efficient and quick compilation, etc.). 
+Today cross-development simplifies developers’ tasks a lot (modern editors, simplified debugging, efficient and quick compilation, etc.) and can be done in C.
 
 The problem with the portability of C code comes from the diversity of the machines and from the fact that ANSI C does not provide a standard library for graphics, sounds, input, etc.
-A partial solution is already given by some dev-kits such as CC65 (for MOS 6502), Z88DK (for the Zilog 80 and Intel 8080), LCC1802 (for the RCA 1802), CMOC (for the Motorola 6890), etc. 
+A partial solution is already provided by some dev-kits such as CC65 (for MOS 6502), Z88DK (for the Zilog 80 and Intel 8080), LCC1802 (for the RCA 1802), CMOC (for the Motorola 6890), etc. 
 By using one of these dev-kits, we can exploit their cross-compatible libraries for input and output.
 On the other hand:
 1. Each dev-kit only covers a subset of all 8-bit architectures.
@@ -44,11 +42,10 @@ Cross-Lib improves on these points and lets you do things that you cannot do wit
 4. using a simplified tool-chain to create, compile and test the games.
 
 The closest dev-kits to Cross-Lib with respect to these points are 
-- 8-bit-Unity (meant to be used with CC65), which does incredible things but only for very few MOS6502-based systems;
+- 8-bit-Unity (meant to be used with CC65), which does incredible things but only for very few MOS 6502-based systems;
 - Z88DK, which has huge libraries but only covers Zilog 80 and Intel 8080 systems.
 
-On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executable files, disk images, tape images, cartridge images, etc.) 
-for retro-consoles and retro-computers.
+On the other hand Cross-Lib is not a compiler. It uses several compilers to build the binary files (executable files, disk images, tape images, cartridge images, etc.) for retro-consoles and retro-computers.
 
 By providing an abstraction layer for all 8-bit systems, Cross-Lib makes some compromises with respect to what we could do if we were coding only for a specific system.
 In particular, graphics is somehow limited by what is possible on all systems. Sound effects are even more limited.
@@ -60,7 +57,7 @@ Cross-Lib is supposed to be used with C compilers but which ones?
 
 A native compiler (for example GCC) can be used to build native binaries that can be run, for instance, under Windows. Today the support for native compilation is limited to the text terminal, which means no graphics other than ASCII on the host machine.
 
-Currently Cross-Lib fully supports the following cross-compilers and dev-kits with graphics and sound effects:
+Currently Cross-Lib fully supports the following cross-compilers and dev-kits with graphics and sound effects for most of its targets:
 - CC65 [cc65] for most systems based on the MOS 6502 architecture; 
 - Z88DK [z88dk] for systems based on the Zilog 80 and Intel 8080 architectures;
 - CMOC [cmoc] for systems that use the Motorola 6809;
@@ -74,10 +71,10 @@ Cross-Lib also supports other compilers (currently with limited or absent graphi
 - CC6303 [cc6303] for the Motorola 6803; 
 - several versions of modded GCC to target vintage computers (Atari ST [st], Olivetti M20 [m20]).
 
-Cross-Lib only supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of ANSI C89.
-Therefore we write in C (a sub-set of ANSI C C89) with Cross-Lib APIs for graphics, sounds, input and other functions that allow us to write universal code for cases where there is no uniquely defined standard C equivalent.
+Cross-Lib supports a large sub-set of ANSI C89 because most available cross-compilers for 8-bit architectures only implement a sub-set of ANSI C89.
+Therefore we write in C (a sub-set of ANSI C C89) with Cross-Lib APIs for graphics, sounds, input.
 In particular we must avoid:
-- "float" and "double", 
+- "float" and "double" types, 
 - copies and parameters by value of "struct" objects,
 - any use of the heap.
 
@@ -91,10 +88,10 @@ git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 On the other hand it requires:
 - a POSIX environment (e.g., Windows with Cygwin, Linux, FreeBSD, etc.);
 - Make (GNU Make);
-- Python 2.7 or Python 3.*;
-- [optional but required for the Apple //] JAVA;
-- [optional] GCC compiler with ncurses libraries;
-- [optional but CC65 is necessary for the Apple //] any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.).
+- Python 2.7 or Python 3.* [optional but necessary to simplify many operations];
+- JAVA [optional but required to generate floppdy disk images for the Apple //];
+- GCC compiler with ncurses libraries [optional];
+- any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.) [optional but CC65 is necessary for the Apple //].
 
 Once you have Cross-Lib with its dependencies in a POSIX environment, you should move to the "src" directory.
 Inside "src" you will find the "xl" Python script and the following directories 
@@ -104,8 +101,7 @@ Inside "src" you will find the "xl" Python script and the following directories
 - "projects" with user-defined projetcs.
 
 
-If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, 
-it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
+If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
 "xl chase gcc", which will build the game Chase in turn-based mode for the native console.
 
 
@@ -130,7 +126,8 @@ You can get an explanation of each command with examples with
 If we want to create a new project, we need to use 
 "xl create <project name>", 
 which will create a project with a trivial "hello world" example inside the "projects" directory.
-We can start with a template code for a game if we pass an additional parameter: "xl create <project name> game".
+We can also start with a template code for a game if we pass the additional parameter "game": 
+"xl create <project name> game".
 
  
 # HELLO WORLD
@@ -195,13 +192,13 @@ xl build myhelloworld apple2 [to build the same project for the Apple //]
 In order to code with Cross-Lib for all targets at the same time, Cross-Lib uses several abstractions.
 
 Graphics is only tile-based. In the code, tiles are abstract as their exact shape will depend on the target type.
-The code only sees tiles as macros _TILE_0, _TILE_1, _TILE_2, etc. that contain uint_8t values (which depend on the target).
+The game code only sees tiles as macros _TILE_0, _TILE_1, _TILE_2, etc.
 Each concrete target will interpret tiles in different ways depending on whether the target can or cannot assign free shapes to tiles and 
 on the number of pixels that define tiles on that system.
 
 Sound is currently only limited to few sound effects that are rendered somehow similarly across multiple targets.
 
-Input is only limited to 4 directions and a single fire button. On each target this will be mapped to either 5 keys (usually I J K L SPACE)
+Input is limited to 4 directions and a single fire button. On each target this will be mapped to either 5 keys (usually I J K L SPACE)
 or the main joystick/controller/gamepad.
 
 Running "xl manual" will output a manual with all commands.
@@ -218,8 +215,8 @@ Producing "universal" games with Cross-Lib for the developer boils down to these
 The "xl build <project> <target>" command (or its equivalent short form "xl <project> <target>") 
 executes one or several Makefile targets, which generally:
 - generate a concrete asset file from the abstract asset files
-- compile the source code;
-- link or include the asset files with/in the compiled source code;
+- compile the source code (game code and target-specific portions of Cross-Lib library);
+- include or link the asset files with the compiled source code;
 - if necessary a tool is used to create a usable disk/floppy/rom/cartridge image (this is the case for the Apple // for which disk images are generated).
 
 [INSERT FLOW PICTURE HERE]
@@ -227,7 +224,7 @@ executes one or several Makefile targets, which generally:
 
 # GRAPHICS
 
-Graphics is performed by either displaying "tiles", whose shape can be defined.
+Graphics is performed by displaying "tiles", whose shape can be defined. The number of tiles is currently limited to 27 but future versions of Cross-Lib will overcome this constraint.
 We can also display "characters" (letters, digits and the space character) but their shape is (currently) fixed.
 Characters and tiles have the same size. Characters are used for the text, whereas tiles are used for graphics.
 
@@ -236,12 +233,12 @@ ASCII-only targets will be able to only assign ASCII shapes to tiles, whereas ta
 Currently each tile only has one tile-specific foreground color and a common background color.
 The definition of their shapes is not done in the C code.
 Instead it is done inside the <project>/tiles directory, which contains sub-directories with files with tile definitions for the ASCII case and 
-for the graphics-enabled targets, e.g., 8x8 (for most targets), 7x8 (for Apple //), 6x8 (for Oric and NTSC COMX-35), etc... 
+for the graphics-enabled targets, e.g., 8x8 (for most targets), 7x8 (for the Apple //), 6x8 (for the Oric series and NTSC COMX-35), etc... 
 
 In the aforementioned files the shapes are described by either ASCII codes for ASCII-only targets or sequences of bytes for graphics-enabled targets.
 
 These files can be:
-1. either edited manually or 
+1. edited manually or 
 2. automatically imported from several programs such as CharPad (with "xl import <file> <project>") or 
 3. automatically ripped from BASIC or Assembly listings (with "xl rip <file> <project>") or
 4. generated by some simple "pictorial" text files with drawings made of "#" and "." characters 
@@ -249,14 +246,14 @@ These files can be:
 
 You can see how to use these commands by running "xl help <command name>".
 
-Tile graphics is primarily performed by these functions that display a tile or delete it:
+In the game code tile graphics is primarily performed by invoking these functions (to display or delete tiles):
 void _XL_DRAW_TILE(uint8_t x, uint8_t y, uint8_t tile_number, uint8_t tile_color);
 void _XL_DELETE(uint8_t x, uint8_t y);
 
 
 # SOUND
 
-Sound is even more limited than graphics and it is limited to a few predefined effects.
+Sound is even more limited than graphics and it is restricted to a few predefined effects.
 The sound commands have this form:
 void _XL_<effect name>_SOUND(void);
 
@@ -398,38 +395,40 @@ If you run out of arrows, you will get a few arrows after a short period.
 In each level you are confronted with a horde of zombies that become harder as you progress.
 
 ## SNAKE
-Snake is my personal interpretation of a hybrid game between Nibbler (arcade game) and the Nokia Snake game to which I have added more game elements. 
+Snake is my personal interpretation of a hybrid game between the arcade game Nibbler and the Nokia cell phone game Snake to which I have added more game elements. 
 As in Nibbler the walls do not kill you and can be used to stop you and let you better control your movements.
-As in Nokia Snake the main goal is to eat apples. If you do not eat any apple for too long, the snake becomes faster and harder to control and ultimately consume its energy.
+As in Nokia Snake the main goal is to eat apples. If you do not eat any apple for too long, the snake becomes faster and harder to control, consumes its energy and eventually dies.
 In each level you are also confronted with mines that kill you if the snake's head touches them.
 As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with bonus items.
+The game has several secrets and level to discover.
 
 ## BOMBER
 Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
-The game is about a rather horrible idea (not mine) but it can be addictive nevertheless.
-You need to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
+The game concept is horrible (not my own concept) but it can be addictive nevertheless.
+Your plane has to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
+You do not control the plane and can only press fire to drop a bomb at a time.
 
 ## SHOOT
 Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
 You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
 You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly common enemies.
-At the end of each level when only few ghosts are left or if you survive without killing enemies long enough or in boss levels, you are confronted by some hard-to-kill skulls.
-Optionally you can complete the level by killing the skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
+At the end of each level when only few ghosts are left or if you survive without killing enemies long enough or in boss levels, you are confronted by some hard-to-kill skull-shaped enemies.
+As a secondary goal you can complete the level by killing the skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
 Destroying the missile bases can also unlock items.
-The game has many secrets and items to discover.
+The game has many secrets, levels and items to discover.
 
 ## CHASE
 Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
 The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
-Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by a few bullets fired by the gun item.
+Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by several bullets fired by the gun item.
 You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
 Destroying the missile bases can also unlock items.
 
 
 # FUTURE DEVELOPMENT
 Planned future developments are: 
-- support for more targets and architectures;
-- improved current targets with limited input/output;
+- support for more targets and architectures (e.g., Apple ||gs, Apple 1, etc.) ;
+- improved targets (e.g, DHGR mode for the 80-column capable Apple // models);
 - improved APIs (more tiles, improved sounds, etc.);
-- more games;
-- simplified setup (docker file).
+- simplified setup (docker file with all compilers, tools and dependencies);
+- more games.

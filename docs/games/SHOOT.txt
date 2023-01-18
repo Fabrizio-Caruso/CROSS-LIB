@@ -1,0 +1,40 @@
+SHOOT
+
+Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
+You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
+You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly common enemies.
+At the end of each level when only few ghosts are left or if you survive without killing enemies long enough or in boss levels, you are confronted by some hard-to-kill skulls.
+Optionally you can complete the level by killing the skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
+Destroying the missile bases can also unlock items.
+The game has many secrets and items to discover.
+You move in the 4 directions and shoot with fire.
+
+REMARK:
+This game is part of Cross-Lib: https://github.com/Fabrizio-Caruso/CROSS-LIB
+
+Go to its GitHub page for updates and new games.
+
+Cross-Lib's licence applies to this game.
+------------------------------------------------------------------------------------------------------------------------------------
+CROSS-LIB'S LICENCE
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from
+the use of this software.
+
+Permission is granted to anyone to use this software for non-commercial applications, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software in
+a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must not
+be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+
+For example I do not authorize selling hardware, software, firmware or any other product that contains any part of Cross-Lib and/or its games (e.g., pre-loaded disks, tapes, cartridges, etc.).
+On the other hand I authorize people to load the games in the most convenient way for their personal use.
+

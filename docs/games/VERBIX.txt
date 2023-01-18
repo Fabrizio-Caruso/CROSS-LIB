@@ -1,0 +1,34 @@
+VERBIX
+
+Verbix is a Scrabble-like game that looks also a bit like Tetris.
+In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
+You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
+
+REMARK:
+This game is part of Cross-Lib: https://github.com/Fabrizio-Caruso/CROSS-LIB
+
+Go to its GitHub page for updates and new games.
+
+Cross-Lib's licence applies to this game.
+------------------------------------------------------------------------------------------------------------------------------------
+CROSS-LIB'S LICENCE
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from
+the use of this software.
+
+Permission is granted to anyone to use this software for non-commercial applications, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software in
+a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must not
+be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+
+For example I do not authorize selling hardware, software, firmware or any other product that contains any part of Cross-Lib and/or its games (e.g., pre-loaded disks, tapes, cartridges, etc.).
+On the other hand I authorize people to load the games in the most convenient way for their personal use.

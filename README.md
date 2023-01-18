@@ -480,4 +480,6 @@ be misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source distribution.
 
+For example I do not authorize selling hardware, software, firmware or any other product that contains any part of Cross-Lib and/or its games (e.g., pre-loaded disks, tapes, cartridges, etc.).
+On the other hand I authorize people to load the games in the most convenient way for their personal use.
 

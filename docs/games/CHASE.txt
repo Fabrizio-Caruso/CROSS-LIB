@@ -1,0 +1,37 @@
+CHASE
+
+Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
+The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
+Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by a few bullets fired by the gun item.
+You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
+Destroying the missile bases can also unlock items.
+You can move in 4 directions and shoot with fire (if you have collected the gun item).
+
+REMARK:
+This game is part of Cross-Lib: https://github.com/Fabrizio-Caruso/CROSS-LIB
+
+Go to its GitHub page for updates and new games.
+
+Cross-Lib's licence applies to this game.
+------------------------------------------------------------------------------------------------------------------------------------
+CROSS-LIB'S LICENCE
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from
+the use of this software.
+
+Permission is granted to anyone to use this software for non-commercial applications, 
+subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software in
+a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must not
+be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+
+For example I do not authorize selling hardware, software, firmware or any other product that contains any part of Cross-Lib and/or its games (e.g., pre-loaded disks, tapes, cartridges, etc.).
+On the other hand I authorize people to load the games in the most convenient way for their personal use.

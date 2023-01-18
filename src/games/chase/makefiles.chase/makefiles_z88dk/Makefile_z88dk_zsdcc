@@ -34,7 +34,7 @@ gal_targets: \
 	gal_6k gal_22k gal_plus
 
 mc1000_targets: \
-	mc1000_16k mc1000_exp_48k
+	mc1000_16k mc1000_48k
 
 oz_targets: \
 	oz_tiny_buffered

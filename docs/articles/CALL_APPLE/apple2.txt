@@ -103,7 +103,7 @@ Inside "src" you will find the "xl" Python script and the following directories
 - "cross-lib", which contains the library code;
 - "games" with built-in games;
 - "examples" with built-in examples;
-- "projects" with user-defined projets.
+- "projects" with user-defined projects.
 
 
 If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
@@ -448,10 +448,12 @@ Destroying the missile bases can also unlock items.
 
 
 # FUTURE DEVELOPMENT
-Planned future developments are: 
-- support for more targets and architectures (e.g., Apple ||gs, Apple 1, etc.) ;
+Cross-Lib is actively developed. Planned future developments are: 
+- support for more targets and architectures (e.g., Apple ||gs, Apple 1, etc.);
 - improved targets (e.g, DHGR mode for the 80-column capable Apple // models);
 - improved APIs (more tiles, improved sounds, etc.);
 - simplified setup (docker file with all compilers, tools and dependencies);
 - improved scripts to handle graphics assets;
+- improved support for the native target; 
 - more games.
+

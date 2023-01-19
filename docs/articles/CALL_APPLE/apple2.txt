@@ -431,4 +431,5 @@ Planned future developments are:
 - improved targets (e.g, DHGR mode for the 80-column capable Apple // models);
 - improved APIs (more tiles, improved sounds, etc.);
 - simplified setup (docker file with all compilers, tools and dependencies);
+- improved scripts to handle graphics assets;
 - more games.

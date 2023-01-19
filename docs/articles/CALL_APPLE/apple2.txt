@@ -1,3 +1,8 @@
+
+[INSERT LOGO PICTURE HERE]
+
+[If desired, also INSERT PHOTO OF THE AUTHOR]
+
 # INTRODUCTION
 
 The goal of this article is to present Cross-Lib, briefly show how to use it and present the 6 "universal" games I have written with it.
@@ -89,7 +94,7 @@ On the other hand it requires:
 - a POSIX environment (e.g., Windows with Cygwin, Linux, FreeBSD, etc.);
 - Make (GNU Make);
 - Python 2.7 or Python 3.* [optional but necessary to simplify many operations];
-- JAVA [optional but required to generate floppdy disk images for the Apple //];
+- JAVA [optional but required to generate floppy disk images for the Apple //];
 - GCC compiler with ncurses libraries [optional];
 - any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.) [optional but CC65 is necessary for the Apple //].
 
@@ -98,7 +103,7 @@ Inside "src" you will find the "xl" Python script and the following directories
 - "cross-lib", which contains the library code;
 - "games" with built-in games;
 - "examples" with built-in examples;
-- "projects" with user-defined projetcs.
+- "projects" with user-defined projets.
 
 
 If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
@@ -279,7 +284,7 @@ where _XL_INPUT polls the input and the other functions are used to determined t
 # GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
 
 Inside the src/examples/animate directory you can find the following example that could be used as a blueprint for a simple game.
-This trivial example has graphics, input and sound.
+This simple example has graphics, input and sound.
 When compiled for any of the possible systems, it will produce the very same program but the exact tile shapes and sounds will depend on the target.
 For example it can be compiled for the native console with:
 xl animate
@@ -388,11 +393,17 @@ Verbix is a Scrabble-like game that looks also a bit like Tetris.
 In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
 You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
 
+[INSERT SNAPSHOT HERE]
+
+
 ## HORDE
 Horde is a zombie-themed shooter with many power-ups and several different enemies, levels and special items to pick.
 You control a bow with a limited number of arrows. You get more arrows as a possible reward for killing some zombies.
 If you run out of arrows, you will get a few arrows after a short period.
 In each level you are confronted with a horde of zombies that become harder as you progress.
+
+[INSERT SNAPSHOT HERE]
+
 
 ## SNAKE
 Snake is my personal interpretation of a hybrid game between the arcade game Nibbler and the Nokia cell phone game Snake to which I have added more game elements. 
@@ -402,11 +413,17 @@ In each level you are also confronted with mines that kill you if the snake's he
 As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with bonus items.
 The game has several secrets and level to discover.
 
+[INSERT SNAPSHOT HERE]
+
+
 ## BOMBER
 Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
 The game concept is horrible (not my own concept) but it can be addictive nevertheless.
 Your plane has to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
 You do not control the plane and can only press fire to drop a bomb at a time.
+
+[INSERT SNAPSHOT HERE]
+
 
 ## SHOOT
 Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
@@ -417,12 +434,17 @@ As a secondary goal you can complete the level by killing the skulls before the 
 Destroying the missile bases can also unlock items.
 The game has many secrets, levels and items to discover.
 
+[INSERT SNAPSHOT HERE]
+
+
 ## CHASE
 Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
 The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
 Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by several bullets fired by the gun item.
 You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
 Destroying the missile bases can also unlock items.
+
+[INSERT SNAPSHOT HERE]
 
 
 # FUTURE DEVELOPMENT

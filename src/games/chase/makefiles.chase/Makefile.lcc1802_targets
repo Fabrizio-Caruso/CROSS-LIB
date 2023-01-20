@@ -24,13 +24,13 @@ MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
 
 ################################################################################
 
-_lcc1802_6x8_targets: \
+_lcc1802_6x9_targets: \
     _comx \
     _pecom \
     _micro
 
-lcc1802_6x8_targets: \
-    _lcc1802_6x8_targets \
+lcc1802_6x9_targets: \
+    _lcc1802_6x9_targets \
     clean_combo_files
 
 _lcc1802_ascii_targets: \
@@ -43,7 +43,7 @@ lcc1802_ascii_targets: \
 
 lcc1802_targets:  \
     _lcc1802_ascii_targets \
-    _lcc1802_6x8_targets \
+    _lcc1802_6x9_targets \
     clean_combo_files
 
 

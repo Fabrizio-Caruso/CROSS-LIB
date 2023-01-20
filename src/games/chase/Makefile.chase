@@ -149,6 +149,16 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 
+
+
+####################################################################################################################
+# COMMON INCLUDES
+
+include makefiles.common/auxiliary/Makefile_ALL
+
+
+
+
 #############################################################################################################################################
 
 # All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
@@ -176,12 +186,6 @@ all: \
     cmoc_targets \
     z88dk_targets
 endif
-
-
-####################################################################################################################
-# COMMON INCLUDES
-
-include makefiles.common/auxiliary/Makefile_ALL
 
 
 ####################################################################################################################

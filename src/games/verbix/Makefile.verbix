@@ -60,7 +60,7 @@ _ATARI7800_SLOWDOWN=400
 _C16_SLOWDOWN=55
 _C64_SLOWDOWN=45
 _CREATIVISION_SLOWDOWN=100
-_GAMATE_SLOWDOWN=8 00
+_GAMATE_SLOWDOWN=800
 _ORIC_SLOWDOWN=90
 _NES_SLOWDOWN=80
 _PET_SLOWDOWN=60
@@ -142,6 +142,14 @@ SCCZ80_OPTS ?= -O0
 
 # Parallel compilation for Z88DK targets
 Z88DK_MAKE_OPTS ?= -j 8
+
+
+
+####################################################################################################################
+# COMMON INCLUDES
+
+include makefiles.common/auxiliary/Makefile_ALL
+
 
 
 #################################################################
@@ -258,36 +266,35 @@ z88dk_targets:
 	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_targets_sequential -f ./$(PARENT_DIR)/$(GAME_NAME)/Makefile.$(GAME_NAME)
 
 
-_lcc1802_6x8_targets: \
+_lcc1802_6x9_targets: \
     _comx \
-    _comx_ntsc \
     _pecom \
     _micro
+
+lcc1802_6x9_targets: \
+    _lcc1802_6x9_targets \
+    clean_combo_files
+
+_lcc1802_6x8_targets: \
+    _comx_ntsc
 
 lcc1802_6x8_targets: \
     _lcc1802_6x8_targets \
     clean_combo_files
     
 _lcc1802_ascii_targets: \
-	_tmc600 \
+    _tmc600 \
     _cidelsa
 
 lcc1802_ascii_targets: \
-	_tmc600 \
-    _cidelsa \
-	clean_combo_files
-
-lcc1802_targets: \
-	_lcc1802_6x8_targets \
-	_lcc1802_ascii_targets \
+    _lcc1802_ascii_targets \
     clean_combo_files
 
-
-
-####################################################################################################################
-# COMMON INCLUDES
-
-include makefiles.common/auxiliary/Makefile_ALL
+lcc1802_targets: \
+    _lcc1802_6x8_targets \
+    _lcc1802_6x9_targets \
+    _lcc1802_ascii_targets \
+    clean_combo_files
 
 
 
@@ -2065,7 +2072,7 @@ comx_int: \
     clean_combo_files
 
 
-_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) -DNTSC \
 	-DFORCE_NARROW -DREDEFINED_CHARS \

@@ -178,6 +178,7 @@ cc65_targets: \
     nes \
     pet \
     pce \
+	supervision \
     vic20 
 else
 cc65_targets: \

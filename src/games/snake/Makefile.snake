@@ -269,12 +269,18 @@ z88dk_8x8_targets:
 
 cc65_6x8_targets: \
     oric
-  
-_lcc1802_6x8_targets: \
+
+_lcc1802_6x9_targets: \
     _comx \
-    _comx_ntsc \
     _pecom \
     _micro
+
+lcc1802_6x9_targets: \
+    _lcc1802_6x9_targets \
+    clean_combo_files
+
+_lcc1802_6x8_targets: \
+    _comx_ntsc
 
 lcc1802_6x8_targets: \
     _lcc1802_6x8_targets \
@@ -303,6 +309,7 @@ z88dk_targets: \
 
 lcc1802_targets:  \
     _lcc1802_ascii_targets \
+	_lcc1802_6x9_targets \
     _lcc1802_6x8_targets \
     clean_combo_files
 
@@ -320,11 +327,19 @@ all_6x8: \
     cc65_6x8_targets \
     lcc1802_6x8_targets
 
+all_6x9: \
+    lcc1802_6x9_targets
+
+all_7x8: \
+	cc65_7x8_targets
+
 release: \
     c64_exomized \
     all_ascii \
     all_8x8 \
-    all_6x8
+	all_7x8 \
+    all_6x8 \
+	all_6x9
 
 
 #################################################################
@@ -2510,7 +2525,7 @@ comx: \
     _comx \
 	clean_combo_files
 
-_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) -DNTSC \
 	-DFORCE_NARROW -DREDEFINED_CHARS \

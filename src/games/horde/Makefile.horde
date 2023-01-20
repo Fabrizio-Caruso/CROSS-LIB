@@ -160,7 +160,13 @@ all_8x8: \
 
 all_6x8: \
     cc65_6x8_targets \
-    lcc1802_6x8_targets
+	lcc1802_6x8_targets
+	
+all_6x9: \
+    lcc1802_6x9_targets
+
+all_7x8: \
+	cc65_7x8_targets
 
 all_ascii: \
     cc65_ascii_targets \
@@ -171,6 +177,8 @@ release: \
     c64_exomized \
     all_8x8 \
     all_6x8 \
+	all_6x9 \
+	all_7x8 \
     all_ascii \
 
 gcc_targets: \
@@ -279,14 +287,21 @@ z88dk_targets:
 	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_ascii_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
 	$(MAKE) $(Z88DK_MAKE_OPTS) z88dk_8x8_targets -f games/$(GAME_NAME)/Makefile.$(GAME_NAME)
 
+
 _lcc1802_6x8_targets: \
-    _comx \
-    _comx_ntsc \
-    _pecom \
-    _micro
+    _comx_ntsc
 
 lcc1802_6x8_targets: \
     _lcc1802_6x8_targets \
+    clean_combo_files
+
+_lcc1802_6x9_targets: \
+    _comx \
+    _pecom \
+    _micro
+
+lcc1802_6x9_targets: \
+    _lcc1802_6x9_targets \
     clean_combo_files
 
 _lcc1802_ascii_targets: \
@@ -299,7 +314,8 @@ lcc1802_ascii_targets: \
 
 lcc1802_targets:  \
     _lcc1802_ascii_targets \
-    _lcc1802_6x8_targets \
+    _lcc1802_6x9_targets \
+	_lcc1802_6x8_targets \
     clean_combo_files
 
 
@@ -2083,7 +2099,7 @@ comx: \
     _comx \
     clean_combo_files
 
-_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__  -DNTSC -D_XL_CURSORS  \
 	-DMAX_ARROWS_ON_SCREEN=6 -DNUMBER_OF_MISSILES=3 -DMISSILE_DROP_LOOP_MASK=1 -DSMALL_WALL -DNO_BOTTOM_WALL_REDRAW \

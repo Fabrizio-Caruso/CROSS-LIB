@@ -32,11 +32,11 @@ COMMANDS_LIST = \
 SHORT_COMMANDS_LIST = \
     { \
         "c": "clean", \
-        "f": "file", \
-        "l": "list", \
-        "h": "help", \
         "d": "debug", \
-        "x": "run", \
+        "f": "file", \
+        "g": "graphics", \
+        "h": "help", \
+        "l": "list", \
         "f": "files", \
         "r": "rebuild", \
         "x": "run"
@@ -233,10 +233,11 @@ def rebuild(params):
         exit()
     
     reset(params)
-    if(params[len(params)-1]=="-y"):
-        build(params[:-1])
-    else:
-        build(params)
+    # if(params[len(params)-1]=="-y"):
+        # build(params[:-1])
+    # else:
+        
+    build(params)
 
 
 def convert_makefile(dir,old_type,old_name,new_name):
@@ -561,10 +562,10 @@ def reset(params):
 
     parent_dir = project_type + "s"
 
-    if (len(params)>2) and (params[par_len-1]=='-y'): #(params[2]=="-y"):
-        interactive = False
-    else:
-        interactive = True
+    # if (len(params)>2) and (params[par_len-1]=='-y'): #(params[2]=="-y"):
+        # interactive = False
+    # else:
+        # interactive = True
 
     print("Project name: " + game_dir)
 
@@ -576,10 +577,10 @@ def reset(params):
 
     print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
-    if (not interactive) or (are_you_sure()=="y"):
-        make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    # if (not interactive) or (are_you_sure()=="y"):
+    make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
-        run_command_verbosely(make_command)
+    run_command_verbosely(make_command)
 
 
 # Clean project data
@@ -614,10 +615,10 @@ def clean(params):
 
     parent_dir = project_type + "s"
 
-    if (len(params)>2) and (params[2]=="-y"):
-        interactive = False
-    else:
-        interactive = True
+    # if (len(params)>2) and (params[2]=="-y"):
+        # interactive = False
+    # else:
+        # interactive = True
 
     print("Project name: " + game_dir)
 
@@ -629,10 +630,10 @@ def clean(params):
 
     print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
-    if (not interactive) or (are_you_sure()=="y"):
-        make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    # if (not interactive) or (are_you_sure()=="y"):
+    make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
-        run_command_verbosely(make_command)
+    run_command_verbosely(make_command)
 
 
 # Delete project
@@ -691,7 +692,7 @@ def test(params):
 
         build(["build", "_test_project"])
 
-        delete(["delete","_test_project","-y"])
+        delete(["delete","_test_project"]) # ,"-y"])
         projects_after_delete = list(["list"])
         if("_test_project" in projects_after_delete):
             print("\nERROR: project not deleted")
@@ -1072,6 +1073,17 @@ def help(params):
         print("(e.g., by cloning it with 'xl clone bomber foo'),")
         print("then you can remove support for the 'einstein' target to it with")
         print("xl remove foo einstein")
+    elif params[1]=="graphics":
+        print("\nxl graphics <project> <target>")
+        print("")
+        print("It re-builds <project> for <target> and its assets by using the pictorial text files in the shapes directory.")
+        print("It is equivalent to:")
+        print("xl shapes <project>")
+        print("xl rebuild <project> <target>")
+        print("")
+        print("Example:")
+        print("xl graphics foo vic20")
+        print("builds the project foo for the Vic 20")
     elif params[1]=="tools":
         print("\nxl tools")
         print("\n(or xl build tools)")
@@ -1366,21 +1378,18 @@ def help(params):
         print("\nxl delete foo               \n  It deletes the project 'foo'.")
         print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")   
     elif params[1]=="reset":
-        print("xl reset <[optional] project> <[optiona] interactive>")
+        print("xl reset <[optional] project>")
         print("It deletes temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only non-project specific temporary files are deleted.") 
         print("If the <project> parameter is used, then also project-specific temporary files are deleted (and in particular generated graphics assets).")
-        
-        print("\n<interactive>")
-        print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
+
         
         print("\nExamples:")
         print("\nxl reset                    \n  It deletes non-project specific temporary files.")
         print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
-        print("\nxl reset foo -y             \n  Same as above but no confirmation is asked.")
     elif params[1]=="clean": 
-        print("xl clean <[optional] project> <[optiona] interactive>")
+        print("xl clean <[optional] project>")
         print("It deletes both built binaries and temporary files created during the build process.")
         print("\n<project>")
         print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.") 
@@ -1392,7 +1401,6 @@ def help(params):
         print("\nExamples:")
         print("\nxl clean                    \n  It deletes all built binaries and non-project specific temporary files.")
         print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
-        print("\nxl clean foo -y             \n  Same as above but no confirmation is asked.")
 
     elif params[1]=="list" or params[1]=="l":  
         print("xl list <[optional] params>")
@@ -1499,11 +1507,9 @@ if __name__ == "__main__":
         rip(params[1:],False)
     elif params[1]=="rebuild":
         rebuild(params[1:])
-    elif params[1]=="ry":
-        rebuild(params[1:] + ["-y"])
-    elif params[1]=="sry":
+    elif params[1]=="graphics":
         shapes(params[1:3]);
-        rebuild(params[1:] + ["-y"])    
+        rebuild(params[1:])    
     elif params[1]=="rename":
         rename(params[1:])
     elif params[1]=="clone":
@@ -1529,8 +1535,6 @@ if __name__ == "__main__":
     elif params[1]=="create":
         create(params[1:])
     elif params[1]=="clean":
-        clean(params[1:])
-    elif params[1]=="cy":
         clean(params[1:]+["-y"])
     elif params[1]=="reset":
         reset(params[1:])

@@ -856,14 +856,43 @@ def tile(params):
         store_tile(params[2], tile, xsize, ysize, params[3])
 
 
+TARGETS_WITH_XSIZE_6 = {"oric", "atmos", "comx_ntsc", "comx", "pecom", "micro"}
+TARGETS_WITH_XSIZE_7 = {"apple2", "apple2enh"}
+
+TARGETS_WITH_YSIZE_6 = {"atari_lynx"}
+TARGETS_WITH_YSIZE_9 = {"comx","pecom", "micro"}
+
+def detect_xsize(target):
+    if target in TARGETS_WITH_XSIZE_6:
+        return 6
+    elif target in TARGETS_WITH_XSIZE_7:
+        return 7
+    else:
+        return 8
+
+def detect_ysize(target):
+    if target in TARGETS_WITH_YSIZE_6:
+        return 6
+    elif target in TARGETS_WITH_YSIZE_9:
+        return 9
+    else:
+        return 8
+
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
 def shapes(params):
     project_name = params[1]
-    
+
     project_cat = project_category(project_name)
     
     if(len(params)>3):
         xsize_str,ysize_str = params[2:]
+    elif len(params)==3:
+        detected_xsize = detect_xsize(params[2])
+        detected_ysize = detect_ysize(params[2])
+        xsize_str = str(detected_xsize)
+        ysize_str = str(detected_ysize)
+        print("Detected xsize: " + xsize_str)
+        print("Detected ysize: " + ysize_str)
     else:
         xsize_str = "8"
         ysize_str = "8"
@@ -880,6 +909,10 @@ def shapes(params):
         print("tile number: " + tile_number_str)
         
         tile,xsize,ysize = import_tile(path_to_shape_file)
+        if(str(xsize)!=xsize_str) or (str(ysize)!=ysize_str):
+            print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
+            print(tile)
+            exit()
         print(tile)
         print_shape(compute_shape(tile,xsize))
         
@@ -1285,10 +1318,12 @@ def help(params):
 
     elif params[1]=="shapes":
         print("xl shapes <project> <[optional] xsize> <[optional] ysize>")
+        print("xl shapes <project> <[optional] target>")
         print("It converts all shape files into tiles and stores them as such in the project.") 
         print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
         print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")
         print("If no optional parameter is passed, then 8x8 shape is assumed")
+        print("If a target is passed as parameter it will guess xsize and ysize for that target.")
         print("")
         print("Example: ")
         print("Provided that you have a project named 'foo', the command")
@@ -1508,7 +1543,7 @@ if __name__ == "__main__":
     elif params[1]=="rebuild":
         rebuild(params[1:])
     elif params[1]=="make":
-        shapes(params[1:3]);
+        shapes(params[1:]);
         rebuild(params[1:])    
     elif params[1]=="rename":
         rename(params[1:])

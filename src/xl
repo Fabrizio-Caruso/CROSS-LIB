@@ -1111,7 +1111,7 @@ def help(params):
         print("")
         print("It re-builds <project> for <target> and its assets by using the pictorial text files in the shapes directory.")
         print("It is equivalent to:")
-        print("xl shapes <project>")
+        print("xl shapes <project> <target>")
         print("xl rebuild <project> <target>")
         print("")
         print("Example:")

@@ -879,7 +879,7 @@ def detect_xsize(target):
 # comx_ntsc : 6x8
 # comx (pal): 6x9
 def detect_ysize(target):
-    for target_8_ysize in TARGETS_WITH_YSIZE_8:
+    for target_8_ysize in TARGETS_WITH_YSIZE_8: # Necessary to have this before size 9 for NTSC case (comx, micro)
         if target.startswith(target_8_ysize):
             return 8
     for target_6_ysize in TARGETS_WITH_YSIZE_6:
@@ -890,22 +890,88 @@ def detect_ysize(target):
             return 9
     return 8
 
+
+# General strategies:
+# xsize or ysize < 8 -> cut left/right or top/bottom columns/rows
+# ysize > 8          -> repeat top/bottom rows 
+def convert(tile_vect,xsize,ysize):
+    if(xsize==7):
+        tile_vect = [vect[:-1] for vect in tile_vect]
+    if(xsize==6):
+        tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
+        
+    if(ysize==6):
+        tile_vect = (tile_vect[:-1])[1:]
+    if(ysize==9):
+        tile_vect = tile_vect + [ tile_vect[-1]]
+    if(ysize==10):
+        tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
+    return tile_vect
+
+
+# Extand 8x8 shapes by reshaping them into shapes with other dimensions 
+def extend(params):
+    project_name = params[1]
+
+    project_cat = project_category(project_name)
+
+    xsize_str = "8"
+    ysize_str = "8"
+
+    path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
+    print("path to shape files: " + path_to_files)
+    shape_files = files_in_path(path_to_files)
+    for shape_file in shape_files:
+        path_to_shape_file = path_to_files + "/" + shape_file
+        
+        print("shape file: " + shape_file)
+        tile_number_str = shape_file[5:].replace(".txt","")
+        
+        print("---tile number: " + tile_number_str)
+        
+        print("")
+
+        tile,xsize,ysize = read_shape(path_to_shape_file)
+        if(str(xsize)!=xsize_str) or (str(ysize)!=ysize_str):
+            print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
+            print(tile)
+            exit()
+        print(tile)
+        print("")
+        print("7x8");
+        print(convert(tile,7,8))
+        print("")
+        print("6x8");
+        print(convert(tile,6,8))
+        print("")
+        print("8x6");
+        print(convert(tile,8,6))
+        print("")
+        print("6x9");
+        print(convert(tile,6,9))
+        print("")
+        print("8x10");
+        print(convert(tile,8,10))
+        print("")
+    exit();
+
+
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
 def shapes(params):
     project_name = params[1]
 
     project_cat = project_category(project_name)
     
-    if(len(params)>3):
+    if(len(params)>3):   # xsize, ysize parameters
         xsize_str,ysize_str = params[2:]
-    elif len(params)==3:
+    elif len(params)==3: # target parameter 
         detected_xsize = detect_xsize(params[2])
         detected_ysize = detect_ysize(params[2])
         xsize_str = str(detected_xsize)
         ysize_str = str(detected_ysize)
         print("Detected xsize: " + xsize_str)
         print("Detected ysize: " + ysize_str)
-    else:
+    else:                # no parameter
         xsize_str = "8"
         ysize_str = "8"
     print("xsize: " + xsize_str)
@@ -1569,6 +1635,8 @@ if __name__ == "__main__":
         tile(params[1:])
     elif params[1]=="shapes":
         shapes(params[1:])
+    elif params[1]=="extend":
+        extend(params[1:])
     elif params[1]=="build":
         build(params[1:])
     elif params[1]=="manual":

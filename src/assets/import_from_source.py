@@ -88,6 +88,7 @@ def compute_rotated_shape(items):
     
     
 
+# It computes the shape from the tile file (not directly from the shapes if available)
 def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
     dir = xsize+"x"+ysize
     dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
@@ -432,6 +433,27 @@ def store_tile(project, tile, xsize, ysize, index):
     fin = open(dest, "wt")
     fin.write(tile)
     fin.close()
+
+
+def read_shape(file_name):
+    fin = open(file_name, "rt")
+    lines = fin.readlines()
+    tile = ""
+
+    filtered_lines = []
+    for line in lines:
+        if not(line=="\n" or line=="\r" or line== "\r\n"):
+            filtered_lines.append(line.replace('\n','').replace('\r',''))
+
+    xsize = 8
+    for line in filtered_lines:
+        if len(line)<xsize:
+            xsize = len(line)
+
+    trimmed_lines = []
+    for line in filtered_lines:
+        trimmed_lines.append(line[:xsize])
+    return trimmed_lines,xsize,len(trimmed_lines)
 
 
 def import_tile(file_name):

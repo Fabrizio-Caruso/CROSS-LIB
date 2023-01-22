@@ -909,6 +909,11 @@ def convert(tile_vect,xsize,ysize):
     return tile_vect
 
 
+def display_shape(tile_vect):
+    for row in tile_vect:
+        print(row)
+
+
 # Extand 8x8 shapes by reshaping them into shapes with other dimensions 
 def extend(params):
     project_name = params[1]
@@ -939,19 +944,19 @@ def extend(params):
         print(tile)
         print("")
         print("7x8");
-        print(convert(tile,7,8))
+        display_shape(convert(tile,7,8))
         print("")
         print("6x8");
-        print(convert(tile,6,8))
+        display_shape(convert(tile,6,8))
         print("")
         print("8x6");
-        print(convert(tile,8,6))
+        display_shape(convert(tile,8,6))
         print("")
         print("6x9");
-        print(convert(tile,6,9))
+        display_shape(convert(tile,6,9))
         print("")
         print("8x10");
-        print(convert(tile,8,10))
+        display_shape(convert(tile,8,10))
         print("")
     exit();
 

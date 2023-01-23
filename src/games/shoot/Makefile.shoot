@@ -94,7 +94,7 @@ _NCURSES_SLOWDOWN=1
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters
 
-SCCZ80_OPTS ?=  $(GLOBAL_OPTS)
+SCCZ80_OPTS ?=  $(GLOBAL_OPTS) -O3
 #-O0
 #-O3
 
@@ -748,14 +748,40 @@ vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 jupiter_ace: ace
 
-ace: ace_exp_16k
+ace: ace_exp_32k
 
+# 	-DANIMATE_PLAYER
+# --max-allocs-per-node200000
+# --opt-code-size
+# TODO: Currently too big for +16k model
+# -DNO_INITIAL_SCREEN -DNO_SLEEP -DNO_WAIT
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(ZSDCC_OPTS) -SO3 -compiler=sdcc  $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__ACE__ \
+	-DFULL_GAME -DNO_BLINKING -DNO_HINTS -DNO_PLAYER_SHOOT_ANIMATION \
+	-DEXTRA_TITLE -DLESS_TEXT -DSIMPLE_STRATEGY \
+	-DGHOSTS_NUMBER=8 -DANIMATE_PLAYER \
+	-DCONIO -DNO_ARROW_RANGE_CHECK  -D_XL_NO_COLOR \
+	-clib=default -DMAX_ROCKETS_NUMBER=4 -D_XL_SLOW_DOWN_FACTOR=200 \
+	-DUDG_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o ace -Cz--audio -create-app	
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	cp ace.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	rm ace.wav
+	rm ace.tap
+	rm ace
+
+
+ace_exp_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN  -DEXTRA_TITLE \
 	-DSOUNDS \
 	-DCONIO \
-	-clib=default \
+	-clib=default -D_XL_SLOW_DOWN_FACTOR=100 \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -769,6 +795,25 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm ace.tap
 	rm ace
 
+
+ace_exp_32k_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(ZSDCC_OPTS) -SO3 -compiler=sdcc $(INCLUDE_OPTS) \
+	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN  -DEXTRA_TITLE \
+	-DSOUNDS \
+	-DCONIO \
+	-clib=default -D_XL_SLOW_DOWN_FACTOR=100 \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o ace -Cz--audio -create-app	
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	cp ace.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	rm ace.wav
+	rm ace.tap
+	rm ace
 
 #################################################################
 

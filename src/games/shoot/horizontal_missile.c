@@ -41,18 +41,12 @@ extern uint8_t isOneMissileLevel;
 extern uint8_t isMissileLevel;
 extern uint8_t isBossLevel;
 
+	#if !defined(NO_ARROW_RANGE_CHECK)
     uint8_t _playerInArrowRange(void)
     {
         return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
     }
-    
-    
-    // void _display_and_handle_player(Character *missilePtr)
-    // {
-            // displayHorizontalMissile(&missilePtr);
-            
-            // handle_player_killed(&missilePtr);
-    // }
+    #endif
     
     void _handle_from_the_left(void)
     {
@@ -72,6 +66,7 @@ extern uint8_t isBossLevel;
             else
             {
                 ADVANCED_LEFT_MISSILE();
+				#if !defined(NO_ARROW_RANGE_CHECK)
                 if(_playerInArrowRange())
                 {
                     if(player._x>=leftHorizontalMissile._x)
@@ -79,6 +74,7 @@ extern uint8_t isBossLevel;
                         (void) moveCharacter((uint8_t *)&leftHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
                     }
                 }
+				#endif
             }
             displayHorizontalMissile(&leftHorizontalMissile);
             
@@ -105,6 +101,7 @@ extern uint8_t isBossLevel;
             {
                 ADVANCED_RIGHT_MISSILE();
 
+				#if !defined(NO_ARROW_RANGE_CHECK)
                 if(_playerInArrowRange())
                 {
                     if(player._x<= rightHorizontalMissile._x)    
@@ -112,6 +109,7 @@ extern uint8_t isBossLevel;
                         (void) moveCharacter((uint8_t *)&rightHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
                     }
                 }
+				#endif
             }
             displayHorizontalMissile(&rightHorizontalMissile);    
             

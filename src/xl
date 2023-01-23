@@ -22,7 +22,7 @@ from import_from_source import *
 
 COMMANDS_LIST = \
     [ \
-    "build", "clean", "c", "create",  "delete", "help", "h", \
+    "build", "clean", "c", "create",  "delete", "extend", "help", "h", \
     "list", "l", "reset", "debug", "d", "test", "tile", \
     "rebuild", "import", "size", "show", "string", "run", "r", \
     "clone", "rename", "rotate", "tools", "files", "f", \
@@ -914,20 +914,27 @@ def display_shape(tile_vect):
         print(row)
 
 
+def path_to_shapes(project, xsize, ysize):
+    
+    project_cat = project_category(project)
+    print(project_cat)
+    return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
+
 # Extand 8x8 shapes by reshaping them into shapes with other dimensions 
 def extend(params):
-    project_name = params[1]
+    project = params[1]
 
-    project_cat = project_category(project_name)
+    # project_cat = project_category(project)
 
-    xsize_str = "8"
-    ysize_str = "8"
+    # xsize_str = "8"
+    # ysize_str = "8"
 
-    path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
-    print("path to shape files: " + path_to_files)
-    shape_files = files_in_path(path_to_files)
+    # path_to_shapes = project_cat + "s/" + project + "/shapes/"
+    path_to_8x8_files = path_to_shapes(project,8,8)
+    print("path to shape files: " + path_to_8x8_files)
+    shape_files = files_in_path(path_to_8x8_files)
     for shape_file in shape_files:
-        path_to_shape_file = path_to_files + "/" + shape_file
+        path_to_shape_file = path_to_8x8_files + "/" + shape_file
         
         print("shape file: " + shape_file)
         tile_number_str = shape_file[5:].replace(".txt","")
@@ -937,7 +944,7 @@ def extend(params):
         print("")
 
         tile,xsize,ysize = read_shape(path_to_shape_file)
-        if(str(xsize)!=xsize_str) or (str(ysize)!=ysize_str):
+        if(xsize!=8 or ysize!=8):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
             exit()
@@ -1176,6 +1183,13 @@ def help(params):
         print("(e.g., by cloning it with 'xl clone bomber foo'),")
         print("then you can add support for the 'einstein' target to it with")
         print("xl add foo einstein")
+    elif params[1]=="extend":
+        print("\nxl extend <project>")
+        print("")
+        print("It generates candidate shapes of different sizes from the 8x8 shapes of <project>.")
+        print("Example:")
+        print("In order to generate candidate shapes for foo using 8x8 shapes, you can do:")     
+        print("xl extend foo")
     elif params[1]=="remove":
         print("\nxl remove <project> <target>")
         print("")

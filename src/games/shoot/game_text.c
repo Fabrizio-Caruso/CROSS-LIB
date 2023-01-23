@@ -445,7 +445,7 @@ void handleLevelBonus(uint16_t bonus)
 }
 #endif
 
-
+#if !defined(NO_ACHIEVEMENTS)
 uint8_t countDiscoveredSecrets(void)
 {
     uint8_t total;
@@ -480,7 +480,6 @@ uint8_t countDiscoveredSecrets(void)
     return total;
 }
 
-#if !defined(NO_ACHIEVEMENTS)
 void printAchievements(void)
 {
     uint8_t i;

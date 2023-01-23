@@ -117,12 +117,14 @@
 // level 16: 20 + 25*16 + 15*10 = 20 + 400 + 150 = 570
 #define ZERO_LEVEL_GHOSTS_NUMBER 65
 
-#if XSize<=22
-    #define MAX_ROCKETS_NUMBER 4
-#elif XSisize<=32
-    #define MAX_ROCKETS_NUMBER 5
-#else 
-    #define MAX_ROCKETS_NUMBER 6
+#if !defined(MAX_ROCKETS_NUMBER)
+	#if XSize<=22
+		#define MAX_ROCKETS_NUMBER 4
+	#elif XSisize<=32
+		#define MAX_ROCKETS_NUMBER 5
+	#else 
+		#define MAX_ROCKETS_NUMBER 6
+	#endif
 #endif
 
 #define MISSILE_DESTROYER_TRIGGER 3

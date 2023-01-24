@@ -18,6 +18,20 @@ PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
 
+# It displays a shape from a list of strings (rows)
+def display_shape(tile_vect):
+    for row in tile_vect:
+        print(row)
+
+
+# It returns the path to the shape directory for a given project and dimension
+def path_to_shapes(project, xsize, ysize):
+    
+    project_cat = project_category(project)
+    print(project_cat)
+    return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
+
+
 # It computes the type of project
 def project_category(game_dir):
     if(game_dir in example_projects):

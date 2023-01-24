@@ -909,30 +909,39 @@ def convert(tile_vect,xsize,ysize):
     return tile_vect
 
 
-def display_shape(tile_vect):
-    for row in tile_vect:
-        print(row)
+def write_shapes(project, shapes, xsize,ysize):
+    path = path_to_shapes(project,xsize,ysize)
+    path = path.replace("shapes","_shapes")
+    print("Writting shapes in: " + path)
+    if os.path.exists(path):
+        print("Directory exists")
+    else:
+        print("Directory does not exist")
+        os.makedirs(path)
+    for tile_number, shape in shapes.items():
+        print(tile_number,shape)
+        path_to_shape = path+"shape"+tile_number+".txt" 
+        print("Path to shape file: " + path_to_shape)
+        with open(path_to_shape,"w") as file:
+            for row in shape:
+                print(row)
+                file.write(row+"\n")
+    # with open(path) as file:
+    # project_makefile = file.read()
 
-
-def path_to_shapes(project, xsize, ysize):
-    
-    project_cat = project_category(project)
-    print(project_cat)
-    return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
 
 # Extand 8x8 shapes by reshaping them into shapes with other dimensions 
 def extend(params):
     project = params[1]
 
-    # project_cat = project_category(project)
-
-    # xsize_str = "8"
-    # ysize_str = "8"
-
-    # path_to_shapes = project_cat + "s/" + project + "/shapes/"
     path_to_8x8_files = path_to_shapes(project,8,8)
     print("path to shape files: " + path_to_8x8_files)
     shape_files = files_in_path(path_to_8x8_files)
+    
+    dict7x8 = dict()
+    dict6x8 = dict()
+    dict8x6 = dict()
+    dict6x9 = dict()
     for shape_file in shape_files:
         path_to_shape_file = path_to_8x8_files + "/" + shape_file
         
@@ -951,20 +960,30 @@ def extend(params):
         print(tile)
         print("")
         print("7x8");
-        display_shape(convert(tile,7,8))
+        shape7x8 = convert(tile,7,8)
+        display_shape(shape7x8)
+        dict7x8[tile_number_str]=shape7x8
         print("")
         print("6x8");
-        display_shape(convert(tile,6,8))
+        shape6x8 = convert(tile,6,8)
+        display_shape(shape6x8)
+        dict6x8[tile_number_str]=shape6x8
         print("")
         print("8x6");
-        display_shape(convert(tile,8,6))
+        shape8x6 = convert(tile,8,6)
+        display_shape(shape8x6)
+        dict8x6[tile_number_str]=shape8x6
         print("")
         print("6x9");
-        display_shape(convert(tile,6,9))
+        shape6x9 = convert(tile,6,9)
+        display_shape(shape6x9)
+        dict6x9[tile_number_str]=shape6x9
         print("")
-        print("8x10");
-        display_shape(convert(tile,8,10))
-        print("")
+    # print(str(dict7x8))
+    write_shapes(project,dict7x8,7,8)
+    write_shapes(project,dict6x8,6,8)
+    write_shapes(project,dict8x6,8,6)
+    write_shapes(project,dict6x9,6,9)
     exit();
 
 

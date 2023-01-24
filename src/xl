@@ -439,7 +439,7 @@ def create(params):
         
         game_dir = no_space(game_dir)
         
-        if(game_dir in example_projects or game_dir in builtin_games or game_dir in COMMANDS_LIST):
+        if(game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST):
             print("invalid name!")
             exit()
 
@@ -648,7 +648,7 @@ def delete(params):
         game_dir="helloworld"
     else:
         candidate_name = params[1]
-        if(candidate_name in example_projects or candidate_name in builtin_games or candidate_name in COMMANDS_LIST):
+        if(candidate_name in example_projects or candidate_name in game_projects or candidate_name in COMMANDS_LIST):
             print("invalid name!")
             exit()
         else:
@@ -1410,7 +1410,7 @@ def help(params):
         print("\nPress ENTER to continue...")
         time.sleep(1)
 
-        if sys.version_info[0] < 3:
+        if python_version < 3:
             raw_input()
         else:
             input()
@@ -1489,7 +1489,7 @@ def help(params):
         print("\nPress ENTER to continue...")
         time.sleep(1)
 
-        if sys.version_info[0] < 3:
+        if python_version < 3:
             raw_input()
         else:
             input()
@@ -1609,11 +1609,14 @@ def manual():
 if __name__ == "__main__":
     platform = sys.platform
     
+    python_version = sys.version_info[0]
+    python_subversion = sys.version_info[1]
+    
     print("----------------------------")
     print("Cross-Lib `xl` helper script")
     print("----------------------------")
     print("Platform: " + platform)
-    print("Python:   " + str(sys.version_info[0]) + "." + str(sys.version_info[1]))
+    print("Python:   " + str(python_version) + "." + str(python_subversion))
     if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "win32"]):
         GNU_MAKE="make"
     else:
@@ -1627,9 +1630,6 @@ if __name__ == "__main__":
     print("GNU MAKE command: " + GNU_MAKE)
     print("----------------------------")
     print("")
-    builtin_games = ["chase","shoot","bomber","snake","horde"]
-
-
     
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")

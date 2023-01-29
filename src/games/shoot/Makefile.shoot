@@ -748,7 +748,7 @@ vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 jupiter_ace: ace
 
-ace: ace_exp_16k
+ace: ace_exp_32k
 
 # 	-DANIMATE_PLAYER
 # --max-allocs-per-node200000

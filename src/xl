@@ -374,7 +374,7 @@ def build(params):
         target = params[2]
 
     if len(params)<4:
-        threads = "8"
+        threads = default_threads
     else:
         threads = params[3]
 
@@ -1604,13 +1604,34 @@ def manual():
 #  OpenBSD 6            openbsd6            
 # ---------------------------------------------
 
+def read_config():
+    if python_version==2:
+        import ConfigParser
+        global default_threads
+        
+        config = ConfigParser.SafeConfigParser()
+    else:
+        import configparser
+
+        config = configparser.ConfigParser()
+    try:
+        config.read('config.ini')
+        print("Config file found with: " + str(config.sections()))
+        print("")
+        if config.has_option("build","threads"):
+            default_threads = config.get("build","threads")
+        else:
+            print("no threads option found")
+            default_threads = str(DEFAULT_THREADS)
+        print("build.threads: " + default_threads )
+    except:
+        pass
+    print("")
+
 
 # ---------------------------------------------
 if __name__ == "__main__":
     platform = sys.platform
-    
-    python_version = sys.version_info[0]
-    python_subversion = sys.version_info[1]
     
     print("----------------------------")
     print("Cross-Lib `xl` helper script")
@@ -1630,6 +1651,16 @@ if __name__ == "__main__":
     print("GNU MAKE command: " + GNU_MAKE)
     print("----------------------------")
     print("")
+    
+    
+    read_config()
+
+    # except error:
+        # print(error)
+        # exit()
+    # except: 
+        # print("Configuration file not found")
+        # print("")
     
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")

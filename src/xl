@@ -111,7 +111,7 @@ def multiple_debug_run(mypath,target,xsize,ysize,debug):
         run_command_verbosely(make_command)
 
 
-def multiple_run(mypath,target,threads,optimization):
+def multiple_run(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
@@ -121,7 +121,7 @@ def multiple_run(mypath,target,threads,optimization):
         make_command = \
             GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
+                " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + zsdcc_extra_optimization + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
         run_command_verbosely(make_command)
@@ -380,9 +380,9 @@ def build(params):
 
 
     if len(params)>=5 and params[4]=="on":
-        optimization = "--max-allocs-per-node200000"
+        zsdcc_extra_optimization = "--max-allocs-per-node200000"
     else:
-        optimization = ""
+        zsdcc_extra_optimization = ""
 
     if len(params)>=6:
         compiler_opts = params[5]
@@ -392,9 +392,14 @@ def build(params):
     print("Project name       : " + game_dir)
     print("Project type       : " + project_type)
     print("Number of threads  : " + threads)
-    print("Extra optimization : " + optimization)
+    print("Extra optimization : " + zsdcc_extra_optimization)
     print("Compiler's options : " + compiler_opts)
-
+    
+    print("sccz80_compiler_opts: " + sccz80_compiler_opts)
+    print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
+    print("cmoc_compiler_opts:  " + cmoc_compiler_opts)
+    
+    print("")
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
@@ -406,7 +411,9 @@ def build(params):
         make_command = \
             GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + optimization + \
+                " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
+                " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + "'" + \
+                " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
                 compiler_opts +                                      \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
@@ -414,16 +421,16 @@ def build(params):
         
     else:
         if game_dir in ["games","examples","projects"]:
-            multiple_run(game_dir,target,threads,optimization)
+            multiple_run(game_dir,target,threads,zsdcc_extra_optimization)
         elif game_dir=="new":
-            multiple_run("projects",target,threads,optimization)
+            multiple_run("projects",target,threads,zsdcc_extra_optimization)
         elif game_dir in ["builtin","built-in"]:
-            multiple_run("games",target,threads,optimization)
-            multiple_run("examples",target,threads,optimization)
+            multiple_run("games",target,threads,zsdcc_extra_optimization)
+            multiple_run("examples",target,threads,zsdcc_extra_optimization)
         elif game_dir=="all":
-            multiple_run("games",target,threads,optimization)
-            multiple_run("examples",target,threads,optimization)
-            multiple_run("projects",target,threads,optimization)
+            multiple_run("games",target,threads,zsdcc_extra_optimization)
+            multiple_run("examples",target,threads,zsdcc_extra_optimization)
+            multiple_run("projects",target,threads,zsdcc_extra_optimization)
         else:
             exit()     
 
@@ -1604,10 +1611,22 @@ def manual():
 #  OpenBSD 6            openbsd6            
 # ---------------------------------------------
 
+def read_config_option(section, option):
+        if config.has_option(section,option):
+            return config.get(section,option)
+        else:
+            return ""
+
 def read_config():
     if python_version==2:
         import ConfigParser
+        
         global default_threads
+        global sccz80_compiler_opts 
+        global zsdcc_compiler_opts
+        global cmoc_compiler_opts
+        
+        global config 
         
         config = ConfigParser.SafeConfigParser()
     else:
@@ -1618,12 +1637,14 @@ def read_config():
         config.read('config.ini')
         print("Config file found with: " + str(config.sections()))
         print("")
-        if config.has_option("build","threads"):
-            default_threads = config.get("build","threads")
-        else:
-            print("no threads option found")
-            default_threads = str(DEFAULT_THREADS)
-        print("build.threads: " + default_threads )
+        
+
+        default_threads = read_config_option("build","threads") 
+
+        sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
+        zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
+        cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
+        
     except:
         pass
     print("")

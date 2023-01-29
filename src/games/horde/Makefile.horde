@@ -99,15 +99,16 @@ _NCURSES_SLOWDOWN=9
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters
 
-SCCZ80_OPTS =  -O3 $(GLOBAL_OPTS)
+SCCZ80_OPTS ?=  $(GLOBAL_OPTS) $(SCCZ80_MAKEFILE_COMPILATION_OPTS)
 #-O0
 #-O3
 
-SCCZ80_ROM_OPTS ?= -O3 $(GLOBAL_OPTS)
+SCCZ80_ROM_OPTS ?= $(GLOBAL_OPTS) $(SCCZ80_MAKEFILE_COMPILATION_OPTS)
 #-O0
 #-O3
 
-ZSDCC_OPTS ?= -SO3 $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+ZSDCC_OPTS ?=  $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+# -SO2
 #-SO0
 # -SO3 --max-allocs-per-node200000
 
@@ -865,7 +866,7 @@ vic20_exp_16k_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 #################################################################
 
-CMOC_OPTS                   ?= -O2 -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
+CMOC_OPTS                   ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
 
 
 NO_UDG_OPS                  ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
@@ -904,7 +905,7 @@ VECTREX_OPTS                ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -D
 
 ##########
 
-THOMSON_OPTS                ?= -O2 -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=100 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DSOUNDS -DXSize=39
+THOMSON_OPTS                ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=100 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DSOUNDS -DXSize=39
 
 # -DDEFAULT_CLEAR_SCREEN 
 MO5_OPTS                    ?= $(THOMSON_OPTS) -D__MO5__ 

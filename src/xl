@@ -385,7 +385,7 @@ def build(params):
         zsdcc_extra_optimization = ""
 
     if len(params)>=6:
-        compiler_opts = params[5]
+        compiler_opts = " " + params[5]
     else:
         compiler_opts = ""
 
@@ -412,9 +412,10 @@ def build(params):
             GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-                " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + "'" + \
+                " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
                 " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-                compiler_opts +                                      \
+                " NATIVE_CC=" + native_compiler + \
+                " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 
         run_command_verbosely(make_command)
@@ -1625,6 +1626,10 @@ def read_config():
         global sccz80_compiler_opts 
         global zsdcc_compiler_opts
         global cmoc_compiler_opts
+
+        global native_compiler
+        
+        global tool_compiler
         
         global config 
         
@@ -1644,6 +1649,10 @@ def read_config():
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
+        
+        native_compiler = read_config_option("build", "native_compiler")
+        
+        tool_compiler = read_config_option("tools", "tool_compiler")
         
     except:
         pass

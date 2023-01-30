@@ -4,22 +4,25 @@
 # GCC_OPTS ?= -Wpedantic -Wall
 
 # NATIVE_CC ?= $(GCC)
+# include ./games/chase/Makefile.chase
+
+include ./makefiles.common/auxiliary/Makefile_compilers
 
 GMAKE=make
 
 
 $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT): $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c
-	$(NATIVE_CC) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c -o $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(TOOL_CC) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c -o $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
     
 $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/f2k5.c
-	$(NATIVE_CC) $(TOOLS_PATH)/cmoc/mo5/f2k5.c  -o $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
+	$(TOOL_CC) $(TOOLS_PATH)/cmoc/mo5/f2k5.c  -o $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 
 $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT): $(TOOLS_PATH)/bbc/bbcim-1.0.1/src/bbcim.c
 	cd $(TOOLS_PATH)/bbc/bbcim-1.0.1/ && $(GMAKE)
 	mv $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(EXT) $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 
 $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/oz/makewzd.c
-	$(NATIVE_CC) $(TOOLS_PATH)/z88dk/oz/makewzd.c -o $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+	$(TOOL_CC) $(TOOLS_PATH)/z88dk/oz/makewzd.c -o $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 
 $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk.c
 	cd $(TOOLS_PATH)/cmoc/coco/file2dsk/Source && $(GMAKE)
@@ -56,10 +59,12 @@ tools: \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 
+
+
 clean_tools:
+	rm -rf $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
-	rm -rf $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)

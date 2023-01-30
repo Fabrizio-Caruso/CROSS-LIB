@@ -40,8 +40,8 @@ ATARI_ST_OPTS ?=
 ###########################
 # GCC 
 
-# For cygwin posix build: use gcc
-# For windows 32 non-posix build: x86_64-w64-mingw32-gcc
+# For cygwin build use gcc
+# For windows build use mingw, e.g., x86_64-w64-mingw32-gcc
 _CC ?= gcc $(GLOBAL_OPTS)
 _CC_OPTS ?= 
 
@@ -51,7 +51,9 @@ _CC_OPTS ?=
 GCC ?= gcc $(GLOBAL_OPTS)
 GCC_OPTS ?= -Wpedantic -Wall
 
-NATIVE_CC ?= $(GCC)
+# NATIVE_CC ?= $(GCC)
+
+TOOL_CC ?= $(GCC)
 
 #############
 

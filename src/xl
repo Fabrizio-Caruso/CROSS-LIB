@@ -775,31 +775,35 @@ def run_native(params):
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
     
+    print("run")
     if len(params)==2:
         run_native(params)
     
     if len(params)>=3:
         target = params[2]
         if target=="vic20":
-            target = "vic20_exp_8k"
+            target = "vic20_exp_16k"
+        if target=="c16":
+            target = "c16_16k"
+        if target=="plus4":
+            target = "c16_32k"
+        if target=="pet":
+            target = "pet_16k"            
         if target=="ncurses":
             run_native(params[0:2]+params[3:])
-
-        elif target in ["c64","vic20_exp_8k","vic20_exp_16k","plus4","c128","xpet","cbm-ii"]:
+        elif target in ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4","c16_16k","c16_32k","pet","pet_8k","pet_16k"]:
             extension = "prg"
             if target=="c64":
-                emulator = "x64"
+                emulator = c64_emulator
             elif target.startswith("vic20"):
-                emulator = "xvic -memory 24k"
-            elif target=="plus4":
-                emulator = "xplus4"
-            elif target=="c128":
-                emulator = "x128"
-            elif target=="pet":
-                emulator = "xpet"
-            elif target=="cbm-ii":
-                emulator = "xcbm2"
-                        
+                emulator = vic20_emulator + " -memory 24k"
+            elif target.startswith("c16") or target=="plus4":
+                emulator = plus4_emulator
+            elif target.startswith("pet"):
+                emulator = pet_emulator
+            else:
+                print("Unknown machine")
+                exit()
             command_string = emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             run_command_verbosely(command_string)
 
@@ -1633,6 +1637,14 @@ def read_config():
         
         global tool_compiler
         
+        global c64_emulator
+        global vic20_emulator
+        global plus4_emulator
+        global pet_emulator
+        global cbm2_emulator
+        global cbm50x_emulator
+        global c128_emulator        
+        
         global config 
         
         config = ConfigParser.SafeConfigParser()
@@ -1646,7 +1658,6 @@ def read_config():
         print("")
         
         verbose = read_config_option("verbosity","verbose")
-        print("debug: " + verbose)
         if verbose!="":
             verbose=int(verbose)
         else:
@@ -1661,6 +1672,15 @@ def read_config():
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
+        
+        c64_emulator = read_config_option("run", "c64_emulator")
+        vic20_emulator = read_config_option("run", "vic20_emulator")
+        plus4_emulator = read_config_option("run", "plus4_emulator")
+        pet_emulator = read_config_option("run", "pet_emulator")
+        # cbm2_emulator = read_config_option("run", "cbm2_emulator")
+        # cbm50x_emulator = read_config_option("run", "cbm2_emulator")
+        # c128_emulator = read_config_option("run", "c128_emulator")
+        
         
         native_compiler = read_config_option("build", "native_compiler")
         

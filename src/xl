@@ -22,10 +22,10 @@ from import_from_source import *
 
 COMMANDS_LIST = \
     [ \
-    "build", "clean", "c", "create",  "delete", "extend", "help", "h", \
-    "list", "l", "reset", "debug", "d", "test", "tile", \
-    "rebuild", "import", "size", "show", "string", "run", "r", \
-    "clone", "rename", "rotate", "tools", "files", "f", \
+    "build", "clean", "create",  "delete", "extend", "help", \
+    "list", "reset", "debug", "test", "tile", \
+    "rebuild", "import", "size", "show", "string", "run", \
+    "clone", "rename", "rotate", "tools", "files", \
     "commands",  "add", "remove", "shapes", "rip", "manual" \
     ]
 
@@ -43,7 +43,8 @@ SHORT_COMMANDS_LIST = \
     }
 
 def run_command_verbosely(command_string):
-    print("Going to run: " + command_string)
+    if verbose: 
+        print("Going to run: " + command_string)
     os.system(command_string)
 
 
@@ -728,27 +729,23 @@ def list(params):
     else:
         exit()
 
-    projects = []
-
-    print("Searching folders")
-    for mypath in project_dirs:
-        print(mypath)
-
-    print("")
+    count = 0
 
     for mypath in project_dirs:
+        print("["+mypath+"]")
         for (dirpath, dirnames, filenames) in walk(mypath):
-            projects.extend(dirnames)
+            # projects.extend(dirnames)
+            for project in dirnames:
+                print("  "+str(project))
+                count+=1
             break
+        print("")
     
-    print("Found: " + str(len(projects)))
+    if verbose:
+        print("Found: " + str(count))
+        print("")
 
-    print("")
-
-    for project in projects:
-        print(project)
-
-    return projects
+    return count
 
 
 
@@ -775,7 +772,6 @@ def run_native(params):
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
     
-    print("run")
     if len(params)==2:
         run_native(params)
     
@@ -791,7 +787,7 @@ def run(params):
             target = "pet_16k"            
         if target=="ncurses":
             run_native(params[0:2]+params[3:])
-        elif target in ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4","c16_16k","c16_32k","pet","pet_8k","pet_16k"]:
+        elif target in ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4", "c16_16k","c16_32k","pet","pet_8k","pet_16k"]:
             extension = "prg"
             if target=="c64":
                 emulator = c64_emulator
@@ -859,10 +855,13 @@ def files():
 # Import a shape as single tile from a text file that describes its shape with characters
 def tile(params):
 
-    tile,xsize,ysize = import_tile(params[1])
+    tile,xsize,ysize = import_tile(params[1],verbose)
     
+
     print(tile)
-    print_shape(compute_shape(tile,xsize))
+    
+    if verbose:
+        print_shape(compute_shape(tile,xsize))
     
     if(len(params)>=3):
         store_tile(params[2], tile, xsize, ysize, params[3])
@@ -1654,8 +1653,6 @@ def read_config():
         config = configparser.ConfigParser()
     try:
         config.read('config.ini')
-        print("Config file found with: " + str(config.sections()))
-        print("")
         
         verbose = read_config_option("verbosity","verbose")
         if verbose!="":
@@ -1663,10 +1660,14 @@ def read_config():
         else:
             verbose=0
         if verbose:
-            print("Verbosity ON")
+            print("Verbose Mode ON")
         else:
-            print("Verbosity OFF")
+            print("Verbose Mode OFF")
 
+        if verbose:
+            print("Config file found with: " + str(config.sections()))
+            print("")
+        
         default_threads = read_config_option("build","threads") 
 
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
@@ -1690,7 +1691,8 @@ def read_config():
         print("An exception occurred: " + str(e))
         # TODO: Ask the user to continue or exit
     else:
-        print("config.ini OK")
+        if verbose:
+            print("config.ini OK")
     print("")
 
 

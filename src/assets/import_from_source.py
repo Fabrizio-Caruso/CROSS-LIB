@@ -470,7 +470,7 @@ def read_shape(file_name):
     return trimmed_lines,xsize,len(trimmed_lines)
 
 
-def import_tile(file_name):
+def import_tile(file_name,verbose):
     fin = open(file_name, "rt")
     lines = fin.readlines()
     tile = ""
@@ -488,11 +488,13 @@ def import_tile(file_name):
     trimmed_lines = []
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
-    print(str(trimmed_lines))
+    # if verbose:
+        # print(str(trimmed_lines))
 
     ysize = len(trimmed_lines)
     dir = str(xsize)+"X"+str(ysize)
-    print("Tile shape: " + dir)
+    if verbose:
+        print("Tile shape: " + dir)
     for line_index in range(ysize):
         number_of_bits = len(trimmed_lines[line_index])
         if number_of_bits>8:

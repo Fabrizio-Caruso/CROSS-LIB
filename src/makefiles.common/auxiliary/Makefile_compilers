@@ -53,7 +53,7 @@ GCC_OPTS ?= -Wpedantic -Wall
 
 # NATIVE_CC ?= $(GCC)
 
-TOOL_CC ?= $(GCC)
+# TOOL_CC ?= $(GCC)
 
 #############
 

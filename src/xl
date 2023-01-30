@@ -350,7 +350,7 @@ def clone(params):
 # Generate tools from source code
 def tools():
     make_command = \
-        GNU_MAKE + " tools"
+        GNU_MAKE + " tools TOOL_CC=" + tool_compiler
     run_command_verbosely(make_command)
         
 
@@ -1622,6 +1622,8 @@ def read_config():
     if python_version==2:
         import ConfigParser
         
+        global verbose
+        
         global default_threads
         global sccz80_compiler_opts 
         global zsdcc_compiler_opts
@@ -1643,6 +1645,16 @@ def read_config():
         print("Config file found with: " + str(config.sections()))
         print("")
         
+        verbose = read_config_option("verbosity","verbose")
+        print("debug: " + verbose)
+        if verbose!="":
+            verbose=int(verbose)
+        else:
+            verbose=0
+        if verbose:
+            print("Verbosity ON")
+        else:
+            print("Verbosity OFF")
 
         default_threads = read_config_option("build","threads") 
 
@@ -1654,8 +1666,11 @@ def read_config():
         
         tool_compiler = read_config_option("tools", "tool_compiler")
         
-    except:
-        pass
+    except Exception as e:
+        print("An exception occurred: " + str(e))
+        # TODO: Ask the user to continue or exit
+    else:
+        print("config.ini OK")
     print("")
 
 

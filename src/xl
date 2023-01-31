@@ -379,7 +379,7 @@ def build(params):
         target = params[2]
 
     if len(params)<4:
-        threads = default_threads
+        threads = compilation_threads
     else:
         threads = params[3]
 
@@ -776,7 +776,11 @@ def run_native(params):
 
 DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k"}
 
-DEFAULT_COMMODORE_TARGETS = ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4", "c16_16k","c16_32k","pet","pet_8k","pet_16k"]
+DEFAULT_VICE_TARGETS = ["c64", 
+                             "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k", 
+                             "c16", "plus4", "c16_16k", "c16_32k",
+                             "pet", "pet_8k", "pet_16k"
+                       ]
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
@@ -795,12 +799,17 @@ def run(params):
             run_native(params[0:2]+params[3:])
             
         # TODO: replace this with a check on prefixes
-        elif target in DEFAULT_COMMODORE_TARGETS:
+        elif target in DEFAULT_VICE_TARGETS:
             extension = "prg"
             if target=="c64":
                 emulator = C64_EMULATOR
             elif target.startswith("vic20"):
-                emulator = VIC20_EMULATOR + " -memory 24k"
+                if target=="vic20_exp_3k":
+                    emulator = VIC20_EMULATOR + " -memory 3k"
+                elif target=="vic20_unexpanded":
+                    emulator = VIC20_EMULATOR + " -memory none"
+                else:
+                    emulator = VIC20_EMULATOR + " -memory 24k"
             elif target.startswith("c16") or target=="plus4":
                 emulator = PLUS4_EMULATOR
             elif target.startswith("pet"):
@@ -808,7 +817,7 @@ def run(params):
             else:
                 print("'xl run' does not support this target")
                 exit()
-            command_string = emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            command_string = vice_emulator_path + emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             run_command_verbosely(command_string)
 
         else:
@@ -1645,7 +1654,7 @@ def read_config():
         
         global verbose
         
-        global default_threads
+        global compilation_threads
         global sccz80_compiler_opts 
         global zsdcc_compiler_opts
         global cmoc_compiler_opts
@@ -1655,6 +1664,8 @@ def read_config():
         global tool_compiler     
         
         global interactive_clean
+        
+        global vice_emulator_path
         
         global config 
         
@@ -1680,7 +1691,7 @@ def read_config():
             print("Config file found with: " + str(config.sections()))
             print("")
         
-        default_threads = read_config_option("build","threads") 
+        compilation_threads = read_config_option("build","threads") 
 
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
@@ -1691,6 +1702,8 @@ def read_config():
         tool_compiler = read_config_option("tools", "tool_compiler")
         
         interactive_clean = read_config_option("clean", "interactive")
+        
+        vice_emulator_path = read_config_option("run", "vice_emulator_path")
         
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)

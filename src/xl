@@ -924,37 +924,64 @@ def detect_ysize(target):
 # xsize or ysize < 8 -> cut left/right or top/bottom columns/rows
 # ysize > 8          -> repeat top/bottom rows 
 def convert(tile_vect,xsize,ysize):
-    if(xsize==7):
-        tile_vect = [vect[:-1] for vect in tile_vect]
-    if(xsize==6):
-        tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
-        
-    if(ysize==6):
-        tile_vect = (tile_vect[:-1])[1:]
-    if(ysize==9):
-        tile_vect = tile_vect + [ tile_vect[-1]]
-    if(ysize==10):
-        tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
+
+    if extend_to_smaller=="cut":
+        if xsize==7:
+            tile_vect = [vect[:-1] for vect in tile_vect]
+        if xsize==6:
+            tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
+
+        if(ysize==6):
+            tile_vect = (tile_vect[:-1])[1:]
+    # else:
+        # print("error")
+        # print(extend_to_smaller)
+        # exit()
+    # TODO: Implement switch row/column instead of cut
+    # elif extend_to_smaller=="switch":
+        # if xsize==7:
+            # tile_vect = [vect[:-1] for vect in tile_vect]
+        # if xsize==6:
+            # tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
+
+        # if(ysize==6):
+            # tile_vect = (tile_vect[:-1])[1:]    
+
+    # TODO: Implement zero
+    if extend_to_larger=="duplicate":
+        if(ysize==9):
+            tile_vect = tile_vect + [ tile_vect[-1]]
+        if(ysize==10):
+            tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
+    # elif extend_to_larger=="zero":
+        # if(ysize==9):
+            # tile_vect = tile_vect + [ tile_vect[-1]]
+        # if(ysize==10):
+            # tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
     return tile_vect
 
 
 def write_shapes(project, shapes, xsize,ysize):
     path = path_to_shapes(project,xsize,ysize)
     path = path.replace("shapes","_shapes")
-    print("Writting shapes in: " + path)
+    if verbose:
+        print("Writing shapes in: " + path)
     if os.path.exists(path):
-        print("Directory exists")
+        if verbose:
+            print("Directory exists")
     else:
-        print("Directory does not exist")
+        if verbose:
+            print("Directory does not exist")
         os.makedirs(path)
     for tile_number, shape in shapes.items():
-        print(tile_number,shape)
+        #print(tile_number,shape)
         path_to_shape = path+"shape"+tile_number+".txt" 
         print("Path to shape file: " + path_to_shape)
         with open(path_to_shape,"w") as file:
             for row in shape:
                 print(row)
                 file.write(row+"\n")
+    print("")
     # with open(path) as file:
     # project_makefile = file.read()
 
@@ -964,7 +991,9 @@ def extend(params):
     project = params[1]
 
     path_to_8x8_files = path_to_shapes(project,8,8)
-    print("path to shape files: " + path_to_8x8_files)
+    if verbose:
+        print("Path to shape files: " + path_to_8x8_files)
+        print("")
     shape_files = files_in_path(path_to_8x8_files)
     
     dict7x8 = dict()
@@ -1667,6 +1696,9 @@ def read_config():
         
         global vice_emulator_path
         
+        global extend_to_smaller
+        global extend_to_larger
+        
         global config 
         
         config = ConfigParser.SafeConfigParser()
@@ -1704,6 +1736,10 @@ def read_config():
         interactive_clean = read_config_option("clean", "interactive")
         
         vice_emulator_path = read_config_option("run", "vice_emulator_path")
+        
+        extend_to_larger = read_config_option("extend", "extend_to_larger")
+        extend_to_smaller = read_config_option("extend", "extend_to_smaller")
+
         
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)

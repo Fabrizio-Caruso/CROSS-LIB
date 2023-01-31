@@ -28,7 +28,7 @@ def display_shape(tile_vect):
 def path_to_shapes(project, xsize, ysize):
     
     project_cat = project_category(project)
-    print(project_cat)
+    # print(project_cat)
     return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
 
 

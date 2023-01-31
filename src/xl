@@ -4,6 +4,10 @@ DEBUG_TARGET  = "ncurses_debug"
 
 NATIVE_TARGET = "ncurses_debug"
 
+C64_EMULATOR = "x64"
+VIC20_EMULATOR = "xvic"
+PLUS4_EMULATOR = "xplus4"
+PET_EMULATOR = "xpet"
 
 import shutil
 
@@ -790,13 +794,13 @@ def run(params):
         elif target in ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4", "c16_16k","c16_32k","pet","pet_8k","pet_16k"]:
             extension = "prg"
             if target=="c64":
-                emulator = c64_emulator
+                emulator = C64_EMULATOR
             elif target.startswith("vic20"):
-                emulator = vic20_emulator + " -memory 24k"
+                emulator = VIC20_EMULATOR + " -memory 24k"
             elif target.startswith("c16") or target=="plus4":
-                emulator = plus4_emulator
+                emulator = PLUS4_EMULATOR
             elif target.startswith("pet"):
-                emulator = pet_emulator
+                emulator = PET_EMULATOR
             else:
                 print("Unknown machine")
                 exit()
@@ -1643,15 +1647,9 @@ def read_config():
 
         global native_compiler
         
-        global tool_compiler
+        global tool_compiler     
         
-        global c64_emulator
-        global vic20_emulator
-        global plus4_emulator
-        global pet_emulator
-        global cbm2_emulator
-        global cbm50x_emulator
-        global c128_emulator        
+        global interactive_clean
         
         global config 
         
@@ -1683,19 +1681,15 @@ def read_config():
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         
-        c64_emulator = read_config_option("run", "c64_emulator")
-        vic20_emulator = read_config_option("run", "vic20_emulator")
-        plus4_emulator = read_config_option("run", "plus4_emulator")
-        pet_emulator = read_config_option("run", "pet_emulator")
-        # cbm2_emulator = read_config_option("run", "cbm2_emulator")
-        # cbm50x_emulator = read_config_option("run", "cbm2_emulator")
-        # c128_emulator = read_config_option("run", "c128_emulator")
-        
-        
         native_compiler = read_config_option("build", "native_compiler")
         
         tool_compiler = read_config_option("tools", "tool_compiler")
         
+        interactive_clean = read_config_option("clean", "interactive")
+        
+        if interactive_clean!="":
+            interactive_clean = int(interactive_clean)
+            
     except Exception as e:
         print("An exception occurred: " + str(e))
         # TODO: Ask the user to continue or exit
@@ -1795,7 +1789,10 @@ if __name__ == "__main__":
     elif params[1]=="create":
         create(params[1:])
     elif params[1]=="clean":
-        clean(params[1:]+["-y"])
+        if interactive_clean:
+            clean(params[1:])
+        else:
+            clean(params[1:]+["-y"])
     elif params[1]=="reset":
         reset(params[1:])
     elif params[1]=="delete":

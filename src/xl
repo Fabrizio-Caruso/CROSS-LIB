@@ -773,6 +773,11 @@ def run_native(params):
         command_string = command_prefix + "." + NATIVE_EXTENSION
     run_command_verbosely(command_string)
 
+
+DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k"}
+
+DEFAULT_COMMODORE_TARGETS = ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4", "c16_16k","c16_32k","pet","pet_8k","pet_16k"]
+
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
     
@@ -781,18 +786,16 @@ def run(params):
     
     if len(params)>=3:
         target = params[2]
-        if target=="vic20":
-            target = "vic20_exp_16k"
-        if target=="c16":
-            target = "c16_16k"
-        if target=="plus4":
-            target = "c16_32k"
-        if target=="pet":
-            target = "pet_16k"            
+        if target in DEFAULT_TARGET_MAP:
+            target = DEFAULT_TARGET_MAP[target]
+            if verbose:
+                print("defaulting to target: " + target)
+           
         if target=="ncurses":
             run_native(params[0:2]+params[3:])
+            
         # TODO: replace this with a check on prefixes
-        elif target in ["c64", "vic20_exp_8k","vic20_exp_16k", "c16", "plus4", "c16_16k","c16_32k","pet","pet_8k","pet_16k"]:
+        elif target in DEFAULT_COMMODORE_TARGETS:
             extension = "prg"
             if target=="c64":
                 emulator = C64_EMULATOR

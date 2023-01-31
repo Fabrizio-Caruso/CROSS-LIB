@@ -1135,26 +1135,32 @@ def add(params):
     
     target = params[2]
     
-    print("project: " + project)
-    print("target: " + target)
+    if verbose:
+        print("project: " + project)
+        print("target: " + target)
     
     proj_cat = project_category(project)
-    print("project category: " + proj_cat)
+    
+    if verbose:
+        print("project category: " + proj_cat)
     
     if(proj_cat != "project"):
         print("You cannot modify a built-in project")
         
     new_target_path = "makefiles.common/targets/"
     
-    print("path: " + new_target_path)
+    if verbose:
+        print("path: " + new_target_path)
     
     possible_targets = files_in_path(new_target_path)
-    print(possible_targets)
+    if verbose:
+        print(possible_targets)
     
     new_Makefile = "Makefile_" + target
     
     if new_Makefile in possible_targets:
-        print("Target found in list of candidate extra targets")
+        if verbose:
+            print("Target found in list of candidate extra targets")
     else:
         print("Target not found in list of candidate extra targets")
         exit()
@@ -1172,10 +1178,12 @@ def add(params):
     
     full_new_target_path = new_target_path + new_Makefile
     
-    print("Adding this Makefile target(s)")
+    if verbose:
+        print("Adding this Makefile target(s)")
     command_string = "cat " + full_new_target_path
     run_command_verbosely(command_string)
-    print("\n")
+    if verbose:
+        print("\n")
     
     command_string = "cat " + full_new_target_path + " >> " + full_project_path
     run_command_verbosely(command_string)
@@ -1184,8 +1192,9 @@ def add(params):
 def full_params(params):
     full_command = SHORT_COMMANDS_LIST.get(params[1])
     if(full_command is not None):
-        print("Checking help for the full command: " + str(full_command))
-        print();
+        if verbose:
+            print("Full command: " + str(full_command))
+            print();
         # print(params)
         return ["", full_command] + params[2:]
         # print(params)

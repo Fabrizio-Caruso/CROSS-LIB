@@ -772,6 +772,10 @@ Attach image.
 
 Run bload"cas:",r
 
+Or use MAME
+
+For example
+mame.exe canonv20 -window -uimodekey DEL -cart1 c:\Retro\CROSS-LIB\build\Xhorde_msx_32k.rom -skip_gameinfo
 
 -----------------------------------------------------------
 

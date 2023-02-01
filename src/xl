@@ -776,11 +776,13 @@ def run_native(params):
 
 DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k"}
 
-DEFAULT_VICE_TARGETS = ["c64", 
-                             "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k", 
-                             "c16", "plus4", "c16_16k", "c16_32k",
-                             "pet", "pet_8k", "pet_16k"
-                       ]
+VICE_TARGETS = ["c64", 
+                "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k", 
+                "c16", "plus4", "c16_16k", "c16_32k",
+                "pet", "pet_8k", "pet_16k"
+               ]
+
+MAME_TARGETS = ["msx"]
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
@@ -799,7 +801,7 @@ def run(params):
             run_native(params[0:2]+params[3:])
             
         # TODO: replace this with a check on prefixes
-        elif target in DEFAULT_VICE_TARGETS:
+        elif target in VICE_TARGETS:
             extension = "prg"
             if target=="c64":
                 emulator = C64_EMULATOR
@@ -817,8 +819,11 @@ def run(params):
             else:
                 print("'xl run' does not support this target")
                 exit()
-            command_string = vice_emulator_path + emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            command_string = vice_path + emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             run_command_verbosely(command_string)
+
+        elif target in MAME_TARGETS:
+            pass
 
         else:
             print("'xl run' does not support this target")
@@ -1695,7 +1700,8 @@ def read_config():
         
         global interactive_clean
         
-        global vice_emulator_path
+        global vice_path
+        global mame_path
         
         global extend_algorithm
         
@@ -1735,7 +1741,8 @@ def read_config():
         
         interactive_clean = read_config_option("clean", "interactive")
         
-        vice_emulator_path = read_config_option("run", "vice_emulator_path")
+        vice_path = read_config_option("run", "vice_path")
+        mame_path = read_config_option("run", "mame_path")
         
         extend_algorithm = read_config_option("extend", "extend_algorithm")
         

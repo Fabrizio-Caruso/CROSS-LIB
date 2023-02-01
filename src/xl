@@ -925,14 +925,13 @@ def detect_ysize(target):
 # ysize > 8          -> repeat top/bottom rows 
 def convert(tile_vect,xsize,ysize):
 
-    if extend_to_smaller=="cut":
-        if xsize==7:
-            tile_vect = [vect[:-1] for vect in tile_vect]
-        if xsize==6:
-            tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
+    if xsize==7:
+        tile_vect = [vect[:-1] for vect in tile_vect]
+    if xsize==6:
+        tile_vect = [(vect[:-1])[1:] for vect in tile_vect]
 
-        if(ysize==6):
-            tile_vect = (tile_vect[:-1])[1:]
+    if(ysize==6):
+        tile_vect = (tile_vect[:-1])[1:]
     # else:
         # print("error")
         # print(extend_to_smaller)
@@ -948,16 +947,17 @@ def convert(tile_vect,xsize,ysize):
             # tile_vect = (tile_vect[:-1])[1:]    
 
     # TODO: Implement zero
-    if extend_to_larger=="duplicate":
+    if extend_algorithm=="duplicate":
         if(ysize==9):
             tile_vect = tile_vect + [ tile_vect[-1]]
         if(ysize==10):
             tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
-    # elif extend_to_larger=="zero":
-        # if(ysize==9):
-            # tile_vect = tile_vect + [ tile_vect[-1]]
-        # if(ysize==10):
-            # tile_vect = tile_vect[0:1] + tile_vect + [ tile_vect[-1]]
+    elif extend_algorithm=="zero":
+        zero_row = [ "." * xsize ]
+        if(ysize==9):
+            tile_vect = tile_vect + zero_row
+        if(ysize==10):
+            tile_vect = zero_row + tile_vect + zero_row
     return tile_vect
 
 
@@ -981,7 +981,8 @@ def write_shapes(project, shapes, xsize,ysize):
             for row in shape:
                 print(row)
                 file.write(row+"\n")
-    print("")
+    if verbose:
+        print("")
     # with open(path) as file:
     # project_makefile = file.read()
 
@@ -1696,8 +1697,7 @@ def read_config():
         
         global vice_emulator_path
         
-        global extend_to_smaller
-        global extend_to_larger
+        global extend_algorithm
         
         global config 
         
@@ -1737,9 +1737,7 @@ def read_config():
         
         vice_emulator_path = read_config_option("run", "vice_emulator_path")
         
-        extend_to_larger = read_config_option("extend", "extend_to_larger")
-        extend_to_smaller = read_config_option("extend", "extend_to_smaller")
-
+        extend_algorithm = read_config_option("extend", "extend_algorithm")
         
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)

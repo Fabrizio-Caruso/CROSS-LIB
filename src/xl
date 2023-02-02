@@ -9,6 +9,8 @@ VIC20_EMULATOR = "xvic"
 PLUS4_EMULATOR = "xplus4"
 PET_EMULATOR = "xpet"
 
+MAME_EMULATOR = "mame"
+
 import shutil
 
 import os,sys,re
@@ -48,7 +50,8 @@ SHORT_COMMANDS_LIST = \
 
 def run_command_verbosely(command_string):
     if verbose: 
-        print("Going to run: " + command_string)
+        print("Going to run: ")
+        print(command_string)
     os.system(command_string)
 
 
@@ -774,7 +777,7 @@ def run_native(params):
     run_command_verbosely(command_string)
 
 
-DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k"}
+DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k", "msx": "msx_32k"}
 
 VICE_TARGETS = ["c64", 
                 "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k", 
@@ -782,7 +785,7 @@ VICE_TARGETS = ["c64",
                 "pet", "pet_8k", "pet_16k"
                ]
 
-MAME_TARGETS = ["msx"]
+MAME_TARGETS = ["msx", "msx_16k", "msx_32k"]
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
@@ -823,8 +826,15 @@ def run(params):
             run_command_verbosely(command_string)
 
         elif target in MAME_TARGETS:
-            pass
-
+            emulator = MAME_EMULATOR
+            
+            if target.startswith("msx"):
+                extension = "rom"
+                mame_sub_target = "canonv20" 
+                # mame_rom_path = "'c:\\Retro\\Emulators\\Mame0251\\roms\\'"
+                command_string = mame_path + emulator + " " + mame_sub_target + " -rompath " + mame_rom_path + " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + params[1] + "_" + target + "." + extension
+                run_command_verbosely(command_string)
+                # print(command_string)
         else:
             print("'xl run' does not support this target")
             exit()
@@ -1702,6 +1712,7 @@ def read_config():
         
         global vice_path
         global mame_path
+        global mame_rom_path
         
         global extend_algorithm
         
@@ -1742,7 +1753,9 @@ def read_config():
         interactive_clean = read_config_option("clean", "interactive")
         
         vice_path = read_config_option("run", "vice_path")
+        
         mame_path = read_config_option("run", "mame_path")
+        mame_rom_path = read_config_option("run", "mame_rom_path")
         
         extend_algorithm = read_config_option("extend", "extend_algorithm")
         

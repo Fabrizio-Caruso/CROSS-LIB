@@ -986,7 +986,8 @@ def convert(tile_vect,xsize,ysize):
 
 def write_shapes(project, shapes, xsize,ysize):
     path = path_to_shapes(project,xsize,ysize)
-    path = path.replace("shapes","_shapes")
+    if not replace_shapes:
+        path = path.replace("shapes","_shapes")
     if verbose:
         print("Writing shapes in: " + path)
     if os.path.exists(path):
@@ -999,13 +1000,23 @@ def write_shapes(project, shapes, xsize,ysize):
     for tile_number, shape in shapes.items():
         #print(tile_number,shape)
         path_to_shape = path+"shape"+tile_number+".txt" 
-        print("Path to shape file: " + path_to_shape)
-        with open(path_to_shape,"w") as file:
-            for row in shape:
-                print(row)
-                file.write(row+"\n")
-    if verbose:
-        print("")
+        if verbose:
+            print("Path to shape file: " + path_to_shape)
+        path_to_tile = path.replace("shapes","tiles")+"tile"+tile_number+".txt"
+        if verbose:
+            print("Path to tile file: " + path_to_tile)
+        if replace_shapes and (os.path.exists(path_to_shape) or os.path.exists(path_to_tile)):
+            if os.path.exists(path_to_shape):
+                print("shape "+ tile_number +" already exists")
+            elif os.path.exists(path_to_tile):
+                print("tile "+ tile_number +" already exists")
+        else:  
+            with open(path_to_shape,"w") as file:
+                for row in shape:
+                    print(row)
+                    file.write(row+"\n")
+        if verbose:
+            print("")
     # with open(path) as file:
     # project_makefile = file.read()
 
@@ -1726,6 +1737,8 @@ def read_config():
         
         global extend_algorithm
         
+        global replace_shapes
+        
         global config 
         
         config = ConfigParser.SafeConfigParser()
@@ -1770,9 +1783,14 @@ def read_config():
         
         extend_algorithm = read_config_option("extend", "extend_algorithm")
         
+        replace_shapes = read_config_option("extend", "replace_shapes")
+        
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)
-            
+        
+        if replace_shapes!="":
+            replace_shapes = int(replace_shapes)
+        
     except Exception as e:
         print("An exception occurred: " + str(e))
         # TODO: Ask the user to continue or exit

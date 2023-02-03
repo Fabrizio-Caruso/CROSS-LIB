@@ -18,6 +18,8 @@ roms/vice/pet/kernal4
 roms/vice/pet/basic1
 roms/vice/pet/basic2
 roms/vice/pet/basic4
+roms/vice/pet/edit*
+roms/vice/pet/characters*
 src/cfg/*
 *.o
 *.def

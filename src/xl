@@ -806,9 +806,14 @@ def run(params):
         # TODO: replace this with a check on prefixes
         elif target in VICE_TARGETS:
             extension = "prg"
+            rom_directory = vice_rom_path
             if target=="c64":
+                rom_directory += "c64"
+
                 emulator = C64_EMULATOR
             elif target.startswith("vic20"):
+                rom_directory += "vic20"
+
                 if target=="vic20_exp_3k":
                     emulator = VIC20_EMULATOR + " -memory 3k"
                 elif target=="vic20_unexpanded":
@@ -816,13 +821,16 @@ def run(params):
                 else:
                     emulator = VIC20_EMULATOR + " -memory 24k"
             elif target.startswith("c16") or target=="plus4":
+                rom_directory += "plus4"
+
                 emulator = PLUS4_EMULATOR
             elif target.startswith("pet"):
+                rom_directory += "pet"
                 emulator = PET_EMULATOR
             else:
                 print("'xl run' does not support this target")
                 exit()
-            command_string = vice_path + emulator + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            command_string = vice_path + emulator + " -directory " + rom_directory + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             run_command_verbosely(command_string)
 
         elif target in MAME_TARGETS:
@@ -1711,6 +1719,8 @@ def read_config():
         global interactive_clean
         
         global vice_path
+        global vice_rom_path
+        
         global mame_path
         global mame_rom_path
         
@@ -1753,6 +1763,7 @@ def read_config():
         interactive_clean = read_config_option("clean", "interactive")
         
         vice_path = read_config_option("run", "vice_path")
+        vice_rom_path = read_config_option("run", "vice_rom_path")
         
         mame_path = read_config_option("run", "mame_path")
         mame_rom_path = read_config_option("run", "mame_rom_path")

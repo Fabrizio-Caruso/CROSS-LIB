@@ -402,17 +402,18 @@ def build(params):
     else:
         compiler_opts = ""
 
-    print("Project name       : " + game_dir)
-    print("Project type       : " + project_type)
-    print("Number of threads  : " + threads)
-    print("Extra optimization : " + zsdcc_extra_optimization)
-    print("Compiler's options : " + compiler_opts)
-    
-    print("sccz80_compiler_opts: " + sccz80_compiler_opts)
-    print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
-    print("cmoc_compiler_opts:  " + cmoc_compiler_opts)
-    
-    print("")
+    if verbose:
+        print("Project name       : " + game_dir)
+        print("Project type       : " + project_type)
+        print("Number of threads  : " + threads)
+        print("Extra optimization : " + zsdcc_extra_optimization)
+        print("Compiler's options : " + compiler_opts)
+        
+        print("sccz80_compiler_opts: " + sccz80_compiler_opts)
+        print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
+        print("cmoc_compiler_opts:  " + cmoc_compiler_opts)
+        
+        print("")
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
@@ -1814,7 +1815,7 @@ def read_config():
     else:
         if verbose:
             print("config.ini OK")
-    print("")
+            print("")
 
 
 # ---------------------------------------------
@@ -1918,5 +1919,5 @@ if __name__ == "__main__":
     elif params[1]=="tools":
         tools()
     else:
-        print(params)
+        # print(params)
         build(params)

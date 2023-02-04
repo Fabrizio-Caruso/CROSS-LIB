@@ -320,9 +320,13 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
+ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
 	rm -rf $(BUILD_PATH)/$@.bin
+else
+	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
     
 
 
@@ -346,9 +350,13 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
+ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
 	rm -rf $(BUILD_PATH)/$@.bin
+else
+	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
 
 
 #################################################################
@@ -514,15 +522,22 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
     
+
+ifdef USE_TOOLS
 c64_exomized: c64
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt
+endif
 
 #################################################################
 
+ifdef USE_TOOLS
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+else
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+endif
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
@@ -535,7 +550,9 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+endif  
     
 #################################################################
 
@@ -834,13 +851,17 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -oa40.bin
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	rm a40.bin
+else
+	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.bin
+endif
 	rm A40.LDR
 	rm A40
-	rm a40.bin
 
 
 c128_80col: c128_z80_80col
@@ -860,13 +881,17 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(FULL_FILES) \
 	-create-app -oa80.bin
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 X$(GAME_NAME)_c128_z80_80col.d64
 	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80.ldr
 	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80
 	mv X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
+	rm a80.bin
+else
+	mv a80.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_80col.bin
+endif
 	rm A80.LDR
 	rm A80
-	rm a80.bin
 
 #################################################################
 
@@ -891,8 +916,11 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
+ifdef USE_TOOLS
 cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+else
+cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+endif	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -D_API_VERSION=$(API_VERSION) \
 	-DSOUNDS -DFULL_GAME \
 	-DCPCRSLIB \
@@ -905,6 +933,7 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME)XXX $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cdt
 	rm -rf X$(GAME_NAME)XXX_cpc.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)XXX_cpc.dsk
@@ -917,10 +946,15 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/
 	rm basic.rom
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg
+endif
 
 cpc: cpc_mode0
 
+ifdef USE_TOOLS
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+else
+cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
+endif
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
 	-DYSize=25 -DXSize=20 -DFORCE_SCREEN_MODE=0 \
@@ -938,19 +972,25 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	mv xbin $(BUILD_PATH)/
+ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
 	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
+endif
 	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	rm -rf xbin_BANK_7.bin
 	rm -rf xbin.cpc
-	rm -rf $(BUILD_PATH)/xbin  
+	rm -rf $(BUILD_PATH)/xbin
+	rm -rf xbin
 
 
+ifdef USE_TOOLS
 cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+else
+cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
+endif
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=80 -DFORCE_SCREEN_MODE=2 \
@@ -968,6 +1008,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
 	rm -rf X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
@@ -981,6 +1022,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
+endif 
 
 #################################################################
 
@@ -1265,10 +1307,12 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
+ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
 	rm -rf $(BUILD_PATH)/FULL_samcoupe.bin
+endif
 
 
 #################################################################
@@ -1544,17 +1588,25 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	cmoc_udc_tiles_and_fonts.o sleep_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
-ifeq ($(DO_WIN),1)    
+endif
+ifeq ($(DO_WIN),1)   
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+endif
 endif
 	rm -rf $(BUILD_PATH)/xchase.bin
 
 dragon_targets: \
 	dragon
 
+ifdef USE_TOOLS
 coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+else
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+endif
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1593,19 +1645,27 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
 
 coco_targets: \
     coco
 
 
 
+ifdef USE_TOOLS
 coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+else
+coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+endif
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1644,12 +1704,16 @@ coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fi
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
 
 
 dragon_no_gfx:
@@ -1677,15 +1741,23 @@ dragon_no_gfx:
 	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
-ifeq ($(DO_WIN),1)    
+endif
+ifeq ($(DO_WIN),1)
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+endif
 endif
 	rm -rf $(BUILD_PATH)/xchase.bin
 
 
+ifdef USE_TOOLS
 coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+else
+coco_no_gfx:
+endif
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1712,11 +1784,12 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	text_macros.o input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	
+endif
 
 coco_no_gfx_targets: \
 	coco_no_gfx
@@ -1725,7 +1798,11 @@ coco_no_gfx_targets: \
 ########################################
 
 
+ifdef USE_TOOLS
 mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -1766,6 +1843,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 	display_macros.o \
 	text_macros.o \
 	input_macros.o sleep_macros.o
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
@@ -1773,12 +1851,19 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
 	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 	rm ./FULL_MO5.bin
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+endif
 
 
 mo5_targets: \
 	mo5
 
+ifdef USE_TOOLS
 to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
 	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c	
@@ -1819,11 +1904,15 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	display_macros.o \
 	text_macros.o \
 	input_macros.o sleep_macros.o
+ifdef USE_TOOLS
 	mv $(BUILD_PATH)/XLIB.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
-	rm ./XLIB.bin
 	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+	rm ./XLIB.bin
+else
+	mv $(BUILD_PATH)/XLIB.bin $(BUILD_PATH)/X$(GAME_NAME)_TO7.bin
+endif
 
 
 to7_targets: \

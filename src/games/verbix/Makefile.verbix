@@ -982,6 +982,7 @@ endif
 	rm -rf xbin_BANK_7.bin
 	rm -rf xbin.cpc
 	rm -rf $(BUILD_PATH)/xbin
+	rm -rf xbin
 
 
 ifdef USE_TOOLS
@@ -1642,13 +1643,15 @@ endif
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 coco_targets: \
@@ -1698,13 +1701,15 @@ endif
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
+ifdef USE_TOOLS	
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-ifdef USE_TOOLS	
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 dragon_no_gfx:
@@ -1775,11 +1780,12 @@ endif
 	text_macros.o input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
-	
+endif
 
 coco_no_gfx_targets: \
 	coco_no_gfx

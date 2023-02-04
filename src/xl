@@ -119,7 +119,7 @@ def multiple_debug_run(mypath,target,xsize,ysize,debug):
         run_command_verbosely(make_command)
 
 
-def multiple_run(mypath,target,threads,zsdcc_extra_optimization):
+def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
@@ -415,9 +415,14 @@ def build(params):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             exit();
+        if use_tools:
+            use_tools_str = " USE_TOOLS=1 "
+        else:
+            use_tools_str = ""
 
         make_command = \
             GNU_MAKE + " " + target + \
+                use_tools_str + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
                 " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
@@ -430,16 +435,16 @@ def build(params):
         
     else:
         if game_dir in ["games","examples","projects"]:
-            multiple_run(game_dir,target,threads,zsdcc_extra_optimization)
+            multiple_build(game_dir,target,threads,zsdcc_extra_optimization)
         elif game_dir=="new":
-            multiple_run("projects",target,threads,zsdcc_extra_optimization)
+            multiple_build("projects",target,threads,zsdcc_extra_optimization)
         elif game_dir in ["builtin","built-in"]:
-            multiple_run("games",target,threads,zsdcc_extra_optimization)
-            multiple_run("examples",target,threads,zsdcc_extra_optimization)
+            multiple_build("games",target,threads,zsdcc_extra_optimization)
+            multiple_build("examples",target,threads,zsdcc_extra_optimization)
         elif game_dir=="all":
-            multiple_run("games",target,threads,zsdcc_extra_optimization)
-            multiple_run("examples",target,threads,zsdcc_extra_optimization)
-            multiple_run("projects",target,threads,zsdcc_extra_optimization)
+            multiple_build("games",target,threads,zsdcc_extra_optimization)
+            multiple_build("examples",target,threads,zsdcc_extra_optimization)
+            multiple_build("projects",target,threads,zsdcc_extra_optimization)
         else:
             exit()     
 
@@ -1739,6 +1744,8 @@ def read_config():
         
         global replace_shapes
         
+        global use_tools
+        
         global config 
         
         config = ConfigParser.SafeConfigParser()
@@ -1785,11 +1792,16 @@ def read_config():
         
         replace_shapes = read_config_option("extend", "replace_shapes")
         
+        use_tools = read_config_option("build", "use_tools")
+        
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)
         
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
+
+        if use_tools!="":
+            use_tools = int(use_tools)
         
     except Exception as e:
         print("An exception occurred: " + str(e))
@@ -1804,11 +1816,9 @@ def read_config():
 if __name__ == "__main__":
     platform = sys.platform
     
-    print("----------------------------")
-    print("Cross-Lib `xl` helper script")
-    print("----------------------------")
-    print("Platform: " + platform)
-    print("Python:   " + str(python_version) + "." + str(python_subversion))
+
+    
+
     if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "win32"]):
         GNU_MAKE="make"
     else:
@@ -1818,13 +1828,20 @@ if __name__ == "__main__":
         NATIVE_EXTENSION="exe"
     else:
         NATIVE_EXTENSION="out"
-        
-    print("GNU MAKE command: " + GNU_MAKE)
-    print("----------------------------")
-    print("")
-    
     
     read_config()
+
+    if verbose:
+        print("----------------------------")
+        print("Cross-Lib `xl` helper script")
+        print("----------------------------")
+        print("Platform: " + platform)
+        print("Python:   " + str(python_version) + "." + str(python_subversion))
+
+            
+        print("GNU MAKE command: " + GNU_MAKE)
+        print("----------------------------")
+        print("")
 
     # except error:
         # print(error)

@@ -105,7 +105,7 @@ def multiple_reset(mypath):
         print("\n")
 
 
-def multiple_debug_run(mypath,target,xsize,ysize,debug):
+def multiple_debug_build(mypath,target,xsize,ysize,debug):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
@@ -114,6 +114,8 @@ def multiple_debug_run(mypath,target,xsize,ysize,debug):
     for project_name in projects:
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
+                " NATIVE_CC=" + native_compiler + \
+                " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
                 
         run_command_verbosely(make_command)
@@ -130,6 +132,8 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + zsdcc_extra_optimization + \
+                " NATIVE_CC=" + native_compiler + \
+                " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
         run_command_verbosely(make_command)
@@ -198,21 +202,22 @@ def size(params,debug):
 
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) +  \
+                " NATIVE_CC=" + native_compiler + \
+                " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
-
         run_command_verbosely(make_command)
     else:
         if game_dir in["games","examples","projects"]:
-            multiple_debug_run(game_dir,target,xsize,ysize,debug)
+            multiple_debug_build(game_dir,target,xsize,ysize,debug)
         elif game_dir in["new"]:
-            multiple_debug_run("projects",target,xsize,ysize,debug)
+            multiple_debug_build("projects",target,xsize,ysize,debug)
         elif game_dir in["builtin","built-in"]:
-            multiple_debug_run("games",target,xsize,ysize,debug)
-            multiple_debug_run("examples",target,xsize,ysize,debug)
+            multiple_debug_build("games",target,xsize,ysize,debug)
+            multiple_debug_build("examples",target,xsize,ysize,debug)
         elif game_dir=="all":
-            multiple_debug_run("games",target,xsize,ysize,debug)
-            multiple_debug_run("examples",target,xsize,ysize,debug)
-            multiple_debug_run("projects",target,xsize,ysize,debug)
+            multiple_debug_build("games",target,xsize,ysize,debug)
+            multiple_debug_build("examples",target,xsize,ysize,debug)
+            multiple_debug_build("projects",target,xsize,ysize,debug)
         else:
             exit()
 
@@ -1815,11 +1820,8 @@ def read_config():
 # ---------------------------------------------
 if __name__ == "__main__":
     platform = sys.platform
-    
 
-    
-
-    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "win32"]):
+    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
         GNU_MAKE="make"
     else:
         GNU_MAKE="gmake"
@@ -1843,12 +1845,6 @@ if __name__ == "__main__":
         print("----------------------------")
         print("")
 
-    # except error:
-        # print(error)
-        # exit()
-    # except: 
-        # print("Configuration file not found")
-        # print("")
     
     if len(sys.argv)<2:
         print("You need to provide a command or a project name")

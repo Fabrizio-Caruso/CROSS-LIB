@@ -279,6 +279,8 @@ def rebuild(params):
     build(params)
 
 
+
+
 def convert_makefile(dir,old_type,old_name,new_name):
 
     dest_path = "projects/"+dir
@@ -287,16 +289,20 @@ def convert_makefile(dir,old_type,old_name,new_name):
     source_parent_dir = old_type
     target_parent_dir = "projects"
     
-    print("- dir: " + dir)
-    print("- old_type: " + old_type)
-    print("- old_name: " + old_name)
-    print("- new_game: " + new_name)
+    if verbose:
+        print("- dir: " + dir)
+        print("- old_type: " + old_type)
+        print("- old_name: " + old_name)
+        print("- new_game: " + new_name)
     
     fin = open("./"+dest_path+"/Makefile."+source_game_dir, "rt")
     data = fin.read()
     data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
     data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
     data = data.replace('PARENT_DIR = ' + source_parent_dir + "s", 'PARENT_DIR = ' + target_parent_dir)
+    # TODO: include ./games/<source project>/ -> include ./games/<target project>/
+    # ./projects/_GAME_NAME_/game_config.mk
+    data = data.replace('include ./' + old_type + "s/" + source_game_dir, 'include ./projects/' + target_game_dir)
     fin.close()
     fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
     fin.write(data)

@@ -1,5 +1,6 @@
 ######################################################################
 # Makefile for CROSS-_GAME_NAME_CAPITAL
+
 include ./projects/_GAME_NAME_/game_config.mk
 
 GAME_NAME := _GAME_NAME_

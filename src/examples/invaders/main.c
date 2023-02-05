@@ -24,8 +24,6 @@
 
 #include "cross_lib.h"
 
-#include "move_player.h"
-
 #include "tile_aliases.h"
 
 #if !defined(_XL_SLOW_DOWN_FACTOR)
@@ -49,6 +47,79 @@
 #else
     #define LEVEL_SPEED_UP 128
 #endif 
+
+
+#define MAX_Y ((YSize)+(Y_OFFSET))
+
+#define SPACE_SHIP_Y (MAX_Y-4)
+
+
+#if !defined(NO_UDG)
+
+    #define draw_ship_1() \
+    { \
+        _XL_DRAW(ship_x/4,SPACE_SHIP_Y,SPACE_SHIP_1_W_TILE, _XL_CYAN); \
+        _XL_DRAW(ship_x/4+1,SPACE_SHIP_Y,SPACE_SHIP_1_E_TILE, _XL_CYAN); \
+    }
+
+
+    #define draw_ship_2() \
+    { \
+        _XL_DRAW(ship_x/4,SPACE_SHIP_Y,SPACE_SHIP_2_W_TILE, _XL_CYAN); \
+        _XL_DRAW(ship_x/4+1,SPACE_SHIP_Y,SPACE_SHIP_2_E_TILE, _XL_CYAN); \
+    }
+
+    #define draw_ship_3() \
+    { \
+        _XL_DRAW(ship_x/4,SPACE_SHIP_Y,SPACE_SHIP_3_W_TILE, _XL_CYAN); \
+        _XL_DRAW(ship_x/4+1,SPACE_SHIP_Y,SPACE_SHIP_3_C_TILE, _XL_CYAN); \
+        _XL_DRAW(ship_x/4+2,SPACE_SHIP_Y,SPACE_SHIP_3_E_TILE, _XL_CYAN); \
+    }
+
+
+    #define draw_ship_4() \
+    { \
+        _XL_DRAW(ship_x/4,SPACE_SHIP_Y,SPACE_SHIP_4_W_TILE, _XL_CYAN); \
+        _XL_DRAW(ship_x/4+1,SPACE_SHIP_Y,SPACE_SHIP_4_E_TILE, _XL_CYAN); \
+    }
+
+    #define delete_at_the_right() \
+    { \
+        _XL_DELETE(ship_x/4+2,SPACE_SHIP_Y); \
+    }
+
+    #define delete_at_the_left() \
+    { \
+        _XL_DELETE(ship_x/4,SPACE_SHIP_Y); \
+    }
+
+#else
+    #define draw_ship() \
+        _XL_DRAW(ship_x,SPACE_SHIP_Y,SPACE_SHIP_1_W_TILE, _XL_WHITE); \
+        _XL_DRAW(ship_x+1,SPACE_SHIP_Y,SPACE_SHIP_1_E_TILE, _XL_WHITE); \
+  
+    #define draw_ship_1() \
+        draw_ship()
+  
+    #define draw_ship_2() \
+        draw_ship()
+
+    #define draw_ship_3() \
+        draw_ship()
+
+    #define draw_ship_4() \
+        draw_ship() 
+        
+    #define delete_at_the_left() \
+        _XL_DELETE(ship_x-1,SPACE_SHIP_Y); \
+        _XL_DELETE(ship_x,SPACE_SHIP_Y); \
+
+        
+    #define delete_at_the_right() \
+        _XL_DELETE(ship_x+1,SPACE_SHIP_Y);  \
+        _XL_DELETE(ship_x,SPACE_SHIP_Y)
+
+#endif
 
 
 uint16_t x;
@@ -153,6 +224,7 @@ uint8_t ship_fire;
 
 
 
+
 void redraw(void)
 {
     uint8_t i;
@@ -168,6 +240,52 @@ void redraw(void)
         draw_low_invader_closed(invader[0]+i,LOW_INVADER_Y+2);
     }
 }
+
+
+    
+#if defined(NO_INPUT)
+    void MOVE_PLAYER(void) {}
+#else
+    void MOVE_PLAYER(void)
+    {
+        uint8_t input = _XL_INPUT();
+        
+        if(_XL_LEFT(input))
+        {
+            delete_at_the_right();
+            --ship_x;
+        }
+        else if(_XL_RIGHT(input))
+        {
+            delete_at_the_left();
+            ++ship_x;
+        }
+        else if(_XL_FIRE(input))
+        {
+            ship_fire = 1;
+        }
+        
+        switch(ship_x&3)
+        {
+            case 1:
+                draw_ship_1();
+            break;
+            
+            case 2:
+                draw_ship_2();
+            break;
+            
+            case 3:
+                draw_ship_3();
+            break;
+            
+            case 0:
+                draw_ship_4();
+            break;
+        }
+    }
+#endif
+
 
 
 int main(void)

@@ -7,9 +7,10 @@ PARENT_DIR = examples
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DNO_WALL
-
 API_VERSION=2
+
+GLOBAL_OPTS = -DNO_WALL -D_API_VERSION=$(API_VERSION)
+
 
 #####################################################################
 # SLOWDOWN VALUES
@@ -132,9 +133,7 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 #
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/main.c \
-    $(SOURCE_PATH)/move_player.c
-
+	$(SOURCE_PATH)/main.c
 
 SCCZ80_OPTS ?= -O0
 
@@ -1067,9 +1066,6 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/move_player.c
-	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
@@ -1078,11 +1074,11 @@ dragon:
 	display_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o
 	rm 	display_macros.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
 ifeq ($(DO_WIN),1)
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
@@ -1107,19 +1103,16 @@ coco: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/move_player.c
-	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o move_player.o
+	text_macros.o input_macros.o
 	rm 	display_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o move_player.o
+	text_macros.o input_macros.o
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
@@ -1143,9 +1136,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMP
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/move_player.c
-	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1161,14 +1151,14 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMP
 	display_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o
 	rm \
 	mo5_alt_print.o \
 	cmoc_udc_tiles_and_fonts.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o 
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
@@ -1193,9 +1183,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COM
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/move_player.c
-	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1211,14 +1198,14 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COM
 	display_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o
 	rm \
 	mo5_alt_print.o \
 	cmoc_udc_tiles_and_fonts.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	text_macros.o \
-	input_macros.o move_player.o
+	input_macros.o
 	mv $(BUILD_PATH)/XLIB.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
@@ -1391,7 +1378,7 @@ _tmc600: _tmc600_16k
 _tmc600_16k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) -DNO_UDG -D_XL_SLOW_DOWN_FACTOR=600  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME -DSIMPLE_STRATEGY -DCHAR_GRAPHICS \
+	-DFULL_GAME -DSIMPLE_STRATEGY -DCHAR_GRAPHICS -DMEMORY_MAPPED \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
 	$(REDUCED_LCC1802_C_OPTS) \

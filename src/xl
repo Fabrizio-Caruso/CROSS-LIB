@@ -558,6 +558,9 @@ def create(params):
 
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
 
+    shutil.copy(templated_makefile_path+"/"+"game_config.mk.template", "./"+dest_path+"/game_config.mk")
+
+
     #read input file
     fin = open("./"+dest_path+"/Makefile."+game_dir, "rt")
     #read file contents to string

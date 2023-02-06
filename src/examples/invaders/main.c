@@ -54,7 +54,7 @@
 #define SPACE_SHIP_Y (MAX_Y-4)
 
 
-#if !defined(NO_UDG)
+#if !defined(_XL_NO_UDG)
 
     #define draw_ship_1() \
     { \
@@ -134,7 +134,7 @@ uint8_t ship_fire;
 #define MID_INVADER_Y (MAX_Y-19)
 #define LOW_INVADER_Y (MAX_Y-15)
 
-#if !defined(NO_UDG)
+#if !defined(_XL_NO_UDG)
 
     #define draw_mid_invader_closed(x,y) \
     { \

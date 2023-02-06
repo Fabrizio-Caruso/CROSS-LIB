@@ -608,7 +608,8 @@ def reset(params):
     elif (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all non-project-specific temporary files")
+        if verbose:
+            print("Delete all non-project-specific temporary files")
 
         run_command_verbosely(make_command)
         exit();
@@ -662,7 +663,8 @@ def clean(params):
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all built binaries and non-project=specific temporary files")
+        if verbose:
+            print("Delete all built binaries and non-project=specific temporary files")
         if(are_you_sure()=="y"):
             run_command_verbosely(make_command)
             exit();
@@ -671,7 +673,8 @@ def clean(params):
     elif (len(params)==2) and (params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        print("Delete all built binaries and non-project-specific temporary files")
+        if verbose:
+            print("Delete all built binaries and non-project-specific temporary files")
 
         run_command_verbosely(make_command)
         exit();

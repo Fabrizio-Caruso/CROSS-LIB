@@ -1,9 +1,9 @@
 ######################################################################
 # Makefile for CROSS-ANIMATE
 
-include ./examples/animate/game_config.mk
-
 GAME_NAME := animate
+
+include ./examples/$(GAME_NAME)/project_config.mk
 
 PARENT_DIR = examples
 

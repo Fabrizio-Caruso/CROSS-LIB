@@ -300,8 +300,7 @@ def convert_makefile(dir,old_type,old_name,new_name):
     data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
     data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
     data = data.replace('PARENT_DIR = ' + source_parent_dir + "s", 'PARENT_DIR = ' + target_parent_dir)
-    # TODO: include ./games/<source project>/ -> include ./games/<target project>/
-    # ./projects/_GAME_NAME_/game_config.mk
+
     data = data.replace('include ./' + old_type + "s/" + source_game_dir, 'include ./projects/' + target_game_dir)
     fin.close()
     fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
@@ -564,7 +563,7 @@ def create(params):
 
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
 
-    shutil.copy(templated_makefile_path+"/"+"game_config.mk.template", "./"+dest_path+"/game_config.mk")
+    shutil.copy(templated_makefile_path+"/"+"project_config.mk.template", "./"+dest_path+"/project_config.mk")
 
 
     #read input file

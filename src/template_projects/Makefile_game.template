@@ -1,9 +1,9 @@
 ######################################################################
 # Makefile for CROSS-_GAME_NAME_CAPITAL
 
-include ./projects/_GAME_NAME_/game_config.mk
-
 GAME_NAME := _GAME_NAME_
+
+include ./projects/$(GAME_NAME)/project_config.mk
 
 PARENT_DIR = projects
 

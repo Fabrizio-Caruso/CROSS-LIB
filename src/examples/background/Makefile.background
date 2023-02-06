@@ -1,9 +1,9 @@
 ######################################################################
 # Makefile for CROSS-BACKGROUND
 
-include ./examples/background/game_config.mk
-
 GAME_NAME := background
+
+include ./examples/$(GAME_NAME)/project_config.mk
 
 PARENT_DIR = examples
 

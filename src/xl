@@ -140,7 +140,7 @@ def multiple_debug_build(mypath,target,xsize,ysize,debug):
     for project_name in projects:
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " NATIVE_CC=" + native_compiler + \
+                " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
                 
@@ -158,7 +158,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             GNU_MAKE + " " + target + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + zsdcc_extra_optimization + \
-                " NATIVE_CC=" + native_compiler + \
+                " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
@@ -228,7 +228,7 @@ def size(params,debug):
 
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) +  \
-                " NATIVE_CC=" + native_compiler + \
+                " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
         run_command_verbosely(make_command)
@@ -470,7 +470,7 @@ def build(params):
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
                 " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
                 " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-                " NATIVE_CC=" + native_compiler + \
+                " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
 

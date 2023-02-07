@@ -1,4 +1,4 @@
 
-GAME_NAME := animate
+GAME_NAME := numbers
 
 include ./examples/Makefile_common

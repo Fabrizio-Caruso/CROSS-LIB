@@ -51,7 +51,7 @@ _CC_OPTS ?=
 GCC ?= gcc $(GLOBAL_OPTS)
 GCC_OPTS ?= -Wpedantic -Wall
 
-# NATIVE_CC ?= $(GCC)
+NATIVE_CC ?= $(_NATIVE_CC) $(GLOBAL_OPTS)
 
 # TOOL_CC ?= $(GCC)
 

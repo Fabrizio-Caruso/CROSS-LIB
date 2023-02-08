@@ -1852,7 +1852,7 @@ def read_config():
             use_tools = int(use_tools)
         
     except Exception as e:
-        print("An exception occurred: " + str(e))
+        print("An exception occurred while reading the configuration: " + str(e))
         # TODO: Ask the user to continue or exit
     else:
         if verbose:
@@ -1862,104 +1862,107 @@ def read_config():
 
 # ---------------------------------------------
 if __name__ == "__main__":
-    platform = sys.platform
+    try:
+        platform = sys.platform
 
-    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
-        GNU_MAKE="make"
-    else:
-        GNU_MAKE="gmake"
-
-    if(platform in ["cygwin", "msys"]):
-        NATIVE_EXTENSION="exe"
-    else:
-        NATIVE_EXTENSION="out"
-    
-    read_config()
-
-    if verbose:
-        print("----------------------------")
-        print("Cross-Lib `xl` helper script")
-        print("----------------------------")
-        print("Platform: " + platform)
-        print("Python:   " + str(python_version) + "." + str(python_subversion))
-
-            
-        print("GNU MAKE command: " + GNU_MAKE)
-        print("----------------------------")
-        print("")
-
-    
-    if len(sys.argv)<2:
-        print("You need to provide a command or a project name")
-        help(sys.argv[1:])
-        exit()
-        
-    params = sys.argv
-    
-    params = full_params(params)
-        
-    if params[1]=="run":
-        run(params[1:])
-    elif params[1]=="add":
-        add(params[1:])
-    elif params[1]=="remove":
-        remove(params[1:])
-    elif params[1]=="string":
-        string(params[1:])
-    elif params[1]=="commands":
-        commands(params[1:])
-    elif params[1]=="import":
-        import_from_source(params[1:],False)
-    elif params[1]=="rotate":
-        rip(params[1:],True)
-    elif params[1]=="rip":
-        rip(params[1:],False)
-    elif params[1]=="rebuild":
-        rebuild(params[1:])
-    elif params[1]=="make":
-        shapes(params[1:]);
-        rebuild(params[1:])    
-    elif params[1]=="rename":
-        rename(params[1:])
-    elif params[1]=="clone":
-        clone(params[1:])
-    elif params[1]=="show":
-        show(params[1:])
-    elif params[1]=="test":
-        test(params[1:])
-    elif params[1]=="tile":
-        tile(params[1:])
-    elif params[1]=="shapes":
-        shapes(params[1:])
-    elif params[1]=="extend":
-        extend(params[1:])
-    elif params[1]=="build":
-        build(params[1:])
-    elif params[1]=="manual":
-        manual()
-    elif params[1]=="files":
-        files()
-    elif params[1]=="size":
-        size(params[1:],0)
-    elif params[1]=="debug":
-        size(params[1:],1)
-    elif params[1]=="create":
-        create(params[1:])
-    elif params[1]=="clean":
-        if interactive_clean:
-            clean(params[1:])
+        if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
+            GNU_MAKE="make"
         else:
-            clean(params[1:]+["-y"])
-    elif params[1]=="reset":
-        reset(params[1:])
-    elif params[1]=="delete":
-        delete(params[1:])
-    elif params[1]=="list":
-        list(params[1:])
-    elif params[1]=="help":
-        help(params[1:])
-    elif params[1]=="tools":
-        tools()
-    else:
-        # print(params)
-        build(params)
+            GNU_MAKE="gmake"
+
+        if(platform in ["cygwin", "msys"]):
+            NATIVE_EXTENSION="exe"
+        else:
+            NATIVE_EXTENSION="out"
+        
+        read_config()
+
+        if verbose:
+            print("----------------------------")
+            print("Cross-Lib `xl` helper script")
+            print("----------------------------")
+            print("Platform: " + platform)
+            print("Python:   " + str(python_version) + "." + str(python_subversion))
+
+                
+            print("GNU MAKE command: " + GNU_MAKE)
+            print("----------------------------")
+            print("")
+
+        
+        if len(sys.argv)<2:
+            print("You need to provide a command or a project name")
+            help(sys.argv[1:])
+            exit()
+            
+        params = sys.argv
+        
+        params = full_params(params)
+            
+        if params[1]=="run":
+            run(params[1:])
+        elif params[1]=="add":
+            add(params[1:])
+        elif params[1]=="remove":
+            remove(params[1:])
+        elif params[1]=="string":
+            string(params[1:])
+        elif params[1]=="commands":
+            commands(params[1:])
+        elif params[1]=="import":
+            import_from_source(params[1:],False)
+        elif params[1]=="rotate":
+            rip(params[1:],True)
+        elif params[1]=="rip":
+            rip(params[1:],False)
+        elif params[1]=="rebuild":
+            rebuild(params[1:])
+        elif params[1]=="make":
+            shapes(params[1:]);
+            rebuild(params[1:])    
+        elif params[1]=="rename":
+            rename(params[1:])
+        elif params[1]=="clone":
+            clone(params[1:])
+        elif params[1]=="show":
+            show(params[1:])
+        elif params[1]=="test":
+            test(params[1:])
+        elif params[1]=="tile":
+            tile(params[1:])
+        elif params[1]=="shapes":
+            shapes(params[1:])
+        elif params[1]=="extend":
+            extend(params[1:])
+        elif params[1]=="build":
+            build(params[1:])
+        elif params[1]=="manual":
+            manual()
+        elif params[1]=="files":
+            files()
+        elif params[1]=="size":
+            size(params[1:],0)
+        elif params[1]=="debug":
+            size(params[1:],1)
+        elif params[1]=="create":
+            create(params[1:])
+        elif params[1]=="clean":
+            if interactive_clean:
+                clean(params[1:])
+            else:
+                clean(params[1:]+["-y"])
+        elif params[1]=="reset":
+            reset(params[1:])
+        elif params[1]=="delete":
+            delete(params[1:])
+        elif params[1]=="list":
+            list(params[1:])
+        elif params[1]=="help":
+            help(params[1:])
+        elif params[1]=="tools":
+            tools()
+        else:
+            # print(params)
+            build(params)
+    except:
+        print("An error has occured!")

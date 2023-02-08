@@ -224,7 +224,7 @@ def size(params,debug):
     if(game_dir not in ["games", "examples", "projects", "all"]):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
-            exit();
+            return
 
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) +  \
@@ -245,7 +245,7 @@ def size(params,debug):
             multiple_debug_build("examples",target,xsize,ysize,debug)
             multiple_debug_build("projects",target,xsize,ysize,debug)
         else:
-            exit()
+            return
 
 
 # Rebuild a project, i.e., also rebuilds assets
@@ -260,16 +260,16 @@ def rebuild(params):
     if game_dir in ["games","examples","projects"]:
         # print([game_dir]+params[2:])
         multiple_project_rebuild([game_dir]+params[2:]) #, target, reset_opts)
-        exit()
+        return
     elif game_dir in ["builtin","built-in"]:
         multiple_project_rebuild(["games"]+params[2:])
         multiple_project_rebuild(["examples"]+params[2:])
-        exit()
+        return
     elif game_dir=="all":
         multiple_project_rebuild(["games"]+params[2:])
         multiple_project_rebuild(["examples"]+params[2:])
         multiple_project_rebuild(["projects"]+params[2:])
-        exit()
+        return
     
     reset(params)
     # if(params[len(params)-1]=="-y"):
@@ -319,7 +319,7 @@ def rename(params):
         
     if len(params)<3:
         print("ERROR: You need to provide more paramaters")
-        exit()
+        return
         
     target_game_dir = params[2]
             
@@ -328,7 +328,7 @@ def rename(params):
     source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
 
     if source_project_type != "project":
-        exit()
+        return
 
     target_project_type = "project"
     target_parent_dir = target_project_type + "s"
@@ -349,7 +349,7 @@ def clone(params):
         source_game_dir = params[1]
         
     if len(params)<3:
-        exit()
+        return
         
     target_game_dir = params[2]
         
@@ -457,7 +457,7 @@ def build(params):
         if(game_dir not in ["games", "examples", "projects", "all"]):
             if not os.path.exists(parent_and_game_dir):
                 print("Project not found!")
-                exit();
+                return
             if use_tools:
                 use_tools_str = " USE_TOOLS=1 "
             else:
@@ -489,7 +489,7 @@ def build(params):
                 multiple_build("examples",target,threads,zsdcc_extra_optimization)
                 multiple_build("projects",target,threads,zsdcc_extra_optimization)
             else:
-                exit()     
+                return     
 
 
 # Create a new project 
@@ -505,7 +505,7 @@ def create(params):
         
         if(game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST):
             print("invalid name!")
-            exit()
+            return
 
     if len(params)<3:
         project_type = "helloworld"
@@ -591,19 +591,19 @@ def reset(params):
 
     if game_dir in ["games","examples","projects"]:
         multiple_project_reset(game_dir)
-        exit()
+        return
     elif game_dir=="new":
         multiple_project_reset("projects")
-        exit()
+        return
     elif game_dir in ["builtin","built-in"]:
         multiple_project_reset("games")
         multiple_project_reset("examples")
-        exit()
+        return
     elif game_dir=="all":
         multiple_project_reset("games")
         multiple_project_reset("examples")
         multiple_project_reset("projects") 
-        exit()
+        return
 
     elif (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
@@ -612,7 +612,7 @@ def reset(params):
             print("Delete all non-project-specific temporary files")
 
         run_command_verbosely(make_command)
-        exit();
+        return
         
     elif len(params)<2:
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
@@ -620,9 +620,9 @@ def reset(params):
         print("Delete all non-project-specific temporary files")
         if(are_you_sure()=="y"):
             run_command_verbosely(make_command)
-            exit();
+            return
         else:
-            exit();
+            return
     else:
         game_dir = params[1]
 
@@ -641,7 +641,7 @@ def reset(params):
 
     if not os.path.exists(parent_and_game_dir):
         print("Project not found!")
-        exit();
+        return
 
     print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
@@ -658,7 +658,7 @@ def clean(params):
         make_command = GNU_MAKE + " clean_tools"
 
         run_command_verbosely(make_command)
-        exit()
+        return
         
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
@@ -667,9 +667,9 @@ def clean(params):
             print("Delete all built binaries and non-project=specific temporary files")
         if(are_you_sure()=="y"):
             run_command_verbosely(make_command)
-            exit();
+            return
         else:
-            exit();
+            return
     elif (len(params)==2) and (params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
@@ -677,7 +677,7 @@ def clean(params):
             print("Delete all built binaries and non-project-specific temporary files")
 
         run_command_verbosely(make_command)
-        exit();
+        return
     else:
         game_dir = params[1]
 
@@ -696,7 +696,7 @@ def clean(params):
 
     if not os.path.exists(parent_and_game_dir):
         print("Project not found!")
-        exit();
+        return
 
     print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
@@ -712,7 +712,7 @@ def delete(params):
         make_command = GNU_MAKE + " clean_tools"
 
         run_command_verbosely(make_command)
-        exit()
+        return
 
     if len(params)<2:
         game_dir="helloworld"
@@ -720,7 +720,7 @@ def delete(params):
         candidate_name = params[1]
         if(candidate_name in example_projects or candidate_name in game_projects or candidate_name in COMMANDS_LIST):
             print("invalid name!")
-            exit()
+            return
         else:
             game_dir = candidate_name
 
@@ -747,7 +747,7 @@ def delete(params):
             os.remove(makefile_name)
         print("'" + game_dir + "' deleted")
     else:
-        exit()
+        return
 
 
 # Self-test xl and native build
@@ -788,7 +788,7 @@ def list(params):
     elif params[1] in ["built-in", "builtin"]:
         project_dirs = ["games", "examples"]
     else:
-        exit()
+        return
 
     count = 0
 
@@ -883,7 +883,7 @@ def run(params):
                 emulator = PET_EMULATOR
             else:
                 print("'xl run' does not support this target")
-                exit()
+                return
             command_string = vice_path + emulator + " -directory " + rom_directory + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
             run_command_verbosely(command_string)
 
@@ -899,7 +899,7 @@ def run(params):
                 # print(command_string)
         else:
             print("'xl run' does not support this target")
-            exit()
+            return
 
 
 # It should be able to import from 
@@ -1012,7 +1012,7 @@ def convert(tile_vect,xsize,ysize):
     # else:
         # print("error")
         # print(extend_to_smaller)
-        # exit()
+        # return
     # TODO: Implement switch row/column instead of cut
     # elif extend_to_smaller=="switch":
         # if xsize==7:
@@ -1103,7 +1103,7 @@ def extend(params):
         if(xsize!=8 or ysize!=8):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
-            exit()
+            return
         print(tile)
         print("")
         print("7x8");
@@ -1131,7 +1131,7 @@ def extend(params):
     write_shapes(project,dict6x8,6,8)
     write_shapes(project,dict8x6,8,6)
     write_shapes(project,dict6x9,6,9)
-    exit();
+    return
 
 
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
@@ -1168,7 +1168,7 @@ def shapes(params):
         if(str(xsize)!=xsize_str) or (str(ysize)!=ysize_str):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
-            exit()
+            return
         print(tile)
         print_shape(compute_shape(tile,xsize))
         
@@ -1252,7 +1252,7 @@ def remove(params):
         print("Target present in " + full_project_path)
     else:
         print("Target not present in " + full_project_path)
-        exit()
+        return
     
     full_new_target_path = new_target_path + new_Makefile
 
@@ -1298,7 +1298,7 @@ def add(params):
             print("Target found in list of candidate extra targets")
     else:
         print("Target not found in list of candidate extra targets")
-        exit()
+        return
 
     project_path = "projects/" +  project
 
@@ -1309,7 +1309,7 @@ def add(params):
         
     if(target+":" in project_makefile):
         print("Target already present. First delete it from " + full_project_path)
-        exit()
+        return
     
     full_new_target_path = new_target_path + new_Makefile
     
@@ -1333,7 +1333,7 @@ def full_params(params):
         # print(params)
         return ["", full_command] + params[2:]
         # print(params)
-        # exit()
+        # return
     else:
         return params
 
@@ -1961,7 +1961,6 @@ if __name__ == "__main__":
         elif params[1]=="tools":
             tools()
         else:
-            # print(params)
             build(params)
     except:
         print("An error has occured!")

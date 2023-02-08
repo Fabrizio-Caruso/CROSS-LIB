@@ -753,19 +753,25 @@ def delete(params):
 # Self-test xl and native build
 def test(params):
     if(len(params)<2) or params[1]=="self":
-        original_projects = list(["list"])
+        delete(["delete","_test_project","-y"])
 
+        projects_before_create = list(["list"])
+        
         create(["create", "_test_project"])
         projects_after_create = list(["list"])
-        if("_test_project" not in projects_after_create):
+        # print(projects_before_create)
+        # print(projects_after_create)
+        if projects_after_create==projects_before_create:
             print("\nERROR: project not created") 
+            exit()
+        else:
+            if verbose:
+                print("\nOK: project created")
+            
 
         build(["build", "_test_project"])
 
-        delete(["delete","_test_project"]) # ,"-y"])
-        projects_after_delete = list(["list"])
-        if("_test_project" in projects_after_delete):
-            print("\nERROR: project not deleted")
+        delete(["delete","_test_project","-y"])
     elif params[1]=="compile":
         make_command = GNU_MAKE + " test"
         os.system(make_command)        

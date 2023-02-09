@@ -1,6 +1,7 @@
 #########################################################
 # (FAST) SIMPLE TESTS
 
+include ./games/chase/Makefile.chase
 
 #######################################################
 # (LONG) TESTS
@@ -85,7 +86,7 @@ lcc1802_full_tests: \
 .PHONY: test z88dk_test
 
 test:
-	make -j 8 z88dk_test
+	make z88dk_test
 	make no_z88dk_test 
 
 

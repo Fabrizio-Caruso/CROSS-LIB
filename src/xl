@@ -400,7 +400,7 @@ def clone(params):
 # Generate tools from source code
 def tools():
     make_command = \
-        GNU_MAKE + " tools TOOL_CC=" + tool_compiler
+        GNU_MAKE + " tools TOOL_CC=" + tool_compiler + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command_verbosely(make_command)
         
 
@@ -655,7 +655,7 @@ def reset(params):
 def clean(params):
 
     if(len(params)>=2) and params[1]=="tools":
-        make_command = GNU_MAKE + " clean_tools"
+        make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
 
         run_command_verbosely(make_command)
         return
@@ -772,16 +772,24 @@ def test(params):
         build(["build", "_test_project"])
 
         delete(["delete","_test_project","-y"])
-    # elif params[1]=="compile":
-        # make_command = GNU_MAKE + " test " + "-f makefile.other/chase/tests/Makefile.tests"
-        # print(make_command)
-        # os.system(make_command)        
-    elif params[1]=="z88dk_quick":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+    elif params[1]=="gcc":
+        make_command = GNU_MAKE + " -j " + compilation_threads + " gcc_full_tests " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
         print(make_command)
+        run_command_verbosely(make_command)
+    elif params[1]=="compile":
+        make_command = GNU_MAKE + " -j " + compilation_threads + " test " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
+        print(make_command)
+        run_command_verbosely(make_command)
+    elif params[1]=="z88dk_quick":
+        make_command = GNU_MAKE + " -j " + compilation_threads + \
+                         " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        # print(make_command)
         # exit()
-        os.system(make_command)     
-
+        run_command_verbosely(make_command)   
+    else:
+        print("Parameter not recognized")
 
 # List all projects    
 def list(params):

@@ -5,8 +5,28 @@
 
 # NATIVE_CC ?= $(GCC)
 # include ./games/chase/Makefile.chase
+# include ./makefiles.common/auxiliary/Makefile_ALL
 
-include ./makefiles.common/auxiliary/Makefile_compilers
+# include ./makefiles.common/auxiliary/Makefile_common
+
+ifneq ($(COMSPEC),)
+DO_WIN:=1
+endif
+ifneq ($(ComSpec),)
+DO_WIN:=1
+endif 
+
+ifeq ($(DO_WIN),1)
+EXEEXT = .exe
+endif
+
+ifeq ($(DO_WIN),1)
+COMPILEDEXT = .exe
+else
+COMPILEDEXT = .out
+endif
+
+TOOLS_PATH ?= ../tools
 
 GMAKE=make
 

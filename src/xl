@@ -776,9 +776,11 @@ def test(params):
         # make_command = GNU_MAKE + " test " + "-f makefile.other/chase/tests/Makefile.tests"
         # print(make_command)
         # os.system(make_command)        
-    # elif params[1]=="z88dk_quick":
-        # make_command = GNU_MAKE + " z88dk_quick_test"
-        # os.system(make_command)     
+    elif params[1]=="z88dk_quick":
+        make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        print(make_command)
+        # exit()
+        os.system(make_command)     
 
 
 # List all projects    
@@ -1615,7 +1617,7 @@ def help(params):
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             # print("If 'compile' is passed to <params>, then it compiles a test program for some targets with different compilers.")
-            # print("If 'z88dk_quick' is passed to <params>, then it compiles a test program using both Z88DK compilers.")
+            print("If 'z88dk_quick' is passed to <params>, then it compiles a test program using both Z88DK compilers.")
         elif params[1]=="debug" or params[1]=="d":
             print("xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")

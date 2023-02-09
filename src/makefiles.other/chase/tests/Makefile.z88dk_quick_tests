@@ -2,6 +2,8 @@
 
 # TESTS
 
+
+
 FAST_TEST_OPTS ?= \
 -D_DEFAULT_ASCII \
 -DTINY_GAME -DLESS_TEXT \
@@ -15,6 +17,10 @@ FAST_SCCZ80_TEST_OPTS ?= -O0 $(FAST_TEST_OPTS)
 
 FAST_ZSDCC_TEST_OPTS ?= -SO0 $(FAST_TEST_OPTS)
 
+include makefiles.common/auxiliary/Makefile_ALL
+
+include Makefile
+
 ####################################################################################################################
 
 zsdcc_quick_test: \
@@ -27,7 +33,8 @@ zsdcc_quick_test: \
 	vg5k_zsdcc_quick_test \
 	zx81_zsdcc_quick_test 
 
-
+# TODO: Fix
+# 	msx_quick_test 
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
@@ -90,7 +97,7 @@ abc80_quick_test:
 	-create-app -o abc80t.bin \
 	-lndos \
 	$(TEST_FILES)
-	rm abc80t.bin
+	rm -rf abc80t.bin
 	mv abc80t.ihx $(BUILD_PATH)/TEST_abc80.ihx 	
 
 
@@ -496,7 +503,7 @@ spectrum_quick_test:
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_spectrum.prg
-	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
+	rm -rf $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
 
 
 srr_quick_test:
@@ -767,7 +774,7 @@ spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
+	# rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
 
 
 svi_zsdcc_quick_test:

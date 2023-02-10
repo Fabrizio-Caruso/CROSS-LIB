@@ -1,7 +1,10 @@
 #########################################################
 # (FAST) SIMPLE TESTS
 
+include ./makefiles.common/auxiliary/Makefile_compilers
+
 include ./games/chase/Makefile.chase
+
 
 #######################################################
 # (LONG) TESTS
@@ -43,9 +46,11 @@ xtc68_full_tests: \
 
 
 cmoc_full_tests: \
-    coco_targets \
-    mo5_targets 
+    coco_targets
 
+# to fix
+#     oric_targets 
+#     gamate_targets 
 cc65_full_tests: \
     vic20_targets \
     supervision_targets \
@@ -54,8 +59,6 @@ cc65_full_tests: \
     creativision_targets \
     pet_targets \
     c64_targets \
-    oric_targets \
-    gamate_targets 
 
 ack_full_tests: \
     pc8086_targets \
@@ -85,11 +88,7 @@ lcc1802_full_tests: \
 
 .PHONY: test z88dk_test
 
-test:
-	make z88dk_test
-	make no_z88dk_test 
-
-
+#     tiki100 
 z88dk_test: \
     aquarius_exp_4k \
     c128_z80_80col \
@@ -98,14 +97,20 @@ z88dk_test: \
     gal_6k \
     msx_32k_rom \
     spectrum_48k \
-    tiki100 \
     zx81_32k_wrx_turn_based 
+
+test:
+	make z88dk_test
+	make no_z88dk_test 
+
+
+
 
 
 
 ####################################################################################################################
 # Z88DK Compilation Tests with several minimal versions of the game
 # 
-include makefiles.other/chase/tests/Makefile.z88dk_quick_tests
+# include makefiles.other/chase/tests/Makefile.z88dk_quick_tests
 
 

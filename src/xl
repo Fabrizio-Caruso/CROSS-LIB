@@ -772,17 +772,33 @@ def test(params):
         build(["build", "_test_project"])
 
         delete(["delete","_test_project","-y"])
-    elif params[1]=="gcc":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " gcc_full_tests " + \
+    elif params[1]=="cc65_targets":
+        make_command = GNU_MAKE + " cc65_full_tests " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        print(make_command)
+        # print(make_command)
+        # exit()
         run_command_verbosely(make_command)
-    elif params[1]=="compile":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " test " + \
+    elif params[1]=="cmoc_targets":
+        make_command = GNU_MAKE + " cmoc_full_tests " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        print(make_command)
+        # print(make_command)
         run_command_verbosely(make_command)
-    elif params[1]=="z88dk_quick":
+    elif params[1]=="lcc1802_targets":
+        make_command = GNU_MAKE + " lcc1802_full_tests " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
+        # print(make_command)
+        run_command_verbosely(make_command)
+    elif params[1]=="z88dk_targets":
+        make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_test " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
+        # print(make_command)
+        run_command_verbosely(make_command)
+    elif params[1]=="native":
+        make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
+        # print(make_command)
+        run_command_verbosely(make_command)
+    elif params[1]=="z88dk_targets_quick":
         make_command = GNU_MAKE + " -j " + compilation_threads + \
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         # print(make_command)
@@ -1619,13 +1635,18 @@ def help(params):
             print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
             
         elif params[1]=="test":
-            print("xl test")
+            print("xl test <[optional] params>")
             print("It runs some operations to test 'xl'.")
             print("")
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
-            # print("If 'compile' is passed to <params>, then it compiles a test program for some targets with different compilers.")
-            print("If 'z88dk_quick' is passed to <params>, then it compiles a test program using both Z88DK compilers.")
+            print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
+            print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
+            print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
+            print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
+            print("If 'native' is passed to <params>, then it compiles a test program using the native compiler (defined in config.ini).")
+
+            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
         elif params[1]=="debug" or params[1]=="d":
             print("xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")

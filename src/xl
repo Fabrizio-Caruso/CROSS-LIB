@@ -809,7 +809,7 @@ def self_test():
         print("[xl list]   OK")
         
 
-    build(["build", "_test_project", "gcc"])
+    build(["build", "_test_project", "native"])
     built_files = files_in_path("../build")
     if len(built_files)!=files_after_clean+1:
         print("[xl build]  KO")

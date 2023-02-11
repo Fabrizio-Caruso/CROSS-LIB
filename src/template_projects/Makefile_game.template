@@ -2323,9 +2323,9 @@ mc10_buffered:
 #
 
 
-gcc: gcc_buffered
+native: native_buffered
 
-gcc_buffered:
+native_buffered:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \

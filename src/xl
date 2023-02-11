@@ -525,32 +525,39 @@ def create(params):
 
     parent_dir = "projects" 
 
-    print("New project name: " + game_dir)
-    print("Project type: " + project_type)
+    if verbose:
+        print("New project name: " + game_dir)
+        print("Project type: " + project_type)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
     if not os.path.exists(parent_and_game_dir):
-        print("Creating project dir...")
+        if verbose:
+            print("Creating project dir...")
         os.makedirs(parent_and_game_dir)
 
     source_path = "./template_projects/"+project_type+"_code.template"
-    print("source_path: " + source_path)
+    if verbose:
+        print("source_path: " + source_path)
     dest_path = parent_and_game_dir
-    print("dest_path: " + dest_path)
+    if verbose:
+        print("dest_path: " + dest_path)
 
     if not os.path.exists(dest_path+"/tiles"):
-        print("Copying tiles...")
+        if verbose:
+            print("Copying tiles...")
         shutil.copytree(source_path+"/tiles", dest_path+"/tiles")
 
     if not os.path.exists(dest_path+"/generated_assets"):
-        print("Create empty generated_assets directory...")
+        if verbose:
+            print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
     file_names = ["main.c"]
 
     for file_name in file_names:
-        print("Copying file_name: " + file_name)
+        if verbose:
+            print("Copying file_name: " + file_name)
         shutil.copy(source_path+"/"+file_name, dest_path)
 
     # Replace _GAME_NAME_CAPITAL with the capitalized game name without special characters
@@ -732,86 +739,111 @@ def delete(params):
     else:
         interactive = True
 
-    print("Interactive: " + str(interactive))
     parent_dir = "projects"
 
-    print("Project name: " + game_dir)
+    if verbose:
+        print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
-    print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")        
+    if verbose:
+        print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")        
     if (not interactive) or (are_you_sure()=="y"):
         if os.path.exists(parent_and_game_dir):
-            print("Deleting directory " + parent_and_game_dir)
+            if verbose:
+                print("Deleting directory " + parent_and_game_dir)
             shutil.rmtree(parent_and_game_dir)
 
         makefile_name = "Makefile."+game_dir
         if os.path.exists(makefile_name):
-            print("Deleting..." + makefile_name)
+            if verbose:
+                print("Deleting..." + makefile_name)
             os.remove(makefile_name)
-        print("'" + game_dir + "' deleted")
+        if verbose:
+            print("'" + game_dir + "' deleted")
     else:
         return
 
 
+def files_in_path(mypath):
+    files = []
+    for (dirpath, dirnames, filenames) in walk(mypath):
+        # print(dirpath, dirnames,filenames)
+        files.extend(filenames)
+        break
+    return files
+
+
+def self_test():
+    delete(["delete","_test_project","-y"])
+
+    # print(files_in_path("../build"))
+    # exit()
+    clean(["clean","-y"]);
+    files_after_clean = len(files_in_path("../build"))
+
+    if files_after_clean>1:
+        print("[xl clean] KO")
+        exit()
+    else:
+        print("[xl clean] OK")
+
+    projects_before_create = list(["list"],False)
+    
+    create(["create", "_test_project"])
+    
+    
+    
+    projects_after_create = list(["list"],False)
+    if projects_after_create==projects_before_create:
+        print("[xl list] KO") 
+        exit()
+    else:
+        print("[xl list] OK")
+        
+
+    build(["build", "_test_project"])
+    
+
+    delete(["delete","_test_project","-y"])
+    
+    # print(dirs_in_path("./projects"))
+    
+    return
+
 # Self-test xl and native build
 def test(params):
     if(len(params)<2) or params[1]=="self":
-        delete(["delete","_test_project","-y"])
-
-        projects_before_create = list(["list"])
-        
-        create(["create", "_test_project"])
-        projects_after_create = list(["list"])
-        # print(projects_before_create)
-        # print(projects_after_create)
-        if projects_after_create==projects_before_create:
-            print("\nERROR: project not created") 
-            exit()
-        else:
-            if verbose:
-                print("\nOK: project created")
-            
-
-        build(["build", "_test_project"])
-
-        delete(["delete","_test_project","-y"])
+        self_test()
+        return
     elif params[1]=="cc65_targets":
         make_command = GNU_MAKE + " cc65_full_tests " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        # print(make_command)
-        # exit()
         run_command_verbosely(make_command)
     elif params[1]=="cmoc_targets":
         make_command = GNU_MAKE + " cmoc_full_tests " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        # print(make_command)
         run_command_verbosely(make_command)
     elif params[1]=="lcc1802_targets":
         make_command = GNU_MAKE + " lcc1802_full_tests " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        # print(make_command)
         run_command_verbosely(make_command)
     elif params[1]=="z88dk_targets":
         make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_test " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        # print(make_command)
         run_command_verbosely(make_command)
     elif params[1]=="native":
         make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
-        # print(make_command)
         run_command_verbosely(make_command)
     elif params[1]=="z88dk_targets_quick":
         make_command = GNU_MAKE + " -j " + compilation_threads + \
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-        # print(make_command)
-        # exit()
         run_command_verbosely(make_command)   
     else:
         print("Parameter not recognized")
 
 # List all projects    
-def list(params):
+def list(params, print_projects=True):
 
     if(len(params)<2):
         project_dirs = ["examples", "games", "projects"]
@@ -829,14 +861,17 @@ def list(params):
     count = 0
 
     for mypath in project_dirs:
-        print("["+mypath+"]")
+        if print_projects:
+            print("["+mypath+"]")
         for (dirpath, dirnames, filenames) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
-                print("  "+str(project))
+                if print_projects:
+                    print("  "+str(project))
                 count+=1
             break
-        print("")
+        if print_projects:
+            print("")
     
     if verbose:
         print("Found: " + str(count))

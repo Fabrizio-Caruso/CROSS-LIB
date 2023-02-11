@@ -838,6 +838,7 @@ def self_test():
 
     return
 
+
 # Self-test xl and native build
 def test(params):
     if(len(params)<2) or params[1]=="self":
@@ -869,6 +870,8 @@ def test(params):
         run_command_verbosely(make_command)   
     else:
         print("Parameter not recognized")
+    print("OK")
+    
 
 # List all projects    
 def list(params, print_projects=True):

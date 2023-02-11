@@ -78,6 +78,9 @@ def run_command_verbosely(command_string):
     if verbose: 
         print("Going to run: ")
         print(command_string)
+    else:
+        command_string+= " > /dev/null 2>&1"
+
     os.system(command_string)
 
 
@@ -400,7 +403,7 @@ def clone(params):
 # Generate tools from source code
 def tools():
     make_command = \
-        GNU_MAKE + " tools TOOL_CC=" + tool_compiler + " -f makefiles.common/auxiliary/Makefile_tools"
+        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command_verbosely(make_command)
         
 

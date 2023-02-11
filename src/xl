@@ -784,8 +784,8 @@ def self_test():
     if files_after_clean>1:
         print("[xl clean]  KO")
         exit()
-    else:
-        print("[xl clean]  OK")
+    # else:
+        # print("[xl clean]  OK")
 
     projects_before_create = list(["list"],False)
     
@@ -809,7 +809,7 @@ def self_test():
         print("[xl list]   OK")
         
 
-    build(["build", "_test_project"])
+    build(["build", "_test_project", "gcc"])
     built_files = files_in_path("../build")
     if len(built_files)!=files_after_clean+1:
         print("[xl build]  KO")
@@ -826,7 +826,16 @@ def self_test():
     else:
         print("[xl delete] OK")
     # print(dirs_in_path("./projects"))
-    
+
+    clean(["clean","-y"]);
+    files_after_clean = len(files_in_path("../build"))
+
+    if files_after_clean>1:
+        print("[xl clean]  KO")
+        exit()
+    else:
+        print("[xl clean]  OK")
+
     return
 
 # Self-test xl and native build

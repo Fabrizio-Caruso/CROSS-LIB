@@ -40,6 +40,8 @@ int main(void)
 
     _XL_PRINT_CENTERED("HELLO WORLD");
 
+	REFRESH();
+
     while(1){};
     
     return EXIT_SUCCESS;

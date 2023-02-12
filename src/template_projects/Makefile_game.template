@@ -2323,9 +2323,9 @@ mc10_buffered:
 #
 
 
-native: native_buffered
+stdio: stdio_buffered
 
-native_buffered:
+stdio_buffered:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
@@ -2341,7 +2341,7 @@ native_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
 ncurses_targets: \

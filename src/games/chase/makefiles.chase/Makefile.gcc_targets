@@ -33,10 +33,9 @@ gcc_386_buffered:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
 
 
-gcc: gcc_buffered
+stdio: stdio_buffered
 
-
-gcc_buffered:
+stdio_buffered:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
@@ -52,7 +51,12 @@ gcc_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
+
+
+gcc: stdio
+
+gcc_buffered: stdio_buffered
 
 
 gcc_386_no_print:

@@ -64,6 +64,9 @@ test_ack_targets: \
     pc8086_targets \
     cpm_8080_adm3a 
     
+test_ncurses_targets: \
+	ncurses
+
 gcc_full_tests: \
     simple_test \
     ncurses

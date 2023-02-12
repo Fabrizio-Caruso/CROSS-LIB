@@ -809,7 +809,7 @@ def self_test():
         print("[xl list]   OK")
         
 
-    build(["build", "_test_project", "native"])
+    build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
     if len(built_files)!=files_after_clean+1:
         print("[xl build]  KO")
@@ -851,12 +851,12 @@ def test(params):
         else:
             parallel = ""                
         if params[1].endswith("_targets"):
-            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + \
-                                               "-f makefiles.other/chase/tests/Makefile.tests"
+            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler +  \
+                                               " -f makefiles.other/chase/tests/Makefile.tests"
             run_command_verbosely(make_command)
-        elif params[1]=="native":
-            make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
-                                               "-f makefiles.other/chase/tests/Makefile.tests"
+        elif params[1]=="stdio":
+            make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
+                                               " -f makefiles.other/chase/tests/Makefile.tests"
             run_command_verbosely(make_command)
         elif params[1]=="z88dk_targets_quick":
             make_command = GNU_MAKE + " -j " + compilation_threads + \
@@ -1706,13 +1706,11 @@ def help(params):
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
-            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified faster test program using Z88DK.")
+            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
             print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
             print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
             print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
-            print("If 'native' is passed to <params>, then it compiles a test program using the native compiler (defined in config.ini).")
-
-            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
+            print("If 'stdio' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
         elif params[1]=="debug" or params[1]=="d":
             print("xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")

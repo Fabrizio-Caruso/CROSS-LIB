@@ -845,53 +845,25 @@ def self_test():
 def test(params):
     if(len(params)<2) or params[1]=="self":
         self_test()
-        return
-    elif params[1]=="z88dk_targets":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " test_" + params[1] + " " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-                            
-    elif params[1].endswith("_targets"):
-        make_command = GNU_MAKE + " test_" + params[1] + " " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-    elif params[1]=="native":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-    elif params[1]=="z88dk_targets_quick":
-        make_command = GNU_MAKE + " -j " + compilation_threads + \
-                         " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-        run_command_verbosely(make_command)   
     else:
-        print("Parameter not recognized")
-        
-    # elif params[1]=="cc65_targets":
-        # make_command = GNU_MAKE + " cc65_full_tests " + \
-                                           # "-f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
-    # elif params[1]=="cmoc_targets":
-        # make_command = GNU_MAKE + " cmoc_full_tests " + \
-                                           # "-f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
-    # elif params[1]=="lcc1802_targets":
-        # make_command = GNU_MAKE + " lcc1802_full_tests " + \
-                                           # "-f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
-    # elif params[1]=="z88dk_targets":
-        # make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_test " + \
-                                           # "-f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
-    # elif params[1]=="native":
-        # make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
-                                           # "-f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
-    # elif params[1]=="z88dk_targets_quick":
-        # make_command = GNU_MAKE + " -j " + compilation_threads + \
-                         # " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-        # run_command_verbosely(make_command)   
-    # else:
-        # print("Parameter not recognized")
+        if params[1].startswith("z88dk_targets"):
+            parallel = " -j " + compilation_threads
+        else:
+            parallel = ""                
+        if params[1].endswith("_targets"):
+            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + \
+                                               "-f makefiles.other/chase/tests/Makefile.tests"
+            run_command_verbosely(make_command)
+        elif params[1]=="native":
+            make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
+                                               "-f makefiles.other/chase/tests/Makefile.tests"
+            run_command_verbosely(make_command)
+        elif params[1]=="z88dk_targets_quick":
+            make_command = GNU_MAKE + " -j " + compilation_threads + \
+                             " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+            run_command_verbosely(make_command)   
+        else:
+            print("Parameter not recognized")
     print("OK")
     
 

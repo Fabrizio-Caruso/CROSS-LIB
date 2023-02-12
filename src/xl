@@ -839,25 +839,20 @@ def self_test():
     return
 
 
+
+
 # Self-test xl and native build
 def test(params):
     if(len(params)<2) or params[1]=="self":
         self_test()
         return
-    elif params[1]=="cc65_targets":
-        make_command = GNU_MAKE + " cc65_full_tests " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-    elif params[1]=="cmoc_targets":
-        make_command = GNU_MAKE + " cmoc_full_tests " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-    elif params[1]=="lcc1802_targets":
-        make_command = GNU_MAKE + " lcc1802_full_tests " + \
-                                           "-f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
     elif params[1]=="z88dk_targets":
-        make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_test " + \
+        make_command = GNU_MAKE + " -j " + compilation_threads + " test_" + params[1] + " " + \
+                                           "-f makefiles.other/chase/tests/Makefile.tests"
+        run_command_verbosely(make_command)
+                            
+    elif params[1].endswith("_targets"):
+        make_command = GNU_MAKE + " test_" + params[1] + " " + \
                                            "-f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
     elif params[1]=="native":
@@ -870,6 +865,33 @@ def test(params):
         run_command_verbosely(make_command)   
     else:
         print("Parameter not recognized")
+        
+    # elif params[1]=="cc65_targets":
+        # make_command = GNU_MAKE + " cc65_full_tests " + \
+                                           # "-f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    # elif params[1]=="cmoc_targets":
+        # make_command = GNU_MAKE + " cmoc_full_tests " + \
+                                           # "-f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    # elif params[1]=="lcc1802_targets":
+        # make_command = GNU_MAKE + " lcc1802_full_tests " + \
+                                           # "-f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    # elif params[1]=="z88dk_targets":
+        # make_command = GNU_MAKE + " -j " + compilation_threads + " z88dk_test " + \
+                                           # "-f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    # elif params[1]=="native":
+        # make_command = GNU_MAKE + " -j " + compilation_threads + " _NATIVE_CC="+ native_compiler +" gcc_buffered " + \
+                                           # "-f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    # elif params[1]=="z88dk_targets_quick":
+        # make_command = GNU_MAKE + " -j " + compilation_threads + \
+                         # " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        # run_command_verbosely(make_command)   
+    # else:
+        # print("Parameter not recognized")
     print("OK")
     
 
@@ -1439,14 +1461,16 @@ def full_params(params):
     else:
         return params
 
+
 def help(params):
     if len(params)<2:
         print("\nxl <command> <[optional] parameters>")   
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
-    else:
-        
+    elif params[1] in COMMANDS_DESCRIPTIONS.keys():
+
+        print("It " + COMMANDS_DESCRIPTIONS[params[1]] + "\n")
         params = full_params(params)
 
         if params[1]=="add":
@@ -1710,6 +1734,7 @@ def help(params):
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
+            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified faster test program using Z88DK.")
             print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
             print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
             print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
@@ -1837,8 +1862,9 @@ def help(params):
             
             print("\n<command>")
             help_help()
-        else:
-            print("Command not recognized")
+    else:
+        print("Command not recognized")
+        help_help()
 
 
 def manual():

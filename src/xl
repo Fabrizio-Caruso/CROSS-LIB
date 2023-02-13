@@ -139,10 +139,15 @@ def multiple_debug_build(mypath,target,xsize,ysize,debug):
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
         break
-            
+        
+    if use_tools:
+        use_tools_str = " USE_TOOLS=1 "
+    else:
+        use_tools_str = "" 
+        
     for project_name in projects:
         make_command = \
-            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
+            GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
@@ -152,13 +157,20 @@ def multiple_debug_build(mypath,target,xsize,ysize,debug):
 
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
+    
+    if use_tools:
+        use_tools_str = " USE_TOOLS=1 "
+    else:
+        use_tools_str = ""   
+    
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
         break
-            
+    
+
     for project_name in projects:
         make_command = \
-            GNU_MAKE + " " + target + \
+            GNU_MAKE + " " + target + use_tools_str + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + zsdcc_extra_optimization + \
                 " _NATIVE_CC=" + native_compiler + \

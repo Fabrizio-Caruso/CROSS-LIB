@@ -1239,6 +1239,8 @@ ifdef USE_TOOLS
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
 	rm -rf $(BUILD_PATH)/FULL_samcoupe.bin
+else
+	mv $(BUILD_PATH)/FULL_samcoupe.bin $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.bin
 endif
 
 

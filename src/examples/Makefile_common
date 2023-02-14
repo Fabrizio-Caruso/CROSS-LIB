@@ -1,9 +1,7 @@
 ######################################################################
 # Common Makefile for all examples
 
-include ./examples/$(GAME_NAME)/project_config.mk
-
-PARENT_DIR = examples
+include ./$(PARENT_DIR)/$(GAME_NAME)/project_config.mk
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

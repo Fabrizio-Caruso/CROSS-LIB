@@ -1,4 +1,6 @@
 
 GAME_NAME := color
 
-include ./examples/Makefile_common
+PARENT_DIR = examples
+
+include ./$(PARENT_DIR)/Makefile_common

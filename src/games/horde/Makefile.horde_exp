@@ -1,0 +1,6 @@
+
+GAME_NAME := horde
+
+PARENT_DIR = games
+
+include ./$(PARENT_DIR)/Makefile_common

@@ -1,8 +1,10 @@
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/game_config.mk
+#include ./$(PARENT_DIR)/$(GAME_NAME)/game_config.mk
 
 ATARI_COLORS=ALTERNATE_COLORS2
 ATARI5200_COLORS=ALTERNATE_COLORS2
+
+
 
 
 #####################################################################

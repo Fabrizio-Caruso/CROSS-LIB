@@ -473,7 +473,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 #############################
 # ZX81
 
-zx81: zx81_16k
+zx81: zx81_v2_16k
 
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
@@ -484,7 +484,7 @@ zx81_16k:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zx81_16k.prg
@@ -495,12 +495,12 @@ zx81_v2_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS)  -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	--opt-code-size \
-	-vn -D_API_VERSION=2 \
+	-vn -D_XL_SLOW_DOWN_FACTOR=0 -DFORCE_CAPITAL_CONTROLS \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_v2_16k.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -530,7 +530,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -560,7 +560,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx_turn_based.prg \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_$@.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c

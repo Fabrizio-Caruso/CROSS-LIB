@@ -719,7 +719,7 @@ vic20_exp_8k_v1: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-D_XL_SLOW_DOWN_FACTOR=550 -DCC65_GOTO \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(FULL_FILES) \
@@ -735,7 +735,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DCC65_GOTO \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(FULL_FILES) \
@@ -743,6 +743,30 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+vic20_exp_8k_mm: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
+	-DSOUNDS -DANIMATE_PLAYER -DALT_SLEEP \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HOLE_ANIMATION \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
+	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
+	-DREDEFINED_CHARS \
+	-DALT_PRINT \
+	-DLESS_TEXT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	--code-name CODE2 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 
 #################################################################
 # Z88DK

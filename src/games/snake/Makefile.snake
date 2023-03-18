@@ -519,6 +519,7 @@ c16_included_gfx: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 #	-DSIMPLE_TITLE 
@@ -599,7 +600,7 @@ c16_old: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-# Lacks one tile
+# Lacks one tile ?
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
@@ -930,9 +931,9 @@ vic20: vic20_exp_16k
 
 
 # 	-DSIMPLE_TITLE 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_GFX_stack_0x1B.cfg \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER -DALT_SLEEP \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_HOLE_ANIMATION \
 	-D_XL_SLOW_DOWN_FACTOR=5000 \
@@ -952,7 +953,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(SOURCE_PATH)/control_player.c \
 	$(SOURCE_PATH)/snake.c  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
-	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
+	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(SOURCE_PATH)/move_snake.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \

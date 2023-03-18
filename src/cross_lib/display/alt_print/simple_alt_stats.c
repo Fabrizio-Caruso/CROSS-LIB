@@ -61,7 +61,7 @@
 			POKE(loc(x+i,y), screenCode(str[i])); 
 			POKE((0x7800+loc(x+i,y)),0x01);
 			#elif defined(__VIC20__) && (defined(VIC20_UNEXPANDED) || defined(VIC20_EXP_3K)) && defined(REDEFINED_CHARS)
-			POKE(loc(x+i,y), 64+str[i]); 
+			POKE(loc(x+i,y), 192+str[i]); 
 			POKE((0x7800+loc(x+i,y)),0x01);
 			#elif defined(__VIC20__)
 			POKE(loc(x+i,y), str[i]); 

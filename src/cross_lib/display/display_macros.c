@@ -207,6 +207,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 #if !defined(INLINE_LOC) && \
     (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR))
     
+	
     #if defined(QUAD_MEMORY_MAPPED)
         #define X_MULT 2
         #define Y_MULT 2

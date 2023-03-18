@@ -70,6 +70,9 @@ $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cmoc_udc_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 

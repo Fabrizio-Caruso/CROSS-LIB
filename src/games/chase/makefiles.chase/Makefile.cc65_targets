@@ -1083,21 +1083,21 @@ vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 vic20: vic20_exp_8k
 
 # broken with API_VERSION=2
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
-	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
-	-DREDEFINED_CHARS \
-	-DINITIAL_SLOWDOWN=31500 \
-	$(ASSETS_PATH)/cc65_udc.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+# vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	# --config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
+	# -DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
+	# -DREDEFINED_CHARS \
+	# -DINITIAL_SLOWDOWN=31500 \
+	# $(ASSETS_PATH)/cc65_udc.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 # broken with API_VERSION=2
-vic20_test: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DEXTRA_TITLE \

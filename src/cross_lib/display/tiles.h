@@ -20,11 +20,7 @@
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
 #elif defined(__VIC20__) && defined(CONIO)
-    #if defined(_API_VERSION) && _API_VERSION>=2
-        #include "vic20_exp_16k_v2_settings.h"
-    #else
-        #include "vic20_exp_16k_settings.h"
-    #endif
+	#include "vic20_exp_16k_v2_settings.h"
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(C16_UNEXPANDED)
 	#include "c264_redefined_chars_settings.h"
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)

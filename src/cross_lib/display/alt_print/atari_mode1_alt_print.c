@@ -26,39 +26,19 @@
 #else
     extern uint8_t _atari_text_color;
 
-    #if defined(_API_VERSION) && (_API_VERSION>=2)
 
-        uint8_t screenCode(uint8_t ch)
-        {
-            if(ch==32)
-            {
-                return 0;
-            }
-            else
-            {
-                return ch+(_atari_text_color)-0x20u;
-            }
-        }
+	uint8_t screenCode(uint8_t ch)
+	{
+		if(ch==32)
+		{
+			return 0;
+		}
+		else
+		{
+			return ch+(_atari_text_color)-0x20u;
+		}
+	}
 
-    #else
-        extern uint8_t _atari_text_color;
-
-        uint8_t screenCode(uint8_t ch)
-        {
-            if(ch==32)
-            {
-                return 0;
-            }
-            else if ((ch>='0')&&(ch<='9'))
-            {
-                return ch+(_atari_text_color)-0x20u;
-            }
-            else
-            {
-                return ch+(_atari_text_color)-0x40u;
-            }
-        }  
-    #endif
 
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     {

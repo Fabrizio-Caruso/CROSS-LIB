@@ -1138,7 +1138,6 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 test_vsync:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 $(TEST_PATH)/test_vsync.c -o $(BUILD_PATH)/test_vsync.prg
 
-# broken with API_VERSION=2
 vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \

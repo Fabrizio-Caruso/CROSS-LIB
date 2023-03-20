@@ -118,18 +118,7 @@
         #define _XL_x "x"
         #define _XL_y "y"
         #define _XL_z "z"
-    #endif
-
-    #if !(defined(_API_VERSION) && _API_VERSION>=2)
-        #if defined(NO_SPACE_TEXT)
-            #if !defined(__ATARI__)
-                #define _XL_SPACE "\xA0"
-            #else
-                #define _XL_SPACE "\x40"
-            #endif
-        #endif
-    #endif
-    
+    #endif    
 
     #if !defined(_XL_SPACE)
         #define _XL_SPACE " "

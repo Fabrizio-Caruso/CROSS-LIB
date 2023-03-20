@@ -673,7 +673,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 

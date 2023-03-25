@@ -1530,9 +1530,6 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1540,11 +1537,11 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	display_macros.o sleep_macros.o \
 	memory_mapped_alt_print.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o
+	input_macros.o
 	rm main.o  dac_sounds.o  coco_init_graphics.o display_macros.o \
 	cmoc_udc_tiles_and_fonts.o sleep_macros.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	input_macros.o
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
 endif
@@ -1587,9 +1584,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1597,11 +1591,11 @@ endif
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o
+	input_macros.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	input_macros.o
 ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
@@ -1645,9 +1639,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1655,11 +1646,11 @@ endif
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o
+	input_macros.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	input_macros.o
 ifdef USE_TOOLS	
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
@@ -1684,18 +1675,15 @@ dragon_no_gfx:
 	$(CMOC) \
 	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	input_macros.o
 	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o 
+	input_macros.o 
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
 endif
@@ -1725,18 +1713,15 @@ endif
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o
+	input_macros.o
 	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o \
-	text_macros.o input_macros.o 
+	input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 ifdef USE_TOOLS
@@ -1778,9 +1763,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1789,14 +1771,14 @@ endif
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
-	text_macros.o sleep_macros.o \
+	sleep_macros.o \
 	input_macros.o
 	rm \
 	mo5_alt_print.o dac_sounds.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	text_macros.o \
+	\
 	input_macros.o sleep_macros.o
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
@@ -1839,9 +1821,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/XLIB.bin \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1850,14 +1829,14 @@ endif
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
-	text_macros.o \
+	\
 	input_macros.o sleep_macros.o
 	rm \
 	mo5_alt_print.o dac_sounds.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	text_macros.o \
+	\
 	input_macros.o sleep_macros.o
 ifdef USE_TOOLS
 	mv $(BUILD_PATH)/XLIB.bin .

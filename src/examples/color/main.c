@@ -83,7 +83,7 @@ int main(void)
                 _XL_PRINT(XSize-1-8, 2,"COLOR ON");
             #endif 
             
-            _XL_PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
+            _XL_PRINT((XSize-10)/2,3,"PRESS FIRE");
 
             _XL_SET_TEXT_COLOR(color_code[j]);
             
@@ -91,16 +91,17 @@ int main(void)
             
             _XL_WAIT_FOR_INPUT();
 
-            _XL_PRINT_CENTERED("0123456789");
+            _XL_PRINT((XSize-10)/2,YSize/2,"0123456789");
             
             _XL_WAIT_FOR_INPUT();
             
-            _XL_PRINT_CENTERED("SOME TEXT ");
+            _XL_PRINT((XSize-10)/2,YSize/2,"SOME TEXT ");
             
             _XL_WAIT_FOR_INPUT();
 
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT_CENTERED("  TILES   ");
+			
+			_XL_PRINT((XSize-10)/2,YSize/2,"  TILES   ");
           
             for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {   
@@ -110,7 +111,7 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
         }
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-5, "END OF DEMO");
+    _XL_PRINT((XSize-11)/2, YSize-5, "END OF DEMO");
 
     while(1){};
     

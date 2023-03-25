@@ -100,7 +100,7 @@ int main(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINT_CENTERED(_PRESS_FIRE__STRING);
+    _XL_PRINT((XSize-10)/2,YSize/2,_PRESS_FIRE__STRING);
 
     _XL_WAIT_FOR_INPUT();
 

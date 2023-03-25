@@ -73,12 +73,15 @@ CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 
 #####################################################################
 # CrossLib files
+# BASIC_CROSS_LIB_FILES ?= \
+	# $(CROSS_LIB_PATH)/display/display_macros.c \
+	# $(CROSS_LIB_PATH)/input/input_macros.c \
+	# $(CROSS_LIB_PATH)/text/text_macros.c
+
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
-	$(CROSS_LIB_PATH)/input/input_macros.c \
-	$(CROSS_LIB_PATH)/text/text_macros.c
-
-
+	$(CROSS_LIB_PATH)/input/input_macros.c
+	
 #################################################################
 # Clean targets
 clean_chase_obj:

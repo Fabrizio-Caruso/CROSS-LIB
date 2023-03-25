@@ -29,11 +29,13 @@
 
 #if defined(TINY_GAME) || XSize<=22
     #define CROSS_SHOOT_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_S _XL_h _XL_o _XL_o _XL_t 
+	#define CROSS_LEN 11
 #else
     #define CROSS_SHOOT_STRING \
         _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
         _XL_SPACE _XL_SPACE \
         _XL_S _XL_SPACE _XL_h _XL_SPACE _XL_o _XL_SPACE _XL_o _XL_SPACE _XL_t 
+	#define CROSS_LEN 20
 
 #endif
 #define THE_STRING _XL_t _XL_h _XL_e
@@ -84,13 +86,17 @@
 
 #if defined(JOYSTICK_CONTROL)
     #define USE_STRING _USE_STRING _XL_SPACE THE_STRING _XL_SPACE _XL_j _XL_o _XL_y _XL_s _XL_t _XL_i _XL_c _XL_k
+	#define USE_LEN 16
 #elif defined(TINY_GAME) 
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L
+	#define USE_LEN 8
 #elif XSize<=16
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E	
+	#define USE_LEN 14
 #else
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_SPACE _XL_J _XL_SPACE _XL_K _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E		
-#endif
+	#define USE_LEN 17
+#endif	
 
 #define EMPTY_STRING        _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE
 

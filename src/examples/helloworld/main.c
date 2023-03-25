@@ -32,7 +32,7 @@ int main(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
 
-    _XL_PRINT_CENTERED("HELLO WORLD");
+    _XL_PRINT((XSize-11)/2,YSize,"HELLO WORLD");
 
     while(1){};
     

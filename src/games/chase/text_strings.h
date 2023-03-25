@@ -30,11 +30,13 @@
 
 #if defined(TINY_GAME) || XSize<=22
     #define CROSS_CHASE_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_C _XL_h _XL_a _XL_s _XL_e 
+	#define CROSS_LEN 11
 #else
     #define CROSS_CHASE_STRING \
         _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
         _XL_SPACE _XL_SPACE \
         _XL_C _XL_SPACE _XL_h _XL_SPACE _XL_a _XL_SPACE _XL_s _XL_SPACE _XL_e 
+	#define CROSS_LEN 20
 
 #endif
 #define THE_STRING _XL_t _XL_h _XL_e
@@ -46,8 +48,10 @@
 
 #if XSize<=22
     #define DESTROY_MISSILES_STRING _XL_D _XL_e _XL_s _XL_t _XL_r _XL_o _XL_y _XL_SPACE MISSILES_STRING
+	#define DESTROY_LEN 16
 #else
     #define DESTROY_MISSILES_STRING _XL_D _XL_e _XL_s _XL_t _XL_r _XL_o _XL_y _XL_SPACE THE_STRING _XL_SPACE MISSILES_STRING
+	#define DESTROY_LEN 20
 #endif
 #define LURE_THE_ENEMIES_STRING _XL_L _XL_u _XL_r _XL_e _XL_SPACE THE_STRING _XL_SPACE _XL_e _XL_n _XL_e _XL_m _XL_i _XL_e _XL_s
 #define INTO_THE_MINES_STRING   _XL_i _XL_n _XL_t _XL_o _XL_SPACE THE_STRING _XL_SPACE _XL_m _XL_i _XL_n _XL_e _XL_s
@@ -63,11 +67,14 @@
 
 #if defined(LESS_TEXT)
     #define PRESS_STRING _XL_G _XL_O
+	#define PRESS_LEN 2
 #else
     #if defined(JOYSTICK_CONTROL)
         #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_f _XL_i _XL_r _XL_e
+		#define PRESS_LEN 10
     #else
         #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_k _XL_e _XL_y
+		#define PRESS_LEN 9
     #endif
 #endif
 
@@ -82,12 +89,16 @@
 
 #if defined(JOYSTICK_CONTROL)
     #define USE_STRING _USE_STRING _XL_SPACE THE_STRING _XL_SPACE _XL_j _XL_o _XL_y _XL_s _XL_t _XL_i _XL_c _XL_k
+	#define USE_LEN 16
 #elif defined(TINY_GAME) 
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L
+	#define USE_LEN 8
 #elif XSize<=16
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E	
+	#define USE_LEN 14
 #else
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_SPACE _XL_J _XL_SPACE _XL_K _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E		
+	#define USE_LEN 17
 #endif	
 
 

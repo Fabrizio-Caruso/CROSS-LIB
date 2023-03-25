@@ -39,6 +39,24 @@ char *small_letters =
     _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z;
 
 
+uint8_t mystrlen(char *cstr)
+{
+	uint8_t i;
+	while(cstr[i++]!='\0')
+	{
+	}
+	return --i;
+}
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
 void print_text(uint8_t x, uint8_t y, const char *str)
 {
     uint8_t i;
@@ -80,7 +98,7 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED_ON_ROW(4, "_GAME_NAME_CAPITAL");
+        PRINT_CENTERED_ON_ROW(4, "_GAME_NAME_CAPITAL");
         _XL_SET_TEXT_COLOR(_XL_CYAN);
         print_text(XSize/2-5,6, "by author");
         _XL_SET_TEXT_COLOR(_XL_WHITE);

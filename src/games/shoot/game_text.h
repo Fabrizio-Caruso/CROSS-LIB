@@ -79,6 +79,19 @@
 #endif
 
 
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+
+// #define PRINT_CENTERED_ON_ROW(row, Text, len) \
+// do \
+// { \
+	// _XL_PRINT(((uint8_t) (XSize - len)/2), row, Text);	\
+// } while(0)
+
+
+#define PRINT_CENTERED(Text,len) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+
+
 // game_stat
 void displayScoreStats(void);
 
@@ -138,7 +151,7 @@ void printStartMessage(void);
         do \
         { \
             _XL_SET_TEXT_COLOR(_XL_WHITE); \
-            _XL_PRINT_CENTERED(PRESS_STRING); \
+            PRINT_CENTERED(PRESS_STRING); \
         } while(0)
 #else
 	#define printPressKeyToStart()

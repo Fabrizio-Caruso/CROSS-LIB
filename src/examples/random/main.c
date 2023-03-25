@@ -46,7 +46,7 @@ int main(void)
     }
     
     _XL_CLEAR_SCREEN(); 
-    _XL_PRINT_CENTERED("END OF DEMO");
+    _XL_PRINT((XSize-11)/2,YSize/2,"END OF DEMO");
 
     while(1){};
     return EXIT_SUCCESS;

@@ -3,6 +3,12 @@
 
 #define MAX_ENERGY 20
 
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+
+#define PRINT_CENTERED(Text,len) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+
+
 #if XSize<22
     #define HISCORE_OFFSET 2
 #else
@@ -46,8 +52,10 @@
 
 #if XSize<20
     #define _SECRET_STRING _XL_W _XL_O _XL_W
+	#define _SECRET_LEN 3
 #else
     #define _SECRET_STRING _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T
+	#define _SECRET_LEN 6
 #endif
 #define _LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
 #define _CROSS_SNAKE_STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E
@@ -114,9 +122,9 @@
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-2,0,5,record); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING); \
+    PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING,11); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
+    PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING,15); \
     extra_title(); \
     TILE_PRESS_KEY();
  

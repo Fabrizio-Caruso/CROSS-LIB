@@ -1119,22 +1119,19 @@ dragon_no_gfx:
 	$(CMOC) \
 	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o  dac_sounds.o  sleep_macros.o \
 	variables.o \
 	memory_mapped_alt_print.o \
-	text_macros.o game_text.o \
+	game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
 	rm 	display_macros.o  dac_sounds.o sleep_macros.o \
 	game_text.o \
 	memory_mapped_alt_print.o \
-	text_macros.o variables.o \
+	variables.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o 
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
@@ -1184,9 +1181,6 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1195,13 +1189,13 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o  dac_sounds.o  coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	variables.o \
 	memory_mapped_alt_print.o game_text.o \
-	text_macros.o input_macros.o
+	input_macros.o
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
 endif
@@ -1250,9 +1244,6 @@ coco_no_gfx:
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
@@ -1260,12 +1251,12 @@ coco_no_gfx:
 	display_macros.o \
 	game_text.o sleep_macros.o \
 	memory_mapped_alt_print.o variables.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o  dac_sounds.o  display_macros.o sleep_macros.o \
 	variables.o \
 	memory_mapped_alt_print.o game_text.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1314,9 +1305,6 @@ coco_v1: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1325,13 +1313,13 @@ coco_v1: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2
 	 memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	variables.o \
 	memory_mapped_alt_print.o game_text.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1384,9 +1372,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
@@ -1395,13 +1380,13 @@ endif
 	memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	variables.o \
 	memory_mapped_alt_print.o game_text.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1459,9 +1444,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c
-	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
@@ -1470,13 +1452,13 @@ endif
 	memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_tiles_and_fonts.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_tiles_and_fonts.o \
 	variables.o \
 	memory_mapped_alt_print.o game_text.o \
-	text_macros.o input_macros.o \
+	input_macros.o \
 	control_player.o snake.o move_snake.o
 ifdef USE_TOOLS
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
@@ -1535,9 +1517,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	$(CMOC) \
-	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s
 	$(CMOC) $(MO5_ORG_DATA) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1546,7 +1525,7 @@ endif
 	mo5_init_graphics.o  dac_sounds.o  \
 	display_macros.o \
 	cmoc_udc_tiles.o \
-	text_macros.o variables.o \
+	variables.o \
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
 	rm \
@@ -1555,7 +1534,7 @@ endif
 	mo5_init_graphics.o \
 	display_macros.o \
 	variables.o \
-	text_macros.o game_text.o \
+	game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
 ifdef USE_TOOLS
@@ -1617,9 +1596,6 @@ endif
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	$(CMOC) \
-	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s
 	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/XLIB.bin \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1628,7 +1604,7 @@ endif
 	mo5_init_graphics.o \
 	display_macros.o  dac_sounds.o  \
 	cmoc_udc_tiles.o \
-	text_macros.o variables.o \
+	variables.o \
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
 	rm \
@@ -1637,7 +1613,7 @@ endif
 	mo5_init_graphics.o \
 	display_macros.o \
 	 variables.o \
-	text_macros.o game_text.o \
+	game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
 ifdef USE_TOOLS
@@ -2893,7 +2869,7 @@ OBJECT_LIST= \
     $(TOOLS_PATH)/ti99/crt0_ea5.o \
     $(CROSS_LIB_PATH)/display/display_macros.o \
     $(CROSS_LIB_PATH)/input/input_macros.o \
-    $(CROSS_LIB_PATH)/text/text_macros.o \
+    $(CROSS_LIB_PATH)/text/\
     $(CROSS_LIB_PATH)/rand/rand.o \
     $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
     $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \

@@ -154,7 +154,7 @@
 
 #include "sleep_macros.h"
 
-#include "text_macros.h"
+#include "letters.h"
 
 #include "graphics_settings.h"
 

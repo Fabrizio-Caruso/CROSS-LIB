@@ -530,7 +530,7 @@ def create(params):
         elif params[2]=="text":
             project_type = "text_game"
         else: 
-            if params[2] in ["apis","show_apis","example","show"]:
+            if params[2] in ["apis","show_apis","example","show","demo"]:
                 project_type = "demo"
             else:
                 project_type = "helloworld"

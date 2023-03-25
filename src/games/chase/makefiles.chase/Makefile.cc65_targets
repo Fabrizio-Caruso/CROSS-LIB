@@ -1187,7 +1187,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
 	$(SOURCE_PATH)/move_player.c \

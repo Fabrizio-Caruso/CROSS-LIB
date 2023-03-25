@@ -465,19 +465,19 @@ void setSecret(uint8_t secretIndex)
         for(i=0;i<10;++i)
         {
             _XL_SET_TEXT_COLOR(_XL_RED);
-            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
+            PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING,12);
             _XL_TOCK_SOUND();
             SHORT_SLEEP(2);
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING);
+            PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING,12);
             _XL_TICK_SOUND();
         }
         #else
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING); 
+        PRINT_CENTERED_ON_ROW(YSize/2-2,SECRET_FOUND_STRING,12); 
         #endif
         _XL_SLEEP(1);
-        _XL_PRINT_CENTERED_ON_ROW(YSize/2-2,EMPTY_STRING);        
+        PRINT_CENTERED_ON_ROW(YSize/2-2,EMPTY_STRING,12);        
         discoveredSecrets[secretIndex] = 1;
     }
 }

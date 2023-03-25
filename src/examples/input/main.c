@@ -24,6 +24,25 @@
 
 #include "cross_lib.h"
 
+
+uint8_t mystrlen(char *cstr)
+{
+	uint8_t i;
+	while(cstr[i++]!='\0')
+	{
+	}
+	return --i;
+}
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
 int main(void)
 {        
     uint8_t counter;
@@ -36,14 +55,14 @@ int main(void)
     _XL_CLEAR_SCREEN();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT_CENTERED_ON_ROW(YSize/4, "PRESS FIRE");
+    PRINT_CENTERED_ON_ROW(YSize/4, "PRESS FIRE");
     _XL_WAIT_FOR_INPUT();
     
     _XL_CLEAR_SCREEN();
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINT_CENTERED_ON_ROW(0, "INPUT");
+    PRINT_CENTERED_ON_ROW(0, "INPUT");
     counter = 0;
     while(counter<200)
     {
@@ -51,33 +70,33 @@ int main(void)
         
         if(_XL_FIRE(input))
         {
-            _XL_PRINT_CENTERED("FIRE ");
+            PRINT_CENTERED("FIRE ");
             ++counter;
         }
         else if(_XL_LEFT(input))
         {
-            _XL_PRINT_CENTERED("LEFT ");
+            PRINT_CENTERED("LEFT ");
             ++counter;
         }
         else if(_XL_RIGHT(input))
         {
-            _XL_PRINT_CENTERED("RIGHT");
+            PRINT_CENTERED("RIGHT");
             ++counter;
         }
         else if(_XL_DOWN(input))
         {
-            _XL_PRINT_CENTERED("DOWN ");
+            PRINT_CENTERED("DOWN ");
             ++counter;
         }
         else if(_XL_UP(input))
         {
-            _XL_PRINT_CENTERED("UP   ");
+            PRINT_CENTERED("UP   ");
             ++counter;
         }
 
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-5, "END OF TEST");
+    PRINT_CENTERED_ON_ROW(YSize-5, "END OF TEST");
 
     while(1){};
     

@@ -77,11 +77,11 @@ extern Image SKULL_IMAGE;
 #endif
 
 
-#ifndef _XL_PRINT_CENTERED_ON_ROW
-    #if defined(ALT_DISPLAY_STATS)
-        #define _XL_PRINT_CENTERED_ON_ROW(row, text) _XL_PRINT(2,row,text)
-    #endif
-#endif
+// #ifndef PRINT_CENTERED_ON_ROW
+    // #if defined(ALT_DISPLAY_STATS)
+        // #define PRINT_CENTERED_ON_ROW(row, text) _XL_PRINT(2,row,text)
+    // #endif
+// #endif
 
 extern uint8_t level;
 extern uint8_t lives;
@@ -97,8 +97,8 @@ extern Image PLAYER_IMAGE;
 #if defined(FULL_GAME) && !defined(NO_MESSAGE)
 	void printKillTheSkull(void)
 	{
-		_XL_PRINT_CENTERED(KILL_THE_SKULL_STRING);	
-		_XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
+		PRINT_CENTERED(KILL_THE_SKULL_STRING,14);	
+		PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING, DESTROY_LEN);
 	}
 	
 #endif
@@ -111,6 +111,11 @@ extern Image PLAYER_IMAGE;
 	#define TITLE_LINE() 
 #endif
 
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+{
+	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+}
 
 // TODO: This is SLOW
 #if !defined(TINY_GAME) && !defined(NO_STATS)
@@ -180,7 +185,7 @@ extern Image PLAYER_IMAGE;
 	void printPressKeyToStart(void)
 	{
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-		_XL_PRINT_CENTERED(PRESS_STRING);
+		PRINT_CENTERED(PRESS_STRING,PRESS_LEN);
 	}	
 #endif
 
@@ -220,7 +225,7 @@ void displayScore(void)
 	void gameCompleted(void)	
 	{
 		_XL_CLEAR_SCREEN();
-		_XL_PRINT_CENTERED(YOU_MADE_IT_STRING); 
+		PRINT_CENTERED(YOU_MADE_IT_STRING,7); 
 	}
 #endif
 
@@ -229,7 +234,7 @@ void displayScore(void)
 	void printVictoryMessage(void)
 	{
         SET_COLOR(_XL_RED);
-		_XL_PRINT_CENTERED(VICTORY_STRING);
+		PRINT_CENTERED(VICTORY_STRING,7);
 	}	
 #endif
 
@@ -238,7 +243,7 @@ void displayScore(void)
 	void printDefeatMessage(void)
 	{		
         SET_COLOR(_XL_RED);
-		_XL_PRINT_CENTERED(DEFEAT_STRING);
+		PRINT_CENTERED(DEFEAT_STRING,8);
 	}	
 #endif
 	
@@ -247,7 +252,7 @@ void displayScore(void)
 	void printGameOver(void)
 	{
         SET_COLOR(_XL_RED);
-		_XL_PRINT_CENTERED(GAME_OVER_STRING);
+		PRINT_CENTERED(GAME_OVER_STRING,9);
 	}	
 #endif
 
@@ -284,14 +289,14 @@ void displayScore(void)
 	void _printCrossChase(void)
 	{
         SET_COLOR(_XL_RED);
-		_XL_PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);		
+		PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING, CROSS_LEN);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
 	#else
 		#define _printCrossChase() \
             SET_COLOR(_XL_RED); \
-			_XL_PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);	\
+			PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING, CROSS_LEN);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif
@@ -302,19 +307,19 @@ void displayScore(void)
 	{
 		_printCrossChase();
         
-        _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
-        _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);
+        PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING,16);
+        PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING,14);
                     
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING,8);
 
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING);
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING,13);
 
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING);	
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING,13);	
 		
 		#if YSize>=14
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+6*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING);
+			PRINT_CENTERED_ON_ROW(AUTHOR_Y+6*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING,14);
 
-			_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+7*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING);
+			PRINT_CENTERED_ON_ROW(AUTHOR_Y+7*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING,12);
 		#endif
 	}
 #endif
@@ -365,7 +370,7 @@ void displayScore(void)
 		_printCrossChase();
 		
         #if XSize>=16
-		_XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING);	
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING,15);	
         #endif
 
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
@@ -378,8 +383,8 @@ void displayScore(void)
                 #else
                     SET_COLOR(_XL_CYAN);
 
-                    _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
-                    _XL_PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
+                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING,16);
+                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING,14);			
                 #endif
             #endif
 			SET_COLOR(TEXT_COLOR);	
@@ -387,7 +392,7 @@ void displayScore(void)
 		#endif
 
 		#if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
-			_XL_PRINT_CENTERED_ON_ROW(YSize-INSTR_Y_OFFSET, USE_STRING);
+			PRINT_CENTERED_ON_ROW(YSize-INSTR_Y_OFFSET, USE_STRING, USE_LEN);
 		#endif
 	}
 #endif

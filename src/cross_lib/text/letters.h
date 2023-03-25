@@ -1,4 +1,8 @@
 
+#if defined(__MC10__)
+extern uint8_t strlen(char *);
+#endif 
+
 #ifndef _LETTERS_H
 #define _LETTERS_H
 

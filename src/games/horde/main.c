@@ -339,6 +339,19 @@ static Missile enemyMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
 
 
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+{
+	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+}
+
+
+#define PRINT_CENTERED(Text,len) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+
+
+
+
+
 void sleep_and_wait_for_input(void)
 {
     _XL_SLEEP(1);
@@ -836,7 +849,7 @@ void display_power_ups(void)
     hyper_counter = MAX_HYPER_COUNTER; \
     bow_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(1," HYPER " ); \
+    PRINT_CENTERED_ON_ROW(1," HYPER ",7); \
 }
 
 
@@ -1927,7 +1940,7 @@ do \
 { \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R); \
+    PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R,9); \
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -2103,17 +2116,22 @@ do \
 
 #if defined(_XL_NO_JOYSTICK)
     #define CONTROLS_STRING "USE J L SPACE"
+	#define CONTROLS_LEN 13
 #else
     #if defined(_XL_CURSORS)
         #if XSize>=21
             #define CONTROLS_STRING "USE CURSORS AND SPACE"
+			#define CONTROLS_LEN 21
         #elif XSize>=19
             #define CONTROLS_STRING "USE CURSORS AND SPC"
+			#define CONTROLS_LEN 19
         #else
             #define CONTROLS_STRING "CURSORS AND SPC"
+			#define CONTROLS_LEN 15
         #endif
     #else
         #define CONTROLS_STRING "USE JOYSTICK"
+		#define CONTROLS_LEN 12
     #endif
 #endif
 
@@ -2125,8 +2143,8 @@ do \
 
 #if !defined(NO_EXTRA_TITLE)
     #if !defined(NO_CONTROL_INSTRUCTIONS) && YSize>=15
-        #define control_instructions() _XL_PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
-                                       CONTROLS_STRING)
+        #define control_instructions() PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
+                                       CONTROLS_STRING,CONTROLS_LEN)
     #else
         #define control_instructions()
     #endif
@@ -2158,10 +2176,12 @@ do \
 #if XSize>=20
     #define _CROSS_HORDE_STRING \
         "C R O S S  H O R D E"
+	#define _CROSS_LEN 20
 
 #else
     #define _CROSS_HORDE_STRING \
         "CROSS HORDE"
+	#define _CROSS_LEN 11
 #endif
 
 
@@ -2173,16 +2193,16 @@ do \
     display_wall(BOTTOM_WALL_Y+1); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
+    PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE",7); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
+    PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING,_CROSS_LEN); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
+    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO",15); \
     \
     display_items(); \
     sleep_and_wait_for_input(); \
@@ -2255,7 +2275,7 @@ do \
 #else
     void display_top_border(void)
     {
-        _XL_PRINT_CENTERED_ON_ROW(1,"       " );
+        PRINT_CENTERED_ON_ROW(1,"       ",7);
         display_zombies();
     }
 #endif
@@ -2313,7 +2333,7 @@ do \
 void display_cleared(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
-    _XL_PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D);
+    PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D,13);
 }
 
 

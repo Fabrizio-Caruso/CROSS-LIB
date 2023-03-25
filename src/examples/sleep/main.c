@@ -28,6 +28,26 @@
 
 #define ITERATIONS 1
 
+uint8_t mystrlen(char *cstr)
+{
+	uint8_t i;
+	while(cstr[i++]!='\0')
+	{
+	}
+	return --i;
+}
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
+
+
 int main(void)
 {        
     uint16_t i;
@@ -50,11 +70,11 @@ int main(void)
         _XL_PRINTD(COL_OFFSET+7  ,1,1, j);
         _XL_PRINT(COL_OFFSET+10  ,1,"SECONDS");
         
-        _XL_PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
+        PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
 
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(3,"          ");
+        PRINT_CENTERED_ON_ROW(3,"          ");
 
         _XL_PRINT(COL_OFFSET     ,5,"PAUSING");
 
@@ -62,7 +82,7 @@ int main(void)
         
         _XL_PRINT(COL_OFFSET     ,YSize-3,"END OF PAUSE");
 
-        _XL_PRINT_CENTERED_ON_ROW(YSize-1,"PRESS FIRE");
+        PRINT_CENTERED_ON_ROW(YSize-1,"PRESS FIRE");
         
         _XL_WAIT_FOR_INPUT();
         
@@ -74,11 +94,11 @@ int main(void)
         _XL_PRINTD(COL_OFFSET+7  ,1,5, i);
         _XL_PRINT(COL_OFFSET+14  ,1,"STEPS");
         
-        _XL_PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
+        PRINT_CENTERED_ON_ROW(3,"PRESS FIRE");
         
         _XL_WAIT_FOR_INPUT();
         
-        _XL_PRINT_CENTERED_ON_ROW(3,"          ");
+        PRINT_CENTERED_ON_ROW(3,"          ");
         
         _XL_PRINT(COL_OFFSET     ,5,"PAUSING");
         
@@ -93,7 +113,7 @@ int main(void)
         
         _XL_PRINT(COL_OFFSET     ,YSize-3,"END OF PAUSE");
         
-        _XL_PRINT_CENTERED_ON_ROW(YSize-1,"PRESS FIRE");
+        PRINT_CENTERED_ON_ROW(YSize-1,"PRESS FIRE");
 
         _XL_WAIT_FOR_INPUT();
 

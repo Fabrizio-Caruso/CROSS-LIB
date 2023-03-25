@@ -27,7 +27,18 @@
 
 #include "settings.h"
 #include "cross_lib.h"
-#include "text_macros.h"
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+
+// #define PRINT_CENTERED_ON_ROW(row, Text, len) \
+// do \
+// { \
+	// _XL_PRINT(((uint8_t) (XSize - len)/2), row, Text);	\
+// } while(0)
+
+
+#define PRINT_CENTERED(Text,len) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
 
 
 

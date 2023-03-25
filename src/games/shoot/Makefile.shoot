@@ -647,7 +647,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DALT_SLEEP -DNO_SLOW_DOWN_MACRO \
-	-D_XL_SLOW_DOWN_FACTOR=500 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-D_XL_SLOW_DOWN_FACTOR=500 -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(BASIC_CROSS_LIB_FILES) \
@@ -1332,9 +1332,6 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/sleep.c
 	$(CMOC) \
@@ -1385,7 +1382,7 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	ghost.o sleep_macros.o \
 	move_player.o \
 	level.o character.o \
-	text_macros.o game_text.o \
+	 game_text.o \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1396,7 +1393,7 @@ coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	game_text.o text_macros.o \
+	game_text.o  \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1433,9 +1430,6 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
@@ -1481,7 +1475,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	text_macros.o game_text.o \
+	 game_text.o \
 	strategy.o \
 	input_macros.o cmoc_udc_tiles_and_fonts.o \
 	item.o bullet.o skull.o \
@@ -1492,7 +1486,7 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	game_text.o text_macros.o \
+	game_text.o  \
 	strategy.o cmoc_udc_tiles_and_fonts.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1537,9 +1531,6 @@ endif
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
@@ -1590,7 +1581,7 @@ endif
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	text_macros.o game_text.o \
+	 game_text.o \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1604,7 +1595,7 @@ endif
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	game_text.o text_macros.o \
+	game_text.o  \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1652,9 +1643,6 @@ endif
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
@@ -1705,7 +1693,7 @@ endif
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	text_macros.o game_text.o \
+	 game_text.o \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -1719,7 +1707,7 @@ endif
 	ghost.o \
 	move_player.o \
 	level.o character.o \
-	game_text.o text_macros.o \
+	game_text.o  \
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
@@ -2170,7 +2158,7 @@ OBJECT_LIST= \
   $(TOOLS_PATH)/ti99/crt0_ea5.o \
   $(CROSS_LIB_PATH)/display/display_macros.o \
   $(CROSS_LIB_PATH)/input/input_macros.o \
-  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(CROSS_LIB_PATH)/text/ \
   $(CROSS_LIB_PATH)/rand/rand.o \
   $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
   $(SOURCE_PATH)/init_images.o \

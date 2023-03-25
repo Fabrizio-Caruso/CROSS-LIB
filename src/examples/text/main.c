@@ -28,6 +28,26 @@
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
 
+
+uint8_t mystrlen(char *cstr)
+{
+	uint8_t i;
+	while(cstr[i++]!='\0')
+	{
+	}
+	return --i;
+}
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
+
 #if !defined(_XL_NO_TEXT_COLOR)
 static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
 #endif
@@ -103,15 +123,15 @@ int main(void)
                 _XL_PRINT(XSize-8,1,"COLOR ON");
             #endif
             
-            _XL_PRINT_CENTERED_ON_ROW(5,"CENTERED");
+            PRINT_CENTERED_ON_ROW(5,"CENTERED");
             
             _XL_WAIT_FOR_INPUT();
 
-            _XL_PRINT_CENTERED("0123456789");
+            PRINT_CENTERED("0123456789");
             
             _XL_WAIT_FOR_INPUT();
             
-            _XL_PRINT_CENTERED("SOME TEXT ");
+            PRINT_CENTERED("SOME TEXT ");
             
             _XL_WAIT_FOR_INPUT();
             
@@ -128,21 +148,21 @@ int main(void)
                 
                 _XL_WAIT_FOR_INPUT();
 
-                _XL_PRINT_CENTERED_ON_ROW(i,"0123456789");
+                PRINT_CENTERED_ON_ROW(i,"0123456789");
                 small_pause();
                 
                 _XL_WAIT_FOR_INPUT();
                 
-                _XL_PRINT_CENTERED_ON_ROW(i-1,"ABCDEFGHIJ");
-                _XL_PRINT_CENTERED_ON_ROW(i,  "KLMNOPQRST");
-                _XL_PRINT_CENTERED_ON_ROW(i+1,"UVWXYZ    ");      
+                PRINT_CENTERED_ON_ROW(i-1,"ABCDEFGHIJ");
+                PRINT_CENTERED_ON_ROW(i,  "KLMNOPQRST");
+                PRINT_CENTERED_ON_ROW(i+1,"UVWXYZ    ");      
                 small_pause();
                 
                 _XL_WAIT_FOR_INPUT();
 
-                _XL_PRINT_CENTERED_ON_ROW(i-1,_XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
-                _XL_PRINT_CENTERED_ON_ROW(i,  _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
-                _XL_PRINT_CENTERED_ON_ROW(i+1,_XL_u _XL_v _XL_w _XL_x _XL_y _XL_z _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+                PRINT_CENTERED_ON_ROW(i-1,_XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
+                PRINT_CENTERED_ON_ROW(i,  _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
+                PRINT_CENTERED_ON_ROW(i+1,_XL_u _XL_v _XL_w _XL_x _XL_y _XL_z _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
                 small_pause();
                 
                 _XL_WAIT_FOR_INPUT();
@@ -164,7 +184,7 @@ int main(void)
 
         }
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-5, "END OF DEMO");
+    PRINT_CENTERED_ON_ROW(YSize-5, "END OF DEMO");
 
     while(1){};
     

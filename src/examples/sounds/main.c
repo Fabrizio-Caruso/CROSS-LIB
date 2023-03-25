@@ -30,6 +30,26 @@
     #define LINE_SKIP 2
 #endif    
 
+
+uint8_t mystrlen(char *cstr)
+{
+	uint8_t i;
+	while(cstr[i++]!='\0')
+	{
+	}
+	return --i;
+}
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
+
 int main(void)
 {        
     uint8_t k;
@@ -46,7 +66,7 @@ int main(void)
         _XL_CLEAR_SCREEN();
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT_CENTERED_ON_ROW(0, "SOUND");
+        PRINT_CENTERED_ON_ROW(0, "SOUND");
         _XL_WAIT_FOR_INPUT();
         
         #if defined(_XL_NO_SOUND)
@@ -55,38 +75,38 @@ int main(void)
             _XL_PRINT(XSize-1-8,YSize-1,"SOUND ON");
         #endif
 
-        _XL_PRINT_CENTERED_ON_ROW(1+1*LINE_SKIP, "PING");
+        PRINT_CENTERED_ON_ROW(1+1*LINE_SKIP, "PING");
         _XL_WAIT_FOR_INPUT();
         _XL_PING_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(1+2*LINE_SKIP, "TICK");
+        PRINT_CENTERED_ON_ROW(1+2*LINE_SKIP, "TICK");
         _XL_WAIT_FOR_INPUT();
         _XL_TOCK_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(1+3*LINE_SKIP, "TOCK");
+        PRINT_CENTERED_ON_ROW(1+3*LINE_SKIP, "TOCK");
         _XL_WAIT_FOR_INPUT();
         _XL_TICK_SOUND();
         _XL_WAIT_FOR_INPUT();
      
-        _XL_PRINT_CENTERED_ON_ROW(1+4*LINE_SKIP, "ZAP");
+        PRINT_CENTERED_ON_ROW(1+4*LINE_SKIP, "ZAP");
         _XL_WAIT_FOR_INPUT();
         _XL_ZAP_SOUND();
         _XL_WAIT_FOR_INPUT();
         
-        _XL_PRINT_CENTERED_ON_ROW(1+5*LINE_SKIP, "SHOOT");
+        PRINT_CENTERED_ON_ROW(1+5*LINE_SKIP, "SHOOT");
         _XL_WAIT_FOR_INPUT();
         _XL_SHOOT_SOUND();
         _XL_WAIT_FOR_INPUT();
 
-        _XL_PRINT_CENTERED_ON_ROW(1+6*LINE_SKIP, "EXPLOSION");
+        PRINT_CENTERED_ON_ROW(1+6*LINE_SKIP, "EXPLOSION");
         _XL_WAIT_FOR_INPUT();
         _XL_EXPLOSION_SOUND();
         _XL_WAIT_FOR_INPUT();
 
     }
-    _XL_PRINT_CENTERED_ON_ROW(YSize-3, "END OF TEST");
+    PRINT_CENTERED_ON_ROW(YSize-3, "END OF TEST");
 
     while(1){};
     

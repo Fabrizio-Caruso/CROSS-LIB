@@ -6,6 +6,15 @@
 
 #include "init_images.h"
 
+
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+{
+	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+}
+
+
+
 #if !defined(NO_DISPLAY_RINGS)
 void DISPLAY_RINGS(void)
 {
@@ -54,15 +63,17 @@ void DISPLAY_ENERGY(void)
 void PRESS_KEY(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE_STRING);
+    PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE_STRING,10);
     _XL_WAIT_FOR_INPUT();
 }
 
 
 #if defined(_XL_NO_JOYSTICK)
     #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E
+	#define CONTROLS_LEN 14
 #else
     #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_J _XL_O _XL_Y _XL_S _XL_T _XL_I _XL_C _XL_K
+	#define CONTROLS_LEN 12
 #endif
 
 #define CONTROLS_Y (YSize-2)
@@ -74,7 +85,7 @@ void PRESS_KEY(void)
     void CONTROL_INSTRUCTIONS(void)
         {
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT_CENTERED_ON_ROW(CONTROLS_Y, CONTROLS_STRING);
+            PRINT_CENTERED_ON_ROW(CONTROLS_Y, CONTROLS_STRING, CONTROLS_LEN);
             _XL_WAIT_FOR_INPUT();
         }
 #endif

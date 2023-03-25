@@ -79,7 +79,7 @@
 #endif
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 
 // #define PRINT_CENTERED_ON_ROW(row, Text, len) \
 // do \
@@ -88,8 +88,8 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
 // } while(0)
 
 
-#define PRINT_CENTERED(Text,len) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
 // game_stat

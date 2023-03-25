@@ -74,9 +74,9 @@ extern uint8_t bombCount;
 
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
 }
 
 
@@ -107,8 +107,8 @@ void printKillTheSkulls(void)
     }
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2-2,KILL_THE_BOSS,13);    
-    PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING,15);   
+    PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2-2,KILL_THE_BOSS);    
+    PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING);   
 
     print_destroy_missiles(((uint8_t)YSize)/2+2);
     
@@ -311,7 +311,7 @@ void displayScoreStats(void)
     void gameCompleted(void)    
     {
         _XL_CLEAR_SCREEN();
-        PRINT_CENTERED(YOU_MADE_IT_STRING,7); 
+        PRINT_CENTERED(YOU_MADE_IT_STRING); 
         _XL_WAIT_FOR_INPUT();
     }
 #endif
@@ -337,7 +337,7 @@ void displayScoreStats(void)
     void printDefeatMessage(void)
     {            
         SET_COLOR(_XL_RED);
-        PRINT_CENTERED_ON_ROW(YSize/2-2,DEFEAT_STRING,8);
+        PRINT_CENTERED_ON_ROW(YSize/2-2,DEFEAT_STRING);
     }    
 #endif
     
@@ -346,7 +346,7 @@ void displayScoreStats(void)
     void printGameOver(void)
     {
         SET_COLOR(_XL_RED);
-        PRINT_CENTERED(GAME_OVER_STRING,9);
+        PRINT_CENTERED(GAME_OVER_STRING);
     }    
 #endif
 
@@ -355,7 +355,7 @@ void displayScoreStats(void)
 
 void _printCrossShoot(void)
 {
-    PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING, CROSS_LEN);        
+    PRINT_CENTERED_ON_ROW(2,  CROSS_SHOOT_STRING);        
     SET_COLOR(_XL_WHITE);
 }
 #endif
@@ -397,14 +397,14 @@ void _printCrossShoot(void)
         _printCrossShoot();
         
         #if XSize>=16
-        PRINT_CENTERED_ON_ROW(5, AUTHOR_STRING,15);    
+        PRINT_CENTERED_ON_ROW(5, AUTHOR_STRING);    
         #endif
 
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
 
             #if XSize>= 14 && !defined(EXTRA_TITLE)
-            PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING,13);
+            PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
             #endif
             
             SET_COLOR(_XL_WHITE);    
@@ -413,9 +413,9 @@ void _printCrossShoot(void)
 
         #if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
             #if YSize<25
-                PRINT_CENTERED_ON_ROW(YSize-1, USE_STRING, USE_LEN);
+                PRINT_CENTERED_ON_ROW(YSize-1, USE_STRING);
             #else
-                PRINT_CENTERED_ON_ROW(YSize-2, USE_STRING, USE_LEN);
+                PRINT_CENTERED_ON_ROW(YSize-2, USE_STRING);
             #endif
         #endif
     }

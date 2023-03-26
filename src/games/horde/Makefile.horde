@@ -3,7 +3,7 @@ GAME_NAME := horde
 
 PARENT_DIR = games
 
-include ./$(PARENT_DIR)/Makefile_common
+include ./Makefile_common
 
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \

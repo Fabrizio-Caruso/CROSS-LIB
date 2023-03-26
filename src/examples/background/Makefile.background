@@ -3,4 +3,5 @@ GAME_NAME := background
 
 PARENT_DIR = examples
 
-include ./$(PARENT_DIR)/Makefile_common
+include ./Makefile_common
+

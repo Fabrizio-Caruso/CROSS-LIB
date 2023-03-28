@@ -81,12 +81,6 @@
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 
-// #define PRINT_CENTERED_ON_ROW(row, Text, len) \
-// do \
-// { \
-	// _XL_PRINT(((uint8_t) (XSize - len)/2), row, Text);	\
-// } while(0)
-
 
 #define PRINT_CENTERED(Text) \
 	PRINT_CENTERED_ON_ROW((YSize>>1), Text)

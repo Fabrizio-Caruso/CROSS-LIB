@@ -9,7 +9,7 @@ FULL_FILES ?= \
 	$(SOURCE_PATH)/init_images.c \
 	$(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c  \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c $(SOURCE_PATH)/end_screen.c
 
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
@@ -95,9 +95,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
@@ -105,6 +103,30 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 #####################
 
 
+
+zx81: zx81_no_gfx
+
+zx81_no_gfx: zx81_no_gfx_32k
+
+# v2
+# -DEXTRA_TITLE
+# -pragma-define:REGISTER_SP=49151
+zx81_no_gfx_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) -compiler=sdcc   \
+	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
+	-vn -DFORCE_CAPITAL_CONTROLS \
+	-D__ZX81__ -DFULL_GAME \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+#####################
 
 coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \

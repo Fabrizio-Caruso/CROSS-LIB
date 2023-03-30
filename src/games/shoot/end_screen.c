@@ -28,11 +28,6 @@
 #endif
 
 
-
-#if defined(END_SCREEN) || defined(DANCE)
-
-#endif
-
 #if YSize < 20
 	#define MESSAGE_START 3
 	#define MESSAGE_RANGE 7

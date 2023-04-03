@@ -77,11 +77,6 @@ extern Image SKULL_IMAGE;
 #endif
 
 
-// #ifndef PRINT_CENTERED_ON_ROW
-    // #if defined(ALT_DISPLAY_STATS)
-        // #define PRINT_CENTERED_ON_ROW(row, text) _XL_PRINT(2,row,text)
-    // #endif
-// #endif
 
 extern uint8_t level;
 extern uint8_t lives;

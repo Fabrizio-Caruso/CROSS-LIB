@@ -425,6 +425,8 @@ c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+c16_32k: c16_32k_conio
+
 c16_32k_conio: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \

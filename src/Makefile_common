@@ -363,7 +363,7 @@ atari7800_no_color:
 
 #################################################################
 
-c16: c16_16k
+c16: c16_32k
 
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t c16 $(DRAW_SKIP) \
@@ -425,9 +425,9 @@ c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-c16_32k: c16_32k_conio
+#c16_32k: c16_32k_conio
 
-c16_32k_conio: $(ASSETS_PATH)/8x8_chars.h
+c16_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
 	-DINIT_SET_COLOR \
@@ -581,6 +581,7 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
 
 #################################################################
 

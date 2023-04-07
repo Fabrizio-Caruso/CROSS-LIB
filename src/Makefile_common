@@ -545,7 +545,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_16k
+#creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 #  -m mapfile.txt
@@ -566,7 +566,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DALT_SLEEP $(CREATIVISION_GAME_OPTS) \
@@ -1415,7 +1415,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 #################################################################
 vz200: vz200_24k
 
-vz200_cconio_24k: 	
+vz200_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
@@ -1430,7 +1430,7 @@ vz200_cconio_24k:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
-vz200_24k: 	
+vz200_target_specific:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \

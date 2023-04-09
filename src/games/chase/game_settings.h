@@ -51,23 +51,26 @@
 #else
 	#define BOMBS_NUMBER 4
 #endif
-	
-#if defined(FORCE_GHOSTS_NUMBER)
-	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
-#elif defined(TURN_BASED)
-	#if !defined(TINY_GAME)
-		#define GHOSTS_NUMBER 9
-	#else
-		#define GHOSTS_NUMBER 8
-	#endif
-#else	
-	#if XSize>=32 && YSize>=20
-		#define GHOSTS_NUMBER 9
-	#elif XSize>=16 && YSize>=16
-		#define GHOSTS_NUMBER 8
-	#else
-		#define GHOSTS_NUMBER 6
-	#endif
+
+
+#if !defined(GHOSTS_NUMBER)
+    #if defined(FORCE_GHOSTS_NUMBER)
+        #define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
+    #elif defined(TURN_BASED)
+        #if !defined(TINY_GAME)
+            #define GHOSTS_NUMBER 9
+        #else
+            #define GHOSTS_NUMBER 8
+        #endif
+    #else	
+        #if XSize>=32 && YSize>=20
+            #define GHOSTS_NUMBER 9
+        #elif XSize>=16 && YSize>=16
+            #define GHOSTS_NUMBER 8
+        #else
+            #define GHOSTS_NUMBER 6
+        #endif
+    #endif
 #endif
 
 #if !defined(ROCKETS_NUMBER)

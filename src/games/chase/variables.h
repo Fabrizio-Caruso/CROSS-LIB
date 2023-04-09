@@ -179,6 +179,7 @@
 		Character chasingBullet;			
 		
 		Character * chasedEnemyPtr;
+        
 		Character * chasedByGhosts;
 		uint8_t rockets_x[ROCKETS_NUMBER];		
 		

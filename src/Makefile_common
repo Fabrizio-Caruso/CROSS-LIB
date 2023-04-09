@@ -92,8 +92,6 @@ cc65_targets: \
     atari5200 \
     c16 \
     c64 \
-    creativision \
-    gamate \
     oric  \
     nes \
     pet \
@@ -109,7 +107,6 @@ cc65_targets: \
     atari5200 \
     c16 \
     c64 \
-    creativision \
     oric  \
     nes \
     pet \
@@ -118,11 +115,7 @@ cc65_targets: \
 endif
 
 cmoc_targets: \
-    coco_targets \
-    dragon_targets \
-    mo5_targets \
-    to7_targets
-
+    mo5_targets
 
 ifeq ($(DO_WIN),1)
 z88dk_targets_sequential: \
@@ -193,15 +186,13 @@ lcc1802_6x8_targets: \
     clean_combo_files
     
 _lcc1802_ascii_targets: \
-    _tmc600 \
-    _cidelsa
+    _tmc600
 
 lcc1802_ascii_targets: \
     _lcc1802_ascii_targets \
     clean_combo_files
 
 lcc1802_targets: \
-    _lcc1802_6x8_targets \
     _lcc1802_6x9_targets \
     _lcc1802_ascii_targets \
     clean_combo_files
@@ -566,7 +557,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 
-creativision: $(ASSETS_PATH)/8x8_chars.h
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DALT_SLEEP $(CREATIVISION_GAME_OPTS) \
@@ -581,6 +572,9 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+creativision: creativision_16k
+
 
 
 #################################################################
@@ -898,7 +892,7 @@ endif
 
 coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__COLECO__ \
+	-D__COLECO__ -DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COLECO_SLOWDOWN) \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -1287,7 +1281,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -Cz--audio -vn \
-	-DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_UDG \
+	-DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_UDG -DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MZ_SLOWDOWN) \
 	-pragma-define:REGISTER_SP=0xd000 \
@@ -1601,7 +1595,7 @@ endif
 	rm -rf $(BUILD_PATH)/xchase.bin
 
 dragon_targets: \
-	dragon
+	dragon_no_gfx
 
 ifdef USE_TOOLS
 coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
@@ -1655,7 +1649,7 @@ else
 endif
 
 coco_targets: \
-    coco
+    coco_no_gfx
 
 
 ifdef USE_TOOLS
@@ -1759,15 +1753,18 @@ endif
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
-	memory_mapped_alt_print.o \
+	memory_mapped_alt_print.o sleep_macros.o \
 	input_macros.o
 	rm 	display_macros.o dac_sounds.o \
-	memory_mapped_alt_print.o \
+	memory_mapped_alt_print.o sleep_macros.o \
 	input_macros.o 
 	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk

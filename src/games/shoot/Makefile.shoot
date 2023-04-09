@@ -100,6 +100,38 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 
+creativision: creativision_32k
+
+creativision_32k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
+	-D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME  -DALT_SLEEP -DSOUNDS \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DBULLETS_NUMBER=4 -DLESS_TEXT -DANIMATE_PLAYER -DTRANSITION_ANIMATION  \
+	-D_XL_SLOW_DOWN_FACTOR=300 -DUSE_LIGHT_MEMORY_BUFFERS -DNO_BLINKING -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(SOURCE_PATH)/memory/creativision_memory_light.s \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+supervision: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t supervision  -DEXTRA_TITLE  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX_3.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DALT_PRINT -DALT_SLEEP \
+	-DBIT_MAPPED_4 \
+	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2500 -DTRANSITION_ANIMATION \
+	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_ONLY_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	--code-name CODE0 \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
+
 #####################
 
 

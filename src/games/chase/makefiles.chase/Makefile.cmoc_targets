@@ -518,8 +518,8 @@ coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fi
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
-coco_targets: \
-	coco
+# coco_targets: \
+	# coco_no_gfx
 
 
 coco3: coco3_gfx

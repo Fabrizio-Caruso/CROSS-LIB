@@ -1,0 +1,611 @@
+
+
+
+#################################################################
+# CMOC
+
+
+#################################################################
+
+CMOC_OPTS               = $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DSOUNDS
+
+NO_UDG_OPS              = $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
+
+GFX_OPTS                = $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT 
+
+COCO_OPTS               = -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR -DNO_EXTRA_TITLE
+
+COCO_GFX_OPTS           = -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=2500
+
+COCO_COMPILE_OPTS       = $(COCO_OPTS)
+
+COCO_GFX_COMPILE_OPTS   = $(COCO_GFX_OPTS)
+
+COCO_GFX_COMPILE_OPTS_V2= $(COCO_GFX_OPTS) -D_API_VERSION=2
+
+COCO_GFX_COMPILE_OPTS   = $(COCO_GFX_OPTS)
+
+GFX_COLOR_OPTS          = $(CMOC_OPTS) -DALT_PRINT
+
+# COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 -DMAX_ARROWS_ON_SCREEN=7 -DFASTER_WALL_REDRAW -D_XL_SLOW_DOWN_FACTOR=140
+
+# COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
+
+COCO_COLOR_GFX_OPTS     = -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 -DBIT_MAPPED -D_API_VERSION=2 -DMAX_ARROWS_ON_SCREEN=7 -DFASTER_WALL_REDRAW -D_XL_SLOW_DOWN_FACTOR=2800
+
+COCO_COLOR_GFX_COMPILE_OPTS = $(COCO_COLOR_GFX_OPTS) -DYSize=24
+
+
+DRAGON_OPTS             = --dragon -D__DRAGON__ $(NO_UDG_OPS)
+
+DRAGON_GFX_OPTS         = --dragon -D__DRAGON__ $(GFX_OPTS)
+
+DRAGON_GFX_COMPILE_OPTS = $(DRAGON_GFX_OPTS)
+
+DRAGON_COMPILE_OPTS     = $(DRAGON_OPTS)
+
+VECTREX_OPTS          ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT  
+
+##########
+
+THOMSON_OPTS          ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -DANIMATE_PLAYER -D_XL_SLOW_DOWN_FACTOR=3000 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DSOUNDS
+
+# -DDEFAULT_CLEAR_SCREEN 
+MO5_OPTS              ?= $(THOMSON_OPTS) -D__MO5__ 
+
+MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
+
+MO5_ORG_DATA          ?= --org=2700 
+
+TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__
+
+TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
+
+TO7_ORG_DATA          ?= --org=A000 
+
+#############################################################################################
+
+
+dragon_no_gfx:
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o  dac_sounds.o  sleep_macros.o \
+	variables.o \
+	memory_mapped_alt_print.o \
+	game_text.o \
+	control_player.o snake.o move_snake.o \
+	input_macros.o
+	rm 	display_macros.o  dac_sounds.o sleep_macros.o \
+	game_text.o \
+	memory_mapped_alt_print.o \
+	variables.o \
+	control_player.o snake.o move_snake.o \
+	input_macros.o 
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+	rm -rf $(BUILD_PATH)/xchase.bin
+	# mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+
+dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o  dac_sounds.o  coco_init_graphics.o \
+	display_macros.o \
+	memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_tiles_and_fonts.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o  dac_sounds.o  coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	input_macros.o
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
+endif
+ifeq ($(DO_WIN),1)   
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+endif
+endif
+	rm -rf $(BUILD_PATH)/xchase.bin
+
+dragon_targets: \
+	dragon
+
+
+coco_no_gfx:
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	main.o  dac_sounds.o  \
+	display_macros.o \
+	game_text.o sleep_macros.o \
+	memory_mapped_alt_print.o variables.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o  dac_sounds.o  display_macros.o sleep_macros.o \
+	variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm -rf $(BUILD_PATH)/XCHASE.BIN
+	rm -rf XCHASE.BIN
+
+
+coco_v1: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o dac_sounds.o \
+	 memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_tiles_and_fonts.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+
+
+ifdef USE_TOOLS
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+else
+coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+endif
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS_V2) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o dac_sounds.o \
+	memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_tiles_and_fonts.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+ifdef USE_TOOLS
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
+
+
+
+ifdef USE_TOOLS
+coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+else
+coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+endif
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o dac_sounds.o \
+	memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_tiles_and_fonts.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_tiles_and_fonts.o \
+	variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	input_macros.o \
+	control_player.o snake.o move_snake.o
+ifdef USE_TOOLS
+	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+else
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
+
+
+
+# coco_targets: \
+	# coco coco_color
+
+
+ifdef USE_TOOLS
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s
+	$(CMOC) $(MO5_ORG_DATA) -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep_macros.o \
+	mo5_init_graphics.o  dac_sounds.o  \
+	display_macros.o \
+	cmoc_udc_tiles.o \
+	variables.o \
+	input_macros.o game_text.o \
+	control_player.o snake.o move_snake.o
+	rm \
+	mo5_alt_print.o sleep_macros.o \
+	dac_sounds.o  cmoc_udc_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	variables.o \
+	game_text.o \
+	control_player.o snake.o move_snake.o \
+	input_macros.o
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
+	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+	rm ./FULL_MO5.bin
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+endif
+
+mo5_test: 
+	$(TOOLS_PATH)/cmoc/mo5/f2k5 $(BUILD_PATH)/mo5_ex1-1.bin
+
+mo5_targets: \
+	mo5
+
+
+ifdef USE_TOOLS
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s
+	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/XLIB.bin \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep_macros.o \
+	mo5_init_graphics.o \
+	display_macros.o  dac_sounds.o  \
+	cmoc_udc_tiles.o \
+	variables.o \
+	input_macros.o game_text.o \
+	control_player.o snake.o move_snake.o
+	rm \
+	mo5_alt_print.o sleep_macros.o \
+	cmoc_udc_tiles.o  dac_sounds.o  \
+	mo5_init_graphics.o \
+	display_macros.o \
+	 variables.o \
+	game_text.o \
+	control_player.o snake.o move_snake.o \
+	input_macros.o
+ifdef USE_TOOLS
+	mv $(BUILD_PATH)/XLIB.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
+	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+	rm ./XLIB.bin
+else
+	mv $(BUILD_PATH)/XLIB.bin $(BUILD_PATH)/X$(GAME_NAME)_TO7.bin
+endif
+
+
+to7_targets: \
+	to7
+

@@ -1,0 +1,315 @@
+
+#####################
+
+coco_no_gfx: $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o sleep.o dac_sounds.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	ghost.o sleep_macros.o \
+	move_player.o \
+	level.o character.o \
+	 game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o dac_sounds.o \
+	init_images.o sleep.o sleep_macros.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o  \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+
+
+
+ifdef USE_TOOLS
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
+	$(CMOC) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
+	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_tiles.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	 game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	cmoc_udc_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o  \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
+	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+	rm ./FULL_MO5.bin
+else
+	mv $(BUILD_PATH)/FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+endif
+
+
+mo5_targets: mo5
+
+
+
+ifdef USE_TOOLS
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+else
+to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
+endif
+	$(CMOC) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/sleep.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
+	$(CMOC) -o $(BUILD_PATH)/XLIB.bin \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_tiles.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	 game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	mo5_alt_print.o sleep.o dac_sounds.o \
+	cmoc_udc_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o  \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+ifdef USE_TOOLS
+	mv $(BUILD_PATH)/XLIB.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) -c X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) --add X$(GAME_NAME)_TO7.sap XLIB.bin
+	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+	rm ./XLIB.bin
+else
+	mv $(BUILD_PATH)/XLIB.bin $(BUILD_PATH)/X$(GAME_NAME)_TO7.bin
+endif
+
+
+to7_targets: to7
+

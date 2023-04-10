@@ -1,0 +1,27 @@
+
+#####################
+
+
+
+zx81: zx81_no_gfx
+
+zx81_no_gfx: zx81_no_gfx_32k
+
+# v2
+# -DEXTRA_TITLE
+# -pragma-define:REGISTER_SP=49151
+zx81_no_gfx_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) -compiler=sdcc   \
+	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
+	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
+	-vn -DFORCE_CAPITAL_CONTROLS \
+	-D__ZX81__ -DFULL_GAME \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+

@@ -1,0 +1,31 @@
+
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCREATIVISION_COLOR -DFORCE_GHOSTS_NUMBER=8 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-D_XL_SLOW_DOWN_FACTOR=2000 -DSOUNDS -DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=6000 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 -DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -DNO_SLEEP -DNO_WAIT -DNO_TITLE   \
+	-DLESS_TEXT -DSOUNDS \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -D_XL_NO_COLOR \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+

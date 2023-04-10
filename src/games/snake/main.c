@@ -130,6 +130,7 @@ static const uint8_t image_colors[] = {
     _XL_YELLOW, 
     _XL_YELLOW,
     };
+
 #endif
 
 #define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==6)||((level&15)==9)||((level&15)==14))
@@ -198,7 +199,11 @@ void spawn(uint8_t type)
     }
     map[i][j]=type;
     
+    #if !defined(_XL_NO_COLOR)
     _XL_DRAW(i,j,images[type],image_colors[type]);
+    #else
+    _XL_DRAW(i,j,images[type],0);
+    #endif
 
 }
 
@@ -212,7 +217,11 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
             map[x+i][y+j]=type;
             if(type)
             {
+                #if !defined(_XL_NO_COLOR)
                 _XL_DRAW(x+i,y+j,images[type],image_colors[type]);
+                #else
+                _XL_DRAW(x+i,y+j,images[type],0);
+                #endif
             }
             else
             {

@@ -115,7 +115,8 @@ cc65_targets: \
 endif
 
 cmoc_targets: \
-    mo5_targets
+    mo5_targets \
+    coco_targets
 
 ifeq ($(DO_WIN),1)
 z88dk_targets_sequential: \

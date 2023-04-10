@@ -15,7 +15,7 @@ PARENT_DIR = games
 include ./Makefile_common
 
 
-creativision: $(ASSETS_PATH)/8x8_chars.h
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS -DNO_CONTROL_INSTRUCTIONS \
 	-DALT_SLEEP -DX_OFFSET=6  -DXSize=20 -DY_OFFSET=3 -DYSize=16 -DMAX_SNAKE_LENGTH=12 \

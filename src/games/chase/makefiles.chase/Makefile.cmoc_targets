@@ -792,6 +792,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) $
 
 to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
@@ -845,7 +848,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/XLIB.bin \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	mo5_alt_print.o \
+	mo5_alt_print.o dac_sounds.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
@@ -859,7 +862,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o 
 	rm \
-	mo5_alt_print.o \
+	mo5_alt_print.o dac_sounds.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \

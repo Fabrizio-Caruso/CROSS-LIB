@@ -119,6 +119,7 @@ endif
 
 cmoc_targets: \
     mo5_targets \
+    to7_targets \
     coco_targets
 
 ifeq ($(DO_WIN),1)

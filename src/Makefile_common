@@ -92,6 +92,7 @@ cc65_targets: \
     atari5200 \
     c16 \
     c64 \
+    creativision \
     oric  \
     nes \
     pet \
@@ -107,10 +108,12 @@ cc65_targets: \
     atari5200 \
     c16 \
     c64 \
+    creativision \
     oric  \
     nes \
     pet \
     pce \
+    supervision \
     vic20 
 endif
 
@@ -558,7 +561,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DALT_SLEEP $(CREATIVISION_GAME_OPTS) \
@@ -574,7 +577,7 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
-creativision: creativision_16k
+# creativision: creativision_16k
 
 
 

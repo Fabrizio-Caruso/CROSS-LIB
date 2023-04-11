@@ -55,9 +55,9 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 
-creativision: creativision_32k
+# creativision: creativision_32k
 
-creativision_32k: $(ASSETS_PATH)/8x8_chars.h
+creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME  -DALT_SLEEP -DSOUNDS \
@@ -68,7 +68,7 @@ creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@_32k.bin
 
 
 supervision: $(ASSETS_PATH)/cc65_udc.s 

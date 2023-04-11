@@ -93,6 +93,7 @@ cc65_targets: \
     c16 \
     c64 \
     creativision \
+    gamate \
     oric  \
     nes \
     pet \
@@ -109,6 +110,7 @@ cc65_targets: \
     c16 \
     c64 \
     creativision \
+    gamate \
     oric  \
     nes \
     pet \

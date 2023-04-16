@@ -36,6 +36,16 @@ uint8_t input;
 uint8_t level_completed;
 uint8_t counter;
 
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
 int main(void)
 {        
 
@@ -57,15 +67,15 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED_ON_ROW(4, "_GAME_NAME_CAPITAL");
+        PRINT_CENTERED_ON_ROW(4, "_GAME_NAME_CAPITAL");
         _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT_CENTERED_ON_ROW(6, "BY AUTHOR");
+        PRINT_CENTERED_ON_ROW(6, "BY AUTHOR");
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         
-        _XL_PRINT_CENTERED_ON_ROW(0, "HISCORE");
+        PRINT_CENTERED_ON_ROW(0, "HISCORE");
         _XL_PRINTD(XSize/2-3,1,5,hiscore);
         
-        _XL_PRINT_CENTERED_ON_ROW(YSize-1, "PRESS FIRE");
+        PRINT_CENTERED_ON_ROW(YSize-1, "PRESS FIRE");
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
@@ -87,7 +97,7 @@ int main(void)
             _XL_PRINTD(7,2,1,lives);       
             
             _XL_SLEEP(1);
-            _XL_PRINT_CENTERED_ON_ROW(14, "PRESS FIRE");
+            PRINT_CENTERED_ON_ROW(14, "PRESS FIRE");
             _XL_WAIT_FOR_INPUT();
             
             _XL_CLEAR_SCREEN();
@@ -130,12 +140,12 @@ int main(void)
             if(alive)
             {
                 ++level;
-                _XL_PRINT_CENTERED("LEVEL COMPLETED");
+                PRINT_CENTERED("LEVEL COMPLETED");
             }
             else
             {
                 --lives;
-                _XL_PRINT_CENTERED("YOU DIED");
+                PRINT_CENTERED("YOU DIED");
                 _XL_SLEEP(1);
             }
         } // (lives && (level<FINAL_LEVEL+1)) 
@@ -143,12 +153,12 @@ int main(void)
         {
             // GAME COMPLETED
             _XL_CLEAR_SCREEN();
-            _XL_PRINT_CENTERED("GAME COMPLETED");
+            PRINT_CENTERED("GAME COMPLETED");
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
         }
         _XL_CLEAR_SCREEN();
-        _XL_PRINT_CENTERED("GAME OVER");
+        PRINT_CENTERED("GAME OVER");
         _XL_WAIT_FOR_INPUT();
         if(score>hiscore) 
         {

@@ -25,6 +25,17 @@
 #include "cross_lib.h"
 
 
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
+
+
 int main(void)
 {        
 
@@ -38,7 +49,7 @@ int main(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
 
-    _XL_PRINT_CENTERED("HELLO WORLD");
+    PRINT_CENTERED("HELLO WORLD");
 
 	REFRESH();
 

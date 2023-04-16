@@ -25,6 +25,7 @@
 #include "cross_lib.h"
 
 
+
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19
 #else
@@ -34,6 +35,17 @@
 
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
+
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
+}
+
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+
+
 
  
 const uint8_t tiles[] = {
@@ -106,35 +118,35 @@ int main(void)
             _XL_CLEAR_SCREEN();
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT_CENTERED_ON_ROW(0, "SOUND");
+            PRINT_CENTERED_ON_ROW(0, "SOUND");
             _XL_WAIT_FOR_INPUT();
 
-            _XL_PRINT_CENTERED_ON_ROW(3, "PING");
+            PRINT_CENTERED_ON_ROW(3, "PING");
             _XL_WAIT_FOR_INPUT();
             _XL_PING_SOUND();
             _XL_WAIT_FOR_INPUT();
    
-            _XL_PRINT_CENTERED_ON_ROW(5, "TICK");
+            PRINT_CENTERED_ON_ROW(5, "TICK");
             _XL_WAIT_FOR_INPUT();
             _XL_TOCK_SOUND();
             _XL_WAIT_FOR_INPUT();
 
-            _XL_PRINT_CENTERED_ON_ROW(7, "TOCK");
+            PRINT_CENTERED_ON_ROW(7, "TOCK");
             _XL_WAIT_FOR_INPUT();
             _XL_TICK_SOUND();
             _XL_WAIT_FOR_INPUT();
          
-            _XL_PRINT_CENTERED_ON_ROW(9, "ZAP");
+            PRINT_CENTERED_ON_ROW(9, "ZAP");
             _XL_WAIT_FOR_INPUT();
             _XL_ZAP_SOUND();
             _XL_WAIT_FOR_INPUT();
             
-            _XL_PRINT_CENTERED_ON_ROW(11, "SHOOT");
+            PRINT_CENTERED_ON_ROW(11, "SHOOT");
             _XL_WAIT_FOR_INPUT();
             _XL_SHOOT_SOUND();
             _XL_WAIT_FOR_INPUT();
 
-            _XL_PRINT_CENTERED_ON_ROW(13, "EXPLOSITION");
+            PRINT_CENTERED_ON_ROW(13, "EXPLOSITION");
             _XL_WAIT_FOR_INPUT();
             _XL_EXPLOSION_SOUND();
             _XL_WAIT_FOR_INPUT();
@@ -156,7 +168,7 @@ int main(void)
             
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             
-            _XL_PRINT_CENTERED_ON_ROW(0, "INPUT");
+            PRINT_CENTERED_ON_ROW(0, "INPUT");
             counter = 0;
             while(counter<200)
             {
@@ -164,27 +176,27 @@ int main(void)
                 
                 if(_XL_FIRE(input))
                 {
-                    _XL_PRINT_CENTERED("FIRE ");
+                    PRINT_CENTERED("FIRE ");
                     ++counter;
                 }
                 else if(_XL_LEFT(input))
                 {
-                    _XL_PRINT_CENTERED("LEFT ");
+                    PRINT_CENTERED("LEFT ");
                     ++counter;
                 }
                 else if(_XL_RIGHT(input))
                 {
-                    _XL_PRINT_CENTERED("RIGHT");
+                    PRINT_CENTERED("RIGHT");
                     ++counter;
                 }
                 else if(_XL_DOWN(input))
                 {
-                    _XL_PRINT_CENTERED("DOWN ");
+                    PRINT_CENTERED("DOWN ");
                     ++counter;
                 }
                 else if(_XL_UP(input))
                 {
-                    _XL_PRINT_CENTERED("UP   ");
+                    PRINT_CENTERED("UP   ");
                     ++counter;
                 }
 

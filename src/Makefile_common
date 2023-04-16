@@ -2296,7 +2296,7 @@ pecom: \
 _full_tmc600: _tmc600_37k
 _tmc600: _tmc600_37k
 
-# -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
+# -DNO_PRINT -DNO_TITLE 
 # -savetemps -S
 _tmc600_37k: full_lcc1802_combo.c 
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \

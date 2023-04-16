@@ -36,7 +36,7 @@
 	#define MESSAGE_RANGE 15
 #endif
 
-#if defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if defined(END_SCREEN)
 	void gameCompleted(void)
 	{
 		

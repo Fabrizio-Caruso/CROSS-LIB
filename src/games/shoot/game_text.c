@@ -298,16 +298,7 @@ void displayScoreStats(void)
 #endif
 
 
-// #if !defined(NO_MESSAGE)
-    // void _printScoreOnRow(uint8_t row, uint16_t score)
-    // {
-        // _XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
-    // }    
-
-// #endif
-
-
-#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if !defined(END_SCREEN)
     void gameCompleted(void)    
     {
         _XL_CLEAR_SCREEN();
@@ -318,12 +309,6 @@ void displayScoreStats(void)
 
 
 #if !defined(LESS_TEXT)
-    // void printSecondRound(void)
-    // {
-        // SET_COLOR(_XL_RED);
-        // PRINT_CENTERED(SECOND_ROUND_STRING); 
-    // }
-
 
     void printVictoryMessage(void)
     {
@@ -342,13 +327,11 @@ void displayScoreStats(void)
 #endif
     
     
-#if !defined(NO_MESSAGE)
-    void printGameOver(void)
-    {
-        SET_COLOR(_XL_RED);
-        PRINT_CENTERED(GAME_OVER_STRING);
-    }    
-#endif
+void printGameOver(void)
+{
+	SET_COLOR(_XL_RED);
+	PRINT_CENTERED(GAME_OVER_STRING);
+}    
 
 
 #if !defined(NO_INITIAL_SCREEN)

@@ -65,7 +65,7 @@ void displayScore(void);
 
 #endif
 
-#if !defined(NO_MESSAGE)
+#if !defined(NO_PRINT)
 	void printGameOver(void);
 #else
 	#define printGameOver()
@@ -75,19 +75,19 @@ void printDefeatMessage(void);
 
 void printStartMessage(void);
 
-#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if !defined(END_SCREEN)
 	void gameCompleted(void);
-#elif defined(NO_MESSAGE)
+#elif defined(NO_PRINT)
 	#define gameCompleted()
 #endif
 
-#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
+#if !defined(NO_PRINT)
 	void printPressKeyToStart(void);
 #else
 	#define printPressKeyToStart()
 #endif
 
-#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
+#if !defined(TINY_GAME)
 	void _printScoreOnRow(uint8_t row, uint16_t score);
 	void _printScore(uint16_t score);
 	void printKillTheSkull(void);
@@ -102,7 +102,7 @@ void printStartMessage(void);
 #endif
 
 #if defined(TINY_GAME)
-	#if !defined(NO_MESSAGE)
+	#if !defined(NO_PRINT)
 		#define highScoreScreen() _XL_PRINTD((XSize-6)/2, 0, 5, highScore)
 	#else
 		#define highScoreScreen()

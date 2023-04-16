@@ -89,7 +89,7 @@ extern uint16_t highScore;
 extern Image GHOST_IMAGE;
 extern Image PLAYER_IMAGE;
 
-#if defined(FULL_GAME) && !defined(NO_MESSAGE)
+#if defined(FULL_GAME)
 	void printKillTheSkull(void)
 	{
 		PRINT_CENTERED(KILL_THE_SKULL_STRING,14);	
@@ -176,7 +176,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
 	
 #endif
 
-#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
+#if !defined(NO_PRINT)
 	void printPressKeyToStart(void)
 	{
         _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -202,7 +202,7 @@ void displayScore(void)
 #endif
 
 
-#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
+#if !defined(TINY_GAME)
 	void _printScoreOnRow(uint8_t row, uint16_t score)
 	{
 		_XL_PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
@@ -216,7 +216,7 @@ void displayScore(void)
 	#endif
 #endif
 
-#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if !defined(END_SCREEN)
 	void gameCompleted(void)	
 	{
 		_XL_CLEAR_SCREEN();
@@ -243,13 +243,13 @@ void displayScore(void)
 #endif
 	
 	
-#if !defined(NO_MESSAGE)
-	void printGameOver(void)
-	{
-        SET_COLOR(_XL_RED);
-		PRINT_CENTERED(GAME_OVER_STRING,9);
-	}	
-#endif
+
+void printGameOver(void)
+{
+	SET_COLOR(_XL_RED);
+	PRINT_CENTERED(GAME_OVER_STRING,9);
+}	
+
 
 
 #if YSize>=21

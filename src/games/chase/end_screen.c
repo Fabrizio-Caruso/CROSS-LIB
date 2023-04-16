@@ -58,7 +58,7 @@
 	#define MESSAGE_START 6
 #endif
 
-#if defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if defined(END_SCREEN)
 	void gameCompleted(void)
 	{
 		level = 0;

@@ -109,7 +109,6 @@ atari_no_color_16k_full:
 	-DFLAT_ENEMIES \
 	-DALT_SLEEP \
 	-DNO_RANDOM_LEVEL \
-	-DNO_MESSAGE \
 	-DNO_PRINT -DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -122,7 +121,7 @@ atari_no_color_16k:
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
-	-DNO_MESSAGE -DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_atari_no_color_16k.xex
 

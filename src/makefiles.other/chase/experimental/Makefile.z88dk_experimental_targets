@@ -232,7 +232,7 @@ rex_buffered:
 	-D_XL_NO_COLOR \
 	-DFULL_GAME -DSOUNDS \
 	-lndos \
-	-DNO_PRINT -DNO_MESSAGE \
+	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_INPUT \

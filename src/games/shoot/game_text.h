@@ -123,7 +123,7 @@ void _printCrossShoot(void);
     // void printSecondRound(void);
 #endif
 
-#if !defined(NO_MESSAGE)
+#if !defined(NO_PRINT)
 	void printGameOver(void);
 #else
 	#define printGameOver()
@@ -133,13 +133,11 @@ void printDefeatMessage(void);
 
 void printStartMessage(void);
 
-#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
+#if !defined(END_SCREEN)
 	void gameCompleted(void);
-#elif defined(NO_MESSAGE)
-	#define gameCompleted()
 #endif
 
-#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
+#if !defined(NO_PRINT)
 	// void printPressKeyToStart(void);
     #define printPressKeyToStart() \
         do \

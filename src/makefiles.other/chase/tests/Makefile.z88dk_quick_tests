@@ -189,7 +189,7 @@ cpm_quick_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-D__CPM_80X24__ \
-	-DNO_SLEEP -DNO_WAIT \
+	-D_XL_NO_SLEEP -DNO_WAIT \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
 	$(TEST_FILES)
@@ -247,7 +247,7 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DUDG_GRAPHICS \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
@@ -370,7 +370,7 @@ nc100_quick_test:
 	-DNO_PRINT -DFORCE_NO_CONIO_LIB \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -611,7 +611,7 @@ trs80_quick_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DCONIO_VT52 \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
 	$(TEST_FILES)
@@ -647,7 +647,7 @@ x1_quick_test:
 	-D__X1__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_x1.bin -vn -lndos \
 	$(TEST_FILES)

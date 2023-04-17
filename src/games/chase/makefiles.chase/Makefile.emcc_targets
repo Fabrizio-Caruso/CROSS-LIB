@@ -22,7 +22,7 @@ emcc_buffered:
 	-DYSize=9 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \
@@ -45,7 +45,7 @@ emcc_exp:
 	-DYSize=24 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DNO_SLEEP -DNO_INPUT -DNO_WAIT \
+	-D_XL_NO_SLEEP -DNO_INPUT -DNO_WAIT \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \

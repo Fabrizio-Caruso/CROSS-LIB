@@ -74,7 +74,7 @@ gcc_386_no_print:
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
 	$(TINY_FILES)	
@@ -94,7 +94,7 @@ gcc_no_print:
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
 	$(TINY_FILES)	
@@ -114,7 +114,7 @@ gcc_tiny_buffered:
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)

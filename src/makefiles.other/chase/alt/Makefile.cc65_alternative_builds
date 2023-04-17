@@ -134,7 +134,7 @@ atari_lynx_light:
 	-DNO_SET_SCREEN_COLORS \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DTGI \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
@@ -152,7 +152,7 @@ c16_16k_full_no_gfx:
 	-DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DUSE_MEMORY_BUFFERS \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DSOUNDS \
 	-DMEMORY_MAPPED  \
 	-DBETWEEN_LEVEL \
@@ -241,7 +241,7 @@ creativision_18k:
 
 creativision_24k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -252,7 +252,7 @@ creativision_24k:
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -264,7 +264,7 @@ creativision_32k:
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
-	-DTINY_GAME -DNO_SLEEP \
+	-DTINY_GAME -D_XL_NO_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -420,7 +420,7 @@ vic20_unexpanded_no_gfx:
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
@@ -449,7 +449,7 @@ vic20_unexpanded_turn_based:
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \

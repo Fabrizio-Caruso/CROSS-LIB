@@ -163,7 +163,7 @@ gal_6k:
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
-	-DNO_SLEEP -DLESS_TEXT \
+	-D_XL_NO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SET_SCREEN_COLORS \

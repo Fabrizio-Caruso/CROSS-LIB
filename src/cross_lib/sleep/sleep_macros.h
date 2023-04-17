@@ -33,7 +33,7 @@
         #define ALT_SLEEP_SCALE 4000
     #endif
   
-    #if !defined(NO_SLEEP)
+    #if !defined(_XL_NO_SLEEP)
         #  if !defined(__CMOC__) && !defined(__LCC1802__) && !defined(__TI99__) && !defined(__MC10__)
             #include <time.h>
             #include <unistd.h>
@@ -44,7 +44,7 @@
         #endif    
     #endif
 
-    #if defined(NO_SLEEP)
+    #if defined(_XL_NO_SLEEP)
         #define _XL_SLEEP(s)
     #elif defined(MACRO_SLEEP)
         #define _XL_SLEEP(sec)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)

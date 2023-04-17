@@ -57,7 +57,7 @@ zx81_light:
 	-vn \
 	-D__ZX81__ -DLIGHT_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg \
 	$(LIGHT_FILES)

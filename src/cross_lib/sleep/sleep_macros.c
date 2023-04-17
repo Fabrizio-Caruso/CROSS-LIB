@@ -28,7 +28,7 @@
 
 #include "standard_libs.h"
 
-#if !defined(NO_SLEEP)
+#if !defined(_XL_NO_SLEEP)
 
 	#if defined(__OSIC1P__) || defined(__ZX81__)
 		#define CYCLES 500

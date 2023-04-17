@@ -274,7 +274,7 @@ out            stb res
 
 
 // _XL_WAIT_FOR_INPUT() definitions
-#  if defined(NO_WAIT) && !defined(NO_SLEEP)
+#  if defined(NO_WAIT) && !defined(_XL_NO_SLEEP)
     void _XL_WAIT_FOR_INPUT(void)
     {
         _XL_SLEEP(2);

@@ -38,7 +38,7 @@ none_no_graphics:
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \
@@ -58,11 +58,11 @@ none_no_graphics:
 
 supervision_dummy:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
-	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4_DUMMY -DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision_dummy.sv
@@ -105,7 +105,7 @@ bbc_test:
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \

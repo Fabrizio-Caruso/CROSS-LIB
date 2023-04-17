@@ -9,7 +9,7 @@ MACROS_NO_GRAPHICS ?= \
 	-DXSize=79 \
 	-DYSize=22 \
 	-DSTDLIB \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_CHASE \
 	-DFULL_GAME \

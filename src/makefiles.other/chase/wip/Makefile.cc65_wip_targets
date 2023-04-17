@@ -8,7 +8,7 @@ bbc_no_graphics:
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DNO_SLEEP \
+	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \

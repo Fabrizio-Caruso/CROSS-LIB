@@ -265,7 +265,7 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	-DFULL_GAME \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DZ88DK_JOYSTICK \
@@ -292,7 +292,7 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -436,7 +436,7 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
-	-DCONIO -DSOUNDS -DFORCE_BIT_BANG \
+	-DCONIO  -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -503,7 +503,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DSOUNDS -D_XL_SLOW_DOWN_FACTOR=800 \
+	 -D_XL_SLOW_DOWN_FACTOR=800 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
@@ -526,7 +526,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DSOUNDS -DFORCE_PSG -D_XL_SLOW_DOWN_FACTOR=600 \
+	 -DFORCE_PSG -D_XL_SLOW_DOWN_FACTOR=600 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
@@ -549,7 +549,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
-	-DFULL_GAME -DSOUNDS \
+	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_WAIT \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -601,7 +601,7 @@ super80r_no_gfx_no_col:
 	-DXSize=80 \
 	-DYSize=23 \
 	-DFULL_GAME  \
-	-DSOUNDS -DFORCE_BIT_BANG  \
+	 -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -D_XL_NO_COLOR -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 -DNO_INIT_GRAPHICS \
@@ -620,7 +620,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=24 \
 	-DUDG_GRAPHICS \
 	-DFULL_GAME  \
-	-DSOUNDS -DFORCE_BIT_BANG  \
+	 -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -D_XL_NO_COLOR -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 \
@@ -675,7 +675,7 @@ sv8000_32k:
 	$(INCLUDE_OPTS) \
 	-DFORCE_CONIO_LIB \
 	-DZ88DK_JOYSTICK \
-	-DSOUNDS \
+	 \
 	-D__SV8000__ \
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -703,7 +703,7 @@ ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
+	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -725,7 +725,7 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
+	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-create-app -oxchase \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -747,7 +747,7 @@ ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
+	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -793,7 +793,7 @@ ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
+	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -819,7 +819,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DNO_RANDOM_LEVEL \
 	-D_XL_NO_SLEEP \
-	-DNO_HINTS -DSOUNDS -DFORCE_PSG \
+	-DNO_HINTS  -DFORCE_PSG \
 	-DNO_SET_SCREEN_COLORS \
 	-create-app -o tiki100 \
 	-DNO_INIT_GRAPHICS \
@@ -842,7 +842,7 @@ trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__TRS80__ \
 	-DFULL_GAME \
 	-vn -lndos \
-	-DALT_PRINT -DSOUNDS -DFORCE_BIT_BANG \
+	-DALT_PRINT  -DFORCE_BIT_BANG \
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
@@ -863,7 +863,7 @@ trs80_chars:
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
-	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
+	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -880,7 +880,7 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-vn \
 	-DFULL_GAME \
-	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
+	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
@@ -995,7 +995,7 @@ x1: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__X1__ \
-	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
+	-DFULL_GAME  -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
@@ -1011,7 +1011,7 @@ x1_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X1__ \
-	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
+	-DFULL_GAME  -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
@@ -1085,7 +1085,7 @@ z80tvgame_no_gfx:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	-lndos  -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -1102,7 +1102,7 @@ z80tvgame: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	-lndos  -DFORCE_BIT_BANG \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1122,7 +1122,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
-	-DSOUNDS -DFORCE_BIT_BANG \
+	 -DFORCE_BIT_BANG \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
 	-D_XL_NO_WAIT \
@@ -1153,7 +1153,7 @@ zxn:
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=9000 \
 	-DCONIO_VT52 \
-	-DCONIO -DSOUNDS -DFORCE_PSG \
+	-DCONIO  -DFORCE_PSG \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \

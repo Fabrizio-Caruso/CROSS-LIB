@@ -93,7 +93,7 @@ aquarius: aquarius_exp_16k
 
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
+	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -105,7 +105,7 @@ aquarius_exp_16k:
 
 aquarius_alt: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -117,7 +117,7 @@ aquarius_alt:
 
 aquarius_alt_memory_mapped: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_SLOW_DOWN_FACTOR=1500 \
+	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_SLOW_DOWN_FACTOR=1500 \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE -DANIMATE_PLAYER \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -129,7 +129,7 @@ aquarius_alt_memory_mapped:
 
 aquarius_quad: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__AQUARIUS__ \
+	 -D__AQUARIUS__ \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1500 -DNO_UDG -DNO_PRINT \
 	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -221,7 +221,7 @@ mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-D__MC1000__ -DSOUNDS -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__MC1000__  -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
@@ -245,7 +245,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-D__MC1000__ -DSOUNDS -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__MC1000__  -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
@@ -330,7 +330,7 @@ svi_318:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -lndos \
 	-D__SVI__ \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o svi_318 \
@@ -348,7 +348,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
 	 -vn -lndos \
-	-DSOUNDS \
+	 \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-DFORCE_CONIO_LIB \
@@ -369,7 +369,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	 -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -396,7 +396,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
-	-DSOUNDS \
+	 \
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_less_text.prg \
 	-DCONIO \
@@ -414,7 +414,7 @@ vz200: vz200_18k
 vz200_18k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz -Cz--audio --hardware-keyboard $(SCCZ80_OPTS) --generic-console -vn \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-DSOUNDS -D__VZ__ -DHARDWARE_KEYBOARD \
+	 -D__VZ__ -DHARDWARE_KEYBOARD \
 	-DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO \
@@ -453,7 +453,7 @@ vz200_8k:
 vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-DSOUNDS \
+	 \
 	-DINITIAL_SLOWDOWN=31500 \
 	-D__VZ__ \
 	-DFULL_GAME \
@@ -579,7 +579,7 @@ z9001_16k_full:
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DNO_HINTS \
-	-DSIMPLE_STRATEGY -DSOUNDS -DFORCE_BIT_BANG \
+	-DSIMPLE_STRATEGY  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
@@ -588,7 +588,7 @@ z9001_16k_full:
 z9001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
+	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -598,7 +598,7 @@ z9001_32k_no_gfx:
 z9001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DSOUNDS -DFORCE_BIT_BANG \
+	-DCONIO  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \

@@ -105,7 +105,7 @@ z88dk_quick_test: \
 
 abc80_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
-	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos \
+	-D__ABC80__ -clib=ansi -vn   -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -119,7 +119,7 @@ abc80_quick_test:
 ace_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ace \
 	-D__ACE__ \
-	-DSOUNDS \
+	 \
 	-DCONIO \
 	-clib=default -o acet.bin \
 	-DNO_INIT_GRAPHICS \
@@ -134,7 +134,7 @@ ace_quick_test:
 
 aquarius_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
-	-DSOUNDS -D__AQUARIUS__  -DTINY_GAME \
+	 -D__AQUARIUS__  -DTINY_GAME \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -167,7 +167,7 @@ c128_z80_quick_test:
 
 cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
-	-D__CPC__ -DSOUNDS \
+	-D__CPC__  \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
@@ -287,7 +287,7 @@ mc1000_quick_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi \
-	-D__MC1000__ -DSOUNDS \
+	-D__MC1000__  \
 	-vn  -lndos -create-app -Cz--audio -o mc1kt.bin \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(TEST_FILES)
@@ -298,7 +298,7 @@ mc1000_quick_test:
 
 microbee_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +bee \
-	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
+	-D__BEE__ -clib=ansi -vn   \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -309,11 +309,11 @@ microbee_quick_test:
 
 msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
-	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	 -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DMEMORY_MAPPED -DFORCE_CONIO_LIB -DNO_CONIO_PATCH \
 	-DUSE_MSX_BIOS \
-	-DSOUNDS -DANIMATE_PLAYER \
+	 -DANIMATE_PLAYER \
 	-vn \
 	-lndos \
 	-DZ88DK_JOYSTICK \
@@ -327,7 +327,7 @@ msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 mtx_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o TEST_mtx.bin -vn \
-	-DSOUNDS \
+	 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -341,7 +341,7 @@ mtx_quick_test:
 mz_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +mz \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DSOUNDS \
+	 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -356,7 +356,7 @@ nascom_quick_test:
 	-D__NASCOM__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-DSOUNDS \
+	 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_nascom.prg \
 	$(TEST_FILES)
@@ -381,7 +381,7 @@ nc100_quick_test:
 
 p2000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 -clib=ansi -D__P2000__ -vn \
-	-DSOUNDS  \
+	  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -422,7 +422,7 @@ pv2000_quick_test:
 	-D__SRR__ -vn \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-DSOUNDS \
+	 \
 	-D_XL_NO_WAIT \
 	-DCONIO_VT52 \
 	-lndos \
@@ -511,7 +511,7 @@ sg1000_quick_test:
 spectrum_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
 	-pragma-define:ansicolumns=32 \
-	-DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	 -DCLIB_ANSI -D__SPECTRUM__ \
 	-DNO_INIT_GRAPHICS \
 	-DCONIO \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_spectrum.prg \
@@ -526,7 +526,7 @@ srr_quick_test:
 	-D__SRR__ -vn \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-DSOUNDS \
+	 \
 	-D_XL_NO_WAIT \
 	-DCONIO_VT52 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -541,13 +541,13 @@ srr_quick_test:
 svi_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	 -vn -lndos \
-	-DSOUNDS \
+	 \
 	-D__SVI__ -o svit.bin \
 	-DCONIO \
 	-DFORCE_CONIO_LIB \
 	-pragma-define:ansicolumns=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
-	-DSOUNDS \
+	 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-D__SVI__ \
@@ -623,7 +623,7 @@ vg5k_quick_test:
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
+	 -vn -D__VG5K__ -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_vg5k.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
@@ -803,7 +803,7 @@ svi_zsdcc_quick_test:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -lndos -o svizt.bin \
 	-D__SVI__ \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
@@ -821,7 +821,7 @@ vg5k_zsdcc_quick_test:
 	-DNO_BLINKING \
 	-vn -D__VG5K__ \
 	-DLESS_TEXT \
-	-DSOUNDS \
+	 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -840,7 +840,7 @@ mc1000_zsdcc_quick_test:
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	-D__MC1000__ -DSOUNDS \
+	-D__MC1000__  \
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio -o mc1kzt.bin \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \

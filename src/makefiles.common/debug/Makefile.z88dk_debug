@@ -457,7 +457,7 @@ spectrum_bitbang:
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \
 	-DANIMATE_PLAYER \
-	-DSOUNDS \
+	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=200 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -489,7 +489,7 @@ c128_bitbang:
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
 	$(SOURCE_PATH)/../../test/bitbang.c \

@@ -128,7 +128,7 @@ pps_turn_based:
 	-D__PPS__ -vn \
 	-DCONIO_VT52 \
 	-DTURN_BASED \
-	-DFULL_GAME -DSOUNDS \
+	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -387,7 +387,7 @@ ts2068_turn_based:
 # VZ200
 vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/ALT_FULL_vz200_24k.vz \
 	$(SOURCE_PATH)/end_screen.c \

@@ -4,7 +4,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB -DNO_SET_SCREEN_COLORS \
 	-DREDEFINED_CHARS \
-	-DSOUNDS \
+	 \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
@@ -26,7 +26,7 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7 -DREDEFINED_CHARS -DNO_BOTTOM_WALL_REDRAW \
 	-DALT_SLEEP -DCREATIVISION_COLOR -DXSize=26 -DX_OFFSET=3  \
-	-D_XL_SLOW_DOWN_FACTOR=1800 -DSOUNDS \
+	-D_XL_SLOW_DOWN_FACTOR=1800  \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \

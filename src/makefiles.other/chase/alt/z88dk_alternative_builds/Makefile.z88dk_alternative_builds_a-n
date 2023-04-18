@@ -106,7 +106,7 @@ abc80_tiny:
 ace_exp_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DSOUNDS \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -o acengfx.bin -Cz--audio -create-app \
 	$(SOURCE_PATH)/end_screen.c \
@@ -124,7 +124,7 @@ aussie_buffered:
 	$(INCLUDE_OPTS) \
 	-vn \
 	-D__AUSSIE__ \
-	-DSOUNDS \
+	 \
 	-DFORCE_BIT_BANG \
 	-DXSize=16 \
 	-DYSize=12 \
@@ -280,7 +280,7 @@ fp1100_tiny:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
-	-DTINY_GAME -DNO_WALL -DSOUNDS \
+	-DTINY_GAME -DNO_WALL  \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
@@ -362,7 +362,7 @@ m5_tiny_no_gfx:
 # MC1000
 mc1000_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn \
+	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__  -vn \
 	-lndos \
 	-create-app -o mc1000l.bin \
 	-Cz--audio -DCONIO -DNO_INIT_GRAPHICS \
@@ -379,7 +379,7 @@ microbee_32k_no_gfx:
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_no_gfx.prg  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -392,7 +392,7 @@ microbee_32k_wav:
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_wav.prg  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -406,7 +406,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
-	-DSOUNDS -DANIMATE_PLAYER \
+	 -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_msx_32k.prg \
@@ -428,7 +428,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 mtx_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o ALT_FULL_mtx_no_gfx.bin \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -490,7 +490,7 @@ nascom_32k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DTURN_BASED \
-	-DSOUNDS \
+	 \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \

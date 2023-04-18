@@ -165,7 +165,7 @@ laser500_no_gfx:
 	-create-app -o laser500.bin \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__LASER500__ \
-	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFORCE_BIT_BANG  \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -181,7 +181,7 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o laser500bm.bin -DEXTRA_TITLE \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -DFORCE_SCREEN_MODE=2 \
-	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFORCE_BIT_BANG  \
 	-DFULL_GAME -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DCONIO \
@@ -227,7 +227,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 
 microbee_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
+	-D__BEE__ -clib=ansi -vn   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_microbee_16k_no_gfx.prg  \
 	$(LIGHT_FILES)
@@ -247,7 +247,7 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_microbee_32k.bin \
 	-DNO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE -DSOUNDS -DFORCE_BIT_BANG \
+	-DINITIAL_GHOST_FREEZE  -DFORCE_BIT_BANG \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_microbee_32k.bin
@@ -282,7 +282,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS -DEXTRA_TITLE \
 	-DINITIAL_SLOWDOWN=29000 \
-	-DSOUNDS -DFORCE_PSG -DANIMATE_PLAYER \
+	 -DFORCE_PSG -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
@@ -303,7 +303,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=29000 -DEXTRA_TITLE \
-	-DSOUNDS -DFORCE_PSG -DANIMATE_PLAYER \
+	 -DFORCE_PSG -DANIMATE_PLAYER \
 	-vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
@@ -329,7 +329,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn -DEXTRA_TITLE \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
 	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -352,7 +352,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn -DEXTRA_TITLE \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
 	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -383,7 +383,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) -subtype=64k \
 	$(INCLUDE_OPTS) \
 	-D__MULTI8__ \
-	-DFULL_GAME  -DSOUNDS -DFORCE_PSG \
+	-DFULL_GAME   -DFORCE_PSG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -420,7 +420,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME -DZ88DK_JOYSTICK \
 	-DCONIO_VT52 -DUDG_GRAPHICS \
 	-DCONIO -DANIMATE_PLAYER \
-	-lndos -DSOUNDS -DFORCE_PSG \
+	-lndos  -DFORCE_PSG \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -436,7 +436,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE  \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
@@ -466,7 +466,7 @@ mz2500:
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
-	-DSOUNDS \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
@@ -478,7 +478,7 @@ nascom: nascom_32k
 nascom_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
-	-DSOUNDS \
+	 \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -606,7 +606,7 @@ osca:
 	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi -D__OSCA__ -vn \
 	-DFULL_GAME \
-	-DSOUNDS  -lndos \
+	  -lndos \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o osca \
@@ -685,7 +685,7 @@ pacman:
 
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
-	-DSOUNDS  \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_p2000.prg \
 	$(LIGHT_FILES)
@@ -696,8 +696,8 @@ p2000: p2000_32k
 
 p2000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
-	-DFULL_GAME -DSOUNDS  -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
+	-DFULL_GAME   -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_p2000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -746,7 +746,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DCONIO -DSOUNDS -DFORCE_PSG \
+	-DCONIO  -DFORCE_PSG \
 	-DANIMATE_PLAYER -DUDG_GRAPHICS \
 	-DFORCE_SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -767,7 +767,7 @@ pc88: pc88_tiny
 
 pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=80 -DFORCE_YSEIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
@@ -784,7 +784,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
@@ -820,7 +820,7 @@ pc88_tiny:
 
 pcw40:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
@@ -838,7 +838,7 @@ pcw: pcw80
 
 pcw80:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
@@ -938,7 +938,7 @@ pps:
 	-D__PPS__ -vn \
 	-o pps \
 	-DCONIO_VT52 \
-	-DFULL_GAME -DSOUNDS \
+	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -962,7 +962,7 @@ primo_no_gfx:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	-lndos  -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -978,8 +978,8 @@ primo_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
-	-DCONIO -DFORCE_BIT_BANG -DSOUNDS \
-	-lndos -DSOUNDS -DFORCE_BIT_BANG \
+	-DCONIO -DFORCE_BIT_BANG  \
+	-lndos  -DFORCE_BIT_BANG \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

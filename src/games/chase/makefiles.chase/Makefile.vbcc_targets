@@ -94,7 +94,7 @@ bbc_buffered_no_print:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DNO_WAIT \
+	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \

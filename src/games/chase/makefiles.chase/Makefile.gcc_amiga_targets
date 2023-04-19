@@ -27,7 +27,7 @@ amiga_buffered:
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_SLEEP \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \

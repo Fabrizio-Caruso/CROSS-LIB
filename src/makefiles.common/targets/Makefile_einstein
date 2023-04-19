@@ -10,7 +10,7 @@ einstein: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO_LIB \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EINSTEIN_SLOWDOWN) \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-clib=ansi \
 	-DCONIO -DUDG_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_einstein.bin \

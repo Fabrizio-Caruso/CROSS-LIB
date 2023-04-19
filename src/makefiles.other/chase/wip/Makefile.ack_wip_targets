@@ -19,7 +19,7 @@ pdp11v7_buffered:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED -DSTDLIB \
 	-DNO_INIT_GRAPHICS \
@@ -39,7 +39,7 @@ pdp11v7:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
-	-DFULL_GAME \
+	 \
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-D_XL_NO_WAIT \

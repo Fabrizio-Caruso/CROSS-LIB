@@ -105,7 +105,7 @@ abc80_tiny:
 # ACE
 ace_exp_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__ACE__  -DBETWEEN_LEVEL -DEND_SCREEN \
 	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -o acengfx.bin -Cz--audio -create-app \
@@ -129,7 +129,7 @@ aussie_buffered:
 	-DXSize=16 \
 	-DYSize=12 \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -148,7 +148,7 @@ c128_z80_40col_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
-	-DFULL_GAME -DEND_SCREEN \
+	 -DEND_SCREEN \
 	-DTURN_BASED \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -213,7 +213,7 @@ cpm_z80_buffered:
 	-DXSize=24 \
 	-DYSize=16 \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -230,7 +230,7 @@ cpm_z80_vt52:
 	$(INCLUDE_OPTS) \
 	-DCONIO_VT52 \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt52.bin \
@@ -244,7 +244,7 @@ cpm_z80_vt100:
 	$(INCLUDE_OPTS) \
 	-DCONIO_VT100 \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt100.bin \
@@ -264,7 +264,7 @@ eg2k_no_gfx:
 	-lm \
 	-D__TRS80__ \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-create-app -o eg2kngfx.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -334,7 +334,7 @@ m5_no_gfx:
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_m5_no_gfx.bin \
@@ -379,7 +379,7 @@ microbee_32k_no_gfx:
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
+	   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_no_gfx.prg  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -392,7 +392,7 @@ microbee_32k_wav:
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
+	   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_wav.prg  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -407,7 +407,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
 	 -DANIMATE_PLAYER \
-	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn -DMSX_VPOKE  -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
@@ -428,7 +428,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 mtx_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o ALT_FULL_mtx_no_gfx.bin \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
+	   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -491,7 +491,7 @@ nascom_32k_turn_based:
 	-D__NASCOM__ \
 	-DTURN_BASED \
 	 \
-	-DFULL_GAME \
+	 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_nascom_32k_turn_based.prg \

@@ -20,7 +20,7 @@ atari_st_buffered:
 	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -35,7 +35,7 @@ atari_st: atari_st_ncurses
 atari_st_ncurses:
 	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-D__ATARI_ST__ \
-	-DFULL_GAME \
+	 \
 	-DXSize=39 \
 	-DYSize=22 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -56,7 +56,7 @@ atari_st_ncurses_turn_based:
 	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-D__ATARI_ST__ \
 	-DTURN_BASED \
-	-DFULL_GAME \
+	 \
 	-DXSize=39 \
 	-DYSize=22 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \

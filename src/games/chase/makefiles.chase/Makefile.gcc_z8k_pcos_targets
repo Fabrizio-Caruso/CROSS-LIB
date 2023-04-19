@@ -31,7 +31,7 @@ olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -52,7 +52,7 @@ olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-DYSize=22 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \

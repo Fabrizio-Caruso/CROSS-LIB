@@ -455,7 +455,7 @@ spectrum_bitbang:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	-DFULL_GAME \
+	 \
 	-DANIMATE_PLAYER \
 	 \
 	-DZ88DK_JOYSTICK \

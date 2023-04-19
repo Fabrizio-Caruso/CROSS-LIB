@@ -23,7 +23,7 @@ emcc_buffered:
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_SLEEP \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -46,7 +46,7 @@ emcc_exp:
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_SLEEP -DNO_INPUT -D_XL_NO_WAIT \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \

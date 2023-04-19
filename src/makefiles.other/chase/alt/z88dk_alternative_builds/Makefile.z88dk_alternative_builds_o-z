@@ -109,7 +109,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 pc6001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ \
-	-DFULL_GAME \
+	 \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -128,7 +128,7 @@ pps_turn_based:
 	-D__PPS__ -vn \
 	-DCONIO_VT52 \
 	-DTURN_BASED \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -164,7 +164,7 @@ px4_chars:
 	$(INCLUDE_OPTS) \
 	-D__PX4__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
-	-DFULL_GAME \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-create-app  -o px4ch.bin \
@@ -180,7 +180,7 @@ px8_chars:
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
-	-DFULL_GAME \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8ch.bin \
@@ -193,7 +193,7 @@ px8_chars_ansi:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=px8ansi \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
-	-DFULL_GAME \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8cha.bin \
@@ -210,7 +210,7 @@ ti82_chars:
 	$(INCLUDE_OPTS) -D__TI82__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DFULL_GAME  \
+	  \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -229,7 +229,7 @@ ti83_chars:
 	-DXSize=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DFULL_GAME  \
+	  \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -oxchasetc \
@@ -244,7 +244,7 @@ ti83_turn_based:
 	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DFULL_GAME  \
+	  \
 	-DTURN_BASED \
 	-D_XL_NO_WAIT \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -D_XL_NO_COLOR \
@@ -265,7 +265,7 @@ ti85_chars:
 	-DXSize=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DFULL_GAME  \
+	  \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o ti85ch \
@@ -279,7 +279,7 @@ ti85_turn_based:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-vn -lndos \
 	-DALT_PRINT \
@@ -300,7 +300,7 @@ ti86_full:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI86__ \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_JOYSTICK \
 	-DLESS_TEXT	\
 	-D_XL_NO_COLOR \
@@ -325,7 +325,7 @@ trs80_chars_cas:
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80_chars.bin \
@@ -355,7 +355,7 @@ trs80_wav:
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80.bin \
@@ -373,7 +373,7 @@ ts2068_turn_based:
 	-D__TS2068__ \
 	-D_XL_NO_COLOR \
 	-vn \
-	-DFULL_GAME \
+	 \
 	-lndos \
 	-DFORCE_CONIO_LIB \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -387,7 +387,7 @@ ts2068_turn_based:
 # VZ200
 vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	 -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -D__VZ__  -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/ALT_FULL_vz200_24k.vz \
 	$(SOURCE_PATH)/end_screen.c \

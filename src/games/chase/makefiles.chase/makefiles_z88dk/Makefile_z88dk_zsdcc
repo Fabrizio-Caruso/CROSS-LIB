@@ -93,7 +93,7 @@ aquarius: aquarius_exp_16k
 
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
+	 -D__AQUARIUS__  -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -105,7 +105,7 @@ aquarius_exp_16k:
 
 aquarius_alt: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__AQUARIUS__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -117,7 +117,7 @@ aquarius_alt:
 
 aquarius_alt_memory_mapped: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	 -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_SLOW_DOWN_FACTOR=1500 \
+	 -D__AQUARIUS__  -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_SLOW_DOWN_FACTOR=1500 \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE -DANIMATE_PLAYER \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -146,7 +146,7 @@ gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
-	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__GAL__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -186,7 +186,7 @@ gal_plus_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal -D_XL_SLOW_DOWN_FACTOR=300 \
-	-D__GAL__ -D__GAL_PLUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__GAL__ -D__GAL_PLUS__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -200,7 +200,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	--generic-console -D_XL_SLOW_DOWN_FACTOR=0 -DEXTRA_TITLE -DYSize=26 $(EXTRA_DRAW_SKIP) \
-	-D__GAL__ -D__GAL_PLUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DANIMATE_PLAYER \
+	-D__GAL__ -D__GAL_PLUS__  -DEND_SCREEN -DBETWEEN_LEVEL -DANIMATE_PLAYER \
 	-DCONIO -DUDG_GRAPHICS -DSOUND -DFORCE_BIT_BANG \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -218,7 +218,7 @@ mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  \
 	-subtype=gaming -DYSize=24 -DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
+	 -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-D__MC1000__  -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -242,7 +242,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming -DYSize=24 \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME -D_XL_SLOW_DOWN_FACTOR=400 \
+	 -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-D__MC1000__  -DBETWEEN_LEVEL -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -300,7 +300,7 @@ pv1000:
 	$(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -349,7 +349,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
 	 -vn -lndos \
 	 \
-	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-DFORCE_CONIO_LIB \
 	-pragma-define:ansicolumns=32 \
@@ -369,7 +369,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	 -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	 -vn  -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -389,7 +389,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-vn -DFULL_GAME -D__VG5K__ \
+	-vn  -D__VG5K__ \
 	-DINITIAL_SLOWDOWN=29000 \
 	-DLESS_TEXT \
 	-DUDG_GRAPHICS \
@@ -415,7 +415,7 @@ vz200_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -Cz--audio --hardware-keyboard $(SCCZ80_OPTS) --generic-console -vn \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	 -D__VZ__ -DHARDWARE_KEYBOARD \
-	-DFULL_GAME \
+	 \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO \
 	-lndos \
@@ -456,7 +456,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DINITIAL_SLOWDOWN=31500 \
 	-D__VZ__ \
-	-DFULL_GAME \
+	 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.vz \
 	-vn -lndos \
 	-DALT_PRINT \
@@ -479,7 +479,7 @@ zx81_16k:
 	$(INCLUDE_OPTS) -compiler=sdcc  \
 	--opt-code-size  \
 	-vn \
-	-D__ZX81__ -DFULL_GAME \
+	-D__ZX81__  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -495,7 +495,7 @@ zx81_v2_16k:
 	$(INCLUDE_OPTS)  -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	--opt-code-size \
 	-vn -D_XL_SLOW_DOWN_FACTOR=0 -DFORCE_CAPITAL_CONTROLS \
-	-D__ZX81__ -DFULL_GAME \
+	-D__ZX81__  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -519,7 +519,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
-	-DFULL_GAME \
+	 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
@@ -550,7 +550,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
-	-DFULL_GAME \
+	 \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
@@ -573,7 +573,7 @@ z9001: z9001_32k_no_gfx
 
 z9001_16k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \
-	-D__Z9001__ -vn -DFULL_GAME  \
+	-D__Z9001__ -vn   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
@@ -587,7 +587,7 @@ z9001_16k_full:
 
 z9001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
-	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__Z9001__ -vn   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
@@ -597,7 +597,7 @@ z9001_32k_no_gfx:
 
 z9001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
-	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__Z9001__ -vn   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \

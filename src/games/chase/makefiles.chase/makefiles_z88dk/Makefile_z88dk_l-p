@@ -146,7 +146,7 @@ lambda: lambda_16k
 
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-vn -D__LAMBDA__ -DFULL_GAME \
+	-vn -D__LAMBDA__  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_lambda_16k.prg \
@@ -166,7 +166,7 @@ laser500_no_gfx:
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__LASER500__ \
 	-DFORCE_BIT_BANG  \
-	-DFULL_GAME \
+	 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
@@ -182,7 +182,7 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG  \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
@@ -207,7 +207,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN -DFORCE_BIT_BANG \
 	-DCONIO \
 	-DANIMATE_PLAYER \
@@ -241,7 +241,7 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__NC100__ \
 	-DALT_PRINT \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
@@ -263,7 +263,7 @@ mikro80:
 	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -283,7 +283,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DUSE_MSX_BIOS -DEXTRA_TITLE \
 	-DINITIAL_SLOWDOWN=29000 \
 	 -DFORCE_PSG -DANIMATE_PLAYER \
-	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn -DMSX_VPOKE  -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
 	-DMEMORY_MAPPED \
@@ -304,7 +304,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=29000 -DEXTRA_TITLE \
 	 -DFORCE_PSG -DANIMATE_PLAYER \
-	-vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn  -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
 	-DCONIO -DUDG_GRAPHICS \
@@ -329,7 +329,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn -DEXTRA_TITLE \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
+	   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
 	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -352,7 +352,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn -DEXTRA_TITLE \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
+	   -DEND_SCREEN -DBETWEEN_LEVEL -DTURN_BASED \
 	-DCONIO -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -383,7 +383,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) -subtype=64k \
 	$(INCLUDE_OPTS) \
 	-D__MULTI8__ \
-	-DFULL_GAME   -DFORCE_PSG \
+	   -DFORCE_PSG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -417,7 +417,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=32 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DZ88DK_JOYSTICK \
+	 -DZ88DK_JOYSTICK \
 	-DCONIO_VT52 -DUDG_GRAPHICS \
 	-DCONIO -DANIMATE_PLAYER \
 	-lndos  -DFORCE_PSG \
@@ -436,7 +436,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
+	   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE  \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
@@ -479,7 +479,7 @@ nascom_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	 \
-	-DFULL_GAME \
+	 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_nascom_32k.prg \
@@ -496,7 +496,7 @@ nc100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
 	-DALT_PRINT \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
@@ -516,7 +516,7 @@ nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__NC200__ \
 	-DALT_PRINT \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
@@ -541,7 +541,7 @@ newbrain:
 	-DFORCE_BOMBS_NUMBER=4 \
 	-vn \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_SLEEP \
@@ -573,9 +573,9 @@ newbrain:
 
 ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ONDRA__ -DXSize=40 -DYSize=30 -DFULL_GAME  \
+	-D__ONDRA__ -DXSize=40 -DYSize=30   \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DZ88DK_JOYSTICK \
+	 -DZ88DK_JOYSTICK \
 	-DCONIO_VT52 -DUDG_GRAPHICS \
 	-DCONIO -DANIMATE_PLAYER \
 	-lndos \
@@ -590,7 +590,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 ondra_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__ONDRA__ -DXSize=40 -DYSize=30 -DFULL_GAME  \
+	-D__ONDRA__ -DXSize=40 -DYSize=30   \
 	-DCONIO -D_XL_NO_COLOR -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \
@@ -605,7 +605,7 @@ ondra_no_gfx:
 osca:
 	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi -D__OSCA__ -vn \
-	-DFULL_GAME \
+	 \
 	  -lndos \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -627,7 +627,7 @@ osborne1_chars:
 	-DFORCE_CONIO_LIB \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1_chars.bin \
@@ -642,7 +642,7 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__OSBORNE1__ \
 	-D_XL_NO_COLOR \
 	-DFORCE_CONIO_LIB \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DALT_PRINT \
@@ -663,7 +663,7 @@ pacman:
 	-DYSize=24 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -696,7 +696,7 @@ p2000: p2000_32k
 
 p2000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
-	-DFULL_GAME   -DBETWEEN_LEVEL -DEND_SCREEN \
+	   -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_p2000.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -712,7 +712,7 @@ pasopia7:
 	-D__PASOPIA__ \
 	-DNO_SET_SCREEN_COLORS \
 	-DXSize=40 -DYSize=23 \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -744,7 +744,7 @@ pc6001: pc6001_32k
 
 pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -DFULL_GAME \
+	-D__PC6001__  \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO  -DFORCE_PSG \
 	-DANIMATE_PLAYER -DUDG_GRAPHICS \
@@ -767,7 +767,7 @@ pc88: pc88_tiny
 
 pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=80 -DFORCE_YSEIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
@@ -784,7 +784,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
@@ -820,7 +820,7 @@ pc88_tiny:
 
 pcw40:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
@@ -838,7 +838,7 @@ pcw: pcw80
 
 pcw80:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	 -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	 -D__PC88__  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
@@ -861,7 +861,7 @@ pencil2_no_gfx:
 	-DXSize=32 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -879,7 +879,7 @@ pencil2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=32 \
 	-DYSize=24 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -902,7 +902,7 @@ pmd85_no_gfx:
 	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -919,7 +919,7 @@ pmd85: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=32 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -938,7 +938,7 @@ pps:
 	-D__PPS__ -vn \
 	-o pps \
 	-DCONIO_VT52 \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -959,7 +959,7 @@ primo_no_gfx:
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos  -DFORCE_BIT_BANG \
@@ -976,7 +976,7 @@ primo_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=24 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO -DFORCE_BIT_BANG  \
 	-lndos  -DFORCE_BIT_BANG \
@@ -995,7 +995,7 @@ pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PV2000__ \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -1021,7 +1021,7 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) -lpx4 \
 	$(INCLUDE_OPTS) \
 	-D__PX4__ \
-	-DFULL_GAME \
+	 \
 	-subtype=px4 -Cz--32k \
 	-create-app -o px4 \
 	-vn -lndos \
@@ -1044,7 +1044,7 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
-	-DFULL_GAME \
+	 \
 	-subtype=px8 \
 	-create-app -o px8 \
 	-vn -lndos \

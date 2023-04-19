@@ -102,7 +102,7 @@ vic20_alt_targets: \
 
 atari_no_color_16k_full: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
-	-DFULL_GAME \
+	 \
 	-DNO_HINTS \
 	-DNO_BLINKING \
 	-DLESS_TEXT \
@@ -148,7 +148,7 @@ atari_lynx_light:
 c16_16k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 -Cl \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
-	-DFULL_GAME \
+	 \
 	-DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DUSE_MEMORY_BUFFERS \
@@ -181,7 +181,7 @@ c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 
 c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
-	-DFULL_GAME -DANIMATE_PLAYER  \
+	 -DANIMATE_PLAYER  \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	-DEND_SCREEN \
@@ -210,7 +210,7 @@ c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 creativision_16k_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	 -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -227,7 +227,7 @@ creativision_16k_no_gfx:
 creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	 -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -241,7 +241,7 @@ creativision_18k:
 
 creativision_24k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT  -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -252,7 +252,7 @@ creativision_24k:
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT  -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -302,7 +302,7 @@ gamate_tiny:
 
 nes_no_fx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
-	-DFULL_GAME \
+	 \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -390,7 +390,7 @@ vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/alt/vic20-8k.cfg \
-	-DFULL_GAME \
+	 \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DSIMPLE_STRATEGY \
 	-DLESS_TEXT	\

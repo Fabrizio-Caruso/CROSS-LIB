@@ -41,7 +41,7 @@ cpm_8080_buffered_ack:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DSTDLIB \
@@ -64,7 +64,7 @@ cpm_8080_adm3a_ack:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -87,7 +87,7 @@ msdos86:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__MSDOS86__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -109,7 +109,7 @@ msdos86_test:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__MSDOS86__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D_XL_NO_WAIT \
@@ -132,7 +132,7 @@ pc8086:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PC8086__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -158,7 +158,7 @@ linuxppc:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -184,7 +184,7 @@ linux68k:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX68K__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -210,7 +210,7 @@ linux386:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX386__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -236,7 +236,7 @@ linuxmips:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \
-	-DFULL_GAME \
+	 \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -257,7 +257,7 @@ linuxmips_targets: \
 dos:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
 	-D__DOS__ \
-	-DFULL_GAME \
+	 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
 	-DCONIO  \

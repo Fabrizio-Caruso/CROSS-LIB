@@ -149,7 +149,7 @@ qc10_turn_based:
 	-DCONIO_ADM3A_WITH_UNDEF -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
 	-DFORCE_CONIO_LIB \
 	-D__QC10__ \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -oxcqc10.bin \
@@ -170,7 +170,7 @@ rc700:
 	-DYSize=23 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -186,7 +186,7 @@ rc700:
 rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__RX78__ \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -215,7 +215,7 @@ samcoupe_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SAM__ -DEND_SCREEN -DANIMATE_PLAYER -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-DCONIO -D_XL_SLOW_DOWN_FACTOR=2000 -DUDG_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	 -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -231,7 +231,7 @@ samcoupe_no_gfx:
 	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL -DEXTRA_TITLE \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
@@ -264,7 +264,7 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
-	-DFULL_GAME \
+	 \
 	 \
 	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -291,7 +291,7 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	 \
 	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -321,7 +321,7 @@ smc777_turn_based:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 -DXSize=80 -DYSize=24 \
 	-DCONIO -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
 	-lndos \
@@ -347,7 +347,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	-DFULL_GAME \
+	 \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1400 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -366,7 +366,7 @@ sms_buffered:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ -DNEW_LIB \
 	-D_XL_NO_COLOR \
-	-DFULL_GAME \
+	 \
 	-DSTDLIB \
 	-DLESS_TEXT \
 	-create-app \
@@ -399,7 +399,7 @@ sos_buffered:
 	-D_XL_NO_COLOR \
 	-DBUFFERED -DALT_PRINT \
 	-DTURN_BASED \
-	-DFULL_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-create-app -o sos_buffered \
@@ -433,7 +433,7 @@ sos_tiny_buffered:
 spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SPC1000__ \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO  -DFORCE_BIT_BANG \
@@ -460,7 +460,7 @@ special:
 	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -DSTDLIB -D_XL_NO_WAIT \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -500,7 +500,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey -DEXTRA_TITLE \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
 	 -D_XL_SLOW_DOWN_FACTOR=800 \
@@ -523,7 +523,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -DEXTRA_TITLE \
 	-pragma-redirect:getk=getk_inkey \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
 	 -DFORCE_PSG -D_XL_SLOW_DOWN_FACTOR=600 \
@@ -549,7 +549,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_WAIT \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -577,7 +577,7 @@ super80_no_col:
 	-D__SUPER80__ \
 	-DXSize=32 \
 	-DYSize=16 \
-	-DFULL_GAME  \
+	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -D_XL_NO_COLOR \
 	-DCONIO_VT52 \
@@ -600,7 +600,7 @@ super80r_no_gfx_no_col:
 	-D__SUPER80R__ \
 	-DXSize=80 \
 	-DYSize=23 \
-	-DFULL_GAME  \
+	  \
 	 -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -D_XL_NO_COLOR -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -619,7 +619,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=80 \
 	-DYSize=24 \
 	-DUDG_GRAPHICS \
-	-DFULL_GAME  \
+	  \
 	 -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -D_XL_NO_COLOR -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -677,7 +677,7 @@ sv8000_32k:
 	-DZ88DK_JOYSTICK \
 	 \
 	-D__SV8000__ \
-	-DFULL_GAME -DLESS_TEXT \
+	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
@@ -697,7 +697,7 @@ ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI82__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DFORCE_NARROW \
@@ -719,7 +719,7 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI83__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DFORCE_NARROW \
@@ -741,7 +741,7 @@ ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DFORCE_NARROW \
@@ -787,7 +787,7 @@ ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DFORCE_NARROW \
@@ -811,7 +811,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
 	-DALT_PRINT \
-	-DFULL_GAME \
+	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
@@ -840,7 +840,7 @@ trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-D__TRS80__ \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT  -DFORCE_BIT_BANG \
 	-DFORCE_NARROW \
@@ -861,7 +861,7 @@ trs80_chars:
 	-lm -create-app \
 	-D__TRS80__ \
 	-pragma-redirect:getk=getk_inkey \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS  -DFORCE_BIT_BANG \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_trs80_chars.bin \
@@ -879,7 +879,7 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__TS2068__ \
 	-D_XL_NO_COLOR \
 	-vn \
-	-DFULL_GAME \
+	 \
 	-DLESS_TEXT  -DFORCE_BIT_BANG \
 	-lndos \
 	-DALT_PRINT \
@@ -906,7 +906,7 @@ tvc_exp:
 	-DXSize=32 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos  \
@@ -922,7 +922,7 @@ tvc_buffered:
 	-DYSize=23 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -D_XL_NO_WAIT -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	 -D_XL_NO_WAIT -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -939,7 +939,7 @@ vector06c:
 	-DXSize=32 \
 	-DYSize=30 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -960,7 +960,7 @@ gl4000_buffered:
 	-DYSize=6 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -979,7 +979,7 @@ gl6000sl_buffered:
 	-DYSize=12 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -995,7 +995,7 @@ x1: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__X1__ \
-	-DFULL_GAME  -DFORCE_PSG \
+	  -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
@@ -1011,7 +1011,7 @@ x1_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X1__ \
-	-DFULL_GAME  -DFORCE_PSG \
+	  -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
@@ -1028,7 +1028,7 @@ zx80: zx80_16k_turn_based
 
 zx80_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	-D__ZX80__ -DFULL_GAME \
+	-D__ZX80__  \
 	-DEND_SCREEN \
 	-DTURN_BASED \
 	-DALT_SLEEP \
@@ -1046,7 +1046,7 @@ zx80_v2: zx80_16k_turn_based_v2
 
 zx80_16k_turn_based_v2:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	-D__ZX80__ -DFULL_GAME \
+	-D__ZX80__  \
 	-DEND_SCREEN -DAPI_VERSION=2 \
 	-DTURN_BASED \
 	-DALT_SLEEP \
@@ -1065,7 +1065,7 @@ zx80_16k_turn_based_v2:
 z1013:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-vn -lndos \
-	-D__Z1013__  -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__Z1013__   -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1082,7 +1082,7 @@ z80tvgame_no_gfx:
 	-D__Z80TVGAME__ \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DXSize=21 -DYSize=26 -DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos  -DFORCE_BIT_BANG \
@@ -1099,7 +1099,7 @@ z80tvgame: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__Z80TVGAME__ \
 	-DNO_SET_SCREEN_COLORS \
 	-D_XL_NO_COLOR -DXSize=21 -DYSize=26 -DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos  -DFORCE_BIT_BANG \
@@ -1118,7 +1118,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \
-	-DFULL_GAME \
+	 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
@@ -1151,7 +1151,7 @@ zxn:
 	-DXSize=64 \
 	-DYSize=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=9000 \
+	 -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=9000 \
 	-DCONIO_VT52 \
 	-DCONIO  -DFORCE_PSG \
 	-lndos \

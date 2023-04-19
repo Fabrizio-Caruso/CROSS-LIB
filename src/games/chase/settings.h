@@ -8,6 +8,12 @@
 	#endif
 #endif
 
+#if !defined(TINY_GAME) && !defined(LIGHT_GAME)
+	#ifndef FULL_GAME	
+		#define FULL_GAME
+	#endif
+#endif
+
 #include "cross_lib.h"
 
 struct ImageStruct

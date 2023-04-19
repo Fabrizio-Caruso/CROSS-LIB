@@ -1,7 +1,9 @@
-#if defined(FULL_GAME)
-
 
 #include "settings.h"
+
+
+#if defined(FULL_GAME)
+
 #include "character.h"
 #include "level.h"
 

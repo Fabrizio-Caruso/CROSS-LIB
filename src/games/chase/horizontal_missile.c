@@ -1,3 +1,6 @@
+
+#include "settings.h"
+
 #if defined(FULL_GAME) 
 
 #include "level.h"

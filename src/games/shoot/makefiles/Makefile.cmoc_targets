@@ -100,6 +100,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
 endif
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -161,7 +164,7 @@ endif
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
@@ -175,7 +178,7 @@ endif
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
-	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
@@ -210,6 +213,9 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 else
 to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
 endif
+	$(CMOC) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
@@ -273,7 +279,7 @@ endif
 	$(CMOC) -o $(BUILD_PATH)/XLIB.bin \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
@@ -287,7 +293,7 @@ endif
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
-	mo5_alt_print.o sleep.o dac_sounds.o \
+	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	cmoc_udc_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \

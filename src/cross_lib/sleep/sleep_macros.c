@@ -63,45 +63,43 @@
 #endif
 
 
-// #if defined(NO_SLOW_DOWN_MACRO)
-    #if defined(__NCURSES__) 
-        #include <stdint.h>
-        #include <time.h>
-        #include <unistd.h>
-        void _XL_SLOW_DOWN(uint16_t t)
-        {
-            usleep((t)*800);
-        }
-        
-    #elif defined(__TI99__)
-        void _XL_SLOW_DOWN(uint16_t t)
-        {
-            volatile uint16_t i;
+#if defined(__NCURSES__) 
+	#include <stdint.h>
+	#include <time.h>
+	#include <unistd.h>
+	void _XL_SLOW_DOWN(uint16_t t)
+	{
+		usleep((t)*800);
+	}
+	
+#elif defined(__TI99__)
+	void _XL_SLOW_DOWN(uint16_t t)
+	{
+		volatile uint16_t i;
 
-            for(i=0;i<(t);++i)
-            {
-            }
-        }
-    #elif defined(__CMOC__) // TODO: There should be a less hackish way
-        void _XL_SLOW_DOWN(uint16_t t)
-        {
-            uint16_t i;
-            uint16_t foo;
+		for(i=0;i<(t);++i)
+		{
+		}
+	}
+#elif defined(__CMOC__) // TODO: There should be a less hackish way
+	void _XL_SLOW_DOWN(uint16_t t)
+	{
+		uint16_t i;
+		uint16_t foo;
 
-            for(i=0;i<(t);++i)
-            {
-                foo=42+i;
-            }
-        }
-    #else
-        void _XL_SLOW_DOWN(uint16_t t)
-        {
-            uint16_t i;
+		for(i=0;i<(t);++i)
+		{
+			foo=42+i;
+		}
+	}
+#else
+	void _XL_SLOW_DOWN(uint16_t t)
+	{
+		uint16_t i;
 
-            for(i=0;i<(t);++i)
-            {
-            }       
-        }
-    #endif
-// #endif
+		for(i=0;i<(t);++i)
+		{
+		}       
+	}
+#endif
 

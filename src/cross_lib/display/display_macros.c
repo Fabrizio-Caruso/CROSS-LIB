@@ -238,7 +238,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     extern uint8_t sprites[];
 
 #elif defined(BUFFERED)
-    #if defined(NO_LOWER_BORDER)
+    #if defined(_XL_NO_LOWER_BORDER)
         #define LOWER_BORDER_OFFSET 2
     #else
         #define LOWER_BORDER_OFFSET 1

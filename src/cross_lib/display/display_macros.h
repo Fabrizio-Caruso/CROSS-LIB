@@ -36,10 +36,6 @@
     #endif
 #endif
 
-#if !defined(NO_CONIO_PATCH)
-    #include "conio_patch.h"
-#endif
-
 #include "standard_libs.h"
 
 #if !defined(_XL_NUMBER_OF_TILES)

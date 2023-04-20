@@ -145,6 +145,7 @@
     #define _XL_SLOW_DOWN_FACTOR 0
 #endif
 
+/*
 #if !defined(NO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
         #include <stdint.h>
@@ -165,8 +166,11 @@
        #define _XL_SLOW_DOWN(t)
     #endif
 #else
+	*/
     void _XL_SLOW_DOWN(uint16_t t);
+/*
 #endif
+*/
 
 #endif // _SLEEP_MACROS
 

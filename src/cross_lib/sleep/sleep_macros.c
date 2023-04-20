@@ -63,7 +63,7 @@
 #endif
 
 
-#if defined(NO_SLOW_DOWN_MACRO)
+// #if defined(NO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__) 
         #include <stdint.h>
         #include <time.h>
@@ -103,5 +103,5 @@
             }       
         }
     #endif
-#endif
+// #endif
 

@@ -145,9 +145,11 @@
     #define _XL_SLOW_DOWN_FACTOR 0
 #endif
 
-
-void _XL_SLOW_DOWN(uint16_t t);
-
+#if defined(_XL_NO_SLEEP)
+	#define _XL_SLOW_DOWN(t)
+#else
+	void _XL_SLOW_DOWN(uint16_t t);
+#endif
 
 #endif // _SLEEP_MACROS
 

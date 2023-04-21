@@ -135,7 +135,7 @@ LCC1802_BASIC_C_OPTS ?= \
 	-DINITIAL_SLOWDOWN=21150
 
 
-LCC1802_C_OPTS ?= \
+LCC1802_C_OPTS = \
 	$(LCC1802_BASIC_C_OPTS) \
 	 \
 	-DALT_SLEEP \
@@ -252,7 +252,6 @@ tmc600: \
 
 
 _cidelsa: _cidelsa_draco
-
 _cidelsa_draco_32k: _cidelsa_draco
 
 # -DREDEFINED_CHARS
@@ -264,7 +263,7 @@ _cidelsa_draco: full_lcc1802_combo.c
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(LCC1802_C_OPTS) \
+	$(LCC1802_C_OPTS) -D_XL_NO_SLEEP -D_XL_NO_SOUND \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c

@@ -99,6 +99,10 @@
         #define _TILE_25 'M'
     #endif
 
+    #if !defined(_TILE_26)
+        #define _TILE_26 'M'
+    #endif
+
     // GREEN
     #if !defined(_TILE_8)
         #define _TILE_8  'S'

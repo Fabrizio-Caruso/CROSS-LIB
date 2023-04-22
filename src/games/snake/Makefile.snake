@@ -1,3 +1,4 @@
+
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/main.c \
@@ -11,6 +12,8 @@ FULL_FILES ?= \
 GAME_NAME := snake
 
 PARENT_DIR = games
+
+GLOBAL_OPTS = -D_XL_NO_SMALL_LETTERS
 
 include ./Makefile_common
 

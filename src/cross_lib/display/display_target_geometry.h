@@ -263,33 +263,13 @@
 	#endif
 #endif
 
-// #if XSize < YSize
-	// #define MIN_SIZE XSize
-// #else
-	// #define MIN_SIZE YSize
-// #endif
 
-#  if XSize>=32 && YSize>=20
-	#define WIDE
-#else 
-	#define NARROW
-#endif
-
-
-#if defined(FORCE_NARROW) && defined(WIDE)
-	#undef WIDE
-	#define NARROW
-#endif
 
 #if !defined(Y_OFFSET)
-    #if defined(NARROW)
-        #define Y_OFFSET 0
-    #elif defined(WIDE) && XSize>64
-        #define Y_OFFSET 1
-    #elif defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
+    #if defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
         #define Y_OFFSET 3
     #else 
-        #define Y_OFFSET 2
+        #define Y_OFFSET 0
     #endif
 #endif
 

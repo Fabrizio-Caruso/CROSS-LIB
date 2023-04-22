@@ -32,6 +32,18 @@
 	#endif
 #endif
 
+#  if XSize>=32 && YSize>=20
+	#define WIDE
+#else 
+	#define NARROW
+#endif
+
+
+#if defined(FORCE_NARROW) && defined(WIDE)
+	#undef WIDE
+	#define NARROW
+#endif
+
 #include "cross_lib.h"
 
 struct ImageStruct

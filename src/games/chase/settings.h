@@ -8,6 +8,18 @@
 	#endif
 #endif
 
+#  if XSize>=32 && YSize>=20
+	#define WIDE
+#else 
+	#define NARROW
+#endif
+
+
+#if defined(FORCE_NARROW) && defined(WIDE)
+	#undef WIDE
+	#define NARROW
+#endif
+
 #if !defined(TINY_GAME) && !defined(LIGHT_GAME)
 	#ifndef FULL_GAME	
 		#define FULL_GAME

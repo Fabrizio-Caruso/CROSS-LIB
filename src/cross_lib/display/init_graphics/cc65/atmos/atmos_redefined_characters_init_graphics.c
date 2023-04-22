@@ -27,20 +27,8 @@ void init_colors(void)
 {
 	uint8_t i;
 	
-	
 	// Initialize colors 	
-	#if !defined(FORCE_NARROW)
-    for(i=0;i<2;++i)
-    {
-        // red on black (inverted: cyan on white)		
-        POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
-        POKE(0xBB81+i*40,1); 
-    }
-
-    for(i=2;i<28;++i)
-	#else
 	for(i=0;i<28;++i)
-	#endif
 	{
 		// yellow on black (inverted: blue on white)
 		POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);

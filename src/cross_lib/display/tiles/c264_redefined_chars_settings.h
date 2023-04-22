@@ -34,7 +34,7 @@
 
 #define _TILE_6 0x28
 
-#define _TILE_14 0x19
+#define _TILE_14 0x22
 
 #define _TILE_15 0x2E
 

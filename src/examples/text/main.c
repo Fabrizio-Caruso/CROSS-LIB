@@ -40,11 +40,11 @@ uint8_t mystrlen(char *cstr)
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - ((uint8_t) mystrlen(Text))>>1)), row, Text);	
 }
 
 #define PRINT_CENTERED(Text) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
+	PRINT_CENTERED_ON_ROW(((YSize)>>1), Text)
 
 
 
@@ -157,8 +157,11 @@ int main(void)
                 PRINT_CENTERED_ON_ROW(i,  "KLMNOPQRST");
                 PRINT_CENTERED_ON_ROW(i+1,"UVWXYZ    ");      
                 small_pause();
-                
                 _XL_WAIT_FOR_INPUT();
+
+                PRINT_CENTERED_ON_ROW(i-1,"          ");
+                PRINT_CENTERED_ON_ROW(i,  "          ");
+                PRINT_CENTERED_ON_ROW(i+1,"          "); 
 
                 PRINT_CENTERED_ON_ROW(i-1,_XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
                 PRINT_CENTERED_ON_ROW(i,  _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);

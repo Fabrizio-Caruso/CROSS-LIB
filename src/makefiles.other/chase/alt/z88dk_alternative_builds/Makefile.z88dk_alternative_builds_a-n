@@ -312,7 +312,7 @@ g800_tiny_turn_based:
 #############################
 # LAMBDA
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_WALL -DNO_SET_SCREEN_COLORS \
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_WALL -D__NO_SCREEN_COLOR_INIT \
 	-DLESS_TEXT -D_XL_NO_SLEEP -lndos -DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o  $(BUILD_PATH)/ALT_TINY_lambda_8k.prg \
 	$(TINY_FILES)

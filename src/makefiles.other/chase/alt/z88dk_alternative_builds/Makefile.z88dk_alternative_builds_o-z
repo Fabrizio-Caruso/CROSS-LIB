@@ -91,7 +91,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DSIMPLE_STRATEGY \
 	-DALT_MOVE \
 	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_SET_SCREEN_COLORS \
+	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -439,7 +439,7 @@ z88_tiny_buffered:
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
-	-DNO_SET_SCREEN_COLORS \
+	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \

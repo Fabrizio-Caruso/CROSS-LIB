@@ -98,7 +98,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
-	-DNO_SET_SCREEN_COLORS \
+	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx_qaopm.prg \
@@ -131,7 +131,7 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
-	-DNO_SET_SCREEN_COLORS \
+	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_qaopm.prg \
@@ -164,7 +164,7 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
-	-DNO_SET_SCREEN_COLORS \
+	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_turn_based_qaopm.prg \

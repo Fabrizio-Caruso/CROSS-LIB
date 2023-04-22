@@ -266,11 +266,7 @@
 
 
 #if !defined(Y_OFFSET)
-    #if defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
-        #define Y_OFFSET 3
-    #else 
-        #define Y_OFFSET 0
-    #endif
+    #define Y_OFFSET 0
 #endif
 
 #if !defined(X_OFFSET)

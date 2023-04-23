@@ -300,7 +300,7 @@
     #define _SPACE 0xA0
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))
     #define _SPACE 0
-#elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)
+#elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(MEMORY_MAPPED)
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
     #if defined(FEWER_SPRITES)

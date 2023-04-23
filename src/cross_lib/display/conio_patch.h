@@ -19,11 +19,11 @@
     #endif
 #else
     
-    #if defined(C16_UNEXPANDED)
+    #if defined(__C16__) && defined(MEMORY_MAPPED)
 
-        #if !defined(PEEK)
-            #include <peekpoke.h>
-        #endif
+        // #if !defined(PEEK) && !defined(POKE)
+            // #include <peekpoke.h>
+        // #endif
         #define textcolor(c) POKE(0x053B,c)
         #define bgcolor(c)
         #define bordercolor(c)

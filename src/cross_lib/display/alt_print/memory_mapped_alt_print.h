@@ -1,9 +1,10 @@
 #ifndef _MEMORY_MAPPED_ALT_PRINT
 #define _MEMORY_MAPPED_ALT_PRINT
 
-#include "standard_libs.h"
+#include "cross_lib.h"
 
-#if !defined(CC65)
+
+#if !defined(CC65) && !defined(POKE) && !defined(PEEK)
 	#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 	#define PEEK(addr)         (*(uint8_t*) (addr))

@@ -372,7 +372,6 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	-DC16_UNEXPANDED \
 	-D__KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
@@ -382,28 +381,6 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
-c16_16k_prev: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x1C.cfg \
-	-D__NO_SCREEN_COLOR_INIT -DNO_LETTER_VALUES \
-	-DREDEFINED_CHARS -D_API_VERSION=$(API_VERSION) \
-	 \
-	-DALT_PRINT \
-	-DANIMATE_PLAYER \
-	-DMEMORY_MAPPED \
-	-DC16_UNEXPANDED \
-	-D__KERNAL_CLEAR_SCREEN \
-	-DALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
-	-DUDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 

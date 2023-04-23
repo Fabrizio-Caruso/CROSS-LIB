@@ -24,7 +24,7 @@
 
 #ifndef __C264_SOUNDS
 #define __C264_SOUNDS
-    #if !defined(PEEK)
+    #if !defined(PEEK) && !defined(POKE)
         #include<peekpoke.h>
     #endif
     

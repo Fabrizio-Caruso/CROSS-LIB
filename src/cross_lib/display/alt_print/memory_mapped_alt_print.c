@@ -140,7 +140,7 @@
 		}	
 	}
 
-#elif ((defined(__C16__) && defined(C16_UNEXPANDED))) 
+#elif defined(__C16__) && defined(MEMORY_MAPPED)
 	char screenCode(char ch)
 	{
 		if(ch&0x80)
@@ -189,14 +189,14 @@
             hgr_draw(x, y, ch, _apple2_text_color); \
         } while(0)
 	
-#elif (defined(__C16__) && defined(C16_UNEXPANDED)) && defined(NO_SCREEN_CODES)
+#elif (defined(__C16__) && defined(MEMORY_MAPPED)) && defined(NO_SCREEN_CODES)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
 		} while(0)
-#elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
+#elif (defined(__C16__) && defined(MEMORY_MAPPED)) 
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \

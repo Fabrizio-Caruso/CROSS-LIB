@@ -373,7 +373,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DC16_UNEXPANDED \
-	-DUSE_KERNAL_CLEAR_SCREEN \
+	-D__KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-DUDG_BASE_FACTOR=15 \
@@ -395,7 +395,7 @@ c16_16k_prev: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DC16_UNEXPANDED \
-	-DUSE_KERNAL_CLEAR_SCREEN \
+	-D__KERNAL_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-DUDG_BASE_FACTOR=15 \
@@ -679,31 +679,6 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
-# vic20_mm: vic20_exp_8k_mm
-
-# vic20_exp_8k_mm: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# --config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
-	#  -DANIMATE_PLAYER -DALT_SLEEP -DALL_TILES \
-	# -DNO_CONTROL_INSTRUCTIONS -DNO_HOLE_ANIMATION \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
-	# -DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
-	# -DREDEFINED_CHARS \
-	# -DALT_PRINT \
-	# -DLESS_TEXT \
-	# -DDEFAULT_CLEAR_SCREEN \
-	# -DALT_SLEEP \
-	# -DUSE_MEMORY_BUFFERS \
-	# $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
-	# $(FULL_FILES) \
-	# --code-name CODE2 \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 
 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s

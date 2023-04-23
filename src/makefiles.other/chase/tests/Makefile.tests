@@ -52,13 +52,15 @@ test_cmoc_targets: \
 #     oric_targets 
 #     gamate_targets 
 test_cc65_targets: \
-    vic20_targets \
-    supervision_targets \
-    atari_targets \
-    atari_lynx_targets \
-    creativision_targets \
-    pet_targets \
-    c64_targets \
+    vic20 \
+    supervision \
+    atari \
+    atari_lynx \
+    creativision \
+    pet \
+    c64 \
+    oric \
+    gamate
 
 test_ack_targets: \
     pc8086_targets \

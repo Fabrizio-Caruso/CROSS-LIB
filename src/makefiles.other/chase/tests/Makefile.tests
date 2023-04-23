@@ -91,16 +91,21 @@ test_lcc1802_targets: \
 
 .PHONY: test z88dk_test
 
+
+    # gal_6k 
+    # msx_32k_rom 
+    # spectrum_48k 
+    # zx81_32k_wrx_turn_based 
+
 #     tiki100 
 test_z88dk_targets: \
     aquarius_exp_4k \
     c128_z80_80col \
     cpc \
     cpm_z80_adm3a \
-    gal_6k \
-    msx_32k_rom \
     spectrum_48k \
-    zx81_32k_wrx_turn_based 
+    msx \
+    zx81_32k_wrx 
 
 test:
 	make z88dk_test

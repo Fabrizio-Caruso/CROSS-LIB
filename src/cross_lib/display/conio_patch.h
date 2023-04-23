@@ -19,7 +19,7 @@
     #endif
 #else
     
-    #if defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED)
+    #if defined(C16_UNEXPANDED)
 
         #if !defined(PEEK)
             #include <peekpoke.h>

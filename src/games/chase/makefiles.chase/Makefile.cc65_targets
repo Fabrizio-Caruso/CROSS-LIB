@@ -480,7 +480,7 @@ plus4: c16_32k
 c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
-	-DFORCE_NO_CONIO_LIB -DEXTRA_TITLE \
+	 -DEXTRA_TITLE \
 	 \
 	-DREDEFINED_CHARS \
 	 \
@@ -523,7 +523,7 @@ c16: c16_16k
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
-	-DFORCE_NO_CONIO_LIB \
+	 \
 	 -D_XL_SLOW_DOWN_FACTOR=2000 \
 	-DREDEFINED_CHARS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -848,7 +848,7 @@ pet_16k:
 pet_8k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	--config $(CFG_PATH)/cc65/pet_8k.cfg \
-	-DLESS_TEXT -DFORCE_NO_CONIO_LIB \
+	-DLESS_TEXT  \
 	-DNO_BLINKING -D_XL_NO_COLOR \
 	-D__NO_SCREEN_COLOR_INIT  \
 	-DFORCE_GHOSTS_NUMBER=8 \

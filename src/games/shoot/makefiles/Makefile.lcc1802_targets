@@ -127,7 +127,7 @@ clean_combo_files:
 
 LCC1802_BASIC_C_OPTS ?= \
 	-D__LCC1802__ \
-	-DFORCE_NO_CONIO_LIB \
+	 \
 	-D__NO_COLOR_INIT \
 	-DLESS_TEXT \
 	-DALT_RAND \

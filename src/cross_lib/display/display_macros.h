@@ -392,7 +392,7 @@
 
 
 // BORDER AND BACKGROUND COLORS
-#if defined(CC65) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && !(defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED))
+#if defined(CC65) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(CONIO)
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
 #elif defined(__LASER500__) || defined(UDG_GRAPHICS) || defined(__AQUARIUS__)

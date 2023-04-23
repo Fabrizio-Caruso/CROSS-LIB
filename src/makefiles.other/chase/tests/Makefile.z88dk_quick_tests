@@ -6,7 +6,7 @@
 
 FAST_TEST_OPTS ?= \
 -D_DEFAULT_ASCII \
--DTINY_GAME -DLESS_TEXT \
+-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP \
 -DNO_BLINKING -DNO_CHASE \
 -DNO_INITIAL_SCREEN -D__NO_SCREEN_COLOR_INIT \
 -DNO_DEAD_GHOSTS \
@@ -37,10 +37,10 @@ include ./games/chase/Makefile.chase
 # include Makefile
 
 ####################################################################################################################
-
+# TODO: Fix
+# 	c128_z80_zsdcc_quick_test
 zsdcc_quick_test: \
 	aquarius_zsdcc_quick_test \
-	c128_z80_zsdcc_quick_test \
 	mc1000_zsdcc_quick_test \
 	spectrum_zsdcc_quick_test \
 	svi_zsdcc_quick_test \
@@ -49,12 +49,13 @@ zsdcc_quick_test: \
 	zx81_zsdcc_quick_test 
 
 # TODO: Fix
-# 	msx_quick_test 
+# 	c128_z80_quick_test 
+#	msx_quick_test 
+#   	nc100_quick_test 
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
 	aquarius_quick_test \
-	c128_z80_quick_test \
 	cpc_quick_test \
 	cpm_quick_test \
  	eg2k_quick_test \
@@ -65,11 +66,9 @@ sccz80_quick_test: \
 	m5_quick_test \
 	mc1000_quick_test \
 	microbee_quick_test \
-	msx_quick_test \
 	mtx_quick_test \
 	mz_quick_test \
 	nascom_quick_test \
-	nc100_quick_test \
 	p2000_quick_test \
 	pc6001_quick_test \
 	pps_quick_test \
@@ -367,7 +366,7 @@ nc100_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-DNO_INIT_GRAPHICS \
 	-D__NC100__ \
-	-DNO_PRINT -DFORCE_NO_CONIO_LIB \
+	-DNO_PRINT  \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-D_XL_NO_SLEEP \

@@ -38,7 +38,7 @@ void _XL_INIT_GRAPHICS(void)
 	}
 	#endif
 	
-	#if defined(FORCE_NO_CONIO_LIB)
+	#if defined(CONIO_LIB)
 		POKE(65301u,0);
 		POKE(65305u,0);
 	#endif

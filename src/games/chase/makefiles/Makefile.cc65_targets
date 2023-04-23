@@ -140,7 +140,7 @@ vic20_targets: vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
-	-DFORCE_NO_CONIO_LIB \
+	 \
 	 -D_XL_SLOW_DOWN_FACTOR=2000 \
 	-DREDEFINED_CHARS \
 	-DFORCE_GHOSTS_NUMBER=8 \

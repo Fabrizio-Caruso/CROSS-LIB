@@ -28,7 +28,7 @@ void _XL_INIT_GRAPHICS(void)
 {
 	uint16_t i;
 	
-	#if defined(CONIO_LIB)
+	#if defined(__INCLUDE_CONIO_H)
 		POKE(65301u,0);
 		POKE(65305u,0);
 	#endif

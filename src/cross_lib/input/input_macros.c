@@ -328,7 +328,7 @@ out            stb res
             }
         }
     #else 
-        #if defined(CONIO_LIB)
+        #if defined(__INCLUDE_CONIO_H)
             #include<conio.h>
         #endif
 

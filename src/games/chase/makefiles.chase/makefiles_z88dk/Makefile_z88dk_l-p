@@ -455,7 +455,7 @@ mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__MZ2500__ -DXSize=40 -DFORXE_YSIZE=24  \
-	-DCONIO -D_XL_NO_COLOR -DNO_INIT_GRAPHICS -DFORCE_CONIO_LIB \
+	-DCONIO -D_XL_NO_COLOR -DNO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg
@@ -624,7 +624,7 @@ osborne1_chars:
 	$(INCLUDE_OPTS) \
 	-D__OSBORNE1__ \
 	-D_XL_NO_COLOR \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT \
@@ -641,7 +641,7 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__OSBORNE1__ \
 	-D_XL_NO_COLOR \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \

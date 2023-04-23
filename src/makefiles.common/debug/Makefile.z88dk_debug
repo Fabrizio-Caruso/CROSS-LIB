@@ -491,7 +491,7 @@ c128_bitbang:
 	-D__C128_Z80__ -DXSize=40 \
 	 \
 	-DFORCE_BIT_BANG \
-	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
+	-DCONIO -D__INCLUDE_CONIO_H -DUDG_GRAPHICS \
 	$(SOURCE_PATH)/../../test/bitbang.c \
 	-create-app -oa40.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64

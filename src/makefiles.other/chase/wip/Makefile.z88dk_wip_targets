@@ -55,7 +55,7 @@ mz2500_buffered:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \
-	-DFORCE_CONIO_LIB -DCONIO \
+	-D__INCLUDE_CONIO_H -DCONIO \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
 	-create-app 

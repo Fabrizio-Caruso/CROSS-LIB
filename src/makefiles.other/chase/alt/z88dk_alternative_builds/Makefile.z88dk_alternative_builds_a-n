@@ -298,7 +298,7 @@ g800_tiny_turn_based:
 	-DTURN_BASED \
 	-DNO_BLINKING \
 	-vn \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DTINY_GAME -DNO_WALL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \

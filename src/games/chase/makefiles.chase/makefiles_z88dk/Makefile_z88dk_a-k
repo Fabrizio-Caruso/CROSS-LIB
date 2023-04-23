@@ -498,7 +498,7 @@ c128_z80_40col:
 	 \
 	-DFORCE_BIT_BANG \
 	 -DEND_SCREEN -DNO_BLINKING \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -737,7 +737,7 @@ dmv:
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-D__DMV__ \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -785,7 +785,7 @@ einstein_no_gfx:
 	-pragma-define:ansicolumns=32 \
 	$(INCLUDE_OPTS) \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
 	-clib=ansi \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -799,7 +799,7 @@ einstein: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-define:ansicolumns=32 \
 	$(INCLUDE_OPTS) \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
 	-clib=ansi \
 	-DCONIO -DUDG_GRAPHICS \
@@ -847,7 +847,7 @@ excalibur64_turn_bsed:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=2000 -DTURN_BASED \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -865,7 +865,7 @@ excalibur64:
 	-pragma-redirect:getk=getk_inkey \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=1600 \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -934,7 +934,7 @@ gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	-DANIMATE_PLAYER \
 	 -DFORCE_BIT_BANG \
-	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1600 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \

@@ -29,7 +29,7 @@
 #include "display_target_color.h"
 
 #if !defined(NO_GRAPHICS)
-    #if defined(CONIO_LIB)
+    #if defined(__INCLUDE_CONIO_H)
         #include <conio.h>
     #elif defined(__CMOC__) && !defined(__WINCMOC__)
         #include <coco.h>

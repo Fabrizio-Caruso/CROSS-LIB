@@ -150,7 +150,7 @@ c128_z80_quick_test:
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(TEST_FILES) \
@@ -215,7 +215,7 @@ eg2k_quick_test:
 einstein_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -310,7 +310,7 @@ msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	 -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DMEMORY_MAPPED -DFORCE_CONIO_LIB \
+	-DMEMORY_MAPPED -D__INCLUDE_CONIO_H \
 	-DUSE_MSX_BIOS \
 	-DANIMATE_PLAYER \
 	-vn \
@@ -543,7 +543,7 @@ svi_quick_test:
 	 \
 	-D__SVI__ -o svit.bin \
 	-DCONIO \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-pragma-define:ansicolumns=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
 	 \
@@ -795,7 +795,7 @@ svi_zsdcc_quick_test:
 	-compiler=sdcc \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-compiler=sdcc \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
@@ -855,7 +855,7 @@ c128_z80_zsdcc_quick_test:
 	-compiler=sdcc \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \

@@ -33,7 +33,7 @@
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 
-#if !defined(__SMS__) && !defined(__COCO__) && !defined(__DRAGON__) && !defined(__MO5__) && !defined(__TO7__) && !defined(__SUPERVISION__) \
+#if !defined(__COCO__) && !defined(__DRAGON__) && !defined(__MO5__) && !defined(__TO7__) && !defined(__SUPERVISION__) \
 	&& !defined(__MC10__) && !defined(__LCC1802__) && !defined(__ATARI_LYNX__) && !(defined(__MSX__) && defined(MEMORY_MAPPED)) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
@@ -48,10 +48,7 @@
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \
 	&& !defined(__GCC_BUFFERED__)
-	#define CONIO_LIB
-#endif
-#if defined(__WINCMOC__) || defined(FORCE_CONIO_LIB)
-	#define CONIO_LIB
+	#define __INCLUDE_CONIO_H
 #endif
 
 

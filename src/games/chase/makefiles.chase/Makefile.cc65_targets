@@ -1043,7 +1043,7 @@ telestrat_joy_buffered:
 
 telestrat_exp: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
-	-D__TELESTRAT__ -DFORCE_CONIO_LIB \
+	-D__TELESTRAT__ -D__INCLUDE_CONIO_H \
 	-D_XL_NO_WAIT -DCC65_JOYSTICK -DXSize=38 -DYSize=24  \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_SLEEP \

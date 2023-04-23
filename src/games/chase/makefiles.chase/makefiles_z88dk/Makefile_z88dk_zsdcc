@@ -323,7 +323,7 @@ svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
@@ -351,7 +351,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	 -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-pragma-define:ansicolumns=32 \
 	-create-app -o svi_328 \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \

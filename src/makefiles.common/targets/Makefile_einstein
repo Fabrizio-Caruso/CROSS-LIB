@@ -8,7 +8,7 @@ einstein: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-define:ansicolumns=32 \
 	$(INCLUDE_OPTS) \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO_LIB \
+	-D__INCLUDE_CONIO_H \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EINSTEIN_SLOWDOWN) \
 	 -DLESS_TEXT \
 	-clib=ansi \

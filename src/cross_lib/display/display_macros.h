@@ -372,7 +372,7 @@
 #elif defined(__MO5__)||defined(__TO7__)
     #define _XL_CLEAR_SCREEN() PUTCH(12);
             
-#elif defined(USE_ASSEMBLY_CLEAR_SCREEN)
+#elif defined(USE_ASSEMBLY_CLEAR_SCREEN) && defined(__C16__)
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() \
             __asm__("LDX #$04"); \
@@ -380,7 +380,7 @@
             __asm__("LDA #$60"); \
             __asm__("JSR $C5A7");
     #endif
-#elif defined(USE_KERNAL_CLEAR_SCREEN)
+#elif defined(USE_KERNAL_CLEAR_SCREEN) && (defined(__C16__) || defined(__VIC20__))
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() __asm__("jsr $D88B")
     #elif defined(__VIC20__)

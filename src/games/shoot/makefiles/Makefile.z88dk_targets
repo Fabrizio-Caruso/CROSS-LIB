@@ -15,7 +15,7 @@ zx81_no_gfx_32k:
 	$(INCLUDE_OPTS) -compiler=sdcc   \
 	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
-	-vn -DFORCE_CAPITAL_CONTROLS \
+	-vn \
 	-D__ZX81__  \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
 	-DCONIO -DNO_INIT_GRAPHICS \

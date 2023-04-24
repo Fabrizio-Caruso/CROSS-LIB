@@ -146,7 +146,7 @@
 		#define YSize ((200/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__Z88__) && defined(Z88DK_SPRITES))
 		#define YSize ((64/SPRITE_Y_STEP))
-	#elif (defined(__PC6001__) && FORCE_SCREEN_MODE==2) || (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+	#elif (defined(__PC6001__) && __SCREEN_MODE==2) || (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
 		#define YSize 24
 	#else
 		#define YSize 16
@@ -232,7 +232,7 @@
         #define XSize 16
 	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
+		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(__SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 		  || defined(__GAL__) || defined(__COCO__) || defined(__DRAGON__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
@@ -256,7 +256,7 @@
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \
 		  || defined(__ATARI5200__) || defined(__GAMATE__)
 		#define XSize 20
-	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
+	#elif defined(__PC6001__) && __SCREEN_MODE==2
 		#define XSize 16
 	#else
 		#define XSize 16

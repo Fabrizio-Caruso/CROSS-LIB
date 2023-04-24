@@ -114,22 +114,6 @@
 #endif
 
 
-/*
-#if defined(__GAMATE__)
-	#define TEXT_COLOR 3
-#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
-	#define TEXT_COLOR _XL_YELLOW
-#elif defined(__SPC1000__) 
-	#define TEXT_COLOR _XL_BLUE
-#elif defined(Z88DK) && !defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-	#define TEXT_COLOR BLACK    
-#elif defined(Z88DK)
-	#define TEXT_COLOR WHITE
-#else
-	#define TEXT_COLOR _XL_WHITE
-#endif
-*/
-
 #include "input_target_settings.h"
 #include "input_macros.h"
 

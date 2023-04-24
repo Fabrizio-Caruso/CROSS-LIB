@@ -200,80 +200,27 @@ const struct redefine_struct redefine_map[] =
 	{_TILE_3_OFFSET_, _TILE_3_UDG},
 	{_TILE_4_OFFSET_, _TILE_4_UDG},
 	{_TILE_5_OFFSET_, _TILE_5_UDG},
-	
-	#if !defined(NO_TILE_6)
-		{_TILE_6_OFFSET_, _TILE_6_UDG},
-	#endif
-    
-	#if !defined(NO_TILE_7)
-		{_TILE_7_OFFSET_, _TILE_7_UDG},
-	#endif
-	#if !defined(NO_TILE_9)
-		{_TILE_9_OFFSET_, _TILE_9_UDG},
-	#endif
-	#if !defined(NO_TILE_8)
-		{_TILE_8_OFFSET_, _TILE_8_UDG},
-	#endif
-	#if !defined(NO_TILE_11)
-		{_TILE_11_OFFSET_, _TILE_11_UDG},
-	#endif
-	#if !defined(NO_TILE_12)
-		{_TILE_12_OFFSET_, _TILE_12_UDG},
-	#endif
-	#if !defined(NO_TILE_13)
-		{_TILE_13_OFFSET_, _TILE_13_UDG},
-	#endif	
-	
-    
-	#if !defined(NO_TILE_16)
-		{_TILE_16_OFFSET_, _TILE_16_UDG},
-	#endif
-	#if !defined(NO_TILE_10)
-		{_TILE_10_OFFSET_, _TILE_10_UDG},
-	#endif
-    
-    #if !defined(NO_TILE_15)
-		{_TILE_15_OFFSET_, _TILE_15_UDG},
-    #endif
-    #if !defined(NO_TILE_14)
-		{_TILE_14_OFFSET_, _TILE_14_UDG},
-	#endif
-	
-    #if !defined(NO_TILE_19) && _XL_NUMBER_OF_TILES>=20
-		{_TILE_19_OFFSET_, _TILE_19_UDG},
-    #endif
-    
-    #if !defined(NO_TILE_20) && _XL_NUMBER_OF_TILES>=21
-		{_TILE_20_OFFSET_, _TILE_20_UDG},
-    #endif
-    
-    #if !defined(NO_TILE_21) && _XL_NUMBER_OF_TILES>=22
-		{_TILE_21_OFFSET_, _TILE_21_UDG},
-    #endif
-    
-    #if !defined(NO_TILE_22) && _XL_NUMBER_OF_TILES>=23
-		{_TILE_22_OFFSET_, _TILE_22_UDG},
-    #endif
-    
-    #if !defined(NO_TILE_23) && _XL_NUMBER_OF_TILES>=24
-		{_TILE_23_OFFSET_, _TILE_23_UDG},
-    #endif
-    
-    #if !defined(NO_TILE_24) && _XL_NUMBER_OF_TILES>=25
-		{_TILE_24_OFFSET_, _TILE_24_UDG},
-    #endif
-
-    #if !defined(NO_TILE_25) && _XL_NUMBER_OF_TILES>=26
-		{_TILE_25_OFFSET_, _TILE_25_UDG},
-    #endif
-
-    {_TILE_18_OFFSET_, _TILE_18_UDG},
+	{_TILE_6_OFFSET_, _TILE_6_UDG},
+    {_TILE_7_OFFSET_, _TILE_7_UDG},
+    {_TILE_8_OFFSET_, _TILE_8_UDG},
+    {_TILE_9_OFFSET_, _TILE_9_UDG},
+    {_TILE_10_OFFSET_, _TILE_10_UDG},
+    {_TILE_11_OFFSET_, _TILE_11_UDG},
+    {_TILE_12_OFFSET_, _TILE_12_UDG},
+    {_TILE_13_OFFSET_, _TILE_13_UDG},
+    {_TILE_14_OFFSET_, _TILE_14_UDG},
+    {_TILE_15_OFFSET_, _TILE_15_UDG},
+    {_TILE_16_OFFSET_, _TILE_16_UDG},
     {_TILE_17_OFFSET_, _TILE_17_UDG},
-
-    #if !defined(NO_TILE_26) && _XL_NUMBER_OF_TILES>=27
-		{_TILE_26_OFFSET_, _TILE_26_UDG},
-    #endif
-
+    {_TILE_18_OFFSET_, _TILE_18_UDG},
+    {_TILE_19_OFFSET_, _TILE_19_UDG},
+    {_TILE_20_OFFSET_, _TILE_20_UDG},
+    {_TILE_21_OFFSET_, _TILE_21_UDG},
+    {_TILE_22_OFFSET_, _TILE_22_UDG},
+    {_TILE_23_OFFSET_, _TILE_23_UDG},
+    {_TILE_24_OFFSET_, _TILE_24_UDG},
+    {_TILE_25_OFFSET_, _TILE_25_UDG},
+    {_TILE_26_OFFSET_, _TILE_26_UDG},
 };
 
 

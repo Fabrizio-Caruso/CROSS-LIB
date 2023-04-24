@@ -20,7 +20,7 @@
 #endif
 
 
-#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(_XL_TURN_BASED))
     extern uint16_t loop;
 #else
     uint16_t loop;	

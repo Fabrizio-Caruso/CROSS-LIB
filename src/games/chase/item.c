@@ -69,7 +69,7 @@ extern Item extraPoints;
 	void itemReached(Character * itemPtr)
 	{
 		_XL_ZAP_SOUND();
-		#if defined(TURN_BASED)
+		#if defined(_XL_TURN_BASED)
 			displayPlayer(&player);
 		#endif
 		itemPtr->_status = 0;

@@ -29,7 +29,7 @@
 #include "cross_lib.h"
 
 extern uint8_t level;
-#if !defined(TINY_GAME) || defined(TURN_BASED)
+#if !defined(TINY_GAME) || defined(_XL_TURN_BASED)
 extern uint16_t loop;
 #endif
 extern uint8_t ghostCount;

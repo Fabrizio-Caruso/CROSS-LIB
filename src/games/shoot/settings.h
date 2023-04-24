@@ -26,7 +26,7 @@
 #ifndef _SETTINGS
 #define _SETTINGS
 
-#if defined(TURN_BASED)
+#if defined(_XL_TURN_BASED)
 	#if !defined(NO_BLINKING)
 		#define NO_BLINKING
 	#endif

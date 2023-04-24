@@ -42,7 +42,7 @@ uint16_t computeGhostSlowDown(void)
 {
 	if((loop<MAX_GHOST_LOOP) && (ghostLevel<MAX_GHOST_LEVEL))
 	{
-		#if defined(TURN_BASED)
+		#if defined(_XL_TURN_BASED)
 			return levelSlowDown-ghostLevel*8;		
 		#else
 			return levelSlowDown-ghostLevel*16;

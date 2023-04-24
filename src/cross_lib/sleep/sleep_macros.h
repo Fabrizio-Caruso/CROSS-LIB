@@ -56,7 +56,7 @@
 
 
 #if !defined(_XL_SLOW_DOWN_FACTOR)
-    #if defined(TURN_BASED)
+    #if defined(_XL_TURN_BASED)
             #define _XL_SLOW_DOWN_FACTOR 0
     #else 
         #  if defined(__NCURSES__)

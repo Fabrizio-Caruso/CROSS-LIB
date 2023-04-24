@@ -54,8 +54,8 @@
     {
     #  if defined(NO_INPUT)
         return 0;
-    #elif defined(TURN_BASED)
-        return TURN_BASED_INPUT();
+    #elif defined(_XL_TURN_BASED)
+        return _XL_TURN_BASED_INPUT();
     
     #elif defined(__MSX__)
         if(!get_trigger(0)) 
@@ -301,7 +301,7 @@ out            stb res
         
         void _XL_WAIT_FOR_INPUT(void)
         {
-            #if !defined(TURN_BASED)
+            #if !defined(_XL_TURN_BASED)
                 while(getch()==ERR)
                 {}
             #else

@@ -56,7 +56,7 @@
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
 			#define PEEK(addr)         (*(uint8_t*) (addr))
             #define _XL_INIT_INPUT() POKE(0x6067,0);
-		#elif defined(__NCURSES__) && !defined(TURN_BASED)
+		#elif defined(__NCURSES__) && !defined(_XL_TURN_BASED)
 			#define _XL_INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
@@ -202,31 +202,31 @@ window.addEventListener("keydown", function (event) {
 #endif
 */
 
-// TURN_BASED_INPUT definitions
+// _XL_TURN_BASED_INPUT definitions
 #  if defined(__TELESTRAT__)
     #include <conio.h>
-    #define TURN_BASED_INPUT() cgetc();
+    #define _XL_TURN_BASED_INPUT() cgetc();
 #elif defined(__EMCC__)
     #define __() getchar()
 #elif defined(__NCURSES__) || defined(STDLIB) || defined(__MC10__)
     #if defined(__MC10__)
         #include <stdio.h>
     #endif
-    #define TURN_BASED_INPUT() getchar()
+    #define _XL_TURN_BASED_INPUT() getchar()
 #elif defined(Z88DK)
-    #define TURN_BASED_INPUT() getch()
+    #define _XL_TURN_BASED_INPUT() getch()
 #elif defined(ACK)
-    #define TURN_BASED_INPUT() getchar()
+    #define _XL_TURN_BASED_INPUT() getchar()
 #elif defined(NO_INPUT)
-    #define TURN_BASED_INPUT()
+    #define _XL_TURN_BASED_INPUT()
 #else
-    #define TURN_BASED_INPUT() cgetc()
-#endif	// TURN_BASED_INPUT definitions
+    #define _XL_TURN_BASED_INPUT() cgetc()
+#endif	// _XL_TURN_BASED_INPUT definitions
 
 #if defined(NO_INPUT)
     #define _XL_INPUT() 0
-#elif defined(TURN_BASED)
-    #define _XL_INPUT() TURN_BASED_INPUT()
+#elif defined(_XL_TURN_BASED)
+    #define _XL_INPUT() _XL_TURN_BASED_INPUT()
 #elif defined(JOYSTICK_CONTROL)
     #define _XL_INPUT() JOY_INPUT()
 #else

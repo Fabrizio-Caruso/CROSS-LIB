@@ -287,7 +287,7 @@ int main(void)
                 isMissileLevel = missileLevel();
                 ishorizWallsLevel = horizWallsLevel();
             #endif
-            #if !defined(TINY_GAME) || defined(TURN_BASED)
+            #if !defined(TINY_GAME) || defined(_XL_TURN_BASED)
                 loop = 0;
             #endif
             
@@ -420,7 +420,7 @@ int main(void)
                     gameCompleted();
                 #endif
                     
-                #if !defined(TURN_BASED)
+                #if !defined(_XL_TURN_BASED)
                     MOVE_PLAYER();                
                     _DRAW_PLAYER();    
                 #endif
@@ -614,7 +614,7 @@ int main(void)
                 #endif
                 
 
-                #if defined(TURN_BASED) 
+                #if defined(_XL_TURN_BASED) 
                     #if !defined(EVEN_LOOP_MOVE)
                     if((loop<TURN_BASED_MAX_LOOP) || loop&1)
                     #else
@@ -625,7 +625,7 @@ int main(void)
                     }                    
                     _DRAW_PLAYER();    
                 #endif    
-                #if !defined(TINY_GAME) || defined(TURN_BASED)
+                #if !defined(TINY_GAME) || defined(_XL_TURN_BASED)
                     ++loop;
                 #endif
 

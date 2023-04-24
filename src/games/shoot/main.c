@@ -536,7 +536,7 @@ int main(void)
                     gameCompleted();
                 #endif
                     
-                #if !defined(TURN_BASED)
+                #if !defined(_XL_TURN_BASED)
                     MOVE_PLAYER();  
                     #if !defined(TRANSITION_ANIMATION)
                         _DRAW_PLAYER();    

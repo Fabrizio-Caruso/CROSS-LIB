@@ -2,15 +2,10 @@
 #####################
 
 
-
-zx81: zx81_no_gfx
-
-zx81_no_gfx: zx81_no_gfx_32k
-
 # v2
 # -DEXTRA_TITLE
 # -pragma-define:REGISTER_SP=49151
-zx81_no_gfx_32k:
+zx81_no_gfx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) -compiler=sdcc   \
 	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \

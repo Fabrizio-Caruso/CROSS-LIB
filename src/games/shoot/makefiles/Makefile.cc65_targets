@@ -10,7 +10,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DALT_SLEEP  \
 	-D_XL_SLOW_DOWN_FACTOR=500 -DGHOSTS_NUMBER=8 \
-	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
+	-DREDEFINED_CHARS   -DTRANSITION_ANIMATION \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/move_player.c \
@@ -36,7 +36,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	 -DEXTRA_TITLE -DTRANSITION_ANIMATION \
-	  -DBETWEEN_LEVEL \
+	   \
 	-DREDEFINED_CHARS \
 	 \
 	-DALT_PRINT \
@@ -45,7 +45,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP  \
 	-D_XL_SLOW_DOWN_FACTOR=300 \
-	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
+	-DDANCE  -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

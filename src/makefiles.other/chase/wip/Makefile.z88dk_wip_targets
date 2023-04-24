@@ -72,7 +72,6 @@ px4_putc4x6:
 	-D__PX4__ \
 	 \
 	-D_XL_NO_WAIT \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DZ88DK_PUTC4X6 \
 	-DNO_PRINT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -300,7 +299,6 @@ spectrum_buffered:
 zx80_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
 	-D__ZX80__  \
-	-DEND_SCREEN \
 	-DALT_SLEEP \
 	-DCONIO \
 	-DZX80_GEN_TV_FIELD \

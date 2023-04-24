@@ -124,7 +124,7 @@ gcc_tiny_buffered:
 ncurses_turn_based:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DTURN_BASED \
 	-DCONIO  \
 	-DALT_PRINT \
@@ -158,7 +158,7 @@ endif
 ncurses:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO  \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \

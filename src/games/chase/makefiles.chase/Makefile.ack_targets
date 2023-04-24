@@ -258,7 +258,7 @@ dos:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
 	-D__DOS__ \
 	 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DTURN_BASED \
 	-DCONIO  \
 	-DALT_PRINT \

@@ -232,7 +232,7 @@ _comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
@@ -252,7 +252,7 @@ _comx_int: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
@@ -313,7 +313,7 @@ _pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
@@ -384,7 +384,7 @@ _tmc600_37k: full_lcc1802_combo.c
 	-DLCC1802_JOYSTICK \
 	$(LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
@@ -468,7 +468,7 @@ _cidelsa_draco: full_lcc1802_combo.c
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c

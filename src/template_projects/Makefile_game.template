@@ -819,7 +819,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COLECO_SLOWDOWN) \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -1043,7 +1043,7 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	  \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-D__MC1000__ -DBETWEEN_LEVEL \
+	-D__MC1000__  \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
@@ -1064,7 +1064,7 @@ mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -D__SCREEN_MODE=2 -DXSize=16 -D_BACKGROUND_COLOR=_XL_WHITE -D__NO_SCREEN_COLOR_INIT \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-D__MC1000__ -DBETWEEN_LEVEL \
+	-D__MC1000__  \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
@@ -1086,7 +1086,7 @@ msx_16k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
 	 -DANIMATE_PLAYER \
-	-vn -DMSX_VPOKE  -D__MSX__ -DBETWEEN_LEVEL \
+	-vn -DMSX_VPOKE  -D__MSX__  \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
 	-DMEMORY_MAPPED \
@@ -1171,7 +1171,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -Cz--audio -vn \
-	  -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_UDG \
+	    -D_XL_NO_UDG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MZ_SLOWDOWN) \
 	-pragma-define:REGISTER_SP=0xd000 \
@@ -1186,7 +1186,7 @@ mz:
 
 samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__SAM__ -DANIMATE_PLAYER -DBETWEEN_LEVEL \
+	-D__SAM__ -DANIMATE_PLAYER  \
 	-DCONIO -DUDG_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SAMCOUPE_SLOWDOWN) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
@@ -1243,7 +1243,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
-	-DBETWEEN_LEVEL \
+	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1344,7 +1344,7 @@ zx81_no_gfx_16k:
 	-vn -D_API_VERSION=$(API_VERSION) -DTARGET_SPECIFIC_ASCII \
 	-D__ZX81__ \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \

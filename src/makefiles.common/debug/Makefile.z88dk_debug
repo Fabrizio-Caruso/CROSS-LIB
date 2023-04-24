@@ -460,7 +460,6 @@ spectrum_bitbang:
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=200 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \

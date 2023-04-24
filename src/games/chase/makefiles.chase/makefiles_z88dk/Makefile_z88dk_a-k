@@ -272,7 +272,7 @@ ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__  -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__ACE__   \
 	 \
 	-DCONIO \
 	-clib=default \
@@ -298,7 +298,7 @@ alphatro:
 	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) \
 	-D__ALPHATRO__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -321,7 +321,7 @@ attache_chars:
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -358,7 +358,7 @@ aussie:
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_aussie.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -439,7 +439,7 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -464,7 +464,6 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DEXTRA_TITLE \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
-	 -DEND_SCREEN \
 	-DLESS_TEXT \
 	 \
 	-DNO_BLINKING \
@@ -497,7 +496,7 @@ c128_z80_40col:
 	-D__C128_Z80__ -DXSize=40 \
 	 \
 	-D__BIT_BANG_SOUND \
-	 -DEND_SCREEN -DNO_BLINKING \
+	-DNO_BLINKING \
 	-D__INCLUDE_CONIO_H \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -523,7 +522,7 @@ camputers_lynx:
 	-vn \
 	-DCONIO_VT52 \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -539,7 +538,7 @@ coleco_adam:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=adam \
 	-D__COLECO_ADAM__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO -DXSize=29 -DYSize=20 \
 	-DNO_INIT_GRAPHICS \
@@ -560,7 +559,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -587,7 +586,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=20 -D__SCREEN_MODE=0  \
-	-DANIMATE_PLAYER -DALT_SLEEP -DBETWEEN_LEVEL -DEND_SCREEN -DEXTRA_TITLE \
+	-DANIMATE_PLAYER -DALT_SLEEP  -DEXTRA_TITLE \
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=100 \
@@ -619,7 +618,7 @@ cpc_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DEXTRA_TITLE \
 	-DZ88DK_JOYSTICK \
-	 -D__PSG_SOUND  -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -D__PSG_SOUND   \
 	-DCPCRSLIB -D_XL_SLOW_DOWN_FACTOR=600 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)XXX_cpc \
 	-DCPCRSLIB_GRAPHICS \
@@ -662,7 +661,7 @@ cpm_z80_adm3a:
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -680,7 +679,7 @@ cpm_8080_adm3a:
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -741,7 +740,7 @@ dmv:
 	-D__DMV__ \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_dmv.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -760,7 +759,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -851,7 +850,7 @@ excalibur64_turn_bsed:
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=2000 -DTURN_BASED \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -oxcex64tb.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
@@ -869,7 +868,7 @@ excalibur64:
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=1600 \
 	 -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-create-app -oxcexca64.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
@@ -886,7 +885,7 @@ fp1100:
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1119,7 +1118,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1139,7 +1138,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1187,7 +1186,7 @@ kc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \

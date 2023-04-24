@@ -156,7 +156,7 @@ apple2_no_gfx_v1:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
 	 -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN \
+	   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -171,7 +171,7 @@ apple2_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
 	 -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN \
+	   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -189,7 +189,7 @@ apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN -DALT_PRINT \
+	   -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
@@ -212,7 +212,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP -DANIMATE_PLAYER $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN -DALT_PRINT \
+	   -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
@@ -236,7 +236,7 @@ apple2enh_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
 	 -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -256,7 +256,7 @@ apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
@@ -279,7 +279,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP -DANIMATE_PLAYER  \
 	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
-	-DBETWEEN_LEVEL  -DEND_SCREEN -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
@@ -300,7 +300,7 @@ apple2enh_80col:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
 	 -DALT_SLEEP \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO  \
 	-DXSize=80 \
 	-DFORCE_GHOSTS_NUMBER=9 \
@@ -323,7 +323,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS -DEXTRA_TITLE \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DANIMATE_PLAYER  -DATARI_MODE1  -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DANIMATE_PLAYER  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR -DINLINE_LOC -DNO_SPACE_TEXT \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -339,7 +339,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari -DEXTRA_TITLE  \
-	  -DEND_SCREEN -DBETWEEN_LEVEL -D_XL_NO_COLOR \
+	    -D_XL_NO_COLOR \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -355,7 +355,7 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
 	-DINITIAL_SLOWDOWN=31500 \
-	 -DEND_SCREEN -DBETWEEN_LEVEL \
+	   \
 	-DMEMORY_MAPPED \
 	-DANIMATE_PLAYER \
 	 \
@@ -370,7 +370,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ \
 	-DINITIAL_SLOWDOWN=31500 \
-	 -DEND_SCREEN -DBETWEEN_LEVEL \
+	   \
 	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DANIMATE_PLAYER \
 	 \
@@ -449,7 +449,7 @@ c128_8502: c128_40col
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE \
 	  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -461,7 +461,7 @@ c128_80col:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE  \
 	  \
 	-DXSize=80 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
@@ -490,7 +490,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
-	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
+	-DDANCE  -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -505,7 +505,7 @@ c16_32k_included: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER   -DEXTRA_TITLE \
 	-DFORCE_GHOSTS_NUMBER=8 -D_XL_SLOW_DOWN_FACTOR=2000 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DREDEFINED_CHARS \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
@@ -534,7 +534,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DMEMORY_MAPPED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DDANCE -DEND_SCREEN \
+	-DDANCE  \
 	-DUSE_MEMORY_BUFFERS \
 	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
@@ -553,7 +553,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 # -DDEBUG_GHOST_DISPLAY
 c64_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 -DEXTRA_TITLE \
-	 -DANIMATE_PLAYER  -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DANIMATE_PLAYER    \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES -DFORCE_GHOSTS_NUMBER=8 \
 	-DMEMORY_MAPPED -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
@@ -570,7 +570,7 @@ c64_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 -DEXTRA_TITLE \
-	 -DANIMATE_PLAYER  -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -DANIMATE_PLAYER    \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES -DALT_PRINT \
 	-DMEMORY_MAPPED \
@@ -601,7 +601,7 @@ cbm610:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	 \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -614,7 +614,7 @@ cbm610:
 cbm510: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm510 -DEXTRA_TITLE \
 	 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -632,7 +632,7 @@ creativision_16k: creativision_16k_color
 creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
-	 -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	   -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -650,7 +650,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
-	 -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	   -DALT_SLEEP \
 	-DCREATIVISION_COLOR -DFORCE_GHOSTS_NUMBER=8 -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -713,7 +713,7 @@ creativision_8k_light:
 cx16: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 -DEXTRA_TITLE \
 	-D__CX16__ \
-	 -DEND_SCREEN -DBETWEEN_LEVEL \
+	   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -781,7 +781,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	 \
-	-DBETWEEN_LEVEL -DEND_SCREEN -D_XL_NO_COLOR \
+	  -D_XL_NO_COLOR \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -801,7 +801,7 @@ pce: pce_16k
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce -DEXTRA_TITLE \
 	 -D_XL_SLOW_DOWN_FACTOR=3500 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -835,7 +835,7 @@ pet: pet_16k
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
 	 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
@@ -885,7 +885,7 @@ oric1_16k: $(ASSETS_PATH)/6x8_chars.h
 atmos: oric_atmos
 
 oric_atmos: $(ASSETS_PATH)/6x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O   -DANIMATE_PLAYER  -DBETWEEN_LEVEL -DEND_SCREEN -DEXTRA_TITLE \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O   -DANIMATE_PLAYER    -DEXTRA_TITLE \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DORIC_COLOR -DINLINE_LOC \
@@ -905,7 +905,7 @@ osic1p_32k:
 	-DALT_SLEEP \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -922,7 +922,7 @@ osic1p_32k_turn_based:
 	-D__NO_SCREEN_COLOR_INIT \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -978,7 +978,7 @@ supervision_no_print: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
-	-DNO_PRINT  -DBETWEEN_LEVEL -DEND_SCREEN -D_XL_NO_SLEEP \
+	-DNO_PRINT    -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DANIMATE_PLAYER \
@@ -994,7 +994,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
-	-DALT_PRINT  -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DALT_PRINT    -DALT_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=300 \
 	-DANIMATE_PLAYER \
@@ -1017,7 +1017,7 @@ telestrat_buffered:
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1033,7 +1033,7 @@ telestrat_joy_buffered:
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1049,7 +1049,7 @@ telestrat_exp:
 	-DALT_SLEEP \
 	 \
 	-D_XL_NO_COLOR \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -1065,7 +1065,7 @@ vic20_wait_vsync: vic20_exp_16k_wait_vsync
 
 # broken with API_VERSION=2
 vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER   -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER     \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2600 -DEXTRA_TITLE \
 	-DREDEFINED_CHARS -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
@@ -1082,7 +1082,7 @@ vic20: vic20_exp_8k
 
 # broken with API_VERSION=2
 # vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER   -DEND_SCREEN -DBETWEEN_LEVEL \
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER     \
 	# --config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
 	# -DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
 	# -DREDEFINED_CHARS \
@@ -1096,7 +1096,7 @@ vic20: vic20_exp_8k
 
 # broken with API_VERSION=2
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER   -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER     \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DEXTRA_TITLE \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
@@ -1115,7 +1115,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	# --config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	# -DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DALT_SLEEP  \
 	# -D_XL_SLOW_DOWN_FACTOR=500 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
-	# -DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN -DTRANSITION_ANIMATION \
+	# -DREDEFINED_CHARS   -DTRANSITION_ANIMATION \
 	# $(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	# $(BASIC_CROSS_LIB_FILES) \
 	# $(SOURCE_PATH)/move_player.c \
@@ -1181,7 +1181,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -1222,7 +1222,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	  \
 	/$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

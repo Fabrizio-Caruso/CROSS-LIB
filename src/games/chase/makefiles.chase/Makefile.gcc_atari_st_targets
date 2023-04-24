@@ -38,7 +38,7 @@ atari_st_ncurses:
 	 \
 	-DXSize=39 \
 	-DYSize=22 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO  \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \
@@ -59,7 +59,7 @@ atari_st_ncurses_turn_based:
 	 \
 	-DXSize=39 \
 	-DYSize=22 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	  \
 	-DCONIO  \
 	-D_XL_NO_SLEEP  \
 	-DALT_PRINT \

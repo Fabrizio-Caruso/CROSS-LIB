@@ -847,6 +847,9 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -855,7 +858,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o dac_sounds.o sleep_macros.o \
-	mo5_init_graphics.o \
+	mo5_init_graphics.o end_screen.o \
 	display_macros.o \
 	cmoc_udc_tiles.o \
 	init_images.o \
@@ -869,7 +872,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 	rocket.o horizontal_missile.o 
 	rm \
 	mo5_alt_print.o dac_sounds.o sleep_macros.o \
-	cmoc_udc_tiles.o \
+	cmoc_udc_tiles.o end_screen.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \

@@ -14,6 +14,14 @@
 	#define NARROW
 #endif
 
+#if !defined(NO_END_SCREEN) && !defined(END_SCREEN)
+	#define END_SCREEN
+#endif
+
+# if !defined(NO_BETWEEN_LEVEL) && !defined(BEWEEN_LEVEL)
+	#define BEWEEN_LEVEL
+#endif
+
 
 #if defined(WIDE)
 	#undef WIDE

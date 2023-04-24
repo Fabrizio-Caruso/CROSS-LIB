@@ -72,11 +72,11 @@ aquarius_exp_4k:
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
 	\
-	-D__AQUARIUS__ -DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-D__AQUARIUS__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DALT_PRINT \
 	-DNO_DEAD_GHOSTS \
-	-DFORCE_NARROW \
+	 \
 	-DDEFAULT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos \
@@ -162,7 +162,7 @@ gal_6k:
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-D_XL_NO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DNO_RANDOM_LEVEL \
@@ -270,10 +270,10 @@ oz_tiny_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	-compiler=sdcc \
 	-ooz.bin \
 	-D__OZ__ \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DXSize=59 \
 	-DYSize=9 \
-	-DFORCE_NARROW \
+	 \
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
@@ -427,7 +427,7 @@ vz200_18k:
 
 vz200_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DINITIAL_SLOWDOWN=31500 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
@@ -460,7 +460,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.vz \
 	-vn -lndos \
 	-DALT_PRINT \
-	-DFORCE_NARROW \
+	 \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \

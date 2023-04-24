@@ -549,7 +549,7 @@ newbrain:
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
 	-DBUFFERED -DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
+	 \
 	-DNO_STATS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -798,7 +798,7 @@ pc88_32k_no_gfx:
 
 pc88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	-D__PC88__ -DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING  \
+	-D__PC88__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
 	-lndos -DXSize=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \

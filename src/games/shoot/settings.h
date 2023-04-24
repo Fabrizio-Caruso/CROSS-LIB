@@ -39,7 +39,7 @@
 #endif
 
 
-#if defined(FORCE_NARROW) && defined(WIDE)
+#if defined(WIDE)
 	#undef WIDE
 	#define NARROW
 #endif

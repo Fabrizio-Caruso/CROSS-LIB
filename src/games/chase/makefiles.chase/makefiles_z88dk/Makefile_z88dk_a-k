@@ -380,7 +380,7 @@ altair8800_tiny_buffered:
 	-D__ALTAIR8800__ \
 	-vn \
 	-D_XL_NO_COLOR \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_DEAD_GHOSTS \
 	-D_XL_NO_SLEEP \
@@ -388,7 +388,7 @@ altair8800_tiny_buffered:
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
 	-DBUFFERED -DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
+	 \
 	-DNO_STATS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -954,7 +954,7 @@ gamegear_tiny_buffered:
 	-DYSize=15 \
 	-D__SMS__ \
 	-D_XL_NO_COLOR \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DSTDLIB \
 	-DLESS_TEXT \
 	-create-app \
@@ -1169,7 +1169,7 @@ kc_light: $(ASSETS_PATH)/z88dk_xchase.asm
 kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
-	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING  \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \

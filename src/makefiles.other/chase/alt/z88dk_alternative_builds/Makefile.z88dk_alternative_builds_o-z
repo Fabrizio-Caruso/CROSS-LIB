@@ -283,7 +283,7 @@ ti85_turn_based:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DTURN_BASED \
 	-vn -lndos \
 	-DALT_PRINT \
-	-DFORCE_NARROW \
+	 \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
@@ -433,7 +433,7 @@ z88_tiny_buffered:
 	-DTINY_GAME -DNO_WALL \
 	-DXSize=79 \
 	-DYSize=6 \
-	-DFORCE_NARROW \
+	 \
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED \
 	-DLESS_TEXT \

@@ -414,7 +414,7 @@ void handleLevelBonus(uint16_t bonus)
     uint16_t i;
     uint16_t j;
     
-    const uint8_t delay = (MAX_BONUS/bonus); // Minimum bonus = 20. So 995/20<255
+    const uint8_t delay = (uint8_t) (MAX_BONUS/bonus); // Minimum bonus = 20. So 995/20<255
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     

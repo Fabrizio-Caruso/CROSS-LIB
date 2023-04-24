@@ -54,7 +54,7 @@ mz2500_buffered:
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
+	 \
 	-D__INCLUDE_CONIO_H -DCONIO \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
@@ -229,7 +229,7 @@ spectrum_test_sdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT -DANIMATE_PLAYER \
-	-DFORCE_NARROW -DNO_BLINKING \
+	 -DNO_BLINKING \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-D_XL_NO_SLEEP -DNO_WALL \
 	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -D__NO_SCREEN_COLOR_INIT \
@@ -256,7 +256,7 @@ spectrum_test_sccz80: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT -DANIMATE_PLAYER \
-	-DFORCE_NARROW -DNO_BLINKING \
+	 -DNO_BLINKING \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-D_XL_NO_SLEEP -DNO_WALL \
 	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -D__NO_SCREEN_COLOR_INIT \

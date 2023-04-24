@@ -107,7 +107,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 100
 
-#if defined(WIDE) || defined(FORCE_NARROW)
+#if defined(WIDE)
 	#define NON_BOSS_SKULL_HITS 4
 #else
 	#define NON_BOSS_SKULL_HITS 3

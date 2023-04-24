@@ -773,7 +773,7 @@ spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:getk=getk_inkey \
 	-DZ88DK_JOYSTICK \
 	-DTINY_GAME \
-	-DFORCE_NARROW \
+	 \
 	-DANIMATE_PLAYER \
 	-D__SPECTRUM__ \
 	-lndos -create-app \

@@ -88,7 +88,7 @@
 #endif
 
 #if !defined(GHOSTS_NUMBER)
-    #if defined(WIDE) || defined(FORCE_NARROW)
+    #if defined(WIDE)
         #define GHOSTS_NUMBER 10
     #else
         #define GHOSTS_NUMBER 9
@@ -195,7 +195,7 @@
     #define FAST_GHOST_LIFE ((GHOST_LIFE)/4)
 
 #else
-    #if defined(WIDE) || defined(FORCE_NARROW)
+    #if defined(WIDE)
         #define MIN_SKULL_HITS 60
         #define BOSS_HITS 254
         #define GHOST_LIFE 30
@@ -328,7 +328,7 @@
 #endif
 
 
-#if defined(TURN_BASED)
+#if defined(_XL_TURN_BASED)
     #define MAX_GHOST_LEVEL_SCALE 3
     #define MAX_SKULL_LOOP_SCALE 3
 #else

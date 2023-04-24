@@ -490,7 +490,7 @@ c128_bitbang:
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
 	 \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	-DCONIO -D__INCLUDE_CONIO_H -DUDG_GRAPHICS \
 	$(SOURCE_PATH)/../../test/bitbang.c \
 	-create-app -oa40.bin

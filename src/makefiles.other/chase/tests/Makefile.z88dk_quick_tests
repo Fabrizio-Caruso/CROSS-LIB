@@ -803,7 +803,7 @@ svi_zsdcc_quick_test:
 	-vn -lndos -o svizt.bin \
 	-D__SVI__ \
 	 \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
 	-create-app \

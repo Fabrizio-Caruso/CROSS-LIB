@@ -29,7 +29,7 @@
 
 #include <stdint.h>
 
-    #if defined(__MSX__) || defined(FORCE_PSG)
+    #if defined(__MSX__) || defined(__PSG_SOUND)
         void _XL_INIT_SOUND(void);
     #endif
 

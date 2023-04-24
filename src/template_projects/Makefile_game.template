@@ -750,7 +750,7 @@ aquarius_exp_4k:
 
 
 #  
-# -DFORCE_BIT_BANG 
+# -D__BIT_BANG_SOUND 
 #################################################################
 
 c128: c128_40col
@@ -763,7 +763,7 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -subtype=disk -clib=gencon \
 	-D__C128_Z80__ -DXSize=40 \
 	 \
-	-DFORCE_BIT_BANG  -DZ88DK_JOYSTICK \
+	-D__BIT_BANG_SOUND  -DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_40COL_SLOWDOWN) \
 	-DCONIO -D__INCLUDE_CONIO_H -DUDG_GRAPHICS \
 	$(FULL_FILES) \
@@ -792,7 +792,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DNO_TRANSPARENCY -DNO_LEVEL_END \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_80COL_SLOWDOWN) \
 	-DZ88DK_SPRITES \
-	 -DFORCE_BIT_BANG  \
+	 -D__BIT_BANG_SOUND  \
 	-DZ88DK_JOYSTICK \
 	-DALT_PRINT \
 	-D_XL_NO_COLOR \
@@ -994,7 +994,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SMS__ -D__GAME_GEAR__ \
 	-DXSize=20 \
 	-DYSize=18 \
-	-DANIMATE_PLAYER -DFORCE_BIT_BANG \
+	-DANIMATE_PLAYER -D__BIT_BANG_SOUND \
 	 -DNO_EXTRA_TITLE \
 	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos \
@@ -1017,7 +1017,7 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
-	-DFORCE_BIT_BANG  \
+	-D__BIT_BANG_SOUND  \
 	 -DLESS_TEXT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_LASER500_SLOWDOWN) \
 	-DCONIO \
@@ -1126,7 +1126,7 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 mtx: mtx512
 
 # $(CROSS_LIB_PATH)/sound/z88dk/psg/sn76489a_psg_sounds.c
-# -DFORCE_PSG_SOUND
+# -D__PSG_SOUND_SOUND
 mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -D__SCREEN_MODE=2 \
@@ -1190,7 +1190,7 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO -DUDG_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SAMCOUPE_SLOWDOWN) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	 -DFORCE_BIT_BANG -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	 -D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
@@ -1216,7 +1216,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=32 \
 	-DYSize=22 \
 	-DANIMATE_PLAYER \
-	 -DFORCE_BIT_BANG \
+	 -D__BIT_BANG_SOUND \
 	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMS_SLOWDOWN) \

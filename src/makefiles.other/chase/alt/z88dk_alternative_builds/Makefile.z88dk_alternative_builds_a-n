@@ -125,7 +125,7 @@ aussie_buffered:
 	-vn \
 	-D__AUSSIE__ \
 	 \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	-DXSize=16 \
 	-DYSize=12 \
 	-D_XL_NO_COLOR \

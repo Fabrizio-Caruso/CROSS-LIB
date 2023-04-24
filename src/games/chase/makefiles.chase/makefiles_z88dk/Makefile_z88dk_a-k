@@ -353,7 +353,7 @@ aussie:
 	$(INCLUDE_OPTS) \
 	-D__AUSSIE__ \
 	 \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
@@ -468,7 +468,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-DNO_BLINKING \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	-DZ88DK_JOYSTICK \
 	-DSIMPLE_STRATEGY \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -496,7 +496,7 @@ c128_z80_40col:
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
 	 \
-	-DFORCE_BIT_BANG \
+	-D__BIT_BANG_SOUND \
 	 -DEND_SCREEN -DNO_BLINKING \
 	-D__INCLUDE_CONIO_H \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -619,7 +619,7 @@ cpc_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DEXTRA_TITLE \
 	-DZ88DK_JOYSTICK \
-	 -DFORCE_PSG  -DBETWEEN_LEVEL -DEND_SCREEN \
+	 -D__PSG_SOUND  -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB -D_XL_SLOW_DOWN_FACTOR=600 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)XXX_cpc \
 	-DCPCRSLIB_GRAPHICS \
@@ -757,7 +757,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-pragma-redirect:getk=getk_inkey \
-	$(INCLUDE_OPTS) -DFORCE_BIT_BANG \
+	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
 	  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -829,7 +829,7 @@ enterprise_buffered:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DSTDLIB  -DFORCE_BIT_BANG \
+	-DSTDLIB  -D__BIT_BANG_SOUND \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app -o enterprise.bin
@@ -933,7 +933,7 @@ gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=18 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DANIMATE_PLAYER \
-	 -DFORCE_BIT_BANG \
+	 -D__BIT_BANG_SOUND \
 	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1600 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

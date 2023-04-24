@@ -25,9 +25,9 @@
 #ifndef _SOUNDS_MACROS
 #define _SOUNDS_MACROS
     #if !defined(_XL_NO_SOUND)
-        #  if defined(FORCE_BIT_BANG)
+        #  if defined(__BIT_BANG_SOUND)
             #include "z88dk_bit_bang_sounds.h"
-        #elif defined(FORCE_PSG)
+        #elif defined(__PSG_SOUND)
             #include "psg_sounds.h"
         #elif defined(ASCII_SOUNDS)
             #define _XL_INIT_SOUND()
@@ -119,7 +119,7 @@
 		#define _XL_ZAP_SOUND() 
 	#endif
     
-    #if (defined(FORCE_PSG) || defined(__GB__) || defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
+    #if (defined(__PSG_SOUND) || defined(__GB__) || defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
      // _XL_INIT_SOUND() needs to be defined
     #else
         #define _XL_INIT_SOUND()

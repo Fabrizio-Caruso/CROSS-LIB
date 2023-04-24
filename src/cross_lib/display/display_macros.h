@@ -54,7 +54,7 @@
 #endif
 
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
-    void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);
+    void __draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
 

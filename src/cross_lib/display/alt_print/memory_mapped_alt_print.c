@@ -169,7 +169,7 @@
 	#include "display_macros.h"
 	
 	#define _DISPLAY(x,y,ch) \
-		_draw_ch(x,y,ch);
+		__draw_ch(x,y,ch);
 	
 #elif defined(BUFFERED)
 	#define _DISPLAY(x,y,ch) \

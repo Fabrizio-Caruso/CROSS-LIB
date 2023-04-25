@@ -37,14 +37,10 @@
 		|| defined(__NES__) || defined(__PCE__) \
 		|| defined(Z88DK_JOYSTICK) || defined(__SMS__) || defined(LCC1802_JOYSTICK)
 	#define JOYSTICK_CONTROL
-#else
+#elif !defined(_XL_NO_JOYSTICK)
 	#define _XL_NO_JOYSTICK
 #endif
 
-#if defined FORCE_KEYBOARD
-	#undef JOYSTICK_CONTROL
-	#define _XL_NO_JOYSTICK
-#endif
 
 #if defined(_XL_NO_JOYSTICK)
 	#define WAIT_FOR_KEY

@@ -81,11 +81,8 @@
 
 #define MAX_TURN_BASES_LOOP 400
 
-#if defined(FORCE_BOMBS_NUMBER)
-    #define BOMBS_NUMBER FORCE_BOMBS_NUMBER
-#else
-    #define BOMBS_NUMBER 3
-#endif
+#define BOMBS_NUMBER 3
+
 
 #if !defined(GHOSTS_NUMBER)
     #if defined(WIDE)

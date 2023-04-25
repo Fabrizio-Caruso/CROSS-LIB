@@ -81,7 +81,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DZ88DK_JOYSTICK \
 	 \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DGHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=15000 \
 	-DXSize=36 \
 	-DYSize=35 \
@@ -111,7 +111,7 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DGHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=15000 \
 	 \
 	-DNO_BLINKING \
@@ -146,7 +146,7 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-define:hrgpage=36096 \
 	-DZ88DK_JOYSTICK \
 	-DQAOPM \
-	-DFORCE_GHOSTS_NUMBER=9 \
+	-DGHOSTS_NUMBER=9 \
 	 \
 	-DNO_BLINKING \
 	-DTURN_BASED \

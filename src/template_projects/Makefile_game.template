@@ -326,7 +326,7 @@ atari_lynx_no_gfx:
 	-D__ATARI_LYNX__  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_LYNX_SLOWDOWN) \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_UDG \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DGHOSTS_NUMBER=8 \
 	-DTGI \
 	 \
 	-DALT_PRINT \
@@ -2002,7 +2002,7 @@ _comx_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLESS_TEXT -DNO_HINTS -DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
 	 -DNINTH_CHAR_LINE \
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2022,7 +2022,7 @@ _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
 	-DNINTH_CHAR_LINE -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2041,7 +2041,7 @@ _comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
 	-DNINTH_CHAR_LINE -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2061,7 +2061,7 @@ _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
 	-DNINTH_CHAR_LINE -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2168,7 +2168,7 @@ _pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLCC1802_JOYSTICK \
 	 -DNINTH_CHAR_LINE \
 	$(LCC1802_COLOR_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
@@ -2184,7 +2184,7 @@ _pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLCC1802_JOYSTICK \
 	 -DNINTH_CHAR_LINE \
 	$(LCC1802_COLOR_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex

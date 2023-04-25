@@ -167,8 +167,8 @@ gal_6k:
 	-D__GAL__ \
 	-DNO_RANDOM_LEVEL \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DFORCE_BOMBS_NUMBER=4 \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DBOMBS_NUMBER=4 \
+	-DGHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DNO_INIT_GRAPHICS \
 	-DFLAT_ENEMIES \
@@ -394,8 +394,8 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DLESS_TEXT \
 	-DUDG_GRAPHICS \
 	 \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_BOMBS_NUMBER=4 \
+	-DGHOSTS_NUMBER=8 \
+	-DBOMBS_NUMBER=4 \
 	 \
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_less_text.prg \
@@ -438,8 +438,8 @@ vz200_8k:
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DNO_DEAD_GHOSTS \
-	-DFORCE_GHOSTS_NUMBER=4 \
-	-DFORCE_BOMBS_NUMBER=2 \
+	-DGHOSTS_NUMBER=4 \
+	-DBOMBS_NUMBER=2 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
@@ -510,7 +510,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DGHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=21150 \
 	 \
 	-DNO_BLINKING \
@@ -541,7 +541,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) -DNO_TRANSPARENCY -DEXTRA_TITLE \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=9 \
+	-DGHOSTS_NUMBER=9 \
 	 \
 	-DNO_BLINKING \
 	-DTURN_BASED \

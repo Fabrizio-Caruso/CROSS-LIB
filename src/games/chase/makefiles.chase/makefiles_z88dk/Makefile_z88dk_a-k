@@ -337,7 +337,7 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DGHOSTS_NUMBER=8 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache.bin \
 	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -375,8 +375,8 @@ altair8800_tiny_buffered:
 	$(INCLUDE_OPTS) \
 	-DXSize=16 \
 	-DYSize=12 \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DFORCE_BOMBS_NUMBER=4 \
+	-DGHOSTS_NUMBER=6 \
+	-DBOMBS_NUMBER=4 \
 	-D__ALTAIR8800__ \
 	-vn \
 	-D_XL_NO_COLOR \
@@ -470,7 +470,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__BIT_BANG_SOUND \
 	-DZ88DK_JOYSTICK \
 	-DSIMPLE_STRATEGY \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DGHOSTS_NUMBER=8 \
 	-DALT_PRINT \
 	-D_XL_NO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

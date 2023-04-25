@@ -26,7 +26,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DALT_MODE \
 	 \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DGHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=21150 \
 	-DXSize=36 \
 	-DYSize=35 \

@@ -33,11 +33,7 @@
 
 #include "speed_game_settings.h"
 
-#if !defined(FORCE_LEVEL)
-	#define INITIAL_LEVEL 1
-#else
-	#define INITIAL_LEVEL FORCE_LEVEL
-#endif
+#define INITIAL_LEVEL 1
 
 // Final level 
 #define FINAL_LEVEL 20
@@ -46,17 +42,13 @@
 
 #define MAX_TURN_BASES_LOOP 400
 
-#if defined(FORCE_BOMBS_NUMBER)
-	#define BOMBS_NUMBER FORCE_BOMBS_NUMBER
-#else
+#if !defined(BOMBS_NUMBER)
 	#define BOMBS_NUMBER 4
 #endif
 
 
 #if !defined(GHOSTS_NUMBER)
-    #if defined(FORCE_GHOSTS_NUMBER)
-        #define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
-    #elif defined(_XL_TURN_BASED)
+    #if defined(_XL_TURN_BASED)
         #if !defined(TINY_GAME)
             #define GHOSTS_NUMBER 9
         #else

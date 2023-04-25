@@ -537,8 +537,8 @@ newbrain:
 	-D__NEWBRAIN__ \
 	-DXSize=20 \
 	-DYSize=11 \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_BOMBS_NUMBER=4 \
+	-DGHOSTS_NUMBER=8 \
+	-DBOMBS_NUMBER=4 \
 	-vn \
 	-D_XL_NO_COLOR \
 	 \
@@ -768,7 +768,7 @@ pc88: pc88_tiny
 pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	 -D__PC88__    \
-	-lndos -DXSize=80 -DFORCE_YSEIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=80 -DYSIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -D__BIT_BANG_SOUND -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -785,7 +785,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	 -D__PC88__    \
-	-lndos -DXSize=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -D__BIT_BANG_SOUND -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -799,7 +799,7 @@ pc88_32k_no_gfx:
 pc88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-D__PC88__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
-	-lndos -DXSize=80 -DFORCE_YSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
+	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
@@ -821,7 +821,7 @@ pc88_tiny:
 pcw40:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	 -D__PC88__    \
-	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
@@ -839,7 +839,7 @@ pcw: pcw80
 pcw80:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	 -D__PC88__    \
-	-lndos -DXSize=90 -DFORCE_YSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \

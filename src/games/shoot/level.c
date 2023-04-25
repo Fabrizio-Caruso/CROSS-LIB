@@ -145,7 +145,7 @@ extern uint8_t restart;
 
 void updateInnerVerticalWall(void)
 {    
-    #if YSize>17 && !defined(FORCE_VERTICAL_WALL)
+    #if YSize>17
     uint8_t lvmod;
     
     lvmod = level&7;
@@ -157,17 +157,14 @@ void updateInnerVerticalWall(void)
     }
     else
     {
-        #if defined(FORCE_VERTICAL_WALL)
-            innerVerticalWallLength = FORCE_VERTICAL_WALL;
+
+        #if YSize>17
+            innerVerticalWallLength = YSize-11-lvmod;
+        #elif YSize>9
+        
+            innerVerticalWallLength = 6;
         #else
-            #if YSize>17
-                innerVerticalWallLength = YSize-11-lvmod;
-            #elif YSize>9
-            
-                innerVerticalWallLength = 6;
-            #else
-                innerVerticalWallLength = 3;
-            #endif
+            innerVerticalWallLength = 3;
         #endif
     }
 
@@ -178,7 +175,7 @@ void updateInnerVerticalWall(void)
 
 void updateInnerHorizontalWall(void)
 {    
-    #if (defined(WIDE) || YSize>12) && !defined(FORCE_HORIZONTAL_WALL)
+    #if (defined(WIDE) || YSize>12)
     uint8_t lvmod = level&7;
     #endif
     
@@ -188,16 +185,12 @@ void updateInnerHorizontalWall(void)
     }
     else
     {
-        #if defined(FORCE_HORIZONTAL_WALL)
-            innerHorizontalWallLength = FORCE_HORIZONTAL_WALL;
+        #if defined(WIDE)
+            innerHorizontalWallLength = XSize-13-lvmod;
+        #elif YSize<=12
+            innerHorizontalWallLength = 8;
         #else
-            #if defined(WIDE)
-                innerHorizontalWallLength = XSize-13-lvmod;
-            #elif YSize<=12
-                innerHorizontalWallLength = 8;
-            #else
-                innerHorizontalWallLength = XSize-11-lvmod;            
-            #endif
+            innerHorizontalWallLength = XSize-11-lvmod;            
         #endif
     }
 

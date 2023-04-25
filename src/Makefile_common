@@ -2039,7 +2039,7 @@ _comx_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	-DLCC1802_JOYSTICK \
 	-DLESS_TEXT -DNO_HINTS -DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2059,7 +2059,7 @@ _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	-DLCC1802_JOYSTICK \
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
-	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
@@ -2078,7 +2078,7 @@ _comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	-DLCC1802_JOYSTICK \
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
-	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
@@ -2098,7 +2098,7 @@ _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	-DLCC1802_JOYSTICK \
 	-DNO_TITLE -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
-	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
@@ -2121,7 +2121,7 @@ _micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2139,7 +2139,7 @@ _micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_COLOR_C_OPTS) -D_XL_NO_SLEEP \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2152,7 +2152,7 @@ _micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2166,7 +2166,7 @@ _micro_ntsc1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2205,7 +2205,7 @@ _pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2221,7 +2221,7 @@ _pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DCOMX_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c

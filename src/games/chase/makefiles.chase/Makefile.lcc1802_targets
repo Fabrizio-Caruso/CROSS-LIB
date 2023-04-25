@@ -191,7 +191,7 @@ _tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -210,7 +210,7 @@ _light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
@@ -231,7 +231,7 @@ _comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -251,7 +251,7 @@ _comx_int: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -273,7 +273,7 @@ _tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -292,7 +292,7 @@ _light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
@@ -312,7 +312,7 @@ _pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -632,7 +632,7 @@ _micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	-D_XL_NO_COLOR -DNO_TITLE_LINE \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	 -DNINTH_CHAR_LINE \
+	  \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c

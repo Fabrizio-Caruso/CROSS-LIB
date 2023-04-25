@@ -14,7 +14,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \

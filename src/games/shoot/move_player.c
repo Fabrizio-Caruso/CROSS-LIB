@@ -53,9 +53,6 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
     return innerVerticalWallReached(x,y) || innerHorizontalWallReached(x,y);
 }
 
-// #if defined(WIDE) && defined(ANIMATE_PLAYER)
-    // #define PLAYER_DIRECTION_CHANGE
-// #endif
 
 #if defined(PLAYER_DIRECTION_CHANGE)    
 

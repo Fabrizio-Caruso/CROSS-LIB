@@ -277,7 +277,7 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-clib=default \
 	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
@@ -336,7 +336,7 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache.bin \
 	-DNO_INIT_GRAPHICS \
@@ -443,7 +443,7 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -463,7 +463,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DEXTRA_TITLE \
-	-DZ88DK_SPRITES -DANIMATE_PLAYER \
+	-DZ88DK_SPRITES  \
 	-DLESS_TEXT \
 	 \
 	-DNO_BLINKING \
@@ -563,7 +563,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS -DEXTRA_TITLE \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -586,7 +586,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=20 -D__SCREEN_MODE=0  \
-	-DANIMATE_PLAYER -DALT_SLEEP  -DEXTRA_TITLE \
+	 -DALT_SLEEP  -DEXTRA_TITLE \
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=100 \
@@ -615,7 +615,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 
 
 cpc_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
 	-D__CPC__ -DEXTRA_TITLE \
 	-DZ88DK_JOYSTICK \
 	 -D__PSG_SOUND   \
@@ -763,7 +763,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -931,7 +931,7 @@ gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=20 \
 	-DYSize=18 \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DANIMATE_PLAYER \
+	 \
 	 -D__BIT_BANG_SOUND \
 	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1600 \
@@ -1005,7 +1005,7 @@ gb_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DXSize=20 \
 	-DYSize=18 \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_COLOR -DANIMATE_PLAYER \
+	-D_XL_NO_COLOR  \
 	 \
 	-DCONIO -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1400  \
@@ -1114,7 +1114,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
@@ -1134,7 +1134,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
@@ -1155,7 +1155,7 @@ kc_light: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1172,7 +1172,7 @@ kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1190,7 +1190,7 @@ kc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

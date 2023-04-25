@@ -118,7 +118,7 @@ aquarius_alt:
 aquarius_alt_memory_mapped: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    -D_XL_SLOW_DOWN_FACTOR=1500 \
-	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE -DANIMATE_PLAYER \
+	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE  \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -200,7 +200,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	--generic-console -D_XL_SLOW_DOWN_FACTOR=0 -D__SCREEN_MODE=1 -DEXTRA_TITLE -DYSize=26 $(EXTRA_DRAW_SKIP) \
-	-D__GAL__ -D__GAL_PLUS__    -DANIMATE_PLAYER \
+	-D__GAL__ -D__GAL_PLUS__     \
 	-DCONIO -DUDG_GRAPHICS -D__BIT_BANG_SOUND \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -219,7 +219,7 @@ mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-subtype=gaming -DYSize=24 -DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
 	 -D_XL_SLOW_DOWN_FACTOR=400 \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-D__MC1000__     \
 	-DCONIO \
@@ -243,7 +243,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-subtype=gaming -DYSize=24 \
 	-DZ88DK_JOYSTICK \
 	 -D_XL_SLOW_DOWN_FACTOR=400 \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-D__MC1000__     \
 	-DCONIO \
@@ -345,7 +345,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
 	-DZ88DK_JOYSTICK -DEXTRA_TITLE \
 	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
 	 -vn -lndos \
 	 \
@@ -375,7 +375,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
 	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
@@ -393,7 +393,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DINITIAL_SLOWDOWN=29000 \
 	-DLESS_TEXT \
 	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	 \
@@ -462,7 +462,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -512,7 +512,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DINITIAL_SLOWDOWN=21150 \
-	-DANIMATE_PLAYER \
+	 \
 	-DNO_BLINKING \
 	-DXSize=36 \
 	-DYSize=35 \
@@ -521,7 +521,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	 \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
@@ -542,7 +542,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=9 \
-	-DANIMATE_PLAYER \
+	 \
 	-DNO_BLINKING \
 	-DTURN_BASED \
 	-DXSize=36 \
@@ -552,7 +552,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	 \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \

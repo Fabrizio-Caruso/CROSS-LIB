@@ -406,7 +406,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
-	 -DANIMATE_PLAYER \
+	  \
 	-vn -DMSX_VPOKE  -D__MSX__   \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_msx_32k.prg \
@@ -457,7 +457,7 @@ multi8_light_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -474,7 +474,7 @@ multi8_tiny_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

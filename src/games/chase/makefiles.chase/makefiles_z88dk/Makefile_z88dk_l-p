@@ -185,7 +185,7 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -DLESS_TEXT \
 	  -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DCONIO \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-lndos \
 	$(FULL_FILES) \
@@ -210,7 +210,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -DLESS_TEXT \
 	  -D__BIT_BANG_SOUND \
 	-DCONIO \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -244,7 +244,7 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_microbee_32k.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE  -D__BIT_BANG_SOUND \
@@ -282,7 +282,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS -DEXTRA_TITLE \
 	-DINITIAL_SLOWDOWN=29000 \
-	 -D__PSG_SOUND -DANIMATE_PLAYER \
+	 -D__PSG_SOUND  \
 	-vn -DMSX_VPOKE  -D__MSX__   \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
@@ -303,7 +303,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=29000 -DEXTRA_TITLE \
-	 -D__PSG_SOUND -DANIMATE_PLAYER \
+	 -D__PSG_SOUND  \
 	-vn  -D__MSX__   \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
@@ -332,7 +332,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	     -DTURN_BASED \
 	-DCONIO -D__BIT_BANG_SOUND \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -355,7 +355,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	     -DTURN_BASED \
 	-DCONIO -D__BIT_BANG_SOUND \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -388,7 +388,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-DNO_HINTS \
 	-DSIMPLE_STRATEGY \
@@ -419,7 +419,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
 	-DCONIO_VT52 -DUDG_GRAPHICS \
-	-DCONIO -DANIMATE_PLAYER \
+	-DCONIO  \
 	-lndos  -D__PSG_SOUND \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -499,7 +499,7 @@ nc100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc100_alt_print.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
@@ -519,7 +519,7 @@ nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc200_alt_print.bin \
 	-DNO_INIT_GRAPHICS \
 	  \
@@ -577,7 +577,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
 	-DCONIO_VT52 -DUDG_GRAPHICS \
-	-DCONIO -DANIMATE_PLAYER \
+	-DCONIO  \
 	-lndos \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -644,7 +644,7 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-DALT_PRINT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1.bin \
 	$(FULL_FILES) \
@@ -747,7 +747,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__PC6001__  \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO  -D__PSG_SOUND \
-	-DANIMATE_PLAYER -DUDG_GRAPHICS \
+	 -DUDG_GRAPHICS \
 	-D__SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1000,7 +1000,7 @@ pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
+	 \
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -1027,7 +1027,7 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-DLESS_TEXT \
 	  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1050,7 +1050,7 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
+	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)

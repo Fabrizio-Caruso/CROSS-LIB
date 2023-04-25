@@ -456,7 +456,7 @@ spectrum_bitbang:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	 \
-	-DANIMATE_PLAYER \
+	 \
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=200 \

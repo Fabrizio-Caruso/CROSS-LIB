@@ -165,7 +165,7 @@ c128_z80_quick_test:
 
 
 cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc  -vn  -clib=ansi \
 	-D__CPC__  \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCPCRSLIB \
@@ -248,7 +248,7 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_WAIT \
-	-DANIMATE_PLAYER \
+	 \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
 	$(TEST_FILES) $(ASSETS_PATH)/z88dk_xchase.asm 
 	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
@@ -308,11 +308,11 @@ microbee_quick_test:
 
 msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
-	 -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	  -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DMEMORY_MAPPED -D__INCLUDE_CONIO_H \
 	-DUSE_MSX_BIOS \
-	-DANIMATE_PLAYER \
+	 \
 	-vn \
 	-lndos \
 	-DZ88DK_JOYSTICK \
@@ -371,7 +371,7 @@ nc100_quick_test:
 	-DLESS_TEXT \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_WAIT \
-	-DANIMATE_PLAYER \
+	 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
 	$(TEST_FILES)
@@ -774,7 +774,7 @@ spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	-DTINY_GAME \
 	 \
-	-DANIMATE_PLAYER \
+	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \

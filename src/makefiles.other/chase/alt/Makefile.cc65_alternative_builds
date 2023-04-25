@@ -164,7 +164,7 @@ c16_16k_full_no_gfx:
 c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-32k.cfg \
-	-DANIMATE_PLAYER   \
+	   \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS \
 	-DCONIO \
@@ -181,7 +181,7 @@ c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 
 c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
-	 -DANIMATE_PLAYER  \
+	   \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	 \
@@ -228,7 +228,7 @@ creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
 	   -DALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -314,7 +314,7 @@ nes_no_fx:
 # ORIC1
 
 oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__  -DANIMATE_PLAYER \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__   \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DMEMORY_MAPPED \
@@ -342,7 +342,7 @@ pet_8k:
 vic20_exp_3k_light_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
-	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=8 \
+	 -DFORCE_GHOSTS_NUMBER=8 \
 	 \
 	-DCC65_GOTO \
 	-DVIC20_EXP_3K \
@@ -370,7 +370,7 @@ vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DANIMATE_PLAYER -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
+	 -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
 	-DTINY_GAME  \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
@@ -398,7 +398,7 @@ vic20_exp_8k_full:
 	-DNO_HINTS \
 	 \
 	-DALT_SLEEP \
-	-DANIMATE_PLAYER \
+	 \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
 	 \
@@ -416,7 +416,7 @@ vic20_exp_8k_full:
 vic20_unexpanded_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	 \
-	-DANIMATE_PLAYER \
+	 \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \

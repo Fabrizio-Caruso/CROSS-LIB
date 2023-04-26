@@ -47,7 +47,6 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D_XL_NO_SLEEP -DNO_STATS \
 	-DALT_PRINT \
 	-DALT_HIGHSCORE \
-	-DNO_SPACE_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -107,7 +106,6 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
-	-DNO_SPACE_TEXT \
 	-D_XL_NO_SLEEP \
 	-DLESS_TEXT \
 	-D__NO_COLOR_INIT \

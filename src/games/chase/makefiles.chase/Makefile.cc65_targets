@@ -325,7 +325,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	-DINITIAL_SLOWDOWN=31500 \
 	  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DATARI_MODE_1_COLOR -DNO_SPACE_TEXT \
+	-DATARI_MODE_1_COLOR \
 	-DDEFAULT_CLEAR_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
@@ -1154,7 +1154,6 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D_XL_NO_SLEEP -DNO_STATS \
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
-	-DNO_SPACE_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1249,15 +1248,11 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 # broken with API version 2
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	 \
 	-DINITIAL_SLOWDOWN=31500 \
-	 \
-	 \
 	-DREDEFINED_CHARS \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
-	-DNO_SPACE_TEXT \
 	-D_XL_NO_SLEEP \
 	-DLESS_TEXT \
 	-D__NO_SCREEN_COLOR_INIT \

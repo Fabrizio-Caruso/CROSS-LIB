@@ -291,7 +291,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	  -DATARI_MODE1 -DALTERNATE_COLORS2  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR -DALT_SLEEP  \
-	-D__NO_SCREEN_COLOR_INIT -DNO_SPACE_TEXT \
+	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \

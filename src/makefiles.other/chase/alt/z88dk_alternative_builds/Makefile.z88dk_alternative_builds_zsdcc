@@ -25,9 +25,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DALT_MODE \
-	 \
 	-DGHOSTS_NUMBER=6 \
-	-DINITIAL_SLOWDOWN=21150 \
 	-DXSize=36 \
 	-DYSize=35 \
 	-vn \
@@ -35,7 +33,6 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	-DLESS_PRINT \
 	-lndos \
-	 \
 	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \

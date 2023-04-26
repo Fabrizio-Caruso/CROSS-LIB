@@ -372,7 +372,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -vn  -D__VG5K__   -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
-	-DINITIAL_SLOWDOWN=29000 \
+	 \
 	-clib=default \
 	-DUDG_GRAPHICS \
 	 \
@@ -390,7 +390,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn  -D__VG5K__ \
-	-DINITIAL_SLOWDOWN=29000 \
+	 \
 	-DLESS_TEXT \
 	-DUDG_GRAPHICS \
 	 \
@@ -416,7 +416,7 @@ vz200_18k:
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	 -D__VZ__ -DHARDWARE_KEYBOARD \
 	 \
-	-DINITIAL_SLOWDOWN=31500 \
+	 \
 	-DCONIO \
 	-lndos \
 	-create-app -Cz--audio -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
@@ -428,7 +428,7 @@ vz200_18k:
 vz200_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
-	-DINITIAL_SLOWDOWN=31500 \
+	 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	--opt-code-size \
@@ -454,7 +454,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	 \
-	-DINITIAL_SLOWDOWN=31500 \
+	 \
 	-D__VZ__ \
 	 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.vz \
@@ -511,7 +511,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DGHOSTS_NUMBER=6 \
-	-DINITIAL_SLOWDOWN=21150 \
+	 \
 	 \
 	-DNO_BLINKING \
 	-DXSize=36 \

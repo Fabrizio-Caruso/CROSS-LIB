@@ -155,7 +155,7 @@ endif
 apple2_no_gfx_v1:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
 	 -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -170,7 +170,7 @@ apple2_no_gfx_v1:
 apple2_no_gfx:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
 	 -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -188,7 +188,7 @@ apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP  \
-	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
+	-DXSize=20 -DYSize=24 \
 	   -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -211,7 +211,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t apple2 -DEXTRA_TITLE -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
+	-DXSize=20 -DYSize=24 \
 	   -DALT_PRINT \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -235,7 +235,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 apple2enh_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
 	 -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS  \
@@ -255,7 +255,7 @@ apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP  \
-	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
+	-DXSize=20 -DYSize=24 \
 	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -278,7 +278,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
 	 -DALT_SLEEP   \
-	-DINITIAL_SLOWDOWN=31500 -DXSize=20 -DYSize=24 \
+	-DXSize=20 -DYSize=24 \
 	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
@@ -299,7 +299,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 apple2enh_80col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
 	 -DALT_SLEEP \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	  \
 	-DCONIO  \
 	-DXSize=80 \
@@ -322,7 +322,7 @@ apple2enh_80col:
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS -DEXTRA_TITLE \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR \
@@ -354,7 +354,7 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	   \
 	-DMEMORY_MAPPED \
 	 \
@@ -369,7 +369,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200  -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	   \
 	-DATARI_MODE_1_COLOR \
 	 \
@@ -600,7 +600,7 @@ c64_crt: $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 cbm610: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	 \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -729,7 +729,7 @@ gamate: gamate_no_sound
 gamate_test: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
@@ -740,7 +740,7 @@ gamate_test: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate
 gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=5000  \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY \
@@ -751,7 +751,7 @@ gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
@@ -763,7 +763,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
-	-DINITIAL_SLOWDOWN=31500 -DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
 	-DLESS_TEXT  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
@@ -1069,7 +1069,7 @@ vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2600 -DEXTRA_TITLE \
 	-DREDEFINED_CHARS -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1086,7 +1086,7 @@ vic20: vic20_exp_8k
 	# --config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
 	# -DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
 	# -DREDEFINED_CHARS \
-	# -DINITIAL_SLOWDOWN=31500 \
+	# \
 	# $(ASSETS_PATH)/cc65_udc.s \
 	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1101,7 +1101,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	-DEXTRA_TITLE \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
 	-DREDEFINED_CHARS \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1140,7 +1140,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	 -DGHOSTS_NUMBER=8 \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	-DREDEFINED_CHARS  \
 	 \
 	 \
@@ -1168,7 +1168,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg  -DEXTRA_TITLE -DNO_COLORED_PLAYER \
 	  \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	 -D_XL_SLOW_DOWN_FACTOR=2800 \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	 \
@@ -1209,7 +1209,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
 	  \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	 -D_XL_SLOW_DOWN_FACTOR=2300 -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	 \
@@ -1248,7 +1248,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 # broken with API version 2
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	-DINITIAL_SLOWDOWN=31500 \
+	\
 	-DREDEFINED_CHARS \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \

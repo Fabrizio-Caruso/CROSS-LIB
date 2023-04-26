@@ -281,7 +281,7 @@ msx: msx_32k_rom
 msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS -DEXTRA_TITLE \
-	-DINITIAL_SLOWDOWN=29000 \
+	 \
 	 -D__PSG_SOUND  \
 	-vn -DMSX_VPOKE  -D__MSX__   \
 	-lndos -subtype=rom \
@@ -302,7 +302,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DINITIAL_SLOWDOWN=29000 -DEXTRA_TITLE \
+	 -DEXTRA_TITLE \
 	 -D__PSG_SOUND  \
 	-vn  -D__MSX__   \
 	-lndos -subtype=rom \
@@ -729,7 +729,7 @@ pasopia7:
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi \
 	-D__PC6001__ \
-	-DINITIAL_SLOWDOWN=31500 \
+	 \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg  \
@@ -745,7 +745,7 @@ pc6001: pc6001_32k
 pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__  \
-	-DINITIAL_SLOWDOWN=31500 \
+	 \
 	-DCONIO  -D__PSG_SOUND \
 	 -DUDG_GRAPHICS \
 	-D__SCREEN_MODE=2 \

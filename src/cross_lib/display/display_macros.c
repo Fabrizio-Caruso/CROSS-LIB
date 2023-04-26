@@ -204,8 +204,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if !defined(INLINE_LOC) && \
-    (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR))
+#if (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR) || defined(ATARI_MODE_1_COLOR))
     
 	
     #if defined(QUAD_MEMORY_MAPPED)
@@ -215,7 +214,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         #define X_MULT 1
         #define Y_MULT 1
     #endif
-    
+
     uint16_t loc(uint8_t x, uint8_t y)
     {
         #if !defined(__CIDELSA__)

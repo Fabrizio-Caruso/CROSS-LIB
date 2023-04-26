@@ -18,16 +18,7 @@
 
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
-#if !defined(INLINE_LOC)
-    uint16_t loc(uint8_t x, uint8_t y);
-#else
-    #include "cross_lib.h"
-    #if defined(__ATARI__)
-    extern uint16_t BASE_ADDR;
-    #endif
-    
-    #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET))
-#endif
-    
+uint16_t loc(uint8_t x, uint8_t y);
+  
 #endif // _ATARI_MODE1_COLOR_GRAPHICS_H
 

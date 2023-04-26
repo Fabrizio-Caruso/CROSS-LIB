@@ -290,7 +290,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	-DINITIAL_SLOWDOWN=31500 \
 	  -DATARI_MODE1 -DALTERNATE_COLORS2  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DATARI_MODE_1_COLOR -DINLINE_LOC -DALT_SLEEP  \
+	-DATARI_MODE_1_COLOR -DALT_SLEEP  \
 	-D__NO_SCREEN_COLOR_INIT -DNO_SPACE_TEXT \
 	-DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_SLOWDOWN) \
@@ -309,10 +309,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ -D_API_VERSION=$(API_VERSION) -DALTERNATE_COLORS2 \
 	-DINITIAL_SLOWDOWN=31500 \
-	 \
-	-DATARI_MODE_1_COLOR -DINLINE_LOC \
-	 \
-	 \
+	-DATARI_MODE_1_COLOR \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
@@ -328,7 +325,6 @@ atari_lynx_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_UDG \
 	-DGHOSTS_NUMBER=8 \
 	-DTGI \
-	 \
 	-DALT_PRINT \
     -DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \

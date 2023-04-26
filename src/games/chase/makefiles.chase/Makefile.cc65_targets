@@ -325,7 +325,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	-DINITIAL_SLOWDOWN=31500 \
 	  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DATARI_MODE_1_COLOR -DINLINE_LOC -DNO_SPACE_TEXT \
+	-DATARI_MODE_1_COLOR -DNO_SPACE_TEXT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
@@ -371,7 +371,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-D__ATARI5200__ \
 	-DINITIAL_SLOWDOWN=31500 \
 	   \
-	-DATARI_MODE_1_COLOR -DINLINE_LOC \
+	-DATARI_MODE_1_COLOR \
 	 \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=200 \
@@ -888,7 +888,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O       -DEXTRA_TITLE \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DORIC_COLOR -DINLINE_LOC \
+	-DORIC_COLOR \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \

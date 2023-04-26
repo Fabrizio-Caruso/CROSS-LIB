@@ -212,37 +212,35 @@ void printFirePowerStats(void)
 }
 
 
-#if !defined(NO_STATS) || defined(LESS_TEXT)
-    #if XSize>20
-    void printLevelStats(void)
-    {    
-        SET_COLOR(_XL_WHITE);
+#if XSize>20
+void printLevelStats(void)
+{    
+	SET_COLOR(_XL_WHITE);
 
-        _XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
-    }
-    #endif
-
-
-    void printGhostCountStats(void)
-    {
-        SET_COLOR(_XL_WHITE);        
-        
-        #if defined(WIDE)
-            _XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
-        #else
-            _XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);    
-        #endif    
-    }
-
-
-    void printLivesStats(void)
-    {
-        SET_COLOR(_XL_WHITE);
-        
-        _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
-    }    
-    
+	_XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
+}
 #endif
+
+
+void printGhostCountStats(void)
+{
+	SET_COLOR(_XL_WHITE);        
+	
+	#if defined(WIDE)
+		_XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
+	#else
+		_XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);    
+	#endif    
+}
+
+
+void printLivesStats(void)
+{
+	SET_COLOR(_XL_WHITE);
+	
+	_XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
+}    
+
 
 
 void displayScoreStats(void)

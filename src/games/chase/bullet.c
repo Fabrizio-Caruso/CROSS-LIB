@@ -208,14 +208,6 @@ void _moveBullet(register Character *bulletPtr)
 #endif
 
 
-#if defined(CC65_GOTO)
-	#define GOTO_DESTROY() \
-		asm("jmp %g", _destroy); 
-#else
-	#define GOTO_DESTROY() \
-		goto _destroy; 
-#endif
-
 void moveBullet(register Character * bulletPtr)
 {
 	_moveBullet(bulletPtr);
@@ -230,8 +222,7 @@ void moveBullet(register Character * bulletPtr)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
 				{
-					GOTO_DESTROY();
-					// goto _destroy; //destroyHorizontalMissile(&rightHorizontalMissile);
+					goto _destroy;
 				}
 			}				
 			else if(isMissileLevel || isBossLevel)

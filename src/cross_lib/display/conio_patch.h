@@ -108,30 +108,6 @@
         #define gotoxy(x,y)
         // #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
         #define clrscr() printf("\033H\033J")
-
-    #elif defined(Z88DK_PUTC4X6)
-        #include <stdio.h>
-        #include <graphics.h>
-        #include <games.h>
-
-        extern int _LIB_putc4x6(char c);
-        extern uint8_t x_4x6;
-        extern uint8_t y_4x6;
-
-        #undef gotoxy
-        #define gotoxy(x,y) do \
-            { \
-                x_4x6 = (x)*4; \
-                y_4x6 = (y)*6; \
-            \
-            } while(0)
-            
-        #undef clrscr
-        #define clrscr() clg();
-
-        #define cprintf printf
-                
-        #define cputc(c) putc4x6(c)
         
     #elif defined(__ATARI_LYNX__)
         #include <tgi.h>

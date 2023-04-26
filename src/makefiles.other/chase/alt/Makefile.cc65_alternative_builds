@@ -344,7 +344,7 @@ vic20_exp_3k_light_no_gfx:
 	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
 	 -DGHOSTS_NUMBER=8 \
 	 \
-	-DCC65_GOTO \
+	 \
 	-DVIC20_EXP_3K \
 	-DMEMORY_MAPPED \
 	-DCBM_SCREEN_CODES \

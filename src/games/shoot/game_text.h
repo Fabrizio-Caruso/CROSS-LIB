@@ -97,19 +97,13 @@ void printFirePowerStats(void);
 
 void displayStats(void);
 
-#if !defined(NO_STATS)
-    #if XSize>20
-        void printLevelStats(void);
-    #else
-        #define printLevelStats()
-    #endif
-	void printGhostCountStats(void);
-	void printLivesStats(void);		
+#if XSize>20
+	void printLevelStats(void);
 #else
 	#define printLevelStats()
-	#define printGhostCountStats()
-	#define printLivesStats()
 #endif
+void printGhostCountStats(void);
+void printLivesStats(void);		
 
 
 void _printCrossShoot(void);

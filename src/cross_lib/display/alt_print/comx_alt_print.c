@@ -3,21 +3,6 @@
 
 #include "standard_libs.h"
 
-#if !defined(NO_STATS)
-unsigned int strlen(char *str)
-{
-    asm(
-        " ldi 0xff\n"
-        " plo R15\n"
-        " phi R15\n"
-        "$$loop:\n"
-        " inc R15\n"
-        " lda R12\n"
-        " bnz $$loop\n"
-        " Cretn\n");
-    return 0;
-}
-#endif
 
 // TODO: This is broken with a const parameter
 void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
@@ -40,9 +25,6 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 #else
     #define _DISPLAY(__x,__y,__ch) vidcharxy(__x+X_OFFSET,__y+Y_OFFSET, (uint8_t) (__ch+CHAR_OFFSET))
 #endif
-
-// #define _COMX_CYAN 128
-// #define _COMX_WHITE 0
 
 #define COLOR_BIT 0
 

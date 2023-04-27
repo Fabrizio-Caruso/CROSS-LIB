@@ -4,6 +4,21 @@
 #include "standard_libs.h"
 
 
+unsigned int strlen(char *str)
+{
+    asm(
+        " ldi 0xff\n"
+        " plo R15\n"
+        " phi R15\n"
+        "$$loop:\n"
+        " inc R15\n"
+        " lda R12\n"
+        " bnz $$loop\n"
+        " Cretn\n");
+    return 0;
+}
+
+
 // TODO: This is broken with a const parameter
 void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 {

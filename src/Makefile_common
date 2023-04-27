@@ -442,11 +442,9 @@ endif
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
-	 -DREDEFINED_CHARS $(GAMATE_GAME_OPTS) \
-	-DNO_EXTRA_TITLE \
-	-DLESS_TEXT \
+	-DREDEFINED_CHARS $(GAMATE_GAME_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS  \
-	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT \
+	-D__NO_SCREEN_COLOR_INIT \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
@@ -513,34 +511,13 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-#creativision: creativision_16k
-
-# Segment 'BSS' overflows memory area 'RAM' by 40 bytes
-#  -m mapfile.txt
-creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__CREATIVISION__ -DREDEFINED_CHARS \
-	 -DALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_FIXED_COLORS_SLOWDOWN) \
-	 \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
 
 creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__ -DREDEFINED_CHARS \
 	 -DALT_SLEEP $(CREATIVISION_GAME_OPTS) \
-	-DCREATIVISION_COLOR -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DCREATIVISION_COLOR \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_SLOWDOWN) \
-	 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
@@ -744,11 +721,6 @@ aquarius_exp_16k:
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
-	# rm X$(GAME_NAME)_aquarius_exp_16k
-	# tar czvf X$(GAME_NAME)_aquarius_exp_16k.tar.zip X$(GAME_NAME)_aquarius_exp_16k.caq _X$(GAME_NAME)_aquarius_exp_16k.caq
-	# rm X$(GAME_NAME)_aquarius_exp_16k.caq
-	# rm _X$(GAME_NAME)_aquarius_exp_16k.caq
-	# mv X$(GAME_NAME)_aquarius_exp_16k.tar.zip $(BUILD_PATH)
 
 
 aquarius_alt: 

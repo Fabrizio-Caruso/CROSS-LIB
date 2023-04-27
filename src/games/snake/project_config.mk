@@ -1,4 +1,7 @@
 
+include ./$(PARENT_DIR)/$(GAME_NAME)/game_config.mk
+
+
 #####################################################################
 # SLOWDOWN VALUES
 

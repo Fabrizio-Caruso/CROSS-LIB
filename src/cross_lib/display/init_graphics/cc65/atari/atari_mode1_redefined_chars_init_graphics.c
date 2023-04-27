@@ -116,7 +116,7 @@ void _XL_INIT_GRAPHICS(void)
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE_1);
     
-    #if !defined(ALTERNATE_COLORS)
+    #if !defined(__ALTERNATE_COLORS)
         if(get_tv())
         {
             // PAL Settings

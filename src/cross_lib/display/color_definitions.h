@@ -85,10 +85,10 @@
     #define _XL_BLUE _ATARI_MODE1_CYAN
     #define _XL_YELLOW _ATARI_MODE1_YELLOW
     
-    #if defined(ALTERNATE_COLORS)
+    #if defined(__ALTERNATE_COLORS)
         #define _XL_GREEN _ATARI_MODE1_GREEN
         #define _XL_CYAN _ATARI_MODE1_WHITE
-    #elif defined(ALTERNATE_COLORS2)
+    #elif defined(__ALTERNATE_COLORS2)
         #define _XL_GREEN _ATARI_MODE1_GREEN
         #define _XL_CYAN _ATARI_MODE1_CYAN
     #else
@@ -241,7 +241,7 @@
         #define _XL_MAGENTA 0
         #define _XL_CYAN ((_XL_PURPLE)+4)
         #define _XL_BLUE _XL_CYAN
-        #if !defined(ALTERNATE_COLORS)
+        #if !defined(__ALTERNATE_COLORS)
             #define _XL_RED ((_XL_GREEN)+4)
             #if !defined(_APPLE_YELLOW_IS_PURPLE)
                 #define _XL_YELLOW _XL_WHITE
@@ -264,7 +264,7 @@
         #define _XL_MAGENTA 1
         #define _XL_CYAN ((_XL_PURPLE)+4)
         #define _XL_BLUE _XL_CYAN
-        #if !defined(ALTERNATE_COLORS)
+        #if !defined(__ALTERNATE_COLORS)
             #define _XL_RED ((_XL_GREEN)+4)
             #if !defined(_APPLE_YELLOW_IS_PURPLE)
                 #define _XL_YELLOW _XL_WHITE

@@ -1,5 +1,5 @@
 ######################################################################
-# Cross-Shoot files
+# Cross-Chase files
 #
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \

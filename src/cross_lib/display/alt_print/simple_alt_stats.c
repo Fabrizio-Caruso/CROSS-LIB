@@ -6,7 +6,7 @@
 
 #if defined(ALT_DISPLAY_STATS) || defined(ALT_HISCORE)
 
-	#if !defined(CC65)
+	#if !defined(__CC65__) && !defined(POKE) && !defined(PEEK)
 		#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 		#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 		#define PEEK(addr)         (*(uint8_t*) (addr))

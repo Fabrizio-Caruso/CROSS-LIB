@@ -4,7 +4,7 @@
 #include "cross_lib.h"
 
 
-#if !defined(CC65) && !defined(POKE) && !defined(PEEK)
+#if !defined(__CC65__) && !defined(POKE) && !defined(PEEK)
 	#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 	#define PEEK(addr)         (*(uint8_t*) (addr))

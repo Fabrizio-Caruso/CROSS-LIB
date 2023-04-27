@@ -213,7 +213,7 @@ window.addEventListener("keydown", function (event) {
         #include <stdio.h>
     #endif
     #define _XL_TURN_BASED_INPUT() getchar()
-#elif defined(Z88DK)
+#elif defined(__Z88DK__)
     #define _XL_TURN_BASED_INPUT() getch()
 #elif defined(ACK)
     #define _XL_TURN_BASED_INPUT() getchar()

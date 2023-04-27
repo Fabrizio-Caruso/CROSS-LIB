@@ -58,23 +58,16 @@
 #endif
 
 
-#  if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
-    || defined(__ATARI__) \
-	|| defined(__VIC20__) || defined(__GAMATE__) \
-    || defined(__ATARI5200__) || defined(__ATARI7800__) || defined(__OSIC1P__) || defined(__SUPERVISION__) \
-	|| defined(__TELESTRAT__) || defined(__PCE__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__ATARI_LYNX__) \
-    || defined(__CX16__)
-	#define CC65
-#elif defined(__WINCMOC__) || defined(__CMOC__)
-	#define CMOC
-#elif defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__) || defined(__LCC1802__)
+#if defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__) || defined(__LCC1802__)
 	//
 #elif defined(__TI99__)
     //
 #elif defined(__CC6303__)
     //
-#else
-	#define Z88DK
+#elif defined(__SCCZ80) || defined(__ZSDCC)
+	#define __Z88DK__
+#else 
+	//
 #endif
 
 

@@ -29,7 +29,7 @@
         #define bordercolor(c)
     #endif
 
-    #if defined(Z88DK) || defined(ACK)
+    #if defined(__Z88DK__) || defined(ACK)
         #define cprintf printf
     #endif
 
@@ -51,7 +51,7 @@
 
     #endif
 
-    #if defined(Z88DK) && !defined(__SMS__) && !defined(Z88DK_PUTC4X6) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
+    #if defined(__Z88DK__) && !defined(__SMS__) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
         #undef cputc
         #define cputc(c) fputc_cons(c)
     #endif

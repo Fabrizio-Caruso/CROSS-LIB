@@ -332,7 +332,7 @@ out            stb res
             #include<conio.h>
         #endif
 
-        #if defined(Z88DK)
+        #if defined(__Z88DK__)
             #undef cgetc
             #define cgetc() getch()
         #endif 

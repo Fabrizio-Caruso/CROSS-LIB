@@ -34,6 +34,5 @@ void _XL_INIT_GRAPHICS(void)
 		// SCREEN ,,,0 (Fix attributes)
 		PUTCH(0x1B);PUTCH(118);
 
-    // setScreenColors();
 }
 

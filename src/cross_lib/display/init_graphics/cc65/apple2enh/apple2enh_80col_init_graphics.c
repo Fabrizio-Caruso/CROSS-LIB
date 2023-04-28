@@ -9,6 +9,6 @@ void _XL_INIT_GRAPHICS(void)
 		videomode(80);
 	#endif
     
-    setScreenColors();
+    _setScreenColors();
 }
 

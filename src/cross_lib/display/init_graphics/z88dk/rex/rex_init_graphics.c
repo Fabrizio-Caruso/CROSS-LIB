@@ -35,7 +35,6 @@ void _XL_INIT_GRAPHICS(void)
 	DsEventClear();
 	DsClearScreen();
     
-    setScreenColors();
-
+    _setScreenColors();
 }
 

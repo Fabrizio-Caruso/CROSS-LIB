@@ -44,6 +44,6 @@ void _XL_INIT_GRAPHICS(void)
     // clear screen and color ram
     __asm__("jsr $D88B");
     
-    setScreenColors();
+    _setScreenColors();
 }
 

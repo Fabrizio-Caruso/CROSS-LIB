@@ -160,7 +160,7 @@ void _XL_INIT_GRAPHICS(void)
     
     BASE_ADDR = BASE_ADDR_VALUE;
 
-    setScreenColors();
+    _setScreenColors();
 }
 
 

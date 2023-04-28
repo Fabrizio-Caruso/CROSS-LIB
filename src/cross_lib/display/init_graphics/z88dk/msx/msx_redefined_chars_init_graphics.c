@@ -168,6 +168,6 @@ void _XL_INIT_GRAPHICS(void)
     
 	SET_UDG_IMAGES();
     
-    setScreenColors();
+    _setScreenColors();
 }
 

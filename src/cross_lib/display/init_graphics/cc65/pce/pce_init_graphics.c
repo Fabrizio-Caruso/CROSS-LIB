@@ -35,8 +35,7 @@ void _XL_INIT_GRAPHICS(void)
 			// POKE(VDC_VWR,i);
 		}
 
-    setScreenColors();
-
+    _setScreenColors();
 }
 
 

@@ -44,7 +44,7 @@ void _XL_INIT_GRAPHICS(void)
 		
 	REDEFINE_AT(UDG_BASE_FACTOR*1024);
     
-    setScreenColors();
+    _setScreenColors();
 
 }
 

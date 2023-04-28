@@ -81,6 +81,6 @@ void _XL_INIT_GRAPHICS(void)
 		win.number='4'; 
 		window(win); 
 	#endif
-    setScreenColors();
+    _setScreenColors();
 }
 

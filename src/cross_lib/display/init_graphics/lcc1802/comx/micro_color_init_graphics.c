@@ -120,6 +120,6 @@ void _XL_INIT_GRAPHICS(void)
     textcolordefinition(3);
     monochrome(0);
     
-    setScreenColors();
+    _setScreenColors();
 }
 

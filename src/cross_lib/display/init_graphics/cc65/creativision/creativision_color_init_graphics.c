@@ -165,7 +165,7 @@ void _XL_INIT_GRAPHICS(void)
     
     set_udg_colors();
 
-    setScreenColors();
+    _setScreenColors();
 }
 
 

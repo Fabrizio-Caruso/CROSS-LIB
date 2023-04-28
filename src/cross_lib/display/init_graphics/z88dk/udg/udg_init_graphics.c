@@ -44,7 +44,7 @@ void _XL_INIT_GRAPHICS(void)
             zx_border(0);
         #endif
 	#else
-        setScreenColors();
+        _setScreenColors();
     #endif
 }
 

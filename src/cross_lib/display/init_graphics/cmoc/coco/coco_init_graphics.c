@@ -61,5 +61,5 @@ void _XL_INIT_GRAPHICS(void)
     POKE(0xFFC9,1);
     POKE(0xFFCB,1);
 
-    setScreenColors();
+    _setScreenColors();
 }

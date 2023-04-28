@@ -42,5 +42,5 @@ void _XL_INIT_GRAPHICS(void)
 
     init_colors();
     
-    setScreenColors();
+    _setScreenColors();
 }

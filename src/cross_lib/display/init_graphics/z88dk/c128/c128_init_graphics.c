@@ -22,5 +22,5 @@ void _XL_INIT_GRAPHICS(void)
 	__endasm;
     */
     
-    setScreenColors();
+    _setScreenColors();
 }

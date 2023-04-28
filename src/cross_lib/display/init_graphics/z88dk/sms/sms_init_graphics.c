@@ -37,7 +37,6 @@ void _XL_INIT_GRAPHICS(void)
 	ioctl(1, IOCTL_OTERM_CLS);
 	ioctl(1, IOCTL_OTERM_PAUSE, 0);
 
-    setScreenColors();
-
+    _setScreenColors();
 }
 

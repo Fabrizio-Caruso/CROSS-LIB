@@ -73,7 +73,6 @@ void _XL_INIT_GRAPHICS(void)
 {
 	set_palette();
 
-    setScreenColors();
-
+    _setScreenColors();
 }
 

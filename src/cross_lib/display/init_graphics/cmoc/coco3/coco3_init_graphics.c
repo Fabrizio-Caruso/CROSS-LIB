@@ -42,9 +42,6 @@ void _XL_INIT_GRAPHICS(void)
         POKE(0x8000+i,i&0xFF);
     }
 
-    // while(1){}
-    // setScreenColors();
-    
     while(1){};
 }
 

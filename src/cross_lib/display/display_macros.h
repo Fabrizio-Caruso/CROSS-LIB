@@ -210,13 +210,13 @@
 
 //         _XL_SET_TEXT_COLOR(TEXT_COLOR);
 #if defined(__NO_COLOR_INIT) || defined(NO_GRAPHICS)
-    #define setScreenColors()
+    #define _setScreenColors()
 #else
-    #define setScreenColors() \
+    #define _setScreenColors() \
     do \
     { \
-        SET_BORDER_COLOR(BORDER_COLOR); \
-        SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
+        _SET_BORDER_COLOR(BORDER_COLOR); \
+        _SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
     } while(0)
 #endif
 
@@ -393,14 +393,14 @@
 
 // BORDER AND BACKGROUND COLORS
 #if defined(__CC65__) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(CONIO)
-    #define SET_BORDER_COLOR(c) (void) bordercolor(c)
-    #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
+    #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
+    #define _SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
 #elif (defined(__Z88DK__) && !defined(_XL_NO_UDG)) || defined(__AQUARIUS__)
-    #define SET_BORDER_COLOR(c) (void) bordercolor(c)
-    #define SET_BACKGROUND_COLOR(c) (void) textbackground(c)
+    #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
+    #define _SET_BACKGROUND_COLOR(c) (void) textbackground(c)
 #else
-    #define SET_BORDER_COLOR(c) {}
-    #define SET_BACKGROUND_COLOR(c) {}
+    #define _SET_BORDER_COLOR(c) {}
+    #define _SET_BACKGROUND_COLOR(c) {}
 #endif    
 
 
@@ -408,7 +408,7 @@
 #if !defined(NO_INIT_GRAPHICS)
     void _XL_INIT_GRAPHICS(void);
 #else
-    #define _XL_INIT_GRAPHICS() setScreenColors()
+    #define _XL_INIT_GRAPHICS() _setScreenColors()
 #endif
     
 #endif // _DISPLAY_MACROS

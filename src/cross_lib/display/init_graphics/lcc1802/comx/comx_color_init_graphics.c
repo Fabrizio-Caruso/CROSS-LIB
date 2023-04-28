@@ -152,7 +152,7 @@ void _XL_INIT_GRAPHICS(void)
     #endif
    
 
-    setScreenColors();
+    _setScreenColors();
 }
 
 

@@ -85,7 +85,7 @@ void _XL_INIT_GRAPHICS(void)
     #endif
     set_udg();
 
-    setScreenColors();
+    _setScreenColors();
 }
 
 

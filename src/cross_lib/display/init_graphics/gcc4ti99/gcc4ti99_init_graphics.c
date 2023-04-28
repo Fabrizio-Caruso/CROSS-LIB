@@ -86,13 +86,8 @@ void set_udg_colors(void)
 
 void redefine(const uint8_t ch, const uint8_t* image) 
 { 
-    // uint8_t i; 
-    
-    // for(i=0;i<8;++i) 
-    // { 
-//     vdpmemcpy(gPattern+42*8, newDef, 8); 
-        vdpmemcpy(gPattern +(uint16_t)(ch<<3),image,8); 
-    // } 
+
+    vdpmemcpy(gPattern +(uint16_t)(ch<<3),image,8); 
 } 
 
 
@@ -123,12 +118,7 @@ void _XL_INIT_GRAPHICS(void)
     set_udg_colors();
     
     SET_UDG_IMAGES();
-        // for(i=0;i<255;++i)
-        // {
-            // vdpmemset(gImage+i,i,1);
-        // }
-        // while(1){};
 
-    setScreenColors();
+    _setScreenColors();
 }
 

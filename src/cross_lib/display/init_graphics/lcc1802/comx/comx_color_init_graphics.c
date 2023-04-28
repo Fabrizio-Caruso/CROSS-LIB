@@ -12,7 +12,7 @@
 
 #if defined(__COMX__) || defined(__PECOM__) 
     #include "comx_color_settings.h"
-#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
+#elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
     // #include "cidelsa_no_gfx.h"
 #elif defined(__MICRO__)
     #include "micro_settings.h"
@@ -33,7 +33,7 @@
     #define COLOR_OFFSET 64
 #endif
 
-#if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS)
+#if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || !defined(_XL_NO_UDG)
         void redefine_char(uint8_t ch, const uint8_t * shapelocation)
         {
             uint8_t colored_shape[NUMBER_OF_LINES];
@@ -144,7 +144,7 @@ void _XL_INIT_GRAPHICS(void)
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
  
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || !defined(_XL_NO_UDG) 
         for(i=0;i<_XL_NUMBER_OF_TILES;++i)
         {
             redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);

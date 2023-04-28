@@ -203,7 +203,7 @@
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
 			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
 		} while(0)
-#elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) && defined(REDEFINED_CHARS)
+#elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) && !defined(_XL_NO_UDG)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \

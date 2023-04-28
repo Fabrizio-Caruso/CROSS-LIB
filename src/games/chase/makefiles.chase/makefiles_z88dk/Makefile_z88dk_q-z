@@ -192,7 +192,7 @@ rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -213,7 +213,7 @@ samcoupe: samcoupe_gfx
 samcoupe_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SAM__    -DEXTRA_TITLE \
-	-DCONIO -D_XL_SLOW_DOWN_FACTOR=2000 -DUDG_GRAPHICS \
+	-DCONIO -D_XL_SLOW_DOWN_FACTOR=2000  \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	 -D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -272,7 +272,7 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-vn -lndos -create-app -Cz--audio \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -298,7 +298,7 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-vn -lndos -create-app \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -350,7 +350,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	-DCONIO -D__INCLUDE_CONIO_H -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1400 \
-	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	 $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_sms.bin
@@ -439,7 +439,7 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO  -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -484,7 +484,7 @@ spectrum_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -508,7 +508,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -531,7 +531,7 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -555,7 +555,7 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -618,7 +618,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SUPER80R__ \
 	-DXSize=80 \
 	-DYSize=24 \
-	-DUDG_GRAPHICS \
+	 \
 	  \
 	 -D__BIT_BANG_SOUND  \
 	 -D_XL_NO_COLOR  \

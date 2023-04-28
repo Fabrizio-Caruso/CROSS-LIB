@@ -243,7 +243,7 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__KC__ \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DUDG_GRAPHICS \
+	 \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-D_XL_NO_SLEEP \
@@ -778,7 +778,7 @@ spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

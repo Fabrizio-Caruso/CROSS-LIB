@@ -180,13 +180,13 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin -DEXTRA_TITLE \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ -DUDG_GRAPHICS -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
+	-D__LASER500__  -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
 	-D__BIT_BANG_SOUND  \
 	 -DLESS_TEXT \
 	  -D_XL_SLOW_DOWN_FACTOR=400 \
 	-DCONIO \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-lndos \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -211,7 +211,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	  -D__BIT_BANG_SOUND \
 	-DCONIO \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -307,7 +307,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-vn  -D__MSX__   \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DCONIO -DUDG_GRAPHICS \
+	-DCONIO  \
 	-DZ88DK_JOYSTICK \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -333,7 +333,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -356,7 +356,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -389,7 +389,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-DNO_HINTS \
 	-DSIMPLE_STRATEGY \
 	-DLESS_TEXT \
@@ -418,7 +418,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
-	-DCONIO_VT52 -DUDG_GRAPHICS \
+	-DCONIO_VT52  \
 	-DCONIO  \
 	-lndos  -D__PSG_SOUND \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -576,7 +576,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__ONDRA__ -DXSize=40 -DYSize=30   \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
-	-DCONIO_VT52 -DUDG_GRAPHICS \
+	-DCONIO_VT52  \
 	-DCONIO  \
 	-lndos \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -747,7 +747,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__PC6001__  \
 	 \
 	-DCONIO  -D__PSG_SOUND \
-	 -DUDG_GRAPHICS \
+	  \
 	-D__SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1001,7 +1001,7 @@ pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

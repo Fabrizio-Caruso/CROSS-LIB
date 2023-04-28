@@ -5,25 +5,25 @@
 	#include "c64_memory_mapped_settings.h"
 #elif defined(QUAD_MEMORY_MAPPED)
     #include "default_quad_graphics_settings.h"
-#elif defined(__CREATIVISION__) && defined(CREATIVISION_COLOR) && defined(REDEFINED_CHARS)
+#elif defined(__CREATIVISION__) && defined(CREATIVISION_COLOR) && !defined(_XL_NO_UDG)
     #include "vdp_mode1_settings.h"
-#elif defined(__TI99__) && defined(REDEFINED_CHARS)
+#elif defined(__TI99__) && !defined(_XL_NO_UDG)
     #include "vdp_mode1_settings.h"
-#elif defined(__CREATIVISION__) && defined(REDEFINED_CHARS)
+#elif defined(__CREATIVISION__) && !defined(_XL_NO_UDG)
     #include "creativision_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !!defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_light_settings.h"
-#elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_3K)) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_3K)) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_27_tiles_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
 #elif defined(__VIC20__) && defined(CONIO)
 	#include "vic20_exp_16k_v2_settings.h"
-#elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(MEMORY_MAPPED)
+#elif defined(__C16__) && !defined(_XL_NO_UDG) && !defined(MEMORY_MAPPED)
 	#include "c264_redefined_chars_settings.h"
-#elif defined(__C16__) && defined(REDEFINED_CHARS)
+#elif defined(__C16__) && !defined(_XL_NO_UDG)
 	#include "c264_link_time_redefined_chars_settings.h"
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "petscii_memory_mapped_settings.h"
@@ -51,19 +51,19 @@
 	#include "nes_settings.h"
 #elif defined(__NES__) && defined(NES_CONIO)
 	#include "nes_conio_settings.h"
-#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
+#elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
     #include "cidelsa_no_gfx.h"
 #elif defined(COMX_COLOR) && !defined(__MICRO__)
 	#include "comx_color_settings.h"
-#elif defined(__COMX__) || defined(__PECOM__) || ((defined(__CIDELSA__) && defined(REDEFINED_CHARS)))
+#elif defined(__COMX__) || defined(__PECOM__) || ((defined(__CIDELSA__) && !defined(_XL_NO_UDG)))
     #include "comx_settings.h"
 #elif defined(__MICRO__)
 	// #include "micro_settings.h"
 #elif defined(__ATARI_LYNX__) && defined(TGI_GFX)
     #include "tgi_gfx_settings.h"
-#elif defined(UDG_GRAPHICS)
+#elif defined(__Z88DK__) && !defined(_XL_NO_UDG)
 	#include "udg_settings.h"
-#elif defined(__PCE__) || ( defined(__GAMATE__) && defined(REDEFINED_CHARS))
+#elif defined(__PCE__) || ( defined(__GAMATE__) && !defined(_XL_NO_UDG))
 	#include "pce_settings.h"
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__))&&defined(APPLE2_HGR)
     #include "apple2_hgr_settings.h"

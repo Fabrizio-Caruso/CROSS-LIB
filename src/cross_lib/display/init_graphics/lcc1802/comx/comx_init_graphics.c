@@ -1,11 +1,11 @@
 #include <devkit/video/vis_video.h>
 #include <devkit/system/system.h>
 
-#if defined(REDEFINED_CHARS)
+#if !defined(_XL_NO_UDG)
     #include "6x9_chars.h"
 #endif
 
-#if defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
+#if defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && !defined(_XL_NO_UDG))
     #include "comx_settings.h"
 #elif defined(__MICRO__)
     #include "micro_settings.h"
@@ -23,7 +23,7 @@
     #include "devkit/video/vis_char.h"
 #endif
 
-#if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS)
+#if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || !defined(_XL_NO_UDG)
     void redefine_char(uint8_t ch, const uint8_t * shapelocation, int color)
     {
         uint8_t colored_shape[9];
@@ -118,7 +118,7 @@ void _XL_INIT_GRAPHICS(void)
         character_set(4);
     #endif
     
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || !defined(_XL_NO_UDG) 
         for(i=0;i<_XL_NUMBER_OF_TILES;++i)
         {
             redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap, redefine_map[i]._color);

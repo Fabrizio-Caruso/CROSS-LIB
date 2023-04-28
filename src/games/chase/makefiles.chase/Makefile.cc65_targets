@@ -321,7 +321,7 @@ apple2enh_80col:
 
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
-	-DREDEFINED_CHARS -DEXTRA_TITLE \
+	 -DEXTRA_TITLE \
 	\
 	  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
@@ -482,7 +482,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	 -DEXTRA_TITLE \
 	 \
-	-DREDEFINED_CHARS \
+	 \
 	 \
 	-DALT_PRINT \
 	 \
@@ -506,7 +506,7 @@ c16_32k_included: $(ASSETS_PATH)/8x8_chars.h
 	   -DEXTRA_TITLE \
 	-DGHOSTS_NUMBER=8 -D_XL_SLOW_DOWN_FACTOR=2000 \
 	  \
-	-DREDEFINED_CHARS \
+	 \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
@@ -524,7 +524,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	 \
 	 -D_XL_SLOW_DOWN_FACTOR=2000 \
-	-DREDEFINED_CHARS \
+	 \
 	-DGHOSTS_NUMBER=8 \
 	-DLESS_TEXT	\
 	 \
@@ -631,7 +631,7 @@ creativision_16k: creativision_16k_color
 
 creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
@@ -649,7 +649,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 
 creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
 	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT  -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
@@ -668,7 +668,7 @@ creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 
 creativision_test: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	 -DALT_SLEEP \
 	-DCREATIVISION_COLOR -DLESS_TEXT  -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
@@ -728,7 +728,7 @@ gamate: gamate_no_sound
 
 gamate_test: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	\
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -750,7 +750,7 @@ gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 
 gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	\
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -762,7 +762,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	 -D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
 	-DLESS_TEXT  \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1068,7 +1068,7 @@ vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20      \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2600 -DEXTRA_TITLE \
-	-DREDEFINED_CHARS -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	 -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
 	\
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -1085,7 +1085,7 @@ vic20: vic20_exp_8k
 	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20      \
 	# --config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
 	# -DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
-	# -DREDEFINED_CHARS \
+	#  \
 	# \
 	# $(ASSETS_PATH)/cc65_udc.s \
 	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -1100,7 +1100,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-DEXTRA_TITLE \
 	-DCONIO -DVIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
-	-DREDEFINED_CHARS \
+	 \
 	\
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -1115,7 +1115,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	# --config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	# -DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DALT_SLEEP  \
 	# -D_XL_SLOW_DOWN_FACTOR=500  -DGHOSTS_NUMBER=8 \
-	# -DREDEFINED_CHARS   -DTRANSITION_ANIMATION \
+	#    -DTRANSITION_ANIMATION \
 	# $(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	# $(BASIC_CROSS_LIB_FILES) \
 	# $(SOURCE_PATH)/move_player.c \
@@ -1141,7 +1141,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	 -DGHOSTS_NUMBER=8 \
 	\
-	-DREDEFINED_CHARS  \
+	  \
 	 \
 	 \
 	-DVIC20_EXP_3K \
@@ -1173,7 +1173,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	 \
 	-DSIMPLE_STRATEGY \
-	-DREDEFINED_CHARS \
+	 \
 	-DALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -1214,7 +1214,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	 \
 	-DSIMPLE_STRATEGY \
-	-DREDEFINED_CHARS \
+	 \
 	-DALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -1249,7 +1249,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	\
-	-DREDEFINED_CHARS \
+	 \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \

@@ -41,7 +41,7 @@
 
 #include "udg_map.h"	
 
-#if defined(REDEFINED_CHARS)
+#if !defined(_XL_NO_UDG)
 void set_udg(void)
 {
 	uint8_t *_CHBAS = (uint8_t *) 0x2F4;
@@ -154,7 +154,7 @@ void _XL_INIT_GRAPHICS(void)
             _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
         }
     #endif
-	#if defined(REDEFINED_CHARS)
+	#if !defined(_XL_NO_UDG)
 	set_udg();
 	#endif
     

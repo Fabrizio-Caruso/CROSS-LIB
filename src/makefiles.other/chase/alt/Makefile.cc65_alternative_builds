@@ -166,7 +166,7 @@ c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 	--config $(CFG_PATH)/cc65/c16-32k.cfg \
 	   \
 	-DGHOSTS_NUMBER=8 \
-	-DREDEFINED_CHARS \
+	 \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -226,7 +226,7 @@ creativision_16k_no_gfx:
 
 creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
@@ -368,7 +368,7 @@ vic20_exp_3k_light_no_gfx:
 
 vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	-DREDEFINED_CHARS \
+	 \
 	 -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DNO_DEAD_GHOSTS -DGHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
 	-DTINY_GAME  \

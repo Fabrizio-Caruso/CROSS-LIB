@@ -294,13 +294,13 @@
     #define INVERTED -64
 #endif
 
-#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(CONIO)) && defined(REDEFINED_CHARS)
+#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(CONIO)) && !defined(_XL_NO_UDG)
     #define _SPACE 0x72
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
     #define _SPACE 0xA0
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))
     #define _SPACE 0
-#elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(MEMORY_MAPPED)
+#elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(MEMORY_MAPPED)
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
     #if defined(FEWER_SPRITES)
@@ -395,7 +395,7 @@
 #if defined(__CC65__) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(CONIO)
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
-#elif defined(__LASER500__) || defined(UDG_GRAPHICS) || defined(__AQUARIUS__)
+#elif (defined(__Z88DK__) && !defined(_XL_NO_UDG)) || defined(__AQUARIUS__)
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) textbackground(c)
 #else

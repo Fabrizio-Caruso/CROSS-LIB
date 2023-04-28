@@ -55,7 +55,7 @@
 		  #define YSize (30-Y_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-	#elif (defined(__KC__) && defined(UDG_GRAPHICS)) \
+	#elif (defined(__KC__) && !defined(_XL_NO_UDG)) \
 		  || defined(__CAMPUTERS_LYNX__)
 		  #define YSize (32-Y_OFFSET)		  
 	#elif defined(__ATMOS__) || defined(__NES__) 
@@ -87,8 +87,8 @@
 		|| defined(__COLECO__) \
 		|| defined(__PV2000__) \
 		|| defined(__PV1000__) \
-		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
-		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		|| (defined(__EG2K__) && !!defined(_XL_NO_UDG))  \
+		|| (defined(__EG2K__) && !defined(_XL_NO_UDG)) \
 		|| defined(__ALPHATRO__) || defined(__ABC80__) \
 		|| defined(__LASER500__) \
 		|| (defined(__OSCA__) && !defined(Z88DK_SPRITES)) \
@@ -161,7 +161,7 @@
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
 		  || (defined(__PX8__) && !defined(Z88DK_SPRITES))|| defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
-		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
+		  || defined(__PPS__) || (defined(__MULTI8__) && !defined(_XL_NO_UDG)) \
 		  || (defined(__TS2068__) && !defined(Z88DK_SPRITES))
 		#define XSize 80
 	#elif defined(__SRR__) || (defined(__TRS80__) && !defined(__EG2K__) && !defined(Z88DK_SPRITES))
@@ -196,8 +196,8 @@
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
 		  || defined(__FP1100__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
+		  || (defined(__EG2K__) && !defined(_XL_NO_UDG)) \
+		  || (defined(__EG2K__) && !!defined(_XL_NO_UDG)) \
 		  || defined(__ALPHATRO__) \
 		  || defined(__LASER500__) \
 		  || (defined(__OSCA__) && !defined(Z88DK_SPRITES)) \
@@ -226,7 +226,7 @@
 		#define XSize (128/SPRITE_X_STEP)
 	#elif (defined(__Z88__) && defined(Z88DK_SPRITES))
 		#define XSize (256/SPRITE_X_STEP)
-	#elif defined(__KC__) && defined(UDG_GRAPHICS)
+	#elif defined(__KC__) && !defined(_XL_NO_UDG)
 		#define XSize 40
     #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED_4)
         #define XSize 16

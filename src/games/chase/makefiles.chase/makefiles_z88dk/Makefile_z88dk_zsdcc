@@ -201,7 +201,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	--generic-console -D_XL_SLOW_DOWN_FACTOR=0 -D__SCREEN_MODE=1 -DEXTRA_TITLE -DYSize=26 $(EXTRA_DRAW_SKIP) \
 	-D__GAL__ -D__GAL_PLUS__     \
-	-DCONIO -DUDG_GRAPHICS -D__BIT_BANG_SOUND \
+	-DCONIO  -D__BIT_BANG_SOUND \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -220,7 +220,7 @@ mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	 -D_XL_SLOW_DOWN_FACTOR=400 \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-D__MC1000__     \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
@@ -244,7 +244,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	 -D_XL_SLOW_DOWN_FACTOR=400 \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-D__MC1000__     \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
@@ -344,7 +344,7 @@ svi: svi_328
 svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
 	-DZ88DK_JOYSTICK -DEXTRA_TITLE \
-	-DUDG_GRAPHICS \
+	 \
 	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
 	 -vn -lndos \
@@ -374,7 +374,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	 \
 	-clib=default \
-	-DUDG_GRAPHICS \
+	 \
 	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -392,7 +392,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-vn  -D__VG5K__ \
 	 \
 	-DLESS_TEXT \
-	-DUDG_GRAPHICS \
+	 \
 	 \
 	-DGHOSTS_NUMBER=8 \
 	-DBOMBS_NUMBER=4 \

@@ -15,7 +15,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-lndos \
 	 \
-	-DUDG_GRAPHICS \
+	 \
 	-DLESS_TEXT  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

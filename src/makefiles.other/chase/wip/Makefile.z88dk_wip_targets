@@ -239,7 +239,7 @@ spectrum_test_sdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DALT_MOVE \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -266,7 +266,7 @@ spectrum_test_sccz80: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DALT_MOVE \
 	-lndos -create-app \
 	-DCONIO \
-	-DUDG_GRAPHICS \
+	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

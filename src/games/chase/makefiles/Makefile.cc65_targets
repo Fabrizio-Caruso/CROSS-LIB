@@ -1,7 +1,7 @@
 
 creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D__NO_COLOR_INIT -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-D__NO_COLOR_INIT -D__CREATIVISION__  \
 	-DALT_SLEEP \
 	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT  -DNO_TITLE_LINE \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
@@ -18,7 +18,7 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-D_XL_SLOW_DOWN_FACTOR=6000  -DREDEFINED_CHARS \
+	-D_XL_SLOW_DOWN_FACTOR=6000   \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
 	-DLESS_TEXT  \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -34,7 +34,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	 -DGHOSTS_NUMBER=8 \
-	-DREDEFINED_CHARS -DNO_END_SCREEN \
+	 -DNO_END_SCREEN \
 	-DLIGHT_GAME \
 	-DVIC20_EXP_3K \
 	-DMEMORY_MAPPED \
@@ -62,7 +62,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	 \
 	-DSIMPLE_STRATEGY \
-	-DREDEFINED_CHARS \
+	 \
 	-DALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -96,7 +96,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DNO_END_SCREEN \
-	-DREDEFINED_CHARS \
+	 \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D_XL_NO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
@@ -133,7 +133,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	 \
 	 -D_XL_SLOW_DOWN_FACTOR=2000 \
-	-DREDEFINED_CHARS \
+	 \
 	-DGHOSTS_NUMBER=8 \
 	-DLESS_TEXT	\
 	 \

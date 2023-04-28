@@ -633,7 +633,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DMEMORY_MAPPED -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -651,7 +651,7 @@ creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -670,7 +670,7 @@ creativision_test: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	 -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DCREATIVISION_COLOR -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -763,7 +763,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS -DNO_TITLE_LINE -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
 	-DLESS_TEXT  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \

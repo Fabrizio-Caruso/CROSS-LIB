@@ -535,7 +535,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__  \
 	 -DALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DMEMORY_MAPPED -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_FIXED_COLORS_SLOWDOWN) \
 	 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -552,7 +552,7 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__CREATIVISION__  \
 	 -DALT_SLEEP \
-	-DCREATIVISION_COLOR -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DCREATIVISION_COLOR -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_SLOWDOWN) \
 	 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -2072,7 +2072,7 @@ _micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	 \
-	-D_XL_NO_COLOR -DNO_TITLE_LINE \
+	-D_XL_NO_COLOR  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
@@ -2090,7 +2090,7 @@ _micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	  \
-	-DCOMX_COLOR -DNO_TITLE_LINE \
+	-DCOMX_COLOR  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
@@ -2104,7 +2104,7 @@ _micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_1_OPTS)  \
 	-D__MICRO__ \
 	  \
-	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DCOMX_COLOR  -DSLOW_DOWN=600 \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
 	  \
@@ -2118,7 +2118,7 @@ _micro_ntsc1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_NTSC1_OPTS)  \
 	-D__MICRO__ -DNTSC \
 	  \
-	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DCOMX_COLOR  -DSLOW_DOWN=600 \
 	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
 	  \
@@ -2347,7 +2347,7 @@ ncurses_debug:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -2361,7 +2361,7 @@ ncurses:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -2374,7 +2374,7 @@ ncurses_20x16:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -2388,7 +2388,7 @@ ncurses_16x16:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -2401,7 +2401,7 @@ ncurses_15x17:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -2414,7 +2414,7 @@ ncurses_10x7:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-DALT_PRINT \
-	-DNO_TITLE_LINE \
+	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \

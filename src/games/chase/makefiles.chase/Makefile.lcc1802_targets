@@ -629,7 +629,7 @@ _micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	-DLCC1802_GRAPHICS \
 	-D__MICRO__ -D_XL_NUMBER_OF_TILES=19 \
 	  \
-	-D_XL_NO_COLOR -DNO_TITLE_LINE \
+	-D_XL_NO_COLOR  \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	  \

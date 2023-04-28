@@ -228,7 +228,7 @@ creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -DALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT  -DNO_TITLE_LINE \
+	-DMEMORY_MAPPED -DLESS_TEXT   \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \

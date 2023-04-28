@@ -98,14 +98,6 @@ extern Image PLAYER_IMAGE;
 	
 #endif
 
-#if defined(NO_TITLE_LINE)
-	#define TITLE_Y 0
-	#define TITLE_LINE()
-#else
-	#define TITLE_Y 1
-	#define TITLE_LINE() 
-#endif
-
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
 {

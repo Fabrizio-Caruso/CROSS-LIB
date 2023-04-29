@@ -2,12 +2,6 @@
 #define _SPEED_TARGET_SETTINGS
 
 
-#if defined(TINY_GAME) || defined(_XL_TURN_BASED) || !defined(GHOST_DRAW_SKIP)
-    #define SKIP_GHOST_DRAW 
-#else
-    #define SKIP_GHOST_DRAW if(!(loop&GHOST_DRAW_SKIP))
-#endif
-
 #if defined(TINY_GAME) || defined(_XL_TURN_BASED) || !defined(BOMB_DRAW_SKIP)
     #define SKIP_BOMB_DRAW 
 #else

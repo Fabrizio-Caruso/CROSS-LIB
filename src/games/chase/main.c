@@ -485,13 +485,10 @@ int main(void)
                     else // Frozen ghosts must be redisplayed anyway
                     {
                         // Display ghosts
-                        SKIP_GHOST_DRAW
-                        {
-                            for(ind=0;ind<GHOSTS_NUMBER;++ind)
-                            {
-                                displayGhost(&ghosts[ind]);
-                            }
-                        }
+						for(ind=0;ind<GHOSTS_NUMBER;++ind)
+						{
+							displayGhost(&ghosts[ind]);
+						}
                     }
                     
                     if(skull._status)

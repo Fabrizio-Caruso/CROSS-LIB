@@ -1,11 +1,6 @@
 ######################################################################
-# Makefile for CROSS-VERBIX
+# Common Makefile
 
-# GAME_NAME := verbix
-
-include ./$(PARENT_DIR)/$(GAME_NAME)/project_config.mk
-
-# PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

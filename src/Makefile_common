@@ -2065,12 +2065,10 @@ comx_ntsc: \
 _micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
-	 \
 	-D_XL_NO_COLOR  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
-	-DNO_BLINKING  \
+	$(MICRO_GAME_OPTS)  \
 	-DLCC1802_JOYSTICK \
-	  \
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2083,12 +2081,10 @@ micro_pal2_fixed_colors: \
 _micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
-	  \
 	-DCOMX_COLOR  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
-	-DNO_BLINKING  \
 	-DLCC1802_JOYSTICK \
-	  \
+	$(MICRO_GAME_OPTS)  \
 	$(LCC1802_COLOR_C_OPTS) -D_XL_NO_SLEEP \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2097,11 +2093,9 @@ _micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 _micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_1_OPTS)  \
 	-D__MICRO__ \
-	  \
 	-DCOMX_COLOR  -DSLOW_DOWN=600 \
-	-DNO_BLINKING  \
+	$(MICRO_GAME_OPTS)  \
 	-DLCC1802_JOYSTICK \
-	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2111,11 +2105,9 @@ _micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 _micro_ntsc1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_NTSC1_OPTS)  \
 	-D__MICRO__ -DNTSC \
-	  \
 	-DCOMX_COLOR  -DSLOW_DOWN=600 \
-	-DNO_BLINKING  \
+	$(MICRO_GAME_OPTS)  \
 	-DLCC1802_JOYSTICK \
-	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
@@ -2149,12 +2141,10 @@ _full_pecom: _pecom
 _pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) $(PECOM_GAME_OPTS) \
-	  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PECOM_SLOWDOWN) \
 	-D_XL_NO_COLOR \
-	-DNO_BLINKING \
+	$(PECOM_GAME_OPTS)  \
 	-DLCC1802_JOYSTICK \
-	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -2165,12 +2155,10 @@ _pecom_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 _pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) $(PECOM_GAME_OPTS) \
-	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PECOM_SLOWDOWN) \
 	-DCOMX_COLOR \
-	-DNO_BLINKING \
+	$(PECOM_GAME_OPTS)  \
 	-DLCC1802_JOYSTICK \
-	  \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c

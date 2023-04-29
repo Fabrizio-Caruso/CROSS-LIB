@@ -36,11 +36,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	 -DEXTRA_TITLE -DTRANSITION_ANIMATION \
-	   \
-	 \
-	 \
 	-DALT_PRINT \
-	 \
 	-DMEMORY_MAPPED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP  \

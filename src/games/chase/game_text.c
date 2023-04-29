@@ -360,7 +360,7 @@ void printGameOver(void)
 		PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING,15);	
         #endif
 
-		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
+		#if !defined(TINY_GAME)
 			_printTopScore();
 			
 			

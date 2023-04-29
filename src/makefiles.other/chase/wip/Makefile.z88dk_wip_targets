@@ -228,7 +228,7 @@ spectrum_test_sdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT  \
-	 -DNO_BLINKING \
+	  \
 	-DGHOSTS_NUMBER=8 \
 	-D_XL_NO_SLEEP -DNO_WALL \
 	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -D__NO_SCREEN_COLOR_INIT \
@@ -255,7 +255,7 @@ spectrum_test_sccz80: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT  \
-	 -DNO_BLINKING \
+	  \
 	-DGHOSTS_NUMBER=8 \
 	-D_XL_NO_SLEEP -DNO_WALL \
 	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -D__NO_SCREEN_COLOR_INIT \

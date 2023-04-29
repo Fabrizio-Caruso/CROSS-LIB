@@ -91,7 +91,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_PRINT \
 	-lndos \
 	 \
-	-DNO_BLINKING \
+	 \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
@@ -111,7 +111,7 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DGHOSTS_NUMBER=6 \
-	-DNO_BLINKING \
+	 \
 	-DXSize=36 \
 	-DYSize=35 \
 	-DZ88DK_JOYSTICK \
@@ -145,7 +145,7 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DQAOPM \
 	-DGHOSTS_NUMBER=9 \
 	 \
-	-DNO_BLINKING \
+	 \
 	-DTURN_BASED \
 	-DXSize=36 \
 	-DYSize=35 \

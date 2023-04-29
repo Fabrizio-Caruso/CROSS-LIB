@@ -296,7 +296,7 @@ g800_tiny_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -clib=g850b $(INCLUDE_OPTS) \
 	-D__G800__ \
 	-DTURN_BASED \
-	-DNO_BLINKING \
+	 \
 	-vn \
 	-D__INCLUDE_CONIO_H \
 	-DTINY_GAME -DNO_WALL \

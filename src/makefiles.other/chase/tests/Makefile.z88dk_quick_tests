@@ -7,7 +7,7 @@
 FAST_TEST_OPTS ?= \
 -D_DEFAULT_ASCII \
 -DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP \
--DNO_BLINKING -DNO_CHASE \
+ -DNO_CHASE \
 -DNO_INITIAL_SCREEN -D__NO_SCREEN_COLOR_INIT \
 -DNO_DEAD_GHOSTS \
 -DNO_RANDOM_LEVEL -DFLAT_ENEMIES -DGHOSTS_NUMBER=8 \
@@ -754,7 +754,7 @@ vz200_zsdcc_quick_test:
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__VZ__ -clib=ansi \
 	-DLESS_TEXT \
-	-DNO_BLINKING \
+	 \
 	-DNO_RANDOM_LEVEL \
 	-DNO_DEAD_GHOSTS \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -817,7 +817,7 @@ vg5k_zsdcc_quick_test:
 	-compiler=sdcc \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DNO_BLINKING \
+	 \
 	-vn -D__VG5K__ \
 	-DLESS_TEXT \
 	 \
@@ -833,7 +833,7 @@ mc1000_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DLESS_TEXT \
-	-DNO_BLINKING \
+	 \
 	-DNO_HINTS \
 	-clib=ansi \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \

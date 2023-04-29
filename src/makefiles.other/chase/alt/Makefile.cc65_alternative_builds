@@ -104,7 +104,7 @@ atari_no_color_16k_full:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	 \
 	-DNO_HINTS \
-	-DNO_BLINKING \
+	 \
 	-DLESS_TEXT \
 	-DFLAT_ENEMIES \
 	-DALT_SLEEP \
@@ -118,7 +118,7 @@ atari_no_color_16k_full:
 atari_no_color_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DLESS_TEXT \
-	-DNO_BLINKING \
+	 \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -352,7 +352,7 @@ vic20_exp_3k_light_no_gfx:
 	-DNO_HINTS \
 	-DLESS_TEXT \
 	-D_XL_NO_TEXT_COLOR \
-	-DNO_BLINKING \
+	 \
 	-DALT_SLEEP \
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \

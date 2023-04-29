@@ -763,7 +763,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT    \
 	-DLESS_TEXT  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \

@@ -209,7 +209,7 @@ ti82_chars:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	  \
-	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app  -o ti82ch.bin \
@@ -245,7 +245,7 @@ ti83_turn_based:
 	  \
 	-DTURN_BASED \
 	-D_XL_NO_WAIT \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -D_XL_NO_COLOR \
+	-DLESS_TEXT -DNO_HINTS  -D_XL_NO_COLOR \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -302,7 +302,7 @@ ti86_full:
 	-DZ88DK_JOYSTICK \
 	-DLESS_TEXT	\
 	-D_XL_NO_COLOR \
-	-DNO_BLINKING \
+	 \
 	-DNO_HINTS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \

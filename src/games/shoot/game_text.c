@@ -381,16 +381,15 @@ void _printCrossShoot(void)
         PRINT_CENTERED_ON_ROW(5, AUTHOR_STRING);    
         #endif
 
-        #if !defined(NO_TITLE_INFO)
-            _printTopScore();
+        _printTopScore();
 
-            #if XSize>= 14 && !defined(EXTRA_TITLE)
-            PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
-            #endif
-            
-            SET_COLOR(_XL_WHITE);    
-            
+        #if XSize>= 14 && !defined(EXTRA_TITLE)
+        PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
         #endif
+        
+        SET_COLOR(_XL_WHITE);    
+            
+
 
         #if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
             #if YSize<25

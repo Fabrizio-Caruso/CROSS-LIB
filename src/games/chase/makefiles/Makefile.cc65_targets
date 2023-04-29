@@ -19,10 +19,9 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-D_XL_SLOW_DOWN_FACTOR=6000   \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_TITLE   \
-	-DLESS_TEXT  \
+	-D_XL_NO_SLEEP -D_XL_NO_WAIT    \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_COLOR_INIT -D_XL_NO_COLOR \
+	$(GAMATE_GAME_OPTS) -D__NO_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \

@@ -41,13 +41,8 @@
 #endif
 
 // DRAW HORIZONTAL AND VERTICAL LINES
-#if !defined(NO_WALL)
-    void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
-    void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);    
-#else
-    #define DRAW_HORIZONTAL_LINE(x,y,length)
-    #define DRAW_VERTICAL_LINE(x,y,length)
-#endif
+void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
+void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);    
 
 
 // VERTICAL AND HORIZONTAL BORDER

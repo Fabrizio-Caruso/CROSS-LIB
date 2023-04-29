@@ -138,8 +138,6 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	-DQAOPM \
 	-DGHOSTS_NUMBER=9 \
-	 \
-	 \
 	-DTURN_BASED \
 	-DXSize=36 \
 	-DYSize=35 \

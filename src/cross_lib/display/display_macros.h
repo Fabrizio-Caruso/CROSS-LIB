@@ -303,7 +303,7 @@
 #elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(MEMORY_MAPPED)
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
-    #if defined(FEWER_SPRITES)
+    #if defined(__FEWER_SPRITES)
         #define _SPACE 64
     #else
         #define _SPACE 96

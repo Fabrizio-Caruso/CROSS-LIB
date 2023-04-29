@@ -1388,7 +1388,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DALT_PRINT \
-	-DFEWER_SPRITES \
+	-D__FEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

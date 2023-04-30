@@ -32,6 +32,10 @@
 	#endif
 #endif
 
+#if !defined(NO_PLAYER_ANIMATION)
+    #define ANIMATE_PLAYER
+#endif
+
 #  if XSize>=32 && YSize>=20
 	#define WIDE
 #else 

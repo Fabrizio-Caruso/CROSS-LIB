@@ -67,7 +67,7 @@
 #if defined(LESS_TEXT)
     #define PRESS_STRING _XL_G _XL_O
 #else
-    #if defined(JOYSTICK_CONTROL)
+    #if !defined(_XL_NO_JOYSTICK)
         #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_f _XL_i _XL_r _XL_e
     #else
         #define PRESS_STRING _XL_P _XL_r _XL_e _XL_s _XL_s _XL_SPACE _XL_k _XL_e _XL_y
@@ -84,7 +84,7 @@
 
 #define _USE_STRING _XL_U _XL_s _XL_e
 
-#if defined(JOYSTICK_CONTROL)
+#if !defined(_XL_NO_JOYSTICK)
     #define USE_STRING _USE_STRING _XL_SPACE THE_STRING _XL_SPACE _XL_j _XL_o _XL_y _XL_s _XL_t _XL_i _XL_c _XL_k
 	#define USE_LEN 16
 #elif defined(TINY_GAME) 

@@ -111,12 +111,6 @@ void printKillTheSkulls(void)
     PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2,KILL_THE_SKULLS_STRING);   
 
     print_destroy_missiles(((uint8_t)YSize)/2+2);
-    
-    // PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
-    
-    // _XL_DRAW(XSize/2-2, YSize/2+4, _LEFT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
-    // _XL_DRAW(XSize/2-0, YSize/2+4, _ROCKET_TILE, _XL_WHITE);
-    // _XL_DRAW(XSize/2+2, YSize/2+4, _RIGHT_HORIZONTAL_MISSILE_TILE, _XL_WHITE);
 }
 #endif
 
@@ -263,13 +257,11 @@ void displayScoreStats(void)
         }
         else if(level==8)//(!(level&7))
         {
-            // SET_COLOR(_XL_RED);
             _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_B _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S);
 
         }
         else if(level==16)
         {
-            // SET_COLOR(_XL_CYAN);
             _XL_PRINT(((XSize -7)>>1), (YSize>>1)-2, _XL_F _XL_I _XL_N _XL_A _XL_L);
         }
         else

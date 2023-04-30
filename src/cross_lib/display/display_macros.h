@@ -208,7 +208,7 @@
 #endif
 
 //         _XL_SET_TEXT_COLOR(TEXT_COLOR);
-#if defined(__NO_COLOR_INIT) || defined(NO_GRAPHICS)
+#if defined(__NO_SCREEN_COLOR_INIT) || defined(NO_GRAPHICS)
     #define _setScreenColors()
 #else
     #define _setScreenColors() \

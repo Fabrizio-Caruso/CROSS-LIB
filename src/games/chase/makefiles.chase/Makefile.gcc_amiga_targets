@@ -30,7 +30,7 @@ amiga_buffered:
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

@@ -334,7 +334,7 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 atari7800: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl -O -t atari7800 --force-import __EXEHDR__ \
 	  -D_XL_NO_UDG -DTARGET_SPECIFIC_ASCII \
-	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) -DXSize=20 -DYSize=28 \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
@@ -343,7 +343,7 @@ atari7800:
 atari7800_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg   -D_XL_NO_UDG -D_XL_NO_COLOR -DTARGET_SPECIFIC_ASCII \
-	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_NO_COLOR_SLOWDOWN) -DXSize=34 -DX_OFFSET=3 -DYSize=28 \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
@@ -438,7 +438,7 @@ endif
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
 	 $(GAMATE_GAME_OPTS) \
-	-DCONIO -DNO_INIT_GRAPHICS  \
+	-DCONIO -D__NO_INIT_GRAPHICS  \
 	-D__NO_SCREEN_COLOR_INIT \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
@@ -473,7 +473,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PCE_SLOWDOWN) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg   \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
@@ -491,7 +491,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PCE_SLOWDOWN) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_32k.cfg   \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
@@ -557,7 +557,7 @@ pet_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
-	-DNO_INIT_GRAPHICS -DCONIO -D_XL_NO_UDG  \
+	-D__NO_INIT_GRAPHICS -DCONIO -D_XL_NO_UDG  \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
@@ -703,7 +703,7 @@ aquarius_exp_16k:
 	 -D__AQUARIUS__ \
 	-lndos -D_XL_NO_UDG \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
@@ -714,7 +714,7 @@ aquarius_alt:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__ \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) -D_XL_NO_UDG \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
@@ -729,7 +729,7 @@ aquarius_exp_4k:
 	-D__AQUARIUS__ \
 	-lndos -D_XL_NO_UDG \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_4k
@@ -941,7 +941,7 @@ cpm_z80_adm3a:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin
@@ -953,7 +953,7 @@ cpm_8080_adm3a:
 	-D__CPM_80X24__ \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_INTEL8080_SLOWDOWN) \
 	-D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -1099,35 +1099,13 @@ mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm
 
 msx: msx_16k
 
-msx_16k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
-	-DUSE_MSX_BIOS \
-	\
-	  \
-	-vn -DMSX_VPOKE  -D__MSX__  \
-	-lndos -subtype=rom \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DMEMORY_MAPPED \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
-	-DZ88DK_JOYSTICK \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_FIXED_COLORS_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
-
 msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	  \
 	-vn   -D__MSX__  \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
 	-DCONIO   -DXSize=32 -DYSize=24 \
-	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1189,7 +1167,7 @@ mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -Cz--audio -vn \
 	    -D_XL_NO_UDG  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MZ_SLOWDOWN) \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
@@ -1222,11 +1200,7 @@ endif
 
 #################################################################
 
-
-sms: sms_gfx
-
-
-sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+sms: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
 	-DXSize=32 \
@@ -1254,16 +1228,11 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	 \
-	 \
-	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
-	 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1277,14 +1246,10 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	 \
-	 \
-	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-DCONIO \
-	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1299,14 +1264,11 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	 -vn  -D__VG5K__ -DASM_DISPLAY \
+	 -vn  -D__VG5K__ \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k.prg \
 	-DCONIO \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VG5K_SLOWDOWN) \
-	\
 	-clib=default \
-	 \
-	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
@@ -1318,9 +1280,9 @@ vz200: vz200_24k
 
 vz200_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
-	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
+	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
-	 -D__VZ__ \
+	-D__VZ__ \
 	-DNO_EXTRA_TITLE \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
@@ -1333,7 +1295,7 @@ vz200_24k:
 
 vz200_target_specific:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
-	--hardware-keyboard  --generic-console -DHARDWARE_KEYBOARD \
+	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
 	 -D__VZ__ -D_XL_NO_COLOR -DALT_PRINT \
 	-DNO_EXTRA_TITLE \
@@ -1360,7 +1322,7 @@ zx81_no_gfx_16k:
 	-vn -D_API_VERSION=$(API_VERSION) -DTARGET_SPECIFIC_ASCII \
 	-D__ZX81__  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) $(ZX81_NO_GFX_GAME_OPTS) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES)
@@ -1405,7 +1367,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 CMOC_NO_UDG_OPTS        ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  
 
-NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
+NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR
 
@@ -2231,7 +2193,7 @@ mc10:
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR -DTARGET_SPECIFIC_ASCII \
 	 -DALT_SLEEP \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
 	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT  \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
@@ -2252,7 +2214,7 @@ mc10_turn_based:
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR -D_XL_TURN_BASED \
 	-DTINY_GAME -D_XL_NO_SLEEP \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DNO_PRINT -D_XL_NO_WAIT \
 	-DNO_INPUT -DNO_WALL \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -2273,7 +2235,7 @@ mc10_buffered:
 	 -D_XL_NO_SLEEP \
 	-D_XL_TURN_BASED \
 	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -2387,7 +2349,7 @@ stdio_buffered:
 	 \
 	-D_XL_TURN_BASED \
 	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

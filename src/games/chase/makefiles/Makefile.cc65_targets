@@ -20,7 +20,7 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-D_XL_SLOW_DOWN_FACTOR=6000   \
 	-D_XL_NO_SLEEP -D_XL_NO_WAIT    \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(GAMATE_GAME_OPTS) -D__NO_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \

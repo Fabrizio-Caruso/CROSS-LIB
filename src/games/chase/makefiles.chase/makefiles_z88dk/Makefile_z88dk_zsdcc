@@ -95,7 +95,7 @@ aquarius_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    -DEXTRA_TITLE \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -107,7 +107,7 @@ aquarius_alt:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -119,7 +119,7 @@ aquarius_alt_memory_mapped:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    -D_XL_SLOW_DOWN_FACTOR=1500 \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE  \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -131,7 +131,7 @@ aquarius_quad:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__ \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1500 -DNO_UDG -DNO_PRINT \
-	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -DNO_INIT_GRAPHICS \
+	-DQUAD_MEMORY_MAPPED -DXSize=20 -DYSize=12 -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
@@ -147,7 +147,7 @@ gal_22k:
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-D__GAL__    \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -170,7 +170,7 @@ gal_6k:
 	-DBOMBS_NUMBER=4 \
 	-DGHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DFLAT_ENEMIES \
 	-DALT_HIGHSCORE \
 	-DCONIO \
@@ -187,7 +187,7 @@ gal_plus_no_gfx:
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal -D_XL_SLOW_DOWN_FACTOR=300 \
 	-D__GAL__ -D__GAL_PLUS__   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
@@ -275,7 +275,7 @@ oz_tiny_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	-DYSize=9 \
 	 \
 	-vn -lndos \
-	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
+	-DBUFFERED -DTURN_BASED -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
@@ -304,7 +304,7 @@ pv1000:
 	  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -332,7 +332,7 @@ svi_318:
 	-D__SVI__ \
 	 \
 	-D__BIT_BANG_SOUND \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o svi_318 \
 	$(LIGHT_FILES)
 	mv svi_318.cas $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_svi_318.cas
@@ -444,7 +444,7 @@ vz200_8k:
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.vz \
 	$(TINY_FILES) 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.cas
@@ -461,7 +461,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-DALT_PRINT \
 	 \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -481,7 +481,7 @@ zx81_16k:
 	-vn \
 	-D__ZX81__  \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -497,7 +497,7 @@ zx81_v2_16k:
 	-vn -D_XL_SLOW_DOWN_FACTOR=0 \
 	-D__ZX81__  \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -574,7 +574,7 @@ z9001: z9001_32k_no_gfx
 z9001_16k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
@@ -588,7 +588,7 @@ z9001_16k_full:
 z9001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn     \
-	-DCONIO -DNO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
+	-DCONIO -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

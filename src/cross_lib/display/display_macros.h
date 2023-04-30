@@ -405,7 +405,7 @@
 
 
 
-#if !defined(NO_INIT_GRAPHICS)
+#if !defined(__NO_INIT_GRAPHICS)
     void _XL_INIT_GRAPHICS(void);
 #else
     #define _XL_INIT_GRAPHICS() _setScreenColors()

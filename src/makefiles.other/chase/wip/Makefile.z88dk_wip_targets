@@ -7,7 +7,7 @@
 # CPC
 cpc_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
-	-D__CPC__   -DNO_INIT_GRAPHICS -DCONIO \
+	-D__CPC__   -D__NO_INIT_GRAPHICS -DCONIO \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -34,7 +34,7 @@ kc_tiny_putc4x6:
 	-DZ88DK_PUTC4X6 \
 	-DCONIO \
 	-DALT_PRINT \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/WIP_TINY_kc_putc4x6_.bin \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c
@@ -53,7 +53,7 @@ mz2500_buffered:
 	 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	 \
 	-D__INCLUDE_CONIO_H -DCONIO \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -74,7 +74,7 @@ px4_putc4x6:
 	-D_XL_NO_WAIT \
 	-DZ88DK_PUTC4X6 \
 	-DNO_PRINT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app \
 	-vn -lndos \
@@ -94,7 +94,7 @@ px4_tiny_putc4x6:
 	-DTINY_GAME \
 	-D_XL_NO_WAIT \
 	-DZ88DK_PUTC4X6 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app \
 	-vn -lndos \
@@ -112,7 +112,7 @@ rc2014:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
@@ -129,7 +129,7 @@ yaz180:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
@@ -146,7 +146,7 @@ hbios:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
@@ -163,7 +163,7 @@ rcmx000:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_rcmx000_buffered.bin
@@ -177,7 +177,7 @@ scz180:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
@@ -210,7 +210,7 @@ s1mp3:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED  \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -D_XL_NO_WAIT -DNO_INPUT -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o$(BUILD_PATH)/FULL_s1mp3_buffered.bin
@@ -285,7 +285,7 @@ spectrum_buffered:
 	-DXSize=29 \
 	-DYSize=19 \
 	-DTURN_BASED \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \

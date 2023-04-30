@@ -197,7 +197,7 @@ abc80:
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__ABC80__ -clib=ansi -vn  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
@@ -223,7 +223,7 @@ abc80_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm \
 	-subtype=hex \
 	-zorg=49200 $(INCLUDE_OPTS) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80light.bin  \
 	$(LIGHT_FILES)
@@ -252,7 +252,7 @@ abc800_buffered:
 	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
 	-DBUFFERED -DALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-lndos -create-app -oa800.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -301,7 +301,7 @@ alphatro:
 	 \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/end_screen.c \
@@ -320,7 +320,7 @@ attache_chars:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -339,7 +339,7 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DGHOSTS_NUMBER=8 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)	
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_attache.bin
@@ -357,7 +357,7 @@ aussie:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_aussie.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -387,7 +387,7 @@ altair8800_tiny_buffered:
 	-DNO_INITIAL_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
-	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DBUFFERED -D__NO_INIT_GRAPHICS \
 	 \
 	-DNO_STATS \
 	-DALT_PRINT \
@@ -419,7 +419,7 @@ bic_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DSTDLIB \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -498,7 +498,7 @@ c128_z80_40col:
 	-D__BIT_BANG_SOUND \
 	-DNO_BLINKING \
 	-D__INCLUDE_CONIO_H \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -oa40.bin
@@ -524,7 +524,7 @@ camputers_lynx:
 	  \
 	 \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
@@ -541,7 +541,7 @@ coleco_adam:
 	 \
 	-DCONIO_VT52 \
 	-DCONIO -DXSize=29 -DYSize=20 \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -660,7 +660,7 @@ cpm_z80_adm3a:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -678,7 +678,7 @@ cpm_8080_adm3a:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -697,7 +697,7 @@ cpm_8080_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DSTDLIB \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -721,7 +721,7 @@ dai_buffered:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -739,7 +739,7 @@ dmv:
 	-D__INCLUDE_CONIO_H \
 	-D__DMV__ \
 	 -DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_dmv.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -787,7 +787,7 @@ einstein_no_gfx:
 	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
 	-clib=ansi \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_einstein.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_einstein.bin
@@ -825,7 +825,7 @@ enterprise_buffered:
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB  -D__BIT_BANG_SOUND \
@@ -849,7 +849,7 @@ excalibur64_turn_bsed:
 	-D__INCLUDE_CONIO_H \
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=2000 -DTURN_BASED \
 	 -DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -oxcex64tb.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -867,7 +867,7 @@ excalibur64:
 	-D__INCLUDE_CONIO_H \
 	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=1600 \
 	 -DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -oxcexca64.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -887,7 +887,7 @@ fp1100:
 	  \
 	 \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o fp1100.bin
@@ -909,7 +909,7 @@ g800_turn_based:
 	-vn \
 	 \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o g800.bin
 	rm g800.bin 
@@ -989,7 +989,7 @@ gb_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS -DZ88DK_JOYSTICK \
+	-DCONIO -D__NO_INIT_GRAPHICS -DZ88DK_JOYSTICK \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=1200 \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_gb_no_gfx.bin
@@ -1034,7 +1034,7 @@ homelab:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_homelab.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_homelab.bin
@@ -1054,7 +1054,7 @@ homelab2:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_homelab2.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_homelab2.bin
@@ -1073,7 +1073,7 @@ hemc:
 	-DCONIO_VT52 \
 	-DCONIO -D_XL_NO_COLOR \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_hemc.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_hemc.bin
@@ -1092,7 +1092,7 @@ hgmc:
 	-DCONIO_VT52 \
 	-DCONIO -D_XL_NO_COLOR \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_hgmc.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_hgmc.bin
@@ -1116,7 +1116,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1136,7 +1136,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1215,7 +1215,7 @@ kramermc:
 	-DCONIO_VT52 \
 	-DCONIO -DSTDLIB -DTURN_BASED \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_kramermc.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_kramermc.bin

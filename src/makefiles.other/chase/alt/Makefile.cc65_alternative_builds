@@ -110,7 +110,7 @@ atari_no_color_16k_full:
 	-DALT_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT -DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_atari_no_color_16k.xex	
 
@@ -121,7 +121,7 @@ atari_no_color_16k:
 	 \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_atari_no_color_16k.xex
 
@@ -149,7 +149,7 @@ c16_16k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 -Cl \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	 \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DUSE_MEMORY_BUFFERS \
 	-D_XL_NO_SLEEP \
@@ -211,7 +211,7 @@ creativision_16k_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT \
 	   -DALT_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -241,7 +241,7 @@ creativision_18k:
 
 creativision_24k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -252,7 +252,7 @@ creativision_24k:
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -266,7 +266,7 @@ creativision_8k_tiny:
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
 	-DTINY_GAME -D_XL_NO_SLEEP \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/ALT_TINY_creativision_8k.bin
@@ -278,7 +278,7 @@ creativision_8k_tiny:
 gamate_light: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
 	-DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DGHOSTS_NUMBER=7 \
 	-DSIMPLE_STRATEGY \
 	$(LIGHT_FILES) \
@@ -289,7 +289,7 @@ gamate_tiny:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
 	-DTINY_GAME \
 	-DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DGHOSTS_NUMBER=7 \
 	-DSIMPLE_STRATEGY \
 	$(TINY_FILES) \
@@ -304,7 +304,7 @@ nes_no_fx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/ALT_FULL_nes_no_fx.nes	
@@ -329,7 +329,7 @@ oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
 
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
-	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
+	-DTINY_GAME -D__NO_INIT_GRAPHICS -DCONIO \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
 	$(SOURCE_PATH)/memory/pet_memory.s \

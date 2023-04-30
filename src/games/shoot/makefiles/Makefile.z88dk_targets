@@ -13,7 +13,7 @@ zx81_no_gfx_16k:
 	-vn \
 	-D__ZX81__  \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES)

@@ -148,7 +148,7 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn -D__LAMBDA__  \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_lambda_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -167,7 +167,7 @@ laser500_no_gfx:
 	-D__LASER500__ \
 	-D__BIT_BANG_SOUND  \
 	 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
 	mv laser500.bin $(BUILD_PATH)/X$(GAME_NAME)_laser500_no_gfx.bin
@@ -228,7 +228,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 microbee_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__BEE__ -clib=ansi -vn   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_microbee_16k_no_gfx.prg  \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_microbee_16k_no_gfx.prg
@@ -246,7 +246,7 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_microbee_32k.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE  -D__BIT_BANG_SOUND \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -267,7 +267,7 @@ mikro80:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_mikro80.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_mikro80.bin
@@ -437,7 +437,7 @@ mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	     \
-	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE  \
+	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE  \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -455,7 +455,7 @@ mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__MZ2500__ -DXSize=40 -DFORXE_YSIZE=24  \
-	-DCONIO -D_XL_NO_COLOR -DNO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
+	-DCONIO -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg
@@ -467,7 +467,7 @@ nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_nascom_16k.prg
@@ -481,7 +481,7 @@ nascom_32k:
 	 \
 	 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -501,7 +501,7 @@ nc100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc100_alt_print.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -521,7 +521,7 @@ nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc200_alt_print.bin \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	  \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -548,7 +548,7 @@ newbrain:
 	-DNO_INITIAL_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
 	-lndos \
-	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DBUFFERED -D__NO_INIT_GRAPHICS \
 	 \
 	-DNO_STATS \
 	-DALT_PRINT \
@@ -591,7 +591,7 @@ ondra_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__ONDRA__ -DXSize=40 -DYSize=30   \
-	-DCONIO -D_XL_NO_COLOR -DNO_INIT_GRAPHICS \
+	-DCONIO -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \
 	-o FULL_$@
@@ -608,7 +608,7 @@ osca:
 	 \
 	  -lndos \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-create-app -o osca \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -628,7 +628,7 @@ osborne1_chars:
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -643,7 +643,7 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DALT_PRINT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1.bin \
@@ -664,7 +664,7 @@ pacman:
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pacman_buffered.bin
@@ -686,7 +686,7 @@ pacman:
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_p2000.prg \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_p2000.prg
@@ -697,7 +697,7 @@ p2000: p2000_32k
 p2000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	     \
-	-DCONIO -DNO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
+	-DCONIO -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_p2000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -716,7 +716,7 @@ pasopia7:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pasopia7.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pasopia7.bin
@@ -731,7 +731,7 @@ pc6001_16k:
 	-D__PC6001__ \
 	 \
 	-DALT_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
@@ -787,7 +787,7 @@ pc88_32k_no_gfx:
 	 -D__PC88__    \
 	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -DNO_INIT_GRAPHICS -D__BIT_BANG_SOUND -DDEFAULT_CLEAR_SCREEN \
+	-DCONIO -D__NO_INIT_GRAPHICS -D__BIT_BANG_SOUND -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -801,7 +801,7 @@ pc88_tiny:
 	-D__PC88__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
 	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	-DCONIO -D__NO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	-create-app	\
 	-o TINY_$@
@@ -823,7 +823,7 @@ pcw40:
 	 -D__PC88__    \
 	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	-DCONIO -D__NO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app \
@@ -841,7 +841,7 @@ pcw80:
 	 -D__PC88__    \
 	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	-DCONIO -D__NO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app \
@@ -865,7 +865,7 @@ pencil2_no_gfx:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -906,7 +906,7 @@ pmd85_no_gfx:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pmd85_no_gfx.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pmd85_no_gfx.bin
@@ -941,7 +941,7 @@ pps:
 	  \
 	  \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv pps $(BUILD_PATH)/X$(GAME_NAME)_pps.exe	
@@ -963,7 +963,7 @@ primo_no_gfx:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos  -D__BIT_BANG_SOUND \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -1026,7 +1026,7 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o px4 \
 	-vn -lndos \
 	-DALT_PRINT \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	  \
@@ -1049,7 +1049,7 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o px8 \
 	-vn -lndos \
 	-DALT_PRINT \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

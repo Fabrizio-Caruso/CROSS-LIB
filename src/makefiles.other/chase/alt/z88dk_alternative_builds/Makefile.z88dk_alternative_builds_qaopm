@@ -30,7 +30,7 @@ zx80_16k_turn_based_qaopm:
 	-DTURN_BASED \
 	-DALT_SLEEP \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx80_16k_turn_based_qaopm.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -50,7 +50,7 @@ zx81_16k_turn_based_qaopm:
 	-D__ZX81__  \
 	-DZ88DK_JOYSTICK \
 	-DTURN_BASED \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based_qaopm.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -67,7 +67,7 @@ zx81_16k_qaopm:
 	-D__ZX81__  \
 	-DZ88DK_JOYSTICK \
 	-DQAOPM \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_qaopm.prg \
 	$(SOURCE_PATH)/end_screen.c \

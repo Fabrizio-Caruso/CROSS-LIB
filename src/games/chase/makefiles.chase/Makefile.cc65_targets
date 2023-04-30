@@ -157,7 +157,7 @@ apple2_no_gfx_v1:
 	 -DALT_SLEEP \
 	\
 	   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
@@ -172,7 +172,7 @@ apple2_no_gfx:
 	 -DALT_SLEEP \
 	\
 	   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
@@ -238,7 +238,7 @@ apple2enh_no_gfx:
 	\
 	  \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS  \
+	-D__NO_INIT_GRAPHICS  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
@@ -340,7 +340,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari -DEXTRA_TITLE  \
 	    -D_XL_NO_COLOR \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -388,7 +388,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 atari7800: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ \
 	  -D_XL_NO_UDG \
-	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=20 -DYSize=28 \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
@@ -397,7 +397,7 @@ atari7800:
 atari7800_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg    -D_XL_NO_UDG -D_XL_NO_COLOR \
-	-DCONIO -DNO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=40 -DYSize=28 \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
@@ -451,7 +451,7 @@ c128_40col:
 	  \
 	  \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(FULL_FILES) \
@@ -602,7 +602,7 @@ cbm610:
 	 \
 	\
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_cbm610.prg
@@ -615,7 +615,7 @@ cbm510:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm510 -DEXTRA_TITLE \
 	 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_cbm510.prg
@@ -697,7 +697,7 @@ creativision_8k_light:
 	-D__NO_SCREEN_COLOR_INIT \
 	-DFLAT_ENEMIES \
 	-DNO_RANDOM_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-DALT_SLEEP \
 	-DGHOSTS_NUMBER=8 \
@@ -714,7 +714,7 @@ cx16:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 -DEXTRA_TITLE \
 	-D__CX16__ \
 	   \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_cx16.prg
@@ -731,7 +731,7 @@ gamate_test: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	\
 	-DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
@@ -742,7 +742,7 @@ gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	 -D_XL_SLOW_DOWN_FACTOR=5000  \
 	\
 	-DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate_no_udg.bin
@@ -753,7 +753,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	\
 	-DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
@@ -765,7 +765,7 @@ gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamat
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT    \
 	-DLESS_TEXT  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
@@ -802,7 +802,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce -DEXTRA_TITLE \
 	 -D_XL_SLOW_DOWN_FACTOR=3500 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg   \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -820,7 +820,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -D_XL_NO_COLOR \
-	 -DCONIO -DNO_INIT_GRAPHICS \
+	 -DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
@@ -836,7 +836,7 @@ pet_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
 	 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS  \
+	-DCONIO -D__NO_INIT_GRAPHICS  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
 	$(FULL_FILES) \
@@ -852,7 +852,7 @@ pet_8k_light:
 	-DGHOSTS_NUMBER=8 \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	-DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -906,7 +906,7 @@ osic1p_32k:
 	-D__NO_SCREEN_COLOR_INIT \
 	-DGHOSTS_NUMBER=8 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -923,7 +923,7 @@ osic1p_32k_turn_based:
 	-DTURN_BASED \
 	-DGHOSTS_NUMBER=9 \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -937,7 +937,7 @@ osic1p_8k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -D_XL_NO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DGHOSTS_NUMBER=8 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod	
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
@@ -950,7 +950,7 @@ osic1p_8k_turn_based:
 	-DROUND_ENEMIES -D_XL_NO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DTURN_BASED \
 	-DGHOSTS_NUMBER=9 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod	
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
@@ -1018,7 +1018,7 @@ telestrat_buffered:
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
 	  \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1034,7 +1034,7 @@ telestrat_joy_buffered:
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
 	  \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1050,7 +1050,7 @@ telestrat_exp:
 	 \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \

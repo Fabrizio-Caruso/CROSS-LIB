@@ -18,7 +18,7 @@ DEBUG_MACROS ?= \
 	-DTINY_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN 
 
 
@@ -40,7 +40,7 @@ abc800_tiny:
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
 	-zorg=49200 $(INCLUDE_OPTS) \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DCONIO_VT100 \
 	-D_XL_NO_WAIT \
 	-D__ABC80__ -vn  -lndos  \
@@ -95,7 +95,7 @@ abc800_conio:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__INCLUDE_CONIO_H \
 	-D__ABC800__  -vn  \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	 \
@@ -121,7 +121,7 @@ abc800_conio:
 abc800_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
 	-D__ABC80__ -vn \
-	-DCONIO -D__INCLUDE_CONIO_H -DNO_INIT_GRAPHICS \
+	-DCONIO -D__INCLUDE_CONIO_H -D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -155,7 +155,7 @@ c7420:
 	-D_XL_NO_COLOR \
 	-DBUFFERED -DALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -172,7 +172,7 @@ c7420_tiny:
 	-D_XL_NO_COLOR \
 	-DBUFFERED -DALT_PRINT \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
@@ -192,7 +192,7 @@ m100:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_m100.bin
 	rm $(BUILD_PATH)/FULL_m100.bin
@@ -236,7 +236,7 @@ rex_buffered:
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
@@ -265,7 +265,7 @@ x07_tiny:
 	-D_XL_NO_COLOR \
 	-DTINY_GAME \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_x07.bin
 	rm $(BUILD_PATH)/TINY_x07.bin

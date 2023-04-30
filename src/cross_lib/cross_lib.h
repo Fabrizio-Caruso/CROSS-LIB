@@ -64,7 +64,7 @@
     //
 #elif defined(__CC6303__)
     //
-#elif defined(__SCCZ80) || defined(__ZSDCC)
+#elif defined(__SCCZ80) || defined(__SDCC)
 	#define __Z88DK__
 #else 
 	//

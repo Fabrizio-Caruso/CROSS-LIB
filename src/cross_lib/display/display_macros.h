@@ -175,7 +175,6 @@
         cputc(ch); \
     } while(0)
 #elif defined(ALT_PRINT)
-
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);   
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);

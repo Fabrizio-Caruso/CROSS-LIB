@@ -28,7 +28,7 @@
 
 #include "input_macros.h"
 
-#if defined(Z88DK_JOYSTICK)
+#if defined(__Z88DK__)
 	uint8_t stick;
 #endif
 
@@ -40,14 +40,10 @@
 #define PEEK(addr)         (*(uint8_t*) (addr))    
 #endif
 
-// uint8_t mc10_poll(void);
 
-// GET_CHAR() definitions
 #if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
-        #if !defined(LCC1802_JOYSTICK)
-            #include <devkit/input/keyboard.h>
-        #endif
+		#include <devkit/input/keyboard.h>
     #endif 
     
     char GET_CHAR(void)
@@ -96,9 +92,7 @@
             return ' ';
         }
         return 0;
-        // return mc10_poll();
-        // return PEEK(0xFFDC)-0x20;
-        
+
     #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
     || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__) || defined(__CX16__)
         if(kbhit())
@@ -147,7 +141,6 @@
         #define PEEK(addr)         (*(uint8_t*) (addr))    
     
     #elif defined(__MO5__) 
-        // #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
 
         #define KEYREG 0xA7C1
         
@@ -348,7 +341,7 @@ out            stb res
         }
     #endif    
 #else
-    #if defined(Z88DK_JOYSTICK)
+    #if defined(__Z88DK__)
         #include <games.h>
         
         extern uint8_t stick;
@@ -359,18 +352,6 @@ out            stb res
             {
             }
             while (!(joystick(stick) & MOVE_FIRE))
-            {
-            }
-        }    
-    #elif defined(__SMS__)
-        #include <arch/sms/SMSlib.h>
-                
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            while ((SMS_getKeysStatus() | PORT_A_KEY_1))
-            {
-            }
-            while (!(SMS_getKeysStatus() | PORT_A_KEY_1))
             {
             }
         }        

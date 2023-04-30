@@ -65,7 +65,7 @@
 		#else
 			#define _XL_INIT_INPUT()
 		#endif
-	#elif defined(Z88DK_JOYSTICK)
+	#elif defined(__Z88DK__)
 		extern uint8_t stick;
 		
         #if !defined(STICK)
@@ -102,19 +102,25 @@
         #else
             #define _XL_INIT_INPUT() { joy_install((void *)joy_static_stddrv); };
         #endif
-	#endif // defined(Z88DK_JOYSTICK)
+	#endif //
 
 
 // JOY_UP/DOWN/LEFT/RIGHT/FIRE
-#if defined(JOYSTICK_CONTROL)
-    
-        #if defined(__C64__) || defined(__C128__)
-            #define STANDARD_JOY JOY_2
-        #else
-            #define STANDARD_JOY JOY_1
-        #endif
-
-    #if defined(Z88DK_JOYSTICK)
+#if !defined(_XL_NO_JOYSTICK)
+	#if defined(__C64__) || defined(__C128__)
+		#define STANDARD_JOY JOY_2
+	#else
+		#define STANDARD_JOY JOY_1
+	#endif
+    // #if defined(__SMS__) || defined(__GG__)
+        // #include <arch/sms/SMSLib.h>
+        
+        // #define JOY_UP(joyInput) ((joyInput) & PORT_A_KEY_UP)
+        // #define JOY_DOWN(joyInput) ((joyInput) & PORT_A_KEY_DOWN)
+        // #define JOY_LEFT(joyInput) ((joyInput) & PORT_A_KEY_LEFT)
+        // #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
+        // #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
+    #if defined(__Z88DK__)
         #include <games.h>
         
         #define JOY_UP(joyInput) ((joyInput) & MOVE_UP)
@@ -122,15 +128,8 @@
         #define JOY_LEFT(joyInput) ((joyInput) & MOVE_LEFT)
         #define JOY_RIGHT(joyInput) ((joyInput) & MOVE_RIGHT)
         #define JOY_FIRE(joyInput) ((joyInput) & MOVE_FIRE)
-    #elif defined(__SMS__)
-        #include <arch/sms/SMSLib.h>
-        
-        #define JOY_UP(joyInput) ((joyInput) & PORT_A_KEY_UP)
-        #define JOY_DOWN(joyInput) ((joyInput) & PORT_A_KEY_DOWN)
-        #define JOY_LEFT(joyInput) ((joyInput) & PORT_A_KEY_LEFT)
-        #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
-        #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
-    #elif defined(LCC1802_JOYSTICK)
+
+    #elif defined(__LCC1802__)
         #include <devkit/input/joystick.h>
 
         #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
@@ -144,22 +143,22 @@
         #if !defined(JOY_FIRE)
             #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
         #endif
-    #endif // defined(Z88DK_JOYSTICK)
+    #endif //
     
     
-    #if defined(Z88DK_JOYSTICK)
+    #if defined(__Z88DK__)
         extern uint8_t stick;
         
         #define JOY_INPUT() joystick(stick)
-    #elif defined(__SMS__)
-        #include <arch/sms/SMSLib.h>
+    // #elif defined(__SMS__)
+        // #include <arch/sms/SMSLib.h>
         
-        #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
+        // #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
     #elif defined(__LCC1802__)
         #define JOY_INPUT() get_stick(0)
     #else
         #define JOY_INPUT() joy_read(STANDARD_JOY)
-    #endif // defined(Z88DK_JOYSTICK)
+    #endif 
     
 #endif
 
@@ -227,7 +226,7 @@ window.addEventListener("keydown", function (event) {
     #define _XL_INPUT() 0
 #elif defined(_XL_TURN_BASED)
     #define _XL_INPUT() _XL_TURN_BASED_INPUT()
-#elif defined(JOYSTICK_CONTROL)
+#elif !defined(_XL_NO_JOYSTICK)
     #define _XL_INPUT() JOY_INPUT()
 #else
     #define _XL_INPUT() GET_CHAR()

@@ -128,7 +128,6 @@ z88dk_targets_sequential: \
     coleco \
     cpm \
     gb \
-    gg \
     laser500 \
     mc1000 \
     msx \
@@ -136,12 +135,13 @@ z88dk_targets_sequential: \
     mtx512 \
     mz \
     samcoupe \
-    sms \
     spectrum \
     vg5k \
     vz200 \
     zx81_wrx \
-    zx81
+    zx81 \
+    gg \
+    sms
 else
 z88dk_targets_sequential: \
     aquarius \
@@ -150,7 +150,6 @@ z88dk_targets_sequential: \
     coleco \
     cpm \
     gb \
-    gg \
     laser500 \
     mc1000 \
     msx \
@@ -158,12 +157,13 @@ z88dk_targets_sequential: \
     mtx512 \
     mz \
     samcoupe \
-    sms \
     spectrum \
     vg5k \
     vz200 \
     zx81_wrx \
-    zx81 
+    zx81 \ 
+    gg \
+    sms
 endif
 
 
@@ -1369,9 +1369,9 @@ CMOC_NO_UDG_OPTS        ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DALT_S
 
 NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
-COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR
+COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR  -D_XL_NO_JOYSTICK
 
-DRAGON_OPTS             ?= --dragon -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR
+DRAGON_OPTS             ?= --dragon -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR  -D_XL_NO_JOYSTICK
 
 
 COCO_COMPILE_OPTS       ?= $(COCO_OPTS) -D_API_VERSION=$(API_VERSION)
@@ -1389,22 +1389,23 @@ CMOC_OPTS               ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DALT_S
 GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
 
 
-COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR
+COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -D_XL_NO_JOYSTICK
 
 
 COCO_GFX_COMPILE_OPTS      ?= $(COCO_GFX_OPTS) -D_API_VERSION=$(API_VERSION) 
 
 
-GFX_COLOR_OPTS              ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT  -D_BACKGROUND_COLOR=_XL_WHITE -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
+GFX_COLOR_OPTS              ?= $(CMOC_OPTS)  -D_XL_NO_JOYSTICK -DBIT_MAPPED -DALT_PRINT  -D_BACKGROUND_COLOR=_XL_WHITE -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
 
 COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 $(COCO_COLOR_GFX_GAME_OPTS)
 
 COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
 
+THOMSON_OPTS    ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -DMACRO_SLEEP  -Wno-const -D__CMOC__ -DBIT_MAPPED -DALT_PRINT
 
-MO5_OPTS        ?= $(CMOC_MAKEFILE_COMPILATION_OPTS)   -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MO5_SLOWDOWN) -DMACRO_SLEEP  -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT 
+MO5_OPTS        ?= $(THOMSON_OPTS)  -D_XL_NO_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MO5_SLOWDOWN) -D__MO5__
 
-TO7_OPTS        ?= $(CMOC_MAKEFILE_COMPILATION_OPTS)   -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TO7_SLOWDOWN) -DMACRO_SLEEP  -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT 
+TO7_OPTS        ?= $(THOMSON_OPTS)  -D_XL_NO_JOYSTICK -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TO7_SLOWDOWN) -D__TO7__ 
 
 TO7_ORG_DATA    ?= --org=a000 
 
@@ -2257,7 +2258,7 @@ ncurses_debug:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_NCURSES \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2271,7 +2272,7 @@ ncurses:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2284,7 +2285,7 @@ ncurses_20x16:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DXSize=20 -DYSize=16 -D_DEBUG_NCURSES \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2298,7 +2299,7 @@ ncurses_16x16:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DXSize=16 -DYSize=16 -D_DEBUG_NCURSES \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2311,7 +2312,7 @@ ncurses_15x17:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DXSize=15 -DYSize=17 -D_DEBUG_NCURSES \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2324,7 +2325,7 @@ ncurses_10x7:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	 -DXSize=10 -DYSize=7 -D_DEBUG_NCURSES \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-DCONIO -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-DALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -2344,7 +2345,7 @@ stdio_buffered:
 	-DXSize=79 \
 	-DYSize=22 \
 	-DSTDLIB -DEVEN_LOOP_MOVE -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 \
+	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
 	-D_XL_NO_COLOR \
 	 \
 	-D_XL_TURN_BASED \

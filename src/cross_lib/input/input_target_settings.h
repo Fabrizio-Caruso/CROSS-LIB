@@ -28,18 +28,6 @@
 #endif
 
 
-#if defined(CC65_JOYSTICK) || defined(__VIC20__) || defined(__CREATIVISION__) \
-		|| defined(__SUPERVISION__) || defined(__ATARI_LYNX__) || defined(__GAMATE__) \
-		|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) \
-		|| defined(__CBM510__) || defined(__PET__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
-		|| (defined(__C128__) && !defined(__C128_Z80__)) \
-		|| defined(__ATARI__) || defined(__ATARI5200__) || defined(__ATARI7800__) \
-		|| defined(__NES__) || defined(__PCE__) \
-		|| defined(Z88DK_JOYSTICK) || defined(__SMS__) || defined(LCC1802_JOYSTICK)
-	#define JOYSTICK_CONTROL
-#elif !defined(_XL_NO_JOYSTICK)
-	#define _XL_NO_JOYSTICK
-#endif
 
 
 #if defined(_XL_NO_JOYSTICK)

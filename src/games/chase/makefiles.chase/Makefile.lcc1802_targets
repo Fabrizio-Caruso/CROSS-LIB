@@ -190,7 +190,7 @@ _tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DTINY_GAME  -DLCC1802_GRAPHICS -DNO_WALL \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
@@ -209,7 +209,7 @@ _light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLIGHT_GAME   -DLCC1802_GRAPHICS \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
@@ -230,7 +230,7 @@ _comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	  \
 	$(LCC1802_C_OPTS) \
@@ -250,7 +250,7 @@ _comx_int: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	  \
 	$(LCC1802_C_OPTS) \
@@ -272,7 +272,7 @@ _tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DTINY_GAME  -DLCC1802_GRAPHICS -DNO_WALL \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
@@ -291,7 +291,7 @@ _light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DLIGHT_GAME  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
@@ -311,7 +311,7 @@ _pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	  \
 	$(LCC1802_C_OPTS) \
@@ -332,7 +332,7 @@ _tmc600_8k: reduced_tiny_lcc1802_combo.c
 	-D__TMC600__ \
 	-DTINY_GAME -DSIMPLE_STRATEGY  -DMEMORY_MAPPED \
 	-DNO_STATS -D_XL_NO_COLOR -DNO_INITIAL_SCREEN -DNO_WALL  \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
@@ -344,7 +344,7 @@ _tiny_tmc600: tiny_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED -DNO_WALL \
 	-DTINY_GAME \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -362,7 +362,7 @@ _tmc600_16k: light_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED \
 	-DLIGHT_GAME \
-	-DLCC1802_JOYSTICK \
+	 \
 	-D_XL_NO_COLOR \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
@@ -381,7 +381,7 @@ _tmc600_37k: full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED -DEXTRA_TITLE \
 	 \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
 	  \
@@ -409,7 +409,7 @@ _tmc600_24k: reduced_full_lcc1802_combo.c
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED \
 	 \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK -DNO_HINTS \
+	 -DNO_HINTS \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
@@ -426,7 +426,7 @@ _tiny_cidelsa_draco: tiny_lcc1802_combo.c
 	-DTINY_GAME \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -445,7 +445,7 @@ _light_cidelsa_draco: light_lcc1802_combo.c
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
@@ -467,7 +467,7 @@ _cidelsa_draco: full_lcc1802_combo.c
 	  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
@@ -494,7 +494,7 @@ _tiny_cidelsa_altair: tiny_lcc1802_combo.c
 	-DTINY_GAME \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -515,7 +515,7 @@ _light_cidelsa_altair: light_lcc1802_combo.c
 	-D__CIDELSA__ -D__ALTAIR__ $(EXTRA_DRAW_SKIP) -DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
@@ -532,7 +532,7 @@ cidelsa_altair_24k: \
 	#  \
 	# -D_XL_NO_COLOR \
 	# -DNO_BLINKING \
-	# -DLCC1802_JOYSTICK \
+	#  \
 	# $(LCC1802_C_OPTS) \
 	# -DGHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../full_lcc1802_combo.c
@@ -557,7 +557,7 @@ _tiny_cidelsa_destroyer: tiny_lcc1802_combo.c
 	-DTINY_GAME \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
@@ -576,7 +576,7 @@ _reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 	-DNO_STATS -D_XL_NO_COLOR -DNO_INITIAL_SCREEN  \
 	-D_XL_NO_COLOR \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
@@ -595,7 +595,7 @@ cidelsa_destroyer_8k: \
 	#  \
 	# -D_XL_NO_COLOR \
 	# -DNO_BLINKING \
-	# -DLCC1802_JOYSTICK \
+	#  \
 	# $(LCC1802_C_OPTS) \
 	# -DGHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../full_lcc1802_combo.c
@@ -607,7 +607,7 @@ cidelsa_destroyer_8k: \
 	# -D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
 	# -D_XL_NO_COLOR \
 	# -DNO_BLINKING \
-	# -DLCC1802_JOYSTICK \
+	#  \
 	# $(LCC1802_C_OPTS) \
 	# -DGHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../light_lcc1802_combo.c
@@ -631,7 +631,7 @@ _micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	  \
 	-D_XL_NO_COLOR  \
 	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
+	 \
 	  \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=8 \

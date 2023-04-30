@@ -69,7 +69,7 @@ zx81_8k:
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
+	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_TINY_zx81_8k.prg \
 	$(TINY_FILES)

@@ -15,7 +15,7 @@ extern uint8_t sprites[];
 #define _XL_DELETE(x,y) \
     putsprite(spr_and,(x)*(SPRITE_X_STEP),(y)*(SPRITE_Y_STEP),sprites + ((_SPACE)*(2+SPRITE_Y_SIZE)))
 
-#if defined(NO_TRANSPARENCY)
+#if defined(__NO_SPRITE_TRANSPARENCY)
     #define _XL_DRAW(x,y,tile,color) \
         do \
         { \

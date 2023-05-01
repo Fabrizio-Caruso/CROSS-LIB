@@ -9,7 +9,7 @@ API_VERSION=2
 #-D_DEFAULT_ASCII
 DEFAULT_ASCII=
 
-GLOBAL_OPTS ?= -DNO_WALL  $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) $(COMPILER_OPTS) 
+GLOBAL_OPTS ?= $(DEFAULT_ASCII) -D_API_VERSION=$(API_VERSION) $(COMPILER_OPTS) 
 #-D_BACKGROUND_COLOR=_XL_WHITE
 
 
@@ -573,7 +573,6 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-DDEFAULT_CLEAR_SCREEN \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SUPERVISION_SLOWDOWN) \
-	 -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
@@ -630,8 +629,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
-	  -DALT_SLEEP \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_HOLE_ANIMATION \
+	-DALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-DMEMORY_MAPPED  -D__VIC20__ -DVIC20_EXP_8K \
 	-DALT_PRINT \
@@ -775,11 +773,10 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DNO_TRANSPARENCY -DNO_LEVEL_END \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -D__NO_SPRITE_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_80COL_SLOWDOWN) \
 	-DZ88DK_SPRITES \
-	 -D__BIT_BANG_SOUND $(C128_Z80_80COL_GAME_OPTS)  \
-	 \
+	-D__BIT_BANG_SOUND $(C128_Z80_80COL_GAME_OPTS)  \
 	-DALT_PRINT \
 	-D_XL_NO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1013,8 +1010,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SMS__ -D__GAME_GEAR__ \
 	-DXSize=20 \
 	-DYSize=18 \
-	 -D__BIT_BANG_SOUND \
-	 -DNO_EXTRA_TITLE \
+	-D__BIT_BANG_SOUND \
 	-DCONIO  \
 	-lndos \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GG_SLOWDOWN) \
@@ -1283,7 +1279,6 @@ vz200_24k:
 	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
 	-D__VZ__ \
-	-DNO_EXTRA_TITLE \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
 	-lndos \
@@ -1297,8 +1292,7 @@ vz200_target_specific:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -DTARGET_SPECIFIC_ASCII \
-	 -D__VZ__ -D_XL_NO_COLOR -DALT_PRINT \
-	-DNO_EXTRA_TITLE \
+	-D__VZ__ -D_XL_NO_COLOR -DALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
 	-DMEMORY_MAPPED -D_XL_NO_UDG \
 	-lndos \
@@ -1337,8 +1331,8 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
-	-pragma-define:hrgpage=36096 -DNO_LEVEL_END \
-	-DNO_ANIMATION -DNO_TRANSPARENCY \
+	-pragma-define:hrgpage=36096  \
+	-D__NO_SPRITE_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
 	-DXSize=32 \
 	-DYSize=22 \
@@ -1367,7 +1361,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 CMOC_NO_UDG_OPTS        ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -Wno-const  -DALT_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  
 
-NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
+NO_UDG_OPS              ?= $(CMOC_NO_UDG_OPTS) -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -DALT_PRINT -D_XL_SLOW_DOWN_FACTOR=4000
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -D_XL_NO_COLOR  -D_XL_NO_JOYSTICK
 
@@ -1779,7 +1773,6 @@ full_combo_rand.c:
 
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-# -DNO_CONST_IMAGES
 LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG"
 BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
 COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
@@ -1904,24 +1897,20 @@ LCC1802_C_OPTS_NO_SOUNDS ?= \
 
 REDUCED_LCC1802_C_OPTS ?= \
 	$(LCC1802_BASIC_C_OPTS) \
-	-D_XL_NO_SLEEP \
-	-DNO_RANDOM_LEVEL
+	-D_XL_NO_SLEEP
 
 LCC1802_COLOR_C_OPTS ?= \
 	$(LCC1802_COLOR_BASIC_C_OPTS) \
-	 \
-	-DALT_SLEEP \
+	-DALT_SLEEP
 
 
 LCC1802_COLOR_C_OPTS_NO_SOUNDS ?= \
 	$(LCC1802_COLOR_BASIC_C_OPTS) \
-	-DALT_SLEEP \
+	-DALT_SLEEP
 
 REDUCED_LCC1802_COLOR_C_OPTS ?= \
 	$(LCC1802_COLOR_BASIC_C_OPTS) \
-	-D_XL_NO_SLEEP \
-	-DNO_RANDOM_LEVEL
-
+	-D_XL_NO_SLEEP
 
 MICRO_COLOR_REDUCED_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/micro_color_init_graphics.c \
@@ -1939,23 +1928,6 @@ MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
 
 _full_comx: _comx
 
-_comx_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	-D__COMX__ $(EXTRA_DRAW_SKIP) \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY $(COMX_GAME_OPTS) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
-	 \
-	-D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
-	  \
-	$(LCC1802_C_OPTS_NO_SOUNDS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-comx_fixed_colors: \
-    _comx_fixed_colors \
-    clean_combo_files
 
 # -DLCC1802_UNBUFFERED
 _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
@@ -1963,7 +1935,7 @@ _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D__COMX__ $(EXTRA_DRAW_SKIP) $(COMX_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	 \
-	 -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
+	 -D__NO_SCREEN_COLOR_INIT \
 	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -1981,7 +1953,7 @@ _comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	  $(COMX_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	 \
-	 -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
+	 -D__NO_SCREEN_COLOR_INIT  \
 	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -1999,7 +1971,7 @@ _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	-D__COMX__ $(EXTRA_DRAW_SKIP) -DNTSC $(COMX_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
 	 \
-	 -D__NO_SCREEN_COLOR_INIT  -DNO_INITIAL_SCREEN \
+	 -D__NO_SCREEN_COLOR_INIT \
 	 -DCOMX_COLOR \
 	$(LCC1802_COLOR_C_OPTS) \
 	-DGHOSTS_NUMBER=7 \
@@ -2129,7 +2101,6 @@ pecom: \
 _full_tmc600: _tmc600_37k
 _tmc600: _tmc600_37k
 
-# -DNO_PRINT  
 # -savetemps -S
 _tmc600_37k: full_lcc1802_combo.c 
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
@@ -2191,9 +2162,9 @@ mc10:
 	-D__REVERSE_LETTERS \
 	-DXSize=32 \
 	-DYSize=16 \
-	-DMEMORY_MAPPED \
+	-DMEMORY_MAPPED -D_XL_NO_JOYSTICK \
 	-D_XL_NO_COLOR -DTARGET_SPECIFIC_ASCII \
-	 -DALT_SLEEP \
+	-DALT_SLEEP \
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
 	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT  \
@@ -2205,44 +2176,6 @@ mc10:
 	rm xchase
 	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
-
-mc10_turn_based:
-	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
-	-D__MC10__ -D_XL_NO_UDG -D__REVERSE_LETTERS \
-	-DTARGET_SPECIFIC_ASCII \
-	-DXSize=32 \
-	-DYSize=16 \
-	-DMEMORY_MAPPED \
-	-D_XL_NO_COLOR -D_XL_TURN_BASED \
-	-DTINY_GAME -D_XL_NO_SLEEP \
-	-D__NO_INIT_GRAPHICS \
-	-DNO_PRINT -D_XL_NO_WAIT \
-	-DNO_INPUT -DNO_WALL \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/rand/rand.c \
-	-o xchase
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
-
-mc10_buffered:
-	cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
-	-D__GCC_BUFFERED__ -D__MC10__ -DTARGET_SPECIFIC_ASCII -D__REVERSE_LETTERS \
-	-DXSize=31 \
-	-DYSize=15 \
-	-DSTDLIB -DEVEN_LOOP_MOVE -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-D_XL_TURN_BASED \
-	-DBUFFERED \
-	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o x$(GAME_NAME)_$@
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 ###############################################################################################
 # GCC

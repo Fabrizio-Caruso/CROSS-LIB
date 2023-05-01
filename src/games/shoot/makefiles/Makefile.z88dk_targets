@@ -10,13 +10,13 @@ zx81_no_gfx_16k:
 	$(INCLUDE_OPTS) -compiler=sdcc   \
 	-pragma-define:ZX_CHAR_XLATE_MODE=1 -D_API_VERSION=2  \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
-	-vn \
-	-D__ZX81__  \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-vn $(ZX81_NO_GFX_GAME_OPTS) \
+	-D__ZX81__ -D_XL_NO_JOYSTICK  \
+	-DCONIO \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 
 

@@ -16,5 +16,5 @@ include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
 include ./Makefile_common
 
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.cc6303_targets
+include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
 

@@ -53,13 +53,8 @@ include ./Makefile_common
 ############################################################################
 
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.cc65_targets
+include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.cmoc_targets
-
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.z88dk_targets
-
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.lcc1802_targets
 
 
 

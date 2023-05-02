@@ -19,7 +19,7 @@ DEBUG_MACROS ?= \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN 
+	-D__DEFAULT_CLEAR_SCREEN 
 
 
 # # No full support in Z88DK / Untestable
@@ -153,7 +153,7 @@ c7420:
 	-lndos \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -DALT_PRINT \
+	-DBUFFERED -D__ALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
@@ -170,7 +170,7 @@ c7420_tiny:
 	-lndos \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -DALT_PRINT \
+	-DBUFFERED -D__ALT_PRINT \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
@@ -213,7 +213,7 @@ rex:
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
@@ -237,7 +237,7 @@ rex_buffered:
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
 	-D__NO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
 	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin

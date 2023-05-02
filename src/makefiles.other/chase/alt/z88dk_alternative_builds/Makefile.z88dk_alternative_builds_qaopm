@@ -28,7 +28,7 @@ zx80_16k_turn_based_qaopm:
 	-D__ZX80__  \
 	-DZ88DK_JOYSTICK \
 	-DTURN_BASED \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -93,7 +93,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx_qaopm.prg \
 	$(LIGHT_FILES) \
@@ -121,7 +121,7 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_qaopm.prg \
 	$(FULL_FILES) \
@@ -149,7 +149,7 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_turn_based_qaopm.prg \
 	$(FULL_FILES) \

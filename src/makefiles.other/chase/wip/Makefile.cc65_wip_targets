@@ -17,8 +17,8 @@ bbc_no_graphics:
 	-DNO_GRAPHICS \
 	-DNO_INPUT \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	$(CC65_PATH)/ld65$(EXE) -t bbc \
 	--obj-path $(SOURCE_PATH) \
@@ -46,7 +46,7 @@ pet_8k_buffered:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	-DTINY_GAME -D__NO_INIT_GRAPHICS \
 	-DBUFFERED \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

@@ -31,8 +31,8 @@ amiga_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_amiga_buffered.exe

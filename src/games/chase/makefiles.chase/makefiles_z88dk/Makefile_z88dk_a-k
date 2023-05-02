@@ -250,8 +250,8 @@ abc800_buffered:
 	-lndos \
 	-DSTDLIB \
 	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
-	-DBUFFERED -DALT_PRINT \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT -DDEFAULT_CLEAR_SCREEN \
+	-DBUFFERED -D__ALT_PRINT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	-lndos -create-app -oa800.bin \
 	$(FULL_FILES) \
@@ -332,7 +332,7 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__ATTACHE__ \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
@@ -390,8 +390,8 @@ altair8800_tiny_buffered:
 	-DBUFFERED -D__NO_INIT_GRAPHICS \
 	 \
 	-DNO_STATS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-D_XL_NO_WAIT \
 	-DTURN_BASED \
@@ -422,8 +422,8 @@ bic_buffered:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -471,7 +471,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	-DSIMPLE_STRATEGY \
 	-DGHOSTS_NUMBER=8 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-D_XL_NO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
@@ -586,7 +586,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DYSize=25 -DXSize=20 -D__SCREEN_MODE=0  \
-	 -DALT_SLEEP  -DEXTRA_TITLE \
+	 -D__ALT_SLEEP  -DEXTRA_TITLE \
 	 \
 	-DZ88DK_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=100 \
@@ -700,8 +700,8 @@ cpm_8080_buffered:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -719,8 +719,8 @@ dai_buffered:
 	-DXSize=47 \
 	-DYSize=21 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
-	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
+	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -826,8 +826,8 @@ enterprise_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-DSTDLIB  -D__BIT_BANG_SOUND \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -959,8 +959,8 @@ gamegear_tiny_buffered:
 	-create-app \
 	-DBUFFERED \
 	-DTURN_BASED \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_WAIT \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_gamegear_buffered.bin \
@@ -1110,7 +1110,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro84 -lgfxkp \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__KAYPRO84__ \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
@@ -1130,7 +1130,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro83 -lgfxkp \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__KAYPRO__ \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \

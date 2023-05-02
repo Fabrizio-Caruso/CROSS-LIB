@@ -23,8 +23,8 @@ vbcc_targets: \
 	# -DTURN_BASED \
 	# -DBUFFERED \
 	# -D__NO_INIT_GRAPHICS \
-	# -DALT_PRINT \
-	# -DDEFAULT_CLEAR_SCREEN \
+	# -D__ALT_PRINT \
+	# -D__DEFAULT_CLEAR_SCREEN \
 	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	# $(FULL_FILES) -o xchase
 	# mv xchase $(BUILD_PATH)/
@@ -40,10 +40,10 @@ mc10:
 	-DYSize=16 \
 	-DMEMORY_MAPPED \
 	-D_XL_NO_COLOR \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=1500 \
-	-DDEFAULT_CLEAR_SCREEN -DALT_PRINT  \
+	-D__DEFAULT_CLEAR_SCREEN -D__ALT_PRINT  \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -65,7 +65,7 @@ mc10_turn_based:
 	-D__NO_INIT_GRAPHICS \
 	-DNO_PRINT -D_XL_NO_WAIT  \
 	-DTURN_BASED \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase
@@ -86,7 +86,7 @@ mc10_no_print_tiny:
 	-D__NO_INIT_GRAPHICS \
 	-DNO_PRINT -D_XL_NO_WAIT \
 	-DNO_INPUT -DNO_WALL \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	-o xchase

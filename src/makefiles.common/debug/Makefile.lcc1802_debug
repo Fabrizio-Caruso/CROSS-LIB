@@ -104,7 +104,7 @@ comx_pp_debug:
 	-DYSize=24 \
 	-D__COMX__ \
 	 \
-	-DALT_CLEAR_SCREEN \
+	-D__ALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../test/comx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
@@ -114,7 +114,7 @@ lcc1802_debug : tiny_combo_rand.cat
 	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(LCC1802)  $(LC1802_OPTS) $(INCLUDE_OPTS) -Wf-volatile \
 	$(DEBUG_MACROS) \
-	-DALT_RAND \
+	-D__ALT_RAND \
 	tiny_combo_rand.c
 	rm tiny_combo_rand.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex

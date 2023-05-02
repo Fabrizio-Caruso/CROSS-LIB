@@ -25,7 +25,7 @@ pdp11v7_buffered:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/WIP_FULL_pdp11v7_turn_based.bin
 	rm $(SOURCE_PATH)/../../*.o
@@ -44,7 +44,7 @@ pdp11v7:
 	-DNO_PRINT \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/WIP_FULL_pdp11v7.bin
 	rm $(SOURCE_PATH)/../../*.o

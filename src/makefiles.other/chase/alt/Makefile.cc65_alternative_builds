@@ -107,7 +107,7 @@ atari_no_color_16k_full:
 	 \
 	-DLESS_TEXT \
 	-DFLAT_ENEMIES \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT -DCONIO \
 	-D__NO_INIT_GRAPHICS \
@@ -136,7 +136,7 @@ atari_lynx_light:
 	-DNO_PRINT \
 	-D_XL_NO_SLEEP \
 	-DTGI \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_ATARI_LYNX.lnx
@@ -185,7 +185,7 @@ c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 	-DLESS_TEXT \
 	-DGHOSTS_NUMBER=9 \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DROUND_ENEMIES \
 	-DCBM_SCREEN_CODES \
@@ -210,7 +210,7 @@ c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 creativision_16k_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT \
-	   -DALT_SLEEP \
+	   -D__ALT_SLEEP \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -227,7 +227,7 @@ creativision_16k_no_gfx:
 creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
-	   -DALT_SLEEP \
+	   -D__ALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT   \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -318,7 +318,7 @@ oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DMEMORY_MAPPED \
-	-DALT_MOVE \
+	-D__ALT_MOVE \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_oric1_16k.tap
@@ -353,10 +353,10 @@ vic20_exp_3k_light_no_gfx:
 	-DLESS_TEXT \
 	-D_XL_NO_TEXT_COLOR \
 	 \
-	-DALT_SLEEP \
-	-DALT_DISPLAY_STATS \
-	-DALT_HIGHSCORE \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -375,7 +375,7 @@ vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_3K \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DCBM_SCREEN_CODES \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -393,10 +393,10 @@ vic20_exp_8k_full:
 	-DGHOSTS_NUMBER=8 \
 	-DSIMPLE_STRATEGY \
 	-DLESS_TEXT	\
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DNO_HINTS \
 	 \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	 \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
@@ -427,8 +427,8 @@ vic20_unexpanded_no_gfx:
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
 	-DMEMORY_MAPPED \
-	-DALT_DISPLAY_STATS \
-	-DALT_HIGHSCORE \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
 	-DROUND_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
@@ -458,7 +458,7 @@ vic20_unexpanded_turn_based:
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
 	-DMEMORY_MAPPED \
-	-DALT_DISPLAY_STATS \
+	-D__ALT_DISPLAY_STATS \
 	-DFLAT_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \

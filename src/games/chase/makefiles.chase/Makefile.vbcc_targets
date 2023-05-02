@@ -23,8 +23,8 @@ bbc_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	 -D_XL_NO_SLEEP \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
@@ -46,8 +46,8 @@ bbc_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
@@ -70,8 +70,8 @@ bbcmaster_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
@@ -92,8 +92,8 @@ bbc_buffered_no_print:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -118,8 +118,8 @@ m65_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	mv xchase $(BUILD_PATH)/
@@ -144,8 +144,8 @@ atari_jaguar_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	mv xchase $(BUILD_PATH)/
@@ -167,8 +167,8 @@ amiga_kick13_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	mv xchase $(BUILD_PATH)/

@@ -89,13 +89,13 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
-	-DALT_MOVE \
+	-D__ALT_MOVE \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	-o ozt.bin \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -109,7 +109,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 pc6001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -164,7 +164,7 @@ px4_chars:
 	-DCONIO_ADM3A_WITH_UNDEF \
 	 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px4ch.bin \
 	$(FULL_FILES)
 	rm px4ch.bin
@@ -180,7 +180,7 @@ px8_chars:
 	-DCONIO_ADM3A_WITH_UNDEF \
 	 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8ch.bin \
 	$(FULL_FILES)
 	rm px8ch.bin
@@ -193,7 +193,7 @@ px8_chars_ansi:
 	-D__PX8__ \
 	 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8cha.bin \
 	$(FULL_FILES)
 	rm px8cha.bin
@@ -280,7 +280,7 @@ ti85_turn_based:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DTURN_BASED \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -401,7 +401,7 @@ z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__Z88__ \
 	-DTINY_GAME -DNO_WALL \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DZ88DK_SPRITES \
 	 \
 	-DLESS_TEXT \
@@ -410,7 +410,7 @@ z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DBOMBS_NUMBER=2 \
 	-DGHOSTS_NUMBER=6 \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
@@ -438,8 +438,8 @@ z88_tiny_buffered:
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \

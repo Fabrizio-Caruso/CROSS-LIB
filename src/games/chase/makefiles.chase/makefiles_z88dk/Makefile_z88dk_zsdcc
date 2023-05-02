@@ -74,10 +74,10 @@ aquarius_exp_4k:
 	\
 	-D__AQUARIUS__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DNO_DEAD_GHOSTS \
 	 \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos \
 	-DMEMORY_MAPPED \
@@ -172,7 +172,7 @@ gal_6k:
 	-DNO_DEAD_GHOSTS \
 	-D__NO_INIT_GRAPHICS \
 	-DFLAT_ENEMIES \
-	-DALT_HIGHSCORE \
+	-D__ALT_HIGHSCORE \
 	-DCONIO \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg \
@@ -280,8 +280,8 @@ oz_tiny_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) $(SOURCE_PATH)/../../oz
@@ -459,7 +459,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_sprites_18k.vz \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -525,9 +525,9 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
-	-DALT_MOVE \
+	-D__ALT_MOVE \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES) \
@@ -557,7 +557,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_$@.prg \
 	$(FULL_FILES) \

@@ -24,7 +24,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
-	-DALT_MODE \
+	-D__ALT_MODE \
 	-DGHOSTS_NUMBER=6 \
 	-DXSize=36 \
 	-DYSize=35 \
@@ -38,7 +38,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx.prg \
 	$(LIGHT_FILES) \
@@ -68,8 +68,8 @@ zx81_8k:
 	-vn \
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-DALT_SLEEP \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
+	-D__ALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_TINY_zx81_8k.prg \
 	$(TINY_FILES)

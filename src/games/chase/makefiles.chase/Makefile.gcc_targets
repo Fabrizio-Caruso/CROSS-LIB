@@ -26,8 +26,8 @@ gcc_386_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
@@ -47,8 +47,8 @@ stdio_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
@@ -71,8 +71,8 @@ gcc_386_no_print:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -91,8 +91,8 @@ gcc_no_print:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -111,8 +111,8 @@ gcc_tiny_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -127,7 +127,7 @@ ncurses_turn_based:
 	  \
 	-DTURN_BASED \
 	-DCONIO  \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
@@ -142,7 +142,7 @@ ncurses_debug:
 	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-DCONIO -D_XL_NO_UDG \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
@@ -160,7 +160,7 @@ ncurses:
 	  \
 	  \
 	-DCONIO  \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \

@@ -24,8 +24,8 @@ atari_st_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_atari_st_buffered.tos
@@ -40,7 +40,7 @@ atari_st_ncurses:
 	-DYSize=22 \
 	  \
 	-DCONIO  \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -62,7 +62,7 @@ atari_st_ncurses_turn_based:
 	  \
 	-DCONIO  \
 	-D_XL_NO_SLEEP  \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \

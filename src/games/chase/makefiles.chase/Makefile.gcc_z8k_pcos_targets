@@ -35,8 +35,8 @@ olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	cp $(TOOLS_PATH)/olivetti_m20/pcos20h_empty.img FULL_m20_buffered.img
@@ -56,8 +56,8 @@ olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)		

@@ -372,7 +372,7 @@ sms_buffered:
 	-create-app \
 	-DBUFFERED \
 	-DTURN_BASED \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DDED__SCREEN_MODE
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_WAIT \
@@ -397,7 +397,7 @@ sos_buffered:
 	-lndos \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -DALT_PRINT \
+	-DBUFFERED -D__ALT_PRINT \
 	-DTURN_BASED \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
@@ -415,7 +415,7 @@ sos_tiny_buffered:
 	-lndos \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -DALT_PRINT \
+	-DBUFFERED -D__ALT_PRINT \
 	-DTURN_BASED \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
@@ -699,7 +699,7 @@ ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	 \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -721,7 +721,7 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	 \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -743,7 +743,7 @@ ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	 \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -789,7 +789,7 @@ ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_JOYSTICK \
 	 \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -810,7 +810,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
 	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
@@ -842,7 +842,7 @@ trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__TRS80__ \
 	 \
 	-vn -lndos \
-	-DALT_PRINT  -D__BIT_BANG_SOUND \
+	-D__ALT_PRINT  -D__BIT_BANG_SOUND \
 	 \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
@@ -882,7 +882,7 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-DLESS_TEXT  -D__BIT_BANG_SOUND \
 	-lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DZ88DK_SPRITES \
 	 \
 	-D__NO_INIT_GRAPHICS \
@@ -921,7 +921,7 @@ tvc_buffered:
 	-DXSize=31 \
 	-DYSize=23 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
+	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -959,7 +959,7 @@ gl4000_buffered:
 	-DXSize=20 -D_XL_NO_LOWER_BORDER \
 	-DYSize=6 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
+	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -978,7 +978,7 @@ gl6000sl_buffered:
 	-DXSize=30 -D_XL_NO_LOWER_BORDER \
 	-DYSize=12 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -DALT_PRINT -DSTDLIB  \
+	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
 	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -1031,7 +1031,7 @@ zx80_16k_turn_based:
 	-D__ZX80__  \
 	 \
 	-DTURN_BASED \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -1049,7 +1049,7 @@ zx80_16k_turn_based_v2:
 	-D__ZX80__  \
 	 -DAPI_VERSION=2 \
 	-DTURN_BASED \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -1120,7 +1120,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__Z88__ \
 	 \
 	-vn -lndos \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DZ88DK_SPRITES \
 	 -D__BIT_BANG_SOUND \
 	 \

@@ -154,7 +154,7 @@ endif
 # -O breaks bit-banging
 apple2_no_gfx_v1:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	\
 	   \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -169,7 +169,7 @@ apple2_no_gfx_v1:
 
 apple2_no_gfx:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	\
 	   \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -187,10 +187,10 @@ apple2_v1: apple2_hgr_v1
 apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
-	 -DALT_SLEEP  \
+	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
-	   -DALT_PRINT \
-	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	   -D__ALT_PRINT \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -210,10 +210,10 @@ apple2: apple2_hgr
 apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t apple2 -DEXTRA_TITLE -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
-	 -DALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	 -D__ALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DXSize=20 -DYSize=24 \
-	   -DALT_PRINT \
-	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	   -D__ALT_PRINT \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -234,7 +234,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 
 apple2enh_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	\
 	  \
 	-DCONIO \
@@ -254,10 +254,10 @@ apple2enh_v1: apple2enh_hgr_v1
 apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
-	 -DALT_SLEEP  \
+	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
-	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -277,10 +277,10 @@ apple2enh: apple2enh_hgr
 apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
 	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
-	 -DALT_SLEEP   \
+	 -D__ALT_SLEEP   \
 	-DXSize=20 -DYSize=24 \
-	   -DALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-DAPPLE2_HGR -DDEFAULT_CLEAR_SCREEN \
+	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -298,7 +298,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 # -O breaks bit-banging
 apple2enh_80col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	\
 	  \
 	-DCONIO  \
@@ -326,9 +326,9 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	  -DATARI_MODE1    \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -416,8 +416,8 @@ atari_lynx_no_gfx:
 	-DGHOSTS_NUMBER=8 \
 	-DTGI \
 	 \
-	-DALT_PRINT \
-    -DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+    -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
 	$(FULL_FILES) \
@@ -430,7 +430,7 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	-D__NO_SCREEN_COLOR_INIT  -DXSize=20 -DYSize=17 -D_XL_NUMBER_OF_TILES=27 \
 	-DTGI_GFX \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
 	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/chibisound.asm \
@@ -484,11 +484,11 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	 \
 	 \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DMEMORY_MAPPED \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
 	-DDANCE  -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
@@ -529,11 +529,11 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DLESS_TEXT	\
 	 \
 	-DNO_HINTS \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	 \
 	-DMEMORY_MAPPED \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
 	-DDANCE  \
 	-DUSE_MEMORY_BUFFERS \
 	$(SOURCE_PATH)/memory/c16_memory.s \
@@ -572,7 +572,7 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 -DEXTRA_TITLE \
 	     \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DCBM_SCREEN_CODES -DALT_PRINT \
+	-DCBM_SCREEN_CODES -D__ALT_PRINT \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
@@ -632,7 +632,7 @@ creativision_16k: creativision_16k_color
 creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
-	   -DALT_SLEEP \
+	   -D__ALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -650,7 +650,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
-	   -DALT_SLEEP \
+	   -D__ALT_SLEEP \
 	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -669,7 +669,7 @@ creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
 creativision_test: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
-	 -DALT_SLEEP \
+	 -D__ALT_SLEEP \
 	-DCREATIVISION_COLOR -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
@@ -699,7 +699,7 @@ creativision_8k_light:
 	-DNO_RANDOM_LEVEL \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DGHOSTS_NUMBER=8 \
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
@@ -784,7 +784,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	  -D_XL_NO_COLOR \
 	-DCONIO \
 	 \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_nes_tiles.s \
@@ -850,8 +850,8 @@ pet_8k_light:
 	-DNO_BLINKING -D_XL_NO_COLOR \
 	-D__NO_SCREEN_COLOR_INIT  \
 	-DGHOSTS_NUMBER=8 \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(LIGHT_FILES) \
@@ -902,7 +902,7 @@ osic1p: osic1p_32k
 
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DGHOSTS_NUMBER=8 \
 	  \
@@ -918,7 +918,7 @@ osic1p_32k:
 
 osic1p_32k_turn_based: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DTURN_BASED \
 	-DGHOSTS_NUMBER=9 \
@@ -967,7 +967,7 @@ supervision_reduced: $(ASSETS_PATH)/cc65_udc.s
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DNO_PRINT  -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
 	$(FULL_FILES) \
@@ -980,7 +980,7 @@ supervision_no_print: $(ASSETS_PATH)/cc65_udc.s
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DNO_PRINT    -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	 \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
@@ -994,9 +994,9 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
-	-DALT_PRINT    -DALT_SLEEP \
+	-D__ALT_PRINT    -D__ALT_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=300 \
+	-D__DEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=300 \
 	 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -1016,7 +1016,7 @@ telestrat_buffered:
 	-DBUFFERED -DTURN_BASED -DSTDLIB -DXSize=38 -DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
-	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
 	  \
 	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1032,7 +1032,7 @@ telestrat_joy_buffered:
 	-DBUFFERED -DTURN_BASED -DSTDLIB -DXSize=38 -DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
 	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
-	-D_XL_NO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
 	  \
 	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1046,7 +1046,7 @@ telestrat_exp:
 	-D__TELESTRAT__ -D__INCLUDE_CONIO_H \
 	-D_XL_NO_WAIT -DCC65_JOYSTICK -DXSize=38 -DYSize=24  \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	 \
 	-D_XL_NO_COLOR \
 	  \
@@ -1113,7 +1113,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 # vic20_test2: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t vic20    \
 	# --config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
-	# -DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -DALT_SLEEP  \
+	# -DCONIO -DVIC20_EXP_16K -DEXTRA_TITLE -D__ALT_SLEEP  \
 	# -D_XL_SLOW_DOWN_FACTOR=500  -DGHOSTS_NUMBER=8 \
 	#    -DTRANSITION_ANIMATION \
 	# $(ASSETS_PATH)/cc65_udc_arcade_v2.s \
@@ -1152,8 +1152,8 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D_XL_NO_TEXT_COLOR \
 	-DNO_BLINKING \
 	-D_XL_NO_SLEEP -DNO_STATS \
-	-DALT_DISPLAY_STATS \
-	-DALT_HIGHSCORE \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -1174,11 +1174,11 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	 \
 	-DSIMPLE_STRATEGY \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	  \
 	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
@@ -1215,11 +1215,11 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	 \
 	-DSIMPLE_STRATEGY \
 	 \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	  \
 	/$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
@@ -1262,9 +1262,9 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
 	-DMEMORY_MAPPED \
-	-DALT_HIGHSCORE \
-	-DALT_DISPLAY_STATS \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__ALT_HIGHSCORE \
+	-D__ALT_DISPLAY_STATS \
+	-D__DEFAULT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-DROUND_ENEMIES \
 	-DSIMPLE_RANDOM_LEVEL \

@@ -441,7 +441,7 @@ px4_quick_test:
 	-subtype=px4 -Cz--32k \
 	-create-app \
 	-vn -lndos -o px4.bin \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TEST_FILES)
@@ -455,7 +455,7 @@ px8_quick_test:
 	-D__PX8__ \
 	-create-app \
 	-vn -lndos -o px8.bin \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	$(TEST_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c 
@@ -684,7 +684,7 @@ zx80_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	-DTURN_BASED \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -699,7 +699,7 @@ zx81_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -715,7 +715,7 @@ zx81_zsdcc_quick_test:
 	-compiler=sdcc \
 	-vn \
 	-D__ZX81__ -DTINY_GAME \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -732,7 +732,7 @@ aquarius_zsdcc_quick_test:
 	-compiler=sdcc \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-vn \
-	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
+	-D__ALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TEST_ZSDCC_aquarius -create-app \
 	-DMEMORY_MAPPED \
@@ -840,7 +840,7 @@ mc1000_zsdcc_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__MC1000__  \
-	-DALT_SLEEP \
+	-D__ALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio -o mc1kzt.bin \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

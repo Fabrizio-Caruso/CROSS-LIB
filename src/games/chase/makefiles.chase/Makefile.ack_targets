@@ -29,7 +29,7 @@ pc8086_tiny_buffered:
 	-DNO_PRINT \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
+	-D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
@@ -48,8 +48,8 @@ cpm_8080_buffered_ack:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_cpm8080_buffered.com
@@ -93,8 +93,8 @@ msdos86:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv msdos86.exe $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.exe
@@ -114,8 +114,8 @@ msdos86_test:
 	-DBUFFERED \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
@@ -138,8 +138,8 @@ pc8086:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv pc86.img $(BUILD_PATH)/X$(GAME_NAME)_pc8086_turn_based.img
@@ -164,8 +164,8 @@ linuxppc:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linuxppc.exe $(BUILD_PATH)/X$(GAME_NAME)_linuxppc_turn_based.exe
@@ -190,8 +190,8 @@ linux68k:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linux68k.exe $(BUILD_PATH)/X$(GAME_NAME)_linux68k_turn_based.exe
@@ -216,8 +216,8 @@ linux386:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linux386.exe $(BUILD_PATH)/X$(GAME_NAME)_linux386_turn_based.exe
@@ -242,8 +242,8 @@ linuxmips:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linuxmips.exe $(BUILD_PATH)/X$(GAME_NAME)_linuxmips_turn_based.exe
@@ -261,7 +261,7 @@ dos:
 	  \
 	-DTURN_BASED \
 	-DCONIO  \
-	-DALT_PRINT \
+	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \

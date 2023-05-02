@@ -40,7 +40,7 @@
 
     #if defined(_XL_NO_SLEEP)
         #define _XL_SLEEP(s)
-    #elif defined(ALT_SLEEP)
+    #elif defined(__ALT_SLEEP)
         void _XL_SLEEP(uint8_t s);
     #else
         #define _XL_SLEEP(s) sleep(s)
@@ -96,14 +96,14 @@
             #define _XL_SLOW_DOWN_FACTOR 250
         #elif defined(__ATMOS__)
             #define _XL_SLOW_DOWN_FACTOR 50		
-        #elif defined(__VG5K__) && !defined(ALT_PRINT)
+        #elif defined(__VG5K__) && !defined(__ALT_PRINT)
             #define _XL_SLOW_DOWN_FACTOR 2000U
-        #elif defined(__VG5K__) && defined(ALT_PRINT)
+        #elif defined(__VG5K__) && defined(__ALT_PRINT)
             #define _XL_SLOW_DOWN_FACTOR 5000U		
-        #elif defined(__GAMATE__) || defined(__X1__) || defined(__AQUARIUS__) && defined(ALT_PRINT)
+        #elif defined(__GAMATE__) || defined(__X1__) || defined(__AQUARIUS__) && defined(__ALT_PRINT)
             #define _XL_SLOW_DOWN_FACTOR 1500
         #elif defined(__CREATIVISION__) || defined(__ATARI5200__) || (defined(__ATARI__) && defined(ATARI_MODE1))  || \
-              defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(ALT_PRINT) || defined(__PET__)
+              defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(__ALT_PRINT) || defined(__PET__)
             #define _XL_SLOW_DOWN_FACTOR 1000
         #elif defined(__PCE__)
             #define _XL_SLOW_DOWN_FACTOR 5500U	

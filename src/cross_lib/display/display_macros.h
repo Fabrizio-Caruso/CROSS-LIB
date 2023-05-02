@@ -53,7 +53,7 @@
     extern uint8_t sprites[];
 #endif
 
-#if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
+#if defined(Z88DK_SPRITES) && defined(__ALT_PRINT)
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
@@ -145,7 +145,7 @@
 
 
 // PRINT AND PRINTD
-#  if defined(ALT_DISPLAY_STATS) 
+#  if defined(__ALT_DISPLAY_STATS) 
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #define _XL_PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
@@ -174,7 +174,7 @@
         move(y,x); \
         cputc(ch); \
     } while(0)
-#elif defined(ALT_PRINT)
+#elif defined(__ALT_PRINT)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);   
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
@@ -319,7 +319,7 @@
 
 
 // CLEAR SCREEN
-#  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)
+#  if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
 #elif defined(__TI99__)
     #include <vdp.h>

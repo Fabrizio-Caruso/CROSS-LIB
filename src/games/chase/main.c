@@ -251,7 +251,7 @@ int main(void)
         _XL_WAIT_FOR_INPUT();
         _XL_CLEAR_SCREEN();
 
-        #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
+        #if !defined(LESS_TEXT)
             highScoreScreen();
             REFRESH();
             _XL_WAIT_FOR_INPUT();

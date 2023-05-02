@@ -435,7 +435,7 @@ lda $a7c0
 #endif
 
 
-#if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
+#if defined(Z88DK_SPRITES) && defined(__ALT_PRINT)
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch)
     {
         _XL_DELETE(x,y); 
@@ -448,7 +448,7 @@ lda $a7c0
 
 
 
-#if defined(DEFAULT_CLEAR_SCREEN)
+#if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void)
     {
         uint8_t i;

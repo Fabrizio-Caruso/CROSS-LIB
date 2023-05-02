@@ -73,7 +73,7 @@ void set_udg_colors(void)
 	uint8_t i;
 	
     #if !defined(ALL_COLOR)
-        #if defined(ALTERNATIVE_COLOR)
+        #if defined(__ALTERNATIVE_COLOR)
             set_group_color(0,MSX_COLOR_LIGHT_RED);
             set_group_color(1,MSX_COLOR_WHITE);
             set_group_color(2,MSX_COLOR_LIGHT_RED);

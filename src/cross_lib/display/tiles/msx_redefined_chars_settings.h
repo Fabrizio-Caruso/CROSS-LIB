@@ -4,7 +4,7 @@
 
 // Still available:
 // 0x80-.... ?
-#if !defined(ALTERNATIVE_COLOR)
+#if !defined(__ALTERNATIVE_COLOR)
 
     // CYAN
 

@@ -267,12 +267,12 @@ out            stb res
 
 
 // _XL_WAIT_FOR_INPUT() definitions
-#  if defined(_XL_NO_WAIT) && !defined(_XL_NO_SLEEP)
+#  if defined(__NO_WAIT) && !defined(_XL_NO_SLEEP)
     void _XL_WAIT_FOR_INPUT(void)
     {
         _XL_SLEEP(2);
     }
-#elif defined(_XL_NO_WAIT) 
+#elif defined(__NO_WAIT) 
 //
 #elif defined(WAIT_FOR_KEY)
     #  if defined(__GCC_BUFFERED__) || defined(STDLIB)

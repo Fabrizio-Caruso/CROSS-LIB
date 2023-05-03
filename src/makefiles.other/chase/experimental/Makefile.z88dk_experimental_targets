@@ -8,7 +8,7 @@ DEBUG_MACROS ?= \
 	-DYSize=22 \
 	-DSTDLIB \
 	-DNO_RANDOM_LEVEL \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DNO_INPUT \
 	-DNO_PRINT \
@@ -42,7 +42,7 @@ abc800_light:
 	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DCONIO_VT100 \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D__ABC80__ -vn  -lndos  \
 	$(LIGHT_FILES)
 	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
@@ -100,7 +100,7 @@ abc800_conio:
 	-DSIMPLE_STRATEGY \
 	 \
 	-DNO_HINTS \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DNO_BORDER \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_RANDOM_LEVEL \
@@ -154,7 +154,7 @@ c7420:
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -171,7 +171,7 @@ c7420_tiny:
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
-	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -210,7 +210,7 @@ rex:
 	  \
 	-lndos \
 	-DNO_PRINT \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -233,7 +233,7 @@ rex_buffered:
 	  \
 	-lndos \
 	-DNO_PRINT \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
 	-D__NO_INIT_GRAPHICS \

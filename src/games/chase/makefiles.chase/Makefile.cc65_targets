@@ -763,7 +763,7 @@ gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/ga
 gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	 -D_XL_SLOW_DOWN_FACTOR=6000   \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D_XL_NO_WAIT    \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D__NO_WAIT    \
 	-DLESS_TEXT  \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
@@ -968,7 +968,7 @@ supervision_reduced: $(ASSETS_PATH)/cc65_udc.s
 	-DNO_PRINT  -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
@@ -982,7 +982,7 @@ supervision_no_print: $(ASSETS_PATH)/cc65_udc.s
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	 \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1015,7 +1015,7 @@ telestrat_buffered:
 	-D__TELESTRAT__ \
 	-DBUFFERED -DTURN_BASED -DSTDLIB -DXSize=38 -DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
-	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
+	 -D__NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
 	  \
 	-D__NO_INIT_GRAPHICS \
@@ -1031,7 +1031,7 @@ telestrat_joy_buffered:
 	-D__TELESTRAT__ -DCC65_JOYSTICK \
 	-DBUFFERED -DTURN_BASED -DSTDLIB -DXSize=38 -DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
-	 -D_XL_NO_WAIT -D_XL_NO_SLEEP \
+	 -D__NO_WAIT -D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
 	  \
 	-D__NO_INIT_GRAPHICS \
@@ -1044,7 +1044,7 @@ telestrat_joy_buffered:
 telestrat_exp: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
 	-D__TELESTRAT__ -D__INCLUDE_CONIO_H \
-	-D_XL_NO_WAIT -DCC65_JOYSTICK -DXSize=38 -DYSize=24  \
+	-D__NO_WAIT -DCC65_JOYSTICK -DXSize=38 -DYSize=24  \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D__ALT_SLEEP \
 	 \

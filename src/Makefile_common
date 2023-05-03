@@ -917,25 +917,60 @@ endif
 
 cpm: cpm_z80_adm3a
 
+cpm_adm3a: cpm_z80_adm3a
+
+cpm_8080: cpm_8080_adm3a
+
+cpm_8085: cpm_8085_adm3a
+
+cpm_vt52: cpm_z80_vt52
+
+cpm_targets: cpm_adm3a cpm_vt52
+
 cpm_z80_adm3a:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	-DCONIO -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D__XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+cpm_8080_adm3a:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -clib=8080 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	-DCONIO -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D__XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+cpm_8085_adm3a:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -clib=8085 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	-DCONIO -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D__XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+cpm_z80_vt52:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
-	-DCONIO_ADM3A \
-	-D__CPM_80X24__ \
-	-D_XL_NO_WAIT \
+	-DCONIO_VT52 -DXSize=80 -DYSize=24 \
+	-D__NO_WAIT -D__XL_NO_COLOR \
 	-DCONIO -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-cpm_8080_adm3a:
+cpm_8080_vt52:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -m8080 -clib=8080 \
 	$(INCLUDE_OPTS) \
-	-DCONIO_ADM3A \
-	-D__CPM_80X24__ \
+	-DCONIO_VT52 -DXSize=80 -DYSize=24 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_INTEL8080_SLOWDOWN) \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT -D__XL_NO_COLOR \
 	-DCONIO -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)

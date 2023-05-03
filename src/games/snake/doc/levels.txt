@@ -49,3 +49,8 @@ level  $       hm       vm        hw       vw       4th O
 
 ------------------------------------------------------------
 
+$  = bonus level
+hm = horizontal mines
+vm = vertical mines
+hw = transparent horizontal wall
+vm = transparent vertical wall

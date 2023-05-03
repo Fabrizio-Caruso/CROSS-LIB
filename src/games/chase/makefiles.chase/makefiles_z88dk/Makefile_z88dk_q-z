@@ -375,7 +375,7 @@ sms_buffered:
 	-D__ALT_PRINT \
 	-DDED__SCREEN_MODE
 	-D_XL_NO_SLEEP \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -399,7 +399,7 @@ sos_buffered:
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
 	-DTURN_BASED \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-DDED__SCREEN_MODE
 	-create-app -o sos_buffered \
@@ -417,7 +417,7 @@ sos_tiny_buffered:
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
 	-DTURN_BASED \
-	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-DDED__SCREEN_MODE
 	-create-app -o sos_tiny_buffered \
@@ -459,7 +459,7 @@ special:
 	-DXSize=48 \
 	-DYSize=30 \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -DSTDLIB -D_XL_NO_WAIT \
+	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -DSTDLIB -D__NO_WAIT \
 	  \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -550,7 +550,7 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	  \
-	  -D_XL_NO_WAIT \
+	  -D__NO_WAIT \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -646,7 +646,7 @@ sv8000_tiny:
 	-DZ88DK_JOYSTICK -DXSize=24 -DYSize=16  \
 	-D__SV8000__ -DDED__SCREEN_MODE
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DNO_PRINT \
-	-DCONIO -D_XL_NO_WAIT -D_XL_SLOW_DOWN_FACTOR=2000 -D__NO_INIT_GRAPHICS \
+	-DCONIO -D__NO_WAIT -D_XL_SLOW_DOWN_FACTOR=2000 -D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.bin \
 	$(TINY_FILES) 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.bin
@@ -662,7 +662,7 @@ sv8000_tiny:
 	# -DYSize=16 \
 	# -D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	# -D_XL_NO_COLOR -DNO_PRINT -DSTDLIB  \
-	# -DTINY_GAME  -DNO_WALL -DNO_BLINKING -D_XL_NO_WAIT -D_XL_NO_SLEEP  -DDED__SCREEN_MODE
+	# -DTINY_GAME  -DNO_WALL -DNO_BLINKING -D__NO_WAIT -D_XL_NO_SLEEP  -DDED__SCREEN_MODE
 	# -D__NO_INIT_GRAPHICS \
 	# $(TINY_FILES) \
 	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.bin
@@ -922,7 +922,7 @@ tvc_buffered:
 	-DYSize=23 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
-	 -D_XL_NO_WAIT -D_XL_NO_SLEEP -DDED__SCREEN_MODE
+	 -D__NO_WAIT -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -960,7 +960,7 @@ gl4000_buffered:
 	-DYSize=6 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
-	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
+	 -D__NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -979,7 +979,7 @@ gl6000sl_buffered:
 	-DYSize=12 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
-	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
+	 -D__NO_WAIT  -D_XL_NO_SLEEP -DDED__SCREEN_MODE
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1125,7 +1125,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 -D__BIT_BANG_SOUND \
 	 \
 	-DLESS_TEXT \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DDED__SCREEN_MODE

@@ -78,7 +78,6 @@
 		|| defined(__ATARI__) \
 		|| defined(__ATARI5200__) \
 		|| defined(__ACE__) \
-		|| defined(__CPM_80X24__) \
 		|| defined(__EINSTEIN__) \
 		|| defined(__OSIC1P__) \
 		|| defined(__MC1000__) \
@@ -159,7 +158,7 @@
 		#define XSize 80
 	#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
-		  || (defined(__PX8__) && !defined(Z88DK_SPRITES))|| defined(__CPM_80X24__) \
+		  || (defined(__PX8__) && !defined(Z88DK_SPRITES)) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__) || (defined(__MULTI8__) && !defined(_XL_NO_UDG)) \
 		  || (defined(__TS2068__) && !defined(Z88DK_SPRITES))

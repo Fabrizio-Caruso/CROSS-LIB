@@ -27,7 +27,7 @@ emcc_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT -D_XL_NO_WAIT  \
+	-D__ALT_PRINT -D__NO_WAIT  \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -45,7 +45,7 @@ emcc_exp:
 	-DYSize=24 \
 	-DSTDLIB \
 	-D_XL_NO_COLOR \
-	-D_XL_NO_SLEEP -DNO_INPUT -D_XL_NO_WAIT \
+	-D_XL_NO_SLEEP -DNO_INPUT -D__NO_WAIT \
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \

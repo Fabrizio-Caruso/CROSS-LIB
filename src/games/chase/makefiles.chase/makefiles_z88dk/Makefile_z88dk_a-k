@@ -202,7 +202,7 @@ abc80:
 	-DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
 	-DNO_HINTS \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DNO_BORDER \
 	-DNO_RANDOM_LEVEL \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -224,7 +224,7 @@ abc80_light:
 	-subtype=hex \
 	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80light.bin  \
 	$(LIGHT_FILES)
 	# mv abc80.bin $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_abc80.bin
@@ -251,7 +251,7 @@ abc800_buffered:
 	-DSTDLIB \
 	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
 	-DBUFFERED -D__ALT_PRINT \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT -D__DEFAULT_CLEAR_SCREEN \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	-lndos -create-app -oa800.bin \
 	$(FULL_FILES) \
@@ -319,7 +319,7 @@ attache_chars:
 	$(INCLUDE_OPTS) \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_attache_chars.bin \
@@ -356,7 +356,7 @@ aussie:
 	-D__BIT_BANG_SOUND \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_aussie.bin \
@@ -393,7 +393,7 @@ altair8800_tiny_buffered:
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DTURN_BASED \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -420,7 +420,7 @@ bic_buffered:
 	-DBUFFERED \
 	-DSTDLIB \
 	-D__NO_INIT_GRAPHICS \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_PRINT \
@@ -659,7 +659,7 @@ cpm_z80_adm3a:
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
@@ -677,7 +677,7 @@ cpm_8080_adm3a:
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
@@ -698,7 +698,7 @@ cpm_8080_buffered:
 	-DBUFFERED \
 	-DSTDLIB \
 	-D__NO_INIT_GRAPHICS \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_PRINT \
@@ -720,7 +720,7 @@ dai_buffered:
 	-DYSize=21 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
 	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
-	 -D_XL_NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
+	 -D__NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -962,7 +962,7 @@ gamegear_tiny_buffered:
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_NO_SLEEP \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_gamegear_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

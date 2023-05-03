@@ -92,7 +92,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__ALT_MOVE \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_PRINT \
@@ -244,7 +244,7 @@ ti83_turn_based:
 	-vn \
 	  \
 	-DTURN_BASED \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DLESS_TEXT -DNO_HINTS  -D_XL_NO_COLOR \
 	-lndos \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -405,7 +405,7 @@ z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	 \
 	-DLESS_TEXT \
-	-D_XL_NO_WAIT -DBAD_PAGES=1 \
+	-D__NO_WAIT -DBAD_PAGES=1 \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DBOMBS_NUMBER=2 \

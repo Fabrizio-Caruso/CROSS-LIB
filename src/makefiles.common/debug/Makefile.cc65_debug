@@ -42,7 +42,7 @@ none_no_graphics:
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INPUT \
@@ -61,7 +61,7 @@ supervision_dummy:
 	-DNO_PRINT -D_XL_NO_SLEEP \
 	-DBIT_MAPPED_4_DUMMY -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -109,7 +109,7 @@ bbc_test:
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INPUT \

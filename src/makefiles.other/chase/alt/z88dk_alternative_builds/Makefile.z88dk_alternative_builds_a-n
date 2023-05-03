@@ -94,7 +94,7 @@ abc80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-DTINY_GAME -DNO_WALL \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80t.bin \
 	$(TINY_FILES)
 	rm abc80t.bin
@@ -230,7 +230,7 @@ cpm_z80_vt52:
 	$(INCLUDE_OPTS) \
 	-DCONIO_VT52 \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt52.bin \
@@ -244,7 +244,7 @@ cpm_z80_vt100:
 	$(INCLUDE_OPTS) \
 	-DCONIO_VT100 \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt100.bin \
@@ -334,7 +334,7 @@ m5_no_gfx:
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	  \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_m5_no_gfx.bin \

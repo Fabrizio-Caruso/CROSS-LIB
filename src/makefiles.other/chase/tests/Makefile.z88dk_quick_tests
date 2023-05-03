@@ -188,7 +188,7 @@ cpm_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__CPM_80X24__ \
-	-D_XL_NO_SLEEP -D_XL_NO_WAIT \
+	-D_XL_NO_SLEEP -D__NO_WAIT \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
 	$(TEST_FILES)
@@ -247,7 +247,7 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO_VT52 \
 	-DCONIO \
 	-D_XL_NO_SLEEP \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	 \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
 	$(TEST_FILES) $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -370,7 +370,7 @@ nc100_quick_test:
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-D_XL_NO_SLEEP \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
@@ -410,7 +410,7 @@ pps_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-lndos -o ppst.bin \
 	$(TEST_FILES) 
 	mv ppst.bin $(BUILD_PATH)/TEST_pps.exe		
@@ -422,7 +422,7 @@ pv2000_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	 \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DCONIO_VT52 \
 	-lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -526,7 +526,7 @@ srr_quick_test:
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	 \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DCONIO_VT52 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
@@ -565,7 +565,7 @@ ti82_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DTURN_BASED -D_XL_NO_WAIT \
+	-DTURN_BASED -D__NO_WAIT \
 	-lndos \
 	-create-app -o ti82t.bin \
 	$(TEST_FILES)
@@ -580,7 +580,7 @@ ti83_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DTURN_BASED -D_XL_NO_WAIT \
+	-DTURN_BASED -D__NO_WAIT \
 	-lndos \
 	-create-app -o ti83t.bin \
 	$(TEST_FILES)
@@ -595,7 +595,7 @@ ti85_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
-	-DTURN_BASED -D_XL_NO_WAIT \
+	-DTURN_BASED -D__NO_WAIT \
 	-lndos \
 	-create-app -o ti85t.bin \
 	$(TEST_FILES)

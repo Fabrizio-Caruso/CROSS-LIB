@@ -73,7 +73,7 @@ gcc_386_no_print:
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
@@ -93,7 +93,7 @@ gcc_no_print:
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
@@ -113,7 +113,7 @@ gcc_tiny_buffered:
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

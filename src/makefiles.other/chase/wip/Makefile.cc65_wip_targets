@@ -12,7 +12,7 @@ bbc_no_graphics:
 	-D_XL_NO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \
-	-D_XL_NO_WAIT \
+	-D__NO_WAIT \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INPUT \

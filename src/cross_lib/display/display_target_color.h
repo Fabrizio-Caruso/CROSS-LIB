@@ -17,7 +17,7 @@
     || (defined(__ATARI__) && !defined(ATARI_MODE_1_COLOR)) \
     || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(APPLE2_HGR)) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
-    || defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
+    || defined(__TRS80__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
     || defined(__KC__) || (defined(__ATMOS__) && !defined(ORIC_COLOR)) \
     || defined(__VECTREX__) || defined(__GB__) \

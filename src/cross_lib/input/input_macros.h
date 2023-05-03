@@ -263,11 +263,11 @@ window.addEventListener("keydown", function (event) {
 
     #if !defined(NO_INPUT)
         // _XL_WAIT_FOR_INPUT
-        #if !defined(_XL_NO_WAIT) || !defined(_XL_NO_SLEEP)
+        #if !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)
             void _XL_WAIT_FOR_INPUT(void);
-        #else // _XL_NO_WAIT + _XL_NO_SLEEP
+        #else // __NO_WAIT + _XL_NO_SLEEP
             #define _XL_WAIT_FOR_INPUT()
-        #endif // !defined(_XL_NO_WAIT) || !defined(_XL_NO_SLEEP)
+        #endif // !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)
     #else
         #define _XL_WAIT_FOR_INPUT()
     #endif

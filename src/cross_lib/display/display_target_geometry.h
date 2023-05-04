@@ -145,7 +145,7 @@
 		#define YSize ((200/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__Z88__) && defined(Z88DK_SPRITES))
 		#define YSize ((64/SPRITE_Y_STEP))
-	#elif (defined(__PC6001__) && __SCREEN_MODE==2) || (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+	#elif (defined(__PC6001__) && __SCREEN_MODE==2) || (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
 		#define YSize 24
 	#else
 		#define YSize 16

@@ -57,7 +57,7 @@
 	}
 
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED) && !defined(__BIT_MAPPED_4_GRAPHICS)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(__BIT_MAPPED_GRAPHICS) && !defined(__BIT_MAPPED_4_GRAPHICS)
 
 	char screenCode(char ch)
 	{
@@ -95,7 +95,7 @@
 			return ch+18-65;
 		}
 	}    
-#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(BIT_MAPPED) || defined(__BIT_MAPPED_4_GRAPHICS))
+#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS))
 
     #if defined(__BIT_MAPPED_4_GRAPHICS)
         #define _SPACE_OFFSET 13
@@ -232,7 +232,7 @@
     #define _DISPLAY(x,y,c) \
         _color_draw(x,y,c-_CHAR_OFFSET,_bitmap4_text_color)
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"
     #define _DISPLAY(x,y,ch) \
@@ -295,7 +295,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		val/=10;
         #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
-        #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(BIT_MAPPED))
+        #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(__BIT_MAPPED_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
         // #elif defined(QUAD_MEMORY_MAPPED)
         // DRAW_QUAD_CHAR(x+length-1-i,y,(digit+(uint8_t) 48u),_XL_WHITE);

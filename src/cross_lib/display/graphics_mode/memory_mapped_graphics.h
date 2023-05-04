@@ -4,7 +4,7 @@
 #include "standard_libs.h"
 
 #if (defined(__PET__) && defined(__MEMORY_MAPPED_GRAPHICS)) || defined(__MC10__) || defined(__AQUARIUS__) || \
-    (defined(__COCO__) && !defined(BIT_MAPPED)) || (defined(__DRAGON__) && !defined(BIT_MAPPED))
+    (defined(__COCO__) && !defined(__BIT_MAPPED_GRAPHICS)) || (defined(__DRAGON__) && !defined(__BIT_MAPPED_GRAPHICS))
     #include "display_macros.h"
 #endif
 

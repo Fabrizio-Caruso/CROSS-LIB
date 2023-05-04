@@ -36,7 +36,7 @@
 	#include "cpc_cpcrslib_graphics.h"
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
 	#include "bit_mapped_4_graphics.h"
-#elif defined(BIT_MAPPED)
+#elif defined(__BIT_MAPPED_GRAPHICS)
 	#include "bit_mapped_graphics.h"
 #elif defined(REX)
 	#include "rex_graphics.h"

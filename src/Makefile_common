@@ -570,7 +570,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_2.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
 	-D__ALT_PRINT -D__ALT_SLEEP \
-	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
+	-D__BIT_MAPPED_4_GRAPHICS $(LIGHT_DRAW_SKIP) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SUPERVISION_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1074,10 +1074,7 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC1000_SLOWDOWN) \
-	 \
 	-D__SCREEN_MODE=1 \
-	 \
-	 \
 	-D__MC1000__  \
 	-D__CONIO_GRAPHICS \
 	-vn  -lndos -Cz--audio \
@@ -1095,10 +1092,7 @@ mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC1000_SLOWDOWN) \
-	  \
 	-D__SCREEN_MODE=2 -DXSize=16 -D_BACKGROUND_COLOR=_XL_WHITE -D__NO_SCREEN_COLOR_INIT \
-	 \
-	 \
 	-D__MC1000__  \
 	-D__CONIO_GRAPHICS \
 	-vn  -lndos -Cz--audio \
@@ -1123,7 +1117,6 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
 	-D__CONIO_GRAPHICS   -DXSize=32 -DYSize=24 \
-	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1143,12 +1136,10 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -D__SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn \
-	 -DPSG_SOUNDS  \
+	-DPSG_SOUNDS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MTX512_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-lndos \
-	 \
-	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1162,12 +1153,9 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn \
-	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MTX500_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-lndos \
-	 \
-	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -1183,7 +1171,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -Cz--audio -vn \
-	    -D_XL_NO_UDG  \
+	-D_XL_NO_UDG  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MZ_SLOWDOWN) \
 	-pragma-define:REGISTER_SP=0xd000 \
@@ -1202,7 +1190,7 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__CONIO_GRAPHICS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SAMCOUPE_SLOWDOWN) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	 -D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	-D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
@@ -1222,8 +1210,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SMS__ \
 	-DXSize=32 \
 	-DYSize=22 \
-	 \
-	 -D__BIT_BANG_SOUND \
+	-D__BIT_BANG_SOUND \
 	-D__CONIO_GRAPHICS  \
 	-lndos \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMS_SLOWDOWN) \
@@ -1245,7 +1232,6 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
@@ -1281,7 +1267,7 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	 -vn  -D__VG5K__ \
+	-vn  -D__VG5K__ \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k.prg \
 	-D__CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VG5K_SLOWDOWN) \
@@ -1411,7 +1397,7 @@ COCO_GFX_COMPILE_OPTS      ?= $(COCO_GFX_OPTS) -D_API_VERSION=$(API_VERSION)
 
 GFX_COLOR_OPTS              ?= $(CMOC_OPTS)  -D_XL_NO_JOYSTICK -DBIT_MAPPED -D__ALT_PRINT  -D_BACKGROUND_COLOR=_XL_WHITE -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COCO_SLOWDOWN)
 
-COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -DBIT_MAPPED_4 $(COCO_COLOR_GFX_GAME_OPTS)
+COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -D__BIT_MAPPED_4_GRAPHICS $(COCO_COLOR_GFX_GAME_OPTS)
 
 COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
 

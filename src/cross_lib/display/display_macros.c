@@ -60,7 +60,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 }
 #endif
 
-#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(BIT_MAPPED_4)) || (defined(__MC10__) && defined(BIT_MAPPED_4))
+#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__MC10__) && defined(__BIT_MAPPED_4_GRAPHICS))
     extern uint8_t udgs[];
 
     uint8_t _bitmap4_text_color;
@@ -352,7 +352,7 @@ lda $a7c0
         PUTCH(0x41+x);
     }    
     
-#elif defined(BIT_MAPPED_4)
+#elif defined(__BIT_MAPPED_4_GRAPHICS)
     uint8_t map_one_to_two_lookup[16] = 
     {  
     #if defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)

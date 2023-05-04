@@ -71,7 +71,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX_3.cfg \
 	$(ASSETS_PATH)/cc65_udc.s \
 	-D__ALT_PRINT -D__ALT_SLEEP \
-	-DBIT_MAPPED_4 \
+	-D__BIT_MAPPED_4_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=2500 -DTRANSITION_ANIMATION \
 	 -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

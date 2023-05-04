@@ -57,7 +57,7 @@
 	}
 
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED) && !defined(BIT_MAPPED_4)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && !defined(BIT_MAPPED) && !defined(__BIT_MAPPED_4_GRAPHICS)
 
 	char screenCode(char ch)
 	{
@@ -95,9 +95,9 @@
 			return ch+18-65;
 		}
 	}    
-#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(BIT_MAPPED) || defined(BIT_MAPPED_4))
+#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(BIT_MAPPED) || defined(__BIT_MAPPED_4_GRAPHICS))
 
-    #if defined(BIT_MAPPED_4)
+    #if defined(__BIT_MAPPED_4_GRAPHICS)
         #define _SPACE_OFFSET 13
     #else
         #define _SPACE_OFFSET 0
@@ -217,7 +217,7 @@
 			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
-#elif defined(BIT_MAPPED_4)
+#elif defined(__BIT_MAPPED_4_GRAPHICS)
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
     

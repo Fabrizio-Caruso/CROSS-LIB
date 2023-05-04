@@ -34,7 +34,7 @@
 	#include "tgi_graphics.h"
 #elif defined(CPCRSLIB)
 	#include "cpc_cpcrslib_graphics.h"
-#elif defined(BIT_MAPPED_4)
+#elif defined(__BIT_MAPPED_4_GRAPHICS)
 	#include "bit_mapped_4_graphics.h"
 #elif defined(BIT_MAPPED)
 	#include "bit_mapped_graphics.h"

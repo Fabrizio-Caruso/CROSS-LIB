@@ -26,7 +26,7 @@ DEBUG_MACROS ?= \
 abc800_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -zorg=40000 \
 	-D__ABC800__ \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP \
 	-o$(BUILD_PATH)/TINY_abc800.bin \
 	$(SOURCE_PATH)/display_macros.c \
@@ -41,7 +41,7 @@ abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
 	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -D__NO_INIT_GRAPHICS \
-	-DCONIO_VT100 \
+	-D__VT100 \
 	-D__NO_WAIT \
 	-D__ABC80__ -vn  -lndos  \
 	$(LIGHT_FILES)
@@ -189,7 +189,7 @@ m100:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -261,7 +261,7 @@ x07_tiny:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D__X07__ \
 	-vn \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME \
 	-lndos \

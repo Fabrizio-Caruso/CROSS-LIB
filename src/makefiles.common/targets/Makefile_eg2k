@@ -11,7 +11,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EG2K_SLOWDOWN) \
 	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \

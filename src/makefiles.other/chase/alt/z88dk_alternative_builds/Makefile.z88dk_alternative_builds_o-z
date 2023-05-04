@@ -124,7 +124,7 @@ pc6001_32k_no_gfx:
 pps_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DTURN_BASED \
 	  \
 	  \
@@ -143,7 +143,7 @@ pv1000_light:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -161,7 +161,7 @@ px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
 	$(INCLUDE_OPTS) \
 	-D__PX4__ \
-	-DCONIO_ADM3A_WITH_UNDEF \
+	-D__ADM3A_WITH_UNDEF \
 	 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -177,7 +177,7 @@ px8_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=px8 \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
-	-DCONIO_ADM3A_WITH_UNDEF \
+	-D__ADM3A_WITH_UNDEF \
 	 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -324,7 +324,7 @@ trs80_chars_cas:
 	-lm -create-app \
 	-D__TRS80__ \
 	   \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -338,7 +338,7 @@ trs80_tiny_cas:
 	-pragma-redirect:getk=getk_inkey \
 	-lm -create-app \
 	-D__TRS80__ \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DTINY_GAME -DNO_WALL -DLESS_TEXT -D_XL_NO_SLEEP \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_TINY_trs80.bin \
@@ -354,7 +354,7 @@ trs80_wav:
 	-lm -create-app \
 	-D__TRS80__ \
 	   \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80.bin \
 	$(SOURCE_PATH)/end_screen.c \

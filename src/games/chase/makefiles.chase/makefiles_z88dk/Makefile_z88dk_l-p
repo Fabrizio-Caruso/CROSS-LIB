@@ -264,7 +264,7 @@ mikro80:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -385,7 +385,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MULTI8__ \
 	   -D__PSG_SOUND \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -418,7 +418,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
-	-DCONIO_VT52  \
+	-D__VT52  \
 	-DCONIO  \
 	-lndos  -D__PSG_SOUND \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -576,7 +576,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__ONDRA__ -DXSize=40 -DYSize=30   \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
-	-DCONIO_VT52  \
+	-D__VT52  \
 	-DCONIO  \
 	-lndos \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -625,7 +625,7 @@ osborne1_chars:
 	-D__OSBORNE1__ \
 	-D_XL_NO_COLOR \
 	-D__INCLUDE_CONIO_H \
-	-DCONIO_ADM3A_WITH_UNDEF \
+	-D__ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -713,7 +713,7 @@ pasopia7:
 	-D__NO_SCREEN_COLOR_INIT \
 	-DXSize=40 -DYSize=23 \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -862,7 +862,7 @@ pencil2_no_gfx:
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -880,7 +880,7 @@ pencil2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	$(FULL_FILES) \
@@ -903,7 +903,7 @@ pmd85_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -920,7 +920,7 @@ pmd85: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	$(FULL_FILES) \
@@ -937,7 +937,7 @@ pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
 	-o pps \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	  \
 	  \
 	-lndos \
@@ -960,7 +960,7 @@ primo_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos  -D__BIT_BANG_SOUND \
 	-D__NO_INIT_GRAPHICS \
@@ -977,7 +977,7 @@ primo_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D__BIT_BANG_SOUND  \
 	-lndos  -D__BIT_BANG_SOUND \
 	$(FULL_FILES) \
@@ -997,7 +997,7 @@ pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__PV2000__ \
 	  \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \

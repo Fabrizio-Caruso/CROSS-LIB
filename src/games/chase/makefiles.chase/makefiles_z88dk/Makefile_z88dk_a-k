@@ -299,7 +299,7 @@ alphatro:
 	-D__ALPHATRO__ \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -317,7 +317,7 @@ alphatro:
 attache_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
 	$(INCLUDE_OPTS) \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -354,7 +354,7 @@ aussie:
 	-D__AUSSIE__ \
 	 \
 	-D__BIT_BANG_SOUND \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -440,7 +440,7 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -520,7 +520,7 @@ camputers_lynx:
 	-pragma-redirect:getk=getk_inkey \
 	-D__CAMPUTERS_LYNX__ \
 	-vn \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	  \
 	 \
 	-lndos \
@@ -539,7 +539,7 @@ coleco_adam:
 	-D__COLECO_ADAM__ \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -DXSize=29 -DYSize=20 \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
@@ -560,7 +560,7 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DZ88DK_JOYSTICK \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -657,7 +657,7 @@ cpm_z80: cpm_z80_adm3a
 cpm_z80_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -675,7 +675,7 @@ cpm_8080: cpm_8080_adm3a cpm_8080_buffered
 cpm_8080_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -m8080 -clib=8080 \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D__NO_WAIT \
 	-DCONIO -D__NO_INIT_GRAPHICS \
@@ -735,7 +735,7 @@ dmv:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=dmv \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-DCONIO_ADM3A_WITH_UNDEF \
+	-D__ADM3A_WITH_UNDEF \
 	-D__INCLUDE_CONIO_H \
 	-D__DMV__ \
 	 -DLESS_TEXT \
@@ -760,7 +760,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EG2K__ \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -883,7 +883,7 @@ excalibur64:
 fp1100:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	  \
 	 \
 	-lndos \
@@ -1031,7 +1031,7 @@ homelab:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -1051,7 +1051,7 @@ homelab2:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -1070,7 +1070,7 @@ hemc:
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D_XL_NO_COLOR \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -1089,7 +1089,7 @@ hgmc:
 	-DYSize=30 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D_XL_NO_COLOR \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -1152,7 +1152,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 kc_light: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -1169,7 +1169,7 @@ kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -1187,7 +1187,7 @@ kc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__KC__ \
 	  \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -1212,7 +1212,7 @@ kramermc:
 	-DYSize=16 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -DSTDLIB -DTURN_BASED \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \

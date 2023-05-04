@@ -15,7 +15,7 @@ pdp11v7_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_PDP \
+	-D__PDP \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
@@ -34,7 +34,7 @@ pdp11v7:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_PDP \
+	-D__PDP \
 	-DCONIO \
 	-D_XL_NO_COLOR \
 	-DACK \

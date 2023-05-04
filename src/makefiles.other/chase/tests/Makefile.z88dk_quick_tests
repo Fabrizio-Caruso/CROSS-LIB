@@ -184,7 +184,7 @@ cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 cpm_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__CPM_80X24__ \
@@ -206,7 +206,7 @@ eg2k_quick_test:
 	-D__TRS80__ \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o eg2kt.bin \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	$(TEST_FILES)
 	mv eg2kt.cmd $(BUILD_PATH)/TEST_eg2k.cmd	
 	rm eg2kt.bin
@@ -244,7 +244,7 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-D_XL_NO_SLEEP \
 	-D__NO_WAIT \
@@ -406,7 +406,7 @@ pc6001_quick_test:
 pps_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +pps -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -423,7 +423,7 @@ pv2000_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	 \
 	-D__NO_WAIT \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o pv2kt.bin \
@@ -527,7 +527,7 @@ srr_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	 \
 	-D__NO_WAIT \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
 	-create-app -o srrt.bin \
@@ -611,7 +611,7 @@ trs80_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D_XL_NO_SLEEP \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	

@@ -146,7 +146,7 @@ qc10_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-DCONIO_ADM3A_WITH_UNDEF -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
+	-D__ADM3A_WITH_UNDEF -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
 	-D__INCLUDE_CONIO_H \
 	-D__QC10__ \
 	 -DLESS_TEXT \
@@ -171,7 +171,7 @@ rc700:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -188,7 +188,7 @@ rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__RX78__ \
 	  \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -322,7 +322,7 @@ smc777_turn_based:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	  \
-	-DCONIO_VT52 -DXSize=80 -DYSize=24 \
+	-D__VT52 -DXSize=80 -DYSize=24 \
 	-DCONIO -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -435,7 +435,7 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPC1000__ \
 	  \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO  -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
@@ -461,7 +461,7 @@ special:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -DSTDLIB -D__NO_WAIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -551,7 +551,7 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SRR__ -vn \
 	  \
 	  -D__NO_WAIT \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	 \
@@ -580,7 +580,7 @@ super80_no_col:
 	  \
 	  \
 	-DCONIO -D_XL_NO_COLOR \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -604,7 +604,7 @@ super80r_no_gfx_no_col:
 	 -D__BIT_BANG_SOUND  \
 	 -D_XL_NO_COLOR  \
 	-DCONIO \
-	-DCONIO_VT52 -D__NO_INIT_GRAPHICS \
+	-D__VT52 -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lndos \
@@ -623,7 +623,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -D__BIT_BANG_SOUND  \
 	 -D_XL_NO_COLOR  \
 	-DCONIO \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
@@ -862,7 +862,7 @@ trs80_chars:
 	-D__TRS80__ \
 	-pragma-redirect:getk=getk_inkey \
 	   \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -907,7 +907,7 @@ tvc_exp:
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos  \
 	-D__NO_INIT_GRAPHICS \
@@ -940,7 +940,7 @@ vector06c:
 	-DYSize=30 \
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
@@ -1083,7 +1083,7 @@ z80tvgame_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR -DXSize=21 -DYSize=26 -DZ88DK_JOYSTICK \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos  -D__BIT_BANG_SOUND \
 	-D__NO_INIT_GRAPHICS \
@@ -1100,7 +1100,7 @@ z80tvgame: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR -DXSize=21 -DYSize=26 -DZ88DK_JOYSTICK \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-lndos  -D__BIT_BANG_SOUND \
 	$(FULL_FILES) \
@@ -1152,7 +1152,7 @@ zxn:
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=9000 \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO  -D__PSG_SOUND \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \

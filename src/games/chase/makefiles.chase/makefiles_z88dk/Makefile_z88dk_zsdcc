@@ -302,7 +302,7 @@ pv1000:
 	-DZ88DK_JOYSTICK \
 	  \
 	  \
-	-DCONIO_VT52 \
+	-D__VT52 \
 	-DCONIO \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \

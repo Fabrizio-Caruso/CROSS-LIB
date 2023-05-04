@@ -18,7 +18,7 @@ pc8086_tiny_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DXSize=20 \
 	-DYSize=20 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PC8086__ \
@@ -37,7 +37,7 @@ cpm_8080_buffered_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DXSize=39 \
 	-DYSize=23 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
@@ -60,7 +60,7 @@ cpm_8080_adm3a_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
@@ -83,7 +83,7 @@ msdos86:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__MSDOS86__ \
@@ -105,7 +105,7 @@ msdos86_test:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__MSDOS86__ \
@@ -128,7 +128,7 @@ pc8086:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DXSize=78 \
 	-DYSize=22 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PC8086__ \
@@ -154,7 +154,7 @@ linuxppc:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
 	-DXSize=78 \
 	-DYSize=21 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \
@@ -180,7 +180,7 @@ linux68k:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux68k \
 	-DXSize=78 \
 	-DYSize=21 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX68K__ \
@@ -206,7 +206,7 @@ linux386:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux386 \
 	-DXSize=78 \
 	-DYSize=21 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX386__ \
@@ -232,7 +232,7 @@ linuxmips:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
 	-DXSize=78 \
 	-DYSize=21 \
-	-DCONIO_ADM3A \
+	-D__ADM3A \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \

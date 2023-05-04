@@ -56,30 +56,30 @@
         #define cputc(c) fputc_cons(c)
     #endif
 
-    #  if defined(CONIO_ADM3A)
+    #  if defined(__ADM3A)
         #define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
         #define clrscr() printf("\032")
 
-    #elif defined(CONIO_ADM3A_WITH_UNDEF)
+    #elif defined(__ADM3A_WITH_UNDEF)
         // TODO: Remove undef's below
         #undef gotoxy
         #undef clrscr 
         #define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
         #define clrscr() printf("\032")	
-    #elif defined(CONIO_VT52)
+    #elif defined(__VT52)
         #undef gotoxy
         #define gotoxy(x,y) printf("\033Y%c%c",y+32,x+32)
 
         #undef clrscr
         #define clrscr() printf("\033E")
 
-    #elif defined(CONIO_VT100)
+    #elif defined(__VT100)
         #include <stdio.h>
 
         #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
         #define clrscr() printf("\033[2J\033[H")
 
-    #elif defined(CONIO_PDP)
+    #elif defined(__PDP)
 /*
                        <ESC>+     FUNCTION
                        ---------------------------------------------------

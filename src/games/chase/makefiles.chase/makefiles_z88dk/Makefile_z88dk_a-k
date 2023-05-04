@@ -329,7 +329,7 @@ attache_chars:
 
 attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
-	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS)  \
 	-D__ATTACHE__ \
 	 \
 	-D__ALT_PRINT \
@@ -460,7 +460,7 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 
 c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
-	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS)  \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DEXTRA_TITLE \
 	-DZ88DK_SPRITES  \
@@ -1108,7 +1108,7 @@ kaypro84: kaypro2x
 # kaypro84 (-subtype=kaypro84)
 kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro84 -lgfxkp \
-	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS)  \
 	-D__KAYPRO84__ \
 	-D__ALT_PRINT \
 	 \
@@ -1128,7 +1128,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 # kaypro83 (-subtype=kaypro83)
 kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro83 -lgfxkp \
-	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS)  \
 	-D__KAYPRO__ \
 	-D__ALT_PRINT \
 	 \

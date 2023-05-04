@@ -210,64 +210,64 @@ endif
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/sleep.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	mo5_init_graphics.o \
@@ -325,64 +325,64 @@ endif
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/sleep.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
 	$(CMOC) -o $(BUILD_PATH)/XLIB.bin \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep.o dac_sounds.o sleep_macros.o \
 	mo5_init_graphics.o \
@@ -579,7 +579,7 @@ _full_comx: _comx
 #	-DSIMPLE_STRATEGY 
 _comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	-D__COMX__ $(EXTRA_DRAW_SKIP)  -DEXTRA_TITLE \
+	-D__COMX__   -DEXTRA_TITLE \
 	  -DLCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
 	-D_XL_NO_COLOR -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DTINY_TEXT  \
@@ -605,7 +605,7 @@ _full_pecom: _pecom
 
 _pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
-	-D__PECOM__ $(EXTRA_DRAW_SKIP)  -DEXTRA_TITLE \
+	-D__PECOM__   -DEXTRA_TITLE \
 	   -DLCC1802_GRAPHICS -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
 	-D_XL_NO_COLOR -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DTINY_TEXT \
@@ -657,7 +657,7 @@ _tmc600: _tmc600_37k
 # -savetemps -S
 _tmc600_37k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
-	-D__TMC600__  $(EXTRA_DRAW_SKIP)  -DEXTRA_TITLE \
+	-D__TMC600__    -DEXTRA_TITLE \
 	 -D__MEMORY_MAPPED_GRAPHICS -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
 	 -DNO_HINTS \
@@ -681,7 +681,7 @@ _cidelsa_draco_32k: _cidelsa_draco
 # 
 _cidelsa_draco: full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  -DEXTRA_TITLE  \
-	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT \
+	-D__CIDELSA__ -D__DRACO__  -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT \
 	  \
 	-D_XL_NO_COLOR -D__MEMORY_MAPPED_GRAPHICS \
 	-DNO_BLINKING \

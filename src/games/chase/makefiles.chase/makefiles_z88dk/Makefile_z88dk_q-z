@@ -836,7 +836,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
-	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS)  \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-D__TRS80__ \

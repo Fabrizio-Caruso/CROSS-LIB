@@ -77,7 +77,7 @@ zx81_16k_qaopm:
 
 zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS) -O3  \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DZ88DK_JOYSTICK \
 	 \
@@ -104,7 +104,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS) -O3  \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DGHOSTS_NUMBER=6 \

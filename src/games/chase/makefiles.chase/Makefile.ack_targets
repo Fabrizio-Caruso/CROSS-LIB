@@ -66,7 +66,7 @@ cpm_8080_adm3a_ack:
 	-D__CPM8080__ \
 	 \
 	-DTURN_BASED \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
@@ -260,7 +260,7 @@ dos:
 	 \
 	  \
 	-DTURN_BASED \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \

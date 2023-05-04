@@ -40,7 +40,7 @@ abc800_tiny:
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
 	-zorg=49200 $(INCLUDE_OPTS) \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D__VT100 \
 	-D__NO_WAIT \
 	-D__ABC80__ -vn  -lndos  \
@@ -95,7 +95,7 @@ abc800_conio:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__INCLUDE_CONIO_H \
 	-D__ABC800__  -vn  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	 \
@@ -121,7 +121,7 @@ abc800_conio:
 abc800_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
 	-D__ABC80__ -vn \
-	-DCONIO -D__INCLUDE_CONIO_H -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__INCLUDE_CONIO_H -D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -190,7 +190,7 @@ m100:
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -265,7 +265,7 @@ x07_tiny:
 	-D_XL_NO_COLOR \
 	-DTINY_GAME \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_x07.bin
 	rm $(BUILD_PATH)/TINY_x07.bin

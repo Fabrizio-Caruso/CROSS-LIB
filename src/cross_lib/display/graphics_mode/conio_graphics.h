@@ -1,5 +1,5 @@
-#ifndef _CONIO_GRAPHICS
-#define _CONIO_GRAPHICS
+#ifndef _CONIO_GRAPHICS_H
+#define _CONIO_GRAPHICS_H
 
 
 #if !defined(_XL_NO_COLOR)
@@ -35,7 +35,7 @@
 	} \
 	while(0)
 		
-#endif // _CONIO_GRAPHICS
+#endif // _CONIO_GRAPHICS_H
 
 
 

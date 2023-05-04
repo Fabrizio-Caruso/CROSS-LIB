@@ -1,6 +1,6 @@
 
-#ifndef _CONIO_PATH_H
-#define _CONIO_PATH_H
+#ifndef _CONIO_PATCH_H
+#define _CONIO_PATCH_H
 
 
 #if defined(ACK)
@@ -193,5 +193,5 @@
     #endif
 
 #endif // defined(NO_PRINT) || defined(NO_GRAPHICS)
-#endif // _CONIO_PATH_H
+#endif // _CONIO_PATCH_H
 

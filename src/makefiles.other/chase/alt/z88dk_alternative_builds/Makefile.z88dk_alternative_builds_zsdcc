@@ -53,7 +53,7 @@ zx81_light:
 	$(INCLUDE_OPTS) \
 	-vn \
 	-D__ZX81__ -DLIGHT_GAME \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D_XL_NO_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg \
@@ -67,7 +67,7 @@ zx81_8k:
 	$(INCLUDE_OPTS) \
 	-vn \
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D__ALT_SLEEP \
 	-D__ALT_SLEEP \
 	-lndos \
@@ -85,7 +85,7 @@ zx81_16k_turn_based:
 	\
 	-D__ZX81__  \
 	-DTURN_BASED \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based.prg \
 	$(SOURCE_PATH)/end_screen.c \

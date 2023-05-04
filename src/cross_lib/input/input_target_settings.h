@@ -10,7 +10,7 @@
 	|| defined(__G800__) || defined(__FP1100__) || defined(__TI99__) || defined(__HEMC__) || defined(__HGMC__) \
 	|| defined(__HOMELAB__) || defined(__SPECIAL__) || defined(__KRAMERMC__) || defined(__DAI__) \
     || defined(__BBC__) || defined(__BBCMASTER__) \
-    || defined(__MC10__) || (defined(__ZX81__) && defined(CONIO))
+    || defined(__MC10__) || (defined(__ZX81__) && defined(__CONIO_GRAPHICS))
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'

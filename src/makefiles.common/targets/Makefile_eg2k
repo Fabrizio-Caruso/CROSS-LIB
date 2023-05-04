@@ -12,7 +12,7 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	 \
 	 \

@@ -462,7 +462,7 @@ spectrum_bitbang:
 	-D_XL_SLOW_DOWN_FACTOR=200 \
 	-D__SPECTRUM__ \
 	-lndos -create-app \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
@@ -490,7 +490,7 @@ c128_bitbang:
 	-D__C128_Z80__ -DXSize=40 \
 	 \
 	-D__BIT_BANG_SOUND \
-	-DCONIO -D__INCLUDE_CONIO_H  \
+	-D__CONIO_GRAPHICS -D__INCLUDE_CONIO_H  \
 	$(SOURCE_PATH)/../../test/bitbang.c \
 	-create-app -oa40.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64

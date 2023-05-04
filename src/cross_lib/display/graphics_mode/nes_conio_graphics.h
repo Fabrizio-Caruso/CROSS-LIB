@@ -1,5 +1,5 @@
-#ifndef _CONIO_GRAPHICS
-#define _CONIO_GRAPHICS
+#ifndef _CONIO_GRAPHICS_H
+#define _CONIO_GRAPHICS_H
 
 
 #define _XL_DRAW(x,y,tile,color) \
@@ -19,7 +19,7 @@ do \
 } \
 while(0)
 
-#endif // _CONIO_GRAPHICS
+#endif // _CONIO_GRAPHICS_H
 
 
 

@@ -39,7 +39,7 @@ atari_st_ncurses:
 	-DXSize=39 \
 	-DYSize=22 \
 	  \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-D__ALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -60,7 +60,7 @@ atari_st_ncurses_turn_based:
 	-DXSize=39 \
 	-DYSize=22 \
 	  \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-D_XL_NO_SLEEP  \
 	-D__ALT_PRINT \
 	 \

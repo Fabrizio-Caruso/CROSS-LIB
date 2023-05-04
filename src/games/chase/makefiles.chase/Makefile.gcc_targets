@@ -126,7 +126,7 @@ ncurses_turn_based:
 	  \
 	  \
 	-DTURN_BASED \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -141,7 +141,7 @@ ncurses_debug:
 	 \
 	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-DCONIO -D_XL_NO_UDG \
+	-D__CONIO_GRAPHICS -D_XL_NO_UDG \
 	-D__ALT_PRINT \
 	 \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
@@ -159,7 +159,7 @@ ncurses:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	  \
 	  \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-D__ALT_PRINT \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \

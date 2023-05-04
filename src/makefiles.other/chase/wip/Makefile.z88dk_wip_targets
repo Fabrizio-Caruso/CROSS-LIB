@@ -7,7 +7,7 @@
 # CPC
 cpc_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
-	-D__CPC__   -D__NO_INIT_GRAPHICS -DCONIO \
+	-D__CPC__   -D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -32,7 +32,7 @@ kc_tiny_putc4x6:
 	-D__KC__ \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP \
 	-DZ88DK_PUTC4X6 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/WIP_TINY_kc_putc4x6_.bin \
@@ -55,7 +55,7 @@ mz2500_buffered:
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	 \
-	-D__INCLUDE_CONIO_H -DCONIO \
+	-D__INCLUDE_CONIO_H -D__CONIO_GRAPHICS \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
 	-create-app 
@@ -74,7 +74,7 @@ px4_putc4x6:
 	-D__NO_WAIT \
 	-DZ88DK_PUTC4X6 \
 	-DNO_PRINT \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app \
 	-vn -lndos \
@@ -94,7 +94,7 @@ px4_tiny_putc4x6:
 	-DTINY_GAME \
 	-D__NO_WAIT \
 	-DZ88DK_PUTC4X6 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app \
 	-vn -lndos \
@@ -238,7 +238,7 @@ spectrum_test_sdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-D__ALT_MOVE \
 	-lndos -create-app \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
@@ -265,7 +265,7 @@ spectrum_test_sccz80: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SPECTRUM__ \
 	-D__ALT_MOVE \
 	-lndos -create-app \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/WIP_LIGHT_$@.prg \
@@ -300,7 +300,7 @@ zx80_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
 	-D__ZX80__  \
 	-D__ALT_SLEEP \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-DZX80_GEN_TV_FIELD \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \

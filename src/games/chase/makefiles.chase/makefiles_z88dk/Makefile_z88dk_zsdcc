@@ -95,7 +95,7 @@ aquarius_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    -DEXTRA_TITLE \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -107,7 +107,7 @@ aquarius_alt:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    \
 	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -147,7 +147,7 @@ gal_22k:
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-D__GAL__    \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -173,7 +173,7 @@ gal_6k:
 	-D__NO_INIT_GRAPHICS \
 	-DFLAT_ENEMIES \
 	-D__ALT_HIGHSCORE \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg \
 	$(TINY_FILES) \
@@ -187,7 +187,7 @@ gal_plus_no_gfx:
 	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal -D_XL_SLOW_DOWN_FACTOR=300 \
 	-D__GAL__ -D__GAL_PLUS__   \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
@@ -201,7 +201,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	--generic-console -D_XL_SLOW_DOWN_FACTOR=0 -D__SCREEN_MODE=1 -DEXTRA_TITLE -DYSize=26 $(EXTRA_DRAW_SKIP) \
 	-D__GAL__ -D__GAL_PLUS__     \
-	-DCONIO  -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
@@ -222,7 +222,7 @@ mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	 \
 	-D__MC1000__     \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -246,7 +246,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	 \
 	-D__MC1000__     \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-vn  -lndos -Cz--audio \
 	-create-app -o $@.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -303,7 +303,7 @@ pv1000:
 	  \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-DLESS_TEXT \
@@ -332,7 +332,7 @@ svi_318:
 	-D__SVI__ \
 	 \
 	-D__BIT_BANG_SOUND \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o svi_318 \
 	$(LIGHT_FILES)
 	mv svi_318.cas $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_svi_318.cas
@@ -350,7 +350,7 @@ svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -vn -lndos \
 	 \
 	 -D__SVI__   \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D__INCLUDE_CONIO_H \
 	-pragma-define:ansicolumns=32 \
 	-create-app -o svi_328 \
@@ -371,7 +371,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	 -vn  -D__VG5K__   -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	-clib=default \
 	 \
@@ -399,7 +399,7 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_less_text.prg \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
@@ -417,7 +417,7 @@ vz200_18k:
 	 -D__VZ__ -DHARDWARE_KEYBOARD \
 	 \
 	 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-create-app -Cz--audio -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
 	$(FULL_FILES) \
@@ -444,7 +444,7 @@ vz200_8k:
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.vz \
 	$(TINY_FILES) 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_vz200_8k.cas
@@ -481,7 +481,7 @@ zx81_16k:
 	-vn \
 	-D__ZX81__  \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -497,7 +497,7 @@ zx81_v2_16k:
 	-vn -D_XL_SLOW_DOWN_FACTOR=0 \
 	-D__ZX81__  \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -574,7 +574,7 @@ z9001: z9001_32k_no_gfx
 z9001_16k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn   \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
@@ -588,7 +588,7 @@ z9001_16k_full:
 z9001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn     \
-	-DCONIO -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -598,7 +598,7 @@ z9001_32k_no_gfx:
 z9001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn     \
-	-DCONIO  -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \

@@ -148,7 +148,7 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn -D__LAMBDA__  \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_lambda_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -167,7 +167,7 @@ laser500_no_gfx:
 	-D__LASER500__ \
 	-D__BIT_BANG_SOUND  \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
 	mv laser500.bin $(BUILD_PATH)/X$(GAME_NAME)_laser500_no_gfx.bin
@@ -184,7 +184,7 @@ laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__BIT_BANG_SOUND  \
 	 -DLESS_TEXT \
 	  -D_XL_SLOW_DOWN_FACTOR=400 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	 \
 	-lndos \
@@ -209,7 +209,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	 -DLESS_TEXT \
 	  -D__BIT_BANG_SOUND \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	 \
 	 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -228,7 +228,7 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 microbee_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__BEE__ -clib=ansi -vn   \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_microbee_16k_no_gfx.prg  \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_microbee_16k_no_gfx.prg
@@ -265,7 +265,7 @@ mikro80:
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -307,7 +307,7 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	-vn  -D__MSX__   \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-DZ88DK_JOYSTICK \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -330,7 +330,7 @@ mtx512_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MTX__ -D__SCREEN_MODE=2 \
 	-create-app -oMTX.bin -vn -DEXTRA_TITLE \
 	     -DTURN_BASED \
-	-DCONIO -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
 	 \
@@ -353,7 +353,7 @@ mtx500_turn_based: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MTX__ \
 	-create-app -oMTX500.bin -vn -DEXTRA_TITLE \
 	     -DTURN_BASED \
-	-DCONIO -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND \
 	-lndos \
 	 \
 	 \
@@ -386,7 +386,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	   -D__PSG_SOUND \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	 \
 	 \
@@ -419,7 +419,7 @@ myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
 	-D__VT52  \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-lndos  -D__PSG_SOUND \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
@@ -437,7 +437,7 @@ mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	     \
-	-DCONIO -D__NO_INIT_GRAPHICS -DEXTRA_TITLE  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -DEXTRA_TITLE  \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -455,7 +455,7 @@ mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__MZ2500__ -DXSize=40 -DFORXE_YSIZE=24  \
-	-DCONIO -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_mz2500.prg
@@ -467,7 +467,7 @@ nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_nascom_16k.prg
@@ -481,7 +481,7 @@ nascom_32k:
 	 \
 	 \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -577,7 +577,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
 	-D__VT52  \
-	-DCONIO  \
+	-D__CONIO_GRAPHICS  \
 	-lndos \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -591,7 +591,7 @@ ondra_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__ONDRA__ -DXSize=40 -DYSize=30   \
-	-DCONIO -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \
 	-o FULL_$@
@@ -608,7 +608,7 @@ osca:
 	 \
 	  -lndos \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o osca \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -628,7 +628,7 @@ osborne1_chars:
 	-D__ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -686,7 +686,7 @@ pacman:
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_p2000.prg \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_p2000.prg
@@ -697,7 +697,7 @@ p2000: p2000_32k
 p2000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	     \
-	-DCONIO -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_p2000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -714,7 +714,7 @@ pasopia7:
 	-DXSize=40 -DYSize=23 \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -731,7 +731,7 @@ pc6001_16k:
 	-D__PC6001__ \
 	 \
 	-D__ALT_SLEEP \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
@@ -746,7 +746,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__  \
 	 \
-	-DCONIO  -D__PSG_SOUND \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
 	  \
 	-D__SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -770,7 +770,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 -D__PC88__    \
 	-lndos -DXSize=80 -DYSIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -787,7 +787,7 @@ pc88_32k_no_gfx:
 	 -D__PC88__    \
 	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -D__NO_INIT_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -801,7 +801,7 @@ pc88_tiny:
 	-D__PC88__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
 	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	-create-app	\
 	-o TINY_$@
@@ -823,7 +823,7 @@ pcw40:
 	 -D__PC88__    \
 	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app \
@@ -841,7 +841,7 @@ pcw80:
 	 -D__PC88__    \
 	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DCONIO -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app \
@@ -863,7 +863,7 @@ pencil2_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -881,7 +881,7 @@ pencil2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -904,7 +904,7 @@ pmd85_no_gfx:
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -921,7 +921,7 @@ pmd85: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -941,7 +941,7 @@ pps:
 	  \
 	  \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv pps $(BUILD_PATH)/X$(GAME_NAME)_pps.exe	
@@ -961,7 +961,7 @@ primo_no_gfx:
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos  -D__BIT_BANG_SOUND \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -978,7 +978,7 @@ primo_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_COLOR \
 	  \
 	-D__VT52 \
-	-DCONIO -D__BIT_BANG_SOUND  \
+	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND  \
 	-lndos  -D__BIT_BANG_SOUND \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -998,7 +998,7 @@ pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	  \
 	  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	 \
 	 \

@@ -35,7 +35,7 @@ pdp11v7:
 	-DXSize=78 \
 	-DYSize=22 \
 	-D__PDP \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \

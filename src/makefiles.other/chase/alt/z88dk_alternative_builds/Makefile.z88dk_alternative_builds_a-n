@@ -92,7 +92,7 @@ nascom_alt_targets: \
 
 abc80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-DTINY_GAME -DNO_WALL \
 	-D__NO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80t.bin \
@@ -107,7 +107,7 @@ ace_exp_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__    \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-clib=ansi -o acengfx.bin -Cz--audio -create-app \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -150,7 +150,7 @@ c128_z80_40col_turn_based:
 	-D__C128_Z80__ -DXSize=40 \
 	  \
 	-DTURN_BASED \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -oa80tb.bin
@@ -176,7 +176,7 @@ camputers_lynx_tiny:
 	-D_XL_NO_COLOR \
 	-DTINY_GAME -DNO_WALL \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/ALT_TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/ALT_TINY_camputers_lynx.bin
@@ -231,7 +231,7 @@ cpm_z80_vt52:
 	-D__VT52 \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt52.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -245,7 +245,7 @@ cpm_z80_vt100:
 	-D__VT100 \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt100.bin \
 	$(SOURCE_PATH)/end_screen.c \
@@ -263,7 +263,7 @@ eg2k_no_gfx:
 	-lndos \
 	-lm \
 	-D__TRS80__ \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	   \
 	-D__VT52 \
 	-create-app -o eg2kngfx.bin \
@@ -282,7 +282,7 @@ fp1100_tiny:
 	-D__VT52 \
 	-DTINY_GAME -DNO_WALL  \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app -o fp1100t.bin
 	mv fp1100t.d88 $(BUILD_PATH)/ALT_TINY_fp1100.d88
@@ -301,7 +301,7 @@ g800_tiny_turn_based:
 	-D__INCLUDE_CONIO_H \
 	-DTINY_GAME -DNO_WALL \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app -o g800ttb.bin
 	rm g800ttb.bin
@@ -313,7 +313,7 @@ g800_tiny_turn_based:
 # LAMBDA
 lambda_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_WALL -D__NO_SCREEN_COLOR_INIT \
-	-DLESS_TEXT -D_XL_NO_SLEEP -lndos -DCONIO -D__NO_INIT_GRAPHICS \
+	-DLESS_TEXT -D_XL_NO_SLEEP -lndos -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o  $(BUILD_PATH)/ALT_TINY_lambda_8k.prg \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/ALT_TINY_lambda_8k.prg
@@ -321,7 +321,7 @@ lambda_8k:
 
 lambda_light:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) -vn -D__LAMBDA__ -lndos -create-app -o  $(BUILD_PATH)/ALT_LIGHT_lambda.prg \
-	$(INCLUDE_OPTS) $(LIGHT_FILES) -DCONIO -D__NO_INIT_GRAPHICS
+	$(INCLUDE_OPTS) $(LIGHT_FILES) -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS
 	rm $(BUILD_PATH)/ALT_LIGHT_lambda.prg
 
 
@@ -336,7 +336,7 @@ m5_no_gfx:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_m5_no_gfx.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -351,7 +351,7 @@ m5_tiny_no_gfx:
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DTINY_GAME -DNO_WALL -DLESS_TEXT \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_TINY_m5_no_gfx.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/ALT_TINY_m5_no_gfx.bin
@@ -365,7 +365,7 @@ mc1000_16k_light:
 	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__  -vn \
 	-lndos \
 	-create-app -o mc1000l.bin \
-	-Cz--audio -DCONIO -D__NO_INIT_GRAPHICS \
+	-Cz--audio -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(LIGHT_FILES)
 	mv mc1000l.wav $(BUILD_PATH)/ALT_LIGHT_mc1000_16k.wav
 	rm mc1000l.bin
@@ -380,7 +380,7 @@ microbee_32k_no_gfx:
 	-clib=ansi \
 	-vn \
 	     \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_no_gfx.prg  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -393,7 +393,7 @@ microbee_32k_wav:
 	-clib=ansi \
 	-vn \
 	     \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_microbee_32k_wav.prg  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -427,7 +427,7 @@ mtx_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o ALT_FULL_mtx_no_gfx.bin \
 	     \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -440,7 +440,7 @@ mtx_no_gfx:
 # it may work
 mtx_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) -D__MTX__ \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -DCONIO -D__NO_INIT_GRAPHICS -lndos -create-app -o ALT_LIGHT_mtx_no_gfx.bin \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -lndos -create-app -o ALT_LIGHT_mtx_no_gfx.bin \
 	$(LIGHT_FILES)
 	rm ALT_LIGHT_mtx_no_gfx
 	rm ALT_LIGHT_mtx_no_gfx.bin
@@ -453,7 +453,7 @@ multi8_light_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	 \
 	 \
@@ -470,7 +470,7 @@ multi8_tiny_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MULTI8__ \
 	-DTINY_GAME -DNO_WALL  \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-lndos \
 	 \
 	 \
@@ -491,7 +491,7 @@ nascom_32k_turn_based:
 	 \
 	 \
 	  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_nascom_32k_turn_based.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

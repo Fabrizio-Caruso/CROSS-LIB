@@ -293,7 +293,7 @@
     #define INVERTED -64
 #endif
 
-#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(CONIO)) && !defined(_XL_NO_UDG)
+#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(__CONIO_GRAPHICS)) && !defined(_XL_NO_UDG)
     #define _SPACE 0x72
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
     #define _SPACE 0xA0
@@ -391,7 +391,7 @@
 
 
 // BORDER AND BACKGROUND COLORS
-#if defined(__CC65__) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(CONIO)
+#if defined(__CC65__) && !defined(NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(__CONIO_GRAPHICS)
     #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define _SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
 #elif (defined(__Z88DK__) && !defined(_XL_NO_UDG)) || defined(__AQUARIUS__)

@@ -18,7 +18,7 @@
 	#include "lcc1802_color_graphics.h"
 #elif defined(ORIC_COLOR)
 	#include "oric_color_graphics.h"
-#elif defined(CONIO)
+#elif defined(__CONIO_GRAPHICS)
 	#include "conio_graphics.h"
 #elif defined(ATARI_MODE_1_COLOR)
     #include "atari_mode_1_color_graphics.h"

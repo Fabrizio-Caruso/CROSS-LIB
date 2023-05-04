@@ -175,7 +175,7 @@ const struct redefine_struct
 #endif
 
 
-#if defined(__C16__) && defined(CONIO)
+#if defined(__C16__) && defined(__CONIO_GRAPHICS)
 	char screenCode(char ch)
 	{
 		if(ch<64)

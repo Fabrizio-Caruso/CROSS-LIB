@@ -110,7 +110,7 @@ pc6001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ \
 	-D__ALT_SLEEP \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES)
@@ -129,7 +129,7 @@ pps_turn_based:
 	  \
 	  \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o ppstb.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -144,7 +144,7 @@ pv1000_light:
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
 	-D__VT52 \
-	-DCONIO \
+	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -163,7 +163,7 @@ px4_chars:
 	-D__PX4__ \
 	-D__ADM3A_WITH_UNDEF \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px4ch.bin \
 	$(FULL_FILES)
@@ -179,7 +179,7 @@ px8_chars:
 	-D__PX8__ \
 	-D__ADM3A_WITH_UNDEF \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8ch.bin \
 	$(FULL_FILES)
@@ -192,7 +192,7 @@ px8_chars_ansi:
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-create-app  -o px8cha.bin \
 	$(FULL_FILES)
@@ -210,7 +210,7 @@ ti82_chars:
 	-vn \
 	  \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS  \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos \
 	-create-app  -o ti82ch.bin \
 	$(FULL_FILES)
@@ -229,7 +229,7 @@ ti83_chars:
 	-vn \
 	  \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -oxchasetc \
 	$(FULL_FILES)
 	mv xchasetc.83p $(BUILD_PATH)/ALT_FULL_ti83_chars.83p	
@@ -247,7 +247,7 @@ ti83_turn_based:
 	-D__NO_WAIT \
 	-DLESS_TEXT -DNO_HINTS  -D_XL_NO_COLOR \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -oxchasett
 	mv xchasett.83p $(BUILD_PATH)/ALT_FULL_ti83_turn_based.83p
@@ -265,7 +265,7 @@ ti85_chars:
 	-vn \
 	  \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o ti85ch \
 	$(FULL_FILES)
 	mv ti85ch.85s $(BUILD_PATH)/ALT_FULL_ti85_chars.85s
@@ -307,7 +307,7 @@ ti86_full:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-lndos \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app  -o ti86fu \
 	$(FULL_FILES)
 	mv ti86fu.86p $(BUILD_PATH)/ALT_FULL_ti86.86p	
@@ -325,7 +325,7 @@ trs80_chars_cas:
 	-D__TRS80__ \
 	   \
 	-D__VT52 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -340,7 +340,7 @@ trs80_tiny_cas:
 	-D__TRS80__ \
 	-D__VT52 \
 	-DTINY_GAME -DNO_WALL -DLESS_TEXT -D_XL_NO_SLEEP \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_TINY_trs80.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/ALT_TINY_trs80.bin
@@ -355,7 +355,7 @@ trs80_wav:
 	-D__TRS80__ \
 	   \
 	-D__VT52 \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_FULL_trs80.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -374,7 +374,7 @@ ts2068_turn_based:
 	 \
 	-lndos \
 	-D__INCLUDE_CONIO_H \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
 	rm $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
@@ -386,7 +386,7 @@ ts2068_turn_based:
 vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
 	 -D__VZ__    \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/ALT_FULL_vz200_24k.vz \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -457,7 +457,7 @@ z88_tiny_buffered:
 z9001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn   \
-	-DCONIO -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/ALT_LIGHT_z9001.z80 \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/ALT_LIGHT_z9001.z80

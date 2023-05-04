@@ -12,7 +12,7 @@
     #define _XL_YELLOW 0
     #define _XL_BLUE 0
     
-#elif defined(__AQUARIUS__) && !defined(CONIO)
+#elif defined(__AQUARIUS__) && !defined(__CONIO_GRAPHICS)
     #define _XL_CYAN (16*6)
     #define _XL_BLUE (16*4)
     #define _XL_YELLOW (16*CYAN)

@@ -19,7 +19,7 @@
 	#include "vic20_rom_chars_and_27_tiles_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
-#elif defined(__VIC20__) && defined(CONIO)
+#elif defined(__VIC20__) && defined(__CONIO_GRAPHICS)
 	#include "vic20_exp_16k_v2_settings.h"
 #elif defined(__C16__) && !defined(_XL_NO_UDG) && !defined(MEMORY_MAPPED)
 	#include "c264_redefined_chars_settings.h"
@@ -47,7 +47,7 @@
 	#include "cpc_cpcrslib_settings.h"
 #elif defined(__SUPERVISION__)
 	#include "supervision_settings.h"
-#elif defined(__NES__) && defined(CONIO)
+#elif defined(__NES__) && defined(__CONIO_GRAPHICS)
 	#include "nes_settings.h"
 #elif defined(__NES__) && defined(NES_CONIO)
 	#include "nes_conio_settings.h"

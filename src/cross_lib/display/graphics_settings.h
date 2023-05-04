@@ -2,7 +2,7 @@
 #define _GRAPHICS_SETTING_H
 
 
-#  if defined(MEMORY_MAPPED) && !defined(__CIDELSA__)
+#  if defined(__MEMORY_MAPPED_GRAPHICS) && !defined(__CIDELSA__)
 	#include "memory_mapped_graphics.h"
 #elif defined(QUAD_MEMORY_MAPPED)
 	#include "quad_memory_mapped_graphics.h"

@@ -286,7 +286,7 @@ msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-vn -DMSX_VPOKE  -D__MSX__   \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_PRINT \
 	-DLESS_TEXT \

@@ -30,7 +30,7 @@
 extern uint16_t BASE_ADDR;
 #endif
 
-#if defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
+#if defined(__AQUARIUS__) && defined(__MEMORY_MAPPED_GRAPHICS)
 void _XL_SET_TEXT_COLOR(uint8_t c)
 {
     if(c==_XL_WHITE)
@@ -204,7 +204,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(MEMORY_MAPPED) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR) || defined(ATARI_MODE_1_COLOR))
+#if (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(ORIC_COLOR) || defined(ATARI_MODE_1_COLOR))
     
 	
     #if defined(QUAD_MEMORY_MAPPED)
@@ -467,7 +467,7 @@ lda $a7c0
 #endif
 
 
-#if !defined(INLINE_DRAW) && defined(MEMORY_MAPPED)
+#if !defined(INLINE_DRAW) && defined(__MEMORY_MAPPED_GRAPHICS)
     #if !defined(_XL_NO_COLOR)
         void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {

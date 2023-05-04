@@ -34,7 +34,7 @@
 #define _TARGET_SETTINGS
 
 #if !defined(__COCO__) && !defined(__DRAGON__) && !defined(__MO5__) && !defined(__TO7__) && !defined(__SUPERVISION__) \
-	&& !defined(__MC10__) && !defined(__LCC1802__) && !defined(__ATARI_LYNX__) && !(defined(__MSX__) && defined(MEMORY_MAPPED)) \
+	&& !defined(__MC10__) && !defined(__LCC1802__) && !defined(__ATARI_LYNX__) && !(defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \
@@ -71,9 +71,9 @@
 
 
 #if !defined(_XL_NO_SMALL_LETTERS)
-    #  if defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(MEMORY_MAPPED)) \
+    #  if defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
         || (defined(__C16__) && defined(__ALT_PRINT))  || (defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
-        || defined(__LCC1802__) || defined(__FEWER_SPRITES) || defined(__SUPERVISION__) || (defined(__MSX__)&&defined(MEMORY_MAPPED)) \
+        || defined(__LCC1802__) || defined(__FEWER_SPRITES) || defined(__SUPERVISION__) || (defined(__MSX__)&&defined(__MEMORY_MAPPED_GRAPHICS)) \
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \

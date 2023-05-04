@@ -3,12 +3,12 @@
 
 #include "standard_libs.h"
 
-#if (defined(__PET__) && defined(MEMORY_MAPPED)) || defined(__MC10__) || defined(__AQUARIUS__) || \
+#if (defined(__PET__) && defined(__MEMORY_MAPPED_GRAPHICS)) || defined(__MC10__) || defined(__AQUARIUS__) || \
     (defined(__COCO__) && !defined(BIT_MAPPED)) || (defined(__DRAGON__) && !defined(BIT_MAPPED))
     #include "display_macros.h"
 #endif
 
-#if defined(MEMORY_MAPPED)
+#if defined(__MEMORY_MAPPED_GRAPHICS)
 
 	#  if defined(__C64__) || defined(__C128__)
 		#if defined(DOUBLE_BUFFER)
@@ -24,7 +24,7 @@
 		#define BASE_ADDR 0x7000
 	#elif defined(__MC10__)
 		#define BASE_ADDR 0x4000   
-	#elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
+	#elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
 		#define BASE_ADDR 0x1000
 		#define COLOR_ADDR 0x9400
 	#elif defined(__C16__)
@@ -49,7 +49,7 @@
 		#else
 			#define BASE_ADDR 0x1800
 		#endif
-	#elif defined(__CREATIVISION__) && defined(MEMORY_MAPPED)
+	#elif defined(__CREATIVISION__) && defined(__MEMORY_MAPPED_GRAPHICS)
 		#define BASE_ADDR 0x1000
 	#elif defined(__AQUARIUS__)
 		#define BASE_ADDR (12288+40)

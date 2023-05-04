@@ -19,7 +19,7 @@
     #endif
 #else
     
-    #if defined(__C16__) && defined(MEMORY_MAPPED)
+    #if defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)
 
         // #if !defined(PEEK) && !defined(POKE)
             // #include <peekpoke.h>
@@ -141,7 +141,7 @@
         
 
      
-    #elif (defined(__MSX__) && defined(MEMORY_MAPPED)) || (defined(__SVI__) && defined(MSX_MODE0))
+    #elif (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) || (defined(__SVI__) && defined(MSX_MODE0))
         #define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
         #define clrscr() printf("\033E") 
 

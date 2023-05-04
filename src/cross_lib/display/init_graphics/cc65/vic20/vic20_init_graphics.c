@@ -11,7 +11,7 @@ void _XL_INIT_GRAPHICS(void)
 {
 	#if !defined(_XL_NO_UDG)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
-            #if !defined(VIC20_USE_0X0F) && !defined(MEMORY_MAPPED)
+            #if !defined(VIC20_USE_0X0F) && !defined(__MEMORY_MAPPED_GRAPHICS)
                 uint8_t tmp;
 
                 tmp = ~0x0F & PEEK(&(VIC.addr));

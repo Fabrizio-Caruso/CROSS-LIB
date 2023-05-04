@@ -27,7 +27,7 @@
 #define _TILE_11 ' '
 
 // Loaded bow
-#if defined(MEMORY_MAPPED)
+#if defined(__MEMORY_MAPPED_GRAPHICS)
 #define _TILE_9  8
 #define _TILE_12 8
 #endif

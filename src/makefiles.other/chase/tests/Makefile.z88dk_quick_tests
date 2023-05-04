@@ -310,7 +310,7 @@ msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	  -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DMEMORY_MAPPED -D__INCLUDE_CONIO_H \
+	-D__MEMORY_MAPPED_GRAPHICS -D__INCLUDE_CONIO_H \
 	-DUSE_MSX_BIOS \
 	 \
 	-vn \
@@ -735,7 +735,7 @@ aquarius_zsdcc_quick_test:
 	-D__ALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TEST_ZSDCC_aquarius -create-app \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
 	$(TEST_FILES) 

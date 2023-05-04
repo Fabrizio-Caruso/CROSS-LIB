@@ -154,7 +154,7 @@ c16_16k_full_no_gfx:
 	-DUSE_MEMORY_BUFFERS \
 	-D_XL_NO_SLEEP \
 	 \
-	-DMEMORY_MAPPED  \
+	-D__MEMORY_MAPPED_GRAPHICS  \
 	 \
 	-DGHOSTS_NUMBER=8 \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
@@ -189,7 +189,7 @@ c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 	 \
 	-DROUND_ENEMIES \
 	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc.s \
@@ -228,7 +228,7 @@ creativision_18k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -D__ALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT   \
+	-D__MEMORY_MAPPED_GRAPHICS -DLESS_TEXT   \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -241,7 +241,7 @@ creativision_18k:
 
 creativision_24k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -252,7 +252,7 @@ creativision_24k:
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-D_XL_NO_SLEEP -DLESS_TEXT    -DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -317,7 +317,7 @@ oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__   \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ALT_MOVE \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(LIGHT_FILES) \
@@ -346,7 +346,7 @@ vic20_exp_3k_light_no_gfx:
 	 \
 	 \
 	-DVIC20_EXP_3K \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-DCBM_SCREEN_CODES \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_HINTS \
@@ -373,7 +373,7 @@ vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-DROUND_ENEMIES \
 	-DTINY_GAME  \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-DVIC20_EXP_3K \
 	-D__ALT_PRINT \
 	-DCBM_SCREEN_CODES \
@@ -398,7 +398,7 @@ vic20_exp_8k_full:
 	 \
 	-D__ALT_SLEEP \
 	 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-DVIC20_EXP_8K \
 	 \
 	-DUSE_MEMORY_BUFFERS \
@@ -426,7 +426,7 @@ vic20_unexpanded_no_gfx:
 	-DGHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ALT_DISPLAY_STATS \
 	-D__ALT_HIGHSCORE \
 	-DROUND_ENEMIES \
@@ -457,7 +457,7 @@ vic20_unexpanded_turn_based:
 	-DGHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ALT_DISPLAY_STATS \
 	-DFLAT_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \

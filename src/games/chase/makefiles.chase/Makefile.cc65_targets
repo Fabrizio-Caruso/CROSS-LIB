@@ -356,7 +356,7 @@ atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	-D__ATARI5200__ \
 	\
 	   \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	 \
 	 \
 	$(SOURCE_PATH)/end_screen.c \
@@ -486,7 +486,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	 \
 	-D__ALT_PRINT \
 	 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=2000 \
@@ -531,7 +531,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DNO_HINTS \
 	-D__ALT_PRINT \
 	 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
 	-DDANCE  \
@@ -556,7 +556,7 @@ c64_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	     \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES -DGHOSTS_NUMBER=8 \
-	-DMEMORY_MAPPED -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	-D__MEMORY_MAPPED_GRAPHICS -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -573,7 +573,7 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	     \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES -D__ALT_PRINT \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -633,7 +633,7 @@ creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
 	   -D__ALT_SLEEP \
-	-DMEMORY_MAPPED -DLESS_TEXT   \
+	-D__MEMORY_MAPPED_GRAPHICS -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -852,7 +852,7 @@ pet_8k_light:
 	-DGHOSTS_NUMBER=8 \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-DMEMORY_MAPPED -D__NO_INIT_GRAPHICS \
+	-D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1145,7 +1145,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	 \
 	 \
 	-DVIC20_EXP_3K \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -1170,7 +1170,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	  \
 	\
 	 -D_XL_SLOW_DOWN_FACTOR=2800 \
-	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -DVIC20_EXP_8K \
 	 \
 	-DSIMPLE_STRATEGY \
 	 \
@@ -1211,7 +1211,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	  \
 	\
 	 -D_XL_SLOW_DOWN_FACTOR=2300 -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
-	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -DVIC20_EXP_8K \
 	 \
 	-DSIMPLE_STRATEGY \
 	 \
@@ -1261,7 +1261,7 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-DGHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DBOMBS_NUMBER=4 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ALT_HIGHSCORE \
 	-D__ALT_DISPLAY_STATS \
 	-D__DEFAULT_CLEAR_SCREEN \

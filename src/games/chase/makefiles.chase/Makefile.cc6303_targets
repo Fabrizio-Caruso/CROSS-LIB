@@ -38,7 +38,7 @@ mc10:
 	 \
 	-DXSize=32 \
 	-DYSize=16 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D_XL_NO_COLOR \
 	 -D__ALT_SLEEP \
 	-D__NO_INIT_GRAPHICS \
@@ -59,7 +59,7 @@ mc10_turn_based:
 	 \
 	-DXSize=32 \
 	-DYSize=16 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D_XL_NO_COLOR \
 	 -D_XL_NO_SLEEP \
 	-D__NO_INIT_GRAPHICS \
@@ -80,7 +80,7 @@ mc10_no_print_tiny:
 	 \
 	-DXSize=32 \
 	-DYSize=16 \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME -D_XL_NO_SLEEP \
 	-D__NO_INIT_GRAPHICS \

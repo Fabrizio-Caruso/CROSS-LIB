@@ -408,7 +408,7 @@ msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	-vn -DMSX_VPOKE  -D__MSX__   \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_msx_32k.prg \
-	-DMEMORY_MAPPED \
+	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-DLESS_TEXT \

@@ -12,7 +12,7 @@
     || (defined(__CREATIVISION__) && !defined(CREATIVISION_COLOR)) \
     || defined(__WINCMOC__) || (defined(__COCO__)&&!defined(BIT_MAPPED_4)) || (defined(__DRAGON__)&&!defined(BIT_MAPPED_4)) || defined(__OSIC1P__) \
     || (defined(__MC1000__)  && !(__SCREEN_MODE==2)) \
-    || defined(__LAMBDA__) || (defined(__MSX__) && defined(MEMORY_MAPPED)) \
+    || defined(__LAMBDA__) || (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
     || defined(__VZ__) \
     || (defined(__ATARI__) && !defined(ATARI_MODE_1_COLOR)) \
     || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(APPLE2_HGR)) \

@@ -271,7 +271,7 @@
     }
 #elif defined(__MC10__)
     #define _XL_SET_TEXT_COLOR(c)
-#elif defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
+#elif defined(__AQUARIUS__) && defined(__MEMORY_MAPPED_GRAPHICS)
     void _XL_SET_TEXT_COLOR(uint8_t c);
 #elif defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
     #define _XL_SET_TEXT_COLOR(c) textcolor(_COMX_TEXT_WHITE)
@@ -299,7 +299,7 @@
     #define _SPACE 0xA0
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))
     #define _SPACE 0
-#elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(MEMORY_MAPPED)
+#elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(__MEMORY_MAPPED_GRAPHICS)
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
     #if defined(__FEWER_SPRITES)

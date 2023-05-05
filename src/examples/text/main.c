@@ -29,18 +29,21 @@
 #define MAX_STRING_SIZE 10
 
 
-uint8_t mystrlen(char *cstr)
-{
-	uint8_t i;
-	while(cstr[i++]!='\0')
-	{
-	}
-	return --i;
-}
+// uint8_t mystrlen(char *cstr)
+// {
+	// uint8_t i;
+	// while(cstr[i++]!='\0')
+	// {
+	// }
+	// return --i;
+// }
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - ((uint8_t) mystrlen(Text))>>1)), row, Text);	
+	_XL_PRINT((uint8_t) (((XSize) - (((uint8_t) strlen(Text))))/2), row, Text);	
+	
+	// _XL_PRINTD(0,0,5,(uint8_t) mystrlen(Text));
+	// _XL_WAIT_FOR_INPUT();
 }
 
 #define PRINT_CENTERED(Text) \
@@ -91,7 +94,7 @@ void print_text(uint8_t x, uint8_t y, const char *str)
 
 void small_pause(void)
 {
-    _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+    _XL_SLOW_DOWN(100U);
 }
 
 

@@ -10,4 +10,6 @@ GAME_NAME := characters
 
 PARENT_DIR = examples
 
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+
 include ./Makefile_common

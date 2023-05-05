@@ -565,6 +565,11 @@ def create(params):
             print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
+    if not os.path.exists(dest_path+"/config"):
+        if verbose:
+            print("Create empty config directory...")
+        os.makedirs(dest_path+"/config")
+
     file_names = ["main.c"]
 
     for file_name in file_names:
@@ -585,7 +590,7 @@ def create(params):
 
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
 
-    shutil.copy(templated_makefile_path+"/"+"project_config.mk.template", "./"+dest_path+"/project_config.mk")
+    shutil.copy(templated_makefile_path+"/"+"/config/project_config.mk.template", "./"+dest_path+"/config/project_config.mk")
 
 
     #read input file

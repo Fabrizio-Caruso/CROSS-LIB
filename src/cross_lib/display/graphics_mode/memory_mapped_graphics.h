@@ -102,7 +102,6 @@
 	#endif
 
 	#if defined(INLINE_DRAW)
-
 		#if !defined(_XL_NO_COLOR)
 
 			#define _XL_DRAW(x,y,tile,color) \

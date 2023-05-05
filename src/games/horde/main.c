@@ -339,14 +339,14 @@ static Missile enemyMissile[NUMBER_OF_MISSILES];
 static Item extraPointsItem[NUMBER_OF_MISSILES];
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
 }
 
 
-#define PRINT_CENTERED(Text,len) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
 
@@ -849,7 +849,7 @@ void display_power_ups(void)
     hyper_counter = MAX_HYPER_COUNTER; \
     bow_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(1," HYPER ",7); \
+    PRINT_CENTERED_ON_ROW(1," HYPER "); \
 }
 
 
@@ -1940,7 +1940,7 @@ do \
 { \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R,9); \
+    PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R); \
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -2144,7 +2144,7 @@ do \
 #if !defined(NO_EXTRA_TITLE)
     #if !defined(NO_CONTROL_INSTRUCTIONS) && YSize>=15
         #define control_instructions() PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
-                                       CONTROLS_STRING,CONTROLS_LEN)
+                                       CONTROLS_STRING)
     #else
         #define control_instructions()
     #endif
@@ -2193,16 +2193,16 @@ do \
     display_wall(BOTTOM_WALL_Y+1); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE",7); \
+    PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING,_CROSS_LEN); \
+    PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO",15); \
+    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
     sleep_and_wait_for_input(); \
@@ -2275,7 +2275,7 @@ do \
 #else
     void display_top_border(void)
     {
-        PRINT_CENTERED_ON_ROW(1,"       ",7);
+        PRINT_CENTERED_ON_ROW(1,"       ");
         display_zombies();
     }
 #endif
@@ -2333,7 +2333,7 @@ do \
 void display_cleared(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
-    PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D,13);
+    PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D);
 }
 
 

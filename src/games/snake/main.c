@@ -1008,16 +1008,16 @@ void magic_wall(void)
     if(!energy) \
     { \
         _XL_SET_TEXT_COLOR(_XL_RED); \
-        PRINT_CENTERED_ON_ROW(YSize/2, _NO_ENERGY_STRING,9); \
+        PRINT_CENTERED_ON_ROW(YSize/2, _NO_ENERGY_STRING); \
         break; \
     }
 
 #define handle_level_cleared() \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/2, _CLEARED_STRING,7); \
+    PRINT_CENTERED_ON_ROW(YSize/2, _CLEARED_STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/2+2, _BONUS_STRING,5); \
+    PRINT_CENTERED_ON_ROW(YSize/2+2, _BONUS_STRING); \
     _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus); \
     rings+=coin_count;
 
@@ -1075,7 +1075,7 @@ void increase_points(uint16_t value)
     build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
     show_intro_snake(); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/8+3, _THE_END_STRING,7);
+    PRINT_CENTERED_ON_ROW(YSize/8+3, _THE_END_STRING);
 
 #define handle_lost_life() \
     --lives; \
@@ -1165,7 +1165,7 @@ void display_stats(void)
     _XL_CLEAR_SCREEN();
     
     _XL_SET_TEXT_COLOR(_XL_GREEN);
-    PRINT_CENTERED_ON_ROW(ACHIEVEMENTS_Y_OFFSET-2, _XL_A _XL_C _XL_H _XL_I _XL_E _XL_V _XL_E _XL_M _XL_E _XL_N _XL_T _XL_S,12);
+    PRINT_CENTERED_ON_ROW(ACHIEVEMENTS_Y_OFFSET-2, _XL_A _XL_C _XL_H _XL_I _XL_E _XL_V _XL_E _XL_M _XL_E _XL_N _XL_T _XL_S);
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+3,ACHIEVEMENTS_Y_OFFSET,5,points);
@@ -1324,7 +1324,7 @@ int main(void)
         {
             handle_final_screen();
         }
-        PRINT_CENTERED_ON_ROW(YSize/2, _GAME_OVER_STRING,9);
+        PRINT_CENTERED_ON_ROW(YSize/2, _GAME_OVER_STRING);
         _XL_WAIT_FOR_INPUT();
         #if !defined(NO_ACHIEVEMENTS_SCREEN)
         display_stats();

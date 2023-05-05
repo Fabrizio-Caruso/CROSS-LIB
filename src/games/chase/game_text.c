@@ -89,20 +89,23 @@ extern uint16_t highScore;
 extern Image GHOST_IMAGE;
 extern Image PLAYER_IMAGE;
 
+
+void PRINT_CENTERED_ON_ROW(uint8_t row, const char *Text)
+{
+	_XL_PRINT(((uint8_t) (XSize - strlen((char *)Text))>>1), row, Text);	
+}
+
+
 #if defined(FULL_GAME)
 	void printKillTheSkull(void)
 	{
-		PRINT_CENTERED(KILL_THE_SKULL_STRING,14);	
-		PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING, DESTROY_LEN);
+		PRINT_CENTERED(KILL_THE_SKULL_STRING);	
+		PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
 	}
 	
 #endif
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
-{
-	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
-}
 
 // TODO: This is SLOW
 #if !defined(TINY_GAME) && !defined(NO_STATS)
@@ -172,7 +175,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
 	void printPressKeyToStart(void)
 	{
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-		PRINT_CENTERED(PRESS_STRING,PRESS_LEN);
+		PRINT_CENTERED(PRESS_STRING);
 	}	
 #endif
 
@@ -212,7 +215,7 @@ void displayScore(void)
 	void gameCompleted(void)	
 	{
 		_XL_CLEAR_SCREEN();
-		PRINT_CENTERED(YOU_MADE_IT_STRING,7); 
+		PRINT_CENTERED(YOU_MADE_IT_STRING); 
 	}
 #endif
 
@@ -221,7 +224,7 @@ void displayScore(void)
 	void printVictoryMessage(void)
 	{
         SET_COLOR(_XL_RED);
-		PRINT_CENTERED(VICTORY_STRING,7);
+		PRINT_CENTERED(VICTORY_STRING);
 	}	
 #endif
 
@@ -230,7 +233,7 @@ void displayScore(void)
 	void printDefeatMessage(void)
 	{		
         SET_COLOR(_XL_RED);
-		PRINT_CENTERED(DEFEAT_STRING,8);
+		PRINT_CENTERED(DEFEAT_STRING);
 	}	
 #endif
 	
@@ -239,7 +242,7 @@ void displayScore(void)
 void printGameOver(void)
 {
 	SET_COLOR(_XL_RED);
-	PRINT_CENTERED(GAME_OVER_STRING,9);
+	PRINT_CENTERED(GAME_OVER_STRING);
 }	
 
 
@@ -276,14 +279,14 @@ void printGameOver(void)
 	void _printCrossChase(void)
 	{
         SET_COLOR(_XL_RED);
-		PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING, CROSS_LEN);		
+		PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
 	#else
 		#define _printCrossChase() \
             SET_COLOR(_XL_RED); \
-			PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING, CROSS_LEN);	\
+			PRINT_CENTERED_ON_ROW(CROSS_CHASE_Y, CROSS_CHASE_STRING);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif
@@ -294,19 +297,19 @@ void printGameOver(void)
 	{
 		_printCrossChase();
         
-        PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING,16);
-        PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING,14);
+        PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
+        PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);
                     
-		PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING,8);
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+3*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
 
-		PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING,13);
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+4*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING);
 
-		PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING,13);	
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y+5*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING);	
 		
 		#if YSize>=14
-			PRINT_CENTERED_ON_ROW(AUTHOR_Y+6*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING,14);
+			PRINT_CENTERED_ON_ROW(AUTHOR_Y+6*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING);
 
-			PRINT_CENTERED_ON_ROW(AUTHOR_Y+7*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING,12);
+			PRINT_CENTERED_ON_ROW(AUTHOR_Y+7*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING);
 		#endif
 	}
 #endif
@@ -357,7 +360,7 @@ void printGameOver(void)
 		_printCrossChase();
 		
         #if XSize>=16
-		PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING,15);	
+		PRINT_CENTERED_ON_ROW(AUTHOR_Y, AUTHOR_STRING);	
         #endif
 
 		#if !defined(TINY_GAME)
@@ -370,8 +373,8 @@ void printGameOver(void)
                 #else
                     SET_COLOR(_XL_CYAN);
 
-                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING,16);
-                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING,14);			
+                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
+                    PRINT_CENTERED_ON_ROW(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
                 #endif
             #endif
 			SET_COLOR(TEXT_COLOR);	
@@ -379,7 +382,7 @@ void printGameOver(void)
 		#endif
 
 		#if !defined(NO_CONTROL_INSTRUCTIONS) && XSize>=14
-			PRINT_CENTERED_ON_ROW(YSize-INSTR_Y_OFFSET, USE_STRING, USE_LEN);
+			PRINT_CENTERED_ON_ROW(YSize-INSTR_Y_OFFSET, USE_STRING);
 		#endif
 	}
 #endif

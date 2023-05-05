@@ -236,7 +236,7 @@ do { \
 #define displayGameOverMessage() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED(_GAME_OVER__STRING,9); \
+    PRINT_CENTERED(_GAME_OVER__STRING); \
 } while(0)
 
 #define handle_hiscore() \
@@ -323,14 +323,14 @@ static const uint8_t building_colors[] = {
 
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
 }
 
 
-#define PRINT_CENTERED(Text,len) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+#define PRINT_CENTERED(Text) \
+    PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
 
@@ -381,18 +381,18 @@ int main(void)
         displayHiScore(XSize/2-2);
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING,12);
+        PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING,18);
+        PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         
         #if YSize>=16
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING,11);
-        PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING,9);
+        PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING);
+        PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING);
         #endif
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING,10);
+        PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
         
         x=XSize/2-1;
         y=6;
@@ -626,7 +626,7 @@ int main(void)
         if(alive) // Game completed
         {
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            PRINT_CENTERED(_GAME_COMPLETED__STRING,14);
+            PRINT_CENTERED(_GAME_COMPLETED__STRING);
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
             _XL_PRINT(1,2,_DEL_STR);

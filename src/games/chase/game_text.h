@@ -28,11 +28,11 @@
 #include "settings.h"
 #include "cross_lib.h"
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+void PRINT_CENTERED_ON_ROW(uint8_t row, const char *Text);
 
 
-#define PRINT_CENTERED(Text,len) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
 

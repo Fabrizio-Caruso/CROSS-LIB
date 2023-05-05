@@ -3,10 +3,10 @@
 
 #define MAX_ENERGY 20
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 
-#define PRINT_CENTERED(Text,len) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text,len)
+#define PRINT_CENTERED(Text) \
+	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
 
 #if XSize<22
@@ -122,9 +122,9 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len);
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-2,0,5,record); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING,11); \
+    PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING,15); \
+    PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
     extra_title(); \
     TILE_PRESS_KEY();
  

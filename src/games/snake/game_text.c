@@ -8,9 +8,9 @@
 
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text, uint8_t len)
+void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - len)>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
 }
 
 
@@ -63,7 +63,7 @@ void DISPLAY_ENERGY(void)
 void PRESS_KEY(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE_STRING,10);
+    PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE_STRING);
     _XL_WAIT_FOR_INPUT();
 }
 
@@ -85,7 +85,7 @@ void PRESS_KEY(void)
     void CONTROL_INSTRUCTIONS(void)
         {
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            PRINT_CENTERED_ON_ROW(CONTROLS_Y, CONTROLS_STRING, CONTROLS_LEN);
+            PRINT_CENTERED_ON_ROW(CONTROLS_Y, CONTROLS_STRING);
             _XL_WAIT_FOR_INPUT();
         }
 #endif

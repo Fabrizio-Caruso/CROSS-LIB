@@ -26,16 +26,14 @@
 #ifndef _TEXT_STRINGS_H
 #define _TEXT_STRINGS_H
 
-#define AUTHOR_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
+#define AUTHOR_STRING "FABRIZIO CARUSO"
 
 #if defined(TINY_GAME) || XSize<=22
-    #define CROSS_CHASE_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_C _XL_h _XL_a _XL_s _XL_e 
+    #define CROSS_CHASE_STRING "CROSS CHASE"
 	#define CROSS_LEN 11
 #else
-    #define CROSS_CHASE_STRING \
-        _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
-        _XL_SPACE _XL_SPACE \
-        _XL_C _XL_SPACE _XL_h _XL_SPACE _XL_a _XL_SPACE _XL_s _XL_SPACE _XL_e 
+    #define CROSS_CHASE_STRING "C R O S S  C H A S E"
+
 	#define CROSS_LEN 20
 
 #endif
@@ -53,8 +51,8 @@
     #define DESTROY_MISSILES_STRING _XL_D _XL_e _XL_s _XL_t _XL_r _XL_o _XL_y _XL_SPACE THE_STRING _XL_SPACE MISSILES_STRING
 	#define DESTROY_LEN 20
 #endif
-#define LURE_THE_ENEMIES_STRING _XL_L _XL_u _XL_r _XL_e _XL_SPACE THE_STRING _XL_SPACE _XL_e _XL_n _XL_e _XL_m _XL_i _XL_e _XL_s
-#define INTO_THE_MINES_STRING   _XL_i _XL_n _XL_t _XL_o _XL_SPACE THE_STRING _XL_SPACE _XL_m _XL_i _XL_n _XL_e _XL_s
+#define LURE_THE_ENEMIES_STRING "LURE THE ENEMIES"
+#define INTO_THE_MINES_STRING   "INTO THE MINES"
 #define SCORE_STRING _XL_S _XL_C _XL_O _XL_R _XL_E
 #define LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
 #define START_LEVEL_STRING LEVEL_STRING _XL_SPACE 
@@ -97,7 +95,7 @@
     #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E	
 	#define USE_LEN 14
 #else
-    #define USE_STRING _USE_STRING _XL_SPACE _XL_I _XL_SPACE _XL_J _XL_SPACE _XL_K _XL_SPACE _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E		
+    #define USE_STRING "USE I J K L SPACE"		
 	#define USE_LEN 17
 #endif	
 

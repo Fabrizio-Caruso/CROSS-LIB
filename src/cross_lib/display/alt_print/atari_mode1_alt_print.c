@@ -4,7 +4,7 @@
 
 #include "cross_lib.h"
 
-#if !defined(ATARI_MODE_1_COLOR)
+#if !defined(ANTIC_MODE6_GRAPHICS)
     void _GOTOXY(uint8_t x, uint8_t y)
     { 
         if((y)&1) 
@@ -68,7 +68,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-#if defined(ATARI_MODE_1_COLOR)
+#if defined(ANTIC_MODE6_GRAPHICS)
 		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + _atari_text_color));
 #else
 		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + 64));

@@ -20,7 +20,7 @@
 	#include "oric_color_graphics.h"
 #elif defined(__CONIO_GRAPHICS)
 	#include "conio_graphics.h"
-#elif defined(ATARI_MODE_1_COLOR)
+#elif defined(ANTIC_MODE6_GRAPHICS)
     #include "atari_mode_1_color_graphics.h"
 #elif defined(VECTORIAL)
 	#include "vectorial_graphics.h"

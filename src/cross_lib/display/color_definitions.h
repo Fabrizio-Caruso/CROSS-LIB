@@ -110,7 +110,7 @@
     #define _XL_GREEN _NES_YELLOW
     #define _XL_CYAN _NES_WHITE
 
-#elif defined(__COMX_COLOR)
+#elif defined(__COMX_COLOR_GRAPHICS)
 
     /*
     

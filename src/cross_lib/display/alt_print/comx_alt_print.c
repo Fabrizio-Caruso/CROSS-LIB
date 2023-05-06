@@ -29,7 +29,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 #endif
 }
 
-#if defined(__COMX__) && !defined(__COMX_COLOR)
+#if defined(__COMX__) && !defined(__COMX_COLOR_GRAPHICS)
     #define CHAR_OFFSET 96
 #else
     #define CHAR_OFFSET 48

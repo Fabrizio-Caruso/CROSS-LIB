@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _COMX_COLOR_GRAPHICS_SETTINGS
-#define _COMX_COLOR_GRAPHICS_SETTINGS
+#ifndef _COMX_COLOR_GRAPHICS_GRAPHICS_SETTINGS
+#define _COMX_COLOR_GRAPHICS_GRAPHICS_SETTINGS
 
 #define _TILE_0 0
 
@@ -79,5 +79,5 @@
 
 #define _TILE_26 124
 
-#endif // _COMX_COLOR_GRAPHICS_SETTINGS
+#endif // _COMX_COLOR_GRAPHICS_GRAPHICS_SETTINGS
 

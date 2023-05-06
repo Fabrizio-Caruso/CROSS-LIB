@@ -334,7 +334,7 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	 \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-DGHOSTS_NUMBER=8 \
@@ -463,7 +463,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS)  \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DEXTRA_TITLE \
-	-DZ88DK_SPRITES  \
+	-D__Z88DK_SPRITES  \
 	-DLESS_TEXT \
 	 \
 	-DNO_BLINKING \
@@ -1112,7 +1112,7 @@ kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__KAYPRO84__ \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
@@ -1132,7 +1132,7 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__KAYPRO__ \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \

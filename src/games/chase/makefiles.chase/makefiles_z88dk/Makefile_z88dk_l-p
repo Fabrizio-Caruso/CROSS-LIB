@@ -242,7 +242,7 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__NC100__ \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_microbee_32k.bin \
@@ -497,7 +497,7 @@ nc100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__NC100__ \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc100_alt_print.bin \
@@ -517,7 +517,7 @@ nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__NC200__ \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DLESS_TEXT \
 	 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_nc200_alt_print.bin \
@@ -643,7 +643,7 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D_XL_NO_COLOR \
 	-D__INCLUDE_CONIO_H \
 	 -DLESS_TEXT \
-	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
+	-D__Z88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-D__ALT_PRINT \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_osborne1.bin \
@@ -1026,7 +1026,7 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o px4 \
 	-vn -lndos \
 	-D__ALT_PRINT \
-	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
+	-D__Z88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	  \
@@ -1049,7 +1049,7 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o px8 \
 	-vn -lndos \
 	-D__ALT_PRINT \
-	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
+	-D__Z88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

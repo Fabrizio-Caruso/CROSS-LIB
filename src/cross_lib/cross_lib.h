@@ -38,8 +38,8 @@
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \
-	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
-	&& !(defined(__OSBORNE1__) && defined(Z88DK_SPRITES)) \
+	&& !(defined(__KC__) && defined(__Z88DK_SPRITES)) \
+	&& !(defined(__OSBORNE1__) && defined(__Z88DK_SPRITES)) \
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \
 	&& !defined(__NCURSES__) \

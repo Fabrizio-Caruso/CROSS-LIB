@@ -461,7 +461,7 @@ vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-D__ALT_PRINT \
 	 \
-	-DZ88DK_SPRITES -D__NO_INIT_GRAPHICS \
+	-D__Z88DK_SPRITES -D__NO_INIT_GRAPHICS \
 	 \
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -518,7 +518,7 @@ zx81_32k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	 \
 	-lndos \
 	 \
@@ -549,7 +549,7 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	 \
 	-lndos \
 	 \

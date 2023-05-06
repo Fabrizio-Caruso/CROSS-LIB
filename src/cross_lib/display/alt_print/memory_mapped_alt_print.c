@@ -1,5 +1,5 @@
 
-#if !defined(Z88DK_SPRITES)
+#if !defined(__Z88DK_SPRITES)
     #if defined(QUAD_MEMORY_MAPPED)
         #include "quad_memory_mapped_graphics.h"
     #elif defined(DUAL_MEMORY_MAPPED)
@@ -114,7 +114,7 @@
         }
 	}
 
-#elif defined(__ZX81__) && defined(Z88DK_SPRITES)
+#elif defined(__ZX81__) && defined(__Z88DK_SPRITES)
 	char screenCode(char ch)
 	{
         if(ch==32)
@@ -162,7 +162,7 @@
 
 #endif
 
-#  if defined(Z88DK_SPRITES)
+#  if defined(__Z88DK_SPRITES)
 	#include <graphics.h>
 	#include <games.h>
 

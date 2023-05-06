@@ -231,7 +231,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     #endif
     }
 
-#elif defined(Z88DK_SPRITES)
+#elif defined(__Z88DK_SPRITES)
 
     #include "z88dk_sprites_definitions.h"
     extern uint8_t sprites[];
@@ -435,13 +435,13 @@ lda $a7c0
 #endif
 
 
-#if defined(Z88DK_SPRITES) && defined(__ALT_PRINT)
+#if defined(__Z88DK_SPRITES) && defined(__ALT_PRINT)
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch)
     {
         _XL_DELETE(x,y); 
         if(ch!=_XL_SPACE)
         {
-            putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + ((ch-32U)*(2+SPRITE_Y_SIZE)));
+            putsprite(spr_or,x*(__SPRITE_X_STEP),y*(__SPRITE_Y_STEP),sprites + ((ch-32U)*(2+SPRITE_Y_SIZE)));
         }
     }
 #endif

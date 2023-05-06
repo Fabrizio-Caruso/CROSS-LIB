@@ -86,7 +86,7 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-DQAOPM \
 	-lndos \
 	-DLESS_TEXT \
@@ -115,7 +115,7 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DQAOPM \
 	-vn \
 	-D__ZX81__ \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-lndos \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
@@ -143,7 +143,7 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
-	-DZ88DK_SPRITES \
+	-D__Z88DK_SPRITES \
 	-lndos \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \

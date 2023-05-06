@@ -263,7 +263,7 @@ void printGameOver(void)
 	#define EXTRA_Y 0
 	#define AUTHOR_Y 3
 	#define CROSS_CHASE_Y 1
-	#if defined(Z88DK_SPRITES)
+	#if defined(__Z88DK_SPRITES)
 		#define INTERLINE 2
 	#else
 		#define INTERLINE 1

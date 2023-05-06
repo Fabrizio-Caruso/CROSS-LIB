@@ -26,7 +26,7 @@
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #endif
 
-#if defined(__ATARI__) && (defined(ATARI_MODE1) ) 
+#if defined(__ATARI__) && (defined(ATARI_MODE_1_COLOR) ) 
 extern uint16_t BASE_ADDR;
 #endif
 

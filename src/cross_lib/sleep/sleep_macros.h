@@ -102,7 +102,7 @@
             #define _XL_SLOW_DOWN_FACTOR 5000U		
         #elif defined(__GAMATE__) || defined(__X1__) || defined(__AQUARIUS__) && defined(__ALT_PRINT)
             #define _XL_SLOW_DOWN_FACTOR 1500
-        #elif defined(__CREATIVISION__) || defined(__ATARI5200__) || (defined(__ATARI__) && defined(ATARI_MODE1))  || \
+        #elif defined(__CREATIVISION__) || defined(__ATARI5200__) || defined(__ATARI__)  || \
               defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(__ALT_PRINT) || defined(__PET__)
             #define _XL_SLOW_DOWN_FACTOR 1000
         #elif defined(__PCE__)

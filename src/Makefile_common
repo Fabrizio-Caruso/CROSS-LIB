@@ -263,9 +263,8 @@ endif
 
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t atari \
-	 -D_API_VERSION=$(API_VERSION) \
-	\
-	-DATARI_MODE1 $(ATARI_COLORS)  \
+	-D_API_VERSION=$(API_VERSION) \
+	$(ATARI_COLORS)  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR -D__ALT_SLEEP  \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -285,7 +284,6 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ -D_API_VERSION=$(API_VERSION) $(ATARI5200_COLORS) \
-	\
 	-DATARI_MODE_1_COLOR \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \

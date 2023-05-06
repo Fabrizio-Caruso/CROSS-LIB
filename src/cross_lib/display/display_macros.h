@@ -155,7 +155,7 @@
     #define _XL_PRINT(x,y,str)
     #define _XL_PRINTD(x,y,length, val)
     #define _XL_CHAR(x,y,ch)
-#elif defined(__ATARI__) && defined(ATARI_MODE1)
+#elif defined(__ATARI__) && defined(ATARI_MODE_1_COLOR)
     void _GOTOXY(uint8_t x, uint8_t y);
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
@@ -179,11 +179,6 @@
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 
-// TODO: Implement this
-// #elif defined(__TI99__) 
-    // #define _XL_PRINT(x,y,str)
-    // #define _XL_PRINTD(x,y,length, val)
-    // #define _XL_CHAR(x,y,ch)
 #else
     #define _XL_PRINT(x,y,str) \
     do \
@@ -207,7 +202,6 @@
     } while(0)
 #endif
 
-//         _XL_SET_TEXT_COLOR(TEXT_COLOR);
 #if defined(__NO_SCREEN_COLOR_INIT) || defined(NO_GRAPHICS)
     #define _setScreenColors()
 #else
@@ -297,7 +291,7 @@
     #define _SPACE 0x72
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
     #define _SPACE 0xA0
-#elif (defined(__ATARI__) && defined(ATARI_MODE1))
+#elif (defined(__ATARI__) && defined(ATARI_MODE_1_COLOR))
     #define _SPACE 0
 #elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(__MEMORY_MAPPED_GRAPHICS)
     #define _SPACE 0x60

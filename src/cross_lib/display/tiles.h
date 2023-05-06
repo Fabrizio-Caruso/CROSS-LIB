@@ -31,7 +31,7 @@
 	#include "udg_settings.h"
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "cmoc_memory_mapped_settings.h"
-#elif (defined(__ATARI__) && defined(ATARI_MODE1))
+#elif (defined(__ATARI__) && defined(ATARI_MODE_1_COLOR))
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATARI5200__)
 	#include "atari_mode1_redefined_chars_settings.h"

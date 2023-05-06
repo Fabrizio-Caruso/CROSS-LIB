@@ -49,7 +49,7 @@
 	#include "supervision_settings.h"
 #elif defined(__NES__) && defined(__CONIO_GRAPHICS)
 	#include "nes_settings.h"
-#elif defined(__NES__) && defined(NES_CONIO)
+#elif defined(__NES__) && defined(__NES_CONIO)
 	#include "nes_conio_settings.h"
 #elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
     #include "cidelsa_no_gfx.h"

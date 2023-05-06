@@ -12,7 +12,7 @@
     #include "apple2_hgr_graphics.h"
 #elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 	#include "vdp_mode1_graphics.h"
-#elif defined(NES_CONIO)
+#elif defined(__NES_CONIO)
 	#include "nes_conio_graphics.h"
 #elif defined(__COMX_COLOR)
 	#include "lcc1802_color_graphics.h"

@@ -96,7 +96,7 @@
         #define _XL_CYAN _ATARI_MODE1_CYAN
     #endif
 
-#elif defined(NES_CONIO)
+#elif defined(__NES_CONIO)
 
     #define _NES_RED 0
     #define _NES_YELLOW 1

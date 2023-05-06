@@ -437,7 +437,7 @@ endif
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-DNES_CONIO \
+	-D__NES_CONIO \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NES_SLOWDOWN) \
 	 \
 	-D__DEFAULT_CLEAR_SCREEN \

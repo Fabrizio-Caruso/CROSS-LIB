@@ -11,8 +11,8 @@
 #include "graphics_settings.h"
 #include "display_macros.h"
 
-#if !defined(UDG_BASE_FACTOR)
-    #define UDG_BASE_FACTOR 15
+#if !defined(__UDG_BASE_FACTOR)
+    #define __UDG_BASE_FACTOR 15
 #endif
 
 // #define DEBUG
@@ -23,7 +23,7 @@ void _XL_INIT_GRAPHICS(void)
     // __asm__ ("STA $FF3F");
     // __asm__ ("SEI");
 
-	POKE(65299ul,(PEEK(65299ul)&3)|((UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte
+	POKE(65299ul,(PEEK(65299ul)&3)|((__UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 	
 	#if defined(DEBUG)

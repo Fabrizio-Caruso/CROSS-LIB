@@ -89,6 +89,7 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
     #define LINE_SKIP 2
 #endif    
 
+
 int main(void)
 {        
 

@@ -28,18 +28,9 @@
 
 #define ITERATIONS 1
 
-uint8_t mystrlen(char *cstr)
-{
-	uint8_t i;
-	while(cstr[i++]!='\0')
-	{
-	}
-	return --i;
-}
-
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - (uint8_t) mystrlen(Text))>>1), row, Text);	
+	_XL_PRINT(((uint8_t) (XSize - (uint8_t) strlen(Text))>>1), row, Text);	
 }
 
 #define PRINT_CENTERED(Text) \

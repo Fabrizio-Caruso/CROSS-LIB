@@ -53,7 +53,7 @@
 	#include "nes_conio_settings.h"
 #elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
     #include "cidelsa_no_gfx.h"
-#elif defined(COMX_COLOR) && !defined(__MICRO__)
+#elif defined(__COMX_COLOR) && !defined(__MICRO__)
 	#include "comx_color_settings.h"
 #elif defined(__COMX__) || defined(__PECOM__) || ((defined(__CIDELSA__) && !defined(_XL_NO_UDG)))
     #include "comx_settings.h"

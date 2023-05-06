@@ -14,7 +14,7 @@
 	#include "vdp_mode1_graphics.h"
 #elif defined(NES_CONIO)
 	#include "nes_conio_graphics.h"
-#elif defined(COMX_COLOR)
+#elif defined(__COMX_COLOR)
 	#include "lcc1802_color_graphics.h"
 #elif defined(ORIC_COLOR)
 	#include "oric_color_graphics.h"

@@ -467,7 +467,7 @@ lda $a7c0
 #endif
 
 
-#if !defined(INLINE_DRAW) && defined(__MEMORY_MAPPED_GRAPHICS)
+#if defined(__MEMORY_MAPPED_GRAPHICS)
     #if !defined(_XL_NO_COLOR)
         void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {

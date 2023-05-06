@@ -321,9 +321,7 @@ apple2enh_80col:
 
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
-	 -DEXTRA_TITLE \
-	\
-	  -DATARI_MODE1    \
+	-DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DATARI_MODE_1_COLOR \
 	-D__DEFAULT_CLEAR_SCREEN \

@@ -8,7 +8,7 @@ MACROS_NO_GRAPHICS ?= \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_CHASE \

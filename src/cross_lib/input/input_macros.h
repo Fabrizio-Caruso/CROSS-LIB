@@ -207,7 +207,7 @@ window.addEventListener("keydown", function (event) {
     #define _XL_TURN_BASED_INPUT() cgetc();
 #elif defined(__EMCC__)
     #define __() getchar()
-#elif defined(__NCURSES__) || defined(STDLIB) || defined(__MC10__)
+#elif defined(__NCURSES__) || defined(__STDIO) || defined(__MC10__)
     #if defined(__MC10__)
         #include <stdio.h>
     #endif
@@ -253,7 +253,7 @@ window.addEventListener("keydown", function (event) {
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
-        #elif defined(ACK) || defined(STDLIB)
+        #elif defined(ACK) || defined(__STDIO)
             #define GET_CHAR() getchar()
         #else
             char GET_CHAR(void);

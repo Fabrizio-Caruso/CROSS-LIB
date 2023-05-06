@@ -18,7 +18,7 @@ atari_st_buffered:
 	-D__GCC_BUFFERED__ \
 	-DXSize=39 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	 \
 	-DTURN_BASED \

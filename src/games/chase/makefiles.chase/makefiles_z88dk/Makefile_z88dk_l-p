@@ -553,7 +553,7 @@ newbrain:
 	-DNO_STATS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-DSTDLIB \
+	-D__STDIO \
 	-D__NO_WAIT \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -662,7 +662,7 @@ pacman:
 	-DXSize=32 \
 	-DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__STDIO  \
 	 -D__NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \

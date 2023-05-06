@@ -29,7 +29,7 @@ olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-D__OLIVETTI_M20__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	 \
 	-DTURN_BASED \
@@ -50,7 +50,7 @@ olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	 \
 	-DTURN_BASED \

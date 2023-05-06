@@ -44,7 +44,7 @@ cpm_8080_buffered_ack:
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DSTDLIB \
+	-D__STDIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \

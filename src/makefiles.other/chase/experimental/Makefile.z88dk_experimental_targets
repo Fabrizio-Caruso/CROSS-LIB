@@ -6,7 +6,7 @@ DEBUG_MACROS ?= \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-DNO_RANDOM_LEVEL \
 	-D__NO_WAIT \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -151,7 +151,7 @@ c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lndos \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
@@ -168,7 +168,7 @@ c7420_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lndos \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	-DBUFFERED -D__ALT_PRINT \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
@@ -205,7 +205,7 @@ rex:
 	-DTURN_BASED \
 	-v \
 	-DREX \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	  \
 	-lndos \
@@ -228,7 +228,7 @@ rex_buffered:
 	-DTURN_BASED \
 	-vn \
 	-DBUFFERED \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	  \
 	-lndos \

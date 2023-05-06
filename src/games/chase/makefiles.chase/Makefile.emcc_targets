@@ -20,7 +20,7 @@ emcc_buffered:
 	-D__GCC_BUFFERED__ \
 	-DXSize=48 \
 	-DYSize=9 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_SLEEP \
 	 \
@@ -43,7 +43,7 @@ emcc_exp:
 	-D__GCC_BUFFERED__ \
 	-DXSize=80 \
 	-DYSize=24 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_SLEEP -DNO_INPUT -D__NO_WAIT \
 	 \

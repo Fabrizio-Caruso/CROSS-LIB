@@ -189,7 +189,7 @@ camputers_lynx_tiny:
 cpm_z80_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-DSTDLIB \
+	-D__STDIO \
 	-DXSize=24 \
 	-DYSize=16 \
 	-D_XL_NO_COLOR \
@@ -209,7 +209,7 @@ cpm_z80_tiny_buffered:
 cpm_z80_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	-DSTDLIB \
+	-D__STDIO \
 	-DXSize=24 \
 	-DYSize=16 \
 	-D_XL_NO_COLOR \

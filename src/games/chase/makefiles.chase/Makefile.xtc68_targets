@@ -21,7 +21,7 @@ XTC68_ALL_OPTS ?= \
 	-D__GCC_BUFFERED__ \
 	-DXSize=79 \
 	-DYSize=22 \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME \
 	-DTURN_BASED \

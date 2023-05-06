@@ -30,8 +30,8 @@
 	#include "z88dk_sprites_graphics.h"
 #elif defined(__TGI_GFX)
     #include "tgi_gfx_graphics.h"
-#elif defined(TGI)
-	#include "tgi_graphics.h"
+// #elif defined(TGI)
+	// #include "tgi_graphics.h"
 #elif defined(CPCRSLIB)
 	#include "cpc_cpcrslib_graphics.h"
 #elif defined(__BIT_MAPPED_4_GRAPHICS)

@@ -248,7 +248,7 @@ abc800_buffered:
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos \
-	-DSTDLIB \
+	-D__STDIO \
 	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
 	-DBUFFERED -D__ALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT -D__DEFAULT_CLEAR_SCREEN \
@@ -392,7 +392,7 @@ altair8800_tiny_buffered:
 	-DNO_STATS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-DSTDLIB \
+	-D__STDIO \
 	-D__NO_WAIT \
 	-DTURN_BASED \
 	$(TINY_FILES) \
@@ -418,7 +418,7 @@ bic_buffered:
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DSTDLIB \
+	-D__STDIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
@@ -696,7 +696,7 @@ cpm_8080_buffered:
 	 \
 	-DTURN_BASED \
 	-DBUFFERED \
-	-DSTDLIB \
+	-D__STDIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
@@ -719,7 +719,7 @@ dai_buffered:
 	-DXSize=47 \
 	-DYSize=21 \
 	-D__NO_SCREEN_COLOR_INIT -DBUFFERED -DTURN_BASED \
-	-D_XL_NO_COLOR -D__ALT_PRINT -DSTDLIB  \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__STDIO  \
 	 -D__NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -828,7 +828,7 @@ enterprise_buffered:
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-DSTDLIB  -D__BIT_BANG_SOUND \
+	-D__STDIO  -D__BIT_BANG_SOUND \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app -o enterprise.bin
@@ -954,7 +954,7 @@ gamegear_tiny_buffered:
 	-D__SMS__ \
 	-D_XL_NO_COLOR \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
-	-DSTDLIB \
+	-D__STDIO \
 	-DLESS_TEXT \
 	-create-app \
 	-DBUFFERED \
@@ -1213,7 +1213,7 @@ kramermc:
 	-D__NO_SCREEN_COLOR_INIT \
 	  \
 	-D__VT52 \
-	-D__CONIO_GRAPHICS -DSTDLIB -DTURN_BASED \
+	-D__CONIO_GRAPHICS -D__STDIO -DTURN_BASED \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \

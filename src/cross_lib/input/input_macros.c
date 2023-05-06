@@ -41,7 +41,7 @@
 #endif
 
 
-#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(STDLIB)
+#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
 		#include <devkit/input/keyboard.h>
     #endif 
@@ -275,7 +275,7 @@ out            stb res
 #elif defined(__NO_WAIT) 
 //
 #elif defined(WAIT_FOR_KEY)
-    #  if defined(__GCC_BUFFERED__) || defined(STDLIB)
+    #  if defined(__GCC_BUFFERED__) || defined(__STDIO)
         void _XL_WAIT_FOR_INPUT(void)
         {
             getchar();

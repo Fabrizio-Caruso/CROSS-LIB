@@ -192,7 +192,7 @@
 		  || (defined(__C128__) && !defined(__Z88DK_SPRITES_GRAPHICS) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || (defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAP)) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
-		  || (defined(__ATARI__) && !defined(ANTIC_MODE6_GRAPHICS)) \
+		  || (defined(__ATARI__) && !defined(__ANTIC_MODE6_GRAPHICS)) \
 		  || defined(__CBM510__) \
 		  || defined(__FP1100__) \
 		  || (defined(__EG2K__) && !defined(_XL_NO_UDG)) \
@@ -251,7 +251,7 @@
 		#define XSize 24
 	#elif defined(__VIC20__) 
 		#define XSize 22
-	#elif (defined(__ATARI__) && defined(ANTIC_MODE6_GRAPHICS)) \
+	#elif (defined(__ATARI__) && defined(__ANTIC_MODE6_GRAPHICS)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \
 		  || defined(__ATARI5200__) || defined(__GAMATE__)
 		#define XSize 20

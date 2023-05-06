@@ -70,7 +70,7 @@
     #define _XL_YELLOW CPC_YELLOW
     #define _XL_PURPLE CPC_YELLOW
     #define _XL_GREEN CPC_YELLOW
-#elif defined(ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
+#elif defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
 
     #define _ATARI_MODE1_RED 0
     #define _ATARI_MODE1_WHITE 64

@@ -26,7 +26,7 @@
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #endif
 
-#if defined(__ATARI__) && (defined(ANTIC_MODE6_GRAPHICS) ) 
+#if defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS) ) 
 extern uint16_t BASE_ADDR;
 #endif
 
@@ -204,7 +204,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(__ORIC_COLOR_GRAPHICS) || defined(ANTIC_MODE6_GRAPHICS))
+#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS))
     
 	
     #if defined(QUAD_MEMORY_MAPPED)

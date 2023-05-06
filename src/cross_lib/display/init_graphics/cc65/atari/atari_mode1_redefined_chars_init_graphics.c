@@ -58,7 +58,7 @@ void set_udg(void)
 
 uint16_t BASE_ADDR;
 
-#if defined(ANTIC_MODE6_GRAPHICS)
+#if defined(__ANTIC_MODE6_GRAPHICS)
 uint8_t _atari_text_color;
 #endif
 

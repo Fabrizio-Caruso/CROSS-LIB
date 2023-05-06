@@ -323,7 +323,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DANTIC_MODE6_GRAPHICS \
+	-D__ANTIC_MODE6_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D__ALT_PRINT \
@@ -363,7 +363,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200  -DEXTRA_TITLE \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ \
-	-DANTIC_MODE6_GRAPHICS \
+	-D__ANTIC_MODE6_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=200 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \

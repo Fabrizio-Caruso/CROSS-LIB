@@ -46,7 +46,7 @@
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \
-	&& !defined(__GCC_BUFFERED__)
+	&& !defined(__STDIO)
 	#define __INCLUDE_CONIO_H
 #endif
 
@@ -57,7 +57,7 @@
 #endif
 
 
-#if defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__) || defined(__LCC1802__)
+#if defined(ACK) || defined(__NCURSES__) || defined(__LCC1802__)
 	//
 #elif defined(__TI99__)
     //

@@ -17,7 +17,7 @@ emcc: emcc_buffered
 emcc_buffered:
 	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__EMCC__ \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=48 \
 	-DYSize=9 \
 	-D__STDIO \
@@ -25,7 +25,7 @@ emcc_buffered:
 	-D_XL_NO_SLEEP \
 	 \
 	-DTURN_BASED \
-	-DBUFFERED \
+	-DBUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT -D__NO_WAIT  \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -40,7 +40,7 @@ emcc_buffered:
 emcc_exp:
 	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__EMCC__ \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=80 \
 	-DYSize=24 \
 	-D__STDIO \
@@ -48,7 +48,7 @@ emcc_exp:
 	-D_XL_NO_SLEEP -DNO_INPUT -D__NO_WAIT \
 	 \
 	-DTURN_BASED \
-	-DBUFFERED \
+	-DBUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \

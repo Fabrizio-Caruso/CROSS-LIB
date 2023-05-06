@@ -3,7 +3,7 @@
 # Targets which are either impossible to test or that are known to be broken because of bugs in their respective dev-kit
 
 DEBUG_MACROS ?= \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D__STDIO \
@@ -153,7 +153,7 @@ c7420:
 	-lndos \
 	-D__STDIO \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -D__ALT_PRINT \
+	-DBUFFERED_GRAPHICS -D__ALT_PRINT \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
@@ -170,7 +170,7 @@ c7420_tiny:
 	-lndos \
 	-D__STDIO \
 	-D_XL_NO_COLOR \
-	-DBUFFERED -D__ALT_PRINT \
+	-DBUFFERED_GRAPHICS -D__ALT_PRINT \
 	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
 	-create-app \
@@ -227,7 +227,7 @@ rex_buffered:
 	-D__REX__ \
 	-DTURN_BASED \
 	-vn \
-	-DBUFFERED \
+	-DBUFFERED_GRAPHICS \
 	-D__STDIO \
 	-D_XL_NO_COLOR \
 	  \

@@ -13,7 +13,7 @@ vbcc_targets: \
 
 # mc10_buffered:
 	# cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
-	# -D__GCC_BUFFERED__ -D__MC10__ \
+	# -D__NORMALIZED_RAND -D__MC10__ \
 	# -DXSize=31 \
 	# -DYSize=15 \
 	# -D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
@@ -21,7 +21,7 @@ vbcc_targets: \
 	# -D_XL_NO_COLOR \
 	#  -D_XL_NO_SLEEP \
 	# -DTURN_BASED \
-	# -DBUFFERED \
+	# -DBUFFERED_GRAPHICS \
 	# -D__NO_INIT_GRAPHICS \
 	# -D__ALT_PRINT \
 	# -D__DEFAULT_CLEAR_SCREEN \

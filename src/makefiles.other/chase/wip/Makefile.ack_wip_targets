@@ -21,7 +21,7 @@ pdp11v7_buffered:
 	-D__PDP11V7__ \
 	 \
 	-DTURN_BASED \
-	-DBUFFERED -D__STDIO \
+	-DBUFFERED_GRAPHICS -D__STDIO \
 	-D__NO_INIT_GRAPHICS \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \

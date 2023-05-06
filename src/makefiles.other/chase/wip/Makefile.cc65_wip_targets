@@ -5,7 +5,7 @@ TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o
 bbc_no_graphics:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-D__BBC__ \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \
@@ -45,7 +45,7 @@ pce_light:
 pet_8k_buffered: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	-DTINY_GAME -D__NO_INIT_GRAPHICS \
-	-DBUFFERED \
+	-DBUFFERED_GRAPHICS \
 	-D__ALT_PRINT \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \

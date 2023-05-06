@@ -35,7 +35,7 @@ joy-test:
 none_no_graphics:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t none -c \
 	-D__BBC__ \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \
@@ -102,7 +102,7 @@ bbc_test:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-o $(BUILD_PATH)/bbc_test.o \
 	-D__BBC__ \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \

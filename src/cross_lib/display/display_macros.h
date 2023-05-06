@@ -45,7 +45,7 @@
 #endif
 
 
-#if defined(BUFFERED)
+#if defined(BUFFERED_GRAPHICS)
     extern uint8_t video_buffer[YSize+Y_OFFSET][XSize];
 #endif
 
@@ -96,7 +96,7 @@
 #endif 
 
 
-#if !defined(BUFFERED) && !defined(DOUBLE_BUFFER)
+#if !defined(BUFFERED_GRAPHICS) && !defined(DOUBLE_BUFFER)
     #define REFRESH()
 #elif defined(DOUBLE_BUFFER)
     #if defined(__CC65__)

@@ -275,7 +275,7 @@ out            stb res
 #elif defined(__NO_WAIT) 
 //
 #elif defined(WAIT_FOR_KEY)
-    #  if defined(__GCC_BUFFERED__) || defined(__STDIO)
+    #  if defined(__STDIO)
         void _XL_WAIT_FOR_INPUT(void)
         {
             getchar();

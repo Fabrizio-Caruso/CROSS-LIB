@@ -24,7 +24,7 @@
     #include "atari_mode_1_color_graphics.h"
 #elif defined(VECTORIAL)
 	#include "vectorial_graphics.h"
-#elif defined(BUFFERED)
+#elif defined(BUFFERED_GRAPHICS)
 	#include "buffered_graphics.h"
 #elif defined(__Z88DK_SPRITES_GRAPHICS)
 	#include "z88dk_sprites_graphics.h"

@@ -10,7 +10,7 @@
 #endif
 
 // Normalized 15-bit pseudo-random number generator
-#if defined(__GCC_BUFFERED__) || defined(__NCURSES__)
+#if defined(__NORMALIZED_RAND) || defined(__NCURSES__)
     #define _XL_RAND() (rand()&0x7FFF)
 #else
     #define _XL_RAND() (rand())

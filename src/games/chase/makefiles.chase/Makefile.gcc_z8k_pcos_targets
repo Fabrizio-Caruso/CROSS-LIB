@@ -25,7 +25,7 @@ m20_buffered: olivetti_m20_buffered
 
 olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-D__OLIVETTI_M20__ \
 	-DXSize=79 \
 	-DYSize=22 \
@@ -33,7 +33,7 @@ olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-D_XL_NO_COLOR \
 	 \
 	-DTURN_BASED \
-	-DBUFFERED \
+	-DBUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -47,7 +47,7 @@ olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	
 olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D__STDIO \

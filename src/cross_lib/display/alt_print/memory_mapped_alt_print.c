@@ -16,7 +16,7 @@
 
 #include "display_macros.h"
 
-#if defined(BUFFERED)	
+#if defined(BUFFERED_GRAPHICS)	
 
 	#include "display_target_geometry.h"
 	
@@ -171,7 +171,7 @@
 	#define _DISPLAY(x,y,ch) \
 		__draw_ch(x,y,ch);
 	
-#elif defined(BUFFERED)
+#elif defined(BUFFERED_GRAPHICS)
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
 		

@@ -5,7 +5,7 @@
 #
 
 MACROS_NO_GRAPHICS ?= \
-	-D__GCC_BUFFERED__ \
+	-D__NORMALIZED_RAND \
 	-DXSize=79 \
 	-DYSize=22 \
 	-D__STDIO \

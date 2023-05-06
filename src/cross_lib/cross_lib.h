@@ -38,8 +38,8 @@
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \
-	&& !(defined(__KC__) && defined(__Z88DK_SPRITES)) \
-	&& !(defined(__OSBORNE1__) && defined(__Z88DK_SPRITES)) \
+	&& !(defined(__KC__) && defined(__Z88DK_SPRITES_GRAPHICS)) \
+	&& !(defined(__OSBORNE1__) && defined(__Z88DK_SPRITES_GRAPHICS)) \
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \
 	&& !defined(__NCURSES__) \
@@ -77,7 +77,7 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \
-        || (defined(__ATARI_LYNX__) && defined(__TGI_GFX)) || defined(__MC10__) || defined(__TI99__) \
+        || (defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)) || defined(__MC10__) || defined(__TI99__) \
         || (defined(__ATARI7800__) &&  !defined(_XL_NO_COLOR))
         #define _XL_NO_SMALL_LETTERS
     #endif  

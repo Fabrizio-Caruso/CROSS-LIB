@@ -12,11 +12,11 @@
     #include "apple2_hgr_graphics.h"
 #elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
 	#include "vdp_mode1_graphics.h"
-#elif defined(__NES_CONIO)
+#elif defined(__NES_CONIO_GRAPHICS)
 	#include "nes_conio_graphics.h"
 #elif defined(__COMX_COLOR)
 	#include "lcc1802_color_graphics.h"
-#elif defined(__ORIC_COLOR)
+#elif defined(__ORIC_COLOR_GRAPHICS)
 	#include "oric_color_graphics.h"
 #elif defined(__CONIO_GRAPHICS)
 	#include "conio_graphics.h"
@@ -26,9 +26,9 @@
 	#include "vectorial_graphics.h"
 #elif defined(BUFFERED)
 	#include "buffered_graphics.h"
-#elif defined(__Z88DK_SPRITES)
+#elif defined(__Z88DK_SPRITES_GRAPHICS)
 	#include "z88dk_sprites_graphics.h"
-#elif defined(__TGI_GFX)
+#elif defined(__LYNX_TGI_GRAPHICS)
     #include "tgi_gfx_graphics.h"
 // #elif defined(TGI)
 	// #include "tgi_graphics.h"

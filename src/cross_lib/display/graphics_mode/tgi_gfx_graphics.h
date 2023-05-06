@@ -1,5 +1,5 @@
-#ifndef _TGI_GFX_GRAPHICS
-#define _TGI_GFX_GRAPHICS
+#ifndef _LYNX_TGI_GRAPHICS_GRAPHICS
+#define _LYNX_TGI_GRAPHICS_GRAPHICS
 
 #include "cross_lib.h"
 #include <tgi.h>
@@ -29,4 +29,4 @@ void _tgi_gfx_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
 
 
 
-#endif // _TGI_GFX_GRAPHICS
+#endif // _LYNX_TGI_GRAPHICS_GRAPHICS

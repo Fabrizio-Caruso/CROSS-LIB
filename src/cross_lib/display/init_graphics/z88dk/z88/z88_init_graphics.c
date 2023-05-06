@@ -73,7 +73,7 @@
 
 void _XL_INIT_GRAPHICS(void) 
 { 
-	#if defined(__Z88DK_SPRITES)
+	#if defined(__Z88DK_SPRITES_GRAPHICS)
 		static struct window win; /* Window structure */ 	
 	
 		win.graph=1; 

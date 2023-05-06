@@ -37,7 +37,7 @@
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATMOS__) && !defined(NO_UDG)
 	#include "atmos_redefined_characters_settings.h"
-#elif defined(__Z88DK_SPRITES) 
+#elif defined(__Z88DK_SPRITES_GRAPHICS) 
 	#include "udg_settings.h"
 #elif defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "msx_redefined_chars_settings.h"
@@ -49,7 +49,7 @@
 	#include "supervision_settings.h"
 #elif defined(__NES__) && defined(__CONIO_GRAPHICS)
 	#include "nes_settings.h"
-#elif defined(__NES__) && defined(__NES_CONIO)
+#elif defined(__NES__) && defined(__NES_CONIO_GRAPHICS)
 	#include "nes_conio_settings.h"
 #elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
     #include "cidelsa_no_gfx.h"
@@ -59,7 +59,7 @@
     #include "comx_settings.h"
 #elif defined(__MICRO__)
 	// #include "micro_settings.h"
-#elif defined(__ATARI_LYNX__) && defined(__TGI_GFX)
+#elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
     #include "tgi_gfx_settings.h"
 #elif defined(__Z88DK__) && !defined(_XL_NO_UDG)
 	#include "udg_settings.h"

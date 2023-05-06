@@ -30,7 +30,7 @@ zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=35 \
 	-vn \
 	-D__ZX81__ \
-	-D__Z88DK_SPRITES \
+	-D__Z88DK_SPRITES_GRAPHICS \
 	-DLESS_PRINT \
 	-lndos \
 	 \

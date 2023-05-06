@@ -96,7 +96,7 @@
         #define _XL_CYAN _ATARI_MODE1_CYAN
     #endif
 
-#elif defined(__NES_CONIO)
+#elif defined(__NES_CONIO_GRAPHICS)
 
     #define _NES_RED 0
     #define _NES_YELLOW 1
@@ -185,7 +185,7 @@
         
         #define _XL_BLACK 3
     #endif
-#elif defined(__ORIC_COLOR)
+#elif defined(__ORIC_COLOR_GRAPHICS)
 
     #define _ORIC_NORMAL 0
     #define _ORIC_INVERSE 128
@@ -280,7 +280,7 @@
         #define _XL_BLACK _XL_BLUE
     #endif
 
-#elif defined(__ATARI_LYNX__) && defined(__TGI_GFX)
+#elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
     #define _XL_BLACK 0x0
     #define _XL_RED 0x6
     #define _XL_WHITE 0xE
@@ -343,7 +343,7 @@
     #define _XL_CYAN COLOR_LTBLUE
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
-    #if defined(__ATARI_LYNX__) && !defined(__TGI_GFX)
+    #if defined(__ATARI_LYNX__) && !defined(__LYNX_TGI_GRAPHICS)
         #define _XL_BLACK COLOR_BLACK
     #endif
     

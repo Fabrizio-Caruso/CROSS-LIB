@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _TGI_GFX_SETTINGS
-#define _TGI_GFX_SETTINGS
+#ifndef _LYNX_TGI_GRAPHICS_SETTINGS
+#define _LYNX_TGI_GRAPHICS_SETTINGS
 
 
 #define _TILE_0 0
@@ -73,5 +73,5 @@
 
 #define _TILE_26 26
 
-#endif // _TGI_GFX_SETTINGS
+#endif // _LYNX_TGI_GRAPHICS_SETTINGS
 

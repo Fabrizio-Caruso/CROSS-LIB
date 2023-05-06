@@ -49,11 +49,11 @@
     extern uint8_t video_buffer[YSize+Y_OFFSET][XSize];
 #endif
 
-#if defined(__Z88DK_SPRITES)
+#if defined(__Z88DK_SPRITES_GRAPHICS)
     extern uint8_t sprites[];
 #endif
 
-#if defined(__Z88DK_SPRITES) && defined(__ALT_PRINT)
+#if defined(__Z88DK_SPRITES_GRAPHICS) && defined(__ALT_PRINT)
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
@@ -237,7 +237,7 @@
 #elif defined(_XL_NO_TEXT_COLOR)
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__ATARI_LYNX__)
-    #if defined(__TGI_GFX)
+    #if defined(__LYNX_TGI_GRAPHICS)
         extern uint8_t _atari_lynx_text_color;
         #define _XL_SET_TEXT_COLOR(c) (_atari_lynx_text_color=(c))
     #else
@@ -281,7 +281,7 @@
 #endif
 
 
-#if defined(__Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__)
+#if defined(__Z88DK_SPRITES_GRAPHICS) || defined(__MO5__)||defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__)
 	#define _Z88DK_SPRITE_OFFSET (0x20)
 #else
 	
@@ -301,7 +301,7 @@
     #define _SPACE 0
 #elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(__MEMORY_MAPPED_GRAPHICS)
     #define _SPACE 0x60
-#elif defined(__Z88DK_SPRITES)
+#elif defined(__Z88DK_SPRITES_GRAPHICS)
     #if defined(__FEWER_SPRITES)
         #define _SPACE 64
     #else
@@ -330,7 +330,7 @@
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
     #define _XL_CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)
-#elif defined(__Z88DK_SPRITES)
+#elif defined(__Z88DK_SPRITES_GRAPHICS)
     #include <games.h>
     #include <graphics.h>
     #define _XL_CLEAR_SCREEN() clg()
@@ -391,7 +391,7 @@
 
 
 // BORDER AND BACKGROUND COLORS
-#if defined(__CC65__) && !defined(__NES_CONIO) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(__CONIO_GRAPHICS)
+#if defined(__CC65__) && !defined(__NES_CONIO_GRAPHICS) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(__CONIO_GRAPHICS)
     #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define _SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
 #elif (defined(__Z88DK__) && !defined(_XL_NO_UDG)) || defined(__AQUARIUS__)

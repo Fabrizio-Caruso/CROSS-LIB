@@ -117,7 +117,7 @@
             #define _XL_SLOW_DOWN_FACTOR 1200
         #elif defined(__ATARI_LYNX__)
             #define _XL_SLOW_DOWN_FACTOR 6000U
-        #elif (defined(__TRS80__) || defined(__EG2K__)) &&  !defined(__Z88DK_SPRITES)
+        #elif (defined(__TRS80__) || defined(__EG2K__)) &&  !defined(__Z88DK_SPRITES_GRAPHICS)
             #define _XL_SLOW_DOWN_FACTOR 100	
         #elif defined(__EINSTEIN__)
             #define _XL_SLOW_DOWN_FACTOR 5000	

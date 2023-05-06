@@ -301,7 +301,7 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t lynx \
 	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=2600  \
 	-D__NO_SCREEN_COLOR_INIT  -DXSize=20 -DYSize=17 -D_XL_NUMBER_OF_TILES=27 \
-	-D__TGI_GFX \
+	-D__LYNX_TGI_GRAPHICS \
 	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
@@ -437,7 +437,7 @@ endif
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-D__NES_CONIO \
+	-D__NES_CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NES_SLOWDOWN) \
 	 \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -525,7 +525,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ORIC_SLOWDOWN) \
 	-D_TILE_17_COLOR=0 -D_TILE_10_COLOR=0 -D_TILE_18_COLOR=0 \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-D__ORIC_COLOR \
+	-D__ORIC_COLOR_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
@@ -742,7 +742,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -D__NO_SPRITE_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_80COL_SLOWDOWN) \
-	-D__Z88DK_SPRITES \
+	-D__Z88DK_SPRITES_GRAPHICS \
 	-D__BIT_BANG_SOUND $(C128_Z80_80COL_GAME_OPTS)  \
 	-D__ALT_PRINT \
 	-D_XL_NO_COLOR \
@@ -1325,7 +1325,7 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DYSize=22 \
 	-vn -D_API_VERSION=$(API_VERSION) \
 	-D__ZX81__ \
-	-D__Z88DK_SPRITES -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 \
+	-D__Z88DK_SPRITES_GRAPHICS -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 \
 	-lndos \
 	-D_XL_NO_COLOR \
 	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \

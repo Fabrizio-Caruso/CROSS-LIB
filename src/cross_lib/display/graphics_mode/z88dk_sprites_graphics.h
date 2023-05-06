@@ -1,5 +1,5 @@
-#ifndef __Z88DK_SPRITES_GRAPHICS
-#define __Z88DK_SPRITES_GRAPHICS
+#ifndef __Z88DK_SPRITES_GRAPHICS_GRAPHICS
+#define __Z88DK_SPRITES_GRAPHICS_GRAPHICS
 
 #include <graphics.h>
 #include <games.h>
@@ -28,6 +28,6 @@ extern uint8_t sprites[];
 #endif
 
 
-#endif // __Z88DK_SPRITES_GRAPHICS
+#endif // __Z88DK_SPRITES_GRAPHICS_GRAPHICS
 
 

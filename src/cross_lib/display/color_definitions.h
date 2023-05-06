@@ -185,7 +185,7 @@
         
         #define _XL_BLACK 3
     #endif
-#elif defined(ORIC_COLOR)
+#elif defined(__ORIC_COLOR)
 
     #define _ORIC_NORMAL 0
     #define _ORIC_INVERSE 128

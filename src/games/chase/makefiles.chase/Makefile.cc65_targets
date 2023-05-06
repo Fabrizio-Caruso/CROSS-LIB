@@ -874,7 +874,7 @@ oric1_16k: $(ASSETS_PATH)/6x8_chars.h
 	-DSIMPLE_STRATEGY -DNO_HINTS -DGHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-t atmos \
-	-DORIC_COLOR \
+	-D__ORIC_COLOR \
 	-DUSE_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
@@ -888,7 +888,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O       -DEXTRA_TITLE \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DORIC_COLOR \
+	-D__ORIC_COLOR \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \

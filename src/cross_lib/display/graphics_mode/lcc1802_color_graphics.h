@@ -3,7 +3,7 @@
 
 #define BASE_ADDR 0xF800
 
-#if defined(LCC1802_UNBUFFERED)
+#if defined(__LCC1802_UNBUFFERED)
 	#define VIDCHARXY(x,y,ch) vidcharnobufxy(x,y,ch)
 	#define VIDFLUSH()
 #elif defined(VIS_INT)

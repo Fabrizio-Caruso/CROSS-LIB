@@ -16,7 +16,7 @@
 	#include "nes_conio_graphics.h"
 #elif defined(__COMX_COLOR)
 	#include "lcc1802_color_graphics.h"
-#elif defined(ORIC_COLOR)
+#elif defined(__ORIC_COLOR)
 	#include "oric_color_graphics.h"
 #elif defined(__CONIO_GRAPHICS)
 	#include "conio_graphics.h"
@@ -40,7 +40,7 @@
 	#include "bit_mapped_graphics.h"
 #elif defined(REX)
 	#include "rex_graphics.h"
-#elif defined(LCC1802_GRAPHICS)
+#elif defined(__LCC1802_GRAPHICS)
 	#include "lcc1802_graphics.h"
 #elif defined(NO_GRAPHICS)
 	#include "no_graphics.h"

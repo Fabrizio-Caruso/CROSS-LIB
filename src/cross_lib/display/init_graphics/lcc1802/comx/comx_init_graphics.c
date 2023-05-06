@@ -81,7 +81,7 @@ const struct redefine_struct redefine_map[] =
 
 #if defined(__MEMORY_MAPPED_GRAPHICS)
     #include "memory_mapped_graphics.h"
-#elif defined(LCC1802_GRAPHICS)
+#elif defined(__LCC1802_GRAPHICS)
     #include "lcc1802_graphics.h"
 #endif
 

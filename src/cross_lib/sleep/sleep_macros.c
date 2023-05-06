@@ -54,7 +54,7 @@
         #endif
         
         // Flush the video buffer to make sure that the latest character is displayed
-        #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__)
+        #if !defined(__LCC1802_UNBUFFERED) && (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__))
             VIDFLUSH();
         #endif
 		for(ii=0;ii<sec*CYCLES;++ii){}; 

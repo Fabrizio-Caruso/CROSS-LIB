@@ -25,7 +25,7 @@
 #ifndef _CHAR_TILES_H
 #define _CHAR_TILES_H
 
-#if defined(TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAPPED) && !defined(DUAL_MEMORY_MAPPED)
+#if defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAPPED) && !defined(DUAL_MEMORY_MAPPED)
     #include "aquarius/aquarius_char_tiles.h"
 #else
 

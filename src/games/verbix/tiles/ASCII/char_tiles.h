@@ -1,7 +1,7 @@
 #ifndef _CHAR_TILES_H
 #define _CHAR_TILES_H
 
-#if defined(TARGET_SPECIFIC_ASCII)
+#if defined(__TARGET_SPECIFIC_ASCII)
 
     #if defined(__ZX81__)
         #include "zx81/zx81_char_tiles.h"

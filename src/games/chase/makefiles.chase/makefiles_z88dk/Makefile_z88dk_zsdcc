@@ -106,7 +106,7 @@ aquarius_exp_16k:
 aquarius_alt: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    \
-	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
+	-lndos -D__TARGET_SPECIFIC_ASCII -DEXTRA_TITLE \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -118,7 +118,7 @@ aquarius_alt:
 aquarius_alt_memory_mapped: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__    -D_XL_SLOW_DOWN_FACTOR=1500 \
-	-lndos -DTARGET_SPECIFIC_ASCII -DEXTRA_TITLE  \
+	-lndos -D__TARGET_SPECIFIC_ASCII -DEXTRA_TITLE  \
 	-D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \

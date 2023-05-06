@@ -433,7 +433,7 @@ z88_tiny_buffered:
 	-DYSize=6 \
 	 \
 	-vn -lndos \
-	-DBUFFERED_GRAPHICS -DTURN_BASED \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED \
 	-DLESS_TEXT \
 	-D_XL_NO_COLOR \
 	-DSIMPLE_STRATEGY \

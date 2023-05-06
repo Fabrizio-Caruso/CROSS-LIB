@@ -1,5 +1,5 @@
-#ifndef _BUFFERED_GRAPHICS
-#define _BUFFERED_GRAPHICS
+#ifndef ___BUFFERED_GRAPHICS
+#define ___BUFFERED_GRAPHICS
 
 #include "display_target_geometry.h"
 
@@ -12,7 +12,7 @@ void display_all(void);
 	video_buffer[(y)][(x)]=_SPACE;
 
 
-#endif // _BUFFERED_GRAPHICS
+#endif // ___BUFFERED_GRAPHICS
 
 
 

@@ -236,7 +236,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     #include "z88dk_sprites_definitions.h"
     extern uint8_t sprites[];
 
-#elif defined(BUFFERED_GRAPHICS)
+#elif defined(__BUFFERED_GRAPHICS)
     #if defined(_XL_NO_LOWER_BORDER)
         #define LOWER_BORDER_OFFSET 2
     #else

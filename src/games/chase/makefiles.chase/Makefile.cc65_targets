@@ -428,7 +428,7 @@ atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t lynx \
 	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=4000  -DEXTRA_TITLE \
 	-D__NO_SCREEN_COLOR_INIT  -DXSize=20 -DYSize=17 -D_XL_NUMBER_OF_TILES=27 \
-	-DTGI_GFX \
+	-D__TGI_GFX \
 	 \
 	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \

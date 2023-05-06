@@ -59,7 +59,7 @@
     #include "comx_settings.h"
 #elif defined(__MICRO__)
 	// #include "micro_settings.h"
-#elif defined(__ATARI_LYNX__) && defined(TGI_GFX)
+#elif defined(__ATARI_LYNX__) && defined(__TGI_GFX)
     #include "tgi_gfx_settings.h"
 #elif defined(__Z88DK__) && !defined(_XL_NO_UDG)
 	#include "udg_settings.h"

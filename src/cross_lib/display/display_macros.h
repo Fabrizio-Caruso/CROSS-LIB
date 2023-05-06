@@ -237,7 +237,7 @@
 #elif defined(_XL_NO_TEXT_COLOR)
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__ATARI_LYNX__)
-    #if defined(TGI_GFX)
+    #if defined(__TGI_GFX)
         extern uint8_t _atari_lynx_text_color;
         #define _XL_SET_TEXT_COLOR(c) (_atari_lynx_text_color=(c))
     #else

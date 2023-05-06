@@ -280,7 +280,7 @@
         #define _XL_BLACK _XL_BLUE
     #endif
 
-#elif defined(__ATARI_LYNX__) && defined(TGI_GFX)
+#elif defined(__ATARI_LYNX__) && defined(__TGI_GFX)
     #define _XL_BLACK 0x0
     #define _XL_RED 0x6
     #define _XL_WHITE 0xE
@@ -343,7 +343,7 @@
     #define _XL_CYAN COLOR_LTBLUE
 #elif defined(__CC65__) || defined(__TMC600__)
     // TODO: Remove this hack
-    #if defined(__ATARI_LYNX__) && !defined(TGI_GFX)
+    #if defined(__ATARI_LYNX__) && !defined(__TGI_GFX)
         #define _XL_BLACK COLOR_BLACK
     #endif
     

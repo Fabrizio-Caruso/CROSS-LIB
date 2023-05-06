@@ -77,7 +77,7 @@
         || defined(__ZX80__) || defined(__ZX81__) \
         || (defined(__APPLE2__) && defined(APPLE2_HGR)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(APPLE2_HGR)) \
-        || (defined(__ATARI_LYNX__) && defined(TGI_GFX)) || defined(__MC10__) || defined(__TI99__) \
+        || (defined(__ATARI_LYNX__) && defined(__TGI_GFX)) || defined(__MC10__) || defined(__TI99__) \
         || (defined(__ATARI7800__) &&  !defined(_XL_NO_COLOR))
         #define _XL_NO_SMALL_LETTERS
     #endif  

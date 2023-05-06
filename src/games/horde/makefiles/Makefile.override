@@ -23,7 +23,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
 	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DNUMBER_OF_MISSILES=2 -DMAX_ARROWS_ON_SCREEN=7  -DNO_BOTTOM_WALL_REDRAW \
-	-D__ALT_SLEEP -DCREATIVISION_COLOR -DXSize=26 -DX_OFFSET=3  \
+	-D__ALT_SLEEP -D__VDP_MODE1_GRAPHICS -DXSize=26 -DX_OFFSET=3  \
 	-D_XL_SLOW_DOWN_FACTOR=1800  \
 	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \

@@ -9,7 +9,7 @@
 #if defined(__GAL__) \
     || (defined(__PC6001__) && !(__SCREEN_MODE==2)) \
     || (defined(__ATARI5200__) && !defined(ATARI_MODE_1_COLOR)) \
-    || (defined(__CREATIVISION__) && !defined(CREATIVISION_COLOR)) \
+    || (defined(__CREATIVISION__) && !defined(__VDP_MODE1_GRAPHICS)) \
     || defined(__WINCMOC__) || (defined(__COCO__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__DRAGON__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__OSIC1P__) \
     || (defined(__MC1000__)  && !(__SCREEN_MODE==2)) \
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \

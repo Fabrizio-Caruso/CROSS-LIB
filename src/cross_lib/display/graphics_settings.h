@@ -10,7 +10,7 @@
 	#include "dual_memory_mapped_graphics.h" 
 #elif defined(APPLE2_HGR)
     #include "apple2_hgr_graphics.h"
-#elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
+#elif defined(__VDP_MODE1_GRAPHICS)
 	#include "vdp_mode1_graphics.h"
 #elif defined(__NES_CONIO_GRAPHICS)
 	#include "nes_conio_graphics.h"

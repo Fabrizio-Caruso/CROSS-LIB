@@ -5,7 +5,7 @@
 	#include "c64_memory_mapped_settings.h"
 #elif defined(QUAD_MEMORY_MAPPED)
     #include "default_quad_graphics_settings.h"
-#elif defined(__CREATIVISION__) && defined(CREATIVISION_COLOR) && !defined(_XL_NO_UDG)
+#elif defined(__CREATIVISION__) && defined(__VDP_MODE1_GRAPHICS) && !defined(_XL_NO_UDG)
     #include "vdp_mode1_settings.h"
 #elif defined(__TI99__) && !defined(_XL_NO_UDG)
     #include "vdp_mode1_settings.h"

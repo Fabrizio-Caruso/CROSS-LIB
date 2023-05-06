@@ -3,7 +3,7 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-D__NO_COLOR_INIT -D__CREATIVISION__  \
 	-D__ALT_SLEEP \
-	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
+	-D__VDP_MODE1_GRAPHICS -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \

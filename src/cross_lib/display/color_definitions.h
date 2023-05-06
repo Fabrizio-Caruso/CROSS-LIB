@@ -206,9 +206,9 @@
     #define _XL_RED 0
     #define _XL_GREEN _XL_CYAN
     
-#elif defined(CREATIVISION_COLOR) || defined(TI99_COLOR)
+#elif defined(__VDP_MODE1_GRAPHICS)
 
-    #if defined(TI99_COLOR)
+    #if defined(__TI99__)
         #define _COLOR_OFFSET -64
     #else
         #define _COLOR_OFFSET 0

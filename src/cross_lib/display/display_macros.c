@@ -204,7 +204,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(CREATIVISION_COLOR) || defined(TI99_COLOR) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(__ORIC_COLOR_GRAPHICS) || defined(ATARI_MODE_1_COLOR))
+#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(__ORIC_COLOR_GRAPHICS) || defined(ATARI_MODE_1_COLOR))
     
 	
     #if defined(QUAD_MEMORY_MAPPED)

@@ -1,7 +1,7 @@
 #include <devkit/video/vis_video.h>
 #include <devkit/system/system.h>
 
-#if !defined(__NTSC)
+#if !defined(NTSC)
     #define NUMBER_OF_LINES 9
     #include "6x9_chars.h"
 #else

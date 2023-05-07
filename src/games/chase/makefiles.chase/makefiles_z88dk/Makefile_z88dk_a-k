@@ -619,9 +619,9 @@ cpc_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-D__CPC__ -DEXTRA_TITLE \
 	-DZ88DK_JOYSTICK \
 	 -D__PSG_SOUND   \
-	-DCPCRSLIB -D_XL_SLOW_DOWN_FACTOR=600 \
+	-DCPCRSLIB_GRAPHICS -D_XL_SLOW_DOWN_FACTOR=600 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)XXX_cpc \
-	-DCPCRSLIB_GRAPHICS \
+	-DCPCRSLIB_GRAPHICS_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \

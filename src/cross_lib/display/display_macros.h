@@ -244,7 +244,7 @@
         #include <ncurses.h>
     #endif
     #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
-#elif defined(__CPC__) && defined(CPCRSLIB)
+#elif defined(__CPC__) && defined(CPCRSLIB_GRAPHICS)
     #define CPC_TEXT_WHITE 3
     #define CPC_TEXT_RED 4
     #define CPC_TEXT_BLACK 7
@@ -305,7 +305,7 @@
     #define _SPACE (' '+NOT_INVERTED)
 #elif defined(__ATARI5200__)
     #define _SPACE 0
-#elif defined(CPCRSLIB)
+#elif defined(CPCRSLIB_GRAPHICS)
     #define _SPACE (19*2)
 #else
     #define _SPACE ' '
@@ -320,7 +320,7 @@
     #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768); 
 #elif defined(__ATARI_LYNX__)
     #define _XL_CLEAR_SCREEN() tgi_clear()
-#elif defined(__CPC__) && defined(CPCRSLIB)
+#elif defined(__CPC__) && defined(CPCRSLIB_GRAPHICS)
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
     #define _XL_CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)

@@ -51,7 +51,7 @@
     #define _XL_MAGENTA (40+TO7_PASTEL_OFF)
     #define _XL_CYAN (48+TO7_PASTEL_OFF)
     #define _XL_WHITE (56+TO7_PASTEL_OFF)
-#elif defined(CPCRSLIB)
+#elif defined(CPCRSLIB_GRAPHICS)
     #define CPC_WHITE 1
     #define CPC_YELLOW 2 
     #define CPC_RED 3

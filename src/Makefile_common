@@ -790,12 +790,12 @@ cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 endif
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
 	-D__CPC__ -D_API_VERSION=$(API_VERSION) \
-	-DCPCRSLIB \
+	-DCPCRSLIB_GRAPHICS \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_MODE1_SLOWDOWN) \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg \
-	-DCPCRSLIB_GRAPHICS \
+	-DCPCRSLIB_GRAPHICS_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
@@ -865,7 +865,7 @@ endif
 	 \
 	 -D_API_VERSION=$(API_VERSION) \
 	 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_MODE2_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_GRAPHICS_MODE2_SLOWDOWN) \
 	-D__CPC__ \
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \

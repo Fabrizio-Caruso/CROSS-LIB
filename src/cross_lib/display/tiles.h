@@ -41,7 +41,7 @@
 	#include "udg_settings.h"
 #elif defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "msx_redefined_chars_settings.h"
-#elif defined(CPCRSLIB)
+#elif defined(CPCRSLIB_GRAPHICS)
 	#include "cpc_cpcrslib_settings.h"
 #elif defined(__REX__)
 	#include "cpc_cpcrslib_settings.h"

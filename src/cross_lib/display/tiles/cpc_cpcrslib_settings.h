@@ -1,5 +1,5 @@
-#ifndef _CPC_CPCRSLIB_SETTINGS
-#define _CPC_CPCRSLIB_SETTINGS
+#ifndef _CPC_CPCRSLIB_GRAPHICS_SETTINGS
+#define _CPC_CPCRSLIB_GRAPHICS_SETTINGS
 
 // Offsets in the "meta-string" 
 #define _TILE_4 1*2
@@ -37,6 +37,6 @@
 #define _TILE_26 27*2
 
 
-#endif // _CPC_CPCRSLIB_SETTINGS
+#endif // _CPC_CPCRSLIB_GRAPHICS_SETTINGS
 
 

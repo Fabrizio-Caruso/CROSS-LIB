@@ -32,7 +32,7 @@
     #include "tgi_gfx_graphics.h"
 // #elif defined(TGI)
 	// #include "tgi_graphics.h"
-#elif defined(CPCRSLIB)
+#elif defined(CPCRSLIB_GRAPHICS)
 	#include "cpc_cpcrslib_graphics.h"
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
 	#include "bit_mapped_4_graphics.h"

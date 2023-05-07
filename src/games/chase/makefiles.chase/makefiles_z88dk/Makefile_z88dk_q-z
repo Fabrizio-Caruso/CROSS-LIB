@@ -1047,7 +1047,6 @@ zx80_v2: zx80_16k_turn_based_v2
 zx80_16k_turn_based_v2:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
 	-D__ZX80__  \
-	 -DAPI_VERSION=2 \
 	-DTURN_BASED \
 	-D__ALT_SLEEP \
 	-D__CONIO_GRAPHICS \

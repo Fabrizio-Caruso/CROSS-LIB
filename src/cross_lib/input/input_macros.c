@@ -361,7 +361,9 @@ out            stb res
         void _XL_WAIT_FOR_INPUT(void)
         {
             // Flush the video buffer to make sure that the latest character is displayed
+            #if !defined(__LCC1802_UNBUFFERED)
             VIDFLUSH();
+            #endif
             
             while(!get_stick(0))
             {

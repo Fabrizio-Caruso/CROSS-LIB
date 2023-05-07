@@ -8,7 +8,7 @@
 	#define VIDFLUSH()
 #elif defined(VIS_INT)
 	#define VIDCHARXY(x,y,ch) vidcharxy(x,y,ch)
-	#define VIDFLUSH() vidflush()
+	#define VIDFLUSH()
 #else
 	#define VIDCHARXY(x,y,ch) vidcharxy(x,y,ch)
 	#define VIDFLUSH() vidflush()

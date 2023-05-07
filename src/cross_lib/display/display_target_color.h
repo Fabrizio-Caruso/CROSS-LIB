@@ -15,7 +15,7 @@
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
     || defined(__VZ__) \
     || (defined(__ATARI__) && !defined(__ANTIC_MODE6_GRAPHICS)) \
-    || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(APPLE2_HGR)) \
+    || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(__APPLE2_HGR_GRAPHICS)) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
     || defined(__TRS80__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \

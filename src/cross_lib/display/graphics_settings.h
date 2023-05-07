@@ -8,7 +8,7 @@
 	#include "quad_memory_mapped_graphics.h"
 #elif defined(DUAL_MEMORY_MAPPED)
 	#include "dual_memory_mapped_graphics.h" 
-#elif defined(APPLE2_HGR)
+#elif defined(__APPLE2_HGR_GRAPHICS)
     #include "apple2_hgr_graphics.h"
 #elif defined(__VDP_MODE1_GRAPHICS)
 	#include "vdp_mode1_graphics.h"

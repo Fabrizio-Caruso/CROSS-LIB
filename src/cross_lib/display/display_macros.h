@@ -220,7 +220,7 @@
 #elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS))
     extern uint8_t _atari_text_color;
     #define _XL_SET_TEXT_COLOR(c) _atari_text_color = (c)
-#elif defined(__APPLE2__) && (defined(APPLE2_HGR))
+#elif defined(__APPLE2__) && (defined(__APPLE2_HGR_GRAPHICS))
     extern uint8_t _apple2_text_color;
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)
 #elif defined(__MO5__) || defined(__TO7__)

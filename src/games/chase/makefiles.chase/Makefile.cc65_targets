@@ -190,7 +190,7 @@ apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT \
-	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -213,7 +213,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT \
-	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -257,7 +257,7 @@ apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -280,7 +280,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP   \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

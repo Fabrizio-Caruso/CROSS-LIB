@@ -75,7 +75,7 @@
 		}        
 	}
 
-#elif ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+#elif ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS))
 	char screenCode(char ch)
 	{
 		if(ch==32) 
@@ -178,7 +178,7 @@
 #elif defined(NO_GRAPHICS)
 	#define _DISPLAY(x,y,ch)
 
-#elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
+#elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
     #include "cross_lib.h"
 
     extern uint8_t _apple2_text_color;
@@ -270,7 +270,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
-            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) \
+            || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
             || defined(__VIC20__) \
             || defined(QUAD_MEMORY_MAPPED)
@@ -293,7 +293,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-        #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR))
+        #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
         #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(__BIT_MAPPED_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
@@ -308,7 +308,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 }
 
 #if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
-    || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)) \
+    || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
     || defined(__C64__)
     void _XL_CHAR(uint8_t x, uint8_t y, char ch)
     {    

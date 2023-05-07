@@ -65,7 +65,7 @@
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && !defined(_XL_NO_UDG))
 	#include "pce_settings.h"
-#elif (defined(__APPLE2__)||defined(__APPLE2ENH__))&&defined(APPLE2_HGR)
+#elif (defined(__APPLE2__)||defined(__APPLE2ENH__))&&defined(__APPLE2_HGR_GRAPHICS)
     #include "apple2_hgr_settings.h"
 #else
 	#include "default_image_settings.h"

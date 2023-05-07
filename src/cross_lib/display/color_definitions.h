@@ -234,7 +234,7 @@
     #define _XL_CYAN _CREAT_CYAN
     #define _XL_BLACK _CREAT_WHITE
 
-#elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(APPLE2_HGR)
+#elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
         #define _XL_PURPLE 0
         #define _XL_GREEN 1

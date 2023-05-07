@@ -1,11 +1,11 @@
-#ifndef _QUAD_MEMORY_MAPPED
-#define _QUAD_MEMORY_MAPPED
+#ifndef ___QUAD_MEMORY_MAPPED_GRAPHICS
+#define ___QUAD_MEMORY_MAPPED_GRAPHICS
 
 #include "standard_libs.h"
 
 #include "display_macros.h"
 
-#if defined(_QUAD_MEMORY_MAPPED)
+#if defined(___QUAD_MEMORY_MAPPED_GRAPHICS)
 
 #  if defined(__C64__) || defined(__C128__)
     #if defined(DOUBLE_BUFFER)
@@ -19,7 +19,7 @@
     #endif
 #elif defined(__MC10__)
 	#define BASE_ADDR 0x4000   
-#elif defined(__VIC20__) && defined(_QUAD_MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
+#elif defined(__VIC20__) && defined(___QUAD_MEMORY_MAPPED_GRAPHICS) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
 	#define BASE_ADDR 0x1000
 	#define COLOR_ADDR 0x9400
 #elif defined(__C16__)
@@ -44,11 +44,11 @@
     #else
         #define BASE_ADDR 0x1800
     #endif
-#elif defined(__CREATIVISION__) && defined(_QUAD_MEMORY_MAPPED)
+#elif defined(__CREATIVISION__) && defined(___QUAD_MEMORY_MAPPED_GRAPHICS)
     #define BASE_ADDR 0x1000
 #elif defined(__AQUARIUS__)
     // TODO: it could be 12288 with X_OFFSET 1 to avoid using the first character that also sets the border character
-    #if defined(QUAD_MEMORY_MAPPED)
+    #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
         #define BASE_ADDR (12288)
     #else
         #define BASE_ADDR (12288+40)
@@ -204,7 +204,7 @@ while(0)
 
 #endif
 
-#endif // _QUAD_MEMORY_MAPPED
+#endif // ___QUAD_MEMORY_MAPPED_GRAPHICS
 
 
 

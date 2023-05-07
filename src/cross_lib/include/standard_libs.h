@@ -9,7 +9,7 @@
     #include <stdint.h>
     #include <stdio.h>
 
-#elif defined(__BBC__) && defined(NO_GRAPHICS)
+#elif defined(__BBC__) && defined(__NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>
 #elif defined(__LCC1802__) 
@@ -17,7 +17,7 @@
 #elif defined(__TI99__)
         typedef unsigned char uint8_t;
         typedef unsigned int uint16_t;
-#elif defined(NO_GRAPHICS) 
+#elif defined(__NO_GRAPHICS) 
     #if !defined(_STDINT)
         #define _STDINT
         typedef unsigned char uint8_t;

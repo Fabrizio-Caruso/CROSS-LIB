@@ -17,7 +17,7 @@ DEBUG_MACROS ?= \
 	-DNO_CHASE \
 	-DTINY_GAME \
 	-DTURN_BASED \
-	-DNO_GRAPHICS \
+	-D__NO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN 
 
@@ -204,7 +204,7 @@ rex:
 	-D__REX__ \
 	-DTURN_BASED \
 	-v \
-	-DREX \
+	-D__REX_GRAPHICS \
 	-D__STDIO \
 	-D_XL_NO_COLOR \
 	  \

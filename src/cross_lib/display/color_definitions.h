@@ -3,7 +3,7 @@
 #define _COLOR_DEFINITIONS_H
 
 
-#if defined(NO_GRAPHICS) || defined(_XL_NO_COLOR)
+#if defined(__NO_GRAPHICS) || defined(_XL_NO_COLOR)
     #define _XL_BLACK 0
     #define _XL_WHITE 0
     #define _XL_RED 0
@@ -51,7 +51,7 @@
     #define _XL_MAGENTA (40+TO7_PASTEL_OFF)
     #define _XL_CYAN (48+TO7_PASTEL_OFF)
     #define _XL_WHITE (56+TO7_PASTEL_OFF)
-#elif defined(CPCRSLIB_GRAPHICS)
+#elif defined(__CPCRSLIB_GRAPHICS)
     #define CPC_WHITE 1
     #define CPC_YELLOW 2 
     #define CPC_RED 3

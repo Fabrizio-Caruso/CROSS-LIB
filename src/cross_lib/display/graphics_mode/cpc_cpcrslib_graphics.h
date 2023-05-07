@@ -1,5 +1,5 @@
-#ifndef _CPC_CPCRSLIB_GRAPHICS_GRAPHICS
-#define _CPC_CPCRSLIB_GRAPHICS_GRAPHICS
+#ifndef _CPC___CPCRSLIB_GRAPHICS
+#define _CPC___CPCRSLIB_GRAPHICS
 
 #include "standard_libs.h"
 
@@ -21,5 +21,5 @@ extern uint8_t space_str[];
 #define _XL_DELETE(x,y) _DRAW_AUX(CPC_BLACK,space_str,(x),(y))
 
 
-#endif // _CPC_CPCRSLIB_GRAPHICS_GRAPHICS
+#endif // _CPC___CPCRSLIB_GRAPHICS
 

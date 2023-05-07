@@ -1,5 +1,5 @@
-#ifndef _NO_GRAPHICS
-#define _NO_GRAPHICS
+#ifndef ___NO_GRAPHICS
+#define ___NO_GRAPHICS
 
 
 // TODO: to be implemented
@@ -8,7 +8,7 @@
 
 #define _XL_DELETE(x,y) 
 		
-#endif // _NO_GRAPHICS
+#endif // ___NO_GRAPHICS
 
 
 

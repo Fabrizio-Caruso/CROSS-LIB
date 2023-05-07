@@ -99,7 +99,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 #endif 
 
 
-#if defined(QUAD_MEMORY_MAPPED)
+#if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 // TODO: MOVE THIS TO GRAPHICS INIT?
     uint8_t quad_tile[1+27+10+26][4] = {
         {      ' ',      ' ',      ' ',      ' '},     // 32 [SPACE]
@@ -204,10 +204,10 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(QUAD_MEMORY_MAPPED) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS))
+#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS))
     
 	
-    #if defined(QUAD_MEMORY_MAPPED)
+    #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
         #define X_MULT 2
         #define Y_MULT 2
     #else

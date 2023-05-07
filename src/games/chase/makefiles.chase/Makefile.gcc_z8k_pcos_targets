@@ -54,7 +54,7 @@ olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
 	-D_XL_NO_COLOR \
 	 \
 	-DTURN_BASED \
-	-DNO_GRAPHICS \
+	-D__NO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \

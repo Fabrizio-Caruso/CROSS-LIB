@@ -1,5 +1,5 @@
-#ifndef _VECTORIAL_GRAPHICS
-#define _VECTORIAL_GRAPHICS
+#ifndef ___VECTORIAL_GRAPHICS_GRAPHICS
+#define ___VECTORIAL_GRAPHICS_GRAPHICS
 
 
 // TODO: to be implemented
@@ -8,7 +8,7 @@
 
 #define _XL_DELETE(x,y) 
 		
-#endif // _VECTORIAL_GRAPHICS
+#endif // ___VECTORIAL_GRAPHICS_GRAPHICS
 
 
 

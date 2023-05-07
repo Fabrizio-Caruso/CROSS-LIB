@@ -49,7 +49,7 @@ extern Image BROKEN_BRICK_IMAGE;
 
 void INIT_IMAGES(void)
 {
-# if !defined(NO_GRAPHICS)
+# if !defined(__NO_GRAPHICS)
 	// Set color data 
 	#if !defined(_XL_NO_COLOR)
 		

@@ -3,7 +3,7 @@
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
-#elif defined(QUAD_MEMORY_MAPPED)
+#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
     #include "default_quad_graphics_settings.h"
 #elif defined(__CREATIVISION__) && defined(__VDP_MODE1_GRAPHICS) && !defined(_XL_NO_UDG)
     #include "vdp_mode1_settings.h"
@@ -41,7 +41,7 @@
 	#include "udg_settings.h"
 #elif defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "msx_redefined_chars_settings.h"
-#elif defined(CPCRSLIB_GRAPHICS)
+#elif defined(__CPCRSLIB_GRAPHICS)
 	#include "cpc_cpcrslib_settings.h"
 #elif defined(__REX__)
 	#include "cpc_cpcrslib_settings.h"

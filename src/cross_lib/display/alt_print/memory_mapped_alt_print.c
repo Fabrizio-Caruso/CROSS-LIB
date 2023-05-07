@@ -1,8 +1,8 @@
 
 #if !defined(__Z88DK_SPRITES_GRAPHICS)
-    #if defined(QUAD_MEMORY_MAPPED)
+    #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
         #include "quad_memory_mapped_graphics.h"
-    #elif defined(DUAL_MEMORY_MAPPED)
+    #elif defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
         #include "dual_memory_mapped_graphics.h"
     #else
         #include "memory_mapped_graphics.h"
@@ -37,7 +37,7 @@
         }
 	}
     
-#elif defined(QUAD_MEMORY_MAPPED)
+#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 	char screenCode(char ch)
 	{
         return ch-(uint8_t) 32u;
@@ -175,7 +175,7 @@
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
 		
-#elif defined(NO_GRAPHICS)
+#elif defined(__NO_GRAPHICS)
 	#define _DISPLAY(x,y,ch)
 
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
@@ -254,7 +254,7 @@
         { \
             _XL_DRAW(x,y,ch,_XL_WHITE); \
         }
-#elif defined(QUAD_MEMORY_MAPPED) || defined(DUAL_MEMORY_MAPPED)
+#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
 	#define _DISPLAY(x,y,ch) \
         _XL_DRAW(x,y,ch-32,_XL_WHITE);
 #else
@@ -273,7 +273,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
             || defined(__VIC20__) \
-            || defined(QUAD_MEMORY_MAPPED)
+            || defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);
@@ -297,9 +297,9 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
         #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(__BIT_MAPPED_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
-        // #elif defined(QUAD_MEMORY_MAPPED)
+        // #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
         // DRAW_QUAD_CHAR(x+length-1-i,y,(digit+(uint8_t) 48u),_XL_WHITE);
-        #elif defined(QUAD_MEMORY_MAPPED)
+        #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u-32u));
         #else
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u));

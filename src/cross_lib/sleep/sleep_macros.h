@@ -111,7 +111,7 @@
             #define _XL_SLOW_DOWN_FACTOR 1400
         #elif defined(__TS2068__)
             #define _XL_SLOW_DOWN_FACTOR 3000
-        #elif defined(__CPC__) && defined(CPCRSLIB_GRAPHICS)
+        #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
             #define _XL_SLOW_DOWN_FACTOR 500	
         #elif defined(__SVI__)
             #define _XL_SLOW_DOWN_FACTOR 1200

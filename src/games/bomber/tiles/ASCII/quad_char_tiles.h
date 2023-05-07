@@ -4,9 +4,9 @@
 #include "cross_lib.h"
 
 
-#if defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAPPED) && !defined(DUAL_MEMORY_MAPPED)
+#if defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(__QUAD_MEMORY_MAPPED_GRAPHICS) && !defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
     #include "aquarius/aquarius_char_tiles.h"
-#elif defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && defined(QUAD_MEMORY_MAPPED)
+#elif defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
     #include "aquarius/aquarius_quad_char_tiles.h"
 #else
     

@@ -190,7 +190,7 @@ apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT \
-	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -213,7 +213,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT \
-	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -257,7 +257,7 @@ apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP  \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -280,7 +280,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	 -D__ALT_SLEEP   \
 	-DXSize=20 -DYSize=24 \
 	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
-	-D__APPLE2_HGR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -398,20 +398,6 @@ atari7800_no_color:
 # ATARI LYNX
 
 atari_lynx: atari_lynx_gfx
-
-atari_lynx_no_gfx:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
-	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=5000 -DEXTRA_TITLE \
-	-D__NO_SCREEN_COLOR_INIT \
-	-DGHOSTS_NUMBER=8 \
-	-DTGI \
-	 \
-	-D__ALT_PRINT \
-    -D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_ATARI_LYNX.lnx
 
 
 atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s

@@ -28,7 +28,7 @@
 #include "cross_lib.h"
 #include "display_target_color.h"
 
-#if !defined(NO_GRAPHICS)
+#if !defined(__NO_GRAPHICS)
     #if defined(__INCLUDE_CONIO_H)
         #include <conio.h>
     #elif defined(__CMOC__) && !defined(__WINCMOC__)
@@ -202,7 +202,7 @@
     } while(0)
 #endif
 
-#if defined(__NO_SCREEN_COLOR_INIT) || defined(NO_GRAPHICS)
+#if defined(__NO_SCREEN_COLOR_INIT) || defined(__NO_GRAPHICS)
     #define _setScreenColors()
 #else
     #define _setScreenColors() \
@@ -244,7 +244,7 @@
         #include <ncurses.h>
     #endif
     #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
-#elif defined(__CPC__) && defined(CPCRSLIB_GRAPHICS)
+#elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
     #define CPC_TEXT_WHITE 3
     #define CPC_TEXT_RED 4
     #define CPC_TEXT_BLACK 7
@@ -305,7 +305,7 @@
     #define _SPACE (' '+NOT_INVERTED)
 #elif defined(__ATARI5200__)
     #define _SPACE 0
-#elif defined(CPCRSLIB_GRAPHICS)
+#elif defined(__CPCRSLIB_GRAPHICS)
     #define _SPACE (19*2)
 #else
     #define _SPACE ' '
@@ -320,7 +320,7 @@
     #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768); 
 #elif defined(__ATARI_LYNX__)
     #define _XL_CLEAR_SCREEN() tgi_clear()
-#elif defined(__CPC__) && defined(CPCRSLIB_GRAPHICS)
+#elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
     #define _XL_CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)

@@ -7,7 +7,7 @@
     #define cputc(c) putchar(c)
 #endif
 
-#if defined(NO_PRINT) || defined(NO_GRAPHICS)
+#if defined(NO_PRINT) || defined(__NO_GRAPHICS)
     #ifndef gotoxy
         #define gotoxy(x,y)
     #endif
@@ -192,6 +192,6 @@
         //
     #endif
 
-#endif // defined(NO_PRINT) || defined(NO_GRAPHICS)
+#endif // defined(NO_PRINT) || defined(__NO_GRAPHICS)
 #endif // _CONIO_PATCH_H
 

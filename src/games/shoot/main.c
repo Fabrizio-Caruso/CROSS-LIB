@@ -151,7 +151,7 @@ void DO_DEBUG_ITEMS(void)
 #endif
 
 
-#if defined(EXTRA_TITLE) && YSize>=17
+#if !defined(NO_EXTRA_TITLE) && YSize>=17
 static const uint8_t item_tile[7][2] = 
 {
     { _GHOST_TILE      , _XL_WHITE },
@@ -286,7 +286,7 @@ void initialScreen(void)
     _XL_CLEAR_SCREEN();                    
     printStartMessage();
     
-    #if defined(EXTRA_TITLE) && YSize>=17
+    #if !defined(NO_EXTRA_TITLE) && YSize>=17
     display_items();
     #endif 
     

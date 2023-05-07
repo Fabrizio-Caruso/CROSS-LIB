@@ -314,7 +314,7 @@ void printGameOver(void)
 	}
 #endif
 
-#if defined(EXTRA_TITLE)
+#if !defined(NO_EXTRA_TITLE)
 
     #define ITEMS_TO_DISPLAY 6
 
@@ -368,7 +368,7 @@ void printGameOver(void)
 			
 			
             #if XSize>=16
-                #if defined(EXTRA_TITLE)
+                #if !defined(NO_EXTRA_TITLE)
                     display_items();
                 #else
                     SET_COLOR(_XL_CYAN);

@@ -375,7 +375,7 @@ void _printCrossShoot(void)
 
         _printTopScore();
 
-        #if XSize>= 14 && !defined(EXTRA_TITLE)
+        #if XSize>= 14 && defined(NO_EXTRA_TITLE)
         PRINT_CENTERED_ON_ROW((YSize>>1)+1, KILL_THEM_ALL__STRING);
         #endif
         

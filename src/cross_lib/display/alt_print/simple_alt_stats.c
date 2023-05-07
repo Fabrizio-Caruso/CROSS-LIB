@@ -15,7 +15,7 @@
 #endif
 
 
-#if defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
+#if defined(__VIC20__) && defined(__VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
     #define UDG_OFFSET 128
 #else
     #define UDG_OFFSET 0

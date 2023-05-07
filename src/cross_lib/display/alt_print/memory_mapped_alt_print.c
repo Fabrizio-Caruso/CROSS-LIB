@@ -127,7 +127,7 @@
         }
 	}
 
-#elif (defined(__VIC20__) && (defined(VIC20_EXP_3K) || defined(VIC20_EXP_8K)))
+#elif (defined(__VIC20__) && (defined(__VIC20_EXP_3K) || defined(__VIC20_EXP_8K)))
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -203,7 +203,7 @@
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
 			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
 		} while(0)
-#elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) && !defined(_XL_NO_UDG)
+#elif (defined(__VIC20__) && defined(__VIC20_EXP_8K)) && !defined(_XL_NO_UDG)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \

@@ -69,7 +69,7 @@
             #define _XL_SLOW_DOWN_FACTOR 1200			
         #elif defined(__SAM__)
             #define _XL_SLOW_DOWN_FACTOR 500
-        #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
+        #elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED)
             #define _XL_SLOW_DOWN_FACTOR 0
         #elif defined(__PC6001__)
             #define _XL_SLOW_DOWN_FACTOR 500	
@@ -82,12 +82,12 @@
         #elif defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI8X__) || defined(__TI86__)
             #define _XL_SLOW_DOWN_FACTOR 6000U
         #elif defined(__C64__)
-            #if defined(USE_WAIT_V_SYNC)
+            #if defined(__USE_WAIT_V_SYNC)
                 #define _XL_SLOW_DOWN_FACTOR 0
             #else
                 #define _XL_SLOW_DOWN_FACTOR 300
             #endif
-        #elif (defined(__VIC20__) && !defined(VIC20_UNEXPANDED)) 
+        #elif (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) 
             #define _XL_SLOW_DOWN_FACTOR 600
         #elif defined(__NES__) || defined(__MZ__) || defined(__Z9001__) || defined(__WINCMOC__) || defined(__CMOC__) || \
               defined(__CBM610__) || defined(__MSX__) || defined(__LASER500__)

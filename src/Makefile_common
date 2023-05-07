@@ -566,7 +566,7 @@ vic20: vic20_exp_16k
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20    \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
-	-D__CONIO_GRAPHICS -DVIC20_EXP_8K  \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	 \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
@@ -580,7 +580,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 vic20_exp_8k_conio: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20    \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
-	-D__CONIO_GRAPHICS -DVIC20_EXP_8K  \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -596,7 +596,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
-	-D__MEMORY_MAPPED_GRAPHICS  -D__VIC20__ -DVIC20_EXP_8K \
+	-D__MEMORY_MAPPED_GRAPHICS  -D__VIC20__ -D__VIC20_EXP_8K \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
@@ -612,7 +612,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
-	-DVIC20_EXP_3K \
+	-D__VIC20_EXP_3K \
 	-D__MEMORY_MAPPED_GRAPHICS \
 	$(VIC_20_EXP_3K_GAME_OPTS) \
 	-D_XL_NO_TEXT_COLOR \
@@ -984,7 +984,7 @@ gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DXSize=20 \
 	-DYSize=18 \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_COLOR  -DUSE_WAIT_V_SYNC \
+	-D_XL_NO_COLOR  -D__USE_WAIT_V_SYNC \
 	-D__SCREEN_MODE=1  \
 	-D__CONIO_GRAPHICS  \
 	-lndos \

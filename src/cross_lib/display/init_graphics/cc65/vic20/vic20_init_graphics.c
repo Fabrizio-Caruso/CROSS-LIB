@@ -10,7 +10,7 @@
 void _XL_INIT_GRAPHICS(void)
 {
 	#if !defined(_XL_NO_UDG)
-		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
+		#if defined(__VIC20_EXP_8K) || defined(__VIC20_EXP_16K)
             #if !defined(VIC20_USE_0X0F) && !defined(__MEMORY_MAPPED_GRAPHICS)
                 uint8_t tmp;
 
@@ -22,7 +22,7 @@ void _XL_INIT_GRAPHICS(void)
 			tmp = ~0x0F & PEEK(&(VIC.addr));
 			POKE(&(VIC.addr), tmp | 0x0F);
             #endif
-		#elif defined(VIC20_EXP_3K) || defined(VIC20_UNEXPANDED) 
+		#elif defined(__VIC20_EXP_3K) || defined(__VIC20_UNEXPANDED) 
 			POKE(0x9005,0xFF);
 		#endif
 	#endif
@@ -36,7 +36,7 @@ void _XL_INIT_GRAPHICS(void)
     #endif
     
 	#if defined(DEBUG)
-		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
+		#if defined(__VIC20_EXP_8K) || defined(__VIC20_EXP_16K)
 			#define BASE_ADDR 0x1000
 		#else
 			#define BASE_ADDR 0x1E00

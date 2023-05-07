@@ -76,9 +76,9 @@
             #include "psg_sounds.h"
         #elif defined(__VG5K__) 
             #include "z88dk_bit_bang_sounds.h"
-        #elif defined(__VIC20__) && !defined(VIC20_UNEXPANDED) 
+        #elif defined(__VIC20__) && !defined(__VIC20_UNEXPANDED) 
             #include "vic20_sounds.h"
-        #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) 
+        #elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED) 
             #include "vic20_explosion_sound.h"
         #elif defined(__VZ__) 
             #include "z88dk_bit_bang_sounds.h"

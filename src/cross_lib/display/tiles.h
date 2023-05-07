@@ -11,13 +11,13 @@
     #include "vdp_mode1_settings.h"
 #elif defined(__CREATIVISION__) && !defined(_XL_NO_UDG)
     #include "creativision_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !!defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__VIC20_EXP_3K) && !!defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__VIC20_EXP_3K) && !defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_light_settings.h"
-#elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_3K)) && !defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(__VIC20_EXP_8K) || defined(__VIC20_EXP_3K)) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_27_tiles_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
 #elif defined(__VIC20__) && defined(__CONIO_GRAPHICS)
 	#include "vic20_exp_16k_v2_settings.h"

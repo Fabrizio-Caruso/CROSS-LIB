@@ -24,7 +24,7 @@
 		#define BASE_ADDR 0x7000
 	#elif defined(__MC10__)
 		#define BASE_ADDR 0x4000   
-	#elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
+	#elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(__VIC20_EXP_8K) || defined(__VIC20_EXP_16K))
 		#define BASE_ADDR 0x1000
 		#define COLOR_ADDR 0x9400
 	#elif defined(__C16__)
@@ -40,7 +40,7 @@
 		#define BASE_ADDR 0x3E20
 	#elif defined(__ATMOS__)
 		#define BASE_ADDR 0xBB80
-	#elif defined(__VIC20__) && (defined(VIC20_UNEXPANDED) || defined(VIC20_EXP_3K))
+	#elif defined(__VIC20__) && (defined(__VIC20_UNEXPANDED) || defined(__VIC20_EXP_3K))
 		#define BASE_ADDR 0x1E00
 		#define COLOR_ADDR 0x9600
 	#elif defined(__MSX__)

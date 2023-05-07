@@ -70,7 +70,7 @@
 #endif
 
 
-#if defined(USE_WAIT_V_SYNC)
+#if defined(__USE_WAIT_V_SYNC)
 
     #if defined(__MSX__) || defined(__SVI__) || defined(__M5__) || defined(__MTX__)
         #define VDP_WAIT_V_SYNC
@@ -287,9 +287,9 @@
     #define INVERTED -64
 #endif
 
-#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(__CONIO_GRAPHICS)) && !defined(_XL_NO_UDG)
+#  if defined(__VIC20__) && (defined(__VIC20_EXP_8K) && !defined(__CONIO_GRAPHICS)) && !defined(_XL_NO_UDG)
     #define _SPACE 0x72
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
     #define _SPACE 0xA0
 #elif (defined(__ATARI__) && defined(__ANTIC_MODE6_GRAPHICS))
     #define _SPACE 0

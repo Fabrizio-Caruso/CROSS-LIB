@@ -35,10 +35,15 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     #define CHAR_OFFSET 48
 #endif
 
+
 #if !defined(__CIDELSA__)
-    #define _DISPLAY(x,y,ch) vidcharxy(x,y, (uint8_t) (ch+CHAR_OFFSET))
+    #if defined(__LCC1802_UNBUFFERED) 
+        #define _DISPLAY(x,y,ch) vidcharnobufxy(x,y, (uint8_t) (ch+CHAR_OFFSET))
+    #else
+        #define _DISPLAY(x,y,ch) vidcharxy(x,y, (uint8_t) (ch+CHAR_OFFSET))
+    #endif
 #else
-    #define _DISPLAY(__x,__y,__ch) vidcharxy(__x+X_OFFSET,__y+Y_OFFSET, (uint8_t) (__ch+CHAR_OFFSET))
+        #define _DISPLAY(__x,__y,__ch) vidcharxy(__x+X_OFFSET,__y+Y_OFFSET, (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
 #define COLOR_BIT 0

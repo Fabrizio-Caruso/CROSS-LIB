@@ -124,6 +124,8 @@ int main(void)
             
             PRINT_CENTERED("SOME TEXT ");
             
+            small_pause(); 
+            
             _XL_WAIT_FOR_INPUT();
             
             _XL_CLEAR_SCREEN();

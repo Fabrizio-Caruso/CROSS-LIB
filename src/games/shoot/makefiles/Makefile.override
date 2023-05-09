@@ -508,14 +508,14 @@ full_combo.c: light_combo.c
 
 tiny_combo_rand.c: tiny_combo.c
 	cat \
-	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../tiny_combo.c \
 	> $(SOURCE_PATH)/../tiny_combo_rand.c
 	rm  $(SOURCE_PATH)/../tiny_combo.c
     
 light_combo_rand.c: light_combo.c
 	cat \
-	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../light_combo.c \
 	> $(SOURCE_PATH)/../light_combo_rand.c
 	rm -rf $(SOURCE_PATH)/../light_combo.c
@@ -523,7 +523,7 @@ light_combo_rand.c: light_combo.c
     
 full_combo_rand.c: full_combo.c
 	cat \
-	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo.c \
 	> $(SOURCE_PATH)/../full_combo_rand.c
 	rm -rf $(SOURCE_PATH)/../full_combo.c

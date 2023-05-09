@@ -1823,24 +1823,24 @@ COMX_COLOR_GRAPHICS_EXTRA_FILES_WTIH_END_SCREEN ?= \
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 
 reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_COLOR_GRAPHICS_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(COMX_COLOR_GRAPHICS_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
 
 
 reduced_full_lcc1802_micro_combo.c: full_combo_rand.c
 	cat \
-	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 
 
@@ -2149,7 +2149,7 @@ mc10:
 	-DYSize=16 \
 	-D__MEMORY_MAPPED_GRAPHICS -D_XL_NO_JOYSTICK \
 	-D_XL_NO_COLOR -D__TARGET_SPECIFIC_ASCII \
-	-D__ALT_SLEEP \
+	-D__ALT_SLEEP -D__ALT_RAND \
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
 	-D__DEFAULT_CLEAR_SCREEN -D__ALT_PRINT  \

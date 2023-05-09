@@ -8,6 +8,7 @@
 #elif defined(__MC10__)
     #include <stdint.h>
     #include <stdio.h>
+    int rand(void);
 
 #elif defined(__BBC__) && defined(__NO_GRAPHICS)
     #include <stdint.h>

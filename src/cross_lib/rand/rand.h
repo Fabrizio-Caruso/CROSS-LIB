@@ -2,11 +2,10 @@
 #define _RAND_H
 
 
-
 #if !defined(__LCC1802__)
     int rand(void);
 #else
-    #include <devkit/system/rand.h>
+    //#include <devkit/system/rand.h>
 #endif
 
 // Normalized 15-bit pseudo-random number generator

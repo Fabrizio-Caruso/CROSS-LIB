@@ -1268,11 +1268,17 @@ def shapes(params):
     print("xsize: " + xsize_str)
     print("ysize: " + ysize_str)
     path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
-    print("path to shape files: " + path_to_files)
+    print("Path to shape files: " + path_to_files)
     shape_files = files_in_path(path_to_files)
+    if verbose:
+        print("shape files: ", shape_files)
     for shape_file in shape_files:
-        path_to_shape_file = path_to_files + "/" + shape_file
-        
+        if verbose:
+            print("processing file: ", shape_file)
+
+        path_to_shape_file = path_to_files + "/" + str(shape_file)
+        if verbose:
+            print("processing path file: ", path_to_shape_file)
         tile_number_str = shape_file[5:].replace(".txt","")
         
         print("tile number: " + tile_number_str)

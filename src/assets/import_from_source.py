@@ -471,9 +471,6 @@ def read_shape(file_name):
 
 
 def import_tile(file_name):
-    print("Entering import_tile routine")
-    # if verbose:
-        # print("opening file: ", file_name)
     fin = open(file_name, "rt")
     lines = fin.readlines()
     tile = ""
@@ -489,11 +486,9 @@ def import_tile(file_name):
         if len(line)<xsize:
             xsize = len(line)
 
-    print("xsize: " + str(xsize))
     trimmed_lines = []
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
-    print(str(trimmed_lines))
     ysize = len(trimmed_lines)
     
     dir = str(xsize)+"X"+str(ysize)

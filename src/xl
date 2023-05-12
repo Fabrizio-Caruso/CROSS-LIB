@@ -1284,9 +1284,6 @@ def shapes(params):
         print("tile number: " + tile_number_str)
         
         tile,xsize,ysize = import_tile(path_to_shape_file)
-        # tile = "0,0,0,0,0,0,0,0"
-        # xsize = "8"
-        # ysize = "8"
         
         if str(xsize)!=xsize_str or str(ysize)!=ysize_str:
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")

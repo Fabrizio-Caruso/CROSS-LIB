@@ -61,7 +61,7 @@
 // KO: 
 #define _TILE_24 ('}')
 
-#define _TILE_26 34
+#define _TILE_26 0x2D
 
 #endif // _C264_REDEFINED_CHARS_H
 

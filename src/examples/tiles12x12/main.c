@@ -29,25 +29,32 @@ uint8_t x;
 uint8_t y;
 
 // Left low player in the 2x2 multi-tile
-#define LEFT_LOW_TILE0 _TILE_2
-#define LEFT_LOW_TILE1 _TILE_6
-#define LEFT_LOW_TILE2 _TILE_10
-#define LEFT_LOW_TILE3 _TILE_14
+#define LEFT_LOW_TILE0  _TILE_2
+#define LEFT_LOW_TILE1  _TILE_6
+#define LEFT_LOW_TILE2  _TILE_10
+#define LEFT_LOW_TILE3  _TILE_14
 
 #define RIGHT_LOW_TILE0 _TILE_3
 #define RIGHT_LOW_TILE1 _TILE_7
 #define RIGHT_LOW_TILE2 _TILE_11
 #define RIGHT_LOW_TILE3 _TILE_15
 
-#define LEFT_UP_TILE0 _TILE_0
-#define LEFT_UP_TILE1 _TILE_4
-#define LEFT_UP_TILE2 _TILE_8
-#define LEFT_UP_TILE3 _TILE_12
+#define LEFT_UP_TILE0   _TILE_0
+#define LEFT_UP_TILE1   _TILE_4
+#define LEFT_UP_TILE2   _TILE_8
+#define LEFT_UP_TILE3   _TILE_12
 
-#define RIGHT_UP_TILE0 _TILE_1
-#define RIGHT_UP_TILE1 _TILE_5
-#define RIGHT_UP_TILE2 _TILE_9
-#define RIGHT_UP_TILE3 _TILE_13
+#define RIGHT_UP_TILE0  _TILE_1
+#define RIGHT_UP_TILE1  _TILE_5
+#define RIGHT_UP_TILE2  _TILE_9
+#define RIGHT_UP_TILE3  _TILE_13
+
+#define MINE_TILE       _TILE_16
+#define MINE_TILE_DOWN  _TILE_17
+#define MINE_TILE_UP    _TILE_18
+#define MINE_TILE_LEFT  _TILE_19
+#define MINE_TILE_RIGHT _TILE_20
+
 
 #define move_left() \
 { \
@@ -137,8 +144,26 @@ void display_player(void)
 
 }
 
+void display_mine(uint8_t x, uint8_t y)
+{
+	if(!(x&1) && !(y&1))
+	{
+		_XL_DRAW(x>>1,y>>1,MINE_TILE,_XL_CYAN);
+	}
+	else if(!(x&1))
+	{
+		_XL_DRAW(x>>1,(y>>1),MINE_TILE_UP,_XL_CYAN);
+		_XL_DRAW(x>>1,(y>>1)+1,MINE_TILE_DOWN,_XL_CYAN);
+	}
+	else
+	{
+		_XL_DRAW(x>>1,y>>1,MINE_TILE_LEFT,_XL_CYAN);
+		_XL_DRAW((x>>1)+1,y>>1,MINE_TILE_RIGHT,_XL_CYAN);
+	}
+}
+
 #define MIN_Y 3
-#define MAX_Y (2*YSize-3)
+#define MAX_Y (2*YSize-6)
 #define MIN_X 3
 #define MAX_X (2*XSize-3)
 
@@ -152,7 +177,9 @@ int main(void)
 {        
 
 	uint8_t input;
-		
+
+	uint8_t i;
+	
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
@@ -164,7 +191,28 @@ int main(void)
 	x = XSize;
 	y = YSize;
 	
+	// _XL_DRAW(XSize/2,YSize/2,MINE_TILE,_XL_CYAN);
+	// _XL_DRAW(XSize/2+2,YSize/2,MINE_TILE_LEFT,_XL_CYAN);
+	// _XL_DRAW(XSize/2+3,YSize/2,MINE_TILE_RIGHT,_XL_CYAN);
+	// _XL_DRAW(XSize/2+5,YSize/2,MINE_TILE_UP,_XL_CYAN);
+	// _XL_DRAW(XSize/2+5,YSize/2+1,MINE_TILE_DOWN,_XL_CYAN);
+	
+	// display_mine(XSize,YSize);
+	
+	// display_mine(XSize+3,YSize);
+	
+	// display_mine(XSize+6,YSize-3);
+	
+	for(i=MIN_X;i<MAX_X;++i)
+	{
 
+		display_mine(i,YSize);
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+		_XL_CLEAR_SCREEN();
+	}
+	
+	update_display();
+	
 	while(1)
 	{
 		input = _XL_INPUT();

@@ -24,9 +24,37 @@
 
 #include "cross_lib.h"
 
+#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+
+#define EMPTY 0
+#define DEADLY 1
+#define SUPER_RING 2
+#define RING 3
+#define EXTRA 4
+#define APPLE 5
+#define EXTRA_LIFE 6
+#define WALL  7
+#define HORIZONTAL_WALL 8
+#define VERTICAL_WALL 9
+#define TRANSPARENT 10
+
+
+#define MINE_RIGHT 0
+#define MINE_LEFT 1
+#define MINE_UP 2
+#define MINE_DOWN 3
+
 
 uint8_t x;
 uint8_t y;
+
+uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
+uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
+uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
+uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
+
+uint8_t map[XSize][YSize];
+
 
 // Left low player in the 2x2 multi-tile
 #define LEFT_LOW_TILE0  _TILE_2
@@ -167,18 +195,118 @@ void display_mine(uint8_t x, uint8_t y)
 #define MIN_X 3
 #define MAX_X (2*XSize-3)
 
-void update_display(void)
+
+void init_map(void)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    for(i=0;i<XSize;++i)
+    {
+        map[i][0]=WALL;
+        map[i][YSize-1]=WALL;
+    }
+    for(i=0;i<YSize-1;++i)
+    {
+        map[0][i]=WALL;
+        map[XSize-1][i]=WALL;
+    }
+    for(i=1;i<XSize-1;++i)
+    {
+        for(j=1;j<YSize-1;++j)
+        {
+            map[i][j]=EMPTY;
+        }
+    }
+    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_MINES;++i)
+    {
+        horizontal_mine_y[i]=2;
+        horizontal_mine_transition[i]=0;
+        horizontal_mine_x[i]=2;
+        horizontal_mine_direction[i]=MINE_RIGHT;
+        
+    }
+}
+
+void update_player_display(void)
 {
 	_XL_CLEAR_SCREEN();
 	display_player();
 }
+
+
+void display_horizontal_transition_mine(uint8_t x, uint8_t y)
+{
+    _XL_DRAW(x-1,y,MINE_TILE_LEFT, _XL_CYAN);
+    _XL_DRAW(x,y,MINE_TILE_RIGHT, _XL_CYAN);
+}
+
+
+void handle_horizontal_mine(register uint8_t index)
+{
+    register uint8_t x = horizontal_mine_x[index];
+    register uint8_t y = horizontal_mine_y[index];
+    
+    if(horizontal_mine_direction[index]==MINE_LEFT)
+    {
+        
+        if(!horizontal_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[x-1][y])
+            {
+                // Do left transition
+                display_horizontal_transition_mine(x,y);
+                map[x-1][y]=DEADLY;
+                ++horizontal_mine_transition[index];
+            }
+            else
+            {
+                horizontal_mine_direction[index]=MINE_RIGHT;
+            }
+        }
+        else // transition already performed
+        {
+            horizontal_mine_transition[index]=0;
+            map[x][y]=EMPTY;
+            _XL_DELETE(x,y);
+            --horizontal_mine_x[index];
+            _XL_DRAW(horizontal_mine_x[index],y,MINE_TILE,_XL_CYAN);
+        }
+    }
+    else // direction is RIGHT
+    {
+        if(!horizontal_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[x+1][y])
+            {
+                // Do right transition
+                display_horizontal_transition_mine(x+1,y);
+                map[x+1][y]=DEADLY;
+                ++horizontal_mine_transition[index];
+            }
+            else
+            {
+                horizontal_mine_direction[index]=MINE_LEFT;
+            }
+        }
+        else // transition already performed
+        {
+            horizontal_mine_transition[index]=0;
+            map[x][y]=EMPTY;
+            _XL_DELETE(x,y);
+            ++horizontal_mine_x[index];
+            _XL_DRAW(horizontal_mine_x[index],y,MINE_TILE,_XL_CYAN);
+        }
+    }
+}
+
 
 int main(void)
 {        
 
 	uint8_t input;
 
-	uint8_t i;
+	// uint8_t i;
 	
     _XL_INIT_GRAPHICS();
 
@@ -187,6 +315,8 @@ int main(void)
     _XL_INIT_SOUND();
 
     _XL_CLEAR_SCREEN();
+
+    init_map();
 
 	x = XSize;
 	y = YSize;
@@ -203,15 +333,15 @@ int main(void)
 	
 	// display_mine(XSize+6,YSize-3);
 	
-	for(i=MIN_X;i<MAX_X;++i)
-	{
+	// for(i=MIN_X;i<MAX_X;++i)
+	// {
 
-		display_mine(i,YSize);
-		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-		_XL_CLEAR_SCREEN();
-	}
+		// display_mine(i,((YSize>>1)<<1));
+		// _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+		// _XL_CLEAR_SCREEN();
+	// }
 	
-	update_display();
+	update_player_display();
 	
 	while(1)
 	{
@@ -222,7 +352,7 @@ int main(void)
 			if(y>MIN_Y)
 			{
 				--y;
-				update_display();
+				update_player_display();
 			}
 		}
 		else if(_XL_DOWN(input))
@@ -230,7 +360,7 @@ int main(void)
 			if(y<MAX_Y)
 			{
 				++y;
-				update_display();
+				update_player_display();
 			}
 		}
 		else if(_XL_LEFT(input))
@@ -238,7 +368,7 @@ int main(void)
 			if(x>MIN_X)
 			{
 				--x;
-				update_display();
+				update_player_display();
 			}
 		}
 		else if(_XL_RIGHT(input))
@@ -246,9 +376,12 @@ int main(void)
 			if(x<MAX_X)
 			{
 				++x;
-				update_display();
+				update_player_display();
 			}
 		}
+        
+        handle_horizontal_mine(0);
+        
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	};
     

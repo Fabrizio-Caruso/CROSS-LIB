@@ -48,6 +48,10 @@
 
 uint8_t x;
 uint8_t y;
+
+uint8_t screen_x;
+uint8_t screen_y;
+
 uint8_t alive;
 
 uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
@@ -122,43 +126,53 @@ static const uint8_t player_tile[4][4] =
 	},
 };
 
+void update_screen_xy(void)
+{
+	screen_x = x>>1;
+	screen_y = (y+1)>>1;
+}
 
-void display_player(void)
+
+
+
+void update_player(void)
 {
 	uint8_t tile_group = (x&1)+2*(y&1);
 	
-    _XL_DRAW((x>>1),((y+1)>>1),player_tile[tile_group][2],_XL_WHITE);
-    _XL_DRAW((x>>1)+1,((y+1)>>1),player_tile[tile_group][3],_XL_WHITE);  
-    _XL_DRAW((x>>1),((y+1)>>1)+1,player_tile[tile_group][0],_XL_WHITE);
-    _XL_DRAW((x>>1)+1,((y+1)>>1)+1,player_tile[tile_group][1],_XL_WHITE);  
+	update_screen_xy();
+	
+    _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],_XL_WHITE);
+    _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],_XL_WHITE);  
+    _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],_XL_WHITE);
+    _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],_XL_WHITE);  
 }
 
 
 void delete_player_down(void)
 {
-    _XL_DELETE((x>>1),((y+1)>>1)+1);
-    _XL_DELETE((x>>1)+1,((y+1)>>1)+1);      
+    _XL_DELETE(screen_x,screen_y+1);
+    _XL_DELETE(screen_x+1,screen_y+1);      
 }
 
 
 void delete_player_up(void)
 {
-    _XL_DELETE((x>>1),((y+1)>>1));
-    _XL_DELETE((x>>1)+1,((y+1)>>1));   
+    _XL_DELETE(screen_x,screen_y);
+    _XL_DELETE(screen_x+1,screen_y);   
 }
 
 
 void delete_player_left(void)
 {
-    _XL_DELETE((x>>1),((y+1)>>1));
-    _XL_DELETE((x>>1),((y+1)>>1)+1);
+    _XL_DELETE(screen_x,screen_y);
+    _XL_DELETE(screen_x,screen_y+1);
 }
 
 
 void delete_player_right(void)
 {
-    _XL_DELETE((x>>1)+1,((y+1)>>1));  
-    _XL_DELETE((x>>1)+1,((y+1)>>1)+1);  
+    _XL_DELETE(screen_x+1,screen_y);  
+    _XL_DELETE(screen_x+1,screen_y+1);  
 }
 
 
@@ -234,12 +248,6 @@ void init_level(void)
     horizontal_mines_on_current_level = 6;
     vertical_mines_on_current_level = 4;
 }
-
-// void display_player(void)
-// {
-	// _XL_CLEAR_SCREEN();
-	// display_player();
-// }
 
 
 void display_horizontal_transition_mine(uint8_t x, uint8_t y)
@@ -410,7 +418,7 @@ void handle_player(void)
                 delete_player_down();
             }
             --y;
-            display_player();
+            update_player();
         }
     }
     else if(_XL_DOWN(input))
@@ -422,7 +430,7 @@ void handle_player(void)
                 delete_player_up();
             }
             ++y;
-            display_player();
+            update_player();
         }
     }
     else if(_XL_LEFT(input))
@@ -434,7 +442,7 @@ void handle_player(void)
                 delete_player_right();
             }
             --x;
-            display_player();
+            update_player();
         }
     }
     else if(_XL_RIGHT(input))
@@ -446,7 +454,7 @@ void handle_player(void)
                 delete_player_left();
             }
             ++x;
-            display_player();
+            update_player();
         }
     }
 }
@@ -454,7 +462,8 @@ void handle_player(void)
 
 void handle_collissions(void)
 {
-    if(map[x>>1][y>>1]==DEADLY)
+    if((map[screen_x][screen_y]==DEADLY)||(map[screen_x+1][screen_y]==DEADLY)||
+	   (map[screen_x][screen_y+1]==DEADLY)||(map[screen_x+1][screen_y+1]==DEADLY))
     {
         alive = 0;
     }
@@ -487,7 +496,7 @@ int main(void)
 
         init_player();
 
-        display_player();
+        update_player();
         
         while(alive)
         {

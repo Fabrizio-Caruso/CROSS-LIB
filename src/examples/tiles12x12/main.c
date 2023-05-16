@@ -48,6 +48,7 @@
 
 uint8_t x;
 uint8_t y;
+uint8_t alive;
 
 uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
 uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
@@ -451,35 +452,61 @@ void handle_player(void)
 }
 
 
+void handle_collissions(void)
+{
+    if(map[x>>1][y>>1]==DEADLY)
+    {
+        alive = 0;
+    }
+}
+
+
+void init_player(void)
+{
+    alive = 1;
+	x = XSize;
+	y = YSize;
+}
+
+
 int main(void)
 {        
-
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
     
     _XL_INIT_SOUND();
 
-    _XL_CLEAR_SCREEN();
+    while(1)
+    {
+        _XL_CLEAR_SCREEN();
 
-    init_map();
-    
-    init_level();
+        init_map();
+        
+        init_level();
 
-	x = XSize;
-	y = YSize;
-	
-	display_player();
-	
-	while(1)
-	{
-        handle_player();
+        init_player();
+
+        display_player();
         
-        handle_horizontal_mines();
-        handle_vertical_mines();
+        while(alive)
+        {
+            handle_player();
+            
+            handle_collissions();
+            handle_horizontal_mines();
+            handle_vertical_mines();
+            
+            handle_collissions();
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
+        };
         
-		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-	};
+        _XL_SET_TEXT_COLOR(_XL_RED);
+        _XL_PRINT(XSize/2-5,YSize/2,"GAME OVER");
+        
+        _XL_SLEEP(1);
+        _XL_WAIT_FOR_INPUT();
+    }
     
     return EXIT_SUCCESS;
 }

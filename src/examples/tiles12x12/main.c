@@ -25,6 +25,7 @@
 #include "cross_lib.h"
 
 #define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+#define MAX_NUMBER_OF_VERTICAL_MINES 4
 
 #define EMPTY 0
 #define DEADLY 1
@@ -53,8 +54,15 @@ uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
 uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
 uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
 
+uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
+uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
+uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
+uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+
 uint8_t map[XSize][YSize];
 
+uint8_t horizontal_mines_on_current_level;
+uint8_t vertical_mines_on_current_level;
 
 // Left low player in the 2x2 multi-tile
 #define LEFT_LOW_TILE0  _TILE_2
@@ -168,9 +176,36 @@ void display_player(void)
     _XL_DRAW((x>>1)+1,((y+1)>>1),player_tile[tile_group][3],_XL_WHITE);  
     _XL_DRAW((x>>1),((y+1)>>1)+1,player_tile[tile_group][0],_XL_WHITE);
     _XL_DRAW((x>>1)+1,((y+1)>>1)+1,player_tile[tile_group][1],_XL_WHITE);  
-
-
 }
+
+
+void delete_down(void)
+{
+    _XL_DELETE((x>>1),((y+1)>>1)+1);
+    _XL_DELETE((x>>1)+1,((y+1)>>1)+1);      
+}
+
+
+void delete_up(void)
+{
+    _XL_DELETE((x>>1),((y+1)>>1));
+    _XL_DELETE((x>>1)+1,((y+1)>>1));   
+}
+
+
+void delete_left(void)
+{
+    _XL_DELETE((x>>1),((y+1)>>1));
+    _XL_DELETE((x>>1),((y+1)>>1)+1);
+}
+
+
+void delete_right(void)
+{
+    _XL_DELETE((x>>1)+1,((y+1)>>1));  
+    _XL_DELETE((x>>1)+1,((y+1)>>1)+1);  
+}
+
 
 void display_mine(uint8_t x, uint8_t y)
 {
@@ -218,21 +253,38 @@ void init_map(void)
             map[i][j]=EMPTY;
         }
     }
+
+}
+
+void init_level(void)
+{
+    uint8_t i;
+    
     for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_MINES;++i)
     {
-        horizontal_mine_y[i]=2;
+        horizontal_mine_y[i]=2+i*3;
         horizontal_mine_transition[i]=0;
         horizontal_mine_x[i]=2;
         horizontal_mine_direction[i]=MINE_RIGHT;
-        
     }
+
+    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_MINES;++i)
+    {
+        vertical_mine_x[i]=2+i*3;
+        vertical_mine_transition[i]=0;
+        vertical_mine_y[i]=2;
+        vertical_mine_direction[i]=MINE_DOWN;
+    }
+    
+    horizontal_mines_on_current_level = 6;
+    vertical_mines_on_current_level = 4;
 }
 
-void update_player_display(void)
-{
-	_XL_CLEAR_SCREEN();
-	display_player();
-}
+// void display_player(void)
+// {
+	// _XL_CLEAR_SCREEN();
+	// display_player();
+// }
 
 
 void display_horizontal_transition_mine(uint8_t x, uint8_t y)
@@ -301,6 +353,94 @@ void handle_horizontal_mine(register uint8_t index)
 }
 
 
+void handle_horizontal_mines(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<horizontal_mines_on_current_level;++i)
+    {
+        handle_horizontal_mine(i);
+    }
+}
+
+
+void display_vertical_transition_mine(uint8_t x, uint8_t y)
+{
+    _XL_DRAW(x,y-1,MINE_TILE_UP,_XL_CYAN);
+    _XL_DRAW(x,y,MINE_TILE_DOWN,_XL_CYAN);
+}
+
+
+void handle_vertical_mine(register uint8_t index)
+{
+    register uint8_t x = vertical_mine_x[index];
+    register uint8_t y = vertical_mine_y[index];
+    
+    if(vertical_mine_direction[index]==MINE_UP)
+    {
+        
+        if(!vertical_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[x][y-1])
+            {
+                // Do up transition
+                display_vertical_transition_mine(x,y);
+                map[x][y-1]=DEADLY;
+                ++vertical_mine_transition[index];
+            }
+            else
+            {
+                vertical_mine_direction[index]=MINE_DOWN;
+            }
+        }
+        else // transition already performed
+        {
+            vertical_mine_transition[index]=0;
+            map[x][y]=EMPTY;
+            _XL_DELETE(x,y);
+            --vertical_mine_y[index];
+            _XL_DRAW(x,vertical_mine_y[index],MINE_TILE,_XL_CYAN);
+        }
+    }
+    else // direction is DOWN
+    {
+        if(!vertical_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[x][vertical_mine_y[index]+1])
+            {
+                // Do right transition
+                display_vertical_transition_mine(x,y+1);
+                map[x][y+1]=DEADLY;
+                ++vertical_mine_transition[index];
+            }
+            else
+            {
+                vertical_mine_direction[index]=MINE_UP;
+            }
+        }
+        else // transition already performed
+        {
+            vertical_mine_transition[index]=0;
+            map[x][y]=EMPTY;
+            _XL_DELETE(x,y);
+            ++vertical_mine_y[index];
+            _XL_DRAW(x,vertical_mine_y[index],MINE_TILE,_XL_CYAN);
+        }
+    }
+}
+
+
+void handle_vertical_mines(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<vertical_mines_on_current_level;++i)
+    {
+        handle_vertical_mine(i);
+    }
+}
+
+
 int main(void)
 {        
 
@@ -317,6 +457,8 @@ int main(void)
     _XL_CLEAR_SCREEN();
 
     init_map();
+    
+    init_level();
 
 	x = XSize;
 	y = YSize;
@@ -341,7 +483,7 @@ int main(void)
 		// _XL_CLEAR_SCREEN();
 	// }
 	
-	update_player_display();
+	display_player();
 	
 	while(1)
 	{
@@ -351,36 +493,41 @@ int main(void)
 		{
 			if(y>MIN_Y)
 			{
+                delete_down();
 				--y;
-				update_player_display();
+				display_player();
 			}
 		}
 		else if(_XL_DOWN(input))
 		{	
 			if(y<MAX_Y)
 			{
+                delete_up();
 				++y;
-				update_player_display();
+				display_player();
 			}
 		}
 		else if(_XL_LEFT(input))
 		{
 			if(x>MIN_X)
 			{
+                delete_right();
 				--x;
-				update_player_display();
+				display_player();
 			}
 		}
 		else if(_XL_RIGHT(input))
 		{	
 			if(x<MAX_X)
 			{
+                delete_left();
 				++x;
-				update_player_display();
+				display_player();
 			}
 		}
         
-        handle_horizontal_mine(0);
+        handle_horizontal_mines();
+        handle_vertical_mines();
         
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	};

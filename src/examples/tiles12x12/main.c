@@ -92,52 +92,6 @@ uint8_t vertical_mines_on_current_level;
 #define MINE_TILE_RIGHT _TILE_20
 
 
-#define move_left() \
-{ \
-    bow_shape_tile = 2*((--bow_x)&1); \
-    if(bow_shape_tile) \
-    { \
-        _XL_DELETE((bow_x>>1)+2,BOW_Y); \
-    } \
-    display_bow(); \
-}
-
-
-#define move_right() \
-{ \
-    bow_shape_tile = 2*((++bow_x)&1); \
-    if(!bow_shape_tile) \
-    { \
-        _XL_DELETE((bow_x>>1)-1,BOW_Y); \
-    } \
-    display_bow(); \
-}
-
-
-/*
-
-static const uint8_t bow_tile[8] =
-{
-    EMPTY_BOW_LEFT_TILE_0,
-    EMPTY_BOW_RIGHT_TILE_0,
-    EMPTY_BOW_LEFT_TILE_1,
-    EMPTY_BOW_RIGHT_TILE_1,
-    LOADED_BOW_LEFT_TILE_0,
-    LOADED_BOW_RIGHT_TILE_0,
-    LOADED_BOW_LEFT_TILE_1,
-    LOADED_BOW_RIGHT_TILE_1,
-};
-
-*/
-
-
-// void display_bow(void)
-// {
-    // _XL_DRAW((bow_x>>1),BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
-    // _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
-// }
-
-
 
 static const uint8_t player_tile[4][4] =
 {
@@ -179,51 +133,51 @@ void display_player(void)
 }
 
 
-void delete_down(void)
+void delete_player_down(void)
 {
     _XL_DELETE((x>>1),((y+1)>>1)+1);
     _XL_DELETE((x>>1)+1,((y+1)>>1)+1);      
 }
 
 
-void delete_up(void)
+void delete_player_up(void)
 {
     _XL_DELETE((x>>1),((y+1)>>1));
     _XL_DELETE((x>>1)+1,((y+1)>>1));   
 }
 
 
-void delete_left(void)
+void delete_player_left(void)
 {
     _XL_DELETE((x>>1),((y+1)>>1));
     _XL_DELETE((x>>1),((y+1)>>1)+1);
 }
 
 
-void delete_right(void)
+void delete_player_right(void)
 {
     _XL_DELETE((x>>1)+1,((y+1)>>1));  
     _XL_DELETE((x>>1)+1,((y+1)>>1)+1);  
 }
 
 
-void display_mine(uint8_t x, uint8_t y)
-{
-	if(!(x&1) && !(y&1))
-	{
-		_XL_DRAW(x>>1,y>>1,MINE_TILE,_XL_CYAN);
-	}
-	else if(!(x&1))
-	{
-		_XL_DRAW(x>>1,(y>>1),MINE_TILE_UP,_XL_CYAN);
-		_XL_DRAW(x>>1,(y>>1)+1,MINE_TILE_DOWN,_XL_CYAN);
-	}
-	else
-	{
-		_XL_DRAW(x>>1,y>>1,MINE_TILE_LEFT,_XL_CYAN);
-		_XL_DRAW((x>>1)+1,y>>1,MINE_TILE_RIGHT,_XL_CYAN);
-	}
-}
+// void display_mine(uint8_t x, uint8_t y)
+// {
+	// if(!(x&1) && !(y&1))
+	// {
+		// _XL_DRAW(x>>1,y>>1,MINE_TILE,_XL_CYAN);
+	// }
+	// else if(!(x&1))
+	// {
+		// _XL_DRAW(x>>1,(y>>1),MINE_TILE_UP,_XL_CYAN);
+		// _XL_DRAW(x>>1,(y>>1)+1,MINE_TILE_DOWN,_XL_CYAN);
+	// }
+	// else
+	// {
+		// _XL_DRAW(x>>1,y>>1,MINE_TILE_LEFT,_XL_CYAN);
+		// _XL_DRAW((x>>1)+1,y>>1,MINE_TILE_RIGHT,_XL_CYAN);
+	// }
+// }
 
 #define MIN_Y 3
 #define MAX_Y (2*YSize-6)
@@ -440,14 +394,66 @@ void handle_vertical_mines(void)
     }
 }
 
+void handle_player(void)
+{
+    uint8_t input;
+    
+    input = _XL_INPUT();
+    
+    if(_XL_UP(input))
+    {
+        if(y>MIN_Y)
+        {
+            if(y&1)
+            {
+                delete_player_down();
+            }
+            --y;
+            display_player();
+        }
+    }
+    else if(_XL_DOWN(input))
+    {	
+        if(y<MAX_Y)
+        {
+            if(!(y&1))
+            {
+                delete_player_up();
+            }
+            ++y;
+            display_player();
+        }
+    }
+    else if(_XL_LEFT(input))
+    {
+        if(x>MIN_X)
+        {
+            if(!(x&1))
+            {
+                delete_player_right();
+            }
+            --x;
+            display_player();
+        }
+    }
+    else if(_XL_RIGHT(input))
+    {	
+        if(x<MAX_X)
+        {   
+            if(x&1)
+            {
+                delete_player_left();
+            }
+            ++x;
+            display_player();
+        }
+    }
+}
+
 
 int main(void)
 {        
 
-	uint8_t input;
-
-	// uint8_t i;
-	
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
@@ -463,68 +469,11 @@ int main(void)
 	x = XSize;
 	y = YSize;
 	
-	// _XL_DRAW(XSize/2,YSize/2,MINE_TILE,_XL_CYAN);
-	// _XL_DRAW(XSize/2+2,YSize/2,MINE_TILE_LEFT,_XL_CYAN);
-	// _XL_DRAW(XSize/2+3,YSize/2,MINE_TILE_RIGHT,_XL_CYAN);
-	// _XL_DRAW(XSize/2+5,YSize/2,MINE_TILE_UP,_XL_CYAN);
-	// _XL_DRAW(XSize/2+5,YSize/2+1,MINE_TILE_DOWN,_XL_CYAN);
-	
-	// display_mine(XSize,YSize);
-	
-	// display_mine(XSize+3,YSize);
-	
-	// display_mine(XSize+6,YSize-3);
-	
-	// for(i=MIN_X;i<MAX_X;++i)
-	// {
-
-		// display_mine(i,((YSize>>1)<<1));
-		// _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-		// _XL_CLEAR_SCREEN();
-	// }
-	
 	display_player();
 	
 	while(1)
 	{
-		input = _XL_INPUT();
-		
-		if(_XL_UP(input))
-		{
-			if(y>MIN_Y)
-			{
-                delete_down();
-				--y;
-				display_player();
-			}
-		}
-		else if(_XL_DOWN(input))
-		{	
-			if(y<MAX_Y)
-			{
-                delete_up();
-				++y;
-				display_player();
-			}
-		}
-		else if(_XL_LEFT(input))
-		{
-			if(x>MIN_X)
-			{
-                delete_right();
-				--x;
-				display_player();
-			}
-		}
-		else if(_XL_RIGHT(input))
-		{	
-			if(x<MAX_X)
-			{
-                delete_left();
-				++x;
-				display_player();
-			}
-		}
+        handle_player();
         
         handle_horizontal_mines();
         handle_vertical_mines();

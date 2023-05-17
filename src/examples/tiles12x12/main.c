@@ -114,8 +114,8 @@
 
 
 
-uint8_t x;
-uint8_t y;
+uint8_t player_x;
+uint8_t player_y;
 
 uint8_t screen_x;
 uint8_t screen_y;
@@ -170,14 +170,14 @@ static const uint8_t player_tile[4][4] =
 
 void update_screen_xy(void)
 {
-	screen_x = x>>1;
-	screen_y = (y+1)>>1;
+	screen_x = player_x>>1;
+	screen_y = (player_y+1)>>1;
 }
 
 
 void update_player(void)
 {
-	uint8_t tile_group = (x&1)+2*(y&1);
+	uint8_t tile_group = (player_x&1)+2*(player_y&1);
 	
 	update_screen_xy();
 	
@@ -472,49 +472,49 @@ void handle_player(void)
     
     if(_XL_UP(input))
     {
-        if(y>MIN_PLAYER_Y)
+        if(player_y>MIN_PLAYER_Y)
         {
-            if(y&1)
+            if(player_y&1)
             {
                 delete_player_down();
             }
-            --y;
+            --player_y;
             update_player();
         }
     }
     else if(_XL_DOWN(input))
     {	
-        if(y<MAX_PLAYER_Y)
+        if(player_y<MAX_PLAYER_Y)
         {
-            if(!(y&1))
+            if(!(player_y&1))
             {
                 delete_player_up();
             }
-            ++y;
+            ++player_y;
             update_player();
         }
     }
     else if(_XL_LEFT(input))
     {
-        if(x>MIN_PLAYER_X)
+        if(player_x>MIN_PLAYER_X)
         {
-            if(!(x&1))
+            if(!(player_x&1))
             {
                 delete_player_right();
             }
-            --x;
+            --player_x;
             update_player();
         }
     }
     else if(_XL_RIGHT(input))
     {	
-        if(x<MAX_PLAYER_X)
+        if(player_x<MAX_PLAYER_X)
         {   
-            if(x&1)
+            if(player_x&1)
             {
                 delete_player_left();
             }
-            ++x;
+            ++player_x;
             update_player();
         }
     }
@@ -534,8 +534,8 @@ void handle_collissions(void)
 void init_player(void)
 {
     alive = 1;
-	x = XSize;
-	y = YSize;
+	player_x = XSize;
+	player_y = YSize;
 }
 
 

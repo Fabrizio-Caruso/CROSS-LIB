@@ -49,10 +49,10 @@
 
 
 #define EMPTY 0
-#define BLOCK 1
+#define SHIELD 1
 #define DEADLY 1
 #define RING 3
-#define SHIELD 4
+#define BLOCK 4
 #define APPLE 5
 #define EXTRA_LIFE 6
 #define WALL  7
@@ -185,10 +185,10 @@ void update_player(void)
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],_XL_WHITE);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],_XL_WHITE);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],_XL_WHITE);  
-    // map[screen_x][screen_y]=EMPTY;
-    // map[screen_x+1][screen_y]=EMPTY;
-    // map[screen_x][screen_y+1]=EMPTY;
-    // map[screen_x+1][screen_y+1]=EMPTY;
+    map[screen_x][screen_y]=EMPTY;
+    map[screen_x+1][screen_y]=EMPTY;
+    map[screen_x][screen_y+1]=EMPTY;
+    map[screen_x+1][screen_y+1]=EMPTY;
     
 }
 
@@ -223,22 +223,22 @@ void delete_player_right(void)
 
 uint8_t empty_down(void)
 {
-    return (map[screen_x][screen_y+2]==EMPTY) && (map[screen_x+1][screen_y+2]==EMPTY);
+    return (map[screen_x][screen_y+2]<=SHIELD) && (map[screen_x+1][screen_y+2]<=SHIELD);
 }
 
 uint8_t empty_up(void)
 {
-    return (map[screen_x][screen_y-1]==EMPTY) && (map[screen_x+1][screen_y-1]==EMPTY);
+    return (map[screen_x][screen_y-1]<=SHIELD) && (map[screen_x+1][screen_y-1]<=SHIELD);
 }
 
 uint8_t empty_left(void)
 {
-    return (map[screen_x-1][screen_y]==EMPTY) && (map[screen_x-1][screen_y+1]==EMPTY);
+    return (map[screen_x-1][screen_y]<=SHIELD) && (map[screen_x-1][screen_y+1]<=SHIELD);
 }
 
 uint8_t empty_right(void)
 {
-    return (map[screen_x+2][screen_y]==EMPTY) && (map[screen_x+2][screen_y+1]==EMPTY);
+    return (map[screen_x+2][screen_y]<=SHIELD) && (map[screen_x+2][screen_y+1]<=SHIELD);
 }
 
 
@@ -303,11 +303,11 @@ void init_level(void)
         vertical_shuriken_direction[i]=SHURIKEN_DOWN;
     }
     
-    // horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
-    // vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
+    horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
+    vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
     
-    horizontal_shurikens_on_current_level = 2;
-    vertical_shurikens_on_current_level = 2;
+    // horizontal_shurikens_on_current_level = 2;
+    // vertical_shurikens_on_current_level = 2;
     
     for(i=0;i<20;++i)
     {
@@ -321,10 +321,14 @@ void init_level(void)
         // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
         // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
         
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
-        // map[x][y] = SHIELD;
+
+    }
+    for(i=0;i<50;++i)
+    {
+        x = _XL_RAND()%(XSize-2)+1; 
+        y = _XL_RAND()%(YSize-3)+2;
+        _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
+        map[x][y] = SHIELD;
     }
 }
 
@@ -603,7 +607,7 @@ int main(void)
             handle_vertical_shurikens();
             
             handle_collisions();
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
         };
         
         _XL_SET_TEXT_COLOR(_XL_RED);

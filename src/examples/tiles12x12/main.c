@@ -223,7 +223,7 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        map[i][1]=WALL;
+        map[i][1]=WALL;        map[i][0]=WALL;
         map[i][YSize-1]=WALL;
         _XL_DRAW(i,1,WALL_TILE,_XL_YELLOW);
         _XL_DRAW(i,YSize-1,WALL_TILE,_XL_YELLOW);
@@ -279,11 +279,11 @@ void init_level(void)
     
     for(i=0;i<10;++i)
     {
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,DIAMOND_TILE,_XL_GREEN);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,BLOCK_TILE,_XL_YELLOW);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,MINI_SHURIKEN_TILE,_XL_RED);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,RING_TILE,_XL_WHITE);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,SHIELD_TILE,_XL_WHITE);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,DIAMOND_TILE,_XL_GREEN);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,BLOCK_TILE,_XL_YELLOW);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,SHIELD_TILE,_XL_WHITE);
     }
 }
 

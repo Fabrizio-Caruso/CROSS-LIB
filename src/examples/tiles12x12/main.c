@@ -49,8 +49,8 @@
 
 
 #define EMPTY 0
+#define BLOCK 1
 #define DEADLY 1
-#define BLOCK 2
 #define RING 3
 #define SHIELD 4
 #define APPLE 5
@@ -185,6 +185,11 @@ void update_player(void)
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],_XL_WHITE);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],_XL_WHITE);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],_XL_WHITE);  
+    // map[screen_x][screen_y]=EMPTY;
+    // map[screen_x+1][screen_y]=EMPTY;
+    // map[screen_x][screen_y+1]=EMPTY;
+    // map[screen_x+1][screen_y+1]=EMPTY;
+    
 }
 
 
@@ -213,6 +218,27 @@ void delete_player_right(void)
 {
     _XL_DELETE(screen_x+1,screen_y);  
     _XL_DELETE(screen_x+1,screen_y+1);  
+}
+
+
+uint8_t empty_down(void)
+{
+    return (map[screen_x][screen_y+2]==EMPTY) && (map[screen_x+1][screen_y+2]==EMPTY);
+}
+
+uint8_t empty_up(void)
+{
+    return (map[screen_x][screen_y-1]==EMPTY) && (map[screen_x+1][screen_y-1]==EMPTY);
+}
+
+uint8_t empty_left(void)
+{
+    return (map[screen_x-1][screen_y]==EMPTY) && (map[screen_x-1][screen_y+1]==EMPTY);
+}
+
+uint8_t empty_right(void)
+{
+    return (map[screen_x+2][screen_y]==EMPTY) && (map[screen_x+2][screen_y+1]==EMPTY);
 }
 
 
@@ -277,19 +303,28 @@ void init_level(void)
         vertical_shuriken_direction[i]=SHURIKEN_DOWN;
     }
     
-    horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
-    vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
+    // horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
+    // vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
     
-    for(i=0;i<30;++i)
+    horizontal_shurikens_on_current_level = 2;
+    vertical_shurikens_on_current_level = 2;
+    
+    for(i=0;i<20;++i)
     {
         // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,DIAMOND_TILE,_XL_GREEN);
-        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,BLOCK_TILE,_XL_GREEN);
-        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
-        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
+        
         x = _XL_RAND()%(XSize-2)+1; 
         y = _XL_RAND()%(YSize-3)+2;
-        _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
-        map[x][y] = SHIELD;
+        _XL_DRAW(x,y,WALL_TILE,_XL_YELLOW);
+        map[x][y] = WALL;
+        
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
+        
+        // x = _XL_RAND()%(XSize-2)+1; 
+        // y = _XL_RAND()%(YSize-3)+2;
+        // _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
+        // map[x][y] = SHIELD;
     }
 }
 
@@ -470,7 +505,7 @@ void handle_player(void)
     
     input = _XL_INPUT();
     
-    if(_XL_UP(input))
+    if(_XL_UP(input) && (!(player_y&1) || empty_up()))
     {
         if(player_y>MIN_PLAYER_Y)
         {
@@ -482,7 +517,7 @@ void handle_player(void)
             update_player();
         }
     }
-    else if(_XL_DOWN(input))
+    else if(_XL_DOWN(input) && ((player_y&1) ||empty_down()))
     {	
         if(player_y<MAX_PLAYER_Y)
         {
@@ -494,7 +529,7 @@ void handle_player(void)
             update_player();
         }
     }
-    else if(_XL_LEFT(input))
+    else if(_XL_LEFT(input) && ((player_x&1) || empty_left()))
     {
         if(player_x>MIN_PLAYER_X)
         {
@@ -506,7 +541,7 @@ void handle_player(void)
             update_player();
         }
     }
-    else if(_XL_RIGHT(input))
+    else if(_XL_RIGHT(input) && (!(player_x&1) || empty_right()))
     {	
         if(player_x<MAX_PLAYER_X)
         {   
@@ -521,7 +556,7 @@ void handle_player(void)
 }
 
 
-void handle_collissions(void)
+void handle_collisions(void)
 {
     if((map[screen_x][screen_y]==DEADLY)||(map[screen_x+1][screen_y]==DEADLY)||
 	   (map[screen_x][screen_y+1]==DEADLY)||(map[screen_x+1][screen_y+1]==DEADLY))
@@ -563,11 +598,11 @@ int main(void)
         {
             handle_player();
             
-            handle_collissions();
+            handle_collisions();
             handle_horizontal_shurikens();
             handle_vertical_shurikens();
             
-            handle_collissions();
+            handle_collisions();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
         };
         

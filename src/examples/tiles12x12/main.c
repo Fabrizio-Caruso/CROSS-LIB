@@ -24,8 +24,29 @@
 
 #include "cross_lib.h"
 
-#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
-#define MAX_NUMBER_OF_VERTICAL_MINES 4
+#if XSize<17
+	#define MAX_NUMBER_OF_HORIZONTAL_MINES 5
+#elif XSize<24
+	#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+#elif XSize<33
+	#define MAX_NUMBER_OF_HORIZONTAL_MINES 7
+#else
+	#define MAX_NUMBER_OF_HORIZONTAL_MINES 8
+#endif
+
+#if YSize<13
+	#define MAX_NUMBER_OF_VERTICAL_MINES 3
+#elif YSize<19
+	#define MAX_NUMBER_OF_VERTICAL_MINES 4
+#elif YSize<24
+	#define MAX_NUMBER_OF_VERTICAL_MINES 5
+#elif YSize<26
+	#define MAX_NUMBER_OF_VERTICAL_MINES 7
+#else
+	#define MAX_NUMBER_OF_VERTICAL_MINES 8
+#endif
+
+
 
 #define EMPTY 0
 #define DEADLY 1
@@ -95,6 +116,11 @@ uint8_t vertical_mines_on_current_level;
 #define MINE_TILE_UP    _TILE_18
 #define MINE_TILE_LEFT  _TILE_19
 #define MINE_TILE_RIGHT _TILE_20
+
+#define MIN_Y 3
+#define MAX_Y (2*YSize-6)
+#define MIN_X 3
+#define MAX_X (2*XSize-3)
 
 
 
@@ -176,30 +202,6 @@ void delete_player_right(void)
 }
 
 
-// void display_mine(uint8_t x, uint8_t y)
-// {
-	// if(!(x&1) && !(y&1))
-	// {
-		// _XL_DRAW(x>>1,y>>1,MINE_TILE,_XL_CYAN);
-	// }
-	// else if(!(x&1))
-	// {
-		// _XL_DRAW(x>>1,(y>>1),MINE_TILE_UP,_XL_CYAN);
-		// _XL_DRAW(x>>1,(y>>1)+1,MINE_TILE_DOWN,_XL_CYAN);
-	// }
-	// else
-	// {
-		// _XL_DRAW(x>>1,y>>1,MINE_TILE_LEFT,_XL_CYAN);
-		// _XL_DRAW((x>>1)+1,y>>1,MINE_TILE_RIGHT,_XL_CYAN);
-	// }
-// }
-
-#define MIN_Y 3
-#define MAX_Y (2*YSize-6)
-#define MIN_X 3
-#define MAX_X (2*XSize-3)
-
-
 void init_map(void)
 {
     uint8_t i;
@@ -245,8 +247,8 @@ void init_level(void)
         vertical_mine_direction[i]=MINE_DOWN;
     }
     
-    horizontal_mines_on_current_level = 6;
-    vertical_mines_on_current_level = 4;
+    horizontal_mines_on_current_level = MAX_NUMBER_OF_HORIZONTAL_MINES;
+    vertical_mines_on_current_level = MAX_NUMBER_OF_VERTICAL_MINES;
 }
 
 
@@ -277,6 +279,8 @@ void handle_horizontal_mine(register uint8_t index)
             else
             {
                 horizontal_mine_direction[index]=MINE_RIGHT;
+				
+				// TODO: Destroy breakable wall
             }
         }
         else // transition already performed
@@ -302,6 +306,8 @@ void handle_horizontal_mine(register uint8_t index)
             else
             {
                 horizontal_mine_direction[index]=MINE_LEFT;
+				
+				// TODO: Destroy breakable wall
             }
         }
         else // transition already performed

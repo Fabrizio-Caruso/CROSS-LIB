@@ -29,9 +29,9 @@
 #elif XSize<24
 	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
 #elif XSize<33
-	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 7
-#else
 	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 8
+#else
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 9
 #endif
 
 #if YSize<13
@@ -39,11 +39,11 @@
 #elif YSize<19
 	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
 #elif YSize<24
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 5
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
 #elif YSize<26
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 7
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
 #else
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 5
 #endif
 
 
@@ -223,7 +223,7 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        map[i][1]=WALL;        map[i][0]=WALL;
+        map[i][1]=WALL;       
         map[i][YSize-1]=WALL;
         _XL_DRAW(i,1,WALL_TILE,_XL_YELLOW);
         _XL_DRAW(i,YSize-1,WALL_TILE,_XL_YELLOW);
@@ -237,7 +237,7 @@ void init_map(void)
     }
     for(i=1;i<XSize-1;++i)
     {
-        for(j=1;j<YSize-1;++j)
+        for(j=2;j<YSize-1;++j)
         {
             map[i][j]=EMPTY;
         }
@@ -266,7 +266,7 @@ void init_level(void)
         horizontal_shuriken_direction[i]=SHURIKEN_RIGHT;
     }
 
-    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
+    for(i=0;i<MAX_NUMBER_OF_VERTICAL_SHURIKENS;++i)
     {
         vertical_shuriken_x[i]=2+i*3;
         vertical_shuriken_transition[i]=0;

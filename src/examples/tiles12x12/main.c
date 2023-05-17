@@ -50,15 +50,11 @@
 
 #define EMPTY 0
 #define SHIELD 1
-#define DEADLY 1
-#define RING 3
-#define BLOCK 4
-#define APPLE 5
-#define EXTRA_LIFE 6
-#define WALL  7
-#define HORIZONTAL_WALL 8
-#define VERTICAL_WALL 9
-#define TRANSPARENT 10
+#define BLOCK 2
+#define DEADLY 3
+#define RING 4
+#define DIAMOND 5
+#define WALL  6
 
 
 #define SHURIKEN_RIGHT 0
@@ -221,24 +217,88 @@ void delete_player_right(void)
 }
 
 
-uint8_t empty_down(void)
+uint8_t allowed_down(void)
 {
-    return (map[screen_x][screen_y+2]<=SHIELD) && (map[screen_x+1][screen_y+2]<=SHIELD);
+    return (map[screen_x][screen_y+2]<=BLOCK) && (map[screen_x+1][screen_y+2]<=BLOCK);
 }
 
-uint8_t empty_up(void)
+uint8_t allowed_up(void)
 {
-    return (map[screen_x][screen_y-1]<=SHIELD) && (map[screen_x+1][screen_y-1]<=SHIELD);
+    return (map[screen_x][screen_y-1]<=BLOCK) && (map[screen_x+1][screen_y-1]<=BLOCK);
 }
 
-uint8_t empty_left(void)
+uint8_t allowed_left(void)
 {
-    return (map[screen_x-1][screen_y]<=SHIELD) && (map[screen_x-1][screen_y+1]<=SHIELD);
+    return (map[screen_x-1][screen_y]<=BLOCK) && (map[screen_x-1][screen_y+1]<=BLOCK);
 }
 
-uint8_t empty_right(void)
+uint8_t allowed_right(void)
 {
-    return (map[screen_x+2][screen_y]<=SHIELD) && (map[screen_x+2][screen_y+1]<=SHIELD);
+    return (map[screen_x+2][screen_y]<=BLOCK) && (map[screen_x+2][screen_y+1]<=BLOCK);
+}
+
+
+void if_block_move_down(void)
+{
+    if((map[screen_x][screen_y+2]==BLOCK)&&!map[screen_x][screen_y+3])
+    {
+        map[screen_x][screen_y+3]=BLOCK;
+        _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
+    }
+    
+    if((map[screen_x+1][screen_y+2]==BLOCK)&&!map[screen_x+1][screen_y+3])
+    {
+        map[screen_x+1][screen_y+3]=BLOCK;
+        _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
+    }
+}
+
+
+void if_block_move_up(void)
+{
+    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x+1][screen_y-2])
+    {
+        map[screen_x][screen_y-2]=BLOCK;
+        _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
+    }
+    
+    if((map[screen_x+1][screen_y-1]==BLOCK)&&!map[screen_x+1][screen_y-2])
+    {
+        map[screen_x+1][screen_y-2]=BLOCK;
+        _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
+    }
+}
+
+
+void if_block_move_left(void)
+{
+    if((map[screen_x-1][screen_y]==BLOCK)&&!map[screen_x-2][screen_y])
+    {
+        map[screen_x-2][screen_y]=BLOCK;
+        _XL_DRAW(screen_x-2,screen_y,BLOCK_TILE,_XL_GREEN);
+    }
+    
+    if((map[screen_x-1][screen_y+1]==BLOCK)&&!map[screen_x-2][screen_y+1])
+    {
+        map[screen_x-2][screen_y+1]=BLOCK;
+        _XL_DRAW(screen_x-2,screen_y+1,BLOCK_TILE,_XL_GREEN);
+    }
+}
+
+
+void if_block_move_right(void)
+{
+    if((map[screen_x+2][screen_y]==BLOCK)&&!map[screen_x+3][screen_y])
+    {
+        map[screen_x+3][screen_y]=BLOCK;
+        _XL_DRAW(screen_x+3,screen_y,BLOCK_TILE,_XL_GREEN);
+    }
+    
+    if((map[screen_x+2][screen_y+1]==BLOCK)&&!map[screen_x+3][screen_y+1])
+    {
+        map[screen_x+3][screen_y+1]=BLOCK;
+        _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
+    }
 }
 
 
@@ -329,6 +389,14 @@ void init_level(void)
         y = _XL_RAND()%(YSize-3)+2;
         _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
         map[x][y] = SHIELD;
+    }
+    
+    for(i=0;i<50;++i)
+    {
+        x = _XL_RAND()%(XSize-2)+1; 
+        y = _XL_RAND()%(YSize-3)+2;
+        _XL_DRAW(x,y,BLOCK_TILE,_XL_GREEN);
+        map[x][y] = BLOCK;
     }
 }
 
@@ -509,51 +577,59 @@ void handle_player(void)
     
     input = _XL_INPUT();
     
-    if(_XL_UP(input) && (!(player_y&1) || empty_up()))
+    if(_XL_UP(input) && (!(player_y&1) || allowed_up()))
     {
         if(player_y>MIN_PLAYER_Y)
         {
             if(player_y&1)
             {
                 delete_player_down();
+                if_block_move_up();
             }
             --player_y;
+
             update_player();
         }
     }
-    else if(_XL_DOWN(input) && ((player_y&1) ||empty_down()))
+    else if(_XL_DOWN(input) && ((player_y&1) ||allowed_down()))
     {	
         if(player_y<MAX_PLAYER_Y)
         {
             if(!(player_y&1))
             {
                 delete_player_up();
+                if_block_move_down();
             }
             ++player_y;
+
             update_player();
         }
     }
-    else if(_XL_LEFT(input) && ((player_x&1) || empty_left()))
+    else if(_XL_LEFT(input) && ((player_x&1) || allowed_left()))
     {
         if(player_x>MIN_PLAYER_X)
         {
             if(!(player_x&1))
             {
                 delete_player_right();
+                if_block_move_left();
             }
             --player_x;
+
             update_player();
         }
     }
-    else if(_XL_RIGHT(input) && (!(player_x&1) || empty_right()))
+    else if(_XL_RIGHT(input) && (!(player_x&1) || allowed_right()))
     {	
         if(player_x<MAX_PLAYER_X)
         {   
             if(player_x&1)
             {
                 delete_player_left();
+                if_block_move_right();
             }
             ++player_x;
+
             update_player();
         }
     }

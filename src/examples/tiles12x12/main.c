@@ -41,18 +41,18 @@
 #elif YSize<24
 	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
 #elif YSize<26
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
-#else
 	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 5
+#else
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 6
 #endif
 
 
 
 #define EMPTY 0
 #define DEADLY 1
-#define SUPER_RING 2
+#define BLOCK 2
 #define RING 3
-#define EXTRA 4
+#define SHIELD 4
 #define APPLE 5
 #define EXTRA_LIFE 6
 #define WALL  7
@@ -250,6 +250,9 @@ void init_level(void)
 {
     uint8_t i;
     
+    uint8_t x;
+    uint8_t y;
+    
     _XL_SET_TEXT_COLOR(_XL_WHITE);
   
     _XL_PRINTD(0,0,5,0);
@@ -277,13 +280,16 @@ void init_level(void)
     horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
     vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
     
-    for(i=0;i<10;++i)
+    for(i=0;i<30;++i)
     {
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,DIAMOND_TILE,_XL_GREEN);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,BLOCK_TILE,_XL_YELLOW);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
-        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,SHIELD_TILE,_XL_WHITE);
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,DIAMOND_TILE,_XL_GREEN);
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,BLOCK_TILE,_XL_GREEN);
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
+        // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
+        x = _XL_RAND()%(XSize-2)+1; 
+        y = _XL_RAND()%(YSize-3)+2;
+        _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
+        map[x][y] = SHIELD;
     }
 }
 
@@ -294,6 +300,15 @@ void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
     _XL_DRAW(x,y,SHURIKEN_TILE_RIGHT, _XL_CYAN);
 }
 
+void if_shield_destroy_it(uint8_t x, uint8_t y)
+{
+    if(map[x][y]==SHIELD)
+    {
+        _XL_TICK_SOUND();
+        _XL_DELETE(x,y);
+        map[x][y]=EMPTY;  
+    }
+}
 
 void handle_horizontal_shuriken(register uint8_t index)
 {
@@ -316,7 +331,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
 				
-				// TODO: Destroy breakable wall
+                if_shield_destroy_it(x-1,y);
             }
         }
         else // transition already performed
@@ -343,7 +358,8 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
 				
-				// TODO: Destroy breakable wall
+                if_shield_destroy_it(x+1,y);
+
             }
         }
         else // transition already performed
@@ -396,6 +412,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_DOWN;
+                if_shield_destroy_it(x,y-1);
             }
         }
         else // transition already performed
@@ -421,6 +438,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_UP;
+                if_shield_destroy_it(x,y+1);
             }
         }
         else // transition already performed
@@ -444,6 +462,7 @@ void handle_vertical_shurikens(void)
         handle_vertical_shuriken(i);
     }
 }
+
 
 void handle_player(void)
 {

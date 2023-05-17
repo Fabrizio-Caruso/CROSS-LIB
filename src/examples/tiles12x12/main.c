@@ -25,25 +25,25 @@
 #include "cross_lib.h"
 
 #if XSize<17
-	#define MAX_NUMBER_OF_HORIZONTAL_MINES 5
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 5
 #elif XSize<24
-	#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
 #elif XSize<33
-	#define MAX_NUMBER_OF_HORIZONTAL_MINES 7
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 7
 #else
-	#define MAX_NUMBER_OF_HORIZONTAL_MINES 8
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 8
 #endif
 
 #if YSize<13
-	#define MAX_NUMBER_OF_VERTICAL_MINES 3
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 3
 #elif YSize<19
-	#define MAX_NUMBER_OF_VERTICAL_MINES 4
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 4
 #elif YSize<24
-	#define MAX_NUMBER_OF_VERTICAL_MINES 5
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 5
 #elif YSize<26
-	#define MAX_NUMBER_OF_VERTICAL_MINES 7
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 7
 #else
-	#define MAX_NUMBER_OF_VERTICAL_MINES 8
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #endif
 
 
@@ -61,10 +61,57 @@
 #define TRANSPARENT 10
 
 
-#define MINE_RIGHT 0
-#define MINE_LEFT 1
-#define MINE_UP 2
-#define MINE_DOWN 3
+#define SHURIKEN_RIGHT 0
+#define SHURIKEN_LEFT 1
+#define SHURIKEN_UP 2
+#define SHURIKEN_DOWN 3
+
+// TILES
+
+// Left low player in the 2x2 multi-tile
+#define LEFT_LOW_TILE0      _TILE_2
+#define LEFT_LOW_TILE1      _TILE_6
+#define LEFT_LOW_TILE2      _TILE_10
+#define LEFT_LOW_TILE3      _TILE_14
+
+#define RIGHT_LOW_TILE0     _TILE_3
+#define RIGHT_LOW_TILE1     _TILE_7
+#define RIGHT_LOW_TILE2     _TILE_11
+#define RIGHT_LOW_TILE3     _TILE_15
+
+#define LEFT_UP_TILE0       _TILE_0
+#define LEFT_UP_TILE1       _TILE_4
+#define LEFT_UP_TILE2       _TILE_8
+#define LEFT_UP_TILE3       _TILE_12
+
+#define RIGHT_UP_TILE0      _TILE_1
+#define RIGHT_UP_TILE1      _TILE_5
+#define RIGHT_UP_TILE2      _TILE_9
+#define RIGHT_UP_TILE3      _TILE_13
+
+#define SHURIKEN_TILE       _TILE_16
+#define SHURIKEN_TILE_DOWN  _TILE_17
+#define SHURIKEN_TILE_UP    _TILE_18
+#define SHURIKEN_TILE_LEFT  _TILE_19
+#define SHURIKEN_TILE_RIGHT _TILE_20
+
+#define WALL_TILE           _TILE_21
+
+#define BLOCK_TILE          _TILE_22
+
+#define SHIELD_TILE         _TILE_23
+
+#define MINI_SHURIKEN_TILE  _TILE_24
+
+#define RING_TILE           _TILE_25
+
+#define DIAMOND_TILE        _TILE_26
+
+#define MIN_PLAYER_Y 3
+#define MAX_PLAYER_Y (2*YSize-6)
+#define MIN_PLAYER_X 2
+#define MAX_PLAYER_X (2*XSize-5)
+
 
 
 uint8_t x;
@@ -75,76 +122,44 @@ uint8_t screen_y;
 
 uint8_t alive;
 
-uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
-uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
-uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
-uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
+uint8_t horizontal_shuriken_x[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
+uint8_t horizontal_shuriken_y[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
+uint8_t horizontal_shuriken_direction[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
+uint8_t horizontal_shuriken_transition[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
 
-uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
-uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
-uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
-uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+uint8_t vertical_shuriken_x[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
+uint8_t vertical_shuriken_y[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
+uint8_t vertical_shuriken_direction[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
+uint8_t vertical_shuriken_transition[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 
 uint8_t map[XSize][YSize];
 
-uint8_t horizontal_mines_on_current_level;
-uint8_t vertical_mines_on_current_level;
-
-// Left low player in the 2x2 multi-tile
-#define LEFT_LOW_TILE0  _TILE_2
-#define LEFT_LOW_TILE1  _TILE_6
-#define LEFT_LOW_TILE2  _TILE_10
-#define LEFT_LOW_TILE3  _TILE_14
-
-#define RIGHT_LOW_TILE0 _TILE_3
-#define RIGHT_LOW_TILE1 _TILE_7
-#define RIGHT_LOW_TILE2 _TILE_11
-#define RIGHT_LOW_TILE3 _TILE_15
-
-#define LEFT_UP_TILE0   _TILE_0
-#define LEFT_UP_TILE1   _TILE_4
-#define LEFT_UP_TILE2   _TILE_8
-#define LEFT_UP_TILE3   _TILE_12
-
-#define RIGHT_UP_TILE0  _TILE_1
-#define RIGHT_UP_TILE1  _TILE_5
-#define RIGHT_UP_TILE2  _TILE_9
-#define RIGHT_UP_TILE3  _TILE_13
-
-#define MINE_TILE       _TILE_16
-#define MINE_TILE_DOWN  _TILE_17
-#define MINE_TILE_UP    _TILE_18
-#define MINE_TILE_LEFT  _TILE_19
-#define MINE_TILE_RIGHT _TILE_20
-
-#define MIN_Y 3
-#define MAX_Y (2*YSize-6)
-#define MIN_X 3
-#define MAX_X (2*XSize-3)
+uint8_t horizontal_shurikens_on_current_level;
+uint8_t vertical_shurikens_on_current_level;
 
 
 
 static const uint8_t player_tile[4][4] =
 {
-	{ // left lower 12x12 multi-tile 
+	{ // left lower 12x12 multi-tile inside a 16x16 quad tile
 		LEFT_UP_TILE0,
 		RIGHT_UP_TILE0,
 		LEFT_LOW_TILE0,
 		RIGHT_LOW_TILE0,
 	},
-	{ // right lower 12x12 multi-tile
+	{ // right lower 12x12 multi-tile inside a 16x16 quad tile
 		LEFT_UP_TILE1,
 		RIGHT_UP_TILE1,
 		LEFT_LOW_TILE1,
 		RIGHT_LOW_TILE1,
 	},
-	{ // left upper 12x12 multi-tile 
+	{ // left upper 12x12 multi-tile inside a 16x16 quad tile
 		LEFT_UP_TILE2,
 		RIGHT_UP_TILE2,
 		LEFT_LOW_TILE2,
 		RIGHT_LOW_TILE2,
 	},
-	{ // right upper 12x12 multi-tile 
+	{ // right upper 12x12 multi-tile inside a 16x16 quad tile 
 		LEFT_UP_TILE3,
 		RIGHT_UP_TILE3,
 		LEFT_LOW_TILE3,
@@ -152,13 +167,12 @@ static const uint8_t player_tile[4][4] =
 	},
 };
 
+
 void update_screen_xy(void)
 {
 	screen_x = x>>1;
 	screen_y = (y+1)>>1;
 }
-
-
 
 
 void update_player(void)
@@ -209,13 +223,17 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        map[i][0]=WALL;
+        map[i][1]=WALL;
         map[i][YSize-1]=WALL;
+        _XL_DRAW(i,1,WALL_TILE,_XL_YELLOW);
+        _XL_DRAW(i,YSize-1,WALL_TILE,_XL_YELLOW);
     }
-    for(i=0;i<YSize-1;++i)
+    for(i=1;i<YSize-1;++i)
     {
         map[0][i]=WALL;
         map[XSize-1][i]=WALL;
+        _XL_DRAW(0,i,WALL_TILE,_XL_YELLOW);
+        _XL_DRAW(XSize-1,i,WALL_TILE,_XL_YELLOW);
     }
     for(i=1;i<XSize-1;++i)
     {
@@ -227,185 +245,203 @@ void init_map(void)
 
 }
 
+
 void init_level(void)
 {
     uint8_t i;
     
-    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_MINES;++i)
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+  
+    _XL_PRINTD(0,0,5,0);
+    _XL_PRINTD(XSize-5,0,5,0);
+    
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT(XSize-7,0,"HI");
+    
+    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
     {
-        horizontal_mine_y[i]=2+i*3;
-        horizontal_mine_transition[i]=0;
-        horizontal_mine_x[i]=2;
-        horizontal_mine_direction[i]=MINE_RIGHT;
+        horizontal_shuriken_y[i]=2+i*3;
+        horizontal_shuriken_transition[i]=0;
+        horizontal_shuriken_x[i]=2;
+        horizontal_shuriken_direction[i]=SHURIKEN_RIGHT;
     }
 
-    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_MINES;++i)
+    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
     {
-        vertical_mine_x[i]=2+i*3;
-        vertical_mine_transition[i]=0;
-        vertical_mine_y[i]=2;
-        vertical_mine_direction[i]=MINE_DOWN;
+        vertical_shuriken_x[i]=2+i*3;
+        vertical_shuriken_transition[i]=0;
+        vertical_shuriken_y[i]=3;
+        vertical_shuriken_direction[i]=SHURIKEN_DOWN;
     }
     
-    horizontal_mines_on_current_level = MAX_NUMBER_OF_HORIZONTAL_MINES;
-    vertical_mines_on_current_level = MAX_NUMBER_OF_VERTICAL_MINES;
+    horizontal_shurikens_on_current_level = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
+    vertical_shurikens_on_current_level = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
+    
+    for(i=0;i<10;++i)
+    {
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,DIAMOND_TILE,_XL_GREEN);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,BLOCK_TILE,_XL_YELLOW);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,MINI_SHURIKEN_TILE,_XL_RED);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,RING_TILE,_XL_WHITE);
+        _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-2)+1,SHIELD_TILE,_XL_WHITE);
+    }
 }
 
 
-void display_horizontal_transition_mine(uint8_t x, uint8_t y)
+void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
 {
-    _XL_DRAW(x-1,y,MINE_TILE_LEFT, _XL_CYAN);
-    _XL_DRAW(x,y,MINE_TILE_RIGHT, _XL_CYAN);
+    _XL_DRAW(x-1,y,SHURIKEN_TILE_LEFT, _XL_CYAN);
+    _XL_DRAW(x,y,SHURIKEN_TILE_RIGHT, _XL_CYAN);
 }
 
 
-void handle_horizontal_mine(register uint8_t index)
+void handle_horizontal_shuriken(register uint8_t index)
 {
-    register uint8_t x = horizontal_mine_x[index];
-    register uint8_t y = horizontal_mine_y[index];
+    register uint8_t x = horizontal_shuriken_x[index];
+    register uint8_t y = horizontal_shuriken_y[index];
     
-    if(horizontal_mine_direction[index]==MINE_LEFT)
+    if(horizontal_shuriken_direction[index]==SHURIKEN_LEFT)
     {
         
-        if(!horizontal_mine_transition[index]) // transition not performed, yet
+        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
         {
             if(!map[x-1][y])
             {
                 // Do left transition
-                display_horizontal_transition_mine(x,y);
+                display_horizontal_transition_shuriken(x,y);
                 map[x-1][y]=DEADLY;
-                ++horizontal_mine_transition[index];
+                ++horizontal_shuriken_transition[index];
             }
             else
             {
-                horizontal_mine_direction[index]=MINE_RIGHT;
+                horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
 				
 				// TODO: Destroy breakable wall
             }
         }
         else // transition already performed
         {
-            horizontal_mine_transition[index]=0;
+            horizontal_shuriken_transition[index]=0;
             map[x][y]=EMPTY;
             _XL_DELETE(x,y);
-            --horizontal_mine_x[index];
-            _XL_DRAW(horizontal_mine_x[index],y,MINE_TILE,_XL_CYAN);
+            --horizontal_shuriken_x[index];
+            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
         }
     }
     else // direction is RIGHT
     {
-        if(!horizontal_mine_transition[index]) // transition not performed, yet
+        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
         {
             if(!map[x+1][y])
             {
                 // Do right transition
-                display_horizontal_transition_mine(x+1,y);
+                display_horizontal_transition_shuriken(x+1,y);
                 map[x+1][y]=DEADLY;
-                ++horizontal_mine_transition[index];
+                ++horizontal_shuriken_transition[index];
             }
             else
             {
-                horizontal_mine_direction[index]=MINE_LEFT;
+                horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
 				
 				// TODO: Destroy breakable wall
             }
         }
         else // transition already performed
         {
-            horizontal_mine_transition[index]=0;
+            horizontal_shuriken_transition[index]=0;
             map[x][y]=EMPTY;
             _XL_DELETE(x,y);
-            ++horizontal_mine_x[index];
-            _XL_DRAW(horizontal_mine_x[index],y,MINE_TILE,_XL_CYAN);
+            ++horizontal_shuriken_x[index];
+            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
         }
     }
 }
 
 
-void handle_horizontal_mines(void)
+void handle_horizontal_shurikens(void)
 {
     uint8_t i;
     
-    for(i=0;i<horizontal_mines_on_current_level;++i)
+    for(i=0;i<horizontal_shurikens_on_current_level;++i)
     {
-        handle_horizontal_mine(i);
+        handle_horizontal_shuriken(i);
     }
 }
 
 
-void display_vertical_transition_mine(uint8_t x, uint8_t y)
+void display_vertical_transition_shuriken(uint8_t x, uint8_t y)
 {
-    _XL_DRAW(x,y-1,MINE_TILE_UP,_XL_CYAN);
-    _XL_DRAW(x,y,MINE_TILE_DOWN,_XL_CYAN);
+    _XL_DRAW(x,y-1,SHURIKEN_TILE_UP,_XL_CYAN);
+    _XL_DRAW(x,y,SHURIKEN_TILE_DOWN,_XL_CYAN);
 }
 
 
-void handle_vertical_mine(register uint8_t index)
+void handle_vertical_shuriken(register uint8_t index)
 {
-    register uint8_t x = vertical_mine_x[index];
-    register uint8_t y = vertical_mine_y[index];
+    register uint8_t x = vertical_shuriken_x[index];
+    register uint8_t y = vertical_shuriken_y[index];
     
-    if(vertical_mine_direction[index]==MINE_UP)
+    if(vertical_shuriken_direction[index]==SHURIKEN_UP)
     {
         
-        if(!vertical_mine_transition[index]) // transition not performed, yet
+        if(!vertical_shuriken_transition[index]) // transition not performed, yet
         {
             if(!map[x][y-1])
             {
                 // Do up transition
-                display_vertical_transition_mine(x,y);
+                display_vertical_transition_shuriken(x,y);
                 map[x][y-1]=DEADLY;
-                ++vertical_mine_transition[index];
+                ++vertical_shuriken_transition[index];
             }
             else
             {
-                vertical_mine_direction[index]=MINE_DOWN;
+                vertical_shuriken_direction[index]=SHURIKEN_DOWN;
             }
         }
         else // transition already performed
         {
-            vertical_mine_transition[index]=0;
+            vertical_shuriken_transition[index]=0;
             map[x][y]=EMPTY;
             _XL_DELETE(x,y);
-            --vertical_mine_y[index];
-            _XL_DRAW(x,vertical_mine_y[index],MINE_TILE,_XL_CYAN);
+            --vertical_shuriken_y[index];
+            _XL_DRAW(x,vertical_shuriken_y[index],SHURIKEN_TILE,_XL_CYAN);
         }
     }
     else // direction is DOWN
     {
-        if(!vertical_mine_transition[index]) // transition not performed, yet
+        if(!vertical_shuriken_transition[index]) // transition not performed, yet
         {
-            if(!map[x][vertical_mine_y[index]+1])
+            if(!map[x][vertical_shuriken_y[index]+1])
             {
                 // Do right transition
-                display_vertical_transition_mine(x,y+1);
+                display_vertical_transition_shuriken(x,y+1);
                 map[x][y+1]=DEADLY;
-                ++vertical_mine_transition[index];
+                ++vertical_shuriken_transition[index];
             }
             else
             {
-                vertical_mine_direction[index]=MINE_UP;
+                vertical_shuriken_direction[index]=SHURIKEN_UP;
             }
         }
         else // transition already performed
         {
-            vertical_mine_transition[index]=0;
+            vertical_shuriken_transition[index]=0;
             map[x][y]=EMPTY;
             _XL_DELETE(x,y);
-            ++vertical_mine_y[index];
-            _XL_DRAW(x,vertical_mine_y[index],MINE_TILE,_XL_CYAN);
+            ++vertical_shuriken_y[index];
+            _XL_DRAW(x,vertical_shuriken_y[index],SHURIKEN_TILE,_XL_CYAN);
         }
     }
 }
 
 
-void handle_vertical_mines(void)
+void handle_vertical_shurikens(void)
 {
     uint8_t i;
     
-    for(i=0;i<vertical_mines_on_current_level;++i)
+    for(i=0;i<vertical_shurikens_on_current_level;++i)
     {
-        handle_vertical_mine(i);
+        handle_vertical_shuriken(i);
     }
 }
 
@@ -417,7 +453,7 @@ void handle_player(void)
     
     if(_XL_UP(input))
     {
-        if(y>MIN_Y)
+        if(y>MIN_PLAYER_Y)
         {
             if(y&1)
             {
@@ -429,7 +465,7 @@ void handle_player(void)
     }
     else if(_XL_DOWN(input))
     {	
-        if(y<MAX_Y)
+        if(y<MAX_PLAYER_Y)
         {
             if(!(y&1))
             {
@@ -441,7 +477,7 @@ void handle_player(void)
     }
     else if(_XL_LEFT(input))
     {
-        if(x>MIN_X)
+        if(x>MIN_PLAYER_X)
         {
             if(!(x&1))
             {
@@ -453,7 +489,7 @@ void handle_player(void)
     }
     else if(_XL_RIGHT(input))
     {	
-        if(x<MAX_X)
+        if(x<MAX_PLAYER_X)
         {   
             if(x&1)
             {
@@ -509,8 +545,8 @@ int main(void)
             handle_player();
             
             handle_collissions();
-            handle_horizontal_mines();
-            handle_vertical_mines();
+            handle_horizontal_shurikens();
+            handle_vertical_shurikens();
             
             handle_collissions();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);

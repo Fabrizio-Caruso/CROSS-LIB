@@ -108,7 +108,7 @@
 #define MIN_PLAYER_X 2
 #define MAX_PLAYER_X (2*XSize-5)
 
-
+#define MOVE_FORCE 10
 
 uint8_t player_x;
 uint8_t player_y;
@@ -133,7 +133,8 @@ uint8_t map[XSize][YSize];
 uint8_t horizontal_shurikens_on_current_level;
 uint8_t vertical_shurikens_on_current_level;
 
-
+uint8_t force;
+uint8_t movable;
 
 static const uint8_t player_tile[4][4] =
 {
@@ -216,25 +217,58 @@ void delete_player_right(void)
     _XL_DELETE(screen_x+1,screen_y+1);  
 }
 
+void update_force(uint8_t cell1, uint8_t cell2)
+{
+    if(((cell1==BLOCK)||(cell2==BLOCK)) && force<MOVE_FORCE)
+    {
+        ++force;
+        movable=SHIELD;
+    }
+    else
+    {
+        force=0;
+        movable=BLOCK;
+    }  
+}
+
+uint8_t allowed(uint8_t cell1, uint8_t cell2)
+{
+    update_force(cell1,cell2);
+
+    return (cell1<=movable) && (cell2<=movable);    
+}
 
 uint8_t allowed_down(void)
 {
-    return (map[screen_x][screen_y+2]<=BLOCK) && (map[screen_x+1][screen_y+2]<=BLOCK);
+    uint8_t cell1 = map[screen_x][screen_y+2];
+    uint8_t cell2 = map[screen_x+1][screen_y+2];
+    
+    return allowed(cell1,cell2);
+
 }
 
 uint8_t allowed_up(void)
 {
-    return (map[screen_x][screen_y-1]<=BLOCK) && (map[screen_x+1][screen_y-1]<=BLOCK);
+    uint8_t cell1 = map[screen_x][screen_y-1];
+    uint8_t cell2 = map[screen_x+1][screen_y-1];
+    
+    return allowed(cell1,cell2);
 }
 
 uint8_t allowed_left(void)
 {
-    return (map[screen_x-1][screen_y]<=BLOCK) && (map[screen_x-1][screen_y+1]<=BLOCK);
+    uint8_t cell1 = map[screen_x-1][screen_y];
+    uint8_t cell2 = map[screen_x-1][screen_y+1];    
+    
+    return allowed(cell1,cell2);
 }
 
 uint8_t allowed_right(void)
 {
-    return (map[screen_x+2][screen_y]<=BLOCK) && (map[screen_x+2][screen_y+1]<=BLOCK);
+    uint8_t cell1 = map[screen_x+2][screen_y];
+    uint8_t cell2 = map[screen_x+2][screen_y+1];    
+        
+    return allowed(cell1,cell2);
 }
 
 
@@ -398,6 +432,9 @@ void init_level(void)
         _XL_DRAW(x,y,BLOCK_TILE,_XL_GREEN);
         map[x][y] = BLOCK;
     }
+    
+    force = 0;
+    movable = SHIELD; // TODO: Necessary
 }
 
 

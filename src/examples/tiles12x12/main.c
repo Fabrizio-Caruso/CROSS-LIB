@@ -110,7 +110,7 @@
 
 #define MOVE_FORCE 8
 
-#define MINI_SHURIKEN_NUMBER 1
+#define MINI_SHURIKEN_NUMBER 2
 
 uint8_t player_x;
 uint8_t player_y;
@@ -347,7 +347,7 @@ void init_mini_shuriken(void)
     for(i=0;i<MINI_SHURIKEN_NUMBER;++i)
     {
         mini_shuriken_x[i] = (1+i)*(XSize/(MINI_SHURIKEN_NUMBER+1));
-        mini_shuriken_y[i] = YSize-2;
+        mini_shuriken_y[i] = 1;
         _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
 
     }
@@ -356,19 +356,29 @@ void init_mini_shuriken(void)
 
 void handle_mini_shuriken(void)
 {	
-
     uint8_t i;
 
     for(i=0;i<MINI_SHURIKEN_NUMBER;++i)
     {
+        
         _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-        --(mini_shuriken_y[i]);
+        map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+        
+        ++(mini_shuriken_y[i]);
 
-        _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
-        if(mini_shuriken_y[i]<=1)
+        if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]] && mini_shuriken_y[i]<YSize-2)
+        {
+            _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);
+            map[mini_shuriken_x[i]][mini_shuriken_y[i]]=DEADLY;
+        }
+        else
         {	
-            _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-            mini_shuriken_y[i] = YSize-2;							
+            if(map[mini_shuriken_x[i]][mini_shuriken_y[i]]<=SHIELD)
+            {
+                _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
+                map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+            }
+            mini_shuriken_y[i] = 2;							
         }
         
     }

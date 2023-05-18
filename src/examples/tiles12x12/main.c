@@ -108,7 +108,9 @@
 #define MIN_PLAYER_X 2
 #define MAX_PLAYER_X (2*XSize-5)
 
-#define MOVE_FORCE 10
+#define MOVE_FORCE 8
+
+#define MINI_SHURIKEN_NUMBER 1
 
 uint8_t player_x;
 uint8_t player_y;
@@ -127,6 +129,9 @@ uint8_t vertical_shuriken_x[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_y[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_direction[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_transition[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
+
+uint8_t mini_shuriken_x[MINI_SHURIKEN_NUMBER];
+uint8_t mini_shuriken_y[MINI_SHURIKEN_NUMBER];
 
 uint8_t map[XSize][YSize];
 
@@ -335,6 +340,40 @@ void if_block_move_right(void)
     }
 }
 
+void init_mini_shuriken(void)
+{
+    uint8_t i;
+
+    for(i=0;i<MINI_SHURIKEN_NUMBER;++i)
+    {
+        mini_shuriken_x[i] = (1+i)*(XSize/(MINI_SHURIKEN_NUMBER+1));
+        mini_shuriken_y[i] = YSize-2;
+        _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
+
+    }
+}
+
+
+void handle_mini_shuriken(void)
+{	
+
+    uint8_t i;
+
+    for(i=0;i<MINI_SHURIKEN_NUMBER;++i)
+    {
+        _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
+        --(mini_shuriken_y[i]);
+
+        _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
+        if(mini_shuriken_y[i]<=1)
+        {	
+            _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
+            mini_shuriken_y[i] = YSize-2;							
+        }
+        
+    }
+}
+
 
 void init_map(void)
 {
@@ -435,6 +474,8 @@ void init_level(void)
     
     force = 0;
     movable = SHIELD; // TODO: Necessary
+    
+    init_mini_shuriken();
 }
 
 
@@ -718,6 +759,7 @@ int main(void)
             handle_collisions();
             handle_horizontal_shurikens();
             handle_vertical_shurikens();
+            handle_mini_shuriken();
             
             handle_collisions();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);

@@ -50,10 +50,11 @@
 
 #define EMPTY 0
 #define SHIELD 1
-#define BLOCK 2
-#define DEADLY 3
-#define RING 4
-#define DIAMOND 5
+#define RING 2
+#define DIAMOND 3
+#define BLOCK 4
+#define DEADLY 5
+
 #define WALL  6
 
 
@@ -139,7 +140,12 @@ uint8_t horizontal_shurikens_on_current_level;
 uint8_t vertical_shurikens_on_current_level;
 
 uint8_t force;
-uint8_t movable;
+uint8_t move_threshold;
+
+uint8_t player_cell[4];
+
+uint16_t score;
+uint16_t hiscore;
 
 static const uint8_t player_tile[4][4] =
 {
@@ -177,6 +183,46 @@ void update_screen_xy(void)
 }
 
 
+void update_score_display(void)
+{
+    _XL_PRINTD(0,0,5,score);
+}
+
+
+void handle_collisions(void)
+{
+    uint8_t i;
+    
+    player_cell[0] = map[screen_x][screen_y];
+    player_cell[1] = map[screen_x+1][screen_y];
+    player_cell[2] = map[screen_x][screen_y+1];
+    player_cell[3] = map[screen_x+1][screen_y+1];
+    
+    for(i=0;i<4;++i)
+    {
+        if(player_cell[i]==DIAMOND)
+        {
+            _XL_PING_SOUND();
+            // TODO: score and effects
+            score+=50;
+            update_score_display();
+        }
+        else if(player_cell[i]==RING)
+        {
+            _XL_ZAP_SOUND();
+            // TODO: score and effects
+            score+=250;
+            update_score_display();
+        }
+        else if(player_cell[i]==DEADLY)
+        {
+            alive = 0;
+        }
+    }
+    
+}
+
+
 void update_player(void)
 {
 	uint8_t tile_group = (player_x&1)+2*(player_y&1);
@@ -187,6 +233,9 @@ void update_player(void)
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],_XL_WHITE);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],_XL_WHITE);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],_XL_WHITE);  
+    
+    handle_collisions();
+    
     map[screen_x][screen_y]=EMPTY;
     map[screen_x+1][screen_y]=EMPTY;
     map[screen_x][screen_y+1]=EMPTY;
@@ -222,26 +271,29 @@ void delete_player_right(void)
     _XL_DELETE(screen_x+1,screen_y+1);  
 }
 
+
 void update_force(uint8_t cell1, uint8_t cell2)
 {
     if(((cell1==BLOCK)||(cell2==BLOCK)) && force<MOVE_FORCE)
     {
         ++force;
-        movable=SHIELD;
+        move_threshold=SHIELD;
     }
     else
     {
         force=0;
-        movable=BLOCK;
+        move_threshold=BLOCK;
     }  
 }
+
 
 uint8_t allowed(uint8_t cell1, uint8_t cell2)
 {
     update_force(cell1,cell2);
 
-    return (cell1<=movable) && (cell2<=movable);    
+    return (cell1<=move_threshold) && (cell2<=move_threshold);    
 }
+
 
 uint8_t allowed_down(void)
 {
@@ -252,6 +304,7 @@ uint8_t allowed_down(void)
 
 }
 
+
 uint8_t allowed_up(void)
 {
     uint8_t cell1 = map[screen_x][screen_y-1];
@@ -260,6 +313,7 @@ uint8_t allowed_up(void)
     return allowed(cell1,cell2);
 }
 
+
 uint8_t allowed_left(void)
 {
     uint8_t cell1 = map[screen_x-1][screen_y];
@@ -267,6 +321,7 @@ uint8_t allowed_left(void)
     
     return allowed(cell1,cell2);
 }
+
 
 uint8_t allowed_right(void)
 {
@@ -339,6 +394,7 @@ void if_block_move_right(void)
         _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
     }
 }
+
 
 void init_mini_shuriken(void)
 {
@@ -424,8 +480,8 @@ void init_level(void)
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
   
-    _XL_PRINTD(0,0,5,0);
-    _XL_PRINTD(XSize-5,0,5,0);
+    update_score_display();
+    _XL_PRINTD(XSize-5,0,5,hiscore);
     
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
@@ -463,9 +519,8 @@ void init_level(void)
         
         // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,MINI_SHURIKEN_TILE,_XL_RED);
         // _XL_DRAW(_XL_RAND()%(XSize-2)+1,_XL_RAND()%(YSize-3)+2,RING_TILE,_XL_WHITE);
-        
-
     }
+    
     for(i=0;i<50;++i)
     {
         x = _XL_RAND()%(XSize-2)+1; 
@@ -482,8 +537,24 @@ void init_level(void)
         map[x][y] = BLOCK;
     }
     
+    for(i=0;i<50;++i)
+    {
+        x = _XL_RAND()%(XSize-2)+1; 
+        y = _XL_RAND()%(YSize-3)+2;
+        _XL_DRAW(x,y,RING_TILE,_XL_WHITE);
+        map[x][y] = RING;
+    } 
+    
+    for(i=0;i<50;++i)
+    {
+        x = _XL_RAND()%(XSize-2)+1; 
+        y = _XL_RAND()%(YSize-3)+2;
+        _XL_DRAW(x,y,DIAMOND_TILE,_XL_GREEN);
+        map[x][y] = DIAMOND;
+    }     
+    
     force = 0;
-    movable = SHIELD; // TODO: Necessary
+    move_threshold = SHIELD; // TODO: Necessary
     
     init_mini_shuriken();
 }
@@ -679,7 +750,7 @@ void handle_player(void)
             update_player();
         }
     }
-    else if(_XL_DOWN(input) && ((player_y&1) ||allowed_down()))
+    else if(_XL_DOWN(input) && ((player_y&1) || allowed_down()))
     {	
         if(player_y<MAX_PLAYER_Y)
         {
@@ -724,16 +795,6 @@ void handle_player(void)
 }
 
 
-void handle_collisions(void)
-{
-    if((map[screen_x][screen_y]==DEADLY)||(map[screen_x+1][screen_y]==DEADLY)||
-	   (map[screen_x][screen_y+1]==DEADLY)||(map[screen_x+1][screen_y+1]==DEADLY))
-    {
-        alive = 0;
-    }
-}
-
-
 void init_player(void)
 {
     alive = 1;
@@ -750,14 +811,27 @@ int main(void)
     
     _XL_INIT_SOUND();
 
+    hiscore = 0;
+    score = 0;
+    
     while(1)
     {
+        _XL_CLEAR_SCREEN();
+        
+        _XL_SET_TEXT_COLOR(_XL_RED);
+        
+        _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
+        
+        _XL_SLEEP(1);
+        
+        _XL_WAIT_FOR_INPUT();
+        
         _XL_CLEAR_SCREEN();
 
         init_map();
         
         init_level();
-
+        
         init_player();
 
         update_player();
@@ -766,7 +840,6 @@ int main(void)
         {
             handle_player();
             
-            handle_collisions();
             handle_horizontal_shurikens();
             handle_vertical_shurikens();
             handle_mini_shuriken();

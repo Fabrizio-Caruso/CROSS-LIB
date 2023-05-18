@@ -295,7 +295,7 @@ void if_block_move_down(void)
 
 void if_block_move_up(void)
 {
-    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x+1][screen_y-2])
+    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x][screen_y-2])
     {
         map[screen_x][screen_y-2]=BLOCK;
         _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);

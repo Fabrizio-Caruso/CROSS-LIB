@@ -35,6 +35,7 @@ COMMANDS_DESCRIPTIONS = \
     "extend": "generates non-8x8 shapes from 8x8 shapes", \
     "help": "provides help on a command or topic", \
     "list": "lists all projects", \
+    "make": "build project using shape files", \
     "reset": "deletes graphics assets", \
     "debug": "builds the native version of a project in debug mode", \
     "test": "runs some tests", \

@@ -193,6 +193,7 @@ static const uint8_t level_elements[] =
     XSize/4,2,XSize/4+4,YSize-2,SHIELD,
 };
 
+
 void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
 {
     map[x][y] = type;

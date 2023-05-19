@@ -116,6 +116,9 @@
 
 #define MINI_SHURIKEN_NUMBER 2
 
+#define INITIAL_LIVES 3
+#define FINAL_LEVEL 1
+
 uint8_t player_x;
 uint8_t player_y;
 
@@ -123,6 +126,9 @@ uint8_t screen_x;
 uint8_t screen_y;
 
 uint8_t alive;
+uint8_t lives;
+uint8_t level;
+uint8_t remaining_diamonds;
 
 uint8_t horizontal_shuriken_x[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
 uint8_t horizontal_shuriken_y[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
@@ -180,6 +186,12 @@ static const uint8_t player_tile[4][4] =
 	},
 };
 
+
+static const uint8_t level_elements[] =
+{
+    1,
+    XSize/4,2,XSize/4+4,YSize-2,SHIELD,
+};
 
 void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
 {
@@ -485,6 +497,8 @@ void init_map(void)
     uint8_t i;
     uint8_t j;
     
+    _XL_CLEAR_SCREEN();
+    
     for(i=0;i<XSize;++i)
     {
         map[i][1]=WALL;       
@@ -516,7 +530,7 @@ void init_level(void)
     
     uint8_t x;
     uint8_t y;
-    
+        
     _XL_SET_TEXT_COLOR(_XL_WHITE);
   
     update_score_display();
@@ -846,7 +860,7 @@ void init_player(void)
 }
 
 
-void init_game(void)
+void init_screen_tiles(void)
 {
     // Unused screen_tile[EMPTY]
     screen_tile[SHIELD] = SHIELD_TILE;
@@ -855,6 +869,31 @@ void init_game(void)
     screen_tile[BLOCK] = BLOCK_TILE;
     screen_tile[SHURIKEN] = SHURIKEN_TILE;
     screen_tile[MINI_SHURIKEN] = MINI_SHURIKEN_TILE;
+}
+
+
+void title(void)
+{
+    _XL_CLEAR_SCREEN();
+    
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    
+    _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
+    
+    _XL_SLEEP(1);
+    
+    _XL_WAIT_FOR_INPUT();
+    
+    _XL_CLEAR_SCREEN();
+}
+
+
+void init_variables(void)
+{
+    score = 0;
+    lives = INITIAL_LIVES;
+    remaining_diamonds = 8;
+    level = 0;
 }
 
 
@@ -867,42 +906,51 @@ int main(void)
     _XL_INIT_SOUND();
 
     hiscore = 0;
-    score = 0;
     
-    init_game();
+    init_screen_tiles();
     
     while(1)
     {
-        _XL_CLEAR_SCREEN();
+        title();
         
-        _XL_SET_TEXT_COLOR(_XL_RED);
+        init_variables();
         
-        _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
-        
-        _XL_SLEEP(1);
-        
-        _XL_WAIT_FOR_INPUT();
-        
-        _XL_CLEAR_SCREEN();
-
-        init_map();
-        
-        init_level();
-        
-        init_player();
-
-        update_player();
-        
-        while(alive)
+        while(lives && (level<FINAL_LEVEL+1))
         {
-            handle_player();
+            init_map();
             
-            handle_horizontal_shurikens();
-            handle_vertical_shurikens();
-            handle_mini_shuriken();
+            init_level();
             
-            handle_collisions();
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
+            init_player();
+
+            update_player();
+            
+            while(remaining_diamonds && alive)
+            {
+
+                handle_player();
+                
+                handle_horizontal_shurikens();
+                handle_vertical_shurikens();
+                handle_mini_shuriken();
+                
+                handle_collisions();
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
+            }
+            if(alive)
+            {
+                ++level;
+                _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                _XL_PRINT(XSize/2-5,YSize/2,"COMPLETED");
+                _XL_WAIT_FOR_INPUT();
+            }
+            else
+            {
+                --lives;
+                _XL_SET_TEXT_COLOR(_XL_RED);
+                _XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
+                _XL_WAIT_FOR_INPUT();
+            }
         };
         
         _XL_SET_TEXT_COLOR(_XL_RED);

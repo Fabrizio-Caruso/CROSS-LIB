@@ -381,67 +381,120 @@ uint8_t allowed_right(void)
 }
 
 
-void if_block_move_down(void)
+void _if_block_move_down(uint8_t screen_x)
 {
     if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
     {
-        map[screen_x][screen_y+3]=BLOCK;
-        _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
+        // map[screen_x][screen_y+3]=BLOCK;
+        // _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
+        build_element(BLOCK,_XL_GREEN, screen_x,screen_y+3);
     }
     
-    if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
+    // if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
+    // {
+        // map[screen_x+1][screen_y+3]=BLOCK;
+        // _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
+    // }
+}
+
+
+void if_block_move_down(void)
+{
+    _if_block_move_down(screen_x);
+    _if_block_move_down(screen_x+1);
+    // if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
+    // {
+        // map[screen_x][screen_y+3]=BLOCK;
+        // _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
+    // }
+    
+    // if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
+    // {
+        // map[screen_x+1][screen_y+3]=BLOCK;
+        // _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
+    // }
+}
+
+
+void _if_block_move_up(uint8_t screen_x)
+{
+    if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
     {
-        map[screen_x+1][screen_y+3]=BLOCK;
-        _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
+        // map[screen_x][screen_y-2]=BLOCK;
+        // _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
+        build_element(BLOCK,_XL_GREEN,screen_x,screen_y-2);
     }
+    
+    // if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
+    // {
+        // map[screen_x+1][screen_y-2]=BLOCK;
+        // _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
+    // }
 }
 
 
 void if_block_move_up(void)
 {
-    if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
-    {
-        map[screen_x][screen_y-2]=BLOCK;
-        _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
-    }
+    _if_block_move_up(screen_x);
+    _if_block_move_up(screen_x+1);
     
-    if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
-    {
-        map[screen_x+1][screen_y-2]=BLOCK;
-        _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
-    }
+    // if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
+    // {
+        // map[screen_x][screen_y-2]=BLOCK;
+        // _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
+    // }
+    
+    // if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
+    // {
+        // map[screen_x+1][screen_y-2]=BLOCK;
+        // _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
+    // }
 }
 
 
-void if_block_move_left(void)
+void _if_block_move_left(uint8_t screen_y)
 {
     if((map[screen_x-1][screen_y]==BLOCK)&&map[screen_x-2][screen_y]<=SHIELD)
     {
-        map[screen_x-2][screen_y]=BLOCK;
-        _XL_DRAW(screen_x-2,screen_y,BLOCK_TILE,_XL_GREEN);
+        // map[screen_x-2][screen_y]=BLOCK;
+        // _XL_DRAW(screen_x-2,screen_y,BLOCK_TILE,_XL_GREEN);
+        build_element(BLOCK,_XL_GREEN,screen_x-2,screen_y);
     }
     
-    if((map[screen_x-1][screen_y+1]==BLOCK)&&map[screen_x-2][screen_y+1]<=SHIELD)
+    // if((map[screen_x-1][screen_y+1]==BLOCK)&&map[screen_x-2][screen_y+1]<=SHIELD)
+    // {
+        // map[screen_x-2][screen_y+1]=BLOCK;
+        // _XL_DRAW(screen_x-2,screen_y+1,BLOCK_TILE,_XL_GREEN);
+    // }
+}
+
+void if_block_move_left(void)
+{
+    _if_block_move_left(screen_y);
+    _if_block_move_left(screen_y+1);    
+}
+
+void _if_block_move_right(uint8_t screen_y)
+{
+    if((map[screen_x+2][screen_y]==BLOCK)&&map[screen_x+3][screen_y]<=SHIELD)
     {
-        map[screen_x-2][screen_y+1]=BLOCK;
-        _XL_DRAW(screen_x-2,screen_y+1,BLOCK_TILE,_XL_GREEN);
+        // map[screen_x+3][screen_y]=BLOCK;
+        // _XL_DRAW(screen_x+3,screen_y,BLOCK_TILE,_XL_GREEN);
+        build_element(BLOCK,_XL_GREEN,screen_x+3,screen_y);
     }
+    
+    // if((map[screen_x+2][screen_y+1]==BLOCK)&&map[screen_x+3][screen_y+1]<=SHIELD)
+    // {
+        // map[screen_x+3][screen_y+1]=BLOCK;
+        // _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
+    // }
 }
 
 
 void if_block_move_right(void)
 {
-    if((map[screen_x+2][screen_y]==BLOCK)&&map[screen_x+3][screen_y]<=SHIELD)
-    {
-        map[screen_x+3][screen_y]=BLOCK;
-        _XL_DRAW(screen_x+3,screen_y,BLOCK_TILE,_XL_GREEN);
-    }
-    
-    if((map[screen_x+2][screen_y+1]==BLOCK)&&map[screen_x+3][screen_y+1]<=SHIELD)
-    {
-        map[screen_x+3][screen_y+1]=BLOCK;
-        _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
-    }
+    _if_block_move_right(screen_y);
+    _if_block_move_right(screen_y+1);
 }
 
 

@@ -55,6 +55,9 @@
 #define BLOCK 4
 #define DEADLY 5
 
+#define SHURIKEN 5
+#define MINI_SHURIKEN 6
+
 #define WALL  6
 
 
@@ -147,6 +150,8 @@ uint8_t player_cell[4];
 uint16_t score;
 uint16_t hiscore;
 
+uint8_t screen_tile[6+1];
+
 static const uint8_t player_tile[4][4] =
 {
 	{ // left lower 12x12 multi-tile inside a 16x16 quad tile
@@ -176,12 +181,43 @@ static const uint8_t player_tile[4][4] =
 };
 
 
+void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
+{
+    map[x][y] = type;
+    _XL_DRAW(x,y,screen_tile[type], color);
+}
+
+
+void delete_element(uint8_t x, uint8_t y)
+{
+    map[x][y] = EMPTY;
+    _XL_DELETE(x,y);
+}
+
+
+void build_rectangle(uint8_t type, uint8_t color, uint8_t width, uint8_t height)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    for(i=0;i<width;++i)
+    {
+        for(j=0;j<height;++j)
+        {
+            // map[i][j] = type;
+            // _XL_DRAW(i,j,screen_tile[type],color);
+            build_element(type, color, i,j);
+        }
+    }
+}
+
+
 void update_screen_xy(void)
 {
 	screen_x = player_x>>1;
 	screen_y = (player_y+1)>>1;
 }
-
+    
 
 void update_score_display(void)
 {
@@ -214,7 +250,7 @@ void handle_collisions(void)
             score+=250;
             update_score_display();
         }
-        else if(player_cell[i]==DEADLY)
+        else if(player_cell[i]>=DEADLY)
         {
             alive = 0;
         }
@@ -334,13 +370,13 @@ uint8_t allowed_right(void)
 
 void if_block_move_down(void)
 {
-    if((map[screen_x][screen_y+2]==BLOCK)&&!map[screen_x][screen_y+3])
+    if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
     {
         map[screen_x][screen_y+3]=BLOCK;
         _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
     }
     
-    if((map[screen_x+1][screen_y+2]==BLOCK)&&!map[screen_x+1][screen_y+3])
+    if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
     {
         map[screen_x+1][screen_y+3]=BLOCK;
         _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
@@ -350,13 +386,13 @@ void if_block_move_down(void)
 
 void if_block_move_up(void)
 {
-    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x][screen_y-2])
+    if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
     {
         map[screen_x][screen_y-2]=BLOCK;
         _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
     }
     
-    if((map[screen_x+1][screen_y-1]==BLOCK)&&!map[screen_x+1][screen_y-2])
+    if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
     {
         map[screen_x+1][screen_y-2]=BLOCK;
         _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
@@ -366,13 +402,13 @@ void if_block_move_up(void)
 
 void if_block_move_left(void)
 {
-    if((map[screen_x-1][screen_y]==BLOCK)&&!map[screen_x-2][screen_y])
+    if((map[screen_x-1][screen_y]==BLOCK)&&map[screen_x-2][screen_y]<=SHIELD)
     {
         map[screen_x-2][screen_y]=BLOCK;
         _XL_DRAW(screen_x-2,screen_y,BLOCK_TILE,_XL_GREEN);
     }
     
-    if((map[screen_x-1][screen_y+1]==BLOCK)&&!map[screen_x-2][screen_y+1])
+    if((map[screen_x-1][screen_y+1]==BLOCK)&&map[screen_x-2][screen_y+1]<=SHIELD)
     {
         map[screen_x-2][screen_y+1]=BLOCK;
         _XL_DRAW(screen_x-2,screen_y+1,BLOCK_TILE,_XL_GREEN);
@@ -382,13 +418,13 @@ void if_block_move_left(void)
 
 void if_block_move_right(void)
 {
-    if((map[screen_x+2][screen_y]==BLOCK)&&!map[screen_x+3][screen_y])
+    if((map[screen_x+2][screen_y]==BLOCK)&&map[screen_x+3][screen_y]<=SHIELD)
     {
         map[screen_x+3][screen_y]=BLOCK;
         _XL_DRAW(screen_x+3,screen_y,BLOCK_TILE,_XL_GREEN);
     }
     
-    if((map[screen_x+2][screen_y+1]==BLOCK)&&!map[screen_x+3][screen_y+1])
+    if((map[screen_x+2][screen_y+1]==BLOCK)&&map[screen_x+3][screen_y+1]<=SHIELD)
     {
         map[screen_x+3][screen_y+1]=BLOCK;
         _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
@@ -417,22 +453,25 @@ void handle_mini_shuriken(void)
     for(i=0;i<MINI_SHURIKEN_NUMBER;++i)
     {
         
-        _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-        map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+        // _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
+        // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+        delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
         
         ++(mini_shuriken_y[i]);
 
         if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]] && mini_shuriken_y[i]<YSize-2)
         {
-            _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);
-            map[mini_shuriken_x[i]][mini_shuriken_y[i]]=DEADLY;
+            // _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);
+            // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=MINI_SHURIKEN;
+            build_element(MINI_SHURIKEN, _XL_RED, mini_shuriken_x[i],mini_shuriken_y[i]);
         }
         else
         {	
             if(map[mini_shuriken_x[i]][mini_shuriken_y[i]]<=SHIELD)
             {
-                _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-                map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+                // _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
+                // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+                delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
             }
             mini_shuriken_y[i] = 2;							
         }
@@ -590,7 +629,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 // Do left transition
                 display_horizontal_transition_shuriken(x,y);
-                map[x-1][y]=DEADLY;
+                map[x-1][y]=SHURIKEN;
                 ++horizontal_shuriken_transition[index];
             }
             else
@@ -603,8 +642,9 @@ void handle_horizontal_shuriken(register uint8_t index)
         else // transition already performed
         {
             horizontal_shuriken_transition[index]=0;
-            map[x][y]=EMPTY;
-            _XL_DELETE(x,y);
+            // map[x][y]=EMPTY;
+            // _XL_DELETE(x,y);
+            delete_element(x,y);
             --horizontal_shuriken_x[index];
             _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
         }
@@ -617,7 +657,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 // Do right transition
                 display_horizontal_transition_shuriken(x+1,y);
-                map[x+1][y]=DEADLY;
+                map[x+1][y]=SHURIKEN;
                 ++horizontal_shuriken_transition[index];
             }
             else
@@ -631,8 +671,9 @@ void handle_horizontal_shuriken(register uint8_t index)
         else // transition already performed
         {
             horizontal_shuriken_transition[index]=0;
-            map[x][y]=EMPTY;
-            _XL_DELETE(x,y);
+            // map[x][y]=EMPTY;
+            // _XL_DELETE(x,y);
+            delete_element(x,y);
             ++horizontal_shuriken_x[index];
             _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
         }
@@ -672,7 +713,7 @@ void handle_vertical_shuriken(register uint8_t index)
             {
                 // Do up transition
                 display_vertical_transition_shuriken(x,y);
-                map[x][y-1]=DEADLY;
+                map[x][y-1]=SHURIKEN;
                 ++vertical_shuriken_transition[index];
             }
             else
@@ -684,8 +725,9 @@ void handle_vertical_shuriken(register uint8_t index)
         else // transition already performed
         {
             vertical_shuriken_transition[index]=0;
-            map[x][y]=EMPTY;
-            _XL_DELETE(x,y);
+            // map[x][y]=EMPTY;
+            // _XL_DELETE(x,y);
+            delete_element(x,y);
             --vertical_shuriken_y[index];
             _XL_DRAW(x,vertical_shuriken_y[index],SHURIKEN_TILE,_XL_CYAN);
         }
@@ -698,7 +740,7 @@ void handle_vertical_shuriken(register uint8_t index)
             {
                 // Do right transition
                 display_vertical_transition_shuriken(x,y+1);
-                map[x][y+1]=DEADLY;
+                map[x][y+1]=SHURIKEN;
                 ++vertical_shuriken_transition[index];
             }
             else
@@ -710,8 +752,9 @@ void handle_vertical_shuriken(register uint8_t index)
         else // transition already performed
         {
             vertical_shuriken_transition[index]=0;
-            map[x][y]=EMPTY;
-            _XL_DELETE(x,y);
+            // map[x][y]=EMPTY;
+            // _XL_DELETE(x,y);
+            delete_element(x,y);    
             ++vertical_shuriken_y[index];
             _XL_DRAW(x,vertical_shuriken_y[index],SHURIKEN_TILE,_XL_CYAN);
         }
@@ -803,6 +846,18 @@ void init_player(void)
 }
 
 
+void init_game(void)
+{
+    // Unused screen_tile[EMPTY]
+    screen_tile[SHIELD] = SHIELD_TILE;
+    screen_tile[DIAMOND] = DIAMOND_TILE;
+    screen_tile[RING] = RING_TILE;
+    screen_tile[BLOCK] = BLOCK_TILE;
+    screen_tile[SHURIKEN] = SHURIKEN_TILE;
+    screen_tile[MINI_SHURIKEN] = MINI_SHURIKEN_TILE;
+}
+
+
 int main(void)
 {        
     _XL_INIT_GRAPHICS();
@@ -813,6 +868,8 @@ int main(void)
 
     hiscore = 0;
     score = 0;
+    
+    init_game();
     
     while(1)
     {

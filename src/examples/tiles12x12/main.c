@@ -176,6 +176,10 @@ uint8_t level_horizontal_shurikens;
 uint8_t level_vertical_shurikens;
 uint8_t level_mini_shurikens;
 
+uint8_t chasing_transition;
+uint8_t chasing_x;
+uint8_t chasing_y;
+
 
 static const uint8_t player_tile[4][4] =
 {
@@ -757,6 +761,11 @@ void init_level(void)
     
     build_shurikens();
 
+	chasing_transition = 0;
+	chasing_x = 12;
+	chasing_y = 4;
+	build_element(SHURIKEN,_XL_YELLOW, chasing_x, chasing_y);
+
     // level_horizontal_shurikens = 4;
     
     // init_horizontal_shurikens();
@@ -844,67 +853,62 @@ void if_shield_destroy_it(uint8_t x, uint8_t y)
     }
 }
 
-/*
+
 void handle_chasing_shuriken(void)
 {    
-    if(horizontal_shuriken_direction[index]==SHURIKEN_LEFT)
+
+    if(screen_x < chasing_x)
     {
-        
-        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
+        if(!chasing_transition) // transition not performed, yet
         {
-            if(!map[x-1][y])
+            if(!map[chasing_x-1][chasing_y])
             {
                 // Do left transition
-                display_horizontal_transition_shuriken(x,y);
-                map[x-1][y]=SHURIKEN;
-                ++horizontal_shuriken_transition[index];
+                display_horizontal_transition_shuriken(chasing_x,chasing_y);
+                map[chasing_x-1][chasing_y]=SHURIKEN;
+                ++chasing_transition;
             }
             else
-            {
-                horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
-				
-                if_shield_destroy_it(x-1,y);
+            {				
+                if_shield_destroy_it(chasing_x-1,chasing_y);
             }
         }
         else // transition already performed
         {
-            horizontal_shuriken_transition[index]=0;
-            delete_element(x,y);
-            --horizontal_shuriken_x[index];
-            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
+            chasing_transition=0;
+            delete_element(chasing_x,chasing_y);
+            --chasing_x;
+            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_CYAN);
         }
     }
     else // direction is RIGHT
     {
-        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
+        if(!chasing_transition) // transition not performed, yet
         {
-            if(!map[x+1][y])
+            if(!map[chasing_x+1][chasing_y])
             {
                 // Do right transition
-                display_horizontal_transition_shuriken(x+1,y);
-                map[x+1][y]=SHURIKEN;
-                ++horizontal_shuriken_transition[index];
+                display_horizontal_transition_shuriken(chasing_x+1,chasing_y);
+                map[chasing_x+1][chasing_y]=SHURIKEN;
+                ++chasing_transition;
             }
             else
-            {
-                horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
-				
-                if_shield_destroy_it(x+1,y);
-
+            {				
+                if_shield_destroy_it(chasing_x+1,chasing_y);
             }
         }
         else // transition already performed
         {
-            horizontal_shuriken_transition[index]=0;
+            chasing_transition=0;
             // map[x][y]=EMPTY;
             // _XL_DELETE(x,y);
-            delete_element(x,y);
-            ++horizontal_shuriken_x[index];
-            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
+            delete_element(chasing_x,chasing_y);
+            ++chasing_x;
+            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_CYAN);
         }
     }
 }
-*/
+
 
 void handle_horizontal_shuriken(register uint8_t index)
 {
@@ -1232,6 +1236,7 @@ int main(void)
                 handle_horizontal_shurikens();
                 handle_vertical_shurikens();
                 handle_mini_shuriken();
+				handle_chasing_shuriken();
                 
                 handle_collisions();
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);

@@ -152,6 +152,7 @@ uint8_t player_cell[4];
 uint16_t score;
 uint16_t hiscore;
 
+uint8_t player_color;
 
 // #define EMPTY 0
 // #define SHIELD 1
@@ -354,11 +355,12 @@ void update_player(void)
 	uint8_t tile_group = (player_x&1)+2*(player_y&1);
 	
 	update_screen_xy();
+    
 	
-    _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],_XL_WHITE);
-    _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],_XL_WHITE);  
-    _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],_XL_WHITE);
-    _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],_XL_WHITE);  
+    _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
+    _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
+    _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
+    _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
     
     handle_collisions();
     
@@ -400,16 +402,32 @@ void delete_player_right(void)
 
 void update_force(uint8_t cell1, uint8_t cell2)
 {
-    if(((cell1==BLOCK)||(cell2==BLOCK)) && force<MOVE_FORCE)
-    {
-        ++force;
-        move_threshold=SHIELD;
+    if((cell1==BLOCK)||(cell2==BLOCK))
+    {     
+        if(force<MOVE_FORCE)
+        {
+            ++force;
+            // _XL_PRINTD(8,0,3,force);
+            // move_threshold=SHIELD;
+            // player_color = _XL_WHITE;
+            // update_player();
+        }
+        else
+        {
+            // force=0;
+            // _XL_PRINTD(8,0,3,force);
+
+            move_threshold=BLOCK;
+            player_color = _XL_RED;
+            update_player();
+        }  
     }
     else
     {
         force=0;
-        move_threshold=BLOCK;
-    }  
+        player_color = _XL_WHITE;
+        move_threshold=BLOCK-1;
+    }
 }
 
 
@@ -1056,6 +1074,8 @@ void init_player(void)
     
     force = 0;
     move_threshold = SHIELD; // TODO: Necessary
+    
+    player_color = _XL_WHITE;
     
 }
 

@@ -46,25 +46,6 @@
 	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 6
 #endif
 
-
-
-#define EMPTY 0
-#define SHIELD 1
-#define RING 2
-#define DIAMOND 3
-#define BLOCK 4
-#define SHURIKEN 5
-#define MINI_SHURIKEN 6
-#define WALL  7
-
-#define DEADLY 5
-
-
-#define SHURIKEN_RIGHT 0
-#define SHURIKEN_LEFT 1
-#define SHURIKEN_UP 2
-#define SHURIKEN_DOWN 3
-
 // TILES
 
 // Left low player in the 2x2 multi-tile
@@ -106,6 +87,43 @@
 
 #define DIAMOND_TILE        _TILE_26
 
+
+#define EMPTY 0
+#define SHIELD 1
+
+#define RING 2
+#define DIAMOND 3
+
+#define BLOCK 4
+
+#define SHURIKEN 5
+#define MINI_SHURIKEN 6
+
+#define WALL  7
+
+#define DEADLY 5
+
+
+const uint8_t screen_tile[7+1] =
+{
+    0, // unused
+    SHIELD_TILE,
+    RING_TILE,
+    DIAMOND_TILE,
+    BLOCK_TILE,
+    SHURIKEN_TILE,
+    MINI_SHURIKEN_TILE,
+    WALL_TILE,
+};  
+
+
+
+#define SHURIKEN_RIGHT 0
+#define SHURIKEN_LEFT 1
+#define SHURIKEN_UP 2
+#define SHURIKEN_DOWN 3
+
+
 #define MIN_PLAYER_Y 3
 #define MAX_PLAYER_Y (2*YSize-6)
 #define MIN_PLAYER_X 2
@@ -145,7 +163,7 @@ uint8_t mini_shuriken_y[MINI_SHURIKEN_NUMBER];
 uint8_t map[XSize][YSize];
 
 uint8_t force;
-uint8_t move_threshold;
+// uint8_t move_threshold;
 
 uint8_t player_cell[4];
 
@@ -153,29 +171,6 @@ uint16_t score;
 uint16_t hiscore;
 
 uint8_t player_color;
-
-// #define EMPTY 0
-// #define SHIELD 1
-// #define RING 2
-// #define DIAMOND 3
-// #define BLOCK 4
-// #define DEADLY 5
-// #define SHURIKEN 5
-// #define MINI_SHURIKEN 7
-// #define WALL  8
-
-const uint8_t screen_tile[7+1] =
-{
-    0, // unused
-    SHIELD_TILE,
-    RING_TILE,
-    DIAMOND_TILE,
-    BLOCK_TILE,
-    SHURIKEN_TILE,
-    MINI_SHURIKEN_TILE,
-    WALL_TILE,
-};  
-
 
 uint8_t level_horizontal_shurikens;
 uint8_t level_vertical_shurikens;
@@ -417,7 +412,7 @@ void update_force(uint8_t cell1, uint8_t cell2)
             // force=0;
             // _XL_PRINTD(8,0,3,force);
 
-            move_threshold=BLOCK;
+            // move_threshold=BLOCK;
             player_color = _XL_RED;
             update_player();
         }  
@@ -426,7 +421,7 @@ void update_force(uint8_t cell1, uint8_t cell2)
     {
         force=0;
         player_color = _XL_WHITE;
-        move_threshold=BLOCK-1;
+        // move_threshold=BLOCK-1;
     }
 }
 
@@ -435,8 +430,14 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2)
 {
     update_force(cell1,cell2);
 
-    return ((cell1<=move_threshold) && (cell2<=move_threshold)) || 
-           (((cell1==SHURIKEN) || cell1==MINI_SHURIKEN) && ((cell2==SHURIKEN) || cell2==MINI_SHURIKEN));    
+	if(force<MOVE_FORCE)
+	{
+		return (cell1!=WALL) && (cell2!=WALL) && (cell1!=BLOCK) && (cell2!=BLOCK);
+	}
+    else 
+	{
+		return (cell1!=WALL) && (cell2!=WALL);
+	}
 }
 
 
@@ -843,6 +844,68 @@ void if_shield_destroy_it(uint8_t x, uint8_t y)
     }
 }
 
+/*
+void handle_chasing_shuriken(void)
+{    
+    if(horizontal_shuriken_direction[index]==SHURIKEN_LEFT)
+    {
+        
+        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
+        {
+            if(!map[x-1][y])
+            {
+                // Do left transition
+                display_horizontal_transition_shuriken(x,y);
+                map[x-1][y]=SHURIKEN;
+                ++horizontal_shuriken_transition[index];
+            }
+            else
+            {
+                horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
+				
+                if_shield_destroy_it(x-1,y);
+            }
+        }
+        else // transition already performed
+        {
+            horizontal_shuriken_transition[index]=0;
+            delete_element(x,y);
+            --horizontal_shuriken_x[index];
+            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
+        }
+    }
+    else // direction is RIGHT
+    {
+        if(!horizontal_shuriken_transition[index]) // transition not performed, yet
+        {
+            if(!map[x+1][y])
+            {
+                // Do right transition
+                display_horizontal_transition_shuriken(x+1,y);
+                map[x+1][y]=SHURIKEN;
+                ++horizontal_shuriken_transition[index];
+            }
+            else
+            {
+                horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
+				
+                if_shield_destroy_it(x+1,y);
+
+            }
+        }
+        else // transition already performed
+        {
+            horizontal_shuriken_transition[index]=0;
+            // map[x][y]=EMPTY;
+            // _XL_DELETE(x,y);
+            delete_element(x,y);
+            ++horizontal_shuriken_x[index];
+            _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
+        }
+    }
+}
+*/
+
 void handle_horizontal_shuriken(register uint8_t index)
 {
     register uint8_t x = horizontal_shuriken_x[index];
@@ -1073,7 +1136,7 @@ void init_player(void)
 	player_y = YSize;
     
     force = 0;
-    move_threshold = SHIELD; // TODO: Necessary
+    // move_threshold = SHIELD; // TODO: Necessary
     
     player_color = _XL_WHITE;
     

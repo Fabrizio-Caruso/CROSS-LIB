@@ -53,12 +53,11 @@
 #define RING 2
 #define DIAMOND 3
 #define BLOCK 4
-#define DEADLY 5
-
 #define SHURIKEN 5
 #define MINI_SHURIKEN 6
+#define WALL  7
 
-#define WALL  6
+#define DEADLY 5
 
 
 #define SHURIKEN_RIGHT 0
@@ -153,7 +152,29 @@ uint8_t player_cell[4];
 uint16_t score;
 uint16_t hiscore;
 
-uint8_t screen_tile[7+1];
+
+// #define EMPTY 0
+// #define SHIELD 1
+// #define RING 2
+// #define DIAMOND 3
+// #define BLOCK 4
+// #define DEADLY 5
+// #define SHURIKEN 5
+// #define MINI_SHURIKEN 7
+// #define WALL  8
+
+const uint8_t screen_tile[7+1] =
+{
+    0, // unused
+    SHIELD_TILE,
+    RING_TILE,
+    DIAMOND_TILE,
+    BLOCK_TILE,
+    SHURIKEN_TILE,
+    MINI_SHURIKEN_TILE,
+    WALL_TILE,
+};  
+
 
 uint8_t level_horizontal_shurikens;
 uint8_t level_vertical_shurikens;
@@ -191,8 +212,17 @@ static const uint8_t player_tile[4][4] =
 
 static const uint8_t objects_map[] =
 {
-    1, // rectangles
+    6, // rectangles
     XSize/8,2,3,YSize-2-2,SHIELD,_XL_WHITE,
+    
+    XSize/4,4,1,YSize-1-2-4,BLOCK,_XL_GREEN,
+    
+    XSize/2+4,4,4,YSize-1-2-4,SHURIKEN,_XL_CYAN,
+
+    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
+    XSize-3,4,1,YSize-1-2-4,RING,_XL_WHITE,
+    XSize-4,4,1,YSize-1-2-4,WALL,_XL_CYAN,
+    
 };
 
 
@@ -207,9 +237,11 @@ static const uint8_t objects_index[] =
 
 static const uint8_t shurikens_map[] =
 {
-    4,
-    3,3,_XL_CYAN,
-    3,6,_XL_CYAN,
+    6,
+    3,4,_XL_CYAN,
+    3,7,_XL_CYAN,
+    3,10,_XL_CYAN,
+    3,YSize-10,_XL_CYAN,
     3,YSize-4,_XL_CYAN,
     3,YSize-7,_XL_CYAN,
 };
@@ -385,7 +417,8 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2)
 {
     update_force(cell1,cell2);
 
-    return (cell1<=move_threshold) && (cell2<=move_threshold);    
+    return ((cell1<=move_threshold) && (cell2<=move_threshold)) || 
+           (((cell1==SHURIKEN) || cell1==MINI_SHURIKEN) && ((cell2==SHURIKEN) || cell2==MINI_SHURIKEN));    
 }
 
 
@@ -619,7 +652,7 @@ void init_map(void)
 }
 
 
-void init_scores(void)
+void init_score_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
   
@@ -667,10 +700,10 @@ void build_objects(void)
 void build_shurikens(void)
 {
     uint8_t index = shurikens_index[level];
+    uint8_t i;
 
     level_horizontal_shurikens = shurikens_map[index];
     
-    uint8_t i;
     
     for(i=0;i<level_horizontal_shurikens;++i)
     {
@@ -680,6 +713,7 @@ void build_shurikens(void)
         horizontal_shuriken_transition[i]=0;
         build_element(SHURIKEN,shurikens_map[++index],horizontal_shuriken_x[i],horizontal_shuriken_y[i]);
     }
+
 
 }
 
@@ -692,7 +726,7 @@ void init_level(void)
         
     init_map();    
         
-    init_scores();
+    init_score_display();
     
     // TODO: BOGUS
     // level_mini_shurikens = 0;
@@ -1025,18 +1059,28 @@ void init_player(void)
     
 }
 
+// const uint8_t screen_type_color[7+1] =
+// {
+    // 0, // unused
+    // _XL_WHITE,
+    // _XL_GREEN,
+    // _XL_WHITE,
+    // _XL_GREEN,
+    // _XL_CYAN,
+    // _XL_RED,
+    // _XL_YELLOW,
+// }
 
-void init_screen_tiles(void)
-{
-    // Unused screen_tile[EMPTY]
-    screen_tile[SHIELD] = SHIELD_TILE;
-    screen_tile[DIAMOND] = DIAMOND_TILE;
-    screen_tile[RING] = RING_TILE;
-    screen_tile[BLOCK] = BLOCK_TILE;
-    screen_tile[SHURIKEN] = SHURIKEN_TILE;
-    screen_tile[MINI_SHURIKEN] = MINI_SHURIKEN_TILE;
-    screen_tile[WALL] = WALL_TILE;
-}
+// void init_screen_tiles(void)
+// {
+    // screen_tile[SHIELD] = SHIELD_TILE;
+    // screen_tile[DIAMOND] = DIAMOND_TILE;
+    // screen_tile[RING] = RING_TILE;
+    // screen_tile[BLOCK] = BLOCK_TILE;
+    // screen_tile[SHURIKEN] = SHURIKEN_TILE;
+    // screen_tile[MINI_SHURIKEN] = MINI_SHURIKEN_TILE;
+    // screen_tile[WALL] = WALL_TILE;
+// }
 
 
 void title(void)
@@ -1078,7 +1122,7 @@ int main(void)
 
     hiscore = 0;
     
-    init_screen_tiles();
+    // init_screen_tiles();
     
     while(1)
     {
@@ -1093,6 +1137,9 @@ int main(void)
             init_player();
 
             update_player();
+            
+            _XL_SLEEP(1);   
+            _XL_WAIT_FOR_INPUT();
             
             while(remaining_diamonds && alive)
             {

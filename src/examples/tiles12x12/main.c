@@ -177,6 +177,7 @@ uint8_t level_vertical_shurikens;
 uint8_t level_mini_shurikens;
 
 uint8_t chasing_transition;
+uint8_t chasing_direction;
 uint8_t chasing_x;
 uint8_t chasing_y;
 
@@ -762,6 +763,7 @@ void init_level(void)
     build_shurikens();
 
 	chasing_transition = 0;
+    chasing_direction = SHURIKEN_RIGHT;
 	chasing_x = 12;
 	chasing_y = 4;
 	build_element(SHURIKEN,_XL_YELLOW, chasing_x, chasing_y);
@@ -856,45 +858,70 @@ void if_shield_destroy_it(uint8_t x, uint8_t y)
 
 void handle_chasing_shuriken(void)
 {    
-
-    if(screen_x < chasing_x)
+    if(chasing_direction==SHURIKEN_LEFT)
     {
-        if(!chasing_transition) // transition not performed, yet
-        {
-            if(!map[chasing_x-1][chasing_y])
+        _XL_PRINT(0,0,"LEFT");
+    }
+    else
+    {
+        _XL_PRINT(0,0,"RIGHT");
+    }
+    if(chasing_direction==SHURIKEN_LEFT)
+    {
+            if(!chasing_transition) // transition not performed, yet
             {
-                // Do left transition
-                display_horizontal_transition_shuriken(chasing_x,chasing_y);
-                map[chasing_x-1][chasing_y]=SHURIKEN;
-                ++chasing_transition;
+                if(screen_x>chasing_x)
+                {
+                    chasing_direction=SHURIKEN_RIGHT;
+                    _XL_PRINT(8,0,"CHANGE TO RIGHT");
+                }
+                else
+                {
+                    if(!map[chasing_x-1][chasing_y])
+                    {
+                        // Do left transition
+                        display_horizontal_transition_shuriken(chasing_x,chasing_y);
+                        map[chasing_x-1][chasing_y]=SHURIKEN;
+                        ++chasing_transition;
+                    }
+                    else
+                    {				
+                        if_shield_destroy_it(chasing_x-1,chasing_y);
+                    }
+                }
             }
-            else
-            {				
-                if_shield_destroy_it(chasing_x-1,chasing_y);
+            else // transition already performed
+            {
+                chasing_transition=0;
+                delete_element(chasing_x,chasing_y);
+                // delete_element(chasing_x+1,chasing_y);
+                --chasing_x;
+                _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_YELLOW);
             }
-        }
-        else // transition already performed
-        {
-            chasing_transition=0;
-            delete_element(chasing_x,chasing_y);
-            --chasing_x;
-            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_CYAN);
-        }
     }
     else // direction is RIGHT
     {
         if(!chasing_transition) // transition not performed, yet
         {
-            if(!map[chasing_x+1][chasing_y])
+            if(screen_x<=chasing_x)
             {
-                // Do right transition
-                display_horizontal_transition_shuriken(chasing_x+1,chasing_y);
-                map[chasing_x+1][chasing_y]=SHURIKEN;
-                ++chasing_transition;
+                chasing_direction=SHURIKEN_LEFT;
+                _XL_PRINT(8,0,"CHANGE TO LEFT");
+
             }
             else
-            {				
-                if_shield_destroy_it(chasing_x+1,chasing_y);
+            {
+                if(!map[chasing_x+1][chasing_y])
+                {
+                    // Do right transition
+                    display_horizontal_transition_shuriken(chasing_x+1,chasing_y);
+                    map[chasing_x+1][chasing_y]=SHURIKEN;
+                    ++chasing_transition;
+                }
+                else
+                {				
+                    if_shield_destroy_it(chasing_x+1,chasing_y);
+                }
             }
         }
         else // transition already performed
@@ -903,8 +930,9 @@ void handle_chasing_shuriken(void)
             // map[x][y]=EMPTY;
             // _XL_DELETE(x,y);
             delete_element(chasing_x,chasing_y);
+            // delete_element(chasing_x-1,chasing_y);
             ++chasing_x;
-            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_CYAN);
+            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_YELLOW);
         }
     }
 }

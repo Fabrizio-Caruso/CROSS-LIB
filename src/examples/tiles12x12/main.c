@@ -858,14 +858,7 @@ void if_shield_destroy_it(uint8_t x, uint8_t y)
 
 void handle_chasing_shuriken(void)
 {    
-    if(chasing_direction==SHURIKEN_LEFT)
-    {
-        _XL_PRINT(0,0,"LEFT");
-    }
-    else
-    {
-        _XL_PRINT(0,0,"RIGHT");
-    }
+
     if(chasing_direction==SHURIKEN_LEFT)
     {
             if(!chasing_transition) // transition not performed, yet
@@ -873,7 +866,6 @@ void handle_chasing_shuriken(void)
                 if(screen_x>chasing_x)
                 {
                     chasing_direction=SHURIKEN_RIGHT;
-                    _XL_PRINT(8,0,"CHANGE TO RIGHT");
                 }
                 else
                 {
@@ -906,7 +898,6 @@ void handle_chasing_shuriken(void)
             if(screen_x<=chasing_x)
             {
                 chasing_direction=SHURIKEN_LEFT;
-                _XL_PRINT(8,0,"CHANGE TO LEFT");
 
             }
             else

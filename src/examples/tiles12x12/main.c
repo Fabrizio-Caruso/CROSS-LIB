@@ -155,9 +155,9 @@ uint16_t hiscore;
 
 uint8_t screen_tile[7+1];
 
-uint8_t level_horizontal_shuriken;
-uint8_t level_vertical_shuriken;
-uint8_t level_mini_shuriken;
+uint8_t level_horizontal_shurikens;
+uint8_t level_vertical_shurikens;
+uint8_t level_mini_shurikens;
 
 
 static const uint8_t player_tile[4][4] =
@@ -207,9 +207,11 @@ static const uint8_t objects_index[] =
 
 static const uint8_t shurikens_map[] =
 {
-    4, // horizontal
-    0, // vertical
-    0, // mini
+    4,
+    3,3,_XL_CYAN,
+    3,6,_XL_CYAN,
+    3,YSize-4,_XL_CYAN,
+    3,YSize-7,_XL_CYAN,
 };
 
 
@@ -253,21 +255,19 @@ void delete_element(uint8_t x, uint8_t y)
 }
 
 
-void build_rectangle(uint8_t type, uint8_t color, uint8_t width, uint8_t height)
-{
-    uint8_t i;
-    uint8_t j;
+// void build_rectangle(uint8_t type, uint8_t color, uint8_t width, uint8_t height)
+// {
+    // uint8_t i;
+    // uint8_t j;
     
-    for(i=0;i<width;++i)
-    {
-        for(j=0;j<height;++j)
-        {
-            // map[i][j] = type;
-            // _XL_DRAW(i,j,screen_tile[type],color);
-            build_element(type, color, i,j);
-        }
-    }
-}
+    // for(i=0;i<width;++i)
+    // {
+        // for(j=0;j<height;++j)
+        // {
+            // build_element(type, color, i,j);
+        // }
+    // }
+// }
 
 
 void update_screen_xy(void)
@@ -543,25 +543,25 @@ void if_block_move_right(void)
 }
 
 
-void init_mini_shuriken(void)
-{
-    uint8_t i;
+// void init_mini_shuriken(void)
+// {
+    // uint8_t i;
 
-    for(i=0;i<level_mini_shuriken;++i)
-    {
-        mini_shuriken_x[i] = (1+i)*(XSize/(MINI_SHURIKEN_NUMBER+1));
-        mini_shuriken_y[i] = 1;
-        _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
+    // for(i=0;i<level_mini_shurikens;++i)
+    // {
+        // mini_shuriken_x[i] = (1+i)*(XSize/(MINI_SHURIKEN_NUMBER+1));
+        // mini_shuriken_y[i] = 1;
+        // _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
 
-    }
-}
+    // }
+// }
 
 
 void handle_mini_shuriken(void)
 {	
     uint8_t i;
 
-    for(i=0;i<level_mini_shuriken;++i)
+    for(i=0;i<level_mini_shurikens;++i)
     {
         
         // _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
@@ -600,19 +600,11 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        // map[i][1]=WALL;       
-        // map[i][YSize-1]=WALL;
-        // _XL_DRAW(i,1,WALL_TILE,_XL_YELLOW);
-        // _XL_DRAW(i,YSize-1,WALL_TILE,_XL_YELLOW);
         build_element(WALL,_XL_YELLOW,i,1);
         build_element(WALL,_XL_YELLOW,i,YSize-1);
     }
     for(i=1;i<YSize-1;++i)
     {
-        // map[0][i]=WALL;
-        // map[XSize-1][i]=WALL;
-        // _XL_DRAW(0,i,WALL_TILE,_XL_YELLOW);
-        // _XL_DRAW(XSize-1,i,WALL_TILE,_XL_YELLOW);
         build_element(WALL,_XL_YELLOW,0,i);
         build_element(WALL,_XL_YELLOW,XSize-1,i);
     }
@@ -639,7 +631,7 @@ void init_scores(void)
 }
 
 
-void build_map_objects(void)
+void build_objects(void)
 {
     uint8_t index = objects_index[level];
     uint8_t no_of_objects = objects_map[index];
@@ -669,45 +661,74 @@ void build_map_objects(void)
             }
         }
     }
+}
+
+
+void build_shurikens(void)
+{
+    uint8_t index = shurikens_index[level];
+
+    level_horizontal_shurikens = shurikens_map[index];
+    
+    uint8_t i;
+    
+    for(i=0;i<level_horizontal_shurikens;++i)
+    {
+        horizontal_shuriken_x[i]=shurikens_map[++index];
+        horizontal_shuriken_y[i]=shurikens_map[++index];
+        horizontal_shuriken_direction[i]=SHURIKEN_LEFT;
+        horizontal_shuriken_transition[i]=0;
+        build_element(SHURIKEN,shurikens_map[++index],horizontal_shuriken_x[i],horizontal_shuriken_y[i]);
+    }
 
 }
 
 void init_level(void)
 {
-    uint8_t i;
+    // uint8_t i;
     
     // uint8_t x;
     // uint8_t y;
         
+    init_map();    
+        
     init_scores();
     
     // TODO: BOGUS
-    level_mini_shuriken = 0;
-    level_horizontal_shuriken = 1;
-    level_vertical_shuriken = 1;
+    // level_mini_shurikens = 0;
+    // level_horizontal_shurikens = 1;
+    // level_vertical_shurikens = 1;
     //
     
-    build_map_objects();
+    build_objects();
     
-    
-    for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
-    {
-        horizontal_shuriken_y[i]=2+i*3;
-        horizontal_shuriken_transition[i]=0;
-        horizontal_shuriken_x[i]=2;
-        horizontal_shuriken_direction[i]=SHURIKEN_RIGHT;
-    }
+    build_shurikens();
 
-    for(i=0;i<MAX_NUMBER_OF_VERTICAL_SHURIKENS;++i)
-    {
-        vertical_shuriken_x[i]=2+i*3;
-        vertical_shuriken_transition[i]=0;
-        vertical_shuriken_y[i]=3;
-        vertical_shuriken_direction[i]=SHURIKEN_DOWN;
-    }
+    // level_horizontal_shurikens = 4;
     
-    // level_horizontal_shuriken = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
-    // level_vertical_shuriken = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
+    // init_horizontal_shurikens();
+    // init_vertical_shurikens();
+    // init_mini_shuriken();
+    
+    
+    // for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
+    // {
+        // horizontal_shuriken_y[i]=2+i*3;
+        // horizontal_shuriken_transition[i]=0;
+        // horizontal_shuriken_x[i]=2;
+        // horizontal_shuriken_direction[i]=SHURIKEN_RIGHT;
+    // }
+
+    // for(i=0;i<MAX_NUMBER_OF_VERTICAL_SHURIKENS;++i)
+    // {
+        // vertical_shuriken_x[i]=2+i*3;
+        // vertical_shuriken_transition[i]=0;
+        // vertical_shuriken_y[i]=3;
+        // vertical_shuriken_direction[i]=SHURIKEN_DOWN;
+    // }
+    
+    // level_horizontal_shurikens = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
+    // level_vertical_shurikens = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
     
     // for(i=0;i<20;++i)
     // {
@@ -751,10 +772,6 @@ void init_level(void)
         // map[x][y] = DIAMOND;
     // }     
     
-    force = 0;
-    move_threshold = SHIELD; // TODO: Necessary
-    
-    init_mini_shuriken();
 }
 
 
@@ -844,7 +861,7 @@ void handle_horizontal_shurikens(void)
 {
     uint8_t i;
     
-    for(i=0;i<level_horizontal_shuriken;++i)
+    for(i=0;i<level_horizontal_shurikens;++i)
     {
         handle_horizontal_shuriken(i);
     }
@@ -925,7 +942,7 @@ void handle_vertical_shurikens(void)
 {
     uint8_t i;
     
-    for(i=0;i<level_vertical_shuriken;++i)
+    for(i=0;i<level_vertical_shurikens;++i)
     {
         handle_vertical_shuriken(i);
     }
@@ -1002,6 +1019,10 @@ void init_player(void)
     alive = 1;
 	player_x = XSize;
 	player_y = YSize;
+    
+    force = 0;
+    move_threshold = SHIELD; // TODO: Necessary
+    
 }
 
 
@@ -1022,7 +1043,11 @@ void title(void)
 {
     _XL_CLEAR_SCREEN();
     
-    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    
+    _XL_PRINTD(XSize/2-2,1,5,hiscore);    
+    
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
     
@@ -1062,9 +1087,7 @@ int main(void)
         init_variables();
         
         while(lives && (level<FINAL_LEVEL+1))
-        {
-            init_map();
-            
+        {            
             init_level();
             
             init_player();

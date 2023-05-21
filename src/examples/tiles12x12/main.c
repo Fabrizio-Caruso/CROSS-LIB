@@ -227,6 +227,7 @@ static const uint8_t player_tile[4][4] =
 
 static const uint8_t objects_map[] =
 {
+    // 0 
     6, // rectangles
     XSize/8,2,2,YSize-2-2,SHIELD,_XL_WHITE,
     
@@ -252,6 +253,7 @@ static const uint8_t objects_index[] =
 
 static const uint8_t shurikens_map[] =
 {
+    // 0
     6,
     3,4,_XL_CYAN,
     3,7,_XL_CYAN,
@@ -402,17 +404,9 @@ void update_force(uint8_t cell1, uint8_t cell2)
         if(force<MOVE_FORCE)
         {
             ++force;
-            // _XL_PRINTD(8,0,3,force);
-            // move_threshold=SHIELD;
-            // player_color = _XL_WHITE;
-            // update_player();
         }
         else
         {
-            // force=0;
-            // _XL_PRINTD(8,0,3,force);
-
-            // move_threshold=BLOCK;
             player_color = _XL_RED;
             update_player();
         }  
@@ -421,7 +415,6 @@ void update_force(uint8_t cell1, uint8_t cell2)
     {
         force=0;
         player_color = _XL_WHITE;
-        // move_threshold=BLOCK-1;
     }
 }
 
@@ -482,16 +475,8 @@ void _if_block_push_down(uint8_t screen_x)
 {
     if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
     {
-        // map[screen_x][screen_y+3]=BLOCK;
-        // _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
         build_element(BLOCK,_XL_GREEN, screen_x,screen_y+3);
     }
-    
-    // if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
-    // {
-        // map[screen_x+1][screen_y+3]=BLOCK;
-        // _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
-    // }
 }
 
 
@@ -499,17 +484,6 @@ void if_block_push_down(void)
 {
     _if_block_push_down(screen_x);
     _if_block_push_down(screen_x+1);
-    // if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
-    // {
-        // map[screen_x][screen_y+3]=BLOCK;
-        // _XL_DRAW(screen_x,screen_y+3,BLOCK_TILE,_XL_GREEN);
-    // }
-    
-    // if((map[screen_x+1][screen_y+2]==BLOCK)&&map[screen_x+1][screen_y+3]<=SHIELD)
-    // {
-        // map[screen_x+1][screen_y+3]=BLOCK;
-        // _XL_DRAW(screen_x+1,screen_y+3,BLOCK_TILE,_XL_GREEN);
-    // }
 }
 
 
@@ -517,16 +491,8 @@ void _if_block_push_up(uint8_t screen_x)
 {
     if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
     {
-        // map[screen_x][screen_y-2]=BLOCK;
-        // _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
         build_element(BLOCK,_XL_GREEN,screen_x,screen_y-2);
     }
-    
-    // if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
-    // {
-        // map[screen_x+1][screen_y-2]=BLOCK;
-        // _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
-    // }
 }
 
 
@@ -534,18 +500,7 @@ void if_block_push_up(void)
 {
     _if_block_push_up(screen_x);
     _if_block_push_up(screen_x+1);
-    
-    // if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
-    // {
-        // map[screen_x][screen_y-2]=BLOCK;
-        // _XL_DRAW(screen_x,screen_y-2,BLOCK_TILE,_XL_GREEN);
-    // }
-    
-    // if((map[screen_x+1][screen_y-1]==BLOCK)&&map[screen_x+1][screen_y-2]<=SHIELD)
-    // {
-        // map[screen_x+1][screen_y-2]=BLOCK;
-        // _XL_DRAW(screen_x+1,screen_y-2,BLOCK_TILE,_XL_GREEN);
-    // }
+
 }
 
 
@@ -553,16 +508,9 @@ void _if_block_push_left(uint8_t screen_y)
 {
     if((map[screen_x-1][screen_y]==BLOCK)&&map[screen_x-2][screen_y]<=SHIELD)
     {
-        // map[screen_x-2][screen_y]=BLOCK;
-        // _XL_DRAW(screen_x-2,screen_y,BLOCK_TILE,_XL_GREEN);
         build_element(BLOCK,_XL_GREEN,screen_x-2,screen_y);
     }
-    
-    // if((map[screen_x-1][screen_y+1]==BLOCK)&&map[screen_x-2][screen_y+1]<=SHIELD)
-    // {
-        // map[screen_x-2][screen_y+1]=BLOCK;
-        // _XL_DRAW(screen_x-2,screen_y+1,BLOCK_TILE,_XL_GREEN);
-    // }
+
 }
 
 void if_block_push_left(void)
@@ -575,16 +523,8 @@ void _if_block_push_right(uint8_t screen_y)
 {
     if((map[screen_x+2][screen_y]==BLOCK)&&map[screen_x+3][screen_y]<=SHIELD)
     {
-        // map[screen_x+3][screen_y]=BLOCK;
-        // _XL_DRAW(screen_x+3,screen_y,BLOCK_TILE,_XL_GREEN);
         build_element(BLOCK,_XL_GREEN,screen_x+3,screen_y);
     }
-    
-    // if((map[screen_x+2][screen_y+1]==BLOCK)&&map[screen_x+3][screen_y+1]<=SHIELD)
-    // {
-        // map[screen_x+3][screen_y+1]=BLOCK;
-        // _XL_DRAW(screen_x+3,screen_y+1,BLOCK_TILE,_XL_GREEN);
-    // }
 }
 
 
@@ -595,45 +535,25 @@ void if_block_push_right(void)
 }
 
 
-// void init_mini_shuriken(void)
-// {
-    // uint8_t i;
-
-    // for(i=0;i<level_mini_shurikens;++i)
-    // {
-        // mini_shuriken_x[i] = (1+i)*(XSize/(MINI_SHURIKEN_NUMBER+1));
-        // mini_shuriken_y[i] = 1;
-        // _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);			
-
-    // }
-// }
-
-
 void handle_mini_shuriken(void)
 {	
     uint8_t i;
 
     for(i=0;i<level_mini_shurikens;++i)
     {
-        
-        // _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-        // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
+
         delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
         
         ++(mini_shuriken_y[i]);
 
         if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]] && mini_shuriken_y[i]<YSize-2)
         {
-            // _XL_DRAW(mini_shuriken_x[i],mini_shuriken_y[i],MINI_SHURIKEN_TILE,_XL_RED);
-            // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=MINI_SHURIKEN;
             build_element(MINI_SHURIKEN, _XL_RED, mini_shuriken_x[i],mini_shuriken_y[i]);
         }
         else
         {	
             if(map[mini_shuriken_x[i]][mini_shuriken_y[i]]<=SHIELD)
             {
-                // _XL_DELETE(mini_shuriken_x[i],mini_shuriken_y[i]);
-                // map[mini_shuriken_x[i]][mini_shuriken_y[i]]=EMPTY;
                 delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
             }
             mini_shuriken_y[i] = 2;							
@@ -654,7 +574,6 @@ void init_map(void)
         for(j=0;j<YSize-1;++j)
         {
             map[i][j]=EMPTY;
-            // delete_element(i,j);
         }
     }
     

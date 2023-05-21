@@ -594,7 +594,6 @@ void handle_transparent_vertical_wall(void)
         transparent_vertical_wall_triggered = EMPTY;
     }
     build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,transparent_vertical_wall_triggered);
-
 }
 
 void handle_transparent_horizontal_wall(void)

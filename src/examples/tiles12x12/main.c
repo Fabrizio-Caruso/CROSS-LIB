@@ -136,6 +136,8 @@ const uint8_t screen_tile[7+1] =
 #define INITIAL_LIVES 3
 #define FINAL_LEVEL 1
 
+#define MAX_NUMBER_OF_WALLS 4
+
 uint8_t player_x;
 uint8_t player_y;
 
@@ -163,7 +165,6 @@ uint8_t mini_shuriken_y[MINI_SHURIKEN_NUMBER];
 uint8_t map[XSize][YSize];
 
 uint8_t force;
-// uint8_t move_threshold;
 
 uint8_t player_cell[4];
 
@@ -176,11 +177,18 @@ uint8_t level_horizontal_shurikens;
 uint8_t level_vertical_shurikens;
 uint8_t level_mini_shurikens;
 
-uint8_t chasing_transition;
-uint8_t chasing_direction;
-uint8_t chasing_x;
-uint8_t chasing_y;
+uint8_t wall_x[MAX_NUMBER_OF_WALLS];
+uint8_t wall_y[MAX_NUMBER_OF_WALLS];
+uint8_t wall_width[MAX_NUMBER_OF_WALLS];
+uint8_t wall_height[MAX_NUMBER_OF_WALLS];
+uint8_t wall_type[MAX_NUMBER_OF_WALLS];
+uint8_t wall_color[MAX_NUMBER_OF_WALLS];
 
+uint8_t number_of_walls;
+
+uint8_t wall_counter;
+uint8_t wall_triggered;
+uint8_t wall_threshold;
 
 static const uint8_t player_tile[4][4] =
 {
@@ -277,7 +285,14 @@ static const uint8_t mini_shurikens_index[] =
 void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
-    _XL_DRAW(x,y,screen_tile[type], color);
+    if(type==EMPTY)
+    {
+        _XL_DELETE(x,y);
+    }
+    else
+    {
+        _XL_DRAW(x,y,screen_tile[type], color);
+    }
 }
 
 
@@ -286,21 +301,6 @@ void delete_element(uint8_t x, uint8_t y)
     map[x][y] = EMPTY;
     _XL_DELETE(x,y);
 }
-
-
-// void build_rectangle(uint8_t type, uint8_t color, uint8_t width, uint8_t height)
-// {
-    // uint8_t i;
-    // uint8_t j;
-    
-    // for(i=0;i<width;++i)
-    // {
-        // for(j=0;j<height;++j)
-        // {
-            // build_element(type, color, i,j);
-        // }
-    // }
-// }
 
 
 void update_screen_xy(void)
@@ -741,6 +741,195 @@ void build_shurikens(void)
 
 }
 
+
+/*
+
+
+uint8_t empty_vertical_wall_area(void)
+{
+    i = 0;
+    
+    while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
+    {
+        if(map[TRANSPARENT_VERTICAL_WALL_X][TRANSPARENT_VERTICAL_WALL_Y+i])
+        {
+            return 0;
+        }
+        ++i;
+    }
+    return (TRANSPARENT_VERTICAL_WALL_X!=snake_head_x)||
+           !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<=TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH-1));
+}
+
+
+uint8_t empty_horizontal_wall_area(void)
+{
+    i = 0;
+    
+    while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
+    {
+        if(map[TRANSPARENT_HORIZONTAL_WALL_X+i][TRANSPARENT_HORIZONTAL_WALL_Y])
+        {
+            return 0;
+        }
+        ++i;
+    }
+    return (TRANSPARENT_HORIZONTAL_WALL_Y!=snake_head_y)||
+           !((snake_head_x>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_x<=TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH-1));
+}
+
+
+void handle_transparent_vertical_wall(void)
+{   
+    if(!transparent_vertical_wall_triggered)
+    {
+        if(empty_vertical_wall_area())
+        {
+            _XL_TOCK_SOUND();
+            transparent_vertical_wall_triggered = TRANSPARENT;
+        }
+        else
+        {
+            return;
+        }
+    }
+    else
+    {   
+        transparent_vertical_wall_triggered = EMPTY;
+    }
+    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,transparent_vertical_wall_triggered);
+}
+
+void handle_transparent_horizontal_wall(void)
+{
+    if(!transparent_horizontal_wall_triggered)
+    {
+        if(empty_horizontal_wall_area())
+        {
+            _XL_TOCK_SOUND();
+            transparent_horizontal_wall_triggered = TRANSPARENT;
+        }
+        else
+        {
+            return;
+        }
+    }
+    else
+    {   
+        transparent_horizontal_wall_triggered = EMPTY;
+    }
+    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,transparent_horizontal_wall_triggered);
+
+}
+
+
+*/
+
+uint8_t empty_wall_area(uint8_t i)
+{
+    uint8_t j;
+    uint8_t k;
+    j = 0;
+    k=0;
+    
+    while(j<wall_width[i])
+    {
+        while(k<wall_height[i])
+        {
+            if(map[wall_x[i]+j][wall_y[i]+k])
+            {
+                return 0;
+            }
+            ++k;
+        }
+        ++j;
+    }
+    // TODO: Maybe check player's position
+    // return (horizontal_wall_y[j]!=snake_head_y)||
+           // !((snake_head_x>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_x<=TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH-1));
+   return 1;
+}
+
+
+
+void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    _XL_PRINTD(3,1,3,i);
+    _XL_PRINTD(9,1,3,j);
+    
+    for(i=x;i<x+width;++i)
+    {
+        for(j=y;j<y+height;++j)
+        {
+            build_element(type, color,i,j);
+            // build_element(WALL, _XL_GREEN,i,j);
+
+        }
+    }
+}
+
+
+
+void switch_wall_if_possible(uint8_t i)
+{
+    uint8_t wall;  
+
+    if(!wall_triggered)
+    {
+        if(empty_wall_area(i))
+        {
+            _XL_TOCK_SOUND();
+            wall = wall_type[i];
+            ++wall_triggered;
+        }
+        else
+        {
+            return;
+        }
+    }
+    else
+    {
+        wall = EMPTY;
+        wall_triggered = 0;
+    }
+
+
+    // TODO: fix it
+    // wall = WALL;
+
+    build_rectangle(wall,wall_color[i],wall_x[i],wall_y[i],wall_width[i], wall_height[i]);
+
+}
+
+
+void handle_wall(uint8_t i)
+{
+    if(wall_counter<wall_threshold)
+    {
+        ++wall_counter;
+    }
+    else
+    {
+        wall_counter=0;
+        switch_wall_if_possible(i);
+    }
+    _XL_PRINTD(8,0,3,wall_counter);
+}
+
+
+void handle_walls(void)
+{
+    uint8_t i;
+    for(i=0;i<number_of_walls;++i)
+    {
+        handle_wall(i);
+    }
+}
+
+
 void init_level(void)
 {
     // uint8_t i;
@@ -762,11 +951,29 @@ void init_level(void)
     
     build_shurikens();
 
-	chasing_transition = 0;
-    chasing_direction = SHURIKEN_RIGHT;
-	chasing_x = 12;
-	chasing_y = 4;
-	build_element(SHURIKEN,_XL_YELLOW, chasing_x, chasing_y);
+    wall_counter = 0;
+    wall_threshold = 40;
+    wall_triggered = 0;
+
+    number_of_walls = 1;
+    
+    wall_x[0] =14;
+    wall_y[0] =4;
+    wall_width[0] =4;
+    wall_height[0] =2;
+    wall_type[0] = SHURIKEN;
+    wall_color[0] = _XL_GREEN;
+    
+
+    wall_x[1] =10;
+    wall_y[1] =YSize-2-4;
+    wall_width[1] =4;
+    wall_height[1] =2;
+    wall_type[1] = SHURIKEN;
+    wall_color[0] = _XL_CYAN;
+    
+
+    
 
     // level_horizontal_shurikens = 4;
     
@@ -855,78 +1062,6 @@ void if_shield_destroy_it(uint8_t x, uint8_t y)
     }
 }
 
-
-void handle_chasing_shuriken(void)
-{    
-
-    if(chasing_direction==SHURIKEN_LEFT)
-    {
-            if(!chasing_transition) // transition not performed, yet
-            {
-                if(screen_x>chasing_x)
-                {
-                    chasing_direction=SHURIKEN_RIGHT;
-                }
-                else
-                {
-                    if(!map[chasing_x-1][chasing_y])
-                    {
-                        // Do left transition
-                        display_horizontal_transition_shuriken(chasing_x,chasing_y);
-                        map[chasing_x-1][chasing_y]=SHURIKEN;
-                        ++chasing_transition;
-                    }
-                    else
-                    {				
-                        if_shield_destroy_it(chasing_x-1,chasing_y);
-                    }
-                }
-            }
-            else // transition already performed
-            {
-                chasing_transition=0;
-                delete_element(chasing_x,chasing_y);
-                // delete_element(chasing_x+1,chasing_y);
-                --chasing_x;
-                _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_YELLOW);
-            }
-    }
-    else // direction is RIGHT
-    {
-        if(!chasing_transition) // transition not performed, yet
-        {
-            if(screen_x<=chasing_x)
-            {
-                chasing_direction=SHURIKEN_LEFT;
-
-            }
-            else
-            {
-                if(!map[chasing_x+1][chasing_y])
-                {
-                    // Do right transition
-                    display_horizontal_transition_shuriken(chasing_x+1,chasing_y);
-                    map[chasing_x+1][chasing_y]=SHURIKEN;
-                    ++chasing_transition;
-                }
-                else
-                {				
-                    if_shield_destroy_it(chasing_x+1,chasing_y);
-                }
-            }
-        }
-        else // transition already performed
-        {
-            chasing_transition=0;
-            // map[x][y]=EMPTY;
-            // _XL_DELETE(x,y);
-            delete_element(chasing_x,chasing_y);
-            // delete_element(chasing_x-1,chasing_y);
-            ++chasing_x;
-            _XL_DRAW(chasing_x,chasing_y,SHURIKEN_TILE,_XL_YELLOW);
-        }
-    }
-}
 
 
 void handle_horizontal_shuriken(register uint8_t index)
@@ -1255,7 +1390,7 @@ int main(void)
                 handle_horizontal_shurikens();
                 handle_vertical_shurikens();
                 handle_mini_shuriken();
-				handle_chasing_shuriken();
+                handle_walls();
                 
                 handle_collisions();
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
@@ -1263,14 +1398,14 @@ int main(void)
             if(alive)
             {
                 ++level;
-                _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                _XL_SET_TEXT_COLOR(_XL_GREEN);
                 _XL_PRINT(XSize/2-5,YSize/2,"COMPLETED");
                 _XL_WAIT_FOR_INPUT();
             }
             else
             {
                 --lives;
-                _XL_SET_TEXT_COLOR(_XL_RED);
+                _XL_SET_TEXT_COLOR(_XL_YELLOW);
                 _XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
                 _XL_WAIT_FOR_INPUT();
             }

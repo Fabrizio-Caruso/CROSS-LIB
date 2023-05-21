@@ -183,12 +183,13 @@ uint8_t wall_width[MAX_NUMBER_OF_WALLS];
 uint8_t wall_height[MAX_NUMBER_OF_WALLS];
 uint8_t wall_type[MAX_NUMBER_OF_WALLS];
 uint8_t wall_color[MAX_NUMBER_OF_WALLS];
+uint8_t wall_counter[MAX_NUMBER_OF_WALLS];
+uint8_t wall_triggered[MAX_NUMBER_OF_WALLS];
+uint8_t wall_threshold[MAX_NUMBER_OF_WALLS];
 
 uint8_t number_of_walls;
 
-uint8_t wall_counter;
-uint8_t wall_triggered;
-uint8_t wall_threshold;
+
 
 static const uint8_t player_tile[4][4] =
 {
@@ -877,13 +878,13 @@ void switch_wall_if_possible(uint8_t i)
 {
     uint8_t wall;  
 
-    if(!wall_triggered)
+    if(!wall_triggered[i])
     {
         if(empty_wall_area(i))
         {
             _XL_TOCK_SOUND();
             wall = wall_type[i];
-            ++wall_triggered;
+            ++wall_triggered[i];
         }
         else
         {
@@ -893,30 +894,25 @@ void switch_wall_if_possible(uint8_t i)
     else
     {
         wall = EMPTY;
-        wall_triggered = 0;
+        wall_triggered[i] = 0;
     }
 
-
-    // TODO: fix it
-    // wall = WALL;
-
     build_rectangle(wall,wall_color[i],wall_x[i],wall_y[i],wall_width[i], wall_height[i]);
-
 }
 
 
 void handle_wall(uint8_t i)
 {
-    if(wall_counter<wall_threshold)
+    if(wall_counter[i]<wall_threshold[i])
     {
-        ++wall_counter;
+        ++wall_counter[i];
     }
     else
     {
-        wall_counter=0;
+        wall_counter[i]=0;
         switch_wall_if_possible(i);
     }
-    _XL_PRINTD(8,0,3,wall_counter);
+    // _XL_PRINTD(8,0,3,wall_counter);
 }
 
 
@@ -950,27 +946,34 @@ void init_level(void)
     build_objects();
     
     build_shurikens();
-
-    wall_counter = 0;
-    wall_threshold = 40;
-    wall_triggered = 0;
-
-    number_of_walls = 1;
     
-    wall_x[0] =14;
+    number_of_walls = 2;
+
+    {
+        uint8_t i;
+        for(i=0;i<number_of_walls;++i)
+        {
+            wall_counter[i] = 0;
+            wall_threshold[i] = 40;
+            wall_triggered[i] = 0;
+        }
+    }
+
+    
+    wall_x[0] =XSize/2-2;
     wall_y[0] =4;
     wall_width[0] =4;
     wall_height[0] =2;
     wall_type[0] = SHURIKEN;
-    wall_color[0] = _XL_GREEN;
+    wall_color[0] = _XL_CYAN;
     
 
-    wall_x[1] =10;
+    wall_x[1] =XSize/2-2;
     wall_y[1] =YSize-2-4;
     wall_width[1] =4;
     wall_height[1] =2;
     wall_type[1] = SHURIKEN;
-    wall_color[0] = _XL_CYAN;
+    wall_color[1] = _XL_CYAN;
     
 
     

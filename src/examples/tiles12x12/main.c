@@ -25,13 +25,13 @@
 #include "cross_lib.h"
 
 #if XSize<17
-	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 12
 #elif XSize<24
-	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 12
 #elif XSize<33
-	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 8
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 16
 #else
-	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 9
+	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 16
 #endif
 
 #if YSize<13
@@ -143,6 +143,7 @@ const uint8_t screen_tile[7+1] =
 
 #define MAX_NUMBER_OF_WALLS 4
 
+
 uint8_t player_x;
 uint8_t player_y;
 
@@ -195,7 +196,6 @@ uint8_t wall_threshold[MAX_NUMBER_OF_WALLS];
 uint8_t number_of_walls;
 
 
-
 static const uint8_t player_tile[4][4] =
 {
 	{ // left lower 12x12 multi-tile inside a 16x16 quad tile
@@ -228,16 +228,18 @@ static const uint8_t player_tile[4][4] =
 static const uint8_t objects_map[] =
 {
     // 0 
-    6, // rectangles
-    XSize/8,2,2,YSize-2-2,SHIELD,_XL_WHITE,
+    2, // rectangles
+    // XSize/8,2,2,YSize-2-2,SHIELD,_XL_WHITE,
     
-    XSize/4,4,1,YSize-1-2-4,BLOCK,_XL_GREEN,
+    // XSize/4,4,1,YSize-1-2-4,BLOCK,_XL_GREEN,
     
-    XSize/2+4,4,4,YSize-1-2-4,SHURIKEN,_XL_CYAN,
+    // XSize/2+4,4,4,YSize-1-2-4,SHURIKEN,_XL_CYAN,
 
     XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-    XSize-3,4,1,YSize-1-2-4,RING,_XL_WHITE,
-    XSize-4,4,1,YSize-1-2-4,WALL,_XL_CYAN,
+    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
+
+    // XSize-3,4,1,YSize-1-2-4,RING,_XL_WHITE,
+    // XSize-4,4,1,YSize-1-2-4,WALL,_XL_CYAN,
     
 };
 
@@ -254,19 +256,24 @@ static const uint8_t objects_index[] =
 static const uint8_t shurikens_map[] =
 {
     // 0
-    6,
+    12,
     3,4,_XL_CYAN,
     3,7,_XL_CYAN,
     3,10,_XL_CYAN,
-    3,YSize-10,_XL_CYAN,
-    3,YSize-4,_XL_CYAN,
-    3,YSize-7,_XL_CYAN,
+    3,YSize-9,_XL_CYAN,
+    3,YSize-6,_XL_CYAN,
+    3,YSize-3,_XL_CYAN,
+
+    XSize-3,3,_XL_CYAN,
+    XSize-3,6,_XL_CYAN,
+    XSize-3,9,_XL_CYAN,
+    XSize-3,YSize-10,_XL_CYAN,
+    XSize-3,YSize-7,_XL_CYAN,
+    XSize-3,YSize-4,_XL_CYAN,
     
     0,
     
-    2,
-    XSize/2-1,1,_XL_RED,
-    XSize/2+1,1,_XL_RED,
+    0,
 };
 
 
@@ -276,6 +283,31 @@ static const uint8_t shurikens_index[] =
     0,
     0,
     // TODO: ....
+};
+
+
+static const uint8_t walls_map[] =
+{
+    1,
+    // wall_x[0] =XSize/2-2;
+    // wall_y[0] =4;
+    // wall_width[0] =4;
+    // wall_height[0] =2;
+    // wall_type[0] = WALL;
+    // wall_color[0] = _XL_CYAN;
+    XSize/2-2,4,
+    4,2,
+    WALL,_XL_CYAN,
+    0, // counter
+    30, // threshold
+};
+
+static const uint8_t walls_index[] =
+{
+    0,
+    0,
+    0,
+    // TODO:
 };
 
 
@@ -313,6 +345,13 @@ void update_score_display(void)
 }
 
 
+void update_remaining_display(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(8,0,2,remaining_diamonds);
+}
+
+
 void handle_collisions(void)
 {
     uint8_t i;
@@ -330,6 +369,8 @@ void handle_collisions(void)
             // TODO: score and effects
             score+=50;
             update_score_display();
+            --remaining_diamonds;
+            update_remaining_display();
         }
         else if(player_cell[i]==RING)
         {
@@ -601,6 +642,10 @@ void init_score_display(void)
     
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
+    
+    _XL_DRAW(7,0,DIAMOND_TILE,_XL_GREEN);
+
+    update_remaining_display();
 }
 
 
@@ -618,6 +663,7 @@ void build_objects(void)
     uint8_t type;
     uint8_t color;  
     
+    remaining_diamonds = 0;
     for(i=0;i<no_of_objects;++i)
     {
         x = objects_map[++index];
@@ -626,13 +672,38 @@ void build_objects(void)
         y_size = objects_map[++index];
         type = objects_map[++index];
         color = objects_map[++index];
+        if(type=DIAMOND)
+        {
+            remaining_diamonds+=x_size*y_size;
+        }
         for(j=x;j<x+x_size;++j)
         {
             for(k=y;k<y+y_size;++k)
             {
+
                 build_element(type,color,j,k);
             }
         }
+    }
+}
+
+
+void build_walls(void)
+{
+    uint8_t index = walls_index[level];
+    uint8_t no_of_walls = walls_map[index];   
+    uint8_t i;
+    
+    for(i=0;i<no_of_walls;++i)
+    {
+        wall_x[i] = walls_map[++index];
+        wall_y[i] = walls_map[++index];
+        wall_width[i] = walls_map[++index];
+        wall_height[i] = walls_map[++index];  
+        wall_type[i] = walls_map[++index];
+        wall_color[i] = walls_map[++index];       
+        wall_counter[i] = walls_map[++index];       
+        wall_threshold[i] = walls_map[++index];
     }
 }
 
@@ -673,83 +744,6 @@ void build_shurikens(void)
         build_element(MINI_SHURIKEN,shurikens_map[++index],mini_shuriken_x[i],mini_shuriken_y[i]);
     }
 }
-
-
-/*
-
-
-uint8_t empty_vertical_wall_area(void)
-{
-    i = 0;
-    
-    while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
-    {
-        if(map[TRANSPARENT_VERTICAL_WALL_X][TRANSPARENT_VERTICAL_WALL_Y+i])
-        {
-            return 0;
-        }
-        ++i;
-    }
-    return (TRANSPARENT_VERTICAL_WALL_X!=snake_head_x)||
-           !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<=TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH-1));
-}
-
-
-uint8_t empty_horizontal_wall_area(void)
-{
-    i = 0;
-    
-    while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
-    {
-        if(map[TRANSPARENT_HORIZONTAL_WALL_X+i][TRANSPARENT_HORIZONTAL_WALL_Y])
-        {
-            return 0;
-        }
-        ++i;
-    }
-    return (TRANSPARENT_HORIZONTAL_WALL_Y!=snake_head_y)||
-           !((snake_head_x>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_x<=TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH-1));
-}
-
-
-
-*/
-
-
-/*
-uint8_t empty_wall_area(uint8_t i)
-{
-    uint8_t j;
-    uint8_t k;
-    j = 0;
-    k = 0;
-
-    while(j<wall_width[i])
-    {
-        while(k<wall_height[i])
-        {   
-            _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_CHAR(wall_x[i]+j,wall_x[i]+j,'T');
-            if(map[wall_x[i]+j][wall_y[i]+k])
-            {
-                _XL_PRINT(0,0,"NOT EMPTY");
-                _XL_CHAR(wall_x[i]+j,wall_x[i]+j,'X');
-
-                return 0;
-            }
-            else
-            {
-                _XL_CHAR(wall_x[i]+j,wall_x[i]+j,'V');
-
-            }
-            ++k;
-        }
-        ++j;
-    }
-
-   return 1;
-}
-*/
 
 
 void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
@@ -834,7 +828,6 @@ void init_level(void)
         
     init_map();    
         
-    init_score_display();
     
     // TODO: BOGUS
     // level_mini_shurikens = 0;
@@ -844,121 +837,58 @@ void init_level(void)
     
     build_objects();
     
+    init_score_display();
+
     build_shurikens();
     
-    number_of_walls = 4;
+    build_walls();
+    
+    number_of_walls = 0;
+    // number_of_walls = 4;
 
     {
         uint8_t i;
         for(i=0;i<number_of_walls;++i)
         {
-            wall_counter[i] = i*10;
-            wall_threshold[i] = 40;
+            // wall_counter[i] = i*10;
+            // wall_threshold[i] = 40;
             wall_triggered[i] = 0;
         }
     }
 
     
-    wall_x[0] =XSize/2-2;
-    wall_y[0] =4;
-    wall_width[0] =4;
-    wall_height[0] =2;
-    wall_type[0] = WALL;
-    wall_color[0] = _XL_CYAN;
+    // wall_x[0] =XSize/2-2;
+    // wall_y[0] =4;
+    // wall_width[0] =4;
+    // wall_height[0] =2;
+    // wall_type[0] = WALL;
+    // wall_color[0] = _XL_CYAN;
     
 
-    wall_x[1] =XSize/2-2;
-    wall_y[1] =YSize-2-4-2;
-    wall_width[1] =4;
-    wall_height[1] =2;
-    wall_type[1] = SHURIKEN;
-    wall_color[1] = _XL_CYAN;
+    // wall_x[1] =XSize/2-2;
+    // wall_y[1] =YSize-2-4-2;
+    // wall_width[1] =4;
+    // wall_height[1] =2;
+    // wall_type[1] = SHURIKEN;
+    // wall_color[1] = _XL_CYAN;
     
     
-    wall_x[2] =XSize/2-2-4;
-    wall_y[2] =6;
-    wall_width[2] =4;
-    wall_height[2] =2;
-    wall_type[2] = WALL;
-    wall_color[2] = _XL_CYAN;
-    
-
-    wall_x[3] =XSize/2-2-4;
-    wall_y[3] =YSize-2-4;
-    wall_width[3] =4;
-    wall_height[3] =2;
-    wall_type[3] = SHURIKEN;
-    wall_color[3] = _XL_CYAN;
+    // wall_x[2] =XSize/2-2-4;
+    // wall_y[2] =6;
+    // wall_width[2] =4;
+    // wall_height[2] =2;
+    // wall_type[2] = WALL;
+    // wall_color[2] = _XL_CYAN;
     
 
-    // level_horizontal_shurikens = 4;
+    // wall_x[3] =XSize/2-2-4;
+    // wall_y[3] =YSize-2-4;
+    // wall_width[3] =4;
+    // wall_height[3] =2;
+    // wall_type[3] = SHURIKEN;
+    // wall_color[3] = _XL_CYAN;
     
-    // init_horizontal_shurikens();
-    // init_vertical_shurikens();
-    // init_mini_shuriken();
-    
-    
-    // for(i=0;i<MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;++i)
-    // {
-        // horizontal_shuriken_y[i]=2+i*3;
-        // horizontal_shuriken_transition[i]=0;
-        // horizontal_shuriken_x[i]=2;
-        // horizontal_shuriken_direction[i]=SHURIKEN_RIGHT;
-    // }
 
-    // for(i=0;i<MAX_NUMBER_OF_VERTICAL_SHURIKENS;++i)
-    // {
-        // vertical_shuriken_x[i]=2+i*3;
-        // vertical_shuriken_transition[i]=0;
-        // vertical_shuriken_y[i]=3;
-        // vertical_shuriken_direction[i]=SHURIKEN_DOWN;
-    // }
-    
-    // level_horizontal_shurikens = MAX_NUMBER_OF_HORIZONTAL_SHURIKENS;
-    // level_vertical_shurikens = MAX_NUMBER_OF_VERTICAL_SHURIKENS;
-    
-    // for(i=0;i<20;++i)
-    // {
-        
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,WALL_TILE,_XL_YELLOW);
-        // map[x][y] = WALL;
-
-    // }
-    
-    // for(i=0;i<50;++i)
-    // {
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,SHIELD_TILE,_XL_WHITE);
-        // map[x][y] = SHIELD;
-    // }
-    
-    // for(i=0;i<50;++i)
-    // {
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,BLOCK_TILE,_XL_GREEN);
-        // map[x][y] = BLOCK;
-    // }
-    
-    // for(i=0;i<50;++i)
-    // {
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,RING_TILE,_XL_WHITE);
-        // map[x][y] = RING;
-    // } 
-    
-    // for(i=0;i<50;++i)
-    // {
-        // x = _XL_RAND()%(XSize-2)+1; 
-        // y = _XL_RAND()%(YSize-3)+2;
-        // _XL_DRAW(x,y,DIAMOND_TILE,_XL_GREEN);
-        // map[x][y] = DIAMOND;
-    // }     
-    
 }
 
 
@@ -1264,7 +1194,7 @@ void init_variables(void)
 {
     score = 0;
     lives = INITIAL_LIVES;
-    remaining_diamonds = 8;
+    // remaining_diamonds = 0;
     level = 0;
 }
 

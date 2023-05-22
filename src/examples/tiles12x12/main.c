@@ -195,6 +195,10 @@ uint8_t wall_threshold[MAX_NUMBER_OF_WALLS];
 
 uint8_t number_of_walls;
 
+uint8_t freeze;
+uint8_t rings;
+
+uint8_t counter;
 
 static const uint8_t player_tile[4][4] =
 {
@@ -393,6 +397,8 @@ void handle_collisions(void)
             // TODO: score and effects
             score+=250;
             update_score_display();
+			++rings;
+			freeze=rings<<3;
         }
         else if(player_cell[i]>=DEADLY)
         {
@@ -706,10 +712,10 @@ void build_objects(void)
 void build_walls(void)
 {
     uint8_t index = walls_index[level];
-    uint8_t no_of_walls = walls_map[index];   
+    uint8_t number_of_walls = walls_map[index];   
     uint8_t i;
     
-    for(i=0;i<no_of_walls;++i)
+    for(i=0;i<number_of_walls;++i)
     {
         wall_x[i] = walls_map[++index];
         wall_y[i] = walls_map[++index];
@@ -720,6 +726,16 @@ void build_walls(void)
         wall_counter[i] = walls_map[++index];       
         wall_threshold[i] = walls_map[++index];
     }
+
+
+	for(i=0;i<number_of_walls;++i)
+	{
+		// wall_counter[i] = i*10;
+		// wall_threshold[i] = 40;
+		wall_triggered[i] = 0;
+	}
+
+
 }
 
 
@@ -858,18 +874,11 @@ void init_level(void)
     
     build_walls();
     
-    number_of_walls = 0;
-    // number_of_walls = 4;
-
-    {
-        uint8_t i;
-        for(i=0;i<number_of_walls;++i)
-        {
-            // wall_counter[i] = i*10;
-            // wall_threshold[i] = 40;
-            wall_triggered[i] = 0;
-        }
-    }
+	freeze = 0;
+	rings = 0;
+	
+    // number_of_walls = 0;
+    // number_of_walls = 4
 
     
     // wall_x[0] =XSize/2-2;
@@ -1161,29 +1170,6 @@ void init_player(void)
     
 }
 
-// const uint8_t screen_type_color[7+1] =
-// {
-    // 0, // unused
-    // _XL_WHITE,
-    // _XL_GREEN,
-    // _XL_WHITE,
-    // _XL_GREEN,
-    // _XL_CYAN,
-    // _XL_RED,
-    // _XL_YELLOW,
-// }
-
-// void init_screen_tiles(void)
-// {
-    // screen_tile[SHIELD] = SHIELD_TILE;
-    // screen_tile[DIAMOND] = DIAMOND_TILE;
-    // screen_tile[RING] = RING_TILE;
-    // screen_tile[BLOCK] = BLOCK_TILE;
-    // screen_tile[SHURIKEN] = SHURIKEN_TILE;
-    // screen_tile[MINI_SHURIKEN] = MINI_SHURIKEN_TILE;
-    // screen_tile[WALL] = WALL_TILE;
-// }
-
 
 void title(void)
 {
@@ -1211,6 +1197,22 @@ void init_variables(void)
     lives = INITIAL_LIVES;
     // remaining_diamonds = 0;
     level = 0;
+}
+
+
+void handle_shurikens(void)
+{
+	if((!freeze) || (counter&1))
+	{
+		handle_horizontal_shurikens();
+		handle_vertical_shurikens();
+		handle_mini_shuriken();
+	}
+	else if(freeze)
+	{
+		--freeze;
+	}
+	_XL_PRINTD(0,YSize-1,3,freeze);
 }
 
 
@@ -1248,12 +1250,13 @@ int main(void)
 
                 handle_player();
                 
-                handle_horizontal_shurikens();
-                handle_vertical_shurikens();
-                handle_mini_shuriken();
+				handle_shurikens();
                 handle_walls();
                 
                 handle_collisions();
+				
+				++counter;
+
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
             }
             if(alive)

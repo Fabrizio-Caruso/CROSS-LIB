@@ -231,9 +231,6 @@ static const uint8_t player_tile[4][4] =
 };
 
 
-// #define RECTANGLE(x,y,xsize,ysize,type,color) \
-	// x,y,xsize,ysize,type,color
-
 static const uint8_t objects_map[] =
 {
     // 0 - level=0

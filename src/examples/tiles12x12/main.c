@@ -228,7 +228,7 @@ static const uint8_t player_tile[4][4] =
 static const uint8_t objects_map[] =
 {
     // 0 
-    2, // rectangles
+    12, // rectangles
     // XSize/8,2,2,YSize-2-2,SHIELD,_XL_WHITE,
     
     // XSize/4,4,1,YSize-1-2-4,BLOCK,_XL_GREEN,
@@ -237,7 +237,22 @@ static const uint8_t objects_map[] =
 
     XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
     1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
+	
+	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN,
+	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN,
+	
+	XSize/2-6,YSize-2,4,1,WALL,_XL_RED,
+	XSize/2-6,2,4,1,WALL,_XL_RED,
+	
+	XSize/2+2,YSize-2,4,1,WALL,_XL_RED,
+	XSize/2+2,2,4,1,WALL,_XL_RED,
+	
+	XSize-2,2,1,1,RING,_XL_WHITE,
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
 
+	1,2,1,1,RING,_XL_WHITE,
+	1,YSize-2,1,1,RING,_XL_WHITE,
+	
     // XSize-3,4,1,YSize-1-2-4,RING,_XL_WHITE,
     // XSize-4,4,1,YSize-1-2-4,WALL,_XL_CYAN,
     
@@ -672,7 +687,7 @@ void build_objects(void)
         y_size = objects_map[++index];
         type = objects_map[++index];
         color = objects_map[++index];
-        if(type=DIAMOND)
+        if(type==DIAMOND)
         {
             remaining_diamonds+=x_size*y_size;
         }

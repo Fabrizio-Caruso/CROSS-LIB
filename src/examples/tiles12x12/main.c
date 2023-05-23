@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 1
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -262,7 +262,7 @@ static const uint8_t objects_map[] =
     XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
     1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
 	
-	2,YSize-2,XSize-1-3,1,DIAMOND,_XL_GREEN,
+	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN,
 
 	XSize-2,3,1,1,RING,_XL_WHITE,
 	XSize-2,YSize-2,1,1,RING,_XL_WHITE,

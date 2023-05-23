@@ -257,7 +257,7 @@ static const uint8_t objects_map[] =
 	
     
 	// 1+6*12 - level=1
-	9,
+	11,
 	
     XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
     1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
@@ -273,8 +273,10 @@ static const uint8_t objects_map[] =
     5,YSize-4,5,1,WALL,_XL_GREEN,
     XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
 
+    7,4,1,7,SHIELD,_XL_WHITE,
+    XSize-8,4,1,7,SHIELD,_XL_WHITE,    
 
-    // 1+6*12 + 1+6*9 - level = 2
+    // 1+6*12 + 1+6*11 - level = 2
     12,
     7,4,1,YSize-7,WALL,_XL_YELLOW,
     XSize-8,4,1,YSize-7,WALL,_XL_YELLOW,
@@ -297,7 +299,7 @@ static const uint8_t objects_index[] =
 {
     0,
     1+6*12,
-    1+6*12+1+6*9,
+    1+6*12+1+6*11,
     // TODO: ....
 };
 

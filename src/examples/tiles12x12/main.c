@@ -273,17 +273,18 @@ static const uint8_t objects_map[] =
     5,YSize-4,5,1,WALL,_XL_GREEN,
     XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
 
+
     // 1+6*12 + 1+6*9 - level = 2
     12,
-    XSize/2+4,4,1,YSize-7,WALL,_XL_YELLOW,
-    XSize/2-3,4,1,YSize-7,WALL,_XL_YELLOW,
+    7,4,1,YSize-7,WALL,_XL_YELLOW,
+    XSize-8,4,1,YSize-7,WALL,_XL_YELLOW,
     3,4,1,YSize-7,WALL,_XL_RED,
     XSize-4,4,1,YSize-7,WALL,_XL_RED,    
     
     2,4,1,YSize-7,DIAMOND,_XL_GREEN,
-    XSize-3,4,1,YSize-7,DIAMOND,_XL_GREEN,  
-    XSize/2+3,4,1,YSize-7,DIAMOND,_XL_GREEN,
-    XSize/2-2,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    8,4,1,YSize-7,DIAMOND,_XL_GREEN,  
+    XSize-9,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    XSize-3,4,1,YSize-7,DIAMOND,_XL_GREEN,
 
 	XSize-2,2,1,1,RING,_XL_WHITE,
 	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
@@ -345,11 +346,12 @@ static const uint8_t shurikens_map[] =
     2, // horizontal
     3,3,_XL_CYAN,
     3,YSize-3,_XL_CYAN,
+    
     4, // vertical
-    XSize/2-4,3,_XL_CYAN, // ko
+    6,3,_XL_CYAN, // ko
     1,3,_XL_CYAN, // ok
     XSize-2,6,_XL_CYAN, // ok
-    XSize/2+5,6,_XL_CYAN, // ko
+    XSize-2-5,6,_XL_CYAN, // ko
     0,
 };
 
@@ -376,14 +378,14 @@ static const uint8_t walls_map[] =
         // wall_color[i] = walls_map[++index];       
         // wall_counter[i] = walls_map[++index];       
         // wall_threshold[i] = walls_map[++index];
-    XSize/2-1,4, // x,y
-    4,2, // size
+    9,4, // x,y
+    XSize+1-19,2, // size
     SHURIKEN,_XL_CYAN, // type, color
     0, // counter
     30, // threshold
     
-    XSize/2-1,YSize-5, // x,y
-    4,2, // size
+    9,YSize-5, // x,y
+    XSize+1-19,2, // size
     SHURIKEN,_XL_CYAN, // type, color
     0, // counter
     30, // threshold
@@ -651,11 +653,13 @@ void _if_block_push_left(uint8_t screen_y)
 
 }
 
+
 void if_block_push_left(void)
 {
     _if_block_push_left(screen_y);
     _if_block_push_left(screen_y+1);    
 }
+
 
 void _if_block_push_right(uint8_t screen_y)
 {

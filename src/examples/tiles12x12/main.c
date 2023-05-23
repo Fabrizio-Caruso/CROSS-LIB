@@ -109,6 +109,7 @@
 
 #define DEADLY 5
 
+#define RINGS_X XSize/2-3
 
 const uint8_t screen_tile[7+1] =
 {
@@ -466,7 +467,7 @@ void handle_collisions(void)
             update_score_display();
 			++rings;
 			freeze=rings<<4;
-            _XL_DRAW(rings,YSize-1,RING_TILE,_XL_WHITE);
+            _XL_DRAW(RINGS_X+rings,YSize-1,RING_TILE,_XL_WHITE);
         }
         else if(player_cell[i]>=DEADLY)
         {
@@ -1362,7 +1363,7 @@ int main(void)
             {
                 --lives;
                 rings=0;
-                build_rectangle(WALL,BORDER_COLOR,0,YSize-1,6,1);
+                build_rectangle(WALL,BORDER_COLOR,RINGS_X,YSize-1,6,1);
                 init_score_display(); // to 
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 _XL_WAIT_FOR_INPUT();

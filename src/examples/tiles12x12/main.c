@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -878,6 +878,24 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
 }
 
 
+uint8_t empty_wall_area(uint8_t i)
+{
+    uint8_t j;
+    uint8_t k;
+    
+    for(j=wall_x[i];j<wall_x[i]+wall_width[i];++j)
+    {
+        for(k=wall_y[i];k<wall_y[i]+wall_height[i];++k)
+        {
+            if(map[j][k])
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
 
 void switch_wall_if_possible(uint8_t i)
 {
@@ -885,17 +903,17 @@ void switch_wall_if_possible(uint8_t i)
 
     if(!wall_triggered[i])
     {
-        // if(empty_wall_area(i))
-        // {
+        if(empty_wall_area(i))
+        {
 			// _XL_PRINT(XSize/2,YSize/2,"TRIGGERED");
             _XL_TOCK_SOUND();
             wall = wall_type[i];
             ++wall_triggered[i];
-        // }
-        // else
-        // {
-            // return;
-        // }
+        }
+        else
+        {
+            return;
+        }
     }
     else
     {

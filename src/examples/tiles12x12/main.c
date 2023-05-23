@@ -268,8 +268,8 @@ static const uint8_t objects_map[] =
 	1,3,1,1,RING,_XL_WHITE,
 	1,YSize-2,1,1,RING,_XL_WHITE,
 	
-    5,YSize/2+3,5,1,WALL,_XL_GREEN,
-    XSize-10,YSize/2+3,5,1,WALL,_XL_GREEN
+    5,YSize-4,5,1,WALL,_XL_GREEN,
+    XSize-10,YSize-4,5,1,WALL,_XL_GREEN
 
 };
 
@@ -491,6 +491,13 @@ void delete_player_right(void)
     _XL_DELETE(screen_x+1,screen_y+1);  
 }
 
+
+
+void delete_player(void)
+{
+    delete_player_down();
+    delete_player_up();
+}
 
 void update_force(uint8_t cell1, uint8_t cell2)
 {
@@ -1250,6 +1257,8 @@ void handle_shurikens(void)
 
 int main(void)
 {        
+    uint8_t restart_level;
+    
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
@@ -1266,16 +1275,23 @@ int main(void)
         
         init_variables();
         
+        restart_level = 1;
+        
         while(lives && (level<FINAL_LEVEL+1))
         {            
-            init_level();
+            if(restart_level)
+            {
+                init_level();
+            }
             
             init_player();
 
             update_player();
             
+            restart_level = 0;
             _XL_SLEEP(1);   
             _XL_WAIT_FOR_INPUT();
+            
             
             while(remaining_diamonds && alive)
             {
@@ -1297,13 +1313,19 @@ int main(void)
                 _XL_SET_TEXT_COLOR(_XL_GREEN);
                 _XL_PRINT(XSize/2-5,YSize/2,"COMPLETED");
                 _XL_WAIT_FOR_INPUT();
+                restart_level = 1;
             }
             else
             {
                 --lives;
-                _XL_SET_TEXT_COLOR(_XL_YELLOW);
-                _XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 _XL_WAIT_FOR_INPUT();
+                delete_player();
+                handle_shurikens();
+
+                //_XL_SET_TEXT_COLOR(_XL_YELLOW);
+                //_XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
+                //_XL_WAIT_FOR_INPUT();
             }
         };
         

@@ -336,7 +336,11 @@ static const uint8_t shurikens_map[] =
     
     // level=2
     0,
-    0,
+    4,
+    7,3,_XL_CYAN,
+    2,3,_XL_CYAN,
+    XSize-3,6,_XL_CYAN,
+    XSize-8,6,_XL_CYAN,
     0,
 };
 
@@ -723,6 +727,9 @@ void init_score_display(void)
     _XL_DRAW(7,0,DIAMOND_TILE,_XL_GREEN);
 
     update_remaining_display();
+    
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-2,YSize-1,2,level+1);
 }
 
 

@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 
 #if XSize<17
 	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
@@ -269,8 +269,19 @@ static const uint8_t objects_map[] =
 	1,YSize-2,1,1,RING,_XL_WHITE,
 	
     5,YSize-4,5,1,WALL,_XL_GREEN,
-    XSize-10,YSize-4,5,1,WALL,_XL_GREEN
+    XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
 
+    // 1+6*12 + 1+6*9 - level = 2
+    8,
+    XSize/2+5,4,1,YSize-7,WALL,_XL_YELLOW,
+    XSize/2-4,4,1,YSize-7,WALL,_XL_YELLOW,
+    4,4,2,YSize-7,WALL,_XL_RED,
+    XSize-6,4,2,YSize-7,WALL,_XL_RED,    
+    
+    3,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    XSize-4,4,1,YSize-7,DIAMOND,_XL_GREEN,  
+    XSize/2+4,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    XSize/2-3,4,1,YSize-7,DIAMOND,_XL_GREEN,
 };
 
 
@@ -278,7 +289,7 @@ static const uint8_t objects_index[] =
 {
     0,
     1+6*12,
-    0,
+    1+6*12+1+6*9,
     // TODO: ....
 };
 
@@ -322,6 +333,11 @@ static const uint8_t shurikens_map[] =
 	XSize-3,	
 	// (4*XSize)/6,	
 	XSize-8,	
+    
+    // level=2
+    0,
+    0,
+    0,
 };
 
 
@@ -329,7 +345,7 @@ static const uint8_t shurikens_index[] =
 {
     0,
     1+3*12+1+1,
-    0,
+    1+3*12+1+1+ 1+2*3+1+1+4*1,
     // TODO: ....
 };
 

@@ -272,16 +272,21 @@ static const uint8_t objects_map[] =
     XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
 
     // 1+6*12 + 1+6*9 - level = 2
-    8,
-    XSize/2+5,4,1,YSize-7,WALL,_XL_YELLOW,
-    XSize/2-4,4,1,YSize-7,WALL,_XL_YELLOW,
-    4,4,2,YSize-7,WALL,_XL_RED,
-    XSize-6,4,2,YSize-7,WALL,_XL_RED,    
+    12,
+    XSize/2+4,4,1,YSize-7,WALL,_XL_YELLOW,
+    XSize/2-3,4,1,YSize-7,WALL,_XL_YELLOW,
+    3,4,1,YSize-7,WALL,_XL_RED,
+    XSize-3,4,1,YSize-7,WALL,_XL_RED,    
     
-    3,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    2,4,1,YSize-7,DIAMOND,_XL_GREEN,
     XSize-4,4,1,YSize-7,DIAMOND,_XL_GREEN,  
-    XSize/2+4,4,1,YSize-7,DIAMOND,_XL_GREEN,
-    XSize/2-3,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    XSize/2+3,4,1,YSize-7,DIAMOND,_XL_GREEN,
+    XSize/2-2,4,1,YSize-7,DIAMOND,_XL_GREEN,
+
+	XSize-2,2,1,1,RING,_XL_WHITE,
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
+	1,2,1,1,RING,_XL_WHITE,
+	1,YSize-2,1,1,RING,_XL_WHITE,
 };
 
 
@@ -335,12 +340,14 @@ static const uint8_t shurikens_map[] =
 	XSize-8,	
     
     // level=2
-    0,
-    4,
-    7,3,_XL_CYAN,
-    2,3,_XL_CYAN,
-    XSize-3,6,_XL_CYAN,
-    XSize-8,6,_XL_CYAN,
+    2, // horizontal
+    3,3,_XL_CYAN,
+    3,YSize-3,_XL_CYAN,
+    4, // vertical
+    XSize/2-4,3,_XL_CYAN, // ko
+    1,3,_XL_CYAN, // ok
+    XSize-2,6,_XL_CYAN, // ok
+    XSize/2+5,6,_XL_CYAN, // ko
     0,
 };
 
@@ -356,9 +363,9 @@ static const uint8_t shurikens_index[] =
 
 static const uint8_t walls_map[] =
 {
-	0,
+	0, // level = 0, level = 1
 	
-    1,
+    2, // level = 2
         // wall_x[i] = walls_map[++index];
         // wall_y[i] = walls_map[++index];
         // wall_width[i] = walls_map[++index];
@@ -367,9 +374,15 @@ static const uint8_t walls_map[] =
         // wall_color[i] = walls_map[++index];       
         // wall_counter[i] = walls_map[++index];       
         // wall_threshold[i] = walls_map[++index];
-    XSize/2-2,4, // x,y
+    XSize/2-1,4, // x,y
     4,2, // size
-    WALL,_XL_CYAN, // type, color
+    SHURIKEN,_XL_CYAN, // type, color
+    0, // counter
+    30, // threshold
+    
+    XSize/2-1,YSize-5, // x,y
+    4,2, // size
+    SHURIKEN,_XL_CYAN, // type, color
     0, // counter
     30, // threshold
 };
@@ -378,7 +391,7 @@ static const uint8_t walls_index[] =
 {
     0,
     0,
-    0,
+    1,
     // TODO:
 };
 
@@ -1345,7 +1358,14 @@ int main(void)
                 _XL_WAIT_FOR_INPUT();
                 delete_player();
                 handle_shurikens();
-
+                {
+                    uint8_t i;
+                    
+                    for(i=0;i<number_of_walls;++i)
+                    {
+                        switch_wall_if_possible(i);
+                    }
+                }
                 //_XL_SET_TEXT_COLOR(_XL_YELLOW);
                 //_XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
                 //_XL_WAIT_FOR_INPUT();

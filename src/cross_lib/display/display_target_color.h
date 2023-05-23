@@ -37,23 +37,23 @@
 #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
 
     #if defined(WHITE)
-        #define BACKGROUND_COLOR WHITE
+        #define __BACKGROUND_COLOR WHITE
 
-        #define BORDER_COLOR WHITE
+        #define __BORDER_COLOR WHITE
     #else
-        #define BACKGROUND_COLOR _XL_WHITE
+        #define __BACKGROUND_COLOR _XL_WHITE
 
-        #define BORDER_COLOR _XL_WHITE
+        #define __BORDER_COLOR _XL_WHITE
     #endif
 #else
     #if defined(_XL_BLACK)
-        #define BACKGROUND_COLOR _XL_BLACK
+        #define __BACKGROUND_COLOR _XL_BLACK
 
-        #define BORDER_COLOR _XL_BLACK  
+        #define __BORDER_COLOR _XL_BLACK  
     #else
-        #define BACKGROUND_COLOR 0
+        #define __BACKGROUND_COLOR 0
 
-        #define BORDER_COLOR 0 
+        #define __BORDER_COLOR 0 
     #endif
 #endif
 

@@ -208,8 +208,8 @@
     #define _setScreenColors() \
     do \
     { \
-        _SET_BORDER_COLOR(BORDER_COLOR); \
-        _SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
+        _SET_BORDER_COLOR(__BORDER_COLOR); \
+        _SET_BACKGROUND_COLOR(__BACKGROUND_COLOR); \
     } while(0)
 #endif
 

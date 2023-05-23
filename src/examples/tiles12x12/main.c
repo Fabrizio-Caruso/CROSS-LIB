@@ -24,7 +24,9 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 0
+#define INITIAL_LIVES 5
+#define FINAL_LEVEL 3
 
 #if XSize<17
 	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 6
@@ -47,6 +49,8 @@
 #else
 	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #endif
+
+#define BORDER_COLOR _XL_YELLOW
 
 // TILES
 
@@ -139,9 +143,6 @@ const uint8_t screen_tile[7+1] =
 #else
     #define MINI_SHURIKEN_NUMBER 10
 #endif
-
-#define INITIAL_LIVES 3
-#define FINAL_LEVEL 3
 
 #define MAX_NUMBER_OF_WALLS 4
 
@@ -276,10 +277,10 @@ static const uint8_t objects_map[] =
     XSize/2+4,4,1,YSize-7,WALL,_XL_YELLOW,
     XSize/2-3,4,1,YSize-7,WALL,_XL_YELLOW,
     3,4,1,YSize-7,WALL,_XL_RED,
-    XSize-3,4,1,YSize-7,WALL,_XL_RED,    
+    XSize-4,4,1,YSize-7,WALL,_XL_RED,    
     
     2,4,1,YSize-7,DIAMOND,_XL_GREEN,
-    XSize-4,4,1,YSize-7,DIAMOND,_XL_GREEN,  
+    XSize-3,4,1,YSize-7,DIAMOND,_XL_GREEN,  
     XSize/2+3,4,1,YSize-7,DIAMOND,_XL_GREEN,
     XSize/2-2,4,1,YSize-7,DIAMOND,_XL_GREEN,
 
@@ -433,7 +434,7 @@ void update_score_display(void)
 void update_remaining_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(8,0,2,remaining_diamonds);
+    _XL_PRINTD(7,0,2,remaining_diamonds);
 }
 
 
@@ -465,6 +466,7 @@ void handle_collisions(void)
             update_score_display();
 			++rings;
 			freeze=rings<<4;
+            _XL_DRAW(rings,YSize-1,RING_TILE,_XL_WHITE);
         }
         else if(player_cell[i]>=DEADLY)
         {
@@ -714,13 +716,13 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        build_element(WALL,_XL_YELLOW,i,1);
-        build_element(WALL,_XL_YELLOW,i,YSize-1);
+        build_element(WALL,BORDER_COLOR,i,1);
+        build_element(WALL,BORDER_COLOR,i,YSize-1);
     }
     for(i=1;i<YSize-1;++i)
     {
-        build_element(WALL,_XL_YELLOW,0,i);
-        build_element(WALL,_XL_YELLOW,XSize-1,i);
+        build_element(WALL,BORDER_COLOR,0,i);
+        build_element(WALL,BORDER_COLOR,XSize-1,i);
     }
 
 
@@ -734,10 +736,15 @@ void init_score_display(void)
     update_score_display();
     _XL_PRINTD(XSize-5,0,5,hiscore);
     
+    _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    
+    _XL_PRINTD(XSize-9,0,1,lives);
+    
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
     
-    _XL_DRAW(7,0,DIAMOND_TILE,_XL_GREEN);
+    _XL_DRAW(6,0,DIAMOND_TILE,_XL_GREEN);
 
     update_remaining_display();
     
@@ -1354,6 +1361,9 @@ int main(void)
             else
             {
                 --lives;
+                rings=0;
+                build_rectangle(WALL,BORDER_COLOR,0,YSize-1,6,1);
+                init_score_display(); // to 
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 _XL_WAIT_FOR_INPUT();
                 delete_player();
@@ -1366,14 +1376,11 @@ int main(void)
                         switch_wall_if_possible(i);
                     }
                 }
-                //_XL_SET_TEXT_COLOR(_XL_YELLOW);
-                //_XL_PRINT(XSize/2-5,YSize/2,"YOU LOST");
-                //_XL_WAIT_FOR_INPUT();
             }
         };
         
         _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT(XSize/2-5,YSize/2,"GAME OVER");
+        _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");
 		
 		if(score>hiscore)
 		{

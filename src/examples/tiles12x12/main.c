@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 0
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -273,8 +273,8 @@ static const uint8_t objects_map[] =
     5,YSize-4,5,1,WALL,_XL_GREEN,
     XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
 
-    7,4,1,7,SHIELD,_XL_WHITE,
-    XSize-8,4,1,7,SHIELD,_XL_WHITE,    
+    7,4,1,YSize-9,SHIELD,_XL_WHITE,
+    XSize-8,4,1,YSize-9,SHIELD,_XL_WHITE,    
 
     // 1+6*12 + 1+6*11 - level = 2
     12,

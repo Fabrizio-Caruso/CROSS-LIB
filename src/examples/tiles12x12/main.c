@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 1
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -257,7 +257,7 @@ static const uint8_t objects_map[] =
 	
     
 	// 1+6*12 - level=1
-	11,
+	13,
 	
     XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
     1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
@@ -276,7 +276,10 @@ static const uint8_t objects_map[] =
     7,4,1,YSize-9,SHIELD,_XL_WHITE,
     XSize-8,4,1,YSize-9,SHIELD,_XL_WHITE,    
 
-    // 1+6*12 + 1+6*11 - level = 2
+    8,4,1,2,BLOCK,_XL_GREEN,
+    XSize-9,4,1,2,BLOCK,_XL_GREEN,   
+
+    // 1+6*12 + 1+6*13 - level = 2
     12,
     7,4,1,YSize-7,WALL,_XL_YELLOW,
     XSize-8,4,1,YSize-7,WALL,_XL_YELLOW,
@@ -299,7 +302,7 @@ static const uint8_t objects_index[] =
 {
     0,
     1+6*12,
-    1+6*12+1+6*11,
+    1+6*12+1+6*13,
     // TODO: ....
 };
 
@@ -367,6 +370,16 @@ static const uint8_t shurikens_index[] =
 };
 
 
+#if XSize<29
+	#define LV2_SHURIKEN_X 9
+	#define LV2_SHURIKEN_WIDTH XSize+1-19
+	#define LV2_SHURIKEN_HEIGHT 2
+#else
+	#define LV2_SHURIKEN_X 12
+	#define LV2_SHURIKEN_WIDTH XSize+1-25
+	#define LV2_SHURIKEN_HEIGHT 1
+#endif
+
 static const uint8_t walls_map[] =
 {
 	0, // level = 0, level = 1
@@ -380,14 +393,14 @@ static const uint8_t walls_map[] =
         // wall_color[i] = walls_map[++index];       
         // wall_counter[i] = walls_map[++index];       
         // wall_threshold[i] = walls_map[++index];
-    9,4, // x,y
-    XSize+1-19,2, // size
+    LV2_SHURIKEN_X,4, // x,y
+    LV2_SHURIKEN_WIDTH,LV2_SHURIKEN_HEIGHT, // size
     SHURIKEN,_XL_CYAN, // type, color
     0, // counter
     30, // threshold
     
-    9,YSize-5, // x,y
-    XSize+1-19,2, // size
+    LV2_SHURIKEN_X,YSize-5, // x,y
+    LV2_SHURIKEN_WIDTH,LV2_SHURIKEN_HEIGHT, // size
     SHURIKEN,_XL_CYAN, // type, color
     0, // counter
     30, // threshold

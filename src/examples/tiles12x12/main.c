@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 2
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -298,7 +298,7 @@ static const uint8_t objects_map[] =
 };
 
 
-static const uint8_t objects_index[] = 
+static const uint16_t objects_index[] = 
 {
     0,
     1+6*12,
@@ -775,7 +775,7 @@ void init_score_display(void)
 
 void build_objects(void)
 {
-    uint8_t index = objects_index[level];
+    uint16_t index = objects_index[level];
     uint8_t no_of_objects = objects_map[index];
     uint8_t i;
     uint8_t j;
@@ -897,14 +897,14 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
 }
 
 
-uint8_t empty_wall_area(uint8_t i)
+uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 {
     uint8_t j;
     uint8_t k;
     
-    for(j=wall_x[i];j<wall_x[i]+wall_width[i];++j)
+    for(j=x;j<x+x_size;++j)
     {
-        for(k=wall_y[i];k<wall_y[i]+wall_height[i];++k)
+        for(k=y;k<y+y_size;++k)
         {
             if(map[j][k])
             {
@@ -922,7 +922,7 @@ void switch_wall_if_possible(uint8_t i)
 
     if(!wall_triggered[i])
     {
-        if(empty_wall_area(i))
+        if(safe_area(wall_x[i]-1,wall_y[i],wall_width[i]+1, wall_height[i]+1))
         {
 			// _XL_PRINT(XSize/2,YSize/2,"TRIGGERED");
             _XL_TOCK_SOUND();
@@ -1117,6 +1117,50 @@ void handle_horizontal_shuriken(register uint8_t index)
             _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,_XL_CYAN);
         }
     }
+}
+
+
+
+void delete_shurikens(void)
+{
+	uint8_t i;
+	
+	for(i=0;i<level_horizontal_shurikens;++i)
+	{
+		delete_element(horizontal_shuriken_x[i],horizontal_shuriken_y[i]);
+		if(horizontal_shuriken_transition[i])
+		{
+			if(horizontal_shuriken_direction[i]==SHURIKEN_RIGHT)
+			{
+				delete_element(horizontal_shuriken_x[i]+1,horizontal_shuriken_y[i]);
+			}
+			else
+			{
+				delete_element(horizontal_shuriken_x[i]-1,horizontal_shuriken_y[i]);
+			}
+		}
+	}
+	
+	for(i=0;i<level_vertical_shurikens;++i)
+	{
+		delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]);
+		if(vertical_shuriken_transition[i])
+		{
+			if(vertical_shuriken_direction[i]==SHURIKEN_DOWN)
+			{
+				delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]+1);
+			}
+			else
+			{
+				delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]-1);
+			}
+		}
+	}
+	
+	for(i=0;i<level_mini_shurikens;++i)
+	{
+		delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
+	}
 }
 
 
@@ -1336,6 +1380,29 @@ void handle_shurikens(void)
 }
 
 
+void handle_lose_life(void)
+{
+	uint8_t i;
+	
+	--lives;
+	rings=0;
+	build_rectangle(WALL,BORDER_COLOR,RINGS_X,YSize-1,6,1);
+	init_score_display(); // to 
+	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+	_XL_WAIT_FOR_INPUT();
+	delete_player();
+	
+	delete_shurikens();
+	
+	build_shurikens();
+
+	for(i=0;i<number_of_walls;++i)
+	{
+		switch_wall_if_possible(i);
+	}
+
+}
+
 int main(void)
 {        
     uint8_t restart_level;
@@ -1398,22 +1465,7 @@ int main(void)
             }
             else
             {
-                --lives;
-                rings=0;
-                build_rectangle(WALL,BORDER_COLOR,RINGS_X,YSize-1,6,1);
-                init_score_display(); // to 
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-                _XL_WAIT_FOR_INPUT();
-                delete_player();
-                handle_shurikens();
-                {
-                    uint8_t i;
-                    
-                    for(i=0;i<number_of_walls;++i)
-                    {
-                        switch_wall_if_possible(i);
-                    }
-                }
+				handle_lose_life();
             }
         };
         

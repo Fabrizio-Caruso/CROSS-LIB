@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 0
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -85,19 +85,19 @@
 
 #define BLOCK_TILE          _TILE_22
 
-#define SHIELD_TILE         _TILE_23
+#define FREEZE_TILE         _TILE_23
 
 #define MINI_SHURIKEN_TILE  _TILE_24
 
-#define RING_TILE           _TILE_25
+#define RING_TILE         _TILE_25
 
 #define DIAMOND_TILE        _TILE_26
 
 
 #define EMPTY 0
-#define SHIELD 1
+#define RING 1
 
-#define RING 2
+#define FREEZE 2
 #define DIAMOND 3
 
 #define BLOCK 4
@@ -114,8 +114,8 @@
 const uint8_t screen_tile[7+1] =
 {
     0, // unused
-    SHIELD_TILE,
     RING_TILE,
+    FREEZE_TILE,
     DIAMOND_TILE,
     BLOCK_TILE,
     SHURIKEN_TILE,
@@ -199,10 +199,12 @@ uint8_t wall_threshold[MAX_NUMBER_OF_WALLS];
 
 uint8_t number_of_walls;
 
-uint8_t freeze;
-uint8_t rings;
+uint8_t freeze_active;
+uint8_t freeze_counter;
 
 uint8_t counter;
+
+uint8_t rings;
 
 static const uint8_t player_tile[4][4] =
 {
@@ -249,37 +251,34 @@ static const uint8_t objects_map[] =
 	XSize/2+2,YSize-2,4,1,WALL,_XL_RED,
 	XSize/2+2,2,4,1,WALL,_XL_RED,
 	
-	XSize-2,2,1,1,RING,_XL_WHITE,
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
+	XSize-2,2,1,1,FREEZE,_XL_CYAN,
+	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
 
-	1,2,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,RING,_XL_WHITE,
+	1,2,1,1,FREEZE,_XL_CYAN,
+	1,YSize-2,1,1,FREEZE,_XL_CYAN,
 	
     
 	// 1+6*12 - level=1
-	13,
+	11,
 	
     XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
     1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
 	
 	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN,
 
-	XSize-2,3,1,1,RING,_XL_WHITE,
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
+	XSize-2,3,1,1,FREEZE,_XL_CYAN,
+	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
 
-	1,3,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,RING,_XL_WHITE,
+	1,3,1,1,FREEZE,_XL_CYAN,
+	1,YSize-2,1,1,FREEZE,_XL_CYAN,
 	
     5,YSize-4,5,1,WALL,_XL_GREEN,
-    XSize-10,YSize-4,5,1,WALL,_XL_GREEN,
-
-    7,4,1,YSize-9,SHIELD,_XL_WHITE,
-    XSize-8,4,1,YSize-9,SHIELD,_XL_WHITE,    
+    XSize-10,YSize-4,5,1,WALL,_XL_GREEN, 
 
     8,4,1,2,BLOCK,_XL_GREEN,
     XSize-9,4,1,2,BLOCK,_XL_GREEN,   
 
-    // 1+6*12 + 1+6*13 - level = 2
+    // 1+6*12 + 1+6*11 - level = 2
     12,
     7,4,1,YSize-7,WALL,_XL_YELLOW,
     XSize-8,4,1,YSize-7,WALL,_XL_YELLOW,
@@ -291,10 +290,10 @@ static const uint8_t objects_map[] =
     XSize-9,4,1,YSize-7,DIAMOND,_XL_GREEN,
     XSize-3,4,1,YSize-7,DIAMOND,_XL_GREEN,
 
-	XSize-2,2,1,1,RING,_XL_WHITE,
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
-	1,2,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,RING,_XL_WHITE,
+	XSize-2,2,1,1,FREEZE,_XL_CYAN,
+	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
+	1,2,1,1,FREEZE,_XL_CYAN,
+	1,YSize-2,1,1,FREEZE,_XL_CYAN,
 };
 
 
@@ -302,7 +301,7 @@ static const uint16_t objects_index[] =
 {
     0,
     1+6*12,
-    1+6*12+1+6*13,
+    1+6*12+1+6*11,
     // TODO: ....
 };
 
@@ -459,6 +458,7 @@ void update_remaining_display(void)
 void handle_collisions(void)
 {
     uint8_t i;
+	uint8_t cell_value;
     
     player_cell[0] = map[screen_x][screen_y];
     player_cell[1] = map[screen_x+1][screen_y];
@@ -467,29 +467,43 @@ void handle_collisions(void)
     
     for(i=0;i<4;++i)
     {
-        if(player_cell[i]==DIAMOND)
-        {
-            _XL_PING_SOUND();
-            // TODO: score and effects
-            score+=50;
-            update_score_display();
-            --remaining_diamonds;
-            update_remaining_display();
-        }
-        else if(player_cell[i]==RING)
-        {
-            _XL_ZAP_SOUND();
-            // TODO: score and effects
-            score+=250;
-            update_score_display();
-			++rings;
-			freeze=rings<<4;
-            _XL_DRAW(RINGS_X+rings,YSize-1,RING_TILE,_XL_WHITE);
-        }
-        else if(player_cell[i]>=DEADLY)
-        {
-            alive = 0;
-        }
+		cell_value = player_cell[i];
+		
+		if(cell_value)
+		{
+			if(cell_value==DIAMOND)
+			{
+				_XL_PING_SOUND();
+				// TODO: score and effects
+				score+=50;
+				update_score_display();
+				--remaining_diamonds;
+				update_remaining_display();
+			}
+			else if(cell_value==FREEZE)
+			{
+				_XL_ZAP_SOUND();
+				// TODO: score and effects
+				score+=150;
+				update_score_display();
+				++freeze_counter;
+				freeze_active=freeze_counter<<4;
+				// _XL_DRAW(RINGS_X+freeze_counter,YSize-1,FREEZE_TILE,_XL_WHITE);
+			}
+			else if(cell_value==RING)
+			{
+				_XL_ZAP_SOUND();
+				// TODO: score and effects
+				score+=250;
+				update_score_display();
+				++rings;
+				_XL_DRAW(RINGS_X+rings,YSize-1,RING_TILE,_XL_WHITE);
+			}
+			else if(cell_value>=DEADLY)
+			{
+				alive = 0;
+			}
+		}
     }
     
 }
@@ -628,7 +642,7 @@ uint8_t allowed_right(void)
 
 void _if_block_push_down(uint8_t screen_x)
 {
-    if((map[screen_x][screen_y+2]==BLOCK)&&map[screen_x][screen_y+3]<=SHIELD)
+    if((map[screen_x][screen_y+2]==BLOCK)&&!map[screen_x][screen_y+3])
     {
         build_element(BLOCK,_XL_GREEN, screen_x,screen_y+3);
     }
@@ -644,7 +658,7 @@ void if_block_push_down(void)
 
 void _if_block_push_up(uint8_t screen_x)
 {
-    if((map[screen_x][screen_y-1]==BLOCK)&&map[screen_x][screen_y-2]<=SHIELD)
+    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x][screen_y-2])
     {
         build_element(BLOCK,_XL_GREEN,screen_x,screen_y-2);
     }
@@ -661,7 +675,7 @@ void if_block_push_up(void)
 
 void _if_block_push_left(uint8_t screen_y)
 {
-    if((map[screen_x-1][screen_y]==BLOCK)&&map[screen_x-2][screen_y]<=SHIELD)
+    if((map[screen_x-1][screen_y]==BLOCK)&&!map[screen_x-2][screen_y])
     {
         build_element(BLOCK,_XL_GREEN,screen_x-2,screen_y);
     }
@@ -678,7 +692,7 @@ void if_block_push_left(void)
 
 void _if_block_push_right(uint8_t screen_y)
 {
-    if((map[screen_x+2][screen_y]==BLOCK)&&map[screen_x+3][screen_y]<=SHIELD)
+    if((map[screen_x+2][screen_y]==BLOCK)&&!map[screen_x+3][screen_y])
     {
         build_element(BLOCK,_XL_GREEN,screen_x+3,screen_y);
     }
@@ -709,7 +723,7 @@ void handle_mini_shuriken(void)
         }
         else
         {	
-            if(map[mini_shuriken_x[i]][mini_shuriken_y[i]]<=SHIELD)
+            if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]])
             {
                 delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
             }
@@ -994,8 +1008,8 @@ void init_level(void)
     
     build_walls();
     
-	freeze = 0;
-	rings = 0;
+	freeze_active = 0;
+	freeze_counter = 0;
 	
     // number_of_walls = 0;
     // number_of_walls = 4
@@ -1042,15 +1056,15 @@ void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
     _XL_DRAW(x,y,SHURIKEN_TILE_RIGHT, _XL_CYAN);
 }
 
-void if_shield_destroy_it(uint8_t x, uint8_t y)
-{
-    if(map[x][y]==SHIELD)
-    {
-        _XL_TICK_SOUND();
-        _XL_DELETE(x,y);
-        map[x][y]=EMPTY;  
-    }
-}
+// void if_shield_destroy_it(uint8_t x, uint8_t y)
+// {
+    // if(map[x][y]==SHIELD)
+    // {
+        // _XL_TICK_SOUND();
+        // _XL_DELETE(x,y);
+        // map[x][y]=EMPTY;  
+    // }
+// }
 
 
 
@@ -1075,7 +1089,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
 				
-                if_shield_destroy_it(x-1,y);
+                // if_shield_destroy_it(x-1,y);
             }
         }
         else // transition already performed
@@ -1103,7 +1117,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
 				
-                if_shield_destroy_it(x+1,y);
+                // if_shield_destroy_it(x+1,y);
 
             }
         }
@@ -1202,7 +1216,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_DOWN;
-                if_shield_destroy_it(x,y-1);
+                // if_shield_destroy_it(x,y-1);
             }
         }
         else // transition already performed
@@ -1229,7 +1243,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_UP;
-                if_shield_destroy_it(x,y+1);
+                // if_shield_destroy_it(x,y+1);
             }
         }
         else // transition already performed
@@ -1366,17 +1380,17 @@ void init_variables(void)
 
 void handle_shurikens(void)
 {
-	if((!freeze) || (counter&1))
+	if((!freeze_active) || (counter&1))
 	{
 		handle_horizontal_shurikens();
 		handle_vertical_shurikens();
 		handle_mini_shuriken();
 	}
-	else if(freeze)
+	else if(freeze_active)
 	{
-		--freeze;
+		--freeze_active;
 	}
-	// _XL_PRINTD(0,YSize-1,3,freeze);
+	// _XL_PRINTD(0,YSize-1,3,freeze_active);
 }
 
 
@@ -1385,7 +1399,7 @@ void handle_lose_life(void)
 	uint8_t i;
 	
 	--lives;
-	rings=0;
+	freeze_counter=0;
 	build_rectangle(WALL,BORDER_COLOR,RINGS_X,YSize-1,6,1);
 	init_score_display(); // to 
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
@@ -1459,7 +1473,7 @@ int main(void)
             {
                 ++level;
                 _XL_SET_TEXT_COLOR(_XL_GREEN);
-                _XL_PRINT(XSize/2-5,YSize/2,"COMPLETED");
+                _XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
                 _XL_WAIT_FOR_INPUT();
                 restart_level = 1;
             }

@@ -124,8 +124,8 @@ const uint8_t screen_tile[7+1] =
 
 #define SHURIKEN_RIGHT 0
 #define SHURIKEN_LEFT 1
-#define SHURIKEN_UP 2
-#define SHURIKEN_DOWN 3
+#define SHURIKEN_UP 0
+#define SHURIKEN_DOWN 1
 
 
 #define MIN_PLAYER_Y 3
@@ -206,8 +206,9 @@ uint8_t rings;
 
 uint8_t border_color;
 uint8_t mini_shuriken_color;
-// uint8_t shuriken_color;
 
+uint8_t restart_level;
+	
 const uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
 const uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
@@ -390,7 +391,7 @@ static const uint8_t shurikens_map[] =
 
     
     3,YSize-1-5,    
-    XSize-3,6,
+    XSize-4,6,
 
     8, // vertical
     3,3,
@@ -981,7 +982,7 @@ void build_shurikens(void)
     {
         vertical_shuriken_x[i]=shurikens_map[++index];
         vertical_shuriken_y[i]=shurikens_map[++index];
-        vertical_shuriken_direction[i]=SHURIKEN_LEFT;
+        vertical_shuriken_direction[i]=SHURIKEN_DOWN;
         vertical_shuriken_transition[i]=0;
         build_element(SHURIKEN,SHURIKEN_COLOR,vertical_shuriken_x[i],vertical_shuriken_y[i]);
     }
@@ -1097,20 +1098,8 @@ void handle_walls(void)
 
 void init_level(void)
 {
-    // uint8_t i;
-    
-    // uint8_t x;
-    // uint8_t y;
-        
     init_map();    
-        
-    
-    // TODO: BOGUS
-    // level_mini_shurikens = 0;
-    // level_horizontal_shurikens = 1;
-    // level_vertical_shurikens = 1;
-    //
-    
+            
     build_objects();
     
     init_score_display();
@@ -1121,43 +1110,6 @@ void init_level(void)
     
 	freeze_active = 0;
 	freeze_counter = 0;
-	
-    // number_of_walls = 0;
-    // number_of_walls = 4
-
-    
-    // wall_x[0] =XSize/2-2;
-    // wall_y[0] =4;
-    // wall_width[0] =4;
-    // wall_height[0] =2;
-    // wall_type[0] = WALL;
-    // wall_color[0] = _XL_CYAN;
-    
-
-    // wall_x[1] =XSize/2-2;
-    // wall_y[1] =YSize-2-4-2;
-    // wall_width[1] =4;
-    // wall_height[1] =2;
-    // wall_type[1] = SHURIKEN;
-    // wall_color[1] = _XL_CYAN;
-    
-    
-    // wall_x[2] =XSize/2-2-4;
-    // wall_y[2] =6;
-    // wall_width[2] =4;
-    // wall_height[2] =2;
-    // wall_type[2] = WALL;
-    // wall_color[2] = _XL_CYAN;
-    
-
-    // wall_x[3] =XSize/2-2-4;
-    // wall_y[3] =YSize-2-4;
-    // wall_width[3] =4;
-    // wall_height[3] =2;
-    // wall_type[3] = SHURIKEN;
-    // wall_color[3] = _XL_CYAN;
-    
-
 }
 
 
@@ -1166,17 +1118,6 @@ void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
     _XL_DRAW(x-1,y,SHURIKEN_TILE_LEFT, SHURIKEN_COLOR);
     _XL_DRAW(x,y,SHURIKEN_TILE_RIGHT, SHURIKEN_COLOR);
 }
-
-// void if_shield_destroy_it(uint8_t x, uint8_t y)
-// {
-    // if(map[x][y]==SHIELD)
-    // {
-        // _XL_TICK_SOUND();
-        // _XL_DELETE(x,y);
-        // map[x][y]=EMPTY;  
-    // }
-// }
-
 
 
 void handle_horizontal_shuriken(register uint8_t index)
@@ -1277,6 +1218,7 @@ void delete_shurikens(void)
 			if(vertical_shuriken_direction[i]==SHURIKEN_DOWN)
 			{
 				delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]+1);
+				// delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]+2);
                 // delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]-1);
                 // _XL_CHAR(vertical_shuriken_x[i],vertical_shuriken_y[i]+1,'D');
 
@@ -1285,6 +1227,8 @@ void delete_shurikens(void)
 			else
 			{
 				delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]-1);
+				// delete_element(vertical_shuriken_x[i],vertical_shuriken_y[i]+1);
+
                 // _XL_CHAR(vertical_shuriken_x[i],vertical_shuriken_y[i]-1,'U');
 			}
 		}
@@ -1352,7 +1296,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!vertical_shuriken_transition[index]) // transition not performed, yet
         {
-            if(!map[x][vertical_shuriken_y[index]+1])
+            if(!map[x][y+1])
             {
                 // Do right transition
                 display_vertical_transition_shuriken(x,y+1);
@@ -1501,8 +1445,8 @@ void handle_shurikens(void)
 {
 	if((!freeze_active) || (counter&1))
 	{
-		handle_horizontal_shurikens();
 		handle_vertical_shurikens();
+		handle_horizontal_shurikens();		
 		handle_mini_shuriken();
 	}
 	else if(freeze_active)
@@ -1536,10 +1480,19 @@ void handle_lose_life(void)
 
 }
 
+
+void handle_next_level(void)
+{
+	++level;
+	_XL_SET_TEXT_COLOR(_XL_GREEN);
+	_XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
+	_XL_WAIT_FOR_INPUT();
+	restart_level = 1;
+}
+
+
 int main(void)
 {        
-    uint8_t restart_level;
-    
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
@@ -1590,11 +1543,7 @@ int main(void)
             }
             if(alive)
             {
-                ++level;
-                _XL_SET_TEXT_COLOR(_XL_GREEN);
-                _XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
-                _XL_WAIT_FOR_INPUT();
-                restart_level = 1;
+				handle_next_level();
             }
             else
             {

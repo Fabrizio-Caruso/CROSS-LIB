@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 1
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -39,15 +39,15 @@
 #endif
 
 #if YSize<13
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 12
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #elif YSize<19
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 12
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #elif YSize<24
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 12
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #elif YSize<26
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 12
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #else
-	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 12
+	#define MAX_NUMBER_OF_VERTICAL_SHURIKENS 8
 #endif
 
 // TILES
@@ -288,10 +288,10 @@ static const uint8_t objects_map[] =
 	
 	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN,
 
-	XSize-2,3,1,1,FREEZE,_XL_CYAN,
+	XSize-2,3,1,1,RING,_XL_WHITE,
 	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
 
-	1,3,1,1,FREEZE,_XL_CYAN,
+	1,3,1,1,RING,_XL_WHITE,
 	1,YSize-2,1,1,FREEZE,_XL_CYAN,
 	
     5,YSize-5,5,2,WALL,_XL_YELLOW,
@@ -307,9 +307,9 @@ static const uint8_t objects_map[] =
     3,4,1,YSize-7,WALL,_XL_RED,
     XSize-4,4,1,YSize-7,WALL,_XL_RED,    
 
-	XSize-3,4,1,1,FREEZE,_XL_CYAN,
+	XSize-3,4,1,1,RING,_XL_WHITE,
 	XSize-3,YSize-4,1,1,FREEZE,_XL_CYAN,
-	2,4,1,1,FREEZE,_XL_CYAN,
+	2,4,1,1,RING,_XL_WHITE,
 	2,YSize-4,1,1,FREEZE,_XL_CYAN,
     
     2,5,1,YSize-9,DIAMOND,_XL_GREEN,
@@ -776,11 +776,11 @@ uint8_t allowed_right(void)
 }
 
 
-void _if_block_push_down(uint8_t screen_x)
+void _if_block_push_down(uint8_t x)
 {
-    if((map[screen_x][screen_y+2]==BLOCK)&&!map[screen_x][screen_y+3])
+    if((map[x][screen_y+2]==BLOCK)&&!map[x][screen_y+3])
     {
-        build_element(BLOCK,_XL_GREEN, screen_x,screen_y+3);
+        build_element(BLOCK,_XL_GREEN, x,screen_y+3);
     }
 }
 
@@ -792,11 +792,11 @@ void if_block_push_down(void)
 }
 
 
-void _if_block_push_up(uint8_t screen_x)
+void _if_block_push_up(uint8_t x)
 {
-    if((map[screen_x][screen_y-1]==BLOCK)&&!map[screen_x][screen_y-2])
+    if((map[x][screen_y-1]==BLOCK)&&!map[x][screen_y-2])
     {
-        build_element(BLOCK,_XL_GREEN,screen_x,screen_y-2);
+        build_element(BLOCK,_XL_GREEN,x,screen_y-2);
     }
 }
 
@@ -809,11 +809,11 @@ void if_block_push_up(void)
 }
 
 
-void _if_block_push_left(uint8_t screen_y)
+void _if_block_push_left(uint8_t y)
 {
-    if((map[screen_x-1][screen_y]==BLOCK)&&!map[screen_x-2][screen_y])
+    if((map[screen_x-1][y]==BLOCK)&&!map[screen_x-2][y])
     {
-        build_element(BLOCK,_XL_GREEN,screen_x-2,screen_y);
+        build_element(BLOCK,_XL_GREEN,screen_x-2,y);
     }
 
 }
@@ -826,11 +826,11 @@ void if_block_push_left(void)
 }
 
 
-void _if_block_push_right(uint8_t screen_y)
+void _if_block_push_right(uint8_t y)
 {
-    if((map[screen_x+2][screen_y]==BLOCK)&&!map[screen_x+3][screen_y])
+    if((map[screen_x+2][y]==BLOCK)&&!map[screen_x+3][y])
     {
-        build_element(BLOCK,_XL_GREEN,screen_x+3,screen_y);
+        build_element(BLOCK,_XL_GREEN,screen_x+3,y);
     }
 }
 
@@ -957,6 +957,7 @@ void build_objects(void)
         {
             remaining_diamonds+=x_size*y_size;
         }
+		// TODO: USE build_rectangle
         for(j=x;j<x+x_size;++j)
         {
             for(k=y;k<y+y_size;++k)
@@ -1051,27 +1052,26 @@ void build_shurikens(void)
 }
 
 
+// #define build_rectangle(t,c,x,y,w,h)
+
+// too many parameters
 void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     uint8_t i;
     uint8_t j;
-    
-    // _XL_PRINTD(3,1,3,i);
-    // _XL_PRINTD(9,1,3,j);
     
     for(i=x;i<x+width;++i)
     {
         for(j=y;j<y+height;++j)
         {
             build_element(type, color,i,j);
-            // build_element(WALL, _XL_GREEN,i,j);
-
         }
     }
 }
 
 
-uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
+// uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
+uint8_t safe_area(uint8_t i)
 {
     uint8_t j;
     uint8_t k;
@@ -1531,6 +1531,8 @@ void handle_lose_life(void)
 	
 	--lives;
 	freeze_counter=0;
+	freeze_active=0;
+	ring_counter=0;
 	ring_active=0;
 	build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
 	init_score_display(); // to 

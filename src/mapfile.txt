@@ -1,0 +1,604 @@
+Modules list:
+-------------
+c264_sounds.o:
+    CODE              Offs=000000  Size=000099  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000003  Align=00001  Fill=0000
+memory_mapped_alt_print.o:
+    CODE              Offs=000099  Size=00015F  Align=00001  Fill=0000
+    BSS               Offs=000003  Size=000003  Align=00001  Fill=0000
+display_macros.o:
+    CODE              Offs=0001F8  Size=000067  Align=00001  Fill=0000
+input_macros.o:
+    CODE              Offs=00025F  Size=000011  Align=00001  Fill=0000
+sleep_macros.o:
+    CODE              Offs=000270  Size=00005D  Align=00001  Fill=0000
+    BSS               Offs=000006  Size=000004  Align=00001  Fill=0000
+main.o:
+    CODE              Offs=0002CD  Size=001934  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=000224  Align=00001  Fill=0000
+    BSS               Offs=00000A  Size=0004B7  Align=00001  Fill=0000
+cc65_udc_arcade_64_chars.o:
+    UDCCHAR           Offs=000000  Size=000200  Align=00001  Fill=0000
+c16_linked_redefined_chars_init_graphics.o:
+    CODE              Offs=001C01  Size=00001E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(add.o):
+    CODE              Offs=001C1F  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(addysp.o):
+    CODE              Offs=001C3B  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(aslax2.o):
+    CODE              Offs=001C49  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(aslax4.o):
+    CODE              Offs=001C54  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(asrax1.o):
+    CODE              Offs=001C65  Size=00000A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(callmain.o):
+    CODE              Offs=001C6F  Size=000017  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(condes.o):
+    CODE              Offs=001C86  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=000004  Size=000025  Align=00001  Fill=0000
+    ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(crt0.o):
+    BSS               Offs=0004C1  Size=000001  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=000042  Align=00001  Fill=0000
+    INIT              Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(decax1.o):
+    CODE              Offs=001C92  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(decax2.o):
+    CODE              Offs=001C99  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(exehdr.o):
+    EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(icmp.o):
+    CODE              Offs=001CA0  Size=00002E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incax1.o):
+    CODE              Offs=001CCE  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incax2.o):
+    CODE              Offs=001CD5  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incax3.o):
+    CODE              Offs=001CDC  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incaxy.o):
+    CODE              Offs=001CE1  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp1.o):
+    CODE              Offs=001CEC  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp2.o):
+    CODE              Offs=001CF3  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp3.o):
+    CODE              Offs=001D09  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp4.o):
+    CODE              Offs=001D0E  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp5.o):
+    CODE              Offs=001D13  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(incsp6.o):
+    CODE              Offs=001D18  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(joy-kernel.o):
+    CODE              Offs=001D1D  Size=00004D  Align=00001  Fill=0000
+    RODATA            Offs=000224  Size=000004  Align=00001  Fill=0000
+    BSS               Offs=0004C2  Size=000002  Align=00001  Fill=0000
+    DATA              Offs=000029  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(joy_read.o):
+C:\cc65-snapshot-win32\lib/c16.lib(joy_stat_stddrv.o):
+C:\cc65-snapshot-win32\lib/c16.lib(kernal.o):
+C:\cc65-snapshot-win32\lib/c16.lib(ldaxi.o):
+    CODE              Offs=001D6A  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(ldaxsp.o):
+    CODE              Offs=001D77  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(libref.o):
+C:\cc65-snapshot-win32\lib/c16.lib(loadaddr.o):
+    LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(mul.o):
+    CODE              Offs=001D80  Size=000045  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(mul8.o):
+    CODE              Offs=001DC5  Size=00003A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(popptr1.o):
+    CODE              Offs=001DFF  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(pusha.o):
+    CODE              Offs=001E0D  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(pushax.o):
+    CODE              Offs=001E23  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(pushwsp.o):
+    CODE              Offs=001E3D  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(regswap1.o):
+    CODE              Offs=001E59  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(staspidx.o):
+    CODE              Offs=001E64  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(status.o):
+C:\cc65-snapshot-win32\lib/c16.lib(staxsp.o):
+    CODE              Offs=001E7A  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(subeqsp.o):
+    CODE              Offs=001E85  Size=000015  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(udiv.o):
+    CODE              Offs=001E9A  Size=00004F  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(umod.o):
+    CODE              Offs=001EE9  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(zerobss.o):
+    CODE              Offs=001EFA  Size=000023  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(zeropage.o):
+    ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/c16.lib(c16-stdjoy-joy.o):
+    CODE              Offs=001F1D  Size=000020  Align=00001  Fill=0000
+    DATA              Offs=000035  Size=00000E  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000002  00001B  00001A  00001
+LOADADDR              000FFF  001000  000002  00001
+EXEHDR                001001  00100C  00000C  00001
+STARTUP               00100D  00104E  000042  00001
+ONCE                  00104F  00105A  00000C  00001
+CODE                  00105B  002F97  001F3D  00001
+RODATA                002F98  0031BF  000228  00001
+DATA                  0031C0  003202  000043  00001
+INIT                  003203  00321C  00001A  00001
+BSS                   00321D  0036E0  0004C4  00001
+UDCCHAR               003DE0  003FDF  000200  00001
+
+
+Exports list by name:
+---------------------
+BSOUT                     00FFD2 RLA    MEMTOP                    00FF99 RLA    
+ST                        000090 RLZ    __BSS_RUN__               00321D RLA    
+__BSS_SIZE__              0004C4 REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     00105B RLA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      0031C0 RLA    __EXEHDR__                000001 REA    
+__LOADADDR__              000001 REA    __MAINSIZE__              002DD3 REA    
+__STACKSIZE__             000200 REA    __STARTUP__               000001 REA    
+__UDC_START__             003DE0 REA    __XL_DRAW                 001253 RLA    
+__XL_INIT_GRAPHICS        002C5C RLA    __XL_PRINT                0010F4 RLA    
+__XL_PRINTD               00115F RLA    __XL_SLEEP                0012CB RLA    
+__XL_SLOW_DOWN            001300 RLA    __XL_WAIT_FOR_INPUT       0012BA RLA    
+__XL_ZAP_SOUND            0010A6 RLA    __noise_sound             00105B RLA    
+__short_sound             00108C RLA    _c16_stdjoy_joy           0031F5 RLA    
+_exit                     001039 RLA    _joy_install              002D78 RLA    
+_joy_read                 0031F2 REA    _joy_static_stddrv        0031F5 RLA    
+_loc                      001298 RLA    _main                     002B9F RLA    
+addysp                    002C97 RLA    aslax2                    002CA4 RLA    
+aslax4                    002CAF RLA    asrax1                    002CC0 RLA    
+callmain                  002CCA RLA    decax1                    002CED RLA    
+decax2                    002CF4 RLA    donelib                   002CE1 RLA    
+incax1                    002D29 RLA    incax2                    002D30 RLA    
+incax3                    002D37 RLA    incaxy                    002D3E RLA    
+incsp1                    002D47 RLA    incsp2                    002D56 RLA    
+incsp3                    002D64 RLA    incsp4                    002D69 RLA    
+incsp5                    002D6E RLA    incsp6                    002D73 RLA    
+initlib                   00104F RLA    joy_libref                001039 RLA    
+joy_read                  0031F2 RLA    ldax0sp                   002DD2 RLA    
+ldaxi                     002DC5 RLA    ldaxysp                   002DD4 RLA    
+mul8x16                   002E22 RLA    mul8x16a                  002E2C RLA    
+popptr1                   002E5A RLA    ptr1                      00000A RLZ    
+ptr4                      000010 RLZ    pusha                     002E6C RLA    
+pusha0                    002E80 RLA    pushax                    002E82 RLA    
+pushw0sp                  002E98 RLA    regbank                   000016 RLZ    
+regswap1                  002EB4 RLA    sp                        000002 RLZ    
+sreg                      000004 RLZ    staspidx                  002EBF RLA    
+stax0sp                   002ED5 RLA    subeq0sp                  002EE0 RLA    
+tmp1                      000012 RLZ    tosaddax                  002C7C RLA    
+tosicmp                   002CFD RLA    tosmula0                  002E20 RLA    
+tosmulax                  002DDB RLA    tosudiva0                 002EF5 RLA    
+tosumoda0                 002F44 RLA    tosumula0                 002E20 RLA    
+udiv16                    002F06 RLA    zerobss                   002F55 RLA    
+
+
+
+Exports list by value:
+----------------------
+__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
+__EXEHDR__                000001 REA    __LOADADDR__              000001 REA    
+__STARTUP__               000001 REA    sp                        000002 RLZ    
+sreg                      000004 RLZ    ptr1                      00000A RLZ    
+ptr4                      000010 RLZ    tmp1                      000012 RLZ    
+regbank                   000016 RLZ    ST                        000090 RLZ    
+__STACKSIZE__             000200 REA    __BSS_SIZE__              0004C4 REA    
+_exit                     001039 RLA    joy_libref                001039 RLA    
+initlib                   00104F RLA    __noise_sound             00105B RLA    
+__CONSTRUCTOR_TABLE__     00105B RLA    __short_sound             00108C RLA    
+__XL_ZAP_SOUND            0010A6 RLA    __XL_PRINT                0010F4 RLA    
+__XL_PRINTD               00115F RLA    __XL_DRAW                 001253 RLA    
+_loc                      001298 RLA    __XL_WAIT_FOR_INPUT       0012BA RLA    
+__XL_SLEEP                0012CB RLA    __XL_SLOW_DOWN            001300 RLA    
+_main                     002B9F RLA    __XL_INIT_GRAPHICS        002C5C RLA    
+tosaddax                  002C7C RLA    addysp                    002C97 RLA    
+aslax2                    002CA4 RLA    aslax4                    002CAF RLA    
+asrax1                    002CC0 RLA    callmain                  002CCA RLA    
+donelib                   002CE1 RLA    decax1                    002CED RLA    
+decax2                    002CF4 RLA    tosicmp                   002CFD RLA    
+incax1                    002D29 RLA    incax2                    002D30 RLA    
+incax3                    002D37 RLA    incaxy                    002D3E RLA    
+incsp1                    002D47 RLA    incsp2                    002D56 RLA    
+incsp3                    002D64 RLA    incsp4                    002D69 RLA    
+incsp5                    002D6E RLA    incsp6                    002D73 RLA    
+_joy_install              002D78 RLA    ldaxi                     002DC5 RLA    
+ldax0sp                   002DD2 RLA    __MAINSIZE__              002DD3 REA    
+ldaxysp                   002DD4 RLA    tosmulax                  002DDB RLA    
+tosmula0                  002E20 RLA    tosumula0                 002E20 RLA    
+mul8x16                   002E22 RLA    mul8x16a                  002E2C RLA    
+popptr1                   002E5A RLA    pusha                     002E6C RLA    
+pusha0                    002E80 RLA    pushax                    002E82 RLA    
+pushw0sp                  002E98 RLA    regswap1                  002EB4 RLA    
+staspidx                  002EBF RLA    stax0sp                   002ED5 RLA    
+subeq0sp                  002EE0 RLA    tosudiva0                 002EF5 RLA    
+udiv16                    002F06 RLA    tosumoda0                 002F44 RLA    
+zerobss                   002F55 RLA    __DESTRUCTOR_TABLE__      0031C0 RLA    
+_joy_read                 0031F2 REA    joy_read                  0031F2 RLA    
+_c16_stdjoy_joy           0031F5 RLA    _joy_static_stddrv        0031F5 RLA    
+__BSS_RUN__               00321D RLA    __UDC_START__             003DE0 REA    
+MEMTOP                    00FF99 RLA    BSOUT                     00FFD2 RLA    
+
+
+
+Imports list:
+-------------
+BSOUT (kernal.o):
+    crt0.o                    c16/crt0.s:12
+MEMTOP (kernal.o):
+    crt0.o                    c16/crt0.s:12
+ST (status.o):
+    crt0.o                    c16/crt0.s:13
+__BSS_RUN__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__BSS_SIZE__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__CONSTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__CONSTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__DESTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__DESTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__EXEHDR__ (exehdr.o):
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:3
+__LOADADDR__ (loadaddr.o):
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:2
+__MAINSIZE__ ([linker generated]):
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:12
+__STACKSIZE__ ([linker generated]):
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:13
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:13
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:12
+__STARTUP__ (crt0.o):
+    main.o                    games/shuriken/main.s:13
+__UDC_START__ ([linker generated]):
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:14
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:13
+    [linker generated]        cross_lib/cfg//cc65/c16-16k_GFX_64chars_stack_0x1C.cfg:6
+__XL_DRAW (display_macros.o):
+    main.o                    games/shuriken/main.s:23
+__XL_INIT_GRAPHICS (c16_linked_redefined_chars_init_graphics.o):
+    main.o                    games/shuriken/main.s:27
+__XL_PRINT (memory_mapped_alt_print.o):
+    main.o                    games/shuriken/main.s:25
+__XL_PRINTD (memory_mapped_alt_print.o):
+    main.o                    games/shuriken/main.s:26
+__XL_SLEEP (sleep_macros.o):
+    main.o                    games/shuriken/main.s:21
+__XL_SLOW_DOWN (sleep_macros.o):
+    main.o                    games/shuriken/main.s:22
+__XL_WAIT_FOR_INPUT (input_macros.o):
+    main.o                    games/shuriken/main.s:17
+__XL_ZAP_SOUND (c264_sounds.o):
+    main.o                    games/shuriken/main.s:20
+__noise_sound (c264_sounds.o):
+    main.o                    games/shuriken/main.s:18
+__short_sound (c264_sounds.o):
+    main.o                    games/shuriken/main.s:19
+_c16_stdjoy_joy (c16-stdjoy-joy.o):
+    joy_stat_stddrv.o         c16/joy_stat_stddrv.s:10
+_exit (crt0.o):
+    libref.o                  c16/libref.s:6
+_joy_install (joy-kernel.o):
+    main.o                    games/shuriken/main.s:15
+_joy_read (joy_read.o):
+    main.o                    games/shuriken/main.s:16
+    input_macros.o            cross_lib/input/input_macros.s:13
+_joy_static_stddrv (joy_stat_stddrv.o):
+    main.o                    games/shuriken/main.s:14
+_loc (display_macros.o):
+    main.o                    games/shuriken/main.s:24
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:13
+_main (main.o):
+    callmain.o                runtime/callmain.s:11
+addysp (addysp.o):
+    incsp6.o                  runtime/incsp6.s:8
+    incsp5.o                  runtime/incsp5.s:8
+    incsp4.o                  runtime/incsp4.s:8
+    incsp3.o                  runtime/incsp3.s:8
+aslax2 (aslax2.o):
+    main.o                    games/shuriken/main.s:4442
+aslax4 (aslax4.o):
+    main.o                    games/shuriken/main.s:4442
+asrax1 (asrax1.o):
+    main.o                    games/shuriken/main.s:4442
+callmain (callmain.o):
+    crt0.o                    c16/crt0.s:11
+decax1 (decax1.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+decax2 (decax2.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+donelib (condes.o):
+    crt0.o                    c16/crt0.s:10
+incax1 (incax1.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+incax2 (incax2.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+incax3 (incax3.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+incaxy (incaxy.o):
+    incax3.o                  runtime/incax3.s:8
+    main.o                    games/shuriken/main.s:4442
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+incsp1 (incsp1.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+incsp2 (incsp2.o):
+    staspidx.o                runtime/staspidx.s:8
+    popptr1.o                 runtime/popptr1.s:8
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    display_macros.o          cross_lib/display/display_macros.s:88
+incsp3 (incsp3.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+incsp4 (incsp4.o):
+    main.o                    games/shuriken/main.s:4442
+    display_macros.o          cross_lib/display/display_macros.s:88
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+incsp5 (incsp5.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+incsp6 (incsp6.o):
+    main.o                    games/shuriken/main.s:4442
+initlib (condes.o):
+    crt0.o                    c16/crt0.s:10
+joy_libref (libref.o):
+    joy-kernel.o              joystick/joy-kernel.s:7
+joy_read (joy-kernel.o):
+    joy_read.o                /home/runner/work/cc65/cc65/asminc/joy-kernel.inc:71
+ldax0sp (ldaxsp.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+ldaxi (ldaxi.o):
+    main.o                    games/shuriken/main.s:4442
+ldaxysp (ldaxsp.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+mul8x16 (mul8.o):
+    mul.o                     runtime/mul.s:8
+mul8x16a (mul8.o):
+    mul.o                     runtime/mul.s:8
+popptr1 (popptr1.o):
+    umod.o                    runtime/umod.s:8
+    udiv.o                    runtime/udiv.s:9
+    mul8.o                    runtime/mul8.s:9
+    mul.o                     runtime/mul.s:9
+ptr1 (zeropage.o):
+    zerobss.o                 common/zerobss.s:9
+    udiv.o                    runtime/udiv.s:10
+    staspidx.o                runtime/staspidx.s:9
+    popptr1.o                 runtime/popptr1.s:9
+    mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
+    ldaxi.o                   runtime/ldaxi.s:8
+    joy-kernel.o              joystick/joy-kernel.s:8
+    main.o                    games/shuriken/main.s:11
+    display_macros.o          cross_lib/display/display_macros.s:11
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:11
+ptr4 (zeropage.o):
+    umod.o                    runtime/umod.s:9
+    udiv.o                    runtime/udiv.s:10
+    mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
+pusha (pusha.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    display_macros.o          cross_lib/display/display_macros.s:88
+    display_macros.o          cross_lib/display/display_macros.s:88
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:158
+pusha0 (pushax.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    display_macros.o          cross_lib/display/display_macros.s:88
+    display_macros.o          cross_lib/display/display_macros.s:88
+pushax (pushax.o):
+    callmain.o                runtime/callmain.s:11
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+    display_macros.o          cross_lib/display/display_macros.s:88
+    display_macros.o          cross_lib/display/display_macros.s:88
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+pushw0sp (pushwsp.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+regbank (zeropage.o):
+    regswap1.o                runtime/regswap1.s:8
+    main.o                    games/shuriken/main.s:10
+regswap1 (regswap1.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+sp (zeropage.o):
+    addysp.o                  runtime/addysp.s:8
+    subeqsp.o                 runtime/subeqsp.s:8
+    staxsp.o                  runtime/staxsp.s:8
+    staspidx.o                runtime/staspidx.s:9
+    regswap1.o                runtime/regswap1.s:8
+    pushwsp.o                 runtime/pushwsp.s:8
+    pushax.o                  runtime/pushax.s:8
+    pusha.o                   runtime/pusha.s:8
+    popptr1.o                 runtime/popptr1.s:9
+    ldaxsp.o                  runtime/ldaxsp.s:8
+    incsp2.o                  runtime/incsp2.s:8
+    incsp1.o                  runtime/incsp1.s:8
+    icmp.o                    runtime/icmp.s:9
+    crt0.o                    /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
+    add.o                     runtime/add.s:12
+    main.o                    games/shuriken/main.s:10
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:10
+    display_macros.o          cross_lib/display/display_macros.s:10
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:10
+    c264_sounds.o             cross_lib/sound/cc65/c264/c264_sounds.s:10
+sreg (zeropage.o):
+    umod.o                    runtime/umod.s:9
+    udiv.o                    runtime/udiv.s:10
+    icmp.o                    runtime/icmp.s:9
+    main.o                    games/shuriken/main.s:10
+staspidx (staspidx.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+stax0sp (staxsp.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+subeq0sp (subeqsp.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+tmp1 (zeropage.o):
+    staspidx.o                runtime/staspidx.s:9
+    mul.o                     runtime/mul.s:10
+    incaxy.o                  runtime/incaxy.s:8
+    asrax1.o                  runtime/asrax1.s:8
+    aslax4.o                  runtime/aslax4.s:8
+    aslax2.o                  runtime/aslax2.s:8
+    add.o                     runtime/add.s:12
+    main.o                    games/shuriken/main.s:11
+tosaddax (add.o):
+    display_macros.o          cross_lib/display/display_macros.s:88
+    display_macros.o          cross_lib/display/display_macros.s:88
+tosicmp (icmp.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+tosmula0 (mul8.o):
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+    main.o                    games/shuriken/main.s:4442
+tosmulax (mul.o):
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:87
+tosudiva0 (udiv.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+tosumoda0 (umod.o):
+    memory_mapped_alt_print.o cross_lib/display/alt_print/memory_mapped_alt_print.s:235
+tosumula0 (mul8.o):
+    main.o                    games/shuriken/main.s:4442
+    display_macros.o          cross_lib/display/display_macros.s:88
+    display_macros.o          cross_lib/display/display_macros.s:88
+udiv16 (udiv.o):
+    umod.o                    runtime/umod.s:8
+zerobss (zerobss.o):
+    crt0.o                    c16/crt0.s:11
+

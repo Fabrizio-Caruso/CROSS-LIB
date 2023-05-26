@@ -7,6 +7,8 @@
 #define _TILE_23 0x3F
 // TO FIX
 // #define _TILE_24 0x40
+
+// TODO: Move this to 0x3A or 0x3B
 #define _TILE_24 0x7B
 
 // BLUE

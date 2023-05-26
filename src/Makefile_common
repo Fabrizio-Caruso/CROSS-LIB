@@ -335,6 +335,7 @@ atari7800_no_color:
 c16: c16_32k
 
 #  -m mapfile.txt
+# --check-stack
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16  \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x1C.cfg \

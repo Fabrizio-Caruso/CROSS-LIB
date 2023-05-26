@@ -1056,21 +1056,17 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
     uint8_t i;
     uint8_t j;
     
-    // _XL_PRINTD(3,1,3,i);
-    // _XL_PRINTD(9,1,3,j);
-    
     for(i=x;i<x+width;++i)
     {
         for(j=y;j<y+height;++j)
         {
             build_element(type, color,i,j);
-            // build_element(WALL, _XL_GREEN,i,j);
 
         }
     }
 }
 
-
+ 
 uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 {
     uint8_t j;

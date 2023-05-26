@@ -1070,8 +1070,7 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
 }
 
 
-// uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
-uint8_t safe_area(uint8_t i)
+uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 {
     uint8_t j;
     uint8_t k;

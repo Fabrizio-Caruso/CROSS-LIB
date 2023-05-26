@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 0
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -138,6 +138,8 @@
 #define DIAMOND_POINTS 50
 #define FREEZE_POINTS 150
 #define RING_POINTS 250
+
+#define BASE_RING_EFFECT 20
 
 uint8_t player_x;
 uint8_t player_y;
@@ -257,11 +259,7 @@ static const uint8_t objects_map[] =
 {
     // 0 - level=0
     12, // rectangles
-    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-	
-	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN,
-	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN,
+
 	
 	XSize/2-6,YSize-2,4,1,WALL,_XL_RED,
 	XSize/2-6,2,4,1,WALL,_XL_RED,
@@ -270,12 +268,18 @@ static const uint8_t objects_map[] =
 	XSize/2+2,2,4,1,WALL,_XL_RED,
 	
 	XSize-2,2,1,1,FREEZE,_XL_CYAN,
-	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
 
-	1,2,1,1,FREEZE,_XL_CYAN,
+	1,2,1,1,RING,_XL_WHITE,
 	1,YSize-2,1,1,FREEZE,_XL_CYAN,
 	
-    
+ 
+    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
+    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
+	
+	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN,
+	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN,
+ 
 	// 1+6*12 - level=1
 	11,
 	
@@ -622,7 +626,7 @@ void handle_collisions(void)
 				update_score_display();
 				++ring_counter;
 				player_color = _XL_YELLOW;
-				ring_active=50+(ring_counter<<4);
+				ring_active=BASE_RING_EFFECT+(ring_counter<<4);
 				_XL_DRAW(RINGS_X+ring_counter,YSize-1,RING_TILE,_XL_WHITE);
 			}
 			else if(cell_value==WALL) 
@@ -651,7 +655,6 @@ void update_player(void)
 	
 	update_screen_xy();
     
-	
 	display_player();
     
     handle_collisions();
@@ -709,14 +712,14 @@ void update_force(uint8_t cell1, uint8_t cell2)
         }
         else
         {
-            player_color = _XL_RED;
+            // player_color = _XL_RED;
             update_player();
         }  
     }
     else
     {
         force=0;
-        player_color = _XL_WHITE;
+        // player_color = _XL_WHITE;
     }
 }
 
@@ -1188,14 +1191,12 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_RIGHT;
 				
-                // if_shield_destroy_it(x-1,y);
             }
         }
         else // transition already performed
         {
             horizontal_shuriken_transition[index]=0;
-            // map[x][y]=EMPTY;
-            // _XL_DELETE(x,y);
+
             delete_element(x,y);
             --horizontal_shuriken_x[index];
             _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
@@ -1216,15 +1217,11 @@ void handle_horizontal_shuriken(register uint8_t index)
             {
                 horizontal_shuriken_direction[index]=SHURIKEN_LEFT;
 				
-                // if_shield_destroy_it(x+1,y);
-
             }
         }
         else // transition already performed
         {
             horizontal_shuriken_transition[index]=0;
-            // map[x][y]=EMPTY;
-            // _XL_DELETE(x,y);
             delete_element(x,y);
             ++horizontal_shuriken_x[index];
             _XL_DRAW(horizontal_shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
@@ -1442,6 +1439,10 @@ void handle_player(void)
             update_player();
         }
     }
+	else if (ring_active)
+	{
+		display_player();
+	}
 }
 
 
@@ -1506,14 +1507,16 @@ void handle_shurikens(void)
 
 void handle_ring(void)
 {
-	_XL_PRINTD(0,1,3,ring_active);
+	// _XL_PRINTD(0,1,3,ring_active);
 	if(ring_active)
 	{
+		// TODO: ONLY FOR DEBUGGING
 		--ring_active;
 	}
-	else if(!force)
+	else
 	{
 		player_color = _XL_WHITE;
+		display_player();
 	}
 }
 
@@ -1522,8 +1525,13 @@ void handle_lose_life(void)
 {
 	uint8_t i;
 	
+	player_color=_XL_RED;
+	display_player();
+	_XL_EXPLOSION_SOUND();
+	
 	--lives;
 	freeze_counter=0;
+	ring_active=0;
 	build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
 	init_score_display(); // to 
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

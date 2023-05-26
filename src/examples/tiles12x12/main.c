@@ -100,26 +100,15 @@
 
 #define BLOCK 4
 
-#define SHURIKEN 5
-#define MINI_SHURIKEN 6
 
-#define WALL  7
+#define WALL  5
+#define SHURIKEN 6
+#define MINI_SHURIKEN 7
 
 #define DEADLY 5
 
 #define RINGS_X XSize/2-3
 
-const uint8_t screen_tile[7+1] =
-{
-    0, // unused
-    RING_TILE,
-    FREEZE_TILE,
-    DIAMOND_TILE,
-    BLOCK_TILE,
-    SHURIKEN_TILE,
-    MINI_SHURIKEN_TILE,
-    WALL_TILE,
-};  
 
 
 #define SHURIKEN_RIGHT 0
@@ -145,6 +134,10 @@ const uint8_t screen_tile[7+1] =
 
 #define MAX_NUMBER_OF_WALLS 4
 
+
+#define DIAMOND_POINTS 50
+#define FREEZE_POINTS 150
+#define RING_POINTS 250
 
 uint8_t player_x;
 uint8_t player_y;
@@ -200,18 +193,34 @@ uint8_t number_of_walls;
 uint8_t freeze_active;
 uint8_t freeze_counter;
 
+uint8_t ring_active;
+
 uint8_t counter;
 
-uint8_t rings;
+uint8_t ring_counter;
 
 uint8_t border_color;
 uint8_t mini_shuriken_color;
 
 uint8_t restart_level;
-	
-const uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
+
+uint8_t tile_group;
+
+const static uint8_t screen_tile[7+1] =
+{
+    0, // unused
+    RING_TILE,
+    FREEZE_TILE,
+    DIAMOND_TILE,
+    BLOCK_TILE,
+    WALL_TILE,
+    SHURIKEN_TILE,
+    MINI_SHURIKEN_TILE,
+};  
+
+const static uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
-const uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
+const static uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -304,20 +313,38 @@ static const uint8_t objects_map[] =
     XSize-9,7,1,YSize-7-6,DIAMOND,_XL_GREEN,
     XSize-3,5,1,YSize-9,DIAMOND,_XL_GREEN,
     
-    8, // - level = 3
+    20, // - level = 3
     
     XSize-2,4,1,YSize-1-2-4,WALL,_XL_RED,
     1,4,1,YSize-1-2-4,WALL,_XL_RED,        
     
-    XSize-2-1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-    2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,    
-
-	5,YSize-2,4,1,WALL,_XL_YELLOW,
-	5,2,4,1,WALL,_XL_CYAN,
+	5,YSize-2,4,1,WALL,_XL_WHITE,
+	5,2,3,1,WALL,_XL_WHITE,
 	
-	XSize-10,YSize-2,4,1,WALL,_XL_YELLOW,
-	XSize-10,2,4,1,WALL,_XL_CYAN,
-    
+	XSize-8,YSize-2,3,1,WALL,_XL_WHITE,
+	XSize-8,2,3,1,WALL,_XL_WHITE,
+
+	8,YSize-2,1,1,FREEZE,_XL_CYAN,
+	8,2,1,1,FREEZE,_XL_CYAN,
+
+	XSize-9,YSize-2,1,1,FREEZE,_XL_CYAN,
+	XSize-9,2,1,1,FREEZE,_XL_CYAN,
+
+	XSize-2,3,1,1,RING,_XL_WHITE,
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
+
+	1,3,1,1,RING,_XL_WHITE,
+	1,YSize-2,1,1,RING,_XL_WHITE,   
+	
+    8,4,1,2,BLOCK,_XL_GREEN,
+    XSize-9,4,1,2,BLOCK,_XL_GREEN,   	
+	
+    XSize-2-1,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN,
+    2,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN, 
+
+	9,YSize-2,XSize-18,1,DIAMOND,_XL_GREEN,
+	9,2,XSize-18,1,DIAMOND,_XL_GREEN,		
+
 };
 
 
@@ -395,18 +422,18 @@ static const uint8_t shurikens_map[] =
 
     8, // vertical
     3,3,
-    XSize-4-1,4,
+    XSize-3-1,4,
     5,5,
-    XSize-6-1,6,
+    XSize-5-1,6,
     
     4,YSize-3,
-    XSize-5-1,YSize-4,
+    XSize-4-1,YSize-4,
     6,YSize-5,
-    XSize-7-1,YSize-6,
+    XSize-6-1,YSize-6,
     
     2,
     7,
-    XSize-9,
+    XSize-8,
     
 };
 
@@ -466,7 +493,7 @@ static const uint8_t walls_map[] =
         // wall_color[i] = walls_map[++index];       
         // wall_counter[i] = walls_map[++index];       
         // wall_threshold[i] = walls_map[++index];
-    6,5, // x,y
+    6,6, // x,y
     3,1, // x_size, y_size
     WALL,_XL_YELLOW, // type, color
     0, // counter
@@ -478,13 +505,13 @@ static const uint8_t walls_map[] =
     0, // counter
     20, // threshold
     
-    XSize-10,5, // x,y
+    XSize-9,6, // x,y
     3,1, // x_size, y_size
     WALL,_XL_YELLOW, // type, color
     0, // counter
     20, // threshold
     
-    XSize-10,YSize-6, // x,y
+    XSize-9,YSize-6, // x,y
     3,1, // x_size, y_size
     WALL,_XL_YELLOW, // type, color
     0, // counter
@@ -543,6 +570,15 @@ void update_remaining_display(void)
 }
 
 
+void display_player(void)
+{
+    _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
+    _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
+    _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
+    _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
+}
+
+
 void handle_collisions(void)
 {
     uint8_t i;
@@ -563,7 +599,7 @@ void handle_collisions(void)
 			{
 				_XL_PING_SOUND();
 				// TODO: score and effects
-				score+=50;
+				score+=DIAMOND_POINTS;
 				update_score_display();
 				--remaining_diamonds;
 				update_remaining_display();
@@ -572,7 +608,7 @@ void handle_collisions(void)
 			{
 				_XL_ZAP_SOUND();
 				// TODO: score and effects
-				score+=150;
+				score+=FREEZE_POINTS;
 				update_score_display();
 				++freeze_counter;
 				freeze_active=freeze_counter<<4;
@@ -582,32 +618,41 @@ void handle_collisions(void)
 			{
 				_XL_ZAP_SOUND();
 				// TODO: score and effects
-				score+=250;
+				score+=RING_POINTS;
 				update_score_display();
-				++rings;
-				_XL_DRAW(RINGS_X+rings,YSize-1,RING_TILE,_XL_WHITE);
+				++ring_counter;
+				player_color = _XL_YELLOW;
+				ring_active=50+(ring_counter<<4);
+				_XL_DRAW(RINGS_X+ring_counter,YSize-1,RING_TILE,_XL_WHITE);
 			}
-			else if(cell_value>=DEADLY)
+			else if(cell_value==WALL) 
 			{
 				alive = 0;
 			}
+			else if(cell_value>=DEADLY)
+			{
+				if(ring_active)
+				{
+					display_player();
+				}
+				else
+				{
+					alive=0;
+				}
+			}
 		}
-    }
-    
+    } 
 }
 
 
 void update_player(void)
 {
-	uint8_t tile_group = (player_x&1)+2*(player_y&1);
+	tile_group = (player_x&1)+2*(player_y&1);
 	
 	update_screen_xy();
     
 	
-    _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
-    _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
-    _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
-    _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
+	display_player();
     
     handle_collisions();
     
@@ -647,12 +692,12 @@ void delete_player_right(void)
 }
 
 
-
 void delete_player(void)
 {
     delete_player_down();
     delete_player_up();
 }
+
 
 void update_force(uint8_t cell1, uint8_t cell2)
 {
@@ -1110,6 +1155,8 @@ void init_level(void)
     
 	freeze_active = 0;
 	freeze_counter = 0;
+	
+	ring_active = 0;
 }
 
 
@@ -1457,6 +1504,20 @@ void handle_shurikens(void)
 }
 
 
+void handle_ring(void)
+{
+	_XL_PRINTD(0,1,3,ring_active);
+	if(ring_active)
+	{
+		--ring_active;
+	}
+	else if(!force)
+	{
+		player_color = _XL_WHITE;
+	}
+}
+
+
 void handle_lose_life(void)
 {
 	uint8_t i;
@@ -1535,6 +1596,7 @@ int main(void)
 				handle_shurikens();
                 handle_walls();
                 
+				handle_ring();
                 handle_collisions();
 				
 				++counter;

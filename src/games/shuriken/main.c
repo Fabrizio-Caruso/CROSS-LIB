@@ -1533,6 +1533,7 @@ void handle_lose_life(void)
 	freeze_active=0;
 	ring_counter=0;
 	ring_active=0;
+	// TODO: delete rings without using the stack
 	build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
 	init_score_display(); // to 
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

@@ -249,8 +249,8 @@ void DRAW_MAP_BORDERS(void)
 
 #define MINE_RIGHT 0
 #define MINE_LEFT 1
-#define MINE_UP 2
-#define MINE_DOWN 3
+#define MINE_UP 0
+#define MINE_DOWN 1
 
 
 #define TRANSPARENT_VERTICAL_WALL_LENGTH (YSize - 2*(YSize/4) - 4)
@@ -508,7 +508,7 @@ void handle_vertical_mine(register uint8_t index)
     {
         if(!vertical_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[x][vertical_mine_y[index]+1])
+            if(!map[x][y+1])
             {
                 // Do right transition
                 display_vertical_transition_mine(x,y+1);

@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 3
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 

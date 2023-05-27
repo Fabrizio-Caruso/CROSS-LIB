@@ -1,5 +1,12 @@
 
 
+
+// #define _TILE_15 0x7A
+// #define _TILE_24 0x7B
+
+#define _TILE_15 0x3A
+#define _TILE_24 0x3B
+
 #define _TILE_18 0x3C
 
 #define _TILE_21 0x3D
@@ -9,7 +16,6 @@
 // #define _TILE_24 0x40
 
 // TODO: Move this to 0x3A or 0x3B
-#define _TILE_24 0x7B
 
 // BLUE
 #define _TILE_0 0x67
@@ -42,7 +48,6 @@
 
 #define _TILE_14 0x5F
 
-#define _TILE_15 0x7A
 
 #define _TILE_16 0x5E
 

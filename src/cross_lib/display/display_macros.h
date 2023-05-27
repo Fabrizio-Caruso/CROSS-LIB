@@ -295,6 +295,7 @@
     #define _SPACE 0
 #elif defined(__C16__) && !defined(_XL_NO_UDG) && defined(__MEMORY_MAPPED_GRAPHICS)
     #define _SPACE 0x60
+	// If you use the kernal routine, you risk to get a corrupted space character
 #elif defined(__Z88DK_SPRITES_GRAPHICS)
     #if defined(__FEWER_SPRITES)
         #define _SPACE 64
@@ -373,7 +374,8 @@
             __asm__("LDA #$60"); \
             __asm__("JSR $C5A7");
     #endif
-#elif defined(__KERNAL_CLEAR_SCREEN)
+// KERNAL routine uses ASCII character 0x20 (32), whereas memory mapped sets space character at 0x60 
+#elif defined(__KERNAL_CLEAR_SCREEN) && !defined(__MEMORY_MAPPED_GRAPHICS)
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() __asm__("jsr $D88B")
     #elif defined(__VIC20__)

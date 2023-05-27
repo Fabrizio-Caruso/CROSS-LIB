@@ -4,6 +4,14 @@
 _Charset:
 
 
+; right missile
+.byte <tile_15>
+
+
+; 0xFD freeze
+; formerly 17
+.byte <tile_24>
+
 ; 0xFE super
 .byte <tile_18>
 
@@ -105,13 +113,7 @@ _Charset:
 .byte $fe,$c6,$0c,$18,$30,$30,$30,$00,$78,$c4,$e4,$78,$9e,$86,$7c,$00
 .byte $7c,$c6,$c6,$7e,$06,$0c,$78,$00 ; 9
 
-; right missile
-.byte <tile_15>
 
-
-; 0xFD freeze
-; formerly 17
-.byte <tile_24>
 
 ; ------------------------------------------------------------------------
 ; Unused - Conflict?

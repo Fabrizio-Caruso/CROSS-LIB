@@ -46,13 +46,13 @@ endif
 # TODO: FIX c16_16k
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x1C.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
 	-DNO_EXTRA_LIFE_ANIMATION  \
 	-DUSE_MEMORY_BUFFERS \
 	-DSOUNDS \
 	-D__ALT_PRINT \
 	-D__MEMORY_MAPPED_GRAPHICS \
-	-D__KERNAL_CLEAR_SCREEN \
+	-D__ASSEMBL_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=4000 \
 	-D__UDG_BASE_FACTOR=15 \

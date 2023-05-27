@@ -259,200 +259,246 @@ static const uint8_t player_tile[4][4] =
 	},
 };
 
+#define LV_OBJECTS_SIZE(no_of_rect) (1+(no_of_rect*6))
+
+#define LV_0_OBJECTS \
+    12, \
+	\
+	XSize/2-6,YSize-2,4,1,WALL,_XL_RED, \
+	XSize/2-6,2,4,1,WALL,_XL_RED, \
+	\
+	XSize/2+2,YSize-2,4,1,WALL,_XL_RED, \
+	XSize/2+2,2,4,1,WALL,_XL_RED, \
+	\
+	XSize-2,2,1,1,FREEZE,_XL_CYAN, \
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE, \
+    \
+	1,2,1,1,RING,_XL_WHITE, \
+	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	\
+    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN, \
+    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN, \
+	\
+	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN, \
+	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN
+
+#define LV_0_OBJECTS_SIZE LV_OBJECTS_SIZE(12)
+
+#define LV_1_OBJECTS \
+	11, \
+	\
+    XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
+    1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
+	\
+	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN, \
+	\
+	XSize-2,3,1,1,RING,_XL_WHITE, \
+	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	\
+	1,3,1,1,RING,_XL_WHITE, \
+	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	\
+    5,YSize-5,5,2,WALL,_XL_YELLOW, \
+    XSize-10,YSize-5,5,2,WALL,_XL_YELLOW, \
+	\
+    8,4,1,2,BLOCK,_XL_GREEN, \
+    XSize-9,4,1,2,BLOCK,_XL_GREEN   
+
+#define LV_1_OBJECTS_SIZE LV_OBJECTS_SIZE(11)
+
+#define LV_2_OBJECTS \
+    12, \
+	\
+    7,4,1,YSize-7,WALL,_XL_YELLOW, \
+    XSize-8,4,1,YSize-7,WALL,_XL_YELLOW, \
+    3,4,1,YSize-7,WALL,_XL_RED, \
+    XSize-4,4,1,YSize-7,WALL,_XL_RED, \
+	\
+	XSize-3,4,1,1,RING,_XL_WHITE, \
+	XSize-3,YSize-4,1,1,FREEZE,_XL_CYAN, \
+	2,4,1,1,RING,_XL_WHITE, \
+	2,YSize-4,1,1,FREEZE,_XL_CYAN, \
+    \
+    2,5,1,YSize-9,DIAMOND,_XL_GREEN, \
+    8,7,1,YSize-7-6,DIAMOND,_XL_GREEN, \
+    XSize-9,7,1,YSize-7-6,DIAMOND,_XL_GREEN, \
+    XSize-3,5,1,YSize-9,DIAMOND,_XL_GREEN
+
+#define LV_2_OBJECTS_SIZE LV_OBJECTS_SIZE(12)
+
+#define LV_3_OBJECTS \
+    20, \
+    \
+    XSize-2,4,1,YSize-1-2-4,WALL,_XL_RED, \
+    1,4,1,YSize-1-2-4,WALL,_XL_RED, \
+    \
+	5,YSize-2,4,1,WALL,_XL_WHITE, \
+	5,2,3,1,WALL,_XL_WHITE, \
+	XSize-8,YSize-2,3,1,WALL,_XL_WHITE, \
+	XSize-8,2,3,1,WALL,_XL_WHITE, \
+	\
+	8,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	8,2,1,1,FREEZE,_XL_CYAN, \
+	XSize-9,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	XSize-9,2,1,1,FREEZE,_XL_CYAN, \
+	\
+	XSize-2,3,1,1,RING,_XL_WHITE, \
+	XSize-2,YSize-2,1,1,RING,_XL_WHITE, \
+	1,3,1,1,RING,_XL_WHITE, \
+	1,YSize-2,1,1,RING,_XL_WHITE, \
+	\
+    8,4,1,2,BLOCK,_XL_GREEN, \
+    XSize-9,4,1,2,BLOCK,_XL_GREEN, \
+	\
+    XSize-2-1,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN, \
+    2,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN, \
+	\
+	9,YSize-2,XSize-18,1,DIAMOND,_XL_GREEN, \
+	9,2,XSize-18,1,DIAMOND,_XL_GREEN
+
+#define LV_3_OBJECTS_SIZE LV_OBJECTS_SIZE(20)
+
 
 static const uint8_t objects_map[] =
 {
-    // 0 - level=0
-    12, // rectangles
 
+	LV_0_OBJECTS,
 	
-	XSize/2-6,YSize-2,4,1,WALL,_XL_RED,
-	XSize/2-6,2,4,1,WALL,_XL_RED,
-	
-	XSize/2+2,YSize-2,4,1,WALL,_XL_RED,
-	XSize/2+2,2,4,1,WALL,_XL_RED,
-	
-	XSize-2,2,1,1,FREEZE,_XL_CYAN,
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
-
-	1,2,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,FREEZE,_XL_CYAN,
-	
- 
-    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN,
-	
-	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN,
-	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN,
- 
-	// 1+6*12 - level=1
-	11,
-	
-    XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
-    1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN,
-	
-	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN,
-
-	XSize-2,3,1,1,RING,_XL_WHITE,
-	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN,
-
-	1,3,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,FREEZE,_XL_CYAN,
-	
-    5,YSize-5,5,2,WALL,_XL_YELLOW,
-    XSize-10,YSize-5,5,2,WALL,_XL_YELLOW, 
-
-    8,4,1,2,BLOCK,_XL_GREEN,
-    XSize-9,4,1,2,BLOCK,_XL_GREEN,   
-
-    // 1+6*12 + 1+6*11 - level = 2
-    12,
-    7,4,1,YSize-7,WALL,_XL_YELLOW,
-    XSize-8,4,1,YSize-7,WALL,_XL_YELLOW,
-    3,4,1,YSize-7,WALL,_XL_RED,
-    XSize-4,4,1,YSize-7,WALL,_XL_RED,    
-
-	XSize-3,4,1,1,RING,_XL_WHITE,
-	XSize-3,YSize-4,1,1,FREEZE,_XL_CYAN,
-	2,4,1,1,RING,_XL_WHITE,
-	2,YSize-4,1,1,FREEZE,_XL_CYAN,
+	LV_1_OBJECTS,
     
-    2,5,1,YSize-9,DIAMOND,_XL_GREEN,
-    8,7,1,YSize-7-6,DIAMOND,_XL_GREEN,  
-    XSize-9,7,1,YSize-7-6,DIAMOND,_XL_GREEN,
-    XSize-3,5,1,YSize-9,DIAMOND,_XL_GREEN,
-    
-    20, // - level = 3
-    
-    XSize-2,4,1,YSize-1-2-4,WALL,_XL_RED,
-    1,4,1,YSize-1-2-4,WALL,_XL_RED,        
-    
-	5,YSize-2,4,1,WALL,_XL_WHITE,
-	5,2,3,1,WALL,_XL_WHITE,
+	LV_2_OBJECTS,
 	
-	XSize-8,YSize-2,3,1,WALL,_XL_WHITE,
-	XSize-8,2,3,1,WALL,_XL_WHITE,
-
-	8,YSize-2,1,1,FREEZE,_XL_CYAN,
-	8,2,1,1,FREEZE,_XL_CYAN,
-
-	XSize-9,YSize-2,1,1,FREEZE,_XL_CYAN,
-	XSize-9,2,1,1,FREEZE,_XL_CYAN,
-
-	XSize-2,3,1,1,RING,_XL_WHITE,
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE,
-
-	1,3,1,1,RING,_XL_WHITE,
-	1,YSize-2,1,1,RING,_XL_WHITE,   
-	
-    8,4,1,2,BLOCK,_XL_GREEN,
-    XSize-9,4,1,2,BLOCK,_XL_GREEN,   	
-	
-    XSize-2-1,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN,
-    2,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN, 
-
-	9,YSize-2,XSize-18,1,DIAMOND,_XL_GREEN,
-	9,2,XSize-18,1,DIAMOND,_XL_GREEN,		
+	LV_3_OBJECTS
 
 };
 
 
 static const uint16_t objects_index[] = 
 {
-    0,
-    1+6*12,
-    1+6*12+1+6*11,
-    1+6*12+1+6*11+1+6*12
+	0,
+	LV_0_OBJECTS_SIZE,
+	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE,
+	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE+LV_2_OBJECTS_SIZE
+    // 0,
+    // 1+6*12,
+    // 1+6*12+1+6*11,
+    // 1+6*12+1+6*11+1+6*12
 
     // TODO: ....
 };
 
 
+#define LV_0_SHURIKENS \
+    12, \
+	\
+    3,4, \
+    3,7, \
+    3,10, \
+    3,YSize-9, \
+    3,YSize-6, \
+    3,YSize-3, \
+	\
+    XSize-3,3, \
+    XSize-3,6, \
+    XSize-3,9, \
+    XSize-3,YSize-10, \
+    XSize-3,YSize-7, \
+    XSize-3,YSize-4, \
+    \
+    0, \
+    \
+    0 
+
+#define LV_SHURIKENS_SIZE(horiz,vert,mini) (1+(horiz)*2+ 1+(vert)*2+ 1+(mini))
+
+#define LV_0_SHURIKENS_SIZE LV_SHURIKENS_SIZE(12,0,0)
+
+#define LV_1_SHURIKENS \
+	2, \
+	\
+    3,8, \
+    XSize-3,YSize-6, \
+	\
+	0, \
+	\
+	4, \
+	\
+	7, \
+	2, \
+	XSize-3, \
+	XSize-8
+
+#define LV_1_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,0,4)
+
+
+#define LV_2_SHURIKENS \
+    2, \
+	\
+    3,3, \
+    3,YSize-3, \
+    \
+    4, \
+	\
+    6,3, \
+    1,3, \
+    XSize-2,6, \
+    XSize-2-5,6, \
+    \
+    0
+
+#define LV_2_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,4,0)
+
+
+#define LV3_SHURIKENS \
+    2, \
+	\
+    3,YSize-1-5, \
+    XSize-4,6, \
+	\
+    8, \
+    3,3, \
+    XSize-3-1,4, \
+    5,5, \
+    XSize-5-1,6, \
+    4,YSize-3, \
+    XSize-4-1,YSize-4, \
+    6,YSize-5, \
+    XSize-6-1,YSize-6, \
+    \
+    2, \
+    7, \
+    XSize-8
+
+#define LV_3_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,8,2)
+
+
 static const uint8_t shurikens_map[] =
 {
-    // level=0
-    12, // horizontal shurikens
-    3,4,
-    3,7,
-    3,10,
-    3,YSize-9,
-    3,YSize-6,
-    3,YSize-3,
 
-    XSize-3,3,
-    XSize-3,6,
-    XSize-3,9,
-    XSize-3,YSize-10,
-    XSize-3,YSize-7,
-    XSize-3,YSize-4,
-    
-    0, // vertical shurikens
-    
-    0, // mini-shurikens
-	
+	LV_0_SHURIKENS,
 	
 	// level=1
-    
-	2,
-    3,8,
-    XSize-3,YSize-6,
-	
-	0, // vertical 
-	
-	4, // mini-shurikens
-	7,
-	2,	
-	XSize-3,	
-	XSize-8,	
-    
+   	LV_1_SHURIKENS,
+
     // level=2
-    
-    2, // horizontal
-    3,3,
-    3,YSize-3,
-    
-    4, // vertical
-    6,3, 
-    1,3, 
-    XSize-2,6, 
-    XSize-2-5,6, 
-    
-    0, // mini
-    
+   	LV_2_SHURIKENS,
+        
     // level=3
-    // 0,
-    // 0,
-    // 0,
-    2, // horizontal
-
-    
-    3,YSize-1-5,    
-    XSize-4,6,
-
-    8, // vertical
-    3,3,
-    XSize-3-1,4,
-    5,5,
-    XSize-5-1,6,
-    
-    4,YSize-3,
-    XSize-4-1,YSize-4,
-    6,YSize-5,
-    XSize-6-1,YSize-6,
-    
-    2,
-    7,
-    XSize-8,
-    
+	LV3_SHURIKENS
+  
 };
 
 
 static const uint8_t shurikens_index[] = 
 {
-    0,
-    1+2*12+1+1,
-    1+2*12+1+1+ 1+2*2+1+1+4*1,
-    1+2*12+1+1+ 1+2*2+1+1+4*1+ 1+2*2+ 1+4*2+ 1,    
+	0,
+	LV_0_SHURIKENS_SIZE,
+	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE,
+	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE+LV_2_SHURIKENS_SIZE
+    // 0,
+    // 1+2*12+1+1,
+    // 1+2*12+1+1+ 1+2*2+1+1+4*1,
+    // 1+2*12+1+1+ 1+2*2+1+1+4*1+ 1+2*2+ 1+4*2+ 1,    
     // TODO: ....
 };
 

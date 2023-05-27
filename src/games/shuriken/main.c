@@ -213,7 +213,7 @@ uint8_t restart_level;
 
 uint8_t tile_group;
 
-const static uint8_t screen_tile[7+1] =
+static const uint8_t screen_tile[7+1] =
 {
     0, // unused
     RING_TILE,
@@ -225,9 +225,9 @@ const static uint8_t screen_tile[7+1] =
     MINI_SHURIKEN_TILE,
 };  
 
-const static uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
+static const uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
-const static uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
+static const uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
 
 #define SHURIKEN_COLOR _XL_CYAN
 

@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 0
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -139,7 +139,12 @@
 #define FREEZE_POINTS 150
 #define RING_POINTS 250
 
-#define BASE_RING_EFFECT 20
+#if XSize<32
+	#define BASE_RING_EFFECT 30
+#else
+	#define BASE_RING_EFFECT 20
+#endif
+
 
 uint8_t player_x;
 uint8_t player_y;
@@ -197,7 +202,7 @@ uint8_t freeze_counter;
 
 uint8_t ring_active;
 
-uint8_t counter;
+uint16_t counter;
 
 uint8_t ring_counter;
 
@@ -563,6 +568,7 @@ void update_screen_xy(void)
 
 void update_score_display(void)
 {
+	_XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(0,0,5,score);
 }
 
@@ -580,6 +586,20 @@ void display_player(void)
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
+}
+
+
+void update_freeze_display(void)
+{
+	_XL_SET_TEXT_COLOR(_XL_WHITE);
+	_XL_PRINTD(4,YSize-1,1,freeze_counter);
+}
+
+
+void update_ring_display(void)
+{
+	_XL_SET_TEXT_COLOR(_XL_GREEN);
+	_XL_PRINTD(1,YSize-1,1,ring_counter);
 }
 
 
@@ -616,6 +636,7 @@ void handle_collisions(void)
 				update_score_display();
 				++freeze_counter;
 				freeze_active=freeze_counter<<4;
+				update_freeze_display();
 				// _XL_DRAW(RINGS_X+freeze_counter,YSize-1,FREEZE_TILE,_XL_WHITE);
 			}
 			else if(cell_value==RING)
@@ -627,7 +648,7 @@ void handle_collisions(void)
 				++ring_counter;
 				player_color = _XL_YELLOW;
 				ring_active=BASE_RING_EFFECT+(ring_counter<<4);
-				_XL_DRAW(RINGS_X+ring_counter,YSize-1,RING_TILE,_XL_WHITE);
+				update_ring_display();
 			}
 			else if(cell_value==WALL) 
 			{
@@ -925,6 +946,11 @@ void init_score_display(void)
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(XSize-2,YSize-1,2,level+1);
+	
+	_XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE);
+	_XL_DRAW(3,YSize-1,FREEZE_TILE,_XL_CYAN);
+	update_ring_display();
+	update_freeze_display();
 }
 
 
@@ -1155,10 +1181,8 @@ void init_level(void)
     
     build_walls();
     
-	freeze_active = 0;
-	freeze_counter = 0;
-	
-	ring_active = 0;
+	// REMARK: Initialize counter *only* at level start (not after losing a life)
+	counter = 0;
 }
 
 
@@ -1529,12 +1553,10 @@ void handle_lose_life(void)
 	_XL_EXPLOSION_SOUND();
 	
 	--lives;
-	freeze_counter=0;
-	freeze_active=0;
-	ring_counter=0;
-	ring_active=0;
+
 	// TODO: delete rings without using the stack
-	build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
+	// build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
+
 	init_score_display(); // to 
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	_XL_WAIT_FOR_INPUT();
@@ -1552,13 +1574,84 @@ void handle_lose_life(void)
 }
 
 
+#define LEVEL_BONUS 50
+#define TIME_BONUS 50
+#define FREEZE_BONUS 50
+#define RING_BONUS   100
+
 void handle_next_level(void)
 {
+	// uint8_t i;
+	// uint8_t init_ring_counter = ring_counter;
+	// uint8_t init_freeze_counter = freeze_counter; 
+	
 	++level;
 	_XL_SET_TEXT_COLOR(_XL_GREEN);
 	_XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
 	_XL_WAIT_FOR_INPUT();
 	restart_level = 1;
+	
+	// _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+	_XL_SLEEP(1);
+	score+=LEVEL_BONUS*level;
+	update_score_display();
+	// _XL_PING_SOUND();
+	// _XL_SLEEP(1);
+	// _XL_WAIT_FOR_INPUT();
+	
+	if(counter<1024+128)
+	{
+		score+=(8-counter/128)*TIME_BONUS;
+	}
+	update_score_display();
+	_XL_PING_SOUND();
+	_XL_SLEEP(1);
+	// _XL_WAIT_FOR_INPUT();
+	
+	if(freeze_counter)
+	{
+		do
+		{
+			score+=FREEZE_BONUS;
+			--freeze_counter;
+			update_score_display();
+			update_freeze_display();
+			_XL_ZAP_SOUND();
+			_XL_SLEEP(1);
+			// _XL_WAIT_FOR_INPUT();
+		} while(freeze_counter);
+	}
+	
+	if(ring_counter)
+	{
+		do
+		{
+			score+=RING_BONUS;
+			--ring_counter;
+			update_score_display();
+			update_ring_display();
+			_XL_ZAP_SOUND();
+			_XL_SLEEP(1);
+			// _XL_WAIT_FOR_INPUT();
+		} while(ring_counter);
+	}
+	// _XL_SLEEP(1);
+}
+
+
+void init_player_achievements(void)
+{
+	freeze_counter=0;
+	freeze_active=0;
+	
+	ring_counter=0;
+	ring_active=0;
+
+	update_freeze_display();
+	update_ring_display();
+	
+	// REMARK: counter should not be initialized 
+	// otherwise the player gets more points by losing just before completing a level
 }
 
 
@@ -1584,11 +1677,12 @@ int main(void)
         
         while(lives && (level<FINAL_LEVEL+1))
         {            
+			init_player_achievements();
+
             if(restart_level)
             {
                 init_level();
             }
-            
             init_player();
 
             update_player();

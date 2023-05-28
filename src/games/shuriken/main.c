@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 3
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -513,73 +513,79 @@ static const uint8_t shurikens_index[] =
 	#define LV2_SHURIKEN_HEIGHT 1
 #endif
 
+#define LC_WALLS_SIZE(walls) (1+(walls*8))
+
+#define LV0_WALLS 0
+#define LV0_WALLS_SIZE LC_WALLS_SIZE(0)
+
+#define LV1_WALLS 0
+#define LV1_WALLS_SIZE LC_WALLS_SIZE(0)
+
+#define LV2_WALLS \
+    2, \
+	\
+    LV2_SHURIKEN_X,4, \
+    LV2_SHURIKEN_WIDTH, LV2_SHURIKEN_HEIGHT, \
+    SHURIKEN, _XL_CYAN, \
+    0, \
+    30, \
+    \
+    LV2_SHURIKEN_X,YSize-5, \
+    LV2_SHURIKEN_WIDTH,LV2_SHURIKEN_HEIGHT, \
+    SHURIKEN,_XL_CYAN, \
+    0, \
+    30
+
+#define LV2_WALLS_SIZE LC_WALLS_SIZE(2)
+
+#define LV3_WALLS \
+    4, \
+	\
+    6,6, \
+    3,1, \
+    WALL,_XL_YELLOW, \
+    0, \
+    20, \
+    \
+    6,YSize-6, \
+    3,1,\
+    WALL,_XL_YELLOW, \
+    0, \
+    20, \
+    \
+    XSize-9,6, \
+    3,1, \
+    WALL,_XL_YELLOW, \
+    0,\
+    20, \
+    \
+    XSize-9,YSize-6, \
+    3,1, \
+    WALL,_XL_YELLOW, \
+    0, \
+    20
+
+#define LV3_WALLS_SIZE LC_WALLS_SIZE(3)
+
+
 static const uint8_t walls_map[] =
 {
-	0, // level = 0, level = 1
-	
-    2, // level = 2
-        // wall_x[i] = walls_map[++index];
-        // wall_y[i] = walls_map[++index];
-        // wall_width[i] = walls_map[++index];
-        // wall_height[i] = walls_map[++index];  
-        // wall_type[i] = walls_map[++index];
-        // wall_color[i] = walls_map[++index];       
-        // wall_counter[i] = walls_map[++index];       
-        // wall_threshold[i] = walls_map[++index];
-    LV2_SHURIKEN_X,4, // x,y
-    LV2_SHURIKEN_WIDTH,LV2_SHURIKEN_HEIGHT, // x_size, y_size
-    SHURIKEN,_XL_CYAN, // type, color
-    0, // counter
-    30, // threshold
-    
-    LV2_SHURIKEN_X,YSize-5, // x,y
-    LV2_SHURIKEN_WIDTH,LV2_SHURIKEN_HEIGHT, // x_size, y_size
-    SHURIKEN,_XL_CYAN, // type, color
-    0, // counter
-    30, // threshold
-
-    // level = 3
-    4, // level = 3
-        // wall_x[i] = walls_map[++index];
-        // wall_y[i] = walls_map[++index];
-        // wall_width[i] = walls_map[++index];
-        // wall_height[i] = walls_map[++index];  
-        // wall_type[i] = walls_map[++index];
-        // wall_color[i] = walls_map[++index];       
-        // wall_counter[i] = walls_map[++index];       
-        // wall_threshold[i] = walls_map[++index];
-    6,6, // x,y
-    3,1, // x_size, y_size
-    WALL,_XL_YELLOW, // type, color
-    0, // counter
-    20, // threshold
-    
-    6,YSize-6, // x,y
-    3,1, // x_size, y_size
-    WALL,_XL_YELLOW, // type, color
-    0, // counter
-    20, // threshold
-    
-    XSize-9,6, // x,y
-    3,1, // x_size, y_size
-    WALL,_XL_YELLOW, // type, color
-    0, // counter
-    20, // threshold
-    
-    XSize-9,YSize-6, // x,y
-    3,1, // x_size, y_size
-    WALL,_XL_YELLOW, // type, color
-    0, // counter
-    20, // threshold    
+	LV0_WALLS,
+	LV1_WALLS,
+	LV2_WALLS,
+	LV3_WALLS,
 };
 
 static const uint8_t walls_index[] =
 {
-    0,
-    0,
-    1,
-    // TODO:
-    1+1+2*8,
+	LV0_WALLS,
+	LV0_WALLS+LV1_WALLS,
+	LV0_WALLS+LV1_WALLS+LV2_WALLS,
+	
+    // 0,
+    // 0,
+    // 1,
+    // 1+1+2*8,
 };
 
 

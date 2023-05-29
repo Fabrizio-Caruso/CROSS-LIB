@@ -1077,7 +1077,7 @@ gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	--generic-console -D__SCREEN_MODE=1 -DEXTRA_TITLE -DYSize=26  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_GFX_SLOWDOWN) \
-	-D__GAL__ -D__GAL_PLUS__     \
+	-D__GAL__ -D__GAL_PLUS__  $(GAL_PLUS_GAME_OPTS)  \
 	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
 	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \

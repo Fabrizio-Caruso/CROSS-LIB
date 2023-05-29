@@ -110,7 +110,7 @@ void _XL_ZAP_SOUND(void)
 	for(i=0;i<16;i++)
 	{
 		set_psg(A_PERIOD_HI,15-i);		
-		for(j=0;j<150;++j)
+		for(j=0;j<150U;++j)
 		{
 		}
 	}
@@ -130,10 +130,10 @@ void _ping_sound(uint8_t freq)
 
 	set_psg(CONTROL, 0xFF - 0x01);
 	
-	for(i=0;i<250;++i)
+	for(i=0;i<250U;++i)
 	{
 	}
-	for(i=0;i<250;++i)
+	for(i=0;i<250U;++i)
 	{
 	}
 		

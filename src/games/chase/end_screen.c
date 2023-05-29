@@ -88,7 +88,7 @@
 		
 			PRINT_CENTERED_ON_ROW(MESSAGE_START,  YOU_MADE_IT_STRING);		
 			#if _XL_SLOW_DOWN_FACTOR>0
-				for(ind=0;ind<254;++ind){};
+				for(ind=0;ind<253U;++ind){};
 			#endif
 					
 			MOVE_PLAYER();

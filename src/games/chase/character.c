@@ -67,7 +67,7 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 }
 #endif
 
-#if defined(FULL_GAME) && !defined(_XL_NO_COLOR) && !defined(NO_COLORED_PLAYER)
+#if defined(FULL_GAME) && !defined(_XL_NO_COLOR)
 void _DRAW_PLAYER(void)
 {
     if(invincibilityActive)

@@ -1142,7 +1142,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 # OK with API version 2
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg  -DEXTRA_TITLE -DNO_COLORED_PLAYER \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg  -DEXTRA_TITLE \
 	  \
 	\
 	 -D_XL_SLOW_DOWN_FACTOR=2800 \

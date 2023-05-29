@@ -99,7 +99,7 @@ void deleteCharacter(Character * characterPtr);
 #define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
 
 
-#if defined(FULL_GAME) && !defined(_XL_NO_COLOR) && !defined(NO_COLORED_PLAYER)
+#if defined(FULL_GAME) && !defined(_XL_NO_COLOR)
     void _DRAW_PLAYER(void);
 #else
     #define _DRAW_PLAYER() DRAW_PLAYER(player._x, player._y, player._imagePtr)

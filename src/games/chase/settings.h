@@ -12,24 +12,12 @@
     #define ANIMATE_PLAYER
 #endif
 
-#  if XSize>=32 && YSize>=20
-	#define WIDE
-#else 
-	#define NARROW
-#endif
-
 #if !defined(NO_END_SCREEN) && !defined(END_SCREEN)
 	#define END_SCREEN
 #endif
 
 # if !defined(NO_BETWEEN_LEVEL) && !defined(BEWEEN_LEVEL)
 	#define BEWEEN_LEVEL
-#endif
-
-
-#if defined(WIDE)
-	#undef WIDE
-	#define NARROW
 #endif
 
 #if !defined(TINY_GAME) && !defined(LIGHT_GAME)

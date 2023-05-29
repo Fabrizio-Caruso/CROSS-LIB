@@ -36,18 +36,6 @@
     #define ANIMATE_PLAYER
 #endif
 
-#  if XSize>=32 && YSize>=20
-	#define WIDE
-#else 
-	#define NARROW
-#endif
-
-
-#if defined(WIDE)
-	#undef WIDE
-	#define NARROW
-#endif
-
 #include "cross_lib.h"
 
 struct ImageStruct

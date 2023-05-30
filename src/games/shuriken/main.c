@@ -131,6 +131,7 @@ extern const uint8_t walls_index[];
 #define TIME_BONUS 30
 #define FREEZE_BONUS 50
 #define RING_BONUS   100
+#define SHURIKEN_BONUS 100
 
 
 #if XSize<32
@@ -195,6 +196,8 @@ uint8_t ring_active;
 uint16_t counter;
 
 uint8_t ring_counter;
+
+uint8_t shuriken_counter;
 
 uint8_t border_color;
 uint8_t mini_shuriken_color;
@@ -313,6 +316,14 @@ void update_ring_display(void)
 {
 	_XL_SET_TEXT_COLOR(_XL_GREEN);
 	_XL_PRINTD(1,YSize-1,1,ring_counter);
+}
+
+
+
+void update_shuriken_display(void)
+{
+	_XL_SET_TEXT_COLOR(_XL_WHITE);
+	_XL_PRINTD(7,YSize-1,1,shuriken_counter);
 }
 
 
@@ -662,8 +673,10 @@ void init_score_display(void)
 	
 	_XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE);
 	_XL_DRAW(3,YSize-1,FREEZE_TILE,_XL_CYAN);
+	_XL_DRAW(6,YSize-1,SHURIKEN_TILE,_XL_CYAN);
 	update_ring_display();
 	update_freeze_display();
+	update_shuriken_display();
 }
 
 
@@ -895,7 +908,17 @@ void shuriken_death(uint8_t x, uint8_t y, uint8_t index)
     delete_element(x,y);
     score+=SHURIKEN_POINTS;
     update_score_display();
+	++shuriken_counter;
+	update_shuriken_display();
     shuriken_status[index]=0;
+}
+
+
+void block_explosion(uint8_t x, uint8_t y)
+{
+	_XL_DRAW(x,y,BLOCK_TILE,_XL_RED);
+	_XL_SHOOT_SOUND();
+    delete_element(x,y);
 }
 
 
@@ -919,6 +942,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             else if(map[x-1][y]==BLOCK)
             { // TODO: Optimize
                 shuriken_death(x,y,index);
+				block_explosion(x-1,y);
             }
             else
             {
@@ -947,6 +971,7 @@ void handle_horizontal_shuriken(register uint8_t index)
             else if(map[x+1][y]==BLOCK)
             {
                 shuriken_death(x,y,index);
+				block_explosion(x+1,y);
             }
             else
             {
@@ -1057,6 +1082,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else if(map[x][y-1]==BLOCK)
             {
                 shuriken_death(x,y,index);
+				block_explosion(x,y-1);
             }
             else
             {
@@ -1085,6 +1111,7 @@ void handle_vertical_shuriken(register uint8_t index)
             else if(map[x][y+1]==BLOCK)
             {
                 shuriken_death(x,y,index);
+				block_explosion(x,y+1);
             }
             else
             {
@@ -1292,10 +1319,6 @@ void handle_lose_life(void)
 
 void handle_next_level(void)
 {
-	// uint8_t i;
-	// uint8_t init_ring_counter = ring_counter;
-	// uint8_t init_freeze_counter = freeze_counter; 
-	
 	++level;
 	_XL_SET_TEXT_COLOR(_XL_GREEN);
 	_XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
@@ -1346,7 +1369,19 @@ void handle_next_level(void)
 			// _XL_WAIT_FOR_INPUT();
 		} while(ring_counter);
 	}
-	// _XL_SLEEP(1);
+	
+	if(shuriken_counter)
+	{
+		do
+		{
+			score+=SHURIKEN_BONUS;
+			--shuriken_counter;
+			update_score_display();
+			update_shuriken_display();
+			_XL_ZAP_SOUND();
+			_XL_SLEEP(1);
+		} while(shuriken_counter);
+	} 
 }
 
 
@@ -1358,8 +1393,11 @@ void init_player_achievements(void)
 	ring_counter=0;
 	ring_active=0;
 
+	shuriken_counter=0;
+
 	update_freeze_display();
 	update_ring_display();
+	update_shuriken_display();
 	
 	// REMARK: counter should not be initialized 
 	// otherwise the player gets more points by losing just before completing a level

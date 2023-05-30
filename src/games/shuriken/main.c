@@ -27,28 +27,26 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 1
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
 extern const uint8_t objects_map[];
-
 extern const uint16_t objects_index[];
 
 // ----------------------------------------------------------
 // Shurikens: horizontal, vertical and mini-shurikens
 extern const uint8_t shurikens_map[];
-
 extern const uint8_t shurikens_index[];
 
 
 // ----------------------------------------------------------
 // Walls: dynamic walls
 extern const uint8_t walls_map[];
-
 extern const uint8_t walls_index[];
+
 
 #if XSize<17
 	#define MAX_NUMBER_OF_HORIZONTAL_SHURIKENS 12
@@ -147,6 +145,7 @@ extern const uint8_t walls_index[];
 #define DIAMOND_POINTS 50
 #define FREEZE_POINTS 150
 #define RING_POINTS 250
+#define SHURIKEN_POINTS 200
 
 #if XSize<32
 	#define BASE_RING_EFFECT 30
@@ -170,11 +169,13 @@ uint8_t horizontal_shuriken_x[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
 uint8_t horizontal_shuriken_y[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
 uint8_t horizontal_shuriken_direction[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
 uint8_t horizontal_shuriken_transition[MAX_NUMBER_OF_HORIZONTAL_SHURIKENS];
+#define horizontal_shuriken_status horizontal_shuriken_x
 
 uint8_t vertical_shuriken_x[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_y[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_direction[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
 uint8_t vertical_shuriken_transition[MAX_NUMBER_OF_VERTICAL_SHURIKENS];
+#define vertical_shuriken_status vertical_shuriken_x
 
 uint8_t mini_shuriken_x[MINI_SHURIKEN_NUMBER];
 uint8_t mini_shuriken_y[MINI_SHURIKEN_NUMBER];
@@ -924,6 +925,12 @@ void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
     _XL_DRAW(x,y,SHURIKEN_TILE_RIGHT, SHURIKEN_COLOR);
 }
 
+void shuriken_death(void)
+{
+    _XL_SHOOT_SOUND();
+    score+=SHURIKEN_POINTS;
+    update_score_display();
+}
 
 void handle_horizontal_shuriken(register uint8_t index)
 {
@@ -941,6 +948,12 @@ void handle_horizontal_shuriken(register uint8_t index)
                 display_horizontal_transition_shuriken(x,y);
                 map[x-1][y]=SHURIKEN;
                 ++horizontal_shuriken_transition[index];
+            }
+            else if(map[x-1][y]==BLOCK)
+            { // TODO: Optimize
+                delete_element(x,y);
+                shuriken_death();
+                horizontal_shuriken_status[index]=0;
             }
             else
             {
@@ -967,6 +980,12 @@ void handle_horizontal_shuriken(register uint8_t index)
                 display_horizontal_transition_shuriken(x+1,y);
                 map[x+1][y]=SHURIKEN;
                 ++horizontal_shuriken_transition[index];
+            }
+            else if(map[x+1][y]==BLOCK)
+            {
+                delete_element(x,y);
+                shuriken_death();
+                horizontal_shuriken_status[index]=0;
             }
             else
             {
@@ -1046,7 +1065,10 @@ void handle_horizontal_shurikens(void)
     
     for(i=0;i<level_horizontal_shurikens;++i)
     {
-        handle_horizontal_shuriken(i);
+        if(horizontal_shuriken_status[i])
+        {
+            handle_horizontal_shuriken(i);
+        }
     }
 }
 
@@ -1075,6 +1097,12 @@ void handle_vertical_shuriken(register uint8_t index)
                 map[x][y-1]=SHURIKEN;
                 ++vertical_shuriken_transition[index];
             }
+            else if(map[x][y-1]==BLOCK)
+            {
+                delete_element(x,y);
+                shuriken_death();
+                vertical_shuriken_status[index]=0;
+            }
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_DOWN;
@@ -1102,6 +1130,12 @@ void handle_vertical_shuriken(register uint8_t index)
                 map[x][y+1]=SHURIKEN;
                 ++vertical_shuriken_transition[index];
             }
+            else if(map[x][y+1]==BLOCK)
+            {
+                delete_element(x,y);
+                shuriken_death();
+                vertical_shuriken_status[index]=0;
+            }
             else
             {
                 vertical_shuriken_direction[index]=SHURIKEN_UP;
@@ -1127,7 +1161,10 @@ void handle_vertical_shurikens(void)
     
     for(i=0;i<level_vertical_shurikens;++i)
     {
-        handle_vertical_shuriken(i);
+        if(vertical_shuriken_status[i])
+        {
+            handle_vertical_shuriken(i);
+        }
     }
 }
 

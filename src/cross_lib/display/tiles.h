@@ -1,6 +1,8 @@
 #ifndef _TILES_H
 #define _TILES_H
 
+#include "cross_lib.h"
+
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
 #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
@@ -61,8 +63,8 @@
 	// #include "micro_settings.h"
 #elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
     #include "tgi_gfx_settings.h"
-#elif (defined(__SCCZ80) || defined(__SDCC)) && !defined(_XL_NO_UDG)
-	// deined(__Z88DK__) && !defined(_XL_NO_UDG)
+// #elif (defined(__SCCZ80) || defined(__SDCC)) && !defined(_XL_NO_UDG)
+#elif  defined(__Z88DK__) && !defined(_XL_NO_UDG)
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && !defined(_XL_NO_UDG))
 	#include "pce_settings.h"

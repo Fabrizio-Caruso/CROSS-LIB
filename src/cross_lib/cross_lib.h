@@ -22,6 +22,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#ifndef _CROSS_LIB_H
+#define _CROSS_LIB_H
+
 #if !defined(__NO_GRAPHICS)
 #include "standard_libs.h"
 #endif
@@ -134,4 +137,4 @@
 
 #endif // _TARGET_SETTINGS
 
-
+#endif // _CROSS_LIB_H

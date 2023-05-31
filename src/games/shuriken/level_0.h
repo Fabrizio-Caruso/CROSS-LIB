@@ -30,7 +30,7 @@
 //
 
 #define LV_0_SHURIKENS \
-    12, \
+    12, 0, 0, \
 	\
     3,4, \
     3,7, \
@@ -44,11 +44,7 @@
     XSize-3,9, \
     XSize-3,YSize-10, \
     XSize-3,YSize-7, \
-    XSize-3,YSize-4, \
-    \
-    0, \
-    \
-    0 
+    XSize-3,YSize-4
 
 
 #define LV_0_SHURIKENS_SIZE LV_SHURIKENS_SIZE(12,0,0)

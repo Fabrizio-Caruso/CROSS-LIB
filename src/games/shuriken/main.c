@@ -97,9 +97,8 @@ extern const uint8_t walls_index[];
 #define RINGS_X XSize/2-3
 
 
-
-#define SHURIKEN_RIGHT 0
-#define SHURIKEN_LEFT 1
+#define SHURIKEN_LEFT 0
+#define SHURIKEN_RIGHT 1
 #define SHURIKEN_UP 0
 #define SHURIKEN_DOWN 1
 
@@ -346,7 +345,6 @@ void handle_collisions(void)
 			if(cell_value==DIAMOND)
 			{
 				_XL_PING_SOUND();
-				// TODO: score and effects
 				score+=DIAMOND_POINTS;
 				update_score_display();
 				--remaining_diamonds;
@@ -355,18 +353,15 @@ void handle_collisions(void)
 			else if(cell_value==FREEZE)
 			{
 				_XL_ZAP_SOUND();
-				// TODO: score and effects
 				score+=FREEZE_POINTS;
 				update_score_display();
 				++freeze_counter;
 				freeze_active=freeze_counter<<4;
 				update_freeze_display();
-				// _XL_DRAW(RINGS_X+freeze_counter,YSize-1,FREEZE_TILE,_XL_WHITE);
 			}
 			else if(cell_value==RING)
 			{
 				_XL_ZAP_SOUND();
-				// TODO: score and effects
 				score+=RING_POINTS;
 				update_score_display();
 				++ring_counter;
@@ -754,8 +749,10 @@ void build_shurikens(void)
     uint8_t i;
 
     level_horizontal_shurikens = shurikens_map[index];
+    level_vertical_shurikens = shurikens_map[++index];
+    level_mini_shurikens = shurikens_map[++index];
 
-    for(i=0;i<level_horizontal_shurikens;++i)
+    for(i=0;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
     {
         shuriken_x[i]=shurikens_map[++index];
         shuriken_y[i]=shurikens_map[++index];
@@ -764,20 +761,6 @@ void build_shurikens(void)
         build_element(SHURIKEN,SHURIKEN_COLOR,shuriken_x[i],shuriken_y[i]);
    
     }
-    
-    level_vertical_shurikens = shurikens_map[++index];
-    
-    for(i=0+level_horizontal_shurikens;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
-    {
-        shuriken_x[i]=shurikens_map[++index];
-        shuriken_y[i]=shurikens_map[++index];
-        shuriken_direction[i]=0;
-        shuriken_transition[i]=0;
-        build_element(SHURIKEN,SHURIKEN_COLOR,shuriken_x[i],shuriken_y[i]);
-    }
-
-
-    level_mini_shurikens = shurikens_map[++index];
 	
     for(i=0;i<level_mini_shurikens;++i)
     {
@@ -864,7 +847,6 @@ void handle_wall(uint8_t i)
         wall_counter[i]=0;
         switch_wall_if_possible(i);
     }
-    // _XL_PRINTD(8,0,3,wall_counter[i]);
 }
 
 
@@ -940,7 +922,7 @@ void handle_horizontal_shuriken(register uint8_t index)
                 ++shuriken_transition[index];
             }
             else if(map[x-1][y]==BLOCK)
-            { // TODO: Optimize
+            {
                 shuriken_death(x,y,index);
 				block_explosion(x-1,y);
             }
@@ -1219,7 +1201,6 @@ void init_player(void)
 	player_y = YSize;
     
     force = 0;
-    // move_threshold = SHIELD; // TODO: Necessary
     
     player_color = _XL_WHITE;
     
@@ -1276,7 +1257,6 @@ void handle_ring(void)
 	// _XL_PRINTD(0,1,3,ring_active);
 	if(ring_active)
 	{
-		// TODO: ONLY FOR DEBUGGING
 		--ring_active;
 	}
 	else
@@ -1297,12 +1277,11 @@ void handle_lose_life(void)
 	
 	--lives;
 
-	// TODO: delete rings without using the stack
-	// build_rectangle(WALL,border_color,RINGS_X,YSize-1,6,1);
-
-	init_score_display(); // to 
+	// TODO: Do I need these lines?
+	init_score_display();
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	_XL_WAIT_FOR_INPUT();
+	
 	delete_player();
 	
 	delete_shurikens();

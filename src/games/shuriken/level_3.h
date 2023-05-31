@@ -38,27 +38,24 @@
 
 //
 
-#define LV3_NO_OF_HORIZONTAL 2
-#define LV3_NO_OF_VERTICAL 6
-#define LV3_NO_OF_MINI 0
 
 #define LV3_SHURIKENS \
-    LV3_NO_OF_HORIZONTAL, \
+    2,6,0, \
 	\
     3,YSize-1-5, \
     XSize-4,6, \
 	\
-    LV3_NO_OF_VERTICAL, \
+    \
     3,3, \
     XSize-4,4, \
     7,5, \
     XSize-8,6, \
     5,YSize-3, \
-    XSize-6,YSize-4, \
+    XSize-6,YSize-4 \
     \
-    LV3_NO_OF_MINI
+    \
 
-#define LV_3_SHURIKENS_SIZE LV_SHURIKENS_SIZE(LV3_NO_OF_HORIZONTAL,LV3_NO_OF_VERTICAL,LV3_NO_OF_MINI)
+#define LV_3_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,6,0)
 
 
 //

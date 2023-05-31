@@ -29,19 +29,19 @@
 //
 
 #define LV_2_SHURIKENS \
-    2, \
+    2, 4, 0, \
 	\
     3,3, \
     3,YSize-3, \
     \
-    4, \
+    \
 	\
     6,3, \
     1,3, \
     XSize-2,6, \
-    XSize-2-5,6, \
-    \
-    0
+    XSize-2-5,6 \
+	\
+	\
 
 #define LV_2_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,4,0)
 

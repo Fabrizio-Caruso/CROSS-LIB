@@ -549,7 +549,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 pet: pet_16k
 
 pet_16k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pet \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
 	-D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS -D_XL_NO_UDG  \

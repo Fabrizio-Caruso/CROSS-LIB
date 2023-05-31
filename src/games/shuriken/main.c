@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 1
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -255,14 +255,18 @@ static const uint8_t player_tile[4][4] =
 void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
-    if(type==EMPTY)
-    {
-        _XL_DELETE(x,y);
-    }
-    else
-    {
+    // if(type==EMPTY)
+    // {
+        // _XL_DELETE(x,y);
+    // }
+    // else
+	// if(type==DIAMOND)
+	// {
+		// ++remaining_diamonds;
+	// }
+    // {
         _XL_DRAW(x,y,screen_tile[type], color);
-    }
+    // }
 }
 
 
@@ -339,7 +343,57 @@ void handle_collisions(void)
     for(i=0;i<4;++i)
     {
         cell_value = player_cell[i];
-        
+
+/*        
+		switch(cell_value)
+		{
+			case EMPTY:
+			break;
+			
+			case DIAMOND:
+				_XL_PING_SOUND();
+                score+=DIAMOND_POINTS;
+                update_score_display();
+                --remaining_diamonds;
+                update_remaining_display();
+			break;
+			
+			case FREEZE:
+                _XL_ZAP_SOUND();
+                score+=FREEZE_POINTS;
+                update_score_display();
+                ++freeze_counter;
+                freeze_active=freeze_counter<<4;
+                update_freeze_display();
+			break;
+			
+			case RING:
+                _XL_ZAP_SOUND();
+                score+=RING_POINTS;
+                update_score_display();
+                ++ring_counter;
+                player_color = _XL_YELLOW;
+                ring_active=BASE_RING_EFFECT+(ring_counter<<4);
+                update_ring_display();
+			break;
+			
+			case WALL:
+				alive = 0;
+			break;
+			
+			case SHURIKEN:
+			case MINI_SHURIKEN:
+                if(ring_active)
+                {
+                    display_player();
+                }
+                else
+                {
+                    alive=0;
+                }
+			break;			
+		}
+*/
 
         if(cell_value)
         {
@@ -451,11 +505,10 @@ void update_force(uint8_t cell1, uint8_t cell2)
         {
             ++force;
         }
-        else
-        {
-            // player_color = _XL_RED;
-            update_player();
-        }  
+        // else
+        // {
+            // update_player();
+        // }  
     }
     else
     {
@@ -676,13 +729,30 @@ void init_score_display(void)
 }
 
 
+
+// too many parameters
+void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    for(i=x;i<x+width;++i)
+    {
+        for(j=y;j<y+height;++j)
+        {
+            build_element(type, color,i,j);
+        }
+    }
+}
+
+
 void build_objects(void)
 {
     uint16_t index = objects_index[level];
     uint8_t no_of_objects = objects_map[index];
     uint8_t i;
-    uint8_t j;
-    uint8_t k;
+    // uint8_t j;
+    // uint8_t k;
     uint8_t x;
     uint8_t y;
     uint8_t x_size;
@@ -706,15 +776,16 @@ void build_objects(void)
             remaining_diamonds+=x_size*y_size;
         }
         // TODO: USE build_rectangle
-        for(j=x;j<x+x_size;++j)
-        {
-            for(k=y;k<y+y_size;++k)
-            {
+        // for(j=x;j<x+x_size;++j)
+        // {
+            // for(k=y;k<y+y_size;++k)
+            // {
 
-                build_element(type,color,j,k);
+                // build_element(type,color,j,k);
                 
-            }
-        }
+            // }
+        // }
+		build_rectangle(type,color,x,y,x_size,y_size);
     }
 }
 
@@ -768,23 +839,6 @@ void build_shurikens(void)
         mini_shuriken_x[i]=shurikens_map[++index];
         mini_shuriken_y[i]=1;
         build_element(MINI_SHURIKEN,mini_shuriken_color,mini_shuriken_x[i],mini_shuriken_y[i]);
-    }
-}
-
-
-
-// too many parameters
-void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
-{
-    uint8_t i;
-    uint8_t j;
-    
-    for(i=x;i<x+width;++i)
-    {
-        for(j=y;j<y+height;++j)
-        {
-            build_element(type, color,i,j);
-        }
     }
 }
 

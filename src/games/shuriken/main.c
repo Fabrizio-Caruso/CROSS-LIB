@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 0
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -128,9 +128,10 @@ extern const uint8_t walls_index[];
 
 #define LEVEL_BONUS 30
 #define TIME_BONUS 30
-#define FREEZE_BONUS 50
-#define RING_BONUS   100
-#define SHURIKEN_BONUS 100
+// #define FREEZE_BONUS 50
+// #define RING_BONUS   100
+// #define SHURIKEN_BONUS 100
+#define ITEM_BONUS 50
 
 
 #if XSize<32
@@ -255,18 +256,8 @@ static const uint8_t player_tile[4][4] =
 void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
-    // if(type==EMPTY)
-    // {
-        // _XL_DELETE(x,y);
-    // }
-    // else
-	// if(type==DIAMOND)
-	// {
-		// ++remaining_diamonds;
-	// }
-    // {
-        _XL_DRAW(x,y,screen_tile[type], color);
-    // }
+	_XL_DRAW(x,y,screen_tile[type], color);
+
 }
 
 
@@ -1351,6 +1342,31 @@ void handle_lose_life(void)
 }
 
 
+void update_item_display(void)
+{
+	update_freeze_display();
+	update_ring_display();
+	update_shuriken_display();
+}
+
+
+void item_bonus(uint8_t *item_counter_ptr)
+{
+	if(*item_counter_ptr)
+	{
+		do
+		{
+		score+=ITEM_BONUS;
+		--(*item_counter_ptr);
+		update_item_display();
+		update_score_display();
+		_XL_ZAP_SOUND();
+		_XL_SLEEP(1);
+		} while(*item_counter_ptr);
+	}
+}
+
+
 void handle_next_level(void)
 {
     ++level;
@@ -1370,52 +1386,15 @@ void handle_next_level(void)
     if(counter<1024+128)
     {
         score+=(8-counter/128)*TIME_BONUS;
+		_XL_PING_SOUND();
+		update_score_display();
     }
-    update_score_display();
-    _XL_PING_SOUND();
     _XL_SLEEP(1);
     // _XL_WAIT_FOR_INPUT();
     
-    if(freeze_counter)
-    {
-        do
-        {
-            score+=FREEZE_BONUS;
-            --freeze_counter;
-            update_score_display();
-            update_freeze_display();
-            _XL_ZAP_SOUND();
-            _XL_SLEEP(1);
-            // _XL_WAIT_FOR_INPUT();
-        } while(freeze_counter);
-    }
-    
-    if(ring_counter)
-    {
-        do
-        {
-            score+=RING_BONUS;
-            --ring_counter;
-            update_score_display();
-            update_ring_display();
-            _XL_ZAP_SOUND();
-            _XL_SLEEP(1);
-            // _XL_WAIT_FOR_INPUT();
-        } while(ring_counter);
-    }
-    
-    if(shuriken_counter)
-    {
-        do
-        {
-            score+=SHURIKEN_BONUS;
-            --shuriken_counter;
-            update_score_display();
-            update_shuriken_display();
-            _XL_ZAP_SOUND();
-            _XL_SLEEP(1);
-        } while(shuriken_counter);
-    } 
+	item_bonus(&shuriken_counter);
+	item_bonus(&freeze_counter);
+	item_bonus(&ring_counter);
 }
 
 

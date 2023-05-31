@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 3
 #define INITIAL_LIVES 5
 #define FINAL_LEVEL 3
 
@@ -108,7 +108,7 @@ extern const uint8_t walls_index[];
 #define MIN_PLAYER_X 2
 #define MAX_PLAYER_X (2*XSize-5)
 
-#define MOVE_FORCE 8
+#define MOVE_FORCE 8U
 
 #if XSize<32
     #define MINI_SHURIKEN_NUMBER 8
@@ -490,21 +490,13 @@ void delete_player(void)
 
 void update_force(uint8_t cell1, uint8_t cell2)
 {
-    if((cell1==BLOCK)||(cell2==BLOCK))
+    if(((cell1==BLOCK)||(cell2==BLOCK))&&(force<MOVE_FORCE))
     {     
-        if(force<MOVE_FORCE)
-        {
-            ++force;
-        }
-        // else
-        // {
-            // update_player();
-        // }  
+		++force;
     }
     else
     {
         force=0;
-        // player_color = _XL_WHITE;
     }
 }
 
@@ -1233,9 +1225,11 @@ void handle_player(void)
             update_player();
         }
     }
-    else if (ring_active)
+	// REMARK: We need this because shuriken do delete the player despite hand_collision
+    else if(ring_active)
     {
         display_player();
+		force=0;
     }
 }
 

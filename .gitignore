@@ -22,6 +22,7 @@ roms/vice/pet/basic4
 roms/vice/pet/edit*
 roms/vice/pet/characters*
 src/cfg/*
+**mapfile.txt
 *.o
 *.def
 *.swp

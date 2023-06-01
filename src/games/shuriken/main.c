@@ -28,8 +28,9 @@
 
 
 #define INITIAL_LEVEL 3
+#define FINAL_LEVEL 7
+
 #define INITIAL_LIVES 5
-#define FINAL_LEVEL 3
 
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
@@ -139,6 +140,8 @@ extern const uint8_t walls_index[];
 #else
     #define BASE_RING_EFFECT 20
 #endif
+
+#define START_RING_EFFECT 25
 
 
 uint8_t player_x;
@@ -1241,8 +1244,9 @@ void init_player(void)
     player_y = YSize;
     
     force = 0;
-    
-    player_color = _XL_WHITE;
+    ring_active = START_RING_EFFECT;
+	
+    player_color = _XL_YELLOW;
     
 }
 

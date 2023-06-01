@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 2
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -726,7 +726,15 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
     {
         for(j=y;j<y+height;++j)
         {
-            build_element(type, color,i,j);
+            
+            if(type)
+            {
+                build_element(type, color,i,j);
+            }
+            else // REMARK: Necessary to switch walls
+            {
+                delete_element(i,j);
+            }
         }
     }
 }
@@ -847,7 +855,7 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
     return 1;
 }
 
-
+// TODO: to be fixed
 void switch_wall_if_possible(uint8_t i)
 {
     uint8_t wall;  

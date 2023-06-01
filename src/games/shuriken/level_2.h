@@ -3,7 +3,7 @@
 
 // LEVEL 2
 
-#define LV_2_NO_OF_OBJECTS 12
+#define LV_2_NO_OF_OBJECTS 14
 
 #define LV_2_OBJECTS \
     LV_2_NO_OF_OBJECTS, \
@@ -19,8 +19,10 @@
 	2,YSize-4,1,1,FREEZE,_XL_CYAN, \
     \
     2,5,1,YSize-9,DIAMOND,_XL_GREEN, \
+    4,5,1,YSize-9,DIAMOND,_XL_GREEN, \
     8,7,1,YSize-7-6,DIAMOND,_XL_GREEN, \
     XSize-9,7,1,YSize-7-6,DIAMOND,_XL_GREEN, \
+    XSize-5,5,1,YSize-9,DIAMOND,_XL_GREEN,  \
     XSize-3,5,1,YSize-9,DIAMOND,_XL_GREEN
 
 #define LV_2_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_2_NO_OF_OBJECTS)

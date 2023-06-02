@@ -28,6 +28,14 @@
 #include "level_2.h"
 #include "level_3.h"
 
+// LEVEL 0
+#define LV_0_OBJECTS LV_HORIZ_OBJECTS
+#define LV_0_OBJECTS_SIZE LV_HORIZ_OBJECTS_SIZE
+#define LV_0_SHURIKENS LV_HORIZ_SHURIKENS
+#define LV_0_SHURIKENS_SIZE LV_HORIZ_SHURIKENS_SIZE
+#define LV_0_WALLS LV_HORIZ_WALLS 
+#define LV_0_WALLS_SIZE LV_HORIZ_WALLS_SIZE
+
 
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
@@ -98,18 +106,18 @@ static const uint8_t shurikens_index[] =
 // Walls: dynamic walls
 static const uint8_t walls_map[] =
 {
-	LV0_WALLS,
-	LV1_WALLS,
-	LV2_WALLS,
-	LV3_WALLS,
+	LV_0_WALLS,
+	LV_1_WALLS,
+	LV_2_WALLS,
+	LV_3_WALLS,
 };
 
 static const uint8_t walls_index[] =
 {
 	0,
-	LV0_WALLS_SIZE,
-	LV0_WALLS_SIZE+LV1_WALLS_SIZE,
-	LV0_WALLS_SIZE+LV1_WALLS_SIZE+LV2_WALLS_SIZE,
+	LV_0_WALLS_SIZE,
+	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE,
+	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE+LV_2_WALLS_SIZE,
 	
     // 0,
     // 0,

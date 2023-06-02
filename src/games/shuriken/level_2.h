@@ -63,11 +63,11 @@
 
 //
 
-#define LV2_NO_OF_WALLS 2
+#define LV_2_NO_OF_WALLS 2
 
 
-#define LV2_WALLS \
-    LV2_NO_OF_WALLS, \
+#define LV_2_WALLS \
+    LV_2_NO_OF_WALLS, \
 	\
     LV2_SHURIKEN_X,4, \
     LV2_SHURIKEN_WIDTH, LV2_SHURIKEN_HEIGHT, \
@@ -79,6 +79,6 @@
     SHURIKEN,_XL_CYAN, \
     30
 
-#define LV2_WALLS_SIZE LC_WALLS_SIZE(LV2_NO_OF_WALLS)
+#define LV_2_WALLS_SIZE LC_WALLS_SIZE(LV_2_NO_OF_WALLS)
 
 

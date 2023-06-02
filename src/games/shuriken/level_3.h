@@ -59,10 +59,10 @@
 
 //
 
-#define LV3_NO_OF_WALLS 4
+#define LV_3_NO_OF_WALLS 4
 
-#define LV3_WALLS \
-    LV3_NO_OF_WALLS, \
+#define LV_3_WALLS \
+    LV_3_NO_OF_WALLS, \
 	\
     6,6, \
     3,1, \
@@ -84,5 +84,5 @@
     WALL,_XL_YELLOW, \
     20
 
-#define LV3_WALLS_SIZE LC_WALLS_SIZE(LV3_NO_OF_WALLS)
+#define LV_3_WALLS_SIZE LC_WALLS_SIZE(LV_3_NO_OF_WALLS)
 

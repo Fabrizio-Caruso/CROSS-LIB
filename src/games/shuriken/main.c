@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -504,17 +504,23 @@ void update_force(uint8_t cell1, uint8_t cell2)
 }
 
 
-uint8_t allowed(uint8_t cell1, uint8_t cell2)
+uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyond_cell2)
 {
     update_force(cell1,cell2);
 
+	if((cell1==WALL)||(cell2==WALL))
+	{
+		return 0;
+	}
+
     if(force<MOVE_FORCE)
     {
-        return (cell1!=WALL) && (cell2!=WALL) && (cell1!=BLOCK) && (cell2!=BLOCK);
+        return (cell1!=BLOCK) && (cell2!=BLOCK);
     }
-    else 
+    else
     {
-        return (cell1!=WALL) && (cell2!=WALL);
+		
+        return (!beyond_cell1) && (!beyond_cell2);
     }
 }
 
@@ -523,8 +529,11 @@ uint8_t allowed_down(void)
 {
     uint8_t cell1 = map[screen_x][screen_y+2];
     uint8_t cell2 = map[screen_x+1][screen_y+2];
+
+    uint8_t beyond_cell1 = map[screen_x][screen_y+3];
+    uint8_t beyond_cell2 = map[screen_x+1][screen_y+3]; 
     
-    return allowed(cell1,cell2);
+    return allowed(cell1,cell2,beyond_cell1,beyond_cell2);
 
 }
 
@@ -533,8 +542,11 @@ uint8_t allowed_up(void)
 {
     uint8_t cell1 = map[screen_x][screen_y-1];
     uint8_t cell2 = map[screen_x+1][screen_y-1];
+
+    uint8_t beyond_cell1 = map[screen_x][screen_y-2];
+    uint8_t beyond_cell2 = map[screen_x+1][screen_y-2]; 
     
-    return allowed(cell1,cell2);
+    return allowed(cell1,cell2,beyond_cell1,beyond_cell2);
 }
 
 
@@ -543,16 +555,22 @@ uint8_t allowed_left(void)
     uint8_t cell1 = map[screen_x-1][screen_y];
     uint8_t cell2 = map[screen_x-1][screen_y+1];    
     
-    return allowed(cell1,cell2);
+    uint8_t beyond_cell1 = map[screen_x-2][screen_y];
+    uint8_t beyond_cell2 = map[screen_x-2][screen_y+1]; 	
+	
+    return allowed(cell1,cell2,beyond_cell1,beyond_cell2);
 }
 
 
 uint8_t allowed_right(void)
 {
     uint8_t cell1 = map[screen_x+2][screen_y];
-    uint8_t cell2 = map[screen_x+2][screen_y+1];    
+    uint8_t cell2 = map[screen_x+2][screen_y+1]; 
+
+    uint8_t beyond_cell1 = map[screen_x+3][screen_y];
+    uint8_t beyond_cell2 = map[screen_x+3][screen_y+1]; 	
         
-    return allowed(cell1,cell2);
+    return allowed(cell1,cell2,beyond_cell1,beyond_cell2);
 }
 
 
@@ -1237,11 +1255,14 @@ void handle_player(void)
         }
     }
 	// REMARK: We need this because shuriken do delete the player despite hand_collision
-    else if(ring_active)
-    {
-        display_player();
-		force=0;
-    }
+    else 
+	{
+		// force=0;
+		if(ring_active)
+		{
+			display_player();
+		}
+	}
 }
 
 

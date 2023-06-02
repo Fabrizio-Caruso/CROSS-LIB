@@ -67,25 +67,21 @@
     6,6, \
     3,1, \
     WALL,_XL_YELLOW, \
-    0, \
     20, \
     \
     6,YSize-6, \
     3,1,\
     WALL,_XL_YELLOW, \
-    0, \
     20, \
     \
     XSize-9,6, \
     3,1, \
     WALL,_XL_YELLOW, \
-    0,\
     20, \
     \
     XSize-9,YSize-6, \
     3,1, \
     WALL,_XL_YELLOW, \
-    0, \
     20
 
 #define LV3_WALLS_SIZE LC_WALLS_SIZE(LV3_NO_OF_WALLS)

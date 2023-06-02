@@ -27,10 +27,13 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 1
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
+
+// DEBUG
+// #define SHOW_LEVELS
 
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
@@ -109,7 +112,7 @@ extern const uint8_t walls_index[];
 #define MIN_PLAYER_X 2
 #define MAX_PLAYER_X (2*XSize-5)
 
-#define MOVE_FORCE 8U
+#define MOVE_FORCE 3U
 
 #if XSize<32
     #define MINI_SHURIKEN_NUMBER 8
@@ -820,8 +823,8 @@ void build_walls(void)
         wall_height[i] = walls_map[++index];  
         wall_type[i] = walls_map[++index];
         wall_color[i] = walls_map[++index];       
-        wall_counter[i] = walls_map[++index];       
         wall_threshold[i] = walls_map[++index];
+		wall_counter[i] = 0;    
         wall_triggered[i] = 0;
     }
 }
@@ -1200,59 +1203,48 @@ void handle_player(void)
     
     if(_XL_UP(input) && (!(player_y&1) || allowed_up()))
     {
-        // if(player_y>MIN_PLAYER_Y)
-        // {
-            if(player_y&1)
-            {
-                delete_player_down();
-                if_block_push_up();
-            }
-            --player_y;
 
-            update_player();
-        // }
+		if(player_y&1)
+		{
+			delete_player_down();
+			if_block_push_up();
+		}
+		--player_y;
+
+		update_player();
     }
     else if(_XL_DOWN(input) && ((player_y&1) || allowed_down()))
     {    
-        // if(player_y<MAX_PLAYER_Y)
-        // {
-            if(!(player_y&1))
-            {
-                delete_player_up();
-                if_block_push_down();
-            }
-            ++player_y;
+		if(!(player_y&1))
+		{
+			delete_player_up();
+			if_block_push_down();
+		}
+		++player_y;
 
-            update_player();
-        // }
+		update_player();
     }
     else if(_XL_LEFT(input) && ((player_x&1) || allowed_left()))
     {
-        // if(player_x>MIN_PLAYER_X)
-        // {
-            if(!(player_x&1))
-            {
-                delete_player_right();
-                if_block_push_left();
-            }
-            --player_x;
+		if(!(player_x&1))
+		{
+			delete_player_right();
+			if_block_push_left();
+		}
+		--player_x;
 
-            update_player();
-        // }
+		update_player();
     }
     else if(_XL_RIGHT(input) && (!(player_x&1) || allowed_right()))
     {    
-        // if(player_x<MAX_PLAYER_X)
-        // {   
-            if(player_x&1)
-            {
-                delete_player_left();
-                if_block_push_right();
-            }
-            ++player_x;
+		if(player_x&1)
+		{
+			delete_player_left();
+			if_block_push_right();
+		}
+		++player_x;
 
-            update_player();
-        // }
+		update_player();
     }
 	// REMARK: We need this because shuriken do delete the player despite hand_collision
     else 
@@ -1495,6 +1487,10 @@ int main(void)
                 ++counter;
 
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
+				#if defined(SHOW_LEVELS)
+					remaining_diamonds=0;
+					_XL_WAIT_FOR_INPUT();
+				#endif
             }
             if(alive)
             {

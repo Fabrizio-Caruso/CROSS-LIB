@@ -21,7 +21,7 @@
 
 #define LV_SHURIKENS_SIZE(horiz,vert,mini) (1+(horiz)*2+ 1+(vert)*2+ 1+(mini))
 
-#define LC_WALLS_SIZE(walls) (1+(walls*8))
+#define LC_WALLS_SIZE(walls) (1+(walls*7))
 
 #include "level_0.h"
 #include "level_1.h"
@@ -106,9 +106,10 @@ static const uint8_t walls_map[] =
 
 static const uint8_t walls_index[] =
 {
-	LV0_WALLS,
-	LV0_WALLS+LV1_WALLS,
-	LV0_WALLS+LV1_WALLS+LV2_WALLS,
+	0,
+	LV0_WALLS_SIZE,
+	LV0_WALLS_SIZE+LV1_WALLS_SIZE,
+	LV0_WALLS_SIZE+LV1_WALLS_SIZE+LV2_WALLS_SIZE,
 	
     // 0,
     // 0,

@@ -28,21 +28,38 @@
 //
 
 #define LV_1_SHURIKENS \
-	2, 0, 4, \
+	5, 0, 4, \
 	\
     3,8, \
     XSize-3,YSize-6, \
-	\
-	\
+	4,YSize-3, \
+	5,YSize/2+3, \
+	XSize-5,3, \
 	\
 	7, \
 	2, \
 	XSize-3, \
 	XSize-8
 
-#define LV_1_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,0,4)
+#define LV_1_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)
 
 // 
 
-#define LV1_WALLS 0
-#define LV1_WALLS_SIZE LC_WALLS_SIZE(0)
+#define LV1_NO_OF_WALLS 2
+
+
+#define LV1_WALLS \
+    LV1_NO_OF_WALLS, \
+	\
+    XSize/2-4,YSize/2-1, \
+    1, 6, \
+    SHURIKEN, _XL_YELLOW, \
+    20, \
+    \
+    XSize/2+4,YSize/2-1, \
+    1, 6, \
+    SHURIKEN, _XL_YELLOW, \
+    20 \
+
+#define LV1_WALLS_SIZE LC_WALLS_SIZE(LV1_NO_OF_WALLS)
+

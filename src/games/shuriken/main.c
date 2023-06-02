@@ -520,7 +520,7 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyo
     else
     {
 		
-        return (!beyond_cell1) && (!beyond_cell2);
+        return ((!beyond_cell1)||(beyond_cell1==WALL)) && ((!beyond_cell2)||(beyond_cell2==WALL)) ;
     }
 }
 
@@ -1200,8 +1200,8 @@ void handle_player(void)
     
     if(_XL_UP(input) && (!(player_y&1) || allowed_up()))
     {
-        if(player_y>MIN_PLAYER_Y)
-        {
+        // if(player_y>MIN_PLAYER_Y)
+        // {
             if(player_y&1)
             {
                 delete_player_down();
@@ -1210,12 +1210,12 @@ void handle_player(void)
             --player_y;
 
             update_player();
-        }
+        // }
     }
     else if(_XL_DOWN(input) && ((player_y&1) || allowed_down()))
     {    
-        if(player_y<MAX_PLAYER_Y)
-        {
+        // if(player_y<MAX_PLAYER_Y)
+        // {
             if(!(player_y&1))
             {
                 delete_player_up();
@@ -1224,12 +1224,12 @@ void handle_player(void)
             ++player_y;
 
             update_player();
-        }
+        // }
     }
     else if(_XL_LEFT(input) && ((player_x&1) || allowed_left()))
     {
-        if(player_x>MIN_PLAYER_X)
-        {
+        // if(player_x>MIN_PLAYER_X)
+        // {
             if(!(player_x&1))
             {
                 delete_player_right();
@@ -1238,12 +1238,12 @@ void handle_player(void)
             --player_x;
 
             update_player();
-        }
+        // }
     }
     else if(_XL_RIGHT(input) && (!(player_x&1) || allowed_right()))
     {    
-        if(player_x<MAX_PLAYER_X)
-        {   
+        // if(player_x<MAX_PLAYER_X)
+        // {   
             if(player_x&1)
             {
                 delete_player_left();
@@ -1252,7 +1252,7 @@ void handle_player(void)
             ++player_x;
 
             update_player();
-        }
+        // }
     }
 	// REMARK: We need this because shuriken do delete the player despite hand_collision
     else 

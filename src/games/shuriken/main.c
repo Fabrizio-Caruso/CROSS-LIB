@@ -1402,7 +1402,7 @@ void item_bonus(uint8_t *item_counter_ptr)
 		update_item_display();
 		update_score_display();
 		_XL_ZAP_SOUND();
-		_XL_SLEEP(1);
+		_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
 		} while(*item_counter_ptr);
 	}
 }

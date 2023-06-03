@@ -56,6 +56,8 @@ extern const uint8_t walls_index[];
 
 #define MAX_NUMBER_OF_SHURIKENS 16
 
+#define MAX_TIME 9
+
 // Left low player in the 2x2 multi-tile
 #define LEFT_LOW_TILE0      _TILE_2
 #define LEFT_LOW_TILE1      _TILE_6
@@ -212,7 +214,7 @@ uint8_t restart_level;
 
 uint8_t tile_group;
 
-uint8_t time_left;
+uint8_t time_counter;
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -328,12 +330,20 @@ void update_shuriken_display(void)
 }
 
 
-void update_time_left_display(void)
+void update_time_counter_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(10,YSize-1,1,time_left);	
+    _XL_PRINTD(10,YSize-1,1,time_counter);	
 }
 
+
+void update_item_display(void)
+{
+	update_time_counter_display();
+	update_freeze_display();
+	update_ring_display();
+	update_shuriken_display();
+}
 
 
 void handle_collisions(void)
@@ -417,8 +427,12 @@ void handle_collisions(void)
                 score+=FREEZE_POINTS;
                 update_score_display();
                 ++freeze_counter;
+				if(time_counter<MAX_TIME)
+				{
+					++time_counter;
+				}
                 freeze_active=freeze_counter<<4;
-                update_freeze_display();
+                update_item_display();
             }
             else if(cell_value==RING)
             {
@@ -742,10 +756,11 @@ void init_score_display(void)
 	
     _XL_SET_TEXT_COLOR(_XL_GREEN);
 	_XL_CHAR(9,YSize-1,'T');
-    update_ring_display();
-    update_freeze_display();
-    update_shuriken_display();
-	update_time_left_display();
+    // update_ring_display();
+    // update_freeze_display();
+    // update_shuriken_display();
+	// update_time_counter_display();
+	update_item_display();
 }
 
 
@@ -949,7 +964,7 @@ void init_level(void)
             
     build_objects();
     
-	time_left = 9;
+	time_counter = MAX_TIME;
 
     init_score_display();
 
@@ -1376,15 +1391,6 @@ void handle_lose_life(void)
 }
 
 
-void update_item_display(void)
-{
-	update_time_left_display();
-	update_freeze_display();
-	update_ring_display();
-	update_shuriken_display();
-}
-
-
 void item_bonus(uint8_t *item_counter_ptr)
 {
 	if(*item_counter_ptr)
@@ -1423,7 +1429,7 @@ void handle_next_level(void)
     // }
     _XL_SLEEP(1);
     
-	item_bonus(&time_left);
+	item_bonus(&time_counter);
 	item_bonus(&shuriken_counter);
 	item_bonus(&freeze_counter);
 	item_bonus(&ring_counter);
@@ -1440,9 +1446,10 @@ void init_player_achievements(void)
 
     shuriken_counter=0;
 
-    update_freeze_display();
-    update_ring_display();
-    update_shuriken_display();
+	update_item_display();
+    // update_freeze_display();
+    // update_ring_display();
+    // update_shuriken_display();
     
     // REMARK: counter should not be initialized 
     // otherwise the player gets more points by losing just before completing a level
@@ -1453,10 +1460,10 @@ void handle_time(void)
 {
 	if(!(counter&63))
 	{
-		if(time)
+		if(time_counter)
 		{
-			--time_left;
-			update_time_left_display();
+			--time_counter;
+			update_time_counter_display();
 		}
 	}
 }

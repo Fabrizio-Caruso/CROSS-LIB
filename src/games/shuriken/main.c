@@ -199,7 +199,7 @@ uint8_t freeze_counter;
 
 uint8_t ring_active;
 
-uint16_t counter;
+uint8_t counter;
 
 uint8_t ring_counter;
 
@@ -211,6 +211,8 @@ uint8_t mini_shuriken_color;
 uint8_t restart_level;
 
 uint8_t tile_group;
+
+uint8_t time_left;
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -319,12 +321,19 @@ void update_ring_display(void)
 }
 
 
-
 void update_shuriken_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(7,YSize-1,1,shuriken_counter);
 }
+
+
+void update_time_left_display(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(10,YSize-1,1,time_left);	
+}
+
 
 
 void handle_collisions(void)
@@ -730,9 +739,13 @@ void init_score_display(void)
     _XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE);
     _XL_DRAW(3,YSize-1,FREEZE_TILE,_XL_CYAN);
     _XL_DRAW(6,YSize-1,SHURIKEN_TILE,_XL_CYAN);
+	
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+	_XL_CHAR(9,YSize-1,'T');
     update_ring_display();
     update_freeze_display();
     update_shuriken_display();
+	update_time_left_display();
 }
 
 
@@ -936,6 +949,8 @@ void init_level(void)
             
     build_objects();
     
+	time_left = 9;
+
     init_score_display();
 
     build_shurikens();
@@ -1363,6 +1378,7 @@ void handle_lose_life(void)
 
 void update_item_display(void)
 {
+	update_time_left_display();
 	update_freeze_display();
 	update_ring_display();
 	update_shuriken_display();
@@ -1394,23 +1410,20 @@ void handle_next_level(void)
     _XL_WAIT_FOR_INPUT();
     restart_level = 1;
     
-    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     _XL_SLEEP(1);
     score+=LEVEL_BONUS*level;
     update_score_display();
-    // _XL_PING_SOUND();
-    // _XL_SLEEP(1);
-    // _XL_WAIT_FOR_INPUT();
+
     
-    if(counter<1024+128)
-    {
-        score+=(8-counter/128)*TIME_BONUS;
-		_XL_PING_SOUND();
-		update_score_display();
-    }
+    // if(counter<1024+128)
+    // {
+        // score+=(8-counter/128)*TIME_BONUS;
+		// _XL_PING_SOUND();
+		// update_score_display();
+    // }
     _XL_SLEEP(1);
-    // _XL_WAIT_FOR_INPUT();
     
+	item_bonus(&time_left);
 	item_bonus(&shuriken_counter);
 	item_bonus(&freeze_counter);
 	item_bonus(&ring_counter);
@@ -1435,6 +1448,18 @@ void init_player_achievements(void)
     // otherwise the player gets more points by losing just before completing a level
 }
 
+
+void handle_time(void)
+{
+	if(!(counter&63))
+	{
+		if(time)
+		{
+			--time_left;
+			update_time_left_display();
+		}
+	}
+}
 
 int main(void)
 {        
@@ -1491,6 +1516,7 @@ int main(void)
 					remaining_diamonds=0;
 					_XL_WAIT_FOR_INPUT();
 				#endif
+				handle_time();
             }
             if(alive)
             {

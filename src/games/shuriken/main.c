@@ -1510,20 +1510,23 @@ int main(void)
 
                 handle_player();
                 
-                handle_shurikens();
-                handle_walls();
-                
-                handle_ring();
-                handle_collisions();
-                
-                ++counter;
+				if(alive)
+				{
+					handle_shurikens();
+					handle_walls();
+					
+					handle_ring();
+					handle_collisions();
+					
+					++counter;
 
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
-				#if defined(SHOW_LEVELS)
-					remaining_diamonds=0;
-					_XL_WAIT_FOR_INPUT();
-				#endif
-				handle_time();
+					_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
+					#if defined(SHOW_LEVELS)
+						remaining_diamonds=0;
+						_XL_WAIT_FOR_INPUT();
+					#endif
+					handle_time();
+				}
             }
             if(alive)
             {

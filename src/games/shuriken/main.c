@@ -27,7 +27,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 1
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -544,9 +544,9 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyo
         return (cell1!=BLOCK) && (cell2!=BLOCK);
     }
     else
-    {
-		
-        return ((!beyond_cell1)||(beyond_cell1==WALL)) && ((!beyond_cell2)||(beyond_cell2==WALL)) ;
+    {		
+        return ((!cell1)||(!beyond_cell1)||(beyond_cell1==WALL)) && ((!cell2)||(!beyond_cell2)||(beyond_cell2==WALL));
+		//((!beyond_cell1)||(beyond_cell1==WALL)) && ((!beyond_cell2)||(beyond_cell2==WALL)) ;
     }
 }
 

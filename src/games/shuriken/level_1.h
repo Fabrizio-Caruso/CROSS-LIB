@@ -45,7 +45,7 @@
 
 // 
 
-#define LV_1_NO_OF_WALLS 2
+#define LV_1_NO_OF_WALLS 4
 
 
 #define LV_1_WALLS \
@@ -59,7 +59,18 @@
     XSize/2+4,YSize/2-1, \
     1, 6, \
     SHURIKEN, _XL_YELLOW, \
+    20, \
+	\
+    XSize/2-4+2,YSize/2-1, \
+    5, 1, \
+    SHURIKEN, _XL_YELLOW, \
+    20, \
+	\
+    XSize/2-4+2,YSize/2+5, \
+    5, 1, \
+    SHURIKEN, _XL_YELLOW, \
     20 \
+	
 
 #define LV_1_WALLS_SIZE LC_WALLS_SIZE(LV_1_NO_OF_WALLS)
 

@@ -347,6 +347,15 @@ void update_item_display(void)
 }
 
 
+void increase_time_counter_if_not_max(void)
+{
+	if(time_counter<MAX_TIME)
+	{
+		++time_counter;
+	}
+}
+
+
 void handle_collisions(void)
 {
     uint8_t i;
@@ -377,10 +386,7 @@ void handle_collisions(void)
                 score+=FREEZE_POINTS;
                 update_score_display();
                 ++freeze_counter;
-                if(time_counter<MAX_TIME)
-                {
-                    ++time_counter;
-                }
+				increase_time_counter_if_not_max();
                 freeze_active=freeze_counter<<4;
                 update_item_display();
             }
@@ -923,7 +929,8 @@ void shuriken_death(uint8_t x, uint8_t y, uint8_t index)
     score+=SHURIKEN_POINTS;
     update_score_display();
     ++shuriken_counter;
-    update_shuriken_display();
+	increase_time_counter_if_not_max();
+    update_item_display();
     shuriken_status[index]=0;
 }
 

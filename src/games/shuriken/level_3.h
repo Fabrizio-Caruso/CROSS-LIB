@@ -3,6 +3,8 @@
 
 #define LV_3_NO_OF_OBJECTS 24
 
+#define LV_3_BAR_SIZE XSize/7
+
 #define LV_3_OBJECTS \
     LV_3_NO_OF_OBJECTS, \
     \
@@ -27,13 +29,13 @@
     2,7,1,YSize-1-2-4-6,DIAMOND,_XL_GREEN, \
 	\
 	5,8, 1,1, WALL, _XL_RED, \
+	6+LV_3_BAR_SIZE,8, 1,1, WALL, _XL_RED, \
 	5,YSize-6,1,1,WALL,_XL_RED, \
-	9,8, 1,1, WALL, _XL_RED, \
-	9,YSize-6,1,1,WALL,_XL_RED, \
+	6+LV_3_BAR_SIZE,YSize-6,1,1,WALL,_XL_RED, \
 	\
-	XSize-10,8, 1,1, WALL, _XL_RED, \
-	XSize-10,YSize-6,1,1,WALL,_XL_RED, \
+	XSize-7-LV_3_BAR_SIZE,8, 1,1, WALL, _XL_RED, \
 	XSize-6,8, 1,1, WALL, _XL_RED, \
+	XSize-7-LV_3_BAR_SIZE,YSize-6,1,1,WALL,_XL_RED, \
 	XSize-6,YSize-6,1,1,WALL,_XL_RED, \
 	\
 	8,YSize-2,XSize-16,1,DIAMOND,_XL_GREEN, \
@@ -76,22 +78,22 @@
     LV_3_NO_OF_WALLS, \
 	\
     6,8, \
-    3,1, \
+    LV_3_BAR_SIZE,1, \
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
     6,YSize-6, \
-    3,1,\
+    LV_3_BAR_SIZE,1,\
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
-    XSize-9,8, \
-    3,1, \
+    XSize-7-XSize/7+1,8, \
+    LV_3_BAR_SIZE,1, \
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
-    XSize-9,YSize-6, \
-    3,1, \
+    XSize-7-XSize/7+1,YSize-6, \
+    LV_3_BAR_SIZE,1, \
     SHURIKEN,_XL_YELLOW, \
     15
 

@@ -1,3 +1,4 @@
+#include "cross_lib.h"
 #include "screen_types.h"
 
 // ------------------------------------------------------------
@@ -41,7 +42,7 @@
 
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
-static const uint8_t objects_map[] =
+const uint8_t objects_map[] =
 {
 
 	LV_0_OBJECTS,
@@ -55,7 +56,7 @@ static const uint8_t objects_map[] =
 };
 
 
-static const uint16_t objects_index[] = 
+const uint16_t objects_index[] = 
 {
 	0,
 	LV_0_OBJECTS_SIZE,
@@ -72,7 +73,7 @@ static const uint16_t objects_index[] =
 
 // ----------------------------------------------------------
 // Shurikens: horizontal, vertical and mini-shurikens
-static const uint8_t shurikens_map[] =
+const uint8_t shurikens_map[] =
 {
 
 	LV_0_SHURIKENS,
@@ -89,7 +90,7 @@ static const uint8_t shurikens_map[] =
 };
 
 
-static const uint8_t shurikens_index[] = 
+const uint8_t shurikens_index[] = 
 {
 	0,
 	LV_0_SHURIKENS_SIZE,
@@ -106,7 +107,7 @@ static const uint8_t shurikens_index[] =
 
 // ----------------------------------------------------------
 // Walls: dynamic walls
-static const uint8_t walls_map[] =
+const uint8_t walls_map[] =
 {
 	LV_0_WALLS,
 	LV_1_WALLS,
@@ -114,7 +115,7 @@ static const uint8_t walls_map[] =
 	LV_3_WALLS,
 };
 
-static const uint8_t walls_index[] =
+const uint8_t walls_index[] =
 {
 	0,
 	LV_0_WALLS_SIZE,

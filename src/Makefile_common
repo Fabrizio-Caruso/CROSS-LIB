@@ -719,10 +719,37 @@ aquarius_exp_4k:
 
 c128: c128_40col
 
+c128_40col_zsdcc: c128_z80_40col
+
+c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-lndos -subtype=disk -clib=gencon \
+	-D__C128_Z80__ -DXSize=40 \
+	 \
+	-D__BIT_BANG_SOUND   \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_40COL_SLOWDOWN) \
+	-D__CONIO_GRAPHICS  \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -oa40.bin
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	rm a40.bin
+else
+	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.bin
+endif
+	rm A40.LDR
+	rm A40
+
 c128_40col: c128_z80_40col
 
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk -clib=gencon \
 	-D__C128_Z80__ -DXSize=40 \

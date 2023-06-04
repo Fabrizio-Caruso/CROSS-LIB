@@ -48,7 +48,7 @@
 //
 
 
-#define LV3_SHURIKENS \
+#define LV_H_BARRIERS_SHURIKENS \
     3,8,0, \
 	\
     3,YSize-3, \
@@ -63,7 +63,7 @@
     6,YSize-3, \
     XSize-7,YSize-3, \
 	4,7, \
-	XSize-5,YSize-6, \
+	XSize-5,YSize-6 \
     \
     \
 

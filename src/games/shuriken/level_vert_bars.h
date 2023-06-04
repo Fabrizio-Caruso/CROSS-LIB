@@ -3,7 +3,11 @@
 
 // LEVEL 2
 
-#define LV_VERT_BARS_WIDTH (XSize/7-1)
+#if XSize<=20
+    #define LV_VERT_BARS_WIDTH 2
+#else
+    #define LV_VERT_BARS_WIDTH (XSize/7-1)
+#endif
 
 #define LV_VERT_BARS_NO_OF_OBJECTS 14
 

@@ -851,7 +851,8 @@ void switch_wall_if_possible(uint8_t i)
 
     if(!wall_triggered[i])
     {
-        if(safe_area(wall_x[i]-1,wall_y[i]-1,wall_width[i]+2, wall_height[i]+2))
+        // if(safe_area(wall_x[i]-1,wall_y[i]-1,wall_width[i]+2, wall_height[i]+2))
+		if(safe_area(wall_x[i],wall_y[i],wall_width[i], wall_height[i]))
         {
             _XL_TOCK_SOUND();
             wall = wall_type[i];

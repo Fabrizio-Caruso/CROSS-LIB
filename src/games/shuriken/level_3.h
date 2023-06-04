@@ -49,9 +49,9 @@
 #define LV3_SHURIKENS \
     3,8,0, \
 	\
-    3,YSize-6, \
-    XSize-4,6, \
-	5,YSize-4, \
+    3,YSize-3, \
+    XSize-5,6, \
+	5,3, \
 	\
     \
     3,3, \
@@ -59,13 +59,13 @@
     7,5, \
     XSize-8,6, \
     6,YSize-3, \
-    XSize-7,YSize-4, \
+    XSize-7,YSize-3, \
 	4,7, \
 	XSize-5,YSize-6, \
     \
     \
 
-#define LV_3_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,6,0)
+#define LV_3_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,8,0)
 
 
 //
@@ -75,23 +75,23 @@
 #define LV_3_WALLS \
     LV_3_NO_OF_WALLS, \
 	\
-    7,8, \
-    1,1, \
+    6,8, \
+    3,1, \
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
-    7,YSize-6, \
-    1,1,\
+    6,YSize-6, \
+    3,1,\
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
-    XSize-8,8, \
-    1,1, \
+    XSize-9,8, \
+    3,1, \
     SHURIKEN,_XL_YELLOW, \
     15, \
     \
-    XSize-8,YSize-6, \
-    1,1, \
+    XSize-9,YSize-6, \
+    3,1, \
     SHURIKEN,_XL_YELLOW, \
     15
 

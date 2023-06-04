@@ -13,7 +13,7 @@
 #include "level_horiz.h"
 #include "level_vert_bars.h"
 #include "level_cage.h"
-#include "level_3.h"
+#include "level_h_barriers.h"
 
 // LEVEL 0 - Lots of horizontal shurikens
 #define LV_0_OBJECTS LV_HORIZ_OBJECTS
@@ -39,6 +39,13 @@
 #define LV_2_WALLS LV_CAGE_WALLS 
 #define LV_2_WALLS_SIZE LV_CAGE_WALLS_SIZE
 
+// LEVEL 3 - 4 horizontal barriers
+#define LV_3_OBJECTS LV_H_BARRIERS_OBJECTS
+#define LV_3_OBJECTS_SIZE LV_H_BARRIERS_OBJECTS_SIZE
+#define LV_3_SHURIKENS LV_H_BARRIERS_SHURIKENS
+#define LV_3_SHURIKENS_SIZE LV_H_BARRIERS_SHURIKENS_SIZE
+#define LV_3_WALLS LV_H_BARRIERS_WALLS 
+#define LV_3_WALLS_SIZE LV_H_BARRIERS_WALLS_SIZE
 
 
 // ----------------------------------------------------------

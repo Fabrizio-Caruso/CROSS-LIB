@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -229,7 +229,7 @@ static const uint8_t screen_tile[7+1] =
     MINI_SHURIKEN_TILE,
 };  
 
-static const uint8_t border_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_GREEN};
+static const uint8_t border_colors[] = {_XL_YELLOW, _XL_CYAN, _XL_RED, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
 static const uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
 
@@ -1339,8 +1339,9 @@ void item_bonus(uint8_t *item_counter_ptr)
         update_item_display();
         update_score_display();
         _XL_ZAP_SOUND();
-        _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
         } while(*item_counter_ptr);
+		_XL_SLEEP(1);
     }
 }
 
@@ -1356,6 +1357,7 @@ void handle_next_level(void)
     _XL_SLEEP(1);
     score+=LEVEL_BONUS*level;
     update_score_display();
+	_XL_TOCK_SOUND();
 
     _XL_SLEEP(1);
     

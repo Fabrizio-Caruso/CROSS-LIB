@@ -7,6 +7,7 @@
 #define LV_SHURIKENS_SIZE(horiz,vert,mini) (1+(horiz)*2+ 1+(vert)*2+ 1+(mini))
 
 #define LC_WALLS_SIZE(walls) (1+(walls*7))
+//
 
 #include "level_horiz.h"
 #include "level_vert_bars.h"

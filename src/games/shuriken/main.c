@@ -24,6 +24,7 @@
 
 #include "cross_lib.h"
 
+#include "screen_types.h"
 #include "levels.h"
 
 

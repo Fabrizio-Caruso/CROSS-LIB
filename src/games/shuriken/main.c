@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -231,7 +231,7 @@ static const uint8_t screen_tile[7+1] =
 
 static const uint8_t border_colors[] = {_XL_YELLOW, _XL_CYAN, _XL_RED, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
-static const uint8_t mini_shuriken_colors[] = {_XL_RED, _XL_YELLOW};
+static const uint8_t mini_shuriken_colors[] = {_XL_YELLOW, _XL_RED};
 
 #define SHURIKEN_COLOR _XL_CYAN
 

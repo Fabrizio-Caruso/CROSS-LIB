@@ -8,9 +8,9 @@
 
 #define LC_WALLS_SIZE(walls) (1+(walls*7))
 
-#include "level_0.h"
-#include "level_1.h"
-#include "level_2.h"
+#include "level_horiz.h"
+#include "level_vert_bars.h"
+#include "level_cage.h"
 #include "level_3.h"
 
 // LEVEL 0 - Lots of horizontal shurikens

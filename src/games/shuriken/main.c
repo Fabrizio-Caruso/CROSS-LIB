@@ -282,7 +282,7 @@ void delete_element(uint8_t x, uint8_t y)
 
 void update_screen_xy(void)
 {
-    screen_x = player_x>>1;
+    screen_x =player_x>>1;
     screen_y = (player_y+1)>>1;
 }
     
@@ -1231,8 +1231,8 @@ void handle_player(void)
 void init_player(void)
 {
     alive = 1;
-    player_x = XSize;
-    player_y = YSize;
+    player_x = XSize-1;
+    player_y = YSize-1;
     
     force = 0;
     ring_active = START_RING_EFFECT;

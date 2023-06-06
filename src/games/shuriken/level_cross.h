@@ -34,8 +34,8 @@
     XSize-1-XSize/3,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
     \
     \
-    XSize/3+1+1,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-4,1,BLOCK,_XL_GREEN, \
-    XSize/3+1+1,4+YSize/4-1-2   ,XSize-2*(XSize/3)-4,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1+1,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-4-2,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1+1,4+YSize/4-1-2   ,XSize-2*(XSize/3)-4-2,1,BLOCK,_XL_GREEN, \
     \
 	\
     XSize/3-1,4,1,YSize/4,DIAMOND,_XL_GREEN, \

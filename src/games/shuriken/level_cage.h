@@ -51,22 +51,22 @@
 #define LV_CAGE_WALLS \
     LV_CAGE_NO_OF_WALLS, \
 	\
-    XSize/2-4,YSize/2-3, \
-    1, 9, \
+    XSize/2-4,YSize/2-1, \
+    1, 5, \
     SHURIKEN, _XL_YELLOW, \
     20, \
     \
-    XSize/2+4,YSize/2-3, \
-    1, 9, \
+    XSize/2+4,YSize/2-1, \
+    1, 5, \
     SHURIKEN, _XL_YELLOW, \
     20, \
 	\
-    XSize/2-4+1,YSize/2-3, \
+    XSize/2-4+1,YSize/2-1, \
     7, 1, \
     SHURIKEN, _XL_YELLOW, \
     20, \
 	\
-    XSize/2-4+1,YSize/2+5, \
+    XSize/2-4+1,YSize/2+3, \
     7, 1, \
     SHURIKEN, _XL_YELLOW, \
     20 \

@@ -16,7 +16,9 @@
     #define LV_CROSS_WIDTH XSize/5
 #endif
 
-#define LV_CROSS_NO_OF_OBJECTS 22
+#define LV_CROSS_NO_OF_OBJECTS 26
+
+// XSize-2*(XSize/3)-4
 
 #define LV_CROSS_OBJECTS \
     LV_CROSS_NO_OF_OBJECTS, \
@@ -34,9 +36,14 @@
     XSize-1-XSize/3,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
     \
     \
-    XSize/3+1+1+1,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-4-2,1,BLOCK,_XL_GREEN, \
-    XSize/3+1+1+1,4+YSize/4-1-2   ,XSize-2*(XSize/3)-4-2,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1,YSize-4-YSize/4+1+2,2,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1,4+YSize/4-1-2   ,2,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1+XSize-2*(XSize/3)-6,YSize-4-YSize/4+1+2,2,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1+XSize-2*(XSize/3)-6,4+YSize/4-1-2   ,2,1,BLOCK,_XL_GREEN, \
     \
+    \
+    XSize/3+1+1+2,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-8,1,WALL,_XL_CYAN, \
+    XSize/3+1+1+2,4+YSize/4-1-2   ,XSize-2*(XSize/3)-8,1,WALL,_XL_CYAN, \
 	\
     XSize/3-1,4,1,YSize/4,DIAMOND,_XL_GREEN, \
     XSize-1-XSize/3+1,4,1,YSize/4,DIAMOND,_XL_GREEN, \
@@ -95,7 +102,7 @@
     1,YSize-9-2*(YSize/4),\
     SHURIKEN,_XL_CYAN,20, \
     \
-    XSize-XSize/4,4+YSize/4+1,\
+    XSize-1-XSize/3+LV_CROSS_WIDTH-1,4+YSize/4+1,\
     1,YSize-9-2*(YSize/4),\
     SHURIKEN,_XL_CYAN,20  
 

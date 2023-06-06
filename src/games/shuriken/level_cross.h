@@ -16,7 +16,7 @@
     #define LV_CROSS_WIDTH XSize/5
 #endif
 
-#define LV_CROSS_NO_OF_OBJECTS 20
+#define LV_CROSS_NO_OF_OBJECTS 22
 
 #define LV_CROSS_OBJECTS \
     LV_CROSS_NO_OF_OBJECTS, \
@@ -32,6 +32,10 @@
     \
     XSize/3-LV_CROSS_WIDTH+1,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
     XSize-1-XSize/3,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
+    \
+    \
+    XSize/3+1+1,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-4,1,BLOCK,_XL_GREEN, \
+    XSize/3+1+1,4+YSize/4-1-2   ,XSize-2*(XSize/3)-4,1,BLOCK,_XL_GREEN, \
     \
 	\
     XSize/3-1,4,1,YSize/4,DIAMOND,_XL_GREEN, \
@@ -61,9 +65,17 @@
 //
 
 #define LV_CROSS_SHURIKENS \
-    0,0,0
+    4,0,2, \
+    1,2,\
+    XSize-2,3, \
+    1,YSize-2, \
+    XSize-2,YSize-3, \
+    \
+    2, \
+    XSize-3
+    
 
-#define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(0,0,0)
+#define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,0,2)
 
 
 

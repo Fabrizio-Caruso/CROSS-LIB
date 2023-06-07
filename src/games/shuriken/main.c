@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 4
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -396,9 +396,10 @@ void handle_collisions(void)
                 score+=RING_POINTS;
                 update_score_display();
                 ++ring_counter;
+				increase_time_counter_if_not_max();
                 player_color = _XL_YELLOW;
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
-                update_ring_display();
+                update_item_display();
             }
             else if(cell_value==WALL) 
             {

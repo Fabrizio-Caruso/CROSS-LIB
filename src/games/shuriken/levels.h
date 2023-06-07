@@ -15,6 +15,7 @@
 #include "level_cage.h"
 #include "level_h_barriers.h"
 #include "level_cross.h"
+#include "level_horiz_walls.h"
 
 // LEVEL 0 - Lots of horizontal shurikens
 #define LV_0_OBJECTS LV_HORIZ_OBJECTS
@@ -58,6 +59,15 @@
 #define LV_4_WALLS_SIZE LV_CROSS_WALLS_SIZE
 
 
+// LEVEL 5 - horiz wall
+#define LV_5_OBJECTS LV_HORIZ_WALLS_OBJECTS
+#define LV_5_OBJECTS_SIZE LV_HORIZ_WALLS_OBJECTS_SIZE
+#define LV_5_SHURIKENS LV_HORIZ_WALLS_SHURIKENS
+#define LV_5_SHURIKENS_SIZE LV_HORIZ_WALLS_SHURIKENS_SIZE
+#define LV_5_WALLS LV_HORIZ_WALLS_WALLS 
+#define LV_5_WALLS_SIZE LV_HORIZ_WALLS_WALLS_SIZE
+
+
 // ----------------------------------------------------------
 // Objects: static walls and collectable items
 const uint8_t objects_map[] =
@@ -71,7 +81,9 @@ const uint8_t objects_map[] =
 	
 	LV_3_OBJECTS,
     
-    LV_4_OBJECTS
+    LV_4_OBJECTS,
+    
+    LV_5_OBJECTS
 
 };
 
@@ -82,7 +94,9 @@ const uint16_t objects_index[] =
 	LV_0_OBJECTS_SIZE,
 	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE,
 	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE+LV_2_OBJECTS_SIZE,
-	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE+LV_2_OBJECTS_SIZE+LV_3_OBJECTS_SIZE
+	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE+LV_2_OBJECTS_SIZE+LV_3_OBJECTS_SIZE,
+	LV_0_OBJECTS_SIZE+LV_1_OBJECTS_SIZE+LV_2_OBJECTS_SIZE+LV_3_OBJECTS_SIZE+LV_4_OBJECTS_SIZE
+    
     // 0,
     // 1+6*12,
     // 1+6*12+1+6*11,
@@ -111,6 +125,9 @@ const uint8_t shurikens_map[] =
     //
     LV_4_SHURIKENS,
   
+    //
+    LV_5_SHURIKENS,
+    
 };
 
 
@@ -120,7 +137,8 @@ const uint8_t shurikens_index[] =
 	LV_0_SHURIKENS_SIZE,
 	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE,
 	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE+LV_2_SHURIKENS_SIZE,
-	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE+LV_2_SHURIKENS_SIZE+LV_3_SHURIKENS_SIZE
+	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE+LV_2_SHURIKENS_SIZE+LV_3_SHURIKENS_SIZE,
+	LV_0_SHURIKENS_SIZE+LV_1_SHURIKENS_SIZE+LV_2_SHURIKENS_SIZE+LV_3_SHURIKENS_SIZE+LV_4_SHURIKENS_SIZE,
 
     // 0,
     // 1+2*12+1+1,
@@ -139,7 +157,8 @@ const uint8_t walls_map[] =
 	LV_1_WALLS,
 	LV_2_WALLS,
 	LV_3_WALLS,
-    LV_4_WALLS
+    LV_4_WALLS,
+    LV_5_WALLS,
 };
 
 const uint8_t walls_index[] =
@@ -148,9 +167,12 @@ const uint8_t walls_index[] =
 	LV_0_WALLS_SIZE,
 	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE,
 	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE+LV_2_WALLS_SIZE,
-	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE+LV_2_WALLS_SIZE+LV_3_WALLS_SIZE
+	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE+LV_2_WALLS_SIZE+LV_3_WALLS_SIZE,
+	LV_0_WALLS_SIZE+LV_1_WALLS_SIZE+LV_2_WALLS_SIZE+LV_3_WALLS_SIZE+LV_4_WALLS_SIZE,
+
     // 0,
     // 0,
     // 1,
     // 1+1+2*8,
 };
+

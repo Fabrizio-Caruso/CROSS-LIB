@@ -5,8 +5,11 @@
 #if YSize>24
     #define LV_HORIZ_WALLS_WIDTH ((XSize)/2+2)
     #define LV_HORIZ_WALLS_ADJUST 1
-#else
+#elif YSize>17
     #define LV_HORIZ_WALLS_WIDTH (XSize)/2
+    #define LV_HORIZ_WALLS_ADJUST 0
+#else
+    #define LV_HORIZ_WALLS_WIDTH ((XSize)/2-2)
     #define LV_HORIZ_WALLS_ADJUST 0
 #endif
 
@@ -22,8 +25,8 @@
     XSize-1-LV_HORIZ_WALLS_WIDTH,YSize-1-YSize/5,LV_HORIZ_WALLS_WIDTH,1,WALL,_XL_YELLOW, \
     1,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST,LV_HORIZ_WALLS_WIDTH,1,WALL,_XL_YELLOW, \
     \
-    1,YSize/5,LV_HORIZ_WALLS_WIDTH,1,DIAMOND,_XL_GREEN, \
-    XSize-1-LV_HORIZ_WALLS_WIDTH,YSize-1-YSize/5+1,LV_HORIZ_WALLS_WIDTH,1,DIAMOND,_XL_GREEN
+    1,2,1,2,DIAMOND,_XL_GREEN, \
+    XSize-2,YSize-1-2,1,2,DIAMOND,_XL_GREEN
 
 
 #define LV_HORIZ_WALLS_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_HORIZ_WALLS_NO_OF_OBJECTS)
@@ -32,16 +35,13 @@
 //
 
 #define LV_HORIZ_WALLS_SHURIKENS \
-    4,4,0, \
-    2,2,\
-    XSize-2,3, \
-    2,YSize-2, \
-    XSize-2,YSize-3, \
+    4,0,0, \
     \
-    XSize/3-3,2, \
-    XSize-1-XSize/3+3,2, \
-    XSize/3-3,YSize-2, \
-    XSize-1-XSize/3+3,YSize-2 \
+    XSize-3,1+YSize/5,\
+    2,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST, \
+    2,YSize-1-YSize/5, \
+    XSize-2,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST \
+    \
     \
 
     

@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 5
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -499,7 +499,7 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyo
         return 1;
     }
 
-    // From here on, the player is against at a block and no wall and force<DESTROY_FORCE
+    // From here on, the player is against at least one block and no wall and force<DESTROY_FORCE
     if(force<MOVE_FORCE)
     {
         // If there is a block, you can't move

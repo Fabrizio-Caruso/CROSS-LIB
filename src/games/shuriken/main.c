@@ -36,23 +36,6 @@
 // DEBUG
 // #define SHOW_LEVELS
 
-// ----------------------------------------------------------
-// Objects: static walls and collectable items
-extern const uint8_t objects_map[];
-extern const uint16_t objects_index[];
-
-// ----------------------------------------------------------
-// Shurikens: horizontal, vertical and mini-shurikens
-extern const uint8_t shurikens_map[];
-extern const uint8_t shurikens_index[];
-
-
-// ----------------------------------------------------------
-// Walls: dynamic walls
-extern const uint8_t walls_map[];
-extern const uint8_t walls_index[];
-
-
 // TILES
 
 #define MAX_NUMBER_OF_SHURIKENS 16

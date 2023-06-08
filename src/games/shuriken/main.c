@@ -28,13 +28,14 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 2
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
 
 // DEBUG
 // #define SHOW_LEVELS
+// #define INVINCIBLE
 
 // TILES
 
@@ -92,6 +93,10 @@
 #define SHURIKEN_UP 0
 #define SHURIKEN_DOWN 1
 
+#define PLAYER_LEFT 0
+#define PLAYER_RIGHT 1
+#define PLAYER_UP 2
+#define PLAYER_DOWN 3
 
 #define MIN_PLAYER_Y 3
 #define MAX_PLAYER_Y (2*YSize-6)
@@ -99,6 +104,7 @@
 #define MAX_PLAYER_X (2*XSize-5)
 
 #define MOVE_FORCE 3U
+#define DESTROY_FORCE 20U
 
 #if XSize<32
     #define MINI_SHURIKEN_NUMBER 8
@@ -457,36 +463,51 @@ void delete_player(void)
 }
 
 
-void update_force(uint8_t cell1, uint8_t cell2)
+void increase_force_if_on_block(uint8_t cell1, uint8_t cell2)
 {
-    if(((cell1==BLOCK)||(cell2==BLOCK))&&(force<MOVE_FORCE))
+    if((cell1==BLOCK)||(cell2==BLOCK))
     {     
         ++force;
     }
-    else
-    {
-        force=0;
-    }
+    // else
+    // {
+        // force=0;
+    // }
 }
 
 
 uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyond_cell2)
 {
-    update_force(cell1,cell2);
+    increase_force_if_on_block(cell1,cell2);
 
     if((cell1==WALL)||(cell2==WALL))
     {
         return 0;
     }
 
+    // From here on, the player is not against any wall
+    if(force>=DESTROY_FORCE)
+    {
+        force=0;
+        _XL_EXPLOSION_SOUND();
+        return 1;
+    }
+
+    // If no wall and no block, you can always move
+    if((cell1!=BLOCK) && (cell2!=BLOCK))
+    {
+        return 1;
+    }
+
+    // From here on, the player is against at a block and no wall and force<DESTROY_FORCE
     if(force<MOVE_FORCE)
     {
-        return (cell1!=BLOCK) && (cell2!=BLOCK);
+        // If there is a block, you can't move
+        return 0;
     }
-    else
-    {        
-        return ((!cell1)||(!beyond_cell1)||(beyond_cell1==WALL)) && ((!cell2)||(!beyond_cell2)||(beyond_cell2==WALL));
-        //((!beyond_cell1)||(beyond_cell1==WALL)) && ((!beyond_cell2)||(beyond_cell2==WALL)) ;
+    else 
+    {   // You can push blocks but you cannot destroy them
+        return ((!cell1)||(!beyond_cell1)) && ((!cell2)||(!beyond_cell2));
     }
 }
 
@@ -545,6 +566,7 @@ void _if_block_push_down(uint8_t x)
     if((map[x][screen_y+2]==BLOCK)&&!map[x][screen_y+3])
     {
         build_element(BLOCK,_XL_GREEN, x,screen_y+3);
+        force=0;    
     }
 }
 
@@ -561,6 +583,7 @@ void _if_block_push_up(uint8_t x)
     if((map[x][screen_y-1]==BLOCK)&&!map[x][screen_y-2])
     {
         build_element(BLOCK,_XL_GREEN,x,screen_y-2);
+        force=0;
     }
 }
 
@@ -578,8 +601,8 @@ void _if_block_push_left(uint8_t y)
     if((map[screen_x-1][y]==BLOCK)&&!map[screen_x-2][y])
     {
         build_element(BLOCK,_XL_GREEN,screen_x-2,y);
+        force=0;
     }
-
 }
 
 
@@ -595,6 +618,7 @@ void _if_block_push_right(uint8_t y)
     if((map[screen_x+2][y]==BLOCK)&&!map[screen_x+3][y])
     {
         build_element(BLOCK,_XL_GREEN,screen_x+3,y);
+        force=0;
     }
 }
 
@@ -1152,12 +1176,12 @@ void handle_vertical_shurikens(void)
 void handle_player(void)
 {
     uint8_t input;
+    uint8_t player_direction;
     
     input = _XL_INPUT();
     
     if(_XL_UP(input) && (!(player_y&1) || allowed_up()))
     {
-
         if(player_y&1)
         {
             delete_player_down();
@@ -1165,7 +1189,13 @@ void handle_player(void)
         }
         --player_y;
 
+        
         update_player();
+        if(player_direction!=PLAYER_UP)
+        {
+            force=0;
+        }
+        player_direction=PLAYER_UP;
     }
     else if(_XL_DOWN(input) && ((player_y&1) || allowed_down()))
     {    
@@ -1177,6 +1207,11 @@ void handle_player(void)
         ++player_y;
 
         update_player();
+        if(player_direction!=PLAYER_DOWN)
+        {
+            force=0;
+        }
+        player_direction=PLAYER_DOWN;
     }
     else if(_XL_LEFT(input) && ((player_x&1) || allowed_left()))
     {
@@ -1188,6 +1223,11 @@ void handle_player(void)
         --player_x;
 
         update_player();
+        if(player_direction!=PLAYER_LEFT)
+        {
+            force=0;
+        }
+        player_direction=PLAYER_LEFT;
     }
     else if(_XL_RIGHT(input) && (!(player_x&1) || allowed_right()))
     {    
@@ -1199,6 +1239,11 @@ void handle_player(void)
         ++player_x;
 
         update_player();
+        if(player_direction!=PLAYER_RIGHT)
+        {
+            force=0;
+        }
+        player_direction=PLAYER_RIGHT;
     }
     // REMARK: We need this because shuriken do delete the player despite hand_collision
     else 
@@ -1274,7 +1319,9 @@ void handle_ring(void)
 {
     if(ring_active)
     {
+        #if !defined(INVINCIBLE)
         --ring_active;
+        #endif
     }
     else
     {
@@ -1419,7 +1466,7 @@ int main(void)
             
             while(remaining_diamonds && alive)
             {
-
+                // _XL_PRINTD(1,1,4,force);
                 handle_player();
                 
                 if(alive)

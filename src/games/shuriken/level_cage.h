@@ -1,10 +1,10 @@
 
 // LEVEL 1
 
-#define LV_CAGE_NO_OF_OBJECTS 11
+#define LV_RAIN_NO_OF_OBJECTS 11
 
-#define LV_CAGE_OBJECTS \
-	LV_CAGE_NO_OF_OBJECTS, \
+#define LV_RAIN_OBJECTS \
+	LV_RAIN_NO_OF_OBJECTS, \
 	\
     XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
     1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
@@ -23,12 +23,12 @@
     8,4,1,2,BLOCK,_XL_GREEN, \
     XSize-9,4,1,2,BLOCK,_XL_GREEN   
 
-#define LV_CAGE_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_CAGE_NO_OF_OBJECTS)
+#define LV_RAIN_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_RAIN_NO_OF_OBJECTS)
 
 //
 
-#define LV_CAGE_SHURIKENS \
-	5, 0, 4, \
+#define LV_RAIN_SHURIKENS \
+	5, 0, 6, \
 	\
     3,8, \
     XSize-3,YSize-6, \
@@ -39,38 +39,20 @@
 	7, \
 	2, \
 	XSize-3, \
-	XSize-8
+	XSize-8, \
+	5, \
+	XSize-6
 
-#define LV_CAGE_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)
+#define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)
 
 // 
 
-#define LV_CAGE_NO_OF_WALLS 4
+#define LV_RAIN_NO_OF_WALLS 0
 
 
-#define LV_CAGE_WALLS \
-    LV_CAGE_NO_OF_WALLS, \
-	\
-    XSize/2-4,YSize/2-1, \
-    1, 5, \
-    SHURIKEN, _XL_YELLOW, \
-    20, \
-    \
-    XSize/2+4,YSize/2-1, \
-    1, 5, \
-    SHURIKEN, _XL_YELLOW, \
-    20, \
-	\
-    XSize/2-4+1,YSize/2-1, \
-    7, 1, \
-    SHURIKEN, _XL_YELLOW, \
-    20, \
-	\
-    XSize/2-4+1,YSize/2+3, \
-    7, 1, \
-    SHURIKEN, _XL_YELLOW, \
-    20 \
+#define LV_RAIN_WALLS \
+	0
 	
 
-#define LV_CAGE_WALLS_SIZE LC_WALLS_SIZE(LV_CAGE_NO_OF_WALLS)
+#define LV_RAIN_WALLS_SIZE LC_WALLS_SIZE(LV_RAIN_NO_OF_WALLS)
 

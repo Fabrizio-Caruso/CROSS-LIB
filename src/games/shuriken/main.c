@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 6
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -178,11 +178,11 @@ uint8_t wall_x[MAX_NUMBER_OF_WALLS];
 uint8_t wall_y[MAX_NUMBER_OF_WALLS];
 uint8_t wall_width[MAX_NUMBER_OF_WALLS];
 uint8_t wall_height[MAX_NUMBER_OF_WALLS];
-uint8_t wall_type[MAX_NUMBER_OF_WALLS];
-uint8_t wall_color[MAX_NUMBER_OF_WALLS];
+uint8_t wall_type[MAX_NUMBER_OF_WALLS];  // Maybe just one type per level
+uint8_t wall_color[MAX_NUMBER_OF_WALLS]; // Maybe just one color per level
 uint8_t wall_counter[MAX_NUMBER_OF_WALLS];
 uint8_t wall_triggered[MAX_NUMBER_OF_WALLS];
-uint8_t wall_threshold[MAX_NUMBER_OF_WALLS];
+uint8_t wall_threshold[MAX_NUMBER_OF_WALLS]; // 
 
 uint8_t number_of_walls;
 
@@ -205,6 +205,9 @@ uint8_t restart_level;
 uint8_t tile_group;
 
 uint8_t time_counter;
+
+uint8_t player_direction;
+
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -469,10 +472,6 @@ void increase_force_if_on_block(uint8_t cell1, uint8_t cell2)
     {     
         ++force;
     }
-    // else
-    // {
-        // force=0;
-    // }
 }
 
 
@@ -811,9 +810,19 @@ void build_shurikens(void)
     uint8_t index = shurikens_index[level];
     uint8_t i;
 
+	_XL_PRINTD(1,1,4,index);
+	_XL_WAIT_FOR_INPUT();
+	
+
     level_horizontal_shurikens = shurikens_map[index];
+	_XL_PRINTD(1,1,4,level_horizontal_shurikens);
+	_XL_WAIT_FOR_INPUT();
     level_vertical_shurikens = shurikens_map[++index];
+	_XL_PRINTD(1,1,4,level_vertical_shurikens);
+	_XL_WAIT_FOR_INPUT();
     level_mini_shurikens = shurikens_map[++index];
+	_XL_PRINTD(1,1,4,level_mini_shurikens);
+	_XL_WAIT_FOR_INPUT();
 
     for(i=0;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
     {
@@ -1176,7 +1185,6 @@ void handle_vertical_shurikens(void)
 void handle_player(void)
 {
     uint8_t input;
-    uint8_t player_direction;
     
     input = _XL_INPUT();
     

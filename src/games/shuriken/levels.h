@@ -12,7 +12,7 @@
 
 #include "level_horiz.h"
 #include "level_vert_bars.h"
-#include "level_cage.h"
+#include "level_rain.h"
 #include "level_h_barriers.h"
 #include "level_cross.h"
 #include "level_horiz_walls.h"
@@ -33,7 +33,7 @@
 #define LV_1_WALLS LV_VERT_BARS_WALLS 
 #define LV_1_WALLS_SIZE LV_VERT_BARS_WALLS_SIZE
 
-// LEVEL 2 - Shuriken cage
+// LEVEL 2 - Rain
 #define LV_2_OBJECTS LV_RAIN_OBJECTS
 #define LV_2_OBJECTS_SIZE LV_RAIN_OBJECTS_SIZE
 #define LV_2_SHURIKENS LV_RAIN_SHURIKENS
@@ -41,14 +41,13 @@
 #define LV_2_WALLS LV_RAIN_WALLS 
 #define LV_2_WALLS_SIZE LV_RAIN_WALLS_SIZE
 
-// LEVEL 3 - 4 horizontal barriers
+// LEVEL 3 - horizontal barriers
 #define LV_3_OBJECTS LV_H_BARRIERS_OBJECTS
 #define LV_3_OBJECTS_SIZE LV_H_BARRIERS_OBJECTS_SIZE
 #define LV_3_SHURIKENS LV_H_BARRIERS_SHURIKENS
 #define LV_3_SHURIKENS_SIZE LV_H_BARRIERS_SHURIKENS_SIZE
 #define LV_3_WALLS LV_H_BARRIERS_WALLS 
 #define LV_3_WALLS_SIZE LV_H_BARRIERS_WALLS_SIZE
-
 
 // LEVEL 4 - cross
 #define LV_4_OBJECTS LV_CROSS_OBJECTS

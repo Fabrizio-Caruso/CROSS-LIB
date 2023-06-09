@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5

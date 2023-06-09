@@ -1,15 +1,10 @@
 
 // LEVEL 1
 
-#define LV_RAIN_NO_OF_OBJECTS 11
+#define LV_RAIN_NO_OF_OBJECTS 13
 
 #define LV_RAIN_OBJECTS \
 	LV_RAIN_NO_OF_OBJECTS, \
-	\
-    XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
-    1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
-	\
-	4,YSize-2,XSize-1-3-4,1,DIAMOND,_XL_GREEN, \
 	\
 	XSize-2,3,1,1,RING,_XL_WHITE, \
 	XSize-2,YSize-2,1,1,FREEZE,_XL_CYAN, \
@@ -17,11 +12,19 @@
 	1,3,1,1,RING,_XL_WHITE, \
 	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
 	\
-    5,YSize-5,5,2,WALL,_XL_YELLOW, \
-    XSize-10,YSize-5,5,2,WALL,_XL_YELLOW, \
+    4,YSize-4,4,1,WALL,_XL_YELLOW, \
+    XSize-8,YSize-4,4,1,WALL,_XL_YELLOW, \
 	\
-    8,4,1,2,BLOCK,_XL_GREEN, \
-    XSize-9,4,1,2,BLOCK,_XL_GREEN   
+    8,4,1,3,BLOCK,_XL_GREEN, \
+    XSize-9,4,1,3,BLOCK,_XL_GREEN, \
+	\
+    XSize-2,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
+    1,8,1,YSize-1-2-8,DIAMOND,_XL_GREEN, \
+	\
+	8,YSize-2,XSize-1-3-12,1,DIAMOND,_XL_GREEN, \
+	\
+    4,YSize-5,4,1,DIAMOND,_XL_GREEN, \
+    XSize-8,YSize-5,4,1,DIAMOND,_XL_GREEN \
 
 #define LV_RAIN_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_RAIN_NO_OF_OBJECTS)
 
@@ -43,7 +46,7 @@
 	5, \
 	XSize-6
 
-#define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)
+#define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,6)
 
 // 
 

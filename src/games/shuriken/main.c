@@ -810,19 +810,18 @@ void build_shurikens(void)
     uint8_t index = shurikens_index[level];
     uint8_t i;
 
-	_XL_PRINTD(1,1,4,index);
-	_XL_WAIT_FOR_INPUT();
-	
+	// _XL_PRINTD(1,1,4,index);
+	// _XL_WAIT_FOR_INPUT();
 
     level_horizontal_shurikens = shurikens_map[index];
-	_XL_PRINTD(1,1,4,level_horizontal_shurikens);
-	_XL_WAIT_FOR_INPUT();
+	// _XL_PRINTD(1,1,4,level_horizontal_shurikens);
+	// _XL_WAIT_FOR_INPUT();
     level_vertical_shurikens = shurikens_map[++index];
-	_XL_PRINTD(1,1,4,level_vertical_shurikens);
-	_XL_WAIT_FOR_INPUT();
+	// _XL_PRINTD(1,1,4,level_vertical_shurikens);
+	// _XL_WAIT_FOR_INPUT();
     level_mini_shurikens = shurikens_map[++index];
-	_XL_PRINTD(1,1,4,level_mini_shurikens);
-	_XL_WAIT_FOR_INPUT();
+	// _XL_PRINTD(1,1,4,level_mini_shurikens);
+	// _XL_WAIT_FOR_INPUT();
 
     for(i=0;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
     {

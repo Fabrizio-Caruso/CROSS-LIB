@@ -79,23 +79,15 @@
 	\
     6,8, \
     LV_H_BARRIERS_BAR_SIZE,1, \
-    SHURIKEN,_XL_YELLOW, \
-    15, \
     \
     6,YSize-6, \
     LV_H_BARRIERS_BAR_SIZE,1,\
-    SHURIKEN,_XL_YELLOW, \
-    15, \
     \
     XSize-7-XSize/7+1,8, \
     LV_H_BARRIERS_BAR_SIZE,1, \
-    SHURIKEN,_XL_YELLOW, \
-    15, \
     \
     XSize-7-XSize/7+1,YSize-6, \
-    LV_H_BARRIERS_BAR_SIZE,1, \
-    SHURIKEN,_XL_YELLOW, \
-    15
+    LV_H_BARRIERS_BAR_SIZE,1
 
 #define LV_H_BARRIERS_WALLS_SIZE LC_WALLS_SIZE(LV_H_BARRIERS_NO_OF_WALLS)
 

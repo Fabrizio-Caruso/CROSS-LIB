@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 7
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -138,7 +138,10 @@
 
 #define START_RING_EFFECT 25
 
-#define EXTRA_LIFE_THRESHOLD 500
+#define EXTRA_LIFE_THRESHOLD 5000
+
+#define WALL_COLOR _XL_YELLOW
+#define WALL_THRESHOLD 25
 
 uint8_t player_x;
 uint8_t player_y;
@@ -175,15 +178,15 @@ uint8_t level_horizontal_shurikens;
 uint8_t level_vertical_shurikens;
 uint8_t level_mini_shurikens;
 
-uint8_t wall_x[MAX_NUMBER_OF_WALLS];
-uint8_t wall_y[MAX_NUMBER_OF_WALLS];
-uint8_t wall_width[MAX_NUMBER_OF_WALLS];
-uint8_t wall_height[MAX_NUMBER_OF_WALLS];
-uint8_t wall_type[MAX_NUMBER_OF_WALLS];  // Maybe just one type per level
-uint8_t wall_color[MAX_NUMBER_OF_WALLS]; // Maybe just one color per level
-uint8_t wall_counter[MAX_NUMBER_OF_WALLS];
-uint8_t wall_triggered[MAX_NUMBER_OF_WALLS];
-uint8_t wall_threshold[MAX_NUMBER_OF_WALLS]; // 
+uint8_t barrier_x[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_y[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_width[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_height[MAX_NUMBER_OF_WALLS];
+// uint8_t barrier_type[MAX_NUMBER_OF_WALLS];  // Maybe just one type per level
+// uint8_t barrier_color[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_counter[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_triggered[MAX_NUMBER_OF_WALLS];
+// uint8_t barrier_threshold[MAX_NUMBER_OF_WALLS]; // 
 
 uint8_t number_of_walls;
 
@@ -789,8 +792,8 @@ void build_objects(void)
 }
 
 
-void build_walls(void)
-{
+void build_barriers(void)
+{   
     uint8_t index = walls_index[level];
     uint8_t i;
 
@@ -801,15 +804,15 @@ void build_walls(void)
         
     for(i=0;i<number_of_walls;++i)
     {
-        wall_x[i] = walls_map[++index];
-        wall_y[i] = walls_map[++index];
-        wall_width[i] = walls_map[++index];
-        wall_height[i] = walls_map[++index];  
-        wall_type[i] = walls_map[++index];
-        wall_color[i] = walls_map[++index];       
-        wall_threshold[i] = walls_map[++index];
-        wall_counter[i] = 0;    
-        wall_triggered[i] = 0;
+        barrier_x[i] = walls_map[++index];
+        barrier_y[i] = walls_map[++index];
+        barrier_width[i] = walls_map[++index];
+        barrier_height[i] = walls_map[++index];  
+        // barrier_type[i] = walls_map[++index];
+        // barrier_color[i] = walls_map[++index];       
+        // barrier_threshold[i] = walls_map[++index];
+        barrier_counter[i] = 0;    
+        barrier_triggered[i] = 0;
     }
 }
 
@@ -845,7 +848,7 @@ void build_shurikens(void)
     for(i=0;i<level_mini_shurikens;++i)
     {
         mini_shuriken_x[i]=shurikens_map[++index];
-        mini_shuriken_y[i]=1;
+        mini_shuriken_y[i]=2;
         build_element(MINI_SHURIKEN,mini_shuriken_color,mini_shuriken_x[i],mini_shuriken_y[i]);
     }
 }
@@ -870,18 +873,18 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 }
 
 
-void switch_wall_if_possible(uint8_t i)
+void switch_barrier_if_possible(uint8_t i)
 {
     uint8_t wall;  
 
-    if(!wall_triggered[i])
+    if(!barrier_triggered[i])
     {
-        // if(safe_area(wall_x[i]-1,wall_y[i]-1,wall_width[i]+2, wall_height[i]+2))
-		if(safe_area(wall_x[i],wall_y[i],wall_width[i], wall_height[i]))
+        // if(safe_area(barrier_x[i]-1,barrier_y[i]-1,barrier_width[i]+2, barrier_height[i]+2))
+		if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
         {
             _XL_TOCK_SOUND();
-            wall = wall_type[i];
-            ++wall_triggered[i];
+            wall = SHURIKEN;
+            ++barrier_triggered[i];
         }
         else
         {
@@ -891,23 +894,23 @@ void switch_wall_if_possible(uint8_t i)
     else
     {
         wall = EMPTY;
-        wall_triggered[i] = 0;
+        barrier_triggered[i] = 0;
     }
 
-    build_rectangle(wall,wall_color[i],wall_x[i],wall_y[i],wall_width[i], wall_height[i]);
+    build_rectangle(wall,WALL_COLOR,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
 }
 
 
 void handle_wall(uint8_t i)
 {
-    if(wall_counter[i]<wall_threshold[i])
+    if(barrier_counter[i]<WALL_THRESHOLD)
     {
-        ++wall_counter[i];
+        ++barrier_counter[i];
     }
     else
     {
-        wall_counter[i]=0;
-        switch_wall_if_possible(i);
+        barrier_counter[i]=0;
+        switch_barrier_if_possible(i);
     }
 }
 
@@ -934,7 +937,7 @@ void init_level(void)
 
     build_shurikens();
     
-    build_walls();
+    build_barriers();
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;	
@@ -1374,7 +1377,7 @@ void handle_lose_life(void)
 
     for(i=0;i<number_of_walls;++i)
     {
-        switch_wall_if_possible(i);
+        switch_barrier_if_possible(i);
     }
 
 }

@@ -95,20 +95,15 @@
     LV_CROSS_NO_OF_WALLS, \
     XSize/3+1+1,YSize-4-YSize/4+1, \
     XSize-2*(XSize/3)-4,1,\
-    SHURIKEN,_XL_CYAN,20, \
     \
     XSize/3+1+1,4+YSize/4-1,\
     XSize-2*(XSize/3)-4,1,\
-    SHURIKEN,_XL_CYAN,20, \
     \
     XSize/3-LV_CROSS_WIDTH+1,4+YSize/4+1,\
     1,YSize-9-2*(YSize/4),\
-    SHURIKEN,_XL_CYAN,20, \
     \
     XSize-1-XSize/3+LV_CROSS_WIDTH-1,4+YSize/4+1,\
-    1,YSize-9-2*(YSize/4),\
-    SHURIKEN,_XL_CYAN,20  
-
+    1,YSize-9-2*(YSize/4)
 
 #define LV_CROSS_WALLS_SIZE LC_WALLS_SIZE(LV_CROSS_NO_OF_WALLS)
 

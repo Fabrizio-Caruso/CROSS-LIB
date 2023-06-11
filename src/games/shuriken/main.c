@@ -122,7 +122,7 @@
 #define RING_POINTS 100
 #define SHURIKEN_POINTS 100
 
-#define LEVEL_BONUS 30
+#define LEVEL_BONUS 100
 #define TIME_BONUS 30
 // #define FREEZE_BONUS 50
 // #define RING_BONUS   100
@@ -138,6 +138,7 @@
 
 #define START_RING_EFFECT 25
 
+#define EXTRA_LIFE_THRESHOLD 5000
 
 uint8_t player_x;
 uint8_t player_y;
@@ -208,6 +209,7 @@ uint8_t time_counter;
 
 uint8_t player_direction;
 
+uint8_t extra_life_counter;
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -691,6 +693,14 @@ void init_map(void)
 }
 
 
+void update_lives_display(void)
+{     
+	_XL_SET_TEXT_COLOR(_XL_CYAN);
+    
+    _XL_PRINTD(XSize-9,0,1,lives);
+}
+
+
 void init_score_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -699,14 +709,13 @@ void init_score_display(void)
     _XL_PRINTD(XSize-5,0,5,hiscore);
     
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE);
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    
-    _XL_PRINTD(XSize-9,0,1,lives);
     
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
     
     _XL_DRAW(6,0,DIAMOND_TILE,_XL_GREEN);
+
+	update_lives_display();
 
     update_remaining_display();
     
@@ -929,6 +938,8 @@ void init_level(void)
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
+	
+	extra_life_counter = 1;
 }
 
 
@@ -1436,6 +1447,18 @@ void handle_time(void)
     }
 }
 
+
+void handle_extra_life(void)
+{
+	if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter)
+	{
+		++extra_life_counter;
+		++lives;
+		update_lives_display();
+	}
+}
+
+
 int main(void)
 {        
     _XL_INIT_GRAPHICS();
@@ -1491,7 +1514,12 @@ int main(void)
                         remaining_diamonds=0;
                         _XL_WAIT_FOR_INPUT();
                     #endif
-                    handle_time();
+                    
+					handle_extra_life();
+					
+					handle_time();
+					
+					
                 }
             }
             if(alive)

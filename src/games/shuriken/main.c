@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 6
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -107,11 +107,11 @@
 #define DESTROY_FORCE 20U
 
 #if XSize<32
-    #define MINI_SHURIKEN_NUMBER 8
+    #define MINI_SHURIKEN_NUMBER 6
 #elif XSize<64
-    #define MINI_SHURIKEN_NUMBER 8
+    #define MINI_SHURIKEN_NUMBER 6
 #else
-    #define MINI_SHURIKEN_NUMBER 8
+    #define MINI_SHURIKEN_NUMBER 6
 #endif
 
 #define MAX_NUMBER_OF_WALLS 4
@@ -1314,6 +1314,9 @@ void init_global_game(void)
     // remaining_diamonds = 0;
     level = INITIAL_LEVEL;
     extra_life_counter = 1;
+    
+    restart_level = 1;
+
 }
 
 
@@ -1475,9 +1478,7 @@ int main(void)
         title();
         
         init_global_game();
-        
-        restart_level = 1;
-        
+                
         while(lives && (level<FINAL_LEVEL+1))
         {            
             init_player_achievements();

@@ -2,7 +2,7 @@
 
 // LEVEL 0
 
-#define LV_MANY_NO_OF_OBJECTS 14
+#define LV_MANY_NO_OF_OBJECTS 16
 
 #define LV_MANY_OBJECTS \
     LV_MANY_NO_OF_OBJECTS, \
@@ -19,6 +19,9 @@
 	1,2,1,1,RING,_XL_WHITE, \
 	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
 	\
+    XSize/2-5,YSize/2,1,1,FREEZE,_XL_CYAN, \
+    XSize/2+5,YSize/2,1,1,FREEZE,_XL_CYAN, \
+    \
     XSize/2-4,YSize/2,3,1,BLOCK,_XL_GREEN, \
     XSize/2+2,YSize/2,3,1,BLOCK,_XL_GREEN, \
     \

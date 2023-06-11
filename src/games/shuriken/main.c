@@ -138,7 +138,7 @@
 
 #define START_RING_EFFECT 25
 
-#define EXTRA_LIFE_THRESHOLD 5000
+#define EXTRA_LIFE_THRESHOLD 500
 
 uint8_t player_x;
 uint8_t player_y;
@@ -937,9 +937,7 @@ void init_level(void)
     build_walls();
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
-    counter = 0;
-	
-	extra_life_counter = 1;
+    counter = 0;	
 }
 
 
@@ -1309,12 +1307,13 @@ void title(void)
 }
 
 
-void init_variables(void)
+void init_global_game(void)
 {
     score = 0;
     lives = INITIAL_LIVES;
     // remaining_diamonds = 0;
     level = INITIAL_LEVEL;
+    extra_life_counter = 1;
 }
 
 
@@ -1453,8 +1452,10 @@ void handle_extra_life(void)
 	if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter)
 	{
 		++extra_life_counter;
+        _XL_PING_SOUND();
 		++lives;
 		update_lives_display();
+        _XL_PING_SOUND();
 	}
 }
 
@@ -1473,7 +1474,7 @@ int main(void)
     {
         title();
         
-        init_variables();
+        init_global_game();
         
         restart_level = 1;
         

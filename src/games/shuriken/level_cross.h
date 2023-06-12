@@ -15,51 +15,51 @@
 #define LV_CROSS_OBJECTS \
     LV_CROSS_NO_OF_OBJECTS, \
 	\
-    XSize/3,4,1,YSize/4,WALL,_XL_RED, \
-    XSize-1-XSize/3,4,1,YSize/4,WALL,_XL_RED, \
+    XSize/3,4,1,YSize/4,WALL, \
+    XSize-1-XSize/3,4,1,YSize/4,WALL, \
     \
-    XSize/3,YSize-4-YSize/4,1,YSize/4+1,WALL,_XL_RED, \
-    XSize-1-XSize/3,YSize-4-YSize/4+1,1,YSize/4,WALL,_XL_RED, \
+    XSize/3,YSize-4-YSize/4,1,YSize/4+1,WALL, \
+    XSize-1-XSize/3,YSize-4-YSize/4+1,1,YSize/4,WALL, \
     \
-    XSize/3-LV_CROSS_WIDTH+1,4+YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
-    XSize-1-XSize/3,4+YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
+    XSize/3-LV_CROSS_WIDTH+1,4+YSize/4,LV_CROSS_WIDTH,1,WALL, \
+    XSize-1-XSize/3,4+YSize/4,LV_CROSS_WIDTH,1,WALL, \
     \
-    XSize/3-LV_CROSS_WIDTH+1,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
-    XSize-1-XSize/3,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL,_XL_RED, \
-    \
-    \
-    XSize/3+1+1,YSize-4-YSize/4+1+2,2,1,BLOCK,_XL_GREEN, \
-    XSize/3+1+1,4+YSize/4-1-2   ,2,1,BLOCK,_XL_GREEN, \
-    XSize/3+1+1+XSize-2*(XSize/3)-6,YSize-4-YSize/4+1+2,2,1,BLOCK,_XL_GREEN, \
-    XSize/3+1+1+XSize-2*(XSize/3)-6,4+YSize/4-1-2   ,2,1,BLOCK,_XL_GREEN, \
+    XSize/3-LV_CROSS_WIDTH+1,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL, \
+    XSize-1-XSize/3,YSize-4-YSize/4,LV_CROSS_WIDTH,1,WALL, \
     \
     \
-    XSize/3+1+1+2,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-8,1,WALL,_XL_CYAN, \
-    XSize/3+1+1+2,4+YSize/4-1-2   ,XSize-2*(XSize/3)-8,1,WALL,_XL_CYAN, \
+    XSize/3+1+1,YSize-4-YSize/4+1+2,2,1,BLOCK, \
+    XSize/3+1+1,4+YSize/4-1-2   ,2,1,BLOCK, \
+    XSize/3+1+1+XSize-2*(XSize/3)-6,YSize-4-YSize/4+1+2,2,1,BLOCK, \
+    XSize/3+1+1+XSize-2*(XSize/3)-6,4+YSize/4-1-2   ,2,1,BLOCK, \
+    \
+    \
+    XSize/3+1+1+2,YSize-4-YSize/4+1+2,XSize-2*(XSize/3)-8,1,WALL, \
+    XSize/3+1+1+2,4+YSize/4-1-2   ,XSize-2*(XSize/3)-8,1,WALL, \
 	\
-    XSize/3-1,4,1,YSize/4,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3+1,4,1,YSize/4,DIAMOND,_XL_GREEN, \
+    XSize/3-1,4,1,YSize/4,DIAMOND, \
+    XSize-1-XSize/3+1,4,1,YSize/4,DIAMOND, \
     \
-    XSize/3-1,YSize-4-YSize/4+1,1,YSize/4,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3+1,YSize-4-YSize/4+1,1,YSize/4,DIAMOND,_XL_GREEN, \
+    XSize/3-1,YSize-4-YSize/4+1,1,YSize/4,DIAMOND, \
+    XSize-1-XSize/3+1,YSize-4-YSize/4+1,1,YSize/4,DIAMOND, \
 	\
-	XSize-2,2,1,1,FREEZE,_XL_CYAN, \
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE, \
+	XSize-2,2,1,1,FREEZE, \
+	XSize-2,YSize-2,1,1,RING, \
     \
-	1,2,1,1,RING,_XL_WHITE, \
-	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	1,2,1,1,RING, \
+	1,YSize-2,1,1,FREEZE, \
 	\
-    XSize/3-LV_CROSS_WIDTH+1,4+YSize/4-1,LV_CROSS_WIDTH-2,1,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3+2,4+YSize/4-1,LV_CROSS_WIDTH-2,1,DIAMOND,_XL_GREEN, \
+    XSize/3-LV_CROSS_WIDTH+1,4+YSize/4-1,LV_CROSS_WIDTH-2,1,DIAMOND, \
+    XSize-1-XSize/3+2,4+YSize/4-1,LV_CROSS_WIDTH-2,1,DIAMOND, \
     \
-    XSize/3-LV_CROSS_WIDTH+1,YSize-4-YSize/4+1,LV_CROSS_WIDTH-2,1,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3+2,YSize-4-YSize/4+1,LV_CROSS_WIDTH-2,1,DIAMOND,_XL_GREEN, \
+    XSize/3-LV_CROSS_WIDTH+1,YSize-4-YSize/4+1,LV_CROSS_WIDTH-2,1,DIAMOND, \
+    XSize-1-XSize/3+2,YSize-4-YSize/4+1,LV_CROSS_WIDTH-2,1,DIAMOND, \
     \
-    XSize/3+1,4,1,YSize/4+1,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3-1,4,1,YSize/4+1,DIAMOND,_XL_GREEN, \
+    XSize/3+1,4,1,YSize/4+1,DIAMOND, \
+    XSize-1-XSize/3-1,4,1,YSize/4+1,DIAMOND, \
     \
-    XSize/3+1,YSize-4-YSize/4,1,YSize/4+1,DIAMOND,_XL_GREEN, \
-    XSize-1-XSize/3-1,YSize-4-YSize/4,1,YSize/4+1,DIAMOND,_XL_GREEN \
+    XSize/3+1,YSize-4-YSize/4,1,YSize/4+1,DIAMOND, \
+    XSize-1-XSize/3-1,YSize-4-YSize/4,1,YSize/4+1,DIAMOND \
     \
 
 

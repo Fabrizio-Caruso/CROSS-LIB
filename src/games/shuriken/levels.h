@@ -3,7 +3,7 @@
 
 // ------------------------------------------------------------
 // Helper macros to compute sizes and offsets
-#define LV_OBJECTS_SIZE(no_of_rect) (1+(no_of_rect*6))
+#define LV_OBJECTS_SIZE(no_of_rect) (1+(no_of_rect*5))
 
 #define LV_SHURIKENS_SIZE(horiz,vert,mini) (1+(horiz)*2+ 1+(vert)*2+ 1+(mini))
 

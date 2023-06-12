@@ -28,13 +28,13 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 7
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
 
 // DEBUG
-// #define SHOW_LEVELS
+#define SHOW_LEVELS
 // #define INVINCIBLE
 
 // TILES
@@ -201,8 +201,8 @@ uint8_t ring_counter;
 
 uint8_t shuriken_counter;
 
-uint8_t border_color;
-uint8_t mini_shuriken_color;
+// uint8_t border_color;
+// uint8_t mini_shuriken_color;
 
 uint8_t restart_level;
 
@@ -213,6 +213,9 @@ uint8_t time_counter;
 uint8_t player_direction;
 
 uint8_t extra_life_counter;
+
+uint8_t slowdown;
+
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -226,9 +229,23 @@ static const uint8_t screen_tile[7+1] =
     MINI_SHURIKEN_TILE,
 };  
 
+
+static uint8_t screen_color[7+1] =
+{
+    0, // unused
+    _XL_WHITE,
+    _XL_CYAN,
+    _XL_GREEN,
+    _XL_GREEN,
+    _XL_RED,
+    _XL_CYAN,
+    _XL_YELLOW,
+};  
+
+
 static const uint8_t border_colors[] = {_XL_YELLOW, _XL_CYAN, _XL_RED, _XL_GREEN};
 // const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
-static const uint8_t mini_shuriken_colors[] = {_XL_YELLOW, _XL_RED};
+// static const uint8_t mini_shuriken_colors[] = {_XL_YELLOW, _XL_RED};
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -261,10 +278,10 @@ static const uint8_t player_tile[4][4] =
 };
 
 
-void build_element(uint8_t type, uint8_t color, uint8_t x, uint8_t y)
+void build_element(uint8_t type, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
-    _XL_DRAW(x,y,screen_tile[type], color);
+    _XL_DRAW(x,y,screen_tile[type], screen_color[type]);
 
 }
 
@@ -569,7 +586,7 @@ void _if_block_push_down(uint8_t x)
 {
     if((map[x][screen_y+2]==BLOCK)&&!map[x][screen_y+3])
     {
-        build_element(BLOCK,_XL_GREEN, x,screen_y+3);
+        build_element(BLOCK, x,screen_y+3);
         force=0;    
     }
 }
@@ -586,7 +603,7 @@ void _if_block_push_up(uint8_t x)
 {
     if((map[x][screen_y-1]==BLOCK)&&!map[x][screen_y-2])
     {
-        build_element(BLOCK,_XL_GREEN,x,screen_y-2);
+        build_element(BLOCK, x,screen_y-2);
         force=0;
     }
 }
@@ -604,7 +621,7 @@ void _if_block_push_left(uint8_t y)
 {
     if((map[screen_x-1][y]==BLOCK)&&!map[screen_x-2][y])
     {
-        build_element(BLOCK,_XL_GREEN,screen_x-2,y);
+        build_element(BLOCK,screen_x-2,y);
         force=0;
     }
 }
@@ -621,7 +638,7 @@ void _if_block_push_right(uint8_t y)
 {
     if((map[screen_x+2][y]==BLOCK)&&!map[screen_x+3][y])
     {
-        build_element(BLOCK,_XL_GREEN,screen_x+3,y);
+        build_element(BLOCK,screen_x+3,y);
         force=0;
     }
 }
@@ -647,7 +664,7 @@ void handle_mini_shuriken(void)
 
         if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]] && mini_shuriken_y[i]<YSize-2)
         {
-            build_element(MINI_SHURIKEN, mini_shuriken_color, mini_shuriken_x[i],mini_shuriken_y[i]);
+            build_element(MINI_SHURIKEN, mini_shuriken_x[i],mini_shuriken_y[i]);
         }
         else
         {    
@@ -668,9 +685,9 @@ void init_map(void)
     uint8_t j;
     
     
-    border_color = border_colors[level&3];
+    // border_color = border_colors[level&3];
     // shuriken_color = shuriken_colors[level&3];
-    mini_shuriken_color = mini_shuriken_colors[level&1];
+    // mini_shuriken_color = mini_shuriken_colors[level&1];
     
     _XL_CLEAR_SCREEN();
     for(i=0;i<XSize-1;++i)
@@ -683,13 +700,13 @@ void init_map(void)
     
     for(i=0;i<XSize;++i)
     {
-        build_element(WALL,border_color,i,1);
-        build_element(WALL,border_color,i,YSize-1);
+        build_element(WALL,i,1);
+        build_element(WALL,i,YSize-1);
     }
     for(i=1;i<YSize-1;++i)
     {
-        build_element(WALL,border_color,0,i);
-        build_element(WALL,border_color,XSize-1,i);
+        build_element(WALL,0,i);
+        build_element(WALL,XSize-1,i);
     }
 
 
@@ -738,7 +755,7 @@ void init_score_display(void)
 
 
 // too many parameters
-void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
+void build_rectangle(uint8_t type, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
 {
     uint8_t i;
     uint8_t j;
@@ -750,7 +767,7 @@ void build_rectangle(uint8_t type, uint8_t color, uint8_t x, uint8_t y, uint8_t 
             
             if(type)
             {
-                build_element(type, color,i,j);
+                build_element(type,i,j);
             }
             else // REMARK: Necessary to switch walls
             {
@@ -771,8 +788,10 @@ void build_objects(void)
     uint8_t x_size;
     uint8_t y_size;
     uint8_t type;
-    uint8_t color;  
-        
+    // uint8_t color;  
+
+    screen_color[WALL]=border_colors[level&3];
+    
     remaining_diamonds = 0;
     for(i=0;i<no_of_objects;++i)
     {
@@ -781,13 +800,13 @@ void build_objects(void)
         x_size = objects_map[++index];
         y_size = objects_map[++index];
         type = objects_map[++index];
-        color = objects_map[++index];
+        // color = objects_map[++index];
         if(type==DIAMOND)
         {
             remaining_diamonds+=x_size*y_size;
         }
 
-        build_rectangle(type,color,x,y,x_size,y_size);
+        build_rectangle(type,x,y,x_size,y_size);
     }
 }
 
@@ -841,7 +860,7 @@ void build_shurikens(void)
         shuriken_y[i]=shurikens_map[++index];
         shuriken_direction[i]=0;
         shuriken_transition[i]=0;
-        build_element(SHURIKEN,SHURIKEN_COLOR,shuriken_x[i],shuriken_y[i]);
+        build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
    
     }
     
@@ -849,7 +868,7 @@ void build_shurikens(void)
     {
         mini_shuriken_x[i]=shurikens_map[++index];
         mini_shuriken_y[i]=2;
-        build_element(MINI_SHURIKEN,mini_shuriken_color,mini_shuriken_x[i],mini_shuriken_y[i]);
+        build_element(MINI_SHURIKEN,mini_shuriken_x[i],mini_shuriken_y[i]);
     }
 }
 
@@ -897,7 +916,7 @@ void switch_barrier_if_possible(uint8_t i)
         barrier_triggered[i] = 0;
     }
 
-    build_rectangle(wall,WALL_COLOR,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
+    build_rectangle(wall,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
 }
 
 
@@ -940,7 +959,9 @@ void init_level(void)
     build_barriers();
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
-    counter = 0;	
+    counter = 0;
+    
+    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/22)*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));
 }
 
 
@@ -1514,7 +1535,7 @@ int main(void)
                     
                     ++counter;
 
-                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2);
+                    _XL_SLOW_DOWN(slowdown);
                     #if defined(SHOW_LEVELS)
                         remaining_diamonds=0;
                         _XL_WAIT_FOR_INPUT();

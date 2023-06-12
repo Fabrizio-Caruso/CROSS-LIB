@@ -7,29 +7,29 @@
 #define LV_MANY_OBJECTS \
     LV_MANY_NO_OF_OBJECTS, \
 	\
-	XSize/2-6,YSize-2,4,1,WALL,_XL_RED, \
-	XSize/2-6,2,4,1,WALL,_XL_RED, \
+	XSize/2-6,YSize-2,4,1,WALL, \
+	XSize/2-6,2,4,1,WALL, \
 	\
-	XSize/2+2,YSize-2,4,1,WALL,_XL_RED, \
-	XSize/2+2,2,4,1,WALL,_XL_RED, \
+	XSize/2+2,YSize-2,4,1,WALL, \
+	XSize/2+2,2,4,1,WALL, \
 	\
-	XSize-2,2,1,1,FREEZE,_XL_CYAN, \
-	XSize-2,YSize-2,1,1,RING,_XL_WHITE, \
+	XSize-2,2,1,1,FREEZE, \
+	XSize-2,YSize-2,1,1,RING, \
     \
-	1,2,1,1,RING,_XL_WHITE, \
-	1,YSize-2,1,1,FREEZE,_XL_CYAN, \
+	1,2,1,1,RING, \
+	1,YSize-2,1,1,FREEZE, \
 	\
-    XSize/2-5,YSize/2,1,1,FREEZE,_XL_CYAN, \
-    XSize/2+5,YSize/2,1,1,FREEZE,_XL_CYAN, \
+    XSize/2-5,YSize/2,1,1,FREEZE, \
+    XSize/2+5,YSize/2,1,1,FREEZE, \
     \
-    XSize/2-4,YSize/2,3,1,BLOCK,_XL_GREEN, \
-    XSize/2+2,YSize/2,3,1,BLOCK,_XL_GREEN, \
+    XSize/2-4,YSize/2,3,1,BLOCK, \
+    XSize/2+2,YSize/2,3,1,BLOCK, \
     \
-    XSize-2,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN, \
-    1,4,1,YSize-1-2-4,DIAMOND,_XL_GREEN, \
+    XSize-2,4,1,YSize-1-2-4,DIAMOND, \
+    1,4,1,YSize-1-2-4,DIAMOND, \
 	\
-	XSize/2-2,YSize-2,4,1,DIAMOND,_XL_GREEN, \
-	XSize/2-2,2,4,1,DIAMOND,_XL_GREEN
+	XSize/2-2,YSize-2,4,1,DIAMOND, \
+	XSize/2-2,2,4,1,DIAMOND
 
 #define LV_MANY_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_MANY_NO_OF_OBJECTS)
 

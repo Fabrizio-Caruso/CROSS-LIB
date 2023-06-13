@@ -107,11 +107,11 @@
 #define DESTROY_FORCE 20U
 
 #if XSize<32
-    #define MINI_SHURIKEN_NUMBER 6
+    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
 #elif XSize<64
-    #define MINI_SHURIKEN_NUMBER 6
+    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
 #else
-    #define MINI_SHURIKEN_NUMBER 6
+    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
 #endif
 
 #define MAX_NUMBER_OF_WALLS 4
@@ -165,8 +165,8 @@ uint8_t shuriken_axis[MAX_NUMBER_OF_SHURIKENS];
 #define SHURIKEN_HORIZONTAL 0
 #define SHURIKEN_VERTICAL   1
 
-uint8_t mini_shuriken_x[MINI_SHURIKEN_NUMBER];
-uint8_t mini_shuriken_y[MINI_SHURIKEN_NUMBER];
+uint8_t mini_shuriken_x[MAX_NUMBER_OF_MINI_SHURIKENS];
+uint8_t mini_shuriken_y[MAX_NUMBER_OF_MINI_SHURIKENS];
 
 uint8_t map[XSize][YSize];
 
@@ -219,9 +219,9 @@ uint8_t player_direction;
 
 uint8_t extra_life_counter;
 
-uint8_t slowdown;
+uint16_t slowdown;
 
-uint8_t shuriken_fight;
+uint8_t shuriken_chase[MAX_NUMBER_OF_SHURIKENS];
 
 
 static const uint8_t screen_tile[7+1] =
@@ -964,6 +964,8 @@ void handle_walls(void)
 
 void init_level(void)
 {
+    uint8_t i;
+    
     init_map();    
             
     build_objects();
@@ -979,15 +981,31 @@ void init_level(void)
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
     
-    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/22)*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));
+    // _XL_PRINTD(0,0,5,level_horizontal_shurikens);
+    // _XL_PRINTD(0,1,5,level_vertical_shurikens);
+    // _XL_PRINTD(0,2,5,level_mini_shurikens);
+
+    // _XL_PRINTD(0,3,5,_XL_SLOW_DOWN_FACTOR);
+    // _XL_PRINTD(0,4,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2)));    
     
-    if(level%3==2)
+    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));
+    
+    // _XL_PRINTD(0,5,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));    
+    
+    
+    // _XL_PRINTD(0,6,5,slowdown);
+    // _XL_WAIT_FOR_INPUT();
+    
+    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
-        shuriken_fight = 1;
-    }
-    else
-    {
-        shuriken_fight = 0;
+        if(level%3==2)
+        {
+            shuriken_chase[i] = 1;
+        }
+        else
+        {
+            shuriken_chase[i] = 0;
+        }
     }
 }
 
@@ -1020,6 +1038,28 @@ void block_explosion(uint8_t x, uint8_t y)
 }
 
 
+uint8_t player_chased_by(uint8_t index)
+{
+    return shuriken_chase[index]&&(!(_XL_RAND()&7));
+}
+
+
+void display_shuriken(uint8_t x, uint8_t y, uint8_t index)
+{
+    uint8_t shuriken_color;
+    
+    if(player_chased_by(index))
+    {
+        shuriken_color = _XL_YELLOW;
+    }
+    else
+    {
+        shuriken_color = _XL_CYAN;
+    }
+    _XL_DRAW(x,y,SHURIKEN_TILE,shuriken_color);
+}
+
+
 void chase_vertically(uint8_t index)
 {
     shuriken_axis[index]=SHURIKEN_VERTICAL;
@@ -1045,7 +1085,7 @@ void handle_horizontal_shuriken(register uint8_t index)
         if(!shuriken_transition[index]) // transition not performed, yet
         {
             
-            if(shuriken_fight&&(!(_XL_RAND()&7)))
+            if(player_chased_by(index))
             {
                 chase_vertically(index);
             }                
@@ -1074,7 +1114,8 @@ void handle_horizontal_shuriken(register uint8_t index)
             shuriken_transition[index]=0;
             delete_element(x,y);
             --shuriken_x[index];
-            _XL_DRAW(shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
+            // _XL_DRAW(shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
+            display_shuriken(shuriken_x[index],y,index);
         }
 
     }
@@ -1082,7 +1123,7 @@ void handle_horizontal_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(shuriken_fight&&(!(_XL_RAND()&7)))
+            if(player_chased_by(index))
             {
                 chase_vertically(index);
             }                
@@ -1112,7 +1153,8 @@ void handle_horizontal_shuriken(register uint8_t index)
             shuriken_transition[index]=0;
             delete_element(x,y);
             ++shuriken_x[index];
-            _XL_DRAW(shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
+            // _XL_DRAW(shuriken_x[index],y,SHURIKEN_TILE,SHURIKEN_COLOR);
+            display_shuriken(shuriken_x[index],y,index);
         }
     }
 }
@@ -1157,45 +1199,6 @@ void delete_shurikens(void)
         }
     }
     
-    // for(i=0;i<level_horizontal_shurikens;++i)
-    // {
-        // if(shuriken_status[i])
-        // {
-            // delete_element(shuriken_x[i],shuriken_y[i]);
-            // if(shuriken_transition[i])
-            // {
-                // if(shuriken_direction[i]==SHURIKEN_RIGHT)
-                // {
-                    // delete_element(shuriken_x[i]+1,shuriken_y[i]);
-                // }
-                // else
-                // {
-                    // delete_element(shuriken_x[i]-1,shuriken_y[i]);
-                // }
-            // }
-        // }
-    // }
-    
-    // for(i=0+level_horizontal_shurikens;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
-    // {
-        // if(shuriken_status[i])
-        // {
-            // delete_element(shuriken_x[i],shuriken_y[i]);
-            
-            // if(shuriken_transition[i])
-            // {
-                // if(shuriken_direction[i]==SHURIKEN_DOWN)
-                // {
-                    // delete_element(shuriken_x[i],shuriken_y[i]+1);
-                // }
-                // else
-                // {
-                    // delete_element(shuriken_x[i],shuriken_y[i]-1);
-                // }
-            // }
-        // }
-    // }
-    
     for(i=0;i<level_mini_shurikens;++i)
     {
         delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
@@ -1235,7 +1238,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(shuriken_fight&&(!(_XL_RAND()&7)))
+            if(player_chased_by(index))
             {
                 chase_horizontally(index);
             }                
@@ -1264,14 +1267,15 @@ void handle_vertical_shuriken(register uint8_t index)
             shuriken_transition[index]=0;
             delete_element(x,y);
             --shuriken_y[index];
-            _XL_DRAW(x,shuriken_y[index],SHURIKEN_TILE,SHURIKEN_COLOR);
+            // _XL_DRAW(x,shuriken_y[index],SHURIKEN_TILE,SHURIKEN_COLOR);
+            display_shuriken(x,shuriken_y[index],index);
         }
     }
     else // direction is DOWN
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(shuriken_fight&&(!(_XL_RAND()&7)))
+            if(player_chased_by(index))
             {
                 chase_horizontally(index);
             }                
@@ -1300,7 +1304,8 @@ void handle_vertical_shuriken(register uint8_t index)
             shuriken_transition[index]=0;
             delete_element(x,y);    
             ++shuriken_y[index];
-            _XL_DRAW(x,shuriken_y[index],SHURIKEN_TILE,SHURIKEN_COLOR);
+            // _XL_DRAW(x,shuriken_y[index],SHURIKEN_TILE,SHURIKEN_COLOR);
+            display_shuriken(x,shuriken_y[index],index);
         }
     }
 }

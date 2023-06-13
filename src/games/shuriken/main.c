@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 4
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -998,8 +998,9 @@ void init_level(void)
     
     for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
-        if(level%3==2)
+        if(!((level+1)&3) && (i<level))
         {
+
             shuriken_chase[i] = 1;
         }
         else

@@ -28,8 +28,8 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 7
-#define FINAL_LEVEL 7
+#define INITIAL_LEVEL 9
+#define FINAL_LEVEL 10
 
 #define INITIAL_LIVES 5
 

@@ -41,23 +41,23 @@
 #define LV_MANY_SHURIKENS \
     12, 4, 4, \
 	\
-    3,4, \
-    3,7, \
-    3,10, \
+    3,5, \
+    3,8, \
+    3,11, \
     3,YSize-9, \
-    3,YSize-6, \
-    3,YSize-3, \
+    3,YSize-7, \
+    3,YSize-5, \
 	\
-    XSize-4,3, \
-    XSize-4,6, \
-    XSize-4,9, \
+    XSize-4,4, \
+    XSize-4,7, \
+    XSize-4,10, \
     XSize-4,YSize-10, \
     XSize-4,YSize-7, \
     XSize-4,YSize-4, \
     \
-    2,3, \
-    XSize-1-2,3, \
-    4,3, \
+    2,4, \
+    XSize-1-2,4, \
+    4,4, \
     XSize-1-4,5, \
     \
     2, \

@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 7
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -179,8 +179,9 @@ uint16_t hiscore;
 
 uint8_t player_color;   
 
-uint8_t level_horizontal_shurikens;
-uint8_t level_vertical_shurikens;
+// uint8_t level_horizontal_shurikens;
+// uint8_t level_vertical_shurikens;
+uint8_t level_shurikens;
 uint8_t level_mini_shurikens;
 
 uint8_t barrier_x[MAX_NUMBER_OF_WALLS];
@@ -353,14 +354,14 @@ void update_ring_display(void)
 void update_shuriken_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(7,YSize-1,1,shuriken_counter);
+    _XL_PRINTD(7,YSize-1,2,shuriken_counter);
 }
 
 
 void update_time_counter_display(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(10,YSize-1,1,time_counter);    
+    _XL_PRINTD(11,YSize-1,1,time_counter);    
 }
 
 
@@ -759,7 +760,7 @@ void init_score_display(void)
     _XL_DRAW(6,YSize-1,SHURIKEN_TILE,_XL_CYAN);
     
     _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_CHAR(9,YSize-1,'T');
+    _XL_CHAR(10,YSize-1,'T');
 
     update_item_display();
 }
@@ -853,6 +854,8 @@ void build_shurikens(void)
     uint8_t index = shurikens_index[level];
     uint8_t i;
 
+	uint8_t level_horizontal_shurikens;
+	uint8_t level_vertical_shurikens;
 	// _XL_PRINTD(1,1,4,index);
 	// _XL_WAIT_FOR_INPUT();
 
@@ -862,6 +865,9 @@ void build_shurikens(void)
     level_vertical_shurikens = shurikens_map[++index];
 	// _XL_PRINTD(1,1,4,level_vertical_shurikens);
 	// _XL_WAIT_FOR_INPUT();
+	
+	level_shurikens = level_horizontal_shurikens + level_vertical_shurikens;
+	
     level_mini_shurikens = shurikens_map[++index];
 	// _XL_PRINTD(1,1,4,level_mini_shurikens);
 	// _XL_WAIT_FOR_INPUT();
@@ -999,7 +1005,7 @@ void init_level(void)
     // _XL_PRINTD(0,3,5,_XL_SLOW_DOWN_FACTOR);
     // _XL_PRINTD(0,4,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2)));    
     
-    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));
+    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
     
     // _XL_PRINTD(0,5,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));    
     
@@ -1188,7 +1194,7 @@ void delete_shurikens(void)
 {
     uint8_t i;
     
-    for(i=0;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
+    for(i=0;i<level_shurikens;++i)
     {
         if(shuriken_status[i])
         {
@@ -1643,6 +1649,23 @@ void handle_extra_life(void)
 }
 
 
+uint8_t continue_condition(void)
+{
+	
+	#if defined(SHOW_LEVELS)
+		return 0;
+	#endif
+	
+	if(challenge_level)
+	{
+		return (shuriken_counter<level_shurikens) && alive;
+	}
+	else
+	{
+		return remaining_diamonds && alive;
+	}
+}
+
 int main(void)
 {        
     _XL_INIT_GRAPHICS();
@@ -1676,7 +1699,7 @@ int main(void)
             _XL_WAIT_FOR_INPUT();
             
             
-            while(remaining_diamonds && alive)
+            while(continue_condition())
             {
                 // _XL_PRINTD(1,1,4,force);
                 handle_player();
@@ -1692,10 +1715,6 @@ int main(void)
                     ++counter;
 
                     _XL_SLOW_DOWN(slowdown);
-                    #if defined(SHOW_LEVELS)
-                        remaining_diamonds=0;
-                        _XL_WAIT_FOR_INPUT();
-                    #endif
                     
 					handle_extra_life();
 					

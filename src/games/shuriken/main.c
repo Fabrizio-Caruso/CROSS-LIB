@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 7
 
 #define INITIAL_LIVES 5
@@ -223,6 +223,11 @@ uint16_t slowdown;
 
 uint8_t shuriken_chase[MAX_NUMBER_OF_SHURIKENS];
 
+uint8_t shuriken_challenge;
+
+uint8_t barrier_type;
+
+uint8_t challenge_level;
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -912,7 +917,7 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 
 void switch_barrier_if_possible(uint8_t i)
 {
-    uint8_t wall;  
+    uint8_t barrier;  
 
     if(!barrier_triggered[i])
     {
@@ -920,7 +925,7 @@ void switch_barrier_if_possible(uint8_t i)
 		if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
         {
             _XL_TOCK_SOUND();
-            wall = SHURIKEN;
+            barrier = barrier_type;
             ++barrier_triggered[i];
         }
         else
@@ -928,17 +933,17 @@ void switch_barrier_if_possible(uint8_t i)
             return;
         }
     }
-    else
+    else if(!challenge_level)
     {
-        wall = EMPTY;
+        barrier = EMPTY;
         barrier_triggered[i] = 0;
     }
 
-    build_rectangle(wall,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
+    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
 }
 
 
-void handle_wall(uint8_t i)
+void handle_barrier(uint8_t i)
 {
     if(barrier_counter[i]<WALL_THRESHOLD)
     {
@@ -952,13 +957,19 @@ void handle_wall(uint8_t i)
 }
 
 
-void handle_walls(void)
+void handle_barriers(void)
 {
     uint8_t i;
     for(i=0;i<number_of_walls;++i)
     {
-        handle_wall(i);
+        handle_barrier(i);
     }
+}
+
+
+uint8_t is_challenge_level(void)
+{
+	return !((level+1)&3);
 }
 
 
@@ -996,11 +1007,22 @@ void init_level(void)
     // _XL_PRINTD(0,6,5,slowdown);
     // _XL_WAIT_FOR_INPUT();
     
+	if(is_challenge_level())
+	{
+		challenge_level = 1;
+		barrier_type = BLOCK;
+	}
+	else
+	{
+		challenge_level = 0;
+		barrier_type = SHURIKEN;
+	}
+	
     for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
-        if(!((level+1)&3) && (i<level))
+        if(challenge_level && (i<level))
         {
-
+			
             shuriken_chase[i] = 1;
         }
         else
@@ -1662,7 +1684,7 @@ int main(void)
                 if(alive)
                 {
                     handle_shurikens();
-                    handle_walls();
+                    handle_barriers();
                     
                     handle_ring();
                     handle_collisions();

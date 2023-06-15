@@ -28,8 +28,8 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 9
-#define FINAL_LEVEL 10
+#define INITIAL_LEVEL 7
+#define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
 
@@ -118,12 +118,13 @@
 
 
 #define DIAMOND_POINTS 10
+#define BONUS_DIAMOND_POINTS 30
 #define FREEZE_POINTS 50
 #define RING_POINTS 100
 #define SHURIKEN_POINTS 100
 
 #define LEVEL_BONUS 100
-#define TIME_BONUS 30
+// #define TIME_BONUS 30
 // #define FREEZE_BONUS 50
 // #define RING_BONUS   100
 // #define SHURIKEN_BONUS 100
@@ -402,7 +403,14 @@ void handle_collisions(void)
             if(cell_value==DIAMOND)
             {
                 _XL_PING_SOUND();
-                score+=DIAMOND_POINTS;
+				if(challenge_level)
+				{
+					score+=BONUS_DIAMOND_POINTS;
+				}
+				else
+				{
+					score+=DIAMOND_POINTS;
+				}
                 update_score_display();
                 --remaining_diamonds;
                 update_remaining_display();
@@ -746,7 +754,8 @@ void init_score_display(void)
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
     
-    _XL_DRAW(6,0,DIAMOND_TILE,_XL_GREEN);
+	build_element(DIAMOND,6,0);
+    // _XL_DRAW(6,0,DIAMOND_TILE,_XL_GREEN);
 
 	update_lives_display();
 
@@ -984,7 +993,20 @@ void init_level(void)
     uint8_t i;
     
     init_map();    
-            
+	
+	if(is_challenge_level())
+	{
+		challenge_level = 1;
+		barrier_type = BLOCK;
+		screen_color[DIAMOND]=_XL_YELLOW;
+	}
+	else
+	{
+		challenge_level = 0;
+		barrier_type = SHURIKEN;
+		screen_color[DIAMOND]=_XL_CYAN;
+	}
+	
     build_objects();
     
     time_counter = MAX_TIME;
@@ -1012,17 +1034,6 @@ void init_level(void)
     
     // _XL_PRINTD(0,6,5,slowdown);
     // _XL_WAIT_FOR_INPUT();
-    
-	if(is_challenge_level())
-	{
-		challenge_level = 1;
-		barrier_type = BLOCK;
-	}
-	else
-	{
-		challenge_level = 0;
-		barrier_type = SHURIKEN;
-	}
 	
     for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {

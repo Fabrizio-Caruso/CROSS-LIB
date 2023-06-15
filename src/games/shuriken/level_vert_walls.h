@@ -20,8 +20,8 @@
     LV_VERT_WALLS_WIDTH+1,2,1,1,FREEZE, \
     XSize-1-LV_VERT_WALLS_WIDTH-1,YSize-2,1,1,FREEZE, \
     \
-    XSize/2+1,YSize/2-1,1,4,BLOCK, \
-    XSize/2-2,YSize/2-1,1,4,BLOCK, \
+    XSize/2+1,YSize/2-1,1,3,BLOCK, \
+    XSize/2-2,YSize/2-1,1,3,BLOCK, \
     \
     LV_VERT_WALLS_WIDTH-1,2,1,YSize-7,DIAMOND, \
     XSize-1-LV_VERT_WALLS_WIDTH+1,6,1,YSize-7,DIAMOND, \

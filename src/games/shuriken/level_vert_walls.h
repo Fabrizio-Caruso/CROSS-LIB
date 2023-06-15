@@ -1,0 +1,70 @@
+
+
+
+// LEVEL 2
+
+#define LV_VERT_WALLS_WIDTH (XSize/4)
+
+
+#define LV_VERT_WALLS_NO_OF_OBJECTS 10
+
+#define LV_VERT_WALLS_OBJECTS \
+    LV_VERT_WALLS_NO_OF_OBJECTS, \
+	\
+    LV_VERT_WALLS_WIDTH,2,1,YSize-7,WALL, \
+    XSize-1-LV_VERT_WALLS_WIDTH,6,1,YSize-7,WALL, \
+    \
+    1,YSize-2,1,1,RING, \
+    XSize-2,2,1,1,RING, \
+    \
+    LV_VERT_WALLS_WIDTH+1,2,1,1,FREEZE, \
+    XSize-1-LV_VERT_WALLS_WIDTH-1,YSize-2,1,1,FREEZE, \
+    \
+    LV_VERT_WALLS_WIDTH-1,2,1,YSize-7,DIAMOND, \
+    XSize-1-LV_VERT_WALLS_WIDTH+1,6,1,YSize-7,DIAMOND, \
+    \
+    2,YSize-2,LV_VERT_WALLS_WIDTH-2,1,DIAMOND, \
+    XSize-1-LV_VERT_WALLS_WIDTH+1,2,LV_VERT_WALLS_WIDTH-2,1,DIAMOND
+
+
+#define LV_VERT_WALLS_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_VERT_WALLS_NO_OF_OBJECTS)
+
+
+//
+
+#define LV_VERT_WALLS_SHURIKENS \
+    4, 6, 0, \
+	\
+    XSize-3,3, \
+    3,YSize-3, \
+    XSize-5,4, \
+    5,YSize-4, \
+    \
+    \
+	\
+    2,3, \
+    LV_VERT_WALLS_WIDTH+1,3, \
+    XSize-3,6, \
+    XSize-1-LV_VERT_WALLS_WIDTH-1,6, \
+    LV_VERT_WALLS_WIDTH+3,3, \
+    XSize-1-LV_VERT_WALLS_WIDTH-1-2,6  
+
+#define LV_VERT_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,6,0)
+
+
+
+#define LV_VERT_WALLS_NO_OF_WALLS 2
+
+
+#define LV_VERT_WALLS_WALLS \
+    LV_VERT_WALLS_NO_OF_WALLS, \
+	\
+    LV_VERT_WALLS_WIDTH,YSize-5, \
+    1, 4, \
+    \
+    XSize-1-LV_VERT_WALLS_WIDTH,2, \
+    1, 4 \
+
+#define LV_VERT_WALLS_WALLS_SIZE LC_WALLS_SIZE(LV_VERT_WALLS_NO_OF_WALLS)
+
+

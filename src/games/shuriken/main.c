@@ -1491,13 +1491,31 @@ void title(void)
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
+    _XL_PRINT(XSize/2-7,6, "FABRIZIO CARUSO");
+	
     _XL_PRINTD(XSize/2-2,1,5,hiscore);    
-    
+	
+	screen_x=XSize/2;
+	screen_y=8;
+	player_color=_XL_WHITE;
+	
+	display_player();
+
+	_XL_SET_TEXT_COLOR(_XL_YELLOW);
+	
+    _XL_PRINT(XSize/2-7+3,YSize/2+1, "COLLECT");
+	
+    _XL_PRINT(XSize/2-7,YSize/2+4, "USE   AGAINST");
+	    
+	_XL_DRAW(XSize/2-7+8+3,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
+	
+	_XL_DRAW(XSize/2-7+4,YSize/2+4,BLOCK_TILE, _XL_GREEN);
+
+	_XL_DRAW(XSize/2-7+14,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
+	
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
-    
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     
     _XL_WAIT_FOR_INPUT();
     

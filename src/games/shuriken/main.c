@@ -28,14 +28,14 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 4
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
 
 // DEBUG
 // #define SHOW_LEVELS
-#define INVINCIBLE
+// #define INVINCIBLE
 
 // TILES
 
@@ -189,11 +189,8 @@ uint8_t barrier_x[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_y[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_width[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_height[MAX_NUMBER_OF_WALLS];
-// uint8_t barrier_type[MAX_NUMBER_OF_WALLS];  // Maybe just one type per level
-// uint8_t barrier_color[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_counter[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_triggered[MAX_NUMBER_OF_WALLS];
-// uint8_t barrier_threshold[MAX_NUMBER_OF_WALLS]; // 
 
 uint8_t number_of_walls;
 
@@ -207,9 +204,6 @@ uint8_t counter;
 uint8_t ring_counter;
 
 uint8_t shuriken_counter;
-
-// uint8_t border_color;
-// uint8_t mini_shuriken_color;
 
 uint8_t restart_level;
 
@@ -262,8 +256,6 @@ static uint8_t screen_color[7+1] =
 
 
 static const uint8_t border_colors[] = {_XL_YELLOW, _XL_CYAN, _XL_RED, _XL_GREEN};
-// const uint8_t shuriken_colors[] = {_XL_CYAN, _XL_CYAN, _XL_RED, _XL_CYAN};
-// static const uint8_t mini_shuriken_colors[] = {_XL_YELLOW, _XL_RED};
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -314,7 +306,7 @@ void delete_element(uint8_t x, uint8_t y)
 
 void update_screen_xy(void)
 {
-    screen_x =player_x>>1;
+    screen_x = player_x>>1;
     screen_y = (player_y+1)>>1;
 }
     
@@ -708,12 +700,7 @@ void init_map(void)
 {
     uint8_t i;
     uint8_t j;
-    
-    
-    // border_color = border_colors[level&3];
-    // shuriken_color = shuriken_colors[level&3];
-    // mini_shuriken_color = mini_shuriken_colors[level&1];
-    
+
     _XL_CLEAR_SCREEN();
     for(i=0;i<XSize-1;++i)
     {
@@ -1428,19 +1415,6 @@ void handle_big_shurikens(void)
 }
 
 
-// void handle_vertical_shurikens(void)
-// {
-    // uint8_t i;
-    
-    // for(i=0+level_horizontal_shurikens;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
-    // {
-        // if(shuriken_status[i])
-        // {
-            // handle_vertical_shuriken(i);
-        // }
-    // }
-// }
-
 
 void handle_player(void)
 {
@@ -1569,7 +1543,7 @@ void title(void)
     
     _XL_WAIT_FOR_INPUT();
     
-    _XL_CLEAR_SCREEN();
+    // _XL_CLEAR_SCREEN();
 }
 
 

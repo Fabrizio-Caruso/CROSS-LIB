@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -189,7 +189,7 @@ uint8_t barrier_x[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_y[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_width[MAX_NUMBER_OF_WALLS];
 uint8_t barrier_height[MAX_NUMBER_OF_WALLS];
-uint8_t barrier_counter[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_counter;
 uint8_t barrier_triggered[MAX_NUMBER_OF_WALLS];
 
 uint8_t number_of_walls;
@@ -829,30 +829,23 @@ void build_barriers(void)
     uint8_t i;
 
     number_of_walls = walls_map[index];   
-    
-    // _XL_PRINTD(XSize/2,YSize/2+2,3,number_of_walls);
-    // _XL_WAIT_FOR_INPUT();
         
     for(i=0;i<number_of_walls;++i)
     {
         barrier_x[i] = walls_map[++index];
         barrier_y[i] = walls_map[++index];
         barrier_width[i] = walls_map[++index];
-        barrier_height[i] = walls_map[++index];  
-        // barrier_type[i] = walls_map[++index];
-        // barrier_color[i] = walls_map[++index];       
-        // barrier_threshold[i] = walls_map[++index];
-        
-		if(challenge_level)
-		{
-			barrier_counter[i] = WALL_THRESHOLD*4;
-		}
-		else
-		{
-			barrier_counter[i] = 0;
-		}			
+        barrier_height[i] = walls_map[++index];  	
         barrier_triggered[i] = 0;
     }
+	if(challenge_level)
+	{
+		barrier_counter = WALL_THRESHOLD*4;
+	}
+	else
+	{
+		barrier_counter = 0;
+	}	
 }
 
 
@@ -958,34 +951,43 @@ void switch_barrier_if_possible(uint8_t i)
         barrier = EMPTY;
         barrier_triggered[i] = 0;
     }
+	else
+	{
+		barrier = barrier_type;
+	}
 
     build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
 }
 
 
-void handle_barrier(uint8_t i)
+void handle_barriers(void)
 {
+	uint8_t i;
+	
 	// _XL_PRINTD(0,i,3,barrier_counter[i]);
-    if(barrier_counter[i]<barrier_threshold)
+    if(barrier_counter<barrier_threshold)
     {
-        ++barrier_counter[i];
+        ++barrier_counter;
     }
     else
     {
-        barrier_counter[i]=0;
-        switch_barrier_if_possible(i);
-    }
+        barrier_counter=0;
+		for(i=0;i<number_of_walls;++i)
+		{
+			switch_barrier_if_possible(i);
+		}
+	}
 }
 
 
-void handle_barriers(void)
-{
-    uint8_t i;
-    for(i=0;i<number_of_walls;++i)
-    {
-        handle_barrier(i);
-    }
-}
+// void handle_barriers(void)
+// {
+    // uint8_t i;
+    // for(i=0;i<number_of_walls;++i)
+    // {
+        // handle_barrier(i);
+    // }
+// }
 
 
 uint8_t is_challenge_level(void)
@@ -1025,7 +1027,7 @@ void init_level(void)
 		challenge_level = 1;
 		barrier_type = BLOCK;
 		screen_color[DIAMOND]=_XL_YELLOW;
-		barrier_threshold=WALL_THRESHOLD*5;
+		barrier_threshold=WALL_THRESHOLD*5U;
 		
 		_XL_SET_TEXT_COLOR(_XL_WHITE);
 		_XL_CLEAR_SCREEN();

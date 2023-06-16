@@ -35,7 +35,7 @@
 
 // DEBUG
 // #define SHOW_LEVELS
-// #define INVINCIBLE
+#define INVINCIBLE
 
 // TILES
 
@@ -233,6 +233,7 @@ uint8_t challenge_level;
 
 uint8_t remaining_shurikens;
 
+uint8_t barrier_threshold;
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -758,7 +759,6 @@ void init_score_display(void)
     _XL_PRINT(XSize-7,0,"HI");
     
 	build_element(DIAMOND,6,0);
-    // _XL_DRAW(6,0,DIAMOND_TILE,_XL_GREEN);
 
 	update_lives_display();
 
@@ -855,7 +855,15 @@ void build_barriers(void)
         // barrier_type[i] = walls_map[++index];
         // barrier_color[i] = walls_map[++index];       
         // barrier_threshold[i] = walls_map[++index];
-        barrier_counter[i] = 0;    
+        
+		if(challenge_level)
+		{
+			barrier_counter[i] = WALL_THRESHOLD*4;
+		}
+		else
+		{
+			barrier_counter[i] = 0;
+		}			
         barrier_triggered[i] = 0;
     }
 }
@@ -902,12 +910,16 @@ void build_shurikens(void)
 				shuriken_axis[i]=SHURIKEN_VERTICAL;
 			}
 		}
+		else
+		{
+			index+=2;
+		}
     }
     for(i=level_shurikens;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
         shuriken_status[i]=0;
     }
-    
+	
     for(i=0;i<level_mini_shurikens;++i)
     {
         mini_shuriken_x[i]=shurikens_map[++index];
@@ -966,7 +978,8 @@ void switch_barrier_if_possible(uint8_t i)
 
 void handle_barrier(uint8_t i)
 {
-    if(barrier_counter[i]<WALL_THRESHOLD)
+	// _XL_PRINTD(0,i,3,barrier_counter[i]);
+    if(barrier_counter[i]<barrier_threshold)
     {
         ++barrier_counter[i];
     }
@@ -1002,6 +1015,17 @@ void activate_shurikens(void)
 	{
 		shuriken_status[i]=1;
 	}
+
+}
+
+
+void use_block_against_shurikens(void)
+{
+    _XL_PRINT(XSize/2-7,YSize/2+4, "USE   AGAINST");
+
+	_XL_DRAW(XSize/2-7+4,YSize/2+4,BLOCK_TILE, _XL_GREEN);
+
+	_XL_DRAW(XSize/2-7+14,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
@@ -1009,21 +1033,29 @@ void init_level(void)
 {
     uint8_t i;
     
-    init_map();    
-	
 	if(is_challenge_level())
 	{
 		challenge_level = 1;
 		barrier_type = BLOCK;
 		screen_color[DIAMOND]=_XL_YELLOW;
+		barrier_threshold=WALL_THRESHOLD*5;
+		
+		_XL_SET_TEXT_COLOR(_XL_WHITE);
+		_XL_CLEAR_SCREEN();
+		use_block_against_shurikens();
+		_XL_WAIT_FOR_INPUT();
+		
 	}
 	else
 	{
 		challenge_level = 0;
 		barrier_type = SHURIKEN;
-		screen_color[DIAMOND]=_XL_CYAN;
+		screen_color[DIAMOND]=_XL_GREEN;
+		barrier_threshold=WALL_THRESHOLD;
 	}
 	
+	init_map();    
+
     build_objects();
     
     time_counter = MAX_TIME;
@@ -1527,14 +1559,10 @@ void title(void)
 	
     _XL_PRINT(XSize/2-7+3,YSize/2+1, "COLLECT");
 	
-    _XL_PRINT(XSize/2-7,YSize/2+4, "USE   AGAINST");
-	    
+	use_block_against_shurikens();
+ 
 	_XL_DRAW(XSize/2-7+8+3,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
-	
-	_XL_DRAW(XSize/2-7+4,YSize/2+4,BLOCK_TILE, _XL_GREEN);
-
-	_XL_DRAW(XSize/2-7+14,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
-	
+		
     _XL_SET_TEXT_COLOR(_XL_RED);
     
     _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
@@ -1613,7 +1641,6 @@ void handle_lose_life(void)
     {
         switch_barrier_if_possible(i);
     }
-
 }
 
 
@@ -1667,7 +1694,7 @@ void init_player_achievements(void)
 
     shuriken_counter=0;
 
-    update_item_display();
+    // update_item_display();
 
     // REMARK: counter should not be initialized 
     // otherwise the player gets more points by losing just before completing a level
@@ -1741,6 +1768,8 @@ int main(void)
             {
                 init_level();
             }
+			init_score_display();
+			
             init_player();
 
             update_player();

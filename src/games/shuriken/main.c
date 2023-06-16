@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 10
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -230,6 +230,9 @@ uint8_t shuriken_challenge;
 uint8_t barrier_type;
 
 uint8_t challenge_level;
+
+uint8_t remaining_shurikens;
+
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -995,7 +998,7 @@ void activate_shurikens(void)
 {
 	uint8_t i;
 	
-	for(i=0;i<MAX_NUMBER_OF_MINI_SHURIKENS;++i)
+	for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
 	{
 		shuriken_status[i]=1;
 	}
@@ -1031,6 +1034,8 @@ void init_level(void)
 
     build_shurikens();
     
+	remaining_shurikens = level_shurikens;
+	
     build_barriers();
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
@@ -1080,6 +1085,7 @@ void shuriken_death(uint8_t x, uint8_t y, uint8_t index)
     score+=SHURIKEN_POINTS;
     update_score_display();
     ++shuriken_counter;
+	--remaining_shurikens;
 	increase_time_counter_if_not_max();
     update_item_display();
     shuriken_status[index]=0;
@@ -1529,7 +1535,7 @@ void title(void)
 
 	_XL_DRAW(XSize/2-7+14,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
 	
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_SET_TEXT_COLOR(_XL_RED);
     
     _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
     
@@ -1700,10 +1706,10 @@ uint8_t continue_condition(void)
 	#if defined(SHOW_LEVELS)
 		return 0;
 	#endif
-	
+	// _XL_PRINTD(0,1,3,remaining_shurikens);
 	if(challenge_level)
 	{
-		return (shuriken_counter<level_shurikens) && alive;
+		return remaining_shurikens && alive;
 	}
 	else
 	{

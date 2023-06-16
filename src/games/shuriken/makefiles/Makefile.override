@@ -37,3 +37,21 @@ endif
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 endif    
+
+
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 -m mapfile.txt \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30_data_in_low_hd_stack.cfg \
+	-D__NO_SCREEN_COLOR_INIT  \
+	-D__ALT_PRINT \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ASSEMBLY_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D__UDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

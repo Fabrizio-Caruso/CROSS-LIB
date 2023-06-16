@@ -881,23 +881,26 @@ void build_shurikens(void)
 	// _XL_PRINTD(1,1,4,level_mini_shurikens);
 	// _XL_WAIT_FOR_INPUT();
 
-    for(i=0;i<level_horizontal_shurikens+level_vertical_shurikens;++i)
+    for(i=0;i<level_shurikens;++i)
     {
-        shuriken_x[i]=shurikens_map[++index];
-        shuriken_y[i]=shurikens_map[++index];
-        shuriken_direction[i]=0;
-        shuriken_transition[i]=0;
-        build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
-        if(i<level_horizontal_shurikens)
-        {
-            shuriken_axis[i]=SHURIKEN_HORIZONTAL;
-        }
-        else
-        {
-            shuriken_axis[i]=SHURIKEN_VERTICAL;
-        }
+		if(shuriken_status[i])
+		{
+			shuriken_x[i]=shurikens_map[++index];
+			shuriken_y[i]=shurikens_map[++index];
+			shuriken_direction[i]=0;
+			shuriken_transition[i]=0;
+			build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
+			if(i<level_horizontal_shurikens)
+			{
+				shuriken_axis[i]=SHURIKEN_HORIZONTAL;
+			}
+			else
+			{
+				shuriken_axis[i]=SHURIKEN_VERTICAL;
+			}
+		}
     }
-    for(i=level_horizontal_shurikens+level_vertical_shurikens;i<MAX_NUMBER_OF_SHURIKENS;++i)
+    for(i=level_shurikens;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
         shuriken_status[i]=0;
     }
@@ -988,6 +991,17 @@ uint8_t is_challenge_level(void)
 }
 
 
+void activate_shurikens(void)
+{
+	uint8_t i;
+	
+	for(i=0;i<MAX_NUMBER_OF_MINI_SHURIKENS;++i)
+	{
+		shuriken_status[i]=1;
+	}
+}
+
+
 void init_level(void)
 {
     uint8_t i;
@@ -1012,6 +1026,8 @@ void init_level(void)
     time_counter = MAX_TIME;
 
     init_score_display();
+
+	activate_shurikens();
 
     build_shurikens();
     

@@ -49,9 +49,9 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-D__UDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

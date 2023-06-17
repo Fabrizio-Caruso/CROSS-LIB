@@ -82,11 +82,7 @@
 
 #define DIAMOND_TILE        _TILE_26
 
-
-
-
 #define RINGS_X XSize/2-3
-
 
 #define SHURIKEN_LEFT 0
 #define SHURIKEN_RIGHT 1
@@ -117,29 +113,29 @@
 #define MAX_NUMBER_OF_WALLS 4
 
 
-#define DIAMOND_POINTS 10
-#define BONUS_DIAMOND_POINTS 30
-#define FREEZE_POINTS 50
-#define RING_POINTS 100
-#define SHURIKEN_POINTS 100
+#define DIAMOND_POINTS 10U
+#define BONUS_DIAMOND_POINTS 30U
+#define FREEZE_POINTS 50U
+#define RING_POINTS 100U
+#define SHURIKEN_POINTS 100U
 
-#define LEVEL_BONUS 100
+#define LEVEL_BONUS 100U
 // #define TIME_BONUS 30
 // #define FREEZE_BONUS 50
 // #define RING_BONUS   100
 // #define SHURIKEN_BONUS 100
-#define ITEM_BONUS 50
+#define ITEM_BONUS 50U
 
 
 #if XSize<32
-    #define BASE_RING_EFFECT 30
+    #define BASE_RING_EFFECT 30U
 #else
-    #define BASE_RING_EFFECT 20
+    #define BASE_RING_EFFECT 20U
 #endif
 
-#define START_RING_EFFECT 25
+#define START_RING_EFFECT 25U
 
-#define EXTRA_LIFE_THRESHOLD 5000
+#define EXTRA_LIFE_THRESHOLD 10000U
 
 #define WALL_COLOR _XL_YELLOW
 #define WALL_THRESHOLD 25
@@ -749,8 +745,6 @@ void init_score_display(void)
 
 	update_lives_display();
 
-    // update_remaining_display();
-    
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(XSize-2,YSize-1,2,level+1);
     
@@ -811,7 +805,6 @@ void build_objects(void)
         x_size = objects_map[++index];
         y_size = objects_map[++index];
         type = objects_map[++index];
-        // color = objects_map[++index];
         if(type==DIAMOND)
         {
             remaining_diamonds+=x_size*y_size;
@@ -975,16 +968,6 @@ void handle_barriers(void)
 		}
 	}
 }
-
-
-// void handle_barriers(void)
-// {
-    // uint8_t i;
-    // for(i=0;i<number_of_walls;++i)
-    // {
-        // handle_barrier(i);
-    // }
-// }
 
 
 uint8_t is_challenge_level(void)

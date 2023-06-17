@@ -800,7 +800,6 @@ void build_objects(void)
     uint8_t x_size;
     uint8_t y_size;
     uint8_t type;
-    // uint8_t color;  
 
     screen_color[WALL]=border_colors[level&3];
     
@@ -934,7 +933,6 @@ void switch_barrier_if_possible(uint8_t i)
 
     if(!barrier_triggered[i])
     {
-        // if(safe_area(barrier_x[i]-1,barrier_y[i]-1,barrier_width[i]+2, barrier_height[i]+2))
 		if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
         {
             _XL_TOCK_SOUND();
@@ -964,7 +962,6 @@ void handle_barriers(void)
 {
 	uint8_t i;
 	
-	// _XL_PRINTD(0,i,3,barrier_counter[i]);
     if(barrier_counter<barrier_threshold)
     {
         ++barrier_counter;
@@ -1061,21 +1058,8 @@ void init_level(void)
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
-    
-    // _XL_PRINTD(0,0,5,level_horizontal_shurikens);
-    // _XL_PRINTD(0,1,5,level_vertical_shurikens);
-    // _XL_PRINTD(0,2,5,level_mini_shurikens);
 
-    // _XL_PRINTD(0,3,5,_XL_SLOW_DOWN_FACTOR);
-    // _XL_PRINTD(0,4,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2)));    
-    
     slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
-    
-    // _XL_PRINTD(0,5,5,(_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_horizontal_shurikens+level_vertical_shurikens+level_mini_shurikens));    
-    
-    
-    // _XL_PRINTD(0,6,5,slowdown);
-    // _XL_WAIT_FOR_INPUT();
 	
     for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
@@ -1102,7 +1086,6 @@ void display_horizontal_transition_shuriken(uint8_t x, uint8_t y)
 void shuriken_death(uint8_t index)
 {
     _XL_SHOOT_SOUND();
-    // delete_element(x,y);
     score+=SHURIKEN_POINTS;
     ++shuriken_counter;
 	--remaining_shurikens;

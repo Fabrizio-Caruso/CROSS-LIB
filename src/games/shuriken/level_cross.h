@@ -72,9 +72,9 @@
 #define LV_CROSS_SHURIKENS \
     4,4,2, \
     2,2,\
-    XSize-2,3, \
+    XSize-3,3, \
     2,YSize-2, \
-    XSize-2,YSize-3, \
+    XSize-3,YSize-3, \
     \
     XSize/3-3,2, \
     XSize-1-XSize/3+3,2, \

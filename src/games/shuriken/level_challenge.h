@@ -18,3 +18,12 @@
     4,1 \
 
 #define LV_CHALLENGE_WALLS_SIZE LC_WALLS_SIZE(LV_CHALLENGE_NO_OF_WALLS)
+
+
+#define LV_EXTRA_OBJECTS \
+    4, \
+    (XSize-4)/2-2,5,2,1,WALL, \
+    (XSize-4)/2+4,5,2,1,WALL, \
+    \
+    (XSize-4)/2-2,YSize-5,2,1,WALL, \
+    (XSize-4)/2+4,YSize-5,2,1,WALL

@@ -100,7 +100,7 @@
 #define MAX_PLAYER_X (2*XSize-5)
 
 #define MOVE_FORCE 3U
-#define DESTROY_FORCE 20U
+#define DESTROY_FORCE 18U
 
 
 #define MAX_NUMBER_OF_MINI_SHURIKENS 6
@@ -755,7 +755,7 @@ void build_rectangle(uint8_t type, uint8_t x, uint8_t y, uint8_t width, uint8_t 
 }
 
 
-void build_objects(void)
+void build_objects(uint8_t level)
 {
     uint16_t index = objects_index[level];
     uint8_t no_of_objects = objects_map[index];
@@ -783,6 +783,7 @@ void build_objects(void)
 
         build_rectangle(type,x,y,x_size,y_size);
     }
+    
 }
 
 
@@ -1001,7 +1002,12 @@ void init_level(void)
 	
 	init_map();    
 
-    build_objects();
+    if(challenge_level)
+    {
+        build_objects(FINAL_LEVEL+1);
+    }
+
+    build_objects(level);
     
     time_counter = MAX_TIME;
 
@@ -1463,7 +1469,7 @@ void title(void)
 	
     _XL_PRINTD(XSize/2-2,1,5,hiscore);    
 	
-	screen_x=XSize/2;
+	screen_x=XSize/2-1;
 	screen_y=8;
 	player_color=_XL_WHITE;
 	

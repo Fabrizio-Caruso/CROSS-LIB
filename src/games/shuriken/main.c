@@ -295,11 +295,11 @@ void delete_element(uint8_t x, uint8_t y)
 }
 
 
-void update_screen_xy(void)
-{
-    screen_x = player_x>>1;
-    screen_y = (player_y+1)>>1;
-}
+#define update_screen_xy(void) \
+do { \
+    screen_x = player_x>>1; \
+    screen_y = (player_y+1)>>1; \
+} while(0)
     
 
 void update_score_display(void)
@@ -309,11 +309,12 @@ void update_score_display(void)
 }
 
 
-void update_remaining_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(7,0,2,remaining_diamonds);
-}
+#define update_remaining_display(void) \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(7,0,2,remaining_diamonds); \
+} while(0)
 
 
 void display_player(void)
@@ -489,17 +490,12 @@ void delete_player_right(void)
 }
 
 
-void delete_player(void)
-{
-    delete_player_down();
-    delete_player_up();
-}
-
-
-// void increase_force_if_on_block(uint8_t cell1, uint8_t cell2)
-// {
-
-// }
+#define delete_player() \
+do \
+{ \
+    delete_player_down(); \
+    delete_player_up(); \
+} while(0)
 
 
 uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyond_cell2)
@@ -543,12 +539,6 @@ uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyo
 
 uint8_t allowed_down(void)
 {
-    // uint8_t cell1 = ;
-    // uint8_t cell2 = ;
-
-    // uint8_t beyond_cell1 = ;
-    // uint8_t beyond_cell2 = ; 
-    
     return allowed(map[screen_x][screen_y+2],map[screen_x+1][screen_y+2],map[screen_x][screen_y+3],map[screen_x+1][screen_y+3]);
 
 }
@@ -556,36 +546,18 @@ uint8_t allowed_down(void)
 
 uint8_t allowed_up(void)
 {
-    // uint8_t cell1 = ;
-    // uint8_t cell2 = ;
-
-    // uint8_t beyond_cell1 = ;
-    // uint8_t beyond_cell2 = ; 
-    
     return allowed(map[screen_x][screen_y-1],map[screen_x+1][screen_y-1],map[screen_x][screen_y-2],map[screen_x+1][screen_y-2]);
 }
 
 
 uint8_t allowed_left(void)
 {
-    // uint8_t cell1 = ;
-    // uint8_t cell2 = ;    
-    
-    // uint8_t beyond_cell1 = ;
-    // uint8_t beyond_cell2 = ;     
-    
     return allowed(map[screen_x-1][screen_y],map[screen_x-1][screen_y+1],map[screen_x-2][screen_y],map[screen_x-2][screen_y+1]);
 }
 
 
 uint8_t allowed_right(void)
 {
-    // uint8_t cell1 = ;
-    // uint8_t cell2 = ; 
-
-    // uint8_t beyond_cell1 = ;
-    // uint8_t beyond_cell2 = ;     
-        
     return allowed(map[screen_x+2][screen_y],map[screen_x+2][screen_y+1],map[screen_x+3][screen_y],map[screen_x+3][screen_y+1]);
 }
 
@@ -600,11 +572,12 @@ void _if_block_push_down(uint8_t x)
 }
 
 
-void if_block_push_down(void)
-{
-    _if_block_push_down(screen_x);
-    _if_block_push_down(screen_x+1);
-}
+#define if_block_push_down() \
+do \
+{ \
+    _if_block_push_down(screen_x); \
+    _if_block_push_down(screen_x+1); \
+} while(0)
 
 
 void _if_block_push_up(uint8_t x)
@@ -617,12 +590,12 @@ void _if_block_push_up(uint8_t x)
 }
 
 
-void if_block_push_up(void)
-{
-    _if_block_push_up(screen_x);
-    _if_block_push_up(screen_x+1);
-
-}
+#define if_block_push_up() \
+do \
+{ \
+    _if_block_push_up(screen_x); \
+    _if_block_push_up(screen_x+1); \
+} while(0)
 
 
 void _if_block_push_left(uint8_t y)
@@ -635,11 +608,12 @@ void _if_block_push_left(uint8_t y)
 }
 
 
-void if_block_push_left(void)
-{
-    _if_block_push_left(screen_y);
-    _if_block_push_left(screen_y+1);    
-}
+#define if_block_push_left() \
+do \
+{ \
+    _if_block_push_left(screen_y); \
+    _if_block_push_left(screen_y+1); \
+} while(0)
 
 
 void _if_block_push_right(uint8_t y)
@@ -652,11 +626,12 @@ void _if_block_push_right(uint8_t y)
 }
 
 
-void if_block_push_right(void)
-{
-    _if_block_push_right(screen_y);
-    _if_block_push_right(screen_y+1);
-}
+#define if_block_push_right() \
+do \
+{ \
+    _if_block_push_right(screen_y); \
+    _if_block_push_right(screen_y+1); \
+} while(0)
 
 
 void handle_mini_shuriken(void)
@@ -687,33 +662,32 @@ void handle_mini_shuriken(void)
 }
 
 
-void init_map(void)
-{
-    uint8_t i;
-    uint8_t j;
-
-    _XL_CLEAR_SCREEN();
-    for(i=0;i<XSize-1;++i)
-    {
-        for(j=0;j<YSize-1;++j)
-        {
-            map[i][j]=EMPTY;
-        }
-    }
-    
-    for(i=0;i<XSize;++i)
-    {
-        build_element(WALL,i,1);
-        build_element(WALL,i,YSize-1);
-    }
-    for(i=1;i<YSize-1;++i)
-    {
-        build_element(WALL,0,i);
-        build_element(WALL,XSize-1,i);
-    }
-
-
-}
+#define init_map() \
+do \
+{ \
+    uint8_t i; \
+    uint8_t j; \
+    \
+    _XL_CLEAR_SCREEN(); \
+    for(i=0;i<XSize-1;++i) \
+    { \
+        for(j=0;j<YSize-1;++j) \
+        { \
+            map[i][j]=EMPTY; \
+        } \
+    } \
+    \
+    for(i=0;i<XSize;++i) \
+    { \
+        build_element(WALL,i,1); \
+        build_element(WALL,i,YSize-1); \
+    } \
+    for(i=1;i<YSize-1;++i) \
+    { \
+        build_element(WALL,0,i); \
+        build_element(WALL,XSize-1,i); \
+    } \
+} while(0)
 
 
 void update_lives_display(void)
@@ -971,16 +945,16 @@ uint8_t is_challenge_level(void)
 }
 
 
-void activate_shurikens(void)
-{
-	uint8_t i;
-	
-	for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
-	{
-		shuriken_status[i]=1;
-	}
-
-}
+#define activate_shurikens() \
+do \
+{ \
+	uint8_t i; \
+	\
+	for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
+	{ \
+		shuriken_status[i]=1; \
+	} \
+} while(0)
 
 
 void use_block_against_shurikens(void)
@@ -1355,25 +1329,26 @@ void handle_vertical_shuriken(register uint8_t index)
 
 
 
-void handle_big_shurikens(void)
-{
-    uint8_t i;
-    
-    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
-    {
-        if(shuriken_status[i])
-        {   
-            if(!shuriken_axis[i])
-            {
-                handle_horizontal_shuriken(i);
-            }
-            else
-            {
-                handle_vertical_shuriken(i);
-            }
-        }
-    }
-}
+#define handle_big_shurikens() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
+    { \
+        if(shuriken_status[i]) \
+        {    \
+            if(!shuriken_axis[i]) \
+            { \
+                handle_horizontal_shuriken(i); \
+            } \
+            else \
+            { \
+                handle_vertical_shuriken(i); \
+            } \
+        } \
+    } \
+} while(0)
 
 
 void update_player_direction(uint8_t direction)
@@ -1452,18 +1427,17 @@ void handle_player(void)
 }
 
 
-void init_player(void)
-{
-    alive = 1;
-    player_x = XSize-1;
-    player_y = YSize-1;
-    
-    force = 0;
-    ring_active = START_RING_EFFECT;
-    
-    player_color = _XL_YELLOW;
-    
-}
+#define init_player(void) \
+do { \
+    alive = 1; \
+    player_x = XSize-1; \
+    player_y = YSize-1; \
+    \
+    force = 0; \
+    ring_active = START_RING_EFFECT; \
+    \
+    player_color = _XL_YELLOW; \
+} while(0)
 
 
 void title(void)
@@ -1496,35 +1470,33 @@ void title(void)
     
     _XL_WAIT_FOR_INPUT();
     
-    // _XL_CLEAR_SCREEN();
 }
 
 
-void init_global_game(void)
-{
-    score = 0;
-    lives = INITIAL_LIVES;
-    // remaining_diamonds = 0;
-    level = INITIAL_LEVEL;
-    extra_life_counter = 1;
-    
-    restart_level = 1;
-
-}
+#define init_global_game() \
+do \
+{ \
+    score = 0; \
+    lives = INITIAL_LIVES; \
+    level = INITIAL_LEVEL; \
+    extra_life_counter = 1; \
+    restart_level = 1; \
+} while(0)
 
 
-void handle_shurikens(void)
-{
-    if((!freeze_active) || (counter&1))
-    {
-        handle_big_shurikens();
-        handle_mini_shuriken();
-    }
-    else if(freeze_active)
-    {
-        --freeze_active;
-    }
-}
+#define handle_shurikens() \
+do \
+{ \
+    if((!freeze_active) || (counter&1)) \
+    { \
+        handle_big_shurikens(); \
+        handle_mini_shuriken(); \
+    } \
+    else if(freeze_active) \
+    { \
+        --freeze_active; \
+    } \
+} while(0)
 
 
 void handle_ring(void)
@@ -1543,30 +1515,21 @@ void handle_ring(void)
 }
 
 
-void handle_lose_life(void)
-{
-    // uint8_t i;
-    
-    player_color=_XL_RED;
-    display_player();
-    _XL_EXPLOSION_SOUND();
-    
-    --lives;
-
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    _XL_WAIT_FOR_INPUT();
-    
-    delete_player();
-    
-    delete_shurikens();
-    
-    // build_shurikens();
-
-    // for(i=0;i<number_of_walls;++i)
-    // {
-        // switch_barrier_if_possible(i);
-    // }
-}
+#define handle_lose_life() \
+do \
+{ \
+    player_color=_XL_RED; \
+    display_player(); \
+    _XL_EXPLOSION_SOUND(); \
+    \
+    --lives; \
+    _XL_SLEEP(1); \
+    _XL_WAIT_FOR_INPUT(); \
+    \
+    delete_player(); \
+    \
+    delete_shurikens(); \
+} while(0)
 
 
 void item_bonus(uint8_t *item_counter_ptr)
@@ -1578,9 +1541,9 @@ void item_bonus(uint8_t *item_counter_ptr)
         score+=ITEM_BONUS;
         --(*item_counter_ptr);
         update_item_display();
-        // update_score_display();
         _XL_ZAP_SOUND();
-        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        // _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        _XL_SLEEP(1);
         } while(*item_counter_ptr);
 		_XL_SLEEP(1);
     }
@@ -1609,52 +1572,49 @@ void handle_next_level(void)
 }
 
 
-void init_player_achievements(void)
-{
-    freeze_counter=0;
-    freeze_active=0;
-    
-    ring_counter=0;
-    ring_active=0;
-
-    shuriken_counter=0;
-
-    // update_item_display();
-
-    // REMARK: counter should not be initialized 
-    // otherwise the player gets more points by losing just before completing a level
-}
+#define init_player_achievements() \
+do \
+{ \
+    freeze_counter=0; \
+    freeze_active=0; \
+    \
+    ring_counter=0; \
+    ring_active=0; \
+    \
+    shuriken_counter=0; \
+} while(0)
 
 
-void handle_time(void)
-{
-    if(!(counter&63))
-    {
-        if(time_counter)
-        {
-            --time_counter;
-            update_time_counter_display();
-        }
-    }
-}
+#define handle_time() \
+do \
+{ \
+    if(!(counter&63)) \
+    { \
+        if(time_counter) \
+        { \
+            --time_counter; \
+            update_time_counter_display(); \
+        } \
+    } \
+} while(0)
 
 
-void handle_extra_life(void)
-{
-	if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter)
-	{
-		++extra_life_counter;
-        _XL_PING_SOUND();
-		++lives;
-		update_lives_display();
-        _XL_PING_SOUND();
-	}
-}
+#define handle_extra_life() \
+do \
+{ \
+	if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter) \
+	{ \
+		++extra_life_counter; \
+        _XL_PING_SOUND(); \
+		++lives; \
+		update_lives_display(); \
+        _XL_PING_SOUND(); \
+	} \
+} while(0)
 
 
 uint8_t continue_condition(void)
-{
-	
+{	
 	#if defined(SHOW_LEVELS)
 		return 0;
 	#endif

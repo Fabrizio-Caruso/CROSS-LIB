@@ -105,7 +105,7 @@
 
 #define MAX_NUMBER_OF_MINI_SHURIKENS 6
 
-#define MAX_NUMBER_OF_WALLS 4
+#define MAX_NUMBER_OF_BARRIERS 4
 
 
 #define DIAMOND_POINTS 10U
@@ -176,12 +176,12 @@ uint8_t player_color;
 uint8_t level_shurikens;
 uint8_t level_mini_shurikens;
 
-uint8_t barrier_x[MAX_NUMBER_OF_WALLS];
-uint8_t barrier_y[MAX_NUMBER_OF_WALLS];
-uint8_t barrier_width[MAX_NUMBER_OF_WALLS];
-uint8_t barrier_height[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_x[MAX_NUMBER_OF_BARRIERS];
+uint8_t barrier_y[MAX_NUMBER_OF_BARRIERS];
+uint8_t barrier_width[MAX_NUMBER_OF_BARRIERS];
+uint8_t barrier_height[MAX_NUMBER_OF_BARRIERS];
 uint8_t barrier_counter;
-uint8_t barrier_triggered[MAX_NUMBER_OF_WALLS];
+uint8_t barrier_triggered[MAX_NUMBER_OF_BARRIERS];
 
 uint8_t number_of_walls;
 
@@ -293,7 +293,6 @@ void delete_element(uint8_t x, uint8_t y)
 {
     map[x][y] = EMPTY;
     _XL_DELETE(x,y);
-    // _XL_CHAR(x,y,'X');
 }
 
 

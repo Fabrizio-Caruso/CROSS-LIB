@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 9
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -39,7 +39,7 @@
 
 // TILES
 
-#define MAX_NUMBER_OF_SHURIKENS 16
+#define MAX_NUMBER_OF_SHURIKENS 14
 
 #define MAX_TIME 9
 
@@ -102,13 +102,8 @@
 #define MOVE_FORCE 3U
 #define DESTROY_FORCE 20U
 
-#if XSize<32
-    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
-#elif XSize<64
-    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
-#else
-    #define MAX_NUMBER_OF_MINI_SHURIKENS 6
-#endif
+
+#define MAX_NUMBER_OF_MINI_SHURIKENS 6
 
 #define MAX_NUMBER_OF_WALLS 4
 

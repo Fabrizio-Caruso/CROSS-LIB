@@ -25,9 +25,6 @@
     8,4,1,2,BLOCK, \
     XSize-9,4,1,2,BLOCK, \
 	\
-    XSize-2-1,7,1,YSize-1-2-4-6,DIAMOND, \
-    2,7,1,YSize-1-2-4-6,DIAMOND, \
-	\
 	5,8, 1,1, WALL, \
 	6+LV_H_BARRIERS_BAR_SIZE,8, 1,1, WALL, \
 	5,YSize-6,1,1,WALL, \
@@ -39,7 +36,10 @@
 	XSize-6,YSize-6,1,1,WALL, \
 	\
 	8,YSize-2,XSize-16,1,DIAMOND, \
-	8,2,XSize-16,1,DIAMOND
+	8,2,XSize-16,1,DIAMOND, \
+	\
+    XSize-2-1,7,1,YSize-1-2-4-6,DIAMOND, \
+    2,7,1,YSize-1-2-4-6,DIAMOND \
 	
 
 #define LV_H_BARRIERS_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_H_BARRIERS_NO_OF_OBJECTS)

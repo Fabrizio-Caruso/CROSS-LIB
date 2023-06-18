@@ -43,7 +43,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 -m mapfile.txt \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30_data_in_low_hd_stack.cfg \
 	-D__NO_SCREEN_COLOR_INIT  \
-	-D__ALT_PRINT \
+	-D__ALT_PRINT -DSIMPLE_SLOWDOWN \
 	-D__MEMORY_MAPPED_GRAPHICS \
 	-D__ASSEMBLY_CLEAR_SCREEN \
 	-D__ALT_SLEEP \

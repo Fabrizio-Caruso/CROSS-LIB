@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 9
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -130,7 +130,7 @@
 
 #define START_RING_EFFECT 25U
 
-#define EXTRA_LIFE_THRESHOLD 10000U
+#define EXTRA_LIFE_THRESHOLD 5000U
 
 #define WALL_COLOR _XL_YELLOW
 #define WALL_THRESHOLD 25
@@ -206,9 +206,11 @@ uint8_t player_direction;
 
 uint8_t extra_life_counter;
 
+#if !defined(SIMPLE_SLOWDOWN)
 uint16_t slowdown;
+#endif
 
-uint8_t shuriken_chase[MAX_NUMBER_OF_SHURIKENS];
+// uint8_t shuriken_chase[MAX_NUMBER_OF_SHURIKENS];
 
 uint8_t shuriken_challenge;
 
@@ -969,7 +971,7 @@ void use_block_against_shurikens(void)
 
 void init_level(void)
 {
-    uint8_t i;
+    // uint8_t i;
     
 	if(is_challenge_level())
 	{
@@ -1011,20 +1013,24 @@ void init_level(void)
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
 
+    #if !defined(SIMPLE_SLOWDOWN)
     slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
-	
-    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
-    {
-        if(challenge_level && (i<level))
-        {
+	#else
+        #define slowdown _XL_SLOW_DOWN_FACTOR
+    #endif
+    
+    // for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
+    // {
+        // if(challenge_level && (i<level))
+        // {
 			
-            shuriken_chase[i] = 1;
-        }
-        else
-        {
-            shuriken_chase[i] = 0;
-        }
-    }
+            // shuriken_chase[i] = 1;
+        // }
+        // else
+        // {
+            // shuriken_chase[i] = 0;
+        // }
+    // }
 }
 
 
@@ -1057,24 +1063,26 @@ void block_explosion(uint8_t x, uint8_t y)
 
 uint8_t player_chased_by(uint8_t index)
 {
-    return shuriken_chase[index]&&(!(_XL_RAND()&7));
+    return (challenge_level)&&(!(_XL_RAND()&7))&&(index<=level);
 }
 
+#define display_shuriken(x,y,index) \
+    _XL_DRAW(x,y,SHURIKEN_TILE,_XL_CYAN)
 
-void display_shuriken(uint8_t x, uint8_t y, uint8_t index)
-{
-    uint8_t shuriken_color;
+// void display_shuriken(uint8_t x, uint8_t y, uint8_t index)
+// {
+    // uint8_t shuriken_color;
     
-    if(player_chased_by(index))
-    {
-        shuriken_color = _XL_YELLOW;
-    }
-    else
-    {
-        shuriken_color = _XL_CYAN;
-    }
-    _XL_DRAW(x,y,SHURIKEN_TILE,shuriken_color);
-}
+    // if(player_chased_by(index))
+    // {
+        // shuriken_color = _XL_YELLOW;
+    // }
+    // else
+    // {
+        // shuriken_color = _XL_CYAN;
+    // }
+    // _XL_DRAW(x,y,SHURIKEN_TILE,shuriken_color);
+// }
 
 
 void chase_vertically(uint8_t index)

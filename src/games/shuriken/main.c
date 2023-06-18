@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -41,7 +41,7 @@
 
 #define MAX_NUMBER_OF_SHURIKENS 14
 
-#define MAX_TIME 9
+#define MAX_TIME 5
 
 // Left low player in the 2x2 multi-tile
 #define LEFT_LOW_TILE0      _TILE_2
@@ -109,18 +109,18 @@
 
 
 #define DIAMOND_POINTS 10U
-#define BONUS_DIAMOND_POINTS 30U
-#define FREEZE_POINTS 50U
-#define RING_POINTS 100U
-#define SHURIKEN_POINTS 100U
+#define BONUS_DIAMOND_POINTS 20U
+#define FREEZE_POINTS 30U
+#define RING_POINTS 50U
+#define SHURIKEN_POINTS 60U
 
-#define LEVEL_BONUS 100U
+// #define LEVEL_BONUS 100U
 // #define TIME_BONUS 30
 // #define FREEZE_BONUS 50
 // #define RING_BONUS   100
 // #define SHURIKEN_BONUS 100
 #define ITEM_BONUS 50U
-
+#define END_GAME_LIFE_BONUS 500U
 
 #if XSize<32
     #define BASE_RING_EFFECT 30U
@@ -835,6 +835,11 @@ void build_shurikens(void)
 	// _XL_PRINTD(1,1,4,level_mini_shurikens);
 	// _XL_WAIT_FOR_INPUT();
 
+    if(challenge_level)
+    {
+        level_shurikens=level+1;
+    }
+
     for(i=0;i<level_shurikens;++i)
     {
 		if(shuriken_status[i])
@@ -1016,7 +1021,7 @@ void init_level(void)
     #if !defined(SIMPLE_SLOWDOWN)
     slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
 	#else
-        #define slowdown _XL_SLOW_DOWN_FACTOR
+        #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
     #endif
     
     // for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
@@ -1061,9 +1066,9 @@ void block_explosion(uint8_t x, uint8_t y)
 }
 
 
-uint8_t player_chased_by(uint8_t index)
+uint8_t player_chased_by(void)
 {
-    return (challenge_level)&&(!(_XL_RAND()&7))&&(index<=level);
+    return (challenge_level)&&(!(_XL_RAND()&7));
 }
 
 #define display_shuriken(x,y,index) \
@@ -1110,7 +1115,7 @@ void handle_horizontal_shuriken(register uint8_t index)
         if(!shuriken_transition[index]) // transition not performed, yet
         {
             
-            if(player_chased_by(index))
+            if(player_chased_by())
             {
                 chase_vertically(index);
             }                
@@ -1148,7 +1153,7 @@ void handle_horizontal_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by(index))
+            if(player_chased_by())
             {
                 chase_vertically(index);
             }                
@@ -1263,7 +1268,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by(index))
+            if(player_chased_by())
             {
                 chase_horizontally(index);
             }                
@@ -1300,7 +1305,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by(index))
+            if(player_chased_by())
             {
                 chase_horizontally(index);
             }                
@@ -1550,8 +1555,7 @@ void item_bonus(uint8_t *item_counter_ptr)
         --(*item_counter_ptr);
         update_item_display();
         _XL_ZAP_SOUND();
-        // _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-        _XL_SLEEP(1);
+        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
         } while(*item_counter_ptr);
 		_XL_SLEEP(1);
     }
@@ -1566,10 +1570,10 @@ void handle_next_level(void)
     _XL_WAIT_FOR_INPUT();
     restart_level = 1;
     
-    _XL_SLEEP(1);
-    score+=LEVEL_BONUS*level;
-    update_score_display();
-	_XL_TOCK_SOUND();
+    // _XL_SLEEP(1);
+    // score+=LEVEL_BONUS;
+    // update_score_display();
+	// _XL_TOCK_SOUND();
 
     _XL_SLEEP(1);
     
@@ -1706,6 +1710,15 @@ int main(void)
             }
         };
         
+        if(alive)
+        {
+            _XL_SET_TEXT_COLOR(_XL_YELLOW);
+            _XL_PRINT(XSize/2-4,YSize/2," THE END ");
+            _XL_SLEEP(2);
+            // score+=lives*END_GAME_LIFE_BONUS;
+            // update_score_display();
+            _XL_WAIT_FOR_INPUT();
+        }
         _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");
         

@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 10
+#define INITIAL_LEVEL 7
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -818,6 +818,9 @@ void build_shurikens(void)
     uint8_t i;
 
 	uint8_t level_horizontal_shurikens;
+    
+// _XL_PRINTD(1,1,4,index);
+// _XL_WAIT_FOR_INPUT();
 	// uint8_t level_vertical_shurikens;
 	// _XL_PRINTD(1,1,4,index);
 	// _XL_WAIT_FOR_INPUT();
@@ -832,13 +835,14 @@ void build_shurikens(void)
 	level_shurikens = level_horizontal_shurikens + shurikens_map[++index];;
 	
     level_mini_shurikens = shurikens_map[++index];
-	// _XL_PRINTD(1,1,4,level_mini_shurikens);
-	// _XL_WAIT_FOR_INPUT();
+// _XL_PRINTD(1,1,4,level_mini_shurikens);
+// _XL_WAIT_FOR_INPUT();
 
-    if(challenge_level)
-    {
-        level_shurikens=level+1;
-    }
+    // TODO: Fix this for level 11 by choosing a level with the correct number of shurikens
+    // if(challenge_level)
+    // {
+        // level_shurikens=level+1;
+    // }
 
     for(i=0;i<level_shurikens;++i)
     {
@@ -873,6 +877,8 @@ void build_shurikens(void)
         mini_shuriken_x[i]=shurikens_map[++index];
         mini_shuriken_y[i]=2;
         build_element(MINI_SHURIKEN,mini_shuriken_x[i],mini_shuriken_y[i]);
+// _XL_PRINTD(1,1,4,mini_shuriken_x[i]);
+// _XL_WAIT_FOR_INPUT();
     }
 }
 

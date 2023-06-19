@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 10
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1001,10 +1001,10 @@ void init_level(void)
 	
 	init_map();    
 
-    if(challenge_level)
-    {
-        build_objects(FINAL_LEVEL+1);
-    }
+    // if(challenge_level)
+    // {
+        // build_objects(FINAL_LEVEL+1);
+    // }
 
     build_objects(level);
     

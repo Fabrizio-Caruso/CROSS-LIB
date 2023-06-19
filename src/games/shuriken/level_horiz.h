@@ -2,7 +2,7 @@
 
 // LEVEL 0
 
-#define LV_HORIZ_NO_OF_OBJECTS 12
+#define LV_HORIZ_NO_OF_OBJECTS 18
 
 #define LV_HORIZ_OBJECTS \
     LV_HORIZ_NO_OF_OBJECTS, \
@@ -18,6 +18,15 @@
     \
 	1,2,1,1,RING, \
 	1,YSize-2,1,1,FREEZE, \
+    \
+    (XSize-4)/2-2,5,2,1,WALL, \
+    (XSize-4)/2+4,5,2,1,WALL, \
+    \
+    (XSize-4)/2-3,5,1,1,FREEZE, \
+    (XSize-4)/2+6,5,1,1,FREEZE, \
+    \
+    (XSize-4)/2-2,YSize-5,2,1,WALL, \
+    (XSize-4)/2+4,YSize-5,2,1,WALL, \
 	\
     XSize-2,4,1,YSize-1-2-4,DIAMOND, \
     1,4,1,YSize-1-2-4,DIAMOND, \

@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -248,7 +248,7 @@ static uint8_t screen_color[7+1] =
 };  
 
 
-static const uint8_t border_colors[] = {_XL_YELLOW, _XL_CYAN, _XL_RED, _XL_GREEN};
+static const uint8_t border_colors[] = {_XL_RED, _XL_YELLOW, _XL_CYAN, _XL_GREEN};
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -663,32 +663,33 @@ void handle_mini_shuriken(void)
 }
 
 
-#define init_map() \
-do \
-{ \
-    uint8_t i; \
-    uint8_t j; \
-    \
-    _XL_CLEAR_SCREEN(); \
-    for(i=0;i<XSize-1;++i) \
-    { \
-        for(j=0;j<YSize-1;++j) \
-        { \
-            map[i][j]=EMPTY; \
-        } \
-    } \
-    \
-    for(i=0;i<XSize;++i) \
-    { \
-        build_element(WALL,i,1); \
-        build_element(WALL,i,YSize-1); \
-    } \
-    for(i=1;i<YSize-1;++i) \
-    { \
-        build_element(WALL,0,i); \
-        build_element(WALL,XSize-1,i); \
-    } \
-} while(0)
+void init_map(void)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    screen_color[WALL]=border_colors[(level+1)&3];
+    
+    _XL_CLEAR_SCREEN();
+    for(i=0;i<XSize-1;++i)
+    {
+        for(j=0;j<YSize-1;++j)
+        {
+            map[i][j]=EMPTY;
+        }
+    }
+    
+    for(i=0;i<XSize;++i)
+    {
+        build_element(WALL,i,1);
+        build_element(WALL,i,YSize-1);
+    }
+    for(i=1;i<YSize-1;++i)
+    {
+        build_element(WALL,0,i);
+        build_element(WALL,XSize-1,i);
+    }
+}
 
 
 void update_lives_display(void)
@@ -1466,16 +1467,18 @@ do { \
 
 void title(void)
 {
-    _XL_CLEAR_SCREEN();
+    // _XL_CLEAR_SCREEN();
+    
+    init_map();
     
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
-    _XL_PRINT(XSize/2-7,6, "FABRIZIO CARUSO");
+    _XL_PRINT(XSize/2-7,7, "FABRIZIO CARUSO");
 	
     _XL_PRINTD(XSize/2-2,1,5,hiscore);    
 	
 	screen_x=XSize/2-1;
-	screen_y=8;
+	screen_y=9;
 	player_color=_XL_WHITE;
 	
 	display_player();
@@ -1490,7 +1493,7 @@ void title(void)
 		
     _XL_SET_TEXT_COLOR(_XL_RED);
     
-    _XL_PRINT(XSize/2-7,4, "S H U R I K E N");
+    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
     
     _XL_WAIT_FOR_INPUT();
     
@@ -1665,10 +1668,10 @@ int main(void)
         
     while(1)
     {
-        title();
-        
         init_global_game();
-                
+
+        title();
+                        
         while(lives && (level<FINAL_LEVEL+1))
         {            
             init_player_achievements();

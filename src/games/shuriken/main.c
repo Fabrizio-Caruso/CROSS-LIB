@@ -1482,17 +1482,18 @@ void title(void)
 	screen_y=9;
 	player_color=_XL_WHITE;
 	
-	display_player();
 
-	_XL_SET_TEXT_COLOR(_XL_YELLOW);
+	// _XL_SET_TEXT_COLOR(_XL_YELLOW);
 	
     _XL_PRINT(XSize/2-7+3,YSize/2+1, "COLLECT");
 	
 	use_block_against_shurikens();
  
+ 	display_player();
+ 
 	_XL_DRAW(XSize/2-7+8+3,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
 		
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_SET_TEXT_COLOR(_XL_RED);
     
     _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
     

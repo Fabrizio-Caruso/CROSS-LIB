@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 7
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1644,7 +1644,7 @@ uint8_t continue_condition(void)
 	// _XL_PRINTD(0,1,3,remaining_shurikens);
 	if(challenge_level)
 	{
-		return remaining_shurikens && alive;
+		return (remaining_diamonds || remaining_shurikens) && alive;
 	}
 	else
 	{

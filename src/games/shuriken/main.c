@@ -248,7 +248,7 @@ static uint8_t screen_color[7+1] =
 };  
 
 
-static const uint8_t wall_colors[] = {_XL_YELLOW, _XL_RED, _XL_YELLOW, _XL_CYAN};
+static const uint8_t wall_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_RED};
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -568,7 +568,7 @@ void _if_block_push_down(uint8_t x)
     if((map[x][screen_y+2]==BLOCK)&&!map[x][screen_y+3])
     {
         build_element(BLOCK, x,screen_y+3);
-        force=0;    
+        force=1;    
     }
 }
 
@@ -586,7 +586,7 @@ void _if_block_push_up(uint8_t x)
     if((map[x][screen_y-1]==BLOCK)&&!map[x][screen_y-2])
     {
         build_element(BLOCK, x,screen_y-2);
-        force=0;
+        force=1;
     }
 }
 
@@ -604,7 +604,7 @@ void _if_block_push_left(uint8_t y)
     if((map[screen_x-1][y]==BLOCK)&&!map[screen_x-2][y])
     {
         build_element(BLOCK,screen_x-2,y);
-        force=0;
+        force=1;
     }
 }
 
@@ -622,7 +622,7 @@ void _if_block_push_right(uint8_t y)
     if((map[screen_x+2][y]==BLOCK)&&!map[screen_x+3][y])
     {
         build_element(BLOCK,screen_x+3,y);
-        force=0;
+        force=1;
     }
 }
 
@@ -668,7 +668,7 @@ void init_map(void)
     uint8_t i;
     uint8_t j;
     
-    screen_color[WALL]=wall_colors[(level+1)&3];
+    screen_color[WALL]=wall_colors[(level)&3];
     
     _XL_CLEAR_SCREEN();
     for(i=0;i<XSize-1;++i)
@@ -766,7 +766,7 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
-    screen_color[WALL]=wall_colors[level&3];
+    screen_color[WALL]=wall_colors[(level+1)&3];
     
     remaining_diamonds = 0;
     for(i=0;i<no_of_objects;++i)

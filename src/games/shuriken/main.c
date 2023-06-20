@@ -710,6 +710,10 @@ void init_score_display(void)
     _XL_PRINTD(XSize-5,0,5,hiscore);
     
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE);
+    // player_color=_XL_WHITE;
+    // screen_x=XSize-11;
+    // screen_y=0;
+    // display_player();
     
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
@@ -977,11 +981,11 @@ void activate_shurikens(void)
 
 void use_block_against_shurikens(uint8_t y)
 {
-    _XL_PRINT(XSize/2-7+2,y, "USE   VS");
+    _XL_PRINT(XSize/2-6,y, "USE   WITH");
 
-    _XL_DRAW(XSize/2-7+6,y,BLOCK_TILE, _XL_GREEN);
+    _XL_DRAW(XSize/2-6+4,y,BLOCK_TILE, _XL_GREEN);
 
-    _XL_DRAW(XSize/2-7+11,y,SHURIKEN_TILE, _XL_CYAN);
+    _XL_DRAW(XSize/2-6+11,y,SHURIKEN_TILE, _XL_CYAN);
 }
 
 

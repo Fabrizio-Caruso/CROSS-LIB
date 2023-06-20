@@ -372,10 +372,10 @@ void update_item_display(void)
 
 void increase_time_counter_if_not_max(void)
 {
-	if(time_counter<MAX_TIME)
-	{
-		++time_counter;
-	}
+    if(time_counter<MAX_TIME)
+    {
+        ++time_counter;
+    }
 }
 
 
@@ -398,14 +398,14 @@ void handle_collisions(void)
             if(cell_value==DIAMOND)
             {
                 _XL_PING_SOUND();
-				if(challenge_level)
-				{
-					score+=BONUS_DIAMOND_POINTS;
-				}
-				else
-				{
-					score+=DIAMOND_POINTS;
-				}
+                // if(challenge_level)
+                // {
+                    // score+=BONUS_DIAMOND_POINTS;
+                // }
+                // else
+                // {
+                score+=DIAMOND_POINTS;
+                // }
                 // update_score_display();
                 --remaining_diamonds;
                 // update_remaining_display();
@@ -417,7 +417,7 @@ void handle_collisions(void)
                 score+=FREEZE_POINTS;
                 // update_score_display();
                 ++freeze_counter;
-				increase_time_counter_if_not_max();
+                increase_time_counter_if_not_max();
                 freeze_active=freeze_counter<<4;
                 update_item_display();
             }
@@ -427,7 +427,7 @@ void handle_collisions(void)
                 score+=RING_POINTS;
                 // update_score_display();
                 ++ring_counter;
-				increase_time_counter_if_not_max();
+                increase_time_counter_if_not_max();
                 player_color = _XL_YELLOW;
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
                 update_item_display();
@@ -697,7 +697,7 @@ void init_map(void)
 
 void update_lives_display(void)
 {     
-	_XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     _XL_PRINTD(XSize-9,0,1,lives);
 }
@@ -715,9 +715,9 @@ void init_score_display(void)
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
     
-	build_element(DIAMOND,6,0);
+    build_element(DIAMOND,6,0);
 
-	update_lives_display();
+    update_lives_display();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(XSize-2,YSize-1,2,level+1);
@@ -802,17 +802,17 @@ void build_barriers(void)
         barrier_x[i] = walls_map[++index];
         barrier_y[i] = walls_map[++index];
         barrier_width[i] = walls_map[++index];
-        barrier_height[i] = walls_map[++index];  	
+        barrier_height[i] = walls_map[++index];      
         barrier_triggered[i] = 0;
     }
-	if(challenge_level)
-	{
-		barrier_counter = WALL_THRESHOLD*4;
-	}
-	else
-	{
-		barrier_counter = 0;
-	}	
+    if(challenge_level)
+    {
+        barrier_counter = WALL_THRESHOLD*4;
+    }
+    else
+    {
+        barrier_counter = 0;
+    }    
 }
 
 
@@ -821,23 +821,23 @@ void build_shurikens(void)
     uint8_t index = shurikens_index[level];
     uint8_t i;
 
-	uint8_t level_horizontal_shurikens;
+    uint8_t level_horizontal_shurikens;
     
 // _XL_PRINTD(1,1,4,index);
 // _XL_WAIT_FOR_INPUT();
-	// uint8_t level_vertical_shurikens;
-	// _XL_PRINTD(1,1,4,index);
-	// _XL_WAIT_FOR_INPUT();
+    // uint8_t level_vertical_shurikens;
+    // _XL_PRINTD(1,1,4,index);
+    // _XL_WAIT_FOR_INPUT();
 
     level_horizontal_shurikens = shurikens_map[index];
-	// _XL_PRINTD(1,1,4,level_horizontal_shurikens);
-	// _XL_WAIT_FOR_INPUT();
+    // _XL_PRINTD(1,1,4,level_horizontal_shurikens);
+    // _XL_WAIT_FOR_INPUT();
     // level_vertical_shurikens = shurikens_map[++index];
-	// _XL_PRINTD(1,1,4,level_vertical_shurikens);
-	// _XL_WAIT_FOR_INPUT();
-	
-	level_shurikens = level_horizontal_shurikens + shurikens_map[++index];;
-	
+    // _XL_PRINTD(1,1,4,level_vertical_shurikens);
+    // _XL_WAIT_FOR_INPUT();
+    
+    level_shurikens = level_horizontal_shurikens + shurikens_map[++index];;
+    
     level_mini_shurikens = shurikens_map[++index];
 // _XL_PRINTD(1,1,4,level_mini_shurikens);
 // _XL_WAIT_FOR_INPUT();
@@ -850,32 +850,32 @@ void build_shurikens(void)
 
     for(i=0;i<level_shurikens;++i)
     {
-		if(shuriken_status[i])
-		{
-			shuriken_x[i]=shurikens_map[++index];
-			shuriken_y[i]=shurikens_map[++index];
-			shuriken_direction[i]=0;
-			shuriken_transition[i]=0;
-			build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
-			if(i<level_horizontal_shurikens)
-			{
-				shuriken_axis[i]=SHURIKEN_HORIZONTAL;
-			}
-			else
-			{
-				shuriken_axis[i]=SHURIKEN_VERTICAL;
-			}
-		}
-		else
-		{
-			index+=2;
-		}
+        if(shuriken_status[i])
+        {
+            shuriken_x[i]=shurikens_map[++index];
+            shuriken_y[i]=shurikens_map[++index];
+            shuriken_direction[i]=0;
+            shuriken_transition[i]=0;
+            build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
+            if(i<level_horizontal_shurikens)
+            {
+                shuriken_axis[i]=SHURIKEN_HORIZONTAL;
+            }
+            else
+            {
+                shuriken_axis[i]=SHURIKEN_VERTICAL;
+            }
+        }
+        else
+        {
+            index+=2;
+        }
     }
     for(i=level_shurikens;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
         shuriken_status[i]=0;
     }
-	
+    
     for(i=0;i<level_mini_shurikens;++i)
     {
         mini_shuriken_x[i]=shurikens_map[++index];
@@ -913,7 +913,7 @@ void switch_barrier_if_possible(uint8_t i)
 
     if(!barrier_triggered[i])
     {
-		if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
+        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
         {
             _XL_TOCK_SOUND();
             barrier = barrier_type;
@@ -929,10 +929,10 @@ void switch_barrier_if_possible(uint8_t i)
         barrier = EMPTY;
         barrier_triggered[i] = 0;
     }
-	else
-	{
-		barrier = barrier_type;
-	}
+    else
+    {
+        barrier = barrier_type;
+    }
 
     build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
 }
@@ -940,8 +940,8 @@ void switch_barrier_if_possible(uint8_t i)
 
 void handle_barriers(void)
 {
-	uint8_t i;
-	
+    uint8_t i;
+    
     if(barrier_counter<barrier_threshold)
     {
         ++barrier_counter;
@@ -949,29 +949,29 @@ void handle_barriers(void)
     else
     {
         barrier_counter=0;
-		for(i=0;i<number_of_walls;++i)
-		{
-			switch_barrier_if_possible(i);
-		}
-	}
+        for(i=0;i<number_of_walls;++i)
+        {
+            switch_barrier_if_possible(i);
+        }
+    }
 }
 
 
 uint8_t is_challenge_level(void)
 {
-	return !((level+1)&3);
+    return !((level+1)&3);
 }
 
 
 #define activate_shurikens() \
 do \
 { \
-	uint8_t i; \
-	\
-	for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
-	{ \
-		shuriken_status[i]=1; \
-	} \
+    uint8_t i; \
+    \
+    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
+    { \
+        shuriken_status[i]=1; \
+    } \
 } while(0)
 
 
@@ -979,9 +979,9 @@ void use_block_against_shurikens(void)
 {
     _XL_PRINT(XSize/2-7+2,YSize/2+4, "USE   VS");
 
-	_XL_DRAW(XSize/2-7+6,YSize/2+4,BLOCK_TILE, _XL_GREEN);
+    _XL_DRAW(XSize/2-7+6,YSize/2+4,BLOCK_TILE, _XL_GREEN);
 
-	_XL_DRAW(XSize/2-7+11,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
+    _XL_DRAW(XSize/2-7+11,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
@@ -989,28 +989,28 @@ void init_level(void)
 {
     // uint8_t i;
     
-	if(is_challenge_level())
-	{
-		challenge_level = 1;
-		barrier_type = BLOCK;
-		screen_color[DIAMOND]=_XL_YELLOW;
-		barrier_threshold=WALL_THRESHOLD*5U;
-		
-		_XL_SET_TEXT_COLOR(_XL_WHITE);
-		_XL_CLEAR_SCREEN();
-		use_block_against_shurikens();
-		_XL_WAIT_FOR_INPUT();
-		
-	}
-	else
-	{
-		challenge_level = 0;
-		barrier_type = SHURIKEN;
-		screen_color[DIAMOND]=_XL_GREEN;
-		barrier_threshold=WALL_THRESHOLD;
-	}
-	
-	init_map();    
+    if(is_challenge_level())
+    {
+        challenge_level = 1;
+        barrier_type = BLOCK;
+        screen_color[DIAMOND]=_XL_YELLOW;
+        barrier_threshold=WALL_THRESHOLD*5U;
+        
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_CLEAR_SCREEN();
+        use_block_against_shurikens();
+        _XL_WAIT_FOR_INPUT();
+        
+    }
+    else
+    {
+        challenge_level = 0;
+        barrier_type = SHURIKEN;
+        screen_color[DIAMOND]=_XL_GREEN;
+        barrier_threshold=WALL_THRESHOLD;
+    }
+    
+    init_map();    
 
     // if(challenge_level)
     // {
@@ -1023,12 +1023,12 @@ void init_level(void)
 
     init_score_display();
 
-	activate_shurikens();
+    activate_shurikens();
 
     build_shurikens();
     
-	remaining_shurikens = level_shurikens;
-	
+    remaining_shurikens = level_shurikens;
+    
     build_barriers();
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
@@ -1036,7 +1036,7 @@ void init_level(void)
 
     #if !defined(SIMPLE_SLOWDOWN)
     slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
-	#else
+    #else
         #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
     #endif
     
@@ -1044,7 +1044,7 @@ void init_level(void)
     // {
         // if(challenge_level && (i<level))
         // {
-			
+            
             // shuriken_chase[i] = 1;
         // }
         // else
@@ -1067,8 +1067,8 @@ void shuriken_death(uint8_t index)
     _XL_SHOOT_SOUND();
     score+=SHURIKEN_POINTS;
     ++shuriken_counter;
-	--remaining_shurikens;
-	increase_time_counter_if_not_max();
+    --remaining_shurikens;
+    increase_time_counter_if_not_max();
     update_item_display();
     shuriken_status[index]=0;
 }
@@ -1478,24 +1478,24 @@ void title(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     
     _XL_PRINT(XSize/2-7,7, "FABRIZIO CARUSO");
-	
+    
     _XL_PRINTD(XSize/2-2,1,5,hiscore);    
-	
-	screen_x=XSize/2-1;
-	screen_y=9;
-	player_color=_XL_WHITE;
-	
+    
+    screen_x=XSize/2-1;
+    screen_y=9;
+    player_color=_XL_WHITE;
+    
 
-	// _XL_SET_TEXT_COLOR(_XL_YELLOW);
-	
+    // _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    
     _XL_PRINT(XSize/2-7+4,YSize/2+1, "PICK");
-	
-	use_block_against_shurikens();
+    
+    use_block_against_shurikens();
  
- 	display_player();
+     display_player();
  
-	_XL_DRAW(XSize/2-7+9,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
-		
+    _XL_DRAW(XSize/2-7+9,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
+        
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
@@ -1576,7 +1576,7 @@ void item_bonus(uint8_t *item_counter_ptr)
         _XL_ZAP_SOUND();
         _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
         } while(*item_counter_ptr);
-		_XL_SLEEP(1);
+        _XL_SLEEP(1);
     }
 }
 
@@ -1592,7 +1592,7 @@ void handle_next_level(void)
     // _XL_SLEEP(1);
     // score+=LEVEL_BONUS;
     // update_score_display();
-	// _XL_TOCK_SOUND();
+    // _XL_TOCK_SOUND();
 
     _XL_SLEEP(1);
     
@@ -1633,31 +1633,31 @@ do \
 #define handle_extra_life() \
 do \
 { \
-	if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter) \
-	{ \
-		++extra_life_counter; \
+    if(score>=EXTRA_LIFE_THRESHOLD*extra_life_counter) \
+    { \
+        ++extra_life_counter; \
         _XL_PING_SOUND(); \
-		++lives; \
-		update_lives_display(); \
+        ++lives; \
+        update_lives_display(); \
         _XL_PING_SOUND(); \
-	} \
+    } \
 } while(0)
 
 
 uint8_t continue_condition(void)
-{	
-	#if defined(SHOW_LEVELS)
-		return 0;
-	#endif
-	// _XL_PRINTD(0,1,3,remaining_shurikens);
-	if(challenge_level)
-	{
-		return (remaining_diamonds || remaining_shurikens) && alive;
-	}
-	else
-	{
-		return remaining_diamonds && alive;
-	}
+{    
+    #if defined(SHOW_LEVELS)
+        return 0;
+    #endif
+    // _XL_PRINTD(0,1,3,remaining_shurikens);
+    if(challenge_level)
+    {
+        return (remaining_diamonds || remaining_shurikens) && alive;
+    }
+    else
+    {
+        return remaining_diamonds && alive;
+    }
 }
 
 
@@ -1685,8 +1685,8 @@ int main(void)
             {
                 init_level();
             }
-			init_score_display();
-			
+            init_score_display();
+            
             init_player();
 
             update_player();
@@ -1713,10 +1713,10 @@ int main(void)
 
                     _XL_SLOW_DOWN(slowdown);
                     
-					handle_extra_life();
-					
-					handle_time();
-	
+                    handle_extra_life();
+                    
+                    handle_time();
+    
                 }
             }
             if(alive)

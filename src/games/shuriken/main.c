@@ -330,11 +330,8 @@ void display_player(void)
 }
 
 
-void update_freeze_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(4,YSize-1,1,freeze_counter);
-}
+#define update_freeze_display() \
+    _XL_PRINTD(4,YSize-1,1,freeze_counter)
 
 
 void update_ring_display(void)
@@ -344,11 +341,8 @@ void update_ring_display(void)
 }
 
 
-void update_shuriken_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(7,YSize-1,2,shuriken_counter);
-}
+#define update_shuriken_display() \
+    _XL_PRINTD(7,YSize-1,2,shuriken_counter)
 
 
 void update_time_counter_display(void)
@@ -363,10 +357,14 @@ void update_item_display(void)
     update_score_display();
     
     update_remaining_display();
+    
     update_time_counter_display();
+    
     update_freeze_display();
-    update_ring_display();
     update_shuriken_display();
+    
+    update_ring_display();
+
 }
 
 

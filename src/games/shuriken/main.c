@@ -789,30 +789,31 @@ void build_objects(uint8_t level)
 }
 
 
-void build_barriers(void)
-{   
-    uint8_t index = walls_index[level];
-    uint8_t i;
-
-    number_of_walls = walls_map[index];   
-        
-    for(i=0;i<number_of_walls;++i)
-    {
-        barrier_x[i] = walls_map[++index];
-        barrier_y[i] = walls_map[++index];
-        barrier_width[i] = walls_map[++index];
-        barrier_height[i] = walls_map[++index];      
-        barrier_triggered[i] = 0;
-    }
-    if(challenge_level)
-    {
-        barrier_counter = WALL_THRESHOLD*4;
-    }
-    else
-    {
-        barrier_counter = 0;
-    }    
-}
+#define build_barriers() \
+do \
+{ \
+    uint8_t index = walls_index[level]; \
+    uint8_t i; \
+    \
+    number_of_walls = walls_map[index];  \
+    \
+    for(i=0;i<number_of_walls;++i) \
+    { \
+        barrier_x[i] = walls_map[++index]; \
+        barrier_y[i] = walls_map[++index]; \
+        barrier_width[i] = walls_map[++index]; \
+        barrier_height[i] = walls_map[++index]; \
+        barrier_triggered[i] = 0; \
+    } \
+    if(challenge_level) \
+    { \
+        barrier_counter = WALL_THRESHOLD*4; \
+    } \
+    else \
+    { \
+        barrier_counter = 0; \
+    } \
+} while(0)
 
 
 void build_shurikens(void)
@@ -906,35 +907,36 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 }
 
 
-void switch_barrier_if_possible(uint8_t i)
-{
-    uint8_t barrier;  
-
-    if(!barrier_triggered[i])
-    {
-        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
-        {
-            _XL_TOCK_SOUND();
-            barrier = barrier_type;
-            ++barrier_triggered[i];
-        }
-        else
-        {
-            return;
-        }
-    }
-    else if(!challenge_level)
-    {
-        barrier = EMPTY;
-        barrier_triggered[i] = 0;
-    }
-    else
-    {
-        barrier = barrier_type;
-    }
-
-    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
-}
+#define switch_barrier_if_possible(i) \
+do \
+{ \
+    uint8_t barrier; \
+    \
+    if(!barrier_triggered[i]) \
+    { \
+        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i])) \
+        { \
+            _XL_TOCK_SOUND(); \
+            barrier = barrier_type; \
+            ++barrier_triggered[i]; \
+        } \
+        else \
+        { \
+            return; \
+        } \
+    } \
+    else if(!challenge_level) \
+    { \
+        barrier = EMPTY; \
+        barrier_triggered[i] = 0; \
+    } \
+    else \
+    { \
+        barrier = barrier_type; \
+    } \
+    \
+    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]); \
+} while(0)
 
 
 void handle_barriers(void)
@@ -1013,12 +1015,7 @@ void init_level(void)
     }
     
     init_map();    
-
-    // if(challenge_level)
-    // {
-        // build_objects(FINAL_LEVEL+1);
-    // }
-
+    
     build_objects(level);
     
     time_counter = MAX_TIME;
@@ -1041,19 +1038,6 @@ void init_level(void)
     #else
         #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
     #endif
-    
-    // for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
-    // {
-        // if(challenge_level && (i<level))
-        // {
-            
-            // shuriken_chase[i] = 1;
-        // }
-        // else
-        // {
-            // shuriken_chase[i] = 0;
-        // }
-    // }
 }
 
 
@@ -1089,24 +1073,9 @@ uint8_t player_chased_by(void)
     return (challenge_level)&&(!(_XL_RAND()&7));
 }
 
+
 #define display_shuriken(x,y,index) \
     build_element(SHURIKEN,x,y)
-    // _XL_DRAW(x,y,SHURIKEN_TILE,_XL_CYAN)
-
-// void display_shuriken(uint8_t x, uint8_t y, uint8_t index)
-// {
-    // uint8_t shuriken_color;
-    
-    // if(player_chased_by(index))
-    // {
-        // shuriken_color = _XL_YELLOW;
-    // }
-    // else
-    // {
-        // shuriken_color = _XL_CYAN;
-    // }
-    // _XL_DRAW(x,y,SHURIKEN_TILE,shuriken_color);
-// }
 
 
 void chase_vertically(uint8_t index)
@@ -1545,26 +1514,20 @@ void item_bonus(uint8_t *item_counter_ptr)
 }
 
 
-void handle_next_level(void)
-{
-    ++level;
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(XSize/2-2,YSize/2,"GREAT");
-    // _XL_WAIT_FOR_INPUT();
-    restart_level = 1;
-    
-    // _XL_SLEEP(1);
-    // score+=LEVEL_BONUS;
-    // update_score_display();
-    // _XL_TOCK_SOUND();
-
-    _XL_SLEEP(1);
-    
-    item_bonus(&time_counter);
-    item_bonus(&shuriken_counter);
-    item_bonus(&freeze_counter);
-    item_bonus(&ring_counter);
-}
+#define handle_next_level() \
+do \
+{ \
+    ++level; \
+    _XL_SET_TEXT_COLOR(_XL_GREEN); \
+    _XL_PRINT(XSize/2-2,YSize/2,"GREAT"); \
+    restart_level = 1; \
+    \
+    _XL_SLEEP(1); \
+    item_bonus(&time_counter); \
+    item_bonus(&shuriken_counter); \
+    item_bonus(&freeze_counter); \
+    item_bonus(&ring_counter); \
+} while(0)
 
 
 #define init_player_achievements() \
@@ -1634,17 +1597,11 @@ void title(void)
     _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO");
     
     _XL_PRINTD(XSize/2-2,1,5,hiscore);    
-    
-    // screen_x=XSize/2-1;
-    // screen_y=9;
-    // player_color=_XL_WHITE;
-        
+
     _XL_PRINT(XSize/2-7+4,YSize-8, "PICK");
     
     use_block_against_shurikens(YSize-5);
- 
-     // display_player();
- 
+  
     _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN);
         
     _XL_SET_TEXT_COLOR(_XL_YELLOW);

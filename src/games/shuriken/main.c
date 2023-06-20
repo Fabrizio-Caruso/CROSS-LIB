@@ -248,9 +248,9 @@ static uint8_t screen_color[7+1] =
 };  
 
 
+static const uint8_t border_colors[] = {   _XL_RED,   _XL_CYAN, _XL_YELLOW, _XL_CYAN};
     
-static const uint8_t wall_colors[] = {_XL_YELLOW, _XL_YELLOW, _XL_CYAN, _XL_RED};
-static const uint8_t border_colors[] = {_XL_RED, _XL_CYAN, _XL_YELLOW, _XL_GREEN};
+static const uint8_t wall_colors[] =   {_XL_YELLOW, _XL_YELLOW,   _XL_CYAN, _XL_RED};
 
 
 #define SHURIKEN_COLOR _XL_CYAN
@@ -994,6 +994,8 @@ void init_level(void)
         challenge_level = 1;
         barrier_type = BLOCK;
         screen_color[DIAMOND]=_XL_YELLOW;
+        screen_color[SHURIKEN]=_XL_YELLOW;
+        screen_color[MINI_SHURIKEN]=_XL_RED;
         barrier_threshold=WALL_THRESHOLD*5U;
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -1007,6 +1009,8 @@ void init_level(void)
         challenge_level = 0;
         barrier_type = SHURIKEN;
         screen_color[DIAMOND]=_XL_GREEN;
+        screen_color[SHURIKEN]=_XL_CYAN;
+        screen_color[MINI_SHURIKEN]=_XL_YELLOW;
         barrier_threshold=WALL_THRESHOLD;
     }
     
@@ -1088,7 +1092,8 @@ uint8_t player_chased_by(void)
 }
 
 #define display_shuriken(x,y,index) \
-    _XL_DRAW(x,y,SHURIKEN_TILE,_XL_CYAN)
+    build_element(SHURIKEN,x,y)
+    // _XL_DRAW(x,y,SHURIKEN_TILE,_XL_CYAN)
 
 // void display_shuriken(uint8_t x, uint8_t y, uint8_t index)
 // {

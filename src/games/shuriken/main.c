@@ -34,8 +34,8 @@
 #define INITIAL_LIVES 5
 
 // DEBUG
-// #define SHOW_LEVELS
-// #define INVINCIBLE
+#define SHOW_LEVELS
+#define INVINCIBLE
 
 // TILES
 
@@ -248,7 +248,10 @@ static uint8_t screen_color[7+1] =
 };  
 
 
-static const uint8_t wall_colors[] = {_XL_YELLOW, _XL_RED, _XL_CYAN, _XL_RED};
+    
+static const uint8_t wall_colors[] = {_XL_YELLOW, _XL_YELLOW, _XL_CYAN, _XL_RED};
+static const uint8_t border_colors[] = {_XL_RED, _XL_CYAN, _XL_YELLOW, _XL_GREEN};
+
 
 #define SHURIKEN_COLOR _XL_CYAN
 
@@ -668,7 +671,7 @@ void init_map(void)
     uint8_t i;
     uint8_t j;
     
-    screen_color[WALL]=wall_colors[(level)&3];
+    screen_color[WALL]=border_colors[(level)&3];
     
     _XL_CLEAR_SCREEN();
     for(i=0;i<XSize-1;++i)
@@ -766,7 +769,7 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
-    screen_color[WALL]=wall_colors[(level+1)&3];
+    screen_color[WALL]=wall_colors[(level)&3];
     
     remaining_diamonds = 0;
     for(i=0;i<no_of_objects;++i)
@@ -974,11 +977,11 @@ do \
 
 void use_block_against_shurikens(void)
 {
-    _XL_PRINT(XSize/2-7,YSize/2+4, "USE   AGAINST");
+    _XL_PRINT(XSize/2-7+2,YSize/2+4, "USE   VS");
 
-	_XL_DRAW(XSize/2-7+4,YSize/2+4,BLOCK_TILE, _XL_GREEN);
+	_XL_DRAW(XSize/2-7+6,YSize/2+4,BLOCK_TILE, _XL_GREEN);
 
-	_XL_DRAW(XSize/2-7+14,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
+	_XL_DRAW(XSize/2-7+11,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
@@ -1485,15 +1488,15 @@ void title(void)
 
 	// _XL_SET_TEXT_COLOR(_XL_YELLOW);
 	
-    _XL_PRINT(XSize/2-7+3,YSize/2+1, "COLLECT");
+    _XL_PRINT(XSize/2-7+4,YSize/2+1, "PICK");
 	
 	use_block_against_shurikens();
  
  	display_player();
  
-	_XL_DRAW(XSize/2-7+8+3,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
+	_XL_DRAW(XSize/2-7+9,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
 		
-    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
     
@@ -1582,7 +1585,7 @@ void handle_next_level(void)
 {
     ++level;
     _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(XSize/2-4,YSize/2,"COMPLETED");
+    _XL_PRINT(XSize/2-3,YSize/2,"GREAT");
     // _XL_WAIT_FOR_INPUT();
     restart_level = 1;
     
@@ -1729,7 +1732,7 @@ int main(void)
         if(alive)
         {
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT(XSize/2-4,YSize/2," THE END ");
+            _XL_PRINT(XSize/2-3,YSize/2,"THE END");
             _XL_SLEEP(2);
             // score+=lives*END_GAME_LIFE_BONUS;
             // update_score_display();

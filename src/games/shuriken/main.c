@@ -210,8 +210,6 @@ uint8_t extra_life_counter;
 uint16_t slowdown;
 #endif
 
-// uint8_t shuriken_chase[MAX_NUMBER_OF_SHURIKENS];
-
 uint8_t shuriken_challenge;
 
 uint8_t barrier_type;
@@ -221,6 +219,9 @@ uint8_t challenge_level;
 uint8_t remaining_shurikens;
 
 uint8_t barrier_threshold;
+
+uint8_t input;
+    
 
 static const uint8_t screen_tile[7+1] =
 {
@@ -961,25 +962,24 @@ uint8_t is_challenge_level(void)
 }
 
 
-#define activate_shurikens() \
-do \
-{ \
-    uint8_t i; \
-    \
-    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
-    { \
-        shuriken_status[i]=1; \
-    } \
-} while(0)
-
-
-void use_block_against_shurikens(void)
+void activate_shurikens(void)
 {
-    _XL_PRINT(XSize/2-7+2,YSize/2+4, "USE   VS");
+    uint8_t i;
+    
+    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
+    {
+        shuriken_status[i]=1;
+    }
+}
 
-    _XL_DRAW(XSize/2-7+6,YSize/2+4,BLOCK_TILE, _XL_GREEN);
 
-    _XL_DRAW(XSize/2-7+11,YSize/2+4,SHURIKEN_TILE, _XL_CYAN);
+void use_block_against_shurikens(uint8_t y)
+{
+    _XL_PRINT(XSize/2-7+2,y, "USE   VS");
+
+    _XL_DRAW(XSize/2-7+6,y,BLOCK_TILE, _XL_GREEN);
+
+    _XL_DRAW(XSize/2-7+11,y,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
@@ -998,7 +998,7 @@ void init_level(void)
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_CLEAR_SCREEN();
-        use_block_against_shurikens();
+        use_block_against_shurikens(YSize/2);
         _XL_WAIT_FOR_INPUT();
         
     }
@@ -1361,26 +1361,25 @@ void handle_vertical_shuriken(register uint8_t index)
 
 
 
-#define handle_big_shurikens() \
-do \
-{ \
-    uint8_t i; \
-    \
-    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i) \
-    { \
-        if(shuriken_status[i]) \
-        {    \
-            if(!shuriken_axis[i]) \
-            { \
-                handle_horizontal_shuriken(i); \
-            } \
-            else \
-            { \
-                handle_vertical_shuriken(i); \
-            } \
-        } \
-    } \
-} while(0)
+void handle_big_shurikens(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
+    {
+        if(shuriken_status[i])
+        {
+            if(!shuriken_axis[i])
+            {
+                handle_horizontal_shuriken(i);
+            }
+            else
+            {
+                handle_vertical_shuriken(i);
+            }
+        }
+    }
+}
 
 
 void update_player_direction(uint8_t direction)
@@ -1396,8 +1395,6 @@ void update_player_direction(uint8_t direction)
 
 void handle_player(void)
 {
-    uint8_t input;
-    
     input = _XL_INPUT();
     
     if(_XL_UP(input) && (!(player_y&1) || allowed_up()))
@@ -1470,42 +1467,6 @@ do { \
     \
     player_color = _XL_YELLOW; \
 } while(0)
-
-
-void title(void)
-{
-    // _XL_CLEAR_SCREEN();
-    
-    init_map();
-    
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    
-    _XL_PRINT(XSize/2-7,7, "FABRIZIO CARUSO");
-    
-    _XL_PRINTD(XSize/2-2,1,5,hiscore);    
-    
-    screen_x=XSize/2-1;
-    screen_y=9;
-    player_color=_XL_WHITE;
-    
-
-    // _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    
-    _XL_PRINT(XSize/2-7+4,YSize/2+1, "PICK");
-    
-    use_block_against_shurikens();
- 
-     display_player();
- 
-    _XL_DRAW(XSize/2-7+9,YSize/2+1,DIAMOND_TILE, _XL_GREEN);
-        
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    
-    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
-    
-    _XL_WAIT_FOR_INPUT();
-    
-}
 
 
 #define init_global_game() \
@@ -1588,7 +1549,7 @@ void handle_next_level(void)
 {
     ++level;
     _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(XSize/2-3,YSize/2,"GREAT");
+    _XL_PRINT(XSize/2-2,YSize/2,"GREAT");
     // _XL_WAIT_FOR_INPUT();
     restart_level = 1;
     
@@ -1662,6 +1623,46 @@ uint8_t continue_condition(void)
         return remaining_diamonds && alive;
     }
 }
+
+
+void title(void)
+{    
+    init_map();
+    
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    
+    _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO");
+    
+    _XL_PRINTD(XSize/2-2,1,5,hiscore);    
+    
+    // screen_x=XSize/2-1;
+    // screen_y=9;
+    // player_color=_XL_WHITE;
+        
+    _XL_PRINT(XSize/2-7+4,YSize-8, "PICK");
+    
+    use_block_against_shurikens(YSize-5);
+ 
+     // display_player();
+ 
+    _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN);
+        
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    
+    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
+    
+    activate_shurikens();
+    build_shurikens();
+    do
+    {
+        input = _XL_INPUT();
+        
+        handle_big_shurikens();
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
+    } while(!_XL_FIRE(input));
+}
+
+    
 
 
 int main(void)

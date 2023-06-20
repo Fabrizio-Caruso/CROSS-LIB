@@ -41,12 +41,12 @@
 #define LV_HORIZ_SHURIKENS \
     12, 0, 0, \
 	\
-    3,4, \
-    3,7, \
-    3,10, \
-    3,YSize-9, \
-    3,YSize-6, \
-    3,YSize-3, \
+    2,4, \
+    2,7, \
+    2,10, \
+    2,YSize-9, \
+    2,YSize-6, \
+    2,YSize-3, \
 	\
     XSize-3,3, \
     XSize-3,6, \

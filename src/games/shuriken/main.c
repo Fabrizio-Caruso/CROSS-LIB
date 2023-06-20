@@ -34,8 +34,8 @@
 #define INITIAL_LIVES 5
 
 // DEBUG
-#define SHOW_LEVELS
-#define INVINCIBLE
+// #define SHOW_LEVELS
+// #define INVINCIBLE
 
 // TILES
 
@@ -123,12 +123,12 @@
 #define END_GAME_LIFE_BONUS 500U
 
 #if XSize<32
-    #define BASE_RING_EFFECT 30U
+    #define BASE_RING_EFFECT 40U
 #else
-    #define BASE_RING_EFFECT 20U
+    #define BASE_RING_EFFECT 30U
 #endif
 
-#define START_RING_EFFECT 25U
+#define START_RING_EFFECT 35U
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 

@@ -23,7 +23,7 @@
     (XSize-4)/2+4,5,2,1,WALL, \
     \
     (XSize-4)/2-3,5,1,1,FREEZE, \
-    (XSize-4)/2+6,5,1,1,FREEZE, \
+    (XSize-4)/2+6,5,1,1,RING, \
     \
     (XSize-4)/2-2,YSize-5,2,1,WALL, \
     (XSize-4)/2+4,YSize-5,2,1,WALL, \

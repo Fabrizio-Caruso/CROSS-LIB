@@ -206,7 +206,7 @@ uint8_t player_direction;
 
 uint8_t extra_life_counter;
 
-#if !defined(SIMPLE_SLOWDOWN)
+#if defined(CALCULATED_SLOWDOWN)
 uint16_t slowdown;
 #endif
 
@@ -287,8 +287,15 @@ static const uint8_t player_tile[4][4] =
 
 void short_pause(void)
 {
-    _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 }
+
+
+void one_second_pause(void)
+{
+    _XL_SLEEP(1);
+}
+
 
 
 void build_element(uint8_t type, uint8_t x, uint8_t y)
@@ -433,7 +440,7 @@ void handle_collisions(void)
                 // update_score_display();
                 ++ring_counter;
                 increase_time_counter_if_not_max();
-                player_color = _XL_YELLOW;
+                player_color = _XL_CYAN;
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
                 update_item_display();
             }
@@ -1039,10 +1046,10 @@ void init_level(void)
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
 
-    #if !defined(SIMPLE_SLOWDOWN)
+    #if defined(CALCULATED_SLOWDOWN)
     slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
     #else
-        #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
+        // #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
     #endif
 }
 
@@ -1440,7 +1447,7 @@ do { \
     force = 0; \
     ring_active = START_RING_EFFECT; \
     \
-    player_color = _XL_YELLOW; \
+    player_color = _XL_CYAN; \
 } while(0)
 
 
@@ -1494,7 +1501,7 @@ do \
     _XL_EXPLOSION_SOUND(); \
     \
     --lives; \
-    _XL_SLEEP(1); \
+    one_second_pause(); \
     _XL_WAIT_FOR_INPUT(); \
     \
     delete_player(); \
@@ -1515,7 +1522,7 @@ void item_bonus(uint8_t *item_counter_ptr)
         _XL_ZAP_SOUND();
         short_pause();
         } while(*item_counter_ptr);
-        _XL_SLEEP(1);
+        one_second_pause();
     }
 }
 
@@ -1528,7 +1535,7 @@ do \
     _XL_PRINT(XSize/2-2,YSize/2,"GREAT"); \
     restart_level = 1; \
     \
-    _XL_SLEEP(1); \
+    one_second_pause(); \
     item_bonus(&time_counter); \
     item_bonus(&shuriken_counter); \
     item_bonus(&freeze_counter); \
@@ -1614,10 +1621,11 @@ void title(void)
   
     _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN);
         
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
     
     display_shuriken_title();
     
+    screen_color[SHURIKEN]=_XL_YELLOW;
     activate_shurikens();
     build_shurikens();
     do
@@ -1628,12 +1636,15 @@ void title(void)
         short_pause();
     } while(!_XL_FIRE(input));
     
-    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
     
     display_shuriken_title();
     _XL_ZAP_SOUND();
 
-    _XL_SLEEP(1);
+    one_second_pause();
+
+    _XL_ZAP_SOUND();
+    
     // _XL_ZAP_SOUND();
 
 }
@@ -1672,7 +1683,7 @@ int main(void)
             update_player();
             
             restart_level = 0;
-            _XL_SLEEP(1);   
+            one_second_pause();  
             _XL_WAIT_FOR_INPUT();
             
             
@@ -1691,7 +1702,7 @@ int main(void)
                     
                     ++counter;
 
-                    #if defined(SIMPLE_SLOWDOWN)
+                    #if !defined(CALCULATED_SLOWDOWN)
                     short_pause();
                     #else
                     _XL_SLOW_DOWN(slowdown);
@@ -1717,9 +1728,7 @@ int main(void)
         {
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
             _XL_PRINT(XSize/2-3,YSize/2,"THE END");
-            _XL_SLEEP(2);
-            // score+=lives*END_GAME_LIFE_BONUS;
-            // update_score_display();
+            one_second_pause();
             _XL_WAIT_FOR_INPUT();
         }
         _XL_SET_TEXT_COLOR(_XL_RED);
@@ -1730,7 +1739,7 @@ int main(void)
             hiscore = score;
         }
         
-        _XL_SLEEP(1);
+        one_second_pause();
         _XL_WAIT_FOR_INPUT();
     }
     

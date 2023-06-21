@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1730,7 +1730,7 @@ int main(void)
             init_map();
             screen_color[SHURIKEN]=_XL_GREEN;
 
-            _XL_SET_TEXT_COLOR(_XL_CYAN);
+            // green from handle_next_level
             _XL_PRINT(XSize/2-3,YSize/2,"THE END");
             
             animate_shurikens();

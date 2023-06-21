@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -920,41 +920,40 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 }
 
 
-#define switch_barrier_if_possible(i) \
-do \
-{ \
-    uint8_t barrier; \
-    \
-    if(!barrier_triggered[i]) \
-    { \
-        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i])) \
-        { \
-            _XL_TOCK_SOUND(); \
-            barrier = barrier_type; \
-            ++barrier_triggered[i]; \
-        } \
-        else \
-        { \
-            return; \
-        } \
-    } \
-    else if(!challenge_level) \
-    { \
-        barrier = EMPTY; \
-        barrier_triggered[i] = 0; \
-    } \
-    else \
-    { \
-        barrier = barrier_type; \
-    } \
-    \
-    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]); \
-} while(0)
+void switch_barrier_if_possible(uint8_t i)
+{
+    uint8_t barrier;
+    
+    if(!barrier_triggered[i])
+    {
+        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
+        {
+            _XL_TOCK_SOUND();
+            barrier = barrier_type;
+            ++barrier_triggered[i];
+        }
+        else
+        {
+            return;
+        }
+    }
+    else if(!challenge_level)
+    {
+        barrier = EMPTY;
+        barrier_triggered[i] = 0;
+    }
+    else
+    {
+        barrier = barrier_type;
+    }
+    
+    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
+}
 
 
 void handle_barriers(void)
 {
-    uint8_t i;
+    uint8_t j;
     
     if(barrier_counter<barrier_threshold)
     {
@@ -963,9 +962,9 @@ void handle_barriers(void)
     else
     {
         barrier_counter=0;
-        for(i=0;i<number_of_walls;++i)
+        for(j=0;j<number_of_walls;++j)
         {
-            switch_barrier_if_possible(i);
+            switch_barrier_if_possible(j);
         }
     }
 }

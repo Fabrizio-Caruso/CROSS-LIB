@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1462,19 +1462,18 @@ do \
 } while(0)
 
 
-#define handle_shurikens() \
-do \
-{ \
-    if((!freeze_active) || (counter&1)) \
-    { \
-        handle_big_shurikens(); \
-        handle_mini_shuriken(); \
-    } \
-    else if(freeze_active) \
-    { \
-        --freeze_active; \
-    } \
-} while(0)
+void handle_shurikens(void)
+{
+    if((!freeze_active) || (counter&1))
+    {
+        handle_big_shurikens();
+        handle_mini_shuriken();
+    }
+    else if(freeze_active)
+    {
+        --freeze_active;
+    }
+}
 
 
 void handle_ring(void)
@@ -1613,7 +1612,7 @@ void animate_shurikens(void)
     {
         input = _XL_INPUT();
         
-        handle_big_shurikens();
+        handle_shurikens();
         short_pause();
     } while(!_XL_FIRE(input));
 }
@@ -1726,14 +1725,14 @@ int main(void)
         
         if(alive)
         {
-            level=0;
+            level=2;
             challenge_level=0;
-            _XL_CLEAR_SCREEN();
             init_map();
             screen_color[SHURIKEN]=_XL_GREEN;
 
-            _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT(XSize/2-3,8,"THE END");
+            _XL_SET_TEXT_COLOR(_XL_CYAN);
+            _XL_PRINT(XSize/2-3,YSize/2,"THE END");
+            
             animate_shurikens();
             one_second_pause();
         }

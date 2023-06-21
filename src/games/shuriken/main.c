@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -183,7 +183,7 @@ uint8_t barrier_height[MAX_NUMBER_OF_BARRIERS];
 uint8_t barrier_counter;
 uint8_t barrier_triggered[MAX_NUMBER_OF_BARRIERS];
 
-uint8_t number_of_walls;
+uint8_t number_of_barriers;
 
 uint8_t freeze_active;
 uint8_t freeze_counter;
@@ -348,11 +348,12 @@ void display_player(void)
     _XL_PRINTD(4,YSize-1,1,freeze_counter)
 
 
-void update_ring_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINTD(1,YSize-1,1,ring_counter);
-}
+#define update_ring_display() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_GREEN); \
+    _XL_PRINTD(1,YSize-1,1,ring_counter); \
+} while(0)
 
 
 #define update_shuriken_display() \
@@ -808,9 +809,9 @@ do \
     uint8_t index = walls_index[level]; \
     uint8_t i; \
     \
-    number_of_walls = walls_map[index];  \
+    number_of_barriers = walls_map[index];  \
     \
-    for(i=0;i<number_of_walls;++i) \
+    for(i=0;i<number_of_barriers;++i) \
     { \
         barrier_x[i] = walls_map[++index]; \
         barrier_y[i] = walls_map[++index]; \
@@ -920,40 +921,17 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
 }
 
 
-void switch_barrier_if_possible(uint8_t i)
-{
-    uint8_t barrier;
-    
-    if(!barrier_triggered[i])
-    {
-        if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
-        {
-            _XL_TOCK_SOUND();
-            barrier = barrier_type;
-            ++barrier_triggered[i];
-        }
-        else
-        {
-            return;
-        }
-    }
-    else if(!challenge_level)
-    {
-        barrier = EMPTY;
-        barrier_triggered[i] = 0;
-    }
-    else
-    {
-        barrier = barrier_type;
-    }
-    
-    build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
-}
+// void switch_barrier_if_possible(uint8_t i)
+// {
+
+// }
 
 
 void handle_barriers(void)
 {
-    uint8_t j;
+    uint8_t i;
+    uint8_t barrier;
+
     
     if(barrier_counter<barrier_threshold)
     {
@@ -962,9 +940,32 @@ void handle_barriers(void)
     else
     {
         barrier_counter=0;
-        for(j=0;j<number_of_walls;++j)
+        for(i=0;i<number_of_barriers;++i)
         {
-            switch_barrier_if_possible(j);
+            if(!barrier_triggered[i])
+            {
+                if(safe_area(barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]))
+                {
+                    _XL_TOCK_SOUND();
+                    barrier = barrier_type;
+                    ++barrier_triggered[i];
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            else if(!challenge_level)
+            {
+                barrier = EMPTY;
+                barrier_triggered[i] = 0;
+            }
+            else
+            {
+                barrier = barrier_type;
+            }
+            
+            build_rectangle(barrier,barrier_x[i],barrier_y[i],barrier_width[i], barrier_height[i]);
         }
     }
 }

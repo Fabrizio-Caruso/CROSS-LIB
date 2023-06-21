@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1600,11 +1600,25 @@ uint8_t continue_condition(void)
     }
 }
 
-void display_shuriken_title(void)
+
+#define display_shuriken_title() \
+    _XL_PRINT(XSize/2-7,5, "S H U R I K E N")
+
+
+void animate_shurikens(void)
 {
-    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");  
+    activate_shurikens();
+    build_shurikens();
+    do
+    {
+        input = _XL_INPUT();
+        
+        handle_big_shurikens();
+        short_pause();
+    } while(!_XL_FIRE(input));
 }
 
+    
 void title(void)
 {    
     init_map();
@@ -1626,24 +1640,10 @@ void title(void)
     display_shuriken_title();
     
     screen_color[SHURIKEN]=_XL_YELLOW;
-    activate_shurikens();
-    build_shurikens();
-    do
-    {
-        input = _XL_INPUT();
-        
-        handle_big_shurikens();
-        short_pause();
-    } while(!_XL_FIRE(input));
+    animate_shurikens();
     
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    
-    display_shuriken_title();
     _XL_ZAP_SOUND();
 
-    one_second_pause();
-
-    _XL_ZAP_SOUND();
     
     // _XL_ZAP_SOUND();
 
@@ -1726,10 +1726,16 @@ int main(void)
         
         if(alive)
         {
+            level=0;
+            challenge_level=0;
+            _XL_CLEAR_SCREEN();
+            init_map();
+            screen_color[SHURIKEN]=_XL_GREEN;
+
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINT(XSize/2-3,YSize/2,"THE END");
+            _XL_PRINT(XSize/2-3,8,"THE END");
+            animate_shurikens();
             one_second_pause();
-            _XL_WAIT_FOR_INPUT();
         }
         _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");

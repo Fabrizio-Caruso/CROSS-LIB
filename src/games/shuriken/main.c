@@ -285,6 +285,12 @@ static const uint8_t player_tile[4][4] =
 };
 
 
+void short_pause(void)
+{
+    _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+}
+
+
 void build_element(uint8_t type, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
@@ -710,10 +716,6 @@ void init_score_display(void)
     _XL_PRINTD(XSize-5,0,5,hiscore);
     
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE);
-    // player_color=_XL_WHITE;
-    // screen_x=XSize-11;
-    // screen_y=0;
-    // display_player();
     
     _XL_SET_TEXT_COLOR(_XL_RED);
     _XL_PRINT(XSize-7,0,"HI");
@@ -1511,7 +1513,7 @@ void item_bonus(uint8_t *item_counter_ptr)
         --(*item_counter_ptr);
         update_item_display();
         _XL_ZAP_SOUND();
-        _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+        short_pause();
         } while(*item_counter_ptr);
         _XL_SLEEP(1);
     }
@@ -1591,6 +1593,10 @@ uint8_t continue_condition(void)
     }
 }
 
+void display_shuriken_title(void)
+{
+    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");  
+}
 
 void title(void)
 {    
@@ -1610,7 +1616,7 @@ void title(void)
         
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
     
-    _XL_PRINT(XSize/2-7,5, "S H U R I K E N");
+    display_shuriken_title();
     
     activate_shurikens();
     build_shurikens();
@@ -1619,8 +1625,17 @@ void title(void)
         input = _XL_INPUT();
         
         handle_big_shurikens();
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
+        short_pause();
     } while(!_XL_FIRE(input));
+    
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    
+    display_shuriken_title();
+    _XL_ZAP_SOUND();
+
+    _XL_SLEEP(1);
+    // _XL_ZAP_SOUND();
+
 }
 
     
@@ -1676,7 +1691,11 @@ int main(void)
                     
                     ++counter;
 
+                    #if defined(SIMPLE_SLOWDOWN)
+                    short_pause();
+                    #else
                     _XL_SLOW_DOWN(slowdown);
+                    #endif
                     
                     handle_extra_life();
                     

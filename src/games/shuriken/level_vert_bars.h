@@ -5,8 +5,10 @@
 
 #if XSize<=20
     #define LV_VERT_BARS_WIDTH 2
-#else
+#elif XSize<32
     #define LV_VERT_BARS_WIDTH (XSize/7-1)
+#else
+    #define LV_VERT_BARS_WIDTH (XSize/4-1)
 #endif
 
 #define LV_VERT_BARS_NO_OF_OBJECTS 14

@@ -28,14 +28,14 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
 
 // DEBUG
 // #define SHOW_LEVELS
-// #define INVINCIBLE
+#define INVINCIBLE
 
 // TILES
 
@@ -712,34 +712,34 @@ void update_lives_display(void)
 }
 
 
-void init_score_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-  
-    update_score_display();
-    _XL_PRINTD(XSize-5,0,5,hiscore);
-    
-    _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE);
-    
-    _XL_SET_TEXT_COLOR(_XL_RED);
-    _XL_PRINT(XSize-7,0,"HI");
-    
-    build_element(DIAMOND,6,0);
-
-    update_lives_display();
-
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(XSize-2,YSize-1,2,level+1);
-    
-    _XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE);
-    _XL_DRAW(3,YSize-1,FREEZE_TILE,_XL_CYAN);
-    _XL_DRAW(6,YSize-1,SHURIKEN_TILE,_XL_CYAN);
-    
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_CHAR(10,YSize-1,'T');
-
-    update_item_display();
-}
+#define init_score_display() \
+do \
+{ \
+    update_score_display(); \
+	\
+    _XL_PRINTD(XSize-5,0,5,hiscore); \
+    \
+    _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT(XSize-7,0,"HI"); \
+    \
+    build_element(DIAMOND,6,0); \
+	\
+    update_lives_display(); \
+	\
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(XSize-2,YSize-1,2,level+1); \
+    \
+    _XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE); \
+    _XL_DRAW(3,YSize-1,FREEZE_TILE,_XL_CYAN); \
+    _XL_DRAW(6,YSize-1,SHURIKEN_TILE,_XL_CYAN); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_GREEN); \
+    _XL_CHAR(10,YSize-1,'T'); \
+	\
+    update_item_display(); \
+} while(0)
 
 
 
@@ -896,8 +896,6 @@ void build_shurikens(void)
         build_element(WALL,mini_shuriken_x[i],1);
         mini_shuriken_y[i]=2;
         build_element(MINI_SHURIKEN,mini_shuriken_x[i],mini_shuriken_y[i]);
-// _XL_PRINTD(1,1,4,mini_shuriken_x[i]);
-// _XL_WAIT_FOR_INPUT();
     }
 }
 
@@ -919,12 +917,6 @@ uint8_t safe_area(uint8_t x, uint8_t y, uint8_t x_size, uint8_t y_size)
     }
     return 1;
 }
-
-
-// void switch_barrier_if_possible(uint8_t i)
-// {
-
-// }
 
 
 void handle_barriers(void)
@@ -1039,7 +1031,7 @@ void init_level(void)
 
     time_counter = MAX_TIME;
 
-    init_score_display();
+    // init_score_display();
 
     activate_shurikens();
 
@@ -1584,13 +1576,12 @@ do \
     } \
 } while(0)
 
-
+/*
 uint8_t continue_condition(void)
 {    
     #if defined(SHOW_LEVELS)
         return 0;
     #endif
-    // _XL_PRINTD(0,1,3,remaining_shurikens);
     if(challenge_level)
     {
         return (remaining_diamonds || remaining_shurikens) && alive;
@@ -1600,6 +1591,10 @@ uint8_t continue_condition(void)
         return remaining_diamonds && alive;
     }
 }
+*/
+
+#define continue_condition() \
+	alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
 
 
 #define display_shuriken_title() \
@@ -1620,35 +1615,32 @@ void animate_shurikens(void)
 }
 
     
-void title(void)
-{    
-    init_map();
-    
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    
-    _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO");
-    
-    _XL_PRINTD(XSize/2-2,1,5,hiscore);    
-
-    _XL_PRINT(XSize/2-7+4,YSize-8, "PICK");
-    
-    use_block_against_shurikens(YSize-5);
-  
-    _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN);
-        
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    
-    display_shuriken_title();
-    
-    screen_color[SHURIKEN]=_XL_YELLOW;
-    animate_shurikens();
-    
-    _XL_ZAP_SOUND();
-
-    
-    // _XL_ZAP_SOUND();
-
-}
+#define title() \
+do \
+{ \
+    init_map(); \
+    \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    \
+    _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO"); \
+    \
+    _XL_PRINTD(XSize/2-2,1,5,hiscore); \
+	\
+    _XL_PRINT(XSize/2-7+4,YSize-8, "PICK"); \
+    \
+    use_block_against_shurikens(YSize-5); \
+	\
+    _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN); \
+	\
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
+    \
+    display_shuriken_title(); \
+    \
+    screen_color[SHURIKEN]=_XL_YELLOW; \
+    animate_shurikens(); \
+    \
+    _XL_ZAP_SOUND(); \
+} while(0)
 
     
 #define the_end() \
@@ -1739,17 +1731,12 @@ int main(void)
                 if(alive)
                 {
                     handle_freeze_and_shurikens();
-                    handle_barriers();
-                    
+                    handle_barriers();                    
                     handle_ring();
-                    handle_collisions();
-                    
+                    handle_collisions();                    
 					handle_speed();
-                    
                     handle_extra_life();
-                    
                     handle_time();
-    
                 }
             }
             if(alive)
@@ -1760,8 +1747,7 @@ int main(void)
             {
                 handle_lose_life();
             }
-        };
-        
+        }; 
 		handle_end_game();
     }
     

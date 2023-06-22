@@ -206,10 +206,6 @@ uint8_t player_direction;
 
 uint8_t extra_life_counter;
 
-#if defined(CALCULATED_SLOWDOWN)
-uint16_t slowdown;
-#endif
-
 uint8_t shuriken_challenge;
 
 uint8_t barrier_type;
@@ -1045,12 +1041,6 @@ void init_level(void)
     
     // REMARK: Initialize counter *only* at level start (not after losing a life)
     counter = 0;
-
-    #if defined(CALCULATED_SLOWDOWN)
-    slowdown = _XL_SLOW_DOWN_FACTOR-((_XL_SLOW_DOWN_FACTOR/((MAX_NUMBER_OF_SHURIKENS+MAX_NUMBER_OF_MINI_SHURIKENS)*2))*(level_shurikens+level_mini_shurikens));
-    #else
-        // #define slowdown (_XL_SLOW_DOWN_FACTOR/2)
-    #endif
 }
 
 

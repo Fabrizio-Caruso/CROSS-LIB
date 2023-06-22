@@ -388,6 +388,15 @@ void increase_time_counter_if_not_max(void)
 }
 
 
+void delete_player_cells(void)
+{
+    map[screen_x][screen_y]=EMPTY;
+    map[screen_x+1][screen_y]=EMPTY;
+    map[screen_x][screen_y+1]=EMPTY;
+    map[screen_x+1][screen_y+1]=EMPTY;
+}
+
+
 void handle_collisions(void)
 {
     uint8_t i;
@@ -452,6 +461,10 @@ void handle_collisions(void)
                     alive=0;
                 }
             }
+            else if(cell_value==BLOCK) // Useful in challenge levels to avoid visually deleting blocks 
+            {
+                delete_player_cells();
+            }
         }
     } 
 }
@@ -467,11 +480,7 @@ void update_player(void)
     
     handle_collisions();
     
-    map[screen_x][screen_y]=EMPTY;
-    map[screen_x+1][screen_y]=EMPTY;
-    map[screen_x][screen_y+1]=EMPTY;
-    map[screen_x+1][screen_y+1]=EMPTY;
-    
+    delete_player_cells();
 }
 
 

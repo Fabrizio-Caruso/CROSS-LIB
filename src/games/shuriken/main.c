@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 3
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -778,6 +778,10 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
+	// _XL_PRINTD(0,1,4,index);
+	// _XL_PRINTD(0,2,4,no_of_objects);
+	// _XL_WAIT_FOR_INPUT();
+
     screen_color[WALL]=wall_colors[(level)&3];
     
     remaining_diamonds = 0;
@@ -1024,9 +1028,15 @@ void init_level(void)
     }
     
     init_map();    
+
+	if(challenge_level)
+	{
+		build_objects(FINAL_LEVEL+1);
+	}	
     
     build_objects(level);
     
+
     time_counter = MAX_TIME;
 
     init_score_display();

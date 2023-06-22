@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 3
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1690,10 +1690,6 @@ do \
 do \
 { \
 	short_pause(); \
-	if(remaining_shurikens<4) \
-	{ \
-		short_pause(); \
-	} \
 } while(0)
 
 

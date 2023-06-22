@@ -15,8 +15,8 @@
     4,YSize-4,4,1,WALL, \
     XSize-8,YSize-4,4,1,WALL, \
 	\
-    8,4,1,3,BLOCK, \
-    XSize-9,4,1,3,BLOCK, \
+    8,4,1,4,BLOCK, \
+    XSize-9,4,1,4,BLOCK, \
 	\
     XSize-2,8,1,YSize-1-2-8,DIAMOND, \
     1,8,1,YSize-1-2-8,DIAMOND, \

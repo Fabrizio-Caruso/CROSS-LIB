@@ -784,7 +784,6 @@ void build_objects(uint8_t level)
 
     screen_color[WALL]=wall_colors[(level)&3];
     
-    remaining_diamonds = 0;
     for(i=0;i<no_of_objects;++i)
     {
         x = objects_map[++index];
@@ -1020,6 +1019,8 @@ void init_level(void)
     }
     
     init_map();    
+
+    remaining_diamonds = 0;
 
 	if(challenge_level)
 	{

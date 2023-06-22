@@ -35,7 +35,7 @@
 
 // DEBUG
 // #define SHOW_LEVELS
-#define INVINCIBLE
+// #define INVINCIBLE
 
 // TILES
 

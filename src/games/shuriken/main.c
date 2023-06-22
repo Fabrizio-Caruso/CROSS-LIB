@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1462,7 +1462,7 @@ do \
 } while(0)
 
 
-void handle_shurikens(void)
+void handle_freeze_and_shurikens(void)
 {
     if((!freeze_active) || (counter&1))
     {
@@ -1558,6 +1558,8 @@ do \
 #define handle_time() \
 do \
 { \
+	++counter; \
+	\
     if(!(counter&63)) \
     { \
         if(time_counter) \
@@ -1612,7 +1614,7 @@ void animate_shurikens(void)
     {
         input = _XL_INPUT();
         
-        handle_shurikens();
+        handle_freeze_and_shurikens();
         short_pause();
     } while(!_XL_FIRE(input));
 }
@@ -1649,6 +1651,69 @@ void title(void)
 }
 
     
+#define the_end() \
+do \
+{ \
+	level=2; \
+	challenge_level=0; \
+	init_map(); \
+	screen_color[SHURIKEN]=_XL_GREEN; \
+	\
+	_XL_SET_TEXT_COLOR(_XL_WHITE); \
+	_XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
+	\
+	animate_shurikens(); \
+	one_second_pause(); \
+} while(0)
+
+
+#define initialize_level() \
+do \
+{ \
+	init_player_achievements(); \
+	\
+	if(restart_level) \
+	{ \
+		init_level(); \
+	} \
+	init_score_display(); \
+	init_player(); \
+	update_player(); \
+	\
+	restart_level = 0; \
+	one_second_pause();  \
+	_XL_WAIT_FOR_INPUT(); \
+} while(0)
+
+
+#define handle_speed() \
+do \
+{ \
+	short_pause(); \
+	if(remaining_shurikens<4) \
+	{ \
+		short_pause(); \
+	} \
+} while(0)
+
+
+#define handle_end_game() \
+do \
+{ \
+	if(alive) \
+	{ \
+		the_end(); \
+	} \
+	_XL_SET_TEXT_COLOR(_XL_RED); \
+	_XL_PRINT(XSize/2-4,YSize/2,"GAME OVER"); \
+	\
+	if(score>hiscore) \
+	{ \
+		hiscore = score; \
+	} \
+	one_second_pause(); \
+	_XL_WAIT_FOR_INPUT(); \
+} while(0)
 
 
 int main(void)
@@ -1669,43 +1734,21 @@ int main(void)
                         
         while(lives && (level<FINAL_LEVEL+1))
         {            
-            init_player_achievements();
-
-            if(restart_level)
-            {
-                init_level();
-            }
-            init_score_display();
-            
-            init_player();
-
-            update_player();
-            
-            restart_level = 0;
-            one_second_pause();  
-            _XL_WAIT_FOR_INPUT();
-            
+			initialize_level();
             
             while(continue_condition())
             {
-                // _XL_PRINTD(1,1,4,force);
                 handle_player();
                 
                 if(alive)
                 {
-                    handle_shurikens();
+                    handle_freeze_and_shurikens();
                     handle_barriers();
                     
                     handle_ring();
                     handle_collisions();
                     
-                    ++counter;
-
-                    #if !defined(CALCULATED_SLOWDOWN)
-                    short_pause();
-                    #else
-                    _XL_SLOW_DOWN(slowdown);
-                    #endif
+					handle_speed();
                     
                     handle_extra_life();
                     
@@ -1723,29 +1766,7 @@ int main(void)
             }
         };
         
-        if(alive)
-        {
-            level=2;
-            challenge_level=0;
-            init_map();
-            screen_color[SHURIKEN]=_XL_GREEN;
-
-            // green from handle_next_level
-            _XL_PRINT(XSize/2-3,YSize/2,"THE END");
-            
-            animate_shurikens();
-            one_second_pause();
-        }
-        _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");
-        
-        if(score>hiscore)
-        {
-            hiscore = score;
-        }
-        
-        one_second_pause();
-        _XL_WAIT_FOR_INPUT();
+		handle_end_game();
     }
     
     return EXIT_SUCCESS;

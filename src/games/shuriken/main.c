@@ -717,9 +717,9 @@ do \
     _XL_PRINT(XSize-7,0,"HI"); \
     \
     build_element(DIAMOND,6,0); \
-	\
+    \
     update_lives_display(); \
-	\
+    \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize-5,0,5,hiscore); \
     _XL_PRINTD(XSize-2,YSize-1,2,level+1); \
@@ -730,7 +730,7 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_GREEN); \
     _XL_CHAR(10,YSize-1,'T'); \
-	\
+    \
     update_item_display(); \
 } while(0)
 
@@ -771,9 +771,9 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
-	// _XL_PRINTD(0,1,4,index);
-	// _XL_PRINTD(0,2,4,no_of_objects);
-	// _XL_WAIT_FOR_INPUT();
+    // _XL_PRINTD(0,1,4,index);
+    // _XL_PRINTD(0,2,4,no_of_objects);
+    // _XL_WAIT_FOR_INPUT();
 
     screen_color[WALL]=wall_colors[(level)&3];
     
@@ -981,7 +981,7 @@ void use_block_against_shurikens(uint8_t y)
 }
 
 
-void init_level(void)
+void init_level_map(void)
 {
     if(is_challenge_level())
     {
@@ -1012,10 +1012,10 @@ void init_level(void)
 
     remaining_diamonds = 0;
 
-	if(challenge_level)
-	{
-		build_objects(FINAL_LEVEL+1);
-	}	
+    if(challenge_level)
+    {
+        build_objects(FINAL_LEVEL+1);
+    }    
     
     build_objects(level);
     
@@ -1056,14 +1056,22 @@ void shuriken_death(uint8_t index)
 void block_explosion(uint8_t x, uint8_t y)
 {
     _XL_DRAW(x,y,BLOCK_TILE,_XL_RED);
+    short_pause();
     _XL_SHOOT_SOUND();
     delete_element(x,y);
 }
 
 
-uint8_t player_chased_by(void)
+#if XSize<31
+    #define CHASE_BIT_MASK 15
+#else
+    #define CHASE_BIT_MASK 7
+#endif
+
+
+uint8_t player_chased(void)
 {
-    return (challenge_level)&&(!(_XL_RAND()&7));
+    return (challenge_level)&&(!(_XL_RAND()&CHASE_BIT_MASK));
 }
 
 
@@ -1096,7 +1104,7 @@ void handle_horizontal_shuriken(register uint8_t index)
         if(!shuriken_transition[index]) // transition not performed, yet
         {
             
-            if(player_chased_by())
+            if(player_chased())
             {
                 chase_vertically(index);
             }                
@@ -1134,7 +1142,7 @@ void handle_horizontal_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by())
+            if(player_chased())
             {
                 chase_vertically(index);
             }                
@@ -1249,7 +1257,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by())
+            if(player_chased())
             {
                 chase_horizontally(index);
             }                
@@ -1286,7 +1294,7 @@ void handle_vertical_shuriken(register uint8_t index)
     {
         if(!shuriken_transition[index]) // transition not performed, yet
         {
-            if(player_chased_by())
+            if(player_chased())
             {
                 chase_horizontally(index);
             }                
@@ -1538,8 +1546,8 @@ do \
 #define handle_time() \
 do \
 { \
-	++counter; \
-	\
+    ++counter; \
+    \
     if(!(counter&63)) \
     { \
         if(time_counter) \
@@ -1564,25 +1572,9 @@ do \
     } \
 } while(0)
 
-/*
-uint8_t continue_condition(void)
-{    
-    #if defined(SHOW_LEVELS)
-        return 0;
-    #endif
-    if(challenge_level)
-    {
-        return (remaining_diamonds || remaining_shurikens) && alive;
-    }
-    else
-    {
-        return remaining_diamonds && alive;
-    }
-}
-*/
 
 #define continue_condition() \
-	alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
+    alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
 
 
 #define display_shuriken_title() \
@@ -1613,13 +1605,13 @@ do \
     _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO"); \
     \
     _XL_PRINTD(XSize/2-2,1,5,hiscore); \
-	\
+    \
     _XL_PRINT(XSize/2-7+4,YSize-8, "PICK"); \
     \
     use_block_against_shurikens(YSize-5); \
-	\
+    \
     _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN); \
-	\
+    \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
     display_shuriken_title(); \
@@ -1634,61 +1626,61 @@ do \
 #define the_end() \
 do \
 { \
-	level=2; \
-	challenge_level=0; \
-	init_map(); \
-	screen_color[SHURIKEN]=_XL_GREEN; \
-	\
-	_XL_SET_TEXT_COLOR(_XL_WHITE); \
-	_XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
-	\
-	animate_shurikens(); \
-	one_second_pause(); \
+    level=2; \
+    challenge_level=0; \
+    init_map(); \
+    screen_color[SHURIKEN]=_XL_GREEN; \
+    \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
+    \
+    animate_shurikens(); \
+    one_second_pause(); \
 } while(0)
 
 
 #define initialize_level() \
 do \
 { \
-	init_player_achievements(); \
-	\
-	if(restart_level) \
-	{ \
-		init_level(); \
-	} \
-	init_score_display(); \
-	init_player(); \
-	update_player(); \
-	\
-	restart_level = 0; \
-	one_second_pause();  \
-	_XL_WAIT_FOR_INPUT(); \
+    init_player_achievements(); \
+    \
+    if(restart_level) \
+    { \
+        init_level_map(); \
+    } \
+    init_score_display(); \
+    init_player(); \
+    update_player(); \
+    \
+    restart_level = 0; \
+    one_second_pause();  \
+    _XL_WAIT_FOR_INPUT(); \
 } while(0)
 
 
 #define handle_speed() \
 do \
 { \
-	short_pause(); \
+    short_pause(); \
 } while(0)
 
 
 #define handle_end_game() \
 do \
 { \
-	if(alive) \
-	{ \
-		the_end(); \
-	} \
-	_XL_SET_TEXT_COLOR(_XL_RED); \
-	_XL_PRINT(XSize/2-4,YSize/2,"GAME OVER"); \
-	\
-	if(score>hiscore) \
-	{ \
-		hiscore = score; \
-	} \
-	one_second_pause(); \
-	_XL_WAIT_FOR_INPUT(); \
+    if(alive) \
+    { \
+        the_end(); \
+    } \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER"); \
+    \
+    if(score>hiscore) \
+    { \
+        hiscore = score; \
+    } \
+    one_second_pause(); \
+    _XL_WAIT_FOR_INPUT(); \
 } while(0)
 
 
@@ -1710,7 +1702,7 @@ int main(void)
                         
         while(lives && (level<FINAL_LEVEL+1))
         {            
-			initialize_level();
+            initialize_level();
             
             while(continue_condition())
             {
@@ -1722,7 +1714,7 @@ int main(void)
                     handle_barriers();                    
                     handle_ring();
                     handle_collisions();                    
-					handle_speed();
+                    handle_speed();
                     handle_extra_life();
                     handle_time();
                 }
@@ -1736,7 +1728,7 @@ int main(void)
                 handle_lose_life();
             }
         }; 
-		handle_end_game();
+        handle_end_game();
     }
     
     return EXIT_SUCCESS;

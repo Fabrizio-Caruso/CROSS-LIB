@@ -27,14 +27,14 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
 
 // DEBUG
 // #define SHOW_LEVELS
-// #define INVINCIBLE
+#define INVINCIBLE
 
 // TILES
 
@@ -1585,13 +1585,28 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
+	counter=20U;
     do
     {
+		if(counter)
+		{
+			--counter;
+		}
+		else
+		{
+			_XL_SET_TEXT_COLOR(_XL_WHITE);
+			#if !defined(_XL_NO_JOYSTICK)
+			_XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
+			#else
+			_XL_PRINT(XSize/2-5,YSize-1,"PRESS A KEY");
+			#endif
+				
+		}
         input = _XL_INPUT();
         
         handle_freeze_and_shurikens();
         short_pause();
-    } while(!_XL_FIRE(input));
+    } while((!_XL_FIRE(input) || counter));
 }
 
     

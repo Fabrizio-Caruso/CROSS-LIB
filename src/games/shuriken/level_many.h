@@ -12,21 +12,21 @@
 	\
 	XSize/2+2,YSize-3,4,2,WALL, \
 	XSize/2+2,2,4,2,WALL, \
+	\
+    XSize/2-5,YSize/2,2,2,WALL, \
+    XSize/2+3,YSize/2,2,2,WALL, \
     \
-    XSize/2-5,YSize/2,3,1,BLOCK, \
-    XSize/2+2,YSize/2,3,1,BLOCK, \
+    XSize/2-4,YSize/2-2,2,1,BLOCK, \
+    XSize/2+2,YSize/2-2,2,1,BLOCK, \
     \
-    XSize/2-2,YSize/2,1,1,FREEZE, \
-    XSize/2+1,YSize/2,1,1,FREEZE, \
+    XSize/2-5+1,YSize/2+3,2,1,BLOCK, \
+    XSize/2+2,YSize/2+3,2,1,BLOCK, \
 	\
 	XSize-2,2,1,1,FREEZE, \
 	XSize-2,YSize-2,1,1,RING, \
     \
 	1,2,1,1,FREEZE, \
 	1,YSize-2,1,1,RING, \
-	\
-    XSize/2-6,YSize/2,1,1,RING, \
-    XSize/2+5,YSize/2,1,1,RING, \
     \
     XSize-2,4,1,YSize-1-2-4,DIAMOND, \
     1,4,1,YSize-1-2-4,DIAMOND, \
@@ -39,16 +39,14 @@
 
 
 #define LV_MANY_SHURIKENS \
-    10, 4, 4, \
+    8, 4, 4, \
 	\
     3,1+3, \
     3,1+5, \
-    3,1+7, \
     XSize-4,1+6, \
     3,YSize-1-6, \
     3,YSize-1-4, \
     XSize-4,1+4, \
-    XSize-4,YSize-1-7, \
     XSize-4,YSize-1-5, \
     XSize-4,YSize-1-3, \
     \

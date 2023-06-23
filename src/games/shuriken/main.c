@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 10
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -39,7 +39,7 @@
 
 // TILES
 
-#define MAX_NUMBER_OF_SHURIKENS 14
+#define MAX_NUMBER_OF_SHURIKENS 12
 
 #define MAX_TIME 5
 

@@ -1531,7 +1531,7 @@ void item_bonus(uint8_t *item_counter_ptr)
 do \
 { \
     ++level; \
-    _XL_SET_TEXT_COLOR(_XL_GREEN); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT(XSize/2-2,YSize/2,"GREAT"); \
     restart_level = 1; \
     \

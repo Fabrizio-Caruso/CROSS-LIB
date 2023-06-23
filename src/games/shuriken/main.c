@@ -34,7 +34,7 @@
 
 // DEBUG
 // #define SHOW_LEVELS
-#define INVINCIBLE
+// #define INVINCIBLE
 
 // TILES
 
@@ -178,10 +178,9 @@ uint8_t freeze_active;
 uint8_t freeze_counter;
 
 uint8_t ring_active;
+uint8_t ring_counter;
 
 uint8_t counter;
-
-uint8_t ring_counter;
 
 uint8_t shuriken_counter;
 
@@ -643,32 +642,12 @@ do \
 } while(0)
 
 
-void handle_mini_shuriken(void)
-{    
-    uint8_t i;
+// void handle_mini_shuriken(void)
+// {    
+    // uint8_t i;
 
-    for(i=0;i<level_mini_shurikens;++i)
-    {
 
-        delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
-        
-        ++(mini_shuriken_y[i]);
-
-        if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]] && mini_shuriken_y[i]<YSize-2)
-        {
-            build_element(MINI_SHURIKEN, mini_shuriken_x[i],mini_shuriken_y[i]);
-        }
-        else
-        {    
-            if(!map[mini_shuriken_x[i]][mini_shuriken_y[i]])
-            {
-                delete_element(mini_shuriken_x[i],mini_shuriken_y[i]);
-            }
-            mini_shuriken_y[i] = 2;                            
-        }
-        
-    }
-}
+// }
 
 
 void init_map(void)
@@ -1058,6 +1037,7 @@ void block_explosion(uint8_t x, uint8_t y)
     _XL_DRAW(x,y,BLOCK_TILE,_XL_RED);
     short_pause();
     _XL_SHOOT_SOUND();
+    short_pause();
     delete_element(x,y);
 }
 
@@ -1331,9 +1311,11 @@ void handle_vertical_shuriken(register uint8_t index)
 
 
 
-void handle_big_shurikens(void)
+void handle_shurikens(void)
 {
     uint8_t i;
+    uint8_t x;
+    uint8_t y;
     
     for(i=0;i<MAX_NUMBER_OF_SHURIKENS;++i)
     {
@@ -1348,6 +1330,29 @@ void handle_big_shurikens(void)
                 handle_vertical_shuriken(i);
             }
         }
+    }
+    
+    for(i=0;i<level_mini_shurikens;++i)
+    {
+        x = mini_shuriken_x[i];
+        
+        delete_element(x,mini_shuriken_y[i]);
+        
+        y=++(mini_shuriken_y[i]);
+
+        if(!map[x][y] && y<YSize-2)
+        {
+            build_element(MINI_SHURIKEN, x, y);
+        }
+        else
+        {    
+            if(!map[x][y])
+            {
+                delete_element(x,y);
+            }
+            mini_shuriken_y[i] = 2;                            
+        }
+        
     }
 }
 
@@ -1439,7 +1444,7 @@ do { \
 } while(0)
 
 
-#define init_global_game() \
+#define initialize_global_game() \
 do \
 { \
     score = 0; \
@@ -1454,8 +1459,7 @@ void handle_freeze_and_shurikens(void)
 {
     if((!freeze_active) || (counter&1))
     {
-        handle_big_shurikens();
-        handle_mini_shuriken();
+        handle_shurikens();
     }
     else if(freeze_active)
     {
@@ -1464,20 +1468,23 @@ void handle_freeze_and_shurikens(void)
 }
 
 
-void handle_ring(void)
-{
-    if(ring_active)
-    {
-        #if !defined(INVINCIBLE)
-        --ring_active;
-        #endif
-    }
-    else
-    {
-        player_color = _XL_WHITE;
-        display_player();
-    }
-}
+#if defined(INVINCIBLE)
+    #define handle_ring()
+#else
+    #define handle_ring() \
+    do \
+    { \
+        if(ring_active) \
+        { \
+            --ring_active; \
+        } \
+        else \
+        { \
+            player_color = _XL_WHITE; \
+            display_player(); \
+        } \
+    } while(0)
+#endif
 
 
 #define handle_lose_life() \
@@ -1489,7 +1496,6 @@ do \
     \
     --lives; \
     one_second_pause(); \
-    _XL_WAIT_FOR_INPUT(); \
     \
     delete_player(); \
     \
@@ -1594,13 +1600,12 @@ void animate_shurikens(void)
 		}
 		else
 		{
-			_XL_SET_TEXT_COLOR(_XL_WHITE);
-			#if !defined(_XL_NO_JOYSTICK)
-			_XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
-			#else
-			_XL_PRINT(XSize/2-5,YSize-1,"PRESS A KEY");
-			#endif
-				
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            #if !defined(_XL_NO_JOYSTICK)
+            _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
+            #else
+            _XL_PRINT(XSize/2-5,YSize-1,"PRESS A KEY");
+            #endif
 		}
         input = _XL_INPUT();
         
@@ -1633,8 +1638,6 @@ do \
     \
     screen_color[SHURIKEN]=_XL_YELLOW; \
     animate_shurikens(); \
-    \
-    _XL_ZAP_SOUND(); \
 } while(0)
 
     
@@ -1651,6 +1654,7 @@ do \
     \
     animate_shurikens(); \
     one_second_pause(); \
+    _XL_ZAP_SOUND(); \
 } while(0)
 
 
@@ -1711,11 +1715,11 @@ int main(void)
         
     while(1)
     {
-        init_global_game();
+        initialize_global_game();
 
         title();
                         
-        while(lives && (level<FINAL_LEVEL+1))
+        while(lives && (level<=FINAL_LEVEL))
         {            
             initialize_level();
             

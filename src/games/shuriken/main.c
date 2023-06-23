@@ -34,7 +34,7 @@
 
 // DEBUG
 // #define SHOW_LEVELS
-#define INVINCIBLE
+// #define INVINCIBLE
 
 // TILES
 
@@ -711,8 +711,6 @@ void update_lives_display(void)
 #define init_score_display() \
 do \
 { \
-    _XL_PRINTD(XSize-5,0,5,hiscore); \
-    \
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
@@ -723,6 +721,7 @@ do \
     update_lives_display(); \
 	\
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(XSize-5,0,5,hiscore); \
     _XL_PRINTD(XSize-2,YSize-1,2,level+1); \
     \
     _XL_DRAW(0,YSize-1,RING_TILE,_XL_WHITE); \

@@ -316,11 +316,12 @@ do { \
 } while(0)
     
 
-void update_score_display(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(0,0,5,score);
-}
+#define update_score_display() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(0,0,5,score); \
+} while(0)
 
 
 #define update_remaining_display(void) \
@@ -424,7 +425,6 @@ void handle_collisions(void)
                 // {
                 score+=DIAMOND_POINTS;
                 // }
-                // update_score_display();
                 --remaining_diamonds;
                 // update_remaining_display();
                 update_item_display();
@@ -433,7 +433,6 @@ void handle_collisions(void)
             {
                 _XL_ZAP_SOUND();
                 score+=FREEZE_POINTS;
-                // update_score_display();
                 ++freeze_counter;
                 increase_time_counter_if_not_max();
                 freeze_active=freeze_counter<<4;
@@ -443,7 +442,6 @@ void handle_collisions(void)
             {
                 _XL_ZAP_SOUND();
                 score+=RING_POINTS;
-                // update_score_display();
                 ++ring_counter;
                 increase_time_counter_if_not_max();
                 player_color = _XL_CYAN;
@@ -724,8 +722,6 @@ void update_lives_display(void)
 #define init_score_display() \
 do \
 { \
-    update_score_display(); \
-	\
     _XL_PRINTD(XSize-5,0,5,hiscore); \
     \
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE); \
@@ -999,8 +995,6 @@ void use_block_against_shurikens(uint8_t y)
 
 void init_level(void)
 {
-    // uint8_t i;
-    
     if(is_challenge_level())
     {
         challenge_level = 1;
@@ -1037,10 +1031,7 @@ void init_level(void)
     
     build_objects(level);
     
-
     time_counter = MAX_TIME;
-
-    // init_score_display();
 
     activate_shurikens();
 

@@ -27,7 +27,6 @@
 #include "screen_types.h"
 #include "levels.h"
 
-
 #define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
@@ -35,7 +34,7 @@
 
 // DEBUG
 // #define SHOW_LEVELS
-// #define INVINCIBLE
+#define INVINCIBLE
 
 // TILES
 
@@ -100,27 +99,18 @@
 #define MAX_PLAYER_X (2*XSize-5)
 
 #define MOVE_FORCE 3U
-#define DESTROY_FORCE 18U
-
+#define DESTROY_FORCE 14U
 
 #define MAX_NUMBER_OF_MINI_SHURIKENS 6
 
 #define MAX_NUMBER_OF_BARRIERS 4
 
-
 #define DIAMOND_POINTS 10U
-#define BONUS_DIAMOND_POINTS 20U
 #define FREEZE_POINTS 30U
 #define RING_POINTS 50U
-#define SHURIKEN_POINTS 60U
+#define SHURIKEN_POINTS 80U
 
-// #define LEVEL_BONUS 100U
-// #define TIME_BONUS 30
-// #define FREEZE_BONUS 50
-// #define RING_BONUS   100
-// #define SHURIKEN_BONUS 100
 #define ITEM_BONUS 50U
-#define END_GAME_LIFE_BONUS 500U
 
 #if XSize<32
     #define BASE_RING_EFFECT 40U
@@ -132,8 +122,7 @@
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 
-#define WALL_COLOR _XL_YELLOW
-#define WALL_THRESHOLD 25
+#define BARRIER_THRESHOLD 25
 
 uint8_t player_x;
 uint8_t player_y;
@@ -825,7 +814,7 @@ do \
     } \
     if(challenge_level) \
     { \
-        barrier_counter = WALL_THRESHOLD*4; \
+        barrier_counter = BARRIER_THRESHOLD*4; \
     } \
     else \
     { \
@@ -1002,7 +991,7 @@ void init_level(void)
         screen_color[DIAMOND]=_XL_YELLOW;
         screen_color[SHURIKEN]=_XL_YELLOW;
         screen_color[MINI_SHURIKEN]=_XL_RED;
-        barrier_threshold=WALL_THRESHOLD*5U;
+        barrier_threshold=BARRIER_THRESHOLD*5U;
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_CLEAR_SCREEN();
@@ -1017,7 +1006,7 @@ void init_level(void)
         screen_color[DIAMOND]=_XL_GREEN;
         screen_color[SHURIKEN]=_XL_CYAN;
         screen_color[MINI_SHURIKEN]=_XL_YELLOW;
-        barrier_threshold=WALL_THRESHOLD;
+        barrier_threshold=BARRIER_THRESHOLD;
     }
     
     init_map();    

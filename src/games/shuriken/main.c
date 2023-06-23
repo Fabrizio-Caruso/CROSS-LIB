@@ -28,7 +28,7 @@
 #include "levels.h"
 
 
-#define INITIAL_LEVEL 10
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -932,7 +932,6 @@ void handle_barriers(void)
     uint8_t i;
     uint8_t barrier;
 
-    
     if(barrier_counter<barrier_threshold)
     {
         ++barrier_counter;

@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -933,12 +933,6 @@ void handle_barriers(void)
 }
 
 
-uint8_t is_challenge_level(void)
-{
-    return !((level+1)&3);
-}
-
-
 void activate_shurikens(void)
 {
     uint8_t i;
@@ -952,17 +946,17 @@ void activate_shurikens(void)
 
 void use_block_against_shurikens(uint8_t y)
 {
-    _XL_PRINT(XSize/2-6,y, "USE   WITH");
+    _XL_PRINT(XSize/2-7,y, "USE   AGAINST");
 
-    _XL_DRAW(XSize/2-6+4,y,BLOCK_TILE, _XL_GREEN);
+    _XL_DRAW(XSize/2-6+3,y,BLOCK_TILE, _XL_GREEN);
 
-    _XL_DRAW(XSize/2-6+11,y,SHURIKEN_TILE, _XL_CYAN);
+    _XL_DRAW(XSize/2-6+13,y,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
 void init_level_map(void)
 {
-    if(is_challenge_level())
+    if(!((level+1)&3))
     {
         challenge_level = 1;
         barrier_type = BLOCK;
@@ -1496,6 +1490,7 @@ do \
     \
     --lives; \
     one_second_pause(); \
+    _XL_WAIT_FOR_INPUT(); \
     \
     delete_player(); \
     \
@@ -1591,7 +1586,7 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
-	counter=20U;
+	counter=40U;
     do
     {
 		if(counter)
@@ -1626,11 +1621,11 @@ do \
     \
     _XL_PRINTD(XSize/2-2,1,5,hiscore); \
     \
-    _XL_PRINT(XSize/2-7+4,YSize-8, "PICK"); \
+    _XL_PRINT(XSize/2-8+4,YSize-8, "COLLECT"); \
     \
     use_block_against_shurikens(YSize-5); \
     \
-    _XL_DRAW(XSize/2-7+9,YSize-8,DIAMOND_TILE, _XL_GREEN); \
+    _XL_DRAW(XSize/2-7+11,YSize-8,DIAMOND_TILE, _XL_GREEN); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \

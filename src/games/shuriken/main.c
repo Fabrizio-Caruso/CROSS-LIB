@@ -374,6 +374,7 @@ void increase_time_counter_if_not_max(void)
     {
         ++time_counter;
     }
+    update_item_display();
 }
 
 
@@ -422,19 +423,17 @@ void handle_collisions(void)
                 _XL_ZAP_SOUND();
                 score+=FREEZE_POINTS;
                 ++freeze_counter;
-                increase_time_counter_if_not_max();
                 freeze_active=freeze_counter<<4;
-                update_item_display();
+                increase_time_counter_if_not_max();
             }
             else if(cell_value==RING)
             {
                 _XL_ZAP_SOUND();
                 score+=RING_POINTS;
                 ++ring_counter;
-                increase_time_counter_if_not_max();
                 player_color = _XL_CYAN;
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
-                update_item_display();
+                increase_time_counter_if_not_max();
             }
             else if(cell_value>=DEADLY)
             {
@@ -954,7 +953,7 @@ void use_block_against_shurikens(uint8_t y)
 }
 
 
-void init_level_map(void)
+void initialize_level_map(void)
 {
     if(!((level+1)&3))
     {
@@ -1021,7 +1020,6 @@ void shuriken_death(uint8_t index)
     ++shuriken_counter;
     --remaining_shurikens;
     increase_time_counter_if_not_max();
-    update_item_display();
     shuriken_status[index]=0;
 }
 
@@ -1660,7 +1658,7 @@ do \
     \
     if(restart_level) \
     { \
-        init_level_map(); \
+        initialize_level_map(); \
     } \
     init_score_display(); \
     init_player(); \

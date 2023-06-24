@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 11
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -1607,6 +1607,8 @@ void animate_shurikens(void)
         handle_freeze_and_shurikens();
         short_pause();
     } while((!_XL_FIRE(input) || counter));
+    _XL_ZAP_SOUND();
+    one_second_pause();
 }
 
     
@@ -1648,8 +1650,6 @@ do \
     _XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
     \
     animate_shurikens(); \
-    one_second_pause(); \
-    _XL_ZAP_SOUND(); \
 } while(0)
 
 

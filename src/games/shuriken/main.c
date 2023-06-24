@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 10
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -184,7 +184,7 @@ uint8_t counter;
 
 uint8_t shuriken_counter;
 
-uint8_t restart_level;
+uint8_t new_level;
 
 uint8_t tile_group;
 
@@ -686,7 +686,7 @@ void update_lives_display(void)
 }
 
 
-#define init_score_display() \
+#define initialize_level_display() \
 do \
 { \
     _XL_DRAW(XSize-10,0,SHURIKEN_TILE,_XL_WHITE); \
@@ -953,7 +953,7 @@ void use_block_against_shurikens(uint8_t y)
 }
 
 
-void initialize_level_map(void)
+void initialize_new_level(void)
 {
     if(!((level+1)&3))
     {
@@ -982,7 +982,9 @@ void initialize_level_map(void)
     
     init_map();    
 
-    remaining_diamonds = 0;
+    counter = 0;
+    
+    remaining_diamonds = 0; // build_objects increases remaining_diamonds
 
     if(challenge_level)
     {
@@ -1423,7 +1425,7 @@ void handle_player(void)
 }
 
 
-#define init_player(void) \
+#define initialize_player(void) \
 do { \
     alive = 1; \
     player_x = XSize-1; \
@@ -1443,7 +1445,7 @@ do \
     lives = INITIAL_LIVES; \
     level = INITIAL_LEVEL; \
     extra_life_counter = 1; \
-    restart_level = 1; \
+    new_level = 1; \
 } while(0)
 
 
@@ -1519,7 +1521,7 @@ do \
     ++level; \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT(XSize/2-2,YSize/2,"GREAT"); \
-    restart_level = 1; \
+    new_level = 1; \
     \
     one_second_pause(); \
     item_bonus(&time_counter); \
@@ -1529,7 +1531,7 @@ do \
 } while(0)
 
 
-#define init_player_achievements() \
+#define initialize_player_achievements() \
 do \
 { \
     freeze_counter=0; \
@@ -1572,7 +1574,7 @@ do \
 } while(0)
 
 
-#define continue_condition() \
+#define continue_level_condition() \
     alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
 
 
@@ -1654,17 +1656,17 @@ do \
 #define initialize_level() \
 do \
 { \
-    init_player_achievements(); \
+    initialize_player_achievements(); \
     \
-    if(restart_level) \
+    if(new_level) \
     { \
-        initialize_level_map(); \
+        initialize_new_level(); \
     } \
-    init_score_display(); \
-    init_player(); \
+    initialize_level_display(); \
+    initialize_player(); \
     update_player(); \
     \
-    restart_level = 0; \
+    new_level = 0; \
     one_second_pause();  \
     _XL_WAIT_FOR_INPUT(); \
 } while(0)
@@ -1696,13 +1698,19 @@ do \
 } while(0)
 
 
+#define initialize_cross_lib() \
+    _XL_INIT_GRAPHICS(); \
+    _XL_INIT_INPUT();  \
+    _XL_INIT_SOUND();
+
+
+#define continue_game_condition() \
+    lives && (level<=FINAL_LEVEL)
+
+
 int main(void)
 {        
-    _XL_INIT_GRAPHICS();
-
-    _XL_INIT_INPUT();
-    
-    _XL_INIT_SOUND();
+    initialize_cross_lib();
 
     hiscore = 0;
         
@@ -1712,11 +1720,11 @@ int main(void)
 
         title();
                         
-        while(lives && (level<=FINAL_LEVEL))
+        while(continue_game_condition())
         {            
             initialize_level();
             
-            while(continue_condition())
+            while(continue_level_condition())
             {
                 handle_player();
                 

@@ -749,10 +749,6 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
-    // _XL_PRINTD(0,1,4,index);
-    // _XL_PRINTD(0,2,4,no_of_objects);
-    // _XL_WAIT_FOR_INPUT();
-
     screen_color[WALL]=wall_colors[(level)&3];
     
     for(i=0;i<no_of_objects;++i)
@@ -807,14 +803,17 @@ void build_shurikens(void)
 
     uint8_t level_horizontal_shurikens;
     
-// _XL_PRINTD(1,1,4,index);
+// _XL_PRINTD(1,1,4,level);
+// _XL_WAIT_FOR_INPUT();    
+    
+// _XL_PRINTD(1,2,4,index);
 // _XL_WAIT_FOR_INPUT();
-    // uint8_t level_vertical_shurikens;
+
     // _XL_PRINTD(1,1,4,index);
     // _XL_WAIT_FOR_INPUT();
 
     level_horizontal_shurikens = shurikens_map[index];
-    // _XL_PRINTD(1,1,4,level_horizontal_shurikens);
+    // _XL_PRINTD(1,3,4,level_horizontal_shurikens);
     // _XL_WAIT_FOR_INPUT();
     // level_vertical_shurikens = shurikens_map[++index];
     // _XL_PRINTD(1,1,4,level_vertical_shurikens);
@@ -953,9 +952,11 @@ void use_block_against_shurikens(uint8_t y)
 }
 
 
-void initialize_new_level(void)
+void initialize_level_parameters(void)
 {
-    if(!((level+1)&3))
+    counter = 0;
+    
+    if(!((level+1)&3)) // challenge level
     {
         challenge_level = 1;
         barrier_type = BLOCK;
@@ -963,12 +964,6 @@ void initialize_new_level(void)
         screen_color[SHURIKEN]=_XL_YELLOW;
         screen_color[MINI_SHURIKEN]=_XL_RED;
         barrier_threshold=BARRIER_THRESHOLD*5U;
-        
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_CLEAR_SCREEN();
-        use_block_against_shurikens(YSize/2);
-        _XL_WAIT_FOR_INPUT();
-        
     }
     else
     {
@@ -979,10 +974,23 @@ void initialize_new_level(void)
         screen_color[MINI_SHURIKEN]=_XL_YELLOW;
         barrier_threshold=BARRIER_THRESHOLD;
     }
+}
+
+
+void initialize_new_level(void)
+{    
+
+    initialize_level_parameters();    
+
+    if(challenge_level)
+    {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_CLEAR_SCREEN();
+        use_block_against_shurikens(YSize/2);
+        _XL_WAIT_FOR_INPUT();    
+    }
     
     init_map();    
-
-    counter = 0;
     
     remaining_diamonds = 0; // build_objects increases remaining_diamonds
 
@@ -1446,6 +1454,7 @@ do \
     level = INITIAL_LEVEL; \
     extra_life_counter = 1; \
     new_level = 1; \
+    initialize_level_parameters(); \
 } while(0)
 
 
@@ -1549,7 +1558,7 @@ do \
 { \
     ++counter; \
     \
-    if(!(counter&63)) \
+    if(!(counter&127)) \
     { \
         if(time_counter) \
         { \
@@ -1586,7 +1595,7 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
-	counter=2*XSize;
+	counter=XSize;
     do
     {
 		if(counter)

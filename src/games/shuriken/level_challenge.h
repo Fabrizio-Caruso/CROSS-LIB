@@ -1,13 +1,10 @@
 
 
 #define LV_CHALLENGE_OBJECTS \
-    6, \
+    4, \
 	\
     XSize/2-3,YSize/2-2,1,5,WALL, \
 	XSize/2+2,YSize/2-2,1,5,WALL, \
-	\
-    XSize/2-5,YSize/2,2,1,WALL, \
-	XSize/2+3,YSize/2,2,1,WALL, \
     \
     (XSize-4)/2-3,YSize-5,1,1,RING, \
     (XSize-4)/2+6,YSize-5,1,1,FREEZE \

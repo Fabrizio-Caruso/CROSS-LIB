@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 11
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -108,7 +108,7 @@
 #define DIAMOND_POINTS 10U
 #define FREEZE_POINTS 30U
 #define RING_POINTS 50U
-#define SHURIKEN_POINTS 80U
+#define SHURIKEN_POINTS 100U
 
 #define ITEM_BONUS 50U
 
@@ -1586,7 +1586,7 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
-	counter=40U;
+	counter=2*XSize;
     do
     {
 		if(counter)

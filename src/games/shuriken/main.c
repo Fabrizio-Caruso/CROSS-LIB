@@ -374,6 +374,10 @@ void increase_time_counter_if_not_max(void)
     {
         ++time_counter;
     }
+    else
+    {
+        counter=0;
+    }
     update_item_display();
 }
 
@@ -406,16 +410,8 @@ void handle_collisions(void)
             if(cell_value==DIAMOND)
             {
                 _XL_PING_SOUND();
-                // if(challenge_level)
-                // {
-                    // score+=BONUS_DIAMOND_POINTS;
-                // }
-                // else
-                // {
                 score+=DIAMOND_POINTS;
-                // }
                 --remaining_diamonds;
-                // update_remaining_display();
                 update_item_display();
             }
             else if(cell_value==FREEZE)
@@ -483,18 +479,20 @@ void delete_player_up(void)
 }
 
 
-void delete_player_left(void)
-{
-    _XL_DELETE(screen_x,screen_y);
-    _XL_DELETE(screen_x,screen_y+1);
-}
+#define delete_player_left() \
+do \
+{ \
+    _XL_DELETE(screen_x,screen_y); \
+    _XL_DELETE(screen_x,screen_y+1); \
+} while(0)
 
 
-void delete_player_right(void)
-{
-    _XL_DELETE(screen_x+1,screen_y);  
-    _XL_DELETE(screen_x+1,screen_y+1);  
-}
+#define delete_player_right() \
+do \
+{ \
+    _XL_DELETE(screen_x+1,screen_y); \
+    _XL_DELETE(screen_x+1,screen_y+1); \
+} while(0)
 
 
 #define delete_player() \
@@ -639,14 +637,6 @@ do \
     _if_block_push_right(screen_y); \
     _if_block_push_right(screen_y+1); \
 } while(0)
-
-
-// void handle_mini_shuriken(void)
-// {    
-    // uint8_t i;
-
-
-// }
 
 
 void init_map(void)
@@ -803,33 +793,11 @@ void build_shurikens(void)
 
     uint8_t level_horizontal_shurikens;
     
-// _XL_PRINTD(1,1,4,level);
-// _XL_WAIT_FOR_INPUT();    
-    
-// _XL_PRINTD(1,2,4,index);
-// _XL_WAIT_FOR_INPUT();
-
-    // _XL_PRINTD(1,1,4,index);
-    // _XL_WAIT_FOR_INPUT();
-
     level_horizontal_shurikens = shurikens_map[index];
-    // _XL_PRINTD(1,3,4,level_horizontal_shurikens);
-    // _XL_WAIT_FOR_INPUT();
-    // level_vertical_shurikens = shurikens_map[++index];
-    // _XL_PRINTD(1,1,4,level_vertical_shurikens);
-    // _XL_WAIT_FOR_INPUT();
     
     level_shurikens = level_horizontal_shurikens + shurikens_map[++index];;
     
     level_mini_shurikens = shurikens_map[++index];
-// _XL_PRINTD(1,1,4,level_mini_shurikens);
-// _XL_WAIT_FOR_INPUT();
-
-    // TODO: Fix this for level 11 by choosing a level with the correct number of shurikens
-    // if(challenge_level)
-    // {
-        // level_shurikens=level+1;
-    // }
 
     for(i=0;i<level_shurikens;++i)
     {
@@ -942,7 +910,7 @@ void activate_shurikens(void)
 }
 
 
-void use_block_against_shurikens(uint8_t y)
+void print_use_block_against_shurikens(uint8_t y)
 {
     _XL_PRINT(XSize/2-7,y, "USE   AGAINST");
 
@@ -986,7 +954,7 @@ void initialize_new_level(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_CLEAR_SCREEN();
-        use_block_against_shurikens(YSize/2);
+        print_use_block_against_shurikens(YSize/2);
         _XL_WAIT_FOR_INPUT();    
     }
     
@@ -1634,7 +1602,7 @@ do \
     \
     _XL_PRINT(XSize/2-8+4,YSize-8, "COLLECT"); \
     \
-    use_block_against_shurikens(YSize-5); \
+    print_use_block_against_shurikens(YSize-5); \
     \
     _XL_DRAW(XSize/2-7+11,YSize-8,DIAMOND_TILE, _XL_GREEN); \
     \

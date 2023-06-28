@@ -1946,6 +1946,13 @@ def read_config():
             print("")
         
         compilation_threads = read_config_option("build","threads") 
+        if compilation_threads=="auto" or compilation_threads=="automaic":
+            if verbose:
+                print("Detecting number of threads...")
+            import multiprocessing
+            compilation_threads = str(multiprocessing.cpu_count())
+            if verbose:
+                print("Detected " + compilation_threads + " threads...")
 
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")

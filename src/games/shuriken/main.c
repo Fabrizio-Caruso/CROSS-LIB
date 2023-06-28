@@ -1521,12 +1521,19 @@ do \
 } while(0)
 
 
+#if XSize>=39
+    #define TIME_MASK 127
+#else
+    #define TIME_MASK 63
+#endif
+
+
 #define handle_time() \
 do \
 { \
     ++counter; \
     \
-    if(!(counter&127)) \
+    if(!(counter&TIME_MASK)) \
     { \
         if(time_counter) \
         { \

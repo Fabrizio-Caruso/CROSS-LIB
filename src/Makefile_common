@@ -400,9 +400,9 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 #################################################################
 
 
-
+# -Ln global
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 \
 	   \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-D__MEMORY_MAPPED_GRAPHICS -D__ALT_PRINT \

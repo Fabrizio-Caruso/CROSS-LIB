@@ -1521,7 +1521,7 @@ do \
 } while(0)
 
 
-#if XSize>=39
+#if XSize>=63
     #define TIME_MASK 127
 #else
     #define TIME_MASK 63

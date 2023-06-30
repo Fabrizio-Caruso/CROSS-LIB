@@ -5,7 +5,7 @@
 #if YSize>24
     #define LV_HORIZ_WALLS_WIDTH ((XSize)/2+2)
     #define LV_HORIZ_WALLS_ADJUST 1
-#elif YSize>17
+#elif YSize>21
     #define LV_HORIZ_WALLS_WIDTH ((XSize)/2)
     #define LV_HORIZ_WALLS_ADJUST 0
 #else

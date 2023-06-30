@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------- */ 
 // 
-// CROSS SHOOT by Fabrizio Caruso
+// CROSS SHURIKEN by Fabrizio Caruso
 //
 // Fabrizio_Caruso@hotmail.com
 //
@@ -910,16 +910,6 @@ void activate_shurikens(void)
 }
 
 
-void print_use_block_against_shurikens(uint8_t y)
-{
-    _XL_PRINT(XSize/2-7,y, "USE   AGAINST");
-
-    _XL_DRAW(XSize/2-6+3,y,BLOCK_TILE, _XL_GREEN);
-
-    _XL_DRAW(XSize/2-6+13,y,SHURIKEN_TILE, _XL_CYAN);
-}
-
-
 void initialize_level_parameters(void)
 {
     counter = 0;
@@ -942,6 +932,29 @@ void initialize_level_parameters(void)
         screen_color[MINI_SHURIKEN]=_XL_YELLOW;
         barrier_threshold=BARRIER_THRESHOLD;
     }
+}
+
+
+#if YSize>=20
+	#define SHURIKEN_Y 5
+	#define AUTHOR_Y 8
+	#define COLLECT_Y YSize-8
+	#define USE_AGAINST_Y YSize-5
+#else
+	#define SHURIKEN_Y 2
+	#define AUTHOR_Y 5
+	#define COLLECT_Y YSize-5
+	#define USE_AGAINST_Y YSize-2
+#endif
+
+
+void print_use_block_against_shurikens(uint8_t y)
+{
+    _XL_PRINT(XSize/2-7,y, "USE   AGAINST");
+
+    _XL_DRAW(XSize/2-6+3,y,BLOCK_TILE, _XL_GREEN);
+
+    _XL_DRAW(XSize/2-6+13,y,SHURIKEN_TILE, _XL_CYAN);
 }
 
 
@@ -1558,12 +1571,12 @@ do \
 } while(0)
 
 
-#define continue_level_condition() \
-    alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
-
-
-#define display_shuriken_title() \
-    _XL_PRINT(XSize/2-7,5, "S H U R I K E N")
+#if defined(SHOW_LEVELS)
+	#define continue_level_condition() 0
+#else
+	#define continue_level_condition() \
+		alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
+#endif
 
 
 void animate_shurikens(void)
@@ -1603,19 +1616,19 @@ do \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     \
-    _XL_PRINT(XSize/2-7,8, "FABRIZIO CARUSO"); \
+    _XL_PRINT(XSize/2-7,AUTHOR_Y, "FABRIZIO CARUSO"); \
     \
     _XL_PRINTD(XSize/2-2,1,5,hiscore); \
     \
-    _XL_PRINT(XSize/2-8+4,YSize-8, "COLLECT"); \
+    _XL_PRINT(XSize/2-8+4,COLLECT_Y, "COLLECT"); \
     \
-    print_use_block_against_shurikens(YSize-5); \
+    print_use_block_against_shurikens(USE_AGAINST_Y); \
     \
-    _XL_DRAW(XSize/2-7+11,YSize-8,DIAMOND_TILE, _XL_GREEN); \
+    _XL_DRAW(XSize/2-7+11,COLLECT_Y,DIAMOND_TILE, _XL_GREEN); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     \
-    display_shuriken_title(); \
+    _XL_PRINT(XSize/2-7,SHURIKEN_Y, "S H U R I K E N"); \
     \
     screen_color[SHURIKEN]=_XL_YELLOW; \
     animate_shurikens(); \

@@ -108,7 +108,11 @@
     #define _XL_BLUE _NES_WHITE
     #define _XL_YELLOW _NES_YELLOW
     #define _XL_GREEN _NES_YELLOW
-    #define _XL_CYAN _NES_WHITE
+	#if !defined(__ALTERNATE_COLORS)
+		#define _XL_CYAN _NES_WHITE
+	#else
+		#define _XL_CYAN _NES_RED
+	#endif
 
 #elif defined(__COMX_COLOR_GRAPHICS)
 

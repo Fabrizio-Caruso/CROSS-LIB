@@ -451,7 +451,7 @@ nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-D__NES_CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NES_SLOWDOWN) \
-	 \
+	$(NES_COLORS)  \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(ASSETS_PATH)/cc65_nes_color_tiles.s \
@@ -1299,7 +1299,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
 	-DXSize=32 \
-	-DYSize=22 \
+	-DYSize=24 \
 	-D__BIT_BANG_SOUND \
 	-D__CONIO_GRAPHICS  \
 	-lndos \
@@ -1327,12 +1327,12 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
 
 
 spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -1340,16 +1340,16 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
-	-D__SPECTRUM__ \
+	-D__SPECTRUM__ -D_XL_NO_JOYSTICK \
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
 
 
 #################################################################

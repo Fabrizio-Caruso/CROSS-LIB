@@ -2,25 +2,28 @@
 
 // LEVEL 2
 
+#define LV_CROSS_OFFSET XSize/3
+
+
 #if XSize>40
     #define LV_CROSS_WIDTH XSize/7
 
 #elif XSize>=20
     #define LV_CROSS_WIDTH XSize/5
+    
+#else
+    #define LV_CROSS_WIDTH (LV_CROSS_OFFSET-2)
 #endif
-
-#define LV_CROSS_OFFSET XSize/3
 
 
 #if YSize>=22
     #define LV_CROSS_HEIGHT YSize/4
 #else
-    #define LV_CROSS_HEIGHT XSize/5
+    #define LV_CROSS_HEIGHT YSize/5
 #endif
 
 #define LV_CROSS_NO_OF_OBJECTS 30
 
-// XSize-2*(LV_CROSS_OFFSET)-4
 
 #define LV_CROSS_OBJECTS \
     LV_CROSS_NO_OF_OBJECTS, \

@@ -1,17 +1,24 @@
 
 
-// LEVEL 0
+#if XSize>=20
+    #define _MINI_WALL_OFFSET 0
+    #define _MINI_WALL_SIZE 4
+#else
+    #define _MINI_WALL_OFFSET 2
+    #define _MINI_WALL_SIZE 2
+#endif
+
 
 #define LV_MANY_NO_OF_OBJECTS 18
 
 #define LV_MANY_OBJECTS \
     LV_MANY_NO_OF_OBJECTS, \
 	\
-	XSize/2-6,YSize-3,4,2,WALL, \
-	XSize/2-6,2,4,2,WALL, \
+	XSize/2-6+_MINI_WALL_OFFSET,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+	XSize/2-6+_MINI_WALL_OFFSET,2,_MINI_WALL_SIZE,2,WALL, \
 	\
-	XSize/2+2,YSize-3,4,2,WALL, \
-	XSize/2+2,2,4,2,WALL, \
+	XSize/2+2,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+	XSize/2+2,2,_MINI_WALL_SIZE,2,WALL, \
 	\
     XSize/2-5,YSize/2,2,2,WALL, \
     XSize/2+3,YSize/2,2,2,WALL, \

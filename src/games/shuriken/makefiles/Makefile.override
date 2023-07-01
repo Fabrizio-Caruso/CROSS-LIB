@@ -24,10 +24,10 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 else
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 endif
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-DXSize=12 -DX_OFFSET=3 -DY_OFFSET=3  -DYSize=10 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate -m mapfile.txt  --config $(CFG_PATH)/cc65/gamate_reduced_stack_2.cfg \
+	-DXSize=16 -DX_OFFSET=2 -DY_OFFSET=2  -DYSize=16 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
-	 $(GAMATE_GAME_OPTS) \
+	 $(GAMATE_GAME_OPTS) -D_XL_NO_COLOR \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  \
 	-D__NO_SCREEN_COLOR_INIT \
 	$(FULL_FILES) \

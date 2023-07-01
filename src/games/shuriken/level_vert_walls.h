@@ -34,26 +34,46 @@
 
 
 //
+#if XSize>=20
 
-#define LV_VERT_WALLS_SHURIKENS \
-    4, 6, 0, \
-	\
-    XSize-3,3, \
-    3,YSize-3, \
-    XSize-5,4, \
-    5,YSize-4, \
-    \
-    \
-	\
-    2,3, \
-    LV_VERT_WALLS_WIDTH+1,3, \
-    XSize-3,6, \
-    XSize-1-LV_VERT_WALLS_WIDTH-1,6, \
-    LV_VERT_WALLS_WIDTH+2,3, \
-    XSize-1-LV_VERT_WALLS_WIDTH-1-1,6  
+    #define LV_VERT_WALLS_SHURIKENS \
+        4, 6, 0, \
+        \
+        XSize-3,3, \
+        3,YSize-3, \
+        XSize-5,4, \
+        5,YSize-4, \
+        \
+        \
+        \
+        2,3, \
+        LV_VERT_WALLS_WIDTH+1,3, \
+        XSize-3,6, \
+        XSize-1-LV_VERT_WALLS_WIDTH-1,6, \
+        LV_VERT_WALLS_WIDTH+2,3, \
+        XSize-1-LV_VERT_WALLS_WIDTH-1-1,6  
 
-#define LV_VERT_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,6,0)
+    #define LV_VERT_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,6,0)
 
+#else
+    
+    #define LV_VERT_WALLS_SHURIKENS \
+        4, 4, 0, \
+        \
+        XSize-3,3, \
+        3,YSize-3, \
+        XSize-5,4, \
+        5,YSize-4, \
+        \
+        \
+        \
+        1,3, \
+        LV_VERT_WALLS_WIDTH+1,3, \
+        XSize-2,6, \
+        XSize-1-LV_VERT_WALLS_WIDTH-1,6
+
+    #define LV_VERT_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,4,0)
+#endif
 
 
 #define LV_VERT_WALLS_NO_OF_WALLS 2

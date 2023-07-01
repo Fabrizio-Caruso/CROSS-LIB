@@ -312,12 +312,16 @@ do \
 } while(0)
 
 
-#define update_remaining_display(void) \
-do \
-{ \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(7,0,2,remaining_diamonds); \
-} while(0)
+#if XSize>=20
+    #define update_remaining_display() \
+    do \
+    { \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINTD(7,0,2,remaining_diamonds); \
+    } while(0)
+#else
+    #define update_remaining_display() 
+#endif
 
 
 void display_player(void)
@@ -676,6 +680,14 @@ void update_lives_display(void)
 }
 
 
+#if XSize>=20
+    #define _display_diamond_icon_if_possible() \
+            build_element(DIAMOND,6,0); \
+
+#else
+    #define _display_diamond_icon_if_possible()
+#endif
+
 #define initialize_level_display() \
 do \
 { \
@@ -684,7 +696,7 @@ do \
     _XL_SET_TEXT_COLOR(_XL_RED); \
     _XL_PRINT(XSize-7,0,"HI"); \
     \
-    build_element(DIAMOND,6,0); \
+    _display_diamond_icon_if_possible(); \
     \
     update_lives_display(); \
     \

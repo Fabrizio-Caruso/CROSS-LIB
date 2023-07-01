@@ -47,27 +47,53 @@
 
 //
 
+#if XSize>=20
+    #define LV_H_BARRIERS_SHURIKENS \
+        3,8,0, \
+        \
+        3,YSize-3, \
+        XSize-5,6, \
+        5,3, \
+        \
+        \
+        3,3, \
+        XSize-4,4, \
+        7,5, \
+        XSize-8,6, \
+        6,YSize-3, \
+        XSize-7,YSize-3, \
+        4,7, \
+        XSize-5,YSize-6 \
+        \
+        \
 
-#define LV_H_BARRIERS_SHURIKENS \
-    3,8,0, \
-	\
-    3,YSize-3, \
-    XSize-5,6, \
-	5,3, \
-	\
-    \
-    3,3, \
-    XSize-4,4, \
-    7,5, \
-    XSize-8,6, \
-    6,YSize-3, \
-    XSize-7,YSize-3, \
-	4,7, \
-	XSize-5,YSize-6 \
-    \
-    \
+    #define LV_H_BARRIERS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,8,0)
 
-#define LV_H_BARRIERS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,8,0)
+
+#else
+    
+    #define LV_H_BARRIERS_SHURIKENS \
+        3,6,0, \
+        \
+        3,YSize-3, \
+        XSize-5,6, \
+        5,3, \
+        \
+        \
+        3,3, \
+        XSize-4,4, \
+        6,YSize-3, \
+        XSize-7,YSize-3, \
+        4,7, \
+        XSize-5,YSize-6 \
+        \
+        \
+
+#define LV_H_BARRIERS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,6,0)
+
+#endif
+
+
 
 
 //

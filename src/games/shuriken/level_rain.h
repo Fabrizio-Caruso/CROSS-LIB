@@ -30,23 +30,42 @@
 
 //
 
-#define LV_RAIN_SHURIKENS \
-	5, 0, 6, \
-	\
-    3,8, \
-    XSize-3,YSize-6, \
-	4,YSize-3, \
-	5,YSize/2+3, \
-	XSize-5,3, \
-	\
-	7, \
-	2, \
-	XSize-3, \
-	XSize-8, \
-	5, \
-	XSize-6
+#if XSize>=20
+    #define LV_RAIN_SHURIKENS \
+        5, 0, 6, \
+        \
+        3,8, \
+        XSize-3,YSize-6, \
+        4,YSize-3, \
+        5,YSize/2+3, \
+        XSize-5,3, \
+        \
+        7, \
+        2, \
+        XSize-3, \
+        XSize-8, \
+        5, \
+        XSize-6
 
-#define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,6)
+    #define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,6)
+#else
+    #define LV_RAIN_SHURIKENS \
+        5, 0, 4, \
+        \
+        3,8, \
+        XSize-3,YSize-6, \
+        4,YSize-3, \
+        5,YSize/2+3, \
+        XSize-5,3, \
+        \
+        2, \
+        XSize-3, \
+        4, \
+        XSize-5
+
+    #define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)  
+#endif
+
 
 // 
 

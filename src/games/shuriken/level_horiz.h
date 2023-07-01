@@ -1,17 +1,23 @@
 
 
-// LEVEL 0
+#if XSize>=20
+    #define MINI_WALL_SIZE 4
+    #define MINI_WALL_OFFSET 0
+#else
+    #define MINI_WALL_SIZE 3
+    #define MINI_WALL_OFFSET 1
+#endif
 
 #define LV_HORIZ_NO_OF_OBJECTS 18
 
 #define LV_HORIZ_OBJECTS \
     LV_HORIZ_NO_OF_OBJECTS, \
 	\
-	XSize/2-6,YSize-2,4,1,WALL, \
-	XSize/2-6,2,4,1,WALL, \
+	XSize/2-6+MINI_WALL_OFFSET,YSize-2,MINI_WALL_SIZE,1,WALL, \
+	XSize/2-6+MINI_WALL_OFFSET,2,MINI_WALL_SIZE,1,WALL, \
 	\
-	XSize/2+2,YSize-2,4,1,WALL, \
-	XSize/2+2,2,4,1,WALL, \
+	XSize/2+2,YSize-2,MINI_WALL_SIZE,1,WALL, \
+	XSize/2+2,2,MINI_WALL_SIZE,1,WALL, \
 	\
 	XSize-2,2,1,1,FREEZE, \
 	XSize-2,YSize-2,1,1,RING, \

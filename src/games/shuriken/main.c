@@ -38,7 +38,12 @@
 
 // TILES
 
-#define MAX_NUMBER_OF_SHURIKENS 12
+#if XSize>=20
+   #define MAX_NUMBER_OF_SHURIKENS 12
+#else
+   #define MAX_NUMBER_OF_SHURIKENS 10
+#endif
+
 
 #define MAX_TIME 5
 
@@ -101,7 +106,11 @@
 #define MOVE_FORCE 3U
 #define DESTROY_FORCE 14U
 
+#if XSize>=20
 #define MAX_NUMBER_OF_MINI_SHURIKENS 6
+#else
+#define MAX_NUMBER_OF_MINI_SHURIKENS 4
+#endif
 
 #define MAX_NUMBER_OF_BARRIERS 4
 
@@ -158,10 +167,12 @@ uint8_t player_cell[4];
 uint16_t score;
 uint16_t hiscore;
 
+#if !defined(_XL_NO_COLOR)
 uint8_t player_color;   
+#else
+#define player_color 0
+#endif
 
-// uint8_t level_horizontal_shurikens;
-// uint8_t level_vertical_shurikens;
 uint8_t level_shurikens;
 uint8_t level_mini_shurikens;
 
@@ -220,6 +231,7 @@ static const uint8_t screen_tile[7+1] =
 };  
 
 
+#if !defined(_XL_NO_COLOR)
 static uint8_t screen_color[7+1] =
 {
     0, // unused
@@ -236,6 +248,7 @@ static uint8_t screen_color[7+1] =
 static const uint8_t border_colors[] = {   _XL_RED,   _XL_CYAN, _XL_YELLOW, _XL_CYAN};
     
 static const uint8_t wall_colors[] =   {_XL_YELLOW, _XL_YELLOW,   _XL_CYAN, _XL_RED};
+#endif
 
 
 #define SHURIKEN_COLOR _XL_CYAN
@@ -285,8 +298,11 @@ void one_second_pause(void)
 void build_element(uint8_t type, uint8_t x, uint8_t y)
 {
     map[x][y] = type;
+    #if !defined(_XL_NO_COLOR)
     _XL_DRAW(x,y,screen_tile[type], screen_color[type]);
-
+    #else
+    _XL_DRAW(x,y,screen_tile[type], 0);
+    #endif
 }
 
 
@@ -431,7 +447,9 @@ void handle_collisions(void)
                 _XL_ZAP_SOUND();
                 score+=RING_POINTS;
                 ++ring_counter;
+                #if !defined(_XL_NO_COLOR)
                 player_color = _XL_CYAN;
+                #endif
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
                 increase_time_counter_if_not_max();
             }
@@ -648,7 +666,9 @@ void init_map(void)
     uint8_t i;
     uint8_t j;
     
+    #if !defined(_XL_NO_COLOR)
     screen_color[WALL]=border_colors[(level)&3];
+    #endif
     
     _XL_CLEAR_SCREEN();
     for(i=0;i<XSize-1;++i)
@@ -751,7 +771,9 @@ void build_objects(uint8_t level)
     uint8_t y_size;
     uint8_t type;
 
+    #if !defined(_XL_NO_COLOR)
     screen_color[WALL]=wall_colors[(level)&3];
+    #endif
     
     for(i=0;i<no_of_objects;++i)
     {
@@ -930,18 +952,22 @@ void initialize_level_parameters(void)
     {
         challenge_level = 1;
         barrier_type = BLOCK;
+        #if !defined(_XL_NO_COLOR)
         screen_color[DIAMOND]=_XL_YELLOW;
         screen_color[SHURIKEN]=_XL_YELLOW;
         screen_color[MINI_SHURIKEN]=_XL_RED;
+        #endif
         barrier_threshold=BARRIER_THRESHOLD*5U;
     }
     else
     {
         challenge_level = 0;
         barrier_type = SHURIKEN;
+        #if !defined(_XL_NO_COLOR)
         screen_color[DIAMOND]=_XL_GREEN;
         screen_color[SHURIKEN]=_XL_CYAN;
         screen_color[MINI_SHURIKEN]=_XL_YELLOW;
+        #endif
         barrier_threshold=BARRIER_THRESHOLD;
     }
 }
@@ -1426,17 +1452,30 @@ void handle_player(void)
 }
 
 
-#define initialize_player(void) \
-do { \
-    alive = 1; \
-    player_x = XSize-1; \
-    player_y = YSize-1; \
-    \
-    force = 0; \
-    ring_active = START_RING_EFFECT; \
-    \
-    player_color = _XL_CYAN; \
-} while(0)
+#if !defined(_XL_NO_COLOR)
+    #define initialize_player(void) \
+    do { \
+        alive = 1; \
+        player_x = XSize-1; \
+        player_y = YSize-1; \
+        \
+        force = 0; \
+        ring_active = START_RING_EFFECT; \
+        \
+        player_color = _XL_CYAN; \
+    } while(0)
+#else
+    #define initialize_player(void) \
+    do { \
+        alive = 1; \
+        player_x = XSize-1; \
+        player_y = YSize-1; \
+        \
+        force = 0; \
+        ring_active = START_RING_EFFECT; \
+        \
+    } while(0)
+#endif
 
 
 #define initialize_global_game() \
@@ -1466,7 +1505,7 @@ void handle_freeze_and_shurikens(void)
 
 #if defined(INVINCIBLE)
     #define handle_ring()
-#else
+#elif !defined(_XL_NO_COLOR)
     #define handle_ring() \
     do \
     { \
@@ -1480,25 +1519,54 @@ void handle_freeze_and_shurikens(void)
             display_player(); \
         } \
     } while(0)
+#else
+    #define handle_ring() \
+    do \
+    { \
+        if(ring_active) \
+        { \
+            --ring_active; \
+        } \
+        else \
+        { \
+            display_player(); \
+        } \
+    } while(0)
 #endif
 
 
-#define handle_lose_life() \
-do \
-{ \
-    player_color=_XL_RED; \
-    display_player(); \
-    _XL_EXPLOSION_SOUND(); \
-    \
-    --lives; \
-    one_second_pause(); \
-    _XL_WAIT_FOR_INPUT(); \
-    \
-    delete_player(); \
-    \
-    delete_shurikens(); \
-} while(0)
-
+#if !defined(_XL_NO_COLOR)
+    #define handle_lose_life() \
+    do \
+    { \
+        player_color=_XL_RED; \
+        display_player(); \
+        _XL_EXPLOSION_SOUND(); \
+        \
+        --lives; \
+        one_second_pause(); \
+        _XL_WAIT_FOR_INPUT(); \
+        \
+        delete_player(); \
+        \
+        delete_shurikens(); \
+    } while(0)
+#else
+    #define handle_lose_life() \
+    do \
+    { \
+        display_player(); \
+        _XL_EXPLOSION_SOUND(); \
+        \
+        --lives; \
+        one_second_pause(); \
+        _XL_WAIT_FOR_INPUT(); \
+        \
+        delete_player(); \
+        \
+        delete_shurikens(); \
+    } while(0)  
+#endif
 
 void item_bonus(uint8_t *item_counter_ptr)
 {
@@ -1620,46 +1688,88 @@ void animate_shurikens(void)
     one_second_pause();
 }
 
-    
-#define title() \
-do \
-{ \
-    init_map(); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    \
-    _XL_PRINT(XSize/2-7,AUTHOR_Y, "FABRIZIO CARUSO"); \
-    \
-    _XL_PRINTD(XSize/2-2,1,5,hiscore); \
-    \
-    _XL_PRINT(XSize/2-8+4,COLLECT_Y, "COLLECT"); \
-    \
-    print_use_block_against_shurikens(USE_AGAINST_Y); \
-    \
-    _XL_DRAW(XSize/2-7+11,COLLECT_Y,DIAMOND_TILE, _XL_GREEN); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    \
-    _XL_PRINT(XSize/2-7,SHURIKEN_Y, "S H U R I K E N"); \
-    \
-    screen_color[SHURIKEN]=_XL_YELLOW; \
-    animate_shurikens(); \
-} while(0)
 
-    
-#define the_end() \
-do \
-{ \
-    level=2; \
-    challenge_level=0; \
-    init_map(); \
-    screen_color[SHURIKEN]=_XL_GREEN; \
-    \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
-    \
-    animate_shurikens(); \
-} while(0)
+#if !defined(_XL_NO_COLOR)
+
+    #define title() \
+    do \
+    { \
+        init_map(); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        \
+        _XL_PRINT(XSize/2-7,AUTHOR_Y, "FABRIZIO CARUSO"); \
+        \
+        _XL_PRINTD(XSize/2-2,1,5,hiscore); \
+        \
+        _XL_PRINT(XSize/2-8+4,COLLECT_Y, "COLLECT"); \
+        \
+        print_use_block_against_shurikens(USE_AGAINST_Y); \
+        \
+        _XL_DRAW(XSize/2-7+11,COLLECT_Y,DIAMOND_TILE, _XL_GREEN); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_CYAN); \
+        \
+        _XL_PRINT(XSize/2-7,SHURIKEN_Y, "S H U R I K E N"); \
+        \
+        screen_color[SHURIKEN]=_XL_YELLOW; \
+        animate_shurikens(); \
+    } while(0)
+
+        
+    #define the_end() \
+    do \
+    { \
+        level=2; \
+        challenge_level=0; \
+        init_map(); \
+        screen_color[SHURIKEN]=_XL_GREEN; \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
+        \
+        animate_shurikens(); \
+    } while(0)
+
+#else
+        #define title() \
+    do \
+    { \
+        init_map(); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        \
+        _XL_PRINT(XSize/2-7,AUTHOR_Y, "FABRIZIO CARUSO"); \
+        \
+        _XL_PRINTD(XSize/2-2,1,5,hiscore); \
+        \
+        _XL_PRINT(XSize/2-8+4,COLLECT_Y, "COLLECT"); \
+        \
+        print_use_block_against_shurikens(USE_AGAINST_Y); \
+        \
+        _XL_DRAW(XSize/2-7+11,COLLECT_Y,DIAMOND_TILE, _XL_GREEN); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_CYAN); \
+        \
+        _XL_PRINT(XSize/2-7,SHURIKEN_Y, "S H U R I K E N"); \
+        \
+        animate_shurikens(); \
+    } while(0)
+
+        
+    #define the_end() \
+    do \
+    { \
+        level=2; \
+        challenge_level=0; \
+        init_map(); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINT(XSize/2-3,YSize/2,"THE END"); \
+        \
+        animate_shurikens(); \
+    } while(0)
+#endif
 
 
 #define initialize_level() \

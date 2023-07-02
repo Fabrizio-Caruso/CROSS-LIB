@@ -48,7 +48,7 @@
         XSize-6
 
     #define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,6)
-#else
+#elif YSize>=20
     #define LV_RAIN_SHURIKENS \
         5, 0, 4, \
         \
@@ -64,6 +64,21 @@
         XSize-5
 
     #define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,0,4)  
+#else
+    #define LV_RAIN_SHURIKENS \
+        4, 0, 4, \
+        \
+        3,8, \
+        XSize-3,YSize-6, \
+        4,YSize-3, \
+        XSize-5,3, \
+        \
+        2, \
+        XSize-3, \
+        4, \
+        XSize-5
+
+    #define LV_RAIN_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,0,4)      
 #endif
 
 

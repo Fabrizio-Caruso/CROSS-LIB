@@ -44,7 +44,7 @@
 #define LV_MANY_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_MANY_NO_OF_OBJECTS)
 
 
-#if XSize>=20
+#if XSize>=20 && YSize>=21
     #define LV_MANY_SHURIKENS \
         8, 4, 4, \
         \
@@ -69,7 +69,7 @@
 
 
     #define LV_MANY_SHURIKENS_SIZE LV_SHURIKENS_SIZE(8,4,4)
-#else
+#elif YSize>=21
     #define LV_MANY_SHURIKENS \
         8, 2, 4, \
         \
@@ -93,6 +93,45 @@
 
     #define LV_MANY_SHURIKENS_SIZE LV_SHURIKENS_SIZE(8,2,4)
 
+#elif YSize>=17
+    #define LV_MANY_SHURIKENS \
+        5, 2, 4, \
+        \
+        3,1+3, \
+        XSize-4,1+6, \
+        3,YSize-1-4, \
+        XSize-4,1+4, \
+        XSize-4,YSize-1-3, \
+        \
+        2,4, \
+        XSize-1-2,4, \
+        \
+        2, \
+        XSize-1-2, \
+        3, \
+        XSize-1-3
+
+
+    #define LV_MANY_SHURIKENS_SIZE LV_SHURIKENS_SIZE(5,2,4) 
+#else
+    #define LV_MANY_SHURIKENS \
+        4, 2, 4, \
+        \
+        3,1+3, \
+        XSize-4,1+6, \
+        XSize-4,1+4, \
+        XSize-4,YSize-1-3, \
+        \
+        2,4, \
+        XSize-1-2,4, \
+        \
+        2, \
+        XSize-1-2, \
+        3, \
+        XSize-1-3
+
+
+    #define LV_MANY_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,2,4) 
 #endif
 
 // 

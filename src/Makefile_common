@@ -133,6 +133,8 @@ z88dk_targets_sequential: \
     mtx512 \
     mz \
     samcoupe \
+    sc3000 \
+    sg1000 \
     spectrum \
     vg5k \
     vz200 \
@@ -155,6 +157,8 @@ z88dk_targets_sequential: \
     mtx512 \
     mz \
     samcoupe \
+    sc3000 \
+    sg1000 \
     spectrum \
     vg5k \
     vz200 \
@@ -1299,21 +1303,6 @@ endif
 #############################
 # SC3000
 
-# sc3000_16k:
-	# $(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
-	# $(INCLUDE_OPTS) \
-	# -DZ88DK_JOYSTICK \
-	# -clib=ansi \
-	# -D__SC3000__ \
-	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	# -pragma-define:ansicolumns=32 \
-	# -vn -lndos -create-app -Cz--audio \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_sc3000_16k.prg \
-	# $(LIGHT_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_sc3000_16k.prg
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_sc3000_16k.tap
-
-
 sc3000: sc3000_32k
 
 sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -1321,7 +1310,7 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	 \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
 	-D__BIT_BANG_SOUND \
 	  \
 	-DZ88DK_JOYSTICK \
@@ -1347,7 +1336,7 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	 \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
 	-D__BIT_BANG_SOUND \
 	  \
 	-D__CONIO_GRAPHICS \

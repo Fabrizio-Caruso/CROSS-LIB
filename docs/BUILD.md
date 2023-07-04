@@ -55,7 +55,7 @@ Examples (`xl build` is shortened to `xl`):
 
 
 ### Using `make`
-Using a standard `make` comamnd is possible but you will get fewer options.
+Using a standard `make` command is possible but you will get fewer options.
 
 For game projects you can use:
 

@@ -1,7 +1,7 @@
-CROSS-LIB
+# CROSS-LIB
 by Fabrizio Caruso
 
-# INTRODUCTION
+## INTRODUCTION
 
 The goal of this article is to present Cross-Lib, briefly show how to use it and present the 6 "universal" games I have written with it.
 By "universal" here I mean that these games will run on about 200 different systems (consoles, computers, arcade boards, pocket calculators, etc.) despite using the very same game code.
@@ -9,7 +9,7 @@ For more details we refer to the GitHub page: http://www.github.com/Fabrizio-Car
 
 
 
-# WHAT IS CROSS-LIB?
+## WHAT IS CROSS-LIB?
 
 Cross-Lib (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is a free open source tool for retro-coding for a multitude of 8-bit and vintage systems from the ‘80s (computers, consoles, pocket calculators, arcade boards, etc.) 
 such as Apple //, all 8-bit Commodore computers, Atari 800, Amstrad CPC, Sinclair ZX 81, Sinclair ZX Spectrum, TRS-80 CoCo, Dragon 32, TRS-80 MC-10, Thomson Mo5 and To7, MSX, Oric-1, Oric Atmos, BBC Micro, etc. as well as consoles such as GameBoy, Sega Master System, GameGear, Nintendo NES, etc. 
@@ -30,7 +30,7 @@ Several articles have been published on Cross-Lib ([rg], [prog]) and its games (
 
 
 
-# CROSS-LIB VS OTHER DEV-KITS
+## CROSS-LIB VS OTHER DEV-KITS
 
 Historically, 8-bit systems were programmed directly on the system and mostly in Assembly, or for simpler programs in interpreted BASIC.
 
@@ -72,7 +72,7 @@ In particular, graphics is somehow limited by what is possible on all systems. S
 
 
 
-# COMPILERS
+## COMPILERS
 
 Cross-Lib is supposed to be used with C compilers but which ones? 
 
@@ -113,7 +113,7 @@ For hints on how to code efficiently for 8-bit systems we refer to [effc] and fo
 
 
 
-# INSTALLATION
+## INSTALLATION
 
 Cross-Lib itself does not require any real installation. 
 It is enough to download the repository files (from the GitHub page) or to clone the repository with:
@@ -149,7 +149,7 @@ If you have correctly installed just Makefile, Python and (native) GCC in a POSI
 
 
 
-# HOW TO USE THE XL SCRIPT
+## HOW TO USE THE XL SCRIPT
 
 If just one of the supported compilers is installed, Cross-Lib can be used with the "xl" Python script inside the "src" directory.
 If GCC with ncurses is installed, a native version of the games and examples can be built with:
@@ -196,7 +196,7 @@ We can also start with a template code for a game if we pass the additional para
 
  
 
-# HELLO WORLD
+## HELLO WORLD
 
 Coding with Cross-Lib is like normal coding in C (with ANSI C89) with the only addition that all input/output is done through Cross-Lib APIs.
 
@@ -282,7 +282,7 @@ xl build myhelloworld c64 [to build the same project for the Commodore 64]
 
 
 
-# CODING WITH ABSTRACTIONS
+## CODING WITH ABSTRACTIONS
 
 
 
@@ -312,7 +312,7 @@ Running "xl manual" will output a manual with all commands.
 
 
 
-# MAIN DEVELOPMENT FLOW
+## MAIN DEVELOPMENT FLOW
 
 
 
@@ -348,7 +348,7 @@ executes one or several Makefile targets, which generally:
 
 
 
-# GRAPHICS
+## GRAPHICS
 
 
 
@@ -398,7 +398,7 @@ void _XL_DELETE(uint8_t x, uint8_t y);
 
 
 
-# SOUND
+## SOUND
 
 
 
@@ -417,7 +417,7 @@ XL_EXPLOSION_SOUND() produces an explosion sound (or something vaguely similar t
 
 
 
-# INPUT
+## INPUT
 
 
 Input is limited to four directions and a single fire button.
@@ -444,7 +444,7 @@ where _XL_INPUT polls the input and the other functions are used to determined t
 
 
 
-# GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
+## GRAPHICS, SOUNDS AND INPUT IN ONE EXAMPLE
 
 
 
@@ -636,11 +636,11 @@ int main(void)
 
 
 
-# THE GAMES
+## THE GAMES
 
 
 
-Cross-Lib comes with some games I have written with it. As for January 2023, it includes six games:
+Cross-Lib comes with some games I have written with it. As for July 2023, it includes seven games:
 
 - Shuriken
 
@@ -657,14 +657,14 @@ Cross-Lib comes with some games I have written with it. As for January 2023, it 
 - Chase
 
 
-## SHURIKEN
+### SHURIKEN
 
 Shuriken is somehow similar to PAC-MAN in that you need to collect all diamonds to complete non-boss levels while you need to avoid being hit by the shurikens.
 In boss levels you have to additionally kill all the shurikens by using the movable blocks that are deadly for them.
 You can also collect special items that make you temporarily invincible (white ring) or that slow down the shurikens (blue large diamond).
 
 
-## VERBIX
+### VERBIX
 
 
 
@@ -674,7 +674,7 @@ You can rotate the bottom row or any of the columns by moving in the 4 direction
 
 
 
-## HORDE
+### HORDE
 
 Horde is a zombie-themed shooter with many power-ups and several different enemies, levels and special items to pick.
 
@@ -684,7 +684,7 @@ In each level you are confronted with a horde of zombies that become harder as y
 
 
 
-## SNAKE
+### SNAKE
 
 Snake is my personal interpretation of a hybrid game between the arcade game Nibbler and the Nokia cell phone game Snake to which I have added more game elements. 
 As in Nibbler the walls do not kill you and can be used to stop you and let you better control your movements.
@@ -694,7 +694,7 @@ As a secondary goal you can collect rings. If you manage to get 3 or more rings 
 The game has several secrets and level to discover.
 
 
-## BOMBER
+### BOMBER
 
 Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
 The game concept is horrible (not my own concept) but it can be addictive nevertheless.
@@ -703,7 +703,7 @@ You do not control the plane and can only press fire to drop a bomb at a time.
 
 
 
-## SHOOT
+### SHOOT
 
 Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
 You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
@@ -714,7 +714,7 @@ Destroying the missile bases can also unlock items.
 The game has many secrets, levels and items to discover.
 
 
-## CHASE
+### CHASE
 
 Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
 The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
@@ -725,7 +725,7 @@ Destroying the missile bases can also unlock items.
 
 
 
-# FUTURE DEVELOPMENT
+## FUTURE DEVELOPMENT
 
 Cross-Lib is actively developed. Planned future developments are: 
 
@@ -749,7 +749,7 @@ Cross-Lib is actively developed. Planned future developments are:
 
 
 
-# BIBLIOGRAPHY
+## BIBLIOGRAPHY
 
 
 

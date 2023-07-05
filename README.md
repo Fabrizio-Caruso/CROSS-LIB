@@ -42,10 +42,11 @@ The logo was designed by *Hamlet*.
 
 -------------------------------------------
 
-## A DETAILED ARTICLE ABOUT CROSS-LIB
+## ARTICLE ABOUT CROSS-LIB
+Article in English (updated and modified version of an article appear in C.A.L.L. Apple Volume 3 Number 1 (January 2023):
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md
 
-Here you find an article (first appeared in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details (currently only in French but there will be an English and Italian version in future).
-
+Article in French (first appeared in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details.
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf
 
 -------------------------------------------

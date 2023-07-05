@@ -131,7 +131,7 @@ apt install
 ```
 
 
-### Installation fron source code
+### Installation from source code
 In order to download `Z88DK`'s source code you can run:
 ```
 wget http://nightly.z88dk.org/z88dk-latest.tgz

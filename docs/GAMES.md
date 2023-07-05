@@ -80,7 +80,7 @@ You have to go through 32 levels (with 16 different maps) + an optional secret l
 To complete a level you have to eat all the apples while:
 - avoiding your own tail and body
 - avoiding the fixed and bouncing mines
-- avoiding to starve by losing your energy (eat apples to prevent this)
+- avoiding to starve by losing your energy (eat apples to prevent this).
 As you starve, the snake moves faster and faster.
 
 Walls do not kill you and let you pause the game and think about your next move.

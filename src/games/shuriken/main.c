@@ -1676,7 +1676,7 @@ void animate_shurikens(void)
             #if !defined(_XL_NO_JOYSTICK)
             _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
             #else
-            _XL_PRINT(XSize/2-5,YSize-1,"PRESS A KEY");
+            _XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
             #endif
 		}
         input = _XL_INPUT();

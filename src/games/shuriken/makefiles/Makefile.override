@@ -82,14 +82,15 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.tap
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 
 
 #############################
 # SG1000
+
 
 sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
@@ -109,8 +110,8 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000_BSS.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 

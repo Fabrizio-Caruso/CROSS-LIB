@@ -782,28 +782,28 @@ zx81_no_gfx_16k:
 #############################
 # SC3000
 
-sc3000: sc3000_32k
+# sc3000: sc3000_32k
 
-sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
-	$(INCLUDE_OPTS) \
-	-D__SC3000__ \
-	-pragma-define:REGISTER_SP=0xFFFF \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
-	-D__BIT_BANG_SOUND \
-	  \
-	-DZ88DK_JOYSTICK \
-	-D__CONIO_GRAPHICS \
-	-vn -lndos -create-app -Cz--audio \
-	 \
-	 \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.tap
+# sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
+	# $(INCLUDE_OPTS) \
+	# -D__SC3000__ \
+	# -pragma-define:REGISTER_SP=0xFFFF \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
+	# -D__BIT_BANG_SOUND \
+	  # \
+	# -DZ88DK_JOYSTICK \
+	# -D__CONIO_GRAPHICS \
+	# -vn -lndos -create-app -Cz--audio \
+	# -pragma-define:CRT_ORG_BSS=0x8000 \
+	 # \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.tap
 
 
 

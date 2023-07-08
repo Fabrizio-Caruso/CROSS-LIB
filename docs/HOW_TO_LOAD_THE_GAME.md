@@ -1365,6 +1365,20 @@ Ues quickload to load and start the game
 
 ### TATUNG EINSTEIN
 
+With +cpm -subtype=einstein
+
+a .dsk will be produced that can be used in combination with dos80.dsk.
+
+-flop1 dos80.dsk -flop2 [created image]
+
+Once booted, type:
+
+1:
+APP.COM
+
+
+----------
+
 USE EDIP1 1e (http://www.einstein.talktalk.net/edip.html?showpage=true)
 
 to insert the .COM file into a disk image:

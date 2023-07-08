@@ -313,7 +313,7 @@ void delete_element(uint8_t x, uint8_t y)
 }
 
 
-#define update_screen_xy(void) \
+#define update_screen_xy() \
 do { \
     screen_x = player_x>>1; \
     screen_y = (player_y+1)>>1; \
@@ -1453,7 +1453,7 @@ void handle_player(void)
 
 
 #if !defined(_XL_NO_COLOR)
-    #define initialize_player(void) \
+    #define initialize_player() \
     do { \
         alive = 1; \
         player_x = XSize-1; \
@@ -1465,7 +1465,7 @@ void handle_player(void)
         player_color = _XL_CYAN; \
     } while(0)
 #else
-    #define initialize_player(void) \
+    #define initialize_player() \
     do { \
         alive = 1; \
         player_x = XSize-1; \

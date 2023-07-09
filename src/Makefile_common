@@ -1258,18 +1258,19 @@ mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # MICROBEE
 
-microbee_16k_no_gfx_light:
+
+microbee_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi -vn   \
+	-D__BEE__ -clib=ansi -vn \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg  \
-	$(LIGHT_FILES)
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg
 
 
-microbee_16k_no_gfx:
+microbee_40col:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi -vn   \
+	-D__BEE__ -clib=ansi40 -vn   \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
 	$(FULL_FILES)

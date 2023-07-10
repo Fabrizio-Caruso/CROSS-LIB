@@ -751,6 +751,9 @@ Type "GC000"
 
 Use Nanowasp emulator: http://nanowasp.org/
 
+Click on TAPE to select the .BEE file
+Click on TAPE again
+Type LOADM
 
 -----------------------------------------------------------
 

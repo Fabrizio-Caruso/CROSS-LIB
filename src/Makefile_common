@@ -128,6 +128,7 @@ z88dk_targets_sequential: \
     gb \
     laser500 \
     mc1000 \
+    microbee \
     msx \
     mtx500 \
     mtx512 \
@@ -153,6 +154,7 @@ z88dk_targets_sequential: \
     gb \
     laser500 \
     mc1000 \
+    microbee \
     msx \
     mtx500 \
     mtx512 \
@@ -1258,43 +1260,43 @@ mc1000_color: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # MICROBEE
 
-microbee_test: microbee_no_gfx
+microbee: microbee_no_gfx
 
-microbee_no_gfx:
+microbee_no_gfx: microbee_40col_no_gfx
+
+microbee_80col_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ --generic-console -DYSize=24 -vn \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG \
+	-D__BEE__ --generic-console -DXSize=80 -DYSize=24 -vn  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+microbee_40col: microbee_40col_no_gfx
 
-microbee_40col:
+microbee_40col_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi40  -vn  -DYSize=24 \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG \
+	-D__BEE__ -clib=ansi40  -vn  -DXSize=40 -DYSize=25 \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-microbee: microbee_32k
+microbee_gfx: microbee_40col_gfx
 
-microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -lgfxbee \
-	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-D__NC100__ \
-	-D__ALT_PRINT \
-	 \
-	-D__Z88DK_SPRITES_GRAPHICS \
-	-DLESS_TEXT \
-	 \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	-D__NO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE  -D__BIT_BANG_SOUND \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+microbee_40col_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__BEE__ -clib=ansi40 -vn  -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	$(FULL_FILES) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 

@@ -751,8 +751,8 @@ Type "GC000"
 
 Use Nanowasp emulator: http://nanowasp.org/
 
-Click on TAPE to select the .BEE file
-Click on TAPE again
+Click on TAPE to select the .BEE file to insert the file in the list of programs
+Click on the selected file to insert in the tape player
 Type LOADM
 
 -----------------------------------------------------------

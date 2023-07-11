@@ -1262,7 +1262,7 @@ microbee_test: microbee_no_gfx
 
 microbee_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi -vn \
+	-D__BEE__ -clib=ansi --generic-console -vn \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
 	$(FULL_FILES)
@@ -1271,7 +1271,7 @@ microbee_no_gfx:
 
 microbee_40col:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi40  -vn   \
+	-D__BEE__ -clib=ansi40  -vn  -DYSize=24 \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
 	$(FULL_FILES)

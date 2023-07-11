@@ -23,6 +23,7 @@ roms/vice/pet/edit*
 roms/vice/pet/characters*
 src/cfg/*
 **mapfile.txt
+**A.BEE
 *.o
 *.def
 *.swp

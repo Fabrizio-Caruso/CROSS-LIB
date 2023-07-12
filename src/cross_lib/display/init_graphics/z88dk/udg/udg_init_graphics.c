@@ -26,6 +26,7 @@ void _XL_INIT_GRAPHICS(void)
 		
 	console_ioctl(IOCTL_GENCON_SET_MODE, &mode); 
     
+    // TODO: remove the Spectrum special case
 	#if defined(__SPECTRUM__)
         printf("\x01\x20");
 

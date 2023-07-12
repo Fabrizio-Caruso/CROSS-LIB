@@ -1264,6 +1264,9 @@ microbee: microbee_no_gfx
 
 microbee_no_gfx: microbee_40col_no_gfx
 
+microbee_no_gfx_wav: microbee_40col_no_gfx_wav
+
+
 microbee_80col_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__BEE__ --generic-console -DXSize=80 -DYSize=24 -vn  \
@@ -1285,12 +1288,37 @@ microbee_40col_no_gfx:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-microbee_gfx: microbee_40col_gfx
-
-microbee_40col_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+microbee_80col_no_gfx_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi40 -vn  -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
-	-D__CONIO_GRAPHICS \
+	-D__BEE__ --generic-console -DXSize=80 -DYSize=24 -vn -subtype=wav  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+microbee_40col_wav: microbee_40col_no_gfx_wav
+
+microbee_40col_no_gfx_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__BEE__ -clib=ansi40  -vn  -DXSize=40 -DYSize=25 -subtype=wav \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+microbee_gfx: microbee_40col_gfx_mode2
+
+
+microbee_gfx_wav: microbee_40col_gfx_mode2_wav
+
+
+microbee_40col_gfx_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__BEE__ --generic-console -vn -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS -D__SCREEN_MODE=2 \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
 	$(FULL_FILES) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
@@ -1299,7 +1327,18 @@ microbee_40col_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
+microbee_40col_gfx_mode2_wav: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__BEE__ --generic-console -vn -subtype=wav -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS -D__SCREEN_MODE=2 \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
+	$(FULL_FILES) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+ 
 #################################################################
 
 msx: msx_16k

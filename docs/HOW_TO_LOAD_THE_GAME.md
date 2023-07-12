@@ -749,11 +749,44 @@ Type "GC000"
 
 ### MICROBEE
 
+(1) .WAV files
+
+(1a) Use Mame/Mess_
+For example with:
+mbeepc85 -window -uimodekey DEL -cass c:\Retro\CROSS-LIB\build\<file_name>.WAV
+
+Type B to enter BASIC
+Type LOAD
+Go to Mame/Mess menu to control TAPE and select PLAY
+
+---
+
+(1b) Use UBEE512
+
+Install UBEE512 (run script, copy roms into rom folder)
+
+Select UBEE512 icon and select properties to add " ic" to the command
+
+Run UBEE512
+
+C:\Emulation\Computers\ubee512\ubee512.exe ic --tapei="a.wav"
+ 
+Type LOAD
+Right click to select TAPE to start loading the tape
+Type RUN
+
+
+-----------------   
+
+(2) .BEE files 
+
 Use Nanowasp emulator: http://nanowasp.org/
 
 Click on TAPE to select the .BEE file to insert the file in the list of programs
 Click on the selected file to insert in the tape player
-Type LOADM
+Type LOADM  
+
+
 
 -----------------------------------------------------------
 

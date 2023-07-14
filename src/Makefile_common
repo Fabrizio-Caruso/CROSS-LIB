@@ -167,7 +167,7 @@ z88dk_targets_sequential: \
     vg5k \
     vz200 \
     zx81_wrx \
-    zx81 \ 
+    zx81 \
     gg \
     sms
 endif

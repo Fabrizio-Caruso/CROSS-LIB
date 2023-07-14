@@ -422,6 +422,7 @@ def tools():
 
 # Build a project (for a target or multiple targets)
 def build(params):
+
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -440,10 +441,9 @@ def build(params):
             target = params[2]
 
         if len(params)<4:
-            threads = compilation_threads
+            threads = str(compilation_threads)
         else:
             threads = params[3]
-
 
         if len(params)>=5 and params[4]=="on":
             zsdcc_extra_optimization = "--max-allocs-per-node200000"
@@ -479,6 +479,7 @@ def build(params):
             else:
                 use_tools_str = ""
 
+            print("building make_command...")
             make_command = \
                 GNU_MAKE + " " + target + \
                     use_tools_str + \
@@ -489,7 +490,9 @@ def build(params):
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+            print("make_command: " + make_command)
 
+            
             run_command_verbosely(make_command)
             
         else:
@@ -1994,6 +1997,43 @@ def read_config():
             print("")
 
 
+def default_config():
+    global verbose
+    
+    global compilation_threads
+    global sccz80_compiler_opts 
+    global zsdcc_compiler_opts
+    global cmoc_compiler_opts
+
+    global native_compiler
+    
+    global tool_compiler     
+    
+    global interactive_clean
+    
+    global vice_path
+    global vice_rom_path
+    
+    global mame_path
+    global mame_rom_path
+    
+    global extend_algorithm
+    
+    global replace_shapes
+    
+    global use_tools
+        
+    verbose = True 
+    compiler_opts = ""
+    compilation_threads = 1
+    zsdcc_compiler_opts = ""
+    sccz80_compiler_opts = ""
+    cmoc_compiler_opts = ""
+    native_compiler = "gcc"
+    tool_compiler = "gcc"  
+    use_tools = 0
+
+
 # ---------------------------------------------
 if __name__ == "__main__":
     try:
@@ -2009,7 +2049,16 @@ if __name__ == "__main__":
         else:
             NATIVE_EXTENSION="out"
         
-        read_config()
+        if python_version<=2 and python_subversion<7:
+            print("Python version not supported")
+            exit()
+        elif python_version==2:
+            print("Use Python 3 to use the configuration file")
+            
+            default_config()
+            
+        else:
+            read_config()
 
         if verbose:
             print("----------------------------")

@@ -124,7 +124,7 @@ git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 On the other hand it requires:
 - a POSIX environment (e.g., Windows with Cygwin, Linux, FreeBSD, etc.);
 - Make (GNU Make);
-- Python 2.7 or Python 3.* [optional but necessary to simplify many operations];
+- Python 3.* [optional but necessary to simplify many operations];
 - GCC compiler with ncurses libraries [optional];
 - any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.) 
 - JAVA (only to be disk images for the Apple //).
@@ -141,7 +141,7 @@ Inside "src" you will find the "xl" Python script and the following directories
 
 
 
-If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory:
+If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory (you will have to make sure that "." directory is in your PATH environment variable otherwise you will have to explicitly use "./xl" instead of "xl"):
 
 "xl chase gcc", which will build the game Chase in turn-based mode for the native console.
 

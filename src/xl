@@ -1990,6 +1990,7 @@ def read_config():
         
     except Exception as e:
         print("An exception occurred while reading the configuration: " + str(e))
+        raise
         # TODO: Ask the user to continue or exit
     else:
         if verbose:
@@ -2052,13 +2053,10 @@ if __name__ == "__main__":
         if python_version<=2 and python_subversion<7:
             print("Python version not supported")
             exit()
-        elif python_version==2:
-            print("Use Python 3 to use the configuration file")
-            
-            default_config()
-            
-        else:
+        try:
             read_config()
+        except:
+            default_config()
 
         if verbose:
             print("----------------------------")

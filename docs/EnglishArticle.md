@@ -124,7 +124,7 @@ git clone https://www.github.com/Fabrizio-Caruso/CROSS-LIB/
 On the other hand it requires:
 - a POSIX environment (e.g., Windows with Cygwin, Linux, FreeBSD, etc.);
 - Make (GNU Make);
-- Python 3.* [optional but necessary to simplify many operations];
+- Python 2.7 or Python 3.* [optional but necessary to simplify many operations];
 - GCC compiler with ncurses libraries [optional];
 - any compiler necessary to build for a desired target architecture (e.g., CC65, Z88DK, etc.) 
 - JAVA (only to be disk images for the Apple //).

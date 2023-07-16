@@ -1896,41 +1896,43 @@ def read_config_option(section, option):
             return ""
 
 def read_config():
-    if python_version==2:
-        import ConfigParser
-        
-        global verbose
-        
-        global compilation_threads
-        global sccz80_compiler_opts 
-        global zsdcc_compiler_opts
-        global cmoc_compiler_opts
 
-        global native_compiler
-        
-        global tool_compiler     
-        
-        global interactive_clean
-        
-        global vice_path
-        global vice_rom_path
-        
-        global mame_path
-        global mame_rom_path
-        
-        global extend_algorithm
-        
-        global replace_shapes
-        
-        global use_tools
-        
-        global config 
-        
-        config = ConfigParser.SafeConfigParser()
-    else:
+    try:
         import configparser
+    except ImportError:
+        # Python 2.x fallback
+        print("Python 2.x configuration")
+        import ConfigParser as configparser
 
-        config = configparser.ConfigParser()
+    global verbose
+    
+    global compilation_threads
+    global sccz80_compiler_opts 
+    global zsdcc_compiler_opts
+    global cmoc_compiler_opts
+
+    global native_compiler
+    
+    global tool_compiler     
+    
+    global interactive_clean
+    
+    global vice_path
+    global vice_rom_path
+    
+    global mame_path
+    global mame_rom_path
+    
+    global extend_algorithm
+    
+    global replace_shapes
+    
+    global use_tools
+    
+    global config 
+
+    config = configparser.ConfigParser()
+    
     try:
         config.read('config.ini')
         

@@ -141,9 +141,12 @@ Inside "src" you will find the "xl" Python script and the following directories
 
 
 
-If you have correctly installed just Makefile, Python and (native) GCC in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory (you will have to make sure that the "." directory is in your PATH environment variable otherwise you will have to explicitly use "./xl" instead of "xl"):
+If you have correctly installed just Makefile, Python and any compiler (e.g. GCC) in a POSIX environment, it should already be possible to minimally use Cross-Lib to build the Chase game by running the following command inside the "src" directory (you will have to make sure that the "." directory is in your PATH environment variable otherwise you will have to explicitly use "./xl" instead of "xl"):
 
-"xl chase gcc", which will build the game Chase in turn-based mode for the native console.
+"xl chase stdio", which will build the game Chase in turn-based mode for the target if the compiler (e.g., the native console if you use GCC).
+As stdio has no support for immediate input, the game will be, at best, barely playable in turn-based mode. 
+Most games won't be playable at all, because this can only work for games that are aware of this (e.g., chase) where the code invokes a specific refresh command to re-display the content of the screen like a slide-slow. 
+This can be used to test if the games compile with a given compiler.
 
 
 

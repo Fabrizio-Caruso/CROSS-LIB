@@ -464,7 +464,8 @@ def build(params):
             
             print("sccz80_compiler_opts: " + sccz80_compiler_opts)
             print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
-            print("cmoc_compiler_opts:  " + cmoc_compiler_opts)
+            print("cmoc_compiler_opts:   " + cmoc_compiler_opts)
+            print("cc65_compiler_opts:   " + cc65_compiler_opts) 
             
             print("")
 
@@ -487,6 +488,7 @@ def build(params):
                     " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
                     " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
                     " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
+                    " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
@@ -1910,6 +1912,7 @@ def read_config():
     global sccz80_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
+    global cc65_compiler_opts
 
     global native_compiler
     
@@ -1962,6 +1965,7 @@ def read_config():
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
+        cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
         
         native_compiler = read_config_option("build", "native_compiler")
         
@@ -2007,6 +2011,7 @@ def default_config():
     global sccz80_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
+    global cc65_compiler_opts
 
     global native_compiler
     
@@ -2034,6 +2039,7 @@ def default_config():
     cmoc_compiler_opts = ""
     native_compiler = "gcc"
     tool_compiler = "gcc"  
+    cc65_compiler_opts = "-O -Cl"
     use_tools = 0
 
 

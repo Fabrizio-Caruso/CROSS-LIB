@@ -61,32 +61,6 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 
 #################################################################
 
-#############################
-# SC3000
-
-# sc3000: sc3000_32k
-
-# sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
-	# $(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
-	# $(INCLUDE_OPTS) \
-	# -D__SC3000__ \
-	 # \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
-	# -D__BIT_BANG_SOUND \
-	  # \
-	# -DZ88DK_JOYSTICK \
-	# -D__CONIO_GRAPHICS \
-	# -vn -lndos -create-app -Cz--audio \
-	 # \
-	 # \
-	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	# $(ASSETS_PATH)/z88dk_xchase.asm \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
-	# $(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
-
 
 #############################
 # SG1000

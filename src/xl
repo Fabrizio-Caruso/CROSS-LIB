@@ -75,6 +75,19 @@ SHORT_COMMANDS_LIST = \
         "x": "run"
     }
 
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 def run_command_verbosely(command_string):
     if verbose: 
         print("Going to run: ")
@@ -480,7 +493,8 @@ def build(params):
             else:
                 use_tools_str = ""
 
-            print("building make_command...")
+            if verbose:
+                print("building make_command...")
             make_command = \
                 GNU_MAKE + " " + target + \
                     use_tools_str + \
@@ -492,7 +506,8 @@ def build(params):
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
-            print("make_command: " + make_command)
+            if verbose:
+                print("make_command: " + make_command)
 
             
             run_command_verbosely(make_command)
@@ -805,10 +820,8 @@ def self_test():
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        print("[xl clean]  KO")
+        print(bcolors.FAIL + "[xl clean]  KO" + bcolors.ENDC)
         exit()
-    # else:
-        # print("[xl clean]  OK")
 
     projects_before_create = list(["list"],False)
     
@@ -819,45 +832,45 @@ def self_test():
     # print(project_dirs_after_create)
     
     if project_dirs_after_create!=project_dirs_before_create+1:
-        print("[xl create] KO")
+        print(bcolors.FAIL + "[xl create] KO" + bcolors.ENDC)
         exit()
     else:
-        print("[xl create] OK")
+        print(bcolors.OKGREEN + "[xl create] OK" + bcolors.ENDC)
     
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
-        print("[xl list]   KO") 
+        print(bcolors.FAIL + "[xl list]   KO" + bcolors.ENDC) 
         exit()
     else:
-        print("[xl list]   OK")
+        print(bcolors.OKGREEN + "[xl list]   OK" + bcolors.ENDC)
         
 
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
     if len(built_files)!=files_after_clean+1:
-        print("[xl build]  KO")
+        print(bcolors.FAIL + "[xl build]  KO" + bcolors.ENDC)
         exit()
     else:
-        print("[xl build]  OK")
+        print(bcolors.OKGREEN + "[xl build]  OK" + bcolors.ENDC)
 
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
     if project_dirs_after_delete != project_dirs_before_create:
-        print("[xl delete] KO")
+        print(bcolors.FAIL + "[xl delete] KO" + bcolors.ENDC)
         exit()
     else:
-        print("[xl delete] OK")
+        print(bcolors.OKGREEN + "[xl delete] OK" + bcolors.ENDC)
     # print(dirs_in_path("./projects"))
 
     clean(["clean","-y"]);
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        print("[xl clean]  KO")
+        print("bcolors.FAIL + [xl clean]  KO" + bcolors.ENDC)
         exit()
     else:
-        print("[xl clean]  OK")
+        print(bcolors.OKGREEN + "[xl clean]  OK" + bcolors.ENDC)
 
     return
 

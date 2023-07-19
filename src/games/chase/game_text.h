@@ -75,9 +75,9 @@ void printDefeatMessage(void);
 
 void printStartMessage(void);
 
-#if !defined(END_SCREEN)
+#if !defined(NO_PRINT)
 	void gameCompleted(void);
-#elif defined(NO_PRINT)
+#else
 	#define gameCompleted()
 #endif
 

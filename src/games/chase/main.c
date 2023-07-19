@@ -417,7 +417,7 @@ int main(void)
                     ++benchmark_count;
                 #endif
                 #if defined(DEBUG_END)
-                    gameCompleted();
+                    //gameCompleted();
                 #endif
                     
                 #if !defined(_XL_TURN_BASED)
@@ -688,7 +688,7 @@ int main(void)
             }
             else // if dead
             {        
-                #if defined(END_SCREEN) || defined(DANCE)
+                #if defined(FULL_GAME) && (defined(END_SCREEN) || defined(DANCE))
                     for(bulletDirection=0;bulletDirection<30;++bulletDirection)
                     {
                         for(ind=0;ind<GHOSTS_NUMBER;++ind)
@@ -720,7 +720,9 @@ int main(void)
         if(level==FINAL_LEVEL+1) // if completed game
         {
             // _XL_WAIT_FOR_INPUT();
-            gameCompleted();
+            #if !defined(NO_GAME_COMPLETED)
+				gameCompleted();
+			#endif
             #if !defined(NO_SLEEP)
                 _XL_SLEEP(2);
             #else

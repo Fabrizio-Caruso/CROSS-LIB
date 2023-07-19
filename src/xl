@@ -207,17 +207,30 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         projects.extend(dirnames)
         break
     
+    projects_to_build = len(projects)
+
+    files_before = len(files_in_path("../build"))-1
+    if verbose:
+        print("Building " + str(projects_to_build) + " projects")
 
     for project_name in projects:
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                + all_compiler_opts(zsdcc_extra_optimization, "") + \
+                + all_compilers_opts(zsdcc_extra_optimization, "") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
         run_command_verbosely(make_command)
+    
+    files_after = len(files_in_path("../build"))-1
+    
+    if verbose:
+        print("New projects built: " + str(files_after-files_before))
+
+
+
 
 
 def only_upper_and_digits(s):

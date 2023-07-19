@@ -989,7 +989,7 @@ def run_native(params):
     run_command_verbosely(command_string)
 
 
-DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k", "msx": "msx_32k"}
+DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k", "msx": "msx_16k"}
 
 VICE_TARGETS = ["c64", 
                 "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k", 
@@ -997,7 +997,7 @@ VICE_TARGETS = ["c64",
                 "pet", "pet_8k", "pet_16k"
                ]
 
-MAME_TARGETS = ["msx", "msx_16k", "msx_32k"]
+MAME_TARGETS = ["msx", "msx_16k"]
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):

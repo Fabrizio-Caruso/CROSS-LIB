@@ -88,6 +88,32 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+def printc(color,text):
+    global color_terminal
+    
+    if(color_terminal):
+        print(color + text + bcolors.ENDC)
+    else:
+        print(text)
+
+
+def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
+    global zsdcc_compiler_opts
+    global sccz80_compiler_opts
+    global cmoc_compiler_opts
+    global cc65_compiler_opts
+
+    return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
+           " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
+           " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
+           " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'"
+
+    # return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
+    # " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
+    # " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
+    # " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'"
+
+
 def run_command_verbosely(command_string):
     if verbose: 
         print("Going to run: ")
@@ -148,7 +174,7 @@ def multiple_reset(mypath):
         print("\n")
 
 
-def multiple_debug_build(mypath,target,xsize,ysize,debug):
+def multiple_size_build(mypath,target,xsize,ysize,debug):
     projects = []
     for (dirpath, dirnames, filenames) in walk(mypath):
         projects.extend(dirnames)
@@ -162,7 +188,7 @@ def multiple_debug_build(mypath,target,xsize,ysize,debug):
     for project_name in projects:
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " _NATIVE_CC=" + native_compiler + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
                 
@@ -186,7 +212,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + \
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                " ZSDCC_MAKEFILE_COMPILATION_OPTS=" + zsdcc_extra_optimization + \
+                + all_compiler_opts(zsdcc_extra_optimization, "") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
@@ -256,23 +282,24 @@ def size(params,debug):
             return
 
         make_command = \
-            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) +  \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + " " \
+                + all_compilers_opts("","") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
         run_command_verbosely(make_command)
     else:
         if game_dir in["games","examples","projects"]:
-            multiple_debug_build(game_dir,target,xsize,ysize,debug)
+            multiple_size_build(game_dir,target,xsize,ysize,debug)
         elif game_dir in["new"]:
-            multiple_debug_build("projects",target,xsize,ysize,debug)
+            multiple_size_build("projects",target,xsize,ysize,debug)
         elif game_dir in["builtin","built-in"]:
-            multiple_debug_build("games",target,xsize,ysize,debug)
-            multiple_debug_build("examples",target,xsize,ysize,debug)
+            multiple_size_build("games",target,xsize,ysize,debug)
+            multiple_size_build("examples",target,xsize,ysize,debug)
         elif game_dir=="all":
-            multiple_debug_build("games",target,xsize,ysize,debug)
-            multiple_debug_build("examples",target,xsize,ysize,debug)
-            multiple_debug_build("projects",target,xsize,ysize,debug)
+            multiple_size_build("games",target,xsize,ysize,debug)
+            multiple_size_build("examples",target,xsize,ysize,debug)
+            multiple_size_build("projects",target,xsize,ysize,debug)
         else:
             return
 
@@ -435,7 +462,10 @@ def tools():
 
 # Build a project (for a target or multiple targets)
 def build(params):
-
+    
+    global compiler_opts
+    global zsdcc_extra_optimization
+    
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -495,14 +525,12 @@ def build(params):
 
             if verbose:
                 print("building make_command...")
+                print(all_compilers_opts(zsdcc_extra_optimization, compiler_opts))
             make_command = \
                 GNU_MAKE + " " + target + \
                     use_tools_str + \
-                    " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                    " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-                    " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
-                    " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-                    " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
+                    " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "' " \
+                    + all_compilers_opts(zsdcc_extra_optimization, compiler_opts) +  \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
@@ -814,13 +842,12 @@ def files_in_path(mypath):
 def self_test():
     delete(["delete","_test_project","-y"])
 
-    # print(files_in_path("../build"))
-    # exit()
     clean(["clean","-y"]);
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        print(bcolors.FAIL + "[xl clean]  KO" + bcolors.ENDC)
+        printc(bcolors.FAIL, "[xl clean]  KO")
+        # print(bcolors.FAIL + "[xl clean]  KO" + bcolors.ENDC)
         exit()
 
     projects_before_create = list(["list"],False)
@@ -829,48 +856,46 @@ def self_test():
     
     create(["create", "_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
-    # print(project_dirs_after_create)
     
     if project_dirs_after_create!=project_dirs_before_create+1:
-        print(bcolors.FAIL + "[xl create] KO" + bcolors.ENDC)
+        printc(bcolors.FAIL, "[xl create] KO")
         exit()
     else:
-        print(bcolors.OKGREEN + "[xl create] OK" + bcolors.ENDC)
+        printc(bcolors.OKGREEN, "[xl create] OK")
     
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
-        print(bcolors.FAIL + "[xl list]   KO" + bcolors.ENDC) 
+        printc(bcolors.FAIL,"[xl list]   KO") 
         exit()
     else:
-        print(bcolors.OKGREEN + "[xl list]   OK" + bcolors.ENDC)
+        printc(bcolors.OKGREEN,"[xl list]   OK")
         
 
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
     if len(built_files)!=files_after_clean+1:
-        print(bcolors.FAIL + "[xl build]  KO" + bcolors.ENDC)
+        printc(bcolors.FAIL, "[xl build]  KO")
         exit()
     else:
-        print(bcolors.OKGREEN + "[xl build]  OK" + bcolors.ENDC)
+        printc(bcolors.OKGREEN, "[xl build]  OK")
 
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
     if project_dirs_after_delete != project_dirs_before_create:
-        print(bcolors.FAIL + "[xl delete] KO" + bcolors.ENDC)
+        printc(bcolors.FAIL, "[xl delete] KO")
         exit()
     else:
-        print(bcolors.OKGREEN + "[xl delete] OK" + bcolors.ENDC)
-    # print(dirs_in_path("./projects"))
+        printc(bcolors.OKGREEN, "[xl delete] OK")
 
     clean(["clean","-y"]);
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        print("bcolors.FAIL + [xl clean]  KO" + bcolors.ENDC)
+        printc(bcolors.FAIL, "[xl clean]  KO")
         exit()
     else:
-        print(bcolors.OKGREEN + "[xl clean]  OK" + bcolors.ENDC)
+        printc(bcolors.OKGREEN, "[xl clean]  OK")
 
     return
 
@@ -887,7 +912,7 @@ def test(params):
         else:
             parallel = ""                
         if params[1].endswith("_targets"):
-            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler +  \
+            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
                                                " -f makefiles.other/chase/tests/Makefile.tests"
             run_command_verbosely(make_command)
         elif params[1]=="stdio":
@@ -899,8 +924,9 @@ def test(params):
                              " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
             run_command_verbosely(make_command)   
         else:
-            print("Parameter not recognized")
-    print("OK")
+            print(bcolors.FAIL + "Parameter not recognized" + bcolors.ENDC)
+            exit()
+    printc(bcolors.OKGREEN, "OK")
     
 
 # List all projects    
@@ -1944,6 +1970,8 @@ def read_config():
     global replace_shapes
     
     global use_tools
+
+    global color_terminal
     
     global config 
 
@@ -1952,16 +1980,21 @@ def read_config():
     try:
         config.read('config.ini')
         
-        verbose = read_config_option("verbosity","verbose")
+        verbose = read_config_option("terminal","verbose")
         if verbose!="":
             verbose=int(verbose)
         else:
             verbose=0
         if verbose:
             print("Verbose Mode ON")
-        # else:
-            # print("Verbose Mode OFF")
 
+        color_terminal = read_config_option("terminal","color")
+        
+        if verbose and color_terminal:
+            printc(bcolors.OKBLUE, "Color terminal ON")
+        else:
+            print("Color terminal OFF")
+        
         if verbose:
             print("Config file found with: " + str(config.sections()))
             print("")
@@ -2043,7 +2076,9 @@ def default_config():
     global replace_shapes
     
     global use_tools
-        
+    
+    global color_terminal
+    
     verbose = True 
     compiler_opts = ""
     compilation_threads = 1
@@ -2054,6 +2089,7 @@ def default_config():
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
     use_tools = 0
+    color_terminal = 0
 
 
 # ---------------------------------------------

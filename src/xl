@@ -839,16 +839,21 @@ def files_in_path(mypath):
     return files
 
 
-def self_test():
-    delete(["delete","_test_project","-y"])
-
+def clean_test():
     clean(["clean","-y"]);
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
         printc(bcolors.FAIL, "[xl clean]  KO")
-        # print(bcolors.FAIL + "[xl clean]  KO" + bcolors.ENDC)
         exit()
+    else:
+        printc(bcolors.OKGREEN, "[xl clean]  OK")
+
+
+def self_test():
+    delete(["delete","_test_project","-y"])
+
+    clean_test()
 
     projects_before_create = list(["list"],False)
     
@@ -873,7 +878,8 @@ def self_test():
 
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
-    if len(built_files)!=files_after_clean+1:
+        
+    if len(built_files)!=2:
         printc(bcolors.FAIL, "[xl build]  KO")
         exit()
     else:
@@ -888,25 +894,26 @@ def self_test():
     else:
         printc(bcolors.OKGREEN, "[xl delete] OK")
 
-    clean(["clean","-y"]);
-    files_after_clean = len(files_in_path("../build"))
-
-    if files_after_clean>1:
-        printc(bcolors.FAIL, "[xl clean]  KO")
-        exit()
-    else:
-        printc(bcolors.OKGREEN, "[xl clean]  OK")
+    clean_test()
 
     return
 
 
+expected_files = {
+    "cc65_targets": 9, 
+    "z88dk_targets": 8, 
+    "cmoc_targets": 3, 
+    "lcc1802_targets": 1,
+    "stdio": 1
+    }
 
 
 # Self-test xl and native build
 def test(params):
-    if(len(params)<2) or params[1]=="self":
+    if (len(params)<2) or params[1]=="self":
         self_test()
     else:
+        clean_test()
         if params[1].startswith("z88dk_targets"):
             parallel = " -j " + compilation_threads
         else:
@@ -924,8 +931,25 @@ def test(params):
                              " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
             run_command_verbosely(make_command)   
         else:
-            print(bcolors.FAIL + "Parameter not recognized" + bcolors.ENDC)
+            printc(bcolors.FAIL, "Parameter not recognized")
             exit()
+    
+    built_files = files_in_path("../build")
+    if verbose: 
+        print("Number of built files: " + str(len(built_files)-1))
+        
+    if params[1] in expected_files.keys():
+        if verbose:
+            print("Built files: " + str(len(built_files)-1))
+            print("Expected files: " + str(expected_files[params[1]]))
+        if len(built_files)-1 != expected_files[params[1]]:
+            printc(bcolors.FAIL, "binaries KO")
+
+        else:
+            printc(bcolors.OKGREEN, "binaries OK")
+    
+    clean_test()
+    
     printc(bcolors.OKGREEN, "OK")
     
 

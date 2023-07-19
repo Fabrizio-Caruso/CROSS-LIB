@@ -102,11 +102,14 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
     global sccz80_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
            " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-           " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'"
+           " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
+           " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
+
 
     # return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
     # " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
@@ -518,10 +521,12 @@ def build(params):
             print("Extra optimization : " + zsdcc_extra_optimization)
             print("Compiler's options : " + compiler_opts)
             
-            print("sccz80_compiler_opts: " + sccz80_compiler_opts)
-            print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
-            print("cmoc_compiler_opts:   " + cmoc_compiler_opts)
-            print("cc65_compiler_opts:   " + cc65_compiler_opts) 
+            print("--------------------------")
+            print("sccz80_compiler_opts    : " + sccz80_compiler_opts)
+            print("zsdcc_compiler_opts     : " + zsdcc_compiler_opts)
+            print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
+            print("cc65_compiler_opts      : " + cc65_compiler_opts) 
+            print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts) 
             
             print("")
 
@@ -1991,6 +1996,7 @@ def read_config():
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     global native_compiler
     
@@ -2051,6 +2057,8 @@ def read_config():
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
+        lcc1802_compiler_opts = read_config_option("build","lcc1802_compiler_opts")
+
         
         native_compiler = read_config_option("build", "native_compiler")
         
@@ -2097,6 +2105,7 @@ def default_config():
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     global native_compiler
     
@@ -2127,6 +2136,7 @@ def default_config():
     native_compiler = "gcc"
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
+    lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
     use_tools = 0
     color_terminal = 0
 

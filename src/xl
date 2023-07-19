@@ -904,7 +904,8 @@ expected_files = {
     "z88dk_targets": 8, 
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
-    "stdio": 1
+    "stdio": 1,
+    "z88dk_targets_quick": 48
     }
 
 
@@ -927,7 +928,8 @@ def test(params):
                                                " -f makefiles.other/chase/tests/Makefile.tests"
             run_command_verbosely(make_command)
         elif params[1]=="z88dk_targets_quick":
-            make_command = GNU_MAKE + " -j " + compilation_threads + \
+            # parallel = ""
+            make_command = GNU_MAKE + parallel + \
                              " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
             run_command_verbosely(make_command)   
         else:

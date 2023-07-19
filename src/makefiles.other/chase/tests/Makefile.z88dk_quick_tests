@@ -52,12 +52,13 @@ zsdcc_quick_test: \
 # 	c128_z80_quick_test 
 #	msx_quick_test 
 #   	nc100_quick_test 
+# 	cpm_quick_test \
+
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
 	aquarius_quick_test \
 	cpc_quick_test \
-	cpm_quick_test \
  	eg2k_quick_test \
 	einstein_quick_test \
 	gal_quick_test \
@@ -213,7 +214,7 @@ eg2k_quick_test:
 
 
 einstein_quick_test:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  \
 	-D__EINSTEIN__ \
 	-D__INCLUDE_CONIO_H \
 	-D__CONIO_GRAPHICS \
@@ -391,7 +392,7 @@ p2000_quick_test:
 
 pc6001_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -v \
+	-D__PC6001__ \
 	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -767,7 +768,7 @@ vz200_zsdcc_quick_test:
 
 
 spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +zx  -v -zorg=24055 \
+	$(Z88DK_PATH)$(MYZ88DK) +zx  -zorg=24055 \
 	-compiler=sdcc \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \

@@ -39,8 +39,8 @@ include ./games/chase/Makefile.chase
 ####################################################################################################################
 # TODO: Fix
 # 	c128_z80_zsdcc_quick_test
+# 	aquarius_zsdcc_quick_test 
 zsdcc_quick_test: \
-	aquarius_zsdcc_quick_test \
 	mc1000_zsdcc_quick_test \
 	spectrum_zsdcc_quick_test \
 	svi_zsdcc_quick_test \
@@ -52,7 +52,8 @@ zsdcc_quick_test: \
 # 	c128_z80_quick_test 
 #	msx_quick_test 
 #   	nc100_quick_test 
-# 	cpm_quick_test \
+# 	cpm_quick_test 
+# 	x1_quick_test 
 
 sccz80_quick_test: \
 	abc80_quick_test \
@@ -88,16 +89,16 @@ sccz80_quick_test: \
 	trs80_quick_test \
 	vg5k_quick_test \
 	vz200_quick_test \
-	x1_quick_test \
 	z1013_quick_test \
 	z9001_quick_test \
 	zx80_quick_test \
 	zx81_quick_test 
 
 
+# 	zsdcc_quick_test	
+
 z88dk_quick_test: \
-	sccz80_quick_test \
-	zsdcc_quick_test	
+	sccz80_quick_test
 	
 
 ####################################################################################################################

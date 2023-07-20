@@ -932,12 +932,12 @@ def self_test():
 
 
 expected_files = {
-    "cc65_targets": 9, 
-    "z88dk_targets": 8, 
+    "cc65_targets": 8, 
+    "z88dk_targets": 6, 
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
     "stdio": 1,
-    "z88dk_targets_quick": 48
+    "z88dk_targets_quick": 39
     }
 
 

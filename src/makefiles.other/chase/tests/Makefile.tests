@@ -59,8 +59,7 @@ test_cc65_targets: \
     creativision \
     pet \
     c64 \
-    oric \
-    gamate
+    oric
 
 test_ack_targets: \
     pc8086_targets \
@@ -101,7 +100,6 @@ test_lcc1802_targets: \
 
 #     tiki100 
 test_z88dk_targets: \
-    aquarius_exp_4k \
     c128_z80_80col \
     cpc \
     cpm_z80_adm3a \

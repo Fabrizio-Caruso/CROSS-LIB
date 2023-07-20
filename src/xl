@@ -863,15 +863,18 @@ def clean_test():
 
     if files_after_clean>1:
         printc(bcolors.FAIL, "[xl clean]  KO")
-        exit()
+        return 0
     else:
         printc(bcolors.OKGREEN, "[xl clean]  OK")
+        return 1
 
 
 def self_test():
+    success = 1
+
     delete(["delete","_test_project","-y"])
 
-    clean_test()
+    success = clean_test()
 
     projects_before_create = list(["list"],False)
     
@@ -882,14 +885,14 @@ def self_test():
     
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(bcolors.FAIL, "[xl create] KO")
-        exit()
+        return 0
     else:
         printc(bcolors.OKGREEN, "[xl create] OK")
     
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
         printc(bcolors.FAIL,"[xl list]   KO") 
-        exit()
+        success = 0
     else:
         printc(bcolors.OKGREEN,"[xl list]   OK")
         
@@ -899,7 +902,7 @@ def self_test():
         
     if len(built_files)!=2:
         printc(bcolors.FAIL, "[xl build]  KO")
-        exit()
+        success=0
     else:
         printc(bcolors.OKGREEN, "[xl build]  OK")
 
@@ -908,13 +911,14 @@ def self_test():
     
     if project_dirs_after_delete != project_dirs_before_create:
         printc(bcolors.FAIL, "[xl delete] KO")
-        exit()
+        success=0
     else:
         printc(bcolors.OKGREEN, "[xl delete] OK")
 
-    clean_test()
+    if clean_test()==0:
+        success=0
 
-    return
+    return success
 
 
 expected_files = {
@@ -927,50 +931,65 @@ expected_files = {
     }
 
 
-# Self-test xl and native build
-def test(params):
-    if (len(params)<2) or params[1]=="self":
-        self_test()
+def targets_test(params):
+
+    success = clean_test()
+    if params[1].startswith("z88dk_targets"):
+        parallel = " -j " + compilation_threads
     else:
-        clean_test()
-        if params[1].startswith("z88dk_targets"):
-            parallel = " -j " + compilation_threads
-        else:
-            parallel = ""                
-        if params[1].endswith("_targets"):
-            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
-                                               " -f makefiles.other/chase/tests/Makefile.tests"
-            run_command_verbosely(make_command)
-        elif params[1]=="stdio":
-            make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
-                                               " -f makefiles.other/chase/tests/Makefile.tests"
-            run_command_verbosely(make_command)
-        elif params[1]=="z88dk_targets_quick":
-            # parallel = ""
-            make_command = GNU_MAKE + parallel + \
-                             " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-            run_command_verbosely(make_command)   
-        else:
-            printc(bcolors.FAIL, "Parameter not recognized")
-            exit()
-    
-    built_files = files_in_path("../build")
+        parallel = ""                
+    if params[1].endswith("_targets"):
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
+                                           " -f makefiles.other/chase/tests/Makefile.tests"
+        run_command_verbosely(make_command)
+    elif params[1]=="stdio":
+        make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
+                                           " -f makefiles.other/chase/tests/Makefile.tests"
+        run_command_verbosely(make_command)
+    elif params[1]=="z88dk_targets_quick":
+        # parallel = ""
+        make_command = GNU_MAKE + parallel + \
+                         " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        run_command_verbosely(make_command)   
+    else:
+        printc(bcolors.FAIL, "Parameter not recognized")
+        exit()
+
+    built_files = len(files_in_path("../build"))-1
     if verbose: 
-        print("Number of built files: " + str(len(built_files)-1))
+        print("Number of built files: " + str(built_files))
         
     if params[1] in expected_files.keys():
         if verbose:
-            print("Built files: " + str(len(built_files)-1))
+            print("Built files: " + str(built_files))
             print("Expected files: " + str(expected_files[params[1]]))
-        if len(built_files)-1 != expected_files[params[1]]:
+        if built_files != expected_files[params[1]]:
             printc(bcolors.FAIL, "binaries KO")
+            success=0
 
         else:
             printc(bcolors.OKGREEN, "binaries OK")
     
-    clean_test()
+    if clean_test()==0:
+        success=0
+    return success
+
+
+# Self-test xl and native build
+def test(params):
+    if (len(params)<2) or params[1]=="self":
+        if self_test():
+            printc(bcolors.OKGREEN, "TEST OK")
+        else:
+            printc(bcolors.FAIL, "TEST KO")
+        return
+    else:
+        if targets_test(params):
+            printc(bcolors.OKGREEN, "TEST OK")
+        else:
+            printc(bcolors.FAIL, "TEST KO")
+        return
     
-    printc(bcolors.OKGREEN, "OK")
     
 
 # List all projects    
@@ -1005,7 +1024,7 @@ def list(params, print_projects=True):
             print("")
     
     if verbose:
-        print("Found: " + str(count))
+        print("Projects found: " + str(count))
         print("")
 
     return count

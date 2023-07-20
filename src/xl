@@ -565,9 +565,6 @@ def build(params):
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
-            if verbose:
-                print("make_command: " + make_command)
-
             
             run_command_verbosely(make_command)
             

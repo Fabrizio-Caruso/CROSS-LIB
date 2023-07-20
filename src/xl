@@ -1,5 +1,7 @@
 #!/usr/bin/env python
- 
+
+from __future__ import print_function
+
 DEBUG_TARGET  = "ncurses_debug"
 
 NATIVE_TARGET = "ncurses_debug"
@@ -18,6 +20,7 @@ import os,sys,re
 import time
 
 import re
+
 
 from os import walk
 
@@ -127,11 +130,14 @@ def run_command_verbosely(command_string):
     os.system(command_string)
 
 
-def are_you_sure():
+def generic_input(str):
     if sys.version_info[0] < 3:
-        return raw_input("Are you sure [Y/N]? ").lower()
+        return raw_input(str)
     else:
-        return input("Are you sure [Y/N]? ").lower()
+        return input(str)
+
+def are_you_sure():
+    return generic_input("Are you sure [Y/N]? ").lower()
 
 
 def files_in_path(mypath):
@@ -476,6 +482,7 @@ def tools():
     run_command_verbosely(make_command)
         
 
+
 # Build a project (for a target or multiple targets)
 def build(params):
     
@@ -515,7 +522,13 @@ def build(params):
             compiler_opts = ""
 
         if verbose:
-            print("Project name       : " + game_dir)
+
+            print("Project name       : ", end="")
+            printc(bcolors.BOLD, game_dir)
+            
+            print("Target name        : ", end="")
+            printc(bcolors.UNDERLINE, target)
+
             print("Project type       : " + project_type)
             print("Number of threads  : " + threads)
             print("Extra optimization : " + zsdcc_extra_optimization)
@@ -1795,10 +1808,7 @@ def help(params):
             print("\nPress ENTER to continue...")
             time.sleep(1)
 
-            if python_version < 3:
-                raw_input()
-            else:
-                input()
+            generic_input("")
                 
             print("\nExample in 'src/examples/tiles/tile_shape0.txt':")
             print("...##...")
@@ -1878,10 +1888,7 @@ def help(params):
             print("\nPress ENTER to continue...")
             time.sleep(1)
 
-            if python_version < 3:
-                raw_input()
-            else:
-                input()
+            generic_input("")
             
             print("\nExamples:")
             print("\nxl build bomber vic20       \n  It builds Cross Bomber for the Commodore Vic 20 using CC65.")
@@ -2112,7 +2119,7 @@ def read_config():
         # TODO: Ask the user to continue or exit
     else:
         if verbose:
-            print("config.ini OK")
+            printc(bcolors.OKGREEN, "config.ini OK")
             print("")
 
 
@@ -2162,138 +2169,137 @@ def default_config():
 
 # ---------------------------------------------
 if __name__ == "__main__":
+    platform = sys.platform
+
+    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
+        GNU_MAKE="make"
+    else:
+        GNU_MAKE="gmake"
+
+    if(platform in ["cygwin", "msys"]):
+        NATIVE_EXTENSION="exe"
+    else:
+        NATIVE_EXTENSION="out"
+    
+    if python_version<=2 and python_subversion<7:
+        print("Python version not supported")
+        exit()
     try:
-        platform = sys.platform
-
-        if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
-            GNU_MAKE="make"
-        else:
-            GNU_MAKE="gmake"
-
-        if(platform in ["cygwin", "msys"]):
-            NATIVE_EXTENSION="exe"
-        else:
-            NATIVE_EXTENSION="out"
-        
-        if python_version<=2 and python_subversion<7:
-            print("Python version not supported")
-            exit()
-        try:
-            read_config()
-        except:
-            default_config()
-
-        if verbose:
-            print("----------------------------")
-            print("Cross-Lib `xl` helper script")
-            print("----------------------------")
-            print("Platform: " + platform)
-            print("Python:   " + str(python_version) + "." + str(python_subversion))
-
-                
-            print("GNU MAKE command: " + GNU_MAKE)
-            print("----------------------------")
-            print("")
-
-        
-
-        if len(sys.argv)<2:
-            print("You need to provide a command or a project name")
-            help(sys.argv[1:])
-            
-            print("")
-            print("")
-            print("--------------------------------------------------")
-            print("Interactive mode")
-            print("--------------------------------------------------")
-            print("")
-            
-            project_name = input("Insert project to build\n")
-            
-            if project_name=="" or project_name=="\n":
-                project_name="helloworld"
-                if verbose:
-                    printc(bcolors.WARNING,"Defaulting to helloworld")
-            
-            print("")
-            
-            target_name = input("Insert target name\n")
-            if target_name=="" or target_name=="\n":
-                target_name="ncurses"
-                if verbose:
-                    printc(bcolors.WARNING, "Defaulting to ncurses")
-            
-            print("")
-            time.sleep(1)
-            
-            params = ["build", project_name, target_name]
-        else:
-            params = sys.argv            
-            params = full_params(params)
-            
-        if params[1]=="run":
-            run(params[1:])
-        elif params[1]=="add":
-            add(params[1:])
-        elif params[1]=="remove":
-            remove(params[1:])
-        elif params[1]=="string":
-            string(params[1:])
-        elif params[1]=="commands":
-            commands(params[1:])
-        elif params[1]=="import":
-            import_from_source(params[1:],False)
-        elif params[1]=="rotate":
-            rip(params[1:],True)
-        elif params[1]=="rip":
-            rip(params[1:],False)
-        elif params[1]=="rebuild":
-            rebuild(params[1:])
-        elif params[1]=="make":
-            shapes(params[1:]);
-            rebuild(params[1:])    
-        elif params[1]=="rename":
-            rename(params[1:])
-        elif params[1]=="clone":
-            clone(params[1:])
-        elif params[1]=="show":
-            show(params[1:])
-        elif params[1]=="test":
-            test(params[1:])
-        elif params[1]=="tile":
-            tile(params[1:])
-        elif params[1]=="shapes":
-            shapes(params[1:])
-        elif params[1]=="extend":
-            extend(params[1:])
-        elif params[1]=="build":
-            build(params[1:])
-        elif params[1]=="manual":
-            manual()
-        elif params[1]=="files":
-            files()
-        elif params[1]=="size":
-            size(params[1:],0)
-        elif params[1]=="debug":
-            size(params[1:],1)
-        elif params[1]=="create":
-            create(params[1:])
-        elif params[1]=="clean":
-            if interactive_clean:
-                clean(params[1:])
-            else:
-                clean(params[1:]+["-y"])
-        elif params[1]=="reset":
-            reset(params[1:])
-        elif params[1]=="delete":
-            delete(params[1:])
-        elif params[1]=="list":
-            list(params[1:])
-        elif params[1]=="help":
-            help(params[1:])
-        elif params[1]=="tools":
-            tools()
-        else:
-            build(params)
+        read_config()
     except:
-        print("An error has occured!")
+        default_config()
+        print("WARNING: Using default config")
+
+
+    if verbose:
+        print("----------------------------")
+        printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script")
+        print("----------------------------")
+        print("Platform: " + platform)
+        print("Python:   " + str(python_version) + "." + str(python_subversion))
+
+            
+        print("GNU MAKE command: " + GNU_MAKE)
+        print("----------------------------")
+        print("")
+
+    
+
+    if len(sys.argv)<2:
+        print("You need to provide a command or a project name")
+        help(sys.argv[1:])
+        
+        print("")
+        print("")
+        print("--------------------------------------------------")
+        printc(bcolors.OKCYAN, "Interactive mode")
+        print("--------------------------------------------------")
+        print("")
+        
+        project_name = generic_input("Insert project to build\n")
+        
+        if project_name=="" or project_name=="\n":
+            project_name="helloworld"
+            if verbose:
+                printc(bcolors.WARNING,"Defaulting to helloworld")
+        
+        print("")
+        
+        target_name = generic_input("Insert target name\n")
+        if target_name=="" or target_name=="\n":
+            target_name="ncurses"
+            if verbose:
+                printc(bcolors.WARNING, "Defaulting to ncurses")
+        
+        print("")
+        time.sleep(1)
+        
+        params = ["build", project_name, target_name]
+    else:
+        params = sys.argv            
+        params = full_params(params)
+        
+    if params[1]=="run":
+        run(params[1:])
+    elif params[1]=="add":
+        add(params[1:])
+    elif params[1]=="remove":
+        remove(params[1:])
+    elif params[1]=="string":
+        string(params[1:])
+    elif params[1]=="commands":
+        commands(params[1:])
+    elif params[1]=="import":
+        import_from_source(params[1:],False)
+    elif params[1]=="rotate":
+        rip(params[1:],True)
+    elif params[1]=="rip":
+        rip(params[1:],False)
+    elif params[1]=="rebuild":
+        rebuild(params[1:])
+    elif params[1]=="make":
+        shapes(params[1:]);
+        rebuild(params[1:])    
+    elif params[1]=="rename":
+        rename(params[1:])
+    elif params[1]=="clone":
+        clone(params[1:])
+    elif params[1]=="show":
+        show(params[1:])
+    elif params[1]=="test":
+        test(params[1:])
+    elif params[1]=="tile":
+        tile(params[1:])
+    elif params[1]=="shapes":
+        shapes(params[1:])
+    elif params[1]=="extend":
+        extend(params[1:])
+    elif params[1]=="build":
+        build(params[1:])
+    elif params[1]=="manual":
+        manual()
+    elif params[1]=="files":
+        files()
+    elif params[1]=="size":
+        size(params[1:],0)
+    elif params[1]=="debug":
+        size(params[1:],1)
+    elif params[1]=="create":
+        create(params[1:])
+    elif params[1]=="clean":
+        if interactive_clean:
+            clean(params[1:])
+        else:
+            clean(params[1:]+["-y"])
+    elif params[1]=="reset":
+        reset(params[1:])
+    elif params[1]=="delete":
+        delete(params[1:])
+    elif params[1]=="list":
+        list(params[1:])
+    elif params[1]=="help":
+        help(params[1:])
+    elif params[1]=="tools":
+        tools()
+    else:
+        build(params)

@@ -2210,11 +2210,21 @@ if __name__ == "__main__":
             
             project_name = input("Insert project to build\n")
             
+            if project_name=="" or project_name=="\n":
+                project_name="helloworld"
+                if verbose:
+                    printc(bcolors.WARNING,"Defaulting to helloworld")
+            
             print("")
             
             target_name = input("Insert target name\n")
-            if target_name=="":
+            if target_name=="" or target_name=="\n":
                 target_name="ncurses"
+                if verbose:
+                    printc(bcolors.WARNING, "Defaulting to ncurses")
+            
+            print("")
+            time.sleep(1)
             
             params = ["build", project_name, target_name]
         else:

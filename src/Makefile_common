@@ -1203,7 +1203,7 @@ gamegear: $(ASSETS_PATH)/z88dk_xchase.asm
 laser500: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
-	$(INCLUDE_OPTS) \
+	$(INCLUDE_OPTS) -D_XL_NO_JOYSTICK \
 	-D__LASER500__  -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
 	-D__BIT_BANG_SOUND  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_LASER500_SLOWDOWN) \

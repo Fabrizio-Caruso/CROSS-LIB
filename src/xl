@@ -209,7 +209,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     
     projects_to_build = len(projects)
 
-    files_before = len(files_in_path("../build"))-1
+    # files_before = len(files_in_path("../build"))-1
     if verbose:
         print("Building " + str(projects_to_build) + " projects")
 
@@ -224,12 +224,8 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
 
         run_command_verbosely(make_command)
     
-    files_after = len(files_in_path("../build"))-1
+    # files_after = len(files_in_path("../build"))-1
     
-    if verbose:
-        print("New projects built: " + str(files_after-files_before))
-
-
 
 
 
@@ -289,6 +285,9 @@ def size(params,debug):
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
+    files_before = len(files_in_path("../build"))-1
+
+
     if(game_dir not in ["games", "examples", "projects", "all"]):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
@@ -315,6 +314,11 @@ def size(params,debug):
             multiple_size_build("projects",target,xsize,ysize,debug)
         else:
             return
+
+    files_after = len(files_in_path("../build"))-1
+    
+    if verbose:
+        print("New binaries built: " + str(files_after-files_before))
 
 
 # Rebuild a project, i.e., also rebuilds assets
@@ -488,6 +492,8 @@ def build(params):
         tools()
     else:
 
+        files_before = len(files_in_path("../build"))-1
+
         project_type = project_category(game_dir)
         parent_dir = project_type + "s"
 
@@ -566,7 +572,13 @@ def build(params):
                 multiple_build("examples",target,threads,zsdcc_extra_optimization)
                 multiple_build("projects",target,threads,zsdcc_extra_optimization)
             else:
-                return     
+                return    
+        
+        files_after = len(files_in_path("../build"))-1
+        
+        if verbose:
+            print("New binaries built: " + str(files_after-files_before))
+
 
 
 # Create a new project 

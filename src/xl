@@ -1,5 +1,7 @@
 #!/usr/bin/env python
- 
+
+from __future__ import print_function
+
 DEBUG_TARGET  = "ncurses_debug"
 
 NATIVE_TARGET = "ncurses_debug"
@@ -18,6 +20,7 @@ import os,sys,re
 import time
 
 import re
+
 
 from os import walk
 
@@ -102,11 +105,14 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
     global sccz80_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
            " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-           " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'"
+           " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
+           " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
+
 
     # return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
     # " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
@@ -117,18 +123,21 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 def run_command_verbosely(command_string):
     if verbose: 
         print("Going to run: ")
-        print(command_string)
+        printc(bcolors.BOLD, command_string)
     else:
         command_string+= " > /dev/null 2>&1"
 
     os.system(command_string)
 
 
-def are_you_sure():
+def generic_input(str):
     if sys.version_info[0] < 3:
-        return raw_input("Are you sure [Y/N]? ").lower()
+        return raw_input(str)
     else:
-        return input("Are you sure [Y/N]? ").lower()
+        return input(str)
+
+def are_you_sure():
+    return generic_input("Are you sure [Y/N]? ").lower()
 
 
 def files_in_path(mypath):
@@ -477,6 +486,7 @@ def tools():
     run_command_verbosely(make_command)
         
 
+
 # Build a project (for a target or multiple targets)
 def build(params):
     
@@ -518,16 +528,24 @@ def build(params):
             compiler_opts = ""
 
         if verbose:
-            print("Project name       : " + game_dir)
+
+            print("Project name       : ", end="")
+            printc(bcolors.BOLD, game_dir)
+            
+            print("Target name        : ", end="")
+            printc(bcolors.UNDERLINE, target)
+
             print("Project type       : " + project_type)
             print("Number of threads  : " + threads)
             print("Extra optimization : " + zsdcc_extra_optimization)
             print("Compiler's options : " + compiler_opts)
             
-            print("sccz80_compiler_opts: " + sccz80_compiler_opts)
-            print("zsdcc_compiler_opts:  " + zsdcc_compiler_opts)
-            print("cmoc_compiler_opts:   " + cmoc_compiler_opts)
-            print("cc65_compiler_opts:   " + cc65_compiler_opts) 
+            print("--------------------------")
+            print("sccz80_compiler_opts    : " + sccz80_compiler_opts)
+            print("zsdcc_compiler_opts     : " + zsdcc_compiler_opts)
+            print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
+            print("cc65_compiler_opts      : " + cc65_compiler_opts) 
+            print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts) 
             
             print("")
 
@@ -553,9 +571,6 @@ def build(params):
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
-            if verbose:
-                print("make_command: " + make_command)
-
             
             run_command_verbosely(make_command)
             
@@ -870,15 +885,18 @@ def clean_test():
 
     if files_after_clean>1:
         printc(bcolors.FAIL, "[xl clean]  KO")
-        exit()
+        return 0
     else:
         printc(bcolors.OKGREEN, "[xl clean]  OK")
+        return 1
 
 
 def self_test():
+    success = 1
+
     delete(["delete","_test_project","-y"])
 
-    clean_test()
+    success = clean_test()
 
     projects_before_create = list(["list"],False)
     
@@ -889,14 +907,14 @@ def self_test():
     
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(bcolors.FAIL, "[xl create] KO")
-        exit()
+        return 0
     else:
         printc(bcolors.OKGREEN, "[xl create] OK")
     
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
         printc(bcolors.FAIL,"[xl list]   KO") 
-        exit()
+        success = 0
     else:
         printc(bcolors.OKGREEN,"[xl list]   OK")
         
@@ -906,7 +924,7 @@ def self_test():
         
     if len(built_files)!=2:
         printc(bcolors.FAIL, "[xl build]  KO")
-        exit()
+        success=0
     else:
         printc(bcolors.OKGREEN, "[xl build]  OK")
 
@@ -915,69 +933,85 @@ def self_test():
     
     if project_dirs_after_delete != project_dirs_before_create:
         printc(bcolors.FAIL, "[xl delete] KO")
-        exit()
+        success=0
     else:
         printc(bcolors.OKGREEN, "[xl delete] OK")
 
-    clean_test()
+    if clean_test()==0:
+        success=0
 
-    return
+    return success
 
 
 expected_files = {
-    "cc65_targets": 9, 
-    "z88dk_targets": 8, 
+    "cc65_targets": 8, 
+    "z88dk_targets": 6, 
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
     "stdio": 1,
-    "z88dk_targets_quick": 48
+    "z88dk_targets_quick": 39
     }
+
+
+def targets_test(params):
+
+    success = clean_test()
+    if params[1].startswith("z88dk_targets"):
+        parallel = " -j " + compilation_threads
+    else:
+        parallel = ""                
+    if params[1].endswith("_targets"):
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
+                                           " -f makefiles.other/chase/tests/Makefile.tests"
+        run_command_verbosely(make_command)
+    elif params[1]=="stdio":
+        make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
+                                           " -f makefiles.other/chase/tests/Makefile.tests"
+        run_command_verbosely(make_command)
+    elif params[1]=="z88dk_targets_quick":
+        # parallel = ""
+        make_command = GNU_MAKE + parallel + \
+                         " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        run_command_verbosely(make_command)   
+    else:
+        printc(bcolors.FAIL, "Parameter not recognized")
+        exit()
+
+    built_files = len(files_in_path("../build"))-1
+    if verbose: 
+        print("Number of built files: " + str(built_files))
+        
+    if params[1] in expected_files.keys():
+        if verbose:
+            print("Built files: " + str(built_files))
+            print("Expected files: " + str(expected_files[params[1]]))
+        if built_files != expected_files[params[1]]:
+            printc(bcolors.FAIL, "binaries KO")
+            success=0
+
+        else:
+            printc(bcolors.OKGREEN, "binaries OK")
+    
+    if clean_test()==0:
+        success=0
+    return success
 
 
 # Self-test xl and native build
 def test(params):
     if (len(params)<2) or params[1]=="self":
-        self_test()
+        if self_test():
+            printc(bcolors.OKGREEN, "TEST OK")
+        else:
+            printc(bcolors.FAIL, "TEST KO")
+        return
     else:
-        clean_test()
-        if params[1].startswith("z88dk_targets"):
-            parallel = " -j " + compilation_threads
+        if targets_test(params):
+            printc(bcolors.OKGREEN, "TEST OK")
         else:
-            parallel = ""                
-        if params[1].endswith("_targets"):
-            make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
-                                               " -f makefiles.other/chase/tests/Makefile.tests"
-            run_command_verbosely(make_command)
-        elif params[1]=="stdio":
-            make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
-                                               " -f makefiles.other/chase/tests/Makefile.tests"
-            run_command_verbosely(make_command)
-        elif params[1]=="z88dk_targets_quick":
-            # parallel = ""
-            make_command = GNU_MAKE + parallel + \
-                             " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-            run_command_verbosely(make_command)   
-        else:
-            printc(bcolors.FAIL, "Parameter not recognized")
-            exit()
+            printc(bcolors.FAIL, "TEST KO")
+        return
     
-    built_files = files_in_path("../build")
-    if verbose: 
-        print("Number of built files: " + str(len(built_files)-1))
-        
-    if params[1] in expected_files.keys():
-        if verbose:
-            print("Built files: " + str(len(built_files)-1))
-            print("Expected files: " + str(expected_files[params[1]]))
-        if len(built_files)-1 != expected_files[params[1]]:
-            printc(bcolors.FAIL, "binaries KO")
-
-        else:
-            printc(bcolors.OKGREEN, "binaries OK")
-    
-    clean_test()
-    
-    printc(bcolors.OKGREEN, "OK")
     
 
 # List all projects    
@@ -1012,7 +1046,7 @@ def list(params, print_projects=True):
             print("")
     
     if verbose:
-        print("Found: " + str(count))
+        print("Projects found: " + str(count))
         print("")
 
     return count
@@ -1783,10 +1817,7 @@ def help(params):
             print("\nPress ENTER to continue...")
             time.sleep(1)
 
-            if python_version < 3:
-                raw_input()
-            else:
-                input()
+            generic_input("")
                 
             print("\nExample in 'src/examples/tiles/tile_shape0.txt':")
             print("...##...")
@@ -1866,10 +1897,7 @@ def help(params):
             print("\nPress ENTER to continue...")
             time.sleep(1)
 
-            if python_version < 3:
-                raw_input()
-            else:
-                input()
+            generic_input("")
             
             print("\nExamples:")
             print("\nxl build bomber vic20       \n  It builds Cross Bomber for the Commodore Vic 20 using CC65.")
@@ -2003,6 +2031,7 @@ def read_config():
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     global native_compiler
     
@@ -2063,6 +2092,8 @@ def read_config():
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
+        lcc1802_compiler_opts = read_config_option("build","lcc1802_compiler_opts")
+
         
         native_compiler = read_config_option("build", "native_compiler")
         
@@ -2097,7 +2128,7 @@ def read_config():
         # TODO: Ask the user to continue or exit
     else:
         if verbose:
-            print("config.ini OK")
+            printc(bcolors.OKGREEN, "config.ini OK")
             print("")
 
 
@@ -2109,6 +2140,7 @@ def default_config():
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
+    global lcc1802_compiler_opts
 
     global native_compiler
     
@@ -2139,118 +2171,144 @@ def default_config():
     native_compiler = "gcc"
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
+    lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
     use_tools = 0
     color_terminal = 0
 
 
 # ---------------------------------------------
 if __name__ == "__main__":
+    platform = sys.platform
+
+    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
+        GNU_MAKE="make"
+    else:
+        GNU_MAKE="gmake"
+
+    if(platform in ["cygwin", "msys"]):
+        NATIVE_EXTENSION="exe"
+    else:
+        NATIVE_EXTENSION="out"
+    
+    if python_version<=2 and python_subversion<7:
+        print("Python version not supported")
+        exit()
     try:
-        platform = sys.platform
-
-        if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
-            GNU_MAKE="make"
-        else:
-            GNU_MAKE="gmake"
-
-        if(platform in ["cygwin", "msys"]):
-            NATIVE_EXTENSION="exe"
-        else:
-            NATIVE_EXTENSION="out"
-        
-        if python_version<=2 and python_subversion<7:
-            print("Python version not supported")
-            exit()
-        try:
-            read_config()
-        except:
-            default_config()
-
-        if verbose:
-            print("----------------------------")
-            print("Cross-Lib `xl` helper script")
-            print("----------------------------")
-            print("Platform: " + platform)
-            print("Python:   " + str(python_version) + "." + str(python_subversion))
-
-                
-            print("GNU MAKE command: " + GNU_MAKE)
-            print("----------------------------")
-            print("")
-
-        
-        if len(sys.argv)<2:
-            print("You need to provide a command or a project name")
-            help(sys.argv[1:])
-            exit()
-            
-        params = sys.argv
-        
-        params = full_params(params)
-            
-        if params[1]=="run":
-            run(params[1:])
-        elif params[1]=="add":
-            add(params[1:])
-        elif params[1]=="remove":
-            remove(params[1:])
-        elif params[1]=="string":
-            string(params[1:])
-        elif params[1]=="commands":
-            commands(params[1:])
-        elif params[1]=="import":
-            import_from_source(params[1:],False)
-        elif params[1]=="rotate":
-            rip(params[1:],True)
-        elif params[1]=="rip":
-            rip(params[1:],False)
-        elif params[1]=="rebuild":
-            rebuild(params[1:])
-        elif params[1]=="make":
-            shapes(params[1:]);
-            rebuild(params[1:])    
-        elif params[1]=="rename":
-            rename(params[1:])
-        elif params[1]=="clone":
-            clone(params[1:])
-        elif params[1]=="show":
-            show(params[1:])
-        elif params[1]=="test":
-            test(params[1:])
-        elif params[1]=="tile":
-            tile(params[1:])
-        elif params[1]=="shapes":
-            shapes(params[1:])
-        elif params[1]=="extend":
-            extend(params[1:])
-        elif params[1]=="build":
-            build(params[1:])
-        elif params[1]=="manual":
-            manual()
-        elif params[1]=="files":
-            files()
-        elif params[1]=="size":
-            size(params[1:],0)
-        elif params[1]=="debug":
-            size(params[1:],1)
-        elif params[1]=="create":
-            create(params[1:])
-        elif params[1]=="clean":
-            if interactive_clean:
-                clean(params[1:])
-            else:
-                clean(params[1:]+["-y"])
-        elif params[1]=="reset":
-            reset(params[1:])
-        elif params[1]=="delete":
-            delete(params[1:])
-        elif params[1]=="list":
-            list(params[1:])
-        elif params[1]=="help":
-            help(params[1:])
-        elif params[1]=="tools":
-            tools()
-        else:
-            build(params)
+        read_config()
     except:
-        print("An error has occured!")
+        default_config()
+        print("WARNING: Using default config")
+
+
+    if verbose:
+        print("----------------------------")
+        printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script")
+        print("----------------------------")
+        print("Platform: " + platform)
+        print("Python:   " + str(python_version) + "." + str(python_subversion))
+
+            
+        print("GNU MAKE command: " + GNU_MAKE)
+        print("----------------------------")
+        print("")
+
+    
+
+    if len(sys.argv)<2:
+        print("You need to provide a command or a project name")
+        help(sys.argv[1:])
+        
+        print("")
+        print("")
+        print("--------------------------------------------------")
+        printc(bcolors.OKCYAN, "Interactive mode")
+        print("--------------------------------------------------")
+        print("")
+        
+        project_name = generic_input("Insert project to build\n")
+        
+        if project_name=="" or project_name=="\n":
+            project_name="helloworld"
+            if verbose:
+                printc(bcolors.WARNING,"Defaulting to helloworld")
+        
+        print("")
+        
+        target_name = generic_input("Insert target name\n")
+        if target_name=="" or target_name=="\n":
+            target_name="ncurses"
+            if verbose:
+                printc(bcolors.WARNING, "Defaulting to ncurses")
+        
+        print("")
+        time.sleep(1)
+        
+        params = ["build", project_name, target_name]
+    else:
+        params = sys.argv            
+        params = full_params(params)
+        
+    if params[1]=="run":
+        run(params[1:])
+    elif params[1]=="add":
+        add(params[1:])
+    elif params[1]=="remove":
+        remove(params[1:])
+    elif params[1]=="string":
+        string(params[1:])
+    elif params[1]=="commands":
+        commands(params[1:])
+    elif params[1]=="import":
+        import_from_source(params[1:],False)
+    elif params[1]=="rotate":
+        rip(params[1:],True)
+    elif params[1]=="rip":
+        rip(params[1:],False)
+    elif params[1]=="rebuild":
+        rebuild(params[1:])
+    elif params[1]=="make":
+        shapes(params[1:]);
+        rebuild(params[1:])    
+    elif params[1]=="rename":
+        rename(params[1:])
+    elif params[1]=="clone":
+        clone(params[1:])
+    elif params[1]=="show":
+        show(params[1:])
+    elif params[1]=="test":
+        test(params[1:])
+    elif params[1]=="tile":
+        tile(params[1:])
+    elif params[1]=="shapes":
+        shapes(params[1:])
+    elif params[1]=="extend":
+        extend(params[1:])
+    elif params[1]=="build":
+        build(params[1:])
+    elif params[1]=="manual":
+        manual()
+    elif params[1]=="files":
+        files()
+    elif params[1]=="size":
+        size(params[1:],0)
+    elif params[1]=="debug":
+        size(params[1:],1)
+    elif params[1]=="create":
+        create(params[1:])
+    elif params[1]=="clean":
+        if interactive_clean:
+            clean(params[1:])
+        else:
+            clean(params[1:]+["-y"])
+    elif params[1]=="reset":
+        reset(params[1:])
+    elif params[1]=="delete":
+        delete(params[1:])
+    elif params[1]=="list":
+        list(params[1:])
+    elif params[1]=="help":
+        help(params[1:])
+    elif params[1]=="tools":
+        tools()
+    else:
+        build(params)

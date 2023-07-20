@@ -2196,14 +2196,30 @@ if __name__ == "__main__":
             print("")
 
         
+
         if len(sys.argv)<2:
             print("You need to provide a command or a project name")
             help(sys.argv[1:])
-            exit()
             
-        params = sys.argv
-        
-        params = full_params(params)
+            print("")
+            print("")
+            print("--------------------------------------------------")
+            print("Interactive mode")
+            print("--------------------------------------------------")
+            print("")
+            
+            project_name = input("Insert project to build\n")
+            
+            print("")
+            
+            target_name = input("Insert target name\n")
+            if target_name=="":
+                target_name="ncurses"
+            
+            params = ["build", project_name, target_name]
+        else:
+            params = sys.argv            
+            params = full_params(params)
             
         if params[1]=="run":
             run(params[1:])

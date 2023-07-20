@@ -2,8 +2,22 @@
 
 
 -------------------------------------------
+## SHURIKEN
+![Vic20](/snapshots/XShuriken_Vic20_gameplay.jpg)
+![Vic20](/snapshots/XShuriken_Vic20_title.jpg)
 
-## CROSS VERBIX
+
+CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (down rotate), L(move right, right rotate), SPACE (check word)
+
+1. Commodore Vic 20: 
+https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_vic20_exp_16k.prg
+
+2. Video Technology Laser 500: 
+https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_laser500.bin
+
+
+
+## VERBIX
 ![Vic20](/snapshots/XVerbix_Vic20_gameplay.jpg)
 ![Vic20](/snapshots/XVerbix_Vic20_title.jpg)
 
@@ -22,7 +36,7 @@ https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/C
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vz200_24k.vz
 
 
-## CROSS HORDE
+## HORDE
 
 ![CPC](../snapshots/XHorde_CPC.png)
 ![Atari](../snapshots/XHorde_A8.png)
@@ -68,7 +82,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XHorde1.0
 
 -------------------------------------------
 
-## CROSS SNAKE - THE GAME
+## SNAKE
 
 ![MSX](../snapshots/XSnake_MSX2.png)
 ![GB](../snapshots/XSnake_GB.png)
@@ -121,7 +135,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XSnake2.0
 
 -------------------------------------------
 
-## CROSS BOMBER - THE GAME
+## BOMBER
 
 ![Atari](../snapshots/XBomber_A8.png)
  
@@ -161,7 +175,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XBomber
 
 -------------------------------------------
 
-## CROSS SHOOT - THE GAME 
+## SHOOT 
 
 ![SMS](../snapshots/XShoot_sms.png)
 
@@ -206,7 +220,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XShootRebuild
 
 -------------------------------------------
 
-## CROSS CHASE - THE GAME 
+## CHASE 
 
 ![Atari](../snapshots/XChase_A8.png)
 

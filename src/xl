@@ -1830,7 +1830,7 @@ def help(params):
 
         elif params[1]=="shapes":
             printc(bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>\n")
-            print("xl shapes <project> <[optional] target>")
+            printc(bcolors.BOLD,"xl shapes <project> <[optional] target>\n")
             print("It converts all shape files into tiles and stores them as such in the project.") 
             print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
             print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")

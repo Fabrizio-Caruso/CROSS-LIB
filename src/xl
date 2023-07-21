@@ -78,18 +78,6 @@ SHORT_COMMANDS_LIST = \
     }
 
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-
 def printc(color,text):    
     if(color_terminal):
         print(color + text + bcolors.ENDC)
@@ -2141,7 +2129,7 @@ if __name__ == "__main__":
     else:
         NATIVE_EXTENSION="out"
     
-    if python_version<=2 and python_subversion<7:
+    if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")
         exit()
 

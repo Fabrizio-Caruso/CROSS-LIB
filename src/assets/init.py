@@ -30,17 +30,3 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-
-# verbose = True 
-# compiler_opts = ""
-# compilation_threads = 1
-# zsdcc_compiler_opts = ""
-# sccz80_compiler_opts = ""
-# cmoc_compiler_opts = ""
-# native_compiler = "gcc"
-# tool_compiler = "gcc"  
-# cc65_compiler_opts = "-O -Cl"
-# lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
-# use_tools = 0
-# color_terminal = 0
-

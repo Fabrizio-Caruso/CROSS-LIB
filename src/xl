@@ -96,9 +96,9 @@ def printc(color,text):
     global color_terminal
     
     if(color_terminal):
-        print(color + text + bcolors.ENDC)
+        print(color + text + bcolors.ENDC, end="")
     else:
-        print(text)
+        print(text, end="")
 
 
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
@@ -124,7 +124,7 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 def run_command_verbosely(command_string):
     if verbose: 
         print("Going to run: ")
-        printc(bcolors.BOLD, command_string)
+        printc(bcolors.BOLD, command_string+"\n")
     else:
         command_string+= " > /dev/null 2>&1"
 
@@ -221,7 +221,11 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
 
     # files_before = len(files_in_path("../build"))-1
     if verbose:
-        print("Building " + str(projects_to_build) + " projects")
+        print("Building " + str(projects_to_build) + " projects: ", end="")
+        for project_name in projects:
+            printc(bcolors.OKCYAN,project_name+" ")
+        print("")
+
 
     for project_name in projects:
         make_command = \
@@ -531,10 +535,10 @@ def build(params):
         if verbose:
 
             print("Project name       : ", end="")
-            printc(bcolors.BOLD, game_dir)
+            printc(bcolors.BOLD, game_dir+"\n")
             
             print("Target name        : ", end="")
-            printc(bcolors.UNDERLINE, target)
+            printc(bcolors.UNDERLINE, target+"\n")
 
             print("Project type       : " + project_type)
             print("Number of threads  : " + threads)
@@ -885,10 +889,10 @@ def clean_test():
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        printc(bcolors.FAIL, "[xl clean]  KO")
+        printc(bcolors.FAIL, "[xl clean]  KO\n")
         return 0
     else:
-        printc(bcolors.OKGREEN, "[xl clean]  OK")
+        printc(bcolors.OKGREEN, "[xl clean]  OK\n")
         return 1
 
 
@@ -907,36 +911,36 @@ def self_test():
     project_dirs_after_create = len(dirs_in_path("./projects"))
     
     if project_dirs_after_create!=project_dirs_before_create+1:
-        printc(bcolors.FAIL, "[xl create] KO")
+        printc(bcolors.FAIL, "[xl create] KO\n")
         return 0
     else:
-        printc(bcolors.OKGREEN, "[xl create] OK")
+        printc(bcolors.OKGREEN, "[xl create] OK\n")
     
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
-        printc(bcolors.FAIL,"[xl list]   KO") 
+        printc(bcolors.FAIL,"[xl list]   KO\n") 
         success = 0
     else:
-        printc(bcolors.OKGREEN,"[xl list]   OK")
+        printc(bcolors.OKGREEN,"[xl list]   OK\n")
         
 
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
         
     if len(built_files)!=2:
-        printc(bcolors.FAIL, "[xl build]  KO")
+        printc(bcolors.FAIL, "[xl build]  KO\n")
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl build]  OK")
+        printc(bcolors.OKGREEN, "[xl build]  OK\n")
 
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
     if project_dirs_after_delete != project_dirs_before_create:
-        printc(bcolors.FAIL, "[xl delete] KO")
+        printc(bcolors.FAIL, "[xl delete] KO\n")
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl delete] OK")
+        printc(bcolors.OKGREEN, "[xl delete] OK\n")
 
     if clean_test()==0:
         success=0
@@ -975,7 +979,7 @@ def targets_test(params):
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command_verbosely(make_command)   
     else:
-        printc(bcolors.FAIL, "Parameter not recognized")
+        printc(bcolors.FAIL, "Parameter not recognized\n")
         exit()
 
     built_files = len(files_in_path("../build"))-1
@@ -987,11 +991,11 @@ def targets_test(params):
             print("Built files: " + str(built_files))
             print("Expected files: " + str(expected_files[params[1]]))
         if built_files != expected_files[params[1]]:
-            printc(bcolors.FAIL, "binaries KO")
+            printc(bcolors.FAIL, "binaries KO\n")
             success=0
 
         else:
-            printc(bcolors.OKGREEN, "binaries OK")
+            printc(bcolors.OKGREEN, "binaries OK\n")
     
     if clean_test()==0:
         success=0
@@ -1002,15 +1006,15 @@ def targets_test(params):
 def test(params):
     if (len(params)<2) or params[1]=="self":
         if self_test():
-            printc(bcolors.OKGREEN, "TEST OK")
+            printc(bcolors.OKGREEN, "TEST OK\n")
         else:
-            printc(bcolors.FAIL, "TEST KO")
+            printc(bcolors.FAIL, "TEST KO\n")
         return
     else:
         if targets_test(params):
-            printc(bcolors.OKGREEN, "TEST OK")
+            printc(bcolors.OKGREEN, "TEST OK\n")
         else:
-            printc(bcolors.FAIL, "TEST KO")
+            printc(bcolors.FAIL, "TEST KO\n")
         return
     
     
@@ -1035,7 +1039,7 @@ def list(params, print_projects=True):
 
     for mypath in project_dirs:
         if print_projects:
-            print("["+mypath+"]")
+            printc(bcolors.BOLD, "["+mypath+"]\n")
         for (dirpath, dirnames, filenames) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
@@ -1432,12 +1436,15 @@ def shapes(params):
 def commands(params):
     # Show full length commands
     for command, description in COMMANDS_DESCRIPTIONS.items():
-        print(command + " -> " + description)
+        printc(bcolors.BOLD, command)
+        print(" -> " + description)
 
     # Show short-hands
     print("")
     for short_command in SHORT_COMMANDS_LIST.items():
-        print(short_command[0] + " -> " + short_command[1])
+        printc(bcolors.BOLD, short_command[0])
+        print(" -> ",end="")
+        printc(bcolors.BOLD, short_command[1]+"\n")
 
 
 # Show tile shapes of a given project
@@ -1598,12 +1605,12 @@ def help(params):
     elif params[1] in COMMANDS_DESCRIPTIONS.keys():
 
         print("Help on ", end="") 
-        printc(bcolors.OKCYAN, params[1])
+        printc(bcolors.OKCYAN, params[1]+"\n")
         print("It " + COMMANDS_DESCRIPTIONS[params[1]] + "\n")
         params = full_params(params)
 
         if params[1]=="add":
-            printc(bcolors.BOLD,"\nxl add <project> <target>")
+            printc(bcolors.BOLD,"\nxl add <project> <target>\n")
             print("")
             print("It adds support for the new target <target> into <project> by modifying its Makefile.")
             print("")
@@ -1613,20 +1620,20 @@ def help(params):
             print("then you can add support for the 'einstein' target to it with")
             print("xl add foo einstein")
         elif params[1]=="config":
-            printc(bcolors.BOLD,"\nxl config")
+            printc(bcolors.BOLD,"\nxl config\n")
             print("")
             print("It displays the configuration as read from config.ini")
             print("Example:")
             print("xl config")   
         elif params[1]=="extend":
-            printc(bcolors.BOLD,"\nxl extend <project>")
+            printc(bcolors.BOLD,"\nxl extend <project>\n")
             print("")
             print("It generates candidate shapes of different sizes from the 8x8 shapes of <project>.")
             print("Example:")
             print("In order to generate candidate shapes for foo using 8x8 shapes, you can do:")     
             print("xl extend foo")
         elif params[1]=="remove":
-            printc(bcolors.BOLD,"\nxl remove <project> <target>")
+            printc(bcolors.BOLD,"\nxl remove <project> <target>\n")
             print("")
             print("It removes support for the new target <target> into <project> by modifying its Makefile.")
             print("Remark: It does so by searching a regex in the concerned Makefile.")
@@ -1639,7 +1646,7 @@ def help(params):
             print("then you can remove support for the 'einstein' target to it with")
             print("xl remove foo einstein")
         elif params[1]=="make":
-            printc(bcolors.BOLD,"\nxl make <project> <target>")
+            printc(bcolors.BOLD,"\nxl make <project> <target>\n")
             print("")
             print("It re-builds <project> for <target> and its assets by using the pictorial text files in the shapes directory.")
             print("It is equivalent to:")
@@ -1650,14 +1657,14 @@ def help(params):
             print("xl make foo vic20")
             print("builds the project foo and its assets from the pictorial text file for the Vic 20")
         elif params[1]=="tools":
-            printc(bcolors.BOLD,"\nxl tools")
+            printc(bcolors.BOLD,"\nxl tools\n")
             print("\n(or xl build tools)")
             print("")
             print("It builds some post-processing tools from their source code.")
             print("")
             print("This command has to be run only once to build the tools. The tools are used by few targets to generate ready to use images.")
         elif params[1]=="rename":
-            printc(bcolors.BOLD,"\nxl rename <old project name> <new project name>")   
+            printc(bcolors.BOLD,"\nxl rename <old project name> <new project name>\n")   
             print("It renames an existing user-defined project <old project name> to <new project name>.")
             print("")
             print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
@@ -1668,7 +1675,7 @@ def help(params):
             print("then you can rename it to 'bar' with")
             print("xl rename foo bar")
         elif params[1]=="clone":
-            printc(bcolors.BOLD,"\nxl clone <source project> <target project>")   
+            printc(bcolors.BOLD,"\nxl clone <source project> <target project>\n")   
             print("It clones an existing project of any type to create a new user-defined project.")
             print("")
             print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
@@ -1681,7 +1688,7 @@ def help(params):
             print("you can further clone it with:")
             print("xl clone foo bar")
         elif params[1]=="show":
-            printc(bcolors.BOLD,"xl show <project> <[optional] XTileSize> <[optional] YTileSize> <[optional] TileIndex>.")
+            printc(bcolors.BOLD,"xl show <project> <[optional] XTileSize> <[optional] YTileSize> <[optional] TileIndex>.\n")
             print("It displays the shape of graphics tiles of a given project.")
             print("")
             print("<project>")
@@ -1708,7 +1715,7 @@ def help(params):
             print("..####..")
             
         elif params[1]=="size":
-            printc(bcolors.BOLD,"xl size <project> <XSize> <YSize>")
+            printc(bcolors.BOLD,"xl size <project> <XSize> <YSize>\n")
             print("It builds <project> for the native host with screen size provided by <XSize> and <YSize>.")
             print("The built binaries will be in the 'build' directory.")
 
@@ -1719,8 +1726,8 @@ def help(params):
             print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
 
         elif params[1]=="run":
-            printc(bcolors.BOLD,"xl run <project> <[optional] xsize> <[optional] ysize>")
-            printc(bcolors.BOLD,"xl run <project> <[optional] target>")
+            printc(bcolors.BOLD,"xl run <project> <[optional] xsize> <[optional] ysize>\n")
+            printc(bcolors.BOLD,"xl run <project> <[optional] target>\n")
             print("If no target is specified, it runs the previously compiled native version of <project>.")
             print("If integer parameters <xsize> and <ysize> are provided, then it runs the version of those sizes.")
             print("")
@@ -1741,10 +1748,10 @@ def help(params):
             print("xl run snake 16 16")
             print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
         elif params[1]=="manual":
-            printc(bcolors.BOLD,"xl manual")
+            printc(bcolors.BOLD,"xl manual\n")
             print("It displays and describes CROSS-LIB APIs")
         elif params[1]=="string":
-            printc(bcolors.BOLD,"xl string <string>")
+            printc(bcolors.BOLD,"xl string <string>\n")
             print("It converts a string litteral into a concatenation of")
             print('_XL_A,..., _XL_Z, _XL_a, ..., _XL_z, _XL_SPACE, "0", ..., "9"')
             print("<string>")
@@ -1754,12 +1761,12 @@ def help(params):
             print('xl string "1 Hello World 2"')
             print('"1" _XL_SPACE _XL_H _XL_e _XL_l _XL_l _XL_o _XL_SPACE _XL_W _XL_o _XL_r _XL_l _XL_d _XL_SPACE "2"')
         elif params[1]=="rebuild":
-            printc(bcolors.BOLD,"xl rebuild <project> <[optional] target>")
+            printc(bcolors.BOLD,"xl rebuild <project> <[optional] target>\n")
             print("It rebuilds <project>.")
             print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
             print("Use 'xl help reset' and 'xl help build' for more information")
         elif params[1]=="import":
-            printc(bcolors.BOLD,"xl import <source_file> <[optional] project>")
+            printc(bcolors.BOLD,"xl import <source_file> <[optional] project>\n")
             print("")
             print("<source_file>")
             print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -1777,7 +1784,7 @@ def help(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rip":
-            printc(bcolors.BOLD,"xl rip <source_file> <[optional] project>")
+            printc(bcolors.BOLD,"xl rip <source_file> <[optional] project>\n")
             print("")
             print("<source_file>")
             print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -1793,7 +1800,7 @@ def help(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rotate":
-            printc(bcolors.BOLD,"xl rotate <source_file> <[optional] project>")
+            printc(bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")
             print("It works similarly to 'xl rip <source> <[optional] project>' but rotates the result.")
             print("")
@@ -1811,7 +1818,7 @@ def help(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="tile":
-            printc(bcolors.BOLD,"xl tile <shape_file> <[optional] project> <[optional] tile_index>")
+            printc(bcolors.BOLD,"xl tile <shape_file> <[optional] project> <[optional] tile_index>\n")
             print("It converts the pictorial text file file <shape_file> into a line that can be used as an asset file.")
             print("")  
             print("<shape_file>")
@@ -1846,7 +1853,7 @@ def help(params):
             print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
 
         elif params[1]=="shapes":
-            printc(bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>")
+            printc(bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>\n")
             print("xl shapes <project> <[optional] target>")
             print("It converts all shape files into tiles and stores them as such in the project.") 
             print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
@@ -1860,7 +1867,7 @@ def help(params):
             print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
             
         elif params[1]=="test":
-            printc(bcolors.BOLD,"xl test <[optional] params>")
+            printc(bcolors.BOLD,"xl test <[optional] params>\n")
             print("It runs some operations to test 'xl'.")
             print("")
             print("<params>")
@@ -1885,11 +1892,11 @@ def help(params):
             
         elif params[1]=="files" or params[1]=="f":
             printc(bcolors.BOLD,"xl files")
-            print("It shows the built binary files (the conent of the `build` directory).")
+            print("It shows the built binary files (the conent of the `build` directory).\n")
             print("Remark: 'xl files' can be shorten with `xl f`.")
             
         elif params[1]=="build":
-            printc(bcolors.BOLD,"xl build <project> <[optional] target>")
+            printc(bcolors.BOLD,"xl build <project> <[optional] target>\n")
             print("It builds <project> for <target>.")
             print("Remark: The 'build' command can be omitted.")
             print("The built binaries will be in the 'build' directory.")
@@ -1918,7 +1925,7 @@ def help(params):
             print("\nxl projects all             \n  It builds all built-in projects for all supported targets using all supported necessary compilers.")
             print("\nxl all c16                  \n  It builds all projects (games and examples and user-defined projects) for the Commodore 264 series using CC65.")
         elif params[1]=="create":
-            printc(bcolors.BOLD,"xl create <project> <[optional] type>")
+            printc(bcolors.BOLD,"xl create <project> <[optional] type>\n")
             print("It creates <project>.")
             
             print("\n<type>")
@@ -1930,7 +1937,7 @@ def help(params):
             print("\nxl create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
             print("\nxl create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
         elif params[1]=="delete":
-            printc(bcolors.BOLD,"xl delete <project> <[optiona] interactive>")
+            printc(bcolors.BOLD,"xl delete <project> <[optiona] interactive>\n")
             print("It removes <project>, i.e., it deletes its folder with its content (source code, graphics assets, makefile).")
             
             print("\n<project>")
@@ -1943,7 +1950,7 @@ def help(params):
             print("\nxl delete foo               \n  It deletes the project 'foo'.")
             print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")   
         elif params[1]=="reset":
-            printc(bcolors.BOLD,"xl reset <[optional] project>")
+            printc(bcolors.BOLD,"xl reset <[optional] project>\n")
             print("It deletes temporary files created during the build process.")
             print("\n<project>")
             print("If no <project> is passed, only non-project specific temporary files are deleted.") 
@@ -1954,7 +1961,7 @@ def help(params):
             print("\nxl reset                    \n  It deletes non-project specific temporary files.")
             print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
         elif params[1]=="clean": 
-            printc(bcolors.BOLD,"xl clean <[optional] project>")
+            printc(bcolors.BOLD,"xl clean <[optional] project>\n")
             print("It deletes both built binaries and temporary files created during the build process.")
             print("\n<project>")
             print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.") 
@@ -1968,7 +1975,7 @@ def help(params):
             print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
 
         elif params[1]=="list" or params[1]=="l":  
-            printc(bcolors.BOLD,"xl list <[optional] params>")
+            printc(bcolors.BOLD,"xl list <[optional] params>\n")
             print("It lists current projects in a given category or all projects.")
             print("")
             print("<params>")
@@ -1979,11 +1986,11 @@ def help(params):
             print("xl list projects              \n  It lists all user-defined projects") 
             
         elif params[1]=="commands":
-            printc(bcolors.BOLD,"xl commands")
+            printc(bcolors.BOLD,"xl commands\n")
             print("It displays the available commands.")
             
         elif params[1]=="help" or params[1]=="h":
-            printc(bcolors.BOLD,"xl help <[optional] command>")
+            printc(bcolors.BOLD,"xl help <[optional] command>\n")
             print("It displays help instructions.")
             
             
@@ -2080,7 +2087,7 @@ def read_config():
         color_terminal = read_config_option("terminal","color")
         
         if verbose and color_terminal:
-            printc(bcolors.OKBLUE, "Color terminal ON")
+            printc(bcolors.OKBLUE, "Color terminal ON\n")
         else:
             print("Color terminal OFF")
         
@@ -2137,7 +2144,7 @@ def read_config():
         # TODO: Ask the user to continue or exit
     else:
         if verbose:
-            printc(bcolors.OKGREEN, "config.ini OK")
+            printc(bcolors.OKGREEN, "config.ini OK\n")
             print("")
 
 
@@ -2187,14 +2194,14 @@ def default_config():
 
 def display_config():
     
-    printc(bcolors.BOLD,"[terminal]")
+    printc(bcolors.BOLD,"[terminal]\n")
     
     print("verbose: " + str(verbose))
     print("color_terminal: " + str(color_terminal))
 
     print("")
     
-    printc(bcolors.BOLD,"[build]")
+    printc(bcolors.BOLD,"[build]\n")
     print("compilation_threads: " + str(compilation_threads))
     
     
@@ -2209,24 +2216,24 @@ def display_config():
 
     print("")
     
-    printc(bcolors.BOLD,"[clean]")
+    printc(bcolors.BOLD,"[clean]\n")
     print("interactive_clean: " + str(interactive_clean))
 
 
     print("")
-    printc(bcolors.BOLD,"[run]")
+    printc(bcolors.BOLD,"[run]\n")
     print("vice_path: " +  vice_path)
     print("vice_rom_path: " +  vice_rom_path)
     print("mame_path: " +  mame_path)
     print("mame_rom_path: " +  mame_rom_path)
 
     print("")
-    printc(bcolors.BOLD,"[extend]")
+    printc(bcolors.BOLD,"[extend]\n")
     print("extend_algorithm: " +  extend_algorithm)
     print("replace_shapes: " +  str(replace_shapes))
 
     print("")
-    printc(bcolors.BOLD,"[tools]")
+    printc(bcolors.BOLD,"[tools]\n")
     print("use_tools: " + str(use_tools))
  
 
@@ -2256,7 +2263,7 @@ if __name__ == "__main__":
 
     if verbose:
         print("----------------------------")
-        printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script")
+        printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script\n")
         print("----------------------------")
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))
@@ -2275,7 +2282,7 @@ if __name__ == "__main__":
         print("")
         print("")
         print("--------------------------------------------------")
-        printc(bcolors.OKCYAN, "Interactive mode")
+        printc(bcolors.OKCYAN, "Interactive mode\n")
         print("--------------------------------------------------")
         print("")
         
@@ -2284,7 +2291,7 @@ if __name__ == "__main__":
         if project_name=="" or project_name=="\n":
             project_name="helloworld"
             if verbose:
-                printc(bcolors.WARNING,"Defaulting to helloworld")
+                printc(bcolors.WARNING,"Defaulting to helloworld\n")
         
         print("")
         
@@ -2292,7 +2299,7 @@ if __name__ == "__main__":
         if target_name=="" or target_name=="\n":
             target_name="ncurses"
             if verbose:
-                printc(bcolors.WARNING, "Defaulting to ncurses")
+                printc(bcolors.WARNING, "Defaulting to ncurses\n")
         
         print("")
         time.sleep(1)

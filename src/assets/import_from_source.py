@@ -75,7 +75,7 @@ def compute_shape(string, xsize):
 def print_shape(items):
     # items = compute_shape(string, xsize)
     for i in range(len(items)):
-        print(items[i]) # + "  ") # + "{:3d}".format(values[i]))
+        printc(bcolors.BOLD, items[i]) # + "  ") # + "{:3d}".format(values[i]))
     print("")
     print("")
 

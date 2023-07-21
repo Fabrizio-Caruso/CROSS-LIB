@@ -93,7 +93,6 @@ class bcolors:
 
 
 def printc(color,text):
-    global color_terminal
     
     if(color_terminal):
         print(color + text + bcolors.ENDC, end="")
@@ -102,23 +101,12 @@ def printc(color,text):
 
 
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
-    global zsdcc_compiler_opts
-    global sccz80_compiler_opts
-    global cmoc_compiler_opts
-    global cc65_compiler_opts
-    global lcc1802_compiler_opts
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
            " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
-
-
-    # return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-    # " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
-    # " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
-    # " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'"
 
 
 def run_command_verbosely(command_string):
@@ -495,9 +483,6 @@ def tools():
 # Build a project (for a target or multiple targets)
 def build(params):
     
-    global compiler_opts
-    global zsdcc_extra_optimization
-    
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -565,9 +550,6 @@ def build(params):
             else:
                 use_tools_str = ""
 
-            if verbose:
-                print("building make_command...")
-                print(all_compilers_opts(zsdcc_extra_optimization, compiler_opts))
             make_command = \
                 GNU_MAKE + " " + target + \
                     use_tools_str + \
@@ -597,7 +579,7 @@ def build(params):
         files_after = len(files_in_path("../build"))-1
         
         if verbose:
-            print("New binaries built: " + str(files_after-files_before))
+            printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before))
 
 
 

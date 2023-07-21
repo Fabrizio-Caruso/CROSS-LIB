@@ -2,6 +2,7 @@ from os import walk
 
 import sys
 
+
 DEFAULT_THREADS = 8
 
 python_version = sys.version_info[0]
@@ -29,4 +30,5 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 

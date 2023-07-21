@@ -92,14 +92,6 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-def printc(color,text):
-    
-    if(color_terminal):
-        print(color + text + bcolors.ENDC, end="")
-    else:
-        print(text, end="")
-
-
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
@@ -110,7 +102,7 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
 
 def run_command_verbosely(command_string):
-    if verbose: 
+    if global_vars.verbose: 
         print("Going to run: ")
         printc(bcolors.BOLD, command_string+"\n")
     else:
@@ -208,7 +200,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects_to_build = len(projects)
 
     # files_before = len(files_in_path("../build"))-1
-    if verbose:
+    if global_vars.verbose:
         print("Building " + str(projects_to_build) + " projects: ", end="")
         for project_name in projects:
             printc(bcolors.OKCYAN,project_name+" ")
@@ -319,8 +311,9 @@ def size(params,debug):
 
     files_after = len(files_in_path("../build"))-1
     
-    if verbose:
-        print("New binaries built: " + str(files_after-files_before))
+    if global_vars.verbose:
+        print("New binaries built: " + str(files_after-files_before)+"\n")
+
 
 
 # Rebuild a project, i.e., also rebuilds assets
@@ -364,7 +357,7 @@ def convert_makefile(dir,old_type,old_name,new_name):
     source_parent_dir = old_type
     target_parent_dir = "projects"
     
-    if verbose:
+    if global_vars.verbose:
         print("- dir: " + dir)
         print("- old_type: " + old_type)
         print("- old_name: " + old_name)
@@ -430,7 +423,7 @@ def clone(params):
         
         
     source_project_type = project_category(source_game_dir)
-    if verbose:
+    if global_vars.verbose:
         print("source project category: " + source_project_type)
     source_parent_dir = source_project_type + "s"
     source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
@@ -439,7 +432,7 @@ def clone(params):
     target_parent_dir = target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 
-    if verbose:
+    if global_vars.verbose:
         print("Source project name    : " + source_game_dir)
         print("Source Project type    : " + source_project_type)
         print("Path to source project : " + source_parent_and_game_dir)
@@ -453,19 +446,19 @@ def clone(params):
         # os.makedirs(target_parent_dir_and_game_dir)
 
     source_path = source_parent_and_game_dir
-    if verbose:
+    if global_vars.verbose:
         print("source_path: " + source_path)
     dest_path = target_parent_dir_and_game_dir
-    if verbose:
+    if global_vars.verbose:
         print("dest_path: " + dest_path)
 
     if not os.path.exists(dest_path+"/tiles"):
-        if verbose:
+        if global_vars.verbose:
             print("Copying tiles...")
         shutil.copytree(source_path, dest_path)
 
     if not os.path.exists(dest_path+"/generated_assets"):
-        if verbose:
+        if global_vars.verbose:
             print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
@@ -517,7 +510,7 @@ def build(params):
         else:
             compiler_opts = ""
 
-        if verbose:
+        if global_vars.verbose:
 
             print("Project name       : ", end="")
             printc(bcolors.BOLD, game_dir+"\n")
@@ -578,8 +571,8 @@ def build(params):
         
         files_after = len(files_in_path("../build"))-1
         
-        if verbose:
-            printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before))
+        if global_vars.verbose:
+            printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
 
 
 
@@ -613,43 +606,43 @@ def create(params):
 
     parent_dir = "projects" 
 
-    if verbose:
+    if global_vars.verbose:
         print("New project name: " + game_dir)
         print("Project type: " + project_type)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
     if not os.path.exists(parent_and_game_dir):
-        if verbose:
+        if global_vars.verbose:
             print("Creating project dir...")
         os.makedirs(parent_and_game_dir)
 
     source_path = "./template_projects/"+project_type+"_code.template"
-    if verbose:
+    if global_vars.verbose:
         print("source_path: " + source_path)
     dest_path = parent_and_game_dir
-    if verbose:
+    if global_vars.verbose:
         print("dest_path: " + dest_path)
 
     if not os.path.exists(dest_path+"/tiles"):
-        if verbose:
+        if global_vars.verbose:
             print("Copying tiles...")
         shutil.copytree(source_path+"/tiles", dest_path+"/tiles")
 
     if not os.path.exists(dest_path+"/generated_assets"):
-        if verbose:
+        if global_vars.verbose:
             print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
     if not os.path.exists(dest_path+"/config"):
-        if verbose:
+        if global_vars.verbose:
             print("Create empty config directory...")
         os.makedirs(dest_path+"/config")
 
     file_names = ["main.c"]
 
     for file_name in file_names:
-        if verbose:
+        if global_vars.verbose:
             print("Copying file_name: " + file_name)
         shutil.copy(source_path+"/"+file_name, dest_path)
 
@@ -711,7 +704,7 @@ def reset(params):
     elif (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
-        if verbose:
+        if global_vars.verbose:
             print("Delete all non-project-specific temporary files")
 
         run_command_verbosely(make_command)
@@ -766,7 +759,7 @@ def clean(params):
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        if verbose:
+        if global_vars.verbose:
             print("Delete all built binaries and non-project=specific temporary files")
         if(are_you_sure()=="y"):
             run_command_verbosely(make_command)
@@ -776,7 +769,7 @@ def clean(params):
     elif (len(params)==2) and (params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        if verbose:
+        if global_vars.verbose:
             print("Delete all built binaries and non-project-specific temporary files")
 
         run_command_verbosely(make_command)
@@ -834,24 +827,24 @@ def delete(params):
 
     parent_dir = "projects"
 
-    if verbose:
+    if global_vars.verbose:
         print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
-    if verbose:
+    if global_vars.verbose:
         print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")        
     if (not interactive) or (are_you_sure()=="y"):
         if os.path.exists(parent_and_game_dir):
-            if verbose:
+            if global_vars.verbose:
                 print("Deleting directory " + parent_and_game_dir)
             shutil.rmtree(parent_and_game_dir)
 
         makefile_name = "Makefile."+game_dir
         if os.path.exists(makefile_name):
-            if verbose:
+            if global_vars.verbose:
                 print("Deleting..." + makefile_name)
             os.remove(makefile_name)
-        if verbose:
+        if global_vars.verbose:
             print("'" + game_dir + "' deleted")
     else:
         return
@@ -965,11 +958,11 @@ def targets_test(params):
         exit()
 
     built_files = len(files_in_path("../build"))-1
-    if verbose: 
+    if global_vars.verbose: 
         print("Number of built files: " + str(built_files))
         
     if params[1] in expected_files.keys():
-        if verbose:
+        if global_vars.verbose:
             print("Built files: " + str(built_files))
             print("Expected files: " + str(expected_files[params[1]]))
         if built_files != expected_files[params[1]]:
@@ -1032,7 +1025,7 @@ def list(params, print_projects=True):
         if print_projects:
             print("")
     
-    if verbose:
+    if global_vars.verbose:
         print("Projects found: " + str(count))
         print("")
 
@@ -1081,7 +1074,7 @@ def run(params):
         target = params[2]
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
-            if verbose:
+            if global_vars.verbose:
                 print("defaulting to target: " + target)
            
         if target=="ncurses":
@@ -1180,16 +1173,17 @@ def files():
 # Import a shape as single tile from a text file that describes its shape with characters
 def tile(params):
 
-    tile,xsize,ysize = import_tile(params[1],verbose)
+    tile,xsize,ysize = import_tile(params[1])
     
 
-    print(tile)
     
-    if verbose:
+    if global_vars.verbose:  
         print_shape(compute_shape(tile,xsize))
     
     if(len(params)>=3):
         store_tile(params[2], tile, xsize, ysize, params[3])
+    else:
+        printc(bcolors.OKCYAN, tile+"\n")
 
 
 TARGETS_WITH_XSIZE_6 = {"oric", "atmos", "comx_ntsc", "comx", "pecom", "micro"}
@@ -1272,22 +1266,22 @@ def write_shapes(project, shapes, xsize,ysize):
     path = path_to_shapes(project,xsize,ysize)
     if not replace_shapes:
         path = path.replace("shapes","_shapes")
-    if verbose:
+    if global_vars.verbose:
         print("Writing shapes in: " + path)
     if os.path.exists(path):
-        if verbose:
+        if global_vars.verbose:
             print("Directory exists")
     else:
-        if verbose:
+        if global_vars.verbose:
             print("Directory does not exist")
         os.makedirs(path)
     for tile_number, shape in shapes.items():
         #print(tile_number,shape)
         path_to_shape = path+"shape"+tile_number+".txt" 
-        if verbose:
+        if global_vars.verbose:
             print("Path to shape file: " + path_to_shape)
         path_to_tile = path.replace("shapes","tiles")+"tile"+tile_number+".txt"
-        if verbose:
+        if global_vars.verbose:
             print("Path to tile file: " + path_to_tile)
         if replace_shapes and (os.path.exists(path_to_shape) or os.path.exists(path_to_tile)):
             if os.path.exists(path_to_shape):
@@ -1299,7 +1293,7 @@ def write_shapes(project, shapes, xsize,ysize):
                 for row in shape:
                     print(row)
                     file.write(row+"\n")
-        if verbose:
+        if global_vars.verbose:
             print("")
     # with open(path) as file:
     # project_makefile = file.read()
@@ -1310,7 +1304,7 @@ def extend(params):
     project = params[1]
 
     path_to_8x8_files = path_to_shapes(project,8,8)
-    if verbose:
+    if global_vars.verbose:
         print("Path to shape files: " + path_to_8x8_files)
         print("")
     shape_files = files_in_path(path_to_8x8_files)
@@ -1387,14 +1381,14 @@ def shapes(params):
     path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
     print("Path to shape files: " + path_to_files)
     shape_files = files_in_path(path_to_files)
-    if verbose:
+    if global_vars.verbose:
         print("shape files: ", shape_files)
     for shape_file in shape_files:
-        if verbose:
+        if global_vars.verbose:
             print("processing file: ", shape_file)
 
         path_to_shape_file = path_to_files + str(shape_file)
-        if verbose:
+        if global_vars.verbose:
             print("processing path file: ", path_to_shape_file)
         tile_number_str = shape_file[5:].replace(".txt","")
         
@@ -1510,13 +1504,13 @@ def add(params):
     
     target = params[2]
     
-    if verbose:
+    if global_vars.verbose:
         print("project: " + project)
         print("target: " + target)
     
     proj_cat = project_category(project)
     
-    if verbose:
+    if global_vars.verbose:
         print("project category: " + proj_cat)
     
     if(proj_cat != "project"):
@@ -1524,17 +1518,17 @@ def add(params):
         
     new_target_path = "makefiles.common/targets/"
     
-    if verbose:
+    if global_vars.verbose:
         print("path: " + new_target_path)
     
     possible_targets = files_in_path(new_target_path)
-    if verbose:
+    if global_vars.verbose:
         print(possible_targets)
     
     new_Makefile = "Makefile_" + target
     
     if new_Makefile in possible_targets:
-        if verbose:
+        if global_vars.verbose:
             print("Target found in list of candidate extra targets")
     else:
         print("Target not found in list of candidate extra targets")
@@ -1553,11 +1547,11 @@ def add(params):
     
     full_new_target_path = new_target_path + new_Makefile
     
-    if verbose:
+    if global_vars.verbose:
         print("Adding this Makefile target(s)")
     command_string = "cat " + full_new_target_path
     run_command_verbosely(command_string)
-    if verbose:
+    if global_vars.verbose:
         print("\n")
     
     command_string = "cat " + full_new_target_path + " >> " + full_project_path
@@ -1567,7 +1561,7 @@ def add(params):
 def full_params(params):
     full_command = SHORT_COMMANDS_LIST.get(params[1])
     if(full_command is not None):
-        if verbose:
+        if global_vars.verbose:
             print("Full command: " + str(full_command))
             print();
         # print(params)
@@ -2021,8 +2015,6 @@ def read_config():
         # Python 2.x fallback
         print("Python 2.x configuration")
         import ConfigParser as configparser
-
-    global verbose
     
     global compilation_threads
     global sccz80_compiler_opts 
@@ -2048,8 +2040,6 @@ def read_config():
     global replace_shapes
     
     global use_tools
-
-    global color_terminal
     
     global config 
 
@@ -2058,32 +2048,34 @@ def read_config():
     try:
         config.read('config.ini')
         
-        verbose = read_config_option("terminal","verbose")
-        if verbose!="":
-            verbose=int(verbose)
+        global_vars.verbose = read_config_option("terminal","verbose")
+        if global_vars.verbose!="":
+            global_vars.verbose=int(global_vars.verbose)
         else:
-            verbose=0
-        if verbose:
+            global_vars.verbose=0
+        if global_vars.verbose:
             print("Verbose Mode ON")
-
-        color_terminal = read_config_option("terminal","color")
         
-        if verbose and color_terminal:
-            printc(bcolors.OKBLUE, "Color terminal ON\n")
-        else:
-            print("Color terminal OFF")
+        # global color_terminal
+        global_vars.color_terminal = read_config_option("terminal","color")
         
-        if verbose:
+        if global_vars.verbose:
+            if global_vars.color_terminal:
+                printc(bcolors.OKBLUE, "Color terminal ON\n")
+            else:
+                print("Color terminal OFF")
+        
+        if global_vars.verbose:
             print("Config file found with: " + str(config.sections()))
             print("")
         
         compilation_threads = read_config_option("build","threads") 
         if compilation_threads=="auto" or compilation_threads=="automaic":
-            if verbose:
+            if global_vars.verbose:
                 print("Detecting number of threads...")
             import multiprocessing
             compilation_threads = str(multiprocessing.cpu_count())
-            if verbose:
+            if global_vars.verbose:
                 print("Detected " + compilation_threads + " threads...")
 
         sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
@@ -2125,13 +2117,12 @@ def read_config():
         raise
         # TODO: Ask the user to continue or exit
     else:
-        if verbose:
+        if global_vars.verbose:
             printc(bcolors.OKGREEN, "config.ini OK\n")
             print("")
 
 
 def default_config():
-    global verbose
     
     global compilation_threads
     global sccz80_compiler_opts 
@@ -2158,9 +2149,8 @@ def default_config():
     
     global use_tools
     
-    global color_terminal
     
-    verbose = True 
+    global_vars.verbose = True 
     compiler_opts = ""
     compilation_threads = 1
     zsdcc_compiler_opts = ""
@@ -2171,15 +2161,15 @@ def default_config():
     cc65_compiler_opts = "-O -Cl"
     lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
     use_tools = 0
-    color_terminal = 0
+    global_vars.color_terminal = 0
 
 
 def display_config():
     
     printc(bcolors.BOLD,"[terminal]\n")
     
-    print("verbose: " + str(verbose))
-    print("color_terminal: " + str(color_terminal))
+    print("verbose: " + str(global_vars.verbose))
+    print("color: " + str(global_vars.color_terminal))
 
     print("")
     
@@ -2243,7 +2233,7 @@ if __name__ == "__main__":
         print("WARNING: Using default config")
 
 
-    if verbose:
+    if global_vars.verbose:
         print("----------------------------")
         printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script\n")
         print("----------------------------")
@@ -2272,7 +2262,7 @@ if __name__ == "__main__":
         
         if project_name=="" or project_name=="\n":
             project_name="helloworld"
-            if verbose:
+            if global_vars.verbose:
                 printc(bcolors.WARNING,"Defaulting to helloworld\n")
         
         print("")
@@ -2280,7 +2270,7 @@ if __name__ == "__main__":
         target_name = generic_input("Insert target name\n")
         if target_name=="" or target_name=="\n":
             target_name="ncurses"
-            if verbose:
+            if global_vars.verbose:
                 printc(bcolors.WARNING, "Defaulting to ncurses\n")
         
         print("")

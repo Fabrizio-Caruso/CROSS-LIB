@@ -1,6 +1,8 @@
 
 from init import *
 
+import global_vars
+
 NUMBER_OF_TILES = 27
 
 
@@ -72,10 +74,19 @@ def compute_shape(string, xsize):
     return(items)
 
 
-def print_shape(items):
-    # items = compute_shape(string, xsize)
+
+def printc(color,text):
+    
+    if(global_vars.color_terminal):
+        print(color + text + bcolors.ENDC, end="")
+    else:
+        print(text, end="")
+
+
+
+def print_shape(items):    
     for i in range(len(items)):
-        print(items[i]) # + "  ") # + "{:3d}".format(values[i]))
+        printc(bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
     print("")
     print("")
 
@@ -477,7 +488,8 @@ def import_tile(file_name):
 
     filtered_lines = []
     for line in lines:
-        print("processing line: ", line)
+        if global_vars.verbose:
+            print("processing line: ", line, end="")
         if not(line=="\n" or line=="\r" or line== "\r\n"):
             filtered_lines.append(line.replace('\n','').replace('\r',''))
 
@@ -493,7 +505,8 @@ def import_tile(file_name):
     
     dir = str(xsize)+"X"+str(ysize)
 
-    print("Tile shape: " + dir)
+    if global_vars.verbose:
+        print("Tile shape: " + dir)
     for line_index in range(ysize):
         number_of_bits = len(trimmed_lines[line_index])
         if number_of_bits>8:

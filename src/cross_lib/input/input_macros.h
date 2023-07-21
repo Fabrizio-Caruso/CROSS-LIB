@@ -71,8 +71,8 @@
         #if !defined(STICK)
             #if defined(__ZX81__)
                 #define STICK 3
-            #elif defined(__LASER500__)
-                #define STICK 5
+            // #elif defined(__LASER500__)
+                // #define STICK 2
             #else
                 #define STICK 1
             #endif

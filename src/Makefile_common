@@ -2519,7 +2519,7 @@ TI99_TINY_OPTS ?= \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DXSize=32   \
 	-DYSize=24 -DBUGGY_MOD5 \
-	-D__ALT_SLEEP  \
+	-D__ALT_SLEEP -D__ALT_RAND \
 	-DTINY_GAME -DNO_WALL  \
 	-D__VDP_MODE1_GRAPHICS \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -2531,8 +2531,8 @@ TI99_OPTS ?= \
 	-D__TI99__ -nostdlib \
 	-DXSize=32   \
 	-DYSize=24 -DBUGGY_MOD5 -DBUGGY_VERTICAL_DRAW \
-	-D__ALT_SLEEP   -DEXTRA_TITLE \
-	-D__VDP_MODE1_GRAPHICS  \
+	-D__ALT_SLEEP   -DEXTRA_TITLE -D__ALT_RAND \
+	-D__VDP_MODE1_GRAPHICS -D_XL_NO_JOYSTICK \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_SLOW_DOWN_FACTOR=1200
 
@@ -2557,7 +2557,6 @@ OBJECT_LIST= \
   $(TOOLS_PATH)/ti99/crt0_ea5.o \
   $(CROSS_LIB_PATH)/display/display_macros.o \
   $(CROSS_LIB_PATH)/input/input_macros.o \
-  $(CROSS_LIB_PATH)/text/text_macros.o \
   $(CROSS_LIB_PATH)/rand/rand.o \
   $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \

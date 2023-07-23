@@ -61,6 +61,7 @@ void redefine(uint8_t ch, uint8_t *data)
 void _XL_INIT_GRAPHICS(void)
 {
 
+	__vdu_sequence(1);
     // Set mode 3
     putchar(22);
     putchar(3);

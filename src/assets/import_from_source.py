@@ -20,10 +20,24 @@ PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+
 # It displays a shape from a list of strings (rows)
 def display_shape(tile_vect):
     for row in tile_vect:
-        print(row)
+        printc(bcolors.BOLD, row)
+        print("")
 
 
 # It returns the path to the shape directory for a given project and dimension
@@ -479,6 +493,53 @@ def read_shape(file_name):
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
     return trimmed_lines,xsize,len(trimmed_lines)
+
+
+def import_split_tiles(file_name):
+    fin = open(file_name, "rt")
+    lines = fin.readlines()
+    tile = ""
+
+    xsize = 16
+    for line in lines:
+        if len(line)<xsize:
+            xsize = len(line)
+    if global_vars.verbose:
+        print("Detected xsize: " + str(xsize))
+
+    filtered_lines_group = [[],[]]
+    for line in lines:
+        if global_vars.verbose:
+            print("processing line: ", line, end="")
+        
+        if not(line=="\n" or line=="\r" or line== "\r\n"):
+            filtered_lines_group[0].append(line.replace('\n','').replace('\r','')[0:int(xsize/2)])
+        if not(line=="\n" or line=="\r" or line== "\r\n"):
+            filtered_lines_group[1].append(line.replace('\n','').replace('\r','')[int(xsize/2):xsize])
+        
+    if global_vars.verbose:
+        print("")
+
+    # xsize = 16
+
+    print("")
+    for filtered_lines in filtered_lines_group:
+        display_shape(filtered_lines)
+        print("")
+
+    # trimmed_lines_group = [[],[]]
+    
+    # print("")
+    # for filtered_lines in filtered_lines_group:
+        # trimmed_lines = []
+        # for line in filtered_lines:
+            # trimmed_lines.append(line[:xsize])
+        # display_shape(trimmed_lines)
+        # trimmed_lines_group.append([trimmed_lines])
+        # print("")
+
+        
+        
 
 
 def import_tile(file_name):

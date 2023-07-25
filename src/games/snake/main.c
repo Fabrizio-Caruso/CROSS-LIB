@@ -156,9 +156,9 @@ static const uint8_t image_colors[] = {
     (map[x][y]==EXTRA_LIFE)
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>_XL_SLOW_DOWN_FACTOR/2) \
+    if(slow_down>(2*_XL_SLOW_DOWN_FACTOR/3)) \
     { \
-        slow_down -= _XL_SLOW_DOWN_FACTOR/7; \
+        slow_down -= _XL_SLOW_DOWN_FACTOR/12; \
     } \
     else \
     { \

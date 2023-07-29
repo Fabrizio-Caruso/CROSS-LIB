@@ -51,7 +51,7 @@ Control-X to start the game
 ---------------------------------------------------------
 ### ATARI 5200
 
-Use Atari800 emulator with the Atari 5200 bios roms and select Atari 5200 emulation.
+Use Altirra or use Atari800 emulator with the Atari 5200 bios roms and select Atari 5200 emulation.
 
 Load as 16k one chip cartridge.
 

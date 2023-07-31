@@ -131,7 +131,7 @@ uint8_t hgr_enc[3*2*128] =
 0,0,0,96,0,24,0,120,0,6,0,102,0,30,0,126,64,1,64,97,64,25,64,121,64,7,64,103,64,31,64,127,48,0,48,96,48,24,48,120,48,6,48,102,48,30,48,126,112,1,112,97,112,25,112,121,112,7,112,103,112,31,112,127,12,0,12,96,12,24,12,120,12,6,12,102,12,30,12,126,76,1,76,97,76,25,76,121,76,7,76,103,76,31,76,127,60,0,60,96,60,24,60,120,60,6,60,102,60,30,60,126,124,1,124,97,124,25,124,121,124,7,124,103,124,31,124,127,3,0,3,96,3,24,3,120,3,6,3,102,3,30,3,126,67,1,67,97,67,25,67,121,67,7,67,103,67,31,67,127,51,0,51,96,51,24,51,120,51,6,51,102,51,30,51,126,115,1,115,97,115,25,115,121,115,7,115,103,115,31,115,127,15,0,15,96,15,24,15,120,15,6,15,102,15,30,15,126,79,1,79,97,79,25,79,121,79,7,79,103,79,31,79,127,63,0,63,96,63,24,63,120,63,6,63,102,63,30,63,126,127,1,127,97,127,25,127,121,127,7,127,103,127,31,127,127,
 };
 
-uint8_t mock_tile[8] = { 12,18,12,51,45,12,18,51 };
+// uint8_t mock_tile[8] = { 12,18,12,51,45,12,18,51 };
 
 void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 {
@@ -142,20 +142,22 @@ void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     uint8_t d_x = 2*x; 
     uint16_t o_y = 8*y;
     uint16_t cc; 
+    uint16_t index;
     
     color = color-4*extra_color;
-    cc = (256U)*(color);
+    cc = ((uint16_t)color)<<8;
     
     extra_color<<=7;
     
     for(k=0;k<8;++k)
     {
+        index = (uint16_t) (tiles[tile][k])*2u+cc;
         #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-        POKE(HB1[o_y+k]+d_x,(hgr_enc[(uint16_t) (tiles[tile][k])*2u+cc]^0x7F)|extra_color);
-        POKE(HB1[o_y+k]+d_x+1,(hgr_enc[(uint16_t)(tiles[tile][k])*2u+cc+1]^0x7F)|extra_color);
+        POKE(HB1[o_y+k]+d_x,(hgr_enc[index]^0x7F)|extra_color);
+        POKE(HB1[o_y+k]+d_x+1,(hgr_enc[index+1]^0x7F)|extra_color);
         #else
-        POKE(HB1[o_y+k]+d_x,hgr_enc[(uint16_t) (tiles[tile][k])*2u+cc]|extra_color);
-        POKE(HB1[o_y+k]+d_x+1,hgr_enc[(uint16_t)(tiles[tile][k])*2u+cc+1]|extra_color);
+        POKE(HB1[o_y+k]+d_x,hgr_enc[index]|extra_color);
+        POKE(HB1[o_y+k]+d_x+1,hgr_enc[index+1]|extra_color);
         #endif
     }
 }

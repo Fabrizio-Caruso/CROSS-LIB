@@ -32,84 +32,13 @@ unsigned HB2[]={
 
 extern uint16_t HB1[];
 
-//extern uint8_t hgr_enc[3][128];
 
-/*
-
-                for(k=0;k<8;++k)
-                {
-                    POKE(HB1[i+k]+2*j,255-3-64);
-                    POKE(HB1[i+k]+2*j+1,255-64-32-1);
-                }
-
-*/
-
-/*
-        POKE(HB1[8*y+k]+2*x,  hgr_enc[2*gfx[tile][k]+256*color]); 
-        POKE(HB1[8*y+k]+2*x+1,hgr_enc[2*gfx[tile][k]+256*color+1]); 
-*/
-
-/*
-        POKE(HB1[8*y+k]+2*x,  hgr_enc[2*127+512]); 
-        POKE(HB1[8*y+k]+2*x+1,hgr_enc[2*127+512+1]); 
-*/
 void hgr_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
 void hgr_delete(uint8_t x, uint8_t y);
 
 #define _XL_DRAW(x, y, tile, color) hgr_draw(x,y,tile,color)
 
-
-/*
-do \
-{ \
-    uint8_t k; \
-    \
-    for(k=0;k<8;++k) \
-    { \
-    } \
-} while(0)
-  */
-  
-/*
-do \
-{ \
-    uint8_t k; \
-    \
-    for(k=0;k<8;++k) \
-    { \
-        POKE(HB1[8*(y)+k]+2*(x),255-3-64); \
-        POKE(HB1[8*(y)+k]+2*(x)+1,255-64-32-1); \
-    } \
-} while(0)
-  */
-  
-/*
- \
-do \
-{ \
-    uint8_t k; \
-    \
-    for(k=0;k<8;++k) \
-    { \
-        POKE(HB1[8*y+k]+2*x,  hgr_enc[color][2*127+512]); \
-        POKE(HB1[8*y+k]+2*x+1,hgr_enc[color][2*127+512+1]); \
-    } \
-} while(0)
-*/
-
 #define _XL_DELETE(x,y) hgr_delete(x,y)
 
-/*
-do \
-{ \
-    uint8_t k; \
-    \
-    for(k=0;k<8;++k) \
-    { \
-        POKE(HB1[8*y+k]+2*x,  0); \
-        POKE(HB1[8*y+k]+2*x+1,0); \
-    } \
-} while(0)
-*/
 
 #endif //_APPLE2_HGR_H

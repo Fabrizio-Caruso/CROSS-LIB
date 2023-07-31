@@ -23,11 +23,11 @@ void _XL_ZAP_SOUND(void);
 
 #define _XL_SHOOT_SOUND() NOISE(100,3)
 
-#define _XL_PING_SOUND() CLICK(55,5)
+#define _XL_PING_SOUND() CLICK(25,5)
 
-#define _XL_TICK_SOUND() CLICK(45,4)
+#define _XL_TICK_SOUND() CLICK(20,4)
 
-#define _XL_TOCK_SOUND() CLICK(35,3)
+#define _XL_TOCK_SOUND() CLICK(15,3)
 
 #endif // __BIT_BANG_SOUNDS
 

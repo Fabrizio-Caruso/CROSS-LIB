@@ -55,6 +55,16 @@ Use Altirra or use Atari800 emulator with the Atari 5200 bios roms and select At
 
 Load as 16k one chip cartridge.
 
+
+---------------------------------------------------------
+### ATARI 7800
+
+Use A7800 (http://7800.8bitdev.org/index.php/A7800_Emulator)
+
+Select standard options.
+Use it as Mame/Mess by:
+TAB->load ROM->cartridge->select file
+
 ---------------------------------------------------------
 ### ATARI LYNX
 

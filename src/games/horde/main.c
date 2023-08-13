@@ -2262,23 +2262,12 @@ do \
     } while(0)
 #endif
 
-# if YSize>=20
-    void display_top_border(void)
-    { 
-        uint8_t i; 
-        
-        for(i=0;i<XSize;++i) 
-        { 
-            _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN);
-        } 
-    }
-#else
-    void display_top_border(void)
-    {
-        PRINT_CENTERED_ON_ROW(1,"       ");
-        display_zombies();
-    }
-#endif
+
+void clear_top_border(void)
+{
+	PRINT_CENTERED_ON_ROW(1,"       ");
+	display_zombies();
+}
 
 
 #define handle_auto_recharge() \
@@ -2408,7 +2397,6 @@ do \
 #define display_level_screen() \
 do \
 { \
-    display_top_border(); \
     display_wall(BOTTOM_WALL_Y); \
     display_bow(); \
     display_stats(); \
@@ -2426,7 +2414,7 @@ do \
         { \
             bow_color = _XL_CYAN; \
             bow_reload_loops=GREEN_SPEED_VALUE; \
-            display_top_border(); \
+            clear_top_border(); \
         } \
     } \
 }

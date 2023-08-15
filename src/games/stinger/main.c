@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -74,7 +74,7 @@
 
 #define MAX_FREEZE 1
 
-#define MINION_POINTS 5
+#define MINION_POINTS 10
 #define BOSS_1_POINTS 15
 #define BOSS_2_POINTS 25
 #define BOSS_3_POINTS 30
@@ -106,8 +106,11 @@
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
 
-#define MINION_ENERGY 6
-#define BOSS_ENERGY 6
+// (3 basic hits)
+#define MINION_ENERGY 6 
+
+// Boss energy: 7 (4 basic hits), 9 (5 basic hits), 11 (6 basic hits)
+#define BOSS_BASE_ENERGY 5
 
 #define WALL_ENERGY 20
 
@@ -115,12 +118,12 @@
 #define HYPER_RECHARGE 50
 #define ARROW_RECHARGE 30
 
-#define FREEZE_COUNTER_MAX 200;
+#define FREEZE_COUNTER_MAX 100;
 
 #define WALL_COLOR _XL_GREEN
 
 #if XSize<=40
-    #define MAX_OCCUPIED_COLUMNS (5*(XSize)/8)
+    #define MAX_OCCUPIED_COLUMNS (9*(XSize)/16)
 #else
     #define MAX_OCCUPIED_COLUMNS (2*(XSize)/3)
 #endif
@@ -131,9 +134,10 @@
 
 #define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
+#define HELP_ITEM_LEVEL_THRESHOLD 2
 
 #if XSize<=80
-    #define MINIONS_ON_FIRST_LEVEL (3*XSize/4)
+    #define MINIONS_ON_FIRST_LEVEL (2*XSize/3)
 #else
     #define MINIONS_ON_FIRST_LEVEL 60
 #endif
@@ -1340,11 +1344,11 @@ void spawn_boss(void)
         {
             rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
         }
-    } while((rank==2)&&(bosses_to_kill<LEVEL_2_ZOMBIE_THRESHOLD));
+    } while((rank==2)&&(bosses_to_spawn<LEVEL_2_ZOMBIE_THRESHOLD));
 
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_ENERGY+rank*2;
+    energy[zombie_x]=BOSS_BASE_ENERGY+rank*2;
     --bosses_to_spawn;
 }
 
@@ -1411,7 +1415,7 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if((level>=4)&&(powerUp<=3))
+        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=3))
         {
             item_counter&=1;
         }
@@ -2049,7 +2053,7 @@ do \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
 
 #define spawn_initial_bosses() \
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<2)-killed_bosses; \
+    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<3)-killed_bosses; \
     \
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially) \
     { \

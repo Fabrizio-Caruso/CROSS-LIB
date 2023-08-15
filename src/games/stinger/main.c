@@ -2053,7 +2053,7 @@ do \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
 
 #define spawn_initial_bosses() \
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<3)-killed_bosses; \
+    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses; \
     \
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially) \
     { \

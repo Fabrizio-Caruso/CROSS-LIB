@@ -119,7 +119,7 @@
 #define WALL_COLOR _XL_GREEN
 
 #if XSize<=40
-    #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
+    #define MAX_OCCUPIED_COLUMNS (5*(XSize)/8)
 #else
     #define MAX_OCCUPIED_COLUMNS (2*(XSize)/3)
 #endif
@@ -139,9 +139,9 @@
 #endif
 
 #if XSize<=80
-    #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
+    #define BOSSES_ON_FIRST_LEVEL ((XSize)/5)
 #else
-    #define BOSSES_ON_FIRST_LEVEL 40
+    #define BOSSES_ON_FIRST_LEVEL 20
 #endif
 
 #define LEVEL_2_ZOMBIE_THRESHOLD MAX_OCCUPIED_COLUMNS
@@ -2071,7 +2071,7 @@ do \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
 
 #define spawn_initial_bosses() \
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses; \
+    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<3)-killed_bosses; \
     \
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially) \
     { \

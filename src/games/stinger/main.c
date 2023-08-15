@@ -29,9 +29,9 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 
-#define LAST_LEVEL 8
+#define LAST_LEVEL 5
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -75,14 +75,14 @@
 #define MAX_FREEZE 1
 
 #define MINION_POINTS 5
-#define BOSS_1_POINTS 10
-#define BOSS_2_POINTS 20
-#define BOSS_3_POINTS 25
+#define BOSS_1_POINTS 15
+#define BOSS_2_POINTS 25
+#define BOSS_3_POINTS 30
 
-#define EXTRA_POINTS 20
+#define EXTRA_POINTS 50
 #define RECHARGE_POINTS 25
 #define POWERUP_POINTS 30
-#define FREEZE_POINTS 50
+#define FREEZE_POINTS 60
 #define WALL_POINTS 80
 #define ZOMBIE_ITEM_POINTS 150 
 #define POWER_UP_BONUS 25
@@ -107,7 +107,8 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 6
-#define BOSS_ENERGY 14
+#define BOSS_ENERGY 6
+
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
@@ -126,16 +127,15 @@
 
 #define FEW_ZOMBIES (2*(MAX_OCCUPIED_COLUMNS)/3)
 
-#if !defined(NUMBER_OF_MISSILES)
-    #define NUMBER_OF_MISSILES 5
-#endif
-#define NUMBER_OF_EXTRA_POINTS NUMBER_OF_MISSILES
+#define MAX_NUMBER_OF_MISSILES ((LAST_LEVEL)+2)
+
+#define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 
 #if XSize<=80
-    #define MINIONS_ON_FIRST_LEVEL (XSize)
+    #define MINIONS_ON_FIRST_LEVEL (3*XSize/4)
 #else
-    #define MINIONS_ON_FIRST_LEVEL 80
+    #define MINIONS_ON_FIRST_LEVEL 60
 #endif
 
 #if XSize<=80
@@ -144,7 +144,7 @@
     #define BOSSES_ON_FIRST_LEVEL 20
 #endif
 
-#define LEVEL_2_ZOMBIE_THRESHOLD MAX_OCCUPIED_COLUMNS
+#define LEVEL_2_ZOMBIE_THRESHOLD 8
 
 #define MAX_HYPER_COUNTER 180
 
@@ -154,7 +154,7 @@
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
 
- uint8_t missile_randomness_mask;
+ uint8_t number_of_missiles;
 
  uint8_t active_wall;
 
@@ -337,8 +337,8 @@ typedef struct ItemStruct Missile;
 #endif
 
 
- Missile enemyMissile[NUMBER_OF_MISSILES];
- Item extraPointsItem[NUMBER_OF_MISSILES];
+ Missile enemyMissile[MAX_NUMBER_OF_MISSILES];
+ Item extraPointsItem[MAX_NUMBER_OF_MISSILES];
 
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
@@ -636,7 +636,7 @@ uint8_t find_inactive(Item* itemArray)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_MISSILES;++i)
+    for(i=0;i<MAX_NUMBER_OF_MISSILES;++i)
     {
         if(!itemArray[i]._active)
         {
@@ -1083,7 +1083,7 @@ void beam_effect(void)
         zombieItem._color = _XL_GREEN; \
         zombieItem._effect = zombie_effect; \
         \
-        for(i=0;i<NUMBER_OF_MISSILES;++i) \
+        for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
             enemyMissile[i]._active = 0; \
             enemyMissile[i]._tile = BEAM_TILE; \
@@ -1121,7 +1121,7 @@ void beam_effect(void)
         zombieItem._tile = BOSS_TILE_0; \
         zombieItem._effect = zombie_effect; \
         \
-        for(i=0;i<NUMBER_OF_MISSILES;++i) \
+        for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
             enemyMissile[i]._active = 0; \
             enemyMissile[i]._tile = BEAM_TILE; \
@@ -1249,7 +1249,7 @@ void handle_item(register Item* item)
     handle_item(&wallItem); \
     handle_item(&zombieItem); \
     \
-    for(i=0;i<NUMBER_OF_MISSILES;++i) \
+    for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
     { \
         handle_item(&extraPointsItem[i]); \
         handle_item(&enemyMissile[i]); \
@@ -1344,7 +1344,7 @@ void spawn_boss(void)
 
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_ENERGY;
+    energy[zombie_x]=BOSS_ENERGY+rank*2;
     --bosses_to_spawn;
 }
 
@@ -1718,46 +1718,24 @@ void handle_zombie_collisions(void)
     #define MISSILE_DROP_LOOP_MASK (1)
 #endif
 
-#if !defined(NO_NASTY_DROP)
-    #define handle_missile_drops() \
-    { \
-        if(!freeze) \
-        { \
-            uint8_t missile_index; \
-            if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
-            { \
-                if(!(main_loop_counter&missile_randomness_mask)) \
-                { \
-                    zombie_x = (bow_x>>1)+(bow_x&1); \
-                } \
-                else \
-                { \
-                    zombie_x = (uint8_t) (_XL_RAND())%XSize; \
-                } \
-                if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
-                { \
-                    drop_item(&enemyMissile[missile_index],1); \
-                } \
-            } \
-        } \
-    } 
-#else
-    #define handle_missile_drops() \
-    { \
-        if((level>=2)&& !freeze) \
-        { \
-            uint8_t missile_index; \
-            if((missile_index = find_inactive(enemyMissile)) < NUMBER_OF_MISSILES) \
-            { \
-                zombie_x = (uint8_t) (_XL_RAND())%XSize; \
-                if((zombie_level[zombie_x]>2) && zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD) \
-                { \
-                    drop_item(&enemyMissile[missile_index],1); \
-                } \
-            } \
-        } \
-    } 
-#endif
+#define handle_missile_drops() \
+{ \
+	if(!freeze) \
+	{ \
+		uint8_t missile_index; \
+		if((missile_index = find_inactive(enemyMissile)) < number_of_missiles) \
+		{ \
+			\
+			zombie_x = (bow_x>>1)+(bow_x&1); \
+			\
+			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && (!(main_loop_counter&7) || zombie_level[zombie_x]==3)) \
+			{ \
+				drop_item(&enemyMissile[missile_index],1); \
+			} \
+		} \
+	} \
+} 
+
 
 
 void move_zombies(void)
@@ -1983,6 +1961,7 @@ do \
             forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
+			number_of_missiles = 2+level; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -1993,7 +1972,6 @@ do \
             number_of_arrows_per_shot = 3; \
             initialize_items(); \
             hyper_counter = 0; \
-            missile_randomness_mask = 255; \
             _XL_CLEAR_SCREEN(); \
         } while(0)
 
@@ -2014,7 +1992,7 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-            missile_randomness_mask = (uint8_t) (255U>>(level-1)); \
+			number_of_missiles = 2+level; \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -2071,7 +2049,7 @@ do \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
 
 #define spawn_initial_bosses() \
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<3)-killed_bosses; \
+    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<2)-killed_bosses; \
     \
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially) \
     { \

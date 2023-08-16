@@ -29,9 +29,9 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 4
 
-#define LAST_LEVEL 5
+#define LAST_LEVEL 4
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -79,14 +79,14 @@
 #define BOSS_2_POINTS 25
 #define BOSS_3_POINTS 30
 
-#define EXTRA_POINTS 50
+#define EXTRA_POINTS 100
 #define RECHARGE_POINTS 25
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 60
 #define WALL_POINTS 80
 #define ZOMBIE_ITEM_POINTS 150 
 #define POWER_UP_BONUS 25
-#define LEVEL_BONUS 200
+#define LEVEL_BONUS 250
 
 
 #define RED_FIRE_POWER_VALUE 2
@@ -130,7 +130,7 @@
 
 #define FEW_ZOMBIES (2*(MAX_OCCUPIED_COLUMNS)/3)
 
-#define MAX_NUMBER_OF_MISSILES ((LAST_LEVEL)+2)
+#define MAX_NUMBER_OF_MISSILES 6
 
 #define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
@@ -143,7 +143,7 @@
 #endif
 
 #if XSize<=80
-    #define BOSSES_ON_FIRST_LEVEL ((XSize)/5)
+    #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
 #else
     #define BOSSES_ON_FIRST_LEVEL 20
 #endif
@@ -157,8 +157,6 @@
 #else
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
-
- uint8_t number_of_missiles;
 
  uint8_t active_wall;
 
@@ -1336,11 +1334,11 @@ void spawn_boss(void)
         {
             rank = (uint8_t) (1 + ((_XL_RAND())&1));
         }
-        else if(level<5) // 2, 3, 4
+        else if(level<4) // 2, 3
         {
             rank = (uint8_t) (1 + ((_XL_RAND())%3));   
         }
-        else // 5, 6, 7, 8
+        else // 4
         {
             rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
         }
@@ -1727,12 +1725,12 @@ void handle_zombie_collisions(void)
 	if(!freeze) \
 	{ \
 		uint8_t missile_index; \
-		if((missile_index = find_inactive(enemyMissile)) < number_of_missiles) \
+		if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES) \
 		{ \
 			\
 			zombie_x = (bow_x>>1)+(bow_x&1); \
 			\
-			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && (!(main_loop_counter&7) || zombie_level[zombie_x]==3)) \
+			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && ((zombie_level[zombie_x]==3) || (!(main_loop_counter&7)))) \
 			{ \
 				drop_item(&enemyMissile[missile_index],1); \
 			} \
@@ -1965,7 +1963,6 @@ do \
             forced_zombie = 0; \
             loaded_bow = 1; \
             alive = 1; \
-			number_of_missiles = 2+level; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -1996,7 +1993,6 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-			number_of_missiles = 2+level; \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \

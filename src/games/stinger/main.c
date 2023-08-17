@@ -143,7 +143,7 @@
 #endif
 
 #if XSize<=80
-    #define BOSSES_ON_FIRST_LEVEL ((XSize)/2)
+    #define BOSSES_ON_FIRST_LEVEL (XSize)
 #else
     #define BOSSES_ON_FIRST_LEVEL 20
 #endif

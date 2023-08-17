@@ -29,9 +29,9 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 0
 
-#define LAST_LEVEL 4
+#define LAST_LEVEL 5
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -380,13 +380,13 @@ void display_power_up_counter(void)
 #if XSize>=32
     #define ZOMBIE_COUNTER_X (POWER_UP_X+4)
     
-    void display_zombie_counter(void)
+    void display_enemy_counter(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINTD(ZOMBIE_COUNTER_X+1,0,3,minions_to_kill+bosses_to_kill);
     }
 #else
-    #define display_zombie_counter()
+    #define display_enemy_counter()
 #endif
 
 
@@ -645,7 +645,7 @@ uint8_t find_inactive(Item* itemArray)
             return i;
         }
     }
-    return i;
+    return MAX_NUMBER_OF_MISSILES;
 }
 
 
@@ -966,14 +966,14 @@ void power_up_effect(void)
        
         #endif
         
+        case 17:
+            zombie_locked = 0;
+        break;		
+		
         case 19:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_GREEN;
             #endif
-        break;
-        
-        case 20:
-            zombie_locked = 0;
         break;
         
         default:
@@ -1534,7 +1534,7 @@ void zombie_dies(void)
     
     zombie_active[zombie_x]=0;
     
-    display_zombie_counter();
+    display_enemy_counter();
 }
 
 
@@ -2007,11 +2007,12 @@ do \
 
 #endif
 
+#define zombie_counter main_loop_counter
 
 void initialize_zombie_at_level_restart(void)
 {
     zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
-    ++main_loop_counter;
+    ++zombie_counter;
     display_zombie();
     _XL_TOCK_SOUND();
 }
@@ -2038,9 +2039,9 @@ do \
         to_spawn_initially=MAX_OCCUPIED_COLUMNS; \
     } \
     \
-    main_loop_counter = 0; \
+    zombie_counter = 0; \
     \
-    while(main_loop_counter<to_spawn_initially) \
+    while(zombie_counter<to_spawn_initially) \
     { \
         spawn_minion(); \
         initialize_zombie_at_level_restart(); \
@@ -2060,9 +2061,9 @@ do \
         to_spawn_initially = MAX_OCCUPIED_COLUMNS - to_spawn_initially; \
     } \
     \
-    main_loop_counter = 0; \
+    zombie_counter = 0; \
     \
-    while(main_loop_counter<to_spawn_initially) \
+    while(zombie_counter<to_spawn_initially) \
     { \
         spawn_boss(); \
         initialize_zombie_at_level_restart(); \
@@ -2222,7 +2223,7 @@ do \
         display_level(); \
         display_lives(_XL_WHITE); \
         display_power_ups(); \
-        display_zombie_counter(); \
+        display_enemy_counter(); \
     } while(0)
 #else
     #define display_stats() \
@@ -2238,7 +2239,7 @@ do \
         display_level(); \
         display_lives(_XL_WHITE); \
         display_power_ups(); \
-        display_zombie_counter(); \
+        display_enemy_counter(); \
     } while(0)
 #endif
 
@@ -2355,7 +2356,7 @@ do \
     uint8_t i; \
     \
     minions_to_kill = XSize*2; \
-    display_zombie_counter(); \
+    display_enemy_counter(); \
     for(i=0;i<XSize;++i) \
     { \
         zombie_x = i; \

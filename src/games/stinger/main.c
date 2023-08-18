@@ -967,13 +967,13 @@ void power_up_effect(void)
         #endif
         
         case 17:
-            zombie_locked = 0;
-        break;		
-		
-        case 19:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_GREEN;
             #endif
+        break;
+        
+        case 18:
+            zombie_locked = 0;
         break;
         
         default:
@@ -1234,7 +1234,7 @@ void handle_item(register Item* item)
             {
                 _XL_DRAW(item->_x,item->_y,EXPLOSION_TILE,item->_color);
 				_XL_TICK_SOUND();
-
+				_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
                 item->_active=0;
                 _XL_DELETE(item->_x,item->_y);
@@ -2390,7 +2390,7 @@ do \
     { \
         --hyper_counter; \
         \
-        if(hyper_counter==1) \
+        if(!hyper_counter) \
         { \
             bow_color = _XL_CYAN; \
             bow_reload_loops=GREEN_SPEED_VALUE; \

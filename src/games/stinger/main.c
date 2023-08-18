@@ -84,7 +84,7 @@
 #define POWERUP_POINTS 30
 #define FREEZE_POINTS 60
 #define WALL_POINTS 80
-#define ZOMBIE_ITEM_POINTS 150 
+#define SECRET_ITEM_POINTS 500 
 #define POWER_UP_BONUS 25
 #define LEVEL_BONUS 250
 
@@ -121,6 +121,8 @@
 #define FREEZE_COUNTER_MAX 100;
 
 #define WALL_COLOR _XL_GREEN
+#define FREEZE_COLOR _XL_CYAN
+#define SECRET_COLOR _XL_GREEN
 
 #if XSize<=40
     #define MAX_OCCUPIED_COLUMNS (9*(XSize)/16)
@@ -150,7 +152,7 @@
 
 #define LEVEL_2_ZOMBIE_THRESHOLD 8
 
-#define MAX_HYPER_COUNTER 180
+#define MAX_HYPER_COUNTER 160
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -316,7 +318,7 @@ typedef struct ItemStruct Missile;
  Item freezeItem;
  Item powerUpItem;
  Item wallItem;
- Item zombieItem;
+ Item secretItem;
 
 #if !defined(NO_EXTRA_TITLE)
  const uint8_t item_tile[5][2] = 
@@ -876,7 +878,7 @@ void power_up_effect(void)
         else if(pmod10==4)
         {
             #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_CYAN; 
+            powerUpItem._color = FREEZE_COLOR; 
             #endif
         } 
         else if(pmod10==5)
@@ -904,7 +906,7 @@ void power_up_effect(void)
             
             case 4:
                 #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_CYAN; 
+                powerUpItem._color = FREEZE_COLOR; 
                 #endif
             break;
             
@@ -968,14 +970,15 @@ void power_up_effect(void)
         
         case 17:
             #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_GREEN;
+            powerUpItem._color = SECRET_COLOR;
             #endif
         break;
         
         case 18:
             zombie_locked = 0;
+			powerUpItem._color = _XL_WHITE;
         break;
-        
+		
         default:
         break;
     }
@@ -1047,7 +1050,7 @@ void zombie_effect(void)
     display_zombies();
 
     zombie_locked = 1;
-    increase_score(ZOMBIE_ITEM_POINTS);
+    increase_score(SECRET_ITEM_POINTS);
 }
 
 void beam_effect(void)
@@ -1067,7 +1070,7 @@ void beam_effect(void)
         \
         freezeItem._active = 0; \
         freezeItem._tile = FREEZE_TILE; \
-        freezeItem._color = _XL_CYAN; \
+        freezeItem._color = FREEZE_COLOR; \
         freezeItem._effect = freeze_effect; \
         \
         powerUpItem._active = 0; \
@@ -1080,10 +1083,10 @@ void beam_effect(void)
         wallItem._color = WALL_COLOR; \
         wallItem._effect = wall_effect; \
         \
-        zombieItem._active = 0; \
-        zombieItem._tile = BOSS_TILE_0; \
-        zombieItem._color = _XL_GREEN; \
-        zombieItem._effect = zombie_effect; \
+        secretItem._active = 0; \
+        secretItem._tile = SECRET_TILE; \
+        secretItem._color = SECRET_COLOR; \
+        secretItem._effect = zombie_effect; \
         \
         for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
@@ -1119,9 +1122,9 @@ void beam_effect(void)
         wallItem._tile = WALL_TILE; \
         wallItem._effect = wall_effect; \
         \
-        zombieItem._active = 0; \
-        zombieItem._tile = BOSS_TILE_0; \
-        zombieItem._effect = zombie_effect; \
+        secretItem._active = 0; \
+        secretItem._tile = BOSS_TILE_0; \
+        secretItem._effect = zombie_effect; \
         \
         for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
@@ -1254,7 +1257,7 @@ void handle_item(register Item* item)
     handle_item(&freezeItem); \
     handle_item(&powerUpItem); \
     handle_item(&wallItem); \
-    handle_item(&zombieItem); \
+    handle_item(&secretItem); \
     \
     for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
     { \
@@ -1264,7 +1267,7 @@ void handle_item(register Item* item)
 }
 
 
-#if XSize!=13 && XSize!=26 && XSize!=39 && XSize!=52 && XSize!=65 && XSize!=78
+#if (XSize-2)!=13 && (XSize-2)!=26 && (XSize-2)!=39 && (XSize-2)!=52 && (XSize-2)!=65 && (XSize-2)!=78
     #define STEP 13
 #else
     #define STEP 17
@@ -1283,9 +1286,9 @@ uint8_t find_random_zombie(uint8_t value)
     
     index = (uint8_t) (_XL_RAND())&RANDOM_ZOMBIE_RANGE_START;
 
-    for(i=0;i<XSize;++i)
+    for(i=1;i<XSize-1;++i)
     {
-        index = (index+STEP)%XSize;
+        index = 1+(index+STEP)%(XSize-2);
         if(zombie_active[index]==value)
         {
             return index;
@@ -1451,9 +1454,9 @@ void handle_item_drop(void)
                 drop_item(&wallItem,35);
             }
         }
-        else if(!zombie_locked && !zombieItem._active)
+        else if(!zombie_locked && !secretItem._active)
             {
-                drop_item(&zombieItem,50);
+                drop_item(&secretItem,50);
             }
         else
         {
@@ -1492,9 +1495,6 @@ void zombie_dies(void)
 {
     uint8_t y_pos = zombie_y[zombie_x];
     uint8_t i;
-    
-    // _XL_DELETE(zombie_x,y_pos-1);
-    // _XL_DELETE(zombie_x,y_pos);
 
     _XL_DELETE(zombie_x,y_pos+1);
     
@@ -1735,7 +1735,7 @@ void handle_zombie_collisions(void)
 			\
 			zombie_x = (bow_x>>1)+(bow_x&1); \
 			\
-			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && ((zombie_level[zombie_x]==3) || (!(main_loop_counter&7)))) \
+			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && ((zombie_level[zombie_x]==3) || (!(main_loop_counter&15)))) \
 			{ \
 				drop_item(&enemyMissile[missile_index],1); \
 			} \
@@ -1846,7 +1846,7 @@ void fire(void)
                     continue;
                 }
             }
-            if(new_arrow_x<XSize)
+            if(new_arrow_x<XSize-1 && new_arrow_x)
             {
                 compute_next_available_arrow_index();
 
@@ -1881,7 +1881,7 @@ void fire(void)
     { \
         input = _XL_INPUT(); \
         \
-        if(_XL_LEFT(input) && bow_x) \
+        if(_XL_LEFT(input) && bow_x>1) \
         { \
             move_left(); \
             if(bow_x) \
@@ -1889,7 +1889,7 @@ void fire(void)
                 move_left(); \
             } \
         } \
-        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X-1) \
         { \
             move_right(); \
             if(bow_x<MAX_BOW_X) \
@@ -1908,11 +1908,11 @@ void fire(void)
     { \
         input = _XL_INPUT(); \
         \
-        if(_XL_LEFT(input) && bow_x) \
+        if(_XL_LEFT(input) && bow_x>1) \
         { \
             move_left(); \
         } \
-        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X) \
+        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X-1) \
         { \
             move_right(); \
         } \
@@ -2008,6 +2008,8 @@ do \
             number_of_arrows_per_shot = 1; \
             initialize_items(); \
             _XL_CLEAR_SCREEN(); \
+			_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
+			_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
         } while(0)
 
 #endif
@@ -2217,7 +2219,8 @@ do \
     { \
         _XL_SET_TEXT_COLOR(_XL_WHITE); \
         display_score(); \
-        _XL_DRAW(HI_X,0,HI_TILE, _XL_GREEN); \
+        _XL_SET_TEXT_COLOR(_XL_GREEN); \
+        _XL_CHAR(HI_X,0,'H'); \
         _XL_SET_TEXT_COLOR(_XL_WHITE); \
         _XL_PRINTD(HI_X+1,0,5, hiscore); \
         _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \

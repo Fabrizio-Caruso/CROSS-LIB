@@ -49,7 +49,7 @@
     #define EXTRA_POINTS_TILE _TILE_25
     
     #define HI_TILE _TILE_14
-    #define LV_TILE _TILE_15
+    #define EXPLOSION_TILE _TILE_15
 
 #endif // _IMAGES_H
 

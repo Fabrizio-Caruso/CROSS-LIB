@@ -1138,7 +1138,6 @@ void beam_effect(void)
 
 #define display_level() \
 { \
-    _XL_DRAW(XSize-2,0,LV_TILE,_XL_CYAN); \
     _XL_SET_TEXT_COLOR(_XL_YELLOW); \
     _XL_PRINTD(XSize-1,0,1,level+1); \
 }
@@ -1230,12 +1229,18 @@ void handle_item(register Item* item)
                 _XL_PING_SOUND();
                 item->_active=0;
             }
-            display_bow();
             --(item->_counter);
             if(!(item->_counter))
             {
+                _XL_DRAW(item->_x,item->_y,EXPLOSION_TILE,item->_color);
+				_XL_TICK_SOUND();
+
+
                 item->_active=0;
+                _XL_DELETE(item->_x,item->_y);
+				
             }
+			display_bow();
         }
     }   
 }

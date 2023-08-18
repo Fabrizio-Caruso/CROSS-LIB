@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 5
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -106,8 +106,8 @@
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
 
-// (3 basic hits)
-#define MINION_ENERGY 6 
+// (2 basic hits)
+#define MINION_ENERGY 4
 
 // Boss energy: 7 (4 basic hits), 9 (5 basic hits), 11 (6 basic hits)
 #define BOSS_BASE_ENERGY 5
@@ -142,10 +142,10 @@
     #define MINIONS_ON_FIRST_LEVEL 60
 #endif
 
-#if XSize<=80
+#if XSize<64
     #define BOSSES_ON_FIRST_LEVEL (XSize)
 #else
-    #define BOSSES_ON_FIRST_LEVEL 20
+    #define BOSSES_ON_FIRST_LEVEL 50
 #endif
 
 #define LEVEL_2_ZOMBIE_THRESHOLD 8

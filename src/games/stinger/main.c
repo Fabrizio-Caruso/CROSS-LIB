@@ -29,9 +29,9 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 4
 
-#define LAST_LEVEL 5
+#define LAST_LEVEL 4
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -1786,7 +1786,7 @@ void handle_zombie_collisions(void)
 		if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES) \
 		{ \
 			\
-			zombie_x = (bow_x>>1)+(bow_x&1); \
+			zombie_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3); \
 			\
 			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && ((zombie_level[zombie_x]==3) || (!(main_loop_counter&15)))) \
 			{ \

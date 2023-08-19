@@ -124,10 +124,19 @@
 #define FREEZE_COLOR _XL_CYAN
 #define SECRET_COLOR _XL_GREEN
 
+
+uint8_t max_occupied_columns;
+
 #if XSize<=40
-    #define MAX_OCCUPIED_COLUMNS (9*(XSize)/16)
+    #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
 #else
     #define MAX_OCCUPIED_COLUMNS (2*(XSize)/3)
+#endif
+
+#if XSize<=40
+    #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-3)
+#else
+    #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-6)
 #endif
 
 #define FEW_ZOMBIES (2*(MAX_OCCUPIED_COLUMNS)/3)
@@ -2051,6 +2060,14 @@ do \
             zombie_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
+			if(level>=3) \
+			{ \
+				max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS; \
+			} \
+			else \
+			{ \
+				max_occupied_columns = MAX_OCCUPIED_COLUMNS; \
+			} \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
             remaining_arrows = MAX_ARROWS; \
@@ -2090,13 +2107,13 @@ do \
 #define spawn_initial_minions() \
     minions_to_kill = MINIONS_ON_FIRST_LEVEL-killed_minions;  \
     \
-    if(minions_to_kill<MAX_OCCUPIED_COLUMNS) \
+    if(minions_to_kill<max_occupied_columns) \
     { \
         to_spawn_initially=minions_to_kill; \
     } \
     else \
     { \
-        to_spawn_initially=MAX_OCCUPIED_COLUMNS; \
+        to_spawn_initially=max_occupied_columns; \
     } \
     \
     zombie_counter = 0; \
@@ -2112,13 +2129,13 @@ do \
 #define spawn_initial_bosses() \
     bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses; \
     \
-    if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - to_spawn_initially) \
+    if(bosses_to_kill<max_occupied_columns - to_spawn_initially) \
     { \
         to_spawn_initially = bosses_to_kill;   \
     } \
     else \
     { \
-        to_spawn_initially = MAX_OCCUPIED_COLUMNS - to_spawn_initially; \
+        to_spawn_initially = max_occupied_columns - to_spawn_initially; \
     } \
     \
     zombie_counter = 0; \

@@ -1727,7 +1727,7 @@ void handle_zombie_collisions(void)
 
 #define handle_missile_drops() \
 { \
-	if(!freeze) \
+	if(!freeze && !(main_loop_counter&1)) \
 	{ \
 		uint8_t missile_index; \
 		if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES) \

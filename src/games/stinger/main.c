@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -69,7 +69,7 @@
     #define MAX_ARROWS_ON_SCREEN 12
 #endif
 
-#define AUTO_RECHARGE_COOL_DOWN 45
+#define AUTO_RECHARGE_COOL_DOWN 50
 #define AUTO_ARROW_RECAHRGE 9
 
 #define MAX_FREEZE 1
@@ -115,8 +115,8 @@
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
-#define HYPER_RECHARGE 50
-#define ARROW_RECHARGE 30
+#define HYPER_RECHARGE 30
+#define ARROW_RECHARGE 10
 
 #define FREEZE_COUNTER_MAX 100;
 
@@ -1333,18 +1333,18 @@ void activate_zombie(void)
     };    
   
     #if YSize<=16
-        // zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
-		zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
+		// zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
 
     #else
-        // zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
-		zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
+		// zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
 
     #endif
 	
 	_XL_DRAW(zombie_x, zombie_y[zombie_x], ZOMBIE_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
-	_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+	_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
 	zombie_active[zombie_x]=1;    
     zombie_shape[zombie_x]=0;
 }

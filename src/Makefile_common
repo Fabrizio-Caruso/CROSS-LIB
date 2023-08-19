@@ -739,7 +739,7 @@ aquarius: aquarius_exp_16k
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__ \
-	-lndos -D_XL_NO_UDG \
+	-lndos -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -752,7 +752,7 @@ aquarius_alt:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	 -D__AQUARIUS__ \
 	-lndos -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) -D_XL_NO_UDG \
-	-D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
 	$(FULL_FILES) \
 	-create-app	\
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
@@ -765,7 +765,7 @@ aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -SO3 -compiler=sdcc -clib=ansi $(INCLUDE_OPTS) -vn \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__AQUARIUS__ \
-	-lndos -D_XL_NO_UDG \
+	-lndos -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AQUARIUS_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \

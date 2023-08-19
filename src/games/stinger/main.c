@@ -1262,6 +1262,9 @@ void handle_item(register Item* item)
     for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
     { \
         handle_item(&extraPointsItem[i]); \
+    } \
+    for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
+    { \
         handle_item(&enemyMissile[i]); \
     } \
 }
@@ -1284,17 +1287,31 @@ uint8_t find_random_zombie(uint8_t value)
     uint8_t i;
     uint8_t index;
     
-    index = (uint8_t) (_XL_RAND())&RANDOM_ZOMBIE_RANGE_START;
+    // index = (uint8_t) (_XL_RAND())&RANDOM_ZOMBIE_RANGE_START;
+
+    // for(i=1;i<XSize-1;++i)
+    // {
+        // index = 1+(index+STEP)%(XSize-2);
+        // if(zombie_active[index]==value)
+        // {
+            // return index;
+        // }
+    // }
+	
+    index = (uint8_t) (_XL_RAND())%(XSize-2);
 
     for(i=1;i<XSize-1;++i)
     {
-        index = 1+(index+STEP)%(XSize-2);
+        index%=(XSize-2);
+		++index;
         if(zombie_active[index]==value)
         {
             return index;
         }
-    }
-    return XSize;
+    }	
+	
+	// while(1){}; // TODO: Only for debugging
+    return 1;
 }
 
 
@@ -1307,15 +1324,29 @@ void activate_zombie(void)
     while((old_x==zombie_x) || (old_x+1==zombie_x) || (old_x-1==zombie_x))
     {
         zombie_x = find_random_zombie(0);
+		
+		// TODO: Is this possible?
+		// if(zombie_x==XSize)
+		// {
+			// return;
+		// }
     };    
   
-    zombie_active[zombie_x]=1;    
-    zombie_shape[zombie_x]=0;
     #if YSize<=16
-        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
+        // zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
+		zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+
     #else
-        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
+        // zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
+		zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+
     #endif
+	
+	_XL_DRAW(zombie_x, zombie_y[zombie_x], ZOMBIE_DEATH_TILE, _XL_WHITE);
+	_XL_TOCK_SOUND();
+	_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+	zombie_active[zombie_x]=1;    
+    zombie_shape[zombie_x]=0;
 }
 
 
@@ -1346,7 +1377,7 @@ void spawn_boss(void)
         {
             rank = (uint8_t) (1 + ((_XL_RAND())%3));   
         }
-        else // 4
+        else // 4, 5
         {
             rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
         }
@@ -2018,10 +2049,10 @@ do \
 
 void initialize_zombie_at_level_restart(void)
 {
-    zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+    // zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
     ++zombie_counter;
     display_zombie();
-    _XL_TOCK_SOUND();
+    // _XL_TOCK_SOUND();
 }
 
 #define reset_wall_and_zombies() \

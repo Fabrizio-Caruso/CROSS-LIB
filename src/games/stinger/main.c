@@ -86,7 +86,7 @@
 #define WALL_POINTS 80
 #define SECRET_ITEM_POINTS 500 
 #define POWER_UP_BONUS 25
-#define LEVEL_BONUS 250
+#define LEVEL_BONUS 200
 
 
 #define RED_FIRE_POWER_VALUE 2
@@ -116,7 +116,7 @@
 
 #define MAX_ARROWS 99
 #define HYPER_RECHARGE 30
-#define ARROW_RECHARGE 10
+#define ARROW_RECHARGE 15
 
 #define FREEZE_COUNTER_MAX 100;
 
@@ -321,24 +321,45 @@ typedef struct ItemStruct Missile;
  Item secretItem;
 
 #if !defined(NO_EXTRA_TITLE)
- const uint8_t item_tile[5][2] = 
+ const uint8_t item_tile[6][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
     { ARROW_TILE_1, _XL_YELLOW },
     { EXTRA_POINTS_TILE, _XL_YELLOW },
     { FREEZE_TILE, _XL_CYAN },
     { WALL_TILE, WALL_COLOR },
+	{ SECRET_TILE, SECRET_COLOR},
 };
 
- const char item_name[5][9] = 
+ const char item_name[6][9] = 
 {
     _XL_P _XL_O _XL_W _XL_E _XL_R _XL_SPACE _XL_U _XL_P,
     _XL_R _XL_O _XL_C _XL_K _XL_E _XL_T _XL_S,
     _XL_P _XL_O _XL_I _XL_N _XL_T _XL_S,
     _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
     _XL_W _XL_A _XL_L _XL_L,
+	_XL_S _XL_E _XL_C _XL_R _XL_E _XL_T,
 };
 #endif
+
+#if !defined(NO_EXTRA_TITLE)
+ const uint8_t enemy_tile[5][2] = 
+{
+    { MINION_TILE_0, _XL_WHITE },
+    { BOSS_TILE_0, _XL_GREEN },
+    { ZOMBIE_DEATH_TILE, _XL_YELLOW },
+    { BOSS_TILE_0, _XL_RED },
+};
+
+ const char enemy_name[4][8] = 
+{
+    _XL_L _XL_I _XL_G _XL_H _XL_T,
+    _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
+    _XL_S _XL_T _XL_E _XL_A _XL_L _XL_T _XL_H,
+    _XL_H _XL_E _XL_A _XL_V _XL_Y,
+};
+#endif
+
 
 
  Missile enemyMissile[MAX_NUMBER_OF_MISSILES];
@@ -1532,9 +1553,10 @@ void zombie_dies(void)
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
 
 
-    for(i=0;i<17;++i)
+    for(i=0;i<12;++i)
     {
         _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
         display_red_zombie();
     } 
     _XL_SHOOT_SOUND();
@@ -2175,18 +2197,34 @@ do \
     { \
         uint8_t i; \
         \
-        for(i=0;i<5;++i) \
+        for(i=0;i<6;++i) \
         { \
-            _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+            _XL_DRAW(XSize/2-5,YSize/3+2+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
             _XL_SET_TEXT_COLOR(_XL_GREEN); \
-            _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
+            _XL_PRINT(XSize/2-5+3,YSize/3+2+_NEXT_ROW, (char *)item_name[i]); \
         } \
 		_XL_SET_TEXT_COLOR(_XL_YELLOW); \
         control_instructions(); \
     } while(0)
+		
+	void display_enemies(void)
+	{
+		uint8_t i;
+		
+		for(i=0;i<4;++i)
+		{
+			_XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, enemy_tile[i][0], enemy_tile[i][1]);
+			_XL_SET_TEXT_COLOR(_XL_GREEN);
+			_XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)enemy_name[i]);
+		}
+	}
 #else
     #define display_items()
+	#define display_enemies()
 #endif
+
+
+
 
 
 #if YSize<=22
@@ -2224,6 +2262,19 @@ do \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
+    sleep_and_wait_for_input(); \
+}
+
+
+void display_second_screen() 
+{
+    _XL_CLEAR_SCREEN();
+    
+    display_wall(0);
+    display_wall(BOTTOM_WALL_Y+1);
+	_XL_SET_TEXT_COLOR(_XL_CYAN);
+	PRINT_CENTERED_ON_ROW(YSize/3, "ENEMY ARMOR");
+	display_enemies();
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 }
@@ -2470,6 +2521,7 @@ int main(void)
     {
         global_initialization();
         display_initial_screen();
+		display_second_screen();
         
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            

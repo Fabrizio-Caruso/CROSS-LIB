@@ -48,17 +48,17 @@
 #endif
 
 #if YSize>=16
-    #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
+    #define INITIAL_TANK_Y (((YSize)/2)-2)
 #else
-    #define INITIAL_ZOMBIE_Y (((YSize)/2)-1)
+    #define INITIAL_TANK_Y (((YSize)/2)-1)
 #endif
 
 #if YSize>=18
-    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
+    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-4
 #elif YSize>=16
-    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-3
+    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-3
 #else 
-    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-2
+    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-2
 #endif
 
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
@@ -103,7 +103,7 @@
 #define YELLOW_RANGE_VALUE ((INITIAL_ARROW_RANGE)-2)
 #define GREEN_RANGE_VALUE ((INITIAL_ARROW_RANGE)-4)
 
-#define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+1)
+#define INITIAL_ARROW_RANGE ((INITIAL_TANK_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
 
 // (2 basic hits)
@@ -139,7 +139,7 @@ uint8_t max_occupied_columns;
     #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-6)
 #endif
 
-#define FEW_ZOMBIES (2*(MAX_OCCUPIED_COLUMNS)/3)
+#define FEW_TANKS (2*(MAX_OCCUPIED_COLUMNS)/3)
 
 #define MAX_NUMBER_OF_MISSILES 6
 
@@ -159,7 +159,7 @@ uint8_t max_occupied_columns;
     #define BOSSES_ON_FIRST_LEVEL 50
 #endif
 
-#define LEVEL_2_ZOMBIE_THRESHOLD 8
+#define LEVEL_2_TANK_THRESHOLD 8
 
 #define MAX_HYPER_COUNTER 160
 
@@ -169,21 +169,27 @@ uint8_t max_occupied_columns;
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
 
- uint8_t active_wall;
+#define FAST_TANK_SHOOT_MASK 3
 
- uint16_t next_threshold;
+#define SLOW_TANK_SHOOT_MASK 15
 
- uint8_t main_loop_counter;
+uint8_t tank_speed_mask;
 
- uint8_t forced_zombie;
+uint8_t active_wall;
 
- uint8_t forced_zombie_x;
+uint16_t next_threshold;
 
- uint8_t hyper_counter;
+uint8_t main_loop_counter;
 
- uint8_t item_counter;
+uint8_t forced_tank;
 
- const uint8_t zombie_points[] = 
+uint8_t forced_tank_x;
+
+uint8_t hyper_counter;
+
+uint8_t item_counter;
+
+const uint8_t tank_points[] = 
 { 
     MINION_POINTS, // Skeletons
     BOSS_1_POINTS, // Ogre
@@ -223,23 +229,23 @@ uint8_t max_occupied_columns;
 
  uint8_t number_of_arrows_per_shot;
 
- uint8_t zombie_y[XSize];
- uint8_t zombie_shape[XSize];
- uint8_t zombie_x;
- uint8_t zombie_speed;
- uint8_t zombie_active[XSize];
+ uint8_t tank_y[XSize];
+ uint8_t tank_shape[XSize];
+ uint8_t tank_x;
+ uint8_t tank_speed;
+ uint8_t tank_active[XSize];
 
  uint8_t energy[XSize];
- uint8_t zombie_level[XSize];
+ uint8_t tank_level[XSize];
 
  uint8_t fire_power;
 
  uint8_t wall_appeared;
  uint8_t freeze_locked;
- uint8_t zombie_locked;
+ uint8_t tank_locked;
 
 #if !defined(_XL_NO_UDG)
- const uint8_t zombie_tile[7+1] = 
+ const uint8_t tank_tile[7+1] = 
 {
     MINION_TILE_0, // 0
     MINION_TILE_0, // 1
@@ -356,7 +362,7 @@ typedef struct ItemStruct Missile;
 {
     { MINION_TILE_0, _XL_WHITE },
     { BOSS_TILE_0, _XL_GREEN },
-    { ZOMBIE_DEATH_TILE, _XL_YELLOW },
+    { TANK_DEATH_TILE, _XL_YELLOW },
     { BOSS_TILE_0, _XL_RED },
 };
 
@@ -410,12 +416,12 @@ void display_power_up_counter(void)
 }
 
 #if XSize>=32
-    #define ZOMBIE_COUNTER_X (POWER_UP_X+4)
+    #define TANK_COUNTER_X (POWER_UP_X+4)
     
     void display_enemy_counter(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(ZOMBIE_COUNTER_X+1,0,3,minions_to_kill+bosses_to_kill);
+        _XL_PRINTD(TANK_COUNTER_X+1,0,3,minions_to_kill+bosses_to_kill);
     }
 #else
     #define display_enemy_counter()
@@ -491,28 +497,28 @@ void display_bow(void)
 
 
 
-void display_zombie(void)
+void display_tank(void)
 {
-    uint8_t status = zombie_shape[zombie_x];
-    uint8_t pos = zombie_y[zombie_x];
+    uint8_t status = tank_shape[tank_x];
+    uint8_t pos = tank_y[tank_x];
     uint8_t color;
     uint8_t tile0;
 
     tile0 = BOSS_TILE_0;
 
-    if(zombie_level[zombie_x]==1)
+    if(tank_level[tank_x]==1)
     {
         color = _XL_GREEN;
     }
-    else if(zombie_level[zombie_x]==2)
+    else if(tank_level[tank_x]==2)
     {
         if(!freeze)
         {
-            tile0 = ZOMBIE_DEATH_TILE;
+            tile0 = TANK_DEATH_TILE;
             color = _XL_YELLOW;
         }
     }
-    else if(!zombie_level[zombie_x])
+    else if(!tank_level[tank_x])
     {
         tile0 = MINION_TILE_0;
         color = _XL_WHITE;
@@ -528,37 +534,37 @@ void display_zombie(void)
 
     if(!status)
     {
-        _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
-        _XL_DRAW(zombie_x, pos, tile0, color);
+        _XL_DELETE(tank_x, tank_y[tank_x]-1);
+        _XL_DRAW(tank_x, pos, tile0, color);
     }
     else
     {
         #if !defined(_XL_NO_UDG)
         uint8_t tile1;
 
-        if(!zombie_level[zombie_x])
+        if(!tank_level[tank_x])
         {
-            tile0 = zombie_tile[status<<1];
-            tile1 = zombie_tile[1+(status<<1)];
+            tile0 = tank_tile[status<<1];
+            tile1 = tank_tile[1+(status<<1)];
         }
         else
         {
             tile0 = boss_tile[status<<1];
             tile1 = boss_tile[1+(status<<1)]; 
         }
-        _XL_DRAW(zombie_x, pos, tile0, color);
-        _XL_DRAW(zombie_x,1 + pos, tile1, color);
+        _XL_DRAW(tank_x, pos, tile0, color);
+        _XL_DRAW(tank_x,1 + pos, tile1, color);
         #else
         // Avoid using the upper border / beam tile in ASCII mode
 
-        if(!zombie_level[zombie_x])
+        if(!tank_level[tank_x])
         {
             
             tile0 = MINION_TILE_0;
         }
         else
         {
-            if((zombie_y[zombie_x])&1)
+            if((tank_y[tank_x])&1)
             {
                 tile0 = BOSS_TILE_0;
             }
@@ -567,7 +573,7 @@ void display_zombie(void)
                 tile0 = BOSS_TILE_1;
             }
         }
-        _XL_DRAW(zombie_x, pos, tile0, color);
+        _XL_DRAW(tank_x, pos, tile0, color);
         #endif
     }
 }
@@ -1005,7 +1011,7 @@ void power_up_effect(void)
         break;
         
         case 18:
-            zombie_locked = 0;
+            tank_locked = 0;
 			powerUpItem._color = _XL_WHITE;
         break;
 		
@@ -1033,7 +1039,7 @@ void wall_effect(void)
     for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
 #endif
     {
-        if(zombie_y[i]<WALL_Y-1 || !zombie_active[i])
+        if(tank_y[i]<WALL_Y-1 || !tank_active[i])
         {
             wall[i]=WALL_ENERGY;
             _XL_DRAW(i,WALL_Y,WALL_TILE,WALL_COLOR);            
@@ -1049,13 +1055,13 @@ void wall_effect(void)
 
 
 
-void display_zombies(void)
+void display_tanks(void)
 {
-    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    for(tank_x=0;tank_x<XSize;++tank_x)
     {
-        if(zombie_active[zombie_x])
+        if(tank_active[tank_x])
         {
-            display_zombie();
+            display_tank();
         }
     }
 }
@@ -1065,21 +1071,21 @@ void freeze_effect(void)
 {
     freeze=FREEZE_COUNTER_MAX;
 
-    display_zombies();
+    display_tanks();
     increase_score(FREEZE_POINTS);
     ++freeze_locked;
 }
 
 
-void zombie_effect(void)
+void tank_effect(void)
 {
-    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    for(tank_x=0;tank_x<XSize;++tank_x)
     {
-        zombie_level[zombie_x]=1;
+        tank_level[tank_x]=1;
     }
-    display_zombies();
+    display_tanks();
 
-    zombie_locked = 1;
+    tank_locked = 1;
     increase_score(SECRET_ITEM_POINTS);
 }
 
@@ -1116,7 +1122,7 @@ void beam_effect(void)
         secretItem._active = 0; \
         secretItem._tile = SECRET_TILE; \
         secretItem._color = SECRET_COLOR; \
-        secretItem._effect = zombie_effect; \
+        secretItem._effect = tank_effect; \
         \
         for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
@@ -1154,7 +1160,7 @@ void beam_effect(void)
         \
         secretItem._active = 0; \
         secretItem._tile = BOSS_TILE_0; \
-        secretItem._effect = zombie_effect; \
+        secretItem._effect = tank_effect; \
         \
         for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
         { \
@@ -1203,13 +1209,13 @@ void drop_item(register Item *item, uint8_t max_counter)
 {
     uint8_t offset;
 
-    offset = zombie_y[zombie_x]+1;
+    offset = tank_y[tank_x]+1;
     
     _XL_TICK_SOUND();
     item->_active = 1;
-    item->_x = zombie_x;
+    item->_x = tank_x;
 
-    if(zombie_shape[zombie_x])
+    if(tank_shape[tank_x])
     {
         ++offset;
     }
@@ -1307,22 +1313,22 @@ void handle_item(register Item* item)
 #endif 
 
 #if XSize<=40
-    #define RANDOM_ZOMBIE_RANGE_START (31)
+    #define RANDOM_TANK_RANGE_START (31)
 #else
-    #define RANDOM_ZOMBIE_RANGE_START (63)
+    #define RANDOM_TANK_RANGE_START (63)
 #endif
 
-uint8_t find_random_zombie(uint8_t value)
+uint8_t find_random_tank(uint8_t value)
 {
     uint8_t i;
     uint8_t index;
     
-    // index = (uint8_t) (_XL_RAND())&RANDOM_ZOMBIE_RANGE_START;
+    // index = (uint8_t) (_XL_RAND())&RANDOM_TANK_RANGE_START;
 
     // for(i=1;i<XSize-1;++i)
     // {
         // index = 1+(index+STEP)%(XSize-2);
-        // if(zombie_active[index]==value)
+        // if(tank_active[index]==value)
         // {
             // return index;
         // }
@@ -1334,7 +1340,7 @@ uint8_t find_random_zombie(uint8_t value)
     {
         index%=(XSize-2);
 		++index;
-        if(zombie_active[index]==value)
+        if(tank_active[index]==value)
         {
             return index;
         }
@@ -1345,46 +1351,46 @@ uint8_t find_random_zombie(uint8_t value)
 }
 
 
-void activate_zombie(void)
+void activate_tank(void)
 {
     uint8_t old_x;
     
-    old_x = zombie_x;
+    old_x = tank_x;
     
-    while((old_x==zombie_x) || (old_x+1==zombie_x) || (old_x-1==zombie_x))
+    while((old_x==tank_x) || (old_x+1==tank_x) || (old_x-1==tank_x))
     {
-        zombie_x = find_random_zombie(0);
+        tank_x = find_random_tank(0);
 		
 		// TODO: Is this possible?
-		// if(zombie_x==XSize)
+		// if(tank_x==XSize)
 		// {
 			// return;
 		// }
     };    
   
     #if YSize<=16
-        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y;
-		// zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+        tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
+		// tank_y[tank_x]=INITIAL_TANK_Y;
 
     #else
-        zombie_y[zombie_x]=INITIAL_RESPAWN_ZOMBIE_Y+(level>>1);
-		// zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
+        tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y+(level>>1);
+		// tank_y[tank_x]=INITIAL_TANK_Y;
 
     #endif
 	
-	_XL_DRAW(zombie_x, zombie_y[zombie_x], ZOMBIE_DEATH_TILE, _XL_WHITE);
+	_XL_DRAW(tank_x, tank_y[tank_x], TANK_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
 	_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
-	zombie_active[zombie_x]=1;    
-    zombie_shape[zombie_x]=0;
+	tank_active[tank_x]=1;    
+    tank_shape[tank_x]=0;
 }
 
 
 void spawn_minion(void)
 {
-    activate_zombie();
-    zombie_level[zombie_x]=0;
-    energy[zombie_x]=MINION_ENERGY;  
+    activate_tank();
+    tank_level[tank_x]=0;
+    energy[tank_x]=MINION_ENERGY;  
     --minions_to_spawn;
 }
 
@@ -1411,33 +1417,33 @@ void spawn_boss(void)
         {
             rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
         }
-    } while((rank==2)&&(bosses_to_spawn<LEVEL_2_ZOMBIE_THRESHOLD));
+    } while((rank==2)&&(bosses_to_spawn<LEVEL_2_TANK_THRESHOLD));
 
-    activate_zombie();
-    zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_BASE_ENERGY+rank*2;
+    activate_tank();
+    tank_level[tank_x]=rank;
+    energy[tank_x]=BOSS_BASE_ENERGY+rank*2;
     --bosses_to_spawn;
 }
 
-#if !defined(NORMAL_ZOMBIE_SPEED) && !defined(SLOW_ZOMBIE_SPEED)
+#if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
     #if XSize>=32
-        #define NORMAL_ZOMBIE_SPEED 1
-        #define SLOW_ZOMBIE_SPEED 7
+        #define NORMAL_TANK_SPEED 1
+        #define SLOW_TANK_SPEED 7
     #else
-        #define NORMAL_ZOMBIE_SPEED 3
-        #define SLOW_ZOMBIE_SPEED 7
+        #define NORMAL_TANK_SPEED 3
+        #define SLOW_TANK_SPEED 7
     #endif 
 #endif
 
-void update_zombie_speed(void)
+void update_tank_speed(void)
 {
-    if(minions_to_kill + bosses_to_kill<=FEW_ZOMBIES)
+    if(minions_to_kill + bosses_to_kill<=FEW_TANKS)
     {
-        zombie_speed=SLOW_ZOMBIE_SPEED;
+        tank_speed=SLOW_TANK_SPEED;
     }
     else
     {
-        zombie_speed=NORMAL_ZOMBIE_SPEED;
+        tank_speed=NORMAL_TANK_SPEED;
     }
 }
 
@@ -1453,17 +1459,17 @@ void display_wall(uint8_t y)
 }
 
 
-#define _display_red_zombie(tile) \
+#define _display_red_tank(tile) \
 { \
-    _XL_DRAW(zombie_x,zombie_y[zombie_x],tile,_XL_RED); \
+    _XL_DRAW(tank_x,tank_y[tank_x],tile,_XL_RED); \
 }
 
 
-void display_red_zombie(void)
+void display_red_tank(void)
 {
     uint8_t tile;
     
-    if(!zombie_level[zombie_x])
+    if(!tank_level[tank_x])
     {
         tile=MINION_TILE_0;
     }
@@ -1471,13 +1477,13 @@ void display_red_zombie(void)
     {
         tile=BOSS_TILE_0;
     }
-    _display_red_zombie(tile);
+    _display_red_tank(tile);
 }
 
 
 void handle_item_drop(void)
 {
-    if(zombie_level[zombie_x] || ((uint8_t) (_XL_RAND()) <75))
+    if(tank_level[tank_x] || ((uint8_t) (_XL_RAND()) <75))
     {        
         ++item_counter;
         item_counter&=3;
@@ -1515,7 +1521,7 @@ void handle_item_drop(void)
                 drop_item(&wallItem,35);
             }
         }
-        else if(!zombie_locked && !secretItem._active)
+        else if(!tank_locked && !secretItem._active)
             {
                 drop_item(&secretItem,50);
             }
@@ -1545,31 +1551,31 @@ void respawn(void)
         {
             spawn_boss();
         }
-        display_zombie();
+        display_tank();
     }
 
-    update_zombie_speed();
+    update_tank_speed();
 }
 
 
-void zombie_dies(void)
+void tank_dies(void)
 {
-    uint8_t y_pos = zombie_y[zombie_x];
+    uint8_t y_pos = tank_y[tank_x];
     uint8_t i;
 
-    _XL_DELETE(zombie_x,y_pos+1);
+    _XL_DELETE(tank_x,y_pos+1);
     
-    _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+    _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
 
 
     for(i=0;i<12;++i)
     {
-        _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+        _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
-        display_red_zombie();
+        display_red_tank();
     } 
     _XL_SHOOT_SOUND();
-    _XL_DELETE(zombie_x,y_pos);
+    _XL_DELETE(tank_x,y_pos);
     
     #if defined(NO_BOTTOM_WALL_REDRAW)
     #else
@@ -1578,7 +1584,7 @@ void zombie_dies(void)
     
     display_bow();
         
-    if(zombie_level[zombie_x])
+    if(tank_level[tank_x])
     {
         ++killed_bosses;
         --bosses_to_kill;
@@ -1589,9 +1595,9 @@ void zombie_dies(void)
         --minions_to_kill;
     }
    
-    if(zombie_x==forced_zombie_x)
+    if(tank_x==forced_tank_x)
     {
-        forced_zombie = 0;
+        forced_tank = 0;
     }
     
     if(y_pos<BOW_Y-2)
@@ -1599,7 +1605,7 @@ void zombie_dies(void)
         handle_item_drop();
     }
     
-    zombie_active[zombie_x]=0;
+    tank_active[tank_x]=0;
     
     display_enemy_counter();
 }
@@ -1646,16 +1652,16 @@ void handle_arrows(void)
 }
 
 
-uint8_t zombie_hit(void)
+uint8_t tank_hit(void)
 {
     uint8_t i;
     
     for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
     {
-        if(active_arrow[i] && arrow_x[i]==zombie_x
-          && zombie_y[zombie_x]>=arrow_y[i]-1 && zombie_y[zombie_x]<=arrow_y[i]+1)
+        if(active_arrow[i] && arrow_x[i]==tank_x
+          && tank_y[tank_x]>=arrow_y[i]-1 && tank_y[tank_x]<=arrow_y[i]+1)
            {
-               if(freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x])
+               if(freeze || (tank_level[tank_x]!=2) || tank_shape[tank_x])
                {
                    active_arrow[i]=0;
                     --arrows_on_screen;
@@ -1663,9 +1669,9 @@ uint8_t zombie_hit(void)
                    _XL_DELETE(arrow_x[i],arrow_y[i]);
                    return 1;
                }
-               else // Arrows goes through ghost !free (non-frozen) && zombie_level==2 (i.e., ghost zombie) && !zombie_shape (i.e. invincible shape)
+               else // Arrows goes through ghost !free (non-frozen) && tank_level==2 (i.e., ghost tank) && !tank_shape (i.e. invincible shape)
                {
-                   display_zombie(); // display invincible ghost zombie
+                   display_tank(); // display invincible ghost tank
                    return 0; // two arrows cannot be at the same place
                }
            }
@@ -1677,13 +1683,13 @@ uint8_t zombie_hit(void)
 #define decrease_energy() \
 do \
 { \
-    if(energy[zombie_x]<=fire_power) \
+    if(energy[tank_x]<=fire_power) \
     { \
-        energy[zombie_x]=0; \
+        energy[tank_x]=0; \
     } \
     else \
     { \
-        energy[zombie_x]-=fire_power; \
+        energy[tank_x]-=fire_power; \
     } \
 } while(0)
 
@@ -1723,45 +1729,45 @@ do \
 
 #endif
 
-void push_zombie(void)
+void push_tank(void)
 {
-    if(!zombie_shape[zombie_x])
+    if(!tank_shape[tank_x])
     {
-        --zombie_y[zombie_x];
-        zombie_shape[zombie_x]=3;
+        --tank_y[tank_x];
+        tank_shape[tank_x]=3;
     }
     else 
     {
-        --zombie_shape[zombie_x];
-        _XL_DELETE(zombie_x,zombie_y[zombie_x]+1);
+        --tank_shape[tank_x];
+        _XL_DELETE(tank_x,tank_y[tank_x]+1);
     }
 }
 
 
-void handle_zombie_collisions(void)
+void handle_tank_collisions(void)
 {
-    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    for(tank_x=0;tank_x<XSize;++tank_x)
     {
-        if(zombie_active[zombie_x] && zombie_hit())
+        if(tank_active[tank_x] && tank_hit())
         {
             decrease_energy();
 
-            if(energy[zombie_x])
+            if(energy[tank_x])
             {
-                display_red_zombie();
+                display_red_tank();
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 
                 _XL_TOCK_SOUND();
-                push_zombie();
-                display_zombie();
+                push_tank();
+                display_tank();
                 #if defined(_XL_NO_UDG)
-                _XL_DELETE(zombie_x,zombie_y[zombie_x]+1);
+                _XL_DELETE(tank_x,tank_y[tank_x]+1);
                 #endif
             }
             else
             {
-                zombie_dies();
-                increase_score(zombie_points[zombie_level[zombie_x]]);
+                tank_dies();
+                increase_score(tank_points[tank_level[tank_x]]);
                 respawn();
             }
         }
@@ -1772,13 +1778,13 @@ void handle_zombie_collisions(void)
 
 
 
-#define _move_zombie() \
+#define _move_tank() \
 { \
-    ++zombie_shape[zombie_x]; \
-    (zombie_shape[zombie_x])&=3; \
-    if(!zombie_shape[zombie_x]) \
+    ++tank_shape[tank_x]; \
+    (tank_shape[tank_x])&=3; \
+    if(!tank_shape[tank_x]) \
         { \
-            ++zombie_y[zombie_x]; \
+            ++tank_y[tank_x]; \
         } \
 }
 
@@ -1795,9 +1801,9 @@ void handle_zombie_collisions(void)
 		if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES) \
 		{ \
 			\
-			zombie_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3); \
+			tank_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3); \
 			\
-			if(zombie_active[zombie_x] && zombie_y[zombie_x]<HEIGHT_SHOOT_THRESHOLD && ((zombie_level[zombie_x]==3) || (!(main_loop_counter&15)))) \
+			if(tank_active[tank_x] && tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_speed_mask)))) \
 			{ \
 				drop_item(&enemyMissile[missile_index],1); \
 			} \
@@ -1806,57 +1812,62 @@ void handle_zombie_collisions(void)
 } 
 
 
+void handle_tank_speed_mask(void)
+{
+	// TODO:
+}
 
-void move_zombies(void)
+
+void move_tanks(void)
 {
     uint8_t j;
     
-    if(forced_zombie)
+    if(forced_tank)
     {
-        zombie_x = forced_zombie_x;
+        tank_x = forced_tank_x;
     }
     else
     {
-        zombie_x=find_random_zombie(1);
+        tank_x=find_random_tank(1);
     }
 
-    if((zombie_shape[zombie_x]==3)||(((zombie_level[zombie_x]==2)&&(zombie_shape[zombie_x]&1))&&(zombie_y[zombie_x]!=BOW_Y-1)))
+    if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=BOW_Y-1)))
     {
-        forced_zombie = 0;
+        forced_tank = 0;
     }
     else
     {
-        forced_zombie = 1;
-        forced_zombie_x = zombie_x; 
+        forced_tank = 1;
+        forced_tank_x = tank_x; 
     }
-    if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
+    if(wall[tank_x] && tank_y[tank_x]==WALL_Y-1)
     {
-        --wall[zombie_x];
+        --wall[tank_x];
         
         for(j=0;j<3;++j)
         {
-            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
+            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, _XL_RED);
             _XL_TICK_SOUND();
-            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, WALL_COLOR);
+            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, WALL_COLOR);
         }
-        if(!wall[zombie_x])
+        if(!wall[tank_x])
         {
-            _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
+            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, _XL_RED);
             _XL_EXPLOSION_SOUND();
-            _XL_DELETE(zombie_x, WALL_Y);
+            _XL_DELETE(tank_x, WALL_Y);
         }
     }
     else
     {
-        _move_zombie();
+        _move_tank();
     }
-    display_zombie();
+    display_tank();
 
     
-    if((zombie_y[zombie_x]==BOW_Y))
+    if((tank_y[tank_x]==BOW_Y))
     {
         alive = 0;
-        display_red_zombie();
+        display_red_tank();
     }
 }
 
@@ -2026,8 +2037,8 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             freeze_locked = 1; \
-            zombie_locked = 1; \
-            forced_zombie = 0; \
+            tank_locked = 1; \
+            forced_tank = 0; \
             loaded_bow = 1; \
             alive = 1; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
@@ -2055,12 +2066,12 @@ do \
             bow_load_counter = 0; \
             wall_appeared = 0; \
             hyper_counter = 0; \
-            forced_zombie = 0; \
+            forced_tank = 0; \
             freeze_locked = 1; \
-            zombie_locked = 1; \
+            tank_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
-			if(level>=3) \
+			if(level>=2) \
 			{ \
 				max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS; \
 			} \
@@ -2076,6 +2087,7 @@ do \
             bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 1; \
+			tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
             initialize_items(); \
             _XL_CLEAR_SCREEN(); \
 			_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
@@ -2084,23 +2096,23 @@ do \
 
 #endif
 
-#define zombie_counter main_loop_counter
+#define tank_counter main_loop_counter
 
-void initialize_zombie_at_level_restart(void)
+void initialize_tank_at_level_restart(void)
 {
-    // zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
-    ++zombie_counter;
-    display_zombie();
+    // tank_y[tank_x]=INITIAL_TANK_Y;
+    ++tank_counter;
+    display_tank();
     // _XL_TOCK_SOUND();
 }
 
-#define reset_wall_and_zombies() \
+#define reset_wall_and_tanks() \
 do \
 { \
-    for(zombie_x=0;zombie_x<XSize;++zombie_x) \
+    for(tank_x=0;tank_x<XSize;++tank_x) \
     { \
-        wall[zombie_x]=0; \
-        zombie_active[zombie_x]=0; \
+        wall[tank_x]=0; \
+        tank_active[tank_x]=0; \
     } \
 } while(0)    
 
@@ -2116,12 +2128,12 @@ do \
         to_spawn_initially=max_occupied_columns; \
     } \
     \
-    zombie_counter = 0; \
+    tank_counter = 0; \
     \
-    while(zombie_counter<to_spawn_initially) \
+    while(tank_counter<to_spawn_initially) \
     { \
         spawn_minion(); \
-        initialize_zombie_at_level_restart(); \
+        initialize_tank_at_level_restart(); \
     } \
     \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
@@ -2138,32 +2150,32 @@ do \
         to_spawn_initially = max_occupied_columns - to_spawn_initially; \
     } \
     \
-    zombie_counter = 0; \
+    tank_counter = 0; \
     \
-    while(zombie_counter<to_spawn_initially) \
+    while(tank_counter<to_spawn_initially) \
     { \
         spawn_boss(); \
-        initialize_zombie_at_level_restart(); \
+        initialize_tank_at_level_restart(); \
     } \
     \
     bosses_to_spawn = bosses_to_kill-to_spawn_initially;
 
 
-#define zombie_initialization() \
+#define tank_initialization() \
 { \
     uint8_t to_spawn_initially; \
     \
-    reset_wall_and_zombies(); \
+    reset_wall_and_tanks(); \
     \
     spawn_initial_minions(); \
     \
     spawn_initial_bosses(); \
     \
-    update_zombie_speed(); \
+    update_tank_speed(); \
     \
-    for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x) \
+    for(tank_x=0;tank_x<MAX_ARROWS_ON_SCREEN;++tank_x) \
     { \
-        active_arrow[zombie_x] = 0; \
+        active_arrow[tank_x] = 0; \
     } \
 }
 
@@ -2306,9 +2318,9 @@ void display_second_screen()
 #endif
 
 #if XSize>=32
-    #define draw_zombie_counter_tile() _XL_DRAW(ZOMBIE_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
+    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
 #else
-    #define draw_zombie_counter_tile()
+    #define draw_tank_counter_tile()
 #endif
 
 
@@ -2324,7 +2336,7 @@ void display_second_screen()
         _XL_PRINTD(HI_X+1,0,5, hiscore); \
         _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
-        draw_zombie_counter_tile(); \
+        draw_tank_counter_tile(); \
         display_remaining_arrows(); \
         display_power_up_counter(); \
         display_level(); \
@@ -2340,7 +2352,7 @@ void display_second_screen()
         display_score(); \
         _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
-        draw_zombie_counter_tile(); \
+        draw_tank_counter_tile(); \
         display_remaining_arrows(); \
         display_power_up_counter(); \
         display_level(); \
@@ -2388,12 +2400,12 @@ do \
 } while(0)
 
 
-#define handle_zombie_movement() \
+#define handle_tank_movement() \
     if(!freeze) \
     { \
-        if(!(main_loop_counter&zombie_speed)) \
+        if(!(main_loop_counter&tank_speed)) \
         { \
-            move_zombies(); \
+            move_tanks(); \
         } \
     } \
     else \
@@ -2446,13 +2458,13 @@ do \
 } while(0)
 
 
-void zombie_animation(void)
+void tank_animation(void)
 {
-    zombie_y[zombie_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
-    zombie_level[zombie_x]=0;
-    display_zombie();
+    tank_y[tank_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
+    tank_level[tank_x]=0;
+    display_tank();
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    zombie_dies();
+    tank_dies();
     display_cleared();
 }
 
@@ -2466,10 +2478,10 @@ do \
     display_enemy_counter(); \
     for(i=0;i<XSize;++i) \
     { \
-        zombie_x = i; \
-        zombie_animation(); \
-        zombie_x = XSize-i; \
-        zombie_animation(); \
+        tank_x = i; \
+        tank_animation(); \
+        tank_x = XSize-i; \
+        tank_animation(); \
     } \
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
@@ -2543,7 +2555,7 @@ int main(void)
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             level_initialization();
-            zombie_initialization();
+            tank_initialization();
             display_level_screen();
             
             while(alive && (minions_to_kill || bosses_to_kill) ) // Inner game loop
@@ -2554,8 +2566,8 @@ int main(void)
                 handle_arrows(); 
                 handle_wall();
                 handle_auto_recharge();
-                handle_zombie_movement();
-                handle_zombie_collisions();
+                handle_tank_movement();
+                handle_tank_collisions();
                 handle_missile_drops();
                 handle_items();
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);     

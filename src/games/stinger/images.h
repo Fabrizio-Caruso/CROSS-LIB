@@ -12,7 +12,7 @@
     #define MINION_TILE_5 _TILE_5
     #define MINION_TILE_6 _TILE_6
     
-    #define ZOMBIE_DEATH_TILE _TILE_7
+    #define TANK_DEATH_TILE _TILE_7
     #define POWER_UP_TILE _TILE_8
     
     #define LOADED_BOW_LEFT_TILE_0 _TILE_9

@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 2
 
 #define LAST_LEVEL 4
 #define INITIAL_LIVES 3
@@ -235,7 +235,7 @@ const uint8_t tank_points[] =
 
  uint8_t energy[XSize];
  uint8_t tank_level[XSize];
- const uint8_t rank_energy[4] = {4,7,9,14}; // 2, 4, 5, 7
+ const uint8_t rank_energy[4] = {4,7,11,17}; // 2, 4, 6, 9
 
  uint8_t fire_power;
 
@@ -884,7 +884,7 @@ void display_power_ups(void)
     _XL_ZAP_SOUND(); \
     bow_reload_loops=HYPER_SPEED_VALUE; \
     recharge_arrows(HYPER_RECHARGE); \
-    if(powerUp>=10) \
+    if(powerUp>10) \
     { \
         number_of_arrows_per_shot=3; \
     } \
@@ -1807,6 +1807,16 @@ void move_tanks(void)
 }
 
 
+// void move_some_tanks(void)
+// {
+	// uint8_t i;
+	
+	// for(i=0;i<XSize/2;++i)
+	// {
+		// move_tanks();
+	// }
+// }
+
 #define handle_bow_load() \
 do \
 { \
@@ -2019,7 +2029,14 @@ do \
             bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
             bow_color = _XL_CYAN; \
             number_of_arrows_per_shot = 1; \
-			tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
+			if(level>=3) \
+			{ \
+				tank_speed_mask = FAST_TANK_SHOOT_MASK; \
+			} \
+			else \
+			{ \
+				tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
+			} \
             initialize_items(); \
             _XL_CLEAR_SCREEN(); \
 			_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
@@ -2103,6 +2120,7 @@ do \
     spawn_initial_bosses(); \
     \
     update_tank_speed(); \
+	\
     \
     for(tank_x=0;tank_x<MAX_ARROWS_ON_SCREEN;++tank_x) \
     { \

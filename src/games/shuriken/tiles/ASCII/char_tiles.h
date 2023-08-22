@@ -34,7 +34,11 @@
 
 #define _TILE_21 'X'
 
-#define _TILE_22 '='
+#if !defined(__ATARI7800__)
+    #define _TILE_22 '='
+#else
+    #define _TILE_22 '0' 
+#endif
 
 #define _TILE_23 'S'
 

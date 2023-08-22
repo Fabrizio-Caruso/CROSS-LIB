@@ -175,8 +175,6 @@ uint8_t max_occupied_columns;
 
 uint8_t tank_speed_mask;
 
-uint8_t active_wall;
-
 uint16_t next_threshold;
 
 uint8_t main_loop_counter;
@@ -237,12 +235,12 @@ const uint8_t tank_points[] =
 
  uint8_t energy[XSize];
  uint8_t tank_level[XSize];
+ const uint8_t rank_energy[4] = {4,7,9,14}; // 2, 4, 5, 7
 
  uint8_t fire_power;
 
- uint8_t wall_appeared;
  uint8_t freeze_locked;
- uint8_t tank_locked;
+ uint8_t secret_locked;
 
 #if !defined(_XL_NO_UDG)
  const uint8_t tank_tile[7+1] = 
@@ -302,8 +300,6 @@ const uint8_t tank_points[] =
  uint8_t remaining_arrows;
  uint8_t arrow_range;
 
- uint8_t wall[XSize];
-
  uint8_t bow_reload_loops;
 
  uint8_t next_arrow;
@@ -332,27 +328,27 @@ typedef struct ItemStruct Missile;
  Item rechargeItem;
  Item freezeItem;
  Item powerUpItem;
- Item wallItem;
  Item secretItem;
 
 #if !defined(NO_EXTRA_TITLE)
- const uint8_t item_tile[6][2] = 
+
+#define NUMBER_OF_ITEMS 5
+
+ const uint8_t item_tile[NUMBER_OF_ITEMS][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
     { ARROW_TILE_1, _XL_YELLOW },
     { EXTRA_POINTS_TILE, _XL_YELLOW },
     { FREEZE_TILE, _XL_CYAN },
-    { WALL_TILE, WALL_COLOR },
 	{ SECRET_TILE, SECRET_COLOR},
 };
 
- const char item_name[6][9] = 
+ const char item_name[NUMBER_OF_ITEMS][9] = 
 {
     _XL_P _XL_O _XL_W _XL_E _XL_R _XL_SPACE _XL_U _XL_P,
     _XL_R _XL_O _XL_C _XL_K _XL_E _XL_T _XL_S,
     _XL_P _XL_O _XL_I _XL_N _XL_T _XL_S,
     _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
-    _XL_W _XL_A _XL_L _XL_L,
 	_XL_S _XL_E _XL_C _XL_R _XL_E _XL_T,
 };
 #endif
@@ -888,6 +884,14 @@ void display_power_ups(void)
     _XL_ZAP_SOUND(); \
     bow_reload_loops=HYPER_SPEED_VALUE; \
     recharge_arrows(HYPER_RECHARGE); \
+    if(powerUp>=10) \
+    { \
+        number_of_arrows_per_shot=3; \
+    } \
+    else \
+    { \
+        number_of_arrows_per_shot=2; \
+    } \
     hyper_counter = MAX_HYPER_COUNTER; \
     bow_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_RED); \
@@ -967,40 +971,33 @@ void power_up_effect(void)
     switch(powerUp)
     {
         #if !defined(TRAINER)
-            case 1:
-                arrow_range=YELLOW_RANGE_VALUE;
-            break;
-                
-            case 2:
-                arrow_range=GREEN_RANGE_VALUE;
-            break;
+        case 1:
+            arrow_range=YELLOW_RANGE_VALUE;
+        break;
             
-            case 3:
-                bow_reload_loops=YELLOW_SPEED_VALUE;
-            break;
-               
-            case 4:
-                bow_reload_loops=GREEN_SPEED_VALUE;
-            break;
-            
-            case 5:
-                number_of_arrows_per_shot = 2;
-            break;
-            
-            case 6:
-                number_of_arrows_per_shot = 3;
-            break;
-            
-            case 7:
-                fire_power = YELLOW_FIRE_POWER_VALUE;
-            break;
-            
-            case 8:
-                fire_power = GREEN_FIRE_POWER_VALUE;
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_YELLOW;
-                #endif
-            break;
+        case 2:
+            arrow_range=GREEN_RANGE_VALUE;
+        break;
+        
+        case 3:
+            bow_reload_loops=YELLOW_SPEED_VALUE;
+        break;
+           
+        case 4:
+            bow_reload_loops=GREEN_SPEED_VALUE;
+        break;
+
+        case 5:
+            fire_power = YELLOW_FIRE_POWER_VALUE;
+        break;
+        
+        case 6:
+            fire_power = GREEN_FIRE_POWER_VALUE;
+        break;
+        
+        // case 7:
+            // number_of_arrows_per_shot = 2;
+        // break;
        
         #endif
         
@@ -1011,7 +1008,7 @@ void power_up_effect(void)
         break;
         
         case 18:
-            tank_locked = 0;
+            secret_locked = 0;
 			powerUpItem._color = _XL_WHITE;
         break;
 		
@@ -1026,7 +1023,7 @@ void extra_points_effect(void)
     increase_score(EXTRA_POINTS);
 }
 
-
+/*
 void wall_effect(void)
 {
     uint8_t i;
@@ -1052,7 +1049,7 @@ void wall_effect(void)
     ++wall_appeared;
     active_wall = 1;
 }
-
+*/
 
 
 void display_tanks(void)
@@ -1085,7 +1082,7 @@ void tank_effect(void)
     }
     display_tanks();
 
-    tank_locked = 1;
+    secret_locked = 1;
     increase_score(SECRET_ITEM_POINTS);
 }
 
@@ -1113,11 +1110,6 @@ void beam_effect(void)
         powerUpItem._tile = POWER_UP_TILE; \
         powerUpItem._color = _XL_WHITE; \
         powerUpItem._effect = power_up_effect; \
-        \
-        wallItem._active = 0; \
-        wallItem._tile = WALL_TILE; \
-        wallItem._color = WALL_COLOR; \
-        wallItem._effect = wall_effect; \
         \
         secretItem._active = 0; \
         secretItem._tile = SECRET_TILE; \
@@ -1153,10 +1145,6 @@ void beam_effect(void)
         powerUpItem._active = 0; \
         powerUpItem._tile = POWER_UP_TILE; \
         powerUpItem._effect = power_up_effect; \
-        \
-        wallItem._active = 0; \
-        wallItem._tile = WALL_TILE; \
-        wallItem._effect = wall_effect; \
         \
         secretItem._active = 0; \
         secretItem._tile = BOSS_TILE_0; \
@@ -1292,7 +1280,6 @@ void handle_item(register Item* item)
     handle_item(&rechargeItem); \
     handle_item(&freezeItem); \
     handle_item(&powerUpItem); \
-    handle_item(&wallItem); \
     handle_item(&secretItem); \
     \
     for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
@@ -1421,7 +1408,7 @@ void spawn_boss(void)
 
     activate_tank();
     tank_level[tank_x]=rank;
-    energy[tank_x]=BOSS_BASE_ENERGY+rank*2;
+    energy[tank_x]=rank_energy[rank];//BOSS_BASE_ENERGY+rank*2;
     --bosses_to_spawn;
 }
 
@@ -1514,14 +1501,14 @@ void handle_item_drop(void)
                 drop_item(&freezeItem,45);
             }
         }
-        else if(!wall_appeared&&(powerUp>=9)) 
-        {
-            if(!wallItem._active)
-            {
-                drop_item(&wallItem,35);
-            }
-        }
-        else if(!tank_locked && !secretItem._active)
+        // else if(!wall_appeared&&(powerUp>=9)) 
+        // {
+            // if(!wallItem._active)
+            // {
+                // drop_item(&wallItem,35);
+            // }
+        // }
+        else if(!secret_locked && !secretItem._active)
             {
                 drop_item(&secretItem,50);
             }
@@ -1694,41 +1681,6 @@ do \
 } while(0)
 
 
-#if defined(SMALL_WALL)
-
-    #define redraw_wall() \
-    do \
-    { \
-        uint8_t i; \
-        \
-        for(i=7*(XSize)/16;i<1+7*(XSize)/16+(XSize)/8;++i) \
-        { \
-            if(wall[i]) \
-            { \
-                _XL_DRAW(i,WALL_Y,WALL_TILE,WALL_COLOR); \
-            } \
-        } \
-    } while(0)
-
-#else
-
-    #define redraw_wall() \
-    do \
-    { \
-        uint8_t i; \
-        \
-        for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i) \
-        { \
-            if(wall[i]) \
-            { \
-                _XL_DRAW(i,WALL_Y,WALL_TILE,WALL_COLOR); \
-            } \
-        } \
-    } while(0)
-
-
-#endif
-
 void push_tank(void)
 {
     if(!tank_shape[tank_x])
@@ -1819,10 +1771,8 @@ void handle_tank_speed_mask(void)
 
 
 void move_tanks(void)
-{
-    uint8_t j;
-    
-    if(forced_tank)
+{    
+    if(forced_tank) // There is a tank that should keep on moving
     {
         tank_x = forced_tank_x;
     }
@@ -1831,39 +1781,24 @@ void move_tanks(void)
         tank_x=find_random_tank(1);
     }
 
+    // The forced tank is no longer forced when it has completed the move (half-move for stealth tanks)
     if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=BOW_Y-1)))
     {
         forced_tank = 0;
     }
     else
     {
-        forced_tank = 1;
+        if(_XL_RAND()&3)
+        {
+            forced_tank = 1;
+        }
         forced_tank_x = tank_x; 
     }
-    if(wall[tank_x] && tank_y[tank_x]==WALL_Y-1)
-    {
-        --wall[tank_x];
-        
-        for(j=0;j<3;++j)
-        {
-            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, _XL_RED);
-            _XL_TICK_SOUND();
-            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, WALL_COLOR);
-        }
-        if(!wall[tank_x])
-        {
-            _XL_DRAW(tank_x, WALL_Y, WALL_TILE, _XL_RED);
-            _XL_EXPLOSION_SOUND();
-            _XL_DELETE(tank_x, WALL_Y);
-        }
-    }
-    else
-    {
-        _move_tank();
-    }
+
+    _move_tank();
+    
     display_tank();
 
-    
     if((tank_y[tank_x]==BOW_Y))
     {
         alive = 0;
@@ -2029,15 +1964,13 @@ do \
         do \
         {   \
             fire_power = GREEN_FIRE_POWER_VALUE; \
-            active_wall = 0; \
             freeze = 0; \
             powerUp = 8; \
             next_arrow = 0; \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
-            wall_appeared = 0; \
             freeze_locked = 1; \
-            tank_locked = 1; \
+            secret_locked = 1; \
             forced_tank = 0; \
             loaded_bow = 1; \
             alive = 1; \
@@ -2064,11 +1997,10 @@ do \
             next_arrow = 0; \
             arrows_on_screen = 0; \
             bow_load_counter = 0; \
-            wall_appeared = 0; \
             hyper_counter = 0; \
             forced_tank = 0; \
             freeze_locked = 1; \
-            tank_locked = 1; \
+            secret_locked = 1; \
             loaded_bow = 1; \
             alive = 1; \
 			if(level>=2) \
@@ -2106,12 +2038,11 @@ void initialize_tank_at_level_restart(void)
     // _XL_TOCK_SOUND();
 }
 
-#define reset_wall_and_tanks() \
+#define reset_tanks() \
 do \
 { \
     for(tank_x=0;tank_x<XSize;++tank_x) \
     { \
-        wall[tank_x]=0; \
         tank_active[tank_x]=0; \
     } \
 } while(0)    
@@ -2165,7 +2096,7 @@ do \
 { \
     uint8_t to_spawn_initially; \
     \
-    reset_wall_and_tanks(); \
+    reset_tanks(); \
     \
     spawn_initial_minions(); \
     \
@@ -2226,11 +2157,11 @@ do \
     { \
         uint8_t i; \
         \
-        for(i=0;i<6;++i) \
+        for(i=0;i<NUMBER_OF_ITEMS;++i) \
         { \
-            _XL_DRAW(XSize/2-5,YSize/3+2+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+            _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
             _XL_SET_TEXT_COLOR(_XL_GREEN); \
-            _XL_PRINT(XSize/2-5+3,YSize/3+2+_NEXT_ROW, (char *)item_name[i]); \
+            _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
         } \
 		_XL_SET_TEXT_COLOR(_XL_YELLOW); \
         control_instructions(); \
@@ -2508,30 +2439,12 @@ do \
         { \
             bow_color = _XL_CYAN; \
             bow_reload_loops=GREEN_SPEED_VALUE; \
+            number_of_arrows_per_shot=1; \
 			PRINT_CENTERED_ON_ROW(1,"     "); \
+            display_power_ups(); \
         } \
     } \
 }
-
-#if defined(FASTER_WALL_REDRAW)
-    #define handle_wall() \
-        do \
-        { \
-            if(!(main_loop_counter&3)) \
-            { \
-                if(active_wall) \
-                { \
-                    redraw_wall(); \
-                } \
-            } \
-        } while(0)
-#else
-    #define handle_wall() \
-        if(active_wall) \
-        { \
-            redraw_wall(); \
-        }
-#endif
 
 
 #define INITIALIZE_CROSS_LIB() \
@@ -2564,7 +2477,6 @@ int main(void)
                 handle_bow_move();
                 handle_bow_load();
                 handle_arrows(); 
-                handle_wall();
                 handle_auto_recharge();
                 handle_tank_movement();
                 handle_tank_collisions();

@@ -147,10 +147,12 @@ uint8_t max_occupied_columns;
 
 #define HELP_ITEM_LEVEL_THRESHOLD 2
 
-#if XSize<=80
-    #define MINIONS_ON_FIRST_LEVEL (2*XSize/3)
+#if XSize<=30
+    #define MINIONS_ON_FIRST_LEVEL 30
+#elif XSize<=40
+	#defime MINIONS_ON_FIRST_LEVEL 40
 #else
-    #define MINIONS_ON_FIRST_LEVEL 60
+    #define MINIONS_ON_FIRST_LEVEL 80
 #endif
 
 #if XSize<64
@@ -158,6 +160,8 @@ uint8_t max_occupied_columns;
 #else
     #define BOSSES_ON_FIRST_LEVEL 50
 #endif
+
+const uint8_t bosses_on_level[LAST_LEVEL+1] = {30,50,70,100,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -1526,6 +1530,16 @@ void handle_item_drop(void)
 }
 
 
+
+void handle_tank_speed_mask(void)
+{
+	if(bosses_to_kill<bosses_on_level[level]/4)
+	{
+		tank_speed_mask = FAST_TANK_SHOOT_MASK;
+	}
+}
+
+
 void respawn(void)
 {
     if(minions_to_spawn || bosses_to_spawn)
@@ -1542,6 +1556,7 @@ void respawn(void)
     }
 
     update_tank_speed();
+	handle_tank_speed_mask();
 }
 
 
@@ -1762,12 +1777,6 @@ void handle_tank_collisions(void)
 		} \
 	} \
 } 
-
-
-void handle_tank_speed_mask(void)
-{
-	// TODO:
-}
 
 
 void move_tanks(void)
@@ -2087,7 +2096,7 @@ do \
     minions_to_spawn = minions_to_kill-to_spawn_initially;
 
 #define spawn_initial_bosses() \
-    bosses_to_kill = BOSSES_ON_FIRST_LEVEL+(level<<4)-killed_bosses; \
+    bosses_to_kill = bosses_on_level[level]-killed_bosses; \
     \
     if(bosses_to_kill<max_occupied_columns - to_spawn_initially) \
     { \

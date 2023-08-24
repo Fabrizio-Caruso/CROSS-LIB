@@ -74,10 +74,10 @@
 
 #define MAX_FREEZE 1
 
-#define MINION_POINTS 10
-#define BOSS_1_POINTS 15
-#define BOSS_2_POINTS 25
-#define BOSS_3_POINTS 30
+#define LIGHT_TANK_POINTS 10
+#define HEAVY_TANK_1_POINTS 15
+#define HEAVY_TANK_2_POINTS 25
+#define HEAVY_TANK_3_POINTS 30
 
 #define EXTRA_POINTS 100
 #define RECHARGE_POINTS 25
@@ -107,10 +107,10 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 // (2 basic hits)
-#define MINION_ENERGY 4
+#define LIGHT_TANK_ENERGY 4
 
 // Boss energy: 7 (4 basic hits), 9 (5 basic hits), 11 (6 basic hits)
-#define BOSS_BASE_ENERGY 5
+#define HEAVY_TANK_BASE_ENERGY 5
 
 #define WALL_ENERGY 20
 
@@ -148,20 +148,20 @@ uint8_t max_occupied_columns;
 #define HELP_ITEM_LEVEL_THRESHOLD 2
 
 #if XSize<=30
-    #define MINIONS_ON_FIRST_LEVEL 30
+    #define LIGHT_TANKS_ON_FIRST_LEVEL 30
 #elif XSize<=40
-	#defime MINIONS_ON_FIRST_LEVEL 40
+	#defime LIGHT_TANKS_ON_FIRST_LEVEL 40
 #else
-    #define MINIONS_ON_FIRST_LEVEL 80
+    #define LIGHT_TANKS_ON_FIRST_LEVEL 80
 #endif
 
 #if XSize<64
-    #define BOSSES_ON_FIRST_LEVEL (XSize)
+    #define HEAVY_TANKS_ON_FIRST_LEVEL (XSize)
 #else
-    #define BOSSES_ON_FIRST_LEVEL 50
+    #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-const uint8_t bosses_on_level[LAST_LEVEL+1] = {30,50,70,100,120};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {30,50,70,100,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -193,22 +193,22 @@ uint8_t item_counter;
 
 const uint8_t tank_points[] = 
 { 
-    MINION_POINTS, // Skeletons
-    BOSS_1_POINTS, // Ogre
-    BOSS_2_POINTS, // Ghosts
-    BOSS_3_POINTS, // Demons
+    LIGHT_TANK_POINTS, // Skeletons
+    HEAVY_TANK_1_POINTS, // Ogre
+    HEAVY_TANK_2_POINTS, // Ghosts
+    HEAVY_TANK_3_POINTS, // Demons
 };
 
- uint8_t minions_to_kill;
- uint8_t bosses_to_kill;
+ uint8_t light_tanks_to_kill;
+ uint8_t heavy_tanks_to_kill;
 
  uint8_t lives;
  uint8_t level;
- uint8_t killed_minions;
- uint8_t killed_bosses;
+ uint8_t killed_light_tanks;
+ uint8_t killed_heavy_tanks;
 
- uint8_t bosses_to_spawn;
- uint8_t minions_to_spawn;
+ uint8_t heavy_tanks_to_spawn;
+ uint8_t light_tanks_to_spawn;
 
  uint8_t auto_recharge_counter;
 
@@ -249,26 +249,26 @@ const uint8_t tank_points[] =
 #if !defined(_XL_NO_UDG)
  const uint8_t tank_tile[7+1] = 
 {
-    MINION_TILE_0, // 0
-    MINION_TILE_0, // 1
-    MINION_TILE_1, // 2
-    MINION_TILE_2, // 3
-    MINION_TILE_3, 
-    MINION_TILE_4, 
-    MINION_TILE_5, 
-    MINION_TILE_6
+    LIGHT_TANK_TILE_0, // 0
+    LIGHT_TANK_TILE_0, // 1
+    LIGHT_TANK_TILE_1, // 2
+    LIGHT_TANK_TILE_2, // 3
+    LIGHT_TANK_TILE_3, 
+    LIGHT_TANK_TILE_4, 
+    LIGHT_TANK_TILE_5, 
+    LIGHT_TANK_TILE_6
 };
 
- const uint8_t boss_tile[7+1] =
+ const uint8_t heavy_tank_tile[7+1] =
 {
-    BOSS_TILE_0,
-    BOSS_TILE_0,
-    BOSS_TILE_1,
-    BOSS_TILE_2,
-    BOSS_TILE_3,
-    BOSS_TILE_4,
-    BOSS_TILE_5,
-    BOSS_TILE_6,
+    HEAVY_TANK_TILE_0,
+    HEAVY_TANK_TILE_0,
+    HEAVY_TANK_TILE_1,
+    HEAVY_TANK_TILE_2,
+    HEAVY_TANK_TILE_3,
+    HEAVY_TANK_TILE_4,
+    HEAVY_TANK_TILE_5,
+    HEAVY_TANK_TILE_6,
 };
 #endif
 
@@ -358,10 +358,10 @@ typedef struct ItemStruct Missile;
 #if !defined(NO_EXTRA_TITLE)
  const uint8_t enemy_tile[5][2] = 
 {
-    { MINION_TILE_0, _XL_WHITE },
-    { BOSS_TILE_0, _XL_GREEN },
+    { LIGHT_TANK_TILE_0, _XL_WHITE },
+    { HEAVY_TANK_TILE_0, _XL_GREEN },
     { TANK_DEATH_TILE, _XL_YELLOW },
-    { BOSS_TILE_0, _XL_RED },
+    { HEAVY_TANK_TILE_0, _XL_RED },
 };
 
  const char enemy_name[4][8] = 
@@ -419,7 +419,7 @@ void display_power_up_counter(void)
     void display_enemy_counter(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(TANK_COUNTER_X+1,0,3,minions_to_kill+bosses_to_kill);
+        _XL_PRINTD(TANK_COUNTER_X+1,0,3,light_tanks_to_kill+heavy_tanks_to_kill);
     }
 #else
     #define display_enemy_counter()
@@ -502,7 +502,7 @@ void display_tank(void)
     uint8_t color;
     uint8_t tile0;
 
-    tile0 = BOSS_TILE_0;
+    tile0 = HEAVY_TANK_TILE_0;
 
     if(tank_level[tank_x]==1)
     {
@@ -518,7 +518,7 @@ void display_tank(void)
     }
     else if(!tank_level[tank_x])
     {
-        tile0 = MINION_TILE_0;
+        tile0 = LIGHT_TANK_TILE_0;
         color = _XL_WHITE;
     }
     else 
@@ -547,8 +547,8 @@ void display_tank(void)
         }
         else
         {
-            tile0 = boss_tile[status<<1];
-            tile1 = boss_tile[1+(status<<1)]; 
+            tile0 = heavy_tank_tile[status<<1];
+            tile1 = heavy_tank_tile[1+(status<<1)]; 
         }
         _XL_DRAW(tank_x, pos, tile0, color);
         _XL_DRAW(tank_x,1 + pos, tile1, color);
@@ -558,17 +558,17 @@ void display_tank(void)
         if(!tank_level[tank_x])
         {
             
-            tile0 = MINION_TILE_0;
+            tile0 = LIGHT_TANK_TILE_0;
         }
         else
         {
             if((tank_y[tank_x])&1)
             {
-                tile0 = BOSS_TILE_0;
+                tile0 = HEAVY_TANK_TILE_0;
             }
             else
             {
-                tile0 = BOSS_TILE_1;
+                tile0 = HEAVY_TANK_TILE_1;
             }
         }
         _XL_DRAW(tank_x, pos, tile0, color);
@@ -1149,7 +1149,7 @@ void beam_effect(void)
         powerUpItem._effect = power_up_effect; \
         \
         secretItem._active = 0; \
-        secretItem._tile = BOSS_TILE_0; \
+        secretItem._tile = HEAVY_TANK_TILE_0; \
         secretItem._effect = tank_effect; \
         \
         for(i=0;i<MAX_NUMBER_OF_MISSILES;++i) \
@@ -1375,16 +1375,16 @@ void activate_tank(void)
 }
 
 
-void spawn_minion(void)
+void spawn_light_tank(void)
 {
     activate_tank();
     tank_level[tank_x]=0;
-    energy[tank_x]=MINION_ENERGY;  
-    --minions_to_spawn;
+    energy[tank_x]=LIGHT_TANK_ENERGY;  
+    --light_tanks_to_spawn;
 }
 
 
-void spawn_boss(void)
+void spawn_heavy_tank(void)
 {
     uint8_t rank;
     
@@ -1406,12 +1406,12 @@ void spawn_boss(void)
         {
             rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
         }
-    } while((rank==2)&&(bosses_to_spawn<LEVEL_2_TANK_THRESHOLD));
+    } while((rank==2)&&(heavy_tanks_to_spawn<LEVEL_2_TANK_THRESHOLD));
 
     activate_tank();
     tank_level[tank_x]=rank;
-    energy[tank_x]=rank_energy[rank];//BOSS_BASE_ENERGY+rank*2;
-    --bosses_to_spawn;
+    energy[tank_x]=rank_energy[rank];//HEAVY_TANK_BASE_ENERGY+rank*2;
+    --heavy_tanks_to_spawn;
 }
 
 #if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
@@ -1426,7 +1426,7 @@ void spawn_boss(void)
 
 void update_tank_speed(void)
 {
-    if(minions_to_kill + bosses_to_kill<=FEW_TANKS)
+    if(light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS)
     {
         tank_speed=SLOW_TANK_SPEED;
     }
@@ -1460,11 +1460,11 @@ void display_red_tank(void)
     
     if(!tank_level[tank_x])
     {
-        tile=MINION_TILE_0;
+        tile=LIGHT_TANK_TILE_0;
     }
     else
     {
-        tile=BOSS_TILE_0;
+        tile=HEAVY_TANK_TILE_0;
     }
     _display_red_tank(tile);
 }
@@ -1531,7 +1531,7 @@ void handle_item_drop(void)
 
 void handle_tank_speed_mask(void)
 {
-	if(bosses_to_kill<bosses_on_level[level]/4)
+	if(heavy_tanks_to_kill<heavy_tanks_on_level[level]/4)
 	{
 		tank_speed_mask = FAST_TANK_SHOOT_MASK;
 	}
@@ -1540,15 +1540,15 @@ void handle_tank_speed_mask(void)
 
 void respawn(void)
 {
-    if(minions_to_spawn || bosses_to_spawn)
+    if(light_tanks_to_spawn || heavy_tanks_to_spawn)
     {
-        if (minions_to_spawn)
+        if (light_tanks_to_spawn)
         {
-            spawn_minion();
+            spawn_light_tank();
         }
         else 
         {
-            spawn_boss();
+            spawn_heavy_tank();
         }
         display_tank();
     }
@@ -1586,13 +1586,13 @@ void tank_dies(void)
         
     if(tank_level[tank_x])
     {
-        ++killed_bosses;
-        --bosses_to_kill;
+        ++killed_heavy_tanks;
+        --heavy_tanks_to_kill;
     }
     else
     {
-        ++killed_minions;
-        --minions_to_kill;
+        ++killed_light_tanks;
+        --light_tanks_to_kill;
     }
    
     if(tank_x==forced_tank_x)
@@ -1969,8 +1969,8 @@ do \
     } \
     score = 0; \
     level = INITIAL_LEVEL; \
-    killed_bosses = 0; \
-    killed_minions = 0; \
+    killed_heavy_tanks = 0; \
+    killed_light_tanks = 0; \
     lives = INITIAL_LIVES; \
     next_threshold = NEXT_EXTRA_LIFE; \
 } while(0)
@@ -2071,12 +2071,12 @@ do \
     } \
 } while(0)    
 
-#define spawn_initial_minions() \
-    minions_to_kill = MINIONS_ON_FIRST_LEVEL-killed_minions;  \
+#define spawn_initial_light_tanks() \
+    light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks;  \
     \
-    if(minions_to_kill<max_occupied_columns) \
+    if(light_tanks_to_kill<max_occupied_columns) \
     { \
-        to_spawn_initially=minions_to_kill; \
+        to_spawn_initially=light_tanks_to_kill; \
     } \
     else \
     { \
@@ -2087,18 +2087,18 @@ do \
     \
     while(tank_counter<to_spawn_initially) \
     { \
-        spawn_minion(); \
+        spawn_light_tank(); \
         initialize_tank_at_level_restart(); \
     } \
     \
-    minions_to_spawn = minions_to_kill-to_spawn_initially;
+    light_tanks_to_spawn = light_tanks_to_kill-to_spawn_initially;
 
-#define spawn_initial_bosses() \
-    bosses_to_kill = bosses_on_level[level]-killed_bosses; \
+#define spawn_initial_heavy_tanks() \
+    heavy_tanks_to_kill = heavy_tanks_on_level[level]-killed_heavy_tanks; \
     \
-    if(bosses_to_kill<max_occupied_columns - to_spawn_initially) \
+    if(heavy_tanks_to_kill<max_occupied_columns - to_spawn_initially) \
     { \
-        to_spawn_initially = bosses_to_kill;   \
+        to_spawn_initially = heavy_tanks_to_kill;   \
     } \
     else \
     { \
@@ -2109,11 +2109,11 @@ do \
     \
     while(tank_counter<to_spawn_initially) \
     { \
-        spawn_boss(); \
+        spawn_heavy_tank(); \
         initialize_tank_at_level_restart(); \
     } \
     \
-    bosses_to_spawn = bosses_to_kill-to_spawn_initially;
+    heavy_tanks_to_spawn = heavy_tanks_to_kill-to_spawn_initially;
 
 
 #define tank_initialization() \
@@ -2122,9 +2122,9 @@ do \
     \
     reset_tanks(); \
     \
-    spawn_initial_minions(); \
+    spawn_initial_light_tanks(); \
     \
-    spawn_initial_bosses(); \
+    spawn_initial_heavy_tanks(); \
     \
     update_tank_speed(); \
 	\
@@ -2274,7 +2274,7 @@ void display_second_screen()
 #endif
 
 #if XSize>=32
-    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,0,MINION_TILE_0, _XL_WHITE)
+    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,0,LIGHT_TANK_TILE_0, _XL_WHITE)
 #else
     #define draw_tank_counter_tile()
 #endif
@@ -2397,8 +2397,8 @@ do \
     } \
     \
     sleep_and_wait_for_input(); \
-    killed_bosses = 0; \
-    killed_minions = 0; \
+    killed_heavy_tanks = 0; \
+    killed_light_tanks = 0; \
 } while(0)
 
 
@@ -2430,7 +2430,7 @@ do \
 { \
     uint8_t i; \
     \
-    minions_to_kill = XSize*2; \
+    light_tanks_to_kill = XSize*2; \
     display_enemy_counter(); \
     for(i=0;i<XSize;++i) \
     { \
@@ -2496,7 +2496,7 @@ int main(void)
             tank_initialization();
             display_level_screen();
             
-            while(alive && (minions_to_kill || bosses_to_kill) ) // Inner game loop
+            while(alive && (light_tanks_to_kill || heavy_tanks_to_kill) ) // Inner game loop
             {
                 handle_hyper();
                 handle_bow_move();

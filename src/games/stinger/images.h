@@ -48,7 +48,7 @@
     
     #define EXTRA_POINTS_TILE _TILE_25
     
-    #define SECRET_TILE _TILE_14
+    #define SECRET_TILE BOSS_TILE_0
     #define EXPLOSION_TILE _TILE_15
 
 #endif // _IMAGES_H

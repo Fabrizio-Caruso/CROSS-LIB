@@ -336,15 +336,14 @@ typedef struct ItemStruct Missile;
 
 #if !defined(NO_EXTRA_TITLE)
 
-#define NUMBER_OF_ITEMS 5
+#define NUMBER_OF_ITEMS 4
 
  const uint8_t item_tile[NUMBER_OF_ITEMS][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
-    { ARROW_TILE_1, _XL_YELLOW },
+    { ARROW_TILE_0, _XL_YELLOW },
     { EXTRA_POINTS_TILE, _XL_YELLOW },
     { FREEZE_TILE, _XL_CYAN },
-	{ SECRET_TILE, SECRET_COLOR},
 };
 
  const char item_name[NUMBER_OF_ITEMS][9] = 
@@ -353,7 +352,6 @@ typedef struct ItemStruct Missile;
     _XL_R _XL_O _XL_C _XL_K _XL_E _XL_T _XL_S,
     _XL_P _XL_O _XL_I _XL_N _XL_T _XL_S,
     _XL_F _XL_R _XL_E _XL_E _XL_Z _XL_E,
-	_XL_S _XL_E _XL_C _XL_R _XL_E _XL_T,
 };
 #endif
 
@@ -2186,9 +2184,9 @@ do \
         \
         for(i=0;i<NUMBER_OF_ITEMS;++i) \
         { \
-            _XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
+            _XL_DRAW(XSize/2-5,YSize/3+4+_NEXT_ROW, item_tile[i][0], item_tile[i][1]); \
             _XL_SET_TEXT_COLOR(_XL_GREEN); \
-            _XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)item_name[i]); \
+            _XL_PRINT(XSize/2-5+3,YSize/3+4+_NEXT_ROW, (char *)item_name[i]); \
         } \
 		_XL_SET_TEXT_COLOR(_XL_YELLOW); \
         control_instructions(); \

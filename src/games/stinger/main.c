@@ -150,7 +150,7 @@ uint8_t max_occupied_columns;
 #if XSize<=30
     #define LIGHT_TANKS_ON_FIRST_LEVEL 30
 #elif XSize<=40
-	#defime LIGHT_TANKS_ON_FIRST_LEVEL 40
+	#define LIGHT_TANKS_ON_FIRST_LEVEL 40
 #else
     #define LIGHT_TANKS_ON_FIRST_LEVEL 80
 #endif

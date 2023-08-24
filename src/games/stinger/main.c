@@ -716,12 +716,12 @@ void display_power_ups(void)
         {
             speed_color = _XL_GREEN;
     
-            if(powerUp>6)
+            if(powerUp>4)
             {
-                if(powerUp<9)
+                if(powerUp<7)
                 {
-                    power_color = power_up_color[powerUp-6];
-                    arrow_display_color = arrow_color[powerUp-6];
+                    power_color = power_up_color[powerUp-4];
+                    arrow_display_color = arrow_color[powerUp-4];
                 }
                 else
                 {
@@ -1020,38 +1020,11 @@ void power_up_effect(void)
     display_power_ups();
 }
 
+
 void extra_points_effect(void)
 {
     increase_score(EXTRA_POINTS);
 }
-
-/*
-void wall_effect(void)
-{
-    uint8_t i;
-    
-    increase_score(WALL_POINTS);
-
-#if defined(SMALL_WALL)
-    for(i=7*(XSize)/16;i<1+7*(XSize)/16+(XSize)/8;++i)
-#else    
-    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
-#endif
-    {
-        if(tank_y[i]<WALL_Y-1 || !tank_active[i])
-        {
-            wall[i]=WALL_ENERGY;
-            _XL_DRAW(i,WALL_Y,WALL_TILE,WALL_COLOR);            
-        }
-        else
-        {
-            wall[i]=0;
-        }
-    }
-    ++wall_appeared;
-    active_wall = 1;
-}
-*/
 
 
 void display_tanks(void)

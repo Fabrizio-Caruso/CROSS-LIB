@@ -65,12 +65,12 @@
 
 #define POWER_THRESHOLD 4
 
-#if !defined(MAX_ARROWS_ON_SCREEN)
-    #define MAX_ARROWS_ON_SCREEN 12
+#if !defined(MAX_ROCKETS_ON_SCREEN)
+    #define MAX_ROCKETS_ON_SCREEN 12
 #endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50
-#define AUTO_ARROW_RECAHRGE 9
+#define AUTO_ROCKET_RECAHRGE 9
 
 #define MAX_FREEZE 1
 
@@ -99,11 +99,11 @@
 #define GREEN_SPEED_VALUE 4
 #define HYPER_SPEED_VALUE 3
 
-#define RED_RANGE_VALUE INITIAL_ARROW_RANGE
-#define YELLOW_RANGE_VALUE ((INITIAL_ARROW_RANGE)-2)
-#define GREEN_RANGE_VALUE ((INITIAL_ARROW_RANGE)-4)
+#define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
+#define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
+#define GREEN_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-4)
 
-#define INITIAL_ARROW_RANGE ((INITIAL_TANK_Y)+1)
+#define INITIAL_ROCKET_RANGE ((INITIAL_TANK_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
 
 // (2 basic hits)
@@ -114,9 +114,9 @@
 
 #define WALL_ENERGY 20
 
-#define MAX_ARROWS 99
+#define MAX_ROCKETS 99
 #define HYPER_RECHARGE 30
-#define ARROW_RECHARGE 15
+#define ROCKET_RECHARGE 15
 
 #define FREEZE_COUNTER_MAX 100;
 
@@ -286,8 +286,8 @@ const uint8_t tank_points[] =
 
  const uint8_t arrow_tile[2] =
 {
-    ARROW_TILE_0,
-    ARROW_TILE_1,
+    ROCKET_TILE_0,
+    ROCKET_TILE_1,
 };
 
  uint8_t bow_x; // range: 0..2*XSize-2^M
@@ -297,10 +297,10 @@ const uint8_t tank_points[] =
  uint8_t input;
 
  uint8_t loaded_bow;
- uint8_t active_arrow[MAX_ARROWS_ON_SCREEN];
- uint8_t arrow_shape[MAX_ARROWS_ON_SCREEN];
- uint8_t arrow_x[MAX_ARROWS_ON_SCREEN];
- uint8_t arrow_y[MAX_ARROWS_ON_SCREEN];
+ uint8_t active_arrow[MAX_ROCKETS_ON_SCREEN];
+ uint8_t arrow_shape[MAX_ROCKETS_ON_SCREEN];
+ uint8_t arrow_x[MAX_ROCKETS_ON_SCREEN];
+ uint8_t arrow_y[MAX_ROCKETS_ON_SCREEN];
  uint8_t remaining_arrows;
  uint8_t arrow_range;
 
@@ -341,7 +341,7 @@ typedef struct ItemStruct Missile;
  const uint8_t item_tile[NUMBER_OF_ITEMS][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
-    { ARROW_TILE_0, _XL_YELLOW },
+    { ROCKET_TILE_0, _XL_YELLOW },
     { EXTRA_POINTS_TILE, _XL_YELLOW },
     { FREEZE_TILE, _XL_CYAN },
 };
@@ -446,9 +446,9 @@ void display_remaining_arrows(void)
 void recharge_arrows(uint8_t value)
 {
     remaining_arrows+=value;
-    if(remaining_arrows>MAX_ARROWS)
+    if(remaining_arrows>MAX_ROCKETS)
     {
-        remaining_arrows=MAX_ARROWS;
+        remaining_arrows=MAX_ROCKETS;
     }
     display_remaining_arrows();
 }
@@ -617,7 +617,7 @@ void increase_score(uint8_t value)
 
 void recharge_effect(void)
 {
-    recharge_arrows(ARROW_RECHARGE);
+    recharge_arrows(ROCKET_RECHARGE);
     increase_score(RECHARGE_POINTS);
 }
 
@@ -630,7 +630,7 @@ void recharge_effect(void)
     #define POWER_STRING _XL_P
     #define STR_LEN 1
     #define SPEED_X 3
-    #define POWER_X ((XSize)-5)
+    #define ROCKETS_X ((XSize)-5)
 
 #elif XSize <= 19
     #define RANGE_STRING _XL_R _XL_N
@@ -638,14 +638,14 @@ void recharge_effect(void)
     #define POWER_STRING _XL_P _XL_W
     #define STR_LEN 2
     #define SPEED_X 4
-    #define POWER_X ((XSize)-6)
+    #define ROCKETS_X ((XSize)-6)
 #elif XSize <= 26
     #define RANGE_STRING _XL_R _XL_N _XL_G
     #define SPEED_STRING _XL_S _XL_P _XL_D
     #define POWER_STRING _XL_P _XL_O _XL_W
     #define STR_LEN 3
     #define SPEED_X 5
-    #define POWER_X ((XSize)-7)
+    #define ROCKETS_X ((XSize)-7)
 #else
     #define RANGE_STRING _XL_R _XL_A _XL_N _XL_G _XL_E
     #define SPEED_STRING _XL_S _XL_P _XL_E _XL_E _XL_D
@@ -657,16 +657,16 @@ void recharge_effect(void)
         #define SPEED_X 8
     #endif
     #if XSize>=32
-        #define POWER_X ((XSize)-10)
+        #define ROCKETS_X ((XSize)-10)
     #else
-        #define POWER_X ((XSize)-9)
+        #define ROCKETS_X ((XSize)-9)
     #endif
 #endif 
 
 #if XSize>=32
-    #define ARROWS_X POWER_X-6
+    #define POWER_X ROCKETS_X-6
 #else
-    #define ARROWS_X POWER_X-4
+    #define POWER_X ROCKETS_X-4
 #endif
 
 
@@ -751,7 +751,7 @@ void display_power_ups(void)
         {
            color = _XL_RED;
         }
-        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
+        _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,color);
     }
 }
 #elif !defined(_XL_NO_COLOR) // COLOR but NO TEXT COLOR
@@ -819,7 +819,7 @@ void display_power_ups(void)
         {
            color = _XL_RED;
         }
-        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,color);
+        _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,color);
     }
 }
 #else // NO COLOR and NO TEXT COLOR
@@ -875,7 +875,7 @@ void display_power_ups(void)
 
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
-        _XL_DRAW(ARROWS_X+i,POWER_UPS_Y,ARROW_TILE_0,_XL_CYAN);
+        _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,_XL_CYAN);
     }
 }
 #endif
@@ -1099,7 +1099,7 @@ void beam_effect(void)
         uint8_t i; \
         \
         rechargeItem._active = 0; \
-        rechargeItem._tile = ARROW_TILE_0; \
+        rechargeItem._tile = ROCKET_TILE_0; \
         rechargeItem._color = _XL_YELLOW; \
         rechargeItem._effect = recharge_effect; \
         \
@@ -1137,7 +1137,7 @@ void beam_effect(void)
         uint8_t i; \
         \
         rechargeItem._active = 0; \
-        rechargeItem._tile = ARROW_TILE_0; \
+        rechargeItem._tile = ROCKET_TILE_0; \
         rechargeItem._effect = recharge_effect; \
         \
         freezeItem._active = 0; \
@@ -1612,7 +1612,7 @@ void tank_dies(void)
 
 
 #define compute_next_available_arrow_index() \
-    for(next_arrow=0;next_arrow<MAX_ARROWS_ON_SCREEN;++next_arrow) \
+    for(next_arrow=0;next_arrow<MAX_ROCKETS_ON_SCREEN;++next_arrow) \
     { \
         if(!active_arrow[next_arrow]) \
         { \
@@ -1625,7 +1625,7 @@ void handle_arrows(void)
 {
     uint8_t i;
     
-    for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
+    for(i=0;i<MAX_ROCKETS_ON_SCREEN;++i)
     {
         if(active_arrow[i]) // ACTIVE
         {    
@@ -1656,7 +1656,7 @@ uint8_t tank_hit(void)
 {
     uint8_t i;
     
-    for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
+    for(i=0;i<MAX_ROCKETS_ON_SCREEN;++i)
     {
         if(active_arrow[i] && arrow_x[i]==tank_x
           && tank_y[tank_x]>=arrow_y[i]-1 && tank_y[tank_x]<=arrow_y[i]+1)
@@ -1827,7 +1827,7 @@ void move_tanks(void)
 #define handle_bow_load() \
 do \
 { \
-    if(!loaded_bow && arrows_on_screen<MAX_ARROWS_ON_SCREEN && !bow_load_counter && remaining_arrows) \
+    if(!loaded_bow && arrows_on_screen<MAX_ROCKETS_ON_SCREEN && !bow_load_counter && remaining_arrows) \
     { \
         loaded_bow = 1; \
         display_bow(); \
@@ -1849,7 +1849,7 @@ void fire(void)
     new_arrow_x = (bow_x>>1)+(bow_x&1);
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
-        if(remaining_arrows && arrows_on_screen<MAX_ARROWS_ON_SCREEN)
+        if(remaining_arrows && arrows_on_screen<MAX_ROCKETS_ON_SCREEN)
         {
             if((number_of_arrows_per_shot==2)&&i)
             {
@@ -1993,7 +1993,7 @@ do \
             alive = 1; \
             bow_reload_loops = GREEN_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-            remaining_arrows = MAX_ARROWS; \
+            remaining_arrows = MAX_ROCKETS; \
             arrow_range = GREEN_RANGE_VALUE; \
             bow_x = XSize; \
             bow_shape_tile = 2*((bow_x)&1); \
@@ -2030,7 +2030,7 @@ do \
 			} \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-            remaining_arrows = MAX_ARROWS; \
+            remaining_arrows = MAX_ROCKETS; \
             arrow_range = RED_RANGE_VALUE; \
             bow_x = XSize; \
             bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
@@ -2129,7 +2129,7 @@ do \
     update_tank_speed(); \
 	\
     \
-    for(tank_x=0;tank_x<MAX_ARROWS_ON_SCREEN;++tank_x) \
+    for(tank_x=0;tank_x<MAX_ROCKETS_ON_SCREEN;++tank_x) \
     { \
         active_arrow[tank_x] = 0; \
     } \
@@ -2290,7 +2290,7 @@ void display_second_screen()
         _XL_CHAR(HI_X,0,'H'); \
         _XL_SET_TEXT_COLOR(_XL_WHITE); \
         _XL_PRINTD(HI_X+1,0,5, hiscore); \
-        _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+        _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
         draw_tank_counter_tile(); \
         display_remaining_arrows(); \
@@ -2306,7 +2306,7 @@ void display_second_screen()
     { \
         _XL_SET_TEXT_COLOR(_XL_WHITE); \
         display_score(); \
-        _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+        _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
         draw_tank_counter_tile(); \
         display_remaining_arrows(); \
@@ -2331,7 +2331,7 @@ do \
         } \
         else \
         { \
-            recharge_arrows(AUTO_ARROW_RECAHRGE); \
+            recharge_arrows(AUTO_ROCKET_RECAHRGE); \
             auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN; \
             _XL_PING_SOUND(); \
         } \

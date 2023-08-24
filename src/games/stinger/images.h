@@ -27,8 +27,8 @@
     #define EMPTY_BOW_LEFT_TILE_1 _TILE_11
     #define EMPTY_BOW_RIGHT_TILE_1 _TILE_16
 
-    #define ARROW_TILE_0 _TILE_17
-    #define ARROW_TILE_1 _TILE_18
+    #define ROCKET_TILE_0 _TILE_17
+    #define ROCKET_TILE_1 _TILE_18
     
     #define HEAVY_TANK_TILE_0 _TILE_19
     

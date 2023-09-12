@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 7
 #define INITIAL_LIVES 3
@@ -128,9 +128,9 @@
 uint8_t max_occupied_columns;
 
 #if XSize<=40
-    #define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
+    #define MAX_SPARSELY_OCCUPIED_COLUMNS (3*(XSize)/5)
 #else
-    #define MAX_OCCUPIED_COLUMNS (2*(XSize)/3)
+    #define MAX_SPARSELY_OCCUPIED_COLUMNS (2*(XSize)/3)
 #endif
 
 #if XSize<=40
@@ -139,7 +139,7 @@ uint8_t max_occupied_columns;
     #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-6)
 #endif
 
-#define FEW_TANKS (2*(MAX_OCCUPIED_COLUMNS)/3)
+#define FEW_TANKS (2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
 
 #define MAX_NUMBER_OF_MISSILES 6
 
@@ -1299,19 +1299,19 @@ void handle_artillery_shell(void)
 		else
 		{
 			uint8_t player_x = (bow_x>>1)+(bow_x&1);
-			_XL_DRAW(artillery_shell_x-1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
+			// _XL_DRAW(artillery_shell_x-1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			_XL_DRAW(artillery_shell_x,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
-			_XL_DRAW(artillery_shell_x+1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
+			// _XL_DRAW(artillery_shell_x+1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
-            if(artillery_shell_x==player_x || artillery_shell_x==player_x-1 || artillery_shell_x==player_x+1)
+            if(artillery_shell_x==player_x) // || artillery_shell_x==player_x-1 || artillery_shell_x==player_x+1)
             {
                 alive=0;
                 _XL_EXPLOSION_SOUND();
             }	
 			artillery_shell_active = 0;
-			_XL_DELETE(artillery_shell_x-1,artillery_shell_y);
+			// _XL_DELETE(artillery_shell_x-1,artillery_shell_y);
 			_XL_DELETE(artillery_shell_x,artillery_shell_y);
-			_XL_DELETE(artillery_shell_x+1,artillery_shell_y);
+			// _XL_DELETE(artillery_shell_x+1,artillery_shell_y);
 			display_bow();
 		}
 	}
@@ -2124,7 +2124,7 @@ do \
 			} \
 			else \
 			{ \
-				max_occupied_columns = MAX_OCCUPIED_COLUMNS; \
+				max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
 			} \
             bow_reload_loops = RED_SPEED_VALUE; \
             auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \

@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 2
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -803,10 +803,14 @@ do \
     \
     for(i=0;i<number_of_barriers;++i) \
     { \
-        barrier_x[i] = walls_map[++index]; \
-        barrier_y[i] = walls_map[++index]; \
-        barrier_width[i] = walls_map[++index]; \
-        barrier_height[i] = walls_map[++index]; \
+        ++index; \
+        barrier_x[i] = walls_map[index]; \
+        ++index; \
+        barrier_y[i] = walls_map[index]; \
+        ++index; \
+        barrier_width[i] = walls_map[index]; \
+        ++index; \
+        barrier_height[i] = walls_map[index]; \
         barrier_triggered[i] = 0; \
     } \
     if(challenge_level) \
@@ -827,18 +831,33 @@ void build_shurikens(void)
 
     uint8_t level_horizontal_shurikens;
     
+    
+    // _XL_PRINTD(0,0,5,index);
+    
     level_horizontal_shurikens = shurikens_map[index];
     
-    level_shurikens = level_horizontal_shurikens + shurikens_map[++index];;
+    // _XL_PRINTD(0,1,5,level_horizontal_shurikens);
     
-    level_mini_shurikens = shurikens_map[++index];
+    ++index;
+    level_shurikens = level_horizontal_shurikens + shurikens_map[index];;
 
+    // _XL_PRINTD(0,2,5,level_shurikens);
+
+    ++index;
+    level_mini_shurikens = shurikens_map[index];
+
+    // _XL_PRINTD(0,3,5,level_mini_shurikens);
+
+    _XL_WAIT_FOR_INPUT();
+    
     for(i=0;i<level_shurikens;++i)
     {
         if(shuriken_status[i])
         {
-            shuriken_x[i]=shurikens_map[++index];
-            shuriken_y[i]=shurikens_map[++index];
+            ++index;
+            shuriken_x[i]=shurikens_map[index];
+            ++index;
+            shuriken_y[i]=shurikens_map[index];
             shuriken_direction[i]=0;
             shuriken_transition[i]=0;
             build_element(SHURIKEN,shuriken_x[i],shuriken_y[i]);
@@ -863,7 +882,8 @@ void build_shurikens(void)
     
     for(i=0;i<level_mini_shurikens;++i)
     {
-        mini_shuriken_x[i]=shurikens_map[++index];
+        ++index;
+        mini_shuriken_x[i]=shurikens_map[index];
         build_element(WALL,mini_shuriken_x[i],1);
         mini_shuriken_y[i]=2;
         build_element(MINI_SHURIKEN,mini_shuriken_x[i],mini_shuriken_y[i]);

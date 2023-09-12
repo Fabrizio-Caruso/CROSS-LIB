@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 5
 
 #define LAST_LEVEL 7
 #define INITIAL_LIVES 3
@@ -1282,7 +1282,7 @@ void handle_artillery_shell(void)
 {
 	if(artillery_shell_active) 
 	{
-        if(artillery_shell_y<BOW_Y-1)
+        if(artillery_shell_y<=BOW_Y-1)
         {
             _XL_DELETE(artillery_shell_x,artillery_shell_y);
 
@@ -1838,36 +1838,36 @@ void handle_tank_collisions(void)
     #define MISSILE_DROP_LOOP_MASK (1)
 #endif
 
-#define handle_missile_drops() \
-{ \
-	if(!freeze && !(main_loop_counter&1)) \
-	{ \
-		if(tank_level[tank_x]<=3) \
-		{ \
-			uint8_t missile_index; \
-			if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES) \
-			{ \
-				\
-				tank_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3); \
-				\
-				if(tank_active[tank_x] && tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_speed_mask)))) \
-				{ \
-					drop_item(&enemyMissile[missile_index],1); \
-				} \
-			} \
-		} \
-		else \
-		{ \
-			tank_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3); \
-			if(tank_active[tank_x] && tank_level[tank_x]>=4) \
-			{ \
-				if(!artillery_shell_active) \
-				{ \
-					artillery_fire(); \
-				} \
-			} \
-		} \
-	} \
+void handle_missile_drops(void)
+{
+	if(!freeze && !(main_loop_counter&1))
+	{
+        uint8_t missile_index;
+        
+        if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES)
+        {
+            
+            tank_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3);
+            
+            if(tank_active[tank_x])
+            {
+                if(tank_level[tank_x]<=3)
+                {
+                    if(tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_speed_mask))))
+                    {
+                        drop_item(&enemyMissile[missile_index],1);
+                    }
+                }
+                else
+                {
+                    if(!artillery_shell_active)
+                    {
+                        artillery_fire();
+                    }
+                }
+            }
+        }
+	}
 } 
 
 
@@ -2182,8 +2182,6 @@ do \
     { \
         spawned_light=max_occupied_columns; \
     } \
-	_XL_PRINTD(0,1,3,spawned_light); \
-	_XL_WAIT_FOR_INPUT(); \
     \
     tank_counter = 0; \
     \
@@ -2208,8 +2206,6 @@ do \
 	{ \
 		spawned_artillery = max_occupied_columns - spawned_light; \
 	} \
-	_XL_PRINTD(0,2,3,spawned_artillery); \
-	_XL_WAIT_FOR_INPUT(); \
 	tank_counter = 0; \
 	while(tank_counter<spawned_artillery) \
 	{ \
@@ -2232,12 +2228,6 @@ do \
         spawned_heavy = max_occupied_columns - spawned_light - spawned_artillery; \
     } \
     \
-	_XL_PRINTD(0,6,3,max_occupied_columns); \
-	_XL_PRINTD(0,7,3,spawned_light); \
-	_XL_PRINTD(0,8,3,artillery_to_spawn); \
-	\
-	_XL_PRINTD(0,4,3,spawned_heavy); \
-	_XL_WAIT_FOR_INPUT(); \
     tank_counter = 0; \
     \
     while(tank_counter<spawned_heavy) \

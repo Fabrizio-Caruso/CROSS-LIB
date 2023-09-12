@@ -31,7 +31,7 @@
 
 #define INITIAL_LEVEL 0
 
-#define LAST_LEVEL 7
+#define LAST_LEVEL 5
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
@@ -163,7 +163,7 @@ uint8_t max_occupied_columns;
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {30,40,50,60,70,80,80,80};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {30,40,50,60,70,100};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -180,6 +180,8 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {30,40,50,60,70,80,80,80};
 #define SLOW_TANK_SHOOT_MASK 15
 
 #define MAX_TANK_LEVEL 3
+
+#define INITIAL_ARTILLERY_LEVEL 3
 
 uint8_t tank_speed_mask;
 
@@ -1471,15 +1473,15 @@ void spawn_artillery(void)
 {
 	uint8_t rank;
 	
-	if(level>=7)
+	if(level==5) // 5
 	{
 		rank = 5;
 	}
-	else if(level>=5) // 5, 6
+	else if(level==4) // 4
 	{
 		rank = 4+(_XL_RAND()&1);
 	}
-	else // level = 4
+	else // 3
 	{
 		rank = 4;
 	}
@@ -2196,7 +2198,14 @@ do \
 
 #define spawn_initial_artillery() \
 { \
-	artillery_to_kill = 2*level-killed_artillery; \
+	if(level>=INITIAL_ARTILLERY_LEVEL) \
+    { \
+        artillery_to_kill = 2*level-killed_artillery; \
+    } \
+    else \
+    { \
+        artillery_to_kill = 0; \
+    } \
 	\
 	if(artillery_to_kill<max_occupied_columns - spawned_light) \
 	{ \

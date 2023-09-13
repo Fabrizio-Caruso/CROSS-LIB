@@ -127,16 +127,18 @@
 
 uint8_t max_occupied_columns;
 
+uint8_t heavy_tank_counter;
+
 #if XSize<=40
     #define MAX_SPARSELY_OCCUPIED_COLUMNS (3*(XSize)/5)
 #else
-    #define MAX_SPARSELY_OCCUPIED_COLUMNS (2*(XSize)/3)
+    #define MAX_SPARSELY_OCCUPIED_COLUMNS (2*(XSize)/3);
 #endif
 
 #if XSize<=40
-    #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-3)
+    #define MAX_DENSILY_OCCUPIED_COLUMNS ((XSize-2-3)-LAST_LEVEL)
 #else
-    #define MAX_DENSILY_OCCUPIED_COLUMNS (XSize-2-6)
+    #define MAX_DENSILY_OCCUPIED_COLUMNS ((XSize-2-6)-LAST_LEVEL)
 #endif
 
 #define FEW_TANKS (2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
@@ -1213,10 +1215,13 @@ void drop_item(register Item *item, uint8_t max_counter)
 
 void artillery_fire(void)
 {
+	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_WHITE);
 	artillery_shell_y = tank_y[tank_x]+1;
 	_XL_TOCK_SOUND();
 	artillery_shell_active = 1;
 	artillery_shell_x = tank_x;
+	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_RED);
+
 }
 
 
@@ -1439,29 +1444,53 @@ void spawn_heavy_tank(void)
 {
     uint8_t rank;
     
-    do
-    {
-        if(!level) // 0
-        {
-            rank = 1;
-        }
-        else if(level==1) // 1
-        {
-            rank = (uint8_t) (1 + ((_XL_RAND())&1));
-        }
-        else if(level==2) // 2
-        {
-            rank = (uint8_t) (1 + ((_XL_RAND())%3));   
-        }
-        else //if(level==3) // 3
-        {
-            rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
-        }
-		// else
-		// {
-			// rank = (uint8_t) (2 + ((_XL_RAND())&3)); 
-		// }
-    } while((rank==2)&&(heavy_tanks_to_spawn<LEVEL_2_TANK_THRESHOLD));
+    // do
+    // {
+        // if(!level) // 0
+        // {
+            // rank = 1;
+        // }
+        // else if(level==1) // 1
+        // {
+            // rank = (uint8_t) (1 + ((_XL_RAND())&1));
+        // }
+        // else if(level==2) // 2
+        // {
+            // rank = (uint8_t) (1 + ((_XL_RAND())%3));   
+        // }
+        // else //if(level==3) // 3
+        // {
+            // rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
+        // }
+    // } while((rank==2)&&(heavy_tanks_to_spawn<LEVEL_2_TANK_THRESHOLD));
+
+	if(!level)
+	{
+		rank = 1;
+	}
+	else if(level==1)
+	{
+		rank = 1+(heavy_tank_counter&1);
+	}
+	else if(level<=3) // 2, 3
+	{
+		switch(heavy_tank_counter&3)
+		{
+			case 0 :
+				rank = 1;
+			break;
+			case 1 :
+				rank = 2;
+			break;
+			default:
+				rank = 3;
+		}
+	}
+	else // 4, 5
+	{
+		rank = 2+(heavy_tank_counter&1);
+	}
+	++heavy_tank_counter;
 
     activate_tank();
     tank_level[tank_x]=rank;
@@ -2122,7 +2151,7 @@ do \
             alive = 1; \
 			if(level>=2) \
 			{ \
-				max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS; \
+				max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS+level; \
 			} \
 			else \
 			{ \
@@ -2145,6 +2174,7 @@ do \
 			} \
             initialize_items(); \
 			artillery_shell_active = 0; \
+			heavy_tank_counter = 0; \
             _XL_CLEAR_SCREEN(); \
 			_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
 			_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \

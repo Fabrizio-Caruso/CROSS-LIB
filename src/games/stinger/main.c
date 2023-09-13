@@ -250,7 +250,7 @@ const uint8_t tank_points[] =
 
  uint8_t energy[XSize];
  uint8_t tank_level[XSize];
- const uint8_t rank_energy[6] = {4,7,11,17,12,18}; // 2, 4, 6, 9 ,8 ,9
+ const uint8_t rank_energy[4] = {4,7,11,17}; // 2, 4, 6, 9 ,8 ,9
 
  uint8_t fire_power;
 
@@ -1220,7 +1220,7 @@ void artillery_fire(void)
 	_XL_TOCK_SOUND();
 	artillery_shell_active = 1;
 	artillery_shell_x = tank_x;
-	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_RED);
+	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_GREEN);
 
 }
 
@@ -1500,24 +1500,9 @@ void spawn_heavy_tank(void)
 
 void spawn_artillery(void)
 {
-	uint8_t rank;
-	
-	if(level==5) // 5
-	{
-		rank = 5;
-	}
-	else if(level==4) // 4
-	{
-		rank = 4+(_XL_RAND()&1);
-	}
-	else // 3
-	{
-		rank = 4;
-	}
-	
     activate_tank();
-    tank_level[tank_x]=rank;
-    energy[tank_x]=rank_energy[rank];//HEAVY_TANK_BASE_ENERGY+rank*2;
+    tank_level[tank_x]=4;
+    energy[tank_x]=12;//HEAVY_TANK_BASE_ENERGY+rank*2;
 	--artillery_to_spawn;
 }
 

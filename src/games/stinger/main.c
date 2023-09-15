@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 5
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -48,9 +48,9 @@
 #endif
 
 #if YSize>=16
-    #define INITIAL_TANK_Y (((YSize)/2)-2)
-#else
     #define INITIAL_TANK_Y (((YSize)/2)-1)
+#else
+    #define INITIAL_TANK_Y (((YSize)/2))
 #endif
 
 #if YSize>=18
@@ -129,10 +129,13 @@ uint8_t max_occupied_columns;
 
 uint8_t heavy_tank_counter;
 
+uint8_t rank;
+
+
 #if XSize<=40
     #define MAX_SPARSELY_OCCUPIED_COLUMNS (3*(XSize)/5)
 #else
-    #define MAX_SPARSELY_OCCUPIED_COLUMNS (2*(XSize)/3);
+    #define MAX_SPARSELY_OCCUPIED_COLUMNS (2*(XSize)/3)
 #endif
 
 #if XSize<=40
@@ -149,15 +152,15 @@ uint8_t heavy_tank_counter;
 
 #define HELP_ITEM_LEVEL_THRESHOLD 2
 
-#if XSize<=23
-    #define LIGHT_TANKS_ON_FIRST_LEVEL 20
-#elif XSize<=32
-	#define LIGHT_TANKS_ON_FIRST_LEVEL 30
-#elif XSize<=40
+// #if XSize<=23
+    // #define LIGHT_TANKS_ON_FIRST_LEVEL 20
+// #elif XSize<=32
+	// #define LIGHT_TANKS_ON_FIRST_LEVEL 30
+// #elif XSize<=40
 	#define LIGHT_TANKS_ON_FIRST_LEVEL 40
-#else
-    #define LIGHT_TANKS_ON_FIRST_LEVEL 80
-#endif
+// #else
+    // #define LIGHT_TANKS_ON_FIRST_LEVEL 80
+// #endif
 
 #if XSize<64
     #define HEAVY_TANKS_ON_FIRST_LEVEL (XSize)
@@ -165,7 +168,7 @@ uint8_t heavy_tank_counter;
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {30,40,50,60,70,100};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,30,40,50,70,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -209,7 +212,7 @@ const uint8_t tank_points[] =
 
  uint8_t light_tanks_to_kill;
  uint8_t heavy_tanks_to_kill;
- uint8_t artillery_to_kill;
+ // uint8_t artillery_to_kill;
 
  uint8_t lives;
  uint8_t level;
@@ -219,7 +222,6 @@ const uint8_t tank_points[] =
 
  uint8_t heavy_tanks_to_spawn;
  uint8_t light_tanks_to_spawn;
- uint8_t artillery_to_spawn;
 
  uint8_t auto_recharge_counter;
 
@@ -1422,7 +1424,14 @@ void activate_tank(void)
         // tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
 	// }
 
-	tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
+	if(rank==4)
+	{
+		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y-1;
+	}
+	else
+	{
+		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
+	}
 	_XL_DRAW(tank_x, tank_y[tank_x], TANK_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
 	_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
@@ -1442,37 +1451,20 @@ void spawn_light_tank(void)
 
 void spawn_heavy_tank(void)
 {
-    uint8_t rank;
-    
-    // do
-    // {
-        // if(!level) // 0
-        // {
-            // rank = 1;
-        // }
-        // else if(level==1) // 1
-        // {
-            // rank = (uint8_t) (1 + ((_XL_RAND())&1));
-        // }
-        // else if(level==2) // 2
-        // {
-            // rank = (uint8_t) (1 + ((_XL_RAND())%3));   
-        // }
-        // else //if(level==3) // 3
-        // {
-            // rank = (uint8_t) (2 + ((_XL_RAND())&1)); 
-        // }
-    // } while((rank==2)&&(heavy_tanks_to_spawn<LEVEL_2_TANK_THRESHOLD));
 
 	if(!level)
 	{
-		rank = 1;
+		return;
 	}
 	else if(level==1)
 	{
-		rank = 1+(heavy_tank_counter&1);
+		rank = 1;
 	}
-	else if(level<=3) // 2, 3
+	else if(level==2)
+	{
+		rank = 1+(heavy_tank_counter&1);		
+	}
+	else if(level==3) // 3
 	{
 		switch(heavy_tank_counter&3)
 		{
@@ -1486,9 +1478,23 @@ void spawn_heavy_tank(void)
 				rank = 3;
 		}
 	}
-	else // 4, 5
+	else if(level==4) // 4
 	{
-		rank = 2+(heavy_tank_counter&1);
+		rank = 1+(heavy_tank_counter&3);
+	}
+	else // 5
+	{
+		switch(heavy_tank_counter&3)
+		{
+			case 0 :
+				rank = 2;
+			break;
+			case 1 :
+				rank = 3;
+			break;
+			default:
+				rank = 4;
+		}
 	}
 	++heavy_tank_counter;
 
@@ -1498,13 +1504,13 @@ void spawn_heavy_tank(void)
     --heavy_tanks_to_spawn;
 }
 
-void spawn_artillery(void)
-{
-    activate_tank();
-    tank_level[tank_x]=4;
-    energy[tank_x]=12;//HEAVY_TANK_BASE_ENERGY+rank*2;
-	--artillery_to_spawn;
-}
+// void spawn_artillery(void)
+// {
+    // activate_tank();
+    // tank_level[tank_x]=4;
+    // energy[tank_x]=12;//HEAVY_TANK_BASE_ENERGY+rank*2;
+	// --heavy_tanks_to_spawn;
+// }
 
 #if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
     #if XSize>=32
@@ -1624,15 +1630,11 @@ void handle_tank_speed_mask(void)
 
 void respawn(void)
 {
-    if(light_tanks_to_spawn || heavy_tanks_to_spawn || artillery_to_spawn)
+    if(light_tanks_to_spawn || heavy_tanks_to_spawn)
     {
         if (light_tanks_to_spawn)
         {
             spawn_light_tank();
-        }
-        else if(artillery_to_spawn)
-        {
-			spawn_artillery();
         }
 		else
 		{
@@ -1677,16 +1679,16 @@ void tank_dies(void)
         ++killed_light_tanks;
         --light_tanks_to_kill;
 	}
-	else if(tank_level[tank_x]<=MAX_TANK_LEVEL)
+	else //if(tank_level[tank_x]<=MAX_TANK_LEVEL)
     {
         ++killed_heavy_tanks;
         --heavy_tanks_to_kill;
     }
-    else
-    {
-		++killed_artillery;
-		--artillery_to_kill;
-    }
+    // else
+    // {
+		// ++killed_artillery;
+		// --artillery_to_kill;
+    // }
    
     if(tank_x==forced_tank_x)
     {
@@ -2189,7 +2191,7 @@ do \
 } while(0)    
 
 #define spawn_initial_light_tanks() \
-    light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks;  \
+    light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks-(level<<2);  \
     \
     if(light_tanks_to_kill<max_occupied_columns) \
     { \
@@ -2211,45 +2213,16 @@ do \
     light_tanks_to_spawn = light_tanks_to_kill-spawned_light;
 
 
-#define spawn_initial_artillery() \
-{ \
-	if(level>=INITIAL_ARTILLERY_LEVEL) \
-    { \
-        artillery_to_kill = 2*level-killed_artillery; \
-    } \
-    else \
-    { \
-        artillery_to_kill = 0; \
-    } \
-	\
-	if(artillery_to_kill<max_occupied_columns - spawned_light) \
-	{ \
-		spawned_artillery = artillery_to_kill; \
-	} \
-	else \
-	{ \
-		spawned_artillery = max_occupied_columns - spawned_light; \
-	} \
-	tank_counter = 0; \
-	while(tank_counter<spawned_artillery) \
-	{ \
-		spawn_artillery(); \
-		initialize_tank_at_level_restart(); \
-	} \
-	artillery_to_spawn = artillery_to_kill-spawned_artillery; \
-}
-
-
 #define spawn_initial_heavy_tanks() \
     heavy_tanks_to_kill = heavy_tanks_on_level[level]-killed_heavy_tanks; \
     \
-    if(heavy_tanks_to_kill<max_occupied_columns - spawned_light - spawned_artillery) \
+    if(heavy_tanks_to_kill<max_occupied_columns - spawned_light) \
     { \
         spawned_heavy = heavy_tanks_to_kill;   \
     } \
     else \
     { \
-        spawned_heavy = max_occupied_columns - spawned_light - spawned_artillery; \
+        spawned_heavy = max_occupied_columns - spawned_light; \
     } \
     \
     tank_counter = 0; \
@@ -2265,7 +2238,6 @@ do \
 /*
 	_XL_PRINTD(0,1,3,spawned_light); \
 	_XL_PRINTD(0,0,3,spawned_heavy); \
-	_XL_PRINTD(0,2,3,artillery_to_spawn); \
 	_XL_WAIT_FOR_INPUT(); \
 */
 
@@ -2274,15 +2246,12 @@ do \
 #define tank_initialization() \
 { \
     uint8_t spawned_light; \
-	uint8_t spawned_artillery; \
 	uint8_t spawned_heavy; \
     \
     reset_tanks(); \
     \
     spawn_initial_light_tanks(); \
     \
-	spawn_initial_artillery(); \
-	\
     spawn_initial_heavy_tanks(); \
 	\
     update_tank_speed(); \

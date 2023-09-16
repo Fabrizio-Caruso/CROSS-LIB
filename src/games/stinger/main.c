@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 5
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -2412,23 +2412,34 @@ void display_second_screen()
 
 
 
-#define handle_auto_recharge() \
-do \
-{ \
-    if(!remaining_arrows) \
-    { \
-        if(auto_recharge_counter) \
-        { \
-            --auto_recharge_counter; \
-        } \
-        else \
-        { \
-            recharge_arrows(AUTO_ROCKET_RECAHRGE); \
-            auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN; \
-            _XL_PING_SOUND(); \
-        } \
-    } \
-} while(0)
+void handle_auto_recharge(void)
+{
+    if(!remaining_arrows)
+    {
+        if(auto_recharge_counter)
+        {
+            --auto_recharge_counter;
+        }
+        else if(!rechargeItem._active)
+        {
+			if(bow_x<XSize)
+			{
+				rechargeItem._x = XSize-2;
+			}
+			else
+			{
+				rechargeItem._x = 1;
+			}
+				
+			rechargeItem._y = BOW_Y;
+			rechargeItem._active = 1;
+			rechargeItem._counter = 40;
+			
+            auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN;
+            _XL_PING_SOUND();
+        }
+    }
+}
 
 
 #define display_level_at_start_up()  \

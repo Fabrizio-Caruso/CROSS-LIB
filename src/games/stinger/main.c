@@ -119,7 +119,7 @@
 #define HYPER_RECHARGE 30
 #define ROCKET_RECHARGE 15
 
-#define FREEZE_COUNTER_MAX 100;
+#define FREEZE_COUNTER_MAX 110;
 
 #define WALL_COLOR _XL_GREEN
 #define FREEZE_COLOR _XL_CYAN
@@ -952,100 +952,40 @@ void power_up_effect(void)
     
     pmod10 = powerUp%10;    
 
-    #if defined(BUGGY_MOD10)
-        if(pmod10==0)
-        {
-            activate_hyper();
-            #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_WHITE;
-            #endif
-        } 
-        else if(pmod10==4)
-        {
-            #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = FREEZE_COLOR; 
-            #endif
-        } 
-        else if(pmod10==5)
-        {
-            freeze_locked=0;
-            #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_WHITE;
-            #endif
-        }  
-        else if(pmod10==9)
-        {
-            #if !defined(_XL_NO_COLOR)
-            powerUpItem._color = _XL_RED;
-            #endif
-        }
-    #else
-        switch(pmod10)
-        {
-            case 0:
-                activate_hyper();
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_WHITE;
-                #endif
-            break;
-            
-            case 4:
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = FREEZE_COLOR; 
-                #endif
-            break;
-            
-            case 5:
-                freeze_locked=0;
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_WHITE;
-                #endif
-            break;
-            
-            case 9:
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_RED;
-                #endif
-            break;
-        } 
-    #endif
+	switch(pmod10)
+	{
+		case 0:
+			activate_hyper();
+			#if !defined(_XL_NO_COLOR)
+			powerUpItem._color = _XL_WHITE;
+			#endif
+		break;
+		
+		case 4:
+			#if !defined(_XL_NO_COLOR)
+			powerUpItem._color = FREEZE_COLOR; 
+			#endif
+		break;
+		
+		case 5:
+			freeze_locked=0;
+			#if !defined(_XL_NO_COLOR)
+			powerUpItem._color = _XL_WHITE;
+			#endif
+		break;
+		
+		case 9:
+			#if !defined(_XL_NO_COLOR)
+			powerUpItem._color = _XL_RED;
+			#endif
+		break;
+	} 
     
     display_power_up_counter();
     increase_score(POWERUP_POINTS);
     
     switch(powerUp)
     {
-        #if !defined(TRAINER)
-        // case 1:
-            // arrow_range=YELLOW_RANGE_VALUE;
-        // break;
-            
-        // case 2:
-            // arrow_range=GREEN_RANGE_VALUE;
-        // break;
-        
-        case 1:
-            bow_reload_loops=YELLOW_SPEED_VALUE;
-        break;
-           
-        case 2:
-            bow_reload_loops=GREEN_SPEED_VALUE;
-        break;
-
-        case 3:
-            fire_power = YELLOW_FIRE_POWER_VALUE;
-        break;
-        
-        case 4:
-            fire_power = GREEN_FIRE_POWER_VALUE;
-        break;
-        
-        // case 7:
-            // number_of_arrows_per_shot = 2;
-        // break;
-       
-        #endif
-        
         case 17:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = SECRET_COLOR;
@@ -2456,21 +2396,36 @@ void handle_auto_recharge(void)
 }
 
 
-#define display_level_at_start_up()  \
-do \
-{ \
-    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
-    if(level==LAST_LEVEL) \
-    { \
-        _XL_PRINT(XSize/2-4, YSize/2,  "F I N A L"); \
-    } \
-    _XL_SLEEP(1); \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " ); \
-    _XL_PRINTD(XSize/2+2,YSize/2,1,level+1); \
-    sleep_and_wait_for_input(); \
-    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE); \
-} while(0)
+void display_level_at_start_up(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    if(level==LAST_LEVEL)
+    {
+        _XL_PRINT(XSize/2-4, YSize/2,  "F I N A L");
+    }
+    _XL_SLEEP(1);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " );
+    _XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
+    sleep_and_wait_for_input();
+    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+	
+	if(level<LAST_LEVEL)
+	{
+		uint8_t i;
+		
+		
+		_XL_PRINT(XSize/2-2-level, YSize/2, "VS");
+		for(i=0;i<=level;++i)
+		{
+			_XL_DRAW(XSize/2+1-level+i*2, YSize/2, enemy_tile[i][0], enemy_tile[i][1]);
+		}
+	}
+	
+    sleep_and_wait_for_input();
+    _XL_PRINT(XSize/2-2-level, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+
+}
 
 
 #define handle_tank_movement() \

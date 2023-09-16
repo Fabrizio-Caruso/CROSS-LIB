@@ -37,9 +37,9 @@
 
 #define NEXT_EXTRA_LIFE 5000U
 
-#define BOW_Y ((YSize)-3)
-#define MAX_BOW_X ((XSize)*2-3)
-#define POWER_UPS_Y ((BOW_Y)+2)
+#define STINGER_Y ((YSize)-3)
+#define MAX_STINGER_X ((XSize)*2-3)
+#define POWER_UPS_Y ((STINGER_Y)+2)
 
 #if YSize<=16
     #define WALL_Y ((YSize)-8)
@@ -61,7 +61,7 @@
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
 #endif
 
-#define BOTTOM_WALL_Y ((BOW_Y)+1)
+#define BOTTOM_WALL_Y ((STINGER_Y)+1)
 
 #define POWER_THRESHOLD 4
 
@@ -94,8 +94,8 @@
 #define YELLOW_FIRE_POWER_VALUE 3
 #define GREEN_FIRE_POWER_VALUE 4
 
-#define INITIAL_BOW_RELOAD_LOOPS 9
-#define RED_SPEED_VALUE INITIAL_BOW_RELOAD_LOOPS
+#define INITIAL_STINGER_RELOAD_LOOPS 9
+#define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
 #define YELLOW_SPEED_VALUE 7
 #define GREEN_SPEED_VALUE 4
 #define HYPER_SPEED_VALUE 3
@@ -296,16 +296,16 @@ const uint8_t tank_points[] =
 };
 #endif
 
- const uint8_t bow_tile[8] =
+ const uint8_t stinger_tile[8] =
 {
-    EMPTY_BOW_LEFT_TILE_0,
-    EMPTY_BOW_RIGHT_TILE_0,
-    EMPTY_BOW_LEFT_TILE_1,
-    EMPTY_BOW_RIGHT_TILE_1,
-    LOADED_BOW_LEFT_TILE_0,
-    LOADED_BOW_RIGHT_TILE_0,
-    LOADED_BOW_LEFT_TILE_1,
-    LOADED_BOW_RIGHT_TILE_1,
+    EMPTY_STINGER_LEFT_TILE_0,
+    EMPTY_STINGER_RIGHT_TILE_0,
+    EMPTY_STINGER_LEFT_TILE_1,
+    EMPTY_STINGER_RIGHT_TILE_1,
+    LOADED_STINGER_LEFT_TILE_0,
+    LOADED_STINGER_RIGHT_TILE_0,
+    LOADED_STINGER_LEFT_TILE_1,
+    LOADED_STINGER_RIGHT_TILE_1,
 };
 
  const uint8_t arrow_tile[2] =
@@ -314,13 +314,13 @@ const uint8_t tank_points[] =
     ROCKET_TILE_1,
 };
 
- uint8_t bow_x; // range: 0..2*XSize-2^M
- uint8_t bow_shape_tile;
- uint8_t bow_color;
+ uint8_t stinger_x; // range: 0..2*XSize-2^M
+ uint8_t stinger_shape_tile;
+ uint8_t stinger_color;
 
  uint8_t input;
 
- uint8_t loaded_bow;
+ uint8_t loaded_stinger;
  uint8_t active_arrow[MAX_ROCKETS_ON_SCREEN];
  uint8_t arrow_shape[MAX_ROCKETS_ON_SCREEN];
  uint8_t arrow_x[MAX_ROCKETS_ON_SCREEN];
@@ -328,11 +328,11 @@ const uint8_t tank_points[] =
  uint8_t remaining_arrows;
  // uint8_t arrow_range;
 
- uint8_t bow_reload_loops;
+ uint8_t stinger_reload_loops;
 
  uint8_t next_arrow;
  uint8_t arrows_on_screen;
- uint8_t bow_load_counter;
+ uint8_t stinger_load_counter;
  uint8_t alive;
 
  uint16_t score;
@@ -494,16 +494,16 @@ void display_score(void)
 #if !defined(_XL_NO_TEXT_COLOR)
     void display_lives(uint8_t color)
     {
-        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
-        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN);
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,stinger_tile[4+0+stinger_shape_tile],_XL_CYAN);
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,stinger_tile[1+4+stinger_shape_tile],_XL_CYAN);
         _XL_SET_TEXT_COLOR(color);
         _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives);
     }
 #else
     #define display_lives(color) \
     { \
-        _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN); \
-        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,bow_tile[1+4+bow_shape_tile],_XL_CYAN); \
+        _XL_DRAW(LIVES_X,POWER_UPS_Y,stinger_tile[4+0+stinger_shape_tile],_XL_CYAN); \
+        _XL_DRAW(LIVES_X+1,POWER_UPS_Y,stinger_tile[1+4+stinger_shape_tile],_XL_CYAN); \
         _XL_PRINTD(LIVES_X+2,POWER_UPS_Y,1,lives); \
     } 
 #endif
@@ -516,10 +516,10 @@ void display_score(void)
 #endif
 
 
-void display_bow(void)
+void display_stinger(void)
 {
-    _XL_DRAW((bow_x>>1),BOW_Y,bow_tile[4*loaded_bow+0+bow_shape_tile],bow_color);
-    _XL_DRAW((bow_x>>1)+1,BOW_Y,bow_tile[1+4*loaded_bow+bow_shape_tile],bow_color);  
+    _XL_DRAW((stinger_x>>1),STINGER_Y,stinger_tile[4*loaded_stinger+0+stinger_shape_tile],stinger_color);
+    _XL_DRAW((stinger_x>>1)+1,STINGER_Y,stinger_tile[1+4*loaded_stinger+stinger_shape_tile],stinger_color);  
 }
 
 
@@ -640,12 +640,12 @@ void display_tank(void)
             \
             for(i=0;i<16;++i) \
             { \
-                bow_color = _XL_YELLOW; \
-                display_bow(); \
+                stinger_color = _XL_YELLOW; \
+                display_stinger(); \
                 _extra_life_color_effect(_XL_RED); \
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
-                bow_color = _XL_CYAN; \
-                display_bow(); \
+                stinger_color = _XL_CYAN; \
+                display_stinger(); \
                 _extra_life_color_effect(_XL_YELLOW); \
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR); \
             } \
@@ -926,10 +926,10 @@ void display_power_ups(void)
 #define activate_hyper() \
 { \
     _XL_ZAP_SOUND(); \
-    bow_reload_loops=HYPER_SPEED_VALUE; \
+    stinger_reload_loops=HYPER_SPEED_VALUE; \
     recharge_arrows(HYPER_RECHARGE); \
     hyper_counter = MAX_HYPER_COUNTER; \
-    bow_color = _XL_RED; \
+    stinger_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     if(powerUp>10) \
     { \
@@ -1131,23 +1131,23 @@ void beam_effect(void)
 
 #define move_left() \
 { \
-    bow_shape_tile = 2*((--bow_x)&1); \
-    if(bow_shape_tile) \
+    stinger_shape_tile = 2*((--stinger_x)&1); \
+    if(stinger_shape_tile) \
     { \
-        _XL_DELETE((bow_x>>1)+2,BOW_Y); \
+        _XL_DELETE((stinger_x>>1)+2,STINGER_Y); \
     } \
-    display_bow(); \
+    display_stinger(); \
 }
 
 
 #define move_right() \
 { \
-    bow_shape_tile = 2*((++bow_x)&1); \
-    if(!bow_shape_tile) \
+    stinger_shape_tile = 2*((++stinger_x)&1); \
+    if(!stinger_shape_tile) \
     { \
-        _XL_DELETE((bow_x>>1)-1,BOW_Y); \
+        _XL_DELETE((stinger_x>>1)-1,STINGER_Y); \
     } \
-    display_bow(); \
+    display_stinger(); \
 }
 
 
@@ -1190,7 +1190,7 @@ void handle_item(register Item* item)
         // TODO: Necessary for GCC for TI99
         uint8_t item_tile = item->_tile;
         
-        if(item->_y<BOW_Y)
+        if(item->_y<STINGER_Y)
         {
             _XL_DELETE(item->_x,item->_y);
             if(main_loop_counter&1)
@@ -1220,7 +1220,7 @@ void handle_item(register Item* item)
                 #endif
             }
  
-            if(item->_x==(bow_x>>1)+(bow_x&1))
+            if(item->_x==(stinger_x>>1)+(stinger_x&1))
             {
                 item->_effect();
                 _XL_PING_SOUND();
@@ -1237,7 +1237,7 @@ void handle_item(register Item* item)
                 _XL_DELETE(item->_x,item->_y);
 				
             }
-			display_bow();
+			display_stinger();
         }
     }   
 }
@@ -1247,7 +1247,7 @@ void handle_artillery_shell(void)
 {
 	if(artillery_shell_active) 
 	{
-        if(artillery_shell_y<=BOW_Y-1)
+        if(artillery_shell_y<=STINGER_Y-1)
         {
             _XL_DELETE(artillery_shell_x,artillery_shell_y);
 
@@ -1263,7 +1263,7 @@ void handle_artillery_shell(void)
         }
 		else
 		{
-			uint8_t player_x = (bow_x>>1)+(bow_x&1);
+			uint8_t player_x = (stinger_x>>1)+(stinger_x&1);
 			// _XL_DRAW(artillery_shell_x-1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			_XL_DRAW(artillery_shell_x,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			// _XL_DRAW(artillery_shell_x+1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
@@ -1277,7 +1277,7 @@ void handle_artillery_shell(void)
 			// _XL_DELETE(artillery_shell_x-1,artillery_shell_y);
 			_XL_DELETE(artillery_shell_x,artillery_shell_y);
 			// _XL_DELETE(artillery_shell_x+1,artillery_shell_y);
-			display_bow();
+			display_stinger();
 		}
 	}
 }
@@ -1614,7 +1614,7 @@ void tank_dies(void)
         display_wall(BOTTOM_WALL_Y,wall_color);
     #endif
     
-    display_bow();
+    display_stinger();
         
     if(!tank_level[tank_x])
 	{
@@ -1637,7 +1637,7 @@ void tank_dies(void)
         forced_tank = 0;
     }
     
-    if(y_pos<BOW_Y-2)
+    if(y_pos<STINGER_Y-2)
     {
         handle_item_drop();
     }
@@ -1807,7 +1807,7 @@ void handle_missile_drops(void)
         if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES)
         {
             
-            tank_x = (bow_x>>1)+(bow_x&1)-1+(_XL_RAND()%3);
+            tank_x = (stinger_x>>1)+(stinger_x&1)-1+(_XL_RAND()%3);
             
             if(tank_active[tank_x])
             {
@@ -1847,7 +1847,7 @@ void move_tanks(void)
     }
 
     // The forced tank is no longer forced when it has completed the move (half-move for stealth tanks)
-    if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=BOW_Y-1)))
+    if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1)))
     {
         forced_tank = 0;
     }
@@ -1864,7 +1864,7 @@ void move_tanks(void)
     
     display_tank();
 
-    if((tank_y[tank_x]==BOW_Y))
+    if((tank_y[tank_x]==STINGER_Y))
     {
         alive = 0;
         display_red_tank();
@@ -1882,17 +1882,17 @@ void move_tanks(void)
 	// }
 // }
 
-#define handle_bow_load() \
+#define handle_stinger_load() \
 do \
 { \
-    if(!loaded_bow && arrows_on_screen<MAX_ROCKETS_ON_SCREEN && !bow_load_counter && remaining_arrows) \
+    if(!loaded_stinger && arrows_on_screen<MAX_ROCKETS_ON_SCREEN && !stinger_load_counter && remaining_arrows) \
     { \
-        loaded_bow = 1; \
-        display_bow(); \
+        loaded_stinger = 1; \
+        display_stinger(); \
     } \
-    if(bow_load_counter) \
+    if(stinger_load_counter) \
     { \
-        --bow_load_counter; \
+        --stinger_load_counter; \
     } \
 } while(0)
 
@@ -1904,14 +1904,14 @@ void fire(void)
     uint8_t offset;
     
     _XL_TICK_SOUND();
-    new_arrow_x = (bow_x>>1)+(bow_x&1);
+    new_arrow_x = (stinger_x>>1)+(stinger_x&1);
     for(i=0;i<number_of_arrows_per_shot;++i)
     {
         if(remaining_arrows && arrows_on_screen<MAX_ROCKETS_ON_SCREEN)
         {
             if((number_of_arrows_per_shot==2)&&i)
             {
-                offset = i-2*(bow_x&1);
+                offset = i-2*(stinger_x&1);
             }
             else
             {
@@ -1937,13 +1937,13 @@ void fire(void)
                 ++arrows_on_screen;
                 if(number_of_arrows_per_shot==2)
                 {
-                    arrow_shape[next_arrow] = arrow_tile[!(bow_x&1)];
+                    arrow_shape[next_arrow] = arrow_tile[!(stinger_x&1)];
                 }
                 else
                 {
-                    arrow_shape[next_arrow] = arrow_tile[bow_x&1];
+                    arrow_shape[next_arrow] = arrow_tile[stinger_x&1];
                 }
-                arrow_y[next_arrow] = BOW_Y-1;
+                arrow_y[next_arrow] = STINGER_Y-1;
                 arrow_x[next_arrow] = new_arrow_x;
                 #if !defined(TRAINER)
                     --remaining_arrows;
@@ -1953,53 +1953,53 @@ void fire(void)
     }
     display_remaining_arrows();
 
-    bow_load_counter = bow_reload_loops;
-    loaded_bow = 0;
-    display_bow();
+    stinger_load_counter = stinger_reload_loops;
+    loaded_stinger = 0;
+    display_stinger();
 }
 
 #if defined(_XL_NO_UDG)
-    #define handle_bow_move() \
+    #define handle_stinger_move() \
     do \
     { \
         input = _XL_INPUT(); \
         \
-        if(_XL_LEFT(input) && bow_x>1) \
+        if(_XL_LEFT(input) && stinger_x>1) \
         { \
             move_left(); \
-            if(bow_x) \
+            if(stinger_x) \
             { \
                 move_left(); \
             } \
         } \
-        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X-1) \
+        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1) \
         { \
             move_right(); \
-            if(bow_x<MAX_BOW_X) \
+            if(stinger_x<MAX_STINGER_X) \
             { \
                 move_right(); \
             } \
         } \
-        else if (_XL_FIRE(input) && loaded_bow) \
+        else if (_XL_FIRE(input) && loaded_stinger) \
         { \
             fire(); \
         } \
     } while(0)
 #else
-    #define handle_bow_move() \
+    #define handle_stinger_move() \
     do \
     { \
         input = _XL_INPUT(); \
         \
-        if(_XL_LEFT(input) && bow_x>1) \
+        if(_XL_LEFT(input) && stinger_x>1) \
         { \
             move_left(); \
         } \
-        else if (_XL_RIGHT(input) && bow_x<MAX_BOW_X-1) \
+        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1) \
         { \
             move_right(); \
         } \
-        else if (_XL_FIRE(input) && loaded_bow) \
+        else if (_XL_FIRE(input) && loaded_stinger) \
         { \
             fire(); \
         } \
@@ -2044,12 +2044,12 @@ do \
 		powerUp = 0; \
 		next_arrow = 0; \
 		arrows_on_screen = 0; \
-		bow_load_counter = 0; \
+		stinger_load_counter = 0; \
 		hyper_counter = 0; \
 		forced_tank = 0; \
 		freeze_locked = 1; \
 		secret_locked = 1; \
-		loaded_bow = 1; \
+		loaded_stinger = 1; \
 		alive = 1; \
 		if(level>=2) \
 		{ \
@@ -2059,12 +2059,12 @@ do \
 		{ \
 			max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
 		} \
-		bow_reload_loops = RED_SPEED_VALUE; \
+		stinger_reload_loops = RED_SPEED_VALUE; \
 		auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
 		remaining_arrows = MAX_ROCKETS; \
-		bow_x = XSize; \
-		bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
-		bow_color = _XL_CYAN; \
+		stinger_x = XSize; \
+		stinger_shape_tile = (uint8_t) 2*((stinger_x)&1); \
+		stinger_color = _XL_CYAN; \
 		number_of_arrows_per_shot = 1; \
 		if(level>=3) \
 		{ \
@@ -2376,7 +2376,7 @@ void handle_auto_recharge(void)
         }
         else if(!rechargeItem._active)
         {
-			if(bow_x<XSize)
+			if(stinger_x<XSize)
 			{
 				rechargeItem._x = XSize-2;
 			}
@@ -2385,7 +2385,7 @@ void handle_auto_recharge(void)
 				rechargeItem._x = 1;
 			}
 				
-			rechargeItem._y = BOW_Y;
+			rechargeItem._y = STINGER_Y;
 			rechargeItem._active = 1;
 			rechargeItem._counter = 2*XSize+XSize/2;
 			
@@ -2407,23 +2407,22 @@ void display_level_at_start_up(void)
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " );
     _XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
-    sleep_and_wait_for_input();
-    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
 	
 	if(level<LAST_LEVEL)
 	{
 		uint8_t i;
 		
 		
-		_XL_PRINT(XSize/2-2-level, YSize/2, "VS");
+		_XL_PRINT(XSize/2-2-level, YSize/2+2, "VS");
 		for(i=0;i<=level;++i)
 		{
-			_XL_DRAW(XSize/2+1-level+i*2, YSize/2, enemy_tile[i][0], enemy_tile[i][1]);
+			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
 		}
 	}
 	
     sleep_and_wait_for_input();
-    _XL_PRINT(XSize/2-2-level, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+    _XL_PRINT(XSize/2-2-level, YSize/2+2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
 
 }
 
@@ -2478,9 +2477,9 @@ do \
 do \
 { \
     --lives; \
-    bow_color=_XL_RED; \
-    display_bow(); \
-    bow_color=_XL_CYAN; \
+    stinger_color=_XL_RED; \
+    display_stinger(); \
+    stinger_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
     sleep_and_wait_for_input(); \
 } while(0)
@@ -2520,7 +2519,7 @@ do \
 do \
 { \
     display_wall(BOTTOM_WALL_Y,wall_color); \
-    display_bow(); \
+    display_stinger(); \
     display_stats(); \
     display_level_at_start_up(); \
 } while(0)
@@ -2534,8 +2533,8 @@ do \
         \
         if(!hyper_counter) \
         { \
-            bow_color = _XL_CYAN; \
-            bow_reload_loops=GREEN_SPEED_VALUE; \
+            stinger_color = _XL_CYAN; \
+            stinger_reload_loops=GREEN_SPEED_VALUE; \
             number_of_arrows_per_shot=1; \
 			PRINT_CENTERED_ON_ROW(1,"      "); \
             display_power_ups(); \
@@ -2571,8 +2570,8 @@ int main(void)
             while(alive && (light_tanks_to_kill || heavy_tanks_to_kill) ) // Inner game loop
             {
                 handle_hyper();
-                handle_bow_move();
-                handle_bow_load();
+                handle_stinger_move();
+                handle_stinger_load();
                 handle_arrows(); 
                 handle_auto_recharge();
                 handle_tank_movement();

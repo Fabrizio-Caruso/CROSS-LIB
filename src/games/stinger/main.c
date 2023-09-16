@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -47,18 +47,18 @@
     #define WALL_Y ((YSize)-6)
 #endif
 
-#if YSize>=16
-    #define INITIAL_TANK_Y (((YSize)/2)-1)
-#else
-    #define INITIAL_TANK_Y (((YSize)/2))
-#endif
+// #if YSize>=16
+    // #define INITIAL_TANK_Y (((YSize)/2)-1)
+// #else
+    // #define INITIAL_TANK_Y (((YSize)/2))
+// #endif
 
 #if YSize>=18
-    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-4
+    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-5)
 #elif YSize>=16
-    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-3
+    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-4)
 #else 
-    #define INITIAL_RESPAWN_TANK_Y (INITIAL_TANK_Y)-2
+    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
 #endif
 
 #define BOTTOM_WALL_Y ((BOW_Y)+1)
@@ -78,6 +78,7 @@
 #define HEAVY_TANK_1_POINTS 15
 #define HEAVY_TANK_2_POINTS 25
 #define HEAVY_TANK_3_POINTS 30
+#define ARTILLERY_POINTS 50
 
 #define EXTRA_POINTS 100
 #define RECHARGE_POINTS 25
@@ -99,11 +100,11 @@
 #define GREEN_SPEED_VALUE 4
 #define HYPER_SPEED_VALUE 3
 
-#define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
-#define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
-#define GREEN_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-4)
+// #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
+// #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
+#define GREEN_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-1)
 
-#define INITIAL_ROCKET_RANGE ((INITIAL_TANK_Y)+1)
+// #define INITIAL_ROCKET_RANGE ((INITIAL_TANK_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
 
 // (2 basic hits)
@@ -131,6 +132,9 @@ uint8_t heavy_tank_counter;
 
 uint8_t rank;
 
+uint8_t wall_color;
+
+const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
 #if XSize<=40
     #define MAX_SPARSELY_OCCUPIED_COLUMNS (3*(XSize)/5)
@@ -168,7 +172,7 @@ uint8_t rank;
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,30,40,50,70,120};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,28,52,76,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -208,6 +212,7 @@ const uint8_t tank_points[] =
     HEAVY_TANK_1_POINTS, // Ogre
     HEAVY_TANK_2_POINTS, // Ghosts
     HEAVY_TANK_3_POINTS, // Demons
+	ARTILLERY_POINTS,
 };
 
  uint8_t light_tanks_to_kill;
@@ -252,7 +257,7 @@ const uint8_t tank_points[] =
 
  uint8_t energy[XSize];
  uint8_t tank_level[XSize];
- const uint8_t rank_energy[4] = {4,7,11,17}; // 2, 4, 6, 9 ,8 ,9
+ const uint8_t rank_energy[5] = {LIGHT_TANK_ENERGY,7,11,17,12}; // 2, 4, 6, 9 ,8 ,9
 
  uint8_t fire_power;
 
@@ -375,14 +380,16 @@ typedef struct ItemStruct Missile;
     { HEAVY_TANK_TILE_0, _XL_GREEN },
     { TANK_DEATH_TILE, _XL_YELLOW },
     { HEAVY_TANK_TILE_0, _XL_RED },
+	{ MORTAR_TILE, _XL_GREEN },
 };
 
- const char enemy_name[4][8] = 
+ const char enemy_name[5][8] = 
 {
     _XL_L _XL_I _XL_G _XL_H _XL_T,
     _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
     _XL_S _XL_T _XL_E _XL_A _XL_L _XL_T _XL_H,
     _XL_H _XL_E _XL_A _XL_V _XL_Y,
+    _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
 };
 #endif
 
@@ -913,18 +920,19 @@ void display_power_ups(void)
     _XL_ZAP_SOUND(); \
     bow_reload_loops=HYPER_SPEED_VALUE; \
     recharge_arrows(HYPER_RECHARGE); \
+    hyper_counter = MAX_HYPER_COUNTER; \
+    bow_color = _XL_RED; \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
     if(powerUp>10) \
     { \
         number_of_arrows_per_shot=3; \
+		PRINT_CENTERED_ON_ROW(1," TRIPLE "); \
     } \
     else \
     { \
         number_of_arrows_per_shot=2; \
+		PRINT_CENTERED_ON_ROW(1," DOUBLE "); \
     } \
-    hyper_counter = MAX_HYPER_COUNTER; \
-    bow_color = _XL_RED; \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(1," HYPER "); \
 }
 
 
@@ -1402,27 +1410,8 @@ void activate_tank(void)
     {
         tank_x = find_random_tank(0);
 		
-		// TODO: Is this possible?
-		// if(tank_x==XSize)
-		// {
-			// return;
-		// }
     };    
-  
-	// if(tank_y[tank_x]<=MAX_TANK_LEVEL)
-	// {
-    // #if YSize<=16
-        // tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
 
-    // #else
-        // tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y+(level>>1);
-
-    // #endif
-	// }
-	// else
-	// {
-        // tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
-	// }
 
 	if(rank==4)
 	{
@@ -1535,13 +1524,13 @@ void update_tank_speed(void)
 }
 
 
-void display_wall(uint8_t y)
+void display_wall(uint8_t y ,uint8_t color)
 {
     uint8_t i;
     
     for(i=0; i<XSize; ++i)
     {   
-        _XL_DRAW(i,y,WALL_TILE,WALL_COLOR); 
+        _XL_DRAW(i,y,WALL_TILE,color); 
     }
 }
 
@@ -1669,7 +1658,7 @@ void tank_dies(void)
     
     #if defined(NO_BOTTOM_WALL_REDRAW)
     #else
-        display_wall(BOTTOM_WALL_Y);
+        display_wall(BOTTOM_WALL_Y,wall_color);
     #endif
     
     display_bow();
@@ -2093,81 +2082,54 @@ do \
 } while(0)
 
 
-#if defined(TRAINER)
-    #define level_initialization() \
-        do \
-        {   \
-            fire_power = GREEN_FIRE_POWER_VALUE; \
-            freeze = 0; \
-            powerUp = 8; \
-            next_arrow = 0; \
-            arrows_on_screen = 0; \
-            bow_load_counter = 0; \
-            freeze_locked = 1; \
-            secret_locked = 1; \
-            forced_tank = 0; \
-            loaded_bow = 1; \
-            alive = 1; \
-            bow_reload_loops = GREEN_SPEED_VALUE; \
-            auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-            remaining_arrows = MAX_ROCKETS; \
-            bow_x = XSize; \
-            bow_shape_tile = 2*((bow_x)&1); \
-            bow_color = _XL_CYAN; \
-            number_of_arrows_per_shot = 3; \
-            initialize_items(); \
-            hyper_counter = 0; \
-            _XL_CLEAR_SCREEN(); \
-        } while(0)
 
-#else
     #define level_initialization() \
-        do \
-        {   \
-            fire_power = RED_FIRE_POWER_VALUE; \
-            freeze = 0; \
-            powerUp = 0; \
-            next_arrow = 0; \
-            arrows_on_screen = 0; \
-            bow_load_counter = 0; \
-            hyper_counter = 0; \
-            forced_tank = 0; \
-            freeze_locked = 1; \
-            secret_locked = 1; \
-            loaded_bow = 1; \
-            alive = 1; \
-			if(level>=2) \
-			{ \
-				max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS+level; \
-			} \
-			else \
-			{ \
-				max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
-			} \
-            bow_reload_loops = RED_SPEED_VALUE; \
-            auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-            remaining_arrows = MAX_ROCKETS; \
-            bow_x = XSize; \
-            bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
-            bow_color = _XL_CYAN; \
-            number_of_arrows_per_shot = 1; \
-			if(level>=3) \
-			{ \
-				tank_speed_mask = FAST_TANK_SHOOT_MASK; \
-			} \
-			else \
-			{ \
-				tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
-			} \
-            initialize_items(); \
-			artillery_shell_active = 0; \
-			heavy_tank_counter = 0; \
-            _XL_CLEAR_SCREEN(); \
-			_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
-			_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,WALL_COLOR); \
-        } while(0)
+	do \
+	{   \
+		fire_power = RED_FIRE_POWER_VALUE; \
+		freeze = 0; \
+		powerUp = 0; \
+		next_arrow = 0; \
+		arrows_on_screen = 0; \
+		bow_load_counter = 0; \
+		hyper_counter = 0; \
+		forced_tank = 0; \
+		freeze_locked = 1; \
+		secret_locked = 1; \
+		loaded_bow = 1; \
+		alive = 1; \
+		if(level>=2) \
+		{ \
+			max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS+level; \
+		} \
+		else \
+		{ \
+			max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
+		} \
+		bow_reload_loops = RED_SPEED_VALUE; \
+		auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
+		remaining_arrows = MAX_ROCKETS; \
+		bow_x = XSize; \
+		bow_shape_tile = (uint8_t) 2*((bow_x)&1); \
+		bow_color = _XL_CYAN; \
+		number_of_arrows_per_shot = 1; \
+		if(level>=3) \
+		{ \
+			tank_speed_mask = FAST_TANK_SHOOT_MASK; \
+		} \
+		else \
+		{ \
+			tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
+		} \
+		initialize_items(); \
+		artillery_shell_active = 0; \
+		heavy_tank_counter = 0; \
+		_XL_CLEAR_SCREEN(); \
+		_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
+		_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
+		wall_color = level_color[level&1]; \
+	} while(0)
 
-#endif
 
 #define tank_counter main_loop_counter
 
@@ -2189,6 +2151,7 @@ do \
         tank_active[tank_x]=0; \
     } \
 } while(0)    
+
 
 #define spawn_initial_light_tanks() \
     light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks-(level<<2);  \
@@ -2324,11 +2287,11 @@ do \
 	{
 		uint8_t i;
 		
-		for(i=0;i<4;++i)
+		for(i=0;i<5;++i)
 		{
-			_XL_DRAW(XSize/2-5,YSize/3+3+_NEXT_ROW, enemy_tile[i][0], enemy_tile[i][1]);
+			_XL_DRAW(XSize/2-5,YSize/3+1+_NEXT_ROW, enemy_tile[i][0], enemy_tile[i][1]);
 			_XL_SET_TEXT_COLOR(_XL_GREEN);
-			_XL_PRINT(XSize/2-5+3,YSize/3+3+_NEXT_ROW, (char *)enemy_name[i]);
+			_XL_PRINT(XSize/2-5+3,YSize/3+1+_NEXT_ROW, (char *)enemy_name[i]);
 		}
 	}
 #else
@@ -2359,8 +2322,8 @@ do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
-    display_wall(0); \
-    display_wall(BOTTOM_WALL_Y+1); \
+    display_wall(0,_XL_GREEN); \
+    display_wall(BOTTOM_WALL_Y+1,_XL_GREEN); \
     \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
@@ -2383,10 +2346,10 @@ void display_second_screen()
 {
     _XL_CLEAR_SCREEN();
     
-    display_wall(0);
-    display_wall(BOTTOM_WALL_Y+1);
+    display_wall(0,_XL_YELLOW);
+    display_wall(BOTTOM_WALL_Y+1,_XL_YELLOW);
 	_XL_SET_TEXT_COLOR(_XL_CYAN);
-	PRINT_CENTERED_ON_ROW(YSize/3, "ENEMY ARMOR");
+	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMY ARMOR");
 	display_enemies();
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
@@ -2575,7 +2538,7 @@ do \
 #define display_level_screen() \
 do \
 { \
-    display_wall(BOTTOM_WALL_Y); \
+    display_wall(BOTTOM_WALL_Y,wall_color); \
     display_bow(); \
     display_stats(); \
     display_level_at_start_up(); \
@@ -2593,7 +2556,7 @@ do \
             bow_color = _XL_CYAN; \
             bow_reload_loops=GREEN_SPEED_VALUE; \
             number_of_arrows_per_shot=1; \
-			PRINT_CENTERED_ON_ROW(1,"     "); \
+			PRINT_CENTERED_ON_ROW(1,"      "); \
             display_power_ups(); \
         } \
     } \

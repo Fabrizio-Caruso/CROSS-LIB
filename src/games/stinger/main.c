@@ -667,7 +667,7 @@ void recharge_effect(void)
 {
     recharge_arrows(ROCKET_RECHARGE);
     increase_score(RECHARGE_POINTS);
-	PRINT_CENTERED_ON_ROW(1,"         "); \
+	PRINT_CENTERED_ON_ROW(2,"        "); \
 
 }
 
@@ -2429,7 +2429,7 @@ void handle_auto_recharge(void)
     if(!remaining_arrows)
     {
 		_XL_SET_TEXT_COLOR(_XL_RED);
-		PRINT_CENTERED_ON_ROW(1,"NO ROCKET"); \
+		PRINT_CENTERED_ON_ROW(2,"RECHARGE"); \
         if(auto_recharge_counter)
         {
             --auto_recharge_counter;

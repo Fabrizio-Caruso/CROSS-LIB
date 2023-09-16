@@ -96,9 +96,9 @@
 
 #define INITIAL_STINGER_RELOAD_LOOPS 9
 #define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
-#define YELLOW_SPEED_VALUE 7
-#define GREEN_SPEED_VALUE 4
-#define HYPER_SPEED_VALUE 3
+#define YELLOW_SPEED_VALUE 8
+#define GREEN_SPEED_VALUE 6
+#define HYPER_SPEED_VALUE 4
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
@@ -730,7 +730,6 @@ uint8_t find_inactive(Item* itemArray)
 #if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
 void display_power_ups(void)
 {
-    // uint8_t range_color;
     uint8_t speed_color;
     uint8_t color;
 
@@ -742,14 +741,6 @@ void display_power_ups(void)
     arrow_display_color = _XL_CYAN;
     power_color = _XL_RED;
     
-    // if(powerUp<3) // range
-    // {
-        // range_color = power_up_color[powerUp];
-    // }
-    // else
-    // {
-        // range_color = _XL_GREEN;
-
 	if(powerUp<2) // speed
 	{
 		speed_color = power_up_color[powerUp];
@@ -758,25 +749,19 @@ void display_power_ups(void)
 	{
 		speed_color = _XL_GREEN;
 
-		// if(powerUp>2)
-		// {
-			if(powerUp<4)
-			{
-				power_color = power_up_color[powerUp-2];
-				arrow_display_color = arrow_color[powerUp-2];
-			}
-			else
-			{
-				power_color = _XL_GREEN;
-				arrow_display_color = _XL_WHITE;
-			}
-		// }
-	}
-    // }
+		if(powerUp<4)
+		{
+			power_color = power_up_color[powerUp-2];
+			arrow_display_color = arrow_color[powerUp-2];
+		}
+		else
+		{
+			power_color = _XL_GREEN;
+			arrow_display_color = _XL_WHITE;
+		}
 
-    // _XL_SET_TEXT_COLOR(range_color);
-    // _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
-    
+	}
+
     _XL_SET_TEXT_COLOR(speed_color);
     _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
     
@@ -884,26 +869,26 @@ void display_power_ups(void)
     // {
         // range_value = 3;
 
-        if(powerUp<5) // speed
-        {
-            speed_value = powerUp+1-2;
-        }
-        else
-        {
-            speed_value = 3;
-    
-            if(powerUp>6)
-            {
-                if(powerUp<9)
-                {
-                    power_value = powerUp+1-6;
-                }
-                else
-                {
-                    power_value = 3;
-                }
-            }
-        }
+	if(powerUp<5) // speed
+	{
+		speed_value = powerUp+1-2;
+	}
+	else
+	{
+		speed_value = 3;
+
+		if(powerUp>6)
+		{
+			if(powerUp<9)
+			{
+				power_value = powerUp+1-6;
+			}
+			else
+			{
+				power_value = 3;
+			}
+		}
+	}
     // }
 
     // _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
@@ -986,6 +971,26 @@ void power_up_effect(void)
     
     switch(powerUp)
     {
+		
+		case 1:
+			stinger_reload_loops=YELLOW_SPEED_VALUE;
+		break;
+		   
+		case 2:
+			stinger_reload_loops=GREEN_SPEED_VALUE;
+		break;
+		
+		case 3:
+			fire_power = YELLOW_FIRE_POWER_VALUE;
+		break;
+		
+		case 4:
+			fire_power = GREEN_FIRE_POWER_VALUE;
+			#if !defined(_XL_NO_COLOR)
+			powerUpItem._color = _XL_CYAN;
+			#endif
+		break;
+		
         case 17:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = SECRET_COLOR;

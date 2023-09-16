@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -172,11 +172,17 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
+// level 1:  40 = 40 +   0 -> light
+// level 2:  60 = 36 +  24 -> light, medium
+// level 3:  70 = 32 +  38 -> light, medium, stealth
+// level 4:  80 = 28 +  52 -> light, medium, stealth, heavy
+// level 5: 100 = 24 +  76 -> light, medium, stealth, heavy, artillery
+// level 6: 140 = 20 + 120 -> light, stealth, heavy, artillery (medium if secret item is taken)
 const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,38,52,76,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
-#define MAX_HYPER_COUNTER 160
+#define MAX_HYPER_COUNTER 170
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -661,6 +667,8 @@ void recharge_effect(void)
 {
     recharge_arrows(ROCKET_RECHARGE);
     increase_score(RECHARGE_POINTS);
+	PRINT_CENTERED_ON_ROW(1,"         "); \
+
 }
 
 
@@ -922,16 +930,16 @@ void display_power_ups(void)
     recharge_arrows(HYPER_RECHARGE); \
     hyper_counter = MAX_HYPER_COUNTER; \
     bow_color = _XL_RED; \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
+    _XL_SET_TEXT_COLOR(_XL_CYAN); \
     if(powerUp>10) \
     { \
         number_of_arrows_per_shot=3; \
-		PRINT_CENTERED_ON_ROW(1," TRIPLE "); \
+		PRINT_CENTERED_ON_ROW(1,"TRIPLE"); \
     } \
     else \
     { \
         number_of_arrows_per_shot=2; \
-		PRINT_CENTERED_ON_ROW(1," DOUBLE "); \
+		PRINT_CENTERED_ON_ROW(1,"DOUBLE"); \
     } \
 }
 
@@ -1550,10 +1558,14 @@ void display_red_tank(void)
     {
         tile=LIGHT_TANK_TILE_0;
     }
-    else
+    else if(tank_level[tank_x]<=MAX_TANK_LEVEL)
     {
         tile=HEAVY_TANK_TILE_0;
     }
+	else
+	{
+		tile=MORTAR_TILE;
+	}
     _display_red_tank(tile);
 }
 
@@ -2416,6 +2428,8 @@ void handle_auto_recharge(void)
 {
     if(!remaining_arrows)
     {
+		_XL_SET_TEXT_COLOR(_XL_RED);
+		PRINT_CENTERED_ON_ROW(1,"NO ROCKET"); \
         if(auto_recharge_counter)
         {
             --auto_recharge_counter;
@@ -2433,7 +2447,7 @@ void handle_auto_recharge(void)
 				
 			rechargeItem._y = BOW_Y;
 			rechargeItem._active = 1;
-			rechargeItem._counter = 40;
+			rechargeItem._counter = 2*XSize+XSize/2;
 			
             auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN;
             _XL_PING_SOUND();

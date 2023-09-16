@@ -172,7 +172,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,28,52,76,120};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,38,52,76,120};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -1419,7 +1419,7 @@ void activate_tank(void)
 	}
 	else
 	{
-		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
+		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y+(level>>1);
 	}
 	_XL_DRAW(tank_x, tank_y[tank_x], TANK_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
@@ -1431,6 +1431,7 @@ void activate_tank(void)
 
 void spawn_light_tank(void)
 {
+	rank=0;
     activate_tank();
     tank_level[tank_x]=0;
     energy[tank_x]=LIGHT_TANK_ENERGY;  
@@ -1476,13 +1477,13 @@ void spawn_heavy_tank(void)
 		switch(heavy_tank_counter&3)
 		{
 			case 0 :
-				rank = 2;
-			break;
-			case 1 :
 				rank = 3;
 			break;
-			default:
+			case 1 :
 				rank = 4;
+			break;
+			default:
+				rank = 2;
 		}
 	}
 	++heavy_tank_counter;

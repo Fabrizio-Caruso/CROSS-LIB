@@ -96,9 +96,9 @@
 
 #define INITIAL_STINGER_RELOAD_LOOPS 9
 #define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
-#define YELLOW_SPEED_VALUE 8
-#define GREEN_SPEED_VALUE 6
-#define HYPER_SPEED_VALUE 4
+#define YELLOW_SPEED_VALUE 7
+#define GREEN_SPEED_VALUE 5
+#define HYPER_SPEED_VALUE 3
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
@@ -189,6 +189,8 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,38,52,76,120};
 #else
     #define HEIGHT_SHOOT_THRESHOLD YSize-11
 #endif
+
+#define VERY_FAST_TANK_SHOOT_MASK 1
 
 #define FAST_TANK_SHOOT_MASK 3
 
@@ -1430,13 +1432,13 @@ void spawn_heavy_tank(void)
 		switch(heavy_tank_counter&3)
 		{
 			case 0 :
-				rank = 3;
+				rank = 2;
 			break;
 			case 1 :
 				rank = 4;
 			break;
 			default:
-				rank = 2;
+				rank = 3;
 		}
 	}
 	++heavy_tank_counter;
@@ -1852,18 +1854,32 @@ void move_tanks(void)
     }
 
     // The forced tank is no longer forced when it has completed the move (half-move for stealth tanks)
-    if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1)))
-    {
+    // if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1)))
+    // {
+        // forced_tank = 0;
+    // }
+    // else
+    // {
+        // if(_XL_RAND()&3)
+        // {
+            // forced_tank = 1;
+        // }
+        // forced_tank_x = tank_x; 
+    // }
+
+	if (((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1))
+	{
         forced_tank = 0;
-    }
-    else
-    {
-        if(_XL_RAND()&3)
-        {
-            forced_tank = 1;
-        }
-        forced_tank_x = tank_x; 
-    }
+	}
+	else if(_XL_RAND()&31)
+	{
+		forced_tank = 1;
+		forced_tank_x = tank_x;
+	}
+	else
+	{
+		forced_tank = 0;
+	}
 
     _move_tank();
     
@@ -2072,6 +2088,10 @@ do \
 		stinger_color = _XL_CYAN; \
 		number_of_arrows_per_shot = 1; \
 		if(level>=3) \
+		{ \
+			tank_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
+		} \
+		else if(level==2) \
 		{ \
 			tank_speed_mask = FAST_TANK_SHOOT_MASK; \
 		} \

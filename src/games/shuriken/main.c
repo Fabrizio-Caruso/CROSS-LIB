@@ -27,7 +27,7 @@
 #include "screen_types.h"
 #include "levels.h"
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 0
 #define FINAL_LEVEL 11
 
 #define INITIAL_LIVES 5
@@ -848,7 +848,7 @@ void build_shurikens(void)
 
     // _XL_PRINTD(0,3,5,level_mini_shurikens);
 
-    _XL_WAIT_FOR_INPUT();
+    // _XL_WAIT_FOR_INPUT();
     
     for(i=0;i<level_shurikens;++i)
     {

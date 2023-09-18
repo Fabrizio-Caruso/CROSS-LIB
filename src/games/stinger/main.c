@@ -94,11 +94,11 @@
 #define YELLOW_FIRE_POWER_VALUE 3
 #define GREEN_FIRE_POWER_VALUE 4
 
-#define INITIAL_STINGER_RELOAD_LOOPS 9
+#define INITIAL_STINGER_RELOAD_LOOPS 8
 #define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
-#define YELLOW_SPEED_VALUE 7
-#define GREEN_SPEED_VALUE 5
-#define HYPER_SPEED_VALUE 3
+#define YELLOW_SPEED_VALUE 5
+#define GREEN_SPEED_VALUE 3
+#define HYPER_SPEED_VALUE 1
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
@@ -154,7 +154,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
 #define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
-#define HELP_ITEM_LEVEL_THRESHOLD 2
+#define HELP_ITEM_LEVEL_THRESHOLD 4
 
 // #if XSize<=23
     // #define LIGHT_TANKS_ON_FIRST_LEVEL 20
@@ -173,12 +173,12 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 #endif
 
 // level 1:  40 = 40 +   0 -> light
-// level 2:  60 = 36 +  24 -> light, medium
-// level 3:  70 = 32 +  38 -> light, medium, stealth
-// level 4:  80 = 28 +  52 -> light, medium, stealth, heavy
-// level 5: 100 = 24 +  76 -> light, medium, stealth, heavy, artillery
-// level 6: 140 = 20 + 120 -> light, stealth, heavy, artillery (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,24,38,52,76,120};
+// level 2:  60 = 32 +  28 -> light, medium
+// level 3:  70 = 24 +  46 -> light, medium, stealth
+// level 4:  80 = 16 +  64 -> light, medium, stealth, heavy
+// level 5:  99 =  8 +  92 -> light, medium, stealth, heavy, artillery
+// level 6:  99 =  0 +  99 -> light, stealth, heavy, artillery (medium if secret item is taken)
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -429,6 +429,9 @@ void sleep_and_wait_for_input(void)
     _XL_WAIT_FOR_INPUT();
 }
 
+#define POWER_X 6
+
+
 #if XSize>=22
     #define POWER_UP_X 10
 #elif XSize>=20
@@ -446,16 +449,21 @@ void display_power_up_counter(void)
 
 #if XSize>=32
     #define TANK_COUNTER_X (POWER_UP_X+4)
-    
+    #define TANK_COUNTER_Y 0
+#elif XSize>=20
+	#define TANK_COUNTER_X (POWER_X+5)
+	#define TANK_COUNTER_Y (YSize-1)
+#endif
+
+#if XSize>=20   
     void display_enemy_counter(void)
     {
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(TANK_COUNTER_X+1,0,3,light_tanks_to_kill+heavy_tanks_to_kill);
+        _XL_PRINTD(TANK_COUNTER_X+1,TANK_COUNTER_Y,2,light_tanks_to_kill+heavy_tanks_to_kill);
     }
 #else
-    #define display_enemy_counter()
+	 #define display_enemy_counter()
 #endif
-
 
 void display_remaining_arrows(void)
 {
@@ -676,42 +684,44 @@ void recharge_effect(void)
 
 #define RANGE_X 0
 
-#define SPEED_STRING _XL_S _XL_P _XL_E _XL_E _XL_D
-#define POWER_STRING _XL_P _XL_O _XL_W _XL_E _XL_R
+#define SPEED_STRING "SPEED"
+#define POWER_STRING "POWER"
 
-#if XSize <= 15
-    #define STR_LEN 1
-    #define SPEED_X 0
-    #define ROCKETS_X ((XSize)-5)
+#define ROCKETS_X (XSize-6)
+#define SPEED_X 0
 
-#elif XSize <= 19
-    #define STR_LEN 2
-    #define SPEED_X 0
-    #define ROCKETS_X ((XSize)-6)
-#elif XSize <= 26
-    #define STR_LEN 3
-    #define SPEED_X 0
-    #define ROCKETS_X ((XSize)-7)
-#else
+// #if XSize <= 15
+    // #define STR_LEN 1
+    // #define SPEED_X 0
+    // #define ROCKETS_X ((XSize)-5)
 
-    #define STR_LEN 5    
-    #if XSize>=32
-        #define SPEED_X 0
-    #else
-        #define SPEED_X 0
-    #endif
-    #if XSize>=32
-        #define ROCKETS_X ((XSize)-10)
-    #else
-        #define ROCKETS_X ((XSize)-9)
-    #endif
-#endif 
+// #elif XSize <= 19
+    // #define STR_LEN 2
+    // #define SPEED_X 0
+    // #define ROCKETS_X ((XSize)-6)
+// #elif XSize <= 26
+    // #define STR_LEN 3
+    // #define SPEED_X 0
+    // #define ROCKETS_X ((XSize)-7)
+// #else
 
-#if XSize>=20
-    #define POWER_X 7
-#else
-    #define POWER_X 6
-#endif
+    // #define STR_LEN 5    
+    // #if XSize>=32
+        // #define SPEED_X 0
+    // #else
+        // #define SPEED_X 0
+    // #endif
+    // #if XSize>=32
+        // #define ROCKETS_X ((XSize)-10)
+    // #else
+        // #define ROCKETS_X ((XSize)-9)
+    // #endif
+// #endif 
+
+// #if XSize>=20
+    // #define POWER_X 7
+// #else
+// #endif
 
 
 uint8_t find_inactive(Item* itemArray)
@@ -1524,7 +1534,7 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=3))
+        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=1))
         {
             item_counter&=1;
         }
@@ -2132,7 +2142,7 @@ do \
 
 
 #define spawn_initial_light_tanks() \
-    light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks-(level<<2);  \
+    light_tanks_to_kill = LIGHT_TANKS_ON_FIRST_LEVEL-killed_light_tanks-(level<<3);  \
     \
     if(light_tanks_to_kill<max_occupied_columns) \
     { \
@@ -2343,7 +2353,7 @@ void display_second_screen()
 #endif
 
 #if XSize>=32
-    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,0,LIGHT_TANK_TILE_0, _XL_WHITE)
+    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,TANK_COUNTER_Y,LIGHT_TANK_TILE_0, _XL_WHITE)
 #else
     #define draw_tank_counter_tile()
 #endif

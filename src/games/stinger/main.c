@@ -98,7 +98,7 @@
 #define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
 #define YELLOW_SPEED_VALUE 5
 #define GREEN_SPEED_VALUE 3
-#define HYPER_SPEED_VALUE 1
+#define HYPER_SPEED_VALUE 2
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
@@ -116,10 +116,10 @@
 #define WALL_ENERGY 20
 
 #define MAX_ROCKETS 99
-#define HYPER_RECHARGE 30
+#define HYPER_RECHARGE 45
 #define ROCKET_RECHARGE 15
 
-#define FREEZE_COUNTER_MAX 110;
+#define FREEZE_COUNTER_MAX 120
 
 #define WALL_COLOR _XL_GREEN
 #define FREEZE_COLOR _XL_CYAN
@@ -172,12 +172,12 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-// level 1:  40 = 40 +   0 -> light
-// level 2:  60 = 32 +  28 -> light, medium
-// level 3:  70 = 24 +  46 -> light, medium, stealth
-// level 4:  80 = 16 +  64 -> light, medium, stealth, heavy
-// level 5:  99 =  8 +  92 -> light, medium, stealth, heavy, artillery
-// level 6:  99 =  0 +  99 -> light, stealth, heavy, artillery (medium if secret item is taken)
+// level 1:  40 = 40 +   0 -> light 
+// level 2:  60 = 32 +  28 -> light,  medium 100% 
+// level 3:  70 = 24 +  46 -> light,  medium  50%, stealth 50%
+// level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
+// level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
+// level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
 const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};
 
 #define LEVEL_2_TANK_THRESHOLD 8

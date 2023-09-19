@@ -397,7 +397,7 @@ typedef struct ItemStruct Missile;
     _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
     _XL_S _XL_T _XL_E _XL_A _XL_L _XL_T _XL_H,
     _XL_H _XL_E _XL_A _XL_V _XL_Y,
-    _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
+    _XL_M _XL_O _XL_R _XL_T _XL_A _XL_R,
 };
 #endif
 
@@ -2306,6 +2306,40 @@ do \
 #endif
 
 
+void intro_animation()
+{
+    uint8_t i;
+    uint8_t fire;
+    
+    _XL_DRAW(0,2,MORTAR_TILE,_XL_GREEN);
+    _XL_DRAW(XSize-1,2,MORTAR_TILE,_XL_GREEN);
+
+    do
+    {
+        for(i=3;i<YSize-2;++i)
+        {
+            _XL_DRAW(0,i,BULLET_TILE,_XL_WHITE);
+            _XL_DRAW(XSize-1,i,BULLET_TILE,_XL_WHITE);
+            if(fire=_XL_FIRE(_XL_INPUT()))
+            {
+                break;
+            }
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+            _XL_DELETE(0,i);
+            _XL_DELETE(XSize-1,i);
+        }
+        if(!fire)
+        {
+            _XL_DRAW(0,YSize-2,EXPLOSION_TILE,_XL_RED);
+            _XL_DRAW(XSize-1,YSize-2,EXPLOSION_TILE,_XL_RED);
+            _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+            _XL_DELETE(0,YSize-2);
+            _XL_DELETE(XSize-1,YSize-2);
+        }
+    }
+    while(!fire);
+}
+
 #define display_initial_screen() \
 { \
     _XL_CLEAR_SCREEN(); \
@@ -2326,7 +2360,61 @@ do \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
-    sleep_and_wait_for_input(); \
+    intro_animation(); \
+}
+
+
+void second_intro_animation()
+{
+    uint8_t i;
+    uint8_t fire;
+    
+    
+    // TODO: Initialize other tanks?
+    
+	tank_active[0]=1;    
+    tank_shape[0]=0;
+    tank_y[0]=2;
+    tank_level[0]=3;
+    
+    
+	tank_active[XSize-1]=1;    
+    tank_shape[XSize-1]=0;    
+    tank_y[XSize-1]=2;
+    tank_level[XSize-1]=3;
+    
+    _XL_SLEEP(1);
+    display_tanks();
+
+    do
+    {
+        for(i=3;i<(YSize-4)*4;++i)
+        {
+            tank_x=0;
+            _move_tank();
+            display_tank();
+            
+            tank_x=XSize-1;
+            _move_tank();
+            display_tank();
+            
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+            if(fire=_XL_FIRE(_XL_INPUT()))
+            {
+                break;
+            }
+        }
+        if(!fire)
+        {
+            tank_y[0]=2;
+            tank_y[XSize-1]=2;
+            _XL_DELETE(0,YSize-2);
+            _XL_DELETE(XSize-1,YSize-2);
+            _XL_DELETE(0,YSize-3);
+            _XL_DELETE(XSize-1,YSize-3);
+        }
+    }
+    while(!fire);
 }
 
 
@@ -2337,9 +2425,9 @@ void display_second_screen()
     display_wall(0,_XL_YELLOW);
     display_wall(BOTTOM_WALL_Y+1,_XL_YELLOW);
 	_XL_SET_TEXT_COLOR(_XL_CYAN);
-	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMY ARMOR");
+	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
 	display_enemies();
-    sleep_and_wait_for_input(); \
+    second_intro_animation();
     _XL_CLEAR_SCREEN(); \
 }
 

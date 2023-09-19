@@ -2315,6 +2315,8 @@ void intro_animation()
     _XL_DRAW(0,2,MORTAR_TILE,_XL_GREEN);
     _XL_DRAW(XSize-1,2,MORTAR_TILE,_XL_GREEN);
 
+    _XL_SLEEP(1);
+    
     do
     {
         for(i=3;i<YSize-2;++i)
@@ -2377,15 +2379,17 @@ void second_intro_animation()
     tank_shape[0]=0;
     tank_y[0]=2;
     tank_level[0]=3;
-    
+    // display_tank();
+
     
 	tank_active[XSize-1]=1;    
     tank_shape[XSize-1]=0;    
     tank_y[XSize-1]=2;
     tank_level[XSize-1]=3;
-    
+    // display_tank();
+
     _XL_SLEEP(1);
-    display_tanks();
+    // display_tanks();
 
     do
     {

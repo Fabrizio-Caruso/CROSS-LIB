@@ -116,10 +116,10 @@
 #define WALL_ENERGY 20
 
 #define MAX_ROCKETS 99
-#define HYPER_RECHARGE 45
-#define ROCKET_RECHARGE 15
+#define HYPER_RECHARGE 50
+#define ROCKET_RECHARGE 16
 
-#define FREEZE_COUNTER_MAX 120
+#define FREEZE_COUNTER_MAX 140
 
 #define WALL_COLOR _XL_GREEN
 #define FREEZE_COLOR _XL_CYAN
@@ -182,7 +182,7 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
-#define MAX_HYPER_COUNTER 170
+#define MAX_HYPER_COUNTER 200
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -2307,7 +2307,7 @@ do \
 #endif
 
 
-void intro_animation()
+void mortar_intro_animation()
 {
     uint8_t i;
     uint8_t fire;
@@ -2335,7 +2335,7 @@ void intro_animation()
         {
             _XL_DRAW(0,YSize-2,EXPLOSION_TILE,_XL_RED);
             _XL_DRAW(XSize-1,YSize-2,EXPLOSION_TILE,_XL_RED);
-            _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+            _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
             _XL_DELETE(0,YSize-2);
             _XL_DELETE(XSize-1,YSize-2);
         }
@@ -2363,11 +2363,11 @@ void intro_animation()
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
-    intro_animation(); \
+    tank_intro_animation(); \
 }
 
 
-void second_intro_animation()
+void tank_intro_animation()
 {
     uint8_t i;
     uint8_t fire;
@@ -2379,17 +2379,27 @@ void second_intro_animation()
     tank_shape[0]=0;
     tank_y[0]=2;
     tank_level[0]=3;
-    // display_tank();
 
     
 	tank_active[XSize-1]=1;    
     tank_shape[XSize-1]=0;    
     tank_y[XSize-1]=2;
     tank_level[XSize-1]=3;
-    // display_tank();
+
+
+	tank_active[1]=1;    
+    tank_shape[1]=0;
+    tank_y[1]=YSize-3;
+    tank_level[1]=1;
+
+    
+	tank_active[XSize-2]=1;    
+    tank_shape[XSize-2]=0;    
+    tank_y[XSize-2]=YSize-3;
+    tank_level[XSize-2]=1;
+
 
     _XL_SLEEP(1);
-    // display_tanks();
 
     do
     {
@@ -2402,6 +2412,15 @@ void second_intro_animation()
             tank_x=XSize-1;
             _move_tank();
             display_tank();
+			
+            tank_x=1;
+            push_tank();
+            display_tank();
+            
+            tank_x=XSize-2;
+            push_tank();
+            display_tank();
+            			
             
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             if(fire=_XL_FIRE(_XL_INPUT()))
@@ -2417,6 +2436,15 @@ void second_intro_animation()
             _XL_DELETE(XSize-1,YSize-2);
             _XL_DELETE(0,YSize-3);
             _XL_DELETE(XSize-1,YSize-3);
+			
+			tank_y[1]=YSize-3;
+			tank_y[XSize-2]=YSize-3;
+            _XL_DELETE(1,1);
+            _XL_DELETE(XSize-2,1);
+            _XL_DELETE(1,2);
+            _XL_DELETE(XSize-2,2);
+			_XL_DELETE(1,3);
+            _XL_DELETE(XSize-2,3);
         }
     }
     while(!fire);
@@ -2432,7 +2460,7 @@ void display_second_screen()
 	_XL_SET_TEXT_COLOR(_XL_CYAN);
 	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
 	display_enemies();
-    second_intro_animation();
+    mortar_intro_animation();
     _XL_CLEAR_SCREEN(); \
 }
 

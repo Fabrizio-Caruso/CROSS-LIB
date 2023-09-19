@@ -1877,11 +1877,12 @@ void move_tanks(void)
         // forced_tank_x = tank_x; 
     // }
 
+
 	if (((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1))
 	{
         forced_tank = 0;
 	}
-	else if(_XL_RAND()&31)
+	else if((tank_y[tank_x]>=HEIGHT_SHOOT_THRESHOLD) || (_XL_RAND()&15))
 	{
 		forced_tank = 1;
 		forced_tank_x = tank_x;

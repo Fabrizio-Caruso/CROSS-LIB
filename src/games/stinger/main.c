@@ -2451,7 +2451,7 @@ void mortar_intro_animation()
 void tank_intro_animation()
 {
     uint8_t i;
-    uint8_t fire;
+    uint8_t fire = 0;
 	uint8_t time_counter = 0;
     
     

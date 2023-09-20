@@ -125,12 +125,20 @@
 #define FREEZE_COLOR _XL_CYAN
 #define SECRET_COLOR _XL_GREEN
 
+#define LEFT_DIRECTION 0
+#define RIGHT_DIRECTION 1
+#define ACCELERATION_THRESHOLD (XSize/2)
+
 
 uint8_t max_occupied_columns;
 
 uint8_t heavy_tank_counter;
 
 uint8_t rank;
+
+uint8_t direction;
+uint8_t acceleration;
+uint8_t acceleration_counter;
 
 uint8_t wall_color;
 
@@ -1990,6 +1998,7 @@ void fire(void)
     display_stinger();
 }
 
+
 #if defined(_XL_NO_UDG)
     #define handle_stinger_move() \
     do \
@@ -2018,24 +2027,66 @@ void fire(void)
         } \
     } while(0)
 #else
-    #define handle_stinger_move() \
-    do \
-    { \
-        input = _XL_INPUT(); \
-        \
-        if(_XL_LEFT(input) && stinger_x>1) \
-        { \
-            move_left(); \
-        } \
-        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1) \
-        { \
-            move_right(); \
-        } \
-        else if (_XL_FIRE(input) && loaded_stinger) \
-        { \
-            fire(); \
-        } \
-    } while(0)
+    void handle_stinger_move(void)
+    {
+        input = _XL_INPUT();
+        
+        if(_XL_LEFT(input) && stinger_x>1)
+        {
+			if(direction==LEFT_DIRECTION)
+			{
+				++acceleration_counter;
+				if(acceleration_counter>=ACCELERATION_THRESHOLD)
+				{
+					acceleration=1;
+				}
+			}
+			else
+			{
+				acceleration_counter=0;
+				acceleration=0;
+			}
+			direction = LEFT_DIRECTION;
+            move_left();
+			if(acceleration && stinger_x>1)
+			{
+				move_left();
+			}
+        }
+        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1)
+        {
+			if(direction==RIGHT_DIRECTION)
+			{
+				++acceleration_counter;
+				if(acceleration_counter>=ACCELERATION_THRESHOLD)
+				{
+					acceleration=1;
+				}
+			}
+			else
+			{
+				acceleration_counter=0;
+				acceleration=0;
+			}
+			direction = RIGHT_DIRECTION;			
+            move_right();
+			if(acceleration && stinger_x<MAX_STINGER_X-1)
+			{
+				move_right();
+			}
+        }
+        else if (_XL_FIRE(input) && loaded_stinger)
+        {
+            fire();
+			acceleration_counter=0;
+			acceleration=0;
+        }
+		else
+		{
+			acceleration_counter=0;
+			acceleration=0;
+		}
+    }
 #endif
 
 
@@ -2068,56 +2119,58 @@ do \
 
 
 
-    #define level_initialization() \
-	do \
-	{   \
-		fire_power = RED_FIRE_POWER_VALUE; \
-		freeze = 0; \
-		powerUp = 0; \
-		next_arrow = 0; \
-		arrows_on_screen = 0; \
-		stinger_load_counter = 0; \
-		hyper_counter = 0; \
-		forced_tank = 0; \
-		freeze_locked = 1; \
-		secret_locked = 1; \
-		loaded_stinger = 1; \
-		alive = 1; \
-		if(level>=2) \
-		{ \
-			max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS+level; \
-		} \
-		else \
-		{ \
-			max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
-		} \
-		stinger_reload_loops = RED_SPEED_VALUE; \
-		auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-		remaining_arrows = MAX_ROCKETS; \
-		stinger_x = XSize; \
-		stinger_shape_tile = (uint8_t) 2*((stinger_x)&1); \
-		stinger_color = _XL_CYAN; \
-		number_of_arrows_per_shot = 1; \
-		if(level>=3) \
-		{ \
-			tank_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
-		} \
-		else if(level==2) \
-		{ \
-			tank_speed_mask = FAST_TANK_SHOOT_MASK; \
-		} \
-		else \
-		{ \
-			tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
-		} \
-		initialize_items(); \
-		artillery_shell_active = 0; \
-		heavy_tank_counter = 0; \
-		_XL_CLEAR_SCREEN(); \
-		_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
-		_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
-		wall_color = level_color[level&1]; \
-	} while(0)
+#define level_initialization() \
+do \
+{   \
+	fire_power = RED_FIRE_POWER_VALUE; \
+	freeze = 0; \
+	acceleration = 0; \
+	acceleration_counter = 0; \
+	powerUp = 0; \
+	next_arrow = 0; \
+	arrows_on_screen = 0; \
+	stinger_load_counter = 0; \
+	hyper_counter = 0; \
+	forced_tank = 0; \
+	freeze_locked = 1; \
+	secret_locked = 1; \
+	loaded_stinger = 1; \
+	alive = 1; \
+	if(level>=2) \
+	{ \
+		max_occupied_columns = MAX_DENSILY_OCCUPIED_COLUMNS+level; \
+	} \
+	else \
+	{ \
+		max_occupied_columns = MAX_SPARSELY_OCCUPIED_COLUMNS; \
+	} \
+	stinger_reload_loops = RED_SPEED_VALUE; \
+	auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
+	remaining_arrows = MAX_ROCKETS; \
+	stinger_x = XSize; \
+	stinger_shape_tile = (uint8_t) 2*((stinger_x)&1); \
+	stinger_color = _XL_CYAN; \
+	number_of_arrows_per_shot = 1; \
+	if(level>=3) \
+	{ \
+		tank_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
+	} \
+	else if(level==2) \
+	{ \
+		tank_speed_mask = FAST_TANK_SHOOT_MASK; \
+	} \
+	else \
+	{ \
+		tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
+	} \
+	initialize_items(); \
+	artillery_shell_active = 0; \
+	heavy_tank_counter = 0; \
+	_XL_CLEAR_SCREEN(); \
+	_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
+	_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
+	wall_color = level_color[level&1]; \
+} while(0)
 
 
 #define tank_counter main_loop_counter

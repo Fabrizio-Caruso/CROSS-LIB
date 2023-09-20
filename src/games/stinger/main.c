@@ -391,13 +391,13 @@ typedef struct ItemStruct Missile;
 	{ MORTAR_TILE, _XL_GREEN },
 };
 
- const char enemy_name[5][8] = 
+ const char enemy_name[5][10] = 
 {
     _XL_L _XL_I _XL_G _XL_H _XL_T,
     _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
     _XL_S _XL_T _XL_E _XL_A _XL_L _XL_T _XL_H,
     _XL_H _XL_E _XL_A _XL_V _XL_Y,
-    _XL_M _XL_O _XL_R _XL_T _XL_A _XL_R,
+    "HOTWITZER",
 };
 #endif
 
@@ -2310,20 +2310,47 @@ do \
 void mortar_intro_animation()
 {
     uint8_t i;
-    uint8_t fire;
+    uint8_t fire = 0;
+	uint8_t time_counter = 0;
+	uint8_t stealth_y = 0;
+
+	tank_active[1]=1;    
+    tank_shape[1]=0;
+    tank_y[1]=2;
+    tank_level[1]=2;
+
     
+	tank_active[XSize-2]=1;    
+    tank_shape[XSize-2]=0;    
+    tank_y[XSize-2]=2;
+    tank_level[XSize-2]=2;
+
+	
     _XL_DRAW(0,2,MORTAR_TILE,_XL_GREEN);
     _XL_DRAW(XSize-1,2,MORTAR_TILE,_XL_GREEN);
-
-    _XL_SLEEP(1);
     
     do
     {
+		if(tank_y[1]==YSize-3)
+		{
+			tank_y[1]=2;
+			tank_y[XSize-2]=2;
+			_XL_DELETE(1,YSize-3);
+			_XL_DELETE(XSize-2,YSize-3);
+		}
+		tank_x=1;
+		_move_tank();
+		display_tank();
+
+		tank_x=XSize-2;
+		_move_tank();
+		display_tank();
+
         for(i=3;i<YSize-2;++i)
         {
             _XL_DRAW(0,i,BULLET_TILE,_XL_WHITE);
             _XL_DRAW(XSize-1,i,BULLET_TILE,_XL_WHITE);
-            if(fire=_XL_FIRE(_XL_INPUT()))
+            if(time_counter && (fire =_XL_FIRE(_XL_INPUT())))
             {
                 break;
             }
@@ -2339,6 +2366,7 @@ void mortar_intro_animation()
             _XL_DELETE(0,YSize-2);
             _XL_DELETE(XSize-1,YSize-2);
         }
+		++time_counter;
     }
     while(!fire);
 }
@@ -2371,6 +2399,7 @@ void tank_intro_animation()
 {
     uint8_t i;
     uint8_t fire;
+	uint8_t time_counter = 0;
     
     
     // TODO: Initialize other tanks?
@@ -2399,46 +2428,65 @@ void tank_intro_animation()
     tank_level[XSize-2]=1;
 
 
-    _XL_SLEEP(1);
-
     do
     {
         for(i=3;i<(YSize-4)*4;++i)
         {
-            tank_x=0;
-            _move_tank();
-            display_tank();
-            
-            tank_x=XSize-1;
-            _move_tank();
-            display_tank();
-			
-            tank_x=1;
-            push_tank();
-            display_tank();
-            
-            tank_x=XSize-2;
-            push_tank();
-            display_tank();
+			if(!(time_counter&1))
+			{
+				tank_x=0;
+				_move_tank();
+				display_tank();
+				
+				tank_x=XSize-1;
+				_move_tank();
+				display_tank();
+				
+				tank_x=1;
+				push_tank();
+				display_tank();
+				
+				tank_x=XSize-2;
+				push_tank();
+				display_tank();
+			}
+			else
+			{
+				tank_x=1;
+				_move_tank();
+				display_tank();
+				
+				tank_x=XSize-2;
+				_move_tank();
+				display_tank();
+				
+				tank_x=0;
+				push_tank();
+				display_tank();
+				
+				tank_x=XSize-1;
+				push_tank();
+				display_tank();
+			}
             			
-            
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            if(fire=_XL_FIRE(_XL_INPUT()))
+            if(time_counter && (fire=_XL_FIRE(_XL_INPUT())))
             {
                 break;
             }
         }
+		++time_counter;
         if(!fire)
         {
-            tank_y[0]=2;
-            tank_y[XSize-1]=2;
+            // tank_y[0]=2;
+            // tank_y[XSize-1]=2;
             _XL_DELETE(0,YSize-2);
             _XL_DELETE(XSize-1,YSize-2);
             _XL_DELETE(0,YSize-3);
             _XL_DELETE(XSize-1,YSize-3);
 			
-			tank_y[1]=YSize-3;
-			tank_y[XSize-2]=YSize-3;
+			// tank_y[1]=YSize-3;
+			// tank_y[XSize-2]=YSize-3;
             _XL_DELETE(1,1);
             _XL_DELETE(XSize-2,1);
             _XL_DELETE(1,2);

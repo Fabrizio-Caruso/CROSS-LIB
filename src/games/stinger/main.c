@@ -162,7 +162,8 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
 #define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
-#define HELP_ITEM_LEVEL_THRESHOLD 4
+#define HELP_ITEM_LEVEL_THRESHOLD 3
+#define HELP_ITEM_POWER_THRESHOLD 2
 
 // #if XSize<=23
     // #define LIGHT_TANKS_ON_FIRST_LEVEL 20
@@ -257,7 +258,7 @@ const uint8_t tank_points[] =
 #endif
 
 #if !defined(_XL_NO_COLOR)
- const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
+ const uint8_t arrow_color[3] = {_XL_CYAN, _XL_WHITE, _XL_YELLOW };
 #endif
 
  uint8_t freeze;
@@ -815,13 +816,7 @@ void display_power_ups(void)
     speed_value = 1;
     power_value = 1;
     
-    // if(powerUp<3) // range
-    // {
-        // range_value = powerUp+1;
-    // }
-    // else
     {
-        // range_value = 3;
 
         if(powerUp<5) // speed
         {
@@ -847,9 +842,6 @@ void display_power_ups(void)
         }
     }
 
-    // _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
-    // _XL_PRINTD(RANGE_X+STR_LEN,POWER_UPS_Y,1,range_value);
-    
     _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
     _XL_PRINTD(SPEED_X+STR_LEN,POWER_UPS_Y,1,speed_value);
     
@@ -872,7 +864,6 @@ void display_power_ups(void)
 #else // NO COLOR and NO TEXT COLOR
 void display_power_ups(void)
 {
-    // uint8_t range_value;
     uint8_t speed_value;
     uint8_t power_value;
     
@@ -880,14 +871,6 @@ void display_power_ups(void)
     
     speed_value = 1;
     power_value = 1;
-    
-    // if(powerUp<3) // range
-    // {
-        // range_value = powerUp+1;
-    // }
-    // else
-    // {
-        // range_value = 3;
 
 	if(powerUp<5) // speed
 	{
@@ -909,11 +892,7 @@ void display_power_ups(void)
 			}
 		}
 	}
-    // }
 
-    // _XL_PRINT(RANGE_X,POWER_UPS_Y,RANGE_STRING);
-    // _XL_PRINTD(RANGE_X+STR_LEN,POWER_UPS_Y,1,range_value);
-    
     _XL_PRINT(SPEED_X,POWER_UPS_Y,SPEED_STRING);
     _XL_PRINTD(SPEED_X+STR_LEN,POWER_UPS_Y,1,speed_value);
     
@@ -1281,7 +1260,7 @@ void handle_artillery_shell(void)
                   
             #if !defined(_XL_NO_COLOR)
                     // TODO: GCC for TI99 does not display the correct tile with item->_tile
-                    _XL_DRAW(artillery_shell_x,artillery_shell_y,BULLET_TILE,_XL_WHITE);
+                _XL_DRAW(artillery_shell_x,artillery_shell_y,BULLET_TILE,_XL_WHITE);
             #else
                 _XL_DRAW(artillery_shell_x,artillery_shell_y,BULLET_TILE,0);
             #endif
@@ -1344,18 +1323,7 @@ uint8_t find_random_tank(uint8_t value)
 {
     uint8_t i;
     uint8_t index;
-    
-    // index = (uint8_t) (_XL_RAND())&RANDOM_TANK_RANGE_START;
 
-    // for(i=1;i<XSize-1;++i)
-    // {
-        // index = 1+(index+STEP)%(XSize-2);
-        // if(tank_active[index]==value)
-        // {
-            // return index;
-        // }
-    // }
-	
     index = (uint8_t) (_XL_RAND())%(XSize-2);
 
     for(i=1;i<XSize-1;++i)
@@ -1415,7 +1383,7 @@ void spawn_light_tank(void)
 void spawn_heavy_tank(void)
 {
 
-	if(!level)
+	if(!level) // TODO: Not necessary
 	{
 		return;
 	}
@@ -1466,14 +1434,6 @@ void spawn_heavy_tank(void)
     energy[tank_x]=rank_energy[rank];//HEAVY_TANK_BASE_ENERGY+rank*2;
     --heavy_tanks_to_spawn;
 }
-
-// void spawn_artillery(void)
-// {
-    // activate_tank();
-    // tank_level[tank_x]=4;
-    // energy[tank_x]=12;//HEAVY_TANK_BASE_ENERGY+rank*2;
-	// --heavy_tanks_to_spawn;
-// }
 
 #if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
     #if XSize>=32
@@ -1542,7 +1502,7 @@ void handle_item_drop(void)
         ++item_counter;
         item_counter&=3;
         
-        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=1))
+        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=HELP_ITEM_POWER_THRESHOLD))
         {
             item_counter&=1;
         }
@@ -1651,11 +1611,7 @@ void tank_dies(void)
         ++killed_heavy_tanks;
         --heavy_tanks_to_kill;
     }
-    // else
-    // {
-		// ++killed_artillery;
-		// --artillery_to_kill;
-    // }
+
    
     if(tank_x==forced_tank_x)
     {
@@ -1781,17 +1737,21 @@ void handle_tank_collisions(void)
 
             if(energy[tank_x])
             {
+				display_red_tank();
+				_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+				
+				_XL_TOCK_SOUND();				
 				if(tank_level[tank_x]<=3)
 				{
-					display_red_tank();
-					_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-					
-					_XL_TOCK_SOUND();
 					push_tank();
 					display_tank();
 					#if defined(_XL_NO_UDG)
 					_XL_DELETE(tank_x,tank_y[tank_x]+1);
 					#endif
+				}
+				else
+				{
+					display_tank();
 				}
             }
             else

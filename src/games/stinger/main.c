@@ -116,7 +116,7 @@
 #define WALL_ENERGY 20
 
 #define MAX_ROCKETS 99
-#define HYPER_RECHARGE 50
+#define HYPER_RECHARGE 40
 #define ROCKET_RECHARGE 20
 
 #define FREEZE_COUNTER_MAX 140
@@ -129,6 +129,7 @@
 #define RIGHT_DIRECTION 1
 #define ACCELERATION_THRESHOLD (XSize/2)
 
+uint8_t level_count_down;
 
 uint8_t max_occupied_columns;
 
@@ -141,6 +142,8 @@ uint8_t acceleration;
 uint8_t acceleration_counter;
 
 uint8_t wall_color;
+
+uint8_t extra_points_counter;
 
 const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
@@ -163,7 +166,8 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 #define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 #define HELP_ITEM_LEVEL_THRESHOLD 3
-#define HELP_ITEM_POWER_THRESHOLD 2
+#define HELP_ITEM_POWER_THRESHOLD 1
+#define HELP_ITEM_POWER_UPPER_THRESHOLD 15
 
 // #if XSize<=23
     // #define LIGHT_TANKS_ON_FIRST_LEVEL 20
@@ -191,7 +195,7 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
-#define MAX_HYPER_COUNTER 200
+#define MAX_HYPER_COUNTER 180
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -915,7 +919,7 @@ void display_power_ups(void)
     hyper_counter = MAX_HYPER_COUNTER; \
     stinger_color = _XL_RED; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    if(powerUp>10) \
+    if(powerUp>5) \
     { \
         number_of_arrows_per_shot=3; \
 		PRINT_CENTERED_ON_ROW(1,"TRIPLE"); \
@@ -929,48 +933,19 @@ void display_power_ups(void)
 
 
 void power_up_effect(void)
-{
-    uint8_t pmod10;
-    
+{    
     ++powerUp;
     
-    pmod10 = powerUp%10;    
-
-	switch(pmod10)
+    if(!(powerUp%5))
 	{
-		case 0:
-			activate_hyper();
-			#if !defined(_XL_NO_COLOR)
-			powerUpItem._color = _XL_WHITE;
-			#endif
-		break;
-		
-		case 4:
-			#if !defined(_XL_NO_COLOR)
-			powerUpItem._color = FREEZE_COLOR; 
-			#endif
-		break;
-		
-		case 5:
-			freeze_locked=0;
-			#if !defined(_XL_NO_COLOR)
-			powerUpItem._color = _XL_WHITE;
-			#endif
-		break;
-		
-		case 9:
-			#if !defined(_XL_NO_COLOR)
-			powerUpItem._color = _XL_RED;
-			#endif
-		break;
-	} 
+		activate_hyper();
+	}
     
     display_power_up_counter();
     increase_score(POWERUP_POINTS);
     
     switch(powerUp)
-    {
-		
+    {	
 		case 1:
 			stinger_reload_loops=YELLOW_SPEED_VALUE;
 		break;
@@ -985,10 +960,10 @@ void power_up_effect(void)
 		
 		case 4:
 			fire_power = GREEN_FIRE_POWER_VALUE;
-			#if !defined(_XL_NO_COLOR)
-			powerUpItem._color = _XL_CYAN;
-			#endif
 		break;
+		
+		// case 5:
+		// break;
 		
         case 17:
             #if !defined(_XL_NO_COLOR)
@@ -1011,6 +986,11 @@ void power_up_effect(void)
 void extra_points_effect(void)
 {
     increase_score(EXTRA_POINTS);
+	++extra_points_counter;
+	if(!(extra_points_counter&15))
+	{
+		freeze_locked=0;
+	}
 }
 
 
@@ -1497,12 +1477,12 @@ void display_red_tank(void)
 
 void handle_item_drop(void)
 {
-    if(tank_level[tank_x] || ((uint8_t) (_XL_RAND()) <75))
+    if(tank_level[tank_x] || (main_loop_counter&1) )
     {        
         ++item_counter;
         item_counter&=3;
         
-        if((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=HELP_ITEM_POWER_THRESHOLD))
+        if(((level>=HELP_ITEM_LEVEL_THRESHOLD)&&(powerUp<=HELP_ITEM_POWER_THRESHOLD)))
         {
             item_counter&=1;
         }
@@ -1539,18 +1519,18 @@ void handle_item_drop(void)
             index = find_inactive(extraPointsItem);
             if(index!=NUMBER_OF_EXTRA_POINTS)
             {
-                drop_item(&extraPointsItem[index],90);
+                drop_item(&extraPointsItem[index],80);
             }            
         }  
     }
 }
 
 
-void handle_tank_speed_mask(void)
+void handle_tank_speed_mask(void) // TODO: Necessary??
 {
 	if(heavy_tanks_to_kill<heavy_tanks_on_level[level]/4)
 	{
-		tank_speed_mask = FAST_TANK_SHOOT_MASK;
+		tank_speed_mask = FAST_TANK_SHOOT_MASK; 
 	}
 }
 
@@ -1568,10 +1548,15 @@ void respawn(void)
 			spawn_heavy_tank();
 		}
         display_tank();
+		
+		update_tank_speed();
+		handle_tank_speed_mask();
     }
+	// else
+	// {
+		// _XL_PRINT(0,YSize-1,"NOTHING TO SPAWN");
+	// }
 
-    update_tank_speed();
-	handle_tank_speed_mask();
 }
 
 
@@ -1758,7 +1743,13 @@ void handle_tank_collisions(void)
             {
                 tank_dies();
                 increase_score(tank_points[tank_level[tank_x]]);
-                respawn();
+				respawn();
+                // if(light_tanks_to_kill || heavy_tanks_to_kill)
+				// {
+					// respawn();
+					// _XL_PRINTD(0,YSize-1,2,light_tanks_to_kill);
+					// _XL_PRINTD(6,YSize-1,2,heavy_tanks_to_kill);
+				// }
             }
         }
     }
@@ -1830,21 +1821,6 @@ void move_tanks(void)
 			return;
 		}
     }
-
-    // The forced tank is no longer forced when it has completed the move (half-move for stealth tanks)
-    // if((tank_shape[tank_x]==3)||(((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1)))
-    // {
-        // forced_tank = 0;
-    // }
-    // else
-    // {
-        // if(_XL_RAND()&3)
-        // {
-            // forced_tank = 1;
-        // }
-        // forced_tank_x = tank_x; 
-    // }
-
 
 	if (((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1))
 	{
@@ -2082,6 +2058,7 @@ do \
 #define level_initialization() \
 do \
 {   \
+	extra_points_counter = 6; \
 	fire_power = RED_FIRE_POWER_VALUE; \
 	freeze = 0; \
 	acceleration = 0; \
@@ -2767,7 +2744,7 @@ do \
 
 
 int main(void)
-{           
+{
 	INITIALIZE_CROSS_LIB();
 
     hiscore = 0;
@@ -2781,18 +2758,28 @@ int main(void)
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             level_initialization();
+			level_count_down=2*YSize;
             tank_initialization();
             display_level_screen();
             
-            while(alive && (light_tanks_to_kill || heavy_tanks_to_kill) ) // Inner game loop
+            while(alive && level_count_down ) // Inner game loop
             {
+
                 handle_hyper();
                 handle_stinger_move();
                 handle_stinger_load();
                 handle_arrows(); 
                 handle_auto_recharge();
-                handle_tank_movement();
-                handle_tank_collisions();
+				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
+				{
+					--level_count_down;
+				}
+				else
+				{
+					handle_tank_movement();
+				}
+				handle_tank_collisions();
+
                 handle_missile_drops();
                 handle_items();
 				handle_artillery_shell();

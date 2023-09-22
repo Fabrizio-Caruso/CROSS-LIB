@@ -2228,7 +2228,7 @@ do \
 #endif
 
 #if defined(_XL_NO_JOYSTICK)
-    #define CONTROLS_STRING "USE J L SPACE"
+    #define CONTROLS_STRING "PRESS A KEY"
 	#define CONTROLS_LEN 13
 #else
     #if defined(_XL_CURSORS)
@@ -2243,7 +2243,7 @@ do \
 			#define CONTROLS_LEN 15
         #endif
     #else
-        #define CONTROLS_STRING "USE JOYSTICK"
+        #define CONTROLS_STRING "PRESS FIRE"
 		#define CONTROLS_LEN 12
     #endif
 #endif
@@ -2273,8 +2273,6 @@ do \
             _XL_SET_TEXT_COLOR(_XL_GREEN); \
             _XL_PRINT(XSize/2-5+3,YSize/3+4+_NEXT_ROW, (char *)item_name[i]); \
         } \
-		_XL_SET_TEXT_COLOR(_XL_YELLOW); \
-        control_instructions(); \
     } while(0)
 		
 	void display_enemies(void)
@@ -2323,7 +2321,8 @@ void mortar_intro_animation()
 {
     uint8_t i;
     uint8_t fire = 0;
-	uint8_t time_counter = 0;
+	uint8_t time_counter = 20;
+	uint8_t switch_counter = 0;
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
@@ -2359,9 +2358,19 @@ void mortar_intro_animation()
 
         for(i=3;i<YSize-2;++i)
         {
+			if(time_counter)
+			{
+				--time_counter;
+				if(time_counter==1)
+				{
+					_XL_SET_TEXT_COLOR(_XL_YELLOW); \
+					control_instructions(); \
+				}
+			}
+			
             _XL_DRAW(0,i,BULLET_TILE,_XL_WHITE);
             _XL_DRAW(XSize-1,i,BULLET_TILE,_XL_WHITE);
-            if(time_counter && (fire =_XL_FIRE(_XL_INPUT())))
+            if((!time_counter) && (fire =_XL_FIRE(_XL_INPUT())))
             {
                 break;
             }
@@ -2377,7 +2386,7 @@ void mortar_intro_animation()
             _XL_DELETE(0,YSize-2);
             _XL_DELETE(XSize-1,YSize-2);
         }
-		++time_counter;
+		++switch_counter;
     }
     while(!fire);
 }
@@ -2409,7 +2418,8 @@ void tank_intro_animation()
 {
     uint8_t i;
     uint8_t fire = 0;
-	uint8_t time_counter = 0;
+	uint8_t time_counter = 20;
+	uint8_t switch_counter;
     
     
     // TODO: Initialize other tanks?
@@ -2442,7 +2452,16 @@ void tank_intro_animation()
     {
         for(i=3;i<(YSize-4)*4;++i)
         {
-			if(!(time_counter&1))
+			if(time_counter)
+			{
+				--time_counter;
+				if(time_counter==1)
+				{
+					_XL_SET_TEXT_COLOR(_XL_YELLOW); \
+					control_instructions(); \
+				}
+			}
+			if(!(switch_counter&1))
 			{
 				tank_x=0;
 				_move_tank();
@@ -2480,12 +2499,12 @@ void tank_intro_animation()
 			}
             			
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            if(time_counter && (fire=_XL_FIRE(_XL_INPUT())))
+            if((!time_counter) && (fire=_XL_FIRE(_XL_INPUT())))
             {
                 break;
             }
         }
-		++time_counter;
+		++switch_counter;
         if(!fire)
         {
             // tank_y[0]=2;

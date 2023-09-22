@@ -163,7 +163,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
 #define MAX_NUMBER_OF_MISSILES 6
 
-#define NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
+#define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 #define HELP_ITEM_LEVEL_THRESHOLD 3
 #define HELP_ITEM_POWER_THRESHOLD 1
@@ -191,7 +191,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -415,9 +415,8 @@ typedef struct ItemStruct Missile;
 #endif
 
 
-
 Missile enemyMissile[MAX_NUMBER_OF_MISSILES];
-Item extraPointsItem[MAX_NUMBER_OF_MISSILES];
+Item extraPointsItem[MAX_NUMBER_OF_EXTRA_POINTS];
 
 uint8_t artillery_shell_active;
 uint8_t artillery_shell_x;
@@ -743,10 +742,13 @@ uint8_t find_inactive(Item* itemArray)
     
     for(i=0;i<MAX_NUMBER_OF_MISSILES;++i)
     {
+		// _XL_PRINTD(i*3,YSize-5,1,itemArray[i]._active);
+		
         if(!itemArray[i]._active)
         {
             return i;
         }
+
     }
     return MAX_NUMBER_OF_MISSILES;
 }
@@ -1474,6 +1476,10 @@ void display_red_tank(void)
     _display_red_tank(tile);
 }
 
+#define POWER_UP_COOL_DOWN 30
+#define EXTRA_POINTS_COOL_DOWN 55
+#define SECRET_COOL_DOWN 50
+#define FREEZE_COOL_DOWN 40
 
 void handle_item_drop(void)
 {
@@ -1498,41 +1504,41 @@ void handle_item_drop(void)
         {
             if(!powerUpItem._active)
             {
-                drop_item(&powerUpItem,35);
+                drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
             } 
         }
         else if((!freeze_locked)&&(!freeze))
         {
             if(!freezeItem._active)
             {
-                drop_item(&freezeItem,45);
+                drop_item(&freezeItem,FREEZE_COOL_DOWN);
             }
         }
         else if(!secret_locked && !secretItem._active)
             {
-                drop_item(&secretItem,50);
+                drop_item(&secretItem,SECRET_COOL_DOWN);
             }
         else
         {
             uint8_t index; 
             
             index = find_inactive(extraPointsItem);
-            if(index!=NUMBER_OF_EXTRA_POINTS)
+            if(index!=MAX_NUMBER_OF_EXTRA_POINTS)
             {
-                drop_item(&extraPointsItem[index],80);
+                drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
             }            
         }  
     }
 }
 
 
-void handle_tank_speed_mask(void) // TODO: Necessary??
-{
-	if(heavy_tanks_to_kill<heavy_tanks_on_level[level]/4)
-	{
-		tank_speed_mask = FAST_TANK_SHOOT_MASK; 
-	}
-}
+// void handle_tank_speed_mask(void) // TODO: Necessary??
+// {
+	// if(heavy_tanks_to_kill<heavy_tanks_on_level[level]/4)
+	// {
+		// tank_speed_mask = FAST_TANK_SHOOT_MASK; 
+	// }
+// }
 
 
 void respawn(void)
@@ -1550,7 +1556,7 @@ void respawn(void)
         display_tank();
 		
 		update_tank_speed();
-		handle_tank_speed_mask();
+		// handle_tank_speed_mask();
     }
 	// else
 	// {
@@ -2049,6 +2055,7 @@ do \
     killed_heavy_tanks = 0; \
     killed_light_tanks = 0; \
 	killed_artillery = 0; \
+	freeze = 0; \
     lives = INITIAL_LIVES; \
     next_threshold = NEXT_EXTRA_LIFE; \
 } while(0)
@@ -2289,12 +2296,19 @@ do \
 #endif
 
 #if XSize>=20
-    #define _CROSS_HORDE_STRING \
+    #define _STINGER_STRING \
         "S T I N G E R"
 #else
-    #define _CROSS_HORDE_STRING \
+    #define _STINGER_STRING \
         "STINGER"
 #endif
+
+
+void display_stinger_string(uint8_t color)
+{
+	_XL_SET_TEXT_COLOR(color);
+	PRINT_CENTERED_ON_ROW(YSize/3-2,_STINGER_STRING);
+}
 
 
 void mortar_intro_animation()
@@ -2302,7 +2316,6 @@ void mortar_intro_animation()
     uint8_t i;
     uint8_t fire = 0;
 	uint8_t time_counter = 0;
-	uint8_t stealth_y = 0;
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
@@ -2374,8 +2387,7 @@ void mortar_intro_animation()
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
+    display_stinger_string(_XL_RED); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
@@ -2486,6 +2498,17 @@ void tank_intro_animation()
         }
     }
     while(!fire);
+	_XL_ZAP_SOUND();
+	for(i=0;i<15;++i)
+	{
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+		display_stinger_string(_XL_CYAN);
+
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+		display_stinger_string(_XL_YELLOW);
+	}
+	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+	
 }
 
 
@@ -2634,10 +2657,18 @@ void display_level_at_start_up(void)
         --freeze; \
     }
 
+
 void display_cleared(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
-    PRINT_CENTERED(_XL_C _XL_SPACE _XL_L _XL_SPACE _XL_E _XL_SPACE _XL_A _XL_SPACE _XL_R _XL_SPACE _XL_E _XL_SPACE _XL_D);
+    PRINT_CENTERED("C L E A R E D");
+}
+
+
+void display_victory_string(uint8_t color)
+{
+    _XL_SET_TEXT_COLOR(color);
+    PRINT_CENTERED("V I C T O R Y");
 }
 
 
@@ -2681,32 +2712,51 @@ do \
 
 void tank_animation(void)
 {
+	uint8_t i;
     tank_y[tank_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
-    tank_level[tank_x]=0;
-    display_tank();
-    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-    tank_dies();
-    display_cleared();
+    tank_level[tank_x]=1;
+	tank_shape[tank_x]=0;
+
+    display_victory_string(_XL_YELLOW);
+
+	for(i=0;i<3;++i)
+	{
+		display_tank();
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);			
+		_XL_DRAW(tank_x,tank_y[tank_x],TANK_DEATH_TILE,_XL_RED);
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);			
+	}
+	_XL_EXPLOSION_SOUND();
+	_XL_DELETE(tank_x,tank_y[tank_x]);
+    display_victory_string(_XL_GREEN);
+	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 }
 
 
-#define victory() \
-do \
-{ \
-    uint8_t i; \
-    \
-    light_tanks_to_kill = XSize*2; \
-    display_enemy_counter(); \
-    for(i=0;i<XSize;++i) \
-    { \
-        tank_x = i; \
-        tank_animation(); \
-        tank_x = XSize-i; \
-        tank_animation(); \
-    } \
-    sleep_and_wait_for_input(); \
-    _XL_CLEAR_SCREEN(); \
-} while(0)
+void victory(void)
+{
+    uint8_t i;
+   
+    // light_tanks_to_kill = XSize*2;
+    // display_enemy_counter();
+    for(i=1;i<XSize-1;++i)
+    {
+        tank_x = i;
+        tank_animation();
+        tank_x = XSize-i;
+        tank_animation();
+    }
+    // for(tank_x=0;tank_x<XSize;++tank_x)
+    // {
+		// tank_active[tank_x]=1;
+		// tank_y[tank_x]=INITIAL_ARTILLERY_LEVEL;
+        // display_tank();
+		// tank_animation();
+    // }	
+	_XL_SLEEP(1);
+    sleep_and_wait_for_input();
+    _XL_CLEAR_SCREEN();
+}
 
 
 #define display_level_screen() \
@@ -2758,7 +2808,7 @@ int main(void)
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             level_initialization();
-			level_count_down=2*YSize;
+			level_count_down=255; //4*YSize;
             tank_initialization();
             display_level_screen();
             
@@ -2773,6 +2823,50 @@ int main(void)
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
 					--level_count_down;
+					
+					if(level==LAST_LEVEL)
+					{
+						if(level_count_down>64)
+						{
+							uint8_t index;
+							
+						
+							for(index=0;(index<1+lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index)
+							{
+								if(!extraPointsItem[index]._active)
+								{
+									tank_x = 1+(_XL_RAND()%(XSize-2));
+									tank_y[tank_x]=2;
+									drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
+								}
+							}
+
+							if(lives>2 && !freezeItem._active)
+							{
+								tank_x = 1+(_XL_RAND()%(XSize-2));
+								tank_y[tank_x]=2;
+								drop_item(&freezeItem,FREEZE_COOL_DOWN);
+							}
+							
+							if(lives>5 && !powerUpItem._active)
+							{
+								tank_x = 1+(_XL_RAND()%(XSize-2));
+								tank_y[tank_x]=2;
+								drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
+							}
+							
+							if(lives>8 && !secretItem._active)
+							{
+								tank_x = 1+(_XL_RAND()%(XSize-2));
+								tank_y[tank_x]=2;
+								drop_item(&secretItem,SECRET_COOL_DOWN);
+							}							
+						}
+					}
+					else
+					{
+						level_count_down-=4;
+					}
 				}
 				else
 				{
@@ -2788,6 +2882,52 @@ int main(void)
             }
             if(alive)
             {
+				// if(level==LAST_LEVEL)
+				// {
+					// uint8_t i;
+					// uint8_t index; 
+					
+					// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
+					// {
+						// _XL_PRINTD(3*index,YSize-5,1,extraPointsItem[index]._active);
+
+					// }
+					// _XL_SLEEP(1);
+					// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
+					// {
+						// _XL_PRINTD(3*index,YSize-4,1,extraPointsItem[index]._active);
+
+					// }
+					// _XL_SLEEP(1);
+					
+					// for(i=1;i<8*lives;++i)
+					// {
+						// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
+						// {
+							// _XL_PRINTD(3*index,YSize-3,1,extraPointsItem[index]._active);
+
+						// }
+						// _XL_SLEEP(1);
+
+						// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
+						// {
+							// _XL_PRINTD(3*index,YSize-2,1,extraPointsItem[index]._active);
+
+							// if(!(extraPointsItem[index]._active))
+							// {
+								// break;
+							// }
+							
+						// }
+						// if(index<MAX_NUMBER_OF_EXTRA_POINTS)
+						// {
+							// tank_x = 1+(_XL_RAND()%(XSize-2));
+							// tank_y[tank_x]=1;
+							// drop_item(&extraPointsItem[index],80);
+						// }
+
+					// }
+				// }
                 handle_next_level();
             }
             else

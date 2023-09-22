@@ -1049,7 +1049,7 @@ void bullet_effect(void)
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
-            extraPointsItem[i]._color = _XL_YELLOW; \
+            extraPointsItem[i]._color = level_color[(level+1)&1]; \
             extraPointsItem[i]._effect = extra_points_effect; \
         } \
     }
@@ -2534,7 +2534,7 @@ void display_second_screen()
 #endif
 
 #if XSize>=20
-    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,TANK_COUNTER_Y,HEAVY_TANK_TILE_0, _XL_GREEN)
+    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,TANK_COUNTER_Y,HEAVY_TANK_TILE_0, level_color[(level+1)&1])
 
 #else
     #define draw_tank_counter_tile()

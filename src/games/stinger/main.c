@@ -2797,7 +2797,7 @@ do \
     _XL_INIT_SOUND() \
 
 #define LEVEL_COUNT_DOWN 255
-
+#define BONUS_DROP_THRESHOLD 55
 
 int main(void)
 {
@@ -2830,7 +2830,7 @@ int main(void)
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
-					if(level>=LAST_LEVEL-1)
+					if(level>=LAST_LEVEL-2)
 					{
 						if(level_count_down==LEVEL_COUNT_DOWN)
 						{
@@ -2841,7 +2841,7 @@ int main(void)
 						}
 						--level_count_down;
 
-						if(level_count_down>55)
+						if(level_count_down>BONUS_DROP_THRESHOLD)
 						{
 							uint8_t index;
 							

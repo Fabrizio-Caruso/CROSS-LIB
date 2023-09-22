@@ -80,13 +80,13 @@
 #define HEAVY_TANK_3_POINTS 30
 #define ARTILLERY_POINTS 50
 
-#define EXTRA_POINTS 100
+#define EXTRA_POINTS 80
 #define RECHARGE_POINTS 25
 #define POWERUP_POINTS 30
-#define FREEZE_POINTS 60
-#define WALL_POINTS 80
+#define FREEZE_POINTS 100
 #define SECRET_ITEM_POINTS 250U
-#define POWER_UP_BONUS 25
+
+#define POWER_UP_BONUS 100
 #define LEVEL_BONUS 200
 
 
@@ -108,7 +108,7 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 // (2 basic hits)
-#define LIGHT_TANK_ENERGY 4
+#define LIGHT_TANK_ENERGY 3
 
 // Boss energy: 7 (4 basic hits), 9 (5 basic hits), 11 (6 basic hits)
 #define HEAVY_TANK_BASE_ENERGY 5
@@ -191,7 +191,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99}; //99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99}; // 1,1};//91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -278,7 +278,11 @@ const uint8_t tank_points[] =
 
  uint8_t energy[XSize];
  uint8_t tank_level[XSize];
- const uint8_t rank_energy[5] = {LIGHT_TANK_ENERGY,7,11,17,12}; // 2, 4, 6, 9 ,8 ,9
+ 
+ // Red hits    (2): 2, 4, 6, 9, 6
+ // Yellow hits (3): 1, 3, 4, 6, 4
+ // Green hits  (4): 1, 2, 3, 5, 3
+ const uint8_t rank_energy[5] = {LIGHT_TANK_ENERGY,7,11,17,12};
 
  uint8_t fire_power;
 
@@ -462,7 +466,10 @@ void display_power_up_counter(void)
 #if XSize>=32
     #define TANK_COUNTER_X (POWER_UP_X+4)
     #define TANK_COUNTER_Y 0
-#elif XSize>=20
+#elif XSize>=22
+	#define TANK_COUNTER_X (POWER_X+6)
+	#define TANK_COUNTER_Y (YSize-1)
+#else
 	#define TANK_COUNTER_X (POWER_X+5)
 	#define TANK_COUNTER_Y (YSize-1)
 #endif
@@ -1027,6 +1034,7 @@ void tank_effect(void)
     display_tanks();
 
     secret_locked = 1;
+    increase_score(SECRET_ITEM_POINTS);
     increase_score(SECRET_ITEM_POINTS);
 }
 
@@ -2534,8 +2542,9 @@ void display_second_screen()
     #define HISCORE_STRING _XL_H
 #endif
 
-#if XSize>=32
-    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,TANK_COUNTER_Y,LIGHT_TANK_TILE_0, _XL_WHITE)
+#if XSize>=20
+    #define draw_tank_counter_tile() _XL_DRAW(TANK_COUNTER_X,TANK_COUNTER_Y,HEAVY_TANK_TILE_0, _XL_GREEN)
+
 #else
     #define draw_tank_counter_tile()
 #endif
@@ -2808,7 +2817,9 @@ int main(void)
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             level_initialization();
-			level_count_down=255; //4*YSize;
+			
+			level_count_down=255;
+
             tank_initialization();
             display_level_screen();
             
@@ -2824,9 +2835,9 @@ int main(void)
 				{
 					--level_count_down;
 					
-					if(level==LAST_LEVEL)
+					if(level>=LAST_LEVEL-1)
 					{
-						if(level_count_down>64)
+						if(level_count_down>50)
 						{
 							uint8_t index;
 							
@@ -2841,26 +2852,29 @@ int main(void)
 								}
 							}
 
-							if(lives>2 && !freezeItem._active)
+							if((lives>2) && (!freezeItem._active))
 							{
 								tank_x = 1+(_XL_RAND()%(XSize-2));
 								tank_y[tank_x]=2;
 								drop_item(&freezeItem,FREEZE_COOL_DOWN);
 							}
 							
-							if(lives>5 && !powerUpItem._active)
+							if(level==LAST_LEVEL)
 							{
-								tank_x = 1+(_XL_RAND()%(XSize-2));
-								tank_y[tank_x]=2;
-								drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
-							}
-							
-							if(lives>8 && !secretItem._active)
-							{
-								tank_x = 1+(_XL_RAND()%(XSize-2));
-								tank_y[tank_x]=2;
-								drop_item(&secretItem,SECRET_COOL_DOWN);
-							}							
+								if((lives>5) && (!powerUpItem._active))
+								{
+									tank_x = 1+(_XL_RAND()%(XSize-2));
+									tank_y[tank_x]=2;
+									drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
+								}
+								
+								if((lives>8) && (!secretItem._active) && (level_count_down<128) )
+								{
+									tank_x = 1+(_XL_RAND()%(XSize-2));
+									tank_y[tank_x]=2;
+									drop_item(&secretItem,SECRET_COOL_DOWN);
+								}			
+							}								
 						}
 					}
 					else
@@ -2882,52 +2896,6 @@ int main(void)
             }
             if(alive)
             {
-				// if(level==LAST_LEVEL)
-				// {
-					// uint8_t i;
-					// uint8_t index; 
-					
-					// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
-					// {
-						// _XL_PRINTD(3*index,YSize-5,1,extraPointsItem[index]._active);
-
-					// }
-					// _XL_SLEEP(1);
-					// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
-					// {
-						// _XL_PRINTD(3*index,YSize-4,1,extraPointsItem[index]._active);
-
-					// }
-					// _XL_SLEEP(1);
-					
-					// for(i=1;i<8*lives;++i)
-					// {
-						// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
-						// {
-							// _XL_PRINTD(3*index,YSize-3,1,extraPointsItem[index]._active);
-
-						// }
-						// _XL_SLEEP(1);
-
-						// for(index=0;index<MAX_NUMBER_OF_EXTRA_POINTS;++index)
-						// {
-							// _XL_PRINTD(3*index,YSize-2,1,extraPointsItem[index]._active);
-
-							// if(!(extraPointsItem[index]._active))
-							// {
-								// break;
-							// }
-							
-						// }
-						// if(index<MAX_NUMBER_OF_EXTRA_POINTS)
-						// {
-							// tank_x = 1+(_XL_RAND()%(XSize-2));
-							// tank_y[tank_x]=1;
-							// drop_item(&extraPointsItem[index],80);
-						// }
-
-					// }
-				// }
                 handle_next_level();
             }
             else

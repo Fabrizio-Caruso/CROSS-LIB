@@ -98,7 +98,7 @@
 #define RED_SPEED_VALUE INITIAL_STINGER_RELOAD_LOOPS
 #define YELLOW_SPEED_VALUE 5
 #define GREEN_SPEED_VALUE 3
-#define HYPER_SPEED_VALUE 2
+// #define HYPER_SPEED_VALUE 2
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
@@ -709,39 +709,6 @@ void recharge_effect(void)
 #define ROCKETS_X (XSize-6)
 #define SPEED_X 0
 
-// #if XSize <= 15
-    // #define STR_LEN 1
-    // #define SPEED_X 0
-    // #define ROCKETS_X ((XSize)-5)
-
-// #elif XSize <= 19
-    // #define STR_LEN 2
-    // #define SPEED_X 0
-    // #define ROCKETS_X ((XSize)-6)
-// #elif XSize <= 26
-    // #define STR_LEN 3
-    // #define SPEED_X 0
-    // #define ROCKETS_X ((XSize)-7)
-// #else
-
-    // #define STR_LEN 5    
-    // #if XSize>=32
-        // #define SPEED_X 0
-    // #else
-        // #define SPEED_X 0
-    // #endif
-    // #if XSize>=32
-        // #define ROCKETS_X ((XSize)-10)
-    // #else
-        // #define ROCKETS_X ((XSize)-9)
-    // #endif
-// #endif 
-
-// #if XSize>=20
-    // #define POWER_X 7
-// #else
-// #endif
-
 
 uint8_t find_inactive(Item* itemArray)
 {
@@ -923,10 +890,9 @@ void display_power_ups(void)
 #define activate_hyper() \
 { \
     _XL_ZAP_SOUND(); \
-    stinger_reload_loops=HYPER_SPEED_VALUE; \
     recharge_arrows(HYPER_RECHARGE); \
     hyper_counter = MAX_HYPER_COUNTER; \
-    stinger_color = _XL_RED; \
+    stinger_color = _XL_YELLOW; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     if(powerUp>5) \
     { \
@@ -1030,6 +996,10 @@ void tank_effect(void)
     for(tank_x=0;tank_x<XSize;++tank_x)
     {
         tank_level[tank_x]=1;
+		if(energy[tank_x]>HEAVY_TANK_1_POINTS)
+		{
+			energy[tank_x]=HEAVY_TANK_1_POINTS;
+		}
     }
     display_tanks();
 
@@ -1038,7 +1008,7 @@ void tank_effect(void)
     increase_score(SECRET_ITEM_POINTS);
 }
 
-void beam_effect(void)
+void bullet_effect(void)
 {
     alive=0;
 }
@@ -1073,7 +1043,7 @@ void beam_effect(void)
             enemyMissile[i]._active = 0; \
             enemyMissile[i]._tile = BULLET_TILE; \
             enemyMissile[i]._color = _XL_CYAN; \
-            enemyMissile[i]._effect = beam_effect; \
+            enemyMissile[i]._effect = bullet_effect; \
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
@@ -1106,7 +1076,7 @@ void beam_effect(void)
         { \
             enemyMissile[i]._active = 0; \
             enemyMissile[i]._tile = BULLET_TILE; \
-            enemyMissile[i]._effect = beam_effect; \
+            enemyMissile[i]._effect = bullet_effect; \
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
@@ -1491,7 +1461,7 @@ void display_red_tank(void)
 
 void handle_item_drop(void)
 {
-    if(tank_level[tank_x] || (main_loop_counter&1) )
+    if(tank_level[tank_x] || (!(main_loop_counter&3)) )
     {        
         ++item_counter;
         item_counter&=3;
@@ -2103,11 +2073,11 @@ do \
 	stinger_shape_tile = (uint8_t) 2*((stinger_x)&1); \
 	stinger_color = _XL_CYAN; \
 	number_of_arrows_per_shot = 1; \
-	if(level>=3) \
+	if(level>=4) \
 	{ \
 		tank_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
 	} \
-	else if(level==2) \
+	else if(level>=2) \
 	{ \
 		tank_speed_mask = FAST_TANK_SHOOT_MASK; \
 	} \
@@ -2119,9 +2089,10 @@ do \
 	artillery_shell_active = 0; \
 	heavy_tank_counter = 0; \
 	_XL_CLEAR_SCREEN(); \
+	wall_color = level_color[level&1]; \
+    display_wall(BOTTOM_WALL_Y,wall_color); \
 	_XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
 	_XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
-	wall_color = level_color[level&1]; \
 } while(0)
 
 
@@ -2321,7 +2292,7 @@ void mortar_intro_animation()
 {
     uint8_t i;
     uint8_t fire = 0;
-	uint8_t time_counter = 20;
+	uint8_t time_counter = 25;
 	uint8_t switch_counter = 0;
 
 	tank_active[1]=1;    
@@ -2363,7 +2334,7 @@ void mortar_intro_animation()
 				--time_counter;
 				if(time_counter==1)
 				{
-					_XL_SET_TEXT_COLOR(_XL_YELLOW); \
+					_XL_SET_TEXT_COLOR(_XL_WHITE); \
 					control_instructions(); \
 				}
 			}
@@ -2418,7 +2389,7 @@ void tank_intro_animation()
 {
     uint8_t i;
     uint8_t fire = 0;
-	uint8_t time_counter = 20;
+	uint8_t time_counter = 25;
 	uint8_t switch_counter;
     
     
@@ -2672,18 +2643,24 @@ void display_level_at_start_up(void)
 }
 
 
-#define handle_tank_movement() \
-    if(!freeze) \
-    { \
-        if(!(main_loop_counter&tank_speed)) \
-        { \
-            move_tanks(); \
-        } \
-    } \
-    else \
-    { \
-        --freeze; \
+void handle_tank_movement(void)
+{
+    if(!freeze)
+    {
+        if(!(main_loop_counter&tank_speed))
+        {
+            move_tanks();
+        }
     }
+    else
+    {
+        --freeze;
+		if(!freeze)
+		{
+			display_tanks();
+		}
+    }
+}
 
 
 void display_cleared(void)
@@ -2790,7 +2767,6 @@ void victory(void)
 #define display_level_screen() \
 do \
 { \
-    display_wall(BOTTOM_WALL_Y,wall_color); \
     display_stinger(); \
     display_stats(); \
     display_level_at_start_up(); \
@@ -2806,7 +2782,6 @@ do \
         if(!hyper_counter) \
         { \
             stinger_color = _XL_CYAN; \
-            stinger_reload_loops=GREEN_SPEED_VALUE; \
             number_of_arrows_per_shot=1; \
 			PRINT_CENTERED_ON_ROW(1,"      "); \
             display_power_ups(); \
@@ -2819,6 +2794,8 @@ do \
     _XL_INIT_GRAPHICS(); \
     _XL_INIT_INPUT() \
     _XL_INIT_SOUND() \
+
+#define LEVEL_COUNT_DOWN 255
 
 
 int main(void)
@@ -2837,7 +2814,7 @@ int main(void)
         {            
             level_initialization();
 			
-			level_count_down=255;
+			level_count_down=LEVEL_COUNT_DOWN;
 
             tank_initialization();
             display_level_screen();

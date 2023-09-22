@@ -191,7 +191,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99}; // 1,1};//91,99}; //99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};//99}; // 1,1};//91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -2830,11 +2830,18 @@ int main(void)
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
-					--level_count_down;
-					
 					if(level>=LAST_LEVEL-1)
 					{
-						if(level_count_down>50)
+						if(level_count_down==LEVEL_COUNT_DOWN)
+						{
+							_XL_SET_TEXT_COLOR(_XL_YELLOW);
+							PRINT_CENTERED_ON_ROW(1,"BONUS");
+							_XL_PING_SOUND();
+							_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+						}
+						--level_count_down;
+
+						if(level_count_down>55)
 						{
 							uint8_t index;
 							

@@ -22,10 +22,10 @@
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
 
-medium    = 28 + 0.5 46 + 0.25 64 + 0.25 92           = 28 + 23 + 16 + 23      =  90 ->  90  15 = 1350
-stealth   =      0.5 46 + 0.25 64 + 0.25 92 + 0.25 99 =      23 + 16 + 23 + 24 =  86 ->  86  25 = 2150
-heavy     =             + 0.5  64 + 0.25 92 + 0.50 99 =           32 + 23 + 48 = 103 -> 103  30 = 3090
-hotwitzer =                       + 0.25 92 + 0.25 99 =                23 + 24 =  47 ->  47  50 = 2350
+medium   = 28 + 0.5 46 + 0.25 64 + 0.25 92           = 28 + 23 + 16 + 23      =  90 ->  90  15 = 1350
+stealth  =      0.5 46 + 0.25 64 + 0.25 92 + 0.25 99 =      23 + 16 + 23 + 24 =  86 ->  86  25 = 2150
+heavy    =             + 0.5  64 + 0.25 92 + 0.50 99 =           32 + 23 + 48 = 103 -> 103  30 = 3090
+howitzer =                       + 0.25 92 + 0.25 99 =                23 + 24 =  47 ->  47  50 = 2350
                                                                                                   ----
 																								  8940
 																								  
@@ -39,7 +39,7 @@ rings: 81 -> 81 25 = 2025 -> 8100 (*)
 
 Level bonus = 200 x 6 = 1200
 
-light    = 40 + 32 + 24 + 16 + 8 = 120 x 10 = 1200
+light   = 40 + 32 + 24 + 16 + 8 = 120 x 10 = 1200
 
 Total points estimate excluding freeze, secret, final bonus, items dropped from light tanks = 34020
 

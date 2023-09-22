@@ -213,7 +213,7 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99}; // 1,1};/
 
 #define INITIAL_ARTILLERY_LEVEL 3
 
-uint8_t tank_speed_mask;
+uint8_t tank_shoot_speed_mask;
 
 uint16_t next_threshold;
 
@@ -272,8 +272,7 @@ const uint8_t tank_points[] =
 
  uint8_t tank_y[XSize];
  uint8_t tank_shape[XSize];
- uint8_t tank_x;
- uint8_t tank_speed;
+ uint8_t tank_x; // To be used as an index to the current tank
  uint8_t tank_active[XSize];
 
  uint8_t energy[XSize];
@@ -288,6 +287,9 @@ const uint8_t tank_points[] =
 
  uint8_t freeze_locked;
  uint8_t secret_locked;
+
+
+uint8_t tank_move_speed_mask;
 
 #if !defined(_XL_NO_UDG)
  const uint8_t tank_tile[7+1] = 
@@ -408,13 +410,13 @@ typedef struct ItemStruct Missile;
 	{ MORTAR_TILE, _XL_GREEN },
 };
 
- const char enemy_name[5][10] = 
+ const char enemy_name[5][9] = 
 {
-    _XL_L _XL_I _XL_G _XL_H _XL_T,
-    _XL_M _XL_E _XL_D _XL_I _XL_U _XL_M,
-    _XL_S _XL_T _XL_E _XL_A _XL_L _XL_T _XL_H,
-    _XL_H _XL_E _XL_A _XL_V _XL_Y,
-    "HOTWITZER",
+    "LIGHT",
+    "MEDIUM",
+    "STEALTH",
+    "HEAVY",
+    "HOWITZER",
 };
 #endif
 
@@ -1405,15 +1407,15 @@ void spawn_heavy_tank(void)
     #endif 
 #endif
 
-void update_tank_speed(void)
+void update_tank_move_speed_mask(void)
 {
     if(light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS)
     {
-        tank_speed=SLOW_TANK_SPEED;
+        tank_move_speed_mask=SLOW_TANK_SPEED;
     }
     else
     {
-        tank_speed=NORMAL_TANK_SPEED;
+        tank_move_speed_mask=NORMAL_TANK_SPEED;
     }
 }
 
@@ -1510,11 +1512,11 @@ void handle_item_drop(void)
 }
 
 
-// void handle_tank_speed_mask(void) // TODO: Necessary??
+// void handle_tank_shoot_speed_mask(void) // TODO: Necessary??
 // {
 	// if(heavy_tanks_to_kill<heavy_tanks_on_level[level]/4)
 	// {
-		// tank_speed_mask = FAST_TANK_SHOOT_MASK; 
+		// tank_shoot_speed_mask = FAST_TANK_SHOOT_MASK; 
 	// }
 // }
 
@@ -1533,8 +1535,8 @@ void respawn(void)
 		}
         display_tank();
 		
-		update_tank_speed();
-		// handle_tank_speed_mask();
+		update_tank_move_speed_mask();
+		// handle_tank_shoot_speed_mask();
     }
 	// else
 	// {
@@ -1743,14 +1745,14 @@ void handle_tank_collisions(void)
 
 
 
-#define _move_tank() \
-{ \
-    ++tank_shape[tank_x]; \
-    (tank_shape[tank_x])&=3; \
-    if(!tank_shape[tank_x]) \
-        { \
-            ++tank_y[tank_x]; \
-        } \
+void _move_tank(void)
+{ 
+    ++tank_shape[tank_x];
+    (tank_shape[tank_x])&=3;
+    if(!tank_shape[tank_x])
+        {
+            ++tank_y[tank_x];
+        }
 }
 
 
@@ -1773,7 +1775,7 @@ void handle_missile_drops(void)
             {
                 if(tank_level[tank_x]<=3)
                 {
-                    if(tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_speed_mask))))
+                    if(tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_shoot_speed_mask))))
                     {
                         drop_item(&enemyMissile[missile_index],1);
                     }
@@ -2075,15 +2077,15 @@ do \
 	number_of_arrows_per_shot = 1; \
 	if(level>=4) \
 	{ \
-		tank_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
+		tank_shoot_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
 	} \
 	else if(level>=2) \
 	{ \
-		tank_speed_mask = FAST_TANK_SHOOT_MASK; \
+		tank_shoot_speed_mask = FAST_TANK_SHOOT_MASK; \
 	} \
 	else \
 	{ \
-		tank_speed_mask = SLOW_TANK_SHOOT_MASK; \
+		tank_shoot_speed_mask = SLOW_TANK_SHOOT_MASK; \
 	} \
 	initialize_items(); \
 	artillery_shell_active = 0; \
@@ -2108,14 +2110,13 @@ void initialize_tank_at_level_restart(void)
 
 
 
-#define reset_tanks() \
-do \
-{ \
-    for(tank_x=0;tank_x<XSize;++tank_x) \
-    { \
-        tank_active[tank_x]=0; \
-    } \
-} while(0)    
+void reset_tanks(void)
+{ 
+    for(tank_x=0;tank_x<XSize;++tank_x)
+    {
+        tank_active[tank_x]=0;
+    }
+} 
 
 
 #define spawn_initial_light_tanks() \
@@ -2182,7 +2183,7 @@ do \
     \
     spawn_initial_heavy_tanks(); \
 	\
-    update_tank_speed(); \
+    update_tank_move_speed_mask(); \
 	\
     \
     for(tank_x=0;tank_x<MAX_ROCKETS_ON_SCREEN;++tank_x) \
@@ -2390,9 +2391,9 @@ void tank_intro_animation()
     uint8_t i;
     uint8_t fire = 0;
 	uint8_t time_counter = 25;
-	uint8_t switch_counter;
+	uint8_t switch_counter = 0;
     
-    
+    reset_tanks();
     // TODO: Initialize other tanks?
     
 	tank_active[0]=1;    
@@ -2647,7 +2648,7 @@ void handle_tank_movement(void)
 {
     if(!freeze)
     {
-        if(!(main_loop_counter&tank_speed))
+        if(!(main_loop_counter&tank_move_speed_mask))
         {
             move_tanks();
         }

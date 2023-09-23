@@ -1698,6 +1698,13 @@ void push_tank(void)
 }
 
 
+void push_display_tank(void)
+{
+	push_tank();
+	display_tank();
+}
+
+
 void handle_tank_collisions(void)
 {
     for(tank_x=0;tank_x<XSize;++tank_x)
@@ -1714,8 +1721,9 @@ void handle_tank_collisions(void)
 				_XL_TOCK_SOUND();				
 				if(tank_level[tank_x]<=3)
 				{
-					push_tank();
-					display_tank();
+					// push_tank();
+					// display_tank();
+					push_display_tank();
 					#if defined(_XL_NO_UDG)
 					_XL_DELETE(tank_x,tank_y[tank_x]+1);
 					#endif
@@ -1730,22 +1738,13 @@ void handle_tank_collisions(void)
                 tank_dies();
                 increase_score(tank_points[tank_level[tank_x]]);
 				respawn();
-                // if(light_tanks_to_kill || heavy_tanks_to_kill)
-				// {
-					// respawn();
-					// _XL_PRINTD(0,YSize-1,2,light_tanks_to_kill);
-					// _XL_PRINTD(6,YSize-1,2,heavy_tanks_to_kill);
-				// }
             }
         }
     }
 }
 
 
-
-
-
-void _move_tank(void)
+void move_tank(void)
 { 
     ++tank_shape[tank_x];
     (tank_shape[tank_x])&=3;
@@ -1753,6 +1752,13 @@ void _move_tank(void)
         {
             ++tank_y[tank_x];
         }
+}
+
+
+void move_display_tank(void)
+{
+	move_tank();
+	display_tank();
 }
 
 
@@ -1822,9 +1828,7 @@ void move_tanks(void)
 		forced_tank = 0;
 	}
 
-    _move_tank();
-    
-    display_tank();
+	move_display_tank();
 
     if((tank_y[tank_x]==STINGER_Y))
     {
@@ -1833,16 +1837,6 @@ void move_tanks(void)
     }
 }
 
-
-// void move_some_tanks(void)
-// {
-	// uint8_t i;
-	
-	// for(i=0;i<XSize/2;++i)
-	// {
-		// move_tanks();
-	// }
-// }
 
 #define handle_stinger_load() \
 do \
@@ -1975,7 +1969,7 @@ void fire(void)
 				move_left();
 			}
         }
-        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1)
+        else if (_XL_RIGHT(input) && (stinger_x<MAX_STINGER_X-1))
         {
 			if(direction==RIGHT_DIRECTION)
 			{
@@ -1992,7 +1986,7 @@ void fire(void)
 			}
 			direction = RIGHT_DIRECTION;			
             move_right();
-			if(acceleration && stinger_x<MAX_STINGER_X-1)
+			if(acceleration && (stinger_x<MAX_STINGER_X-1))
 			{
 				move_right();
 			}
@@ -2327,12 +2321,11 @@ void mortar_intro_animation()
 			_XL_DELETE(XSize-2,YSize-3);
 		}
 		tank_x=1;
-		_move_tank();
-		display_tank();
+		move_display_tank();
 
 		tank_x=XSize-2;
-		_move_tank();
-		display_tank();
+
+		move_display_tank();
 
         for(i=5;i<YSize-2;++i)
         {
@@ -2394,36 +2387,31 @@ void mortar_intro_animation()
 void tank_intro_animation()
 {
     uint8_t i;
-    uint8_t fire = 0;
-	uint8_t time_counter = 25;
+    uint8_t fire;
 	uint8_t switch_counter = 0;
-    
+	uint8_t time_counter = 25;
+
     reset_tanks();
-    // TODO: Initialize other tanks?
     
 	tank_active[0]=1;    
     tank_shape[0]=0;
     tank_y[0]=2;
     tank_level[0]=3;
-
     
 	tank_active[XSize-1]=1;    
     tank_shape[XSize-1]=0;    
     tank_y[XSize-1]=2;
     tank_level[XSize-1]=3;
 
-
 	tank_active[1]=1;    
     tank_shape[1]=0;
     tank_y[1]=YSize-3;
     tank_level[1]=1;
-
     
 	tank_active[XSize-2]=1;    
     tank_shape[XSize-2]=0;    
     tank_y[XSize-2]=YSize-3;
     tank_level[XSize-2]=1;
-
 
     do
     {
@@ -2440,38 +2428,46 @@ void tank_intro_animation()
 			if(!(switch_counter&1))
 			{
 				tank_x=0;
-				_move_tank();
-				display_tank();
+				// move_tank();
+				// display_tank();
+				move_display_tank();
 				
 				tank_x=XSize-1;
-				_move_tank();
-				display_tank();
+				// move_tank();
+				// display_tank();
+				move_display_tank();
 				
 				tank_x=1;
-				push_tank();
-				display_tank();
+				// push_tank();
+				// display_tank();
+				push_display_tank();
 				
 				tank_x=XSize-2;
-				push_tank();
-				display_tank();
+				// push_tank();
+				// display_tank();
+				push_display_tank();
 			}
 			else
 			{
 				tank_x=1;
-				_move_tank();
-				display_tank();
+				// move_tank();
+				// display_tank();
+				move_display_tank();
 				
 				tank_x=XSize-2;
-				_move_tank();
-				display_tank();
+				// move_tank();
+				// display_tank();
+				move_display_tank();
 				
 				tank_x=0;
-				push_tank();
-				display_tank();
+				// push_tank();
+				// display_tank();
+				push_display_tank();
 				
 				tank_x=XSize-1;
-				push_tank();
-				display_tank();
+				// push_tank();
+				// display_tank();
+				push_display_tank();
 			}
             			
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
@@ -2483,21 +2479,13 @@ void tank_intro_animation()
 		++switch_counter;
         if(!fire)
         {
-            // tank_y[0]=2;
-            // tank_y[XSize-1]=2;
-            _XL_DELETE(0,YSize-2);
-            _XL_DELETE(XSize-1,YSize-2);
-            _XL_DELETE(0,YSize-3);
-            _XL_DELETE(XSize-1,YSize-3);
-			
-			// tank_y[1]=YSize-3;
-			// tank_y[XSize-2]=YSize-3;
-            _XL_DELETE(1,1);
-            _XL_DELETE(XSize-2,1);
-            _XL_DELETE(1,2);
-            _XL_DELETE(XSize-2,2);
-			_XL_DELETE(1,3);
-            _XL_DELETE(XSize-2,3);
+			for(i=0;i<3;++i)
+			{
+				_XL_DELETE(0,YSize-2-i);
+				_XL_DELETE(XSize-1,YSize-2-i);
+				_XL_DELETE(1,1+i);
+				_XL_DELETE(XSize-2,1+i);
+			}
         }
     }
     while(!fire);
@@ -2627,7 +2615,7 @@ void display_level_at_start_up(void)
 	}
 	else
 	{
-		_XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " );
+		_XL_PRINT(XSize/2-4, YSize/2,      "LEVEL " );
 		_XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
 	}
 	if(level<LAST_LEVEL)
@@ -2762,9 +2750,7 @@ void victory_animation(void)
 {
     uint8_t i;
 	uint8_t j;
-   
-    // light_tanks_to_kill = XSize*2;
-    // display_enemy_counter();
+
     for(i=1;i<XSize-1;++i)
     {
         tank_x = i;
@@ -2772,13 +2758,7 @@ void victory_animation(void)
         tank_x = XSize-1-i;
         tank_animation();
     }
-    // for(tank_x=0;tank_x<XSize;++tank_x)
-    // {
-		// tank_active[tank_x]=1;
-		// tank_y[tank_x]=INITIAL_ARTILLERY_LEVEL;
-        // display_tank();
-		// tank_animation();
-    // }	
+	
 	for(i=0;i<XSize;++i)
 	{
 		_XL_DRAW(i,YSize/2-1,WALL_TILE,_XL_CYAN);

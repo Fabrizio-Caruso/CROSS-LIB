@@ -2220,11 +2220,11 @@ void reset_tanks(void)
     #endif
 #endif
 
-#if YSize<=23
-    #define CONTROLS_Y YSize-2
-#else
-    #define CONTROLS_Y YSize-3
-#endif
+// #if YSize<=23
+#define CONTROLS_Y YSize-2
+// #else
+    // #define CONTROLS_Y YSize-3
+// #endif
 
 #if !defined(NO_EXTRA_TITLE)
     #if !defined(NO_CONTROL_INSTRUCTIONS) && YSize>=15
@@ -2637,8 +2637,15 @@ void display_level_at_start_up(void)
 	}
 	
     sleep_and_wait_for_input();
-    _XL_PRINT(XSize/2-4, YSize/2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
-    _XL_PRINT(XSize/2-2-level, YSize/2+2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
+    _XL_PRINT(XSize/2-4, YSize/2,   "         ");
+	{
+		uint8_t i;
+		for(i=0;i<=2+2*level+1;++i)
+		{
+			_XL_DELETE(XSize/2-2-level+i, YSize/2+2);
+		}
+	}
+    // _XL_PRINT(XSize/2-2-level, YSize/2+2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
 
 }
 
@@ -2713,6 +2720,8 @@ do \
     display_stinger(); \
     stinger_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
+	_XL_SET_TEXT_COLOR(_XL_WHITE); \
+	control_instructions(); \
     sleep_and_wait_for_input(); \
 } while(0)
 

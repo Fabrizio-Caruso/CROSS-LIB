@@ -894,7 +894,7 @@ void display_power_ups(void)
     _XL_ZAP_SOUND(); \
     recharge_arrows(HYPER_RECHARGE); \
     hyper_counter = MAX_HYPER_COUNTER; \
-    stinger_color = _XL_YELLOW; \
+    stinger_color = level_color[(level+1)&1]; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     if(powerUp>5) \
     { \
@@ -2018,6 +2018,8 @@ do \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
     PRINT_CENTERED("GAME OVER"); \
+	_XL_SLEEP(1); \
+	control_instructions(); \
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -2228,8 +2230,12 @@ void reset_tanks(void)
 
 #if !defined(NO_EXTRA_TITLE)
     #if !defined(NO_CONTROL_INSTRUCTIONS) && YSize>=15
-        #define control_instructions() PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
-                                       CONTROLS_STRING)
+        void control_instructions(void) 
+		{
+			_XL_SET_TEXT_COLOR(_XL_WHITE);
+			PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
+                                       CONTROLS_STRING);
+		}
     #else
         #define control_instructions()
     #endif
@@ -2335,7 +2341,6 @@ void mortar_intro_animation()
 				--time_counter;
 				if(time_counter==1)
 				{
-					_XL_SET_TEXT_COLOR(_XL_WHITE); \
 					control_instructions(); \
 				}
 			}
@@ -2429,7 +2434,6 @@ void tank_intro_animation()
 				--time_counter;
 				if(time_counter==1)
 				{
-					_XL_SET_TEXT_COLOR(_XL_WHITE); \
 					control_instructions(); \
 				}
 			}
@@ -2615,16 +2619,17 @@ void handle_auto_recharge(void)
 
 void display_level_at_start_up(void)
 {
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    if(level==LAST_LEVEL)
-    {
-        _XL_PRINT(XSize/2-4, YSize/2,  "F I N A L");
-    }
-    _XL_SLEEP(1);
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " );
-    _XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
+	_XL_SET_TEXT_COLOR(_XL_CYAN);
 	
+	if(level==LAST_LEVEL)
+	{
+		_XL_PRINT(XSize/2-6, YSize/2,    "FINAL LEVEL" );
+	}
+	else
+	{
+		_XL_PRINT(XSize/2-4, YSize/2,      "LEVEL    " );
+		_XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
+	}
 	if(level<LAST_LEVEL)
 	{
 		uint8_t i;
@@ -2636,8 +2641,10 @@ void display_level_at_start_up(void)
 		}
 	}
 	
-    sleep_and_wait_for_input();
-    _XL_PRINT(XSize/2-4, YSize/2,   "         ");
+	_XL_SLEEP(1);
+    control_instructions();
+	sleep_and_wait_for_input();
+    _XL_PRINT(XSize/2-6, YSize/2,   "           ");
 	{
 		uint8_t i;
 		for(i=0;i<=2+2*level+1;++i)
@@ -2645,6 +2652,7 @@ void display_level_at_start_up(void)
 			_XL_DELETE(XSize/2-2-level+i, YSize/2+2);
 		}
 	}
+	display_wall(CONTROLS_Y,wall_color);
     // _XL_PRINT(XSize/2-2-level, YSize/2+2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
 
 }
@@ -2689,6 +2697,7 @@ void display_victory_string(uint8_t color)
 do \
 { \
     ++level; \
+	PRINT_CENTERED_ON_ROW(1,"     "); \
     display_cleared(); \
     _XL_TOCK_SOUND(); \
     increase_score(LEVEL_BONUS); \
@@ -2704,9 +2713,9 @@ do \
         } while(powerUp); \
     } \
     \
-	_XL_SET_TEXT_COLOR(_XL_WHITE); \
 	control_instructions();	\
     sleep_and_wait_for_input(); \
+	display_wall(CONTROLS_Y,wall_color); \
     killed_heavy_tanks = 0; \
     killed_light_tanks = 0; \
 } while(0)
@@ -2720,7 +2729,6 @@ do \
     display_stinger(); \
     stinger_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
-	_XL_SET_TEXT_COLOR(_XL_WHITE); \
 	control_instructions(); \
     sleep_and_wait_for_input(); \
 } while(0)
@@ -2761,7 +2769,7 @@ void victory_animation(void)
     {
         tank_x = i;
         tank_animation();
-        tank_x = XSize-i;
+        tank_x = XSize-1-i;
         tank_animation();
     }
     // for(tank_x=0;tank_x<XSize;++tank_x)
@@ -2783,19 +2791,28 @@ void victory_animation(void)
 	
 	for(j=0;j<60;++j)
 	{
-		for(i=0;i<=4;++i)
-		{
-			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
-		}	
-		_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+
 		for(i=0;i<=4;++i)
 		{
 			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
 		}
-		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);		
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);	
+		for(i=0;i<=4;++i)
+		{
+			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+		}	
+		_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);		
 	}		
+	_XL_SLEEP(1);
+	for(i=0;i<=4;++i)
+	{
+		_XL_EXPLOSION_SOUND();
+		_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_RED);
+		_XL_SLOW_DOWN(8*_XL_SLOW_DOWN_FACTOR);		
+		_XL_DELETE(XSize/2+1-level+i*2, YSize/2+2);
+	}
+	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	
-	_XL_SET_TEXT_COLOR(_XL_WHITE);
 	control_instructions();
     sleep_and_wait_for_input();
     _XL_CLEAR_SCREEN();
@@ -2903,7 +2920,7 @@ int main(void)
 								drop_item(&freezeItem,FREEZE_COOL_DOWN);
 							}
 							
-							if(level==LAST_LEVEL)
+							if(level>=LAST_LEVEL-1)
 							{
 								if((lives>5) && (!powerUpItem._active))
 								{
@@ -2912,12 +2929,15 @@ int main(void)
 									drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
 								}
 								
-								if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
+								if(level==LAST_LEVEL)
 								{
-									tank_x = 1+(_XL_RAND()%(XSize-2));
-									tank_y[tank_x]=2;
-									drop_item(&secretItem,SECRET_COOL_DOWN);
-								}			
+									if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
+									{
+										tank_x = 1+(_XL_RAND()%(XSize-2));
+										tank_y[tank_x]=2;
+										drop_item(&secretItem,SECRET_COOL_DOWN);
+									}
+								}									
 							}								
 						}
 					}
@@ -2951,6 +2971,10 @@ int main(void)
         {
             victory_animation();
         }
+		else
+		{
+			display_wall(CONTROLS_Y,wall_color);
+		}
         game_over();
     }
 

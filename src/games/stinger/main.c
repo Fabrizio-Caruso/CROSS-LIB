@@ -2304,18 +2304,18 @@ void mortar_intro_animation()
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
-    tank_y[1]=2;
+    tank_y[1]=4;
     tank_level[1]=2;
 
     
 	tank_active[XSize-2]=1;    
     tank_shape[XSize-2]=0;    
-    tank_y[XSize-2]=2;
+    tank_y[XSize-2]=4;
     tank_level[XSize-2]=2;
 
 	
-    _XL_DRAW(0,2,MORTAR_TILE,_XL_GREEN);
-    _XL_DRAW(XSize-1,2,MORTAR_TILE,_XL_GREEN);
+    _XL_DRAW(0,4,MORTAR_TILE,_XL_GREEN);
+    _XL_DRAW(XSize-1,4,MORTAR_TILE,_XL_GREEN);
     
     do
     {
@@ -2334,7 +2334,7 @@ void mortar_intro_animation()
 		_move_tank();
 		display_tank();
 
-        for(i=3;i<YSize-2;++i)
+        for(i=5;i<YSize-2;++i)
         {
 			if(time_counter)
 			{
@@ -2697,7 +2697,7 @@ void display_victory_string(uint8_t color)
 do \
 { \
     ++level; \
-	PRINT_CENTERED_ON_ROW(1,"     "); \
+	PRINT_CENTERED_ON_ROW(1,"      "); \
     display_cleared(); \
     _XL_TOCK_SOUND(); \
     increase_score(LEVEL_BONUS); \

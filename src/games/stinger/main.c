@@ -191,7 +191,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};//99}; // 1,1};//91,99}; //99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};//99};//91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -2629,7 +2629,6 @@ void display_level_at_start_up(void)
 	{
 		uint8_t i;
 		
-		
 		_XL_PRINT(XSize/2-2-level, YSize/2+2, "VS");
 		for(i=0;i<=level;++i)
 		{
@@ -2684,9 +2683,6 @@ do \
 { \
     ++level; \
     display_cleared(); \
-	_XL_SET_TEXT_COLOR(_XL_WHITE); \
-	control_instructions();	\
-    sleep_and_wait_for_input(); \
     _XL_TOCK_SOUND(); \
     increase_score(LEVEL_BONUS); \
     if(powerUp) \
@@ -2701,6 +2697,8 @@ do \
         } while(powerUp); \
     } \
     \
+	_XL_SET_TEXT_COLOR(_XL_WHITE); \
+	control_instructions();	\
     sleep_and_wait_for_input(); \
     killed_heavy_tanks = 0; \
     killed_light_tanks = 0; \
@@ -2746,6 +2744,7 @@ void tank_animation(void)
 void victory_animation(void)
 {
     uint8_t i;
+	uint8_t j;
    
     // light_tanks_to_kill = XSize*2;
     // display_enemy_counter();
@@ -2763,14 +2762,30 @@ void victory_animation(void)
         // display_tank();
 		// tank_animation();
     // }	
-	for(i=0;i<XSize-1;++i)
+	for(i=0;i<XSize;++i)
 	{
-		_XL_DRAW(i,YSize/2-1,WALL_TILE,_XL_WHITE);
-		_XL_DRAW(XSize-1-i,YSize/2+1,WALL_TILE,_XL_WHITE);
+		_XL_DRAW(i,YSize/2-1,WALL_TILE,_XL_CYAN);
+		_XL_DRAW(XSize-1-i,YSize/2+1,WALL_TILE,_XL_CYAN);
 		_XL_TICK_SOUND();
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 	}	
-	_XL_SLEEP(1);
+	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);		
+
+	
+	for(j=0;j<60;++j)
+	{
+		for(i=0;i<=4;++i)
+		{
+			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+		}	
+		_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+		for(i=0;i<=4;++i)
+		{
+			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
+		}
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);		
+	}		
+	
 	_XL_SET_TEXT_COLOR(_XL_WHITE);
 	control_instructions();
     sleep_and_wait_for_input();
@@ -2899,14 +2914,7 @@ int main(void)
 					}
 					else
 					{
-						// if(level_count_down>4)
-						// {
-							level_count_down-=5;
-						// }
-						// else
-						// {
-							// level_count_down=0;
-						// }
+						level_count_down-=5;
 					}
 				}
 				else
@@ -2933,7 +2941,6 @@ int main(void)
         if(lives)
         {
             victory_animation();
-            
         }
         game_over();
     }

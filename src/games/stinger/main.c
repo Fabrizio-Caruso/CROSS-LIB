@@ -2017,7 +2017,7 @@ do \
 { \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R); \
+    PRINT_CENTERED("GAME OVER"); \
     sleep_and_wait_for_input(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -2429,7 +2429,7 @@ void tank_intro_animation()
 				--time_counter;
 				if(time_counter==1)
 				{
-					_XL_SET_TEXT_COLOR(_XL_YELLOW); \
+					_XL_SET_TEXT_COLOR(_XL_WHITE); \
 					control_instructions(); \
 				}
 			}
@@ -2668,13 +2668,14 @@ void display_cleared(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     PRINT_CENTERED("C L E A R E D");
+
 }
 
 
 void display_victory_string(uint8_t color)
 {
     _XL_SET_TEXT_COLOR(color);
-    PRINT_CENTERED("V I C T O R Y");
+    PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
 }
 
 
@@ -2683,6 +2684,8 @@ do \
 { \
     ++level; \
     display_cleared(); \
+	_XL_SET_TEXT_COLOR(_XL_WHITE); \
+	control_instructions();	\
     sleep_and_wait_for_input(); \
     _XL_TOCK_SOUND(); \
     increase_score(LEVEL_BONUS); \
@@ -2719,6 +2722,7 @@ do \
 void tank_animation(void)
 {
 	uint8_t i;
+	
     tank_y[tank_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
     tank_level[tank_x]=1;
 	tank_shape[tank_x]=0;
@@ -2739,7 +2743,7 @@ void tank_animation(void)
 }
 
 
-void victory(void)
+void victory_animation(void)
 {
     uint8_t i;
    
@@ -2759,7 +2763,16 @@ void victory(void)
         // display_tank();
 		// tank_animation();
     // }	
+	for(i=0;i<XSize-1;++i)
+	{
+		_XL_DRAW(i,YSize/2-1,WALL_TILE,_XL_WHITE);
+		_XL_DRAW(XSize-1-i,YSize/2+1,WALL_TILE,_XL_WHITE);
+		_XL_TICK_SOUND();
+		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+	}	
 	_XL_SLEEP(1);
+	_XL_SET_TEXT_COLOR(_XL_WHITE);
+	control_instructions();
     sleep_and_wait_for_input();
     _XL_CLEAR_SCREEN();
 }
@@ -2796,8 +2809,11 @@ do \
     _XL_INIT_INPUT() \
     _XL_INIT_SOUND() \
 
+
 #define LEVEL_COUNT_DOWN 255
 #define BONUS_DROP_THRESHOLD 55
+#define SECRET_ITEM_DROP_THRESHOLD 128
+
 
 int main(void)
 {
@@ -2820,7 +2836,7 @@ int main(void)
             tank_initialization();
             display_level_screen();
             
-            while(alive && level_count_down ) // Inner game loop
+            while(alive && level_count_down) // Inner game loop
             {
 
                 handle_hyper();
@@ -2872,7 +2888,7 @@ int main(void)
 									drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
 								}
 								
-								if((lives>8) && (!secretItem._active) && (level_count_down<128) )
+								if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
 								{
 									tank_x = 1+(_XL_RAND()%(XSize-2));
 									tank_y[tank_x]=2;
@@ -2883,7 +2899,14 @@ int main(void)
 					}
 					else
 					{
-						level_count_down-=4;
+						// if(level_count_down>4)
+						// {
+							level_count_down-=5;
+						// }
+						// else
+						// {
+							// level_count_down=0;
+						// }
 					}
 				}
 				else
@@ -2909,7 +2932,7 @@ int main(void)
         }
         if(lives)
         {
-            victory();
+            victory_animation();
             
         }
         game_over();

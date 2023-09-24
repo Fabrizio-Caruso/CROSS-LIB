@@ -2307,13 +2307,13 @@ void mortar_intro_animation()
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
-    tank_y[1]=4;
+    tank_y[1]=2;
     tank_level[1]=2;
 
     
 	tank_active[XSize-2]=1;    
     tank_shape[XSize-2]=0;    
-    tank_y[XSize-2]=4;
+    tank_y[XSize-2]=2;
     tank_level[XSize-2]=2;
 
 	
@@ -2324,15 +2324,7 @@ void mortar_intro_animation()
     {
 		// _XL_SET_TEXT_COLOR(_XL_WHITE);
 		// _XL_PRINTD(0,0,1,tank_shape[1]);
-		if(tank_y[1]>=YSize-3)
-		{
-			tank_y[1]=2;
-			tank_y[XSize-2]=2;
-			_XL_DELETE(1,YSize-3);
-			_XL_DELETE(XSize-2,YSize-3);
-			_XL_DELETE(1,YSize-2);
-			_XL_DELETE(XSize-2,YSize-2);			
-		}
+
 
 
         for(i=5;i<YSize-2;++i)
@@ -2344,7 +2336,17 @@ void mortar_intro_animation()
 				move_display_tank();
 
 				tank_x=XSize-2;
-				move_display_tank();	 			
+				move_display_tank();	 
+
+				if(tank_y[1]>=YSize-2)
+				{
+					tank_y[1]=2;
+					tank_y[XSize-2]=2;
+					_XL_DELETE(1,YSize-2);
+					_XL_DELETE(XSize-2,YSize-2);
+					// _XL_DELETE(1,YSize-2);
+					// _XL_DELETE(XSize-2,YSize-2);			
+				}				
 			}
 			if(time_counter)
 			{

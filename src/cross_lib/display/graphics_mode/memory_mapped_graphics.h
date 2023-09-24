@@ -103,7 +103,9 @@
 
 	void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
 
-	#define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+	void _XL_DELETE(uint8_t x,uint8_t y);
+
+	// #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 	uint16_t loc(uint8_t x, uint8_t y);
 

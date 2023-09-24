@@ -480,4 +480,9 @@ lda $a7c0
             DISPLAY_POKE(loc(x,y), (tile));
         }   
     #endif
+	
+	void _XL_DELETE(uint8_t x, uint8_t y)
+	{
+		DISPLAY_POKE(loc(x,y), _SPACE);
+	}
 #endif

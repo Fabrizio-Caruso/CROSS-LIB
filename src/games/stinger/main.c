@@ -2319,12 +2319,16 @@ void mortar_intro_animation()
     
     do
     {
+		// _XL_SET_TEXT_COLOR(_XL_WHITE);
+		// _XL_PRINTD(0,0,1,tank_shape[1]);
 		if(tank_y[1]>=YSize-3)
 		{
 			tank_y[1]=2;
 			tank_y[XSize-2]=2;
 			_XL_DELETE(1,YSize-3);
 			_XL_DELETE(XSize-2,YSize-3);
+			_XL_DELETE(1,YSize-2);
+			_XL_DELETE(XSize-2,YSize-2);			
 		}
 
 
@@ -2337,7 +2341,7 @@ void mortar_intro_animation()
 				move_display_tank();
 
 				tank_x=XSize-2;
-				move_display_tank();				
+				move_display_tank();	 			
 			}
 			if(time_counter)
 			{

@@ -2319,21 +2319,26 @@ void mortar_intro_animation()
     
     do
     {
-		if(tank_y[1]==YSize-3)
+		if(tank_y[1]>=YSize-3)
 		{
 			tank_y[1]=2;
 			tank_y[XSize-2]=2;
 			_XL_DELETE(1,YSize-3);
 			_XL_DELETE(XSize-2,YSize-3);
 		}
-		tank_x=1;
-		move_display_tank();
 
-		tank_x=XSize-2;
-		move_display_tank();
 
         for(i=5;i<YSize-2;++i)
         {
+			
+			if(!(i&7))
+			{
+				tank_x=1;
+				move_display_tank();
+
+				tank_x=XSize-2;
+				move_display_tank();				
+			}
 			if(time_counter)
 			{
 				--time_counter;

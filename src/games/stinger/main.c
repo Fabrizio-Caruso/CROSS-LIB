@@ -2471,13 +2471,15 @@ void tank_intro_animation()
             }
         }
 		++switch_counter;
-
-		for(i=0;i<3;++i)
+		if(!fire)
 		{
-			_XL_DELETE(0,YSize-2-i);
-			_XL_DELETE(XSize-1,YSize-2-i);
-			_XL_DELETE(1,1+i);
-			_XL_DELETE(XSize-2,1+i);
+			for(i=0;i<3;++i)
+			{
+				_XL_DELETE(0,YSize-2-i);
+				_XL_DELETE(XSize-1,YSize-2-i);
+				_XL_DELETE(1,1+i);
+				_XL_DELETE(XSize-2,1+i);
+			}
 		}
 
     }

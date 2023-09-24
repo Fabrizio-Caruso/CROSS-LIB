@@ -2331,7 +2331,7 @@ void mortar_intro_animation()
         for(i=5;i<YSize-2;++i)
         {
 			
-			if(!(i&7))
+			if(!(i&3))
 			{
 				tank_x=1;
 				move_display_tank();

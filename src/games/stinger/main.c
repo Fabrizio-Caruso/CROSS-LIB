@@ -161,8 +161,9 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 
 #define FEW_TANKS (2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
 
-#define MAX_NUMBER_OF_MISSILES 6
-
+#if !defined(MAX_NUMBER_OF_MISSILES)
+	#define MAX_NUMBER_OF_MISSILES 6
+#endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 #define HELP_ITEM_LEVEL_THRESHOLD 3
@@ -791,6 +792,7 @@ void display_power_ups(void)
     }
 }
 #elif !defined(_XL_NO_COLOR) // COLOR but NO TEXT COLOR
+#define STR_LEN 5
 void display_power_ups(void)
 {
     // uint8_t range_value;
@@ -850,6 +852,7 @@ void display_power_ups(void)
     }
 }
 #else // NO COLOR and NO TEXT COLOR
+#define STR_LEN 5
 void display_power_ups(void)
 {
     uint8_t speed_value;

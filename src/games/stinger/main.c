@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 6
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -2755,6 +2755,7 @@ void victory_animation(void)
 {
     uint8_t i;
 	uint8_t j;
+	uint8_t k;
 
     for(i=1;i<XSize-1;++i)
     {
@@ -2773,10 +2774,33 @@ void victory_animation(void)
 	}	
 	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);		
 
+	for(j=0;j<6;++j)
+	{
+		for(i=0;i<XSize-2;++i)
+		{
+			for(k=0;k<3;++k)
+			{
+				_XL_DRAW(i+k,YSize/2-1,WALL_TILE,_XL_YELLOW);
+				_XL_DRAW(XSize-1-i-k,YSize/2+1,WALL_TILE,_XL_YELLOW);
+			}
+			short_sleep();
+			short_sleep();
+			display_victory_string(_XL_RED);
+
+			for(k=0;k<3;++k)
+			{
+				_XL_DRAW(i+k,YSize/2-1,WALL_TILE,_XL_CYAN);
+				_XL_DRAW(XSize-1-i-k,YSize/2+1,WALL_TILE,_XL_CYAN);
+			}		
+			short_sleep();
+
+			display_victory_string(_XL_GREEN);
+
+		}
+	}		
 	
 	for(j=0;j<60;++j)
 	{
-
 		for(i=0;i<=4;++i)
 		{
 			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
@@ -2793,7 +2817,7 @@ void victory_animation(void)
 	{
 		_XL_EXPLOSION_SOUND();
 		_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_RED);
-		_XL_SLOW_DOWN(8*_XL_SLOW_DOWN_FACTOR);		
+		_XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);		
 		_XL_DELETE(XSize/2+1-level+i*2, YSize/2+2);
 	}
 	short_sleep();

@@ -87,7 +87,7 @@
 #define SECRET_ITEM_POINTS 250U
 
 #define POWER_UP_BONUS 100
-#define LEVEL_BONUS 200
+// #define LEVEL_BONUS 200
 
 
 #define RED_FIRE_POWER_VALUE 2
@@ -2377,6 +2377,7 @@ void mortar_intro_animation()
 		++switch_counter;
     }
     while(!fire);
+	_XL_ZAP_SOUND();
 }
 
 #define display_initial_screen() \
@@ -2695,7 +2696,6 @@ do \
 	PRINT_CENTERED_ON_ROW(1,"      "); \
     display_cleared(); \
     _XL_TOCK_SOUND(); \
-    increase_score(LEVEL_BONUS); \
     if(powerUp) \
     { \
         do \
@@ -2862,7 +2862,7 @@ do \
     _XL_INIT_SOUND() \
 
 
-#define LEVEL_COUNT_DOWN 255
+#define LEVEL_COUNT_DOWN 95
 #define BONUS_DROP_THRESHOLD 55
 #define SECRET_ITEM_DROP_THRESHOLD 128
 
@@ -2883,7 +2883,9 @@ int main(void)
         {            
             level_initialization();
 			
-			level_count_down=LEVEL_COUNT_DOWN;
+
+			level_count_down=LEVEL_COUNT_DOWN+level*32;
+
 
             tank_initialization();
             display_level_screen();
@@ -2898,42 +2900,43 @@ int main(void)
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
-					if(level>=LAST_LEVEL-3)
+
+					if(level_count_down==LEVEL_COUNT_DOWN+level*32)
 					{
-						if(level_count_down==LEVEL_COUNT_DOWN)
-						{
-							uint8_t i;
-							
-							for(i=0;i<9;++i)
-							{
-								_XL_SET_TEXT_COLOR(_XL_RED);
-								PRINT_CENTERED_ON_ROW(1,"BONUS ");
-								short_sleep();
-								_XL_TICK_SOUND();
-								_XL_SET_TEXT_COLOR(_XL_YELLOW);
-								PRINT_CENTERED_ON_ROW(1,"BONUS ");
-								short_sleep();
-							}
-							_XL_PING_SOUND();
-							_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-						}
-						--level_count_down;
-
-						if(level_count_down>BONUS_DROP_THRESHOLD)
-						{
-							uint8_t index;
-							
+						uint8_t i;
 						
-							for(index=0;(index<1+lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index)
-							{
-								if(!extraPointsItem[index]._active)
-								{
-									tank_x = 1+(_XL_RAND()%(XSize-2));
-									tank_y[tank_x]=2;
-									drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
-								}
-							}
+						for(i=0;i<9;++i)
+						{
+							_XL_SET_TEXT_COLOR(_XL_RED);
+							PRINT_CENTERED_ON_ROW(1,"BONUS ");
+							short_sleep();
+							_XL_TICK_SOUND();
+							_XL_SET_TEXT_COLOR(_XL_YELLOW);
+							PRINT_CENTERED_ON_ROW(1,"BONUS ");
+							short_sleep();
+						}
+						_XL_PING_SOUND();
+						_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+					}
+					// --level_count_down;
 
+					if(level_count_down>BONUS_DROP_THRESHOLD)
+					{
+						uint8_t index;
+						
+					
+						for(index=0;(index<lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index)
+						{
+							if(!extraPointsItem[index]._active)
+							{
+								tank_x = 1+(_XL_RAND()%(XSize-2));
+								tank_y[tank_x]=2;
+								drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
+							}
+						}
+						
+						if(level>=LAST_LEVEL-2)
+						{
 							if((lives>2) && (!freezeItem._active))
 							{
 								tank_x = 1+(_XL_RAND()%(XSize-2));
@@ -2941,31 +2944,29 @@ int main(void)
 								drop_item(&freezeItem,FREEZE_COOL_DOWN);
 							}
 							
-							if(level>=LAST_LEVEL-1)
-							{
-								if((lives>5) && (!powerUpItem._active))
+								if(level>=LAST_LEVEL-1)
 								{
-									tank_x = 1+(_XL_RAND()%(XSize-2));
-									tank_y[tank_x]=2;
-									drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
-								}
-								
-								if(level==LAST_LEVEL)
-								{
-									if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
+									if((lives>5) && (!powerUpItem._active))
 									{
 										tank_x = 1+(_XL_RAND()%(XSize-2));
 										tank_y[tank_x]=2;
-										drop_item(&secretItem,SECRET_COOL_DOWN);
+										drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
 									}
-								}									
-							}								
-						}
+									
+									if(level==LAST_LEVEL)
+									{
+										if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
+										{
+											tank_x = 1+(_XL_RAND()%(XSize-2));
+											tank_y[tank_x]=2;
+											drop_item(&secretItem,SECRET_COOL_DOWN);
+										}
+									}									
+								}		
+						}								
 					}
-					else
-					{
-						level_count_down-=5;
-					}
+
+				--level_count_down;
 				}
 				else
 				{

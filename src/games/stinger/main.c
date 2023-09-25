@@ -2207,21 +2207,24 @@ void reset_tanks(void)
 #if defined(_XL_NO_JOYSTICK)
     #define CONTROLS_STRING "PRESS A KEY"
 	#define CONTROLS_LEN 13
+	#define DELETE_CONTROLS "           "
 #else
     #if defined(_XL_CURSORS)
         #if XSize>=21
-            #define CONTROLS_STRING "USE CURSORS AND SPACE"
+            #define CONTROLS_STRING "PRESS A KEY"
 			#define CONTROLS_LEN 21
         #elif XSize>=19
-            #define CONTROLS_STRING "USE CURSORS AND SPC"
+            #define CONTROLS_STRING "PRESS A KEY"
 			#define CONTROLS_LEN 19
         #else
-            #define CONTROLS_STRING "CURSORS AND SPC"
+            #define CONTROLS_STRING "PRESS A KEY"
 			#define CONTROLS_LEN 15
         #endif
     #else
-        #define CONTROLS_STRING "PRESS FIRE"
+        #define CONTROLS_STRING     "PRESS FIRE"
 		#define CONTROLS_LEN 12
+		#define DELETE_CONTROLS     "          "
+
     #endif
 #endif
 
@@ -2239,8 +2242,14 @@ void reset_tanks(void)
 			PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
                                        CONTROLS_STRING);
 		}
+		void delete_instructions(void)
+		{
+			PRINT_CENTERED_ON_ROW(CONTROLS_Y,\
+                                       DELETE_CONTROLS);
+		}
     #else
         #define control_instructions()
+		#define delete_instructions()
     #endif
 
     #define display_items() \
@@ -2343,18 +2352,20 @@ void mortar_intro_animation()
 					tank_y[1]=2;
 					tank_y[XSize-2]=2;
 					_XL_DELETE(1,YSize-2);
-					_XL_DELETE(XSize-2,YSize-2);
-					// _XL_DELETE(1,YSize-2);
-					// _XL_DELETE(XSize-2,YSize-2);			
+					_XL_DELETE(XSize-2,YSize-2);	
 				}				
 			}
+			if(!(i&3))
+			{
+				delete_instructions(); 
+			}
+			else
+			{
+				control_instructions();
+			}			
 			if(time_counter)
 			{
 				--time_counter;
-				if(time_counter==1)
-				{
-					control_instructions(); \
-				}
 			}
 			
             _XL_DRAW(0,i,BULLET_TILE,_XL_WHITE);
@@ -2378,7 +2389,7 @@ void mortar_intro_animation()
     }
     while(!fire);
 	_XL_ZAP_SOUND();
-	short_sleep();
+	_XL_SLEEP(1);
 }
 
 #define display_initial_screen() \
@@ -2451,13 +2462,18 @@ void tank_intro_animation()
     {
         for(i=3;i<(YSize-5)*4;++i)
         {
+			if(!(i&3))
+			{
+				delete_instructions(); 
+
+			}
+			else
+			{
+				control_instructions();
+			}			
 			if(time_counter)
 			{
 				--time_counter;
-				if(time_counter==1)
-				{
-					control_instructions(); \
-				}
 			}
 			if(!(switch_counter&1))
 			{

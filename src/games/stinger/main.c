@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -450,7 +450,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 
 void sleep_and_wait_for_input(void)
 {
-    _XL_SLEEP(1);
+    _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
     _XL_WAIT_FOR_INPUT();
 }
 
@@ -2023,7 +2023,7 @@ do \
     PRINT_CENTERED("GAME OVER"); \
 	_XL_SLEEP(1); \
 	control_instructions(); \
-    sleep_and_wait_for_input(); \
+    tank_intro_animation(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
 
@@ -2380,7 +2380,10 @@ void mortar_intro_animation()
 }
 
 #define display_initial_screen() \
+do \
 { \
+	uint8_t i; \
+	\
     _XL_CLEAR_SCREEN(); \
     \
 	wall_color = _XL_GREEN; \
@@ -2400,7 +2403,17 @@ void mortar_intro_animation()
     \
     display_items(); \
     tank_intro_animation(); \
-}
+	_XL_ZAP_SOUND(); \
+	for(i=0;i<15;++i) \
+	{ \
+		short_sleep(); \
+		display_stinger_string(_XL_CYAN); \
+		\
+		short_sleep(); \
+		display_stinger_string(_XL_YELLOW); \
+	} \
+	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);	\
+} while(0)
 
 
 void tank_intro_animation()
@@ -2434,7 +2447,7 @@ void tank_intro_animation()
 
     do
     {
-        for(i=3;i<(YSize-4)*4;++i)
+        for(i=3;i<(YSize-5)*4;++i)
         {
 			if(time_counter)
 			{
@@ -2484,26 +2497,15 @@ void tank_intro_animation()
 		{
 			for(i=0;i<3;++i)
 			{
-				_XL_DELETE(0,YSize-2-i);
-				_XL_DELETE(XSize-1,YSize-2-i);
+				_XL_DELETE(0,YSize-3-i);
+				_XL_DELETE(XSize-1,YSize-3-i);
 				_XL_DELETE(1,1+i);
 				_XL_DELETE(XSize-2,1+i);
 			}
 		}
 
     }
-    while(!fire);
-	_XL_ZAP_SOUND();
-	for(i=0;i<15;++i)
-	{
-		short_sleep();
-		display_stinger_string(_XL_CYAN);
-
-		short_sleep();
-		display_stinger_string(_XL_YELLOW);
-	}
-	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-	
+    while(!fire);	
 }
 
 

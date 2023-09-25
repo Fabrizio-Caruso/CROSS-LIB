@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 6
+#define INITIAL_LEVEL 2
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -2896,12 +2896,22 @@ int main(void)
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
-					if(level>=LAST_LEVEL-2)
+					if(level>=LAST_LEVEL-3)
 					{
 						if(level_count_down==LEVEL_COUNT_DOWN)
 						{
-							_XL_SET_TEXT_COLOR(_XL_YELLOW);
-							PRINT_CENTERED_ON_ROW(1,"BONUS");
+							uint8_t i;
+							
+							for(i=0;i<9;++i)
+							{
+								_XL_SET_TEXT_COLOR(_XL_RED);
+								PRINT_CENTERED_ON_ROW(1,"BONUS ");
+								short_sleep();
+								_XL_TICK_SOUND();
+								_XL_SET_TEXT_COLOR(_XL_YELLOW);
+								PRINT_CENTERED_ON_ROW(1,"BONUS ");
+								short_sleep();
+							}
 							_XL_PING_SOUND();
 							_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
 						}

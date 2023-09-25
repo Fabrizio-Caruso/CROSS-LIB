@@ -66,7 +66,7 @@
 #define POWER_THRESHOLD 4
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 12
+    #define MAX_ROCKETS_ON_SCREEN 9
 #endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50

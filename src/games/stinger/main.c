@@ -767,7 +767,7 @@ void display_power_ups(void)
 		else
 		{
 			power_color = _XL_GREEN;
-			arrow_display_color = _XL_WHITE;
+			arrow_display_color = _XL_YELLOW;
 		}
 
 	}
@@ -2378,6 +2378,7 @@ void mortar_intro_animation()
     }
     while(!fire);
 	_XL_ZAP_SOUND();
+	short_sleep();
 }
 
 #define display_initial_screen() \
@@ -2724,6 +2725,7 @@ do \
     display_stinger(); \
     stinger_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
+	_XL_SLEEP(1); \
 	control_instructions(); \
     sleep_and_wait_for_input(); \
 } while(0)
@@ -2918,7 +2920,6 @@ int main(void)
 						_XL_PING_SOUND();
 						_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
 					}
-					// --level_count_down;
 
 					if(level_count_down>BONUS_DROP_THRESHOLD)
 					{
@@ -2966,7 +2967,7 @@ int main(void)
 						}								
 					}
 
-				--level_count_down;
+					--level_count_down;
 				}
 				else
 				{

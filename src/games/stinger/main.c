@@ -454,8 +454,11 @@ void sleep_and_wait_for_input(void)
     _XL_WAIT_FOR_INPUT();
 }
 
-#define POWER_X 6
-
+#if XSize>=31
+    #define POWER_X 8
+#else
+    #define POWER_X 6
+#endif
 
 #if XSize>=22
     #define POWER_UP_X 10
@@ -715,7 +718,12 @@ void recharge_effect(void)
 #define SPEED_STRING "SPEED"
 #define POWER_STRING "POWER"
 
-#define ROCKETS_X (XSize-6)
+#if XSize>=31
+    #define ROCKETS_X (XSize-7)
+#else
+    #define ROCKETS_X (XSize-6)
+#endif
+
 #define SPEED_X 0
 
 

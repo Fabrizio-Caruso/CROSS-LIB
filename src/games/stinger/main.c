@@ -127,7 +127,7 @@
 
 #define LEFT_DIRECTION 0
 #define RIGHT_DIRECTION 1
-#define ACCELERATION_THRESHOLD (XSize/2)
+#define ACCELERATION_THRESHOLD 10
 
 uint8_t level_count_down;
 

@@ -159,7 +159,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define MAX_DENSILY_OCCUPIED_COLUMNS ((XSize-2-6)-LAST_LEVEL)
 #endif
 
-#define FEW_TANKS (2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
+//(2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
 	#define MAX_NUMBER_OF_MISSILES 6
@@ -1414,15 +1414,18 @@ void spawn_heavy_tank(void)
     --heavy_tanks_to_spawn;
 }
 
-#if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
-    #if XSize>=32
-        #define NORMAL_TANK_SPEED 1
-        #define SLOW_TANK_SPEED 7
-    #else
-        #define NORMAL_TANK_SPEED 3
-        #define SLOW_TANK_SPEED 7
-    #endif 
-#endif
+// #if !defined(NORMAL_TANK_SPEED) && !defined(SLOW_TANK_SPEED)
+    // #if XSize>=32
+        // #define NORMAL_TANK_SPEED 3
+        // #define SLOW_TANK_SPEED 7
+    // #else
+#define NORMAL_TANK_SPEED 3
+#define SLOW_TANK_SPEED 1
+    // #endif 
+// #endif
+
+#define FEW_TANKS 5
+
 
 void update_tank_move_speed_mask(void)
 {
@@ -2550,12 +2553,12 @@ void display_second_screen()
 }
 
 
-#if XSize>=23
+#if XSize>=31
+    #define HI_X ((XSize-10))
+#elif XSize>=23
     #define HI_X ((XSize-9))
-    #define HISCORE_STRING _XL_H _XL_I
 #else
     #define HI_X ((XSize-8))
-    #define HISCORE_STRING _XL_H
 #endif
 
 #if XSize>=20
@@ -2566,7 +2569,27 @@ void display_second_screen()
 #endif
 
 
-#if XSize>=20
+#if XSize>=31
+    #define display_stats() \
+    do \
+    { \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        display_score(); \
+        _XL_SET_TEXT_COLOR(_XL_GREEN); \
+        _XL_PRINT(HI_X,0,"HI"); \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINTD(HI_X+2,0,5, hiscore); \
+        _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
+        _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
+        draw_tank_counter_tile(); \
+        display_remaining_arrows(); \
+        display_power_up_counter(); \
+        display_level(); \
+        display_lives(_XL_WHITE); \
+        display_power_ups(); \
+        display_enemy_counter(); \
+    } while(0)
+#elif XSize>=20
     #define display_stats() \
     do \
     { \

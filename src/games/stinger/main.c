@@ -436,6 +436,12 @@ void short_sleep(void)
 }
 
 
+void one_second(void)
+{
+    one_second();
+}
+
+
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
 	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
@@ -2032,7 +2038,7 @@ do \
     _XL_EXPLOSION_SOUND(); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
     PRINT_CENTERED("GAME OVER"); \
-	_XL_SLEEP(1); \
+	one_second(); \
 	control_instructions(); \
     tank_intro_animation(); \
     _XL_CLEAR_SCREEN(); \
@@ -2400,7 +2406,7 @@ void mortar_intro_animation()
     }
     while(!fire);
 	_XL_ZAP_SOUND();
-	_XL_SLEEP(1);
+	one_second();
 }
 
 #define display_initial_screen() \
@@ -2685,7 +2691,7 @@ void display_level_at_start_up(void)
 		}
 	}
 	
-	_XL_SLEEP(1);
+	one_second();
     control_instructions();
 	sleep_and_wait_for_input();
     _XL_PRINT(XSize/2-6, YSize/2,   "           ");
@@ -2772,7 +2778,7 @@ do \
     display_stinger(); \
     stinger_color=_XL_CYAN; \
     _XL_EXPLOSION_SOUND(); \
-	_XL_SLEEP(1); \
+	one_second(); \
 	control_instructions(); \
     sleep_and_wait_for_input(); \
 } while(0)
@@ -2863,7 +2869,7 @@ void victory_animation(void)
 		}	
 		_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);		
 	}		
-	_XL_SLEEP(1);
+	one_second();
 	for(i=0;i<=4;++i)
 	{
 		_XL_EXPLOSION_SOUND();

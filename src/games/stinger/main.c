@@ -438,7 +438,7 @@ void short_sleep(void)
 
 void one_second(void)
 {
-    one_second();
+    _XL_SLEEP(1);
 }
 
 

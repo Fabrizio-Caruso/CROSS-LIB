@@ -1425,8 +1425,8 @@ void spawn_heavy_tank(void)
         // #define NORMAL_TANK_SPEED 3
         // #define SLOW_TANK_SPEED 7
     // #else
-#define NORMAL_TANK_SPEED 3
-#define SLOW_TANK_SPEED 1
+#define NORMAL_TANK_SPEED 1
+#define SLOW_TANK_SPEED 3
     // #endif 
 // #endif
 
@@ -1435,6 +1435,7 @@ void spawn_heavy_tank(void)
 
 void update_tank_move_speed_mask(void)
 {
+	// _XL_PRINTD(0,YSize-4,2,light_tanks_to_kill + heavy_tanks_to_kill);
     if(light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS)
     {
         tank_move_speed_mask=SLOW_TANK_SPEED;
@@ -1561,7 +1562,6 @@ void respawn(void)
 		}
         display_tank();
 		
-		update_tank_move_speed_mask();
 		// handle_tank_shoot_speed_mask();
     }
 	// else
@@ -1623,6 +1623,7 @@ void tank_dies(void)
     tank_active[tank_x]=0;
     
     display_enemy_counter();
+	update_tank_move_speed_mask();
 }
 
 
@@ -2067,6 +2068,7 @@ do \
 #define level_initialization() \
 do \
 {   \
+	level_count_down=LEVEL_COUNT_DOWN+level*32; \
 	extra_points_counter = 6; \
 	fire_power = RED_FIRE_POWER_VALUE; \
 	freeze = 0; \
@@ -2922,6 +2924,76 @@ do \
 #define SECRET_ITEM_DROP_THRESHOLD 128
 
 
+#define handle_level_end() \
+	do \
+	{ \
+		if(level_count_down==LEVEL_COUNT_DOWN+level*32) \
+		{ \
+			uint8_t i; \
+			\
+			for(i=0;i<9;++i) \
+			{ \
+				_XL_SET_TEXT_COLOR(_XL_RED); \
+				PRINT_CENTERED_ON_ROW(1,"BONUS "); \
+				short_sleep(); \
+				_XL_TICK_SOUND(); \
+				_XL_SET_TEXT_COLOR(_XL_YELLOW); \
+				PRINT_CENTERED_ON_ROW(1,"BONUS "); \
+				short_sleep(); \
+			} \
+			_XL_PING_SOUND(); \
+			_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR); \
+		} \
+		\
+		if(level_count_down>BONUS_DROP_THRESHOLD) \
+		{ \
+			uint8_t index; \
+			\
+			for(index=0;(index<lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index) \
+			{ \
+				if(!extraPointsItem[index]._active) \
+				{ \
+					tank_x = 1+(_XL_RAND()%(XSize-2)); \
+					tank_y[tank_x]=2; \
+					drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN); \
+				} \
+			} \
+			\
+			if(level>=LAST_LEVEL-2) \
+			{ \
+				if((lives>2) && (!freezeItem._active)) \
+				{ \
+					tank_x = 1+(_XL_RAND()%(XSize-2)); \
+					tank_y[tank_x]=2; \
+					drop_item(&freezeItem,FREEZE_COOL_DOWN); \
+				} \
+				\
+				if(level>=LAST_LEVEL-1) \
+				{ \
+					if((lives>5) && (!powerUpItem._active)) \
+					{ \
+						tank_x = 1+(_XL_RAND()%(XSize-2)); \
+						tank_y[tank_x]=2; \
+						drop_item(&powerUpItem,POWER_UP_COOL_DOWN); \
+					} \
+					\
+					if(level==LAST_LEVEL) \
+					{ \
+						if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) ) \
+						{ \
+							tank_x = 1+(_XL_RAND()%(XSize-2)); \
+							tank_y[tank_x]=2; \
+							drop_item(&secretItem,SECRET_COOL_DOWN); \
+						} \
+					} \
+				} \
+			} \
+		} \
+		\
+		--level_count_down; \
+	} while(0)
+
+
 int main(void)
 {
 	INITIALIZE_CROSS_LIB();
@@ -2937,17 +3009,11 @@ int main(void)
         while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             level_initialization();
-			
-
-			level_count_down=LEVEL_COUNT_DOWN+level*32;
-
-
             tank_initialization();
             display_level_screen();
             
             while(alive && level_count_down) // Inner game loop
-            {
-
+            {			
                 handle_hyper();
                 handle_stinger_move();
                 handle_stinger_load();
@@ -2955,72 +3021,7 @@ int main(void)
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{
-
-					if(level_count_down==LEVEL_COUNT_DOWN+level*32)
-					{
-						uint8_t i;
-						
-						for(i=0;i<9;++i)
-						{
-							_XL_SET_TEXT_COLOR(_XL_RED);
-							PRINT_CENTERED_ON_ROW(1,"BONUS ");
-							short_sleep();
-							_XL_TICK_SOUND();
-							_XL_SET_TEXT_COLOR(_XL_YELLOW);
-							PRINT_CENTERED_ON_ROW(1,"BONUS ");
-							short_sleep();
-						}
-						_XL_PING_SOUND();
-						_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-					}
-
-					if(level_count_down>BONUS_DROP_THRESHOLD)
-					{
-						uint8_t index;
-						
-					
-						for(index=0;(index<lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index)
-						{
-							if(!extraPointsItem[index]._active)
-							{
-								tank_x = 1+(_XL_RAND()%(XSize-2));
-								tank_y[tank_x]=2;
-								drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
-							}
-						}
-						
-						if(level>=LAST_LEVEL-2)
-						{
-							if((lives>2) && (!freezeItem._active))
-							{
-								tank_x = 1+(_XL_RAND()%(XSize-2));
-								tank_y[tank_x]=2;
-								drop_item(&freezeItem,FREEZE_COOL_DOWN);
-							}
-							
-								if(level>=LAST_LEVEL-1)
-								{
-									if((lives>5) && (!powerUpItem._active))
-									{
-										tank_x = 1+(_XL_RAND()%(XSize-2));
-										tank_y[tank_x]=2;
-										drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
-									}
-									
-									if(level==LAST_LEVEL)
-									{
-										if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
-										{
-											tank_x = 1+(_XL_RAND()%(XSize-2));
-											tank_y[tank_x]=2;
-											drop_item(&secretItem,SECRET_COOL_DOWN);
-										}
-									}									
-								}		
-						}								
-					}
-
-					--level_count_down;
+					handle_level_end();
 				}
 				else
 				{

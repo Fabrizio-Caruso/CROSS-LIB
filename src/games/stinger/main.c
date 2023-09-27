@@ -29,7 +29,7 @@
 // #define DEBUG 1
 //#define TRAINER 1
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 3
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -66,7 +66,7 @@
 #define POWER_THRESHOLD 4
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 9
+    #define MAX_ROCKETS_ON_SCREEN 8
 #endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50
@@ -1431,12 +1431,11 @@ void spawn_heavy_tank(void)
 // #endif
 
 #define FEW_TANKS 5
-
+#define MANY_TANKS 60
 
 void update_tank_move_speed_mask(void)
 {
-	// _XL_PRINTD(0,YSize-4,2,light_tanks_to_kill + heavy_tanks_to_kill);
-    if(light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS)
+    if(!powerUp || (light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS) || (light_tanks_to_kill + heavy_tanks_to_kill>=MANY_TANKS) )
     {
         tank_move_speed_mask=SLOW_TANK_SPEED;
     }
@@ -2326,6 +2325,13 @@ void display_stinger_string(uint8_t color)
 }
 
 
+void display_enemies_string(uint8_t color)
+{
+	_XL_SET_TEXT_COLOR(color);
+	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
+}
+
+
 void mortar_intro_animation()
 {
     uint8_t i;
@@ -2351,13 +2357,9 @@ void mortar_intro_animation()
     do
     {
 		// _XL_SET_TEXT_COLOR(_XL_WHITE);
-		// _XL_PRINTD(0,0,1,tank_shape[1]);
-
-
 
         for(i=5;i<YSize-2;++i)
         {
-			
 			if(!(i&3))
 			{
 				tank_x=1;
@@ -2373,15 +2375,13 @@ void mortar_intro_animation()
 					_XL_DELETE(1,YSize-2);
 					_XL_DELETE(XSize-2,YSize-2);	
 				}				
-			}
-			if(!(i&3))
-			{
 				delete_instructions(); 
 			}
 			else
 			{
 				control_instructions();
-			}			
+			}
+
 			if(time_counter)
 			{
 				--time_counter;
@@ -2389,18 +2389,25 @@ void mortar_intro_animation()
 			
             _XL_DRAW(0,i,BULLET_TILE,_XL_WHITE);
             _XL_DRAW(XSize-1,i,BULLET_TILE,_XL_WHITE);
+			display_enemies_string(_XL_CYAN);
+
             if((!time_counter) && (fire =_XL_FIRE(_XL_INPUT())))
             {
                 break;
             }
+			// short_sleep();
+
             short_sleep();
+			display_enemies_string(_XL_RED);
+
             _XL_DELETE(0,i);
             _XL_DELETE(XSize-1,i);
+
         }
 
 		_XL_DRAW(0,YSize-2,EXPLOSION_TILE,_XL_RED);
 		_XL_DRAW(XSize-1,YSize-2,EXPLOSION_TILE,_XL_RED);
-		_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+		_XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
 		_XL_DELETE(0,YSize-2);
 		_XL_DELETE(XSize-1,YSize-2);
 
@@ -2414,8 +2421,6 @@ void mortar_intro_animation()
 #define display_initial_screen() \
 do \
 { \
-	uint8_t i; \
-	\
     _XL_CLEAR_SCREEN(); \
     \
 	wall_color = _XL_GREEN; \
@@ -2428,23 +2433,14 @@ do \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
-    display_stinger_string(_XL_RED); \
-    \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
     tank_intro_animation(); \
 	_XL_ZAP_SOUND(); \
-	for(i=0;i<15;++i) \
-	{ \
-		short_sleep(); \
-		display_stinger_string(_XL_CYAN); \
-		\
-		short_sleep(); \
-		display_stinger_string(_XL_YELLOW); \
-	} \
-	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);	\
+	display_stinger_string(_XL_CYAN); \
+	one_second();	\
 } while(0)
 
 
@@ -2481,6 +2477,7 @@ void tank_intro_animation()
     {
         for(i=3;i<(YSize-5)*4;++i)
         {
+			display_stinger_string(_XL_RED);
 			if(!(i&3))
 			{
 				delete_instructions(); 
@@ -2523,7 +2520,9 @@ void tank_intro_animation()
 				push_display_tank();
 			}
             			
+			display_stinger_string(_XL_YELLOW);
             short_sleep();
+
             if((!time_counter) && (fire=_XL_FIRE(_XL_INPUT())))
             {
                 break;
@@ -2553,8 +2552,6 @@ void display_second_screen()
 	wall_color = _XL_YELLOW;
     display_wall(0);
     display_wall(BOTTOM_WALL_Y+1);
-	_XL_SET_TEXT_COLOR(_XL_CYAN);
-	PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
 	display_enemies();
     mortar_intro_animation();
     _XL_CLEAR_SCREEN(); \

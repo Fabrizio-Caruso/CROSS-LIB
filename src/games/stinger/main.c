@@ -1695,18 +1695,17 @@ uint8_t tank_hit(void)
 }
 
 
-#define decrease_energy() \
-do \
-{ \
-    if(energy[tank_x]<=fire_power) \
-    { \
-        energy[tank_x]=0; \
-    } \
-    else \
-    { \
-        energy[tank_x]-=fire_power; \
-    } \
-} while(0)
+void decrease_energy(void)
+{
+    if(energy[tank_x]<=fire_power)
+    {
+        energy[tank_x]=0;
+    }
+    else
+    {
+        energy[tank_x]-=fire_power;
+    }
+}
 
 
 void push_tank(void)

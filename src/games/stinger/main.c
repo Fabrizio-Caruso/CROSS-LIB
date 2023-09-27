@@ -47,11 +47,6 @@
     #define WALL_Y ((YSize)-6)
 #endif
 
-// #if YSize>=16
-    // #define INITIAL_TANK_Y (((YSize)/2)-1)
-// #else
-    // #define INITIAL_TANK_Y (((YSize)/2))
-// #endif
 
 #if YSize>=18
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-5)
@@ -435,6 +430,11 @@ void short_sleep(void)
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 }
 
+void less_short_sleep(void)
+{
+	_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
+}
+
 
 void one_second(void)
 {
@@ -456,7 +456,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 
 void sleep_and_wait_for_input(void)
 {
-    _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
+    less_short_sleep();
     _XL_WAIT_FOR_INPUT();
 }
 
@@ -1256,7 +1256,7 @@ void handle_artillery_shell(void)
 			// _XL_DRAW(artillery_shell_x-1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			_XL_DRAW(artillery_shell_x,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
 			// _XL_DRAW(artillery_shell_x+1,artillery_shell_y,EXPLOSION_TILE,_XL_RED);
-			_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
+			less_short_sleep();
             if(artillery_shell_x==player_x) // || artillery_shell_x==player_x-1 || artillery_shell_x==player_x+1)
             {
                 alive=0;
@@ -1349,7 +1349,7 @@ void activate_tank(void)
 	}
 	_XL_DRAW(tank_x, tank_y[tank_x], TANK_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
-	_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);
+	less_short_sleep();
 	tank_active[tank_x]=1;    
     tank_shape[tank_x]=0;
 }
@@ -2828,7 +2828,7 @@ void victory_animation(void)
 		_XL_TICK_SOUND();
 		short_sleep();
 	}	
-	_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);		
+	less_short_sleep();		
 
 	for(j=0;j<6;++j)
 	{
@@ -2866,7 +2866,7 @@ void victory_animation(void)
 		{
 			_XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
 		}	
-		_XL_SLOW_DOWN(3*_XL_SLOW_DOWN_FACTOR);		
+		less_short_sleep();		
 	}		
 	one_second();
 	for(i=0;i<=4;++i)
@@ -2939,7 +2939,7 @@ do \
 				short_sleep(); \
 			} \
 			_XL_PING_SOUND(); \
-			_XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR); \
+			less_short_sleep(); \
 		} \
 		\
 		if(level_count_down>BONUS_DROP_THRESHOLD) \

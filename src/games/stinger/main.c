@@ -61,7 +61,7 @@
 #define POWER_THRESHOLD 4
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 8
+    #define MAX_ROCKETS_ON_SCREEN 7
 #endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50
@@ -157,7 +157,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 //(2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
-	#define MAX_NUMBER_OF_MISSILES 6
+	#define MAX_NUMBER_OF_MISSILES 5
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
@@ -1731,6 +1731,8 @@ void push_display_tank(void)
 }
 
 
+#define CLOSE_HIT_THRESHOLD (STINGER_Y-2)
+
 void handle_tank_collisions(void)
 {
     for(tank_x=0;tank_x<XSize;++tank_x)
@@ -1738,6 +1740,10 @@ void handle_tank_collisions(void)
         if(tank_active[tank_x] && tank_hit())
         {
             decrease_energy();
+			if(tank_y[tank_x]>=CLOSE_HIT_THRESHOLD)
+			{
+				decrease_energy();
+			}
 
             if(energy[tank_x])
             {

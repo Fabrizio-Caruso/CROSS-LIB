@@ -103,7 +103,7 @@
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
-#define GREEN_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-1)
+#define MAX_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-1)
 
 // #define INITIAL_ROCKET_RANGE ((INITIAL_TANK_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
@@ -248,9 +248,9 @@ const uint8_t tank_points[] =
  uint8_t auto_recharge_counter;
 
 #if !defined(_XL_NO_COLOR)
-     uint8_t arrow_display_color;
+     uint8_t rocket_display_color;
 #else
-    #define arrow_display_color _DUMMY_
+    #define rocket_display_color _DUMMY_
 #endif
 
 #if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
@@ -258,13 +258,13 @@ const uint8_t tank_points[] =
 #endif
 
 #if !defined(_XL_NO_COLOR)
- const uint8_t arrow_color[3] = {_XL_CYAN, _XL_WHITE, _XL_YELLOW };
+ const uint8_t rocket_color[3] = {_XL_CYAN, _XL_WHITE, _XL_YELLOW };
 #endif
 
  uint8_t freeze;
  uint8_t powerUp;
 
- uint8_t number_of_arrows_per_shot;
+ uint8_t number_of_rockets_per_shot;
 
  uint8_t tank_y_array[XSize];
  uint8_t tank_shape[XSize];
@@ -325,7 +325,7 @@ uint8_t tank_move_speed_mask;
     LOADED_STINGER_RIGHT_TILE_1,
 };
 
- const uint8_t arrow_tile[2] =
+ const uint8_t rocket_tile[2] =
 {
     ROCKET_TILE_0,
     ROCKET_TILE_1,
@@ -338,17 +338,17 @@ uint8_t tank_move_speed_mask;
  uint8_t input;
 
  uint8_t loaded_stinger;
- uint8_t active_arrow[MAX_ROCKETS_ON_SCREEN];
- uint8_t arrow_shape[MAX_ROCKETS_ON_SCREEN];
- uint8_t arrow_x[MAX_ROCKETS_ON_SCREEN];
- uint8_t arrow_y[MAX_ROCKETS_ON_SCREEN];
- uint8_t remaining_arrows;
- // uint8_t arrow_range;
+ uint8_t active_rocket[MAX_ROCKETS_ON_SCREEN];
+ uint8_t rocket_shape[MAX_ROCKETS_ON_SCREEN];
+ uint8_t rocket_x[MAX_ROCKETS_ON_SCREEN];
+ uint8_t rocket_y[MAX_ROCKETS_ON_SCREEN];
+ uint8_t remaining_rockets;
+ // uint8_t rocket_range;
 
  uint8_t stinger_reload_loops;
 
- uint8_t next_arrow;
- uint8_t arrows_on_screen;
+ uint8_t next_rocket;
+ uint8_t rockets_on_screen;
  uint8_t stinger_load_counter;
  uint8_t alive;
 
@@ -502,11 +502,11 @@ void display_power_up_counter(void)
 	 #define display_enemy_counter()
 #endif
 
-void display_remaining_arrows(void)
+void display_remaining_rockets(void)
 {
     uint8_t color;
     
-    if(remaining_arrows<20)
+    if(remaining_rockets<20)
     {
         color = _XL_RED;
     }
@@ -515,18 +515,18 @@ void display_remaining_arrows(void)
         color = _XL_WHITE;
     }
     _XL_SET_TEXT_COLOR(color);
-    _XL_PRINTD(7,0,2,remaining_arrows);
+    _XL_PRINTD(7,0,2,remaining_rockets);
 }
 
 
-void recharge_arrows(uint8_t value)
+void recharge_rockets(uint8_t value)
 {
-    remaining_arrows+=value;
-    if(remaining_arrows>MAX_ROCKETS)
+    remaining_rockets+=value;
+    if(remaining_rockets>MAX_ROCKETS)
     {
-        remaining_arrows=MAX_ROCKETS;
+        remaining_rockets=MAX_ROCKETS;
     }
-    display_remaining_arrows();
+    display_remaining_rockets();
 }
 
 
@@ -712,7 +712,7 @@ void increase_score(uint8_t value)
 
 void recharge_effect(void)
 {
-    recharge_arrows(ROCKET_RECHARGE);
+    recharge_rockets(ROCKET_RECHARGE);
     increase_score(RECHARGE_POINTS);
 	PRINT_CENTERED_ON_ROW(2,"        "); \
 
@@ -762,7 +762,7 @@ void display_power_ups(void)
     uint8_t i;
     
     speed_color = _XL_RED;
-    arrow_display_color = _XL_CYAN;
+    rocket_display_color = _XL_CYAN;
     power_color = _XL_RED;
     
 	if(powerUp<2) // speed
@@ -776,12 +776,12 @@ void display_power_ups(void)
 		if(powerUp<4)
 		{
 			power_color = power_up_color[powerUp-2];
-			arrow_display_color = arrow_color[powerUp-2];
+			rocket_display_color = rocket_color[powerUp-2];
 		}
 		else
 		{
 			power_color = _XL_GREEN;
-			arrow_display_color = _XL_YELLOW;
+			rocket_display_color = _XL_YELLOW;
 		}
 
 	}
@@ -794,9 +794,9 @@ void display_power_ups(void)
 
     for(i=0;i<3;++i)
     {
-        if(i<=number_of_arrows_per_shot-1)
+        if(i<=number_of_rockets_per_shot-1)
         {
-           color = arrow_display_color;
+           color = rocket_display_color;
         }
         else
         {
@@ -816,7 +816,7 @@ void display_power_ups(void)
     
     uint8_t i;
     
-    arrow_display_color = _XL_CYAN;    
+    rocket_display_color = _XL_CYAN;    
     speed_value = 1;
     power_value = 1;
     
@@ -835,12 +835,12 @@ void display_power_ups(void)
                 if(powerUp<9)
                 {
                     power_value = powerUp+1-6;
-                    arrow_display_color = arrow_color[powerUp-6];
+                    rocket_display_color = rocket_color[powerUp-6];
                 }
                 else
                 {
                     power_value = 3;
-                    arrow_display_color = _XL_WHITE;
+                    rocket_display_color = _XL_WHITE;
                 }
             }
         }
@@ -854,9 +854,9 @@ void display_power_ups(void)
 
     for(i=0;i<3;++i)
     {
-        if(i<=number_of_arrows_per_shot-1)
+        if(i<=number_of_rockets_per_shot-1)
         {
-           color = arrow_display_color;
+           color = rocket_display_color;
         }
         else
         {
@@ -904,7 +904,7 @@ void display_power_ups(void)
     _XL_PRINT(POWER_X,POWER_UPS_Y,POWER_STRING);
     _XL_PRINTD(POWER_X+STR_LEN,POWER_UPS_Y,1,power_value);
 
-    for(i=0;i<number_of_arrows_per_shot;++i)
+    for(i=0;i<number_of_rockets_per_shot;++i)
     {
         _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,_XL_CYAN);
     }
@@ -915,18 +915,18 @@ void display_power_ups(void)
 #define activate_hyper() \
 { \
     _XL_ZAP_SOUND(); \
-    recharge_arrows(HYPER_RECHARGE); \
+    recharge_rockets(HYPER_RECHARGE); \
     hyper_counter = MAX_HYPER_COUNTER; \
     stinger_color = level_color[(level+1)&1]; \
     _XL_SET_TEXT_COLOR(_XL_CYAN); \
     if(powerUp>5) \
     { \
-        number_of_arrows_per_shot=3; \
+        number_of_rockets_per_shot=3; \
 		PRINT_CENTERED_ON_ROW(1,"TRIPLE"); \
     } \
     else \
     { \
-        number_of_arrows_per_shot=2; \
+        number_of_rockets_per_shot=2; \
 		PRINT_CENTERED_ON_ROW(1,"DOUBLE"); \
     } \
 }
@@ -1638,39 +1638,39 @@ void tank_dies(void)
 }
 
 
-#define compute_next_available_arrow_index() \
-    for(next_arrow=0;next_arrow<MAX_ROCKETS_ON_SCREEN;++next_arrow) \
+#define compute_next_available_rocket_index() \
+    for(next_rocket=0;next_rocket<MAX_ROCKETS_ON_SCREEN;++next_rocket) \
     { \
-        if(!active_arrow[next_arrow]) \
+        if(!active_rocket[next_rocket]) \
         { \
             break; \
         } \
     }
 
 
-void handle_arrows(void)
+void handle_rockets(void)
 {
     uint8_t i;
     
     for(i=0;i<MAX_ROCKETS_ON_SCREEN;++i)
     {
-        if(active_arrow[i]) // ACTIVE
+        if(active_rocket[i]) // ACTIVE
         {    
-            if(arrow_y[i]<GREEN_RANGE_VALUE)
+            if(rocket_y[i]<MAX_RANGE_VALUE)
             {
-                active_arrow[i]=0;
-                --arrows_on_screen;
+                active_rocket[i]=0;
+                --rockets_on_screen;
             }
             else
             {
-                _XL_DELETE(arrow_x[i],arrow_y[i]);
-                --arrow_y[i];
-                if(arrow_y[i]>=GREEN_RANGE_VALUE)
+                _XL_DELETE(rocket_x[i],rocket_y[i]);
+                --rocket_y[i];
+                if(rocket_y[i]>=MAX_RANGE_VALUE)
                 {
                     #if !defined(_XL_NO_COLOR)
-                    _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],arrow_display_color);
+                    _XL_DRAW(rocket_x[i],rocket_y[i],rocket_shape[i],rocket_display_color);
                     #else
-                    _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],0);
+                    _XL_DRAW(rocket_x[i],rocket_y[i],rocket_shape[i],0);
                     #endif
                 }
             }
@@ -1685,21 +1685,21 @@ uint8_t tank_hit(void)
     
     for(i=0;i<MAX_ROCKETS_ON_SCREEN;++i)
     {
-        if(active_arrow[i] && arrow_x[i]==tank_x
-          && tank_y_array[tank_x]>=arrow_y[i]-1 && tank_y_array[tank_x]<=arrow_y[i]+1)
+        if(active_rocket[i] && rocket_x[i]==tank_x
+          && tank_y_array[tank_x]>=rocket_y[i]-1 && tank_y_array[tank_x]<=rocket_y[i]+1)
            {
                if(freeze || (tank_level[tank_x]!=2) || tank_shape[tank_x])
                {
-                   active_arrow[i]=0;
-                    --arrows_on_screen;
+                   active_rocket[i]=0;
+                    --rockets_on_screen;
 
-                   _XL_DELETE(arrow_x[i],arrow_y[i]);
+                   _XL_DELETE(rocket_x[i],rocket_y[i]);
                    return 1;
                }
-               else // Arrows goes through ghost !free (non-frozen) && tank_level==2 (i.e., ghost tank) && !tank_shape (i.e. invincible shape)
+               else // rockets goes through ghost !free (non-frozen) && tank_level==2 (i.e., ghost tank) && !tank_shape (i.e. invincible shape)
                {
                    display_tank(); // display invincible ghost tank
-                   return 0; // two arrows cannot be at the same place
+                   return 0; // two rockets cannot be at the same place
                }
            }
     }
@@ -1887,7 +1887,7 @@ void move_tanks(void)
 #define handle_stinger_load() \
 do \
 { \
-    if(!loaded_stinger && arrows_on_screen<MAX_ROCKETS_ON_SCREEN && !stinger_load_counter && remaining_arrows) \
+    if(!loaded_stinger && rockets_on_screen<MAX_ROCKETS_ON_SCREEN && !stinger_load_counter && remaining_rockets) \
     { \
         loaded_stinger = 1; \
         display_stinger(); \
@@ -1902,16 +1902,16 @@ do \
 void fire(void)
 {
     uint8_t i;
-    uint8_t new_arrow_x;  
+    uint8_t new_rocket_x;  
     uint8_t offset;
     
     _XL_TICK_SOUND();
-    new_arrow_x = (stinger_x>>1)+(stinger_x&1);
-    for(i=0;i<number_of_arrows_per_shot;++i)
+    new_rocket_x = (stinger_x>>1)+(stinger_x&1);
+    for(i=0;i<number_of_rockets_per_shot;++i)
     {
-        if(remaining_arrows && arrows_on_screen<MAX_ROCKETS_ON_SCREEN)
+        if(remaining_rockets && rockets_on_screen<MAX_ROCKETS_ON_SCREEN)
         {
-            if((number_of_arrows_per_shot==2)&&i)
+            if((number_of_rockets_per_shot==2)&&i)
             {
                 offset = i-2*(stinger_x&1);
             }
@@ -1919,41 +1919,41 @@ void fire(void)
             {
                 offset = i;
             }
-            new_arrow_x+=offset;
+            new_rocket_x+=offset;
             if(i==2)
             {
-                if(new_arrow_x>=4)
+                if(new_rocket_x>=4)
                 {
-                    new_arrow_x-=4; 
+                    new_rocket_x-=4; 
                 }
                 else
                 {
                     continue;
                 }
             }
-            if(new_arrow_x<XSize-1 && new_arrow_x)
+            if(new_rocket_x<XSize-1 && new_rocket_x)
             {
-                compute_next_available_arrow_index();
+                compute_next_available_rocket_index();
 
-                active_arrow[next_arrow] = 1;
-                ++arrows_on_screen;
-                if(number_of_arrows_per_shot==2)
+                active_rocket[next_rocket] = 1;
+                ++rockets_on_screen;
+                if(number_of_rockets_per_shot==2)
                 {
-                    arrow_shape[next_arrow] = arrow_tile[!(stinger_x&1)];
+                    rocket_shape[next_rocket] = rocket_tile[!(stinger_x&1)];
                 }
                 else
                 {
-                    arrow_shape[next_arrow] = arrow_tile[stinger_x&1];
+                    rocket_shape[next_rocket] = rocket_tile[stinger_x&1];
                 }
-                arrow_y[next_arrow] = STINGER_Y-1;
-                arrow_x[next_arrow] = new_arrow_x;
+                rocket_y[next_rocket] = STINGER_Y-1;
+                rocket_x[next_rocket] = new_rocket_x;
                 #if !defined(TRAINER)
-                    --remaining_arrows;
+                    --remaining_rockets;
                 #endif
             }
         }
     }
-    display_remaining_arrows();
+    display_remaining_rockets();
 
     stinger_load_counter = stinger_reload_loops;
     loaded_stinger = 0;
@@ -2094,8 +2094,8 @@ do \
 	acceleration = 0; \
 	acceleration_counter = 0; \
 	powerUp = 0; \
-	next_arrow = 0; \
-	arrows_on_screen = 0; \
+	next_rocket = 0; \
+	rockets_on_screen = 0; \
 	stinger_load_counter = 0; \
 	hyper_counter = 0; \
 	forced_tank = 0; \
@@ -2113,11 +2113,11 @@ do \
 	} \
 	stinger_reload_loops = RED_SPEED_VALUE; \
 	auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN; \
-	remaining_arrows = MAX_ROCKETS; \
+	remaining_rockets = MAX_ROCKETS; \
 	stinger_x = XSize; \
 	stinger_shape_tile = (uint8_t) 2*((stinger_x)&1); \
 	stinger_color = _XL_CYAN; \
-	number_of_arrows_per_shot = 1; \
+	number_of_rockets_per_shot = 1; \
 	if(level>=4) \
 	{ \
 		tank_shoot_speed_mask = VERY_FAST_TANK_SHOOT_MASK; \
@@ -2231,7 +2231,7 @@ void reset_tanks(void)
     \
     for(tank_x=0;tank_x<MAX_ROCKETS_ON_SCREEN;++tank_x) \
     { \
-        active_arrow[tank_x] = 0; \
+        active_rocket[tank_x] = 0; \
     } \
 }
 
@@ -2607,7 +2607,7 @@ void display_second_screen()
         _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
         draw_tank_counter_tile(); \
-        display_remaining_arrows(); \
+        display_remaining_rockets(); \
         display_power_up_counter(); \
         display_level(); \
         display_lives(_XL_WHITE); \
@@ -2627,7 +2627,7 @@ void display_second_screen()
         _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
         draw_tank_counter_tile(); \
-        display_remaining_arrows(); \
+        display_remaining_rockets(); \
         display_power_up_counter(); \
         display_level(); \
         display_lives(_XL_WHITE); \
@@ -2643,7 +2643,7 @@ void display_second_screen()
         _XL_DRAW(6,0,ROCKET_TILE_1,_XL_CYAN); \
         _XL_DRAW(POWER_UP_X,0,POWER_UP_TILE, _XL_WHITE); \
         draw_tank_counter_tile(); \
-        display_remaining_arrows(); \
+        display_remaining_rockets(); \
         display_power_up_counter(); \
         display_level(); \
         display_lives(_XL_WHITE); \
@@ -2656,7 +2656,7 @@ void display_second_screen()
 
 void handle_auto_recharge(void)
 {
-    if(!remaining_arrows)
+    if(!remaining_rockets)
     {
 		_XL_SET_TEXT_COLOR(_XL_RED);
 		PRINT_CENTERED_ON_ROW(2,"RECHARGE"); \
@@ -2922,7 +2922,7 @@ do \
         if(!hyper_counter) \
         { \
             stinger_color = _XL_CYAN; \
-            number_of_arrows_per_shot=1; \
+            number_of_rockets_per_shot=1; \
 			PRINT_CENTERED_ON_ROW(1,"      "); \
             display_power_ups(); \
         } \
@@ -3049,7 +3049,7 @@ int main(void)
                 handle_hyper();
                 handle_stinger_move();
                 handle_stinger_load();
-                handle_arrows(); 
+                handle_rockets(); 
                 handle_auto_recharge();
 				if(!light_tanks_to_kill && !heavy_tanks_to_kill)
 				{

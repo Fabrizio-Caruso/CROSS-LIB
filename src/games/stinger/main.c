@@ -35,6 +35,12 @@
 #define INITIAL_LIVES 3
 #define MAX_LIVES 9
 
+#if !defined(MAX_NUMBER_OF_MISSILES)
+	#define MAX_NUMBER_OF_MISSILES 7
+#endif
+#define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
+
+
 #define NEXT_EXTRA_LIFE 5000U
 
 #define STINGER_Y ((YSize)-3)
@@ -154,12 +160,6 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define MAX_DENSILY_OCCUPIED_COLUMNS ((XSize-2-6)-LAST_LEVEL)
 #endif
 
-//(2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
-
-#if !defined(MAX_NUMBER_OF_MISSILES)
-	#define MAX_NUMBER_OF_MISSILES 7
-#endif
-#define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 #define HELP_ITEM_LEVEL_THRESHOLD 3
 #define HELP_ITEM_POWER_THRESHOLD 1
@@ -266,7 +266,7 @@ const uint8_t tank_points[] =
 
  uint8_t number_of_arrows_per_shot;
 
- uint8_t tank_y[XSize];
+ uint8_t tank_y_array[XSize];
  uint8_t tank_shape[XSize];
  uint8_t tank_x; // To be used as an index to the current tank
  uint8_t tank_active[XSize];
@@ -574,7 +574,7 @@ void display_stinger(void)
 void display_tank(void)
 {
     uint8_t status = tank_shape[tank_x];
-    uint8_t pos = tank_y[tank_x];
+    uint8_t pos = tank_y_array[tank_x];
     uint8_t color;
     uint8_t tile0;
 
@@ -622,7 +622,7 @@ void display_tank(void)
 	{
 		if(!status)
 		{
-			_XL_DELETE(tank_x, tank_y[tank_x]-1);
+			_XL_DELETE(tank_x, tank_y_array[tank_x]-1);
 			_XL_DRAW(tank_x, pos, tile0, color);
 		}
 		else
@@ -652,7 +652,7 @@ void display_tank(void)
 			}
 			else
 			{
-				if((tank_y[tank_x])&1)
+				if((tank_y_array[tank_x])&1)
 				{
 					tile0 = HEAVY_TANK_TILE_0;
 				}
@@ -1144,7 +1144,7 @@ void drop_item(register Item *item, uint8_t max_counter)
 {
     uint8_t offset;
 
-    offset = tank_y[tank_x]+1;
+    offset = tank_y_array[tank_x]+1;
     
     _XL_TICK_SOUND();
     item->_active = 1;
@@ -1162,12 +1162,12 @@ void drop_item(register Item *item, uint8_t max_counter)
 
 void artillery_fire(void)
 {
-	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_WHITE);
-	artillery_shell_y = tank_y[tank_x]+1;
+	_XL_DRAW(tank_x,tank_y_array[tank_x],MORTAR_TILE,_XL_WHITE);
+	artillery_shell_y = tank_y_array[tank_x]+1;
 	_XL_TOCK_SOUND();
 	artillery_shell_active = 1;
 	artillery_shell_x = tank_x;
-	_XL_DRAW(tank_x,tank_y[tank_x],MORTAR_TILE,_XL_GREEN);
+	_XL_DRAW(tank_x,tank_y_array[tank_x],MORTAR_TILE,_XL_GREEN);
 
 }
 
@@ -1352,13 +1352,13 @@ void activate_tank(void)
 
 	if(rank==4)
 	{
-		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y-1;
+		tank_y_array[tank_x]=INITIAL_RESPAWN_TANK_Y-1;
 	}
 	else
 	{
-		tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y+(level>>1);
+		tank_y_array[tank_x]=INITIAL_RESPAWN_TANK_Y+(level>>1);
 	}
-	_XL_DRAW(tank_x, tank_y[tank_x], TANK_DEATH_TILE, _XL_WHITE);
+	_XL_DRAW(tank_x, tank_y_array[tank_x], TANK_DEATH_TILE, _XL_WHITE);
 	_XL_TOCK_SOUND();
 	less_short_sleep();
 	tank_active[tank_x]=1;    
@@ -1470,7 +1470,7 @@ void display_wall(uint8_t y)
 
 #define _display_red_tank(tile) \
 { \
-    _XL_DRAW(tank_x,tank_y[tank_x],tile,_XL_RED); \
+    _XL_DRAW(tank_x,tank_y_array[tank_x],tile,_XL_RED); \
 }
 
 
@@ -1585,7 +1585,7 @@ void respawn(void)
 
 void tank_dies(void)
 {
-    uint8_t y_pos = tank_y[tank_x];
+    uint8_t y_pos = tank_y_array[tank_x];
     uint8_t i;
 
     _XL_DELETE(tank_x,y_pos+1);
@@ -1686,7 +1686,7 @@ uint8_t tank_hit(void)
     for(i=0;i<MAX_ROCKETS_ON_SCREEN;++i)
     {
         if(active_arrow[i] && arrow_x[i]==tank_x
-          && tank_y[tank_x]>=arrow_y[i]-1 && tank_y[tank_x]<=arrow_y[i]+1)
+          && tank_y_array[tank_x]>=arrow_y[i]-1 && tank_y_array[tank_x]<=arrow_y[i]+1)
            {
                if(freeze || (tank_level[tank_x]!=2) || tank_shape[tank_x])
                {
@@ -1724,13 +1724,13 @@ void push_tank(void)
 {
     if(!tank_shape[tank_x])
     {
-        --tank_y[tank_x];
+        --tank_y_array[tank_x];
         tank_shape[tank_x]=3;
     }
     else 
     {
         --tank_shape[tank_x];
-        _XL_DELETE(tank_x,tank_y[tank_x]+1);
+        _XL_DELETE(tank_x,tank_y_array[tank_x]+1);
     }
 }
 
@@ -1748,10 +1748,11 @@ void handle_tank_collisions(void)
 {
     for(tank_x=0;tank_x<XSize;++tank_x)
     {
+		
         if(tank_active[tank_x] && tank_hit())
         {
             decrease_energy();
-			// if(tank_y[tank_x]>=CLOSE_HIT_THRESHOLD)
+			// if(tank_y_array[tank_x]>=CLOSE_HIT_THRESHOLD)
 			// {
 				// decrease_energy();
 			// }
@@ -1762,13 +1763,13 @@ void handle_tank_collisions(void)
 				short_sleep();
 				
 				_XL_TOCK_SOUND();				
-				if(tank_level[tank_x]<=3)
+				if(tank_level[tank_x]<=MAX_TANK_LEVEL)
 				{
 					// push_tank();
 					// display_tank();
 					push_display_tank();
 					#if defined(_XL_NO_UDG)
-					_XL_DELETE(tank_x,tank_y[tank_x]+1);
+					_XL_DELETE(tank_x,tank_y_array[tank_x]+1);
 					#endif
 				}
 				else
@@ -1793,7 +1794,7 @@ void move_tank(void)
     (tank_shape[tank_x])&=3;
     if(!tank_shape[tank_x])
         {
-            ++tank_y[tank_x];
+            ++tank_y_array[tank_x];
         }
 }
 
@@ -1822,9 +1823,9 @@ void handle_missile_drops(void)
             
             if(tank_active[tank_x])
             {
-                if(tank_level[tank_x]<=3)
+                if(tank_level[tank_x]<=MAX_TANK_LEVEL)
                 {
-                    if(tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_shoot_speed_mask))))
+                    if(tank_y_array[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_shoot_speed_mask))))
                     {
                         drop_item(&enemyMissile[missile_index],EXPLOSION_THRESHOLD+1);
                     }
@@ -1842,6 +1843,8 @@ void handle_missile_drops(void)
 } 
 
 
+#define FORCED_TANK_MASK 15
+
 void move_tanks(void)
 {    
     if(forced_tank) // There is a tank that should keep on moving
@@ -1857,11 +1860,11 @@ void move_tanks(void)
 		}
     }
 
-	if (((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y[tank_x]!=STINGER_Y-1))
+	if (((tank_level[tank_x]==2)&&(tank_shape[tank_x]&1))&&(tank_y_array[tank_x]!=STINGER_Y-1))
 	{
         forced_tank = 0;
 	}
-	else if((tank_y[tank_x]>=HEIGHT_SHOOT_THRESHOLD) || (_XL_RAND()&15))
+	else if((tank_y_array[tank_x]>=HEIGHT_SHOOT_THRESHOLD) || (_XL_RAND()&FORCED_TANK_MASK))
 	{
 		forced_tank = 1;
 		forced_tank_x = tank_x;
@@ -1873,7 +1876,7 @@ void move_tanks(void)
 
 	move_display_tank();
 
-    if((tank_y[tank_x]==STINGER_Y))
+    if((tank_y_array[tank_x]==STINGER_Y))
     {
         alive = 0;
         display_red_tank();
@@ -2142,7 +2145,7 @@ do \
 
 void initialize_tank_at_level_restart(void)
 {
-    // tank_y[tank_x]=INITIAL_RESPAWN_TANK_Y;
+    // tank_y_array[tank_x]=INITIAL_RESPAWN_TANK_Y;
     ++tank_counter;
     display_tank();
     // _XL_TOCK_SOUND();
@@ -2358,13 +2361,13 @@ void mortar_intro_animation()
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
-    tank_y[1]=2;
+    tank_y_array[1]=2;
     tank_level[1]=2;
 
     
 	tank_active[XSize-2]=1;    
     tank_shape[XSize-2]=0;    
-    tank_y[XSize-2]=2;
+    tank_y_array[XSize-2]=2;
     tank_level[XSize-2]=2;
 
 	
@@ -2385,10 +2388,10 @@ void mortar_intro_animation()
 				tank_x=XSize-2;
 				move_display_tank();	 
 
-				if(tank_y[1]>=YSize-2)
+				if(tank_y_array[1]>=YSize-2)
 				{
-					tank_y[1]=2;
-					tank_y[XSize-2]=2;
+					tank_y_array[1]=2;
+					tank_y_array[XSize-2]=2;
 					_XL_DELETE(1,YSize-2);
 					_XL_DELETE(XSize-2,YSize-2);	
 				}				
@@ -2472,22 +2475,22 @@ void tank_intro_animation()
     
 	tank_active[0]=1;    
     tank_shape[0]=0;
-    tank_y[0]=2;
+    tank_y_array[0]=2;
     tank_level[0]=3;
     
 	tank_active[XSize-1]=1;    
     tank_shape[XSize-1]=0;    
-    tank_y[XSize-1]=2;
+    tank_y_array[XSize-1]=2;
     tank_level[XSize-1]=3;
 
 	tank_active[1]=1;    
     tank_shape[1]=0;
-    tank_y[1]=YSize-3;
+    tank_y_array[1]=YSize-3;
     tank_level[1]=1;
     
 	tank_active[XSize-2]=1;    
     tank_shape[XSize-2]=0;    
-    tank_y[XSize-2]=YSize-3;
+    tank_y_array[XSize-2]=YSize-3;
     tank_level[XSize-2]=1;
 
     do
@@ -2804,7 +2807,7 @@ void tank_animation(void)
 {
 	uint8_t i;
 	
-    tank_y[tank_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
+    tank_y_array[tank_x]=YSize/2-7+(uint8_t) ((_XL_RAND())&15);
     tank_level[tank_x]=1;
 	tank_shape[tank_x]=0;
 
@@ -2814,11 +2817,11 @@ void tank_animation(void)
 	{
 		display_tank();
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);			
-		_XL_DRAW(tank_x,tank_y[tank_x],TANK_DEATH_TILE,_XL_RED);
+		_XL_DRAW(tank_x,tank_y_array[tank_x],TANK_DEATH_TILE,_XL_RED);
 		_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);			
 	}
 	_XL_EXPLOSION_SOUND();
-	_XL_DELETE(tank_x,tank_y[tank_x]);
+	_XL_DELETE(tank_x,tank_y_array[tank_x]);
     display_victory_string(_XL_GREEN);
 	short_sleep();
 }
@@ -2968,7 +2971,7 @@ do \
 				if(!extraPointsItem[index]._active) \
 				{ \
 					tank_x = 1+(_XL_RAND()%(XSize-2)); \
-					tank_y[tank_x]=2; \
+					tank_y_array[tank_x]=2; \
 					drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN); \
 				} \
 			} \
@@ -2978,7 +2981,7 @@ do \
 				if((lives>2) && (!freezeItem._active)) \
 				{ \
 					tank_x = 1+(_XL_RAND()%(XSize-2)); \
-					tank_y[tank_x]=2; \
+					tank_y_array[tank_x]=2; \
 					drop_item(&freezeItem,FREEZE_COOL_DOWN); \
 				} \
 				\
@@ -2987,7 +2990,7 @@ do \
 					if((lives>5) && (!powerUpItem._active)) \
 					{ \
 						tank_x = 1+(_XL_RAND()%(XSize-2)); \
-						tank_y[tank_x]=2; \
+						tank_y_array[tank_x]=2; \
 						drop_item(&powerUpItem,POWER_UP_COOL_DOWN); \
 					} \
 					\
@@ -2996,7 +2999,7 @@ do \
 						if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) ) \
 						{ \
 							tank_x = 1+(_XL_RAND()%(XSize-2)); \
-							tank_y[tank_x]=2; \
+							tank_y_array[tank_x]=2; \
 							drop_item(&secretItem,SECRET_COOL_DOWN); \
 						} \
 					} \
@@ -3038,19 +3041,7 @@ int main(void)
             while(alive && level_count_down) // Inner game loop
             {			
 				#if defined(BENCHMARK)
-				if(!(main_loop_counter&31))
-				{
-					if(Average!=0)
-					{
-						Average+=Cumulative;
-						Average/=2;
-					}
-					else
-					{
-						Average=Cumulative;
-					}
-					Cumulative = 0;
-				}
+
 				Ticks = clock();
 				#endif
 			
@@ -3085,11 +3076,22 @@ int main(void)
 				// _XL_PRINTD(0,YSize-5,2,Sec);
 				if((main_loop_counter&31)==31)
 				{
+					
+					if(Average!=0)
+					{
+						Average=Cumulative/32;
+					}
+					else
+					{
+						Average=Cumulative;
+					}
+					Cumulative = 0;
 
-					_XL_PRINTD(0,YSize-5,4,Cumulative);
 					_XL_PRINTD(0,YSize-6,4,Average);
 
 				}
+				_XL_PRINTD(0,YSize-7,4,Milli);
+
 				// printf ("Time used: %u.%03u seconds = %u ticks\n", Sec, Milli, (unsigned short) TicksDelta);  
 				#endif
 			

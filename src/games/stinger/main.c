@@ -26,8 +26,8 @@
 
 #include "images.h"
 
-// #define DEBUG 1
-//#define TRAINER 1
+// #define TRAINER 1
+// #define BENCHMARK
 
 #define INITIAL_LEVEL 0
 
@@ -61,7 +61,7 @@
 #define POWER_THRESHOLD 4
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 7
+    #define MAX_ROCKETS_ON_SCREEN 6
 #endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50
@@ -157,7 +157,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 //(2*(MAX_SPARSELY_OCCUPIED_COLUMNS)/3)
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
-	#define MAX_NUMBER_OF_MISSILES 5
+	#define MAX_NUMBER_OF_MISSILES 7
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
@@ -1172,12 +1172,23 @@ void artillery_fire(void)
 }
 
 
+#define EXPLOSION_THRESHOLD 4U
+
 void handle_item(register Item* item)
 {
     if(item->_active)
     {
         // TODO: Necessary for GCC for TI99
-        uint8_t item_tile = item->_tile;
+        uint8_t item_tile;
+
+		if(item->_counter<EXPLOSION_THRESHOLD)
+		{
+			item_tile = EXPLOSION_TILE;
+		}
+		else
+		{
+			item_tile = item->_tile;
+		}
         
         if(item->_y<STINGER_Y)
         {
@@ -1209,7 +1220,7 @@ void handle_item(register Item* item)
                 #endif
             }
  
-            if(item->_x==(stinger_x>>1)+(stinger_x&1))
+            if((item->_counter>=EXPLOSION_THRESHOLD)&&(item->_x==(stinger_x>>1)+(stinger_x&1)))
             {
                 item->_effect();
                 _XL_PING_SOUND();
@@ -1218,9 +1229,9 @@ void handle_item(register Item* item)
             --(item->_counter);
             if(!(item->_counter))
             {
-                _XL_DRAW(item->_x,item->_y,EXPLOSION_TILE,item->_color);
-				_XL_TICK_SOUND();
-				short_sleep();
+                // _XL_DRAW(item->_x,item->_y,EXPLOSION_TILE,item->_color);
+				// _XL_TICK_SOUND();
+				// short_sleep();
 
                 item->_active=0;
                 _XL_DELETE(item->_x,item->_y);
@@ -1482,10 +1493,11 @@ void display_red_tank(void)
     _display_red_tank(tile);
 }
 
-#define POWER_UP_COOL_DOWN 30
-#define EXTRA_POINTS_COOL_DOWN 55
-#define SECRET_COOL_DOWN 50
-#define FREEZE_COOL_DOWN 40
+#define POWER_UP_COOL_DOWN 35
+#define EXTRA_POINTS_COOL_DOWN 60
+#define SECRET_COOL_DOWN 55
+#define FREEZE_COOL_DOWN 45
+#define RECHARGE_COOL_DOWN 50
 
 void handle_item_drop(void)
 {
@@ -1503,7 +1515,7 @@ void handle_item_drop(void)
         {
             if(!rechargeItem._active)
             {
-                drop_item(&rechargeItem,45);
+                drop_item(&rechargeItem,RECHARGE_COOL_DOWN);
             }
         }
         else if(item_counter==1)
@@ -1739,10 +1751,10 @@ void handle_tank_collisions(void)
         if(tank_active[tank_x] && tank_hit())
         {
             decrease_energy();
-			if(tank_y[tank_x]>=CLOSE_HIT_THRESHOLD)
-			{
-				decrease_energy();
-			}
+			// if(tank_y[tank_x]>=CLOSE_HIT_THRESHOLD)
+			// {
+				// decrease_energy();
+			// }
 
             if(energy[tank_x])
             {
@@ -1814,7 +1826,7 @@ void handle_missile_drops(void)
                 {
                     if(tank_y[tank_x]<HEIGHT_SHOOT_THRESHOLD && ((tank_level[tank_x]==3) || (!(main_loop_counter&tank_shoot_speed_mask))))
                     {
-                        drop_item(&enemyMissile[missile_index],1);
+                        drop_item(&enemyMissile[missile_index],EXPLOSION_THRESHOLD+1);
                     }
                 }
                 else
@@ -2996,8 +3008,17 @@ do \
 	} while(0)
 
 
+
 int main(void)
 {
+	#if defined(BENCHMARK)
+    clock_t Ticks, TicksDelta;
+    // unsigned int Sec;
+    unsigned int Milli, Cumulative, Average;	
+	Cumulative = 0;
+	Average = 0;
+	#endif
+	
 	INITIALIZE_CROSS_LIB();
 
     hiscore = 0;
@@ -3016,6 +3037,24 @@ int main(void)
             
             while(alive && level_count_down) // Inner game loop
             {			
+				#if defined(BENCHMARK)
+				if(!(main_loop_counter&31))
+				{
+					if(Average!=0)
+					{
+						Average+=Cumulative;
+						Average/=2;
+					}
+					else
+					{
+						Average=Cumulative;
+					}
+					Cumulative = 0;
+				}
+				Ticks = clock();
+				#endif
+			
+			
                 handle_hyper();
                 handle_stinger_move();
                 handle_stinger_load();
@@ -3036,6 +3075,24 @@ int main(void)
 				handle_artillery_shell();
                 short_sleep();     
                 ++main_loop_counter;
+				
+				#if defined(BENCHMARK)
+				TicksDelta = clock() - Ticks;
+				// Sec = (unsigned short) (TicksDelta / CLOCKS_PER_SEC);
+				Milli = ((TicksDelta % CLOCKS_PER_SEC) * 1000) / CLOCKS_PER_SEC;
+
+				Cumulative+=Milli;
+				// _XL_PRINTD(0,YSize-5,2,Sec);
+				if((main_loop_counter&31)==31)
+				{
+
+					_XL_PRINTD(0,YSize-5,4,Cumulative);
+					_XL_PRINTD(0,YSize-6,4,Average);
+
+				}
+				// printf ("Time used: %u.%03u seconds = %u ticks\n", Sec, Milli, (unsigned short) TicksDelta);  
+				#endif
+			
             }
             if(alive)
             {

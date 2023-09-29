@@ -1182,16 +1182,7 @@ void handle_item(register Item* item)
     if(item->_active)
     {
         // TODO: Necessary for GCC for TI99
-        uint8_t item_tile;
 
-        if(item->_counter<EXPLOSION_THRESHOLD)
-        {
-            item_tile = EXPLOSION_TILE;
-        }
-        else
-        {
-            item_tile = item->_tile;
-        }
         
         if(item->_y<STINGER_Y)
         {
@@ -1203,9 +1194,9 @@ void handle_item(register Item* item)
                   
             #if !defined(_XL_NO_COLOR)
                     // TODO: GCC for TI99 does not display the correct tile with item->_tile
-                    _XL_DRAW(item->_x,item->_y,item_tile,item->_color);
+                    _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
             #else
-                _XL_DRAW(item->_x,item->_y,item_tile,0);
+                _XL_DRAW(item->_x,item->_y,item->_tile,0);
             #endif
         }
         else
@@ -1216,6 +1207,16 @@ void handle_item(register Item* item)
             }
             else
             {
+				uint8_t item_tile;
+
+				if(item->_counter<EXPLOSION_THRESHOLD)
+				{
+					item_tile = EXPLOSION_TILE;
+				}
+				else
+				{
+					item_tile = item->_tile;
+				}
                 #if !defined(_XL_NO_COLOR)
                 _XL_DRAW(item->_x,item->_y,item_tile,item->_color);
                 #else

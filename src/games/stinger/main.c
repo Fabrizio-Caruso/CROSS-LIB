@@ -36,7 +36,7 @@
 #define MAX_LIVES 9
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
-    #define MAX_NUMBER_OF_MISSILES 7
+    #define MAX_NUMBER_OF_MISSILES 6
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
@@ -129,6 +129,9 @@
 #define LEFT_DIRECTION 0
 #define RIGHT_DIRECTION 1
 #define ACCELERATION_THRESHOLD 10
+
+uint8_t fire_pressed;
+uint8_t time_counter;
 
 uint8_t level_count_down;
 
@@ -2348,12 +2351,21 @@ void display_enemies_string(uint8_t color)
 }
 
 
+uint8_t fire_pressed_after_time(void)
+{
+	return (!time_counter) && (fire_pressed = _XL_FIRE(_XL_INPUT()));
+}
+
+
 void mortar_intro_animation()
 {
     uint8_t i;
-    uint8_t fire = 0;
-    uint8_t time_counter = 25;
+    // uint8_t fire = 0;
+    // uint8_t time_counter = 25;
     uint8_t switch_counter = 0;
+
+	fire_pressed = 0;
+	time_counter = 5;
 
     tank_active[1]=1;    
     tank_shape[1]=0;
@@ -2376,6 +2388,12 @@ void mortar_intro_animation()
 
         for(i=5;i<YSize-2;++i)
         {
+			
+            if(fire_pressed_after_time())
+            {
+                break;
+            }
+			
             if(!(i&3))
             {
                 tank_x=1;
@@ -2398,10 +2416,10 @@ void mortar_intro_animation()
                 control_instructions();
             }
 
-            if((!time_counter) && (fire =_XL_FIRE(_XL_INPUT())))
-            {
-                break;
-            }
+            // if(fire_pressed_after_time())
+            // {
+                // break;
+            // }
 
             if(time_counter)
             {
@@ -2412,10 +2430,10 @@ void mortar_intro_animation()
             _XL_DRAW(XSize-1,i,BULLET_TILE,_XL_WHITE);
             display_enemies_string(_XL_CYAN);
 
-            if((!time_counter) && (fire =_XL_FIRE(_XL_INPUT())))
-            {
-                break;
-            }
+            // if(fire_pressed_after_time())
+            // {
+                // break;
+            // }
             // short_sleep();
 
             short_sleep();
@@ -2434,7 +2452,7 @@ void mortar_intro_animation()
 
         ++switch_counter;
     }
-    while(!fire);
+    while(!fire_pressed);
     _XL_ZAP_SOUND();
     one_second();
 }
@@ -2458,7 +2476,7 @@ do \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
     \
     display_items(); \
-    tank_intro_animation(); \
+	tank_intro_animation(); \
     _XL_ZAP_SOUND(); \
     display_stinger_string(_XL_CYAN); \
     one_second();    \
@@ -2468,9 +2486,12 @@ do \
 void tank_intro_animation()
 {
     uint8_t i;
-    uint8_t fire;
+    // uint8_t fire;
     uint8_t switch_counter = 0;
-    uint8_t time_counter = 25;
+    uint8_t time_counter = 5;
+
+	fire_pressed = 0;
+	time_counter = 0;
 
     reset_tanks();
     
@@ -2499,10 +2520,13 @@ void tank_intro_animation()
         for(i=3;i<(YSize-5)*4;++i)
         {
             display_stinger_string(_XL_RED);
+			// if(fire_pressed_after_time())
+            // {
+                // break;
+            // }
             if(!(i&3))
             {
                 delete_instructions(); 
-
             }
             else
             {
@@ -2512,8 +2536,10 @@ void tank_intro_animation()
             {
                 --time_counter;
             }
-            if((!time_counter) && (fire = _XL_FIRE(_XL_INPUT())))
+            if(fire_pressed_after_time())
             {
+				// _XL_PRINT(0,YSize-3,"FIRST");
+				// _XL_SLEEP(1);
                 break;
             }
             if(!(switch_counter&1))
@@ -2524,6 +2550,11 @@ void tank_intro_animation()
                 tank_x=XSize-1;
                 move_display_tank();
                 
+				// if(fire_pressed_after_time())
+				// {
+					// break;
+				// }
+				
                 tank_x=1;
                 push_display_tank();
                 
@@ -2538,6 +2569,11 @@ void tank_intro_animation()
                 tank_x=XSize-2;
                 move_display_tank();
                 
+				// if(fire_pressed_after_time())
+				// {
+					// break;
+				// }
+				
                 tank_x=0;
                 push_display_tank();
                 
@@ -2548,13 +2584,15 @@ void tank_intro_animation()
             display_stinger_string(_XL_YELLOW);
             short_sleep();
 
-            if((!time_counter) && (fire = _XL_FIRE(_XL_INPUT())))
+            if(fire_pressed_after_time())
             {
+				// _XL_PRINT(0,YSize-3,"SECOND");
+				// _XL_SLEEP(1);
                 break;
             }
         }
         ++switch_counter;
-        if(!fire)
+        if(!fire_pressed)
         {
             for(i=0;i<3;++i)
             {
@@ -2566,7 +2604,7 @@ void tank_intro_animation()
         }
 
     }
-    while(!fire);    
+    while(!fire_pressed);    
 }
 
 

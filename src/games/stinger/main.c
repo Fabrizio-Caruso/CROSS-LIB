@@ -29,7 +29,7 @@
 // #define TRAINER 1
 // #define BENCHMARK
 
-#define INITIAL_LEVEL 0
+#define INITIAL_LEVEL 5
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -39,6 +39,10 @@
     #define MAX_NUMBER_OF_MISSILES 6
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
+
+#if !defined(MAX_ROCKETS_ON_SCREEN)
+    #define MAX_ROCKETS_ON_SCREEN 8
+#endif
 
 
 #define NEXT_EXTRA_LIFE 5000U
@@ -66,9 +70,6 @@
 
 #define POWER_THRESHOLD 4
 
-#if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 6
-#endif
 
 #define AUTO_RECHARGE_COOL_DOWN 50
 #define AUTO_ROCKET_RECAHRGE 9
@@ -350,11 +351,13 @@ uint8_t tank_move_speed_mask;
  uint8_t input;
 
  uint8_t loaded_stinger;
- uint8_t active_rocket[MAX_ROCKETS_ON_SCREEN];
+ // uint8_t active_rocket[MAX_ROCKETS_ON_SCREEN];
  uint8_t rocket_shape[MAX_ROCKETS_ON_SCREEN];
  uint8_t rocket_x[MAX_ROCKETS_ON_SCREEN];
  uint8_t rocket_y[MAX_ROCKETS_ON_SCREEN];
  uint8_t remaining_rockets;
+ 
+ #define active_rocket rocket_y
  // uint8_t rocket_range;
 
  uint8_t stinger_reload_loops;
@@ -432,10 +435,11 @@ typedef struct ItemStruct Missile;
 Missile enemyMissile[MAX_NUMBER_OF_MISSILES];
 Item extraPointsItem[MAX_NUMBER_OF_EXTRA_POINTS];
 
-uint8_t artillery_shell_active;
+// uint8_t artillery_shell_active;
 uint8_t artillery_shell_x;
 uint8_t artillery_shell_y;
 
+#define artillery_shell_active artillery_shell_y
 
 void short_sleep(void)
 {
@@ -1177,7 +1181,7 @@ void artillery_fire(void)
     _XL_DRAW(tank_x,tank_y_array[tank_x],MORTAR_TILE,_XL_WHITE);
     artillery_shell_y = tank_y_array[tank_x]+1;
     _XL_TOCK_SOUND();
-    artillery_shell_active = 1;
+    // artillery_shell_active = 1;
     artillery_shell_x = tank_x;
     _XL_DRAW(tank_x,tank_y_array[tank_x],MORTAR_TILE,_XL_GREEN);
 
@@ -1282,9 +1286,9 @@ void handle_artillery_shell(void)
                 alive=0;
                 _XL_EXPLOSION_SOUND();
             }    
-            artillery_shell_active = 0;
             // _XL_DELETE(artillery_shell_x-1,artillery_shell_y);
             _XL_DELETE(artillery_shell_x,artillery_shell_y);
+			artillery_shell_active = 0;
             // _XL_DELETE(artillery_shell_x+1,artillery_shell_y);
             display_stinger();
         }
@@ -1761,10 +1765,10 @@ void handle_tank_collisions(void)
 				{
 					if(not_stealth())
 					{
-						active_rocket[i]=0;
 						--rockets_on_screen;
 
 						_XL_DELETE(rocket_x[i],rocket_y[i]);
+						active_rocket[i]=0;
 						decrease_energy();
 
 
@@ -2035,7 +2039,7 @@ void fire(void)
             {
                 compute_next_available_rocket_index();
 
-                active_rocket[next_rocket] = 1;
+                // active_rocket[next_rocket] = 1;
                 ++rockets_on_screen;
                 if(number_of_rockets_per_shot==2)
                 {

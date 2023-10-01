@@ -29,7 +29,7 @@
 // #define TRAINER 1
 // #define BENCHMARK
 
-#define INITIAL_LEVEL 5
+#define INITIAL_LEVEL 0
 
 #define LAST_LEVEL 5
 #define INITIAL_LIVES 3
@@ -1909,7 +1909,7 @@ void handle_missile_drops(void)
         if((missile_index = find_inactive(enemyMissile)) < MAX_NUMBER_OF_MISSILES)
         {
             
-            tank_x = (stinger_x>>1)+(stinger_x&1)-1+(_XL_RAND()%3);
+            tank_x = (uint8_t) (stinger_x>>1)+(stinger_x&1)-1U+ (uint8_t)(_XL_RAND()%3);
             
             if(tank_active[tank_x])
             {
@@ -3090,7 +3090,7 @@ do \
 #define handle_level_end() \
     do \
     { \
-        if(level_count_down==LEVEL_COUNT_DOWN+level*32) \
+        if(level_count_down==(uint8_t) LEVEL_COUNT_DOWN+(uint8_t) level*32U) \
         { \
             uint8_t i; \
             \
@@ -3119,7 +3119,7 @@ do \
             { \
                 if(!extraPointsItem[index]._active) \
                 { \
-                    tank_x = 1+(_XL_RAND()%(XSize-2)); \
+                    tank_x = (uint8_t) 1U+(uint8_t) (_XL_RAND()%(XSize-2)); \
                     drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN); \
                 } \
             } \
@@ -3128,7 +3128,7 @@ do \
             { \
                 if((lives>2) && (!freezeItem._active)) \
                 { \
-                    tank_x = 1+(_XL_RAND()%(XSize-2)); \
+                    tank_x = 1U+(uint8_t) (_XL_RAND()%(XSize-2)); \
                     drop_item(&freezeItem,FREEZE_COOL_DOWN); \
                 } \
                 \
@@ -3136,7 +3136,7 @@ do \
                 { \
                     if((lives>5) && (!powerUpItem._active)) \
                     { \
-                        tank_x = 1+(_XL_RAND()%(XSize-2)); \
+                        tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2)); \
                         drop_item(&powerUpItem,POWER_UP_COOL_DOWN); \
                     } \
                     \
@@ -3144,7 +3144,7 @@ do \
                     { \
                         if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) ) \
                         { \
-                            tank_x = 1+(_XL_RAND()%(XSize-2)); \
+                            tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2)); \
                             drop_item(&secretItem,SECRET_COOL_DOWN); \
                         } \
                     } \

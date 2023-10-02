@@ -176,21 +176,14 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 #define HELP_ITEM_POWER_THRESHOLD 1
 #define HELP_ITEM_POWER_UPPER_THRESHOLD 15
 
-// #if XSize<=23
-    // #define LIGHT_TANKS_ON_FIRST_LEVEL 20
-// #elif XSize<=32
-    // #define LIGHT_TANKS_ON_FIRST_LEVEL 30
-// #elif XSize<=40
-    #define LIGHT_TANKS_ON_FIRST_LEVEL 40
-// #else
-    // #define LIGHT_TANKS_ON_FIRST_LEVEL 80
-// #endif
-
 #if XSize<64
     #define HEAVY_TANKS_ON_FIRST_LEVEL (XSize)
 #else
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
+
+// #define LIGHT_TANKS_ON_FIRST_LEVEL 40
+#define LIGHT_TANKS_ON_FIRST_LEVEL 40
 
 // level 1:  40 = 40 +   0 -> light 
 // level 2:  60 = 32 +  28 -> light,  medium 100% 
@@ -1469,17 +1462,18 @@ void spawn_heavy_tank(void)
         // #define NORMAL_TANK_SPEED 3
         // #define SLOW_TANK_SPEED 7
     // #else
-#define NORMAL_TANK_SPEED 1
-#define SLOW_TANK_SPEED 3
+#define NORMAL_TANK_SPEED 3
+#define SLOW_TANK_SPEED 7
     // #endif 
 // #endif
 
 #define FEW_TANKS 5
-#define MANY_TANKS 60
+// #define MANY_TANKS 60
+// #define FASTER_TANK_MOVE_LEVEL_THRESHOLD 1
 
 void update_tank_move_speed_mask(void)
 {
-    if(!powerUp || (light_tanks_to_kill + heavy_tanks_to_kill<=FEW_TANKS) || (light_tanks_to_kill + heavy_tanks_to_kill>=MANY_TANKS) )
+    if(!powerUp || (heavy_tanks_to_kill<=FEW_TANKS))
     {
         tank_move_speed_mask=SLOW_TANK_SPEED;
     }
@@ -1487,6 +1481,7 @@ void update_tank_move_speed_mask(void)
     {
         tank_move_speed_mask=NORMAL_TANK_SPEED;
     }
+	// _XL_PRINTD(0,YSize-1,1,tank_move_speed_mask);
 }
 
 
@@ -1526,11 +1521,11 @@ void display_red_tank(void)
     _display_red_tank(tile);
 }
 
-#define POWER_UP_COOL_DOWN 35
+#define POWER_UP_COOL_DOWN 38
 #define EXTRA_POINTS_COOL_DOWN 60
 #define SECRET_COOL_DOWN 55
 #define FREEZE_COOL_DOWN 45
-#define RECHARGE_COOL_DOWN 50
+#define RECHARGE_COOL_DOWN 53
 
 void handle_item_drop(void)
 {
@@ -3086,74 +3081,82 @@ do \
 #define BONUS_DROP_THRESHOLD 55
 #define SECRET_ITEM_DROP_THRESHOLD 128
 
+void handle_level_end(void)
+{
+	if(level_count_down==(uint8_t) LEVEL_COUNT_DOWN+(uint8_t) level*32U)
+	{
+		uint8_t i;
+	   
+		for(i=0;i<25;++i)
+		{
+			_XL_SET_TEXT_COLOR(_XL_RED);
+			PRINT_CENTERED_ON_ROW(YSize/2,"BONUS ");
+			short_sleep();
+			_XL_TICK_SOUND();
+			_XL_SET_TEXT_COLOR(_XL_YELLOW);
+			PRINT_CENTERED_ON_ROW(YSize/2,"BONUS ");
+			short_sleep();
+		}
+		_XL_PING_SOUND();
+		less_short_sleep();
+		PRINT_CENTERED_ON_ROW(YSize/2,"     ");
+		// _XL_SET_TEXT_COLOR(_XL_WHITE);
+		// PRINT_CENTERED_ON_ROW(YSize-2,"BONUS");
+	}
+   
+	if(level_count_down>BONUS_DROP_THRESHOLD)
+	{
+		uint8_t index;
+	   
+	    // if(!(level_count_down&7))
+		// {
+			// _XL_SET_TEXT_COLOR(_XL_RED);
+			// PRINT_CENTERED_ON_ROW(1,"BONUS ");
+		// }
+		// else if(((level_count_down&7)==1))
+		// {
+			// _XL_SET_TEXT_COLOR(_XL_YELLOW);
+			// PRINT_CENTERED_ON_ROW(1,"BONUS ");
+		// }
+	   
+		for(index=0;(index<lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index)
+		{
+			if(!extraPointsItem[index]._active)
+			{
+				tank_x = (uint8_t) 1U+(uint8_t) (_XL_RAND()%(XSize-2));
+				drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN);
+			}
+		}
+	   
+		if(level>=2)
+		{
+			if((lives>2) && (!freezeItem._active))
+			{
+				tank_x = 1U+(uint8_t) (_XL_RAND()%(XSize-2));
+				drop_item(&freezeItem,FREEZE_COOL_DOWN);
+			}
+		   
 
-#define handle_level_end() \
-    do \
-    { \
-        if(level_count_down==(uint8_t) LEVEL_COUNT_DOWN+(uint8_t) level*32U) \
-        { \
-            uint8_t i; \
-            \
-            for(i=0;i<20;++i) \
-            { \
-                _XL_SET_TEXT_COLOR(_XL_RED); \
-                PRINT_CENTERED_ON_ROW(1,"BONUS "); \
-                short_sleep(); \
-                _XL_TICK_SOUND(); \
-                _XL_SET_TEXT_COLOR(_XL_YELLOW); \
-                PRINT_CENTERED_ON_ROW(1,"BONUS "); \
-                short_sleep(); \
-            } \
-            _XL_PING_SOUND(); \
-            less_short_sleep(); \
-			PRINT_CENTERED_ON_ROW(1,"     "); \
-			_XL_SET_TEXT_COLOR(_XL_WHITE); \
-			PRINT_CENTERED_ON_ROW(YSize-2,"BONUS"); \
-        } \
-        \
-        if(level_count_down>BONUS_DROP_THRESHOLD) \
-        { \
-            uint8_t index; \
-            \
-            for(index=0;(index<lives) && (index<MAX_NUMBER_OF_EXTRA_POINTS);++index) \
-            { \
-                if(!extraPointsItem[index]._active) \
-                { \
-                    tank_x = (uint8_t) 1U+(uint8_t) (_XL_RAND()%(XSize-2)); \
-                    drop_item(&extraPointsItem[index],EXTRA_POINTS_COOL_DOWN); \
-                } \
-            } \
-            \
-            if(level>=LAST_LEVEL-2) \
-            { \
-                if((lives>2) && (!freezeItem._active)) \
-                { \
-                    tank_x = 1U+(uint8_t) (_XL_RAND()%(XSize-2)); \
-                    drop_item(&freezeItem,FREEZE_COOL_DOWN); \
-                } \
-                \
-                if(level>=LAST_LEVEL-1) \
-                { \
-                    if((lives>5) && (!powerUpItem._active)) \
-                    { \
-                        tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2)); \
-                        drop_item(&powerUpItem,POWER_UP_COOL_DOWN); \
-                    } \
-                    \
-                    if(level==LAST_LEVEL) \
-                    { \
-                        if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) ) \
-                        { \
-                            tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2)); \
-                            drop_item(&secretItem,SECRET_COOL_DOWN); \
-                        } \
-                    } \
-                } \
-            } \
-        } \
-        \
-        --level_count_down; \
-    } while(0)
+			if((lives>5) && (!powerUpItem._active))
+			{
+				tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2));
+				drop_item(&powerUpItem,POWER_UP_COOL_DOWN);
+			}
+		   
+			if(level==LAST_LEVEL)
+			{
+				if((lives>8) && (!secretItem._active) && (level_count_down<SECRET_ITEM_DROP_THRESHOLD) )
+				{
+					tank_x = 1+(uint8_t) (_XL_RAND()%(XSize-2));
+					drop_item(&secretItem,SECRET_COOL_DOWN);
+				}
+			}
+
+		}
+	}
+   
+	--level_count_down;
+}
 
 
 

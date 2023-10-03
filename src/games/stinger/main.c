@@ -45,6 +45,18 @@
 #endif
 
 
+#define LIGHT_TANKS_ON_FIRST_LEVEL 40
+
+#define HEAVY_TANKS_0 0
+#define HEAVY_TANKS_1 28
+#define HEAVY_TANKS_2 46
+#define HEAVY_TANKS_3 64
+#define HEAVY_TANKS_4 91
+#define HEAVY_TANKS_5 99
+
+// #define HEAVY_TANKS_5 1
+
+
 #define NEXT_EXTRA_LIFE 5000U
 
 #define STINGER_Y ((YSize)-3)
@@ -180,8 +192,6 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
     #define HEAVY_TANKS_ON_FIRST_LEVEL 50
 #endif
 
-// #define LIGHT_TANKS_ON_FIRST_LEVEL 40
-#define LIGHT_TANKS_ON_FIRST_LEVEL 40
 
 // level 1:  40 = 40 +   0 -> light 
 // level 2:  60 = 32 +  28 -> light,  medium 100% 
@@ -189,7 +199,7 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,1};//99};//91,99}; //99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {HEAVY_TANKS_0,HEAVY_TANKS_1,HEAVY_TANKS_2,HEAVY_TANKS_3,HEAVY_TANKS_4,HEAVY_TANKS_5};//99};//91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
@@ -1618,12 +1628,18 @@ void tank_dies(void)
     
     _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
 
-    for(i=0;i<12;++i)
+    for(i=0;i<5;++i)
     {
         _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
         display_red_tank();
     } 
+    for(i=0;i<7;++i)
+    {
+        _XL_DRAW(tank_x,y_pos, EXPLOSION_TILE, _XL_WHITE);
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
+        display_red_tank();
+    }     
     _XL_SHOOT_SOUND();
     _XL_DELETE(tank_x,y_pos);
     
@@ -2990,7 +3006,14 @@ void victory_animation(void)
     }    
     less_short_sleep();        
 
-    for(j=0;j<6;++j)
+    for(i=0;i<=4;++i)
+    {
+        _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+        _XL_TOCK_SOUND();
+        less_short_sleep();
+    }    
+
+    for(j=0;j<5;++j)
     {
         for(i=0;i<XSize-2;++i)
         {
@@ -2999,7 +3022,6 @@ void victory_animation(void)
                 _XL_DRAW(i+k,YSize/2-1,WALL_TILE,_XL_YELLOW);
                 _XL_DRAW(XSize-1-i-k,YSize/2+1,WALL_TILE,_XL_YELLOW);
             }
-            short_sleep();
             short_sleep();
             display_victory_string(_XL_RED);
 
@@ -3015,26 +3037,17 @@ void victory_animation(void)
         }
     }        
     
-    // for(j=0;j<60;++j)
-    // {
-        // for(i=0;i<=4;++i)
-        // {
-            // _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
-        // }
-        // short_sleep();    
-    for(i=0;i<=4;++i)
-    {
-        _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
-        _XL_TOCK_SOUND();
-        less_short_sleep();
-    }    
-        // less_short_sleep();        
-    // }        
     one_second();
     for(i=0;i<=4;++i)
     {
+        for(j=0;j<9;++j)
+        {
+            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+            short_sleep();
+            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_RED);
+            short_sleep();
+        }
         _XL_EXPLOSION_SOUND();
-        _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_RED);
         _XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);        
         _XL_DELETE(XSize/2+1-level+i*2, YSize/2+2);
     }

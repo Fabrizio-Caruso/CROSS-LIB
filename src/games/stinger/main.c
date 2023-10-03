@@ -1053,6 +1053,8 @@ void tank_effect(void)
 void bullet_effect(void)
 {
     alive=0;
+    _XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+    less_short_sleep();
 }
 
 #if !defined(_XL_NO_COLOR)
@@ -1284,8 +1286,9 @@ void handle_artillery_shell(void)
             less_short_sleep();
             if(artillery_shell_x==player_x) // || artillery_shell_x==player_x-1 || artillery_shell_x==player_x+1)
             {
-                alive=0;
-                _XL_EXPLOSION_SOUND();
+               alive=0;
+               _XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+               less_short_sleep();
             }    
             // _XL_DELETE(artillery_shell_x-1,artillery_shell_y);
             _XL_DELETE(artillery_shell_x,artillery_shell_y);

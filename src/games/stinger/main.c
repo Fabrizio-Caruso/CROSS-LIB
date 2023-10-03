@@ -115,13 +115,11 @@
 // Boss energy: 7 (4 basic hits), 9 (5 basic hits), 11 (6 basic hits)
 #define HEAVY_TANK_BASE_ENERGY 5
 
-#define WALL_ENERGY 20
-
 #define MAX_ROCKETS 99
 #define HYPER_RECHARGE 40
 #define ROCKET_RECHARGE 20
 
-#define FREEZE_COUNTER_MAX 140
+#define FREEZE_COUNTER_MAX 150
 
 #define WALL_COLOR _XL_GREEN
 #define FREEZE_COLOR _XL_CYAN
@@ -191,11 +189,11 @@ const uint8_t level_color[2] = {_XL_GREEN, _XL_YELLOW};
 // level 4:  80 = 16 +  64 -> light,  medium  25%, stealth 25%, heavy 50%
 // level 5:  99 =  8 +  92 -> light,  medium  25%, stealth 25%, heavy 25%, artillery 25%
 // level 6:  99 =  0 +  99 -> light,  medium   0%, stealth 25%, heavy 50%, artillery 25% (medium if secret item is taken)
-const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,99};//99};//91,99}; //99};
+const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {0,28,46,64,91,1};//99};//91,99}; //99};
 
 #define LEVEL_2_TANK_THRESHOLD 8
 
-#define MAX_HYPER_COUNTER 180
+#define MAX_HYPER_COUNTER 200
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
@@ -1473,7 +1471,7 @@ void spawn_heavy_tank(void)
 
 void update_tank_move_speed_mask(void)
 {
-    if(!powerUp || (heavy_tanks_to_kill<=FEW_TANKS))
+    if(!powerUp || (light_tanks_to_kill+heavy_tanks_to_kill<=FEW_TANKS))
     {
         tank_move_speed_mask=SLOW_TANK_SPEED;
     }
@@ -2159,6 +2157,7 @@ do \
     PRINT_CENTERED("GAME OVER"); \
     one_second(); \
     control_instructions(); \
+    freeze=1; \
     tank_intro_animation(); \
     _XL_CLEAR_SCREEN(); \
 } while(0)
@@ -3016,19 +3015,21 @@ void victory_animation(void)
         }
     }        
     
-    for(j=0;j<60;++j)
+    // for(j=0;j<60;++j)
+    // {
+        // for(i=0;i<=4;++i)
+        // {
+            // _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
+        // }
+        // short_sleep();    
+    for(i=0;i<=4;++i)
     {
-        for(i=0;i<=4;++i)
-        {
-            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_CYAN);
-        }
-        short_sleep();    
-        for(i=0;i<=4;++i)
-        {
-            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
-        }    
-        less_short_sleep();        
-    }        
+        _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+        _XL_TOCK_SOUND();
+        less_short_sleep();
+    }    
+        // less_short_sleep();        
+    // }        
     one_second();
     for(i=0;i<=4;++i)
     {

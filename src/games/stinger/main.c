@@ -2546,7 +2546,7 @@ void mortar_intro_animation()
 
         _XL_DRAW(0,YSize-2,EXPLOSION_TILE,_XL_RED);
         _XL_DRAW(XSize-1,YSize-2,EXPLOSION_TILE,_XL_RED);
-        _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+        less_short_sleep();
         _XL_DELETE(0,YSize-2);
         _XL_DELETE(XSize-1,YSize-2);
 
@@ -2918,7 +2918,7 @@ do \
             increase_score(POWER_UP_BONUS); \
             display_power_up_counter(); \
             _XL_TICK_SOUND(); \
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4); \
+            less_short_sleep(); \
         } while(powerUp); \
     } \
     \

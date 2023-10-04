@@ -1050,11 +1050,27 @@ void tank_effect(void)
     increase_score(SECRET_ITEM_POINTS);
 }
 
+void player_hit(void)
+{
+	uint8_t i;
+	
+	_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+
+	_XL_EXPLOSION_SOUND();
+	for(i=0;i<10;++i)
+	{
+		display_stinger();
+		less_short_sleep();	
+		_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+	}
+	// stinger_color=_XL_RED;
+	// display_stinger();
+}
+
 void bullet_effect(void)
 {
     alive=0;
-    _XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
-    less_short_sleep();
+	player_hit();
 }
 
 #if !defined(_XL_NO_COLOR)
@@ -1287,8 +1303,7 @@ void handle_artillery_shell(void)
             if(artillery_shell_x==player_x) // || artillery_shell_x==player_x-1 || artillery_shell_x==player_x+1)
             {
                alive=0;
-               _XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
-               less_short_sleep();
+			   player_hit();
             }    
             // _XL_DELETE(artillery_shell_x-1,artillery_shell_y);
             _XL_DELETE(artillery_shell_x,artillery_shell_y);
@@ -1631,17 +1646,17 @@ void tank_dies(void)
     
     _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
 
-    for(i=0;i<5;++i)
+    for(i=0;i<6;++i)
     {
-        _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
-        display_red_tank();
+		display_red_tank();
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
+		_XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
     } 
-    for(i=0;i<7;++i)
+    for(i=0;i<5;++i)
     {
         _XL_DRAW(tank_x,y_pos, EXPLOSION_TILE, _XL_WHITE);
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
-        display_red_tank();
+        _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
     }     
     _XL_SHOOT_SOUND();
     _XL_DELETE(tank_x,y_pos);
@@ -3175,7 +3190,36 @@ void handle_level_end(void)
 	--level_count_down;
 }
 
+#if defined(BENCHMARK)
+	#define BENCHMARK_CODE() \
+		TicksDelta = clock() - Ticks; \
+		Milli = ((TicksDelta % CLOCKS_PER_SEC) * 1000) / CLOCKS_PER_SEC; \
+		Cumulative+=Milli; \
+		if((main_loop_counter&31)==31) \
+		{ \
+			if(Average!=0) \
+			{ \
+				Average=Cumulative/32; \
+			} \
+			else \
+			{ \
+				Average=Cumulative; \
+			} \
+			Cumulative = 0; \
+			_XL_PRINTD(0,YSize-6,4,Average); \
+		} \
+		_XL_PRINTD(0,YSize-7,4,Milli);
+#else
+	#define BENCHMARK_CODE()
+#endif
 
+
+#if defined(BENCHMARK)
+	#define INIT_BENCHMARK_CODE() \
+		Ticks = clock();
+#else
+	#define INIT_BENCHMARK_CODE()
+#endif
 
 int main(void)
 {
@@ -3205,10 +3249,7 @@ int main(void)
             
             while(alive && level_count_down) // Inner game loop
             {            
-                #if defined(BENCHMARK)
-
-                Ticks = clock();
-                #endif
+				INIT_BENCHMARK_CODE();
             
                 handle_hyper();
                 handle_stinger_move();
@@ -3224,40 +3265,14 @@ int main(void)
                     handle_tank_movement();
                 }
                 handle_tank_collisions();
+				short_sleep();     
 
                 handle_missile_drops();
                 handle_items();
                 handle_artillery_shell();
-                short_sleep();     
                 ++main_loop_counter;
                 
-                #if defined(BENCHMARK)
-                TicksDelta = clock() - Ticks;
-                // Sec = (unsigned short) (TicksDelta / CLOCKS_PER_SEC);
-                Milli = ((TicksDelta % CLOCKS_PER_SEC) * 1000) / CLOCKS_PER_SEC;
-
-                Cumulative+=Milli;
-                // _XL_PRINTD(0,YSize-5,2,Sec);
-                if((main_loop_counter&31)==31)
-                {
-                    
-                    if(Average!=0)
-                    {
-                        Average=Cumulative/32;
-                    }
-                    else
-                    {
-                        Average=Cumulative;
-                    }
-                    Cumulative = 0;
-
-                    _XL_PRINTD(0,YSize-6,4,Average);
-
-                }
-                _XL_PRINTD(0,YSize-7,4,Milli);
-
-                // printf ("Time used: %u.%03u seconds = %u ticks\n", Sec, Milli, (unsigned short) TicksDelta);  
-                #endif
+				BENCHMARK_CODE();
             
             }
             if(alive)

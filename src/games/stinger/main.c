@@ -1050,18 +1050,21 @@ void tank_effect(void)
     increase_score(SECRET_ITEM_POINTS);
 }
 
+
+
 void player_hit(void)
 {
 	uint8_t i;
+	uint8_t player_x = (stinger_x>>1)+(stinger_x&1);
 	
-	_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+	_XL_DRAW(player_x,STINGER_Y, EXPLOSION_TILE,_XL_RED);
 
 	_XL_EXPLOSION_SOUND();
 	for(i=0;i<3;++i)
 	{
 		display_stinger();
 		short_sleep();	
-		_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+		_XL_DRAW(player_x,STINGER_Y, EXPLOSION_TILE,_XL_RED);
 		short_sleep();
 	}
 
@@ -3058,16 +3061,18 @@ void victory_animation(void)
     one_second();
     for(i=0;i<=4;++i)
     {
+		k=XSize/2+1-level+i*2;
+
         for(j=0;j<9;++j)
         {
-            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
+            _XL_DRAW(k, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
             short_sleep();
-            _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, EXPLOSION_TILE, _XL_RED);
+            _XL_DRAW(k, YSize/2+2, EXPLOSION_TILE, _XL_RED);
             short_sleep();
         }
         _XL_EXPLOSION_SOUND();
         _XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);        
-        _XL_DELETE(XSize/2+1-level+i*2, YSize/2+2);
+        _XL_DELETE(k, YSize/2+2);
     }
     short_sleep();
     

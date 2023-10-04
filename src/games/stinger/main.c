@@ -1057,14 +1057,14 @@ void player_hit(void)
 	_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
 
 	_XL_EXPLOSION_SOUND();
-	for(i=0;i<10;++i)
+	for(i=0;i<3;++i)
 	{
 		display_stinger();
-		less_short_sleep();	
+		short_sleep();	
 		_XL_DRAW((stinger_x>>1)+(stinger_x&1),STINGER_Y, EXPLOSION_TILE,_XL_RED);
+		short_sleep();
 	}
-	// stinger_color=_XL_RED;
-	// display_stinger();
+
 }
 
 void bullet_effect(void)
@@ -3269,6 +3269,10 @@ int main(void)
 
                 handle_missile_drops();
                 handle_items();
+				// if(!alive)
+				// {
+					// break;
+				// }
                 handle_artillery_shell();
                 ++main_loop_counter;
                 

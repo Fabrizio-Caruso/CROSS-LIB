@@ -3071,7 +3071,7 @@ void victory_animation(void)
             short_sleep();
         }
         _XL_EXPLOSION_SOUND();
-        _XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);        
+        _XL_SLOW_DOWN(12U*_XL_SLOW_DOWN_FACTOR);        
         _XL_DELETE(k, YSize/2+2);
     }
     short_sleep();

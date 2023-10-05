@@ -92,17 +92,17 @@ extern void __LIB__ bit_beep(int duration, int period) __smallc;
 		#define _XL_SHOOT_SOUND() bit_fx3(0)
 	#else
 		#define _XL_ZAP_SOUND() bit_fx(7)
-		#define _XL_SHOOT_SOUND() bit_fx(1)
+		#define _XL_SHOOT_SOUND() bit_fx3(2)
 	#endif
-	#define _XL_PING_SOUND() bit_beep(80,3)
+	#define _XL_PING_SOUND() bit_beep(70,3)
 	// bit_fx3(3)
 	// bit_beep(40,20)
 
-	#define _XL_TICK_SOUND() bit_beep(25,20)
+	#define _XL_TICK_SOUND() bit_beep(20,20)
 	// bit_fx(0)
 	// bit_beep(40,40)
 	
-	#define _XL_TOCK_SOUND() bit_beep(50,20)
+	#define _XL_TOCK_SOUND() bit_beep(20,40)
 
 #endif // __BIT_BANG_SOUNDS
 

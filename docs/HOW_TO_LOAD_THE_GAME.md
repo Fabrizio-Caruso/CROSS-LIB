@@ -18,7 +18,7 @@ mame64.exe alphatro -uimodekey DEL -window -cartridge1 c:\Retro\CROSS-CHASE\buil
 
 ### AMSTRAD CPC/GX4000
 
-You can use WinAPE
+You can use Caprice, WinApe
 
 - Tape (.cdt) version:
 You need to attach the image as a tape
@@ -30,10 +30,10 @@ Start PLAY on the virtual tape player
 - Disk (.dsk) version:
 You need to attach the image as a disk
 In BASIC type
-run"xchase
+run"XBIN    .CPC"
 
 - ROM (.cpr) version:
-You need to attch the image as a cartridge
+You need to attach the image as a cartridge
 
 ----------------------------------------------------------
 

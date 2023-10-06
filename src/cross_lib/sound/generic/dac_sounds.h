@@ -12,13 +12,13 @@
     #define SHIFT 0
     #define ROM_ADDR 0xE000
 	
-	#define CYCLES_FACTOR 4
+	#define CYCLES_FACTOR 1
 #elif defined(__TO7__)
     #define DAC 0xE7CD
     #define SHIFT 0
     #define ROM_ADDR 0xF000
 	
-	#defube CYCLES_FACTOR 4
+	#define CYCLES_FACTOR 1
 #endif
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))

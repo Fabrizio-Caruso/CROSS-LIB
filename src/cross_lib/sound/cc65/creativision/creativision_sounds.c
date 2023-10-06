@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _GAMATE_SOUNDS
-#define _GAMATE_SOUNDS
+#ifndef _CREATIVISION_SOUNDS
+#define _CREATIVISION_SOUNDS
 
 #include <peekpoke.h>
 #include <creativision.h>
@@ -44,7 +44,7 @@ void play_frequency(uint16_t value)
 
 
 
-#endif // _GAMATE_SOUNDS
+#endif // _CREATIVISION_SOUNDS
 
 
 

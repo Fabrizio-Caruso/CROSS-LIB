@@ -162,6 +162,8 @@ uint8_t direction;
 #define switch_counter direction
 #define acceleration fire_pressed
 #define acceleration_counter time_counter
+#define speed_value fire_pressed
+#define power_value time_counter
 
 uint8_t wall_color;
 
@@ -477,7 +479,7 @@ void sleep_and_wait_for_input(void)
     _XL_WAIT_FOR_INPUT();
 }
 
-#if XSize>=31
+#if XSize>=26
     #define POWER_X 8
 #else
     #define POWER_X 6
@@ -498,9 +500,12 @@ void display_power_up_counter(void)
     _XL_PRINTD(POWER_UP_X+1,0,2,powerUp);
 }
 
-#if XSize>=32
+#if XSize>=28
     #define TANK_COUNTER_X (POWER_UP_X+4)
     #define TANK_COUNTER_Y 0
+#elif XSize>=26
+    #define TANK_COUNTER_X (POWER_X+7)
+    #define TANK_COUNTER_Y (YSize-1)
 #elif XSize>=22
     #define TANK_COUNTER_X (POWER_X+6)
     #define TANK_COUNTER_Y (YSize-1)
@@ -827,8 +832,8 @@ void display_power_ups(void)
 void display_power_ups(void)
 {
     // uint8_t range_value;
-    uint8_t speed_value;
-    uint8_t power_value;
+    // uint8_t speed_value;
+    // uint8_t power_value;
     uint8_t color;
     
     uint8_t i;
@@ -839,27 +844,22 @@ void display_power_ups(void)
     
     {
 
-        if(powerUp<5) // speed
+        if(powerUp<2) // speed
         {
-            speed_value = powerUp+1-2;
+            speed_value = powerUp+1;
         }
         else
         {
             speed_value = 3;
     
-            if(powerUp>6)
+            if(powerUp<4)
             {
-                if(powerUp<9)
-                {
-                    power_value = powerUp+1-6;
-                    rocket_display_color = rocket_color[powerUp-6];
-                }
-                else
-                {
-                    power_value = 3;
-                    rocket_display_color = _XL_WHITE;
-                }
+				power_value = powerUp-1;
             }
+			else
+			{
+				power_value = 3;
+			}
         }
     }
 

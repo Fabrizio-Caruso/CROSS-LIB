@@ -3,6 +3,16 @@
 This document only describes some non-obvious procedures on how to load the game
 on some emulators (similar procedures can be followed on the real machines):
 
+-----------------------------------------------------------
+
+### AGON LIGHT
+
+Use https://github.com/astralaster/agon-light-emulator
+
+Put the binaries inside the sdcard directory
+dir to list the content of the emulated SDK
+load <file name>
+run
 
 -----------------------------------------------------------
 

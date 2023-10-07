@@ -31,3 +31,22 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
+ifdef USE_TOOLS
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+else
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+endif
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
+	 $(GAMATE_GAME_OPTS) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -DXSize=18 -DX_OFFSET=1 \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+endif    
+	

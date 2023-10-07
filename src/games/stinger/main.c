@@ -743,8 +743,24 @@ void recharge_effect(void)
 
 #define RANGE_X 0
 
-#define SPEED_STRING "SPEED"
-#define POWER_STRING "POWER"
+#if defined(_XL_NO_TEXT_COLOR)
+	#if XSize<=20
+		#define SPEED_STRING "SPD"
+		#define POWER_STRING "PWR"
+	#else
+		#define SPEED_STRING "SPEED"
+		#define POWER_STRING "POWER"
+	#endif
+#else
+	#if XSize<=17
+		#define SPEED_STRING "SPD"
+		#define POWER_STRING "PWR"
+	#else
+		#define SPEED_STRING "SPEED"
+		#define POWER_STRING "POWER"
+	#endif
+#endif
+
 
 #if XSize>=31
     #define ROCKETS_X (XSize-7)
@@ -828,12 +844,14 @@ void display_power_ups(void)
     }
 }
 #elif !defined(_XL_NO_COLOR) // COLOR but NO TEXT COLOR
-#define STR_LEN 5
+
+#if XSize<=20
+	#define STR_LEN 3
+#else
+	#define STR_LEN 5
+#endif
 void display_power_ups(void)
 {
-    // uint8_t range_value;
-    // uint8_t speed_value;
-    // uint8_t power_value;
     uint8_t color;
     
     uint8_t i;
@@ -883,35 +901,36 @@ void display_power_ups(void)
     }
 }
 #else // NO COLOR and NO TEXT COLOR
-#define STR_LEN 5
+#if XSize<=20
+	#define STR_LEN 3
+#else
+	#define STR_LEN 5
+#endif
 void display_power_ups(void)
-{
-    uint8_t speed_value;
-    uint8_t power_value;
-    
+{    
     uint8_t i;
     
     speed_value = 1;
     power_value = 1;
-
-    if(powerUp<5) // speed
+    
     {
-        speed_value = powerUp+1-2;
-    }
-    else
-    {
-        speed_value = 3;
 
-        if(powerUp>6)
+        if(powerUp<2) // speed
         {
-            if(powerUp<9)
+            speed_value = powerUp+1;
+        }
+        else
+        {
+            speed_value = 3;
+    
+            if(powerUp<4)
             {
-                power_value = powerUp+1-6;
+				power_value = powerUp-1;
             }
-            else
-            {
-                power_value = 3;
-            }
+			else
+			{
+				power_value = 3;
+			}
         }
     }
 
@@ -921,9 +940,16 @@ void display_power_ups(void)
     _XL_PRINT(POWER_X,POWER_UPS_Y,POWER_STRING);
     _XL_PRINTD(POWER_X+STR_LEN,POWER_UPS_Y,1,power_value);
 
-    for(i=0;i<number_of_rockets_per_shot;++i)
+    for(i=0;i<3;++i)
     {
-        _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,_XL_CYAN);
+		if(i<number_of_rockets_per_shot)
+		{
+			_XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,0);
+		}
+		else
+		{
+			_XL_DELETE(ROCKETS_X+i,POWER_UPS_Y);
+		}
     }
 }
 #endif
@@ -990,7 +1016,10 @@ void power_up_effect(void)
         
         case 18:
             secret_locked = 0;
+			#if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
+			#endif
+
         break;
         
         default:
@@ -2473,19 +2502,46 @@ void reset_tanks(void)
 #endif
 
 
-void display_stinger_string(uint8_t color)
-{
-    _XL_SET_TEXT_COLOR(color);
-    PRINT_CENTERED_ON_ROW(YSize/3-2,_STINGER_STRING);
-}
+#if !defined(_XL_NO_TEXT_COLOR)
+	void display_stinger_string(uint8_t color)
+	{
+		_XL_SET_TEXT_COLOR(color);
+		PRINT_CENTERED_ON_ROW(YSize/3-2,_STINGER_STRING);
+	}
 
 
-void display_enemies_string(uint8_t color)
-{
-    _XL_SET_TEXT_COLOR(color);
-    PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
-}
+	void display_enemies_string(uint8_t color)
+	{
+		_XL_SET_TEXT_COLOR(color);
+		PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
+	}
+	
+	void display_cleared(void)
+	{
+		_XL_SET_TEXT_COLOR(_XL_CYAN);
+		PRINT_CENTERED("C L E A R E D");
 
+	}
+
+	void display_victory_string(uint8_t color)
+	{
+		_XL_SET_TEXT_COLOR(color);
+		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
+	}	
+#else
+	#define display_stinger_string(color) \
+		PRINT_CENTERED_ON_ROW(YSize/3-2,_STINGER_STRING);
+
+	#define display_enemies_string(color) \
+	    PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
+
+	#define display_cleared(color) \
+		PRINT_CENTERED("C L E A R E D");
+
+	#define display_victory_string(color) \
+		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
+
+#endif
 
 uint8_t fire_pressed_after_time(void)
 {
@@ -2921,21 +2977,6 @@ void handle_tank_movement(void)
             display_tanks();
         }
     }
-}
-
-
-void display_cleared(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_CYAN);
-    PRINT_CENTERED("C L E A R E D");
-
-}
-
-
-void display_victory_string(uint8_t color)
-{
-    _XL_SET_TEXT_COLOR(color);
-    PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
 }
 
 

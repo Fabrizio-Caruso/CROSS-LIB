@@ -2501,7 +2501,13 @@ void reset_tanks(void)
         "STINGER"
 #endif
 
+void display_cleared(void)
+{
+	_XL_SET_TEXT_COLOR(_XL_CYAN);
+	PRINT_CENTERED("C L E A R E D");
 
+}
+	
 #if !defined(_XL_NO_TEXT_COLOR)
 	void display_stinger_string(uint8_t color)
 	{
@@ -2515,13 +2521,6 @@ void reset_tanks(void)
 		_XL_SET_TEXT_COLOR(color);
 		PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
 	}
-	
-	void display_cleared(void)
-	{
-		_XL_SET_TEXT_COLOR(_XL_CYAN);
-		PRINT_CENTERED("C L E A R E D");
-
-	}
 
 	void display_victory_string(uint8_t color)
 	{
@@ -2534,9 +2533,6 @@ void reset_tanks(void)
 
 	#define display_enemies_string(color) \
 	    PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
-
-	#define display_cleared(color) \
-		PRINT_CENTERED("C L E A R E D");
 
 	#define display_victory_string(color) \
 		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");

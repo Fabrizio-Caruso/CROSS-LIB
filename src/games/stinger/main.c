@@ -1185,25 +1185,25 @@ void bullet_effect(void)
 
 
 
-#define move_left() \
-{ \
-    stinger_shape_tile = 2*((--stinger_x)&1); \
-    if(stinger_shape_tile) \
-    { \
-        _XL_DELETE((stinger_x>>1)+2,STINGER_Y); \
-    } \
-    display_stinger(); \
+void move_left(void)
+{
+    stinger_shape_tile = 2*((--stinger_x)&1);
+    if(stinger_shape_tile)
+    {
+        _XL_DELETE((stinger_x>>1)+2,STINGER_Y);
+    }
+    display_stinger();
 }
 
 
-#define move_right() \
-{ \
-    stinger_shape_tile = 2*((++stinger_x)&1); \
-    if(!stinger_shape_tile) \
-    { \
-        _XL_DELETE((stinger_x>>1)-1,STINGER_Y); \
-    } \
-    display_stinger(); \
+void move_right(void)
+{
+    stinger_shape_tile = 2*((++stinger_x)&1);
+    if(!stinger_shape_tile)
+    {
+        _XL_DELETE((stinger_x>>1)-1,STINGER_Y);
+    }
+    display_stinger();
 }
 
 
@@ -2130,7 +2130,7 @@ void fire(void)
     { \
         input = _XL_INPUT(); \
         \
-        if(_XL_LEFT(input) && stinger_x>1) \
+        if(_XL_LEFT(input) && stinger_x>2) \
         { \
             move_left(); \
             if(stinger_x) \
@@ -2528,16 +2528,32 @@ void display_cleared(void)
 		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
 	}	
 #else
-	#define display_stinger_string(color) \
+	void _display_stinger_string(void)
+	{
 		PRINT_CENTERED_ON_ROW(YSize/3-2,_STINGER_STRING);
+	}
+
+	void _display_enemies_string(void)
+	{
+		PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
+	}
+
+	void _display_victory_string(void)
+	{
+		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
+	}	
+
+	#define display_stinger_string(color) \
+		_display_stinger_string();
 
 	#define display_enemies_string(color) \
-	    PRINT_CENTERED_ON_ROW(YSize/3-2, "ENEMIES");
+	    _display_enemies_string();
 
 	#define display_victory_string(color) \
-		PRINT_CENTERED_ON_ROW(YSize/2,"V I C T O R Y");
+		_display_victory_string();
 
 #endif
+
 
 uint8_t fire_pressed_after_time(void)
 {

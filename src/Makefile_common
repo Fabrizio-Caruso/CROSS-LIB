@@ -554,7 +554,7 @@ oric1_48k: oric_atmos
 
 oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS)  \
-	-t atmos -D_XL_NO_JOYSTICK \
+	-t atmos -D_XL_NO_JOYSTICK $(ORIC_COLORS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ORIC_SLOWDOWN) \
 	-D_TILE_17_COLOR=0 -D_TILE_10_COLOR=0 -D_TILE_18_COLOR=0 \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \

@@ -2649,6 +2649,32 @@ void mortar_intro_animation()
     one_second();
 }
 
+#if XSize>=18
+	#define display_initial_screen() \
+	do \
+	{ \
+		_XL_CLEAR_SCREEN(); \
+		\
+		wall_color = _XL_GREEN; \
+		display_wall(0); \
+		display_wall(BOTTOM_WALL_Y+1); \
+		\
+		_XL_SET_TEXT_COLOR(_XL_CYAN); \
+		PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
+		\
+		_XL_SET_TEXT_COLOR(_XL_WHITE); \
+		_XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
+		\
+		_XL_SET_TEXT_COLOR(_XL_WHITE); \
+		PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
+		\
+		display_items(); \
+		tank_intro_animation(); \
+		_XL_ZAP_SOUND(); \
+		display_stinger_string(_XL_CYAN); \
+		one_second();    \
+	} while(0)
+#else
 #define display_initial_screen() \
 do \
 { \
@@ -2665,15 +2691,16 @@ do \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
+    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO"); \
+    PRINT_CENTERED_ON_ROW(YSize/3+1, "CARUSO"); \
     \
     display_items(); \
 	tank_intro_animation(); \
     _XL_ZAP_SOUND(); \
     display_stinger_string(_XL_CYAN); \
     one_second();    \
-} while(0)
-
+} while(0)	
+#endif
 
 void tank_intro_animation()
 {

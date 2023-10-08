@@ -8,19 +8,17 @@
 #else
     
 #define _TILE_0 'X'
-#define _TILE_1 'X'
+#define _TILE_1 ' '
 
-#define _TILE_2 ' '
+#define _TILE_2 'X'
 
-#define _TILE_3 'X'
+#define _TILE_3 ' '
 
-#define _TILE_4 ' '
+#define _TILE_4 'X'
 
-#define _TILE_5 'X'
+#define _TILE_5 ' '
 
-#define _TILE_6 ' '
-
-
+#define _TILE_6 'X'
 
 #define _TILE_8 'O'
 
@@ -35,13 +33,7 @@
 
 #define _TILE_14 'H'
 
-#define _TILE_15 'L'
-
 #define _TILE_16 'T'
-
-#define _TILE_17 'I'
-
-#define _TILE_18 'I'
 
 #define _TILE_19 'V'
 
@@ -51,18 +43,31 @@
 
 #define _TILE_22 'V'
 
-#if !defined(__CIDELSA__)
-    #define _TILE_7 '='
-    #define _TILE_23 '*'
+#define _TILE_23 'F'
+
+#if !defined(__CIDELSA__) && !defined(__ATARI7800__)
+    #define _TILE_7  '='
+	#define _TILE_15 '*'
     #define _TILE_24 '-'
-    
+	#define _TILE_25 '$' 
 #else
-    #define _TILE_7  'Z'
-    #define _TILE_23 'X'
+    #define _TILE_7  'S'
+	#define _TILE_15 'X'
     #define _TILE_24 'M'
+	#define _TILE_25 'S'
+
 #endif
 
-#define _TILE_25 'S'
+
+#if defined(__CIDELSA__)
+	#define _TILE_17 'I'
+	#define _TILE_18 'I'
+	#define _TILE_26 'I'
+#else
+	#define _TILE_17 '.'
+	#define _TILE_18 '.'	
+	#define _TILE_26 '.'
+#endif
 
 #endif
 

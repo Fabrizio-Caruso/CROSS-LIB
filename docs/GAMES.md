@@ -2,8 +2,8 @@
 
 -------------------------------------------
 ## STINGER
-![Vic20](/snapshots/XStinger_Vic20_gameplay.jpg)
-![Vic20](/snapshots/XStinger_Vic20_title.jpg)
+![Vic20](/snapshots/XStinger_VIC20_gameplay.jpg)
+![Vic20](/snapshots/XStinger_VIC20_title.jpg)
 
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)

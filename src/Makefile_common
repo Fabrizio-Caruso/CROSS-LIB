@@ -121,6 +121,7 @@ ifeq ($(DO_WIN),1)
 z88dk_targets_sequential: \
     aquarius \
     ace \
+    agon \
     cpc \
     c128_z80_40col \
     coleco \
@@ -148,6 +149,7 @@ else
 z88dk_targets_sequential: \
     aquarius \
     ace \
+    agon \
     cpc \
     coleco \
     cpm \

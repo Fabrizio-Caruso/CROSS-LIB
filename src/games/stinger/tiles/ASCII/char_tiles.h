@@ -64,8 +64,8 @@
 	#define _TILE_18 'I'
 	#define _TILE_26 'I'
 #else
-	#define _TILE_17 '.'
-	#define _TILE_18 '.'	
+	#define _TILE_17 '|'
+	#define _TILE_18 '|'	
 	#define _TILE_26 '.'
 #endif
 

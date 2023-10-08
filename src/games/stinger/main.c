@@ -2125,32 +2125,74 @@ void fire(void)
 
 
 #if defined(_XL_NO_UDG)
-    #define handle_stinger_move() \
-    do \
-    { \
-        input = _XL_INPUT(); \
-        \
-        if(_XL_LEFT(input) && stinger_x>2) \
-        { \
-            move_left(); \
-            if(stinger_x) \
-            { \
-                move_left(); \
-            } \
-        } \
-        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1) \
-        { \
-            move_right(); \
-            if(stinger_x<MAX_STINGER_X) \
-            { \
-                move_right(); \
-            } \
-        } \
-        else if (_XL_FIRE(input) && loaded_stinger) \
-        { \
-            fire(); \
-        } \
-    } while(0)
+    void handle_stinger_move(void)
+    {
+        input = _XL_INPUT();
+       
+        if(_XL_LEFT(input) && stinger_x>2)
+        {
+            if(direction==LEFT_DIRECTION)
+            {
+                ++acceleration_counter;
+                if(acceleration_counter>=ACCELERATION_THRESHOLD)
+                {
+                    acceleration=1;
+                }
+            }
+            else
+            {
+                acceleration_counter=0;
+                acceleration=0;
+            }
+            direction = LEFT_DIRECTION;			
+            move_left();
+            if(stinger_x)
+            {
+                move_left();
+            }
+            if(acceleration && stinger_x>1)
+            {
+                move_left();
+            }
+        }
+        else if (_XL_RIGHT(input) && stinger_x<MAX_STINGER_X-1)
+        {
+            if(direction==RIGHT_DIRECTION)
+            {
+                ++acceleration_counter;
+                if(acceleration_counter>=ACCELERATION_THRESHOLD)
+                {
+                    acceleration=1;
+                }
+            }
+            else
+            {
+                acceleration_counter=0;
+                acceleration=0;
+            }
+            direction = RIGHT_DIRECTION;  			
+            move_right();
+            if(stinger_x<MAX_STINGER_X)
+            {
+                move_right();
+            }
+            if(acceleration && (stinger_x<MAX_STINGER_X-1))
+            {
+                move_right();
+            }
+        }
+        else if (_XL_FIRE(input) && loaded_stinger)
+        {
+            fire();
+            acceleration_counter=0;
+            acceleration=0;
+        }
+        else
+        {
+            acceleration_counter=0;
+            acceleration=0;
+        }
+    }
 #else
     void handle_stinger_move(void)
     {

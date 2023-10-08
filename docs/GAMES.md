@@ -27,7 +27,7 @@ CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (d
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_vic20_exp_16k.prg
 
 2. Video Technology Laser 500: 
-https://nippur72.github.io/laser500emu/?load=http:////github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_laser500.bin
+https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_laser500.bin
 
 
 -------------------------------------------

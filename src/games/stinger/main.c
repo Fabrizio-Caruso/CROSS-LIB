@@ -207,10 +207,19 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {HEAVY_TANKS_0,HEAVY_TANKS_1,
 
 #define MAX_HYPER_COUNTER 200
 
+// #if YSize>=20
+    // #define HEIGHT_SHOOT_THRESHOLD YSize-10
+// #else
+    // #define HEIGHT_SHOOT_THRESHOLD YSize-11
+// #endif
+
+
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
+#elif YSize>=16
+    #define HEIGHT_SHOOT_THRESHOLD YSize-9
 #else
-    #define HEIGHT_SHOOT_THRESHOLD YSize-11
+    #define HEIGHT_SHOOT_THRESHOLD YSize-8
 #endif
 
 #define VERY_FAST_TANK_SHOOT_MASK 1

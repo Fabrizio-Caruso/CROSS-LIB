@@ -811,8 +811,8 @@ c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oa40.bin
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write A40.LDR
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write A40
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
 	rm a40.bin
 else
@@ -838,8 +838,8 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oa40.bin
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write A40.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write A40
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
 	rm a40.bin
 else
@@ -866,8 +866,8 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oa80.bin
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 X$(GAME_NAME)_c128_z80_80col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write A80.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write A80
 	mv X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
 	rm a80.bin
 else

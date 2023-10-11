@@ -943,7 +943,7 @@ endif
 	-DYSize=25 -DXSize=20 -D__SCREEN_MODE=0 \
 	 \
 	   \
-	 \
+	$(CPC_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
 	-D__CPC__ \
 	-lndos -create-app \

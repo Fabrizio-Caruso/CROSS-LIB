@@ -95,6 +95,14 @@ void _XL_INIT_SOUND(void)
 }
 #endif
 
+
+#if defined(__CPC__)
+	#define SAFE_PORT_A_DIRECTION 0x40
+#else
+	#define SAFE_PORT_A_DIRECTION
+#endif
+
+
 void _XL_ZAP_SOUND(void) 
 {
 	uint8_t i;
@@ -105,7 +113,7 @@ void _XL_ZAP_SOUND(void)
 	
 	set_psg(A_PERIOD_HI, 15);
 	
-	set_psg(CONTROL, 0xFF  - 0x01);
+	set_psg(CONTROL, 0xFF  - 0x01 - SAFE_PORT_A_DIRECTION);
 	
 	for(i=0;i<16;i++)
 	{
@@ -128,7 +136,7 @@ void _ping_sound(uint8_t freq)
 	
 	set_psg(A_PERIOD_HI, 15 - (freq>>4));		
 
-	set_psg(CONTROL, 0xFF - 0x01);
+	set_psg(CONTROL, 0xFF - 0x01 - SAFE_PORT_A_DIRECTION); // -0x40 is necessary for the CPC
 	
 	for(i=0;i<250U;++i)
 	{
@@ -152,7 +160,7 @@ void _explosion_sound(uint8_t freq)
 	set_psg(A_PERIOD_LOW,0);
 	set_psg(A_PERIOD_HI, 15 - (freq>>4));
 	
-	set_psg(CONTROL, 0xFF - 0x08);
+	set_psg(CONTROL, 0xFF - 0x08 - SAFE_PORT_A_DIRECTION);
 	
 	for(i=0;i<16;i++)
 	{

@@ -41,7 +41,7 @@ void _XL_ZAP_SOUND(void)
     set_psg(A_VOLUME,15);
     set_psg(A_PERIOD_LOW,255);  
     set_psg(A_PERIOD_HI, 15);  
-    set_psg(CONTROL, 0xFF  - 0x01);  
+    set_psg(CONTROL, 0xFF  - 0x01 - 0x40);  // -0x40 is the FIX
     for(i=0;i<16;i++)
     {
         set_psg(A_PERIOD_HI,15-i);        
@@ -101,8 +101,13 @@ int main(void)
     while(!fire_pressed);    
     printf("OK1");
     
+	
+	//asm("di"); 
+	_XL_ZAP_SOUND(); 
+	//asm("ei");
+	
     // **********************************
-    _XL_ZAP_SOUND(); // **** BUG HERE *** 
+    // _XL_ZAP_SOUND(); // **** BUG HERE *** 
     // **********************************
     
     sleep(1);

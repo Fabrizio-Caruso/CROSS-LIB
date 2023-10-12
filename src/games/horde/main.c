@@ -1575,34 +1575,6 @@ void handle_arrows(void)
 }
 
 
-uint8_t zombie_hit(void)
-{
-    uint8_t i;
-    
-    for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
-    {
-        if(active_arrow[i] && arrow_x[i]==zombie_x
-          && zombie_y[zombie_x]>=arrow_y[i]-1 && zombie_y[zombie_x]<=arrow_y[i]+1)
-           {
-               if(freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x])
-               {
-                   active_arrow[i]=0;
-                    --arrows_on_screen;
-
-                   _XL_DELETE(arrow_x[i],arrow_y[i]);
-                   return 1;
-               }
-               else // Arrows goes through ghost !free (non-frozen) && zombie_level==2 (i.e., ghost zombie) && !zombie_shape (i.e. invincible shape)
-               {
-                   display_zombie(); // display invincible ghost zombie
-                   return 0; // two arrows cannot be at the same place
-               }
-           }
-    }
-    return 0;
-}
-
-
 #define decrease_energy() \
 do \
 { \
@@ -1666,6 +1638,34 @@ void push_zombie(void)
     }
 }
 
+/*
+uint8_t zombie_hit(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
+    {
+        if(active_arrow[i] && arrow_x[i]==zombie_x
+          && zombie_y[zombie_x]>=arrow_y[i]-1 && zombie_y[zombie_x]<=arrow_y[i]+1)
+           {
+               if(freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x])
+               {
+                   active_arrow[i]=0;
+                    --arrows_on_screen;
+
+                   _XL_DELETE(arrow_x[i],arrow_y[i]);
+                   return 1;
+               }
+               else // Arrows goes through ghost !free (non-frozen) && zombie_level==2 (i.e., ghost zombie) && !zombie_shape (i.e. invincible shape)
+               {
+                   display_zombie(); // display invincible ghost zombie
+                   return 0; // two arrows cannot be at the same place
+               }
+           }
+    }
+    return 0;
+}
+
 
 void handle_zombie_collisions(void)
 {
@@ -1696,8 +1696,60 @@ void handle_zombie_collisions(void)
         }
     }
 }
+*/
 
+#define not_stealth() freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x]
 
+void handle_zombie_collisions(void)
+{
+    uint8_t i;
+	
+    for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
+    {
+		if(active_arrow[i])
+		{
+			zombie_x = arrow_x[i];
+			if(zombie_active[zombie_x])
+			{
+				if(zombie_y[zombie_x]>=arrow_y[i]-1 && zombie_y[zombie_x]<= arrow_y[i]+1)
+				{
+					if(not_stealth())
+					{
+						--arrows_on_screen;
+
+						_XL_DELETE(arrow_x[i],arrow_y[i]);
+						active_arrow[i]=0;
+						decrease_energy();
+
+						if(energy[zombie_x])
+						{
+							display_red_zombie();
+							_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+							
+							_XL_TOCK_SOUND();                
+							push_zombie();
+							display_zombie();
+							#if defined(_XL_NO_UDG)
+							_XL_DELETE(zombie_x,zombie_y[zombie_x]+1);
+							#endif
+						}
+						else
+						{
+							zombie_dies();
+							increase_score(zombie_points[zombie_level[zombie_x]]);
+							respawn();
+						}						
+					}
+					else
+					{
+						display_zombie();
+					}
+				
+				}
+			}
+		}
+	}
+}
 
 
 

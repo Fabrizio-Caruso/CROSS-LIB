@@ -1876,7 +1876,6 @@ void handle_tank_collisions(void)
 			}
 		}
 	}
-	
 }
 
 // uint8_t tank_hit(void)

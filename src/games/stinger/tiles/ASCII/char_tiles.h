@@ -59,10 +59,14 @@
 #endif
 
 
-#if defined(__CIDELSA__)
+#if defined(__CIDELSA__) || defined(__MC10__)
 	#define _TILE_17 'I'
 	#define _TILE_18 'I'
+	#if defined(__MC10__)
+	#define _TILE_26 '.'
+	#else
 	#define _TILE_26 'I'
+	#endif
 #else
 	#define _TILE_17 '|'
 	#define _TILE_18 '|'	

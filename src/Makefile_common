@@ -2547,7 +2547,7 @@ cidelsa_targets: $(MAKE) cidelsa_draco_32k
 mc10:
 	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
 	-D__MC10__ \
-	-D__REVERSE_LETTERS \
+	$(MC10_COLORS) \
 	-DXSize=32 \
 	-DYSize=16 \
 	-D__MEMORY_MAPPED_GRAPHICS -D_XL_NO_JOYSTICK \

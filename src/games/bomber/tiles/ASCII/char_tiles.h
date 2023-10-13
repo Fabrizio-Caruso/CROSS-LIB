@@ -14,7 +14,14 @@
 
         // Animated plane
         #define _TILE_0  '='
-        #define _TILE_18 '~'
+		
+		#if defined(__MC10__)
+			#define _TILE_18 '*'
+		#elif defined(__CIDELSA__)
+			#define _TILE_18 'X'
+		#else
+			#define _TILE_18 '~'
+		#endif
 
         #define _TILE_8  '='
     #else

@@ -2,7 +2,8 @@
 
 NES_COLORS=-D__ALTERNATE_COLORS
 
-
+MC10_COLORS=
+#-D__REVERSE_LETTERS
 
 
 #####################################################################

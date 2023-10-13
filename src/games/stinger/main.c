@@ -2691,7 +2691,9 @@ void mortar_intro_animation()
             // short_sleep();
 
             short_sleep();
+			#if!defined (_XL_NO_TEXT_COLOR)
             display_enemies_string(_XL_RED);
+			#endif
 
             _XL_DELETE(0,i);
             _XL_DELETE(XSize-1,i);
@@ -2798,7 +2800,7 @@ void tank_intro_animation()
     {
         for(i=3;i<(YSize-5)*4;++i)
         {
-            display_stinger_string(_XL_RED);
+            display_stinger_string(_XL_RED);			
 			// if(fire_pressed_after_time())
             // {
                 // break;
@@ -2859,9 +2861,11 @@ void tank_intro_animation()
                 tank_x=XSize-1;
                 push_display_tank();
             }
-                        
+            
+			#if!defined (_XL_NO_TEXT_COLOR)
             display_stinger_string(_XL_YELLOW);
-            short_sleep();
+            #endif
+			short_sleep();
 
             if(fire_pressed_after_time())
             {
@@ -3260,8 +3264,12 @@ void handle_level_end(void)
 			PRINT_CENTERED_ON_ROW(YSize/2,"BONUS ");
 			short_sleep();
 			_XL_TICK_SOUND();
+			#if !defined(_XL_NO_TEXT_COLOR)
 			_XL_SET_TEXT_COLOR(_XL_YELLOW);
 			PRINT_CENTERED_ON_ROW(YSize/2,"BONUS ");
+			#else
+			PRINT_CENTERED_ON_ROW(YSize/2,"      ");
+			#endif
 			short_sleep();
 		}
 		_XL_PING_SOUND();

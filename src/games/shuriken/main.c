@@ -767,28 +767,65 @@ void build_objects(uint8_t level)
     uint8_t i;
     uint8_t x;
     uint8_t y;
-    uint8_t x_size;
-    uint8_t y_size;
+    int x_size;
+    int y_size;
     uint8_t type;
+
+
 
     #if !defined(_XL_NO_COLOR)
     screen_color[WALL]=wall_colors[(level)&3];
     #endif
     
+    #if defined(BUGGY_TI99)
+    uint16_t aux = 0;
+    
     for(i=0;i<no_of_objects;++i)
-    {
+    {        
         x = objects_map[++index];
         y = objects_map[++index];
         x_size = objects_map[++index];
         y_size = objects_map[++index];
         type = objects_map[++index];
+
         if(type==DIAMOND)
         {
-            remaining_diamonds+=x_size*y_size;
+            // _XL_PRINTD(0,0,2,x_size);
+            // _XL_PRINTD(5,0,2,y_size);
+            // _XL_PRINTD(10,0,2,x_size*y_size);
+            
+            aux = x_size*y_size;
+            // _XL_PRINTD(0,1,2,aux);
+            remaining_diamonds+=aux;
+        }
+        build_rectangle(type,x,y,x_size,y_size);    
+        // if(type==DIAMOND)
+        // {
+            // _XL_WAIT_FOR_INPUT();
+        // }
+    }    
+    
+
+    #else
+    for(i=0;i<no_of_objects;++i)
+    {        
+        x = objects_map[++index];
+        y = objects_map[++index];
+        x_size = objects_map[++index];
+        y_size = objects_map[++index];
+        type = objects_map[++index];
+
+        if(type==DIAMOND)
+        {
+            // _XL_PRINTD(0,0,2,x_size);
+            // _XL_PRINTD(5,0,2,y_size);     
+            // _XL_WAIT_FOR_INPUT();
+            remaining_diamonds+=(uint8_t) x_size*y_size;
         }
 
         build_rectangle(type,x,y,x_size,y_size);
     }
+    #endif
     
 }
 

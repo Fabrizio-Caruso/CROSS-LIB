@@ -878,6 +878,21 @@ endif
 
 
 #################################################################
+camputers_lynx:
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
+	-vn \
+	-D__VT52 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CAMPUTERS_LYNX_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
+    
+#################################################################
 
 coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

@@ -340,12 +340,64 @@ do \
 #endif
 
 
+void delete_player_down(void)
+{
+    _XL_DELETE(screen_x,screen_y+1);
+    _XL_DELETE(screen_x+1,screen_y+1);      
+}
+
+
+void delete_player_up(void)
+{
+    _XL_DELETE(screen_x,screen_y);
+    _XL_DELETE(screen_x+1,screen_y);   
+}
+
+
+#define delete_player_left() \
+do \
+{ \
+    _XL_DELETE(screen_x,screen_y); \
+    _XL_DELETE(screen_x,screen_y+1); \
+} while(0)
+
+
+#define delete_player_right() \
+do \
+{ \
+    _XL_DELETE(screen_x+1,screen_y); \
+    _XL_DELETE(screen_x+1,screen_y+1); \
+} while(0)
+
+
+void delete_player(void)
+{
+    delete_player_down();
+    delete_player_up();
+}
+
+
 void display_player(void)
 {
+    #if !defined(_XL_NO_COLOR)
     _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
+    #else
+    if(!ring_active || (counter&1))
+    {
+        _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
+        _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
+        _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
+        _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);     
+    }
+    else
+    {
+        delete_player();
+    }
+    
+    #endif
 }
 
 
@@ -485,44 +537,6 @@ void update_player(void)
     
     delete_player_cells();
 }
-
-
-void delete_player_down(void)
-{
-    _XL_DELETE(screen_x,screen_y+1);
-    _XL_DELETE(screen_x+1,screen_y+1);      
-}
-
-
-void delete_player_up(void)
-{
-    _XL_DELETE(screen_x,screen_y);
-    _XL_DELETE(screen_x+1,screen_y);   
-}
-
-
-#define delete_player_left() \
-do \
-{ \
-    _XL_DELETE(screen_x,screen_y); \
-    _XL_DELETE(screen_x,screen_y+1); \
-} while(0)
-
-
-#define delete_player_right() \
-do \
-{ \
-    _XL_DELETE(screen_x+1,screen_y); \
-    _XL_DELETE(screen_x+1,screen_y+1); \
-} while(0)
-
-
-#define delete_player() \
-do \
-{ \
-    delete_player_down(); \
-    delete_player_up(); \
-} while(0)
 
 
 uint8_t allowed(uint8_t cell1, uint8_t cell2, uint8_t beyond_cell1, uint8_t beyond_cell2)

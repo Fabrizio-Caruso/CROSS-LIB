@@ -138,23 +138,39 @@
 
 //
 
-#define LV_CROSS_SHURIKENS \
-    4,4,2, \
-    2,2,\
-    XSize-3,3, \
-    2,YSize-2, \
-    XSize-3,YSize-3, \
-    \
-    LV_CROSS_OFFSET-3,2, \
-    XSize-1-LV_CROSS_OFFSET+3,2, \
-    LV_CROSS_OFFSET-3,YSize-2, \
-    XSize-1-LV_CROSS_OFFSET+3,YSize-2, \
-    \
-    2, \
-    XSize-3
-    
 
-#define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,4,2)
+#if !defined(FEWER_SHURIKENS)
+    #define LV_CROSS_SHURIKENS \
+        4,4,2, \
+        2,2,\
+        XSize-3,3, \
+        2,YSize-2, \
+        XSize-3,YSize-3, \
+        \
+        LV_CROSS_OFFSET-3,2, \
+        XSize-1-LV_CROSS_OFFSET+3,2, \
+        LV_CROSS_OFFSET-3,YSize-2, \
+        XSize-1-LV_CROSS_OFFSET+3,YSize-2, \
+        \
+        2, \
+        XSize-3
+    #define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,4,2)
+
+#else
+    #define LV_CROSS_SHURIKENS \
+        2,2,2, \
+        2,2,\
+        XSize-3,YSize-3, \
+        \
+        LV_CROSS_OFFSET-3,2, \
+        XSize-1-LV_CROSS_OFFSET+3,YSize-2, \
+        \
+        2, \
+        XSize-3
+    #define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,2,2)
+
+#endif    
+
 
 
 

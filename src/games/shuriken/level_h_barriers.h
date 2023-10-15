@@ -47,7 +47,7 @@
 
 //
 
-#if XSize>=20
+#if XSize>=20  && !defined(FEWER_SHURIKENS)
     #define LV_H_BARRIERS_SHURIKENS \
         3,8,0, \
         \
@@ -89,7 +89,7 @@
         \
         \
 
-#define LV_H_BARRIERS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,6,0)
+    #define LV_H_BARRIERS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(3,6,0)
 
 #endif
 

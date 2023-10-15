@@ -99,7 +99,7 @@ void _XL_INIT_SOUND(void)
 #if defined(__CPC__)
 	#define SAFE_PORT_A_DIRECTION 0x40
 #else
-	#define SAFE_PORT_A_DIRECTION
+	#define SAFE_PORT_A_DIRECTION 0x00
 #endif
 
 

@@ -650,6 +650,7 @@ def create(params):
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
 
     shutil.copy(templated_makefile_path+"/"+"/config/project_config.mk.template", "./"+dest_path+"/config/project_config.mk")
+    shutil.copy(templated_makefile_path+"/"+"/config/game_config.mk.template", "./"+dest_path+"/config/game_config.mk")
 
 
     #read input file

@@ -1,0 +1,49 @@
+
+coco3: coco3_gfx
+	
+coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco3/coco3_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o dac_sounds.o \
+	coco3_init_graphics.o \
+	memory_mapped_alt_print.o \
+	input_macros.o cmoc_udc_tiles_and_fonts.o \
+	# rm -rf main.c \
+	# display_macros.o dac_sounds.o \
+	# coco3_init_graphics.o \
+	# memory_mapped_alt_print.o \
+	# input_macros.o cmoc_udc_tiles_and_fonts.o
+# ifdef USE_TOOLS
+	# mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	# $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
+	# mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	# $(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
+	# rm XCHASE.BIN
+# else
+	# mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+# endif
+
+
+coco3_targets: \
+	coco3_gfx
+

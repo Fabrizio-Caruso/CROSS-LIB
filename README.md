@@ -127,8 +127,8 @@ In most cases the user will just have to
 
 The `xl` script will trigger the full build process which will produce the target specific version of the project 
 or massively build the same project for several targets (or even build several projects for one or more targets).
-For example for the build of a project for the sole GameBoy target we may repressent 
-the interractions of various Cross-Lib components with this diagram:
+For example for the build of a project for the sole GameBoy target we may represent 
+the interactions of various Cross-Lib components with this diagram:
 
 ![User](snapshots/CrossLibFlow8.png)
 
@@ -166,7 +166,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 -------------------------------------------
 ## INSTALLATION OF THE TOOL-CHAIN
 
-The tool-chain Cross-Lib can be installed on different POSIX-compliant enviroments.
+The tool-chain Cross-Lib can be installed on different POSIX-compliant environments.
 It has been tested on:
 - Windows (7, 10) + `Cygwin`
 - Linux Ubuntu 18.04 under the Windows Subsystem
@@ -192,7 +192,7 @@ For Windows + Cygwin the tested and verified installation procedure uses:
 - `LCC1802` is installed under Windows by simply decompressing its released binary version (https://github.com/bill2009/lcc1802/releases).
 
 ### Under Linux
-For Linux (native or under thw Windows Subsystem), the tested and verified procedure both standard repositories and installation from sources.
+For Linux (native or under the Windows Subsystem), the tested and verified procedure both standard repositories and installation from sources.
 
 A detailed procedure for recent Ubuntu distributions is described here: 
 

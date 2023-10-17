@@ -32,6 +32,8 @@
     #include "atari_lynx_tgi_graphics.h"
 #elif defined(__CPCRSLIB_GRAPHICS)
 	#include "cpc_cpcrslib_graphics.h"
+#elif defined(__BIT_MAPPED_16_GRAPHICS)
+	#include "bit_mapped_16_graphics.h"
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
 	#include "bit_mapped_4_graphics.h"
 #elif defined(__BIT_MAPPED_GRAPHICS)

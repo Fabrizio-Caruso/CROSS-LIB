@@ -36,8 +36,9 @@
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 
-#if !defined(__COCO__) && !defined(__DRAGON__) && !defined(__MO5__) && !defined(__TO7__) && !defined(__SUPERVISION__) \
-	&& !defined(__MC10__) && !defined(__LCC1802__) && !defined(__ATARI_LYNX__) && !(defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
+#if !defined(__COCO3__) && !defined(__COCO__) && !defined(__DRAGON__) && !defined(__MO5__) && !defined(__TO7__) \
+    && !defined(__SUPERVISION__) && !defined(__MC10__) && !defined(__LCC1802__) && !defined(__ATARI_LYNX__) \
+    && !(defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \

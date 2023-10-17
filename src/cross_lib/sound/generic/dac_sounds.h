@@ -7,6 +7,12 @@
     #define ROM_ADDR 0x8000
 	
 	#define CYCLES_FACTOR 1
+#elif defined(__COCO3__)
+    #define DAC 0xFF20
+    #define SHIFT 2
+    #define ROM_ADDR 0x8000
+	
+	#define CYCLES_FACTOR 1
 #elif defined(__MO5__)
     #define DAC 0xA7CD
     #define SHIFT 0

@@ -18,6 +18,22 @@ void _XL_INIT_SOUND(void)
         STA $FF23
     }
 }
+#elif defined(__COCO3__)
+void _XL_INIT_SOUND(void)
+{
+    asm
+    {
+        LDA $FF01
+        ANDA #$F7
+        STA $FF01
+        LDA $FF03
+        ANDA #$F7
+        STA $FF03
+        LDA $FF23
+        ORA #8
+        STA $FF23
+    }
+}
 #elif defined(__MO5__)
 void _XL_INIT_SOUND(void)
 {

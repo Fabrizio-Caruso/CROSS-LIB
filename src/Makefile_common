@@ -1864,6 +1864,7 @@ GFX_OPTS                ?= $(CMOC_OPTS) -D__BIT_MAPPED_GRAPHICS -D__ALT_PRINT -D
 COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -D_XL_NO_COLOR -D_XL_NO_JOYSTICK
 
 
+
 COCO_GFX_COMPILE_OPTS      ?= $(COCO_GFX_OPTS)  
 
 
@@ -1872,6 +1873,10 @@ GFX_COLOR_OPTS              ?= $(CMOC_OPTS)  -D_XL_NO_JOYSTICK -D__BIT_MAPPED_GR
 COCO_COLOR_GFX_OPTS         ?= -D__COCO__ $(GFX_COLOR_OPTS) -D__BIT_MAPPED_4_GRAPHICS $(COCO_COLOR_GFX_GAME_OPTS)
 
 COCO_COLOR_GFX_COMPILE_OPTS ?= $(COCO_COLOR_GFX_OPTS)
+
+COCO3_COLOR_GFX_OPTS         ?= -D__COCO3__ $(GFX_COLOR_OPTS) -D__BIT_MAPPED_16_GRAPHICS $(COCO3_COLOR_GFX_GAME_OPTS)
+
+COCO3_COLOR_GFX_COMPILE_OPTS ?= $(COCO3_COLOR_GFX_OPTS)
 
 THOMSON_OPTS    ?= $(CMOC_MAKEFILE_COMPILATION_OPTS) -D__ALT_SLEEP  -Wno-const -D__CMOC__ -D__BIT_MAPPED_GRAPHICS -D__ALT_PRINT
 
@@ -1995,31 +2000,31 @@ else
 coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 endif
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \
@@ -2120,28 +2125,28 @@ coco3: coco3_gfx
 	
 coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco3/coco3_init_graphics.c
 	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
+	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o sleep_macros.o \
 	coco3_init_graphics.o \

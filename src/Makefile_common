@@ -2000,31 +2000,31 @@ else
 coco_color: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 endif
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(COCO3_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \

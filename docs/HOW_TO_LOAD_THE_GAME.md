@@ -152,6 +152,13 @@ mame64.exe bit90 -window -uimodekey DEL
 
 Attach the .rom as a cartridge to load and run the game
 
+
+-----------------------------------------------------------
+### CAMPUTERS LYNX
+
+Use Jinx emulator: https://github.com/jonathan-markland/Jynx/releases
+
+
 -----------------------------------------------------------
 
 ### CASIO FP-1100
@@ -232,6 +239,19 @@ Disk load
 - LOADM"XCHASE
 - EXEC
 
+
+-------------------------------------------------------------
+
+### Color Computer 3 (CoCo 3)
+
+Use VCC emulator: https://github.com/VCCE/VCC/releases
+
+Same as CoCo with XROAR but disk drives need to be enabled:
+
+Disk load 
+
+Cartridge -> Cartridge -> Load Cart 
+fd502.dll
 
 ---------------------------------------------------------
 

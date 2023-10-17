@@ -9,7 +9,7 @@
 void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 {
 	move(y,x); 
-	printw(str); 
+	printw("%s",str); 
 	refresh();
 }
 

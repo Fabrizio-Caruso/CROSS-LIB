@@ -95,7 +95,7 @@
 			return ch+18-65;
 		}
 	}    
-#elif (defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS))
+#elif (defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS))
 
     #if defined(__BIT_MAPPED_4_GRAPHICS)
         #define _SPACE_OFFSET 13
@@ -232,7 +232,7 @@
     #define _DISPLAY(x,y,c) \
         _color_draw(x,y,c-_CHAR_OFFSET,_bitmap4_text_color)
 
-#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
+#elif (defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"
     #define _DISPLAY(x,y,ch) \

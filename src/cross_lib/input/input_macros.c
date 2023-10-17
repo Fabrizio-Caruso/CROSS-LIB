@@ -205,7 +205,7 @@
         
         return ch;
     
-    #elif defined(__COCO__) || defined(__DRAGON__)
+    #elif defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         #include <coco.h>
         
@@ -301,7 +301,7 @@ out            stb res
                 getch();
             #endif
         }
-    #elif defined(__COCO__) || defined(__DRAGON__)
+    #elif defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         
         void _XL_WAIT_FOR_INPUT(void)

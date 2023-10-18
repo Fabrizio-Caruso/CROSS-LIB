@@ -124,7 +124,7 @@ z88dk_targets_sequential: \
     agon \
     cpc \
     c128_z80_40col \
-	camputers_lynx \
+    camputers_lynx \
     coleco \
     cpm \
     gb \
@@ -151,7 +151,7 @@ z88dk_targets_sequential: \
     aquarius \
     ace \
     agon \
-	camputers_lynx \
+    camputers_lynx \
     coleco \
     cpc \
     cpm \

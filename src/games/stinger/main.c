@@ -2611,7 +2611,7 @@ uint8_t fire_pressed_after_time(void)
 }
 
 
-void mortar_intro_animation()
+void mortar_intro_animation(void)
 {
     uint8_t i;
     // uint8_t fire = 0;
@@ -2766,7 +2766,7 @@ do \
 } while(0)	
 #endif
 
-void tank_intro_animation()
+void tank_intro_animation(void)
 {
     uint8_t i;
     switch_counter = 0;
@@ -2891,7 +2891,7 @@ void tank_intro_animation()
 }
 
 
-void display_second_screen() 
+void display_second_screen(void) 
 {
     _XL_CLEAR_SCREEN();
     

@@ -10,6 +10,7 @@
 void _XL_INIT_GRAPHICS(void)
 {
     uint16_t i;
+	uint8_t j;
 
     // Enable MMU
     // POKE(0xFF90,0x40);
@@ -40,6 +41,16 @@ void _XL_INIT_GRAPHICS(void)
     for(i=0;i<24000;++i)
     {
         POKE(0x8000+i,i&0xFF);
+		if(!(i&7))
+		{
+			for(j=0;j<100;++j)
+			{
+			}
+			_XL_WAIT_FOR_INPUT();
+		}
+		for(j=0;j<10;++j)
+		{
+		}
     }
 
     // while(1){};

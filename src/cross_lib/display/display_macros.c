@@ -99,7 +99,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 
     extern uint8_t udgs[];
 
-    uint8_t _bitmap4_text_color;
+    uint8_t _bitmap16_text_color;
 
     void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     {

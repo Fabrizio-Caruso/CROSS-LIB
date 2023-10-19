@@ -323,6 +323,21 @@
     #define _XL_CYAN _AUX_DARK_GREY
     #define _XL_BLUE _AUX_DARK_GREY
 
+#elif (defined(__COCO3__)) && defined(__BIT_MAPPED_16_GRAPHICS)
+
+	// TODO: BOGUS
+    #define _COCO_RED 0xFF
+    #define _COCO_YELLOW 0x55
+    #define _COCO_CYAN 0xAA
+
+    #define _XL_BLACK _COCO_CYAN
+    #define _XL_WHITE _COCO_RED
+    #define _XL_YELLOW _COCO_YELLOW
+    #define _XL_RED _COCO_RED
+    #define _XL_GREEN _COCO_CYAN
+    #define _XL_CYAN _COCO_CYAN
+    #define _XL_BLUE _COCO_CYAN
+
 #elif (defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)) && defined(__BIT_MAPPED_4_GRAPHICS)
 
     #define _COCO_RED 0xFF

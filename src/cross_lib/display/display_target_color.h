@@ -10,7 +10,7 @@
     || (defined(__PC6001__) && !(__SCREEN_MODE==2)) \
     || (defined(__ATARI5200__) && !defined(__ANTIC_MODE6_GRAPHICS)) \
     || (defined(__CREATIVISION__) && !defined(__VDP_MODE1_GRAPHICS)) \
-    || defined(__WINCMOC__) || (defined(__COCO__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__DRAGON__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__OSIC1P__) \
+    || defined(__WINCMOC__) || (defined(__COCO3__)&&!defined(__BIT_MAPPED_16_GRAPHICS)) || (defined(__COCO__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__DRAGON__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__OSIC1P__) \
     || (defined(__MC1000__)  && !(__SCREEN_MODE==2)) \
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
     || defined(__VZ__) \

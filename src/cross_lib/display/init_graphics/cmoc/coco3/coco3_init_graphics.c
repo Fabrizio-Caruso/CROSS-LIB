@@ -8,6 +8,26 @@
 
 #include "coco.h"
 
+#define _GIME_BLACK 0b000000
+#define _GIME_WHITE 0b111111
+
+#define _GIME_RED 0b100100
+#define _GIME_GREEN 0b100100
+#define _GIME_CYAN 0b011011
+
+#define _GIME_YELLOW 0b110110
+
+#define _GIME_PURPLE 0b101101
+
+#define _GIME_BLUE 0b001001
+
+
+const unsigned char _color_encoding[] = 
+	{
+		_GIME_BLACK,_GIME_WHITE,_GIME_RED,_GIME_GREEN,_GIME_CYAN,_GIME_YELLOW,_GIME_PURPLE,_GIME_BLUE,
+		_GIME_BLACK,_GIME_WHITE,_GIME_RED,_GIME_GREEN,_GIME_CYAN,_GIME_YELLOW,_GIME_PURPLE,_GIME_BLUE,
+	};
+
 void _XL_INIT_GRAPHICS(void)
 {
     uint16_t i;
@@ -33,7 +53,7 @@ void _XL_INIT_GRAPHICS(void)
     // Set palette   
     for(color=0;color<16;++color)
     {
-        POKE(0xFFB0+color,color);
+        POKE(0xFFB0+color,_color_encoding[color]);
     }
     // POKE(0xFFB,0x3F);
     
@@ -47,7 +67,7 @@ void _XL_INIT_GRAPHICS(void)
     for(i=0;i<24000/32;++i)
     {
 		
-        POKE(0x8000+i,color);
+        POKE(0x8000+i,255);
 
 		for(j=0;j<700;++j)
 		{
@@ -56,6 +76,7 @@ void _XL_INIT_GRAPHICS(void)
 		{
 			_XL_WAIT_FOR_INPUT();
 			++color;
+			color&=7;
 		}
     }
 

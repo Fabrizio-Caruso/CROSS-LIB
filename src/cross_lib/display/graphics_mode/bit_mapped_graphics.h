@@ -8,6 +8,8 @@
 	#define SV_VIDEO  ((uint8_t*)0x4000)
 #elif defined(__COCO__) || defined(__DRAGON__)
 	#define SV_VIDEO  ((uint8_t*)0x0E00)
+#elif defined(__COCO3__)
+	#define SV_VIDEO ((uint8_t*)0x8000)
 #endif
 
 extern uint8_t udgs[];

@@ -60,7 +60,8 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 }
 #endif
 
-#if defined(__SUPERVISION__) || (defined(__COCO__) && defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__MC10__) && defined(__BIT_MAPPED_4_GRAPHICS))
+// #if defined(__SUPERVISION__) || (defined(__COCO__) && defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__MC10__) && defined(__BIT_MAPPED_4_GRAPHICS))
+#if defined(__BIT_MAPPED_4_GRAPHICS)
     extern uint8_t udgs[];
 
     uint8_t _bitmap4_text_color;
@@ -95,7 +96,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
             delta+=BYTES_PER_LINE;
         }
     }
-#elif defined(__COCO3__)
+#elif defined(__BIT_MAPPED_16_GRAPHICS)
 
     extern uint8_t udgs[];
 
@@ -103,33 +104,37 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 
     void _color_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     {
-        // uint8_t k;
-        // uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
+        uint8_t k;
+        uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
         
-        // uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
-        // uint16_t delta = 0;
+        uint16_t base = 4*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
+        uint16_t delta = 0;
         
-        // for(k=0;k<_XL_TILE_Y_SIZE;++k)
-        // {
-            // SV_VIDEO[base+delta]    = left_map_one_to_two(udgs[offset+k])&color;
-            // SV_VIDEO[base+delta+1]  = right_map_one_to_two(udgs[offset+k])&color;
-            // delta+=BYTES_PER_LINE;
-        // }
+        for(k=0;k<_XL_TILE_Y_SIZE;++k)
+        {
+            SV_VIDEO[base+delta]    = first_map_one_to_four(udgs[offset+k])&color;
+            SV_VIDEO[base+delta+1]  = second_map_one_to_four(udgs[offset+k])&color;
+            SV_VIDEO[base+delta+2]  = third_map_one_to_four(udgs[offset+k])&color;
+            SV_VIDEO[base+delta+3]  = fourth_map_one_to_four(udgs[offset+k])&color;
+            delta+=BYTES_PER_LINE;
+        }
     }
 
     void _color_delete(uint8_t x, uint8_t y)
     {
-        // uint8_t k;
-        // uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
-        // uint16_t delta = 0;
+        uint8_t k;
+        uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
+        uint16_t delta = 0;
         
-        // for(k=0;k<_XL_TILE_Y_SIZE;++k)
-        // {
+        for(k=0;k<_XL_TILE_Y_SIZE;++k)
+        {
 
-            // SV_VIDEO[base+delta]=0;
-            // SV_VIDEO[base+delta+1]=0;
-            // delta+=BYTES_PER_LINE;
-        // }
+            SV_VIDEO[base+delta]=0;
+            SV_VIDEO[base+delta+1]=0;
+			SV_VIDEO[base+delta+2]=0;
+            SV_VIDEO[base+delta+3]=0;
+            delta+=BYTES_PER_LINE;
+        }
     }
 #endif 
 
@@ -421,22 +426,22 @@ lda $a7c0
 		0xFF,
     }; 
         
-    uint8_t first_map_one_to_two(uint8_t n)
+    uint8_t first_map_one_to_four(uint8_t n)
     {
         return map_one_to_four_lookup[n >> 6];
     }
     
-    uint8_t second_map_one_to_two(uint8_t n)
+    uint8_t second_map_one_to_four(uint8_t n)
     {
         return map_one_to_four_lookup[(n >> 4)&0x03];
     }
 
-    uint8_t third_map_one_to_two(uint8_t n)
+    uint8_t third_map_one_to_four(uint8_t n)
     {
         return map_one_to_four_lookup[(n >> 2)&0x03];
     }
     
-    uint8_t fourth_map_one_to_two(uint8_t n)
+    uint8_t fourth_map_one_to_four(uint8_t n)
     {
         return map_one_to_four_lookup[n&0x03];
     }

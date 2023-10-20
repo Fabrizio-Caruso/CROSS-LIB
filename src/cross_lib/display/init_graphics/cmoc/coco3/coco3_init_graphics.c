@@ -30,8 +30,8 @@ const unsigned char _color_encoding[] =
 
 void _XL_INIT_GRAPHICS(void)
 {
-    uint16_t i;
-	uint16_t j;
+    // uint16_t i;
+	// uint16_t j;
 	uint8_t color;
 
 	disableInterrupts();
@@ -62,23 +62,23 @@ void _XL_INIT_GRAPHICS(void)
     POKE(0xFFA5,0x31);
     POKE(0xFFA6,0x32);
 
-	color = 0;
+	// color = 0;
 
-    for(i=0;i<24000/32;++i)
-    {
+    // for(i=0;i<24000/32;++i)
+    // {
 		
-        POKE(0x8000+i,255);
+        // POKE(0x8000+i,255);
 
-		for(j=0;j<700;++j)
-		{
-		}
-		if((i&31)==31)
-		{
-			_XL_WAIT_FOR_INPUT();
-			++color;
-			color&=7;
-		}
-    }
+		// for(j=0;j<700;++j)
+		// {
+		// }
+		// if((i&31)==31)
+		// {
+			// _XL_WAIT_FOR_INPUT();
+			// ++color;
+			// color&=7;
+		// }
+    // }
 
     // while(1){};
 }

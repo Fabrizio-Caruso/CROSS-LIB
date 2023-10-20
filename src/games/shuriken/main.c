@@ -781,8 +781,8 @@ void build_objects(uint8_t level)
     uint8_t i;
     uint8_t x;
     uint8_t y;
-    int x_size;
-    int y_size;
+    uint8_t x_size;
+    uint8_t y_size;
     uint8_t type;
 
 

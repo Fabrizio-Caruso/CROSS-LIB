@@ -116,6 +116,10 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
             SV_VIDEO[base+delta+1]  = second_map_one_to_four(udgs[offset+k])&color;
             SV_VIDEO[base+delta+2]  = third_map_one_to_four(udgs[offset+k])&color;
             SV_VIDEO[base+delta+3]  = fourth_map_one_to_four(udgs[offset+k])&color;
+            // SV_VIDEO[base+delta]    = 0xFF;
+            // SV_VIDEO[base+delta+1]  = 0xFF;
+            // SV_VIDEO[base+delta+2]  = 0xFF;
+            // SV_VIDEO[base+delta+3]  = 0xFF;			
             delta+=BYTES_PER_LINE;
         }
     }
@@ -123,7 +127,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     void _color_delete(uint8_t x, uint8_t y)
     {
         uint8_t k;
-        uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
+        uint16_t base = 4*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
         uint16_t delta = 0;
         
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
@@ -532,6 +536,7 @@ lda $a7c0
             for(j=0;j<YSize+Y_OFFSET;++j)
             {
                 _XL_DELETE(i,j);
+				// _XL_SLEEP(1);
             }
         }
     }

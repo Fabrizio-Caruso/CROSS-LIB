@@ -204,8 +204,43 @@
         }
         
         return ch;
+
+    #elif defined(__COCO3__) 
+        #include <cmoc.h>
+        #include <coco.h>
+        
+        uint8_t res;
+        uint8_t machine;
+        
+        asm {
+            lda #253
+            sta machine
+            sta $FF02
+            ldb #73
+test        lda $ff00
+            cmpa machine
+            beq out
+            incb
+            rol $ff02
+            inc $ff02
+            cmpb #77
+            bne test
+            clrb 
+out            stb res
+        }
+        
+        #define _COCO_SPACE_BIT_MASK 0x08
+                
+        POKE(0xFF02,0x7F);
+        if(!(PEEK(0xFF00)&_COCO_SPACE_BIT_MASK))
+        {
+            return ' ';
+        }
+
+        return res;
+        
     
-    #elif defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
+    #elif defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         #include <coco.h>
         

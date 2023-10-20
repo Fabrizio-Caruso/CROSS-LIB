@@ -6,11 +6,15 @@
 
 #include "display_macros.h"
 
+#include "coco.h"
 
 void _XL_INIT_GRAPHICS(void)
 {
     uint16_t i;
-	uint8_t j;
+	uint16_t j;
+	uint8_t color;
+
+	disableInterrupts();
 
     // Enable MMU
     // POKE(0xFF90,0x40);
@@ -27,29 +31,31 @@ void _XL_INIT_GRAPHICS(void)
     POKE(0xFF9E,0x00);
 
     // Set palette   
-    for(i=0;i<16;++i)
+    for(color=0;color<16;++color)
     {
-        POKE(0xFFB0+i,i&0xFF);
+        POKE(0xFFB0+color,color);
     }
-    POKE(0xFFB,0x3F);
+    // POKE(0xFFB,0x3F);
     
     // Set MMU windows at $8000
     POKE(0xFFA4,0x30);
     POKE(0xFFA5,0x31);
     POKE(0xFFA6,0x32);
 
-    for(i=0;i<24000;++i)
+	color = 0;
+
+    for(i=0;i<24000/32;++i)
     {
-        POKE(0x8000+i,i&0xFF);
-		if(!(i&7))
+		
+        POKE(0x8000+i,color);
+
+		for(j=0;j<700;++j)
 		{
-			for(j=0;j<100;++j)
-			{
-			}
-			_XL_WAIT_FOR_INPUT();
 		}
-		for(j=0;j<10;++j)
+		if((i&31)==31)
 		{
+			_XL_WAIT_FOR_INPUT();
+			++color;
 		}
     }
 

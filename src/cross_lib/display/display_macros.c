@@ -388,7 +388,7 @@ lda $a7c0
     }    
     
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
-    uint8_t map_one_to_two_lookup[16] = 
+    const uint8_t map_one_to_two_lookup[16] = 
     {  
     #if defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)
         0x00, 0x03, 0x0C, 0x0F, 0x30, 0x33, 0x3C, 0x3F,
@@ -409,30 +409,36 @@ lda $a7c0
         return map_one_to_two_lookup[n&0x0F];
     }
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
-    uint8_t map_one_to_four_lookup[16] = 
+    const uint8_t map_one_to_four_lookup[4] = 
     {  
-        0x00, 0x03, 0x0C, 0x0F, 0x30, 0x33, 0x3C, 0x3F,
-        0xC0, 0xC3, 0xCC, 0xCF, 0xF0, 0xF3, 0xFC, 0xFF
+        // 0x00000000, 
+		// 0b00001111, 
+		// 0b11110000, 
+		// 0b11111111,
+		0x00,
+		0x0F, 
+		0xF0, 
+		0xFF,
     }; 
         
     uint8_t first_map_one_to_two(uint8_t n)
     {
-        return map_one_to_four_lookup[n >> 4];
+        return map_one_to_four_lookup[n >> 6];
     }
     
     uint8_t second_map_one_to_two(uint8_t n)
     {
-        return map_one_to_four_lookup[n&0x0F];
+        return map_one_to_four_lookup[(n >> 4)&0x03];
     }
 
     uint8_t third_map_one_to_two(uint8_t n)
     {
-        return map_one_to_four_lookup[n >> 4];
+        return map_one_to_four_lookup[(n >> 2)&0x03];
     }
     
     uint8_t fourth_map_one_to_two(uint8_t n)
     {
-        return map_one_to_four_lookup[n&0x0F];
+        return map_one_to_four_lookup[n&0x03];
     }
 #endif
 

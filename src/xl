@@ -85,7 +85,7 @@ SHORT_COMMANDS_LIST = \
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-           " SCCZ80_MAKEFILE_COMPILATION_OPTS='" + sccz80_compiler_opts + compiler_opts + "'" + \
+           " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
@@ -514,7 +514,7 @@ def build(params):
             print("Compiler's options : " + compiler_opts)
             
             print("--------------------------")
-            print("sccz80_compiler_opts    : " + sccz80_compiler_opts)
+            print("z88dk_compiler_opts    : " + z88dk_compiler_opts)
             print("zsdcc_compiler_opts     : " + zsdcc_compiler_opts)
             print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
             print("cc65_compiler_opts      : " + cc65_compiler_opts) 
@@ -2060,7 +2060,7 @@ def read_config():
         import ConfigParser as configparser
     
     global compilation_threads
-    global sccz80_compiler_opts 
+    global z88dk_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
@@ -2121,7 +2121,7 @@ def read_config():
             if global_vars.verbose:
                 print("Detected " + compilation_threads + " threads...")
 
-        sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts") 
+        z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
@@ -2168,7 +2168,7 @@ def read_config():
 def default_config():
     
     global compilation_threads
-    global sccz80_compiler_opts 
+    global z88dk_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
@@ -2197,7 +2197,7 @@ def default_config():
     compiler_opts = ""
     compilation_threads = 1
     zsdcc_compiler_opts = ""
-    sccz80_compiler_opts = ""
+    z88dk_compiler_opts = ""
     cmoc_compiler_opts = ""
     native_compiler = "gcc"
     tool_compiler = "gcc"  
@@ -2220,7 +2220,7 @@ def display_config():
     print("compilation_threads: " + str(compilation_threads))
     
     
-    print("sccz80_compiler_opts: " +  sccz80_compiler_opts)
+    print("z88dk_compiler_opts: " +  z88dk_compiler_opts)
     print("zsdcc_compiler_opts: " +  zsdcc_compiler_opts)
     print("cmoc_compiler_opts: " +  cmoc_compiler_opts)
     print("cc65_compiler_opts: " +  cc65_compiler_opts)

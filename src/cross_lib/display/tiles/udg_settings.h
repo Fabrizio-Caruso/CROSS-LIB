@@ -79,7 +79,7 @@
     #define _TILE_23 53
     #define _TILE_24 54
     #define _TILE_26 (_TILE_8+1)
-#elif defined(__COCO__)||defined(__DRAGON__)
+#elif defined(__COCO3__) || defined(__COCO__)||defined(__DRAGON__)
     #define _TILE_19 (_TILE_16+2)
     #define _TILE_20 (_TILE_16+3)
     #define _TILE_21 (_TILE_16+4)

@@ -33,6 +33,8 @@
 	#include "udg_settings.h"
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "cmoc_memory_mapped_settings.h"
+#elif defined(__COCO3__)
+	#include "udg_settings.h"
 #elif (defined(__ATARI__) && defined(__ANTIC_MODE6_GRAPHICS))
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATARI5200__)

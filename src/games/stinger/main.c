@@ -38,18 +38,23 @@
 #if !defined(MAX_NUMBER_OF_MISSILES)
 	#if _XL_SLOW_DOWN<=1
 		#define MAX_NUMBER_OF_MISSILES 3
-	#elif _XL_SLOW_DOWN<=10
+	#elif _XL_SLOW_DOWN<=30
 		#define MAX_NUMBER_OF_MISSILES 4
+	#elif _XL_SLOW_DOWN<=50
+		#define MAX_NUMBER_OF_MISSILES 5
 	#else
 		#define MAX_NUMBER_OF_MISSILES 6
 	#endif
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
+
 #if !defined(MAX_ROCKETS_ON_SCREEN)
 	#if _XL_SLOW_DOWN<=1
 		#define MAX_ROCKETS_ON_SCREEN 5
-	#elif _XL_SLOW_DOWN<=10
+	#elif _XL_SLOW_DOWN<=30
+		#define MAX_ROCKETS_ON_SCREEN 6		
+	#elif _XL_SLOW_DOWN<=50
 		#define MAX_ROCKETS_ON_SCREEN 7
 	#else
 		#define MAX_ROCKETS_ON_SCREEN 8
@@ -57,13 +62,14 @@
 #endif
 
 
-
 #if !defined(DEATH_LOOP)
 	#if _XL_SLOW_DOWN<=1
 		#define DEATH_LOOP 1
 	#elif _XL_SLOW_DOWN<=10
 		#define DEATH_LOOP 2
-	#elif _XL_SLOW_DOWN<=20
+	#elif _XL_SLOW_DOWN<=30
+		#define DEATH_LOOP 3
+	#elif _XL_SLOW_DOWN<=50
 		#define DEATH_LOOP 4
 	#else
 		#define DEATH_LOOP 5

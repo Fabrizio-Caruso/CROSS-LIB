@@ -328,7 +328,7 @@
 	#define _GIME_WHITE 0b111111
 
 	#define _GIME_RED 0b100100
-	#define _GIME_GREEN 0b100100
+	#define _GIME_GREEN 0b010010
 	#define _GIME_CYAN 0b011011
 
 	#define _GIME_YELLOW 0b110110

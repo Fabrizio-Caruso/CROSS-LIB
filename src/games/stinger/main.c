@@ -27,7 +27,7 @@
 #include "images.h"
 
 // #define TRAINER 1
-// #define BENCHMARK
+//#define BENCHMARK
 
 #define INITIAL_LEVEL 0
 
@@ -36,12 +36,38 @@
 #define MAX_LIVES 9
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
-    #define MAX_NUMBER_OF_MISSILES 6
+	#if _XL_SLOW_DOWN<=1
+		#define MAX_NUMBER_OF_MISSILES 3
+	#elif _XL_SLOW_DOWN<=10
+		#define MAX_NUMBER_OF_MISSILES 4
+	#else
+		#define MAX_NUMBER_OF_MISSILES 6
+	#endif
 #endif
 #define MAX_NUMBER_OF_EXTRA_POINTS MAX_NUMBER_OF_MISSILES
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-    #define MAX_ROCKETS_ON_SCREEN 8
+	#if _XL_SLOW_DOWN<=1
+		#define MAX_ROCKETS_ON_SCREEN 5
+	#elif _XL_SLOW_DOWN<=10
+		#define MAX_ROCKETS_ON_SCREEN 7
+	#else
+		#define MAX_ROCKETS_ON_SCREEN 8
+	#endif	
+#endif
+
+
+
+#if !defined(DEATH_LOOP)
+	#if _XL_SLOW_DOWN<=1
+		#define DEATH_LOOP 1
+	#elif _XL_SLOW_DOWN<=10
+		#define DEATH_LOOP 2
+	#elif _XL_SLOW_DOWN<=20
+		#define DEATH_LOOP 4
+	#else
+		#define DEATH_LOOP 5
+	#endif
 #endif
 
 
@@ -1687,13 +1713,13 @@ void tank_dies(void)
     
     _XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
 
-    for(i=0;i<6;++i)
+    for(i=0;i<DEATH_LOOP+1;++i)
     {
 		display_red_tank();
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
 		_XL_DRAW(tank_x,y_pos, TANK_DEATH_TILE, _XL_RED);
     } 
-    for(i=0;i<5;++i)
+    for(i=0;i<DEATH_LOOP;++i)
     {
         _XL_DRAW(tank_x,y_pos, EXPLOSION_TILE, _XL_WHITE);
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);

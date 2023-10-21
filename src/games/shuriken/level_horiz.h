@@ -44,7 +44,7 @@
 
 //
 
-#if !defined(FEWER_SHURIKENS)
+#if !defined(FEWER_SHURIKENS) & XSize>=20
     #define LV_HORIZ_SHURIKENS \
         12, 0, 0, \
         \
@@ -65,20 +65,20 @@
     #define LV_HORIZ_SHURIKENS_SIZE LV_SHURIKENS_SIZE(12,0,0)
  
 #else
-    #define LV_HORIZ_SHURIKENS \
-        8, 0, 0, \
-        \
-        2,4, \
-        2,7, \
-        2,YSize-9, \
-        2,YSize-3, \
-        \
-        XSize-3,3, \
-        XSize-3,6, \
-        XSize-3,YSize-10, \
-        XSize-3,YSize-4 
-        
-    #define LV_HORIZ_SHURIKENS_SIZE LV_SHURIKENS_SIZE(8,0,0)
+	#define LV_HORIZ_SHURIKENS \
+		8, 0, 0, \
+		\
+		2,4, \
+		2,7, \
+		2,YSize-9, \
+		2,YSize-3, \
+		\
+		XSize-3,3, \
+		XSize-3,6, \
+		XSize-3,YSize-10, \
+		XSize-3,YSize-4 
+		
+	#define LV_HORIZ_SHURIKENS_SIZE LV_SHURIKENS_SIZE(8,0,0)
 
 #endif
 

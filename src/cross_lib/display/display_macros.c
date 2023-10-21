@@ -77,8 +77,8 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
             SV_VIDEO[base]    = left_map_one_to_two(udgs[offset+k])&color;
-            SV_VIDEO[base+1]  = right_map_one_to_two(udgs[offset+k])&color;
-            base+=BYTES_PER_LINE;
+            SV_VIDEO[++base]  = right_map_one_to_two(udgs[offset+k])&color;
+            base+=BYTES_PER_LINE-1;
         }
     }
 
@@ -91,9 +91,13 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
 
-            SV_VIDEO[base]=0;
-            SV_VIDEO[base+1]=0;
-            base+=BYTES_PER_LINE;
+            // SV_VIDEO[base]=0;
+            // SV_VIDEO[base+1]=0;
+            // base+=BYTES_PER_LINE;
+			SV_VIDEO[base]=0;
+            SV_VIDEO[++base]=0;
+			base+=BYTES_PER_LINE-1;
+            // base+=BYTES_PER_LINE;
         }
     }
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
@@ -115,14 +119,14 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         {
 			udg = udgs[offset+k];
             SV_VIDEO[base]    = first_map_one_to_four(udg)&color;
-            SV_VIDEO[base+1]  = second_map_one_to_four(udg)&color;
-            SV_VIDEO[base+2]  = third_map_one_to_four(udg)&color;
-            SV_VIDEO[base+3]  = fourth_map_one_to_four(udg)&color;
+            SV_VIDEO[++base]  = second_map_one_to_four(udg)&color;
+            SV_VIDEO[++base]  = third_map_one_to_four(udg)&color;
+            SV_VIDEO[++base]  = fourth_map_one_to_four(udg)&color;
             // SV_VIDEO[base+delta]    = 0xFF;
             // SV_VIDEO[base+delta+1]  = 0xFF;
             // SV_VIDEO[base+delta+2]  = 0xFF;
             // SV_VIDEO[base+delta+3]  = 0xFF;			
-            base+=BYTES_PER_LINE;
+            base+=BYTES_PER_LINE-3;
         }
     }
 
@@ -136,10 +140,10 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         {
 
             SV_VIDEO[base]=0;
-            SV_VIDEO[base+1]=0;
-			SV_VIDEO[base+2]=0;
-            SV_VIDEO[base+3]=0;
-            base+=BYTES_PER_LINE;
+            SV_VIDEO[++base]=0;
+			SV_VIDEO[++base]=0;
+            SV_VIDEO[++base]=0;
+            base+=BYTES_PER_LINE-3;
         }
     }
 #endif 

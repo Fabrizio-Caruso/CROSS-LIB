@@ -232,7 +232,17 @@
     #define _DISPLAY(x,y,c) \
         _color_draw(x,y,c-_CHAR_OFFSET,_bitmap4_text_color)
 
-#elif (defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
+#elif defined(__BIT_MAPPED_16_GRAPHICS)
+    #include "bit_mapped_16_graphics.h"
+    #include "cross_lib.h"
+    
+	#define _CHAR_OFFSET 13
+ 
+    extern uint8_t _bitmap16_text_color;
+
+    #define _DISPLAY(x,y,c) \
+        _color_draw(x,y,c-_CHAR_OFFSET,_bitmap16_text_color)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"
     #define _DISPLAY(x,y,ch) \
@@ -269,7 +279,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
+		#if defined(CBM_SCREEN_CODES) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
             || defined(__VIC20__) \

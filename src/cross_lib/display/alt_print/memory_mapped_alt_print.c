@@ -95,6 +95,21 @@
 			return ch+18-65;
 		}
 	}    
+#elif (defined(__COCO3__) && defined(__BIT_MAPPED_16_GRAPHICS))
+
+	#define _SPACE_OFFSET 13
+
+	char screenCode(char ch)
+	{
+        if(ch==32)
+        {
+            return 0+_SPACE_OFFSET;
+        }
+        else
+        {
+			return ch;
+        }
+	}
 #elif (defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS))
 
     #if defined(__BIT_MAPPED_4_GRAPHICS)
@@ -317,7 +332,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 	}
 }
 
-#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
+#if defined(CBM_SCREEN_CODES) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
     || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
     || defined(__C64__)
     void _XL_CHAR(uint8_t x, uint8_t y, char ch)

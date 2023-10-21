@@ -285,7 +285,7 @@
 	#define _Z88DK_SPRITE_OFFSET 0x00
 #endif
 
-#if defined(__COCO__) || defined(__DRAGON__)
+#if defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
     #define NOT_INVERTED 64
     #define INVERTED -64
 #endif
@@ -305,7 +305,7 @@
     #else
         #define _SPACE 96
     #endif
-#elif defined(__COCO__) || defined(__DRAGON__)
+#elif defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
     #define _SPACE (' '+NOT_INVERTED)
 #elif defined(__ATARI5200__)
     #define _SPACE 0

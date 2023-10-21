@@ -8,25 +8,9 @@
 
 #include "coco.h"
 
-#define _GIME_BLACK 0b000000
-#define _GIME_WHITE 0b111111
-
-#define _GIME_RED 0b100100
-#define _GIME_GREEN 0b100100
-#define _GIME_CYAN 0b011011
-
-#define _GIME_YELLOW 0b110110
-
-#define _GIME_PURPLE 0b101101
-
-#define _GIME_BLUE 0b001001
-
-
-const unsigned char _color_encoding[] = 
-	{
-		_GIME_BLACK,_GIME_WHITE,_GIME_RED,_GIME_GREEN,_GIME_CYAN,_GIME_YELLOW,_GIME_PURPLE,_GIME_BLUE,
-		_GIME_BLACK,_GIME_WHITE,_GIME_RED,_GIME_GREEN,_GIME_CYAN,_GIME_YELLOW,_GIME_PURPLE,_GIME_BLUE,
-	};
+// #include "color_definitions.h"
+	
+extern const unsigned char _color_encoding[];
 
 void _XL_INIT_GRAPHICS(void)
 {

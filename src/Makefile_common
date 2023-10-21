@@ -1914,7 +1914,7 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o  dac_sounds.o  coco_init_graphics.o \
 	display_macros.o sleep_macros.o \
@@ -1926,15 +1926,15 @@ dragon: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	memory_mapped_alt_print.o \
 	input_macros.o
 ifdef USE_TOOLS
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xbin.bin -A
 endif
 ifeq ($(DO_WIN),1)   
 ifdef USE_TOOLS
-	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
-	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xbin.bin
+	mv $(BUILD_PATH)/xbin.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
 endif
 endif
-	rm -rf $(BUILD_PATH)/xchase.bin
+	rm -rf $(BUILD_PATH)/xbin.bin
 
 dragon_targets: \
 	dragon_no_gfx
@@ -1968,7 +1968,7 @@ endif
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
@@ -1980,14 +1980,14 @@ endif
 	memory_mapped_alt_print.o \
 	input_macros.o
 ifdef USE_TOOLS
-	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	mv $(BUILD_PATH)/xbin.bin XBIN.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
-	rm XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XBIN.BIN
+	mv XBIN.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XBIN.BIN -A
+	rm XBIN.BIN
 else
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/xbin.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 coco_targets: \
@@ -2023,7 +2023,7 @@ endif
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \
@@ -2035,14 +2035,14 @@ endif
 	memory_mapped_alt_print.o \
 	input_macros.o
 ifdef USE_TOOLS	
-	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	mv $(BUILD_PATH)/xbin.bin XBIN.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
-	rm XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XBIN.BIN
+	mv XBIN.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XBIN.BIN -A
+	rm XBIN.BIN
 else
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/xbin.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 dragon_no_gfx:
@@ -2058,7 +2058,7 @@ dragon_no_gfx:
 	$(CMOC) \
 	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
@@ -2068,15 +2068,15 @@ dragon_no_gfx:
 	memory_mapped_alt_print.o \
 	input_macros.o 
 ifdef USE_TOOLS
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xbin.bin -A
 endif
 ifeq ($(DO_WIN),1)
 ifdef USE_TOOLS
-	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
-	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xbin.bin
+	mv $(BUILD_PATH)/xbin.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
 endif
 endif
-	rm -rf $(BUILD_PATH)/xchase.bin
+	rm -rf $(BUILD_PATH)/xbin.bin
 
 
 ifdef USE_TOOLS
@@ -2099,7 +2099,7 @@ endif
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o \
@@ -2108,13 +2108,13 @@ endif
 	rm 	display_macros.o dac_sounds.o \
 	memory_mapped_alt_print.o sleep_macros.o \
 	input_macros.o 
-	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	mv $(BUILD_PATH)/xbin.bin XBIN.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 ifdef USE_TOOLS
-	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
-	rm XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XBIN.BIN
+	mv XBIN.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XBIN.BIN -A
+	rm XBIN.BIN
 endif
 
 coco_no_gfx_targets: \
@@ -2145,7 +2145,7 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fil
 	$(CMOC) \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
-	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o dac_sounds.o sleep_macros.o \
@@ -2158,14 +2158,14 @@ coco3_gfx: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/fil
 	memory_mapped_alt_print.o \
 	input_macros.o cmoc_udc_tiles_and_fonts.o
 ifdef USE_TOOLS
-	mv $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	mv $(BUILD_PATH)/xbin.bin XBIN.BIN
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
-	rm XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) XBIN.BIN
+	mv XBIN.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XBIN.BIN -A
+	rm XBIN.BIN
 else
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	mv $(BUILD_PATH)/xbin.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
 
@@ -2669,9 +2669,9 @@ mc10:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-o xchase
-	rm xchase
-	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+	-o xbin
+	rm xbin
+	mv xbin.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 
 ###############################################################################################

@@ -344,7 +344,7 @@ const uint8_t tank_points[] =
 
 uint8_t tank_move_speed_mask;
 
-#if !defined(_XL_NO_UDG)
+// #if !defined(_XL_NO_UDG)
  const uint8_t tank_tile[7+1] = 
 {
     LIGHT_TANK_TILE_0, // 0
@@ -368,7 +368,7 @@ uint8_t tank_move_speed_mask;
     HEAVY_TANK_TILE_5,
     HEAVY_TANK_TILE_6,
 };
-#endif
+// #endif
 
  const uint8_t stinger_tile[8] =
 {
@@ -690,7 +690,7 @@ void display_tank(void)
         }
         else
         {
-            #if !defined(_XL_NO_UDG)
+            // #if !defined(_XL_NO_UDG)
             uint8_t tile1;
 
             if(!tank_level[tank_x])
@@ -705,27 +705,26 @@ void display_tank(void)
             }
             _XL_DRAW(tank_x, pos, tile0, color);
             _XL_DRAW(tank_x,1 + pos, tile1, color);
-            #else
-            // Avoid using the upper border / beam tile in ASCII mode
+            // #else
 
-            if(!tank_level[tank_x])
-            {
+            // if(!tank_level[tank_x])
+            // {
                 
-                tile0 = LIGHT_TANK_TILE_0;
-            }
-            else
-            {
-                if((tank_y_array[tank_x])&1)
-                {
-                    tile0 = HEAVY_TANK_TILE_0;
-                }
-                else
-                {
-                    tile0 = HEAVY_TANK_TILE_1;
-                }
-            }
-            _XL_DRAW(tank_x, pos, tile0, color);
-            #endif
+                // tile0 = LIGHT_TANK_TILE_0;
+            // }
+            // else
+            // {
+                // if((tank_y_array[tank_x])&1)
+                // {
+                    // tile0 = HEAVY_TANK_TILE_0;
+                // }
+                // else
+                // {
+                    // tile0 = HEAVY_TANK_TILE_1;
+                // }
+            // }
+            // _XL_DRAW(tank_x, pos, tile0, color);
+            // #endif
         }
     }
     else
@@ -1883,9 +1882,9 @@ void handle_tank_collisions(void)
 								// push_tank();
 								// display_tank();
 								push_display_tank();
-								#if defined(_XL_NO_UDG)
-								_XL_DELETE(tank_x,tank_y_array[tank_x]+1);
-								#endif
+								// #if defined(_XL_NO_UDG)
+								// _XL_DELETE(tank_x,tank_y_array[tank_x]+1);
+								// #endif
 							}
 							else
 							{

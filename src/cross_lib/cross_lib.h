@@ -75,7 +75,7 @@
 
 
 #if !defined(_XL_NO_SMALL_LETTERS)
-    #  if defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
+    #  if defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || (defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
         || (defined(__C16__) && defined(__ALT_PRINT))  || (defined(__ATARI__) && !defined(_XL_NO_COLOR)) \
         || defined(__LCC1802__) || defined(__FEWER_SPRITES) || defined(__SUPERVISION__) || (defined(__MSX__)&&defined(__MEMORY_MAPPED_GRAPHICS)) \
         || defined(__ZX80__) || defined(__ZX81__) \

@@ -10,22 +10,25 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
 	-D__CONIO_GRAPHICS -D__VIC20_EXP_16K -DEXTRA_TITLE -D__ALT_SLEEP  \
 	-D_XL_SLOW_DOWN_FACTOR=500 -DGHOSTS_NUMBER=8 \
-	   -DTRANSITION_ANIMATION \
+	-DTRANSITION_ANIMATION \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c \
-	$(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
+	$(SOURCE_PATH)/split_files/move_player.c \
+	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
+	$(SOURCE_PATH)/split_files/main.c \
+	$(SOURCE_PATH)/split_files/init_images.c \
+	$(SOURCE_PATH)/split_files/strategy.c \
+	$(SOURCE_PATH)/split_files/item.c $(SOURCE_PATH)/split_files/bullet.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c  \
+	$(SOURCE_PATH)/split_files/horizontal_missile.c $(SOURCE_PATH)/split_files/rocket.c  $(SOURCE_PATH)/split_files/skull.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c $(SOURCE_PATH)/sleep.c \
+	$(SOURCE_PATH)/split_files/end_screen.c $(SOURCE_PATH)/split_files/sleep.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+
 
 
 c16: c16_32k

@@ -1,39 +1,20 @@
 
 #
+# FULL_FILES ?= \
+	# $(BASIC_CROSS_LIB_FILES) \
+    # $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	# $(SOURCE_PATH)/move_player.c \
+	# $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/main.c \
+	# $(SOURCE_PATH)/init_images.c \
+	# $(SOURCE_PATH)/strategy.c \
+	# $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c  \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c $(SOURCE_PATH)/end_screen.c
+
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
     $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c \
-	$(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c  \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c $(SOURCE_PATH)/end_screen.c
-
-NO_CHASE_FILES ?= \
-	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c
-
-TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c 
-
-#
-TEST_FILES ?= $(NO_CHASE_FILES)
-
-#
-LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
-
-#
-FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c
-
-#
-LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
-
-#
-# FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 
 GLOBAL_OPTS = -DFULL_LOWER_BORDER  -D_DEFAULT_ASCII  -D_XL_NUMBER_OF_TILES=27

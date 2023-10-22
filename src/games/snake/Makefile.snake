@@ -2,12 +2,24 @@
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/control_player.c \
-	$(SOURCE_PATH)/move_snake.c \
-	$(SOURCE_PATH)/snake.c \
-	$(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/variables.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	# $(SOURCE_PATH)/control_player.c \
+	# $(SOURCE_PATH)/move_snake.c \
+	# $(SOURCE_PATH)/snake.c \
+	# $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/variables.c \
+
+
+# FULL_FILES ?= \
+	# $(BASIC_CROSS_LIB_FILES) \
+	# $(SOURCE_PATH)/main.c \
+	# $(SOURCE_PATH)/control_player.c \
+	# $(SOURCE_PATH)/move_snake.c \
+	# $(SOURCE_PATH)/snake.c \
+	# $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/variables.c \
+	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+
 
 GAME_NAME := snake
 

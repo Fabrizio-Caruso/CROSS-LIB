@@ -221,7 +221,7 @@ Type the binary name (no extension) contained in B:
 
 Tape load
 
-- Use XROAR emulator.
+- Use XROAR emulator: https://www.6809.org.uk/xroar/
 - Attach the .cas image
 - Type
 - CLOADM
@@ -236,7 +236,7 @@ Disk load
 - Select a CoCO machine to emulate in the "Hardware" tab
 - Attach the .dsk disk image in "File->Drive 1"
 - Type:
-- LOADM"XCHASE
+- LOADM"XBIN
 - EXEC
 
 
@@ -251,7 +251,7 @@ Same as CoCo with XROAR but disk drives need to be enabled:
 Disk load 
 
 Cartridge -> Cartridge -> Load Cart 
-fd502.dll
+fd502.dll (to enable disk drive emulation)
 
 ---------------------------------------------------------
 

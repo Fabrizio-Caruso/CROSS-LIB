@@ -117,7 +117,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
-			udg = udgs[offset+k];
+			udg = udgs[offset++];
             SV_VIDEO[base]    = first_map_one_to_four(udg)&color;
             SV_VIDEO[++base]  = second_map_one_to_four(udg)&color;
             SV_VIDEO[++base]  = third_map_one_to_four(udg)&color;

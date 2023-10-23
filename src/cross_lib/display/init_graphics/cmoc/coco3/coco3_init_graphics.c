@@ -39,6 +39,9 @@ void _XL_INIT_GRAPHICS(void)
 
 	disableInterrupts();
 
+	// High speed (2 Mhz CPU clock)
+	POKE(65497,0);
+
     // Enable MMU
     // POKE(0xFF90,0x40);
     POKE(0xFF90,0x44);

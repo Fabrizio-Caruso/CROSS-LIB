@@ -226,7 +226,7 @@ test        lda $ff00
             cmpb #77
             bne test
             clrb 
-out            stb res
+out         stb res
         }
         
         #define _COCO_SPACE_BIT_MASK 0x08
@@ -243,7 +243,7 @@ out            stb res
     #elif defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         #include <coco.h>
-        
+
         uint8_t res;
         uint8_t machine;
         
@@ -254,9 +254,9 @@ out            stb res
             lda #253
             sta machine
             bra pia
-_dragon        lda #247
+_dragon     lda #247
             sta machine
-pia            lda #253        
+pia         lda #253        
             sta $FF02
             ldb #73
 test        lda $ff00
@@ -268,7 +268,7 @@ test        lda $ff00
             cmpb #77
             bne test
             clrb 
-out            stb res
+out         stb res
         }
         
         #define _COCO_SPACE_BIT_MASK 0x08
@@ -344,6 +344,14 @@ out            stb res
 			{
 				
 			} while(!_XL_INPUT());
+			// do
+			// {
+				// uint8_t input = _XL_INPUT();
+				// if(_XL_FIRE(input) || _XL_LEFT(input) || _XL_RIGHT(input) || _XL_UP(input) || _XL_DOWN(input))
+				// {
+					// break;
+				// }
+			// } while(1);
         }
     #elif defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
@@ -351,6 +359,7 @@ out            stb res
         void _XL_WAIT_FOR_INPUT(void)
         {
             waitkey(0);
+			// isKeyPressed();
         }
     #elif defined(NO_INPUT)
     //

@@ -72,12 +72,13 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         uint16_t offset = (_XL_TILE_Y_SIZE*(uint16_t)(tile)); // uint8_t does not work on CoCo and Dragon but it does work on Supervision
         
         uint16_t base = 2*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
-        // uint16_t delta = 0;
+		uint8_t udg;
         
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
-            SV_VIDEO[base]    = left_map_one_to_two(udgs[offset+k])&color;
-            SV_VIDEO[++base]  = right_map_one_to_two(udgs[offset+k])&color;
+			udg=udgs[offset++];
+            SV_VIDEO[base]    = left_map_one_to_two(udg)&color;
+            SV_VIDEO[++base]  = right_map_one_to_two(udg)&color;
             base+=BYTES_PER_LINE-1;
         }
     }
@@ -134,8 +135,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     {
         uint8_t k;
         uint16_t base = 4*x+BYTES_PER_LINE*_XL_TILE_Y_SIZE*(y);
-        // uint16_t delta = 0;
-        
+		
         for(k=0;k<_XL_TILE_Y_SIZE;++k)
         {
 

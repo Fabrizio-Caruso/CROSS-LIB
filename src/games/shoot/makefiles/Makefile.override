@@ -446,316 +446,278 @@ to7_targets: to7
 # https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
 
 
-#/cygdrive/c/lcc42/bat/caCX.bat
-#/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall" $(GLOBAL_OPTS)
-BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
-COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
-PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 
-TMC600_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x6300"
-CIDELSA_OPTS ?= $(LCC1802_OPTS)  "-Wa-D CODELOC=0"  "-Wa-D NOFILLBSS=1" "-Wf-mulcall"
-DRACO_32K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x83ff"
-DRACO_16K_OPTS ?= $(CIDELSA_OPTS)  "-Wa-D DATALOC=0x4000" "-Wa-D STACKLOC=0x43ff"
-ALTAIR_24K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x6000" "-Wa-D STACKLOC=0x60ff"
-ALTAIR_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
-DESTROYER_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
-DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20ff"
-#-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4401" "-Wa-D LCCCX=1"
-#-Wf-volatile -target=xr18CX
+# LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall" $(GLOBAL_OPTS)
+# BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
+# COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
+# PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 
+# TMC600_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x6300"
+# CIDELSA_OPTS ?= $(LCC1802_OPTS)  "-Wa-D CODELOC=0"  "-Wa-D NOFILLBSS=1" "-Wf-mulcall"
+# DRACO_32K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x83ff"
+# DRACO_16K_OPTS ?= $(CIDELSA_OPTS)  "-Wa-D DATALOC=0x4000" "-Wa-D STACKLOC=0x43ff"
+# ALTAIR_24K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x6000" "-Wa-D STACKLOC=0x60ff"
+# ALTAIR_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
+# DESTROYER_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
+# DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20ff"
 
-MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
-MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
+# MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
+# MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
 
  
 ################################################################################
 
 
 
-COMX_REDUCED_EXTRA_FILES ?= \
-	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
+# COMX_REDUCED_EXTRA_FILES ?= \
+	# $(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 
-COMX_EXTRA_FILES ?= \
-	$(COMX_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+# COMX_EXTRA_FILES ?= \
+	# $(COMX_REDUCED_EXTRA_FILES) \
+	# $(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
-COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
-	$(COMX_EXTRA_FILES) \
-	$(SOURCE_PATH)/end_screen.c 
-
-
-#
-
-tiny_combo.c:
-	cat \
-	$(TINY_FILES) \
-	> $(SOURCE_PATH)/../tiny_combo.c
+# COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
+	# $(COMX_EXTRA_FILES) \
+	# $(SOURCE_PATH)/end_screen.c 
 
 
-light_combo.c: tiny_combo.c
-	cat \
-	$(SOURCE_PATH)/../tiny_combo.c \
-	$(LIGHT_ONLY_FILES) \
-	> $(SOURCE_PATH)/../light_combo.c
-	rm -rf $(SOURCE_PATH)/../tiny_combo.c
 
 
-full_combo.c: light_combo.c
-	cat \
-	$(SOURCE_PATH)/../light_combo.c \
-	$(FULL_ONLY_FILES) \
-	> $(SOURCE_PATH)/../full_combo.c
-	rm -rf $(SOURCE_PATH)/../light_combo.c
+# tiny_combo.c:
+	# cat \
+	# $(TINY_FILES) \
+	# > $(SOURCE_PATH)/../tiny_combo.c
 
 
-tiny_combo_rand.c: tiny_combo.c
-	cat \
-	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
-	$(SOURCE_PATH)/../tiny_combo.c \
-	> $(SOURCE_PATH)/../tiny_combo_rand.c
-	rm  $(SOURCE_PATH)/../tiny_combo.c
+# light_combo.c: tiny_combo.c
+	# cat \
+	# $(SOURCE_PATH)/../tiny_combo.c \
+	# $(LIGHT_ONLY_FILES) \
+	# > $(SOURCE_PATH)/../light_combo.c
+	# rm -rf $(SOURCE_PATH)/../tiny_combo.c
+
+
+# full_combo.c: light_combo.c
+	# cat \
+	# $(SOURCE_PATH)/../light_combo.c \
+	# $(FULL_ONLY_FILES) \
+	# > $(SOURCE_PATH)/../full_combo.c
+	# rm -rf $(SOURCE_PATH)/../light_combo.c
+
+
+# tiny_combo_rand.c: tiny_combo.c
+	# cat \
+	# $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	# $(SOURCE_PATH)/../tiny_combo.c \
+	# > $(SOURCE_PATH)/../tiny_combo_rand.c
+	# rm  $(SOURCE_PATH)/../tiny_combo.c
     
-light_combo_rand.c: light_combo.c
-	cat \
-	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
-	$(SOURCE_PATH)/../light_combo.c \
-	> $(SOURCE_PATH)/../light_combo_rand.c
-	rm -rf $(SOURCE_PATH)/../light_combo.c
+# light_combo_rand.c: light_combo.c
+	# cat \
+	# $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	# $(SOURCE_PATH)/../light_combo.c \
+	# > $(SOURCE_PATH)/../light_combo_rand.c
+	# rm -rf $(SOURCE_PATH)/../light_combo.c
     
     
-full_combo_rand.c: full_combo.c
-	cat \
-	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
-	$(SOURCE_PATH)/../full_combo.c \
-	> $(SOURCE_PATH)/../full_combo_rand.c
-	rm -rf $(SOURCE_PATH)/../full_combo.c
-
-#
+# full_combo_rand.c: full_combo.c
+	# cat \
+	# $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	# $(SOURCE_PATH)/../full_combo.c \
+	# > $(SOURCE_PATH)/../full_combo_rand.c
+	# rm -rf $(SOURCE_PATH)/../full_combo.c
 
 
-reduced_full_lcc1802_combo.c: full_combo_rand.c
-	cat \
-	$(COMX_REDUCED_EXTRA_FILES) \
-	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+
+# reduced_full_lcc1802_combo.c: full_combo_rand.c
+	# cat \
+	# $(COMX_REDUCED_EXTRA_FILES) \
+	# $(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+
+# full_lcc1802_combo.c: full_combo_rand.c
+	# cat \
+	# $(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	# $(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
+
+# clean_combo_files:
 	# rm -rf $(SOURCE_PATH)/../full_combo_rand.c
-
-full_lcc1802_combo.c: full_combo_rand.c
-	cat \
-	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
-	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_combo_rand.c
-
-clean_combo_files:
-	rm -rf $(SOURCE_PATH)/../full_combo_rand.c
-	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
-
-
-LCC1802_BASIC_C_OPTS ?= \
-	-D__LCC1802__ \
-	-D__NO_COLOR_INIT \
-	-D__ALT_PRINT
-
-LCC1802_C_OPTS = \
-	$(LCC1802_BASIC_C_OPTS) \
-	-D__ALT_SLEEP \
-
-
-REDUCED_LCC1802_C_OPTS = \
-	$(LCC1802_BASIC_C_OPTS) \
-	-D_XL_NO_SLEEP -D_XL_NO_SOUND \
-	-DNO_RANDOM_LEVEL
-
-
-###############################################################################
-# COMX
-
-_full_comx: _comx
-
-#	-DSIMPLE_STRATEGY 
-_comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	-D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	-D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
-	-DNO_BLINKING -DTINY_TEXT  \
-	-DLESS_TEXT -DNO_HINTS \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-comx: \
-    _comx \
-    clean_combo_files
-
-
-_comx_buffered: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	-D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	-D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	-DNO_BLINKING -DTINY_TEXT  \
-	-DLESS_TEXT -DNO_HINTS \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-comx_buffered: \
-    _comx_buffered \
-    clean_combo_files
-
-
-_comx_int: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	-D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	-D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 -DVIS_INT \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	-DNO_BLINKING -DTINY_TEXT  \
-	-DLESS_TEXT -DNO_HINTS \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-comx_int: \
-    _comx_int \
-    clean_combo_files
-
-
-_comx_ntsc: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x8_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DNTSC \
-	-D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	-D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
-	-DNO_BLINKING -DTINY_TEXT  \
-	-DLESS_TEXT -DNO_HINTS \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-comx_ntsc: \
-    _comx_ntsc \
-    clean_combo_files
-
-###############################################################################
-# PECOM
-
-
-_full_pecom: _pecom
-
-_pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
-	-D__PECOM__   -DEXTRA_TITLE \
-	   -D__LCC1802_GRAPHICS -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	-D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	-DNO_BLINKING -DTINY_TEXT \
-	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-pecom: \
-    _pecom \
-    clean_combo_files
-
-###############################################################################
-# MICRO
-
-_micro: _micro_pal2
-
-_micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
-	-D__MICRO__ -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT  -DEXTRA_TITLE \
-	-D__LCC1802_GRAPHICS \
-	-D_XL_NO_COLOR  -D_XL_SLOW_DOWN_FACTOR=50 \
-	-DNO_BLINKING \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=8 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-micro: \
-    _micro \
-    clean_combo_files
-
-
-###############################################################################
-# TMC600
-
-
-_full_tmc600: _tmc600_37k
-_tmc600: _tmc600_37k
-
-# -DNO_PRINT  
-# -savetemps -S
-_tmc600_37k: reduced_full_lcc1802_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
-	-D__TMC600__    -DEXTRA_TITLE \
-	-D__MEMORY_MAPPED_GRAPHICS -DSIMPLE_STRATEGY \
-	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
-	-DNO_HINTS \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DGHOSTS_NUMBER=6  \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
-
-tmc600: \
-    _tmc600 \
-    clean_combo_files
-
-###############################################################################
-# CIDELSA DRACO
-
-
-_cidelsa: _cidelsa_draco
-_cidelsa_draco_32k: _cidelsa_draco
-
-# 
-_cidelsa_draco: full_lcc1802_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  -DEXTRA_TITLE  \
-	-D__CIDELSA__ -D__DRACO__  -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT \
-	  \
-	-D_XL_NO_COLOR -D__MEMORY_MAPPED_GRAPHICS \
-	-DNO_BLINKING \
-	$(LCC1802_C_OPTS) -D_XL_NO_SLEEP -D_XL_NO_SOUND \
-	-DGHOSTS_NUMBER=8 \
-	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_cidelsa_draco_32K.hex
-
-cidelsa: \
-    _cidelsa \
-    clean_combo_files
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 
 
-###############################################################################
+# LCC1802_BASIC_C_OPTS ?= \
+	# -D__LCC1802__ \
+	# -D__NO_COLOR_INIT \
+	# -D__ALT_PRINT
+
+# LCC1802_C_OPTS = \
+	# $(LCC1802_BASIC_C_OPTS) \
+	# -D__ALT_SLEEP \
 
 
-comx_targets: comx
+# REDUCED_LCC1802_C_OPTS = \
+	# $(LCC1802_BASIC_C_OPTS) \
+	# -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	# -DNO_RANDOM_LEVEL
 
-pecom_targets: pecom
 
-tmc600_targets: tmc600_37k
+# _full_comx: _comx
 
-cidelsa_targets: cidelsa
+# _comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
+	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
+	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
+	# -DNO_BLINKING -DTINY_TEXT  \
+	# -DLESS_TEXT -DNO_HINTS \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=7 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+# comx: \
+    # _comx \
+    # clean_combo_files
+
+
+# _comx_buffered: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
+	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
+	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
+	# -DNO_BLINKING -DTINY_TEXT  \
+	# -DLESS_TEXT -DNO_HINTS \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=7 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+# comx_buffered: \
+    # _comx_buffered \
+    # clean_combo_files
+
+
+# _comx_int: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
+	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 -DVIS_INT \
+	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
+	# -DNO_BLINKING -DTINY_TEXT  \
+	# -DLESS_TEXT -DNO_HINTS \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=7 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+# comx_int: \
+    # _comx_int \
+    # clean_combo_files
+
+
+# _comx_ntsc: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x8_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DNTSC \
+	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
+	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
+	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
+	# -DNO_BLINKING -DTINY_TEXT  \
+	# -DLESS_TEXT -DNO_HINTS \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=7 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+# comx_ntsc: \
+    # _comx_ntsc \
+    # clean_combo_files
+
+
+# _full_pecom: _pecom
+
+# _pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
+	# -D__PECOM__   -DEXTRA_TITLE \
+	   # -D__LCC1802_GRAPHICS -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
+	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
+	# -DNO_BLINKING -DTINY_TEXT \
+	# -DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=7 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+# pecom: \
+    # _pecom \
+    # clean_combo_files
+
+
+# _micro: _micro_pal2
+
+# _micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	# -D__MICRO__ -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT  -DEXTRA_TITLE \
+	# -D__LCC1802_GRAPHICS \
+	# -D_XL_NO_COLOR  -D_XL_SLOW_DOWN_FACTOR=50 \
+	# -DNO_BLINKING \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=8 \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+# micro: \
+    # _micro \
+    # clean_combo_files
+
+
+
+# _full_tmc600: _tmc600_37k
+# _tmc600: _tmc600_37k
+
+
+# _tmc600_37k: reduced_full_lcc1802_combo.c
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
+	# -D__TMC600__    -DEXTRA_TITLE \
+	# -D__MEMORY_MAPPED_GRAPHICS -DSIMPLE_STRATEGY \
+	# -DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
+	# -DNO_HINTS \
+	# $(REDUCED_LCC1802_C_OPTS) \
+	# -DGHOSTS_NUMBER=6  \
+	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
+
+# tmc600: \
+    # _tmc600 \
+    # clean_combo_files
+
+
+# _cidelsa_draco: full_lcc1802_combo.c
+	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  -DEXTRA_TITLE  \
+	# -D__CIDELSA__ -D__DRACO__  -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT \
+	  # \
+	# -D_XL_NO_COLOR -D__MEMORY_MAPPED_GRAPHICS \
+	# -DNO_BLINKING \
+	# $(LCC1802_C_OPTS) -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	# -DGHOSTS_NUMBER=8 \
+	# $(SOURCE_PATH)/../full_lcc1802_combo.c
+	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_cidelsa_draco_32K.hex
+
+# cidelsa: \
+    # _cidelsa \
+    # clean_combo_files
+
+
+# comx_targets: comx
+
+# pecom_targets: pecom
+
+# tmc600_targets: tmc600_37k
+
+# cidelsa_targets: cidelsa
 
 
 

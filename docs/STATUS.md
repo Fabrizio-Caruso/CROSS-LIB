@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 02/10/2021
+Last update: 2023/10/23
 
 ### 8-BIT targets with known working existing emulators
 
@@ -30,11 +30,12 @@ target name         | long target name                            | working  |  
 *c64*               | Commodore 64                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *cbm510*            | Commodore CBM 510                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
 *cbm610*            | Commodore CBM 610                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing | 
-*camputers_lynx*    | Camputers Lynx 48k/96k/128k                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*camputers_lynx*    | Camputers Lynx 48k/96k/128k                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *cidelsa_altair*    | Cidelsa Altair arcade board                 |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
 *cidelsa_destroyer* | Cidelsa Destroyer arcade board              |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
 *cidelsa_draco*     | Cidelsa Draco arcade board                  |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
-*coco*              | Color Computer                              |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*coco*              | Color Computer 1/2                          |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*coco 3*            | Color Computer 3                            |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
 *coleco*            | Colecovision                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
 *coleco_adam*       | Colecovision Adam                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A 
 *comx*              | COMX-35                                     |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    | 
@@ -157,9 +158,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 149
+TOTAL    : 150
 
-OK       : 145
+OK       : 146
 
 KO       :   2
 
@@ -175,7 +176,7 @@ Dev-kit | no. 8-bit targets
   Z88DK | 111
    CC65 |  22
 LCC1802 |   7 
-   CMOC |   4
+   CMOC |   5
    VBCC |   3
  CC6303 |   1
 
@@ -189,7 +190,7 @@ MOS 6502      |  24                |
 RCA 1802      |   7                |
 Intel 8080    |   5                |
 Motorola 6803 |   1                |
-Motorola 6809 |   4                |
+Motorola 6809 |   5                |
 GBZ80         |   1                |
 
 
@@ -274,9 +275,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 168
+TOTAL    : 169
 
-OK       : 155
+OK       : 156
 
 KO       :   4
 

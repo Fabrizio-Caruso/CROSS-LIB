@@ -2527,7 +2527,7 @@ _micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-D__COMX_COLOR_GRAPHICS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
 	$(MICRO_GAME_OPTS)  \
-	$(LCC1802_COLOR_C_OPTS) -D_XL_NO_SLEEP \
+	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex

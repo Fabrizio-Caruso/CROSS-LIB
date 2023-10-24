@@ -36,11 +36,11 @@
 #define MAX_LIVES 9
 
 #if !defined(MAX_NUMBER_OF_MISSILES)
-	#if _XL_SLOW_DOWN<=1
+	#if _XL_SLOW_DOWN_FACTOR<=1
 		#define MAX_NUMBER_OF_MISSILES 3
-	#elif _XL_SLOW_DOWN<=30
+	#elif _XL_SLOW_DOWN_FACTOR<=30
 		#define MAX_NUMBER_OF_MISSILES 4
-	#elif _XL_SLOW_DOWN<=50
+	#elif _XL_SLOW_DOWN_FACTOR<=50
 		#define MAX_NUMBER_OF_MISSILES 5
 	#else
 		#define MAX_NUMBER_OF_MISSILES 6
@@ -50,11 +50,11 @@
 
 
 #if !defined(MAX_ROCKETS_ON_SCREEN)
-	#if _XL_SLOW_DOWN<=1
+	#if _XL_SLOW_DOWN_FACTOR<=1
 		#define MAX_ROCKETS_ON_SCREEN 5
-	#elif _XL_SLOW_DOWN<=30
+	#elif _XL_SLOW_DOWN_FACTOR<=30
 		#define MAX_ROCKETS_ON_SCREEN 6		
-	#elif _XL_SLOW_DOWN<=50
+	#elif _XL_SLOW_DOWN_FACTOR<=50
 		#define MAX_ROCKETS_ON_SCREEN 7
 	#else
 		#define MAX_ROCKETS_ON_SCREEN 8
@@ -63,13 +63,13 @@
 
 
 #if !defined(DEATH_LOOP)
-	#if _XL_SLOW_DOWN<=1
+	#if _XL_SLOW_DOWN_FACTOR<=1
 		#define DEATH_LOOP 1
-	#elif _XL_SLOW_DOWN<=10
+	#elif _XL_SLOW_DOWN_FACTOR<=10
 		#define DEATH_LOOP 2
-	#elif _XL_SLOW_DOWN<=30
+	#elif _XL_SLOW_DOWN_FACTOR<=30
 		#define DEATH_LOOP 3
-	#elif _XL_SLOW_DOWN<=50
+	#elif _XL_SLOW_DOWN_FACTOR<=50
 		#define DEATH_LOOP 4
 	#else
 		#define DEATH_LOOP 5
@@ -3425,6 +3425,10 @@ int main(void)
             {            
 				INIT_BENCHMARK_CODE();
             
+                // _XL_PRINTD(0,YSize-4,2,MAX_ROCKETS_ON_SCREEN);
+                // _XL_PRINTD(4,YSize-4,2,MAX_NUMBER_OF_MISSILES);
+                // _XL_PRINTD(9,YSize-6,2,DEATH_LOOP);
+                
                 handle_hyper();
                 handle_stinger_move();
                 handle_stinger_load();

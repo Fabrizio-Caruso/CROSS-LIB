@@ -33,13 +33,15 @@
 	#if defined(__OSIC1P__) || defined(__ZX81__)
 		#define CYCLES 500
 	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__VIC20__)
-        #define CYCLES 2000
+        #define CYCLES 2000U
+	#elif defined(__COCO3___)
+        #define CYCLES 30000U
     #elif defined(__COCO__) || defined(__DRAGON__)
-        #define CYCLES 3500
+        #define CYCLES 600U
     #elif defined(__SUPERVISION__)
-        #define CYCLES 6000
+        #define CYCLES 6000U
     #elif defined(__TI99__)
-        #define CYCLES 17000
+        #define CYCLES 17000U
     #else
 		#define CYCLES 1000
 	#endif
@@ -47,7 +49,7 @@
     #if defined(__ALT_SLEEP)
 	void _XL_SLEEP(uint8_t sec)
 	{
-        #if defined(__TI99__)
+        #if defined(__TI99__) || defined(__CMOC__)
         volatile uint16_t ii;
         #else
 		uint16_t ii;
@@ -57,7 +59,25 @@
         #if !defined(__LCC1802_UNBUFFERED) && (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__) || defined(__CIDELSA__))
             VIDFLUSH();
         #endif
-		for(ii=0;ii<sec*CYCLES;++ii){}; 
+		
+		#if defined(__CMOC__)
+			uint16_t foo;
+			uint16_t bar;
+			
+			for(ii=0;ii<sec*CYCLES;++ii)
+			{
+				for(bar=0;bar<10;++bar)
+				{
+					foo=42*PEEK(0xF000);
+				}
+
+			}; 
+		#else
+			for(ii=0;ii<sec*CYCLES;++ii)
+			{
+			}; 
+		#endif
+
 	}
     #endif
 #endif

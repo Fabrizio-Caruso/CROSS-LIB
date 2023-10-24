@@ -343,7 +343,7 @@ Remark: You can also simply use the "run" option
 Disk load
 - Use XROAR emulator (Emulate DOSPLUS)
 - Attach the .vdk disk image
-- Type: RUN"XCHASE.BIN"
+- Type: RUN"XBIN.BIN"
 
 
 

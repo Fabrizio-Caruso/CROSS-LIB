@@ -1991,7 +1991,7 @@ else
 endif
 
 coco_targets: \
-    coco_no_gfx
+    coco coco_color coco3
 
 
 ifdef USE_TOOLS

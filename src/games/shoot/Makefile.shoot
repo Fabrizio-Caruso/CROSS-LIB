@@ -1,6 +1,30 @@
 
+NO_CHASE_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/split_files/move_player.c \
+	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
+	$(SOURCE_PATH)/split_files/main.c \
+	$(SOURCE_PATH)/split_files/init_images.c
+
 #
-# FULL_FILES ?= \
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/split_files/strategy.c
+
+#
+TEST_FILES ?= $(NO_CHASE_FILES)
+
+#
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/split_files/item.c $(SOURCE_PATH)/split_files/skull.c $(SOURCE_PATH)/split_files/bullet.c 
+
+#
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/split_files/horizontal_missile.c $(SOURCE_PATH)/split_files/rocket.c $(SOURCE_PATH)/split_files/sleep.c
+
+#
+LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
+
+
+#
+# FULL_ONLY_FILES ?= \
 	# $(BASIC_CROSS_LIB_FILES) \
     # $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	# $(SOURCE_PATH)/move_player.c \

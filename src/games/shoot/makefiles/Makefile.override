@@ -79,7 +79,6 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	 -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_ONLY_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE0 \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
@@ -728,8 +727,8 @@ endif
 # -DEXTRA_TITLE
 # -pragma-define:REGISTER_SP=49151
 zx81_no_gfx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) -compiler=sdcc   \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(Z88DK_OPTS) \
+	$(INCLUDE_OPTS)   \
 	-pragma-define:ZX_CHAR_XLATE_MODE=1   \
 	--opt-code-size -D_XL_SLOW_DOWN_FACTOR=0 \
 	-vn $(ZX81_NO_GFX_GAME_OPTS) -D__NO_INIT_GRAPHICS \

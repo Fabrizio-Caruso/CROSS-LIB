@@ -207,3 +207,4 @@ void chaseCharacter(void)
         UNSET_DEBUG_BORDER();
     #endif
 }
+

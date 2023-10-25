@@ -87,3 +87,4 @@ void displayBombs(void)
 		return GHOSTS_NUMBER;
 	}
 #endif
+

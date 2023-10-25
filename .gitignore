@@ -46,6 +46,9 @@ src/games/shoot/generated_assets/*
 src/games/bomber/generated_assets/*
 src/games/snake/generated_assets/*
 src/games/horde/generated_assets/*
+src/games/shoot/main.c
+src/games/chase/main.c
+src/games/snake/main.c
 src/test/*.exe
 src/*.asm
 src/examples/full_lcc1802_combo.c

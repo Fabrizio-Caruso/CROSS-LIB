@@ -462,6 +462,26 @@ def tools():
     run_command_verbosely(make_command)
         
 
+def create_main(game_dir, project_type):
+    parent_dir_path = "./" + project_type + "s/"
+    project_dir_path = parent_dir_path + game_dir + "/"
+    split_dir_path = project_dir_path + "split_files/"
+    # run_command_verbosely("ls -l " + split_dir_path);
+    # run_command_verbosely("ls -l " + parent_dir_path);
+    # run_command_verbosely("ls -l " + project_dir_path);    
+    run_command_verbosely("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
+
+
+def delete_main(game_dir, project_type):
+    parent_dir_path = "./" + project_type + "s/"
+    project_dir_path = parent_dir_path + game_dir + "/"
+    run_command_verbosely("rm " + project_dir_path + "main.c")
+
+# TODO: This should be replaced by a real check on the existence of the split_files directory
+SPLIT_PROJECTS = ['chase','shoot','snake']
+
+def is_project_split(game_dir):
+    return game_dir in SPLIT_PROJECTS
 
 # Build a project (for a target or multiple targets)
 def build(params):
@@ -484,6 +504,10 @@ def build(params):
             target = "ncurses"
         else:
             target = params[2]
+
+        if is_project_split(game_dir):
+            print("Split source files")
+            create_main(game_dir, project_type)
 
         if len(params)<4:
             threads = str(compilation_threads)
@@ -563,6 +587,10 @@ def build(params):
         
         if global_vars.verbose:
             printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
+            
+        if is_project_split(game_dir):
+            print("Split source files")
+            delete_main(game_dir, project_type)
 
 
 

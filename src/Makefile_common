@@ -884,7 +884,7 @@ camputers_lynx_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ -D_XL_NO_UDG -D_XL_NO_JOYSTICK -D_XL_NO_SOUND \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_UDG -D_XL_NO_JOYSTICK -D__BIT_BANG_SOUND \
 	-vn \
 	$(CAMPUTERS_LYNX_GAME_OPTS) \
 	-D__VT52 \
@@ -900,7 +900,7 @@ camputers_lynx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK -D_XL_NO_SOUND \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK  -D__BIT_BANG_SOUND \
 	-vn \
 	$(CAMPUTERS_LYNX_GAME_OPTS) \
 	-D__VT52 \
@@ -918,7 +918,7 @@ camputers_lynx_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK -D_XL_NO_SOUND \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK  -D__BIT_BANG_SOUND \
 	-vn \
 	$(CAMPUTERS_LYNX_GAME_OPTS) \
 	-D__VT52 \

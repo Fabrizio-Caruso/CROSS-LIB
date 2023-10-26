@@ -166,6 +166,10 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         use_tools_str = "" 
         
     for project_name in projects:
+    
+        if(is_project_split(project_name)):
+            project_type = project_category(project_name)
+            create_main(project_name,project_type)
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
                 " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + \
@@ -173,7 +177,8 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
                 
         run_command_verbosely(make_command)
-
+        if(is_project_split(project_name)):
+            delete_main(project_name,project_type)
 
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
@@ -281,6 +286,9 @@ def size(params,debug):
             print("Project not found!")
             return
 
+        if is_project_split(game_dir):
+            print("Create main.c from split source files")
+            create_main(game_dir, project_type)
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + " " \
                 + all_compilers_opts("","") + \
@@ -288,6 +296,10 @@ def size(params,debug):
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
         run_command_verbosely(make_command)
+        
+        if is_project_split(game_dir):
+            print("Delete main.c (because of split source files)")
+            delete_main(game_dir, project_type)        
     else:
         if game_dir in["games","examples","projects"]:
             multiple_size_build(game_dir,target,xsize,ysize,debug)
@@ -479,7 +491,7 @@ def create_main(game_dir, project_type):
 def delete_main(game_dir, project_type):
     parent_dir_path = "./" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
-    run_command_verbosely("rm " + project_dir_path + "main.c")
+    run_command_verbosely("rm -rf " + project_dir_path + "main.c")
 
 # TODO: This should be replaced by a real check on the existence of the split_files directory
 SPLIT_PROJECTS = ['chase','shoot','snake']
@@ -558,7 +570,7 @@ def build(params):
                 use_tools_str = ""
     
             if is_project_split(game_dir):
-                print("Split source files")
+                print("Create main.c from split source files")
                 create_main(game_dir, project_type)
 
             make_command = \
@@ -571,6 +583,10 @@ def build(params):
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
             
             run_command_verbosely(make_command)
+            
+            if is_project_split(game_dir):
+                print("Delete main.c because of split source files)")
+                delete_main(game_dir, project_type)
             
         else:
             if game_dir in ["games","examples","projects"]:
@@ -592,9 +608,7 @@ def build(params):
         if global_vars.verbose:
             printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
             
-        if is_project_split(game_dir):
-            print("Split source files")
-            delete_main(game_dir, project_type)
+
 
 
 
@@ -962,7 +976,13 @@ def targets_test(params):
     if params[1].startswith("z88dk_targets"):
         parallel = " -j " + compilation_threads
     else:
-        parallel = ""                
+        parallel = ""         
+
+    game_dir = "chase"
+    project_type = "game"
+    if is_project_split(game_dir):
+        print("Create main.c from split source files")
+        create_main(game_dir, project_type)
     if params[1].endswith("_targets"):
         make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
@@ -978,7 +998,14 @@ def targets_test(params):
         run_command_verbosely(make_command)   
     else:
         printc(bcolors.FAIL, "Parameter not recognized\n")
+        if is_project_split(game_dir):
+            print("Delete main.c (because of split source files)")
+            delete_main(game_dir, project_type)
         exit()
+    if is_project_split("chase"):
+        print("Delete main.c (because of split source files)")
+        delete_main(game_dir, project_type)
+
 
     built_files = len(files_in_path("../build"))-1
     if global_vars.verbose: 

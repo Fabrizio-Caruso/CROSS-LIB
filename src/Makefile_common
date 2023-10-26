@@ -1921,7 +1921,7 @@ endif
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
-	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
+	$(CMOC) -o $(BUILD_PATH)/XBIN.BIN \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o dac_sounds.o \

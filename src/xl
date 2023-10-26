@@ -494,10 +494,15 @@ def delete_main(game_dir, project_type):
     run_command_verbosely("rm -rf " + project_dir_path + "main.c")
 
 # TODO: This should be replaced by a real check on the existence of the split_files directory
-SPLIT_PROJECTS = ['chase','shoot','snake']
+# SPLIT_PROJECTS = ['chase','shoot','snake']
 
 def is_project_split(game_dir):
-    return game_dir in SPLIT_PROJECTS
+    project_type = project_category(game_dir)
+    parent_dir_path = "./" + project_type + "s/"
+    project_dir_path = parent_dir_path + game_dir + "/"
+    
+    # return game_dir in SPLIT_PROJECTS
+    return os.path.isdir(project_dir_path+"split_files")
 
 # Build a project (for a target or multiple targets)
 def build(params):

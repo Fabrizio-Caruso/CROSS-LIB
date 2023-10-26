@@ -49,7 +49,7 @@
     #if defined(__ALT_SLEEP)
 	void _XL_SLEEP(uint8_t sec)
 	{
-        #if defined(__TI99__) || defined(__CMOC__)
+        #if defined(__TI99__)
         volatile uint16_t ii;
         #else
 		uint16_t ii;

@@ -1947,7 +1947,7 @@ ifdef USE_TOOLS
 	mv $(BUILD_PATH)/XBIN.BIN.vdk $(BUILD_PATH)/X$(GAME_NAME)_dragon_mono.vdk
 endif
 endif
-	rm -rf $(BUILD_PATH)/xbin.bin
+	rm -rf $(BUILD_PATH)/XBIN.BIN
 
 coco_targets: \
     coco coco_mono coco3
@@ -2010,7 +2010,7 @@ ifdef USE_TOOLS
 	mv $(BUILD_PATH)/XBIN.BIN.vdk $(BUILD_PATH)/X$(GAME_NAME)_dragon.vdk
 endif
 endif
-	rm -rf $(BUILD_PATH)/xbin.bin
+	rm -rf $(BUILD_PATH)/XBIN.BIN
 
 
 # coco3: coco3_gfx

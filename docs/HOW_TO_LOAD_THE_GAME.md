@@ -156,7 +156,9 @@ Attach the .rom as a cartridge to load and run the game
 -----------------------------------------------------------
 ### CAMPUTERS LYNX
 
-Use Jinx emulator: https://github.com/jonathan-markland/Jynx/releases
+Use Jinx emulator: https://jynxemulator.wordpress.com/download/
+
+GitHub project: https://github.com/jonathan-markland/Jynx/releases
 
 
 -----------------------------------------------------------

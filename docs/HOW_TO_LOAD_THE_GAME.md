@@ -1110,7 +1110,9 @@ Attach the ROM image
 
 ### NEC PC 8801
 
-Use the M88 emulator (https://illusioncity.net/nec-pc-88-series-emulators-tools-lists/)
+Use the M88 emulator: https://illusioncity.net/PC88/m88eng.rar
+
+BIOS: https://archive.org/details/m-88.7z
 
 Type:
 

@@ -3036,3 +3036,6 @@ stdio_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
+
+
+

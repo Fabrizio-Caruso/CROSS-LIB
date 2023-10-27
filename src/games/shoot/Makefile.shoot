@@ -63,3 +63,4 @@ include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
 
 
 
+include ./makefiles.common/auxiliary/Makefile_default_values

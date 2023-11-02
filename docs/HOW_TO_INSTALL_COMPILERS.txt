@@ -103,5 +103,6 @@ GCC for Atari ST
 1. download the cross compiler from http://vincent.riviere.free.fr/soft/m68k-atari-mint/ 
 2. follow the instructions from the installation site
 3. use as GCC
+4. place st52 terminfo file inside usr\share\terminfo\s in the same virtual hard disk as the .tos file(s)
 
 

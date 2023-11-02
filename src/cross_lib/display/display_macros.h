@@ -241,11 +241,11 @@
         #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
     #endif
 #elif defined(__NCURSES__)
-    #if defined(__ATARI_ST__)
-        #include <ncurses/curses.h>
-    #else
+    // #if defined(__ATARI_ST__)
+        // #include <ncurses/curses.h>
+    // #else
         #include <ncurses.h>
-    #endif
+    // #endif
     #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
 #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
     #define CPC_TEXT_WHITE 3
@@ -333,11 +333,11 @@
     #include <graphics.h>
     #define _XL_CLEAR_SCREEN() clg()
 #elif defined(__NCURSES__)
-    #if defined(__ATARI_ST__)
-        #include <ncurses/curses.h>
-    #else
+    // #if defined(__ATARI_ST__)
+        // #include <ncurses/curses.h>
+    // #else
         #include <ncurses.h>
-    #endif
+    // #endif
     #if defined(_DEBUG_FLAG) && _DEBUG_FLAG==1
         #define _XL_CLEAR_SCREEN() \
             do \

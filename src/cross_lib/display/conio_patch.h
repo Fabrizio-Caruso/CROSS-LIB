@@ -179,11 +179,11 @@
                 
             
     #elif defined(__NCURSES__)
-        #if defined(__ATARI_ST__)
-            #include <ncurses/curses.h>
-        #else
+        // #if defined(__ATARI_ST__)
+            // #include <ncurses/curses.h>
+        // #else
             #include <ncurses.h>
-        #endif
+        // #endif
         
         #define gotoxy(x,y) do { move(y,x); refresh(); } while(0)
         #define cputc(c) do { addch(c); refresh(); } while(0)

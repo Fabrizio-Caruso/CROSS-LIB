@@ -321,11 +321,11 @@ out         stb res
             getchar();
         }
     #elif defined(__NCURSES__)
-        #if defined(__ATARI_ST__)
-            #include <ncurses/curses.h>
-        #else
+        // #if defined(__ATARI_ST__)
+            // #include <ncurses/curses.h>
+        // #else
             #include <ncurses.h>
-        #endif
+        // #endif
         
         void _XL_WAIT_FOR_INPUT(void)
         {

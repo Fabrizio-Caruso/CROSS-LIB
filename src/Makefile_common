@@ -83,6 +83,7 @@ cc65_targets: \
     atari \
     atari_lynx \
     atari5200 \
+    atari7800 \
     c16 \
     c64 \
     creativision \
@@ -100,6 +101,7 @@ cc65_targets: \
     atari \
     atari_lynx \
     atari5200 \
+    atari7800 \
     c16 \
     c64 \
     creativision \

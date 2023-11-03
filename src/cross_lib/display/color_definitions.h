@@ -209,6 +209,7 @@
     #define _XL_BLUE _XL_CYAN
     #define _XL_RED 0
     #define _XL_GREEN _XL_CYAN
+	#define _XL_BLACK 2
     
 #elif defined(__VDP_MODE1_GRAPHICS)
 

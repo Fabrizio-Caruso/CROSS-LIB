@@ -13,3 +13,5 @@ PARENT_DIR = examples
 include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
 
 include ./Makefile_common
+
+include ./makefiles.common/auxiliary/Makefile_default_values

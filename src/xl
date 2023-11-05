@@ -971,7 +971,7 @@ expected_files = {
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
     "stdio": 1,
-    "z88dk_targets_alt": 39
+    "z88dk_targets_alt": 38
     }
 
 

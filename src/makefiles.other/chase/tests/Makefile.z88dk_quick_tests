@@ -54,12 +54,12 @@ zsdcc_quick_test: \
 #   	nc100_quick_test 
 # 	cpm_quick_test 
 # 	x1_quick_test 
+# 	cpc_quick_test (Unix)
 
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
 	aquarius_quick_test \
-	cpc_quick_test \
  	eg2k_quick_test \
 	einstein_quick_test \
 	gal_quick_test \

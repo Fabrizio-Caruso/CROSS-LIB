@@ -971,7 +971,7 @@ expected_files = {
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
     "stdio": 1,
-    "z88dk_targets_quick": 39
+    "z88dk_targets_alt": 39
     }
 
 
@@ -996,7 +996,7 @@ def targets_test(params):
         make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
-    elif params[1]=="z88dk_targets_quick":
+    elif params[1]=="z88dk_targets_alt":
         # parallel = ""
         make_command = GNU_MAKE + parallel + \
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
@@ -1956,7 +1956,7 @@ def help(params):
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
-            print("If 'z88dk_targets_quick' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
+            print("If 'z88dk_targets_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
             print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
             print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
             print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")

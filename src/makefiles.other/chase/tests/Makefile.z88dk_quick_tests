@@ -21,10 +21,10 @@ FAST_ZSDCC_TEST_OPTS ?= -SO0 $(FAST_TEST_OPTS)
 
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c
+	$(SOURCE_PATH)/split_files/move_player.c \
+	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
+	$(SOURCE_PATH)/split_files/main.c \
+	$(SOURCE_PATH)/split_files/init_images.c
 
 #
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c

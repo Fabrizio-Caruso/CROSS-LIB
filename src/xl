@@ -1018,8 +1018,8 @@ def targets_test(params):
         
     if params[1] in expected_files.keys():
         if global_vars.verbose:
-            print("Built files: " + str(built_files))
-            print("Expected files: " + str(expected_files[params[1]]))
+            printc(bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
+            printc(bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
         if built_files != expected_files[params[1]]:
             printc(bcolors.FAIL, "binaries KO\n")
             success=0

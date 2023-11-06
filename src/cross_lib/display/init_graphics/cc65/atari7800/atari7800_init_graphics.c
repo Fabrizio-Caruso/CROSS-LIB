@@ -8,10 +8,10 @@ void _XL_INIT_GRAPHICS(void)
 {
 	char i;
 	
-	for(i=0;i<100;++i)
+	for(i=0;i<10;++i)
 	{
 		
-		screen[i]=i;
+		screen[i]=1;
     }
 	// POKE(0,1);
 	// POKE(1000,1);

@@ -338,7 +338,16 @@ atari7800:
 
 
 atari7800_test: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ c:/Retro/alt_conio_fonts.s  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ c:/Retro/CROSS-LIB/docs/alt_conio_fonts.s  \
+	  -D_XL_NO_UDG -D__TARGET_SPECIFIC_ASCII \
+	-D__CONIO_GRAPHICS   -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) -DXSize=20 -DYSize=28 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari7800/atari7800_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+
+atari7800_test2: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ c:/Retro/CROSS-LIB/docs/alt_conio_fonts.s  \
 	  -D_XL_NO_UDG -D__TARGET_SPECIFIC_ASCII \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) -DXSize=20 -DYSize=28 \

@@ -86,6 +86,8 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
            " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + "'" + \
+           " GCC4TI99_MAKEFILE_COMPILATION_OPTS='" + gcc4ti99_compiler_opts + "'" + \
+           " NATIVE_MAKEFILE_COMPILATION_OPTS='" + native_compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
@@ -560,6 +562,8 @@ def build(params):
             print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
             print("cc65_compiler_opts      : " + cc65_compiler_opts) 
             print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts) 
+            print("gcc4ti99_compiler_opts: " +  gcc4ti99_compiler_opts)
+            print("native_compiler_opts: " +  native_compiler_opts)
             
             print("")
 
@@ -2129,6 +2133,8 @@ def read_config():
     global cmoc_compiler_opts
     global cc65_compiler_opts
     global lcc1802_compiler_opts
+    global gcc4ti99_compiler_opts
+    global native_compiler_opts
 
     global native_compiler
     
@@ -2190,8 +2196,9 @@ def read_config():
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
         lcc1802_compiler_opts = read_config_option("build","lcc1802_compiler_opts")
+        gcc4ti99_compiler_opts = read_config_option("build","gcc4ti99_compiler_opts")
+        native_compiler_opts = read_config_option("build","native_compiler_opts")
 
-        
         native_compiler = read_config_option("build", "native_compiler")
         
         tool_compiler = read_config_option("tools", "tool_compiler")
@@ -2263,6 +2270,8 @@ def default_config():
     zsdcc_compiler_opts = ""
     z88dk_compiler_opts = ""
     cmoc_compiler_opts = ""
+    gcc4ti99_compiler_opts = ""
+    native_compiler_opts = ""
     native_compiler = "gcc"
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
@@ -2289,6 +2298,8 @@ def display_config():
     print("cmoc_compiler_opts: " +  cmoc_compiler_opts)
     print("cc65_compiler_opts: " +  cc65_compiler_opts)
     print("lcc1802_compiler_opts: " +  lcc1802_compiler_opts)
+    print("gcc4ti99_compiler_opts: " +  gcc4ti99_compiler_opts)
+    print("native_compiler_opts: " +  native_compiler_opts)
 
     print("native_compiler: " +  native_compiler)
     print("tool_compiler: " +  tool_compiler)

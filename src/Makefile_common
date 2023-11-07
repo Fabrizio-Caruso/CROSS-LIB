@@ -2652,7 +2652,7 @@ LDFLAGS_EA5=\
 
 
 C_FLAGS=\
-  -O2 -std=c99 -s -I./ -fno-builtin
+   -std=c99 $(GCC4TI99_MAKEFILE_COMPILATION_OPTS) -s -I./ -fno-builtin
 
 
 
@@ -2973,6 +2973,9 @@ atari_st_ncurses:
 
 ncurses_targets: \
 	ncurses
+    
+
+GCC_OPTS = $(GLOBAL_OPTS) $(NATIVE_MAKEFILE_COMPILATION_OPTS)    
     
 ###############################################################################################
 

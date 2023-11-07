@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <peekpoke.h>
 
-extern char *screen;
+extern char screen[];
 
 int main(void)
 {

@@ -1019,7 +1019,11 @@ void power_up_effect(void)
 {    
     ++powerUp;
     
+	#if defined(BUGGY_GCC_TI99)
+	if(powerUp==5 || powerUp==10 || powerUp==15 || powerUp==20 || powerUp==25 || powerUp==30 || powerUp==35)
+	#else
     if(!(powerUp%5))
+	#endif
     {
         activate_hyper();
     }

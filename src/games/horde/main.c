@@ -861,7 +861,7 @@ void power_up_effect(void)
     
     pmod10 = powerUp%10;    
 
-    #if defined(BUGGY_MOD10)
+    #if defined(BUGGY_GCC_TI99)
         if(pmod10==0)
         {
             activate_hyper();

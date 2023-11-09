@@ -254,7 +254,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS))
+#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI7800_COLOR_GRAPHICS))
     
 	
     #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)

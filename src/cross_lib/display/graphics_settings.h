@@ -8,6 +8,8 @@
 	#include "quad_memory_mapped_graphics.h"
 #elif defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
 	#include "dual_memory_mapped_graphics.h" 
+#elif defined(__ATARI7800_COLOR_GRAPHICS)
+	#include "atari7800_color_graphics.h"
 #elif defined(__APPLE2_HGR_GRAPHICS)
     #include "apple2_hgr_graphics.h"
 #elif defined(__VDP_MODE1_GRAPHICS)

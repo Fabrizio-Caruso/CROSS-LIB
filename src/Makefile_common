@@ -2634,9 +2634,12 @@ mc10:
 # Paths to TMS9900 compilation tools 
 # ( Set in environment to override paths )
 TMS9900_DIR?=/opt/gcc4ti/bin
-ELF2EA5_DIR?=/home/fabri/Retro/GCC4TI/elf2ea5
-EA5_SPLIT_DIR?=/home/fabri/Retro/GCC4TI/ea5split
-CLASSIC99_DSK1?=/home/fabri/Retro/GCC4TI/DSK1
+ELF2EA5_DIR?=$(CFG_PATH)gcc4ti99/elf2ea5
+EA5_SPLIT_DIR?=$(CFG_PATH)gcc4ti99/ea5split
+CLASSIC99_DSK1?=$(CFG_PATH)gcc4ti99/DSK1
+# ELF2EA5_DIR?=/home/fabri/Retro/GCC4TI/elf2ea5
+# EA5_SPLIT_DIR?=/home/fabri/Retro/GCC4TI/ea5split
+# CLASSIC99_DSK1?=/home/fabri/Retro/GCC4TI/DSK1
 
 
 # Full paths to the executables used

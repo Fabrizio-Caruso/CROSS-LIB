@@ -10,6 +10,9 @@ CREATE_ASSET := cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT
 game_assets:
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_atari7800_160A.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/z88dk_gameboy.asm: $(8X8_TILES)
 	$(CREATE_ASSET)
 

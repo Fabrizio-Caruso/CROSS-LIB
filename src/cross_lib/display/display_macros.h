@@ -307,7 +307,7 @@
     #endif
 #elif defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
     #define _SPACE (' '+NOT_INVERTED)
-#elif defined(__ATARI5200__)
+#elif defined(__ATARI5200__) || defined(__ATARI7800_COLOR_GRAPHICS)
     #define _SPACE 0
 #elif defined(__CPCRSLIB_GRAPHICS)
     #define _SPACE (19*2)

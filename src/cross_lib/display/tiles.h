@@ -5,6 +5,8 @@
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
+#elif defined(__ATARI7800_COLOR_GRAPHICS)
+	#include "atari7800_settings.h"
 #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
     #include "default_quad_graphics_settings.h"
 #elif defined(__CREATIVISION__) && defined(__VDP_MODE1_GRAPHICS) && !defined(_XL_NO_UDG)

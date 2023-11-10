@@ -81,7 +81,21 @@ for the Texas TI99/4a
 
 1. download and decompress gcc-installer.tar.gz from http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-1
 2. install libgmp-dev libmpfr-dev tree
-3. export set MAKEINFO=missing (to fix one error about texinfo)
+For Cygwin install:
+ Category "Devel"
+- gcc-core
+- libiconv
+- make
+- patchutils
+
+Category "Libs"
+- libgmp-devel
+- libmpfr-devel
+
+Category "Interpreters"
+- m4 
+
+3. export set MAKEINFO=missing (to fix one error about texinfo) [maybe no longer necessary]
 4. run the "install.sh" script
 5. find files inside <target dir>/bin
 

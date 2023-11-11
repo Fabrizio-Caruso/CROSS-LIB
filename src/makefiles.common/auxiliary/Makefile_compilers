@@ -71,6 +71,7 @@ VBCC_OPTS ?= +bbc
 ###########################
 # GCC TMS9900 
 TMS9900-GCC_PATH ?= /opt/gcc4ti/bin
+LIB_TI99_PATH=/opt/gcc4ti/lib
 
 
 

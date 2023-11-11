@@ -2672,7 +2672,7 @@ TI99_TINY_OPTS ?= \
 	-DTINY_GAME -DNO_WALL  \
 	-D__VDP_MODE1_GRAPHICS \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_SLOW_DOWN_FACTOR=900
+	-D_XL_SLOW_DOWN_FACTOR=10*$(_TI99_SLOWDOWN)
 
 
 TI99_OPTS ?= \
@@ -2683,7 +2683,7 @@ TI99_OPTS ?= \
 	-D__ALT_SLEEP   -DEXTRA_TITLE -D__ALT_RAND \
 	-D__VDP_MODE1_GRAPHICS -D_XL_NO_JOYSTICK \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_SLOW_DOWN_FACTOR=1200
+	-D_XL_SLOW_DOWN_FACTOR=10*$(_TI99_SLOWDOWN)
 
 ##################################################################################################
 
@@ -2694,7 +2694,6 @@ TI99CC=tms9900-gcc
 CXX=tms9900-c++
 OBJCOPY=tms9900-objcopy
 
-LIB_TI99_PATH=$(TMS9900-GCC_PATH)/../lib
 
 # Flags used during linking
 # Refer to the linker rules in an external file

@@ -95,4 +95,7 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/*.o
 	rm -rf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/ti99/crt0.o
+	rm -rf $(TOOLS_PATH)/ti99/crt0_ea5.o
+	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
 

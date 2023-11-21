@@ -172,10 +172,23 @@ def generate_two_bit_asset(abstract_asset):
     return two_bit_asset
 
 # def generate_160A_asset(two_bit_asset, two_bit_160A_asset):
+
+
+def process_a7800_160A_file():
     
+    
+    parent_path = "./generated_assets/"
+    dest_path = parent_path+game_dir
 
+    
+    fin = open(dest_path+"/cc65_udc_atari7800_160A.s", "rt")
 
+    for line in fin:
+        print(line)
+        
+    fin.close()
 
+    
 def generate_asset_from_template(dir_name, stripped_template_file_name):
         matches = 0
         print("")
@@ -201,6 +214,7 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
             os.makedirs(parent_path)
         
         dest_path = parent_path+game_dir
+        
         if not os.path.exists(dest_path):
             print("creating: " + dest_path)
             os.makedirs(dest_path)
@@ -225,6 +239,8 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
             if line != newline:
                 matches = matches+1
                 print("Changing \n"+line+"with\n"+newline)
+                
+        process_a7800_160A_file()
         print("Number of tiles found: "+str(matches)) 
         print("")
         print("")

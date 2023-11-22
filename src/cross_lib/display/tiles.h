@@ -57,7 +57,7 @@
 	#include "nes_settings.h"
 #elif defined(__NES__) && defined(__NES_CONIO_GRAPHICS)
 	#include "nes_conio_settings.h"
-#elif defined(__CIDELSA__) && !!defined(_XL_NO_UDG)
+#elif defined(__CIDELSA__) && defined(_XL_NO_UDG)
     #include "cidelsa_no_gfx.h"
 #elif defined(__COMX_COLOR_GRAPHICS) && !defined(__MICRO__)
 	#include "comx_color_settings.h"

@@ -1229,9 +1229,15 @@ Choose "Einstellungen"
 
 Select Z9001
 
+Press "Uebernehmen"
+
 Press "Schliessen"
 
-Load file with "Laden"s
+Load file with "Datei"->"Laden"
+
+Select file 
+
+Click "Starten"
 
 -------------------------------------------------------------
 

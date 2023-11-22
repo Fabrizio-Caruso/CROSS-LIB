@@ -174,19 +174,32 @@ def generate_two_bit_asset(abstract_asset):
 # def generate_160A_asset(two_bit_asset, two_bit_160A_asset):
 
 
+ATARI7800_FILE_NAME = "cc65_udc_atari7800_160A.s"
+
+
 def process_a7800_160A_file():
-    
     
     parent_path = "./generated_assets/"
     dest_path = parent_path+game_dir
 
     
-    fin = open(dest_path+"/cc65_udc_atari7800_160A.s", "rt")
+    fin = open(dest_path+"/"+ATARI7800_FILE_NAME, "rt")
 
+    source = []
+    result = []
     for line in fin:
-        print(line)
-        
+        words = line.split(",")
+        for word in words:
+            if word != "\n" and word != "\t\n":
+                trimmed_word = word.replace("\n","").replace(" ","")
+                print(trimmed_word)
+                source.append(trimmed_word)
     fin.close()
+    # print(source)
+    if len(source)==512:
+        print("Asset has correct length (512 bytes)")
+    else:
+        print("Asset has wrong length: " << len(source))
 
     
 def generate_asset_from_template(dir_name, stripped_template_file_name):
@@ -240,13 +253,15 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
                 matches = matches+1
                 print("Changing \n"+line+"with\n"+newline)
                 
-        process_a7800_160A_file()
         print("Number of tiles found: "+str(matches)) 
         print("")
         print("")
         #close input and output files
         fin.close()
         fout.close()
+        if stripped_template_file_name==ATARI7800_FILE_NAME:
+            process_a7800_160A_file()
+
 
 
 def generate_assets_from_dir(dir_name):

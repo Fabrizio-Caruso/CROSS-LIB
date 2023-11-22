@@ -1888,6 +1888,53 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
+#################################################################
+
+
+z1013:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
+	-vn -lndos \
+	-D__Z1013__     \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o z1013
+	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/X$(GAME_NAME)_z1013.z80
+	rm -rf $(SOURCE_PATH)/../../z1013
+
+
+#############################
+# Z9001
+
+
+z9001: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
+	-D__Z9001__ -vn     \
+	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.z80
+
+
+
+#############################
+# KC
+
+kc: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
+	-D__KC__ \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_kc.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_kc.bin
+
+
 
 #################################################################
 # CMOC

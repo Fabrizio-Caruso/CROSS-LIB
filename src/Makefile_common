@@ -1918,7 +1918,16 @@ z9001_broken_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 
 # --generic-console
 z9001: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  \
+	$(Z88DK_PATH)$(MYZ88DK) +z9001  -m  $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__Z9001__ -vn  -D__SCREEN_MODE=1+32 -D_XL_NO_JOYSTICK  \
+	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+
+z9001_generic_console: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z9001  -m  $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__Z9001__ -vn  -D__SCREEN_MODE=1+32 -D_XL_NO_JOYSTICK  \
 	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.z80 \

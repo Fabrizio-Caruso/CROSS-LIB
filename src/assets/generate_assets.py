@@ -196,10 +196,11 @@ def process_a7800_160A_file():
                 source.append(trimmed_word)
     fin.close()
     # print(source)
+    
     if len(source)==512:
         print("Asset has correct length (512 bytes)")
     else:
-        print("Asset has wrong length: " << len(source))
+        print("Asset has wrong length: " + str(len(source)))
 
     
 def generate_asset_from_template(dir_name, stripped_template_file_name):

@@ -1,0 +1,110 @@
+By Christophe Possamaï
+
+//***************************************
+//* CODE DEMO redefinition caractere    *
+//* ligne de commande pour compilation: *
+//* cc68 -tmc10 tuto.c -o tuto          *
+//* pour executer sur alice:            *
+//* chargement: CLOADM                  *
+//* execution: EXEC                     *
+//***************************************
+#include <stdio.h>
+// definition Registres
+#define R0  0xBF20 //commande
+#define R1  0xBF21 //paramètre principal
+#define R2  0xBF22 //paramètre
+#define R3  0xBF23 //paramètre
+#define R4  0xBF24 //pointeur auxiliaire haut
+#define R5  0xBF25 //pointeur auxiliaire bas
+#define R6  0xBF26 //pointeur principal haut
+#define R7  0xBF27 //pointeur principal bas
+#define EXEC    0x8 // a ajouter au registe pour execution.
+// Definition couleurs
+#define noir            0
+#define rouge           1
+#define vert            2
+#define orange          3
+#define bleu            4
+#define magenta         5
+#define cyan            6
+#define rose            7
+#define vertc           10
+#define jaune           11
+#define magentac        13
+#define blanc           15
+char tuiles_0[] ={0x00,0x00,0x7C,0x92,0x92,0xFE,0xEE,0x7C,0x54,0x00};
+char tuiles_1[] ={0x7E,0xC3,0xA9,0xFD,0xFD,0xFD,0xB9,0x91,0xC3,0x7E};
+// fonction Poke
+void poke(uint16_t addr, uint8_t value) {*((uint8_t*)addr) = value;}
+//fonction Peek
+uint8_t peek(uint16_t address) {
+// Utilisez un pointeur pour accéder à l'adresse mémoire spécifiée
+uint8_t *memoryPointer = (uint8_t *)address;
+// Utilisez le pointeur pour lire la valeur à l'adresse spécifiée
+return *memoryPointer;
+}
+// positionne le curseur pour afficher un caractere
+void posxy(unsigned char colonne, unsigned char ligne) {
+poke(R6, ligne);  // R6 (MP / LIGNE)
+poke(R7, colonne);  // R7 (MP / COL)
+}
+// parametre
+void param(unsigned char b) {
+poke(R2, b);  // R2 (B)
+}
+// defnie la couleur du prichain caractere
+void color(unsigned char crayon, unsigned char papier) {
+unsigned char b=0,a;
+if(crayon>rose) {
+b=1;
+crayon-=8;
+}
+if(papier>rose) {
+b=1;
+papier-=8;
+}
+a=papier+(crayon*16);
+poke(R2, b);  // R2 (B)
+poke(R3, a);  // R3 (A) couleur
+}
+// affiche un caractere
+void affichr(unsigned char c) {
+poke(R1, c);  // R1 (C)
+poke(R0+EXEC, 0);  // R0 + EXEC (KRF)
+}
+// fonction pour afficher une chaine de caractere ASCII a une position et avec les couleurs.
+void print(signed char x, signed char y, char *texte) {
+char *c = texte;  // Correction ici
+if (x < 0) {
+x = (40 - sizeof(texte)) / 2;
+}
+posxy(x, y);
+for (; *c != '\0'; c++) {
+poke(R1, *c);
+poke(R0+EXEC, 1);
+}
+}
+// Fonction pour redefinir un caracteres
+void redefin(char numcaractere,char* data){ //CARACTERES REDÉFINIS
+uint16_t A = numcaractere+192;
+char i;
+for (i = 0; i < 10; ++i) {
+poke(R4, A / 256);
+poke(R5, A & 255);
+poke(R1, data[i]);
+poke(R0+EXEC, 48 + 4); // OCT + AUX_PTR (EXEC)
+A += 4;
+}
+}
+void main() {
+redefin(0,tuiles_0); //redifinition du caractere 0/128
+redefin(1,tuiles_1); //redifinition du caractere 1/128
+color(rouge,noir);
+print(6, 0,"Demo redefinition caracteres");
+color(bleu,noir);
+param(128+32+16);// bascule sur les caractères redéfinit
+posxy(19, 8);
+affichr(0);
+posxy(20, 8);
+affichr(1);
+}

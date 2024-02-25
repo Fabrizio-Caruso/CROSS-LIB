@@ -287,12 +287,12 @@
 
 #elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
     #define _XL_BLACK 0x0
-    #define _XL_RED 0x6
-    #define _XL_WHITE 0xE
-    #define _XL_BLUE 0xC
-    #define _XL_YELLOW 0x8
+    #define _XL_RED 0x2
+    #define _XL_WHITE 0x0F
+    #define _XL_BLUE 0xD
+    #define _XL_YELLOW 0x9
     #define _XL_GREEN 0xA
-    #define _XL_CYAN 0xD
+    #define _XL_CYAN 0xE
 
 #elif defined(__SUPERVISION__)
 

@@ -479,6 +479,8 @@ void right_rotate_row(void)
     
     _XL_TICK_SOUND();
 
+	++counter;
+	
     aux = matrix[0][0];
     
     for(i=0;i<WORD_SIZE-1;++i)
@@ -499,6 +501,8 @@ void left_rotate_row(void)
     
     _XL_TICK_SOUND();
     
+	++counter;
+	
     aux = matrix[WORD_SIZE-1][0];
     
     for(i=WORD_SIZE-1;i>0;--i)
@@ -518,6 +522,8 @@ void up_rotate_column(void)
     
     _XL_TICK_SOUND();    
     
+	counter+=4;	
+	
     aux = matrix[player_slot()][matrix_height[player_slot()]-1];
     
     for(i=matrix_height[player_slot()]-1;i>0;--i)
@@ -536,6 +542,8 @@ void down_rotate_column(void)
     uint8_t i;
 
     _XL_TICK_SOUND();
+	
+	counter+=4;
     
     aux = matrix[player_slot()][0];
     
@@ -757,7 +765,6 @@ void handle_input(void)
     }
     else if(_XL_DOWN(input) && player_x>MIN_PLAYER_X && player_x<MAX_PLAYER_X)
     {
-
         display_vertical_player(DOWN_ARROW_TILE);
 
         down_rotate_column();   
@@ -1230,7 +1237,7 @@ do \
 #define handle_drop() \
 do \
 { \
-    if(counter==max_level_counter) \
+    if(counter>=max_level_counter) \
     { \
         drop_letter(); \
         counter=0; \
@@ -1370,6 +1377,8 @@ int main(void)
             // level main loop
             while(alive && remaining_words && !low_letter_bonus)
             {    
+				// _XL_PRINTD(0,YSize-1,4,counter);
+				
                 handle_drop();
                 
                 handle_input();

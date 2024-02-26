@@ -54,9 +54,9 @@
 
 #define INITIAL_PLANE_Y 2
 
-#if YSize>16
+#if YSize>=20
     #if XSize>78
-        #define BUILDINGS_NUMBER (XSize-24)
+        #define BUILDINGS_NUMBER (XSize-24) 
         #define FIRST_BULDING_X_POS 12
     #elif XSize>63
         #define BUILDINGS_NUMBER (XSize-22)

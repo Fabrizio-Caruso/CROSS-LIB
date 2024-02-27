@@ -285,10 +285,13 @@ void _tgi_gfx_delete(uint8_t x, uint8_t y)
 
 void _tgi_gfx_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 {
-    _tgi_gfx_delete(x, y);
+    empty_spr->hpos = (x)*8;
+    empty_spr->vpos = (y)*6;
+    empty_spr->penpal[0] = 1;
     _tgi_tile[tile].hpos = (x)*8;
     _tgi_tile[tile].vpos = (y)*6;
     _tgi_tile[tile].penpal[0]=color;
+	tgi_sprite(empty_spr);
     tgi_sprite(&(_tgi_tile[tile]));
 }
 

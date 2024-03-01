@@ -1639,8 +1639,8 @@ pc88: $(ASSETS_PATH)/z88dk_xchase.asm
 #################################################################
 
 samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__SAM__   \
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) -create-app \
+	-D__SAM__ -D_XL_NO_JOYSTICK  \
 	-D__CONIO_GRAPHICS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SAMCOUPE_SLOWDOWN) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
@@ -1648,14 +1648,15 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
-ifdef USE_TOOLS
-	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
-	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
-	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
-	rm -rf $(BUILD_PATH)/FULL_samcoupe.bin
-else
-	mv $(BUILD_PATH)/FULL_samcoupe.bin $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.bin
-endif
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
+# ifdef USE_TOOLS
+	# cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	# $(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
+	# mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
+	# rm -rf $(BUILD_PATH)/FULL_samcoupe.bin
+# else
+	# mv $(BUILD_PATH)/FULL_samcoupe.bin $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.bin
+# endif
 
 
 #################################################################

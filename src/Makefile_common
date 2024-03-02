@@ -1798,13 +1798,13 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+trs80_gfx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS)  \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-D__TRS80__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-vn -lndos \
 	-D__ALT_PRINT  -D__BIT_BANG_SOUND \
 	 \
@@ -1819,11 +1819,12 @@ trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
-trs80_no_gfx:
+trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS) \
 	-lm -create-app \
 	-D__TRS80__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	-pragma-redirect:getk=getk_inkey \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TRS80_SLOWDOWN) \
 	-D__VT52 \

@@ -1796,6 +1796,43 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
 
+#################################################################
+
+trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
+	$(INCLUDE_OPTS)  \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-D__TRS80__ \
+	 \
+	-vn -lndos \
+	-D__ALT_PRINT  -D__BIT_BANG_SOUND \
+	 \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 \
+	-DLESS_TEXT \
+	-create-app \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TRS80_SLOWDOWN) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@S.bin \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+trs80_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
+	$(INCLUDE_OPTS) \
+	-lm -create-app \
+	-D__TRS80__ \
+	-pragma-redirect:getk=getk_inkey \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TRS80_SLOWDOWN) \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
 
 #################################################################
 

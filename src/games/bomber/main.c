@@ -86,8 +86,8 @@
     #define BUILDINGS_NUMBER (XSize/2)
     #define FIRST_BULDING_X_POS (XSize/4)  
 #else 
-    #define BUILDINGS_NUMBER (XSize/4)
-    #define FIRST_BULDING_X_POS (XSize/3)	
+    #define BUILDINGS_NUMBER 5
+    #define FIRST_BULDING_X_POS ((XSize/2)-2)	
 #endif  
 
 // String definitions
@@ -444,7 +444,7 @@ int main(void)
 				#if YSize>=12
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&AND_MASK);
 				#else
-                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT;
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+(_XL_RAND()&AND_MASK);
 				#endif
                 tile_index = ((uint8_t) _XL_RAND())&7;
                 buildingType=building_tiles[tile_index];

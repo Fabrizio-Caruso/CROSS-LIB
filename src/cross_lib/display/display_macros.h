@@ -179,6 +179,37 @@
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 
+#elif defined(__NO_BOTTOM)
+    #define _XL_PRINT(x,y,str) \
+    do \
+    { \
+		if(y<YSize-1) \
+		{ \
+			gotoxy(X_OFFSET+x,Y_OFFSET+y); \
+			cprintf(str); \
+		} \
+    } while(0)
+    
+    #define _XL_PRINTD(x,y,length,val) \
+    do \
+    { \
+		if(y<YSize-1) \
+		{ \
+			gotoxy(x+X_OFFSET,Y_OFFSET+y); \
+			cprintf("%0" #length "u",val); \
+		} \
+    } while(0)
+        
+    #define _XL_CHAR(x,y,ch) \
+    do \
+    { \
+		if(y<YSize-1) \
+		{ \
+			gotoxy(x+X_OFFSET,Y_OFFSET+y); \
+			cputc(ch); \
+		} \
+    } while(0)
+
 #else
     #define _XL_PRINT(x,y,str) \
     do \

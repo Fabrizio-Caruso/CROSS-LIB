@@ -50,9 +50,17 @@
 
 #define MAX_Y ((YSize)+(Y_OFFSET))
 
-#define MIN_BUILDING_HEIGHT 2
+#if YSize>=12
+	#define MIN_BUILDING_HEIGHT 2
+#else
+	#define MIN_BUILDING_HEIGHT 2
+#endif
 
-#define INITIAL_PLANE_Y 2
+#if YSize>=12
+	#define INITIAL_PLANE_Y 2
+#else
+	#define INITIAL_PLANE_Y 1
+#endif
 
 #if YSize>=20
     #if XSize>78
@@ -74,9 +82,12 @@
         #define BUILDINGS_NUMBER (XSize-7)
         #define FIRST_BULDING_X_POS 4
     #endif
-#else
+#elif YSize>=12
     #define BUILDINGS_NUMBER (XSize/2)
     #define FIRST_BULDING_X_POS (XSize/4)  
+#else 
+    #define BUILDINGS_NUMBER (XSize/4)
+    #define FIRST_BULDING_X_POS (XSize/3)	
 #endif  
 
 // String definitions
@@ -259,7 +270,9 @@ do { \
     #define LEVEL_FACTOR_SPEED_UP 2
 #endif 
 
-#if YSize<=17
+#if YSize<12
+	#define AND_MASK 1
+#elif YSize<=17
     #define AND_MASK 3
 #else
     #define AND_MASK 7
@@ -428,7 +441,11 @@ int main(void)
             }
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
+				#if YSize>=12
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&AND_MASK);
+				#else
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT;
+				#endif
                 tile_index = ((uint8_t) _XL_RAND())&7;
                 buildingType=building_tiles[tile_index];
                 color_index = ((uint8_t) _XL_RAND())&7;

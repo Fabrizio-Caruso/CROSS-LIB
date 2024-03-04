@@ -39,8 +39,11 @@
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+WORD_SIZE)
 
-#define PLAYER_Y (START_Y+2)
-
+#if YSize>=12
+    #define PLAYER_Y (START_Y+2)
+#else
+    #define PLAYER_Y (START_Y+1)
+#endif
 
 #define END_Y (START_Y+10)
 
@@ -1075,7 +1078,9 @@ void display_walls(void)
 {
     uint8_t i;
     uint8_t j;
+    #if YSize>=12
     uint8_t horizontal_wall_tile;
+    #endif
     uint8_t vertical_wall_tile;
     uint8_t wall_color;
     
@@ -1084,19 +1089,25 @@ void display_walls(void)
         
         if(i>4)
         {
+            #if YSize>=12
             horizontal_wall_tile = HORIZONTAL_WALL_TILE;
+            #endif
             vertical_wall_tile = VERTICAL_WALL_TILE;
             wall_color = _XL_GREEN;
         }
         else if(i>2)
         {
+            #if YSize>=12
             horizontal_wall_tile = HORIZONTAL_BONUS_WALL_TILE;
+            #endif
             vertical_wall_tile = VERTICAL_BONUS_WALL_TILE;
             wall_color = _XL_YELLOW;
         }
         else
         {
+            #if YSize>=12
             horizontal_wall_tile = HORIZONTAL_BAR_TILE;
+            #endif
             vertical_wall_tile = VERTICAL_BAR_TILE;
             wall_color = _XL_RED;  
         }
@@ -1104,14 +1115,15 @@ void display_walls(void)
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);
              
         
+        #if YSize>=12
         for(j=0;j<WORD_SIZE*2-1;++j)
         {
             if(!(i&1))
             {
                 _XL_DRAW(START_X+j,START_Y-i+1,horizontal_wall_tile, wall_color);
             }
-
         }
+        #endif
         if(i&1)
         {
             for(j=0;j<WORD_SIZE*2-2;j+=2)

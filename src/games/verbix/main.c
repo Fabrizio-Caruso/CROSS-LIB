@@ -124,7 +124,13 @@
 
 #define HI_Y 0U
 
-#define SLOT_SPACING 2U
+#define SLOT_X_SPACING 2U
+
+#if YSize>=12
+    #define SLOT_Y_SPACING 2U
+#else
+    #define SLOT_Y_SPACING 1U
+#endif
 
 #define BONUS_HEIGHT 2U
 
@@ -260,13 +266,13 @@ void one_second_pause(void)
 
 uint8_t x_slot(uint8_t x)
 {
-    return START_X+SLOT_SPACING*x;
+    return START_X+SLOT_X_SPACING*x;
 }
 
 
 uint8_t y_slot(uint8_t y)
 {
-    return START_Y-SLOT_SPACING*y;
+    return START_Y-SLOT_Y_SPACING*y;
 }
 
 
@@ -408,7 +414,7 @@ void drop_letter(void)
 
 uint8_t player_slot_x(void)
 {
-    return START_X-SLOT_SPACING+SLOT_SPACING*player_x;
+    return START_X-SLOT_X_SPACING+SLOT_X_SPACING*player_x;
 }
 
 
@@ -417,11 +423,11 @@ void delete_player(void)
 {
     if(player_x==MIN_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+MIN_PLAYER_X, START_Y);
+        _XL_DELETE(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, START_Y);
+        _XL_DELETE(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y);
     }
     else
     {
@@ -440,13 +446,13 @@ void display_vertical_player(uint8_t player_tile)
 
 void display_horizontal_left_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+MIN_PLAYER_X, START_Y, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_right_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_SPACING+SLOT_SPACING*MAX_PLAYER_X, START_Y, player_tile, PLAYER_COLOR); 
+    _XL_DRAW(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y, player_tile, PLAYER_COLOR); 
 }
 
 

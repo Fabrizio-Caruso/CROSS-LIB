@@ -27,8 +27,11 @@
 #define WORD_SIZE 5
 
 
-#define MAX_HEIGHT ((YSize/2)-1)
-
+#if YSize<12
+    #define MAX_HEIGHT ((YSize/2))
+#else
+    #define MAX_HEIGHT ((YSize/2)-1)
+#endif
 
 #define START_X ((XSize)/2-4)
 #define START_Y ((YSize)-3)
@@ -74,7 +77,9 @@
 #define EMPTY_SLOT_COLOR _XL_WHITE
 #define WALL_COLOR _XL_RED
 
-#if YSize<=18
+#if YSize<12
+    #define INITIAL_ROWS 1
+#elif YSize<=18
     #define INITIAL_ROWS 2
 #else
     #define INITIAL_ROWS 3
@@ -1274,16 +1279,6 @@ do \
     } \
 } while(0)
 
-// void initial_letter_drop(void)
-// {
-    // uint8_t i;
-   
-    // for(i=0;i<(uint8_t) MIN_INITIAL_DROP + (level>>0);++i)
-    // {
-        // drop_letter();
-        // short_pause();
-    // } 
-// }
 
 
 #define handle_level_end() \
@@ -1339,34 +1334,7 @@ int main(void)
 {        
     initialize_input_output();
     
-    // DEBUG --------------------
-    // { 
-        // uint8_t i;
-        // uint8_t j;
-        // uint8_t k;
-        // i=0;
-        // j=0;
-        // k=0;
-        // do
-        // {
-            // if(!i)
-            // {
-                // _XL_PRINTD(0,j,3,k);
-            // }
-            // _XL_CHAR(i+5,j,k);
-            // ++i;
-            // if(i==16)
-            // {
-                // i=0;
-                // ++j;
-            // }
-            // ++k;
-        // } while(k!=255);
-    // }
-    // while(1){};
-    // --------------------------
-    
-    // record is set to zero because it is a global variable
+    // record is already set to zero because it is a global variable
     
     // main loop
     while(1)

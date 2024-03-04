@@ -28,7 +28,7 @@
 
 
 #if YSize<12
-    #define MAX_HEIGHT ((YSize/2))
+    #define MAX_HEIGHT (YSize-2)
 #else
     #define MAX_HEIGHT ((YSize/2)-1)
 #endif

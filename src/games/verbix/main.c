@@ -273,10 +273,16 @@ uint8_t x_slot(uint8_t x)
     return START_X+SLOT_X_SPACING*x;
 }
 
+#if YSize>=12
+    #define LOWER_SPACING 0
+#else
+    #define LOWER_SPACING 1
+#endif
+
 //  
 uint8_t y_slot(uint8_t y)
 {
-    return START_Y-SLOT_Y_SPACING*y;
+    return START_Y-SLOT_Y_SPACING*y+LOWER_SPACING;
 }
 
 
@@ -293,7 +299,7 @@ void draw_letter(uint8_t x, uint8_t y)
 #define draw_cross(x) \
 do \
 { \
-    _XL_DRAW(x_slot(x),START_Y,CROSS_TILE,_XL_RED); \
+    _XL_DRAW(x_slot(x),START_Y+LOWER_SPACING,CROSS_TILE,_XL_RED); \
 } while(0)
 
 
@@ -427,11 +433,11 @@ void delete_player(void)
 {
     if(player_x==MIN_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y);
+        _XL_DELETE(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y+LOWER_SPACING);
     }
     else if(player_x==MAX_PLAYER_X)
     {
-        _XL_DELETE(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y);
+        _XL_DELETE(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y+LOWER_SPACING);
     }
     else
     {
@@ -450,13 +456,13 @@ void display_vertical_player(uint8_t player_tile)
 
 void display_horizontal_left_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y, player_tile, PLAYER_COLOR);
+    _XL_DRAW(START_X-SLOT_X_SPACING+MIN_PLAYER_X, START_Y+LOWER_SPACING, player_tile, PLAYER_COLOR);
 }
 
 
 void display_horizontal_right_player(uint8_t player_tile)
 {
-    _XL_DRAW(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y, player_tile, PLAYER_COLOR); 
+    _XL_DRAW(START_X-SLOT_X_SPACING+SLOT_X_SPACING*MAX_PLAYER_X, START_Y+LOWER_SPACING, player_tile, PLAYER_COLOR); 
 }
 
 

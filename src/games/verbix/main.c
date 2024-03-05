@@ -1084,7 +1084,13 @@ void display_walls(void)
     uint8_t vertical_wall_tile;
     uint8_t wall_color;
     
-    for(i=0;i<MAX_HEIGHT*2;++i)
+    #if YSize>=12
+        #define HEIGHT_FACTOR 2
+    #else
+        #define HEIGHT_FACTOR 1
+    #endif
+    
+    for(i=0;i<MAX_HEIGHT*HEIGHT_FACTOR;++i)
     {
         
         if(i>4)

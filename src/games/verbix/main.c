@@ -39,11 +39,7 @@
 #define MIN_PLAYER_X 0
 #define MAX_PLAYER_X (1+WORD_SIZE)
 
-#if YSize>=12
-    #define PLAYER_Y (START_Y+2)
-#else
-    #define PLAYER_Y (START_Y+1)
-#endif
+#define PLAYER_Y (START_Y+2)
 
 #define END_Y (START_Y+10)
 
@@ -277,7 +273,7 @@ uint8_t x_slot(uint8_t x)
     return START_X+SLOT_X_SPACING*x;
 }
 
-
+//  
 uint8_t y_slot(uint8_t y)
 {
     return START_Y-SLOT_Y_SPACING*y;
@@ -1077,8 +1073,9 @@ do \
 void display_walls(void)
 {
     uint8_t i;
-    uint8_t j;
     #if YSize>=12
+    uint8_t j;
+
     uint8_t horizontal_wall_tile;
     #endif
     uint8_t vertical_wall_tile;
@@ -1129,7 +1126,7 @@ void display_walls(void)
                 _XL_DRAW(START_X+j,START_Y-i+1,horizontal_wall_tile, wall_color);
             }
         }
-        #endif
+        
         if(i&1)
         {
             for(j=0;j<WORD_SIZE*2-2;j+=2)
@@ -1137,6 +1134,7 @@ void display_walls(void)
                 _XL_DRAW(START_X+j+1,START_Y-i+1,vertical_wall_tile, wall_color);
             }
         }
+        #endif
     }
     
     // Draw bonus limit

@@ -1407,13 +1407,13 @@ laser500_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-
+# -D__NO_BOTTOM 
 m100:
 	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__M100__ \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M100_SLOWDOWN) \
 	-DXSize=39 \
-	-DYSize=9 -D__NO_BOTTOM \
+	-DYSize=8 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	-D_XL_NO_JOYSTICK -D_XL_NO_UDG \

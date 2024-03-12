@@ -3,6 +3,7 @@ CREDITS
 I have been helped by people who are involved in the cross compilers Z88Dk, CC65, CMOC, ACK, LCC1802, GCC for TI99 development.
 
 In particular I must thank:
+- Alex Thissen for his support on the docker release and on the Atari Lynx target
 
 - Stefano Bodrato for lots of help on all Z80 targets including development on the Z88Dk to support my library and games.
 

@@ -37,6 +37,9 @@ uint8_t level_completed;
 uint8_t counter;
 
 
+uint8_t x;
+uint8_t y;
+
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 {
 	_XL_PRINT(((uint8_t) (XSize - strlen(Text))>>1), row, Text);	
@@ -45,6 +48,12 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 #define PRINT_CENTERED(Text) \
 	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
 
+void display_xy(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(0,YSize-1,2,x);
+    _XL_PRINTD(4,YSize-1,2,y);
+}
 
 int main(void)
 {        
@@ -83,6 +92,8 @@ int main(void)
         // GAME LOOP
         while(lives && (level<FINAL_LEVEL+1))
         {
+            x = XSize/2;
+            y = YSize/2;
             // (RE-)START LEVEL
             level_completed = 0;
             alive = 1;
@@ -105,35 +116,58 @@ int main(void)
             _XL_PRINT(0,0, "SCORE");
             _XL_PRINTD(7,0,5,score);
             _XL_PRINTD(XSize-6,YSize-1,5,0);
+            display_xy();
 
             // LEVEL LOOP
             while(!level_completed && alive)
             {
                 input = _XL_INPUT();
                 
-                if(_XL_DOWN(input))
+                if(x<1 || x> XSize-2 || y<2 || y>YSize-3)
                 {
                     alive=0;
-                    _XL_EXPLOSION_SOUND();
+                    _XL_EXPLOSION_SOUND();                    
                 }
-                else if (_XL_RIGHT(input) || _XL_LEFT(input) || _XL_UP(input))
+                _XL_DRAW(x,y,_TILE_0, _XL_WHITE);
+                _XL_SLEEP(1);
+
+                if(_XL_DOWN(input))
                 {
-                    _XL_ZAP_SOUND();
-                    score+=50;
-                    _XL_PRINTD(7,0,5,score);
-                }         
+                    _XL_DELETE(x,y);
+                    ++y;
+                    display_xy();
+                }
+                else if (_XL_RIGHT(input))
+                {
+                    _XL_DELETE(x,y);
+                    ++x;
+                    display_xy();
+                } 
+                else if (_XL_LEFT(input))
+                {
+                    _XL_DELETE(x,y);
+                    --x;
+                    display_xy();
+                } 
+                else if (_XL_UP(input))
+                {
+                    _XL_DELETE(x,y);
+                    --y;
+                    display_xy();
+                }                 
                 else if(_XL_FIRE(input))
                 {
                     _XL_TOCK_SOUND();
                     ++counter;
+                    score+=50;
+                    _XL_PRINTD(7,0,5,score);
                     _XL_PRINTD(XSize-6,YSize-1,5,counter);
-
                 }
                 if(counter>=100)
                 {
                     level_completed = 1;
+                    _XL_ZAP_SOUND();
                 }
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
                         
             // ALIVE OR LEVEL_COMPLETED?

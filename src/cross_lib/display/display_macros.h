@@ -1,5 +1,5 @@
-/* --------------------------------------------------------------------------------------- */ 
-// 
+/* --------------------------------------------------------------------------------------- */
+//
 // CROSS CHASE by Fabrizio Caruso
 //
 // Fabrizio_Caruso@hotmail.com
@@ -8,7 +8,7 @@
 // In no event will the authors be held liable for any damages arising from
 // the use of this software.
 
-// Permission is granted to anyone to use this software for non-commercial applications, 
+// Permission is granted to anyone to use this software for non-commercial applications,
 // subject to the following restrictions:
 
 // 1. The origin of this software must not be misrepresented; you must not
@@ -20,8 +20,8 @@
 // be misrepresented as being the original software.
 
 // 3. This notice may not be removed or altered from any source distribution.
-/* --------------------------------------------------------------------------------------- */ 
- 
+/* --------------------------------------------------------------------------------------- */
+
 #ifndef _DISPLAY_MACROS
 #define _DISPLAY_MACROS
 
@@ -65,8 +65,8 @@
     #define SET_DEBUG_BORDER()     POKE(53280u,  1)
     #define UNSET_DEBUG_BORDER()   POKE(53280u,  0)
 #else
-    #define SET_DEBUG_BORDER() 
-    #define UNSET_DEBUG_BORDER() 
+    #define SET_DEBUG_BORDER()
+    #define UNSET_DEBUG_BORDER()
 #endif
 
 
@@ -89,11 +89,11 @@
         #include <interrupt.h>
         #define _XL_WAIT_VSYNC() vdp_waitvsync()
     #else
-        #define _XL_WAIT_VSYNC() 
-    #endif 
+        #define _XL_WAIT_VSYNC()
+    #endif
 #else
-    #define _XL_WAIT_VSYNC() 
-#endif 
+    #define _XL_WAIT_VSYNC()
+#endif
 
 
 #if !defined(__BUFFERED_GRAPHICS) && !defined(DOUBLE_BUFFER)
@@ -106,7 +106,7 @@
                 memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize); \
                 memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize); \
             } while(0)
-    
+
     #else
         #define REFRESH() \
         do \
@@ -123,14 +123,14 @@
     #endif
 #else
     #include "buffered_graphics.h"
-    
+
     #define _REFRESH() \
         do \
         { \
             putchar('\n'); \
             display_all(); \
         } while(0);
-        
+
     #if !defined(__EMCC__)
         #define REFRESH() _REFRESH()
     #else
@@ -145,7 +145,7 @@
 
 
 // PRINT AND PRINTD
-#  if defined(__ALT_DISPLAY_STATS) 
+#  if defined(__ALT_DISPLAY_STATS)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #define _XL_PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
@@ -168,14 +168,14 @@
         printw("%0" #length "u",val); \
         refresh(); \
     } while(0)
-            
+
     #define _XL_CHAR(x,y,ch) \
     do { \
         move(y,x); \
         cputc(ch); \
     } while(0)
 #elif defined(__ALT_PRINT)
-    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);   
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 
@@ -189,7 +189,7 @@
 			cprintf(str); \
 		} \
     } while(0)
-    
+
     #define _XL_PRINTD(x,y,length,val) \
     do \
     { \
@@ -199,7 +199,7 @@
 			cprintf("%0" #length "u",val); \
 		} \
     } while(0)
-        
+
     #define _XL_CHAR(x,y,ch) \
     do \
     { \
@@ -217,14 +217,14 @@
         gotoxy(X_OFFSET+x,Y_OFFSET+y); \
         cprintf(str); \
     } while(0)
-    
+
     #define _XL_PRINTD(x,y,length,val) \
     do \
     { \
         gotoxy(x+X_OFFSET,Y_OFFSET+y); \
         cprintf("%0" #length "u",val); \
     } while(0)
-        
+
     #define _XL_CHAR(x,y,ch) \
     do \
     { \
@@ -245,7 +245,7 @@
 #endif
 
 
-// COLORS 
+// COLORS
 #if defined(__ATARI5200__)
     #define _XL_SET_TEXT_COLOR(c) textcolor(c>>6)
 #elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS))
@@ -312,7 +312,7 @@
 #if defined(__Z88DK_SPRITES_GRAPHICS) || defined(__MO5__)||defined(__TO7__) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
 	#define _Z88DK_SPRITE_OFFSET (0x20)
 #else
-	
+
 	#define _Z88DK_SPRITE_OFFSET 0x00
 #endif
 
@@ -344,7 +344,7 @@
     #define _SPACE (19*2)
 #else
     #define _SPACE ' '
-#endif 
+#endif
 
 
 // CLEAR SCREEN
@@ -352,9 +352,9 @@
     void _XL_CLEAR_SCREEN(void);
 #elif defined(__TI99__)
     #include <vdp.h>
-    #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768); 
+    #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768)
 #elif defined(__ATARI_LYNX__)
-    #define _XL_CLEAR_SCREEN() tgi_clear()
+    #define _XL_CLEAR_SCREEN() tgi_bar(0,0,159,101)
 #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
@@ -395,11 +395,11 @@
         #define REAL_XSIZE 27
     #else
         #define REAL_XSIZE 25
-    #endif    
+    #endif
     #define _XL_CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
     #define _XL_CLEAR_SCREEN() PUTCH(12);
-            
+
 #elif defined(__ASSEMBLY_CLEAR_SCREEN)
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() \
@@ -408,7 +408,7 @@
             __asm__("LDA #$60"); \
             __asm__("JSR $C5A7");
     #endif
-// KERNAL routine uses ASCII character 0x20 (32), whereas memory mapped sets space character at 0x60 
+// KERNAL routine uses ASCII character 0x20 (32), whereas memory mapped sets space character at 0x60
 #elif defined(__KERNAL_CLEAR_SCREEN) && !defined(__MEMORY_MAPPED_GRAPHICS)
     #if defined(__C16__)
         #define _XL_CLEAR_SCREEN() __asm__("jsr $D88B")
@@ -430,7 +430,7 @@
 #else
     #define _SET_BORDER_COLOR(c) {}
     #define _SET_BACKGROUND_COLOR(c) {}
-#endif    
+#endif
 
 
 
@@ -439,6 +439,6 @@
 #else
     #define _XL_INIT_GRAPHICS() _setScreenColors()
 #endif
-    
+
 #endif // _DISPLAY_MACROS
 

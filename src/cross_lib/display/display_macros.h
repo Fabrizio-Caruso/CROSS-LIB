@@ -354,7 +354,7 @@
     #include <vdp.h>
     #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768); 
 #elif defined(__ATARI_LYNX__)
-    #define _XL_CLEAR_SCREEN() tgi_clear()
+    #define _XL_CLEAR_SCREEN()     tgi_bar(0,0,159,101)
 #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
     #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)

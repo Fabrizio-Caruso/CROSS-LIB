@@ -314,7 +314,7 @@ void _XL_INIT_GRAPHICS(void)
 
 	while (tgi_busy())  {  };
 
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #if defined(_BACKGROUND_COLOR) && (_BACKGROUND_COLOR==_XL_WHITE)
         tgi_setcolor(TGI_COLOR_WHITE);
 	#else
         tgi_setcolor(TGI_COLOR_BLACK);

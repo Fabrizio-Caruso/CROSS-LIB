@@ -286,16 +286,16 @@
     #endif
 
 #elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-        #define _XL_BLACK 0xF0
-        #define _XL_RED 0xF2
-        #define _XL_WHITE 0xFF
-        #define _XL_BLUE 0xFD
-        #define _XL_YELLOW 0xF9
-        #define _XL_GREEN 0xFA
-        #define _XL_CYAN 0xFE
+    // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        // #define _XL_BLACK 0xF0
+        // #define _XL_RED 0xF2
+        // #define _XL_WHITE 0xFF
+        // #define _XL_BLUE 0xFD
+        // #define _XL_YELLOW 0xF9
+        // #define _XL_GREEN 0xFA
+        // #define _XL_CYAN 0xFE
  
-    #else
+    // #else
         #define _XL_BLACK 0x0
         #define _XL_RED 0x2
         #define _XL_WHITE 0x0F
@@ -303,7 +303,7 @@
         #define _XL_YELLOW 0x9
         #define _XL_GREEN 0xA
         #define _XL_CYAN 0xE
-    #endif
+    // #endif
 
 
 #elif defined(__SUPERVISION__)

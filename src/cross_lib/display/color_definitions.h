@@ -296,7 +296,7 @@
         // #define _XL_CYAN 0xFE
  
     // #else
-        #define _XL_BLACK 0x0
+        #define _XL_BLACK 0x1
         #define _XL_RED 0x2
         #define _XL_WHITE 0x0F
         #define _XL_BLUE 0xD

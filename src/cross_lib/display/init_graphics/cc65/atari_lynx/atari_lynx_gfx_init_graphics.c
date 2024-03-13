@@ -267,19 +267,19 @@ void _XL_INIT_GRAPHICS(void)
     _atari_lynx_background_color = _BACKGROUND_COLOR;
     #endif
 
-    Sempty.penpal[0] = _atari_lynx_background_color << 4;
-    empty_spr = &Sempty;
+  Sempty.penpal[0] = _atari_lynx_background_color << 4;
+  empty_spr = &Sempty;
 
-    tgi_install(tgi_static_stddrv);
+  tgi_install(tgi_static_stddrv);
 
-	tgi_init ();
+	tgi_init();
 	CLI();
 
-    init_tile_data();
-    init_tgi_tile();
+  init_tile_data();
+  init_tgi_tile();
 
-	while (tgi_busy())  {  };
- 
-    tgi_setcolor(_atari_lynx_background_color);
-    tgi_bar(0,0,159,101);
+  tgi_setcolor(_atari_lynx_background_color);
+  tgi_bar(0,0,159,101);
+  
+  while (tgi_busy())  {  };
 }

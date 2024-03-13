@@ -6,27 +6,29 @@
 
 #define FONT_SIZE (26+10+1)
 
+typedef struct scb_hv_pal2 {
+    unsigned char sprctl0;
+    unsigned char sprctl1; // set REHV
+    unsigned char sprcoll;
+    char *next;
+    unsigned char *data;
+    signed int hpos;
+    signed int vpos;
+    unsigned int hsize;
+    unsigned int vsize;
+    unsigned char penpal[2];
+} scb_hv_pal2;
 
-extern SCB_REHV_PAL _tgi_tile[_XL_NUMBER_OF_TILES+FONT_SIZE];
-extern SCB_REHV_PAL *empty_spr;
-extern SCB_REHV_PAL *clean_bug_spr;
+extern scb_hv_pal2 _tgi_tile[_XL_NUMBER_OF_TILES+FONT_SIZE];
+extern scb_hv_pal2 *empty_spr;
 
-void _tgi_gfx_delete(uint8_t x, uint8_t y); 
-// void _tgi_gfx_clean_bug(uint8_t x, uint8_t y); 
-void _tgi_gfx_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color); 
-
+void _tgi_gfx_delete(uint8_t x, uint8_t y);
+void _tgi_gfx_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
 
 #define _XL_DELETE(__x,__y) \
     _tgi_gfx_delete(__x,__y)
 
-
-// #define clean_bug(__x,__y) \
-    // _tgi_gfx_clean_bug(__x,__y)
-
-
 #define _XL_DRAW(__x,__y,__tile,__color) \
     _tgi_gfx_draw(__x,__y,__tile,__color)
-
-
 
 #endif // _LYNX_TGI_GRAPHICS_GRAPHICS

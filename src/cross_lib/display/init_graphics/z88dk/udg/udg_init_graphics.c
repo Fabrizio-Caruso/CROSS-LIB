@@ -30,13 +30,15 @@ void _XL_INIT_GRAPHICS(void)
 	#if defined(__SPECTRUM__)
         printf("\x01\x20");
 
-        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-            textbackground(_XL_WHITE);
-            zx_border(7);
-        #else
-            textbackground(_XL_BLACK);
-            zx_border(0);
-        #endif
+        textbackground(_BACKGROUND_COLOR);
+        zx_border(_BACKGROUND_COLOR);
+        // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+            // textbackground(_XL_WHITE);
+            // zx_border(7);
+        // #else
+            // textbackground(_XL_BLACK);
+            // zx_border(0);
+        // #endif
 	#else
         _setScreenColors();
     #endif

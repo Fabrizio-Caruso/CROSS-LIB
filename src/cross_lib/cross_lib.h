@@ -55,6 +55,10 @@
 #endif
 
 
+#if !defined(_BACKGROUND_COLOR)
+    #define _BACKGROUND_COLOR _XL_BLACK
+#endif
+
 // This may be different on each target
 #if !defined(_XL_NUMBER_OF_TILES)
     #define _XL_NUMBER_OF_TILES 27

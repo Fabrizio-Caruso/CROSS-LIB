@@ -26,9 +26,9 @@
 
 #define NUMBER_OF_COLORS 7
 #define MAX_STRING_SIZE 10
-#if !defined(_XL_NO_TEXT_COLOR)
+
 static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_BLACK, _XL_WHITE,  _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
-#endif
+
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
                                 "BLACK",
@@ -40,13 +40,41 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 "BLUE", 
                                 };
 
+#define MAX_TILES_TO_DISPLAY 16
 
-#define COL_OFFSET ((XSize-16)/2-1)
+const uint8_t tile[MAX_TILES_TO_DISPLAY] = {
+    _TILE_0,
+    _TILE_1,
+    _TILE_2,
+    _TILE_3,
+    _TILE_4,
+    _TILE_5,
+    _TILE_6,
+    _TILE_7,
+    _TILE_8,
+    _TILE_9,
+    _TILE_10,
+    _TILE_11,
+    _TILE_12,
+    _TILE_13,
+    _TILE_14,
+    _TILE_15,
+};
+
+#define COL_OFFSET 4
 #define ROW_OFFSET 3
 
+#if XSize <=((MAX_TILES_TO_DISPLAY)*2-COL_OFFSET)
+    #define TILE_SEPARATION 1
+    #define TILES_TO_DISPLAY ((XSize)-COL_OFFSET)
+#else
+    #define TILE_SEPARATION 2
+    #define TILES_TO_DISPLAY (MAX_TILES_TO_DISPLAY-(COL_OFFSET/2))
+#endif
 
 int main(void)
 {        
+    uint8_t i;
     uint8_t j;
     uint8_t k;
     
@@ -78,16 +106,31 @@ int main(void)
                 _XL_PRINT(COL_OFFSET, 6, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
                 _XL_PRINT(COL_OFFSET, 7, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
                 _XL_PRINT(COL_OFFSET, 8, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
+                
+                #if YSize>=12
                 _XL_PRINT(COL_OFFSET,10, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
                 _XL_PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
                 _XL_PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
+                #endif
 
+                #if YSize >= 15
+                
+                #if XSize>=16
                 _XL_PRINT(COL_OFFSET,14, " ABCDEFG HIJKLM");
                 _XL_PRINT(COL_OFFSET,15, " NOPQRST UVWXYZ");
+                #else
+                _XL_PRINT(COL_OFFSET,14, " ABCDEFG");
+                _XL_PRINT(COL_OFFSET,15, " NOPQRST");   
+                #endif
+            
+                #endif
                 
+                for(i=0;i<TILES_TO_DISPLAY;++i)
+                {
+                    _XL_DRAW(COL_OFFSET+TILE_SEPARATION*i,3,tile[i],text_color[j]);
+                }   
                 _XL_WAIT_FOR_INPUT();
             }
-
         }
     }
     _XL_CLEAR_SCREEN();

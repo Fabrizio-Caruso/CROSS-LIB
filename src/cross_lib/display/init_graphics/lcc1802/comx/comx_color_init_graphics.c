@@ -135,6 +135,9 @@ void _XL_INIT_GRAPHICS(void)
         #else
             (void) bgcolor(0);
         #endif
+        
+        // bgcolor(_BACKGROUND_COLOR); 
+        
     	textcolordefinition(3);
         monochrome(0);
     #endif

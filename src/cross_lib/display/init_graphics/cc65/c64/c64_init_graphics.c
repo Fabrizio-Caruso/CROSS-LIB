@@ -4,6 +4,8 @@
 #endif
 #include "display_macros.h"
 
+#define _C64_FOREGROUND 53280u
+#define _C64_BACKGROUND 53281u
 
 void _XL_INIT_GRAPHICS(void)
 {
@@ -13,6 +15,7 @@ void _XL_INIT_GRAPHICS(void)
 	POKE(53272u,2);
 	POKE(648,192);
 	
+	/*
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
         // Frame color = WHITE
         POKE(53280u,1);
@@ -26,6 +29,9 @@ void _XL_INIT_GRAPHICS(void)
         // Background color = BLACK
         POKE(53281u,0);
     #endif
-    
+	*/
+	POKE(_C64_FOREGROUND,_BACKGROUND_COLOR);
+	POKE(_C64_BACKGROUND,_BACKGROUND_COLOR);
+
     _setScreenColors();
 }

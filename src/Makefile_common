@@ -837,7 +837,7 @@ c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app -oa40.bin
+	-create-app -o"a40.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
 	$(C1541) -attach FULL_$@.d64 -write a40.LDR
@@ -864,7 +864,7 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app -oa40.bin
+	-create-app -o"a40.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
 	$(C1541) -attach FULL_$@.d64 -write a40.LDR
@@ -892,7 +892,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(FULL_FILES) \
-	-create-app -oa80.bin
+	-create-app -o"a80.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 X$(GAME_NAME)_$@.d64
 	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80.LDR

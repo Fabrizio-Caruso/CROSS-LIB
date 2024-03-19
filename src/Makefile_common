@@ -822,7 +822,8 @@ aquarius_exp_4k:
 
 c128: c128_40col
 
-c128_40col_zsdcc: c128_z80_40col
+c128_zsdcc: c128_z80_40col_zsdcc
+c128_40col_zsdcc: c128_z80_40col_zsdcc
 
 c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
@@ -838,16 +839,16 @@ c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -oa40.bin
 ifdef USE_TOOLS
-	$(C1541) -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write A40.LDR
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write A40
-	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
+	$(C1541) -attach FULL_$@.d64 -write a40.LDR
+	$(C1541) -attach FULL_$@.d64 -write a40
+	mv FULL_$@.d64 $(BUILD_PATH)/X$(GAME_NAME)_$@.d64
 	rm a40.bin
 else
-	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.bin
+	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm A40.LDR
-	rm A40
+	rm a40.LDR
+	rm a40
 
 c128_40col: c128_z80_40col
 
@@ -865,16 +866,16 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -oa40.bin
 ifdef USE_TOOLS
-	$(C1541) -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write a40.LDR
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write a40
-	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
+	$(C1541) -attach FULL_$@.d64 -write a40.LDR
+	$(C1541) -attach FULL_$@.d64 -write a40
+	mv FULL_$@.d64 $(BUILD_PATH)/X$(GAME_NAME)_$@.d64
 	rm a40.bin
 else
-	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.bin
+	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm A40.LDR
-	rm A40
+	rm a40.LDR
+	rm a40
 
 c128_80col: c128_z80_80col
 
@@ -893,16 +894,16 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	-create-app -oa80.bin
 ifdef USE_TOOLS
-	$(C1541) -format "crosschase,0" d64 X$(GAME_NAME)_c128_z80_80col.d64
-	$(C1541) -attach X$(GAME_NAME)_c128_z80_80col.d64 -write A80.LDR
-	$(C1541) -attach X$(GAME_NAME)_c128_z80_80col.d64 -write A80
-	mv X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
+	$(C1541) -format "crosschase,0" d64 X$(GAME_NAME)_$@.d64
+	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80.LDR
+	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80
+	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
 	rm a80.bin
 else
-	mv a80.bin $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_80col.bin
+	mv a80.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm A80.LDR
-	rm A80
+	rm a80.LDR
+	rm a80
 
 
 #################################################################

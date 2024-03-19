@@ -866,8 +866,8 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -oa40.bin
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write A40.LDR
-	$(C1541) -attach FULL_c128_z80_40col.d64 -write A40
+	$(C1541) -attach FULL_c128_z80_40col.d64 -write a40.LDR
+	$(C1541) -attach FULL_c128_z80_40col.d64 -write a40
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
 	rm a40.bin
 else

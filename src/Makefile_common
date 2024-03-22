@@ -840,14 +840,14 @@ c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o"a40.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
-	$(C1541) -attach FULL_$@.d64 -write a40.LDR
+	$(C1541) -attach FULL_$@.d64 -write a40.ldr
 	$(C1541) -attach FULL_$@.d64 -write a40
 	mv FULL_$@.d64 $(BUILD_PATH)/X$(GAME_NAME)_$@.d64
 	rm a40.bin
 else
 	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm a40.LDR
+	rm a40.ldr
 	rm a40
 
 c128_40col: c128_z80_40col
@@ -867,14 +867,14 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o"a40.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
-	$(C1541) -attach FULL_$@.d64 -write a40.LDR
+	$(C1541) -attach FULL_$@.d64 -write a40.ldr
 	$(C1541) -attach FULL_$@.d64 -write a40
 	mv FULL_$@.d64 $(BUILD_PATH)/X$(GAME_NAME)_$@.d64
 	rm a40.bin
 else
 	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm a40.LDR
+	rm a40.ldr
 	rm a40
 
 c128_80col: c128_z80_80col
@@ -895,14 +895,14 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o"a80.bin"
 ifdef USE_TOOLS
 	$(C1541) -format "crosschase,0" d64 X$(GAME_NAME)_$@.d64
-	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80.LDR
+	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80.ldr
 	$(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80
 	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
 	rm a80.bin
 else
 	mv a80.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
-	rm a80.LDR
+	rm a80.ldr
 	rm a80
 
 

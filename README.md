@@ -154,11 +154,15 @@ Having a Dockerfile and a devcontainer configuration means that anyone with a Gi
 ## LOCAL DOCKER
 
 The dockerized version of Cross-Lib can used by 
-- by cloning this repository into <local_cross-lib> directory;
-- by building the docker image that contains the dependencies with `docker build . -t crosslib:<version>`;
-- by running the docker container and mapping the cloned repository into a directory in the container with
-`docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/devcontainer.env crosslib:<version> bash`;
-- (once in the docker container) by enetring `workspaces/crosslib/src` and running `xl` commands.
+- by cloning this repository into a directory (let us refer to it as `<local_cross-lib>`);
+- by building the docker image that contains the dependencies with 
+
+```docker build . -t crosslib:<version>```;
+
+- by running the docker container and mapping the cloned repository into a directory (e.g. `/workspaces/crosslib`) in the container with
+
+```docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/devcontainer.env crosslib:<version> bash```
+- (once in the docker container) by entering `workspaces/crosslib/src` and running `xl` commands.
 
 -------------------------------------------
 

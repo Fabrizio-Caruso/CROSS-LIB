@@ -142,9 +142,27 @@ For more details on the supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
+Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
+
 -------------------------------------------
 
-## PREREQUISITES
+## NO LOCAL INSTALLATION
+
+Having a Dockerfile and a devcontainer configuration means that anyone with a GitHub account can just clone this repository and run it with GitHub CodeSpaces (free of charge with some restrictions): https://github.com/codespaces.
+
+-------------------------------------------
+## LOCAL DOCKER
+
+The dockerized version of Cross-Lib can used by 
+- by cloning this repository into <local_cross-lib> directory;
+- by building the docker image that contains the dependencies with `docker build . -t crosslib:<version>`;
+- by running the docker container and mapping the cloned repository into a directory in the container with
+`docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/devcontainer.env crosslib:<version> bash`;
+- (once in the docker container) by enetring `workspaces/crosslib/src` and running `xl` commands.
+
+-------------------------------------------
+
+## LOCAL NON-DOCKER INSTALLATION - PREREQUISITES
 
 Cross-Lib is meant to be used under a POSIX environment (Windows+Cygwin, Linux, etc.).
 
@@ -164,7 +182,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 
 -------------------------------------------
-## INSTALLATION OF THE TOOL-CHAIN
+## LOCAL NON-DOCKER INSTALLATION OF THE TOOL-CHAIN
 
 The tool-chain Cross-Lib can be installed on different POSIX-compliant environments.
 It has been tested on:

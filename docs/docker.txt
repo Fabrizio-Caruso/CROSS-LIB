@@ -1,0 +1,14 @@
+
+# CROSS-LIB in GitHubCodeSpaces 
+
+https://github.com/codespaces/
+
+
+# CROSS-LIB in a Docker container
+
+## BUILD IMAGE
+Enter .devcontainer
+docker build . -t crosslib:254
+
+## RUN CONTAINER
+docker run -it -v /mnt/c/Retro/CROSS-LIB:/workspaces/crosslib --env-file /mnt/c/Retro/CROSS-LIB/.devcontainer/devcontainer.env crosslib:254 bash

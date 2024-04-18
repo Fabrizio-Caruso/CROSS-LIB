@@ -72,14 +72,16 @@ class testStrings(unittest.TestCase):
         self.assertEqual(compute_shape(csv_string, 6),["#####.","####.#","####..","###.##","###.#.","###..#","###...","##.###",])   
 
 
+    def intListToString(intList):
+        res = ""
+        for value in intList:
+            res+=str(value)+","
+        res=res[:-1]
+        return res
+        
+        
+
     def test_compute_rotated_shape_1(self):
-    
-        def intListToString(intList):
-            res = ""
-            for value in intList:
-                res+=str(value)+","
-            res=res[:-1]
-            return res
        
         initial_list = [1,2,3,4,5,6,7,8]
             # .......#
@@ -91,28 +93,54 @@ class testStrings(unittest.TestCase):
             # .....###
             #....#...
         
-        initial_list_string = intListToString(initial_list)
+        initial_list_string = testStrings.intListToString(initial_list)
         
         shape0 = compute_shape(initial_list_string,8)
         expected_result = [0, 0, 0, 0, 128, 120, 102, 85]   
         self.assertEqual(compute_rotated_shape(shape0),expected_result)
-        expected_result_string = intListToString(expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)
 
         shape1 = compute_shape(expected_result_string,8)
         expected_result = [16, 224, 96, 160, 32, 192, 64, 128]
         self.assertEqual(compute_rotated_shape(shape1), expected_result)
-        expected_result_string = intListToString(expected_result)       
+        expected_result_string = testStrings.intListToString(expected_result)       
         
         shape2 = compute_shape(expected_result_string,8)
         expected_result = [170, 102, 30, 1, 0, 0, 0, 0]
         self.assertEqual(compute_rotated_shape(shape2), expected_result)
-        expected_result_string = intListToString(expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)
         
         shape3 = compute_shape(expected_result_string,8)
         expected_result = initial_list 
         self.assertEqual(compute_rotated_shape(shape3), expected_result)  
-        expected_result_string = intListToString(expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)
 
+
+    def test_compute_rotated_shape_2(self):
+       
+        initial_list = [255,0,255,0,255,0,255,0]
+        
+        initial_list_string = testStrings.intListToString(initial_list)
+        
+        shape0 = compute_shape(initial_list_string,8)
+        expected_result = [85, 85, 85, 85, 85, 85, 85, 85]   
+        self.assertEqual(compute_rotated_shape(shape0),expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)
+
+        shape1 = compute_shape(expected_result_string,8)
+        expected_result = [0,255,0,255,0,255,0,255]
+        self.assertEqual(compute_rotated_shape(shape1), expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)       
+        
+        shape2 = compute_shape(expected_result_string,8)
+        expected_result = [170, 170, 170, 170, 170, 170, 170, 170]
+        self.assertEqual(compute_rotated_shape(shape2), expected_result)
+        expected_result_string = testStrings.intListToString(expected_result)
+        
+        shape3 = compute_shape(expected_result_string,8)
+        expected_result = initial_list 
+        self.assertEqual(compute_rotated_shape(shape3), expected_result)  
+        expected_result_string = testStrings.intListToString(expected_result)
 
 if __name__ == '__main__':
     unittest.main()

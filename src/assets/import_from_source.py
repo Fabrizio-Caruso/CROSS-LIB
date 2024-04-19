@@ -293,9 +293,8 @@ def remove_comments(line,basic_code):
     return line
 
 
-# It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
 def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
-       
+
     try:
         fin = open(filename, "rt")
         
@@ -304,7 +303,25 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
         basic_extension = has_extension(filename,BASIC_EXTENSIONS)
 
         lines = fin.readlines()
-            
+
+        return aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip, rotate)
+    except ValueError as valueError:
+        print(str(valueError.args[0]))
+    except Exception as exception:
+        print("Sorry! Failed to extract tile data from file: \n" + str(exception.args))
+
+
+# It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
+def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False):
+       
+        # fin = open(filename, "rt")
+        
+        # assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
+
+        # basic_extension = has_extension(filename,BASIC_EXTENSIONS)
+
+        # lines = fin.readlines()
+        # print("DEBUG"+str(lines))
         trimmed_lines = []
         filtered_lines = []
 
@@ -436,10 +453,7 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
         # print("tiles: " + str(tiles))
         return tiles
     
-    except ValueError as valueError:
-        print(str(valueError.args[0]))
-    except Exception as exception:
-        print("Sorry! Failed to extract tile data from file: \n" + str(exception.args))
+
 
 
 def store_tiles(project, tiles, xsize, ysize):

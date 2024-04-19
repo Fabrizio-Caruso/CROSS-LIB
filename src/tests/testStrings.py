@@ -77,9 +77,7 @@ class testStrings(unittest.TestCase):
         for value in intList:
             res+=str(value)+","
         res=res[:-1]
-        return res
-        
-        
+        return res  
 
     def test_compute_rotated_shape_1(self):
        
@@ -115,7 +113,6 @@ class testStrings(unittest.TestCase):
         self.assertEqual(compute_rotated_shape(shape3), expected_result)  
         expected_result_string = testStrings.intListToString(expected_result)
 
-
     def test_compute_rotated_shape_2(self):
        
         initial_list = [255,0,255,0,255,0,255,0]
@@ -141,6 +138,19 @@ class testStrings(unittest.TestCase):
         expected_result = initial_list 
         self.assertEqual(compute_rotated_shape(shape3), expected_result)  
         expected_result_string = testStrings.intListToString(expected_result)
+
+
+    def test_rip_tiles_1(self):
+        source_lines = ['!byte 0,0,60,98,126,98,98,98\n']
+        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,False,False)
+        
+        self.assertEqual(ripped_lines,['0,0,60,98,126,98,98,98'])
+
+    def test_rip_tiles_2(self):
+        source_lines = ['!byte 0x00, 0x1F, 0x28, 0x28, 0x28, 0x3F, 0x1F, 0x00\n']
+        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,False,False)
+        
+        self.assertEqual(ripped_lines,['$00,$1F,$28,$28,$28,$3F,$1F,$00'])
 
 if __name__ == '__main__':
     unittest.main()

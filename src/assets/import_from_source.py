@@ -197,9 +197,9 @@ def normalize_basic_line(line):
     # Capture binary BIN UDG in Sinclair BASIC
     line = line.replace("BIN", "\nBIN@")
 
-    if("symbolafter" in line):
+    if("symbolafter" in line) or ("symbol after" in line):
         line = ""
-    if("SYMBOLAFTER" in line):
+    if("SYMBOLAFTER" in line) or ("SYMBOL AFTER" in line):
         line = ""
     
     return line
@@ -232,12 +232,15 @@ def remove_basic_comments(line):
     line = line.split(":rem")[0]
     line = line.split(": REM")[0]
     line = line.split(": rem")[0]
+    line = line.split(":'")[0]
+    line = line.split(": '")[0]
     line = line.split("'")[0]
     line = line.replace("{","").replace('}"',"").replace("}",",").replace('"',"")
     return line
 
 
 def remove_assembly_comments(line):
+    line = line.split(" ;")[0]
     line = line.split(";")[0]
     return line
 

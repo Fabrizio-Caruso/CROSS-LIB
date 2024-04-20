@@ -11,6 +11,88 @@ from import_from_source import *
 
 class testStrings(unittest.TestCase):
 
+    # fill_empty_slots_with_zero
+    def test_fill_empty_slots_with_zero_1(self):
+        filled_slots = fill_empty_slots_with_zero(["","1","2","", "3","",""])
+        self.assertEqual(filled_slots,['0', '1', '2', '0', '3', '0', '0'])
+
+
+    # remove_basic_comments
+    def test_remove_basic_comments_1(self):
+        cleaned_string = remove_basic_comments('10 PRINT 42:REM ABC')
+        self.assertEqual(cleaned_string,"10 PRINT 42")
+
+    def test_remove_basic_comments_2(self):
+        cleaned_string = remove_basic_comments('10 ? 42:rem ABC')
+        self.assertEqual(cleaned_string,"10 ? 42")
+
+    def test_remove_basic_comments_3(self):
+        cleaned_string = remove_basic_comments('10 PRINT 42: REM DEF')
+        self.assertEqual(cleaned_string,"10 PRINT 42")
+
+    def test_remove_basic_comments_4(self):
+        cleaned_string = remove_basic_comments('10 ? 42: rem DEF')
+        self.assertEqual(cleaned_string,"10 ? 42")
+
+    def test_remove_basic_comments_5(self):
+        cleaned_string = remove_basic_comments("10 ? 42:' DEF")
+        self.assertEqual(cleaned_string,"10 ? 42")
+
+    def test_remove_basic_comments_6(self):
+        cleaned_string = remove_basic_comments("10 ? 42: ' DEF")
+        self.assertEqual(cleaned_string,"10 ? 42")
+
+
+    # remove_assembly_comments
+    def test_remove_assembly_comments_1(self):
+        cleaned_string = remove_assembly_comments("!BYTE $FF ; FOO")
+        self.assertEqual(cleaned_string,"!BYTE $FF")
+
+
+    # normalize_assembly_line
+    def test_normalize_assembly_line_1(self):
+        normalized_line = normalize_assembly_line("0x2A")
+        self.assertEqual(normalized_line,"$2A")
+        
+    def test_normalize_assembly_line_2(self):
+        normalized_line = normalize_assembly_line("#2A")
+        self.assertEqual(normalized_line,"$2A")
+
+    def test_normalize_assembly_line_3(self):
+        normalized_line = normalize_assembly_line(">2A")
+        self.assertEqual(normalized_line,"$2A")
+
+    def test_normalize_assembly_line_4(self):
+        normalized_line = normalize_assembly_line("&H2A &h2B")
+        self.assertEqual(normalized_line,"$2A $2B")
+
+    def test_normalize_assembly_line_5(self):
+        normalized_line = normalize_assembly_line("#2A")
+        self.assertEqual(normalized_line,"$2A")
+
+    def test_normalize_assembly_line_6(self):
+        normalized_line = normalize_assembly_line("0b01010101")
+        self.assertEqual(normalized_line,"@01010101")
+
+    def test_normalize_assembly_line_7(self):
+        normalized_line = normalize_assembly_line("%10101010")
+        self.assertEqual(normalized_line,"@10101010")
+
+
+    # normalize_basic_line
+    def test_normalize_basic_line_1(self):
+        normalized_line = normalize_basic_line("20 SYMBOL AFTER 32")
+        self.assertEqual(normalized_line,"")
+
+    def test_normalize_basic_line_2(self):
+        normalized_line = normalize_basic_line("20 SYMBOL 32")
+        self.assertEqual(normalized_line,"20 SYMBOL 32")
+
+    def test_normalize_basic_line_3(self):
+        normalized_line = normalize_basic_line('30 POKE USR "a"+3,BIN 0111110')
+        self.assertEqual(normalized_line,'30 POKE USR "a"+3,\nBIN@ 0111110')
+
+    # compute_shape
     def test_compute_shape_xsize_8_1(self):
         csv_string = "255,255,255,255,255,255,255,255"
         self.assertEqual(compute_shape(csv_string, 8),["########","########","########","########","########","########","########","########",])
@@ -72,12 +154,15 @@ class testStrings(unittest.TestCase):
         self.assertEqual(compute_shape(csv_string, 6),["#####.","####.#","####..","###.##","###.#.","###..#","###...","##.###",])   
 
 
+    # compute_rotated_shape
+    @staticmethod
     def intListToString(intList):
         res = ""
         for value in intList:
             res+=str(value)+","
         res=res[:-1]
         return res  
+
 
     def test_compute_rotated_shape_1(self):
        
@@ -140,6 +225,7 @@ class testStrings(unittest.TestCase):
         expected_result_string = testStrings.intListToString(expected_result)
 
 
+    # aux_rip_tiles
     def test_rip_tiles_asm_1(self):
         source_lines = ['!byte 0,0,60,98,126,98,98,98\n']
         ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,False,False)

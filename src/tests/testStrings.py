@@ -252,6 +252,69 @@ class testStrings(unittest.TestCase):
            
 
 
+    def test_rip_tiles_asm_5(self):
+        rip_flag = True
+        assembly_extension = False
+
+        self.maxDiff = None
+        source_lines = [ \
+            '.byte %01010101',
+            '.byte %11111111',
+            '.byte %10101010',
+            '.byte %00110011',
+            '.byte %11001100',
+            '.byte %01010101',
+            '.byte %10101010',
+            '.byte %11111111',
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
+        
+        self.assertEqual(ripped_lines, \
+            [ \
+            '85,255,170,51,204,85,170,255',
+            ]
+        )
+
+    def test_rip_tiles_asm_6(self):
+        rip_flag = True
+        assembly_extension = False
+
+        self.maxDiff = None
+        source_lines = [ \
+            '; Exported using VChar64 v0.2.4',
+            '; Total bytes: 2048',
+            'charset:',
+            'foo .byte $3c,$66,$6e,$6e,$60,$62,$3c',
+            '.byte $00,$18,$3c,$66,$7e,$66,$66,$66,$00       ; 0',
+            'bar .byte $7c,$66,$66,$7c,$66,$66,$7c,$00,$3c,$66,$60,$60,$60,$66,$3c,$00       ; 16',
+            'toto .byte $78,$6c,$66,$66,$66,$6c,$78,$00,$7e,$60,$60,$78,$60,$60,$7e,$00      ; 32',
+            '.byte $7e,$60,$60,$78,$60,$60,$60,$00,$3c,$66,$60,$6e,$66,$66,$3c,$00   ; 48',
+            '.byte $66,$66,$66,$7e,$66,$66,$66,$00,$3c,$18,$18,$18,$18,$18,$3c,$00   ; 64',
+            '.byte $1e,$0c,$0c,$0c,$0c,$6c,$38,$00,$66,$6c,$78,$70,$78,$6c,$66,$00   ; 80',
+            '.byte $60,$60,$60,$60,$60,$60,$7e,$00,$63,$77,$7f,$6b,$63,$63,$63,$00   ; 96',
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
+        
+        self.assertEqual(ripped_lines, \
+            [ \
+            '$3c,$66,$6e,$6e,$60,$62,$3c,$00',
+            '$18,$3c,$66,$7e,$66,$66,$66,$00',
+            '$7c,$66,$66,$7c,$66,$66,$7c,$00',
+            '$3c,$66,$60,$60,$60,$66,$3c,$00',
+            '$78,$6c,$66,$66,$66,$6c,$78,$00',
+            '$7e,$60,$60,$78,$60,$60,$7e,$00',
+            '$7e,$60,$60,$78,$60,$60,$60,$00',
+            '$3c,$66,$60,$6e,$66,$66,$3c,$00',
+            '$66,$66,$66,$7e,$66,$66,$66,$00',
+            '$3c,$18,$18,$18,$18,$18,$3c,$00',
+            '$1e,$0c,$0c,$0c,$0c,$6c,$38,$00',
+            '$66,$6c,$78,$70,$78,$6c,$66,$00',
+            '$60,$60,$60,$60,$60,$60,$7e,$00',
+            '$63,$77,$7f,$6b,$63,$63,$63,$00'
+            ]
+        )
+
+
     def test_rip_tiles_cbm_basic_1(self):
         rip_flag = False
         source_lines = [ \

@@ -525,6 +525,55 @@ class testStrings(unittest.TestCase):
         )
 
 
+    def test_rip_tiles_atari_basic_1(self):
+        rip_flag = True
+        self.maxDiff = None
+        source_lines = [ \
+            '0A=PEEK(106)-4:POK.106,A:GR.17:U=256*A:F.I=28TO432:POK.U+I,PEEK(57344+I):N.I:F.I=64TO79:REA.J:POK.U+I,J:N.I:H=400',
+            '1DIMN(255):POK.756,A:M=47:F.I=0TO4:REA.L:POK.708+I,L:N.I:B=PEEK(88)+PEEK(89)*256:O=B+59:Z=125:D=B+460:T=B+210:E=10',
+            '2P=T:L=26:?#6;CHR$(Z);"USE IJKL SPC":K=1:Q=.9:G=B:U=3:J=0:F.I=0TO127:N(I)=0:N(I+128)=0:POK.O+1+INT(RND(0)*H),M:N.I',
+            '3N(0)=1:N(5)=20:N(13)=-20:N(1)=-1:W=132:POS.6,1:?#6;" MINES+ ":F.I=0TO19:POK.O-I,73:POK.D+I,73:N.I:D.0,60,126,126',
+            '4R=J*(J>R)+R*(J<=R):POS.1,0:?#6;9-F;" ";CHR$(136);U;"  ";J;"  hi ";R:IFPEEK(P)=W THENJ=J+9:F=F-(F>0):SO.0,Z,E,E',
+            '5SE.4,0,0:Y=0:IFQ<RND(0)THENPOK.P-4+2*INT(RND(1)*5)+40*INT(RND(1)*3)-40,M:IFJ>=K*500 THENU=U+(U<9):K=K+1:F=0:L=74',
+            '6POK.P,200:S=PEEK(764):SO.0,0,0,0:IFS<>9THENPOK.764,9:IFN(S)THENPOK.P,M:P=P+N(S):J=J+1:Y=1:Q=Q-.0005:SO.0,99,E,E',
+            '7POK.G,W:G=B:POK.729,0:IFY*(INT(J/4)=J/4)THENG=O+1+INT(RND(1)*H):POK.G,68:D.126,126,60,0,0,170,85,170,85,170,85',
+            '8U=(P>O)*(P<D)*U:IFS=33ANDF<9THENPOK.P-1,0:POK.P+1,0:POK.P-20,0:POK.P+20,0:F=F+1:SE.4,33,0:G.3:D.0,14,120,30,30,0',
+            '9POK.711,L:ON((PEEK(P)<>M)*(U>0))GOTO4:SO.0,99,8,9:POK.P,138:U=U-1:F=0:ON(U>0)GOTO4:SO.0,0,0,0:F.I=0TO2600:N.I:G.2',
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        
+        self.assertEqual(ripped_lines, \
+            [
+            '0,60,126,126,126,126,60,0', 
+            '0,170,85,170,85,170,85,0'
+            ]
+        )
+
+
+    def test_rip_tiles_bbc_basic_1(self):
+        rip_flag = True
+        self.maxDiff = None
+        source_lines = [ \
+            '10 REM Walking alien',
+            '20 MODE 6',
+            '30 VDU 23,240,153,189,219,126,36,60,36,36',
+            '40 PRINT TAB(0,10);CHR$(240)',
+            '50 FOR I%=1 TO 19',
+            '60   PRINT TAB(I%-1,10);" "',
+            '70  PRINT TAB(I%,10);CHR$(240)',
+            '80  FOR J%=1 TO 500: NEXT J%',
+            '90 NEXT I%',
+            '100 END',
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        
+        self.assertEqual(ripped_lines, \
+            [
+            '153,189,219,126,36,60,36,36'
+            ]
+        )
+
+
 if __name__ == '__main__':
     global_vars.verbose = 0
     global_vars.test = 1

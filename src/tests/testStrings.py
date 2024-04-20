@@ -574,6 +574,29 @@ class testStrings(unittest.TestCase):
         )
 
 
+    def test_rip_tiles_sinclair_basic_1(self):
+        rip_flag = True
+        self.maxDiff = None
+        source_lines = [ \
+            '5 POKE USR "a"+0,BIN 0000000',
+            '10 POKE USR "a"+1,BIN 0001000',
+            '20 POKE USR "a"+2,BIN 0011100',
+            '30 POKE USR "a"+3,BIN 0111110',
+            '40 POKE USR "a"+4,BIN 1111111',
+            '50 POKE USR "a"+5,BIN 0111110',
+            '60 POKE USR "a"+6,BIN 0011100',
+            '70 POKE USR "a"+7,BIN 0001000',
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        
+        self.assertEqual(ripped_lines, \
+            [
+            '0,8,28,62,127,62,28,8'
+            ]
+        )
+
+
+
 if __name__ == '__main__':
     global_vars.verbose = 0
     global_vars.test = 1

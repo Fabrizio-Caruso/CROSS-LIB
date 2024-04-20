@@ -231,7 +231,27 @@ class testStrings(unittest.TestCase):
             '$7C,$EE,$C6,$C6,$C6,$EE,$7C,$00'
             ]
         )
+
+
+    def test_rip_tiles_asm_4(self):
+        rip_flag = True
+        assembly_extension = True
+
+        self.maxDiff = None
+        source_lines = [ \
+            "PAT0   DATA >1824,>1866,>BD3C,>2424"
+            "PAT1   DATA >0000,>0000,>0000,>0000"
+            ]
+        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
         
+        self.assertEqual(ripped_lines, \
+            [ \
+            '$18,$24,$18,$66,$BD,$3C,$24,$24',
+            ]
+        )
+           
+
+
     def test_rip_tiles_cbm_basic_1(self):
         rip_flag = False
         source_lines = [ \

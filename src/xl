@@ -1039,7 +1039,8 @@ def targets_test(params):
 def unit_tests():
     command_string = "python -t tests/testStrings.py"
     run_command_verbosely(command_string)
-
+    command_string = "python -t tests/testAssets.py"
+    run_command_verbosely(command_string)
 
 # Self-test xl and native build
 def test(params):
@@ -1049,7 +1050,7 @@ def test(params):
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
-    elif params[1]=="strings" or params[1]=="unit-tests":
+    elif params[1]=="unit-tests":
         unit_tests()
     else:
         if targets_test(params):

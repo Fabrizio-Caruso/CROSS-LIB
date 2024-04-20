@@ -17,6 +17,34 @@ class testStrings(unittest.TestCase):
         self.assertEqual(filled_slots,['0', '1', '2', '0', '3', '0', '0'])
 
 
+    # has_headless_hex
+    def test_has_headless_hex_1(self):
+        has_headless_hex_check = has_headless_hex(["AB,CD,EF,01,23,45,67,89","AF"])
+        self.assertTrue(has_headless_hex_check)
+
+    def test_has_headless_hex_2(self):
+        has_headless_hex_check = has_headless_hex(["ABC,CD,EF,01,23,45,67,89","AF"])
+        self.assertFalse(has_headless_hex_check)
+
+    def test_has_headless_hex_2(self):
+        has_headless_hex_check = has_headless_hex(["AB,$CD,EF,01,23,45,67,89","AF"])
+        self.assertFalse(has_headless_hex_check)
+
+
+    # has_nine_byte_lines
+    def test_has_nine_byte_lines_1(self):
+        has_headless_hex_check = has_nine_byte_lines(["AB,CD,EF,01,23,45,67,89,AF"])
+        self.assertTrue(has_headless_hex_check)
+
+    def test_has_nine_byte_lines_2(self):
+        has_headless_hex_check = has_nine_byte_lines(["AB,CD,EF,01,23,45,67,89"])
+        self.assertFalse(has_headless_hex_check)
+
+    def test_has_nine_byte_lines_3(self):
+        has_headless_hex_check = has_nine_byte_lines(["A,CD,EF,1,23,45,67,89,AF"])
+        self.assertTrue(has_headless_hex_check)
+
+
     # remove_basic_comments
     def test_remove_basic_comments_1(self):
         cleaned_string = remove_basic_comments('10 PRINT 42:REM ABC')
@@ -164,6 +192,7 @@ class testStrings(unittest.TestCase):
         return res  
 
 
+    # compute_rotated_shape
     def test_compute_rotated_shape_1(self):
        
         initial_list = [1,2,3,4,5,6,7,8]

@@ -309,6 +309,14 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
         basic_extension = has_extension(filename,BASIC_EXTENSIONS)
 
         lines = fin.readlines()
+        
+        # Only take patten lines if Magellan extension is detected
+        if has_extension(filename, ['a99','A99']):
+            filtered_lines = []
+            for line in lines:
+                if line.startswith("PAT"):
+                    filtered_lines.append(line)
+            lines = filtered_lines
 
         return aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip, rotate)
     except ValueError as valueError:

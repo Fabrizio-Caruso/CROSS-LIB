@@ -100,10 +100,11 @@ def printc(color,text):
 
 
 def print_shape(items):    
-    for i in range(len(items)):
-        printc(bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
-    print("")
-    print("")
+    if not global_vars.test:
+        for i in range(len(items)):
+            printc(bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
+        print("")
+        print("")
 
 
 # It takes the output of print_shape
@@ -242,32 +243,37 @@ def remove_assembly_comments(line):
 
 
 def display_data_type(word_data):
-    if word_data:
-        data_type = "16-bit"
-    else:
-        data_type = "8-bit"
-    
-    print("Data type detected   : " + data_type)
+    if not global_vars.test:
+
+        if word_data:
+            data_type = "16-bit"
+        else:
+            data_type = "8-bit"
+        
+        print("Data type detected   : " + data_type)
 
 
 def display_code_type(basic_code):
-    if basic_code:
-        code_type = "BASIC"
-    else:
-        code_type = "Assembly"
-        
-    print("Code type            : " + code_type)
+    if not global_vars.test:
+        if basic_code:
+            code_type = "BASIC"
+        else:
+            code_type = "Assembly"
+            
+        print("Code type            : " + code_type)
 
 
 def display_extension_type(assembly_extension, basic_code):
-    if assembly_extension:
-        extension_type = "Assembly"
-    elif basic_code:
-        extension_type = "BASIC"
-    else:
-        extension_type = "Undefined"
-    
-    print("File extension type  : " + extension_type)
+    if not global_vars.test:
+
+        if assembly_extension:
+            extension_type = "Assembly"
+        elif basic_code:
+            extension_type = "BASIC"
+        else:
+            extension_type = "Undefined"
+        
+        print("\nFile extension type  : " + extension_type)
 
 
 def is_basic_code(directive,assembly_extension):
@@ -352,7 +358,8 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
         word_data =  directive in WORD_PATTERN_LIST and not basic_code
      
         # print("Pattern count: " + str(pattern_count))
-        print("Detected pattern     : " + directive)
+        if global_vars.verbose:
+            print("Detected pattern     : " + directive)
         
         display_data_type(word_data)
         display_code_type(basic_code)
@@ -387,12 +394,14 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
             header_byte = False
             skip_first = False
 
-        print("Skip first item      : " + str(skip_first))
-        print("Headless hex data    : " + str(headless_hex))
+        if global_vars.verbose:
+            print("Skip first item      : " + str(skip_first))
+            print("Headless hex data    : " + str(headless_hex))
 
         line_index = 0
         
-        print("")
+        if global_vars.verbose:
+            print("")
         
         while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
             trimmed_line = trimmed_lines[line_index]
@@ -434,8 +443,9 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                         new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
                         shape = compute_shape(new_tile,ysize)
                     
-                    print(new_tile)
-                    print_shape(shape)
+                    if not global_vars.test:
+                        print(new_tile)
+                        print_shape(shape)
                         # print_shape(shape)
                     # else:
                         # print_shape(shape)

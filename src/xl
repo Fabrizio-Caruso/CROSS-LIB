@@ -2161,6 +2161,14 @@ def read_config():
     try:
         config.read('config.ini')
         
+        global_vars.test = read_config_option("terminal","test")
+        if global_vars.test!="":
+            global_vars.test=int(global_vars.test)
+        else:
+            global_vars.test=0
+        if global_vars.test:
+            print("Test Mode ON")
+        
         global_vars.verbose = read_config_option("terminal","verbose")
         if global_vars.verbose!="":
             global_vars.verbose=int(global_vars.verbose)
@@ -2285,6 +2293,8 @@ def display_config():
     printc(bcolors.BOLD,"[terminal]\n")
     
     print("verbose: " + str(global_vars.verbose))
+    print("test: " + str(global_vars.test))
+    
     print("color: " + str(global_vars.color_terminal))
 
     print("")

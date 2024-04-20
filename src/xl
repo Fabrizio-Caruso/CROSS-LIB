@@ -1036,6 +1036,11 @@ def targets_test(params):
     return success
 
 
+def unit_tests():
+    command_string = "python -t tests/testStrings.py"
+    run_command_verbosely(command_string)
+
+
 # Self-test xl and native build
 def test(params):
     if (len(params)<2) or params[1]=="self":
@@ -1044,6 +1049,8 @@ def test(params):
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
+    elif params[1]=="strings" or params[1]=="unit-tests":
+        unit_tests()
     else:
         if targets_test(params):
             printc(bcolors.OKGREEN, "TEST OK\n")
@@ -1965,6 +1972,7 @@ def help(params):
             print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
             print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
             print("If 'stdio' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
+            print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the code")
         elif params[1]=="debug" or params[1]=="d":
             printc(bcolors.BOLD,"xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")

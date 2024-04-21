@@ -97,8 +97,155 @@ class testTiles(unittest.TestCase):
         res = detect_ysize("micro_ntsc")
         self.assertEqual(res,8)
 
+    # convert
+    def test_convert_1(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,8,6,"zero")
+        
+        expected = \
+        [
+        '..#..#..', 
+        '...##...', 
+        '.##..##.', 
+        '#..##..#', 
+        '...##...', 
+        '..#..#..'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_2(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,8,6,"duplicate")
+        
+        expected = \
+        [
+        '..#..#..', 
+        '...##...', 
+        '.##..##.', 
+        '#..##..#', 
+        '...##...', 
+        '..#..#..'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_3(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,6,9,"zero")
+        
+        expected = \
+        [
+        '..##..',
+        '.#..#.',
+        '..##..',
+        '##..##',
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '##..##',
+        '......'
+        ]
+
+        self.assertEqual(res,expected)
+
+    def test_convert_4(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,6,9,"duplicate")
+        
+        expected = \
+        [
+        '..##..',
+        '.#..#.',
+        '..##..',
+        '##..##',
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '##..##',
+        '##..##'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_5(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,6,8,"duplicate")
+        
+        expected = \
+        [
+        '..##..',
+        '.#..#.',
+        '..##..',
+        '##..##',
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '##..##',
+        ]
+        self.assertEqual(res,expected)
+
+
 
 if __name__ == '__main__':
     # global_vars.verbose = 0
     # global_vars.test = 1
+    
     unittest.main()

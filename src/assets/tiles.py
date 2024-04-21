@@ -1,4 +1,7 @@
 
+# global extend_algorithm
+
+
 TARGETS_WITH_XSIZE_6 = {"oric", "atmos", "comx_ntsc", "comx", "pecom", "micro"}
 TARGETS_WITH_XSIZE_7 = {"apple2", "apple2enh"}
 
@@ -37,7 +40,7 @@ def detect_ysize(target):
 # General strategies:
 # xsize or ysize < 8 -> cut left/right or top/bottom columns/rows
 # ysize > 8          -> repeat top/bottom rows 
-def convert(tile_vect,xsize,ysize):
+def convert(tile_vect,xsize,ysize, extend_algorithm):
 
     if xsize==7:
         tile_vect = [vect[:-1] for vect in tile_vect]

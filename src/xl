@@ -1337,22 +1337,22 @@ def extend(params):
         print(tile)
         print("")
         print("7x8");
-        shape7x8 = convert(tile,7,8)
+        shape7x8 = convert(tile,7,8,extend_algorithm)
         display_shape(shape7x8)
         dict7x8[tile_number_str]=shape7x8
         print("")
         print("6x8");
-        shape6x8 = convert(tile,6,8)
+        shape6x8 = convert(tile,6,8,extend_algorithm)
         display_shape(shape6x8)
         dict6x8[tile_number_str]=shape6x8
         print("")
         print("8x6");
-        shape8x6 = convert(tile,8,6)
+        shape8x6 = convert(tile,8,6,extend_algorithm)
         display_shape(shape8x6)
         dict8x6[tile_number_str]=shape8x6
         print("")
         print("6x9");
-        shape6x9 = convert(tile,6,9)
+        shape6x9 = convert(tile,6,9,extend_algorithm)
         display_shape(shape6x9)
         dict6x9[tile_number_str]=shape6x9
         print("")

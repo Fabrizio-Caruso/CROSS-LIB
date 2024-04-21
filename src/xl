@@ -2343,7 +2343,9 @@ if __name__ == "__main__":
     
 
     if len(sys.argv)<2:
-        # print("You need to provide a command or a project name")
+        print("For more commands, use the non-interactive mode.")
+        printc(bcolors.BOLD, "xl help")
+        print(" for instructions.")
         # if len(sys.argv)==1:
             # help(sys.argv[1:])
         

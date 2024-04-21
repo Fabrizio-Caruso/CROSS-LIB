@@ -1124,10 +1124,14 @@ def help_help():
     print("Possible values for <command>:")
     print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
     print("")
-    print("Use xl help <command> for <command>-specific help")
+    printc(bcolors.BOLD,"xl help <command>\n")
+    print("for <command>-specific help")
     print("\nExample:")
     print("\nxl help create              \n  It displays the help page for the 'create' command")
-
+    print("")
+    printc(bcolors.OKCYAN,"POSSIBLE COMMANDS")
+    print("")
+    commands([])
 
 def run_native(params):
     command_prefix = "../build/X" + params[1] + "_ncurses"
@@ -1591,7 +1595,7 @@ def full_params(params):
 
 def help(params):
     if len(params)<2:
-        print("\nxl <command> <[optional] parameters>")   
+        printc(bcolors.BOLD,"\nxl <command> <[optional] parameters>")   
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("\n<parameters>")
         help_help()
@@ -2339,10 +2343,11 @@ if __name__ == "__main__":
     
 
     if len(sys.argv)<2:
-        print("You need to provide a command or a project name")
-        help(sys.argv[1:])
+        # print("You need to provide a command or a project name")
+        # if len(sys.argv)==1:
+            # help(sys.argv[1:])
         
-        print("")
+        # print("")
         print("")
         print("--------------------------------------------------")
         printc(bcolors.OKCYAN, "Interactive mode\n")

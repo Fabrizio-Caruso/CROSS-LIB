@@ -30,6 +30,9 @@ from import_from_source import *
 
 from tiles import *
 
+from strings import *
+
+
 COMMANDS_DESCRIPTIONS = \
     {
     "build": "builds a project", \
@@ -222,39 +225,6 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             delete_main(project_name,project_type)
     # files_after = len(files_in_path("../build"))-1
     
-
-
-
-def only_upper_and_digits(s):
-    return "".join(c for c in s if c.isupper() or c in ["0","1","2","3","4","5","6","7","8","9"])
-
-
-def only_upper_digits_and_space(s):
-    return "".join(c for c in s if c.isupper() or c in [" ", "0","1","2","3","4","5","6","7","8","9"])
-
-
-def no_space(s):
-    return "".join(c for c in s if c!=" ")
-    
-
-# Convert a string into a sequence of macros that can be used in the code (only necessary for small letters)
-def string(params):
-    string = params[1]
-    m = re.search('[a-zA-Z0-9 ]*',string)
-    string = m.group(0)
-    
-    string = string.replace(" ", "@")
-    converted_string = ""
-    
-    for ch in string:
-        converted_string+= "_XL_"+ch+" "
-    
-    converted_string = converted_string.replace("_XL_@", "_XL_SPACE")
-    
-    for i in range(9):
-        converted_string = converted_string.replace("_XL_"+str(i),'"'+str(i)+'"')
-    
-    print(converted_string)
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
@@ -924,14 +894,20 @@ def self_test():
 
     success = 1
 
+
+    #delete
     delete(["delete","_test_project","-y"])
 
+
+    #clean
     success = clean_test()
 
     projects_before_create = list(["list"],False)
     
     project_dirs_before_create = len(dirs_in_path("./projects"))
     
+    
+    # create
     create(["create", "_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
     
@@ -941,6 +917,8 @@ def self_test():
     else:
         printc(bcolors.OKGREEN, "[xl create] OK\n")
     
+    
+    # list
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
         printc(bcolors.FAIL,"[xl list]   KO\n") 
@@ -949,6 +927,7 @@ def self_test():
         printc(bcolors.OKGREEN,"[xl list]   OK\n")
         
 
+    #build
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
         
@@ -958,6 +937,7 @@ def self_test():
     else:
         printc(bcolors.OKGREEN, "[xl build]  OK\n")
 
+    #delete
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
@@ -1041,10 +1021,13 @@ def targets_test(params):
 
 
 def unit_tests():
-    command_string = "python -t tests/testStrings.py"
+    command_string = "python -t tests/testImport.py"
     run_command_verbosely(command_string)
 
     command_string = "python -t tests/testTiles.py"
+    run_command_verbosely(command_string)
+
+    command_string = "python -t tests/testStrings.py"
     run_command_verbosely(command_string)
 
     command_string = "python -t tests/testAssets.py"

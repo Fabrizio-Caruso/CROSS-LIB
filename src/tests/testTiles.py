@@ -55,6 +55,10 @@ class testTiles(unittest.TestCase):
         res = detect_xsize("micro_ntsc")
         self.assertEqual(res,6)
 
+    def test_detect_xsize_11(self):
+        res = detect_xsize("atmos")
+        self.assertEqual(res,6)
+
 
     # detect_ysize
     def test_detect_ysize_1(self):
@@ -96,6 +100,11 @@ class testTiles(unittest.TestCase):
     def test_detect_ysize_10(self):
         res = detect_ysize("micro_ntsc")
         self.assertEqual(res,8)
+
+    def test_detect_ysize_11(self):
+        res = detect_ysize("atmos")
+        self.assertEqual(res,8)
+
 
     # convert
     def test_convert_1(self):
@@ -239,6 +248,161 @@ class testTiles(unittest.TestCase):
         '..##..',
         '.#..#.',
         '##..##',
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_6(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,7,8,"duplicate")
+        
+        expected = \
+        [
+        '...##..',
+        '..#..#.',
+        '...##..',
+        '.##..##',
+        '#..##..',
+        '...##..',
+        '..#..#.',
+        '.##..##'
+        ]
+
+        self.assertEqual(res,expected)
+        
+
+    def test_convert_7(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,6,10,"duplicate")
+        
+        expected = \
+        [
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '..##..',
+        '##..##',
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '##..##',
+        '##..##'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_8(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,6,10,"zero")
+        
+        expected = \
+        [
+        '......',
+        '..##..',
+        '.#..#.',
+        '..##..',
+        '##..##',
+        '..##..',
+        '..##..',
+        '.#..#.',
+        '##..##',
+        '......'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_9(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,8,10,"duplicate")
+        
+        expected = \
+        [
+        '...##...',
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##.",
+        '.##..##.'
+        ]
+        self.assertEqual(res,expected)
+
+    def test_convert_10(self):
+    
+        tile_shape = \
+        [
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##."
+        ]
+
+        res = convert(tile_shape,8,10,"zero")
+        
+        expected = \
+        [
+        '........',
+        "...##...",
+        "..#..#..", 
+        "...##...", 
+        ".##..##.", 
+        "#..##..#",
+        "...##...",
+        "..#..#..",
+        ".##..##.",
+        '........'
         ]
         self.assertEqual(res,expected)
 

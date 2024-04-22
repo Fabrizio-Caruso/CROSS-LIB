@@ -888,6 +888,24 @@ def clean_test():
         return 1
 
 
+def test_projects(projects):
+    if projects in ["examples", "projects", "games"]:
+        number_of_projects = len(dirs_in_path("./"+projects))
+    else:
+        number_of_projects = 1
+    print("number of projects: " + str(number_of_projects))
+    #multiple_build
+    build(["build",projects,"stdio","4",""])
+    built_files = files_in_path("../build")
+    
+    if len(built_files)!=3+number_of_projects:
+        printc(bcolors.FAIL, "[xl build]  KO\n")
+        print(str(built_files))
+        success=0
+    else:
+        printc(bcolors.OKGREEN, "[xl build]  OK\n")
+
+
 def self_test(opt = "fast"):
 
     unit_tests()
@@ -1008,44 +1026,25 @@ def self_test(opt = "fast"):
     else:
         printc(bcolors.OKGREEN, "[xl size]  OK\n")
 
-    # dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
-    # if dirs_in_proj_before != 4:
-        # printc(bcolors.FAIL, "[xl size]  KO\n")
-        # print(dirs_in_path("./projects/_test_project"))
-        # success=0
-
-    # dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-    # if dirs_in_shapes_before != 4:
-        # printc(bcolors.FAIL, "[xl size]  KO\n")
-        # print(str(dirs_in_path("./projects/_test_project/shapes")))
-        # success=0
-
-    if opt=="examples" or opt=="games":
+    projects = []
+    for (dirpath, dirnames, filenames) in walk("./projects"):
+        projects.extend(dirnames)
+        break
     
-        number_of_projects = len(dirs_in_path("./"+opt))
-        print("number of projects: " + str(number_of_projects))
-        #multiple_build
-        build(["build",opt,"stdio","4",""])
-        built_files = files_in_path("../build")
-        
-        if len(built_files)!=3+number_of_projects:
-            printc(bcolors.FAIL, "[xl build]  KO\n")
-            print(str(built_files))
-            success=0
-        else:
-            printc(bcolors.OKGREEN, "[xl build]  OK\n")
+    games = []
+    for (dirpath, dirnames, filenames) in walk("./games"):
+        games.extend(dirnames)
+        break
+    
+    examples = []
+    for (dirpath, dirnames, filenames) in walk("./examples"):
+        examples.extend(dirnames)
+        break
 
-        # dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
-        # if dirs_in_proj_before != 4:
-            # printc(bcolors.FAIL, "[xl build]  KO\n")
-            # print(dirs_in_path("./projects/_test_project"))
-            # success=0
+    if opt=="examples" or opt=="games" or opt=="projects" or opt in projects or opt in games or opt in examples:
+    
+        test_projects(opt)
 
-        # dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-        # if dirs_in_shapes_before != 4:
-            # printc(bcolors.FAIL, "[xl build]  KO\n")
-            # print(str(dirs_in_path("./projects/_test_project/shapes")))
-            # success=0
 
     #delete
     delete(["delete","_test_project","-y"])

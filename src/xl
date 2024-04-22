@@ -1020,13 +1020,15 @@ def self_test(opt = "fast"):
         # print(str(dirs_in_path("./projects/_test_project/shapes")))
         # success=0
 
-    if opt=="examples": # or opt=="games" or opt=="all":
+    if opt=="examples" or opt=="games":
     
+        number_of_projects = len(dirs_in_path("./"+opt))
+        print("number of projects: " + str(number_of_projects))
         #multiple_build
         build(["build",opt,"stdio","4",""])
         built_files = files_in_path("../build")
         
-        if len(built_files)!=3+18:
+        if len(built_files)!=3+number_of_projects:
             printc(bcolors.FAIL, "[xl build]  KO\n")
             print(str(built_files))
             success=0

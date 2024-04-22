@@ -1020,9 +1020,10 @@ def self_test(opt = "fast"):
         # print(str(dirs_in_path("./projects/_test_project/shapes")))
         # success=0
 
-    if opt=="all" or opt=="complete" or opt=="examples":
+    if opt=="examples": # or opt=="games" or opt=="all":
+    
         #multiple_build
-        build(["build","examples","stdio","4",""])
+        build(["build",opt,"stdio","4",""])
         built_files = files_in_path("../build")
         
         if len(built_files)!=3+18:
@@ -1143,8 +1144,14 @@ def unit_tests():
 
 # Self-test xl and native build
 def test(params):
-    if (len(params)<2) or params[1]=="self":
+    if (len(params)<=1) or ((len(params)==2) and (params[1]=="self" or params[1]=="fast")):
         if self_test():
+            printc(bcolors.OKGREEN, "TEST OK\n")
+        else:
+            printc(bcolors.FAIL, "TEST KO\n")
+        return
+    elif (len(params)>=2) and params[1]=="self":
+        if self_test(params[2]):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")

@@ -888,7 +888,7 @@ def clean_test():
         return 1
 
 
-def self_test():
+def self_test(opt = "fast"):
 
     unit_tests()
 
@@ -930,7 +930,8 @@ def self_test():
     #build
     build(["build", "_test_project", "stdio"])
     built_files = files_in_path("../build")
-        
+    
+    print("built binaries: " + str(built_files[1:]))
     if len(built_files)!=2:
         printc(bcolors.FAIL, "[xl build]  KO\n")
         success=0
@@ -946,7 +947,7 @@ def self_test():
     if dirs_in_shapes_before != 0:
         printc(bcolors.FAIL, "[xl build]  KO\n")
         success=0
-        
+
     extend(["extend", "_test_project"])
 
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
@@ -964,6 +965,84 @@ def self_test():
     if success:
         printc(bcolors.OKGREEN, "[xl extend]  OK\n")
 
+
+    #clean
+    success = clean_test()
+
+    #size
+    size(["size", "_test_project", "12", "12"],True)
+    built_files = files_in_path("../build")
+
+    print("built binaries: " + str(built_files[1:]))
+
+    if len(built_files)!=2:
+        printc(bcolors.FAIL, "[xl size]  KO\n")
+        print(str(built_files))
+        success=0
+    else:
+        printc(bcolors.OKGREEN, "[xl size]  OK\n")
+
+    dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+    if dirs_in_proj_before != 4:
+        printc(bcolors.FAIL, "[xl size]  KO\n")
+        print(str(dirs_in_path("./projects/_test_project")))
+        success=0
+
+    dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+    if dirs_in_shapes_before != 4:
+        printc(bcolors.FAIL, "[xl size]  KO\n")
+        print(str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
+
+
+    #size
+    size(["size", "_test_project", "32", "24"],False)
+    built_files = files_in_path("../build")
+
+    print("built binaries: " + str(built_files[1:]))
+
+    if len(built_files)!=3:
+        printc(bcolors.FAIL, "[xl size]  KO\n")
+        print(str(built_files))
+        success=0
+    else:
+        printc(bcolors.OKGREEN, "[xl size]  OK\n")
+
+    # dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+    # if dirs_in_proj_before != 4:
+        # printc(bcolors.FAIL, "[xl size]  KO\n")
+        # print(dirs_in_path("./projects/_test_project"))
+        # success=0
+
+    # dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+    # if dirs_in_shapes_before != 4:
+        # printc(bcolors.FAIL, "[xl size]  KO\n")
+        # print(str(dirs_in_path("./projects/_test_project/shapes")))
+        # success=0
+
+    if opt=="all" or opt=="complete" or opt=="examples":
+        #multiple_build
+        build(["build","examples","stdio","4",""])
+        built_files = files_in_path("../build")
+        
+        if len(built_files)!=3+18:
+            printc(bcolors.FAIL, "[xl build]  KO\n")
+            print(str(built_files))
+            success=0
+        else:
+            printc(bcolors.OKGREEN, "[xl build]  OK\n")
+
+        # dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+        # if dirs_in_proj_before != 4:
+            # printc(bcolors.FAIL, "[xl build]  KO\n")
+            # print(dirs_in_path("./projects/_test_project"))
+            # success=0
+
+        # dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+        # if dirs_in_shapes_before != 4:
+            # printc(bcolors.FAIL, "[xl build]  KO\n")
+            # print(str(dirs_in_path("./projects/_test_project/shapes")))
+            # success=0
 
     #delete
     delete(["delete","_test_project","-y"])

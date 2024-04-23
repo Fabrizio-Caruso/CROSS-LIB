@@ -889,6 +889,9 @@ def clean_test():
 
 
 def test_projects(projects):
+
+    clean_test()
+    
     if projects in ["examples", "projects", "games"]:
         number_of_projects = len(dirs_in_path("./"+projects))
     else:
@@ -896,14 +899,18 @@ def test_projects(projects):
     print("number of projects: " + str(number_of_projects))
     #multiple_build
     build(["build",projects,"stdio","4",""])
-    built_files = files_in_path("../build")
+    built_files = files_in_path("../build")[1:]
     
-    if len(built_files)!=3+number_of_projects:
+    if len(built_files)!=number_of_projects:
         printc(bcolors.FAIL, "[xl build]  KO\n")
-        print(str(built_files))
-        success=0
+        print(str(built_files[1:]))
+        print(len(built_files[1:]))
+        
+        # success=0
+        return False
     else:
         printc(bcolors.OKGREEN, "[xl build]  OK\n")
+        return True
 
 
 def self_test(opt = "fast"):
@@ -1012,39 +1019,34 @@ def self_test(opt = "fast"):
         print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
+    if opt!="fast":
+        #size
+        size(["size", "_test_project", "32", "24"],False)
+        built_files = files_in_path("../build")
 
-    #size
-    size(["size", "_test_project", "32", "24"],False)
-    built_files = files_in_path("../build")
+        print("built binaries: " + str(built_files[1:]))
 
-    print("built binaries: " + str(built_files[1:]))
+        if len(built_files)!=3:
+            printc(bcolors.FAIL, "[xl size]  KO\n")
+            print(str(built_files))
+            success=0
+        else:
+            printc(bcolors.OKGREEN, "[xl size]  OK\n")
 
-    if len(built_files)!=3:
-        printc(bcolors.FAIL, "[xl size]  KO\n")
-        print(str(built_files))
-        success=0
-    else:
-        printc(bcolors.OKGREEN, "[xl size]  OK\n")
-
-    projects = []
-    for (dirpath, dirnames, filenames) in walk("./projects"):
-        projects.extend(dirnames)
-        break
-    
-    games = []
-    for (dirpath, dirnames, filenames) in walk("./games"):
-        games.extend(dirnames)
-        break
-    
-    examples = []
-    for (dirpath, dirnames, filenames) in walk("./examples"):
-        examples.extend(dirnames)
-        break
-
-    if opt=="examples" or opt=="games" or opt=="projects" or opt in projects or opt in games or opt in examples:
-    
-        test_projects(opt)
-
+        projects = []
+        for (dirpath, dirnames, filenames) in walk("./projects"):
+            projects.extend(dirnames)
+            break
+        
+        games = []
+        for (dirpath, dirnames, filenames) in walk("./games"):
+            games.extend(dirnames)
+            break
+        
+        examples = []
+        for (dirpath, dirnames, filenames) in walk("./examples"):
+            examples.extend(dirnames)
+            break
 
     #delete
     delete(["delete","_test_project","-y"])
@@ -1145,22 +1147,22 @@ def unit_tests():
 
 # Self-test xl and native build
 def test(params):
-    if (len(params)<=1) or ((len(params)==2) and (params[1]=="self" or params[1]=="fast")):
+    if (len(params)<=1) or ((len(params)==2) and (params[1]=="self")):
         if self_test():
-            printc(bcolors.OKGREEN, "TEST OK\n")
-        else:
-            printc(bcolors.FAIL, "TEST KO\n")
-        return
-    elif (len(params)>=2) and params[1]=="self":
-        if self_test(params[2]):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
     elif params[1]=="unit-tests":
         unit_tests()
-    else:
+    elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':
         if targets_test(params):
+            printc(bcolors.OKGREEN, "TEST OK\n")
+        else:
+            printc(bcolors.FAIL, "TEST KO\n")
+        return
+    else:
+        if test_projects(params[1]):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")
@@ -2002,13 +2004,15 @@ def help(params):
             print("")
             print("<params>")
             print("If 'self' or nothing is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
+            print("If <params> is a game/example/project, then it checks if a native binary for that game/example/project can be built.")
+            print('If <params> is "games" or "examples", then it checks if native binaries can be built for all games/examples.')
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
             print("If 'z88dk_targets_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
             print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
             print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
             print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
             print("If 'stdio' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
-            print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the code")
+            print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the script code.")
         elif params[1]=="debug" or params[1]=="d":
             printc(bcolors.BOLD,"xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")

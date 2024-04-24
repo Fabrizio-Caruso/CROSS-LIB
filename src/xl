@@ -993,9 +993,11 @@ def self_test(opt = "fast"):
 
 
     # run
-    # run(["run", "_test_project", "stdio"])
+    run(["run", "_test_project", "stdio"])
 
-    # return 
+    print("")
+    printc(bcolors.OKGREEN, "[xl run]  OK\n")
+
     
     #clean
     success = clean_test()

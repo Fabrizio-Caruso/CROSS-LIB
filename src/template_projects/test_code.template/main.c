@@ -55,7 +55,7 @@ const uint8_t tiles[] = {
 		_TILE_12, _TILE_13, _TILE_14, _TILE_15, 
 		_TILE_16, _TILE_17, _TILE_18, _TILE_19,
 		_TILE_20, _TILE_21, _TILE_22, _TILE_23, 
-        _TILE_24, _TILE_25
+        _TILE_24, _TILE_25, _TILE_26
 		};
 
 
@@ -74,14 +74,13 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 };
 
 
-#define COL_OFFSET ((XSize-16)/2-1)
-#define ROW_OFFSET 3
+#define COL_OFFSET 4
+#define ROW_OFFSET 12
 
 int main(void)
 {        
 
     uint8_t i;
-    uint8_t counter;
     
     _XL_INIT_GRAPHICS();
 
@@ -94,37 +93,40 @@ int main(void)
 
 	_XL_SET_TEXT_COLOR(_XL_WHITE);
 
-	_XL_PRINT(COL_OFFSET,   4, "PRINTD");
-	_XL_PRINTD(COL_OFFSET  ,5,5, 1234U);
-	_XL_PRINTD(COL_OFFSET+5,5,5,56789U);
+	_XL_PRINT(COL_OFFSET,   1, "PRINTD");
+	_XL_PRINTD(COL_OFFSET  ,2,5, 1234U);
+	_XL_PRINTD(COL_OFFSET+5,2,5,56789U);
 
 
-	_XL_PRINT(COL_OFFSET, 9, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
-	_XL_PRINT(COL_OFFSET,10, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
-	_XL_PRINT(COL_OFFSET,11, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
-	_XL_PRINT(COL_OFFSET,13, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
-	_XL_PRINT(COL_OFFSET,14, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
-	_XL_PRINT(COL_OFFSET,15, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
+	_XL_PRINT(COL_OFFSET, 4, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j);
+	_XL_PRINT(COL_OFFSET, 5, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t);
+	_XL_PRINT(COL_OFFSET, 6, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
+	_XL_PRINT(COL_OFFSET, 8, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J);
+	_XL_PRINT(COL_OFFSET, 9, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T);
+	_XL_PRINT(COL_OFFSET,10, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
 
 	
 	for(i=0;i<_XL_NUMBER_OF_TILES;++i)
 	{
-		_XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],0);
-		_XL_TICK_SOUND();
+		_XL_DRAW((i&7)*2+COL_OFFSET,(i/8)+ROW_OFFSET,tiles[i],0);
 	   
 	}
-
+	
+	for(i=0;i<YSize;++i)
+	{
+		_XL_DRAW(0,i,tiles[0],0);
+		_XL_DRAW(XSize-1,i,tiles[0],0);
+	}
+	for(i=0;i<XSize;++i)
+	{
+		_XL_DRAW(i,0,tiles[1],0);
+		_XL_DRAW(i,YSize-1,tiles[1],0);
+	}
 	_XL_SET_TEXT_COLOR(_XL_WHITE);
-	_XL_PRINT(COL_OFFSET,YSize-5, "PRESS FIRE");
 
-
-	_XL_SET_TEXT_COLOR(_XL_WHITE);
-
-	PRINT_CENTERED_ON_ROW(0, "INPUT");
-	counter = 0;
 	_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
-	_XL_PRINT(COL_OFFSET,YSize-5, "END OF TEST\n");
+	_XL_PRINT(COL_OFFSET,YSize-2, "END OF TEST");
 			REFRESH();
 
     

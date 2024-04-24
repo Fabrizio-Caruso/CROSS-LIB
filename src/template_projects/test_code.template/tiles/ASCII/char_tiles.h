@@ -4,16 +4,15 @@
 #include "cross_lib.h"
 
 #define _TILE_0 (unsigned char) '0'
+
 #define _TILE_1 (unsigned char) '1'
 
 #define _TILE_2 (unsigned char) '2'
 
 #define _TILE_3 (unsigned char) '3'
 
-// Apple
 #define _TILE_4 (unsigned char) '4'
 
-// Body
 #define _TILE_5 (unsigned char) '5'
 
 #define _TILE_6 (unsigned char) '6'
@@ -27,6 +26,7 @@
 #define _TILE_10 (unsigned char) 'A'
 
 #define _TILE_11 (unsigned char) 'B'
+
 #define _TILE_12 (unsigned char) 'C'
 
 #define _TILE_13 (unsigned char) 'D'
@@ -53,9 +53,10 @@
 
 #define _TILE_24 (unsigned char) 'O'
 
-#define _TILE_25 'P'
+#define _TILE_25 (unsigned char) 'P'
 
-//#define _TILE_25 '$'
+#define _TILE_26 (unsigned char) 'Q'
+
 
 #endif // _CHAR_TILES_H
 

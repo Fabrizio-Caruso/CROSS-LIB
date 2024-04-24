@@ -614,6 +614,8 @@ def create(params):
             project_type = "arcade_game"
         elif params[2]=="text":
             project_type = "text_game"
+        elif params[2]=="test":
+            project_type = "test"
         else: 
             if params[2] in ["apis","show_apis","example","show","demo"]:
                 project_type = "demo"
@@ -933,7 +935,7 @@ def self_test(opt = "fast"):
 
 
     # create
-    create(["create", "_test_project"])
+    create(["create", "_test_project", "test"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
     
     if project_dirs_after_create!=project_dirs_before_create+1:
@@ -941,7 +943,6 @@ def self_test(opt = "fast"):
         return 0
     else:
         printc(bcolors.OKGREEN, "[xl create] OK\n")
-
 
     # list
     projects_after_create = list(["list"],False)
@@ -991,6 +992,11 @@ def self_test(opt = "fast"):
         printc(bcolors.OKGREEN, "[xl extend]  OK\n")
 
 
+    # run
+    # run(["run", "_test_project", "stdio"])
+
+    # return 
+    
     #clean
     success = clean_test()
     
@@ -1235,6 +1241,18 @@ def run_native(params):
     run_command_verbosely(command_string)
 
 
+def run_stdio(params):
+    command_prefix = "../build/X" + params[1] + "_stdio_buffered"
+
+    if len(params)>=4:
+        xsize = params[2]
+        ysize = params[3]
+        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
+    else:
+        command_string = command_prefix + "." + NATIVE_EXTENSION
+    run_command_verbosely(command_string)
+
+
 DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k", "msx": "msx_16k"}
 
 VICE_TARGETS = ["c64", 
@@ -1258,7 +1276,9 @@ def run(params):
             if global_vars.verbose:
                 print("defaulting to target: " + target)
            
-        if target=="ncurses":
+        if target=="stdio":
+            run_stdio(params)
+        elif target=="ncurses":
             run_native(params[0:2]+params[3:])
             
         # TODO: replace this with a check on prefixes

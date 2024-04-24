@@ -3,11 +3,9 @@
 
 #include "cross_lib.h"
 
-// Plane
 #define _TILE_1 '-'
 #define _TILE_2 '>'
 
-// Animated plane
 #define _TILE_0 '='
 #define _TILE_3 _TILE_1
 #define _TILE_17 _TILE_2

@@ -55,7 +55,7 @@
 
 #define _TILE_25 (unsigned char) 'P'
 
-#define _TILE_25 (unsigned char) 'Q'
+#define _TILE_26 (unsigned char) 'Q'
 
 #endif // _CHAR_TILES_H
 

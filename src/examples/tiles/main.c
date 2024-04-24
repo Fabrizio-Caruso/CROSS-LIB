@@ -48,11 +48,11 @@ const uint8_t tiles[] = {
 
 // TODO: This requires _XL_DRAW to be a macro 
 // that suppresses the last the color argument when _XL_NO_COLOR is set
-// #if !defined(_XL_NO_COLOR)
+#if !defined(_XL_NO_COLOR)
 static const uint8_t tile_color[NUMBER_OF_COLORS] = {
     FIRST_COLOR,
     _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
-// #endif
+#endif
 
 const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] = 
 {

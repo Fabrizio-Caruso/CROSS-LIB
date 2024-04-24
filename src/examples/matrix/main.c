@@ -47,6 +47,7 @@ static const uint8_t tiles[19] = {
         FREEZE_TILE, SUPER_TILE, INVINCIBILITY_TILE
         };
 
+#if !defined(_XL_NO_COLOR)
 static const uint8_t tile_colors[19] = {
         _XL_CYAN, _XL_CYAN, _XL_CYAN, _XL_CYAN, 
         _XL_WHITE, _XL_RED, _XL_RED, _XL_YELLOW, 
@@ -54,6 +55,7 @@ static const uint8_t tile_colors[19] = {
         _XL_YELLOW, _XL_WHITE, _XL_WHITE, _XL_WHITE, 
         _XL_CYAN, _XL_RED, _XL_YELLOW
         };
+#endif
 
 
 int main(void)

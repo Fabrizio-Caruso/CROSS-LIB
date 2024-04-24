@@ -311,12 +311,14 @@ static const uint8_t building_tiles[] = {
     SMALL_TWO_WINDOW_WALL_1_TILE, SMALL_TWO_WINDOW_WALL_2_TILE
     };
 
+#if !defined(_XL_NO_COLOR)
 static const uint8_t building_colors[] = {
     _WALL_1_COLOR, _WALL_2_COLOR, 
     _TWO_WINDOW_WALL_1_COLOR, _TWO_WINDOW_WALL_2_COLOR, 
     _THREE_WINDOW_WALL_1_COLOR, _THREE_WINDOW_WALL_2_COLOR, 
     _SMALL_TWO_WINDOW_WALL_1_COLOR, _SMALL_TWO_WINDOW_WALL_2_COLOR
     };
+#endif
 
 
 #if defined(DEBUG)
@@ -350,9 +352,12 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 int main(void)
 {        
     uint8_t buildingType;
+	uint8_t tile_index;
+
+	#if !defined(_XL_NO_COLOR)
     uint8_t buildingColor;
-    uint8_t tile_index;
     uint8_t color_index;
+	#endif
 
     _XL_INIT_GRAPHICS();
 
@@ -448,9 +453,10 @@ int main(void)
 				#endif
                 tile_index = ((uint8_t) _XL_RAND())&7;
                 buildingType=building_tiles[tile_index];
-                color_index = ((uint8_t) _XL_RAND())&7;
+				#if !defined(_XL_NO_COLOR)
+				color_index = ((uint8_t) _XL_RAND())&7;
                 buildingColor=building_colors[color_index];
-                
+                #endif
                 for(y=1;y<building_height[x];++y)
                 {
                     drawBuilding();   
@@ -537,18 +543,6 @@ int main(void)
                         bombActive = 0;
                         explosion = 1;
                         
-                        /*
-                        if(building_height[bomb_x])
-                        {
-                            building_height[bomb_x] = 0;
-                            score+=10;
-                            --remaining_buildings;
-                            if(!remaining_buildings)
-                            {
-                                bonus = (uint16_t)20u*(uint16_t)(MAX_Y-y)+(uint16_t)level*20u;
-                            }
-                        }
-                        */
                         
                         #if XSize>=16
                             displayRemainingBuilings();
@@ -602,6 +596,7 @@ int main(void)
                     SET_DEBUG_BORDER();
                 #endif
                 deleteAnimatedPlaneBack();
+				REFRESH();
             } // while flying
             #if defined(DEBUG_GHOST_DISPLAY)
                 UNSET_DEBUG_BORDER();

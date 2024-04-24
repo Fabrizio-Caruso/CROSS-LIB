@@ -385,7 +385,7 @@ void display_power_up_counter(void)
     #define display_zombie_counter()
 #endif
 
-
+#if !defined(_XL_NO_COLOR)
 void display_remaining_arrows(void)
 {
     uint8_t color;
@@ -401,6 +401,12 @@ void display_remaining_arrows(void)
     _XL_SET_TEXT_COLOR(color);
     _XL_PRINTD(7,0,2,remaining_arrows);
 }
+#else
+void display_remaining_arrows(void)
+{
+    _XL_PRINTD(7,0,2,remaining_arrows);
+}
+#endif
 
 
 void recharge_arrows(uint8_t value)
@@ -454,7 +460,7 @@ void display_bow(void)
 }
 
 
-
+#if !defined(_XL_NO_COLOR)
 void display_zombie(void)
 {
     uint8_t status = zombie_shape[zombie_x];
@@ -535,6 +541,82 @@ void display_zombie(void)
         #endif
     }
 }
+#else
+void display_zombie(void)
+{
+    uint8_t status = zombie_shape[zombie_x];
+    uint8_t pos = zombie_y[zombie_x];
+    uint8_t tile0;
+
+    tile0 = BOSS_TILE_0;
+
+    if(zombie_level[zombie_x]==1)
+    {
+    }
+    else if(zombie_level[zombie_x]==2)
+    {
+        if(!freeze)
+        {
+            tile0 = ZOMBIE_DEATH_TILE;
+        }
+    }
+    else if(!zombie_level[zombie_x])
+    {
+        tile0 = MINION_TILE_0;
+    }
+    else 
+    {
+    }
+    if(freeze)
+    {
+    }
+
+    if(!status)
+    {
+        _XL_DELETE(zombie_x, zombie_y[zombie_x]-1);
+        _XL_DRAW(zombie_x, pos, tile0, color);
+    }
+    else
+    {
+        #if !defined(_XL_NO_UDG)
+        uint8_t tile1;
+
+        if(!zombie_level[zombie_x])
+        {
+            tile0 = zombie_tile[status<<1];
+            tile1 = zombie_tile[1+(status<<1)];
+        }
+        else
+        {
+            tile0 = boss_tile[status<<1];
+            tile1 = boss_tile[1+(status<<1)]; 
+        }
+        _XL_DRAW(zombie_x, pos, tile0, color);
+        _XL_DRAW(zombie_x,1 + pos, tile1, color);
+        #else
+        // Avoid using the upper border / beam tile in ASCII mode
+
+        if(!zombie_level[zombie_x])
+        {
+            
+            tile0 = MINION_TILE_0;
+        }
+        else
+        {
+            if((zombie_y[zombie_x])&1)
+            {
+                tile0 = BOSS_TILE_0;
+            }
+            else
+            {
+                tile0 = BOSS_TILE_1;
+            }
+        }
+        _XL_DRAW(zombie_x, pos, tile0, color);
+        #endif
+    }
+}
+#endif
 
 
 #define handle_extra_life() \

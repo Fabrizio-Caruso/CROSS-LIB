@@ -197,7 +197,15 @@ uint8_t direction;
 #define speed_value fire_pressed
 #define power_value time_counter
 
+#if !defined(_XL_NO_COLOR)
 uint8_t wall_color;
+#endif
+
+#if !defined(_XL_NO_COLOR)
+	#define set_wall_color(color) wall_color=color
+#else
+	#define set_wall_color(color)
+#endif
 
 uint8_t extra_points_counter;
 
@@ -567,6 +575,7 @@ void display_power_up_counter(void)
 
 void display_remaining_rockets(void)
 {
+	#if !defined(_XL_NO_COLOR)
     uint8_t color;
     
     if(remaining_rockets<20)
@@ -578,6 +587,7 @@ void display_remaining_rockets(void)
         color = _XL_WHITE;
     }
     _XL_SET_TEXT_COLOR(color);
+	#endif
     _XL_PRINTD(7,0,2,remaining_rockets);
 }
 
@@ -633,52 +643,59 @@ void display_stinger(void)
 }
 
 
+#if !defined(_XL_NO_COLOR)
+	#define set_tank_color(tank_color) color=tank_color
+#else
+	#define set_tank_color(tank_color)
+#endif
 
 void display_tank(void)
 {
     uint8_t status = tank_shape[tank_x];
     uint8_t pos = tank_y_array[tank_x];
+	#if !defined(_XL_NO_COLOR)
     uint8_t color;
+	#endif
     uint8_t tile0;
 
     tile0 = HEAVY_TANK_TILE_0;
 
     if(tank_level[tank_x]==1)
     {
-        color = _XL_GREEN;
+        set_tank_color(_XL_GREEN);
     }
     else if(tank_level[tank_x]==2)
     {
         if(!freeze)
         {
             tile0 = TANK_DEATH_TILE;
-            color = _XL_YELLOW;
+            set_tank_color(_XL_YELLOW);
         }
     }
     else if(!tank_level[tank_x])
     {
         tile0 = LIGHT_TANK_TILE_0;
-        color = _XL_WHITE;
+        set_tank_color(_XL_WHITE);
     }
     else if(tank_level[tank_x]==3)
     {
-        color = _XL_RED;
+        set_tank_color(_XL_RED);
     }
     else 
     {
         // tile0 = MORTAR_TILE;
         if(tank_level[tank_x]==4)
         {
-            color = _XL_GREEN;
+            set_tank_color(_XL_GREEN);
         }
         else
         {
-            color = _XL_RED;
+            set_tank_color(_XL_RED);
         }
     }
     if(freeze)
     {
-        color = _XL_CYAN;  
+        set_tank_color(_XL_CYAN);  
     }
 
     if(tank_level[tank_x]<=MAX_TANK_LEVEL)
@@ -2383,7 +2400,7 @@ do \
     artillery_shell_active = 0; \
     heavy_tank_counter = 0; \
     _XL_CLEAR_SCREEN(); \
-    wall_color = level_color[level&1]; \
+    set_wall_color(level_color[level&1]); \
     display_wall(BOTTOM_WALL_Y); \
     _XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
     _XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
@@ -2754,7 +2771,7 @@ void mortar_intro_animation(void)
 	{ \
 		_XL_CLEAR_SCREEN(); \
 		\
-		wall_color = _XL_GREEN; \
+		set_wall_color(_XL_GREEN); \
 		display_wall(0); \
 		display_wall(BOTTOM_WALL_Y+1); \
 		\
@@ -2779,7 +2796,7 @@ do \
 { \
     _XL_CLEAR_SCREEN(); \
     \
-    wall_color = _XL_GREEN; \
+    set_wall_color(_XL_GREEN); \
     display_wall(0); \
     display_wall(BOTTOM_WALL_Y+1); \
     \
@@ -2930,7 +2947,7 @@ void display_second_screen(void)
 {
     _XL_CLEAR_SCREEN();
     
-    wall_color = _XL_YELLOW;
+    set_wall_color(_XL_YELLOW);
     display_wall(0);
     display_wall(BOTTOM_WALL_Y+1);
     display_enemies();

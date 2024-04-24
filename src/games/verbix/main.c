@@ -1085,7 +1085,10 @@ void display_walls(void)
     uint8_t horizontal_wall_tile;
     #endif
     uint8_t vertical_wall_tile;
+	
+	#if !defined(_XL_NO_COLOR)
     uint8_t wall_color;
+	#endif
     
     #if YSize>=12
         #define HEIGHT_FACTOR 2
@@ -1102,7 +1105,9 @@ void display_walls(void)
             horizontal_wall_tile = HORIZONTAL_WALL_TILE;
             #endif
             vertical_wall_tile = VERTICAL_WALL_TILE;
+			#if !defined(_XL_NO_COLOR)
             wall_color = _XL_GREEN;
+			#endif
         }
         else if(i>2)
         {
@@ -1110,7 +1115,9 @@ void display_walls(void)
             horizontal_wall_tile = HORIZONTAL_BONUS_WALL_TILE;
             #endif
             vertical_wall_tile = VERTICAL_BONUS_WALL_TILE;
+			#if !defined(_XL_NO_COLOR)
             wall_color = _XL_YELLOW;
+			#endif
         }
         else
         {
@@ -1118,7 +1125,9 @@ void display_walls(void)
             horizontal_wall_tile = HORIZONTAL_BAR_TILE;
             #endif
             vertical_wall_tile = VERTICAL_BAR_TILE;
+			#if !defined(_XL_NO_COLOR)
             wall_color = _XL_RED;  
+			#endif
         }
         _XL_DRAW(START_X-1,START_Y-i+1,vertical_wall_tile, wall_color);
         _XL_DRAW(START_X-1+WORD_SIZE*2,START_Y-i+1,vertical_wall_tile, wall_color);

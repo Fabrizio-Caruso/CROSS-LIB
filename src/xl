@@ -898,7 +898,7 @@ def test_projects(projects):
         number_of_projects = 1
     print("number of projects: " + str(number_of_projects))
     #multiple_build
-    build(["build",projects,"stdio","4",""])
+    build(["build",projects,"stdio",compilation_threads,""])
     built_files = files_in_path("../build")[1:]
     
     if len(built_files)!=number_of_projects:
@@ -993,33 +993,34 @@ def self_test(opt = "fast"):
 
     #clean
     success = clean_test()
-
-    #size
-    size(["size", "_test_project", "12", "12"],True)
-    built_files = files_in_path("../build")
-
-    print("built binaries: " + str(built_files[1:]))
-
-    if len(built_files)!=2:
-        printc(bcolors.FAIL, "[xl size]  KO\n")
-        print(str(built_files))
-        success=0
-    else:
-        printc(bcolors.OKGREEN, "[xl size]  OK\n")
-
-    dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
-    if dirs_in_proj_before != 4:
-        printc(bcolors.FAIL, "[xl size]  KO\n")
-        print(str(dirs_in_path("./projects/_test_project")))
-        success=0
-
-    dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-    if dirs_in_shapes_before != 4:
-        printc(bcolors.FAIL, "[xl size]  KO\n")
-        print(str(dirs_in_path("./projects/_test_project/shapes")))
-        success=0
-
+    
     if opt!="fast":
+
+        #size
+        size(["size", "_test_project", "12", "12"],True)
+        built_files = files_in_path("../build")
+
+        print("built binaries: " + str(built_files[1:]))
+
+        if len(built_files)!=2:
+            printc(bcolors.FAIL, "[xl size]  KO\n")
+            print(str(built_files))
+            success=0
+        else:
+            printc(bcolors.OKGREEN, "[xl size]  OK\n")
+
+        dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+        if dirs_in_proj_before != 4:
+            printc(bcolors.FAIL, "[xl size]  KO\n")
+            print(str(dirs_in_path("./projects/_test_project")))
+            success=0
+
+        dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+        if dirs_in_shapes_before != 4:
+            printc(bcolors.FAIL, "[xl size]  KO\n")
+            print(str(dirs_in_path("./projects/_test_project/shapes")))
+            success=0
+
         #size
         size(["size", "_test_project", "32", "24"],False)
         built_files = files_in_path("../build")

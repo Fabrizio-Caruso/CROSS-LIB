@@ -3099,9 +3099,10 @@ GCC_OPTS = $(GLOBAL_OPTS) $(NATIVE_MAKEFILE_COMPILATION_OPTS)
     
 ###############################################################################################
 
-ncurses_debug:
+
+ncurses_sized:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_NCURSES \
+	 -DXSize=$(XSIZE) -DYSize=$(YSIZE) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-D__ALT_PRINT \
@@ -3126,71 +3127,16 @@ ncurses:
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
     
-ncurses_20x16:
-	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=20 -DYSize=16 -D_DEBUG_NCURSES \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-D__ALT_PRINT \
-	 \
-	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
-	$(FULL_FILES) \
-	-lncurses
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)    
-
-
-ncurses_16x16:
-	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=16 -DYSize=16 -D_DEBUG_NCURSES \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-D__ALT_PRINT \
-	 \
-	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
-	$(FULL_FILES) \
-	-lncurses
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)    
-
-ncurses_15x17:
-	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=15 -DYSize=17 -D_DEBUG_NCURSES \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-D__ALT_PRINT \
-	 \
-	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
-	$(FULL_FILES) \
-	-lncurses
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT) 
-
-ncurses_10x7:
-	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=10 -DYSize=7 -D_DEBUG_NCURSES \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
-	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-D__ALT_PRINT \
-	 \
-	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
-	$(FULL_FILES) \
-	-lncurses
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT) 
 ##
 
 
-
-stdio: stdio_buffered
-
+stdio_buffered: stdio
 # 
-stdio_buffered:
+stdio:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
-	-DXSize=79 \
-	-DYSize=22 \
 	-D__STDIO $(STDIO_GAME_OPTS) -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
 	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
+	-DXSize=32 -DYSize=24 \
 	-D_XL_NO_COLOR \
 	-D_XL_TURN_BASED \
 	-D__BUFFERED_GRAPHICS \
@@ -3201,6 +3147,19 @@ stdio_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
-
+stdio_sized:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) \
+	-D__STDIO $(STDIO_GAME_OPTS) -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
+	-D_XL_NO_COLOR \
+	-D_XL_TURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_stdio_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 

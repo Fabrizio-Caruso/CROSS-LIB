@@ -4,7 +4,7 @@ from __future__ import print_function
 
 DEBUG_TARGET  = "ncurses_debug"
 
-NATIVE_TARGET = "ncurses_debug"
+NATIVE_TARGET = "ncurses"
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -239,15 +239,23 @@ def size(params,debug):
 
     parent_dir = project_type + "s"
 
-    xsize = params[2]
-    ysize = params[3]
+    if len(params)<5:
+        xsize = params[2]
+        ysize = params[3]
+        target = NATIVE_TARGET
+    else:
+        xsize = params[3]
+        ysize = params[4]
+        target = params[2]
 
-    target = NATIVE_TARGET
+    if target in [NATIVE_TARGET,'stdio']:
+        target = target + '_sized'
 
     print("Project name       : " + game_dir)
     print("Project type       : " + project_type)
     print("XSize: " + xsize)
     print("YSize: " + ysize)
+    print("target: " + target)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
@@ -915,7 +923,7 @@ def test_projects(projects):
         return True
 
 
-def self_test(opt = "fast"):
+def self_test(opt = "slow"):
 
     unit_tests()
 
@@ -1005,7 +1013,7 @@ def self_test(opt = "fast"):
     if opt!="fast":
 
         #size
-        size(["size", "_test_project", "12", "12"],True)
+        size(["size", "_test_project", "stdio_sized", "12", "12"],True)
         built_files = files_in_path("../build")
 
         print("built binaries: " + str(built_files[1:]))
@@ -1030,7 +1038,7 @@ def self_test(opt = "fast"):
             success=0
 
         #size
-        size(["size", "_test_project", "32", "24"],False)
+        size(["size", "_test_project", "stdio_sized", "32", "24"],False)
         built_files = files_in_path("../build")
 
         print("built binaries: " + str(built_files[1:]))
@@ -1244,11 +1252,11 @@ def run_native(params):
 
 
 def run_stdio(params):
-    command_prefix = "../build/X" + params[1] + "_stdio_buffered"
+    command_prefix = "../build/X" + params[1] + "_stdio"
 
     if len(params)>=4:
-        xsize = params[2]
-        ysize = params[3]
+        xsize = params[3]
+        ysize = params[4]
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
@@ -1265,6 +1273,7 @@ VICE_TARGETS = ["c64",
 
 MAME_TARGETS = ["msx", "msx_16k"]
 
+
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
     
@@ -1273,6 +1282,7 @@ def run(params):
     
     if len(params)>=3:
         target = params[2]
+        print("xl run) " + target)
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
             if global_vars.verbose:

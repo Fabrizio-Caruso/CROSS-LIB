@@ -911,6 +911,43 @@ def clean_test():
         return 1
 
 
+COMPILER_COMMAND = \
+    {
+    'gcc'    : 'gcc',
+    'cc65'   : 'cl65', 
+    'z88dk'  : 'zcc', 
+    'cmoc'   : 'cmoc',
+    'cc6303' : 'cc68',
+    'lcc1802': 'lcc'
+    }
+
+COMPILER_COMMAND_EXPECTED = \
+    {
+    'gcc'    : 256,
+    'cc65'   : 0, 
+    'z88dk'  : 0, 
+    'cmoc'   : 256,
+    'cc6303' : 256,
+    'lcc1802': 0
+    }
+
+def test_compilers():
+
+    for compiler in COMPILER_COMMAND.keys():
+        result = os.system(COMPILER_COMMAND[compiler] + " > /dev/null 2>&1")
+        spaces = " " * (8-len(compiler))
+        if result==COMPILER_COMMAND_EXPECTED[compiler]:
+            printc(bcolors.OKGREEN,"[" + compiler + "]")
+        else:
+            printc(bcolors.FAIL,"[" + compiler + "] not found KO\n")
+            print(result)
+        print( spaces + "found")
+
+
+    
+    
+
+
 def test_projects(projects):
 
     clean_test()
@@ -938,6 +975,7 @@ def test_projects(projects):
 
 def self_test(opt = "slow"):
 
+    test_compilers()
     unit_tests()
 
     success = 1
@@ -1183,6 +1221,8 @@ def test(params):
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
+    elif params[1]=="compilers":
+        test_compilers()
     elif params[1]=="unit-tests":
         unit_tests()
     elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':

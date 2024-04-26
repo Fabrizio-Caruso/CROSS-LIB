@@ -939,7 +939,7 @@ def test_compilers():
         if result==COMPILER_COMMAND_EXPECTED[compiler]:
             printc(bcolors.OKGREEN,"[" + compiler + "]")
         else:
-            printc(bcolors.FAIL,"[" + compiler + "] not found KO\n")
+            printc(bcolors.FAIL,"[" + compiler + "]")
             print(result)
         print( spaces + "found")
 

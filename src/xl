@@ -981,6 +981,8 @@ def self_test(opt = "slow"):
 
     success = 1
 
+    global_vars.test = 1
+    global_vars.verbose = 0
 
     #delete
     delete(["delete","_test_project","-y"])
@@ -1017,7 +1019,8 @@ def self_test(opt = "slow"):
     build(["build", "_test_project", "stdio"])
     built_files = built_files_in_path("../build")
     
-    print("built binaries: " + str(built_files))
+    if global_vars.verbose:
+        print("built binaries: " + str(built_files))
     if len(built_files)!=1:
         printc(bcolors.FAIL, "[xl build]  KO\n")
         success=0
@@ -1055,7 +1058,8 @@ def self_test(opt = "slow"):
     # run
     run(["run", "_test_project", "stdio"])
 
-    print("")
+    if global_vars.verbose:
+        print("")
     printc(bcolors.OKGREEN, "[xl run]  OK\n")
 
     
@@ -1068,8 +1072,8 @@ def self_test(opt = "slow"):
         size(["size", "_test_project", "stdio_sized", "12", "12"],True)
         built_files = built_files_in_path("../build")
 
-        print("built binaries: " + str(built_files))
-
+        if global_vars.verbose:
+            print("built binaries: " + str(built_files))
         if len(built_files)!=1:
             printc(bcolors.FAIL, "[xl size]  KO\n")
             print(str(built_files))
@@ -1093,7 +1097,8 @@ def self_test(opt = "slow"):
         size(["size", "_test_project", "stdio_sized", "32", "24"],False)
         built_files = built_files_in_path("../build")
 
-        print("built binaries: " + str(built_files))
+        if global_vars.verbose:
+            print("built binaries: " + str(built_files))
 
         if len(built_files)!=2:
             printc(bcolors.FAIL, "[xl size]  KO\n")

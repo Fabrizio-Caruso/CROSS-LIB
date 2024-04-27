@@ -34,6 +34,22 @@ from strings import *
 
 from collections import OrderedDict
 
+
+platform = sys.platform
+
+global NATIVE_EXTENSION
+
+if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
+    GNU_MAKE="make"
+else:
+    GNU_MAKE="gmake"
+
+if(platform in ["cygwin", "msys"]):
+    NATIVE_EXTENSION="exe"
+else:
+    NATIVE_EXTENSION="out"
+
+
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
     "add": "adds targets to a project", \
@@ -940,28 +956,61 @@ COMPILER_COMMAND_EXPECTED = \
 
 TOOL_COMMAND = \
     {
-    'java'    : 'java -h',
-    'perl'   : 'perl -h', 
-    'c1541'  : 'c1541 -h', 
-    'x64'   : 'x64 -h',
-    'xvic' : 'xvic -h',
-    'xplus4': 'xplus4 -h',
-    'xpet'  : 'xpet -h',
-    'mame'  : 'mame -h',
+    'java'     : 'java -h',
+    'perl'     : 'perl -h', 
+    'c1541'    : 'c1541 -h', 
+    'x64'      : 'x64 -h',
+    'xvic'     : 'xvic -h',
+    'xplus4'   : 'xplus4 -h',
+    'xpet'     : 'xpet -h',
+    'mame'     : 'mame -h',
+    'f2k5'     : '../tools/cmoc/mo5/f2k5.' + NATIVE_EXTENSION + '',
+    'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
+    'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
+    'makewzd'  : '../tools/z88dk/oz/makewzd.' + NATIVE_EXTENSION + ' -h',
+    'fixcart'  : '../tools/cc65/gamate/gamate-fixcart.' + NATIVE_EXTENSION + '',
+    'bbcim'    : '../tools/bbc/bbcim.' + NATIVE_EXTENSION + ' -h',
+    'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
+    'm20'      : '../tools/olivetti_m20/m20 -h',
+    'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
+    'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
     }
 
 TOOL_COMMAND_EXPECTED = \
     {
-    'java'    : 0,
-    'perl'   : 0, 
-    'c1541'  : 0, 
-    'x64'  : 0, 
-    'xvic'   : 0,
-    'xplus4' : 0,
-    'xpet': 0,
-    'mame': 0
+    'java'     : 0,
+    'perl'     : 0, 
+    'c1541'    : 0, 
+    'x64'      : 0, 
+    'xvic'     : 0,
+    'xplus4'   : 0,
+    'xpet'     : 0,
+    'mame'     : 0,
+    'f2k5'     : 0,
+    'sapfs'    : 256,
+    'file2dsk' : 256,
+    'makewzd'  : 256,
+    'fixcart'  : 65280,
+    'bbcim'    : 256,
+    'nocart'   : 256,
+    'm20'      : 256,
+    'elf2ea5'  : 256,
+    'ea5split' : 256,
     }
 
+BUILDABLE_TOOLS = \
+{
+    'f2k5',
+    'sapfs',
+    'file2dsk',
+    'makewzd',
+    'fixcart',
+    'bbcim',
+    'nocart',
+    'm20',
+    'elf2ea5',
+    'ea5split',
+}
 
 def test_programs(title, command_list, expected_list):
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -970,15 +1019,20 @@ def test_programs(title, command_list, expected_list):
 
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
-        spaces = " " * (8-len(compiler))
+        spaces = " " * (9-len(compiler))
         if result==expected_list[compiler]:
             printc(bcolors.OKGREEN,"[" + compiler + "]")
             res = "found\n"
             res_color = bcolors.OKGREEN
         else:
             printc(bcolors.WARNING,"[" + compiler + "]")
-            res = "NOT found\n"
-            res_color = bcolors.WARNING
+            if compiler in BUILDABLE_TOOLS:
+                res = "NOT built\n"
+                res_color = bcolors.OKCYAN
+                # print(result)
+            else:
+                res = "NOT found\n"
+                res_color = bcolors.WARNING
         printc(res_color, spaces + res)
     printc(bcolors.OKCYAN,"\n----------------------------------------\n")
 
@@ -1085,17 +1139,17 @@ def test_self(opt = "slow"):
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
 
     if dirs_in_proj_after != 4:
-        printc(bcolors.FAIL, "[xl extend]  KO\n")
+        printc(bcolors.FAIL, "[xl extend] KO\n")
         success=0
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
 
     if dirs_in_shapes_after != 4:
-        printc(bcolors.FAIL, "[xl extend]  KO\n")
+        printc(bcolors.FAIL, "[xl extend] KO\n")
         success=0
     
     if success:
-        printc(bcolors.OKGREEN, "[xl extend]  OK\n")
+        printc(bcolors.OKGREEN, "[xl extend] OK\n")
 
 
     # run
@@ -1103,7 +1157,7 @@ def test_self(opt = "slow"):
 
     if global_vars.verbose:
         print("")
-    printc(bcolors.OKGREEN, "[xl run]  OK\n")
+    printc(bcolors.OKGREEN, "[xl run]    OK\n")
 
     
     #clean
@@ -1118,21 +1172,21 @@ def test_self(opt = "slow"):
         if global_vars.verbose:
             print("built binaries: " + str(built_files))
         if len(built_files)!=1:
-            printc(bcolors.FAIL, "[xl size]  KO\n")
+            printc(bcolors.FAIL, "[xl size]   KO\n")
             print(str(built_files))
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]  OK\n")
+            printc(bcolors.OKGREEN, "[xl size]   OK\n")
 
         dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
         if dirs_in_proj_before != 4:
-            printc(bcolors.FAIL, "[xl size]  KO\n")
+            printc(bcolors.FAIL, "[xl size]   KO\n")
             print(str(dirs_in_path("./projects/_test_project")))
             success=0
 
         dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
         if dirs_in_shapes_before != 4:
-            printc(bcolors.FAIL, "[xl size]  KO\n")
+            printc(bcolors.FAIL, "[xl size]   KO\n")
             print(str(dirs_in_path("./projects/_test_project/shapes")))
             success=0
 
@@ -1144,11 +1198,11 @@ def test_self(opt = "slow"):
             print("built binaries: " + str(built_files))
 
         if len(built_files)!=2:
-            printc(bcolors.FAIL, "[xl size]  KO\n")
+            printc(bcolors.FAIL, "[xl size]   KO\n")
             print(str(built_files))
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]  OK\n")
+            printc(bcolors.OKGREEN, "[xl size]   OK\n")
 
         projects = []
         for (dirpath, dirnames, filenames) in walk("./projects"):
@@ -2161,6 +2215,16 @@ def help(params):
             print("xl shapes foo 6 8")
             print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
             
+        elif params[1]=="self":
+            printc(bcolors.BOLD,"xl self\n")
+            print("It tests itself by performing a sequence of 'xl' commands.")
+            print("")
+        elif params[1]=="unit-tests":
+            printc(bcolors.BOLD,"xl self\n")
+            print("It runs unit-tests on the script code.")
+        elif params[1]=="compilers":
+            printc(bcolors.BOLD,"xl self\n")
+            print("It checks the presence of the most common compilers.")
         elif params[1]=="test":
             printc(bcolors.BOLD,"xl test <[optional] params>\n")
             print("It runs some operations to test 'xl'.")
@@ -2561,19 +2625,11 @@ def make_assets_from_tiles(params):
     run_command_verbosely(GNU_MAKE+" GAME_NAME=" + game_dir + " PARENT_DIR=" + parent_dir + " -f ./makefiles.common/auxiliary/Makefile_assets") 
 
 
+
+
 # ---------------------------------------------
 if __name__ == "__main__":
-    platform = sys.platform
 
-    if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
-        GNU_MAKE="make"
-    else:
-        GNU_MAKE="gmake"
-
-    if(platform in ["cygwin", "msys"]):
-        NATIVE_EXTENSION="exe"
-    else:
-        NATIVE_EXTENSION="out"
     
     if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")

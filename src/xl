@@ -937,26 +937,59 @@ COMPILER_COMMAND_EXPECTED = \
     'lcc1802': 0
     }
 
-def test_compilers():
+
+TOOL_COMMAND = \
+    {
+    'java'    : 'java -h',
+    'perl'   : 'perl -h', 
+    'c1541'  : 'c1541 -h', 
+    'x64'   : 'x64 -h',
+    'xvic' : 'xvic -h',
+    'xplus4': 'xplus4 -h',
+    'xpet'  : 'xpet -h',
+    'mame'  : 'mame -h',
+    }
+
+TOOL_COMMAND_EXPECTED = \
+    {
+    'java'    : 0,
+    'perl'   : 0, 
+    'c1541'  : 0, 
+    'x64'  : 0, 
+    'xvic'   : 0,
+    'xplus4' : 0,
+    'xpet': 0,
+    'mame': 0
+    }
+
+
+def test_programs(title, command_list, expected_list):
     printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, "COMPILERS")
+    printc(bcolors.OKCYAN, title)
     printc(bcolors.OKCYAN,"\n----------------------------------------\n")
 
-    for compiler in COMPILER_COMMAND.keys():
-        result = os.system(COMPILER_COMMAND[compiler] + " > /dev/null 2>&1")
+    for compiler in command_list.keys():
+        result = os.system(command_list[compiler] + " > /dev/null 2>&1")
         spaces = " " * (8-len(compiler))
-        if result==COMPILER_COMMAND_EXPECTED[compiler]:
+        if result==expected_list[compiler]:
             printc(bcolors.OKGREEN,"[" + compiler + "]")
-            res = "found"
+            res = "found\n"
+            res_color = bcolors.OKGREEN
         else:
-            printc(bcolors.FAIL,"[" + compiler + "]")
-            res = "NOT found"
-        print( spaces + res)
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
+            printc(bcolors.WARNING,"[" + compiler + "]")
+            res = "NOT found\n"
+            res_color = bcolors.WARNING
+        printc(res_color, spaces + res)
+    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
 
 
-    
-    
+
+def test_compilers():
+    test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
+
+def test_tools():
+    test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+
 
 
 def test_projects(projects):
@@ -1151,6 +1184,7 @@ def test_self(opt = "slow"):
 
 def test_all():
     test_compilers()
+    test_tools()
     unit_tests()
     return test_self()
 
@@ -1256,6 +1290,8 @@ def test(params):
         test_self()
     elif params[1]=="compilers":
         test_compilers()
+    elif params[1]=="tools":
+        test_tools()
     elif params[1]=="unit-tests":
         unit_tests()
     elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':
@@ -2133,6 +2169,7 @@ def help(params):
             print("If 'self' or nothing is passed to <params>, then it performs several tests.")
             print("If 'xl' is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             print("If <params> is 'compilers', then it checks the presence of the most common compilers.")
+            print("If <params> is 'tools', then it checks the presence of the most common tools.")
             print("If <params> is a game/example/project, then it checks if a native binary for that game/example/project can be built.")
             print('If <params> is "games" or "examples", then it checks if native binaries can be built for all games/examples.')
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")

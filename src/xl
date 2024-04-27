@@ -971,7 +971,7 @@ TOOL_COMMAND = \
     'fixcart'  : '../tools/cc65/gamate/gamate-fixcart.' + NATIVE_EXTENSION + '',
     'bbcim'    : '../tools/bbc/bbcim.' + NATIVE_EXTENSION + ' -h',
     'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
-    'm20'      : '../tools/olivetti_m20/m20 -h',
+    'm20'      : '../tools/olivetti_m20/m20.' + NATIVE_EXTENSION + ' -h',
     'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
     'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
     }

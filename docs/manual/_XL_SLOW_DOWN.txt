@@ -1,0 +1,3 @@
+_XL_SLOW_DOWN(T)
+
+It waits T loops (0<=T<=65535)

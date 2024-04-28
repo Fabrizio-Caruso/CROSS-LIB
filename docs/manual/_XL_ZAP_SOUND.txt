@@ -1,0 +1,3 @@
+_XL_ZAP_SOUND()
+
+Short rising sound

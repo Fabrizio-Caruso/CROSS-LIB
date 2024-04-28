@@ -1,0 +1,3 @@
+_XL_DOWN(J)
+
+This Boolean function returns 1 (true) if J represents down movement, and 0 (false) otherwise.

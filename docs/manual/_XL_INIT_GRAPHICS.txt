@@ -1,0 +1,4 @@
+_XL_INIT_GRAPHICS()
+
+It initializes the graphics. Necessary for any build that wants to show anything on the screen.
+

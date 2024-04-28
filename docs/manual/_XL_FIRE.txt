@@ -1,0 +1,3 @@
+_XL_FIRE(J)
+
+This Boolean function returns 1 (true) if J represents fire button, and 0 (false) otherwise.

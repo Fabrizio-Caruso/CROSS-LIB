@@ -1,0 +1,4 @@
+_XL_DELETE(X,Y)
+
+It deletes a tile-sized area of the screen at position (X,Y)
+

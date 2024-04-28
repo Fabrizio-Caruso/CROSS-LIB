@@ -1406,10 +1406,12 @@ def help_help():
     print("Possible values for <command>:")
     print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
     print("")
-    printc(bcolors.BOLD,"xl help <command>\n")
+    printc(bcolors.BOLD,"xl help <command or api>\n")
     print("for <command>-specific help")
     print("\nExample:")
-    print("\nxl help create              \n  It displays the help page for the 'create' command")
+    print("\nxl help create              \n  It displays the help page for the 'create' xl script command")
+    print("")
+    print("\nxl help _XL_DRAW              \n  It displays the help page for the '_XL_DRAW' C routine")
     print("")
     printc(bcolors.OKCYAN,"POSSIBLE COMMANDS")
     print("")
@@ -2097,8 +2099,11 @@ def help(params):
             print("xl run snake 16 16")
             print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
         elif params[1]=="manual":
-            printc(bcolors.BOLD,"xl manual\n")
-            print("It displays and describes CROSS-LIB APIs")
+            printc(bcolors.BOLD,"xl manual <[optional] routine>\n")
+            print("If no optional parameter is passed it displays and describes CROSS-LIB APIs.")
+            print("If a Cross-Lib C rouine is passed as an optional parameter, it displays its description and usage")
+            print("Documented commands:")
+            list_documented_routines()
         elif params[1]=="string":
             printc(bcolors.BOLD,"xl string <string>\n")
             print("It converts a string litteral into a concatenation of")
@@ -2361,13 +2366,25 @@ def help(params):
             
             print("\n<command>")
             help_help()
+    elif params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
+        manual(params)
+    
     else:
         print("Command not recognized")
         help_help()
 
 
-def manual():
-    run_command_verbosely("cat ../docs/CROSS_LIB_APIS.txt")
+def list_documented_routines():
+    manual_files = files_in_path("../docs/manual/")
+    for manual_file in manual_files:
+        print(manual_file.replace(".txt",""))
+
+def manual(params):
+    if len(params)==1:
+        run_command_verbosely("cat ../docs/CROSS_LIB_APIS.txt")
+    else:
+        run_command_verbosely("cat ../docs/manual/" + params[1] + ".txt")
+
 
 # ---------------------------------------------
 
@@ -2743,7 +2760,7 @@ if __name__ == "__main__":
     elif params[1]=="build":
         build(params[1:])
     elif params[1]=="manual":
-        manual()
+        manual(params[1:])
     elif params[1]=="files":
         files()
     elif params[1]=="size":

@@ -1,0 +1,3 @@
+_XL_PRINTD(X,Y,L,N)
+
+It prints the positive integer number N in L digits (1<=L<=5) starting at position (X,Y)

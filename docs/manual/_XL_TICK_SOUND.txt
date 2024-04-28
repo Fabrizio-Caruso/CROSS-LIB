@@ -1,0 +1,3 @@
+_XL_TICK_SOUND()
+
+Very short high-pitched sound

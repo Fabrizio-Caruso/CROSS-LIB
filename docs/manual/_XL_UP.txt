@@ -1,0 +1,3 @@
+_XL_UP(J)
+
+This Boolean function returns 1 (true) if J represents up movement, and 0 (false) otherwise.

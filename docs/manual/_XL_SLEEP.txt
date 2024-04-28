@@ -1,0 +1,3 @@
+_XL_SLEEP(S)
+
+It waits  S seconds or an approximations of S seconds depending on the target

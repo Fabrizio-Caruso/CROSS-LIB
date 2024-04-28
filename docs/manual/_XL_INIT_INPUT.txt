@@ -1,0 +1,4 @@
+_XL_INIT_INPUT()
+
+It initializes the input (joystick/keyboard). Necessary for any program that needs to receive an input
+

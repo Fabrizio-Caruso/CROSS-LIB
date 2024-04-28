@@ -1,0 +1,4 @@
+_XL_WAIT_FOR_INPUT()
+
+It waits for any key or fire button to be pressed.
+

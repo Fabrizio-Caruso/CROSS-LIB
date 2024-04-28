@@ -1,0 +1,3 @@
+_XL_INIT_SOUND()
+
+It initializes the sound system. Necessary for any program that produces sound.

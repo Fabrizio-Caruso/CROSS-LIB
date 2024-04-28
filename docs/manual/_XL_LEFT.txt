@@ -1,0 +1,3 @@
+_XL_LEFT(J)
+
+This Boolean function returns 1 (true) if J represents left movement, and 0 (false) otherwise.

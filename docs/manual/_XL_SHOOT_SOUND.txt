@@ -1,0 +1,4 @@
+_XL_SHOOT_SOUND()
+
+Very short shoot noise
+

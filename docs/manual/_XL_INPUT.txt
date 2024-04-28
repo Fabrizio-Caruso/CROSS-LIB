@@ -1,0 +1,4 @@
+_XL_INPUT()
+
+It returns a value J that represents the specific received input or absence of input at the moment of its execution (keyboard may be buffered, though).
+The result J is meant to be used with the Boolean functions below.

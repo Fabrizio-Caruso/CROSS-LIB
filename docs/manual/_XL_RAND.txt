@@ -1,0 +1,3 @@
+_XL_RAND()
+
+It generates a pseudo-random number in the range [0,32767]

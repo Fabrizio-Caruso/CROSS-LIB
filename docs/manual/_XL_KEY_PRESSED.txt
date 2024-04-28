@@ -1,0 +1,3 @@
+_XL_KEY_PRESSED()
+
+This Boolean function returns 1 (true) if any key or fire button is pressed.

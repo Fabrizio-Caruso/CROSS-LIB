@@ -596,7 +596,7 @@ int main(void)
                     SET_DEBUG_BORDER();
                 #endif
                 deleteAnimatedPlaneBack();
-				REFRESH();
+				_XL_REFRESH();
             } // while flying
             #if defined(DEBUG_GHOST_DISPLAY)
                 UNSET_DEBUG_BORDER();

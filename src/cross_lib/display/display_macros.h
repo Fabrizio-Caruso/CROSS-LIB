@@ -97,10 +97,10 @@
 
 
 #if !defined(__BUFFERED_GRAPHICS) && !defined(DOUBLE_BUFFER)
-    #define REFRESH()
+    #define _XL_REFRESH()
 #elif defined(DOUBLE_BUFFER)
     #if defined(__CC65__)
-        #define REFRESH() \
+        #define _XL_REFRESH() \
             do \
             { \
                 memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize); \
@@ -108,7 +108,7 @@
             } while(0)
 
     #else
-        #define REFRESH() \
+        #define _XL_REFRESH() \
         do \
         { \
             uint16_t i; \
@@ -124,7 +124,7 @@
 #else
     #include "buffered_graphics.h"
 
-    #define _REFRESH() \
+    #define __XL_REFRESH() \
         do \
         { \
             putchar('\n'); \
@@ -132,12 +132,12 @@
         } while(0);
 
     #if !defined(__EMCC__)
-        #define REFRESH() _REFRESH()
+        #define _XL_REFRESH() __XL_REFRESH()
     #else
-        #define REFRESH() \
+        #define _XL_REFRESH() \
             do \
             { \
-                _REFRESH(); \
+                __XL_REFRESH(); \
                 fflush(stdout); \
             } while(0)
     #endif

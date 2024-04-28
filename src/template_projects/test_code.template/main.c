@@ -127,7 +127,7 @@ int main(void)
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
     _XL_PRINT(COL_OFFSET,YSize-2, "END OF TEST");
-    REFRESH();
+    _XL_REFRESH();
 
     
     return EXIT_SUCCESS;

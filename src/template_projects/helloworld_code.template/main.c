@@ -51,7 +51,7 @@ int main(void)
 
     PRINT_CENTERED("HELLO WORLD");
 
-	REFRESH();
+	_XL_REFRESH();
 
     while(1){};
     

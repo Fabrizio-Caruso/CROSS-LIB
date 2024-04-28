@@ -245,7 +245,7 @@ int main(void)
         
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();
-            REFRESH();
+            _XL_REFRESH();
         #else
             printPressKeyToStart();                
         #endif
@@ -254,7 +254,7 @@ int main(void)
 
         #if !defined(LESS_TEXT)
             highScoreScreen();
-            REFRESH();
+            _XL_REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
         #endif
@@ -370,7 +370,7 @@ int main(void)
             #endif
             
             printPressKeyToStart();
-            REFRESH();
+            _XL_REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
             
@@ -630,7 +630,7 @@ int main(void)
                 #if defined(_XL_SLOW_DOWN_FACTOR) && _XL_SLOW_DOWN_FACTOR>0
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 #endif
-                REFRESH();
+                _XL_REFRESH();
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
     
             #if defined(BENCHMARK)

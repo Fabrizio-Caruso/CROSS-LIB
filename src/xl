@@ -956,14 +956,6 @@ COMPILER_COMMAND_EXPECTED = \
 
 TOOL_COMMAND = \
     {
-    'java'     : 'java -h',
-    'perl'     : 'perl -h', 
-    'c1541'    : 'c1541 -h', 
-    'x64'      : 'x64 -h',
-    'xvic'     : 'xvic -h',
-    'xplus4'   : 'xplus4 -h',
-    'xpet'     : 'xpet -h',
-    'mame'     : 'mame -h',
     'f2k5'     : '../tools/cmoc/mo5/f2k5.' + NATIVE_EXTENSION + '',
     'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
     'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
@@ -978,14 +970,6 @@ TOOL_COMMAND = \
 
 TOOL_COMMAND_EXPECTED = \
     {
-    'java'     : 0,
-    'perl'     : 0, 
-    'c1541'    : 0, 
-    'x64'      : 0, 
-    'xvic'     : 0,
-    'xplus4'   : 0,
-    'xpet'     : 0,
-    'mame'     : 0,
     'f2k5'     : 0,
     'sapfs'    : 256,
     'file2dsk' : 256,
@@ -997,6 +981,30 @@ TOOL_COMMAND_EXPECTED = \
     'elf2ea5'  : 256,
     'ea5split' : 256,
     }
+
+
+EMULATOR_COMMAND = \
+    {
+    'c1541'    : 'c1541 -h', 
+    'x64'      : 'x64 -h',
+    'xvic'     : 'xvic -h',
+    'xplus4'   : 'xplus4 -h',
+    'xpet'     : 'xpet -h',
+    'mame'     : 'mame -h',
+    }
+
+EMULATOR_COMMAND_EXPECTED = \
+    {
+    'java'     : 0,
+    'perl'     : 0, 
+    'c1541'    : 0, 
+    'x64'      : 0, 
+    'xvic'     : 0,
+    'xplus4'   : 0,
+    'xpet'     : 0,
+    'mame'     : 0,
+    }
+
 
 BUILDABLE_TOOLS = \
 {
@@ -1011,6 +1019,20 @@ BUILDABLE_TOOLS = \
     'elf2ea5',
     'ea5split',
 }
+
+
+INTERPRETER_COMMAND = \
+    {
+    'java'     : 'java -h',
+    'perl'     : 'perl -h', 
+    }
+
+INTERPRETER_COMMAND_EXPECTED = \
+    {
+    'java'     : 0,
+    'perl'     : 0, 
+    }
+
 
 def test_programs(title, command_list, expected_list):
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -1034,7 +1056,7 @@ def test_programs(title, command_list, expected_list):
                 res = "NOT found\n"
                 res_color = bcolors.WARNING
         printc(res_color, spaces + res)
-    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
+    printc(bcolors.OKCYAN,"----------------------------------------\n\n")
 
 
 
@@ -1042,9 +1064,19 @@ def test_compilers():
     test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
 
 def test_tools():
+
     test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
 
 
+    # test_programs("INTERPRETERS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+    # test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+    # test_programs("EMULATORS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+
+def test_emulators():
+    test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
+
+def test_interpreters():
+    test_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
 
 def test_projects(projects):
 
@@ -1238,7 +1270,12 @@ def test_self(opt = "slow"):
 
 def test_all():
     test_compilers()
+    
     test_tools()
+    test_interpreters()
+    test_emulators()
+    
+    
     unit_tests()
     return test_self()
 
@@ -1346,6 +1383,12 @@ def test(params):
         test_compilers()
     elif params[1]=="tools":
         test_tools()
+    elif params[1]=="emulators":
+        test_emulators()
+    elif params[1]=="compilers":
+        test_compilers()
+    elif params[1]=="interpreters":
+        test_interpreters()
     elif params[1]=="unit-tests":
         unit_tests()
     elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':

@@ -942,6 +942,7 @@ COMPILER_COMMAND = \
     'cc6303'      : 'cc68 -h',
     'lcc1802'     : 'lcc',
     'vbcc'        : 'vc -h',
+    'ack'         : 'ack -h',
     'tms9900-gcc' : 'tms9900-gcc -h'
     }
 
@@ -954,6 +955,7 @@ COMPILER_COMMAND_EXPECTED = \
     'cc6303' : 256,
     'lcc1802': 0,
     'vbcc'   : 256,
+    'ack'    : 0,
     'tms9900-gcc': 256
     }
 
@@ -2286,6 +2288,8 @@ def help(params):
             print("If 'xl' is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
             print("If <params> is 'compilers', then it checks the presence of the most common compilers.")
             print("If <params> is 'tools', then it checks the presence of the most common tools.")
+            print("If <params> is 'emulators', then it checks the presence of the emulators used by xl.")
+            print("If <params> is 'interpreters', then it checks the presence of the interpreters used by xl.")
             print("If <params> is a game/example/project, then it checks if a native binary for that game/example/project can be built.")
             print('If <params> is "games" or "examples", then it checks if native binaries can be built for all games/examples.')
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")

@@ -60,21 +60,6 @@ _XL_SPACE, _XL_a, ..., _XL_z, _XL_A, ..., _XL_Z, '0', ..., '9'
 where capital/small letter may be displayed as the same character depending on whether the target supports different display for capital vs small letters.
 
 
-_XL_PRINT_CENTERED(S)
-Same as XL_PRINT but it just displays the "Cross-Lib string" S at the center of the screen
-
-_XL_PRINT_CENTERED_ON_ROW(Y,S)
-Same as XL_PRINT but it just displays the "Cross-Lib string" S centered on row Y
-
-
-_XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(Y,C,S)
-Same as _XL_PRINT_CENTERED_ON_ROW but with color C (if the target supports text color)
-
-
-_XL_PRINT_CENTERED_WITH_COLOR(C,S)
-Same as _XL_PRINT_CENTERED but with color C (if the target supports text color)
-
-
 --------------------------------
 _XL_PRINTD(X,Y,L,N)
 It prints the positive integer number N in L digits (1<=L<=5) starting at position (X,Y)

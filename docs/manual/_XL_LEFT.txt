@@ -1,3 +1,4 @@
 _XL_LEFT(J)
 
-This Boolean function returns 1 (true) if J represents left movement, and 0 (false) otherwise.
+This Boolean function returns 1 (true) if J represents the left movement, and 0 (false) otherwise.
+J is supposed to be the output of _XL_INPUT.

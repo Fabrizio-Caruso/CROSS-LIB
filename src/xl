@@ -1406,7 +1406,7 @@ def help_help():
     print("Possible values for <command>:")
     print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
     print("")
-    printc(bcolors.BOLD,"xl help <command or api>\n")
+    printc(bcolors.BOLD,"xl help <command or routine>\n")
     print("for <command>-specific help")
     print("\nExample:")
     print("\nxl help create              \n  It displays the help page for the 'create' xl script command")
@@ -1416,6 +1416,12 @@ def help_help():
     printc(bcolors.OKCYAN,"POSSIBLE COMMANDS")
     print("")
     commands([])
+    print("\nUse")
+    printc(bcolors.BOLD,"xl help manual")
+    print("\nto get the list of documented C routines.")
+    print("\nUse")
+    printc(bcolors.BOLD,"xl manual")
+    print("\nto get the full manual for the C routines.")
 
 def run_native(params):
     command_prefix = "../build/X" + params[1] + "_ncurses"
@@ -2366,7 +2372,7 @@ def help(params):
             
             print("\n<command>")
             help_help()
-    elif params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
+    elif params[1] in list_of_documented_routines():
         manual(params)
     
     else:
@@ -2374,10 +2380,17 @@ def help(params):
         help_help()
 
 
-def list_documented_routines():
+def list_of_documented_routines():
     manual_files = files_in_path("../docs/manual/")
+    documented_routines = []
     for manual_file in manual_files:
-        print(manual_file.replace(".txt",""))
+        documented_routines.append(manual_file.replace(".txt",""))
+    return documented_routines
+
+def list_documented_routines():
+    documented_routines = list_of_documented_routines()
+    for documented_routine in documented_routines:
+        print(documented_routine)
 
 def manual(params):
     if len(params)==1:

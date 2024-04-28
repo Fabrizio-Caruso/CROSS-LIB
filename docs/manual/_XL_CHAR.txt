@@ -1,0 +1,3 @@
+_XL_CHAR(X,Y,C)
+
+It displays the C character at position X,Y with the color set by _XL_SET_TEXT_COLOR.

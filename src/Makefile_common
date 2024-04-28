@@ -496,7 +496,6 @@ endif
 	
 #################################################################
 
-# Graphics for fire power and ghost needs to be updated
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
@@ -514,7 +513,6 @@ nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 
 pce: pce_32k
 
-# -Or breaks the PCE target
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t pce \
 	 \
@@ -532,7 +530,6 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 
-# -Or breaks the PCE target
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t pce \
 	 \
@@ -567,9 +564,6 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
-
-# creativision: creativision_16k
-
 
 
 #################################################################
@@ -1667,14 +1661,6 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
-# ifdef USE_TOOLS
-	# cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
-	# $(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
-	# mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.dsk
-	# rm -rf $(BUILD_PATH)/FULL_samcoupe.bin
-# else
-	# mv $(BUILD_PATH)/FULL_samcoupe.bin $(BUILD_PATH)/X$(GAME_NAME)_samcoupe.bin
-# endif
 
 
 #################################################################

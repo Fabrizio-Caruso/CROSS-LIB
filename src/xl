@@ -1911,7 +1911,7 @@ def help(params):
     if len(params)<2:
         printc(bcolors.BOLD,"\nxl <command> <[optional] parameters>")   
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
-        print("\n<parameters>")
+        print("")
         help_help()
     elif params[1] in COMMANDS_DESCRIPTIONS.keys():
 
@@ -2267,7 +2267,7 @@ def help(params):
 
             
         elif params[1]=="files" or params[1]=="f":
-            printc(bcolors.BOLD,"xl files")
+            printc(bcolors.BOLD,"xl files\n")
             print("It shows the built binary files (the conent of the `build` directory).\n")
             print("Remark: 'xl files' can be shorten with `xl f`.")
             

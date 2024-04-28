@@ -939,7 +939,7 @@ COMPILER_COMMAND = \
     'cc65'   : 'cl65', 
     'z88dk'  : 'zcc', 
     'cmoc'   : 'cmoc',
-    'cc6303' : 'cc68',
+    'cc6303' : 'cc68 -h',
     'lcc1802': 'lcc'
     }
 

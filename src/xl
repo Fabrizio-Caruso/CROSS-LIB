@@ -935,12 +935,14 @@ def clean_test():
 
 COMPILER_COMMAND = \
     {
-    'gcc'    : 'gcc',
-    'cc65'   : 'cl65', 
-    'z88dk'  : 'zcc', 
-    'cmoc'   : 'cmoc',
-    'cc6303' : 'cc68 -h',
-    'lcc1802': 'lcc'
+    'gcc'         : 'gcc',
+    'cc65'        : 'cl65', 
+    'z88dk'       : 'zcc', 
+    'cmoc'        : 'cmoc',
+    'cc6303'      : 'cc68 -h',
+    'lcc1802'     : 'lcc',
+    'vbcc'        : 'vc -h',
+    'tms9900-gcc' : 'tms9900-gcc -h'
     }
 
 COMPILER_COMMAND_EXPECTED = \
@@ -950,7 +952,9 @@ COMPILER_COMMAND_EXPECTED = \
     'z88dk'  : 0, 
     'cmoc'   : 256,
     'cc6303' : 256,
-    'lcc1802': 0
+    'lcc1802': 0,
+    'vbcc'   : 256,
+    'tms9900-gcc': 256
     }
 
 
@@ -1041,7 +1045,7 @@ def test_programs(title, command_list, expected_list):
 
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
-        spaces = " " * (9-len(compiler))
+        spaces = " " * (12-len(compiler))
         if result==expected_list[compiler]:
             printc(bcolors.OKGREEN,"[" + compiler + "]")
             res = "found\n"
@@ -1064,13 +1068,7 @@ def test_compilers():
     test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
 
 def test_tools():
-
     test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
-
-
-    # test_programs("INTERPRETERS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
-    # test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
-    # test_programs("EMULATORS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
 
 def test_emulators():
     test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)

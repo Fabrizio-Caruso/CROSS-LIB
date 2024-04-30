@@ -1039,6 +1039,16 @@ INTERPRETER_COMMAND_EXPECTED = \
     'perl'     : 0, 
     }
 
+LIBRARY_COMMAND = \
+    {
+    'ncurses'  : "ls -l /usr/include/ncurses.h",
+    }
+
+LIBRARY_COMMAND_EXPECTED = \
+    {
+    'ncurses'  : 0,
+    }
+
 
 def test_programs(title, command_list, expected_list):
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -1077,6 +1087,10 @@ def test_emulators():
 
 def test_interpreters():
     test_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
+
+def test_libraries():
+    test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
+
 
 def test_projects(projects):
 
@@ -1272,6 +1286,7 @@ def test_all():
     test_compilers()
     
     test_tools()
+    test_libraries()
     test_interpreters()
     test_emulators()
     

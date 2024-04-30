@@ -1110,7 +1110,8 @@ def test_projects(projects):
     if len(built_files)!=number_of_projects:
         printc(bcolors.FAIL, "[xl build]  KO\n")
         print(str(built_files))
-        print(len(built_files))
+        print("Expected   : " + str(len(number_of_projects)))
+        print("Built files: " + str(built_files))
         
         # success=0
         return False
@@ -1404,6 +1405,8 @@ def test(params):
         test_emulators()
     elif params[1]=="compilers":
         test_compilers()
+    elif params[1]=="libraries":
+        test_libraries()
     elif params[1]=="interpreters":
         test_interpreters()
     elif params[1]=="unit-tests":
@@ -2307,6 +2310,7 @@ def help(params):
             print("If <params> is 'tools', then it checks the presence of the most common tools.")
             print("If <params> is 'emulators', then it checks the presence of the emulators used by xl.")
             print("If <params> is 'interpreters', then it checks the presence of the interpreters used by xl.")
+            print("If <params> is 'libraries', then it checks the presence of the libraries used by xl.")
             print("If <params> is a game/example/project, then it checks if a native binary for that game/example/project can be built.")
             print('If <params> is "games" or "examples", then it checks if native binaries can be built for all games/examples.')
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")

@@ -1109,9 +1109,9 @@ def test_projects(projects):
     
     if len(built_files)!=number_of_projects:
         printc(bcolors.FAIL, "[xl build]  KO\n")
-        print(str(built_files))
-        print("Expected   : " + str(len(number_of_projects)))
-        print("Built files: " + str(built_files))
+        print("Built files: " +str(built_files))
+        print("Expected number : " + str(number_of_projects))
+        print("No. Built files : " + str(len(built_files)))
         
         # success=0
         return False

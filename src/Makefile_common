@@ -1661,6 +1661,7 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
+	mv $(BUILD_PATH)/FULL_samcoupe.mgt $(BUILD_PATH)/X$(GAME_NAME)_$@.mgt
 
 
 #################################################################

@@ -39,10 +39,11 @@ platform = sys.platform
 
 global NATIVE_EXTENSION
 
-if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
-    GNU_MAKE="make"
-else:
-    GNU_MAKE="gmake"
+# if(platform in ["cygwin", "linux", "linux2", "darwin", "msys", "msys2", "win32"]):
+    # GNU_MAKE="make"
+# else:
+    # GNU_MAKE="gmake"
+
 
 if(platform in ["cygwin", "msys"]):
     NATIVE_EXTENSION="exe"
@@ -1061,20 +1062,27 @@ MAKE_COMMAND_EXPECTED = \
     'gmake' : 0,
     }
 
-def test_programs(title, command_list, expected_list):
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, title)
-    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
+def test_programs(title, command_list, expected_list, verbose=True):
+    if verbose:
+        printc(bcolors.OKCYAN,"----------------------------------------\n")
+        printc(bcolors.OKCYAN, title)
+        printc(bcolors.OKCYAN,"\n----------------------------------------\n")
+
+    total_result = {}
 
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
         spaces = " " * (12-len(compiler))
         if result==expected_list[compiler]:
-            printc(bcolors.OKGREEN,"[" + compiler + "]")
+            if verbose:
+                printc(bcolors.OKGREEN,"[" + compiler + "]")
             res = "found\n"
             res_color = bcolors.OKGREEN
+            total_result[compiler]=True
         else:
-            printc(bcolors.WARNING,"[" + compiler + "]")
+            if verbose:
+                printc(bcolors.WARNING,"[" + compiler + "]")
+            total_result[compiler]=False
             if compiler in BUILDABLE_TOOLS:
                 res = "NOT built\n"
                 res_color = bcolors.OKCYAN
@@ -1082,29 +1090,31 @@ def test_programs(title, command_list, expected_list):
             else:
                 res = "NOT found\n"
                 res_color = bcolors.WARNING
-        printc(res_color, spaces + res)
-    printc(bcolors.OKCYAN,"----------------------------------------\n\n")
+        if verbose:
+            printc(res_color, spaces + res)
+    if verbose:
+        printc(bcolors.OKCYAN,"----------------------------------------\n\n")
+    return(total_result)
 
 
 
 def test_compilers():
-    test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
+    return test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
 
-def test_make():
-    test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED)
-
+def test_make(verbose=True):
+    return test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
 
 def test_tools():
-    test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+    return test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
 
 def test_emulators():
-    test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
+    return test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
 
 def test_interpreters():
-    test_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
+    return test_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
 
 def test_libraries():
-    test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
+    return test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
 
 
 def test_projects(projects):
@@ -1303,7 +1313,7 @@ def test_self(opt = "slow"):
 def test_all():
 
     test_compilers()
-    test_make()
+    # test_make()
     test_tools()
     test_libraries()
     test_interpreters()
@@ -2743,6 +2753,14 @@ def make_assets_from_tiles(params):
 
 # ---------------------------------------------
 if __name__ == "__main__":
+
+    make_test = test_make(False)
+
+    if make_test['gmake']:
+        GNU_MAKE = "gmake"
+    else:
+        print(make_test['make'])
+        GNU_MAKE = "make"
 
     
     if python_version<2 or (python_version<=2 and python_subversion<7):

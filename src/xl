@@ -1162,6 +1162,7 @@ def test_clean_tools():
         printc(bcolors.FAIL, "[xl clean tools]  KO\n")
     return number_of_tools, built_tools
 
+
 def test_self(opt = "slow"):
 
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -1174,36 +1175,38 @@ def test_self(opt = "slow"):
 
     #clean tools
     number_of_tools, built_tools = test_clean_tools();
-    if number_of_tools != built_tools:
+    if built_tools>0:
         success = 0
 
-    #tools
-    tools()
-    
-    tools_result_map=test_tools(False)
-    built_tools = 0
-    for tool in tools_result_map.keys():
-        if tools_result_map[tool]:
-            built_tools+=1
-    if built_tools==number_of_tools:
-        printc(bcolors.OKGREEN, "[xl tools]        OK\n")    
-    else:
-        printc(bcolors.FAIL, "[xl tools]       KO\n")
-        print("built_tools: " + str(built_tools))
-        print("number_of_tools: " + str(number_of_tools))
-        success = 0
+    if opt!="fast":
 
-    #clean tools
-    number_of_tools, built_tools = test_clean_tools();
-    if number_of_tools != built_tools:
-        success = 0
+        #tools
+        tools()
+        
+        tools_result_map=test_tools(False)
+        built_tools = 0
+        for tool in tools_result_map.keys():
+            if tools_result_map[tool]:
+                built_tools+=1
+        if built_tools==number_of_tools:
+            printc(bcolors.OKGREEN, "[xl tools]        OK\n")    
+        else:
+            printc(bcolors.FAIL, "[xl tools]       KO\n")
+            print("built_tools: " + str(built_tools))
+            print("number_of_tools: " + str(number_of_tools))
+            success = 0
+
+        #clean tools
+        number_of_tools, built_tools = test_clean_tools();
+        if built_tools > 0:
+            success = 0
 
     #delete
     delete(["delete","_test_project","-y"])
 
 
     #clean
-    success = clean_test()
+    success = success * clean_test()
 
     projects_before_create = list(["list"],False)
     
@@ -1278,7 +1281,7 @@ def test_self(opt = "slow"):
 
     
     #clean
-    success = clean_test()
+    success = success * clean_test()
     
     if opt!="fast":
 

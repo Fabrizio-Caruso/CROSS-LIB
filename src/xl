@@ -1191,9 +1191,12 @@ def test_self(opt = "slow"):
         printc(bcolors.FAIL, "[xl tools]       KO\n")
         print("built_tools: " + str(built_tools))
         print("number_of_tools: " + str(number_of_tools))
+        success = 0
 
     #clean tools
-    test_clean_tools();
+    number_of_tools, built_tools = test_clean_tools();
+    if number_of_tools != built_tools:
+        success = 0
 
     #delete
     delete(["delete","_test_project","-y"])

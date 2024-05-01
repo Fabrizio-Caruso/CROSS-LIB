@@ -1049,6 +1049,17 @@ LIBRARY_COMMAND_EXPECTED = \
     'ncurses'  : 0,
     }
 
+MAKE_COMMAND = \
+    {
+    'make'     : 'make -h',
+    'gmake'     : 'gmake -h', 
+    }
+
+MAKE_COMMAND_EXPECTED = \
+    {
+    'make'  : 0,
+    'gmake' : 0,
+    }
 
 def test_programs(title, command_list, expected_list):
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -1078,6 +1089,10 @@ def test_programs(title, command_list, expected_list):
 
 def test_compilers():
     test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
+
+def test_make():
+    test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED)
+
 
 def test_tools():
     test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
@@ -1286,8 +1301,9 @@ def test_self(opt = "slow"):
 
 
 def test_all():
+
     test_compilers()
-    
+    test_make()
     test_tools()
     test_libraries()
     test_interpreters()
@@ -1409,6 +1425,8 @@ def test(params):
         test_libraries()
     elif params[1]=="interpreters":
         test_interpreters()
+    elif params[1]=="make":
+        test_make()
     elif params[1]=="unit-tests":
         unit_tests()
     elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':

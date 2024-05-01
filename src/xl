@@ -927,10 +927,10 @@ def clean_test():
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        printc(bcolors.FAIL, "[xl clean]  KO\n")
+        printc(bcolors.FAIL, "[xl clean]        KO\n")
         return 0
     else:
-        printc(bcolors.OKGREEN, "[xl clean]  OK\n")
+        printc(bcolors.OKGREEN, "[xl clean]        OK\n")
         return 1
 
 
@@ -1104,8 +1104,8 @@ def test_compilers():
 def test_make(verbose=True):
     return test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
 
-def test_tools():
-    return test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED)
+def test_tools(verbose=True):
+    return test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, verbose)
 
 def test_emulators():
     return test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
@@ -1155,6 +1155,39 @@ def test_self(opt = "slow"):
     global_vars.test = 1
     global_vars.verbose = 0
 
+    #clean tools
+    clean(["clean","tools"])
+    
+    tools_result_map=test_tools(False)
+    number_of_tools = len(tools_result_map.keys())
+    
+    built_tools = 0
+    for tool in tools_result_map.keys():
+        if tools_result_map[tool]:
+            built_tools+=1
+    if built_tools==0:
+        printc(bcolors.OKGREEN, "[xl clean tools]  OK\n")
+    else:
+        printc(bcolors.FAIL, "[xl clean tools]  KO\n")
+
+
+    #tools
+    tools()
+    
+    tools_result_map=test_tools(False)
+    built_tools = 0
+    for tool in tools_result_map.keys():
+        if tools_result_map[tool]:
+            built_tools+=1
+    if built_tools==number_of_tools:
+        printc(bcolors.OKGREEN, "[xl tools]        OK\n")    
+    else:
+        printc(bcolors.FAIL, "[xl tools]       KO\n")
+        print("built_tools: " + str(built_tools))
+        print("number_of_tools: " + str(number_of_tools))
+
+
+
     #delete
     delete(["delete","_test_project","-y"])
 
@@ -1172,18 +1205,18 @@ def test_self(opt = "slow"):
     project_dirs_after_create = len(dirs_in_path("./projects"))
     
     if project_dirs_after_create!=project_dirs_before_create+1:
-        printc(bcolors.FAIL, "[xl create] KO\n")
+        printc(bcolors.FAIL, "[xl create]       KO\n")
         return 0
     else:
-        printc(bcolors.OKGREEN, "[xl create] OK\n")
+        printc(bcolors.OKGREEN, "[xl create]       OK\n")
 
     # list
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
-        printc(bcolors.FAIL,"[xl list]   KO\n") 
+        printc(bcolors.FAIL,"[xl list]         KO\n") 
         success = 0
     else:
-        printc(bcolors.OKGREEN,"[xl list]   OK\n")
+        printc(bcolors.OKGREEN,"[xl list]         OK\n")
 
 
     #build
@@ -1193,19 +1226,19 @@ def test_self(opt = "slow"):
     if global_vars.verbose:
         print("built binaries: " + str(built_files))
     if len(built_files)!=1:
-        printc(bcolors.FAIL, "[xl build]  KO\n")
+        printc(bcolors.FAIL, "[xl build]        KO\n")
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl build]  OK\n")
+        printc(bcolors.OKGREEN, "[xl build]        OK\n")
 
     dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
     if dirs_in_proj_before != 3:
-        printc(bcolors.FAIL, "[xl build]  KO\n")
+        printc(bcolors.FAIL, "[xl build]        KO\n")
         success=0
 
     dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
     if dirs_in_shapes_before != 0:
-        printc(bcolors.FAIL, "[xl build]  KO\n")
+        printc(bcolors.FAIL, "[xl build]        KO\n")
         success=0
 
     extend(["extend", "_test_project"])
@@ -1213,17 +1246,17 @@ def test_self(opt = "slow"):
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
 
     if dirs_in_proj_after != 4:
-        printc(bcolors.FAIL, "[xl extend] KO\n")
+        printc(bcolors.FAIL, "[xl extend]       KO\n")
         success=0
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
 
     if dirs_in_shapes_after != 4:
-        printc(bcolors.FAIL, "[xl extend] KO\n")
+        printc(bcolors.FAIL, "[xl extend]       KO\n")
         success=0
     
     if success:
-        printc(bcolors.OKGREEN, "[xl extend] OK\n")
+        printc(bcolors.OKGREEN, "[xl extend]       OK\n")
 
 
     # run
@@ -1231,7 +1264,7 @@ def test_self(opt = "slow"):
 
     if global_vars.verbose:
         print("")
-    printc(bcolors.OKGREEN, "[xl run]    OK\n")
+    printc(bcolors.OKGREEN, "[xl run]          OK\n")
 
     
     #clean
@@ -1246,21 +1279,21 @@ def test_self(opt = "slow"):
         if global_vars.verbose:
             print("built binaries: " + str(built_files))
         if len(built_files)!=1:
-            printc(bcolors.FAIL, "[xl size]   KO\n")
+            printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(built_files))
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]   OK\n")
+            printc(bcolors.OKGREEN, "[xl size]         OK\n")
 
         dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
         if dirs_in_proj_before != 4:
-            printc(bcolors.FAIL, "[xl size]   KO\n")
+            printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(dirs_in_path("./projects/_test_project")))
             success=0
 
         dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
         if dirs_in_shapes_before != 4:
-            printc(bcolors.FAIL, "[xl size]   KO\n")
+            printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(dirs_in_path("./projects/_test_project/shapes")))
             success=0
 
@@ -1272,11 +1305,11 @@ def test_self(opt = "slow"):
             print("built binaries: " + str(built_files))
 
         if len(built_files)!=2:
-            printc(bcolors.FAIL, "[xl size]   KO\n")
+            printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(built_files))
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]   OK\n")
+            printc(bcolors.OKGREEN, "[xl size]         OK\n")
 
         projects = []
         for (dirpath, dirnames, filenames) in walk("./projects"):
@@ -1298,10 +1331,10 @@ def test_self(opt = "slow"):
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
     if project_dirs_after_delete != project_dirs_before_create:
-        printc(bcolors.FAIL, "[xl delete] KO\n")
+        printc(bcolors.FAIL, "[xl delete]       KO\n")
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl delete] OK\n")
+        printc(bcolors.OKGREEN, "[xl delete]       OK\n")
 
     if clean_test()==0:
         success=0

@@ -531,10 +531,9 @@ def read_shape(file_name):
     return trimmed_lines,xsize,len(trimmed_lines)
 
 
-def import_split_tiles(file_name):
-    fin = open(file_name, "rt")
-    lines = fin.readlines()
-    tile = ""
+def compute_split_tiles(lines,verbose_split_tiles=True):
+   
+    # print(str(lines))
 
     xsize = 16
     for line in lines:
@@ -558,29 +557,28 @@ def import_split_tiles(file_name):
 
     # xsize = 16
 
-    print("")
-    for filtered_lines in filtered_lines_group:
-        display_shape(filtered_lines)
+    if verbose_split_tiles:
         print("")
-
-    # trimmed_lines_group = [[],[]]
+        for filtered_lines in filtered_lines_group:
+            display_shape(filtered_lines)
+            print("")
     
-    # print("")
-    # for filtered_lines in filtered_lines_group:
-        # trimmed_lines = []
-        # for line in filtered_lines:
-            # trimmed_lines.append(line[:xsize])
-        # display_shape(trimmed_lines)
-        # trimmed_lines_group.append([trimmed_lines])
-        # print("")
-
-        
-        
+    return filtered_lines_group
 
 
-def import_tile(file_name):
+def import_split_tiles(file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
+    
+    filtered_lines_group = compute_split_tiles(lines)
+    # print(str(lines))
+ 
+    fin.close()
+        
+        
+def compute_tile(lines):
+    # print(str(lines))
+
     tile = ""
 
     filtered_lines = []
@@ -617,8 +615,15 @@ def import_tile(file_name):
         tile += str(value)
         if line_index!=ysize-1:
             tile += ","
+    return tile, xsize, ysize
+
+
+def import_tile(file_name):
+    fin = open(file_name, "rt")
+    lines = fin.readlines()
+    tile,xsize,ysize = compute_tile(lines)
     fin.close()
-    
+
     return tile,xsize,ysize
 
     

@@ -28,7 +28,7 @@ endif
 
 TOOLS_PATH ?= ../tools
 
-GMAKE=make
+# GNU_MAKE=make
 
 
 $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT): $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c
@@ -38,31 +38,31 @@ $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/f2k5.c
 	$(TOOL_CC) $(TOOLS_PATH)/cmoc/mo5/f2k5.c  -o $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
 
 $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT): $(TOOLS_PATH)/bbc/bbcim-1.0.1/src/bbcim.c
-	cd $(TOOLS_PATH)/bbc/bbcim-1.0.1/ && $(GMAKE)
+	cd $(TOOLS_PATH)/bbc/bbcim-1.0.1/ && $(GNU_MAKE)
 	mv $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(EXT) $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 
 $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/oz/makewzd.c
 	$(TOOL_CC) $(TOOLS_PATH)/z88dk/oz/makewzd.c -o $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 
 $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk.c
-	cd $(TOOLS_PATH)/cmoc/coco/file2dsk/Source && $(GMAKE)
+	cd $(TOOLS_PATH)/cmoc/coco/file2dsk/Source && $(GNU_MAKE)
 	mv $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 
 $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/sap/sapfs.c
-	cd $(TOOLS_PATH)/cmoc/mo5/sap/ && $(GMAKE)
+	cd $(TOOLS_PATH)/cmoc/mo5/sap/ && $(GNU_MAKE)
 	mv $(TOOLS_PATH)/cmoc/mo5/sap/sapfs $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
 
 $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/cpc/nocart/src/main.cpp
-	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GMAKE) && mv nocart ../nocart$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GNU_MAKE) && mv nocart ../nocart$(COMPILEDEXT)
 
 $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
-	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GMAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GNU_MAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
 
 $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/ti99/elf2ea5/ && $(GMAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
+	cd	$(TOOLS_PATH)/ti99/elf2ea5/ && $(GNU_MAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
 
 $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GMAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
+	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
 
 
 

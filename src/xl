@@ -198,7 +198,7 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
             create_main(project_name,project_type)
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
                 
@@ -237,7 +237,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
                 " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
                 + all_compilers_opts(zsdcc_extra_optimization, "") + \
                 " _NATIVE_CC=" + native_compiler + \
-                " TOOL_CC=" + tool_compiler + \
+                " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
         run_command_verbosely(make_command)
@@ -477,7 +477,7 @@ def clone(params):
 # Generate tools from source code
 def tools():
     make_command = \
-        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + " -f makefiles.common/auxiliary/Makefile_tools"
+        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command_verbosely(make_command)
         
 
@@ -589,7 +589,7 @@ def build(params):
                     " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "' " \
                     + all_compilers_opts(zsdcc_extra_optimization, compiler_opts) +  \
                     " _NATIVE_CC=" + native_compiler + \
-                    " TOOL_CC=" + tool_compiler + \
+                    " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
             
             run_command_verbosely(make_command)
@@ -1321,16 +1321,16 @@ def targets_test(params):
         print("Create main.c from split source files")
         create_main(game_dir, project_type)
     if params[1].endswith("_targets"):
-        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
     elif params[1]=="stdio":
-        make_command = GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
+        make_command = GNU_MAKE + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
     elif params[1]=="z88dk_targets_alt":
         # parallel = ""
-        make_command = GNU_MAKE + parallel + \
+        make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command_verbosely(make_command)   
     else:

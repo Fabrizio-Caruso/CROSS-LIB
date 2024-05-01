@@ -1145,16 +1145,7 @@ def test_projects(projects):
         return True
 
 
-def test_self(opt = "slow"):
-
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, "XL SCRIPT")
-    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
-    success = 1
-
-    global_vars.test = 1
-    global_vars.verbose = 0
-
+def test_clean_tools():
     #clean tools
     clean(["clean","tools"])
     
@@ -1169,7 +1160,22 @@ def test_self(opt = "slow"):
         printc(bcolors.OKGREEN, "[xl clean tools]  OK\n")
     else:
         printc(bcolors.FAIL, "[xl clean tools]  KO\n")
+    return number_of_tools, built_tools
 
+def test_self(opt = "slow"):
+
+    printc(bcolors.OKCYAN,"----------------------------------------\n")
+    printc(bcolors.OKCYAN, "XL SCRIPT")
+    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
+    success = 1
+
+    global_vars.test = 1
+    global_vars.verbose = 0
+
+    #clean tools
+    number_of_tools, built_tools = test_clean_tools();
+    if number_of_tools != built_tools:
+        success = 0
 
     #tools
     tools()
@@ -1186,7 +1192,8 @@ def test_self(opt = "slow"):
         print("built_tools: " + str(built_tools))
         print("number_of_tools: " + str(number_of_tools))
 
-
+    #clean tools
+    test_clean_tools();
 
     #delete
     delete(["delete","_test_project","-y"])

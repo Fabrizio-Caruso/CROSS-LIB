@@ -678,6 +678,11 @@ def create(params):
             print("Copying tiles...")
         shutil.copytree(source_path+"/tiles", dest_path+"/tiles")
 
+    if not os.path.exists(dest_path+"/shapes"):
+        if global_vars.verbose:
+            print("Copying shapes...")
+        shutil.copytree(source_path+"/shapes", dest_path+"/shapes")
+
     if not os.path.exists(dest_path+"/generated_assets"):
         if global_vars.verbose:
             print("Create empty generated_assets directory...")
@@ -1247,13 +1252,15 @@ def test_self(opt = "slow"):
         printc(bcolors.OKGREEN, "[xl build]        OK\n")
 
     dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
-    if dirs_in_proj_before != 3:
+    if dirs_in_proj_before != 4:
         printc(bcolors.FAIL, "[xl build]        KO\n")
         success=0
 
     dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-    if dirs_in_shapes_before != 0:
+    if dirs_in_shapes_before != 1:
         printc(bcolors.FAIL, "[xl build]        KO\n")
+        print(dirs_in_shapes_before)
+        print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
     extend(["extend", "_test_project"])
@@ -1266,8 +1273,10 @@ def test_self(opt = "slow"):
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
 
-    if dirs_in_shapes_after != 4:
+    if dirs_in_shapes_after != 5:
         printc(bcolors.FAIL, "[xl extend]       KO\n")
+        print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
+        print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
     
     if success:
@@ -1307,7 +1316,7 @@ def test_self(opt = "slow"):
             success=0
 
         dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-        if dirs_in_shapes_before != 4:
+        if dirs_in_shapes_before != 5:
             printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(dirs_in_path("./projects/_test_project/shapes")))
             success=0
@@ -1322,6 +1331,7 @@ def test_self(opt = "slow"):
         if len(built_files)!=2:
             printc(bcolors.FAIL, "[xl size]         KO\n")
             print(str(built_files))
+            print("Wrong number of built files")
             success=0
         else:
             printc(bcolors.OKGREEN, "[xl size]         OK\n")
@@ -1751,13 +1761,16 @@ def write_shapes(project, shapes, xsize,ysize):
             print("Path to tile file: " + path_to_tile)
         if replace_shapes and (os.path.exists(path_to_shape) or os.path.exists(path_to_tile)):
             if os.path.exists(path_to_shape):
-                print("shape "+ tile_number +" already exists")
+                if not global_vars.test:
+                    print("shape "+ tile_number +" already exists")
             elif os.path.exists(path_to_tile):
-                print("tile "+ tile_number +" already exists")
+                if not global_vars.test:
+                    print("tile "+ tile_number +" already exists")
         else:  
             with open(path_to_shape,"w") as file:
                 for row in shape:
-                    print(row)
+                    if not global_vars.test:
+                        print(row)
                     file.write(row+"\n")
         if global_vars.verbose:
             print("")
@@ -1782,41 +1795,58 @@ def extend(params):
     for shape_file in shape_files:
         path_to_shape_file = path_to_8x8_files + "/" + shape_file
         
-        print("shape file: " + shape_file)
+        if not global_vars.test:
+            print("shape file: " + shape_file)
+            
         tile_number_str = shape_file[5:].replace(".txt","")
         
-        print("---tile number: " + tile_number_str)
-        
-        print("")
+        if not global_vars.test:
+            print("---tile number: " + tile_number_str)
+            
+            print("")
 
         tile,xsize,ysize = read_shape(path_to_shape_file)
         if(xsize!=8 or ysize!=8):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
             return
+            
         if global_vars.verbose:
             print(tile)
-        print("")
-        print("7x8");
+        
+        if not global_vars.test:
+            print("")
+            print("7x8");
         shape7x8 = convert(tile,7,8,extend_algorithm)
-        display_shape(shape7x8)
+        if not global_vars.test:
+            display_shape(shape7x8)
         dict7x8[tile_number_str]=shape7x8
-        print("")
-        print("6x8");
+        
+        if not global_vars.test:
+            print("")
+            print("6x8");
         shape6x8 = convert(tile,6,8,extend_algorithm)
-        display_shape(shape6x8)
+        if not global_vars.test:
+            display_shape(shape6x8)
         dict6x8[tile_number_str]=shape6x8
-        print("")
-        print("8x6");
+        
+        if not global_vars.test:
+            print("")
+            print("8x6");
         shape8x6 = convert(tile,8,6,extend_algorithm)
-        display_shape(shape8x6)
+        if not global_vars.test:
+            display_shape(shape8x6)
         dict8x6[tile_number_str]=shape8x6
-        print("")
-        print("6x9");
+        
+        if not global_vars.test:
+            print("")
+            print("6x9");
         shape6x9 = convert(tile,6,9,extend_algorithm)
-        display_shape(shape6x9)
+        if not global_vars.test:
+            display_shape(shape6x9)
         dict6x9[tile_number_str]=shape6x9
-        print("")
+        if not global_vars.test:
+            print("")
     # print(str(dict7x8))
     write_shapes(project,dict7x8,7,8)
     write_shapes(project,dict6x8,6,8)

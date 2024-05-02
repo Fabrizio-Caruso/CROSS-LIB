@@ -1737,7 +1737,9 @@ def tile(params):
     else:
         printc(bcolors.OKCYAN, tile+"\n")
 
-
+# replace_shapes:
+# 0 -> write in _shapes directory,
+# 1 -> write in shapes directory but avoid overwriting existing shapes or tiles
 def write_shapes(project, shapes, xsize,ysize):
     path = path_to_shapes(project,xsize,ysize)
     if not replace_shapes:
@@ -1774,8 +1776,6 @@ def write_shapes(project, shapes, xsize,ysize):
                     file.write(row+"\n")
         if global_vars.verbose:
             print("")
-    # with open(path) as file:
-    # project_makefile = file.read()
 
 
 # Extand 8x8 shapes by reshaping them into shapes with other dimensions 

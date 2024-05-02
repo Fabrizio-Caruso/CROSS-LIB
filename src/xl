@@ -412,7 +412,9 @@ def rename(params):
     target_parent_dir = target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
     
-    print("DEBUG) source_project_type: " + source_project_type)
+    if global_vars.verbose:
+
+        print("source_project_type: " + source_project_type)
     
     convert_makefile(source_game_dir, source_project_type, source_game_dir, target_game_dir)
     
@@ -1255,6 +1257,22 @@ def test_self(opt = "slow"):
     else:
         printc(bcolors.OKGREEN,"[xl list]         OK\n")
 
+
+    #add
+    add(["","_test_project", "einstein"])
+    printc(bcolors.OKGREEN,"[xl add]          OK\n")
+
+    #remove
+    remove(["","_test_project", "einstein"])
+    printc(bcolors.OKGREEN,"[xl remove]       OK\n")
+
+    #rename
+    rename(["","_test_project", "foo"])
+    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
+
+    #remove
+    rename(["","foo", "_test_project"])
+    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #build
     build(["build", "_test_project", "stdio"])

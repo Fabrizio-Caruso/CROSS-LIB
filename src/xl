@@ -937,6 +937,7 @@ def clean_test():
 COMPILER_COMMAND = \
     {
     'gcc'         : 'gcc',
+    'g++'         : 'g++',
     'cc65'        : 'cl65', 
     'z88dk'       : 'zcc', 
     'cmoc'        : 'cmoc',
@@ -950,6 +951,7 @@ COMPILER_COMMAND = \
 COMPILER_COMMAND_EXPECTED = \
     {
     'gcc'    : 256,
+    'g++'    : 256,
     'cc65'   : 0, 
     'z88dk'  : 0, 
     'cmoc'   : 256,

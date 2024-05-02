@@ -1333,6 +1333,40 @@ def test_self(opt = "slow"):
         print("")
     printc(bcolors.OKGREEN, "[xl run]          OK\n")
 
+
+    projects_before_create = list(["list"],False)
+    
+    project_dirs_before_create = len(dirs_in_path("./projects"))
+
+
+    # print(str(dirs_in_path("./projects")))
+
+    # clone
+    clone(["","_test_project","_cloned_test_project"]);
+    project_dirs_after_create = len(dirs_in_path("./projects"))
+    
+    # print(str(dirs_in_path("./projects")))
+    
+    if project_dirs_after_create!=project_dirs_before_create+1:
+        printc(bcolors.FAIL, 
+                            "[xl clone]        KO\n")
+        return 0
+    else:
+        printc(bcolors.OKGREEN, 
+                            "[xl clone]        OK\n")
+
+
+    # run
+    run(["run", "_test_cloned_test_project_project", "stdio"])
+
+    if global_vars.verbose:
+        print("")
+    printc(bcolors.OKGREEN, "[xl run]          OK\n")
+
+    # delete
+    delete(["","_cloned_test_project","-y"])
+    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+
     
     #clean
     success = success * clean_test()
@@ -1402,12 +1436,20 @@ def test_self(opt = "slow"):
         reset(["","_test_project"])
         printc(bcolors.OKGREEN, "[xl reset]        OK\n")
 
+
+    projects_before_create = list(["list"],False)
+    
+    project_dirs_before_create = len(dirs_in_path("./projects"))
+
+
     #delete
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
-    if project_dirs_after_delete != project_dirs_before_create:
+    if project_dirs_after_delete > 0:
         printc(bcolors.FAIL, "[xl delete]       KO\n")
+        print(project_dirs_before_create)
+        print(project_dirs_after_delete)
         success=0
     else:
         printc(bcolors.OKGREEN, "[xl delete]       OK\n")

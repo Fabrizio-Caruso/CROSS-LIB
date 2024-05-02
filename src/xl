@@ -739,8 +739,12 @@ def create(params):
 
 # Delete temporary project files If a project is specified, it also deletes generated assets.
 def reset(params):
-    game_dir = params[1]
     par_len = len(params)
+
+    if par_len>1:
+        game_dir = params[1]
+    else:
+        game_dir=""
 
     if game_dir in ["games","examples","projects"]:
         multiple_project_reset(game_dir)

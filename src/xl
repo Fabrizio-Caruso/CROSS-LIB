@@ -1274,6 +1274,10 @@ def test_self(opt = "slow"):
     remove(["","_test_project", "einstein"])
     printc(bcolors.OKGREEN,"[xl remove]       OK\n")
 
+    #delete
+    delete(["delete","foo","-y"])
+
+
     #rename
     rename(["","_test_project", "foo"])
     printc(bcolors.OKGREEN,"[xl rename]       OK\n")
@@ -1370,6 +1374,12 @@ def test_self(opt = "slow"):
     
     #clean
     success = success * clean_test()
+    
+    #shapes
+    shapes(["","_test_cloned_test_project_project"])    
+    # make_assets_from_tiles(["_test_cloned_test_project_project"])
+    printc(bcolors.OKGREEN, "[xl shapes]       OK\n")
+
     
     if opt!="fast":
 
@@ -1963,15 +1973,18 @@ def shapes(params):
         detected_ysize = detect_ysize(params[2])
         xsize_str = str(detected_xsize)
         ysize_str = str(detected_ysize)
-        print("Detected xsize: " + xsize_str)
-        print("Detected ysize: " + ysize_str)
+        # if global_vars.verbose:
+            # print("Detected xsize: " + xsize_str)
+            # print("Detected ysize: " + ysize_str)
     else:                # no parameter
         xsize_str = "8"
         ysize_str = "8"
-    print("xsize: " + xsize_str)
-    print("ysize: " + ysize_str)
+    if not global_vars.test:
+        print("xsize: " + xsize_str)
+        print("ysize: " + ysize_str)
     path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
-    print("Path to shape files: " + path_to_files)
+    if not global_vars.test:
+        print("Path to shape files: " + path_to_files)
     shape_files = files_in_path(path_to_files)
     if global_vars.verbose:
         print("shape files: ", shape_files)
@@ -2695,7 +2708,6 @@ def read_config_option(section, option):
             return ""
 
 def read_config():
-
     try:
         import configparser
     except ImportError:
@@ -2735,6 +2747,7 @@ def read_config():
     config = configparser.ConfigParser()
     
     try:
+
         config.read('config.ini')
         
         global_vars.test = read_config_option("terminal","test")
@@ -2751,6 +2764,7 @@ def read_config():
         else:
             global_vars.verbose=0
         if global_vars.verbose:
+            print("----------------------------")
             print("Verbose Mode ON")
         
         # global color_terminal
@@ -2758,22 +2772,23 @@ def read_config():
         
         if global_vars.verbose:
             if global_vars.color_terminal:
-                printc(bcolors.OKBLUE, "Color terminal ON\n")
+                printc(bcolors.OKCYAN, "Color terminal ON\n")
             else:
                 print("Color terminal OFF")
         
         if global_vars.verbose:
             print("Config file found with: " + str(config.sections()))
-            print("")
+            # print("")
         
         compilation_threads = read_config_option("build","threads") 
         if compilation_threads=="auto" or compilation_threads=="automaic":
             if global_vars.verbose:
-                print("Detecting number of threads...")
+                print("----------------------------")
             import multiprocessing
             compilation_threads = str(multiprocessing.cpu_count())
             if global_vars.verbose:
                 print("Detected " + compilation_threads + " threads...")
+                print("----------------------------")
 
         z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
@@ -2816,8 +2831,8 @@ def read_config():
         # TODO: Ask the user to continue or exit
     else:
         if global_vars.verbose:
-            printc(bcolors.OKGREEN, "config.ini OK\n")
-            print("")
+            printc(bcolors.OKBLUE, "config.ini OK\n")
+            # print("")
 
 
 def default_config():
@@ -2933,7 +2948,7 @@ if __name__ == "__main__":
     if make_test['gmake']:
         GNU_MAKE = "gmake"
     else:
-        print(make_test['make'])
+        # print(make_test['make'])
         GNU_MAKE = "make"
 
     
@@ -2949,7 +2964,7 @@ if __name__ == "__main__":
 
     if global_vars.verbose:
         print("----------------------------")
-        printc(bcolors.OKCYAN, "Cross-Lib `xl` helper script\n")
+        printc(bcolors.OKGREEN, "Cross-Lib `xl` helper script\n")
         print("----------------------------")
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))

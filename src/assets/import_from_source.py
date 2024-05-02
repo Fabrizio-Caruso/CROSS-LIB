@@ -510,9 +510,7 @@ def store_tile(project, tile, xsize, ysize, index):
     fin.close()
 
 
-def read_shape(file_name):
-    fin = open(file_name, "rt")
-    lines = fin.readlines()
+def trim_newline_from_shape(lines):
     tile = ""
 
     filtered_lines = []
@@ -529,6 +527,17 @@ def read_shape(file_name):
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
     return trimmed_lines,xsize,len(trimmed_lines)
+    
+
+def read_shape(file_name):
+    fin = open(file_name, "rt")
+    lines = fin.readlines()
+    
+    # print(lines)
+    
+    trimmed_lines = trim_newline_from_shape(lines)
+    fin.close()
+    return trimmed_lines 
 
 
 def compute_split_tiles(lines,verbose_split_tiles=True):

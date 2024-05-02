@@ -1794,7 +1794,8 @@ def extend(params):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
             return
-        print(tile)
+        if global_vars.verbose:
+            print(tile)
         print("")
         print("7x8");
         shape7x8 = convert(tile,7,8,extend_algorithm)

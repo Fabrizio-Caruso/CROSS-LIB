@@ -955,8 +955,31 @@ class testImport(unittest.TestCase):
             '........'
             ]
         ]
-    
         )
+
+
+    # trim_newline_from_shape
+    def test_trim_newline_from_shape_1(self):
+        source_lines = ['#.####.#\n', '.######.\n', '#..##..#\n', '##.##.##\n', '.######.\n', '..####..\n', '.######.\n', '##.##.##\n']
+        
+        trimmed_lines,xsize,ysize = trim_newline_from_shape(source_lines)
+
+        self.assertEqual(trimmed_lines, ['#.####.#', '.######.', '#..##..#', '##.##.##', '.######.', '..####..', '.######.', '##.##.##'])
+        self.assertEqual(xsize,8)
+        self.assertEqual(ysize,8)
+
+
+    def test_trim_newline_from_shape_2(self):
+        source_lines = ['\n', '#.####.#\n', '.######.\n', '#..##..#\n', '##.##.##\n', '.######.\n', '..####..\n', '.######.\n', '##.##.##\n', '\n', '#############']
+        
+        trimmed_lines,xsize,ysize = trim_newline_from_shape(source_lines)
+
+        self.assertEqual(trimmed_lines, ['#.####.#', '.######.', '#..##..#', '##.##.##', '.######.', '..####..', '.######.', '##.##.##','########'])
+        self.assertEqual(xsize,8)
+        self.assertEqual(ysize,9)
+
+
+
 
 
 

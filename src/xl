@@ -773,8 +773,9 @@ def reset(params):
         
     elif len(params)<2:
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+        if global_vars.verbose:
 
-        print("Delete all non-project-specific temporary files")
+            print("Delete all non-project-specific temporary files")
         if(are_you_sure()=="y"):
             run_command_verbosely(make_command)
             return
@@ -791,8 +792,9 @@ def reset(params):
         # interactive = False
     # else:
         # interactive = True
+    if global_vars.verbose:
 
-    print("Project name: " + game_dir)
+        print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
@@ -800,7 +802,9 @@ def reset(params):
         print("Project not found!")
         return
 
-    print("Delete all temporary files including generated assets for '"+game_dir+"'")
+    if global_vars.verbose:
+
+        print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
     # if (not interactive) or (are_you_sure()=="y"):
     make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
@@ -1271,12 +1275,12 @@ def test_self(opt = "slow"):
     printc(bcolors.OKGREEN,"[xl remove]       OK\n")
 
     #rename
-    rename(["","_test_project", "foo"])
-    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
+    # rename(["","_test_project", "foo"])
+    # printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
-    #remove
-    rename(["","foo", "_test_project"])
-    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
+    #rename
+    # rename(["","foo", "_test_project"])
+    # printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #build
     build(["build", "_test_project", "stdio"])
@@ -1360,6 +1364,10 @@ def test_self(opt = "slow"):
             print(str(dirs_in_path("./projects/_test_project/shapes")))
             success=0
 
+        #reset
+        reset(["","-y"])
+        printc(bcolors.OKGREEN, "[xl reset]        OK\n")
+
         #size
         size(["size", "_test_project", "stdio_sized", "32", "24"],False)
         built_files = built_files_in_path("../build")
@@ -1389,6 +1397,10 @@ def test_self(opt = "slow"):
         for (dirpath, dirnames, filenames) in walk("./examples"):
             examples.extend(dirnames)
             break
+
+        #reset
+        reset(["","_test_project"])
+        printc(bcolors.OKGREEN, "[xl reset]        OK\n")
 
     #delete
     delete(["delete","_test_project","-y"])

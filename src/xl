@@ -939,10 +939,8 @@ def clean_test():
         return 1
 
 
-COMPILER_COMMAND = \
+CROSS_COMPILER_COMMAND = \
     {
-    'gcc'         : 'gcc',
-    'g++'         : 'g++',
     'cc65'        : 'cl65', 
     'z88dk'       : 'zcc', 
     'cmoc'        : 'cmoc',
@@ -953,10 +951,8 @@ COMPILER_COMMAND = \
     'tms9900-gcc' : 'tms9900-gcc -h'
     }
 
-COMPILER_COMMAND_EXPECTED = \
+CROSS_COMPILER_COMMAND_EXPECTED = \
     {
-    'gcc'    : 256,
-    'g++'    : 256,
     'cc65'   : 0, 
     'z88dk'  : 0, 
     'cmoc'   : 256,
@@ -965,6 +961,19 @@ COMPILER_COMMAND_EXPECTED = \
     'vbcc'   : 256,
     'ack'    : 0,
     'tms9900-gcc': 256
+    }
+
+
+NATIVE_COMPILER_COMMAND = \
+    {
+    'gcc'         : 'gcc',
+    'g++'         : 'g++',
+    }
+
+NATIVE_COMPILER_COMMAND_EXPECTED = \
+    {
+    'gcc'    : 256,
+    'g++'    : 256,
     }
 
 
@@ -1105,9 +1114,17 @@ def test_programs(title, command_list, expected_list, verbose=True):
 
 
 
-def test_compilers():
-    return test_programs("COMPILERS", COMPILER_COMMAND,COMPILER_COMMAND_EXPECTED)
+def test_cross_compilers():
+    return test_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND,CROSS_COMPILER_COMMAND_EXPECTED)
 
+def test_native_compilers():
+    return test_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, NATIVE_COMPILER_COMMAND_EXPECTED)
+
+
+def test_compilers():
+    test_native_compilers()
+    test_cross_compilers()
+    
 def test_make(verbose=True):
     return test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
 
@@ -1487,15 +1504,17 @@ def test(params):
         test_tools()
     elif params[1]=="emulators":
         test_emulators()
-    elif params[1]=="compilers":
-        test_compilers()
+    elif params[1]=="cross-compilers" or params[1]=="cross_compilers":
+        test_cross_compilers()
+    elif params[1]=="native_compilers" or params[1]=="native-compilers":
+        test_native_compilers()
     elif params[1]=="libraries":
         test_libraries()
     elif params[1]=="interpreters":
         test_interpreters()
     elif params[1]=="make":
         test_make()
-    elif params[1]=="unit-tests":
+    elif params[1]=="unit-tests" or params[1]=="unit_tests":
         unit_tests()
     elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':
         if targets_test(params):

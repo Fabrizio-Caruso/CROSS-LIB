@@ -1151,7 +1151,7 @@ def test_libraries():
     return test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
 
 
-def test_projects(projects):
+def test_projects(projects, target="stdio"):
 
     clean_test()
     
@@ -1163,7 +1163,7 @@ def test_projects(projects):
         number_of_projects = 1
     print("number of projects: " + str(number_of_projects))
     #multiple_build
-    build(["build",projects,"stdio",compilation_threads,""])
+    build(["build",projects,target,compilation_threads,""])
     built_files = built_files_in_path("../build")
     
     if len(built_files)!=number_of_projects:
@@ -1609,7 +1609,14 @@ def test(params):
             printc(bcolors.FAIL, "TEST KO\n")
         return
     else:
-        if test_projects(params[1]):
+        
+        if len(params)>=3:
+            par1 = params[1]
+            par2 = params[2]
+        else:
+            par1 = params[1]
+            par2 = "stdio"
+        if test_projects(par1,par2):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")
@@ -2515,7 +2522,7 @@ def help(params):
             printc(bcolors.BOLD,"xl self\n")
             print("It checks the presence of the most common compilers.")
         elif params[1]=="test":
-            printc(bcolors.BOLD,"xl test <[optional] params>\n")
+            printc(bcolors.BOLD,"xl test <[optional] params> <[optional] target>\n")
             print("It runs some operations to test 'xl'.")
             print("")
             print("<params>")
@@ -2526,8 +2533,8 @@ def help(params):
             print("If <params> is 'emulators', then it checks the presence of the emulators used by xl.")
             print("If <params> is 'interpreters', then it checks the presence of the interpreters used by xl.")
             print("If <params> is 'libraries', then it checks the presence of the libraries used by xl.")
-            print("If <params> is a game/example/project, then it checks if a native binary for that game/example/project can be built.")
-            print('If <params> is "games" or "examples", then it checks if native binaries can be built for all games/examples.')
+            print("If <params> is a game/example/project, then it checks if a binary for <target> (native with omitted <target>), for that game/example/project can be built.")
+            print('If <params> is "games" or "examples", then it checks if binaries for <target> (native with omitted <target>) can be built for all games/examples.')
             print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
             print("If 'z88dk_targets_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
             print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")

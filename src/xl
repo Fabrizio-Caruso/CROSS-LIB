@@ -82,7 +82,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "self": "test xl script", \
     "shapes": "generates tiles from shapes", \
     "show": "shows tiles of a project as shapes", \
-    "size": "builds the native version of a project", \
+    "size": "builds the native version of a project with a given size", \
     "split": "splits a shape file in left and right shape", \
     "string": "produces case-sensitive strings as Cross-Lib characters macros", \
     "test": "runs some tests", \
@@ -2752,10 +2752,14 @@ def list_documented_routines():
 
 def manual(params):
     if len(params)==1:
-        run_command_verbosely("cat ../docs/CROSS_LIB_APIS.txt")
+        command_string = "cat ../docs/CROSS_LIB_APIS.txt"
+    elif params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
+        command_string = "cat ../docs/manual/" + params[1] + ".txt"
     else:
-        run_command_verbosely("cat ../docs/manual/" + params[1] + ".txt")
-
+        command_string = "cat ../docs/manual/_XL_" + params[1] + ".txt"
+    res = os.system(command_string)
+    if res:
+        printc(bcolors.WARNING,"\nCommand/topic not found\n")
 
 # ---------------------------------------------
 

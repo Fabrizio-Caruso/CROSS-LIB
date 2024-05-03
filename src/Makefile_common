@@ -2110,6 +2110,10 @@ ifdef USE_TOOLS
 endif
 endif
 	rm -rf $(BUILD_PATH)/XBIN.BIN
+	rm -rf XBIN.BIN
+	rm -rf A80
+	rm -rf A80.LDR
+
 
 coco_targets: \
     coco coco_mono coco3
@@ -2173,6 +2177,9 @@ ifdef USE_TOOLS
 endif
 endif
 	rm -rf $(BUILD_PATH)/XBIN.BIN
+	rm -rf XBIN.BIN
+	rm -rf A80
+	rm -rf A80.LDR
 
 
 # coco3: coco3_gfx

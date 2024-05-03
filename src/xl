@@ -1151,6 +1151,18 @@ def test_libraries():
     return test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
 
 
+# TODO: Handle aliases such as dragon->coco
+
+# TODO: Handle Windows vs Linux and targets with 3 binaries
+if platform in ["cygwin", "msys"]:
+    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500']
+    TARGETS_WITH_3_BINARIES = ['coco']
+else:
+    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500','coco']
+    TARGETS_WITH_3_BINARIES = []
+
+
+
 def test_projects(projects, target="stdio"):
 
     clean_test()
@@ -1166,7 +1178,20 @@ def test_projects(projects, target="stdio"):
     build(["build",projects,target,compilation_threads,""])
     built_files = built_files_in_path("../build")
     
-    if len(built_files)!=number_of_projects:
+    # TODO: Handle target=*_targets and all
+    if target.endswith("_targets") or target=="all": 
+        print("Test on the number of binaries for all these targets is not supported")
+        
+    if target in TARGETS_WITH_3_BINARIES:
+        files_per_project = 3
+    elif target in TARGETS_WITH_2_BINARIES:
+        files_per_project = 2
+    else:
+        files_per_project = 1
+        
+    print("Expected binaries per project: " + str(files_per_project))
+        
+    if len(built_files)<files_per_project*number_of_projects:
         printc(bcolors.FAIL, "[xl build]  KO\n")
         print("Built files: " +str(built_files))
         print("Expected number : " + str(number_of_projects))

@@ -1104,20 +1104,23 @@ def test_programs(title, command_list, expected_list, verbose=True):
                 printc(bcolors.OKGREEN,"[" + compiler + "]")
             res = "found\n"
             res_color = bcolors.OKGREEN
+            res_color2 = bcolors.OKGREEN
             total_result[compiler]=True
         else:
-            if verbose:
-                printc(bcolors.WARNING,"[" + compiler + "]")
+
             total_result[compiler]=False
             if compiler in BUILDABLE_TOOLS:
                 res = "NOT built\n"
-                res_color = bcolors.OKCYAN
-                # print(result)
+                res_color = bcolors.OKBLUE
+                res_color2 = bcolors.OKCYAN
             else:
                 res = "NOT found\n"
                 res_color = bcolors.WARNING
+                res_color2 = bcolors.WARNING
+            if verbose:
+                printc(res_color,"[" + compiler + "]")
         if verbose:
-            printc(res_color, spaces + res)
+            printc(res_color2, spaces + res)
     if verbose:
         printc(bcolors.OKCYAN,"----------------------------------------\n\n")
     return(total_result)

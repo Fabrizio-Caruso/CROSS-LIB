@@ -1,2 +1,4 @@
+XSize
+
 Number of tiles that can be displayed horizontally on the (usable) screen
 

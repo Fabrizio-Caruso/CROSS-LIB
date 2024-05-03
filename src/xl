@@ -1166,6 +1166,15 @@ else:
     TARGETS_WITH_3_BINARIES = []
 
 
+def list_of_projects(project_category):
+    # print("category: " + project_category)
+    if project_category in ["examples", "projects", "games"]:
+        res = dirs_in_path("./"+project_category)
+    else:
+        res = dirs_in_path("./examples")+dirs_in_path("./games")+dirs_in_path("./projects")
+    # print(res)
+    return res
+
 
 def test_projects(projects, target="stdio"):
 
@@ -1655,9 +1664,8 @@ def test(params):
 # Self-test xl and native build
 def check(params):
     if len(params)<=1:
-        test_compilers()
         test_tools()
-        test_emulators()
+        test_interpreters()
         test_native_compilers()
         test_cross_compilers()
         test_libraries()
@@ -3172,5 +3180,7 @@ if __name__ == "__main__":
         help(params[1:])
     elif params[1]=="tools":
         tools()
-    else:
+    elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(params)
+    else:
+        manual(params)

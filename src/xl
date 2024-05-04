@@ -1069,12 +1069,30 @@ INTERPRETER_COMMAND_EXPECTED = \
 
 LIBRARY_COMMAND = \
     {
-    'ncurses'  : "ls -l /usr/include/ncurses.h",
+    'ncurses'  : "ls /usr/include/ncurses.h",
     }
 
 LIBRARY_COMMAND_EXPECTED = \
     {
     'ncurses'  : 0,
+    }
+
+ROM_COMMAND = \
+    {
+    'msx'     : 'ls ../roms/mame/canonv20.zip',
+    'c16'     : 'ls ../roms/vice/plus4/kernal',
+    'c64'     : 'ls ../roms/vice/c64/kernal',
+    'pet'     :'ls ../roms/vice/pet/kernal4',
+    'vic20'   : 'ls ../roms/vice/vic20/kernal',
+    }
+
+ROM_COMMAND_EXPECTED = \
+    {
+    'msx'     : 0,
+    'c16'     : 0,
+    'c64'     : 0,
+    'pet'     : 0,
+    'vic20'   : 0
     }
 
 MAKE_COMMAND = \
@@ -1089,7 +1107,7 @@ MAKE_COMMAND_EXPECTED = \
     'gmake' : 0,
     }
 
-def test_programs(title, command_list, expected_list, verbose=True):
+def check_programs(title, command_list, expected_list, verbose=True):
     if verbose:
         printc(bcolors.OKCYAN,"----------------------------------------\n")
         printc(bcolors.OKCYAN, title)
@@ -1129,31 +1147,34 @@ def test_programs(title, command_list, expected_list, verbose=True):
 
 
 def test_cross_compilers():
-    return test_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND,CROSS_COMPILER_COMMAND_EXPECTED)
+    return check_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND,CROSS_COMPILER_COMMAND_EXPECTED)
 
 def test_native_compilers():
-    return test_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, NATIVE_COMPILER_COMMAND_EXPECTED)
+    return check_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, NATIVE_COMPILER_COMMAND_EXPECTED)
+
+def test_make(verbose=True):
+    return check_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
+
+def test_tools(verbose=True):
+    return check_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, verbose)
+
+def test_emulators():
+    return check_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
+
+def test_interpreters():
+    return check_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
+
+def test_libraries():
+    return check_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
+
+def test_roms():
+    return check_programs("ROMS", ROM_COMMAND, ROM_COMMAND_EXPECTED)
 
 
 def test_compilers():
     test_native_compilers()
     test_cross_compilers()
     
-def test_make(verbose=True):
-    return test_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
-
-def test_tools(verbose=True):
-    return test_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, verbose)
-
-def test_emulators():
-    return test_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
-
-def test_interpreters():
-    return test_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
-
-def test_libraries():
-    return test_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
-
 
 # TODO: Handle aliases such as dragon->coco
 
@@ -1517,7 +1538,7 @@ def test_all():
     test_libraries()
     test_interpreters()
     test_emulators()
-    
+    test_roms()
     
     unit_tests()
     return test_self()
@@ -1670,6 +1691,8 @@ def check(params):
         test_cross_compilers()
         test_libraries()
         test_make()
+        test_emulators()
+        test_roms()
     elif params[1]=="compilers":
         test_compilers()
     elif params[1]=="tools":

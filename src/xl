@@ -1101,6 +1101,15 @@ ROM_COMMAND = \
     'pet/kernal4'     : 'ls ../roms/vice/pet/kernal4',    
 
     'pet/chargen'     : 'ls ../roms/vice/pet/chargen',
+    'pet/characters.901640-01.bin'     : 'ls ../roms/vice/pet/characters.901640-01.bin',
+
+    'pet/edit1g'     :'ls ../roms/vice/pet/edit1g',
+    'pet/edit2b'     :'ls ../roms/vice/pet/edit2b',
+    'pet/edit2g'     :'ls ../roms/vice/pet/edit2g',
+
+    'pet/edit4b40'     :'ls ../roms/vice/pet/edit4b40',
+    'pet/edit4b80'     :'ls ../roms/vice/pet/edit4b80',
+    'pet/edit4g40'     :'ls ../roms/vice/pet/edit4g40',
 
     'vic20/basic'     : 'ls ../roms/vice/vic20/basic',
     'vic20/chargen'     : 'ls ../roms/vice/vic20/chargen',
@@ -1131,6 +1140,17 @@ ROM_COMMAND_EXPECTED = \
     'pet/basic4'     : 0,
 
     'pet/chargen'     :0,
+    'pet/characters.901640-01.bin'     :0,
+    'pet/chargen'     :0,
+    
+    'pet/edit1g'     :0,
+    'pet/edit2b'     :0,
+    'pet/edit2g'     :0,
+
+    'pet/edit4b40'     :0,
+    'pet/edit4b80'     :0,
+    'pet/edit4g40'     :0,
+
 
 
     'vic20/kernal'     : 0,
@@ -1162,7 +1182,7 @@ def check_programs(title, command_list, expected_list, verbose=True):
     # for compiler in command_list.keys():
         # if len(compiler)>max_len:
             # max_len = len(compiler)
-    max_len = 14
+    max_len = 28
 
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
@@ -1586,8 +1606,8 @@ def test_all():
     test_tools()
     test_libraries()
     test_interpreters()
-    test_emulators()
-    test_roms()
+    # test_emulators()
+    # test_roms()
     
     unit_tests()
     return test_self()

@@ -1079,20 +1079,63 @@ LIBRARY_COMMAND_EXPECTED = \
 
 ROM_COMMAND = \
     {
-    'msx'     : 'ls ../roms/mame/canonv20.zip',
-    'c16'     : 'ls ../roms/vice/plus4/kernal',
-    'c64'     : 'ls ../roms/vice/c64/kernal',
-    'pet'     :'ls ../roms/vice/pet/kernal4',
-    'vic20'   : 'ls ../roms/vice/vic20/kernal',
+    'msx/msx'      : 'ls ../roms/mame/msx.zip',
+    'msx/canon20'  : 'ls ../roms/mame/canonv20.zip',
+    
+    'c16/kernal'     : 'ls ../roms/vice/plus4/kernal',
+    'c16/basic'     : 'ls ../roms/vice/plus4/basic',
+    'c16/3plus1hi'     : 'ls ../roms/vice/plus4/3plus1hi',
+    'c16/3plus1lo'     : 'ls ../roms/vice/plus4/3plus1lo',
+
+    'c64/basic'     : 'ls ../roms/vice/c64/basic',
+    'c64/chargen'     : 'ls ../roms/vice/c64/chargen',
+    'c64/kernal'     : 'ls ../roms/vice/c64/kernal',
+
+    'pet/basic1'     : 'ls ../roms/vice/pet/basic1',
+    'pet/kernal1'     : 'ls ../roms/vice/pet/kernal1',
+
+    'pet/basic2'     : 'ls ../roms/vice/pet/basic2',
+    'pet/kernal2'     : 'ls ../roms/vice/pet/kernal2',
+
+    'pet/basic4'     : 'ls ../roms/vice/pet/basic4',
+    'pet/kernal4'     : 'ls ../roms/vice/pet/kernal4',    
+
+    'pet/chargen'     : 'ls ../roms/vice/pet/chargen',
+
+    'vic20/basic'     : 'ls ../roms/vice/vic20/basic',
+    'vic20/chargen'     : 'ls ../roms/vice/vic20/chargen',
+    'vic20/kernal'     : 'ls ../roms/vice/vic20/kernal',    
     }
 
 ROM_COMMAND_EXPECTED = \
     {
-    'msx'     : 0,
-    'c16'     : 0,
-    'c64'     : 0,
-    'pet'     : 0,
-    'vic20'   : 0
+    'msx/msx'        : 0,
+    'msx/canon20'    : 0,
+    
+    'c16/kernal'     : 0,
+    'c16/basic'      : 0,
+    'c16/3plus1hi'   : 0,
+    'c16/3plus1lo'   : 0,
+    
+    'c64/kernal'     : 0,
+    'c64/chargen'     :0,
+    'c64/basic'     : 0,
+
+    'pet/kernal1'     : 0,
+    'pet/basic1'     : 0,
+    
+    'pet/kernal2'     : 0,
+    'pet/basic2'     : 0,
+    
+    'pet/kernal4'     : 0,
+    'pet/basic4'     : 0,
+
+    'pet/chargen'     :0,
+
+
+    'vic20/kernal'     : 0,
+    'vic20/chargen'     :0,
+    'vic20/basic'     : 0,
     }
 
 MAKE_COMMAND = \
@@ -1115,9 +1158,15 @@ def check_programs(title, command_list, expected_list, verbose=True):
 
     total_result = {}
 
+    # max_len = 0
+    # for compiler in command_list.keys():
+        # if len(compiler)>max_len:
+            # max_len = len(compiler)
+    max_len = 14
+
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
-        spaces = " " * (12-len(compiler))
+        spaces = " " * (max_len+1-len(compiler))
         if result==expected_list[compiler]:
             if verbose:
                 printc(bcolors.OKGREEN,"[" + compiler + "]")
@@ -1657,6 +1706,8 @@ def test(params):
         test_libraries()
     elif params[1]=="interpreters":
         test_interpreters()
+    elif params[1]=="roms":
+        test_roms()
     elif params[1]=="make":
         test_make()
     elif params[1]=="unit-tests" or params[1]=="unit_tests":
@@ -1709,6 +1760,8 @@ def check(params):
         test_interpreters()
     elif params[1]=="make":
         test_make()
+    elif params[1]=="roms":
+        test_roms()
 
     
     

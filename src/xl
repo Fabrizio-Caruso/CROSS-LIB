@@ -1079,8 +1079,8 @@ LIBRARY_COMMAND_EXPECTED = \
 
 ROM_COMMAND = \
     {
-    'msx/msx'      : 'ls ../roms/mame/msx.zip',
-    'msx/canon20'  : 'ls ../roms/mame/canonv20.zip',
+    'msx/msx.zip'      : 'ls ../roms/mame/msx.zip',
+    'msx/canon20.zip'  : 'ls ../roms/mame/canonv20.zip',
     
     'c16/kernal'     : 'ls ../roms/vice/plus4/kernal',
     'c16/basic'     : 'ls ../roms/vice/plus4/basic',
@@ -1116,10 +1116,11 @@ ROM_COMMAND = \
     'vic20/kernal'     : 'ls ../roms/vice/vic20/kernal',    
     }
 
+
 ROM_COMMAND_EXPECTED = \
     {
-    'msx/msx'        : 0,
-    'msx/canon20'    : 0,
+    'msx/msx.zip'        : 0,
+    'msx/canon20.zip'    : 0,
     
     'c16/kernal'     : 0,
     'c16/basic'      : 0,
@@ -1756,14 +1757,70 @@ def test(params):
 # Self-test xl and native build
 def check(params):
     if len(params)<=1:
-        test_tools()
-        test_interpreters()
-        test_native_compilers()
-        test_cross_compilers()
-        test_libraries()
-        test_make()
-        test_emulators()
-        test_roms()
+        tools = test_tools()
+        interpreters = test_interpreters()
+        native_compilers =test_native_compilers()
+        cross_compilers = test_cross_compilers()
+        libraries = test_libraries()
+        make = test_make()
+        emulators = test_emulators()
+        roms = test_roms()
+        
+        print("")
+        
+        printc(bcolors.BOLD, "SUMMARY\n")
+        tools = True
+        xl_run_cross_target = True
+        native_target = True
+        cross_target = True
+        
+        if not make['make'] and not make['gmake']:
+            printc(bcolors.ERROR, "No make command detected!\n")
+            
+        if not native_compilers['gcc']:
+            # printc(bcolors.WARNING, "No gcc compiler detected -> Several targets and native target impacted\n")
+            tools = False
+            native_target = False
+            
+        if not native_compilers['g++']:
+            # printc(bcolors.WARNING, "No g++ compiler detected -> Few targets impacted (coco/dragon)\n")
+            tools = True
+
+        if not libraries['ncurses']:
+            printc(bcolors.WARNING, "No ncurses library detected -> Native target impacted\n")
+            native_target = False
+
+        for cross_compiler in cross_compilers.keys():
+            if not cross_compilers[cross_compiler]:
+                # printc(bcolors.WARNING, "No " + cross_compiler + " cross-compiler -> xl build <project> <target> impacted for some targets\n")
+                cross_target = False
+                
+        for emulator in emulators.keys():
+            if not emulators[emulator]:
+                # printc(bcolors.WARNING, "No " + emulator + " emulator -> xl run <project> <target> impacted for some targets\n")
+                xl_run_cross_target = False
+                break
+
+        for rom in roms.keys():
+            if not roms[rom]:
+                # printc(bcolors.WARNING, "No " + rom + " rom -> xl run <project> <target> impacted for some targets\n")
+                xl_run_cross_target = False
+                break
+
+        if not tools:
+            printc(bcolors.WARNING, "Building of some tools may be KO\n")
+            
+        if not native_target:
+            printc(bcolors.WARNING, "Native target KO\n")
+            
+        if not cross_target:
+            printc(bcolors.WARNING, "Some cross-target may be KO\n")
+            
+        if not xl_run_cross_target:
+            printc(bcolors.WARNING, "xl run <project> <target> may be KO for some target\n")
+
+
+        
     elif params[1]=="compilers":
         test_compilers()
     elif params[1]=="tools":

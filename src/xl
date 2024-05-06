@@ -1784,7 +1784,8 @@ def check(params):
             
         if not native_compilers['g++']:
             # printc(bcolors.WARNING, "No g++ compiler detected -> Few targets impacted (coco/dragon)\n")
-            tools = True
+            xl_run_cross_target = True
+            tools = False
 
         if not libraries['ncurses']:
             printc(bcolors.WARNING, "No ncurses library detected -> Native target impacted\n")
@@ -1808,16 +1809,16 @@ def check(params):
                 break
 
         if not tools:
-            printc(bcolors.WARNING, "Building of some tools may be KO\n")
+            printc(bcolors.WARNING, "'xl tools' may be KO for some targets\n")
             
         if not native_target:
-            printc(bcolors.WARNING, "Native target KO\n")
+            printc(bcolors.WARNING, "'xl build <project>' may be KO (no native build)\n")
             
         if not cross_target:
-            printc(bcolors.WARNING, "Some cross-target may be KO\n")
+            printc(bcolors.WARNING, "'xl build <project> <target>' may be KO for some targets\n")
             
         if not xl_run_cross_target:
-            printc(bcolors.WARNING, "xl run <project> <target> may be KO for some target\n")
+            printc(bcolors.WARNING, "'xl run <project> <target>' may be KO for some targets\n")
 
 
         

@@ -621,6 +621,8 @@ Pass the ihx file as a parameter to the emulator
 
 Run it directly with the command “A=CALL(49200)”
 
+---
+
 .bac 
 
 abc80 --casfile program.bac
@@ -632,6 +634,8 @@ or
 put the .bac file in the right directory (abcdir), 
 
 then run prb:xchase
+
+---
 
 .dsk
 
@@ -650,6 +654,8 @@ Put the image in <mydir>
 Run abc80 -Dd <mydir>
 
 run xchase
+
+--------------------------------
 
 Use ABC80Win.
 

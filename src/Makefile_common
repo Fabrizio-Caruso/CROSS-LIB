@@ -128,10 +128,10 @@ z88dk_targets_sequential: \
     aquarius \
     ace \
     agon \
-    cpc \
     c128_z80_40col \
     camputers_lynx \
     coleco \
+    cpc \
     cpm \
     gb \
     laser500 \
@@ -697,18 +697,11 @@ abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
 	-D__ABC80__ -clib=ansi -vn  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-DLESS_TEXT \
-	-DSIMPLE_STRATEGY \
-	-DNO_BLINKING \
-	-DNO_HINTS \
 	-D__NO_WAIT \
-	-DNO_BORDER \
-	-DNO_RANDOM_LEVEL \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_SLEEP \
-	-DFLAT_ENEMIES \
 	-lndos -create-app -o abc80.bin \
 	$(FULL_FILES)
 ifdef USE_TOOLS

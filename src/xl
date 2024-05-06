@@ -1250,10 +1250,10 @@ def test_compilers():
 # TODO: Handle Windows vs Linux and targets with 3 binaries
 if platform in ["cygwin", "msys"]:
     TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500']
-    TARGETS_WITH_3_BINARIES = ['coco']
+    TARGETS_WITH_3_BINARIES = ['coco','abc80']
 else:
     TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500','coco']
-    TARGETS_WITH_3_BINARIES = []
+    TARGETS_WITH_3_BINARIES = ['abc80']
 
 
 def list_of_projects(project_category):

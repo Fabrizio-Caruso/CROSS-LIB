@@ -684,7 +684,10 @@ def create(params):
     if not os.path.exists(dest_path+"/shapes"):
         if global_vars.verbose:
             print("Copying shapes...")
-        shutil.copytree(source_path+"/shapes", dest_path+"/shapes")
+        if not os.path.exists(source_path+"/shapes"):
+            os.makedirs(dest_path+"/shapes")
+        else:
+            shutil.copytree(source_path+"/shapes", dest_path+"/shapes")
 
     if not os.path.exists(dest_path+"/generated_assets"):
         if global_vars.verbose:
@@ -1374,7 +1377,7 @@ def test_self(opt = "slow"):
     projects_before_create = list(["list"],False)
     
     project_dirs_before_create = len(dirs_in_path("./projects"))
-
+    initial_dirs = project_dirs_before_create
 
     # create
     create(["create", "_test_project", "test"])
@@ -1394,6 +1397,62 @@ def test_self(opt = "slow"):
     else:
         printc(bcolors.OKGREEN,"[xl list]         OK\n")
 
+    # create 
+    create(["create", "_test_project2", "game"])
+    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+
+    # create 
+    create(["create", "_test_project3", "demo"])
+    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+
+    # create 
+    create(["create", "_test_project4", "text"])
+    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+
+    # create 
+    create(["create", "_test_project5", "helloworld"])
+    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+
+    #build
+    build(["build", "_test_project2", "stdio"])
+    built_files = built_files_in_path("../build")
+    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    
+    #build
+    build(["build", "_test_project3", "stdio"])
+    built_files = built_files_in_path("../build")
+    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    
+    #build
+    build(["build", "_test_project4", "stdio"])
+    built_files = built_files_in_path("../build")
+    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+
+    #build
+    build(["build", "_test_project5", "stdio"])
+    built_files = built_files_in_path("../build")
+    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+
+    #clean
+    success = success * clean_test()
+    if success:
+        printc(bcolors.OKGREEN,"[xl clean]        OK\n")
+
+    #delete
+    delete(["delete","_test_project2","-y"])
+    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    
+    #delete
+    delete(["delete","_test_project3","-y"])
+    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+
+    #delete
+    delete(["delete","_test_project4","-y"])
+    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+
+    #delete
+    delete(["delete","_test_project5","-y"])
+    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
 
     #add
     add(["","_test_project", "einstein"])
@@ -1404,15 +1463,15 @@ def test_self(opt = "slow"):
     printc(bcolors.OKGREEN,"[xl remove]       OK\n")
 
     #delete
-    delete(["delete","foo","-y"])
+    delete(["delete","_foo_test","-y"])
 
 
     #rename
-    rename(["","_test_project", "foo"])
+    rename(["","_test_project", "_foo_test"])
     printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #rename
-    rename(["","foo", "_test_project"])
+    rename(["","_foo_test", "_test_project"])
     printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #build
@@ -1585,7 +1644,7 @@ def test_self(opt = "slow"):
     delete(["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
-    if project_dirs_after_delete > 0:
+    if project_dirs_after_delete != initial_dirs:
         printc(bcolors.FAIL, "[xl delete]       KO\n")
         print(project_dirs_before_create)
         print(project_dirs_after_delete)

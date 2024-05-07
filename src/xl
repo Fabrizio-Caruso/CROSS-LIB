@@ -245,8 +245,32 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         run_command_verbosely(make_command)
         if(is_project_split(project_name)):
             delete_main(project_name,project_type)
-    # files_after = len(files_in_path("../build"))-1
+
+# Tentative parallel version:
+
+    from multiprocessing import Pool
+
+    # pool = Pool(processes=8)
+
+    # for project_name in projects:
+        # if(is_project_split(project_name)):
+            # project_type = project_category(project_name)
+            # create_main(project_name,project_type)
+        # make_command = \
+            # GNU_MAKE + " " + target + use_tools_str + \
+                # " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+                # + all_compilers_opts(zsdcc_extra_optimization, "") + \
+                # " _NATIVE_CC=" + native_compiler + \
+                # " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
+                # " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+        # pool.apply_async(run_command_verbosely, [make_command])
     
+    # pool.close()
+    # pool.join()
+
+    # for project_name in projects:
+        # if(is_project_split(project_name)):
+            # delete_main(project_name,project_type)    
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
@@ -3038,6 +3062,7 @@ def read_config():
         import ConfigParser as configparser
     
     global compilation_threads
+    global parallelize_multi_build
     global z88dk_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
@@ -3112,6 +3137,8 @@ def read_config():
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
 
+        parallelize_multi_build = read_config_option("build","parallelize_multi_build") 
+
         z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
@@ -3160,11 +3187,14 @@ def read_config():
 def default_config():
     
     global compilation_threads
+    global parallelize_multi_build
     global z88dk_compiler_opts 
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
     global lcc1802_compiler_opts
+    global gcc4ti99_compiler_opts
+    global native_compiler_opts
 
     global native_compiler
     
@@ -3188,6 +3218,7 @@ def default_config():
     global_vars.verbose = True 
     compiler_opts = ""
     compilation_threads = 1
+    parallelize_multi_build = 0
     zsdcc_compiler_opts = ""
     z88dk_compiler_opts = ""
     cmoc_compiler_opts = ""
@@ -3197,6 +3228,7 @@ def default_config():
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
     lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
+    gcc4ti99_compiler_opts = "-O2"
     use_tools = 0
     global_vars.color_terminal = 0
 
@@ -3214,7 +3246,8 @@ def display_config():
     
     printc(bcolors.BOLD,"[build]\n")
     print("compilation_threads: " + str(compilation_threads))
-    
+    print("parallelize_multi_build: " + str(parallelize_multi_build))
+
     
     print("z88dk_compiler_opts: " +  z88dk_compiler_opts)
     print("zsdcc_compiler_opts: " +  zsdcc_compiler_opts)

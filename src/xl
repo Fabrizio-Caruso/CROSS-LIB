@@ -1635,9 +1635,9 @@ def test_self(opt = "slow"):
         printc(bcolors.OKGREEN, "[xl reset]        OK\n")
 
 
-    projects_before_create = list(["list"],False)
+    projects_before_delete = list(["list"],False)
     
-    project_dirs_before_create = len(dirs_in_path("./projects"))
+    project_dirs_before_delete = len(dirs_in_path("./projects"))
 
 
     #delete
@@ -1645,7 +1645,7 @@ def test_self(opt = "slow"):
     project_dirs_after_delete = len(dirs_in_path("./projects"))
     
     if project_dirs_after_delete != initial_dirs:
-        printc(bcolors.FAIL, "[xl delete]       KO\n")
+        printc(bcolors.FAIL,    "[xl delete]       KO\n")
         print(project_dirs_before_create)
         print(project_dirs_after_delete)
         success=0
@@ -1654,6 +1654,25 @@ def test_self(opt = "slow"):
 
     if clean_test()==0:
         success=0
+
+
+    # build (all examples)
+    build(["","examples","stdio"])
+    
+    built_files = built_files_in_path("../build")
+    
+    if len(built_files)!=len(examples):
+        success=0
+        printc(bcolors.FAIL, "[xl build]        KO\n")
+        print(built_files)
+        print(examples)
+    else:
+        printc(bcolors.OKGREEN, "[xl build]        OK\n")
+
+
+    if clean_test()==0:
+        success=0
+
     printc(bcolors.OKCYAN,"----------------------------------------\n")
 
     return success

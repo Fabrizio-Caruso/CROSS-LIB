@@ -208,6 +208,7 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         if(is_project_split(project_name)):
             delete_main(project_name,project_type)
 
+
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
     
@@ -229,48 +230,50 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             printc(bcolors.OKCYAN,project_name+" ")
         print("")
 
+    if parallelize_multi_build==1:
+        
+    # Tentative parallel version:
+        print("parallel multi build")
+        # quit()
+        pool = Pool(processes=int(threads))
 
-    for project_name in projects:
-        if(is_project_split(project_name)):
-            project_type = project_category(project_name)
-            create_main(project_name,project_type)
-        make_command = \
-            GNU_MAKE + " " + target + use_tools_str + \
-                " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                + all_compilers_opts(zsdcc_extra_optimization, "") + \
-                " _NATIVE_CC=" + native_compiler + \
-                " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
-                " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+        for project_name in projects:
+            if(is_project_split(project_name)):
+                project_type = project_category(project_name)
+                create_main(project_name,project_type)
+            make_command = \
+                GNU_MAKE + " " + target + use_tools_str + \
+                    " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+                    + all_compilers_opts(zsdcc_extra_optimization, "") + \
+                    " _NATIVE_CC=" + native_compiler + \
+                    " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
+                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+            pool.apply_async(run_command_verbosely, [make_command])
+        
+        pool.close()
+        pool.join()
 
-        run_command_verbosely(make_command)
-        if(is_project_split(project_name)):
-            delete_main(project_name,project_type)
+        for project_name in projects:
+            if(is_project_split(project_name)):
+                delete_main(project_name,project_type)        
+    else:
+        for project_name in projects:
+            if(is_project_split(project_name)):
+                project_type = project_category(project_name)
+                create_main(project_name,project_type)
+            make_command = \
+                GNU_MAKE + " " + target + use_tools_str + \
+                    " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
+                    + all_compilers_opts(zsdcc_extra_optimization, "") + \
+                    " _NATIVE_CC=" + native_compiler + \
+                    " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
+                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
 
-# Tentative parallel version:
+            run_command_verbosely(make_command)
+            if(is_project_split(project_name)):
+                delete_main(project_name,project_type)
 
-    from multiprocessing import Pool
 
-    # pool = Pool(processes=8)
-
-    # for project_name in projects:
-        # if(is_project_split(project_name)):
-            # project_type = project_category(project_name)
-            # create_main(project_name,project_type)
-        # make_command = \
-            # GNU_MAKE + " " + target + use_tools_str + \
-                # " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                # + all_compilers_opts(zsdcc_extra_optimization, "") + \
-                # " _NATIVE_CC=" + native_compiler + \
-                # " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
-                # " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
-        # pool.apply_async(run_command_verbosely, [make_command])
-    
-    # pool.close()
-    # pool.join()
-
-    # for project_name in projects:
-        # if(is_project_split(project_name)):
-            # delete_main(project_name,project_type)    
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
@@ -3316,6 +3319,8 @@ if __name__ == "__main__":
         default_config()
         print("WARNING: Using default config")
 
+    if parallelize_multi_build:   
+        from multiprocessing import Pool
 
     if global_vars.verbose:
         print("----------------------------")

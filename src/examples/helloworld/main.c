@@ -34,6 +34,8 @@ int main(void)
 
     _XL_PRINT(XSize/2-5,YSize/2,"HELLO WORLD");
 
+    _XL_REFRESH();
+
     while(1){};
     
     return EXIT_SUCCESS;

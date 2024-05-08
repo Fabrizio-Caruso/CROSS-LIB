@@ -267,7 +267,6 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         
     # Tentative parallel version:
         # print("parallel multi build")
-        # quit()
         pool = Pool(processes=int(threads))
 
         for project_name in projects:
@@ -549,10 +548,9 @@ def create_main(game_dir, project_type):
     parent_dir_path = "./" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
     split_dir_path = project_dir_path + "split_files/"
-    # run_command_verbosely("ls -l " + split_dir_path);
-    # run_command_verbosely("ls -l " + parent_dir_path);
-    # run_command_verbosely("ls -l " + project_dir_path);    
-    run_command_verbosely("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
+
+    # run_command_verbosely("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
+    os.system("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
 
 
 def delete_main(game_dir, project_type):
@@ -659,7 +657,7 @@ def build(params):
             run_command_verbosely(make_command)
             
             if is_project_split(game_dir):
-                print("Delete main.c because of split source files)")
+                print("Delete main.c because of split source files")
                 delete_main(game_dir, project_type)
             
         else:
@@ -1729,6 +1727,24 @@ def test_self(opt = "slow"):
     else:
         printc(bcolors.OKGREEN, "[xl build]        OK\n")
 
+    if clean_test()==0:
+        success=0
+
+    # build (all games)
+    # global_vars.verbose = 1
+    # global_vars.test = 0
+    build(["","games","stdio"])
+    
+    built_files = built_files_in_path("../build")
+    
+    if len(built_files)!=len(games):
+        success=0
+        printc(bcolors.FAIL, "[xl build]        KO\n")
+        print(built_files)
+        print(games)
+        quit()
+    else:
+        printc(bcolors.OKGREEN, "[xl build]        OK\n")
 
     if clean_test()==0:
         success=0
@@ -2125,6 +2141,7 @@ def run(params):
                 print("'xl run' does not support this target")
                 return
             command_string = vice_path + emulator + " -directory " + rom_directory + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            
             run_command_verbosely(command_string)
 
         elif target in MAME_TARGETS:

@@ -208,6 +208,39 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         if(is_project_split(project_name)):
             delete_main(project_name,project_type)
 
+#TODO: cc65 targets, cmoc targets, lcc1802 targets
+#TODO: mc10 (6303)
+#TODO: ace, c128, cpc, laser500, mc1000, mtx500, mtx512, pc88, z1013
+PARALLEL_TARGETS = \
+    [
+    'stdio', 
+    
+    'ncurses',
+    
+    'agon',
+    'aquarius',
+    'camputers_lynx', 
+    'coleco',
+    'gb',
+    'gal',
+    'gamegear',
+    'm100',
+    'microbee',
+    'msx',
+    'mz',
+    'samcoupe',
+    'sc3000',
+    'sg1000',
+    'sms',
+    'spectrum',
+    'trs80',
+    'vg5k',
+    'vz200',
+    'zx81',
+    'zx81_wrx',
+    'z9001',
+    'kc'
+    ]
 
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
     projects = []
@@ -230,10 +263,10 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             printc(bcolors.OKCYAN,project_name+" ")
         print("")
 
-    if parallelize_multi_build==1:
+    if parallelize_multi_build==1 and target in PARALLEL_TARGETS:
         
     # Tentative parallel version:
-        print("parallel multi build")
+        # print("parallel multi build")
         # quit()
         pool = Pool(processes=int(threads))
 
@@ -3141,7 +3174,11 @@ def read_config():
                 print("----------------------------")
 
         parallelize_multi_build = read_config_option("build","parallelize_multi_build") 
-
+        if parallelize_multi_build!="":
+            parallelize_multi_build=int(parallelize_multi_build)
+        else:
+            parallelize_multi_build=0
+            
         z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts") 
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")

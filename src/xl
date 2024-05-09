@@ -1388,12 +1388,22 @@ def test_clean_tools():
     return number_of_tools, built_tools
 
 
-def test_self(opt = "slow"):
+def test_self(target = "stdio",opt = "slow"):
 
+    # print("target1: " + str(target))
+    # if(len(params)<3):
+        # target = "stdio"
+    # else:
+        # target = params[1]
+    # print("target2: " + str(target))
+    # quit()
     printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, "XL SCRIPT")
+    printc(bcolors.OKCYAN, "XL SCRIPT TEST")
     printc(bcolors.OKCYAN,"\n----------------------------------------\n")
     success = 1
+    printc(bcolors.BOLD,  "target: ")
+    printc(bcolors.OKBLUE,target+"\n")
+    printc(bcolors.OKCYAN,"----------------------------------------\n")
 
     global_vars.test = 1
     global_vars.verbose = 0
@@ -1473,22 +1483,22 @@ def test_self(opt = "slow"):
     printc(bcolors.OKGREEN, "[xl create]       OK\n")
 
     #build
-    build(["build", "_test_project2", "stdio"])
+    build(["build", "_test_project2", target])
     built_files = built_files_in_path("../build")
     printc(bcolors.OKGREEN,"[xl build]        OK\n")
     
     #build
-    build(["build", "_test_project3", "stdio"])
+    build(["build", "_test_project3", target])
     built_files = built_files_in_path("../build")
     printc(bcolors.OKGREEN,"[xl build]        OK\n")
     
     #build
-    build(["build", "_test_project4", "stdio"])
+    build(["build", "_test_project4", target])
     built_files = built_files_in_path("../build")
     printc(bcolors.OKGREEN,"[xl build]        OK\n")
 
     #build
-    build(["build", "_test_project5", "stdio"])
+    build(["build", "_test_project5", target])
     built_files = built_files_in_path("../build")
     printc(bcolors.OKGREEN,"[xl build]        OK\n")
 
@@ -1534,7 +1544,7 @@ def test_self(opt = "slow"):
     printc(bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #build
-    build(["build", "_test_project", "stdio"])
+    build(["build", "_test_project", target])
     built_files = built_files_in_path("../build")
     
     if global_vars.verbose:
@@ -1755,7 +1765,7 @@ def test_self(opt = "slow"):
     return success
 
 
-def test_all():
+def test_all(params):
 
     test_compilers()
     # test_make()
@@ -1766,6 +1776,7 @@ def test_all():
     # test_roms()
     
     unit_tests()
+    # print("params: " + str(params))
     return test_self()
 
 expected_files = {
@@ -1861,13 +1872,16 @@ def unit_tests():
 # Self-test xl and native build
 def test(params):
     if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
-        if test_all():
+        if test_all(params):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
     elif params[1]=="self":
-        test_self()
+        if(len(params)<3):
+            test_self()
+        else:
+            test_self(params[2])
     elif params[1]=="compilers":
         test_compilers()
     elif params[1]=="tools":
@@ -2918,8 +2932,8 @@ def help(params):
             print("It runs some operations to test 'xl'.")
             print("")
             print("<params>")
-            print("If 'self' or nothing is passed to <params>, then it performs several tests.")
-            print("If 'xl' is passed to <params>, then it self-tests by performing a sequence of 'xl' commands.")
+            print("If nothing is passed to <params>, then it performs several tests including the self-test.")
+            print("If 'self' is passed to <params>, then it tests itself by performing a sequence of 'xl' commands.")
             print("If <params> is 'compilers', then it checks the presence of the most common compilers.")
             print("If <params> is 'tools', then it checks the presence of the most common tools.")
             print("If <params> is 'emulators', then it checks the presence of the emulators used by xl.")
@@ -3440,7 +3454,10 @@ if __name__ == "__main__":
     elif params[1]=="unit-tests":
         test(["test","unit-tests"])
     elif params[1]=="self":
-        test(["test","self"])
+        if(len(params)<3):
+            test_self()
+        else:
+            test_self(params[2])
     elif params[1]=="assets":
         shapes(params[1:])    
         make_assets_from_tiles(params[1:])

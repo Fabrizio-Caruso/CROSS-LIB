@@ -104,7 +104,8 @@ SHORT_COMMANDS_LIST = OrderedDict( \
         "l": "list", \
         "f": "files", \
         "r": "rebuild", \
-        "x": "run"
+        "x": "run", \
+        "t": "test"
     })
 
 

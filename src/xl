@@ -1926,7 +1926,7 @@ def test(params):
             examples.extend(dirnames)
             break
         
-        print(projects + games + examples)
+        # print(projects + games + examples)
         # quit()
         if params[1] in projects + games + examples or params[1] in ['examples','games','projects','all']:
             # print("KO")

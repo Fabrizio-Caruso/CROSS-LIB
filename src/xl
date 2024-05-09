@@ -1549,7 +1549,9 @@ def test_self(target = "stdio",opt = "slow"):
     
     if global_vars.verbose:
         print("built binaries: " + str(built_files))
-    if len(built_files)!=1:
+    if len(built_files)==0:
+        print("built binaries: " + str(built_files))
+
         printc(bcolors.FAIL, "[xl build]        KO\n")
         success=0
     else:

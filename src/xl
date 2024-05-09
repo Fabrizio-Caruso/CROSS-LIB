@@ -1911,17 +1911,40 @@ def test(params):
             printc(bcolors.FAIL, "TEST KO\n")
         return
     else:
+        projects = []
+        for (dirpath, dirnames, filenames) in walk("./projects"):
+            projects.extend(dirnames)
+            break
         
-        if len(params)>=3:
-            par1 = params[1]
-            par2 = params[2]
+        games = []
+        for (dirpath, dirnames, filenames) in walk("./games"):
+            games.extend(dirnames)
+            break
+        
+        examples = []
+        for (dirpath, dirnames, filenames) in walk("./examples"):
+            examples.extend(dirnames)
+            break
+        
+        print(projects + games + examples)
+        # quit()
+        if params[1] in projects + games + examples or params[1] in ['examples','games','projects','all']:
+            # print("KO")
+            # quit()
+            if len(params)>=3:
+                par1 = params[1]
+                par2 = params[2]
+            else:
+                par1 = params[1]
+                par2 = "stdio"
+            if test_projects(par1,par2):
+                printc(bcolors.OKGREEN, "TEST OK\n")
+            else:
+                printc(bcolors.FAIL, "TEST KO\n")
         else:
-            par1 = params[1]
-            par2 = "stdio"
-        if test_projects(par1,par2):
-            printc(bcolors.OKGREEN, "TEST OK\n")
-        else:
-            printc(bcolors.FAIL, "TEST KO\n")
+            # print("OK")
+            # quit()
+            test_self(params[1])
         return
     
     

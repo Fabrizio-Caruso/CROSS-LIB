@@ -1944,7 +1944,7 @@ def check(params):
         cross_target = True
         
         if tools and native_target and xl_run_cross_target and cross_target:
-            printc(bcolors.OKCYAN, "No issue found")
+            printc(bcolors.OKCYAN, "No issue found\n")
         
         if not make['make'] and not make['gmake']:
             printc(bcolors.ERROR, "No make command detected!\n")

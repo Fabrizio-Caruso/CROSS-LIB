@@ -1779,7 +1779,7 @@ def test_all(params):
     
     unit_tests()
     # print("params: " + str(params))
-    return test_self()
+    return test_self(params)
 
 expected_files = {
     "cc65_targets": 8, 
@@ -1874,7 +1874,7 @@ def unit_tests():
 # Self-test xl and native build
 def test(params):
     if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
-        if test_all(params):
+        if test_all("stdio"):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
             printc(bcolors.FAIL, "TEST KO\n")
@@ -1944,7 +1944,7 @@ def test(params):
         else:
             # print("OK")
             # quit()
-            test_self(params[1])
+            test_all(params[1])
         return
     
     

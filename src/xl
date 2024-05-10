@@ -3113,7 +3113,12 @@ def list_documented_routines():
 
 def manual(params):
     if len(params)==1:
-        command_string = "cat ../docs/CROSS_LIB_APIS.txt"
+        printc(bcolors.OKCYAN, "DOCUMENTED ROUTINES\n")
+        list_documented_routines()
+        print("")
+        print("Use")
+        printc(bcolors.BOLD,"xl manual <routine>\n")
+        return
     elif params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
         command_string = "cat ../docs/manual/" + params[1] + ".txt"
     else:

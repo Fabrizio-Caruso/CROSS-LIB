@@ -1808,7 +1808,7 @@ def targets_test(params):
         make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
-    elif params[1]=="stdio":
+    elif params[1]=="stdio_targets":
         make_command = GNU_MAKE + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
@@ -1904,7 +1904,7 @@ def test(params):
         test_make()
     elif params[1]=="unit-tests" or params[1]=="unit_tests":
         unit_tests()
-    elif params[1].endswith('targets') or params[1].endswith('targets_alt') or params[1]=='stdio':
+    elif params[1].endswith('targets') or params[1].endswith('targets_alt'):
         if targets_test(params):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:

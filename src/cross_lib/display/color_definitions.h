@@ -240,6 +240,9 @@
     #define _XL_BLACK _CREAT_WHITE
 
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
+	// TODO: This has to be fixed probably by avoiding _BACKGROUND_COLOR = a macro color
+	// TODO: White option
+	/*
     #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
         #define _XL_PURPLE 0
         #define _XL_GREEN 1
@@ -259,9 +262,9 @@
         #endif
         #define _XL_BLACK 2
         
-        // TODO: Remove this hack and handle real black on white background
         #define _XL_WHITE _XL_BLUE
     #else
+		*/
         #define _XL_WHITE 2
 
         #define _XL_PURPLE 1
@@ -283,29 +286,17 @@
         
         // TODO: Remove this hack and handle real black on white background
         #define _XL_BLACK _XL_BLUE
-    #endif
-
-#elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
-    // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
-        // #define _XL_BLACK 0xF0
-        // #define _XL_RED 0xF2
-        // #define _XL_WHITE 0xFF
-        // #define _XL_BLUE 0xFD
-        // #define _XL_YELLOW 0xF9
-        // #define _XL_GREEN 0xFA
-        // #define _XL_CYAN 0xFE
- 
-    // #else
-        #define _XL_BLACK 0x1
-        #define _XL_RED 0x2
-        #define _XL_WHITE 0x0F
-        #define _XL_BLUE 0xD
-        #define _XL_YELLOW 0x9
-        #define _XL_GREEN 0xA
-        #define _XL_CYAN 0xE
     // #endif
 
-
+#elif defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)
+	#define _XL_BLACK 0x1
+	#define _XL_RED 0x2
+	#define _XL_WHITE 0x0F
+	#define _XL_BLUE 0xD
+	#define _XL_YELLOW 0x9
+	#define _XL_GREEN 0xA
+	#define _XL_CYAN 0xE
+	
 #elif defined(__SUPERVISION__)
 
     #define _AUX_BLACK 0xFF

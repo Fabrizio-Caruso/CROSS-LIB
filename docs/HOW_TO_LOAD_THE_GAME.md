@@ -706,6 +706,16 @@ load"xchase"
 run
 
 ---------------------------------------------------------
+### M100 / Olivetti M10 / KC85
+
+.CO file can be loaded into VirtualT emulator through "File > Load file from HD" menu item.
+
+Once the program is in memory, enter BASIC and give the following command:
+
+CLEAR 0,49999
+
+now the program can be loaded, either via the BASIC command RUNM "A.CO or by pressing F8 to get back to the menu and choosing it with the cursors.
+---------------------------------------------------------
 
 ### Memotech MTX 500 and 512
 

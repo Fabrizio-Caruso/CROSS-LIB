@@ -67,8 +67,11 @@ target name         | long target name                            | working  |  
 *kaypro*            | Kaypro 2X                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *kramermc*          | Kramer-MC                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kc*                | Robotron KC-85/2/3/4                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
+*kc85*              | Kyocera 85                                  |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
 *lambda*            | Lambda 8300                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
+*m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
@@ -158,9 +161,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 150
+TOTAL    : 153
 
-OK       : 146
+OK       : 149
 
 KO       :   2
 
@@ -173,7 +176,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 111
+  Z88DK | 114
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -188,7 +191,7 @@ CPU family    | no. 8-bit targets  |
 Zilog 80      | 105                |
 MOS 6502      |  24                |
 RCA 1802      |   7                |
-Intel 8080    |   5                |
+Intel 8080    |   8                |
 Motorola 6803 |   1                |
 Motorola 6809 |   5                |
 GBZ80         |   1                |
@@ -275,9 +278,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 169
+TOTAL    : 172
 
-OK       : 156
+OK       : 159
 
 KO       :   4
 

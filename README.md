@@ -3,7 +3,7 @@
 # CROSS LIB
 ![LOGO](snapshots/CrossLibLogoByHamletShorter.jpg)
 
-*Cross-Lib* and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber, Cross Snake, Cross Horde, Cross Verbix)
+*Cross-Lib* and games that use it (e.g., Chase, Shoot, Bomber, Snake, Horde, Verbix, Shuriken, Stinger)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 

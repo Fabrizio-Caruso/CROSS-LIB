@@ -67,11 +67,11 @@ target name         | long target name                            | working  |  
 *kaypro*            | Kaypro 2X                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *kramermc*          | Kramer-MC                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kc*                | Robotron KC-85/2/3/4                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
-*kc85*              | Kyocera 85                                  |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
+*kc85*              | Kyocera 85                                  |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *lambda*            | Lambda 8300                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
-*m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |    missing      |    missing     | missing |
+*m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
+*m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
@@ -102,6 +102,7 @@ target name         | long target name                            | working  |  
 *pacman*            | Pacman Namco arcade board                   |    NO    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *pasaopia7*         | Toshiba Pasopia 7                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing | PSG SN76489 
 *pc6001*            | NEC PC 6001                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |    
+*pc8201*             | NEC PC 8201                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *pc88*              | NEC PC 8801                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *pce*               | PCEngine                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *pcw*               | Amstrad PCW                                 |    ?     |   Zilog 80    |  Z88DK  |       ?         |    missing     | missing | 
@@ -161,9 +162,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 153
+TOTAL    : 154
 
-OK       : 149
+OK       : 150
 
 KO       :   2
 
@@ -176,7 +177,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 114
+  Z88DK | 115
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -190,8 +191,8 @@ CPU family    | no. 8-bit targets  |
 --------------|--------------------|
 Zilog 80      | 105                |
 MOS 6502      |  24                |
+Intel 8080    |   9                |
 RCA 1802      |   7                |
-Intel 8080    |   8                |
 Motorola 6803 |   1                |
 Motorola 6809 |   5                |
 GBZ80         |   1                |
@@ -278,9 +279,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 172
+TOTAL    : 173
 
-OK       : 159
+OK       : 160
 
 KO       :   4
 

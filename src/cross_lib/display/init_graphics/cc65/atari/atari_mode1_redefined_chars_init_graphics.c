@@ -102,7 +102,7 @@ uint8_t _atari_text_color;
     
 // #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
     #define _ATARI_BACKGROUND_COLOR GTIA_COLOR_WHITE
     #define _ATARI_EXTRA_COLOR GTIA_COLOR_BLACK
 #else

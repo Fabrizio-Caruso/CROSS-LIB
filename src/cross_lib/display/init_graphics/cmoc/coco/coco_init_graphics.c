@@ -43,7 +43,7 @@ void _XL_INIT_GRAPHICS(void)
     // 0xF0-16 -> 4 colors with green background
     
     #if defined(__BIT_MAPPED_4_GRAPHICS)
-        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
             POKE(0xFF22,_MULTI_COLOR_ON_WHITE);
         #else
             POKE(0xFF22,_MULTI_COLOR_ON_GREEN);

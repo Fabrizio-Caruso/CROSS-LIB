@@ -8,7 +8,7 @@ void _XL_INIT_GRAPHICS(void)
 		PUTCH(0x14);	
 	
 		
-        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
             
             // SCREEN 7 - TEXT COLOR
             PUTCH(0x1B);PUTCH(32);PUTCH(64);PUTCH(32);

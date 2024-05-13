@@ -56,7 +56,7 @@
 
 
 #if !defined(_BACKGROUND_COLOR)
-    #define _BACKGROUND_COLOR _XL_BLACK
+    #define _BACKGROUND_COLOR 0
 #endif
 
 // This may be different on each target

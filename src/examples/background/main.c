@@ -89,8 +89,10 @@ int main(void)
     {
         for(j=0;j<NUMBER_OF_COLORS;++j)
         {
-            if(text_color[j]!=_BACKGROUND_COLOR)
-            {
+			// TODO: This may work weirdly when WHITE is defined as a non-WHITE color, e.g., on the Apple //
+			// TODO: WHITE should be defined differently for the Apple // and maybe on other targets
+            // if(text_color[j]!=__BACKGROUND_COLOR)
+            // {
                 _XL_CLEAR_SCREEN();
                 
                 _XL_SET_TEXT_COLOR(text_color[j]);
@@ -130,7 +132,7 @@ int main(void)
                     _XL_DRAW(COL_OFFSET+TILE_SEPARATION*i,3,tile[i],text_color[j]);
                 }   
                 _XL_WAIT_FOR_INPUT();
-            }
+            // }
         }
     }
     _XL_CLEAR_SCREEN();

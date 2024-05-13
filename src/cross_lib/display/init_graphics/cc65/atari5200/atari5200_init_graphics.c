@@ -67,7 +67,7 @@ void _XL_INIT_GRAPHICS(void)
         POKE(COLOR1,GTIA_COLOR_WHITE);
         POKE(COLOR2,GTIA_COLOR_CYAN);
         POKE(COLOR3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
             POKE(COLOR4,GTIA_COLOR_WHITE);
         #else
             POKE(COLOR4,GTIA_COLOR_BLACK);
@@ -77,7 +77,7 @@ void _XL_INIT_GRAPHICS(void)
         SETCOLOR_LOW(1,GTIA_COLOR_WHITE);
         SETCOLOR_LOW(2,_gtia_mkcolor(HUE_GREEN,3));
         SETCOLOR_LOW(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
             SETCOLOR_LOW(4,GTIA_COLOR_WHITE);
         #else
             SETCOLOR_LOW(4,GTIA_COLOR_BLACK);

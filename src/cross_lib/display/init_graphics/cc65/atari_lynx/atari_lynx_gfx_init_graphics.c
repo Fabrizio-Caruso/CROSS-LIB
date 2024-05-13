@@ -263,8 +263,8 @@ void _tgi_gfx_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 
 void _XL_INIT_GRAPHICS(void)
 {
-   #if defined(_BACKGROUND_COLOR)
-    _atari_lynx_background_color = _BACKGROUND_COLOR;
+   #if defined(__BACKGROUND_COLOR)
+    _atari_lynx_background_color = __BACKGROUND_COLOR;
     #endif
 
   Sempty.penpal[0] = _atari_lynx_background_color << 4;

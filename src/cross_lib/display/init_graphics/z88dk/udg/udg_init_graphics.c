@@ -18,7 +18,7 @@ void _XL_INIT_GRAPHICS(void)
 		#define __SCREEN_MODE 2
 	#endif
 	
-	#if defined(__MC1000__) && defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+	#if defined(__MC1000__) && defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
 		int mode = __SCREEN_MODE + 32;
 	#else
 		int mode = __SCREEN_MODE;
@@ -30,9 +30,9 @@ void _XL_INIT_GRAPHICS(void)
 	#if defined(__SPECTRUM__)
         printf("\x01\x20");
 
-        textbackground(_BACKGROUND_COLOR);
-        zx_border(_BACKGROUND_COLOR);
-        // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+        textbackground(__BACKGROUND_COLOR);
+        zx_border(__BACKGROUND_COLOR);
+        // #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
             // textbackground(_XL_WHITE);
             // zx_border(7);
         // #else

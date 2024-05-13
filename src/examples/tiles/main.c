@@ -40,7 +40,7 @@ const uint8_t tiles[] = {
 #define NUMBER_OF_COLORS 6
 #define MAX_STRING_SIZE 10
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
     #define FIRST_COLOR _XL_BLACK
 #else
     #define FIRST_COLOR _XL_WHITE
@@ -67,7 +67,7 @@ const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] =
 
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
                                 "BLACK",
     #else
                                 "WHITE",

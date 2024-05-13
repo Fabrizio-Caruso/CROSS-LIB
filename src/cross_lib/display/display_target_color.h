@@ -35,9 +35,14 @@
     #define _XL_NO_TEXT_COLOR
 #endif
 
-#define __BACKGROUND_COLOR _BACKGROUND_COLOR
-#define __BORDER_COLOR _BACKGROUND_COLOR
-// #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+	#define __BACKGROUND_COLOR _XL_WHITE
+	#define __BORDER_COLOR _XL_WHITE
+#else
+	#define __BACKGROUND_COLOR _XL_BLACK
+	#define __BORDER_COLOR _XL_BLACK
+#endif
+// #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
 
     // #if defined(WHITE)
         // #define __BACKGROUND_COLOR WHITE

@@ -16,7 +16,7 @@ void _XL_INIT_GRAPHICS(void)
 	POKE(648,192);
 	
 	/*
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
         // Frame color = WHITE
         POKE(53280u,1);
         

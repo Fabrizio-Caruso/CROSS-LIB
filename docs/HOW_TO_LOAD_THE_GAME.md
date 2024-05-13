@@ -706,7 +706,7 @@ load"xchase"
 run
 
 ---------------------------------------------------------
-### M100 / Olivetti M10 / KC85
+### M100 / Olivetti M10 / KC85 / PC8201
 
 .CO file can be loaded into VirtualT emulator through "File > Load file from HD" menu item.
 

@@ -48,7 +48,7 @@ void Reset_Scroll(void)
 
 
 //
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==_XL_WHITE
+#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
     #define NES_BACKGROUND_COLOR COLOR_WHITE
 #else
     #define NES_BACKGROUND_COLOR COLOR_BLACK

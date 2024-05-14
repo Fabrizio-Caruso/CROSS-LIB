@@ -87,6 +87,7 @@ target name         | long target name                            | working  |  
 *myvision*          | Nichibutsu My Vision                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *mz*                | Sharp MZ 80/700                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *mz2500*            | Sharp MZ 2500                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*nabu*              | Nabu PC                                     |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK?      | missing |
 *nascom*            | Nascom                                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
 *nc100*             | Amstrad NC-100/150                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *nc200*             | Amstrad NC-200                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
@@ -162,9 +163,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 154
+TOTAL    : 155
 
-OK       : 150
+OK       : 151
 
 KO       :   2
 
@@ -177,7 +178,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 115
+  Z88DK | 116
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -189,7 +190,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 105                |
+Zilog 80      | 106                |
 MOS 6502      |  24                |
 Intel 8080    |   9                |
 RCA 1802      |   7                |
@@ -279,9 +280,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 173
+TOTAL    : 174
 
-OK       : 160
+OK       : 161
 
 KO       :   4
 

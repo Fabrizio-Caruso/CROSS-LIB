@@ -6,7 +6,7 @@
 
 #include "display_macros.h"
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+#if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define _NCURSES_BACKGROUND_COLOR COLOR_WHITE
 #else
     #define _NCURSES_BACKGROUND_COLOR COLOR_BLACK

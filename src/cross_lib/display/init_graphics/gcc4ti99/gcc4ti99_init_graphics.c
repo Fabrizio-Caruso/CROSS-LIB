@@ -10,7 +10,7 @@
 #include "display_macros.h"
 // #include <stdint.h>
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+#if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define set_group_color(group, color) \
         vdpmemset(gColor+group,COLOR_WHITE+16*color,1)
 
@@ -46,7 +46,7 @@ void set_udg_colors(void)
 	set_group_color(11,COLOR_WHITE);
 
 // 96
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
 	set_group_color(12,COLOR_BLACK);
 	set_group_color(13,COLOR_BLACK);
 	set_group_color(14,COLOR_BLACK);

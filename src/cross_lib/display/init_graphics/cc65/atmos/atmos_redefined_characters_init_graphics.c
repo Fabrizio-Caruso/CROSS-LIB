@@ -15,7 +15,7 @@
 #include "udg_map.h"
 
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+#if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define ORIC_BACKGROUND_COLOR 23
     #define ORIC_INK_COLOR 0
 #else

@@ -29,7 +29,7 @@ void _XL_INIT_GRAPHICS(void)
 	
 	POKE(646,1);
     
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
         POKE(36879L,25);
     #else
         POKE(36879L,8);

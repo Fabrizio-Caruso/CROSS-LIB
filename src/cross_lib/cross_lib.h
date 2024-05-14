@@ -55,8 +55,8 @@
 #endif
 
 
-#if !defined(_BACKGROUND_COLOR)
-    #define _BACKGROUND_COLOR 0
+#if !defined(__BACKGROUND_COLOR)
+    #define __BACKGROUND_COLOR 0
 #endif
 
 // This may be different on each target

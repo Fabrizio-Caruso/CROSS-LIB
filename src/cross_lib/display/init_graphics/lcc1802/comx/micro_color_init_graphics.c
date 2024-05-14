@@ -112,7 +112,7 @@ void _XL_INIT_GRAPHICS(void)
         redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
     }
     
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
         (void) bgcolor(7);
     #else
         (void) bgcolor(0);

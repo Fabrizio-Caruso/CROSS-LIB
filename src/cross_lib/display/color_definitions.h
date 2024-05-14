@@ -22,7 +22,7 @@
     #define _XL_BLACK (16*BLACK)
 
 #elif defined(__MO5__)
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
         #define _XL_BLACK (0+7)
         #define _XL_RED (16+7)
         #define _XL_GREEN (32+7)
@@ -240,10 +240,10 @@
     #define _XL_BLACK _CREAT_WHITE
 
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
-	// TODO: This has to be fixed probably by avoiding _BACKGROUND_COLOR = a macro color
+	// TODO: This has to be fixed probably by avoiding __BACKGROUND_COLOR = a macro color
 	// TODO: White option
 
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
         #define _XL_PURPLE 0
         #define _XL_GREEN 1
         #define _XL_MAGENTA 0
@@ -400,7 +400,7 @@
     #define _XL_BLACK 8
     
 #elif defined(__MC1000__)
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
         #define _XL_WHITE MAGENTA
         #define _XL_CYAN CYAN
         #define _XL_YELLOW MAGENTA

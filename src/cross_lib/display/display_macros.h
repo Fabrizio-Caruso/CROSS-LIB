@@ -240,7 +240,7 @@
     do \
     { \
         _SET_BORDER_COLOR(__BORDER_COLOR); \
-        _SET_BACKGROUND_COLOR(__BACKGROUND_COLOR); \
+        _SET_BACKGROUND_COLOR(_XL_BACKGROUND_COLOR); \
     } while(0)
 #endif
 

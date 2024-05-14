@@ -91,7 +91,7 @@ int main(void)
         {
 			// TODO: This may work weirdly when WHITE is defined as a non-WHITE color, e.g., on the Apple //
 			// TODO: WHITE should be defined differently for the Apple // and maybe on other targets
-            // if(text_color[j]!=__BACKGROUND_COLOR)
+            // if(text_color[j]!=_XL_BACKGROUND_COLOR)
             // {
                 _XL_CLEAR_SCREEN();
                 

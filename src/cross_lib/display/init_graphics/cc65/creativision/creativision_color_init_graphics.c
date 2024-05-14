@@ -36,7 +36,7 @@
 #define _CREAT_VDP_WHITE 15
 #define _CREAT_VDP_BLACK 0
 
-#if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+#if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define _CREAT_BACKGROUND_COLOR _CREAT_VDP_WHITE
     #define _CREAT_TEXT_COLOR _CREAT_VDP_BLACK
 #else
@@ -86,7 +86,7 @@ void set_udg_colors(void)
 	set_group_block_color(8,_CREAT_VDP_YELLOW);
 
 // 96
-    #if defined(_BACKGROUND_COLOR) && _BACKGROUND_COLOR==1
+    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
 	// set_group_color(12,_CREAT_VDP_BLACK);
 	// set_group_color(13,_CREAT_VDP_BLACK);
 	// set_group_color(14,_CREAT_VDP_BLACK);

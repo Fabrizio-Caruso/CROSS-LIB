@@ -1029,7 +1029,6 @@ ifdef USE_TOOLS
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
-	mv $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 endif
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc

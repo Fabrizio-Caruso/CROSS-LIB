@@ -279,7 +279,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         print("")
 
     if parallelize_multi_build==1 and target in PARALLEL_TARGETS:
-        
+        # printc(bcolors.OKCYAN,"PARALLEL BUILD OF GAMES\n")
     # Tentative parallel version:
         # print("parallel multi build")
         pool = Pool(processes=int(threads))

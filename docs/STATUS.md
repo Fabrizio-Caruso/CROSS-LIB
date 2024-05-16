@@ -135,6 +135,7 @@ target name         | long target name                            | working  |  
 *supervision*       | Watara Supervision                          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *sv8000*            | Bandai Supervision 8000                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK ?  | 4k rom limit
 *svi*               | Spectravideo 318/328                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*T200*              | TRS-80 T200                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *telestrat*         | Oric Telestrat                              |   YES    |   MOS 6502    |   CC65  |    missing      |    missing     | missing |
 *tmc600*            | Telmac TMC-600                              |   YES    |   RCA 1802    | LCC1802 |      OK         |      N/A       |   OK    | 
 *ti82*              | Texas Instruments TI 82                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
@@ -163,9 +164,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 155
+TOTAL    : 156
 
-OK       : 151
+OK       : 152
 
 KO       :   2
 
@@ -178,7 +179,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 116
+  Z88DK | 117
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -192,7 +193,7 @@ CPU family    | no. 8-bit targets  |
 --------------|--------------------|
 Zilog 80      | 106                |
 MOS 6502      |  24                |
-Intel 8080    |   9                |
+Intel 8080    |  10                |
 RCA 1802      |   7                |
 Motorola 6803 |   1                |
 Motorola 6809 |   5                |
@@ -280,9 +281,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 174
+TOTAL    : 175
 
-OK       : 161
+OK       : 162
 
 KO       :   4
 

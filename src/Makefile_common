@@ -707,12 +707,8 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
-	-o ace -Cz--audio -create-app	
-	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	cp ace.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
-	rm ace.wav
-	rm ace.tap
-	rm ace
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@ -Cz--audio -create-app
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 #################################################################
 
@@ -1360,26 +1356,22 @@ laser500: laser500_keyboard
 
 laser500_joy: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
-	-create-app -o laser500bm.bin \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__  -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
 	-D__BIT_BANG_SOUND  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_LASER500_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
-	 \
-	 \
 	-lndos \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm 
-	mv laser500bm.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	rm laser500bm.cas
-	mv laser500bm.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
 laser500_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
-	-create-app -o laser500bm.bin \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(INCLUDE_OPTS) -D_XL_NO_JOYSTICK \
 	-D__LASER500__  -DXSize=40 -DYSize=22 -D__SCREEN_MODE=2 \
 	-D__BIT_BANG_SOUND  \
@@ -1391,9 +1383,7 @@ laser500_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm 
-	mv laser500bm.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	rm laser500bm.cas
-	mv laser500bm.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
 #################################################################
@@ -1497,14 +1487,13 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__MC1000__ -D_XL_NO_JOYSTICK  \
 	-D__CONIO_GRAPHICS \
 	-vn  -lndos -Cz--audio \
-	-create-app -o $@.bin \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	mv $@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	rm $@.bin
-	rm $@.cas
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
 # background color white
@@ -1637,7 +1626,7 @@ mtx: mtx512
 mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -D__SCREEN_MODE=2 \
-	-create-app -oMTX.bin -vn \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MTX512_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-lndos \
@@ -1645,15 +1634,14 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) 
-	rm MTX.bin
-	mv MTX.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	mv MTX.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 
 mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
-	-create-app -oMTX500.bin -vn \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MTX500_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-lndos \
@@ -1661,9 +1649,8 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) 
-	rm MTX500.bin
-	mv MTX500.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	mv MTX500.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 
 #################################################################
@@ -1731,10 +1718,10 @@ pc88_wav: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-create-app	\
-	-o FULL_$@
-	rm FULL_$@
-	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	mv FULL_$@.t88 $(BUILD_PATH)/X$(GAME_NAME)_$@.t88
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	# mv FULL_$@.t88 $(BUILD_PATH)/X$(GAME_NAME)_$@.t88
 
 
 pc88: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -1748,10 +1735,10 @@ pc88: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-create-app	\
-	-o FULL_$@
-	rm FULL_$@
-	mv FULL_pc88.d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
-	rm FULL_pc88_BOOTSTRAP.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# mv FULL_pc88.d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BOOTSTRAP.bin
 
 #################################################################
 
@@ -2051,9 +2038,9 @@ z1013:
 	-D__Z1013__     \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	$(FULL_FILES) \
-	-create-app -o z1013
-	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/X$(GAME_NAME)_z1013.z80
-	rm -rf $(SOURCE_PATH)/../../z1013
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/X$(GAME_NAME)_z1013.z80
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
 #############################

@@ -209,15 +209,20 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         if(is_project_split(project_name)):
             delete_main(project_name,project_type)
 
-#TODO: cc65 targets, cmoc targets, lcc1802 targets
+#TODO: cc65 targets, 
+#TODO: cmoc targets, 
+#TODO: lcc1802 targets
 #TODO: mc10 (6303)
-#TODO: ace, c128, cpc, laser500, mc1000, mtx500, mtx512, pc88, z1013
+#TODO: c128 complicated because of c1541
+#TODO: cpc complicated because of nocart
+#TODO: 
 PARALLEL_TARGETS = \
     [
     'stdio', 
     
     'ncurses',
     
+    'ace',
     'agon',
     'aquarius',
     'camputers_lynx', 
@@ -225,10 +230,15 @@ PARALLEL_TARGETS = \
     'gb',
     'gal',
     'gamegear',
+    'laser500',
     'm100',
+    'mc1000',
     'microbee',
     'msx',
+    'mtx500',
+    'mtx512',
     'mz',
+    'pc88',
     'samcoupe',
     'sc3000',
     'sg1000',
@@ -240,7 +250,8 @@ PARALLEL_TARGETS = \
     'zx81',
     'zx81_wrx',
     'z9001',
-    'kc'
+    'kc',
+    'z1013'
     ]
 
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):

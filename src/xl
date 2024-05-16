@@ -209,13 +209,12 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         if(is_project_split(project_name)):
             delete_main(project_name,project_type)
 
-#TODO: cc65 targets, 
-#TODO: cmoc targets, 
+#TODO: cc65 targets 
+#TODO: cmoc targets
 #TODO: lcc1802 targets
 #TODO: mc10 (6303)
-#TODO: c128 complicated because of c1541
-#TODO: cpc complicated because of nocart
-#TODO: 
+#TODO: c128 (complicated because of c1541)
+#TODO: cpc (complicated because of nocart)
 PARALLEL_TARGETS = \
     [
     'stdio', 
@@ -226,6 +225,7 @@ PARALLEL_TARGETS = \
     'agon',
     'aquarius',
     'camputers_lynx', 
+    'cpm',
     'coleco',
     'gb',
     'gal',

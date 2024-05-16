@@ -234,6 +234,7 @@ PARALLEL_TARGETS = \
     'laser500',
     'm100',
     'mc1000',
+    'mc1000_mono',
     'microbee',
     'msx',
     'mtx500',
@@ -243,6 +244,7 @@ PARALLEL_TARGETS = \
     'pc88',
     'samcoupe',
     'sc3000',
+    'sc3000_rom',
     'sg1000',
     'sms',
     'spectrum',
@@ -278,10 +280,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
             printc(bcolors.OKCYAN,project_name+" ")
         print("")
 
-    if parallelize_multi_build==1 and target in PARALLEL_TARGETS:
-        # printc(bcolors.OKCYAN,"PARALLEL BUILD OF GAMES\n")
-    # Tentative parallel version:
-        # print("parallel multi build")
+    if (parallelize_multi_build==1) and (target in PARALLEL_TARGETS):
         pool = Pool(processes=int(threads))
 
         for project_name in projects:

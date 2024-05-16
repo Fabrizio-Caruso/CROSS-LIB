@@ -27,7 +27,9 @@
 #define NUMBER_OF_COLORS 7
 #define MAX_STRING_SIZE 10
 
-static const uint8_t text_color[NUMBER_OF_COLORS] = {_XL_BLACK, _XL_WHITE,  _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+#if !defined(_XL_NO_COLOR)
+static const uint8_t color[NUMBER_OF_COLORS] = {_XL_BLACK, _XL_WHITE,  _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+#endif
 
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
@@ -91,11 +93,11 @@ int main(void)
         {
 			// TODO: This may work weirdly when WHITE is defined as a non-WHITE color, e.g., on the Apple //
 			// TODO: WHITE should be defined differently for the Apple // and maybe on other targets
-            // if(text_color[j]!=_XL_BACKGROUND_COLOR)
+            // if(color[j]!=_XL_BACKGROUND_COLOR)
             // {
                 _XL_CLEAR_SCREEN();
                 
-                _XL_SET_TEXT_COLOR(text_color[j]);
+                _XL_SET_TEXT_COLOR(color[j]);
 
                 _XL_PRINT(XSize-12,0,"01234567890");
                 
@@ -129,7 +131,7 @@ int main(void)
                 
                 for(i=0;i<TILES_TO_DISPLAY;++i)
                 {
-                    _XL_DRAW(COL_OFFSET+TILE_SEPARATION*i,3,tile[i],text_color[j]);
+                    _XL_DRAW(COL_OFFSET+TILE_SEPARATION*i,3,tile[i],color[j]);
                 }   
                 _XL_WAIT_FOR_INPUT();
             // }

@@ -22,6 +22,6 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_eg2k.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 

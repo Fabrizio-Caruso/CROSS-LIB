@@ -1,0 +1,25 @@
+
+#############################
+# BIC
+
+bic: bic_buffered
+
+bic_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
+	$(INCLUDE_OPTS) \
+	-DXSize=79 \
+	-DYSize=21 \
+	-D_XL_NO_COLOR \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTURN_BASED -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	-D__BUFFERED_GRAPHICS \
+	-D__STDIO \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

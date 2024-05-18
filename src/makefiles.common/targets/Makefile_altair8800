@@ -1,0 +1,27 @@
+#############################
+# ALTAIR 8800
+
+altair8800: altair8800_buffered
+
+altair8800_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DXSize=16 \
+	-DYSize=12 \
+	-D__ALTAIR8800__ \
+	-vn -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	-D__NO_SCREEN_COLOR_INIT \
+	-lndos \
+	-D__BUFFERED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__STDIO \
+	-DTURN_BASED \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$@.rom
+	rm -rf $@_DATA.bin 
+	rm -rf $@_BSS.bin 
+	mv $@.rom $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
+	mv $@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+

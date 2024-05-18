@@ -1,0 +1,20 @@
+#############################
+# G800
+
+g800: g800_turn_based
+
+g800_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850b $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-DTURN_BASED \
+	-DNO_BLINKING \
+	-vn \
+	 \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800.bin
+	rm g800.bin 
+	rm g800.rom
+	mv g800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.ihx
+

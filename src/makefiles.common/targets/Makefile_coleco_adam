@@ -1,0 +1,15 @@
+#############################
+# COLECO_ADAM
+
+coleco_adam:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=adam \
+	-D__COLECO_ADAM__ \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS -DXSize=29 -DYSize=20 \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	$(FULL_FILES) \
+	-create-app -oxcadam.bin
+	rm xcadam.bin
+	rm xcadam.com    
+	mv xcadam.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img

@@ -1,0 +1,14 @@
+#############################
+# FP1100
+
+fp1100:
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1100__ -vn \
+	-D__VT52 \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) -D_XL_NO_JOYSTICK \
+	-create-app -o fp1100.bin
+	mv fp1100.d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm fp1100.bin
+	rm fp1100_BOOTSTRAP.bin

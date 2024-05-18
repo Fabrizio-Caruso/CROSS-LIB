@@ -1,0 +1,17 @@
+#############################
+# HGMC
+
+hgmc:
+	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__HGMC__ \
+	-DXSize=32 \
+	-DYSize=30 \
+	-D__NO_SCREEN_COLOR_INIT \
+	  \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

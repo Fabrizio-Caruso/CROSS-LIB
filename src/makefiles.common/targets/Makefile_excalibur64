@@ -1,0 +1,37 @@
+#############################
+# EXCALIBUR64
+
+excalibur64_turn_bsed:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(INCLUDE_OPTS) \
+	-D__CPM_80X24__ \
+	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=2000 -DTURN_BASED \
+	 -DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 \
+	-create-app -oxcex64tb.bin \
+	$(FULL_FILES) 
+	mv xcex64tb.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
+	rm -rf xcex64tb_HIMEM.bin
+	rm -rf xcexca64_bss_himem.bin
+	rm -rf xcex64tb.bin
+
+
+excalibur64:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	$(INCLUDE_OPTS) \
+	-D__CPM_80X24__ \
+	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=1600 \
+	 -DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 \
+	-create-app -oxcexca64.bin \
+	$(FULL_FILES) 
+	mv xcexca64.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
+	rm -rf xcexca64_HIMEM.bin
+	rm -rf xcexca64_bss_himem.bin
+	rm -rf xcexca64.bin
+	rm -rf xcexca64.com    
+    
+#################

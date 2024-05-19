@@ -1,0 +1,25 @@
+#############################
+# Z88
+
+z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
+	$(INCLUDE_OPTS) \
+	-D__Z88__ \
+	-vn -lndos -D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	 -D__BIT_BANG_SOUND \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app -o z88
+	rm z88
+	rm z88.ap0
+	rm z88_BSS.bin
+	rm z88_DATA.bin
+	rm z88_bss_fardata.bin
+	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_z88.63
+	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_z88.epr

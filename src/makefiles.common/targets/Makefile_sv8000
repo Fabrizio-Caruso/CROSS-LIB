@@ -1,0 +1,33 @@
+#############################
+# SV8000
+
+sv8000: sv8000_32k
+
+sv8000_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -O3 -pragma-define:CLIB_DISABLE_MODE0=1 \
+	$(INCLUDE_OPTS) \
+	-D__INCLUDE_CONIO_H \
+	-DZ88DK_JOYSTICK -DXSize=24 -DYSize=16  \
+	-D__SV8000__ \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DNO_PRINT \
+	-D__CONIO_GRAPHICS -D__NO_WAIT -D_XL_SLOW_DOWN_FACTOR=2000 -D__NO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.bin \
+	$(TINY_FILES) 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@_DATA.bin
+
+
+
+sv8000_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -subtype=32k \
+	$(INCLUDE_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

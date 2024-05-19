@@ -1,0 +1,21 @@
+#############################
+# ZXN
+
+zxn:
+	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
+	-D__ZXN__ -DEXTRA_TITLE \
+	-DXSize=64 \
+	-DYSize=22 \
+	-D__NO_SCREEN_COLOR_INIT \
+	 -D_XL_NO_COLOR -D_XL_SLOW_DOWN_FACTOR=9000 \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_zxn.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zxn.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zxn_UNASSIGNED.bin
+
+

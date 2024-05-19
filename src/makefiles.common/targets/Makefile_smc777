@@ -1,0 +1,21 @@
+#############################
+# SMC777
+
+smc777: smc777_turn_based
+
+smc777_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=smc777 $(INCLUDE_OPTS) \
+	-D__SMC777__ \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	  \
+	-D__VT52 -DXSize=80 -DYSize=24 \
+	-D__CONIO_GRAPHICS -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -oxcsmc777.bin
+	rm xcsmc777.bin
+	rm xcsmc777.com
+	mv xcsmc777.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk

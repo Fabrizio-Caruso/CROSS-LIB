@@ -1,0 +1,16 @@
+#############################
+# X1
+
+x1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-D__X1__ \
+	-D__PSG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+

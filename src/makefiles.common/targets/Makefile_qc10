@@ -1,0 +1,18 @@
+#############################
+# QC10
+
+
+qc10: qc10_turn_based
+
+qc10_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
+	$(INCLUDE_OPTS) \
+	-D__CPM_80X24__ \
+	-D__ADM3A_WITH_UNDEF -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
+	-D__QC10__ \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -oxcqc10.bin \
+	$(FULL_FILES)
+	rm xcqc10.bin	
+	rm xcqc10.com
+	mv xcqc10.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk

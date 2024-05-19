@@ -1,0 +1,14 @@
+#############################
+# OSCA
+
+osca:
+	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=ansi -D__OSCA__ -vn \
+	 \
+	  -lndos \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -o osca \
+	$(FULL_FILES)
+	rm osca
+	mv OSCA.EXE $(BUILD_PATH)/X$(GAME_NAME)_OSCA.EXE

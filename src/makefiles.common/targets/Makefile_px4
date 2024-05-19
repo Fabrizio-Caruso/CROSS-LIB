@@ -1,0 +1,19 @@
+
+#############################
+# PX4
+
+px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-D__PX4__ \
+	 \
+	-subtype=px4 -Cz--32k \
+	-create-app -o $@ \
+	-vn -lndos \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $@
+	mv $@.ROM $(BUILD_PATH)/X$(GAME_NAME)_$@.ROM

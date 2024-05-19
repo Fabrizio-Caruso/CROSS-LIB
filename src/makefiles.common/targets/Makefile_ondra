@@ -1,0 +1,30 @@
+#############################
+# ONDRA
+
+ondra: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__ONDRA__ -DXSize=40 -DYSize=30   \
+	-D__NO_SCREEN_COLOR_INIT \
+	 -DZ88DK_JOYSTICK \
+	-D__VT52  \
+	-D__CONIO_GRAPHICS  \
+	-lndos \
+	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+
+ondra_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__ONDRA__ -DXSize=40 -DYSize=30   \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.tap $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav

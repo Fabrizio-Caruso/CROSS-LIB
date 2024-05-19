@@ -153,7 +153,6 @@ qc10_turn_based:
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -oxcqc10.bin \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm xcqc10.bin	
 	rm xcqc10.com
@@ -196,7 +195,6 @@ rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_rx78.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_rx78.bin
@@ -216,7 +214,6 @@ samcoupe_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__CONIO_GRAPHICS -D_XL_SLOW_DOWN_FACTOR=2000  \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	 -D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
@@ -232,7 +229,6 @@ samcoupe_no_gfx:
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
@@ -277,7 +273,6 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.tap
@@ -303,7 +298,6 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000_BSS.bin
@@ -373,7 +367,6 @@ sms_buffered:
 	-D__BUFFERED_GRAPHICS \
 	-DTURN_BASED \
 	-D__ALT_PRINT \
-	-DDED__SCREEN_MODE
 	-D_XL_NO_SLEEP \
 	-D__NO_WAIT \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_sms_buffered.bin \
@@ -401,7 +394,6 @@ sos_buffered:
 	-DTURN_BASED \
 	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
-	-DDED__SCREEN_MODE
 	-create-app -o sos_buffered \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -419,7 +411,6 @@ sos_tiny_buffered:
 	-DTURN_BASED \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__NO_INIT_GRAPHICS \
-	-DDED__SCREEN_MODE
 	-create-app -o sos_tiny_buffered \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
@@ -443,7 +434,6 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_spc1000.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_spc1000.bin
@@ -513,7 +503,6 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
@@ -536,7 +525,6 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -560,7 +548,6 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-create-app -o srr \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm srr
 	rm srr.srr
@@ -583,7 +570,6 @@ super80_no_col:
 	-D__VT52 \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o super80
 	mv super80.ql $(BUILD_PATH)/X$(GAME_NAME)_super80.ql
@@ -605,7 +591,6 @@ super80r_no_gfx_no_col:
 	 -D_XL_NO_COLOR  \
 	-D__CONIO_GRAPHICS \
 	-D__VT52 -D__NO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lndos \
 	-create-app -o super80r
@@ -626,7 +611,6 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__VT52 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lndos \
 	-create-app -o super80r
@@ -681,7 +665,6 @@ sv8000_32k:
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	  \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -865,7 +848,6 @@ trs80_chars:
 	-D__VT52 \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__BIT_BANG_SOUND \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_trs80_chars.bin \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_trs80_chars.bin
 
@@ -888,7 +870,6 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__NO_INIT_GRAPHICS \
 	  \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_ts2068.bin 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_ts2068.bin
@@ -900,20 +881,6 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 tvc: tvc_buffered
 
-tvc_exp:
-	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__TVC__ \
-	-DXSize=32 \
-	-DYSize=22 \
-	-D__NO_SCREEN_COLOR_INIT \
-	  \
-	-D__VT52 \
-	-D__CONIO_GRAPHICS \
-	-lndos  \
-	-D__NO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 tvc_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -999,7 +966,6 @@ x1: $(ASSETS_PATH)/z88dk_xchase.asm
 	  \
 	-D__CONIO_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1015,7 +981,6 @@ x1_no_gfx:
 	  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -1037,7 +1002,6 @@ zx80_16k_turn_based:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -1054,7 +1018,6 @@ zx80_16k_turn_based_v2:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -1066,7 +1029,6 @@ z1013:
 	-vn -lndos \
 	-D__Z1013__     \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o z1013
 	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/X$(GAME_NAME)_z1013.z80
@@ -1127,7 +1089,6 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
-	-DDED__SCREEN_MODE
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \

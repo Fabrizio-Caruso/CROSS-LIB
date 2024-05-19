@@ -39,7 +39,17 @@
 
 #include "standard_libs.h"    
 
+#include "gb_sounds.h"
 #include <gb/gb.h>
+
+
+void _XL_INIT_SOUND(void)
+{
+    NR52_REG = 0x80;
+    NR50_REG = 0x77;
+    NR51_REG = 0xFF;
+}
+
 
 void _XL_ZAP_SOUND(void)
 {

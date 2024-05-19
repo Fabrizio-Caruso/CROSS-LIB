@@ -121,10 +121,11 @@
 		#define _XL_ZAP_SOUND() 
 	#endif
     
-    #if !defined(_XL_NO_SOUND) && (defined(__PSG_SOUND) || defined(__GB__) \
+    #if !defined(_XL_NO_SOUND) && (defined(__GB__) \
         || defined(__MO5__) || defined(__TO7__) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) \
         || defined(__MSX__))
      // _XL_INIT_SOUND() needs to be defined
+	 void _XL_INIT_SOUND();
     #else
         #define _XL_INIT_SOUND()
     #endif

@@ -1604,7 +1604,7 @@ msx: msx_16k
 msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-vn   -D__MSX__  \
+	-vn   -D__MSX__ \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
 	-D__CONIO_GRAPHICS   -DXSize=32 -DYSize=24 \

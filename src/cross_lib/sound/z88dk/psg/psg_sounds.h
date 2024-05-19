@@ -29,9 +29,7 @@
 
 #include <stdint.h>
 
-    #if defined(__MSX__) || defined(__PSG_SOUND)
-        void _XL_INIT_SOUND(void);
-    #endif
+	// void _XL_INIT_SOUND(void);
 
 	void _ping_sound(uint8_t freq);
 	#define _XL_PING_SOUND() _ping_sound(0xF0);	

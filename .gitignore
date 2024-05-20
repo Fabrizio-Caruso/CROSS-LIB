@@ -24,6 +24,7 @@ roms/vice/pet/basic4
 roms/vice/pet/edit*
 roms/vice/pet/characters*
 src/cfg/*
+**.lis
 **mapfile.txt
 **global.txt
 **A.BEE

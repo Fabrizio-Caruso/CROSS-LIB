@@ -6,7 +6,7 @@ pc88: pc88_32k
 pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	 -D__PC88__    \
-	-lndos -DXSize=80 -DYSIZE=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=80 -DYSize=25 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
@@ -22,7 +22,7 @@ pc88_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 pc88_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	 -D__PC88__    \
-	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=80 -DYSize=23 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
@@ -35,7 +35,7 @@ pc88_32k_no_gfx:
 pc88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-D__PC88__ -DTINY_GAME  -DNO_WALL -DNO_BLINKING  \
-	-lndos -DXSize=80 -DYSEIZE=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
+	-lndos -DXSize=80 -DYSize=23 -D_XL_SLOW_DOWN_FACTOR=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \

@@ -3,7 +3,7 @@ pcw: pcw80
 pcw80:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	 -D__PC88__    \
-	-lndos -DXSize=90 -DYSEIZE=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
+	-lndos -DXSize=90 -DYSize=32 -D_XL_SLOW_DOWN_FACTOR=2500 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \

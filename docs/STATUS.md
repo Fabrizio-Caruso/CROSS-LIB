@@ -24,6 +24,8 @@ target name         | long target name                            | working  |  
 *bbcmaster*         | BBC Master                                  |    NO    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *bic*               | BIC/A5105                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *bit90*             | Bit Corporation BIT 90                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
+*bondwell*          | Bondwell                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
+*bondwell2*         | Bondwell 2                                  |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *c128_8502*         | Commodore 128 [8502 CPU]                    |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     |   OK    |
 *c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *c16*               | Commodore 264 series (16/116/+4)            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -58,6 +60,7 @@ target name         | long target name                            | working  |  
 *gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  | PSG SN76489 Mednafen OK 
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
+*gemini*            | Gemini                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *hgmc*              | Huebler-Grafik-MC                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
@@ -65,9 +68,10 @@ target name         | long target name                            | working  |  
 *homelab2*          | Homelab 2                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kaypro83*          | Kaypro 83                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kaypro*            | Kaypro 2X                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
-*kramermc*          | Kramer-MC                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kc*                | Robotron KC-85/2/3/4                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *kc85*              | Kyocera 85                                  |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
+*kramermc*          | Kramer-MC                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
+*krokha*            | Krokha                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *lambda*            | Lambda 8300                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
@@ -164,9 +168,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 156
+TOTAL    : 160
 
-OK       : 152
+OK       : 156
 
 KO       :   2
 
@@ -179,7 +183,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 117
+  Z88DK | 121
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -191,7 +195,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 106                |
+Zilog 80      | 110                |
 MOS 6502      |  24                |
 Intel 8080    |  10                |
 RCA 1802      |   7                |
@@ -281,9 +285,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 175
+TOTAL    : 179
 
-OK       : 162
+OK       : 166
 
 KO       :   4
 

@@ -77,6 +77,8 @@ target name         | long target name                            | working  |  
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
+*micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -122,6 +124,7 @@ target name         | long target name                            | working  |  
 *px4*               | Epson PX-4/HC-40                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *px8*               | Epson PX-8/HC-80                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *qc10*              | Epson QX-10/QC-10                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*radio86*           | Radio 86                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK?      | missing |
 *rc700*             | Regnecentralen RC700                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *rx78*              | Bandai RX-78                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
 *samcoupe*          | Sam Coupe                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |     
@@ -168,9 +171,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 160
+TOTAL    : 163
 
-OK       : 156
+OK       : 159
 
 KO       :   2
 
@@ -183,7 +186,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 121
+  Z88DK | 124
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -195,9 +198,9 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 110                |
+Zilog 80      | 112                |
 MOS 6502      |  24                |
-Intel 8080    |  10                |
+Intel 8080    |  11                |
 RCA 1802      |   7                |
 Motorola 6803 |   1                |
 Motorola 6809 |   5                |
@@ -285,9 +288,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 179
+TOTAL    : 182
 
-OK       : 166
+OK       : 169
 
 KO       :   4
 

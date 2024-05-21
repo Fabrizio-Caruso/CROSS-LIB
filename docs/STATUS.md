@@ -75,6 +75,7 @@ target name         | long target name                            | working  |  
 *krokha*            | Krokha                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *lambda*            | Lambda 8300                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*lm80c*             | LM80C                                       |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
@@ -162,9 +163,11 @@ target name         | long target name                            | working  |  
 *vg5k*              | VG-5000                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *gl4000*            | VTech Genius Leader 4000                    |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *gl6000sl*          | VTech Genius Leader 6000sl                  |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*v1050*             | V1050                                       |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
 *vic20*             | Commodore Vic 20                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
 *vz200*             | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 *x1*                | Sharp X1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
+*x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
 *z80tvgame*         | ZX80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *z88*               | Cambridge Z88                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -201,7 +204,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 114                |
+Zilog 80      | 115                |
 MOS 6502      |  24                |
 Intel 8080    |  12                |
 RCA 1802      |   7                |

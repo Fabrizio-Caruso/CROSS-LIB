@@ -41,6 +41,7 @@ target name         | long target name                            | working  |  
 *coleco*            | Colecovision                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
 *coleco_adam*       | Colecovision Adam                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A 
 *comx*              | COMX-35                                     |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    | 
+*corvette*          | Corvette                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK?      | missing |
 *cpc*               | Amstrad CPC                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *cpm_8080*          | CP/M Intel 8080                             |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A    | 
@@ -132,6 +133,7 @@ target name         | long target name                            | working  |  
 *sg1000*            | Sega SG 1000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *smc777*            | Sony SMC-70 / SMC-777                       |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing | PSG SN76489
 *sms*               | Sega Master System                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK?   | PSG SN76489 Mednafen OK 
+*sol20*             | Sol 20                                      |   YES?   |  Intel 8085   |  Z88DK  |      OK?        |    missing     | missing |
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *special*           | Specialist                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
@@ -151,6 +153,7 @@ target name         | long target name                            | working  |  
 *ti85*              | Texas Instruments TI 85                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
 *ti86*              | Texas Instruments TI 86                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
 *tiki100*           | TIKI 100                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*tim 011*           | Tim 011                                     |   YES?   |   Zilog 180   |  Z88DK  |      OK?        |       OK?      | missing |
 *to7*               | Thomson To series                           |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    | 
 *trs80*             | TRS-80 Model I/III/IV                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *ts2068*            | Timex TS 2068                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
@@ -171,9 +174,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 163
+TOTAL    : 166
 
-OK       : 159
+OK       : 162
 
 KO       :   2
 
@@ -186,7 +189,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 124
+  Z88DK | 127
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -198,9 +201,9 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 112                |
+Zilog 80      | 114                |
 MOS 6502      |  24                |
-Intel 8080    |  11                |
+Intel 8080    |  12                |
 RCA 1802      |   7                |
 Motorola 6803 |   1                |
 Motorola 6809 |   5                |
@@ -288,9 +291,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 182
+TOTAL    : 185
 
-OK       : 169
+OK       : 172
 
 KO       :   4
 

@@ -1,0 +1,20 @@
+
+
+v1050: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=v1050 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__V1050__ \
+	-D__VT52 -DXSize=64 -DYSize=25  \
+	-D__CONIO_GRAPHICS \
+	-lndos -D_XL_NO_JOYSTICK \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+
+
+

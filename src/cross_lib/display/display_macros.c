@@ -558,7 +558,7 @@ lda $a7c0
             DISPLAY_POKE(loc(x,y), (tile));
         }
     #else
-        void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+        void __DRAW_NO_COLOR(uint8_t x, uint8_t y, uint8_t tile)
         {
             DISPLAY_POKE(loc(x,y), (tile));
         }   

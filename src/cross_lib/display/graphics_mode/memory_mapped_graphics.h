@@ -101,7 +101,14 @@
 		#define COLOR_POKE(addr, color) DISPLAY_POKE(addr, color)
 	#endif
 
-	void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+    #if !defined(_XL_NO_COLOR)
+        void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+    #else
+        void __DRAW_NO_COLOR(uint8_t x, uint8_t y, uint8_t tile);
+        #define _XL_DRAW(x, y, tile, color) __DRAW_NO_COLOR(x,y,tile)
+    
+    #endif
+    
 
 	void _XL_DELETE(uint8_t x,uint8_t y);
 

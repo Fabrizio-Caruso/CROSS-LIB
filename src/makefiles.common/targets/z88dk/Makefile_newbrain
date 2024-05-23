@@ -28,11 +28,12 @@ newbrain:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o newbrain
-	tar czvf FULL_newbrain.tar.zip _dir.txt newbrain.bas newbrain.dat
-	mv FULL_newbrain.tar.zip $(BUILD_PATH)/X$(GAME_NAME)_newbrain.tar.zip
-	rm _dir.txt
-	rm newbrain.bas
-	rm newbrain.dat
-	rm newbrain
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# tar czvf FULL_newbrain.tar.zip _dir.txt newbrain.bas newbrain.dat
+	# mv FULL_newbrain.tar.zip $(BUILD_PATH)/X$(GAME_NAME)_newbrain.tar.zip
+	rm -rf _dir.txt
+	# rm newbrain.bas
+	# rm newbrain.dat
+	# rm newbrain
 

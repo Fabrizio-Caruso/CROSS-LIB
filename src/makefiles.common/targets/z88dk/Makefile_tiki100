@@ -8,20 +8,14 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__ALT_PRINT \
 	 \
 	-D__Z88DK_SPRITES_GRAPHICS \
-	-DLESS_TEXT \
-	 \
-	-DINITIAL_GHOST_FREEZE \
 	-D_XL_NO_COLOR \
 	-DNO_RANDOM_LEVEL \
-	-D_XL_NO_SLEEP \
-	-DNO_HINTS  -D__PSG_SOUND \
+	-D__PSG_SOUND \
 	-D__NO_SCREEN_COLOR_INIT \
-	-create-app -o tiki100 \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/X$(GAME_NAME)_tiki100.dsk
-	rm -rf $(SOURCE_PATH)/../../tiki100
-	rm -rf $(SOURCE_PATH)/../../tiki100_HIMEM.bin
-	rm -rf $(SOURCE_PATH)/../../tiki100.com
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin

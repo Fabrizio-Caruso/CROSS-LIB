@@ -10,8 +10,8 @@ dai_buffered:
 	-DYSize=21 \
 	-D__NO_SCREEN_COLOR_INIT -D__BUFFERED_GRAPHICS -DTURN_BASED \
 	-D_XL_NO_COLOR -D__ALT_PRINT -D__STDIO  \
-	 -D__NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
-	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT  -D_XL_NO_SLEEP -D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin

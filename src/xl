@@ -53,7 +53,7 @@ else:
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
-    "add": "adds targets to a project", \
+    # "add": "adds targets to a project", \
     "assets": "builds assets from tile and/or shape files", \
     "build": "builds a project", \
     "check": "it checks dependencies", \
@@ -73,7 +73,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "make": "build project using shape files", \
     "manual": "prints the manual", \
     "rebuild": "generates assets and builds a project", \
-    "remove": "removes targets from a project", \
+    # "remove": "removes targets from a project", \
     "rename": "renames a project", \
     "reset": "deletes graphics assets", \
     "rip": "rips Assembly or BASIC listings to produce tiles", \
@@ -2638,18 +2638,18 @@ def help(params):
         print("It " + COMMANDS_DESCRIPTIONS[params[1]] + "\n")
         params = full_params(params)
 
-        if params[1]=="add":
-            printc(bcolors.BOLD,"\nxl add <project> <target>\n")
-            print("")
-            print("It adds support for the new target <target> into <project> by modifying its Makefile.")
-            print("")
-            print("Example:")
-            print("If you have previously created a new project 'foo'")
-            print("(e.g., by cloning it with 'xl clone bomber foo'),")
-            print("then you can add support for the 'einstein' target to it with")
-            print("xl add foo einstein")
+        # if params[1]=="add":
+            # printc(bcolors.BOLD,"\nxl add <project> <target>\n")
+            # print("")
+            # print("It adds support for the new target <target> into <project> by modifying its Makefile.")
+            # print("")
+            # print("Example:")
+            # print("If you have previously created a new project 'foo'")
+            # print("(e.g., by cloning it with 'xl clone bomber foo'),")
+            # print("then you can add support for the 'einstein' target to it with")
+            # print("xl add foo einstein")
             
-        elif params[1]=="assets":
+        if params[1]=="assets":
             printc(bcolors.BOLD,"\nxl assets <project>\n")
             print("")
             print("It generates assets files for <project> (new or existing project) by using tile or shape files.")
@@ -2707,19 +2707,19 @@ def help(params):
             print("Example:")
             print("In order to generate candidate shapes for foo using 8x8 shapes, you can do:")     
             print("xl extend foo")
-        elif params[1]=="remove":
-            printc(bcolors.BOLD,"\nxl remove <project> <target>\n")
-            print("")
-            print("It removes support for the new target <target> into <project> by modifying its Makefile.")
-            print("Remark: It does so by searching a regex in the concerned Makefile.")
-            print("        It removes the target in the Makefile.")
-            print("        For extra safety, a backup Makefile file with the previous content is also generated")
-            print("")
-            print("Example:")
-            print("If you have previously created a new project 'foo'")
-            print("(e.g., by cloning it with 'xl clone bomber foo'),")
-            print("then you can remove support for the 'einstein' target to it with")
-            print("xl remove foo einstein")
+        # elif params[1]=="remove":
+            # printc(bcolors.BOLD,"\nxl remove <project> <target>\n")
+            # print("")
+            # print("It removes support for the new target <target> into <project> by modifying its Makefile.")
+            # print("Remark: It does so by searching a regex in the concerned Makefile.")
+            # print("        It removes the target in the Makefile.")
+            # print("        For extra safety, a backup Makefile file with the previous content is also generated")
+            # print("")
+            # print("Example:")
+            # print("If you have previously created a new project 'foo'")
+            # print("(e.g., by cloning it with 'xl clone bomber foo'),")
+            # print("then you can remove support for the 'einstein' target to it with")
+            # print("xl remove foo einstein")
         elif params[1]=="make":
             printc(bcolors.BOLD,"\nxl make <project> <target>\n")
             print("")
@@ -2824,8 +2824,9 @@ def help(params):
             print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
         elif params[1]=="manual":
             printc(bcolors.BOLD,"xl manual <[optional] routine>\n")
-            print("If no optional parameter is passed it displays and describes CROSS-LIB APIs.")
+            print("If no optional parameter is passed it displays a list of documented CROSS-LIB APIs.")
             print("If a Cross-Lib C rouine is passed as an optional parameter, it displays its description and usage")
+            print("")
             print("Documented commands:")
             list_documented_routines()
         elif params[1]=="string":
@@ -3508,10 +3509,10 @@ if __name__ == "__main__":
         split(params[1:])
     elif params[1]=="config":
         display_config()
-    elif params[1]=="add":
-        add(params[1:])
-    elif params[1]=="remove":
-        remove(params[1:])
+    # elif params[1]=="add":
+        # add(params[1:])
+    # elif params[1]=="remove":
+        # remove(params[1:])
     elif params[1]=="string":
         string(params[1:])
     elif params[1]=="commands":

@@ -3250,3 +3250,108 @@ stdio_sized:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_stdio_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
+################
+# Experimental targets
+
+# CC65
+include makefiles.common/targets/cc65/Makefile_c128_8502
+include makefiles.common/targets/cc65/Makefile_cx16
+include makefiles.common/targets/cc65/Makefile_osic1p
+include makefiles.common/targets/cc65/Makefile_telestrat
+
+
+
+# Z88DK
+include makefiles.common/targets/z88dk/Makefile_abc80
+include makefiles.common/targets/z88dk/Makefile_abc800
+include makefiles.common/targets/z88dk/Makefile_alphatro
+include makefiles.common/targets/z88dk/Makefile_altair8800
+include makefiles.common/targets/z88dk/Makefile_attache
+include makefiles.common/targets/z88dk/Makefile_aussie
+include makefiles.common/targets/z88dk/Makefile_bic
+include makefiles.common/targets/z88dk/Makefile_bit90
+include makefiles.common/targets/z88dk/Makefile_bondwell
+include makefiles.common/targets/z88dk/Makefile_bondwell2
+include makefiles.common/targets/z88dk/Makefile_coleco_adam
+include makefiles.common/targets/z88dk/Makefile_corvette
+include makefiles.common/targets/z88dk/Makefile_dai
+include makefiles.common/targets/z88dk/Makefile_dmv
+include makefiles.common/targets/z88dk/Makefile_eg2k
+include makefiles.common/targets/z88dk/Makefile_enterprise
+include makefiles.common/targets/z88dk/Makefile_excalibur64
+include makefiles.common/targets/z88dk/Makefile_fp1100
+include makefiles.common/targets/z88dk/Makefile_g800
+include makefiles.common/targets/z88dk/Makefile_gemini
+include makefiles.common/targets/z88dk/Makefile_gl4000
+include makefiles.common/targets/z88dk/Makefile_gl6000sl
+include makefiles.common/targets/z88dk/Makefile_hemc
+include makefiles.common/targets/z88dk/Makefile_hgmc
+include makefiles.common/targets/z88dk/Makefile_homelab
+include makefiles.common/targets/z88dk/Makefile_homelab2
+include makefiles.common/targets/z88dk/Makefile_kaypro
+include makefiles.common/targets/z88dk/Makefile_kaypro83
+include makefiles.common/targets/z88dk/Makefile_kramermc
+include makefiles.common/targets/z88dk/Makefile_krokha
+include makefiles.common/targets/z88dk/Makefile_lambda
+include makefiles.common/targets/z88dk/Makefile_lm80c
+include makefiles.common/targets/z88dk/Makefile_m5
+include makefiles.common/targets/z88dk/Makefile_mbc200
+include makefiles.common/targets/z88dk/Makefile_micro8085
+include makefiles.common/targets/z88dk/Makefile_mikro80
+include makefiles.common/targets/z88dk/Makefile_multi8
+include makefiles.common/targets/z88dk/Makefile_myvision
+include makefiles.common/targets/z88dk/Makefile_mz2500
+include makefiles.common/targets/z88dk/Makefile_nascom
+include makefiles.common/targets/z88dk/Makefile_nc100
+include makefiles.common/targets/z88dk/Makefile_nc200
+include makefiles.common/targets/z88dk/Makefile_newbrain
+include makefiles.common/targets/z88dk/Makefile_ondra
+include makefiles.common/targets/z88dk/Makefile_osborne1
+include makefiles.common/targets/z88dk/Makefile_osca
+include makefiles.common/targets/z88dk/Makefile_oz
+include makefiles.common/targets/z88dk/Makefile_p2000
+include makefiles.common/targets/z88dk/Makefile_pasopia7
+include makefiles.common/targets/z88dk/Makefile_pc6001
+include makefiles.common/targets/z88dk/Makefile_pc88
+include makefiles.common/targets/z88dk/Makefile_pcw40
+include makefiles.common/targets/z88dk/Makefile_pcw80
+include makefiles.common/targets/z88dk/Makefile_pencil2
+include makefiles.common/targets/z88dk/Makefile_pmd85
+include makefiles.common/targets/z88dk/Makefile_pps
+include makefiles.common/targets/z88dk/Makefile_primo
+include makefiles.common/targets/z88dk/Makefile_pv1000
+include makefiles.common/targets/z88dk/Makefile_pv2000
+include makefiles.common/targets/z88dk/Makefile_px4
+include makefiles.common/targets/z88dk/Makefile_px8
+include makefiles.common/targets/z88dk/Makefile_qc10
+include makefiles.common/targets/z88dk/Makefile_radio86
+include makefiles.common/targets/z88dk/Makefile_rc700
+include makefiles.common/targets/z88dk/Makefile_rx78
+include makefiles.common/targets/z88dk/Makefile_smc777
+include makefiles.common/targets/z88dk/Makefile_sol20
+include makefiles.common/targets/z88dk/Makefile_sos
+include makefiles.common/targets/z88dk/Makefile_spc1000
+include makefiles.common/targets/z88dk/Makefile_special
+include makefiles.common/targets/z88dk/Makefile_srr
+include makefiles.common/targets/z88dk/Makefile_super80
+include makefiles.common/targets/z88dk/Makefile_super80r
+include makefiles.common/targets/z88dk/Makefile_sv8000
+include makefiles.common/targets/z88dk/Makefile_svi
+include makefiles.common/targets/z88dk/Makefile_ti82
+include makefiles.common/targets/z88dk/Makefile_ti83
+include makefiles.common/targets/z88dk/Makefile_ti85
+include makefiles.common/targets/z88dk/Makefile_ti86
+include makefiles.common/targets/z88dk/Makefile_ti83p
+include makefiles.common/targets/z88dk/Makefile_tiki100
+include makefiles.common/targets/z88dk/Makefile_tim011
+include makefiles.common/targets/z88dk/Makefile_ts2068
+include makefiles.common/targets/z88dk/Makefile_tvc
+include makefiles.common/targets/z88dk/Makefile_v1050
+include makefiles.common/targets/z88dk/Makefile_vector06c
+include makefiles.common/targets/z88dk/Makefile_x1
+include makefiles.common/targets/z88dk/Makefile_x820
+include makefiles.common/targets/z88dk/Makefile_z80tvgame
+include makefiles.common/targets/z88dk/Makefile_z88
+include makefiles.common/targets/z88dk/Makefile_zx80
+include makefiles.common/targets/z88dk/Makefile_zxn
+

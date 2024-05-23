@@ -9,7 +9,7 @@ special:
 	-DYSize=30 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -D__STDIO -D__NO_WAIT \
-	  \
+	-D_XL_NO_JOYSTICK \
 	-D__VT52 \
 	-D__CONIO_GRAPHICS \
 	-lndos \

@@ -1,8 +1,8 @@
 #############################
 # TI8X
 
-ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +ti8x $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
+ti83p: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +ti83p $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
 	$(INCLUDE_OPTS) \
 	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
@@ -13,5 +13,5 @@ ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/X$(GAME_NAME)_ti8x.8xp	
-	mv $(SOURCE_PATH)/../../xchase8x $(BUILD_PATH)/X$(GAME_NAME)_ti8x.bin
+	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/X$(GAME_NAME)_$@.8xp	
+	rm $(SOURCE_PATH)/../../xchase8x

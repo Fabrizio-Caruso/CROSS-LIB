@@ -4,6 +4,7 @@ x820: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=x820 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X820__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
 	-D__VT52 -DXSize=80 -DYSize=24  \
 	-D__CONIO_GRAPHICS \
 	-lndos -D_XL_NO_JOYSTICK \

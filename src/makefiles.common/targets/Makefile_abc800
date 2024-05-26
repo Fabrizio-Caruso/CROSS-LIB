@@ -1,5 +1,6 @@
 ##############################################################################
 
+# Can we do unbuffered/conio graphics?
 
 abc800: abc800_buffered
 
@@ -8,6 +9,7 @@ abc800_buffered:
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC800_SLOWDOWN) \
 	-D__STDIO -D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
 	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \

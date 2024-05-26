@@ -5,16 +5,8 @@ abc80:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__ABC80__ -clib=ansi -vn  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-DLESS_TEXT \
-	-DSIMPLE_STRATEGY \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-D__NO_WAIT \
-	-DNO_BORDER \
-	-DNO_RANDOM_LEVEL \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
 	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_NO_SLEEP \
-	-DFLAT_ENEMIES \
 	-lndos -create-app -o abc80.bin \
 	$(FULL_FILES)
 	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200

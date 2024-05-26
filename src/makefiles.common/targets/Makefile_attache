@@ -4,29 +4,24 @@
 #############################
 # ATTACHE
 
-attache_chars:
+attache:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
 	$(INCLUDE_OPTS) \
 	-D__ADM3A \
 	-D__CPM_80X24__ \
-	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATTACHE_SLOWDOWN) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+attache_gfx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
-	$(INCLUDE_OPTS)  \
+	$(INCLUDE_OPTS) -DXSize=40 -YSize=30 \
 	-D__ATTACHE__ \
-	 \
 	-D__ALT_PRINT \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATTACHE_GFX_SLOWDOWN) \
 	-D__Z88DK_SPRITES_GRAPHICS \
-	-DLESS_TEXT \
-	 \
-	-DGHOSTS_NUMBER=8 \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__NO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

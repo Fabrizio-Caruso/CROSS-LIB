@@ -10,15 +10,12 @@ pv1000:
 	$(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
-	  \
-	  \
 	-D__VT52 \
 	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_pv1000.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pv1000.bin

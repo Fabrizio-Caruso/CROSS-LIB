@@ -1,0 +1,26 @@
+osic1p: osic1p_32k
+osic1p_buffered: osic1p_32k_turn_based
+
+osic1p_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
+	-D__ALT_SLEEP -D_XL_NO_JOYSTICK \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_$@.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_$@.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_$@.c1p $(BUILD_PATH)/X$(GAME_NAME)_$@.lod
+
+
+osic1p_32k_turn_based: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
+	-D__ALT_SLEEP \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTURN_BASED -D_XL_NO_JOYSTICK  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_$@.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_$@.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_$@.c1p $(BUILD_PATH)/X$(GAME_NAME)_$@.lod

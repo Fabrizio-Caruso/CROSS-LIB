@@ -30,7 +30,9 @@
 // #define DEBUG
 
 
-#  if _XL_SLOW_DOWN_FACTOR<20
+#if !defined(_XL_SLOW_DOWN_FACTOR)
+    #define LEVEL_SPEED_UP 0
+#elif _XL_SLOW_DOWN_FACTOR<20
     #define LEVEL_SPEED_UP 0
 #elif _XL_SLOW_DOWN_FACTOR<100
     #define LEVEL_SPEED_UP 2

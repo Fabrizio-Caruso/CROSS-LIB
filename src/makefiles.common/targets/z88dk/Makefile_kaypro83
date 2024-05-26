@@ -16,5 +16,5 @@ kaypro83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_HIMEM.bin   
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin   
 

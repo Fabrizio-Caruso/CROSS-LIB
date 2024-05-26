@@ -1,0 +1,23 @@
+#######################################################################################
+# C128_8502
+
+c128_8502: c128_8502_40col
+
+c128_8502_40col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c128_8502_80col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE  \
+	-DXSize=80 \
+	-D__CONIO_GRAPHICS \
+	-DGHOSTS_NUMBER=9 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+

@@ -8,3 +8,5 @@ krokha:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

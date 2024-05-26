@@ -136,7 +136,7 @@ z88dk_targets_sequential: \
     gb \
     laser500 \
     mc1000 \
-    microbee \
+    bee \
     msx \
     mtx500 \
     mtx512 \
@@ -165,7 +165,7 @@ z88dk_targets_sequential: \
     gb \
     laser500 \
     mc1000 \
-    microbee \
+    bee \
     msx \
     mtx500 \
     mtx512 \
@@ -702,8 +702,6 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	 \
 	-D__CONIO_GRAPHICS \
 	-clib=default \
-	 \
-	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -714,31 +712,6 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 agon: agon_mode2
-
-
-agon_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__AGON__ -D_XL_NO_JOYSTICK \
-	-D__SCREEN_MODE=0 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
-	-D__CONIO_GRAPHICS -DXSize=128 -DYSize=97 -D_XL_NO_COLOR \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-
-
-agon_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__AGON__ -D_XL_NO_JOYSTICK \
-	-D__SCREEN_MODE=1 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
-	-D__CONIO_GRAPHICS -DXSize=64 -DYSize=47  \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-
 
 agon_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -751,17 +724,6 @@ agon_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
 
-
-agon_mode3: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__AGON__ -D_XL_NO_JOYSTICK -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SCREEN_MODE=3 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
-	-D__CONIO_GRAPHICS -DXSize=80 -DXSize=59 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 #################################################################
 
@@ -815,30 +777,6 @@ c128: c128_40col
 c128_zsdcc: c128_z80_40col_zsdcc
 c128_40col_zsdcc: c128_z80_40col_zsdcc
 
-c128_z80_40col_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc $(ZSDCC_OPTS)  \
-	$(INCLUDE_OPTS) \
-	-lndos -subtype=disk -clib=gencon \
-	-D__C128_Z80__ -DXSize=40 \
-	 \
-	-D__BIT_BANG_SOUND   \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_40COL_SLOWDOWN) \
-	-D__CONIO_GRAPHICS  \
-	$(FULL_FILES) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app -o"a40.bin"
-ifdef USE_TOOLS
-	$(C1541) -format "crosschase,0" d64 FULL_$@.d64
-	$(C1541) -attach FULL_$@.d64 -write a40.ldr
-	$(C1541) -attach FULL_$@.d64 -write a40
-	mv FULL_$@.d64 $(BUILD_PATH)/X$(GAME_NAME)_$@.d64
-	rm a40.bin
-else
-	mv a40.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-endif
-	rm a40.ldr
-	rm a40
 
 c128_40col: c128_z80_40col
 
@@ -897,21 +835,6 @@ endif
 
 
 #################################################################
-camputers_lynx_no_gfx:
-	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ -D_XL_NO_UDG -D_XL_NO_JOYSTICK -D__BIT_BANG_SOUND \
-	-vn \
-	$(CAMPUTERS_LYNX_GAME_OPTS) \
-	-D__VT52 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CAMPUTERS_LYNX_SLOWDOWN) \
-	-lndos \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
-
 
 camputers_lynx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -930,23 +853,6 @@ camputers_lynx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
 
-
-camputers_lynx_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +lynx $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK  -D__BIT_BANG_SOUND \
-	-vn \
-	$(CAMPUTERS_LYNX_GAME_OPTS) \
-	-D__VT52 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CAMPUTERS_LYNX_SLOWDOWN) \
-	-lndos \
-	-D__CONIO_GRAPHICS  \
-	$(FULL_FILES) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_camputers_lynx.bin
 
 #################################################################
 
@@ -969,38 +875,6 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_coleco_BSS.bin
 
 #################################################################
-
-ifdef USE_TOOLS
-cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
-else
-cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-endif
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
-	-D__CPC__  \
-	-D__CPCRSLIB_GRAPHICS \
-	 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_MODE1_SLOWDOWN) \
-	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg \
-	-D__CPCRSLIB_GRAPHICS \
-	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(FULL_FILES)
-ifdef USE_TOOLS
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME)XXX $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cdt
-	rm -rf X$(GAME_NAME)XXX_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)XXX_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)XXX_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc x$(GAME_NAME)XXX
-	mv X$(GAME_NAME)XXX_cpc.dsk $(BUILD_PATH)/
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)XXX_gx4000.cpr   -c 'run"x$(GAME_NAME)XXX'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc 
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg
-endif
 
 cpc: cpc_mode0
 
@@ -1035,116 +909,7 @@ endif
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
-ifdef USE_TOOLS
-cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
-else
-cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
-endif
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
-	-DYSize=25 -DXSize=80 -D__SCREEN_MODE=2 -D_XL_NO_COLOR \
-	 \
-	   \
-	$(CPC_GAME_OPTS) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
-	-D__CPC__ \
-	-lndos -create-app \
-	-D__CONIO_GRAPHICS \
-	 \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o xbin \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES)
-	mv xbin $(BUILD_PATH)/
-ifdef USE_TOOLS
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-endif
-	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	rm -rf xbin_BANK_7.bin
-	rm -rf xbin.cpc
-	rm -rf $(BUILD_PATH)/xbin
-	rm -rf xbin
 
-
-ifdef USE_TOOLS
-cpc_mode1: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
-else
-cpc_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
-endif
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
-	-DYSize=25 -DXSize=40 -D__SCREEN_MODE=1 \
-	 \
-	   \
-	$(CPC_GAME_OPTS) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
-	-D__CPC__ \
-	-lndos -create-app \
-	-D__CONIO_GRAPHICS \
-	 \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o xbin \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FULL_FILES)
-	mv xbin $(BUILD_PATH)/
-ifdef USE_TOOLS
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-endif
-	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	rm -rf xbin_BANK_7.bin
-	rm -rf xbin.cpc
-	rm -rf $(BUILD_PATH)/xbin
-	rm -rf xbin
-
-# ifdef USE_TOOLS
-# cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
-# else
-# cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
-# endif
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	# -DYSize=25 -DXSize=80 -D__SCREEN_MODE=2 \
-	 # \
-	  # \
-	 # \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE2_SLOWDOWN) \
-	# -D__CPC__ \
-	# -lndos -create-app \
-	# -D__CONIO_GRAPHICS \
-	 # \
-	# -pragma-redirect:fputc_cons=fputc_cons_generic \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	# $(ASSETS_PATH)/z88dk_xchase.asm \
-	# $(FULL_FILES)
-# ifdef USE_TOOLS
-	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
-	# rm -rf X$(GAME_NAME)_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
-	# mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
-	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
-	# rm os.rom
-	# rm amsdos.rom
-	# rm basic.rom
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_$@_BANK_7.bin    
-# endif
 
 #################################################################
 
@@ -1315,7 +1080,7 @@ gal_plus: gal_plus_gfx
 gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
-	--generic-console -D__SCREEN_MODE=1 -DEXTRA_TITLE -DYSize=26  \
+	--generic-console -D__SCREEN_MODE=1  -DYSize=26  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_GFX_SLOWDOWN) \
 	-D__GAL__ -D__GAL_PLUS__  $(GAL_PLUS_GAME_OPTS)  \
 	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND \
@@ -1518,25 +1283,16 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # MICROBEE
 
-microbee: microbee_no_gfx
+bee: bee_no_gfx
 
-microbee_no_gfx: microbee_40col_no_gfx
+bee_no_gfx: bee_40col_no_gfx
 
-microbee_no_gfx_wav: microbee_40col_no_gfx_wav
+bee_no_gfx_wav: bee_40col_no_gfx_wav
 
 
-microbee_80col_no_gfx:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ --generic-console -DXSize=80 -DYSize=24 -vn  \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+bee_40col: bee_40col_no_gfx
 
-microbee_40col: microbee_40col_no_gfx
-
-microbee_40col_no_gfx:
+bee_40col_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__BEE__ -clib=ansi40  -vn  -DXSize=40 -DYSize=25 \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
@@ -1545,56 +1301,6 @@ microbee_40col_no_gfx:
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-
-microbee_80col_no_gfx_wav:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ --generic-console -DXSize=80 -DYSize=24 -vn -subtype=wav  \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-microbee_40col_wav: microbee_40col_no_gfx_wav
-
-microbee_40col_no_gfx_wav:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi40  -vn  -DXSize=40 -DYSize=25 -subtype=wav \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
-microbee_gfx: microbee_40col_gfx_mode2
-
-
-microbee_gfx_wav: microbee_40col_gfx_mode2_wav
-
-
-microbee_40col_gfx_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ --generic-console -vn -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
-	-D__CONIO_GRAPHICS -D__SCREEN_MODE=2 \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	$(FULL_FILES) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
-microbee_40col_gfx_mode2_wav: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ --generic-console -vn -subtype=wav -DXSize=40 -DYSize=25 -D_XL_NO_JOYSTICK \
-	-D__CONIO_GRAPHICS -D__SCREEN_MODE=2 \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	$(FULL_FILES) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
  
 #################################################################
@@ -1707,22 +1413,6 @@ nabu: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-pc88_wav: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	 -D__PC88__    \
-	-lndos -DXSize=80 -DYSize=25 -D_XL_NO_JOYSTICK \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PC88_SLOWDOWN) \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-create-app	\
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
-	# mv FULL_$@.t88 $(BUILD_PATH)/X$(GAME_NAME)_$@.t88
-
 
 pc88: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
@@ -1739,6 +1429,21 @@ pc88: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 	# mv FULL_pc88.d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BOOTSTRAP.bin
+	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
+	 -D__PC88__    \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PC88_SLOWDOWN) \
+	-lndos -DXSize=80 -DYSize=25 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__CONIO_GRAPHICS -D__BIT_BANG_SOUND -D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app	\
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv FULL_$@.t88 $(BUILD_PATH)/X$(GAME_NAME)_$@.t88
+
 
 #################################################################
 
@@ -1764,7 +1469,7 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 sc3000: sc3000_32k
 
 sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	 \
@@ -1784,13 +1489,33 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 
+sc3000_rom: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
+	$(INCLUDE_OPTS)  \
+	-D__SC3000__ \
+	-DZ88DK_JOYSTICK \
+	-pragma-define:REGISTER_SP=0xC7FF \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos -create-app \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
 
 #############################
 # SG1000
 
 sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
-	$(INCLUDE_OPTS) -DEXTRA_TITLE 	-pragma-define:REGISTER_SP=0xC7FF \
+	$(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0xC7FF \
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	-DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
@@ -1810,25 +1535,6 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
-
-sc3000_rom: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
-	$(INCLUDE_OPTS) -DEXTRA_TITLE \
-	-D__SC3000__ \
-	-DZ88DK_JOYSTICK \
-	-pragma-define:REGISTER_SP=0xC7FF \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
-	-D__BIT_BANG_SOUND \
-	-D__CONIO_GRAPHICS \
-	-vn -lndos -create-app \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 
 
@@ -2828,149 +2534,6 @@ mc10:
 	mv xbin.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 
-###############################################################################################
-
-# ------------------------------------------------------------------------------------------
-# TMS9000-GCC
-#   
-
-
-# Paths to TMS9900 compilation tools 
-# ( Set in environment to override paths )
-TMS9900_DIR?=/opt/gcc4ti/bin
-ELF2EA5_DIR?=$(CFG_PATH)gcc4ti99/elf2ea5
-EA5_SPLIT_DIR?=$(CFG_PATH)gcc4ti99/ea5split
-CLASSIC99_DSK1?=$(CFG_PATH)gcc4ti99/DSK1
-# ELF2EA5_DIR?=/home/fabri/Retro/GCC4TI/elf2ea5
-# EA5_SPLIT_DIR?=/home/fabri/Retro/GCC4TI/ea5split
-# CLASSIC99_DSK1?=/home/fabri/Retro/GCC4TI/DSK1
-
-
-# Full paths to the executables used
-GAS=$(TMS9900_DIR)/tms9900-as
-LD=$(TMS9900_DIR)/tms9900-ld
-CC=$(TMS9900_DIR)/tms9900-gcc
-AR=$(TMS9900_DIR)/tms9900-ar
-ELF2EA5=$(ELF2EA5_DIR)/elf2ea5
-EA5_SPLIT=$(EA5_SPLIT_DIR)/ea5split
-
-LDFLAGS_EA5=\
-  --section-start .text=a000 --section-start .data=2080 -M
-
-
-
-C_FLAGS=\
-   -std=c99 $(GCC4TI99_MAKEFILE_COMPILATION_OPTS) -s -I./ -fno-builtin
-
-
-
-TI99_CC ?= tms9900-gcc 
-
-
-TI99_TINY_OPTS ?= \
-	$(C_FLAGS) $(GLOBAL_OPTS) \
-	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
-	-DXSize=32   \
-	-DYSize=24 -DBUGGY_MOD5 \
-	-D__ALT_SLEEP -D__ALT_RAND \
-	-DTINY_GAME -DNO_WALL  \
-	-D__VDP_MODE1_GRAPHICS \
-	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_SLOW_DOWN_FACTOR=10*$(_TI99_SLOWDOWN)
-
-
-TI99_OPTS ?= \
-	$(C_FLAGS) $(GLOBAL_OPTS) \
-	-D__TI99__ -nostdlib \
-	-DXSize=32   \
-	-DYSize=23 -DBUGGY_MOD5 -DBUGGY_VERTICAL_DRAW -DBUGGY_GCC_TI99 \
-	-D__ALT_SLEEP   -DEXTRA_TITLE -D__ALT_RAND \
-	-D__VDP_MODE1_GRAPHICS -D_XL_NO_JOYSTICK \
-	-D__NO_SCREEN_COLOR_INIT \
-	-D_XL_SLOW_DOWN_FACTOR=10*$(_TI99_SLOWDOWN)
-
-##################################################################################################
-
-# Paths to TMS9900 compilation tools
-GAS=tms9900-as
-LD=tms9900-ld
-TI99CC=tms9900-gcc
-CXX=tms9900-c++
-OBJCOPY=tms9900-objcopy
-
-
-# Flags used during linking
-# Refer to the linker rules in an external file
-LDFLAGS=\
-  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg 
-
-
-OBJECT_LIST= \
-  $(TOOLS_PATH)/ti99/crt0_ea5.o \
-  $(CROSS_LIB_PATH)/display/display_macros.o \
-  $(CROSS_LIB_PATH)/input/input_macros.o \
-  $(CROSS_LIB_PATH)/rand/rand.o \
-  $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
-  $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
-  $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o \
-  $(SOURCE_PATH)/main.o
-
-
-TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
-
-# Recipes to compile individual files
-%.o: %.asm
-	$(GAS) $< -o $@
-%.o: %.c
-	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
-
-# 	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_FULL_OPTS) -c $< -o $@
-
-
-# List of all files needed in executable
-TINY_PREREQUISITES=\
-  $(OBJECT_LIST)
-
-PREREQUISITES=\
-  $(OBJECT_LIST)
-
-
-#####################################################################
-
-
-xchase.ea5.elf: $(PREREQUISITES)
-	$(LD) $(OBJECT_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.elf > xchase.map
-	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
-
-
-ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
-	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf x$(GAME_NAME)1.ea5.bin
-	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
-	rm -rf xchase.map
-	rm -rf ea5.map
-	rm -rf xchase.ea5.elf
-	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
-	rm -rf x$(GAME_NAME)1.ea5.bin
-
-
-ti99_targets: \
-	ti99
-
-gcc_ti99_targets: \
-	ti99_targets
-
-	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
-	# mv ti99_cross_chase.cart $(BUILD_PATH)
-	# mv ti99_cross_chase.elf $(BUILD_PATH)
-
-
-# Recipe to clean all compiled objects
-.phony ti99clean:
-	rm -f *.o
-	rm -f *.elf
-	rm -f *.cart
-
-
 
 # ------------------------------------------------------------------------------------------
 # VBCC
@@ -2980,196 +2543,6 @@ gcc_ti99_targets: \
 
 vbcc_targets: \
 	bbc_buffered
-    
-###############################################################################################
-
-bbc: bbc_buffered
-
-
-bbc_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
-	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	rm -rf xchase
-	rm -rf xchase.inf
-	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
-
-
-bbc_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
-	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	rm -rf xchase
-	rm -rf xchase.inf
-	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
-
-
-bbcmaster: bbcmaster_buffered
-
-bbcmaster_buffered: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
-	$(VBCC_COMPILER) +bbcmaster $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__BBCMASTER__ -DVBCC \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	rm -rf xchase 
-	rm -rf xchase.inf 
-	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
-
-
-bbc_buffered_no_print:
-	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-I$(SOURCE_PATH) \
-	-D__NORMALIZED_RAND \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO \
-	-D_XL_NO_COLOR \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	-D__NO_WAIT \
-	-D_XL_NO_SLEEP \
-	-DNO_RANDOM_LEVEL \
-	-DNO_PRINT \
-	$(TINY_FILES)	
-
-
-
-# -----------------------------------------------------------------------
-
-m65: m65_buffered
-
-m65_buffered:
-	$(VBCC_COMPILER) +m65 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND  -DVBCC -D__MEGA65__ \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	mv xchase $(BUILD_PATH)/
-	# mv xchase.inf $(BUILD_PATH)/
-	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
-	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf
-
-
-# -----------------------------------------------------------------------
-
-atari_jaguar: atari_jaguar_buffered
-
-atari_jaguar_buffered:
-	$(VBCC_COMPILER) +jaguar $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__ATARI_JAGUAR__ -DVBCC  \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	mv xchase $(BUILD_PATH)/
-	# mv xchase.inf $(BUILD_PATH)/
-	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
-	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf
-
-# -----------------------------------------------------------------------
-
-amiga_kick13_buffered:
-	$(VBCC_COMPILER) +kick13 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__AMIGA_KICK13__ -DVBCC  \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
-	-D_XL_NO_COLOR \
-	 -D_XL_NO_SLEEP \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) -o xchase
-	mv xchase $(BUILD_PATH)/
-	# mv xchase.inf $(BUILD_PATH)/
-	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
-	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf
-
-
-###############################################################################################
-
-atari_st: atari_st_ncurses
-
-atari_st_ncurses:
-	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
-	-D__ATARI_ST__ \
-	 \
-	-DXSize=39 \
-	-DYSize=22 \
-	-D_XL_NO_JOYSTICK  \
-	-D__CONIO_GRAPHICS  \
-	-D__ALT_PRINT \
-	 \
-	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
-	$(FULL_FILES) \
-	-lncurses
-	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_atari_st_ncurses.tos
 
 
 
@@ -3248,5 +2621,231 @@ stdio_sized:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_stdio_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+
+
+################
+# Experimental targets
+
+# CC65
+include makefiles.common/targets/cc65/Makefile_c128_8502
+include makefiles.common/targets/cc65/Makefile_cx16
+include makefiles.common/targets/cc65/Makefile_osic1p
+include makefiles.common/targets/cc65/Makefile_telestrat
+
+
+
+# Z88DK
+include makefiles.common/targets/z88dk/Makefile_abc80
+include makefiles.common/targets/z88dk/Makefile_abc800
+include makefiles.common/targets/z88dk/Makefile_alphatro
+include makefiles.common/targets/z88dk/Makefile_altair8800
+include makefiles.common/targets/z88dk/Makefile_attache
+include makefiles.common/targets/z88dk/Makefile_aussie
+include makefiles.common/targets/z88dk/Makefile_bic
+include makefiles.common/targets/z88dk/Makefile_bit90
+include makefiles.common/targets/z88dk/Makefile_bondwell
+include makefiles.common/targets/z88dk/Makefile_bondwell2
+include makefiles.common/targets/z88dk/Makefile_coleco_adam
+include makefiles.common/targets/z88dk/Makefile_corvette
+include makefiles.common/targets/z88dk/Makefile_dai
+include makefiles.common/targets/z88dk/Makefile_dmv
+include makefiles.common/targets/z88dk/Makefile_eg2k
+include makefiles.common/targets/z88dk/Makefile_enterprise
+include makefiles.common/targets/z88dk/Makefile_excalibur64
+include makefiles.common/targets/z88dk/Makefile_fp1100
+include makefiles.common/targets/z88dk/Makefile_g800
+include makefiles.common/targets/z88dk/Makefile_gemini
+include makefiles.common/targets/z88dk/Makefile_gl4000
+include makefiles.common/targets/z88dk/Makefile_gl6000sl
+include makefiles.common/targets/z88dk/Makefile_hemc
+include makefiles.common/targets/z88dk/Makefile_hgmc
+include makefiles.common/targets/z88dk/Makefile_homelab
+include makefiles.common/targets/z88dk/Makefile_homelab2
+include makefiles.common/targets/z88dk/Makefile_kaypro
+include makefiles.common/targets/z88dk/Makefile_kaypro83
+include makefiles.common/targets/z88dk/Makefile_kramermc
+include makefiles.common/targets/z88dk/Makefile_krokha
+include makefiles.common/targets/z88dk/Makefile_lambda
+include makefiles.common/targets/z88dk/Makefile_lm80c
+include makefiles.common/targets/z88dk/Makefile_m5
+include makefiles.common/targets/z88dk/Makefile_mbc200
+include makefiles.common/targets/z88dk/Makefile_micro8085
+include makefiles.common/targets/z88dk/Makefile_mikro80
+include makefiles.common/targets/z88dk/Makefile_multi8
+include makefiles.common/targets/z88dk/Makefile_myvision
+include makefiles.common/targets/z88dk/Makefile_mz2500
+include makefiles.common/targets/z88dk/Makefile_nascom
+include makefiles.common/targets/z88dk/Makefile_nc100
+include makefiles.common/targets/z88dk/Makefile_nc200
+include makefiles.common/targets/z88dk/Makefile_newbrain
+include makefiles.common/targets/z88dk/Makefile_ondra
+include makefiles.common/targets/z88dk/Makefile_osborne1
+include makefiles.common/targets/z88dk/Makefile_osca
+include makefiles.common/targets/z88dk/Makefile_oz
+include makefiles.common/targets/z88dk/Makefile_p2000
+include makefiles.common/targets/z88dk/Makefile_pasopia7
+include makefiles.common/targets/z88dk/Makefile_pc6001
+include makefiles.common/targets/z88dk/Makefile_pcw40
+include makefiles.common/targets/z88dk/Makefile_pcw80
+include makefiles.common/targets/z88dk/Makefile_pencil2
+include makefiles.common/targets/z88dk/Makefile_pmd85
+include makefiles.common/targets/z88dk/Makefile_pps
+include makefiles.common/targets/z88dk/Makefile_primo
+include makefiles.common/targets/z88dk/Makefile_pv1000
+include makefiles.common/targets/z88dk/Makefile_pv2000
+include makefiles.common/targets/z88dk/Makefile_px4
+include makefiles.common/targets/z88dk/Makefile_px8
+include makefiles.common/targets/z88dk/Makefile_qc10
+include makefiles.common/targets/z88dk/Makefile_radio86
+include makefiles.common/targets/z88dk/Makefile_rc700
+include makefiles.common/targets/z88dk/Makefile_rx78
+include makefiles.common/targets/z88dk/Makefile_smc777
+include makefiles.common/targets/z88dk/Makefile_sol20
+include makefiles.common/targets/z88dk/Makefile_sos
+include makefiles.common/targets/z88dk/Makefile_spc1000
+include makefiles.common/targets/z88dk/Makefile_special
+include makefiles.common/targets/z88dk/Makefile_srr
+include makefiles.common/targets/z88dk/Makefile_super80
+include makefiles.common/targets/z88dk/Makefile_super80r
+include makefiles.common/targets/z88dk/Makefile_sv8000
+include makefiles.common/targets/z88dk/Makefile_svi
+include makefiles.common/targets/z88dk/Makefile_ti82
+include makefiles.common/targets/z88dk/Makefile_ti83
+include makefiles.common/targets/z88dk/Makefile_ti85
+include makefiles.common/targets/z88dk/Makefile_ti86
+include makefiles.common/targets/z88dk/Makefile_ti83p
+include makefiles.common/targets/z88dk/Makefile_tiki100
+include makefiles.common/targets/z88dk/Makefile_tim011
+include makefiles.common/targets/z88dk/Makefile_ts2068
+include makefiles.common/targets/z88dk/Makefile_tvc
+include makefiles.common/targets/z88dk/Makefile_v1050
+include makefiles.common/targets/z88dk/Makefile_vector06c
+include makefiles.common/targets/z88dk/Makefile_x1
+include makefiles.common/targets/z88dk/Makefile_x820
+include makefiles.common/targets/z88dk/Makefile_z80tvgame
+include makefiles.common/targets/z88dk/Makefile_z88
+include makefiles.common/targets/z88dk/Makefile_zx80
+include makefiles.common/targets/z88dk/Makefile_zxn
+
+# GCC4TI
+include makefiles.common/targets/gcc4ti/Makefile_ti99
+
+
+# VBCC
+include makefiles.common/targets/vbcc/Makefile_amiga
+include makefiles.common/targets/vbcc/Makefile_atari_jaguar
+include makefiles.common/targets/vbcc/Makefile_bbc
+include makefiles.common/targets/vbcc/Makefile_bbcmaster
+include makefiles.common/targets/vbcc/Makefile_m65
+
+# ATARI_MINT_GCC
+include makefiles.common/targets/atari_mint_gcc/Makefile_atari_st
+
+
+########################################################################
+# Extras
+
+# Z88DK Extras
+include makefiles.common/targets/z88dk/extras/Makefile_agon
+include makefiles.common/targets/z88dk/extras/Makefile_bee
+include makefiles.common/targets/z88dk/extras/Makefile_camputers_lynx
+include makefiles.common/targets/z88dk/extras/Makefile_c128
+include makefiles.common/targets/z88dk/extras/Makefile_cpc
+include makefiles.common/targets/z88dk/extras/Makefile_pc88
+
+
+z88dk_experimental_targets: \
+abc80 \
+abc800 \
+alphatro \
+altair8800 \
+attache \
+aussie \
+bic \
+bit90 \
+bondwell \
+bondwell2 \
+coleco_adam \
+corvette \
+dai \
+dmv \
+eg2k \
+enterprise \
+excalibur64 \
+fp1100 \
+g800 \
+gemini \
+gl4000 \
+gl6000sl \
+hemc \
+hgmc \
+homelab \
+homelab2 \
+kaypro \
+kaypro83 \
+kramermc \
+krokha \
+lambda \
+lm80c \
+m5 \
+mbc200 \
+micro8085 \
+mikro80 \
+multi8 \
+myvision \
+mz2500 \
+nascom \
+nc100 \
+nc200 \
+newbrain \
+ondra \
+osborne1 \
+osca \
+oz \
+p2000 \
+pasopia7 \
+pc6001 \
+pc88 \
+pcw40 \
+pcw80 \
+pencil2 \
+pmd85 \
+pps \
+primo \
+pv1000 \
+pv2000 \
+px4 \
+px8 \
+qc10 \
+radio86 \
+rc700 \
+rx78 \
+smc777 \
+sol20 \
+sos \
+spc1000 \
+special \
+srr \
+super80 \
+super80r \
+sv8000 \
+svi \
+ti82 \
+ti83 \
+ti85 \
+ti86 \
+ti83p \
+tiki100 \
+tim011 \
+ts2068 \
+tvc \
+v1050 \
+vector06c \
+x1 \
+x820 \
+z80tvgame \
+z88 \
+zx80 \
+zxn
 
 

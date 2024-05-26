@@ -5,10 +5,10 @@ excalibur64_turn_bsed:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=2000 -DTURN_BASED \
+	-D__EXCALI64__ -DTURN_BASED \
 	 -DLESS_TEXT \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EXCALIBUR64_SLOWDOWN) \
 	-create-app -oxcex64tb.bin \
 	$(FULL_FILES) 
 	mv xcex64tb.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
@@ -22,10 +22,10 @@ excalibur64:
 	-pragma-redirect:getk=getk_inkey \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
-	-D__EXCALI64__ -D_XL_SLOW_DOWN_FACTOR=1600 \
+	-D__EXCALI64__ \
 	 -DLESS_TEXT \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EXCALIBUR64_SLOWDOWN) \
 	-create-app -oxcexca64.bin \
 	$(FULL_FILES) 
 	mv xcexca64.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img

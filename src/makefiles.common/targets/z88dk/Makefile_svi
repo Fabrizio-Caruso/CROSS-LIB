@@ -8,6 +8,7 @@ svi_light:
 	-D__INCLUDE_CONIO_H \
 	-zorg=49152 \
 	-clib=ansi \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SVI_SLOWDOWN) \
 	-pragma-define:ansicolumns=32 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -lndos \
@@ -24,10 +25,11 @@ svi: svi_328
 
 svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
-	-DZ88DK_JOYSTICK -DEXTRA_TITLE \
+	-DZ88DK_JOYSTICK \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
-	 -vn -lndos \
-	 -D__SVI__   \
+	-vn -lndos \
+	-D__SVI__   \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SVI_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-D__INCLUDE_CONIO_H \
 	-pragma-define:ansicolumns=32 \

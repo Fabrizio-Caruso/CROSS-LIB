@@ -4,7 +4,7 @@
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi \
 	-D__PC6001__ \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PC6001_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg  \
@@ -20,9 +20,8 @@ pc6001: pc6001_32k
 pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__  \
-	 \
 	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PC6001_SLOWDOWN) \
 	-D__SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

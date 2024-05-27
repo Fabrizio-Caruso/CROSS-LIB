@@ -8,11 +8,9 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	 -DLESS_TEXT \
-	  -D__BIT_BANG_SOUND \
+	-D__BIT_BANG_SOUND \
 	-D__CONIO_GRAPHICS \
-	 \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \

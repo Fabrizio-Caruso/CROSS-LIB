@@ -9,9 +9,9 @@ smc777_turn_based:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMC777_SLOWDOWN) \
 	-D__VT52 -DXSize=80 -DYSize=24 \
-	-D__CONIO_GRAPHICS -D_XL_SLOW_DOWN_FACTOR=1000 -DTURN_BASED \
+	-D__CONIO_GRAPHICS -DTURN_BASED \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \

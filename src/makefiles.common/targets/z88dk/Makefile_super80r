@@ -9,7 +9,7 @@ super80r_no_gfx_no_col:
 	-D__SUPER80R__ \
 	-DXSize=80 \
 	-DYSize=23 \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SUPER80R_SLOWDOWN) \
 	 -D__BIT_BANG_SOUND  \
 	 -D_XL_NO_COLOR  \
 	-D__CONIO_GRAPHICS \
@@ -26,8 +26,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__SUPER80R__ \
 	-DXSize=80 \
 	-DYSize=24 \
-	 \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SUPER80R_SLOWDOWN) \
 	 -D__BIT_BANG_SOUND  \
 	 -D_XL_NO_COLOR  \
 	-D__CONIO_GRAPHICS \

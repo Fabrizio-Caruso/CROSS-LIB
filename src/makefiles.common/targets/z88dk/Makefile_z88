@@ -5,6 +5,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_Z88_SLOWDOWN) \
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS \

@@ -5,14 +5,12 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PX8_SLOWDOWN) \
 	-subtype=px8 \
 	-create-app -o $@ \
 	-vn -lndos \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
-	 \
-	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm $@

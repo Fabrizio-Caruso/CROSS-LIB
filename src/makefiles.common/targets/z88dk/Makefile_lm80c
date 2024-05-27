@@ -6,6 +6,7 @@ lm80c: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__LM80C__ \
 	-D__VT52 -DXSize=32 -DYSize=24  \
 	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_LM80C_SLOWDOWN) \
 	-lndos -D_XL_NO_JOYSTICK \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

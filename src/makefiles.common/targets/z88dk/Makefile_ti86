@@ -8,6 +8,7 @@ ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI86__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TI86_SLOWDOWN) \
 	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \

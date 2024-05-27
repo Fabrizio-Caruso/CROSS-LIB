@@ -7,6 +7,7 @@ x820: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
 	-D__VT52 -DXSize=80 -DYSize=24  \
 	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
 	-lndos -D_XL_NO_JOYSTICK \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

@@ -9,6 +9,7 @@ oz_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
 	-compiler=sdcc \
 	-o$@.bin \
 	-D__OZ__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_OZ_SLOWDOWN) \
 	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
 	-DXSize=59 \
 	-DYSize=9 \

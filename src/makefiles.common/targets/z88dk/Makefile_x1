@@ -5,6 +5,7 @@ x1: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) -DEXTRA_TITLE \
 	-D__X1__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X1_SLOWDOWN) \
 	-D__PSG_SOUND \
 	-D__CONIO_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin -vn -lndos \

@@ -14,7 +14,7 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-D__Z88DK_SPRITES_GRAPHICS \
 	 \
 	-D__NO_INIT_GRAPHICS \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TS2068_SLOWDOWN) \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_ts2068.bin 

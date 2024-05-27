@@ -8,7 +8,7 @@ pencil2_no_gfx:
 	-DXSize=32 \
 	-DYSize=22 \
 	-D__NO_SCREEN_COLOR_INIT \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PENCIL2_SLOWDOWN) \
 	-D__VT52 \
 	-D__CONIO_GRAPHICS \
 	-lndos \
@@ -26,7 +26,7 @@ pencil2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DXSize=32 \
 	-DYSize=24 \
 	-D__NO_SCREEN_COLOR_INIT \
-	  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PENCIL2_SLOWDOWN) \
 	-D__VT52 \
 	-D__CONIO_GRAPHICS \
 	-lndos \

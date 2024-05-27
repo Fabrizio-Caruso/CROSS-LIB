@@ -6,6 +6,7 @@ rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__RX78__ \
 	-D__VT52 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_RX78_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	-lndos -D__BIT_BANG_SOUND \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \

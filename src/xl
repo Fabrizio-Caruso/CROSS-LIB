@@ -1972,8 +1972,6 @@ def check(params):
         native_target = True
         cross_target = True
         
-        if tools and native_target and xl_run_cross_target and cross_target:
-            printc(bcolors.OKCYAN, "No issue found\n")
         
         if not make['make'] and not make['gmake']:
             printc(bcolors.ERROR, "No make command detected!\n")
@@ -2021,6 +2019,8 @@ def check(params):
         if not xl_run_cross_target:
             printc(bcolors.WARNING, "'xl run <project> <target>' may be KO for some targets\n")
 
+        if tools and native_target and xl_run_cross_target and cross_target:
+            printc(bcolors.OKCYAN, "No issue found\n")
 
         
     elif params[1]=="compilers":

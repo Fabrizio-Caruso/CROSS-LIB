@@ -1,10 +1,11 @@
 #############################
-# TI8X
+# TI83P
 
 ti83p: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti83p $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
 	$(INCLUDE_OPTS) \
-	-D__TI8X__ \
+	-D__TI83P__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TI83P_SLOWDOWN) \
 	-DZ88DK_JOYSTICK \
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	-D__ALT_PRINT \

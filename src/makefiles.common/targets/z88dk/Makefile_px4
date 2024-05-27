@@ -6,7 +6,7 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) -lpx4 \
 	$(INCLUDE_OPTS) \
 	-D__PX4__ \
-	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PX4_SLOWDOWN) \
 	-subtype=px4 -Cz--32k \
 	-create-app -o $@ \
 	-vn -lndos \

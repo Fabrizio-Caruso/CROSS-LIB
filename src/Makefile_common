@@ -1035,46 +1035,6 @@ gal_22k:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-# --opt-code-size 
-gal_6k:
-	$(Z88DK_PATH)$(MYZ88DK) +gal $(ZSDCC_OPTS) \
-	-compiler=sdcc \
-	$(INCLUDE_OPTS) \
-	-pragma-need=ansiterminal \
-	--reserve-regs-iy \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
-	-D_XL_NO_SLEEP -DLESS_TEXT \
-	-D__GAL__ \
-	-DNO_RANDOM_LEVEL \
-	-D__NO_SCREEN_COLOR_INIT \
-	-DBOMBS_NUMBER=4 \
-	-DGHOSTS_NUMBER=8 \
-	-DNO_DEAD_GHOSTS \
-	-D__NO_INIT_GRAPHICS \
-	-DFLAT_ENEMIES \
-	-D__ALT_HIGHSCORE \
-	-D__CONIO_GRAPHICS \
-	-DUSE_TINY_MEMORY_BUFFERS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_SLOWDOWN) \
-	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg \
-	$(TINY_FILES) \
-	$(SOURCE_PATH)/memory/gal_memory.asm
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
-
-
-gal_plus_no_gfx:
-	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-pragma-need=ansiterminal \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_SLOWDOWN) \
-	-D__GAL__ -D__GAL_PLUS__   \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
-	$(FULL_FILES) 
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
 gal_plus: gal_plus_gfx
 
 gal_plus_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -2749,6 +2709,8 @@ include makefiles.common/targets/atari_mint_gcc/Makefile_atari_st
 include makefiles.common/targets/z88dk/extras/Makefile_agon
 include makefiles.common/targets/z88dk/extras/Makefile_bee
 include makefiles.common/targets/z88dk/extras/Makefile_camputers_lynx
+include makefiles.common/targets/z88dk/extras/Makefile_gal
+include makefiles.common/targets/z88dk/extras/Makefile_gal_plus
 include makefiles.common/targets/z88dk/extras/Makefile_c128
 include makefiles.common/targets/z88dk/extras/Makefile_cpc
 include makefiles.common/targets/z88dk/extras/Makefile_pc88

@@ -12,7 +12,6 @@ px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm $@

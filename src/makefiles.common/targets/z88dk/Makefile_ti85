@@ -11,7 +11,7 @@ ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
-	-DLESS_TEXT  -D__BIT_BANG_SOUND \
+	-D__BIT_BANG_SOUND \
 	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)

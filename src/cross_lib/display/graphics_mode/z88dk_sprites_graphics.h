@@ -12,8 +12,13 @@ extern uint8_t sprites[];
 
 #define BLIT_OPERATION spr_or
 
-#define _XL_DELETE(x,y) \
-    putsprite(spr_and,(x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),sprites + ((_SPACE)*(2+SPRITE_Y_SIZE)))
+#if defined(__ZX81__) || defined(__C128_Z80__)
+	#define _XL_DELETE(x,y) \
+		clga((x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),8,8)
+#else
+	#define _XL_DELETE(x,y) \
+		putsprite(spr_and,(x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),sprites + ((_SPACE)*(2+SPRITE_Y_SIZE)))
+#endif
 
 #if defined(__NO_SPRITE_TRANSPARENCY)
     #define _XL_DRAW(x,y,tile,color) \

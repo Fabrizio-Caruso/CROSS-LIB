@@ -254,6 +254,7 @@ PARALLEL_TARGETS = \
     'vz200',
     'zx81',
     'zx81_wrx',
+    'zx81_wrx64',
     'z9001',
     'kc',
     'z1013'

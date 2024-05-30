@@ -197,7 +197,11 @@ void chaseCharacter(void)
             #if !defined(TINY_GAME)
             else
             {
-                displayGhost(&ghosts[i]);
+				// Re-display()
+				if(!(loop&7))
+				{
+					displayGhost(&ghosts[i]);
+				}
             }
             #else
             displayGhost(&ghosts[i]);

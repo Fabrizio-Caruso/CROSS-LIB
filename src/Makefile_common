@@ -1693,7 +1693,35 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+zx81_8x6: zx81_8x6_wrx
+zx81_8x6_wrx: zx81_32k_8x6_wrx
+
+zx81_32k_8x6_wrx: $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096  \
+	-D__NO_SPRITE_TRANSPARENCY \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
+	-DXSize=32 \
+	-DYSize=32 \
+	-vn  \
+	-D__ZX81__ \
+	-D__Z88DK_SPRITES_GRAPHICS -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=6 -DSPRITE_Y_SIZE=6 \
+	-lndos \
+	-D_XL_NO_COLOR \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \
+	-D__ALT_PRINT \
+	-D__FEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
 zx81_wrx64: zx81_32k_wrx64
+
 zx81_32k_wrx64: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx64 -clib=wrx \
 	$(INCLUDE_OPTS) \

@@ -14,7 +14,7 @@ extern uint8_t sprites[];
 
 #if defined(__ZX81__) || defined(__C128_Z80__)
 	#define _XL_DELETE(x,y) \
-		clga((x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),8,8)
+		clga((x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),SPRITE_X_SIZE,SPRITE_Y_SIZE)
 #else
 	#define _XL_DELETE(x,y) \
 		putsprite(spr_and,(x)*(__SPRITE_X_STEP),(y)*(__SPRITE_Y_STEP),sprites + ((_SPACE)*(2+SPRITE_Y_SIZE)))

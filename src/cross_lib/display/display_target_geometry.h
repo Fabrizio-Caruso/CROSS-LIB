@@ -28,8 +28,13 @@
 	#endif	
 #endif
 
+#if !defined(SPRITE_X_SIZE)
 	#define SPRITE_X_SIZE 8
+#endif
+
+#if !defined(SPRITE_Y_SIZE)
 	#define SPRITE_Y_SIZE 8
+#endif
 
 		
 	#ifndef __SPRITE_X_STEP

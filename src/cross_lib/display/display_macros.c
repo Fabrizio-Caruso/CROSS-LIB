@@ -283,7 +283,11 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 
 #elif defined(__Z88DK_SPRITES_GRAPHICS)
 
-    #include "z88dk_sprites_definitions.h"
+	#if SPRITE_Y_SIZE==8
+		#include "z88dk_sprites_definitions.h"
+	#elif SPRITE_Y_SIZE==6
+		#include "z88dk_8x6_sprites_definitions.h"
+	#endif
     extern uint8_t sprites[];
 
 #elif defined(__BUFFERED_GRAPHICS)

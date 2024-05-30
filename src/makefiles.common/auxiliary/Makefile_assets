@@ -99,3 +99,8 @@ $(ASSETS_PATH)/8x6_tiles.s: $(8x6_TILES)
     
 $(ASSETS_PATH)/8x6_c_definition.h: $(8x6_TILES)
 	$(CREATE_ASSET)
+
+
+
+$(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h: $(8x6_TILES)
+	$(CREATE_ASSET)

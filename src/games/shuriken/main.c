@@ -1016,15 +1016,15 @@ void initialize_level_parameters(void)
 
 
 #if YSize>=20
-	#define SHURIKEN_Y 5
-	#define AUTHOR_Y 8
-	#define COLLECT_Y YSize-8
-	#define USE_AGAINST_Y YSize-5
+    #define SHURIKEN_Y 5
+    #define AUTHOR_Y 8
+    #define COLLECT_Y YSize-8
+    #define USE_AGAINST_Y YSize-5
 #else
-	#define SHURIKEN_Y 2
-	#define AUTHOR_Y 5
-	#define COLLECT_Y YSize-5
-	#define USE_AGAINST_Y YSize-2
+    #define SHURIKEN_Y 2
+    #define AUTHOR_Y 5
+    #define COLLECT_Y YSize-5
+    #define USE_AGAINST_Y YSize-2
 #endif
 
 
@@ -1427,7 +1427,10 @@ void update_player_direction(uint8_t direction)
     {
         force=0;
     }
-    player_direction=direction;
+    else
+    {
+        player_direction=direction;
+    }
 }
 
 
@@ -1486,7 +1489,7 @@ void handle_player(void)
     else 
     {
         // force=0;
-        if(ring_active && !(ring_counter&3))
+        if((ring_active&7)==1)
         {
             display_player();
         }
@@ -1554,11 +1557,11 @@ void handle_freeze_and_shurikens(void)
         if(ring_active) \
         { \
             --ring_active; \
-        } \
-        else \
-        { \
-            player_color = _XL_WHITE; \
-            display_player(); \
+            if(!ring_active) \
+            { \
+                player_color = _XL_WHITE; \
+                display_player(); \
+            } \
         } \
     } while(0)
 #else
@@ -1568,10 +1571,10 @@ void handle_freeze_and_shurikens(void)
         if(ring_active) \
         { \
             --ring_active; \
-        } \
-        else \
-        { \
-            display_player(); \
+            if(!ring_active) \
+            { \
+                display_player(); \
+            } \
         } \
     } while(0)
 #endif
@@ -1694,10 +1697,10 @@ do \
 
 
 #if defined(SHOW_LEVELS)
-	#define continue_level_condition() 0
+    #define continue_level_condition() 0
 #else
-	#define continue_level_condition() \
-		alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
+    #define continue_level_condition() \
+        alive && (remaining_diamonds || (remaining_shurikens && challenge_level))
 #endif
 
 
@@ -1705,22 +1708,22 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
-	counter=XSize/4;
+    counter=XSize/4;
     do
     {
-		if(counter)
-		{
-			--counter;
-		}
-		else
-		{
+        if(counter)
+        {
+            --counter;
+        }
+        else
+        {
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             #if !defined(_XL_NO_JOYSTICK)
             _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
             #else
             _XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
             #endif
-		}
+        }
         input = _XL_INPUT();
         
         handle_freeze_and_shurikens();

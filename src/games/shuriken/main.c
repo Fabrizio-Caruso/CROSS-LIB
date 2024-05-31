@@ -379,25 +379,25 @@ void delete_player(void)
 
 void display_player(void)
 {
-    #if !defined(_XL_NO_COLOR)
+    // #if !defined(_XL_NO_COLOR)
     _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
     _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
     _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
     _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);  
-    #else
-    if(!ring_active || (counter&1))
-    {
-        _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
-        _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
-        _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
-        _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);     
-    }
-    else
-    {
-        delete_player();
-    }
+    // #else
+    // if(!ring_active || (counter&1))
+    // {
+        // _XL_DRAW(screen_x,screen_y,player_tile[tile_group][2],player_color);
+        // _XL_DRAW(screen_x+1,screen_y,player_tile[tile_group][3],player_color);  
+        // _XL_DRAW(screen_x,screen_y+1,player_tile[tile_group][0],player_color);
+        // _XL_DRAW(screen_x+1,screen_y+1,player_tile[tile_group][1],player_color);     
+    // }
+    // else
+    // {
+        // delete_player();
+    // }
     
-    #endif
+    // #endif
 }
 
 
@@ -1709,19 +1709,40 @@ void animate_shurikens(void)
     activate_shurikens();
     build_shurikens();
     counter=XSize/4;
+    // #if defined(_XL_NO_TEXT_COLOR)
+        // _XL_SET_TEXT_COLOR(_XL_WHITE);
+        // #if !defined(_XL_NO_JOYSTICK)
+        // _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
+        // #else
+        // _XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
+        // #endif
+    // #endif
     do
     {
         if(counter)
         {
             --counter;
+            #if defined(_XL_NO_TEXT_COLOR) || defined(_XL_NO_COLOR)
+                if(!counter)
+                {
+					_XL_SET_TEXT_COLOR(_XL_WHITE);
+					#if !defined(_XL_NO_JOYSTICK)
+					_XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
+					#else
+					_XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
+					#endif
+                }
+            #endif
         }
         else
         {
-            _XL_SET_TEXT_COLOR(_XL_WHITE);
-            #if !defined(_XL_NO_JOYSTICK)
-            _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
-            #else
-            _XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
+            #if !defined(_XL_NO_TEXT_COLOR) 
+                _XL_SET_TEXT_COLOR(_XL_WHITE);
+                #if !defined(_XL_NO_JOYSTICK)
+                _XL_PRINT(XSize/2-5,YSize-1,"PRESS FIRE");
+                #else
+                _XL_PRINT(XSize/2-5,YSize-1,"PRESS SPACE");
+                #endif
             #endif
         }
         input = _XL_INPUT();

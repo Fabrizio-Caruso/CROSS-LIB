@@ -1482,11 +1482,11 @@ void handle_player(void)
         update_player_direction(PLAYER_RIGHT);
 
     }
-    // REMARK: We need this because shuriken do delete the player despite hand_collision
+    // REMARK: We need this because shuriken do delete the player despite handle_collisions
     else 
     {
         // force=0;
-        if(ring_active)
+        if(ring_active && !(ring_counter&3))
         {
             display_player();
         }
@@ -1705,7 +1705,7 @@ void animate_shurikens(void)
 {
     activate_shurikens();
     build_shurikens();
-	counter=XSize;
+	counter=XSize/4;
     do
     {
 		if(counter)

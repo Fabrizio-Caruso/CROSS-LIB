@@ -150,6 +150,7 @@ z88dk_targets_sequential: \
     vg5k \
     vz200 \
     zx81_wrx \
+    zx81_8x6_wrx128 \
     zx81 \
     gg \
     sms
@@ -179,6 +180,7 @@ z88dk_targets_sequential: \
     vg5k \
     vz200 \
     zx81_wrx \
+    zx81_8x6_wrx128 \
     zx81 \
     gg \
     sms

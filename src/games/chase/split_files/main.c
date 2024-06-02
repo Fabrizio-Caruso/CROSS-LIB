@@ -488,7 +488,10 @@ int main(void)
                         // Display ghosts
 						for(ind=0;ind<GHOSTS_NUMBER;++ind)
 						{
-							displayGhost(&ghosts[ind]);
+							if(!((loop+ind)&7))
+							{
+								displayGhost(&ghosts[ind]);
+							}
 						}
                     }
                     

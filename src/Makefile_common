@@ -1731,7 +1731,7 @@ zx81_32k_8x6_wrx: $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096  \
 	-D__NO_SPRITE_TRANSPARENCY \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_8X6_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
 	-DXSize=32 \
 	-DYSize=32 \
 	-vn  \
@@ -1783,7 +1783,7 @@ zx81_32k_wrx128: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096  \
 	-D__NO_SPRITE_TRANSPARENCY \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX64_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX128_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
 	-DXSize=32 \
 	-DYSize=16 \
 	-vn  \
@@ -1809,7 +1809,7 @@ zx81_32k_8x6_wrx128: $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096  \
 	-D__NO_SPRITE_TRANSPARENCY \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_8X6_WRX128_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
 	-DXSize=32 \
 	-DYSize=21 \
 	-vn  \
@@ -1835,7 +1835,7 @@ zx81_32k_8x6_wrx64: $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096  \
 	-D__NO_SPRITE_TRANSPARENCY \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_WRX_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_8X6_WRX64_SLOWDOWN) $(ZX81_GFX_GAME_OPTS) \
 	-DXSize=32 \
 	-DYSize=11 \
 	-vn  \

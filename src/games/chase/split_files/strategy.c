@@ -65,37 +65,57 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-    void chaseXStrategy(Character* hunterPtr, Character* preyPtr)
+    uint8_t chaseXStrategy(Character* hunterPtr, Character* preyPtr)
     {
-        deleteGhost(hunterPtr);
+        // deleteGhost(hunterPtr);
+		uint8_t x = hunterPtr->_x;
+		// uint8_t y = hunterPtr->_y;
 
+		
         if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
                          (uint8_t *)preyPtr + X_MOVE))
         {
-            return;
+			_XL_DELETE(x,hunterPtr->_y);
+            return 1;
         }
-        else
-        {
-            (void) moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
-                                 (uint8_t *)preyPtr + Y_MOVE);
-        }
+        else 
+		{
+			uint8_t y = hunterPtr->_y;
+
+			if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
+                                 (uint8_t *)preyPtr + Y_MOVE))
+			{
+				_XL_DELETE(x,y);
+				return 1;
+			}
+		}
+		return 0;
     }
 
-    void chaseYStrategy(Character* hunterPtr, Character* preyPtr)
+    uint8_t chaseYStrategy(Character* hunterPtr, Character* preyPtr)
     {
-        
-        deleteGhost(hunterPtr);
+        // deleteGhost(hunterPtr);
+		uint8_t y = hunterPtr->_y;
 
         if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
                          (uint8_t *)preyPtr + Y_MOVE))
         {
-            return;
+			_XL_DELETE(hunterPtr->_x,y);
+
+            return 1;
         }
         else
         {
-            (void) moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
-                                 (uint8_t *)preyPtr + X_MOVE);
+			uint8_t x = hunterPtr->_x;
+
+            if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
+                                 (uint8_t *)preyPtr + X_MOVE))
+			{
+				_XL_DELETE(x,y);
+				return 1;
+			}
         }
+		return 0;
     }
 #endif
 
@@ -105,40 +125,68 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 // 0 means always horizontal
 // 9 means always vertical
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-    void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
+    uint8_t moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
     {
         if((_XL_RAND()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
-                chaseXStrategy(hunterPtr, preyPtr);    
+                if(chaseXStrategy(hunterPtr, preyPtr))
+				{
+					displayGhost(hunterPtr);
+				}	return 1;
             }
         else
             { // 5 - 9
-                chaseYStrategy(hunterPtr, preyPtr);
+                if(chaseYStrategy(hunterPtr, preyPtr))
+				{
+					displayGhost(hunterPtr);
+					return 1;
+				}
             }
-        displayGhost(hunterPtr);
+		return 0;
     }
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
-    void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
+    uint8_t moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
     {
         uint8_t offset = (uint8_t) _XL_RAND()&1;
         
-        deleteGhost(hunterPtr);
-        (void) moveCharacter((uint8_t *)hunterPtr + offset, 
-                      (uint8_t *)preyPtr + offset);
-        displayGhost(hunterPtr);
+
+		uint8_t x = hunterPtr->_x;
+		uint8_t y = hunterPtr->_y;
+        if(moveCharacter((uint8_t *)hunterPtr + offset, 
+                      (uint8_t *)preyPtr + offset))
+		{
+			_XL_DELETE(x,y);
+			displayGhost(hunterPtr);
+			return 1;
+		}
+		return 0;
     }    
+#elif !defined(TINY_GAME)
+    uint8_t moveTowardCharacter(Character *hunterPtr)
+    {
+        uint8_t offset = (uint8_t) _XL_RAND()&1;
+        
+		uint8_t x = hunterPtr->_x;
+		uint8_t y = hunterPtr->_y;
+        if(moveCharacter((uint8_t *)hunterPtr + offset,
+                      (uint8_t *)(&player) + offset))
+		{
+			_XL_DELETE(x,y);
+			displayGhost(hunterPtr);
+			return 1;
+		}
+		return 0;
+	}
 #else
     void moveTowardCharacter(Character *hunterPtr)
     {
         uint8_t offset = (uint8_t) _XL_RAND()&1;
         
-        deleteGhost(hunterPtr);
-        (void) moveCharacter((uint8_t *)hunterPtr + offset,
-                      (uint8_t *)(&player) + offset);
-                      
-        #if !defined(TINY_GAME)
-        displayGhost(hunterPtr);
-        #endif
+		deleteGhost(hunterPtr)
+        moveCharacter((uint8_t *)hunterPtr + offset,(uint8_t *)(&player) + offset);
+			// return 1;
+		// }
+		// return 0;
     }
 #endif
 
@@ -187,9 +235,15 @@ void chaseCharacter(void)
         #endif
             {
                 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-                    moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);    
+                    if(!moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]) || !((loop+i)&7))
+					{
+						displayGhost(&ghosts[i]);
+					}
                 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
-                    moveTowardCharacter(preyPtr, &ghosts[i]);    
+                    if(!moveTowardCharacter(preyPtr, &ghosts[i]) || !(loop&7))
+					{
+						displayGhost(&ghosts[i]);
+					}
                 #else
                     moveTowardCharacter(&ghosts[i]);    
                 #endif
@@ -198,7 +252,7 @@ void chaseCharacter(void)
             else
             {
 				// Re-display()
-				if(!(loop&7))
+				if(!((loop+i)&7))
 				{
 					displayGhost(&ghosts[i]);
 				}

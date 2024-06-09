@@ -525,7 +525,7 @@ lda $a7c0
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch)
     {
         _XL_DELETE(x,y); 
-        if(ch!=_XL_SPACE)
+        if(ch)
         {
             putsprite(spr_or,x*(__SPRITE_X_STEP),y*(__SPRITE_Y_STEP),sprites + ((ch-32U)*(2+SPRITE_Y_SIZE)));
         }

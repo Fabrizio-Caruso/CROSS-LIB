@@ -435,7 +435,7 @@ class testImport(unittest.TestCase):
         source_lines = [ \
             '000 REM ** USER DEFINED GRAPHICS **',
             '001 REM ** BY SHANE JOLLY **',
-            '100 PRINT "♥": PRINT TAB(12)"PLEASE WAIT..."',
+            '100 PRINT CHR$(147): PRINT TAB(12)"PLEASE WAIT..."',
             '110 PRINT CHR$(142)',
             '120 POKE 52, 48: POKE 56, 48',
             '130 POKE UG=12288;CG=53248',

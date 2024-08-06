@@ -30,6 +30,9 @@
 #define X_DINO (XSize/8)
 #define Y_DINO (YSize/2)
 
+uint8_t input;
+
+
 void draw_jump_dino_0(uint8_t height)
 {
     // Initial tiles
@@ -129,46 +132,50 @@ int main(void)
             }
         }
         
-        for(j=0;j<4;++j)
+        input = _XL_INPUT();
+        
+        if(_XL_FIRE(input))
         {
+            for(j=0;j<4;++j)
+            {
+                delete_feet(j);
+                
+                draw_jump_dino_0(j+1);
+                
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+                
+                draw_jump_dino_1(j+1);
+                
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
+            }
+                    
             delete_feet(j);
             
             draw_jump_dino_0(j+1);
+        
+            _XL_SLOW_DOWN((RUN_SLOW_DOWN+RUN_SLOW_DOWN/2)*_XL_SLOW_DOWN_FACTOR);
             
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            delete_feet(j);
             
-            draw_jump_dino_1(j+1);
+            draw_jump_dino_2(j+1);
             
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
-        }
-                
-        delete_feet(j);
-        
-        draw_jump_dino_0(j+1);
-        
-        _XL_SLOW_DOWN((RUN_SLOW_DOWN+RUN_SLOW_DOWN/2)*_XL_SLOW_DOWN_FACTOR);
-        
-        delete_feet(j);
-        
-        draw_jump_dino_2(j+1);
-        
-        _XL_SLOW_DOWN(2*RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-        
-        for(j=4;j>0;--j)
-        {
-            delete_top(j+1);
+            _XL_SLOW_DOWN(2*RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            
+            for(j=4;j>0;--j)
+            {
+                delete_top(j+1);
 
-            draw_jump_dino_0(j+1);
-            
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-            
-            delete_top(j); 
-            
-            draw_jump_dino_1(j);
-            
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
+                draw_jump_dino_0(j+1);
+                
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+                
+                delete_top(j); 
+                
+                draw_jump_dino_1(j);
+                
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
+            }
         }
-        
     }
 
     _XL_PRINT(XSize/4,YSize-5, "END OF DEMO");

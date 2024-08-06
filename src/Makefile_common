@@ -2300,6 +2300,9 @@ ALTAIR_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff
 DESTROYER_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
 DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20ff"
 
+PIXIE_4K_OPTS ?= "-Wa-D LCCCX=1" -D__VIP__ -DRES=64 -DVIDMEM=0xF00 "-Wa-D STACKLOC=0xDFF"
+
+
 MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
 
 MICROBOARD_PAL_1_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=1"
@@ -2411,6 +2414,12 @@ REDUCED_LCC1802_C_OPTS ?= \
 	$(LCC1802_BASIC_C_OPTS) \
 	-D_XL_NO_SLEEP
 
+PIXIE_C_OPTS ?= \
+	-D__LCC1802__ \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__NO_PRINT \
+	-D__NO_SLEEP
+
 LCC1802_COLOR_C_OPTS ?= \
 	$(LCC1802_COLOR_BASIC_C_OPTS) \
 	-D__ALT_SLEEP
@@ -2468,6 +2477,21 @@ comx: \
     _comx \
     clean_combo_files
 
+
+_vip: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/4x4_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PIXIE_4K_OPTS)  \
+	-D__VIP__  $(VIP_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIP_SLOWDOWN) \
+	$(PIXIE_C_OPTS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+vip: \
+    _vip \
+    clean_combo_files
+
+
+# Interrupt-driver graphics
 _comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DVIS_INT  \
 	-D__COMX__  \

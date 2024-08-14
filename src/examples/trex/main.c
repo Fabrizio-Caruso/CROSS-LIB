@@ -90,9 +90,9 @@ void draw_dino_feet_1(void)
 
 int main(void)
 {        
-    uint8_t i;
+    // uint8_t i;
     uint8_t j;
-    uint8_t k;
+    // uint8_t k;
     
     _XL_INIT_GRAPHICS();
     
@@ -100,37 +100,38 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-    for(i=0;i<9;++i)
+	_XL_CLEAR_SCREEN();
+
+	for(j=0;j<XSize;++j)
+	{
+		_XL_DRAW(j,Y_DINO+2,TERRAIN,_XL_WHITE);
+	}
+    while(1)
     {
 
-        _XL_CLEAR_SCREEN();
 
-        for(j=0;j<XSize;++j)
-        {
-            _XL_DRAW(j,Y_DINO+2,TERRAIN,_XL_WHITE);
-        }
 
 
         draw_jump_dino_0(0);
          
-        for(j=0;j<2;++j)
-        {
+        // for(j=0;j<2;++j)
+        // {
         
-            for(k=0;k<6;++k)
-            {
+            // for(k=0;k<6;++k)
+            // {
                 delete_feet(0);
                 
                 draw_dino_feet_0();
                 
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR>>j);
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
                 
                 delete_feet(0);
                 
                 draw_dino_feet_1();
                 
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR>>j);
-            }
-        }
+                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            // }
+        // }
         
         input = _XL_INPUT();
         
@@ -161,6 +162,7 @@ int main(void)
             
             _XL_SLOW_DOWN(2*RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
             
+			// _XL_WAIT_FOR_INPUT();
             for(j=4;j>0;--j)
             {
                 delete_top(j+1);
@@ -175,6 +177,29 @@ int main(void)
                 
                 _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
             }
+			
+            delete_top(0);
+			delete_top(1);
+
+            draw_jump_dino_2(1);
+			_XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+
+			delete_top(0);
+			delete_top(1);
+			
+
+			draw_jump_dino_0(1);
+            
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+			delete_top(0);
+			delete_top(1);
+			
+			draw_jump_dino_1(0);
+            
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+			delete_top(0);
+			delete_top(1);
+			// delete_top(0);
         }
     }
 

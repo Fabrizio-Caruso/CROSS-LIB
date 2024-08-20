@@ -33,6 +33,8 @@
 uint8_t input;
 
 
+uint8_t state;
+
 void draw_jump_dino_0(uint8_t height)
 {
     // Initial tiles
@@ -88,6 +90,203 @@ void draw_dino_feet_1(void)
 
 #define RUN_SLOW_DOWN 3
 
+
+#define JUMP 2
+
+
+void handle_state_behavior(void)
+{
+    switch(state)
+    {
+        case 0:
+             draw_jump_dino_0(0);
+
+            delete_feet(0);
+            
+            draw_dino_feet_0();
+        break;
+        
+        case 1:
+            delete_feet(0);
+            
+            draw_dino_feet_1();
+        break;
+        
+        case JUMP:
+                delete_feet(0);
+                
+                draw_jump_dino_0(0+1);
+                
+        break;
+        
+        case JUMP+1:
+        
+                draw_jump_dino_1(0+1);
+                delete_feet(1);
+                
+                draw_jump_dino_0(1+1);
+                
+        break;
+        
+        case JUMP+2:
+                draw_jump_dino_1(1+1);
+
+                delete_feet(2);
+                
+                draw_jump_dino_0(2+1);
+                
+        break;
+        
+        case JUMP+3:
+                draw_jump_dino_1(2+1);
+
+                delete_feet(3);
+                
+                draw_jump_dino_0(3+1);
+                
+        break;
+        
+        case JUMP+4:
+                draw_jump_dino_1(3+1);
+
+                delete_feet(4);
+                
+                draw_jump_dino_0(4+1);
+                
+        break;
+        
+        case JUMP+5:
+            delete_feet(4);
+            
+            draw_jump_dino_2(4+1);
+        break;
+        
+        case JUMP+6:
+            delete_top(5);
+            draw_jump_dino_0(5);
+        break;
+        
+        case JUMP+7:
+            delete_top(4);
+            draw_jump_dino_1(4);
+        break;
+        
+        case JUMP+8:
+            delete_top(4);
+            draw_jump_dino_0(4);
+        break;
+        
+        case JUMP+9:
+            delete_top(3);
+            draw_jump_dino_1(3);
+        break;
+        
+        case JUMP+10:
+            delete_top(3);
+            draw_jump_dino_0(3);
+        break;
+        
+        case JUMP+11:
+            delete_top(2);
+            draw_jump_dino_1(2);
+        break;
+        
+        case JUMP+12:
+            delete_top(2);
+            draw_jump_dino_0(2);
+        break;
+        
+        case JUMP+13:
+            delete_top(1);
+            draw_jump_dino_1(1);
+        break;
+        
+        case JUMP+14:
+            delete_top(1);
+            draw_jump_dino_0(1);
+        break;
+        
+        case JUMP+15:
+            delete_top(0);
+            draw_jump_dino_1(0);
+        break;
+
+        
+        case JUMP+16:
+        
+
+			delete_top(0);
+			delete_top(1);
+            
+             draw_jump_dino_0(0);
+
+            delete_feet(0);
+            
+            draw_dino_feet_0();
+        break;
+
+    }
+}
+
+
+void handle_state_transition(void)
+{
+    switch(state)
+    {
+        case 0:
+
+            input = _XL_INPUT();
+            
+            if(_XL_FIRE(input))
+            {
+                state = JUMP;
+            }
+            else
+            {
+                state = 1;
+            }
+        break;
+        
+        case 1:
+            input = _XL_INPUT();
+            
+            if(_XL_FIRE(input))
+            {
+                state = JUMP;
+            }
+            else
+            {
+                state = 0;
+            }
+        break;
+        
+        case JUMP:
+        case JUMP+1:
+        case JUMP+2:
+        case JUMP+3:
+        case JUMP+4:
+        case JUMP+5:
+        case JUMP+6:
+        case JUMP+7:
+        case JUMP+8:
+        case JUMP+9:
+        case JUMP+10:
+        case JUMP+11:
+        case JUMP+12:
+        case JUMP+13:
+        case JUMP+14:
+        case JUMP+15:
+            ++state;
+        break;
+        
+        case JUMP+16:
+            state=0;
+        break;
+    }
+}
+
+
+
 int main(void)
 {        
     // uint8_t i;
@@ -106,32 +305,39 @@ int main(void)
 	{
 		_XL_DRAW(j,Y_DINO+2,TERRAIN,_XL_WHITE);
 	}
+    state = 0;
+    
     while(1)
     {
 
+    _XL_PRINTD(0,0,3,state);
+    
+    handle_state_behavior();
+    handle_state_transition();
+    
+    _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
 
 
+    }
 
+    return EXIT_SUCCESS;
+}
+
+/*
         draw_jump_dino_0(0);
          
-        // for(j=0;j<2;++j)
-        // {
+        delete_feet(0);
         
-            // for(k=0;k<6;++k)
-            // {
-                delete_feet(0);
-                
-                draw_dino_feet_0();
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-                
-                delete_feet(0);
-                
-                draw_dino_feet_1();
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-            // }
-        // }
+        draw_dino_feet_0();
+        
+        _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+        
+        delete_feet(0);
+        
+        draw_dino_feet_1();
+        
+        _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+
         
         input = _XL_INPUT();
         
@@ -199,14 +405,6 @@ int main(void)
             _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
 			delete_top(0);
 			delete_top(1);
-			// delete_top(0);
         }
-    }
 
-    _XL_PRINT(XSize/4,YSize-5, "END OF DEMO");
-
-    while(1){};
-    
-    return EXIT_SUCCESS;
-}
-
+*/

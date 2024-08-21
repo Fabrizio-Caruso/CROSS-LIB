@@ -35,6 +35,17 @@ uint8_t input;
 
 uint8_t state;
 
+uint8_t x_cactus;
+
+uint8_t cactus_cooldown;
+
+uint8_t dead;
+
+#define Y_TERRAIN ((Y_DINO)+2)
+#define Y_CACTUS ((Y_TERRAIN)-1)
+
+
+
 void draw_jump_dino_0(uint8_t height)
 {
     // Initial tiles
@@ -286,6 +297,59 @@ void handle_state_transition(void)
 }
 
 
+void update_cactus(void)
+{
+
+
+    _XL_DELETE(x_cactus,Y_CACTUS-1);
+    _XL_DELETE(x_cactus,Y_CACTUS);
+    
+    if(x_cactus==0)
+    {
+        x_cactus = XSize-1;
+        
+        cactus_cooldown = _XL_RAND()&31;
+        return;
+    }
+    else
+    {
+        --x_cactus;
+    }
+    _XL_DRAW(x_cactus,Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
+    _XL_DRAW(x_cactus,Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+}
+
+
+uint8_t cactus_collision(void)
+{
+    if((x_cactus<X_DINO+1)&&(state<5))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+
+void handle_cactus(void)
+{
+    if(cactus_cooldown)
+    {
+        --cactus_cooldown;
+    }
+    else
+    {
+        update_cactus();
+    }
+}
+
+
+#if defined(_XL_NO_JOYSTICK)
+    #define PRESS_TO_START "PRESS A KEY"
+#else
+    #define PRESS_TO_START "PRESS START"
+#endif
+#define DELETE_PRESS       "           "
+
 
 int main(void)
 {        
@@ -299,25 +363,52 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-	_XL_CLEAR_SCREEN();
 
-	for(j=0;j<XSize;++j)
-	{
-		_XL_DRAW(j,Y_DINO+2,TERRAIN,_XL_WHITE);
-	}
-    state = 0;
     
     while(1)
     {
+        x_cactus = XSize-1;
+        
+        state = 0;
+        
+        dead = 0;
+        
+        cactus_cooldown = 100;
+        
+        _XL_CLEAR_SCREEN();
 
-    _XL_PRINTD(0,0,3,state);
-    
-    handle_state_behavior();
-    handle_state_transition();
-    
-    _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+        for(j=0;j<XSize;++j)
+        {
+            _XL_DRAW(j,Y_TERRAIN,TERRAIN,_XL_WHITE);
+        }        
+        _XL_SLEEP(2);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
+        _XL_SLEEP(2);
+        _XL_WAIT_FOR_INPUT();
+        _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
 
+        
+        while(!dead)
+        {
 
+        // _XL_PRINTD(0,0,3,state);
+            
+            handle_state_behavior();
+            handle_state_transition();
+            handle_cactus();
+            
+        
+            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            
+            dead = cactus_collision();
+        }
+        handle_state_behavior();
+        _XL_SLEEP(2);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINT(XSize/2-5, YSize/2-3, "G A M E  O V E R");
+        _XL_SLEEP(2);
+        _XL_WAIT_FOR_INPUT();
     }
 
     return EXIT_SUCCESS;

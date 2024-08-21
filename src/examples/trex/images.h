@@ -30,6 +30,9 @@
     #define FOOT_DINO_2     _TILE_14
 
     #define TERRAIN         _TILE_15
+    
+    #define TOP_CACTUS      _TILE_16
+    #define BOTTOM_CACTUS   _TILE_17
 
 #endif // _IMAGES_H
 

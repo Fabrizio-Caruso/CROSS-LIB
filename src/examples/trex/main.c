@@ -43,6 +43,10 @@ uint8_t cactus_cooldown[NUMBER_OF_CACTI];
 
 uint8_t dead;
 
+
+uint16_t score;
+uint16_t hiscore;
+
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
 
@@ -299,6 +303,20 @@ void handle_state_transition(void)
 }
 
 
+void update_score(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(0,0,4,score);
+}
+
+
+void display_hiscore(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-1-4,0,4,hiscore);
+
+}
+
 void update_cactus(uint8_t i)
 {
 
@@ -308,6 +326,8 @@ void update_cactus(uint8_t i)
     
     if(x_cactus[i]==0)
     {
+        ++score;
+        update_score();
         x_cactus[i] = XSize-1;
         
         cactus_cooldown[i] = _XL_RAND()&31;
@@ -387,13 +407,13 @@ int main(void)
 
     _XL_INIT_INPUT();
 
-
+    hiscore = 0;
     
     while(1)
     {
         for(i=0;i<NUMBER_OF_CACTI;++i)
         {
-            x_cactus[i] =0;
+            x_cactus[i] =XSize-1;
         }
         
         counter = 0;
@@ -408,6 +428,9 @@ int main(void)
         }
         
         _XL_CLEAR_SCREEN();
+        score = 0;
+        update_score();
+        display_hiscore();
 
         for(j=0;j<XSize;++j)
         {
@@ -420,7 +443,6 @@ int main(void)
         _XL_WAIT_FOR_INPUT();
         _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
 
-        
         while(!dead)
         {
 
@@ -480,6 +502,10 @@ int main(void)
         _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");
         _XL_SLEEP(2);
         _XL_WAIT_FOR_INPUT();
+        if(score>hiscore)
+        {
+            hiscore = score;
+        }
     }
 
     return EXIT_SUCCESS;

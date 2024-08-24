@@ -319,10 +319,12 @@ void update_cactus(void)
     _XL_DRAW(x_cactus,Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
 }
 
+#define LOW_COLLISION_THRESHOLD 5
+#define HIGH_COLLISION_THRESHOLD ((JUMP)+14)
 
 uint8_t cactus_collision(void)
 {
-    if((x_cactus<X_DINO+1)&&(state<5))
+    if((x_cactus<X_DINO+1)&&(x_cactus>X_DINO-2) && ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD)))
     {
         return 1;
     }

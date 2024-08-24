@@ -1348,7 +1348,9 @@ void handle_item(register Item* item)
                 _XL_DRAW(item->_x,item->_y,item_tile,0);
                 #endif
             }
- 
+
+// TODO: Use uint8_t player_x = (stinger_x>>1)+(stinger_x&1);
+// TODO: compare item_x with player_x to decide whether the player has to be redisplayed
             if((item->_counter>=EXPLOSION_THRESHOLD)&&(item->_x==(stinger_x>>1)+(stinger_x&1)))
             {
                 item->_effect();

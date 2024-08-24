@@ -30,14 +30,16 @@
 #define X_DINO (XSize/8)
 #define Y_DINO (YSize/2)
 
+#define NUMBER_OF_CACTI 3
+
 uint8_t input;
 
 
 uint8_t state;
 
-uint8_t x_cactus;
-
-uint8_t cactus_cooldown;
+uint8_t x_cactus[NUMBER_OF_CACTI];
+// uint8_t active_cactus[NUMBER_OF_CACTI];
+uint8_t cactus_cooldown[NUMBER_OF_CACTI];
 
 uint8_t dead;
 
@@ -226,8 +228,8 @@ void handle_state_behavior(void)
         case JUMP+16:
         
 
-			delete_top(0);
-			delete_top(1);
+            delete_top(0);
+            delete_top(1);
             
              draw_jump_dino_0(0);
 
@@ -297,50 +299,56 @@ void handle_state_transition(void)
 }
 
 
-void update_cactus(void)
+void update_cactus(uint8_t i)
 {
 
 
-    _XL_DELETE(x_cactus,Y_CACTUS-1);
-    _XL_DELETE(x_cactus,Y_CACTUS);
+    _XL_DELETE(x_cactus[i],Y_CACTUS-1);
+    _XL_DELETE(x_cactus[i],Y_CACTUS);
     
-    if(x_cactus==0)
+    if(x_cactus[i]==0)
     {
-        x_cactus = XSize-1;
+        x_cactus[i] = XSize-1;
         
-        cactus_cooldown = _XL_RAND()&31;
+        cactus_cooldown[i] = _XL_RAND()&31;
         return;
     }
     else
     {
-        --x_cactus;
+        --x_cactus[i];
     }
-    _XL_DRAW(x_cactus,Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
-    _XL_DRAW(x_cactus,Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+    _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
+    _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
 }
 
-#define LOW_COLLISION_THRESHOLD 5
-#define HIGH_COLLISION_THRESHOLD ((JUMP)+14)
+#define LOW_COLLISION_THRESHOLD 4
+#define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
 
-uint8_t cactus_collision(void)
+uint8_t cactus_collision(uint8_t i)
 {
-    if((x_cactus<X_DINO+1)&&(x_cactus>X_DINO-2) && ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD)))
+    // _XL_SET_TEXT_COLOR(_XL_WHITE);
+
+    if((x_cactus[i]<X_DINO+1)&&(x_cactus[i]>X_DINO-2))
     {
+        // _XL_PRINT(0,0,"DEAD ");
+        // _XL_PRINTD(10,0,2,i);
         return 1;
     }
+    // _XL_PRINT(0,0,"ALIVE ");
+    
     return 0;
 }
 
 
-void handle_cactus(void)
+void handle_cactus(uint8_t i)
 {
-    if(cactus_cooldown)
+    if(cactus_cooldown[i])
     {
-        --cactus_cooldown;
+        --cactus_cooldown[i];
     }
     else
     {
-        update_cactus();
+        update_cactus(i);
     }
 }
 
@@ -352,13 +360,14 @@ void handle_cactus(void)
 #endif
 #define DELETE_PRESS       "           "
 
-#define INITIAL_CACTUS_COOLDOWN 40
+#define INITIAL_CACTUS_COOLDOWN 10
+
+uint8_t counter;
 
 int main(void)
 {        
-    // uint8_t i;
+    uint8_t i;
     uint8_t j;
-    // uint8_t k;
     
     _XL_INIT_GRAPHICS();
     
@@ -370,13 +379,21 @@ int main(void)
     
     while(1)
     {
-        x_cactus = XSize-1;
+        for(i=0;i<NUMBER_OF_CACTI;++i)
+        {
+            x_cactus[i] =0;
+        }
+        
+        counter = 0;
         
         state = 0;
         
         dead = 0;
         
-        cactus_cooldown = INITIAL_CACTUS_COOLDOWN;
+        for(i=0;i<NUMBER_OF_CACTI;++i)
+        {
+            cactus_cooldown[i] = INITIAL_CACTUS_COOLDOWN+_XL_RAND()&16;
+        }
         
         _XL_CLEAR_SCREEN();
 
@@ -399,13 +416,30 @@ int main(void)
             
             handle_state_behavior();
             handle_state_transition();
-            handle_cactus();
+            
+            ++counter;
+            if(counter&1)
+            {
+                for(i=0;i<NUMBER_OF_CACTI;++i)
+                {
+                    handle_cactus(i);
+                }
+            }
             
         
             _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
             
-            dead = cactus_collision();
+            if ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD))
+            {
+                i=0;
+                while((i<NUMBER_OF_CACTI)&&(!dead))
+                {
+                    dead = cactus_collision(i++);
+                }
+            }
         }
+        _XL_DELETE(X_DINO,Y_DINO);
+
         _XL_DELETE(X_DINO,Y_DINO-1);
         _XL_DELETE(X_DINO,Y_DINO-2);
         _XL_DELETE(X_DINO,Y_DINO-3);
@@ -431,89 +465,3 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
-
-/*
-        draw_jump_dino_0(0);
-         
-        delete_feet(0);
-        
-        draw_dino_feet_0();
-        
-        _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-        
-        delete_feet(0);
-        
-        draw_dino_feet_1();
-        
-        _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-
-        
-        input = _XL_INPUT();
-        
-        if(_XL_FIRE(input))
-        {
-            for(j=0;j<4;++j)
-            {
-                delete_feet(j);
-                
-                draw_jump_dino_0(j+1);
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-                
-                draw_jump_dino_1(j+1);
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
-            }
-                    
-            delete_feet(j);
-            
-            draw_jump_dino_0(j+1);
-        
-            _XL_SLOW_DOWN((RUN_SLOW_DOWN+RUN_SLOW_DOWN/2)*_XL_SLOW_DOWN_FACTOR);
-            
-            delete_feet(j);
-            
-            draw_jump_dino_2(j+1);
-            
-            _XL_SLOW_DOWN(2*RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-            
-			// _XL_WAIT_FOR_INPUT();
-            for(j=4;j>0;--j)
-            {
-                delete_top(j+1);
-
-                draw_jump_dino_0(j+1);
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-                
-                delete_top(j); 
-                
-                draw_jump_dino_1(j);
-                
-                _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);  
-            }
-			
-            delete_top(0);
-			delete_top(1);
-
-            draw_jump_dino_2(1);
-			_XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-
-			delete_top(0);
-			delete_top(1);
-			
-
-			draw_jump_dino_0(1);
-            
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-			delete_top(0);
-			delete_top(1);
-			
-			draw_jump_dino_1(0);
-            
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
-			delete_top(0);
-			delete_top(1);
-        }
-
-*/

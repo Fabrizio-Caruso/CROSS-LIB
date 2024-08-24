@@ -39,7 +39,8 @@ uint8_t input;
 uint8_t state;
 
 uint8_t x_cactus[NUMBER_OF_CACTI];
-uint8_t active_cactus[NUMBER_OF_CACTI];
+// uint8_t active_cactus[NUMBER_OF_CACTI];
+#define active_cactus x_cactus
 uint8_t cactus_cooldown[NUMBER_OF_CACTI];
 
 uint8_t dead;
@@ -50,6 +51,9 @@ uint16_t hiscore;
 
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
+
+#define LEFT_END_OF_SCREEN 1
+#define RIGHT_END_OF_SCREEN ((XSize)-1)
 
 
 
@@ -318,37 +322,43 @@ void display_hiscore(void)
 
 }
 
+
 void update_cactus(uint8_t i)
 {
-
-
     _XL_DELETE(x_cactus[i],Y_CACTUS-1);
     _XL_DELETE(x_cactus[i],Y_CACTUS);
     
-    if(x_cactus[i]==0)
+    if(x_cactus[i]==LEFT_END_OF_SCREEN)
     {
         ++score;
         update_score();
-        
+
         // _XL_PRINTD(0,2,2,i);
         // _XL_SLEEP(1);
-        x_cactus[i] = XSize-1;
-        
+        x_cactus[i] = 0;
+        _XL_DELETE(x_cactus[i],Y_CACTUS-1);
+        _XL_DELETE(x_cactus[i],Y_CACTUS);
+    
         cactus_cooldown[i] = _XL_RAND()&31;
         return;
     }
-    else
+    else if(x_cactus[i])
     {
         --x_cactus[i];
+        _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
     }
-    _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
-    _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+    else
+    {
+        x_cactus[i] = RIGHT_END_OF_SCREEN;
+    }
+
 }
 
 
 void handle_cactus_half_transition(uint8_t i)
 {
-    if((x_cactus[i]>1)&&(x_cactus[i]<XSize-2))
+    if((x_cactus[i]>=LEFT_END_OF_SCREEN)&&(x_cactus[i]<RIGHT_END_OF_SCREEN))
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
@@ -376,19 +386,24 @@ uint8_t cactus_collision(uint8_t i)
 }
 
 
-uint8_t cactus_overlap(uint8_t i)
-{
-    uint8_t j;
+// uint8_t cactus_overlap(uint8_t i)
+// {
+    // uint8_t j;
     
-    for(j=i+1;j<NUMBER_OF_CACTI;++j)
-    {
-        if((x_cactus[j]==x_cactus[i]) || (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
+    // for(j=i+1;j<NUMBER_OF_CACTI;++j)
+    // {
+        // if((x_cactus[j]==x_cactus[i]) ||
+        // (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1) ||
+        // (x_cactus[j]==x_cactus[i]-2) || (x_cactus[j]==x_cactus[i]+2) || 
+        // (x_cactus[j]==x_cactus[i]-3) || (x_cactus[j]==x_cactus[i]+3) ||
+        // (x_cactus[j]==x_cactus[i]-4) || (x_cactus[j]==x_cactus[i]+5) ||
+        // (x_cactus[j]==x_cactus[i]-4) || (x_cactus[j]==x_cactus[i]+5))
+        // {
+            // return 1;
+        // }
+    // }
+    // return 0;
+// }
 
 void handle_cactus(uint8_t i)
 {
@@ -396,14 +411,22 @@ void handle_cactus(uint8_t i)
     {
         --cactus_cooldown[i];
     }
-    else if(!cactus_overlap(i))
+    else if(cactus_cooldown[i]==1)
+    {
+        x_cactus[i]=RIGHT_END_OF_SCREEN;
+    }        
+    else
     {
         update_cactus(i);
     }
-    else
-    {
-        cactus_cooldown[i]=_XL_RAND()&15;
-    }
+    // else if(!cactus_overlap(i))
+    // {
+        // update_cactus(i);
+    // }
+    // else
+    // {
+        // cactus_cooldown[i]=_XL_RAND()&15;
+    // }
 }
 
 
@@ -435,7 +458,7 @@ int main(void)
     {
         for(i=0;i<NUMBER_OF_CACTI;++i)
         {
-            x_cactus[i] =XSize-1;
+            x_cactus[i] = RIGHT_END_OF_SCREEN;
         }
         
         counter = 0;
@@ -467,6 +490,9 @@ int main(void)
 
         while(!dead)
         {
+        // _XL_PRINTD(2,2,3,x_cactus[0]);
+        // _XL_PRINTD(2,3,3,x_cactus[1]);
+        // _XL_PRINTD(2,4,3,x_cactus[2]);
 
         // _XL_PRINTD(0,0,3,state);
             

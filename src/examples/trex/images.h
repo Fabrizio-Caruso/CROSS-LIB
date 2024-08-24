@@ -34,5 +34,10 @@
     #define TOP_CACTUS      _TILE_16
     #define BOTTOM_CACTUS   _TILE_17
 
+    #define TOP_LEFT_CACTUS       _TILE_18
+    #define BOTTOM_LEFT_CACTUS    _TILE_20
+    #define TOP_RIGHT_CACTUS      _TILE_19
+    #define BOTTOM_RIGHT_CACTUS   _TILE_21
+
 #endif // _IMAGES_H
 

@@ -321,6 +321,18 @@ void update_cactus(uint8_t i)
     _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
 }
 
+
+void handle_cactus_half_transition(uint8_t i)
+{
+    if((x_cactus[i]>1)&&(x_cactus[i]<YSize-2))
+    {
+        _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
+    }
+}
+
 #define LOW_COLLISION_THRESHOLD 4
 #define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
 
@@ -423,6 +435,13 @@ int main(void)
                 for(i=0;i<NUMBER_OF_CACTI;++i)
                 {
                     handle_cactus(i);
+                }
+            }
+            else
+            {
+                for(i=0;i<NUMBER_OF_CACTI;++i)
+                {
+                    handle_cactus_half_transition(i);
                 }
             }
             

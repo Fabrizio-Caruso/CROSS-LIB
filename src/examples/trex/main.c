@@ -38,7 +38,7 @@ uint8_t input;
 uint8_t state;
 
 uint8_t x_cactus[NUMBER_OF_CACTI];
-// uint8_t active_cactus[NUMBER_OF_CACTI];
+uint8_t active_cactus[NUMBER_OF_CACTI];
 uint8_t cactus_cooldown[NUMBER_OF_CACTI];
 
 uint8_t dead;
@@ -328,6 +328,9 @@ void update_cactus(uint8_t i)
     {
         ++score;
         update_score();
+        
+        // _XL_PRINTD(0,2,2,i);
+        // _XL_SLEEP(1);
         x_cactus[i] = XSize-1;
         
         cactus_cooldown[i] = _XL_RAND()&31;
@@ -372,15 +375,33 @@ uint8_t cactus_collision(uint8_t i)
 }
 
 
+uint8_t cactus_overlap(uint8_t i)
+{
+    uint8_t j;
+    
+    for(j=i+1;j<NUMBER_OF_CACTI;++j)
+    {
+        if((x_cactus[j]==x_cactus[i]) || (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void handle_cactus(uint8_t i)
 {
     if(cactus_cooldown[i])
     {
         --cactus_cooldown[i];
     }
-    else
+    else if(!cactus_overlap(i))
     {
         update_cactus(i);
+    }
+    else
+    {
+        cactus_cooldown[i]=_XL_RAND()&15;
     }
 }
 

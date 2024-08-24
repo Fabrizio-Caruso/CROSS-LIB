@@ -30,7 +30,8 @@
 #define X_DINO (XSize/8)
 #define Y_DINO (YSize/2)
 
-#define NUMBER_OF_CACTI 3
+
+#define NUMBER_OF_CACTI (((XSize)/10)+1)
 
 uint8_t input;
 
@@ -347,7 +348,7 @@ void update_cactus(uint8_t i)
 
 void handle_cactus_half_transition(uint8_t i)
 {
-    if((x_cactus[i]>1)&&(x_cactus[i]<YSize-2))
+    if((x_cactus[i]>1)&&(x_cactus[i]<XSize-2))
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
@@ -363,7 +364,7 @@ uint8_t cactus_collision(uint8_t i)
 {
     // _XL_SET_TEXT_COLOR(_XL_WHITE);
 
-    if((x_cactus[i]<X_DINO+1)&&(x_cactus[i]>X_DINO-2))
+    if(x_cactus[i]==X_DINO)
     {
         // _XL_PRINT(0,0,"DEAD ");
         // _XL_PRINTD(10,0,2,i);
@@ -497,6 +498,11 @@ int main(void)
                 while((i<NUMBER_OF_CACTI)&&(!dead))
                 {
                     dead = cactus_collision(i++);
+                    // if(dead)
+                    // {
+                        // _XL_PRINTD(0,3,2,state);
+                        // _XL_SLEEP(1);
+                    // }
                 }
             }
         }

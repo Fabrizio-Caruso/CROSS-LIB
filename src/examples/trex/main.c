@@ -28,7 +28,7 @@
 
 
 #define X_DINO (XSize/8)
-#define Y_DINO ((YSize/2)-2)
+#define Y_DINO ((YSize/2)+2)
 
 
 #define NUMBER_OF_CACTI (((XSize)/10)+1)
@@ -324,21 +324,53 @@ void display_hiscore(void)
 
 
 
-// uint8_t cactus_overlap(uint8_t i)
-// {
-    // uint8_t j;
+uint8_t cactus_overlap(uint8_t i)
+{
+    uint8_t j;
     
-    // for(j=0;j<NUMBER_OF_CACTI;++j)
-    // {
-        // if((x_cactus[j]==x_cactus[i]) ||
-        // (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
-        // {
-            // return 1;
-        // }
-    // }
-    // return 0;
-// }
+    for(j=0;j<NUMBER_OF_CACTI;++j)
+    {
+        if((x_cactus[j]==x_cactus[i]) ||
+        (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 
+
+
+
+void handle_cactus_half_transition(uint8_t i)
+{
+    if((x_cactus[i]>=LEFT_END_OF_SCREEN)&&(x_cactus[i]<RIGHT_END_OF_SCREEN))
+    {
+        _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
+    }
+}
+
+#define LOW_COLLISION_THRESHOLD 4
+#define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
+
+
+uint8_t cactus_collision(uint8_t i)
+{
+    // _XL_SET_TEXT_COLOR(_XL_WHITE);
+
+    if(x_cactus[i]==X_DINO)
+    {
+        // _XL_PRINT(0,0,"DEAD ");
+        // _XL_PRINTD(10,0,2,i);
+        return 1;
+    }
+    // _XL_PRINT(0,0,"ALIVE ");
+    
+    return 0;
+}
 
 
 void update_cactus(uint8_t i)
@@ -370,41 +402,12 @@ void update_cactus(uint8_t i)
     // {
         // x_cactus[i] = RIGHT_END_OF_SCREEN;
     // }
-    else
-    {
-        x_cactus[i] = RIGHT_END_OF_SCREEN;
-    }
+    // else
+    // {
+        // x_cactus[i] = RIGHT_END_OF_SCREEN;
+    // }
 }
 
-
-void handle_cactus_half_transition(uint8_t i)
-{
-    if((x_cactus[i]>=LEFT_END_OF_SCREEN)&&(x_cactus[i]<RIGHT_END_OF_SCREEN))
-    {
-        _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
-    }
-}
-
-#define LOW_COLLISION_THRESHOLD 4
-#define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
-
-uint8_t cactus_collision(uint8_t i)
-{
-    // _XL_SET_TEXT_COLOR(_XL_WHITE);
-
-    if(x_cactus[i]==X_DINO)
-    {
-        // _XL_PRINT(0,0,"DEAD ");
-        // _XL_PRINTD(10,0,2,i);
-        return 1;
-    }
-    // _XL_PRINT(0,0,"ALIVE ");
-    
-    return 0;
-}
 
 
 void handle_cactus(uint8_t i)
@@ -413,10 +416,10 @@ void handle_cactus(uint8_t i)
     {
         --cactus_cooldown[i];
     }
-    else if(cactus_cooldown[i]==1)
-    {
-        x_cactus[i]=RIGHT_END_OF_SCREEN;
-    }        
+    // else //if(cactus_cooldown[i]==1)
+    // {
+        // ready_cactus[i]=1;
+    // }        
     else
     {
         update_cactus(i);
@@ -429,6 +432,44 @@ void handle_cactus(uint8_t i)
     // {
         // cactus_cooldown[i]=_XL_RAND()&31;
     // }
+}
+
+uint8_t first_non_active_cactus(void)
+{
+    uint8_t i;
+    
+    // uint8_t j;
+    
+    for(i=0;i<NUMBER_OF_CACTI;++i)
+    {
+        if((!cactus_cooldown[i])&&(!active_cactus[i]))
+        {
+            // for(j=i+1;j<NUMBER_OF_CACTI;++j)
+            // {
+                // if((!cactus_cooldown[j])&&(!active_cactus[j]))
+                // {
+                    // cactus_cooldown[j] = 3+(_XL_RAND()&7);
+                // }
+            // }
+            
+            return i;
+        }
+    }
+    
+    return NUMBER_OF_CACTI;
+}
+
+
+
+void spawn_cacti(void)
+{
+   uint8_t first_available_cactus = first_non_active_cactus();
+   
+   if(first_available_cactus<NUMBER_OF_CACTI)
+   {
+       x_cactus[first_available_cactus] = RIGHT_END_OF_SCREEN;
+       
+   }
 }
 
 
@@ -516,7 +557,10 @@ int main(void)
                     handle_cactus_half_transition(i);
                 }
             }
-            
+            if(!(counter&3))
+            {
+                spawn_cacti();
+            }
         
             _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
             

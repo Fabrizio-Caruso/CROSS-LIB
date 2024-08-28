@@ -1,0 +1,6342 @@
+rm -rf games/reduced_full_lcc1802_color_combo.c
+rm -rf games/reduced_full_lcc1802_combo_no_sounds.*
+rm -rf games/full_lcc1802_combo.*
+rm -rf games/full_combo_rand.c  
+rm -rf examples/reduced_full_lcc1802_color_combo.c
+rm -rf examples/reduced_full_lcc1802_combo_no_sounds.*
+rm -rf examples/full_lcc1802_combo.*
+rm -rf examples/full_combo_rand.c 
+rm -rf *.stackdump
+rm -rf examples/trex/*.o
+rm -rf examples/trex/wincmoc_main.c
+rm -rf examples/trex/wincmoc_main.asm
+rm -rf examples/trex/wincmoc_main.coco.bin
+rm -rf examples/trex/../full_comx_combo.c
+rm -rf examples/trex/../light_comx_combo.c
+rm -rf examples/trex/../tiny_comx_combo.c
+rm -rf examples/trex/../full_comx_combo.asm
+rm -rf examples/trex/../light_comx_combo.asm
+rm -rf examples/trex/../tiny_comx_combo.asm
+rm -rf examples/trex/../full_pecom_combo.c
+rm -rf examples/trex/../light_pecom_combo.c
+rm -rf examples/trex/../tiny_pecom_combo.c
+rm -rf examples/trex/../full_pecom_combo.asm
+rm -rf examples/trex/../light_pecom_combo.asm
+rm -rf examples/trex/../tiny_pecom_combo.asm
+find . -type f -name '*.o' -delete
+find . -type f -name '*.lis' -delete
+if [ -d examples/trex/generated_assets ]; then echo "generated assets dir exists"; cd examples/trex/generated_assets; pwd; ls -l; rm -rf *.s; rm -rf *.h; rm -rf *.asm; else echo "generated assets dir does NOT exist"; fi
+generated assets dir exists
+/home/User/Retro/CROSS-LIB/src/examples/trex/generated_assets
+total 550
+-rw-rw-r--+ 1 User Aucun   1369 Aug 28 21:59 6x8_chars.h
+-rw-rw-r--+ 1 User Aucun   1429 Aug 28 21:59 6x9_chars.h
+-rw-rw-r--+ 1 User Aucun   3965 Aug 28 21:59 7x8_chars.h
+-rw-rw-r--+ 1 User Aucun   1373 Aug 28 21:59 8x6_c_definition.h
+-rw-rw-r--+ 1 User Aucun   1192 Aug 28 21:59 8x6_tiles.s
+-rw-rw-r--+ 1 User Aucun   1501 Aug 28 21:59 8x8_chars.h
+-rw-rw-r--+ 1 User Aucun   5633 Aug 28 21:59 cc65_gamate_tiles.s
+-rw-rw-r--+ 1 User Aucun 170984 Aug 28 21:59 cc65_nes_color_tiles.s
+-rw-rw-r--+ 1 User Aucun 207393 Aug 28 21:59 cc65_nes_tiles.s
+-rw-rw-r--+ 1 User Aucun   6177 Aug 28 21:59 cc65_pce_tiles.s
+-rw-rw-r--+ 1 User Aucun   2410 Aug 28 21:59 cc65_udc.s
+-rw-rw-r--+ 1 User Aucun   2741 Aug 28 21:59 cc65_udc_64_chars.s
+-rw-rw-r--+ 1 User Aucun    261 Aug 28 21:59 cc65_udc_6chars.s
+-rw-rw-r--+ 1 User Aucun   2389 Aug 28 21:59 cc65_udc_arcade.s
+-rw-rw-r--+ 1 User Aucun   2781 Aug 28 21:59 cc65_udc_arcade_64_chars.s
+-rw-rw-r--+ 1 User Aucun   2351 Aug 28 21:59 cc65_udc_arcade_VIC20.s
+-rw-rw-r--+ 1 User Aucun   2312 Aug 28 21:59 cc65_udc_arcade_v2.s
+-rw-rw-r--+ 1 User Aucun   1849 Aug 28 21:59 cc65_udc_atari7800_160A.s
+-rw-rw-r--+ 1 User Aucun    537 Aug 28 21:59 cc65_udc_atari7800_160A_head.s
+-rw-rw-r--+ 1 User Aucun   1054 Aug 28 21:59 cc65_udc_vic20_19_tiles.s
+-rw-rw-r--+ 1 User Aucun   1278 Aug 28 21:59 cc65_udc_vic20_25_tiles.s
+-rw-rw-r--+ 1 User Aucun   1354 Aug 28 21:59 cc65_udc_vic20_27_tiles.s
+-rw-rw-r--+ 1 User Aucun   2148 Aug 28 21:59 cc65_udc_vic20_64_chars.s
+-rw-rw-r--+ 1 User Aucun   4426 Aug 28 21:59 cmoc_udc_tiles.s
+-rw-rw-r--+ 1 User Aucun  10219 Aug 28 21:59 cmoc_udc_tiles_and_fonts.s
+-rw-rw-r--+ 1 User Aucun  10202 Aug 28 21:59 z88dk_8x6_sprites_definitions.h
+-rw-rw-r--+ 1 User Aucun   4445 Aug 28 21:59 z88dk_cpc_Chars8.asm
+-rw-rw-r--+ 1 User Aucun  21858 Aug 28 21:59 z88dk_gameboy.asm
+-rw-rw-r--+ 1 User Aucun  12915 Aug 28 21:59 z88dk_sprites_definitions.h
+-rw-rw-r--+ 1 User Aucun  11209 Aug 28 21:59 z88dk_xchase.asm
+cd ./assets && python ./generate_assets.py trex examples && python ./copy_assets.py trex examples
+dir name: 8x8
+Opening file tile../examples/trex/tiles/8x8/tile0.txt
+Opening file tile../examples/trex/tiles/8x8/tile1.txt
+Opening file tile../examples/trex/tiles/8x8/tile2.txt
+Opening file tile../examples/trex/tiles/8x8/tile3.txt
+Opening file tile../examples/trex/tiles/8x8/tile4.txt
+Opening file tile../examples/trex/tiles/8x8/tile5.txt
+Opening file tile../examples/trex/tiles/8x8/tile6.txt
+Opening file tile../examples/trex/tiles/8x8/tile7.txt
+Opening file tile../examples/trex/tiles/8x8/tile8.txt
+Opening file tile../examples/trex/tiles/8x8/tile9.txt
+Opening file tile../examples/trex/tiles/8x8/tile10.txt
+Opening file tile../examples/trex/tiles/8x8/tile11.txt
+Opening file tile../examples/trex/tiles/8x8/tile12.txt
+Opening file tile../examples/trex/tiles/8x8/tile13.txt
+Opening file tile../examples/trex/tiles/8x8/tile14.txt
+Opening file tile../examples/trex/tiles/8x8/tile15.txt
+Opening file tile../examples/trex/tiles/8x8/tile16.txt
+Opening file tile../examples/trex/tiles/8x8/tile17.txt
+Opening file tile../examples/trex/tiles/8x8/tile18.txt
+Opening file tile../examples/trex/tiles/8x8/tile19.txt
+Opening file tile../examples/trex/tiles/8x8/tile20.txt
+Opening file tile../examples/trex/tiles/8x8/tile21.txt
+Opening file tile../examples/trex/tiles/8x8/tile22.txt
+Opening file tile../examples/trex/tiles/8x8/tile23.txt
+Opening file tile../examples/trex/tiles/8x8/tile24.txt
+Opening file tile../examples/trex/tiles/8x8/tile25.txt
+template_file_name: 8x8_chars.h.template
+stripped file name: 8x8_chars.h
+template_file_name: cc65_gamate_tiles.s.template
+stripped file name: cc65_gamate_tiles.s
+template_file_name: cc65_nes_color_tiles.s.template
+stripped file name: cc65_nes_color_tiles.s
+template_file_name: cc65_nes_tiles.s.template
+stripped file name: cc65_nes_tiles.s
+template_file_name: cc65_pce_tiles.s.template
+stripped file name: cc65_pce_tiles.s
+template_file_name: cc65_udc.s.template
+stripped file name: cc65_udc.s
+template_file_name: cc65_udc_64_chars.s.template
+stripped file name: cc65_udc_64_chars.s
+template_file_name: cc65_udc_6chars.s.template
+stripped file name: cc65_udc_6chars.s
+template_file_name: cc65_udc_arcade.s.template
+stripped file name: cc65_udc_arcade.s
+template_file_name: cc65_udc_arcade_64_chars.s.template
+stripped file name: cc65_udc_arcade_64_chars.s
+template_file_name: cc65_udc_arcade_v2.s.template
+stripped file name: cc65_udc_arcade_v2.s
+template_file_name: cc65_udc_arcade_VIC20.s.template
+stripped file name: cc65_udc_arcade_VIC20.s
+template_file_name: cc65_udc_atari7800_160A.s.template
+stripped file name: cc65_udc_atari7800_160A.s
+template_file_name: cc65_udc_atari7800_160A_head.s.template
+stripped file name: cc65_udc_atari7800_160A_head.s
+template_file_name: cc65_udc_vic20_19_tiles.s.template
+stripped file name: cc65_udc_vic20_19_tiles.s
+template_file_name: cc65_udc_vic20_25_tiles.s.template
+stripped file name: cc65_udc_vic20_25_tiles.s
+template_file_name: cc65_udc_vic20_27_tiles.s.template
+stripped file name: cc65_udc_vic20_27_tiles.s
+template_file_name: cc65_udc_vic20_64_chars.s.template
+stripped file name: cc65_udc_vic20_64_chars.s
+template_file_name: cmoc_udc_tiles.s.template
+stripped file name: cmoc_udc_tiles.s
+template_file_name: cmoc_udc_tiles_and_fonts.s.template
+stripped file name: cmoc_udc_tiles_and_fonts.s
+template_file_name: z88dk_cpc_Chars8.asm.template
+stripped file name: z88dk_cpc_Chars8.asm
+template_file_name: z88dk_gameboy.asm.template
+stripped file name: z88dk_gameboy.asm
+template_file_name: z88dk_sprites_definitions.h.template
+stripped file name: z88dk_sprites_definitions.h
+template_file_name: z88dk_xchase.asm.template
+stripped file name: z88dk_xchase.asm
+Templates found: 24
+
+
+Handling 8x8_chars.h
+
+Changing 
+#define _TILE_0_UDG     { <tile_0>}
+with
+#define _TILE_0_UDG     { 62,111,127,127,112,124,224,224}
+
+Changing 
+#define _TILE_1_UDG     { <tile_1>}
+with
+#define _TILE_1_UDG     { 192,248,200,192,128,128,192,0}
+
+Changing 
+#define _TILE_3_UDG     { <tile_3>}
+with
+#define _TILE_3_UDG     { 192,248,200,192,128,128,128,192}
+
+Changing 
+#define _TILE_2_UDG     { <tile_2>}
+with
+#define _TILE_2_UDG     { 131,207,255,127,63,8,8,12}
+
+Changing 
+#define _TILE_4_UDG     {<tile_4>}
+with
+#define _TILE_4_UDG     {131,207,255,127,63,8,12,0}
+
+Changing 
+#define _TILE_7_UDG     { <tile_7>}
+with
+#define _TILE_7_UDG     { 128,128,128,192,0,0,0,0}
+
+Changing 
+#define _TILE_9_UDG     {  <tile_9>}
+with
+#define _TILE_9_UDG     {  63,8,8,12,0,0,0,0}
+
+Changing 
+#define _TILE_8_UDG     {  <tile_8>}
+with
+#define _TILE_8_UDG     {  0,0,0,0,131,207,255,127}
+
+Changing 
+#define _TILE_11_UDG    {  <tile_11>}
+with
+#define _TILE_11_UDG    {  127,127,112,124,224,224,192,248}
+
+Changing 
+#define _TILE_5_UDG     { <tile_5>}
+with
+#define _TILE_5_UDG     { 0,0,0,0,62,111,127,127}
+
+Changing 
+#define _TILE_16_UDG    { <tile_16>}
+with
+#define _TILE_16_UDG    { 0,24,27,27,219,219,219,219}
+
+Changing 
+#define _TILE_15_UDG    {  <tile_15>}
+with
+#define _TILE_15_UDG    {  255,255,0,0,0,0,0,0}
+
+Changing 
+#define _TILE_14_UDG    { <tile_14>}
+with
+#define _TILE_14_UDG    { 255,127,63,8,8,12,0,0}
+
+Changing 
+#define _TILE_6_UDG     {<tile_6>}
+with
+#define _TILE_6_UDG     {112,124,224,224,192,248,200,192}
+
+Changing 
+#define _TILE_12_UDG    { <tile_12> }
+with
+#define _TILE_12_UDG    { 200,192,128,128,128,192,0,0 }
+
+Changing 
+#define _TILE_13_UDG    {  <tile_13> }
+with
+#define _TILE_13_UDG    {  0,0,0,0,0,0,131,207 }
+
+Changing 
+#define _TILE_10_UDG    { <tile_10> }
+with
+#define _TILE_10_UDG    { 0,0,0,0,0,0,62,111 }
+
+Changing 
+#define _TILE_17_UDG    { <tile_17> }
+with
+#define _TILE_17_UDG    { 219,254,120,24,24,24,24,24 }
+
+Changing 
+#define _TILE_18_UDG    { <tile_18> }
+with
+#define _TILE_18_UDG    { 0,1,1,1,13,13,13,13 }
+
+Changing 
+#define _TILE_19_UDG    { <tile_19> }
+with
+#define _TILE_19_UDG    { 0,128,176,176,176,176,176,176 }
+
+Changing 
+#define _TILE_20_UDG    { <tile_20> }
+with
+#define _TILE_20_UDG    { 13,15,7,1,1,1,1,1 }
+
+Changing 
+#define _TILE_21_UDG    { <tile_21> }
+with
+#define _TILE_21_UDG    { 176,224,128,128,128,128,128,128 }
+
+Changing 
+#define _TILE_22_UDG    { <tile_22> }
+with
+#define _TILE_22_UDG    { 0,32,112,255,31,7,6,4 }
+
+Changing 
+#define _TILE_23_UDG    { <tile_23> }
+with
+#define _TILE_23_UDG    { 0,0,0,240,192,48,0,0 }
+
+Changing 
+#define _TILE_24_UDG    { <tile_24> }
+with
+#define _TILE_24_UDG    { 0,2,7,15,1,0,0,0 }
+
+Changing 
+#define _TILE_25_UDG    { <tile_25> }
+with
+#define _TILE_25_UDG    { 64,96,120,255,252,3,0,0 }
+
+Changing 
+#define _TILE_26_UDG    { <tile_26> }
+with
+#define _TILE_26_UDG    { 0, 0, 0, 0, 0, 0, 0, 0 }
+
+Number of tiles found: 27
+
+
+
+Handling cc65_gamate_tiles.s
+
+Changing 
+.byte <tile_26>
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte  <tile_16>
+with
+.byte  0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Number of tiles found: 28
+
+
+
+Handling cc65_nes_color_tiles.s
+
+Changing 
+        .byte   <tile_0>
+with
+        .byte   62,111,127,127,112,124,224,224
+
+Changing 
+        .byte   <tile_0>
+with
+        .byte   62,111,127,127,112,124,224,224
+
+Changing 
+        .byte   <tile_0>
+with
+        .byte   62,111,127,127,112,124,224,224
+
+Changing 
+        .byte   <tile_0>
+with
+        .byte   62,111,127,127,112,124,224,224
+
+Changing 
+        .byte   <tile_1>
+with
+        .byte   192,248,200,192,128,128,192,0
+
+Changing 
+        .byte   <tile_1>
+with
+        .byte   192,248,200,192,128,128,192,0
+
+Changing 
+        .byte   <tile_1>
+with
+        .byte   192,248,200,192,128,128,192,0
+
+Changing 
+        .byte   <tile_1>
+with
+        .byte   192,248,200,192,128,128,192,0
+
+Changing 
+        .byte   <tile_2>
+with
+        .byte   131,207,255,127,63,8,8,12
+
+Changing 
+        .byte   <tile_2>
+with
+        .byte   131,207,255,127,63,8,8,12
+
+Changing 
+        .byte   <tile_2>
+with
+        .byte   131,207,255,127,63,8,8,12
+
+Changing 
+        .byte   <tile_2>
+with
+        .byte   131,207,255,127,63,8,8,12
+
+Changing 
+        .byte   <tile_3>
+with
+        .byte   192,248,200,192,128,128,128,192
+
+Changing 
+        .byte   <tile_3>
+with
+        .byte   192,248,200,192,128,128,128,192
+
+Changing 
+        .byte   <tile_3>
+with
+        .byte   192,248,200,192,128,128,128,192
+
+Changing 
+        .byte   <tile_3>
+with
+        .byte   192,248,200,192,128,128,128,192
+
+Changing 
+        .byte   <tile_4>
+with
+        .byte   131,207,255,127,63,8,12,0
+
+Changing 
+        .byte   <tile_4>
+with
+        .byte   131,207,255,127,63,8,12,0
+
+Changing 
+        .byte   <tile_4>
+with
+        .byte   131,207,255,127,63,8,12,0
+
+Changing 
+        .byte   <tile_4>
+with
+        .byte   131,207,255,127,63,8,12,0
+
+Changing 
+        .byte   <tile_5>
+with
+        .byte   0,0,0,0,62,111,127,127
+
+Changing 
+        .byte   <tile_5>
+with
+        .byte   0,0,0,0,62,111,127,127
+
+Changing 
+        .byte   <tile_5>
+with
+        .byte   0,0,0,0,62,111,127,127
+
+Changing 
+        .byte   <tile_5>
+with
+        .byte   0,0,0,0,62,111,127,127
+
+Changing 
+        .byte   <tile_6>
+with
+        .byte   112,124,224,224,192,248,200,192
+
+Changing 
+        .byte   <tile_6>
+with
+        .byte   112,124,224,224,192,248,200,192
+
+Changing 
+        .byte   <tile_6>
+with
+        .byte   112,124,224,224,192,248,200,192
+
+Changing 
+        .byte   <tile_6>
+with
+        .byte   112,124,224,224,192,248,200,192
+
+Changing 
+        .byte   <tile_7>
+with
+        .byte   128,128,128,192,0,0,0,0
+
+Changing 
+        .byte   <tile_7>
+with
+        .byte   128,128,128,192,0,0,0,0
+
+Changing 
+        .byte   <tile_7>
+with
+        .byte   128,128,128,192,0,0,0,0
+
+Changing 
+        .byte   <tile_7>
+with
+        .byte   128,128,128,192,0,0,0,0
+
+Changing 
+        .byte   <tile_8>
+with
+        .byte   0,0,0,0,131,207,255,127
+
+Changing 
+        .byte   <tile_8>
+with
+        .byte   0,0,0,0,131,207,255,127
+
+Changing 
+        .byte   <tile_8>
+with
+        .byte   0,0,0,0,131,207,255,127
+
+Changing 
+        .byte   <tile_8>
+with
+        .byte   0,0,0,0,131,207,255,127
+
+Changing 
+        .byte   <tile_9>
+with
+        .byte   63,8,8,12,0,0,0,0
+
+Changing 
+        .byte   <tile_9>
+with
+        .byte   63,8,8,12,0,0,0,0
+
+Changing 
+        .byte   <tile_9>
+with
+        .byte   63,8,8,12,0,0,0,0
+
+Changing 
+        .byte   <tile_9>
+with
+        .byte   63,8,8,12,0,0,0,0
+
+Changing 
+        .byte   <tile_10>
+with
+        .byte   0,0,0,0,0,0,62,111
+
+Changing 
+        .byte   <tile_10>
+with
+        .byte   0,0,0,0,0,0,62,111
+
+Changing 
+        .byte   <tile_10>
+with
+        .byte   0,0,0,0,0,0,62,111
+
+Changing 
+        .byte   <tile_10>
+with
+        .byte   0,0,0,0,0,0,62,111
+
+Changing 
+        .byte   <tile_11>
+with
+        .byte   127,127,112,124,224,224,192,248
+
+Changing 
+        .byte   <tile_11>
+with
+        .byte   127,127,112,124,224,224,192,248
+
+Changing 
+        .byte   <tile_11>
+with
+        .byte   127,127,112,124,224,224,192,248
+
+Changing 
+        .byte   <tile_11>
+with
+        .byte   127,127,112,124,224,224,192,248
+
+Changing 
+        .byte   <tile_12>
+with
+        .byte   200,192,128,128,128,192,0,0
+
+Changing 
+        .byte   <tile_12>
+with
+        .byte   200,192,128,128,128,192,0,0
+
+Changing 
+        .byte   <tile_12>
+with
+        .byte   200,192,128,128,128,192,0,0
+
+Changing 
+        .byte   <tile_12>
+with
+        .byte   200,192,128,128,128,192,0,0
+
+Changing 
+        .byte   <tile_13>
+with
+        .byte   0,0,0,0,0,0,131,207
+
+Changing 
+        .byte   <tile_13>
+with
+        .byte   0,0,0,0,0,0,131,207
+
+Changing 
+        .byte   <tile_13>
+with
+        .byte   0,0,0,0,0,0,131,207
+
+Changing 
+        .byte   <tile_13>
+with
+        .byte   0,0,0,0,0,0,131,207
+
+Changing 
+        .byte   <tile_14>
+with
+        .byte   255,127,63,8,8,12,0,0
+
+Changing 
+        .byte   <tile_14>
+with
+        .byte   255,127,63,8,8,12,0,0
+
+Changing 
+        .byte   <tile_14>
+with
+        .byte   255,127,63,8,8,12,0,0
+
+Changing 
+        .byte   <tile_14>
+with
+        .byte   255,127,63,8,8,12,0,0
+
+Changing 
+        .byte   <tile_15>
+with
+        .byte   255,255,0,0,0,0,0,0
+
+Changing 
+        .byte   <tile_15>
+with
+        .byte   255,255,0,0,0,0,0,0
+
+Changing 
+        .byte   <tile_15>
+with
+        .byte   255,255,0,0,0,0,0,0
+
+Changing 
+        .byte   <tile_15>
+with
+        .byte   255,255,0,0,0,0,0,0
+
+Changing 
+        .byte   <tile_16>
+with
+        .byte   0,24,27,27,219,219,219,219
+
+Changing 
+        .byte   <tile_16>
+with
+        .byte   0,24,27,27,219,219,219,219
+
+Changing 
+        .byte   <tile_16>
+with
+        .byte   0,24,27,27,219,219,219,219
+
+Changing 
+        .byte   <tile_16>
+with
+        .byte   0,24,27,27,219,219,219,219
+
+Changing 
+        .byte   <tile_17>
+with
+        .byte   219,254,120,24,24,24,24,24
+
+Changing 
+        .byte   <tile_17>
+with
+        .byte   219,254,120,24,24,24,24,24
+
+Changing 
+        .byte   <tile_17>
+with
+        .byte   219,254,120,24,24,24,24,24
+
+Changing 
+        .byte   <tile_17>
+with
+        .byte   219,254,120,24,24,24,24,24
+
+Changing 
+        .byte   <tile_18>
+with
+        .byte   0,1,1,1,13,13,13,13
+
+Changing 
+        .byte   <tile_18>
+with
+        .byte   0,1,1,1,13,13,13,13
+
+Changing 
+        .byte   <tile_18>
+with
+        .byte   0,1,1,1,13,13,13,13
+
+Changing 
+        .byte   <tile_18>
+with
+        .byte   0,1,1,1,13,13,13,13
+
+Changing 
+        .byte   <tile_19>
+with
+        .byte   0,128,176,176,176,176,176,176
+
+Changing 
+        .byte   <tile_19>
+with
+        .byte   0,128,176,176,176,176,176,176
+
+Changing 
+        .byte   <tile_19>
+with
+        .byte   0,128,176,176,176,176,176,176
+
+Changing 
+        .byte   <tile_19>
+with
+        .byte   0,128,176,176,176,176,176,176
+
+Changing 
+        .byte   <tile_20>
+with
+        .byte   13,15,7,1,1,1,1,1
+
+Changing 
+        .byte   <tile_20>
+with
+        .byte   13,15,7,1,1,1,1,1
+
+Changing 
+        .byte   <tile_20>
+with
+        .byte   13,15,7,1,1,1,1,1
+
+Changing 
+        .byte   <tile_20>
+with
+        .byte   13,15,7,1,1,1,1,1
+
+Changing 
+        .byte   <tile_21>
+with
+        .byte   176,224,128,128,128,128,128,128
+
+Changing 
+        .byte   <tile_21>
+with
+        .byte   176,224,128,128,128,128,128,128
+
+Changing 
+        .byte   <tile_21>
+with
+        .byte   176,224,128,128,128,128,128,128
+
+Changing 
+        .byte   <tile_21>
+with
+        .byte   176,224,128,128,128,128,128,128
+
+Changing 
+        .byte   <tile_22>
+with
+        .byte   0,32,112,255,31,7,6,4
+
+Changing 
+        .byte   <tile_22>
+with
+        .byte   0,32,112,255,31,7,6,4
+
+Changing 
+        .byte   <tile_22>
+with
+        .byte   0,32,112,255,31,7,6,4
+
+Changing 
+        .byte   <tile_22>
+with
+        .byte   0,32,112,255,31,7,6,4
+
+Changing 
+        .byte   <tile_23>
+with
+        .byte   0,0,0,240,192,48,0,0
+
+Changing 
+        .byte   <tile_23>
+with
+        .byte   0,0,0,240,192,48,0,0
+
+Changing 
+        .byte   <tile_23>
+with
+        .byte   0,0,0,240,192,48,0,0
+
+Changing 
+        .byte   <tile_23>
+with
+        .byte   0,0,0,240,192,48,0,0
+
+Changing 
+        .byte   <tile_24>
+with
+        .byte   0,2,7,15,1,0,0,0
+
+Changing 
+        .byte   <tile_24>
+with
+        .byte   0,2,7,15,1,0,0,0
+
+Changing 
+        .byte   <tile_24>
+with
+        .byte   0,2,7,15,1,0,0,0
+
+Changing 
+        .byte   <tile_24>
+with
+        .byte   0,2,7,15,1,0,0,0
+
+Changing 
+        .byte   <tile_25>
+with
+        .byte   64,96,120,255,252,3,0,0
+
+Changing 
+        .byte   <tile_25>
+with
+        .byte   64,96,120,255,252,3,0,0
+
+Changing 
+        .byte   <tile_25>
+with
+        .byte   64,96,120,255,252,3,0,0
+
+Changing 
+        .byte   <tile_25>
+with
+        .byte   64,96,120,255,252,3,0,0
+
+Changing 
+        .byte   <tile_26>
+with
+        .byte   0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+        .byte   <tile_26>
+with
+        .byte   0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+        .byte   <tile_26>
+with
+        .byte   0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+        .byte   <tile_26>
+with
+        .byte   0, 0, 0, 0, 0, 0, 0, 0
+
+Number of tiles found: 108
+
+
+
+Handling cc65_nes_tiles.s
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+    .byte <tile_4>
+with
+    .byte 131,207,255,127,63,8,12,0
+
+Changing 
+    .byte <tile_4>
+with
+    .byte 131,207,255,127,63,8,12,0
+
+Changing 
+        .byte   <tile_25>     
+with
+        .byte   64,96,120,255,252,3,0,0     
+
+Changing 
+     .byte <tile_10>
+with
+     .byte 0,0,0,0,0,0,62,111
+
+Changing 
+    .byte <tile_16>
+with
+    .byte 0,24,27,27,219,219,219,219
+
+Changing 
+    .byte <tile_16>
+with
+    .byte 0,24,27,27,219,219,219,219
+
+Changing 
+    .byte <tile_15>
+with
+    .byte 255,255,0,0,0,0,0,0
+
+Changing 
+    .byte <tile_15>
+with
+    .byte 255,255,0,0,0,0,0,0
+
+Changing 
+    .byte <tile_14>
+with
+    .byte 255,127,63,8,8,12,0,0
+
+Changing 
+    .byte <tile_14>
+with
+    .byte 255,127,63,8,8,12,0,0
+
+Changing 
+    .byte <tile_11>
+with
+    .byte 127,127,112,124,224,224,192,248
+
+Changing 
+    .byte <tile_11>
+with
+    .byte 127,127,112,124,224,224,192,248
+
+Changing 
+    .byte <tile_17>
+with
+    .byte 219,254,120,24,24,24,24,24
+
+Changing 
+    .byte <tile_17>
+with
+    .byte 219,254,120,24,24,24,24,24
+
+Changing 
+    .byte <tile_13>
+with
+    .byte 0,0,0,0,0,0,131,207
+
+Changing 
+    .byte <tile_18>
+with
+    .byte 0,1,1,1,13,13,13,13
+
+Changing 
+    .byte <tile_9>
+with
+    .byte 63,8,8,12,0,0,0,0
+
+Changing 
+    .byte <tile_6>
+with
+    .byte 112,124,224,224,192,248,200,192
+
+Changing 
+    .byte <tile_8>
+with
+    .byte 0,0,0,0,131,207,255,127
+
+Changing 
+    .byte <tile_12>
+with
+    .byte 200,192,128,128,128,192,0,0
+
+Changing 
+    .byte <tile_7>
+with
+    .byte 128,128,128,192,0,0,0,0
+
+Changing 
+    .byte <tile_5>
+with
+    .byte 0,0,0,0,62,111,127,127
+
+Changing 
+    .byte <tile_0>
+with
+    .byte 62,111,127,127,112,124,224,224
+
+Changing 
+    .byte <tile_3>
+with
+    .byte 192,248,200,192,128,128,128,192
+
+Changing 
+    .byte <tile_2>
+with
+    .byte 131,207,255,127,63,8,8,12
+
+Changing 
+    .byte <tile_1>
+with
+    .byte 192,248,200,192,128,128,192,0
+
+Number of tiles found: 38
+
+
+
+Handling cc65_pce_tiles.s
+
+Changing 
+.byte  <tile_26>
+with
+.byte  0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_2> 
+with
+.byte 131,207,255,127,63,8,8,12 
+
+Changing 
+.byte <tile_3>	 
+with
+.byte 192,248,200,192,128,128,128,192	 
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte  <tile_16>
+with
+.byte  0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Number of tiles found: 27
+
+
+
+Handling cc65_udc.s
+
+Changing 
+.byte <tile_26>                
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0                
+
+Changing 
+.byte <tile_19>, <tile_20> ; 28 29
+with
+.byte 0,128,176,176,176,176,176,176, 13,15,7,1,1,1,1,1 ; 28 29
+
+Changing 
+.byte <tile_16> ; 30
+with
+.byte 0,24,27,27,219,219,219,219 ; 30
+
+Changing 
+.byte <tile_6>; 31
+with
+.byte 112,124,224,224,192,248,200,192; 31
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_21> ; 
+with
+.byte 176,224,128,128,128,128,128,128 ; 
+
+Changing 
+.byte <tile_22> ; 
+with
+.byte 0,32,112,255,31,7,6,4 ; 
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Number of tiles found: 28
+
+
+
+Handling cc65_udc_64_chars.s
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_16>
+with
+.byte 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte  <tile_13>
+with
+.byte  0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Number of tiles found: 25
+
+
+
+Handling cc65_udc_6chars.s
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Number of tiles found: 6
+
+
+
+Handling cc65_udc_arcade.s
+
+Changing 
+.byte <tile_26>                 
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0                 
+
+Changing 
+.byte <tile_19>, <tile_20> ; 28 29
+with
+.byte 0,128,176,176,176,176,176,176, 13,15,7,1,1,1,1,1 ; 28 29
+
+Changing 
+.byte <tile_16> ; 30
+with
+.byte 0,24,27,27,219,219,219,219 ; 30
+
+Changing 
+.byte <tile_6>; 31
+with
+.byte 112,124,224,224,192,248,200,192; 31
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Number of tiles found: 28
+
+
+
+Handling cc65_udc_arcade_64_chars.s
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_16>
+with
+.byte 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte  <tile_13>
+with
+.byte  0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_26>
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Number of tiles found: 27
+
+
+
+Handling cc65_udc_arcade_v2.s
+
+Changing 
+.byte <tile_7> ;(33)
+with
+.byte 128,128,128,192,0,0,0,0 ;(33)
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_23> ;(40)
+with
+.byte 0,0,0,240,192,48,0,0 ;(40)
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_2> ;(64)
+with
+.byte 131,207,255,127,63,8,8,12 ;(64)
+
+Changing 
+.byte <tile_26> ; (91) unused (future 27th tile)
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0 ; (91) unused (future 27th tile)
+
+Changing 
+.byte <tile_4>  ; (92)
+with
+.byte 131,207,255,127,63,8,12,0  ; (92)
+
+Changing 
+.byte <tile_18> ; (93)
+with
+.byte 0,1,1,1,13,13,13,13 ; (93)
+
+Changing 
+.byte <tile_16> ; (94)
+with
+.byte 0,24,27,27,219,219,219,219 ; (94)
+
+Changing 
+.byte <tile_6>  ; (95)
+with
+.byte 112,124,224,224,192,248,200,192  ; (95)
+
+Number of tiles found: 27
+
+
+
+Handling cc65_udc_arcade_VIC20.s
+
+Changing 
+.byte <tile_7> ;(33)
+with
+.byte 128,128,128,192,0,0,0,0 ;(33)
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_23> ;(40)
+with
+.byte 0,0,0,240,192,48,0,0 ;(40)
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_13>
+with
+.byte 0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_2> ;(64)
+with
+.byte 131,207,255,127,63,8,8,12 ;(64)
+
+Changing 
+.byte <tile_26>
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+.byte <tile_4>  ; (92)
+with
+.byte 131,207,255,127,63,8,12,0  ; (92)
+
+Changing 
+.byte <tile_18> ; (93)
+with
+.byte 0,1,1,1,13,13,13,13 ; (93)
+
+Changing 
+.byte <tile_16> ; (94)
+with
+.byte 0,24,27,27,219,219,219,219 ; (94)
+
+Changing 
+.byte <tile_6>  ; (95)
+with
+.byte 112,124,224,224,192,248,200,192  ; (95)
+
+Number of tiles found: 27
+
+
+
+Handling cc65_udc_atari7800_160A.s
+
+Changing 
+<tile_0>
+with
+62,111,127,127,112,124,224,224
+
+Changing 
+<tile_1>
+with
+192,248,200,192,128,128,192,0
+
+Changing 
+<tile_2>
+with
+131,207,255,127,63,8,8,12
+
+Changing 
+<tile_3>
+with
+192,248,200,192,128,128,128,192
+
+Changing 
+<tile_4>
+with
+131,207,255,127,63,8,12,0
+
+Changing 
+<tile_5>
+with
+0,0,0,0,62,111,127,127
+
+Changing 
+<tile_6>
+with
+112,124,224,224,192,248,200,192
+
+Changing 
+<tile_7>
+with
+128,128,128,192,0,0,0,0
+
+Changing 
+<tile_8>
+with
+0,0,0,0,131,207,255,127
+
+Changing 
+<tile_9>
+with
+63,8,8,12,0,0,0,0
+
+Changing 
+<tile_10>
+with
+0,0,0,0,0,0,62,111
+
+Changing 
+<tile_11>
+with
+127,127,112,124,224,224,192,248
+
+Changing 
+<tile_12>
+with
+200,192,128,128,128,192,0,0
+
+Changing 
+<tile_13>
+with
+0,0,0,0,0,0,131,207
+
+Changing 
+<tile_14>
+with
+255,127,63,8,8,12,0,0
+
+Changing 
+<tile_15>
+with
+255,255,0,0,0,0,0,0
+
+Changing 
+<tile_16>
+with
+0,24,27,27,219,219,219,219
+
+Changing 
+<tile_17>
+with
+219,254,120,24,24,24,24,24
+
+Changing 
+<tile_18>
+with
+0,1,1,1,13,13,13,13
+
+Changing 
+<tile_19>
+with
+0,128,176,176,176,176,176,176
+
+Changing 
+<tile_20>
+with
+13,15,7,1,1,1,1,1
+
+Changing 
+<tile_21>
+with
+176,224,128,128,128,128,128,128
+
+Changing 
+<tile_22>
+with
+0,32,112,255,31,7,6,4
+
+Changing 
+<tile_23>
+with
+0,0,0,240,192,48,0,0
+
+Changing 
+<tile_24>
+with
+0,2,7,15,1,0,0,0
+
+Changing 
+<tile_25>
+with
+64,96,120,255,252,3,0,0
+
+Changing 
+<tile_26>
+with
+0, 0, 0, 0, 0, 0, 0, 0
+
+Number of tiles found: 27
+
+
+0
+0
+0
+0
+0
+0
+0
+0
+$38
+$6c
+$c6
+$c6
+$fe
+$c6
+$c6
+$00
+$fc
+$c6
+$c6
+$fc
+$c6
+$c6
+$fc
+$00
+$3c
+$66
+$c0
+$c0
+$c0
+$66
+$3c
+$00
+$f8
+$cc
+$c6
+$c6
+$c6
+$cc
+$f8
+$00
+$fc
+$c0
+$c0
+$f8
+$c0
+$c0
+$fe
+$00
+$fc
+$c0
+$c0
+$f8
+$c0
+$c0
+$c0
+$00
+$3e
+$60
+$c0
+$ce
+$c6
+$66
+$3e
+$00
+$c6
+$c6
+$c6
+$fe
+$c6
+$c6
+$c6
+$00
+$fc
+$30
+$30
+$30
+$30
+$30
+$fc
+$00
+$06
+$06
+$06
+$06
+$06
+$c6
+$7c
+$00
+$c6
+$cc
+$d8
+$f0
+$f8
+$dc
+$ce
+$00
+$c0
+$c0
+$c0
+$c0
+$c0
+$c0
+$fe
+$00
+$c6
+$ee
+$fe
+$d6
+$c6
+$c6
+$c6
+$00
+$c6
+$e6
+$f6
+$de
+$ce
+$c6
+$c6
+$00
+$7c
+$c6
+$c6
+$c6
+$c6
+$c6
+$7c
+$00
+$fc
+$c6
+$c6
+$c6
+$fc
+$c0
+$c0
+$00
+$7c
+$c6
+$c6
+$c6
+$de
+$cc
+$7a
+$00
+$fc
+$c6
+$c6
+$cc
+$f8
+$dc
+$ce
+$00
+$78
+$cc
+$c0
+$7c
+$06
+$c6
+$7c
+$00
+$fc
+$30
+$30
+$30
+$30
+$30
+$30
+$00
+$c6
+$c6
+$c6
+$c6
+$c6
+$c6
+$7c
+$00
+$c6
+$c6
+$c6
+$c6
+$6c
+$38
+$10
+$00
+$c6
+$c6
+$d6
+$fe
+$fe
+$ee
+$c6
+$00
+$c6
+$ee
+$7c
+$38
+$7c
+$ee
+$c6
+$00
+$cc
+$cc
+$cc
+$78
+$30
+$30
+$30
+$00
+$fe
+$0e
+$1c
+$38
+$70
+$e0
+$fe
+$00
+$38
+$4c
+$c6
+$c6
+$c6
+$64
+$38
+$00
+$30
+$70
+$30
+$30
+$30
+$30
+$fc
+$00
+$7c
+$c6
+$0e
+$3c
+$60
+$c0
+$fe
+$00
+$7e
+$0c
+$18
+$3c
+$06
+$c6
+$7c
+$00
+$1c
+$3c
+$6c
+$cc
+$fe
+$0c
+$0c
+$00
+$fc
+$c0
+$fc
+$06
+$06
+$c6
+$7c
+$00
+$3c
+$60
+$c0
+$fc
+$c6
+$c6
+$7c
+$00
+$fe
+$c6
+$0c
+$18
+$30
+$30
+$30
+$00
+$78
+$c4
+$e4
+$78
+$9e
+$86
+$7c
+$00
+$7c
+$c6
+$c6
+$7e
+$06
+$0c
+$78
+$00
+62
+111
+127
+127
+112
+124
+224
+224
+192
+248
+200
+192
+128
+128
+192
+0
+131
+207
+255
+127
+63
+8
+8
+12
+192
+248
+200
+192
+128
+128
+128
+192
+131
+207
+255
+127
+63
+8
+12
+0
+0
+0
+0
+0
+62
+111
+127
+127
+112
+124
+224
+224
+192
+248
+200
+192
+128
+128
+128
+192
+0
+0
+0
+0
+0
+0
+0
+0
+131
+207
+255
+127
+63
+8
+8
+12
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+62
+111
+127
+127
+112
+124
+224
+224
+192
+248
+200
+192
+128
+128
+128
+192
+0
+0
+0
+0
+0
+0
+0
+0
+131
+207
+255
+127
+63
+8
+8
+12
+0
+0
+255
+255
+0
+0
+0
+0
+0
+0
+0
+24
+27
+27
+219
+219
+219
+219
+219
+254
+120
+24
+24
+24
+24
+24
+0
+1
+1
+1
+13
+13
+13
+13
+0
+128
+176
+176
+176
+176
+176
+176
+13
+15
+7
+1
+1
+1
+1
+1
+176
+224
+128
+128
+128
+128
+128
+128
+0
+32
+112
+255
+31
+7
+6
+4
+0
+0
+0
+240
+192
+48
+0
+0
+0
+2
+7
+15
+1
+0
+0
+0
+64
+96
+120
+255
+252
+3
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Asset has correct length (512 bytes)
+
+Handling cc65_udc_atari7800_160A_head.s
+
+Number of tiles found: 0
+
+
+
+Handling cc65_udc_vic20_19_tiles.s
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_16>
+with
+.byte 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte  <tile_13>
+with
+.byte  0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Number of tiles found: 19
+
+
+
+Handling cc65_udc_vic20_25_tiles.s
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_16>
+with
+.byte 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte  <tile_13>
+with
+.byte  0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Number of tiles found: 25
+
+
+
+Handling cc65_udc_vic20_27_tiles.s
+
+Changing 
+.byte <tile_19>
+with
+.byte 0,128,176,176,176,176,176,176
+
+Changing 
+.byte <tile_20>
+with
+.byte 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>
+with
+.byte 176,224,128,128,128,128,128,128
+
+Changing 
+.byte <tile_22>
+with
+.byte 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>
+with
+.byte 0,0,0,240,192,48,0,0
+
+Changing 
+.byte <tile_24>
+with
+.byte 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_25>
+with
+.byte 64,96,120,255,252,3,0,0
+
+Changing 
+.byte <tile_26>
+with
+.byte 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+.byte <tile_1>
+with
+.byte 192,248,200,192,128,128,192,0
+
+Changing 
+.byte <tile_9>
+with
+.byte 63,8,8,12,0,0,0,0
+
+Changing 
+.byte <tile_10>
+with
+.byte 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_8>
+with
+.byte 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_16>
+with
+.byte 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_14>
+with
+.byte 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_11>
+with
+.byte 127,127,112,124,224,224,192,248
+
+Changing 
+.byte <tile_12>
+with
+.byte 200,192,128,128,128,192,0,0
+
+Changing 
+.byte  <tile_13>
+with
+.byte  0,0,0,0,0,0,131,207
+
+Changing 
+.byte <tile_4>
+with
+.byte 131,207,255,127,63,8,12,0
+
+Changing 
+.byte <tile_7>
+with
+.byte 128,128,128,192,0,0,0,0
+
+Changing 
+.byte <tile_5>
+with
+.byte 0,0,0,0,62,111,127,127
+
+Changing 
+.byte <tile_0>
+with
+.byte 62,111,127,127,112,124,224,224
+
+Changing 
+.byte <tile_3>
+with
+.byte 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_2>
+with
+.byte 131,207,255,127,63,8,8,12
+
+Changing 
+.byte <tile_15>
+with
+.byte 255,255,0,0,0,0,0,0
+
+Changing 
+.byte <tile_17>
+with
+.byte 219,254,120,24,24,24,24,24
+
+Changing 
+.byte <tile_18>
+with
+.byte 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_6>
+with
+.byte 112,124,224,224,192,248,200,192
+
+Number of tiles found: 27
+
+
+
+Handling cc65_udc_vic20_64_chars.s
+
+Changing 
+.byte <tile_0>, $38,$6c,$c6,$c6,$fe,$c6,$c6,$00 ; a (65)
+with
+.byte 62,111,127,127,112,124,224,224, $38,$6c,$c6,$c6,$fe,$c6,$c6,$00 ; a (65)
+
+Changing 
+.byte $fe,$0e,$1c,$38,$70,$e0,$fe,$00, <tile_1> ; z (90)
+with
+.byte $fe,$0e,$1c,$38,$70,$e0,$fe,$00, 192,248,200,192,128,128,192,0 ; z (90)
+
+Changing 
+.byte <tile_2>, <tile_3>
+with
+.byte 131,207,255,127,63,8,8,12, 192,248,200,192,128,128,128,192
+
+Changing 
+.byte <tile_4>, <tile_5>
+with
+.byte 131,207,255,127,63,8,12,0, 0,0,0,0,62,111,127,127
+
+Changing 
+.byte $00,$00,$00,$00,$00,$00,$00,$00, <tile_6>
+with
+.byte $00,$00,$00,$00,$00,$00,$00,$00, 112,124,224,224,192,248,200,192
+
+Changing 
+.byte <tile_7>, <tile_8>
+with
+.byte 128,128,128,192,0,0,0,0, 0,0,0,0,131,207,255,127
+
+Changing 
+.byte <tile_9>, <tile_10>
+with
+.byte 63,8,8,12,0,0,0,0, 0,0,0,0,0,0,62,111
+
+Changing 
+.byte <tile_11>, <tile_12>
+with
+.byte 127,127,112,124,224,224,192,248, 200,192,128,128,128,192,0,0
+
+Changing 
+.byte <tile_13>, <tile_14>
+with
+.byte 0,0,0,0,0,0,131,207, 255,127,63,8,8,12,0,0
+
+Changing 
+.byte <tile_15>, <tile_16>
+with
+.byte 255,255,0,0,0,0,0,0, 0,24,27,27,219,219,219,219
+
+Changing 
+.byte <tile_17>, <tile_18>
+with
+.byte 219,254,120,24,24,24,24,24, 0,1,1,1,13,13,13,13
+
+Changing 
+.byte <tile_19>, <tile_20>
+with
+.byte 0,128,176,176,176,176,176,176, 13,15,7,1,1,1,1,1
+
+Changing 
+.byte <tile_21>, <tile_22>
+with
+.byte 176,224,128,128,128,128,128,128, 0,32,112,255,31,7,6,4
+
+Changing 
+.byte <tile_23>, <tile_24>
+with
+.byte 0,0,0,240,192,48,0,0, 0,2,7,15,1,0,0,0
+
+Changing 
+.byte <tile_25>, <tile_26>
+with
+.byte 64,96,120,255,252,3,0,0, 0, 0, 0, 0, 0, 0, 0, 0
+
+Number of tiles found: 15
+
+
+
+Handling cmoc_udc_tiles.s
+
+Changing 
+    FCB <tile_10>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 62 
+    FCB 111
+
+
+Changing 
+    FCB <tile_14>
+with
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_11>
+with
+    FCB 127 
+    FCB 127 
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224 
+    FCB 192 
+    FCB 248
+
+
+Changing 
+    FCB <tile_25>
+with
+    FCB 64 
+    FCB 96 
+    FCB 120 
+    FCB 255 
+    FCB 252 
+    FCB 3 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_17>
+with
+    FCB 219 
+    FCB 254 
+    FCB 120 
+    FCB 24 
+    FCB 24 
+    FCB 24 
+    FCB 24 
+    FCB 24
+
+
+Changing 
+    FCB <tile_12>
+with
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_7>
+with
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_4>
+with
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 12 
+    FCB 0
+
+
+Changing 
+    FCB <tile_5>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 62 
+    FCB 111 
+    FCB 127 
+    FCB 127
+
+
+Changing 
+    FCB <tile_0>
+with
+    FCB 62 
+    FCB 111 
+    FCB 127 
+    FCB 127 
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224
+
+
+Changing 
+    FCB <tile_13>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 131 
+    FCB 207
+
+
+Changing 
+    FCB <tile_8>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127
+
+
+Changing 
+	FCB <tile_26>
+with
+	FCB 0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0
+
+
+Changing 
+    FCB <tile_15>
+with
+    FCB 255 
+    FCB 255 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_16>
+with
+    FCB 0 
+    FCB 24 
+    FCB 27 
+    FCB 27 
+    FCB 219 
+    FCB 219 
+    FCB 219 
+    FCB 219
+
+
+Changing 
+    FCB <tile_19>
+with
+    FCB 0 
+    FCB 128 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176
+
+
+Changing 
+    FCB <tile_20>
+with
+    FCB 13 
+    FCB 15 
+    FCB 7 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 1
+
+
+Changing 
+    FCB <tile_21>
+with
+    FCB 176 
+    FCB 224 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128
+
+
+Changing 
+    FCB <tile_22>
+with
+    FCB 0 
+    FCB 32 
+    FCB 112 
+    FCB 255 
+    FCB 31 
+    FCB 7 
+    FCB 6 
+    FCB 4
+
+
+Changing 
+    FCB <tile_23>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 240 
+    FCB 192 
+    FCB 48 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_24>
+with
+    FCB 0 
+    FCB 2 
+    FCB 7 
+    FCB 15 
+    FCB 1 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_6>
+with
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224 
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192
+
+
+Changing 
+    FCB <tile_18>
+with
+    FCB 0 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 13 
+    FCB 13 
+    FCB 13 
+    FCB 13
+
+
+Changing 
+    FCB <tile_1>
+with
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0
+
+
+Changing 
+    FCB <tile_2>
+with
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12
+
+
+Changing 
+    FCB <tile_3>
+with
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192
+
+
+Changing 
+    FCB <tile_9>
+with
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Number of tiles found: 27
+
+
+
+Handling cmoc_udc_tiles_and_fonts.s
+
+Changing 
+    FCB <tile_10>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 62 
+    FCB 111
+
+
+Changing 
+    FCB <tile_14>
+with
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_11>
+with
+    FCB 127 
+    FCB 127 
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224 
+    FCB 192 
+    FCB 248
+
+
+Changing 
+    FCB <tile_25>
+with
+    FCB 64 
+    FCB 96 
+    FCB 120 
+    FCB 255 
+    FCB 252 
+    FCB 3 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_17>
+with
+    FCB 219 
+    FCB 254 
+    FCB 120 
+    FCB 24 
+    FCB 24 
+    FCB 24 
+    FCB 24 
+    FCB 24
+
+
+Changing 
+    FCB <tile_12>
+with
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_7>
+with
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_4>
+with
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 12 
+    FCB 0
+
+
+Changing 
+    FCB <tile_5>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 62 
+    FCB 111 
+    FCB 127 
+    FCB 127
+
+
+Changing 
+    FCB <tile_0>
+with
+    FCB 62 
+    FCB 111 
+    FCB 127 
+    FCB 127 
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224
+
+
+Changing 
+    FCB <tile_13>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 131 
+    FCB 207
+
+
+Changing 
+    FCB <tile_8>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127
+
+
+Changing 
+	FCB <tile_26>
+with
+	FCB 0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0 
+    FCB  0
+
+
+Changing 
+    FCB <tile_15>
+with
+    FCB 255 
+    FCB 255 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_16>
+with
+    FCB 0 
+    FCB 24 
+    FCB 27 
+    FCB 27 
+    FCB 219 
+    FCB 219 
+    FCB 219 
+    FCB 219
+
+
+Changing 
+    FCB <tile_19>
+with
+    FCB 0 
+    FCB 128 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176 
+    FCB 176
+
+
+Changing 
+    FCB <tile_20>
+with
+    FCB 13 
+    FCB 15 
+    FCB 7 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 1
+
+
+Changing 
+    FCB <tile_21>
+with
+    FCB 176 
+    FCB 224 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 128
+
+
+Changing 
+    FCB <tile_22>
+with
+    FCB 0 
+    FCB 32 
+    FCB 112 
+    FCB 255 
+    FCB 31 
+    FCB 7 
+    FCB 6 
+    FCB 4
+
+
+Changing 
+    FCB <tile_23>
+with
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 240 
+    FCB 192 
+    FCB 48 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_24>
+with
+    FCB 0 
+    FCB 2 
+    FCB 7 
+    FCB 15 
+    FCB 1 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Changing 
+    FCB <tile_6>
+with
+    FCB 112 
+    FCB 124 
+    FCB 224 
+    FCB 224 
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192
+
+
+Changing 
+    FCB <tile_18>
+with
+    FCB 0 
+    FCB 1 
+    FCB 1 
+    FCB 1 
+    FCB 13 
+    FCB 13 
+    FCB 13 
+    FCB 13
+
+
+Changing 
+    FCB <tile_1>
+with
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 192 
+    FCB 0
+
+
+Changing 
+    FCB <tile_2>
+with
+    FCB 131 
+    FCB 207 
+    FCB 255 
+    FCB 127 
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12
+
+
+Changing 
+    FCB <tile_3>
+with
+    FCB 192 
+    FCB 248 
+    FCB 200 
+    FCB 192 
+    FCB 128 
+    FCB 128 
+    FCB 128 
+    FCB 192
+
+
+Changing 
+    FCB <tile_9>
+with
+    FCB 63 
+    FCB 8 
+    FCB 8 
+    FCB 12 
+    FCB 0 
+    FCB 0 
+    FCB 0 
+    FCB 0
+
+
+Number of tiles found: 27
+
+
+
+Handling z88dk_cpc_Chars8.asm
+
+Changing 
+   DEFB    <tile_0>
+with
+   DEFB    62,111,127,127,112,124,224,224
+
+Changing 
+   DEFB    <tile_1>
+with
+   DEFB    192,248,200,192,128,128,192,0
+
+Changing 
+   DEFB    <tile_2>
+with
+   DEFB    131,207,255,127,63,8,8,12
+
+Changing 
+   DEFB    <tile_3>
+with
+   DEFB    192,248,200,192,128,128,128,192
+
+Changing 
+   DEFB   <tile_4>
+with
+   DEFB   131,207,255,127,63,8,12,0
+
+Changing 
+   DEFB     <tile_15>
+with
+   DEFB     255,255,0,0,0,0,0,0
+
+Changing 
+   DEFB     <tile_14>
+with
+   DEFB     255,127,63,8,8,12,0,0
+
+Changing 
+   DEFB    <tile_7>
+with
+   DEFB    128,128,128,192,0,0,0,0
+
+Changing 
+   DEFB     <tile_9>
+with
+   DEFB     63,8,8,12,0,0,0,0
+
+Changing 
+   DEFB     <tile_8>
+with
+   DEFB     0,0,0,0,131,207,255,127
+
+Changing 
+   DEFB     <tile_11>
+with
+   DEFB     127,127,112,124,224,224,192,248
+
+Changing 
+   DEFB    <tile_5>
+with
+   DEFB    0,0,0,0,62,111,127,127
+
+Changing 
+   DEFB    <tile_16>
+with
+   DEFB    0,24,27,27,219,219,219,219
+
+Changing 
+   DEFB    <tile_10>
+with
+   DEFB    0,0,0,0,0,0,62,111
+
+Changing 
+   DEFB    <tile_12> ; TILE 12 (47)
+with
+   DEFB    200,192,128,128,128,192,0,0 ; TILE 12 (47)
+
+Changing 
+   DEFB     <tile_13> ; TILE 13 (48)
+with
+   DEFB     0,0,0,0,0,0,131,207 ; TILE 13 (48)
+
+Changing 
+   DEFB     <tile_25> ; TILE 25 (49)
+with
+   DEFB     64,96,120,255,252,3,0,0 ; TILE 25 (49)
+
+Changing 
+   DEFB   <tile_17> ; TILE 17 (50)
+with
+   DEFB   219,254,120,24,24,24,24,24 ; TILE 17 (50)
+
+Changing 
+   DEFB   <tile_18> ; TILE 18 (51)
+with
+   DEFB   0,1,1,1,13,13,13,13 ; TILE 18 (51)
+
+Changing 
+   DEFB   <tile_6>; (52)
+with
+   DEFB   112,124,224,224,192,248,200,192; (52)
+
+Changing 
+   DEFB <tile_19>
+with
+   DEFB 0,128,176,176,176,176,176,176
+
+Changing 
+   DEFB <tile_20>
+with
+   DEFB 13,15,7,1,1,1,1,1
+
+Changing 
+   DEFB <tile_21>
+with
+   DEFB 176,224,128,128,128,128,128,128
+
+Changing 
+   DEFB <tile_22>
+with
+   DEFB 0,32,112,255,31,7,6,4
+
+Changing 
+   DEFB <tile_23>
+with
+   DEFB 0,0,0,240,192,48,0,0
+
+Changing 
+   DEFB <tile_24>
+with
+   DEFB 0,2,7,15,1,0,0,0
+
+Changing 
+   DEFB <tile_26>
+with
+   DEFB 0, 0, 0, 0, 0, 0, 0, 0
+
+Number of tiles found: 27
+
+
+
+Handling z88dk_gameboy.asm
+
+Changing 
+defb <tile_10>
+with
+defb 0,0,0,0,0,0,62,111
+
+Changing 
+defb <tile_14>
+with
+defb 255,127,63,8,8,12,0,0
+
+Changing 
+defb <tile_11>
+with
+defb 127,127,112,124,224,224,192,248
+
+Changing 
+defb <tile_25>
+with
+defb 64,96,120,255,252,3,0,0
+
+Changing 
+defb <tile_17> 
+with
+defb 219,254,120,24,24,24,24,24 
+
+Changing 
+defb <tile_12>
+with
+defb 200,192,128,128,128,192,0,0
+
+Changing 
+defb <tile_7>
+with
+defb 128,128,128,192,0,0,0,0
+
+Changing 
+	 defb    <tile_4>
+with
+	 defb    131,207,255,127,63,8,12,0
+
+Changing 
+defb <tile_5>
+with
+defb 0,0,0,0,62,111,127,127
+
+Changing 
+defb <tile_0>
+with
+defb 62,111,127,127,112,124,224,224
+
+Changing 
+defb <tile_13>
+with
+defb 0,0,0,0,0,0,131,207
+
+Changing 
+defb <tile_8>
+with
+defb 0,0,0,0,131,207,255,127
+
+Changing 
+defb <tile_26>
+with
+defb 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+defb <tile_15>
+with
+defb 255,255,0,0,0,0,0,0
+
+Changing 
+defb <tile_16>
+with
+defb 0,24,27,27,219,219,219,219
+
+Changing 
+defb <tile_19>
+with
+defb 0,128,176,176,176,176,176,176
+
+Changing 
+defb <tile_18> 
+with
+defb 0,1,1,1,13,13,13,13 
+
+Changing 
+defb <tile_1>
+with
+defb 192,248,200,192,128,128,192,0
+
+Changing 
+defb <tile_2>
+with
+defb 131,207,255,127,63,8,8,12
+
+Changing 
+defb <tile_3>
+with
+defb 192,248,200,192,128,128,128,192
+
+Changing 
+    defb <tile_9>
+with
+    defb 63,8,8,12,0,0,0,0
+
+Changing 
+defb <tile_20> 
+with
+defb 13,15,7,1,1,1,1,1 
+
+Changing 
+defb <tile_6>
+with
+defb 112,124,224,224,192,248,200,192
+
+Changing 
+defb <tile_21> 
+with
+defb 176,224,128,128,128,128,128,128 
+
+Changing 
+defb <tile_22> 
+with
+defb 0,32,112,255,31,7,6,4 
+
+Changing 
+defb <tile_23> 
+with
+defb 0,0,0,240,192,48,0,0 
+
+Changing 
+defb <tile_24> 
+with
+defb 0,2,7,15,1,0,0,0 
+
+Number of tiles found: 27
+
+
+
+Handling z88dk_sprites_definitions.h
+
+Changing 
+    defb <tile_10>
+with
+    defb 0,0,0,0,0,0,62,111
+
+Changing 
+    defb <tile_14>
+with
+    defb 255,127,63,8,8,12,0,0
+
+Changing 
+    defb <tile_11>
+with
+    defb 127,127,112,124,224,224,192,248
+
+Changing 
+    defb <tile_25>
+with
+    defb 64,96,120,255,252,3,0,0
+
+Changing 
+    defb <tile_17>
+with
+    defb 219,254,120,24,24,24,24,24
+
+Changing 
+    defb <tile_12>
+with
+    defb 200,192,128,128,128,192,0,0
+
+Changing 
+    defb <tile_7>
+with
+    defb 128,128,128,192,0,0,0,0
+
+Changing 
+    defb <tile_4>
+with
+    defb 131,207,255,127,63,8,12,0
+
+Changing 
+    defb <tile_5>
+with
+    defb 0,0,0,0,62,111,127,127
+
+Changing 
+    defb <tile_0>
+with
+    defb 62,111,127,127,112,124,224,224
+
+Changing 
+    defb <tile_13>
+with
+    defb 0,0,0,0,0,0,131,207
+
+Changing 
+    defb <tile_8>
+with
+    defb 0,0,0,0,131,207,255,127
+
+Changing 
+	defb <tile_26>
+with
+	defb 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+    defb <tile_15>
+with
+    defb 255,255,0,0,0,0,0,0
+
+Changing 
+    defb <tile_16>
+with
+    defb 0,24,27,27,219,219,219,219
+
+Changing 
+    defb <tile_19>
+with
+    defb 0,128,176,176,176,176,176,176
+
+Changing 
+    defb <tile_18>
+with
+    defb 0,1,1,1,13,13,13,13
+
+Changing 
+    defb <tile_1>
+with
+    defb 192,248,200,192,128,128,192,0
+
+Changing 
+    defb <tile_2>
+with
+    defb 131,207,255,127,63,8,8,12
+
+Changing 
+    defb <tile_3>
+with
+    defb 192,248,200,192,128,128,128,192
+
+Changing 
+    defb <tile_9>
+with
+    defb 63,8,8,12,0,0,0,0
+
+Changing 
+    defb <tile_20>
+with
+    defb 13,15,7,1,1,1,1,1
+
+Changing 
+    defb <tile_6>
+with
+    defb 112,124,224,224,192,248,200,192
+
+Changing 
+    defb <tile_21>
+with
+    defb 176,224,128,128,128,128,128,128
+
+Changing 
+    defb <tile_22>
+with
+    defb 0,32,112,255,31,7,6,4
+
+Changing 
+    defb <tile_23>
+with
+    defb 0,0,0,240,192,48,0,0
+
+Changing 
+    defb <tile_24>
+with
+    defb 0,2,7,15,1,0,0,0
+
+Number of tiles found: 27
+
+
+
+Handling z88dk_xchase.asm
+
+Changing 
+defb <tile_10>
+with
+defb 0,0,0,0,0,0,62,111
+
+Changing 
+defb <tile_14>
+with
+defb 255,127,63,8,8,12,0,0
+
+Changing 
+defb <tile_11>
+with
+defb 127,127,112,124,224,224,192,248
+
+Changing 
+defb <tile_25>
+with
+defb 64,96,120,255,252,3,0,0
+
+Changing 
+defb <tile_17> 
+with
+defb 219,254,120,24,24,24,24,24 
+
+Changing 
+defb <tile_12>
+with
+defb 200,192,128,128,128,192,0,0
+
+Changing 
+defb <tile_7>
+with
+defb 128,128,128,192,0,0,0,0
+
+Changing 
+defb    <tile_4>
+with
+defb    131,207,255,127,63,8,12,0
+
+Changing 
+defb <tile_5>
+with
+defb 0,0,0,0,62,111,127,127
+
+Changing 
+defb <tile_0>
+with
+defb 62,111,127,127,112,124,224,224
+
+Changing 
+defb <tile_13>
+with
+defb 0,0,0,0,0,0,131,207
+
+Changing 
+defb <tile_8>
+with
+defb 0,0,0,0,131,207,255,127
+
+Changing 
+defb <tile_26>
+with
+defb 0, 0, 0, 0, 0, 0, 0, 0
+
+Changing 
+defb <tile_15>
+with
+defb 255,255,0,0,0,0,0,0
+
+Changing 
+defb <tile_16>
+with
+defb 0,24,27,27,219,219,219,219
+
+Changing 
+defb <tile_19> 
+with
+defb 0,128,176,176,176,176,176,176 
+
+Changing 
+defb <tile_18> 
+with
+defb 0,1,1,1,13,13,13,13 
+
+Changing 
+defb <tile_1>
+with
+defb 192,248,200,192,128,128,192,0
+
+Changing 
+defb <tile_2>
+with
+defb 131,207,255,127,63,8,8,12
+
+Changing 
+defb <tile_3>
+with
+defb 192,248,200,192,128,128,128,192
+
+Changing 
+    defb <tile_9>
+with
+    defb 63,8,8,12,0,0,0,0
+
+Changing 
+defb <tile_20> 
+with
+defb 13,15,7,1,1,1,1,1 
+
+Changing 
+defb <tile_6> 
+with
+defb 112,124,224,224,192,248,200,192 
+
+Changing 
+defb <tile_21> 
+with
+defb 176,224,128,128,128,128,128,128 
+
+Changing 
+defb <tile_22> 
+with
+defb 0,32,112,255,31,7,6,4 
+
+Changing 
+defb <tile_23> 
+with
+defb 0,0,0,240,192,48,0,0 
+
+Changing 
+defb <tile_24> 
+with
+defb 0,2,7,15,1,0,0,0 
+
+Number of tiles found: 27
+
+
+dir name: 7x8
+Opening file tile../examples/trex/tiles/7x8/tile0.txt
+Opening file tile../examples/trex/tiles/7x8/tile1.txt
+Opening file tile../examples/trex/tiles/7x8/tile2.txt
+Opening file tile../examples/trex/tiles/7x8/tile3.txt
+Opening file tile../examples/trex/tiles/7x8/tile4.txt
+Opening file tile../examples/trex/tiles/7x8/tile5.txt
+Opening file tile../examples/trex/tiles/7x8/tile6.txt
+Opening file tile../examples/trex/tiles/7x8/tile7.txt
+Opening file tile../examples/trex/tiles/7x8/tile8.txt
+Opening file tile../examples/trex/tiles/7x8/tile9.txt
+Opening file tile../examples/trex/tiles/7x8/tile10.txt
+Opening file tile../examples/trex/tiles/7x8/tile11.txt
+Opening file tile../examples/trex/tiles/7x8/tile12.txt
+Opening file tile../examples/trex/tiles/7x8/tile13.txt
+Opening file tile../examples/trex/tiles/7x8/tile14.txt
+Opening file tile../examples/trex/tiles/7x8/tile15.txt
+Opening file tile../examples/trex/tiles/7x8/tile16.txt
+Opening file tile../examples/trex/tiles/7x8/tile17.txt
+Opening file tile../examples/trex/tiles/7x8/tile18.txt
+Opening file tile../examples/trex/tiles/7x8/tile19.txt
+Opening file tile../examples/trex/tiles/7x8/tile20.txt
+Opening file tile../examples/trex/tiles/7x8/tile21.txt
+Opening file tile../examples/trex/tiles/7x8/tile22.txt
+Opening file tile../examples/trex/tiles/7x8/tile23.txt
+Opening file tile../examples/trex/tiles/7x8/tile24.txt
+Opening file tile../examples/trex/tiles/7x8/tile25.txt
+Opening file tile../examples/trex/tiles/7x8/tile26.txt
+template_file_name: 7x8_chars.h.template
+stripped file name: 7x8_chars.h
+Templates found: 1
+
+
+Handling 7x8_chars.h
+
+Changing 
+	#define _TILE_0_UDG     {<tile_0>}
+with
+	#define _TILE_0_UDG     {12,18,12,51,45,12,18,18}
+
+Changing 
+	#define _TILE_1_UDG     {<tile_1>}
+with
+	#define _TILE_1_UDG     {96,96,124,100,96,64,64,96}
+
+Changing 
+	#define _TILE_2_UDG     {<tile_2>}
+with
+	#define _TILE_2_UDG     {18,18,0,0,0,0,0,0}
+
+Changing 
+	#define _TILE_3_UDG     {<tile_3>}
+with
+	#define _TILE_3_UDG     {0,0,0,0,12,18,12,51}
+
+Changing 
+	#define _TILE_4_UDG     {<tile_4>}
+with
+	#define _TILE_4_UDG     {45,12,18,18,0,0,0,0}
+
+Changing 
+	#define _TILE_7_UDG     {<tile_7>}
+with
+	#define _TILE_7_UDG     {12,18,12,0,45,0,18,18}
+
+Changing 
+	#define _TILE_9_UDG     {<tile_9>}
+with
+	#define _TILE_9_UDG     {2,7,2,15,18,42,39,37}
+
+Changing 
+	#define _TILE_8_UDG     {<tile_8>}
+with
+	#define _TILE_8_UDG     {0,12,18,33,33,18,12,0}
+
+Changing 
+	#define _TILE_11_UDG    {<tile_11>}
+with
+	#define _TILE_11_UDG    {0,0,0,1,2,5,4,4}
+
+Changing 
+	#define _TILE_5_UDG     {<tile_5>}
+with
+	#define _TILE_5_UDG     {0,0,0,0,0,0,12,18}
+
+Changing 
+	#define _TILE_6_UDG     {<tile_6>}
+with
+	#define _TILE_6_UDG     {12,51,45,12,18,18,0,0}
+
+Changing 
+	#define _TILE_16_UDG    {<tile_16>}
+with
+	#define _TILE_16_UDG    {0,0,0,60,2,5,57,1}
+
+Changing 
+	#define _TILE_14_UDG    {<tile_14>}
+with
+	#define _TILE_14_UDG    {0,42,42,58,42,42,0,0}
+
+Changing 
+	#define _TILE_15_UDG    {<tile_15>}
+with
+	#define _TILE_15_UDG    {0,37,37,37,37,50,0,0}
+
+Changing 
+	#define _TILE_10_UDG    {<tile_10>}
+with
+	#define _TILE_10_UDG    {0,0,0,32,16,40,8,8}
+
+Changing 
+	#define _TILE_12_UDG    {<tile_12>}
+with
+	#define _TILE_12_UDG    {16,56,16,60,18,21,57,41}
+
+Changing 
+	#define _TILE_13_UDG    {<tile_13>}
+with
+	#define _TILE_13_UDG    {0,0,0,15,16,40,39,32}
+
+Changing 
+	#define _TILE_17_UDG    {<tile_17>}
+with
+	#define _TILE_17_UDG    {2,7,2,2,2,2,2,5}
+
+Changing 
+	#define _TILE_18_UDG    {<tile_18>}
+with
+	#define _TILE_18_UDG    {16,56,16,16,16,16,16,40}
+
+Changing 
+	#define _TILE_19_UDG    {<tile_19>}
+with
+	#define _TILE_19_UDG    {45,18,12,51,45,12,18,18}
+
+Changing 
+	#define _TILE_20_UDG    {<tile_20>}
+with
+	#define _TILE_20_UDG    {0,0,45,18,12,51,45,12}
+
+Changing 
+	#define _TILE_21_UDG    {<tile_21>}
+with
+	#define _TILE_21_UDG    {0,0,0,0,45,18,12,51}
+
+Changing 
+	#define _TILE_22_UDG    {<tile_22>}
+with
+	#define _TILE_22_UDG    {0,0,0,0,0,0,45,18}
+
+Changing 
+	#define _TILE_23_UDG    {<tile_23>}
+with
+	#define _TILE_23_UDG    {0,4,21,14,27,14,21,4}
+
+Changing 
+	#define _TILE_24_UDG    {<tile_24>}
+with
+	#define _TILE_24_UDG    {63,41,63,37,63,41,63,37}
+
+Changing 
+	#define _TILE_25_UDG    {<tile_25>}
+with
+	#define _TILE_25_UDG    {0x7f,0x3e,0x60,0x3c,0x06,0x7c,0x18,0x7f}
+
+Changing 
+    #define _TILE_26_UDG    {<tile_26>}
+with
+    #define _TILE_26_UDG    {127,0,127,0,127,0,127,0}
+
+Number of tiles found: 27
+
+
+dir name: 6x8
+Opening file tile../examples/trex/tiles/6x8/tile0.txt
+Opening file tile../examples/trex/tiles/6x8/tile1.txt
+Opening file tile../examples/trex/tiles/6x8/tile2.txt
+Opening file tile../examples/trex/tiles/6x8/tile3.txt
+Opening file tile../examples/trex/tiles/6x8/tile4.txt
+Opening file tile../examples/trex/tiles/6x8/tile5.txt
+Opening file tile../examples/trex/tiles/6x8/tile6.txt
+Opening file tile../examples/trex/tiles/6x8/tile7.txt
+Opening file tile../examples/trex/tiles/6x8/tile8.txt
+Opening file tile../examples/trex/tiles/6x8/tile9.txt
+Opening file tile../examples/trex/tiles/6x8/tile10.txt
+Opening file tile../examples/trex/tiles/6x8/tile11.txt
+Opening file tile../examples/trex/tiles/6x8/tile12.txt
+Opening file tile../examples/trex/tiles/6x8/tile13.txt
+Opening file tile../examples/trex/tiles/6x8/tile14.txt
+Opening file tile../examples/trex/tiles/6x8/tile15.txt
+Opening file tile../examples/trex/tiles/6x8/tile16.txt
+Opening file tile../examples/trex/tiles/6x8/tile17.txt
+Opening file tile../examples/trex/tiles/6x8/tile18.txt
+Opening file tile../examples/trex/tiles/6x8/tile19.txt
+Opening file tile../examples/trex/tiles/6x8/tile20.txt
+Opening file tile../examples/trex/tiles/6x8/tile21.txt
+Opening file tile../examples/trex/tiles/6x8/tile22.txt
+Opening file tile../examples/trex/tiles/6x8/tile23.txt
+Opening file tile../examples/trex/tiles/6x8/tile24.txt
+Opening file tile../examples/trex/tiles/6x8/tile25.txt
+Opening file tile../examples/trex/tiles/6x8/tile26.txt
+template_file_name: 6x8_chars.h.template
+stripped file name: 6x8_chars.h
+Templates found: 1
+
+
+Handling 6x8_chars.h
+
+Changing 
+	#define _TILE_0_UDG     {<tile_0>}
+with
+	#define _TILE_0_UDG     {12,18,12,51,45,12,18,18}
+
+Changing 
+	#define _TILE_1_UDG     {<tile_1>}
+with
+	#define _TILE_1_UDG     {0,0,12,18,12,51,45,12}
+
+Changing 
+	#define _TILE_2_UDG     {<tile_2>}
+with
+	#define _TILE_2_UDG     {18,18,0,0,0,0,0,0}
+
+Changing 
+	#define _TILE_3_UDG     {<tile_3>}
+with
+	#define _TILE_3_UDG     {0,0,0,0,12,18,12,51}
+
+Changing 
+	#define _TILE_4_UDG     {<tile_4>}
+with
+	#define _TILE_4_UDG     {45,12,18,18,0,0,0,0}
+
+Changing 
+	#define _TILE_7_UDG     {<tile_7>}
+with
+	#define _TILE_7_UDG     {12,18,12,0,45,0,18,18}
+
+Changing 
+	#define _TILE_9_UDG     {<tile_9>}
+with
+	#define _TILE_9_UDG     {2,7,2,15,18,42,39,37}
+
+Changing 
+	#define _TILE_8_UDG     {<tile_8>}
+with
+	#define _TILE_8_UDG     {0,12,18,33,33,18,12,0}
+
+Changing 
+	#define _TILE_11_UDG    {<tile_11>}
+with
+	#define _TILE_11_UDG    {0,0,0,1,2,5,4,4}
+
+Changing 
+	#define _TILE_5_UDG     {<tile_5>}
+with
+	#define _TILE_5_UDG     {0,0,0,0,0,0,12,18}
+
+Changing 
+	#define _TILE_6_UDG     {<tile_6>}
+with
+	#define _TILE_6_UDG     {12,51,45,12,18,18,0,0}
+
+Changing 
+	#define _TILE_16_UDG    {<tile_16>}
+with
+	#define _TILE_16_UDG    {0,0,0,60,2,5,57,1}
+
+Changing 
+	#define _TILE_14_UDG    {<tile_14>}
+with
+	#define _TILE_14_UDG    {0,42,42,58,42,42,0,0}
+
+Changing 
+	#define _TILE_15_UDG    {<tile_15>}
+with
+	#define _TILE_15_UDG    {0,37,37,37,37,50,0,0}
+
+Changing 
+	#define _TILE_10_UDG    {<tile_10>}
+with
+	#define _TILE_10_UDG    {0,0,0,32,16,40,8,8}
+
+Changing 
+	#define _TILE_12_UDG    {<tile_12>}
+with
+	#define _TILE_12_UDG    {16,56,16,60,18,21,57,41}
+
+Changing 
+	#define _TILE_13_UDG    {<tile_13>}
+with
+	#define _TILE_13_UDG    {0,0,0,15,16,40,39,32}
+
+Changing 
+	#define _TILE_17_UDG    {<tile_17>}
+with
+	#define _TILE_17_UDG    {2,7,2,2,2,2,2,5}
+
+Changing 
+	#define _TILE_18_UDG    {<tile_18>}
+with
+	#define _TILE_18_UDG    {16,56,16,16,16,16,16,40}
+
+Changing 
+	#define _TILE_19_UDG    {<tile_19>}
+with
+	#define _TILE_19_UDG    {45,18,12,51,45,12,18,18}
+
+Changing 
+	#define _TILE_20_UDG    {<tile_20>}
+with
+	#define _TILE_20_UDG    {0,0,45,18,12,51,45,12}
+
+Changing 
+	#define _TILE_21_UDG    {<tile_21>}
+with
+	#define _TILE_21_UDG    {0,0,0,0,45,18,12,51}
+
+Changing 
+	#define _TILE_22_UDG    {<tile_22>}
+with
+	#define _TILE_22_UDG    {0,0,0,0,0,0,45,18}
+
+Changing 
+	#define _TILE_23_UDG    {<tile_23>}
+with
+	#define _TILE_23_UDG    {0,4,21,14,27,14,21,4}
+
+Changing 
+	#define _TILE_24_UDG    {<tile_24>}
+with
+	#define _TILE_24_UDG    {63,41,63,37,63,41,63,37}
+
+Changing 
+    #define _TILE_25_UDG    {<tile_25>}
+with
+    #define _TILE_25_UDG    {63,8, 31, 16, 30,  2,62,  63}
+
+Changing 
+    #define _TILE_26_UDG    {<tile_26>}
+with
+    #define _TILE_26_UDG    {63,0,63,0,63,0,63,0}
+
+Number of tiles found: 27
+
+
+dir name: 6x9
+Opening file tile../examples/trex/tiles/6x9/tile0.txt
+Opening file tile../examples/trex/tiles/6x9/tile1.txt
+Opening file tile../examples/trex/tiles/6x9/tile2.txt
+Opening file tile../examples/trex/tiles/6x9/tile3.txt
+Opening file tile../examples/trex/tiles/6x9/tile4.txt
+Opening file tile../examples/trex/tiles/6x9/tile5.txt
+Opening file tile../examples/trex/tiles/6x9/tile6.txt
+Opening file tile../examples/trex/tiles/6x9/tile7.txt
+Opening file tile../examples/trex/tiles/6x9/tile8.txt
+Opening file tile../examples/trex/tiles/6x9/tile9.txt
+Opening file tile../examples/trex/tiles/6x9/tile10.txt
+Opening file tile../examples/trex/tiles/6x9/tile11.txt
+Opening file tile../examples/trex/tiles/6x9/tile12.txt
+Opening file tile../examples/trex/tiles/6x9/tile13.txt
+Opening file tile../examples/trex/tiles/6x9/tile14.txt
+Opening file tile../examples/trex/tiles/6x9/tile15.txt
+Opening file tile../examples/trex/tiles/6x9/tile16.txt
+Opening file tile../examples/trex/tiles/6x9/tile17.txt
+Opening file tile../examples/trex/tiles/6x9/tile18.txt
+Opening file tile../examples/trex/tiles/6x9/tile19.txt
+Opening file tile../examples/trex/tiles/6x9/tile20.txt
+Opening file tile../examples/trex/tiles/6x9/tile21.txt
+Opening file tile../examples/trex/tiles/6x9/tile22.txt
+Opening file tile../examples/trex/tiles/6x9/tile23.txt
+Opening file tile../examples/trex/tiles/6x9/tile24.txt
+Opening file tile../examples/trex/tiles/6x9/tile25.txt
+Opening file tile../examples/trex/tiles/6x9/tile26.txt
+template_file_name: 6x9_chars.h.template
+stripped file name: 6x9_chars.h
+Templates found: 1
+
+
+Handling 6x9_chars.h
+
+Changing 
+	#define _TILE_0_UDG     {<tile_0>}
+with
+	#define _TILE_0_UDG     {12,18,12,51,45,12,18,18,18}
+
+Changing 
+	#define _TILE_1_UDG     {<tile_1>}
+with
+	#define _TILE_1_UDG     {0,0,0,12,18,12,51,45,12}
+
+Changing 
+	#define _TILE_2_UDG     {<tile_2>}
+with
+	#define _TILE_2_UDG     {18,18,18,0,0,0,0,0,0}
+
+Changing 
+	#define _TILE_3_UDG     {<tile_3>}
+with
+	#define _TILE_3_UDG     {0,0,0,0,0,12,18,12,51}
+
+Changing 
+	#define _TILE_4_UDG     {<tile_4>}
+with
+	#define _TILE_4_UDG     {45,12,18,18,0,0,0,0,0}
+
+Changing 
+	#define _TILE_7_UDG     {<tile_7>}
+with
+	#define _TILE_7_UDG     {12,18,12,0,45,0,18,18}
+
+Changing 
+	#define _TILE_9_UDG     {<tile_9>}
+with
+	#define _TILE_9_UDG     {0,2,7,2,15,18,42,39,37}
+
+Changing 
+	#define _TILE_8_UDG     {<tile_8>}
+with
+	#define _TILE_8_UDG     {0,0,12,18,33,33,18,12,0}
+
+Changing 
+	#define _TILE_11_UDG    {<tile_11>}
+with
+	#define _TILE_11_UDG    {0,0,0,0,1,2,5,4,4}
+
+Changing 
+	#define _TILE_5_UDG     {<tile_5>}
+with
+	#define _TILE_5_UDG     {0,0,0,0,0,0,0,12,18}
+
+Changing 
+	#define _TILE_6_UDG     {<tile_6>}
+with
+	#define _TILE_6_UDG     {12,51,45,12,18,18,18,0,0}
+
+Changing 
+	#define _TILE_16_UDG    {<tile_16>}
+with
+	#define _TILE_16_UDG    {0,0,0,0,60,2,5,57,1}
+
+Changing 
+	#define _TILE_14_UDG    {<tile_14>}
+with
+	#define _TILE_14_UDG    {0,0,42,42,58,42,42,0,0}
+
+Changing 
+	#define _TILE_15_UDG    {<tile_15>}
+with
+	#define _TILE_15_UDG    {0,0,37,37,37,37,50,0,0}
+
+Changing 
+	#define _TILE_10_UDG    {<tile_10>}
+with
+	#define _TILE_10_UDG    {0,0,0,0,32,16,40,8,8}
+
+Changing 
+	#define _TILE_12_UDG    {<tile_12>}
+with
+	#define _TILE_12_UDG    {0,16,56,16,60,18,21,57,41}
+
+Changing 
+	#define _TILE_13_UDG    {<tile_13>}
+with
+	#define _TILE_13_UDG    {0,0,0,0,15,16,40,39,32}
+
+Changing 
+	#define _TILE_17_UDG    {<tile_17>}
+with
+	#define _TILE_17_UDG    {2,2,7,2,2,2,2,2,5}
+
+Changing 
+	#define _TILE_18_UDG    {<tile_18>}
+with
+	#define _TILE_18_UDG    {16,16,56,16,16,16,16,16,40}
+
+Changing 
+	#define _TILE_19_UDG    {<tile_19>}
+with
+	#define _TILE_19_UDG    {45,18,12,51,45,12,18,18,18}
+
+Changing 
+	#define _TILE_20_UDG    {<tile_20>}
+with
+	#define _TILE_20_UDG    {0,0,0,45,18,12,51,45,12}
+
+Changing 
+	#define _TILE_21_UDG    {<tile_21>}
+with
+	#define _TILE_21_UDG    {0,0,0,0,0,45,18,12,51}
+
+Changing 
+	#define _TILE_22_UDG    {<tile_22>}
+with
+	#define _TILE_22_UDG    {0,0,0,0,0,0,0,45,18}
+
+Changing 
+	#define _TILE_23_UDG    {<tile_23>}
+with
+	#define _TILE_23_UDG    {0,0,4,21,14,27,14,21,4}
+
+Changing 
+	#define _TILE_24_UDG    {<tile_24>}
+with
+	#define _TILE_24_UDG    {0,63,41,63,37,63,41,63,37}
+
+Changing 
+	#define _TILE_25_UDG    {<tile_25>}
+with
+	#define _TILE_25_UDG    {63,8, 31, 16, 30,  2,62,  4,63}
+
+Changing 
+    #define _TILE_26_UDG    {<tile_26>}
+with
+    #define _TILE_26_UDG    {63,0,63,0,63,0,63,0,63}
+
+Number of tiles found: 27
+
+
+dir name: 8x6
+Opening file tile../examples/trex/tiles/8x6/tile0.txt
+Opening file tile../examples/trex/tiles/8x6/tile1.txt
+Opening file tile../examples/trex/tiles/8x6/tile2.txt
+Opening file tile../examples/trex/tiles/8x6/tile3.txt
+Opening file tile../examples/trex/tiles/8x6/tile4.txt
+Opening file tile../examples/trex/tiles/8x6/tile5.txt
+Opening file tile../examples/trex/tiles/8x6/tile6.txt
+Opening file tile../examples/trex/tiles/8x6/tile7.txt
+Opening file tile../examples/trex/tiles/8x6/tile8.txt
+Opening file tile../examples/trex/tiles/8x6/tile9.txt
+Opening file tile../examples/trex/tiles/8x6/tile10.txt
+Opening file tile../examples/trex/tiles/8x6/tile11.txt
+Opening file tile../examples/trex/tiles/8x6/tile12.txt
+Opening file tile../examples/trex/tiles/8x6/tile13.txt
+Opening file tile../examples/trex/tiles/8x6/tile14.txt
+Opening file tile../examples/trex/tiles/8x6/tile15.txt
+Opening file tile../examples/trex/tiles/8x6/tile16.txt
+Opening file tile../examples/trex/tiles/8x6/tile17.txt
+Opening file tile../examples/trex/tiles/8x6/tile18.txt
+Opening file tile../examples/trex/tiles/8x6/tile19.txt
+Opening file tile../examples/trex/tiles/8x6/tile20.txt
+Opening file tile../examples/trex/tiles/8x6/tile21.txt
+Opening file tile../examples/trex/tiles/8x6/tile22.txt
+Opening file tile../examples/trex/tiles/8x6/tile23.txt
+Opening file tile../examples/trex/tiles/8x6/tile24.txt
+Opening file tile../examples/trex/tiles/8x6/tile25.txt
+template_file_name: 8x6_c_definition.h.template
+stripped file name: 8x6_c_definition.h
+template_file_name: 8x6_tiles.s.template
+stripped file name: 8x6_tiles.s
+template_file_name: z88dk_8x6_sprites_definitions.h.template
+stripped file name: z88dk_8x6_sprites_definitions.h
+Templates found: 3
+
+
+Handling 8x6_c_definition.h
+
+Changing 
+#define _TILE_0_UDG    <tile_0>
+with
+#define _TILE_0_UDG    24,24,102,189,36,36
+
+Changing 
+#define _TILE_1_UDG    <tile_1>
+with
+#define _TILE_1_UDG    24,24,126,189,36,36
+
+Changing 
+#define _TILE_2_UDG    <tile_2>
+with
+#define _TILE_2_UDG    24,25,118,188,20,18
+
+Changing 
+#define _TILE_3_UDG    <tile_3>
+with
+#define _TILE_3_UDG    24,152,110,61,40,72
+
+Changing 
+#define _TILE_4_UDG    <tile_4>
+with
+#define _TILE_4_UDG    189,66,165,129,129,126
+
+Changing 
+#define _TILE_5_UDG    <tile_5>
+with
+#define _TILE_5_UDG    126,165,153,153,165,126 
+
+Changing 
+#define _TILE_6_UDG    <tile_6>
+with
+#define _TILE_6_UDG    189,66,165,165,129,126
+
+Changing 
+#define _TILE_7_UDG    <tile_7>
+with
+#define _TILE_7_UDG    126,165,129,90,66,60
+
+Changing 
+#define _TILE_8_UDG    <tile_8>
+with
+#define _TILE_8_UDG    126,227,239,247,70,60
+
+Changing 
+#define _TILE_9_UDG    <tile_9>
+with
+#define _TILE_9_UDG    0,255,200,240,192,128 
+
+Changing 
+#define _TILE_10_UDG   <tile_10>
+with
+#define _TILE_10_UDG   24,0,102,129,36,36 
+
+Changing 
+#define _TILE_11_UDG   <tile_11>
+with
+#define _TILE_11_UDG   0,8,56,28,16,0
+
+Changing 
+#define _TILE_12_UDG   <tile_12>
+with
+#define _TILE_12_UDG   16,48,24,16,48,24
+
+Changing 
+#define _TILE_13_UDG   <tile_13>
+with
+#define _TILE_13_UDG   0,68,255,34,0,0 
+
+Changing 
+#define _TILE_14_UDG   <tile_14>
+with
+#define _TILE_14_UDG   0,224,127,127,224,0
+
+Changing 
+#define _TILE_15_UDG   <tile_15>
+with
+#define _TILE_15_UDG   0,7,254,254,7,0
+
+Changing 
+#define _TILE_16_UDG   <tile_16>
+with
+#define _TILE_16_UDG   12,12,12,30,30,18
+
+Changing 
+#define _TILE_17_UDG   <tile_17>
+with
+#define _TILE_17_UDG   126,227,239,231,110,60
+
+Changing 
+#define _TILE_18_UDG   <tile_18>
+with
+#define _TILE_18_UDG   126,219,219,195,90,60
+
+Changing 
+#define _TILE_19_UDG   <tile_19>
+with
+#define _TILE_19_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_20_UDG   <tile_20>
+with
+#define _TILE_20_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_21_UDG   <tile_21>
+with
+#define _TILE_21_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_22_UDG   <tile_22>
+with
+#define _TILE_22_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_23_UDG   <tile_23>
+with
+#define _TILE_23_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_24_UDG   <tile_24>
+with
+#define _TILE_24_UDG   0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+#define _TILE_25_UDG   <tile_25>
+with
+#define _TILE_25_UDG   8,62,104,60,10,124 
+
+Changing 
+#define _TILE_26_UDG   <tile_26>
+with
+#define _TILE_26_UDG   0, 0, 0, 0, 0, 0
+
+Number of tiles found: 27
+
+
+
+Handling 8x6_tiles.s
+
+Changing 
+.byte    <tile_0>
+with
+.byte    24,24,102,189,36,36
+
+Changing 
+.byte    <tile_1>
+with
+.byte    24,24,126,189,36,36
+
+Changing 
+.byte    <tile_2>
+with
+.byte    24,25,118,188,20,18
+
+Changing 
+.byte    <tile_3>
+with
+.byte    24,152,110,61,40,72
+
+Changing 
+.byte    <tile_4>
+with
+.byte    189,66,165,129,129,126
+
+Changing 
+.byte    <tile_5>
+with
+.byte    126,165,153,153,165,126 
+
+Changing 
+.byte    <tile_6>
+with
+.byte    189,66,165,165,129,126
+
+Changing 
+.byte    <tile_7>
+with
+.byte    126,165,129,90,66,60
+
+Changing 
+.byte    <tile_8>
+with
+.byte    126,227,239,247,70,60
+
+Changing 
+.byte    <tile_9>
+with
+.byte    0,255,200,240,192,128 
+
+Changing 
+.byte    <tile_10>
+with
+.byte    24,0,102,129,36,36 
+
+Changing 
+.byte    <tile_11>
+with
+.byte    0,8,56,28,16,0
+
+Changing 
+.byte    <tile_12>
+with
+.byte    16,48,24,16,48,24
+
+Changing 
+.byte    <tile_13>
+with
+.byte    0,68,255,34,0,0 
+
+Changing 
+.byte    <tile_14>
+with
+.byte    0,224,127,127,224,0
+
+Changing 
+.byte    <tile_15>
+with
+.byte    0,7,254,254,7,0
+
+Changing 
+.byte    <tile_16>
+with
+.byte    12,12,12,30,30,18
+
+Changing 
+.byte    <tile_17>
+with
+.byte    126,227,239,231,110,60
+
+Changing 
+.byte    <tile_18>
+with
+.byte    126,219,219,195,90,60
+
+Changing 
+.byte    <tile_19>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_20>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_21>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_22>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_23>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_24>
+with
+.byte    $54, $38, $EE, $38, $54, $00 
+
+Changing 
+.byte    <tile_25>
+with
+.byte    8,62,104,60,10,124 
+
+Changing 
+.byte    <tile_26>
+with
+.byte    0, 0, 0, 0, 0, 0
+
+Number of tiles found: 27
+
+
+
+Handling z88dk_8x6_sprites_definitions.h
+
+Changing 
+    defb <tile_10>
+with
+    defb 24,0,102,129,36,36 
+
+Changing 
+    defb <tile_14>
+with
+    defb 0,224,127,127,224,0
+
+Changing 
+    defb <tile_11>
+with
+    defb 0,8,56,28,16,0
+
+Changing 
+    defb <tile_25>
+with
+    defb 8,62,104,60,10,124 
+
+Changing 
+    defb <tile_17>
+with
+    defb 126,227,239,231,110,60
+
+Changing 
+    defb <tile_12>
+with
+    defb 16,48,24,16,48,24
+
+Changing 
+    defb <tile_7>
+with
+    defb 126,165,129,90,66,60
+
+Changing 
+    defb <tile_4>
+with
+    defb 189,66,165,129,129,126
+
+Changing 
+    defb <tile_5>
+with
+    defb 126,165,153,153,165,126 
+
+Changing 
+    defb <tile_0>
+with
+    defb 24,24,102,189,36,36
+
+Changing 
+    defb <tile_13>
+with
+    defb 0,68,255,34,0,0 
+
+Changing 
+    defb <tile_8>
+with
+    defb 126,227,239,247,70,60
+
+Changing 
+	defb <tile_26>
+with
+	defb 0, 0, 0, 0, 0, 0
+
+Changing 
+    defb <tile_15>
+with
+    defb 0,7,254,254,7,0
+
+Changing 
+    defb <tile_16>
+with
+    defb 12,12,12,30,30,18
+
+Changing 
+    defb <tile_19>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+    defb <tile_18>
+with
+    defb 126,219,219,195,90,60
+
+Changing 
+    defb <tile_1>
+with
+    defb 24,24,126,189,36,36
+
+Changing 
+    defb <tile_2>
+with
+    defb 24,25,118,188,20,18
+
+Changing 
+    defb <tile_3>
+with
+    defb 24,152,110,61,40,72
+
+Changing 
+    defb <tile_9>
+with
+    defb 0,255,200,240,192,128 
+
+Changing 
+    defb <tile_20>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+    defb <tile_6>
+with
+    defb 189,66,165,165,129,126
+
+Changing 
+    defb <tile_21>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+    defb <tile_22>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+    defb <tile_23>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Changing 
+    defb <tile_24>
+with
+    defb 0x54, 0x38, 0xEE, 0x38, 0x54, 0x00 
+
+Number of tiles found: 27
+
+
+Files to copy: ['6x8_chars.h', '6x9_chars.h', '7x8_chars.h', '8x6_c_definition.h', '8x6_tiles.s', '8x8_chars.h', 'cc65_gamate_tiles.s', 'cc65_nes_color_tiles.s', 'cc65_nes_tiles.s', 'cc65_pce_tiles.s', 'cc65_udc.s', 'cc65_udc_64_chars.s', 'cc65_udc_6chars.s', 'cc65_udc_arcade.s', 'cc65_udc_arcade_64_chars.s', 'cc65_udc_arcade_v2.s', 'cc65_udc_arcade_VIC20.s', 'cc65_udc_atari7800_160A.s', 'cc65_udc_atari7800_160A_head.s', 'cc65_udc_vic20_19_tiles.s', 'cc65_udc_vic20_25_tiles.s', 'cc65_udc_vic20_27_tiles.s', 'cc65_udc_vic20_64_chars.s', 'cmoc_udc_tiles.s', 'cmoc_udc_tiles_and_fonts.s', 'z88dk_8x6_sprites_definitions.h', 'z88dk_cpc_Chars8.asm', 'z88dk_gameboy.asm', 'z88dk_sprites_definitions.h', 'z88dk_xchase.asm']
+Copying:  6x8_chars.h
+from: ./generated_assets/trex/6x8_chars.h
+to: ../examples/trex/generated_assets
+Copying:  6x9_chars.h
+from: ./generated_assets/trex/6x9_chars.h
+to: ../examples/trex/generated_assets
+Copying:  7x8_chars.h
+from: ./generated_assets/trex/7x8_chars.h
+to: ../examples/trex/generated_assets
+Copying:  8x6_c_definition.h
+from: ./generated_assets/trex/8x6_c_definition.h
+to: ../examples/trex/generated_assets
+Copying:  8x6_tiles.s
+from: ./generated_assets/trex/8x6_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  8x8_chars.h
+from: ./generated_assets/trex/8x8_chars.h
+to: ../examples/trex/generated_assets
+Copying:  cc65_gamate_tiles.s
+from: ./generated_assets/trex/cc65_gamate_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_nes_color_tiles.s
+from: ./generated_assets/trex/cc65_nes_color_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_nes_tiles.s
+from: ./generated_assets/trex/cc65_nes_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_pce_tiles.s
+from: ./generated_assets/trex/cc65_pce_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc.s
+from: ./generated_assets/trex/cc65_udc.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_64_chars.s
+from: ./generated_assets/trex/cc65_udc_64_chars.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_6chars.s
+from: ./generated_assets/trex/cc65_udc_6chars.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_arcade.s
+from: ./generated_assets/trex/cc65_udc_arcade.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_arcade_64_chars.s
+from: ./generated_assets/trex/cc65_udc_arcade_64_chars.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_arcade_v2.s
+from: ./generated_assets/trex/cc65_udc_arcade_v2.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_arcade_VIC20.s
+from: ./generated_assets/trex/cc65_udc_arcade_VIC20.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_atari7800_160A.s
+from: ./generated_assets/trex/cc65_udc_atari7800_160A.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_atari7800_160A_head.s
+from: ./generated_assets/trex/cc65_udc_atari7800_160A_head.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_vic20_19_tiles.s
+from: ./generated_assets/trex/cc65_udc_vic20_19_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_vic20_25_tiles.s
+from: ./generated_assets/trex/cc65_udc_vic20_25_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_vic20_27_tiles.s
+from: ./generated_assets/trex/cc65_udc_vic20_27_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cc65_udc_vic20_64_chars.s
+from: ./generated_assets/trex/cc65_udc_vic20_64_chars.s
+to: ../examples/trex/generated_assets
+Copying:  cmoc_udc_tiles.s
+from: ./generated_assets/trex/cmoc_udc_tiles.s
+to: ../examples/trex/generated_assets
+Copying:  cmoc_udc_tiles_and_fonts.s
+from: ./generated_assets/trex/cmoc_udc_tiles_and_fonts.s
+to: ../examples/trex/generated_assets
+Copying:  z88dk_8x6_sprites_definitions.h
+from: ./generated_assets/trex/z88dk_8x6_sprites_definitions.h
+to: ../examples/trex/generated_assets
+Copying:  z88dk_cpc_Chars8.asm
+from: ./generated_assets/trex/z88dk_cpc_Chars8.asm
+to: ../examples/trex/generated_assets
+Copying:  z88dk_gameboy.asm
+from: ./generated_assets/trex/z88dk_gameboy.asm
+to: ../examples/trex/generated_assets
+Copying:  z88dk_sprites_definitions.h
+from: ./generated_assets/trex/z88dk_sprites_definitions.h
+to: ../examples/trex/generated_assets
+Copying:  z88dk_xchase.asm
+from: ./generated_assets/trex/z88dk_xchase.asm
+to: ../examples/trex/generated_assets
+cl65.exe     -Icross_lib -Icross_lib/sleep -Icross_lib/display -Icross_lib/display/graphics_mode -Icross_lib/display/alt_print -Icross_lib/include -Icross_lib/sound -Icross_lib/sound/cc65/atmos -Icross_lib/sound/cc65/c264 -Icross_lib/sound/cc65/pokey -Icross_lib/sound/cc65/sid -Icross_lib/sound/cc65/vic20 -Icross_lib/sound/cc65/gamate -Icross_lib/sound/cc65/creativision -Icross_lib/sound/cc65/atari_lynx -Icross_lib/sound/cc65/pet -Icross_lib/sound/cc65/supervision -Icross_lib/sound/z88dk/bit_bang -Icross_lib/sound/z88dk/gb -Icross_lib/sound/z88dk/psg -Icross_lib/sound/lcc1802/comx -Icross_lib/sound/cmoc/mo5 -Icross_lib/sound/generic -Icross_lib/sound/gcc4ti99 -Icross_lib/text -Icross_lib/input -Icross_lib/rand -Icross_lib/display/redefine_characters -Icross_lib/display/tiles -Iexamples/trex/generated_assets -Iexamples/trex     -Or -Cl  -t vic20    \
+--config cross_lib/cfg//cc65/vic20-16k_CODE2_GFX_V2.cfg \
+-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
+-D_XL_SLOW_DOWN_FACTOR=10*55  \
+ \
+examples/trex/generated_assets/cc65_udc_arcade_v2.s \
+cross_lib/display/display_macros.c cross_lib/input/input_macros.c cross_lib/sleep/sleep_macros.c examples/trex/main.c  \
+--code-name CODE2 \
+cross_lib/sound/cc65/vic20/vic20_sounds.c \
+cross_lib/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+-o ../build/Xtrex_vic20_exp_16k.prg
+----------------------------
+Verbose Mode ON
+[96mColor terminal ON
+[0mConfig file found with: ['build', 'tools', 'extend', 'run', 'clean', 'terminal']
+----------------------------
+Detected 24 threads...
+----------------------------
+[94mconfig.ini OK
+[0m----------------------------
+[92mCross-Lib `xl` helper script
+[0m----------------------------
+Platform: cygwin
+Python:   3.9
+GNU MAKE command: make
+----------------------------
+
+xsize: 8
+ysize: 8
+Path to shape files: examples/trex/shapes/8x8/
+shape files:  ['bird12x8left.txt', 'bird12x8right.txt', 'shape0.txt', 'shape1.txt', 'shape10.txt', 'shape11.txt', 'shape12.txt', 'shape13.txt', 'shape14.txt', 'shape15.txt', 'shape16.txt', 'shape17.txt', 'shape18.txt', 'shape19.txt', 'shape2.txt', 'shape20.txt', 'shape21.txt', 'shape22.txt', 'shape23.txt', 'shape24.txt', 'shape25.txt', 'shape26.txt', 'shape3.txt', 'shape4.txt', 'shape5.txt', 'shape6.txt', 'shape7.txt', 'shape8.txt', 'shape9.txt']
+processing file:  bird12x8left.txt
+processing path file:  examples/trex/shapes/8x8/bird12x8left.txt
+tile number: 2x8left
+processing line:  ................
+processing line:  ..#.............
+processing line:  .###............
+processing line:  ############....
+processing line:  ...#######......
+processing line:  .....###..##....
+processing line:  .....##.........
+processing line:  .....#..........Tile shape: 8X8
+0,32,112,255,31,7,6,4
+[1m........
+[0m[1m..#.....
+[0m[1m.###....
+[0m[1m########
+[0m[1m...#####
+[0m[1m.....###
+[0m[1m.....##.
+[0m[1m.....#..
+[0m
+
+(store tile) project    : trex
+tile index : 2x8left
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile2x8left.txt
+
+processing file:  bird12x8right.txt
+processing path file:  examples/trex/shapes/8x8/bird12x8right.txt
+tile number: 2x8right
+processing line:  .........#......
+processing line:  ......#..##.....
+processing line:  .....###.####...
+processing line:  ....############
+processing line:  .......#######..
+processing line:  ..............##
+processing line:  ................
+processing line:  ................
+Tile shape: 8X8
+0,2,7,15,1,0,0,0
+[1m........
+[0m[1m......#.
+[0m[1m.....###
+[0m[1m....####
+[0m[1m.......#
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 2x8right
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile2x8right.txt
+
+processing file:  shape0.txt
+processing path file:  examples/trex/shapes/8x8/shape0.txt
+tile number: 0
+processing line:  ..#####.
+processing line:  .## ####
+processing line:  .#######
+processing line:  .#######
+processing line:  .###....
+processing line:  .#####..
+processing line:  ###.....
+processing line:  ###.....
+Tile shape: 8X8
+62,111,127,127,112,124,224,224
+[1m..#####.
+[0m[1m.##.####
+[0m[1m.#######
+[0m[1m.#######
+[0m[1m.###....
+[0m[1m.#####..
+[0m[1m###.....
+[0m[1m###.....
+[0m
+
+(store tile) project    : trex
+tile index : 0
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile0.txt
+
+processing file:  shape1.txt
+processing path file:  examples/trex/shapes/8x8/shape1.txt
+tile number: 1
+processing line:  ##......
+processing line:  #####...
+processing line:  ##..#...
+processing line:  ##......
+processing line:  #.......
+processing line:  #.......
+processing line:  ##......
+processing line:  ........
+Tile shape: 8X8
+192,248,200,192,128,128,192,0
+[1m##......
+[0m[1m#####...
+[0m[1m##..#...
+[0m[1m##......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m##......
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 1
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile1.txt
+
+processing file:  shape10.txt
+processing path file:  examples/trex/shapes/8x8/shape10.txt
+tile number: 10
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ..#####.
+processing line:  .## ####
+processing line:  
+processing line:  
+processing line:  
+Tile shape: 8X8
+0,0,0,0,0,0,62,111
+[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m..#####.
+[0m[1m.##.####
+[0m
+
+(store tile) project    : trex
+tile index : 10
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile10.txt
+
+processing file:  shape11.txt
+processing path file:  examples/trex/shapes/8x8/shape11.txt
+tile number: 11
+processing line:  .#######
+processing line:  .#######
+processing line:  .###....
+processing line:  .#####..
+processing line:  ###.....
+processing line:  ###.....
+processing line:  ##......
+processing line:  #####...
+processing line:  
+processing line:  
+processing line:  
+Tile shape: 8X8
+127,127,112,124,224,224,192,248
+[1m.#######
+[0m[1m.#######
+[0m[1m.###....
+[0m[1m.#####..
+[0m[1m###.....
+[0m[1m###.....
+[0m[1m##......
+[0m[1m#####...
+[0m
+
+(store tile) project    : trex
+tile index : 11
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile11.txt
+
+processing file:  shape12.txt
+processing path file:  examples/trex/shapes/8x8/shape12.txt
+tile number: 12
+processing line:  ##..#...
+processing line:  ##......
+processing line:  #.......
+processing line:  #.......
+processing line:  #.......
+processing line:  ##......
+processing line:  ........
+processing line:  ........
+processing line:  
+Tile shape: 8X8
+200,192,128,128,128,192,0,0
+[1m##..#...
+[0m[1m##......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m##......
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 12
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile12.txt
+
+processing file:  shape13.txt
+processing path file:  examples/trex/shapes/8x8/shape13.txt
+tile number: 13
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  #.....##
+processing line:  ##..####
+processing line:  
+processing line:  
+Tile shape: 8X8
+0,0,0,0,0,0,131,207
+[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m#.....##
+[0m[1m##..####
+[0m
+
+(store tile) project    : trex
+tile index : 13
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile13.txt
+
+processing file:  shape14.txt
+processing path file:  examples/trex/shapes/8x8/shape14.txt
+tile number: 14
+processing line:  ########
+processing line:  .#######
+processing line:  ..######
+processing line:  ....#...
+processing line:  ....#...
+processing line:  ....##..
+processing line:  ........
+processing line:  ........
+processing line:  
+Tile shape: 8X8
+255,127,63,8,8,12,0,0
+[1m########
+[0m[1m.#######
+[0m[1m..######
+[0m[1m....#...
+[0m[1m....#...
+[0m[1m....##..
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 14
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile14.txt
+
+processing file:  shape15.txt
+processing path file:  examples/trex/shapes/8x8/shape15.txt
+tile number: 15
+processing line:  ########
+processing line:  ########
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  
+Tile shape: 8X8
+255,255,0,0,0,0,0,0
+[1m########
+[0m[1m########
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 15
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile15.txt
+
+processing file:  shape16.txt
+processing path file:  examples/trex/shapes/8x8/shape16.txt
+tile number: 16
+processing line:  ........
+processing line:  ...##...
+processing line:  ...##.##
+processing line:  ...##.##
+processing line:  ##.##.##
+processing line:  ##.##.##
+processing line:  ##.##.##
+processing line:  ##.##.##
+processing line:  
+processing line:  
+Tile shape: 8X8
+0,24,27,27,219,219,219,219
+[1m........
+[0m[1m...##...
+[0m[1m...##.##
+[0m[1m...##.##
+[0m[1m##.##.##
+[0m[1m##.##.##
+[0m[1m##.##.##
+[0m[1m##.##.##
+[0m
+
+(store tile) project    : trex
+tile index : 16
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile16.txt
+
+processing file:  shape17.txt
+processing path file:  examples/trex/shapes/8x8/shape17.txt
+tile number: 17
+processing line:  ##.##.##
+processing line:  #######.
+processing line:  .####...
+processing line:  ...##...
+processing line:  ...##...
+processing line:  ...##...
+processing line:  ...##...
+processing line:  ...##...Tile shape: 8X8
+219,254,120,24,24,24,24,24
+[1m##.##.##
+[0m[1m#######.
+[0m[1m.####...
+[0m[1m...##...
+[0m[1m...##...
+[0m[1m...##...
+[0m[1m...##...
+[0m[1m...##...
+[0m
+
+(store tile) project    : trex
+tile index : 17
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile17.txt
+
+processing file:  shape18.txt
+processing path file:  examples/trex/shapes/8x8/shape18.txt
+tile number: 18
+processing line:  ........
+processing line:  .......#
+processing line:  .......#
+processing line:  .......#
+processing line:  ....##.#
+processing line:  ....##.#
+processing line:  ....##.#
+processing line:  ....##.#
+Tile shape: 8X8
+0,1,1,1,13,13,13,13
+[1m........
+[0m[1m.......#
+[0m[1m.......#
+[0m[1m.......#
+[0m[1m....##.#
+[0m[1m....##.#
+[0m[1m....##.#
+[0m[1m....##.#
+[0m
+
+(store tile) project    : trex
+tile index : 18
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile18.txt
+
+processing file:  shape19.txt
+processing path file:  examples/trex/shapes/8x8/shape19.txt
+tile number: 19
+processing line:  ........
+processing line:  #.......
+processing line:  #.##....
+processing line:  #.##....
+processing line:  #.##....
+processing line:  #.##....
+processing line:  #.##....
+processing line:  #.##....Tile shape: 8X8
+0,128,176,176,176,176,176,176
+[1m........
+[0m[1m#.......
+[0m[1m#.##....
+[0m[1m#.##....
+[0m[1m#.##....
+[0m[1m#.##....
+[0m[1m#.##....
+[0m[1m#.##....
+[0m
+
+(store tile) project    : trex
+tile index : 19
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile19.txt
+
+processing file:  shape2.txt
+processing path file:  examples/trex/shapes/8x8/shape2.txt
+tile number: 2
+processing line:  #.....##
+processing line:  ##..####
+processing line:  ########
+processing line:  .#######
+processing line:  ..######
+processing line:  ....#...
+processing line:  ....#...
+processing line:  ....##..
+processing line:  
+Tile shape: 8X8
+131,207,255,127,63,8,8,12
+[1m#.....##
+[0m[1m##..####
+[0m[1m########
+[0m[1m.#######
+[0m[1m..######
+[0m[1m....#...
+[0m[1m....#...
+[0m[1m....##..
+[0m
+
+(store tile) project    : trex
+tile index : 2
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile2.txt
+
+processing file:  shape20.txt
+processing path file:  examples/trex/shapes/8x8/shape20.txt
+tile number: 20
+processing line:  ....##.#
+processing line:  ....####
+processing line:  .....###
+processing line:  .......#
+processing line:  .......#
+processing line:  .......#
+processing line:  .......#
+processing line:  .......#
+processing line:  
+Tile shape: 8X8
+13,15,7,1,1,1,1,1
+[1m....##.#
+[0m[1m....####
+[0m[1m.....###
+[0m[1m.......#
+[0m[1m.......#
+[0m[1m.......#
+[0m[1m.......#
+[0m[1m.......#
+[0m
+
+(store tile) project    : trex
+tile index : 20
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile20.txt
+
+processing file:  shape21.txt
+processing path file:  examples/trex/shapes/8x8/shape21.txt
+tile number: 21
+processing line:  
+processing line:  #.##....
+processing line:  ###.....
+processing line:  #.......
+processing line:  #.......
+processing line:  #.......
+processing line:  #.......
+processing line:  #.......
+processing line:  #.......
+Tile shape: 8X8
+176,224,128,128,128,128,128,128
+[1m#.##....
+[0m[1m###.....
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m#.......
+[0m[1m#.......
+[0m
+
+(store tile) project    : trex
+tile index : 21
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile21.txt
+
+processing file:  shape22.txt
+processing path file:  examples/trex/shapes/8x8/shape22.txt
+tile number: 22
+processing line:  ........
+processing line:  ..#.....
+processing line:  .###....
+processing line:  ########
+processing line:  ...#####
+processing line:  .....###
+processing line:  .....##.
+processing line:  .....#..
+Tile shape: 8X8
+0,32,112,255,31,7,6,4
+[1m........
+[0m[1m..#.....
+[0m[1m.###....
+[0m[1m########
+[0m[1m...#####
+[0m[1m.....###
+[0m[1m.....##.
+[0m[1m.....#..
+[0m
+
+(store tile) project    : trex
+tile index : 22
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile22.txt
+
+processing file:  shape23.txt
+processing path file:  examples/trex/shapes/8x8/shape23.txt
+tile number: 23
+processing line:  ........
+processing line:  ........
+processing line:  ........
+processing line:  ####....
+processing line:  ##......
+processing line:  ..##....
+processing line:  ........
+processing line:  ........
+Tile shape: 8X8
+0,0,0,240,192,48,0,0
+[1m........
+[0m[1m........
+[0m[1m........
+[0m[1m####....
+[0m[1m##......
+[0m[1m..##....
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 23
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile23.txt
+
+processing file:  shape24.txt
+processing path file:  examples/trex/shapes/8x8/shape24.txt
+tile number: 24
+processing line:  ........
+processing line:  ......#.
+processing line:  .....###
+processing line:  ....####
+processing line:  .......#
+processing line:  ........
+processing line:  ........
+processing line:  ........
+Tile shape: 8X8
+0,2,7,15,1,0,0,0
+[1m........
+[0m[1m......#.
+[0m[1m.....###
+[0m[1m....####
+[0m[1m.......#
+[0m[1m........
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 24
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile24.txt
+
+processing file:  shape25.txt
+processing path file:  examples/trex/shapes/8x8/shape25.txt
+tile number: 25
+processing line:  .#......
+processing line:  .##.....
+processing line:  .####...
+processing line:  ########
+processing line:  ######..
+processing line:  ......##
+processing line:  ........
+processing line:  ........
+Tile shape: 8X8
+64,96,120,255,252,3,0,0
+[1m.#......
+[0m[1m.##.....
+[0m[1m.####...
+[0m[1m########
+[0m[1m######..
+[0m[1m......##
+[0m[1m........
+[0m[1m........
+[0m
+
+(store tile) project    : trex
+tile index : 25
+directory: 8X8
+project category : example
+Copy/Overwrite : ./examples/trex/tiles/8X8/tile25.txt
+
+processing file:  shape26.txt
+processing path file:  examples/trex/shapes/8x8/shape26.txt
+tile number: 26
+processing line:  ..#####.
+processing line:  .##.####
+processing line:  .#.#.##
+processing line:  .##.####
+processing line:  .###....
+processing line:  .#####..
+processing line:  ###.....
+processing line:  ###.....
+processing line:  
+Tile shape: 7X8
+Shape in file examples/trex/shapes/8x8/shape26.txt has wrong dimensions!
+31,55,43,55,56,62,112,112
+Project name: trex
+Delete all temporary files including generated assets for 'trex'
+Going to run: 
+[1mmake clean_no_built_in -f examples/trex/Makefile.trex
+[0mProject name       : [1mtrex
+[0mTarget name        : [4mvic20
+[0mProject type       : example
+Number of threads  : 24
+Extra optimization : 
+Compiler's options : 
+--------------------------
+z88dk_compiler_opts    : -O3
+zsdcc_compiler_opts     : -SO3
+cmoc_compiler_opts      : -O2
+cc65_compiler_opts      : -Or -Cl
+lcc1802_compiler_opts   : "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"
+gcc4ti99_compiler_opts: -O2
+native_compiler_opts: -Wpedantic -Wall
+
+Going to run: 
+[1mmake vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 24'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 ' Z88DK_MAKEFILE_COMPILATION_OPTS='-O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/trex/Makefile.trex
+[0m[94mNew binaries built: 1
+[0m

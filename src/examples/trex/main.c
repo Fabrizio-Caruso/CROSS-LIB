@@ -65,6 +65,14 @@ void draw_jump_dino_0(uint8_t height)
     _XL_DRAW(X_DINO,Y_DINO+1-height,TAIL_DINO_0,_XL_WHITE);
 }    
 
+void draw_dead_dino_0(void)
+{
+    // Initial tiles
+    _XL_DRAW(X_DINO+1,Y_DINO,TOP_DEAD_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO,Y_DINO+1,TAIL_DINO_0,_XL_WHITE);
+}   
+
 void draw_jump_dino_1(uint8_t height)
 {
     _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_1,_XL_WHITE);
@@ -594,8 +602,9 @@ int main(void)
         
         // _XL_SLEEP(3);
         
-        state=0;
-        handle_state_behavior();
+        //state=0;
+        // handle_state_behavior();
+        draw_dead_dino_0();
         _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");

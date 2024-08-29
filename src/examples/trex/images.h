@@ -39,6 +39,12 @@
     #define TOP_RIGHT_CACTUS      _TILE_19
     #define BOTTOM_RIGHT_CACTUS   _TILE_21
 
+    #define LEFT_BIRD_0           _TILE_22
+    #define LEFT_BIRD_1           _TILE_23
+
+    #define RIGHT_BIRD_0          _TILE_24
+    #define RIGHT_BIRD_1          _TILE_25
+
     #define TOP_DEAD_DINO_0       _TILE_26
 #endif // _IMAGES_H
 

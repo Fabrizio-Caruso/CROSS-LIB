@@ -332,27 +332,27 @@ void display_hiscore(void)
 
 
 
-uint8_t cactus_overlap(uint8_t i)
-{
-    uint8_t j;
+// uint8_t cactus_overlap(uint8_t i)
+// {
+    // uint8_t j;
     
-    for(j=0;j<NUMBER_OF_CACTI;++j)
-    {
-        if((x_cactus[j]==x_cactus[i]) ||
-        (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
+    // for(j=0;j<NUMBER_OF_CACTI;++j)
+    // {
+        // if((x_cactus[j]==x_cactus[i]) ||
+        // (x_cactus[j]==x_cactus[i]-1) || (x_cactus[j]==x_cactus[i]+1))
+        // {
+            // return 1;
+        // }
+    // }
+    // return 0;
+// }
 
 
 
 
 void handle_cactus_half_transition(uint8_t i)
 {
-    if((x_cactus[i]>=LEFT_END_OF_SCREEN)&&(x_cactus[i]<RIGHT_END_OF_SCREEN))
+    if(x_cactus[i])
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
@@ -509,7 +509,7 @@ int main(void)
     {
         for(i=0;i<NUMBER_OF_CACTI;++i)
         {
-            x_cactus[i] = RIGHT_END_OF_SCREEN;
+            x_cactus[i] = 0;
         }
         
         counter = 0;
@@ -536,6 +536,7 @@ int main(void)
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
         _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+        draw_jump_dino_0(0);
         _XL_WAIT_FOR_INPUT();
         _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
 

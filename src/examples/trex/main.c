@@ -52,7 +52,7 @@ uint16_t hiscore;
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
 
-#define LEFT_END_OF_SCREEN 1
+// #define LEFT_END_OF_SCREEN 0
 #define RIGHT_END_OF_SCREEN ((XSize)-1)
 
 
@@ -118,7 +118,7 @@ void draw_dino_feet_1(void)
 }
 
 
-#define RUN_SLOW_DOWN 3
+// #define RUN_SLOW_DOWN 4
 
 
 #define JUMP 2
@@ -365,20 +365,16 @@ void handle_cactus_half_transition(uint8_t i)
 #define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
 
 
-uint8_t cactus_collision(uint8_t i)
-{
-    // _XL_SET_TEXT_COLOR(_XL_WHITE);
+// uint8_t cactus_collision(uint8_t i)
+// {
+    // if(x_cactus[i]==X_DINO)
+    // {
 
-    if(x_cactus[i]==X_DINO)
-    {
-        // _XL_PRINT(0,0,"DEAD ");
-        // _XL_PRINTD(10,0,2,i);
-        return 1;
-    }
-    // _XL_PRINT(0,0,"ALIVE ");
+        // return 1;
+    // }
     
-    return 0;
-}
+    // return 0;
+// }
 
 
 void update_cactus(uint8_t i)
@@ -386,16 +382,16 @@ void update_cactus(uint8_t i)
     _XL_DELETE(x_cactus[i],Y_CACTUS-1);
     _XL_DELETE(x_cactus[i],Y_CACTUS);
     
-    if(x_cactus[i]==LEFT_END_OF_SCREEN)
+    if(!x_cactus[i])
     {
         ++score;
         update_score();
 
         // _XL_PRINTD(0,2,2,i);
         // _XL_SLEEP(1);
-        x_cactus[i] = 0;
-        _XL_DELETE(x_cactus[i],Y_CACTUS-1);
-        _XL_DELETE(x_cactus[i],Y_CACTUS);
+        // x_cactus[i] = 0;
+        // _XL_DELETE(x_cactus[i],Y_CACTUS-1);
+        // _XL_DELETE(x_cactus[i],Y_CACTUS);
     
         cactus_cooldown[i] = _XL_RAND()&15;
         return;
@@ -571,14 +567,14 @@ int main(void)
                 spawn_cacti();
             }
         
-            _XL_SLOW_DOWN(RUN_SLOW_DOWN*_XL_SLOW_DOWN_FACTOR);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
             if ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD))
             {
                 i=0;
                 while((i<NUMBER_OF_CACTI)&&(!dead))
                 {
-                    dead = cactus_collision(i++);
+                    dead = x_cactus[i++]==X_DINO;
                     // if(dead)
                     // {
                         // _XL_PRINTD(0,3,2,state);

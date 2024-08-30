@@ -363,6 +363,13 @@ void handle_bird_half_transition(void)
 #define LOW_COLLISION_THRESHOLD 4
 #define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
 
+void one_point(void)
+{
+    ++score;
+    display_score();
+    _XL_PING_SOUND();
+}
+
 
 void update_cactus(uint8_t i)
 {
@@ -371,8 +378,7 @@ void update_cactus(uint8_t i)
     
     if((!x_cactus[i]) && active_cactus[i])
     {
-        ++score;
-        display_score();
+        one_point();
         cactus_cooldown[i] = _XL_RAND()&15;
         active_cactus[i]=0;
         --number_of_active_cactus;
@@ -401,8 +407,7 @@ void update_bird(void)
         // while(1){};
         // _XL_DELETE(x_bird,y_bird);
         // _XL_DELETE(x_bird+1,y_bird);
-        ++score;
-        display_score();
+        one_point();
         bird_cooldown = _XL_RAND()&31;
         active_bird = 0;
     // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
@@ -628,6 +633,7 @@ int main(void)
         _XL_DELETE(X_DINO+1,Y_DINO-5);
         
         draw_dead_dino_0();
+        _XL_SHOOT_SOUND();
         _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");

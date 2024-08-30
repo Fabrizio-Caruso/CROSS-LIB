@@ -31,7 +31,7 @@
 #define Y_DINO ((YSize/2)+2)
 
 
-#define NUMBER_OF_CACTI (((XSize)/10)+1)
+#define NUMBER_OF_CACTI (((XSize)/10))
 
 uint8_t input;
 
@@ -488,7 +488,7 @@ void spawn_cacti(void)
 
 void spawn_bird(void)
 {
-    uint8_t height = (_XL_RAND()&3);
+    uint8_t height = 2*(_XL_RAND()&1);
 
 
     if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<XSize/2))
@@ -513,7 +513,7 @@ uint8_t counter;
 
 void handle_enemy_spawn(void)
 {
-    if(!(counter&3)&&((y_bird>Y_DINO-1)||(x_bird<XSize/2)))
+    if(!(counter&3)&&(x_bird<XSize/2))
     {
         spawn_cacti();
     }

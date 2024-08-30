@@ -511,9 +511,9 @@ void spawn_bird(void)
 
 uint8_t counter;
 
-void spawn_enemy(void)
+void handle_enemy_spawn(void)
 {
-    if(!(counter&3)&&((y_bird<Y_DINO-1)||(x_bird<XSize/2)))
+    if(!(counter&3)&&((y_bird>Y_DINO-1)||(x_bird<XSize/2)))
     {
         spawn_cacti();
     }
@@ -523,10 +523,139 @@ void spawn_enemy(void)
     }
 }
 
-int main(void)
-{        
+
+void handle_enemies(void)
+{
     uint8_t i;
     
+    if(counter&1)
+    {
+        for(i=0;i<NUMBER_OF_CACTI;++i)
+        {
+            handle_cactus(i);
+        }
+        handle_bird();
+    }
+    else
+    {
+        for(i=0;i<NUMBER_OF_CACTI;++i)
+        {
+            handle_cactus_half_transition(i);
+        }
+        handle_bird_half_transition();
+    }
+}
+
+
+void handle_collisions(void)
+{
+    uint8_t i;
+    
+    if ((state<INITIAL_LOW_COLLISION_THRESHOLD)||(state>FINAL_LOW_COLLISION_THRESHOLD))
+    {
+        i=0;
+        while((i<NUMBER_OF_CACTI)&&(!dead))
+        {
+            dead = x_cactus[i++]==X_DINO;
+        }
+        
+        dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO)||(y_bird==Y_DINO-1));
+    }
+    else
+    {
+        dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2)||(y_bird==Y_DINO-3));
+    }
+}
+
+
+void draw_terrain(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<XSize;++i)
+    {
+        _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
+    }       
+}
+
+
+void initialize_enemies(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_CACTI;++i)
+    {
+        x_cactus[i] = 0;
+        active_cactus[i] = 0;
+        cactus_cooldown[i] = INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16);
+
+    }
+    number_of_active_cactus = 0;
+    
+    x_bird = 0;
+    active_bird = 0;
+    bird_cooldown = INITIAL_CACTUS_COOLDOWN+_XL_RAND()&63;
+}
+
+
+void handle_game_over(void)
+{
+    _XL_DELETE(X_DINO,Y_DINO);
+
+    _XL_DELETE(X_DINO,Y_DINO-1);
+    _XL_DELETE(X_DINO,Y_DINO-2);
+    _XL_DELETE(X_DINO,Y_DINO-3);
+    _XL_DELETE(X_DINO,Y_DINO-4);
+    _XL_DELETE(X_DINO,Y_DINO-5);
+
+    _XL_DELETE(X_DINO+1,Y_DINO-1);
+    _XL_DELETE(X_DINO+1,Y_DINO-2);
+    _XL_DELETE(X_DINO+1,Y_DINO-3);
+    _XL_DELETE(X_DINO+1,Y_DINO-4);
+    _XL_DELETE(X_DINO+1,Y_DINO-5);
+    
+    draw_dead_dino_0();
+    _XL_SHOOT_SOUND();
+    _XL_SLEEP(1);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");
+    _XL_SLEEP(1);
+    _XL_WAIT_FOR_INPUT();
+    if(score>hiscore)
+    {
+        hiscore = score;
+    }
+}
+
+
+void initialize_player(void)
+{
+    state = 0;
+    dead = 0;
+    score = 0;
+}
+
+
+void handle_game_start(void)
+{
+    _XL_CLEAR_SCREEN();
+
+    display_score();
+    display_hiscore();
+    draw_terrain();
+    
+    _XL_SLEEP(1);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
+    _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+    draw_jump_dino_0(0);
+    _XL_WAIT_FOR_INPUT();
+    _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
+}
+
+
+int main(void)
+{            
     _XL_INIT_GRAPHICS();
     
     _XL_INIT_SOUND();
@@ -537,120 +666,32 @@ int main(void)
     
     while(1)
     {
-        for(i=0;i<NUMBER_OF_CACTI;++i)
-        {
-            x_cactus[i] = 0;
-            active_cactus[i] = 0;
-        }
-        number_of_active_cactus = 0;
-        
-        x_bird = 0;
-        active_bird = 0;
-        
+
         counter = 0;
         
-        state = 0;
-        
-        dead = 0;
-        
-        for(i=0;i<NUMBER_OF_CACTI;++i)
-        {
-            cactus_cooldown[i] = INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16);
-        }
-        bird_cooldown = INITIAL_CACTUS_COOLDOWN+_XL_RAND()&63;
-        
-        _XL_CLEAR_SCREEN();
-        score = 0;
-        display_score();
-        display_hiscore();
+        initialize_player();
 
-        for(i=0;i<XSize;++i)
-        {
-            _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
-        }        
-        _XL_SLEEP(1);
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
-        _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
-        draw_jump_dino_0(0);
-        _XL_WAIT_FOR_INPUT();
-        _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
+        initialize_enemies();
+
+        handle_game_start();
 
         while(!dead)
         {
-        // _XL_PRINTD(2,2,3,x_cactus[0]);
-        // _XL_PRINTD(2,3,3,x_cactus[1]);
-        // _XL_PRINTD(2,4,3,x_cactus[2]);
-
-        // _XL_PRINTD(0,0,3,state);
             
             handle_state_behavior();
             handle_state_transition();
             
             ++counter;
-            if(counter&1)
-            {
-                for(i=0;i<NUMBER_OF_CACTI;++i)
-                {
-                    handle_cactus(i);
-                }
-                handle_bird();
-            }
-            else
-            {
-                for(i=0;i<NUMBER_OF_CACTI;++i)
-                {
-                    handle_cactus_half_transition(i);
-                }
-                handle_bird_half_transition();
-            }
+            handle_enemies();
             
-            spawn_enemy();
+            handle_enemy_spawn();
             
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
-            if ((state<INITIAL_LOW_COLLISION_THRESHOLD)||(state>FINAL_LOW_COLLISION_THRESHOLD))
-            {
-                i=0;
-                while((i<NUMBER_OF_CACTI)&&(!dead))
-                {
-                    dead = x_cactus[i++]==X_DINO;
-                }
-                
-                dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO)||(y_bird==Y_DINO-1));
-            }
-            else
-            {
-                dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2)||(y_bird==Y_DINO-3));
-            }
-            
+            handle_collisions();
             
         }
-        _XL_DELETE(X_DINO,Y_DINO);
-
-        _XL_DELETE(X_DINO,Y_DINO-1);
-        _XL_DELETE(X_DINO,Y_DINO-2);
-        _XL_DELETE(X_DINO,Y_DINO-3);
-        _XL_DELETE(X_DINO,Y_DINO-4);
-        _XL_DELETE(X_DINO,Y_DINO-5);
-
-        _XL_DELETE(X_DINO+1,Y_DINO-1);
-        _XL_DELETE(X_DINO+1,Y_DINO-2);
-        _XL_DELETE(X_DINO+1,Y_DINO-3);
-        _XL_DELETE(X_DINO+1,Y_DINO-4);
-        _XL_DELETE(X_DINO+1,Y_DINO-5);
-        
-        draw_dead_dino_0();
-        _XL_SHOOT_SOUND();
-        _XL_SLEEP(1);
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");
-        _XL_SLEEP(1);
-        _XL_WAIT_FOR_INPUT();
-        if(score>hiscore)
-        {
-            hiscore = score;
-        }
+        handle_game_over();
     }
 
     return EXIT_SUCCESS;

@@ -360,8 +360,8 @@ void handle_bird_half_transition(void)
     }
 }
 
-#define LOW_COLLISION_THRESHOLD 4
-#define HIGH_COLLISION_THRESHOLD ((JUMP)+15)
+#define INITIAL_LOW_COLLISION_THRESHOLD 4
+#define FINAL_LOW_COLLISION_THRESHOLD ((JUMP)+15)
 
 void one_point(void)
 {
@@ -491,7 +491,7 @@ void spawn_bird(void)
     uint8_t height = (_XL_RAND()&3);
 
 
-    if((!bird_cooldown)&&(!active_bird) && ((height>1)||(x_cactus[last_active_cactus]<XSize/2)))
+    if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<XSize/2))
     {
         y_bird = Y_DINO-height;
 
@@ -511,10 +511,21 @@ void spawn_bird(void)
 
 uint8_t counter;
 
+void spawn_enemy(void)
+{
+    if(!(counter&3)&&((y_bird<Y_DINO-1)||(x_bird<XSize/2)))
+    {
+        spawn_cacti();
+    }
+    else if((counter&3)==2)
+    {
+        spawn_bird();
+    }
+}
+
 int main(void)
 {        
     uint8_t i;
-    uint8_t j;
     
     _XL_INIT_GRAPHICS();
     
@@ -553,9 +564,9 @@ int main(void)
         display_score();
         display_hiscore();
 
-        for(j=0;j<XSize;++j)
+        for(i=0;i<XSize;++i)
         {
-            _XL_DRAW(j,Y_TERRAIN,TERRAIN,_XL_WHITE);
+            _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
         }        
         _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -594,18 +605,11 @@ int main(void)
                 handle_bird_half_transition();
             }
             
-            if(!(counter&3)&&((y_bird<Y_DINO-1)||(x_bird<XSize/2)))
-            {
-                spawn_cacti();
-            }
-            else if((counter&3)==2)
-            {
-                spawn_bird();
-            }
+            spawn_enemy();
             
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
-            if ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD))
+            if ((state<INITIAL_LOW_COLLISION_THRESHOLD)||(state>FINAL_LOW_COLLISION_THRESHOLD))
             {
                 i=0;
                 while((i<NUMBER_OF_CACTI)&&(!dead))
@@ -614,6 +618,10 @@ int main(void)
                 }
                 
                 dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO)||(y_bird==Y_DINO-1));
+            }
+            else
+            {
+                dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2)||(y_bird==Y_DINO-3));
             }
             
             
@@ -637,7 +645,7 @@ int main(void)
         _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");
-        _XL_SLEEP(2);
+        _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
         if(score>hiscore)
         {

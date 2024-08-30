@@ -39,9 +39,15 @@ uint8_t input;
 uint8_t state;
 
 uint8_t x_cactus[NUMBER_OF_CACTI];
-// uint8_t active_cactus[NUMBER_OF_CACTI];
-#define active_cactus x_cactus
+uint8_t active_cactus[NUMBER_OF_CACTI];
 uint8_t cactus_cooldown[NUMBER_OF_CACTI];
+uint8_t number_of_active_cactus;
+uint8_t last_active_cactus = 1;
+
+uint8_t x_bird;
+uint8_t active_bird;
+uint8_t y_bird;
+uint8_t bird_cooldown;
 
 uint8_t dead;
 
@@ -316,7 +322,7 @@ void handle_state_transition(void)
 }
 
 
-void update_score(void)
+void display_score(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(0,0,4,score);
@@ -334,12 +340,23 @@ void display_hiscore(void)
 
 void handle_cactus_half_transition(uint8_t i)
 {
-    if(x_cactus[i])
+    if(active_cactus[i])
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
+    }
+}
+
+
+void handle_bird_half_transition(void)
+{
+    if(active_bird)
+    {
+        _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
+        _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
+
     }
 }
 
@@ -352,20 +369,58 @@ void update_cactus(uint8_t i)
     _XL_DELETE(x_cactus[i],Y_CACTUS-1);
     _XL_DELETE(x_cactus[i],Y_CACTUS);
     
-    if(!x_cactus[i])
+    if((!x_cactus[i]) && active_cactus[i])
     {
         ++score;
-        update_score();
+        display_score();
         cactus_cooldown[i] = _XL_RAND()&15;
+        active_cactus[i]=0;
+        --number_of_active_cactus;
         return;
     }
-    else
+    else 
     {
         --x_cactus[i];
         _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
     }
 }
+
+
+void update_bird(void)
+{
+    // while(1){};
+    _XL_DELETE(x_bird,y_bird);
+    _XL_DELETE(x_bird+1,y_bird);
+    
+    // _XL_PRINTD(0,4,3,x_bird);
+
+    
+    if((!x_bird) && active_bird)
+    {
+        // while(1){};
+        // _XL_DELETE(x_bird,y_bird);
+        // _XL_DELETE(x_bird+1,y_bird);
+        ++score;
+        display_score();
+        bird_cooldown = _XL_RAND()&31;
+        active_bird = 0;
+    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+    // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+        return;
+    }
+    else if(active_bird)
+    {
+        --x_bird;
+        _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
+        _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
+    }
+}
+
+
 
 
 
@@ -380,6 +435,20 @@ void handle_cactus(uint8_t i)
         update_cactus(i);
     }
 }
+
+
+void handle_bird(void)
+{
+    if(bird_cooldown)
+    {
+        --bird_cooldown;
+    }       
+    else
+    {
+        update_bird();
+    }
+}
+
 
 uint8_t first_non_active_cactus(void)
 {
@@ -404,10 +473,27 @@ void spawn_cacti(void)
    
    if(first_available_cactus<NUMBER_OF_CACTI)
    {
-       x_cactus[first_available_cactus] = RIGHT_END_OF_SCREEN;  
+       x_cactus[first_available_cactus] = RIGHT_END_OF_SCREEN;
+       active_cactus[first_available_cactus]=1;
+       ++number_of_active_cactus;
+       last_active_cactus = first_available_cactus;
    }
 }
 
+
+void spawn_bird(void)
+{
+    uint8_t height = (_XL_RAND()&3);
+
+
+    if((!bird_cooldown)&&(!active_bird) && ((height>1)||(x_cactus[last_active_cactus]<XSize/2)))
+    {
+        y_bird = Y_DINO-height;
+
+        active_bird = 1;
+        x_bird = RIGHT_END_OF_SCREEN-1;
+    }
+}
 
 #if defined(_XL_NO_JOYSTICK)
     #define PRESS_TO_START "PRESS A KEY"
@@ -438,7 +524,12 @@ int main(void)
         for(i=0;i<NUMBER_OF_CACTI;++i)
         {
             x_cactus[i] = 0;
+            active_cactus[i] = 0;
         }
+        number_of_active_cactus = 0;
+        
+        x_bird = 0;
+        active_bird = 0;
         
         counter = 0;
         
@@ -450,10 +541,11 @@ int main(void)
         {
             cactus_cooldown[i] = INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16);
         }
+        bird_cooldown = INITIAL_CACTUS_COOLDOWN+_XL_RAND()&63;
         
         _XL_CLEAR_SCREEN();
         score = 0;
-        update_score();
+        display_score();
         display_hiscore();
 
         for(j=0;j<XSize;++j)
@@ -486,6 +578,7 @@ int main(void)
                 {
                     handle_cactus(i);
                 }
+                handle_bird();
             }
             else
             {
@@ -493,12 +586,18 @@ int main(void)
                 {
                     handle_cactus_half_transition(i);
                 }
+                handle_bird_half_transition();
             }
-            if(!(counter&3))
+            
+            if(!(counter&3)&&((y_bird<Y_DINO-1)||(x_bird<XSize/2)))
             {
                 spawn_cacti();
             }
-        
+            else if((counter&3)==2)
+            {
+                spawn_bird();
+            }
+            
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
             if ((state<LOW_COLLISION_THRESHOLD)||(state>HIGH_COLLISION_THRESHOLD))
@@ -508,7 +607,11 @@ int main(void)
                 {
                     dead = x_cactus[i++]==X_DINO;
                 }
+                
+                dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO)||(y_bird==Y_DINO-1));
             }
+            
+            
         }
         _XL_DELETE(X_DINO,Y_DINO);
 

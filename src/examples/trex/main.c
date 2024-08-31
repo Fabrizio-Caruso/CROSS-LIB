@@ -26,6 +26,7 @@
 
 #include "images.h"
 
+#define INITIAL_LEVEL 1
 
 #define X_DINO (XSize/8)
 #define Y_DINO ((YSize/2)+2)
@@ -55,12 +56,17 @@ uint8_t dead;
 uint16_t score;
 uint16_t hiscore;
 
+uint8_t level;
+
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
 
 // #define LEFT_END_OF_SCREEN 0
 #define RIGHT_END_OF_SCREEN ((XSize)-1)
 
+
+#define LEVEL_Y ((YSize)/5)
+#define LEVEL_X ((XSize)/2-4)
 
 
 void draw_jump_dino_0(uint8_t height)
@@ -646,12 +652,30 @@ void handle_game_start(void)
     
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(LEVEL_X,LEVEL_Y, "LEVEL 00");
     _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     draw_jump_dino_0(0);
     _XL_WAIT_FOR_INPUT();
     _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
 }
+
+
+void display_level(void)
+{
+    _XL_PRINTD(LEVEL_X+6, LEVEL_Y,2,level);
+}
+
+
+void handle_level(void)
+{
+    if(!(counter))
+    {
+        ++level;
+        display_level();
+    }
+}
+
 
 
 int main(void)
@@ -668,6 +692,7 @@ int main(void)
     {
 
         counter = 0;
+        level = INITIAL_LEVEL;
         
         initialize_player();
 
@@ -689,6 +714,8 @@ int main(void)
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
             handle_collisions();
+            
+            handle_level();
             
         }
         handle_game_over();

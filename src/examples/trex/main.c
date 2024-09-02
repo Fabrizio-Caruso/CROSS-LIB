@@ -54,7 +54,7 @@ uint8_t dead;
 
 uint8_t speed;
 uint8_t activate_speed;
-uint8_t disactivate_speed;
+// uint8_t disactivate_speed;
 
 uint16_t score;
 uint16_t hiscore;
@@ -146,18 +146,23 @@ void handle_state_behavior(void)
 {
     switch(state)
     {
-        case 0:
-             draw_jump_dino_0(0);
-
-            delete_feet(0);
+        case 99: // like case 1
+            draw_jump_dino_0(0);
             
             draw_dino_feet_0();
         break;
-        
-        case 1:
-            delete_feet(0);
+        case 0:
+            // draw_jump_dino_0(0);
+
+            // delete_feet(0);
             
             draw_dino_feet_1();
+        break;
+        
+        case 1:
+            // delete_feet(0);
+            
+            draw_dino_feet_0();
         break;
         
         case JUMP:
@@ -261,7 +266,6 @@ void handle_state_behavior(void)
 
         
         case JUMP+16:
-        
 
             delete_top(0);
             delete_top(1);
@@ -281,6 +285,19 @@ void handle_state_transition(void)
 {
     switch(state)
     {
+        case 99:
+
+            input = _XL_INPUT();
+            
+            if(_XL_FIRE(input))
+            {
+                state = JUMP;
+            }
+            else
+            {
+                state = 1;
+            }
+        break;      
         case 0:
 
             input = _XL_INPUT();
@@ -328,7 +345,8 @@ void handle_state_transition(void)
         break;
         
         case JUMP+16:
-            state=0;
+            // draw_jump_dino_0(0);
+            state=99;
         break;
     }
 }
@@ -535,7 +553,7 @@ uint16_t counter;
 
 void handle_enemy_spawn(void)
 {
-    if(!activate_speed && !disactivate_speed)
+    if(!activate_speed) // && !disactivate_speed)
     {
         if((number_of_active_cactus<level_cacti) && !(counter&3) && (x_bird<XSize/2))
         {
@@ -722,48 +740,47 @@ void display_level(void)
 
 void activate_level(void)
 {
+
     switch(level)
     {
         case 1:
             level_bird = 0;
             level_cacti = 1;
-            counter = 2048U-256U;
+            // counter = 2048U-1024U;
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
-            // counter = 0;
+            counter = 384U;
             break;
         case 2:
             level_bird = 1;
             level_cacti = 1;
-            counter = 2048U-512U;
+            counter = 384U;
             break;
         case 3:
             level_bird = 1;
-            level_cacti = 1;
-            counter = 2048U-512U;
-            activate_speed = 1;
+            level_cacti = 2;
+            counter = 384U;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
-            counter = 0;
+            activate_speed = 1;
+            // counter = 0;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 3;
-            counter = 0;
-            disactivate_speed = 1;
+            // counter = 0;
+            // disactivate_speed = 1;
             break;
-        case 6:
-            level_bird = 1;
-            level_cacti = 3;
-            counter = 0;
-            activate_speed = 1;
-            break;
+        // case 6:
+            // level_bird = 1;
+            // level_cacti = 3;
+            // break;
         default:
             level_bird = 1;
             level_cacti = NUMBER_OF_CACTI;
-            counter = 0;
+            // counter = 0;
     }
 }
 
@@ -771,7 +788,7 @@ void activate_level(void)
 void handle_level(void)
 {
     // _XL_PRINTD(0,YSize-1,3,counter);
-    if(!(counter&2047))
+    if(!(counter&1023))
     {
         ++level;
         display_level();
@@ -793,14 +810,14 @@ void handle_speed(void)
             activate_speed = 0;
         }            
     }
-    if(disactivate_speed)
-    {
-        if(!active_bird && !number_of_active_cactus)
-        {
-            speed = 0;
-            disactivate_speed = 0;
-        }  
-    }
+    // if(disactivate_speed)
+    // {
+        // if(!active_bird && !number_of_active_cactus)
+        // {
+            // speed = 0;
+            // disactivate_speed = 0;
+        // }  
+    // }
 }
 
 
@@ -820,7 +837,7 @@ int main(void)
         // counter = INITIAL_LEVEL_COUNTER;
         level = INITIAL_LEVEL;
         activate_speed = 0;
-        disactivate_speed = 0;
+        // disactivate_speed = 0;
         speed = 0;
         
         activate_level();
@@ -850,7 +867,7 @@ int main(void)
             
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             
-            // handle_collisions();
+            handle_collisions();
             
             handle_level();
             

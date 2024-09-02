@@ -34,6 +34,8 @@
 
 #define NUMBER_OF_CACTI 3
 
+#define MAX_LEVEL 99
+
 uint8_t input;
 
 
@@ -520,7 +522,7 @@ void spawn_cacti(void)
    
    // _XL_PRINTD(0,YSize-1,2,first_available_cactus);
    
-   if(first_available_cactus<NUMBER_OF_CACTI)
+   if((first_available_cactus<NUMBER_OF_CACTI)&&( (x_cactus[last_active_cactus]<(XSize/2)+2)||( (x_cactus[last_active_cactus]>XSize-5))))
    {
        x_cactus[first_available_cactus] = RIGHT_END_OF_SCREEN;
        active_cactus[first_available_cactus]=1;
@@ -754,58 +756,51 @@ void activate_level(void)
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
             counter = 256U;
-            slowdown_factor = 11*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR;
             break;
         case 2:
             level_bird = 1;
             level_cacti = 1;
             counter = 256U;
-            slowdown_factor = 11*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR;
             break;
         case 3:
-            level_bird = 1;
-            level_cacti = 1;
-            counter = 256U;
-            // activate_speed = 1;
-            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR; // which changes to 5*_XSLOW_DOWN_FACTOR once double speed kicks in
-            break;
-        case 4:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 9*_XL_SLOW_DOWN_FACTOR; 
             counter = 256U;
             break;
-        case 5:
+        case 4:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 8*_XL_SLOW_DOWN_FACTOR;
-            counter = 128U;
+            counter = 256U;
             // disactivate_speed = 1;
             break;
-        case 6:
+        case 5:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 7*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
-        case 7:
+        case 6:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 6*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
-        case 8:
+        case 7:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 5*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
-        case 9:
+        case 8:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
             break;
-        case 10:
+        case 9:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
@@ -825,10 +820,14 @@ void handle_level(void)
     // _XL_PRINTD(0,YSize-1,3,counter);
     if(!(counter&511))
     {
-        ++level;
-        display_level();
+        if(level<MAX_LEVEL)
+        {
+            ++level;
         
-        activate_level();
+            display_level();
+            
+            activate_level();
+        }
         // _XL_SLEEP(3);
     }
 }

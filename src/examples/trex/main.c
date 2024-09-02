@@ -754,101 +754,66 @@ void activate_level(void)
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
             counter = 256U;
-            slowdown_factor = 13*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 11*_XL_SLOW_DOWN_FACTOR;
             break;
         case 2:
             level_bird = 1;
             level_cacti = 1;
             counter = 256U;
-            slowdown_factor = 13*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 11*_XL_SLOW_DOWN_FACTOR;
             break;
         case 3:
             level_bird = 1;
             level_cacti = 1;
             counter = 256U;
             // activate_speed = 1;
-            slowdown_factor = 12*_XL_SLOW_DOWN_FACTOR; // which changes to 5*_XSLOW_DOWN_FACTOR once double speed kicks in
+            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR; // which changes to 5*_XSLOW_DOWN_FACTOR once double speed kicks in
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 12*_XL_SLOW_DOWN_FACTOR; 
+            slowdown_factor = 9*_XL_SLOW_DOWN_FACTOR; 
             counter = 256U;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 11*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 8*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             // disactivate_speed = 1;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 7*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 9*_XL_SLOW_DOWN_FACTOR;
-            // _XL_PRINT(0,1,"DEBUG");
-            // _XL_PRINTD(0,YSize-1,5,level);
-            // _XL_PRINTD(10,YSize-1,5,slowdown_factor);
-            // while(1){};
+            slowdown_factor = 6*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
         case 8:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 8*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 5*_XL_SLOW_DOWN_FACTOR;
             counter = 128U;
             break;
         case 9:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 7*_XL_SLOW_DOWN_FACTOR;
-            counter = 128U;
+            slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
             break;
         case 10:
             level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 6*_XL_SLOW_DOWN_FACTOR;
-            break;
-        case 11:
-            level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 5*_XL_SLOW_DOWN_FACTOR;
-            break;
-        case 12:
-            level_bird = 1;
-            level_cacti = 2;
+            level_cacti = 3;
             slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
             break;
-        case 13:
-            level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 3*_XL_SLOW_DOWN_FACTOR;
-            break;
-        case 14:
-            level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 2*_XL_SLOW_DOWN_FACTOR;
-            break;
-        case 15:
-            level_bird = 1;
-            level_cacti = 3;
-            slowdown_factor = 1*_XL_SLOW_DOWN_FACTOR;
-            break;  
-        case 16:
-            level_bird = 1;
-            level_cacti = 3;
-            slowdown_factor = 1*_XL_SLOW_DOWN_FACTOR;
-            break; 
         default:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 1*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
 
             // counter = 0;
     }

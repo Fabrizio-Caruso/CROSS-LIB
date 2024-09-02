@@ -54,8 +54,8 @@ uint8_t bird_cooldown;
 
 uint8_t dead;
 
-// uint8_t speed;
-// uint8_t activate_speed;
+uint16_t slowdown;
+uint8_t set_speed;
 // uint8_t disactivate_speed;
 
 uint16_t score;
@@ -66,7 +66,7 @@ uint8_t level;
 uint8_t level_cacti;
 uint8_t level_bird;
 
-uint16_t slowdown_factor;
+uint8_t slowdown_factor;
 
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
@@ -558,8 +558,8 @@ uint16_t counter;
 
 void handle_enemy_spawn(void)
 {
-    // if(!activate_speed) // && !disactivate_speed)
-    // {
+    if(!set_speed) // && !disactivate_speed)
+    {
         if((number_of_active_cactus<level_cacti) && !(counter&3) && (x_bird<XSize/2))
         {
             spawn_cacti();
@@ -568,7 +568,7 @@ void handle_enemy_spawn(void)
         {
             spawn_bird();
         }
-    // }
+    }
 }
 
 // TODO: Optimize for space
@@ -689,6 +689,7 @@ void handle_game_over(void)
     _XL_DELETE(X_DINO,Y_DINO-4);
     _XL_DELETE(X_DINO,Y_DINO-5);
     _XL_DELETE(X_DINO,Y_DINO-6);
+    _XL_DELETE(X_DINO,Y_DINO-7);
     
     _XL_DELETE(X_DINO+1,Y_DINO-1);
     _XL_DELETE(X_DINO+1,Y_DINO-2);
@@ -696,12 +697,13 @@ void handle_game_over(void)
     _XL_DELETE(X_DINO+1,Y_DINO-4);
     _XL_DELETE(X_DINO+1,Y_DINO-5);
     _XL_DELETE(X_DINO+1,Y_DINO-6);
+    _XL_DELETE(X_DINO+1,Y_DINO-7);
     
     draw_dead_dino_0();
     _XL_SHOOT_SOUND();
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-7, YSize/2-5, "G A M E  O V E R");
+    _XL_PRINT(XSize/2-8, YSize/2-5, "G A M E  O V E R");
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
     if(score>hiscore)
@@ -746,7 +748,7 @@ void handle_game_start(void)
 
 void activate_level(void)
 {
-
+    set_speed = 1;
     switch(level)
     {
         case 1:
@@ -756,59 +758,62 @@ void activate_level(void)
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
             counter = 256U;
-            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 10;
+            // speed = 10;
+
             break;
         case 2:
             level_bird = 1;
             level_cacti = 1;
             counter = 256U;
-            slowdown_factor = 10*_XL_SLOW_DOWN_FACTOR;
+
+            slowdown_factor = 10;
             break;
         case 3:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 9*_XL_SLOW_DOWN_FACTOR; 
+            slowdown_factor = 9; 
             counter = 256U;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 8*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 8;
             counter = 256U;
             // disactivate_speed = 1;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 7*_XL_SLOW_DOWN_FACTOR;
-            counter = 128U;
+            slowdown_factor = 7;
+            counter = 192U;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 6*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 6;
             counter = 128U;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 5*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 5;
             counter = 128U;
             break;
         case 8:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 4;
             break;
         case 9:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 4;
             break;
         default:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 4*_XL_SLOW_DOWN_FACTOR;
+            slowdown_factor = 3;
 
             // counter = 0;
     }
@@ -835,19 +840,19 @@ void handle_level(void)
 
 // #define INITIAL_LEVEL_COUNTER 200
 
-// void handle_speed(void)
-// {
-    // if(activate_speed)
-    // {
-        // if(!active_bird && !number_of_active_cactus)
-        // {
-            // speed = 1;
-            // slowdown_factor = 5*_XL_SLOW_DOWN_FACTOR;
-            // activate_speed = 0;
-        // }            
-    // }
+void handle_speed(void)
+{
+    if(set_speed)
+    {
+        if(!active_bird && !number_of_active_cactus)
+        {
+            // ++slowdown;
+            slowdown = slowdown_factor*_XL_SLOW_DOWN_FACTOR;
+            set_speed = 0;
+        }            
+    }
 
-// }
+}
 
 
 int main(void)
@@ -877,7 +882,7 @@ int main(void)
         // activate_speed = 0;
 
         // disactivate_speed = 0;
-        // slowdown_factor = 3*_XL_SLOW_DOWN_FACTOR;
+        // slowdown = 3*_XL_SLOW_DOWN_FACTOR;
         
         activate_level();
         
@@ -906,13 +911,13 @@ int main(void)
             
             handle_enemy_spawn();
             
-            _XL_SLOW_DOWN(slowdown_factor);
+            _XL_SLOW_DOWN(slowdown);
             
             handle_collisions();
             
             handle_level();
             
-            // handle_speed();
+            handle_speed();
             
         }
         handle_game_over();

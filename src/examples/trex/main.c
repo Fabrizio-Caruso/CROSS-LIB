@@ -30,9 +30,9 @@
 
 
 #if XSize<=24
-    #define LEFT_END_OF_TERRAIN 0
+    #define LEFT_END_OF_TERRAIN 1
 
-    #define SIZE_OF_TERRAIN ((XSize)-1)
+    #define SIZE_OF_TERRAIN ((XSize)-3)
 #else
     #define LEFT_END_OF_TERRAIN ((XSize)/8)
 
@@ -46,7 +46,7 @@
 #define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
 
 // TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_TERRAIN
-#define Y_DINO ((YSize/2)+2)
+#define Y_DINO ((YSize/2)+6)
 
 
 #define Y_TERRAIN ((Y_DINO)+2)

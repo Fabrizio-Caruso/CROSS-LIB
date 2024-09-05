@@ -30,23 +30,23 @@
 
 
 #if XSize<=24
-    #define LEFT_END_OF_SCREEN 0
+    #define LEFT_END_OF_TERRAIN 0
 
-    #define SIZE_OF_SCREEN ((XSize)-1)
+    #define SIZE_OF_TERRAIN ((XSize)-1)
 #else
-    #define LEFT_END_OF_SCREEN ((XSize)/8)
+    #define LEFT_END_OF_TERRAIN ((XSize)/8)
 
-    #define SIZE_OF_SCREEN ((3*((XSize)/4))-1)
+    #define SIZE_OF_TERRAIN ((3*((XSize)/4))-1)
     
 #endif
 
-#define RIGHT_END_OF_SCREEN LEFT_END_OF_SCREEN+SIZE_OF_SCREEN
+#define RIGHT_END_OF_TERRAIN LEFT_END_OF_TERRAIN+SIZE_OF_TERRAIN
 
 
-#define X_DINO ((XSize/8)+LEFT_END_OF_SCREEN)
+#define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
 
-// TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_SCREEN
-#define Y_DINO ((YSize/2)+3)
+// TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_TERRAIN
+#define Y_DINO ((YSize/2)+2)
 
 
 #define Y_TERRAIN ((Y_DINO)+2)
@@ -428,10 +428,10 @@ void update_cactus(uint8_t i)
     {
         _XL_DELETE(x_cactus[i],Y_CACTUS-1);
         _XL_DELETE(x_cactus[i],Y_CACTUS);
-        if(x_cactus[i]==LEFT_END_OF_SCREEN)
+        if(x_cactus[i]==LEFT_END_OF_TERRAIN)
         {
-            _XL_DELETE(LEFT_END_OF_SCREEN-1,Y_CACTUS-1);            
-            _XL_DELETE(LEFT_END_OF_SCREEN-1,Y_CACTUS);
+            _XL_DELETE(LEFT_END_OF_TERRAIN-1,Y_CACTUS-1);            
+            _XL_DELETE(LEFT_END_OF_TERRAIN-1,Y_CACTUS);
 
             x_cactus[i]=0;
 
@@ -439,7 +439,7 @@ void update_cactus(uint8_t i)
             one_point();
             if(!(_XL_RAND()&3))
             {
-                cactus_cooldown[i] = SIZE_OF_SCREEN;
+                cactus_cooldown[i] = SIZE_OF_TERRAIN;
             }
             else
             {
@@ -472,7 +472,7 @@ void update_bird(void)
     {
         _XL_DELETE(x_bird,y_bird);
         _XL_DELETE(x_bird+1,y_bird);
-        if(x_bird == LEFT_END_OF_SCREEN)
+        if(x_bird == LEFT_END_OF_TERRAIN)
         {
             x_bird = 0;
             // while(1){};
@@ -546,8 +546,10 @@ uint8_t first_non_active_cactus(void)
     return NUMBER_OF_CACTI;
 }
 
-#define LAST_FAR_ENOUGH() (x_cactus[last_active_cactus]<(XSize/2)+2)
-#define LAST_CLOSE_ENOUGH()(x_cactus[last_active_cactus]>RIGHT_END_OF_SCREEN-4)
+#define last_is_far() (x_cactus[last_active_cactus]<(XSize/2)+2)
+#define last_is_very_close()(x_cactus[last_active_cactus]>RIGHT_END_OF_TERRAIN-3)
+
+#define is_cactus_available() (first_available_cactus<NUMBER_OF_CACTI)
 
 void spawn_cacti(void)
 {
@@ -555,9 +557,9 @@ void spawn_cacti(void)
    
    // _XL_PRINTD(0,YSize-1,2,first_available_cactus);
    
-   if((first_available_cactus<NUMBER_OF_CACTI)&&( (LAST_FAR_ENOUGH()||LAST_CLOSE_ENOUGH())))
+   if(is_cactus_available()&&(last_is_far()||last_is_very_close()))
    {
-       x_cactus[first_available_cactus] = RIGHT_END_OF_SCREEN;
+       x_cactus[first_available_cactus] = RIGHT_END_OF_TERRAIN;
        active_cactus[first_available_cactus]=1;
        ++number_of_active_cactus;
        last_active_cactus = first_available_cactus;
@@ -574,7 +576,7 @@ void spawn_bird(void)
         y_bird = Y_DINO-height;
 
         active_bird = 1;
-        x_bird = RIGHT_END_OF_SCREEN-1;
+        x_bird = RIGHT_END_OF_TERRAIN-1;
     }
     
 }
@@ -610,56 +612,28 @@ void handle_enemies(void)
 {
     uint8_t i;
     
-    // if(speed)
-    // {
-        if(counter&1)
+    if(counter&1)
+    {
+        for(i=0;i<level_cacti;++i)
         {
-            for(i=0;i<level_cacti;++i)
-            {
-                handle_cactus(i);
-            }
-            if (level_bird)
-            {
-                handle_bird();
-            }
+            handle_cactus(i);
         }
-        else
+        if (level_bird)
         {
-            for(i=0;i<level_cacti;++i)
-            {
-                handle_cactus_half_transition(i);
-            }
-            if (level_bird)
-            {
-                handle_bird_half_transition();
-            }
+            handle_bird();
         }
-    // }
-    // else
-    // {
-        // if(!(counter&3))
-        // {
-            // for(i=0;i<level_cacti;++i)
-            // {
-                // handle_cactus(i);
-            // }
-            // if (level_bird)
-            // {
-                // handle_bird();
-            // }
-        // }
-        // else if((counter&3)==2)
-        // {
-            // for(i=0;i<level_cacti;++i)
-            // {
-                // handle_cactus_half_transition(i);
-            // }
-            // if (level_bird)
-            // {
-                // handle_bird_half_transition();
-            // }
-        // }
-    // }
+    }
+    else
+    {
+        for(i=0;i<level_cacti;++i)
+        {
+            handle_cactus_half_transition(i);
+        }
+        if (level_bird)
+        {
+            handle_bird_half_transition();
+        }
+    }
 }
 
 
@@ -688,7 +662,7 @@ void draw_terrain(void)
 {
     uint8_t i;
     
-    for(i=LEFT_END_OF_SCREEN;i<RIGHT_END_OF_SCREEN;++i)
+    for(i=LEFT_END_OF_TERRAIN;i<RIGHT_END_OF_TERRAIN;++i)
     {
         _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
     }       

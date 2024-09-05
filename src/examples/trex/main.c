@@ -44,7 +44,10 @@
 
 
 #define X_DINO ((XSize/8)+LEFT_END_OF_SCREEN)
+
+// TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_SCREEN
 #define Y_DINO ((YSize/2)+3)
+
 
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
@@ -403,7 +406,6 @@ void handle_bird_half_transition(void)
     {
         _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
         _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
-
     }
 }
 
@@ -422,15 +424,14 @@ void one_point(void)
 
 void update_cactus(uint8_t i)
 {
-    _XL_DELETE(x_cactus[i],Y_CACTUS-1);
-    _XL_DELETE(x_cactus[i],Y_CACTUS);
-    
     if(active_cactus[i])
     {
+        _XL_DELETE(x_cactus[i],Y_CACTUS-1);
+        _XL_DELETE(x_cactus[i],Y_CACTUS);
         if(x_cactus[i]==LEFT_END_OF_SCREEN)
         {
-            _XL_DELETE(x_cactus[i]-1,Y_CACTUS-1);            
-            _XL_DELETE(x_cactus[i]-1,Y_CACTUS);
+            _XL_DELETE(LEFT_END_OF_SCREEN-1,Y_CACTUS-1);            
+            _XL_DELETE(LEFT_END_OF_SCREEN-1,Y_CACTUS);
 
             x_cactus[i]=0;
 
@@ -461,14 +462,16 @@ void update_cactus(uint8_t i)
 
 void update_bird(void)
 {
-    // while(1){};
-    _XL_DELETE(x_bird,y_bird);
-    _XL_DELETE(x_bird+1,y_bird);
+    // if(!y_bird)
+        // return;
+
     
     // _XL_PRINTD(0,4,3,x_bird);
 
     if(active_bird)
     {
+        _XL_DELETE(x_bird,y_bird);
+        _XL_DELETE(x_bird+1,y_bird);
         if(x_bird == LEFT_END_OF_SCREEN)
         {
             x_bird = 0;
@@ -573,6 +576,7 @@ void spawn_bird(void)
         active_bird = 1;
         x_bird = RIGHT_END_OF_SCREEN-1;
     }
+    
 }
 
 #if defined(_XL_NO_JOYSTICK)
@@ -943,16 +947,17 @@ int main(void)
             
             // _XL_PRINTD(10,3,1, speed);
 
-            // _XL_PRINTD(15,3,1, level_bird);
+            // _XL_PRINTD(15,3,1, y_bird);
             
             handle_state_behavior();
             handle_state_transition();
             
             ++counter;
-            handle_enemies();
             
             handle_enemy_spawn();
             
+            handle_enemies();
+
             _XL_SLOW_DOWN(slowdown);
             
             handle_collisions();

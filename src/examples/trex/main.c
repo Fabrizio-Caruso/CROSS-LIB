@@ -46,7 +46,7 @@
 #define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
 
 // TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_TERRAIN
-#define Y_DINO ((YSize/2)+6)
+#define Y_DINO ((YSize/2)+4)
 
 
 #define Y_TERRAIN ((Y_DINO)+2)
@@ -54,7 +54,7 @@
 
 
 #define LEVEL_Y 1
-#define LEVEL_X ((XSize)/2-4)
+#define LEVEL_X ((XSize)/2-5)
 
 #define NUMBER_OF_CACTI 3
 
@@ -158,8 +158,9 @@ void draw_dino_feet_1(void)
 // #define RUN_SLOW_DOWN 4
 
 
-#define JUMP 2
+#define JUMP 1
 
+#define END_JUMP 16
 
 void handle_state_behavior(void)
 {
@@ -184,15 +185,15 @@ void handle_state_behavior(void)
             draw_dino_feet_0();
         break;
         
-        case JUMP:
-                delete_feet(0);
+        // case JUMP:
+                // delete_feet(0);
                 
-                draw_jump_dino_0(0+1);
+                // draw_jump_dino_0(0+1);
                 
-        break;
+        // break;
         
         case JUMP+1:
-        
+                delete_feet(0);
                 draw_jump_dino_1(0+1);
                 delete_feet(1);
                 
@@ -287,18 +288,18 @@ void handle_state_behavior(void)
             draw_jump_dino_1(1);
         break;
         
-        case JUMP+16:
-            delete_top(1);
-            draw_jump_dino_0(1);
-        break;
+        // case JUMP+16:
+            // delete_top(1);
+            // draw_jump_dino_0(1);
+        // break;
         
-        case JUMP+17:
-            delete_top(0);
-            draw_jump_dino_1(0);
-        break;
+        // case JUMP+17:
+            // delete_top(0);
+            // draw_jump_dino_1(0);
+        // break;
 
         
-        case JUMP+18:
+        case JUMP+END_JUMP:
 
             delete_top(0);
             delete_top(1);
@@ -324,7 +325,7 @@ void handle_state_transition(void)
             
             if(_XL_FIRE(input))
             {
-                state = JUMP;
+                state = JUMP+1;
             }
             else
             {
@@ -337,7 +338,7 @@ void handle_state_transition(void)
             
             if(_XL_FIRE(input))
             {
-                state = JUMP;
+                state = JUMP+1;
             }
             else
             {
@@ -350,7 +351,7 @@ void handle_state_transition(void)
             
             if(_XL_FIRE(input))
             {
-                state = JUMP;
+                state = JUMP+1;
             }
             else
             {
@@ -358,7 +359,7 @@ void handle_state_transition(void)
             }
         break;
         
-        case JUMP+18:
+        case JUMP+END_JUMP:
             // draw_jump_dino_0(0);
             state=99;
         break;
@@ -382,6 +383,7 @@ void display_score(void)
 void display_hiscore(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(XSize-1-4-2,0,"HI");
     _XL_PRINTD(XSize-1-4,0,4,hiscore);
 
 }

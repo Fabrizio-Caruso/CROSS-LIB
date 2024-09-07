@@ -255,7 +255,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+9:
-            delete_top(4);
+            // delete_top(4);
             draw_jump_dino_1(4);
         break;
         
@@ -265,7 +265,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+11:
-            delete_top(3);
+            // delete_top(3);
             draw_jump_dino_1(3);
         break;
         
@@ -275,7 +275,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+13:
-            delete_top(2);
+            // delete_top(2);
             draw_jump_dino_1(2);
         break;
         
@@ -285,7 +285,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+15:
-            delete_top(1);
+            // delete_top(1);
             draw_jump_dino_1(1);
         break;
         

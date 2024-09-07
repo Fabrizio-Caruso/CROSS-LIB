@@ -610,18 +610,33 @@ uint16_t counter;
 
 void handle_enemy_spawn(void)
 {
-    if(!set_speed) // && !disactivate_speed)
+    if(!set_speed) 
     {
-        if((number_of_active_cactus<level_cacti) && !(counter&3) && (x_bird<XSize/2))
+        if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) )
         {
             spawn_cacti();
         }
-        else if(level_bird && ((counter&3)==2))
+        else if(level_bird)// && ((counter&3)==2))
         {
             spawn_bird();
         }
     }
 }
+
+// void handle_enemy_spawn(void)
+// {
+    // if(!set_speed) // && !disactivate_speed)
+    // {
+        // if((number_of_active_cactus<level_cacti) && !(counter&3) && (x_bird<XSize/2))
+        // {
+            // spawn_cacti();
+        // }
+        // else if(level_bird && ((counter&3)==2))
+        // {
+            // spawn_bird();
+        // }
+    // }
+// }
 
 // TODO: Optimize for space
 void handle_enemies(void)
@@ -843,7 +858,7 @@ void handle_game_start(void)
 }
 
 
-#define INITIAL_LEVEL_COUNTER  512U
+#define LEVEL_SIZE  512U
 
 
 void activate_level(void)
@@ -857,7 +872,7 @@ void activate_level(void)
             // counter = 2048U-1024U;
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
-            counter = INITIAL_LEVEL_COUNTER/2;
+            counter = (2*LEVEL_SIZE)/3;
             slowdown_factor = 10;
             // speed = 10;
 
@@ -865,7 +880,7 @@ void activate_level(void)
         case 2:
             level_bird = 1;
             level_cacti = 1;
-            counter = INITIAL_LEVEL_COUNTER/2;
+            counter = LEVEL_SIZE/2;
 
             slowdown_factor = 10;
             break;
@@ -873,32 +888,32 @@ void activate_level(void)
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 9; 
-            counter = INITIAL_LEVEL_COUNTER/2;
+            counter = LEVEL_SIZE/2;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 8;
-            counter = INITIAL_LEVEL_COUNTER/2;
+            counter = LEVEL_SIZE/2;
             // disactivate_speed = 1;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 7;
-            counter = INITIAL_LEVEL_COUNTER/4;
+            counter = LEVEL_SIZE/2;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 6;
-            counter = INITIAL_LEVEL_COUNTER/4;
+            counter = LEVEL_SIZE/4;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 5;
-            counter = INITIAL_LEVEL_COUNTER/4;
+            counter = LEVEL_SIZE/4;
             break;
         case 8:
             level_bird = 1;
@@ -923,7 +938,7 @@ void activate_level(void)
 void handle_level(void)
 {
     // _XL_PRINTD(0,YSize-1,3,counter);
-    if(!(counter&(INITIAL_LEVEL_COUNTER-1)))
+    if(!(counter&(LEVEL_SIZE-1)))
     {
         if(level<MAX_LEVEL)
         {
@@ -938,7 +953,7 @@ void handle_level(void)
 }
 
 
-// #define INITIAL_LEVEL_COUNTER 200
+// #define LEVEL_SIZE 200
 
 void handle_speed(void)
 {
@@ -969,7 +984,7 @@ int main(void)
     while(1)
     {
 
-        // counter = INITIAL_LEVEL_COUNTER;
+        // counter = LEVEL_SIZE;
         level = INITIAL_LEVEL;
         
         #if INITIAL_LEVEL>=3
@@ -985,7 +1000,6 @@ int main(void)
         // disactivate_speed = 0;
         // slowdown = 3*_XL_SLOW_DOWN_FACTOR;
         
-        activate_level();
         
         initialize_player();
 
@@ -994,10 +1008,12 @@ int main(void)
         handle_game_start();
             // _XL_PRINTD(0,YSize-1,5, slowdown_factor);
 
+        activate_level();
+
         while(!dead)
         {
             
-            // _XL_PRINTD(0,3,2, number_of_active_cactus);
+            // _XL_PRINTD(0,3,2, counter);
             // _XL_PRINTD(5,3,2, level_cacti);
             
             // _XL_PRINTD(10,3,1, speed);

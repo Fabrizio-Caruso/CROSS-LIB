@@ -397,8 +397,8 @@ void display_hiscore(void)
 void display_hilevel(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-9,YSize-3,"REACHED LEVEL");
-    _XL_PRINTD(XSize/2-9+14,YSize-3,2,hilevel);
+    _XL_PRINT(XSize/2-8,YSize-3,"RECORD LEVEL");
+    _XL_PRINTD(XSize/2-8+13,YSize-3,2,hilevel);
 
 }
 
@@ -409,8 +409,8 @@ void handle_cactus_half_transition(uint8_t i)
     if(active_cactus[i] && x_cactus[i])
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
+        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
     }
 }

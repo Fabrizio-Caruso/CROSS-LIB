@@ -40,7 +40,7 @@
     
 #endif
 
-#define RIGHT_END_OF_TERRAIN LEFT_END_OF_TERRAIN+SIZE_OF_TERRAIN
+#define RIGHT_END_OF_TERRAIN (LEFT_END_OF_TERRAIN+SIZE_OF_TERRAIN)
 
 
 #define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
@@ -53,7 +53,7 @@
 #define Y_CACTUS ((Y_TERRAIN)-1)
 
 
-#define LEVEL_Y 1
+#define LEVEL_Y 5
 #define LEVEL_X ((XSize)/2-5)
 
 #define NUMBER_OF_CACTI 3
@@ -412,7 +412,7 @@ void handle_bird_half_transition(void)
 }
 
 #define INITIAL_LOW_COLLISION_THRESHOLD 5
-#define FINAL_LOW_COLLISION_THRESHOLD ((JUMP)+16)
+#define FINAL_LOW_COLLISION_THRESHOLD ((JUMP)+END_JUMP-2)
 
 void one_point(void)
 {
@@ -639,6 +639,7 @@ void handle_enemies(void)
 }
 
 
+// TODO: y_bird has only 2 values
 void handle_collisions(void)
 {
     uint8_t i;
@@ -713,7 +714,7 @@ void handle_game_over(void)
     _XL_SHOOT_SOUND();
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-8, YSize/2-5, "G A M E  O V E R");
+    _XL_PRINT(XSize/2-9, 7, "G A M E  O V E R");
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
     if(score>hiscore)
@@ -739,34 +740,91 @@ void display_level(void)
 
 void handle_game_start(void)
 {
+    uint8_t start;
+    
+    start = 0;
+    counter = 0;
     _XL_CLEAR_SCREEN();
 
     display_score();
     display_hiscore();
     draw_terrain();
     
-    _XL_SLEEP(1);
+    _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-5, YSize/2-3, PRESS_TO_START);
+    _XL_PRINT(LEVEL_X+1,  0,     "TREX");
+    _XL_PRINT(LEVEL_X+1+1,1,      "BY");
+    _XL_PRINT(LEVEL_X+1-4,2, "FABRIZIO CARUSO");
+    _XL_PRINT(LEVEL_X+1-3,YSize-1, "BETA VERSION");
+
+    
+    _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+    _XL_PRINT(XSize/2-6, YSize/2-3, PRESS_TO_START);
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     draw_jump_dino_0(0);
-    _XL_WAIT_FOR_INPUT();
-    _XL_PRINT(XSize/2-5, YSize/2-3, DELETE_PRESS);
+    
+    x_bird = 0;
+    y_bird = Y_DINO-1;
+    while(!start || x_bird>LEFT_END_OF_TERRAIN)
+    {
+        ++counter;
+        if(_XL_FIRE(_XL_INPUT()))
+        {
+            start = 1;
+        }
+        if(x_bird>LEFT_END_OF_TERRAIN)
+        {
+            if(counter&1)
+            {
+                --x_bird;
+            }
+        }
+        else
+        {  
+            _XL_DELETE(x_bird,y_bird);
+            _XL_DELETE(x_bird+1,y_bird);
+
+            x_bird = RIGHT_END_OF_TERRAIN;
+            y_bird = Y_DINO-1-2*((_XL_RAND())&1);
+        }
+        if(counter&1)
+        {
+            _XL_DELETE(x_bird+2,y_bird);
+
+            _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
+            _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
+        }
+        else
+        {
+            _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
+            _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
+        }
+        
+        if(start)
+        {
+            _XL_SLOW_DOWN(2*_XL_SLOW_DOWN_FACTOR);
+        }
+        else
+        {
+            _XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);
+        }
+    }
+    _XL_DELETE(x_bird,y_bird);
+    _XL_DELETE(x_bird+1,y_bird);
+    
+    // _XL_WAIT_FOR_INPUT();
+    _XL_PRINT(LEVEL_X+1+1,1,      "  ");
+
+    _XL_PRINT(LEVEL_X+1-4,2, "               ");
+
+    _XL_PRINT(XSize/2-6, YSize/2-3, DELETE_PRESS);
     _XL_PRINT(LEVEL_X,LEVEL_Y, "LEVEL");
     display_level();
 }
 
-#if XSize<30
-    #define LEVEL_SIZE  512U
-#elif XSize<=32
-    #define LEVEL_SIZE  768U
-#elif XSize<=40
-    #define LEVEL_SIZE 1024U
-#elif XSize<=64
-    #define LEVEL_SIZE 1536U
-#else
-    #define LEVEL_SIZE 2048U
-#endif
+
+#define INITIAL_LEVEL_COUNTER  512U
+
 
 void activate_level(void)
 {
@@ -779,7 +837,7 @@ void activate_level(void)
             // counter = 2048U-1024U;
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
-            counter = LEVEL_SIZE/2;
+            counter = INITIAL_LEVEL_COUNTER/2;
             slowdown_factor = 10;
             // speed = 10;
 
@@ -787,7 +845,7 @@ void activate_level(void)
         case 2:
             level_bird = 1;
             level_cacti = 1;
-            counter = LEVEL_SIZE/2;
+            counter = INITIAL_LEVEL_COUNTER/2;
 
             slowdown_factor = 10;
             break;
@@ -795,32 +853,32 @@ void activate_level(void)
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 9; 
-            counter = LEVEL_SIZE/2;
+            counter = INITIAL_LEVEL_COUNTER/2;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 8;
-            counter = LEVEL_SIZE/2;
+            counter = INITIAL_LEVEL_COUNTER/2;
             // disactivate_speed = 1;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 7;
-            counter = LEVEL_SIZE/4;
+            counter = INITIAL_LEVEL_COUNTER/4;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 6;
-            counter = LEVEL_SIZE/4;
+            counter = INITIAL_LEVEL_COUNTER/4;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 5;
-            counter = LEVEL_SIZE/4;
+            counter = INITIAL_LEVEL_COUNTER/4;
             break;
         case 8:
             level_bird = 1;
@@ -845,7 +903,7 @@ void activate_level(void)
 void handle_level(void)
 {
     // _XL_PRINTD(0,YSize-1,3,counter);
-    if(!(counter&(LEVEL_SIZE-1)))
+    if(!(counter&(INITIAL_LEVEL_COUNTER-1)))
     {
         if(level<MAX_LEVEL)
         {

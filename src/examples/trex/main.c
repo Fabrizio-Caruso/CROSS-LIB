@@ -86,12 +86,13 @@ uint16_t score;
 uint16_t hiscore;
 
 uint8_t level;
+uint8_t hilevel;
 
 uint8_t level_cacti;
 uint8_t level_bird;
 
 uint8_t slowdown_factor;
-
+// uint8_t previous_state;
 
 
 void draw_jump_dino_0(uint8_t height)
@@ -194,7 +195,7 @@ void handle_state_behavior(void)
         
         case JUMP+1:
                 delete_feet(0);
-                draw_jump_dino_1(0+1);
+                // draw_jump_dino_1(0+1);
                 delete_feet(1);
                 
                 draw_jump_dino_0(1+1);
@@ -202,7 +203,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+2:
-                draw_jump_dino_1(1+1);
+                // draw_jump_dino_1(1+1);
 
                 delete_feet(2);
                 
@@ -211,7 +212,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+3:
-                draw_jump_dino_1(2+1);
+                // draw_jump_dino_1(2+1);
 
                 delete_feet(3);
                 
@@ -220,7 +221,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+4:
-                draw_jump_dino_1(3+1);
+                // draw_jump_dino_1(3+1);
 
                 delete_feet(4);
                 
@@ -229,7 +230,7 @@ void handle_state_behavior(void)
         break;
 
         case JUMP+5:
-                draw_jump_dino_1(4+1);
+                // draw_jump_dino_1(4+1);
 
                 delete_feet(5);
                 
@@ -238,7 +239,7 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+6:
-            delete_feet(5);
+            // delete_feet(5);
             
             draw_jump_dino_2(5+1);
         break;
@@ -368,7 +369,6 @@ void handle_state_transition(void)
             ++state;
         break;
         
-
     }
 }
 
@@ -385,6 +385,14 @@ void display_hiscore(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(XSize-1-4-2,0,"HI");
     _XL_PRINTD(XSize-1-4,0,4,hiscore);
+
+}
+
+void display_hilevel(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(XSize/2-9,YSize-3,"REACHED LEVEL");
+    _XL_PRINTD(XSize/2-9+14,YSize-3,2,hilevel);
 
 }
 
@@ -721,11 +729,16 @@ void handle_game_over(void)
     {
         hiscore = score;
     }
+    if(level>hilevel)
+    {
+        hilevel = level;
+    }
 }
 
 
 void initialize_player(void)
 {
+    // last_state = 0;
     state = 0;
     dead = 0;
     score = 0;
@@ -757,6 +770,7 @@ void handle_game_start(void)
     _XL_PRINT(LEVEL_X+1-4,2, "FABRIZIO CARUSO");
     _XL_PRINT(LEVEL_X+1-3,YSize-1, "BETA VERSION");
 
+    display_hilevel();
     
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     _XL_PRINT(XSize/2-6, YSize/2-3, PRESS_TO_START);
@@ -944,6 +958,7 @@ int main(void)
     _XL_INIT_INPUT();
 
     hiscore = 0;
+    hilevel = 1;
     
     while(1)
     {

@@ -29,14 +29,14 @@
 #define INITIAL_LEVEL 1
 
 
-#if XSize<=24
+#if XSize<=32
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-3)
 #else
-    #define LEFT_END_OF_TERRAIN ((XSize)/8)
+    #define LEFT_END_OF_TERRAIN ((XSize)/6)
 
-    #define SIZE_OF_TERRAIN ((3*((XSize)/4))-1)
+    #define SIZE_OF_TERRAIN (2*((XSize)/3))
     
 #endif
 

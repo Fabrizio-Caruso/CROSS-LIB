@@ -303,13 +303,19 @@ void handle_state_behavior(void)
         case JUMP+END_JUMP:
 
             delete_top(0);
+            // _XL_SLEEP(1);
             delete_top(1);
+            // _XL_SLEEP(1);
             
             draw_jump_dino_0(0);
 
-            delete_feet(0);
+            // delete_feet(0);            
+            //_XL_SLEEP(1);
+
             
-            draw_dino_feet_0();
+            // draw_dino_feet_0();            
+            //_XL_SLEEP(1);
+
         break;
 
     }

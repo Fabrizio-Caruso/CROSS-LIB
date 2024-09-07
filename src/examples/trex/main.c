@@ -167,11 +167,7 @@ void handle_state_behavior(void)
 {
     switch(state)
     {
-        case 99: // like case 1
-            draw_jump_dino_0(0);
-            
-            // draw_dino_feet_0();
-        break;
+
         case 0:
             // draw_jump_dino_0(0);
 
@@ -317,7 +313,12 @@ void handle_state_behavior(void)
             //_XL_SLEEP(1);
 
         break;
-
+        
+        case 99: // like case 1
+            draw_jump_dino_0(0);
+            
+            // draw_dino_feet_0();
+        break;
     }
 }
 
@@ -406,7 +407,7 @@ void display_hilevel(void)
 
 void handle_cactus_half_transition(uint8_t i)
 {
-    if(active_cactus[i] && x_cactus[i])
+    if(active_cactus[i])// && x_cactus[i])
     {
         _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
         _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
@@ -606,21 +607,21 @@ void spawn_bird(void)
 
 #define INITIAL_CACTUS_COOLDOWN 5
 
-uint16_t counter;
+uint8_t counter;
 
 void handle_enemy_spawn(void)
 {
-    if(!set_speed) 
-    {
-        if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) )
+    // if(!set_speed) 
+    // {
+        if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) &&(!set_speed) )
         {
             spawn_cacti();
         }
-        else if(level_bird)// && ((counter&3)==2))
+        else if(level_bird && !set_speed)// && ((counter&3)==2))
         {
             spawn_bird();
         }
-    }
+    // }
 }
 
 // void handle_enemy_spawn(void)
@@ -858,7 +859,7 @@ void handle_game_start(void)
 }
 
 
-#define LEVEL_SIZE  512U
+#define LEVEL_SIZE  256U
 
 
 void activate_level(void)
@@ -872,7 +873,7 @@ void activate_level(void)
             // counter = 2048U-1024U;
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
-            counter = (2*LEVEL_SIZE)/3;
+            // counter = 1;
             slowdown_factor = 10;
             // speed = 10;
 
@@ -880,7 +881,7 @@ void activate_level(void)
         case 2:
             level_bird = 1;
             level_cacti = 1;
-            counter = LEVEL_SIZE/2;
+            // counter = LEVEL_SIZE/2;
 
             slowdown_factor = 10;
             break;
@@ -888,32 +889,32 @@ void activate_level(void)
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 9; 
-            counter = LEVEL_SIZE/2;
+            // counter = LEVEL_SIZE/2;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 8;
-            counter = LEVEL_SIZE/2;
+            // counter = LEVEL_SIZE/2;
             // disactivate_speed = 1;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 7;
-            counter = LEVEL_SIZE/2;
+            // counter = LEVEL_SIZE/2;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 6;
-            counter = LEVEL_SIZE/4;
+            // counter = LEVEL_SIZE/4;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 2;
             slowdown_factor = 5;
-            counter = LEVEL_SIZE/4;
+            // counter = LEVEL_SIZE/4;
             break;
         case 8:
             level_bird = 1;
@@ -938,7 +939,7 @@ void activate_level(void)
 void handle_level(void)
 {
     // _XL_PRINTD(0,YSize-1,3,counter);
-    if(!(counter&(LEVEL_SIZE-1)))
+    if(!counter) //!(counter&(LEVEL_SIZE-1)))
     {
         if(level<MAX_LEVEL)
         {

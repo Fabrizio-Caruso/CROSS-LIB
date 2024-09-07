@@ -169,7 +169,7 @@ void handle_state_behavior(void)
         case 99: // like case 1
             draw_jump_dino_0(0);
             
-            draw_dino_feet_0();
+            // draw_dino_feet_0();
         break;
         case 0:
             // draw_jump_dino_0(0);

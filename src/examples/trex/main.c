@@ -590,7 +590,7 @@ void spawn_bird(void)
 #endif
 #define DELETE_PRESS       "           "
 
-#define INITIAL_CACTUS_COOLDOWN 10
+#define INITIAL_CACTUS_COOLDOWN 5
 
 uint16_t counter;
 
@@ -652,11 +652,11 @@ void handle_collisions(void)
             dead = x_cactus[i++]==X_DINO;
         }
         
-        dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO)||(y_bird==Y_DINO-1));
+        dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO));
     }
     else
     {
-        dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2)||(y_bird==Y_DINO-3));
+        dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2));
     }
 }
 

@@ -96,9 +96,9 @@
 #endif
 
 
-#if !defined(__BUFFERED_GRAPHICS) && !defined(DOUBLE_BUFFER)
-    #define _XL_REFRESH()
-#elif defined(DOUBLE_BUFFER)
+#if !defined(__BUFFERED_GRAPHICS) && !defined(__DOUBLE_BUFFER)
+    #define _XL_REFRESH() _XL_WAIT_VSYNC()
+#elif defined(__DOUBLE_BUFFER)
     #if defined(__CC65__)
         #define _XL_REFRESH() \
             do \
@@ -113,8 +113,7 @@
         { \
             uint16_t i; \
             \
-            _XL_WAIT_VSYNC(); \
-            for(i=0;i<XSize*YSize;++i) \
+           for(i=0;i<XSize*YSize;++i) \
             { \
                 POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
                 POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
@@ -124,7 +123,7 @@
 #else
     #include "buffered_graphics.h"
 
-    #define __XL_REFRESH() \
+    #define __REFRESH() \
         do \
         { \
             putchar('\n'); \
@@ -132,12 +131,12 @@
         } while(0);
 
     #if !defined(__EMCC__)
-        #define _XL_REFRESH() __XL_REFRESH()
+        #define _XL_REFRESH() __REFRESH()
     #else
         #define _XL_REFRESH() \
             do \
             { \
-                __XL_REFRESH(); \
+                __REFRESH(); \
                 fflush(stdout); \
             } while(0)
     #endif

@@ -298,6 +298,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     #endif
     uint8_t video_buffer[YSize+Y_OFFSET][XSize];
     
+    #if !defined(__DOUBLE_BUFFER)
     void display_all(void)
     {
         uint8_t j; 
@@ -316,6 +317,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
             putchar(video_buffer[YSize+Y_OFFSET-LOWER_BORDER_OFFSET][i]);
         }
     }
+    #endif
 #elif defined(__MO5__)
 /*
 COLOR:

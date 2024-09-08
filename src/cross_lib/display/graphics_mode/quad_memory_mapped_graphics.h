@@ -8,7 +8,7 @@
 #if defined(___QUAD_MEMORY_MAPPED_GRAPHICS)
 
 #  if defined(__C64__) || defined(__C128__)
-    #if defined(DOUBLE_BUFFER)
+    #if defined(__DOUBLE_BUFFER)
         #define BASE_ADDR 0xB800
         #define COLOR_ADDR 0xBC00
         #define REAL_BASE_ADDR 0xC000

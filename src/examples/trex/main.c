@@ -466,7 +466,7 @@ void update_cactus(uint8_t i)
             }
             else
             {
-                cactus_cooldown[i] = _XL_RAND()&CACTUS_COOLDOWN_MASK;
+                cactus_cooldown[i] = (uint8_t) (_XL_RAND()&CACTUS_COOLDOWN_MASK);
             }
             active_cactus[i]=0;
             --number_of_active_cactus;
@@ -502,7 +502,7 @@ void update_bird(void)
             // _XL_DELETE(x_bird,y_bird);
             // _XL_DELETE(x_bird+1,y_bird);
             one_point();
-            bird_cooldown = _XL_RAND()&BIRD_COOLDOWN_MASK;
+            bird_cooldown = (uint8_t) (_XL_RAND()&BIRD_COOLDOWN_MASK);
             active_bird = 0;
         // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
@@ -604,7 +604,7 @@ void spawn_bird(void)
 {
     if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<BIRD_SAFE_DISTACE))
     {
-        y_bird = Y_DINO-2*(_XL_RAND()&1);;
+        y_bird = (uint8_t) (Y_DINO-2*(_XL_RAND()&1));
 
         active_bird = 1;
         x_bird = RIGHT_END_OF_TERRAIN-1;
@@ -724,13 +724,13 @@ void initialize_enemies(void)
     {
         x_cactus[i] = 0;
         active_cactus[i] = 0;
-        cactus_cooldown[i] = INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16);
+        cactus_cooldown[i] = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16));
     }
     number_of_active_cactus = 0;
     
     x_bird = 0;
     active_bird = 0;
-    bird_cooldown = INITIAL_CACTUS_COOLDOWN+_XL_RAND()&63;
+    bird_cooldown = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&63));
 }
 
 
@@ -835,7 +835,7 @@ void handle_game_start(void)
             _XL_DELETE(x_bird+1,y_bird);
 
             x_bird = RIGHT_END_OF_TERRAIN;
-            y_bird = Y_DINO-1-2*((_XL_RAND())&1);
+            y_bird = (uint8_t) (Y_DINO-1-2*((_XL_RAND())&1));
         }
         if(counter&1)
         {
@@ -1055,7 +1055,8 @@ int main(void)
             
             handle_speed();
             
-            _XL_REFRESH();
+            // _XL_WAIT_VSYNC();
+            // _XL_REFRESH();
             
         }
         handle_game_over();

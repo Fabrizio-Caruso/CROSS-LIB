@@ -1055,6 +1055,8 @@ int main(void)
             
             handle_speed();
             
+            _XL_REFRESH();
+            
         }
         handle_game_over();
     }

@@ -570,27 +570,27 @@ uint8_t first_non_active_cactus(void)
 
 void spawn_cacti(void)
 {
-   uint8_t first_available_cactus = first_non_active_cactus();
-   
-   // _XL_PRINTD(0,YSize-1,2,first_available_cactus);
-   
-   if(is_cactus_available()&&(last_is_far()||last_is_very_close()))
+
+   if(last_is_far()||last_is_very_close())
    {
-       x_cactus[first_available_cactus] = RIGHT_END_OF_TERRAIN;
-       active_cactus[first_available_cactus]=1;
-       ++number_of_active_cactus;
-       last_active_cactus = first_available_cactus;
+        uint8_t first_available_cactus = first_non_active_cactus();
+
+        if(is_cactus_available())
+        {
+            x_cactus[first_available_cactus] = RIGHT_END_OF_TERRAIN;
+            active_cactus[first_available_cactus]=1;
+            ++number_of_active_cactus;
+            last_active_cactus = first_available_cactus;
+        }
    }
 }
 
 
 void spawn_bird(void)
 {
-    uint8_t height = 2*(_XL_RAND()&1);
-
     if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<XSize/2))
     {
-        y_bird = Y_DINO-height;
+        y_bird = Y_DINO-2*(_XL_RAND()&1);;
 
         active_bird = 1;
         x_bird = RIGHT_END_OF_TERRAIN-1;
@@ -842,7 +842,7 @@ void handle_game_start(void)
         }
         else
         {
-            _XL_SLOW_DOWN(12*_XL_SLOW_DOWN_FACTOR);
+            _XL_SLOW_DOWN(6*_XL_SLOW_DOWN_FACTOR);
         }
     }
     _XL_DELETE(x_bird,y_bird);

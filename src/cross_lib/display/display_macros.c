@@ -240,7 +240,7 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 #endif
 
 
-#if defined(VDP_WAIT_V_SYNC)
+#if defined(__VDP_WAIT_V_SYNC)
     void vdp_waitvsync(void)
     { 
         #asm 

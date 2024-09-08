@@ -28,8 +28,11 @@
 
 #define INITIAL_LEVEL 1
 
+#if XSize<=21
+    #define LEFT_END_OF_TERRAIN 1
 
-#if XSize<=32
+    #define SIZE_OF_TERRAIN ((XSize)-2)
+#elif XSize<=32
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-3)
@@ -42,8 +45,11 @@
 
 #define RIGHT_END_OF_TERRAIN (LEFT_END_OF_TERRAIN+SIZE_OF_TERRAIN)
 
-
-#define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
+#if XSize>=22
+    #define X_DINO ((XSize/8)+LEFT_END_OF_TERRAIN)
+#else
+    #define X_DINO (1+LEFT_END_OF_TERRAIN) 
+#endif
 
 // TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_TERRAIN
 #define Y_DINO ((YSize/2)+4)
@@ -563,7 +569,15 @@ uint8_t first_non_active_cactus(void)
     return NUMBER_OF_CACTI;
 }
 
-#define last_is_far() (x_cactus[last_active_cactus]<(XSize/2)+2)
+#if XSize>=22
+    #define CACTUS_SAFE_DISTANCE ((XSize/2)+2)
+    #define BIRD_SAFE_DISTACE (XSize/2)
+#else
+    #define CACTUS_SAFE_DISTANCE 11
+    #define BIRD_SAFE_DISTACE 9
+#endif
+
+#define last_is_far() (x_cactus[last_active_cactus]<CACTUS_SAFE_DISTANCE)
 #define last_is_very_close()(x_cactus[last_active_cactus]>RIGHT_END_OF_TERRAIN-3)
 
 #define is_cactus_available() (first_available_cactus<NUMBER_OF_CACTI)
@@ -588,7 +602,7 @@ void spawn_cacti(void)
 
 void spawn_bird(void)
 {
-    if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<XSize/2))
+    if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<BIRD_SAFE_DISTACE))
     {
         y_bird = Y_DINO-2*(_XL_RAND()&1);;
 
@@ -1022,16 +1036,19 @@ int main(void)
             // _XL_PRINTD(15,3,1, y_bird);
             
             handle_state_behavior();
+            // _XL_WAIT_VSYNC();
+
             handle_state_transition();
             
             ++counter;
-            
+            // _XL_WAIT_VSYNC();
+      
             handle_enemy_spawn();
             
             handle_enemies();
 
             _XL_SLOW_DOWN(slowdown);
-            
+                        
             handle_collisions();
             
             handle_level();

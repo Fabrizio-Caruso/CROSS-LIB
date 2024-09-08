@@ -73,7 +73,7 @@
 #if defined(__USE_WAIT_V_SYNC)
 
     #if defined(__MSX__) || defined(__SVI__) || defined(__M5__) || defined(__MTX__)
-        #define VDP_WAIT_V_SYNC
+        #define __VDP_WAIT_V_SYNC
     #endif
 
     #if defined(__VIC20__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) || \
@@ -84,7 +84,7 @@
     #elif defined(__GB__)
         #include <gb/gb.h>
         #define _XL_WAIT_VSYNC() wait_vbl_done()
-    #elif defined(VDP_WAIT_V_SYNC)
+    #elif defined(__VDP_WAIT_V_SYNC)
         void vdp_waitvsync(void);
         #include <interrupt.h>
         #define _XL_WAIT_VSYNC() vdp_waitvsync()

@@ -97,7 +97,7 @@
 
 
 #if !defined(__BUFFERED_GRAPHICS) && !defined(__DOUBLE_BUFFER)
-    #define _XL_REFRESH() _XL_WAIT_VSYNC()
+    #define _XL_REFRESH()
 #elif defined(__DOUBLE_BUFFER)
     #if defined(__CC65__)
         #define _XL_REFRESH() \

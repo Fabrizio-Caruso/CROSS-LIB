@@ -383,11 +383,29 @@ c16: c16_32k
 # D__KERNAL_CLEAR_SCREEN uses a hard-coded $20 character, which is wrong in this case ($60 is needed)
 # D__ASSEMBLY_CLEAR_SCREEN uses a hard-coded $60, which is correct
 c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 -m mapfile.txt \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
 	-D__NO_SCREEN_COLOR_INIT  \
 	-D__ALT_PRINT \
 	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ASSEMBLY_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D__UDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+c16_16k_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
+	-D__NO_SCREEN_COLOR_INIT  \
+	-D__ALT_PRINT \
+	-D__MEMORY_MAPPED_GRAPHICS -D__DOUBLE_BUFFER \
 	-D__ASSEMBLY_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
@@ -420,7 +438,7 @@ c16_16k_low_stack: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 c16_conio: c16_16k_conio
 
 c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) c16 --config $(CFG_PATH)/cc65/c16-16k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 --config $(CFG_PATH)/cc65/c16-16k.cfg \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
@@ -442,17 +460,17 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 #################################################################
 
 
-c64_Ln: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c64 -Ln global \
-	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-D__MEMORY_MAPPED_GRAPHICS -D__ALT_PRINT \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc_arcade.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+# c64_Ln: $(ASSETS_PATH)/cc65_udc_arcade.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c64 -Ln global \
+	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	# -D__MEMORY_MAPPED_GRAPHICS -D__ALT_PRINT \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
+	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	# $(ASSETS_PATH)/cc65_udc_arcade.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 # -Ln global
 c64: $(ASSETS_PATH)/cc65_udc_arcade.s
@@ -467,8 +485,21 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-#TODO: Broken
+
 c64_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c64 \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-D__MEMORY_MAPPED_GRAPHICS -D__DOUBLE_BUFFER -D__ALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+#TODO: Broken
+c64_buffered_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c64 \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-D__BUFFERED_GRAPHICS -D__ALT_PRINT  -D__DOUBLE_BUFFER \

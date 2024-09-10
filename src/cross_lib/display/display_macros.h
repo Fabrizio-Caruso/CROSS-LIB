@@ -98,16 +98,16 @@
 
 #if !defined(__BUFFERED_GRAPHICS) && !defined(__DOUBLE_BUFFER)
     #define _XL_REFRESH()
-#elif defined(__DOUBLE_BUFFER)
-    #if defined(__CC65__)
-        #define _XL_REFRESH() \
-            do \
-            { \
-                memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize); \
-                memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize); \
-            } while(0)
+#elif defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
+    // #if defined(__CC65__)
+        // #define _XL_REFRESH() \
+            // do \
+            // { \
+                // memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize); \
+                // memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize); \
+            // } while(0)
 
-    #else
+    // #else
         #define _XL_REFRESH() \
         do \
         { \
@@ -119,7 +119,7 @@
                 POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
             } \
         } while(0)
-    #endif
+    // #endif
 #else
     #include "buffered_graphics.h"
 

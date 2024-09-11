@@ -33,8 +33,8 @@
 		#define COLOR_ADDR 0x9400
 	#elif defined(__C16__)
 		#if defined(__DOUBLE_BUFFER)
-            #define BASE_ADDR 0x2800
-            #define COLOR_ADDR 0x2C00
+            #define BASE_ADDR 0x2B00
+            #define COLOR_ADDR 0x3000
             #define REAL_BASE_ADDR 0x0C00
             #define REAL_COLOR_ADDR 0x0800
         #else

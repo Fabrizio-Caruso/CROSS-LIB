@@ -794,7 +794,8 @@ void handle_game_start(void)
     start = 0;
     counter = 0;
     _XL_CLEAR_SCREEN();
-
+    _XL_REFRESH();
+    
     display_score();
     display_hiscore();
     draw_terrain();
@@ -812,7 +813,7 @@ void handle_game_start(void)
     _XL_PRINT(XSize/2-6, YSize/2-3, PRESS_TO_START);
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     draw_jump_dino_0(0);
-    
+    _XL_REFRESH();
     x_bird = 0;
     y_bird = Y_DINO-1;
     while(!start || x_bird>LEFT_END_OF_TERRAIN)
@@ -858,13 +859,12 @@ void handle_game_start(void)
         {
             _XL_SLOW_DOWN(6*_XL_SLOW_DOWN_FACTOR);
         }
-        // _XL_WAIT_VSYNC();
-        // _XL_REFRESH();
+        _XL_WAIT_VSYNC();
+        _XL_REFRESH();
     }
     _XL_DELETE(x_bird,y_bird);
     _XL_DELETE(x_bird+1,y_bird);
     
-    // _XL_WAIT_FOR_INPUT();
     _XL_PRINT(LEVEL_X+1+1,1,      "  ");
 
     _XL_PRINT(LEVEL_X+1-4,2, "               ");
@@ -872,7 +872,7 @@ void handle_game_start(void)
     _XL_PRINT(XSize/2-6, YSize/2-3, DELETE_PRESS);
     _XL_PRINT(LEVEL_X,LEVEL_Y, "LEVEL");
     display_level();
-    // _XL_REFRESH();
+    _XL_REFRESH();
 }
 
 

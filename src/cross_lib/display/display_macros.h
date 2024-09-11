@@ -108,17 +108,7 @@
             // } while(0)
 
     // #else
-        #define _XL_REFRESH() \
-        do \
-        { \
-            uint16_t i; \
-            \
-           for(i=0;i<XSize*YSize;++i) \
-            { \
-                POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
-                POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
-            } \
-        } while(0)
+    void _XL_REFRESH(void);
     // #endif
 #else
     #include "buffered_graphics.h"

@@ -1,6 +1,4 @@
 
-PROJECT_OPTS ?= -D__USE_WAIT_V_SYNC
-
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
     $(CROSS_LIB_PATH)/sleep/sleep_macros.c \

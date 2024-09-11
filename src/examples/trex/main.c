@@ -858,6 +858,8 @@ void handle_game_start(void)
         {
             _XL_SLOW_DOWN(6*_XL_SLOW_DOWN_FACTOR);
         }
+        // _XL_WAIT_VSYNC();
+        // _XL_REFRESH();
     }
     _XL_DELETE(x_bird,y_bird);
     _XL_DELETE(x_bird+1,y_bird);
@@ -870,6 +872,7 @@ void handle_game_start(void)
     _XL_PRINT(XSize/2-6, YSize/2-3, DELETE_PRESS);
     _XL_PRINT(LEVEL_X,LEVEL_Y, "LEVEL");
     display_level();
+    // _XL_REFRESH();
 }
 
 
@@ -1024,7 +1027,6 @@ int main(void)
             // _XL_PRINTD(0,YSize-1,5, slowdown_factor);
 
         activate_level();
-
         while(!dead)
         {
             

@@ -575,3 +575,24 @@ lda $a7c0
 		DISPLAY_POKE(loc(x,y), _SPACE);
 	}
 #endif
+
+#if defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
+    #if defined(__CC65__)
+        void _XL_REFRESH(void)
+            {
+                memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize);
+                memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize);
+            }
+    #else
+        void _XL_REFRESH(void)
+        {
+            uint16_t i;
+           
+            for(i=0;i<(XSize)*(YSize);++i) \
+            {
+                POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i));
+                POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i));
+            }
+        }
+    #endif
+#endif

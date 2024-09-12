@@ -204,12 +204,19 @@
             hgr_draw(x, y, ch, _apple2_text_color); \
         } while(0)
 	
-#elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) && defined(NO_SCREEN_CODES)
+#elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) && defined(__NO_SCREEN_CODES)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), ch); \
 			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
+		} while(0)
+#elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) && defined(__DOUBLE_BUFFER)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+            DISPLAY_POKE(((uint16_t) BASE_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), screenCode(ch)); \
+            DISPLAY_POKE(((uint16_t) COLOR_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), PEEK(0x053B)); \
 		} while(0)
 #elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) 
 	#define _DISPLAY(x,y,ch) \

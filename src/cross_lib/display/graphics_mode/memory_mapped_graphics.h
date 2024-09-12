@@ -34,13 +34,14 @@
 	#elif defined(__C16__)
 		#if defined(__DOUBLE_BUFFER)
             #define BASE_ADDR 0x2B00
-            #define COLOR_ADDR 0x3000
+            // #define COLOR_ADDR 0x3000
             #define REAL_BASE_ADDR 0x0C00
-            #define REAL_COLOR_ADDR 0x0800
+            // #define REAL_COLOR_ADDR 0x0800
         #else
             #define BASE_ADDR 0x0C00
-            #define COLOR_ADDR 0x0800
+            // #define COLOR_ADDR 0x0800
         #endif
+        #define COLOR_ADDR 0x0800
 	#elif defined(__GAL__)
 		#define BASE_ADDR 0x2800
 	#elif defined(__COCO__) || defined(__DRAGON__)

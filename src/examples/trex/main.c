@@ -755,10 +755,12 @@ void handle_game_over(void)
     _XL_DELETE(X_DINO+1,Y_DINO-7);
     
     draw_dead_dino_0();
+    _XL_REFRESH();
     _XL_SHOOT_SOUND();
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(XSize/2-9, 7, "G A M E  O V E R");
+    _XL_REFRESH();
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
     if(score>hiscore)
@@ -793,6 +795,7 @@ void handle_game_start(void)
     
     start = 0;
     counter = 0;
+    
     _XL_CLEAR_SCREEN();
     _XL_REFRESH();
     
@@ -1061,6 +1064,7 @@ int main(void)
             _XL_REFRESH();
             
         }
+        _XL_REFRESH();
         handle_game_over();
     }
 

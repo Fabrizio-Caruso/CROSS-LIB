@@ -64,7 +64,8 @@
 
 #define NUMBER_OF_CACTI 3
 
-#define MAX_LEVEL 99
+#define MAX_LEVEL 99u
+#define MAX_POINTS 9999u
 
 uint8_t input;
 
@@ -167,7 +168,7 @@ void draw_dino_feet_1(void)
 
 #define JUMP 1
 
-#define END_JUMP 16
+#define END_JUMP 17
 
 void handle_state_behavior(void)
 {
@@ -247,46 +248,52 @@ void handle_state_behavior(void)
         break;
 
         case JUMP+7:
+            // delete_feet(5);
+            
+            // draw_jump_dino_2(5+1);
+        break;
+
+        case JUMP+8:
             delete_top(6);
             draw_jump_dino_0(6);
         break;
         
-        case JUMP+8:
+        case JUMP+9:
             delete_top(5);
             draw_jump_dino_0(5);
         break;
         
-        case JUMP+9:
+        case JUMP+10:
             // delete_top(4);
             draw_jump_dino_1(4);
         break;
         
-        case JUMP+10:
+        case JUMP+11:
             delete_top(4);
             draw_jump_dino_0(4);
         break;
         
-        case JUMP+11:
+        case JUMP+12:
             // delete_top(3);
             draw_jump_dino_1(3);
         break;
         
-        case JUMP+12:
+        case JUMP+13:
             delete_top(3);
             draw_jump_dino_0(3);
         break;
         
-        case JUMP+13:
+        case JUMP+14:
             // delete_top(2);
             draw_jump_dino_1(2);
         break;
         
-        case JUMP+14:
+        case JUMP+15:
             delete_top(2);
             draw_jump_dino_0(2);
         break;
         
-        case JUMP+15:
+        case JUMP+16:
             // delete_top(1);
             draw_jump_dino_1(1);
         break;
@@ -437,8 +444,11 @@ void handle_bird_half_transition(void)
 
 void one_point(void)
 {
-    ++score;
-    display_score();
+    if(score<=MAX_POINTS)
+    {
+        ++score;
+        display_score();
+    }
     _XL_PING_SOUND();
 }
 
@@ -570,10 +580,10 @@ uint8_t first_non_active_cactus(void)
 }
 
 #if XSize>=22
-    #define CACTUS_SAFE_DISTANCE ((XSize/2)+2)
+    #define CACTUS_SAFE_DISTANCE ((XSize/2)+1)
     #define BIRD_SAFE_DISTACE (XSize/2)
 #else
-    #define CACTUS_SAFE_DISTANCE 11
+    #define CACTUS_SAFE_DISTANCE 10
     #define BIRD_SAFE_DISTACE 9
 #endif
 
@@ -894,7 +904,7 @@ void activate_level(void)
             // level_bird = 1;
             // level_cacti = NUMBER_OF_CACTI;
             // counter = 1;
-            slowdown_factor = 10;
+            slowdown_factor = 20;
             // speed = 10;
 
             break;
@@ -903,53 +913,73 @@ void activate_level(void)
             level_cacti = 1;
             // counter = LEVEL_SIZE/2;
 
-            slowdown_factor = 10;
+            slowdown_factor = 20;
             break;
         case 3:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 9; 
+            slowdown_factor = 18; 
             // counter = LEVEL_SIZE/2;
             break;
         case 4:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 8;
+            slowdown_factor = 16;
             // counter = LEVEL_SIZE/2;
             // disactivate_speed = 1;
             break;
         case 5:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 7;
+            slowdown_factor = 14;
             // counter = LEVEL_SIZE/2;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 6;
+            slowdown_factor = 13;
             // counter = LEVEL_SIZE/4;
             break;
         case 7:
             level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 5;
+            level_cacti = 3;
+            slowdown_factor = 12;
             // counter = LEVEL_SIZE/4;
             break;
         case 8:
             level_bird = 1;
-            level_cacti = 2;
-            slowdown_factor = 4;
+            level_cacti = 3;
+            slowdown_factor = 11;
             break;
         case 9:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 4;
+            slowdown_factor = 10;
+            break;
+        case 10:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 9;
+            break;
+        case 11:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 8;
+            break;
+        case 12:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 7;
+            break;
+        case 13:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 6;
             break;
         default:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 3;
+            slowdown_factor = 5;
 
             // counter = 0;
     }
@@ -983,7 +1013,7 @@ void handle_speed(void)
         if(!active_bird && !number_of_active_cactus)
         {
             // ++slowdown;
-            slowdown = slowdown_factor*_XL_SLOW_DOWN_FACTOR;
+            slowdown = slowdown_factor*(_XL_SLOW_DOWN_FACTOR/2);
             set_speed = 0;
         }            
     }

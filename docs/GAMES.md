@@ -11,7 +11,10 @@ CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check wo
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_vic20_exp_16k.prg
 
-2. Video Technology Laser 500: 
+2. MSX:
+https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_msx_16k.rom
+
+3. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_laser500.bin
 
 

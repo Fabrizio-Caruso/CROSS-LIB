@@ -499,17 +499,16 @@ c64_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 #TODO: Broken
-c64_buffered_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade.s
+c64_conio: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c64 \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-D__BUFFERED_GRAPHICS -D__ALT_PRINT  -D__DOUBLE_BUFFER \
+	-D__CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg 
 
 ifdef USE_TOOLS
 c64_exomized: c64

@@ -11,7 +11,10 @@ CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check wo
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_vic20_exp_16k.prg
 
-2. Video Technology Laser 500: 
+2. MSX:
+https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_msx_16k.rom
+
+3. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_laser500.bin
 
 
@@ -26,7 +29,10 @@ CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (d
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_vic20_exp_16k.prg
 
-2. Video Technology Laser 500: 
+2. MSX:
+https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_msx_16k.rom
+
+3. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_laser500.bin
 
 
@@ -43,10 +49,13 @@ CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (d
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vic20_exp_16k.prg
 
-2. Video Technology Laser 500: 
+2. MSX:
+https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_msx_16k.rom
+
+3. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_laser500.bin
 
-3. Video Technology Laser 200 / VZ200: 
+4. Video Technology Laser 200 / VZ200: 
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vz200_24k.vz
 
 

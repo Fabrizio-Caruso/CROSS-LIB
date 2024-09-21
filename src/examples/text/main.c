@@ -101,6 +101,25 @@ int main(void)
         for(j=0;j<NUMBER_OF_COLORS;++j)
         {
             _XL_CLEAR_SCREEN();
+            #if !defined(_XL_NO_TEXT_COLOR)
+            _XL_SET_TEXT_COLOR(text_color[j]);
+            #endif
+            
+            print_text(XSize/2-6,YSize/2-5+0,"Aa Bb Cc Dd");
+            print_text(XSize/2-6,YSize/2-5+1,"Ee Ff Gg Hh");
+            print_text(XSize/2-6,YSize/2-5+2,"Ii Jj Kk Ll");
+            print_text(XSize/2-6,YSize/2-5+3,"Mm Nn Oo Pp");
+            print_text(XSize/2-6,YSize/2-5+4,"Qq Rr Ss Tt");
+            print_text(XSize/2-6,YSize/2-5+5,"Uu Vv Ww Xx");
+            print_text(XSize/2-6,YSize/2-5+6,"Yy Zz");
+            print_text(XSize/2-6,YSize/2-5+8," 0 1 2 3 4");
+            print_text(XSize/2-6,YSize/2-5+9," 5 6 7 8 9");
+            
+            _XL_SLEEP(1);
+            
+            _XL_WAIT_FOR_INPUT();
+
+            _XL_CLEAR_SCREEN();
             
             #if !defined(_XL_NO_TEXT_COLOR)
             _XL_SET_TEXT_COLOR(text_color[j]);
@@ -127,7 +146,7 @@ int main(void)
             small_pause(); 
             
             _XL_WAIT_FOR_INPUT();
-            
+
             _XL_CLEAR_SCREEN();
             
             for(i=YSize/6+3;i<YSize-2;i+=3)
@@ -166,7 +185,7 @@ int main(void)
                 _XL_CLEAR_SCREEN();
             }    
 
-            print_text(XSize/2-6,YSize/2-5+0,"Ab Bb Cc Dd");
+            print_text(XSize/2-6,YSize/2-5+0,"Aa Bb Cc Dd");
             print_text(XSize/2-6,YSize/2-5+1,"Ee Ff Gg Hh");
             print_text(XSize/2-6,YSize/2-5+2,"Ii Jj Kk Ll");
             print_text(XSize/2-6,YSize/2-5+3,"Mm Nn Oo Pp");

@@ -3,8 +3,10 @@
 
 #include "cross_lib.h"
 
-#  if defined(__C64__)
+#  if defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "c64_memory_mapped_settings.h"
+#elif defined(__C64__) && defined(__CONIO_GRAPHICS)
+	#include "c64_conio_settings.h"
 #elif defined(__ATARI7800_COLOR_GRAPHICS)
 	#include "atari7800_settings.h"
 #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)

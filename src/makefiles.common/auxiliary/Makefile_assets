@@ -49,6 +49,9 @@ $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc_arcade.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_arcade_conio.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cc65_udc_arcade_27_tiles_v2.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 

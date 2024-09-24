@@ -52,14 +52,24 @@
 #endif
 
 // TODO: ((YSize/2)+4) crashes on the Vic 20 when a cactus reaches LEFT_END_OF_TERRAIN
-#define Y_DINO ((YSize/2)+4)
 
+#if YSize>=20
+
+    #define Y_DINO ((YSize/2)+4)
+#else
+    #define Y_DINO ((YSize/2)+2)
+#endif
 
 #define Y_TERRAIN ((Y_DINO)+2)
 #define Y_CACTUS ((Y_TERRAIN)-1)
 
 
-#define LEVEL_Y 5
+#if YSize>17 && XSize>=20
+    #define LEVEL_Y 5
+#else
+    #define LEVEL_Y 2
+#endif
+
 #define LEVEL_X ((XSize)/2-5)
 
 #define NUMBER_OF_CACTI 3
@@ -99,7 +109,8 @@ uint8_t level_cacti;
 uint8_t level_bird;
 
 uint8_t slowdown_factor;
-// uint8_t previous_state;
+
+uint8_t counter;
 
 
 void draw_jump_dino_0(uint8_t height)
@@ -361,7 +372,7 @@ void handle_state_transition(void)
             {
                 state = JUMP+1;
             }
-            else
+            else if(counter&1)
             {
                 state = 1;
             }
@@ -374,7 +385,7 @@ void handle_state_transition(void)
             {
                 state = JUMP+1;
             }
-            else
+            else if(counter&1)
             {
                 state = 0;
             }
@@ -408,11 +419,18 @@ void display_hiscore(void)
 
 }
 
+
+#if YSize >= 19
+    #define HILEVEL_Y YSize-3
+#else
+    #define HILEVEL_Y YSize-2
+#endif
+
 void display_hilevel(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-8,YSize-3,"RECORD LEVEL");
-    _XL_PRINTD(XSize/2-8+13,YSize-3,2,hilevel);
+    _XL_PRINT(XSize/2-8,HILEVEL_Y,"RECORD LEVEL");
+    _XL_PRINTD(XSize/2-8+13,HILEVEL_Y,2,hilevel);
 
 }
 
@@ -631,7 +649,6 @@ void spawn_bird(void)
 
 #define INITIAL_CACTUS_COOLDOWN 5
 
-uint8_t counter;
 
 void handle_enemy_spawn(void)
 {
@@ -744,6 +761,12 @@ void initialize_enemies(void)
 }
 
 
+#if XSize>16
+    #define GAME_OVER_Y XSize/2-9
+#else
+    #define GAME_OVER_Y 0
+#endif 
+
 void handle_game_over(void)
 {
     _XL_DELETE(X_DINO,Y_DINO);
@@ -769,7 +792,7 @@ void handle_game_over(void)
     _XL_SHOOT_SOUND();
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize/2-9, 7, "G A M E  O V E R");
+    _XL_PRINT(GAME_OVER_Y, 7, "G A M E  O V E R");
     _XL_REFRESH();
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();

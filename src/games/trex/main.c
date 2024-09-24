@@ -32,7 +32,7 @@
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-2)
-#elif XSize<=32
+#elif XSize<=28
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-3)
@@ -842,6 +842,18 @@ void handle_game_start(void)
             {
                 --x_bird;
             }
+            if(counter&1)
+            {
+                _XL_DELETE(x_bird+2,y_bird);
+
+                _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
+                _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
+            }
+            else
+            {
+                _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
+                _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
+            }
         }
         else
         {  
@@ -850,18 +862,6 @@ void handle_game_start(void)
 
             x_bird = RIGHT_END_OF_TERRAIN;
             y_bird = (uint8_t) (Y_DINO-1-2*((_XL_RAND())&1));
-        }
-        if(counter&1)
-        {
-            _XL_DELETE(x_bird+2,y_bird);
-
-            _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
-            _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
-        }
-        else
-        {
-            _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
-            _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
         }
         
         if(start)
@@ -1035,48 +1035,23 @@ int main(void)
     while(1)
     {
 
-        // counter = LEVEL_SIZE;
         level = INITIAL_LEVEL;
-        
-        #if INITIAL_LEVEL>=3
-            // activate_speed = 1;
-            // speed = 1;
-        #else
-            // activate_speed = 0;
-            // speed = 0;
-        #endif
-        
-        // activate_speed = 0;
-
-        // disactivate_speed = 0;
-        // slowdown = 3*_XL_SLOW_DOWN_FACTOR;
-        
         
         initialize_player();
 
         initialize_enemies();
 
         handle_game_start();
-            // _XL_PRINTD(0,YSize-1,5, slowdown_factor);
 
         activate_level();
         while(!dead)
         {
             
-            // _XL_PRINTD(0,3,2, counter);
-            // _XL_PRINTD(5,3,2, level_cacti);
-            
-            // _XL_PRINTD(10,3,1, speed);
-
-            // _XL_PRINTD(15,3,1, y_bird);
-            
             handle_state_behavior();
-            // _XL_WAIT_VSYNC();
 
             handle_state_transition();
             
             ++counter;
-            // _XL_WAIT_VSYNC();
       
             handle_enemy_spawn();
             

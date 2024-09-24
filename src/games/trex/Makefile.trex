@@ -6,7 +6,7 @@ FULL_FILES ?= \
 
 GAME_NAME := trex
 
-PARENT_DIR = examples
+PARENT_DIR = games
 
 include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
 

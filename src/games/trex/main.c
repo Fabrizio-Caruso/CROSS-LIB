@@ -95,9 +95,10 @@ uint8_t bird_cooldown;
 
 uint8_t dead;
 
+// TODO: Necessary for CMOC
 uint16_t slowdown;
+
 uint8_t set_speed;
-// uint8_t disactivate_speed;
 
 uint16_t score;
 uint16_t hiscore;
@@ -108,7 +109,7 @@ uint8_t hilevel;
 uint8_t level_cacti;
 uint8_t level_bird;
 
-uint8_t slowdown_factor;
+uint16_t slowdown_factor;
 
 uint8_t counter;
 
@@ -1036,7 +1037,7 @@ void handle_speed(void)
         if(!active_bird && !number_of_active_cactus)
         {
             // ++slowdown;
-            slowdown = slowdown_factor*(_XL_SLOW_DOWN_FACTOR/2);
+            slowdown = ((uint16_t) slowdown_factor)*((uint16_t)_XL_SLOW_DOWN_FACTOR/2);
             set_speed = 0;
         }            
     }

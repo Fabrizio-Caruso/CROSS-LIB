@@ -850,7 +850,7 @@ void handle_game_start(void)
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     draw_jump_dino_0(0);
     _XL_REFRESH();
-    x_bird = 0;
+    x_bird = RIGHT_END_OF_TERRAIN;
     y_bird = Y_DINO-1;
     while(!start || x_bird>LEFT_END_OF_TERRAIN)
     {

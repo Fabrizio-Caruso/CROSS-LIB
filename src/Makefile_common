@@ -964,21 +964,23 @@ endif
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	-o $(BUILD_PATH)/XBIN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) $(BUILD_PATH)/XBIN.dsk  $(BUILD_PATH)/XBIN_$@_gx4000.cpr   -c 'run"XBIN.CPC'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
 endif
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv $(BUILD_PATH)/XBIN.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv $(BUILD_PATH)/XBIN_$@_gx4000.cpr $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr
+	rm -rf $(BUILD_PATH)/XBIN.bin
+	rm -rf $(BUILD_PATH)/XBIN.cpc
+	rm -rf $(BUILD_PATH)/XBIN
 
 
 

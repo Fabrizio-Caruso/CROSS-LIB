@@ -95,7 +95,6 @@ uint8_t bird_cooldown;
 
 uint8_t dead;
 
-// TODO: Necessary for CMOC
 uint16_t slowdown;
 
 uint8_t set_speed;
@@ -187,82 +186,54 @@ void handle_state_behavior(void)
     switch(state)
     {
 
-        case 0:
-            // draw_jump_dino_0(0);
-
-            // delete_feet(0);
-            
+        case 0:  
             draw_dino_feet_1();
         break;
         
         case 1:
-            // delete_feet(0);
-            
             draw_dino_feet_0();
         break;
         
-        // case JUMP:
-                // delete_feet(0);
-                
-                // draw_jump_dino_0(0+1);
-                
-        // break;
-        
         case JUMP+1:
-                delete_feet(0);
-                // draw_jump_dino_1(0+1);
-                delete_feet(1);
-                
-                draw_jump_dino_0(1+1);
+            delete_feet(0);
+            delete_feet(1);
+            draw_jump_dino_0(1+1);
                 
         break;
         
         case JUMP+2:
-                // draw_jump_dino_1(1+1);
-
-                delete_feet(2);
-                
-                draw_jump_dino_0(2+1);
-                
+            delete_feet(2);
+            #if !defined(FEWER_DISPLAYS)
+            draw_jump_dino_0(2+1);
+            #endif
+            
         break;
         
         case JUMP+3:
-                // draw_jump_dino_1(2+1);
-
-                delete_feet(3);
-                
-                draw_jump_dino_0(3+1);
+            delete_feet(3);        
+            draw_jump_dino_0(3+1);
                 
         break;
         
         case JUMP+4:
-                // draw_jump_dino_1(3+1);
-
-                delete_feet(4);
-                
-                draw_jump_dino_0(4+1);
-                
+            delete_feet(4);   
+            #if !defined(FEWER_DISPLAYS)
+            draw_jump_dino_0(4+1);
+            #endif
         break;
 
         case JUMP+5:
-                // draw_jump_dino_1(4+1);
-
-                delete_feet(5);
-                
-                draw_jump_dino_0(5+1);
-                
+            delete_feet(5);
+            draw_jump_dino_0(5+1);
         break;
         
         case JUMP+6:
-            // delete_feet(5);
-            
+            #if !defined(FEWER_DISPLAYS)
             draw_jump_dino_2(5+1);
+            #endif
         break;
 
         case JUMP+7:
-            // delete_feet(5);
-            
-            // draw_jump_dino_2(5+1);
         break;
 
         case JUMP+8:
@@ -276,17 +247,21 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+10:
-            // delete_top(4);
+            #if !defined(FEWER_DISPLAYS)
+
             draw_jump_dino_1(4);
+            #endif
         break;
         
         case JUMP+11:
             delete_top(4);
+            #if !defined(FEWER_DISPLAYS)
+
             draw_jump_dino_0(4);
+            #endif
         break;
         
         case JUMP+12:
-            // delete_top(3);
             draw_jump_dino_1(3);
         break;
         
@@ -296,8 +271,10 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+14:
-            // delete_top(2);
+            #if !defined(FEWER_DISPLAYS)
+
             draw_jump_dino_1(2);
+            #endif
         break;
         
         case JUMP+15:
@@ -306,43 +283,19 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+16:
-            // delete_top(1);
             draw_jump_dino_1(1);
         break;
-        
-        // case JUMP+16:
-            // delete_top(1);
-            // draw_jump_dino_0(1);
-        // break;
-        
-        // case JUMP+17:
-            // delete_top(0);
-            // draw_jump_dino_1(0);
-        // break;
 
-        
         case JUMP+END_JUMP:
 
             delete_top(0);
-            // _XL_SLEEP(1);
-            delete_top(1);
-            // _XL_SLEEP(1);
-            
+            delete_top(1);            
             draw_jump_dino_0(0);
-
-            // delete_feet(0);            
-            //_XL_SLEEP(1);
-
-            
-            // draw_dino_feet_0();            
-            //_XL_SLEEP(1);
-
         break;
         
         case 99: // like case 1
             draw_jump_dino_0(0);
             
-            // draw_dino_feet_0();
         break;
     }
 }
@@ -373,10 +326,20 @@ void handle_state_transition(void)
             {
                 state = JUMP+1;
             }
-            else if(counter&1)
-            {
-                state = 1;
-            }
+            state = 90;
+            // #if !defined(SLOWER_FEET)
+            // else if(counter&1)
+            // #else
+            // else if(!(counter&7))
+            // #endif
+            // {
+                // state = 1;
+            // }
+            // else
+            // {
+                // state = 90;
+            // }
+
         break;
         
         case 1:
@@ -386,15 +349,60 @@ void handle_state_transition(void)
             {
                 state = JUMP+1;
             }
-            else if(counter&1)
-            {
-                state = 0;
-            }
+            // #if !defined(SLOWER_FEET)
+            // else if(counter&1)
+            // #else
+            // else if(!(counter&7))
+            // #endif
+            // {
+                // state = 0;
+            // }
+            // else
+            // {
+                // state = 91;
+            // }
+            state = 91;
         break;
         
         case JUMP+END_JUMP:
             // draw_jump_dino_0(0);
             state=99;
+        break;
+
+        case 90:
+            input = _XL_INPUT();
+            
+            if(_XL_FIRE(input))
+            {
+                state = JUMP+1;
+            }
+            
+            #if !defined(SLOWER_FEET)
+            else if(counter&1)
+            #else
+            else if(!(counter&7))
+            #endif
+            {
+                state = 1;
+            }
+        break;
+        
+        case 91:
+            input = _XL_INPUT();
+            
+            if(_XL_FIRE(input))
+            {
+                state = JUMP+1;
+            }
+            
+            #if !defined(SLOWER_FEET)
+            else if(counter&1)
+            #else
+            else if(!(counter&7))
+            #endif
+            {
+                state = 0;
+            }
         break;
         
         default:
@@ -436,7 +444,7 @@ void display_hilevel(void)
 }
 
 
-
+#if !defined(NO_CACTUS_TRANSITION)
 void handle_cactus_half_transition(uint8_t i)
 {
     if(active_cactus[i])// && x_cactus[i])
@@ -447,7 +455,7 @@ void handle_cactus_half_transition(uint8_t i)
         _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
     }
 }
-
+#endif
 
 void handle_bird_half_transition(void)
 {
@@ -699,10 +707,12 @@ void handle_enemies(void)
     }
     else
     {
+        #if !defined(NO_CACTUS_TRANSITION)
         for(i=0;i<level_cacti;++i)
         {
             handle_cactus_half_transition(i);
         }
+        #endif
         if (level_bird)
         {
             handle_bird_half_transition();
@@ -1023,12 +1033,9 @@ void handle_level(void)
             
             activate_level();
         }
-        // _XL_SLEEP(3);
     }
 }
 
-
-// #define LEVEL_SIZE 200
 
 void handle_speed(void)
 {
@@ -1036,7 +1043,6 @@ void handle_speed(void)
     {
         if(!active_bird && !number_of_active_cactus)
         {
-            // ++slowdown;
             slowdown = ((uint16_t) slowdown_factor)*((uint16_t)_XL_SLOW_DOWN_FACTOR/2);
             set_speed = 0;
         }            

@@ -1,5 +1,22 @@
 # THE GAMES
 
+
+-------------------------------------------
+## TREX
+
+
+CONTROLS: either SPACE or FIRE.
+
+1. Commodore Vic 20: 
+https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_vic20_exp_16k.prg
+
+2. MSX:
+https://webmsx.org/?cartridge1_url=https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_msx_16k.rom
+
+3. Video Technology Laser 500: 
+https://nippur72.github.io/laser500emu/?load=https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_laser500.bin
+
+
 -------------------------------------------
 ## STINGER
 ![Vic20](/snapshots/XStinger_VIC20_gameplay.jpg)

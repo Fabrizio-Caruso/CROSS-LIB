@@ -3,7 +3,7 @@
 
 -------------------------------------------
 ## TREX
-
+![Vic20](/snapshots/vic20_trex.jpg)
 
 CONTROLS: either SPACE or FIRE.
 

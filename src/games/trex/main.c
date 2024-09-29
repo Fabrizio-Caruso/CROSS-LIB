@@ -830,13 +830,13 @@ void initialize_enemies(void)
     {
         x_cactus[i] = 0;
         active_cactus[i] = 0;
-        cactus_cooldown[i] = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&3));
+        cactus_cooldown[i] = (uint8_t) (INITIAL_CACTUS_COOLDOWN);
     }
     number_of_active_cactus = 0;
     
     x_bird = 0;
     active_bird = 0;
-    bird_cooldown = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&63));
+    bird_cooldown = (uint8_t) (INITIAL_CACTUS_COOLDOWN);
 }
 
 

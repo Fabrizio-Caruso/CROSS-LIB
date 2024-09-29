@@ -11,10 +11,10 @@ CONTROLS: either SPACE or FIRE.
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_vic20_exp_16k.prg
 
 2. MSX:
-https://webmsx.org/?cartridge1_url=https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_msx_16k.rom
+https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_msx_16k.rom
 
 3. Video Technology Laser 500: 
-https://nippur72.github.io/laser500emu/?load=https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_laser500.bin
+https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_laser500_keyboard.bin
 
 
 -------------------------------------------

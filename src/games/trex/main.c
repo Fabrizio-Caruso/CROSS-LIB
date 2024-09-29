@@ -710,7 +710,7 @@ void spawn_bird(void)
 #endif
 #define DELETE_PRESS       "           "
 
-#define INITIAL_CACTUS_COOLDOWN 5
+#define INITIAL_CACTUS_COOLDOWN 3
 
 
 void handle_enemy_spawn(void)
@@ -830,7 +830,7 @@ void initialize_enemies(void)
     {
         x_cactus[i] = 0;
         active_cactus[i] = 0;
-        cactus_cooldown[i] = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&16));
+        cactus_cooldown[i] = (uint8_t) (INITIAL_CACTUS_COOLDOWN+(_XL_RAND()&3));
     }
     number_of_active_cactus = 0;
     
@@ -1045,40 +1045,59 @@ void activate_level(void)
         case 7:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 13;
+            slowdown_factor = 14;
             // counter = LEVEL_SIZE/4;
             break;
         case 8:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 12;
+            slowdown_factor = 13;
             break;
         case 9:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 11;
+            slowdown_factor = 12;
             break;
         case 10:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 10;
+            slowdown_factor = 11;
             break;
         case 11:
+        case 12:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 10;
+            break;
+        case 13:
+        case 14:
+        case 15:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 9;
             break;
-        case 12:
+        case 16: 
+        case 17:
+        case 18:
+        case 19:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 8;
             break;
-        case 13:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 7;
             break;
-        case 14:
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+        case 29:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 6;
@@ -1149,7 +1168,7 @@ int main(void)
         activate_level();
         while(!dead)
         {
-            // _XL_PRINTD(0,4,2,state);
+            // _XL_PRINTD(0,4,2,counter);
             
             handle_state_behavior();
 

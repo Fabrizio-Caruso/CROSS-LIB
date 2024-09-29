@@ -1033,47 +1033,52 @@ void activate_level(void)
         case 5:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 14;
+            slowdown_factor = 15;
             // counter = LEVEL_SIZE/2;
             break;
         case 6:
             level_bird = 1;
             level_cacti = 2;
-            slowdown_factor = 13;
+            slowdown_factor = 14;
             // counter = LEVEL_SIZE/4;
             break;
         case 7:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 12;
+            slowdown_factor = 13;
             // counter = LEVEL_SIZE/4;
             break;
         case 8:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 11;
+            slowdown_factor = 12;
             break;
         case 9:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 10;
+            slowdown_factor = 11;
             break;
         case 10:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 9;
+            slowdown_factor = 10;
             break;
         case 11:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 8;
+            slowdown_factor = 9;
             break;
         case 12:
             level_bird = 1;
             level_cacti = 3;
-            slowdown_factor = 7;
+            slowdown_factor = 8;
             break;
         case 13:
+            level_bird = 1;
+            level_cacti = 3;
+            slowdown_factor = 7;
+            break;
+        case 14:
             level_bird = 1;
             level_cacti = 3;
             slowdown_factor = 6;

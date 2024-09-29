@@ -704,7 +704,7 @@ void spawn_bird(void)
 }
 
 #if defined(_XL_NO_JOYSTICK)
-    #define PRESS_TO_START "PRESS A KEY"
+    #define PRESS_TO_START "PRESS SPACE"
 #else
     #define PRESS_TO_START "PRESS START"
 #endif

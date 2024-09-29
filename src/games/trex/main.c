@@ -704,9 +704,9 @@ void spawn_bird(void)
 }
 
 #if defined(_XL_NO_JOYSTICK)
-    #define PRESS_TO_START "PRESS SPACE"
+    #define PRESS_TO_FIRE "PRESS SPACE"
 #else
-    #define PRESS_TO_START "PRESS START"
+    #define PRESS_TO_FIRE "PRESS FIRE"
 #endif
 #define DELETE_PRESS       "           "
 
@@ -804,7 +804,7 @@ void draw_terrain(void)
     
     for(i=LEFT_END_OF_TERRAIN;i<RIGHT_END_OF_TERRAIN;++i)
     {
-        r = _XL_RAND()&3;
+        r = (uint8_t)(_XL_RAND()&3);
         
         if(!r)
         {
@@ -925,7 +925,7 @@ void handle_game_start(void)
     display_hilevel();
     
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
-    _XL_PRINT(XSize/2-6, YSize/2-3, PRESS_TO_START);
+    _XL_PRINT(XSize/2-6, YSize/2-3, PRESS_TO_FIRE);
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     draw_jump_dino_0(0);
     _XL_REFRESH();

@@ -70,7 +70,7 @@
     #define LEVEL_Y 2
 #endif
 
-#define LEVEL_X ((XSize)/2-5)
+#define LEVEL_X ((XSize)/2-4)
 
 #define NUMBER_OF_CACTI 3
 
@@ -459,8 +459,8 @@ void display_score(void)
 void display_hiscore(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize-1-4-2,0,"HI");
-    _XL_PRINTD(XSize-1-4,0,4,hiscore);
+    _XL_PRINT(XSize-4-2,0,"HI");
+    _XL_PRINTD(XSize-4,0,4,hiscore);
 
 }
 

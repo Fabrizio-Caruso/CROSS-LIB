@@ -800,10 +800,24 @@ void handle_collisions(void)
 void draw_terrain(void)
 {
     uint8_t i;
+    uint8_t r;
     
     for(i=LEFT_END_OF_TERRAIN;i<RIGHT_END_OF_TERRAIN;++i)
     {
-        _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
+        r = _XL_RAND()&3;
+        
+        if(!r)
+        {
+            _XL_DRAW(i,Y_TERRAIN,TERRAIN_2,_XL_WHITE);
+        }
+        else if(r==1)
+        {
+            _XL_DRAW(i,Y_TERRAIN,TERRAIN_3,_XL_WHITE);
+        }
+        else
+        {
+            _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
+        }
     }       
 }
 

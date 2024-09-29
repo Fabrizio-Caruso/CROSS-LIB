@@ -21,13 +21,9 @@
     #define TAIL_DINO_1           _TILE_8
     #define FOOT_DINO_1           _TILE_9
     
-    // Dino with +6(-2) pixel offset 
-    // #define TOP_DINO_2            _TILE_10
-    // #define MIDDLE_DINO_2         _TILE_11
-    // #define BOTTOM_DINO_2         _TILE_12
-    
-    // #define TAIL_DINO_2           _TILE_13
-    // #define FOOT_DINO_2           _TILE_14
+
+    #define TERRAIN_2             _TILE_13
+    #define TERRAIN_3             _TILE_14
     
 
     #define TOP_CACTUS_2          _TILE_10

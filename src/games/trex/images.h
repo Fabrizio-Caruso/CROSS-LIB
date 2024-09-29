@@ -22,12 +22,22 @@
     #define FOOT_DINO_1           _TILE_9
     
     // Dino with +6(-2) pixel offset 
-    #define TOP_DINO_2            _TILE_10
-    #define MIDDLE_DINO_2         _TILE_11
-    #define BOTTOM_DINO_2         _TILE_12
+    // #define TOP_DINO_2            _TILE_10
+    // #define MIDDLE_DINO_2         _TILE_11
+    // #define BOTTOM_DINO_2         _TILE_12
     
-    #define TAIL_DINO_2           _TILE_13
-    #define FOOT_DINO_2           _TILE_14
+    // #define TAIL_DINO_2           _TILE_13
+    // #define FOOT_DINO_2           _TILE_14
+    
+
+    #define TOP_CACTUS_2          _TILE_10
+    #define BOTTOM_CACTUS_2       _TILE_17
+
+    #define TOP_LEFT_CACTUS_2     _TILE_11
+    #define BOTTOM_LEFT_CACTUS_2  _TILE_20
+    #define TOP_RIGHT_CACTUS_2    _TILE_12
+    #define BOTTOM_RIGHT_CACTUS_2 _TILE_21
+    
 
     #define TERRAIN               _TILE_15
     

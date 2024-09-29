@@ -142,15 +142,15 @@ void draw_jump_dino_1(uint8_t height)
 
 }   
 
-void draw_jump_dino_2(uint8_t height)
-{
-    _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_2,_XL_WHITE);
-    _XL_DRAW(X_DINO+1,Y_DINO-height,MIDDLE_DINO_2,_XL_WHITE);    
-    _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_2,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1-1-height,TAIL_DINO_2,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_2,_XL_WHITE);   
+// void draw_jump_dino_2(uint8_t height)
+// {
+    // _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_2,_XL_WHITE);
+    // _XL_DRAW(X_DINO+1,Y_DINO-height,MIDDLE_DINO_2,_XL_WHITE);    
+    // _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_2,_XL_WHITE);
+    // _XL_DRAW(X_DINO,Y_DINO+1-1-height,TAIL_DINO_2,_XL_WHITE);
+    // _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_2,_XL_WHITE);   
     
-}  
+// }  
 
 void delete_feet(uint8_t height)
 {
@@ -485,10 +485,20 @@ void handle_cactus_half_transition(uint8_t i)
 {
     if(active_cactus[i])// && x_cactus[i])
     {
-        _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
-        _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
+        if(i&1)
+        {
+            _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS,_XL_WHITE);
+            _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS,_XL_WHITE);
+            _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS,_XL_WHITE);
+            _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS,_XL_WHITE);
+        }
+        else
+        {
+            _XL_DRAW(x_cactus[i]-1,Y_CACTUS-1,TOP_LEFT_CACTUS_2,_XL_WHITE);
+            _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_RIGHT_CACTUS_2,_XL_WHITE);
+            _XL_DRAW(x_cactus[i]-1,Y_CACTUS,BOTTOM_LEFT_CACTUS_2,_XL_WHITE);
+            _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_RIGHT_CACTUS_2,_XL_WHITE);
+        }
     }
 }
 #endif
@@ -549,8 +559,16 @@ void update_cactus(uint8_t i)
         {
             --x_cactus[i];
 
-            _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
-            _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+            if(i&1)
+            {
+                _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
+                _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+            }
+            else
+            {
+                _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS_2,_XL_WHITE);
+                _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS_2,_XL_WHITE);
+            }
         }
     }
 }

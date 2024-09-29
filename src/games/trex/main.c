@@ -115,14 +115,17 @@ uint8_t counter;
 
 void draw_jump_dino_0(uint8_t height)
 {
+
     // Initial tiles
     _XL_DRAW(X_DINO+1,Y_DINO-height,TOP_DINO_0,_XL_WHITE);
     _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_0,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1-height,TAIL_DINO_0,_XL_WHITE);
+
 }    
 
 void draw_dead_dino_0(void)
 {
+
     // Initial tiles
     _XL_DRAW(X_DINO+1,Y_DINO,TOP_DEAD_DINO_0,_XL_WHITE);
     _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
@@ -136,6 +139,7 @@ void draw_jump_dino_1(uint8_t height)
     _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_1,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1-1-height,TAIL_DINO_1,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_1,_XL_WHITE);    
+
 }   
 
 void draw_jump_dino_2(uint8_t height)
@@ -144,7 +148,8 @@ void draw_jump_dino_2(uint8_t height)
     _XL_DRAW(X_DINO+1,Y_DINO-height,MIDDLE_DINO_2,_XL_WHITE);    
     _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_2,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1-1-height,TAIL_DINO_2,_XL_WHITE);
-    _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_2,_XL_WHITE);    
+    _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_2,_XL_WHITE);   
+    
 }  
 
 void delete_feet(uint8_t height)
@@ -177,12 +182,13 @@ void draw_dino_feet_1(void)
 // #define RUN_SLOW_DOWN 4
 
 
-#define JUMP 1
+#define JUMP 10
 
 #define END_JUMP 17
 
 void handle_state_behavior(void)
 {
+
     switch(state)
     {
 
@@ -201,15 +207,23 @@ void handle_state_behavior(void)
                 
         break;
         
+        // case JUMP+2:
+            // delete_feet(2);
+            // #if !defined(FEWER_DISPLAYS)
+            // draw_jump_dino_0(2+1);
+            // #endif
+            
+        // break;
+        
         case JUMP+2:
             delete_feet(2);
-            #if !defined(FEWER_DISPLAYS)
+            delete_feet(3);        
             draw_jump_dino_0(2+1);
-            #endif
-            
+                
         break;
-        
+
         case JUMP+3:
+            delete_feet(2);
             delete_feet(3);        
             draw_jump_dino_0(3+1);
                 
@@ -223,68 +237,86 @@ void handle_state_behavior(void)
         break;
 
         case JUMP+5:
+            // delete_feet(4);   
+            draw_jump_dino_1(4+1);
+        break;
+
+        case JUMP+6:
             delete_feet(5);
             draw_jump_dino_0(5+1);
         break;
         
-        case JUMP+6:
-            #if !defined(FEWER_DISPLAYS)
-            draw_jump_dino_2(5+1);
-            #endif
-        break;
-
         case JUMP+7:
+            delete_feet(5);
+            draw_jump_dino_1(5+1);
         break;
 
         case JUMP+8:
-            delete_top(6);
-            draw_jump_dino_0(6);
+            // #if !defined(FEWER_DISPLAYS)
+            // draw_jump_dino_2(5+1);
+            // #endif
         break;
         
         case JUMP+9:
+        break;
+
+        // case JUMP+10:
+        // break;
+
+        case JUMP+10: // 7
             delete_top(5);
-            draw_jump_dino_0(5);
+            draw_jump_dino_1(5+1);
         break;
         
-        case JUMP+10:
+        case JUMP+11: // 6
+            delete_top(6);
+            draw_jump_dino_0(5+1);
+        break;
+        
+        case JUMP+12: // 5
             #if !defined(FEWER_DISPLAYS)
 
-            draw_jump_dino_1(4);
+            draw_jump_dino_1(4+1);
             #endif
         break;
         
-        case JUMP+11:
+        case JUMP+13: // 4
+            delete_top(5);
+            #if !defined(FEWER_DISPLAYS)
+
+            draw_jump_dino_0(4+1);
+            #endif
+        break;
+        
+        case JUMP+14: // 3
             delete_top(4);
-            #if !defined(FEWER_DISPLAYS)
 
-            draw_jump_dino_0(4);
-            #endif
+            draw_jump_dino_0(3+1);
         break;
         
-        case JUMP+12:
-            draw_jump_dino_1(3);
-        break;
-        
-        case JUMP+13:
+        case JUMP+15: // 2
             delete_top(3);
-            draw_jump_dino_0(3);
-        break;
-        
-        case JUMP+14:
-            #if !defined(FEWER_DISPLAYS)
-
-            draw_jump_dino_1(2);
-            #endif
-        break;
-        
-        case JUMP+15:
-            delete_top(2);
-            draw_jump_dino_0(2);
+            draw_jump_dino_0(2+1);
         break;
         
         case JUMP+16:
-            draw_jump_dino_1(1);
+            #if !defined(FEWER_DISPLAYS)
+            delete_top(2);
+
+            draw_jump_dino_0(1+1);
+            #endif
         break;
+        
+        // case JUMP+15:
+            // delete_top(2);
+            // draw_jump_dino_0(2);
+        // break;
+        
+        // case JUMP+17:
+            // delete_top(2);
+        
+            // draw_jump_dino_1(1);
+        // break;
 
         case JUMP+END_JUMP:
 
@@ -298,6 +330,10 @@ void handle_state_behavior(void)
             
         break;
     }
+    // if(state>1)
+    // {
+        // _XL_SLEEP(1);
+    // }
 }
 
 
@@ -466,7 +502,7 @@ void handle_bird_half_transition(void)
     }
 }
 
-#define INITIAL_LOW_COLLISION_THRESHOLD 5
+#define INITIAL_LOW_COLLISION_THRESHOLD (JUMP+3)
 #define FINAL_LOW_COLLISION_THRESHOLD ((JUMP)+END_JUMP-2)
 
 void one_point(void)
@@ -1076,6 +1112,7 @@ int main(void)
         activate_level();
         while(!dead)
         {
+            // _XL_PRINTD(0,4,2,state);
             
             handle_state_behavior();
 

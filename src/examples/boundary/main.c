@@ -47,6 +47,9 @@ int main(void)
         _XL_DRAW(XSize-1,i,_TILE_0,_XL_WHITE);
     }    
 
+    _XL_PRINT(XSize-4-2,0,"HI");
+    _XL_PRINTD(XSize-4,0,4,1234);
+
     while(1){};
     
     return EXIT_SUCCESS;

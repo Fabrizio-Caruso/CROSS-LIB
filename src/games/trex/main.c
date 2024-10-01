@@ -528,6 +528,18 @@ void one_point(void)
 #define BIRD_COOLDOWN_MASK 63U
 #define CACTUS_COOLDOWN_MASK 31U
 
+void draw_cactus_1(x)
+{
+    _XL_DRAW(x,Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
+    _XL_DRAW(x,Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+}
+
+void draw_cactus_2(x)
+{
+    _XL_DRAW(x,Y_CACTUS-1,TOP_CACTUS_2,_XL_WHITE);
+    _XL_DRAW(x,Y_CACTUS,BOTTOM_CACTUS_2,_XL_WHITE);
+}
+
 void update_cactus(uint8_t i)
 {
     if(active_cactus[i])
@@ -561,13 +573,11 @@ void update_cactus(uint8_t i)
 
             if(i&1)
             {
-                _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
-                _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
+                draw_cactus_1(x_cactus[i]);
             }
             else
             {
-                _XL_DRAW(x_cactus[i],Y_CACTUS-1,TOP_CACTUS_2,_XL_WHITE);
-                _XL_DRAW(x_cactus[i],Y_CACTUS,BOTTOM_CACTUS_2,_XL_WHITE);
+                draw_cactus_2(x_cactus[i]);
             }
         }
     }
@@ -814,11 +824,34 @@ void draw_terrain(void)
         {
             _XL_DRAW(i,Y_TERRAIN,TERRAIN_3,_XL_WHITE);
         }
+        else if(!(i&1))
+        {
+            _XL_DRAW(i,Y_TERRAIN,TERRAIN_3,_XL_WHITE);
+        }
         else
         {
             _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
         }
     }       
+}
+
+
+void draw_cacti(void)
+{
+    draw_cactus_1(RIGHT_END_OF_TERRAIN-2);
+    draw_cactus_2(RIGHT_END_OF_TERRAIN-4);
+    draw_cactus_1(RIGHT_END_OF_TERRAIN-6);
+}
+
+void delete_cacti(void)
+{
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-2,Y_CACTUS-1);
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-4,Y_CACTUS-1);
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-6,Y_CACTUS-1);
+    
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-2,Y_CACTUS);
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-4,Y_CACTUS);
+    _XL_DELETE(RIGHT_END_OF_TERRAIN-6,Y_CACTUS);
 }
 
 
@@ -915,6 +948,9 @@ void handle_game_start(void)
     display_hiscore();
     draw_terrain();
     
+    draw_cacti();
+    
+    
     _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(LEVEL_X+1,  0,     "TREX");
@@ -979,6 +1015,8 @@ void handle_game_start(void)
     }
     _XL_DELETE(x_bird,y_bird);
     _XL_DELETE(x_bird+1,y_bird);
+    
+    delete_cacti();
     
     _XL_PRINT(LEVEL_X+1+1,1,      "  ");
 
@@ -1161,9 +1199,10 @@ int main(void)
         
         initialize_player();
 
+        handle_game_start();
+
         initialize_enemies();
 
-        handle_game_start();
 
         activate_level();
         while(!dead)

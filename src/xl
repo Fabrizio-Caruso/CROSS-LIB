@@ -111,8 +111,13 @@ SHORT_COMMANDS_LIST = OrderedDict( \
 
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
+    if z88dk_compiler == 'zsdcc' or z88dk_compiler == 'sdcc':
+        compiler_selection = " -compiler=sdcc "
+    else:
+        compiler_selection = ""
+
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-           " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + "'" + \
+           " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + compiler_selection + "'" + \
            " GCC4TI99_MAKEFILE_COMPILATION_OPTS='" + gcc4ti99_compiler_opts + "'" + \
            " NATIVE_MAKEFILE_COMPILATION_OPTS='" + native_compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
@@ -3175,6 +3180,7 @@ def read_config():
     global compilation_threads
     global parallelize_multi_build
     global z88dk_compiler_opts 
+    global z88dk_compiler
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
@@ -3255,6 +3261,7 @@ def read_config():
             parallelize_multi_build=0
             
         z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts") 
+        z88dk_compiler = read_config_option("build","z88dk_compiler")
         zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
         cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
@@ -3304,6 +3311,7 @@ def default_config():
     global compilation_threads
     global parallelize_multi_build
     global z88dk_compiler_opts 
+    global z88dk_compiler
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
@@ -3336,6 +3344,7 @@ def default_config():
     parallelize_multi_build = 0
     zsdcc_compiler_opts = ""
     z88dk_compiler_opts = ""
+    z88dk_compiler = "sccz80"
     cmoc_compiler_opts = ""
     gcc4ti99_compiler_opts = ""
     native_compiler_opts = ""
@@ -3363,7 +3372,7 @@ def display_config():
     print("compilation_threads: " + str(compilation_threads))
     print("parallelize_multi_build: " + str(parallelize_multi_build))
 
-    
+    print("z88dk_compiler: " + z88dk_compiler)
     print("z88dk_compiler_opts: " +  z88dk_compiler_opts)
     print("zsdcc_compiler_opts: " +  zsdcc_compiler_opts)
     print("cmoc_compiler_opts: " +  cmoc_compiler_opts)

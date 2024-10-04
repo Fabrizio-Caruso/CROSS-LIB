@@ -647,17 +647,28 @@ def build(params):
             print("Compiler's options : " + compiler_opts)
             
             print("--------------------------")
-            print("z88dk_compiler_opts    : " + z88dk_compiler_opts)
+            print("z88dk_compiler_opts     : " + z88dk_compiler_opts)
             print("zsdcc_compiler_opts     : " + zsdcc_compiler_opts)
             print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
             print("cc65_compiler_opts      : " + cc65_compiler_opts) 
             print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts) 
-            print("gcc4ti99_compiler_opts: " +  gcc4ti99_compiler_opts)
-            print("native_compiler_opts: " +  native_compiler_opts)
+            print("gcc4ti99_compiler_opts  : " +  gcc4ti99_compiler_opts)
+            print("native_compiler_opts    : " +  native_compiler_opts)
             
             print("")
 
         parent_and_game_dir = parent_dir + "/" + game_dir
+        
+        if os.path.exists(parent_and_game_dir + "/config.ini"):
+            print("Local config.ini detected")
+            read_config(parent_and_game_dir + "/config.ini")
+        else:
+            print("Use general config.ini")
+            read_config()
+        # try:
+            # read_config(parent_and_game_dir)
+        # except:
+            # print("No local config.ini")
 
         if(game_dir not in ["games", "examples", "projects", "all"]):
             if not os.path.exists(parent_and_game_dir):
@@ -3172,7 +3183,7 @@ def read_config_option(section, option):
         else:
             return ""
 
-def read_config():
+def read_config(config_file="./config.ini"):
     try:
         import configparser
     except ImportError:
@@ -3216,7 +3227,14 @@ def read_config():
     
     try:
 
-        config.read('config.ini')
+        # candidate_conf = config_dir+'/config.ini'
+        # if os.path.exists(candidate_conf):
+            # print("Read configuration from " + candidate_conf, flush=True)
+            # config.read(candidate_conf)
+        # else:
+            # print("Use general config")
+        
+        config.read(config_file)
         
         global_vars.test = read_config_option("terminal","test")
         if global_vars.test!="":

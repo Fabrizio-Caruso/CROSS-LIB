@@ -114,6 +114,9 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
     if z88dk_compiler == 'zsdcc' or z88dk_compiler == 'sdcc':
         compiler_selection = " -compiler=sdcc "
         compiler_opts = compiler_opts + " " + zsdcc_compiler_opts
+    elif z88dk_compiler == 'ez80clang' or z88dk_compiler == 'clang':
+        compiler_selection = " -compiler=ez80clang "
+        compiler_opts = compiler_opts
     else:
         compiler_selection = ""
         compiler_opts = compiler_opts + " " + sccz80_compiler_opts 

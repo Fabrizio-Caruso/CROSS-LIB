@@ -97,6 +97,12 @@ OBJECT_LIST= \
   $(SOURCE_PATH)/main.o
 
 
+OBJECT_DEBUG_LIST= \
+  $(TOOLS_PATH)/ti99/crt0_ea5.o \
+  $(SOURCE_PATH)/main.o
+
+
+
 TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 
 # Recipes to compile individual files
@@ -115,12 +121,18 @@ TINY_PREREQUISITES=\
 PREREQUISITES=\
   $(OBJECT_LIST)
 
-
+PREREQUISITES_DEBUG=\
+  $(OBJECT_DEBUG_LIST)
+  
 #####################################################################
 
 
 xchase.ea5.elf: $(PREREQUISITES)
 	$(LD) $(OBJECT_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.elf > xchase.map
+	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
+
+xchase.ea5.debug.elf: $(PREREQUISITES_DEBUG)
+	$(LD) $(OBJECT_DEBUG_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.debug.elf > xchase.map
 	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
 
@@ -130,6 +142,16 @@ ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMP
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
+	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
+	rm -rf x$(GAME_NAME)1.ea5.bin
+
+
+ti99debug: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.debug.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.debug.elf x$(GAME_NAME)1.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
+	rm -rf xchase.map
+	rm -rf ea5.map
+	rm -rf xchase.ea5.debug.elf
 	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
 	rm -rf x$(GAME_NAME)1.ea5.bin
 

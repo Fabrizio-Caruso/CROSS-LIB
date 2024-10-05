@@ -688,7 +688,6 @@ vic20_exp_8k_conio: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
 	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
-	 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
@@ -705,7 +704,6 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-D__MEMORY_MAPPED_GRAPHICS  -D__VIC20__ -D__VIC20_EXP_8K \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
-	-D__ALT_SLEEP \
 	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -721,8 +719,8 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D__VIC20_EXP_3K \
 	-D__MEMORY_MAPPED_GRAPHICS \
 	$(VIC_20_EXP_3K_GAME_OPTS) \
-	-D_XL_NO_TEXT_COLOR \
-	-D_XL_NO_SLEEP -D__ALT_PRINT \
+	-D__ALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \

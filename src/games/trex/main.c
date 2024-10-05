@@ -209,13 +209,11 @@ void handle_state_behavior(void)
         
         case JUMP+2:
             delete_feet(2);
-            // delete_feet(3);        
             draw_jump_dino_0(2+1);
                 
         break;
 
         case JUMP+3:
-            // delete_feet(2);
             delete_feet(3);        
             draw_jump_dino_0(3+1);
                 
@@ -223,13 +221,10 @@ void handle_state_behavior(void)
         
         case JUMP+4:
             delete_feet(4);   
-            #if !defined(FEWER_DISPLAYS)
             draw_jump_dino_0(4+1);
-            #endif
         break;
 
         case JUMP+5:
-            // delete_feet(4);   
             draw_jump_dino_1(4+1);
         break;
 
@@ -244,19 +239,13 @@ void handle_state_behavior(void)
         break;
 
         case JUMP+8:
-            // #if !defined(FEWER_DISPLAYS)
-            // draw_jump_dino_2(5+1);
-            // #endif
+
         break;
         
         case JUMP+9:
         break;
 
-        // case JUMP+10:
-        // break;
-
         case JUMP+10: // 7
-            delete_top(5);
             draw_jump_dino_1(5+1);
         break;
         
@@ -266,23 +255,16 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+12: // 5
-            #if !defined(FEWER_DISPLAYS)
-
             draw_jump_dino_1(4+1);
-            #endif
         break;
         
         case JUMP+13: // 4
             delete_top(5);
-            #if !defined(FEWER_DISPLAYS)
-
             draw_jump_dino_0(4+1);
-            #endif
         break;
         
         case JUMP+14: // 3
             delete_top(4);
-
             draw_jump_dino_0(3+1);
         break;
         
@@ -292,23 +274,9 @@ void handle_state_behavior(void)
         break;
         
         case JUMP+16:
-            #if !defined(FEWER_DISPLAYS)
             delete_top(2);
-
             draw_jump_dino_0(1+1);
-            #endif
         break;
-        
-        // case JUMP+15:
-            // delete_top(2);
-            // draw_jump_dino_0(2);
-        // break;
-        
-        // case JUMP+17:
-            // delete_top(2);
-        
-            // draw_jump_dino_1(1);
-        // break;
 
         case JUMP+END_JUMP:
 
@@ -355,18 +323,6 @@ void handle_state_transition(void)
                 state = JUMP+1;
             }
             state = 90;
-            // #if !defined(SLOWER_FEET)
-            // else if(counter&1)
-            // #else
-            // else if(!(counter&7))
-            // #endif
-            // {
-                // state = 1;
-            // }
-            // else
-            // {
-                // state = 90;
-            // }
 
         break;
         
@@ -377,18 +333,6 @@ void handle_state_transition(void)
             {
                 state = JUMP+1;
             }
-            // #if !defined(SLOWER_FEET)
-            // else if(counter&1)
-            // #else
-            // else if(!(counter&7))
-            // #endif
-            // {
-                // state = 0;
-            // }
-            // else
-            // {
-                // state = 91;
-            // }
             state = 91;
         break;
         

@@ -662,33 +662,17 @@ void spawn_bird(void)
 
 void handle_enemy_spawn(void)
 {
-    // if(!set_speed) 
-    // {
-        if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) &&(!set_speed) )
-        {
-            spawn_cacti();
-        }
-        else if(level_bird && !set_speed)// && ((counter&3)==2))
-        {
-            spawn_bird();
-        }
-    // }
+
+    if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) &&(!set_speed) )
+    {
+        spawn_cacti();
+    }
+    else if(level_bird && !set_speed)// && ((counter&3)==2))
+    {
+        spawn_bird();
+    }
 }
 
-// void handle_enemy_spawn(void)
-// {
-    // if(!set_speed) // && !disactivate_speed)
-    // {
-        // if((number_of_active_cactus<level_cacti) && !(counter&3) && (x_bird<XSize/2))
-        // {
-            // spawn_cacti();
-        // }
-        // else if(level_bird && ((counter&3)==2))
-        // {
-            // spawn_bird();
-        // }
-    // }
-// }
 
 // TODO: Optimize for space
 void handle_enemies(void)
@@ -818,23 +802,34 @@ void initialize_enemies(void)
 
 void handle_game_over(void)
 {
+    uint8_t i;
+    uint8_t j;
+    
     _XL_DELETE(X_DINO,Y_DINO);
 
-    _XL_DELETE(X_DINO,Y_DINO-1);
-    _XL_DELETE(X_DINO,Y_DINO-2);
-    _XL_DELETE(X_DINO,Y_DINO-3);
-    _XL_DELETE(X_DINO,Y_DINO-4);
-    _XL_DELETE(X_DINO,Y_DINO-5);
-    _XL_DELETE(X_DINO,Y_DINO-6);
-    _XL_DELETE(X_DINO,Y_DINO-7);
+    for(i=1;i<8;++i)
+    {
+        for(j=1;j<3;++j)
+        {
+            _XL_DELETE(X_DINO-1+j,Y_DINO-i);
+        }
+    }
+
+    // _XL_DELETE(X_DINO,Y_DINO-1);
+    // _XL_DELETE(X_DINO,Y_DINO-2);
+    // _XL_DELETE(X_DINO,Y_DINO-3);
+    // _XL_DELETE(X_DINO,Y_DINO-4);
+    // _XL_DELETE(X_DINO,Y_DINO-5);
+    // _XL_DELETE(X_DINO,Y_DINO-6);
+    // _XL_DELETE(X_DINO,Y_DINO-7);
     
-    _XL_DELETE(X_DINO+1,Y_DINO-1);
-    _XL_DELETE(X_DINO+1,Y_DINO-2);
-    _XL_DELETE(X_DINO+1,Y_DINO-3);
-    _XL_DELETE(X_DINO+1,Y_DINO-4);
-    _XL_DELETE(X_DINO+1,Y_DINO-5);
-    _XL_DELETE(X_DINO+1,Y_DINO-6);
-    _XL_DELETE(X_DINO+1,Y_DINO-7);
+    // _XL_DELETE(X_DINO+1,Y_DINO-1);
+    // _XL_DELETE(X_DINO+1,Y_DINO-2);
+    // _XL_DELETE(X_DINO+1,Y_DINO-3);
+    // _XL_DELETE(X_DINO+1,Y_DINO-4);
+    // _XL_DELETE(X_DINO+1,Y_DINO-5);
+    // _XL_DELETE(X_DINO+1,Y_DINO-6);
+    // _XL_DELETE(X_DINO+1,Y_DINO-7);
     
     draw_dead_dino_0();
     _XL_REFRESH();

@@ -7,7 +7,8 @@
 
 # Paths to TMS9900 compilation tools 
 # ( Set in environment to override paths )
-TMS9900_DIR?=/opt/gcc4ti/bin
+TMS9900_DIR?=$(TMS9900-GCC_PATH)
+#/opt/gcc4ti/bin
 ELF2EA5_DIR?=$(CFG_PATH)gcc4ti99/elf2ea5
 EA5_SPLIT_DIR?=$(CFG_PATH)gcc4ti99/ea5split
 CLASSIC99_DSK1?=$(CFG_PATH)gcc4ti99/DSK1
@@ -28,9 +29,9 @@ LDFLAGS_EA5=\
   --section-start .text=a000 --section-start .data=2080 -M
 
 
-
+#  -fno-peephole2 -fno-function-cse
 C_FLAGS=\
-   -std=c99 $(GCC4TI99_MAKEFILE_COMPILATION_OPTS) $(TI99_GAME_OPTS) -s -I./ -fno-builtin -fno-peephole2 -fno-function-cse
+   -std=c99 $(GCC4TI99_MAKEFILE_COMPILATION_OPTS) $(TI99_GAME_OPTS) -s -I./ -fno-builtin
 
 
 
@@ -50,7 +51,7 @@ TI99_TINY_OPTS ?= \
 
 
 # -DBUGGY_MOD5 -DBUGGY_VERTICAL_DRAW -DBUGGY_GCC_TI99
-TI99_EXP_OPTS ?= \
+TI99_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib \
 	-DXSize=32   \
@@ -60,7 +61,7 @@ TI99_EXP_OPTS ?= \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_SLOW_DOWN_FACTOR=10*$(_TI99_SLOWDOWN)
 
-TI99_OPTS ?= \
+TI99_DEBUG_OPTS ?= \
 	$(C_FLAGS) $(GLOBAL_OPTS) \
 	-D__TI99__ -nostdlib \
 	-DXSize=32 -DYSize=23  \

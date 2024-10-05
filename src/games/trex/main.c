@@ -290,91 +290,92 @@ void handle_state_behavior(void)
             
         break;
     }
-    // if(state>1)
-    // {
-        // _XL_SLEEP(1);
-    // }
 }
 
+void handle_fire(void)
+{
+    input = _XL_INPUT();
+    
+    if(_XL_FIRE(input))
+    {
+        state = JUMP+1;
+    }
+}
 
 void handle_state_transition(void)
 {
     switch(state)
     {
-        case 99:
-
-            input = _XL_INPUT();
-            
-            if(_XL_FIRE(input))
-            {
-                state = JUMP+1;
-            }
-            else
-            {
-                state = 1;
-            }
-        break;      
+        // case 99:
+            // state = 1;
+            // handle_fire();
+        // break;      
         case 0:
 
-            input = _XL_INPUT();
+            // input = _XL_INPUT();
             
-            if(_XL_FIRE(input))
-            {
-                state = JUMP+1;
-            }
+            // if(_XL_FIRE(input))
+            // {
+                // state = JUMP+1;
+            // }
             state = 90;
-
+            handle_fire();
         break;
         
         case 1:
-            input = _XL_INPUT();
+            // input = _XL_INPUT();
             
-            if(_XL_FIRE(input))
-            {
-                state = JUMP+1;
-            }
+            // if(_XL_FIRE(input))
+            // {
+                // state = JUMP+1;
+            // }
             state = 91;
+            handle_fire();
         break;
         
         case JUMP+END_JUMP:
             // draw_jump_dino_0(0);
-            state=99;
+            state=1;
         break;
 
         case 90:
-            input = _XL_INPUT();
+            // input = _XL_INPUT();
             
-            if(_XL_FIRE(input))
-            {
-                state = JUMP+1;
-            }
+            // if(_XL_FIRE(input))
+            // {
+                // state = JUMP+1;
+            // }
             
             #if !defined(SLOWER_FEET)
-            else if(counter&1)
+            if(counter&1)
             #else
-            else if(!(counter&7))
+            if(!(counter&7))
             #endif
             {
                 state = 1;
             }
+            handle_fire();
+
         break;
         
         case 91:
-            input = _XL_INPUT();
+            // input = _XL_INPUT();
             
-            if(_XL_FIRE(input))
-            {
-                state = JUMP+1;
-            }
+            // if(_XL_FIRE(input))
+            // {
+                // state = JUMP+1;
+            // }
+            
             
             #if !defined(SLOWER_FEET)
-            else if(counter&1)
+            if(counter&1)
             #else
-            else if(!(counter&7))
+            if(!(counter&7))
             #endif
             {
                 state = 0;
             }
+            handle_fire();
         break;
         
         default:

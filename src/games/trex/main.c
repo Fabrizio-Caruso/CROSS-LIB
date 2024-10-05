@@ -207,23 +207,15 @@ void handle_state_behavior(void)
                 
         break;
         
-        // case JUMP+2:
-            // delete_feet(2);
-            // #if !defined(FEWER_DISPLAYS)
-            // draw_jump_dino_0(2+1);
-            // #endif
-            
-        // break;
-        
         case JUMP+2:
             delete_feet(2);
-            delete_feet(3);        
+            // delete_feet(3);        
             draw_jump_dino_0(2+1);
                 
         break;
 
         case JUMP+3:
-            delete_feet(2);
+            // delete_feet(2);
             delete_feet(3);        
             draw_jump_dino_0(3+1);
                 
@@ -1031,6 +1023,17 @@ void handle_game_start(void)
 
 #define LEVEL_SIZE  256U
 
+void birdAndTwoCacti(void)
+{
+    level_bird = 1;
+    level_cacti = 2;
+}
+
+void birdAndThreeCacti(void)
+{
+    level_bird = 1;
+    level_cacti = 3;
+}
 
 void activate_level(void)
 {
@@ -1040,86 +1043,61 @@ void activate_level(void)
         case 1:
             level_bird = 0;
             level_cacti = 1;
-            // counter = 2048U-1024U;
-            // level_bird = 1;
-            // level_cacti = NUMBER_OF_CACTI;
-            // counter = 1;
             slowdown_factor = 20;
-            // speed = 10;
-
             break;
         case 2:
             level_bird = 1;
             level_cacti = 1;
-            // counter = LEVEL_SIZE/2;
-
-            slowdown_factor = 20;
+            slowdown_factor = 19;
             break;
         case 3:
-            level_bird = 1;
-            level_cacti = 2;
+            birdAndTwoCacti();
             slowdown_factor = 18; 
-            // counter = LEVEL_SIZE/2;
             break;
         case 4:
-            level_bird = 1;
-            level_cacti = 2;
+            birdAndTwoCacti();
             slowdown_factor = 16;
-            // counter = LEVEL_SIZE/2;
-            // disactivate_speed = 1;
             break;
         case 5:
-            level_bird = 1;
-            level_cacti = 2;
+            birdAndTwoCacti();
             slowdown_factor = 15;
-            // counter = LEVEL_SIZE/2;
             break;
         case 6:
-            level_bird = 1;
-            level_cacti = 2;
+            birdAndTwoCacti();
             slowdown_factor = 14;
-            // counter = LEVEL_SIZE/4;
             break;
         case 7:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 14;
-            // counter = LEVEL_SIZE/4;
             break;
         case 8:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 13;
             break;
         case 9:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 12;
             break;
         case 10:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 11;
             break;
         case 11:
         case 12:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 10;
             break;
         case 13:
         case 14:
         case 15:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 9;
             break;
         case 16: 
         case 17:
         case 18:
         case 19:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 8;
             break;
         case 20:
@@ -1127,8 +1105,7 @@ void activate_level(void)
         case 22:
         case 23:
         case 24:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 7;
             break;
         case 25:
@@ -1136,13 +1113,11 @@ void activate_level(void)
         case 27:
         case 28:
         case 29:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 6;
             break;
         default:
-            level_bird = 1;
-            level_cacti = 3;
+            birdAndThreeCacti();
             slowdown_factor = 5;
 
             // counter = 0;

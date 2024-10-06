@@ -43,6 +43,36 @@
 
 uint16_t loc(uint8_t x, uint8_t y);
 
+#if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
+    #define X_MULT 2
+    #define Y_MULT 2
+#else
+    #define X_MULT 1
+    #define Y_MULT 1
+#endif
+
+// TODO: Isolate the bug when _XL_DRAW uses loc(x,y)
+// loc(x,y) -> 
+// no string displayed after _XL_DRAW in title screen of Snake
+//
+// locti99(x,y) ->
+// games/stinger/main.o: In function `L300':
+// (.text+0x1585): relocation truncated to fit: R_TMS9900_PC8 against `.text'
+// make: *** [makefiles.common/targets/gcc4ti/Makefile_ti99:132: xchase.ea5.elf] Error 1
+
+// #define locti99(x, y) ((uint16_t) BASE_ADDR)+(X_MULT)*x+(uint8_t)((Y_MULT)*y)*(uint16_t) ((XSize) + X_OFFSET)
+
+
+// #define _XL_DRAW(x,y,__tile,__color) \
+// do \
+// { \
+    // DISPLAY_POKE(locti99(x,y), (__tile)+(__color)); \
+// } \
+// while(0)
+
+// #define _XL_DELETE(x,y) DISPLAY_POKE(locti99(x,y), _SPACE)
+
+
 #define _XL_DRAW(x,y,__tile,__color) \
 do \
 { \
@@ -50,8 +80,8 @@ do \
 } \
 while(0)
 
-
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+
 
 
 #endif // _VDP_MODE1_GRAPHICS

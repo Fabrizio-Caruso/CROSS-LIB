@@ -18,6 +18,7 @@
 #elif defined(__TI99__)
         typedef unsigned char uint8_t;
         typedef unsigned int uint16_t;
+        #include <string.h>
 #elif defined(__NO_GRAPHICS) 
     #if !defined(_STDINT)
         #define _STDINT

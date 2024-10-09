@@ -31,8 +31,9 @@
 	#include "c264_redefined_chars_settings.h"
 #elif defined(__C16__) && !defined(_XL_NO_UDG)
 	#include "c264_link_time_redefined_chars_settings.h"
-#elif defined(__CBM__) && defined(__MEMORY_MAPPED_GRAPHICS)
-	#include "petscii_memory_mapped_settings.h"
+// #elif defined(__CBM__) && defined(__MEMORY_MAPPED_GRAPHICS)
+// e.g., Bomber Vic 20 unexpanded no gfx
+// #include "petscii_memory_mapped_settings.h"
 #elif defined(__MO5__) || defined(__TO7__) || ( (defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS)))
 	#include "udg_settings.h"
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__MEMORY_MAPPED_GRAPHICS)

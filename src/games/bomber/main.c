@@ -405,22 +405,25 @@ int main(void)
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         
-        #if YSize>=16
+        #if YSize>=16 && !defined(TINY_GAME)
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING);
         PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING);
-        #endif
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
-        
+        #endif
+
         x=XSize/2-1;
         y=6;
+        
+        #if !defined(TINY_GAME)
         drawAnimatedPlane();
         
         _XL_DRAW(XSize/2-2,YSize/2+3,WALL_1_TILE,_XL_RED);
         _XL_DRAW(XSize/2-1,YSize/2+3,TWO_WINDOW_WALL_1_TILE,_XL_YELLOW);
         _XL_DRAW(XSize/2-0,YSize/2+3,THREE_WINDOW_WALL_1_TILE,_XL_WHITE);        
+        #endif
         
         _XL_WAIT_FOR_INPUT();
         while(alive && (level < FINAL_LEVEL+1))

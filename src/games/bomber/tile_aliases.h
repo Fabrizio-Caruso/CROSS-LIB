@@ -3,6 +3,37 @@
 
 #include "cross_lib.h"
 
+
+#if _XL_NUMBER_OF_TILES<=6
+    #define ROAD_TILE _TILE_0
+
+    #define PLANE_BACK_TILE _TILE_1
+    #define PLANE_FRONT_TILE _TILE_2
+
+    #define ANIMATED_PLANE_BACK_TILE _TILE_1
+    #define ANIMATED_PLANE_CENTER_TILE _TILE_1
+    #define ANIMATED_PLANE_FRONT_TILE _TILE_2
+    
+
+    // Bomb
+    // #define ANIMATED_BOMB_UP_TILE _TILE_3
+    // #define ANIMATED_BOMB_DOWN_TILE _TILE_3
+
+
+    #define BOMB_TILE _TILE_3
+
+    #define THREE_WINDOW_WALL_1_TILE _TILE_4
+    #define SMALL_TWO_WINDOW_WALL_1_TILE _TILE_4
+    #define WALL_1_TILE _TILE_4
+    #define TWO_WINDOW_WALL_1_TILE _TILE_4
+    #define THREE_WINDOW_WALL_2_TILE _TILE_4
+    #define TWO_WINDOW_WALL_2_TILE _TILE_4
+    #define SMALL_TWO_WINDOW_WALL_2_TILE _TILE_4
+    #define WALL_2_TILE _TILE_4
+    
+    #define EXPLOSION_TILE _TILE_5
+
+#else
     // Plane
     #define THREE_WINDOW_WALL_1_TILE _TILE_15
     #define PLANE_BACK_TILE _TILE_1
@@ -39,7 +70,7 @@
     //
     #define EXPLOSION_TILE _TILE_18
 
-
+#endif
     #define _PLANE_COLOR _XL_CYAN
     #define _SMALL_TWO_WINDOW_WALL_1_COLOR _XL_WHITE
     #define _TWO_WINDOW_WALL_1_COLOR _XL_YELLOW
@@ -52,6 +83,8 @@
     #define _THREE_WINDOW_WALL_2_COLOR _XL_WHITE
     #define _TWO_WINDOW_WALL_2_COLOR _XL_RED
     #define _SMALL_TWO_WINDOW_WALL_2_COLOR _XL_YELLOW
+
+
 
 #endif // _IMAGES_H
 

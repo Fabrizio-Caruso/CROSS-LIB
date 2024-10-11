@@ -17,12 +17,12 @@
     #include "vdp_mode1_settings.h"
 #elif defined(__CREATIVISION__) && !defined(_XL_NO_UDG)
     #include "creativision_settings.h"
-#elif defined(__VIC20__) && defined(__VIC20_EXP_3K) && !!defined(_XL_NO_UDG)
+#elif defined(__VIC20__) && defined(__VIC20_EXP_3K) && defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_settings.h"
 #elif defined(__VIC20__) && defined(__VIC20_EXP_3K) && !defined(_XL_NO_UDG)
 	#include "vic20_exp_3k_light_settings.h"
 #elif defined(__VIC20__) && defined(__MEMORY_MAPPED_GRAPHICS) && (defined(__VIC20_EXP_8K) || defined(__VIC20_EXP_3K)) && !defined(_XL_NO_UDG)
-	#include "vic20_rom_chars_and_27_tiles_settings.h"
+    #include "vic20_rom_chars_and_27_tiles_settings.h"
 #elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED) && !defined(_XL_NO_UDG)
 	#include "vic20_rom_chars_and_6_tiles_settings.h"
 #elif defined(__VIC20__) && defined(__CONIO_GRAPHICS)
@@ -31,8 +31,9 @@
 	#include "c264_redefined_chars_settings.h"
 #elif defined(__C16__) && !defined(_XL_NO_UDG)
 	#include "c264_link_time_redefined_chars_settings.h"
-#elif defined(__CBM__) && defined(__MEMORY_MAPPED_GRAPHICS)
-	#include "petscii_memory_mapped_settings.h"
+// #elif defined(__CBM__) && defined(__MEMORY_MAPPED_GRAPHICS)
+// e.g., Bomber Vic 20 unexpanded no gfx
+// #include "petscii_memory_mapped_settings.h"
 #elif defined(__MO5__) || defined(__TO7__) || ( (defined(__COCO__) || defined(__DRAGON__)) && (defined(__BIT_MAPPED_GRAPHICS) || defined(__BIT_MAPPED_4_GRAPHICS)))
 	#include "udg_settings.h"
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__MEMORY_MAPPED_GRAPHICS)

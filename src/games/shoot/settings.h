@@ -36,6 +36,10 @@
     #define ANIMATE_PLAYER
 #endif
 
+#if !defined(_XL_NO_UDG) && !defined(NO_TRANSACTION_ANIMATION)
+    #define TRANSITION_ANIMATION 1
+#endif
+
 #include "cross_lib.h"
 
 struct ImageStruct

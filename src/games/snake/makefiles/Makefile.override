@@ -65,33 +65,33 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-# vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# --config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
-	# -DSOUNDS  -D__ALT_SLEEP \
-	# -D_XL_SLOW_DOWN_FACTOR=5000 \
-	# -D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -D__VIC20_EXP_8K \
-	# -DSIMPLE_STRATEGY \
-	 # \
-	# -D__ALT_PRINT \
-	# -DLESS_TEXT \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -D__ALT_SLEEP \
-	# -DUSE_MEMORY_BUFFERS \
-	# $(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# --code-name CODE2 \
-	# $(SOURCE_PATH)/game_text.c  \
-	# $(SOURCE_PATH)/variables.c \
-	# $(SOURCE_PATH)/control_player.c \
-	# $(SOURCE_PATH)/snake.c  \
-	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
-	# $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
-	# $(SOURCE_PATH)/move_snake.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
+	-DSOUNDS  -D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -D__VIC20_EXP_8K \
+	-DSIMPLE_STRATEGY \
+	 \
+	-D__ALT_PRINT \
+	-DLESS_TEXT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/split_files/main.c   \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/split_files/game_text.c  \
+	$(SOURCE_PATH)/split_files/variables.c \
+	$(SOURCE_PATH)/split_files/control_player.c \
+	$(SOURCE_PATH)/split_files/snake.c  \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
+	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
+	$(SOURCE_PATH)/split_files/move_snake.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 #############################

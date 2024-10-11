@@ -181,8 +181,8 @@ do { \
     #define deletePlane() \
         deletePlaneFront(); 
         
-    #define deleteAnimatedBomb() \
-        _XL_DELETE(bomb_x,bomb_y-1);
+    #define deleteAnimatedBomb()
+        // _XL_DELETE(bomb_x,bomb_y-1);
     
 #endif
 
@@ -396,7 +396,9 @@ int main(void)
 
         _XL_CLEAR_SCREEN();
         
+        #if !defined(TINY_GAME)
         _XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED);
+        #endif
         
         displayHiScore(XSize/2-2);
             
@@ -405,22 +407,25 @@ int main(void)
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         
-        #if YSize>=16
+        #if YSize>=16 && !defined(TINY_GAME)
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         PRINT_CENTERED_ON_ROW(YSize/2, _DESTROY_ALL__STRING);
         PRINT_CENTERED_ON_ROW(YSize/2+1, _BUILDINGS__STRING);
-        #endif
         
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
-        
+        #endif
+
         x=XSize/2-1;
         y=6;
+        
+        #if !defined(TINY_GAME)
         drawAnimatedPlane();
         
         _XL_DRAW(XSize/2-2,YSize/2+3,WALL_1_TILE,_XL_RED);
         _XL_DRAW(XSize/2-1,YSize/2+3,TWO_WINDOW_WALL_1_TILE,_XL_YELLOW);
         _XL_DRAW(XSize/2-0,YSize/2+3,THREE_WINDOW_WALL_1_TILE,_XL_WHITE);        
+        #endif
         
         _XL_WAIT_FOR_INPUT();
         while(alive && (level < FINAL_LEVEL+1))
@@ -473,15 +478,19 @@ int main(void)
             displayScore();
             
             
+            #if !defined(TINY_GAME)
             _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE, _XL_CYAN);
             _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE, _XL_CYAN);
             
             _XL_DRAW(XSize-5,0,HI_TEXT_TILE, _XL_RED);
-            #if XSize>=20
+            #endif
+
+            
+            #if XSize>=20 && !defined(TINY_GAME)
                 _XL_DRAW(XSize-8,0,LV_TEXT_TILE, _XL_GREEN);
                 displayLevel();
             #endif
-            #if XSize>=16
+            #if XSize>=16 && !defined(TINY_GAME)
                 _XL_DRAW(REMAINING_X-1,0,TWO_WINDOW_WALL_2_TILE, _XL_YELLOW);
                 displayRemainingBuilings();
             #endif
@@ -493,14 +502,23 @@ int main(void)
                 // Land safely
                 if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
+                    // #if !defined(TINY_GAME)
                     deleteAnimatedPlaneBack();
                     deleteAnimatedPlaneCenter();
+                    // #endif
+                    #if defined(TINY_GAME)
+                        // TODO: This should be no animation
+                        // TODO: Delete the whole plain
+                    #endif
                     ++y;
                 }
                 #if defined(DEBUG_GHOST_DISPLAY)
                     UNSET_DEBUG_BORDER();
                 #endif
+                
+                // #if !defined(TINY_GAME)
                 drawAnimatedPlane();
+                // #endif
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP);
                 
 
@@ -535,7 +553,10 @@ int main(void)
                 else
                 {
                     // Draw animated bomb
+                    
+                    // #if !defined(TINY_GAME)
                     drawAnimatedBomb();
+                    // #endif
                     
                     ++bomb_y;
                 
@@ -552,8 +573,14 @@ int main(void)
                         displayScore();
 
                         // Delete animated bomb
+                        
+                        // #if !defined(TINY_GAME)
                         deleteAnimatedBombUp();
+                        // #if !defined(TINY_GAME)
+
                         drawExplosion();
+                        // #endif
+
                         _XL_SLOW_DOWN(5+_XL_SLOW_DOWN_FACTOR/4);
                     }
 
@@ -562,20 +589,25 @@ int main(void)
                 #if defined(DEBUG_GHOST_DISPLAY)
                     SET_DEBUG_BORDER();
                 #endif
+                
+                // #if !defined(NO_ANIMATION)
                 deleteAnimatedPlaneBack();
+                // #endif
                 drawPlane();
                 #if defined(DEBUG_GHOST_DISPLAY)
                     UNSET_DEBUG_BORDER();
                 #endif
                 
-                #if !defined(NO_ANIMATION)
+                // #if !defined(NO_ANIMATION)
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP); // e.g., lv:9, slow-down fact:1800 -> 1800/2-9*32=900-288=612
-                #endif
+                // #endif
                 
                 if(bombActive)
                 {
                     drawBomb();
+                    // #if !defined(TINY_GAME)
                     deleteAnimatedBombUp();
+                    // #endif
                 }
 
                 
@@ -597,15 +629,27 @@ int main(void)
                 #if defined(DEBUG_GHOST_DISPLAY)
                     SET_DEBUG_BORDER();
                 #endif
+                
+                #if !defined(NO_ANIMATION)
                 deleteAnimatedPlaneBack();
-				_XL_REFRESH();
+                #endif
+                _XL_REFRESH();
             } // while flying
             #if defined(DEBUG_GHOST_DISPLAY)
                 UNSET_DEBUG_BORDER();
             #endif
             if(!remaining_buildings)
             {
+                #if defined(NO_ANIMATION)
+                
+                    // _XL_SLEEP(1);
+
+                    // _XL_DELETE(x-2,y);
+                    _XL_DELETE(x-1,y);
+                    // _XL_SLEEP(1);
+                #endif
                 drawPlane();
+                
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
                 _XL_PRINT(1,2,_LEVEL_COMPLETED__STRING);
                 _XL_SLEEP(1);
@@ -627,6 +671,9 @@ int main(void)
             }
             else
             {
+                #if defined(NO_ANIMATION)
+                    deleteAnimatedPlaneBack();
+                #endif
                 drawPlaneBack();
                 _XL_EXPLOSION_SOUND();
                 displayScore();

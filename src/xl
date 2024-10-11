@@ -381,7 +381,7 @@ def size(params,debug):
             return
 
         if is_project_split(game_dir):
-            print("Create main.c from split source files")
+            printc(bcolors.OKBLUE,"Create main.c from split source files\n")
             create_main(game_dir, project_type)
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + " " \
@@ -392,7 +392,7 @@ def size(params,debug):
         run_command_verbosely(make_command)
         
         if is_project_split(game_dir):
-            print("Delete main.c (because of split source files)")
+            printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(game_dir, project_type)        
     else:
         if game_dir in["games","examples","projects"]:
@@ -665,13 +665,10 @@ def build(params):
         if os.path.exists(parent_and_game_dir + "/config.ini"):
             print("Local config.ini detected")
             read_config(parent_and_game_dir + "/config.ini")
-        else:
-            print("Use general config.ini")
-            read_config()
-        # try:
-            # read_config(parent_and_game_dir)
-        # except:
-            # print("No local config.ini")
+        # else:
+            # print("Use general config.ini")
+            # read_config()
+
 
         if(game_dir not in ["games", "examples", "projects", "all"]):
             if not os.path.exists(parent_and_game_dir):
@@ -683,7 +680,7 @@ def build(params):
                 use_tools_str = ""
     
             if is_project_split(game_dir):
-                print("Create main.c from split source files")
+                printc(bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
 
             make_command = \
@@ -698,7 +695,7 @@ def build(params):
             run_command_verbosely(make_command)
             
             if is_project_split(game_dir):
-                print("Delete main.c because of split source files")
+                printc(bcolors.OKBLUE,"Delete main.c because of split source files\n")
                 delete_main(game_dir, project_type)
             
         else:
@@ -1833,7 +1830,7 @@ def targets_test(params):
     game_dir = "chase"
     project_type = "game"
     if is_project_split(game_dir):
-        print("Create main.c from split source files")
+        printc(bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
     if params[1].endswith("_targets"):
         make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
@@ -1851,11 +1848,11 @@ def targets_test(params):
     else:
         printc(bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
-            print("Delete main.c (because of split source files)")
+            print("Delete main.c (because of split source files)\n")
             delete_main(game_dir, project_type)
         exit()
     if is_project_split("chase"):
-        print("Delete main.c (because of split source files)")
+        printc(bcolors.OKBLUE,"Delete main.c (because of split source files)")
         delete_main(game_dir, project_type)
 
 

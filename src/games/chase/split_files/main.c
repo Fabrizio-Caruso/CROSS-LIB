@@ -595,11 +595,7 @@ int main(void)
                             ghostSlowDown = computeGhostSlowDown();
                         #endif
                         
-                        #if defined(BUGGY_VERTICAL_DRAW)
-                        DRAW_VERTICAL_LINE(XSize/2, 1+YSize/2-(verticalWallLength/2), verticalWallLength);            
-                        #else
                         DRAW_VERTICAL_LINE(XSize/2, YSize/2-(verticalWallLength/2), verticalWallLength);            
-                        #endif
                         if(ishorizWallsLevel)
                         {                
                             horizWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);        

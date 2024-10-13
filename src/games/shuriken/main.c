@@ -801,13 +801,7 @@ void build_objects(uint8_t level)
 
         if(type==DIAMOND)
         {
-            #if defined(BUGGY_GCC_TI99)
-            uint16_t aux;
-            aux = x_size*y_size;
-            remaining_diamonds+=aux; 
-            #else
             remaining_diamonds +=x_size*y_size;;
-            #endif
         }
 
         build_rectangle(type,x,y,x_size,y_size);

@@ -74,49 +74,33 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 
 // Adding this sensical line _XL_PRINT(0,i,""); fixes a bug for GCC for TI99
 #if !defined(NO_EXTRA_TITLE) && YSize>=16
-    #if defined(BUGGY_EXTRA_TITLE)
-    #define extra_title() \
-    { \
-        uint8_t i; \
-        show_intro_snake(); \
-        _XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
-        for(i=0;i<NUMBER_OF_STRINGS;++i) \
+    #if !defined(_XL_NO_COLOR)
+        #define extra_title() \
         { \
-            _XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
-            _XL_SET_TEXT_COLOR(_XL_WHITE); \
-            _XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
-            _XL_PRINT(0,i,""); \
-        } \
-    }    
+            uint8_t i; \
+            show_intro_snake(); \
+            _XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
+            for(i=0;i<NUMBER_OF_STRINGS;++i) \
+            { \
+                _XL_SET_TEXT_COLOR(_XL_WHITE); \
+                _XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
+                _XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
+            } \
+        }
     #else
-		#if !defined(_XL_NO_COLOR)
-			#define extra_title() \
-			{ \
-				uint8_t i; \
-				show_intro_snake(); \
-				_XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
-				for(i=0;i<NUMBER_OF_STRINGS;++i) \
-				{ \
-					_XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
-					_XL_SET_TEXT_COLOR(_XL_WHITE); \
-					_XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
-				} \
-			}
-		#else
-			#define extra_title() \
-			{ \
-				uint8_t i; \
-				show_intro_snake(); \
-				_XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
-				for(i=0;i<NUMBER_OF_STRINGS;++i) \
-				{ \
-					_XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], 0); \
-					_XL_SET_TEXT_COLOR(_XL_WHITE); \
-					_XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
-				} \
-			}
-		#endif
-	#endif
+        #define extra_title() \
+        { \
+            uint8_t i; \
+            show_intro_snake(); \
+            _XL_DRAW(XSize/4+XSize/2,YSize/8+SNAKE_LINE_OFFSET,APPLE_TILE,_XL_RED); \
+            for(i=0;i<NUMBER_OF_STRINGS;++i) \
+            { \
+                _XL_DRAW(XSize/2-6,YSize/8+LINE_OFFSET+LINE_SKIP*i, images[NUMBER_OF_STRINGS-i], 0); \
+                _XL_SET_TEXT_COLOR(_XL_WHITE); \
+                _XL_PRINT(XSize/2-4,YSize/8+LINE_OFFSET+LINE_SKIP*i, (char *) strings[NUMBER_OF_STRINGS-1-i] ); \
+            } \
+        }
+    #endif
 #else
     #define extra_title() \
     { \

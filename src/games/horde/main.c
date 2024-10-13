@@ -943,63 +943,34 @@ void power_up_effect(void)
     
     pmod10 = powerUp%10;    
 
-    #if defined(BUGGY_GCC_TI99)
-        if(pmod10==0)
-        {
+    switch(pmod10)
+    {
+        case 0:
             activate_hyper();
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
-        } 
-        else if(pmod10==4)
-        {
+        break;
+        
+        case 4:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_CYAN; 
             #endif
-        } 
-        else if(pmod10==5)
-        {
+        break;
+        
+        case 5:
             freeze_locked=0;
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_WHITE;
             #endif
-        }  
-        else if(pmod10==9)
-        {
+        break;
+        
+        case 9:
             #if !defined(_XL_NO_COLOR)
             powerUpItem._color = _XL_RED;
             #endif
-        }
-    #else
-        switch(pmod10)
-        {
-            case 0:
-                activate_hyper();
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_WHITE;
-                #endif
-            break;
-            
-            case 4:
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_CYAN; 
-                #endif
-            break;
-            
-            case 5:
-                freeze_locked=0;
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_WHITE;
-                #endif
-            break;
-            
-            case 9:
-                #if !defined(_XL_NO_COLOR)
-                powerUpItem._color = _XL_RED;
-                #endif
-            break;
-        } 
-    #endif
+        break;
+    } 
     
     display_power_up_counter();
     increase_score(POWERUP_POINTS);

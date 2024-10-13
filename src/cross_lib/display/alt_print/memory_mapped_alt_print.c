@@ -154,7 +154,18 @@
 			return 64+ch;
 		}	
 	}
-
+#elif (defined(__VIC20__) && (defined(__VIC20_UNEXPANDED)))
+	char screenCode(char ch)
+	{
+		if(ch<64)
+		{
+			return 128+ch;
+		}
+		else
+		{
+			return 192+ch;
+		}	
+	}
 #elif defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	char screenCode(char ch)
 	{
@@ -232,6 +243,13 @@
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
 			DISPLAY_POKE((0x8400+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
+#elif (defined(__VIC20__) && defined(__VIC20_UNEXPANDED)) && !defined(_XL_NO_UDG)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
+			DISPLAY_POKE((0x7800+loc(x,y)), 0x1); \
+		} while(0)
 #elif defined(__C64__)
 	#define _DISPLAY(x,y,ch) \
 		do \
@@ -304,7 +322,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 		#if defined(CBM_SCREEN_CODES) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
-            || defined(__VIC20__) \
+            || (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) \
             || defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else

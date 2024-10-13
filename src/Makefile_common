@@ -737,7 +737,7 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-D_XL_NO_SLEEP_SEC -D__ALT_SLEEP \
 	-D__NO_COLOR_INIT \
 	-D__MEMORY_MAPPED_GRAPHICS \
-	-D__ALT_DISPLAY_STATS \
+	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	$(VIC20_UNEXPANDED_GAME_OPTS) \
@@ -745,9 +745,29 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
+
+
+# vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t vic20 \
+	# -D_XL_NO_TEXT_COLOR \
+	# -D__VIC20_UNEXPANDED -D_XL_NUMBER_OF_TILES=6 \
+	# -D_XL_NO_SLEEP_SEC -D__ALT_SLEEP \
+	# -D__NO_COLOR_INIT \
+	# -D__MEMORY_MAPPED_GRAPHICS \
+	# -D__ALT_DISPLAY_STATS \
+	# -D__DEFAULT_CLEAR_SCREEN \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
+	# $(VIC20_UNEXPANDED_GAME_OPTS) \
+	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
+	# $(FULL_FILES) \
+	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	# $(ASSETS_PATH)/cc65_udc_6chars.s \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 
 
 vic20_unexpanded_no_gfx:
@@ -756,16 +776,16 @@ vic20_unexpanded_no_gfx:
 	-D_XL_NO_TEXT_COLOR \
 	-D__VIC20_UNEXPANDED \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
-	-D__ALT_SLEEP \
+	-D__ALT_SLEEP -D_XL_NO_SLEEP_SEC \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_UDG \
 	$(VIC20_UNEXPANDED_NO_GFX_GAME_OPTS) \
-	-D__ALT_DISPLAY_STATS \
+	-D__ALT_PRINT \
 	-D_XL_NO_SOUND \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 
 #################################################################

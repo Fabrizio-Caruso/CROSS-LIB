@@ -215,11 +215,15 @@ do { \
     #define REMAINING_X 9
 #endif
 
-#define displayRemainingBuilings() \
-do { \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(REMAINING_X,0,2,remaining_buildings); \
-} while(0)
+#if !defined(TINY_GAME)
+    #define displayRemainingBuilings() \
+        do { \
+            _XL_SET_TEXT_COLOR(_XL_WHITE); \
+            _XL_PRINTD(REMAINING_X,0,2,remaining_buildings); \
+        } while(0)
+#else
+    #define displayRemainingBuilings() 
+#endif
 
 #define displayHiScore(xpos) \
 do { \
@@ -240,11 +244,16 @@ do { \
     _XL_PRINTD(XSize/2+2,4,1,level); \
 } while(0)
 
-#define displayNewHiScoreMessage() \
-do { \
-    _XL_SET_TEXT_COLOR(_XL_YELLOW); \
-    _XL_PRINT(1,4,_NEW_HISCORE__STRING); \
-} while(0)
+#if !defined(TINY_GAME)
+    #define displayNewHiScoreMessage() \
+    do { \
+        _XL_SET_TEXT_COLOR(_XL_YELLOW); \
+        _XL_PRINT(1,4,_NEW_HISCORE__STRING); \
+    } while(0)
+#else
+    #define displayNewHiScoreMessage()
+#endif
+
 
 #define displayGameOverMessage() \
 do { \
@@ -252,15 +261,27 @@ do { \
     PRINT_CENTERED(_GAME_OVER__STRING); \
 } while(0)
 
-#define handle_hiscore() \
-do { \
-    if(score>hiscore) \
-    { \
-        hiscore = score; \
-        displayNewHiScoreMessage(); \
-        _XL_SLEEP(1); \
-    } \
-} while(0)
+#if !defined(TINY_GAME)
+
+    #define handle_hiscore() \
+    do { \
+        if(score>hiscore) \
+        { \
+            hiscore = score; \
+            displayNewHiScoreMessage(); \
+            _XL_SLEEP(1); \
+        } \
+    } while(0)
+
+#else
+    #define handle_hiscore() \
+    do { \
+        if(score>hiscore) \
+        { \
+            hiscore = score; \
+        } \
+    } while(0)   
+#endif
 
 #if MAX_Y<24
     #if YSize<=16
@@ -416,10 +437,11 @@ int main(void)
         PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE__STRING);
         #endif
 
+        #if !defined(TINY_GAME)
+
         x=XSize/2-1;
         y=6;
         
-        #if !defined(TINY_GAME)
         drawAnimatedPlane();
         
         _XL_DRAW(XSize/2-2,YSize/2+3,WALL_1_TILE,_XL_RED);
@@ -436,11 +458,14 @@ int main(void)
             bonus = 0;
             remaining_buildings = BUILDINGS_NUMBER;
             
+            #if !defined(TINY_GAME)
             _XL_CLEAR_SCREEN();
             _XL_PRINT(XSize/2-4, 4, _LEVEL__STRING);
             displayLevelMessage();
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
+            #endif
+
             _XL_CLEAR_SCREEN();
             
             for(x=0;x<XSize;++x)
@@ -650,11 +675,15 @@ int main(void)
                 #endif
                 drawPlane();
                 
+                #if !defined(TINY_GAME)
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
                 _XL_PRINT(1,2,_LEVEL_COMPLETED__STRING);
                 _XL_SLEEP(1);
+                #endif
                 ++level;
                 score+=bonus;
+                
+                #if !defined(TINY_GAME)
                 _XL_SET_TEXT_COLOR(_XL_WHITE);
                 _XL_PRINT(1,4,_BONUS__STRING);
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
@@ -665,7 +694,7 @@ int main(void)
                     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
                 }
                 _XL_PRINTD(7,4,4,bonus);
-
+                #endif
                 displayScore();
                 _XL_SLEEP(1);
             }

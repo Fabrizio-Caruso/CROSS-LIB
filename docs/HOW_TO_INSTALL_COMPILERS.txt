@@ -78,6 +78,28 @@ Compilation
 -------------------------------------------------------------------------------------------------------
 GCC for TI
 -------------------------------------------------------------------------------------------------------
+
+
+Compiler:
+git clone https://github.com/mburkley/tms9900-gcc
+./install.sh /opt/gcc4ti
+
+libTi99:
+git clone https://github.com/tursilion/libti99
+Modify Makefile to make it point to /opt/gcc/
+e.g.,
+TMS9900_DIR?=/opt/gcc4ti/bin
+ELF2EA5_DIR?=/opt/gcc4ti/bin
+EA5_SPLIT_DIR?=/opt/gcc4ti/bin
+
+Make sure that 
+- the header files are in /opt/gcc4ti/include
+- libti99 is in /opt/gcc4ti/lib
+
+----
+
+OLD procedure
+
 for the Texas TI99/4a 
 (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 
@@ -100,9 +122,9 @@ Category "Interpreters"
 3. export set MAKEINFO=missing (to fix one error about texinfo) [maybe no longer necessary]
 4. run the "install.sh <target dir>" script command
 5. find files inside <target dir>/bin
+--------------
 
-
-
+NEW version
 
 -------------------------------------------------------------------------------------------------------
 GCC for Atari ST

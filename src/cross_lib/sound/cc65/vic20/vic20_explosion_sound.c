@@ -23,22 +23,37 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include<vic20.h>
-
+#include "cross_lib.h"
 #include "vic20_explosion_sound.h"
 
-	void _explosion_sound(uint8_t freq, uint8_t vol)
-	{ 
-		uint8_t i; 
-		uint8_t j;
-		VIC.noise = freq; 
-		VIC.volume_color |= vol; 
+#define FREQ 0x80
+#define VOL  0x08
 
-		for(j=0;j<24;++j) 
-		{
-			for(i=0;i<253;++i) 
-			{ 
-			} 			
-		} 
+	void _explosion_sound(void)
+	{ 
+		// uint8_t i; 
+		// uint8_t j;
+		VIC.noise = FREQ; 
+		VIC.volume_color |= VOL; 
+
+		// for(j=0;j<24;++j) 
+		// {
+			// for(i=0;i<254;++i) 
+			// { 
+			// }
+            // _XL_SLOW_DOWN(40);
+		// } 
+        
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
+        __asm__("NOP");
 		VIC.volume_color &= 0x00; 
 	};	
 

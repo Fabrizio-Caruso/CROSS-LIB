@@ -31,9 +31,9 @@
 	#define _XL_TOCK_SOUND() 
 	#define _XL_TICK_SOUND() 
 	
-	void _explosion_sound(uint8_t freq, uint8_t vol);
+	void _explosion_sound(void);
 	#define _XL_SHOOT_SOUND() 
-	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x80, 0x08);
+	#define _XL_EXPLOSION_SOUND() _explosion_sound();
 	
 	#define _XL_ZAP_SOUND()
 	

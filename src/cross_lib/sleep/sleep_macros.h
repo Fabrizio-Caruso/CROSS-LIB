@@ -38,7 +38,11 @@
         #endif    
     #endif
 
-    #define MAX_XL_SLOW_DOWN_FACTOR 65534U
+    #if defined(__VIC20__)
+        #define MAX_XL_SLOW_DOWN_FACTOR 20000u
+    #else
+        #define MAX_XL_SLOW_DOWN_FACTOR 65534U
+    #endif
 
     #if defined(_XL_NO_SLEEP)
         #define _XL_SLEEP(s)

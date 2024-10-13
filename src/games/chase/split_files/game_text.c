@@ -171,7 +171,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, const char *Text)
 	
 #endif
 
-#if !defined(NO_PRINT)
+#if !defined(NO_PRINT) && !defined(TINY_GAME)
 	void printPressKeyToStart(void)
 	{
         _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -238,13 +238,13 @@ void displayScore(void)
 #endif
 	
 	
-
+#if !defined(TINY_GAME)
 void printGameOver(void)
 {
 	SET_COLOR(_XL_RED);
 	PRINT_CENTERED(GAME_OVER_STRING);
 }	
-
+#endif
 
 
 #if YSize>=21

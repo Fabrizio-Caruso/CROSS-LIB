@@ -244,12 +244,19 @@
 			DISPLAY_POKE((0x8400+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
 #elif (defined(__VIC20__) && defined(__VIC20_UNEXPANDED)) && !defined(_XL_NO_UDG)
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((0x7800+loc(x,y)), 0x1); \
-		} while(0)
+    #if !defined(_XL_NO_TEXT_COLOR)
+        void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+            {
+                DISPLAY_POKE((loc(x,y)), screenCode(ch));
+                DISPLAY_POKE((0x7800+loc(x,y)), PEEK(0x0286));
+            }
+    #else
+        void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+            {
+                DISPLAY_POKE((loc(x,y)), screenCode(ch));
+                DISPLAY_POKE((0x7800+loc(x,y)), 0x1);
+            }
+    #endif
 #elif defined(__C64__)
 	#define _DISPLAY(x,y,ch) \
 		do \

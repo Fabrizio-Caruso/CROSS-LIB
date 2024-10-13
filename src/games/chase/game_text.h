@@ -81,7 +81,7 @@ void printStartMessage(void);
 	#define gameCompleted()
 #endif
 
-#if !defined(NO_PRINT)
+#if !defined(NO_PRINT) && !defined(TINY_GAME)
 	void printPressKeyToStart(void);
 #else
 	#define printPressKeyToStart()

@@ -249,14 +249,19 @@ int main(void)
         #else
             printPressKeyToStart();                
         #endif
-        _XL_WAIT_FOR_INPUT();
-        _XL_CLEAR_SCREEN();
+        // _XL_WAIT_FOR_INPUT();
+        // _XL_CLEAR_SCREEN();
 
         #if !defined(LESS_TEXT)
             highScoreScreen();
             _XL_REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();
+        #else
+            highScoreScreen();
+            // _XL_REFRESH();
+            _XL_WAIT_FOR_INPUT();
+            // _XL_CLEAR_SCREEN();
         #endif
 
         
@@ -371,7 +376,9 @@ int main(void)
             
             printPressKeyToStart();
             _XL_REFRESH();
+            #if !defined(TINY_GAME)
             _XL_WAIT_FOR_INPUT();
+            #endif
             _XL_CLEAR_SCREEN();
             
             fillLevelWithCharacters();
@@ -684,7 +691,9 @@ int main(void)
                         bases_in_completed_levels+=bases;
                     }
                 #endif
+                #if !defined(TINY_GAME)
                 ++level;
+                #endif
             }
             else // if dead
             {        
@@ -732,10 +741,13 @@ int main(void)
 
         // GAME OVER    
         _XL_CLEAR_SCREEN();
+        #if !defined(TINY_GAME)
         displayScore();
         printGameOver();
-        
         _XL_WAIT_FOR_INPUT();
+
+        #endif
+
         
         if(points>highScore)
         {

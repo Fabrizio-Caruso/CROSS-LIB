@@ -730,6 +730,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 
 
 
+# Unexpanded VIC 20, with 6 tiles, default ASCII mapped as reverse characters
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t vic20 \
 	-D_XL_NO_TEXT_COLOR \
@@ -743,7 +744,7 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(VIC20_UNEXPANDED_GAME_OPTS) \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
@@ -781,9 +782,9 @@ vic20_unexpanded_no_gfx:
 	-D_XL_NO_UDG \
 	$(VIC20_UNEXPANDED_NO_GFX_GAME_OPTS) \
 	-D__ALT_PRINT \
-	-D_XL_NO_SOUND \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg

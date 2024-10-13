@@ -479,9 +479,11 @@ int main(void)
             
             if(isBossLevel)
             {
+                #if !defined(LESS_TEXT)
                 printKillTheSkulls();
                 _XL_SLEEP(1);
                 _XL_WAIT_FOR_INPUT();
+                #endif
                 ghostCount = 0;
             }
             _XL_CLEAR_SCREEN();

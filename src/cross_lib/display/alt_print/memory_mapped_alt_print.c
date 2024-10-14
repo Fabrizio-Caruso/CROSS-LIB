@@ -209,40 +209,35 @@
 
     extern uint8_t _apple2_text_color;
 
-    #define _DISPLAY(x,y,ch) \
-        do \
-        { \
-            hgr_draw(x, y, ch, _apple2_text_color); \
-        } while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            hgr_draw(x, y, ch, _apple2_text_color);
+        }
 	
 #elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) && defined(__NO_SCREEN_CODES)
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-			DISPLAY_POKE((loc(x,y)), ch); \
-			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
-		} while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+			DISPLAY_POKE((loc(x,y)), ch);
+			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B));
+		}
 #elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) && defined(__DOUBLE_BUFFER)
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-            DISPLAY_POKE(((uint16_t) BASE_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), screenCode(ch)); \
-            DISPLAY_POKE(((uint16_t) COLOR_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), PEEK(0x053B)); \
-		} while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            DISPLAY_POKE(((uint16_t) BASE_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), screenCode(ch));
+            DISPLAY_POKE(((uint16_t) COLOR_ADDR)+(1)*x+(uint8_t)((1)*y)*((uint16_t) ((XSize) + X_OFFSET)), PEEK(0x053B));
+		}
 #elif (defined(__C16__) && defined(__MEMORY_MAPPED_GRAPHICS)) 
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
-		} while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+			DISPLAY_POKE((loc(x,y)), screenCode(ch));
+			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B));
+		}
 #elif (defined(__VIC20__) && defined(__VIC20_EXP_8K)) && !defined(_XL_NO_UDG)
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((0x8400+loc(x,y)), PEEK(0x0286)); \
-		} while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+        DISPLAY_POKE((loc(x,y)), screenCode(ch));
+        DISPLAY_POKE((0x8400+loc(x,y)), PEEK(0x0286));
+        }
 #elif (defined(__VIC20__) && defined(__VIC20_UNEXPANDED)) && !defined(_XL_NO_UDG)
     #if !defined(_XL_NO_TEXT_COLOR)
         void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
@@ -258,12 +253,11 @@
             }
     #endif
 #elif defined(__C64__)
-	#define _DISPLAY(x,y,ch) \
-		do \
-		{ \
-			DISPLAY_POKE((loc(x,y)), ch); \
-			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
-		} while(0)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+        DISPLAY_POKE((loc(x,y)), ch);
+        DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286));
+        } 
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
@@ -276,8 +270,10 @@
     
     extern uint8_t _bitmap4_text_color;
 
-    #define _DISPLAY(x,y,c) \
-        _color_draw(x,y,c-_CHAR_OFFSET,_bitmap4_text_color)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap4_text_color);
+        }
 
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
     #include "bit_mapped_16_graphics.h"
@@ -287,36 +283,46 @@
  
     extern uint8_t _bitmap16_text_color;
 
-    #define _DISPLAY(x,y,c) \
-        _color_draw(x,y,c-_CHAR_OFFSET,_bitmap16_text_color)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+        _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap16_text_color);
+        }
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"
-    #define _DISPLAY(x,y,ch) \
-        if(ch==0) \
-        { \
-            _XL_DELETE(x,y); \
-        } \
-        else \
-        { \
-            _XL_DRAW(x,y,(ch-13),0); \
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            if(ch==0)
+            {
+                _XL_DELETE(x,y);
+            }
+            else
+            {
+                _XL_DRAW(x,y,(ch-13),0);
+            }
         }
 #elif defined(__AQUARIUS__) || defined(__MEMORY_MAPPED_GRAPHICS)
-	#define _DISPLAY(x,y,ch) \
-        if(ch==0) \
-        { \
-            _XL_DELETE(x,y); \
-        } \
-        else \
-        { \
-            _XL_DRAW(x,y,ch,_XL_WHITE); \
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            if(ch==0)
+            {
+                _XL_DELETE(x,y);
+            }
+            else
+            {
+                _XL_DRAW(x,y,ch,_XL_WHITE);
+            }
         }
 #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
-	#define _DISPLAY(x,y,ch) \
-        _XL_DRAW(x,y,ch-32,_XL_WHITE);
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            _XL_DRAW(x,y,ch-32,_XL_WHITE);
+        }
 #else
-	#define _DISPLAY(x,y,ch) \
-		DISPLAY_POKE((loc(x,y)), (ch))
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {		
+            DISPLAY_POKE((loc(x,y)), (ch));
+        }
 #endif
 
 

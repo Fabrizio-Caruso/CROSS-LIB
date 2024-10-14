@@ -319,7 +319,7 @@ static const uint8_t item_tile[5][2] =
 {
     { POWER_UP_TILE, _XL_WHITE },
     { ARROW_TILE_1, _XL_YELLOW },
-    { EXTRA_POINTS_TILE, _XL_YELLOW },
+    { EXTRA_POINTS_TILE, _XL_GREEN },
     { FREEZE_TILE, _XL_CYAN },
     { WALL_TILE, _XL_YELLOW },
 };
@@ -1143,7 +1143,7 @@ void beam_effect(void)
             \
             extraPointsItem[i]._active = 0; \
             extraPointsItem[i]._tile = EXTRA_POINTS_TILE; \
-            extraPointsItem[i]._color = _XL_YELLOW; \
+            extraPointsItem[i]._color = _XL_GREEN; \
             extraPointsItem[i]._effect = extra_points_effect; \
         } \
     }

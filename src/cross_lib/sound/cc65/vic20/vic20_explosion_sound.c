@@ -31,29 +31,29 @@
 
 	void _explosion_sound(void)
 	{ 
-		// uint8_t i; 
+		uint8_t i; 
 		// uint8_t j;
 		VIC.noise = FREQ; 
 		VIC.volume_color |= VOL; 
 
 		// for(j=0;j<24;++j) 
 		// {
-			// for(i=0;i<254;++i) 
-			// { 
-			// }
+			for(i=0;i<254;++i) 
+			{ 
+			}
             // _XL_SLOW_DOWN(40);
 		// } 
         
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
-        __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
+        // __asm__("NOP");
 		VIC.volume_color &= 0x00; 
 	};	
 

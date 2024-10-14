@@ -32,7 +32,7 @@
 	#define _XL_TICK_SOUND() 
 	
 	void _explosion_sound(void);
-	#define _XL_SHOOT_SOUND() 
+	#define _XL_SHOOT_SOUND()
 	#define _XL_EXPLOSION_SOUND() _explosion_sound();
 	
 	#define _XL_ZAP_SOUND()

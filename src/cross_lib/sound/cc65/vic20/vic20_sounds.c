@@ -26,12 +26,17 @@
 
 #include <stdint.h>
 
+#include "sleep_macros.h"
+
+// #define _pause() _XL_SLOW_DOWN(100)
+
 void _pause(void)
 {
-    uint8_t i;
-    for(i=0;i<254;++i) 
-        { 
-        } 			
+    _XL_SLOW_DOWN(100);
+    // uint8_t i;
+    // for(i=0;i<254;++i) 
+        // { 
+        // } 			
 }
 
 void silence(void)

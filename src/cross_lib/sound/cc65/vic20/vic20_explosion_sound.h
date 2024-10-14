@@ -27,14 +27,14 @@
 
 #include <stdint.h>
 
-	#define _XL_PING_SOUND() 
-	#define _XL_TOCK_SOUND() 
-	#define _XL_TICK_SOUND() 
+	#define _XL_PING_SOUND() _explosion_sound()
+	#define _XL_TOCK_SOUND() _explosion_sound()
+	#define _XL_TICK_SOUND() _explosion_sound()
 	
 	void _explosion_sound(void);
-	#define _XL_SHOOT_SOUND()
-	#define _XL_EXPLOSION_SOUND() _explosion_sound();
+	#define _XL_SHOOT_SOUND() _explosion_sound()
+	#define _XL_EXPLOSION_SOUND() _explosion_sound()
 	
-	#define _XL_ZAP_SOUND()
+	#define _XL_ZAP_SOUND() _explosion_sound()
 	
 #endif // _VIC_SOUNDS

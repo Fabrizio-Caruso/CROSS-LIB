@@ -29,12 +29,12 @@
 #define AUTHOR_STRING "FABRIZIO CARUSO"
 
 #if defined(TINY_GAME) || XSize<=22
-    #define CROSS_CHASE_STRING "CROSS CHASE"
-	#define CROSS_LEN 11
+    #define CROSS_CHASE_STRING "CHASE"
+	// #define CROSS_LEN 11
 #else
-    #define CROSS_CHASE_STRING "C R O S S  C H A S E"
+    #define CROSS_CHASE_STRING "C H A S E"
 
-	#define CROSS_LEN 20
+	// #define CROSS_LEN 20
 
 #endif
 #define THE_STRING _XL_t _XL_h _XL_e

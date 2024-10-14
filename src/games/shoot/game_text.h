@@ -117,9 +117,9 @@ void printStartMessage(void);
     #define _printTopScore() \
         do \
         { \
-            _XL_PRINTD((uint8_t) ((XSize)>>1)-1, 0, 5, highScore); \
+            _XL_PRINTD((uint8_t) ((XSize)>>1)-2, 0, 5, highScore); \
             _XL_SET_TEXT_COLOR(_XL_CYAN); \
-            _XL_PRINT(((XSize)>>1)-3,0,"HI"); \
+            _XL_PRINT(((XSize)>>1)-4,0,"HI"); \
         } while(0)
 #else
     #define _printTopScore() \

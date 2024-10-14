@@ -27,17 +27,14 @@
 
 #define AUTHOR_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
 
+
 #if defined(TINY_GAME) || XSize<=22
-    #define CROSS_SHOOT_STRING _XL_C _XL_r _XL_o _XL_s _XL_s _XL_SPACE _XL_S _XL_h _XL_o _XL_o _XL_t 
-	#define CROSS_LEN 11
+    #define CROSS_SHOOT_STRING _XL_S _XL_H _XL_O _XL_O _XL_T 
 #else
     #define CROSS_SHOOT_STRING \
-        _XL_C _XL_SPACE _XL_r _XL_SPACE _XL_o _XL_SPACE _XL_s _XL_SPACE _XL_s \
-        _XL_SPACE _XL_SPACE \
-        _XL_S _XL_SPACE _XL_h _XL_SPACE _XL_o _XL_SPACE _XL_o _XL_SPACE _XL_t 
-	#define CROSS_LEN 20
-
+        _XL_S _XL_SPACE _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_O _XL_SPACE _XL_T 
 #endif
+
 #define THE_STRING _XL_t _XL_h _XL_e
 #define SKULL_STRING _XL_s _XL_k _XL_u _XL_l _XL_l
 #define MISSILE_STRING _XL_m _XL_i _XL_s _XL_s _XL_i _XL_l _XL_e

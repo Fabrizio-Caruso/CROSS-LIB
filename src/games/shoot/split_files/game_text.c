@@ -365,7 +365,7 @@ void _printCrossShoot(void)
 #if !defined(NO_INITIAL_SCREEN)
     void printStartMessage(void)
     {
-        SET_COLOR(_XL_RED);
+        SET_COLOR(_XL_GREEN);
 
         _printCrossShoot();
         

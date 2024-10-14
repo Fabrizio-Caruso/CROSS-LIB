@@ -122,7 +122,7 @@ static const uint8_t image_colors[] = {
     _XL_CYAN, 
     _XL_CYAN, 
     _XL_WHITE, 
-    _XL_YELLOW, 
+    _XL_CYAN, 
     _XL_RED,
     _XL_GREEN,
     0,

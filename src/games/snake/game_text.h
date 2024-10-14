@@ -58,7 +58,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 	#define _SECRET_LEN 6
 #endif
 #define _LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
-#define _CROSS_SNAKE_STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E
+#define _SNAKE_STRING _XL_S _XL_N _XL_A _XL_K _XL_E
 #define _Fabrizio_Caruso_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
 #define _PRESS_FIRE_STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
 
@@ -118,11 +118,11 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 #if !defined(_XL_NO_COLOR)
 	#define title() \
 		_XL_CLEAR_SCREEN(); \
-		_XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED); \
+		_XL_DRAW(XSize/2-4,0,HI_TEXT_TILE,_XL_RED); \
 		_XL_SET_TEXT_COLOR(_XL_WHITE); \
-		_XL_PRINTD(XSize/2-2,0,5,record); \
+		_XL_PRINTD(XSize/2-3,0,5,record); \
 		_XL_SET_TEXT_COLOR(_XL_RED); \
-		PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING); \
+		PRINT_CENTERED_ON_ROW(YSize/8, _SNAKE_STRING); \
 		_XL_SET_TEXT_COLOR(_XL_WHITE); \
 		PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
 		extra_title(); \
@@ -134,7 +134,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text);
 		_XL_SET_TEXT_COLOR(_XL_WHITE); \
 		_XL_PRINTD(XSize/2-2,0,5,record); \
 		_XL_SET_TEXT_COLOR(_XL_RED); \
-		PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING); \
+		PRINT_CENTERED_ON_ROW(YSize/8, _SNAKE_STRING); \
 		_XL_SET_TEXT_COLOR(_XL_WHITE); \
 		PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
 		extra_title(); \

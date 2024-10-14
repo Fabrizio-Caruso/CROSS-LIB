@@ -2278,17 +2278,7 @@ do \
     #define _HISCORE_Y 2
 #endif
 
-#if XSize>=20
-    #define _CROSS_HORDE_STRING \
-        "C R O S S  H O R D E"
-	#define _CROSS_LEN 20
-
-#else
-    #define _CROSS_HORDE_STRING \
-        "CROSS HORDE"
-	#define _CROSS_LEN 11
-#endif
-
+#define _HORDE_STRING "HORDE"
 
 #define display_initial_screen() \
 { \
@@ -2304,7 +2294,7 @@ do \
     _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
     \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/3-2,_CROSS_HORDE_STRING); \
+    PRINT_CENTERED_ON_ROW(YSize/3-2,_HORDE_STRING); \
     \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \

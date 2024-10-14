@@ -93,7 +93,7 @@
 #endif  
 
 // String definitions
-#define _CROSS_BOMBER__STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R
+#define _BOMBER__STRING _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R
 #if XSize>=18
     #define _BY_FABRIZIO_CARUSO__STRING _XL_B _XL_Y _XL_SPACE _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O
 #else
@@ -423,8 +423,8 @@ int main(void)
         
         displayHiScore(XSize/2-2);
             
-        _XL_SET_TEXT_COLOR(_XL_RED);
-        PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        PRINT_CENTERED_ON_ROW(2, _BOMBER__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         

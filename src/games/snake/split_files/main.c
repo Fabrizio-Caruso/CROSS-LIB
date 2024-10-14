@@ -34,7 +34,6 @@
 #include "settings.h"
 #include "variables.h"
 
-
 /*
 #define EMPTY 0
 #define DEADLY 1
@@ -362,16 +361,22 @@ void build_level(void)
                     build_horizontal_wall(x,y,length);
                     if(secret_wall_index==wall_index)
                     {
-                        map[x+1+_XL_RAND()%(length-2)][y] = SECRET;
-                        #if defined(DEBUG_SECRET_HOLES)
+                        #if defined(DEBUG_SECRET_HOLE)
                         {
+                            
+                            // uint8_t k = x+1+_XL_RAND()%(length-2);
+                            // map[k][y] = SECRET;
+                            // _XL_DRAW(k,y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             uint8_t k;
-                            for(k=0;k<20;++k)
+                            for(k=0;k<length;++k)
                             {
-                                _XL_DRAW(x+1+_XL_RAND()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
+                                _XL_DRAW(x+1+k%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             }
                         }
                         #endif
+                        // #else
+                        map[x+1+_XL_RAND()%(length-2)][y] = SECRET;
+                        // #endif
                     }
                 }
             }

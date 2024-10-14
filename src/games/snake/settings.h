@@ -1,6 +1,7 @@
 #ifndef _SETTINGS_H
 #define _SETTINGS_H
 
+
 #define INITIAL_LEVEL 1
 // #define DEBUG_LEVELS
 // #define DEBUG_SLOWDOWN
@@ -10,7 +11,7 @@
 // #define DEBUG_FREEZE
 // #define NO_ACHIEVEMENTS_SCREEN
 // #define NO_DISPLAY_LEVEL_ANIMATION
-// #define DEBUG_SECRET_HOLES
+// #define DEBUG_SECRET_HOLE
 
 #define FINAL_LEVEL 32
 

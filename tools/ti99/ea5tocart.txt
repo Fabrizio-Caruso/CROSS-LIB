@@ -1,0 +1,1 @@
+java -jar ../tools/ti99/ea5tocart.jar ../build/XTREX1 "Stinger"

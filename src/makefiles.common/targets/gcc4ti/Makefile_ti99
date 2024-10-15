@@ -136,15 +136,17 @@ xchase.ea5.debug.elf: $(PREREQUISITES_DEBUG)
 	$(LD) $(OBJECT_DEBUG_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.debug.elf > xchase.map
 	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
+ti99: ti
 
-ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+ti: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
 	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf x$(GAME_NAME)1.ea5.bin
 	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
-	java -jar $(TOOLS_PATH)/ti99/ea5tocart.jar  X$(GAME_NAME)1 X$(GAME_NAME)
+	java -jar $(TOOLS_PATH)/ti99/ea5tocart.jar  X$(GAME_NAME)1 X$(GAME_NAME)_$@
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
 	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
+	mv $(BUILD_PATH)/X$(GAME_NAME)18.bin $(BUILD_PATH)/X$(GAME_NAME)ti.bin
 	rm -rf x$(GAME_NAME)1.ea5.bin
 
 

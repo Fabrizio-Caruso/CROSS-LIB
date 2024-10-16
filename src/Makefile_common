@@ -2972,8 +2972,8 @@ stdio_buffered: stdio
 # 
 stdio:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
-	-D__STDIO $(STDIO_GAME_OPTS) -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
+	-D__STDIO $(STDIO_GAME_OPTS) \ 
+	-D_XL_NO_JOYSTICK \
 	-DXSize=32 -DYSize=24 \
 	-D_XL_NO_COLOR \
 	$(NCURSES_GAME_OPTS) \
@@ -2989,8 +2989,8 @@ stdio:
 stdio_sized:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-DXSize=$(XSIZE) -DYSize=$(YSIZE) \
-	-D__STDIO $(STDIO_GAME_OPTS) -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
-	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
+	-D__STDIO $(STDIO_GAME_OPTS) \
+	-D_XL_NO_JOYSTICK \
 	-D_XL_NO_COLOR \
 	$(NCURSES_GAME_OPTS) \
 	-D_XL_TURN_BASED \
@@ -3120,6 +3120,12 @@ include makefiles.common/targets/vbcc/Makefile_m65
 
 # ATARI_MINT_GCC
 include makefiles.common/targets/atari_mint_gcc/Makefile_atari_st
+
+
+# TODO: Fix and improve these targets
+# ACK
+include makefiles.common/targets/ack/Makefile.ack_targets
+
 
 
 ########################################################################

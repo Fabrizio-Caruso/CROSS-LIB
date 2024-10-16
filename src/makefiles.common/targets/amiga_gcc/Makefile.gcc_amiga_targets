@@ -1,0 +1,38 @@
+# ------------------------------------------------------------------------------------------
+# GCC AMIGA
+
+##############################################################################################
+
+amiga_targets: \
+	amiga_buffered
+
+gcc_amiga_targets: \
+    amiga_targets
+
+# -------------------------------------------------------------------------------------------
+
+
+amiga_core_test:
+	$(AMIGA_CC) -mcrt=nix13 \
+	$(SOURCE_PATH)/../test/main_use_amiga_core.c
+
+amiga: amiga_buffered
+
+amiga_buffered:
+	$(AMIGA_CC) $(INCLUDE_OPTS) -mcrt=nix13 \
+	-D__AMIGA__ \
+	-D__NORMALIZED_RAND \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-D_XL_NO_SLEEP \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_amiga_buffered.exe

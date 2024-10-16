@@ -1,0 +1,58 @@
+# ------------------------------------------------------------------------------------------
+# XTC68
+#
+
+# xtc86 targets
+sinclair_ql_targets: \
+	sinclair_ql_tiny_buffered
+
+
+XTC68_OPTS = -D__XTC68__ -I$(SOURCE_PATH) \
+
+
+xtc68_targets: sinclair_ql_targets
+
+
+#############################################################################################
+
+XTC68_ALL_OPTS ?= \
+	$(XTC68_OPTS) $(INCLUDE_OPTS)\
+	-I$(SOURCE_PATH) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT 	
+
+
+sinclair_ql: sinclair_ql_tiny_buffered
+
+
+sinclair_ql_tiny_buffered:
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/init_images.c -o init_images.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/input/input_macros.c -o input_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/text/text_macros.c -o text_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/move_player.c -o move_player.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/ghost.c  -o ghost.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/character.c -o character.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/game_text.c -o game_test.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/strategy.c -o strategy.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/main.c -o main.o 
+	$(XTC68) $(XTC68_ALL_OPTS) /usr/local/qdos/lib/crt.o \
+	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
+	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
+	mv a_out $(BUILD_PATH)/X$(GAME_NAME)_TINY_SinclairQL_buffered.out
+
+

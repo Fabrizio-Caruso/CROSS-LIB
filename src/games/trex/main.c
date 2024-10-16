@@ -888,7 +888,7 @@ void handle_game_start(void)
     _XL_PRINT(LEVEL_X+1,  0,     "TREX");
     _XL_PRINT(LEVEL_X+1+1,1,      "BY");
     _XL_PRINT(LEVEL_X+1-4,2, "FABRIZIO CARUSO");
-    _XL_PRINT(LEVEL_X+1-3,YSize-1, "BETA VERSION");
+    // _XL_PRINT(LEVEL_X+1-3,YSize-1, "BETA VERSION");
 
     display_hilevel();
     

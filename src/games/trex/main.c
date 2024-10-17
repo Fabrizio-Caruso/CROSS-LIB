@@ -988,7 +988,8 @@ void handle_game_start(void)
     {
         _XL_CLEAR_SCREEN();
         _XL_REFRESH();
-        
+        counter = 0;
+
         display_score();
         display_hiscore();
         draw_terrain();

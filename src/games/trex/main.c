@@ -832,7 +832,7 @@ void handle_game_over(void)
     uint8_t i;
     uint8_t j;
     
-    _XL_DELETE(X_DINO,Y_DINO);
+    // _XL_DELETE(X_DINO,Y_DINO);
 
     for(i=1;i<8;++i)
     {
@@ -842,6 +842,7 @@ void handle_game_over(void)
         }
     }
 
+    #if !defined(TINY_GAME)
     draw_dead_dino_0();
     _XL_REFRESH();
     _XL_SHOOT_SOUND();
@@ -851,6 +852,12 @@ void handle_game_over(void)
     _XL_REFRESH();
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
+    #else
+    _XL_SHOOT_SOUND();
+    _XL_PRINT(GAME_OVER_Y, 7, "GAME OVER");
+    _XL_REFRESH();
+    _XL_WAIT_FOR_INPUT();
+    #endif
     if(score>hiscore)
     {
         hiscore = score;
@@ -1112,19 +1119,20 @@ void activate_level(void)
         if(level<2)
         {
             level_cacti = 2;
-            slowdown_factor = 20;
+            slowdown_factor = 18;
         }
-        else if(level<15)
+        else if(level<=14)
         {
-            level_cacti = 2;
+            level_cacti = 3;
             slowdown_factor = 20-level; 
         }
         else
         {
             level_cacti=3;
-            slowdown_factor = 7;
+            slowdown_factor = 5;
         }
         // slowdown_factor = 20;
+        
     }
 #endif
 

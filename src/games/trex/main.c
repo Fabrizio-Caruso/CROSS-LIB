@@ -88,10 +88,15 @@ uint8_t cactus_cooldown[NUMBER_OF_CACTI];
 uint8_t number_of_active_cactus;
 uint8_t last_active_cactus = 1;
 
+#if !defined(TINY_GAME)
 uint8_t x_bird;
 uint8_t active_bird;
 uint8_t y_bird;
 uint8_t bird_cooldown;
+
+uint8_t hilevel;
+
+#endif
 
 uint8_t dead;
 
@@ -103,7 +108,6 @@ uint16_t score;
 uint16_t hiscore;
 
 uint8_t level;
-uint8_t hilevel;
 
 uint8_t level_cacti;
 uint8_t level_bird;
@@ -123,15 +127,20 @@ void draw_jump_dino_0(uint8_t height)
 
 }    
 
+#if !defined(TINY_GAME)
 void draw_dead_dino_0(void)
 {
-
     // Initial tiles
     _XL_DRAW(X_DINO+1,Y_DINO,TOP_DEAD_DINO_0,_XL_WHITE);
     _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1,TAIL_DINO_0,_XL_WHITE);
 }   
+#else
+#define draw_dead_dino_0() 
+#endif
 
+
+#if !defined(TINY_GAME)
 void draw_jump_dino_1(uint8_t height)
 {
     _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_1,_XL_WHITE);
@@ -141,16 +150,9 @@ void draw_jump_dino_1(uint8_t height)
     _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_1,_XL_WHITE);    
 
 }   
-
-// void draw_jump_dino_2(uint8_t height)
-// {
-    // _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_2,_XL_WHITE);
-    // _XL_DRAW(X_DINO+1,Y_DINO-height,MIDDLE_DINO_2,_XL_WHITE);    
-    // _XL_DRAW(X_DINO+1,Y_DINO+1-height,BOTTOM_DINO_2,_XL_WHITE);
-    // _XL_DRAW(X_DINO,Y_DINO+1-1-height,TAIL_DINO_2,_XL_WHITE);
-    // _XL_DRAW(X_DINO,Y_DINO+1-height,FOOT_DINO_2,_XL_WHITE);   
-    
-// }  
+#else
+    #define draw_jump_dino_1(height)
+#endif
 
 void delete_feet(uint8_t height)
 {
@@ -165,6 +167,7 @@ void delete_top(uint8_t height)
 
 }
 
+#if !defined(TINY_GAME)
 void draw_dino_feet_0(void)
 {
     _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
@@ -177,7 +180,16 @@ void draw_dino_feet_1(void)
     _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_RAISED_DINO,_XL_WHITE);
     _XL_DRAW(X_DINO,Y_DINO+1,TAIL_DINO_0,_XL_WHITE);
 }
+#else
+void draw_dino_feet_0(void)
+{    
+    _XL_DRAW(X_DINO+1,Y_DINO+1,BOTTOM_DINO_0,_XL_WHITE);
+    _XL_DRAW(X_DINO,Y_DINO+1,TAIL_DINO_0,_XL_WHITE);
+}    
 
+#define draw_dino_feet_1() draw_dino_feet_0()
+
+#endif
 
 // #define RUN_SLOW_DOWN 4
 
@@ -305,30 +317,14 @@ void handle_fire(void)
 void handle_state_transition(void)
 {
     switch(state)
-    {
-        // case 99:
-            // state = 1;
-            // handle_fire();
-        // break;      
+    {     
         case 0:
 
-            // input = _XL_INPUT();
-            
-            // if(_XL_FIRE(input))
-            // {
-                // state = JUMP+1;
-            // }
             state = 90;
             handle_fire();
         break;
         
         case 1:
-            // input = _XL_INPUT();
-            
-            // if(_XL_FIRE(input))
-            // {
-                // state = JUMP+1;
-            // }
             state = 91;
             handle_fire();
         break;
@@ -339,13 +335,6 @@ void handle_state_transition(void)
         break;
 
         case 90:
-            // input = _XL_INPUT();
-            
-            // if(_XL_FIRE(input))
-            // {
-                // state = JUMP+1;
-            // }
-            
             #if !defined(SLOWER_FEET)
             if(counter&1)
             #else
@@ -358,15 +347,7 @@ void handle_state_transition(void)
 
         break;
         
-        case 91:
-            // input = _XL_INPUT();
-            
-            // if(_XL_FIRE(input))
-            // {
-                // state = JUMP+1;
-            // }
-            
-            
+        case 91:           
             #if !defined(SLOWER_FEET)
             if(counter&1)
             #else
@@ -408,6 +389,7 @@ void display_hiscore(void)
     #define HILEVEL_Y YSize-2
 #endif
 
+#if !defined(TINY_GAME)
 void display_hilevel(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -415,6 +397,9 @@ void display_hilevel(void)
     _XL_PRINTD(XSize/2-8+13,HILEVEL_Y,2,hilevel);
 
 }
+#else
+#define display_hilevel()
+#endif
 
 
 #if !defined(NO_CACTUS_TRANSITION)
@@ -440,14 +425,18 @@ void handle_cactus_half_transition(uint8_t i)
 }
 #endif
 
-void handle_bird_half_transition(void)
-{
-    if(active_bird)
+#if !defined(TINY_GAME)
+    void handle_bird_half_transition(void)
     {
-        _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
-        _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
+        if(active_bird)
+        {
+            _XL_DRAW(x_bird,y_bird,LEFT_BIRD_0,_XL_WHITE);
+            _XL_DRAW(x_bird+1,y_bird,LEFT_BIRD_1,_XL_WHITE);
+        }
     }
-}
+#else
+    #define handle_bird_half_transition() 
+#endif
 
 #define INITIAL_LOW_COLLISION_THRESHOLD (JUMP+3)
 #define FINAL_LOW_COLLISION_THRESHOLD ((JUMP)+END_JUMP-2)
@@ -465,17 +454,21 @@ void one_point(void)
 #define BIRD_COOLDOWN_MASK 63U
 #define CACTUS_COOLDOWN_MASK 31U
 
-void draw_cactus_1(x)
+void draw_cactus_1(uint8_t x)
 {
     _XL_DRAW(x,Y_CACTUS-1,TOP_CACTUS,_XL_WHITE);
     _XL_DRAW(x,Y_CACTUS,BOTTOM_CACTUS,_XL_WHITE);
 }
 
-void draw_cactus_2(x)
+#if !defined(TINY_GAME)
+void draw_cactus_2(uint8_t x)
 {
     _XL_DRAW(x,Y_CACTUS-1,TOP_CACTUS_2,_XL_WHITE);
     _XL_DRAW(x,Y_CACTUS,BOTTOM_CACTUS_2,_XL_WHITE);
 }
+#else
+    #define draw_cactus_2(x) draw_cactus_1(x)
+#endif
 
 void update_cactus(uint8_t i)
 {
@@ -521,44 +514,34 @@ void update_cactus(uint8_t i)
 }
 
 
-void update_bird(void)
-{
-    // if(!y_bird)
-        // return;
-
-    
-    // _XL_PRINTD(0,4,3,x_bird);
-
-    if(active_bird)
+#if !defined(TINY_GAME)
+    void update_bird(void)
     {
-        _XL_DELETE(x_bird,y_bird);
-        _XL_DELETE(x_bird+1,y_bird);
-        if(x_bird == LEFT_END_OF_TERRAIN)
+
+        if(active_bird)
         {
-            x_bird = 0;
-            // while(1){};
-            // _XL_DELETE(x_bird,y_bird);
-            // _XL_DELETE(x_bird+1,y_bird);
-            one_point();
-            bird_cooldown = (uint8_t) (_XL_RAND()&BIRD_COOLDOWN_MASK);
-            active_bird = 0;
-        // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-        // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-        // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-        // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-        // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            return;
-        }
-        else
-        {
-            --x_bird;
-            _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
-            _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
+            _XL_DELETE(x_bird,y_bird);
+            _XL_DELETE(x_bird+1,y_bird);
+            if(x_bird == LEFT_END_OF_TERRAIN)
+            {
+                x_bird = 0;
+
+                one_point();
+                bird_cooldown = (uint8_t) (_XL_RAND()&BIRD_COOLDOWN_MASK);
+                active_bird = 0;
+                return;
+            }
+            else
+            {
+                --x_bird;
+                _XL_DRAW(x_bird,y_bird,RIGHT_BIRD_0,_XL_WHITE);
+                _XL_DRAW(x_bird+1,y_bird,RIGHT_BIRD_1,_XL_WHITE);
+            }
         }
     }
-}
-
-
+#else
+    #define update_bird()
+#endif
 
 
 
@@ -574,19 +557,21 @@ void handle_cactus(uint8_t i)
     }
 }
 
-
-void handle_bird(void)
-{
-    if(bird_cooldown)
+#if !defined(TINY_GAME)
+    void handle_bird(void)
     {
-        --bird_cooldown;
-    }       
-    else
-    {
-        update_bird();
+        if(bird_cooldown)
+        {
+            --bird_cooldown;
+        }       
+        else
+        {
+            update_bird();
+        }
     }
-}
-
+#else
+    #define handle_bird()
+#endif
 
 uint8_t first_non_active_cactus(void)
 {
@@ -594,10 +579,6 @@ uint8_t first_non_active_cactus(void)
     
     for(i=0;i<level_cacti;++i)
     {
-   // _XL_PRINTD(5*i,YSize-1,2,cactus_cooldown[i]);
-   // _XL_PRINTD(10,YSize-1,2,active_cactus[i]);
-   
-
         if((!cactus_cooldown[i])&&(!active_cactus[i]))
         {   
             return i;
@@ -637,18 +618,21 @@ void spawn_cacti(void)
    }
 }
 
-
-void spawn_bird(void)
-{
-    if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<BIRD_SAFE_DISTACE))
+#if !defined(TINY_GAME)
+    void spawn_bird(void)
     {
-        y_bird = (uint8_t) (Y_DINO-2*(_XL_RAND()&1));
+        if((!bird_cooldown)&&(!active_bird) && (x_cactus[last_active_cactus]<BIRD_SAFE_DISTACE))
+        {
+            y_bird = (uint8_t) (Y_DINO-2*(_XL_RAND()&1));
 
-        active_bird = 1;
-        x_bird = RIGHT_END_OF_TERRAIN-1;
+            active_bird = 1;
+            x_bird = RIGHT_END_OF_TERRAIN-1;
+        }  
     }
-    
-}
+#else
+    #define spawn_bird()
+#endif
+
 
 #if defined(_XL_NO_JOYSTICK)
     #define PRESS_TO_FIRE "PRESS SPACE"
@@ -659,20 +643,27 @@ void spawn_bird(void)
 
 #define INITIAL_CACTUS_COOLDOWN 3
 
-
+#if !defined(TINY_GAME)
 void handle_enemy_spawn(void)
 {
-
     if(!(counter&3) && (number_of_active_cactus<level_cacti) && (x_bird<XSize/2) &&(!set_speed) )
     {
         spawn_cacti();
     }
-    else if(level_bird && !set_speed)// && ((counter&3)==2))
+    else if(level_bird && !set_speed)
     {
         spawn_bird();
     }
 }
-
+#else
+void handle_enemy_spawn(void)
+{
+    if(!(counter&3) && (number_of_active_cactus<level_cacti))
+    {
+        spawn_cacti();
+    }
+}    
+#endif
 
 // TODO: Optimize for space
 void handle_enemies(void)
@@ -685,10 +676,12 @@ void handle_enemies(void)
         {
             handle_cactus(i);
         }
+        #if !defined(TINY_GAME)
         if (level_bird)
         {
             handle_bird();
         }
+        #endif
     }
     else
     {
@@ -707,6 +700,7 @@ void handle_enemies(void)
 
 
 // TODO: y_bird has only 2 values
+#if !defined(TINY_GAME)
 void handle_collisions(void)
 {
     uint8_t i;
@@ -718,7 +712,6 @@ void handle_collisions(void)
         {
             dead = x_cactus[i++]==X_DINO;
         }
-        
         dead |= (x_bird==X_DINO) && ((y_bird==Y_DINO));
     }
     else
@@ -726,8 +719,23 @@ void handle_collisions(void)
         dead = (x_bird==X_DINO) && ((y_bird==Y_DINO-2));
     }
 }
+#else
+void handle_collisions(void)
+{
+    uint8_t i;
+    
+    if ((state<INITIAL_LOW_COLLISION_THRESHOLD)||(state>FINAL_LOW_COLLISION_THRESHOLD))
+    {
+        i=0;
+        while((i<NUMBER_OF_CACTI)&&(!dead))
+        {
+            dead = x_cactus[i++]==X_DINO;
+        }
+    }
+}  
+#endif
 
-
+#if !defined(TINY_GAME)
 void draw_terrain(void)
 {
     uint8_t i;
@@ -755,8 +763,20 @@ void draw_terrain(void)
         }
     }       
 }
+#else
+    
+void draw_terrain(void)
+{
+    uint8_t i;
+    
+    for(i=LEFT_END_OF_TERRAIN;i<RIGHT_END_OF_TERRAIN;++i)
+    {
+        _XL_DRAW(i,Y_TERRAIN,TERRAIN,_XL_WHITE);
+    }       
+}
+#endif
 
-
+#if !defined(TINY_GAME)
 void draw_cacti(void)
 {
     draw_cactus_1(RIGHT_END_OF_TERRAIN-2);
@@ -774,7 +794,11 @@ void delete_cacti(void)
     _XL_DELETE(RIGHT_END_OF_TERRAIN-4,Y_CACTUS);
     _XL_DELETE(RIGHT_END_OF_TERRAIN-6,Y_CACTUS);
 }
+#else
+    #define draw_cacti() 
 
+    #define delete_cacti()
+#endif
 
 void initialize_enemies(void)
 {
@@ -788,9 +812,11 @@ void initialize_enemies(void)
     }
     number_of_active_cactus = 0;
     
+    #if !defined(TINY_GAME)
     x_bird = 0;
     active_bird = 0;
     bird_cooldown = (uint8_t) (INITIAL_CACTUS_COOLDOWN);
+    #endif
 }
 
 
@@ -799,6 +825,7 @@ void initialize_enemies(void)
 #else
     #define GAME_OVER_Y 0
 #endif 
+
 
 void handle_game_over(void)
 {
@@ -815,22 +842,6 @@ void handle_game_over(void)
         }
     }
 
-    // _XL_DELETE(X_DINO,Y_DINO-1);
-    // _XL_DELETE(X_DINO,Y_DINO-2);
-    // _XL_DELETE(X_DINO,Y_DINO-3);
-    // _XL_DELETE(X_DINO,Y_DINO-4);
-    // _XL_DELETE(X_DINO,Y_DINO-5);
-    // _XL_DELETE(X_DINO,Y_DINO-6);
-    // _XL_DELETE(X_DINO,Y_DINO-7);
-    
-    // _XL_DELETE(X_DINO+1,Y_DINO-1);
-    // _XL_DELETE(X_DINO+1,Y_DINO-2);
-    // _XL_DELETE(X_DINO+1,Y_DINO-3);
-    // _XL_DELETE(X_DINO+1,Y_DINO-4);
-    // _XL_DELETE(X_DINO+1,Y_DINO-5);
-    // _XL_DELETE(X_DINO+1,Y_DINO-6);
-    // _XL_DELETE(X_DINO+1,Y_DINO-7);
-    
     draw_dead_dino_0();
     _XL_REFRESH();
     _XL_SHOOT_SOUND();
@@ -844,10 +855,12 @@ void handle_game_over(void)
     {
         hiscore = score;
     }
+    #if !defined(TINY_GAME)
     if(level>hilevel)
     {
         hilevel = level;
     }
+    #endif
 }
 
 
@@ -865,7 +878,7 @@ void display_level(void)
     _XL_PRINTD(LEVEL_X+6, LEVEL_Y,2,level);
 }
 
-
+#if !defined(TINY_GAME)
 void handle_game_start(void)
 {
     uint8_t start;
@@ -888,7 +901,6 @@ void handle_game_start(void)
     _XL_PRINT(LEVEL_X+1,  0,     "TREX");
     _XL_PRINT(LEVEL_X+1+1,1,      "BY");
     _XL_PRINT(LEVEL_X+1-4,2, "FABRIZIO CARUSO");
-    // _XL_PRINT(LEVEL_X+1-3,YSize-1, "BETA VERSION");
 
     display_hilevel();
     
@@ -959,10 +971,38 @@ void handle_game_start(void)
     display_level();
     _XL_REFRESH();
 }
+#else
+    void handle_game_start(void)
+    {
+        _XL_CLEAR_SCREEN();
+        _XL_REFRESH();
+        
+        display_score();
+        display_hiscore();
+        draw_terrain();
+        
+        // draw_cacti();
+        
+        
+        _XL_SLOW_DOWN(10*_XL_SLOW_DOWN_FACTOR);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINT(LEVEL_X+1,  0,     "TREX");
+        // _XL_PRINT(LEVEL_X+1+1,1,      "BY");
+        _XL_PRINT(LEVEL_X+1-4,2, "FABRIZIO CARUSO");
+        
+        _XL_PRINT(LEVEL_X,LEVEL_Y, "LEVEL");
+        display_level();
+        _XL_WAIT_FOR_INPUT();
+        _XL_PRINT(LEVEL_X+1+1,1,      "  ");
 
+        _XL_PRINT(LEVEL_X+1-4,2, "               ");
+        _XL_REFRESH();
+    }
+#endif
 
 #define LEVEL_SIZE  256U
 
+#if !defined(TINY_GAME)
 void birdAndTwoCacti(void)
 {
     level_bird = 1;
@@ -974,7 +1014,9 @@ void birdAndThreeCacti(void)
     level_bird = 1;
     level_cacti = 3;
 }
+#endif
 
+#if !defined(TINY_GAME)
 void activate_level(void)
 {
     set_speed = 1;
@@ -1063,12 +1105,33 @@ void activate_level(void)
             // counter = 0;
     }
 }
+#else
+    void activate_level(void)
+    {
+        set_speed = 1;
+        if(level<2)
+        {
+            level_cacti = 2;
+            slowdown_factor = 20;
+        }
+        else if(level<15)
+        {
+            level_cacti = 2;
+            slowdown_factor = 20-level; 
+        }
+        else
+        {
+            level_cacti=3;
+            slowdown_factor = 7;
+        }
+        // slowdown_factor = 20;
+    }
+#endif
 
 
 void handle_level(void)
 {
-    // _XL_PRINTD(0,YSize-1,3,counter);
-    if(!counter) //!(counter&(LEVEL_SIZE-1)))
+    if(!counter) 
     {
         if(level<MAX_LEVEL)
         {
@@ -1082,6 +1145,7 @@ void handle_level(void)
 }
 
 
+#if !defined(TINY_GAME)
 void handle_speed(void)
 {
     if(set_speed)
@@ -1092,8 +1156,20 @@ void handle_speed(void)
             set_speed = 0;
         }            
     }
-
 }
+#else
+void handle_speed(void)
+{
+    if(set_speed)
+    {
+        if(!number_of_active_cactus)
+        {
+            slowdown = ((uint16_t) slowdown_factor)*((uint16_t)_XL_SLOW_DOWN_FACTOR/2);
+            set_speed = 0;
+        }            
+    }
+}   
+#endif
 
 
 int main(void)
@@ -1105,7 +1181,9 @@ int main(void)
     _XL_INIT_INPUT();
 
     hiscore = 0;
+    #if !defined(TINY_GAME)
     hilevel = 1;
+    #endif
     
     while(1)
     {

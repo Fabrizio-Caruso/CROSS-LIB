@@ -11,5 +11,6 @@
 	void gameCompleted(void);
 #endif
 	
-#endif // _THE_END_HEADER
+#endif
+
 

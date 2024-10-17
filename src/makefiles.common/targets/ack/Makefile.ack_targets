@@ -14,7 +14,7 @@ ack_targets: \
 ############################################################################################
 
 
-pc8086: pc8086_tiny_buffered
+# pc8086: pc8086_tiny_buffered
 pc8086_tiny_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DXSize=20 \
@@ -90,10 +90,11 @@ msdos86:
 	-D_XL_TURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
-	-D__ALT_PRINT \
+	-D__ALT_PRINT -D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	cross_lib/display/alt_print/memory_mapped_alt_print.c \
 	cross_lib/display/display_macros.c cross_lib/input/input_macros.c cross_lib/sleep/sleep_macros.c games/chase/main.c \
+	$(FULL_FILES) \
 	-o ../build/Xchase_stdio.exe
 	mv msdos86.exe $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.exe
 	rm $(SOURCE_PATH)/../../*.o
@@ -130,7 +131,7 @@ pc8086:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__PC8086__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \

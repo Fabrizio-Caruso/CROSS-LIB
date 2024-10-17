@@ -408,7 +408,7 @@ c16_16k_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-D__MEMORY_MAPPED_GRAPHICS -D__DOUBLE_BUFFER \
 	-D__ASSEMBLY_CLEAR_SCREEN -D__DEFAULT_CLEAR_SCREEN \
 	-D__ALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_DOUBLE_BUFFER_SLOWDOWN) \
 	-D__UDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -439,7 +439,7 @@ c16_conio: c16_16k_conio
 
 c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 --config $(CFG_PATH)/cc65/c16-16k.cfg \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_CONIO_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \

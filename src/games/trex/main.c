@@ -820,11 +820,16 @@ void initialize_enemies(void)
 }
 
 
-#if XSize>16
-    #define GAME_OVER_Y XSize/2-9
-#else
-    #define GAME_OVER_Y 0
-#endif 
+    #if XSize>16
+        #if !defined(TINY_GAME)
+            #define GAME_OVER_Y XSize/2-9
+        
+        #else
+            #define GAME_OVER_Y XSize/2-4
+        #endif
+    #else
+        #define GAME_OVER_Y 0
+    #endif 
 
 
 void handle_game_over(void)
@@ -1116,15 +1121,15 @@ void activate_level(void)
     void activate_level(void)
     {
         set_speed = 1;
-        if(level<2)
+        if(level<3)
         {
             level_cacti = 2;
-            slowdown_factor = 18;
+            slowdown_factor = 16;
         }
-        else if(level<=14)
+        else if(level<=11)
         {
             level_cacti = 3;
-            slowdown_factor = 20-level; 
+            slowdown_factor = 17-level; 
         }
         else
         {

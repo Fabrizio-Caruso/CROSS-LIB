@@ -12,11 +12,11 @@
     #define BOTTOM_DINO_0         _TILE_3
 
     // Dino lower feet
-    #define TAIL_RAISED_DINO      _TILE_4
-    #define BOTTOM_RAISED_DINO    _TILE_1
+    #define TAIL_RAISED_DINO      _TILE_17
+    #define BOTTOM_RAISED_DINO    _TILE_16
 
     // Dino with +4 pixel offset
-    #define TOP_DINO_1            _TILE_5
+    #define TOP_DINO_1            _TILE_15
     #define MIDDLE_DINO_1         _TILE_6
     #define BOTTOM_DINO_1         _TILE_7
     
@@ -29,7 +29,7 @@
     
 
     #define TOP_CACTUS_2          _TILE_10
-    #define BOTTOM_CACTUS_2       _TILE_17
+    #define BOTTOM_CACTUS_2       _TILE_4
 
     #define TOP_LEFT_CACTUS_2     _TILE_11
     #define BOTTOM_LEFT_CACTUS_2  _TILE_20
@@ -37,10 +37,10 @@
     #define BOTTOM_RIGHT_CACTUS_2 _TILE_21
     
 
-    #define TERRAIN               _TILE_15
+    #define TERRAIN               _TILE_5
     
-    #define TOP_CACTUS            _TILE_16
-    #define BOTTOM_CACTUS         _TILE_17
+    #define TOP_CACTUS            _TILE_1
+    #define BOTTOM_CACTUS         _TILE_4
 
     #define TOP_LEFT_CACTUS       _TILE_18
     #define BOTTOM_LEFT_CACTUS    _TILE_20
@@ -62,18 +62,6 @@
     #define TAIL_DINO_0           _TILE_2
     #define BOTTOM_DINO_0         _TILE_3
 
-    // Dino lower feet
-    // #define TAIL_RAISED_DINO      _TILE_4
-    // #define BOTTOM_RAISED_DINO    _TILE_1
-
-    // Dino with +4 pixel offset
-    // #define TOP_DINO_1            _TILE_0
-    // #define MIDDLE_DINO_1         _TILE_2
-    // #define BOTTOM_DINO_1         _TILE_7
-    
-    // #define TAIL_DINO_1           _TILE_2
-    // #define FOOT_DINO_1           _TILE_3
-    
     #define TOP_CACTUS            _TILE_1
     #define BOTTOM_CACTUS         _TILE_4
 

@@ -10,10 +10,13 @@ CONTROLS: either SPACE or FIRE.
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_vic20_exp_16k.prg
 
-2. MSX:
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXtrexti.bin
+
+3. MSX:
 https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_msx_16k.rom
 
-3. Video Technology Laser 500: 
+4. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/trexBETA/Xtrex_laser500_keyboard.bin
 
 
@@ -28,10 +31,13 @@ CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check wo
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_vic20_exp_16k.prg
 
-2. MSX:
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXstingerti.bin
+
+3. MSX:
 https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_msx_16k.rom
 
-3. Video Technology Laser 500: 
+4. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/stinger/Xstinger_laser500.bin
 
 
@@ -46,10 +52,13 @@ CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (d
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_vic20_exp_16k.prg
 
-2. MSX:
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXshurikenti.bin
+
+3. MSX:
 https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_msx_16k.rom
 
-3. Video Technology Laser 500: 
+4. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/shuriken/Xshuriken_laser500.bin
 
 
@@ -66,13 +75,16 @@ CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (d
 1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vic20_exp_16k.prg
 
-2. MSX:
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXverbixti.bin
+
+3. MSX:
 https://webmsx.org/?cartridge1_url=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_msx_16k.rom
 
-3. Video Technology Laser 500: 
+4. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_laser500.bin
 
-4. Video Technology Laser 200 / VZ200: 
+5. Video Technology Laser 200 / VZ200: 
 https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/verbix/Xverbix_vz200_24k.vz
 
 
@@ -96,11 +108,11 @@ After these improvements, the rings will be necessary to unblock special items a
 
 CONTROLS: either the joystick or J (left), L (right), SPACE (fire).
 
-1. Commodore 264 series (C16/C116/C+4):
-https://plus4world.powweb.com/play/cross_horde
-
-2. Commodore Vic 20: 
+1. Commodore Vic 20: 
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_vic20_exp_8k.prg
+
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXhordeti.bin
 
 3. Commodore 64: 
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_c64.prg
@@ -116,6 +128,10 @@ https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/
 
 7. Video Technology Laser 500: 
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XHorde1.0/Xhorde_laser500.bin
+
+8. Commodore 264 series (C16/C116/C+4):
+https://plus4world.powweb.com/play/cross_horde
+
 
 Binaries are in the release section (Click on Assets): \
 https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XHorde1.0
@@ -149,11 +165,11 @@ CONTROLS: either the joystick or I J K L to move and SPACE to start/continue.
 
 You can play the game online:
 
-1. Commodore 264 series (C16/C116/C+4): \
-http://plus4world.powweb.com/play/cross_snake_2_0
-
-2. Commodore Vic 20: \
+1. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
+
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXsnaketi.bin
 
 3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
@@ -169,6 +185,9 @@ https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/
 
 7. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_laser500.bin
+
+8. Commodore 264 series (C16/C116/C+4): \
+http://plus4world.powweb.com/play/cross_snake_2_0
 
 Binaries are in the release section (Click on Assets): \
 https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XSnake2.0
@@ -189,11 +208,11 @@ CONTROLS: either the joystick fire button or SPACE.
 
 You can play the game online:
 
-1. Commodore 264 series (C16/C116/C+4): \
-http://plus4world.powweb.com/play/cross_bomber
-
-2. Commodore Vic 20: \
+1. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_vic20_exp_8k.prg
+
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXbomberti.bin
 
 3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XBomber/Xbomber_c64.prg
@@ -209,6 +228,10 @@ https://nippur72.github.io/laser310-emu/?restore=false&?load=http://github.com/F
 
 7. Video technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
+
+8. Commodore 264 series (C16/C116/C+4): \
+http://plus4world.powweb.com/play/cross_bomber
+
 
 Binaries are in the release section (Click on Assets): \
 https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XBomber
@@ -234,11 +257,11 @@ CONTROLS: either the joystick or I J K L to move and SPACE to fire.
 
 You can play the gamne online:
 
-1. Commodore 264 series (C16/C116/C+4): \
-http://plus4world.powweb.com/play/cross_shoot
-
-2. Commodore VIC 20: \
+1. Commodore VIC 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/XShoot_vic20_exp_16k.prg
+
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXshootti.bin
 
 3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_c64.prg 
@@ -254,6 +277,10 @@ https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fa
 
 7. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShootRebuild/Xshoot_laser500.bin
+
+8. Commodore 264 series (C16/C116/C+4): \
+http://plus4world.powweb.com/play/cross_shoot
+
 
 Binaries are in the release section (Click on Assets): \
 https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XShootRebuild
@@ -274,29 +301,30 @@ CONTROLS: either the joystick or I J K L (to move) and SPACE to fire.
 
 You can play the game online for different systems:
 
-1. Atari LYNX: \
-https://atarigamer.com/lynx/play/CrossChase/675300242
-
-2. Commodore 264 series (C16/C116/C+4): \
-http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-
-3. Commodore Vic 20: \
+1. Commodore Vic 20: \
 https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vic20_exp_16k.prg
 
-4. Commodore 64: \
+2. TI99/4A:
+https://js99er.net/#/?cartUrl=https:%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2Fti99_1.32%2FXchaseti.bin
+
+3. Commodore 64: \
 https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_c64.prg
 
-5. MSX 1: \
+4. MSX 1: \
 https://homebrew.file-hunter.com/index.php?id=crosschase
 
-6. Sinclair ZX Spectrum 48K: \
+5. Sinclair ZX Spectrum 48K: \
 https://spectrumcomputing.co.uk/playonline.php?eml=2&downid=112056 or https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 
-7. Video Technology Laser 210 / VZ200 : \
+6. Video Technology Laser 210 / VZ200 : \
 https://nippur72.github.io/laser310-emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_vz200_18k.vz
 
-8. Video Technology Laser 500: \
+7. Video Technology Laser 500: \
 https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XChase/Xchase_laser500.bin
+
+8. Commodore 264 series (C16/C116/C+4): \
+http://plus4world.powweb.com/play/cross_chase_32k_v0_9
+
 
 Binaries are in the release section (Click on Assets): \
 https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XChase

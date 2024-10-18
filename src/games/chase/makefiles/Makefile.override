@@ -116,7 +116,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 
 # $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -m mapfile.txt \
 	-D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
 	-D__VIC20_UNEXPANDED \
 	-D_ALT_SLEEP -D_XL_NO_SLEEP_SEC \

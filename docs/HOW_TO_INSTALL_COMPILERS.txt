@@ -87,7 +87,10 @@ git branch 1.32
 
 sudo apt install build-essential libgmp-dev libmpfr-dev
 cd tms900-gcc
-./install.sh <target>
+./install.sh /opt/gcc4ti
+
+-----------------------
+
 
 libTi99:
 git clone https://github.com/tursilion/libti99

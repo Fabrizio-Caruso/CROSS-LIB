@@ -30,16 +30,16 @@ void _displayShort(uint8_t x, register uint16_t value)
 { 
     uint8_t i; 
     uint8_t old;
-    // uint16_t addr;
+    uint16_t addr;
 
     for(i=1;i<6;++i) 
     { 
         old = value%10;
-        // addr = BASE_ADDR-1+6+x-i;
-        value -= POKE(BASE_ADDR-1+6+x-i,(uint8_t) ((value)%10));
+        addr = BASE_ADDR-1+6+x-i;
+        value -= POKE(addr,(uint8_t) ((value)%10));
         value/=10; 
-        POKE(BASE_ADDR-1+6+x-i,UDG_OFFSET+48+old); 
-        POKE(_COLOR_ADDR+BASE_ADDR-1+6+x-i,0x1);
+        POKE(addr,UDG_OFFSET+48+old); 
+        POKE(_COLOR_ADDR+addr,0x1);
     } 
 }
 

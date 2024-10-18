@@ -78,20 +78,16 @@ Compilation
 -------------------------------------------------------------------------------------------------------
 GCC for TI
 -------------------------------------------------------------------------------------------------------
-
 Compiler Installation:
 git clone https://github.com/mburkley/tms9900-gcc
 
-(IMPORTANT:As of 2024/10/18 only 1.32 is stable)
-git branch 1.32
+(IMPORTANT:As of 2024/10/18 only 1.32 branch is stable)
+git checkout 1.32
 
 sudo apt install build-essential libgmp-dev libmpfr-dev
 cd tms900-gcc
 ./install.sh /opt/gcc4ti
-
------------------------
-
-
+--------------------------------------------------------------------------------
 libTi99:
 git clone https://github.com/tursilion/libti99
 
@@ -101,14 +97,14 @@ TMS9900_DIR?=/opt/gcc4ti/bin
 ELF2EA5_DIR?=/opt/gcc4ti/bin
 EA5_SPLIT_DIR?=/opt/gcc4ti/bin
 
-Once the it has finished to build (even if with errors).
-
-Make sure that 
+Once the it has finished to build (even if with errors), make sure that 
 - the header files are in /opt/gcc4ti/include
 - libti99 is in /opt/gcc4ti/lib
 
 The lib may fail if it does not find classic 99 emulator, but it builds the libti99 file anyway.
-So you have to move it manually to /opt/gcc4ti/lib and to move the .h files to /opt/gcc4ti/include
+So you have to move it manually to /opt/gcc4ti/lib and to move the .h files to /opt/gcc4ti/include.
+A cleaner way would be to have the Makefile also point to classic99.
+
 ----
 
 OLD procedure

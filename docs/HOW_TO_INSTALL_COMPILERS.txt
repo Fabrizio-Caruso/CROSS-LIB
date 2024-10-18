@@ -80,12 +80,16 @@ GCC for TI
 -------------------------------------------------------------------------------------------------------
 
 
-Compiler:
+Compiler Installation:
 git clone https://github.com/mburkley/tms9900-gcc
+
+(As for 2024/10/18) IMPORTANT: git branch 1.32
+
 ./install.sh /opt/gcc4ti
 
 libTi99:
 git clone https://github.com/tursilion/libti99
+
 Modify Makefile to make it point to /opt/gcc/
 e.g.,
 TMS9900_DIR?=/opt/gcc4ti/bin
@@ -95,6 +99,9 @@ EA5_SPLIT_DIR?=/opt/gcc4ti/bin
 Make sure that 
 - the header files are in /opt/gcc4ti/include
 - libti99 is in /opt/gcc4ti/lib
+
+The lib may fail if it does not find classic 99 emulator, but it builds the libti99 anyway.
+So you have to move it manually to /opt/gcc4ti/lib and the .h files got to /opt/gcc4ti/include
 
 ----
 

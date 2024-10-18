@@ -36,7 +36,7 @@ void _displayShort(uint16_t value)
         // old = value;
 
         POKE(BASE_ADDR+6-i,UDG_OFFSET+48+old); 
-        // POKE(_COLOR_ADDR+BASE_ADDR+6-i,0x1);
+        POKE(_COLOR_ADDR+BASE_ADDR+6-i,0x1);
     } 
     // POKE(BASE_ADDR+6,48+UDG_OFFSET); 
 }

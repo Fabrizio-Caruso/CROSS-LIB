@@ -23,7 +23,7 @@
 
 #define _COLOR_ADDR 0x7800
 
-void _displayShort(uint16_t value)
+void _displayShort(uint8_t x, uint16_t value)
 { 
     uint8_t i; 
     uint8_t old;
@@ -31,12 +31,12 @@ void _displayShort(uint16_t value)
     for(i=1;i<6;++i) 
     { 
         old = value%10;
-        value -= POKE(BASE_ADDR+6-i,(uint8_t) ((value)%10)); 
+        value -= POKE(BASE_ADDR+6+x-i,(uint8_t) ((value)%10)); 
         value/=10; 
         // old = value;
 
-        POKE(BASE_ADDR+6-i,UDG_OFFSET+48+old); 
-        POKE(_COLOR_ADDR+BASE_ADDR+6-i,0x1);
+        POKE(BASE_ADDR+6+x-i,UDG_OFFSET+48+old); 
+        POKE(_COLOR_ADDR+BASE_ADDR+6+x-i,0x1);
     } 
     // POKE(BASE_ADDR+6,48+UDG_OFFSET); 
 }

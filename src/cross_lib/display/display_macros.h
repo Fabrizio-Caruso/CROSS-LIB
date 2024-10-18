@@ -126,8 +126,8 @@
 // PRINT AND PRINTD
 #  if defined(__ALT_DISPLAY_STATS)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
-    #define _XL_PRINTD(x,y,length,val) _displayShort(val)
-    void _displayShort(uint16_t val);
+    #define _XL_PRINTD(x,y,length,val) _displayShort(x,val)
+    void _displayShort(uint8_t x, uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
     #define _XL_CHAR(x,y,ch)
 #elif defined(NO_PRINT)

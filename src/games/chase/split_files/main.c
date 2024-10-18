@@ -345,7 +345,12 @@ int main(void)
             #endif
 
             #if !defined(FULL_GAME)
-                ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
+                #if !defined(TINY_GAME)
+                    ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
+                #else
+                    
+                    ghostSlowDown = INITIAL_GHOST_SLOWDOWN;
+                #endif
             #else
                 levelSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
                 ghostSlowDown = computeGhostSlowDown();
@@ -379,7 +384,10 @@ int main(void)
             #if !defined(TINY_GAME)
             _XL_WAIT_FOR_INPUT();
             #endif
+            
+            #if !defined(TINY_GAME)
             _XL_CLEAR_SCREEN();
+            #endif
             
             fillLevelWithCharacters();
             #if !defined(TINY_GAME)

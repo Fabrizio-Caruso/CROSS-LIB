@@ -83,8 +83,10 @@ GCC for TI
 Compiler Installation:
 git clone https://github.com/mburkley/tms9900-gcc
 
-(As for 2024/10/18) IMPORTANT: git branch 1.32
+(As of 2024/10/18) IMPORTANT: git branch 1.32
 
+sudo apt install build-essential libgmp-dev libmpfr-dev
+cd tms900-gcc
 ./install.sh /opt/gcc4ti
 
 libTi99:

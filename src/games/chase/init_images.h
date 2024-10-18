@@ -14,8 +14,14 @@
 #define _GUN_TILE              _TILE_9
 #define _INVINCIBILITY_TILE    _TILE_10
 #define _BULLET_TILE           _TILE_11
-#define _VERTICAL_BRICK_TILE   _TILE_12
-#define _HORIZONTAL_BRICK_TILE _TILE_13
+
+#if _XL_NUMBER_OF_TILES<=6
+    #define _VERTICAL_BRICK_TILE   _BOMB_TILE
+    #define _HORIZONTAL_BRICK_TILE _BOMB_TILE
+#else
+    #define _VERTICAL_BRICK_TILE   _TILE_12
+    #define _HORIZONTAL_BRICK_TILE _TILE_13
+#endif
 #define _LEFT_MISSILE_TILE     _TILE_14
 #define _RIGHT_MISSILE_TILE    _TILE_15
 #define _ROCKET_TILE           _TILE_16

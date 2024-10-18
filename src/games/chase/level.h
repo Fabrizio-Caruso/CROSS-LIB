@@ -27,10 +27,11 @@
 
 #include "character.h"
 #include "cross_lib.h"
+#include "init_images.h"
 
 
 // DRAW HORIZONTAL AND VERTICAL LINES
-#if !defined(NO_WALL)
+#if !defined(NO_WALL) && !defined(TINY_GAME)
     void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
     void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);    
 #else
@@ -56,16 +57,19 @@
 
 #define WALL_COLOR _XL_YELLOW
 
-#if !defined(NO_WALL)
-    #define DRAW_BORDERS() \
-        _XL_SET_TEXT_COLOR(WALL_COLOR); \
-        DRAW_HORIZONTAL_BORDER(0); \
-        DRAW_HORIZONTAL_BORDER(YSize-1); \
-        DRAW_VERTICAL_BORDER(0); \
-        DRAW_VERTICAL_BORDER(XSize-1); 
-#else
-    #define DRAW_BORDERS()
-#endif
+// #if !defined(NO_WALL)
+    // #define DRAW_BORDERS() \
+        // _XL_SET_TEXT_COLOR(WALL_COLOR); \
+        // DRAW_HORIZONTAL_BORDER(0); \
+        // DRAW_HORIZONTAL_BORDER(YSize-1); \
+        // DRAW_VERTICAL_BORDER(0); \
+        // DRAW_VERTICAL_BORDER(XSize-1); 
+// #else
+    // #define DRAW_BORDERS()
+// #endif
+
+
+   
 
 
 #define DRAW_HORIZONTAL_WALLS(length) \

@@ -112,7 +112,7 @@ extern Character bombs[BOMBS_NUMBER];
 #endif
 
 
-#if !defined(NO_WALL)
+#if !defined(NO_WALL) && !defined(TINY_GAME)
 
     extern Image HORIZONTAL_BRICK_IMAGE;
     extern Image VERTICAL_BRICK_IMAGE;
@@ -237,6 +237,29 @@ void spiral(register Character *characterPtr)
 
 #endif
 
+#if defined(TINY_GAME)
+    #define DRAW_BORDERS() \
+    do \
+    { \
+        uint8_t i; \
+        uint8_t j; \
+        for(i=0;i<YSize;++i) \
+        { \
+            for(j=0;j<XSize;j+=XSize-1) \
+            { \
+                _XL_DRAW(j,i,_BOMB_TILE,_XL_YELLOW); \
+            } \
+        } \
+    } \
+    while(0)
+#else
+    #define DRAW_BORDERS() \
+        _XL_SET_TEXT_COLOR(WALL_COLOR); \
+        DRAW_HORIZONTAL_BORDER(0); \
+        DRAW_HORIZONTAL_BORDER(YSize-1); \
+        DRAW_VERTICAL_BORDER(0); \
+        DRAW_VERTICAL_BORDER(XSize-1); 
+#endif
 
 void fillLevelWithCharacters(void)
 {
@@ -262,9 +285,9 @@ void fillLevelWithCharacters(void)
     }
     #endif
     
-    #if !defined(TINY_GAME) && !defined(NO_BORDERS)
+    // #if !defined(TINY_GAME) && !defined(NO_BORDERS)
         DRAW_BORDERS();
-    #endif    
+    // #endif    
     
     #if defined(FULL_GAME)
 

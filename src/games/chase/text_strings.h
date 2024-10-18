@@ -26,7 +26,11 @@
 #ifndef _TEXT_STRINGS_H
 #define _TEXT_STRINGS_H
 
-#define AUTHOR_STRING "FABRIZIO CARUSO"
+#if defined(TINY_GAME)
+    #define AUTHOR_STRING "F C"
+#else
+    #define AUTHOR_STRING "FABRIZIO CARUSO"
+#endif
 
 #if defined(TINY_GAME) || XSize<=22
     #define CROSS_CHASE_STRING "CHASE"

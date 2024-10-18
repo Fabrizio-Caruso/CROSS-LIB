@@ -32,8 +32,8 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
-	 -DGHOSTS_NUMBER=8 \
-	 -DNO_END_SCREEN \
+	-DGHOSTS_NUMBER=8 \
+	-DNO_END_SCREEN \
 	-DLIGHT_GAME \
 	-D__VIC20_EXP_3K \
 	-D__MEMORY_MAPPED_GRAPHICS \
@@ -42,7 +42,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-DLESS_TEXT \
 	-D_XL_NO_TEXT_COLOR \
 	-DNO_BLINKING \
-	-D_XL_NO_SLEEP -DNO_STATS \
+	-D_XL_NO_SLEEP_SEC -DNO_STATS \
 	-D__ALT_PRINT \
 	-D__ALT_HIGHSCORE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -137,48 +137,27 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 
-# vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# -D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
-	# -D__VIC20_UNEXPANDED \
-	# -D__ALT_SLEEP -D_XL_NO_SLEEP_SEC -D_XL_NO_SOUND \
-	# -D__NO_COLOR_INIT \
-	# -DTINY_GAME  -DNO_WALL \
-	# -D__MEMORY_MAPPED_GRAPHICS \
-	# -D__ALT_PRINT \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -DUSE_TINY_MEMORY_BUFFERS \
-	# $(__VIC20_UNEXPANDED_GAME_OPTS) \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
-	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
-	# $(TINY_FILES) \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(ASSETS_PATH)/cc65_udc_6chars.s \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
-
-# vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# -D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
-	# -D__VIC20_UNEXPANDED \
-	# -D_XL_NO_SLEEP -D_XL_NO_SLEEP_SEC \
-	# -D__NO_COLOR_INIT \
-	# -DTINY_GAME  -DNO_WALL \
-	# -D__MEMORY_MAPPED_GRAPHICS \
-	# -D__ALT_PRINT \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -DUSE_TINY_MEMORY_BUFFERS \
-    # $(__VIC20_UNEXPANDED_GAME_OPTS) \
-    # -D_XL_NO_SOUND \
-	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
-	# $(TINY_FILES) \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(ASSETS_PATH)/cc65_udc_6chars.s \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
-
+vic20_exp: $(ASSETS_PATH)/cc65_udc_6chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -m mapfile.txt \
+	-D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
+	-D__VIC20_UNEXPANDED \
+	-D_ALT_SLEEP -D_XL_NO_SLEEP_SEC \
+	-D__NO_COLOR_INIT -DNO_RANDOM_LEVEL \
+	-DTINY_GAME \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ALT_DISPLAY_STATS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(__VIC20_UNEXPANDED_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(ASSETS_PATH)/cc65_udc_6chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 vic20_targets: vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
 

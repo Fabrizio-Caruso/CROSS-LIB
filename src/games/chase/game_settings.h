@@ -46,7 +46,6 @@
 	#define BOMBS_NUMBER 4
 #endif
 
-
 #if !defined(GHOSTS_NUMBER)
     #if defined(_XL_TURN_BASED)
         #if !defined(TINY_GAME)

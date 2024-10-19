@@ -33,7 +33,20 @@ uint16_t computeGhostSlowDown(void);
 	void decreaseGhostLevel(void);
 #endif
 
+#if !defined(TINY_GAME)
 void displayBombs(void);
+#else
+    #define displayBombs() \
+    do \
+    { \
+        uint8_t i; \
+        \
+        for(i=0;i<BOMBS_NUMBER;++i) \
+        { \
+            displayBomb(&bombs[i]); \
+        } \
+    } while(0)
+#endif
 
 #if defined(FULL_GAME)
 	uint8_t firstAlive(void);

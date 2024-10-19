@@ -27,7 +27,7 @@
 #define _TEXT_STRINGS_H
 
 #if defined(TINY_GAME)
-    #define AUTHOR_STRING "F C"
+    #define AUTHOR_STRING "FABRIZIO CARUSO"
 #else
     #define AUTHOR_STRING "FABRIZIO CARUSO"
 #endif

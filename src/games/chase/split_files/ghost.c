@@ -62,6 +62,7 @@ uint16_t computeGhostSlowDown(void)
 	}
 #endif
 
+#if !defined(TINY_GAME)
 void displayBombs(void)
 {
 	uint8_t i;
@@ -71,6 +72,7 @@ void displayBombs(void)
 		displayBomb(&bombs[i]);
 	}
 }	
+#endif
 
 #if defined(FULL_GAME)
 	uint8_t firstAlive(void)

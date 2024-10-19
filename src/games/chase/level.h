@@ -57,20 +57,6 @@
 
 #define WALL_COLOR _XL_YELLOW
 
-// #if !defined(NO_WALL)
-    // #define DRAW_BORDERS() \
-        // _XL_SET_TEXT_COLOR(WALL_COLOR); \
-        // DRAW_HORIZONTAL_BORDER(0); \
-        // DRAW_HORIZONTAL_BORDER(YSize-1); \
-        // DRAW_VERTICAL_BORDER(0); \
-        // DRAW_VERTICAL_BORDER(XSize-1); 
-// #else
-    // #define DRAW_BORDERS()
-// #endif
-
-
-   
-
 
 #define DRAW_HORIZONTAL_WALLS(length) \
     _XL_SET_TEXT_COLOR(WALL_COLOR); \

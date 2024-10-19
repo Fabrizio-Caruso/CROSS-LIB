@@ -18,9 +18,13 @@
 #define _TILE_8 'L'
 #define _TILE_9 'L'
 
-#define _TILE_13 '-'
-#define _TILE_14 '-'
-
+#if defined(__ATARI7800__) && !defined(_XL_NO_COLOR)
+    #define _TILE_13 '.'
+    #define _TILE_14 '.'
+#else
+    #define _TILE_13 '-'
+    #define _TILE_14 '-'
+#endif
 #define _TILE_10 'W'
 #define _TILE_4  'I'
 
@@ -29,18 +33,35 @@
 // #define _TILE_12 'U'
 // #define _TILE_21 'I'
 
-#define _TILE_5  '='
 
 #define _TILE_1  'U'
 #define _TILE_4  'I'
+#if defined(__ATARI7800__) && !defined(_XL_NO_COLOR)
+    #define _TILE_5  '.'
 
-#define _TILE_22 '<'
-#define _TILE_23 '='
 
-#define _TILE_24 '<'
-#define _TILE_25 '-'
+    #define _TILE_22 'C'
+    #define _TILE_23 '.'
 
-#define _TILE_26 '+'
+    #define _TILE_24 'C'
+    #define _TILE_25 'B'
+
+    #define _TILE_26 '+'
+    
+#else
+
+    #define _TILE_5  '-'
+
+    #define _TILE_22 '<'
+    #define _TILE_23 '='
+
+    #define _TILE_24 '<'
+    #define _TILE_25 '-'
+
+    #define _TILE_26 '+'
+
+
+#endif
 
 /*
 #ifndef _IMAGES_H

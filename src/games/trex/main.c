@@ -36,11 +36,14 @@
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-3)
-#else
+#elif XSize<=40
     #define LEFT_END_OF_TERRAIN ((XSize)/6)
 
     #define SIZE_OF_TERRAIN (2*((XSize)/3))
-    
+#else
+    #define LEFT_END_OF_TERRAIN ((XSize)/4)
+
+    #define SIZE_OF_TERRAIN (((XSize)/2))
 #endif
 
 #define RIGHT_END_OF_TERRAIN (LEFT_END_OF_TERRAIN+SIZE_OF_TERRAIN)
@@ -76,6 +79,11 @@
 
 #define MAX_LEVEL 99u
 #define MAX_POINTS 9999u
+
+#if defined(_XL_NO_UDG) && !defined(NO_CACTUS_TRANSITION)
+    #define NO_CACTUS_TRANSITION
+#endif 
+
 
 uint8_t input;
 
@@ -140,7 +148,7 @@ void draw_dead_dino_0(void)
 #endif
 
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) && !defined(_XL_NO_UDG)
 void draw_jump_dino_1(uint8_t height)
 {
     _XL_DRAW(X_DINO+1,Y_DINO-1-height,TOP_DINO_1,_XL_WHITE);

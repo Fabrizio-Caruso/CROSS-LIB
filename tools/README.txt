@@ -52,3 +52,5 @@ makewzd.exe https://github.com/z88dk/z88dk/blob/master/support/oz/makewzd.c
 - z88dk/samcoupe 
 pyz80.py https://github.com/simonowen/pyz80
 
+- ea5tocart
+ea5tocart by Asmusr (from AtariAge)

@@ -1,0 +1,24 @@
+{
+    "name": "cc65",
+    "id": "cc65",
+    "version": "1.0.0",
+    "description": "cc65 feature for cross development of 65(C)02 systems",
+    "options": {
+        "cc65Version": {
+            "type": "string",
+            "description": "cc65 version:",
+            "enum": [
+                "latest",
+                "2.19",
+                "2.18",
+                "2.17",
+                "2.16",
+                "2.15"
+            ],
+            "default": "latest"
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

@@ -253,7 +253,7 @@ int main(void)
         // _XL_CLEAR_SCREEN();
 
         #if !defined(LESS_TEXT)
-            highScoreScreen();
+            // highScoreScreen();
             _XL_REFRESH();
             _XL_WAIT_FOR_INPUT();
             _XL_CLEAR_SCREEN();

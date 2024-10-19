@@ -2713,17 +2713,6 @@ comx: \
     clean_combo_files
 
 
-_vip: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/4x4_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PIXIE_4K_OPTS)  \
-	-D__VIP__  $(VIP_GAME_OPTS) \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIP_SLOWDOWN) \
-	$(PIXIE_C_OPTS) \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-vip: \
-    _vip \
-    clean_combo_files
 
 
 # Interrupt-driver graphics
@@ -2754,6 +2743,20 @@ _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 comx_ntsc: \
     _comx_ntsc \
     clean_combo_files
+
+# VIP 
+_vip: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/4x4_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PIXIE_4K_OPTS)  \
+	-D__VIP__  $(VIP_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIP_SLOWDOWN) \
+	$(PIXIE_C_OPTS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+vip: \
+    _vip \
+    clean_combo_files
+
 
 ###############################################################################
 # MICRO

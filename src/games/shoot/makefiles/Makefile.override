@@ -284,14 +284,6 @@ endif
 	# -DNO_RANDOM_LEVEL
 
 
-# _full_comx: _comx
-
-# _comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
-	# -DNO_BLINKING -DTINY_TEXT  \
 	# -DLESS_TEXT -DNO_HINTS \
 	# $(REDUCED_LCC1802_C_OPTS) \
 	# -DGHOSTS_NUMBER=7 \
@@ -299,121 +291,172 @@ endif
 	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
-# comx: \
-    # _comx \
-    # clean_combo_files
+_full_comx: _comx
 
 
-# _comx_buffered: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	# -DNO_BLINKING -DTINY_TEXT  \
-	# -DLESS_TEXT -DNO_HINTS \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=7 \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+_comx_buffered: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__  $(COMX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=6 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+comx_buffered: \
+    _comx_buffered \
+    clean_combo_files
 
-# comx_buffered: \
-    # _comx_buffered \
-    # clean_combo_files
+# -D__LCC1802_UNBUFFERED
+_comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -D__LCC1802_UNBUFFERED  \
+	-D__COMX__  $(COMX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=7 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
-
-# _comx_int: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
-	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 -DVIS_INT \
-	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	# -DNO_BLINKING -DTINY_TEXT  \
-	# -DLESS_TEXT -DNO_HINTS \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=7 \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-# comx_int: \
-    # _comx_int \
-    # clean_combo_files
-
-
-# _comx_ntsc: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x8_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DNTSC \
-	# -D__COMX__ -DNO_EXTRA_TILE -DNO_ACHIEVEMENTS -DNO_INITIAL_SCREEN -DNO_PLAYER_SHOOT_ANIMATION \
-	# -D__LCC1802_GRAPHICS  -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY -D__LCC1802_UNBUFFERED \
-	# -DNO_BLINKING -DTINY_TEXT  \
-	# -DLESS_TEXT -DNO_HINTS \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=7 \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-
-# comx_ntsc: \
-    # _comx_ntsc \
-    # clean_combo_files
-
-
-# _full_pecom: _pecom
-
-# _pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
-	# -D__PECOM__   -DEXTRA_TITLE \
-	   # -D__LCC1802_GRAPHICS -DGHOSTS_NUMBER=6 -DBULLETS_NUMBER=3 \
-	# -D_XL_NO_COLOR -DSIMPLE_STRATEGY \
-	# -DNO_BLINKING -DTINY_TEXT \
-	# -DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=7 \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-# pecom: \
-    # _pecom \
-    # clean_combo_files
-
-
-# _micro: _micro_pal2
-
-# _micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
-	# -D__MICRO__ -DNO_INITIAL_SCREEN  -DNO_HINTS -DLESS_TEXT  -DEXTRA_TITLE \
-	# -D__LCC1802_GRAPHICS \
-	# -D_XL_NO_COLOR  -D_XL_SLOW_DOWN_FACTOR=50 \
-	# -DNO_BLINKING \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=8 \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
-
-# micro: \
-    # _micro \
-    # clean_combo_files
+comx: \
+    _comx \
+    clean_combo_files
 
 
 
-# _full_tmc600: _tmc600_37k
-# _tmc600: _tmc600_37k
+
+# Interrupt-driver graphics
+_comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) -DVIS_INT  \
+	-D__COMX__  \
+	$(COMX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=6 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+comx_int: \
+    _comx_int \
+    clean_combo_files
 
 
-# _tmc600_37k: reduced_full_lcc1802_combo.c
-	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
-	# -D__TMC600__    -DEXTRA_TITLE \
-	# -D__MEMORY_MAPPED_GRAPHICS -DSIMPLE_STRATEGY \
-	# -DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
-	# -DNO_HINTS \
-	# $(REDUCED_LCC1802_C_OPTS) \
-	# -DGHOSTS_NUMBER=6  \
-	# $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
+_comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__  -DNTSC $(COMX_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COMX_SLOWDOWN) \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=6 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
-# tmc600: \
-    # _tmc600 \
-    # clean_combo_files
+comx_ntsc: \
+    _comx_ntsc \
+    clean_combo_files
+
+
+_full_pecom: _pecom
+
+_pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
+	-D__PECOM__  $(PECOM_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PECOM_SLOWDOWN) \
+	$(PECOM_GAME_OPTS)  \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=7 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+pecom: \
+    _pecom \
+    clean_combo_files
+
+
+
+_micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ \
+	-D__COMX_COLOR_GRAPHICS  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MICRO_SLOWDOWN) \
+	$(MICRO_GAME_OPTS)  \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=7 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+_micro_pal1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_1_OPTS)  \
+	-D__MICRO__ \
+	-D__COMX_COLOR_GRAPHICS  \
+	$(MICRO_GAME_OPTS)  \
+	 \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=7 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+_micro_ntsc1: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x8_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_NTSC1_OPTS)  \
+	-D__MICRO__ -DNTSC \
+	-D__COMX_COLOR_GRAPHICS  \
+	$(MICRO_GAME_OPTS)  \
+	 \
+	$(LCC1802_COLOR_C_OPTS) \
+	-DSIMPLE_STRATEGY -D_XL_NO_SLEEP -D_XL_NO_SOUND \
+	-DNO_BLINKING -DTINY_TEXT -DNO_TRANSACTION_ANIMATION \
+	-DGHOSTS_NUMBER=7 \
+	-DLESS_TEXT -DNO_HINTS -DNO_INITIAL_SCREEN \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+micro_pal1: \
+    _micro_pal1 \
+    clean_combo_files
+    
+micro_ntsc1: \
+    _micro_ntsc1 \
+    clean_combo_files
+
+micro_pal2: \
+    _micro_pal2 \
+    clean_combo_files
+
+_micro: _micro_pal2
+
+micro: \
+    _micro \
+    clean_combo_files
+
 
 
 # _cidelsa_draco: full_lcc1802_combo.c

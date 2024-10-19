@@ -1,6 +1,8 @@
 #include "comx_sounds.h"
 #include "standard_libs.h"
 
+#if !defined(_XL_NO_SOUND)
+
 void _ping_sound(uint8_t freq)
 {
     uint8_t i;
@@ -48,3 +50,4 @@ void _XL_ZAP_SOUND(void)
     generatetone(0,0,0);
 }
 
+#endif

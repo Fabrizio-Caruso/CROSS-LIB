@@ -27,6 +27,7 @@
 
 #include <devkit/sound/vis_sound.h>
 
+#if !defined(_XL_NO_SOUND)
     void _ping_sound(uint8_t freq);
     
 	#define _XL_PING_SOUND() _ping_sound(0x75)
@@ -39,5 +40,13 @@
 	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x2,80)
 	
 	void _XL_ZAP_SOUND(void);
+#else
+	#define _XL_PING_SOUND() 
+	#define _XL_TOCK_SOUND() 
+	#define _XL_TICK_SOUND() 
 	
+    
+	#define _XL_SHOOT_SOUND() 
+	#define _XL_EXPLOSION_SOUND() 
+#endif
 #endif // _COMX_SOUNDS

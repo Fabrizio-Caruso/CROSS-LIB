@@ -50,6 +50,13 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
 
 #define _XL_CHAR(x,y,ch) _DISPLAY(x,y,(ch+80+COLOR_BIT))
 
+
+#if !defined(__TMC600__)
+    #define DIGIT_OFFSET 128U
+#else
+    #define DIGIT_OFFSET 0U
+#endif
+
 void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
@@ -60,7 +67,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+128));
+		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+DIGIT_OFFSET));
 	}
 }	
 

@@ -1,0 +1,11 @@
+{
+    "name": "cmoc",
+    "id": "cmoc",
+    "version": "1.0.0",
+    "description": "Development suite for cmoc compilers",
+    "options": {
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

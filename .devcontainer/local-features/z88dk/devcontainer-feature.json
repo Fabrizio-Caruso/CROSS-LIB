@@ -1,0 +1,11 @@
+{
+    "name": "z88dk",
+    "id": "z88dk",
+    "version": "1.0.0",
+    "description": "Development kit for z80 family machines",
+    "options": {
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

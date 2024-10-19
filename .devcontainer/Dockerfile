@@ -42,9 +42,9 @@ WORKDIR /sdk/lwtools-4.22
 RUN make && make install
 
 WORKDIR /sdk
-RUN wget http://perso.b2b2c.ca/~sarrazip/dev/cmoc-0.1.85.tar.gz
-RUN tar -xvf cmoc-0.1.85.tar.gz
-WORKDIR /sdk/cmoc-0.1.85
+RUN wget http://perso.b2b2c.ca/~sarrazip/dev/cmoc-0.1.88.tar.gz
+RUN tar -xvf cmoc-0.1.88.tar.gz
+WORKDIR /sdk/cmoc-0.1.88
 RUN ./configure && make && make install
 
 WORKDIR /sdk

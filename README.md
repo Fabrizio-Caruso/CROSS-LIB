@@ -162,7 +162,7 @@ The dockerized version of Cross-Lib can used by
 
 - by running the docker container and mapping the cloned repository into a directory (e.g. `/workspaces/crosslib`) in the container with
 
-```docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/devcontainer.env crosslib:<version> bash```
+```docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/container.env crosslib:<version> bash```
 - (once in the docker container) by entering `workspaces/crosslib/src` and running `xl` commands.
 
 -------------------------------------------

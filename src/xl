@@ -423,7 +423,8 @@ def rebuild(params):
     if game_dir=="new":
         game_dir = "projects"
 
-    # project_groups = 
+    if len(params)<3:
+        params = params + ["ncurses"]
 
     if game_dir in ["games","examples","projects"]:
         # print([game_dir]+params[2:])

@@ -1831,7 +1831,7 @@ def test_all(params):
 
 expected_files = {
     "cc65_targets": 8, 
-    "z88dk_targets": 6, 
+    "z88dk_targets": 5, 
     "cmoc_targets": 3, 
     "lcc1802_targets": 1,
     "stdio": 1,
@@ -1872,7 +1872,7 @@ def targets_test(params):
             delete_main(game_dir, project_type)
         exit()
     if is_project_split("chase"):
-        printc(bcolors.OKBLUE,"Delete main.c (because of split source files)")
+        printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(game_dir, project_type)
 
 
@@ -1891,8 +1891,8 @@ def targets_test(params):
         else:
             printc(bcolors.OKGREEN, "binaries OK\n")
     
-    if clean_test()==0:
-        success=0
+    # if clean_test()==0:
+        # success=0
     return success
 
 

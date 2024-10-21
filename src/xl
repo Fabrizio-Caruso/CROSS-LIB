@@ -235,14 +235,22 @@ PARALLEL_TARGETS = \
     'ace',
     'agon',
     'aquarius',
+    'aussie',
+    'bit90',
     'camputers_lynx', 
     'cpm',
     'coleco',
+    'eg2k',
+    'einstein',
     'gb',
     'gal',
     'gamegear',
+    'kaypro',
+    'kaypro83',
     'kc85',
+    'lambda',
     'laser500',
+    'm5',
     'm100',
     'mc1000',
     'mc1000_mono',
@@ -251,18 +259,26 @@ PARALLEL_TARGETS = \
     'mtx500',
     'mtx512',
     'mz',
+    'mz2500',
+    'newbrain',
+    'nc100',
+    'nc200',
     'pc8201',
     'pc88',
+    'px4',
+    'px8',
     'samcoupe',
     'sc3000',
     'sc3000_rom',
     'sg1000',
     'sms',
     'spectrum',
+    'svi',
     't200',
     'trs80',
     'vg5k',
     'vz200',
+    'x1',
     'zx81',
     'zx81_wrx',
     'zx81_8x6',   
@@ -446,7 +462,7 @@ def rebuild(params):
         # build(params[:-1])
     # else:
         
-    build(params)
+    # build(params)
 
 
 

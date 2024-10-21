@@ -288,7 +288,9 @@ PARALLEL_TARGETS = \
     'zx81_8x6_wrx128',
     'z9001',
     'kc',
-    'z1013'
+    'z1013',
+    'zx80',
+    'zxn'
     ]
 
 def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
@@ -2875,6 +2877,8 @@ def help(params):
         elif params[1]=="rebuild":
             printc(bcolors.BOLD,"xl rebuild <project> <[optional] target>\n")
             print("It rebuilds <project>.")
+            print("Remark: The 'build' command can be omitted.")
+
             print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
             print("Use 'xl help reset' and 'xl help build' for more information")
         elif params[1]=="import":
@@ -3040,7 +3044,7 @@ def help(params):
         elif params[1]=="build":
             printc(bcolors.BOLD,"xl build <project> <[optional] target>\n")
             print("It builds <project> for <target>.")
-            print("Remark: The 'build' command can be omitted.")
+            # print("Remark: The 'build' command can be omitted.")
             print("The built binaries will be in the 'build' directory.")
 
             print("\n<project>")

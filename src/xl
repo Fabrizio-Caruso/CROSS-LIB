@@ -2877,7 +2877,7 @@ def help(params):
         elif params[1]=="rebuild":
             printc(bcolors.BOLD,"xl rebuild <project> <[optional] target>\n")
             print("It rebuilds <project>.")
-            print("Remark: The 'build' command can be omitted.")
+            # print("Remark: The 'build' command can be omitted.")
 
             print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
             print("Use 'xl help reset' and 'xl help build' for more information")
@@ -3623,6 +3623,6 @@ if __name__ == "__main__":
     elif params[1]=="tools":
         tools()
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
-        rebuild(params)
+        build(params)
     else:
         manual(params)

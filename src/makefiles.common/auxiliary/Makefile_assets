@@ -1,4 +1,13 @@
 
+TILES_PATH ?= $(SOURCE_PATH)/tiles
+
+8X8_TILES ?= $(TILES_PATH)/8x8
+7X8_TILES_PATH ?= $(TILES_PATH)/7x8
+6X8_TILES_PATH ?= $(TILES_PATH)/6x8
+6X9_TILES_PATH ?= $(TILES_PATH)/6x9
+8x6_TILES_PATH ?= $(TILES_PATH)/8x6
+
+
 ######################################
 
 ASSETS_PATH := $(SOURCE_PATH)/generated_assets
@@ -10,103 +19,101 @@ CREATE_ASSET := cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT
 game_assets:
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_atari7800_160A.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_atari7800_160A.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/z88dk_gameboy.asm: $(8X8_TILES)
+$(ASSETS_PATH)/z88dk_gameboy.asm: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/6x8_chars.h: $(6X8_TILES)
+$(ASSETS_PATH)/6x8_chars.h: $(wildcard $(6X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/6x9_chars.h: $(6X9_TILES)
+$(ASSETS_PATH)/6x9_chars.h: $(wildcard $(6X9_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/7x8_chars.h: $(7X8_TILES)
+$(ASSETS_PATH)/7x8_chars.h: $(wildcard $(7X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/8x8_chars.h: $(8X8_TILES)
+$(ASSETS_PATH)/8x8_chars.h: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/4x4_chars.h: $(4X4_TILES)
+$(ASSETS_PATH)/4x4_chars.h: $(wildcard $(4X4_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_nes_tiles.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_nes_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_nes_color_tiles.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_nes_color_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_pce_tiles.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_pce_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_gamate_tiles.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_gamate_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_arcade.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_arcade.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_arcade_conio.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_arcade_conio.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_arcade_27_tiles_v2.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_arcade_27_tiles_v2.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_arcade_v2.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_arcade_v2.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_63_chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_63_chars.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_64_chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_64_chars.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s:$(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_6chars.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-    
-$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/cmoc_udc_tiles.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/z88dk_sprites_definitions.h: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/z88dk_xchase.asm: $(8X8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(8x8_TILES)
-	$(CREATE_ASSET)
-
-$(ASSETS_PATH)/8x6_tiles.s: $(8x6_TILES)
+$(ASSETS_PATH)/cc65_udc_6chars.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
     
-$(ASSETS_PATH)/8x6_c_definition.h: $(8x6_TILES)
+$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h: $(8x6_TILES)
+$(ASSETS_PATH)/cmoc_udc_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/z88dk_sprites_definitions.h: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/z88dk_xchase.asm: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/8x6_tiles.s: $(wildcard $(8X6_TILES)/*.txt)
+	$(CREATE_ASSET)
+    
+$(ASSETS_PATH)/8x6_c_definition.h: $(wildcard $(8X6_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h: $(wildcard $(8X6_TILES)/*.txt)
 	$(CREATE_ASSET)

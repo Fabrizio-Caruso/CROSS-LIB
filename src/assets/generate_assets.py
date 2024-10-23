@@ -51,6 +51,9 @@ def read_templates_from_dir(dir_name):
     print("")
 
 
+# --------------------------------------------------------------------------------------
+# Atari 7800 routines
+# --------------------------------------------------------------------------------------
 
 a7800_test = [
 [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00], # zero
@@ -123,8 +126,10 @@ a7800_test = [
 # Input : 4 bits
 # Output: 8 bits with double bits, e.g. 1010 -> 11001100
 double_bit_map = { 
-    0x0:0x00, 0x1:0x03, 0x2:0x0C, 0x3:0x0F, 0x4:0x30, 0x5:0x33, 0x6:0x3C, 0x7:0x3F,
-    0x8:0xC0, 0x9:0xC3, 0xA:0xCC, 0xB:0xCF, 0xC:0xF0, 0xD:0xF3, 0xE:0xFC, 0xF:0xFF
+    0x0:0x00, 0x1:0x03, 0x2:0x09, 0x3:0x0F, 0x4:0x30, 0x5:0x93, 0x6:0x39, 0x7:0xFF,
+    0x8:0x90, 0x9:0x93, 0xA:0x99, 0xB:0x9F, 0xC:0xF0, 0xD:0xF3, 0xE:0xF9, 0xF:0xFF
+    # 0x0:0x00, 0x1:0x03, 0x2:0x0C, 0x3:0x0F, 0x4:0x30, 0x5:0x33, 0x6:0x3C, 0x7:0x3F,
+    # 0x8:0xC0, 0x9:0xC3, 0xA:0xCC, 0xB:0xCF, 0xC:0xF0, 0xD:0xF3, 0xE:0xFC, 0xF:0xFF
 }
 
 color_1 = 0x55
@@ -153,26 +158,60 @@ def generate_two_bit_asset(abstract_asset):
     # space, alphabet, digits (1+26+10=37)
     for i in range(0,37):
         for j in range(0,8):
-            two_bit_asset.append(one_to_two(abstract_asset[i][j],color_3))
+            two_bit_block = one_to_two(abstract_asset[i][j],color_3)
+            # two_bit_asset.extend(two_bit_block)
+            two_bit_asset.append(two_bit_block)
+
         
     # 27 tiles in color 0
-    for i in range(37,63):
+    for i in range(37,64):
         for j in range(0,8):
-            two_bit_asset.append(one_to_two(abstract_asset[i][j],color_1))
+            two_bit_block = one_to_two(abstract_asset[i][j],color_1)
+            # two_bit_asset.extend(two_bit_block)
+            two_bit_asset.append(two_bit_block)
         
     # 27 tiles in color 1
-    for i in range(37,63):
+    for i in range(37,64):
         for j in range(0,8):
-            two_bit_asset.append(one_to_two(abstract_asset[i][j],color_2)) 
+            two_bit_block = one_to_two(abstract_asset[i][j],color_2)
+            # two_bit_asset.extend(two_bit_block)
+            two_bit_asset.append(two_bit_block)
+
         
     # 27 tiles in color 2
-    for i in range(37,63):
+    for i in range(37,64):
         for j in range(0,8):
-            two_bit_asset.append(one_to_two(abstract_asset[i][j],color_3))
+            two_bit_block = one_to_two(abstract_asset[i][j],color_3)
+            # two_bit_asset.extend(two_bit_block)
+            two_bit_asset.append(two_bit_block)
+
+    # padding to get to 128
+    for i in range(0,10):
+        for j in range(0,8):
+            two_bit_asset.append([0,0])
+
     return two_bit_asset
+
+
+
 
 # def generate_160A_asset(two_bit_asset, two_bit_160A_asset):
 
+
+def generate_160A_asset(two_bit_assets):
+   row_map = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[]}
+   two_bit_160A_asset = []
+
+   counter = 0;
+   for byte_couple in two_bit_assets:
+       row_map[counter&7].extend(byte_couple)
+       counter+=1
+       
+   for i in range(0,8):
+       two_bit_160A_asset.extend(row_map[7-i])
+       
+   return two_bit_160A_asset
+       
 
 ATARI7800_FILE_NAME = "cc65_udc_atari7800_160A.s"
 
@@ -185,22 +224,55 @@ def process_a7800_160A_file():
     
     fin = open(dest_path+"/"+ATARI7800_FILE_NAME, "rt")
 
+    res = []
     source = []
-    result = []
     for line in fin:
         words = line.split(",")
         for word in words:
             if word != "\n" and word != "\t\n":
-                trimmed_word = word.replace("\n","").replace(" ","")
+                trimmed_word = word.replace("\n","").replace(" ","").replace("$","0x")
                 print(trimmed_word)
                 source.append(trimmed_word)
+                res.append(int(trimmed_word))
     fin.close()
     # print(source)
     
     if len(source)==512:
         print("Asset has correct length (512 bytes)")
     else:
-        print("Asset has wrong length: " + str(len(source)))
+        print("Asset has wrong length: " + str(len(res)))
+        
+    print(str(generate_160A_asset(res)))
+
+
+
+
+# --------------------------------------------------------------------------------------
+
+
+def format_asset(assets):
+    res = ""
+    counter = 0
+    for asset in assets:
+        # print("[format_asset] asset: " + str(asset))
+        if counter==0:
+            line = ".byte "
+        line = line + str(asset)
+        counter=counter+1
+        if counter<8:
+            line = line + ", "
+        else:
+            res = res + line + "\n"
+            # print("line: " + line)
+            # print("res: " + res)
+            counter = 0
+    if counter>0:     
+        res = res + line + "\n"
+        # print("line: " + line)
+        # print("res: " + res)   
+    # if res.endswith(', '):
+        res = res[:-3] + "\n"
+    return res
 
     
 def generate_asset_from_template(dir_name, stripped_template_file_name):
@@ -212,9 +284,22 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
         
         # print("DEBUG")
         
-        # print(generate_two_bit_asset(a7800_test))
+        # print("Length of test: " + str(len(a7800_test)))
+        # two_bit_assets = generate_two_bit_asset(a7800_test)
+        # print("two bit asset:\n" + str(two_bit_assets))
         
-        # foo()
+        # print("Length of two_bit_assets: " + str(len(two_bit_assets)))
+
+        # a7800_assets = generate_160A_asset(two_bit_assets)
+        
+        # print("Length of a7800_assets: " + str(len(a7800_assets)))
+        
+        # print("formatted a7800_assets:\n" + format_asset(a7800_assets))
+        
+        
+        
+        # while(1):
+            # pass
         # exit()
         
         # print("END DEBUG")
@@ -260,8 +345,10 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
         #close input and output files
         fin.close()
         fout.close()
-        if stripped_template_file_name==ATARI7800_FILE_NAME:
-            process_a7800_160A_file()
+        # if stripped_template_file_name==ATARI7800_FILE_NAME:
+            # process_a7800_160A_file()
+        
+        # process_a7800_160A_file()
 
 
 

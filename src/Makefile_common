@@ -358,7 +358,7 @@ atari7800_test: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) -DXSize=20 -DYSize=28 \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_atari7800_160A.s \
+	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
 
 

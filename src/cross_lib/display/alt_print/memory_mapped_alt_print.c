@@ -318,10 +318,30 @@
         {
             _XL_DRAW(x,y,ch-32,_XL_WHITE);
         }
+
+#elif defined(__ATARI7800__)
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            uint8_t adjusted_ch;
+            
+            if(ch==32)
+            {
+                adjusted_ch = 0;
+            }
+            else if(ch<=57)
+            {
+                adjusted_ch = ch-48+1;
+            }
+            else 
+            {
+                adjusted_ch = ch - 65 + 1;
+            }
+            screen[loc(x,y)] = 2*adjusted_ch;
+        }
 #else
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {		
-            DISPLAY_POKE((loc(x,y)), (ch));
+        DISPLAY_POKE((loc(x,y)), (ch));
         }
 #endif
 

@@ -202,14 +202,24 @@
     #define _XL_GREEN _ORIC_NORMAL
     #define _XL_CYAN _ORIC_NORMAL
     
-#elif defined(__ATARI7800__)
-    #define _XL_WHITE 3
-    #define _XL_YELLOW 3
-    #define _XL_CYAN 1
-    #define _XL_BLUE _XL_CYAN
-    #define _XL_RED 0
-    #define _XL_GREEN _XL_CYAN
-	#define _XL_BLACK 2
+#elif defined(__ATARI7800__) 
+    #if defined(__ATARI7800_COLOR_GRAPHICS)
+        #define _XL_WHITE 2U
+        #define _XL_YELLOW 2U
+        #define _XL_CYAN 1U
+        #define _XL_BLUE _XL_CYAN
+        #define _XL_RED 0U
+        #define _XL_GREEN _XL_CYAN
+        #define _XL_BLACK 2U
+    #else
+        #define _XL_WHITE 3U
+        #define _XL_YELLOW 3U
+        #define _XL_CYAN 1U
+        #define _XL_BLUE _XL_CYAN
+        #define _XL_RED 0U
+        #define _XL_GREEN _XL_CYAN
+        #define _XL_BLACK 2U
+    #endif
     
 #elif defined(__VDP_MODE1_GRAPHICS)
 

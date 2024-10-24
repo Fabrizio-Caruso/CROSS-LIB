@@ -361,6 +361,17 @@ atari7800_test: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
 
+# TODO: Implement NO_PRINT
+atari7800_gfx: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ \
+	-D__ATARI7800_COLOR_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) \
+	-DXSize=20 -DYSize=28 -D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_PRINT \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+
 
 atari7800_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \

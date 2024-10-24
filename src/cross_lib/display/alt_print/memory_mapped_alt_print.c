@@ -334,7 +334,7 @@
             }
             else 
             {
-                adjusted_ch = ch - 65 + 1;
+                adjusted_ch = ch - 65 + 10 + 1;
             }
             screen[loc(x,y)] = 2*adjusted_ch;
         }

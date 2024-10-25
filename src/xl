@@ -641,6 +641,9 @@ def build(params):
         else:
             target = params[2]
 
+        if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti"]:
+            target = target + "_targets"
+
         if len(params)<4:
             threads = str(compilation_threads)
         else:
@@ -3504,7 +3507,6 @@ if __name__ == "__main__":
         print("")
 
     
-
     if len(sys.argv)<2:
         print("For more commands, use the non-interactive mode.")
         printc(bcolors.BOLD, "xl help")

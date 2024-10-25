@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2024/05/11
+Last update: 2024/10/25
 
 ### 8-BIT targets with known working existing emulators
 

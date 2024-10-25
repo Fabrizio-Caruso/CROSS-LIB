@@ -15,7 +15,7 @@ target name         | long target name                            | working  |  
 *apple2enh*         | Apple //e                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *atari5200*         | Atari 5200                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
-*atari7800*         | Atari 7800                                  |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*atari7800*         | Atari 7800                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       | missing |
 *atari*             | Atari 8-bit (e.g., Atari 800)               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *atari_lynx*        | Atari Lynx                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *attache*           | Otrona Attache                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
@@ -61,7 +61,7 @@ target name         | long target name                            | working  |  
 *gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  | PSG SN76489 Mednafen OK 
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
-*gemini*            | Gemini                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
+*gemini*            | Gemini                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *hgmc*              | Huebler-Grafik-MC                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |

@@ -3,12 +3,12 @@
 # CROSS LIB
 ![LOGO](snapshots/CrossLibLogoByHamletShorter.jpg)
 
-*Cross-Lib* and games that use it (e.g., Chase, Shoot, Bomber, Snake, Horde, Verbix, Shuriken, Stinger, Trex)
+*Cross-Lib* and games built with it (e.g., Chase, Shoot, Bomber, Snake, Horde, Verbix, Shuriken, Stinger, Trex)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 *Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., 
-you code your game **once** in an abstract hardware-agnostic way and *Cross-Lib* builds the very same game for about 200 vintage systems (console, computers, etc.) with **the very same code**.
+you code your game in C **once** and *Cross-Lib* builds the very same game for about 200 vintage systems (console, computers, etc.) with **the very same code**.
 
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
 

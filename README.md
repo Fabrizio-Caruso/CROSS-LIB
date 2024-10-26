@@ -252,147 +252,28 @@ You can display its instructions and some examples by using:
 ```
 xl help <[optional] command>
 ```
-where commands are `build`, `clean`, `create`,`delete`, `list`, `help`, `reset`.
 
-The following sections will show how to use this script in the my common use-cases.
 
--------------------------------------------
-## BUILDING PROJECTS
+You can build games and examples with :
 
-We recommend to use `xl` (equivalent to `xl build`) to build projects.
+`xl [game_or_test_name] [optional system_name]`
 
-### Using `xl`
-
-I recommend that you use `xl build`:
-
-`xl  [game_or_test_name] [optional system_name] [optional number of threads]`
-
-A convenient shortcut is using just `xl` as follows:
-
-`xl [project_name] [optional system_name] [optional number of threads]`
-
-The `[optional system_name]` parameter is the name of the target. If no target is specified then the native target (the host terminal) is implied.
-
-The `[optional number of threads]` is used to specify the number of threads to use for multiple targets that can be built in parallel.
-
-Examples:
-- `xl snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `xl bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
-- `xl snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
-- `xl games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `xl bomber cc65` -> It builds Cross Bomber for all targets that use CC65.
-- `xl examples c64` -> It builds all examples for the Commodore 64 target
-
-Remark: All binaries will be in the `build` directory (same depth level as `src`).
-
--------------------------------------------
-## CREATING A NEW GAME PROJECT
-
-In order to create a new game project we can use the `xl create` scripts that will create the necessary initial source code files, graphic assets and Makefile inside a folder in the `games` folder.
-
-The script is used as follows:
-
-`xl create [game project name] [initial code type]`
-
-where `[initial code type]` can be 
-- `helloworld` or empty for initial code that only displays 'hello world'
-- `game` for an initial code for a standard game with a main loop and a level loop
-- `demo` for an initial code that uses most APIs.
-
-Examples:
-- `xl create foo` -> It creates a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
-- `xl create bar game` -> It creates a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game.
-- `xl create foobar demo` -> It creates a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
-
--------------------------------------------
-## CLEANING TEMPORARY FILES AND BINARIES
-
-If you  want to remove built binaries and temporary files that are produced during a build you can use 'xl clean'.
-
-`xl clean`
-
---------------------------------------------
-## DELETING PROJECTS
-
-Non-built-in game projects can be deleted trhough the `xl delete` script in a very simple way:
-
-`xl delete [game project name]`
-
-Example: 
-
-`xl delete foo` -> It removes the `foo` source code, assets and Makefile files
+For example `xl snake vic20` builds the game snake for the Commodore Vic 20 +16K.
 
 -------------------------------------------
 
-## HARDWARE-AGNOSTIC CODE
+## HOW TO USE THE `xl` SCRIPT 
 
-Thanks to Cross-Lib APIs, the game code can be *hardware-agnostic*.
-Using only Cross-Lib APIs is not enough, though, as Cross-Lib covers targets that have different screen size, screen shape and targets that lack some hardware features such as graphics, colors, sounds.
-
-### ANSI C (A sub-set of)
-The code has to be compiled by several different compilers that do not necessarily support the latest version of the C standard.
-Therefore it should be written in a sub-set of ANSI C89 that is common among all supported compilers.
-
-This sub-set can be described as (mostly) ANSI C89 without:
-- `float` types;
-- `struct` copies, assignments, parameters (use pointers to `struct` instead);
-- dynamically allocated memory (`malloc`, `free`).
-
-Moreover for performance reasons it is better to avoid recursion (as this has an extreme high cost on MOS 6502 targets).
-
-Some C99 features are available:
-- Modern `//` comments are allowed.
-- `stdint.h` is not available but `uint8_t` and `uint16_t` are (with no need for extra include directive). 
-
-
-### Screen size
-Using Cross-Lib APIs is not enough as the screen size and shape may be different.
-Cross-Lib exposes a constant `XSize` for the width of the screen and a constant `YSize` for the height of the screen.
-Both these macros are measured in terms of numbers of *tiles* (see next section).
-The game code should rely on fractions of `XSize` and of `YSize` and never use hard-coded sizes or use conditional directives to cover all sizes.
-By doing so, upon compilation, the game will auto-adapt to the target's screen size.
-
-
-### Tile-based Graphics
-
-Graphics in Cross-Lib is tile-based as this is the only possible graphics that can be supported by all targets. 
-For targets with graphics, the shapes of tiles are only defined at compilation time and cannot be re-defined.
-So, for targets with graphics, smoothly moving sprites can only be implemented as software sprites through pre-shifted tiles.
-
-Most targets with graphics have 8x8 pixel tiles but some other targets with graphics have different shapes.
-So do not implement logic that only assumes 8x8 pixel tiles (e.g. when implementing software sprites with pre-shifted tiles). 
-If you want to support targets with no graphics (i.e., tiles are just mapped to ASCII characters), 
-you either avoid code that depends on tile shapes or if you, you have to implement an alternative version for non-graphics targets.
-
-For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
-
-![MSX](snapshots/XSnake_MSX2.png)
-![GB](snapshots/XSnake_GB.png)
-
-For more snapshots we refer to: 
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
-
-
-### Colors, Sounds and Graphics
-Some targets have no colors or no color on text, or no sounds, or no graphics.
-So do not write any logic that relies only on the presence of colors/sounds/graphics; or if you do, use conditional directives to implement an alternative logic for targets with no colors/sounds/graphics.
-
-
-### Learn from the built-in games and tests
-Cross-Lib comes with games and tests whose code can be used to learn how to code universal games.
-
-The code of the games is in:
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/games
-
-The code of the examples is in:
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/examples
-
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md
 
 -------------------------------------------
-## CROSS-LIB APIs
+
+## HOW TO CODE HARDWARE-AGNOSTIC CODE WITH CROSS-LIB
+
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HARDWARE_AGNOSTIC_CODE.md
+
+-------------------------------------------
+## CROSS-LIB APIS
 
 Cross-Lib provides several APIs that allow to code games in a hardware-agnostic way for all supported targets.
 The currently available APIs are described at
@@ -416,18 +297,6 @@ This depends on the systems and the format used to store the game. For some hint
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
 
-
-
--------------------------------------------
-
-
-## THE FUTURE
-
-The main future goals are
-- improving the exposed APIs 
-- supporting more cross-compilers, native compilers, systems and sub-targets
-- adding more features to Cross-Lib (e.g., more redefinable tiles, more sound effects, etc.)
-- coding more universal games and demos
 
 
 -------------------------------------------

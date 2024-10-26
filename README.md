@@ -127,7 +127,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 ## INSTALLATION
 
 An installation is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
-For an actual installation people can also use
+For an actual installation people can use
 - the pre-build docker image, 
 - the dockerfile to build an image or 
 - a clone of this repository which requires the install all the dependencies (compilers and a few tools).
@@ -183,6 +183,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 ## LOADING THE GAMES
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD.md
+
 -------------------------------------------
 
 ## ACKNOWLEDGEMENTS

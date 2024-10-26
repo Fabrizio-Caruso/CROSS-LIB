@@ -128,10 +128,10 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 ## INSTALLATION
 
 An installation is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
-For an actual installation people can use
+For an actual installation you can use
 - the pre-build docker image, 
 - the dockerfile to build an image or 
-- a clone of this repository which requires the install all the dependencies (compilers and a few tools).
+- a clone of this repository, which requires some dependencies (compilers and a few tools).
 
 For the details go here:
 
@@ -148,14 +148,13 @@ Inside the project main directory, you find the `src` and the `build` directorie
 First of all you need to be in the `src` directory.
 From `src` you can use the `xl` script  to do different operations on projects.
 
-It can be used to create, build, delete and perform other operations on all Cross-Lib projects (examples, built-in games and custom games). 
 
 `xl` is used as follows:
 ```
 xl <command> <[optional] parameters>
 ```
 
-You can display its instructions and some examples by using:
+You can get help with:
 ```
 xl help <[optional] command>
 ```

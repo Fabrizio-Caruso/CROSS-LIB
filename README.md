@@ -156,7 +156,6 @@ For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/
 Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
 
 The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
-For more details on the supported compilers we refer to:
 
 For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
 

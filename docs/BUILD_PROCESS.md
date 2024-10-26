@@ -3,5 +3,5 @@ or massively build the same project for several targets (or even build several p
 For example for the build of a project for the sole GameBoy target we may represent 
 the interactions of various Cross-Lib components with this diagram:
 
-![User](snapshots/CrossLibFlow8.png)
+![User](../snapshots/CrossLibFlow8.png)
 

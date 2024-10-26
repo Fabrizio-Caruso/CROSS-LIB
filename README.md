@@ -15,14 +15,12 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 
 <br />
 
+<p float="left">
+  <img src="snapshots/XSnake_MSX2.png" width="100" />
+  <img src="snapshots/XHorde_SMS.png" width="100" /> 
+  <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
+</p>
 
-![MSX](snapshots/XSnake_MSX2.png)
-
-![GB](snapshots/XSnake_GB.png)
-
-![SMS](snapshots/XHorde_SMS.png)
-
-![Vic20](snapshots/XVerbix_Vic20_gameplay.jpg)
 -------------------------------------------
 
 ## ARTICLE ABOUT CROSS-LIB

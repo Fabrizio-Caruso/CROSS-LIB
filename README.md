@@ -19,13 +19,19 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 -------------------------------------------
 
 ## ARTICLES ABOUT CROSS-LIB
-Article [in English] (updated version of an article published in C.A.L.L. Apple Volume 3 Number 1 (January 2023): <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md" download>C.A.L.L.-Apple</a>
+Article [in English] (updated version of an article published in C.A.L.L. Apple Volume 3 Number 1 (January 2023): 
+
+<a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md" download>C.A.L.L.-Apple</a>
 
 
-Article [in French] (first published in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf" download>Programmez!</a>
+Article [in French] (first published in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details: 
+
+<a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf" download>Programmez!</a>
 
 
-Presentation about retro-coding and Cross-Lib [in French]: <a href="https://github.com/Fabrizio-Caruso/HistoryOfComputing/blob/main/RetroCoding/Pr%C3%A9sentation%20Retrocoding.pptx" download>Retro-Coding</a>
+Presentation about retro-coding and Cross-Lib [in French]: 
+
+<a id="raw-url" href="https://github.com/Fabrizio-Caruso/HistoryOfComputing/blob/main/RetroCoding/Pr%C3%A9sentation%20Retrocoding.pptx" download>Retro-Coding</a>
 
 
 -------------------------------------------

@@ -38,9 +38,8 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB
 
 ## THE GAMES
 
-Play the games online:
+Click here <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md"><b>Play Online</b></a> to play the games on your browser. 
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 1. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#trex"><b>Trex</b></a> is a mini-game and an obvious clone of off-line Chrome T-Rex game.
 2. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#stinger"><b>Stinger</b></a> is a tank-shooter with several enemies, levels, power-ups and items to pick.
@@ -73,9 +72,9 @@ The most significant supported vintage CPU architectures are:
 
 Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.
 
-For a more complete list of architectures you can look at:
+For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Supported Systems</b></a>
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md
+
 
 -------------------------------------------
 

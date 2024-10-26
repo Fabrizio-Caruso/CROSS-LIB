@@ -38,7 +38,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB
 
 ## THE GAMES
 
-Click here <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md"><b>Play Online</b></a> to play the games on your browser. 
+Click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md"><b>Games</b></a> to play the games on your browser. 
 
 
 1. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#trex"><b>Trex</b></a> is a mini-game and an obvious clone of off-line Chrome T-Rex game.
@@ -72,7 +72,7 @@ The most significant supported vintage CPU architectures are:
 
 Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.
 
-For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Supported Systems</b></a>
+For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Architectures</b></a>
 
 
 
@@ -104,9 +104,8 @@ The user has to
 
 ![User](snapshots/User2.bmp)
 
-More details on the build process are here:
+For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md
 
 
 ### The compilers
@@ -116,7 +115,9 @@ Code written in C with Cross-Lib can be compiled by several different cross-comp
 The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
 For more details on the supported compilers we refer to:
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
+For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
+
+
 
 
 -------------------------------------------
@@ -129,9 +130,8 @@ For an actual installation you can use
 - the dockerfile to build an image or 
 - a clone of this repository, which requires some dependencies (compilers and a few tools).
 
-For the details go here:
+For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md"><b>Installation</b></a>
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md
 
 -------------------------------------------
 
@@ -163,7 +163,9 @@ For example `xl snake vic20` builds the *snake* for the *Commodore Vic 20 +16K* 
 
 For more details read here:
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md
+For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
+
+
 
 -------------------------------------------
 
@@ -186,7 +188,10 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD.md
 
 Cross-Lib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
 
-A partial list of the people who have helped in found in: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CREDITS.txt
+A partial list of the people who have helped in found in <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CREDITS.txt"><b>Credits</b></a>
+
+
+
 
 -------------------------------------------
 

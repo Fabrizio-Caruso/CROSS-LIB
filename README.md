@@ -19,10 +19,10 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 -------------------------------------------
 
 ## ARTICLES ABOUT CROSS-LIB
-Article [in English] (first published in C.A.L.L. Apple Volume 3 Number 1 (January 2023): <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md" download>C.A.L.L.-Apple</a>
+Article [in English], first published in C.A.L.L. Apple Volume 3 Number 1 (January 2023): <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md" download>C.A.L.L.-Apple</a>
 
 
-Article [in French] (first published in the French magazine "Programmez! Hors série #6") about Cross-Lib: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf" download>Programmez!</a>
+Article [in French], first published in the French magazine "Programmez! Hors série #6": <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf" download>Programmez!</a>
 
 
 

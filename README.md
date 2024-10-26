@@ -7,21 +7,14 @@
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
-*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.).
-
-*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
+*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., 
+you code your game **once** in an abstract hardware-agnostic way and *Cross-Lib* builds the very same game for about 200 vintage systems (console, computers, etc.) with **the very same code**.
 
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
 
 <br />
 
-<p float="left">
-  <img src="snapshots/XSnake_MSX2.png" width="100" />
-  <img src="snapshots/XStinger_Vic20.png" width="100" /> 
-  <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
-  <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
-  <img src="snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
-</p>
+
 
 -------------------------------------------
 
@@ -36,6 +29,14 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB
 
 
 ## THE GAMES
+
+<p float="left">
+  <img src="snapshots/XSnake_MSX2.png" width="100" />
+  <img src="snapshots/XStinger_Vic20.png" width="100" /> 
+  <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
+  <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
+  <img src="snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
+</p>
 
 Click on the links below to play the games on your browser. 
 

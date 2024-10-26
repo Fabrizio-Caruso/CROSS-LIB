@@ -19,7 +19,6 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
   <img src="snapshots/XSnake_MSX2.png" width="100" />
   <img src="snapshots/XStinger_Vic20.png" width="100" /> 
   <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
-  <img src="snapshots/XSnake_GB.png" width="100" />
   <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
   <img src="snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
 </p>
@@ -116,9 +115,7 @@ You can build games and examples with :
 
 For example `xl snake vic20` builds the *snake* for the *Commodore Vic 20 +16K* and `xl stinger` builds *stinger* for the *native terminal*.
 
-For more details read here:
-
-For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
+For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
 
 
 -------------------------------------------

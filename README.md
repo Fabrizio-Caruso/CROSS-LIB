@@ -7,39 +7,22 @@
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
-The universal *retro-hardware abstraction layer*: Use the **very same code** for about 200 vintage computers, consoles, calculators and other devices.
+*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.).
+
+*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
 
 Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/DISCLAIMER.md"><b>Disclaimer.</b></a>
 
 <br />
 
-The logo was designed by *Hamlet*.
-
-
-
 
 ![MSX](snapshots/XSnake_MSX2.png)
-![Atari](snapshots/XChase_A8.png)
 
-![CPC](snapshots/XHorde_CPC.png)
-![Atari](snapshots/XBomber_A8.png)
-
-![SMS](snapshots/XShoot_sms.png)
 ![GB](snapshots/XSnake_GB.png)
 
-![Atari](snapshots/XHorde_A8.png)
 ![SMS](snapshots/XHorde_SMS.png)
 
 ![Vic20](snapshots/XVerbix_Vic20_gameplay.jpg)
-![Vic20](snapshots/XVerbix_Vic20_title.jpg)
--------------------------------------------
-
-## THE GOAL
-
-*Cross-Lib* is a *retro-hardware abstraction layer* for coding "universal" games with **the very same code** for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked toy computers, etc.).
-
-*Cross-Lib* is a *WORA* (Write Once Run Anywhere) framework for vintage systems, i.e., you code a game **once** in an abstract hardware-agnostic way and *Cross-Lib* produces the very same game for about 200 vintage systems.
-
 -------------------------------------------
 
 ## ARTICLE ABOUT CROSS-LIB
@@ -143,8 +126,11 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 ## INSTALLATION
 
-The installation procedure is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
-People can also use a pre-build docker image, a dockerfile to build an image or just clone this repository and install all the dependencies (compilers and a few tools).
+An installation is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
+For an actual installation people can also use
+- the pre-build docker image, 
+- the dockerfile to build an image or 
+- a clone of this repository which requires the install all the dependencies (compilers and a few tools).
 
 For the details go here:
 
@@ -152,25 +138,16 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md
 
 -------------------------------------------
 
-## HOW TO START
+## THE `xl` SCRIPT
 
 Inside the project main directory, you find the `src` and the `build` directories:
 - `src` contains the source code and all other files that are necessary to build the games and tests
 - `build` is supposed to be empty at first and it is the target directory for the build process.
 
 First of all you need to be in the `src` directory.
-From `src` you can use the `xl` script (or the `make` command) to do different operations on projects.
+From `src` you can use the `xl` script  to do different operations on projects.
 
-For a description of the `xl` script and its parameters, take a look at the next sections.
-
--------------------------------------------
-
-## THE `xl` SCRIPT
-
-The script `xl` is found inside the `src` directory and it is meant to be used from `src`.
-Make sure that it has execution rights (`chmod +x ./xl`) and, for your convenience, that the current directory `.` is included in `$PATH`.
-Its name stands obviously for `Cross-Lib` as it can execute most of the operations people may want to do with Cross-Lib.
-It can be used to create, build, delete and perform other operations on all Cross-Lib projects (tests, built-in games and custom games). 
+It can be used to create, build, delete and perform other operations on all Cross-Lib projects (examples, built-in games and custom games). 
 
 `xl` is used as follows:
 ```
@@ -182,12 +159,11 @@ You can display its instructions and some examples by using:
 xl help <[optional] command>
 ```
 
-
 You can build games and examples with :
 
-`xl [game_or_test_name] [optional system_name]`
+`xl [game_or_example_name] [optional system_name]`
 
-For example `xl snake vic20` builds the game snake for the Commodore Vic 20 +16K.
+For example `xl snake vic20` builds the game snake for the Commodore Vic 20 +16K and `xl stinger` builds the game for the native terminal.
 
 For more details read here:
 
@@ -195,15 +171,9 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md
 
 -------------------------------------------
 
-## HOW TO CODE HARDWARE-AGNOSTIC CODE WITH CROSS-LIB
+## HOW TO CODE WITH CROSS-LIB
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HARDWARE_AGNOSTIC_CODE.md
-
--------------------------------------------
-## CROSS-LIB APIS
-
-Cross-Lib provides several APIs that allow to code games in a hardware-agnostic way for all supported targets.
-The currently available APIs are described at
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 
@@ -211,21 +181,8 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 -------------------------------------------
 
 ## LOADING THE GAMES
-In order to run the game you will have to follow a different procedure depending on whether you want to load it into an emulated system or a real system.
 
-### Loading the game into an emulated vintage system
-In most cases loading an executable into an emulator is straightforward. 
-For a detailed guide on how to load the game on several emulated systems for which the procedure is not obvious, we refer to: 
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME.md
-
-### Loading the game into a real vintage system
-This depends on the systems and the format used to store the game. For some hints on this take a look at:
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
-
-
-
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD.md
 -------------------------------------------
 
 ## ACKNOWLEDGEMENTS

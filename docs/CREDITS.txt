@@ -22,3 +22,6 @@ In particular I must thank:
 - Asmusr (from AtariAge) for his JS99er JavaScript emulator, support on the cartUrl parameter, and the generation of cartridge images from EA5 files
 
 - Mark Burkley for his great work and support on GCC for the TI compiler
+
+- *Hamlet* for the logo.
+

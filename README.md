@@ -105,10 +105,8 @@ Cross-Lib provides a full tool-chain to build universal vintage 8-bit games.
 ### Cross-Lib components
 
 Cross-Lib provides:
-- a library with hardware-agnostic APIs for game development;
-- scripts that convert automatically compiler-agnostic graphics assets to target-specific graphics assets formats;
-- makefiles that handle the build process;
-- the "user-friendly" script `xl` to manage game projects (see the subsequent sections below).
+- a C library with hardware-agnostic APIs for game development;
+- the "user-friendly" script `xl`.
 
 
 
@@ -126,12 +124,9 @@ In most cases the user will just have to
 
 ![User](snapshots/User2.bmp)
 
-The `xl` script will trigger the full build process which will produce the target specific version of the project 
-or massively build the same project for several targets (or even build several projects for one or more targets).
-For example for the build of a project for the sole GameBoy target we may represent 
-the interactions of various Cross-Lib components with this diagram:
+More details on the build process are here:
 
-![User](snapshots/CrossLibFlow8.png)
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md
 
 
 ### The compilers
@@ -143,7 +138,6 @@ For more details on the supported compilers we refer to:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
-Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
 
 -------------------------------------------
 
@@ -195,9 +189,7 @@ You can build games and examples with :
 
 For example `xl snake vic20` builds the game snake for the Commodore Vic 20 +16K.
 
--------------------------------------------
-
-## HOW TO USE THE `xl` SCRIPT 
+For more details read here:
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md
 

@@ -83,3 +83,10 @@ For Linux (native or under the Windows Subsystem), the tested and verified proce
 A detailed procedure for recent Ubuntu distributions is described here: 
 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
+
+
+
+### ACKNOWLEDGEMENTS
+
+
+Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.

@@ -81,11 +81,11 @@ For a more complete list of architectures you can look at: <a href="https://gith
 
 An installation is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
 For an actual installation you can use
-- the pre-build docker image, 
+- the pre-built docker image, 
 - the dockerfile to build an image or 
 - a clone of this repository, which requires some dependencies (compilers and a few tools).
 
-For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md"><b>Installation</b></a>
+For the details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md"><b>Installation</b></a>
 
 
 -------------------------------------------
@@ -93,7 +93,7 @@ For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob
 ## THE `xl` SCRIPT
 
 Inside the project main directory, you find the `src` and the `build` directories:
-- `src` contains the source code and all other files that are necessary to build the games and tests
+- `src` contains the source code and all other files that are necessary to build the games and the examples;
 - `build` is supposed to be empty at first and it is the target directory for the build process.
 
 First of all you need to be in the `src` directory.
@@ -116,7 +116,7 @@ You can build games and examples with :
 
 For example `xl snake vic20` builds the *snake* for the *Commodore Vic 20 +16K* and `xl stinger` builds *stinger* for the *native terminal*.
 
-For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
+For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
 
 
 -------------------------------------------
@@ -147,7 +147,7 @@ The user has to
 
 ![User](snapshots/User2.bmp)
 
-For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
+For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
 
 
 
@@ -158,7 +158,7 @@ Code written in C with Cross-Lib can be compiled by several different cross-comp
 The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
 For more details on the supported compilers we refer to:
 
-For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
+For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
 
 
 

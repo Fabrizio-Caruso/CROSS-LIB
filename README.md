@@ -101,10 +101,10 @@ When a game is built for a specific target, the Cross-Lib tool-chain will automa
 2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
 3. if needed, whenever possible, create a disk/cassette/cartridge image.
 
-In most cases the user will just have to
-- code in C a game that uses Cross-Lib APIs;
-- draw the graphics assets;
-- run the `xl` script to create, build and test the game.
+The user has to
+- code the game in C with Cross-Lib APIs;
+- draw the graphics assets in the *tiles* directory;
+- run the `xl` script (see below).
 
 ![User](snapshots/User2.bmp)
 
@@ -162,9 +162,9 @@ xl help <[optional] command>
 
 You can build games and examples with :
 
-`xl [game_or_example_name] [optional system_name]`
+`xl <game_or_example_name> <[optional] system_name>`
 
-For example `xl snake vic20` builds the game snake for the Commodore Vic 20 +16K and `xl stinger` builds the game for the native terminal.
+For example `xl snake vic20` builds the *snake* for the *Commodore Vic 20 +16K* and `xl stinger` builds *stinger* for the *native terminal*.
 
 For more details read here:
 

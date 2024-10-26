@@ -21,6 +21,7 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
   <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
   <img src="snapshots/XSnake_GB.png" width="100" />
   <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
+  <img src="snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
 </p>
 
 -------------------------------------------

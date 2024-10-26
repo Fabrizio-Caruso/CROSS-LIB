@@ -17,7 +17,7 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 
 <p float="left">
   <img src="snapshots/XSnake_MSX2.png" width="100" />
-  <img src="snapshots/XHorde_SMS.png" width="100" /> 
+  <img src="snapshots/XStinger_Vic20.png" width="100" /> 
   <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
   <img src="snapshots/XSnake_GB.png" width="100" />
   <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />

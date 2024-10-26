@@ -26,7 +26,7 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 
 -------------------------------------------
 
-## ARTICLE ABOUT CROSS-LIB
+## ARTICLES ABOUT CROSS-LIB
 Article in English (updated and modified version of an article published in C.A.L.L. Apple Volume 3 Number 1 (January 2023):
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md
 
@@ -37,8 +37,6 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB
 
 
 ## THE GAMES
-
-These games are the proof of the flexibility of *Cross-Lib*.
 
 Play the games online:
 
@@ -59,10 +57,9 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md
 
 ## CURRENTLY SUPPORTED SYSTEMS AND ARCHITECTURES
 
-Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, hand-helds, arcade boards, scientific pocket calculators, etc.). 
-A partial list of the supported systems with their status is in: 
+Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, arcade boards, pocket calculators, etc.). 
+A partial list of the supported systems with their status is in: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md"><b>Supported Systems</b></a>
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 The most significant supported vintage CPU architectures are:
 

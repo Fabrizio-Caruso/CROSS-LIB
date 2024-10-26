@@ -38,7 +38,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB
 
 ## THE GAMES
 
-Click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md"><b>Games</b></a> to play the games on your browser. 
+Click on the links below to play the games on your browser. 
 
 
 1. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#trex"><b>Trex</b></a> is a mini-game and an obvious clone of off-line Chrome T-Rex game.
@@ -57,12 +57,12 @@ Click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAM
 ## CURRENTLY SUPPORTED SYSTEMS AND ARCHITECTURES
 
 Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, arcade boards, pocket calculators, etc.). 
-A partial list of the supported systems with their status is in: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md"><b>Supported Systems</b></a>
+An almost complete list of the supported systems with their status is in: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md"><b>Supported Systems</b></a>
 
 
-The most significant supported vintage CPU architectures are:
+Some supported vintage CPU architectures are:
 
-- COSMAC RCA 1802 
+- RCA 1802 
 - Intel 8080 
 - MOS 6502 
 - Motorola 6803 
@@ -70,54 +70,9 @@ The most significant supported vintage CPU architectures are:
 - TMS 9900
 - Zilog 80 
 
-Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC console.
+Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC.
 
 For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Architectures</b></a>
-
-
-
--------------------------------------------
-
-## THE TOOL-CHAIN
-
-Cross-Lib provides a full tool-chain to build universal vintage 8-bit games. 
-
-### Cross-Lib components
-
-Cross-Lib provides:
-- a C library with hardware-agnostic APIs for game development;
-- the "user-friendly" script `xl`.
-
-
-
-### The build process
-
-When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
-1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
-2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
-3. if needed, whenever possible, create a disk/cassette/cartridge image.
-
-The user has to
-- code the game in C with Cross-Lib APIs;
-- draw the graphics assets in the *tiles* directory;
-- run the `xl` script (see below).
-
-![User](snapshots/User2.bmp)
-
-For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
-
-
-
-### The compilers
-
-Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
-
-The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
-For more details on the supported compilers we refer to:
-
-For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
-
-
 
 
 -------------------------------------------
@@ -164,6 +119,50 @@ For example `xl snake vic20` builds the *snake* for the *Commodore Vic 20 +16K* 
 For more details read here:
 
 For the details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/XL.md"><b>XL script</b></a>
+
+
+-------------------------------------------
+
+## THE TOOL-CHAIN
+
+Cross-Lib provides a full tool-chain to build universal vintage 8-bit games. 
+
+### Cross-Lib components
+
+Cross-Lib provides:
+- a C library with hardware-agnostic APIs for game development;
+- the "user-friendly" script `xl`.
+
+
+
+### The build process
+
+When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
+1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
+2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
+3. if needed, whenever possible, create a disk/cassette/cartridge image.
+
+The user has to
+- code the game in C with Cross-Lib APIs;
+- draw the graphics assets in the *tiles* directory;
+- run the `xl` script (see below).
+
+![User](snapshots/User2.bmp)
+
+For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
+
+
+
+### The compilers
+
+Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
+
+The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
+For more details on the supported compilers we refer to:
+
+For more details click <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
+
+
 
 
 

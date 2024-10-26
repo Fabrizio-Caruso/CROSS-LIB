@@ -293,7 +293,7 @@ PARALLEL_TARGETS = \
     'zxn'
     ]
 
-def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
+def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):
     projects = []
     
     if use_tools:
@@ -318,6 +318,8 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
         pool = Pool(processes=int(threads))
 
         for project_name in projects:
+            if reset_flag:
+                reset(["",project_name])
             if(is_project_split(project_name)):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
@@ -338,6 +340,9 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization):
                 delete_main(project_name,project_type)        
     else:
         for project_name in projects:
+            if reset_flag:
+                reset(["",project_name])
+            print("project name: " + project_name)
             if(is_project_split(project_name)):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
@@ -436,8 +441,8 @@ def size(params,debug):
 
 # Rebuild a project, i.e., also rebuilds assets
 def rebuild(params):
-    reset(params)
-    build(params)
+    # reset(params)
+    build(params, reset_flag=True)
     # game_dir = params[1]
 
     # if game_dir=="new":
@@ -620,7 +625,7 @@ def is_project_split(game_dir):
     return os.path.isdir(project_dir_path+"split_files")
 
 # Build a project (for a target or multiple targets)
-def build(params):
+def build(params, reset_flag = False):
     
     if len(params)<2:
         game_dir = "helloworld"
@@ -694,6 +699,8 @@ def build(params):
 
 
         if(game_dir not in ["games", "examples", "projects", "all"]):
+            if reset_flag:
+                reset(params)
             if not os.path.exists(parent_and_game_dir):
                 print("Project not found!")
                 return
@@ -723,16 +730,16 @@ def build(params):
             
         else:
             if game_dir in ["games","examples","projects"]:
-                multiple_build(game_dir,target,threads,zsdcc_extra_optimization)
+                multiple_build(game_dir,target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir=="new":
-                multiple_build("projects",target,threads,zsdcc_extra_optimization)
+                multiple_build("projects",target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir in ["builtin","built-in"]:
-                multiple_build("games",target,threads,zsdcc_extra_optimization)
-                multiple_build("examples",target,threads,zsdcc_extra_optimization)
+                multiple_build("games",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build("examples",target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir=="all":
-                multiple_build("games",target,threads,zsdcc_extra_optimization)
-                multiple_build("examples",target,threads,zsdcc_extra_optimization)
-                multiple_build("projects",target,threads,zsdcc_extra_optimization)
+                multiple_build("games",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build("examples",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build("projects",target,threads,zsdcc_extra_optimization, reset_flag)
             else:
                 return    
         

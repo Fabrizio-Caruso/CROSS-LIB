@@ -19,11 +19,14 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 -------------------------------------------
 
 ## ARTICLES ABOUT CROSS-LIB
-Article in English (updated and modified version of an article published in C.A.L.L. Apple Volume 3 Number 1 (January 2023):
+Article [in English] (updated version of an article published in C.A.L.L. Apple Volume 3 Number 1 (January 2023):
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md
 
-Article in French (first published in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details.
+Article [in French] (first published in the French magazine "Programmez! Hors série #6") that describes Cross-Lib in details.
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf
+
+Presentation about retro-coding and Cross-Lib [in French]:
+https://github.com/Fabrizio-Caruso/HistoryOfComputing/blob/main/RetroCoding/Pr%C3%A9sentation%20Retrocoding.pptx
 
 -------------------------------------------
 
@@ -46,7 +49,7 @@ Click on the links below to play the games on your browser.
 3. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#shuriken"><b>Shuriken</b></a> is somehow inspired by Pac-man and Pengo.
 4. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#verbix"><b>Verbix</b></a> is a Scrabble-like game that looks like Tetrix with letters.
 5. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#horde"><b>Horde</b></a> is a zombie shooter with several different enemies, levels, power-ups and special items to pick.
-6. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#snake"><b>Snake</b></a> is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements
+6. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#snake"><b>Snake</b></a> is my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements.
 7. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#bomber"><b>Bomber</b></a> is a mini-game and clone of Air Attack (aka Blitz).
 8. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#shoot"><b>Shoot</b></a> is a shooter somehow similar to Robotron. It has many items and secrets to discover.
 9. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#chase"><b>Chase</b></a> is somehow similar to *Gnome Robots* but in real-time game and with several items and power-ups.

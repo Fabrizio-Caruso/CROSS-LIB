@@ -259,13 +259,13 @@ The following sections will show how to use this script in the my common use-cas
 -------------------------------------------
 ## BUILDING PROJECTS
 
-We recommend to use `xl build` to build projects. Alternatively you can use `make`.
+We recommend to use `xl` (equivalent to `xl build`) to build projects.
 
-### Using `xl build` (recommended)
+### Using `xl`
 
 I recommend that you use `xl build`:
 
-`xl build [game_or_test_name] [optional system_name] [optional number of threads]`
+`xl  [game_or_test_name] [optional system_name] [optional number of threads]`
 
 A convenient shortcut is using just `xl` as follows:
 
@@ -276,30 +276,14 @@ The `[optional system_name]` parameter is the name of the target. If no target i
 The `[optional number of threads]` is used to specify the number of threads to use for multiple targets that can be built in parallel.
 
 Examples:
-- `xl build snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
-- `xl build bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
-- `xl build snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
-- `xl build games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
-- `xl build bomber cc65_targets` -> It builds Cross Bomber for all targets that use CC65.
-- `xl build tests c64` -> It builds all tests for the Commodore 64 target
+- `xl snake` -> It builds Cross Snake for the native console by using `gcc` and `ncurses`.
+- `xl bomber atari` -> It builds Cross Bomber for the Atari 8-bit target (by using the appropriate cross-compiler, i.e., CC65)
+- `xl snake vic20` -> It builds Cross Snake for the Commodore Vic 20.
+- `xl games msx` -> It builds all game projects for the MSX target (by using the appropriate cross-compiler, i.e., the ones in Z88DK).
+- `xl bomber cc65` -> It builds Cross Bomber for all targets that use CC65.
+- `xl examples c64` -> It builds all examples for the Commodore 64 target
 
 Remark: All binaries will be in the `build` directory (same depth level as `src`).
-
-### Using `make` (NOT recommended)
-
-Using a standard `make` command is possible but you will get fewer options.
-
-For game projects you can use:
-
-`make [system_name] -f ./games/[game_name]/Makefile.[game_name]`
-
-For test projects you can use:
-
-`make [system_name] -f ./tests/[test_name]/Makefile.[test_name]`
-
-For more details and examples on build instructions for both `xl build` and `make` we refer to:
-
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
 -------------------------------------------
 ## CREATING A NEW GAME PROJECT
@@ -313,49 +297,19 @@ The script is used as follows:
 where `[initial code type]` can be 
 - `helloworld` or empty for initial code that only displays 'hello world'
 - `game` for an initial code for a standard game with a main loop and a level loop
-- `apis` for an initial code that uses most APIs.
+- `demo` for an initial code that uses most APIs.
 
 Examples:
 - `xl create foo` -> It creates a new game project `foo` with a trivial code that initializes sound, input and graphics and just displays `hello world` on the screen.
 - `xl create bar game` -> It creates a new game project `bar` with code that initializes sound, input and graphics and contains the main loops that may be used in a standard game.
-- `xl create foobar apis` -> It creates a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
-
-
--------------------------------------------
-## RESETTING A PROJECT BUILD
-
-In order to remove generated graphics assets of a specific project and other temporary files that are produced during a build, you can use `xl reset`.
-Use this command if you want to regenerate the graphics assets of a specific project.
-
-`xl reset [project name]`
-
-Project-specific graphics assets and temporary files including project-specific ones are removed.
-Built binaries are preserved.
-
-Example:
-- `xl reset foo` -> It deletes generated graphics assets and temporary files for `foo`.
+- `xl create foobar demo` -> It creates a new game project `foobar` with code that initializes sound, input and graphics and contains code that shows how to use most APIs.
 
 -------------------------------------------
 ## CLEANING TEMPORARY FILES AND BINARIES
 
 If you  want to remove built binaries and temporary files that are produced during a build you can use 'xl clean'.
 
-`xl clean [optional project name]`
-
-If you provide a project name, then also project-specific temporary files are removed including generated project-specific graphics assets.
-
-Examples:
-- `xl clean` -> It deletes all built binaries and some generic temporary files (not the once inside project directories).
-- `xl clean foo` -> It deletes the same files as `xl clean` and also deletes temporary files found inside the `foo` folder.
-
--------------------------------------------
-## LISTING PROJECTS
-
-You can list all current game and test projects with 
-
-`xl list`
-
-which searches both `tests` and `games` folders for projects (both built-in and user-defined) and produces a list with all of them.
+`xl clean`
 
 --------------------------------------------
 ## DELETING PROJECTS
@@ -367,7 +321,6 @@ Non-built-in game projects can be deleted trhough the `xl delete` script in a ve
 Example: 
 
 `xl delete foo` -> It removes the `foo` source code, assets and Makefile files
-
 
 -------------------------------------------
 

@@ -58,7 +58,7 @@
 	#define MIN_BUILDING_HEIGHT 2
 #endif
 
-#if YSize>=18
+#if YSize>=17
 	#define INITIAL_PLANE_Y 2
 #else
 	#define INITIAL_PLANE_Y 1
@@ -145,7 +145,9 @@ do { \
 
 
 #define deleteAnimatedBombUp() \
-    _XL_DELETE(bomb_x,bomb_y-1);
+  _XL_DELETE(bomb_x,bomb_y-1);
+
+        
 
 #if !defined(NO_ANIMATION)
     #define drawAnimatedPlane() \
@@ -528,7 +530,7 @@ void handle_non_active_bomb(void)
         _XL_SHOOT_SOUND();
         ++bombActive;
         bomb_x = x;
-        bomb_y = y;
+        bomb_y = y+1;
         
         if(building_height[x])
         {

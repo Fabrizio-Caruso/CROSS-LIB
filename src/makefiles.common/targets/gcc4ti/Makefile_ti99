@@ -117,7 +117,7 @@ TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 # %.o:
 	# $(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
 
-.PHONY: %.o
+.PHONY: %.o xchase.ea5.elf
 
 ti99clean:
 	rm -f *.o
@@ -161,7 +161,7 @@ ti: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPIL
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o
+	rm -rf $(SOURCE_PATH)/main.o $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o $(CROSS_LIB_PATH)/display/display_macros.o $(CROSS_LIB_PATH)/input/input_macros.o $(CROSS_LIB_PATH)/rand/rand.o $(CROSS_LIB_PATH)/sleep/sleep_macros.o $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o 
 	mv X$(shell echo $(GAME_NAME) | tr a-z A-Z)* $(BUILD_PATH)/
 	mv $(BUILD_PATH)/X$(shell echo $(GAME_NAME) | tr a-z A-Z)18.bin $(BUILD_PATH)/X$(shell echo $(GAME_NAME) | tr a-z A-Z)ti.bin
 	rm -rf x$(GAME_NAME)1.ea5.bin

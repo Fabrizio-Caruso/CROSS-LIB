@@ -58,7 +58,7 @@
 	#define MIN_BUILDING_HEIGHT 2
 #endif
 
-#if YSize>=12
+#if YSize>=18
 	#define INITIAL_PLANE_Y 2
 #else
 	#define INITIAL_PLANE_Y 1
@@ -72,11 +72,14 @@
         #define BUILDINGS_NUMBER (XSize-22)
         #define FIRST_BULDING_X_POS 10
     #elif XSize>48
-        #define BUILDINGS_NUMBER (XSize-14)
+        #define BUILDINGS_NUMBER (XSize-18)
+        #define FIRST_BULDING_X_POS 9
+    #elif XSize>=40
+        #define BUILDINGS_NUMBER (XSize-16)
         #define FIRST_BULDING_X_POS 8
-    #elif XSize>32
-        #define BUILDINGS_NUMBER (XSize-10)
-        #define FIRST_BULDING_X_POS 5
+    #elif XSize>=30
+        #define BUILDINGS_NUMBER (XSize-14)
+        #define FIRST_BULDING_X_POS 7
     #elif XSize>16
         #define BUILDINGS_NUMBER (XSize-9)
         #define FIRST_BULDING_X_POS 5

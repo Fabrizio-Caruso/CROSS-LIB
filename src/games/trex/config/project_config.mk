@@ -1,3 +1,22 @@
+#####################################################################
+# DISPLAY FLAGS
+
+ATARI_COLORS=
+# __ALTERNATE_COLORS
+
+ATARI5200_COLORS=
+# __ALTERNATE_COLORS
+
+NES_COLORS=
+# __ALTERNATE_COLORS
+
+ORIC_COLORS=
+# __MONO_COLORS
+
+MC10_COLORS=
+# __REVERSE_LETTERS
+
+
 
 #####################################################################
 # SLOWDOWN VALUES

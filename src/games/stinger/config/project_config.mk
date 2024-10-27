@@ -3,7 +3,7 @@
 ATARI_COLORS=-D__ALTERNATE_COLORS
 ATARI5200_COLORS=-D__ALTERNATE_COLORS
 
-ORIC_COLORS=-DMONO_COLOR
+ORIC_COLORS=-D__MONO_COLOR
 
 
 #####################################################################

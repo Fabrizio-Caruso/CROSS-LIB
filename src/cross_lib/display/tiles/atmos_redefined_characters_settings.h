@@ -1,13 +1,5 @@
 
 
-#if !defined(__ORIC_COLOR_GRAPHICS) && !defined(MONO_COLOR)
-    #define _INVERTED 128u
-#else
-    #define _INVERTED 0
-#endif
-
-
-
 #define _TILE_0 '/'
 #define _TILE_1 '.'
 #define _TILE_2 ','

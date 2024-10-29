@@ -15,7 +15,8 @@ CC65_PATH ?=
 #/home/fabri/CC65_FIX/cc65/bin/
 
 MYCC65 ?= cl65$(EXEEXT) $(GLOBAL_OPTS)
-
+AR65   ?= ar65$(EXEEXT)
+CA65   ?= ca65$(EXEEXT)
 
 
 ###########################

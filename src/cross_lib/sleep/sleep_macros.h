@@ -46,7 +46,7 @@
 
     #if defined(_XL_NO_SLEEP)
         #define _XL_SLEEP(s)
-    #elif defined(_XL_NO_SLEEP_SEC)
+    #elif defined(__NO_SLEEP_SEC)
         #define _XL_SLEEP(s) _XL_SLOW_DOWN(MAX_XL_SLOW_DOWN_FACTOR)
     #elif defined(__ALT_SLEEP)
         void _XL_SLEEP(uint8_t s);

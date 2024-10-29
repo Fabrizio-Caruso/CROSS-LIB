@@ -788,6 +788,7 @@ void handle_transparent_horizontal_wall(void)
     if(!(level&3)) \
     { \
         spawn(EXTRA); \
+        spawn(EXTRA); \
     } \
     if((!apples_on_screen_count || (_XL_RAND()&1)) && (apples_on_screen_count<remaining_apples)) \
     { \

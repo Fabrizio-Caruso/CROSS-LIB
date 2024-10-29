@@ -361,8 +361,41 @@ atari7800_test: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
 
-# TODO: Implement NO_PRINT
-atari7800: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
+
+%.o : %.s
+	$(CC65_PATH)ca65.exe -t atari7800 -o$@ $<
+
+sfxobjects= \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_bling.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_explosion.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_poof1.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_poof2.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_powerup.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfxlib/sfx_quack.o
+
+sfxlib = sfx.lib
+
+all: $(sfxlib)
+
+$(sfxlib) : $(sfxobjects)
+	ar65 rv $(sfxlib) $(sfxobjects)
+	ar65 t $(sfxlib)
+
+atari7800: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s $(TOOLS_PATH)/cc65/atari7800/sfx.o $(TOOLS_PATH)/cc65/atari7800/extzp.o $(sfxlib)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ \
+	-D__ATARI7800_COLOR_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN)  \
+	-DXSize=20 -DYSize=28 -D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(TOOLS_PATH)/cc65/atari7800/extzp.o \
+	$(TOOLS_PATH)/cc65/atari7800/sfx.o \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s  \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78 -L . sfx.lib
+	rm sfx.lib
+
+atari7800_no_sound: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ \
 	-D__ATARI7800_COLOR_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN) \

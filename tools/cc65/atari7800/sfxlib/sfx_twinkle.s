@@ -1,0 +1,53 @@
+	.rodata
+	.export	_sfx_twinkle
+_sfx_twinkle:
+	.byte  $10,$10,$00 ; version, priority, frames per chunk
+	.byte  $00,$04,$00 ; first chunk of freq,channel,volume
+	.byte  $02,$0c,$03
+	.byte  $0d,$04,$0e
+	.byte  $10,$04,$0d
+	.byte  $1b,$04,$08
+	.byte  $04,$0c,$0d
+	.byte  $0a,$04,$0a
+	.byte  $09,$04,$0f
+	.byte  $0c,$04,$0b
+	.byte  $10,$04,$0d
+	.byte  $02,$0c,$02
+	.byte  $1b,$04,$07
+	.byte  $1b,$04,$06
+	.byte  $0c,$04,$08
+	.byte  $02,$0c,$08
+	.byte  $0a,$04,$0b
+	.byte  $00,$06,$09
+	.byte  $16,$04,$07
+	.byte  $1b,$04,$0b
+	.byte  $18,$04,$08
+	.byte  $03,$0c,$05
+	.byte  $09,$04,$0b
+	.byte  $09,$04,$0a
+	.byte  $00,$06,$07
+	.byte  $16,$04,$0c
+	.byte  $1b,$04,$0a
+	.byte  $18,$04,$0b
+	.byte  $04,$0c,$07
+	.byte  $09,$04,$08
+	.byte  $0c,$04,$05
+	.byte  $05,$0c,$0f
+	.byte  $06,$0c,$0d
+	.byte  $0b,$0c,$08
+	.byte  $12,$04,$0b
+	.byte  $0d,$04,$0c
+	.byte  $09,$04,$0b
+	.byte  $0c,$04,$07
+	.byte  $05,$0c,$0b
+	.byte  $06,$0c,$08
+	.byte  $0b,$0c,$04
+	.byte  $12,$04,$06
+	.byte  $0c,$04,$05
+	.byte  $09,$04,$02
+	.byte  $0c,$04,$04
+	.byte  $12,$04,$02
+	.byte  $18,$04,$02
+	.byte  $1e,$04,$01
+	.byte  $12,$04,$01
+	.byte  $00,$00,$00

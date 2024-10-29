@@ -1,0 +1,40 @@
+	.rodata
+	.export	_sfx_humanoid
+_sfx_humanoid:
+	.byte  $10,$10,$00 ; version, priority, frames per chunk
+	.byte  $01,$02,$05
+	.byte  $0f,$06,$03
+	.byte  $15,$04,$06
+	.byte  $19,$04,$06
+	.byte  $0a,$01,$05
+	.byte  $14,$04,$08
+	.byte  $17,$04,$08
+	.byte  $04,$0f,$07
+	.byte  $13,$04,$07
+	.byte  $16,$04,$0a
+	.byte  $1b,$04,$09
+	.byte  $15,$01,$07
+	.byte  $15,$04,$09
+	.byte  $18,$04,$09
+	.byte  $15,$04,$07
+	.byte  $14,$04,$08
+	.byte  $17,$04,$08
+	.byte  $1b,$04,$07
+	.byte  $13,$04,$09
+	.byte  $16,$04,$0b
+	.byte  $1a,$04,$09
+	.byte  $03,$0f,$06
+	.byte  $15,$04,$06
+	.byte  $18,$04,$06
+	.byte  $04,$0f,$05
+	.byte  $09,$04,$04
+	.byte  $0b,$04,$06
+	.byte  $0d,$04,$06
+	.byte  $09,$04,$05
+	.byte  $0b,$04,$05
+	.byte  $0d,$04,$05
+	.byte  $0a,$04,$06
+	.byte  $15,$04,$06
+	.byte  $18,$04,$06
+	.byte  $1c,$04,$06
+	.byte  $00,$00,$00

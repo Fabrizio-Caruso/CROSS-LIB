@@ -104,6 +104,8 @@
             #include "atari_lynx_sounds.h"
         #elif defined(__MC10__) 
             #include "bit_bang_sounds.h"
+        #elif defined(__ATARI7800__) 
+            #include "atari7800_sounds.h"
         // #elif defined(__SUPERVISION__) 
             // #include "supervision_sounds.h"
         #else

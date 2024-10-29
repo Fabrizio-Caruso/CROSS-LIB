@@ -1,0 +1,52 @@
+	.rodata
+	.export	_sfx_uhoh
+_sfx_uhoh:
+	.byte  $10,$10,$00 ; version, priority, frames per chunk
+	.byte  $07,$06,$01 ; first chunk of freq,channel,volume
+	.byte  $1e,$0c,$03
+	.byte  $1e,$0c,$04
+	.byte  $17,$0c,$04
+	.byte  $0a,$06,$06
+	.byte  $0a,$0c,$0a
+	.byte  $07,$06,$0f
+	.byte  $1e,$04,$0f
+	.byte  $19,$04,$0f
+	.byte  $19,$04,$0f
+	.byte  $1b,$04,$07
+	.byte  $18,$04,$07
+	.byte  $18,$04,$04
+	.byte  $07,$0c,$02
+	.byte  $16,$04,$00
+	.byte  $16,$04,$00
+	.byte  $16,$04,$00
+	.byte  $0f,$06,$00
+	.byte  $1e,$06,$00
+	.byte  $1e,$06,$00
+	.byte  $1e,$06,$00
+	.byte  $19,$04,$00
+	.byte  $1e,$04,$01
+	.byte  $1e,$04,$0a
+	.byte  $1c,$04,$0f
+	.byte  $1c,$04,$0f
+	.byte  $1e,$04,$0f
+	.byte  $1b,$0c,$0f
+	.byte  $0d,$0c,$0f
+	.byte  $0d,$0c,$0e
+	.byte  $0e,$0c,$0f
+	.byte  $0e,$0c,$0f
+	.byte  $0e,$0c,$0f
+	.byte  $0e,$0c,$0f
+	.byte  $0e,$0c,$0f
+	.byte  $0e,$0c,$0d
+	.byte  $1b,$0c,$0a
+	.byte  $04,$0c,$0a
+	.byte  $1b,$0c,$0b
+	.byte  $0e,$0c,$0a
+	.byte  $0e,$0c,$0a
+	.byte  $1b,$0c,$0a
+	.byte  $0d,$0c,$0a
+	.byte  $0d,$0c,$06
+	.byte  $0e,$0c,$04
+	.byte  $0e,$0c,$04
+	.byte  $0e,$0c,$02
+	.byte  $00,$00,$00

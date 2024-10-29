@@ -1,0 +1,51 @@
+	.rodata
+	.export	_sfx_gooditem
+_sfx_gooditem:
+	.byte  $10,$10,$00 ; version, priority, frames per chunk
+	.byte  $07,$0c,$0f ; first chunk of freq,channel,volume
+	.byte  $06,$0c,$04
+	.byte  $07,$0c,$0f
+	.byte  $07,$0c,$0f
+	.byte  $07,$0c,$0f
+	.byte  $06,$0c,$08
+	.byte  $06,$0c,$09
+	.byte  $06,$0c,$0c
+	.byte  $07,$0c,$0d
+	.byte  $06,$0c,$0e
+	.byte  $06,$0c,$0c
+	.byte  $12,$04,$0d
+	.byte  $12,$04,$0d
+	.byte  $1b,$04,$04
+	.byte  $06,$0c,$06
+	.byte  $12,$04,$0c
+	.byte  $12,$04,$0b
+	.byte  $10,$04,$04
+	.byte  $04,$0c,$04
+	.byte  $12,$04,$0c
+	.byte  $12,$04,$0c
+	.byte  $10,$04,$0a
+	.byte  $12,$04,$03
+	.byte  $06,$0c,$09
+	.byte  $12,$04,$0e
+	.byte  $10,$04,$0d
+	.byte  $04,$0c,$07
+	.byte  $04,$0c,$06
+	.byte  $0d,$04,$07
+	.byte  $10,$04,$0a
+	.byte  $10,$04,$0a
+	.byte  $10,$04,$05
+	.byte  $04,$0c,$04
+	.byte  $10,$04,$06
+	.byte  $10,$04,$0b
+	.byte  $10,$04,$05
+	.byte  $0d,$04,$08
+	.byte  $03,$0c,$07
+	.byte  $04,$0c,$09
+	.byte  $04,$0c,$05
+	.byte  $0c,$04,$0a
+	.byte  $0a,$04,$07
+	.byte  $09,$04,$04
+	.byte  $0d,$04,$08
+	.byte  $0d,$04,$05
+	.byte  $03,$0c,$07
+	.byte  $00,$00,$00

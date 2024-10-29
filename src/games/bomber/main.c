@@ -58,7 +58,7 @@
 	#define MIN_BUILDING_HEIGHT 2
 #endif
 
-#if YSize>=17
+#if YSize>=18
 	#define INITIAL_PLANE_Y 2
 #else
 	#define INITIAL_PLANE_Y 1

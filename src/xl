@@ -1840,19 +1840,19 @@ def test_all(params):
     return test_self(params)
 
 expected_files = {
-    "cc65_targets": 8, 
-    "z88dk_targets": 5, 
-    "cmoc_targets": 3, 
-    "lcc1802_targets": 1,
-    "stdio": 1,
-    "z88dk_targets_alt": 38
+    "cc65_extra": 8, 
+    "z88dk_extra": 5, 
+    "cmoc_extra": 3, 
+    "lcc1802_extra": 1,
+    "stdio_extra": 1,
+    "z88dk_extra_alt": 38
     }
 
 
 def targets_test(params):
 
     success = clean_test()
-    if params[1].startswith("z88dk_targets"):
+    if params[1].startswith("z88dk_extra"):
         parallel = " -j " + compilation_threads
     else:
         parallel = ""         
@@ -1862,15 +1862,15 @@ def targets_test(params):
     if is_project_split(game_dir):
         printc(bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
-    if params[1].endswith("_targets"):
+    if params[1].endswith("_extra"):
         make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
                                            " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
-    elif params[1]=="stdio_targets":
-        make_command = GNU_MAKE + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " stdio " + \
-                                           " -f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
-    elif params[1]=="z88dk_targets_alt":
+    # elif params[1]=="stdio_extra":
+        # make_command = GNU_MAKE + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " simple_test " + \
+                                           # " -f makefiles.other/chase/tests/Makefile.tests"
+        # run_command_verbosely(make_command)
+    elif params[1]=="z88dk_extra_alt":
         # parallel = ""
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                          " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
@@ -1962,7 +1962,7 @@ def test(params):
         test_make()
     elif params[1]=="unit-tests" or params[1]=="unit_tests":
         unit_tests()
-    elif params[1].endswith('targets') or params[1].endswith('targets_alt'):
+    elif params[1].endswith('extra') or params[1].endswith('extra_alt'):
         if targets_test(params):
             printc(bcolors.OKGREEN, "TEST OK\n")
         else:
@@ -3027,12 +3027,12 @@ def help(params):
             print("If <params> is 'libraries', then it checks the presence of the libraries used by xl.")
             print("If <params> is a game/example/project, then it checks if a binary for <target> (native with omitted <target>), for that game/example/project can be built.")
             print('If <params> is "games" or "examples", then it checks if binaries for <target> (native with omitted <target>) can be built for all games/examples.')
-            print("If 'z88dk_targets' is passed to <params>, then it compiles a test program using Z88DK.")
-            print("If 'z88dk_targets_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
-            print("If 'cc65_targets' is passed to <params>, then it compiles a test program using CC65.")
-            print("If 'cmoc_targets' is passed to <params>, then it compiles a test program using CMOC.")
-            print("If 'lcc1802_targets' is passed to <params>, then it compiles a test program using LCC1802.")
-            print("If 'stdio' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
+            print("If 'z88dk_extra' is passed to <params>, then it compiles a test program using Z88DK.")
+            print("If 'z88dk_extra_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
+            print("If 'cc65_extra' is passed to <params>, then it compiles a test program using CC65.")
+            print("If 'cmoc_extra' is passed to <params>, then it compiles a test program using CMOC.")
+            print("If 'lcc1802_extra' is passed to <params>, then it compiles a test program using LCC1802.")
+            print("If 'stdio_extra' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
             print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the script code.")
         elif params[1]=="debug" or params[1]=="d":
             printc(bcolors.BOLD,"xl debug <project> <XSize> <YSize>")

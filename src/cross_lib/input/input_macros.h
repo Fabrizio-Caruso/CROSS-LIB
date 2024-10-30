@@ -105,43 +105,39 @@
 	#endif //
 
 
-// JOY_UP/DOWN/LEFT/RIGHT/FIRE
+// __JOY_UP/DOWN/LEFT/RIGHT/FIRE
 #if !defined(_XL_NO_JOYSTICK)
 	#if defined(__C64__) || defined(__C128__)
 		#define STANDARD_JOY JOY_2
 	#else
 		#define STANDARD_JOY JOY_1
 	#endif
-    // #if defined(__SMS__) || defined(__GG__)
-        // #include <arch/sms/SMSLib.h>
-        
-        // #define JOY_UP(joyInput) ((joyInput) & PORT_A_KEY_UP)
-        // #define JOY_DOWN(joyInput) ((joyInput) & PORT_A_KEY_DOWN)
-        // #define JOY_LEFT(joyInput) ((joyInput) & PORT_A_KEY_LEFT)
-        // #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
-        // #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
+
     #if defined(__Z88DK__)
         #include <games.h>
         
-        #define JOY_UP(joyInput) ((joyInput) & MOVE_UP)
-        #define JOY_DOWN(joyInput) ((joyInput) & MOVE_DOWN)
-        #define JOY_LEFT(joyInput) ((joyInput) & MOVE_LEFT)
-        #define JOY_RIGHT(joyInput) ((joyInput) & MOVE_RIGHT)
-        #define JOY_FIRE(joyInput) ((joyInput) & MOVE_FIRE)
+        #define __JOY_UP(joyInput) ((joyInput) & MOVE_UP)
+        #define __JOY_DOWN(joyInput) ((joyInput) & MOVE_DOWN)
+        #define __JOY_LEFT(joyInput) ((joyInput) & MOVE_LEFT)
+        #define __JOY_RIGHT(joyInput) ((joyInput) & MOVE_RIGHT)
+        #define __JOY_FIRE(joyInput) ((joyInput) & MOVE_FIRE)
 
     #elif defined(__LCC1802__)
         #include <devkit/input/joystick.h>
 
-        #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
-        #define JOY_DOWN(joyInput) ((joyInput) == MOVE_DOWN)
-        #define JOY_LEFT(joyInput) ((joyInput) == MOVE_LEFT)
-        #define JOY_RIGHT(joyInput) ((joyInput) == MOVE_RIGHT)
-        #define JOY_FIRE(joyInput) ((joyInput) == MOVE_FIRE)
+        #define __JOY_UP(joyInput) ((joyInput) == MOVE_UP)
+        #define __JOY_DOWN(joyInput) ((joyInput) == MOVE_DOWN)
+        #define __JOY_LEFT(joyInput) ((joyInput) == MOVE_LEFT)
+        #define __JOY_RIGHT(joyInput) ((joyInput) == MOVE_RIGHT)
+        #define __JOY_FIRE(joyInput) ((joyInput) == MOVE_FIRE)
     #else // CC65
         #include <joystick.h>
-
-        #if !defined(JOY_FIRE)
-            #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
+        #define __JOY_UP(joyInput) JOY_UP(joyInput)
+        #define __JOY_DOWN(joyInput) JOY_DOWN(joyInput)
+        #define __JOY_LEFT(joyInput) JOY_LEFT(joyInput)
+        #define __JOY_RIGHT(joyInput) JOY_RIGHT(joyInput)
+        #if !defined(__JOY_FIRE)
+            #define __JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
         #endif
     #endif //
     
@@ -233,20 +229,7 @@ window.addEventListener("keydown", function (event) {
 #endif
 
 
-#if defined(_XL_NO_JOYSTICK)
-    #define _XL_UP(input) ((input)==_MOVE_UP)
-    #define _XL_DOWN(input) ((input)==_MOVE_DOWN)
-    #define _XL_LEFT(input) ((input)==_MOVE_LEFT)
-    #define _XL_RIGHT(input) ((input)==_MOVE_RIGHT)
-    #define _XL_FIRE(input) ((input)==_FIRE)
 
-#else
-    #define _XL_UP(input) JOY_UP(input)
-    #define _XL_DOWN(input)  JOY_DOWN(input)
-    #define _XL_LEFT(input)  JOY_LEFT(input)
-    #define _XL_RIGHT(input)  JOY_RIGHT(input)
-    #define _XL_FIRE(input)  JOY_FIRE(input)
-#endif
 
     // GET_CHAR
 	#if !defined(NO_INPUT) && defined(_XL_NO_JOYSTICK)
@@ -278,10 +261,26 @@ window.addEventListener("keydown", function (event) {
     #if defined(_XL_NO_JOYSTICK)
         #define _XL_KEY_PRESSED() (GET_CHAR())
     #else
-        #define _XL_KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
+        #define _XL_KEY_PRESSED() (__JOY_FIRE(JOY_INPUT()))
     #endif
 #else
     #define _XL_KEY_PRESSED() ' '
+#endif
+
+
+#if defined(_XL_NO_JOYSTICK)
+    #define _XL_UP(input) ((input)==_MOVE_UP)
+    #define _XL_DOWN(input) ((input)==_MOVE_DOWN)
+    #define _XL_LEFT(input) ((input)==_MOVE_LEFT)
+    #define _XL_RIGHT(input) ((input)==_MOVE_RIGHT)
+    #define _XL_FIRE(input) ((input)==_FIRE)
+
+#else
+    #define _XL_UP(input) __JOY_UP(input)
+    #define _XL_DOWN(input)  __JOY_DOWN(input)
+    #define _XL_LEFT(input)  __JOY_LEFT(input)
+    #define _XL_RIGHT(input)  __JOY_RIGHT(input)
+    #define _XL_FIRE(input)  __JOY_FIRE(input)
 #endif
 
 #endif // _INPUT_MACROS

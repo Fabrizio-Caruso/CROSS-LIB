@@ -24,16 +24,17 @@
 
 #include "cross_lib.h"
 
+#define PREVIOUS_STATE_X (XSize/2-7)
+#define CURRENT_STATE_X  (XSize/2+2)
+
+#define STATE_Y ((YSize)/2-1)
 
 
-void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
+void UPDATE_STATE(char *Text)
 {
-	_XL_PRINT(((uint8_t) (XSize - (uint8_t) strlen(Text))>>1), row, Text);	
+    _XL_PRINT(CURRENT_STATE_X,STATE_Y, Text);
+    _XL_PRINT(PREVIOUS_STATE_X,STATE_Y, Text);
 }
-
-#define PRINT_CENTERED(Text) \
-	PRINT_CENTERED_ON_ROW((YSize>>1), Text)
-
 
 int main(void)
 {        
@@ -45,52 +46,47 @@ int main(void)
     _XL_INIT_INPUT();
 
     _XL_CLEAR_SCREEN();
+    
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    
+    _XL_PRINT(XSize/2-6,0, "INPUT TEST");
 
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    PRINT_CENTERED_ON_ROW(YSize/4, "PRESS FIRE");
-    _XL_WAIT_FOR_INPUT();
+    _XL_PRINT(CURRENT_STATE_X,STATE_Y-2, "CURRENT");
+    _XL_PRINT(PREVIOUS_STATE_X-3,STATE_Y-2, "PREVIOUS");
     
-    _XL_CLEAR_SCREEN();
-    
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    
-    PRINT_CENTERED_ON_ROW(0, "INPUT");
-    counter = 0;
-    while(counter<200)
+    while(1)
     {
         input = _XL_INPUT();
+        _XL_PRINT(CURRENT_STATE_X,STATE_Y, "     ");
         
         if(_XL_FIRE(input))
         {
-            PRINT_CENTERED("FIRE ");
+            UPDATE_STATE("FIRE ");
             ++counter;
         }
         else if(_XL_LEFT(input))
         {
-            PRINT_CENTERED("LEFT ");
+            UPDATE_STATE("LEFT ");
             ++counter;
         }
         else if(_XL_RIGHT(input))
         {
-            PRINT_CENTERED("RIGHT");
+            UPDATE_STATE("RIGHT");
             ++counter;
         }
         else if(_XL_DOWN(input))
         {
-            PRINT_CENTERED("DOWN ");
+            UPDATE_STATE("DOWN ");
             ++counter;
         }
         else if(_XL_UP(input))
         {
-            PRINT_CENTERED("UP   ");
+            UPDATE_STATE("UP   ");
             ++counter;
         }
 
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }
-    PRINT_CENTERED_ON_ROW(YSize-5, "END OF TEST");
-
-    while(1){};
     
     return EXIT_SUCCESS;
 }

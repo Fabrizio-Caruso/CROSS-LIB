@@ -81,7 +81,7 @@
             { \
                 stick = STICK; \
             }
-	#elif defined(__SMS__) || defined(__LCC1802__)
+	#elif defined(__SMS__) || defined(__LCC1802__) || defined(__TI99__)
 		#define _XL_INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
@@ -130,6 +130,14 @@
         #define __JOY_LEFT(joyInput) ((joyInput) == MOVE_LEFT)
         #define __JOY_RIGHT(joyInput) ((joyInput) == MOVE_RIGHT)
         #define __JOY_FIRE(joyInput) ((joyInput) == MOVE_FIRE)
+    #elif defined(__TI99__)
+        #include "kscan.h"
+
+        #define __JOY_UP(joyInput) ((KSCAN_JOYY) == JOY_UP)
+        #define __JOY_DOWN(joyInput) ((KSCAN_JOYY) == JOY_DOWN)
+        #define __JOY_LEFT(joyInput) ((KSCAN_JOYX) == JOY_LEFT)
+        #define __JOY_RIGHT(joyInput) ((KSCAN_JOYX) == JOY_RIGHT)
+        #define __JOY_FIRE(joyInput) ((joyInput) == 18)
     #else // CC65
         #include <joystick.h>
         #define __JOY_UP(joyInput) JOY_UP(joyInput)
@@ -152,6 +160,10 @@
         // #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
     #elif defined(__LCC1802__)
         #define JOY_INPUT() get_stick(0)
+    #elif defined(__TI99__)
+        // #include "kscan.h"
+        
+        uint8_t JOY_INPUT(void);
     #else
         #define JOY_INPUT() joy_read(STANDARD_JOY)
     #endif 

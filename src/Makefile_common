@@ -483,7 +483,7 @@ c16_16k_low_stack: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 c16_conio: c16_16k_conio
 
 c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 --config $(CFG_PATH)/cc65/c16-16k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 --config $(CFG_PATH)/cc65/c16-16k.cfg -m mapfile.txt \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_CONIO_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
@@ -684,7 +684,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 pet: pet_16k
 
 pet_16k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t pet \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t pet -m mapfile.txt \
 	 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
 	-D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS -D_XL_NO_UDG  \

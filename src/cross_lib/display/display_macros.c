@@ -596,3 +596,29 @@ lda $a7c0
         }
     #endif
 #endif
+
+
+
+#if defined(__CONIO_PRINT)
+
+    #include <conio.h>
+    // #include <stdio.h>
+    
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
+    {
+        gotoxy(X_OFFSET+x,Y_OFFSET+y);
+        cprintf(str);
+    }
+
+    // void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+    // {
+        // gotoxy(x+X_OFFSET,Y_OFFSET+y);
+        // cprintf("%0" #length "u", val);
+    // }
+
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch)
+    {
+        gotoxy(x+X_OFFSET,Y_OFFSET+y);
+        cputc(ch);
+    }
+#endif

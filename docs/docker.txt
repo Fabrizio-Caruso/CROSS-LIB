@@ -11,4 +11,19 @@ Enter .devcontainer
 docker build . -t crosslib:254
 
 ## RUN CONTAINER
-docker run -it -v /mnt/c/Retro/CROSS-LIB:/workspaces/crosslib --env-file /mnt/c/Retro/CROSS-LIB/.devcontainer/devcontainer.env crosslib:254 bash
+     docker run -it -v /mnt/c/Retro/CROSS-LIB:/workspaces/crosslib --env-file /mnt/c/Retro/CROSS-LIB/.devcontainer/devcontainer.env crosslib:254 bash
+
+---------------------
+
+
+sudo docker run -it -v .:/workspaces/crosslib --env-file ./.devcontainer/container.env crosslib:0.1 bash
+
+
+Push to registry:
+
+
+docker push docker.io/fabriziocaruso/crosslib:0.1
+
+sudo docker tag crosslib:0.1 crosslib:0.1
+
+sudo docker logout && sudo docker login -u "fabriziocaruso" -p "L1kud1a_33" docker.io

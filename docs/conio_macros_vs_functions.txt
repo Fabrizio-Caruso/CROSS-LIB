@@ -1,0 +1,44 @@
+xl snake c16_16k_conio
+
+
+BEFORE (with macros for _XL_CHAR, _XL_PRINT):
+ld65: Warning: cross_lib/cfg//cc65/c16-16k.cfg:10: Segment 'BSS' overflows memory area 'MAIN' by 1432 bytes
+ld65: Error: Cannot generate most of the files due to memory area overflow 
+gmake: *** [Makefile_common:486: c16_16k_conio] Error 1
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000008  000021  00001A  00001
+LOADADDR              000FFF  001000  000002  00001
+EXEHDR                001001  00100C  00000C  00001
+STARTUP               00100D  00104E  000042  00001
+ONCE                  00104F  00105A  00000C  00001
+CODE                  00105B  003AE1  002A87  00001
+RODATA                003AE2  003F6E  00048D  00001
+DATA                  003F6F  003FC0  000052  00001
+INIT                  003FC1  003FDA  00001A  00001
+BSS                   003FDB  004577  00059D  00001
+
+-------------------------------------------------------------------------------------------------
+AFTER (with functions):
+ld65: Warning: cross_lib/cfg//cc65/c16-16k.cfg:10: Segment 'INIT' overflows memory area 'MAIN' by 5 bytes
+ld65: Error: Cannot generate most of the files due to memory area overflow
+make: *** [Makefile_common:486: c16_16k_conio] Error 1
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000008  000021  00001A  00001
+LOADADDR              000FFF  001000  000002  00001
+EXEHDR                001001  00100C  00000C  00001
+STARTUP               00100D  00104E  000042  00001
+ONCE                  00104F  00105A  00000C  00001
+CODE                  00105B  003AEB  002A91  00001
+RODATA                003AEC  003F78  00048D  00001
+DATA                  003F79  003FCA  000052  00001
+INIT                  003FCB  003FE4  00001A  00001
+BSS                   003FE5  004581  00059D  00001

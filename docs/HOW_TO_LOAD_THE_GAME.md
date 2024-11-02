@@ -101,7 +101,9 @@ Then load the other file
 
 ### BBC MICRO / BBC MASTER
 
-Use BeebEm 4.16 emulator.
+Use BeebEm 4.19 emulator.
+
+File-> Load disk 0-> Select .img file
 
 To load and run the game in dsk format you can use the following commands:
 

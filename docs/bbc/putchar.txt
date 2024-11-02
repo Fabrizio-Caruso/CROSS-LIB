@@ -1,0 +1,33 @@
+FYI I have uploaded a new release of vbcc6502. For the bbc target I have
+added a function to suppress the conversion of \n. After calling
+
+   __vdu_sequence(1);
+
+all the characters should be output without any modifications. Calling
+__vdu_sequence(0) will activate the \n conversion again.
+
+
+void OSWRCHR(__reg("a") char)="\tjsr\t0xffee";
+...
+OSWRCHR(22);
+OSWRCHR(2);
+
+
+
+void OSNEWL()="\tjsr\t0xffe7";
+void OSWRCHR(__reg("a") char)="\tjsr\t0xffee";
+
+unsigned int __write(int f,const char *p,unsigned int len)
+{
+   unsigned int n=len;
+   while(n){
+    char c=*p++;
+    if(c=='\n')
+      OSNEWL();
+    else
+      OSWRCHR(c);
+    n--;
+   }
+   return len;
+}
+

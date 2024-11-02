@@ -121,6 +121,14 @@ void _gotoxy(uint8_t x, uint8_t y)
 // 7 -> white
 
 
+
+// OSSCANKEY
+// 'b' <-> SPACE
+// '%' <-> 'I'
+// 'F' <-> 'K'
+// 'E' <-> 'J'
+// 'V' <-> 'L'
+
 void _XL_INIT_GRAPHICS(void)
 {
     uint8_t res;
@@ -128,9 +136,21 @@ void _XL_INIT_GRAPHICS(void)
 
 	__vdu_sequence(1);
     // Set mode 2
-    putchar(22);
-    putchar(2);
+    // putchar(22);
+    // putchar(2);
     
+    // Disable the cursor
+    putchar(23);
+    putchar(1);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+    putchar(0);
+
     // Delete graphics screen data
     // putchar(16);
     putchar(12);
@@ -199,7 +219,7 @@ void _XL_INIT_GRAPHICS(void)
     putchar('G');
     
     putchar(17);
-    putchar(1); // 0 -> ?
+    putchar(1); 
     putchar('H');
     
     while(1)
@@ -213,19 +233,25 @@ void _XL_INIT_GRAPHICS(void)
             // putchar('K');
         // }
         // ++res;
-        // for(volatile i=0;i<5000U;++i)
+        // for(volatile i=0;i<50U;++i)
         // {
         // }
         res = OSSCANKEY(' ');
         
         _gotoxy(0,18);
-        if(res)
+        if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))
         {
-            putchar('Y');
+            putchar(' ');
         }
         else
         {
-            putchar('N');
+            putchar(res);
         }
     };
 }
+
+// 'b' <-> SPACE
+// '%' <-> 'I'
+// 'F' <-> 'K'
+// 'J' <-> 'J'
+// 'V' <-> 'L'

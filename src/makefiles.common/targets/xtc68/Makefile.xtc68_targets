@@ -32,7 +32,7 @@ XTC68_ALL_OPTS ?= \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_RANDOM_LEVEL \
-	-DNO_PRINT 	
+	-D__NO_PRINT 	
 
 
 sinclair_ql: sinclair_ql_tiny_buffered

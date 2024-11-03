@@ -10,7 +10,7 @@ bbc_no_graphics:
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-DTINY_GAME \
 	-D__NO_WAIT \
 	-DTURN_BASED \
@@ -30,7 +30,7 @@ bbc_no_graphics:
 pce_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
 	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
-	-DLESS_TEXT -DNO_PRINT \
+	-DLESS_TEXT -D__NO_PRINT \
 	 \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
 	-DNO_DEAD_GHOSTS -D__NO_SCREEN_COLOR_INIT -DNO_RANDOM_LEVEL \

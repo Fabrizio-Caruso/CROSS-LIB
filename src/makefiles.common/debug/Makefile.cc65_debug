@@ -40,7 +40,7 @@ none_no_graphics:
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-DTINY_GAME \
 	-D__NO_WAIT \
 	-DTURN_BASED \
@@ -58,7 +58,7 @@ none_no_graphics:
 
 supervision_dummy:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
-	-DNO_PRINT -D_XL_NO_SLEEP \
+	-D__NO_PRINT -D_XL_NO_SLEEP \
 	-D__BIT_MAPPED_4_GRAPHICS_DUMMY -D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	-D__NO_WAIT \
@@ -107,7 +107,7 @@ bbc_test:
 	-DYSize=22 \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-DTINY_GAME \
 	-D__NO_WAIT \
 	-DTURN_BASED \

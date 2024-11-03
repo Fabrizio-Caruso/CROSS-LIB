@@ -73,7 +73,7 @@ px4_putc4x6:
 	 \
 	-D__NO_WAIT \
 	-DZ88DK_PUTC4X6 \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app \

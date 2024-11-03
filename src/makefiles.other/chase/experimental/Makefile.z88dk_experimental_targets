@@ -11,7 +11,7 @@ DEBUG_MACROS ?= \
 	-D__NO_WAIT \
 	-D__NO_SCREEN_COLOR_INIT \
 	-DNO_INPUT \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
 	-DNO_CHASE \
@@ -209,7 +209,7 @@ rex:
 	-D_XL_NO_COLOR \
 	  \
 	-lndos \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \
@@ -232,7 +232,7 @@ rex_buffered:
 	-D_XL_NO_COLOR \
 	  \
 	-lndos \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-DNO_INPUT \

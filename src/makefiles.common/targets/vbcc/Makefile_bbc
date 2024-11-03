@@ -2,8 +2,8 @@
 bbc: bbc_buffered
 
 
-bbc_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
-	$(VBCC_COMPILER) +bbc $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+bbc: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=39 \
 	-DYSize=22 \
@@ -17,6 +17,116 @@ bbc_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc2 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc5 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+
+bbc_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics_test.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+bbc2_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc2 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics_test.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+bbc5_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc5 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase

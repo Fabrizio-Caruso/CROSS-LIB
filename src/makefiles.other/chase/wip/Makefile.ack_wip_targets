@@ -41,7 +41,7 @@ pdp11v7:
 	-D__PDP11V7__ \
 	 \
 	-D__NO_INIT_GRAPHICS \
-	-DNO_PRINT \
+	-D__NO_PRINT \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \

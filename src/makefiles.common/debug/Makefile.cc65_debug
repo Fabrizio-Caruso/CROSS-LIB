@@ -45,7 +45,7 @@ none_no_graphics:
 	-D__NO_WAIT \
 	-DTURN_BASED \
 	-D__NO_GRAPHICS \
-	-DNO_INPUT \
+	-D__NO_PRINT \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -112,7 +112,7 @@ bbc_test:
 	-D__NO_WAIT \
 	-DTURN_BASED \
 	-D__NO_GRAPHICS \
-	-DNO_INPUT \
+	-D__NO_PRINT \
 	-D__NO_INIT_GRAPHICS \
 	-D__ALT_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \

@@ -106,7 +106,7 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
         playerFire = 0; \
         right_direction();
 
-    #if defined(NO_INPUT)
+    #if defined(__NO_PRINT)
         void MOVE_PLAYER(void) {}
     #else
         void MOVE_PLAYER(void)
@@ -251,7 +251,7 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
             playerFire = 0;
     #endif
 
-    #if defined(NO_INPUT)
+    #if defined(__NO_PRINT)
         void MOVE_PLAYER(void) {}
     #else
         void MOVE_PLAYER(void)

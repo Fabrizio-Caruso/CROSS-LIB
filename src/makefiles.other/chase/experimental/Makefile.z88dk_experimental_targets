@@ -10,7 +10,7 @@ DEBUG_MACROS ?= \
 	-DNO_RANDOM_LEVEL \
 	-D__NO_WAIT \
 	-D__NO_SCREEN_COLOR_INIT \
-	-DNO_INPUT \
+	-D__NO_PRINT \
 	-D__NO_PRINT \
 	-D_XL_NO_SLEEP \
 	-D_XL_NO_COLOR \
@@ -212,7 +212,7 @@ rex:
 	-D__NO_PRINT \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DNO_INPUT \
+	-D__NO_PRINT \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
@@ -235,7 +235,7 @@ rex_buffered:
 	-D__NO_PRINT \
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
-	-DNO_INPUT \
+	-D__NO_PRINT \
 	-D__NO_INIT_GRAPHICS \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \

@@ -45,7 +45,7 @@ emcc_exp:
 	-DYSize=24 \
 	-D__STDIO \
 	-D_XL_NO_COLOR \
-	-D_XL_NO_SLEEP -DNO_INPUT -D__NO_WAIT \
+	-D_XL_NO_SLEEP -D__NO_PRINT -D__NO_WAIT \
 	 \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \

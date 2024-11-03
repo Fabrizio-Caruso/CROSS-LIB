@@ -243,7 +243,7 @@ void redraw(void)
 
 
     
-#if defined(NO_INPUT)
+#if defined(__NO_INPUT)
     void MOVE_PLAYER(void) {}
 #else
     void MOVE_PLAYER(void)

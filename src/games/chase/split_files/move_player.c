@@ -69,7 +69,7 @@ extern Character player;
         SHOW_RIGHT();
 #endif
 
-#if defined(NO_INPUT)
+#if defined(__NO_PRINT)
     void MOVE_PLAYER(void) 
     {
     }

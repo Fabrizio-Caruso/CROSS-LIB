@@ -4,6 +4,8 @@
 
 #  if defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "memory_mapped_graphics.h"
+#elif defined(__BBC__) && defined(__BBC_GRAPHICS)
+    #include "bbc_graphics.h"
 #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
 	#include "quad_memory_mapped_graphics.h"
 #elif defined(__DUAL_MEMORY_MAPPED_GRAPHICS)

@@ -362,6 +362,25 @@
     #define _XL_RED 0xAA	
     #define _XL_BLUE 0xFF
 
+#elif defined(__BBC__) && defined(__BBC_GRAPHICS)
+// COLORS
+// 0 -> black
+// 1 -> red
+// 2 -> green
+// 3 -> yellow
+// 4 -> blue
+// 5 -> purple
+// 6 -> cyan
+// 7 -> white
+    #define _XL_BLACK 0
+    #define _XL_RED 1
+    #define _XL_GREEN 2
+    #define _XL_YELLOW 3
+    #define _XL_PURPLE 5
+    #define _XL_BLUE 4
+    #define _XL_CYAN 6
+    #define _XL_WHITE 7
+
 #elif (defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)) && defined(__BIT_MAPPED_4_GRAPHICS)
 
     #define _COCO_RED 0xFF

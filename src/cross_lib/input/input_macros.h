@@ -224,13 +224,13 @@ window.addEventListener("keydown", function (event) {
     #define _XL_TURN_BASED_INPUT() getch()
 #elif defined(ACK)
     #define _XL_TURN_BASED_INPUT() getchar()
-#elif defined(NO_INPUT)
+#elif defined(__NO_PRINT)
     #define _XL_TURN_BASED_INPUT()
 #else
     #define _XL_TURN_BASED_INPUT() cgetc()
 #endif	// _XL_TURN_BASED_INPUT definitions
 
-#if defined(NO_INPUT)
+#if defined(__NO_PRINT)
     #define _XL_INPUT() 0
 #elif defined(_XL_TURN_BASED)
     #define _XL_INPUT() _XL_TURN_BASED_INPUT()
@@ -244,7 +244,7 @@ window.addEventListener("keydown", function (event) {
 
 
     // GET_CHAR
-	#if !defined(NO_INPUT) && defined(_XL_NO_JOYSTICK)
+	#if !defined(__NO_PRINT) && defined(_XL_NO_JOYSTICK)
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
@@ -253,10 +253,10 @@ window.addEventListener("keydown", function (event) {
         #else
             char GET_CHAR(void);
         #endif
-    #endif // !defined(NO_INPUT)
+    #endif // !defined(__NO_PRINT)
 
 
-    #if !defined(NO_INPUT)
+    #if !defined(__NO_PRINT)
         // _XL_WAIT_FOR_INPUT
         #if !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)
             void _XL_WAIT_FOR_INPUT(void);
@@ -269,7 +269,7 @@ window.addEventListener("keydown", function (event) {
 
 
 // KEY_PRESSED definitions
-#if !defined(NO_INPUT)
+#if !defined(__NO_PRINT)
     #if defined(_XL_NO_JOYSTICK)
         #define _XL_KEY_PRESSED() (GET_CHAR())
     #else

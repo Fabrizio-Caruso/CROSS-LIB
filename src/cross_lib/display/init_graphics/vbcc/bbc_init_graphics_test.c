@@ -84,7 +84,7 @@ void OSWORD(__reg("a") char,__reg("r0/r1") void *)="\tldx\tr0\n\tldy\tr1\n\tjsr\
 #include <stdint.h>
 #include <stdio.h>
 
-// static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
+static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
 
 static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
 
@@ -104,12 +104,12 @@ void redefine(uint8_t ch, uint8_t *data)
     putchar('\n');
 }
 
-// void _gotoxy(uint8_t x, uint8_t y)
-// {
-    // putchar(31);
-    // putchar(x);
-    // putchar(y);
-// }
+void _gotoxy(uint8_t x, uint8_t y)
+{
+    putchar(31);
+    putchar(x);
+    putchar(y);
+}
 // COLORS
 // 0 -> black
 // 1 -> red
@@ -129,10 +129,6 @@ void redefine(uint8_t ch, uint8_t *data)
 // 'E' <-> 'J'
 // 'V' <-> 'L'
 
-#if !defined(__BBC_MODE)
-    #define __BBC_MODE 0
-#endif
-
 void _XL_INIT_GRAPHICS(void)
 {
     uint8_t res;
@@ -140,7 +136,7 @@ void _XL_INIT_GRAPHICS(void)
 
 	__vdu_sequence(1);
     // Set mode 2
-    // TODO: This is wrong
+    
     #if __BBC_MODE!=4
         putchar(22);
         putchar(__BBC_MODE);
@@ -160,21 +156,102 @@ void _XL_INIT_GRAPHICS(void)
 
     // Delete graphics screen data
     // putchar(16);
+    putchar(12);
+
+    
+    
+    // Redefine character 240
+    
+    redefine(240,stripes);
+    
+    // Redefine character 241
+    redefine(241,player);
+    
+	// __vdu_sequence(0);
+
+    // Display some text
+    putchar('O');
+    putchar('K');
+    
     // putchar(12);
 
-        
-    // Redefine characters
-    // TODO: This is wrong
-#if !(__BBC_MODE==4) 
-    for(i=200;i<200+27;++i)
+    putchar(17);
+    putchar(2); // 2 -> green
+    
+    // printf("hello world\n");
+    
+    // Display character 240
+    putchar(240);
+    
+    // Display character 241
+    putchar(241);
+    
+    // Display "hello world"
+    // printf("\nhello world\n");
+    
+
+    _gotoxy(0,10);
+    
+    putchar(17);
+    putchar(3); // 3 -> yellow
+    putchar('A');
+    
+    putchar(17);
+    putchar(4); // 4 -> blue
+    putchar('B');
+    
+    _gotoxy(10,0);
+    
+    putchar(17);
+    putchar(5); // 5 -> pink/purple
+    putchar('C');
+    
+    
+    putchar(17);
+    putchar(6); // 6 -> cyan
+    putchar('D');
+    
+    
+    putchar(17);
+    putchar(7); // 7 -> white
+    putchar('E');
+    
+    putchar(17);
+    putchar(1); // 1 -> red
+    putchar('F');
+    
+    putchar(17);
+    putchar(0); // 0 -> black
+    putchar('G');
+    
+    putchar(17);
+    putchar(1); 
+    putchar('H');
+    
+    while(1)
     {
-        redefine(i,player);
-    }
-#endif
-
-
-    // putchar('O');
-    // putchar('K');
-    // while(1){}
-	// __vdu_sequence(0);
+        // if(res&1)
+        // {
+            // putchar('O');
+        // }
+        // else
+        // {
+            // putchar('K');
+        // }
+        // ++res;
+        // for(volatile i=0;i<50U;++i)
+        // {
+        // }
+        res = OSSCANKEY(' ');
+        
+        _gotoxy(0,18);
+        if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))
+        {
+            putchar(' ');
+        }
+        else
+        {
+            putchar(res);
+        }
+    };
 }

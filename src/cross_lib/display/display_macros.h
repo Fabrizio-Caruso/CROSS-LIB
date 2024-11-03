@@ -131,7 +131,7 @@
     #define _XL_PRINTD(x,y,length,val) _displayShort(x,val)
     uint16_t loc(uint8_t x, uint8_t y);
     #define _XL_CHAR(x,y,ch)
-#elif defined(NO_PRINT)
+#elif defined(__NO_PRINT)
     #define _XL_PRINT(x,y,str)
     #define _XL_PRINTD(x,y,length, val)
     #define _XL_CHAR(x,y,ch)
@@ -190,7 +190,7 @@
 		} \
     } while(0)
 
-#else
+#elif !defined(__NO_PRINT)
     
     #define __CONIO_PRINT
 

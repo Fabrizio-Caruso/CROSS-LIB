@@ -30,7 +30,9 @@
     #if !defined(_XL_NO_SLEEP)
         #  if !defined(__CMOC__) && !defined(__LCC1802__) && !defined(__TI99__) && !defined(__MC10__)
             #include <time.h>
-            #include <unistd.h>
+            #if !defined(__BBC__)
+                #include <unistd.h>
+            #endif
             #include <stdlib.h>        
         #elif defined(__CMC__)
             #include <coco.h>

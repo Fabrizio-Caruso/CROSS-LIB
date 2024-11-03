@@ -576,6 +576,49 @@ lda $a7c0
 	}
 #endif
 
+
+#if defined(__BBC_GRAPHICS)
+
+    #include <stdio.h>
+    #include <stdint.h>
+
+    void _gotoxy(uint8_t x, uint8_t y)
+    {
+        putchar(31);
+        putchar(x);
+        putchar(y);
+    }
+
+    void _select_color(uint8_t color)
+    {
+        putchar(17);
+        putchar(color);
+    }
+
+    #if !defined(_XL_NO_COLOR)
+        void _bbc_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+        {
+            _gotoxy(x,y);
+            _select_color(color);
+            putchar(tile);
+        }
+    
+    #else
+        void _bbc_draw(uint8_t x, uint8_t y, uint8_t tile)
+        {
+            _gotoxy(x,y);
+            putchar(tile);
+        }
+    
+    #endif
+    
+    void _bbc_delete(uint8_t x, uint8_t y)
+    {
+        _gotoxy(x,y);
+        putchar(' ');
+    }
+#endif
+
 #if defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
     #if defined(__CC65__)
         void _XL_REFRESH(void)
@@ -599,10 +642,11 @@ lda $a7c0
 
 
 
-#if defined(__CONIO_PRINT)
+#if defined(__CONIO_PRINT) 
 
-    #include <conio.h>
-    // #include <stdio.h>
+    #if !defined(__VT52)
+        #include <conio.h>
+    #endif
     
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     {

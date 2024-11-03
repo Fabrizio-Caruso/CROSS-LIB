@@ -50,7 +50,7 @@
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \
-	&& !defined(__STDIO)
+	&& !defined(__STDIO) && !defined(__BBC_GRAPHICS)
 	#define __INCLUDE_CONIO_H
 #endif
 

@@ -93,7 +93,7 @@
     
     char GET_CHAR(void)
     {
-    #  if defined(NO_INPUT)
+    #  if defined(__NO_PRINT)
         return 0;
     #elif defined(_XL_TURN_BASED)
         return _XL_TURN_BASED_INPUT();
@@ -347,150 +347,152 @@ out         stb res
 
 
 // _XL_WAIT_FOR_INPUT() definitions
-#  if defined(__NO_WAIT) && !defined(_XL_NO_SLEEP)
-    void _XL_WAIT_FOR_INPUT(void)
-    {
-        _XL_SLEEP(2);
-    }
-#elif defined(__NO_WAIT) 
-//
-#elif defined(WAIT_FOR_KEY)
-    #  if defined(__STDIO)
+#if !defined(__NO_INPUT)
+    #  if defined(__NO_WAIT) && !defined(_XL_NO_SLEEP)
         void _XL_WAIT_FOR_INPUT(void)
         {
-            getchar();
+            _XL_SLEEP(2);
         }
-    #elif defined(__MC10__)
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            getchar();
-        }
-    #elif defined(__NCURSES__)
-        // #if defined(__ATARI_ST__)
-            // #include <ncurses/curses.h>
-        // #else
-            #include <ncurses.h>
-        // #endif
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            #if !defined(_XL_TURN_BASED)
-                while(getch()==ERR)
-                {}
-            #else
-                getch();
-            #endif
-        }
-		
-	#elif  defined(__COCO3__)
-		void _XL_WAIT_FOR_INPUT(void)
-        {
-			do
-			{
-				
-			} while(!_XL_INPUT());
-			// do
-			// {
-				// uint8_t input = _XL_INPUT();
-				// if(_XL_FIRE(input) || _XL_LEFT(input) || _XL_RIGHT(input) || _XL_UP(input) || _XL_DOWN(input))
-				// {
-					// break;
-				// }
-			// } while(1);
-        }
-    #elif defined(__COCO__) || defined(__DRAGON__)
-        #include <cmoc.h>
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            waitkey(0);
-			// isKeyPressed();
-        }
-    #elif defined(NO_INPUT)
+    #elif defined(__NO_WAIT) 
     //
-    #elif defined(__MO5__) || defined(__TO7__)
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            while(GET_CHAR())
+    #elif defined(WAIT_FOR_KEY)
+        #  if defined(__STDIO)
+            void _XL_WAIT_FOR_INPUT(void)
             {
-            };
-            while(!GET_CHAR())
-            {
+                getchar();
             }
-        }
-    #else 
-        #if defined(__INCLUDE_CONIO_H)
-            #include<conio.h>
-        #endif
-
-        #if defined(__Z88DK__)
-            #undef cgetc
-            #define cgetc() getch()
-        #endif 
-
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            while(kbhit())
-                (void) cgetc();
-            while(!kbhit())
-            { 
-            }; 
-            (void) cgetc();
-        }
-    #endif    
-#else
-    #if defined(__Z88DK__)
-        #include <games.h>
-        
-        extern uint8_t stick;
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            while ((joystick(stick) & MOVE_FIRE))
+        #elif defined(__MC10__)
+            void _XL_WAIT_FOR_INPUT(void)
             {
+                getchar();
             }
-            while (!(joystick(stick) & MOVE_FIRE))
+        #elif defined(__NCURSES__)
+            // #if defined(__ATARI_ST__)
+                // #include <ncurses/curses.h>
+            // #else
+                #include <ncurses.h>
+            // #endif
+            
+            void _XL_WAIT_FOR_INPUT(void)
             {
+                #if !defined(_XL_TURN_BASED)
+                    while(getch()==ERR)
+                    {}
+                #else
+                    getch();
+                #endif
             }
-        }        
-    #elif defined(__LCC1802__)
-        #include <devkit/input/joystick.h>
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            // Flush the video buffer to make sure that the latest character is displayed
-            #if !defined(__LCC1802_UNBUFFERED)
-            VIDFLUSH();
+            
+        #elif  defined(__COCO3__)
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                do
+                {
+                    
+                } while(!_XL_INPUT());
+                // do
+                // {
+                    // uint8_t input = _XL_INPUT();
+                    // if(_XL_FIRE(input) || _XL_LEFT(input) || _XL_RIGHT(input) || _XL_UP(input) || _XL_DOWN(input))
+                    // {
+                        // break;
+                    // }
+                // } while(1);
+            }
+        #elif defined(__COCO__) || defined(__DRAGON__)
+            #include <cmoc.h>
+            
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                waitkey(0);
+                // isKeyPressed();
+            }
+        #elif defined(__NO_PRINT)
+        //
+        #elif defined(__MO5__) || defined(__TO7__)
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                while(GET_CHAR())
+                {
+                };
+                while(!GET_CHAR())
+                {
+                }
+            }
+        #else 
+            #if defined(__INCLUDE_CONIO_H)
+                #include<conio.h>
             #endif
-            
-            while(!get_stick(0))
+
+            #if defined(__Z88DK__)
+                #undef cgetc
+                #define cgetc() getch()
+            #endif 
+
+            void _XL_WAIT_FOR_INPUT(void)
             {
+                while(kbhit())
+                    (void) cgetc();
+                while(!kbhit())
+                { 
+                }; 
+                (void) cgetc();
             }
-        }
-    #elif defined(__TI99__)
-        // TODO: Implement this
-        #include "kscan.h"
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            do
-            {
-                kscan(1);
-            } while(KSCAN_KEY!=18);
-            
-        }
+        #endif    
     #else
-        #include<joystick.h>
-        
-        void _XL_WAIT_FOR_INPUT(void)
-        {
-            while ((joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
+        #if defined(__Z88DK__)
+            #include <games.h>
+            
+            extern uint8_t stick;
+            
+            void _XL_WAIT_FOR_INPUT(void)
             {
-            }
-            while (! (joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
+                while ((joystick(stick) & MOVE_FIRE))
+                {
+                }
+                while (!(joystick(stick) & MOVE_FIRE))
+                {
+                }
+            }        
+        #elif defined(__LCC1802__)
+            #include <devkit/input/joystick.h>
+            
+            void _XL_WAIT_FOR_INPUT(void)
             {
+                // Flush the video buffer to make sure that the latest character is displayed
+                #if !defined(__LCC1802_UNBUFFERED)
+                VIDFLUSH();
+                #endif
+                
+                while(!get_stick(0))
+                {
+                }
             }
-        }    
-    #endif
+        #elif defined(__TI99__)
+            // TODO: Implement this
+            #include "kscan.h"
+            
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                do
+                {
+                    kscan(1);
+                } while(KSCAN_KEY!=18);
+                
+            }
+        #else
+            #include<joystick.h>
+            
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                while ((joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
+                {
+                }
+                while (! (joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
+                {
+                }
+            }    
+        #endif
+#endif
 #endif
 

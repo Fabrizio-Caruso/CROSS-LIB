@@ -601,6 +601,7 @@ lda $a7c0
             _gotoxy(x,y);
             _select_color(color);
             putchar(tile);
+            // putchar('\n');
         }
     
     #else
@@ -608,6 +609,7 @@ lda $a7c0
         {
             _gotoxy(x,y);
             putchar(tile);
+            // putchar('\n');
         }
     
     #endif
@@ -616,6 +618,7 @@ lda $a7c0
     {
         _gotoxy(x,y);
         putchar(' ');
+        // putchar('\n');
     }
 #endif
 

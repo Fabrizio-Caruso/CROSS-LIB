@@ -89,6 +89,12 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
     #define LINE_SKIP 2
 #endif    
 
+#if defined(_XL_NO_JOYSTICK)
+    #define _PRESS "PRESS A KEY"
+#else
+    #define _PRESS "PRESS FIRE"
+#endif
+
 
 int main(void)
 {        
@@ -116,14 +122,18 @@ int main(void)
             
             _XL_WAIT_FOR_INPUT();
 
+            _XL_SET_TEXT_COLOR(FIRST_COLOR);
+            _XL_PRINT(COL_OFFSET,YSize-4, _PRESS);
+
+
             for(i=0;i<_XL_NUMBER_OF_TILES;++i)
             {
                 _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*LINE_SKIP+ROW_OFFSET,tiles[i],tile_color[j]);
                 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
             
-            _XL_SET_TEXT_COLOR(FIRST_COLOR);
-            _XL_PRINT(COL_OFFSET,YSize-4, "PRESS FIRE");
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+            
             _XL_WAIT_FOR_INPUT();
         }
     }

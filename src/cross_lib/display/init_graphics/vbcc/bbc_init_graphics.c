@@ -141,7 +141,7 @@ void _XL_INIT_GRAPHICS(void)
 	__vdu_sequence(1);
     // Set mode 2
     // TODO: This is wrong
-    #if __BBC_MODE!=4
+    #if __BBC_MODE!=7
         putchar(22);
         putchar(__BBC_MODE);
     #endif
@@ -165,7 +165,7 @@ void _XL_INIT_GRAPHICS(void)
         
     // Redefine characters
     // TODO: This is wrong
-#if !(__BBC_MODE==4) 
+#if !(__BBC_MODE==7) 
     for(i=200;i<200+27;++i)
     {
         redefine(i,player);

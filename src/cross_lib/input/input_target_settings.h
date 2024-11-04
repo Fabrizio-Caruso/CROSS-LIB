@@ -9,12 +9,22 @@
 	|| defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) || defined(__EINSTEIN__) || defined(__MULTI8__) \
 	|| defined(__G800__) || defined(__FP1100__) || defined(__TI99__) || defined(__HEMC__) || defined(__HGMC__) \
 	|| defined(__HOMELAB__) || defined(__SPECIAL__) || defined(__KRAMERMC__) || defined(__DAI__) \
-    || defined(__BBC__) || defined(__BBCMASTER__) \
+    || (defined(__BBC__) && defined(TURN_BASED))|| defined(__BBCMASTER__) \
     || defined(__MC10__) || (defined(__ZX81__) && defined(__CONIO_GRAPHICS))
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
+#elif defined(__BBC__)
+// 'b' <-> SPACE
+// '%' <-> 'I'
+// 'F' <-> 'K'
+// 'E' <-> 'J'
+// 'V' <-> 'L'
+	#define _MOVE_UP '%'
+	#define _MOVE_DOWN 'F'
+	#define _MOVE_LEFT 'E'
+	#define _MOVE_RIGHT 'V'
 #else
 	#define _MOVE_UP 'i'
 	#define _MOVE_DOWN 'k'
@@ -23,6 +33,8 @@
 #endif
 #if defined(__COMX__)
     #define _FIRE 0x5f 
+#elif defined(__BBC__)
+    #define _FIRE 'b'
 #else
     #define _FIRE ' '
 #endif

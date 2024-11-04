@@ -31,9 +31,9 @@
 	#if defined(_XL_NO_JOYSTICK)
 		#if defined(__ATMOS__)
 
-        #if !defined(PEEK)
-            #include <peekpoke.h>
-        #endif
+            #if !defined(PEEK)
+                #include <peekpoke.h>
+            #endif
 
 			#define _XL_INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
 		#elif defined(__MSX__)
@@ -230,7 +230,7 @@ window.addEventListener("keydown", function (event) {
     #define _XL_TURN_BASED_INPUT() cgetc()
 #endif	// _XL_TURN_BASED_INPUT definitions
 
-#if defined(__NO_PRINT)
+#if defined(__NO_INPUT)
     #define _XL_INPUT() 0
 #elif defined(_XL_TURN_BASED)
     #define _XL_INPUT() _XL_TURN_BASED_INPUT()
@@ -244,7 +244,7 @@ window.addEventListener("keydown", function (event) {
 
 
     // GET_CHAR
-	#if !defined(__NO_PRINT) && defined(_XL_NO_JOYSTICK)
+	#if !defined(__NO_INPUT) && defined(_XL_NO_JOYSTICK)
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
@@ -256,7 +256,7 @@ window.addEventListener("keydown", function (event) {
     #endif // !defined(__NO_PRINT)
 
 
-    #if !defined(__NO_PRINT)
+    #if !defined(__NO_INPUT)
         // _XL_WAIT_FOR_INPUT
         #if !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)
             void _XL_WAIT_FOR_INPUT(void);
@@ -269,7 +269,7 @@ window.addEventListener("keydown", function (event) {
 
 
 // KEY_PRESSED definitions
-#if !defined(__NO_PRINT)
+#if !defined(__NO_INPUT)
     #if defined(_XL_NO_JOYSTICK)
         #define _XL_KEY_PRESSED() (GET_CHAR())
     #else

@@ -642,6 +642,24 @@ lda $a7c0
 
 
 
+#if defined(__BBC__)
+
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
+    {
+        _gotoxy(X_OFFSET+x,Y_OFFSET+y);
+        printf(str);
+        printf("\n");
+    }
+
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch)
+    {
+        _gotoxy(x+X_OFFSET,Y_OFFSET+y);
+        putchar(ch);
+        putchar('\n');
+    }
+
+#endif
+
 #if defined(__CONIO_PRINT) 
 
     #if !defined(__VT52)

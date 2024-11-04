@@ -86,16 +86,17 @@
     }
 #endif
 
+
 #if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
 		#include <devkit/input/keyboard.h>
     #endif 
-    
+        
     char GET_CHAR(void)
     {
-    #  if defined(__NO_PRINT)
-        return 0;
-    #elif defined(_XL_TURN_BASED)
+    // #  if defined(__NO_PRINT)
+        // return 0;
+    #if defined(_XL_TURN_BASED)
         return _XL_TURN_BASED_INPUT();
     
     #elif defined(__MSX__)
@@ -338,6 +339,30 @@ out         stb res
             return cgetc();
         else
             return 0;    
+        
+    #elif defined(__BBC__)
+        #define OSSCANKEY(x) OSBYTE1(121,(x))
+        #define OSSCANKEY16() OSBYTE0(122)
+        uint8_t res;
+        
+        char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
+        char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
+        
+        
+        
+        res = OSSCANKEY(' ');
+        // putchar(res);
+        return res;
+        // return 'E';
+
+        // if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))
+        // {
+            // putchar(' ');
+        // }
+        // else
+        // {
+            // putchar(res);
+        // }
     #else
         return getk();
     #endif
@@ -407,8 +432,13 @@ out         stb res
                 waitkey(0);
                 // isKeyPressed();
             }
-        #elif defined(__NO_PRINT)
+        #elif defined(__NO_INPUT)
         //
+        #elif defined(__BBC__)
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                // TODO: Implement this
+            }
         #elif defined(__MO5__) || defined(__TO7__)
             void _XL_WAIT_FOR_INPUT(void)
             {

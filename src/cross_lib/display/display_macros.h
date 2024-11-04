@@ -190,6 +190,23 @@
 		} \
     } while(0)
 
+#elif defined(__BBC__)
+
+    #include <stdio.h>
+    void _gotoxy(uint8_t x, uint8_t y);
+    
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
+    // void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
+
+    #define _XL_PRINTD(x,y,length,val) \
+    do \
+    { \
+        _gotoxy(x+X_OFFSET,Y_OFFSET+y); \
+        printf("%0" #length "u",val); \
+        printf("\n") \
+    } while(0)
+
 #elif !defined(__NO_PRINT)
     
     #define __CONIO_PRINT

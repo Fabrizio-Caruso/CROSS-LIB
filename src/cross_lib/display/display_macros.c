@@ -579,20 +579,21 @@ lda $a7c0
 
 #if defined(__BBC_GRAPHICS)
 
-    #include <stdio.h>
+    // #include <stdio.h>
     #include <stdint.h>
+    void osputc(__reg("a") char)="\tjsr\t0xffee";
 
     void _gotoxy(uint8_t x, uint8_t y)
     {
-        putchar(31);
-        putchar(x);
-        putchar(y);
+        osputc(31);
+        osputc(x);
+        osputc(y);
     }
 
     void _select_color(uint8_t color)
     {
-        putchar(17);
-        putchar(color);
+        osputc(17);
+        osputc(color);
     }
 
     #if !defined(_XL_NO_COLOR)
@@ -600,7 +601,7 @@ lda $a7c0
         {
             _gotoxy(x,y);
             _select_color(color);
-            putchar(tile);
+            osputc(tile);
             // putchar('\n');
         }
     
@@ -608,7 +609,7 @@ lda $a7c0
         void _bbc_draw(uint8_t x, uint8_t y, uint8_t tile)
         {
             _gotoxy(x,y);
-            putchar(tile);
+            osputc(tile);
             // putchar('\n');
         }
     
@@ -647,19 +648,36 @@ lda $a7c0
 
 #if defined(__BBC__)
 
+    #include <stdint.h>
+    
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     {
+        uint8_t i;
+        
         _gotoxy(X_OFFSET+x,Y_OFFSET+y);
-        printf(str);
-        printf("\n");
+        // printf(str);
+        while(str[i]!='\0')
+        {
+            osputc(str[i++]);
+        }
     }
 
     void _XL_CHAR(uint8_t x, uint8_t y, char ch)
     {
         _gotoxy(x+X_OFFSET,Y_OFFSET+y);
-        putchar(ch);
-        putchar('\n');
+        osputc(ch);
+        // putchar('\n');
     }
+
+    #if !defined(_XL_NO_TEXT_COLOR) || !defined(_XL_NO_COLOR)
+        #include <stdio.h>
+        void _XL_SET_TEXT_COLOR(uint8_t c)
+        {
+            osputc(17);
+            osputc(c);
+        }
+    
+    #endif
 
 #endif
 

@@ -26,8 +26,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-DXSize=20 -D__BBC_MODE=2 -D__BBC_GRAPHICS \
 	-DYSize=22 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D_XL_NO_SLEEP \
-	-D__NO_PRINT -D__NO_INPUT \
+	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
 	$(FULL_FILES) -o xchase
@@ -42,8 +41,7 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
 	-DYSize=22 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D_XL_NO_SLEEP \
-	-D__NO_PRINT -D__NO_INPUT \
+	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
 	$(FULL_FILES) -o xchase

@@ -6,6 +6,8 @@ typedef struct {
 } bbc_sound;
 
 
+// https://blog.mousefingers.com/post/bbc/bbc_colour_cycling/
+
 char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
 char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
 char OSBYTE1RI(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa\n\tpha\n\ttya\n\ttax\n\tpla";

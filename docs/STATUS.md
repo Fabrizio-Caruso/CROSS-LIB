@@ -4,7 +4,7 @@ Last update: 2024/10/25
 ### 8-BIT targets with known working existing emulators
 
 
-target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input | hires graphics |  sound  | notes      
+target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
@@ -20,7 +20,7 @@ target name         | long target name                            | working  |  
 *atari_lynx*        | Atari Lynx                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *attache*           | Otrona Attache                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *aussie*            | Aussie Byte (Knight 2000)                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
-*bbc*               | BBC Micro                                   |   YES    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*bbc*               | BBC Micro                                   |   YES    |   MOS 6502    |   VBCC  |      OK         |       OK       | missing |
 *bbcmaster*         | BBC Master                                  |    NO    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *bic*               | BIC/A5105                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *bit90*             | Bit Corporation BIT 90                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A

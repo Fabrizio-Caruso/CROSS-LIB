@@ -342,17 +342,18 @@ out         stb res
         
     #elif defined(__BBC__)
         #define OSSCANKEY(x) OSBYTE1(121,(x))
-        #define OSSCANKEY16() OSBYTE0(122)
+        // #define OSSCANKEY16() OSBYTE0(122)
         uint8_t res;
         
-        char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
+        // char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
         char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
         
         
         
-        res = OSSCANKEY(' ');
-        // putchar(res);
-        return res;
+        // res = OSSCANKEY(' ');
+        // return res;
+        
+        return OSSCANKEY(' ');
         // return 'E';
 
         // if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))

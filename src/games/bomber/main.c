@@ -497,8 +497,8 @@ void initialize_level(void)
             displayScore();
             
             #if !defined(TINY_GAME)
-            _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE, _XL_CYAN);
-            _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE, _XL_CYAN);
+            _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE, _XL_GREEN);
+            _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE, _XL_GREEN);
             
             _XL_DRAW(XSize-5,0,HI_TEXT_TILE, _XL_RED);
             #endif

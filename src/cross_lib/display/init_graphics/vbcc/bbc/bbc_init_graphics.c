@@ -169,11 +169,7 @@ void SET_UDG_IMAGES(void)
 void _XL_INIT_GRAPHICS(void)
 {
     uint8_t res;
-    uint16_t i;
 
-	// __vdu_sequence(1);
-    // Set mode 2
-    // TODO: This is wrong
     #if __BBC_MODE!=7
         osputc(22);
         #if defined(__SHADOW_RAM)
@@ -181,6 +177,18 @@ void _XL_INIT_GRAPHICS(void)
         #else
             osputc(__BBC_MODE);
         #endif
+    #endif
+
+
+    #if __BBC_MODE==5
+    
+        osputc(19);
+        osputc(2);
+        osputc(6);
+        osputc(1);
+        osputc(1);
+        osputc(1);
+    
     #endif
     
     // Disable the cursor
@@ -203,16 +211,9 @@ void _XL_INIT_GRAPHICS(void)
     // Redefine characters
     // TODO: This is wrong
 #if !(__BBC_MODE==7) 
-    // for(i=200;i<200+27;++i)
-    // {
-        // redefine(i,player);
-    // }
     SET_UDG_IMAGES();
 #endif
 
 
-    // osputc('O');
-    // osputc('K');
-    // while(1){}
-	// __vdu_sequence(0);
+
 }

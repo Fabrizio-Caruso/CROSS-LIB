@@ -83,7 +83,7 @@
 #include "udg_map.h"
 
 #include <stdint.h>
-#include <stdio.h>
+// #include <stdio.h>
 
 void osputc(__reg("a") char)="\tjsr\t0xffee";
 
@@ -171,7 +171,7 @@ void _XL_INIT_GRAPHICS(void)
     uint8_t res;
     uint16_t i;
 
-	__vdu_sequence(1);
+	// __vdu_sequence(1);
     // Set mode 2
     // TODO: This is wrong
     #if __BBC_MODE!=7

@@ -13,7 +13,7 @@ bbc: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D__ALT_SLEEP \
 	-D_XL_NO_JOYSTICK \
 	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase
@@ -28,7 +28,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase
@@ -43,7 +43,7 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase

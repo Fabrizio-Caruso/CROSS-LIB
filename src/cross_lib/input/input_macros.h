@@ -276,6 +276,7 @@ window.addEventListener("keydown", function (event) {
         #define _XL_KEY_PRESSED() (__JOY_FIRE(JOY_INPUT()))
     #endif
 #else
+
     #define _XL_KEY_PRESSED() ' '
 #endif
 

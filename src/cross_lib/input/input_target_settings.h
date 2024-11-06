@@ -21,10 +21,10 @@
 // 'F' <-> 'K'
 // 'E' <-> 'J'
 // 'V' <-> 'L'
-	#define _MOVE_UP '%'
-	#define _MOVE_DOWN 'F'
-	#define _MOVE_LEFT 'E'
-	#define _MOVE_RIGHT 'V'
+	#define _MOVE_UP ('%'+1)
+	#define _MOVE_DOWN ('F'+1)
+	#define _MOVE_LEFT ('E'+1)
+	#define _MOVE_RIGHT ('V'+1)
 #else
 	#define _MOVE_UP 'i'
 	#define _MOVE_DOWN 'k'
@@ -34,7 +34,7 @@
 #if defined(__COMX__)
     #define _FIRE 0x5f 
 #elif defined(__BBC__)
-    #define _FIRE 'b'
+    #define _FIRE ('b'+1)
 #else
     #define _FIRE ' '
 #endif

@@ -675,7 +675,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
 	uint8_t digit;
-	
+
 	for(i=0;i<length;++i)
 	{
 		digit = (uint8_t) ((val)%10);

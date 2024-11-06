@@ -341,19 +341,12 @@ out         stb res
             return 0;    
         
     #elif defined(__BBC__)
-    
-        // char OSBYTE2I(__reg("a") char,__reg("r0/r1") unsigned int)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
-
-        // #define OSINKEY(x) OSBYTE2I(129,(x)) 
-        // return OSINKEY(0);
-
         #define OSSCANKEY(x) OSBYTE1(121,(x))
         
         char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
         
-        return OSSCANKEY(' ');
+        return OSSCANKEY(' ')+1;
         
-
     #else
         return getk();
     #endif
@@ -406,14 +399,6 @@ out         stb res
                 {
                     
                 } while(!_XL_INPUT());
-                // do
-                // {
-                    // uint8_t input = _XL_INPUT();
-                    // if(_XL_FIRE(input) || _XL_LEFT(input) || _XL_RIGHT(input) || _XL_UP(input) || _XL_DOWN(input))
-                    // {
-                        // break;
-                    // }
-                // } while(1);
             }
         #elif defined(__COCO__) || defined(__DRAGON__)
             #include <cmoc.h>
@@ -428,7 +413,9 @@ out         stb res
         #elif defined(__BBC__)
             void _XL_WAIT_FOR_INPUT(void)
             {
-                // TODO: Implement this
+                while(!_XL_KEY_PRESSED())
+                {
+                }
             }
         #elif defined(__MO5__) || defined(__TO7__)
             void _XL_WAIT_FOR_INPUT(void)

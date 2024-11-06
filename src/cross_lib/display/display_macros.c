@@ -652,7 +652,7 @@ lda $a7c0
     
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
     {
-        uint8_t i;
+        uint8_t i = 0;
         
         _gotoxy(X_OFFSET+x,Y_OFFSET+y);
         // printf(str);

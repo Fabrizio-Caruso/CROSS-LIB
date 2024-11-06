@@ -200,7 +200,10 @@
     // void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 
-    #define _XL_PRINTD(x,y,length,val)
+
+    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+
+    // #define _XL_PRINTD(x,y,length,val)
     
     // do \
     // { \

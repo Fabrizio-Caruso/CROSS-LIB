@@ -669,6 +669,23 @@ lda $a7c0
         // putchar('\n');
     }
 
+#include <stdio.h>
+
+void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+{
+	uint8_t i;
+	uint8_t digit;
+	
+	for(i=0;i<length;++i)
+	{
+		digit = (uint8_t) ((val)%10);
+		val-= digit;
+		val/=10;
+        _gotoxy(x+length-1-i,y);
+        osputc((uint8_t) (digit+(uint8_t) 48u));
+	}
+}
+
     #if !defined(_XL_NO_TEXT_COLOR) || !defined(_XL_NO_COLOR)
         #include <stdio.h>
         void _XL_SET_TEXT_COLOR(uint8_t c)

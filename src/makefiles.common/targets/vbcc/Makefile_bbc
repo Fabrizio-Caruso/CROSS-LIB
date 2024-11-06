@@ -14,6 +14,7 @@ bbc: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D_XL_NO_JOYSTICK \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o xchase
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
 	rm -rf xchase

@@ -108,6 +108,8 @@
             #include "atari7800_sounds.h"
         // #elif defined(__SUPERVISION__) 
             // #include "supervision_sounds.h"
+        #elif defined(__BBC__)
+            #include "bbc_sounds.h"
         #else
             #define _XL_NO_SOUND
         #endif

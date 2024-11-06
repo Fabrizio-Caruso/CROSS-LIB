@@ -1,3 +1,6 @@
+#if !defined(_BBC_MACROS)
+#define _BBC_MACROS
+
 typedef struct {
   int channel;
   int amplitude;
@@ -53,3 +56,4 @@ void OSWORD(__reg("a") char,__reg("r0/r1") void *)="\tldx\tr0\n\tldy\tr1\n\tjsr\
 
 
 
+#endif // _BBC_MACROS

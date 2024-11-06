@@ -163,7 +163,7 @@ void SET_UDG_IMAGES(void)
 // 'V' <-> 'L'
 
 #if !defined(__BBC_MODE)
-    #define __BBC_MODE 0
+    #define __BBC_MODE 7
 #endif
 
 void _XL_INIT_GRAPHICS(void)
@@ -176,7 +176,11 @@ void _XL_INIT_GRAPHICS(void)
     // TODO: This is wrong
     #if __BBC_MODE!=7
         osputc(22);
-        osputc(__BBC_MODE);
+        #if defined(__SHADOW_RAM)
+            osputc(__BBC_MODE+128);
+        #else
+            osputc(__BBC_MODE);
+        #endif
     #endif
     
     // Disable the cursor

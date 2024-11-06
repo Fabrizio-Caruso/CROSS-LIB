@@ -341,29 +341,19 @@ out         stb res
             return 0;    
         
     #elif defined(__BBC__)
+    
+        // char OSBYTE2I(__reg("a") char,__reg("r0/r1") unsigned int)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
+
+        // #define OSINKEY(x) OSBYTE2I(129,(x)) 
+        // return OSINKEY(0);
+
         #define OSSCANKEY(x) OSBYTE1(121,(x))
-        // #define OSSCANKEY16() OSBYTE0(122)
-        uint8_t res;
         
-        // char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
         char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
         
-        
-        
-        // res = OSSCANKEY(' ');
-        // return res;
-        
         return OSSCANKEY(' ');
-        // return 'E';
+        
 
-        // if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))
-        // {
-            // putchar(' ');
-        // }
-        // else
-        // {
-            // putchar(res);
-        // }
     #else
         return getk();
     #endif

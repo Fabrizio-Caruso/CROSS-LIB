@@ -20,11 +20,29 @@ bbc: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	rm -rf xchase.inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
+
+bbcmaster: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	$(VBCC_COMPILER) +bbc -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND -D__BBC__ \
+	-DXSize=20 -D__BBC_MODE=2 -D__SHADOW_RAM -D__BBC_GRAPHICS \
+	-DYSize=31 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
+	-D__ALT_SLEEP \
+	-D_XL_NO_JOYSTICK \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
+	$(FULL_FILES) -o xchase
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
+	rm -rf xchase
+	rm -rf xchase.inf
+	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
+
+
 bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	$(VBCC_COMPILER) +bbc2 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=2 -D__BBC_GRAPHICS \
-	-DYSize=30 \
+	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -39,7 +57,7 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	$(VBCC_COMPILER) +bbc5 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
-	-DYSize=30 \
+	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \

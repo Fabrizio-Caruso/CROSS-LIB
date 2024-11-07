@@ -40,6 +40,8 @@
         #define CYCLES 600U
     #elif defined(__SUPERVISION__)
         #define CYCLES 6000U
+    #elif defined(__BBC__)
+        #define CYCLES 9000U
     #elif defined(__TI99__)
         #define CYCLES 17000U
     #else

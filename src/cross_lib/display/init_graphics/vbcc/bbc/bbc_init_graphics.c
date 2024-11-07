@@ -168,7 +168,7 @@ void SET_UDG_IMAGES(void)
 
 void _XL_INIT_GRAPHICS(void)
 {
-    uint8_t res;
+    // uint8_t res;
 
     #if __BBC_MODE!=7
         osputc(22);
@@ -181,13 +181,21 @@ void _XL_INIT_GRAPHICS(void)
 
 
     #if __BBC_MODE==5
-    
-        osputc(19);
-        osputc(2);
-        osputc(6);
-        osputc(1);
-        osputc(1);
-        osputc(1);
+        #if !defined(__ALTERNATE_COLORS)
+            osputc(19);
+            osputc(2);
+            osputc(6);
+            osputc(1);
+            osputc(1);
+            osputc(1);
+        #else
+            osputc(19);
+            osputc(2);
+            osputc(2);
+            osputc(0);
+            osputc(0);
+            osputc(0);
+        #endif
     
     #endif
     

@@ -38,55 +38,75 @@
 127 	Backspace and delete.
 */
 
+#include "bbc.h"
+// char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
+// char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
+// char OSBYTE1RI(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa\n\tpha\n\ttya\n\ttax\n\tpla";
+// char OSBYTE2(__reg("a") char,__reg("r0") char,__reg("r1") char)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
+// char OSBYTE2I(__reg("a") char,__reg("r0/r1") unsigned int)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
+// void OSBYTE0NR(__reg("a") char)="\tjsr\t$fff4";
+// void OSBYTE1NR(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4";
+// void OSBYTE2NR(__reg("a") char,__reg("r0") char,__reg("r1") char)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4";
 
-char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
-char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
-char OSBYTE1RI(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa\n\tpha\n\ttya\n\ttax\n\tpla";
-char OSBYTE2(__reg("a") char,__reg("r0") char,__reg("r1") char)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
-char OSBYTE2I(__reg("a") char,__reg("r0/r1") unsigned int)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4\n\ttxa";
-void OSBYTE0NR(__reg("a") char)="\tjsr\t$fff4";
-void OSBYTE1NR(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4";
-void OSBYTE2NR(__reg("a") char,__reg("r0") char,__reg("r1") char)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff4";
-
-#define OSVER() OSBYTE0(0)
-#define OSUSRFLG(x,y) OSBYTE2(1,(x),(y))
-#define OSSELINPUT(x) OSBYTE1NR(2,(x))
-#define OSSELOUTPUT(x) OSBYTE2(3,(x),(y))
-#define OSCURSORED(x) OSBYTE2(4,(x),(y))
-#define OSSELADC(x) OSBYTE1(16,(x))
-#define OSFRCADC(x) OSBYTE1NR(17,(x))
-#define OSVSYNC() OSBYTE0(19)
-#define OSRDVDU() OSBYTE0(117)
-#define OSSCANKEY(x) OSBYTE1(121,(x))
-#define OSSCANKEY16() OSBYTE0(122)
-#define OSADVAL(x) OSBYTE1RI(128,(x))
-#define OSINKEY(x) OSBYTE2I(129,(x)) 
-
-
-void OSWORD(__reg("a") char,__reg("r0/r1") void *)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff1";
-
-#define OSRDSYSCLK(x) OSWORD(1,x)
-#define OSWRSYSCLK(x) OSWORD(2,x)
-#define OSRDTIMER(x) OSWORD(3,x)
-#define OSWRTIMER(x) OSWORD(4,x)
-#define OSRDIO(x) OSWORD(5,x)
-#define OSWRIO(x) OSWORD(6,x)
-#define OSSOUND(x) OSWORD(7,x)
-#define OSENVELOPE(x) OSWORD(8,x)
-#define OSRDPIXEL(x) OSWORD(9,x)
-#define OSRDCHARDEF(x) OSWORD(10,x)
-#define OSRDPALETTE(x) OSWORD(11,x)
-#define OSWRPALETTE(x) OSWORD(12,x)
-#define OSRDGRCURSOR(x) OSWORD(13,x)
+// #define OSVER() OSBYTE0(0)
+// #define OSUSRFLG(x,y) OSBYTE2(1,(x),(y))
+// #define OSSELINPUT(x) OSBYTE1NR(2,(x))
+// #define OSSELOUTPUT(x) OSBYTE2(3,(x),(y))
+// #define OSCURSORED(x) OSBYTE2(4,(x),(y))
+// #define OSSELADC(x) OSBYTE1(16,(x))
+// #define OSFRCADC(x) OSBYTE1NR(17,(x))
+// #define OSVSYNC() OSBYTE0(19)
+// #define OSRDVDU() OSBYTE0(117)
+// #define OSSCANKEY(x) OSBYTE1(121,(x))
+// #define OSSCANKEY16() OSBYTE0(122)
+// #define OSADVAL(x) OSBYTE1RI(128,(x))
+// #define OSINKEY(x) OSBYTE2I(129,(x)) 
 
 
+// void OSWORD(__reg("a") char,__reg("r0/r1") void *)="\tldx\tr0\n\tldy\tr1\n\tjsr\t$fff1";
+
+// #define OSRDSYSCLK(x) OSWORD(1,x)
+// #define OSWRSYSCLK(x) OSWORD(2,x)
+// #define OSRDTIMER(x) OSWORD(3,x)
+// #define OSWRTIMER(x) OSWORD(4,x)
+// #define OSRDIO(x) OSWORD(5,x)
+// #define OSWRIO(x) OSWORD(6,x)
+// #define OSSOUND(x) OSWORD(7,x)
+// #define OSENVELOPE(x) OSWORD(8,x)
+// #define OSRDPIXEL(x) OSWORD(9,x)
+// #define OSRDCHARDEF(x) OSWORD(10,x)
+// #define OSRDPALETTE(x) OSWORD(11,x)
+// #define OSWRPALETTE(x) OSWORD(12,x)
+// #define OSRDGRCURSOR(x) OSWORD(13,x)
+
+#include "8x8_chars.h"
+#include "udg_map.h"
 
 #include <stdint.h>
-#include <stdio.h>
+// #include <stdio.h>
 
-static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
+void osputc(__reg("a") char)="\tjsr\t0xffee";
+
+// static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
 
 static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
+
+
+
+
+// void redefine(const uint8_t ch, const uint8_t* image) 
+// { 
+    // uint8_t i; 
+    
+    // for(i=0;i<8;++i) 
+    // { 
+        // DISPLAY_POKE(CHAR_BASE +(uint16_t)(ch<<3)+i,image[i]); 
+    // } 
+// } 
+
+
+
+
 
 
 
@@ -95,21 +115,34 @@ void redefine(uint8_t ch, uint8_t *data)
 {
     uint8_t i;
     
-    putchar(23);
-    putchar(ch);
+    osputc(23);
+    osputc(ch);
     for(i=0;i<8;++i)
     {
-        putchar(data[i]);
+        osputc(data[i]);
     }
-    putchar('\n');
+    osputc('\n');
 }
 
-void _gotoxy(uint8_t x, uint8_t y)
-{
-    putchar(31);
-    putchar(x);
-    putchar(y);
+
+void SET_UDG_IMAGES(void) 
+{ 
+    uint8_t i;
+    // uint8_t j;
+
+    for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
+    {
+            redefine(redefine_map[i].ascii+200-8, redefine_map[i].bitmap);
+    } 
 }
+
+
+// void _gotoxy(uint8_t x, uint8_t y)
+// {
+    // osputc(31);
+    // osputc(x);
+    // osputc(y);
+// }
 // COLORS
 // 0 -> black
 // 1 -> red
@@ -129,129 +162,64 @@ void _gotoxy(uint8_t x, uint8_t y)
 // 'E' <-> 'J'
 // 'V' <-> 'L'
 
+#if !defined(__BBC_MODE)
+    #define __BBC_MODE 7
+#endif
+
 void _XL_INIT_GRAPHICS(void)
 {
     uint8_t res;
-    uint16_t i;
 
-	__vdu_sequence(1);
-    // Set mode 2
+    #if __BBC_MODE!=7
+        osputc(22);
+        #if defined(__SHADOW_RAM)
+            osputc(__BBC_MODE+128);
+        #else
+            osputc(__BBC_MODE);
+        #endif
+    #endif
+
+
+    #if __BBC_MODE==5
     
-    #if __BBC_MODE!=4
-        putchar(22);
-        putchar(__BBC_MODE);
+        osputc(19);
+        osputc(2);
+        osputc(6);
+        osputc(1);
+        osputc(1);
+        osputc(1);
+    
     #endif
     
     // Disable the cursor
-    putchar(23);
-    putchar(1);
-    putchar(0);
-    putchar(0);
-    putchar(0);
-    putchar(0);
-    putchar(0);
-    putchar(0);
-    putchar(0);
-    putchar(0);
+    osputc(23);
+    osputc(1);
+    osputc(0);
+    osputc(0);
+    osputc(0);
+    osputc(0);
+    osputc(0);
+    osputc(0);
+    osputc(0);
+    osputc(0);
 
     // Delete graphics screen data
-    // putchar(16);
-    putchar(12);
+    // osputc(16);
+    // osputc(12);
 
-    
-    
-    // Redefine character 240
-    
-    redefine(240,stripes);
-    
-    // Redefine character 241
-    redefine(241,player);
-    
-	// __vdu_sequence(0);
+        
+    // Redefine characters
+    // TODO: This is wrong
+#if !(__BBC_MODE==7) 
+    SET_UDG_IMAGES();
+#endif
 
-    // Display some text
-    putchar('O');
-    putchar('K');
-    
-    // putchar(12);
+    osputc(_TILE_0);
+    osputc(_TILE_1);
+    osputc(_TILE_2);
 
-    putchar(17);
-    putchar(2); // 2 -> green
-    
-    // printf("hello world\n");
-    
-    // Display character 240
-    putchar(240);
-    
-    // Display character 241
-    putchar(241);
-    
-    // Display "hello world"
-    // printf("\nhello world\n");
-    
-
-    _gotoxy(0,10);
-    
-    putchar(17);
-    putchar(3); // 3 -> yellow
-    putchar('A');
-    
-    putchar(17);
-    putchar(4); // 4 -> blue
-    putchar('B');
-    
-    _gotoxy(10,0);
-    
-    putchar(17);
-    putchar(5); // 5 -> pink/purple
-    putchar('C');
-    
-    
-    putchar(17);
-    putchar(6); // 6 -> cyan
-    putchar('D');
-    
-    
-    putchar(17);
-    putchar(7); // 7 -> white
-    putchar('E');
-    
-    putchar(17);
-    putchar(1); // 1 -> red
-    putchar('F');
-    
-    putchar(17);
-    putchar(0); // 0 -> black
-    putchar('G');
-    
-    putchar(17);
-    putchar(1); 
-    putchar('H');
-    
     while(1)
     {
-        // if(res&1)
-        // {
-            // putchar('O');
-        // }
-        // else
-        // {
-            // putchar('K');
-        // }
-        // ++res;
-        // for(volatile i=0;i<50U;++i)
-        // {
-        // }
-        res = OSSCANKEY(' ');
-        
-        _gotoxy(0,18);
-        if((res != 'b')&&(res != '%')&&(res != 'F')&&(res != 'E')&&(res != 'V'))
-        {
-            putchar(' ');
-        }
-        else
-        {
-            putchar(res);
-        }
-    };
+    }
+
 }

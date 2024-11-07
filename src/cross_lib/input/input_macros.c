@@ -345,7 +345,7 @@ out         stb res
         
         char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
         
-        return OSSCANKEY(' ')+1;
+        return OSSCANKEY('')+1;
         
     #else
         return getk();

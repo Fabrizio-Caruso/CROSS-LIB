@@ -22,7 +22,7 @@ bbc: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
-bbcmaster: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+bbcmaster: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	$(VBCC_COMPILER) +bbc -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ \
 	-DXSize=20 -D__BBC_MODE=2 -D__SHADOW_RAM -D__BBC_GRAPHICS \
@@ -40,7 +40,7 @@ bbcmaster: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
-bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	$(VBCC_COMPILER) +bbc2 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=2 -D__BBC_GRAPHICS \
@@ -57,7 +57,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
-bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	$(VBCC_COMPILER) +bbc5 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \

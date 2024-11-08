@@ -85,7 +85,11 @@
 #include <stdint.h>
 // #include <stdio.h>
 
-void osputc(__reg("a") char)="\tjsr\t0xffee";
+// void osputc(__reg("a") char)="\tjsr\t0xffee";
+
+#include <stdio.h>
+void osputc(const uint8_t ch) putchar(ch);
+
 
 // static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
 

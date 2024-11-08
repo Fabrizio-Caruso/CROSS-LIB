@@ -132,7 +132,7 @@ void SET_UDG_IMAGES(void)
 
     for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
     {
-            redefine(redefine_map[i].ascii+200-8, redefine_map[i].bitmap);
+            redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
     } 
 }
 

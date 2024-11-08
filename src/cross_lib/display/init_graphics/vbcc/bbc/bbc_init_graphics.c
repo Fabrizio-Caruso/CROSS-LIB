@@ -89,7 +89,7 @@ void osputc(__reg("a") char)="\tjsr\t0xffee";
 
 // static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
 
-static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
+// static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
 
 
 
@@ -111,7 +111,7 @@ static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
 
 
 
-void redefine(uint8_t ch, uint8_t *data)
+void redefine(const uint8_t ch, const uint8_t *data)
 {
     uint8_t i;
     

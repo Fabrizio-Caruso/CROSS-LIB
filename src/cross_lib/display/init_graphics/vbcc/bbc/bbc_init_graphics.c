@@ -121,7 +121,7 @@ void redefine(const uint8_t ch, const uint8_t *data)
     {
         osputc(data[i]);
     }
-    osputc('\n');
+    // osputc('\n');
 }
 
 

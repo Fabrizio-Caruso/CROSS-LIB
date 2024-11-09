@@ -173,7 +173,7 @@ void _XL_INIT_GRAPHICS(void)
     #if __BBC_MODE!=7
         osputc(22);
         #if defined(__SHADOW_RAM)
-            osputc(__BBC_MODE+128);
+            osputc((uint8_t)__BBC_MODE+128U);
         #else
             osputc(__BBC_MODE);
         #endif

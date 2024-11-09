@@ -14,12 +14,12 @@ bbcmaster: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	# rm -rf xchase
-	mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	# rm -rf $(GAME_NAME)
+	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
+	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 bbc: bbc5
@@ -36,12 +36,12 @@ bbc7: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	# rm -rf xchase
-	mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	# rm -rf $(GAME_NAME)
+	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
+	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
@@ -55,12 +55,12 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	# rm -rf xchase
-	mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	# rm -rf $(GAME_NAME)
+	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
+	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
@@ -74,12 +74,12 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	# rm -rf xchase
-	mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	# rm -rf $(GAME_NAME)
+	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
+	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
@@ -97,10 +97,10 @@ bbc7_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	rm -rf xchase
-	rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	rm -rf $(GAME_NAME)
+	rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
@@ -114,10 +114,10 @@ bbc2_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	rm -rf xchase
-	rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	rm -rf $(GAME_NAME)
+	rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
@@ -131,10 +131,10 @@ bbc5_test: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o xchase
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img xchase
-	# rm -rf xchase
-	mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# rm -rf xchase.inf
+	$(FULL_FILES) -o $(GAME_NAME)
+	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
+	# rm -rf $(GAME_NAME)
+	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
+	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(GAME_NAME).inf
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)

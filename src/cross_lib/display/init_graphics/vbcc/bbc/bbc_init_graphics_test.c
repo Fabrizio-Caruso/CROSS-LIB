@@ -85,15 +85,11 @@
 #include <stdint.h>
 // #include <stdio.h>
 
-// void osputc(__reg("a") char)="\tjsr\t0xffee";
-
-#include <stdio.h>
-void osputc(const uint8_t ch) putchar(ch);
-
+void osputc(__reg("a") char)="\tjsr\t0xffee";
 
 // static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
 
-static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
+// static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
 
 
 
@@ -115,7 +111,7 @@ static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
 
 
 
-void redefine(uint8_t ch, uint8_t *data)
+void redefine(const uint8_t ch, const uint8_t *data)
 {
     uint8_t i;
     
@@ -125,7 +121,7 @@ void redefine(uint8_t ch, uint8_t *data)
     {
         osputc(data[i]);
     }
-    osputc('\n');
+    // osputc('\n');
 }
 
 
@@ -136,7 +132,7 @@ void SET_UDG_IMAGES(void)
 
     for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
     {
-            redefine(redefine_map[i].ascii+200-8, redefine_map[i].bitmap);
+            redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
     } 
 }
 
@@ -172,12 +168,12 @@ void SET_UDG_IMAGES(void)
 
 void _XL_INIT_GRAPHICS(void)
 {
-    uint8_t res;
+    // uint8_t res;
 
     #if __BBC_MODE!=7
         osputc(22);
         #if defined(__SHADOW_RAM)
-            osputc(__BBC_MODE+128);
+            osputc((uint8_t)__BBC_MODE+128U);
         #else
             osputc(__BBC_MODE);
         #endif
@@ -185,13 +181,21 @@ void _XL_INIT_GRAPHICS(void)
 
 
     #if __BBC_MODE==5
-    
-        osputc(19);
-        osputc(2);
-        osputc(6);
-        osputc(1);
-        osputc(1);
-        osputc(1);
+        #if !defined(__ALTERNATE_COLORS)
+            osputc(19);
+            osputc(2);
+            osputc(6);
+            osputc(1);
+            osputc(1);
+            osputc(1);
+        #else
+            osputc(19);
+            osputc(2);
+            osputc(2);
+            osputc(0);
+            osputc(0);
+            osputc(0);
+        #endif
     
     #endif
     
@@ -218,12 +222,15 @@ void _XL_INIT_GRAPHICS(void)
     SET_UDG_IMAGES();
 #endif
 
+    osputc('A');
+    osputc('B');
+    osputc('C');
+    
     osputc(_TILE_0);
     osputc(_TILE_1);
     osputc(_TILE_2);
 
-    while(1)
-    {
-    }
+    
+    while(1){};
 
 }

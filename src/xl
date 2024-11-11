@@ -125,6 +125,7 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
     return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
            " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + compiler_selection + "'" + \
            " GCC4TI99_MAKEFILE_COMPILATION_OPTS='" + gcc4ti99_compiler_opts + "'" + \
+           " VBCC_MAKEFILE_COMPILATION_OPTS='" + vbcc_compiler_opts + "'" + \
            " NATIVE_MAKEFILE_COMPILATION_OPTS='" + native_compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
@@ -245,6 +246,8 @@ PARALLEL_TARGETS = \
     'gb',
     'gal',
     'gamegear',
+    'hector',
+    'hectorhr',
     'kaypro',
     'kaypro83',
     'kc85',
@@ -646,7 +649,7 @@ def build(params, reset_flag = False):
         else:
             target = params[2]
 
-        if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti"]:
+        if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc"]:
             target = target + "_targets"
 
         if len(params)<4:
@@ -684,6 +687,8 @@ def build(params, reset_flag = False):
             print("cc65_compiler_opts      : " + cc65_compiler_opts) 
             print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts) 
             print("gcc4ti99_compiler_opts  : " +  gcc4ti99_compiler_opts)
+            print("vbcc_compiler_opts      : " +  vbcc_compiler_opts)
+
             print("native_compiler_opts    : " +  native_compiler_opts)
             
             print("")
@@ -3233,6 +3238,8 @@ def read_config(config_file="./config.ini"):
     global cc65_compiler_opts
     global lcc1802_compiler_opts
     global gcc4ti99_compiler_opts
+    global vbcc_compiler_opts
+
     global native_compiler_opts
 
     global native_compiler
@@ -3322,6 +3329,7 @@ def read_config(config_file="./config.ini"):
         cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
         lcc1802_compiler_opts = read_config_option("build","lcc1802_compiler_opts")
         gcc4ti99_compiler_opts = read_config_option("build","gcc4ti99_compiler_opts")
+        vbcc_compiler_opts = read_config_option("build","vbcc_compiler_opts")
         native_compiler_opts = read_config_option("build","native_compiler_opts")
 
         native_compiler = read_config_option("build", "native_compiler")
@@ -3373,6 +3381,7 @@ def default_config():
     global cc65_compiler_opts
     global lcc1802_compiler_opts
     global gcc4ti99_compiler_opts
+    global vbcc_compiler_opts
     global native_compiler_opts
 
     global native_compiler
@@ -3403,13 +3412,13 @@ def default_config():
     z88dk_compiler_opts = ""
     z88dk_compiler = "sccz80"
     cmoc_compiler_opts = ""
-    gcc4ti99_compiler_opts = ""
     native_compiler_opts = ""
     native_compiler = "gcc"
     tool_compiler = "gcc"  
     cc65_compiler_opts = "-O -Cl"
     lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' 
     gcc4ti99_compiler_opts = "-O2"
+    vbcc_compiler_opts = "-O1"
     use_tools = 0
     global_vars.color_terminal = 0
 
@@ -3437,6 +3446,7 @@ def display_config():
     print("cc65_compiler_opts: " +  cc65_compiler_opts)
     print("lcc1802_compiler_opts: " +  lcc1802_compiler_opts)
     print("gcc4ti99_compiler_opts: " +  gcc4ti99_compiler_opts)
+    print("vbcc_compiler_opts: " +  vbcc_compiler_opts)
     print("native_compiler_opts: " +  native_compiler_opts)
 
     print("native_compiler: " +  native_compiler)

@@ -86,6 +86,10 @@ src/games/reduced_full_lcc1802_color_combo.c
 src/games/reduced_full_lcc1802_micro_combo.c
 src/games/reduced_full_lcc1802_combo_no_sounds.c
 src/debug/*.bin
+src/debug/*.inf
+src/debug/bbctest
+src/debug/bbctest1
+src/debug/bbctest2
 src/debug/*.dsk
 src/debug/*.nes
 src/assets/*.pyc

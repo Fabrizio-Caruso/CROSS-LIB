@@ -99,15 +99,15 @@
     #if defined(_XL_TURN_BASED)
         return _XL_TURN_BASED_INPUT();
     
-    #elif defined(__MSX__)
-        if(!get_trigger(0)) 
-        {
-            return get_stick(0);
-        } 
-        else 
-        {
-            return 9;
-        }
+    // #elif defined(__MSX__)
+        // if(!get_trigger(0)) 
+        // {
+            // return get_stick(0);
+        // } 
+        // else 
+        // {
+            // return 9;
+        // }
     
 
     #elif defined(__MC10__)

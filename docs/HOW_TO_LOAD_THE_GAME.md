@@ -535,7 +535,33 @@ Type "RUN"
 
 
 ---------------------------------------------------------
-### HOMELAB 2
+### HECTOR HR
+Use DCHector or VB Hector emulator
+
+[DCHector]
+Select Hector HR(2)+.
+
+File->Load Tape
+
+Press 1 and wait for the game to load and run
+
+
+---
+
+[VB HECTOR]
+Start the emulator
+
+Select HR Plus
+
+Fichier -> Ouvrir Fichier K7
+
+Press 1 and wait for the game to load and run
+
+Click on the emulator's window
+
+---------------------------------------------------------
+### HOMELAB 2### HECTOR HR
+
 
 Use MAME emulator.
 

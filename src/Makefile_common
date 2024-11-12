@@ -1471,23 +1471,23 @@ hector:
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS   -DXSize=8 -DYSize=8 -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +hector -clib=hectorhr $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
-	-vn   -D__HECTOR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK \
+	-vn   -D__HECTORHR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	-D__CONIO_GRAPHICS   -DXSize=28 -DYSize=21 -D__NO_WAIT \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN) \
+	-D__CONIO_GRAPHICS   -DXSize=30 -DYSize=28 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTORHR_SLOWDOWN) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
 #################################################################
 
 mtx: mtx512

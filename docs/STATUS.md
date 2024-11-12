@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2024/11/05
+Last update: 2024/11/12
 
 ### 8-BIT targets with known working existing emulators
 
@@ -20,8 +20,8 @@ target name         | long target name                            | working  |  
 *atari_lynx*        | Atari Lynx                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *attache*           | Otrona Attache                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *aussie*            | Aussie Byte (Knight 2000)                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
-*bbc*               | BBC Micro                                   |   YES    |   MOS 6502    |   VBCC  |      OK         |       OK       | missing |
-*bbcmaster*         | BBC Master                                  |    NO    |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*bbc*               | BBC Micro                                   |   YES    |   MOS 6502    |   VBCC  |      OK         |       OK       |   OK    |
+*bbcmaster*         | BBC Master                                  |   YES    |   MOS 6502    |   VBCC  |      OK         |       OK       |   OK    |
 *bic*               | BIC/A5105                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *bit90*             | Bit Corporation BIT 90                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
 *bondwell*          | Bondwell                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
@@ -55,6 +55,7 @@ target name         | long target name                            | working  |  
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
+*hector HR(2)+*     | Hector HR(2)+                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *g800*              | Sharp PC-G800                               |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     |   N/A ? |
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
@@ -177,11 +178,11 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 166
+TOTAL    : 167
 
-OK       : 162
+OK       : 164
 
-KO       :   2
+KO       :   1
 
 UNKNOWN  :   2
 
@@ -192,7 +193,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 127
+  Z88DK | 128
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -204,7 +205,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 115                |
+Zilog 80      | 116                |
 MOS 6502      |  24                |
 Intel 8080    |  12                |
 RCA 1802      |   7                |
@@ -294,11 +295,11 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 185
+TOTAL    : 186
 
-OK       : 172
+OK       : 174
 
-KO       :   4
+KO       :   3
 
 UNKNOWN  :   9
 

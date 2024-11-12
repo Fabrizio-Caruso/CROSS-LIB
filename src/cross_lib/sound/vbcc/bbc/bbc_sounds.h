@@ -2,12 +2,6 @@
 
 #include "bbc.h"
 
-// typedef struct {
-  // int channel;
-  // int amplitude;
-  // int pitch;
-  // int duration;
-// } bbc_sound;
 
 extern bbc_sound ping_snd;
 extern bbc_sound tick_snd;

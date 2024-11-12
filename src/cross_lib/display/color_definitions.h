@@ -477,7 +477,7 @@
         #if defined(__SMS__) || defined(__GAME_GEAR__)
             #define _XL_RED LIGHTRED
             #define _XL_GREEN LIGHTGREEN
-        #elif defined(__HECTORHR__)
+        #elif defined(__HECTORHR__) && defined(__PATCH_HECTORHR_COLORS)
             #define _XL_RED BLUE
             #define _XL_GREEN GREEN
         #else

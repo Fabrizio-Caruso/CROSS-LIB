@@ -1464,15 +1464,15 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 #################################################################
 
 # Experimental
-hector: 
+hector1: 
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-vn   -D__HECTOR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK \
+	-DXSize=28 -DYSize=9 \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	-D__CONIO_GRAPHICS   -DXSize=8 -DYSize=8 -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 
 hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm   

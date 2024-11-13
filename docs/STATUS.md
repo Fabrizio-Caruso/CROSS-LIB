@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2024/11/12
+Last update: 2024/11/13
 
 ### 8-BIT targets with known working existing emulators
 
@@ -55,7 +55,6 @@ target name         | long target name                            | working  |  
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
-*hector HR(2)+*     | Hector HR(2)+                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *g800*              | Sharp PC-G800                               |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     |   N/A ? |
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
@@ -64,6 +63,9 @@ target name         | long target name                            | working  |  
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
 *gemini*            | Gemini                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*hector 1*          | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |  missing       | missing |
+*hector HR2+*       | Hector HR2+                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
+*hector HRX*        | Hector HRX                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *hgmc*              | Huebler-Grafik-MC                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
 *homelab*           | Homelab 4                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
@@ -178,9 +180,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 167
+TOTAL    : 169
 
-OK       : 164
+OK       : 166
 
 KO       :   1
 
@@ -193,7 +195,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 128
+  Z88DK | 130
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -205,7 +207,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 116                |
+Zilog 80      | 118                |
 MOS 6502      |  24                |
 Intel 8080    |  12                |
 RCA 1802      |   7                |
@@ -295,9 +297,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 186
+TOTAL    : 188
 
-OK       : 174
+OK       : 176
 
 KO       :   3
 

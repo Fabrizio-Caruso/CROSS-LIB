@@ -11,6 +11,7 @@
     #define _XL_GREEN 0
     #define _XL_YELLOW 0
     #define _XL_BLUE 0
+    #define _XL_MAGENTA 0
     
 #elif defined(__AQUARIUS__) && !defined(__CONIO_GRAPHICS)
     #define _XL_CYAN (16*6)
@@ -20,6 +21,9 @@
     #define _XL_WHITE (16*7)
     #define _XL_GREEN (16*GREEN)
     #define _XL_BLACK (16*BLACK)
+    
+    // TODO: Fix this
+    #define _XL_MAGENTA _XL_RED
 
 #elif defined(__MO5__)
     #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
@@ -68,7 +72,7 @@
     #define _XL_RED CPC_RED
     #define _XL_WHITE CPC_WHITE
     #define _XL_YELLOW CPC_YELLOW
-    #define _XL_PURPLE CPC_YELLOW
+    #define _XL_MAGENTA CPC_YELLOW
     #define _XL_GREEN CPC_YELLOW
 #elif defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
 
@@ -95,6 +99,7 @@
         #define _XL_GREEN _ATARI_MODE1_YELLOW
         #define _XL_CYAN _ATARI_MODE1_CYAN
     #endif
+    #define _XL_MAGENTA _XL_RED
 
 #elif defined(__NES_CONIO_GRAPHICS)
 
@@ -113,6 +118,8 @@
 	#else
 		#define _XL_CYAN _NES_RED
 	#endif
+    
+    #define _XL_MAGENTA _XL_RED
 
 #elif defined(__COMX_COLOR_GRAPHICS)
 
@@ -172,6 +179,7 @@
         
         #define _XL_BLACK 0
         
+        
     #else
         #define _COMX_BLUE 0
         #define _COMX_GREEN 1
@@ -189,6 +197,8 @@
         
         #define _XL_BLACK 3
     #endif
+    #define _XL_MAGENTA _XL_RED
+
 #elif defined(__ORIC_COLOR_GRAPHICS)
 
     #define _ORIC_NORMAL 0
@@ -201,7 +211,7 @@
     #define _XL_YELLOW _ORIC_NORMAL
     #define _XL_GREEN _ORIC_NORMAL
     #define _XL_CYAN _ORIC_NORMAL
-    
+    #define _XL_MAGENTA _XL_RED
 #elif defined(__ATARI7800__) 
     #if defined(__ATARI7800_COLOR_GRAPHICS)
         #define _XL_WHITE 2U
@@ -220,7 +230,8 @@
         #define _XL_GREEN _XL_CYAN
         #define _XL_BLACK 2U
     #endif
-    
+    #define _XL_MAGENTA _XL_RED
+
 #elif defined(__VDP_MODE1_GRAPHICS)
 
     #if defined(__TI99__)
@@ -249,15 +260,16 @@
     #define _XL_CYAN _CREAT_CYAN
     #define _XL_BLACK _CREAT_WHITE
 
+    // TODO: Use correct definition
+    #define _XL_MAGENTA _CREAT_RED
 #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
 	// TODO: This has to be fixed probably by avoiding __BACKGROUND_COLOR = a macro color
 	// TODO: White option
 
     #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-        #define _XL_PURPLE 0
         #define _XL_GREEN 1
         #define _XL_MAGENTA 0
-        #define _XL_CYAN ((_XL_PURPLE)+4)
+        #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
         #if !defined(__ALTERNATE_COLORS)
             #define _XL_RED ((_XL_GREEN)+4)
@@ -276,10 +288,9 @@
     #else
         #define _XL_WHITE 2
 
-        #define _XL_PURPLE 1
         #define _XL_GREEN 0
         #define _XL_MAGENTA 1
-        #define _XL_CYAN ((_XL_PURPLE)+4)
+        #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
         #if !defined(__ALTERNATE_COLORS)
             #define _XL_RED ((_XL_GREEN)+4)
@@ -318,6 +329,8 @@
 	#define _XL_GREEN 0xA
 	#define _XL_CYAN 0xE
 	
+    #define _XL_MAGENTA 0x3
+
 #elif defined(__SUPERVISION__)
 
     #define _AUX_BLACK 0xFF
@@ -333,6 +346,7 @@
     #define _XL_CYAN _AUX_DARK_GREY
     #define _XL_BLUE _AUX_DARK_GREY
     
+    #define _XL_MAGENTA _XL_RED
 
 #elif defined(__GAMATE__)
     #define _AUX_BLACK COLOR_BLACK
@@ -347,6 +361,8 @@
     #define _XL_GREEN _AUX_BLACK
     #define _XL_CYAN _AUX_DARK_GREY
     #define _XL_BLUE _AUX_DARK_GREY
+    
+    #define _XL_MAGENTA _XL_RED
 
 #elif (defined(__COCO3__)) && defined(__BIT_MAPPED_16_GRAPHICS)
 
@@ -361,6 +377,9 @@
     #define _XL_YELLOW 0x55	
     #define _XL_RED 0xAA	
     #define _XL_BLUE 0xFF
+    
+    // TODO: Use correct definition
+    #define _XL_MAGENTA 0xAA
 
 #elif defined(__BBC__) && defined(__BBC_GRAPHICS)
 // COLORS
@@ -376,7 +395,7 @@
     #define _XL_RED 1
     #define _XL_GREEN 2
     #define _XL_YELLOW 3
-    #define _XL_PURPLE 5
+    #define _XL_MAGENTA 5
     #define _XL_BLUE 4
     #define _XL_CYAN 6
     #define _XL_WHITE 7
@@ -394,6 +413,7 @@
     #define _XL_GREEN _COCO_CYAN
     #define _XL_CYAN _COCO_CYAN
     #define _XL_BLUE _COCO_CYAN
+    #define _XL_MAGENTA _COCO_RED
 
 #elif defined(__TI99__)
     #define _XL_BLACK COLOR_BLACK
@@ -403,6 +423,7 @@
     #define _XL_YELLOW COLOR_YELLOW
     #define _XL_GREEN COLOR_GREEN
     #define _XL_CYAN COLOR_LTBLUE
+    #define _XL_MAGENTA COLOR_RED
 #elif defined(__CC65__) || defined(__TMC600__)
 
     #define _XL_BLACK COLOR_BLACK
@@ -417,6 +438,17 @@
     #else
         #define _XL_CYAN COLOR_BLUE
     #endif
+    
+    #if defined(COLOR_MAGENTA)
+        #define _XL_MAGENTA COLOR_MAGENTA
+    // #elif defined(COLOR_PINK)
+        // #define _XL_MAGENTA COLOR_PINK
+    // #elif defined(COLOR_PURPLE)
+        // #define _XL_MAGENTA COLOR_PURPLE
+    #else
+        #define _XL_MAGENTA COLOR_RED
+    #endif
+
 
 #elif defined(__NCURSES__)
     #define _XL_YELLOW 1
@@ -435,7 +467,6 @@
         #define _XL_YELLOW MAGENTA
         #define _XL_GREEN CYAN
         #define _XL_RED RED
-        #define _XL_MAGENTA MAGENTA
         #define _XL_BLUE BLUE
         #define _XL_BLACK BLUE
     #else
@@ -447,6 +478,8 @@
         #define _XL_CYAN BLUE
         #define _XL_BLUE BLUE
     #endif
+    #define _XL_MAGENTA MAGENTA
+
 #else // Z88DK
     #define _XL_BLACK BLACK
     #if defined(__PC6001__) || defined(__SPC1000__)

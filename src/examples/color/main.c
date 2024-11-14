@@ -24,7 +24,7 @@
 
 #include "cross_lib.h"
 
-#define NUMBER_OF_COLORS 6
+#define NUMBER_OF_COLORS 7
 #define MAX_STRING_SIZE 10
 
 const uint8_t tile[] = {
@@ -39,7 +39,7 @@ const uint8_t tile[] = {
 
 #if !defined(_XL_NO_COLOR)
 static const uint8_t color_code[NUMBER_OF_COLORS] = 
-    {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+    {_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE, _XL_MAGENTA};
 
 #endif
 
@@ -50,6 +50,7 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 "GREEN", 
                                 "YELLOW", 
                                 "BLUE", 
+                                "MAGENTA",
                                 };
 
 

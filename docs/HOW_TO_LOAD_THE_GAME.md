@@ -1443,6 +1443,15 @@ You need the basic-i rom somewhere in your file system
 
 You could run:
 
+Mess 0.191
+ROM:
+mess64.exe m5 -window -ramsize 36k -cart1 c:\Retro\CROSS-LIB\build\Xbomber_m5_rom.rom
+
+|Tape:
+mess64.exe m5 -window -ramsize 36k -cart1 basic-i\basic-i.rom -cass c:\Retro\CROSS-LIB\build\Xbomber_m5.cas
+
+or 
+
 mess64.exe m5 -uimodekey DEL -cart1 basic-i\basic-i.rom -ramsize 36k -window
 
 You need to insert the tape

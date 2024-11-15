@@ -254,6 +254,7 @@ PARALLEL_TARGETS = \
     'lambda',
     'laser500',
     'm5',
+    'm5_rom',
     'm100',
     'mc1000',
     'mc1000_mono',

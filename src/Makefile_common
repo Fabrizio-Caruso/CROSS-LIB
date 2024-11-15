@@ -1447,9 +1447,10 @@ hector1:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
 	$(FULL_FILES)
 
+# -D__PATCH_HECTORHR_COLORS
 hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +hector -clib=hectorhr $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic -D__PATCH_HECTORHR_COLORS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic  \
 	-vn   -D__HECTORHR__ -D_XL_NO_SOUND \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \

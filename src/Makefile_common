@@ -1452,7 +1452,7 @@ hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +hector -clib=hectorhr $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
 	-vn   -D__HECTORHR__ -D_XL_NO_SOUND \
-	-lndos \
+	-lndos -pragma-define:CLIB_CONIO_NATIVE_COLOUR=1 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS   -DXSize=30 -DYSize=28 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTORHR_SLOWDOWN) \

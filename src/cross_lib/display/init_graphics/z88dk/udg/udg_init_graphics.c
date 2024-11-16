@@ -5,6 +5,10 @@
 
 #include <sys/ioctl.h>
 
+#if defined(__HECTORHR__)
+        #include <arch/hector.h>
+#endif 
+
 extern uint8_t udgs[];
 
 
@@ -32,13 +36,10 @@ void _XL_INIT_GRAPHICS(void)
 
         textbackground(_XL_BACKGROUND_COLOR);
         zx_border(_XL_BACKGROUND_COLOR);
-        // #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-            // textbackground(_XL_WHITE);
-            // zx_border(7);
-        // #else
-            // textbackground(_XL_BLACK);
-            // zx_border(0);
-        // #endif
+    #elif defined(__HECTORHR__)
+        // #include <arch/hector.h>
+
+        hector_set_palette(HECTOR_BLACK, HECTOR_WHITE, HECTOR_CYAN, HECTOR_RED);
 	#else
         _setScreenColors();
     #endif

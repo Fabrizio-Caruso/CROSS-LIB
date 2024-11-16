@@ -480,6 +480,17 @@
     #endif
     #define _XL_MAGENTA MAGENTA
 
+#elif defined(__HECTORHR__)
+
+        #define _XL_WHITE 1
+        #define _XL_CYAN 2
+        #define _XL_YELLOW 1
+        #define _XL_GREEN 2
+        #define _XL_RED 3
+        #define _XL_BLUE 2
+        #define _XL_BLACK 0
+        #define _XL_MAGENTA 3
+
 #else // Z88DK
     #define _XL_BLACK BLACK
     #if defined(__PC6001__) || defined(__SPC1000__)
@@ -510,9 +521,6 @@
         #if defined(__SMS__) || defined(__GAME_GEAR__)
             #define _XL_RED LIGHTRED
             #define _XL_GREEN LIGHTGREEN
-        #elif defined(__HECTORHR__) && defined(__PATCH_HECTORHR_COLORS)
-            #define _XL_RED BLUE
-            #define _XL_GREEN GREEN
         #else
             #define _XL_RED RED
             #define _XL_GREEN GREEN

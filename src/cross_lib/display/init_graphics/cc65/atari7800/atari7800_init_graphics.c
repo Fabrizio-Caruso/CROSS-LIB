@@ -9,18 +9,24 @@ extern char screen[];
 void _XL_INIT_GRAPHICS(void)
 {
 
-    #if defined(__ALTERNATE_COLORS)
+    // #if defined(__ALTERNATE_COLORS)
     
         // TODO: Implement palette switch
         // MARIA.bkgrnd = 0x17;
         // MARIA.p0c1 = 0x00;
         // MARIA.p0c2 = 0xb2;
         // MARIA.p0c3 = 0x05;
-        MARIA.bkgrnd = 0x00;
-        // MARIA.p0c1 = 0x00;
-        MARIA.p0c2 = 0xb2;
-        MARIA.p0c3 = 0x05;
-    #endif
+        MARIA.bkgrnd = 0x00; // black
+        MARIA.p0c2 = 0xAA; // cyan
+        MARIA.p0c1 = 0xF4; // red
+
+        MARIA.p0c3 = 0x0F; // white
+    // #endif
+    
+        // MARIA.p0c1 = 0xD4; // green
+
+            // MARIA.p0c1 = 0xB4; // green
+
 
 }
 

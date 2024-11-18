@@ -441,10 +441,6 @@
     
     #if defined(COLOR_MAGENTA)
         #define _XL_MAGENTA COLOR_MAGENTA
-    #elif defined(MAGENTA)
-        #define _XL_MAGENTA MAGENTA
-    #elif defined(COLOR_PINK)
-        #define _XL_MAGENTA COLOR_PINK
     #elif defined(COLOR_PURPLE) && !defined(__C16__)
         #define _XL_MAGENTA COLOR_PURPLE
     #else

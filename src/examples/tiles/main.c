@@ -37,7 +37,7 @@ const uint8_t tiles[] = {
         _TILE_26
 		};
 
-#define NUMBER_OF_COLORS 6
+#define NUMBER_OF_COLORS 7
 #define MAX_STRING_SIZE 10
 
 #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
@@ -51,19 +51,8 @@ const uint8_t tiles[] = {
 #if !defined(_XL_NO_COLOR)
 static const uint8_t tile_color[NUMBER_OF_COLORS] = {
     FIRST_COLOR,
-    _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE};
+    _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE, _XL_MAGENTA};
 #endif
-
-const char strings[NUMBER_OF_COLORS][MAX_STRING_SIZE] = 
-{
-    _XL_M _XL_i _XL_n _XL_e,
-    _XL_E _XL_n _XL_e _XL_r _XL_g _XL_y,
-    _XL_B _XL_o _XL_n _XL_u _XL_s,
-    _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
-    _XL_A _XL_p _XL_p _XL_l _XL_e,
-    _XL_A _XL_p _XL_p _XL_l _XL_e,
-};
-
 
 
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
@@ -77,6 +66,7 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 "GREEN", 
                                 "YELLOW", 
                                 "BLUE", 
+                                "MAGENTA",
                                 };
 
 
@@ -101,7 +91,6 @@ int main(void)
 
     uint8_t i;
     uint8_t j;
-    uint8_t k;
     
     _XL_INIT_GRAPHICS();
     
@@ -110,9 +99,9 @@ int main(void)
     _XL_INIT_INPUT();
 
 
-    for(k=0;k<3;++k)
+    for(;;)
     {
-        for(j=0;j<6;++j)
+        for(j=0;j<NUMBER_OF_COLORS;++j)
         {
             _XL_CLEAR_SCREEN();
             

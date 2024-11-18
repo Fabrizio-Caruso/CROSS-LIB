@@ -46,30 +46,30 @@ static const uint8_t color_code[NUMBER_OF_COLORS] =
 
 #if XSize>=38
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-                                "WHITE  ", 
-                                "RED    ", 
-                                "CYAN   ", 
-                                "GREEN  ", 
-                                "YELLOW ", 
-                                "BLUE   ", 
-                                "MAGENTA",
+                                "WHITE   ", 
+                                "RED     ", 
+                                "CYAN    ", 
+                                "GREEN   ", 
+                                "YELLOW  ", 
+                                "BLUE    ", 
+                                "MAGENTA ",
                                 };
     #define NAME_SIZE 7
 #else
 const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-                                "WH", 
-                                "RE", 
-                                "CY", 
-                                "GR", 
-                                "YE", 
-                                "BL", 
-                                "MA",
+                                "WH ", 
+                                "RE ", 
+                                "CY ", 
+                                "GR ", 
+                                "YE ", 
+                                "BL ", 
+                                "MA ",
                                 };
     #define NAME_SIZE 2
 #endif
 
 #if YSize<=9
-    #define SHORT_X_OFFSET 5
+    #define SHORT_X_OFFSET 4
     #define SHOOT_Y_OFFSET 8
 #elif YSize<=14
 
@@ -82,11 +82,11 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
 
 
 #if _XL_NUMBER_OF_TILES>=XSize-NAME_SIZE
-    #define DISPLAYED_TILES (XSize-2)-SHORT_X_OFFSET
-    #define OFFSET NAME_SIZE
+    #define DISPLAYED_TILES (XSize-NAME_SIZE-1)-SHORT_X_OFFSET
+    #define OFFSET (NAME_SIZE+1)
 #else
     #define DISPLAYED_TILES _XL_NUMBER_OF_TILES
-    #define OFFSET (XSize-DISPLAYED_TILES)/2
+    #define OFFSET (NAME_SIZE+1)
 #endif
 
 
@@ -131,28 +131,23 @@ int main(void)
                     _XL_PRINT(XSize-1-1, 4,"ON");
                 #endif 
             #endif
-            // _XL_PRINT((XSize-10)/2,3,"PRESS FIRE");
             _XL_SET_TEXT_COLOR(color_code[j]);
-
-            // #if XSize>=32
             
             _XL_PRINT(0,0+j, (char *) color_name[j]);
-            // #endif
-
-            _XL_PRINT(NAME_SIZE,0+j,"0123456789");
+            _XL_PRINT(NAME_SIZE+1,0+j,"0123456789");
             
         }
         
         for(j=0;j<NUMBER_OF_COLORS;++j)
         {
         
+            _XL_SET_TEXT_COLOR(color_code[j]);
+            _XL_PRINT(0+SHORT_X_OFFSET,NUMBER_OF_COLORS+1+j-SHOOT_Y_OFFSET, (char *) color_name[j]);
             for(i=0;i<DISPLAYED_TILES;++i)
             {   
                 _XL_DRAW(OFFSET+i+SHORT_X_OFFSET,NUMBER_OF_COLORS+1+j-SHOOT_Y_OFFSET,tile[i],color_code[j]);   
-                // _XL_WAIT_FOR_INPUT();
-            }       
-            _XL_PRINT(0+SHORT_X_OFFSET,NUMBER_OF_COLORS+1+j-SHOOT_Y_OFFSET, (char *) color_name[j]);
 
+            }       
         }
         
 

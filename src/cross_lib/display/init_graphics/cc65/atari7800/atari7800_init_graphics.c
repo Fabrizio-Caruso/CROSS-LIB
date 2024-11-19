@@ -6,6 +6,9 @@
 
 extern char screen[];
 
+
+// 0x48 pink
+// 0x38 light red
 void _XL_INIT_GRAPHICS(void)
 {
 
@@ -17,8 +20,8 @@ void _XL_INIT_GRAPHICS(void)
         // MARIA.p0c2 = 0xb2;
         // MARIA.p0c3 = 0x05;
         MARIA.bkgrnd = 0x00; // black
-        MARIA.p0c2 = 0xAA; // cyan
-        MARIA.p0c1 = 0xF4; // red
+        MARIA.p0c2 = 0xAA; // darker cyan 0x98
+        MARIA.p0c1 = 0x33; // red
 
         MARIA.p0c3 = 0x0F; // white
     // #endif

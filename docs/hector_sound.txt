@@ -1,0 +1,30 @@
+
+Pour 2HR - CALL 0x07BF
+Pour HRX - CALL 0x1A09
+Il faut préalablement définir DE pour la longueur
+Et BC pour le période.
+La fréquence de la note sera égale à 1/(BC), et sa durée à (BC) x (DE).
+Si les interruptions sont autorisées, le son sera "vibrato", si les interruptions sont interdites, il sera continu.
+
+
+voici ce que moi j'utilise pour 2HR
+mon code asm:
+
+
+PUBLIC _TONES
+;************************************
+; * émet un son *
+;************************************
+_TONES:
+POP IX ; récupère l'adresse de retour
+POP DE ; récupère le deuxième argument (longeur)
+POP BC ; récupère le premier argument (periode)
+PUSH BC ; remet sur la pile
+PUSH DE ; remet sur la pile
+PUSH IX ; remet l'adresse de retour sur la pile
+CALL 0x07BF
+RET
+dans mon code C:
+extern void TONES(unsigned short periode, unsigned short longeur);
+TONES(0x1000,10);
+

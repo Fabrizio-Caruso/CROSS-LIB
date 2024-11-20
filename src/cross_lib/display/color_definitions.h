@@ -80,44 +80,31 @@
     #define _ATARI_MODE1_WHITE 64
     #define _ATARI_MODE1_BLACK 64
     #define _ATARI_MODE1_CYAN 128
-    #define _ATARI_MODE1_GREEN 128
-    #define _ATARI_MODE1_YELLOW 192
+    #define _ATARI_MODE1_GREEN 192
+    #define _ATARI_MODE1_YELLOW 64
 
     #define _XL_RED _ATARI_MODE1_RED
     #define _XL_WHITE _ATARI_MODE1_WHITE
     #define _XL_BLACK _ATARI_MODE1_BLACK
     #define _XL_BLUE _ATARI_MODE1_CYAN
     #define _XL_YELLOW _ATARI_MODE1_YELLOW
-    
-    #if defined(__ALTERNATE_COLORS)
-        #define _XL_GREEN _ATARI_MODE1_GREEN
-        #define _XL_CYAN _ATARI_MODE1_WHITE
-    #elif defined(__ALTERNATE_COLORS2)
-        #define _XL_GREEN _ATARI_MODE1_GREEN
-        #define _XL_CYAN _ATARI_MODE1_CYAN
-    #else
-        #define _XL_GREEN _ATARI_MODE1_YELLOW
-        #define _XL_CYAN _ATARI_MODE1_CYAN
-    #endif
+    #define _XL_GREEN _ATARI_MODE1_GREEN
+    #define _XL_CYAN _ATARI_MODE1_CYAN
     #define _XL_MAGENTA _XL_RED
 
 #elif defined(__NES_CONIO_GRAPHICS)
 
     #define _NES_RED 0
-    #define _NES_YELLOW 1
+    #define _NES_CYAN 1
     #define _NES_WHITE 2
 
     #define _XL_BLACK COLOR_BLACK
     #define _XL_RED _NES_RED
     #define _XL_WHITE _NES_WHITE
-    #define _XL_BLUE _NES_WHITE
-    #define _XL_YELLOW _NES_YELLOW
-    #define _XL_GREEN _NES_YELLOW
-	#if !defined(__ALTERNATE_COLORS)
-		#define _XL_CYAN _NES_WHITE
-	#else
-		#define _XL_CYAN _NES_RED
-	#endif
+    #define _XL_BLUE _NES_CYAN
+    #define _XL_YELLOW _NES_WHITE
+    #define _XL_GREEN _NES_CYAN
+    #define _XL_CYAN _NES_CYAN
     
     #define _XL_MAGENTA _XL_RED
 
@@ -271,38 +258,18 @@
         #define _XL_MAGENTA 0
         #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
-        #if !defined(__ALTERNATE_COLORS)
-            #define _XL_RED ((_XL_GREEN)+4)
-            #if !defined(_APPLE_YELLOW_IS_PURPLE)
-                #define _XL_YELLOW _XL_WHITE
-            #else
-                #define _XL_YELLOW _XL_MAGENTA
-            #endif
-        #else
-            #define _XL_RED ((_XL_GREEN)+4)
-            #define _XL_YELLOW _XL_MAGENTA   
-        #endif
+        #define _XL_RED ((_XL_GREEN)+4)
+        #define _XL_YELLOW _XL_WHITE
         #define _XL_BLACK 2
-        
         #define _XL_WHITE _XL_BLUE
     #else
         #define _XL_WHITE 2
-
         #define _XL_GREEN 0
         #define _XL_MAGENTA 1
         #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
-        #if !defined(__ALTERNATE_COLORS)
-            #define _XL_RED ((_XL_GREEN)+4)
-            #if !defined(_APPLE_YELLOW_IS_PURPLE)
-                #define _XL_YELLOW _XL_WHITE
-            #else
-                #define _XL_YELLOW _XL_MAGENTA
-            #endif
-        #else
-            #define _XL_RED ((_XL_GREEN)+4)
-            #define _XL_YELLOW _XL_MAGENTA   
-        #endif
+        #define _XL_RED ((_XL_GREEN)+4)
+        #define _XL_YELLOW _XL_WHITE
         
         // TODO: Remove this hack and handle real black on white background
         #define _XL_BLACK _XL_BLUE
@@ -391,14 +358,27 @@
 // 5 -> purple
 // 6 -> cyan
 // 7 -> white
-    #define _XL_BLACK 0
-    #define _XL_RED 1
-    #define _XL_GREEN 2
-    #define _XL_YELLOW 3
-    #define _XL_MAGENTA 5
-    #define _XL_BLUE 4
-    #define _XL_CYAN 6
-    #define _XL_WHITE 7
+
+    #if __BBC_MODE==130
+    
+        #define _XL_BLACK 0
+        #define _XL_RED 1
+        #define _XL_GREEN 2
+        #define _XL_YELLOW 3
+        #define _XL_MAGENTA 5
+        #define _XL_BLUE 4
+        #define _XL_CYAN 6
+        #define _XL_WHITE 7
+    #else
+        #define _XL_BLACK 0
+        #define _XL_RED 1
+        #define _XL_GREEN 2
+        #define _XL_YELLOW 3
+        #define _XL_MAGENTA 5
+        #define _XL_BLUE 2
+        #define _XL_CYAN 2
+        #define _XL_WHITE 3
+    #endif
 
 #elif (defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)) && defined(__BIT_MAPPED_4_GRAPHICS)
 

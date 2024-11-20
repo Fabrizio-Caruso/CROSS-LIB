@@ -2,15 +2,6 @@
 #####################################################################
 # DISPLAY FLAGS
 
-ATARI_COLORS=
-# __ALTERNATE_COLORS
-
-ATARI5200_COLORS=
-# __ALTERNATE_COLORS
-
-NES_COLORS=
-# __ALTERNATE_COLORS
-
 ORIC_COLORS=
 # __MONO_COLORS
 
@@ -18,15 +9,8 @@ MC10_COLORS=
 # __REVERSE_LETTERS
 
 
-
-
-
-
-
-NES_COLORS=-D__ALTERNATE_COLORS
-
-MC10_COLORS=
-#-D__REVERSE_LETTERS
+PALETTE=
+#-D__USE_GREEN
 
 
 #####################################################################

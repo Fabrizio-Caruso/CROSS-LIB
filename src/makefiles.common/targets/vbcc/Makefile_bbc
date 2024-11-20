@@ -11,7 +11,7 @@ bbcmaster: bbcmaster130
 	# -DXSize=20 -D__BBC_MODE=133 -D__BBC_GRAPHICS \
 	# -DYSize=31 \
 	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	# -D__ALT_SLEEP $(BBC_COLORS) \
+	# -D__ALT_SLEEP $(PALETTE) \
 	# -D__DEFAULT_CLEAR_SCREEN \
 	# $(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	# $(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -27,7 +27,7 @@ bbcmaster130: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -44,7 +44,7 @@ bbcmastertest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -61,7 +61,7 @@ bbcmastertest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -79,7 +79,7 @@ bbctest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -96,7 +96,7 @@ bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
@@ -111,7 +111,7 @@ bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	# $(VBCC_COMPILER) +bbcmaster -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	# -D__NORMALIZED_RAND -D__BBC__ \
 	# -DXSize=20 -D__BBC_MODE=2 -D__SHADOW_RAM -D__BBC_GRAPHICS \
-	# -DYSize=31 $(BBC_COLORS) $(BBCMASTER_GAME_OPTS) \
+	# -DYSize=31 $(PALETTE) $(BBCMASTER_GAME_OPTS) \
 	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	# -D__ALT_SLEEP \
 	# -D_XL_NO_JOYSTICK \
@@ -132,7 +132,7 @@ bbc7: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7 -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ \
 	-DXSize=40 -D__BBC_MODE=7 -D__BBC_GRAPHICS -D_XL_NO_UDG \
-	-DYSize=24 $(BBC_COLORS) $(BBC7_GAME_OPTS) \
+	-DYSize=24 $(PALETTE) $(BBC7_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D_XL_NO_COLOR \
 	-D__ALT_SLEEP \
@@ -151,7 +151,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc2 -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=2 -D__BBC_GRAPHICS \
-	-DYSize=31 $(BBC_COLORS) \
+	-DYSize=31 $(PALETTE) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
@@ -170,7 +170,7 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
 	-DYSize=31 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(BBC_COLORS) \
+	-D__ALT_SLEEP $(PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \

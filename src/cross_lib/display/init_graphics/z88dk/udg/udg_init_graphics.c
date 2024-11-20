@@ -38,8 +38,11 @@ void _XL_INIT_GRAPHICS(void)
         zx_border(_XL_BACKGROUND_COLOR);
     #elif defined(__HECTORHR__)
         // #include <arch/hector.h>
-
-        hector_set_palette(HECTOR_BLACK, HECTOR_WHITE, HECTOR_CYAN, HECTOR_RED);
+        #if defined(__USE_GREEN)
+            hector_set_palette(HECTOR_BLACK, HECTOR_WHITE, HECTOR_GREEN, HECTOR_RED);
+        #else
+            hector_set_palette(HECTOR_BLACK, HECTOR_WHITE, HECTOR_CYAN, HECTOR_RED);
+        #endif
 	#else
         _setScreenColors();
     #endif

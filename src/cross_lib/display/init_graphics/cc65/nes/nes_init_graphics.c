@@ -54,20 +54,26 @@ void Reset_Scroll(void)
     #define NES_BACKGROUND_COLOR COLOR_BLACK
 #endif
 
+#if defined(__USE_GREEN)
+    #define _CYAN_GREEN _GREEN_BROWN
+#else
+    #define _CYAN_GREEN _CYAN
+
+#endif
 
 void _XL_INIT_GRAPHICS(void)
 {
 	All_Off();
 
-	set_color(0,2,_DARK_YELLOW);
+	set_color(0,2,_CYAN_GREEN);
 	set_color(0,1,_RED);
 	set_color(0,3,_WHITE);
 
-	set_color(1,2,_DARK_YELLOW);
+	set_color(1,2,_CYAN_GREEN);
 	set_color(1,1,_RED);
 	set_color(1,3,_WHITE);
 
-	set_color(3,2,_DARK_YELLOW);
+	set_color(3,2,_CYAN_GREEN);
 	set_color(3,1,_RED);
 	set_color(3,3,_WHITE);
 

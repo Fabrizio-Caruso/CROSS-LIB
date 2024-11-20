@@ -62,7 +62,7 @@ void set_udg(void)
 void _XL_INIT_GRAPHICS(void)
 {
     // NTSC (A5200 is only NTSC)
-    #if !defined(__ALTERNATE_COLORS)
+    #if !defined(__USE_GREEN)
         POKE(COLOR0,_gtia_mkcolor(HUE_REDORANGE,2));
         POKE(COLOR1,GTIA_COLOR_WHITE);
         POKE(COLOR2,GTIA_COLOR_CYAN);

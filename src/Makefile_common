@@ -287,7 +287,7 @@ endif
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari \
 	 \
-	$(ATARI_COLORS)  \
+	$(PALETTE)  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-D__ANTIC_MODE6_GRAPHICS -D__ALT_SLEEP  \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -306,7 +306,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
-	-D__ATARI5200__  $(ATARI5200_COLORS) \
+	-D__ATARI5200__  $(PALETTE) \
 	-D__ANTIC_MODE6_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
@@ -358,7 +358,7 @@ atari7800: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s $(ASSETS_PATH)/formatted_cc6
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ \
 	-D__ATARI7800_COLOR_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_SLOWDOWN)  \
-	-DXSize=20 -DYSize=28 -D__DEFAULT_CLEAR_SCREEN $(ATARI7800_COLORS) \
+	-DXSize=20 -DYSize=28 -D__DEFAULT_CLEAR_SCREEN $(PALETTE) \
 	-D__ALT_PRINT \
 	$(TOOLS_PATH)/cc65/atari7800/extzp.o \
 	$(TOOLS_PATH)/cc65/atari7800/sfx.o \
@@ -554,7 +554,7 @@ nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-D__NES_CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NES_SLOWDOWN) \
-	$(NES_COLORS)  \
+	$(PALETTE)  \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(ASSETS_PATH)/cc65_nes_color_tiles.s \
@@ -1451,7 +1451,7 @@ hector1:
 hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +hector -clib=hectorhr $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
-	-vn   -D__HECTORHR__ -D_XL_NO_SOUND \
+	-vn   -D__HECTORHR__ -D_XL_NO_SOUND $(PALETTE) \
 	-lndos -pragma-define:CLIB_CONIO_NATIVE_COLOUR=1 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS   -DXSize=30 -DYSize=28 \

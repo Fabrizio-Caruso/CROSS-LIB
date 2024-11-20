@@ -181,7 +181,7 @@ void _XL_INIT_GRAPHICS(void)
 
 
     #if __BBC_MODE==5
-        #if !defined(__ALTERNATE_COLORS)
+        #if !defined(__USE_GREEN)
             osputc(19);
             osputc(2);
             osputc(6);

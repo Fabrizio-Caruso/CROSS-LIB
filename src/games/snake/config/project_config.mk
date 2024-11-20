@@ -1,5 +1,5 @@
 
-BBC_COLORS=-D__ALTERNATE_COLORS
+PALETTE=-D__USE_GREEN
 
 #####################################################################
 # SLOWDOWN VALUES

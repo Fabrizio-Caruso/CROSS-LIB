@@ -33,15 +33,19 @@
 
 #include "display_macros.h"
 
+
+// #define _TILE_3 10
+// #define _TILE_4 13
+#define _TILE_3 43
+#define _TILE_4 153
+
 #define _TILE_8 25
-#define _TILE_4 13
 #define _TILE_5 16
 #define _TILE_9 28
 
 #define _TILE_0 1
 #define _TILE_1 4
 #define _TILE_2 7
-#define _TILE_3 10
 	
 
 #define _TILE_11 37

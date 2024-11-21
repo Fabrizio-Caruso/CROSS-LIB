@@ -6,7 +6,7 @@
 do \
 { \
     gotoxy((x),(y)); \
-    cputc(tile+color); \
+    cputc((tile)+(color)); \
 } \
 while(0)
 

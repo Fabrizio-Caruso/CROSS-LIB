@@ -255,6 +255,8 @@ PARALLEL_TARGETS = \
     'laser500',
     'm5',
     'm5_rom',
+    'm5_keyboard',
+    'm5_keyboard_rom',
     'm100',
     'mc1000',
     'mc1000_mono',
@@ -3643,6 +3645,13 @@ if __name__ == "__main__":
     elif params[1]=="tools":
         tools()
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
-        build(params)
+        # print("len(params)= " + str(len(params)))
+        # print("params[2]: " + str(params[2]))
+        # print("params[3]: " + str(params[3]))
+
+        if(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
+            size(["size"] + params[1:],0) 
+        else:
+            build(params)
     else:
         manual(params)

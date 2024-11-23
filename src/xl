@@ -632,7 +632,11 @@ def is_project_split(game_dir):
 
 # Build a project (for a target or multiple targets)
 def build(params, reset_flag = False):
-    
+
+    if(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
+        size(["size"] + params[1:],0) 
+        return
+        
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -2171,6 +2175,9 @@ def help_help():
 def run_native(params):
     command_prefix = "../build/X" + params[1] + "_ncurses"
 
+    # print(str(params))
+    # exit()
+
     if len(params)>=4:
         xsize = params[2]
         ysize = params[3]
@@ -2205,7 +2212,9 @@ MAME_TARGETS = ["msx", "msx_16k"]
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
 def run(params):
-    
+
+
+
     if len(params)==2:
         run_native(params)
     
@@ -2221,7 +2230,10 @@ def run(params):
             run_stdio(params)
         elif target=="ncurses":
             run_native(params[0:2]+params[3:])
-            
+
+        elif(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
+            run_native(params)
+
         # TODO: replace this with a check on prefixes
         elif target in VICE_TARGETS:
             extension = "prg"
@@ -3649,9 +3661,9 @@ if __name__ == "__main__":
         # print("params[2]: " + str(params[2]))
         # print("params[3]: " + str(params[3]))
 
-        if(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
-            size(["size"] + params[1:],0) 
-        else:
+        # if(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
+            # size(["size"] + params[1:],0) 
+        # else:
             build(params)
     else:
         manual(params)

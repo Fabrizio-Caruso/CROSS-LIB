@@ -154,6 +154,12 @@
         move(y,x); \
         cputc(ch); \
     } while(0)
+        
+#elif defined(__TERMINAL__)
+
+    #define _XL_PRINT(x,y,str)
+    #define _XL_PRINTD(x,y,length, val)
+    #define _XL_CHAR(x,y,ch)
 #elif defined(__ALT_PRINT)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
@@ -256,7 +262,7 @@
     #else
         #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
     #endif
-#elif defined(__NCURSES__)
+#elif defined(__NCURSES__) || defined(__TERMINAL__)
     // #if defined(__ATARI_ST__)
         // #include <ncurses/curses.h>
     // #else
@@ -350,7 +356,7 @@
     #include <games.h>
     #include <graphics.h>
     #define _XL_CLEAR_SCREEN() clg()
-#elif defined(__NCURSES__)
+#elif defined(__NCURSES__) || defined(__TERMINAL__)
     // #if defined(__ATARI_ST__)
         // #include <ncurses/curses.h>
     // #else

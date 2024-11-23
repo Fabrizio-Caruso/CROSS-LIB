@@ -231,8 +231,13 @@
                 }
             }
         }
-            
-    #elif defined(__NCURSES__)
+
+    #elif defined(__NCURSES__) || defined(__TERMINAL__)
+
+        #if defined(__TERMINAL__)
+            #include <ncurses.h>
+        #endif
+        
         #define INPUT_LOOPS 10
         
         unsigned long delay = 0;
@@ -426,6 +431,12 @@ out         stb res
                 while(!GET_CHAR())
                 {
                 }
+            }
+        #elif defined(__TERMINAL__)
+            #include <ncurses.h>
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                // TODO: Implement this
             }
         #else 
             #if defined(__INCLUDE_CONIO_H)

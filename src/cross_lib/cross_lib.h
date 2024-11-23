@@ -47,6 +47,7 @@
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \
 	&& !defined(__NCURSES__) \
+	&& !defined(__TERMINAL__) \
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \

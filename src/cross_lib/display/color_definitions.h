@@ -428,7 +428,7 @@
     #endif
 
 
-#elif defined(__NCURSES__)
+#elif defined(__NCURSES__) || defined(__TERMINAL__)
     #define _XL_YELLOW 1
     #define _XL_CYAN 2
     #define _XL_RED 3

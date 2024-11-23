@@ -623,6 +623,75 @@ lda $a7c0
     }
 #endif
 
+
+#if defined(__TERMINAL__)
+
+    #include "8x8_chars.h"
+    
+    #define _gotoxy(x,y) do { move(y,x); } while(0)
+    #define _cputc(c) do { addch(c);  } while(0)
+    // #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
+
+    #include <ncurses.h>
+    void _terminal_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+    {
+        uint8_t i;
+        uint8_t j;
+        
+        attron(COLOR_PAIR(color));
+
+        for(i=0;i<8;++i)
+        {
+            for(j=0;j<8;++j)
+            {
+                _gotoxy(8*(4*x)+j,8*(y)+i);
+                _cputc(tile);
+
+                _gotoxy(8*(4*x+1)+j,8*(y)+i);
+                _cputc(tile);
+                
+                _gotoxy(8*(4*x+2)+j,8*(y)+i);
+                _cputc(tile);
+                
+                _gotoxy(8*(4*x+3)+j,8*(y)+i);
+                _cputc(tile);
+                // refresh();
+            }
+        }
+        refresh();
+    }
+
+    void _terminal_delete(uint8_t x, uint8_t y)
+    {
+        uint8_t i;
+        uint8_t j;
+        
+        attron(COLOR_PAIR(_XL_BLACK));
+
+        for(i=0;i<8;++i)
+        {
+            for(j=0;j<8;++j)
+            {
+                _gotoxy(8*(4*x)+j,8*(y)+i);
+                _cputc(' ');
+                
+                _gotoxy(8*(4*x+1)+j,8*(y)+i);
+                _cputc(' ');
+                
+                _gotoxy(8*(4*x+2)+j,8*(y)+i);
+                _cputc(' ');
+                
+                _gotoxy(8*(4*x+3)+j,8*(y)+i);
+                _cputc(' ');
+                // refresh();
+            }
+        }
+        refresh();
+    }
+
+#endif
+
+
 #if defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
     #if defined(__CC65__)
         void _XL_REFRESH(void)

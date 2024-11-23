@@ -85,7 +85,7 @@
 #endif
 
 #if !defined(_XL_NO_SLEEP)
-	#if defined(__NCURSES__) 
+	#if defined(__NCURSES__) || defined(__TERMINAL__)
 		#include <stdint.h>
 		#include <time.h>
 		#include <unistd.h>

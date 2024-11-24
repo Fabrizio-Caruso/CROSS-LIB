@@ -1,7 +1,7 @@
 #####################################################################
 # DISPLAY FLAGS
 
-PALETTE=
+4COLOR_PALETTE=
 #-D__USE_GREEN
 
 5COLOR_PALETTE=

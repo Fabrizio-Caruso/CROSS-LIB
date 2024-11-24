@@ -61,8 +61,28 @@ void set_udg(void)
 
 void _XL_INIT_GRAPHICS(void)
 {
-    // NTSC (A5200 is only NTSC)
-    // #if !defined(__USE_GREEN)
+
+    #if defined(__USE_CYAN_YELLOW)
+        POKE(COLOR0,_gtia_mkcolor(HUE_REDORANGE,2));
+        POKE(COLOR1,GTIA_COLOR_WHITE);
+        POKE(COLOR2,GTIA_COLOR_CYAN);
+        POKE(COLOR3,GTIA_COLOR_YELLOW);
+        #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
+            POKE(COLOR4,GTIA_COLOR_WHITE);
+        #else
+            POKE(COLOR4,GTIA_COLOR_BLACK);
+        #endif
+    #elif defined(__USE_GREEN_YELLOW)
+        POKE(COLOR0,_gtia_mkcolor(HUE_REDORANGE,2));
+        POKE(COLOR1,GTIA_COLOR_WHITE);
+        POKE(COLOR2,GTIA_COLOR_YELLOW);
+        POKE(COLOR3,_gtia_mkcolor(HUE_GREEN  ,4));
+        #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
+            POKE(COLOR4,GTIA_COLOR_WHITE);
+        #else
+            POKE(COLOR4,GTIA_COLOR_BLACK);
+        #endif
+    #else
         POKE(COLOR0,_gtia_mkcolor(HUE_REDORANGE,2));
         POKE(COLOR1,GTIA_COLOR_WHITE);
         POKE(COLOR2,GTIA_COLOR_CYAN);
@@ -72,17 +92,8 @@ void _XL_INIT_GRAPHICS(void)
         #else
             POKE(COLOR4,GTIA_COLOR_BLACK);
         #endif
-    // #else
-        // SETCOLOR_LOW(0,_gtia_mkcolor(HUE_REDORANGE,2));
-        // SETCOLOR_LOW(1,GTIA_COLOR_WHITE);
-        // SETCOLOR_LOW(2,_gtia_mkcolor(HUE_GREEN,3));
-        // SETCOLOR_LOW(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-        // #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-            // SETCOLOR_LOW(4,GTIA_COLOR_WHITE);
-        // #else
-            // SETCOLOR_LOW(4,GTIA_COLOR_BLACK);
-        // #endif
-    // #endif
+    #endif
+
     set_udg();
 
     _setScreenColors();

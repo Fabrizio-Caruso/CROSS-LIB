@@ -116,42 +116,26 @@ void _XL_INIT_GRAPHICS(void)
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE_1);
     
-    // #if !defined(__USE_GREEN)
-        // if(get_tv())
-        // {
-            // _setcolor_low(0, GTIA_COLOR_RED);
-            // _setcolor_low(1, _ATARI_EXTRA_COLOR);
-            // _setcolor_low(2, GTIA_COLOR_CYAN); 	
-            // _setcolor_low(3, GTIA_COLOR_GREEN);
-            // _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
-        // }
-        // else
-        // {
-            _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
-            _setcolor_low(1,_ATARI_EXTRA_COLOR);
-            _setcolor_low(2,GTIA_COLOR_CYAN);
-            _setcolor_low(3,_gtia_mkcolor(HUE_GREEN  ,4));
-            _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
-        // }
-    // #else
-        // if(get_tv())
-        // {
-            // _setcolor_low(0, GTIA_COLOR_RED);
-            // _setcolor_low(1, _ATARI_EXTRA_COLOR);
-            // _setcolor_low(2, GTIA_COLOR_YELLOW); 
-            // _setcolor_low(3, GTIA_COLOR_BROWN);
-            // _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
+    #if defined(__USE_CYAN_YELLOW)
+        _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
+        _setcolor_low(1,_ATARI_EXTRA_COLOR);
+        _setcolor_low(2,GTIA_COLOR_CYAN);
+        _setcolor_low(3,GTIA_COLOR_YELLOW);
+        _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
+    #elif defined(__USE_GREEN_YELLOW)
+        _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
+        _setcolor_low(1,_ATARI_EXTRA_COLOR);
+        _setcolor_low(2,GTIA_COLOR_YELLOW);
+        _setcolor_low(3,_gtia_mkcolor(HUE_GREEN  ,4));
+        _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
+    #else
+        _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
+        _setcolor_low(1,_ATARI_EXTRA_COLOR);
+        _setcolor_low(2,GTIA_COLOR_CYAN);
+        _setcolor_low(3,_gtia_mkcolor(HUE_GREEN  ,4));
+        _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
+    #endif
 
-        // }
-        // else
-        // {
-            // _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
-            // _setcolor_low(1,_ATARI_EXTRA_COLOR);
-            // _setcolor_low(2,_gtia_mkcolor(HUE_GREEN,3));
-            // _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
-            // _setcolor_low(4, _ATARI_BACKGROUND_COLOR);
-        // }
-    // #endif
 	#if !defined(_XL_NO_UDG)
 	set_udg();
 	#endif

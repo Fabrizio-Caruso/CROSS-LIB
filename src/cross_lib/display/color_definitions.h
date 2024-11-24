@@ -76,21 +76,57 @@
     #define _XL_GREEN CPC_YELLOW
 #elif defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
 
-    #define _ATARI_MODE1_RED 0
-    #define _ATARI_MODE1_WHITE 64
-    #define _ATARI_MODE1_BLACK 64
-    #define _ATARI_MODE1_CYAN 128
-    #define _ATARI_MODE1_GREEN 192
-    #define _ATARI_MODE1_YELLOW 64
+    #if defined(__USE_CYAN_YELLOW)
+        #define _ATARI_MODE1_RED 0
+        #define _ATARI_MODE1_WHITE 64
+        #define _ATARI_MODE1_BLACK 64
+        #define _ATARI_MODE1_CYAN 128
+        #define _ATARI_MODE1_YELLOW 192
+        #define _ATARI_MODE1_GREEN 128
 
-    #define _XL_RED _ATARI_MODE1_RED
-    #define _XL_WHITE _ATARI_MODE1_WHITE
-    #define _XL_BLACK _ATARI_MODE1_BLACK
-    #define _XL_BLUE _ATARI_MODE1_CYAN
-    #define _XL_YELLOW _ATARI_MODE1_YELLOW
-    #define _XL_GREEN _ATARI_MODE1_GREEN
-    #define _XL_CYAN _ATARI_MODE1_CYAN
-    #define _XL_MAGENTA _XL_RED
+        #define _XL_RED _ATARI_MODE1_RED
+        #define _XL_WHITE _ATARI_MODE1_WHITE
+        #define _XL_BLACK _ATARI_MODE1_BLACK
+        #define _XL_BLUE _ATARI_MODE1_CYAN
+        #define _XL_YELLOW _ATARI_MODE1_YELLOW
+        #define _XL_GREEN _ATARI_MODE1_GREEN
+        #define _XL_CYAN _ATARI_MODE1_CYAN
+        #define _XL_MAGENTA _XL_RED
+    #elif defined(__USE_GREEN_YELLOW)
+        #define _ATARI_MODE1_RED 0
+        #define _ATARI_MODE1_WHITE 64
+        #define _ATARI_MODE1_BLACK 64
+        #define _ATARI_MODE1_YELLOW 128
+        #define _ATARI_MODE1_GREEN 192
+        #define _ATARI_MODE1_CYAN 192
+        
+
+        #define _XL_RED _ATARI_MODE1_RED
+        #define _XL_WHITE _ATARI_MODE1_WHITE
+        #define _XL_BLACK _ATARI_MODE1_BLACK
+        #define _XL_BLUE _ATARI_MODE1_CYAN
+        #define _XL_YELLOW _ATARI_MODE1_YELLOW
+        #define _XL_GREEN _ATARI_MODE1_GREEN
+        #define _XL_CYAN _ATARI_MODE1_CYAN
+        #define _XL_MAGENTA _XL_RED
+    #else
+        #define _ATARI_MODE1_RED 0
+        #define _ATARI_MODE1_WHITE 64
+        #define _ATARI_MODE1_BLACK 64
+        #define _ATARI_MODE1_CYAN 128
+        #define _ATARI_MODE1_GREEN 192
+        #define _ATARI_MODE1_YELLOW 64
+        
+
+        #define _XL_RED _ATARI_MODE1_RED
+        #define _XL_WHITE _ATARI_MODE1_WHITE
+        #define _XL_BLACK _ATARI_MODE1_BLACK
+        #define _XL_BLUE _ATARI_MODE1_CYAN
+        #define _XL_YELLOW _ATARI_MODE1_YELLOW
+        #define _XL_GREEN _ATARI_MODE1_GREEN
+        #define _XL_CYAN _ATARI_MODE1_CYAN
+        #define _XL_MAGENTA _XL_RED
+    #endif
 
 #elif defined(__NES_CONIO_GRAPHICS)
 

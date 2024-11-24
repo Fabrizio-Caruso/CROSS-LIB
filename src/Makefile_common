@@ -287,7 +287,7 @@ endif
 atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari \
 	 \
-	$(PALETTE)  \
+	$(5COLOR_PALETTE)  \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-D__ANTIC_MODE6_GRAPHICS -D__ALT_SLEEP  \
 	-D__NO_SCREEN_COLOR_INIT \
@@ -306,7 +306,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
-	-D__ATARI5200__  $(PALETTE) \
+	-D__ATARI5200__  $(5COLOR_PALETTE) \
 	-D__ANTIC_MODE6_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
@@ -371,6 +371,7 @@ atari7800: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s $(ASSETS_PATH)/formatted_cc6
 
 
 atari7800_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg   -D_XL_NO_UDG -D_XL_NO_COLOR -D__TARGET_SPECIFIC_ASCII \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP \

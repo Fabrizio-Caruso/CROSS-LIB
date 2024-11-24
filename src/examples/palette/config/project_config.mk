@@ -1,7 +1,10 @@
 
 PALETTE=-D__USE_GREEN
+#-D__USE_GREEN
 
-
+5COLOR_PALETTE= -D__USE_GREEN_YELLOW
+#-D__USE_CYAN_YELLOW
+#-D__USE_GREEN_YELLOW
 
 #####################################################################
 # SLOWDOWN VALUES

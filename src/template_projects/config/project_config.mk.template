@@ -2,9 +2,13 @@
 # DISPLAY FLAGS
 
 4COLOR_PALETTE=
+# As of 2024/11/24, impacted targets are: bbc, nes, atari7800, hectorhr
+# Default: Black, White, Red, Cyan
 #-D__USE_GREEN
 
 5COLOR_PALETTE=
+# As of 2024/11/24, impacted targets are: atari, atari5200
+# Default: Black, White, Red, Cyan, Green
 #-D__USE_CYAN_YELLOW
 #-D__USE_GREEN_YELLOW
 

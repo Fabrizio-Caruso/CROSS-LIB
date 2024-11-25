@@ -626,6 +626,8 @@ lda $a7c0
 
 #if defined(__TERMINAL__)
 
+    // #define _WIDTH 1
+    
     #include "8x8_chars.h"
     
     #define _gotoxy(x,y) do { move(y,x); } while(0)
@@ -633,29 +635,43 @@ lda $a7c0
     // #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
 
     #include <ncurses.h>
+    
+    extern uint8_t _tiles[_XL_NUMBER_OF_TILES][8];
+    
     void _terminal_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     {
         uint8_t i;
         uint8_t j;
+        uint8_t k;
         
-        attron(COLOR_PAIR(color));
 
         for(i=0;i<8;++i)
         {
+            k = 128;
             for(j=0;j<8;++j)
             {
-                _gotoxy(8*(4*x)+j,8*(y)+i);
-                _cputc(tile);
-
-                _gotoxy(8*(4*x+1)+j,8*(y)+i);
-                _cputc(tile);
+                if(k & _tiles[tile][i])
+                {
+                    attron(COLOR_PAIR(color));
+                }
+                else
+                {   
+                    attron(COLOR_PAIR(_XL_BLACK));
+                }
                 
-                _gotoxy(8*(4*x+2)+j,8*(y)+i);
-                _cputc(tile);
+                _gotoxy(8*(x)+j,8*(y)+i);
+                _cputc(' ');
                 
-                _gotoxy(8*(4*x+3)+j,8*(y)+i);
-                _cputc(tile);
-                // refresh();
+                // _gotoxy(8*(_WIDTH*x+1)+j,8*(y)+i);
+                // _cputc(' ');
+                
+                // _gotoxy(8*(_WIDTH*x+2)+j,8*(y)+i);
+                // _cputc(' ');
+                
+                // _gotoxy(8*(_WIDTH*x+3)+j,8*(y)+i);
+                // _cputc(' ');
+                
+                k/=2;
             }
         }
         refresh();
@@ -672,18 +688,17 @@ lda $a7c0
         {
             for(j=0;j<8;++j)
             {
-                _gotoxy(8*(4*x)+j,8*(y)+i);
+                _gotoxy(8*(x)+j,8*(y)+i);
                 _cputc(' ');
                 
-                _gotoxy(8*(4*x+1)+j,8*(y)+i);
-                _cputc(' ');
+                // _gotoxy(8*(4*x+1)+j,8*(y)+i);
+                // _cputc(' ');
                 
-                _gotoxy(8*(4*x+2)+j,8*(y)+i);
-                _cputc(' ');
+                // _gotoxy(8*(4*x+2)+j,8*(y)+i);
+                // _cputc(' ');
                 
-                _gotoxy(8*(4*x+3)+j,8*(y)+i);
-                _cputc(' ');
-                // refresh();
+                // _gotoxy(8*(4*x+3)+j,8*(y)+i);
+                // _cputc(' ');
             }
         }
         refresh();

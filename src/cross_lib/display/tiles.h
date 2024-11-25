@@ -79,6 +79,9 @@
 	#include "pce_settings.h"
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__))&&defined(__APPLE2_HGR_GRAPHICS)
     #include "apple2_hgr_settings.h"
+#elif defined(__TERMINAL__)
+    #include "apple2_hgr_settings.h"
+
 #else
 	#include "default_image_settings.h"
 #endif 

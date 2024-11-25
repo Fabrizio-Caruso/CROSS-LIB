@@ -17,7 +17,7 @@
 
 #define _SPACE_ {0,0,0,0,0,0,0,0}
 
-const static uint8_t _tiles[][8] =
+uint8_t _tiles[][8] =
 {
     _SPACE_,
     _TILE_DIGIT_0,

@@ -626,7 +626,7 @@ lda $a7c0
 
 #if defined(__TERMINAL__)
 
-    // #define _WIDTH 1
+    #define _WIDTH 3
     
     #include "8x8_chars.h"
     
@@ -643,6 +643,7 @@ lda $a7c0
         uint8_t i;
         uint8_t j;
         uint8_t k;
+        uint8_t n;
         
 
         for(i=0;i<8;++i)
@@ -659,9 +660,11 @@ lda $a7c0
                     attron(COLOR_PAIR(_XL_BLACK));
                 }
                 
-                _gotoxy(8*(x)+j,8*(y)+i);
-                _cputc(' ');
-                
+                for(n=1;n<=_WIDTH;++n)
+                {
+                    _gotoxy(_WIDTH*(8*(x)+j)+n,8*(y)+i);
+                    _cputc(' ');
+                }
                 // _gotoxy(8*(_WIDTH*x+1)+j,8*(y)+i);
                 // _cputc(' ');
                 
@@ -681,6 +684,7 @@ lda $a7c0
     {
         uint8_t i;
         uint8_t j;
+        uint8_t n;
         
         attron(COLOR_PAIR(_XL_BLACK));
 
@@ -688,8 +692,11 @@ lda $a7c0
         {
             for(j=0;j<8;++j)
             {
-                _gotoxy(8*(x)+j,8*(y)+i);
-                _cputc(' ');
+                for(n=1;n<=_WIDTH;++n)
+                {
+                    _gotoxy(_WIDTH*(8*(x)+j)+n,8*(y)+i);
+                    _cputc(' ');
+                }
                 
                 // _gotoxy(8*(4*x+1)+j,8*(y)+i);
                 // _cputc(' ');

@@ -232,6 +232,7 @@ PARALLEL_TARGETS = \
     'stdio', 
     
     'ncurses',
+    'terminal',
     
     'ace',
     'agon',

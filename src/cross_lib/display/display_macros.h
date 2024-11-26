@@ -140,6 +140,17 @@
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
+// #elif defined(__TERMINAL__)
+
+    // #define _XL_PRINT(x,y,str)
+    // #define _XL_PRINTD(x,y,length, val)
+    // #define _XL_CHAR(x,y,ch)
+
+#elif defined(__ALT_PRINT)
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
+    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
+
 #elif defined(__NCURSES__)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     #define _XL_PRINTD(x,y,length,val) \
@@ -155,15 +166,6 @@
         cputc(ch); \
     } while(0)
         
-#elif defined(__TERMINAL__)
-
-    #define _XL_PRINT(x,y,str)
-    #define _XL_PRINTD(x,y,length, val)
-    #define _XL_CHAR(x,y,ch)
-#elif defined(__ALT_PRINT)
-    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
-    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
-    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
 
 #elif defined(__NO_BOTTOM)
     #define _XL_PRINT(x,y,str) \
@@ -242,6 +244,9 @@
 #elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS))
     extern uint8_t _atari_text_color;
     #define _XL_SET_TEXT_COLOR(c) _atari_text_color = (c)
+#elif defined(__TERMINAL__)
+    extern uint8_t _terminal_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _terminal_text_color = (c)
 #elif defined(__APPLE2__) && (defined(__APPLE2_HGR_GRAPHICS))
     extern uint8_t _apple2_text_color;
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)

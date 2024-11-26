@@ -75,6 +75,27 @@
 		}        
 	}
 
+#elif defined(__TERMINAL__)
+	char screenCode(char ch)
+	{
+		if(ch==32) 
+		{
+			return 0;
+		}
+		else if((ch>='0')&&(ch<='9'))
+		{
+			return ch-48+1;
+		}
+		else if(ch<58)
+		{
+			return ch-48+1-64;
+		}	
+		else
+		{
+			return ch+18-65;
+		}
+	}    
+
 #elif ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS))
 	char screenCode(char ch)
 	{
@@ -203,6 +224,16 @@
 		
 #elif defined(__NO_GRAPHICS)
 	#define _DISPLAY(x,y,ch)
+
+#elif defined(__TERMINAL__)
+    #include "cross_lib.h"
+
+    extern uint8_t _terminal_text_color;
+
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            _terminal_draw(x, y, ch, _terminal_text_color);
+        }
 
 #elif (defined(__APPLE2__)||defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)
     #include "cross_lib.h"
@@ -356,7 +387,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
             || (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) \
-            || defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
+            || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__TERMINAL__)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);
@@ -378,6 +409,8 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		val/=10;
         #if ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
+        #elif defined(__TERMINAL__)
+        _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
         #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(__BIT_MAPPED_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
         // #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
@@ -392,7 +425,7 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 
 #if defined(CBM_SCREEN_CODES) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__) \
     || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
-    || defined(__C64__)
+    || defined(__C64__) || defined(__TERMINAL__)
     void _XL_CHAR(uint8_t x, uint8_t y, char ch)
     {    
         _DISPLAY(x,y, screenCode(ch));

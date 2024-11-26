@@ -17,6 +17,8 @@
 
 #define _SPACE_ {0,0,0,0,0,0,0,0}
 
+uint8_t _terminal_text_color;
+
 uint8_t _tiles[][8] =
 {
     _SPACE_,

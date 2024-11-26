@@ -1,0 +1,1112 @@
+Modules list:
+-------------
+display_macros.o:
+    CODE              Offs=000000  Size=00006B  Align=00001  Fill=0000
+input_macros.o:
+    CODE              Offs=00006B  Size=000011  Align=00001  Fill=0000
+sleep_macros.o:
+    CODE              Offs=00007C  Size=000028  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000002  Align=00001  Fill=0000
+main.o:
+    CODE              Offs=0000A4  Size=0035D0  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=000178  Align=00001  Fill=0000
+    BSS               Offs=000002  Size=0001D7  Align=00001  Fill=0000
+pet_sounds.o:
+    CODE              Offs=003674  Size=00008C  Align=00001  Fill=0000
+    BSS               Offs=0001D9  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(_hextab.o):
+    RODATA            Offs=000178  Size=000010  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(_longminstr.o):
+    RODATA            Offs=000188  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(_printf.o):
+    CODE              Offs=003700  Size=0003A4  Align=00001  Fill=0000
+    BSS               Offs=0001DD  Size=00002B  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000003  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(add.o):
+    CODE              Offs=003AA4  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(addysp.o):
+    CODE              Offs=003AC0  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(aslax1.o):
+    CODE              Offs=003ACE  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(aslax2.o):
+    CODE              Offs=003AD6  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(aslax4.o):
+    CODE              Offs=003AE1  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(axlong.o):
+    CODE              Offs=003AF2  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(call.o):
+    CODE              Offs=003AFF  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(callmain.o):
+    CODE              Offs=003B06  Size=000017  Align=00001  Fill=0000
+    DATA              Offs=000003  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(checkst.o):
+    CODE              Offs=003B1D  Size=00000A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(clock.o):
+    CODE              Offs=003B27  Size=00000A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(clrscr.o):
+    CODE              Offs=003B31  Size=00002A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(condes.o):
+    CODE              Offs=003B5B  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=000007  Size=000025  Align=00001  Fill=0000
+    ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(conio.o):
+C:\cc65-snapshot-win32\lib/pet.lib(cprintf.o):
+    CODE              Offs=003B67  Size=00002A  Align=00001  Fill=0000
+    BSS               Offs=000208  Size=000001  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(cputc.o):
+    CODE              Offs=003B91  Size=00006F  Align=00001  Fill=0000
+    RODATA            Offs=000194  Size=000032  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(crt0.o):
+    BSS               Offs=000209  Size=000002  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=000040  Align=00001  Fill=0000
+    INIT              Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ctype.o):
+    RODATA            Offs=0001C6  Size=00008B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ctypemask.o):
+    CODE              Offs=003C00  Size=00001E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(decax1.o):
+    CODE              Offs=003C1E  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(decax3.o):
+    CODE              Offs=003C25  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(decsp4.o):
+    CODE              Offs=003C2C  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(decsp6.o):
+    CODE              Offs=003C39  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(div.o):
+    CODE              Offs=003C46  Size=000015  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(exehdr.o):
+    EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(gotoxy.o):
+    CODE              Offs=003C5B  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(icmp.o):
+    CODE              Offs=003C68  Size=00002E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incax1.o):
+    CODE              Offs=003C96  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incax2.o):
+    CODE              Offs=003C9D  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incaxy.o):
+    CODE              Offs=003CA4  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp1.o):
+    CODE              Offs=003CAF  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp2.o):
+    CODE              Offs=003CB6  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp3.o):
+    CODE              Offs=003CCC  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp4.o):
+    CODE              Offs=003CD1  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp5.o):
+    CODE              Offs=003CD6  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp6.o):
+    CODE              Offs=003CDB  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(incsp7.o):
+    CODE              Offs=003CE0  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(joy-kernel.o):
+    CODE              Offs=003CE5  Size=00004D  Align=00001  Fill=0000
+    RODATA            Offs=000251  Size=000004  Align=00001  Fill=0000
+    BSS               Offs=00020B  Size=000002  Align=00001  Fill=0000
+    DATA              Offs=00002C  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(joy_read.o):
+C:\cc65-snapshot-win32\lib/pet.lib(joy_stat_stddrv.o):
+C:\cc65-snapshot-win32\lib/pet.lib(kbsout.o):
+    CODE              Offs=003D32  Size=000006  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(krdtim.o):
+    CODE              Offs=003D38  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ladd.o):
+    CODE              Offs=003D41  Size=000025  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(lcmp.o):
+    CODE              Offs=003D66  Size=00003B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ldaxi.o):
+    CODE              Offs=003DA1  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ldaxsp.o):
+    CODE              Offs=003DAE  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ldeaxysp.o):
+    CODE              Offs=003DB7  Size=000013  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(lge.o):
+    CODE              Offs=003DCA  Size=000006  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(libref.o):
+C:\cc65-snapshot-win32\lib/pet.lib(lmul.o):
+    CODE              Offs=003DD0  Size=00005C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(lneg.o):
+    CODE              Offs=003E2C  Size=00001E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(loadaddr.o):
+    LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(lpush.o):
+    CODE              Offs=003E4A  Size=000021  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(lsub.o):
+    CODE              Offs=003E6B  Size=000027  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(ltoa.o):
+    CODE              Offs=003E92  Size=000095  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(makebool.o):
+    CODE              Offs=003F27  Size=00002C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(mod.o):
+    CODE              Offs=003F53  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(mul.o):
+    CODE              Offs=003F64  Size=000045  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(mul8.o):
+    CODE              Offs=003FA9  Size=00003A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(mulax5.o):
+    CODE              Offs=003FE3  Size=000014  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(mulax9.o):
+    CODE              Offs=003FF7  Size=000017  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(negabs.o):
+    CODE              Offs=00400E  Size=000012  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(popa.o):
+    CODE              Offs=004020  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(popptr1.o):
+    CODE              Offs=00402C  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(push1.o):
+    CODE              Offs=00403A  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(pusha.o):
+    CODE              Offs=00403F  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(pushax.o):
+    CODE              Offs=004055  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(pushwsp.o):
+    CODE              Offs=00406F  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(rand.o):
+    CODE              Offs=00408B  Size=000034  Align=00001  Fill=0000
+    DATA              Offs=000038  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(regswap2.o):
+    CODE              Offs=0040BF  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(shelp.o):
+    CODE              Offs=0040D5  Size=000020  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(shrax1.o):
+    CODE              Offs=0040F5  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(shrax2.o):
+    CODE              Offs=0040FD  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(shrax3.o):
+    CODE              Offs=004108  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(shrax4.o):
+    CODE              Offs=004116  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(sleep.o):
+    CODE              Offs=004127  Size=000043  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(staspidx.o):
+    CODE              Offs=00416A  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(status.o):
+C:\cc65-snapshot-win32\lib/pet.lib(strlen.o):
+    CODE              Offs=004180  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(strlower.o):
+    CODE              Offs=004196  Size=000027  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(sub.o):
+    CODE              Offs=0041BD  Size=000015  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(udiv.o):
+    CODE              Offs=0041D2  Size=00004F  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(vcprintf.o):
+    CODE              Offs=004221  Size=000078  Align=00001  Fill=0000
+    DATA              Offs=00003C  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(zerobss.o):
+    CODE              Offs=004299  Size=000023  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(zeropage.o):
+    ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/pet.lib(pet-stdjoy-joy.o):
+    CODE              Offs=0042BC  Size=00003F  Align=00001  Fill=0000
+    DATA              Offs=000044  Size=00000E  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000055  00006E  00001A  00001
+LOADADDR              0003FF  000400  000002  00001
+EXEHDR                000401  00040C  00000C  00001
+STARTUP               00040D  00044C  000040  00001
+ONCE                  00044D  000458  00000C  00001
+CODE                  000459  004753  0042FB  00001
+RODATA                004754  0049A8  000255  00001
+DATA                  0049A9  0049FA  000052  00001
+INIT                  0049FB  004A14  00001A  00001
+BSS                   004A15  004C21  00020D  00001
+
+
+Exports list by name:
+---------------------
+BSOUT                     00418B RLA    CURS_X                    0000C6 RLZ    
+CURS_Y                    0000D8 RLZ    RDTIM                     004191 RLA    
+ST                        000096 RLZ    __BSS_RUN__               004A15 RLA    
+__BSS_SIZE__              00020D REA    __CONSTRUCTOR_COUNT__     000000 REA    
+__CONSTRUCTOR_TABLE__     000459 RLA    __DESTRUCTOR_COUNT__      000000 REA    
+__DESTRUCTOR_TABLE__      0049A9 RLA    __EXEHDR__                000001 REA    
+__LOADADDR__              000001 REA    __STACKSIZE__             000800 REA    
+__STARTUP__               000001 REA    __XL_CHAR                 0004A9 RLA    
+__XL_PRINT                00048D RLA    __XL_SLOW_DOWN            0004D5 RLA    
+__XL_WAIT_FOR_INPUT       0004C4 RLA    __XL_ZAP_SOUND            003B38 RLA    
+__conio_delete            000474 RLA    __conio_draw              000459 RLA    
+__ctype                   00491A RLA    __ctypeidx                004925 RLA    
+__hextab                  0048CC RLA    __longminstr              0048DC RLA    
+__printf                  003C4C RLA    _beep                     003ACD RLA    
+_clock                    003F80 RLA    _clrscr                   003F8A RLA    
+_cprintf                  003FC0 RLA    _cputc                    003FEF RLA    
+_exit                     000437 RLA    _gotoxy                   0040B7 RLA    
+_joy_install              00413E RLA    _joy_read                 0049DE REA    
+_joy_static_stddrv        0049ED RLA    _ltoa                     004303 RLA    
+_main                     0033F3 RLA    _noise                    003AF9 RLA    
+_pet_stdjoy_joy           0049ED RLA    _rand                     0044F0 RLA    
+_sleep                    004580 RLA    _strlen                   0045D9 RLA    
+_strlower                 0045EF RLA    _ultoa                    004344 RLA    
+_vcprintf                 0046C2 RLA    addysp                    003F1A RLA    
+addysp1                   003F19 RLA    aslax4                    003F3A RLA    
+axlong                    003F4B RLA    axulong                   003F51 RLA    
+boolge                    004397 RLA    boolugt                   0043A5 RLA    
+boolult                   00439F RLA    callax                    003F58 RLA    
+callmain                  003F5F RLA    checkst                   003F76 RLA    
+ctypemaskdirect           00405D RLA    decax1                    004077 RLA    
+decax3                    00407E RLA    decsp4                    004085 RLA    
+decsp6                    004092 RLA    donelib                   003FB4 RLA    
+gotoxy                    0040B4 RLA    incax1                    0040EF RLA    
+incax2                    0040F6 RLA    incaxy                    0040FF RLA    
+incsp1                    004108 RLA    incsp2                    004117 RLA    
+incsp3                    004125 RLA    incsp4                    00412A RLA    
+incsp5                    00412F RLA    incsp6                    004134 RLA    
+incsp7                    004139 RLA    initlib                   00044D RLA    
+joy_libref                000437 RLA    joy_read                  0049DE RLA    
+ldax0sp                   004207 RLA    ldaxidx                   0041FC RLA    
+ldaxysp                   004209 RLA    ldeax0sp                  004210 RLA    
+mul8x16                   004404 RLA    mul8x16a                  00440E RLA    
+mulax5                    00443C RLA    mulax9                    004450 RLA    
+negax                     00446B RLA    negeax                    004285 RLA    
+plot                      00403A RLA    popa                      004479 RLA    
+popax                     00410F RLA    popptr1                   004485 RLA    
+popsargsudiv16            00452E RLA    ptr1                      00005D RLZ    
+ptr2                      00005F RLZ    ptr3                      000061 RLZ    
+ptr4                      000063 RLZ    push1                     004493 RLA    
+pusha                     00449C RLA    pusha0                    0044B0 RLA    
+pushax                    0044B2 RLA    pusheax                   0042AC RLA    
+pushw0sp                  0044C8 RLA    pushwysp                  0044CA RLA    
+regbank                   000069 RLZ    regswap2                  004518 RLA    
+shlax1                    003F27 RLA    shlax2                    003F2F RLA    
+shlax4                    003F3A RLA    shrax1                    00454E RLA    
+shrax2                    004556 RLA    shrax3                    004561 RLA    
+shrax4                    00456F RLA    sp                        000055 RLZ    
+sreg                      000057 RLZ    staspidx                  0045C3 RLA    
+tmp1                      000065 RLZ    tmp2                      000066 RLZ    
+tmp3                      000067 RLZ    tmp4                      000068 RLZ    
+tosadda0                  003EFD RLA    tosaddax                  003EFF RLA    
+tosaddeax                 0041A0 RLA    tosdivax                  0040A1 RLA    
+tosgeeax                  004223 RLA    tosicmp                   0040C3 RLA    
+toslcmp                   0041BF RLA    tosmoda0                  0043AC RLA    
+tosmulax                  0043BD RLA    tossuba0                  004616 RLA    
+tossubax                  004618 RLA    tossubeax                 0042CA RLA    
+tosudivax                 00462D RLA    tosumul0ax                004229 RLA    
+tosumula0                 004402 RLA    udiv16                    00463C RLA    
+zerobss                   0046F2 RLA    
+
+
+Exports list by value:
+----------------------
+__CONSTRUCTOR_COUNT__     000000 REA    __DESTRUCTOR_COUNT__      000000 REA    
+__EXEHDR__                000001 REA    __STARTUP__               000001 REA    
+__LOADADDR__              000001 REA    sp                        000055 RLZ    
+sreg                      000057 RLZ    ptr1                      00005D RLZ    
+ptr2                      00005F RLZ    ptr3                      000061 RLZ    
+ptr4                      000063 RLZ    tmp1                      000065 RLZ    
+tmp2                      000066 RLZ    tmp3                      000067 RLZ    
+tmp4                      000068 RLZ    regbank                   000069 RLZ    
+ST                        000096 RLZ    CURS_X                    0000C6 RLZ    
+CURS_Y                    0000D8 RLZ    __BSS_SIZE__              00020D REA    
+_exit                     000437 RLA    joy_libref                000437 RLA    
+initlib                   00044D RLA    __conio_draw              000459 RLA    
+__CONSTRUCTOR_TABLE__     000459 RLA    __conio_delete            000474 RLA    
+__XL_PRINT                00048D RLA    __XL_CHAR                 0004A9 RLA    
+__XL_WAIT_FOR_INPUT       0004C4 RLA    __XL_SLOW_DOWN            0004D5 RLA    
+__STACKSIZE__             000800 REA    _main                     0033F3 RLA    
+_beep                     003ACD RLA    _noise                    003AF9 RLA    
+__XL_ZAP_SOUND            003B38 RLA    __printf                  003C4C RLA    
+tosadda0                  003EFD RLA    tosaddax                  003EFF RLA    
+addysp1                   003F19 RLA    addysp                    003F1A RLA    
+shlax1                    003F27 RLA    shlax2                    003F2F RLA    
+shlax4                    003F3A RLA    aslax4                    003F3A RLA    
+axlong                    003F4B RLA    axulong                   003F51 RLA    
+callax                    003F58 RLA    callmain                  003F5F RLA    
+checkst                   003F76 RLA    _clock                    003F80 RLA    
+_clrscr                   003F8A RLA    donelib                   003FB4 RLA    
+_cprintf                  003FC0 RLA    _cputc                    003FEF RLA    
+plot                      00403A RLA    ctypemaskdirect           00405D RLA    
+decax1                    004077 RLA    decax3                    00407E RLA    
+decsp4                    004085 RLA    decsp6                    004092 RLA    
+tosdivax                  0040A1 RLA    gotoxy                    0040B4 RLA    
+_gotoxy                   0040B7 RLA    tosicmp                   0040C3 RLA    
+incax1                    0040EF RLA    incax2                    0040F6 RLA    
+incaxy                    0040FF RLA    incsp1                    004108 RLA    
+popax                     00410F RLA    incsp2                    004117 RLA    
+incsp3                    004125 RLA    incsp4                    00412A RLA    
+incsp5                    00412F RLA    incsp6                    004134 RLA    
+incsp7                    004139 RLA    _joy_install              00413E RLA    
+BSOUT                     00418B RLA    RDTIM                     004191 RLA    
+tosaddeax                 0041A0 RLA    toslcmp                   0041BF RLA    
+ldaxidx                   0041FC RLA    ldax0sp                   004207 RLA    
+ldaxysp                   004209 RLA    ldeax0sp                  004210 RLA    
+tosgeeax                  004223 RLA    tosumul0ax                004229 RLA    
+negeax                    004285 RLA    pusheax                   0042AC RLA    
+tossubeax                 0042CA RLA    _ltoa                     004303 RLA    
+_ultoa                    004344 RLA    boolge                    004397 RLA    
+boolult                   00439F RLA    boolugt                   0043A5 RLA    
+tosmoda0                  0043AC RLA    tosmulax                  0043BD RLA    
+tosumula0                 004402 RLA    mul8x16                   004404 RLA    
+mul8x16a                  00440E RLA    mulax5                    00443C RLA    
+mulax9                    004450 RLA    negax                     00446B RLA    
+popa                      004479 RLA    popptr1                   004485 RLA    
+push1                     004493 RLA    pusha                     00449C RLA    
+pusha0                    0044B0 RLA    pushax                    0044B2 RLA    
+pushw0sp                  0044C8 RLA    pushwysp                  0044CA RLA    
+_rand                     0044F0 RLA    regswap2                  004518 RLA    
+popsargsudiv16            00452E RLA    shrax1                    00454E RLA    
+shrax2                    004556 RLA    shrax3                    004561 RLA    
+shrax4                    00456F RLA    _sleep                    004580 RLA    
+staspidx                  0045C3 RLA    _strlen                   0045D9 RLA    
+_strlower                 0045EF RLA    tossuba0                  004616 RLA    
+tossubax                  004618 RLA    tosudivax                 00462D RLA    
+udiv16                    00463C RLA    _vcprintf                 0046C2 RLA    
+zerobss                   0046F2 RLA    __hextab                  0048CC RLA    
+__longminstr              0048DC RLA    __ctype                   00491A RLA    
+__ctypeidx                004925 RLA    __DESTRUCTOR_TABLE__      0049A9 RLA    
+_joy_read                 0049DE REA    joy_read                  0049DE RLA    
+_pet_stdjoy_joy           0049ED RLA    _joy_static_stddrv        0049ED RLA    
+__BSS_RUN__               004A15 RLA    
+
+
+Imports list:
+-------------
+BSOUT (kbsout.o):
+    crt0.o                    pet/crt0.s:10
+CURS_X (conio.o):
+    gotoxy.o                  cbm/gotoxy.s:9
+CURS_Y (conio.o):
+    gotoxy.o                  cbm/gotoxy.s:9
+RDTIM (krdtim.o):
+    clock.o                   cbm/cbm.inc:40
+ST (status.o):
+    checkst.o                 pet/checkst.s:9
+    crt0.o                    pet/crt0.s:11
+__BSS_RUN__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__BSS_SIZE__ ([linker generated]):
+    zerobss.o                 common/zerobss.s:8
+__CONSTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__CONSTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:18
+__DESTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__DESTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s:19
+__EXEHDR__ (exehdr.o):
+    [linker generated]        C:\cc65-snapshot-win32\cfg/pet.cfg:3
+__LOADADDR__ (loadaddr.o):
+    [linker generated]        C:\cc65-snapshot-win32\cfg/pet.cfg:2
+__STACKSIZE__ ([linker generated]):
+    [linker generated]        C:\cc65-snapshot-win32\cfg/pet.cfg:10
+__STARTUP__ (crt0.o):
+    main.o                    games/shoot/main.s:13
+__XL_CHAR (display_macros.o):
+    main.o                    games/shoot/main.s:31
+__XL_PRINT (display_macros.o):
+    main.o                    games/shoot/main.s:30
+__XL_SLOW_DOWN (sleep_macros.o):
+    main.o                    games/shoot/main.s:24
+__XL_WAIT_FOR_INPUT (input_macros.o):
+    main.o                    games/shoot/main.s:19
+__XL_ZAP_SOUND (pet_sounds.o):
+    main.o                    games/shoot/main.s:22
+__conio_delete (display_macros.o):
+    main.o                    games/shoot/main.s:26
+__conio_draw (display_macros.o):
+    main.o                    games/shoot/main.s:25
+__ctype (ctype.o):
+    ctypemask.o               common/ctypemask.s:23
+__ctypeidx (ctype.o):
+    ctypemask.o               common/ctypemask.s:24
+__hextab (_hextab.o):
+    ltoa.o                    common/ltoa.s:10
+__longminstr (_longminstr.o):
+    ltoa.o                    common/ltoa.s:10
+__printf (_printf.o):
+    vcprintf.o                conio/vcprintf.s:9
+_beep (pet_sounds.o):
+    main.o                    games/shoot/main.s:20
+_clock (clock.o):
+    sleep.o                   ../libwrk/pet/sleep.s:13
+_clrscr (clrscr.o):
+    main.o                    games/shoot/main.s:27
+_cprintf (cprintf.o):
+    main.o                    games/shoot/main.s:29
+    display_macros.o          cross_lib/display/display_macros.s:17
+_cputc (cputc.o):
+    vcprintf.o                conio/vcprintf.s:9
+    display_macros.o          cross_lib/display/display_macros.s:16
+_exit (crt0.o):
+    libref.o                  pet/libref.s:6
+_gotoxy (gotoxy.o):
+    main.o                    games/shoot/main.s:28
+    display_macros.o          cross_lib/display/display_macros.s:15
+_joy_install (joy-kernel.o):
+    main.o                    games/shoot/main.s:17
+_joy_read (joy_read.o):
+    main.o                    games/shoot/main.s:18
+    input_macros.o            cross_lib/input/input_macros.s:13
+_joy_static_stddrv (joy_stat_stddrv.o):
+    main.o                    games/shoot/main.s:16
+_ltoa (ltoa.o):
+    _printf.o                 common/_printf.s:12
+_main (main.o):
+    callmain.o                runtime/callmain.s:11
+_noise (pet_sounds.o):
+    main.o                    games/shoot/main.s:21
+_pet_stdjoy_joy (pet-stdjoy-joy.o):
+    joy_stat_stddrv.o         pet/joy_stat_stddrv.s:10
+_rand (rand.o):
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:13
+    main.o                    games/shoot/main.s:14
+_sleep (sleep.o):
+    main.o                    games/shoot/main.s:23
+_strlen (strlen.o):
+    _printf.o                 common/_printf.s:13
+    main.o                    games/shoot/main.s:15
+_strlower (strlower.o):
+    _printf.o                 common/_printf.s:13
+_ultoa (ltoa.o):
+    _printf.o                 common/_printf.s:12
+_vcprintf (vcprintf.o):
+    cprintf.o                 conio/cprintf.s:8
+addysp (addysp.o):
+    incsp7.o                  runtime/incsp7.s:8
+    incsp6.o                  runtime/incsp6.s:8
+    incsp5.o                  runtime/incsp5.s:8
+    incsp4.o                  runtime/incsp4.s:8
+    incsp3.o                  runtime/incsp3.s:8
+    cprintf.o                 conio/cprintf.s:8
+addysp1 (addysp.o):
+    lsub.o                    runtime/lsub.s:11
+    lmul.o                    runtime/lmul.s:9
+    ladd.o                    runtime/ladd.s:8
+    sub.o                     runtime/sub.s:8
+aslax4 (aslax4.o):
+    main.o                    games/shoot/main.s:8704
+axlong (axlong.o):
+    _printf.o                 common/_printf.s:11
+axulong (axlong.o):
+    _printf.o                 common/_printf.s:11
+    sleep.o                   ../libwrk/pet/sleep.s:54
+boolge (makebool.o):
+    lge.o                     runtime/lge.s:8
+boolugt (makebool.o):
+    main.o                    games/shoot/main.s:8704
+boolult (makebool.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+callax (call.o):
+    main.o                    games/shoot/main.s:8704
+callmain (callmain.o):
+    crt0.o                    pet/crt0.s:9
+checkst (checkst.o):
+    kbsout.o                  pet/kbsout.s:10
+ctypemaskdirect (ctypemask.o):
+    strlower.o                common/strlower.s:14
+decax1 (decax1.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+decax3 (decax3.o):
+    main.o                    games/shoot/main.s:8704
+decsp4 (decsp4.o):
+    lpush.o                   runtime/lpush.s:12
+decsp6 (decsp6.o):
+    _printf.o                 common/_printf.s:11
+donelib (condes.o):
+    crt0.o                    pet/crt0.s:7
+gotoxy (gotoxy.o):
+    cputc.o                   pet/cputc.s:10
+incax1 (incax1.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+incax2 (incax2.o):
+    main.o                    games/shoot/main.s:8704
+incaxy (incaxy.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+incsp1 (incsp1.o):
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:127
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:127
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+incsp2 (incsp2.o):
+    staspidx.o                runtime/staspidx.s:8
+    popptr1.o                 runtime/popptr1.s:8
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:48
+    display_macros.o          cross_lib/display/display_macros.s:115
+incsp3 (incsp3.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    display_macros.o          cross_lib/display/display_macros.s:115
+    display_macros.o          cross_lib/display/display_macros.s:115
+incsp4 (incsp4.o):
+    lcmp.o                    runtime/lcmp.s:9
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    display_macros.o          cross_lib/display/display_macros.s:115
+incsp5 (incsp5.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+incsp6 (incsp6.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+    main.o                    games/shoot/main.s:8704
+incsp7 (incsp7.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+initlib (condes.o):
+    crt0.o                    pet/crt0.s:7
+joy_libref (libref.o):
+    joy-kernel.o              joystick/joy-kernel.s:7
+joy_read (joy-kernel.o):
+    joy_read.o                /home/runner/work/cc65/cc65/asminc/joy-kernel.inc:71
+ldax0sp (ldaxsp.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+ldaxidx (ldaxi.o):
+    main.o                    games/shoot/main.s:8704
+ldaxysp (ldaxsp.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+ldeax0sp (ldeaxysp.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+mul8x16 (mul8.o):
+    mul.o                     runtime/mul.s:8
+mul8x16a (mul8.o):
+    mul.o                     runtime/mul.s:8
+mulax5 (mulax5.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+mulax9 (mulax9.o):
+    main.o                    games/shoot/main.s:8704
+negax (negabs.o):
+    shelp.o                   runtime/shelp.s:11
+    mod.o                     runtime/mod.s:11
+    div.o                     runtime/div.s:11
+negeax (lneg.o):
+    ltoa.o                    common/ltoa.s:9
+plot (cputc.o):
+    gotoxy.o                  cbm/gotoxy.s:8
+    clrscr.o                  pet/clrscr.s:8
+popa (popa.o):
+    gotoxy.o                  cbm/gotoxy.s:8
+popax (incsp2.o):
+    ltoa.o                    common/ltoa.s:9
+    _printf.o                 common/_printf.s:11
+    vcprintf.o                conio/vcprintf.s:8
+    shelp.o                   runtime/shelp.s:11
+popptr1 (popptr1.o):
+    ltoa.o                    common/ltoa.s:9
+    vcprintf.o                conio/vcprintf.s:8
+    udiv.o                    runtime/udiv.s:9
+    mul8.o                    runtime/mul8.s:9
+    mul.o                     runtime/mul.s:9
+popsargsudiv16 (shelp.o):
+    mod.o                     runtime/mod.s:11
+    div.o                     runtime/div.s:11
+ptr1 (zeropage.o):
+    lcmp.o                    runtime/lcmp.s:10
+    strlower.o                common/strlower.s:13
+    ltoa.o                    common/ltoa.s:11
+    lmul.o                    runtime/lmul.s:10
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:12
+    zerobss.o                 common/zerobss.s:9
+    vcprintf.o                conio/vcprintf.s:10
+    udiv.o                    runtime/udiv.s:10
+    staspidx.o                runtime/staspidx.s:9
+    shelp.o                   runtime/shelp.s:12
+    popptr1.o                 runtime/popptr1.s:9
+    mulax9.o                  runtime/mulax9.s:10
+    mulax5.o                  runtime/mulax5.s:9
+    mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
+    ldaxi.o                   runtime/ldaxi.s:8
+    joy-kernel.o              joystick/joy-kernel.s:8
+    div.o                     runtime/div.s:12
+    cprintf.o                 conio/cprintf.s:9
+    clrscr.o                  pet/clrscr.s:9
+    call.o                    runtime/call.s:8
+    main.o                    games/shoot/main.s:11
+ptr2 (zeropage.o):
+    strlower.o                common/strlower.s:13
+    ltoa.o                    common/ltoa.s:11
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:12
+    vcprintf.o                conio/vcprintf.s:10
+    strlen.o                  common/strlen.s:12
+ptr3 (zeropage.o):
+    ltoa.o                    common/ltoa.s:11
+    lmul.o                    runtime/lmul.s:10
+    vcprintf.o                conio/vcprintf.s:10
+ptr4 (zeropage.o):
+    lmul.o                    runtime/lmul.s:10
+    udiv.o                    runtime/udiv.s:10
+    shelp.o                   runtime/shelp.s:12
+    mul8.o                    runtime/mul8.s:10
+    mul.o                     runtime/mul.s:10
+push1 (push1.o):
+    _printf.o                 common/_printf.s:11
+pusha (pusha.o):
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:127
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:127
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    display_macros.o          cross_lib/display/display_macros.s:115
+    display_macros.o          cross_lib/display/display_macros.s:115
+    display_macros.o          cross_lib/display/display_macros.s:115
+    display_macros.o          cross_lib/display/display_macros.s:115
+pusha0 (pushax.o):
+    push1.o                   runtime/push1.s:8
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+pushax (pushax.o):
+    callmain.o                runtime/callmain.s:11
+    _printf.o                 common/_printf.s:11
+    vcprintf.o                conio/vcprintf.s:8
+    sleep.o                   ../libwrk/pet/sleep.s:54
+    cprintf.o                 conio/cprintf.s:8
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:48
+    display_macros.o          cross_lib/display/display_macros.s:115
+pusheax (lpush.o):
+    _printf.o                 common/_printf.s:11
+    sleep.o                   ../libwrk/pet/sleep.s:54
+pushw0sp (pushwsp.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    display_macros.o          cross_lib/display/display_macros.s:115
+pushwysp (pushwsp.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+regbank (zeropage.o):
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:14
+    regswap2.o                runtime/regswap2.s:8
+    main.o                    games/shoot/main.s:10
+regswap2 (regswap2.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+shlax1 (aslax1.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+shlax2 (aslax2.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+shlax4 (aslax4.o):
+    main.o                    games/shoot/main.s:8704
+shrax1 (shrax1.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+shrax2 (shrax2.o):
+    main.o                    games/shoot/main.s:8704
+shrax3 (shrax3.o):
+    main.o                    games/shoot/main.s:8704
+shrax4 (shrax4.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+sp (zeropage.o):
+    lcmp.o                    runtime/lcmp.s:10
+    decsp4.o                  runtime/decsp4.s:8
+    lsub.o                    runtime/lsub.s:12
+    lpush.o                   runtime/lpush.s:13
+    lmul.o                    runtime/lmul.s:10
+    ldeaxysp.o                runtime/ldeaxysp.s:12
+    ladd.o                    runtime/ladd.s:9
+    decsp6.o                  runtime/decsp6.s:8
+    addysp.o                  runtime/addysp.s:8
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
+    vcprintf.o                conio/vcprintf.s:10
+    sub.o                     runtime/sub.s:9
+    staspidx.o                runtime/staspidx.s:9
+    regswap2.o                runtime/regswap2.s:8
+    pushwsp.o                 runtime/pushwsp.s:8
+    pushax.o                  runtime/pushax.s:8
+    pusha.o                   runtime/pusha.s:8
+    popptr1.o                 runtime/popptr1.s:9
+    popa.o                    runtime/popa.s:8
+    ldaxsp.o                  runtime/ldaxsp.s:8
+    incsp2.o                  runtime/incsp2.s:8
+    incsp1.o                  runtime/incsp1.s:8
+    icmp.o                    runtime/icmp.s:9
+    crt0.o                    /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
+    cprintf.o                 conio/cprintf.s:9
+    add.o                     runtime/add.s:12
+    pet_sounds.o              cross_lib/sound/cc65/pet/pet_sounds.s:10
+    main.o                    games/shoot/main.s:10
+    sleep_macros.o            cross_lib/sleep/sleep_macros.s:10
+    display_macros.o          cross_lib/display/display_macros.s:10
+sreg (zeropage.o):
+    lneg.o                    runtime/lneg.s:11
+    lcmp.o                    runtime/lcmp.s:10
+    ltoa.o                    common/ltoa.s:11
+    lsub.o                    runtime/lsub.s:12
+    lpush.o                   runtime/lpush.s:13
+    lmul.o                    runtime/lmul.s:10
+    ldeaxysp.o                runtime/ldeaxysp.s:12
+    ladd.o                    runtime/ladd.s:9
+    clock.o                   cbm/clock.s:9
+    axlong.o                  runtime/axlong.s:9
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
+    udiv.o                    runtime/udiv.s:10
+    sleep.o                   ../libwrk/pet/sleep.s:10
+    mod.o                     runtime/mod.s:12
+    icmp.o                    runtime/icmp.s:9
+staspidx (staspidx.o):
+    main.o                    games/shoot/main.s:8704
+tmp1 (zeropage.o):
+    ltoa.o                    common/ltoa.s:11
+    ladd.o                    runtime/ladd.s:9
+    _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:13
+    vcprintf.o                conio/vcprintf.s:10
+    staspidx.o                runtime/staspidx.s:9
+    shrax4.o                  runtime/shrax4.s:8
+    shrax3.o                  runtime/shrax3.s:8
+    shrax2.o                  runtime/shrax2.s:8
+    shrax1.o                  runtime/shrax1.s:8
+    shelp.o                   runtime/shelp.s:12
+    mul.o                     runtime/mul.s:10
+    mod.o                     runtime/mod.s:12
+    incaxy.o                  runtime/incaxy.s:8
+    div.o                     runtime/div.s:12
+    aslax4.o                  runtime/aslax4.s:8
+    aslax2.o                  runtime/aslax2.s:8
+    aslax1.o                  runtime/aslax1.s:8
+    add.o                     runtime/add.s:12
+    main.o                    games/shoot/main.s:11
+tmp2 (zeropage.o):
+    lmul.o                    runtime/lmul.s:10
+    shelp.o                   runtime/shelp.s:12
+    div.o                     runtime/div.s:12
+tmp3 (zeropage.o):
+    lmul.o                    runtime/lmul.s:10
+tmp4 (zeropage.o):
+    lmul.o                    runtime/lmul.s:10
+tosadda0 (add.o):
+    main.o                    games/shoot/main.s:8704
+tosaddax (add.o):
+    main.o                    games/shoot/main.s:8704
+tosaddeax (ladd.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+tosdivax (div.o):
+    main.o                    games/shoot/main.s:8704
+tosgeeax (lge.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+tosicmp (icmp.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+toslcmp (lcmp.o):
+    lge.o                     runtime/lge.s:8
+tosmoda0 (mod.o):
+    main.o                    games/shoot/main.s:8704
+tosmulax (mul.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+tossuba0 (sub.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+tossubax (sub.o):
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+    main.o                    games/shoot/main.s:8704
+tossubeax (lsub.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+tosudivax (udiv.o):
+    main.o                    games/shoot/main.s:8704
+tosumul0ax (lmul.o):
+    sleep.o                   ../libwrk/pet/sleep.s:54
+tosumula0 (mul8.o):
+    main.o                    games/shoot/main.s:8704
+udiv16 (udiv.o):
+    shelp.o                   runtime/shelp.s:11
+zerobss (zerobss.o):
+    crt0.o                    pet/crt0.s:8
+

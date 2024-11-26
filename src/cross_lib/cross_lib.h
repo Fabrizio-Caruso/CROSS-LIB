@@ -87,7 +87,7 @@
         || (defined(__APPLE2__) && defined(__APPLE2_HGR_GRAPHICS)) || defined(__VIC20__) \
         || (defined(__APPLE2__) && !defined(__APPLE2ENH__) && !defined(__APPLE2_HGR_GRAPHICS)) \
         || (defined(__ATARI_LYNX__) && defined(__LYNX_TGI_GRAPHICS)) || defined(__MC10__) || defined(__TI99__) \
-        || (defined(__ATARI7800__) &&  !defined(_XL_NO_COLOR))
+        || (defined(__ATARI7800__) &&  !defined(_XL_NO_COLOR)) || defined(__TERMINAL__)
         #define _XL_NO_SMALL_LETTERS
     #endif  
 #endif

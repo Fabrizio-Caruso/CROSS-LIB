@@ -380,7 +380,7 @@ out         stb res
             {
                 getchar();
             }
-        #elif defined(__NCURSES__)
+        #elif defined(__NCURSES__) || defined(__TERMINAL__)
             // #if defined(__ATARI_ST__)
                 // #include <ncurses/curses.h>
             // #else

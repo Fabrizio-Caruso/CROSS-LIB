@@ -295,7 +295,7 @@
         #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
         #define _XL_RED ((_XL_GREEN)+4)
-        #define _XL_YELLOW _XL_WHITE
+        #define _XL_YELLOW _XL_RED
         #define _XL_BLACK 2
         #define _XL_WHITE _XL_BLUE
     #else
@@ -305,7 +305,7 @@
         #define _XL_CYAN ((_XL_MAGENTA)+4)
         #define _XL_BLUE _XL_CYAN
         #define _XL_RED ((_XL_GREEN)+4)
-        #define _XL_YELLOW _XL_WHITE
+        #define _XL_YELLOW _XL_RED
         
         // TODO: Remove this hack and handle real black on white background
         #define _XL_BLACK _XL_BLUE

@@ -665,14 +665,6 @@ lda $a7c0
                     _gotoxy(_WIDTH*(8*(x)+j)+n,8*(y)+i);
                     _cputc(' ');
                 }
-                // _gotoxy(8*(_WIDTH*x+1)+j,8*(y)+i);
-                // _cputc(' ');
-                
-                // _gotoxy(8*(_WIDTH*x+2)+j,8*(y)+i);
-                // _cputc(' ');
-                
-                // _gotoxy(8*(_WIDTH*x+3)+j,8*(y)+i);
-                // _cputc(' ');
                 
                 k/=2;
             }
@@ -698,14 +690,6 @@ lda $a7c0
                     _cputc(' ');
                 }
                 
-                // _gotoxy(8*(4*x+1)+j,8*(y)+i);
-                // _cputc(' ');
-                
-                // _gotoxy(8*(4*x+2)+j,8*(y)+i);
-                // _cputc(' ');
-                
-                // _gotoxy(8*(4*x+3)+j,8*(y)+i);
-                // _cputc(' ');
             }
         }
         refresh();
@@ -719,7 +703,6 @@ lda $a7c0
         void _XL_REFRESH(void)
             {
                 memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,XSize*YSize);
-                // memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,XSize*YSize);
             }
     #else
         void _XL_REFRESH(void)
@@ -729,7 +712,6 @@ lda $a7c0
             for(i=0;i<(XSize)*(YSize);++i) \
             {
                 POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i));
-                // POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i));
             }
         }
     #endif

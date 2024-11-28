@@ -2993,7 +2993,7 @@ GCC_OPTS = $(GLOBAL_OPTS) $(NATIVE_MAKEFILE_COMPILATION_OPTS)
 
 ncurses_sized:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 -DXSize=$(XSIZE) -DYSize=$(YSIZE) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-D__ALT_PRINT \
@@ -3007,7 +3007,7 @@ ncurses_sized:
 
 ncurses:
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
-	 \
+	\
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
 	-D__ALT_PRINT \
@@ -3017,6 +3017,20 @@ ncurses:
 	$(FULL_FILES) \
 	-lncurses \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+
+
+terminal_sized:  $(ASSETS_PATH)/8x8_chars.h
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TERMINAL_SLOWDOWN) \
+	-D__TERMINAL__ -D_XL_NO_JOYSTICK \
+	-D__ALT_PRINT \
+	$(NCURSES_GAME_OPTS) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
 terminal:  $(ASSETS_PATH)/8x8_chars.h

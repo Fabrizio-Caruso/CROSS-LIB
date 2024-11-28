@@ -389,7 +389,7 @@ def size(params,debug):
         ysize = params[4]
         target = params[2]
 
-    if target in [NATIVE_TARGET,'stdio']:
+    if target in [NATIVE_TARGET,'stdio', 'terminal']:
         target = target + '_sized'
 
     if global_vars.verbose:

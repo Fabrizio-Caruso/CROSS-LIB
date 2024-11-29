@@ -3030,7 +3030,7 @@ terminal_sized:  $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
 terminal:  $(ASSETS_PATH)/8x8_chars.h

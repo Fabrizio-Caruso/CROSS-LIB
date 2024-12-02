@@ -2179,8 +2179,9 @@ def help_help():
     printc(bcolors.BOLD,"xl manual")
     print("\nto get the full manual for the C routines.")
 
-def run_native(params):
-    command_prefix = "../build/X" + params[1] + "_ncurses"
+def run_native(params, target):
+        
+    command_prefix = "../build/X" + params[1] + "_" + target
 
     # print(str(params))
     # exit()
@@ -2221,11 +2222,11 @@ MAME_TARGETS = ["msx", "msx_16k"]
 def run(params):
 
     if len(params)==2:
-        run_native(params)
+        run_native(params, "ncurses")
     
     if len(params)>=3:
         target = params[2]
-        
+        print("target: " + target)
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
             if global_vars.verbose:
@@ -2234,10 +2235,14 @@ def run(params):
         if target=="stdio":
             run_stdio(params)
         elif target=="ncurses":
-            run_native(params[0:2]+params[3:])
+            run_native(params[0:2]+params[3:], "ncurses")
+        elif target=="terminal":
+            run_native(params[0:2]+params[3:], "terminal")
 
-        elif(len(params)>=2 and params[2].isnumeric() and params[3].isnumeric()):
-            run_native(params)
+        # e.g. xl run bomber 20 30
+        elif(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
+            print("DEBUG -- target: " + target)
+            run_native(params, "ncurses")
 
         # TODO: replace this with a check on prefixes
         elif target in VICE_TARGETS:

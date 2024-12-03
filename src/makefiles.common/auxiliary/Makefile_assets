@@ -115,7 +115,7 @@ $(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 $(ASSETS_PATH)/8x6_tiles.s: $(wildcard $(8X6_TILES)/*.txt)
 	$(CREATE_ASSET)
     
-$(ASSETS_PATH)/8x6_c_definition.h: $(wildcard $(8X6_TILES)/*.txt)
+$(ASSETS_PATH)/8x6_chars.h: $(wildcard $(8X6_TILES)/*.txt)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h: $(wildcard $(8X6_TILES)/*.txt)

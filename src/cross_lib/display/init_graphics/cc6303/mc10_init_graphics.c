@@ -1,6 +1,6 @@
 
 #include "standard_libs.h"
-#include "8x6_c_definition.h"
+#include "8x6_chars.h"
 
 
 #define POKE(addr,val) (*(uint8_t*) (addr) = (val))

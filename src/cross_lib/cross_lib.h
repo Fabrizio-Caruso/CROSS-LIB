@@ -93,28 +93,30 @@
 #endif
 
 
-#if defined(_XL_NO_UDG)
-    #define _XL_TILE_X_SIZE 1
-#elif defined(__ORIC__) || defined(__ATMOS__) \
-    || defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)
-    #define _XL_TILE_X_SIZE 6
-#elif defined(__APPLE2__) || defined(__APPLE2__)
-    #define _XL_TILE_X_SIZE 7
-#else
-    #define _XL_TILE_X_SIZE 8
+#if !defined(_XL_TILE_X_SIZE)
+    #if defined(_XL_NO_UDG)
+        #define _XL_TILE_X_SIZE 1
+    #elif defined(__ORIC__) || defined(__ATMOS__) \
+        || defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)
+        #define _XL_TILE_X_SIZE 6
+    #elif defined(__APPLE2__) || defined(__APPLE2__)
+        #define _XL_TILE_X_SIZE 7
+    #else
+        #define _XL_TILE_X_SIZE 8
+    #endif
 #endif
 
-
-#if defined(_XL_NO_UDG)
-    #define _XL_TILE_Y_SIZE 1
-#elif (defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)) && !defined(NTSC)
-    #define _XL_TILE_Y_SIZE 9
-#elif (defined(__MC10__) && defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__ATARI_LYNX__)
-    #define _XL_TILE_Y_SIZE 6
-#else
-    #define _XL_TILE_Y_SIZE 8
+#if !defined(_XL_TILE_Y_SIZE)
+    #if defined(_XL_NO_UDG)
+        #define _XL_TILE_Y_SIZE 1
+    #elif (defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__)) && !defined(NTSC)
+        #define _XL_TILE_Y_SIZE 9
+    #elif (defined(__MC10__) && defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__ATARI_LYNX__)
+        #define _XL_TILE_Y_SIZE 6
+    #else
+        #define _XL_TILE_Y_SIZE 8
+    #endif
 #endif
-
 
 #include "input_target_settings.h"
 #include "input_macros.h"

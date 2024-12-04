@@ -624,11 +624,45 @@ lda $a7c0
 #endif
 
 
+
+
 #if defined(__TERMINAL__)
+
+#if _XL_TILE_X_SIZE==8
+    #define _MAX_BIT_VALUE 128
+
+    #if _XL_TILE_Y_SIZE==8
+        #include "8x8_chars.h"
+
+    #elif _XL_TILE_Y_SIZE==6
+        #include "8x6_chars.h"
+    #endif
+#elif _XL_TILE_X_SIZE==7
+    #define _MAX_BIT_VALUE 64
+
+    #include "7x8_chars.h"
+
+#elif _XL_TILE_X_SIZE==6
+    #define _MAX_BIT_VALUE 32
+
+    #if _XL_TILE_Y_SIZE==8
+        #include "6x8_chars.h"
+        
+    #elif _XL_TILE_Y_SIZE==9
+        #include "6x9_chars.h"
+    #endif
+// #elif _XL_TILE_X_SIZE==5
+    // #define _MAX_BIT_VALUE 16
+// #elif _XL_TILE_X_SIZE==4
+    // #define _MAX_BIT_VALUE 8
+// #elif _XL_TILE_X_SIZE==3
+    // #define _MAX_BIT_VALUE 4
+#endif
+
+
 
     #define _WIDTH 3
     
-    #include "8x8_chars.h"
     
     #define _gotoxy(x,y) do { move(y,x); } while(0)
     #define _cputc(c) do { addch(c);  } while(0)
@@ -636,7 +670,7 @@ lda $a7c0
 
     #include <ncurses.h>
     
-    extern uint8_t _tiles[_XL_NUMBER_OF_TILES][8];
+    extern uint8_t _tiles[_XL_NUMBER_OF_TILES][_XL_TILE_Y_SIZE];
     
     void _terminal_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     {
@@ -646,10 +680,10 @@ lda $a7c0
         uint8_t n;
         
 
-        for(i=0;i<8;++i)
+        for(i=0;i<_XL_TILE_Y_SIZE;++i)
         {
-            k = 128;
-            for(j=0;j<8;++j)
+            k = _MAX_BIT_VALUE;
+            for(j=0;j<_XL_TILE_X_SIZE;++j)
             {
                 if(k & _tiles[tile][i])
                 {
@@ -662,7 +696,7 @@ lda $a7c0
                 
                 for(n=1;n<=_WIDTH;++n)
                 {
-                    _gotoxy(_WIDTH*(8*(x)+j)+n,8*(y)+i);
+                    _gotoxy(_WIDTH*(_XL_TILE_X_SIZE*(x)+j)+n,_XL_TILE_Y_SIZE*(y)+i);
                     _cputc(' ');
                 }
                 
@@ -680,13 +714,13 @@ lda $a7c0
         
         attron(COLOR_PAIR(_XL_BLACK));
 
-        for(i=0;i<8;++i)
+        for(i=0;i<_XL_TILE_Y_SIZE;++i)
         {
-            for(j=0;j<8;++j)
+            for(j=0;j<_XL_TILE_X_SIZE;++j)
             {
                 for(n=1;n<=_WIDTH;++n)
                 {
-                    _gotoxy(_WIDTH*(8*(x)+j)+n,8*(y)+i);
+                    _gotoxy(_WIDTH*(_XL_TILE_X_SIZE*(x)+j)+n,_XL_TILE_Y_SIZE*(y)+i);
                     _cputc(' ');
                 }
                 

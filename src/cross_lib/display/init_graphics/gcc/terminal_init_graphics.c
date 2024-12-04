@@ -7,8 +7,30 @@
 #include "display_macros.h"
 
 
-#include "8x8_chars.h"
+#if _XL_TILE_X_SIZE==8
+    #define _MAX_BIT_VALUE 128
 
+    #if _XL_TILE_Y_SIZE==8
+        #include "8x8_chars.h"
+
+    #elif _XL_TILE_Y_SIZE==6
+        #include "8x6_chars.h"
+    #endif
+#elif _XL_TILE_X_SIZE==7
+    #define _MAX_BIT_VALUE 64
+
+    #include "7x8_chars.h"
+
+#elif _XL_TILE_X_SIZE==6
+    #define _MAX_BIT_VALUE 32
+
+    #if _XL_TILE_Y_SIZE==8
+        #include "6x8_chars.h"
+        
+    #elif _XL_TILE_Y_SIZE==9
+        #include "6x9_chars.h"
+    #endif
+#endif
 #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define _NCURSES_BACKGROUND_COLOR COLOR_WHITE
 #else
@@ -19,7 +41,7 @@
 
 uint8_t _terminal_text_color;
 
-uint8_t _tiles[][8] =
+uint8_t _tiles[][_XL_TILE_Y_SIZE] =
 {
     _SPACE_,
     _TILE_DIGIT_0,

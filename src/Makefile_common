@@ -3018,7 +3018,7 @@ ncurses:
 	-o $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
 
 
-terminal_sized:  $(ASSETS_PATH)/8x8_chars.h
+terminal8x8_sized:  $(ASSETS_PATH)/8x8_chars.h
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-DXSize=$(XSIZE) -DYSize=$(YSIZE) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TERMINAL_SLOWDOWN) \
@@ -3032,7 +3032,9 @@ terminal_sized:  $(ASSETS_PATH)/8x8_chars.h
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
-terminal:  $(ASSETS_PATH)/8x8_chars.h
+terminal: terminal8x8
+
+terminal8x8:  $(ASSETS_PATH)/8x8_chars.h
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TERMINAL_SLOWDOWN) \
 	-D__TERMINAL__ -D_XL_NO_JOYSTICK \

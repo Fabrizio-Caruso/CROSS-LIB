@@ -651,12 +651,6 @@ lda $a7c0
     #elif _XL_TILE_Y_SIZE==9
         #include "6x9_chars.h"
     #endif
-// #elif _XL_TILE_X_SIZE==5
-    // #define _MAX_BIT_VALUE 16
-// #elif _XL_TILE_X_SIZE==4
-    // #define _MAX_BIT_VALUE 8
-// #elif _XL_TILE_X_SIZE==3
-    // #define _MAX_BIT_VALUE 4
 #endif
 
 

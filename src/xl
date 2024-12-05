@@ -2237,7 +2237,9 @@ def run(params):
         elif target=="ncurses":
             run_native(params[0:2]+params[3:], "ncurses")
         elif target=="terminal":
-            run_native(params[0:2]+params[3:], "terminal")
+            run_native(params[0:2]+params[3:], "terminal8x8")
+        elif target.startswith("terminal"):
+            run_native(params[0:2]+params[3:], target)
 
         # e.g. xl run bomber 20 30
         elif(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):

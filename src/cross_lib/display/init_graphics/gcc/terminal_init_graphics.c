@@ -31,13 +31,20 @@
         #include "6x9_chars.h"
     #endif
 #endif
+
 #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
     #define _NCURSES_BACKGROUND_COLOR COLOR_WHITE
 #else
     #define _NCURSES_BACKGROUND_COLOR COLOR_BLACK
 #endif
 
-#define _SPACE_ {0,0,0,0,0,0,0,0}
+#if _XL_TILE_Y_SIZE==9
+    #define _SPACE_ {0,0,0,0,0,0,0,0,0}
+#elif _XL_TILE_Y_SIZE==8
+    #define _SPACE_ {0,0,0,0,0,0,0,0}
+#elif _XL_TILE_Y_SIZE==6
+    #define _SPACE_ {0,0,0,0,0,0}
+#endif
 
 uint8_t _terminal_text_color;
 

@@ -393,8 +393,10 @@ def size(params,debug):
         xsize = params[3]
         ysize = params[4]
         target = params[2]
-
-    if target in [NATIVE_TARGET,'stdio', 'terminal']:
+        
+    if target == 'terminal':
+        target = 'terminal8x8'
+    if target in [NATIVE_TARGET,'stdio'] or target.startswith('terminal'):
         target = target + '_sized'
 
     if global_vars.verbose:
@@ -645,7 +647,7 @@ def build(params, reset_flag = False):
         return
     
     # sized terminal
-    if(len(params)>=4 and params[2]=="terminal" and params[3].isnumeric() and params[4].isnumeric()):
+    if(len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric()):
         size(["size"] + params[1:],0)
         return
         

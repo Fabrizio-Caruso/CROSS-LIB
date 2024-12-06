@@ -233,6 +233,11 @@ PARALLEL_TARGETS = \
     
     'ncurses',
     'terminal',
+    'terminal8x8',
+    'terminal8x6',
+    'terminal7x8',
+    'terminal6x9',
+    'terminal6x8',
     
     'ace',
     'agon',

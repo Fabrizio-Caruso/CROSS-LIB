@@ -655,7 +655,7 @@ lda $a7c0
 
 
 
-    #define _WIDTH 3
+    #define _WIDTH 4
     
     
     #define _gotoxy(x,y) do { move(y,x); } while(0)

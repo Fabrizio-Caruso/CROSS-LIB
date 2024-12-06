@@ -2233,7 +2233,7 @@ def run(params):
     
     if len(params)>=3:
         target = params[2]
-        print("target: " + target)
+        #print("target: " + target)
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
             if global_vars.verbose:

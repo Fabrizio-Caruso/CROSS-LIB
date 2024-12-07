@@ -649,12 +649,20 @@ def insert_default_sizes(params):
             target = "terminal8x6"
             xsize = '20'
             ysize = '17'
+        if size_target == "oric1":
+            target = "terminal6x8"
+            xsize = '38'
+            ysize = '28'
         elif size_target == "apple2":
             target = "terminal7x8"
             xsize = '20'
             ysize = '24'
         elif size_target in ['comx', 'pecom', 'micro']:
             target = "terminal6x9"
+            xsize = '40'
+            ysize = '24'
+        elif size_target == "comx_ntsc":
+            target = "terminal6x8"
             xsize = '40'
             ysize = '24'
         return [params[0], params[1], target, xsize, ysize]

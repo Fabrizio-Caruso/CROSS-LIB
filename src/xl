@@ -3162,7 +3162,7 @@ def help(params):
             print("Remark: 'xl files' can be shorten with `xl f`.")
             
         elif params[1]=="build":
-            printc(bcolors.BOLD,"xl build <project> <[optional] target>\n")
+            printc(bcolors.BOLD,"xl build <project> <[optional] target> or xl <project> <[optional] target>\n")
             print("It builds <project> for <target>.")
             # print("Remark: The 'build' command can be omitted.")
             print("The built binaries will be in the 'build' directory.")
@@ -3171,7 +3171,9 @@ def help(params):
             print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects")   
             
             print("\n<target>")
-            print("If no <target> is passed, then the native target (terminal console) is considered.")
+            print("REMARK 1: If no <target> is passed, then the native target 'ncurses' (terminal console with ASCII tiles) is considered.")
+            print("REMARK 2: If 'terminal' or 'terminal<N><M>' is passed as target, then the native terminal 'graphics' is considered with tiles with NxM pixels.\nThis target requires you to reduce the font size to discern the graphics.")
+            print("The 'terminal<N><M>' keyword  can be followed by <xsize> and <ysize> to specify the screen shape.")
             print("\nIf '<dev-kit>_targets' is passed as <target> (e.g., 'cc65_targets'), \nthen the given project/s is/are built for all targets that use <dev-kit> to be compiled.")
             print("Possible dev-kits are: 'cc65', 'z88dk', 'cmoc', 'lcc1802'.") 
             print("\n[NOT recommended] If 'all' is passed as <target>, then the given project/s is/are built for all targets (it may take very long and it requires all supported compilers.") 

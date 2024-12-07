@@ -3032,7 +3032,7 @@ terminal8x8_sized:  $(ASSETS_PATH)/8x8_chars.h
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal8x8_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
-# terminal: terminal8x8
+terminal: terminal8x8
 
 terminal8x8:  $(ASSETS_PATH)/8x8_chars.h
 	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \

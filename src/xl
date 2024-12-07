@@ -396,6 +396,7 @@ def size(params,debug):
         
     if target == 'terminal':
         target = 'terminal8x8'
+
     if target in [NATIVE_TARGET,'stdio'] or target.startswith('terminal'):
         target = target + '_sized'
 
@@ -638,13 +639,72 @@ def is_project_split(game_dir):
     # return game_dir in SPLIT_PROJECTS
     return os.path.isdir(project_dir_path+"split_files")
 
+
+def insert_default_sizes(params):
+    
+    if len(params)==4 and params[2].startswith('terminal'):
+        target = params[2]
+        size_target = params[3]
+        if size_target == "atari_lynx":
+            target = "terminal8x6"
+            xsize = '20'
+            ysize = '17'
+        elif size_target == "apple2":
+            target = "terminal7x8"
+            xsize = '20'
+            ysize = '24'
+        elif size_target in ['comx', 'pecom', 'micro']:
+            target = "terminal6x9"
+            xsize = '40'
+            ysize = '24'
+        return [params[0], params[1], target, xsize, ysize]
+    
+    if len(params)==3 and params[2].startswith('terminal'):
+        target = params[2]
+        if target == "terminal" or target == "terminal8x8":
+            xsize = '20'
+            ysize = '18'
+        elif target == "terminal8x6":
+            xsize = '20'
+            ysize = '17'
+        elif target == "terminal7x8":
+            xsize = '20'
+            ysize = '24'
+        elif target == "terminal6x9" or target == "terminal6x8":
+            xsize = '40'
+            ysize = '24'
+        return [params[0], params[1], target, xsize, ysize]
+    return params
+
+
+
 # Build a project (for a target or multiple targets)
 def build(params, reset_flag = False):
 
-    # terminal (default size)
-    if(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
-        size(["size"] + params[1:],0) 
-        return
+    # terminal (implicit 'build')
+    # if(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
+        # size(["size"] + params[1:],0) 
+        # return
+    
+    params = insert_default_sizes(params)
+    # if len(params)==3 and params[2].startswith('terminal'):
+        # target = params[2]
+        # if target == "terminal" or target == "terminal8x8":
+            # xsize = '20'
+            # ysize = '18'
+        # elif target == "terminal8x6":
+            # xsize = '20'
+            # ysize = '17'
+        # elif target == "terminal7x8":
+            # xsize = '20'
+            # ysize = '24'
+        # elif target == "terminal6x9" or target == "terminal6x8":
+            # xsize = '40'
+            # ysize = '24'
+        # params = ['size', params[1], target, xsize, ysize]
+    
+    # print(str(params))
+    # print(len(params))
     
     # sized terminal
     if(len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric()):
@@ -2232,13 +2292,16 @@ def run(params):
         run_native(params, "ncurses")
     
     if len(params)>=3:
+        params = insert_default_sizes(params)
+        # print(str(params))
+        
         target = params[2]
         #print("target: " + target)
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
             if global_vars.verbose:
                 print("defaulting to target: " + target)
-           
+                
         if target=="stdio":
             run_stdio(params)
         elif target=="ncurses":
@@ -2250,7 +2313,7 @@ def run(params):
 
         # e.g. xl run bomber 20 30
         elif(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
-            print("DEBUG -- target: " + target)
+            # print("DEBUG -- target: " + target)
             run_native(params, "ncurses")
 
         # TODO: replace this with a check on prefixes

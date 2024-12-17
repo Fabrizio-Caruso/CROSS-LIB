@@ -663,6 +663,12 @@ def insert_default_sizes(params):
         if size_target == "oric1":
             xsize = '38'
             ysize = '28'
+        elif size_target == "supervision":
+            xsize = '20'
+            ysize = '20'
+        elif size_target == "gamate":
+            xisze = '20'
+            ysize = '19'
         elif size_target in ["apple2", "apple2enh"]:
             xsize = '20'
             ysize = '24'
@@ -687,15 +693,18 @@ def insert_default_sizes(params):
         elif size_target in ["coco","dragon"]:
             xsize = '16'
             ysize = '24'
-        elif size_target in ["spectrum", "creativision", "msx", "mtx", "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein"]:
-            xsize = '32',
+        elif size_target in ["sms", "spectrum", "creativision", "msx", "mtx", "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein"]:
+            xsize = '32'
             ysize = '24'
         elif size_target == "cpc":
             xsize = '20'
             ysize = '25'
-        elif size_target == "gb":
+        elif size_target in ["gb", "gg", "gamegear"]:
             xsize = '20'
             ysize = '18'
+        elif size_target == "atari7800":
+            xsize = '20'
+            ysize = '28'
         else:
             print("Default geometry for this target is not supported. Using default sizes.")
             xsize = '20'

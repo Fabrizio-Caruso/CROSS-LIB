@@ -666,7 +666,7 @@ def insert_default_sizes(params):
         elif size_target in ['ti82', 'ti83', 'ti8x']:
             xsize = '12'
             ysize = '8'
-        elif size_target in ['ti85', 'ti86']:
+        elif size_target in ['ti85', 'ti86','z88']:
             xsize = '16'
             ysize = '8'
         elif size_target == "oric1":

@@ -660,7 +660,16 @@ def insert_default_sizes(params):
         if size_target == "atari_lynx":
             xsize = '20'
             ysize = '17'
-        if size_target == "oric1":
+        elif size_target == "pc6001":
+            xsize = '24'
+            ysize = '16'
+        elif size_target in ['ti82', 'ti83', 'ti8x']:
+            xsize = '12'
+            ysize = '8'
+        elif size_target in ['ti85', 'ti86']:
+            xsize = '16'
+            ysize = '8'
+        elif size_target == "oric1":
             xsize = '38'
             ysize = '28'
         elif size_target == "supervision":

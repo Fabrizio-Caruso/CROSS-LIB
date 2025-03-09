@@ -15,6 +15,8 @@ MAME_EMULATOR = "mame"
 
 import logging
 
+import datetime
+
 import shutil
 
 import os,sys,re
@@ -2029,7 +2031,7 @@ def targets_test(params):
         if is_project_split(game_dir):
             print("Delete main.c (because of split source files)\n")
             delete_main(game_dir, project_type)
-        exit()
+        exit(-1)
     if is_project_split("chase"):
         printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(game_dir, project_type)
@@ -3652,7 +3654,7 @@ def make_assets_from_tiles(params):
 # ---------------------------------------------
 if __name__ == "__main__":
 
-    logging.basicConfig(filename='logs/xl.log', level = logging.DEBUG)
+    logging.basicConfig(filename='logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.log', level = logging.DEBUG)
     
     logger.info('Started')
     make_test = test_make(False)
@@ -3666,7 +3668,8 @@ if __name__ == "__main__":
     
     if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")
-        exit()
+        logger.error("Python version not supported")
+        exit(-1)
     try:
         read_config()
     except:
@@ -3674,7 +3677,10 @@ if __name__ == "__main__":
         print("WARNING: Using default config")
 
     if parallelize_multi_build:   
+        logger.info("Parallelize_multi_build is ON")
         from multiprocessing import Pool
+    else:
+        logger.info("Parallelize_multi_build is OFF")
 
     if global_vars.verbose:
         print("----------------------------")

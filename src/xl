@@ -3654,7 +3654,7 @@ def make_assets_from_tiles(params):
 # ---------------------------------------------
 if __name__ == "__main__":
 
-    logging.basicConfig(filename='logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.log', level = logging.DEBUG)
+    logging.basicConfig(filename='../logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.log', level = logging.DEBUG)
     
     logger.info('Started')
     make_test = test_make(False)

@@ -140,6 +140,7 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
 
 def run_command_verbosely(command_string):
+    logger.info("Running command: " + command_string)
     if global_vars.verbose: 
         print("Going to run: ")
         printc(bcolors.BOLD, command_string+"\n")
@@ -334,6 +335,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
         print("")
 
     if (parallelize_multi_build==1) and (target in PARALLEL_TARGETS):
+        logger.info("Parallelize multi build with " + threads + " threads")
         pool = Pool(processes=int(threads))
 
         for project_name in projects:
@@ -1096,11 +1098,17 @@ def reset(params):
 # Clean project data
 def clean(params):
 
-    if(len(params)>=2) and params[1]=="tools":
-        make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
+    if(len(params)>=2):
+        if params[1]=="tools":
+            make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
 
-        run_command_verbosely(make_command)
-        return
+            run_command_verbosely(make_command)
+            return
+        if params[1]=="log" or params[1]=="logs":
+            make_command = GNU_MAKE + " clean_logs -f makefiles.common/auxiliary/Makefile_tools"
+
+            run_command_verbosely(make_command)
+            return
         
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
@@ -3429,14 +3437,6 @@ def read_config(config_file="./config.ini"):
     config = configparser.ConfigParser()
     
     try:
-
-        # candidate_conf = config_dir+'/config.ini'
-        # if os.path.exists(candidate_conf):
-            # print("Read configuration from " + candidate_conf, flush=True)
-            # config.read(candidate_conf)
-        # else:
-            # print("Use general config")
-        
         config.read(config_file)
         
         global_vars.test = read_config_option("terminal","test")
@@ -3459,6 +3459,8 @@ def read_config(config_file="./config.ini"):
         # global color_terminal
         global_vars.color_terminal = read_config_option("terminal","color")
         
+        logger.info("Color terminal: " + str(global_vars.color_terminal))
+        
         if global_vars.verbose:
             if global_vars.color_terminal:
                 printc(bcolors.OKCYAN, "Color terminal ON\n")
@@ -3470,6 +3472,8 @@ def read_config(config_file="./config.ini"):
             # print("")
         
         compilation_threads = read_config_option("build","threads") 
+        
+        
         if compilation_threads=="auto" or compilation_threads=="automaic":
             if global_vars.verbose:
                 print("----------------------------")
@@ -3478,6 +3482,8 @@ def read_config(config_file="./config.ini"):
             if global_vars.verbose:
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
+
+        logger.info("Compilation threads: " + str(compilation_threads))
 
         parallelize_multi_build = read_config_option("build","parallelize_multi_build") 
         if parallelize_multi_build!="":
@@ -3516,6 +3522,7 @@ def read_config(config_file="./config.ini"):
         
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)
+        logger.info("Interactive clean: " + str(interactive_clean))
         
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
@@ -3525,12 +3532,13 @@ def read_config(config_file="./config.ini"):
         
     except Exception as e:
         print("An exception occurred while reading the configuration: " + str(e))
+        logger.debug("Error while reading configuration file")
         raise
         # TODO: Ask the user to continue or exit
-    else:
-        if global_vars.verbose:
-            printc(bcolors.OKBLUE, "config.ini OK\n")
-            # print("")
+    # else:
+        # if global_vars.verbose:
+            # printc(bcolors.OKBLUE, "config.ini OK\n")
+            # log.info("Configuration file read successfully")
 
 
 def default_config():
@@ -3654,7 +3662,7 @@ def make_assets_from_tiles(params):
 # ---------------------------------------------
 if __name__ == "__main__":
 
-    logging.basicConfig(filename='../logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+'.log', level = logging.DEBUG)
+    logging.basicConfig(filename='../logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
     
     logger.info('Started')
     make_test = test_make(False)
@@ -3671,8 +3679,11 @@ if __name__ == "__main__":
         logger.error("Python version not supported")
         exit(-1)
     try:
+        logger.info("Read configuration file")
         read_config()
+        logger.info("Configuration file read")
     except:
+        logger.warning("Reverting to default configuration")
         default_config()
         print("WARNING: Using default config")
 
@@ -3683,12 +3694,13 @@ if __name__ == "__main__":
         logger.info("Parallelize_multi_build is OFF")
 
     if global_vars.verbose:
+        logger.info("Verbose mode ON")
         print("----------------------------")
         printc(bcolors.OKGREEN, "Cross-Lib `xl` helper script\n")
         print("----------------------------")
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))
-
+        logger.info("Using Python version " + str(python_version) + "." + str(python_subversion))
             
         print("GNU MAKE command: " + GNU_MAKE)
         print("----------------------------")
@@ -3696,6 +3708,7 @@ if __name__ == "__main__":
 
     
     if len(sys.argv)<2:
+        logger.info("Interactive mode ON")
         print("For more commands, use the non-interactive mode.")
         printc(bcolors.BOLD, "xl help")
         print(" for instructions.")
@@ -3729,9 +3742,11 @@ if __name__ == "__main__":
         
         params = ["rebuild", project_name, target_name]
     else:
+        logger.info("Interactive mode OFF")
         params = sys.argv            
         params = full_params(params)
         
+    logger.info("Command : " + params[1])
     if params[1]=="run":
         run(params[1:])
     elif params[1]=="check":
@@ -3752,10 +3767,6 @@ if __name__ == "__main__":
         split(params[1:])
     elif params[1]=="config":
         display_config()
-    # elif params[1]=="add":
-        # add(params[1:])
-    # elif params[1]=="remove":
-        # remove(params[1:])
     elif params[1]=="string":
         string(params[1:])
     elif params[1]=="commands":

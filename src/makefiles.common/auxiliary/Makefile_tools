@@ -99,3 +99,6 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/ti99/crt0_ea5.o
 	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
 
+
+clean_logs:
+	rm -rf ../logs/*.log

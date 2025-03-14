@@ -2,6 +2,8 @@
 
 import os,sys
 
+from LoggerSingleton import *
+global logger
 
 if len(sys.argv)<2:
     game_dir = "chase"
@@ -20,6 +22,7 @@ tile=[]
 
 # Read tile files from a given directory and store them into the tile variable
 def read_tiles_from_dir(dir_name):
+    logger.info("read_tiles_from_dir")
     global tile
     tile = []
     for i in range(MAX_NUMBER_OF_TILES):
@@ -398,7 +401,16 @@ def main():
         generate_assets_from_dir(dir_name)
 
 
+
 if __name__ == "__main__":
     # execute only if run as a script
+    logger = logging.getLogger("xl")
+    logger.setLevel(logging.DEBUG) 
+    # logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
+    logging.basicConfig(filename='../../logs/xl_log_.log', level = logging.DEBUG)
+
+    logger.info("Started generate_assets")
     main()
+    print("************************************", flush=True)
+    logger.error("Finished generate_assets")
 

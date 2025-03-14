@@ -38,11 +38,10 @@ from strings import *
 
 from collections import OrderedDict
 
+from LoggerSingleton import *
 
 platform = sys.platform
 
-
-logger = logging.getLogger(__name__)
 
 global NATIVE_EXTENSION
 
@@ -3660,10 +3659,16 @@ def make_assets_from_tiles(params):
 
 
 # ---------------------------------------------
+
+
 if __name__ == "__main__":
 
-    logging.basicConfig(filename='../logs/xl_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
-    
+    # LoggerSingleton.initLogger()
+    # logger = LoggerSingleton.getLogger()
+    # logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
+    logging.basicConfig(filename='../logs/xl_log_.log', level = logging.DEBUG)
+
+    logger = logging.getLogger("xl")
     logger.info('Started')
     make_test = test_make(False)
 

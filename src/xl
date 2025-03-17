@@ -3663,12 +3663,13 @@ def make_assets_from_tiles(params):
 
 if __name__ == "__main__":
 
-    # LoggerSingleton.initLogger()
-    # logger = LoggerSingleton.getLogger()
+    # LoggerSingleton.initLogger(__name__)
+    logger = LoggerSingleton.initLogger('xl', '../logs')
+    
     # logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
-    logging.basicConfig(filename='../logs/xl_log_.log', level = logging.DEBUG)
+    # logging.basicConfig(filename='../logs/xl_log_.log', level = logging.DEBUG)
 
-    logger = logging.getLogger("xl")
+    # logger = logging.getLogger("xl")
     logger.info('Started')
     make_test = test_make(False)
 
@@ -3834,3 +3835,5 @@ if __name__ == "__main__":
         manual(params)
 
     logger.info('Finished')
+    
+    os.system('mv ../logs/log.log ../logs/log_' + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )

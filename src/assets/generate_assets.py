@@ -3,6 +3,7 @@
 import os,sys
 
 from LoggerSingleton import *
+
 global logger
 
 if len(sys.argv)<2:
@@ -404,13 +405,13 @@ def main():
 
 if __name__ == "__main__":
     # execute only if run as a script
-    logger = logging.getLogger("xl")
-    logger.setLevel(logging.DEBUG) 
+    logger = LoggerSingleton.initLogger('xl','../../logs')
+    
+    # logger.setLevel(logging.DEBUG) 
     # logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
-    logging.basicConfig(filename='../../logs/xl_log_.log', level = logging.DEBUG)
+    # logging.basicConfig(filename='../../logs/xl_log_.log', level = logging.DEBUG)
 
     logger.info("Started generate_assets")
     main()
-    print("************************************", flush=True)
     logger.error("Finished generate_assets")
 

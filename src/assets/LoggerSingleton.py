@@ -9,10 +9,23 @@ global logger
 class LoggerSingleton:
     
     @staticmethod
-    def initLogger():
-        logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
-
-    @staticmethod
-    def getLogger():
-        return logging.getLogger(__name__)
-            
+    def initLogger(name, path):
+        if name in logging.Logger.manager.loggerDict:
+            logger = logging.getLogger(name)
+            # print("Logger already exists")
+            # print(str(logging.Logger.manager.loggerDict))
+        else:
+            # print("Logger does not exists, yet")
+            # print(str(logging.Logger.manager.loggerDict))
+            logger = logging.getLogger(name)
+            logger.setLevel(logging.DEBUG)
+            if not logger.handlers:
+                # file_name='/cygdrive/c/Retro/CROSS-LIB/logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log'
+                
+                # file_name=path+'/log_'+name+'_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log'
+                file_name=path+'/log.log'
+                file_handler = logging.FileHandler(file_name,mode='a+', encoding="utf-8")
+                formatter = logging.Formatter('%(asctime)s - %(filename)s:%(lineno)s - %(message)s')
+                file_handler.setFormatter(formatter)
+                logger.addHandler(file_handler)
+        return logger

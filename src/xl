@@ -3685,9 +3685,9 @@ if __name__ == "__main__":
         logger.error("Python version not supported")
         exit(-1)
     try:
-        logger.info("Read configuration file")
+        logger.info("(read_config) Read configuration file")
         read_config()
-        logger.info("Configuration file read")
+        logger.info("(read_config) Configuration file read")
     except:
         logger.warning("Reverting to default configuration")
         default_config()
@@ -3752,7 +3752,8 @@ if __name__ == "__main__":
         params = sys.argv            
         params = full_params(params)
         
-    logger.info("Command : " + params[1])
+    command_name = "build" if params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
+    logger.info("Command : " + command_name)
     if params[1]=="run":
         run(params[1:])
     elif params[1]=="check":

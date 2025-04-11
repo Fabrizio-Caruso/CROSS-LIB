@@ -49,7 +49,9 @@ test_xtc68_extra: \
 
 
 test_cmoc_extra: \
-    coco_extra
+    coco \
+    coco3 \
+    mo5
 
 # to fix
 #     oric_extra 

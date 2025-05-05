@@ -112,6 +112,9 @@ $(ASSETS_PATH)/z88dk_xchase.asm: $(wildcard $(8X8_TILES)/*.txt)
 $(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/z88dk_pv1000.asm: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/8x6_tiles.s: $(wildcard $(8X6_TILES)/*.txt)
 	$(CREATE_ASSET)
     

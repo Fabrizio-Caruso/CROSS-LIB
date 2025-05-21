@@ -49,4 +49,13 @@ endif
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 endif    
-	
+
+
+#############################
+# PV1000
+
+# UDG can be done but differently
+# -SO3 necessary to build a 16K rom
+pv1000: pv1000_32k
+
+pv1000_no_gfx: pv1000_32k_no_gfx

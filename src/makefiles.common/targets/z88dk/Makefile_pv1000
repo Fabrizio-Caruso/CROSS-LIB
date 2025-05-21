@@ -4,7 +4,10 @@
 
 # UDG can be done but differently
 # -SO3 necessary to build a 16K rom
-pv1000:
+
+pv1000_no_gfx: pv1000_16k_no_gfx
+
+pv1000_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) \
 	-D__PV1000__ \
@@ -22,9 +25,9 @@ pv1000:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 
 
-pv1000_gfx: $(ASSETS_PATH)/z88dk_pv1000.asm
-	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) -pragma-define:PV1000_CUSTOM_TILESET=1 \
+pv1000_32k_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -subtype=32k \
+	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK -DYSize=23 \
 	-D__VT52 -D_XL_NO_COLOR -D_XL_NO_UDG \
@@ -34,8 +37,45 @@ pv1000_gfx: $(ASSETS_PATH)/z88dk_pv1000.asm
 	-lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/z88dk_pv1000.asm \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+
+pv1000: pv1000_16k
+
+pv1000_16k: $(ASSETS_PATH)/z88dk_pv1000.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) -pragma-define:PV1000_CUSTOM_TILESET=2 -s $(ASSETS_PATH)/z88dk_pv1000.asm \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK -DYSize=23 \
+	-D__VT52 -D__PV1000_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PV1000_SLOWDOWN) \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.sym
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+
+pv1000_32k: $(ASSETS_PATH)/z88dk_pv1000.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -subtype=32k \
+	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) -pragma-define:PV1000_CUSTOM_TILESET=2 -s $(ASSETS_PATH)/z88dk_pv1000.asm \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK -DYSize=23 \
+	-D__VT52 -D__PV1000_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PV1000_SLOWDOWN) \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.sym
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin

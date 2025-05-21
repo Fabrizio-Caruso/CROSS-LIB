@@ -74,6 +74,20 @@
     #define _XL_YELLOW CPC_YELLOW
     #define _XL_MAGENTA CPC_YELLOW
     #define _XL_GREEN CPC_YELLOW
+#elif defined(__PV1000_GRAPHICS)
+    #define PV1000_WHITE 0
+    #define PV1000_GREEN 1
+    #define PV1000_YELLOW 2
+    
+    #define _XL_BLACK 0
+    #define _XL_BLUE PV1000_WHITE
+    #define _XL_CYAN PV1000_WHITE
+    #define _XL_RED PV1000_WHITE
+    #define _XL_WHITE PV1000_WHITE
+    #define _XL_YELLOW PV1000_YELLOW
+    #define _XL_MAGENTA PV1000_WHITE
+    #define _XL_GREEN PV1000_GREEN
+    
 #elif defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
 
     #if defined(__USE_CYAN_YELLOW)

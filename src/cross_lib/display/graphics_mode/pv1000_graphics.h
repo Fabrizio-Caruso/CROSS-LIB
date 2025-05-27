@@ -22,7 +22,7 @@ do \
 } \
 while(0)
 
-		
+
 #endif // _PV1000_GRAPHICS_H
 
 

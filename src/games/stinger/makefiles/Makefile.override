@@ -49,4 +49,4 @@ endif
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 endif    
-	
+

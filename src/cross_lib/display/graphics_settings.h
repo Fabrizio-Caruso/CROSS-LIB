@@ -50,6 +50,8 @@
 	#include "rex_graphics.h"
 #elif defined(__LCC1802_GRAPHICS)
 	#include "lcc1802_graphics.h"
+#elif defined(__PV1000_GRAPHICS)
+    #include "pv1000_graphics.h"
 #elif defined(__NO_GRAPHICS)
 	#include "no_graphics.h"
 #endif

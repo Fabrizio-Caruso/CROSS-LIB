@@ -284,6 +284,8 @@ PARALLEL_TARGETS = \
     'nc200',
     'pc8201',
     'pc88',
+    'pv1000',
+    'pv1000_no_gfx',
     'px4',
     'px8',
     'samcoupe',

@@ -28,7 +28,7 @@
 #endif
 
 //  defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
-#if defined(_XL_NO_COLOR) || defined(__NES__) \
+#if defined(_XL_NO_COLOR) || defined(__PV1000_GRAPHICS) || defined(__NES__) \
     || defined(__CREATIVISION__) || defined(__ORIC__) || defined(__ATMOS__) || defined(__TI99__) \
 	|| defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__) \
 	|| defined(__ATARI7800_COLOR_GRAPHICS)

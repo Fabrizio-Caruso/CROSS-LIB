@@ -24,6 +24,22 @@
     
     // TODO: Fix this
     #define _XL_MAGENTA _XL_RED
+#elif defined(__PV1000_GRAPHICS)
+    #define __PV1000_WHITE  0
+    #define __PV1000_CYAN   1
+    #define __PV1000_GREEN  2
+    #define __PV1000_YELLOW 3
+    #define __PV1000_RED    4
+
+    
+    #define _XL_WHITE   __PV1000_WHITE
+    #define _XL_CYAN    __PV1000_CYAN
+    #define _XL_GREEN   __PV1000_GREEN
+    #define _XL_RED     __PV1000_RED
+    #define _XL_YELLOW  __PV1000_YELLOW
+    #define _XL_BLACK   __PV1000_WHITE
+    #define _XL_BLUE    __PV1000_CYAN
+    #define _XL_MAGENTA __PV1000_RED
 
 #elif defined(__MO5__)
     #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1

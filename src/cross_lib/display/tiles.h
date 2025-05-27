@@ -5,6 +5,8 @@
 
 #  if defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "c64_memory_mapped_settings.h"
+#elif defined(__PV1000__) && defined(__PV1000_GRAPHICS)
+    #include "pv1000_settings.h"
 #elif defined(__C64__) && defined(__CONIO_GRAPHICS)
 	#include "c64_conio_settings.h"
 #elif defined(__ATARI7800_COLOR_GRAPHICS)
@@ -81,7 +83,6 @@
     #include "apple2_hgr_settings.h"
 #elif defined(__TERMINAL__)
     #include "apple2_hgr_settings.h"
-
 #else
 	#include "default_image_settings.h"
 #endif 

@@ -1,0 +1,32 @@
+
+
+Example to add support to PV1000
+
+
+Concerned files:
+
+        modified:   ../.gitignore
+        modified:   assets/templates/8x8/z88dk_pv1000.asm.template
+        modified:   cross_lib/cross_lib.h
+        modified:   cross_lib/display/color_definitions.h
+        modified:   cross_lib/display/display_target_color.h
+        modified:   cross_lib/display/graphics_settings.h
+        modified:   cross_lib/display/tiles.h
+        modified:   games/chase/config/project_config.mk
+        modified:   games/shoot/makefiles/Makefile.override
+        modified:   games/verbix/config/project_config.mk
+        modified:   makefiles.common/targets/z88dk/Makefile_pv1000
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        cross_lib/display/graphics_mode/pv1000_graphics.h
+        cross_lib/display/tiles/pv1000_settings.h
+
+
+1. New graphics mode:
+cross_lib/display/graphics_settings.h
+cross_lib/display/graphics_mode/pv1000_graphics.h
+
+2. Tile mapping:
+cross_lib/display/tiles.h
+cross_lib/display/tiles/pv1000_settings.h

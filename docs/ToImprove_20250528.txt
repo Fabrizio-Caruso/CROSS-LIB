@@ -1,0 +1,4 @@
+FP 1100
+SPC 8000
+tvc Videoton
+gl6000sl

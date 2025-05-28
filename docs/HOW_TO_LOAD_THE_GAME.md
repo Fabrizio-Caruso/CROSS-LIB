@@ -169,6 +169,8 @@ GitHub project: https://github.com/jonathan-markland/Jynx/releases
 
 Use Takeda's fp1100.exe emulator.
 
+You need to put MAME roms in the same directory as the binary.
+
 Attach disk image
 
 Reset

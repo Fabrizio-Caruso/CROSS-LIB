@@ -114,7 +114,7 @@ target name         | long target name                            | working  |  
 *pacman*            | Pacman Namco arcade board                   |    NO    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *pasaopia7*         | Toshiba Pasopia 7                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing | PSG SN76489 
 *pc6001*            | NEC PC 6001                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |    
-*pc8201*             | NEC PC 8201                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
+*pc8201*            | NEC PC 8201                                |   YES    |  Intel 8085    |  Z88DK  |      OK         |    missing     | missing |
 *pc88*              | NEC PC 8801                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *pce*               | PCEngine                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *pcw*               | Amstrad PCW                                 |    ?     |   Zilog 80    |  Z88DK  |       ?         |    missing     | missing | 
@@ -124,7 +124,7 @@ target name         | long target name                            | working  |  
 *pmd85*             | PMD85                                       |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
-*pv1000*            | Casio PV1000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*pv1000*            | Casio PV1000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *pv2000*            | Casio PV2000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
 *px4*               | Epson PX-4/HC-40                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *px8*               | Epson PX-8/HC-80                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |

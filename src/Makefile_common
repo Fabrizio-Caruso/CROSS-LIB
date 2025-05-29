@@ -1057,7 +1057,7 @@ endif
 	$(FULL_FILES)
 ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) $(BUILD_PATH)/XBIN.dsk  $(BUILD_PATH)/XBIN_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) $(BUILD_PATH)/XBIN.dsk  $(BUILD_PATH)/XBIN_$@_gx4000.cpr   -c 'run"XBIN'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom

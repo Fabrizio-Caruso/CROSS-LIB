@@ -9,13 +9,17 @@ TODO
 
 4. _XL_NO_LOWER_BORDER fix/implementation
 
-4. Targets to improve/fix
+5. GX4000 target extension - X.BIN not found
+
+6. Retest BEE input
+
+Targets to improve/fix
 	Z80:
-    - Casio FP 1100
+    - Casio FP 1100 (random zombie characters/missed display)
     - Bandai Supervision 8000 (REMARK: ONLY 4k roms in real hardware)
-    - TVC Videoton
-    - GL6000sl
-    - M100
+    - TVC Videoton (not cursor position)
+    - GL6000sl (seems OK)
+    - M100 (only single pixel graphics)
     - MZ 2500
     - Cambridge Z88 
     - Sharp OZ

@@ -258,6 +258,7 @@ PARALLEL_TARGETS = \
     'einstein',
     'gb',
     'gal',
+    'gl6000sl',
     'gamegear',
     'hector',
     'hectorhr',

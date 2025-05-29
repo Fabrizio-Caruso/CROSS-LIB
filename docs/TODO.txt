@@ -1,129 +1,28 @@
-TODO for the integration release for Z88DK
+TODO
 
-1. DONE - re-factor input_macros.h/c (e.g., GETCHAR for ncurses)
-2. DONE verify ghosts in boss levels
-3. DONE use joystick in Z88DK
-4. DONE - non-turn-based ncurses version
-5. DONE - use register in pointers to Characrters parameters 
-6. DONE - split settings
-7. DONE - Delete or move unused code to notes
-8. DONE - Remove or move unused tools
-9. DONE Verify trs80/eg2k targets
 
-10 PARTIAL Make generic code for all joystick and keyboard configuration
+1. Improve documentation on the new file structure and how to add new targets
 
-11. DONE Rename files
-I)   DONE skull.h/c
-II)  DONE enemy.h/c -> ghost.h/c
-III) DONE missile.h/c -> bullet.h.c
+2. Factorize cmoc/stdlib includes in all concerned files
 
-12. DONE Rename variables: 
-I)   DONE INVINCIBLE/INVINCIBLE_GHOST -> SKULL
-II)  DONE BUBBLE -> ROCKET
-III) DONE MISSILE -> BULLET
-IV)  DONE ENEMY -> GHOST (or viceversa?)
+3. Fix implicit declaraton of kbhit and getch
 
-13. DONE Fix chase item display
-
-14. DONE Separate/Re-factor Stat display in text.h/c
-
-15. DONE Separate generic text routines from game specific text routines
-
-16. DONE Optimize and Re-factor blink display
-
-17. PARTIAL Separate cases that require --max-alloc... from those that do not
-TEST WITH BLINKING AND NO --max-alloc...
-full mc1000 OK
-full vg5k OK
-full vz200 OK
-full c128 OK
-tiny aquarius OK
-full zx81 KO
-light svi KO
-
-18. DONE Fix WIDE/NARROW issues (mc1000, msx, etc.)
-
-19. Make ArrowYPosition a parameter (verify memory loss/gain)
-
-20. DONE Define a SLEEP macro (fix CMOC cases)
-
-22. DONE Separate alt_print from graphics
-
-23. DONE NO LONGER NEEDED Use EXT_GRAPHICS option instead of manuall editing display_macros.c
-
-24. Document the new file structure and how to add new targets
-
-25. DONE Implement color function for memory_mapped systems with color
-
-26. DONE Test major targets with latest Z88DK snapshots
-
-27. LIGHT -> FULL promotions:
-	abc80 16k
-	microbee 16k 
-	nascom 16k
-	oric1 16k
-	p2000 16k
-	pc6001 16k
-	pv1000 16k
-	sc3000 16k
-	svi-318 16k
-	ti86 [TO TEST]
-	Z9001 16k  [OK]
-
-28. TINY -> LIGHT/FULL promotions:
-	camputers_lynx 48k (FULL)
-	mz2500_buffered (FULL)
-	osic1p 8k (LIGHT)
-	oz_buffered (TINY/LIGHT/FULL)
-	pce 8k (LIGHT)
-	sms_buffered (FULL)
-	sos_buffered (TINY/LIGHT/FULL)
-	spectrum 16k (LIGHT)
-	trs80 (LIGHT)
-	vic20 +3K (LIGHT)
-	vz200 8k (LIGHT)
-	z88_buffered (LIGHT)
-
-29. Factorize cmoc/stdlib includes in all concerned files
-
-30. Factorize the main.c file
-
-31. Update Compilation TESTS
-
-32. Fix implicit declaraton of kbhit and getch
-
-33. Complete
-	6502:
-	- Supervision (lacks any graphics and text)
-	
-	6809:
-	- Thomson Mo5 (lacks any graphics and text)
-	
-34. Improve
-	6502:
-	- Atari Lynx (improve graphics and implement text)
-	
-	6809:
-	- CoCo (graphics)
-	- Dragon (graphics)
-	
+4. Targets to improve/fix
 	Z80:
-	- Sega Master System
-	- MZ 2500
-	- Cambridge Z88 
-	- Sharp OZ
-	- S-OS (use syscalls?)
-
-35. Implement the following targets:
-	Z80:
+    - Casio FP 1100
+    - Bandai Supervision 8000 (REMARK: ONLY 4k roms in real hardware)
+    - TVC Videoton
+    - GL6000sl
+    - M100
+    - MZ 2500
+    - Cambridge Z88 
+    - Sharp OZ
 	- Coleco Adam
 	- Super 80
 	- ABC 800
 	
 	6809:
-	- Thomson To7
 	- Vectrex
-	- BBC Micro / Atom
 	
 	8501:
 	- Minitel [SDCC]
@@ -131,11 +30,7 @@ light svi KO
 	6502:
 	- Oric Telestrat
 	- Acorn BBC Micro / Atom
-	- Atari 7800
 	- Atari 2600 
-	
-	TMS 9000:
-	- TI 99/4a
 	
 	65C816 
 	- Super NES [GBDK: http://gbdk.sourceforge.net/]

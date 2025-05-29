@@ -1,5 +1,0 @@
-Casio FP 1100
-Bandai Supervision 8000 (REMARK: ONLY 4k roms in real hardware)
-TVC Videoton
-GL6000sl
-M100

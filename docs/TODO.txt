@@ -7,6 +7,8 @@ TODO
 
 3. Fix implicit declaraton of kbhit and getch
 
+4. _XL_NO_LOWER_BORDER fix/implementation
+
 4. Targets to improve/fix
 	Z80:
     - Casio FP 1100

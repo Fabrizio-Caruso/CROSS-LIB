@@ -81,11 +81,12 @@ endif
 gcc_targets: \
 	ncurses  
 
+#TODO: Atari is currently broken in newest cc65 versions
+
 ifeq ($(DO_WIN),1)
-cc65_targets: \
+cc65_targets_sequential: \
     apple2 \
     apple2enh \
-    atari \
     atari_lynx \
     atari5200 \
     atari7800 \
@@ -100,10 +101,9 @@ cc65_targets: \
     supervision \
     vic20 
 else
-cc65_targets: \
+cc65_targets_sequential: \
     apple2 \
     apple2enh \
-    atari \
     atari_lynx \
     atari5200 \
     atari7800 \
@@ -118,6 +118,12 @@ cc65_targets: \
     supervision \
     vic20 
 endif
+
+
+cc65_targets:
+	$(MAKE) $(Z88DK_MAKE_OPTS) cc65_targets_sequential -f ./$(PARENT_DIR)/$(GAME_NAME)/Makefile.$(GAME_NAME)
+
+
 
 cmoc_targets: \
     mo5_targets \

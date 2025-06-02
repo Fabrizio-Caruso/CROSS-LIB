@@ -13,6 +13,11 @@ TODO
 
 6. Retest BEE input
 
+7. Check Unix compilation (A7800 assets?)
+
+8. Fix ATARI cfg with latest CC65 versions
+
+
 Targets to improve/fix
 	Z80:
     - Casio FP 1100 (random zombie characters/missed display)

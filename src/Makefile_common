@@ -87,6 +87,7 @@ ifeq ($(DO_WIN),1)
 cc65_targets_sequential: \
     apple2 \
     apple2enh \
+    atari \
     atari_lynx \
     atari5200 \
     atari7800 \
@@ -107,6 +108,7 @@ cc65_targets_sequential: \
     atari_lynx \
     atari5200 \
     atari7800 \
+    atari \
     c16 \
     c64 \
     creativision \

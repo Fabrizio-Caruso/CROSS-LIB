@@ -238,6 +238,23 @@ PARALLEL_TARGETS = \
     [
     'stdio', 
     
+    'apple2',
+    'apple2enh',
+    'atari',
+    'atari_lynx',
+    'atari5200',
+    'atari7800',
+    'c16',
+    'c64',
+    'creativision',
+    'gamate',
+    'oric',
+    'nes',
+    'pet',
+    'pce',
+    'supervision',
+    'vic20', 
+    
     'ncurses',
     'terminal',
     'terminal8x8',

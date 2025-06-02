@@ -242,7 +242,8 @@ def process_a7800_160A_file():
     for line in fin:
         words = line.split(",")
         for word in words:
-            if word != "\n" and word != "\t\n":
+            word = word.strip()
+            if word != '' and  word != "\n" and word != "\t\n" and word != "\r\n" and word != "\r":
                 trimmed_word = word.replace("\n","").replace(" ","").replace("$","0x")
                 print(trimmed_word)
                 source.append(trimmed_word)

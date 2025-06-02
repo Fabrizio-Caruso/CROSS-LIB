@@ -1834,7 +1834,7 @@ zx81_no_gfx: zx81_no_gfx_16k
 
 # -pragma-define:ZX_CHAR_XLATE_MODE=1
 zx81_no_gfx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
 	-vn  -D__TARGET_SPECIFIC_ASCII \

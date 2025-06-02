@@ -1061,9 +1061,9 @@ ifdef USE_TOOLS
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
+	mv $(BUILD_PATH)/XBIN_$@_gx4000.cpr $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr
 endif
 	mv $(BUILD_PATH)/XBIN.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	mv $(BUILD_PATH)/XBIN_$@_gx4000.cpr $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr
 	rm -rf $(BUILD_PATH)/XBIN.bin
 	rm -rf $(BUILD_PATH)/XBIN.cpc
 	rm -rf $(BUILD_PATH)/XBIN

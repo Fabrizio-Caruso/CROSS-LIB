@@ -93,6 +93,8 @@ cc65_targets_sequential: \
     atari7800 \
     c16 \
     c64 \
+    cbm510 \
+    cbm610 \
     creativision \
     gamate \
     oric  \
@@ -111,6 +113,8 @@ cc65_targets_sequential: \
     atari \
     c16 \
     c64 \
+    cbm510 \
+    cbm610 \
     creativision \
     gamate \
     oric  \
@@ -534,6 +538,32 @@ c64_exomized: c64
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt
 endif
+
+
+
+#######################################################################################
+# CBM610
+
+cbm610: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t cbm610 \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CBM610_SLOWDOWN) \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+#######################################################################################
+# CBM510
+
+cbm510: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t cbm510 -DEXTRA_TITLE \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_SOUND \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CBM510_SLOWDOWN) \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+
 
 #################################################################
 

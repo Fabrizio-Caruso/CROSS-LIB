@@ -1,5 +1,6 @@
 TODO
 
+0. Fix CONIO on cc65 targets
 
 1. Improve documentation on the new file structure and how to add new targets
 
@@ -17,6 +18,9 @@ TODO
 
 8. Fix ATARI cfg with latest CC65 versions
 
+9. Tune games' speeds for cbm610
+
+10 Tune games' speeds for cbm510 
 
 Targets to improve/fix
 	Z80:

@@ -246,6 +246,8 @@ PARALLEL_TARGETS = \
     'atari7800',
     'c16',
     'c64',
+    'cbm610',
+    'cbm510',
     'creativision',
     'gamate',
     'oric',

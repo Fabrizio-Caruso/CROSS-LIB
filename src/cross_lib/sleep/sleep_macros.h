@@ -57,90 +57,95 @@
     #endif
 
 
-#if !defined(_XL_SLOW_DOWN_FACTOR)
-    #if defined(_XL_TURN_BASED)
-            #define _XL_SLOW_DOWN_FACTOR 0
-    #else 
-        #  if defined(__NCURSES__)
-            #define _XL_SLOW_DOWN_FACTOR 100
-        #elif defined(__OSIC1P__)
-            #define _XL_SLOW_DOWN_FACTOR 500U
-        #elif defined(__OSCA__)
-            #define _XL_SLOW_DOWN_FACTOR 8167U		
-        #elif defined(__SC3000__)
-            #define _XL_SLOW_DOWN_FACTOR 2500
-        #elif defined(__NC100__) || defined(__NC200__)
-            #define _XL_SLOW_DOWN_FACTOR 1500
-        #elif defined(__MTX__)
-            #define _XL_SLOW_DOWN_FACTOR 3300U
-        #elif defined(__MSX__)
-            #define _XL_SLOW_DOWN_FACTOR 2000U		
-        #elif defined(__MC1000__)
-            #define _XL_SLOW_DOWN_FACTOR 1200			
-        #elif defined(__SAM__)
-            #define _XL_SLOW_DOWN_FACTOR 500
-        #elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED)
-            #define _XL_SLOW_DOWN_FACTOR 0
-        #elif defined(__PC6001__)
-            #define _XL_SLOW_DOWN_FACTOR 500	
-        #elif defined(__NASCOM__)
-            #define _XL_SLOW_DOWN_FACTOR 8000U
-        #elif defined(__ABC80__)
-            #define _XL_SLOW_DOWN_FACTOR 8000U		
-        #elif defined(__VZ__)
-            #define _XL_SLOW_DOWN_FACTOR 3000U
-        #elif defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI8X__) || defined(__TI86__)
-            #define _XL_SLOW_DOWN_FACTOR 6000U
-        #elif defined(__C64__)
-            #if defined(__USE_WAIT_V_SYNC)
+#if !defined(__FORCE_SLOWDOWN) || __FORCE_SLOWDOWN==-1
+    #if !defined(_XL_SLOW_DOWN_FACTOR)
+        #if defined(_XL_TURN_BASED)
                 #define _XL_SLOW_DOWN_FACTOR 0
-            #else
-                #define _XL_SLOW_DOWN_FACTOR 300
+        #else 
+            #  if defined(__NCURSES__)
+                #define _XL_SLOW_DOWN_FACTOR 100
+            #elif defined(__OSIC1P__)
+                #define _XL_SLOW_DOWN_FACTOR 500U
+            #elif defined(__OSCA__)
+                #define _XL_SLOW_DOWN_FACTOR 8167U		
+            #elif defined(__SC3000__)
+                #define _XL_SLOW_DOWN_FACTOR 2500
+            #elif defined(__NC100__) || defined(__NC200__)
+                #define _XL_SLOW_DOWN_FACTOR 1500
+            #elif defined(__MTX__)
+                #define _XL_SLOW_DOWN_FACTOR 3300U
+            #elif defined(__MSX__)
+                #define _XL_SLOW_DOWN_FACTOR 2000U		
+            #elif defined(__MC1000__)
+                #define _XL_SLOW_DOWN_FACTOR 1200			
+            #elif defined(__SAM__)
+                #define _XL_SLOW_DOWN_FACTOR 500
+            #elif defined(__VIC20__) && defined(__VIC20_UNEXPANDED)
+                #define _XL_SLOW_DOWN_FACTOR 0
+            #elif defined(__PC6001__)
+                #define _XL_SLOW_DOWN_FACTOR 500	
+            #elif defined(__NASCOM__)
+                #define _XL_SLOW_DOWN_FACTOR 8000U
+            #elif defined(__ABC80__)
+                #define _XL_SLOW_DOWN_FACTOR 8000U		
+            #elif defined(__VZ__)
+                #define _XL_SLOW_DOWN_FACTOR 3000U
+            #elif defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI8X__) || defined(__TI86__)
+                #define _XL_SLOW_DOWN_FACTOR 6000U
+            #elif defined(__C64__)
+                #if defined(__USE_WAIT_V_SYNC)
+                    #define _XL_SLOW_DOWN_FACTOR 0
+                #else
+                    #define _XL_SLOW_DOWN_FACTOR 300
+                #endif
+            #elif (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) 
+                #define _XL_SLOW_DOWN_FACTOR 600
+            #elif defined(__NES__) || defined(__MZ__) || defined(__Z9001__) || defined(__WINCMOC__) || defined(__CMOC__) || \
+                  defined(__CBM610__) || defined(__MSX__) || defined(__LASER500__)
+                #define _XL_SLOW_DOWN_FACTOR 800
+            #elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__C16__) || defined(__PLUS4__))
+                #define _XL_SLOW_DOWN_FACTOR 250
+            #elif defined(__ATMOS__)
+                #define _XL_SLOW_DOWN_FACTOR 50		
+            #elif defined(__VG5K__) && !defined(__ALT_PRINT)
+                #define _XL_SLOW_DOWN_FACTOR 2000U
+            #elif defined(__VG5K__) && defined(__ALT_PRINT)
+                #define _XL_SLOW_DOWN_FACTOR 5000U		
+            #elif defined(__GAMATE__) || defined(__X1__) || defined(__AQUARIUS__) && defined(__ALT_PRINT)
+                #define _XL_SLOW_DOWN_FACTOR 1500
+            #elif defined(__CREATIVISION__) || defined(__ATARI5200__) || defined(__ATARI__)  || \
+                  defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(__ALT_PRINT) || defined(__PET__)
+                #define _XL_SLOW_DOWN_FACTOR 1000
+            #elif defined(__PCE__)
+                #define _XL_SLOW_DOWN_FACTOR 5500U	
+            #elif defined(__SPECTRUM__) && !defined(__TS2068__)
+                #define _XL_SLOW_DOWN_FACTOR 1400
+            #elif defined(__TS2068__)
+                #define _XL_SLOW_DOWN_FACTOR 3000
+            #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
+                #define _XL_SLOW_DOWN_FACTOR 500	
+            #elif defined(__SVI__)
+                #define _XL_SLOW_DOWN_FACTOR 1200
+            #elif defined(__ATARI_LYNX__)
+                #define _XL_SLOW_DOWN_FACTOR 6000U
+            #elif (defined(__TRS80__) || defined(__EG2K__)) &&  !defined(__Z88DK_SPRITES_GRAPHICS)
+                #define _XL_SLOW_DOWN_FACTOR 100	
+            #elif defined(__EINSTEIN__)
+                #define _XL_SLOW_DOWN_FACTOR 5000	
+            #elif defined(__PX4__)
+                #define _XL_SLOW_DOWN_FACTOR 2500
+            #elif defined(__PX8__)
+                #define _XL_SLOW_DOWN_FACTOR 30000U
+            #elif defined(__M5__)
+                #define _XL_SLOW_DOWN_FACTOR 900		
+            #elif defined(__SUPERVISION__)
+                #define _XL_SLOW_DOWN_FACTOR 2000		
             #endif
-        #elif (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) 
-            #define _XL_SLOW_DOWN_FACTOR 600
-        #elif defined(__NES__) || defined(__MZ__) || defined(__Z9001__) || defined(__WINCMOC__) || defined(__CMOC__) || \
-              defined(__CBM610__) || defined(__MSX__) || defined(__LASER500__)
-            #define _XL_SLOW_DOWN_FACTOR 800
-        #elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__C16__) || defined(__PLUS4__))
-            #define _XL_SLOW_DOWN_FACTOR 250
-        #elif defined(__ATMOS__)
-            #define _XL_SLOW_DOWN_FACTOR 50		
-        #elif defined(__VG5K__) && !defined(__ALT_PRINT)
-            #define _XL_SLOW_DOWN_FACTOR 2000U
-        #elif defined(__VG5K__) && defined(__ALT_PRINT)
-            #define _XL_SLOW_DOWN_FACTOR 5000U		
-        #elif defined(__GAMATE__) || defined(__X1__) || defined(__AQUARIUS__) && defined(__ALT_PRINT)
-            #define _XL_SLOW_DOWN_FACTOR 1500
-        #elif defined(__CREATIVISION__) || defined(__ATARI5200__) || defined(__ATARI__)  || \
-              defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(__ALT_PRINT) || defined(__PET__)
-            #define _XL_SLOW_DOWN_FACTOR 1000
-        #elif defined(__PCE__)
-            #define _XL_SLOW_DOWN_FACTOR 5500U	
-        #elif defined(__SPECTRUM__) && !defined(__TS2068__)
-            #define _XL_SLOW_DOWN_FACTOR 1400
-        #elif defined(__TS2068__)
-            #define _XL_SLOW_DOWN_FACTOR 3000
-        #elif defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)
-            #define _XL_SLOW_DOWN_FACTOR 500	
-        #elif defined(__SVI__)
-            #define _XL_SLOW_DOWN_FACTOR 1200
-        #elif defined(__ATARI_LYNX__)
-            #define _XL_SLOW_DOWN_FACTOR 6000U
-        #elif (defined(__TRS80__) || defined(__EG2K__)) &&  !defined(__Z88DK_SPRITES_GRAPHICS)
-            #define _XL_SLOW_DOWN_FACTOR 100	
-        #elif defined(__EINSTEIN__)
-            #define _XL_SLOW_DOWN_FACTOR 5000	
-        #elif defined(__PX4__)
-            #define _XL_SLOW_DOWN_FACTOR 2500
-        #elif defined(__PX8__)
-            #define _XL_SLOW_DOWN_FACTOR 30000U
-        #elif defined(__M5__)
-            #define _XL_SLOW_DOWN_FACTOR 900		
-        #elif defined(__SUPERVISION__)
-            #define _XL_SLOW_DOWN_FACTOR 2000		
         #endif
     #endif
+#else
+    #undef _XL_SLOW_DOWN_FACTOR
+    #define _XL_SLOW_DOWN_FACTOR __FORCE_SLOWDOWN
 #endif
 
 #if !defined(_XL_SLOW_DOWN_FACTOR)

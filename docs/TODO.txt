@@ -1,8 +1,6 @@
 TODO
 
-0. Fix CONIO on cc65 targets
-
- 1. Improve documentation on the new file structure and how to add new targets
+ 1. Improve documentation on how to add new targets
 
  2. Factorize cmoc/stdlib includes in all concerned files
 
@@ -10,19 +8,13 @@ TODO
 
  4. _XL_NO_LOWER_BORDER fix/implementation
 
- 5. GX4000 target extension - X.BIN not found
+ 5. Retest BEE input
 
- 6. Retest BEE input
+ 6. Check Unix compilation (A7800 assets?)
 
- 7. Check Unix compilation (A7800 assets?)
+ 7. Purpose of GLOBAL_OPTS in Makefile_common
 
- 8. Fix ATARI cfg with latest CC65 versions
-
- 9. Tune games' speeds for cbm610
-
-10. Tune games' speeds for cbm510 
-
-11. Shoot transition animation should be disabled on no UDG mode
+ 8. Compiler options should be settable per game
 
 Targets to improve/fix
 	Z80:

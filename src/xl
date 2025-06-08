@@ -89,6 +89,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "shapes": "generates tiles from shapes", \
     "show": "shows tiles of a project as shapes", \
     "size": "builds the native version of a project with a given size", \
+    "slow": "builds a project for a target with a given slowdown", \
     "split": "splits a shape file in left and right shape", \
     "string": "produces case-sensitive strings as Cross-Lib characters macros", \
     "test": "runs some tests", \
@@ -111,7 +112,8 @@ SHORT_COMMANDS_LIST = OrderedDict( \
         "f": "files", \
         "r": "rebuild", \
         "x": "run", \
-        "t": "test"
+        "t": "test", \
+        "s": "slow"
     })
 
 
@@ -768,31 +770,7 @@ def insert_default_sizes(params):
 
 # Build a project (for a target or multiple targets)
 def build(params, reset_flag = False):
-
-    # terminal (implicit 'build')
-    # if(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
-        # size(["size"] + params[1:],0) 
-        # return
-    
     params = insert_default_sizes(params)
-    # if len(params)==3 and params[2].startswith('terminal'):
-        # target = params[2]
-        # if target == "terminal" or target == "terminal8x8":
-            # xsize = '20'
-            # ysize = '18'
-        # elif target == "terminal8x6":
-            # xsize = '20'
-            # ysize = '17'
-        # elif target == "terminal7x8":
-            # xsize = '20'
-            # ysize = '24'
-        # elif target == "terminal6x9" or target == "terminal6x8":
-            # xsize = '40'
-            # ysize = '24'
-        # params = ['size', params[1], target, xsize, ysize]
-    
-    # print(str(params))
-    # print(len(params))
     
     # sized terminal
     if(len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric()):
@@ -867,10 +845,6 @@ def build(params, reset_flag = False):
         if os.path.exists(parent_and_game_dir + "/config.ini"):
             print("Local config.ini detected")
             read_config(parent_and_game_dir + "/config.ini")
-        # else:
-            # print("Use general config.ini")
-            # read_config()
-
 
         if(game_dir not in ["games", "examples", "projects", "all"]):
             if reset_flag:
@@ -921,6 +895,49 @@ def build(params, reset_flag = False):
         
         if global_vars.verbose:
             printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
+            
+
+
+def slow(params):
+
+    game_dir = params[1]
+
+
+    project_type = project_category(game_dir)
+    parent_dir = project_type + "s"
+
+
+    target = params[2]
+    
+    slowdown = params[3]
+
+
+    parent_and_game_dir = parent_dir + "/" + game_dir
+    
+    if os.path.exists(parent_and_game_dir + "/config.ini"):
+        print("Local config.ini detected")
+        read_config(parent_and_game_dir + "/config.ini")
+
+    if not os.path.exists(parent_and_game_dir):
+        print("Project not found!")
+        return
+    
+    if is_project_split(game_dir):
+        printc(bcolors.OKBLUE,"Create main.c from split source files\n")
+        create_main(game_dir, project_type)
+
+    make_command = \
+        GNU_MAKE + " " + target + \
+            " SLOWDOWN=" + slowdown + \
+            all_compilers_opts("", "") +  \
+            " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+            
+    run_command_verbosely(make_command)
+    
+    if is_project_split(game_dir):
+        printc(bcolors.OKBLUE,"Delete main.c because of split source files\n")
+        delete_main(game_dir, project_type)  
+
             
 
 
@@ -2387,10 +2404,8 @@ def run(params):
     
     if len(params)>=3:
         params = insert_default_sizes(params)
-        # print(str(params))
         
         target = params[2]
-        #print("target: " + target)
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
             if global_vars.verbose:
@@ -2407,7 +2422,6 @@ def run(params):
 
         # e.g. xl run bomber 20 30
         elif(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
-            # print("DEBUG -- target: " + target)
             run_native(params, "ncurses")
 
         # TODO: replace this with a check on prefixes
@@ -2447,10 +2461,8 @@ def run(params):
             if target.startswith("msx"):
                 extension = "rom"
                 mame_sub_target = "canonv20" 
-                # mame_rom_path = "'c:\\Retro\\Emulators\\Mame0251\\roms\\'"
                 command_string = mame_path + emulator + " " + mame_sub_target + " -rompath " + mame_rom_path + " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + params[1] + "_" + target + "." + extension
                 run_command_verbosely(command_string)
-                # print(command_string)
         else:
             print("'xl run' does not support this target")
             return
@@ -3845,13 +3857,15 @@ if __name__ == "__main__":
     elif params[1]=="reset":
         reset(params[1:])
     elif params[1]=="delete":
-        delete(params[1:])
+        delete(params[1:])  
     elif params[1]=="list":
         list(params[1:])
     elif params[1]=="help":
         help(params[1:])
     elif params[1]=="tools":
         tools()
+    elif params[1]=="slow":
+        slow(params[1:])
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(params)
     else:

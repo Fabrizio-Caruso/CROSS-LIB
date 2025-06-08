@@ -1,5 +1,7 @@
 ######################
 
+# No forced slowdown
+SLOWDOWN?=-1
 
 # Common factor
 _COMMON_SLOWDOWN_FACTOR?=10

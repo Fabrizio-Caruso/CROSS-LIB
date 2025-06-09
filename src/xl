@@ -105,15 +105,14 @@ SHORT_COMMANDS_LIST = OrderedDict( \
     { \
         "c": "clean", \
         "d": "debug", \
-        "f": "file", \
-        "m": "make", \
+        "f": "files", \
         "h": "help", \
         "l": "list", \
-        "f": "files", \
+        "m": "make", \
         "r": "rebuild", \
-        "x": "run", \
+        "s": "slow", \
         "t": "test", \
-        "s": "slow"
+        "x": "run",
     })
 
 
@@ -2890,18 +2889,6 @@ def help(params):
         printc(bcolors.OKCYAN, params[1]+"\n")
         print("It " + COMMANDS_DESCRIPTIONS[params[1]] + "\n")
         params = full_params(params)
-
-        # if params[1]=="add":
-            # printc(bcolors.BOLD,"\nxl add <project> <target>\n")
-            # print("")
-            # print("It adds support for the new target <target> into <project> by modifying its Makefile.")
-            # print("")
-            # print("Example:")
-            # print("If you have previously created a new project 'foo'")
-            # print("(e.g., by cloning it with 'xl clone bomber foo'),")
-            # print("then you can add support for the 'einstein' target to it with")
-            # print("xl add foo einstein")
-            
         if params[1]=="assets":
             printc(bcolors.BOLD,"\nxl assets <project>\n")
             print("")
@@ -2946,7 +2933,6 @@ def help(params):
             print("........")
             print("........")
             
-
         elif params[1]=="config":
             printc(bcolors.BOLD,"\nxl config\n")
             print("")
@@ -2960,19 +2946,6 @@ def help(params):
             print("Example:")
             print("In order to generate candidate shapes for foo using 8x8 shapes, you can do:")     
             print("xl extend foo")
-        # elif params[1]=="remove":
-            # printc(bcolors.BOLD,"\nxl remove <project> <target>\n")
-            # print("")
-            # print("It removes support for the new target <target> into <project> by modifying its Makefile.")
-            # print("Remark: It does so by searching a regex in the concerned Makefile.")
-            # print("        It removes the target in the Makefile.")
-            # print("        For extra safety, a backup Makefile file with the previous content is also generated")
-            # print("")
-            # print("Example:")
-            # print("If you have previously created a new project 'foo'")
-            # print("(e.g., by cloning it with 'xl clone bomber foo'),")
-            # print("then you can remove support for the 'einstein' target to it with")
-            # print("xl remove foo einstein")
         elif params[1]=="make":
             printc(bcolors.BOLD,"\nxl make <project> <target>\n")
             print("")
@@ -3258,11 +3231,14 @@ def help(params):
             printc(bcolors.BOLD,"xl files\n")
             print("It shows the built binary files (the conent of the `build` directory).\n")
             print("Remark: 'xl files' can be shorten with `xl f`.")
-            
+        elif params[1]=="slow":
+            printc(bcolors.BOLD,"xl slow <project> <target> <slowdown>\n")
+            print("It builds <project> for <target> with (total) slowdown given by <slowdown>")
+            print("\nExamples:")
+            print("\nxl slow horde vic20 800     \n  It builds Horde for the Commodore Vic 20 using CC65 with (total) slowdown equal to 800.")
         elif params[1]=="build":
             printc(bcolors.BOLD,"xl build <project> <[optional] target> or xl <project> <[optional] target>\n")
             print("It builds <project> for <target>.")
-            # print("Remark: The 'build' command can be omitted.")
             print("The built binaries will be in the 'build' directory.")
 
             print("\n<project>")

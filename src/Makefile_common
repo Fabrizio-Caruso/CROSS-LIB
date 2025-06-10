@@ -151,6 +151,7 @@ z88dk_targets_sequential: \
     laser500 \
     mc1000 \
     bee \
+    m5 \
     msx \
     mtx500 \
     mtx512 \
@@ -181,6 +182,7 @@ z88dk_targets_sequential: \
     laser500 \
     mc1000 \
     bee \
+    m5 \
     msx \
     mtx500 \
     mtx512 \

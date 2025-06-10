@@ -12,16 +12,13 @@ TODO
 
  6. Check Unix compilation (A7800 assets?)
 
- 7. Purpose of GLOBAL_OPTS in Makefile_common
-
- 8. Compiler options should be settable per game
+ 7. Compiler options should be settable per game
 
 Targets to improve/fix
 	Z80:
     - Casio FP 1100 (random zombie characters/missed display)
     - Bandai Supervision 8000 (REMARK: ONLY 4k roms in real hardware)
     - TVC Videoton (not cursor position)
-    - GL6000sl (seems OK)
     - M100 (only single pixel graphics)
     - MZ 2500
     - Cambridge Z88 

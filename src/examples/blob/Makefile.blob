@@ -1,0 +1,29 @@
+######################################################################
+# Makefile for CROSS-BLOB
+
+FULL_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/main.c 
+
+GAME_NAME := blob
+
+PARENT_DIR = examples
+
+SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
+
+#-D_DEFAULT_ASCII
+DEFAULT_ASCII=
+
+GLOBAL_OPTS = $(DEFAULT_ASCII)
+
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
+
+
+include ./Makefile_common
+
+
+include ./makefiles.common/auxiliary/Makefile_default_values

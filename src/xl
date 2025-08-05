@@ -118,10 +118,10 @@ SHORT_COMMANDS_LIST = OrderedDict( \
 
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
-    if z88dk_compiler == 'zsdcc' or z88dk_compiler == 'sdcc':
+    if z88dk_compiler in ('zsdcc','sdcc'):
         compiler_selection = " -compiler=sdcc "
         compiler_opts = compiler_opts + " " + zsdcc_compiler_opts
-    elif z88dk_compiler == 'ez80clang' or z88dk_compiler == 'clang':
+    elif z88dk_compiler in ('ez80clang', 'clang'):
         compiler_selection = " -compiler=ez80clang "
         compiler_opts = compiler_opts
     else:
@@ -753,13 +753,13 @@ def insert_default_sizes(params):
 
     if len(params)==3 and params[2].startswith('terminal'):
         target = params[2]
-        if target in ["terminal", "terminal8x8", "terminal8x6"]:
+        if target in ("terminal", "terminal8x8", "terminal8x6"):
             xsize = '20'
             ysize = '17'
         elif target == "terminal7x8":
             xsize = '20'
             ysize = '24'
-        elif target == "terminal6x9" or target == "terminal6x8":
+        elif target in ("terminal6x9", "terminal6x8"):
             xsize = '40'
             ysize = '24'
         return [params[0], params[1], target, xsize, ysize]
@@ -1641,8 +1641,8 @@ def test_clean_tools():
     number_of_tools = len(tools_result_map.keys())
 
     built_tools = 0
-    for tool in tools_result_map.keys():
-        if tools_result_map[tool]:
+    for tool, result in tools_result_map.items():
+        if result:
             built_tools+=1
     if built_tools==0:
         printc(bcolors.OKGREEN, "[xl clean tools]  OK\n")
@@ -1683,8 +1683,8 @@ def test_self(target = "stdio",opt = "slow"):
 
         tools_result_map=test_tools(False)
         built_tools = 0
-        for tool in tools_result_map.keys():
-            if tools_result_map[tool]:
+        for tool, result in tools_result_map.items():
+            if result:
                 built_tools+=1
         if built_tools==number_of_tools:
             printc(bcolors.OKGREEN, "[xl tools]        OK\n")
@@ -2076,7 +2076,7 @@ def targets_test(params):
         if is_project_split(game_dir):
             print("Delete main.c (because of split source files)\n")
             delete_main(game_dir, project_type)
-        exit(-1)
+        sys.exit(-1)
     if is_project_split("chase"):
         printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(game_dir, project_type)
@@ -2240,19 +2240,19 @@ def check(params):
             printc(bcolors.WARNING, "No ncurses library detected -> Native target impacted\n")
             native_target = False
 
-        for cross_compiler in cross_compilers.keys():
-            if not cross_compilers[cross_compiler]:
+        for cross_compiler, present in cross_compilers.items():
+            if not present:
                 # printc(bcolors.WARNING, "No " + cross_compiler + " cross-compiler -> xl build <project> <target> impacted for some targets\n")
                 cross_target = False
 
-        for emulator in emulators.keys():
-            if not emulators[emulator]:
+        for emulator, present in emulators.items():
+            if not present:
                 # printc(bcolors.WARNING, "No " + emulator + " emulator -> xl run <project> <target> impacted for some targets\n")
                 xl_run_cross_target = False
                 break
 
-        for rom in roms.keys():
-            if not roms[rom]:
+        for rom, present in roms.items():
+            if not present:
                 # printc(bcolors.WARNING, "No " + rom + " rom -> xl run <project> <target> impacted for some targets\n")
                 xl_run_cross_target = False
                 break
@@ -2359,9 +2359,6 @@ def help_help():
 def run_native(params, target):
 
     command_prefix = "../build/X" + params[1] + "_" + target
-
-    # print(str(params))
-    # exit()
 
     if len(params)>=4:
         xsize = params[2]
@@ -2584,10 +2581,10 @@ def extend(params):
         print("")
     shape_files = files_in_path(path_to_8x8_files)
 
-    dict7x8 = dict()
-    dict6x8 = dict()
-    dict8x6 = dict()
-    dict6x9 = dict()
+    dict7x8 = {}
+    dict6x8 = {}
+    dict8x6 = {}
+    dict6x9 = {}
     for shape_file in shape_files:
         path_to_shape_file = path_to_8x8_files + "/" + shape_file
 
@@ -2742,125 +2739,6 @@ def show(params):
     else:
         for i in range(NUMBER_OF_TILES):
             print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
-
-
-# def remove(params):
-    # project = params[1]
-
-    # target = params[2]
-
-    # if global_vars.verbose:
-        # print("project: " + project)
-        # print("target: " + target)
-
-    # proj_cat = project_category(project)
-    # if global_vars.verbose:
-        # print("project category: " + proj_cat)
-
-    # if(proj_cat != "project"):
-        # print("You cannot modify a built-in project")
-
-    # new_target_path = "makefiles.common/targets/"
-
-    # possible_targets = files_in_path(new_target_path)
-
-    # if global_vars.verbose:
-
-        # print("path: " + new_target_path)
-        # print(possible_targets)
-
-    # new_Makefile = "Makefile_" + target
-
-    # if global_vars.verbose:
-
-        # if new_Makefile in possible_targets:
-            # print("Target found in list of candidate extra targets")
-        # else:
-            # print("Target not found in list of candidate extra targets")
-
-    # project_path = "projects/" +  project
-
-    # full_project_path = project_path + "/Makefile." + project
-
-    # with open(full_project_path) as file:
-        # project_makefile = file.read()
-
-    # if global_vars.verbose:
-
-        # if(target+":" in project_makefile):
-            # print("Target present in " + full_project_path)
-        # else:
-            # print("Target not present in " + full_project_path)
-            # return
-
-    # full_new_target_path = new_target_path + new_Makefile
-
-    # cleaned_project_makefile = re.sub(target+":(.*)(\r*\n){2}","",project_makefile, flags=re.MULTILINE|re.DOTALL)
-
-    # command_string = "mv " + full_project_path + " " + full_project_path + "_BACKUP"
-    # run_command_verbosely(command_string)
-
-    # with open(full_project_path,'w') as file:
-        # file.write(cleaned_project_makefile)
-
-
-# def add(params):
-    # project = params[1]
-
-    # target = params[2]
-
-    # if global_vars.verbose:
-        # print("project: " + project)
-        # print("target: " + target)
-
-    # proj_cat = project_category(project)
-
-    # if global_vars.verbose:
-        # print("project category: " + proj_cat)
-
-    # if(proj_cat != "project"):
-        # print("You cannot modify a built-in project")
-
-    # new_target_path = "makefiles.common/targets/"
-
-    # if global_vars.verbose:
-        # print("path: " + new_target_path)
-
-    # possible_targets = files_in_path(new_target_path)
-    # if global_vars.verbose:
-        # print(possible_targets)
-
-    # new_Makefile = "Makefile_" + target
-
-    # if new_Makefile in possible_targets:
-        # if global_vars.verbose:
-            # print("Target found in list of candidate extra targets")
-    # else:
-        # print("Target not found in list of candidate extra targets")
-        # return
-
-    # project_path = "projects/" +  project
-
-    # full_project_path = project_path + "/Makefile." + project
-
-    # with open(full_project_path) as file:
-        # project_makefile = file.read()
-
-    # if(target+":" in project_makefile):
-        # print("Target already present. First delete it from " + full_project_path)
-        # return
-
-    # full_new_target_path = new_target_path + new_Makefile
-
-    # if global_vars.verbose:
-        # print("Adding this Makefile target(s)")
-    # command_string = "cat " + full_new_target_path
-    # run_command_verbosely(command_string)
-    # if global_vars.verbose:
-        # print("\n")
-
-    # command_string = "cat " + full_new_target_path + " >> " + full_project_path
-    # run_command_verbosely(command_string)
 
 
 def full_params(params):
@@ -3483,7 +3361,7 @@ def read_config(config_file="./config.ini"):
         compilation_threads = read_config_option("build","threads")
 
 
-        if compilation_threads=="auto" or compilation_threads=="automaic":
+        if compilation_threads in ("auto", "automaic"):
             if global_vars.verbose:
                 print("----------------------------")
             import multiprocessing
@@ -3698,7 +3576,7 @@ if __name__ == "__main__":
     if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")
         logger.error("Python version not supported")
-        exit(-1)
+        sys.exit(-1)
     try:
         logger.info("(read_config) Read configuration file")
         read_config()
@@ -3745,7 +3623,7 @@ if __name__ == "__main__":
 
         project_name = generic_input("Insert project to build\n")
 
-        if project_name=="" or project_name=="\n":
+        if project_name in ("", "\n"):
             project_name="helloworld"
             if global_vars.verbose:
                 printc(bcolors.WARNING,"Defaulting to helloworld\n")
@@ -3753,7 +3631,7 @@ if __name__ == "__main__":
         print("")
 
         target_name = generic_input("Insert target name\n")
-        if target_name=="" or target_name=="\n":
+        if target_name in ("", "\n"):
             target_name="ncurses"
             if global_vars.verbose:
                 printc(bcolors.WARNING, "Defaulting to ncurses\n")

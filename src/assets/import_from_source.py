@@ -545,7 +545,7 @@ def compute_split_tiles(lines,verbose_split_tiles=True):
 
     xsize = 16
     for line in lines:
-        xsize = len(xsize,line)
+        xsize = min(xsize,len(line))
     if global_vars.verbose:
         print("Detected xsize: " + str(xsize))
 
@@ -597,7 +597,7 @@ def compute_tile(lines):
 
     xsize = 8
     for line in filtered_lines:
-        xsize = min(xise,len(line))
+        xsize = min(xsize,len(line))
 
     trimmed_lines = []
     for line in filtered_lines:

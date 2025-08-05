@@ -153,8 +153,7 @@ def run_command_verbosely(command_string):
 def generic_input(str):
     if sys.version_info[0] < 3:
         return raw_input(str)
-    else:
-        return input(str)
+    return input(str)
 
 def are_you_sure():
     return generic_input("Are you sure [Y/N]? ").lower()
@@ -1069,20 +1068,20 @@ def reset(params):
     if game_dir in ["games","examples","projects"]:
         multiple_project_reset(game_dir)
         return
-    elif game_dir=="new":
+    if game_dir=="new":
         multiple_project_reset("projects")
         return
-    elif game_dir in ["builtin","built-in"]:
+    if game_dir in ["builtin","built-in"]:
         multiple_project_reset("games")
         multiple_project_reset("examples")
         return
-    elif game_dir=="all":
+    if game_dir=="all":
         multiple_project_reset("games")
         multiple_project_reset("examples")
         multiple_project_reset("projects")
         return
 
-    elif (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
+    if (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
         if global_vars.verbose:
@@ -1091,18 +1090,16 @@ def reset(params):
         run_command_verbosely(make_command)
         return
 
-    elif len(params)<2:
+    if len(params)<2:
         make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
         if global_vars.verbose:
-
             print("Delete all non-project-specific temporary files")
         if are_you_sure()=="y":
             run_command_verbosely(make_command)
             return
-        else:
-            return
-    else:
-        game_dir = params[1]
+        return
+    
+    game_dir = params[1]
 
     project_type = project_category(game_dir)
 
@@ -1155,9 +1152,8 @@ def clean(params):
         if are_you_sure()=="y":
             run_command_verbosely(make_command)
             return
-        else:
-            return
-    elif (len(params)==2) and (params[1]=='-y'):
+        return
+    if (len(params)==2) and (params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
         if global_vars.verbose:
@@ -1165,12 +1161,12 @@ def clean(params):
 
         run_command_verbosely(make_command)
         return
-    else:
-        game_dir = params[1]
+
+    game_dir = params[1]
 
     project_type = project_category(game_dir)
 
-    parent_dir = project_type + "s"
+    parent_dir =roject_type + "s"
 
     # if (len(params)>2) and (params[2]=="-y"):
         # interactive = False
@@ -1205,11 +1201,10 @@ def delete(params):
         game_dir="helloworld"
     else:
         candidate_name = params[1]
-        if(candidate_name in example_projects or candidate_name in game_projects or candidate_name in COMMANDS_LIST):
+        if candidate_name in example_projects or candidate_name in game_projects or candidate_name in COMMANDS_LIST:
             print("invalid name!")
             return
-        else:
-            game_dir = candidate_name
+        game_dir = candidate_name
 
     if (len(params)>2) and (params[2]=="-y"):
         interactive = False
@@ -1241,15 +1236,6 @@ def delete(params):
         return
 
 
-def files_in_path(mypath):
-    files = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
-        # print(dirpath, dirnames,filenames)
-        files.extend(filenames)
-        break
-    return files
-
-
 def built_files_in_path(mypath):
     files = []
     for (dirpath, dirnames, filenames) in walk(mypath):
@@ -1270,9 +1256,8 @@ def clean_test():
     if files_after_clean>1:
         printc(bcolors.FAIL, "[xl clean]        KO\n")
         return 0
-    else:
-        printc(bcolors.OKGREEN, "[xl clean]        OK\n")
-        return 1
+    printc(bcolors.OKGREEN, "[xl clean]        OK\n")
+    return 1
 
 
 CROSS_COMPILER_COMMAND = \
@@ -1537,7 +1522,7 @@ def check_programs(title, command_list, expected_list, verbose=True):
             printc(res_color2, spaces + res)
     if verbose:
         printc(bcolors.OKCYAN,"----------------------------------------\n\n")
-    return(total_result)
+    return total_result
 
 
 
@@ -1628,9 +1613,8 @@ def test_projects(projects, target="stdio"):
 
         # success=0
         return False
-    else:
-        printc(bcolors.OKGREEN, "[xl build]  OK\n")
-        return True
+    printc(bcolors.OKGREEN, "[xl build]  OK\n")
+    return True
 
 
 def test_clean_tools():
@@ -1718,16 +1702,14 @@ def test_self(target = "stdio",opt = "slow"):
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(bcolors.FAIL, "[xl create]       KO\n")
         return 0
-    else:
-        printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(bcolors.OKGREEN, "[xl create]       OK\n")
 
     # list
     projects_after_create = list(["list"],False)
     if projects_after_create!=projects_before_create+1:
         printc(bcolors.FAIL,"[xl list]         KO\n")
         success = 0
-    else:
-        printc(bcolors.OKGREEN,"[xl list]         OK\n")
+    printc(bcolors.OKGREEN,"[xl list]         OK\n")
 
     # create
     create(["create", "_test_project2", "game"])
@@ -1868,8 +1850,7 @@ def test_self(target = "stdio",opt = "slow"):
         printc(bcolors.FAIL,
                             "[xl clone]        KO\n")
         return 0
-    else:
-        printc(bcolors.OKGREEN,
+    printc(bcolors.OKGREEN,
                             "[xl clone]        OK\n")
 
 
@@ -2133,8 +2114,8 @@ def test(params):
         else:
             printc(bcolors.FAIL, "TEST KO\n")
         return
-    elif params[1]=="self":
-        if(len(params)<3):
+    if params[1]=="self":
+        if len(params)<3:
             test_self()
         else:
             test_self(params[2])
@@ -2299,9 +2280,9 @@ def check(params):
 # List all projects
 def list(params, print_projects=True):
 
-    if(len(params)<2):
+    if len(params)<2:
         project_dirs = ["examples", "games", "projects"]
-    elif(params[1]=="all"):
+    elif params[1]=="all":
         project_dirs = ["examples", "games", "projects"]
     elif params[1] in ["games", "examples", "projects"]:
         project_dirs = [params[1]]
@@ -2525,7 +2506,7 @@ def tile(params):
     if global_vars.verbose:
         print_shape(compute_shape(tile,xsize))
 
-    if(len(params)>=3):
+    if len(params)>=3:
         store_tile(params[2], tile, xsize, ysize, params[3])
     else:
         printc(bcolors.OKCYAN, tile+"\n")
@@ -2599,7 +2580,7 @@ def extend(params):
             print("")
 
         tile,xsize,ysize = read_shape(path_to_shape_file)
-        if(xsize!=8 or ysize!=8):
+        if xsize!=8 or ysize!=8:
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
             return
@@ -2654,7 +2635,7 @@ def shapes(params):
 
     project_cat = project_category(project_name)
 
-    if(len(params)>3):   # xsize, ysize parameters
+    if len(params)>3:   # xsize, ysize parameters
         xsize_str,ysize_str = params[2:]
     elif len(params)==3: # target parameter
         detected_xsize = detect_xsize(params[2])
@@ -2743,7 +2724,7 @@ def show(params):
 
 def full_params(params):
     full_command = SHORT_COMMANDS_LIST.get(params[1])
-    if(full_command is not None):
+    if full_command is not None:
         if global_vars.verbose:
             print("Full command: " + str(full_command))
             print()
@@ -2751,8 +2732,7 @@ def full_params(params):
         return ["", full_command] + params[2:]
         # print(params)
         # return
-    else:
-        return params
+    return params
 
 
 def help(params):
@@ -3244,7 +3224,7 @@ def manual(params):
         print("Use")
         printc(bcolors.BOLD,"xl manual <routine>\n")
         return
-    elif params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
+    if params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
         command_string = "cat ../docs/manual/" + params[1] + ".txt"
     else:
         command_string = "cat ../docs/manual/_XL_" + params[1] + ".txt"
@@ -3655,7 +3635,7 @@ if __name__ == "__main__":
     elif params[1]=="unit-tests":
         test(["test","unit-tests"])
     elif params[1]=="self":
-        if(len(params)<3):
+        if len(params)<3:
             test_self()
         else:
             test_self(params[2])

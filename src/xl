@@ -3676,10 +3676,15 @@ if __name__ == "__main__":
     # LoggerSingleton.initLogger(__name__)
     logger = LoggerSingleton.initLogger('xl', '../logs')
     
+    # console_logger = LoggerSingleton.initConsoleLogger('console')
+    
     # logging.basicConfig(filename='../logs/log_'+datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log', level = logging.DEBUG)
     # logging.basicConfig(filename='../logs/xl_log_.log', level = logging.DEBUG)
 
     # logger = logging.getLogger("xl")
+    
+    # console_logger.info('Console logger started')
+    
     logger.info('Started')
     make_test = test_make(False)
 

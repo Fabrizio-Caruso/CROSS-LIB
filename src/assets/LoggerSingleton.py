@@ -29,3 +29,18 @@ class LoggerSingleton:
                 file_handler.setFormatter(formatter)
                 logger.addHandler(file_handler)
         return logger
+
+        
+    # @staticmethod
+    # def initConsoleLogger(name):
+        # if name in logging.Logger.manager.loggerDict:
+            # logger = logging.getLogger(name)
+        # else:
+            # logger = logging.getLogger(name)
+            # logger.setLevel(logging.DEBUG)
+            # if not logger.handlers:
+                # console_handler = logging.StreamHandler()
+                # formatter = logging.Formatter('%(asctime)s - %(filename)s:%(lineno)s - %(message)s')
+                # console_handler.setFormatter(formatter)
+                # logger.addHandler(console_handler)
+        # return logger  

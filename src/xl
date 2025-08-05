@@ -216,17 +216,17 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
 
     for project_name in projects:
 
-        if(is_project_split(project_name)):
+        if is_project_split(project_name):
             project_type = project_category(project_name)
             create_main(project_name,project_type)
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
                 " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
-                " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+                " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
         run_command_verbosely(make_command)
-        if(is_project_split(project_name)):
+        if is_project_split(project_name):
             delete_main(project_name,project_type)
 
 #TODO: cc65 targets
@@ -363,7 +363,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
         for project_name in projects:
             if reset_flag:
                 reset(["",project_name])
-            if(is_project_split(project_name)):
+            if is_project_split(project_name):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
             make_command = \
@@ -372,21 +372,21 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
                     + all_compilers_opts(zsdcc_extra_optimization, "") + \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
-                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name
             pool.apply_async(run_command_verbosely, [make_command])
 
         pool.close()
         pool.join()
 
         for project_name in projects:
-            if(is_project_split(project_name)):
+            if is_project_split(project_name):
                 delete_main(project_name,project_type)
     else:
         for project_name in projects:
             if reset_flag:
                 reset(["",project_name])
             print("project name: " + project_name)
-            if(is_project_split(project_name)):
+            if is_project_split(project_name):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
             make_command = \
@@ -395,10 +395,10 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
                     + all_compilers_opts(zsdcc_extra_optimization, "") + \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
-                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name;
+                    " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
             run_command_verbosely(make_command)
-            if(is_project_split(project_name)):
+            if is_project_split(project_name):
                 delete_main(project_name,project_type)
 
 
@@ -444,7 +444,7 @@ def size(params,debug):
     files_before = len(files_in_path("../build"))-1
 
 
-    if(game_dir not in ["games", "examples", "projects", "all"]):
+    if game_dir not in ["games", "examples", "projects", "all"]:
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             return
@@ -457,7 +457,7 @@ def size(params,debug):
                 + all_compilers_opts("","") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
-                " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+                " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
         run_command_verbosely(make_command)
 
         if is_project_split(game_dir):
@@ -772,7 +772,7 @@ def build(params, reset_flag = False):
     params = insert_default_sizes(params)
 
     # sized terminal
-    if(len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric()):
+    if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric():
         size(["size"] + params[1:],0)
         return
 
@@ -845,7 +845,7 @@ def build(params, reset_flag = False):
             print("Local config.ini detected")
             read_config(parent_and_game_dir + "/config.ini")
 
-        if(game_dir not in ["games", "examples", "projects", "all"]):
+        if game_dir not in ["games", "examples", "projects", "all"]:
             if reset_flag:
                 reset(params)
             if not os.path.exists(parent_and_game_dir):
@@ -867,7 +867,7 @@ def build(params, reset_flag = False):
                     + all_compilers_opts(zsdcc_extra_optimization, compiler_opts) +  \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
-                    " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+                    " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
             run_command_verbosely(make_command)
 
@@ -929,7 +929,7 @@ def slow(params):
         GNU_MAKE + " " + target + \
             " SLOWDOWN=" + slowdown + \
             all_compilers_opts("", "") +  \
-            " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+            " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command_verbosely(make_command)
 
@@ -953,7 +953,7 @@ def create(params):
 
         game_dir = no_space(game_dir)
 
-        if(game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST):
+        if game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST:
             print("invalid name!")
             return
 
@@ -1096,7 +1096,7 @@ def reset(params):
         if global_vars.verbose:
 
             print("Delete all non-project-specific temporary files")
-        if(are_you_sure()=="y"):
+        if are_you_sure()=="y":
             run_command_verbosely(make_command)
             return
         else:
@@ -1127,7 +1127,7 @@ def reset(params):
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
     # if (not interactive) or (are_you_sure()=="y"):
-    make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command_verbosely(make_command)
 
@@ -1135,7 +1135,7 @@ def reset(params):
 # Clean project data
 def clean(params):
 
-    if(len(params)>=2):
+    if len(params)>=2:
         if params[1]=="tools":
             make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
 
@@ -1152,7 +1152,7 @@ def clean(params):
 
         if global_vars.verbose:
             print("Delete all built binaries and non-project=specific temporary files")
-        if(are_you_sure()=="y"):
+        if are_you_sure()=="y":
             run_command_verbosely(make_command)
             return
         else:
@@ -1188,7 +1188,7 @@ def clean(params):
     print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
 
     # if (not interactive) or (are_you_sure()=="y"):
-    make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir;
+    make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command_verbosely(make_command)
 
@@ -1264,7 +1264,7 @@ def built_files_in_path(mypath):
 
 
 def clean_test():
-    clean(["clean","-y"]);
+    clean(["clean","-y"])
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
@@ -1672,7 +1672,7 @@ def test_self(target = "stdio",opt = "slow"):
     global_vars.verbose = 0
 
     #clean tools
-    number_of_tools, built_tools = test_clean_tools();
+    number_of_tools, built_tools = test_clean_tools()
     if built_tools>0:
         success = 0
 
@@ -1695,7 +1695,7 @@ def test_self(target = "stdio",opt = "slow"):
             success = 0
 
         #clean tools
-        number_of_tools, built_tools = test_clean_tools();
+        number_of_tools, built_tools = test_clean_tools()
         if built_tools > 0:
             success = 0
 
@@ -1859,7 +1859,7 @@ def test_self(target = "stdio",opt = "slow"):
     # print(str(dirs_in_path("./projects")))
 
     # clone
-    clone(["","_test_project","_cloned_test_project"]);
+    clone(["","_test_project","_cloned_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     # print(str(dirs_in_path("./projects")))
@@ -2609,7 +2609,7 @@ def extend(params):
 
         if not global_vars.test:
             print("")
-            print("7x8");
+            print("7x8")
         shape7x8 = convert(tile,7,8,extend_algorithm)
         if not global_vars.test:
             display_shape(shape7x8)
@@ -2617,7 +2617,7 @@ def extend(params):
 
         if not global_vars.test:
             print("")
-            print("6x8");
+            print("6x8")
         shape6x8 = convert(tile,6,8,extend_algorithm)
         if not global_vars.test:
             display_shape(shape6x8)
@@ -2625,7 +2625,7 @@ def extend(params):
 
         if not global_vars.test:
             print("")
-            print("8x6");
+            print("8x6")
         shape8x6 = convert(tile,8,6,extend_algorithm)
         if not global_vars.test:
             display_shape(shape8x6)
@@ -2633,7 +2633,7 @@ def extend(params):
 
         if not global_vars.test:
             print("")
-            print("6x9");
+            print("6x9")
         shape6x9 = convert(tile,6,9,extend_algorithm)
         if not global_vars.test:
             display_shape(shape6x9)
@@ -2731,7 +2731,7 @@ def show(params):
     if len(params)>=5:
         index = params[4]
     else:
-        index = "";
+        index = ""
 
     if index!="":
         print_shape_from_file(parent_dir, params[1], xsize, ysize, index)
@@ -2746,7 +2746,7 @@ def full_params(params):
     if(full_command is not None):
         if global_vars.verbose:
             print("Full command: " + str(full_command))
-            print();
+            print()
         # print(params)
         return ["", full_command] + params[2:]
         # print(params)
@@ -3153,7 +3153,7 @@ def help(params):
             print("If 'game' is passed as <type>, then the project is build with some initial template game code.")
             print("If 'apis' is passed as <type>, then the project is build with some code that shows how to use all APIs.")
 
-            print("\nExamples:");
+            print("\nExamples:")
             print("\nxl create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
             print("\nxl create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
         elif params[1]=="delete":
@@ -3276,8 +3276,7 @@ def manual(params):
 def read_config_option(section, option):
         if config.has_option(section,option):
             return config.get(section,option)
-        else:
-            return ""
+        return ""
 
 def read_config(config_file="./config.ini"):
     try:

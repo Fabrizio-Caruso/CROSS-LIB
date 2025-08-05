@@ -4,39 +4,39 @@ import sys
 
 def letter_index(letter):
         if letter=='e':
-            return 0;
+            return 0
         elif letter=='a':
-            return 1;
+            return 1
         elif letter=='r':
-            return 2;
+            return 2
         elif letter=='i':
-            return 3;
+            return 3
         elif letter=='o':
-            return 4;
+            return 4
         elif letter=='t':
-            return 5;
+            return 5
         elif letter=='n':
-            return 6;
+            return 6
         elif letter=='s':
-            return 7;
+            return 7
         elif letter=='l':
-            return 8;
+            return 8
         elif letter=='c':
-            return 9;
+            return 9
         elif letter=='u':
-            return 10;
+            return 10
         elif letter=='d':
-            return 11;
+            return 11
         elif letter=='p':
-            return 12;
+            return 12
         elif letter=='m':
-            return 13;
+            return 13
         elif letter=='h':
-            return 14;
+            return 14
         elif letter=='y':
-            return 15;
+            return 15
         else:
-            return 16;
+            return 16
 
 
 def compress(word):
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     file_name = sys.argv[1]
     
     # Count valid words for example excluding empty lines
-    word_count = 0;
+    word_count = 0
     
     words = []
     word_strings = []

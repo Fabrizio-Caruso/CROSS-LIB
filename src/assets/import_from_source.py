@@ -11,10 +11,10 @@ NUMBER_OF_TILES = 27
 ONE_REPPRESENTATIONS = ["#","*","X","x","1","+","@","$","O","o"]
 ASSEMBLY_EXTENSIONS = [".s",".asm",".a99",".as", ".acme"]
 BASIC_EXTENSIONS    = [".bas", ".lb", ".b", ".lst"]
-BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE","!Byte",".Byte"] 
-WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA","!Word",".Word"] 
+BYTE_PATTERN_LIST = [".byte","!byte","defb","fcb","db","dc.b","byte",".BYTE","!BYTE","DEFB","FCB","DB","DC.B","BYTE","!Byte",".Byte"]
+WORD_PATTERN_LIST = [".word","!word","defw","fcw","dw","dc.w","data",".WORD","!WORD","DEFW","FCW","DW","DC.W","DATA","!Word",".Word"]
 ASSEMBLY_PATTERN_LIST = BYTE_PATTERN_LIST + WORD_PATTERN_LIST
-BASIC_ONLY_NO_SKIP_PATTERN_LIST = ["dA", "BIN", "d.", "D."] 
+BASIC_ONLY_NO_SKIP_PATTERN_LIST = ["dA", "BIN", "d.", "D."]
 BASIC_ONLY_SKIP_PATTERN_LIST = [ "symbol", "SYMBOL", "vdu 23,", "VDU 23,", "vdu23,", "VDU23,"]
 BASIC_ONLY_PATTERN_LIST = BASIC_ONLY_NO_SKIP_PATTERN_LIST + BASIC_ONLY_SKIP_PATTERN_LIST
 PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
@@ -43,7 +43,7 @@ def display_shape(tile_vect):
 
 # It returns the path to the shape directory for a given project and dimension
 def path_to_shapes(project, xsize, ysize):
-    
+
     project_cat = project_category(project)
     # print(project_cat)
     return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
@@ -54,14 +54,14 @@ def project_category(game_dir):
     if(game_dir in example_projects):
         return "example"
     elif game_dir in game_projects:
-        return "game" 
+        return "game"
     else:
-        return "project" 
+        return "project"
 
 
 # It outputs a list of strings
 def compute_shape(string, xsize):
-    string_items = string.split(",");
+    string_items = string.split(",")
     items = []
     values = []
     for string_item in string_items:
@@ -83,7 +83,7 @@ def compute_shape(string, xsize):
         padded_bin_string+=bin_string
 
         padded_bin_string = padded_bin_string.replace("0",".").replace("1","#")
-        
+
         items.append(padded_bin_string)
         # print("items :" + str(items))
     return(items)
@@ -91,7 +91,7 @@ def compute_shape(string, xsize):
 
 
 def printc(color,text):
-    
+
     if(global_vars.color_terminal):
         print(color + text + bcolors.ENDC, end="")
     else:
@@ -99,7 +99,7 @@ def printc(color,text):
 
 
 
-def print_shape(items):    
+def print_shape(items):
     if not global_vars.test:
         for i in range(len(items)):
             printc(bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
@@ -113,21 +113,21 @@ def compute_rotated_shape(items):
     # return(items)
     xsize = len(items[0])
     ysize = len(items)
-    val = [0]*xsize;
+    val = [0]*xsize
     for j in range(xsize):
         tmp = 0
         for i in range(ysize):
             if(items[i][j]=='#'):
                 tmp+=2**i
         val[j] = tmp
-        
+
     str_res = []
     for i in range(xsize):
         str_res.append(val[i])
 
     return(str_res)
-    
-    
+
+
 
 # It computes the shape from the tile file (not directly from the shapes if available)
 def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
@@ -142,9 +142,9 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
         # computed_shape = compute_shape(tile_data,xsize)
         # print("computed shape: " + str(computed_shape))
         print_shape(compute_shape(tile_data,xsize))
-        
+
     except Exception as ex:
-        print("File skipped");
+        print("File skipped")
 
 
 
@@ -165,7 +165,7 @@ def fill_empty_slots_with_zero(data_list):
             new_list.append("0")
         else:
             new_list.append(data_list[i])
-    
+
     return new_list
 
 
@@ -201,7 +201,7 @@ def normalize_basic_line(line):
         line = ""
     if("SYMBOLAFTER" in line) or ("SYMBOL AFTER" in line):
         line = ""
-    
+
     return line
 
 
@@ -211,7 +211,7 @@ def normalize_assembly_line(line):
 
     # Convert bin notation to @
     line = line.replace("%","@").replace("0b","@")
-    
+
     return line
 
 
@@ -252,7 +252,7 @@ def display_data_type(word_data):
             data_type = "16-bit"
         else:
             data_type = "8-bit"
-        
+
         print("Data type detected   : " + data_type)
 
 
@@ -262,7 +262,7 @@ def display_code_type(basic_code):
             code_type = "BASIC"
         else:
             code_type = "Assembly"
-            
+
         print("Code type            : " + code_type)
 
 
@@ -275,7 +275,7 @@ def display_extension_type(assembly_extension, basic_code):
             extension_type = "BASIC"
         else:
             extension_type = "Undefined"
-        
+
         print("\nFile extension type  : " + extension_type)
 
 
@@ -288,7 +288,7 @@ def line_pattern(line):
     for i in range(len(PATTERN_LIST)):
         if PATTERN_LIST[i] in line:
             return i
-    
+
     return -1
 
 
@@ -296,9 +296,9 @@ def remove_comments(line,basic_code):
     if basic_code:
         line = remove_basic_comments(line)
     else:
-        # Remove comments 
+        # Remove comments
         line = remove_assembly_comments(line)
-        
+
     return line
 
 
@@ -306,13 +306,13 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
 
     try:
         fin = open(filename, "rt")
-        
+
         assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
 
         basic_extension = has_extension(filename,BASIC_EXTENSIONS)
 
         lines = fin.readlines()
-        
+
         # Only take patten lines if Magellan extension is detected
         if has_extension(filename, ['a99','A99']):
             filtered_lines = []
@@ -328,11 +328,11 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
         print("Sorry! Failed to extract tile data from file: \n" + str(exception.args))
 
 
-# It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file 
+# It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file
 def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False):
-       
+
         # fin = open(filename, "rt")
-        
+
         # assembly_extension = has_extension(filename,ASSEMBLY_EXTENSIONS)
 
         # basic_extension = has_extension(filename,BASIC_EXTENSIONS)
@@ -343,43 +343,43 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
         filtered_lines = []
 
         pattern_count = [0] * len(PATTERN_LIST)
-              
+
         # Do some filtering and count most common candidate directive
         for line in lines:
             line = normalize_line(line, basic_extension, assembly_extension)
-            
+
             trimmed_lines.append(line)
             pattern_index = line_pattern(line)
             if pattern_index>=0:
                 pattern_count[pattern_index]+=1
-                
+
         max_directive_count = max(pattern_count)
-        
+
         if max_directive_count==0:
             raise ValueError("No pattern found")
-        
+
         display_extension_type(assembly_extension,basic_extension)
-        
-        max_index = pattern_count.index(max_directive_count)      
+
+        max_index = pattern_count.index(max_directive_count)
         directive = PATTERN_LIST[max_index]
-            
+
         # Guess if file is BASIC and if data are 8-bit or 16-bit values
         # Remark: DATA can be both an Assembly (TMS9900) directive or a BASIC command
-        basic_code = is_basic_code(directive, assembly_extension)   
+        basic_code = is_basic_code(directive, assembly_extension)
         word_data =  directive in WORD_PATTERN_LIST and not basic_code
-     
+
         # print("Pattern count: " + str(pattern_count))
         if global_vars.verbose:
             print("Detected pattern     : " + directive)
-        
+
         display_data_type(word_data)
         display_code_type(basic_code)
-      
+
         for line in trimmed_lines:
             if (directive in line or directive.upper() in line):
                 line = remove_comments(line,basic_code)
                 filtered_lines.append(line)
-     
+
         res = ""
         tiles = []
         tile_count = 0
@@ -388,15 +388,15 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
         single_byte_count = 0
 
         trimmed_lines = []
-            
+
         while line_index<len(filtered_lines):
             trimmed_lines.append(filtered_lines[line_index].split(directive)[1])
             line_index+=1
-        
+
         if(rip):
             # Heuristic to guess BASIC code with hex data without a hex prefix
             headless_hex = has_headless_hex(trimmed_lines)
-            
+
             # Heuristic to guess the presence of an initial header byte (to be skipped)
             header_byte = has_nine_byte_lines(trimmed_lines)
             skip_first = header_byte or (directive in SKIP_PATTERN_LIST)
@@ -410,31 +410,31 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
             print("Headless hex data    : " + str(headless_hex))
 
         line_index = 0
-        
+
         if global_vars.verbose:
             print("")
-        
+
         while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
             trimmed_line = trimmed_lines[line_index]
 
             line_index+=1
             data_list = trimmed_line.split(",")
-                            
+
             if skip_first:
                 data_list = data_list[1:]
-                
+
             if basic_code:
                 data_list = fill_empty_slots_with_zero(data_list)
-        
-            # Remark: It only works for hex notation: Split word into two bytes 
+
+            # Remark: It only works for hex notation: Split word into two bytes
             if word_data:
                 new_data_list = []
                 for i in range(len(data_list)):
                     new_data_list += [data_list[i][0:3],"$"+data_list[i][3:5]]
                 data_list = new_data_list
-            
+
             for data in data_list:
-                # TODO: This should be done at the beginning: Interpret as hex 
+                # TODO: This should be done at the beginning: Interpret as hex
                 if headless_hex and data[0]!= "$":
                     data = "$" + data
                 if data.startswith("@"):
@@ -444,16 +444,16 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                 if single_byte_count==ysize:
                     single_byte_count=0
                     tiles.append(new_tile)
-                    
+
                     # print(new_tile)
-                
+
                     shape = compute_shape(new_tile,xsize)
-                    
-                    
+
+
                     if(rotate):
                         new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
                         shape = compute_shape(new_tile,ysize)
-                    
+
                     if not global_vars.test:
                         print(new_tile)
                         print_shape(shape)
@@ -473,16 +473,16 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                     new_tile+=","
         # print("tiles: " + str(tiles))
         return tiles
-    
+
 
 
 
 def store_tiles(project, tiles, xsize, ysize):
-    
+
     print("project          : " + project)
-    
+
     category = project_category(project)
-        
+
     main_path = "./" + category + "s/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
     print("main_path: " + main_path)
     for index in range(len(tiles)):
@@ -497,11 +497,11 @@ def store_tile(project, tile, xsize, ysize, index):
     print("tile index : " + str(index))
     dir = str(xsize)+"X"+str(ysize)
     print("directory: " + dir)
-    
+
     category = project_category(project)
-    
+
     print("project category : " + category)
-    
+
     dest = "./" + category + "s/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
     print("Copy/Overwrite : " + dest)
 
@@ -520,34 +520,32 @@ def trim_newline_from_shape(lines):
 
     xsize = 8
     for line in filtered_lines:
-        if len(line)<xsize:
-            xsize = len(line)
+        xsize = min(xsize,len(line))
 
     trimmed_lines = []
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
     return trimmed_lines,xsize,len(trimmed_lines)
-    
+
 
 def read_shape(file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
-    
+
     # print(lines)
-    
+
     trimmed_lines = trim_newline_from_shape(lines)
     fin.close()
-    return trimmed_lines 
+    return trimmed_lines
 
 
 def compute_split_tiles(lines,verbose_split_tiles=True):
-   
+
     # print(str(lines))
 
     xsize = 16
     for line in lines:
-        if len(line)<xsize:
-            xsize = len(line)
+        xsize = len(xsize,line)
     if global_vars.verbose:
         print("Detected xsize: " + str(xsize))
 
@@ -555,12 +553,12 @@ def compute_split_tiles(lines,verbose_split_tiles=True):
     for line in lines:
         if global_vars.verbose:
             print("processing line: ", line, end="")
-        
+
         if not(line=="\n" or line=="\r" or line== "\r\n"):
             filtered_lines_group[0].append(line.replace('\n','').replace('\r','')[0:int(xsize/2)])
         if not(line=="\n" or line=="\r" or line== "\r\n"):
             filtered_lines_group[1].append(line.replace('\n','').replace('\r','')[int(xsize/2):xsize])
-        
+
     if global_vars.verbose:
         print("")
 
@@ -571,20 +569,20 @@ def compute_split_tiles(lines,verbose_split_tiles=True):
         for filtered_lines in filtered_lines_group:
             display_shape(filtered_lines)
             print("")
-    
+
     return filtered_lines_group
 
 
 def import_split_tiles(file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
-    
+
     filtered_lines_group = compute_split_tiles(lines)
     # print(str(lines))
- 
+
     fin.close()
-        
-        
+
+
 def compute_tile(lines):
     # print(str(lines))
 
@@ -599,14 +597,13 @@ def compute_tile(lines):
 
     xsize = 8
     for line in filtered_lines:
-        if len(line)<xsize:
-            xsize = len(line)
+        xsize = min(xise,len(line))
 
     trimmed_lines = []
     for line in filtered_lines:
         trimmed_lines.append(line[:xsize])
     ysize = len(trimmed_lines)
-    
+
     dir = str(xsize)+"X"+str(ysize)
 
     if global_vars.verbose:
@@ -616,7 +613,7 @@ def compute_tile(lines):
         if number_of_bits>8:
             print("WARNING: more than 8 bits detected in line " + line_index)
             number_of_bits=8
-            
+
         value = 0
         for i in range(number_of_bits):
             if trimmed_lines[line_index][i] in ONE_REPPRESENTATIONS:
@@ -635,7 +632,7 @@ def import_tile(file_name):
 
     return tile,xsize,ysize
 
-    
+
 
 
 

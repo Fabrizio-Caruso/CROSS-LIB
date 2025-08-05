@@ -162,7 +162,7 @@ def one_to_two(source, color):
 # First 37  -> Converted in 37 4-color tiles in color 3
 # Second 27 -> Converted in 3 groups of 27 4-color tiles in color 1, 2, 3
 def generate_two_bit_asset(abstract_asset):
-    two_bit_asset = [];
+    two_bit_asset = []
     # space, alphabet, digits (1+26+10=37)
     for i in range(0,37):
         for j in range(0,8):
@@ -210,7 +210,7 @@ def generate_160A_asset(two_bit_assets):
    row_map = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[]}
    two_bit_160A_asset = []
 
-   counter = 0;
+   counter = 0
    for byte_couple in two_bit_assets:
        row_map[counter&7].extend(byte_couple)
        counter+=1

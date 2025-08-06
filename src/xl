@@ -2,14 +2,11 @@
 
 from __future__ import print_function
 
-import logging
 import datetime
 import shutil
 import os
 import sys
-import re
 import time
-import re
 
 from collections import OrderedDict
 from os import walk

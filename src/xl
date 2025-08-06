@@ -155,7 +155,7 @@ def are_you_sure():
 
 def files_in_path(mypath):
     files = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
+    for (_, _, filenames) in walk(mypath):
         files.extend(filenames)
         break
     return files
@@ -186,7 +186,7 @@ def files_in_path(mypath):
 
 def multiple_project_reset(mypath):
     projects = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
+    for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
         break
 
@@ -198,7 +198,7 @@ def multiple_project_reset(mypath):
 
 def multiple_size_build(mypath,target,xsize,ysize,debug):
     projects = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
+    for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
         break
 
@@ -338,7 +338,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
     else:
         use_tools_str = ""
 
-    for (dirpath, dirnames, filenames) in walk(mypath):
+    for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
         break
 
@@ -561,8 +561,6 @@ def rename(params):
     target_game_dir = params[2]
 
     source_project_type = project_category(source_game_dir)
-    source_parent_dir = source_project_type + "s"
-    source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
 
     if source_project_type != "project":
         return
@@ -706,7 +704,7 @@ def insert_default_sizes(params):
             xsize = '20'
             ysize = '20'
         elif size_target == "gamate":
-            xisze = '20'
+            xsize = '20'
             ysize = '19'
         elif size_target in ["apple2", "apple2enh"]:
             xsize = '20'
@@ -1250,7 +1248,7 @@ def delete(params):
 
 def built_files_in_path(mypath):
     files = []
-    for (dirpath, dirnames, filenames) in walk(mypath):
+    for (_, _, filenames) in walk(mypath):
         built_files = []
         for filename in filenames:
             if not filename.startswith('.'):
@@ -1637,7 +1635,7 @@ def test_clean_tools():
     number_of_tools = len(tools_result_map.keys())
 
     built_tools = 0
-    for tool, result in tools_result_map.items():
+    for _, result in tools_result_map.items():
         if result:
             built_tools+=1
     if built_tools==0:
@@ -1679,7 +1677,7 @@ def test_self(target = "stdio",opt = "slow"):
 
         tools_result_map=test_tools(False)
         built_tools = 0
-        for tool, result in tools_result_map.items():
+        for _, result in tools_result_map.items():
             if result:
                 built_tools+=1
         if built_tools==number_of_tools:
@@ -1934,29 +1932,23 @@ def test_self(target = "stdio",opt = "slow"):
             printc(bcolors.OKGREEN, "[xl size]         OK\n")
 
         projects = []
-        for (dirpath, dirnames, filenames) in walk("./projects"):
+        for (_, dirnames, _) in walk("./projects"):
             projects.extend(dirnames)
             break
 
         games = []
-        for (dirpath, dirnames, filenames) in walk("./games"):
+        for (_, dirnames, _) in walk("./games"):
             games.extend(dirnames)
             break
 
         examples = []
-        for (dirpath, dirnames, filenames) in walk("./examples"):
+        for (_, dirnames, _) in walk("./examples"):
             examples.extend(dirnames)
             break
 
         #reset
         reset(["","_test_project"])
         printc(bcolors.OKGREEN, "[xl reset]        OK\n")
-
-
-    projects_before_delete = list(["list"],False)
-
-    project_dirs_before_delete = len(dirs_in_path("./projects"))
-
 
     #delete
     delete(["delete","_test_project","-y"])
@@ -1972,7 +1964,6 @@ def test_self(target = "stdio",opt = "slow"):
 
     if clean_test()==0:
         success=0
-
 
     # build (all examples)
     build(["","examples","stdio"])
@@ -2159,17 +2150,17 @@ def test(params):
         return
     else:
         projects = []
-        for (dirpath, dirnames, filenames) in walk("./projects"):
+        for (_, dirnames, _) in walk("./projects"):
             projects.extend(dirnames)
             break
 
         games = []
-        for (dirpath, dirnames, filenames) in walk("./games"):
+        for (_, dirnames, _) in walk("./games"):
             games.extend(dirnames)
             break
 
         examples = []
-        for (dirpath, dirnames, filenames) in walk("./examples"):
+        for (_, dirnames, _) in walk("./examples"):
             examples.extend(dirnames)
             break
 
@@ -2199,7 +2190,7 @@ def test(params):
 def check(params):
     if len(params)<=1:
         tools = test_tools()
-        interpreters = test_interpreters()
+        # interpreters = test_interpreters()
         native_compilers =test_native_compilers()
         cross_compilers = test_cross_compilers()
         libraries = test_libraries()
@@ -2220,12 +2211,10 @@ def check(params):
             printc(bcolors.FAIL, "No make command detected!\n")
 
         if not native_compilers['gcc']:
-            # printc(bcolors.WARNING, "No gcc compiler detected -> Several targets and native target impacted\n")
             tools = False
             native_target = False
 
         if not native_compilers['g++']:
-            # printc(bcolors.WARNING, "No g++ compiler detected -> Few targets impacted (coco/dragon)\n")
             xl_run_cross_target = True
             tools = False
 
@@ -2233,20 +2222,17 @@ def check(params):
             printc(bcolors.WARNING, "No ncurses library detected -> Native target impacted\n")
             native_target = False
 
-        for cross_compiler, present in cross_compilers.items():
+        for _, present in cross_compilers.items():
             if not present:
-                # printc(bcolors.WARNING, "No " + cross_compiler + " cross-compiler -> xl build <project> <target> impacted for some targets\n")
                 cross_target = False
 
-        for emulator, present in emulators.items():
+        for _, present in emulators.items():
             if not present:
-                # printc(bcolors.WARNING, "No " + emulator + " emulator -> xl run <project> <target> impacted for some targets\n")
                 xl_run_cross_target = False
                 break
 
-        for rom, present in roms.items():
+        for _, present in roms.items():
             if not present:
-                # printc(bcolors.WARNING, "No " + rom + " rom -> xl run <project> <target> impacted for some targets\n")
                 xl_run_cross_target = False
                 break
 
@@ -2310,7 +2296,7 @@ def list(params, print_projects=True):
     for mypath in project_dirs:
         if print_projects:
             printc(bcolors.BOLD, "["+mypath+"]\n")
-        for (dirpath, dirnames, filenames) in walk(mypath):
+        for (_, dirnames, _) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
                 if print_projects:
@@ -2695,7 +2681,7 @@ def shapes(params):
 
 
 # Show all commands
-def commands(params):
+def commands():
     # Show full length commands
     for command, description in COMMANDS_DESCRIPTIONS.items():
         printc(bcolors.BOLD, command)
@@ -3454,7 +3440,6 @@ def default_config():
 
 
     global_vars.verbose = True
-    compiler_opts = ""
     compilation_threads = 1
     parallelize_multi_build = 0
     zsdcc_compiler_opts = ""
@@ -3647,7 +3632,7 @@ if __name__ == "__main__":
     elif params[1]=="string":
         string(params[1:])
     elif params[1]=="commands":
-        commands(params[1:])
+        commands()
     elif params[1]=="import":
         import_from_source(params[1:],False)
     elif params[1]=="rotate":

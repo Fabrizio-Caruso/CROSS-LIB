@@ -2200,7 +2200,7 @@ def check(params):
 
 
         if not make['make'] and not make['gmake']:
-            printc(bcolors.ERROR, "No make command detected!\n")
+            printc(bcolors.FAIL, "No make command detected!\n")
 
         if not native_compilers['gcc']:
             # printc(bcolors.WARNING, "No gcc compiler detected -> Several targets and native target impacted\n")

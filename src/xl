@@ -121,8 +121,10 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
         compiler_opts = compiler_opts + " " + sccz80_compiler_opts
 
 
-    return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + zsdcc_extra_optimization + "'" + \
-           " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + compiler_selection + "'" + \
+    return " ZSDCC_MAKEFILE_COMPILATION_OPTS='" + zsdcc_compiler_opts + " " + \
+                                                  zsdcc_extra_optimization + "'" + \
+           " Z88DK_MAKEFILE_COMPILATION_OPTS='" + z88dk_compiler_opts + compiler_opts + \
+                                                  compiler_selection + "'" + \
            " GCC4TI99_MAKEFILE_COMPILATION_OPTS='" + gcc4ti99_compiler_opts + "'" + \
            " VBCC_MAKEFILE_COMPILATION_OPTS='" + vbcc_compiler_opts + "'" + \
            " NATIVE_MAKEFILE_COMPILATION_OPTS='" + native_compiler_opts + "'" + \
@@ -211,8 +213,10 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
             project_type = project_category(project_name)
             create_main(project_name,project_type)
         make_command = \
-            GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + " GNU_MAKE=" + GNU_MAKE + \
+            GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
+                       " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + \
+                " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
@@ -444,7 +448,8 @@ def size(params,debug):
             printc(bcolors.OKBLUE,"Create main.c from split source files\n")
             create_main(game_dir, project_type)
         make_command = \
-            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + " " \
+            GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
+                " _DEBUG_FLAG=" + str(debug) + " " \
                 + all_compilers_opts("","") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
@@ -529,9 +534,11 @@ def convert_makefile(dir,old_type,old_name,new_name):
     data = fin.read()
     data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
     data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
-    data = data.replace('PARENT_DIR = ' + source_parent_dir + "s", 'PARENT_DIR = ' + target_parent_dir)
+    data = data.replace('PARENT_DIR = ' + source_parent_dir + "s", \
+           'PARENT_DIR = ' + target_parent_dir)
 
-    data = data.replace('include ./' + old_type + "s/" + source_game_dir, 'include ./projects/' + target_game_dir)
+    data = data.replace('include ./' + old_type + "s/" + source_game_dir, \
+           'include ./projects/' + target_game_dir)
     fin.close()
     fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
     fin.write(data)
@@ -632,7 +639,8 @@ def clone(params):
 # Generate tools from source code
 def tools():
     make_command = \
-        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + \
+        " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command_verbosely(make_command)
 
 
@@ -724,7 +732,8 @@ def insert_default_sizes(params):
         elif size_target in ["coco","dragon"]:
             xsize = '16'
             ysize = '24'
-        elif size_target in ["sms", "spectrum", "creativision", "msx", "mtx", "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein"]:
+        elif size_target in ["sms", "spectrum", "creativision", "msx", "mtx", \
+                             "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein"]:
             xsize = '32'
             ysize = '24'
         elif size_target == "cpc":
@@ -763,7 +772,8 @@ def build(params, reset_flag = False):
     params = insert_default_sizes(params)
 
     # sized terminal
-    if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() and params[4].isnumeric():
+    if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() \
+                      and params[4].isnumeric():
         size(["size"] + params[1:],0)
         return
 
@@ -940,7 +950,8 @@ def create(params):
     else:
         game_dir = params[1]
     game_dir_capital = game_dir.upper()
-    game_dir_capital_without_special_chars = only_upper_digits_and_space(game_dir.upper().replace("-"," ").replace("_"," "))
+    game_dir_capital_without_special_chars = \
+        only_upper_digits_and_space(game_dir.upper().replace("-"," ").replace("_"," "))
 
     game_dir = no_space(game_dir)
 
@@ -1024,10 +1035,13 @@ def create(params):
 
     templated_makefile_path = "./template_projects"
 
-    shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", "./"+dest_path+"/Makefile."+game_dir)
+    shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", \
+                "./"+dest_path+"/Makefile."+game_dir)
 
-    shutil.copy(templated_makefile_path+"/"+"/config/project_config.mk.template", "./"+dest_path+"/config/project_config.mk")
-    shutil.copy(templated_makefile_path+"/"+"/config/game_config.mk.template", "./"+dest_path+"/config/game_config.mk")
+    shutil.copy(templated_makefile_path+"/"+"/config/project_config.mk.template", \
+                "./"+dest_path+"/config/project_config.mk")
+    shutil.copy(templated_makefile_path+"/"+"/config/game_config.mk.template", \
+                "./"+dest_path+"/config/game_config.mk")
 
 
     #read input file
@@ -1074,7 +1088,8 @@ def reset(params):
         return
 
     if (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
-        make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + \
+                       " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
         if global_vars.verbose:
             print("Delete all non-project-specific temporary files")
@@ -1083,7 +1098,8 @@ def reset(params):
         return
 
     if len(params)<2:
-        make_command = GNU_MAKE + " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + \
+            " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
         if global_vars.verbose:
             print("Delete all non-project-specific temporary files")
         if are_you_sure()=="y":
@@ -1116,7 +1132,8 @@ def reset(params):
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
     # if (not interactive) or (are_you_sure()=="y"):
-    make_command = GNU_MAKE + " clean_no_built_in -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
+    make_command = GNU_MAKE + " clean_no_built_in -f " + \
+                   parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command_verbosely(make_command)
 
@@ -1173,7 +1190,8 @@ def clean(params):
         print("Project not found!")
         return
 
-    print("Delete all built binaries and temporary files (also specific to '"+game_dir+"', e.g., generated assets)")
+    print("Delete all built binaries and temporary files (also specific to '"+ \
+          game_dir+"', e.g., generated assets)")
 
     # if (not interactive) or (are_you_sure()=="y"):
     make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
@@ -1193,7 +1211,8 @@ def delete(params):
         game_dir="helloworld"
     else:
         candidate_name = params[1]
-        if candidate_name in example_projects or candidate_name in game_projects or candidate_name in COMMANDS_LIST:
+        if candidate_name in example_projects or candidate_name in game_projects or \
+            candidate_name in COMMANDS_LIST:
             print("invalid name!")
             return
         game_dir = candidate_name
@@ -1210,7 +1229,8 @@ def delete(params):
 
     parent_and_game_dir = parent_dir + "/" + game_dir
     if global_vars.verbose:
-        print("Remove the project '"+game_dir+"' with all its files (source, graphics assets, makefile)")
+        print("Remove the project '"+game_dir+ \
+              "' with all its files (source, graphics assets, makefile)")
     if (not interactive) or (are_you_sure()=="y"):
         if os.path.exists(parent_and_game_dir):
             if global_vars.verbose:

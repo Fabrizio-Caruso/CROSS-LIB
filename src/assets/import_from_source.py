@@ -1,6 +1,8 @@
 from __future__ import print_function
 
-from init import *
+import sys
+
+from init import game_projects, example_projects
 
 import global_vars
 

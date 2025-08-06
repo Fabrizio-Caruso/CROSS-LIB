@@ -132,7 +132,7 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
 
 def run_command_verbosely(command_string):
-    logger.info("Running command: " + command_string)
+    logger.info("Running command: %s", command_string)
     if global_vars.verbose:
         print("Going to run: ")
         printc(bcolors.BOLD, command_string+"\n")
@@ -348,7 +348,7 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
         print("")
 
     if (parallelize_multi_build==1) and (target in PARALLEL_TARGETS):
-        logger.info("Parallelize multi build with " + threads + " threads")
+        logger.info("Parallelize multi build with %s", threads)
         pool = Pool(processes=int(threads))
 
         for project_name in projects:
@@ -3317,7 +3317,7 @@ def read_config(config_file="./config.ini"):
         # global color_terminal
         global_vars.color_terminal = read_config_option("terminal","color")
 
-        logger.info("Color terminal: " + str(global_vars.color_terminal))
+        logger.info("Color terminal: %s", str(global_vars.color_terminal))
 
         if global_vars.verbose:
             if global_vars.color_terminal:
@@ -3341,7 +3341,7 @@ def read_config(config_file="./config.ini"):
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
 
-        logger.info("Compilation threads: " + str(compilation_threads))
+        logger.info("Compilation threads: %s", str(compilation_threads))
 
         parallelize_multi_build = read_config_option("build","parallelize_multi_build")
         if parallelize_multi_build!="":
@@ -3380,7 +3380,7 @@ def read_config(config_file="./config.ini"):
 
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)
-        logger.info("Interactive clean: " + str(interactive_clean))
+        logger.info("Interactive clean: %s", str(interactive_clean))
 
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
@@ -3556,7 +3556,7 @@ if __name__ == "__main__":
         print("----------------------------")
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))
-        logger.info("Using Python version " + str(python_version) + "." + str(python_subversion))
+        logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
 
         print("GNU MAKE command: " + GNU_MAKE)
         print("----------------------------")
@@ -3603,7 +3603,7 @@ if __name__ == "__main__":
         params = full_params(params)
 
     command_name = "build" if params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
-    logger.info("Command : " + command_name)
+    logger.info("Command : %s", command_name)
     if params[1]=="run":
         run(params[1:])
     elif params[1]=="check":

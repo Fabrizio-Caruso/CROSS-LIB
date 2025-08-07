@@ -115,7 +115,6 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
         compiler_opts = compiler_opts + " " + zsdcc_compiler_opts
     elif z88dk_compiler in ('ez80clang', 'clang'):
         compiler_selection = " -compiler=ez80clang "
-        compiler_opts = compiler_opts
     else:
         compiler_selection = ""
         compiler_opts = compiler_opts + " " + sccz80_compiler_opts
@@ -144,10 +143,10 @@ def run_command_verbosely(command_string):
     os.system(command_string)
 
 
-def generic_input(str):
+def generic_input(string):
     if sys.version_info[0] < 3:
-        return raw_input(str)
-    return input(str)
+        return raw_input(string)
+    return input(string)
 
 def are_you_sure():
     return generic_input("Are you sure [Y/N]? ").lower()
@@ -1537,10 +1536,12 @@ def check_programs(title, command_list, expected_list, verbose=True):
 
 
 def test_cross_compilers():
-    return check_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND,CROSS_COMPILER_COMMAND_EXPECTED)
+    return check_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND, \
+                          CROSS_COMPILER_COMMAND_EXPECTED)
 
 def test_native_compilers():
-    return check_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, NATIVE_COMPILER_COMMAND_EXPECTED)
+    return check_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, \
+                          NATIVE_COMPILER_COMMAND_EXPECTED)
 
 def test_make(verbose=True):
     return check_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
@@ -1570,10 +1571,12 @@ def test_compilers():
 
 # TODO: Handle Windows vs Linux and targets with 3 binaries
 if platform in ["cygwin", "msys"]:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500']
+    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
+                               'mtx512', 'laser500']
     TARGETS_WITH_3_BINARIES = ['coco','abc80']
 else:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', 'mtx512', 'laser500','coco']
+    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
+                               'mtx512', 'laser500','coco']
     TARGETS_WITH_3_BINARIES = ['abc80']
 
 
@@ -1594,7 +1597,10 @@ def test_projects(projects, target="stdio"):
     if projects in ["examples", "projects", "games"]:
         number_of_projects = len(dirs_in_path("./"+projects))
     elif projects == "all":
-        number_of_projects = len(dirs_in_path("./examples")) + len(dirs_in_path("./games")) + len(dirs_in_path("./projects"))
+        number_of_projects = \
+        len(dirs_in_path("./examples")) + \
+        len(dirs_in_path("./games")) + \
+        len(dirs_in_path("./projects"))
     else:
         number_of_projects = 1
     print("number of projects: " + str(number_of_projects))
@@ -1700,7 +1706,7 @@ def test_self(target = "stdio",opt = "slow"):
     #clean
     success = success * clean_test()
 
-    projects_before_create = list(["list"],False)
+    projects_before_create = list_projects(["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
     initial_dirs = project_dirs_before_create
@@ -1715,7 +1721,7 @@ def test_self(target = "stdio",opt = "slow"):
     printc(bcolors.OKGREEN, "[xl create]       OK\n")
 
     # list
-    projects_after_create = list(["list"],False)
+    projects_after_create = list_projects(["list"],False)
     if projects_after_create!=projects_before_create+1:
         printc(bcolors.FAIL,"[xl list]         KO\n")
         success = 0
@@ -1843,7 +1849,7 @@ def test_self(target = "stdio",opt = "slow"):
     printc(bcolors.OKGREEN, "[xl run]          OK\n")
 
 
-    projects_before_create = list(["list"],False)
+    projects_before_create = list_projects(["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
 
@@ -1993,7 +1999,7 @@ def test_self(target = "stdio",opt = "slow"):
         printc(bcolors.FAIL, "[xl build]        KO\n")
         print(built_files)
         print(games)
-        quit()
+        sys.exit()
     else:
         printc(bcolors.OKGREEN, "[xl build]        OK\n")
 
@@ -2043,17 +2049,15 @@ def targets_test(params):
         printc(bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
     if params[1].endswith("_extra"):
-        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + all_compilers_opts("","") + \
-                                           " -f makefiles.other/chase/tests/Makefile.tests"
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + \
+                       " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
+                       all_compilers_opts("","") + \
+                       " -f makefiles.other/chase/tests/Makefile.tests"
         run_command_verbosely(make_command)
-    # elif params[1]=="stdio_extra":
-        # make_command = GNU_MAKE + " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " simple_test " + \
-                                           # " -f makefiles.other/chase/tests/Makefile.tests"
-        # run_command_verbosely(make_command)
     elif params[1]=="z88dk_extra_alt":
         # parallel = ""
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
-                         " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+                       " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command_verbosely(make_command)
     else:
         printc(bcolors.FAIL, "Parameter not recognized\n")
@@ -2070,11 +2074,11 @@ def targets_test(params):
     if global_vars.verbose:
         print("Number of built files: " + str(built_files))
 
-    if params[1] in expected_files.keys():
+    if (params[1], expected) in expected_files.items():
         if global_vars.verbose:
             printc(bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
-            printc(bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
-        if built_files != expected_files[params[1]]:
+            printc(bcolors.OKBLUE, "Expected files: " + str(expected)+"\n")
+        if built_files != expected:
             printc(bcolors.FAIL, "binaries KO\n")
             success=0
 
@@ -2140,7 +2144,7 @@ def test(params):
         test_roms()
     elif params[1]=="make":
         test_make()
-    elif params[1]=="unit-tests" or params[1]=="unit_tests":
+    elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
         unit_tests()
     elif params[1].endswith('extra') or params[1].endswith('extra_alt'):
         if targets_test(params):
@@ -2166,7 +2170,8 @@ def test(params):
 
         # print(projects + games + examples)
         # quit()
-        if params[1] in projects + games + examples or params[1] in ['examples','games','projects','all']:
+        if params[1] in projects + games + examples or params[1] in \
+           ['examples','games','projects','all']:
             # print("KO")
             # quit()
             if len(params)>=3:
@@ -2219,7 +2224,8 @@ def check(params):
             tools = False
 
         if not libraries['ncurses']:
-            printc(bcolors.WARNING, "No ncurses library detected -> Native target impacted\n")
+            printc(bcolors.WARNING, \
+                   "No ncurses library detected -> Native target impacted\n")
             native_target = False
 
         for _, present in cross_compilers.items():
@@ -2276,7 +2282,7 @@ def check(params):
 
 
 # List all projects
-def list(params, print_projects=True):
+def list_projects(params, print_projects=True):
 
     if len(params)<2:
         project_dirs = ["examples", "games", "projects"]
@@ -2360,12 +2366,27 @@ def run_stdio(params):
     run_command_verbosely(command_string)
 
 
-DEFAULT_TARGET_MAP = {"vic20":"vic20_exp_16k", "c16":"c16_16k", "plus4":"c16_32k", "pet":"pet_16k", "msx": "msx_16k"}
+DEFAULT_TARGET_MAP = {\
+                     "vic20":"vic20_exp_16k", \
+                     "c16":"c16_16k", \
+                     "plus4":"c16_32k", \
+                     "pet":"pet_16k", \
+                     "msx": "msx_16k" \
+                     }
 
 VICE_TARGETS = ["c64",
-                "vic20", "vic20_unexpanded", "vic20_exp_3k", "vic20_exp_8k", "vic20_exp_16k",
-                "c16", "plus4", "c16_16k", "c16_32k",
-                "pet", "pet_8k", "pet_16k"
+                "vic20", 
+                "vic20_unexpanded", 
+                "vic20_exp_3k", 
+                "vic20_exp_8k", 
+                "vic20_exp_16k",
+                "c16", 
+                "plus4", 
+                "c16_16k", 
+                "c16_32k",
+                "pet", 
+                "pet_8k", 
+                "pet_16k"
                ]
 
 MAME_TARGETS = ["msx", "msx_16k"]
@@ -2426,7 +2447,9 @@ def run(params):
             else:
                 print("'xl run' does not support this target")
                 return
-            command_string = vice_path + emulator + " -directory " + rom_directory + " -autostartprgmode 1  ../build/X" + params[1] + "_" + target + "." + extension
+            command_string = vice_path + emulator + " -directory " + \
+                             rom_directory + " -autostartprgmode 1  ../build/X" + \
+                             params[1] + "_" + target + "." + extension
 
             run_command_verbosely(command_string)
 
@@ -2436,7 +2459,10 @@ def run(params):
             if target.startswith("msx"):
                 extension = "rom"
                 mame_sub_target = "canonv20"
-                command_string = mame_path + emulator + " " + mame_sub_target + " -rompath " + mame_rom_path + " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + params[1] + "_" + target + "." + extension
+                command_string = mame_path + emulator + " " + mame_sub_target + \
+                " -rompath " + mame_rom_path + \
+                " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + \
+                params[1] + "_" + target + "." + extension
                 run_command_verbosely(command_string)
         else:
             print("'xl run' does not support this target")
@@ -2533,7 +2559,8 @@ def write_shapes(project, shapes, xsize,ysize):
         path_to_tile = path.replace("shapes","tiles")+"tile"+tile_number+".txt"
         if global_vars.verbose:
             print("Path to tile file: " + path_to_tile)
-        if replace_shapes and (os.path.exists(path_to_shape) or os.path.exists(path_to_tile)):
+        if replace_shapes and (os.path.exists(path_to_shape) or \
+           os.path.exists(path_to_tile)):
             if os.path.exists(path_to_shape):
                 if not global_vars.test:
                     print("shape "+ tile_number +" already exists")
@@ -2649,7 +2676,8 @@ def shapes(params):
     if not global_vars.test:
         print("xsize: " + xsize_str)
         print("ysize: " + ysize_str)
-    path_to_files = project_cat + "s/" + params[1] + "/shapes/" + xsize_str + "x" + ysize_str + "/"
+    path_to_files = project_cat + "s/" + params[1] + \
+                    "/shapes/" + xsize_str + "x" + ysize_str + "/"
     if not global_vars.test:
         print("Path to shape files: " + path_to_files)
     shape_files = files_in_path(path_to_files)
@@ -2733,7 +2761,7 @@ def full_params(params):
     return params
 
 
-def help(params):
+def help_command(params):
     if len(params)<2:
         printc(bcolors.BOLD,"\nxl <command> <[optional] parameters>")
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
@@ -3252,9 +3280,9 @@ def manual(params):
 # ---------------------------------------------
 
 def read_config_option(section, option):
-        if config.has_option(section,option):
-            return config.get(section,option)
-        return ""
+    if config.has_option(section,option):
+        return config.get(section,option)
+    return ""
 
 def read_config(config_file="./config.ini"):
     try:
@@ -3398,11 +3426,6 @@ def read_config(config_file="./config.ini"):
         print("An exception occurred while reading the configuration: " + str(e))
         logger.debug("Error while reading configuration file")
         raise
-        # TODO: Ask the user to continue or exit
-    # else:
-        # if global_vars.verbose:
-            # printc(bcolors.OKBLUE, "config.ini OK\n")
-            # log.info("Configuration file read successfully")
 
 
 def default_config():
@@ -3517,7 +3540,9 @@ def make_assets_from_tiles(params):
     project_type = project_category(game_dir)
     parent_dir = project_type + "s"
 
-    run_command_verbosely(GNU_MAKE+" GAME_NAME=" + game_dir + " PARENT_DIR=" + parent_dir + " -f ./makefiles.common/auxiliary/Makefile_assets")
+    run_command_verbosely(GNU_MAKE+" GAME_NAME=" + game_dir + \
+                          " PARENT_DIR=" + parent_dir + \
+                          " -f ./makefiles.common/auxiliary/Makefile_assets")
 
 
 
@@ -3573,10 +3598,7 @@ if __name__ == "__main__":
         print("For more commands, use the non-interactive mode.")
         printc(bcolors.BOLD, "xl help")
         print(" for instructions.")
-        # if len(sys.argv)==1:
-            # help(sys.argv[1:])
 
-        # print("")
         print("")
         print("--------------------------------------------------")
         printc(bcolors.OKCYAN, "Interactive mode\n")
@@ -3607,7 +3629,8 @@ if __name__ == "__main__":
         params = sys.argv
         params = full_params(params)
 
-    command_name = "build" if params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
+    command_name = "build" if params[1] in list_of_projects("all") + \
+                   ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
     logger.info("Command : %s", command_name)
     if params[1]=="run":
         run(params[1:])
@@ -3680,18 +3703,20 @@ if __name__ == "__main__":
     elif params[1]=="delete":
         delete(params[1:])
     elif params[1]=="list":
-        list(params[1:])
+        list_projects(params[1:])
     elif params[1]=="help":
-        help(params[1:])
+        help_command(params[1:])
     elif params[1]=="tools":
         tools()
     elif params[1]=="slow":
         slow(params[1:])
-    elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
+    elif params[1] in list_of_projects("all") + \
+                      ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(params)
     else:
         manual(params)
 
     logger.info('Finished')
 
-    os.system('mv ../logs/log.log ../logs/log_' + datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )
+    os.system('mv ../logs/log.log ../logs/log_' + \
+              datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )

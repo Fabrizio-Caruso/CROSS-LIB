@@ -3,7 +3,7 @@ import sys
 
 
 
-sys.path.append("assets")
+sys.path.append("modules")
 
 # from generate_assets import *
 

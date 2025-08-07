@@ -11,13 +11,13 @@ import time
 from collections import OrderedDict
 from os import walk
 
-sys.path.append("assets")
+sys.path.append("modules")
 
-from assets.strings import *
-from assets.import_from_source import *
-from assets.tiles import *
-from assets.LoggerSingleton import *
-from assets.init import *
+from modules.strings import *
+from modules.import_from_source import *
+from modules.tiles import *
+from modules.LoggerSingleton import *
+from modules.init import *
 
 DEBUG_TARGET  = "ncurses_debug"
 
@@ -104,6 +104,7 @@ SHORT_COMMANDS_LIST = OrderedDict( \
         "r": "rebuild", \
         "s": "slow", \
         "t": "test", \
+        "u": "unit-tests", \
         "x": "run",
     })
 
@@ -2074,11 +2075,11 @@ def targets_test(params):
     if global_vars.verbose:
         print("Number of built files: " + str(built_files))
 
-    if (params[1], expected) in expected_files.items():
+    if params[1] in expected_files.keys():
         if global_vars.verbose:
             printc(bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
-            printc(bcolors.OKBLUE, "Expected files: " + str(expected)+"\n")
-        if built_files != expected:
+            printc(bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
+        if built_files != expected_files[params[1]]:
             printc(bcolors.FAIL, "binaries KO\n")
             success=0
 

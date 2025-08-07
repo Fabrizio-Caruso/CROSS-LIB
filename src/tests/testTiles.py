@@ -2,10 +2,7 @@ import unittest
 import sys
 
 
-
-sys.path.append("assets")
-
-# from generate_assets import *
+sys.path.append("modules")
 
 from tiles import *
 

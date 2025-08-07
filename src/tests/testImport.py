@@ -1,11 +1,8 @@
 import unittest
 import sys
 
-# sys.path.append("../assets/")
-# from import_from_source import *
-sys.path.append("assets")
 
-# from import_from_source import *
+sys.path.append("modules")
 
 from import_from_source import *
 

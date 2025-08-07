@@ -32,12 +32,35 @@ MAME_EMULATOR = "mame"
 
 platform = sys.platform
 
-global NATIVE_EXTENSION
-
 if(platform in ["cygwin", "msys"]):
     NATIVE_EXTENSION="exe"
 else:
     NATIVE_EXTENSION="out"
+
+
+# compilation_threads = None
+# parallelize_multi_build = None
+# z88dk_compiler_opts = None
+# z88dk_compiler = None
+# sccz80_compiler_opts = None
+# zsdcc_compiler_opts = None
+# cmoc_compiler_opts = None
+# cc65_compiler_opts = None
+# lcc1802_compiler_opts = None
+# gcc4ti99_compiler_opts = None
+# vbcc_compiler_opts = None
+# native_compiler_opts = None
+# native_compiler = None
+# tool_compiler = None
+# interactive_clean = None
+# vice_path = None
+# vice_rom_path = None
+# mame_path = None
+# mame_rom_path = None
+# extend_algorithm = None
+# replace_shapes = None
+# use_tools = None
+# config = None
 
 
 # LoggerSingleton.initLogger(__name__)
@@ -3304,27 +3327,19 @@ def read_config(config_file="./config.ini"):
     global lcc1802_compiler_opts
     global gcc4ti99_compiler_opts
     global vbcc_compiler_opts
-
     global native_compiler_opts
-
     global native_compiler
-
     global tool_compiler
-
     global interactive_clean
-
     global vice_path
     global vice_rom_path
-
     global mame_path
     global mame_rom_path
-
     global extend_algorithm
-
     global replace_shapes
-
     global use_tools
-
+    
+    
     global config
 
     config = configparser.ConfigParser()
@@ -3433,9 +3448,9 @@ def default_config():
 
     global compilation_threads
     global parallelize_multi_build
-    global sccz80_compiler_opts
     global z88dk_compiler_opts
     global z88dk_compiler
+    global sccz80_compiler_opts
     global zsdcc_compiler_opts
     global cmoc_compiler_opts
     global cc65_compiler_opts
@@ -3443,23 +3458,15 @@ def default_config():
     global gcc4ti99_compiler_opts
     global vbcc_compiler_opts
     global native_compiler_opts
-
     global native_compiler
-
     global tool_compiler
-
     global interactive_clean
-
     global vice_path
     global vice_rom_path
-
     global mame_path
     global mame_rom_path
-
     global extend_algorithm
-
     global replace_shapes
-
     global use_tools
 
 

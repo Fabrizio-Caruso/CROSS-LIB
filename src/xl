@@ -2040,6 +2040,9 @@ def unit_tests():
     run_command_verbosely(command_string)
     printc(bcolors.OKCYAN,"----------------------------------------\n")
 
+    command_string = "python -t tests/testDefaults.py"
+    run_command_verbosely(command_string)
+    printc(bcolors.OKCYAN,"----------------------------------------\n")
 
 # Self-test xl and native build
 def test(params):

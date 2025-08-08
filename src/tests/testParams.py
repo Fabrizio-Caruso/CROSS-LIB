@@ -1,0 +1,45 @@
+import unittest
+import sys
+
+
+
+sys.path.append("modules")
+
+from params import *
+
+
+
+class testParams(unittest.TestCase):
+
+    def test_handle_two_letter_params_1(self):
+        params = ("./xl", "tu")
+        result = handle_two_letter_params(params)
+        
+        self.assertEqual(result,['', 'test', 'unit-tests'])
+
+    def test_handle_two_letter_params_2(self):
+        params = ("./xl", "hu")
+        result = handle_two_letter_params(params)
+        
+        self.assertEqual(result,['', 'help', 'unit-tests'])
+
+    def test_get_size_params_1(self):
+        params = ("./xl", "size", "helloworld", "25", "32")
+        result = get_size_params(params)
+        
+        self.assertEqual(result,("helloworld", "25", "32"))
+
+    # def test_get_size_params_2(self):
+        # params = ("./xl", "size", "helloworld", "terminal", "25", "32")
+        # result = get_size_params(params)
+        
+        # self.assertEqual(result,['', 'help', 'unit-tests'])
+
+
+
+
+if __name__ == '__main__':
+    # global_vars.verbose = 0
+    # global_vars.test = 1
+    
+    unittest.main()

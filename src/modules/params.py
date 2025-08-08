@@ -1,3 +1,7 @@
+
+DEBUG_TARGET  = "ncurses_debug"
+NATIVE_TARGET = "ncurses"
+
 from collections import OrderedDict
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
@@ -60,8 +64,6 @@ SHORT_COMMANDS_LIST = OrderedDict( \
     })
 
 
-
-
 def handle_two_letter_params(params):
     command = params[1]
     if (len(command)==2) and command not in COMMANDS_LIST and command not in SHORT_COMMANDS_LIST:
@@ -72,6 +74,25 @@ def handle_two_letter_params(params):
         new_params = ['', first_command, second_command]
         if len(params)>2:
             new_params.extend(params[2:])
-        print("Interpreting two-letter command as: " + str(new_params))
+        # print("Interpreting two-letter command as: " + str(new_params))
         return new_params
     return params
+    
+
+def get_size_params(params):
+    if len(params)<5:
+        xsize = params[2]
+        ysize = params[3]
+        target = NATIVE_TARGET
+    else:
+        xsize = params[3]
+        ysize = params[4]
+        target = params[2]
+
+    if target == 'terminal':
+        target = 'terminal8x8'
+
+    if target in [NATIVE_TARGET,'stdio'] or target.startswith('terminal'):
+        target = target + '_sized'
+        
+    return target, xsize, ysize

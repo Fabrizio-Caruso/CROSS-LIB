@@ -19,12 +19,8 @@ from modules.tiles import *
 from modules.LoggerSingleton import *
 from modules.init import *
 from modules.default_values import insert_default_sizes
-from modules.params import handle_two_letter_params, COMMANDS_DESCRIPTIONS, COMMANDS_LIST, SHORT_COMMANDS_LIST
+from modules.params import handle_two_letter_params, COMMANDS_DESCRIPTIONS, COMMANDS_LIST, SHORT_COMMANDS_LIST, get_size_params
 
-
-DEBUG_TARGET  = "ncurses_debug"
-
-NATIVE_TARGET = "ncurses"
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -363,8 +359,6 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
                 delete_main(project_name,project_type)
 
 
-
-
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
 def size(params,debug):
 
@@ -377,20 +371,7 @@ def size(params,debug):
 
     parent_dir = project_type + "s"
 
-    if len(params)<5:
-        xsize = params[2]
-        ysize = params[3]
-        target = NATIVE_TARGET
-    else:
-        xsize = params[3]
-        ysize = params[4]
-        target = params[2]
-
-    if target == 'terminal':
-        target = 'terminal8x8'
-
-    if target in [NATIVE_TARGET,'stdio'] or target.startswith('terminal'):
-        target = target + '_sized'
+    target, xsize, ysize = get_size_params(params)
 
     if global_vars.verbose:
 
@@ -1982,6 +1963,10 @@ def unit_tests():
     run_command_verbosely(command_string)
     printc(bcolors.OKBLUE,"--------------------------------\n")
 
+    command_string = "python -t tests/testParams.py"
+    run_command_verbosely(command_string)
+    printc(bcolors.OKBLUE,"--------------------------------\n")
+
     command_string = "python -t tests/testDefaults.py"
     run_command_verbosely(command_string)
     printc(bcolors.OKCYAN,"----------------------------------------\n")
@@ -2781,7 +2766,7 @@ def help_command(params):
             print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects.")
 
             print("\nxl size bomber 20 20       \n  It builds Cross Bomber for the native host with screen size 20x20.")
-            print("\nxl reize examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
+            print("\nxl size examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
 
         elif params[1]=="run":
             printc(bcolors.BOLD,"xl run <project> <[optional] xsize> <[optional] ysize>\n")

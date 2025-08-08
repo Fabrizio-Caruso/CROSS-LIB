@@ -63,12 +63,15 @@ SHORT_COMMANDS_LIST = OrderedDict( \
 
 
 def handle_two_letter_params(params):
-    # print("old params: ", params)
     command = params[1]
     if (len(command)==2) and command not in COMMANDS_LIST and command not in SHORT_COMMANDS_LIST:
-        new_params = ['', params[1][0], params[1][1]]
+        first_short_command = params[1][0]
+        second_short_command = params[1][1]
+        first_command = SHORT_COMMANDS_LIST[first_short_command]
+        second_command = SHORT_COMMANDS_LIST[second_short_command]
+        new_params = ['', first_command, second_command]
         if len(params)>2:
             new_params.extend(params[2:])
-        # print("new params: " + str(new_params))
+        print("Interpreting two-letter command as: " + str(new_params))
         return new_params
     return params

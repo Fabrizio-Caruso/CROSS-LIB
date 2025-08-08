@@ -19,7 +19,7 @@ from modules.tiles import *
 from modules.LoggerSingleton import *
 from modules.init import *
 from modules.default_values import insert_default_sizes
-from modules.params import handle_two_letter_params, COMMANDS_LIST, SHORT_COMMANDS_LIST
+from modules.params import handle_two_letter_params, COMMANDS_DESCRIPTIONS, COMMANDS_LIST, SHORT_COMMANDS_LIST
 
 
 DEBUG_TARGET  = "ncurses_debug"
@@ -2206,7 +2206,7 @@ def help_help():
     print("")
     printc(bcolors.OKCYAN,"POSSIBLE COMMANDS")
     print("")
-    commands([])
+    commands()
     print("\nUse")
     printc(bcolors.BOLD,"xl help manual")
     print("\nto get the list of documented C routines.")

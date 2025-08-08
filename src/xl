@@ -2038,7 +2038,7 @@ def unit_tests():
 
     command_string = "python -t tests/testAssets.py"
     run_command_verbosely(command_string)
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
+    printc(bcolors.OKBLUE,"--------------------------------\n")
 
     command_string = "python -t tests/testDefaults.py"
     run_command_verbosely(command_string)

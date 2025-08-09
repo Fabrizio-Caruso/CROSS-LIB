@@ -24,16 +24,16 @@ class testParams(unittest.TestCase):
         self.assertEqual(result,['', 'help', 'unit-tests'])
 
     def test_get_size_params_1(self):
-        params = ("./xl", "size", "helloworld", "25", "32")
+        params = ("size", "helloworld", "25", "32")
         result = get_size_params(params)
         
-        self.assertEqual(result,("helloworld", "25", "32"))
+        self.assertEqual(result,("ncurses_sized", "25", "32"))
 
-    # def test_get_size_params_2(self):
-        # params = ("./xl", "size", "helloworld", "terminal", "25", "32")
-        # result = get_size_params(params)
+    def test_get_size_params_2(self):
+        params = ['size', 'helloworld', 'terminal', '20', '40']
+        result = get_size_params(params)
         
-        # self.assertEqual(result,['', 'help', 'unit-tests'])
+        self.assertEqual(result,('terminal8x8_sized', '20', '40') )
 
 
 

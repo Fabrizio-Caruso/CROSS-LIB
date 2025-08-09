@@ -3,6 +3,7 @@ DEBUG_TARGET  = "ncurses_debug"
 NATIVE_TARGET = "ncurses"
 
 from collections import OrderedDict
+from import_from_source import printc, bcolors
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
@@ -64,6 +65,17 @@ SHORT_COMMANDS_LIST = OrderedDict( \
     })
 
 
+def full_params(params):
+    # global global_vars
+    full_command = SHORT_COMMANDS_LIST.get(params[1])
+    if full_command is not None:
+        # if global_vars.verbose:
+            # print("Full command: " + str(full_command))
+            # print()
+        return ["", full_command] + params[2:]
+    return params
+
+
 def handle_two_letter_params(params):
     command = params[1]
     if (len(command)==2) and command not in COMMANDS_LIST and command not in SHORT_COMMANDS_LIST:
@@ -96,3 +108,19 @@ def get_size_params(params):
         target = target + '_sized'
         
     return target, xsize, ysize
+
+
+# Show all commands
+def commands():
+    # Show full length commands
+    for command, description in COMMANDS_DESCRIPTIONS.items():
+        printc(bcolors.BOLD, command)
+        spaces = " " * (10-len(command))
+        print(spaces + " -> " + description)
+
+    # Show short-hands
+    print("")
+    for short_command in SHORT_COMMANDS_LIST.items():
+        printc(bcolors.BOLD, short_command[0])
+        print(" -> ",end="")
+        printc(bcolors.BOLD, short_command[1]+"\n")

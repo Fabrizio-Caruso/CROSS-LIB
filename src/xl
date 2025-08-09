@@ -2831,7 +2831,7 @@ def help_command(params):
             print("If you create a new project 'myname' with")
             print("xl create myname")
             print("You can import a tile into it from an Assembly file with something like this:")
-            print("xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+            print("xl import ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rip":
             printc(bcolors.BOLD,"xl rip <source_file> <[optional] project>\n")
             print("")
@@ -2847,7 +2847,7 @@ def help_command(params):
             print("If you create a new project 'myname' with")
             print("xl create myname")
             print("You can import a tile into it from an Assembly file with something like this:")
-            print("xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+            print("xl rip ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rotate":
             printc(bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")
@@ -2865,7 +2865,7 @@ def help_command(params):
             print("If you create a new project 'myname' with")
             print("xl create myname")
             print("You can import a tile into it from an Assembly file with something like this:")
-            print("xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+            print("xl rotate ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="tile":
             printc(bcolors.BOLD,"xl tile <shape_file> <[optional] project> <[optional] tile_index>\n")
             print("It converts the pictorial text file file <shape_file> into a line that can be used as an asset file.")
@@ -2894,7 +2894,7 @@ def help_command(params):
             print("..#..#..")
             print("..#..#..")
             print("")
-            print("xl tile ./assets/examples/single_tiles/tile_shape0.txt")
+            print("xl tile ./modules/examples/single_tiles/tile_shape0.txt")
             print("produces: ")
             print("24,36,24,102,189,189,36,36")
             print("")

@@ -1,3 +1,5 @@
+import os
+
 from params import COMMANDS_LIST, COMMANDS_DESCRIPTIONS, commands, full_params
 from import_from_source import printc, bcolors
 from file_functions import *

@@ -8,7 +8,6 @@ import os
 import sys
 import time
 
-from collections import OrderedDict
 from os import walk
 
 sys.path.append("modules")
@@ -16,12 +15,12 @@ sys.path.append("modules")
 from modules.strings import *
 from modules.import_from_source import *
 from modules.tiles import *
-from modules.LoggerSingleton import *
+from modules.LoggerSingleton import LoggerSingleton
 from modules.init import *
 from modules.default_values import insert_default_sizes
 from modules.params import \
-    handle_two_letter_params, full_params, COMMANDS_DESCRIPTIONS, COMMANDS_LIST, SHORT_COMMANDS_LIST, get_size_params
-from modules.help_functions import *
+    handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
+from modules.help_functions import help_command, manual
 from modules.file_functions import *
 
 C64_EMULATOR = "x64"

@@ -2,7 +2,7 @@ import logging
 import datetime
 
 
-global logger 
+# global logger 
 
 # logger = None
 

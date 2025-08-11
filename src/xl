@@ -72,6 +72,116 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 
 logger.info('Started')
 
+class TerminalConfig():
+    def __init__(
+        self,
+        verbose,
+        test,
+        color
+        ):
+        # terminal
+        self.verbose = verbose
+        self.test = test
+        self.color = color
+
+
+class RomConfig():
+    def __init__(
+        self,
+        vice_path,
+        vice_rom_path,
+        mame_path,
+        mame_rom_path
+        ):
+        self.vice_path = vice_path
+        self.vice_rom_path = vice_rom_path
+        self.mame_path = mame_path
+        self.mame_rom_path = mame_rom_path
+
+class ExtendConfig():
+    def __init__(
+        self,
+        extend_algorithm,
+        replace_shapes
+        ):
+        self.extend_algorithm = extend_algorithm
+        self.replace_shapes = replace_shapes
+
+
+class BuildConfig():
+    def __init__(
+        self,
+        z88dk_compiler_opts,
+        z88dk_compiler,
+        sccz80_compiler_opts,
+        zsdcc_compiler_opts,    
+        cmoc_compiler_opts,
+        cc65_compiler_opts,
+        lcc1802_compiler_opts,
+        gcc4ti99_compiler_opts,
+        vbcc_compiler_opts,
+        native_compiler_opts,
+        native_compiler,
+        use_tools
+        ):
+
+        # build
+        self.compilation_threads     = compilation_threads
+        self.parallelize_multi_build = parallelize_multi_build
+        self.z88dk_compiler          = z88dk_compiler
+        self.z88dk_compiler_opts     = z88dk_compiler_opts
+        self.sccz80_compiler_opts    = sccz80_compiler_opts
+        self.zsdcc_compiler_opts     = zsdcc_compiler_opts
+        self.cmoc_compiler_opts      = cmoc_compiler_opts
+        self.cc65_compiler_opts      = cc65_compiler_opts
+        self.lcc1802_compiler_opts   = lcc1802_compiler_opts
+        self.gcc4ti99_compiler_opts  = gcc4ti99_compiler_opts
+        self.vbcc_compiler_opts      = vbcc_compiler_opts
+        self.native_compiler_opts    = native_compiler_opts
+        self.native_compiler         = native_compiler
+        self.tool_compiler           = tool_compiler
+        
+        self.use_tools               = use_tools
+
+
+class CleanConfig:
+    def __init__(
+        self,
+        interactive_clean
+    ):
+        self.interactive_clean = interactive_clean
+        
+
+
+class Config:
+    def __init__(
+        self,
+        
+        terminal_config,
+        build_config, 
+        clean_config,
+        rom_config,
+        extend_config,  
+
+    ):
+        self.terminal_config = terminal_config
+               
+        self.build_config = build_config
+               
+        # clean
+        self.clean_config = clean_config
+
+        # rom
+        self.rom_config = rom_config
+
+        # extend
+        self.extend_config = extend_config
+
+        # tools
+        # self.use_tools = use_tools
+
+
+
 def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
 
     if z88dk_compiler in ('zsdcc','sdcc'):
@@ -2512,7 +2622,7 @@ def show(params):
 #  OpenBSD 6            openbsd6
 # ---------------------------------------------
 
-def read_config_option(section, option):
+def read_config_option(config, section, option):
     if config.has_option(section,option):
         return config.get(section,option)
     return ""
@@ -2549,14 +2659,14 @@ def read_config(config_file="./config.ini"):
     global use_tools
     
     
-    global config
+    # global config
 
     config = configparser.ConfigParser()
 
     try:
         config.read(config_file)
 
-        global_vars.test = read_config_option("terminal","test")
+        global_vars.test = read_config_option(config,"terminal","test")
         if global_vars.test!="":
             global_vars.test=int(global_vars.test)
         else:
@@ -2564,7 +2674,7 @@ def read_config(config_file="./config.ini"):
         if global_vars.test:
             print("Test Mode ON")
 
-        global_vars.verbose = read_config_option("terminal","verbose")
+        global_vars.verbose = read_config_option(config,"terminal","verbose")
         if global_vars.verbose!="":
             global_vars.verbose=int(global_vars.verbose)
         else:
@@ -2574,7 +2684,7 @@ def read_config(config_file="./config.ini"):
             print("Verbose Mode ON")
 
         # global color_terminal
-        global_vars.color_terminal = read_config_option("terminal","color")
+        global_vars.color_terminal = read_config_option(config,"terminal","color")
 
         logger.info("Color terminal: %s", str(global_vars.color_terminal))
 
@@ -2588,7 +2698,7 @@ def read_config(config_file="./config.ini"):
             print("Config file found with: " + str(config.sections()))
             # print("")
 
-        compilation_threads = read_config_option("build","threads")
+        compilation_threads = read_config_option(config,"build","threads")
 
 
         if compilation_threads in ("auto", "automaic"):
@@ -2602,40 +2712,40 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Compilation threads: %s", str(compilation_threads))
 
-        parallelize_multi_build = read_config_option("build","parallelize_multi_build")
+        parallelize_multi_build = read_config_option(config,"build","parallelize_multi_build")
         if parallelize_multi_build!="":
             parallelize_multi_build=int(parallelize_multi_build)
         else:
             parallelize_multi_build=0
 
-        z88dk_compiler_opts = read_config_option("build","z88dk_compiler_opts")
-        z88dk_compiler = read_config_option("build","z88dk_compiler")
-        sccz80_compiler_opts = read_config_option("build","sccz80_compiler_opts")
-        zsdcc_compiler_opts = read_config_option("build","zsdcc_compiler_opts")
-        cmoc_compiler_opts = read_config_option("build","cmoc_compiler_opts")
-        cc65_compiler_opts = read_config_option("build","cc65_compiler_opts")
-        lcc1802_compiler_opts = read_config_option("build","lcc1802_compiler_opts")
-        gcc4ti99_compiler_opts = read_config_option("build","gcc4ti99_compiler_opts")
-        vbcc_compiler_opts = read_config_option("build","vbcc_compiler_opts")
-        native_compiler_opts = read_config_option("build","native_compiler_opts")
+        z88dk_compiler_opts = read_config_option(config,"build","z88dk_compiler_opts")
+        z88dk_compiler = read_config_option(config,"build","z88dk_compiler")
+        sccz80_compiler_opts = read_config_option(config,"build","sccz80_compiler_opts")
+        zsdcc_compiler_opts = read_config_option(config,"build","zsdcc_compiler_opts")
+        cmoc_compiler_opts = read_config_option(config,"build","cmoc_compiler_opts")
+        cc65_compiler_opts = read_config_option(config,"build","cc65_compiler_opts")
+        lcc1802_compiler_opts = read_config_option(config,"build","lcc1802_compiler_opts")
+        gcc4ti99_compiler_opts = read_config_option(config,"build","gcc4ti99_compiler_opts")
+        vbcc_compiler_opts = read_config_option(config,"build","vbcc_compiler_opts")
+        native_compiler_opts = read_config_option(config,"build","native_compiler_opts")
 
-        native_compiler = read_config_option("build", "native_compiler")
+        native_compiler = read_config_option(config,"build", "native_compiler")
 
-        tool_compiler = read_config_option("tools", "tool_compiler")
+        tool_compiler = read_config_option(config,"tools", "tool_compiler")
 
-        interactive_clean = read_config_option("clean", "interactive")
+        interactive_clean = read_config_option(config,"clean", "interactive")
 
-        vice_path = read_config_option("run", "vice_path")
-        vice_rom_path = read_config_option("run", "vice_rom_path")
+        vice_path = read_config_option(config,"run", "vice_path")
+        vice_rom_path = read_config_option(config,"run", "vice_rom_path")
 
-        mame_path = read_config_option("run", "mame_path")
-        mame_rom_path = read_config_option("run", "mame_rom_path")
+        mame_path = read_config_option(config,"run", "mame_path")
+        mame_rom_path = read_config_option(config,"run", "mame_rom_path")
 
-        extend_algorithm = read_config_option("extend", "extend_algorithm")
+        extend_algorithm = read_config_option(config,"extend", "extend_algorithm")
 
-        replace_shapes = read_config_option("extend", "replace_shapes")
+        replace_shapes = read_config_option(config,"extend", "replace_shapes")
 
-        use_tools = read_config_option("build", "use_tools")
+        use_tools = read_config_option(config,"build", "use_tools")
 
         if interactive_clean!="":
             interactive_clean = int(interactive_clean)

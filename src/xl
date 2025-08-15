@@ -31,12 +31,12 @@ PET_EMULATOR = "xpet"
 
 MAME_EMULATOR = "mame"
 
-platform = sys.platform
+# platform = sys.platform
 
-if(platform in ["cygwin", "msys"]):
-    NATIVE_EXTENSION="exe"
-else:
-    NATIVE_EXTENSION="out"
+# if(platform in ["cygwin", "msys"]):
+    # NATIVE_EXTENSION="exe"
+# else:
+    # NATIVE_EXTENSION="out"
 
 
 # compilation_threads = None
@@ -77,12 +77,10 @@ class TerminalConfig():
     def __init__(
         self,
         verbose,
-        test,
         color_terminal
         ):
         # terminal
         self.verbose = verbose
-        self.test = test
         self.color_terminal = color_terminal
 
 
@@ -674,10 +672,6 @@ def clone(option_config, params):
         print("Target project name    : " + target_game_dir)
         print("target Project type    : " + target_project_type)
         print("Path to target project : " + target_parent_dir_and_game_dir)
-
-    # if not os.path.exists(target_parent_dir_and_game_dir):
-        # print("Creating project dir...")
-        # os.makedirs(target_parent_dir_and_game_dir)
 
     source_path = source_parent_and_game_dir
     if verbose:
@@ -2426,13 +2420,13 @@ def read_config(config_file="./config.ini"):
     try:
         config.read(config_file)
 
-        test = read_config_option(config,"terminal","test")
-        if test!="":
-            test=int(test)
-        else:
-            test=0
-        if test:
-            print("Test Mode ON")
+        # test = read_config_option(config,"terminal","test")
+        # if test!="":
+            # test=int(test)
+        # else:
+            # test=0
+        # if test:
+            # print("Test Mode ON")
 
         verbose = read_config_option(config,"terminal","verbose")
         if verbose!="":
@@ -2449,7 +2443,7 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Color terminal: %s", str(color_terminal))
 
-        terminal_config = TerminalConfig(verbose=verbose, test=test, color_terminal=color_terminal)
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal)
 
 
         if verbose:
@@ -2581,16 +2575,36 @@ def default_config():
     color_terminal = 0
 
 
-def display_config():
+def display_config(option_config):
 
     printc(option_config, bcolors.BOLD,"[terminal]\n")
 
+    verbose = option_config.terminal_config.verbose
+    color_terminal = option_config.terminal_config.color_terminal
+    
     print("verbose: " + str(verbose))
-    print("test: " + str(test))
 
     print("color: " + str(color_terminal))
 
     print("")
+
+
+    compilation_threads, \
+    parallelize_multi_build, \
+    z88dk_compiler, \
+    z88dk_compiler_opts, \
+    sccz80_compiler_opts, \
+    zsdcc_compiler_opts, \
+    cmoc_compiler_opts, \
+    cc65_compiler_opts, \
+    lcc1802_compiler_opts, \
+    gcc4ti99_compiler_opts, \
+    vbcc_compiler_opts, \
+    native_compiler_opts, \
+    native_compiler, \
+    tool_compiler, \
+    use_tools \
+    = option_config.build_config.get_opts()
 
     printc(option_config, bcolors.BOLD,"[build]\n")
     print("compilation_threads: " + str(compilation_threads))
@@ -2608,29 +2622,31 @@ def display_config():
     print("native_compiler_opts: " +  native_compiler_opts)
 
     print("native_compiler: " +  native_compiler)
+    print("use_tools: " + str(use_tools))
+
+
+    print("")
+    printc(option_config, bcolors.BOLD,"[tools]\n")
     print("tool_compiler: " +  tool_compiler)
 
     print("")
 
     printc(option_config, bcolors.BOLD,"[clean]\n")
-    print("interactive_clean: " + str(interactive_clean))
+    print("interactive_clean: " + str(option_config.clean_config.interactive_clean))
 
 
     print("")
     printc(option_config, bcolors.BOLD,"[run]\n")
-    print("vice_path: " +  vice_path)
-    print("vice_rom_path: " +  vice_rom_path)
-    print("mame_path: " +  mame_path)
-    print("mame_rom_path: " +  mame_rom_path)
+    print("vice_path: " +  option_config.rom_config.vice_path)
+    print("vice_rom_path: " +  option_config.rom_config.vice_rom_path)
+    print("mame_path: " +  option_config.rom_config.mame_path)
+    print("mame_rom_path: " +  option_config.rom_config.mame_rom_path)
 
     print("")
     printc(option_config, bcolors.BOLD,"[extend]\n")
-    print("extend_algorithm: " +  extend_algorithm)
-    print("replace_shapes: " +  str(replace_shapes))
+    print("extend_algorithm: " +  option_config.extend_config.extend_algorithm)
+    print("replace_shapes: " +  str(option_config.extend_config.replace_shapes))
 
-    print("")
-    printc(option_config, bcolors.BOLD,"[tools]\n")
-    print("use_tools: " + str(use_tools))
 
 
 def make_assets_from_tiles(params):

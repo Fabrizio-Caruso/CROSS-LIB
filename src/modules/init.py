@@ -2,6 +2,15 @@ from os import walk
 
 import sys
 
+platform = sys.platform
+
+
+
+if(platform in ["cygwin", "msys"]):
+    NATIVE_EXTENSION="exe"
+else:
+    NATIVE_EXTENSION="out"
+
 
 DEFAULT_THREADS = 8
 

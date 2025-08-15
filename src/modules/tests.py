@@ -1,21 +1,8 @@
 import sys
 import os
 
-C64_EMULATOR = "x64"
-VIC20_EMULATOR = "xvic"
-PLUS4_EMULATOR = "xplus4"
-PET_EMULATOR = "xpet"
 
-MAME_EMULATOR = "mame"
-
-platform = sys.platform
-
-
-
-if(platform in ["cygwin", "msys"]):
-    NATIVE_EXTENSION="exe"
-else:
-    NATIVE_EXTENSION="out"
+from init import *
 
 
 CROSS_COMPILER_COMMAND = \

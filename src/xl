@@ -23,6 +23,8 @@ from modules.params import \
 from modules.help_functions import help_command, manual
 from modules.file_functions import *
 from modules.tests import *
+from modules.split_projects import *
+from run import run_command
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -248,18 +250,6 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
-
-
-def run_command(option_config, command_string, verbose=False):
-    logger.info("Running command: %s", command_string)
-    # print("verbose: " + str(verbose))
-    if verbose or option_config.terminal_config.verbose:
-        print("Going to run: ")
-        printc(option_config, bcolors.BOLD, command_string+"\n")
-    else:
-        command_string+= " > /dev/null 2>&1"
-
-    os.system(command_string)
 
 
 def generic_input(string):
@@ -701,32 +691,6 @@ def tools(option_config):
         GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
-
-
-def create_main(game_dir, project_type):
-    parent_dir_path = "./" + project_type + "s/"
-    project_dir_path = parent_dir_path + game_dir + "/"
-    split_dir_path = project_dir_path + "split_files/"
-
-    # run_command(option_config, "cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
-    os.system("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
-
-
-def delete_main(option_config, game_dir, project_type):
-    parent_dir_path = "./" + project_type + "s/"
-    project_dir_path = parent_dir_path + game_dir + "/"
-    run_command(option_config, "rm -rf " + project_dir_path + "main.c")
-
-# TODO: This should be replaced by a real check on the existence of the split_files directory
-# SPLIT_PROJECTS = ['chase','shoot','snake']
-
-def is_project_split(game_dir):
-    project_type = project_category(game_dir)
-    parent_dir_path = "./" + project_type + "s/"
-    project_dir_path = parent_dir_path + game_dir + "/"
-
-    # return game_dir in SPLIT_PROJECTS
-    return os.path.isdir(project_dir_path+"split_files")
 
 
 # Build a project (for a target or multiple targets)

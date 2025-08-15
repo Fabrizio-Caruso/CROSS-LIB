@@ -255,7 +255,7 @@ def check_programs(title, command_list, expected_list, verbose=True):
 
             total_result[compiler]=False
             if compiler in BUILDABLE_TOOLS:
-                res = "NOT built\n"
+                res = "NOT built"
                 # res_color = bcolors.OKBLUE
                 # res_color2 = bcolors.OKCYAN
             else:

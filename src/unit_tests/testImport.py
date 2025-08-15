@@ -981,6 +981,4 @@ class testImport(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    global_vars.verbose = 0
-    global_vars.test = 1
     unittest.main()

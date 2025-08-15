@@ -66,12 +66,8 @@ SHORT_COMMANDS_LIST = OrderedDict( \
 
 
 def full_params(params):
-    # global global_vars
     full_command = SHORT_COMMANDS_LIST.get(params[1])
     if full_command is not None:
-        # if global_vars.verbose:
-            # print("Full command: " + str(full_command))
-            # print()
         return ["", full_command] + params[2:]
     return params
 
@@ -111,16 +107,16 @@ def get_size_params(params):
 
 
 # Show all commands
-def commands():
+def commands(option_config):
     # Show full length commands
     for command, description in COMMANDS_DESCRIPTIONS.items():
-        printc(bcolors.BOLD, command)
+        printc(option_config, bcolors.BOLD, command)
         spaces = " " * (10-len(command))
         print(spaces + " -> " + description)
 
     # Show short-hands
     print("")
     for short_command in SHORT_COMMANDS_LIST.items():
-        printc(bcolors.BOLD, short_command[0])
+        printc(option_config, bcolors.BOLD, short_command[0])
         print(" -> ",end="")
-        printc(bcolors.BOLD, short_command[1]+"\n")
+        printc(option_config, bcolors.BOLD, short_command[1]+"\n")

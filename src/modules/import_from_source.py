@@ -4,8 +4,6 @@ import sys
 
 from init import game_projects, example_projects
 
-import global_vars
-
 NUMBER_OF_TILES = 27
 
 
@@ -92,17 +90,17 @@ def compute_shape(string, xsize):
 
 
 
-def printc(color,text):
+def printc(option_config, print_color,text):
 
-    if(global_vars.color_terminal):
-        print(color + text + bcolors.ENDC, end="")
+    if(option_config.terminal_config.color_terminal):
+        print(print_color + text + bcolors.ENDC, end="")
     else:
         print(text, end="")
 
 
 
 def print_shape(items):
-    if not global_vars.test:
+    if not test:
         for i in range(len(items)):
             printc(bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
         print("")
@@ -247,8 +245,8 @@ def remove_assembly_comments(line):
     return line
 
 
-def display_data_type(word_data):
-    if not global_vars.test:
+def display_data_type(word_data, verbose=False):
+    if verbose:
 
         if word_data:
             data_type = "16-bit"
@@ -258,8 +256,8 @@ def display_data_type(word_data):
         print("Data type detected   : " + data_type)
 
 
-def display_code_type(basic_code):
-    if not global_vars.test:
+def display_code_type(basic_code, verbose=False):
+    if verbose:
         if basic_code:
             code_type = "BASIC"
         else:
@@ -268,8 +266,8 @@ def display_code_type(basic_code):
         print("Code type            : " + code_type)
 
 
-def display_extension_type(assembly_extension, basic_code):
-    if not global_vars.test:
+def display_extension_type(assembly_extension, basic_code, verbose=False):
+    if verbose:
 
         if assembly_extension:
             extension_type = "Assembly"
@@ -331,7 +329,7 @@ def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
 
 
 # It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file
-def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False):
+def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False, verbose = False):
 
         # fin = open(filename, "rt")
 
@@ -371,7 +369,7 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
         word_data =  directive in WORD_PATTERN_LIST and not basic_code
 
         # print("Pattern count: " + str(pattern_count))
-        if global_vars.verbose:
+        if verbose:
             print("Detected pattern     : " + directive)
 
         display_data_type(word_data)
@@ -407,13 +405,13 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
             header_byte = False
             skip_first = False
 
-        if global_vars.verbose:
+        if verbose:
             print("Skip first item      : " + str(skip_first))
             print("Headless hex data    : " + str(headless_hex))
 
         line_index = 0
 
-        if global_vars.verbose:
+        if verbose:
             print("")
 
         while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
@@ -447,8 +445,6 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                     single_byte_count=0
                     tiles.append(new_tile)
 
-                    # print(new_tile)
-
                     shape = compute_shape(new_tile,xsize)
 
 
@@ -456,24 +452,14 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                         new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
                         shape = compute_shape(new_tile,ysize)
 
-                    if not global_vars.test:
+                    if verbose:
                         print(new_tile)
                         print_shape(shape)
-                        # print_shape(shape)
-                    # else:
-                        # print_shape(shape)
 
-                    # if(rotate):
-                        # shape = compute_rotated_shape(shape)
-                        # print_shape(shape.replace('\n','').replace('\r',''))
-                    # else:
-                        # print_shape(shape)
                     tile_count+=1
-                    # print("new_tile: " + str(new_tile))
                     new_tile=""
                 else:
                     new_tile+=","
-        # print("tiles: " + str(tiles))
         return tiles
 
 
@@ -541,19 +527,19 @@ def read_shape(file_name):
     return trimmed_lines
 
 
-def compute_split_tiles(lines,verbose_split_tiles=True):
+def compute_split_tiles(lines,verbose=False):
 
     # print(str(lines))
 
     xsize = 16
     for line in lines:
         xsize = min(xsize,len(line))
-    if global_vars.verbose:
+    if verbose:
         print("Detected xsize: " + str(xsize))
 
     filtered_lines_group = [[],[]]
     for line in lines:
-        if global_vars.verbose:
+        if verbose:
             print("processing line: ", line, end="")
 
         if not(line=="\n" or line=="\r" or line== "\r\n"):
@@ -561,12 +547,12 @@ def compute_split_tiles(lines,verbose_split_tiles=True):
         if not(line=="\n" or line=="\r" or line== "\r\n"):
             filtered_lines_group[1].append(line.replace('\n','').replace('\r','')[int(xsize/2):xsize])
 
-    if global_vars.verbose:
+    if verbose:
         print("")
 
     # xsize = 16
 
-    if verbose_split_tiles:
+    if verbose:
         print("")
         for filtered_lines in filtered_lines_group:
             display_shape(filtered_lines)
@@ -585,14 +571,14 @@ def import_split_tiles(file_name):
     fin.close()
 
 
-def compute_tile(lines):
+def compute_tile(lines, verbose=False):
     # print(str(lines))
 
     tile = ""
 
     filtered_lines = []
     for line in lines:
-        if global_vars.verbose:
+        if verbose:
             print("processing line: ", line, end="")
         if not(line=="\n" or line=="\r" or line== "\r\n"):
             filtered_lines.append(line.replace('\n','').replace('\r',''))
@@ -608,7 +594,7 @@ def compute_tile(lines):
 
     dir = str(xsize)+"X"+str(ysize)
 
-    if global_vars.verbose:
+    if verbose:
         print("Tile shape: " + dir)
     for line_index in range(ysize):
         number_of_bits = len(trimmed_lines[line_index])

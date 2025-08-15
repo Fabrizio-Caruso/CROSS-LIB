@@ -17,13 +17,13 @@ def list_documented_routines():
     for documented_routine in documented_routines:
         print(documented_routine)
 
-def manual(params):
+def manual(option_config, params):
     if len(params)==1:
-        printc(bcolors.OKCYAN, "DOCUMENTED ROUTINES\n")
+        printc(option_config, bcolors.OKCYAN, "DOCUMENTED ROUTINES\n")
         list_documented_routines()
         print("")
         print("Use")
-        printc(bcolors.BOLD,"xl manual <routine>\n")
+        printc(option_config, bcolors.BOLD,"xl manual <routine>\n")
         return
     if params[1].startswith("_XL") or params[1] in ["XSize", "YSize"]:
         command_string = "cat ../docs/manual/" + params[1] + ".txt"
@@ -31,46 +31,46 @@ def manual(params):
         command_string = "cat ../docs/manual/_XL_" + params[1] + ".txt"
     res = os.system(command_string)
     if res:
-        printc(bcolors.WARNING,"\nCommand/topic not found\n")
+        printc(option_config, bcolors.WARNING,"\nCommand/topic not found\n")
 
 
-def help_help():
+def help_help(option_config):
     print("Possible values for <command>:")
     print(' '.join(str(cmd) for cmd in COMMANDS_LIST))
     print("")
-    printc(bcolors.BOLD,"xl help <command or routine>\n")
+    printc(option_config, bcolors.BOLD,"xl help <command or routine>\n")
     print("for <command>-specific help")
     print("\nExample:")
     print("\nxl help create              \n  It displays the help page for the 'create' xl script command")
     print("")
     print("\nxl help _XL_DRAW              \n  It displays the help page for the '_XL_DRAW' C routine")
     print("")
-    printc(bcolors.OKCYAN,"POSSIBLE COMMANDS")
+    printc(option_config, bcolors.OKCYAN,"POSSIBLE COMMANDS")
     print("")
-    commands()
+    commands(option_config)
     print("\nUse")
-    printc(bcolors.BOLD,"xl help manual")
+    printc(option_config, bcolors.BOLD,"xl help manual")
     print("\nto get the list of documented C routines.")
     print("\nUse")
-    printc(bcolors.BOLD,"xl manual")
+    printc(option_config, bcolors.BOLD,"xl manual")
     print("\nto get the full manual for the C routines.")
     
 
 
-def help_command(params):
+def help_command(option_config, params):
     if len(params)<2:
-        printc(bcolors.BOLD,"\nxl <command> <[optional] parameters>")
+        printc(option_config, bcolors.BOLD,"\nxl <command> <[optional] parameters>")
         print("\n(or xl <project> <[optional] parameters> as a shorthand for \n xl build <project> <[optional] parameters>)")
         print("")
-        help_help()
+        help_help(option_config)
     elif params[1] in COMMANDS_DESCRIPTIONS.keys():
 
         print("Help on ", end="")
-        printc(bcolors.OKCYAN, params[1]+"\n")
+        printc(option_config, bcolors.OKCYAN, params[1]+"\n")
         print("It " + COMMANDS_DESCRIPTIONS[params[1]] + "\n")
         params = full_params(params)
         if params[1]=="assets":
-            printc(bcolors.BOLD,"\nxl assets <project>\n")
+            printc(option_config, bcolors.BOLD,"\nxl assets <project>\n")
             print("")
             print("It generates assets files for <project> (new or existing project) by using tile or shape files.")
             print("")
@@ -81,7 +81,7 @@ def help_command(params):
             print("The output will be in ./projects/foo/generated_assets/")
 
         elif params[1]=="split":
-            printc(bcolors.BOLD,"\nxl split <file>\n")
+            printc(option_config, bcolors.BOLD,"\nxl split <file>\n")
             print("")
             print("It displays a shape file as two shapes, one for the left and one for the right side.")
             print("Example:")
@@ -114,20 +114,20 @@ def help_command(params):
             print("........")
 
         elif params[1]=="config":
-            printc(bcolors.BOLD,"\nxl config\n")
+            printc(option_config, bcolors.BOLD,"\nxl config\n")
             print("")
             print("It displays the configuration as read from config.ini")
             print("Example:")
             print("xl config")
         elif params[1]=="extend":
-            printc(bcolors.BOLD,"\nxl extend <project>\n")
+            printc(option_config, bcolors.BOLD,"\nxl extend <project>\n")
             print("")
             print("It generates candidate shapes of different sizes from the 8x8 shapes of <project>.")
             print("Example:")
             print("In order to generate candidate shapes for foo using 8x8 shapes, you can do:")
             print("xl extend foo")
         elif params[1]=="make":
-            printc(bcolors.BOLD,"\nxl make <project> <target>\n")
+            printc(option_config, bcolors.BOLD,"\nxl make <project> <target>\n")
             print("")
             print("It re-builds <project> for <target> and its assets by using the pictorial text files in the shapes directory.")
             print("It is equivalent to:")
@@ -138,14 +138,14 @@ def help_command(params):
             print("xl make foo vic20")
             print("builds the project foo and its assets from the pictorial text file for the Vic 20")
         elif params[1]=="tools":
-            printc(bcolors.BOLD,"\nxl tools\n")
+            printc(option_config, bcolors.BOLD,"\nxl tools\n")
             print("\n(or xl build tools)")
             print("")
             print("It builds some post-processing tools from their source code.")
             print("")
             print("This command has to be run only once to build the tools. The tools are used by few targets to generate ready to use images.")
         elif params[1]=="rename":
-            printc(bcolors.BOLD,"\nxl rename <old project name> <new project name>\n")
+            printc(option_config, bcolors.BOLD,"\nxl rename <old project name> <new project name>\n")
             print("It renames an existing user-defined project <old project name> to <new project name>.")
             print("")
             print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
@@ -156,7 +156,7 @@ def help_command(params):
             print("then you can rename it to 'bar' with")
             print("xl rename foo bar")
         elif params[1]=="clone":
-            printc(bcolors.BOLD,"\nxl clone <source project> <target project>\n")
+            printc(option_config, bcolors.BOLD,"\nxl clone <source project> <target project>\n")
             print("It clones an existing project of any type to create a new user-defined project.")
             print("")
             print("Remark: No matter the type of source project, the target project will be in the 'src/projects' directory")
@@ -169,7 +169,7 @@ def help_command(params):
             print("you can further clone it with:")
             print("xl clone foo bar")
         elif params[1]=="show":
-            printc(bcolors.BOLD,"xl show <project> <[optional] XTileSize> <[optional] YTileSize> <[optional] TileIndex>.\n")
+            printc(option_config, bcolors.BOLD,"xl show <project> <[optional] XTileSize> <[optional] YTileSize> <[optional] TileIndex>.\n")
             print("It displays the shape of graphics tiles of a given project.")
             print("")
             print("<project>")
@@ -196,7 +196,7 @@ def help_command(params):
             print("..####..")
 
         elif params[1]=="size":
-            printc(bcolors.BOLD,"xl size <project> <XSize> <YSize>\n")
+            printc(option_config, bcolors.BOLD,"xl size <project> <XSize> <YSize>\n")
             print("It builds <project> for the native host with screen size provided by <XSize> and <YSize>.")
             print("The built binaries will be in the 'build' directory.")
 
@@ -207,8 +207,8 @@ def help_command(params):
             print("\nxl size examples 16 12     \n  It builds all examples for the native host with screen size 16x12.")
 
         elif params[1]=="run":
-            printc(bcolors.BOLD,"xl run <project> <[optional] xsize> <[optional] ysize>\n")
-            printc(bcolors.BOLD,"xl run <project> <[optional] target>\n")
+            printc(option_config, bcolors.BOLD,"xl run <project> <[optional] xsize> <[optional] ysize>\n")
+            printc(option_config, bcolors.BOLD,"xl run <project> <[optional] target>\n")
             print("If no target is specified, it runs the previously compiled native version of <project>.")
             print("If integer parameters <xsize> and <ysize> are provided, then it runs the version of those sizes.")
             print("")
@@ -229,14 +229,14 @@ def help_command(params):
             print("xl run snake 16 16")
             print("It runs the previously built with size 16X16 (with 'xl size snake 16 16') native version of Cross Snake.")
         elif params[1]=="manual":
-            printc(bcolors.BOLD,"xl manual <[optional] routine>\n")
+            printc(option_config, bcolors.BOLD,"xl manual <[optional] routine>\n")
             print("If no optional parameter is passed it displays a list of documented CROSS-LIB APIs.")
             print("If a Cross-Lib C rouine is passed as an optional parameter, it displays its description and usage")
             print("")
             print("Documented commands:")
             list_documented_routines()
         elif params[1]=="string":
-            printc(bcolors.BOLD,"xl string <string>\n")
+            printc(option_config, bcolors.BOLD,"xl string <string>\n")
             print("It converts a string litteral into a concatenation of")
             print('_XL_A,..., _XL_Z, _XL_a, ..., _XL_z, _XL_SPACE, "0", ..., "9"')
             print("<string>")
@@ -246,14 +246,14 @@ def help_command(params):
             print('xl string "1 Hello World 2"')
             print('"1" _XL_SPACE _XL_H _XL_e _XL_l _XL_l _XL_o _XL_SPACE _XL_W _XL_o _XL_r _XL_l _XL_d _XL_SPACE "2"')
         elif params[1]=="rebuild":
-            printc(bcolors.BOLD,"xl rebuild <project> <[optional] target>\n")
+            printc(option_config, bcolors.BOLD,"xl rebuild <project> <[optional] target>\n")
             print("It rebuilds <project>.")
             # print("Remark: The 'build' command can be omitted.")
 
             print("It is equivalent to 'xl reset' followed by 'xl build <project> <target>'")
             print("Use 'xl help reset' and 'xl help build' for more information")
         elif params[1]=="import":
-            printc(bcolors.BOLD,"xl import <source_file> <[optional] project>\n")
+            printc(option_config, bcolors.BOLD,"xl import <source_file> <[optional] project>\n")
             print("")
             print("<source_file>")
             print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -271,7 +271,7 @@ def help_command(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl import ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rip":
-            printc(bcolors.BOLD,"xl rip <source_file> <[optional] project>\n")
+            printc(option_config, bcolors.BOLD,"xl rip <source_file> <[optional] project>\n")
             print("")
             print("<source_file>")
             print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -287,7 +287,7 @@ def help_command(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl rip ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rotate":
-            printc(bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
+            printc(option_config, bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")
             print("It works similarly to 'xl rip <source> <[optional] project>' but rotates the result.")
             print("")
@@ -305,7 +305,7 @@ def help_command(params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl rotate ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="tile":
-            printc(bcolors.BOLD,"xl tile <shape_file> <[optional] project> <[optional] tile_index>\n")
+            printc(option_config, bcolors.BOLD,"xl tile <shape_file> <[optional] project> <[optional] tile_index>\n")
             print("It converts the pictorial text file file <shape_file> into a line that can be used as an asset file.")
             print("")
             print("<shape_file>")
@@ -340,8 +340,8 @@ def help_command(params):
             print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
 
         elif params[1]=="shapes":
-            printc(bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>\n")
-            printc(bcolors.BOLD,"xl shapes <project> <[optional] target>\n")
+            printc(option_config, bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>\n")
+            printc(option_config, bcolors.BOLD,"xl shapes <project> <[optional] target>\n")
             print("It converts all shape files into tiles and stores them as such in the project.")
             print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
             print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")
@@ -354,17 +354,17 @@ def help_command(params):
             print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
 
         elif params[1]=="self":
-            printc(bcolors.BOLD,"xl self\n")
+            printc(option_config, bcolors.BOLD,"xl self\n")
             print("It tests itself by performing a sequence of 'xl' commands.")
             print("")
         elif params[1]=="unit-tests":
-            printc(bcolors.BOLD,"xl self\n")
+            printc(option_config, bcolors.BOLD,"xl self\n")
             print("It runs unit-tests on the script code.")
         elif params[1]=="compilers":
-            printc(bcolors.BOLD,"xl self\n")
+            printc(option_config, bcolors.BOLD,"xl self\n")
             print("It checks the presence of the most common compilers.")
         elif params[1]=="check":
-            printc(bcolors.BOLD,"xl check <[optional] params>\n")
+            printc(option_config, bcolors.BOLD,"xl check <[optional] params>\n")
             print("It runs some check on the dependencies.")
             print("")
             print("<params>")
@@ -375,7 +375,7 @@ def help_command(params):
             print("If <params> is 'interpreters', then it checks the presence of the interpreters used by xl.")
             print("If <params> is 'libraries', then it checks the presence of the libraries used by xl.")
         elif params[1]=="test":
-            printc(bcolors.BOLD,"xl test <[optional] params> <[optional] target>\n")
+            printc(option_config, bcolors.BOLD,"xl test <[optional] params> <[optional] target>\n")
             print("It runs some operations to test 'xl'.")
             print("")
             print("<params>")
@@ -396,7 +396,7 @@ def help_command(params):
             print("If 'stdio_extra' is passed to <params>, then it compiles a test program using only stdio.h and the native compiler (defined in config.ini).")
             print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the script code.")
         elif params[1]=="debug" or params[1]=="d":
-            printc(bcolors.BOLD,"xl debug <project> <XSize> <YSize>")
+            printc(option_config, bcolors.BOLD,"xl debug <project> <XSize> <YSize>")
             print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")
             print("The built binaries will be in the 'build' directory.")
 
@@ -408,16 +408,16 @@ def help_command(params):
 
 
         elif params[1]=="files" or params[1]=="f":
-            printc(bcolors.BOLD,"xl files\n")
+            printc(option_config, bcolors.BOLD,"xl files\n")
             print("It shows the built binary files (the conent of the `build` directory).\n")
             print("Remark: 'xl files' can be shorten with `xl f`.")
         elif params[1]=="slow":
-            printc(bcolors.BOLD,"xl slow <project> <target> <slowdown>\n")
+            printc(option_config, bcolors.BOLD,"xl slow <project> <target> <slowdown>\n")
             print("It builds <project> for <target> with (total) slowdown given by <slowdown>")
             print("\nExamples:")
             print("\nxl slow horde vic20 800     \n  It builds Horde for the Commodore Vic 20 using CC65 with (total) slowdown equal to 800.")
         elif params[1]=="build":
-            printc(bcolors.BOLD,"xl build <project> <[optional] target> or xl <project> <[optional] target>\n")
+            printc(option_config, bcolors.BOLD,"xl build <project> <[optional] target> or xl <project> <[optional] target>\n")
             print("It builds <project> for <target>.")
             print("The built binaries will be in the 'build' directory.")
 
@@ -447,7 +447,7 @@ def help_command(params):
             print("\nxl projects all             \n  It builds all built-in projects for all supported targets using all supported necessary compilers.")
             print("\nxl all c16                  \n  It builds all projects (games and examples and user-defined projects) for the Commodore 264 series using CC65.")
         elif params[1]=="create":
-            printc(bcolors.BOLD,"xl create <project> <[optional] type>\n")
+            printc(option_config, bcolors.BOLD,"xl create <project> <[optional] type>\n")
             print("It creates <project>.")
 
             print("\n<type>")
@@ -459,7 +459,7 @@ def help_command(params):
             print("\nxl create foo               \n  It builds a new project 'foo' with some initial code that display 'hello world' on the screen.")
             print("\nxl create bar game          \n  It builds a new project 'bar' with some initial game code (main loop, level loop, etc.).")
         elif params[1]=="delete":
-            printc(bcolors.BOLD,"xl delete <project> <[optiona] interactive>\n")
+            printc(option_config, bcolors.BOLD,"xl delete <project> <[optiona] interactive>\n")
             print("It removes <project>, i.e., it deletes its folder with its content (source code, graphics assets, makefile).")
 
             print("\n<project>")
@@ -472,7 +472,7 @@ def help_command(params):
             print("\nxl delete foo               \n  It deletes the project 'foo'.")
             print("\nxl delete foo -y            \n  Same as above but no confirmation is asked.")
         elif params[1]=="reset":
-            printc(bcolors.BOLD,"xl reset <[optional] project>\n")
+            printc(option_config, bcolors.BOLD,"xl reset <[optional] project>\n")
             print("It deletes temporary files created during the build process.")
             print("\n<project>")
             print("If no <project> is passed, only non-project specific temporary files are deleted.")
@@ -483,7 +483,7 @@ def help_command(params):
             print("\nxl reset                    \n  It deletes non-project specific temporary files.")
             print("\nxl reset foo                \n  It deletes all temporary files (both generic and project-specific).")
         elif params[1]=="clean":
-            printc(bcolors.BOLD,"xl clean <[optional] project>\n")
+            printc(option_config, bcolors.BOLD,"xl clean <[optional] project>\n")
             print("It deletes both built binaries and temporary files created during the build process.")
             print("\n<project>")
             print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.")
@@ -497,7 +497,7 @@ def help_command(params):
             print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")
 
         elif params[1]=="list" or params[1]=="l":
-            printc(bcolors.BOLD,"xl list <[optional] params>\n")
+            printc(option_config, bcolors.BOLD,"xl list <[optional] params>\n")
             print("It lists current projects in a given category or all projects.")
             print("")
             print("<params>")
@@ -508,20 +508,20 @@ def help_command(params):
             print("xl list projects              \n  It lists all user-defined projects")
 
         elif params[1]=="commands":
-            printc(bcolors.BOLD,"xl commands\n")
+            printc(option_config, bcolors.BOLD,"xl commands\n")
             print("It displays the available commands.")
 
         elif params[1]=="help" or params[1]=="h":
-            printc(bcolors.BOLD,"xl help <[optional] command>\n")
+            printc(option_config, bcolors.BOLD,"xl help <[optional] command>\n")
             print("It displays help instructions.")
 
 
             print("\n<command>")
             help_help()
     elif params[1] in list_of_documented_routines():
-        manual(params)
+        manual(option_config, params)
 
     else:
         print("Command not recognized")
-        help_help()
+        help_help(option_config)
 

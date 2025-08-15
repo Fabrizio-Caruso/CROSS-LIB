@@ -22,6 +22,7 @@ from modules.params import \
     handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
 from modules.help_functions import help_command, manual
 from modules.file_functions import *
+from modules.tests import *
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -77,12 +78,12 @@ class TerminalConfig():
         self,
         verbose,
         test,
-        color
+        color_terminal
         ):
         # terminal
         self.verbose = verbose
         self.test = test
-        self.color = color
+        self.color_terminal = color_terminal
 
 
 class RomConfig():
@@ -111,10 +112,12 @@ class ExtendConfig():
 class BuildConfig():
     def __init__(
         self,
-        z88dk_compiler_opts,
+        compilation_threads,
+        parallelize_multi_build,
         z88dk_compiler,
+        z88dk_compiler_opts,
         sccz80_compiler_opts,
-        zsdcc_compiler_opts,    
+        zsdcc_compiler_opts,
         cmoc_compiler_opts,
         cc65_compiler_opts,
         lcc1802_compiler_opts,
@@ -122,6 +125,7 @@ class BuildConfig():
         vbcc_compiler_opts,
         native_compiler_opts,
         native_compiler,
+        tool_compiler,
         use_tools
         ):
 
@@ -140,9 +144,25 @@ class BuildConfig():
         self.native_compiler_opts    = native_compiler_opts
         self.native_compiler         = native_compiler
         self.tool_compiler           = tool_compiler
-        
         self.use_tools               = use_tools
 
+    def get_opts(self):
+        return \
+            self.compilation_threads, \
+            self.parallelize_multi_build, \
+            self.z88dk_compiler, \
+            self.z88dk_compiler_opts, \
+            self.sccz80_compiler_opts, \
+            self.zsdcc_compiler_opts, \
+            self.cmoc_compiler_opts, \
+            self.cc65_compiler_opts, \
+            self.lcc1802_compiler_opts, \
+            self.gcc4ti99_compiler_opts, \
+            self.vbcc_compiler_opts, \
+            self.native_compiler_opts, \
+            self.native_compiler, \
+            self.tool_compiler, \
+            self.use_tools
 
 class CleanConfig:
     def __init__(
@@ -153,7 +173,7 @@ class CleanConfig:
         
 
 
-class Config:
+class OptionConfig:
     def __init__(
         self,
         
@@ -180,10 +200,36 @@ class Config:
         # tools
         # self.use_tools = use_tools
 
+def clean_test(option_config):
+    clean(option_config, ["clean","-y"])
+    files_after_clean = len(files_in_path("../build"))
+
+    if files_after_clean>1:
+        printc(option_config, bcolors.FAIL, "[xl clean]        KO\n")
+        return 0
+    printc(option_config, bcolors.OKGREEN, "[xl clean]        OK\n")
+    return 1
 
 
-def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
+def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
 
+    compilation_threads, \
+    parallelize_multi_build, \
+    z88dk_compiler, \
+    z88dk_compiler_opts, \
+    sccz80_compiler_opts, \
+    zsdcc_compiler_opts, \
+    cmoc_compiler_opts, \
+    cc65_compiler_opts, \
+    lcc1802_compiler_opts, \
+    gcc4ti99_compiler_opts, \
+    vbcc_compiler_opts, \
+    native_compiler_opts, \
+    native_compiler, \
+    tool_compiler, \
+    use_tools \
+    = option_config.build_config.get_opts()
+    
     if z88dk_compiler in ('zsdcc','sdcc'):
         compiler_selection = " -compiler=sdcc "
         compiler_opts = compiler_opts + " " + zsdcc_compiler_opts
@@ -206,11 +252,12 @@ def all_compilers_opts(zsdcc_extra_optimization, compiler_opts):
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
 
 
-def run_command_verbosely(command_string):
+def run_command(option_config, command_string, verbose=False):
     logger.info("Running command: %s", command_string)
-    if global_vars.verbose:
+    # print("verbose: " + str(verbose))
+    if verbose or option_config.terminal_config.verbose:
         print("Going to run: ")
-        printc(bcolors.BOLD, command_string+"\n")
+        printc(option_config, bcolors.BOLD, command_string+"\n")
     else:
         command_string+= " > /dev/null 2>&1"
 
@@ -226,7 +273,7 @@ def are_you_sure():
     return generic_input("Are you sure [Y/N]? ").lower()
 
 
-def multiple_project_reset(mypath):
+def multiple_project_reset(option_config, mypath):
     projects = []
     for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
@@ -234,7 +281,7 @@ def multiple_project_reset(mypath):
 
     for project_name in projects:
         print("PROJECT: " + project_name)
-        reset([mypath, project_name])
+        reset(option_config, [mypath, project_name])
         print("\n")
 
 
@@ -257,14 +304,14 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
                        " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts("","") + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts(all_compilers_opts, "","") + \
                 " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
         if is_project_split(project_name):
-            delete_main(project_name,project_type)
+            delete_main(option_config, project_name,project_type)
 
 #TODO: cc65 targets
 #TODO: cmoc targets
@@ -372,8 +419,27 @@ PARALLEL_TARGETS = \
     'zxn'
     ]
 
-def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):
+def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):
     projects = []
+
+    verbose = option_config.terminal_config.verbose
+
+    compilation_threads, \
+    parallelize_multi_build, \
+    z88dk_compiler, \
+    z88dk_compiler_opts, \
+    sccz80_compiler_opts, \
+    zsdcc_compiler_opts, \
+    cmoc_compiler_opts, \
+    cc65_compiler_opts, \
+    lcc1802_compiler_opts, \
+    gcc4ti99_compiler_opts, \
+    vbcc_compiler_opts, \
+    native_compiler_opts, \
+    native_compiler, \
+    tool_compiler, \
+    use_tools \
+    = option_config.build_config.get_opts()
 
     if use_tools:
         use_tools_str = " USE_TOOLS=1 "
@@ -387,10 +453,10 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
     projects_to_build = len(projects)
 
     # files_before = len(files_in_path("../build"))-1
-    if global_vars.verbose:
+    if verbose:
         print("Building " + str(projects_to_build) + " projects: ", end="")
         for project_name in projects:
-            printc(bcolors.OKCYAN,project_name+" ")
+            printc(option_config, bcolors.OKCYAN,project_name+" ")
         print("")
 
     if (parallelize_multi_build==1) and (target in PARALLEL_TARGETS):
@@ -398,30 +464,32 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
         pool = Pool(processes=int(threads))
 
         for project_name in projects:
+            if verbose:
+                print("project name: " + project_name)
             if reset_flag:
-                reset(["",project_name])
+                reset(option_config, ["",project_name])
             if is_project_split(project_name):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + \
                     " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                    + all_compilers_opts(zsdcc_extra_optimization, "") + \
+                    + all_compilers_opts(option_config, zsdcc_extra_optimization, "") + \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
                     " -f " + mypath+"/"+project_name+"/Makefile."+project_name
-            pool.apply_async(run_command_verbosely, [make_command])
+            pool.apply_async(run_command, [option_config, make_command])
 
         pool.close()
         pool.join()
 
         for project_name in projects:
             if is_project_split(project_name):
-                delete_main(project_name,project_type)
+                delete_main(option_config, project_name,project_type)
     else:
         for project_name in projects:
             if reset_flag:
-                reset(["",project_name])
+                reset(option_config, ["",project_name])
             print("project name: " + project_name)
             if is_project_split(project_name):
                 project_type = project_category(project_name)
@@ -429,19 +497,19 @@ def multiple_build(mypath,target,threads,zsdcc_extra_optimization, reset_flag=Fa
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + \
                     " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "'" \
-                    + all_compilers_opts(zsdcc_extra_optimization, "") + \
+                    + all_compilers_opts(option_config, zsdcc_extra_optimization, "") + \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
                     " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
             if is_project_split(project_name):
-                delete_main(project_name,project_type)
+                delete_main(option_config, project_name,project_type)
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
-def size(params,debug):
-
+def size(option_config, params,debug):
+    verbose = option_config.terminal_config.verbose
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -453,7 +521,7 @@ def size(params,debug):
 
     target, xsize, ysize = get_size_params(params)
 
-    if global_vars.verbose:
+    if verbose:
         print("Project name       : " + game_dir)
         print("Project type       : " + project_type)
         print("XSize: " + xsize)
@@ -469,22 +537,23 @@ def size(params,debug):
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
             return
-
+        native_compiler = option_config.build_config.native_compiler
+        tool_compiler   = option_config.build_config.tool_compiler
         if is_project_split(game_dir):
-            printc(bcolors.OKBLUE,"Create main.c from split source files\n")
+            printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
             create_main(game_dir, project_type)
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
                 " _DEBUG_FLAG=" + str(debug) + " " \
-                + all_compilers_opts("","") + \
+                + all_compilers_opts(option_config, "","") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
 
         if is_project_split(game_dir):
-            printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
-            delete_main(game_dir, project_type)
+            printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+            delete_main(option_config, game_dir, project_type)
     else:
         if game_dir in["games","examples","projects"]:
             multiple_size_build(game_dir,target,xsize,ysize,debug)
@@ -502,16 +571,16 @@ def size(params,debug):
 
     files_after = len(files_in_path("../build"))-1
 
-    if global_vars.verbose:
+    if verbose:
         print("New binaries built: " + str(files_after-files_before)+"\n")
 
 
 # Rebuild a project, i.e., also rebuilds assets
-def rebuild(params):
-    build(params, reset_flag=True)
+def rebuild(option_config, params):
+    build(option_config, params, reset_flag=True)
 
 
-def convert_makefile(dir,old_type,old_name,new_name):
+def convert_makefile(option_config, dir,old_type,old_name,new_name):
 
     dest_path = "projects/"+dir
     source_game_dir = old_name
@@ -519,7 +588,7 @@ def convert_makefile(dir,old_type,old_name,new_name):
     source_parent_dir = old_type
     target_parent_dir = "projects"
 
-    if global_vars.verbose:
+    if option_config.terminal_config.verbose:
         print("- dir: " + dir)
         print("- old_type: " + old_type)
         print("- old_name: " + old_name)
@@ -543,7 +612,7 @@ def convert_makefile(dir,old_type,old_name,new_name):
 
 
 # Rename a project
-def rename(params):
+def rename(option_config, params):
     if len(params)<2:
         source_game_dir = "helloworld"
     else:
@@ -564,17 +633,18 @@ def rename(params):
     target_parent_dir = target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 
-    if global_vars.verbose:
+    if option_config.terminal_config.verbose:
 
         print("source_project_type: " + source_project_type)
 
-    convert_makefile(source_game_dir, source_project_type, source_game_dir, target_game_dir)
+    convert_makefile(option_config, source_game_dir, source_project_type, source_game_dir, target_game_dir)
 
     os.rename(target_parent_dir + "/" +source_game_dir, target_parent_dir_and_game_dir)
 
 
 # Clone a project to create a new one
-def clone(params):
+def clone(option_config, params):
+    verbose = option_config.terminal_config.verbose
     if len(params)<2:
         source_game_dir = "helloworld"
     else:
@@ -587,7 +657,7 @@ def clone(params):
 
 
     source_project_type = project_category(source_game_dir)
-    if global_vars.verbose:
+    if verbose:
         print("source project category: " + source_project_type)
     source_parent_dir = source_project_type + "s"
     source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
@@ -596,7 +666,7 @@ def clone(params):
     target_parent_dir = target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 
-    if global_vars.verbose:
+    if verbose:
         print("Source project name    : " + source_game_dir)
         print("Source Project type    : " + source_project_type)
         print("Path to source project : " + source_parent_and_game_dir)
@@ -610,31 +680,33 @@ def clone(params):
         # os.makedirs(target_parent_dir_and_game_dir)
 
     source_path = source_parent_and_game_dir
-    if global_vars.verbose:
+    if verbose:
         print("source_path: " + source_path)
     dest_path = target_parent_dir_and_game_dir
-    if global_vars.verbose:
+    if verbose:
         print("dest_path: " + dest_path)
 
     if not os.path.exists(dest_path+"/tiles"):
-        if global_vars.verbose:
+        if verbose:
             print("Copying tiles...")
         shutil.copytree(source_path, dest_path)
 
     if not os.path.exists(dest_path+"/generated_assets"):
-        if global_vars.verbose:
+        if verbose:
             print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
-    convert_makefile(target_game_dir, source_project_type, source_game_dir, target_game_dir)
+    convert_makefile(option_config, target_game_dir, source_project_type, source_game_dir, target_game_dir)
 
 
 # Generate tools from source code
-def tools():
+def tools(option_config):
+    compilation_threads = option_config.build_config.compilation_threads
+    tool_compiler = option_config.build_config.tool_compiler
     make_command = \
         GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
-    run_command_verbosely(make_command)
+    run_command(option_config, make_command)
 
 
 def create_main(game_dir, project_type):
@@ -642,14 +714,14 @@ def create_main(game_dir, project_type):
     project_dir_path = parent_dir_path + game_dir + "/"
     split_dir_path = project_dir_path + "split_files/"
 
-    # run_command_verbosely("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
+    # run_command(option_config, "cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
     os.system("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
 
 
-def delete_main(game_dir, project_type):
+def delete_main(option_config, game_dir, project_type):
     parent_dir_path = "./" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
-    run_command_verbosely("rm -rf " + project_dir_path + "main.c")
+    run_command(option_config, "rm -rf " + project_dir_path + "main.c")
 
 # TODO: This should be replaced by a real check on the existence of the split_files directory
 # SPLIT_PROJECTS = ['chase','shoot','snake']
@@ -664,13 +736,13 @@ def is_project_split(game_dir):
 
 
 # Build a project (for a target or multiple targets)
-def build(params, reset_flag = False):
+def build(option_config, params, reset_flag = False):
     params = insert_default_sizes(params)
 
     # sized terminal
     if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() \
                       and params[4].isnumeric():
-        size(["size"] + params[1:],0)
+        size(option_config, ["size"] + params[1:],0)
         return
 
     if len(params)<2:
@@ -679,7 +751,7 @@ def build(params, reset_flag = False):
         game_dir = params[1]
 
     if len(params)>=1 and game_dir=="tools":
-        tools()
+        tools(option_config)
     else:
 
         files_before = len(files_in_path("../build"))-1
@@ -695,28 +767,62 @@ def build(params, reset_flag = False):
         if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc"]:
             target = target + "_targets"
 
+        compilation_threads, \
+        parallelize_multi_build, \
+        z88dk_compiler, \
+        z88dk_compiler_opts, \
+        sccz80_compiler_opts, \
+        zsdcc_compiler_opts, \
+        cmoc_compiler_opts, \
+        cc65_compiler_opts, \
+        lcc1802_compiler_opts, \
+        gcc4ti99_compiler_opts, \
+        vbcc_compiler_opts, \
+        native_compiler_opts, \
+        native_compiler, \
+        tool_compiler, \
+        use_tools \
+        = option_config.build_config.get_opts()
+
+
+        # compilation_threads = option_config.build_config.compilation_threads
         if len(params)<4:
             threads = str(compilation_threads)
         else:
             threads = params[3]
 
+        # zsdcc_extra_optimization = option_config.build_config.zsdcc_extra_optimization
         if len(params)>=5 and params[4]=="on":
             zsdcc_extra_optimization = "--max-allocs-per-node200000"
         else:
             zsdcc_extra_optimization = ""
 
+        # compiler_opts = option_config.build_config.compiler_opts
         if len(params)>=6:
             compiler_opts = " " + params[5]
         else:
             compiler_opts = ""
 
-        if global_vars.verbose:
+        color_terminal = option_config.terminal_config.color_terminal
+
+        verbose = option_config.terminal_config.verbose
+        
+        # z88dk_compiler_opts = option_config.build_config.z88dk_compiler_opts
+        # zsdcc_compiler_opts = option_config.build_config.zsdcc_compiler_opts
+        # cmoc_compiler_opts = option_config.build_config.cmoc_compiler_opts
+        # cc65_compiler_opts = option_config.build_config.cc65_compiler_opts
+        # lcc1802_compiler_opts = option_config.build_config.lcc1802_compiler_opts
+        # gcc4ti99_compiler_opts = option_config.build_config.gcc4ti99_compiler_opts
+        # vbcc_compiler_opts = option_config.build_config.vbcc_compiler_opts
+        # native_compiler_opts = option_config.build_config.native_compiler_opts
+        
+        if verbose:
 
             print("Project name       : ", end="")
-            printc(bcolors.BOLD, game_dir+"\n")
+            printc(option_config, bcolors.BOLD, game_dir+"\n")
 
             print("Target name        : ", end="")
-            printc(bcolors.UNDERLINE, target+"\n")
+            printc(option_config, bcolors.UNDERLINE, target+"\n")
 
             print("Project type       : " + project_type)
             print("Number of threads  : " + threads)
@@ -729,9 +835,9 @@ def build(params, reset_flag = False):
             print("cmoc_compiler_opts      : " + cmoc_compiler_opts)
             print("cc65_compiler_opts      : " + cc65_compiler_opts)
             print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts)
-            print("gcc4ti99_compiler_opts  : " +  gcc4ti99_compiler_opts)
-            print("vbcc_compiler_opts      : " +  vbcc_compiler_opts)
-            print("native_compiler_opts    : " +  native_compiler_opts)
+            print("gcc4ti99_compiler_opts  : " + gcc4ti99_compiler_opts)
+            print("vbcc_compiler_opts      : " + vbcc_compiler_opts)
+            print("native_compiler_opts    : " + native_compiler_opts)
 
             print("")
 
@@ -742,8 +848,9 @@ def build(params, reset_flag = False):
             read_config(parent_and_game_dir + "/config.ini")
 
         if game_dir not in ["games", "examples", "projects", "all"]:
+            # use_tools = option_config.build_config.use_tools
             if reset_flag:
-                reset(params)
+                reset(option_config, params)
             if not os.path.exists(parent_and_game_dir):
                 print("Project not found!")
                 return
@@ -753,47 +860,47 @@ def build(params, reset_flag = False):
                 use_tools_str = ""
 
             if is_project_split(game_dir):
-                printc(bcolors.OKBLUE,"Create main.c from split source files\n")
+                printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
 
             make_command = \
                 GNU_MAKE + " " + target + \
                     use_tools_str + \
                     " ZSDCC_MAKEFILE_THREADS_OPTS=\'-j " + threads + "' " \
-                    + all_compilers_opts(zsdcc_extra_optimization, compiler_opts) +  \
+                    + all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts) +  \
                     " _NATIVE_CC=" + native_compiler + \
                     " TOOL_CC=" + tool_compiler + " GNU_MAKE=" + GNU_MAKE + \
                     " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
 
             if is_project_split(game_dir):
-                printc(bcolors.OKBLUE,"Delete main.c because of split source files\n")
-                delete_main(game_dir, project_type)
+                printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
+                delete_main(option_config, game_dir, project_type)
 
         else:
             if game_dir in ["games","examples","projects"]:
-                multiple_build(game_dir,target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, game_dir,target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir=="new":
-                multiple_build("projects",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "projects",target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir in ["builtin","built-in"]:
-                multiple_build("games",target,threads,zsdcc_extra_optimization, reset_flag)
-                multiple_build("examples",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "games",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "examples",target,threads,zsdcc_extra_optimization, reset_flag)
             elif game_dir=="all":
-                multiple_build("games",target,threads,zsdcc_extra_optimization, reset_flag)
-                multiple_build("examples",target,threads,zsdcc_extra_optimization, reset_flag)
-                multiple_build("projects",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "games",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "examples",target,threads,zsdcc_extra_optimization, reset_flag)
+                multiple_build(option_config, "projects",target,threads,zsdcc_extra_optimization, reset_flag)
             else:
                 return
 
         files_after = len(files_in_path("../build"))-1
 
-        if global_vars.verbose:
-            printc(bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
+        if verbose:
+            printc(option_config, bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
 
 
 
-def slow(params):
+def slow(option_config, params):
 
     game_dir = params[1]
 
@@ -818,24 +925,25 @@ def slow(params):
         return
 
     if is_project_split(game_dir):
-        printc(bcolors.OKBLUE,"Create main.c from split source files\n")
+        printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
 
     make_command = \
         GNU_MAKE + " " + target + \
             " SLOWDOWN=" + slowdown + \
-            all_compilers_opts("", "") +  \
+            all_compilers_opts(option_config, "", "") +  \
             " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
-    run_command_verbosely(make_command)
+    run_command(option_config, make_command)
 
     if is_project_split(game_dir):
-        printc(bcolors.OKBLUE,"Delete main.c because of split source files\n")
-        delete_main(game_dir, project_type)
+        printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
+        delete_main(option_config, game_dir, project_type)
 
 
 # Create a new project
-def create(params):
+def create(option_config, params):
+    verbose = option_config.terminal_config.verbose
     if len(params)<2:
         game_dir = "helloworld"
     else:
@@ -867,31 +975,31 @@ def create(params):
 
     parent_dir = "projects"
 
-    if global_vars.verbose:
+    if verbose:
         print("New project name: " + game_dir)
         print("Project type: " + project_type)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
 
     if not os.path.exists(parent_and_game_dir):
-        if global_vars.verbose:
+        if verbose:
             print("Creating project dir...")
         os.makedirs(parent_and_game_dir)
 
     source_path = "./template_projects/"+project_type+"_code.template"
-    if global_vars.verbose:
+    if verbose:
         print("source_path: " + source_path)
     dest_path = parent_and_game_dir
-    if global_vars.verbose:
+    if verbose:
         print("dest_path: " + dest_path)
 
     if not os.path.exists(dest_path+"/tiles"):
-        if global_vars.verbose:
+        if verbose:
             print("Copying tiles...")
         shutil.copytree(source_path+"/tiles", dest_path+"/tiles")
 
     if not os.path.exists(dest_path+"/shapes"):
-        if global_vars.verbose:
+        if verbose:
             print("Copying shapes...")
         if not os.path.exists(source_path+"/shapes"):
             os.makedirs(dest_path+"/shapes")
@@ -899,19 +1007,19 @@ def create(params):
             shutil.copytree(source_path+"/shapes", dest_path+"/shapes")
 
     if not os.path.exists(dest_path+"/generated_assets"):
-        if global_vars.verbose:
+        if verbose:
             print("Create empty generated_assets directory...")
         os.makedirs(dest_path+"/generated_assets")
 
     if not os.path.exists(dest_path+"/config"):
-        if global_vars.verbose:
+        if verbose:
             print("Create empty config directory...")
         os.makedirs(dest_path+"/config")
 
     file_names = ["main.c"]
 
     for file_name in file_names:
-        if global_vars.verbose:
+        if verbose:
             print("Copying file_name: " + file_name)
         shutil.copy(source_path+"/"+file_name, dest_path)
 
@@ -954,7 +1062,8 @@ def create(params):
 
 
 # Delete temporary project files If a project is specified, it also deletes generated assets.
-def reset(params):
+def reset(option_config, params):
+    verbose = option_config.terminal_config.verbose
     par_len = len(params)
 
     if par_len>1:
@@ -963,38 +1072,38 @@ def reset(params):
         game_dir=""
 
     if game_dir in ["games","examples","projects"]:
-        multiple_project_reset(game_dir)
+        multiple_project_reset(option_config, game_dir)
         return
     if game_dir=="new":
-        multiple_project_reset("projects")
+        multiple_project_reset(option_config, "projects")
         return
     if game_dir in ["builtin","built-in"]:
-        multiple_project_reset("games")
-        multiple_project_reset("examples")
+        multiple_project_reset(option_config, "games")
+        multiple_project_reset(option_config, "examples")
         return
     if game_dir=="all":
-        multiple_project_reset("games")
-        multiple_project_reset("examples")
-        multiple_project_reset("projects")
+        multiple_project_reset(option_config, "games")
+        multiple_project_reset(option_config, "examples")
+        multiple_project_reset(option_config, "projects")
         return
 
     if (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
         make_command = GNU_MAKE + \
                        " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
 
-        if global_vars.verbose:
+        if verbose:
             print("Delete all non-project-specific temporary files")
 
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
         return
 
     if len(params)<2:
         make_command = GNU_MAKE + \
             " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
-        if global_vars.verbose:
+        if verbose:
             print("Delete all non-project-specific temporary files")
         if are_you_sure()=="y":
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
             return
         return
 
@@ -1004,7 +1113,7 @@ def reset(params):
 
     parent_dir = project_type + "s"
 
-    if global_vars.verbose:
+    if verbose:
 
         print("Project name: " + game_dir)
 
@@ -1014,7 +1123,7 @@ def reset(params):
         print("Project not found!")
         return
 
-    if global_vars.verbose:
+    if verbose:
 
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
@@ -1022,40 +1131,42 @@ def reset(params):
     make_command = GNU_MAKE + " clean_no_built_in -f " + \
                    parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
-    run_command_verbosely(make_command)
+    run_command(option_config,make_command)
 
 
 # Clean project data
-def clean(params):
+def clean(option_config, params):
+
+    verbose = option_config.terminal_config.verbose
 
     if len(params)>=2:
         if params[1]=="tools":
             make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
 
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
             return
         if params[1]=="log" or params[1]=="logs":
             make_command = GNU_MAKE + " clean_logs -f makefiles.common/auxiliary/Makefile_tools"
 
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
             return
 
     if len(params)<2:
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        if global_vars.verbose:
+        if verbose:
             print("Delete all built binaries and non-project=specific temporary files")
         if are_you_sure()=="y":
-            run_command_verbosely(make_command)
+            run_command(option_config, make_command)
             return
         return
     if (len(params)==2) and (params[1]=='-y'):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
-        if global_vars.verbose:
+        if verbose:
             print("Delete all built binaries and non-project-specific temporary files")
 
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
         return
 
     game_dir = params[1]
@@ -1078,15 +1189,15 @@ def clean(params):
     # if (not interactive) or (are_you_sure()=="y"):
     make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
-    run_command_verbosely(make_command)
+    run_command(option_config, make_command)
 
 
 # Delete project
-def delete(params):
+def delete(option_config, params):
     if(len(params)>=2) and params[1]=="tools":
         make_command = GNU_MAKE + " clean_tools"
 
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
         return
 
     if len(params)<2:
@@ -1105,26 +1216,26 @@ def delete(params):
         interactive = True
 
     parent_dir = "projects"
-
-    if global_vars.verbose:
+    verbose = option_config.terminal_config.verbose
+    if verbose:
         print("Project name: " + game_dir)
 
     parent_and_game_dir = parent_dir + "/" + game_dir
-    if global_vars.verbose:
+    if verbose:
         print("Remove the project '"+game_dir+ \
               "' with all its files (source, graphics assets, makefile)")
     if (not interactive) or (are_you_sure()=="y"):
         if os.path.exists(parent_and_game_dir):
-            if global_vars.verbose:
+            if verbose:
                 print("Deleting directory " + parent_and_game_dir)
             shutil.rmtree(parent_and_game_dir)
 
         makefile_name = "Makefile."+game_dir
         if os.path.exists(makefile_name):
-            if global_vars.verbose:
+            if verbose:
                 print("Deleting..." + makefile_name)
             os.remove(makefile_name)
-        if global_vars.verbose:
+        if verbose:
             print("'" + game_dir + "' deleted")
     else:
         return
@@ -1143,328 +1254,6 @@ def built_files_in_path(mypath):
     return files
 
 
-def clean_test():
-    clean(["clean","-y"])
-    files_after_clean = len(files_in_path("../build"))
-
-    if files_after_clean>1:
-        printc(bcolors.FAIL, "[xl clean]        KO\n")
-        return 0
-    printc(bcolors.OKGREEN, "[xl clean]        OK\n")
-    return 1
-
-
-CROSS_COMPILER_COMMAND = \
-    {
-    'cc65'        : 'cl65',
-    'z88dk'       : 'zcc',
-    'cmoc'        : 'cmoc',
-    'cc6303'      : 'cc68 -h',
-    'lcc1802'     : 'lcc',
-    'vbcc'        : 'vc -h',
-    'ack'         : 'ack -h',
-    'tms9900-gcc' : 'tms9900-gcc -h'
-    }
-
-CROSS_COMPILER_COMMAND_EXPECTED = \
-    {
-    'cc65'   : 0,
-    'z88dk'  : 0,
-    'cmoc'   : 256,
-    'cc6303' : 256,
-    'lcc1802': 0,
-    'vbcc'   : 256,
-    'ack'    : 0,
-    'tms9900-gcc': 256
-    }
-
-
-NATIVE_COMPILER_COMMAND = \
-    {
-    'gcc'         : 'gcc',
-    'g++'         : 'g++',
-    }
-
-NATIVE_COMPILER_COMMAND_EXPECTED = \
-    {
-    'gcc'    : 256,
-    'g++'    : 256,
-    }
-
-
-TOOL_COMMAND = \
-    {
-    'f2k5'     : '../tools/cmoc/mo5/f2k5.' + NATIVE_EXTENSION + '',
-    'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
-    'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
-    'makewzd'  : '../tools/z88dk/oz/makewzd.' + NATIVE_EXTENSION + ' -h',
-    'fixcart'  : '../tools/cc65/gamate/gamate-fixcart.' + NATIVE_EXTENSION + '',
-    'bbcim'    : '../tools/bbc/bbcim.' + NATIVE_EXTENSION + ' -h',
-    'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
-    'm20'      : '../tools/olivetti_m20/m20.' + NATIVE_EXTENSION + ' -h',
-    'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
-    'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
-    }
-
-TOOL_COMMAND_EXPECTED = \
-    {
-    'f2k5'     : 0,
-    'sapfs'    : 256,
-    'file2dsk' : 256,
-    'makewzd'  : 256,
-    'fixcart'  : 65280,
-    'bbcim'    : 256,
-    'nocart'   : 256,
-    'm20'      : 256,
-    'elf2ea5'  : 256,
-    'ea5split' : 256,
-    }
-
-
-EMULATOR_COMMAND = \
-    {
-    'c1541'    : 'c1541 -h',
-    'x64'      : 'x64 -h',
-    'xvic'     : 'xvic -h',
-    'xplus4'   : 'xplus4 -h',
-    'xpet'     : 'xpet -h',
-    'mame'     : 'mame -h',
-    }
-
-EMULATOR_COMMAND_EXPECTED = \
-    {
-    'java'     : 0,
-    'perl'     : 0,
-    'c1541'    : 0,
-    'x64'      : 0,
-    'xvic'     : 0,
-    'xplus4'   : 0,
-    'xpet'     : 0,
-    'mame'     : 0,
-    }
-
-
-BUILDABLE_TOOLS = \
-{
-    'f2k5',
-    'sapfs',
-    'file2dsk',
-    'makewzd',
-    'fixcart',
-    'bbcim',
-    'nocart',
-    'm20',
-    'elf2ea5',
-    'ea5split',
-}
-
-
-INTERPRETER_COMMAND = \
-    {
-    'java'     : 'java -h',
-    'perl'     : 'perl -h',
-    }
-
-INTERPRETER_COMMAND_EXPECTED = \
-    {
-    'java'     : 0,
-    'perl'     : 0,
-    }
-
-LIBRARY_COMMAND = \
-    {
-    'ncurses'  : "ls /usr/include/ncurses.h",
-    }
-
-LIBRARY_COMMAND_EXPECTED = \
-    {
-    'ncurses'  : 0,
-    }
-
-ROM_COMMAND = \
-    {
-    'msx/msx.zip'      : 'ls ../roms/mame/msx.zip',
-    'msx/canon20.zip'  : 'ls ../roms/mame/canonv20.zip',
-
-    'c16/kernal'     : 'ls ../roms/vice/plus4/kernal',
-    'c16/basic'     : 'ls ../roms/vice/plus4/basic',
-    'c16/3plus1hi'     : 'ls ../roms/vice/plus4/3plus1hi',
-    'c16/3plus1lo'     : 'ls ../roms/vice/plus4/3plus1lo',
-
-    'c64/basic'     : 'ls ../roms/vice/c64/basic',
-    'c64/chargen'     : 'ls ../roms/vice/c64/chargen',
-    'c64/kernal'     : 'ls ../roms/vice/c64/kernal',
-
-    'pet/basic1'     : 'ls ../roms/vice/pet/basic1',
-    'pet/kernal1'     : 'ls ../roms/vice/pet/kernal1',
-
-    'pet/basic2'     : 'ls ../roms/vice/pet/basic2',
-    'pet/kernal2'     : 'ls ../roms/vice/pet/kernal2',
-
-    'pet/basic4'     : 'ls ../roms/vice/pet/basic4',
-    'pet/kernal4'     : 'ls ../roms/vice/pet/kernal4',
-
-    'pet/chargen'     : 'ls ../roms/vice/pet/chargen',
-    'pet/characters.901640-01.bin'     : 'ls ../roms/vice/pet/characters.901640-01.bin',
-
-    'pet/edit1g'     :'ls ../roms/vice/pet/edit1g',
-    'pet/edit2b'     :'ls ../roms/vice/pet/edit2b',
-    'pet/edit2g'     :'ls ../roms/vice/pet/edit2g',
-
-    'pet/edit4b40'     :'ls ../roms/vice/pet/edit4b40',
-    'pet/edit4b80'     :'ls ../roms/vice/pet/edit4b80',
-    'pet/edit4g40'     :'ls ../roms/vice/pet/edit4g40',
-
-    'vic20/basic'     : 'ls ../roms/vice/vic20/basic',
-    'vic20/chargen'     : 'ls ../roms/vice/vic20/chargen',
-    'vic20/kernal'     : 'ls ../roms/vice/vic20/kernal',
-    }
-
-
-ROM_COMMAND_EXPECTED = \
-    {
-    'msx/msx.zip'        : 0,
-    'msx/canon20.zip'    : 0,
-
-    'c16/kernal'     : 0,
-    'c16/basic'      : 0,
-    'c16/3plus1hi'   : 0,
-    'c16/3plus1lo'   : 0,
-
-    'c64/kernal'     : 0,
-    'c64/chargen'     :0,
-    'c64/basic'     : 0,
-
-    'pet/kernal1'     : 0,
-    'pet/basic1'     : 0,
-
-    'pet/kernal2'     : 0,
-    'pet/basic2'     : 0,
-
-    'pet/kernal4'     : 0,
-    'pet/basic4'     : 0,
-
-    'pet/chargen'     :0,
-    'pet/characters.901640-01.bin'     :0,
-    'pet/chargen'     :0,
-
-    'pet/edit1g'     :0,
-    'pet/edit2b'     :0,
-    'pet/edit2g'     :0,
-
-    'pet/edit4b40'     :0,
-    'pet/edit4b80'     :0,
-    'pet/edit4g40'     :0,
-
-
-
-    'vic20/kernal'     : 0,
-    'vic20/chargen'     :0,
-    'vic20/basic'     : 0,
-    }
-
-MAKE_COMMAND = \
-    {
-    'make'     : 'make -h',
-    'gmake'     : 'gmake -h',
-    }
-
-MAKE_COMMAND_EXPECTED = \
-    {
-    'make'  : 0,
-    'gmake' : 0,
-    }
-
-def check_programs(title, command_list, expected_list, verbose=True):
-    if verbose:
-        printc(bcolors.OKCYAN,"----------------------------------------\n")
-        printc(bcolors.OKCYAN, title)
-        printc(bcolors.OKCYAN,"\n----------------------------------------\n")
-
-    total_result = {}
-
-    # max_len = 0
-    # for compiler in command_list.keys():
-        # if len(compiler)>max_len:
-            # max_len = len(compiler)
-    max_len = 28
-
-    for compiler in command_list.keys():
-        result = os.system(command_list[compiler] + " > /dev/null 2>&1")
-        spaces = " " * (max_len+1-len(compiler))
-        if result==expected_list[compiler]:
-            if verbose:
-                printc(bcolors.OKGREEN,"[" + compiler + "]")
-            res = "found\n"
-            res_color = bcolors.OKGREEN
-            res_color2 = bcolors.OKGREEN
-            total_result[compiler]=True
-        else:
-
-            total_result[compiler]=False
-            if compiler in BUILDABLE_TOOLS:
-                res = "NOT built\n"
-                res_color = bcolors.OKBLUE
-                res_color2 = bcolors.OKCYAN
-            else:
-                res = "NOT found\n"
-                res_color = bcolors.WARNING
-                res_color2 = bcolors.WARNING
-            if verbose:
-                printc(res_color,"[" + compiler + "]")
-        if verbose:
-            printc(res_color2, spaces + res)
-    if verbose:
-        printc(bcolors.OKCYAN,"----------------------------------------\n\n")
-    return total_result
-
-
-
-def test_cross_compilers():
-    return check_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND, \
-                          CROSS_COMPILER_COMMAND_EXPECTED)
-
-def test_native_compilers():
-    return check_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, \
-                          NATIVE_COMPILER_COMMAND_EXPECTED)
-
-def test_make(verbose=True):
-    return check_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
-
-def test_tools(verbose=True):
-    return check_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, verbose)
-
-def test_emulators():
-    return check_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
-
-def test_interpreters():
-    return check_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
-
-def test_libraries():
-    return check_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
-
-def test_roms():
-    return check_programs("ROMS", ROM_COMMAND, ROM_COMMAND_EXPECTED)
-
-
-def test_compilers():
-    test_native_compilers()
-    test_cross_compilers()
-
-
-# TODO: Handle aliases such as dragon->coco
-
-# TODO: Handle Windows vs Linux and targets with 3 binaries
-if platform in ["cygwin", "msys"]:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
-                               'mtx512', 'laser500']
-    TARGETS_WITH_3_BINARIES = ['coco','abc80']
-else:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
-                               'mtx512', 'laser500','coco']
-    TARGETS_WITH_3_BINARIES = ['abc80']
-
-
 def list_of_projects(project_category):
     # print("category: " + project_category)
     if project_category in ["examples", "projects", "games"]:
@@ -1475,9 +1264,11 @@ def list_of_projects(project_category):
     return res
 
 
-def test_projects(projects, target="stdio"):
+def test_projects(option_config, projects, target="stdio"):
 
-    clean_test()
+    compilation_threads = option_config.build_config.compilation_threads
+    verbose = option_config.terminal_config.verbose
+    clean_test(option_config)
 
     if projects in ["examples", "projects", "games"]:
         number_of_projects = len(dirs_in_path("./"+projects))
@@ -1488,14 +1279,16 @@ def test_projects(projects, target="stdio"):
         len(dirs_in_path("./projects"))
     else:
         number_of_projects = 1
-    print("number of projects: " + str(number_of_projects))
+    if verbose:
+        print("number of projects: " + str(number_of_projects))
     #multiple_build
-    build(["build",projects,target,compilation_threads,""])
+    build(option_config, ["build",projects,target,compilation_threads,""])
     built_files = built_files_in_path("../build")
 
     # TODO: Handle target=*_targets and all
     if target.endswith("_targets") or target=="all":
-        print("Test on the number of binaries for all these targets is not supported")
+        if verbose:
+            print("Test on the number of binaries for all these targets is not supported")
 
     if target in TARGETS_WITH_3_BINARIES:
         files_per_project = 3
@@ -1504,23 +1297,24 @@ def test_projects(projects, target="stdio"):
     else:
         files_per_project = 1
 
-    print("Expected binaries per project: " + str(files_per_project))
+    if verbose:
+        print("Expected binaries per project: " + str(files_per_project))
 
     if len(built_files)<files_per_project*number_of_projects:
-        printc(bcolors.FAIL, "[xl build]  KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]  KO\n")
         print("Built files: " +str(built_files))
         print("Expected number : " + str(number_of_projects))
         print("No. Built files : " + str(len(built_files)))
 
         # success=0
         return False
-    printc(bcolors.OKGREEN, "[xl build]  OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
     return True
 
 
-def test_clean_tools():
+def test_clean_tools(option_config):
     #clean tools
-    clean(["clean","tools"])
+    clean(option_config, ["clean","tools"])
 
     tools_result_map=test_tools(False)
     number_of_tools = len(tools_result_map.keys())
@@ -1530,13 +1324,13 @@ def test_clean_tools():
         if result:
             built_tools+=1
     if built_tools==0:
-        printc(bcolors.OKGREEN, "[xl clean tools]  OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl clean tools]  OK\n")
     else:
-        printc(bcolors.FAIL, "[xl clean tools]  KO\n")
+        printc(option_config, bcolors.FAIL, "[xl clean tools]  KO\n")
     return number_of_tools, built_tools
 
 
-def test_self(target = "stdio",opt = "slow"):
+def test_self(option_config, target = "stdio",opt = "slow"):
 
     # print("target1: " + str(target))
     # if(len(params)<3):
@@ -1545,26 +1339,26 @@ def test_self(target = "stdio",opt = "slow"):
         # target = params[1]
     # print("target2: " + str(target))
     # quit()
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, "XL SCRIPT TEST")
-    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
+    printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
     success = 1
-    printc(bcolors.BOLD,  "target: ")
-    printc(bcolors.OKBLUE,target+"\n")
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
+    printc(option_config, bcolors.BOLD,  "target: ")
+    printc(option_config, bcolors.OKBLUE,target+"\n")
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
-    global_vars.test = 1
-    global_vars.verbose = 0
+    test = 1
+    verbose = 0
 
     #clean tools
-    number_of_tools, built_tools = test_clean_tools()
+    number_of_tools, built_tools = test_clean_tools(option_config)
     if built_tools>0:
         success = 0
 
     if opt!="fast":
 
         #tools
-        tools()
+        tools(option_config)
 
         tools_result_map=test_tools(False)
         built_tools = 0
@@ -1572,169 +1366,169 @@ def test_self(target = "stdio",opt = "slow"):
             if result:
                 built_tools+=1
         if built_tools==number_of_tools:
-            printc(bcolors.OKGREEN, "[xl tools]        OK\n")
+            printc(option_config, bcolors.OKGREEN, "[xl tools]        OK\n")
         else:
-            printc(bcolors.FAIL, "[xl tools]       KO\n")
+            printc(option_config, bcolors.FAIL, "[xl tools]       KO\n")
             print("built_tools: " + str(built_tools))
             print("number_of_tools: " + str(number_of_tools))
             success = 0
 
         #clean tools
-        number_of_tools, built_tools = test_clean_tools()
+        number_of_tools, built_tools = test_clean_tools(option_config)
         if built_tools > 0:
             success = 0
 
     #delete
-    delete(["delete","_test_project","-y"])
+    delete(option_config, ["delete","_test_project","-y"])
 
 
     #clean
-    success = success * clean_test()
+    success = success * clean_test(option_config)
 
-    projects_before_create = list_projects(["list"],False)
+    projects_before_create = list_projects(option_config, ["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
     initial_dirs = project_dirs_before_create
 
     # create
-    create(["create", "_test_project", "test"])
+    create(option_config, ["create", "_test_project", "test"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
-        printc(bcolors.FAIL, "[xl create]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl create]       KO\n")
         return 0
-    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
 
     # list
-    projects_after_create = list_projects(["list"],False)
+    projects_after_create = list_projects(option_config, ["list"],False)
     if projects_after_create!=projects_before_create+1:
-        printc(bcolors.FAIL,"[xl list]         KO\n")
+        printc(option_config, bcolors.FAIL,"[xl list]         KO\n")
         success = 0
-    printc(bcolors.OKGREEN,"[xl list]         OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl list]         OK\n")
 
     # create
-    create(["create", "_test_project2", "game"])
-    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    create(option_config, ["create", "_test_project2", "game"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
 
     # create
-    create(["create", "_test_project3", "demo"])
-    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    create(option_config, ["create", "_test_project3", "demo"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
 
     # create
-    create(["create", "_test_project4", "text"])
-    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    create(option_config, ["create", "_test_project4", "text"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
 
     # create
-    create(["create", "_test_project5", "helloworld"])
-    printc(bcolors.OKGREEN, "[xl create]       OK\n")
+    create(option_config, ["create", "_test_project5", "helloworld"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
 
     #build
-    build(["build", "_test_project2", target])
+    build(option_config, ["build", "_test_project2", target])
     built_files = built_files_in_path("../build")
-    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
 
     #build
-    build(["build", "_test_project3", target])
+    build(option_config, ["build", "_test_project3", target])
     built_files = built_files_in_path("../build")
-    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
 
     #build
-    build(["build", "_test_project4", target])
+    build(option_config, ["build", "_test_project4", target])
     built_files = built_files_in_path("../build")
-    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
 
     #build
-    build(["build", "_test_project5", target])
+    build(option_config, ["build", "_test_project5", target])
     built_files = built_files_in_path("../build")
-    printc(bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
 
     #clean
-    success = success * clean_test()
+    success = success * clean_test(option_config)
     if success:
-        printc(bcolors.OKGREEN,"[xl clean]        OK\n")
+        printc(option_config, bcolors.OKGREEN,"[xl clean]        OK\n")
 
     #delete
-    delete(["delete","_test_project2","-y"])
-    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    delete(option_config, ["delete","_test_project2","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
     #delete
-    delete(["delete","_test_project3","-y"])
-    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    delete(option_config, ["delete","_test_project3","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
     #delete
-    delete(["delete","_test_project4","-y"])
-    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    delete(option_config, ["delete","_test_project4","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
     #delete
-    delete(["delete","_test_project5","-y"])
-    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    delete(option_config, ["delete","_test_project5","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
     #delete
-    delete(["delete","_foo_test","-y"])
+    delete(option_config, ["delete","_foo_test","-y"])
 
     #rename
-    rename(["","_test_project", "_foo_test"])
-    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
+    rename(option_config, ["","_test_project", "_foo_test"])
+    printc(option_config, bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #rename
-    rename(["","_foo_test", "_test_project"])
-    printc(bcolors.OKGREEN,"[xl rename]       OK\n")
+    rename(option_config, ["","_foo_test", "_test_project"])
+    printc(option_config, bcolors.OKGREEN,"[xl rename]       OK\n")
 
     #build
-    build(["build", "_test_project", target])
+    build(option_config, ["build", "_test_project", target])
     built_files = built_files_in_path("../build")
 
-    if global_vars.verbose:
+    if verbose:
         print("built binaries: " + str(built_files))
     if len(built_files)==0:
         print("built binaries: " + str(built_files))
 
-        printc(bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
 
     dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
     if dirs_in_proj_before != 4:
-        printc(bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
         success=0
 
     dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
     if dirs_in_shapes_before != 1:
-        printc(bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
         print(dirs_in_shapes_before)
         print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
-    extend(["extend", "_test_project"])
+    extend(option_config, ["extend", "_test_project"])
 
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
 
     if dirs_in_proj_after != 4:
-        printc(bcolors.FAIL, "[xl extend]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl extend]       KO\n")
         success=0
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
 
     if dirs_in_shapes_after != 5:
-        printc(bcolors.FAIL, "[xl extend]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl extend]       KO\n")
         print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
         print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
     if success:
-        printc(bcolors.OKGREEN, "[xl extend]       OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl extend]       OK\n")
 
 
     # run
     run(["run", "_test_project", "stdio"])
 
-    if global_vars.verbose:
+    if verbose:
         print("")
-    printc(bcolors.OKGREEN, "[xl run]          OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
 
 
-    projects_before_create = list_projects(["list"],False)
+    projects_before_create = list_projects(option_config, ["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
 
@@ -1742,85 +1536,85 @@ def test_self(target = "stdio",opt = "slow"):
     # print(str(dirs_in_path("./projects")))
 
     # clone
-    clone(["","_test_project","_cloned_test_project"])
+    clone(option_config, ["","_test_project","_cloned_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     # print(str(dirs_in_path("./projects")))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
-        printc(bcolors.FAIL,
+        printc(option_config, bcolors.FAIL,
                             "[xl clone]        KO\n")
         return 0
-    printc(bcolors.OKGREEN,
+    printc(option_config, bcolors.OKGREEN,
                             "[xl clone]        OK\n")
 
 
     # run
     run(["run", "_test_cloned_test_project_project", "stdio"])
 
-    if global_vars.verbose:
+    if verbose:
         print("")
-    printc(bcolors.OKGREEN, "[xl run]          OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
 
     # delete
-    delete(["","_cloned_test_project","-y"])
-    printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+    delete(option_config, ["","_cloned_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
 
     #clean
-    success = success * clean_test()
+    success = success * clean_test(option_config)
 
     #shapes
-    shapes(["","_test_cloned_test_project_project"])
+    shapes(option_config, ["","_test_cloned_test_project_project"])
     # make_assets_from_tiles(["_test_cloned_test_project_project"])
-    printc(bcolors.OKGREEN, "[xl shapes]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl shapes]       OK\n")
 
 
     if opt!="fast":
 
         #size
-        size(["size", "_test_project", "stdio_sized", "12", "12"],True)
+        size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
         built_files = built_files_in_path("../build")
 
-        if global_vars.verbose:
+        if verbose:
             print("built binaries: " + str(built_files))
         if len(built_files)!=1:
-            printc(bcolors.FAIL, "[xl size]         KO\n")
+            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
             print(str(built_files))
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]         OK\n")
+            printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
 
         dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
         if dirs_in_proj_before != 4:
-            printc(bcolors.FAIL, "[xl size]         KO\n")
+            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
             print(str(dirs_in_path("./projects/_test_project")))
             success=0
 
         dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
         if dirs_in_shapes_before != 5:
-            printc(bcolors.FAIL, "[xl size]         KO\n")
+            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
             print(str(dirs_in_path("./projects/_test_project/shapes")))
             success=0
 
         #reset
-        reset(["","-y"])
-        printc(bcolors.OKGREEN, "[xl reset]        OK\n")
+        reset(option_config, ["","-y"])
+        printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
 
         #size
-        size(["size", "_test_project", "stdio_sized", "32", "24"],False)
+        size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
         built_files = built_files_in_path("../build")
 
-        if global_vars.verbose:
+        if verbose:
             print("built binaries: " + str(built_files))
 
         if len(built_files)!=2:
-            printc(bcolors.FAIL, "[xl size]         KO\n")
+            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
             print(str(built_files))
             print("Wrong number of built files")
             success=0
         else:
-            printc(bcolors.OKGREEN, "[xl size]         OK\n")
+            printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
 
         projects = []
         for (_, dirnames, _) in walk("./projects"):
@@ -1838,77 +1632,73 @@ def test_self(target = "stdio",opt = "slow"):
             break
 
         #reset
-        reset(["","_test_project"])
-        printc(bcolors.OKGREEN, "[xl reset]        OK\n")
+        reset(option_config, ["","_test_project"])
+        printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
 
     #delete
-    delete(["delete","_test_project","-y"])
+    delete(option_config, ["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
 
     if project_dirs_after_delete != initial_dirs:
-        printc(bcolors.FAIL,    "[xl delete]       KO\n")
+        printc(option_config, bcolors.FAIL,    "[xl delete]       KO\n")
         print(project_dirs_before_create)
         print(project_dirs_after_delete)
         success=0
     else:
-        printc(bcolors.OKGREEN, "[xl delete]       OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
 
-    if clean_test()==0:
+    if clean_test(option_config)==0:
         success=0
 
     # build (all examples)
-    build(["","examples","stdio"])
+    build(option_config, ["","examples","stdio"])
 
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=len(examples):
         success=0
-        printc(bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
         print(built_files)
         print(examples)
     else:
-        printc(bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
 
-    if clean_test()==0:
+    if clean_test(option_config)==0:
         success=0
 
     # build (all games)
-    # global_vars.verbose = 1
-    # global_vars.test = 0
-    build(["","games","stdio"])
+    # verbose = 1
+    # test = 0
+    build(option_config, ["","games","stdio"])
 
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=len(games):
         success=0
-        printc(bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
         print(built_files)
         print(games)
         sys.exit()
     else:
-        printc(bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
 
-    if clean_test()==0:
+    if clean_test(option_config)==0:
         success=0
 
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
     return success
 
 
-def test_all(params):
+def test_all(option_config, params):
 
     test_compilers()
-    # test_make()
     test_tools()
     test_libraries()
     test_interpreters()
-    # test_emulators()
-    # test_roms()
-
-    unit_tests()
+    unit_tests(option_config, verbose=True)
     # print("params: " + str(params))
-    return test_self(params)
+    return test_self(option_config, params)
 
 expected_files = {
     "cc65_extra": 8,
@@ -1920,9 +1710,12 @@ expected_files = {
     }
 
 
-def targets_test(params):
+def targets_test(option_config, params):
 
-    success = clean_test()
+    verbose = option_config.terminal_config.verbose
+    success = clean_test(option_config)
+    compilation_threads = option_config.build_config.compilation_threads
+    native_compiler = option_config.build_config.native_compiler
     if params[1].startswith("z88dk_extra"):
         parallel = " -j " + compilation_threads
     else:
@@ -1931,93 +1724,81 @@ def targets_test(params):
     game_dir = "chase"
     project_type = "game"
     if is_project_split(game_dir):
-        printc(bcolors.OKBLUE,"Create main.c from split source files\n")
+        printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
     if params[1].endswith("_extra"):
         make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + \
                        " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
-                       all_compilers_opts("","") + \
+                       all_compilers_opts(option_config, "","") + \
                        " -f makefiles.other/chase/tests/Makefile.tests"
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
     elif params[1]=="z88dk_extra_alt":
         # parallel = ""
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
-        run_command_verbosely(make_command)
+        run_command(option_config, make_command)
     else:
-        printc(bcolors.FAIL, "Parameter not recognized\n")
+        printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
             print("Delete main.c (because of split source files)\n")
-            delete_main(game_dir, project_type)
+            delete_main(option_config, game_dir, project_type)
         sys.exit(-1)
     if is_project_split("chase"):
-        printc(bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
-        delete_main(game_dir, project_type)
+        printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+        delete_main(option_config, game_dir, project_type)
 
 
     built_files = len(files_in_path("../build"))-1
-    if global_vars.verbose:
+    if verbose:
         print("Number of built files: " + str(built_files))
 
     if params[1] in expected_files.keys():
-        if global_vars.verbose:
-            printc(bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
-            printc(bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
+        if verbose:
+            printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
+            printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
         if built_files != expected_files[params[1]]:
-            printc(bcolors.FAIL, "binaries KO\n")
+            printc(option_config, bcolors.FAIL, "binaries KO\n")
             success=0
 
         else:
-            printc(bcolors.OKGREEN, "binaries OK\n")
+            printc(option_config, bcolors.OKGREEN, "binaries OK\n")
 
     # if clean_test()==0:
         # success=0
     return success
 
-
-def unit_tests():
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
-    printc(bcolors.OKCYAN, "UNIT-TESTS")
-    printc(bcolors.OKCYAN,"\n----------------------------------------\n")
-
-    command_string = "python -t tests/testImport.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKBLUE,"--------------------------------\n")
+def run_single_unit_test(option_config, test_file_name):
+    command_string = "python -t unit_tests/" + test_file_name
+    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
+    printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
+    run_command(option_config, command_string, verbose=True)
 
 
-    command_string = "python -t tests/testTiles.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKBLUE,"--------------------------------\n")
+def unit_tests(option_config, verbose=True):
+    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
+    printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
 
-    command_string = "python -t tests/testStrings.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKBLUE,"--------------------------------\n")
+    tests = files_in_path("./unit_tests")
+    
+    for test in tests:
+        run_single_unit_test(option_config, test)
 
-    command_string = "python -t tests/testAssets.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKBLUE,"--------------------------------\n")
-
-    command_string = "python -t tests/testParams.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKBLUE,"--------------------------------\n")
-
-    command_string = "python -t tests/testDefaults.py"
-    run_command_verbosely(command_string)
-    printc(bcolors.OKCYAN,"----------------------------------------\n")
 
 # Self-test xl and native build
-def test(params):
+def test(option_config, params):
     if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
-        if test_all("stdio"):
-            printc(bcolors.OKGREEN, "TEST OK\n")
+        if test_all(option_config, "stdio"):
+            printc(option_config, bcolors.OKGREEN, "TEST OK\n")
         else:
-            printc(bcolors.FAIL, "TEST KO\n")
+            printc(option_config, bcolors.FAIL, "TEST KO\n")
         return
     if params[1]=="self":
         if len(params)<3:
-            test_self()
+            test_self(option_config)
         else:
-            test_self(params[2])
+            test_self(option_config, params[2])
     elif params[1]=="compilers":
         test_compilers()
     elif params[1]=="tools":
@@ -2037,12 +1818,12 @@ def test(params):
     elif params[1]=="make":
         test_make()
     elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
-        unit_tests()
+        unit_tests(option_config, verbose=True)
     elif params[1].endswith('extra') or params[1].endswith('extra_alt'):
-        if targets_test(params):
-            printc(bcolors.OKGREEN, "TEST OK\n")
+        if targets_test(option_config, params):
+            printc(option_config, bcolors.OKGREEN, "TEST OK\n")
         else:
-            printc(bcolors.FAIL, "TEST KO\n")
+            printc(option_config, bcolors.FAIL, "TEST KO\n")
         return
     else:
         projects = []
@@ -2072,14 +1853,14 @@ def test(params):
             else:
                 par1 = params[1]
                 par2 = "stdio"
-            if test_projects(par1,par2):
-                printc(bcolors.OKGREEN, "TEST OK\n")
+            if test_projects(option_config, par1,par2):
+                printc(option_config, bcolors.OKGREEN, "TEST OK\n")
             else:
-                printc(bcolors.FAIL, "TEST KO\n")
+                printc(option_config, bcolors.FAIL, "TEST KO\n")
         else:
             # print("OK")
             # quit()
-            test_all(params[1])
+            test_all(option_config, params[1])
         return
 
 
@@ -2097,7 +1878,7 @@ def check(params):
 
         print("")
 
-        printc(bcolors.BOLD, "SUMMARY\n")
+        printc(option_config, bcolors.BOLD, "SUMMARY\n")
         tools = True
         xl_run_cross_target = True
         native_target = True
@@ -2105,7 +1886,7 @@ def check(params):
 
 
         if not make['make'] and not make['gmake']:
-            printc(bcolors.FAIL, "No make command detected!\n")
+            printc(option_config, bcolors.FAIL, "No make command detected!\n")
 
         if not native_compilers['gcc']:
             tools = False
@@ -2116,7 +1897,7 @@ def check(params):
             tools = False
 
         if not libraries['ncurses']:
-            printc(bcolors.WARNING, \
+            printc(option_config, bcolors.WARNING, \
                    "No ncurses library detected -> Native target impacted\n")
             native_target = False
 
@@ -2135,19 +1916,19 @@ def check(params):
                 break
 
         if not tools:
-            printc(bcolors.WARNING, "'xl tools' may be KO for some targets\n")
+            printc(option_config, bcolors.WARNING, "'xl tools' may be KO for some targets\n")
 
         if not native_target:
-            printc(bcolors.WARNING, "'xl build <project>' may be KO (no native build)\n")
+            printc(option_config, bcolors.WARNING, "'xl build <project>' may be KO (no native build)\n")
 
         if not cross_target:
-            printc(bcolors.WARNING, "'xl build <project> <target>' may be KO for some targets\n")
+            printc(option_config, bcolors.WARNING, "'xl build <project> <target>' may be KO for some targets\n")
 
         if not xl_run_cross_target:
-            printc(bcolors.WARNING, "'xl run <project> <target>' may be KO for some targets\n")
+            printc(option_config, bcolors.WARNING, "'xl run <project> <target>' may be KO for some targets\n")
 
         if tools and native_target and xl_run_cross_target and cross_target:
-            printc(bcolors.OKCYAN, "No issue found\n")
+            printc(option_config, bcolors.OKCYAN, "No issue found\n")
 
 
     elif params[1]=="compilers":
@@ -2174,7 +1955,7 @@ def check(params):
 
 
 # List all projects
-def list_projects(params, print_projects=True):
+def list_projects(option_config, params, print_projects=True):
 
     if len(params)<2:
         project_dirs = ["examples", "games", "projects"]
@@ -2193,7 +1974,7 @@ def list_projects(params, print_projects=True):
 
     for mypath in project_dirs:
         if print_projects:
-            printc(bcolors.BOLD, "["+mypath+"]\n")
+            printc(option_config, bcolors.BOLD, "["+mypath+"]\n")
         for (_, dirnames, _) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
@@ -2204,7 +1985,7 @@ def list_projects(params, print_projects=True):
         if print_projects:
             print("")
 
-    if global_vars.verbose:
+    if option_config.terminal_config.verbose:
         print("Projects found: " + str(count))
         print("")
 
@@ -2221,7 +2002,7 @@ def run_native(params, target):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command_verbosely(command_string)
+    run_command(option_config, command_string)
 
 
 def run_stdio(params):
@@ -2233,7 +2014,7 @@ def run_stdio(params):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command_verbosely(command_string)
+    run_command(option_config, command_string)
 
 
 DEFAULT_TARGET_MAP = {\
@@ -2274,7 +2055,7 @@ def run(params):
         target = params[2]
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
-            if global_vars.verbose:
+            if verbose:
                 print("defaulting to target: " + target)
 
         if target=="stdio":
@@ -2321,7 +2102,7 @@ def run(params):
                              rom_directory + " -autostartprgmode 1  ../build/X" + \
                              params[1] + "_" + target + "." + extension
 
-            run_command_verbosely(command_string)
+            run_command(option_config, command_string)
 
         elif target in MAME_TARGETS:
             emulator = MAME_EMULATOR
@@ -2333,7 +2114,7 @@ def run(params):
                 " -rompath " + mame_rom_path + \
                 " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + \
                 params[1] + "_" + target + "." + extension
-                run_command_verbosely(command_string)
+                run_command(option_config, command_string)
         else:
             print("'xl run' does not support this target")
             return
@@ -2397,62 +2178,66 @@ def tile(params):
 
 
 
-    if global_vars.verbose:
+    if verbose:
         print_shape(compute_shape(tile,xsize))
 
     if len(params)>=3:
         store_tile(params[2], tile, xsize, ysize, params[3])
     else:
-        printc(bcolors.OKCYAN, tile+"\n")
+        printc(option_config, bcolors.OKCYAN, tile+"\n")
 
 # replace_shapes:
 # 0 -> write in _shapes directory,
 # 1 -> write in shapes directory but avoid overwriting existing shapes or tiles
-def write_shapes(project, shapes, xsize,ysize):
+def write_shapes(option_config, project, shapes, xsize,ysize):
+    verbose = option_config.terminal_config.verbose
+    replace_shapes = option_config.extend_config.replace_shapes
     path = path_to_shapes(project,xsize,ysize)
     if not replace_shapes:
         path = path.replace("shapes","_shapes")
-    if global_vars.verbose:
+    if verbose:
         print("Writing shapes in: " + path)
     if os.path.exists(path):
-        if global_vars.verbose:
+        if verbose:
             print("Directory exists")
     else:
-        if global_vars.verbose:
+        if verbose:
             print("Directory does not exist")
         os.makedirs(path)
     for tile_number, shape in shapes.items():
         #print(tile_number,shape)
         path_to_shape = path+"shape"+tile_number+".txt"
-        if global_vars.verbose:
+        if verbose:
             print("Path to shape file: " + path_to_shape)
         path_to_tile = path.replace("shapes","tiles")+"tile"+tile_number+".txt"
-        if global_vars.verbose:
+        if verbose:
             print("Path to tile file: " + path_to_tile)
         if replace_shapes and (os.path.exists(path_to_shape) or \
            os.path.exists(path_to_tile)):
             if os.path.exists(path_to_shape):
-                if not global_vars.test:
+                if verbose:
                     print("shape "+ tile_number +" already exists")
             elif os.path.exists(path_to_tile):
-                if not global_vars.test:
+                if verbose:
                     print("tile "+ tile_number +" already exists")
         else:
             with open(path_to_shape,"w") as file:
                 for row in shape:
-                    if not global_vars.test:
+                    if verbose:
                         print(row)
                     file.write(row+"\n")
-        if global_vars.verbose:
+        if verbose:
             print("")
 
 
 # Extand 8x8 shapes by reshaping them into shapes with other dimensions
-def extend(params):
+def extend(option_config, params):
+    verbose = option_config.terminal_config.verbose
+    extend_algorithm = option_config.extend_config.extend_algorithm
     project = params[1]
 
     path_to_8x8_files = path_to_shapes(project,8,8)
-    if global_vars.verbose:
+    if verbose:
         print("Path to shape files: " + path_to_8x8_files)
         print("")
     shape_files = files_in_path(path_to_8x8_files)
@@ -2464,12 +2249,12 @@ def extend(params):
     for shape_file in shape_files:
         path_to_shape_file = path_to_8x8_files + "/" + shape_file
 
-        if not global_vars.test:
+        if verbose:
             print("shape file: " + shape_file)
 
         tile_number_str = shape_file[5:].replace(".txt","")
 
-        if not global_vars.test:
+        if verbose:
             print("---tile number: " + tile_number_str)
 
             print("")
@@ -2480,52 +2265,53 @@ def extend(params):
             print(tile)
             return
 
-        if global_vars.verbose:
+        if verbose:
             print(tile)
 
-        if not global_vars.test:
+        if verbose:
             print("")
             print("7x8")
         shape7x8 = convert(tile,7,8,extend_algorithm)
-        if not global_vars.test:
+        if verbose:
             display_shape(shape7x8)
         dict7x8[tile_number_str]=shape7x8
 
-        if not global_vars.test:
+        if verbose:
             print("")
             print("6x8")
         shape6x8 = convert(tile,6,8,extend_algorithm)
-        if not global_vars.test:
+        if verbose:
             display_shape(shape6x8)
         dict6x8[tile_number_str]=shape6x8
 
-        if not global_vars.test:
+        if verbose:
             print("")
             print("8x6")
         shape8x6 = convert(tile,8,6,extend_algorithm)
-        if not global_vars.test:
+        if verbose:
             display_shape(shape8x6)
         dict8x6[tile_number_str]=shape8x6
 
-        if not global_vars.test:
+        if verbose:
             print("")
             print("6x9")
         shape6x9 = convert(tile,6,9,extend_algorithm)
-        if not global_vars.test:
+        if verbose:
             display_shape(shape6x9)
         dict6x9[tile_number_str]=shape6x9
-        if not global_vars.test:
+        if verbose:
             print("")
     # print(str(dict7x8))
-    write_shapes(project,dict7x8,7,8)
-    write_shapes(project,dict6x8,6,8)
-    write_shapes(project,dict8x6,8,6)
-    write_shapes(project,dict6x9,6,9)
+    write_shapes(option_config, project,dict7x8,7,8)
+    write_shapes(option_config, project,dict6x8,6,8)
+    write_shapes(option_config, project,dict8x6,8,6)
+    write_shapes(option_config, project,dict6x9,6,9)
     return
 
 
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
-def shapes(params):
+def shapes(option_config, params):
+    verbose = option_config.terminal_config.verbose
     project_name = params[1]
 
     project_cat = project_category(project_name)
@@ -2537,28 +2323,28 @@ def shapes(params):
         detected_ysize = detect_ysize(params[2])
         xsize_str = str(detected_xsize)
         ysize_str = str(detected_ysize)
-        # if global_vars.verbose:
+        # if verbose:
             # print("Detected xsize: " + xsize_str)
             # print("Detected ysize: " + ysize_str)
     else:                # no parameter
         xsize_str = "8"
         ysize_str = "8"
-    if not global_vars.test:
+    if verbose:
         print("xsize: " + xsize_str)
         print("ysize: " + ysize_str)
     path_to_files = project_cat + "s/" + params[1] + \
                     "/shapes/" + xsize_str + "x" + ysize_str + "/"
-    if not global_vars.test:
+    if verbose:
         print("Path to shape files: " + path_to_files)
     shape_files = files_in_path(path_to_files)
-    if global_vars.verbose:
+    if verbose:
         print("shape files: ", shape_files)
     for shape_file in shape_files:
-        if global_vars.verbose:
+        if verbose:
             print("processing file: ", shape_file)
 
         path_to_shape_file = path_to_files + str(shape_file)
-        if global_vars.verbose:
+        if verbose:
             print("processing path file: ", path_to_shape_file)
         tile_number_str = shape_file[5:].replace(".txt","")
 
@@ -2635,66 +2421,38 @@ def read_config(config_file="./config.ini"):
         print("Python 2.x configuration")
         import ConfigParser as configparser
 
-    global compilation_threads
-    global parallelize_multi_build
-    global z88dk_compiler_opts
-    global z88dk_compiler
-    global sccz80_compiler_opts
-    global zsdcc_compiler_opts
-    global cmoc_compiler_opts
-    global cc65_compiler_opts
-    global lcc1802_compiler_opts
-    global gcc4ti99_compiler_opts
-    global vbcc_compiler_opts
-    global native_compiler_opts
-    global native_compiler
-    global tool_compiler
-    global interactive_clean
-    global vice_path
-    global vice_rom_path
-    global mame_path
-    global mame_rom_path
-    global extend_algorithm
-    global replace_shapes
-    global use_tools
-    
-    
-    # global config
-
     config = configparser.ConfigParser()
 
     try:
         config.read(config_file)
 
-        global_vars.test = read_config_option(config,"terminal","test")
-        if global_vars.test!="":
-            global_vars.test=int(global_vars.test)
+        test = read_config_option(config,"terminal","test")
+        if test!="":
+            test=int(test)
         else:
-            global_vars.test=0
-        if global_vars.test:
+            test=0
+        if test:
             print("Test Mode ON")
 
-        global_vars.verbose = read_config_option(config,"terminal","verbose")
-        if global_vars.verbose!="":
-            global_vars.verbose=int(global_vars.verbose)
+        verbose = read_config_option(config,"terminal","verbose")
+        if verbose!="":
+            verbose=int(verbose)
         else:
-            global_vars.verbose=0
-        if global_vars.verbose:
+            verbose=0
+        if verbose:
             print("----------------------------")
             print("Verbose Mode ON")
 
-        # global color_terminal
-        global_vars.color_terminal = read_config_option(config,"terminal","color")
+        # print("Extracting color_terminal")
+        color_terminal = read_config_option(config,"terminal","color")
+        # print("DONE Extracting color_terminal")
 
-        logger.info("Color terminal: %s", str(global_vars.color_terminal))
+        logger.info("Color terminal: %s", str(color_terminal))
 
-        if global_vars.verbose:
-            if global_vars.color_terminal:
-                printc(bcolors.OKCYAN, "Color terminal ON\n")
-            else:
-                print("Color terminal OFF")
+        terminal_config = TerminalConfig(verbose=verbose, test=test, color_terminal=color_terminal)
 
-        if global_vars.verbose:
+
+        if verbose:
             print("Config file found with: " + str(config.sections()))
             # print("")
 
@@ -2702,17 +2460,18 @@ def read_config(config_file="./config.ini"):
 
 
         if compilation_threads in ("auto", "automaic"):
-            if global_vars.verbose:
+            if verbose:
                 print("----------------------------")
             import multiprocessing
             compilation_threads = str(multiprocessing.cpu_count())
-            if global_vars.verbose:
+            if verbose:
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
 
         logger.info("Compilation threads: %s", str(compilation_threads))
 
         parallelize_multi_build = read_config_option(config,"build","parallelize_multi_build")
+
         if parallelize_multi_build!="":
             parallelize_multi_build=int(parallelize_multi_build)
         else:
@@ -2741,9 +2500,12 @@ def read_config(config_file="./config.ini"):
         mame_path = read_config_option(config,"run", "mame_path")
         mame_rom_path = read_config_option(config,"run", "mame_rom_path")
 
-        extend_algorithm = read_config_option(config,"extend", "extend_algorithm")
 
+        rom_config = RomConfig(vice_path=vice_path, vice_rom_path=vice_rom_path, mame_path=mame_path, mame_rom_path=mame_rom_path)
+        
+        extend_algorithm = read_config_option(config,"extend", "extend_algorithm")
         replace_shapes = read_config_option(config,"extend", "replace_shapes")
+        
 
         use_tools = read_config_option(config,"build", "use_tools")
 
@@ -2751,45 +2513,56 @@ def read_config(config_file="./config.ini"):
             interactive_clean = int(interactive_clean)
         logger.info("Interactive clean: %s", str(interactive_clean))
 
+        clean_config = CleanConfig(interactive_clean)
+
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
+
+        extend_config = ExtendConfig(extend_algorithm=extend_algorithm, replace_shapes=replace_shapes)
+
 
         if use_tools!="":
             use_tools = int(use_tools)
 
+        build_config = BuildConfig( \
+            compilation_threads,
+            parallelize_multi_build,
+            z88dk_compiler,
+            z88dk_compiler_opts,
+            sccz80_compiler_opts,
+            zsdcc_compiler_opts,
+            cmoc_compiler_opts,
+            cc65_compiler_opts,
+            lcc1802_compiler_opts,
+            gcc4ti99_compiler_opts,
+            vbcc_compiler_opts,
+            native_compiler_opts,
+            native_compiler,
+            tool_compiler,
+            use_tools
+            )
+
+        option_config = OptionConfig(terminal_config, build_config, clean_config, rom_config, extend_config)
+
+        if verbose:
+            if color_terminal:
+                print("Color terminal ON\n")
+                # printc(option_config, bcolors.OKCYAN, "Color terminal ON\n")
+            else:
+                print("Color terminal OFF")
+
+        return option_config
     except Exception as e:
         print("An exception occurred while reading the configuration: " + str(e))
         logger.debug("Error while reading configuration file")
-        raise
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(f"exc_type: {exc_type}, fname: {fname}, exc_tb.tb_lineno: {exc_tb.tb_lineno}")
 
 
 def default_config():
 
-    global compilation_threads
-    global parallelize_multi_build
-    global z88dk_compiler_opts
-    global z88dk_compiler
-    global sccz80_compiler_opts
-    global zsdcc_compiler_opts
-    global cmoc_compiler_opts
-    global cc65_compiler_opts
-    global lcc1802_compiler_opts
-    global gcc4ti99_compiler_opts
-    global vbcc_compiler_opts
-    global native_compiler_opts
-    global native_compiler
-    global tool_compiler
-    global interactive_clean
-    global vice_path
-    global vice_rom_path
-    global mame_path
-    global mame_rom_path
-    global extend_algorithm
-    global replace_shapes
-    global use_tools
-
-
-    global_vars.verbose = True
+    verbose = True
     compilation_threads = 1
     parallelize_multi_build = 0
     zsdcc_compiler_opts = ""
@@ -2805,21 +2578,21 @@ def default_config():
     gcc4ti99_compiler_opts = "-O2"
     vbcc_compiler_opts = "-O1"
     use_tools = 0
-    global_vars.color_terminal = 0
+    color_terminal = 0
 
 
 def display_config():
 
-    printc(bcolors.BOLD,"[terminal]\n")
+    printc(option_config, bcolors.BOLD,"[terminal]\n")
 
-    print("verbose: " + str(global_vars.verbose))
-    print("test: " + str(global_vars.test))
+    print("verbose: " + str(verbose))
+    print("test: " + str(test))
 
-    print("color: " + str(global_vars.color_terminal))
+    print("color: " + str(color_terminal))
 
     print("")
 
-    printc(bcolors.BOLD,"[build]\n")
+    printc(option_config, bcolors.BOLD,"[build]\n")
     print("compilation_threads: " + str(compilation_threads))
     print("parallelize_multi_build: " + str(parallelize_multi_build))
 
@@ -2839,24 +2612,24 @@ def display_config():
 
     print("")
 
-    printc(bcolors.BOLD,"[clean]\n")
+    printc(option_config, bcolors.BOLD,"[clean]\n")
     print("interactive_clean: " + str(interactive_clean))
 
 
     print("")
-    printc(bcolors.BOLD,"[run]\n")
+    printc(option_config, bcolors.BOLD,"[run]\n")
     print("vice_path: " +  vice_path)
     print("vice_rom_path: " +  vice_rom_path)
     print("mame_path: " +  mame_path)
     print("mame_rom_path: " +  mame_rom_path)
 
     print("")
-    printc(bcolors.BOLD,"[extend]\n")
+    printc(option_config, bcolors.BOLD,"[extend]\n")
     print("extend_algorithm: " +  extend_algorithm)
     print("replace_shapes: " +  str(replace_shapes))
 
     print("")
-    printc(bcolors.BOLD,"[tools]\n")
+    printc(option_config, bcolors.BOLD,"[tools]\n")
     print("use_tools: " + str(use_tools))
 
 
@@ -2867,7 +2640,7 @@ def make_assets_from_tiles(params):
     project_type = project_category(game_dir)
     parent_dir = project_type + "s"
 
-    run_command_verbosely(GNU_MAKE+" GAME_NAME=" + game_dir + \
+    run_command(option_config, GNU_MAKE+" GAME_NAME=" + game_dir + \
                           " PARENT_DIR=" + parent_dir + \
                           " -f ./makefiles.common/auxiliary/Makefile_assets")
 
@@ -2882,7 +2655,6 @@ if __name__ == "__main__":
     if make_test['gmake']:
         GNU_MAKE = "gmake"
     else:
-        # print(make_test['make'])
         GNU_MAKE = "make"
 
     if python_version<2 or (python_version<=2 and python_subversion<7):
@@ -2890,24 +2662,35 @@ if __name__ == "__main__":
         logger.error("Python version not supported")
         sys.exit(-1)
     try:
+        # print("Reading config")
         logger.info("(read_config) Read configuration file")
-        read_config()
+        option_config = read_config()
+        # terminal_config, rom_config, extend_config, build_config, clean_config = read_config()
         logger.info("(read_config) Configuration file read")
     except:
         logger.warning("Reverting to default configuration")
-        default_config()
+        option_config = default_config()
+        # terminal_config, rom_config, extend_config, build_config, clean_config  = default_config()
         print("WARNING: Using default config")
 
-    if parallelize_multi_build:
+    # parallelize_multi_build = option_config.build_config.parallelize_multi_build
+    if option_config.build_config.parallelize_multi_build:
+        # print("Parallelize_multi_build is ON")
         logger.info("Parallelize_multi_build is ON")
         from multiprocessing import Pool
     else:
         logger.info("Parallelize_multi_build is OFF")
 
-    if global_vars.verbose:
+    # verbose = option_config.terminal_config.verbose
+    
+    # print(verbose)
+    
+    
+    # color_terminal = option_config.terminal_config.color_terminal
+    if option_config.terminal_config.verbose:
         logger.info("Verbose mode ON")
         print("----------------------------")
-        printc(bcolors.OKGREEN, "Cross-Lib `xl` helper script\n")
+        # printc(option_config, bcolors.OKGREEN, "Cross-Lib `xl` helper script\n")
         print("----------------------------")
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))
@@ -2921,12 +2704,12 @@ if __name__ == "__main__":
     if len(sys.argv)<2:
         logger.info("Interactive mode ON")
         print("For more commands, use the non-interactive mode.")
-        printc(bcolors.BOLD, "xl help")
+        printc(option_config, bcolors.BOLD, "xl help")
         print(" for instructions.")
 
         print("")
         print("--------------------------------------------------")
-        printc(bcolors.OKCYAN, "Interactive mode\n")
+        printc(option_config, bcolors.OKCYAN, "Interactive mode\n")
         print("--------------------------------------------------")
         print("")
 
@@ -2934,16 +2717,14 @@ if __name__ == "__main__":
 
         if project_name in ("", "\n"):
             project_name="helloworld"
-            if global_vars.verbose:
-                printc(bcolors.WARNING,"Defaulting to helloworld\n")
+            printc(option_config, bcolors.WARNING,"Defaulting to helloworld\n")
 
         print("")
 
         target_name = generic_input("Insert target name\n")
         if target_name in ("", "\n"):
             target_name="ncurses"
-            if global_vars.verbose:
-                printc(bcolors.WARNING, "Defaulting to ncurses\n")
+            printc(option_config, bcolors.WARNING, "Defaulting to ncurses\n")
 
         print("")
         time.sleep(1)
@@ -2961,88 +2742,90 @@ if __name__ == "__main__":
                    
     logger.info("Command : %s", command_name)
     if params[1]=="run":
-        run(params[1:])
+        run(option_config, params[1:])
     elif params[1]=="check":
-        check(params[1:])
+        check(option_config, params[1:])
     elif params[1]=="compilers":
-        test(["test","compilers"])
+        test(option_config, ["test","compilers"])
     elif params[1]=="unit-tests":
-        test(["test","unit-tests"])
+        test(option_config, ["test","unit-tests"])
     elif params[1]=="self":
         if len(params)<3:
-            test_self()
+            test_self(option_config, )
         else:
-            test_self(params[2])
+            test_self(option_config, params[2])
     elif params[1]=="assets":
-        shapes(params[1:])
-        make_assets_from_tiles(params[1:])
+        shapes(option_config, params[1:])
+        make_assets_from_tiles(option_config, params[1:])
     elif params[1]=="split":
-        split(params[1:])
+        split(option_config, params[1:])
     elif params[1]=="config":
-        display_config()
+        display_config(option_config)
     elif params[1]=="string":
-        string(params[1:])
+        string(option_config, params[1:])
     elif params[1]=="commands":
-        commands()
+        commands(option_config)
     elif params[1]=="import":
-        import_from_source(params[1:],False)
+        import_from_source(option_config, params[1:],False)
     elif params[1]=="rotate":
-        rip(params[1:],True)
+        rip(option_config, params[1:],True)
     elif params[1]=="rip":
-        rip(params[1:],False)
+        rip(option_config, params[1:],False)
     elif params[1]=="rebuild":
-        rebuild(params[1:])
+        rebuild(option_config, params[1:])
     elif params[1]=="make":
-        shapes(params[1:])
-        rebuild(params[1:])
+        shapes(option_config, params[1:])
+        rebuild(option_config, params[1:])
     elif params[1]=="rename":
-        rename(params[1:])
+        rename(option_config, params[1:])
     elif params[1]=="clone":
-        clone(params[1:])
+        clone(option_config, params[1:])
     elif params[1]=="show":
-        show(params[1:])
+        show(option_config, params[1:])
     elif params[1]=="test":
-        test(params[1:])
+        test(option_config, params[1:])
     elif params[1]=="tile":
-        tile(params[1:])
+        tile(option_config, params[1:])
     elif params[1]=="shapes":
-        shapes(params[1:])
+        shapes(option_config, params[1:])
     elif params[1]=="extend":
-        extend(params[1:])
+        extend(option_config, params[1:])
     elif params[1]=="build":
-        build(params[1:])
+        build(option_config, params[1:])
     elif params[1]=="manual":
-        manual(params[1:])
+        manual(option_config, params[1:])
     elif params[1]=="files":
         files()
     elif params[1]=="size":
-        size(params[1:],0)
+        size(option_config, params[1:],0)
     elif params[1]=="debug":
-        size(params[1:],1)
+        size(option_config, params[1:],1)
     elif params[1]=="create":
-        create(params[1:])
+        create(option_config, params[1:])
     elif params[1]=="clean":
+        interactive_clean = option_config.clean_config.interactive_clean
+
         if interactive_clean:
-            clean(params[1:])
+            clean(option_config, params[1:])
         else:
-            clean(params[1:]+["-y"])
+            clean(option_config, params[1:]+["-y"])
     elif params[1]=="reset":
-        reset(params[1:])
+        reset(option_config, params[1:])
     elif params[1]=="delete":
-        delete(params[1:])
+        delete(option_config, params[1:])
     elif params[1]=="list":
-        list_projects(params[1:])
+        list_projects(option_config, params[1:])
     elif params[1]=="help":
-        help_command(params[1:])
+        help_command(option_config, params[1:])
     elif params[1]=="tools":
-        tools()
+        tools(option_config, )
     elif params[1]=="slow":
-        slow(params[1:])
+        slow(option_config, params[1:])
     elif params[1] in list_of_projects("all") + \
                       ["examples"] + ["games"] + ["projects"] + ["all"]:
-        build(params)
+        build(option_config, params)
     else:
-        manual(params)
+        manual(option_config, params)
 
     logger.info('Finished')
 

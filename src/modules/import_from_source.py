@@ -25,9 +25,9 @@ SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
 
 # It displays a shape from a list of strings (rows)
-def display_shape(tile_vect):
+def display_shape(option_config, tile_vect):
     for row in tile_vect:
-        printc(bcolors.BOLD, row)
+        printc(option_config, bcolors.BOLD, row)
         print("")
 
 
@@ -503,9 +503,7 @@ def read_shape(file_name):
     return trimmed_lines
 
 
-def compute_split_tiles(lines,verbose=False):
-
-    # print(str(lines))
+def compute_split_tiles(option_config, lines,verbose=False):
 
     xsize = 16
     for line in lines:
@@ -531,17 +529,17 @@ def compute_split_tiles(lines,verbose=False):
     if verbose:
         print("")
         for filtered_lines in filtered_lines_group:
-            display_shape(filtered_lines)
+            display_shape(option_config, filtered_lines)
             print("")
 
     return filtered_lines_group
 
 
-def import_split_tiles(file_name):
+def import_split_tiles(option_config, file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
 
-    filtered_lines_group = compute_split_tiles(lines)
+    filtered_lines_group = compute_split_tiles(option_config, lines)
     # print(str(lines))
 
     fin.close()

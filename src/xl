@@ -2123,9 +2123,9 @@ def files():
     os.system(make_command)
 
 
-def split(params):
+def split(option_config, params):
 
-    import_split_tiles(params[1])
+    import_split_tiles(option_config, params[1])
 
 
 
@@ -2231,7 +2231,7 @@ def extend(option_config, params):
             print("7x8")
         shape7x8 = convert(tile,7,8,extend_algorithm)
         if verbose:
-            display_shape(shape7x8)
+            display_shape(option_config, shape7x8)
         dict7x8[tile_number_str]=shape7x8
 
         if verbose:
@@ -2239,7 +2239,7 @@ def extend(option_config, params):
             print("6x8")
         shape6x8 = convert(tile,6,8,extend_algorithm)
         if verbose:
-            display_shape(shape6x8)
+            display_shape(option_config, shape6x8)
         dict6x8[tile_number_str]=shape6x8
 
         if verbose:
@@ -2247,7 +2247,7 @@ def extend(option_config, params):
             print("8x6")
         shape8x6 = convert(tile,8,6,extend_algorithm)
         if verbose:
-            display_shape(shape8x6)
+            display_shape(option_config, shape8x6)
         dict8x6[tile_number_str]=shape8x6
 
         if verbose:
@@ -2255,7 +2255,7 @@ def extend(option_config, params):
             print("6x9")
         shape6x9 = convert(tile,6,9,extend_algorithm)
         if verbose:
-            display_shape(shape6x9)
+            display_shape(option_config, shape6x9)
         dict6x9[tile_number_str]=shape6x9
         if verbose:
             print("")

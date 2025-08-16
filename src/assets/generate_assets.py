@@ -1,8 +1,11 @@
 #!/bin/python
 
-import os,sys
+import os
+import sys
 
-from LoggerSingleton import *
+sys.path.append("..")
+
+from modules.LoggerSingleton import *
 
 global logger
 

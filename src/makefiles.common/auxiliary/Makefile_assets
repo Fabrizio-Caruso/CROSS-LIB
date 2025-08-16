@@ -14,7 +14,7 @@ ASSETS_PATH := $(SOURCE_PATH)/generated_assets
 
 SRC_PATH := .
 
-CREATE_ASSET := cd ./modules && python ./generate_assets.py $(GAME_NAME) $(PARENT_DIR) && python ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
+CREATE_ASSET := cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT_DIR) && python ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
 
 game_assets:
 	$(CREATE_ASSET)

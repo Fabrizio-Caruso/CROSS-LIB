@@ -1,9 +1,11 @@
 from __future__ import print_function
 
 import sys
+import os
 
 from init import game_projects, example_projects
 from print_functions import *
+
 NUMBER_OF_TILES = 27
 
 
@@ -103,7 +105,7 @@ def compute_rotated_shape(items):
 
 
 # It computes the shape from the tile file (not directly from the shapes if available)
-def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
+def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize, index):
     dir = xsize+"x"+ysize
     dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
     print("Decoding file tile: " + dest)
@@ -114,13 +116,14 @@ def print_shape_from_file(parent_dir, project_name, xsize, ysize, index):
         tile_data = fin.read()
         # computed_shape = compute_shape(tile_data,xsize)
         # print("computed shape: " + str(computed_shape))
-        print_shape(compute_shape(tile_data,xsize))
+        print_shape(option_config, compute_shape(tile_data,xsize))
 
-    except Exception as ex:
+    except Exception as error:
         print("File skipped")
-
-
-
+        print("An exception occurred:", type(error).__name__, "–", error) 
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
 
 # Detect Assembly extension
 def has_extension(string, patterns):
@@ -427,7 +430,7 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
 
                     if verbose:
                         print(new_tile)
-                        print_shape(shape)
+                        print_shape(option_config, shape)
 
                     tile_count+=1
                     new_tile=""

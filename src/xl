@@ -2137,7 +2137,7 @@ def tile(params):
 
 
     if verbose:
-        print_shape(compute_shape(tile,xsize))
+        print_shape(option_config, compute_shape(tile,xsize))
 
     if len(params)>=3:
         store_tile(params[2], tile, xsize, ysize, params[3])
@@ -2315,7 +2315,8 @@ def shapes(option_config, params):
             print(tile)
             return
         print(tile)
-        print_shape(compute_shape(tile,xsize))
+        if verbose:
+            print_shape(option_config, compute_shape(tile,xsize))
 
         store_tile(project_name, tile, xsize, ysize, tile_number_str)
 
@@ -2323,7 +2324,7 @@ def shapes(option_config, params):
 
 
 # Show tile shapes of a given project
-def show(params):
+def show(option_config, params):
     parent_dir = project_category(params[1])+"s"
 
     if len(params)<4:
@@ -2339,11 +2340,11 @@ def show(params):
         index = ""
 
     if index!="":
-        print_shape_from_file(parent_dir, params[1], xsize, ysize, index)
+        print_shape_from_file(option_config, parent_dir, params[1], xsize, ysize, index)
 
     else:
         for i in range(NUMBER_OF_TILES):
-            print_shape_from_file(parent_dir, params[1], xsize, ysize, i)
+            print_shape_from_file(option_config, parent_dir, params[1], xsize, ysize, i)
 
 # ---------------------------------------------
 

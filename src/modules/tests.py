@@ -3,7 +3,9 @@ import os
 
 
 from init import *
-
+from import_from_source import printc
+from file_functions import files_in_path
+from run import run_command
 
 CROSS_COMPILER_COMMAND = \
     {
@@ -306,6 +308,32 @@ def test_roms():
 def test_compilers():
     test_native_compilers()
     test_cross_compilers()
+
+
+def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
+    command_string = "python -t " + path + "/" + test_file_name
+    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
+    printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
+    run_command(option_config, command_string, verbose=True)
+
+
+def unit_tests(option_config, path="./", verbose=True):
+    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
+    printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
+
+    assets_tests = files_in_path("assets/unit_tests")
+    
+    for test in assets_tests:
+        run_single_unit_test(option_config, test, "assets/unit_tests")
+    
+    main_tests = files_in_path("./unit_tests")
+
+    for test in main_tests:
+        run_single_unit_test(option_config, test)
+
+
 
 
 # TODO: Handle aliases such as dragon->coco

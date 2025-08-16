@@ -1479,7 +1479,7 @@ def test_self(option_config, target = "stdio",opt = "slow"):
 
 
     # run
-    run(["run", "_test_project", "stdio"])
+    run(option_config, ["run", "_test_project", target])
 
     if verbose:
         print("")
@@ -1489,15 +1489,13 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     projects_before_create = list_projects(option_config, ["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
-
-
-    # print(str(dirs_in_path("./projects")))
+    print(str(dirs_in_path("./projects")))
 
     # clone
     clone(option_config, ["","_test_project","_cloned_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
-    # print(str(dirs_in_path("./projects")))
+    print(str(dirs_in_path("./projects")))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(option_config, bcolors.FAIL,
@@ -1507,8 +1505,13 @@ def test_self(option_config, target = "stdio",opt = "slow"):
                             "[xl clone]        OK\n")
 
 
+    #build
+    build(option_config, ["build", "_cloned_test_project", target])
+    
+
+    
     # run
-    run(["run", "_test_cloned_test_project_project", "stdio"])
+    run(option_config, ["run", "_cloned_test_project", target])
 
     if verbose:
         print("")
@@ -1655,7 +1658,6 @@ def test_all(option_config, params):
     test_libraries()
     test_interpreters()
     unit_tests(option_config, verbose=True)
-    # print("params: " + str(params))
     return test_self(option_config, params)
 
 expected_files = {
@@ -1724,29 +1726,6 @@ def targets_test(option_config, params):
     # if clean_test()==0:
         # success=0
     return success
-
-def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
-    command_string = "python -t " + path + "/" + test_file_name
-    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
-    printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
-    printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
-    run_command(option_config, command_string, verbose=True)
-
-
-def unit_tests(option_config, path="./", verbose=True):
-    printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
-    printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
-    printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
-
-    assets_tests = files_in_path("assets/unit_tests")
-    
-    for test in assets_tests:
-        run_single_unit_test(option_config, test, "assets/unit_tests")
-    
-    main_tests = files_in_path("./unit_tests")
-
-    for test in main_tests:
-        run_single_unit_test(option_config, test)
 
 
 # Self-test xl and native build
@@ -1955,7 +1934,7 @@ def list_projects(option_config, params, print_projects=True):
     return count
 
 
-def run_native(params, target):
+def run_native(option_config, params, target):
 
     command_prefix = "../build/X" + params[1] + "_" + target
 
@@ -1965,10 +1944,10 @@ def run_native(params, target):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command(option_config, command_string)
+    run_command(option_config, command_string, True)
 
 
-def run_stdio(params):
+def run_stdio(option_config, params):
     command_prefix = "../build/X" + params[1] + "_stdio"
 
     if len(params)>=4:
@@ -1977,7 +1956,7 @@ def run_stdio(params):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command(option_config, command_string)
+    run_command(option_config, command_string, True)
 
 
 DEFAULT_TARGET_MAP = {\
@@ -2007,10 +1986,10 @@ MAME_TARGETS = ["msx", "msx_16k"]
 
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
-def run(params):
+def run(option_config, params):
 
     if len(params)==2:
-        run_native(params, "ncurses")
+        run_native(option_config, params, "ncurses")
 
     if len(params)>=3:
         params = insert_default_sizes(params)
@@ -2022,17 +2001,17 @@ def run(params):
                 print("defaulting to target: " + target)
 
         if target=="stdio":
-            run_stdio(params)
+            run_stdio(option_config, params)
         elif target=="ncurses":
-            run_native(params[0:2]+params[3:], "ncurses")
+            run_native(option_config, params[0:2]+params[3:], "ncurses")
         elif target=="terminal":
-            run_native(params[0:2]+params[3:], "terminal8x8")
+            run_native(option_config, params[0:2]+params[3:], "terminal8x8")
         elif target.startswith("terminal"):
-            run_native(params[0:2]+params[3:], target)
+            run_native(option_config, params[0:2]+params[3:], target)
 
         # e.g. xl run bomber 20 30
         elif(len(params)>=3 and params[2].isnumeric() and params[3].isnumeric()):
-            run_native(params, "ncurses")
+            run_native(option_config, params, "ncurses")
 
         # TODO: replace this with a check on prefixes
         elif target in VICE_TARGETS:

@@ -30,6 +30,11 @@ def display_shape(option_config, tile_vect):
         printc(option_config, bcolors.BOLD, row)
         print("")
 
+def display_simple_shape(tile_vect):
+    for row in tile_vect:
+        print(row)
+
+
 
 # It returns the path to the shape directory for a given project and dimension
 def path_to_shapes(project, xsize, ysize):
@@ -503,7 +508,7 @@ def read_shape(file_name):
     return trimmed_lines
 
 
-def compute_split_tiles(option_config, lines,verbose=False):
+def compute_split_tiles(lines,verbose=False):
 
     xsize = 16
     for line in lines:
@@ -524,22 +529,20 @@ def compute_split_tiles(option_config, lines,verbose=False):
     if verbose:
         print("")
 
-    # xsize = 16
-
     if verbose:
         print("")
         for filtered_lines in filtered_lines_group:
-            display_shape(option_config, filtered_lines)
+            display_simple_shape(filtered_lines)
             print("")
 
     return filtered_lines_group
 
 
-def import_split_tiles(option_config, file_name):
+def import_split_tiles(file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
 
-    filtered_lines_group = compute_split_tiles(option_config, lines)
+    filtered_lines_group = compute_split_tiles(lines)
     # print(str(lines))
 
     fin.close()

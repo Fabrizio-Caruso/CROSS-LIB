@@ -1725,22 +1725,27 @@ def targets_test(option_config, params):
         # success=0
     return success
 
-def run_single_unit_test(option_config, test_file_name):
-    command_string = "python -t unit_tests/" + test_file_name
+def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
+    command_string = "python -t " + path + "/" + test_file_name
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
     run_command(option_config, command_string, verbose=True)
 
 
-def unit_tests(option_config, verbose=True):
+def unit_tests(option_config, path="./", verbose=True):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
     printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
 
-    tests = files_in_path("./unit_tests")
+    assets_tests = files_in_path("assets/unit_tests")
     
-    for test in tests:
+    for test in assets_tests:
+        run_single_unit_test(option_config, test, "assets/unit_tests")
+    
+    main_tests = files_in_path("./unit_tests")
+
+    for test in main_tests:
         run_single_unit_test(option_config, test)
 
 
@@ -2123,9 +2128,9 @@ def files():
     os.system(make_command)
 
 
-def split(option_config, params):
+def split(params):
 
-    import_split_tiles(option_config, params[1])
+    import_split_tiles(params[1])
 
 
 
@@ -2739,7 +2744,7 @@ if __name__ == "__main__":
         shapes(option_config, params[1:])
         make_assets_from_tiles(option_config, params[1:])
     elif params[1]=="split":
-        split(option_config, params[1:])
+        split(params[1:])
     elif params[1]=="config":
         display_config(option_config)
     elif params[1]=="string":

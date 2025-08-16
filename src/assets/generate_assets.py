@@ -3,9 +3,9 @@
 import os
 import sys
 
-sys.path.append("..")
+# sys.path.append("..")
 
-from modules.LoggerSingleton import *
+from LoggerSingleton import *
 
 global logger
 

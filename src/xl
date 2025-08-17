@@ -1489,13 +1489,10 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     projects_before_create = list_projects(option_config, ["list"],False)
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
-    print(str(dirs_in_path("./projects")))
 
     # clone
     clone(option_config, ["","_test_project","_cloned_test_project"])
     project_dirs_after_create = len(dirs_in_path("./projects"))
-
-    print(str(dirs_in_path("./projects")))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(option_config, bcolors.FAIL,
@@ -1997,7 +1994,7 @@ def run(option_config, params):
         target = params[2]
         if target in DEFAULT_TARGET_MAP:
             target = DEFAULT_TARGET_MAP[target]
-            if verbose:
+            if option_config.terminal_config.verbose:
                 print("defaulting to target: " + target)
 
         if target=="stdio":
@@ -2015,8 +2012,9 @@ def run(option_config, params):
 
         # TODO: replace this with a check on prefixes
         elif target in VICE_TARGETS:
+            
             extension = "prg"
-            rom_directory = vice_rom_path
+            rom_directory = option_config.rom_config.vice_rom_path
             if target=="c64":
                 rom_directory += "c64"
 
@@ -2040,7 +2038,7 @@ def run(option_config, params):
             else:
                 print("'xl run' does not support this target")
                 return
-            command_string = vice_path + emulator + " -directory " + \
+            command_string = option_config.rom_config.vice_path + emulator + " -directory " + \
                              rom_directory + " -autostartprgmode 1  ../build/X" + \
                              params[1] + "_" + target + "." + extension
 
@@ -2053,7 +2051,7 @@ def run(option_config, params):
                 extension = "rom"
                 mame_sub_target = "canonv20"
                 command_string = mame_path + emulator + " " + mame_sub_target + \
-                " -rompath " + mame_rom_path + \
+                " -rompath " + option_config.rom_config.mame_rom_path + \
                 " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + \
                 params[1] + "_" + target + "." + extension
                 run_command(option_config, command_string)

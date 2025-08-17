@@ -128,7 +128,8 @@ int main(void)
 
     _XL_PRINT(COL_OFFSET,YSize-2, "END OF TEST");
     _XL_REFRESH();
-
+    
+    while(1){};
     
     return EXIT_SUCCESS;
 }

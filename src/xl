@@ -1288,7 +1288,7 @@ def test_clean_tools(option_config):
     return number_of_tools, built_tools
 
 
-def test_self(option_config, target = "stdio",opt = "slow"):
+def test_self(option_config, target = "stdio"):
 
     # print("target1: " + str(target))
     # if(len(params)<3):
@@ -1305,36 +1305,31 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
-    test = 1
-    verbose = 0
-
     #clean tools
     number_of_tools, built_tools = test_clean_tools(option_config)
     if built_tools>0:
         success = 0
 
-    if opt!="fast":
+    #tools
+    tools(option_config)
 
-        #tools
-        tools(option_config)
+    tools_result_map=test_tools(False)
+    built_tools = 0
+    for _, result in tools_result_map.items():
+        if result:
+            built_tools+=1
+    if built_tools==number_of_tools:
+        printc(option_config, bcolors.OKGREEN, "[xl tools]        OK\n")
+    else:
+        printc(option_config, bcolors.FAIL, "[xl tools]       KO\n")
+        print("built_tools: " + str(built_tools))
+        print("number_of_tools: " + str(number_of_tools))
+        success = 0
 
-        tools_result_map=test_tools(False)
-        built_tools = 0
-        for _, result in tools_result_map.items():
-            if result:
-                built_tools+=1
-        if built_tools==number_of_tools:
-            printc(option_config, bcolors.OKGREEN, "[xl tools]        OK\n")
-        else:
-            printc(option_config, bcolors.FAIL, "[xl tools]       KO\n")
-            print("built_tools: " + str(built_tools))
-            print("number_of_tools: " + str(number_of_tools))
-            success = 0
-
-        #clean tools
-        number_of_tools, built_tools = test_clean_tools(option_config)
-        if built_tools > 0:
-            success = 0
+    #clean tools
+    number_of_tools, built_tools = test_clean_tools(option_config)
+    if built_tools > 0:
+        success = 0
 
     #delete
     delete(option_config, ["delete","_test_project","-y"])
@@ -1436,8 +1431,6 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     build(option_config, ["build", "_test_project", target])
     built_files = built_files_in_path("../build")
 
-    if verbose:
-        print("built binaries: " + str(built_files))
     if len(built_files)==0:
         print("built binaries: " + str(built_files))
 
@@ -1481,8 +1474,6 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     # run
     run(option_config, ["run", "_test_project", target])
 
-    if verbose:
-        print("")
     printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
 
 
@@ -1501,7 +1492,6 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     printc(option_config, bcolors.OKGREEN,
                             "[xl clone]        OK\n")
 
-
     #build
     build(option_config, ["build", "_cloned_test_project", target])
     
@@ -1510,8 +1500,6 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     # run
     run(option_config, ["run", "_cloned_test_project", target])
 
-    if verbose:
-        print("")
     printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
 
     # delete
@@ -1527,71 +1515,63 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     # make_assets_from_tiles(["_test_cloned_test_project_project"])
     printc(option_config, bcolors.OKGREEN, "[xl shapes]       OK\n")
 
+    #size
+    size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
+    built_files = built_files_in_path("../build")
 
-    if opt!="fast":
+    if len(built_files)!=1:
+        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        print(str(built_files))
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
 
-        #size
-        size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
-        built_files = built_files_in_path("../build")
+    dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+    if dirs_in_proj_before != 4:
+        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        print(str(dirs_in_path("./projects/_test_project")))
+        success=0
 
-        if verbose:
-            print("built binaries: " + str(built_files))
-        if len(built_files)!=1:
-            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
-            print(str(built_files))
-            success=0
-        else:
-            printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
+    dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+    if dirs_in_shapes_before != 5:
+        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        print(str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
 
-        dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
-        if dirs_in_proj_before != 4:
-            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
-            print(str(dirs_in_path("./projects/_test_project")))
-            success=0
+    #reset
+    reset(option_config, ["","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
 
-        dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
-        if dirs_in_shapes_before != 5:
-            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
-            print(str(dirs_in_path("./projects/_test_project/shapes")))
-            success=0
+    #size
+    size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
+    built_files = built_files_in_path("../build")
 
-        #reset
-        reset(option_config, ["","-y"])
-        printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
+    if len(built_files)!=2:
+        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        print(str(built_files))
+        print("Wrong number of built files")
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
 
-        #size
-        size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
-        built_files = built_files_in_path("../build")
+    projects = []
+    for (_, dirnames, _) in walk("./projects"):
+        projects.extend(dirnames)
+        break
 
-        if verbose:
-            print("built binaries: " + str(built_files))
+    games = []
+    for (_, dirnames, _) in walk("./games"):
+        games.extend(dirnames)
+        break
 
-        if len(built_files)!=2:
-            printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
-            print(str(built_files))
-            print("Wrong number of built files")
-            success=0
-        else:
-            printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
+    examples = []
+    for (_, dirnames, _) in walk("./examples"):
+        examples.extend(dirnames)
+        break
 
-        projects = []
-        for (_, dirnames, _) in walk("./projects"):
-            projects.extend(dirnames)
-            break
-
-        games = []
-        for (_, dirnames, _) in walk("./games"):
-            games.extend(dirnames)
-            break
-
-        examples = []
-        for (_, dirnames, _) in walk("./examples"):
-            examples.extend(dirnames)
-            break
-
-        #reset
-        reset(option_config, ["","_test_project"])
-        printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
+    #reset
+    reset(option_config, ["","_test_project"])
+    printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project","-y"])
@@ -1624,9 +1604,6 @@ def test_self(option_config, target = "stdio",opt = "slow"):
     if clean_test(option_config)==0:
         success=0
 
-    # build (all games)
-    # verbose = 1
-    # test = 0
     build(option_config, ["","games","stdio"])
 
     built_files = built_files_in_path("../build")

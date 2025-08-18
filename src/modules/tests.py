@@ -315,10 +315,10 @@ def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
-    run_command(option_config, command_string, verbose=True)
+    run_command(option_config, command_string)
 
 
-def unit_tests(option_config, path="./", verbose=True):
+def unit_tests(option_config, path="./"):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
     printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")

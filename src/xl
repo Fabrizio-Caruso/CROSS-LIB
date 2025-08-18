@@ -79,11 +79,13 @@ class TerminalConfig():
     def __init__(
         self,
         verbose,
-        color_terminal
+        color_terminal,
+        test
         ):
         # terminal
         self.verbose = verbose
         self.color_terminal = color_terminal
+        self.test = test
 
 
 class RomConfig():
@@ -1290,7 +1292,7 @@ def test_clean_tools(option_config):
 
 def test_self(option_config, target = "stdio"):
 
-
+    option_config.terminal_config.test = 1
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
     printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
@@ -1471,6 +1473,7 @@ def test_self(option_config, target = "stdio"):
     if success:
         printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
+    option_config.terminal_config.test = 0
 
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
@@ -1478,6 +1481,7 @@ def test_self(option_config, target = "stdio"):
 
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
+    option_config.terminal_config.test = 1
 
     projects_before_create = list_projects(option_config, ["list"],False)
 
@@ -1498,13 +1502,15 @@ def test_self(option_config, target = "stdio"):
     build(option_config, ["build", "_cloned_test_project", target])
     
 
-    
+    option_config.terminal_config.test = 0
+
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
 
     run(option_config, ["run", "_cloned_test_project", target])
 
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
+    option_config.terminal_config.test = 1
 
     # delete
     delete(option_config, ["","_cloned_test_project","-y"])
@@ -1635,7 +1641,7 @@ def test_all(option_config, params):
     test_tools()
     test_libraries()
     test_interpreters()
-    unit_tests(option_config, verbose=True)
+    unit_tests(option_config)
     return test_self(option_config, params)
 
 expected_files = {
@@ -1922,7 +1928,7 @@ def run_native(option_config, params, target):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command(option_config, command_string, True)
+    run_command(option_config, command_string)
 
 
 def run_stdio(option_config, params):
@@ -1934,7 +1940,7 @@ def run_stdio(option_config, params):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    run_command(option_config, command_string, True)
+    run_command(option_config, command_string)
 
 
 DEFAULT_TARGET_MAP = {\
@@ -2371,7 +2377,7 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Color terminal: %s", str(color_terminal))
 
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal)
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0)
 
 
         if verbose:

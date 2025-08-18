@@ -4,12 +4,13 @@ from modules.LoggerSingleton import LoggerSingleton
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 
-def run_command(option_config, command_string, verbose=False, terminal=False):
+def run_command(option_config, command_string):
     logger.info("Running command: %s", command_string)
-    if verbose or option_config.terminal_config.verbose:
+    test = option_config.terminal_config.test
+    if not test:
         print("Going to run: ")
         printc(option_config, bcolors.BOLD, command_string+"\n")
-    elif not terminal:
+    else:
         command_string+= " > /dev/null 2>&1"
 
     os.system(command_string)

@@ -2037,7 +2037,7 @@ def run(option_config, params):
             if target.startswith("msx"):
                 extension = "rom"
                 mame_sub_target = "canonv20"
-                command_string = mame_path + emulator + " " + mame_sub_target + \
+                command_string = option_config.rom_config.mame_path + emulator + " " + mame_sub_target + \
                 " -rompath " + option_config.rom_config.mame_rom_path + \
                 " -window -uimodekey DEL  -skip_gameinfo  -cart1 ../build/X" + \
                 params[1] + "_" + target + "." + extension

@@ -34,7 +34,7 @@ int main(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
 
-    _XL_PRINT((XSize-11)/2,YSize,"HELLO WORLD");
+    _XL_PRINT((XSize-11)/2,YSize-2,"HELLO WORLD");
 
     for(i=0;i<XSize;++i)
     {

@@ -292,19 +292,19 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
 
 #elif defined(__BUFFERED_GRAPHICS)
     #if defined(_XL_NO_LOWER_BORDER)
-        #define LOWER_BORDER_OFFSET 2
-    #else
         #define LOWER_BORDER_OFFSET 1
+    #else
+        #define LOWER_BORDER_OFFSET 0
     #endif
     uint8_t video_buffer[YSize+Y_OFFSET][XSize];
     
     #if !defined(__DOUBLE_BUFFER)
-    void display_all(void)
+    void __display_all(void)
     {
         uint8_t j; 
         uint8_t i;
         
-        for(j=0;j<YSize+Y_OFFSET-LOWER_BORDER_OFFSET;++j)
+        for(j=0;j<YSize-1+Y_OFFSET-LOWER_BORDER_OFFSET;++j)
         {
             for(i=0;i<XSize;++i)
             {
@@ -314,8 +314,9 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
         }
         for(i=0;i<XSize;++i)
         {
-            putchar(video_buffer[YSize+Y_OFFSET-LOWER_BORDER_OFFSET][i]);
+            putchar(video_buffer[YSize-1+Y_OFFSET-LOWER_BORDER_OFFSET][i]);
         }
+        putchar('\n');
     }
     #endif
 #elif defined(__MO5__)

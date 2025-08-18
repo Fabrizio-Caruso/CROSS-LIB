@@ -97,17 +97,19 @@
 
 
 #if !defined(__BUFFERED_GRAPHICS) && !defined(__DOUBLE_BUFFER)
+
     #define _XL_REFRESH()
 #elif defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
     void _XL_REFRESH(void);
 #else
-    #include "buffered_graphics.h"
+    void __display_all(void);
 
+    #include "buffered_graphics.h"
     #define __REFRESH() \
         do \
         { \
             putchar('\n'); \
-            display_all(); \
+            __display_all(); \
         } while(0);
 
     #if !defined(__EMCC__)

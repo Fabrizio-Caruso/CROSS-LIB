@@ -205,9 +205,9 @@ def clean_test(option_config):
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        printc(option_config, bcolors.FAIL, "[xl clean]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl clean]          KO\n")
         return 0
-    printc(option_config, bcolors.OKGREEN, "[xl clean]        OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl clean]          OK\n")
     return 1
 
 
@@ -1282,21 +1282,15 @@ def test_clean_tools(option_config):
         if result:
             built_tools+=1
     if built_tools==0:
-        printc(option_config, bcolors.OKGREEN, "[xl clean tools]  OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl clean tools]    OK\n")
     else:
-        printc(option_config, bcolors.FAIL, "[xl clean tools]  KO\n")
+        printc(option_config, bcolors.FAIL, "[xl clean tools]    KO\n")
     return number_of_tools, built_tools
 
 
 def test_self(option_config, target = "stdio"):
 
-    # print("target1: " + str(target))
-    # if(len(params)<3):
-        # target = "stdio"
-    # else:
-        # target = params[1]
-    # print("target2: " + str(target))
-    # quit()
+
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
     printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
@@ -1304,6 +1298,12 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.BOLD,  "target: ")
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+
+    
+    #delete
+    delete(option_config, ["delete","_cloned_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
 
     #clean tools
     number_of_tools, built_tools = test_clean_tools(option_config)
@@ -1319,9 +1319,9 @@ def test_self(option_config, target = "stdio"):
         if result:
             built_tools+=1
     if built_tools==number_of_tools:
-        printc(option_config, bcolors.OKGREEN, "[xl tools]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl tools]          OK\n")
     else:
-        printc(option_config, bcolors.FAIL, "[xl tools]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl tools]         KO\n")
         print("built_tools: " + str(built_tools))
         print("number_of_tools: " + str(number_of_tools))
         success = 0
@@ -1333,6 +1333,7 @@ def test_self(option_config, target = "stdio"):
 
     #delete
     delete(option_config, ["delete","_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
 
     #clean
@@ -1348,84 +1349,84 @@ def test_self(option_config, target = "stdio"):
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
-        printc(option_config, bcolors.FAIL, "[xl create]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl create]         KO\n")
         return 0
-    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # list
     projects_after_create = list_projects(option_config, ["list"],False)
     if projects_after_create!=projects_before_create+1:
-        printc(option_config, bcolors.FAIL,"[xl list]         KO\n")
+        printc(option_config, bcolors.FAIL,"[xl list]           KO\n")
         success = 0
-    printc(option_config, bcolors.OKGREEN,"[xl list]         OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl list]           OK\n")
 
     # create
     create(option_config, ["create", "_test_project2", "game"])
-    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
     create(option_config, ["create", "_test_project3", "demo"])
-    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
     create(option_config, ["create", "_test_project4", "text"])
-    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
     create(option_config, ["create", "_test_project5", "helloworld"])
-    printc(option_config, bcolors.OKGREEN, "[xl create]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     #build
     build(option_config, ["build", "_test_project2", target])
     built_files = built_files_in_path("../build")
-    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
     build(option_config, ["build", "_test_project3", target])
     built_files = built_files_in_path("../build")
-    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
     build(option_config, ["build", "_test_project4", target])
     built_files = built_files_in_path("../build")
-    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
     build(option_config, ["build", "_test_project5", target])
     built_files = built_files_in_path("../build")
-    printc(option_config, bcolors.OKGREEN,"[xl build]        OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #clean
     success = success * clean_test(option_config)
     if success:
-        printc(option_config, bcolors.OKGREEN,"[xl clean]        OK\n")
+        printc(option_config, bcolors.OKGREEN,"[xl clean]          OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project2","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project3","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project4","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project5","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
     delete(option_config, ["delete","_foo_test","-y"])
 
     #rename
     rename(option_config, ["","_test_project", "_foo_test"])
-    printc(option_config, bcolors.OKGREEN,"[xl rename]       OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
 
     #rename
     rename(option_config, ["","_foo_test", "_test_project"])
-    printc(option_config, bcolors.OKGREEN,"[xl rename]       OK\n")
+    printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
 
     #build
     build(option_config, ["build", "_test_project", target])
@@ -1434,19 +1435,19 @@ def test_self(option_config, target = "stdio"):
     if len(built_files)==0:
         print("built binaries: " + str(built_files))
 
-        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
         success=0
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build]          OK\n")
 
     dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
     if dirs_in_proj_before != 4:
-        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
         success=0
 
     dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
     if dirs_in_shapes_before != 1:
-        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
         print(dirs_in_shapes_before)
         print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
@@ -1456,25 +1457,26 @@ def test_self(option_config, target = "stdio"):
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
 
     if dirs_in_proj_after != 4:
-        printc(option_config, bcolors.FAIL, "[xl extend]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl extend]         KO\n")
         success=0
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
 
     if dirs_in_shapes_after != 5:
-        printc(option_config, bcolors.FAIL, "[xl extend]       KO\n")
+        printc(option_config, bcolors.FAIL, "[xl extend]         KO\n")
         print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
         print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
     if success:
-        printc(option_config, bcolors.OKGREEN, "[xl extend]       OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
 
     # run
+    printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
     run(option_config, ["run", "_test_project", target])
 
-    printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
 
     projects_before_create = list_projects(option_config, ["list"],False)
@@ -1487,10 +1489,10 @@ def test_self(option_config, target = "stdio"):
 
     if project_dirs_after_create!=project_dirs_before_create+1:
         printc(option_config, bcolors.FAIL,
-                            "[xl clone]        KO\n")
+                            "[xl clone]          KO\n")
         return 0
     printc(option_config, bcolors.OKGREEN,
-                            "[xl clone]        OK\n")
+                            "[xl clone]          OK\n")
 
     #build
     build(option_config, ["build", "_cloned_test_project", target])
@@ -1498,13 +1500,15 @@ def test_self(option_config, target = "stdio"):
 
     
     # run
+    printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
+
     run(option_config, ["run", "_cloned_test_project", target])
 
-    printc(option_config, bcolors.OKGREEN, "[xl run]          OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
     # delete
     delete(option_config, ["","_cloned_test_project","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
 
     #clean
@@ -1513,46 +1517,46 @@ def test_self(option_config, target = "stdio"):
     #shapes
     shapes(option_config, ["","_test_cloned_test_project_project"])
     # make_assets_from_tiles(["_test_cloned_test_project_project"])
-    printc(option_config, bcolors.OKGREEN, "[xl shapes]       OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl shapes]         OK\n")
 
     #size
     size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=1:
-        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
         print(str(built_files))
         success=0
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl size]           OK\n")
 
     dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
     if dirs_in_proj_before != 4:
-        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
         print(str(dirs_in_path("./projects/_test_project")))
         success=0
 
     dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
     if dirs_in_shapes_before != 5:
-        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
         print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
     #reset
     reset(option_config, ["","-y"])
-    printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
 
     #size
     size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=2:
-        printc(option_config, bcolors.FAIL, "[xl size]         KO\n")
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
         print(str(built_files))
         print("Wrong number of built files")
         success=0
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl size]         OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl size]           OK\n")
 
     projects = []
     for (_, dirnames, _) in walk("./projects"):
@@ -1571,19 +1575,19 @@ def test_self(option_config, target = "stdio"):
 
     #reset
     reset(option_config, ["","_test_project"])
-    printc(option_config, bcolors.OKGREEN, "[xl reset]        OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
 
     #delete
     delete(option_config, ["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
 
     if project_dirs_after_delete != initial_dirs:
-        printc(option_config, bcolors.FAIL,    "[xl delete]       KO\n")
+        printc(option_config, bcolors.FAIL,    "[xl delete]         KO\n")
         print(project_dirs_before_create)
         print(project_dirs_after_delete)
         success=0
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl delete]       OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     if clean_test(option_config)==0:
         success=0
@@ -1595,11 +1599,11 @@ def test_self(option_config, target = "stdio"):
 
     if len(built_files)!=len(examples):
         success=0
-        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
         print(built_files)
         print(examples)
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build examples] OK\n")
 
     if clean_test(option_config)==0:
         success=0
@@ -1610,12 +1614,12 @@ def test_self(option_config, target = "stdio"):
 
     if len(built_files)!=len(games):
         success=0
-        printc(option_config, bcolors.FAIL, "[xl build]        KO\n")
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
         print(built_files)
         print(games)
         sys.exit()
     else:
-        printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl build games]    OK\n")
 
     if clean_test(option_config)==0:
         success=0

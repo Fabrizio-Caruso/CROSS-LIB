@@ -131,7 +131,7 @@ def help_command(option_config, params):
             print("")
             print("It re-builds <project> for <target> and its assets by using the pictorial text files in the shapes directory.")
             print("It is equivalent to:")
-            print("xl shapes <project> <target>")
+            print("xl tiles <project> <target>")
             print("xl rebuild <project> <target>")
             print("")
             print("Example:")
@@ -339,9 +339,9 @@ def help_command(option_config, params):
             print("To be copied in 'tile_<index>.txt' in '<project>/tiles/8x8' to modify the shape.")
             print("Remark: run 'xl reset <project>' before rebuilding <project> with modified tiles.")
 
-        elif params[1]=="shapes":
-            printc(option_config, bcolors.BOLD,"xl shapes <project> <[optional] xsize> <[optional] ysize>\n")
-            printc(option_config, bcolors.BOLD,"xl shapes <project> <[optional] target>\n")
+        elif params[1]=="tiles":
+            printc(option_config, bcolors.BOLD,"xl tiles <project> <[optional] xsize> <[optional] ysize>\n")
+            printc(option_config, bcolors.BOLD,"xl tiles <project> <[optional] target>\n")
             print("It converts all shape files into tiles and stores them as such in the project.")
             print("It imports from files named 'shape<number>.txt' inside the directories in the 'shapes' directory of a given project")
             print("The shape file format is the one used by 'xl tile'. Run 'xl help tile' for more information.")
@@ -350,7 +350,7 @@ def help_command(option_config, params):
             print("")
             print("Example: ")
             print("Provided that you have a project named 'foo', the command")
-            print("xl shapes foo 6 8")
+            print("xl tiles foo 6 8")
             print("will import as tiles from all shape files 'shape<number>.txt' (found in './projects/foo/shapes/6x8') into './projects/foo/tiles/6x8/'")
 
         elif params[1]=="self":

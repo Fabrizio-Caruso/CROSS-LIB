@@ -1302,7 +1302,6 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.BOLD,  "target: ")
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
-
     
     #delete
     delete(option_config, ["delete","_cloned_test_project","-y"])
@@ -1529,9 +1528,9 @@ def test_self(option_config, target = "stdio"):
     success = success * clean_test(option_config)
 
     #shapes
-    shapes(option_config, ["","_test_cloned_test_project_project"])
+    tiles(option_config, ["","_test_cloned_test_project_project"])
     # make_assets_from_tiles(["_test_cloned_test_project_project"])
-    printc(option_config, bcolors.OKGREEN, "[xl shapes]         OK\n")
+    printc(option_config, bcolors.OKGREEN, "[xl tiles]          OK\n")
 
     #size
     size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
@@ -2245,7 +2244,7 @@ def extend(option_config, params):
 
 
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
-def shapes(option_config, params):
+def tiles(option_config, params):
     verbose = option_config.terminal_config.verbose
     project_name = params[1]
 
@@ -2361,15 +2360,7 @@ def read_config(config_file="./config.ini"):
 
     try:
         config.read(config_file)
-
-        # test = read_config_option(config,"terminal","test")
-        # if test!="":
-            # test=int(test)
-        # else:
-            # test=0
-        # if test:
-            # print("Test Mode ON")
-
+        
         verbose = read_config_option(config,"terminal","verbose")
         if verbose!="":
             verbose=int(verbose)
@@ -2426,7 +2417,7 @@ def read_config(config_file="./config.ini"):
 
         native_compiler = read_config_option(config,"build", "native_compiler")
 
-        tool_compiler = read_config_option(config,"tools", "tool_compiler")
+        tool_compiler = read_config_option(config,"build", "tool_compiler")
 
         interactive_clean = read_config_option(config,"clean", "interactive")
 
@@ -2566,9 +2557,6 @@ def display_config(option_config):
     print("native_compiler: " +  native_compiler)
     print("use_tools: " + str(use_tools))
 
-
-    print("")
-    printc(option_config, bcolors.BOLD,"[tools]\n")
     print("tool_compiler: " +  tool_compiler)
 
     print("")
@@ -2713,7 +2701,7 @@ if __name__ == "__main__":
         else:
             test_self(option_config, params[2])
     elif params[1]=="assets":
-        shapes(option_config, params[1:])
+        tiles(option_config, params[1:])
         make_assets_from_tiles(option_config, params[1:])
     elif params[1]=="split":
         split(params[1:])
@@ -2732,7 +2720,7 @@ if __name__ == "__main__":
     elif params[1]=="rebuild":
         rebuild(option_config, params[1:])
     elif params[1]=="make":
-        shapes(option_config, params[1:])
+        tiles(option_config, params[1:])
         rebuild(option_config, params[1:])
     elif params[1]=="rename":
         rename(option_config, params[1:])
@@ -2744,8 +2732,8 @@ if __name__ == "__main__":
         test(option_config, params[1:])
     elif params[1]=="tile":
         tile(option_config, params[1:])
-    elif params[1]=="shapes":
-        shapes(option_config, params[1:])
+    elif params[1]=="tiles":
+        tiles(option_config, params[1:])
     elif params[1]=="extend":
         extend(option_config, params[1:])
     elif params[1]=="build":

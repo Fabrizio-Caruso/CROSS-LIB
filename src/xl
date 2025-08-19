@@ -80,12 +80,14 @@ class TerminalConfig():
         self,
         verbose,
         color_terminal,
-        test
+        test,
+        show_fail
         ):
         # terminal
         self.verbose = verbose
         self.color_terminal = color_terminal
         self.test = test
+        self.show_fail = show_fail
 
 
 class RomConfig():
@@ -1474,7 +1476,8 @@ def test_self(option_config, target = "stdio"):
         printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
     option_config.terminal_config.test = 0
-
+    option_config.terminal_config.show_fail = 0
+    
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
     run(option_config, ["run", "_test_project", target])
@@ -1482,6 +1485,7 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
     option_config.terminal_config.test = 1
+    option_config.terminal_config.show_fail = 1
 
     projects_before_create = list_projects(option_config, ["list"],False)
 
@@ -1502,16 +1506,20 @@ def test_self(option_config, target = "stdio"):
     build(option_config, ["build", "_cloned_test_project", target])
     
 
-    option_config.terminal_config.test = 0
 
+    option_config.terminal_config.test = 0
+    option_config.terminal_config.show_fail = 0
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
 
     run(option_config, ["run", "_cloned_test_project", target])
 
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
-    option_config.terminal_config.test = 1
 
+
+    option_config.terminal_config.test = 1
+    option_config.terminal_config.show_fail = 1
+    
     # delete
     delete(option_config, ["","_cloned_test_project","-y"])
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
@@ -2377,7 +2385,7 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Color terminal: %s", str(color_terminal))
 
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0)
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, show_fail=1)
 
 
         if verbose:

@@ -4,7 +4,6 @@ from print_functions import bcolors
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
-    # "add": "adds targets to a project", \
     "assets": "builds assets from tile and/or shape files", \
     "build": "builds a project", \
     "check": "it checks dependencies", \
@@ -24,14 +23,12 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "make": "build project using shape files", \
     "manual": "prints the manual", \
     "rebuild": "generates assets and builds a project", \
-    # "remove": "removes targets from a project", \
     "rename": "renames a project", \
     "reset": "deletes graphics assets", \
     "rip": "rips Assembly or BASIC listings to produce tiles", \
     "rotate": "rips Assembly or BASIC listings to produce rotated tiles", \
     "run": "runs a project", \
     "self": "test xl script", \
-    "shapes": "generates tiles from shapes", \
     "show": "shows tiles of a project as shapes", \
     "size": "builds the native version of a project with a given size", \
     "slow": "builds a project for a target with a given slowdown", \
@@ -39,6 +36,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "string": "produces case-sensitive strings as Cross-Lib characters macros", \
     "test": "runs some tests", \
     "tile": "converts a shape file into a tile", \
+    "tiles": "generates all tiles from shapes", \
     "tools": "builds the tools", \
     "unit-tests": "run unit-tests",
     })

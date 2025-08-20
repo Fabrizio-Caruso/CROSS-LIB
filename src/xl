@@ -257,11 +257,6 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
 
 
-def generic_input(string):
-    if sys.version_info[0] < 3:
-        return raw_input(string)
-    return input(string)
-
 def are_you_sure():
     return generic_input("Are you sure [Y/N]? ").lower()
 

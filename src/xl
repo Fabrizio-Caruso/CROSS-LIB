@@ -56,7 +56,6 @@ MAME_EMULATOR = "mame"
 # native_compiler_opts = None
 # native_compiler = None
 # tool_compiler = None
-# interactive_clean = None
 # vice_path = None
 # vice_rom_path = None
 # mame_path = None
@@ -82,13 +81,15 @@ class TerminalConfig():
         verbose,
         color_terminal,
         test,
-        native_console
+        native_console,
+        fast_test
         ):
         # terminal
         self.verbose = verbose
         self.color_terminal = color_terminal
         self.test = test
         self.native_console = native_console
+        self.fast_test = fast_test
 
 
 class RomConfig():
@@ -169,14 +170,6 @@ class BuildConfig():
             self.tool_compiler, \
             self.use_tools
 
-class CleanConfig:
-    def __init__(
-        self,
-        interactive_clean
-    ):
-        self.interactive_clean = interactive_clean
-        
-
 
 class OptionConfig:
     def __init__(
@@ -184,7 +177,6 @@ class OptionConfig:
         
         terminal_config,
         build_config, 
-        clean_config,
         rom_config,
         extend_config,  
 
@@ -193,20 +185,15 @@ class OptionConfig:
                
         self.build_config = build_config
                
-        # clean
-        self.clean_config = clean_config
-
         # rom
         self.rom_config = rom_config
 
         # extend
         self.extend_config = extend_config
 
-        # tools
-        # self.use_tools = use_tools
 
 def clean_test(option_config):
-    clean(option_config, ["clean","-y"])
+    clean(option_config, ["clean"])
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
@@ -478,7 +465,8 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
         for project_name in projects:
             if reset_flag:
                 reset(option_config, ["",project_name])
-            print("project name: " + project_name)
+            if verbose:
+                print("project name: " + project_name)
             if is_project_split(project_name):
                 project_type = project_category(project_name)
                 create_main(project_name,project_type)
@@ -520,7 +508,6 @@ def size(option_config, params,debug):
 
     files_before = len(files_in_path("../build"))-1
 
-
     if game_dir not in ["games", "examples", "projects", "all"]:
         if not os.path.exists(parent_and_game_dir):
             print("Project not found!")
@@ -528,7 +515,8 @@ def size(option_config, params,debug):
         native_compiler = option_config.build_config.native_compiler
         tool_compiler   = option_config.build_config.tool_compiler
         if is_project_split(game_dir):
-            printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
+            if verbose:
+                printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
             create_main(game_dir, project_type)
         make_command = \
             GNU_MAKE + " " + target + " XSIZE=" + xsize +  " YSIZE=" + ysize + \
@@ -540,7 +528,8 @@ def size(option_config, params,debug):
         run_command(option_config, make_command)
 
         if is_project_split(game_dir):
-            printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+            if verbose:
+                printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)
     else:
         if game_dir in["games","examples","projects"]:
@@ -818,7 +807,8 @@ def build(option_config, params, reset_flag = False):
                 use_tools_str = ""
 
             if is_project_split(game_dir):
-                printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
+                if verbose:
+                    printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
 
             make_command = \
@@ -833,7 +823,8 @@ def build(option_config, params, reset_flag = False):
             run_command(option_config, make_command)
 
             if is_project_split(game_dir):
-                printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
+                if verbose:
+                    printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
                 delete_main(option_config, game_dir, project_type)
 
         else:
@@ -1085,7 +1076,6 @@ def reset(option_config, params):
 
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
-    # if (not interactive) or (are_you_sure()=="y"):
     make_command = GNU_MAKE + " clean_no_built_in -f " + \
                    parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
@@ -1113,15 +1103,6 @@ def clean(option_config, params):
         make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
 
         if verbose:
-            print("Delete all built binaries and non-project=specific temporary files")
-        if are_you_sure()=="y":
-            run_command(option_config, make_command)
-            return
-        return
-    if (len(params)==2) and (params[1]=='-y'):
-        make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
-
-        if verbose:
             print("Delete all built binaries and non-project-specific temporary files")
 
         run_command(option_config, make_command)
@@ -1144,7 +1125,6 @@ def clean(option_config, params):
     print("Delete all built binaries and temporary files (also specific to '"+ \
           game_dir+"', e.g., generated assets)")
 
-    # if (not interactive) or (are_you_sure()=="y"):
     make_command = GNU_MAKE + " clean -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command(option_config, make_command)
@@ -1470,11 +1450,13 @@ def test_self(option_config, target = "stdio"):
     if success:
         printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
-    # run
-    printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
-    run(option_config, ["run", "_test_project", target])
+    fast_test = option_config.terminal_config.fast_test
+    if not fast_test:
+        # run
+        printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
+        run(option_config, ["run", "_test_project", target])
 
-    printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
     projects_before_create = list_projects(option_config, ["list"],False)
 
@@ -1494,13 +1476,14 @@ def test_self(option_config, target = "stdio"):
     #build
     build(option_config, ["build", "_cloned_test_project", target])
     
+    if not fast_test:
 
-    # run
-    printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
+        # run
+        printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
 
-    run(option_config, ["run", "_cloned_test_project", target])
+        run(option_config, ["run", "_cloned_test_project", target])
 
-    printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
+        printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
     # delete
     delete(option_config, ["","_cloned_test_project","-y"])
@@ -1588,37 +1571,47 @@ def test_self(option_config, target = "stdio"):
     if clean_test(option_config)==0:
         success=0
 
-    # build (all examples)
-    build(option_config, ["","examples","stdio"])
+    if not fast_test:
 
-    built_files = built_files_in_path("../build")
+        if target in TARGETS_WITH_2_BINARIES:
+            binary_factor = 2
+        elif target in TARGETS_WITH_3_BINARIES:
+            binary_factor = 3
+        else:
+            binary_factor = 1
 
-    if len(built_files)!=len(examples):
-        success=0
-        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
-        print(built_files)
-        print(examples)
-    else:
-        printc(option_config, bcolors.OKGREEN, "[xl build examples] OK\n")
+        # build (all examples)
+        build(option_config, ["","examples", target])
 
-    if clean_test(option_config)==0:
-        success=0
+        built_files = built_files_in_path("../build")
 
-    build(option_config, ["","games","stdio"])
+        if len(built_files)!=binary_factor*len(examples):
+            success=0
+            printc(option_config, bcolors.FAIL, "[xl build examples] KO\n")
+            print(built_files)
+            print(examples)
+        else:
+            printc(option_config, bcolors.OKGREEN, "[xl build examples] OK\n")
 
-    built_files = built_files_in_path("../build")
+        if clean_test(option_config)==0:
+            success=0
 
-    if len(built_files)!=len(games):
-        success=0
-        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
-        print(built_files)
-        print(games)
-        sys.exit()
-    else:
-        printc(option_config, bcolors.OKGREEN, "[xl build games]    OK\n")
+        # build (all games)
+        build(option_config, ["","games", target])
 
-    if clean_test(option_config)==0:
-        success=0
+        built_files = built_files_in_path("../build")
+
+        if len(built_files)!=binary_factor*len(games):
+            success=0
+            printc(option_config, bcolors.FAIL, "[xl build games]    KO\n")
+            print(built_files)
+            print(games)
+            sys.exit()
+        else:
+            printc(option_config, bcolors.OKGREEN, "[xl build games]    OK\n")
+
+        if clean_test(option_config)==0:
+            success=0
 
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
@@ -2354,7 +2347,12 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Color terminal: %s", str(color_terminal))
 
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0)
+        fast_test = read_config_option(config,"terminal","fast_test")
+        if fast_test!="":
+            fast_test=int(fast_test)
+        else:
+            fast_test=0
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test)
 
 
         if verbose:
@@ -2397,8 +2395,6 @@ def read_config(config_file="./config.ini"):
 
         tool_compiler = read_config_option(config,"build", "tool_compiler")
 
-        interactive_clean = read_config_option(config,"clean", "interactive")
-
         vice_path = read_config_option(config,"run", "vice_path")
         vice_rom_path = read_config_option(config,"run", "vice_rom_path")
 
@@ -2413,12 +2409,6 @@ def read_config(config_file="./config.ini"):
         
 
         use_tools = read_config_option(config,"build", "use_tools")
-
-        if interactive_clean!="":
-            interactive_clean = int(interactive_clean)
-        logger.info("Interactive clean: %s", str(interactive_clean))
-
-        clean_config = CleanConfig(interactive_clean)
 
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
@@ -2447,7 +2437,7 @@ def read_config(config_file="./config.ini"):
             use_tools
             )
 
-        option_config = OptionConfig(terminal_config, build_config, clean_config, rom_config, extend_config)
+        option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
 
         if verbose:
             if color_terminal:
@@ -2492,13 +2482,13 @@ def display_config(option_config):
 
     verbose = option_config.terminal_config.verbose
     color_terminal = option_config.terminal_config.color_terminal
+    fast_test = option_config.terminal_config.fast_test
     
     print("verbose: " + str(verbose))
-
     print("color: " + str(color_terminal))
+    print("fast_test: " + str(fast_test))
 
     print("")
-
 
     compilation_threads, \
     parallelize_multi_build, \
@@ -2538,12 +2528,6 @@ def display_config(option_config):
     print("tool_compiler: " +  tool_compiler)
 
     print("")
-
-    printc(option_config, bcolors.BOLD,"[clean]\n")
-    print("interactive_clean: " + str(option_config.clean_config.interactive_clean))
-
-
-    print("")
     printc(option_config, bcolors.BOLD,"[run]\n")
     print("vice_path: " +  option_config.rom_config.vice_path)
     print("vice_rom_path: " +  option_config.rom_config.vice_rom_path)
@@ -2557,7 +2541,7 @@ def display_config(option_config):
 
 
 
-def make_assets_from_tiles(params):
+def make_assets_from_tiles(option_config, params):
 
     game_dir = params[1]
 
@@ -2589,12 +2573,10 @@ if __name__ == "__main__":
         # print("Reading config")
         logger.info("(read_config) Read configuration file")
         option_config = read_config()
-        # terminal_config, rom_config, extend_config, build_config, clean_config = read_config()
         logger.info("(read_config) Configuration file read")
     except:
         logger.warning("Reverting to default configuration")
         option_config = default_config()
-        # terminal_config, rom_config, extend_config, build_config, clean_config  = default_config()
         print("WARNING: Using default config")
 
     # parallelize_multi_build = option_config.build_config.parallelize_multi_build
@@ -2727,12 +2709,7 @@ if __name__ == "__main__":
     elif params[1]=="create":
         create(option_config, params[1:])
     elif params[1]=="clean":
-        interactive_clean = option_config.clean_config.interactive_clean
-
-        if interactive_clean:
-            clean(option_config, params[1:])
-        else:
-            clean(option_config, params[1:]+["-y"])
+        clean(option_config, params[1:])
     elif params[1]=="reset":
         reset(option_config, params[1:])
     elif params[1]=="delete":

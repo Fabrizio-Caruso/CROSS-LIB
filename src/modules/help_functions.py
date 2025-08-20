@@ -495,9 +495,6 @@ def help_command(option_config, params):
             print("If no <project> is passed, only built binaries and non-project specific temporary files are deleted.")
             print("If the <project> parameter is used, then also project-specific temporary files are deleted (e.g., generated graphics assets).")
 
-            print("\n<interactive>")
-            print("If '-y' is passed as <interactive>, then the command won't ask for confirmation.")
-
             print("\nExamples:")
             print("\nxl clean                    \n  It deletes all built binaries and non-project specific temporary files.")
             print("\nxl clean foo                \n  It deletes all built-in binaries and all temporary files (both generic and project-specific).")

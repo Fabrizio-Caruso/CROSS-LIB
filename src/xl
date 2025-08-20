@@ -1913,11 +1913,11 @@ def list_projects(option_config, params, print_projects=True):
     return count
 
 
-def run_native(option_config, params, target):
 
+
+def run_native(option_config, params, target):
     command_prefix = "../build/X" + params[1] + "_" + target
 
-    
     if len(params)>=4:
         xsize = params[2]
         ysize = params[3]
@@ -1930,17 +1930,8 @@ def run_native(option_config, params, target):
 
 
 def run_stdio(option_config, params):
-    command_prefix = "../build/X" + params[1] + "_stdio"
+    run_native(option_config, params, "stdio")
 
-    if len(params)>=4:
-        xsize = params[3]
-        ysize = params[4]
-        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
-    else:
-        command_string = command_prefix + "." + NATIVE_EXTENSION
-    option_config.terminal_config.native_console = 1
-    run_command(option_config, command_string)
-    option_config.terminal_config.native_console = 0
 
 DEFAULT_TARGET_MAP = {\
                      "vic20":"vic20_exp_16k", \

@@ -1475,8 +1475,8 @@ def test_self(option_config, target = "stdio"):
     if success:
         printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
-    option_config.terminal_config.test = 0
-    option_config.terminal_config.show_fail = 0
+    # option_config.terminal_config.test = 0
+    # option_config.terminal_config.show_fail = 0
     
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
@@ -1484,8 +1484,8 @@ def test_self(option_config, target = "stdio"):
 
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
-    option_config.terminal_config.test = 1
-    option_config.terminal_config.show_fail = 1
+    # option_config.terminal_config.test = 1
+    # option_config.terminal_config.show_fail = 1
 
     projects_before_create = list_projects(option_config, ["list"],False)
 
@@ -1507,8 +1507,8 @@ def test_self(option_config, target = "stdio"):
     
 
 
-    option_config.terminal_config.test = 0
-    option_config.terminal_config.show_fail = 0
+    # option_config.terminal_config.test = 0
+    # option_config.terminal_config.show_fail = 0
     # run
     printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
 
@@ -1517,8 +1517,8 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
 
-    option_config.terminal_config.test = 1
-    option_config.terminal_config.show_fail = 1
+    # option_config.terminal_config.test = 1
+    # option_config.terminal_config.show_fail = 1
     
     # delete
     delete(option_config, ["","_cloned_test_project","-y"])

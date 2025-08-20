@@ -24,7 +24,8 @@ from modules.help_functions import help_command, manual
 from modules.file_functions import *
 from modules.tests import *
 from modules.split_projects import *
-from run import run_command
+from modules.run import run_command
+from modules.commands import commands
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -1929,13 +1930,16 @@ def run_native(option_config, params, target):
 
     command_prefix = "../build/X" + params[1] + "_" + target
 
+    
     if len(params)>=4:
         xsize = params[2]
         ysize = params[3]
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
+    option_config.terminal_config.show_fail = 0
     run_command(option_config, command_string)
+    option_config.terminal_config.show_fail = 1
 
 
 def run_stdio(option_config, params):
@@ -1947,8 +1951,9 @@ def run_stdio(option_config, params):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
+    option_config.terminal_config.show_fail = 0
     run_command(option_config, command_string)
-
+    option_config.terminal_config.show_fail = 1
 
 DEFAULT_TARGET_MAP = {\
                      "vic20":"vic20_exp_16k", \

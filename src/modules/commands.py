@@ -1,5 +1,6 @@
 from collections import OrderedDict
-
+from import_from_source import printc
+from print_functions import bcolors
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {

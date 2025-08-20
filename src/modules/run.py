@@ -12,10 +12,10 @@ def run_command(option_config, command_string):
     
     if verbose:
         printc(option_config, bcolors.BOLD, command_string+"\n")
-    if native_console and (test or not verbose):
+    if not native_console and (test or not verbose):
         command_string+= " > /dev/null 2>&1"
 
     res = os.system(command_string)
 
-    if native_console and res:
+    if not native_console and res:
         printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")

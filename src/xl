@@ -1924,9 +1924,9 @@ def run_native(option_config, params, target):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    option_config.terminal_config.native_console = 0
-    run_command(option_config, command_string)
     option_config.terminal_config.native_console = 1
+    run_command(option_config, command_string)
+    option_config.terminal_config.native_console = 0
 
 
 def run_stdio(option_config, params):
@@ -1938,9 +1938,9 @@ def run_stdio(option_config, params):
         command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
     else:
         command_string = command_prefix + "." + NATIVE_EXTENSION
-    option_config.terminal_config.native_console = 0
-    run_command(option_config, command_string)
     option_config.terminal_config.native_console = 1
+    run_command(option_config, command_string)
+    option_config.terminal_config.native_console = 0
 
 DEFAULT_TARGET_MAP = {\
                      "vic20":"vic20_exp_16k", \
@@ -2368,7 +2368,7 @@ def read_config(config_file="./config.ini"):
 
         logger.info("Color terminal: %s", str(color_terminal))
 
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=1)
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0)
 
 
         if verbose:

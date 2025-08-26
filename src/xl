@@ -82,7 +82,8 @@ class TerminalConfig():
         color_terminal,
         test,
         native_console,
-        fast_test
+        fast_test,
+        interactive_test
         ):
         # terminal
         self.verbose = verbose
@@ -90,6 +91,7 @@ class TerminalConfig():
         self.test = test
         self.native_console = native_console
         self.fast_test = fast_test
+        self.interactive_test = interactive_test
 
 
 class RomConfig():
@@ -1453,7 +1455,8 @@ def test_self(option_config, target = "stdio"):
         printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
 
     fast_test = option_config.terminal_config.fast_test
-    if not fast_test:
+    interactive_test = option_config.terminal_config.interactive_test
+    if interactive_test:
         # run
         printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
         run(option_config, ["run", "_test_project", target])
@@ -1478,7 +1481,7 @@ def test_self(option_config, target = "stdio"):
     #build
     build(option_config, ["build", "_cloned_test_project", target])
     
-    if not fast_test:
+    if interactive_test:
 
         # run
         printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
@@ -2350,8 +2353,15 @@ def read_config(config_file="./config.ini"):
         if fast_test!="":
             fast_test=int(fast_test)
         else:
-            fast_test=0
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test)
+            fast_test=1
+            
+        interactive_test = read_config_option(config,"terminal","interactive_test")
+        if interactive_test!="":
+            interactive_test=int(interactive_test)
+        else:
+            interactive_test=0
+
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test, interactive_test=interactive_test)
 
 
         if verbose:
@@ -2482,10 +2492,13 @@ def display_config(option_config):
     verbose = option_config.terminal_config.verbose
     color_terminal = option_config.terminal_config.color_terminal
     fast_test = option_config.terminal_config.fast_test
+    interactive_test = option_config.terminal_config.interactive_test
     
     print("verbose: " + str(verbose))
     print("color: " + str(color_terminal))
     print("fast_test: " + str(fast_test))
+    print("interactive_test: " + str(interactive_test))
+
 
     print("")
 

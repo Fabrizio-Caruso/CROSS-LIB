@@ -6,6 +6,7 @@ from init import *
 from import_from_source import printc
 from file_functions import files_in_path
 from run import run_command
+from print_functions import printc, bcolors
 
 CROSS_COMPILER_COMMAND = \
     {
@@ -228,86 +229,72 @@ MAKE_COMMAND_EXPECTED = \
     'gmake' : 0,
     }
 
-def check_programs(title, command_list, expected_list, verbose=True):
-    if verbose:
-        print("----------------------------------------\n")
-        print(title)
-        print("----------------------------------------\n")
-
+def check_programs(option_config, title, command_list, expected_list, silent=False):
     total_result = {}
 
-    # max_len = 0
-    # for compiler in command_list.keys():
-        # if len(compiler)>max_len:
-            # max_len = len(compiler)
+    max_len = 0
+    for compiler in command_list.keys():
+        if len(compiler)>max_len:
+            max_len = len(compiler)
     max_len = 28
 
     for compiler in command_list.keys():
         result = os.system(command_list[compiler] + " > /dev/null 2>&1")
         spaces = " " * (max_len+1-len(compiler))
         if result==expected_list[compiler]:
-            if verbose:
-                print("[" + compiler + "] found")
-            # res = "found\n"
-            # res_color = bcolors.OKGREEN
-            # res_color2 = bcolors.OKGREEN
+            # print("[" + compiler + "] found")
+            res = "found\n"
+            res_color = bcolors.OKGREEN
+            res_color2 = bcolors.OKGREEN
             total_result[compiler]=True
-            # print(res)
         else:
 
             total_result[compiler]=False
             if compiler in BUILDABLE_TOOLS:
-                res = "NOT built"
-                # res_color = bcolors.OKBLUE
-                # res_color2 = bcolors.OKCYAN
+                res = "NOT built\n"
+                res_color = bcolors.OKBLUE
+                res_color2 = bcolors.OKCYAN
             else:
                 res = "NOT found\n"
-                # res_color = bcolors.WARNING
-                # res_color2 = bcolors.WARNING
-            if verbose:
-                print("[" + compiler + "] " + res)
-            # if verbose:
-                # printc(option_config, res_color,"[" + compiler + "]")
-        # if verbose:
-            # printc(option_config, res_color2, spaces + res)
-        # print(res)
-    if verbose:
-        print("----------------------------------------\n\n")
-    # print(total_result)
+                res_color = bcolors.WARNING
+                res_color2 = bcolors.WARNING
+        if not silent:
+            printc(option_config, res_color,"[" + compiler + "]")
+            printc(option_config, res_color2, spaces + res)
     return total_result
 
 
 
-def test_cross_compilers():
-    return check_programs("CROSS_COMPILERS", CROSS_COMPILER_COMMAND, \
+def test_cross_compilers(option_config):
+    return check_programs(option_config, "CROSS_COMPILERS", CROSS_COMPILER_COMMAND, \
                           CROSS_COMPILER_COMMAND_EXPECTED)
 
-def test_native_compilers():
-    return check_programs("NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, \
+def test_native_compilers(option_config):
+    return check_programs(option_config, "NATIVE_COMPILERS", NATIVE_COMPILER_COMMAND, \
                           NATIVE_COMPILER_COMMAND_EXPECTED)
 
-def test_make(verbose=True):
-    return check_programs("MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, verbose)
+def test_make(option_config, silent):
+    return check_programs(option_config, "MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, silent)
 
-def test_tools(verbose=True):
-    return check_programs("TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, verbose)
+def test_tools(option_config, silent=False):
+    return check_programs(option_config, "TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, silent)
 
-def test_emulators():
-    return check_programs("EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
+def test_emulators(option_config):
+    return check_programs(option_config, "EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
 
-def test_interpreters():
-    return check_programs("INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
+def test_interpreters(option_config):
+    return check_programs(option_config, "INTERPRETERS", INTERPRETER_COMMAND,INTERPRETER_COMMAND_EXPECTED)
 
-def test_libraries():
-    return check_programs("LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
+def test_libraries(option_config):
+    return check_programs(option_config, "LIBRARIES", LIBRARY_COMMAND, LIBRARY_COMMAND_EXPECTED)
 
-def test_roms():
-    return check_programs("ROMS", ROM_COMMAND, ROM_COMMAND_EXPECTED)
+def test_roms(option_config):
+    return check_programs(option_config, "ROMS", ROM_COMMAND, ROM_COMMAND_EXPECTED)
 
 
-def test_compilers():
-    test_native_compilers()
-    test_cross_compilers()
+def test_compilers(option_config):
+    test_native_compilers(option_config)
+    test_cross_compilers(option_config)
 
 
 def run_single_unit_test(option_config, test_file_name, path="unit_tests"):

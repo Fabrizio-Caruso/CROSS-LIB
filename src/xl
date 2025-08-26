@@ -874,7 +874,8 @@ def slow(option_config, params):
         return
 
     if is_project_split(game_dir):
-        printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
 
     make_command = \
@@ -886,7 +887,8 @@ def slow(option_config, params):
     run_command(option_config, make_command)
 
     if is_project_split(game_dir):
-        printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
         delete_main(option_config, game_dir, project_type)
 
 
@@ -1628,12 +1630,12 @@ def test_all(option_config, params):
     return test_self(option_config, params)
 
 expected_files = {
-    "cc65_extra": 8,
-    "z88dk_extra": 5,
-    "cmoc_extra": 3,
-    "lcc1802_extra": 1,
-    "stdio_extra": 1,
-    "z88dk_extra_alt": 38
+    "cc65": 8,
+    "z88dk": 5,
+    "cmoc": 3,
+    "lcc1802": 1,
+    "z88dk_alt": 38,
+    "stdio_alt": 1
     }
 
 
@@ -1643,7 +1645,7 @@ def targets_test(option_config, params):
     success = clean_test(option_config)
     compilation_threads = option_config.build_config.compilation_threads
     native_compiler = option_config.build_config.native_compiler
-    if params[1].startswith("z88dk_extra"):
+    if params[1].startswith("z88dk") or params[1]=="cc65":
         parallel = " -j " + compilation_threads
     else:
         parallel = ""
@@ -1651,27 +1653,29 @@ def targets_test(option_config, params):
     game_dir = "chase"
     project_type = "game"
     if is_project_split(game_dir):
-        printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
-    if params[1].endswith("_extra"):
-        make_command = GNU_MAKE + parallel + " test_" + params[1] + " " + \
+    if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802"):
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + "_extra " + \
                        " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
                        all_compilers_opts(option_config, "","") + \
                        " -f makefiles.other/chase/tests/Makefile.tests"
         run_command(option_config, make_command)
-    elif params[1]=="z88dk_extra_alt":
-        # parallel = ""
+    elif params[1]=="z88dk_alt":
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
-            print("Delete main.c (because of split source files)\n")
+            if verbose:
+                printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)
         sys.exit(-1)
     if is_project_split("chase"):
-        printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(option_config, game_dir, project_type)
 
 
@@ -1680,9 +1684,8 @@ def targets_test(option_config, params):
         print("Number of built files: " + str(built_files))
 
     if params[1] in expected_files.keys():
-        if verbose:
-            printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
-            printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
+        printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
+        printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
         if built_files != expected_files[params[1]]:
             printc(option_config, bcolors.FAIL, "binaries KO\n")
             success=0
@@ -1727,8 +1730,8 @@ def test(option_config, params):
     elif params[1]=="make":
         test_make()
     elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
-        unit_tests(option_config, verbose=True)
-    elif params[1].endswith('extra') or params[1].endswith('extra_alt'):
+        unit_tests(option_config)
+    elif params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params[1].endswith('_alt'):
         if targets_test(option_config, params):
             printc(option_config, bcolors.OKGREEN, "TEST OK\n")
         else:

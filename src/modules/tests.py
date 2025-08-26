@@ -315,7 +315,10 @@ def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
+    verbosity = option_config.terminal_config.verbose
+    option_config.terminal_config.verbose = 1
     run_command(option_config, command_string)
+    option_config.terminal_config.verbose = verbosity
 
 
 def unit_tests(option_config, path="./"):

@@ -121,6 +121,7 @@ class BuildConfig():
     def __init__(
         self,
         compilation_threads,
+        compilation_threads_string,
         parallelize_multi_build,
         z88dk_compiler,
         z88dk_compiler_opts,
@@ -138,25 +139,27 @@ class BuildConfig():
         ):
 
         # build
-        self.compilation_threads     = compilation_threads
-        self.parallelize_multi_build = parallelize_multi_build
-        self.z88dk_compiler          = z88dk_compiler
-        self.z88dk_compiler_opts     = z88dk_compiler_opts
-        self.sccz80_compiler_opts    = sccz80_compiler_opts
-        self.zsdcc_compiler_opts     = zsdcc_compiler_opts
-        self.cmoc_compiler_opts      = cmoc_compiler_opts
-        self.cc65_compiler_opts      = cc65_compiler_opts
-        self.lcc1802_compiler_opts   = lcc1802_compiler_opts
-        self.gcc4ti99_compiler_opts  = gcc4ti99_compiler_opts
-        self.vbcc_compiler_opts      = vbcc_compiler_opts
-        self.native_compiler_opts    = native_compiler_opts
-        self.native_compiler         = native_compiler
-        self.tool_compiler           = tool_compiler
-        self.use_tools               = use_tools
+        self.compilation_threads        = compilation_threads
+        self.compilation_threads_string = compilation_threads_string
+        self.parallelize_multi_build    = parallelize_multi_build
+        self.z88dk_compiler             = z88dk_compiler
+        self.z88dk_compiler_opts        = z88dk_compiler_opts
+        self.sccz80_compiler_opts       = sccz80_compiler_opts
+        self.zsdcc_compiler_opts        = zsdcc_compiler_opts
+        self.cmoc_compiler_opts         = cmoc_compiler_opts
+        self.cc65_compiler_opts         = cc65_compiler_opts
+        self.lcc1802_compiler_opts      = lcc1802_compiler_opts
+        self.gcc4ti99_compiler_opts     = gcc4ti99_compiler_opts
+        self.vbcc_compiler_opts         = vbcc_compiler_opts
+        self.native_compiler_opts       = native_compiler_opts
+        self.native_compiler            = native_compiler
+        self.tool_compiler              = tool_compiler
+        self.use_tools                  = use_tools
 
     def get_opts(self):
         return \
             self.compilation_threads, \
+            self.compilation_threads_string, \
             self.parallelize_multi_build, \
             self.z88dk_compiler, \
             self.z88dk_compiler_opts, \
@@ -208,6 +211,7 @@ def clean_test(option_config):
 def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
 
     compilation_threads, \
+    compilation_threads_string, \
     parallelize_multi_build, \
     z88dk_compiler, \
     z88dk_compiler_opts, \
@@ -402,6 +406,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
     verbose = option_config.terminal_config.verbose
 
     compilation_threads, \
+    compilation_threads_string, \
     parallelize_multi_build, \
     z88dk_compiler, \
     z88dk_compiler_opts, \
@@ -717,6 +722,7 @@ def build(option_config, params, reset_flag = False):
             target = target + "_targets"
 
         compilation_threads, \
+        compilation_threads_string, \
         parallelize_multi_build, \
         z88dk_compiler, \
         z88dk_compiler_opts, \
@@ -2322,6 +2328,8 @@ def read_config_option(config, section, option):
     return ""
 
 def read_config(config_file="./config.ini"):
+    if not os.path.exists(config_file):
+        raise Exception
     try:
         import configparser
     except ImportError:
@@ -2332,6 +2340,7 @@ def read_config(config_file="./config.ini"):
     config = configparser.ConfigParser()
 
     try:
+        
         config.read(config_file)
         
         verbose = read_config_option(config,"terminal","verbose")
@@ -2344,7 +2353,11 @@ def read_config(config_file="./config.ini"):
             print("Verbose Mode ON")
 
         # print("Extracting color_terminal")
-        color_terminal = read_config_option(config,"terminal","color")
+        color_terminal = read_config_option(config,"terminal","color_terminal")
+        if color_terminal!="":
+            color_terminal=int(color_terminal)
+        else:
+            color_terminal=0
         # print("DONE Extracting color_terminal")
 
         logger.info("Color terminal: %s", str(color_terminal))
@@ -2368,10 +2381,10 @@ def read_config(config_file="./config.ini"):
             print("Config file found with: " + str(config.sections()))
             # print("")
 
-        compilation_threads = read_config_option(config,"build","threads")
+        compilation_threads_string = read_config_option(config,"build","compilation_threads")
 
 
-        if compilation_threads in ("auto", "automaic"):
+        if compilation_threads_string in ("auto", "automatic"):
             if verbose:
                 print("----------------------------")
             import multiprocessing
@@ -2379,7 +2392,8 @@ def read_config(config_file="./config.ini"):
             if verbose:
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
-
+        else:
+            compilation_threads = compilation_threads_string
         logger.info("Compilation threads: %s", str(compilation_threads))
 
         parallelize_multi_build = read_config_option(config,"build","parallelize_multi_build")
@@ -2430,6 +2444,7 @@ def read_config(config_file="./config.ini"):
 
         build_config = BuildConfig( \
             compilation_threads,
+            compilation_threads_string,
             parallelize_multi_build,
             z88dk_compiler,
             z88dk_compiler_opts,
@@ -2462,27 +2477,58 @@ def read_config(config_file="./config.ini"):
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         print(f"exc_type: {exc_type}, fname: {fname}, exc_tb.tb_lineno: {exc_tb.tb_lineno}")
+        raise e
 
 
 def default_config():
+    try:
+        terminal_config = TerminalConfig( \
+            verbose=0, 
+            color_terminal=0, 
+            test=0, 
+            native_console=0, 
+            fast_test=1, 
+            interactive_test=0
+        )
 
-    verbose = True
-    compilation_threads = 1
-    parallelize_multi_build = 0
-    zsdcc_compiler_opts = ""
-    sccz80_compiler_opts = ""
-    z88dk_compiler_opts = ""
-    z88dk_compiler = "sccz80"
-    cmoc_compiler_opts = ""
-    native_compiler_opts = ""
-    native_compiler = "gcc"
-    tool_compiler = "gcc"
-    cc65_compiler_opts = "-O -Cl"
-    lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"'
-    gcc4ti99_compiler_opts = "-O2"
-    vbcc_compiler_opts = "-O1"
-    use_tools = 0
-    color_terminal = 0
+        rom_config = RomConfig( \
+            vice_path="", 
+            vice_rom_path="../roms/vice/", 
+            mame_path="", 
+            mame_rom_path="../roms/mame/"
+        )
+
+        extend_config = ExtendConfig( \
+            extend_algorithm="duplicate", 
+            replace_shapes=1
+        )
+
+        build_config = BuildConfig( \
+            compilation_threads = "1",
+            compilation_threads_string = "",
+            parallelize_multi_build = "0",
+            z88dk_compiler = "sccz80",
+            z88dk_compiler_opts = "",
+            sccz80_compiler_opts = "",
+            zsdcc_compiler_opts = "",
+            cmoc_compiler_opts = "",
+            cc65_compiler_opts = "-Or -Cl",
+            lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"',
+            gcc4ti99_compiler_opts = "-O2 -fno-peephole2 -fno-function-cse",
+            vbcc_compiler_opts = "",
+            native_compiler_opts = "",
+            native_compiler = "gcc",
+            tool_compiler = "gcc",
+            use_tools = "0"
+        )
+        
+        option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
+        
+    except:
+        log.warning("Error in default config")
+        print("Error in default config")
+        sys.exit(-1)
+    return option_config
 
 
 def display_config(option_config):
@@ -2494,15 +2540,15 @@ def display_config(option_config):
     fast_test = option_config.terminal_config.fast_test
     interactive_test = option_config.terminal_config.interactive_test
     
-    print("verbose: " + str(verbose))
-    print("color: " + str(color_terminal))
-    print("fast_test: " + str(fast_test))
-    print("interactive_test: " + str(interactive_test))
-
+    print("verbose:                 " + str(verbose))
+    print("color_terminal:          " + str(color_terminal))
+    print("fast_test:               " + str(fast_test))
+    print("interactive_test:        " + str(interactive_test))
 
     print("")
 
     compilation_threads, \
+    compilation_threads_string, \
     parallelize_multi_build, \
     z88dk_compiler, \
     z88dk_compiler_opts, \
@@ -2519,37 +2565,43 @@ def display_config(option_config):
     use_tools \
     = option_config.build_config.get_opts()
 
+    compilation_threads = option_config.build_config.compilation_threads
+
     printc(option_config, bcolors.BOLD,"[build]\n")
-    print("compilation_threads: " + str(compilation_threads))
+    if compilation_threads_string.startswith("auto"):
+        print("compilation_threads:     " + str(compilation_threads_string) + " (" + compilation_threads + ")" )
+
+    else:
+        print("compilation_threads:     " + str(compilation_threads))
     print("parallelize_multi_build: " + str(parallelize_multi_build))
 
-    print("z88dk_compiler: " + z88dk_compiler)
-    print("z88dk_compiler_opts: " +  z88dk_compiler_opts)
-    print("sccz80_compiler_opts: " + sccz80_compiler_opts)
-    print("zsdcc_compiler_opts: " +  zsdcc_compiler_opts)
-    print("cmoc_compiler_opts: " +  cmoc_compiler_opts)
-    print("cc65_compiler_opts: " +  cc65_compiler_opts)
-    print("lcc1802_compiler_opts: " +  lcc1802_compiler_opts)
-    print("gcc4ti99_compiler_opts: " +  gcc4ti99_compiler_opts)
-    print("vbcc_compiler_opts: " +  vbcc_compiler_opts)
-    print("native_compiler_opts: " +  native_compiler_opts)
+    print("z88dk_compiler:          " + z88dk_compiler)
+    print("z88dk_compiler_opts:     " +  z88dk_compiler_opts)
+    print("sccz80_compiler_opts:    " + sccz80_compiler_opts)
+    print("zsdcc_compiler_opts:     " +  zsdcc_compiler_opts)
+    print("cmoc_compiler_opts:      " +  cmoc_compiler_opts)
+    print("cc65_compiler_opts:      " +  cc65_compiler_opts)
+    print("lcc1802_compiler_opts:   " +  lcc1802_compiler_opts)
+    print("gcc4ti99_compiler_opts:  " +  gcc4ti99_compiler_opts)
+    print("vbcc_compiler_opts:      " +  vbcc_compiler_opts)
+    print("native_compiler_opts:    " +  native_compiler_opts)
 
-    print("native_compiler: " +  native_compiler)
-    print("use_tools: " + str(use_tools))
+    print("native_compiler:         " +  native_compiler)
+    print("use_tools:               " + str(use_tools))
 
-    print("tool_compiler: " +  tool_compiler)
+    print("tool_compiler:           " +  tool_compiler)
 
     print("")
     printc(option_config, bcolors.BOLD,"[run]\n")
-    print("vice_path: " +  option_config.rom_config.vice_path)
-    print("vice_rom_path: " +  option_config.rom_config.vice_rom_path)
-    print("mame_path: " +  option_config.rom_config.mame_path)
-    print("mame_rom_path: " +  option_config.rom_config.mame_rom_path)
+    print("vice_path:               " +  option_config.rom_config.vice_path)
+    print("vice_rom_path:           " +  option_config.rom_config.vice_rom_path)
+    print("mame_path:               " +  option_config.rom_config.mame_path)
+    print("mame_rom_path:           " +  option_config.rom_config.mame_rom_path)
 
     print("")
     printc(option_config, bcolors.BOLD,"[extend]\n")
-    print("extend_algorithm: " +  option_config.extend_config.extend_algorithm)
-    print("replace_shapes: " +  str(option_config.extend_config.replace_shapes))
+    print("extend_algorithm:        " +  option_config.extend_config.extend_algorithm)
+    print("replace_shapes:          " +  str(option_config.extend_config.replace_shapes))
 
 
 
@@ -2577,8 +2629,10 @@ if __name__ == "__main__":
         sys.exit(-1)
     try:
         # print("Reading config")
-        logger.info("(read_config) Read configuration file")
+        # logger.info("(read_config) Read configuration file")
         option_config = read_config()
+        # option_config = default_config()
+
         logger.info("(read_config) Configuration file read")
     except:
         logger.warning("Reverting to default configuration")

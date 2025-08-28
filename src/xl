@@ -27,6 +27,8 @@ from modules.split_projects import *
 from modules.run import run_command
 from modules.commands import commands
 
+DEFAULT_COMPILATION_THREADS = 2
+
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
 PLUS4_EMULATOR = "xplus4"
@@ -2392,6 +2394,8 @@ def read_config(config_file="./config.ini"):
             if verbose:
                 print("Detected " + compilation_threads + " threads...")
                 print("----------------------------")
+        elif compilation_threads_string == "default":
+            compilation_threads = str(DEFAULT_COMPILATION_THREADS)
         else:
             compilation_threads = compilation_threads_string
         logger.info("Compilation threads: %s", str(compilation_threads))
@@ -2504,8 +2508,8 @@ def default_config():
         )
 
         build_config = BuildConfig( \
-            compilation_threads = "1",
-            compilation_threads_string = "",
+            compilation_threads = str(DEFAULT_COMPILATION_THREADS),
+            compilation_threads_string = "default",
             parallelize_multi_build = "0",
             z88dk_compiler = "sccz80",
             z88dk_compiler_opts = "",
@@ -2568,7 +2572,7 @@ def display_config(option_config):
     compilation_threads = option_config.build_config.compilation_threads
 
     printc(option_config, bcolors.BOLD,"[build]\n")
-    if compilation_threads_string.startswith("auto"):
+    if not compilation_threads_string.isnumeric():
         print("compilation_threads:     " + str(compilation_threads_string) + " (" + compilation_threads + ")" )
 
     else:

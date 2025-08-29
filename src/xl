@@ -26,6 +26,7 @@ from modules.tests import *
 from modules.split_projects import *
 from modules.run import run_command
 from modules.commands import commands
+from modules.input_functions import generic_input
 
 DEFAULT_COMPILATION_THREADS = 2
 
@@ -1063,9 +1064,7 @@ def reset(option_config, params):
             " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
         if verbose:
             print("Delete all non-project-specific temporary files")
-        if are_you_sure()=="y":
-            run_command(option_config, make_command)
-            return
+        run_command(option_config, make_command)
         return
 
     game_dir = params[1]

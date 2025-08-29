@@ -3,13 +3,12 @@ import os
 from params import COMMANDS_LIST, COMMANDS_DESCRIPTIONS, commands, full_params
 from import_from_source import printc, bcolors
 from file_functions import *
+from input_functions import generic_input
+
 import time
 import sys
 
-def generic_input(string):
-    if sys.version_info[0] < 3:
-        return raw_input(string)
-    return input(string)
+
 
 def list_of_documented_routines():
     manual_files = files_in_path("../docs/manual/")

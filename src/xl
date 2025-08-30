@@ -28,7 +28,8 @@ from modules.run import run_command
 from modules.commands import commands
 from modules.input_functions import generic_input
 from modules.option_functions import *
-
+from modules.project_functions import rename, clone
+from modules.target_defs import *
 
 DEFAULT_COMPILATION_THREADS = 2
 
@@ -38,38 +39,6 @@ PLUS4_EMULATOR = "xplus4"
 PET_EMULATOR = "xpet"
 
 MAME_EMULATOR = "mame"
-
-# platform = sys.platform
-
-# if(platform in ["cygwin", "msys"]):
-    # NATIVE_EXTENSION="exe"
-# else:
-    # NATIVE_EXTENSION="out"
-
-
-# compilation_threads = None
-# parallelize_multi_build = None
-# z88dk_compiler_opts = None
-# z88dk_compiler = None
-# sccz80_compiler_opts = None
-# zsdcc_compiler_opts = None
-# cmoc_compiler_opts = None
-# cc65_compiler_opts = None
-# lcc1802_compiler_opts = None
-# gcc4ti99_compiler_opts = None
-# vbcc_compiler_opts = None
-# native_compiler_opts = None
-# native_compiler = None
-# tool_compiler = None
-# vice_path = None
-# vice_rom_path = None
-# mame_path = None
-# mame_rom_path = None
-# extend_algorithm = None
-# replace_shapes = None
-# use_tools = None
-# config = None
-
 
 # LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
@@ -134,111 +103,6 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         if is_project_split(project_name):
             delete_main(option_config, project_name,project_type)
 
-#TODO: cc65 targets
-#TODO: cmoc targets
-#TODO: lcc1802 targets
-#TODO: mc10 (6303)
-#TODO: c128 (complicated because of c1541)
-#TODO: cpc (complicated because of nocart)
-PARALLEL_TARGETS = \
-    [
-    'stdio',
-
-    'apple2',
-    'apple2enh',
-    'atari',
-    'atari_lynx',
-    'atari5200',
-    'atari7800',
-    'c16',
-    'c64',
-    'cbm610',
-    'cbm510',
-    'creativision',
-    'gamate',
-    'oric',
-    'nes',
-    'pet',
-    'pce',
-    'supervision',
-    'vic20',
-
-    'ncurses',
-    'terminal',
-    'terminal8x8',
-    'terminal8x6',
-    'terminal7x8',
-    'terminal6x9',
-    'terminal6x8',
-
-    'ace',
-    'agon',
-    'aquarius',
-    'aussie',
-    'bit90',
-    'camputers_lynx',
-    'cpm',
-    'coleco',
-    'eg2k',
-    'einstein',
-    'gb',
-    'gal',
-    'gl6000sl',
-    'gamegear',
-    'hector',
-    'hectorhr',
-    'kaypro',
-    'kaypro83',
-    'kc85',
-    'lambda',
-    'laser500',
-    'm5',
-    'm5_rom',
-    'm5_keyboard',
-    'm5_keyboard_rom',
-    'm100',
-    'mc1000',
-    'mc1000_mono',
-    'microbee',
-    'msx',
-    'mtx500',
-    'mtx512',
-    'mz',
-    'mz2500',
-    'newbrain',
-    'nc100',
-    'nc200',
-    'pc8201',
-    'pc88',
-    'pv1000',
-    'pv1000_no_gfx',
-    'px4',
-    'px8',
-    'samcoupe',
-    'sc3000',
-    'sc3000_rom',
-    'sg1000',
-    'sms',
-    'spectrum',
-    'svi',
-    't200',
-    'trs80',
-    'vg5k',
-    'vz200',
-    'x1',
-    'zx81',
-    'zx81_wrx',
-    'zx81_8x6',
-    'zx81_wrx64',
-    'zx81_8x6_wrx64',
-    'zx81_wrx128',
-    'zx81_8x6_wrx128',
-    'z9001',
-    'kc',
-    'z1013',
-    'zx80',
-    'zxn'
-    ]
 
 def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):
     projects = []
@@ -274,7 +138,6 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
 
     projects_to_build = len(projects)
 
-    # files_before = len(files_in_path("../build"))-1
     if verbose:
         print("Building " + str(projects_to_build) + " projects: ", end="")
         for project_name in projects:
@@ -404,90 +267,6 @@ def rebuild(option_config, params):
     build(option_config, params, reset_flag=True)
 
 
-# Rename a project
-def rename(option_config, params):
-    if len(params)<2:
-        source_game_dir = "helloworld"
-    else:
-        source_game_dir = params[1]
-
-    if len(params)<3:
-        print("ERROR: You need to provide more paramaters")
-        return
-
-    target_game_dir = params[2]
-
-    source_project_type = project_category(source_game_dir)
-
-    if source_project_type != "project":
-        return
-
-    target_project_type = "project"
-    target_parent_dir = target_project_type + "s"
-    target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
-
-    if option_config.terminal_config.verbose:
-
-        print("source_project_type: " + source_project_type)
-
-    convert_makefile(option_config, source_game_dir, source_project_type, source_game_dir, target_game_dir)
-
-    os.rename(target_parent_dir + "/" +source_game_dir, target_parent_dir_and_game_dir)
-
-
-# Clone a project to create a new one
-def clone(option_config, params):
-    verbose = option_config.terminal_config.verbose
-    if len(params)<2:
-        source_game_dir = "helloworld"
-    else:
-        source_game_dir = params[1]
-
-    if len(params)<3:
-        return
-
-    target_game_dir = params[2]
-
-
-    source_project_type = project_category(source_game_dir)
-    if verbose:
-        print("source project category: " + source_project_type)
-    source_parent_dir = source_project_type + "s"
-    source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
-
-    target_project_type = "project"
-    target_parent_dir = target_project_type + "s"
-    target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
-
-    if verbose:
-        print("Source project name    : " + source_game_dir)
-        print("Source Project type    : " + source_project_type)
-        print("Path to source project : " + source_parent_and_game_dir)
-        print("")
-        print("Target project name    : " + target_game_dir)
-        print("target Project type    : " + target_project_type)
-        print("Path to target project : " + target_parent_dir_and_game_dir)
-
-    source_path = source_parent_and_game_dir
-    if verbose:
-        print("source_path: " + source_path)
-    dest_path = target_parent_dir_and_game_dir
-    if verbose:
-        print("dest_path: " + dest_path)
-
-    if not os.path.exists(dest_path+"/tiles"):
-        if verbose:
-            print("Copying tiles...")
-        shutil.copytree(source_path, dest_path)
-
-    if not os.path.exists(dest_path+"/generated_assets"):
-        if verbose:
-            print("Create empty generated_assets directory...")
-        os.makedirs(dest_path+"/generated_assets")
-
-    convert_makefile(option_config, target_game_dir, source_project_type, source_game_dir, target_game_dir)
-
-
 # Generate tools from source code
 def tools(option_config):
     compilation_threads = option_config.build_config.compilation_threads
@@ -570,16 +349,7 @@ def build(option_config, params, reset_flag = False):
         color_terminal = option_config.terminal_config.color_terminal
 
         verbose = option_config.terminal_config.verbose
-        
-        # z88dk_compiler_opts = option_config.build_config.z88dk_compiler_opts
-        # zsdcc_compiler_opts = option_config.build_config.zsdcc_compiler_opts
-        # cmoc_compiler_opts = option_config.build_config.cmoc_compiler_opts
-        # cc65_compiler_opts = option_config.build_config.cc65_compiler_opts
-        # lcc1802_compiler_opts = option_config.build_config.lcc1802_compiler_opts
-        # gcc4ti99_compiler_opts = option_config.build_config.gcc4ti99_compiler_opts
-        # vbcc_compiler_opts = option_config.build_config.vbcc_compiler_opts
-        # native_compiler_opts = option_config.build_config.native_compiler_opts
-        
+
         if verbose:
 
             print("Project name       : ", end="")
@@ -663,7 +433,6 @@ def build(option_config, params, reset_flag = False):
 
         if verbose:
             printc(option_config, bcolors.OKBLUE, "New binaries built: " + str(files_after-files_before)+"\n")
-
 
 
 def slow(option_config, params):
@@ -1546,12 +1315,8 @@ def test(option_config, params):
             examples.extend(dirnames)
             break
 
-        # print(projects + games + examples)
-        # quit()
         if params[1] in projects + games + examples or params[1] in \
            ['examples','games','projects','all']:
-            # print("KO")
-            # quit()
             if len(params)>=3:
                 par1 = params[1]
                 par2 = params[2]
@@ -1563,8 +1328,6 @@ def test(option_config, params):
             else:
                 printc(option_config, bcolors.FAIL, "TEST KO\n")
         else:
-            # print("OK")
-            # quit()
             test_all(option_config, params[1])
         return
 
@@ -1587,7 +1350,6 @@ def check(option_config, params, silent=False):
         xl_run_cross_target = True
         native_target = True
         cross_target = True
-
 
         if not make['make'] and not make['gmake']:
             printc(option_config, bcolors.FAIL, "No make command detected!\n")
@@ -1634,7 +1396,6 @@ def check(option_config, params, silent=False):
         if tools and native_target and xl_run_cross_target and cross_target:
             printc(option_config, bcolors.OKCYAN, "No issue found\n")
 
-
     elif params[1]=="compilers":
         test_compilers(option_config)
     elif params[1]=="tools":
@@ -1671,32 +1432,6 @@ def run_native(option_config, params, target):
 
 def run_stdio(option_config, params):
     run_native(option_config, params, "stdio")
-
-
-DEFAULT_TARGET_MAP = {\
-                     "vic20":"vic20_exp_16k", \
-                     "c16":"c16_16k", \
-                     "plus4":"c16_32k", \
-                     "pet":"pet_16k", \
-                     "msx": "msx_16k" \
-                     }
-
-VICE_TARGETS = ["c64",
-                "vic20", 
-                "vic20_unexpanded", 
-                "vic20_exp_3k", 
-                "vic20_exp_8k", 
-                "vic20_exp_16k",
-                "c16", 
-                "plus4", 
-                "c16_16k", 
-                "c16_32k",
-                "pet", 
-                "pet_8k", 
-                "pet_16k"
-               ]
-
-MAME_TARGETS = ["msx", "msx_16k"]
 
 
 # Run a project by using an emulator if necessary. Only few emulators are supported.
@@ -1980,9 +1715,6 @@ def tiles(option_config, params):
         detected_ysize = detect_ysize(params[2])
         xsize_str = str(detected_xsize)
         ysize_str = str(detected_ysize)
-        # if verbose:
-            # print("Detected xsize: " + xsize_str)
-            # print("Detected ysize: " + ysize_str)
     else:                # no parameter
         xsize_str = "8"
         ysize_str = "8"

@@ -3,8 +3,8 @@ from __future__ import print_function
 import sys
 import os
 
-from init import game_projects, example_projects
 from print_functions import *
+from project_functions import project_category
 
 NUMBER_OF_TILES = 27
 
@@ -35,23 +35,12 @@ def display_simple_shape(tile_vect):
         print(row)
 
 
-
 # It returns the path to the shape directory for a given project and dimension
 def path_to_shapes(project, xsize, ysize):
 
     project_cat = project_category(project)
     # print(project_cat)
     return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
-
-
-# It computes the type of project
-def project_category(game_dir):
-    if(game_dir in example_projects):
-        return "example"
-    elif game_dir in game_projects:
-        return "game"
-    else:
-        return "project"
 
 
 # It outputs a list of strings

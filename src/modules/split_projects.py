@@ -1,5 +1,5 @@
 import os
-from import_from_source import project_category
+from project_functions import project_category
 
 from run import run_command
 

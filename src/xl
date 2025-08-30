@@ -30,6 +30,7 @@ from modules.input_functions import generic_input
 from modules.option_functions import *
 from modules.project_functions import rename, clone
 from modules.target_defs import *
+from modules.shape_functions import *
 
 DEFAULT_COMPILATION_THREADS = 2
 
@@ -1562,7 +1563,6 @@ def split(params):
     import_split_tiles(params[1])
 
 
-
 # Import a shape as single tile from a text file that describes its shape with characters
 def tile(params):
 
@@ -1577,129 +1577,6 @@ def tile(params):
         store_tile(params[2], tile, xsize, ysize, params[3])
     else:
         printc(option_config, bcolors.OKCYAN, tile+"\n")
-
-# replace_shapes:
-# 0 -> write in _shapes directory,
-# 1 -> write in shapes directory but avoid overwriting existing shapes or tiles
-def write_shapes(option_config, project, shapes, xsize,ysize):
-    verbose = option_config.terminal_config.verbose
-    replace_shapes = option_config.extend_config.replace_shapes
-    path = path_to_shapes(project,xsize,ysize)
-    if not replace_shapes:
-        path = path.replace("shapes","_shapes")
-    if verbose:
-        print("Writing shapes in: " + path)
-    if os.path.exists(path):
-        if verbose:
-            print("Directory exists")
-    else:
-        if verbose:
-            print("Directory does not exist")
-        os.makedirs(path)
-    for tile_number, shape in shapes.items():
-        #print(tile_number,shape)
-        path_to_shape = path+"shape"+tile_number+".txt"
-        if verbose:
-            print("Path to shape file: " + path_to_shape)
-        path_to_tile = path.replace("shapes","tiles")+"tile"+tile_number+".txt"
-        if verbose:
-            print("Path to tile file: " + path_to_tile)
-        if replace_shapes and (os.path.exists(path_to_shape) or \
-           os.path.exists(path_to_tile)):
-            if os.path.exists(path_to_shape):
-                if verbose:
-                    print("shape "+ tile_number +" already exists")
-            elif os.path.exists(path_to_tile):
-                if verbose:
-                    print("tile "+ tile_number +" already exists")
-        else:
-            with open(path_to_shape,"w") as file:
-                for row in shape:
-                    if verbose:
-                        print(row)
-                    file.write(row+"\n")
-        if verbose:
-            print("")
-
-
-# Extand 8x8 shapes by reshaping them into shapes with other dimensions
-def extend(option_config, params):
-    verbose = option_config.terminal_config.verbose
-    extend_algorithm = option_config.extend_config.extend_algorithm
-    project = params[1]
-
-    path_to_8x8_files = path_to_shapes(project,8,8)
-    if verbose:
-        print("Path to shape files: " + path_to_8x8_files)
-        print("")
-    shape_files = files_in_path(path_to_8x8_files)
-
-    dict7x8 = {}
-    dict6x8 = {}
-    dict8x6 = {}
-    dict6x9 = {}
-    for shape_file in shape_files:
-        path_to_shape_file = path_to_8x8_files + "/" + shape_file
-
-        if verbose:
-            print("shape file: " + shape_file)
-
-        tile_number_str = shape_file[5:].replace(".txt","")
-
-        if verbose:
-            print("---tile number: " + tile_number_str)
-
-            print("")
-
-        tile,xsize,ysize = read_shape(path_to_shape_file)
-        if xsize!=8 or ysize!=8:
-            print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
-            print(tile)
-            return
-
-        if verbose:
-            print(tile)
-
-        if verbose:
-            print("")
-            print("7x8")
-        shape7x8 = convert(tile,7,8,extend_algorithm)
-        if verbose:
-            display_shape(option_config, shape7x8)
-        dict7x8[tile_number_str]=shape7x8
-
-        if verbose:
-            print("")
-            print("6x8")
-        shape6x8 = convert(tile,6,8,extend_algorithm)
-        if verbose:
-            display_shape(option_config, shape6x8)
-        dict6x8[tile_number_str]=shape6x8
-
-        if verbose:
-            print("")
-            print("8x6")
-        shape8x6 = convert(tile,8,6,extend_algorithm)
-        if verbose:
-            display_shape(option_config, shape8x6)
-        dict8x6[tile_number_str]=shape8x6
-
-        if verbose:
-            print("")
-            print("6x9")
-        shape6x9 = convert(tile,6,9,extend_algorithm)
-        if verbose:
-            display_shape(option_config, shape6x9)
-        dict6x9[tile_number_str]=shape6x9
-        if verbose:
-            print("")
-    # print(str(dict7x8))
-    write_shapes(option_config, project,dict7x8,7,8)
-    write_shapes(option_config, project,dict6x8,6,8)
-    write_shapes(option_config, project,dict8x6,8,6)
-    write_shapes(option_config, project,dict6x9,6,9)
-    return
-
 
 # Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
 def tiles(option_config, params):

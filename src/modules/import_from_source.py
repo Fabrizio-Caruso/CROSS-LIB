@@ -5,6 +5,8 @@ import os
 
 from print_functions import *
 from project_functions import project_category
+from shape_functions import read_shape
+
 
 NUMBER_OF_TILES = 27
 
@@ -33,14 +35,6 @@ def display_shape(option_config, tile_vect):
 def display_simple_shape(tile_vect):
     for row in tile_vect:
         print(row)
-
-
-# It returns the path to the shape directory for a given project and dimension
-def path_to_shapes(project, xsize, ysize):
-
-    project_cat = project_category(project)
-    # print(project_cat)
-    return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
 
 
 # It outputs a list of strings
@@ -433,8 +427,6 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
         return tiles
 
 
-
-
 def store_tiles(project, tiles, xsize, ysize):
 
     print("project          : " + project)
@@ -445,8 +437,6 @@ def store_tiles(project, tiles, xsize, ysize):
     print("main_path: " + main_path)
     for index in range(len(tiles)):
         store_tile(project,tiles[index],xsize,ysize,str(index))
-
-
 
 
 def store_tile(project, tile, xsize, ysize, index):
@@ -466,35 +456,6 @@ def store_tile(project, tile, xsize, ysize, index):
     fin = open(dest, "wt")
     fin.write(tile)
     fin.close()
-
-
-def trim_newline_from_shape(lines):
-    tile = ""
-
-    filtered_lines = []
-    for line in lines:
-        if not(line=="\n" or line=="\r" or line== "\r\n"):
-            filtered_lines.append(line.replace('\n','').replace('\r',''))
-
-    xsize = 8
-    for line in filtered_lines:
-        xsize = min(xsize,len(line))
-
-    trimmed_lines = []
-    for line in filtered_lines:
-        trimmed_lines.append(line[:xsize])
-    return trimmed_lines,xsize,len(trimmed_lines)
-
-
-def read_shape(file_name):
-    fin = open(file_name, "rt")
-    lines = fin.readlines()
-
-    # print(lines)
-
-    trimmed_lines = trim_newline_from_shape(lines)
-    fin.close()
-    return trimmed_lines
 
 
 def compute_split_tiles(lines,verbose=False):

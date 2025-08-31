@@ -2,7 +2,7 @@ import os
 
 from project_functions import project_category
 from file_functions import files_in_path
-
+from print_functions import display_shape
 
 # General strategies:
 # xsize or ysize < 8 -> cut left/right or top/bottom columns/rows

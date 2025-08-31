@@ -13,8 +13,6 @@ else:
     NATIVE_EXTENSION="out"
 
 
-DEFAULT_THREADS = 8
-
 python_version = sys.version_info[0]
 python_subversion = sys.version_info[1]
 

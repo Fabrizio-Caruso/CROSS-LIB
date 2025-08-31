@@ -25,3 +25,15 @@ def print_shape(option_config, items):
         printc(option_config, bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
     print("")
     print("")
+
+
+# It displays a shape from a list of strings (rows)
+def display_shape(option_config, tile_vect):
+    for row in tile_vect:
+        printc(option_config, bcolors.BOLD, row)
+        print("")
+
+def display_simple_shape(tile_vect):
+    for row in tile_vect:
+        print(row)
+

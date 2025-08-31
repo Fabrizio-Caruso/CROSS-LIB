@@ -1,3 +1,7 @@
+
+DEBUG_TARGET  = "ncurses_debug"
+NATIVE_TARGET = "ncurses"
+
 #TODO: cc65 targets
 #TODO: cmoc targets
 #TODO: lcc1802 targets

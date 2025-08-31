@@ -25,18 +25,6 @@ PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
 
-
-# It displays a shape from a list of strings (rows)
-def display_shape(option_config, tile_vect):
-    for row in tile_vect:
-        printc(option_config, bcolors.BOLD, row)
-        print("")
-
-def display_simple_shape(tile_vect):
-    for row in tile_vect:
-        print(row)
-
-
 # It outputs a list of strings
 def compute_shape(string, xsize):
     string_items = string.split(",")
@@ -65,9 +53,6 @@ def compute_shape(string, xsize):
         items.append(padded_bin_string)
         # print("items :" + str(items))
     return(items)
-
-
-
 
 
 # It takes the output of print_shape

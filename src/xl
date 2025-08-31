@@ -21,18 +21,18 @@ from modules.default_values import insert_default_sizes
 from modules.params import \
     handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
 from modules.help_functions import help_command, manual
-from modules.file_functions import convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
+from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
 from modules.tests import *
 from modules.split_projects import *
 from modules.run import run_command, run
 from modules.commands import commands
-from modules.input_functions import generic_input
+from modules.input_functions import generic_input, are_you_sure
 from modules.option_functions import *
-from modules.project_functions import rename, clone
+from modules.project_functions import rename, clone, create
 from modules.target_defs import *
 from modules.shape_functions import *
 
-DEFAULT_COMPILATION_THREADS = 2
+DEFAULT_COMPILATION_THREADS = 4
 
 # LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
@@ -52,9 +52,6 @@ def clean_test(option_config):
         return 0
     printc(option_config, bcolors.OKGREEN, "[xl clean]          OK\n")
     return 1
-
-def are_you_sure():
-    return generic_input("Are you sure [Y/N]? ").lower()
 
 
 def multiple_project_reset(option_config, mypath):
@@ -376,7 +373,6 @@ def build(option_config, params, reset_flag = False):
             read_config(parent_and_game_dir + "/config.ini")
 
         if game_dir not in ["games", "examples", "projects", "all"]:
-            # use_tools = option_config.build_config.use_tools
             if reset_flag:
                 reset(option_config, params)
             if not os.path.exists(parent_and_game_dir):
@@ -431,18 +427,21 @@ def build(option_config, params, reset_flag = False):
 
 def slow(option_config, params):
 
+    verbose = option_config.terminal_config.verbose
     game_dir = params[1]
-
 
     project_type = project_category(game_dir)
     parent_dir = project_type + "s"
 
-
-    target = params[2]
-
-    slowdown = params[3]
-
-
+    if len(params)>=4:
+        target = params[2]
+        slowdown = params[3]
+    elif len(params)==3:
+        target = NATIVE_TARGET
+        slowdown = params[2]
+    else:
+        printc(option_config, bcolors.FAIL, "Wrong number of arguments")
+        sys.exit(-1)
     parent_and_game_dir = parent_dir + "/" + game_dir
 
     if os.path.exists(parent_and_game_dir + "/config.ini"):
@@ -472,126 +471,6 @@ def slow(option_config, params):
         delete_main(option_config, game_dir, project_type)
 
 
-# Create a new project
-def create(option_config, params):
-    verbose = option_config.terminal_config.verbose
-    if len(params)<2:
-        game_dir = "helloworld"
-    else:
-        game_dir = params[1]
-    game_dir_capital = game_dir.upper()
-    game_dir_capital_without_special_chars = \
-        only_upper_digits_and_space(game_dir.upper().replace("-"," ").replace("_"," "))
-
-    game_dir = no_space(game_dir)
-
-    if game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST:
-        print("invalid name!")
-        return
-
-    if len(params)<3:
-        project_type = "helloworld"
-    else:
-        if params[2]=="game" or params[2]=="arcade":
-            project_type = "arcade_game"
-        elif params[2]=="text":
-            project_type = "text_game"
-        elif params[2]=="test":
-            project_type = "test"
-        else:
-            if params[2] in ["apis","show_apis","example","show","demo"]:
-                project_type = "demo"
-            else:
-                project_type = "helloworld"
-
-    parent_dir = "projects"
-
-    if verbose:
-        print("New project name: " + game_dir)
-        print("Project type: " + project_type)
-
-    parent_and_game_dir = parent_dir + "/" + game_dir
-
-    if not os.path.exists(parent_and_game_dir):
-        if verbose:
-            print("Creating project dir...")
-        os.makedirs(parent_and_game_dir)
-
-    source_path = "./template_projects/"+project_type+"_code.template"
-    if verbose:
-        print("source_path: " + source_path)
-    dest_path = parent_and_game_dir
-    if verbose:
-        print("dest_path: " + dest_path)
-
-    if not os.path.exists(dest_path+"/tiles"):
-        if verbose:
-            print("Copying tiles...")
-        shutil.copytree(source_path+"/tiles", dest_path+"/tiles")
-
-    if not os.path.exists(dest_path+"/shapes"):
-        if verbose:
-            print("Copying shapes...")
-        if not os.path.exists(source_path+"/shapes"):
-            os.makedirs(dest_path+"/shapes")
-        else:
-            shutil.copytree(source_path+"/shapes", dest_path+"/shapes")
-
-    if not os.path.exists(dest_path+"/generated_assets"):
-        if verbose:
-            print("Create empty generated_assets directory...")
-        os.makedirs(dest_path+"/generated_assets")
-
-    if not os.path.exists(dest_path+"/config"):
-        if verbose:
-            print("Create empty config directory...")
-        os.makedirs(dest_path+"/config")
-
-    file_names = ["main.c"]
-
-    for file_name in file_names:
-        if verbose:
-            print("Copying file_name: " + file_name)
-        shutil.copy(source_path+"/"+file_name, dest_path)
-
-    # Replace _GAME_NAME_CAPITAL with the capitalized game name without special characters
-    fin = open("./"+dest_path+"/main.c", "rt")
-    data = fin.read()
-    data = data.replace('_GAME_NAME_CAPITAL',game_dir_capital_without_special_chars)
-    fin.close()
-    fin = open("./"+dest_path+"/main.c", "wt")
-    #overrite the input file with the resulting data
-    fin.write(data)
-
-    templated_makefile_path = "./template_projects"
-
-    shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", \
-                "./"+dest_path+"/Makefile."+game_dir)
-
-    shutil.copy(templated_makefile_path+"/"+"/config/project_config.mk.template", \
-                "./"+dest_path+"/config/project_config.mk")
-    shutil.copy(templated_makefile_path+"/"+"/config/game_config.mk.template", \
-                "./"+dest_path+"/config/game_config.mk")
-
-
-    #read input file
-    fin = open("./"+dest_path+"/Makefile."+game_dir, "rt")
-    #read file contents to string
-    data = fin.read()
-    #replace all occurrences of the required string
-    data = data.replace('_GAME_NAME_CAPITAL',game_dir_capital)
-    data = data.replace('_GAME_NAME_', game_dir)
-    data = data.replace('_PARENT_DIR_', parent_dir)
-    #close the input file
-    fin.close()
-    #open the file in write mode
-    fin = open("./"+dest_path+"/Makefile."+game_dir, "wt")
-    #overrite the input file with the resulting data
-    fin.write(data)
-    #close the file
-    fin.close()
-
-
 # Delete temporary project files If a project is specified, it also deletes generated assets.
 def reset(option_config, params):
     verbose = option_config.terminal_config.verbose
@@ -618,19 +497,9 @@ def reset(option_config, params):
         multiple_project_reset(option_config, "projects")
         return
 
-    if (len(params)==2) and (params[par_len-1]=='-y'): #(params[1]=='-y'):
-        make_command = GNU_MAKE + \
-                       " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
-
-        if verbose:
-            print("Delete all non-project-specific temporary files")
-
-        run_command(option_config, make_command)
-        return
-
     if len(params)<2:
         make_command = GNU_MAKE + \
-            " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+                       " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
         if verbose:
             print("Delete all non-project-specific temporary files")
         run_command(option_config, make_command)
@@ -653,7 +522,6 @@ def reset(option_config, params):
         return
 
     if verbose:
-
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
     make_command = GNU_MAKE + " clean_no_built_in -f " + \
@@ -1080,7 +948,7 @@ def test_self(option_config, target = "stdio"):
         success=0
 
     #reset
-    reset(option_config, ["","-y"])
+    reset(option_config, [""])
     printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
 
     #size
@@ -1449,11 +1317,6 @@ def rip(params, rotate = False):
             store_tiles(params[2],tiles, xsize, ysize)
     except Exception as exception:
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
-
-# Show all generated files
-def files():
-    make_command = "ls -ls ../build"
-    os.system(make_command)
 
 
 def split(params):

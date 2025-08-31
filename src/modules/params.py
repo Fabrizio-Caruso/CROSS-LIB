@@ -1,12 +1,10 @@
 
-DEBUG_TARGET  = "ncurses_debug"
-NATIVE_TARGET = "ncurses"
 
 from init import *
 from collections import OrderedDict
 from import_from_source import printc, bcolors
 from commands import *
-
+from target_defs import *
 
 def full_params(params):
     full_command = SHORT_COMMANDS_LIST.get(params[1])

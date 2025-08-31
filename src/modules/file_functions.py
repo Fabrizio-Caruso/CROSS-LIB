@@ -113,3 +113,9 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
     fin.close()
 
     os.remove("./"+dest_path+"/Makefile."+source_game_dir)
+
+
+# Show all generated files
+def files():
+    make_command = "ls -ls ../build"
+    os.system(make_command)

@@ -6,6 +6,8 @@ from file_functions import dirs_in_path
 platform = sys.platform
 
 
+NUMBER_OF_TILES = 27
+
 
 if(platform in ["cygwin", "msys"]):
     NATIVE_EXTENSION="exe"

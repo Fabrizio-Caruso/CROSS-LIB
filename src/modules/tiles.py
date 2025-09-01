@@ -107,3 +107,16 @@ def tiles(option_config, params):
         store_tile(project_name, tile, xsize, ysize, tile_number_str)
 
         print("")
+
+
+def make_assets_from_tiles(option_config, params):
+
+    game_dir = params[1]
+
+    project_type = project_category(game_dir)
+    parent_dir = project_type + "s"
+
+    run_command(option_config, GNU_MAKE+" GAME_NAME=" + game_dir + \
+                          " PARENT_DIR=" + parent_dir + \
+                          " -f ./makefiles.common/auxiliary/Makefile_assets")
+

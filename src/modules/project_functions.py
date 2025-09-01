@@ -216,3 +216,53 @@ def create(option_config, params):
     fin.write(data)
     #close the file
     fin.close()
+
+
+# Delete project
+def delete(option_config, params):
+    if(len(params)>=2) and params[1]=="tools":
+        make_command = GNU_MAKE + " clean_tools"
+
+        run_command(option_config, make_command)
+        return
+
+    if len(params)<2:
+        game_dir="helloworld"
+    else:
+        candidate_name = params[1]
+        if candidate_name in example_projects or candidate_name in game_projects or \
+            candidate_name in COMMANDS_LIST:
+            print("invalid name!")
+            return
+        game_dir = candidate_name
+
+    if (len(params)>2) and (params[2]=="-y"):
+        interactive = False
+    else:
+        interactive = True
+
+    parent_dir = "projects"
+    verbose = option_config.terminal_config.verbose
+    if verbose:
+        print("Project name: " + game_dir)
+
+    parent_and_game_dir = parent_dir + "/" + game_dir
+    if verbose:
+        print("Remove the project '"+game_dir+ \
+              "' with all its files (source, graphics assets, makefile)")
+    if (not interactive) or (are_you_sure()=="y"):
+        if os.path.exists(parent_and_game_dir):
+            if verbose:
+                print("Deleting directory " + parent_and_game_dir)
+            shutil.rmtree(parent_and_game_dir)
+
+        makefile_name = "Makefile."+game_dir
+        if os.path.exists(makefile_name):
+            if verbose:
+                print("Deleting..." + makefile_name)
+            os.remove(makefile_name)
+        if verbose:
+            print("'" + game_dir + "' deleted")
+    else:
+        return
+

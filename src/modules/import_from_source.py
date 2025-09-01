@@ -5,10 +5,9 @@ import os
 
 from print_functions import *
 from project_functions import project_category
-from shape_functions import read_shape
+from shape_functions import read_shape, compute_shape, compute_rotated_shape
+from init import NUMBER_OF_TILES
 
-
-NUMBER_OF_TILES = 27
 
 
 # Patterns used to rip and import tile data
@@ -24,79 +23,6 @@ BASIC_ONLY_PATTERN_LIST = BASIC_ONLY_NO_SKIP_PATTERN_LIST + BASIC_ONLY_SKIP_PATT
 PATTERN_LIST = ASSEMBLY_PATTERN_LIST + BASIC_ONLY_PATTERN_LIST
 SKIP_PATTERN_LIST = BASIC_ONLY_SKIP_PATTERN_LIST
 
-
-# It outputs a list of strings
-def compute_shape(string, xsize):
-    string_items = string.split(",")
-    items = []
-    values = []
-    for string_item in string_items:
-        string_item = string_item.replace("$","0x").replace(" ","")
-        if string_item.startswith("0x"):
-            base = 16
-        elif string_item.startswith("@"):
-            string_item = string_item[1:]
-            base = 2
-        else:
-            base = 10
-        value = int(string_item,base)
-        values.append(value)
-        bin_string=bin(value)[2:]
-        missing_zeros = int(xsize) - len(bin_string)
-        padded_bin_string = ""
-        for i in range(missing_zeros):
-            padded_bin_string += "0"
-        padded_bin_string+=bin_string
-
-        padded_bin_string = padded_bin_string.replace("0",".").replace("1","#")
-
-        items.append(padded_bin_string)
-        # print("items :" + str(items))
-    return(items)
-
-
-# It takes the output of print_shape
-def compute_rotated_shape(items):
-    # print(str(items))
-    # return(items)
-    xsize = len(items[0])
-    ysize = len(items)
-    val = [0]*xsize
-    for j in range(xsize):
-        tmp = 0
-        for i in range(ysize):
-            if(items[i][j]=='#'):
-                tmp+=2**i
-        val[j] = tmp
-
-    str_res = []
-    for i in range(xsize):
-        str_res.append(val[i])
-
-    return(str_res)
-
-
-
-# It computes the shape from the tile file (not directly from the shapes if available)
-def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize, index):
-    dir = xsize+"x"+ysize
-    dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
-    print("Decoding file tile: " + dest)
-    print("")
-    try:
-        fin = open(dest, "rt")
-
-        tile_data = fin.read()
-        # computed_shape = compute_shape(tile_data,xsize)
-        # print("computed shape: " + str(computed_shape))
-        print_shape(option_config, compute_shape(tile_data,xsize))
-
-    except Exception as error:
-        print("File skipped")
-        print("An exception occurred:", type(error).__name__, "–", error) 
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
 
 # Detect Assembly extension
 def has_extension(string, patterns):

@@ -1,3 +1,7 @@
+from print_functions import printc, bcolors
+from project_functions import project_category
+from file_functions import files_in_path
+
 
 # global extend_algorithm
 
@@ -36,3 +40,70 @@ def detect_ysize(target):
             return 9
     return 8
 
+
+
+# Import a shape as single tile from a text file that describes its shape with characters
+def tile(params):
+
+    tile,xsize,ysize = import_tile(params[1])
+
+    if verbose:
+        print_shape(option_config, compute_shape(tile,xsize))
+
+    if len(params)>=3:
+        store_tile(params[2], tile, xsize, ysize, params[3])
+    else:
+        printc(option_config, bcolors.OKCYAN, tile+"\n")
+
+
+# Import as tiles all shapes from files named "shape<number>.txt" inside the directories in the "shapes" directory of a given project
+def tiles(option_config, params):
+    verbose = option_config.terminal_config.verbose
+    project_name = params[1]
+
+    project_cat = project_category(project_name)
+
+    if len(params)>3:   # xsize, ysize parameters
+        xsize_str,ysize_str = params[2:]
+    elif len(params)==3: # target parameter
+        detected_xsize = detect_xsize(params[2])
+        detected_ysize = detect_ysize(params[2])
+        xsize_str = str(detected_xsize)
+        ysize_str = str(detected_ysize)
+    else:                # no parameter
+        xsize_str = "8"
+        ysize_str = "8"
+    if verbose:
+        print("xsize: " + xsize_str)
+        print("ysize: " + ysize_str)
+    path_to_files = project_cat + "s/" + params[1] + \
+                    "/shapes/" + xsize_str + "x" + ysize_str + "/"
+    if verbose:
+        print("Path to shape files: " + path_to_files)
+    shape_files = files_in_path(path_to_files)
+    if verbose:
+        print("shape files: ", shape_files)
+    for shape_file in shape_files:
+        if verbose:
+            print("processing file: ", shape_file)
+
+        path_to_shape_file = path_to_files + str(shape_file)
+        if verbose:
+            print("processing path file: ", path_to_shape_file)
+        tile_number_str = shape_file[5:].replace(".txt","")
+
+        print("tile number: " + tile_number_str)
+
+        tile,xsize,ysize = import_tile(path_to_shape_file)
+
+        if str(xsize)!=xsize_str or str(ysize)!=ysize_str:
+            print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
+            print(tile)
+            return
+        print(tile)
+        if verbose:
+            print_shape(option_config, compute_shape(tile,xsize))
+
+        store_tile(project_name, tile, xsize, ysize, tile_number_str)
+
+        print("")

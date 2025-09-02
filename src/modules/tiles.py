@@ -1,7 +1,7 @@
 from print_functions import printc, bcolors
 from project_functions import project_category
 from file_functions import files_in_path
-
+from import_from_source import import_tile, store_tile
 
 # global extend_algorithm
 

@@ -177,7 +177,7 @@ def remove_comments(line,basic_code):
     return line
 
 
-def rip_tiles(filename, xsize, ysize, rip = False, rotate = False):
+def rip_tiles(option_config, filename, xsize, ysize, rip = False, rotate = False):
 
     try:
         fin = open(filename, "rt")
@@ -462,7 +462,7 @@ def import_tile(file_name):
 # It should be able to import from
 # - Assembly files that use byte directives with either decimal and hex notation
 # - Assembly files that use word directives with ONLY hex notation
-def import_from_source(params, rotate = False):
+def import_from_source(option_config, params, rotate = False):
     filename = params[1]
 
     rip_option = params[len(params)-1]=="-rip"
@@ -470,7 +470,7 @@ def import_from_source(params, rotate = False):
     xsize = 8
     ysize = 8
 
-    tiles = rip_tiles(filename, xsize, ysize, rip_option, rotate)
+    tiles = rip_tiles(option_config, filename, xsize, ysize, rip_option, rotate)
 
     try:
         if(len(params)>=3) and "-" not in params[2]:
@@ -484,13 +484,13 @@ def import_from_source(params, rotate = False):
 # - Assembly files that use word directives with ONLY hex notation
 # - BASIC files that use decimal, hex notation or "headless" hex notation (by guessing)
 # Remark: This function is like "import_from_source" with the "-rip" option
-def rip(params, rotate = False):
+def rip(option_config, params, rotate = False):
     filename = params[1]
 
     xsize = 8
     ysize = 8
 
-    tiles = rip_tiles(filename, xsize, ysize, True, rotate)
+    tiles = rip_tiles(option_config, filename, xsize, ysize, True, rotate)
 
     try:
         if(len(params)>=3) and "-" not in params[2]:

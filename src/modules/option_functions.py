@@ -53,6 +53,7 @@ class ExtendConfig():
 class BuildConfig():
     def __init__(
         self,
+        gnu_make,
         compilation_threads,
         compilation_threads_string,
         parallelize_multi_build,
@@ -72,6 +73,7 @@ class BuildConfig():
         ):
 
         # build
+        self.gnu_make                   = gnu_make
         self.compilation_threads        = compilation_threads
         self.compilation_threads_string = compilation_threads_string
         self.parallelize_multi_build    = parallelize_multi_build
@@ -330,6 +332,9 @@ def read_config(config_file="./config.ini"):
             print("Config file found with: " + str(config.sections()))
             # print("")
 
+        gnu_make = read_config_option(config,"build","gnu_make")
+
+
         compilation_threads_string = read_config_option(config,"build","compilation_threads")
 
 
@@ -394,6 +399,7 @@ def read_config(config_file="./config.ini"):
             use_tools = int(use_tools)
 
         build_config = BuildConfig( \
+            gnu_make,
             compilation_threads,
             compilation_threads_string,
             parallelize_multi_build,
@@ -455,6 +461,7 @@ def default_config():
         )
 
         build_config = BuildConfig( \
+            gnu_make = "make",
             compilation_threads = str(DEFAULT_COMPILATION_THREADS),
             compilation_threads_string = "default",
             parallelize_multi_build = "0",

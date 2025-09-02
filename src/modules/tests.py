@@ -8,6 +8,9 @@ from file_functions import files_in_path
 from run import run_command
 from print_functions import printc, bcolors
 
+from build_functions import *
+
+
 CROSS_COMPILER_COMMAND = \
     {
     'cc65'        : 'cl65',
@@ -339,4 +342,662 @@ else:
     TARGETS_WITH_3_BINARIES = ['abc80']
 
 
+# LoggerSingleton.initLogger(__name__)
+logger = LoggerSingleton.initLogger('xl', '../logs')
 
+# console_logger = LoggerSingleton.initConsoleLogger('console')
+
+# console_logger.info('Console logger started')
+
+logger.info('Started')
+
+
+def test_projects(option_config, projects, target="stdio"):
+
+    compilation_threads = option_config.build_config.compilation_threads
+    verbose = option_config.terminal_config.verbose
+    clean_test(option_config)
+
+    if projects in ["examples", "projects", "games"]:
+        number_of_projects = len(dirs_in_path("./"+projects))
+    elif projects == "all":
+        number_of_projects = \
+        len(dirs_in_path("./examples")) + \
+        len(dirs_in_path("./games")) + \
+        len(dirs_in_path("./projects"))
+    else:
+        number_of_projects = 1
+    if verbose:
+        print("number of projects: " + str(number_of_projects))
+    #multiple_build
+    build(option_config, ["build",projects,target,compilation_threads,""])
+    built_files = built_files_in_path("../build")
+
+    # TODO: Handle target=*_targets and all
+    if target.endswith("_targets") or target=="all":
+        if verbose:
+            print("Test on the number of binaries for all these targets is not supported")
+
+    if target in TARGETS_WITH_3_BINARIES:
+        files_per_project = 3
+    elif target in TARGETS_WITH_2_BINARIES:
+        files_per_project = 2
+    else:
+        files_per_project = 1
+
+    if verbose:
+        print("Expected binaries per project: " + str(files_per_project))
+
+    if len(built_files)<files_per_project*number_of_projects:
+        printc(option_config, bcolors.FAIL, "[xl build]  KO\n")
+        print("Built files: " +str(built_files))
+        print("Expected number : " + str(number_of_projects))
+        print("No. Built files : " + str(len(built_files)))
+
+        # success=0
+        return False
+    printc(option_config, bcolors.OKGREEN, "[xl build]        OK\n")
+    return True
+
+
+def test_clean_tools(option_config):
+    #clean tools
+    clean(option_config, ["clean","tools"])
+
+    tools_result_map=test_tools(option_config, silent=True)
+    number_of_tools = len(tools_result_map.keys())
+
+    built_tools = 0
+    for _, result in tools_result_map.items():
+        if result:
+            built_tools+=1
+    if built_tools==0:
+        printc(option_config, bcolors.OKGREEN, "[xl clean tools]    OK\n")
+    else:
+        printc(option_config, bcolors.FAIL, "[xl clean tools]    KO\n")
+    return number_of_tools, built_tools
+
+
+def test_self(option_config, target = "stdio"):
+
+    option_config.terminal_config.test = 1
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
+    printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
+    success = 1
+    printc(option_config, bcolors.BOLD,  "target: ")
+    printc(option_config, bcolors.OKBLUE,target+"\n")
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+    
+    #delete
+    delete(option_config, ["delete","_cloned_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+
+    #clean tools
+    number_of_tools, built_tools = test_clean_tools(option_config)
+    if built_tools>0:
+        success = 0
+
+    #tools
+    tools(option_config)
+
+    tools_result_map=test_tools(option_config, silent=True)
+    built_tools = 0
+    for _, result in tools_result_map.items():
+        if result:
+            built_tools+=1
+    if built_tools==number_of_tools:
+        printc(option_config, bcolors.OKGREEN, "[xl tools]          OK\n")
+    else:
+        printc(option_config, bcolors.FAIL, "[xl tools]         KO\n")
+        print("built_tools: " + str(built_tools))
+        print("number_of_tools: " + str(number_of_tools))
+        success = 0
+
+    #clean tools
+    number_of_tools, built_tools = test_clean_tools(option_config)
+    if built_tools > 0:
+        success = 0
+
+    #delete
+    delete(option_config, ["delete","_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+
+    #clean
+    success = success * clean_test(option_config)
+
+    projects_before_create = list_projects(option_config, ["list"],False)
+
+    project_dirs_before_create = len(dirs_in_path("./projects"))
+    initial_dirs = project_dirs_before_create
+
+    # create
+    create(option_config, ["create", "_test_project", "test"])
+    project_dirs_after_create = len(dirs_in_path("./projects"))
+
+    if project_dirs_after_create!=project_dirs_before_create+1:
+        printc(option_config, bcolors.FAIL, "[xl create]         KO\n")
+        return 0
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
+
+    # list
+    projects_after_create = list_projects(option_config, ["list"],False)
+    if projects_after_create!=projects_before_create+1:
+        printc(option_config, bcolors.FAIL,"[xl list]           KO\n")
+        success = 0
+    printc(option_config, bcolors.OKGREEN,"[xl list]           OK\n")
+
+    # create
+    create(option_config, ["create", "_test_project2", "game"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
+
+    # create
+    create(option_config, ["create", "_test_project3", "demo"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
+
+    # create
+    create(option_config, ["create", "_test_project4", "text"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
+
+    # create
+    create(option_config, ["create", "_test_project5", "helloworld"])
+    printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
+
+    #build
+    build(option_config, ["build", "_test_project2", target])
+    built_files = built_files_in_path("../build")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
+
+    #build
+    build(option_config, ["build", "_test_project3", target])
+    built_files = built_files_in_path("../build")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
+
+    #build
+    build(option_config, ["build", "_test_project4", target])
+    built_files = built_files_in_path("../build")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
+
+    #build
+    build(option_config, ["build", "_test_project5", target])
+    built_files = built_files_in_path("../build")
+    printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
+
+    #clean
+    success = success * clean_test(option_config)
+    if success:
+        printc(option_config, bcolors.OKGREEN,"[xl clean]          OK\n")
+
+    #delete
+    delete(option_config, ["delete","_test_project2","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    #delete
+    delete(option_config, ["delete","_test_project3","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    #delete
+    delete(option_config, ["delete","_test_project4","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    #delete
+    delete(option_config, ["delete","_test_project5","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    #delete
+    delete(option_config, ["delete","_foo_test","-y"])
+
+    #rename
+    rename(option_config, ["","_test_project", "_foo_test"])
+    printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
+
+    #rename
+    rename(option_config, ["","_foo_test", "_test_project"])
+    printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
+
+    #build
+    build(option_config, ["build", "_test_project", target])
+    built_files = built_files_in_path("../build")
+
+    if len(built_files)==0:
+        print("built binaries: " + str(built_files))
+
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl build]          OK\n")
+
+    dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+    if dirs_in_proj_before != 4:
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
+        success=0
+
+    dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+    if dirs_in_shapes_before != 1:
+        printc(option_config, bcolors.FAIL, "[xl build]          KO\n")
+        print(dirs_in_shapes_before)
+        print(str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
+
+    extend(option_config, ["extend", "_test_project"])
+
+    dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
+
+    if dirs_in_proj_after != 4:
+        printc(option_config, bcolors.FAIL, "[xl extend]         KO\n")
+        success=0
+
+    dirs_in_shapes_after = len(dirs_in_path("./projects/_test_project/shapes"))
+
+    if dirs_in_shapes_after != 5:
+        printc(option_config, bcolors.FAIL, "[xl extend]         KO\n")
+        print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
+        print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
+
+    if success:
+        printc(option_config, bcolors.OKGREEN, "[xl extend]         OK\n")
+
+    fast_test = option_config.terminal_config.fast_test
+    interactive_test = option_config.terminal_config.interactive_test
+    if interactive_test:
+        # run
+        printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
+        run(option_config, ["run", "_test_project", target])
+
+        printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
+
+    projects_before_create = list_projects(option_config, ["list"],False)
+
+    project_dirs_before_create = len(dirs_in_path("./projects"))
+
+    # clone
+    clone(option_config, ["","_test_project","_cloned_test_project"])
+    project_dirs_after_create = len(dirs_in_path("./projects"))
+
+    if project_dirs_after_create!=project_dirs_before_create+1:
+        printc(option_config, bcolors.FAIL,
+                            "[xl clone]          KO\n")
+        return 0
+    printc(option_config, bcolors.OKGREEN,
+                            "[xl clone]          OK\n")
+
+    #build
+    build(option_config, ["build", "_cloned_test_project", target])
+    
+    if interactive_test:
+
+        # run
+        printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
+
+        run(option_config, ["run", "_cloned_test_project", target])
+
+        printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
+
+    # delete
+    delete(option_config, ["","_cloned_test_project","-y"])
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+
+    #clean
+    success = success * clean_test(option_config)
+
+    #shapes
+    tiles(option_config, ["","_test_cloned_test_project_project"])
+    # make_assets_from_tiles(["_test_cloned_test_project_project"])
+    printc(option_config, bcolors.OKGREEN, "[xl tiles]          OK\n")
+
+    #size
+    size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
+    built_files = built_files_in_path("../build")
+
+    if len(built_files)!=1:
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
+        print(str(built_files))
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl size]           OK\n")
+
+    dirs_in_proj_before = len(dirs_in_path("./projects/_test_project"))
+    if dirs_in_proj_before != 4:
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
+        print(str(dirs_in_path("./projects/_test_project")))
+        success=0
+
+    dirs_in_shapes_before = len(dirs_in_path("./projects/_test_project/shapes"))
+    if dirs_in_shapes_before != 5:
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
+        print(str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
+
+    #reset
+    reset(option_config, [""])
+    printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
+
+    #size
+    size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
+    built_files = built_files_in_path("../build")
+
+    if len(built_files)!=2:
+        printc(option_config, bcolors.FAIL, "[xl size]           KO\n")
+        print(str(built_files))
+        print("Wrong number of built files")
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl size]           OK\n")
+
+    projects = []
+    for (_, dirnames, _) in walk("./projects"):
+        projects.extend(dirnames)
+        break
+
+    games = []
+    for (_, dirnames, _) in walk("./games"):
+        games.extend(dirnames)
+        break
+
+    examples = []
+    for (_, dirnames, _) in walk("./examples"):
+        examples.extend(dirnames)
+        break
+
+    #reset
+    reset(option_config, ["","_test_project"])
+    printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
+
+    #delete
+    delete(option_config, ["delete","_test_project","-y"])
+    project_dirs_after_delete = len(dirs_in_path("./projects"))
+
+    if project_dirs_after_delete != initial_dirs:
+        printc(option_config, bcolors.FAIL,    "[xl delete]         KO\n")
+        print(project_dirs_before_create)
+        print(project_dirs_after_delete)
+        success=0
+    else:
+        printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    if clean_test(option_config)==0:
+        success=0
+
+    if not fast_test:
+
+        if target in TARGETS_WITH_2_BINARIES:
+            binary_factor = 2
+        elif target in TARGETS_WITH_3_BINARIES:
+            binary_factor = 3
+        else:
+            binary_factor = 1
+
+        # build (all examples)
+        build(option_config, ["","examples", target])
+
+        built_files = built_files_in_path("../build")
+
+        if len(built_files)!=binary_factor*len(examples):
+            success=0
+            printc(option_config, bcolors.FAIL, "[xl build examples] KO\n")
+            print(built_files)
+            print(examples)
+        else:
+            printc(option_config, bcolors.OKGREEN, "[xl build examples] OK\n")
+
+        if clean_test(option_config)==0:
+            success=0
+
+        # build (all games)
+        build(option_config, ["","games", target])
+
+        built_files = built_files_in_path("../build")
+
+        if len(built_files)!=binary_factor*len(games):
+            success=0
+            printc(option_config, bcolors.FAIL, "[xl build games]    KO\n")
+            print(built_files)
+            print(games)
+            sys.exit()
+        else:
+            printc(option_config, bcolors.OKGREEN, "[xl build games]    OK\n")
+
+        if clean_test(option_config)==0:
+            success=0
+
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+
+    return success
+
+
+def test_all(option_config, params):
+
+    test_compilers(option_config)
+    test_tools(option_config)
+    test_libraries(option_config)
+    test_interpreters(option_config)
+    unit_tests(option_config)
+    return test_self(option_config, params)
+
+expected_files = {
+    "cc65": 8,
+    "z88dk": 5,
+    "cmoc": 3,
+    "lcc1802": 1,
+    "z88dk_alt": 38,
+    "stdio_alt": 1
+    }
+
+
+def targets_test(option_config, params):
+
+    verbose = option_config.terminal_config.verbose
+    success = clean_test(option_config)
+    compilation_threads = option_config.build_config.compilation_threads
+    native_compiler = option_config.build_config.native_compiler
+    if params[1].startswith("z88dk") or params[1]=="cc65":
+        parallel = " -j " + compilation_threads
+    else:
+        parallel = ""
+
+    game_dir = "chase"
+    project_type = "game"
+    if is_project_split(game_dir):
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
+        create_main(game_dir, project_type)
+    if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802"):
+        make_command = GNU_MAKE + parallel + " test_" + params[1] + "_extra " + \
+                       " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
+                       all_compilers_opts(option_config, "","") + \
+                       " -f makefiles.other/chase/tests/Makefile.tests"
+        run_command(option_config, make_command)
+    elif params[1]=="z88dk_alt":
+        make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
+                       " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+        run_command(option_config, make_command)
+    else:
+        printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
+        if is_project_split(game_dir):
+            if verbose:
+                printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+            delete_main(option_config, game_dir, project_type)
+        sys.exit(-1)
+    if is_project_split("chase"):
+        if verbose:
+            printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
+        delete_main(option_config, game_dir, project_type)
+
+
+    built_files = len(files_in_path("../build"))-1
+    if verbose:
+        print("Number of built files: " + str(built_files))
+
+    if params[1] in expected_files.keys():
+        printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
+        printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
+        if built_files != expected_files[params[1]]:
+            printc(option_config, bcolors.FAIL, "binaries KO\n")
+            success=0
+
+        else:
+            printc(option_config, bcolors.OKGREEN, "binaries OK\n")
+
+    # if clean_test()==0:
+        # success=0
+    return success
+
+
+# Self-test xl and native build
+def test(option_config, params):
+    if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
+        if test_all(option_config, "stdio"):
+            printc(option_config, bcolors.OKGREEN, "TEST OK\n")
+        else:
+            printc(option_config, bcolors.FAIL, "TEST KO\n")
+        return
+    if params[1]=="self":
+        if len(params)<3:
+            test_self(option_config)
+        else:
+            test_self(option_config, params[2])
+    elif params[1]=="compilers":
+        test_compilers(option_config)
+    elif params[1]=="tools":
+        test_tools(option_config)
+    elif params[1]=="emulators":
+        test_emulators(option_config)
+    elif params[1]=="cross-compilers" or params[1]=="cross_compilers":
+        test_cross_compilers(option_config)
+    elif params[1]=="native_compilers" or params[1]=="native-compilers":
+        test_native_compilers(option_config)
+    elif params[1]=="libraries":
+        test_libraries(option_config)
+    elif params[1]=="interpreters":
+        test_interpreters(option_config)
+    elif params[1]=="roms":
+        test_roms(option_config)
+    elif params[1]=="make":
+        test_make(option_config, silent=False)
+    elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
+        unit_tests(option_config)
+    elif params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params[1].endswith('_alt'):
+        if targets_test(option_config, params):
+            printc(option_config, bcolors.OKGREEN, "TEST OK\n")
+        else:
+            printc(option_config, bcolors.FAIL, "TEST KO\n")
+        return
+    else:
+        projects = []
+        for (_, dirnames, _) in walk("./projects"):
+            projects.extend(dirnames)
+            break
+
+        games = []
+        for (_, dirnames, _) in walk("./games"):
+            games.extend(dirnames)
+            break
+
+        examples = []
+        for (_, dirnames, _) in walk("./examples"):
+            examples.extend(dirnames)
+            break
+
+        if params[1] in projects + games + examples or params[1] in \
+           ['examples','games','projects','all']:
+            if len(params)>=3:
+                par1 = params[1]
+                par2 = params[2]
+            else:
+                par1 = params[1]
+                par2 = "stdio"
+            if test_projects(option_config, par1,par2):
+                printc(option_config, bcolors.OKGREEN, "TEST OK\n")
+            else:
+                printc(option_config, bcolors.FAIL, "TEST KO\n")
+        else:
+            test_all(option_config, params[1])
+        return
+
+
+# Self-test xl and native build
+def check(option_config, params, silent=False):
+    if len(params)<=1:
+        tools = test_tools(option_config, silent)
+        native_compilers =test_native_compilers(option_config)
+        cross_compilers = test_cross_compilers(option_config)
+        libraries = test_libraries(option_config)
+        make = test_make(option_config, silent=True)
+        emulators = test_emulators(option_config)
+        roms = test_roms(option_config)
+
+        print("")
+
+        printc(option_config, bcolors.BOLD, "SUMMARY\n")
+        tools = True
+        xl_run_cross_target = True
+        native_target = True
+        cross_target = True
+
+        if not make['make'] and not make['gmake']:
+            printc(option_config, bcolors.FAIL, "No make command detected!\n")
+
+        if not native_compilers['gcc']:
+            tools = False
+            native_target = False
+
+        if not native_compilers['g++']:
+            xl_run_cross_target = True
+            tools = False
+
+        if not libraries['ncurses']:
+            printc(option_config, bcolors.WARNING, \
+                   "No ncurses library detected -> Native target impacted\n")
+            native_target = False
+
+        for _, present in cross_compilers.items():
+            if not present:
+                cross_target = False
+
+        for _, present in emulators.items():
+            if not present:
+                xl_run_cross_target = False
+                break
+
+        for _, present in roms.items():
+            if not present:
+                xl_run_cross_target = False
+                break
+
+        if not tools:
+            printc(option_config, bcolors.WARNING, "'xl tools' may be KO for some targets\n")
+
+        if not native_target:
+            printc(option_config, bcolors.WARNING, "'xl build <project>' may be KO (no native build)\n")
+
+        if not cross_target:
+            printc(option_config, bcolors.WARNING, "'xl build <project> <target>' may be KO for some targets\n")
+
+        if not xl_run_cross_target:
+            printc(option_config, bcolors.WARNING, "'xl run <project> <target>' may be KO for some targets\n")
+
+        if tools and native_target and xl_run_cross_target and cross_target:
+            printc(option_config, bcolors.OKCYAN, "No issue found\n")
+
+    elif params[1]=="compilers":
+        test_compilers(option_config)
+    elif params[1]=="tools":
+        test_tools(option_config)
+    elif params[1]=="emulators":
+        test_emulators(option_config)
+    elif params[1]=="cross-compilers" or params[1]=="cross_compilers":
+        test_cross_compilers(option_config)
+    elif params[1]=="native_compilers" or params[1]=="native-compilers":
+        test_native_compilers(option_config)
+    elif params[1]=="libraries":
+        test_libraries(option_config)
+    elif params[1]=="interpreters":
+        test_interpreters(option_config)
+    elif params[1]=="make":
+        test_make(option_config, silent=False)
+    elif params[1]=="roms":
+        test_roms(option_config)

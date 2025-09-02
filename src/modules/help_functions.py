@@ -274,7 +274,7 @@ def help_command(option_config, params):
             print("If you create a new project 'myname' with")
             print("xl create myname")
             print("You can import a tile into it from an Assembly file with something like this:")
-            print("xl import ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+            print("xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rip":
             printc(option_config, bcolors.BOLD,"xl rip <source_file> <[optional] project>\n")
             print("")
@@ -290,7 +290,7 @@ def help_command(option_config, params):
             print("If you create a new project 'myname' with")
             print("xl create myname")
             print("You can import a tile into it from an Assembly file with something like this:")
-            print("xl rip ./modules/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
+            print("xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="rotate":
             printc(option_config, bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")

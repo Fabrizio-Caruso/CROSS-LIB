@@ -93,6 +93,7 @@ class BuildConfig():
 
     def get_opts(self):
         return \
+            self.gnu_make, \
             self.compilation_threads, \
             self.compilation_threads_string, \
             self.parallelize_multi_build, \
@@ -134,6 +135,7 @@ class OptionConfig:
 
 def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
 
+    gnu_make, \
     compilation_threads, \
     compilation_threads_string, \
     parallelize_multi_build, \
@@ -190,6 +192,7 @@ def display_config(option_config):
 
     print("")
 
+    gnu_make, \
     compilation_threads, \
     compilation_threads_string, \
     parallelize_multi_build, \

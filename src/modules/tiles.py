@@ -2,6 +2,7 @@ from print_functions import printc, bcolors
 from project_functions import project_category
 from file_functions import files_in_path
 from import_from_source import import_tile, store_tile
+from run import run_command
 
 # global extend_algorithm
 
@@ -110,7 +111,7 @@ def tiles(option_config, params):
 
 
 def make_assets_from_tiles(option_config, params):
-
+    GNU_MAKE = option_config.build_config.gnu_make
     game_dir = params[1]
 
     project_type = project_category(game_dir)

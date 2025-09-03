@@ -37,7 +37,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "tile": "converts a shape file into a tile", \
     "tiles": "generates all tiles from shapes", \
     "tools": "builds the tools", \
-    "unit-tests": "run unit-tests",
+    "unit_tests": "run unit-tests",
     })
 
 COMMANDS_LIST = COMMANDS_DESCRIPTIONS.keys()
@@ -54,7 +54,7 @@ SHORT_COMMANDS_LIST = OrderedDict( \
         "r": "rebuild", \
         "s": "slow", \
         "t": "test", \
-        "u": "unit-tests", \
+        "u": "unit_tests", \
         "x": "run",
     })
 

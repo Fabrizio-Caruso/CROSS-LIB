@@ -189,7 +189,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
-def size(option_config, params,debug):
+def size(option_config, params, debug = False):
     GNU_MAKE = option_config.build_config.gnu_make
 
     verbose = option_config.terminal_config.verbose
@@ -542,3 +542,11 @@ def reset(option_config, params):
 
     run_command(option_config,make_command)
 
+
+def make(option_config, params):
+    tiles(option_config, params)
+    rebuild(option_config, params)
+    
+def assets(option_config, params):
+    tiles(option_config, params)
+    make_assets_from_tiles(option_config, params)

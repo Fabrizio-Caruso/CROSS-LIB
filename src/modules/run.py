@@ -1,9 +1,9 @@
 import os
 from import_from_source import printc, bcolors
-from modules.LoggerSingleton import LoggerSingleton
-from modules.default_values import insert_default_sizes
-from modules.target_defs import *
-from modules.init import NATIVE_EXTENSION
+from LoggerSingleton import LoggerSingleton
+from default_values import insert_default_sizes
+from target_defs import *
+from init import NATIVE_EXTENSION
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"

@@ -176,7 +176,7 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
            " LCC1802_MAKEFILE_COMPILATION_OPTS='" + lcc1802_compiler_opts + "'"
 
 
-def display_config(option_config):
+def config(option_config):
 
     printc(option_config, bcolors.BOLD,"[terminal]\n")
 

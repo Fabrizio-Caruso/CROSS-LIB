@@ -311,7 +311,7 @@ def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     option_config.terminal_config.verbose = verbosity
 
 
-def unit_tests(option_config, path="./"):
+def _unit_tests(option_config, path="./"):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
     printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
@@ -775,7 +775,7 @@ def test_all(option_config, params):
     test_tools(option_config)
     test_libraries(option_config)
     test_interpreters(option_config)
-    unit_tests(option_config)
+    _unit_tests(option_config)
     return test_self(option_config, params)
 
 expected_files = {
@@ -879,7 +879,7 @@ def test(option_config, params):
     elif params[1]=="make":
         test_make(option_config, silent=False)
     elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
-        unit_tests(option_config)
+        _unit_tests(option_config)
     elif params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params[1].endswith('_alt'):
         if targets_test(option_config, params):
             printc(option_config, bcolors.OKGREEN, "TEST OK\n")
@@ -1001,3 +1001,18 @@ def check(option_config, params, silent=False):
         test_make(option_config, silent=False)
     elif params[1]=="roms":
         test_roms(option_config)
+
+
+def compilers(option_config):
+    test(option_config, ["test","compilers"])
+    
+def unit_tests(option_config):
+    # test(option_config, ["test","unit-tests"])
+    _unit_tests(option_config)
+    
+
+def self(option_config, params):
+    if len(params)<2:
+        test_self(option_config, )
+    else:
+        test_self(option_config, params[1])

@@ -116,6 +116,6 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
 
 
 # Show all generated files
-def files():
+def files(option_config):
     make_command = "ls -ls ../build"
     os.system(make_command)

@@ -9,7 +9,6 @@ import time
 import sys
 
 
-
 def list_of_documented_routines():
     manual_files = files_in_path("../docs/manual/")
     documented_routines = []

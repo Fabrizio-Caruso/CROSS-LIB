@@ -196,7 +196,7 @@ def extend(option_config, params):
     return
 
 
-def split(params):
+def split(option_config, params):
     import_split_tiles(params[1])
 
 

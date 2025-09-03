@@ -15,13 +15,13 @@ class testParams(unittest.TestCase):
         params = ("./xl", "tu")
         result = handle_two_letter_params(params)
         
-        self.assertEqual(result,['', 'test', 'unit-tests'])
+        self.assertEqual(result,['', 'test', 'unit_tests'])
 
     def test_handle_two_letter_params_2(self):
         params = ("./xl", "hu")
         result = handle_two_letter_params(params)
         
-        self.assertEqual(result,['', 'help', 'unit-tests'])
+        self.assertEqual(result,['', 'help', 'unit_tests'])
 
     def test_get_size_params_1(self):
         params = ("size", "helloworld", "25", "32")

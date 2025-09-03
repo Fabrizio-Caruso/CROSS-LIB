@@ -18,8 +18,7 @@ from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
 from modules.init import *
 from modules.default_values import insert_default_sizes
-from modules.params import \
-    handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
+from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
 from modules.help_functions import help_command, manual
 from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
 from modules.tests import *
@@ -36,15 +35,8 @@ from modules.build_functions import *
 
 DEFAULT_COMPILATION_THREADS = 4
 
-# LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
-
-# console_logger = LoggerSingleton.initConsoleLogger('console')
-
-# console_logger.info('Console logger started')
-
 logger.info('Started')
-
 
 # ---------------------------------------------
 
@@ -57,11 +49,7 @@ if __name__ == "__main__":
         logger.error("Python version not supported")
         sys.exit(-1)
     try:
-        # print("Reading config")
-        # logger.info("(read_config) Read configuration file")
         option_config = read_config()
-        # option_config = default_config()
-
         logger.info("(read_config) Configuration file read")
     except:
         if option_config.terminal_config.verbose:
@@ -82,7 +70,8 @@ if __name__ == "__main__":
     GNU_MAKE = option_config.build_config.gnu_make
 
     if option_config.build_config.parallelize_multi_build:
-        # print("Parallelize_multi_build is ON")
+        if option_config.terminal_config.verbose:
+            print("Parallelize_multi_build is ON")
         logger.info("Parallelize_multi_build is ON")
         from multiprocessing import Pool
     else:
@@ -100,13 +89,11 @@ if __name__ == "__main__":
         print("----------------------------")
         print("")
 
-
     if len(sys.argv)<2:
         logger.info("Interactive mode ON")
         print("For more commands, use the non-interactive mode.")
         printc(option_config, bcolors.BOLD, "xl help")
         print(" for instructions.")
-
         print("")
         print("--------------------------------------------------")
         printc(option_config, bcolors.OKCYAN, "Interactive mode\n")
@@ -118,106 +105,32 @@ if __name__ == "__main__":
         if project_name in ("", "\n"):
             project_name="helloworld"
             printc(option_config, bcolors.WARNING,"Defaulting to helloworld\n")
-
         print("")
 
         target_name = generic_input("Insert target name\n")
         if target_name in ("", "\n"):
             target_name="ncurses"
             printc(option_config, bcolors.WARNING, "Defaulting to ncurses\n")
-
         print("")
-        time.sleep(1)
 
-        params = ["rebuild", project_name, target_name]
+        params = ["", "rebuild", project_name, target_name]
     else:
         logger.info("Interactive mode OFF")
         params = sys.argv
         params = handle_two_letter_params(params)
-
         params = full_params(params)
 
     command_name = "build" if params[1] in list_of_projects("all") + \
                    ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
                    
     logger.info("Command : %s", command_name)
-    if params[1]=="run":
-        run(option_config, params[1:])
-    elif params[1]=="check":
-        check(option_config, params[1:])
-    elif params[1]=="compilers":
-        test(option_config, ["test","compilers"])
-    elif params[1]=="unit-tests":
-        test(option_config, ["test","unit-tests"])
-    elif params[1]=="self":
-        if len(params)<3:
-            test_self(option_config, )
-        else:
-            test_self(option_config, params[2])
-    elif params[1]=="assets":
-        tiles(option_config, params[1:])
-        make_assets_from_tiles(option_config, params[1:])
-    elif params[1]=="split":
-        split(params[1:])
-    elif params[1]=="config":
-        display_config(option_config)
-    elif params[1]=="string":
-        string(option_config, params[1:])
-    elif params[1]=="commands":
-        commands(option_config)
-    elif params[1]=="import":
-        import_from_source(option_config, params[1:],False)
-    elif params[1]=="rotate":
-        rip(option_config, params[1:],True)
-    elif params[1]=="rip":
-        rip(option_config, params[1:],False)
-    elif params[1]=="rebuild":
-        rebuild(option_config, params[1:])
-    elif params[1]=="make":
-        tiles(option_config, params[1:])
-        rebuild(option_config, params[1:])
-    elif params[1]=="rename":
-        rename(option_config, params[1:])
-    elif params[1]=="clone":
-        clone(option_config, params[1:])
-    elif params[1]=="show":
-        show(option_config, params[1:])
-    elif params[1]=="test":
-        test(option_config, params[1:])
-    elif params[1]=="tile":
-        tile(option_config, params[1:])
-    elif params[1]=="tiles":
-        tiles(option_config, params[1:])
-    elif params[1]=="extend":
-        extend(option_config, params[1:])
-    elif params[1]=="build":
-        build(option_config, params[1:])
-    elif params[1]=="manual":
-        manual(option_config, params[1:])
-    elif params[1]=="files":
-        files()
-    elif params[1]=="size":
-        size(option_config, params[1:],0)
-    elif params[1]=="debug":
-        size(option_config, params[1:],1)
-    elif params[1]=="create":
-        create(option_config, params[1:])
-    elif params[1]=="clean":
-        clean(option_config, params[1:])
-    elif params[1]=="reset":
-        reset(option_config, params[1:])
-    elif params[1]=="delete":
-        delete(option_config, params[1:])
-    elif params[1]=="list":
-        list_projects(option_config, params[1:])
-    elif params[1]=="help":
-        help_command(option_config, params[1:])
-    elif params[1]=="tools":
-        tools(option_config, )
-    elif params[1]=="slow":
-        slow(option_config, params[1:])
-    elif params[1] in list_of_projects("all") + \
-                      ["examples"] + ["games"] + ["projects"] + ["all"]:
+
+    if params[1] in ("config", "commands", "files", "tools", "unit_tests", "compilers"):
+        eval(command_name+"(option_config)")
+    elif command_name in COMMANDS_LIST:
+        command_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
+        eval(command_name+"(option_config, params[1:])") 
+    elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(option_config, params)
     else:
         manual(option_config, params)

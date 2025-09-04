@@ -514,7 +514,7 @@ def help_command(option_config, params):
 
 
             print("\n<command>")
-            help_help()
+            help_help(option_config)
     elif params[1] in list_of_documented_routines():
         manual(option_config, params)
 

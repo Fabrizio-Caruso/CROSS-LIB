@@ -9,6 +9,7 @@ import sys
 import time
 
 from os import walk
+from inspect import signature
 
 sys.path.append("modules")
 
@@ -33,16 +34,12 @@ from modules.shape_functions import *
 from modules.clean_functions import clean, clean_test
 from modules.build_functions import *
 
-DEFAULT_COMPILATION_THREADS = 4
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')
 
-# ---------------------------------------------
-
 
 if __name__ == "__main__":
-
 
     if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")
@@ -125,11 +122,11 @@ if __name__ == "__main__":
                    
     logger.info("Command : %s", command_name)
 
-    if params[1] in ("config", "commands", "files", "tools", "unit_tests", "compilers"):
-        eval(command_name+"(option_config)")
-    elif command_name in COMMANDS_LIST:
-        command_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
-        eval(command_name+"(option_config, params[1:])") 
+    normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
+
+    if command_name in COMMANDS_LIST:
+        params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
+        eval(normalized_name+"(option_config" + params_string + ")")
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(option_config, params)
     else:

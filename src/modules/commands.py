@@ -12,7 +12,6 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "compilers": "check present compilers", \
     "config": "displays the configuration", \
     "create": "creates a new project",  \
-    "debug": "builds the native version of a project in debug mode", \
     "delete": "completely deletes a project", \
     "extend": "generates non-8x8 shapes from 8x8 shapes", \
     "files": "shows all generated binary files", \
@@ -46,7 +45,6 @@ COMMANDS_LIST = COMMANDS_DESCRIPTIONS.keys()
 SHORT_COMMANDS_LIST = OrderedDict( \
     { \
         "c": "clean", \
-        "d": "debug", \
         "f": "files", \
         "h": "help", \
         "l": "list", \

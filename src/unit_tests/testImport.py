@@ -1,10 +1,18 @@
 import unittest
 import sys
 
-
 sys.path.append("modules")
+from option_functions import *
 
 from import_from_source import *
+
+build_config = BuildConfig()
+extend_config = ExtendConfig()
+terminal_config = TerminalConfig()
+rom_config = RomConfig()
+
+option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
+
 
 class testImport(unittest.TestCase):
 
@@ -254,13 +262,13 @@ class testImport(unittest.TestCase):
     # aux_rip_tiles
     def test_rip_tiles_asm_1(self):
         source_lines = ['!byte 0,0,60,98,126,98,98,98\n']
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,False,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,False,False)
         
         self.assertEqual(ripped_lines,['0,0,60,98,126,98,98,98'])
 
     def test_rip_tiles_asm_2(self):
         source_lines = ['!byte 0x00, 0x1F, 0x28, 0x28, 0x28, 0x3F, 0x1F, 0x00\n']
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,False,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,False,False)
         
         self.assertEqual(ripped_lines,['$00,$1F,$28,$28,$28,$3F,$1F,$00'])
         
@@ -309,7 +317,7 @@ class testImport(unittest.TestCase):
             '.byte $03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03',
             '.byte $03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03,$03',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [ \
@@ -354,7 +362,7 @@ class testImport(unittest.TestCase):
             "PAT0   DATA >1824,>1866,>BD3C,>2424"
             "PAT1   DATA >0000,>0000,>0000,>0000"
             ]
-        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,assembly_extension,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [ \
@@ -379,7 +387,7 @@ class testImport(unittest.TestCase):
             '.byte %10101010',
             '.byte %11111111',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,assembly_extension,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [ \
@@ -405,7 +413,7 @@ class testImport(unittest.TestCase):
             '.byte $1e,$0c,$0c,$0c,$0c,$6c,$38,$00,$66,$6c,$78,$70,$78,$6c,$66,$00   ; 80',
             '.byte $60,$60,$60,$60,$60,$60,$7e,$00,$63,$77,$7f,$6b,$63,$63,$63,$00   ; 96',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,assembly_extension,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,assembly_extension,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [ \
@@ -462,7 +470,7 @@ class testImport(unittest.TestCase):
             '370 DATA 000, 068, 068, 124, 124, 068, 068, 000',
             '380 DATA 000, 056, 016, 016, 016, 016, 056, 000',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
         [ \
@@ -492,7 +500,7 @@ class testImport(unittest.TestCase):
             '8pOp,h:w=-w*(d=f):s=aS(a$+"@")-74:dA"{24}{44}{152}{110}{25}{24}{40}{40}","{24}{36}{24}{102}{153}{24}{36}{102}","{24}{52}{25}{118}{152}{24}{40}{40}","{ 24}{ 36}{ 90}{189}{189}{ 90}{ 36}{ 24}"',
             '9f=d:on-(x>.aNp<8186aNp>=z)gO3:?sP7)"{reverse on}{red}game over":fOa=.tov/9:nE:pO198,0:j=.:gO1',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
         [ \
@@ -518,7 +526,7 @@ class testImport(unittest.TestCase):
             '8?"{home}{red}a{reverse on}"l" {purple}"i" {black}"r:f=(iaN127)=.:l=l+f:ifo>1-dtHifo+d+b<17tHo=o-1+d:dA83,33,8,28',
             '9on-(l<9)gO3:?"{home}{down*2}"sP8)"{black}{reverse on}{191} {red}end {black}{191}":fOs=ttov:nE:l=.:pO198,0:gO1:dA62,28,62,8,8,',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [
@@ -551,7 +559,7 @@ class testImport(unittest.TestCase):
             '150 YH=0:HT=0:YC=0',
             '170 FOR H=1 TO 9',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [ \
@@ -606,7 +614,7 @@ class testImport(unittest.TestCase):
             "551 DATA 90,90,90,90,90,90,90,00 ' s",
             "552 DATA 91,91,91,91,91,91,91,91 ' t",
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [
@@ -712,7 +720,7 @@ class testImport(unittest.TestCase):
             "650 SYMBOL 57,126,66,66,126,6,6,6,0",
             "680 SYMBOL 95,0,255,0,0,0,0,0,0",
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [
@@ -762,7 +770,7 @@ class testImport(unittest.TestCase):
             '8U=(P>O)*(P<D)*U:IFS=33ANDF<9THENPOK.P-1,0:POK.P+1,0:POK.P-20,0:POK.P+20,0:F=F+1:SE.4,33,0:G.3:D.0,14,120,30,30,0',
             '9POK.711,L:ON((PEEK(P)<>M)*(U>0))GOTO4:SO.0,99,8,9:POK.P,138:U=U-1:F=0:ON(U>0)GOTO4:SO.0,0,0,0:F.I=0TO2600:N.I:G.2',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [
@@ -787,7 +795,7 @@ class testImport(unittest.TestCase):
             '90 NEXT I%',
             '100 END',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [
@@ -809,7 +817,7 @@ class testImport(unittest.TestCase):
             '60 POKE USR "a"+6,BIN 0011100',
             '70 POKE USR "a"+7,BIN 0001000',
             ]
-        ripped_lines = aux_rip_tiles(source_lines,False,False,8,8,rip_flag,False)
+        ripped_lines = aux_rip_tiles(option_config, source_lines,False,False,8,8,rip_flag,False)
         
         self.assertEqual(ripped_lines, \
             [

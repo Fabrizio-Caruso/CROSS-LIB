@@ -3,9 +3,9 @@ import sys
 
 from project_functions import project_category
 from file_functions import files_in_path
-from print_functions import display_shape
+from print_functions import display_shape, print_shape
 from init import NUMBER_OF_TILES
-from print_functions import print_shape
+# from import_from_source import import_split_tiles
 
 
 # General strategies:
@@ -194,10 +194,6 @@ def extend(option_config, params):
     write_shapes(option_config, project,dict8x6,8,6)
     write_shapes(option_config, project,dict6x9,6,9)
     return
-
-
-def split(option_config, params):
-    import_split_tiles(params[1])
 
 
 # Show tile shapes of a given project

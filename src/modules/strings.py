@@ -35,5 +35,5 @@ def compute_string(string):
     
     return  converted_string
 
-def string(params):
+def string(option_config, params):
     print(compute_string(params[1]))

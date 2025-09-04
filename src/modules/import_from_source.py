@@ -177,6 +177,10 @@ def remove_comments(line,basic_code):
     return line
 
 
+def split(option_config, params):
+    import_split_tiles(params[1])
+
+
 def rip_tiles(option_config, filename, xsize, ysize, rip = False, rotate = False):
 
     try:
@@ -196,7 +200,7 @@ def rip_tiles(option_config, filename, xsize, ysize, rip = False, rotate = False
                     filtered_lines.append(line)
             lines = filtered_lines
 
-        return aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip, rotate)
+        return aux_rip_tiles(option_config, lines, assembly_extension, basic_extension, xsize, ysize, rip, rotate)
     except ValueError as valueError:
         print(str(valueError.args[0]))
     except Exception as exception:
@@ -204,7 +208,7 @@ def rip_tiles(option_config, filename, xsize, ysize, rip = False, rotate = False
 
 
 # It rips `xsize` X `ysize` tiles from an Assembly or BASIC source file
-def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False, verbose = False):
+def aux_rip_tiles(option_config, lines, assembly_extension, basic_extension, xsize, ysize, rip = False, rotate = False, verbose = False):
 
         # fin = open(filename, "rt")
 
@@ -327,9 +331,8 @@ def aux_rip_tiles(lines, assembly_extension, basic_extension, xsize, ysize, rip 
                         new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
                         shape = compute_shape(new_tile,ysize)
 
-                    if verbose:
-                        print(new_tile)
-                        print_shape(option_config, shape)
+                    print(new_tile)
+                    print_shape(option_config, shape)
 
                     tile_count+=1
                     new_tile=""
@@ -390,11 +393,11 @@ def compute_split_tiles(lines,verbose=False):
     if verbose:
         print("")
 
-    if verbose:
+    # if verbose:
+    print("")
+    for filtered_lines in filtered_lines_group:
+        display_simple_shape(filtered_lines)
         print("")
-        for filtered_lines in filtered_lines_group:
-            display_simple_shape(filtered_lines)
-            print("")
 
     return filtered_lines_group
 

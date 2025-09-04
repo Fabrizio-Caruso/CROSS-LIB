@@ -267,7 +267,7 @@ def help_command(option_config, params):
             print("<project>")
             print("If a project name is passed then the tiles are imported into <project> as 8x8 tiles")
             print("")
-            print("Remark: For extra heuristics and some BASIC files use '-rip' option or 'xl rip'")
+            print("Remark: For extra heuristics useful on some BASIC files use 'xl rip'")
             print("")
             print("Example:")
             print("If you create a new project 'myname' with")
@@ -293,7 +293,7 @@ def help_command(option_config, params):
         elif params[1]=="rotate":
             printc(option_config, bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")
-            print("It works similarly to 'xl rip <source> <[optional] project>' but rotates the result.")
+            print("It works similarly to 'xl import <source> <[optional] project>' but rotates the result.")
             print("")
             print("<source_file>")
             print("It is an Assembly or BASIC file (e.g., an Assembly file exported from CharPad or VChar64).")
@@ -395,18 +395,6 @@ def help_command(option_config, params):
             print("If 'cc65', 'z88dk, 'cmoc', or 'lcc1802' is passed to <params>, it compiles a test program using the corresponding compiler.")
             print("If 'z88dk_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
             print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the script code.")
-        elif params[1]=="debug" or params[1]=="d":
-            printc(option_config, bcolors.BOLD,"xl debug <project> <XSize> <YSize>")
-            print("It builds <project> for the native host in debug mode with screen size provided by <XSize> and <YSize>.")
-            print("The built binaries will be in the 'build' directory.")
-
-            print("\n<project>")
-            print("<project> can also be 'games'/'examples'/'projects'/'all' to build multiple projects.")
-
-            print("\nxl debug bomber 20 20       \n  It builds Cross Bomber for the native host in debug mode with screen size 20x20.")
-            print("\nxl debug examples 16 12     \n  It builds all examples for the native host in debug mode with screen size 16x12.")
-
-
         elif params[1]=="files" or params[1]=="f":
             printc(option_config, bcolors.BOLD,"xl files\n")
             print("It shows the built binary files (the conent of the `build` directory).\n")

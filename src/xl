@@ -30,7 +30,6 @@ from modules.input_functions import generic_input, are_you_sure
 from modules.option_functions import *
 from modules.project_functions import rename, clone, create, delete
 from modules.target_defs import *
-from modules.shape_functions import *
 from modules.clean_functions import clean, clean_test
 from modules.build_functions import *
 
@@ -79,6 +78,7 @@ def handle_parallelism(option_config):
         from multiprocessing import Pool
     else:
         logger.info("Parallelize_multi_build is OFF")
+
 
 def get_gnu_make(option_config):
     make_test = test_make(option_config, silent=True)

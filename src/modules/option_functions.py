@@ -1,8 +1,8 @@
 import sys
 import os
 
-from modules.print_functions import printc, bcolors
-from modules.LoggerSingleton import LoggerSingleton
+from print_functions import printc, bcolors
+from LoggerSingleton import LoggerSingleton
 
 # LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
@@ -11,12 +11,12 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 class TerminalConfig():
     def __init__(
         self,
-        verbose,
-        color_terminal,
-        test,
-        native_console,
-        fast_test,
-        interactive_test
+        verbose = "0",
+        color_terminal = "0",
+        test = "0",
+        native_console = "",
+        fast_test = "1",
+        interactive_test = "0"
         ):
         # terminal
         self.verbose = verbose
@@ -30,10 +30,10 @@ class TerminalConfig():
 class RomConfig():
     def __init__(
         self,
-        vice_path,
-        vice_rom_path,
-        mame_path,
-        mame_rom_path
+        vice_path = "",
+        vice_rom_path = "",
+        mame_path = "",
+        mame_rom_path = ""
         ):
         self.vice_path = vice_path
         self.vice_rom_path = vice_rom_path
@@ -43,8 +43,8 @@ class RomConfig():
 class ExtendConfig():
     def __init__(
         self,
-        extend_algorithm,
-        replace_shapes
+        extend_algorithm = "",
+        replace_shapes = ""
         ):
         self.extend_algorithm = extend_algorithm
         self.replace_shapes = replace_shapes
@@ -53,23 +53,23 @@ class ExtendConfig():
 class BuildConfig():
     def __init__(
         self,
-        gnu_make,
-        compilation_threads,
-        compilation_threads_string,
-        parallelize_multi_build,
-        z88dk_compiler,
-        z88dk_compiler_opts,
-        sccz80_compiler_opts,
-        zsdcc_compiler_opts,
-        cmoc_compiler_opts,
-        cc65_compiler_opts,
-        lcc1802_compiler_opts,
-        gcc4ti99_compiler_opts,
-        vbcc_compiler_opts,
-        native_compiler_opts,
-        native_compiler,
-        tool_compiler,
-        use_tools
+        gnu_make = "make",
+        compilation_threads = "4",
+        compilation_threads_string = "",
+        parallelize_multi_build = "0",
+        z88dk_compiler = "sccz80",
+        z88dk_compiler_opts = "",
+        sccz80_compiler_opts = "",
+        zsdcc_compiler_opts = "zsdcc",
+        cmoc_compiler_opts = "",
+        cc65_compiler_opts = "",
+        lcc1802_compiler_opts = "",
+        gcc4ti99_compiler_opts = "",
+        vbcc_compiler_opts = "",
+        native_compiler_opts = "",
+        native_compiler = "gcc",
+        tool_compiler = "gcc",
+        use_tools = "1"
         ):
 
         # build

@@ -49,32 +49,63 @@ def get_params_from_keyboard_input():
     printc(option_config, bcolors.OKCYAN, "Interactive mode\n")
     print("--------------------------------------------------")
     print("")
-
     project_name = generic_input("Insert project to build\n")
-
     if project_name in ("", "\n"):
         project_name="helloworld"
         printc(option_config, bcolors.WARNING,"Defaulting to helloworld\n")
     print("")
-
     target_name = generic_input("Insert target name\n")
     if target_name in ("", "\n"):
         target_name="ncurses"
         printc(option_config, bcolors.WARNING, "Defaulting to ncurses\n")
     print("")
-
     return ["", "rebuild", project_name, target_name]
-    
+
 
 def get_params_from_command_line():
     logger.info("Interactive mode OFF")
     params = sys.argv
     params = handle_two_letter_params(params)
+    if params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
+        params = ["","build"]+params[1:]
     return full_params(params)
 
 
-if __name__ == "__main__":
+def handle_parallelism(option_config):
+    if option_config.build_config.parallelize_multi_build:
+        if option_config.terminal_config.verbose:
+            print("Parallelize_multi_build is ON")
+        logger.info("Parallelize_multi_build is ON")
+        from multiprocessing import Pool
+    else:
+        logger.info("Parallelize_multi_build is OFF")
 
+def get_gnu_make(option_config):
+    make_test = test_make(option_config, silent=True)
+    if option_config.build_config.gnu_make == "auto":
+        if option_config.terminal_config.verbose:
+            print("automatic detection of GNU make")
+        if make_test['gmake']:
+            option_config.build_config.gnu_make = "gmake"
+        else:
+            option_config.build_config.gnu_make = "make"
+    return option_config.build_config.gnu_make
+
+
+def handle_verbose(option_config):
+    if option_config.terminal_config.verbose:
+        logger.info("Verbose mode ON")
+        print("----------------------------")
+        print("----------------------------")
+        print("Platform: " + platform)
+        print("Python:   " + str(python_version) + "." + str(python_subversion))
+        logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
+        print("GNU MAKE command: " + GNU_MAKE)
+        print("----------------------------")
+        print("")
+
+
+def get_config():
     if python_version<2 or (python_version<=2 and python_subversion<7):
         print("Python version not supported")
         logger.error("Python version not supported")
@@ -88,47 +119,18 @@ if __name__ == "__main__":
         logger.warning("Reverting to default configuration")
         option_config = default_config()
         print("WARNING: Using default config")
+    return option_config
 
-    make_test = test_make(option_config, silent=True)
 
-    if option_config.build_config.gnu_make == "auto":
-        if option_config.terminal_config.verbose:
-            print("automatic detection of GNU make")
-        if make_test['gmake']:
-            option_config.build_config.gnu_make = "gmake"
-        else:
-            option_config.build_config.gnu_make = "make"
-    GNU_MAKE = option_config.build_config.gnu_make
-
-    if option_config.build_config.parallelize_multi_build:
-        if option_config.terminal_config.verbose:
-            print("Parallelize_multi_build is ON")
-        logger.info("Parallelize_multi_build is ON")
-        from multiprocessing import Pool
-    else:
-        logger.info("Parallelize_multi_build is OFF")
-
-    if option_config.terminal_config.verbose:
-        logger.info("Verbose mode ON")
-        print("----------------------------")
-        print("----------------------------")
-        print("Platform: " + platform)
-        print("Python:   " + str(python_version) + "." + str(python_subversion))
-        logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
-
-        print("GNU MAKE command: " + GNU_MAKE)
-        print("----------------------------")
-        print("")
-
+if __name__ == "__main__":
+    option_config = get_config()
+    GNU_MAKE = get_gnu_make(option_config)
+    handle_verbose(option_config)
+    handle_parallelism(option_config)
     params = get_params_from_keyboard_input() if (len(sys.argv)<2) else get_params_from_command_line()
-
-    command_name = "build" if params[1] in list_of_projects("all") + \
-                   ["examples"] + ["games"] + ["projects"] + ["all"] else params[1]
-                   
+    command_name = params[1]
     logger.info("Command : %s", command_name)
-
     normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
-
     if command_name in COMMANDS_LIST:
         params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
         eval(normalized_name+"(option_config" + params_string + ")")
@@ -136,8 +138,6 @@ if __name__ == "__main__":
         build(option_config, params)
     else:
         manual(option_config, params)
-
     logger.info('Finished')
-
     os.system('mv ../logs/log.log ../logs/log_' + \
               datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )

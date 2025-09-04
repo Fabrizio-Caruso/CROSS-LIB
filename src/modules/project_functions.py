@@ -5,6 +5,7 @@ from file_functions import convert_makefile
 from init import game_projects, example_projects
 from strings import only_upper_digits_and_space, no_space
 from commands import COMMANDS_LIST
+from input_functions import are_you_sure
 
 # It computes the type of project
 def project_category(game_dir):

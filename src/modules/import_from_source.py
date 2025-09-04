@@ -178,7 +178,7 @@ def remove_comments(line,basic_code):
 
 
 def split(option_config, params):
-    import_split_tiles(params[1])
+    import_split_tiles(option_config, params[1])
 
 
 def rip_tiles(option_config, filename, xsize, ysize, rip = False, rotate = False):
@@ -327,12 +327,13 @@ def aux_rip_tiles(option_config, lines, assembly_extension, basic_extension, xsi
                     shape = compute_shape(new_tile,xsize)
 
 
-                    if(rotate):
+                    if rotate:
                         new_tile = str(compute_rotated_shape(shape)).replace('[','').replace(']','')
                         shape = compute_shape(new_tile,ysize)
 
-                    print(new_tile)
-                    print_shape(option_config, shape)
+                    if not option_config.terminal_config.test:
+                        print(new_tile)
+                        print_shape(option_config, shape)
 
                     tile_count+=1
                     new_tile=""
@@ -372,7 +373,7 @@ def store_tile(project, tile, xsize, ysize, index):
     fin.close()
 
 
-def compute_split_tiles(lines,verbose=False):
+def compute_split_tiles(option_config, lines,verbose=False):
 
     xsize = 16
     for line in lines:
@@ -393,20 +394,20 @@ def compute_split_tiles(lines,verbose=False):
     if verbose:
         print("")
 
-    # if verbose:
-    print("")
-    for filtered_lines in filtered_lines_group:
-        display_simple_shape(filtered_lines)
+    if not option_config.terminal_config.test:
         print("")
+        for filtered_lines in filtered_lines_group:
+            display_simple_shape(filtered_lines)
+            print("")
 
     return filtered_lines_group
 
 
-def import_split_tiles(file_name):
+def import_split_tiles(option_config, file_name):
     fin = open(file_name, "rt")
     lines = fin.readlines()
 
-    filtered_lines_group = compute_split_tiles(lines)
+    filtered_lines_group = compute_split_tiles(option_config, lines)
     # print(str(lines))
 
     fin.close()

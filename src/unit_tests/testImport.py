@@ -10,7 +10,6 @@ build_config = BuildConfig()
 extend_config = ExtendConfig()
 terminal_config = TerminalConfig()
 rom_config = RomConfig()
-
 option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
 
 
@@ -864,7 +863,7 @@ class testImport(unittest.TestCase):
         '................'
         ]
     
-        split_tiles = compute_split_tiles(source_lines,False)
+        split_tiles = compute_split_tiles(option_config, source_lines,False)
         self.assertEqual(split_tiles, \
         [
             [
@@ -920,7 +919,7 @@ class testImport(unittest.TestCase):
         '................\n', 
         '................'
         ]
-        split_tiles = compute_split_tiles(source_lines,False)
+        split_tiles = compute_split_tiles(option_config, source_lines,False)
         self.assertEqual(split_tiles, \
         [
             [

@@ -4,7 +4,6 @@ import os
 from print_functions import printc, bcolors
 from LoggerSingleton import LoggerSingleton
 from init import *
-from tests import test_make
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 
@@ -502,8 +501,7 @@ def get_config():
     return option_config
 
 
-def get_gnu_make(option_config):
-    make_test = test_make(option_config, silent=True)
+def handle_make(option_config, make_test):
     if option_config.build_config.gnu_make == "auto":
         if option_config.terminal_config.verbose:
             print("automatic detection of GNU make")

@@ -38,6 +38,13 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')
 
 
+
+def get_gnu_make(option_config):
+    make_test = test_make(option_config, silent=True)
+    handle_make(option_config, make_test)
+    return option_config.build_config.gnu_make
+
+
 def execute_command(command):
     normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
     params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""

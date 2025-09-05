@@ -4,8 +4,8 @@ import os
 from print_functions import printc, bcolors
 from LoggerSingleton import LoggerSingleton
 from init import *
+from tests import test_make
 
-# LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
 
 
@@ -278,12 +278,8 @@ def read_config_option(config, section, option):
     return ""
 
 def read_config(config_file="./config.ini"):
-    # print("read config")
     if not os.path.exists(config_file):
-        # print("config not found")
         raise Exception
-    # else:
-        # print("config found")
     try:
         import configparser
     except ImportError:
@@ -307,13 +303,11 @@ def read_config(config_file="./config.ini"):
             print("----------------------------")
             print("Verbose Mode ON")
 
-        # print("Extracting color_terminal")
         color_terminal = read_config_option(config,"terminal","color_terminal")
         if color_terminal!="":
             color_terminal=int(color_terminal)
         else:
             color_terminal=0
-        # print("DONE Extracting color_terminal")
 
         logger.info("Color terminal: %s", str(color_terminal))
 
@@ -331,10 +325,8 @@ def read_config(config_file="./config.ini"):
 
         terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test, interactive_test=interactive_test)
 
-
         if verbose:
             print("Config file found with: " + str(config.sections()))
-            # print("")
 
         gnu_make = read_config_option(config,"build","gnu_make")
 
@@ -508,3 +500,15 @@ def get_config():
         option_config = default_config()
         print("WARNING: Using default config")
     return option_config
+
+
+def get_gnu_make(option_config):
+    make_test = test_make(option_config, silent=True)
+    if option_config.build_config.gnu_make == "auto":
+        if option_config.terminal_config.verbose:
+            print("automatic detection of GNU make")
+        if make_test['gmake']:
+            option_config.build_config.gnu_make = "gmake"
+        else:
+            option_config.build_config.gnu_make = "make"
+    return option_config.build_config.gnu_make

@@ -2,6 +2,8 @@ from os import walk
 
 import sys
 from file_functions import dirs_in_path
+from LoggerSingleton import LoggerSingleton
+
 
 platform = sys.platform
 
@@ -33,5 +35,35 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+logger = LoggerSingleton.initLogger('xl', '../logs')
+
+def handle_parallelism(option_config):
+    if option_config.build_config.parallelize_multi_build:
+        if option_config.terminal_config.verbose:
+            print("Parallelize_multi_build is ON")
+        logger.info("Parallelize_multi_build is ON")
+        from multiprocessing import Pool
+    else:
+        logger.info("Parallelize_multi_build is OFF")
+
+
+def handle_verbose(option_config):
+    if option_config.terminal_config.verbose:
+        logger.info("Verbose mode ON")
+        print("----------------------------")
+        print("----------------------------")
+        print("Platform: " + platform)
+        print("Python:   " + str(python_version) + "." + str(python_subversion))
+        logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
+        print("GNU MAKE command: " + GNU_MAKE)
+        print("----------------------------")
+        print("")
+
+
+def init(option_config):
+    handle_verbose(option_config)
+    handle_parallelism(option_config)
 
 

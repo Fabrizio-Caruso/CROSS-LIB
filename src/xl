@@ -38,41 +38,6 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')
 
 
-def handle_parallelism(option_config):
-    if option_config.build_config.parallelize_multi_build:
-        if option_config.terminal_config.verbose:
-            print("Parallelize_multi_build is ON")
-        logger.info("Parallelize_multi_build is ON")
-        from multiprocessing import Pool
-    else:
-        logger.info("Parallelize_multi_build is OFF")
-
-
-def get_gnu_make(option_config):
-    make_test = test_make(option_config, silent=True)
-    if option_config.build_config.gnu_make == "auto":
-        if option_config.terminal_config.verbose:
-            print("automatic detection of GNU make")
-        if make_test['gmake']:
-            option_config.build_config.gnu_make = "gmake"
-        else:
-            option_config.build_config.gnu_make = "make"
-    return option_config.build_config.gnu_make
-
-
-def handle_verbose(option_config):
-    if option_config.terminal_config.verbose:
-        logger.info("Verbose mode ON")
-        print("----------------------------")
-        print("----------------------------")
-        print("Platform: " + platform)
-        print("Python:   " + str(python_version) + "." + str(python_subversion))
-        logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
-        print("GNU MAKE command: " + GNU_MAKE)
-        print("----------------------------")
-        print("")
-
-
 def execute_command(command):
     normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
     params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
@@ -82,9 +47,7 @@ def execute_command(command):
 if __name__ == "__main__":
     option_config = get_config()
     GNU_MAKE = get_gnu_make(option_config)
-    handle_verbose(option_config)
-    handle_parallelism(option_config)
-    # params = get_params_from_keyboard_input(option_config) if (len(sys.argv)<2) else get_params_from_command_line()
+    init(option_config)
     params = get_params(option_config)
     command_name = params[1]
     logger.info("Command : %s", command_name)

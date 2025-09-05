@@ -35,12 +35,7 @@ from modules.clean_functions import clean, clean_test
 
 DEFAULT_COMPILATION_THREADS = 4
 
-# LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
-
-# console_logger = LoggerSingleton.initConsoleLogger('console')
-
-# console_logger.info('Console logger started')
 
 logger.info('Started')
 

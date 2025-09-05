@@ -84,3 +84,6 @@ def get_params_from_command_line():
         params = ["","build"]+params[1:]
     return full_params(params)
 
+
+def get_params(option_config):
+   return get_params_from_keyboard_input(option_config) if (len(sys.argv)<2) else get_params_from_command_line()

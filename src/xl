@@ -19,7 +19,7 @@ from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
 from modules.init import *
 from modules.default_values import insert_default_sizes
-from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params_from_command_line, get_params_from_keyboard_input
+from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params
 from modules.help_functions import help_command, manual
 from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
 from modules.tests import *
@@ -73,18 +73,23 @@ def handle_verbose(option_config):
         print("")
 
 
+def execute_command(command):
+    normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
+    params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
+    eval(normalized_name+"(option_config" + params_string + ")")
+
+
 if __name__ == "__main__":
     option_config = get_config()
     GNU_MAKE = get_gnu_make(option_config)
     handle_verbose(option_config)
     handle_parallelism(option_config)
-    params = get_params_from_keyboard_input(option_config) if (len(sys.argv)<2) else get_params_from_command_line()
+    # params = get_params_from_keyboard_input(option_config) if (len(sys.argv)<2) else get_params_from_command_line()
+    params = get_params(option_config)
     command_name = params[1]
     logger.info("Command : %s", command_name)
-    normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
     if command_name in COMMANDS_LIST:
-        params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
-        eval(normalized_name+"(option_config" + params_string + ")")
+        execute_command(command_name)
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(option_config, params)
     else:

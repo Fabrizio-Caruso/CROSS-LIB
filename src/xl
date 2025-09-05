@@ -19,7 +19,7 @@ from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
 from modules.init import *
 from modules.default_values import insert_default_sizes
-from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params
+from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params_from_command_line, get_params_from_keyboard_input
 from modules.help_functions import help_command, manual
 from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
 from modules.tests import *
@@ -36,38 +36,6 @@ from modules.build_functions import *
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')
-
-
-def get_params_from_keyboard_input():
-    logger.info("Interactive mode ON")
-    print("For more commands, use the non-interactive mode.")
-    printc(option_config, bcolors.BOLD, "xl help")
-    print(" for instructions.")
-    print("")
-    print("--------------------------------------------------")
-    printc(option_config, bcolors.OKCYAN, "Interactive mode\n")
-    print("--------------------------------------------------")
-    print("")
-    project_name = generic_input("Insert project to build\n")
-    if project_name in ("", "\n"):
-        project_name="helloworld"
-        printc(option_config, bcolors.WARNING,"Defaulting to helloworld\n")
-    print("")
-    target_name = generic_input("Insert target name\n")
-    if target_name in ("", "\n"):
-        target_name="ncurses"
-        printc(option_config, bcolors.WARNING, "Defaulting to ncurses\n")
-    print("")
-    return ["", "rebuild", project_name, target_name]
-
-
-def get_params_from_command_line():
-    logger.info("Interactive mode OFF")
-    params = sys.argv
-    params = handle_two_letter_params(params)
-    if params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
-        params = ["","build"]+params[1:]
-    return full_params(params)
 
 
 def handle_parallelism(option_config):
@@ -105,29 +73,12 @@ def handle_verbose(option_config):
         print("")
 
 
-def get_config():
-    if python_version<2 or (python_version<=2 and python_subversion<7):
-        print("Python version not supported")
-        logger.error("Python version not supported")
-        sys.exit(-1)
-    try:
-        option_config = read_config()
-        logger.info("(read_config) Configuration file read")
-    except:
-        if option_config.terminal_config.verbose:
-            print("Failed to read config.ini")
-        logger.warning("Reverting to default configuration")
-        option_config = default_config()
-        print("WARNING: Using default config")
-    return option_config
-
-
 if __name__ == "__main__":
     option_config = get_config()
     GNU_MAKE = get_gnu_make(option_config)
     handle_verbose(option_config)
     handle_parallelism(option_config)
-    params = get_params_from_keyboard_input() if (len(sys.argv)<2) else get_params_from_command_line()
+    params = get_params_from_keyboard_input(option_config) if (len(sys.argv)<2) else get_params_from_command_line()
     command_name = params[1]
     logger.info("Command : %s", command_name)
     normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")

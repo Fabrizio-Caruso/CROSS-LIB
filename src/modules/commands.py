@@ -1,6 +1,9 @@
 from collections import OrderedDict
 from print_functions import printc, bcolors
 
+from inspect import signature
+
+
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
     "assets": "builds assets from tile and/or shape files", \
@@ -71,3 +74,4 @@ def commands(option_config):
         printc(option_config, bcolors.BOLD, short_command[0])
         print(" -> ",end="")
         printc(option_config, bcolors.BOLD, short_command[1]+"\n")
+

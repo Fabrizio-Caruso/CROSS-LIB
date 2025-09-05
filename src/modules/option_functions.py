@@ -3,6 +3,7 @@ import os
 
 from print_functions import printc, bcolors
 from LoggerSingleton import LoggerSingleton
+from init import *
 
 # LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
@@ -489,4 +490,21 @@ def default_config():
         logger.warning("Error in default config")
         print("Error in default config")
         sys.exit(-1)
+    return option_config
+
+
+def get_config():
+    if python_version<2 or (python_version<=2 and python_subversion<7):
+        print("Python version not supported")
+        logger.error("Python version not supported")
+        sys.exit(-1)
+    try:
+        option_config = read_config()
+        logger.info("(read_config) Configuration file read")
+    except:
+        if option_config.terminal_config.verbose:
+            print("Failed to read config.ini")
+        logger.warning("Reverting to default configuration")
+        option_config = default_config()
+        print("WARNING: Using default config")
     return option_config

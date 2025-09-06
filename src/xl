@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 
-import datetime
-import sys
 
+import sys
+import datetime
+import os
 
 sys.path.append("modules")
 
 from modules.LoggerSingleton import LoggerSingleton
-from modules.params import COMMANDS_LIST, get_params
+from modules.params import get_params
+from modules.commands import COMMANDS_LIST
 from modules.tests import test_make
-from modules.option_functions import *
+from modules.option_functions import get_config, handle_make
+from modules.init import init
 from modules.execute import execute_command
+from modules.file_functions import list_of_projects
+from modules.build_functions import build
+from modules.help_functions import manual
+
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')

@@ -25,7 +25,7 @@ from modules.file_functions import files, convert_makefile, files_in_path, dirs_
 from modules.tests import *
 from modules.split_projects import *
 from modules.run import run_command, run
-from modules.commands import commands
+from modules.commands import commands, normalize_command
 from modules.input_functions import generic_input, are_you_sure
 from modules.option_functions import *
 from modules.project_functions import rename, clone, create, delete
@@ -46,7 +46,7 @@ def get_gnu_make(option_config):
 
 
 def execute_command(command):
-    normalized_name = command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
+    normalized_name = normalize_command(command_name)
     params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
     eval(normalized_name+"(option_config" + params_string + ")")
 

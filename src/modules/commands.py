@@ -75,3 +75,7 @@ def commands(option_config):
         print(" -> ",end="")
         printc(option_config, bcolors.BOLD, short_command[1]+"\n")
 
+
+
+def normalize_command(command_name):
+    return command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")

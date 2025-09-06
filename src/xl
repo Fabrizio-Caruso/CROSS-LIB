@@ -1,54 +1,25 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
-
 import datetime
-import shutil
-import os
 import sys
-import time
 
-from os import walk
-from inspect import signature
 
 sys.path.append("modules")
 
-from modules.strings import *
-from modules.import_from_source import *
-from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
-from modules.init import *
-from modules.default_values import insert_default_sizes
-from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params
-from modules.help_functions import help_command, manual
-from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
-from modules.tests import *
-from modules.split_projects import *
-from modules.run import run_command, run
-from modules.commands import commands, normalize_command
-from modules.input_functions import generic_input, are_you_sure
+from modules.params import COMMANDS_LIST, get_params
+from modules.tests import test_make
 from modules.option_functions import *
-from modules.project_functions import rename, clone, create, delete
-from modules.target_defs import *
-from modules.clean_functions import clean, clean_test
-from modules.build_functions import *
-
+from modules.execute import execute_command
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 logger.info('Started')
-
 
 
 def get_gnu_make(option_config):
     make_test = test_make(option_config, silent=True)
     handle_make(option_config, make_test)
     return option_config.build_config.gnu_make
-
-
-def execute_command(command):
-    normalized_name = normalize_command(command_name)
-    params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
-    eval(normalized_name+"(option_config" + params_string + ")")
 
 
 if __name__ == "__main__":
@@ -59,7 +30,7 @@ if __name__ == "__main__":
     command_name = params[1]
     logger.info("Command : %s", command_name)
     if command_name in COMMANDS_LIST:
-        execute_command(command_name)
+        execute_command(option_config, command_name, params)
     elif params[1] in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(option_config, params)
     else:

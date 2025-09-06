@@ -1,0 +1,32 @@
+from inspect import signature
+
+
+from modules.strings import *
+from modules.import_from_source import *
+from modules.tiles import *
+from modules.LoggerSingleton import LoggerSingleton
+from modules.init import *
+from modules.default_values import insert_default_sizes
+from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params
+from modules.help_functions import help_command, manual
+from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
+from modules.tests import *
+from modules.split_projects import *
+from modules.run import run_command, run
+from modules.commands import commands
+from modules.input_functions import generic_input, are_you_sure
+from modules.option_functions import *
+from modules.project_functions import rename, clone, create, delete
+from modules.target_defs import *
+from modules.clean_functions import clean, clean_test
+from modules.build_functions import *
+
+def normalize_command(command_name):
+    return command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")
+    
+    
+
+def execute_command(option_config, command_name, params):
+    normalized_name = normalize_command(command_name)
+    params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
+    eval(normalized_name+"(option_config" + params_string + ")")

@@ -1,8 +1,6 @@
 from collections import OrderedDict
 from print_functions import printc, bcolors
 
-from inspect import signature
-
 
 COMMANDS_DESCRIPTIONS = OrderedDict( \
     {
@@ -77,5 +75,3 @@ def commands(option_config):
 
 
 
-def normalize_command(command_name):
-    return command_name.replace("list","list_projects").replace("help", "help_command").replace("import", "import_from_source")

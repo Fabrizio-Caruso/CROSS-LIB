@@ -409,7 +409,7 @@ CLEAN_TEST = \
     [ \
         "xl delete _cloned_test_project -y", \
         "xl delete _foo_test -y", \
-        "xl clean tools", \
+        "xl clean", \
     ]
 
 DEFAULT_CLEANUP_COMMANDS = \
@@ -418,13 +418,7 @@ DEFAULT_CLEANUP_COMMANDS = \
         "xl clean", \
     ]
 
-CREATE_CLEANUP_COMMANDS = \
-    [ \
-        "xl delete _test_project1 -y", \
-        "xl delete _test_project2 -y", \
-        "xl delete _test_project3 -y", \
-        "xl delete _test_project4 -y", \
-    ]
+NO_CLEANUP = []
 
 
 TOOLS_TEST = \
@@ -444,6 +438,14 @@ CREATE_TEST = \
         "xl build _test_project2 __target__ ", \
         "xl build _test_project3 __target__ ", \
         "xl build _test_project4 __target__ ", \
+    ]
+
+CLEANUP_CREATE_TEST = \
+    [ \
+        "xl delete _test_project1 -y", \
+        "xl delete _test_project2 -y", \
+        "xl delete _test_project3 -y", \
+        "xl delete _test_project4 -y", \
     ]
 
 
@@ -480,6 +482,13 @@ RENAME_TEST = \
     ]
 
 
+CLEANUP_RENAME_TEST = \
+    [ \
+        "xl clean", \
+        "xl delete _test_project -y", \
+    ]
+
+
 MAKE_TEST = \
     [ \
         "xl create _foo_test", \
@@ -488,17 +497,20 @@ MAKE_TEST = \
         "xl rebuild _foo_test __target__", \
         "xl show _foo_test", \
 
-        "xl extend _test_project", \
+        "xl extend _foo_test", \
         "xl clean", \
     ]
 
 
-HEAVY_TEST = \
+EXAMPLES_TEST = \
     [ \
         "xl examples __target__", \
-        "xl clean", \
+    ]
+
+
+GAMES_TEST = \
+    [ \
         "xl games __target__", \
-        "xl clean", \
     ]
 
 
@@ -510,10 +522,17 @@ RUN_TEST = \
         "xl clone _test_project _cloned_test_project", \
         "xl build _cloned_test_project __target__", \
         "xl run _cloned_test_project __target__", \
-        "xl delete _cloned_test_project -y", \
+    ]
+
+CLEANUP_RUN_TEST = \
+    [ \
+            "xl clean", \
+            "xl delete _test_project -y", \
+            "xl delete _cloned_test_project -y", \
     ]
 
 
+# No clean-up necessary
 DEV_TOOLS_TEST = \
     [ \
         "xl tile ./assets/examples/single_tiles/tile_shape0.txt", \
@@ -533,6 +552,7 @@ def check_execute_clean(option_config, target):
     # execute_commands(option_config, CLEAN_TEST, target)
     
     files = files_in_path("../build")
+    # print(len(files))
     return not(len(files)-1)
 
 def check_execute_tools(option_config, target):
@@ -550,11 +570,25 @@ def check_execute_complex(option_config, target):
     return 1
 
 
-def check_execute_run(option_config, target):
-    return 1
+# def check_execute_run(option_config, target):
+    # return 1
 
-def check_execute_examples(option_config, target):
-    return 1
+def check_examples(option_config, target):
+    number_files = len(files_in_path("../build"))-1
+    number_of_examples = len(dirs_in_path("./examples"))
+
+    return number_files == number_of_examples*binary_factor(target)
+
+
+def check_games(option_config, target):
+    number_files = len(files_in_path("../build"))-1
+    number_of_games = len(dirs_in_path("./games"))
+
+    return number_files == number_of_games*binary_factor(target)
+
+def check_rename(option_config, target):
+    number_files = len(files_in_path("../build"))-1
+    return number_files==2*binary_factor(target)
 
 def check_dev_tools(option_config, target):
     return 1
@@ -563,8 +597,21 @@ def check_create(option_config, target):
     return 1
 
 def check_make(option_config, target):
-    return 1
+    success = 1
+    dirs_in_proj_after = len(dirs_in_path("./projects/_foo_test"))
 
+    if dirs_in_proj_after != 4:
+        printc(option_config, bcolors.FAIL, "[xl extend] 1         KO\n")
+        success=0
+
+    dirs_in_shapes_after = len(dirs_in_path("./projects/_foo_test/shapes"))
+
+    if dirs_in_shapes_after != 5:
+        printc(option_config, bcolors.FAIL, "[xl extend] 2        KO\n")
+        print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
+        print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
+        success=0
+    return success
 
 def no_check(option_config, target):
     return 1
@@ -576,7 +623,7 @@ def display_ok_ko(option_config, result):
         printc(option_config, bcolors.FAIL,   "KO"+"\n")
 
 
-def test_execute(option_config, test_name, commands, target, check = no_check, cleanup_commands = DEFAULT_CLEANUP_COMMANDS):
+def test_execute(option_config, target, test_name, commands, check = no_check, cleanup_commands = DEFAULT_CLEANUP_COMMANDS):
     print("-----------------------------------")
     print("TEST: " + bcolors.BOLD + test_name + bcolors.ENDC)
     print("-----------------------------------")
@@ -593,6 +640,28 @@ def test_execute(option_config, test_name, commands, target, check = no_check, c
     execute_commands(option_config, cleanup_commands, target, silent = True)
     return result
 
+
+STANDARD_SELF_TESTS = \
+    [ \
+        ("test xl clean",            CLEAN_TEST,     check_execute_clean), \
+        ("test xl tools",            TOOLS_TEST,     check_execute_tools), \
+        ("test several xl commands", COMPLEX_TEST), \
+        ("test xl dev tools",        DEV_TOOLS_TEST), \
+        ("test xl create",           CREATE_TEST,    check_create, CLEANUP_CREATE_TEST), \
+        ("test xl make",             MAKE_TEST,      check_make), \
+        ("test xl rename",           RENAME_TEST,    no_check, CLEANUP_RENAME_TEST) \
+    ]
+
+
+def binary_factor(target):
+    if target in TARGETS_WITH_2_BINARIES:
+        return 2
+    elif target in TARGETS_WITH_3_BINARIES:
+        return 3
+    else:
+        return 1
+
+
 def test_self(option_config, target = "stdio"):
     option_config.terminal_config.test = 1
 
@@ -604,21 +673,18 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
-    success *= test_execute(option_config, "test xl clean",            CLEAN_TEST,     target, check_execute_clean)
-    success *= test_execute(option_config, "test xl tools",            TOOLS_TEST,     target, check_execute_tools)
-    success *= test_execute(option_config, "test several xl commands", COMPLEX_TEST,   target)
-    success *= test_execute(option_config, "test xl dev tools",        DEV_TOOLS_TEST, target)
-    success *= test_execute(option_config, "test xl create",           CREATE_TEST,    target, check_create, CREATE_CLEANUP_COMMANDS)
-    success *= test_execute(option_config, "test xl make",             MAKE_TEST,      target)
-    success *= test_execute(option_config, "test xl rename",           RENAME_TEST,    target)
-
-    
+    self_tests = STANDARD_SELF_TESTS
     if option_config.terminal_config.interactive_test:
-        success *= test_execute(option_config, "test xl run",              RUN_TEST,     target)
-    
+        self_tests.append(("test xl run",              RUN_TEST,            no_check,                     CLEANUP_RUN_TEST))
     if not option_config.terminal_config.fast_test:
-        success *= test_execute(option_config, "test xl examples/games",   HEAVY_TEST,   target, check_execute_examples)
+        self_tests.append(("test xl examples",   EXAMPLES_TEST, check_examples))
+        self_tests.append(("test xl games",      GAMES_TEST,    check_games))
 
+    execute_string(option_config, "xl clean", silent = True)
+    for test in self_tests:
+        success *= test_execute(option_config, target, *test)
+
+    execute_string(option_config, "xl clean", silent = True)
 
 
     option_config.terminal_config.test = 0
@@ -1080,6 +1146,7 @@ def targets_test(option_config, params):
     success = clean_test(option_config)
     compilation_threads = option_config.build_config.compilation_threads
     native_compiler = option_config.build_config.native_compiler
+    GNU_MAKE = option_config.build_config.gnu_make
     if params[1].startswith("z88dk") or params[1]=="cc65":
         parallel = " -j " + compilation_threads
     else:

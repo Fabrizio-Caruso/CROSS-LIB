@@ -224,8 +224,10 @@ def show(option_config, params):
 def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize, index):
     dir = xsize+"x"+ysize
     dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
-    print("Decoding file tile: " + dest)
-    print("")
+    
+    if option_config.terminal_config.verbose:
+        print("Decoding file tile: " + dest)
+        print("")
     try:
         fin = open(dest, "rt")
 

@@ -44,16 +44,16 @@ def detect_ysize(target):
 
 
 # Import a shape as single tile from a text file that describes its shape with characters
-def tile(params):
+def tile(option_config, params):
 
     tile,xsize,ysize = import_tile(params[1])
 
-    if verbose:
+    if option_config.terminal_config.verbose:
         print_shape(option_config, compute_shape(tile,xsize))
 
     if len(params)>=3:
-        store_tile(params[2], tile, xsize, ysize, params[3])
-    else:
+        store_tile(option_config, params[2], tile, xsize, ysize, params[3])
+    elif not option_config.terminal_config.test:
         printc(option_config, bcolors.OKCYAN, tile+"\n")
 
 
@@ -92,8 +92,9 @@ def tiles(option_config, params):
         if verbose:
             print("processing path file: ", path_to_shape_file)
         tile_number_str = shape_file[5:].replace(".txt","")
-
-        print("tile number: " + tile_number_str)
+        
+        if verbose:
+            print("tile number: " + tile_number_str)
 
         tile,xsize,ysize = import_tile(path_to_shape_file)
 
@@ -101,13 +102,15 @@ def tiles(option_config, params):
             print("Shape in file " + path_to_shape_file + " has wrong dimensions!")
             print(tile)
             return
-        print(tile)
+        
+        if not option_config.terminal_config.test:
+            print(tile)
         if verbose:
             print_shape(option_config, compute_shape(tile,xsize))
 
-        store_tile(project_name, tile, xsize, ysize, tile_number_str)
-
-        print("")
+        store_tile(option_config, project_name, tile, xsize, ysize, tile_number_str)
+        if verbose:
+            print("")
 
 
 def make_assets_from_tiles(option_config, params):

@@ -45,7 +45,7 @@ def list_of_projects(project_category):
 
 
 # List all projects
-def list_projects(option_config, params, print_projects=True):
+def list_projects(option_config, params):
 
     if len(params)<2:
         project_dirs = ["examples", "games", "projects"]
@@ -63,16 +63,16 @@ def list_projects(option_config, params, print_projects=True):
     count = 0
 
     for mypath in project_dirs:
-        if print_projects:
+        if not option_config.terminal_config.test:
             printc(option_config, bcolors.BOLD, "["+mypath+"]\n")
         for (_, dirnames, _) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
-                if print_projects:
+                if not option_config.terminal_config.test:
                     print("  "+str(project))
                 count+=1
             break
-        if print_projects:
+        if not option_config.terminal_config.test:
             print("")
 
     if option_config.terminal_config.verbose:

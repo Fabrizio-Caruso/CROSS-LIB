@@ -36,4 +36,5 @@ def compute_string(string):
     return  converted_string
 
 def string(option_config, params):
-    print(compute_string(params[1]))
+    if not option_config.terminal_config.test:
+        print(compute_string(params[1]))

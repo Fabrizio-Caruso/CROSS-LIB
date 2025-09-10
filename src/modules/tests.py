@@ -10,6 +10,7 @@ from print_functions import printc, bcolors
 
 from build_functions import *
 
+from execute import execute_string
 
 CROSS_COMPILER_COMMAND = \
     {
@@ -401,9 +402,141 @@ def test_projects(option_config, projects, target="stdio"):
 
 
 def test_clean_tools(option_config):
-    #clean tools
-    clean(option_config, ["clean","tools"])
+    pass
 
+
+CLEAN_TEST = \
+    [ \
+        "xl delete _cloned_test_project -y", \
+        "xl delete _foo_test -y", \
+        "xl clean tools", \
+    ]
+
+DEFAULT_CLEANUP_COMMANDS = \
+    [ \
+        "xl clean tools", \
+        "xl clean", \
+    ]
+
+CREATE_CLEANUP_COMMANDS = \
+    [ \
+        "xl delete _test_project1 -y", \
+        "xl delete _test_project2 -y", \
+        "xl delete _test_project3 -y", \
+        "xl delete _test_project4 -y", \
+    ]
+
+
+TOOLS_TEST = \
+    [ \
+        "xl clean tools", \
+        "xl tools", \
+    ]
+
+
+CREATE_TEST = \
+    [ \
+        "xl create _test_project1 game", \
+        "xl create _test_project2 demo", \
+        "xl create _test_project3 text", \
+        "xl create _test_project4 helloworld", \
+        "xl build _test_project1 __target__ ", \
+        "xl build _test_project2 __target__ ", \
+        "xl build _test_project3 __target__ ", \
+        "xl build _test_project4 __target__ ", \
+    ]
+
+
+COMPLEX_TEST = \
+    [ \
+        "xl delete _foo_test -y", \
+        "xl clean tools", \
+        "xl tools", \
+        "xl clean tools", \
+        "xl delete _test_project -y", \
+        "xl clean", \
+        "xl create _foo_test", \
+        "xl slow _foo_test __target__ 42", \
+        "xl clean" , \
+        "xl tiles _foo_test", \
+        "xl size _foo_test stdio_sized 12 12", \
+        "xl reset", \
+        "xl size _foo_test stdio_sized 32 24", \
+        "xl reset", \
+        ]
+
+
+RENAME_TEST = \
+    [ \
+        "xl delete _test_project -y", \
+        "xl delete _foo_test -y", \
+        "xl create _test_project test", \
+        "xl list", \
+        "xl clean", \
+        "xl build _test_project __target__", \
+        "xl rename _test_project _foo_test", \
+        "xl build _foo_test __target__", \
+        "xl rename _foo_test _test_project", \
+    ]
+
+
+MAKE_TEST = \
+    [ \
+        "xl create _foo_test", \
+        "xl make _foo_test", \
+        "xl reset _foo_test", \
+        "xl rebuild _foo_test __target__", \
+        "xl show _foo_test", \
+
+        "xl extend _test_project", \
+        "xl clean", \
+    ]
+
+
+HEAVY_TEST = \
+    [ \
+        "xl examples __target__", \
+        "xl clean", \
+        "xl games __target__", \
+        "xl clean", \
+    ]
+
+
+RUN_TEST = \
+    [ \
+        "xl create _test_project", \
+        "xl build _test_project __target__", \
+        "xl run _test_project __target__", \
+        "xl clone _test_project _cloned_test_project", \
+        "xl build _cloned_test_project __target__", \
+        "xl run _cloned_test_project __target__", \
+        "xl delete _cloned_test_project -y", \
+    ]
+
+
+DEV_TOOLS_TEST = \
+    [ \
+        "xl tile ./assets/examples/single_tiles/tile_shape0.txt", \
+        "xl string abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", \
+        "xl split games/shuriken/docs/16x12_multi_tile.txt", \
+        "xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
+        "xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
+        "xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
+    ]
+
+
+def execute_commands(option_config, command_strings, target, silent = True):
+    for command_string in command_strings:
+        execute_string(option_config, command_string.replace("__target__", target), silent)
+
+def check_execute_clean(option_config, target):
+    # execute_commands(option_config, CLEAN_TEST, target)
+    
+    files = files_in_path("../build")
+    return not(len(files)-1)
+
+def check_execute_tools(option_config, target):
+    # execute_commands(option_config, TOOLS_TEST, target)
     tools_result_map=test_tools(option_config, silent=True)
     number_of_tools = len(tools_result_map.keys())
 
@@ -411,14 +544,87 @@ def test_clean_tools(option_config):
     for _, result in tools_result_map.items():
         if result:
             built_tools+=1
-    if built_tools==0:
-        printc(option_config, bcolors.OKGREEN, "[xl clean tools]    OK\n")
-    else:
-        printc(option_config, bcolors.FAIL, "[xl clean tools]    KO\n")
-    return number_of_tools, built_tools
+    return built_tools
+    
+def check_execute_complex(option_config, target):
+    return 1
 
+
+def check_execute_run(option_config, target):
+    return 1
+
+def check_execute_examples(option_config, target):
+    return 1
+
+def check_dev_tools(option_config, target):
+    return 1
+
+def check_create(option_config, target):
+    return 1
+
+def check_make(option_config, target):
+    return 1
+
+
+def no_check(option_config, target):
+    return 1
+
+def display_ok_ko(option_config, result):
+    if result:
+        printc(option_config, bcolors.OKGREEN,"OK"+"\n")
+    else:
+        printc(option_config, bcolors.FAIL,   "KO"+"\n")
+
+
+def test_execute(option_config, test_name, commands, target, check = no_check, cleanup_commands = DEFAULT_CLEANUP_COMMANDS):
+    print("-----------------------------------")
+    print("TEST: " + bcolors.BOLD + test_name + bcolors.ENDC)
+    print("-----------------------------------")
+
+    # Execute list of commands
+    execute_commands(option_config, commands, target, silent = False)
+    
+    # Check result and display OK/KO
+    result = check(option_config, target)
+    display_ok_ko(option_config, result)
+    print("")
+
+    # Clean-up commands
+    execute_commands(option_config, cleanup_commands, target, silent = True)
+    return result
 
 def test_self(option_config, target = "stdio"):
+    option_config.terminal_config.test = 1
+
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+    printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
+    printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
+    success = 1
+    printc(option_config, bcolors.BOLD,  "target: ")
+    printc(option_config, bcolors.OKBLUE,target+"\n")
+    printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
+
+    success *= test_execute(option_config, "test xl clean",            CLEAN_TEST,     target, check_execute_clean)
+    success *= test_execute(option_config, "test xl tools",            TOOLS_TEST,     target, check_execute_tools)
+    success *= test_execute(option_config, "test several xl commands", COMPLEX_TEST,   target)
+    success *= test_execute(option_config, "test xl dev tools",        DEV_TOOLS_TEST, target)
+    success *= test_execute(option_config, "test xl create",           CREATE_TEST,    target, check_create, CREATE_CLEANUP_COMMANDS)
+    success *= test_execute(option_config, "test xl make",             MAKE_TEST,      target)
+    success *= test_execute(option_config, "test xl rename",           RENAME_TEST,    target)
+
+    
+    if option_config.terminal_config.interactive_test:
+        success *= test_execute(option_config, "test xl run",              RUN_TEST,     target)
+    
+    if not option_config.terminal_config.fast_test:
+        success *= test_execute(option_config, "test xl examples/games",   HEAVY_TEST,   target, check_execute_examples)
+
+
+
+    option_config.terminal_config.test = 0
+    return success
+
+def _test_self(option_config, target = "stdio"):
 
     option_config.terminal_config.test = 1
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
@@ -430,7 +636,11 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
     
     #delete
-    delete(option_config, ["delete","_cloned_test_project","-y"])
+    # delete(option_config, ["delete","_cloned_test_project","-y"])
+    execute_string(option_config, "xl delete _cloned_test_project -y")
+    printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
+
+    execute_string(option_config, "xl delete _foo_test -y")
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
 
@@ -440,7 +650,8 @@ def test_self(option_config, target = "stdio"):
         success = 0
 
     #tools
-    tools(option_config)
+    # tools(option_config)
+    execute_string(option_config, "xl tools")
 
     tools_result_map=test_tools(option_config, silent=True)
     built_tools = 0
@@ -461,20 +672,22 @@ def test_self(option_config, target = "stdio"):
         success = 0
 
     #delete
-    delete(option_config, ["delete","_test_project","-y"])
+    # delete(option_config, ["delete","_test_project","-y"])
+    execute_string(option_config, "xl delete _test_project -y")
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
 
     #clean
     success = success * clean_test(option_config)
 
-    projects_before_create = list_projects(option_config, ["list"],False)
+    projects_before_create = list_projects(option_config, ["list"])
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
     initial_dirs = project_dirs_before_create
 
     # create
-    create(option_config, ["create", "_test_project", "test"])
+    # create(option_config, ["create", "_test_project", "test"])
+    execute_string(option_config, "xl create _test_project test")
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
@@ -483,45 +696,60 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # list
-    projects_after_create = list_projects(option_config, ["list"],False)
+    projects_after_create = list_projects(option_config, ["list"])
     if projects_after_create!=projects_before_create+1:
         printc(option_config, bcolors.FAIL,"[xl list]           KO\n")
         success = 0
     printc(option_config, bcolors.OKGREEN,"[xl list]           OK\n")
 
     # create
-    create(option_config, ["create", "_test_project2", "game"])
+    # create(option_config, ["create", "_test_project2", "game"])
+    execute_string(option_config, "xl create _test_project2 game")
+
     printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
-    create(option_config, ["create", "_test_project3", "demo"])
+    # create(option_config, ["create", "_test_project3", "demo"])
+    execute_string(option_config, "xl create _test_project3 demo")
+
     printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
-    create(option_config, ["create", "_test_project4", "text"])
+    # create(option_config, ["create", "_test_project4", "text"])
+    execute_string(option_config, "xl create _test_project4 text")
+
     printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     # create
-    create(option_config, ["create", "_test_project5", "helloworld"])
+    # create(option_config, ["create", "_test_project5", "helloworld"])
+    execute_string(option_config, "xl create _test_project5 helloworld")
+
     printc(option_config, bcolors.OKGREEN, "[xl create]         OK\n")
 
     #build
-    build(option_config, ["build", "_test_project2", target])
+    # build(option_config, ["build", "_test_project2", target])
+    execute_string(option_config, f"xl build _test_project2 {target}")
     built_files = built_files_in_path("../build")
     printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
-    build(option_config, ["build", "_test_project3", target])
+    # build(option_config, ["build", "_test_project3", target])
+    execute_string(option_config, f"xl build _test_project3 {target}")
+
     built_files = built_files_in_path("../build")
     printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
-    build(option_config, ["build", "_test_project4", target])
+    # build(option_config, ["build", "_test_project4", target])
+    execute_string(option_config, f"xl build _test_project4 {target}")
+
     built_files = built_files_in_path("../build")
     printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
     #build
-    build(option_config, ["build", "_test_project5", target])
+    # build(option_config, ["build", "_test_project5", target])
+    execute_string(option_config, f"xl build _test_project5 {target}")
+
     built_files = built_files_in_path("../build")
     printc(option_config, bcolors.OKGREEN,"[xl build]          OK\n")
 
@@ -531,34 +759,48 @@ def test_self(option_config, target = "stdio"):
         printc(option_config, bcolors.OKGREEN,"[xl clean]          OK\n")
 
     #delete
-    delete(option_config, ["delete","_test_project2","-y"])
+    # delete(option_config, ["delete","_test_project2","-y"])
+    execute_string(option_config, "xl delete _test_project2 -y")
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
-    delete(option_config, ["delete","_test_project3","-y"])
+    # delete(option_config, ["delete","_test_project3","-y"])
+    execute_string(option_config, "xl delete _test_project3 -y")
+
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
-    delete(option_config, ["delete","_test_project4","-y"])
+    # delete(option_config, ["delete","_test_project4","-y"])
+    execute_string(option_config, "xl delete _test_project4 -y")
+
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
-    delete(option_config, ["delete","_test_project5","-y"])
+    # delete(option_config, ["delete","_test_project5","-y"])
+    execute_string(option_config, "xl delete _test_project5 -y")
+
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
     #delete
-    delete(option_config, ["delete","_foo_test","-y"])
+    # delete(option_config, ["delete","_foo_test","-y"])
+    execute_string(option_config, "xl delete _foo_test -y")
+
 
     #rename
-    rename(option_config, ["","_test_project", "_foo_test"])
+    # rename(option_config, ["","_test_project", "_foo_test"])
+    execute_string(option_config, "xl rename _test_project _foo_test")
+
     printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
 
     #rename
-    rename(option_config, ["","_foo_test", "_test_project"])
+    # rename(option_config, ["","_foo_test", "_test_project"])
+    execute_string(option_config, "xl rename _foo_test _test_project")
+
     printc(option_config, bcolors.OKGREEN,"[xl rename]         OK\n")
 
     #build
-    build(option_config, ["build", "_test_project", target])
+    # build(option_config, ["build", "_test_project", target])
+    execute_string(option_config, f"xl build _test_project {target}")
     built_files = built_files_in_path("../build")
 
     if len(built_files)==0:
@@ -581,7 +823,24 @@ def test_self(option_config, target = "stdio"):
         print(str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
 
-    extend(option_config, ["extend", "_test_project"])
+
+    execute_string(option_config, "xl string abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    printc(option_config, bcolors.OKGREEN,"[xl string]         OK\n")
+
+    execute_string(option_config, "xl split games/shuriken/docs/16x12_multi_tile.txt")
+    printc(option_config, bcolors.OKGREEN,"[xl split]          OK\n")
+
+    execute_string(option_config, "xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt")
+    printc(option_config, bcolors.OKGREEN,"[xl imtpo]          OK\n")
+
+    execute_string(option_config, "xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt")
+    printc(option_config, bcolors.OKGREEN,"[xl rip]            OK\n")
+
+    execute_string(option_config, "xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt")
+    printc(option_config, bcolors.OKGREEN,"[xl rotate]         OK\n")
+
+    execute_string(option_config, "xl extend _test_project")
+
 
     dirs_in_proj_after = len(dirs_in_path("./projects/_test_project"))
 
@@ -605,16 +864,18 @@ def test_self(option_config, target = "stdio"):
     if interactive_test:
         # run
         printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
-        run(option_config, ["run", "_test_project", target])
+        execute_string(option_config, f"xl run _test_project {target}")
+        # run(option_config, ["run", "_test_project", target])
 
         printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
-    projects_before_create = list_projects(option_config, ["list"],False)
+    projects_before_create = list_projects(option_config, ["list"])
 
     project_dirs_before_create = len(dirs_in_path("./projects"))
 
     # clone
-    clone(option_config, ["","_test_project","_cloned_test_project"])
+    # clone(option_config, ["","_test_project","_cloned_test_project"])
+    execute_string(option_config, "xl clone _test_project _cloned_test_project")
     project_dirs_after_create = len(dirs_in_path("./projects"))
 
     if project_dirs_after_create!=project_dirs_before_create+1:
@@ -625,19 +886,22 @@ def test_self(option_config, target = "stdio"):
                             "[xl clone]          OK\n")
 
     #build
-    build(option_config, ["build", "_cloned_test_project", target])
+    execute_string(option_config, f"xl build _cloned_test_project {target}")
+    # build(option_config, ["build", "_cloned_test_project", target])
     
     if interactive_test:
 
         # run
         printc(option_config, bcolors.OKCYAN , "\nExit the test program to continue\n")
 
-        run(option_config, ["run", "_cloned_test_project", target])
+        # run(option_config, ["run", "_cloned_test_project", target])
+        execute_string(option_config, f"xl run _cloned_test_project {target}")
 
         printc(option_config, bcolors.OKGREEN, "[xl run]            OK\n")
 
     # delete
-    delete(option_config, ["","_cloned_test_project","-y"])
+    execute_string(option_config, "xl delete _cloned_test_project -y")
+    # delete(option_config, ["","_cloned_test_project","-y"])
     printc(option_config, bcolors.OKGREEN, "[xl delete]         OK\n")
 
 
@@ -650,7 +914,9 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKGREEN, "[xl tiles]          OK\n")
 
     #size
-    size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
+    execute_string(option_config, "xl size _test_project stdio_sized 12 12")
+
+    # size(option_config, ["size", "_test_project", "stdio_sized", "12", "12"],True)
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=1:
@@ -673,11 +939,13 @@ def test_self(option_config, target = "stdio"):
         success=0
 
     #reset
-    reset(option_config, [""])
+    execute_string(option_config, "xl reset")
+    # reset(option_config, [""])
     printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
 
     #size
-    size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
+    execute_string(option_config, "xl size _test_project stdio_sized 32 24")
+    # size(option_config, ["size", "_test_project", "stdio_sized", "32", "24"],False)
     built_files = built_files_in_path("../build")
 
     if len(built_files)!=2:
@@ -703,12 +971,14 @@ def test_self(option_config, target = "stdio"):
         examples.extend(dirnames)
         break
 
-    #reset
-    reset(option_config, ["","_test_project"])
+    # reset
+    execute_string(option_config, "xl reset _test_project")
+    # reset(option_config, ["","_test_project"])
     printc(option_config, bcolors.OKGREEN, "[xl reset]          OK\n")
 
     #delete
-    delete(option_config, ["delete","_test_project","-y"])
+    execute_string(option_config, "xl delete _test_project -y")
+    # delete(option_config, ["delete","_test_project","-y"])
     project_dirs_after_delete = len(dirs_in_path("./projects"))
 
     if project_dirs_after_delete != initial_dirs:
@@ -732,7 +1002,8 @@ def test_self(option_config, target = "stdio"):
             binary_factor = 1
 
         # build (all examples)
-        build(option_config, ["","examples", target])
+        execute_string(option_config, f"xl examples {target}")
+        # build(option_config, ["","examples", target])
 
         built_files = built_files_in_path("../build")
 
@@ -748,7 +1019,8 @@ def test_self(option_config, target = "stdio"):
             success=0
 
         # build (all games)
-        build(option_config, ["","games", target])
+        # build(option_config, ["","games", target])
+        execute_string(option_config, f"xl games {target}")
 
         built_files = built_files_in_path("../build")
 
@@ -763,6 +1035,20 @@ def test_self(option_config, target = "stdio"):
 
         if clean_test(option_config)==0:
             success=0
+
+    execute_string(option_config, "xl create _foo_test")
+    
+    execute_string(option_config, "xl make _foo_test")
+
+    execute_string(option_config, "xl reset _foo_test")
+    
+    execute_string(option_config, "xl rebuild _foo_test")
+
+    execute_string(option_config, "xl show _foo_test")
+
+    execute_string(option_config, "xl delete _foo_test -y")
+
+    execute_string(option_config, "xl tile ./assets/examples/single_tiles/tile_shape0.txt")
 
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 

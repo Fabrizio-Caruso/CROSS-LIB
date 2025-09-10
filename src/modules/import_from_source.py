@@ -342,7 +342,7 @@ def aux_rip_tiles(option_config, lines, assembly_extension, basic_extension, xsi
         return tiles
 
 
-def store_tiles(project, tiles, xsize, ysize):
+def store_tiles(option_config, project, tiles, xsize, ysize):
 
     print("project          : " + project)
 
@@ -351,22 +351,31 @@ def store_tiles(project, tiles, xsize, ysize):
     main_path = "./" + category + "s/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
     print("main_path: " + main_path)
     for index in range(len(tiles)):
-        store_tile(project,tiles[index],xsize,ysize,str(index))
+        store_tile(option_config, project,tiles[index],xsize,ysize,str(index))
 
 
-def store_tile(project, tile, xsize, ysize, index):
+def store_tile(option_config, project, tile, xsize, ysize, index):
 
-    print("(store tile) project    : " + project)
-    print("tile index : " + str(index))
+    verbose = option_config.terminal_config.verbose
+    # test    = option_config.terminal_config.test
+    
+    if verbose:
+        print("(store tile) project    : " + project)
+        print("tile index : " + str(index))
     dir = str(xsize)+"X"+str(ysize)
-    print("directory: " + dir)
+    
+    if verbose:
+        print("directory: " + dir)
 
     category = project_category(project)
 
-    print("project category : " + category)
+    if verbose:
+        print("project category : " + category)
 
     dest = "./" + category + "s/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
-    print("Copy/Overwrite : " + dest)
+    
+    if verbose:
+        print("Copy/Overwrite : " + dest)
 
     fin = open(dest, "wt")
     fin.write(tile)
@@ -476,7 +485,7 @@ def _import_from_source(option_config, params, rotate = False, rip_option = Fals
 
     try:
         if(len(params)>=3) and "-" not in params[2]:
-            store_tiles(params[2],tiles, xsize, ysize)
+            store_tiles(option_config, params[2],tiles, xsize, ysize)
     except Exception as exception:
         print("Sorry! Failed to store tiles: \n" + str(exception.args))
 

@@ -21,10 +21,11 @@ def printc(option_config, print_color,text):
 
 
 def print_shape(option_config, items):
-    for i in range(len(items)):
-        printc(option_config, bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
-    print("")
-    print("")
+    if not option_config.terminal_config.test:
+        for i in range(len(items)):
+            printc(option_config, bcolors.BOLD,items[i]+"\n") # + "  ") # + "{:3d}".format(values[i]))
+        print("")
+        print("")
 
 
 # It displays a shape from a list of strings (rows)

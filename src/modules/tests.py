@@ -7,6 +7,8 @@ from import_from_source import printc
 from file_functions import files_in_path
 from run import run_command
 from print_functions import printc, bcolors
+from test_self_defs import *
+
 
 from build_functions import *
 
@@ -404,159 +406,27 @@ def test_projects(option_config, projects, target="stdio"):
 def test_clean_tools(option_config):
     pass
 
-
-CLEAN_TEST = \
-    [ \
-        "xl delete _cloned_test_project -y", \
-        "xl delete _foo_test -y", \
-        "xl clean", \
-    ]
-
-DEFAULT_CLEANUP_COMMANDS = \
-    [ \
-        "xl clean tools", \
-        "xl clean", \
-    ]
-
-NO_CLEANUP = []
-
-
-TOOLS_TEST = \
-    [ \
-        "xl clean tools", \
-        "xl tools", \
-    ]
-
-
-CREATE_TEST = \
-    [ \
-        "xl create _test_project1 game", \
-        "xl create _test_project2 demo", \
-        "xl create _test_project3 text", \
-        "xl create _test_project4 helloworld", \
-        "xl build _test_project1 __target__ ", \
-        "xl build _test_project2 __target__ ", \
-        "xl build _test_project3 __target__ ", \
-        "xl build _test_project4 __target__ ", \
-    ]
-
-CLEANUP_CREATE_TEST = \
-    [ \
-        "xl delete _test_project1 -y", \
-        "xl delete _test_project2 -y", \
-        "xl delete _test_project3 -y", \
-        "xl delete _test_project4 -y", \
-    ]
-
-
-COMPLEX_TEST = \
-    [ \
-        "xl delete _foo_test -y", \
-        "xl clean tools", \
-        "xl tools", \
-        "xl clean tools", \
-        "xl delete _test_project -y", \
-        "xl clean", \
-        "xl create _foo_test", \
-        "xl slow _foo_test __target__ 42", \
-        "xl clean" , \
-        "xl tiles _foo_test", \
-        "xl size _foo_test stdio_sized 12 12", \
-        "xl reset", \
-        "xl size _foo_test stdio_sized 32 24", \
-        "xl reset", \
-        ]
-
-
-RENAME_TEST = \
-    [ \
-        "xl delete _test_project -y", \
-        "xl delete _foo_test -y", \
-        "xl create _test_project test", \
-        "xl list", \
-        "xl clean", \
-        "xl build _test_project __target__", \
-        "xl rename _test_project _foo_test", \
-        "xl build _foo_test __target__", \
-        "xl rename _foo_test _test_project", \
-    ]
-
-
-CLEANUP_RENAME_TEST = \
-    [ \
-        "xl clean", \
-        "xl delete _test_project -y", \
-    ]
-
-
-MAKE_TEST = \
-    [ \
-        "xl create _foo_test", \
-        "xl make _foo_test", \
-        "xl reset _foo_test", \
-        "xl rebuild _foo_test __target__", \
-        "xl show _foo_test", \
-
-        "xl extend _foo_test", \
-        "xl clean", \
-    ]
-
-
-EXAMPLES_TEST = \
-    [ \
-        "xl examples __target__", \
-    ]
-
-
-GAMES_TEST = \
-    [ \
-        "xl games __target__", \
-    ]
-
-
-RUN_TEST = \
-    [ \
-        "xl create _test_project", \
-        "xl build _test_project __target__", \
-        "xl run _test_project __target__", \
-        "xl clone _test_project _cloned_test_project", \
-        "xl build _cloned_test_project __target__", \
-        "xl run _cloned_test_project __target__", \
-    ]
-
-CLEANUP_RUN_TEST = \
-    [ \
-            "xl clean", \
-            "xl delete _test_project -y", \
-            "xl delete _cloned_test_project -y", \
-    ]
-
-
-# No clean-up necessary
-DEV_TOOLS_TEST = \
-    [ \
-        "xl tile ./assets/examples/single_tiles/tile_shape0.txt", \
-        "xl string abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", \
-        "xl split games/shuriken/docs/16x12_multi_tile.txt", \
-        "xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
-        "xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
-        "xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
-    ]
-
+def no_check(option_config, target):
+    return 1
 
 def execute_commands(option_config, command_strings, target, silent = True):
     for command_string in command_strings:
         execute_string(option_config, command_string.replace("__target__", target), silent)
 
-def check_execute_clean(option_config, target):
-    # execute_commands(option_config, CLEAN_TEST, target)
-    
+
+def display_ok_ko(option_config, result):
+    if result:
+        printc(option_config, bcolors.OKGREEN,"OK"+"\n")
+    else:
+        printc(option_config, bcolors.FAIL,   "KO"+"\n")
+
+
+
+def check_clean(option_config, target):    
     files = files_in_path("../build")
-    # print(len(files))
     return not(len(files)-1)
 
-def check_execute_tools(option_config, target):
-    # execute_commands(option_config, TOOLS_TEST, target)
+def check_tools(option_config, target):
     tools_result_map=test_tools(option_config, silent=True)
     number_of_tools = len(tools_result_map.keys())
 
@@ -566,12 +436,10 @@ def check_execute_tools(option_config, target):
             built_tools+=1
     return built_tools
     
-def check_execute_complex(option_config, target):
-    return 1
+def check_complex(option_config, target):
+    number_files = len(files_in_path("../build"))-1
+    return number_files==2*binary_factor(target)
 
-
-# def check_execute_run(option_config, target):
-    # return 1
 
 def check_examples(option_config, target):
     number_files = len(files_in_path("../build"))-1
@@ -590,11 +458,10 @@ def check_rename(option_config, target):
     number_files = len(files_in_path("../build"))-1
     return number_files==2*binary_factor(target)
 
-def check_dev_tools(option_config, target):
-    return 1
 
 def check_create(option_config, target):
-    return 1
+    number_files = len(files_in_path("../build"))-1
+    return number_files==4*binary_factor(target)
 
 def check_make(option_config, target):
     success = 1
@@ -613,14 +480,6 @@ def check_make(option_config, target):
         success=0
     return success
 
-def no_check(option_config, target):
-    return 1
-
-def display_ok_ko(option_config, result):
-    if result:
-        printc(option_config, bcolors.OKGREEN,"OK"+"\n")
-    else:
-        printc(option_config, bcolors.FAIL,   "KO"+"\n")
 
 
 def test_execute(option_config, target, test_name, commands, check = no_check, cleanup_commands = DEFAULT_CLEANUP_COMMANDS):
@@ -641,18 +500,6 @@ def test_execute(option_config, target, test_name, commands, check = no_check, c
     return result
 
 
-STANDARD_SELF_TESTS = \
-    [ \
-        ("test xl clean",            CLEAN_TEST,     check_execute_clean), \
-        ("test xl tools",            TOOLS_TEST,     check_execute_tools), \
-        ("test several xl commands", COMPLEX_TEST), \
-        ("test xl dev tools",        DEV_TOOLS_TEST), \
-        ("test xl create",           CREATE_TEST,    check_create, CLEANUP_CREATE_TEST), \
-        ("test xl make",             MAKE_TEST,      check_make), \
-        ("test xl rename",           RENAME_TEST,    no_check, CLEANUP_RENAME_TEST) \
-    ]
-
-
 def binary_factor(target):
     if target in TARGETS_WITH_2_BINARIES:
         return 2
@@ -660,6 +507,21 @@ def binary_factor(target):
         return 3
     else:
         return 1
+
+# ---------------------------------------------------------
+# DEFAULT SELF TESTS
+# ---------------------------------------------------------
+
+STANDARD_SELF_TESTS = \
+    [ \
+        ("test xl clean",            CLEAN_TEST,     check_clean), \
+        ("test xl tools",            TOOLS_TEST,     check_tools,   CLEANUP_TOOLS_TEST), \
+        ("test several xl commands", COMPLEX_TEST,   check_complex, CLEANUP_COMPLEX_TEST), \
+        ("test xl dev tools",        DEV_TOOLS_TEST), \
+        ("test xl create",           CREATE_TEST,    check_create,  CLEANUP_CREATE_TEST), \
+        ("test xl make",             MAKE_TEST,      check_make), \
+        ("test xl rename",           RENAME_TEST,    check_rename,  CLEANUP_RENAME_TEST) \
+    ]
 
 
 def test_self(option_config, target = "stdio"):

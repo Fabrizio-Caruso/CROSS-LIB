@@ -53,9 +53,12 @@ def multiple_project_reset(option_config, mypath):
         print("\n")
 
 
-def multiple_size_build(mypath,target,xsize,ysize,debug):
+def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     GNU_MAKE = option_config.build_config.gnu_make
-
+    use_tools = option_config.build_config.use_tools
+    native_compiler = option_config.build_config.native_compiler
+    tool_compiler = option_config.build_config.tool_compiler
+    
     projects = []
     for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
@@ -74,7 +77,7 @@ def multiple_size_build(mypath,target,xsize,ysize,debug):
         make_command = \
             GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
                        " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
-                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts(all_compilers_opts, "","") + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts(option_config, "","") + \
                 " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
@@ -235,16 +238,16 @@ def size(option_config, params, debug = False):
             delete_main(option_config, game_dir, project_type)
     else:
         if game_dir in["games","examples","projects"]:
-            multiple_size_build(game_dir,target,xsize,ysize,debug)
+            multiple_size_build(option_config, game_dir,target,xsize,ysize,debug)
         elif game_dir in["new"]:
-            multiple_size_build("projects",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "projects",target,xsize,ysize,debug)
         elif game_dir in["builtin","built-in"]:
-            multiple_size_build("games",target,xsize,ysize,debug)
-            multiple_size_build("examples",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "games",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "examples",target,xsize,ysize,debug)
         elif game_dir=="all":
-            multiple_size_build("games",target,xsize,ysize,debug)
-            multiple_size_build("examples",target,xsize,ysize,debug)
-            multiple_size_build("projects",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "games",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "examples",target,xsize,ysize,debug)
+            multiple_size_build(option_config, "projects",target,xsize,ysize,debug)
         else:
             return
 

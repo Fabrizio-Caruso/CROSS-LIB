@@ -10,9 +10,9 @@ def clean_test(option_config):
     files_after_clean = len(files_in_path("../build"))
 
     if files_after_clean>1:
-        printc(option_config, bcolors.FAIL, "[xl clean]          KO\n")
+        # printc(option_config, bcolors.FAIL, "[xl clean]          KO\n")
         return 0
-    printc(option_config, bcolors.OKGREEN, "[xl clean]          OK\n")
+    # printc(option_config, bcolors.OKGREEN, "[xl clean]          OK\n")
     return 1
     
     

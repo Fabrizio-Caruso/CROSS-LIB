@@ -49,7 +49,7 @@ def handle_parallelism(option_config):
         logger.info("Parallelize_multi_build is OFF")
 
 
-def handle_verbose(option_config):
+def show_python_version(option_config):
     if option_config.terminal_config.verbose:
         logger.info("Verbose mode ON")
         print("----------------------------")
@@ -57,13 +57,7 @@ def handle_verbose(option_config):
         print("Platform: " + platform)
         print("Python:   " + str(python_version) + "." + str(python_subversion))
         logger.info("Using Python version %s.%s", str(python_version), str(python_subversion))
-        print("GNU MAKE command: " + GNU_MAKE)
+        print("GNU MAKE command: " + option_config.build_config.gnu_make)
         print("----------------------------")
         print("")
-
-
-def init(option_config):
-    handle_verbose(option_config)
-    handle_parallelism(option_config)
-
 

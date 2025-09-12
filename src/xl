@@ -19,7 +19,7 @@ from modules.params import get_params
 from modules.commands import COMMANDS_LIST
 from modules.tests import test_make
 from modules.option_functions import get_config, handle_make
-from modules.init import init
+from modules.init import handle_parallelism, show_python_version
 from modules.execute import execute_command
 from modules.file_functions import list_of_projects
 from modules.build_functions import build
@@ -44,7 +44,8 @@ def get_gnu_make(config):
 if __name__ == "__main__":
     option_config = get_config()
     GNU_MAKE = get_gnu_make(option_config)
-    init(option_config)
+    handle_parallelism(option_config)
+    show_python_version(option_config)
 
     params = get_params(option_config)
 

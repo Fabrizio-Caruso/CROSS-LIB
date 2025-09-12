@@ -101,7 +101,6 @@ RENAME_TEST = \
 
 CLEANUP_RENAME_TEST = \
     [ \
-        "xl clean", \
         "xl delete _test_project -y", \
     ]
 
@@ -115,7 +114,6 @@ MAKE_TEST = \
         "xl rebuild _foo_test __target__", \
         "xl show _foo_test", \
         "xl extend _foo_test", \
-        "xl clean", \
     ]
 
 
@@ -149,7 +147,6 @@ RUN_TEST = \
 
 CLEANUP_RUN_TEST = \
     [ \
-            "xl clean", \
             "xl delete _test_project -y", \
             "xl delete _cloned_test_project -y", \
     ]

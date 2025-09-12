@@ -435,7 +435,7 @@ def check_tools(option_config, target):
         if result:
             built_tools+=1
     return built_tools
-    
+
 def check_complex(option_config, target):
     number_files = len(files_in_path("../build"))-1
     return number_files==2*binary_factor(target)
@@ -468,15 +468,11 @@ def check_make(option_config, target):
     dirs_in_proj_after = len(dirs_in_path("./projects/_foo_test"))
 
     if dirs_in_proj_after != 4:
-        printc(option_config, bcolors.FAIL, "[xl extend] 1         KO\n")
         success=0
 
     dirs_in_shapes_after = len(dirs_in_path("./projects/_foo_test/shapes"))
 
     if dirs_in_shapes_after != 5:
-        printc(option_config, bcolors.FAIL, "[xl extend] 2        KO\n")
-        print("no. dirs_in_shapes_after: " + str(dirs_in_shapes_after))
-        print("dirs_in_shapes_after: " + str(dirs_in_path("./projects/_test_project/shapes")))
         success=0
     return success
 
@@ -524,6 +520,18 @@ STANDARD_SELF_TESTS = \
     ]
 
 
+PARALLEL_BUILD_TESTS = \
+    [ \
+        ("test xl examples",   EXAMPLES_TEST, check_examples), \
+        ("test xl games",      GAMES_TEST,    check_games), \
+    ]
+    
+INTERACTIVE_TESTS = \
+    [ \
+        ("test xl run",              RUN_TEST,            no_check,                     CLEANUP_RUN_TEST), \
+    ]
+    
+
 def test_self(option_config, target = "stdio"):
     option_config.terminal_config.test = 1
 
@@ -537,13 +545,13 @@ def test_self(option_config, target = "stdio"):
 
     self_tests = STANDARD_SELF_TESTS
     if option_config.terminal_config.interactive_test:
-        self_tests.append(("test xl run",              RUN_TEST,            no_check,                     CLEANUP_RUN_TEST))
+        self_tests += INTERACTIVE_TESTS
     if not option_config.terminal_config.fast_test:
-        self_tests.append(("test xl examples",   EXAMPLES_TEST, check_examples))
-        self_tests.append(("test xl games",      GAMES_TEST,    check_games))
+        self_tests += PARALLEL_BUILD_TESTS
 
-    execute_string(option_config, "xl clean", silent = True)
     for test in self_tests:
+        execute_string(option_config, "xl clean", silent = True)
+
         success *= test_execute(option_config, target, *test)
 
     execute_string(option_config, "xl clean", silent = True)

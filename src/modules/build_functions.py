@@ -54,11 +54,33 @@ def multiple_project_reset(option_config, mypath):
 
 
 def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
-    GNU_MAKE = option_config.build_config.gnu_make
-    use_tools = option_config.build_config.use_tools
-    native_compiler = option_config.build_config.native_compiler
-    tool_compiler = option_config.build_config.tool_compiler
+
+    GNU_MAKE, \
+    compilation_threads, \
+    compilation_threads_string, \
+    parallelize_multi_build, \
+    z88dk_compiler, \
+    z88dk_compiler_opts, \
+    sccz80_compiler_opts, \
+    zsdcc_compiler_opts, \
+    cmoc_compiler_opts, \
+    cc65_compiler_opts, \
+    lcc1802_compiler_opts, \
+    gcc4ti99_compiler_opts, \
+    vbcc_compiler_opts, \
+    native_compiler_opts, \
+    native_compiler, \
+    tool_compiler, \
+    use_tools \
+    = option_config.build_config.get_opts()
     
+    if option_config.build_config.parallelize_multi_build:
+        # print("Parallelize_multi_build is ON")
+        logger.info("Parallelize_multi_build is ON")
+        from multiprocessing import Pool
+    else:
+        logger.info("Parallelize_multi_build is OFF")
+
     projects = []
     for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
@@ -69,22 +91,51 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     else:
         use_tools_str = ""
 
-    for project_name in projects:
+    target_to_check = target.replace("_sized", "")
+    if (parallelize_multi_build==1) and (target_to_check in PARALLEL_TARGETS):
+        logger.info("Parallelize multi build with %s", compilation_threads)
+        pool = Pool(processes=int(compilation_threads))
+        
+        for project_name in projects:
 
-        if is_project_split(project_name):
-            project_type = project_category(project_name)
-            create_main(project_name,project_type)
-        make_command = \
-            GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
-                       " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
+            if is_project_split(project_name):
+                project_type = project_category(project_name)
+                create_main(project_name,project_type)
+            make_command = \
+                GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
+                " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
                 " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts(option_config, "","") + \
                 " GNU_MAKE=" + GNU_MAKE + \
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
-        run_command(option_config, make_command)
-        if is_project_split(project_name):
-            delete_main(option_config, project_name,project_type)
+            # run_command(option_config, make_command)
+            # if is_project_split(project_name):
+                # delete_main(option_config, project_name,project_type)
+            pool.apply_async(run_command, [option_config, make_command])
+
+        pool.close()
+        pool.join()
+        for project_name in projects:
+            if is_project_split(project_name):
+                delete_main(option_config, project_name,project_type)
+    else:
+        for project_name in projects:
+
+            if is_project_split(project_name):
+                project_type = project_category(project_name)
+                create_main(project_name,project_type)
+            make_command = \
+                GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
+                " YSIZE=" + ysize + " _DEBUG_FLAG=" + str(debug) + \
+                " _NATIVE_CC=" + native_compiler + " " + all_compilers_opts(option_config, "","") + \
+                " GNU_MAKE=" + GNU_MAKE + \
+                " TOOL_CC=" + tool_compiler + \
+                " -f " + mypath+"/"+project_name+"/Makefile."+project_name
+
+            run_command(option_config, make_command)
+            if is_project_split(project_name):
+                delete_main(option_config, project_name,project_type)
 
 
 def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):

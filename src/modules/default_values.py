@@ -1,4 +1,4 @@
-def insert_default_sizes(params):
+def insert_default_sizes(option_config, params):
 
     if len(params)==4 and params[2].startswith('terminal'):
         target = params[2]
@@ -74,7 +74,8 @@ def insert_default_sizes(params):
             xsize = '20'
             ysize = '28'
         else:
-            print("Default geometry for this target is not supported. Using default sizes.")
+            if option_config.terminal_config.verbose:
+                print("Default geometry for this target is not supported. Using default sizes.")
             xsize = '20'
             ysize = '17'
         return [params[0], params[1], target, xsize, ysize]

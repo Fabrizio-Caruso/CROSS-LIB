@@ -277,7 +277,7 @@ def tools(option_config):
 def build(option_config, params, reset_flag = False):
     GNU_MAKE = option_config.build_config.gnu_make
 
-    params = insert_default_sizes(params)
+    params = insert_default_sizes(option_config, params)
 
     # sized terminal
     if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() \

@@ -510,20 +510,21 @@ def binary_factor(target):
 
 STANDARD_SELF_TESTS = \
     [ \
-        ("test xl clean",            CLEAN_TEST,     check_clean), \
-        ("test xl tools",            TOOLS_TEST,     check_tools,   CLEANUP_TOOLS_TEST), \
-        ("test several xl commands", COMPLEX_TEST,   check_complex, CLEANUP_COMPLEX_TEST), \
+        ("test xl clean",            CLEAN_TEST,          check_clean), \
+        ("test xl tools",            TOOLS_TEST,          check_tools,   CLEANUP_TOOLS_TEST), \
+        ("test several xl commands", COMPLEX_TEST,        check_complex, CLEANUP_COMPLEX_TEST), \
         ("test xl dev tools",        DEV_TOOLS_TEST), \
-        ("test xl create",           CREATE_TEST,    check_create,  CLEANUP_CREATE_TEST), \
-        ("test xl make",             MAKE_TEST,      check_make), \
-        ("test xl rename",           RENAME_TEST,    check_rename,  CLEANUP_RENAME_TEST) \
+        ("test xl create",           CREATE_TEST,         check_create,  CLEANUP_CREATE_TEST), \
+        ("test xl make",             MAKE_TEST,           check_make), \
+        ("test xl rename",           RENAME_TEST,         check_rename,  CLEANUP_RENAME_TEST) \
     ]
 
 
 PARALLEL_BUILD_TESTS = \
     [ \
-        ("test xl examples",         EXAMPLES_TEST,  check_examples), \
-        ("test xl games",            GAMES_TEST,     check_games), \
+        ("test xl examples",         EXAMPLES_TEST,       check_examples), \
+        ("test xl games",            GAMES_TEST,          check_games), \
+        ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games), \
     ]
     
 INTERACTIVE_TESTS = \

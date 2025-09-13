@@ -56,7 +56,7 @@ def run(option_config, params):
         run_native(option_config, params, "ncurses")
 
     if len(params)>=3:
-        params = insert_default_sizes(params)
+        params = insert_default_sizes(option_config, params)
 
         target = params[2]
         if target in DEFAULT_TARGET_MAP:

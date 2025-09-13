@@ -165,3 +165,8 @@ DEV_TOOLS_TEST = \
     ]
 
 
+# ---------------------------------------------------------
+GAMES_TERMINAL_TEST = \
+    [ \
+        "xl games terminal __target__", \
+    ]

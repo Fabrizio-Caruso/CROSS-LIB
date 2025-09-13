@@ -1,3 +1,6 @@
+DEFAULT_TERMINAL_X_SIZE = 20
+DEFAULT_TERMINAL_Y_SIZE = 17
+
 def insert_default_sizes(option_config, params):
 
     if len(params)==4 and params[2].startswith('terminal'):
@@ -8,9 +11,9 @@ def insert_default_sizes(option_config, params):
             target = "terminal8x6"
         elif size_target in ["apple2", "apple2enh"]:
             target = "terminal7x8"
-        elif size_target in ["oric1", "comx_ntsc"]:
+        elif size_target in ["oric1", "atmos", "oric", "comx_ntsc"]:
             target = "terminal6x8"
-        elif size_target in ['comx', 'percom', 'micro']:
+        elif size_target in ['comx', 'pecom', 'micro']:
             target = "terminal6x9"
         else:
             target = "terminal8x8"
@@ -27,7 +30,7 @@ def insert_default_sizes(option_config, params):
         elif size_target in ['ti85', 'ti86','z88']:
             xsize = '16'
             ysize = '8'
-        elif size_target == "oric1":
+        elif size_target in ("oric1", "oric", "atmos"):
             xsize = '38'
             ysize = '28'
         elif size_target == "supervision":
@@ -76,8 +79,8 @@ def insert_default_sizes(option_config, params):
         else:
             if option_config.terminal_config.verbose:
                 print("Default geometry for this target is not supported. Using default sizes.")
-            xsize = '20'
-            ysize = '17'
+            xsize = str(DEFAULT_TERMINAL_X_SIZE)
+            ysize = str(DEFAULT_TERMINAL_Y_SIZE)
         return [params[0], params[1], target, xsize, ysize]
 
     if len(params)==3 and params[2].startswith('terminal'):

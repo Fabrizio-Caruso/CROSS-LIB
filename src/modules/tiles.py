@@ -1,7 +1,7 @@
-from print_functions import printc, bcolors
+from print_functions import printc, bcolors, print_shape
 from project_functions import project_category
 from file_functions import files_in_path
-from import_from_source import import_tile, store_tile
+from import_from_source import import_tile, store_tile, compute_shape
 from run import run_command
 
 # global extend_algorithm

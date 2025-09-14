@@ -116,10 +116,10 @@ class OptionConfig:
     def __init__(
         self,
         
-        terminal_config,
-        build_config, 
-        rom_config,
-        extend_config,  
+        terminal_config = TerminalConfig(),
+        build_config    = BuildConfig(), 
+        rom_config      = RomConfig(),
+        extend_config   = ExtendConfig(),  
 
     ):
         self.terminal_config = terminal_config

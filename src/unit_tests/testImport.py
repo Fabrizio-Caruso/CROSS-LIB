@@ -6,11 +6,7 @@ from option_functions import *
 
 from import_from_source import *
 
-build_config = BuildConfig()
-extend_config = ExtendConfig()
-terminal_config = TerminalConfig()
-rom_config = RomConfig()
-option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
+option_config = OptionConfig()
 
 
 class testImport(unittest.TestCase):

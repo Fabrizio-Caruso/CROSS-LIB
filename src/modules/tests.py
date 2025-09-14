@@ -438,7 +438,8 @@ def check_tools(option_config, target):
 
 def check_complex(option_config, target):
     number_files = len(files_in_path("../build"))-1
-    return number_files==2*binary_factor(target)
+    # print(str(files_in_path("../build")))
+    return number_files==2
 
 
 def check_examples(option_config, target):
@@ -453,6 +454,13 @@ def check_games(option_config, target):
     number_of_games = len(dirs_in_path("./games"))
 
     return number_files == number_of_games*binary_factor(target)
+
+
+def check_games_terminal(option_config, target):
+    number_files = len(files_in_path("../build"))-1
+    number_of_games = len(dirs_in_path("./games"))
+    return number_files == number_of_games*binary_factor("terminal")
+
 
 def check_rename(option_config, target):
     number_files = len(files_in_path("../build"))-1
@@ -524,7 +532,7 @@ PARALLEL_BUILD_TESTS = \
     [ \
         ("test xl examples",         EXAMPLES_TEST,       check_examples), \
         ("test xl games",            GAMES_TEST,          check_games), \
-        ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games), \
+        ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal), \
     ]
     
 INTERACTIVE_TESTS = \

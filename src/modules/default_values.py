@@ -24,7 +24,16 @@ def default_tile_size(target):
 
 
 def default_screen_size(target):
-        if target == "atari_lynx":
+        if target in ("terminal", "terminal8x8", "terminal8x6"):
+            xsize = 20
+            ysize = 17
+        elif target == "terminal7x8":
+            xsize = 20
+            ysize = 24
+        elif target in ("terminal6x9", "terminal6x8"):
+            xsize = 40
+            ysize = 24
+        elif target == "atari_lynx":
             xsize = 20
             ysize = 17
         elif target == "pc6001":
@@ -88,6 +97,18 @@ def default_screen_size(target):
         return xsize, ysize
 
 
+def default_terminal_size_string(target):
+    xsize, ysize = default_screen_size(target)
+    
+    if xsize == None:
+        xsize = DEFAULT_TERMINAL_X_SIZE
+        ysize = DEFAULT_TERMINAL_Y_SIZE
+    
+    xsize = str(xsize)
+    ysize = str(ysize)
+    return xsize, ysize
+
+
 def get_terminal_target(target):
     xtile, ytile = default_tile_size(target)
     
@@ -100,28 +121,14 @@ def insert_default_sizes(option_config, params):
         target = params[3]
 
         terminal_target = get_terminal_target(target)
-        # print("terminal target: " + terminal_target)
 
-        xsize, ysize = default_screen_size(target)
-        
-        if xsize == None:
-            xsize = DEFAULT_TERMINAL_X_SIZE
-            ysize = DEFAULT_TERMINAL_Y_SIZE
-        
-        xsize = str(xsize)
-        ysize = str(ysize)
+        xsize, ysize = default_terminal_size_string(target)
+
         return [params[0], params[1], terminal_target, xsize, ysize]
 
     if len(params)==3 and params[2].startswith('terminal'):
         terminal_target = params[2]
-        if terminal_target in ("terminal", "terminal8x8", "terminal8x6"):
-            xsize = '20'
-            ysize = '17'
-        elif terminal_target == "terminal7x8":
-            xsize = '20'
-            ysize = '24'
-        elif terminal_target in ("terminal6x9", "terminal6x8"):
-            xsize = '40'
-            ysize = '24'
+        xsize, ysize = default_terminal_size_string(terminal_target)
+
         return [params[0], params[1], terminal_target, xsize, ysize]
     return params

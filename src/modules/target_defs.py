@@ -5,7 +5,7 @@ import os
 from default_values import default_tile_size, default_screen_size, default_terminal_size_string, get_terminal_target
 from file_functions import list_of_projects
 from project_functions import project_category
-
+from print_functions import bcolors, printc
 
 DEBUG_TARGET  = "ncurses_debug"
 NATIVE_TARGET = "ncurses"
@@ -33,9 +33,11 @@ def info(option_config, params):
         
         memory = os.path.exists(project_dir+"/memory")
         
-        print("project            :      " + project)
+        print("project            :      ", end=""); printc(option_config, bcolors.BOLD, project); print("")
+
         print("")
-        print("category           :      " + category)
+        print("category           :      ", end=""); printc(option_config, bcolors.OKBLUE, category); print("")
+
         print("")
         print("split project      :      " + str(split))
         print("")
@@ -65,7 +67,7 @@ def info(option_config, params):
         else:
             parallel  = "not supported"
         
-        print("target      :         " + target)
+        print("target      :         ", end=""); printc(option_config, bcolors.BOLD,target); print("")
         print("")
         print("x size      :         " + xsize)
         print("y size      :         " + ysize)

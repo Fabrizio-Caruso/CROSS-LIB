@@ -79,9 +79,15 @@ def default_screen_size(target):
             xsize = 16
             ysize = 24
         elif target in ["sms", "spectrum", "creativision", "msx", "mtx", \
-                             "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein"]:
+                        "zx81", "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein", "m5", "creativision"]:
             xsize = 32
             ysize = 24
+        elif target in ["mc1000"]:
+            xsize = 16
+            ysize = 24
+        elif target in ["ti99"]:
+            xsize = 32
+            ysize = 23
         elif target == "cpc":
             xsize = 20
             ysize = 25

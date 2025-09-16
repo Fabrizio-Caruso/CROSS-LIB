@@ -18,6 +18,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "files": "shows all generated binary files", \
     "help": "provides help on a command or topic", \
     "import": "imports tiles from (Assembly/BASIC) files", \
+    "info": "displays some target info", \
     "list": "lists all projects", \
     "make": "build project using shape files", \
     "manual": "prints the manual", \

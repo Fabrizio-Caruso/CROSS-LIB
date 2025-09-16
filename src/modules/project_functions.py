@@ -33,6 +33,7 @@ def rename(option_config, params):
     source_project_type = project_category(source_game_dir)
 
     if source_project_type != "project":
+        print("This is a built-in project.")
         return
 
     target_project_type = "project"
@@ -40,7 +41,6 @@ def rename(option_config, params):
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 
     if option_config.terminal_config.verbose:
-
         print("source_project_type: " + source_project_type)
 
     convert_makefile(option_config, source_game_dir, source_project_type, source_game_dir, target_game_dir)

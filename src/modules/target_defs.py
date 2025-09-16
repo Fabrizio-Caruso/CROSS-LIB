@@ -16,21 +16,35 @@ def info(option_config, params):
     if params[1] in list_of_projects("all"):
         project = params[1]
         category = project_category(project)
-        split = os.path.exists(category+"s/"+project+"/split_files")
-        shapes = os.path.exists(category+"s/"+project+"/shapes")
+
+        project_dir = category+"s/"+project
+        split = os.path.exists(project_dir+"/split_files")
+        shapes = os.path.exists(project_dir+"/shapes")
         if shapes:
-            shape_dirs = str(os.listdir(category+"s/"+project+"/shapes"))[:-1][1:]
+            shape_dirs = str(os.listdir(project_dir+"/shapes"))[:-1][1:]
         else:
             shape_dirs = None
         
-        print("project        :      " + project)
-        print("")
-        print("category       :      " + category)
-        print("")
-        print("split project  :      " + str(split))
-        print("")
-        print("shapes         :      " + str(shape_dirs))
+        game_config = os.path.exists(project_dir+"/config/game_config.mk")
         
+        tiles = os.listdir(project_dir+"/tiles/8x8")
+        
+        override = os.path.exists(project_dir+"/makefiles") and os.path.exists(project_dir+"/makefiles/Makefile.override")
+        
+        memory = os.path.exists(project_dir+"/memory")
+        
+        print("project            :      " + project)
+        print("")
+        print("category           :      " + category)
+        print("")
+        print("split project      :      " + str(split))
+        print("")
+        print("no. of tiles       :      " + str(len(tiles)))
+        print("shapes             :      " + str(shape_dirs))
+        print("")
+        print("code configuration :      " + str(game_config))
+        print("override           :      " + str(override))
+        print("memory optimizer   :      " + str(memory))
     else:
         target = params[1]
         xsize, ysize = default_screen_size(target)

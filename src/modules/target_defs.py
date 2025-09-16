@@ -1,6 +1,10 @@
 
 
+import os
+
 from default_values import default_tile_size, default_screen_size, default_terminal_size_string, get_terminal_target
+from file_functions import list_of_projects
+from project_functions import project_category
 
 
 DEBUG_TARGET  = "ncurses_debug"
@@ -8,38 +12,55 @@ NATIVE_TARGET = "ncurses"
 
 
 def info(option_config, params):
-    target = params[1]
-    xsize, ysize = default_screen_size(target)
-    xtile, ytile = default_tile_size(target)
     
-    if xsize==None:
-        print("Information not available")
-        return
-    else:
-        xsize = str(xsize)
-        ysize = str(ysize)
+    if params[1] in list_of_projects("all"):
+        project = params[1]
+        category = project_category(project)
+        split = os.path.exists(category+"s/"+project+"/split_files")
+        shapes = os.path.exists(category+"s/"+project+"/shapes")
+        if shapes:
+            shape_dirs = str(os.listdir(category+"s/"+project+"/shapes"))[:-1][1:]
+        else:
+            shape_dirs = None
         
-    # if xtile==None:
-        # xtile = "not supported"
-        # ytile = "not supported"
-    # else:
-    xtile = str(xtile)
-    ytile = str(ytile)
-    
-    if target in PARALLEL_TARGETS:
-        parallel = "supported"
+        print("project        :      " + project)
+        print("")
+        print("category       :      " + category)
+        print("")
+        print("split project  :      " + str(split))
+        print("")
+        print("shapes         :      " + str(shape_dirs))
+        
     else:
-        parallel  = "not supported"
-    
-    print("target:                " + target)
-    print("")
-    print("x size     :           " + xsize)
-    print("y size     :           " + ysize)
-    print("")
-    print("x tile     :           " + xtile)
-    print("y tile     :           " + ytile)
-    print("")
-    print("parallelism:           " + parallel)
+        target = params[1]
+        xsize, ysize = default_screen_size(target)
+        xtile, ytile = default_tile_size(target)
+        
+        if xsize==None:
+            print("Information not available")
+            return
+        else:
+            xsize = str(xsize)
+            ysize = str(ysize)
+            
+        xtile = str(xtile)
+        ytile = str(ytile)
+        
+        if target in PARALLEL_TARGETS:
+            parallel = "supported"
+        else:
+            parallel  = "not supported"
+        
+        print("target      :         " + target)
+        print("")
+        print("x size      :         " + xsize)
+        print("y size      :         " + ysize)
+        print("")
+        print("x tile      :         " + xtile)
+        print("y tile      :         " + ytile)
+        print("")
+        print("parallelism :         " + parallel)
+        
 
 #TODO: cc65 targets
 #TODO: cmoc targets

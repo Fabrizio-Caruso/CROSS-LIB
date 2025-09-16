@@ -291,10 +291,11 @@ def help_command(option_config, params):
             print("You can import a tile into it from an Assembly file with something like this:")
             print("xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt myname")
         elif params[1]=="info":
-            printc(option_config, bcolors.BOLD,"xl info <target>\n")
+            printc(option_config, bcolors.BOLD,"xl info <target>/<project>\n")
             print("")
-            print("It display some information on the target <target> and how it is supported in `terminal` mode") 
-        
+            print("If the parameter is a target, it displays some information on the target <target> and how it is supported in `terminal` mode.") 
+            print("")
+            print("If the parameter is a project, it displays some information on the project <project>.")
         elif params[1]=="rotate":
             printc(option_config, bcolors.BOLD,"xl rotate <source_file> <[optional] project>\n")
             print("")

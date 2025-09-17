@@ -362,7 +362,7 @@ def store_tile(option_config, project, tile, xsize, ysize, index):
     if verbose:
         print("(store tile) project    : " + project)
         print("tile index : " + str(index))
-    dir = str(xsize)+"X"+str(ysize)
+    dir = str(xsize)+"x"+str(ysize)
     
     if verbose:
         print("directory: " + dir)

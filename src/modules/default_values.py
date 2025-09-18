@@ -3,17 +3,16 @@ DEFAULT_TERMINAL_Y_SIZE = 17
 
 
 def default_tile_size(target):
-
-        if target == "atari_lynx" or "8x6" in target:
+        if target in ["atari_lynx", "terminal8x6"]:
             xtile = 8
             ytile = 6
-        elif target in ["apple2", "apple2enh"]:
+        elif target in ["apple2", "apple2enh", "terminal7x8"]:
             xtile = 7
             ytile = 8
-        elif target in ["oric1", "atmos", "oric", "comx_ntsc"]:
+        elif target in ["oric1", "atmos", "oric", "comx_ntsc", "terminal6x8"]:
             xtile = 6
             ytile = 8
-        elif target in ['comx', 'pecom', 'micro']:
+        elif target in ['comx', 'pecom', 'micro', "terminal6x9"]:
             xtile = 6
             ytile = 9
         else:

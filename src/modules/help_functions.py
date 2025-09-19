@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+
 import os
 
 from params import COMMANDS_LIST, COMMANDS_DESCRIPTIONS, commands, full_params

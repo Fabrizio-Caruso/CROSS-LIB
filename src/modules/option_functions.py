@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+
 import sys
 import os
 
@@ -428,7 +431,8 @@ def read_config(config_file="./config.ini"):
         logger.debug("Error while reading configuration file")
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(f"exc_type: {exc_type}, fname: {fname}, exc_tb.tb_lineno: {exc_tb.tb_lineno}")
+        print("exc_type: %s, fname: %s, exc_tb.tb_lineno: %s", exc_type, fname, exc_tb.tb_lineno)
+
         raise e
 
 

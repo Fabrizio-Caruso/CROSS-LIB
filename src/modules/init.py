@@ -1,6 +1,11 @@
+from __future__ import print_function
+
+
 from os import walk
 
 import sys
+
+
 from file_functions import dirs_in_path
 from LoggerSingleton import LoggerSingleton
 

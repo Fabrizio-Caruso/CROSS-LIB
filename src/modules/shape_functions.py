@@ -238,7 +238,7 @@ def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize,
 
     except Exception as error:
         print("File skipped")
-        print("An exception occurred:", type(error).__name__, "–", error) 
+        print("An exception occurred:", type(error).__name__, error)
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         print(exc_type, fname, exc_tb.tb_lineno)

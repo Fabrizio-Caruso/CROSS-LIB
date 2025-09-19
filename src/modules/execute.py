@@ -1,4 +1,22 @@
-from inspect import signature
+from __future__ import print_function
+
+try:
+    from inspect import signature
+except:
+    # from inspect import name_of
+    # import inspect2 
+    # signature = inspect2.signature(initializer)
+
+    
+    # import funcsigs
+    # signature = funcsigs.signature(initializer)
+    
+    # Dummy signature to get xl build to work under Python 2.7
+    from collections import namedtuple
+    Param = namedtuple('Param', 'parameters')
+    
+    def signature(name):
+        return Param([1,2])
 
 
 from modules.strings import *

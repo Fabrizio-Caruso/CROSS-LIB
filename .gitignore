@@ -71,6 +71,7 @@ src/wincmoc_graphics.c
 *.stackdump
 src/wincmoc_tmp.c
 src/*combo.c
+src/modules/*.pyc
 *.lst
 tools/EDIP1e/xchase.DSK
 src/cross_lib/display/*.s

@@ -70,7 +70,7 @@ def default_screen_size(target):
             ysize = 24
         elif target in ["sms", "spectrum", "creativision", "msx", "mtx", \
                         "zx81", "zx80", "mtx512", "mtx500", "svi", "sg1000", \
-                        "sc3000", "einstein", "m5", "ace", "coleco"]:
+                        "sc3000", "einstein", "m5", "ace", "coleco", "vz", "vz200"]:
             xsize = 32
             ysize = 24
         elif target in ["nes"]:
@@ -79,6 +79,9 @@ def default_screen_size(target):
         elif target in ["pet", "cbm610"]:
             xsize = 80
             ysize = 25
+        elif target in ["ncurses"]:
+            xsize = 80
+            ysize = 24
         elif target in ["pce"]:
             xsize = 60
             ysize = 25

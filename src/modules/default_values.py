@@ -23,16 +23,7 @@ def default_tile_size(target):
 
 
 def default_screen_size(target):
-        if target in ("terminal", "terminal8x8", "terminal8x6"):
-            xsize = 20
-            ysize = 17
-        elif target == "terminal7x8":
-            xsize = 20
-            ysize = 24
-        elif target in ("terminal6x9", "terminal6x8"):
-            xsize = 40
-            ysize = 24
-        elif target == "atari_lynx":
+        if target in ("terminal", "terminal8x8", "terminal8x6", "atari_lynx"):
             xsize = 20
             ysize = 17
         elif target == "pc6001":
@@ -53,37 +44,44 @@ def default_screen_size(target):
         elif target == "gamate":
             xsize = 20
             ysize = 19
-        elif target in ["apple2", "apple2enh"]:
+        elif target in ["apple2", "apple2enh", "atari", "atari5200", "terminal7x8"]:
             xsize = 20
             ysize = 24
-        elif target in ['comx', 'pecom', 'micro']:
+        elif target in ['comx', 'pecom', 'micro', 'comc_ntsc', 'laser500', "terminal6x9", "terminal6x8", "aquarius"]:
             xsize = 40
             ysize = 24
-        elif target == "comx_ntsc":
-            xsize = 40
-            ysize = 24
-        elif target in ["atari", "atari5200"]:
-            xsize = 20
-            ysize = 24
-        elif target in ["c64", "c16", "c128"]:
+        elif target in ["c64", "c16", "plus4", "c128", "vg5k", "cbm510"]:
             xsize = 40
             ysize = 25
+        elif target in ["sam"]:
+            xsize = 32
+            ysize = 22
+        elif target in ["camputers"]:
+            xsize = 32
+            ysize = 32
         elif target == "vic20":
             xsize = 22
             ysize = 23
         elif target in ["mo5","to7"]:
             xsize = 39
             ysize = 25
-        elif target in ["coco","dragon"]:
+        elif target in ["coco","dragon", "mc1000"]:
             xsize = 16
             ysize = 24
         elif target in ["sms", "spectrum", "creativision", "msx", "mtx", \
-                        "zx81", "mtx512", "mtx500", "svi", "sg1000", "sc3000", "einstein", "m5", "creativision"]:
+                        "zx81", "zx80", "mtx512", "mtx500", "svi", "sg1000", \
+                        "sc3000", "einstein", "m5", "ace", "coleco"]:
             xsize = 32
             ysize = 24
-        elif target in ["mc1000"]:
-            xsize = 16
-            ysize = 24
+        elif target in ["nes"]:
+            xsize = 32
+            ysize = 28
+        elif target in ["pet", "cbm610"]:
+            xsize = 80
+            ysize = 25
+        elif target in ["pce"]:
+            xsize = 60
+            ysize = 25
         elif target in ["ti99"]:
             xsize = 32
             ysize = 23

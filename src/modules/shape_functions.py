@@ -208,11 +208,15 @@ def show(option_config, params):
         index = params[2]
         xsize = "8"
         ysize = "8"
-    else:
+    elif len(params)==4:
         xsize = params[2]
         ysize = params[3]
+        index = ""
+    else:
+        xsize = params[3]
+        ysize = params[4]
         if len(params)>=5:
-            index = params[4]
+            index = params[2]
         else:
             index = ""
 

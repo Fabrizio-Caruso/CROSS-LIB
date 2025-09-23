@@ -200,23 +200,30 @@ def extend(option_config, params):
 def show(option_config, params):
     parent_dir = project_category(params[1])+"s"
 
-    if len(params)<4:
+    if len(params)<3:
+        xsize = "8"
+        ysize = "8"
+        index = ""
+    elif len(params)<4:
+        index = params[2]
         xsize = "8"
         ysize = "8"
     else:
         xsize = params[2]
         ysize = params[3]
+        if len(params)>=5:
+            index = params[4]
+        else:
+            index = ""
 
-    if len(params)>=5:
-        index = params[4]
-    else:
-        index = ""
 
     if index!="":
         print_shape_from_file(option_config, parent_dir, params[1], xsize, ysize, index)
 
     else:
         for i in range(NUMBER_OF_TILES):
+            if not option_config.terminal_config.test:
+                print(i)
             print_shape_from_file(option_config, parent_dir, params[1], xsize, ysize, i)
 
 
@@ -229,13 +236,15 @@ def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize,
         print("Decoding file tile: " + dest)
         print("")
     try:
-        fin = open(dest, "rt")
+        if os.path.exists(dest):
+            fin = open(dest, "rt")
 
-        tile_data = fin.read()
-        # computed_shape = compute_shape(tile_data,xsize)
-        # print("computed shape: " + str(computed_shape))
-        print_shape(option_config, compute_shape(tile_data,xsize))
-
+            tile_data = fin.read()
+            # computed_shape = compute_shape(tile_data,xsize)
+            # print("computed shape: " + str(computed_shape))
+            print_shape(option_config, compute_shape(tile_data,xsize))
+        else:
+            print("NOT FOUND")
     except Exception as error:
         print("File skipped")
         print("An exception occurred:", type(error).__name__, error)

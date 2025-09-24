@@ -6,8 +6,8 @@ g800: g800_turn_based
 g800_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850b $(INCLUDE_OPTS) \
 	-D__G800__ \
-	-DTURN_BASED \
-	-DNO_BLINKING \
+	-DTURN_BASED 
+	-D_XL_NO_JOYSTICK \
 	-vn \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G800_SLOWDOWN) \
 	-lndos \
@@ -16,5 +16,35 @@ g800_turn_based:
 	-create-app -o g800.bin
 	rm g800.bin 
 	rm g800.rom
-	mv g800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.ihx
+	mv g800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
 
+
+g850b:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850b $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK \
+	-DXSize=18 -DYSize=6 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G800_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800.bin
+	rm g800.bin 
+	rm g800.rom
+	mv g800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+g850:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850 $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK \
+	-DXSize=18 -DYSize=8 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G800_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800.bin
+	rm g800.bin 
+	rm g800.rom
+	mv g800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx

@@ -460,6 +460,20 @@ Type LOADG
 
 
 ---------------------------------------------------------
+### PC-E200 / PC-G850 / PC-G815
+Use the g800 emulator (https://ver0.sakura.ne.jp/pc/)
+
+Run it from the cmd line with:
+
+g800(.exe) -machine=e200 <path to ihx file>
+g800(.exe) -machine=g815 <path to ihx file>
+g800(.exe) -machine=g850 <path to ihx file>
+
+Once the emulated machine is started use:
+MON (to enter the Assembly monitor)
+G100 (to actually run the code)
+
+---------------------------------------------------------
 
 ### Galaksija
 

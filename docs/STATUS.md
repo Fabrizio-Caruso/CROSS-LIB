@@ -50,12 +50,14 @@ target name         | long target name                            | working  |  
 *dai*               | DAI                                         |   YES    |  Intel 8080   |  Z88DK  |   missing       |      N/A ?     |  N/A ?  |
 *dmv*               | Decision Mate V                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *dragon*            | Dragon 32/64                                |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*e200*              | Sharp PC-E200                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *eg2k*              | EACA EG2000 Color Genie                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *einstein*          | Tatung Einstein                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
-*g800*              | Sharp PC-G800                               |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     |   N/A ? |
+*g815*              | Sharp PC-G815                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*g850*              | Sharp PC-G850                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
 *gal_plus*          | Galaksija Plus                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   N/A   |
 *gamate*            | Gamate                                      |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -114,7 +116,7 @@ target name         | long target name                            | working  |  
 *pacman*            | Pacman Namco arcade board                   |    NO    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *pasaopia7*         | Toshiba Pasopia 7                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing | PSG SN76489 
 *pc6001*            | NEC PC 6001                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |    
-*pc8201*            | NEC PC 8201                                |   YES    |  Intel 8085    |  Z88DK  |      OK         |    missing     | missing |
+*pc8201*            | NEC PC 8201                                 |   YES    |  Intel 8085   |  Z88DK |      OK        |    missing     | missing |
 *pc88*              | NEC PC 8801                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *pce*               | PCEngine                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *pcw*               | Amstrad PCW                                 |    ?     |   Zilog 80    |  Z88DK  |       ?         |    missing     | missing | 
@@ -180,9 +182,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 169
+TOTAL    : 171
 
-OK       : 166
+OK       : 168
 
 KO       :   1
 
@@ -297,9 +299,9 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 188
+TOTAL    : 190
 
-OK       : 176
+OK       : 178
 
 KO       :   3
 

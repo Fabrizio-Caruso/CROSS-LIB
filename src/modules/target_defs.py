@@ -129,6 +129,12 @@ PARALLEL_TARGETS = \
     'eg2k',
     'einstein',
     'g850',
+    
+    'g815',
+    'g800',
+    'e200',
+    'g815',
+    
     'gb',
     'gal',
     'gl6000sl',

@@ -73,6 +73,10 @@
     #define LEVEL_Y 2
 #endif
 
+#if YSize<=10
+    #define NO_RECORD_LEVEL
+#endif
+
 #define LEVEL_X ((XSize)/2-4)
 
 #define NUMBER_OF_CACTI 3
@@ -397,7 +401,7 @@ void display_hiscore(void)
     #define HILEVEL_Y YSize-2
 #endif
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) && !defined(NO_RECORD_LEVEL)
 void display_hilevel(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);

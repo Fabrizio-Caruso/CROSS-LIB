@@ -91,26 +91,39 @@
 
 #define NEXT_EXTRA_LIFE 5000U
 
-#define STINGER_Y ((YSize)-3)
-#define MAX_STINGER_X ((XSize)*2-3)
-#define POWER_UPS_Y ((STINGER_Y)+2)
+#if YSize>10
+    #define STINGER_Y ((YSize)-3)
+    #define POWER_UPS_Y ((STINGER_Y)+2)
+    #define BOTTOM_WALL_Y ((STINGER_Y)+1)
 
-#if YSize<=16
-    #define WALL_Y ((YSize)-8)
 #else
-    #define WALL_Y ((YSize)-6)
+    #define STINGER_Y ((YSize)-1)
+    // #define POWER_UPS_Y ((STINGER_Y))
+    // #define BOTTOM_WALL_Y ((STINGER_Y))
 #endif
+#define MAX_STINGER_X ((XSize)*2-3)
+// #define POWER_UPS_Y ((STINGER_Y)+2)
+
+// #if YSize<=10
+    // #define WALL_Y ((YSize)/2)
+// #elif YSize<=16
+    // #define WALL_Y ((YSize)-8)
+// #else
+    // #define WALL_Y ((YSize)-6)
+// #endif
 
 
 #if YSize>=18
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-5)
 #elif YSize>=16
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-4)
+#elif YSize>10
+    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
 #else 
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
 #endif
 
-#define BOTTOM_WALL_Y ((STINGER_Y)+1)
+// #define BOTTOM_WALL_Y ((STINGER_Y)+1)
 
 #define POWER_THRESHOLD 4
 
@@ -148,7 +161,12 @@
 
 // #define RED_RANGE_VALUE INITIAL_ROCKET_RANGE
 // #define YELLOW_RANGE_VALUE ((INITIAL_ROCKET_RANGE)-2)
-#define MAX_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-1)
+
+#if YSize>10
+    #define MAX_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-1)
+#else
+    #define MAX_RANGE_VALUE ((INITIAL_RESPAWN_TANK_Y)-0)
+#endif
 
 // #define INITIAL_ROCKET_RANGE ((INITIAL_TANK_Y)+1)
 #define ITEM_SPAWN_CHANCE 11000U
@@ -247,19 +265,16 @@ const uint8_t heavy_tanks_on_level[LAST_LEVEL+1] = {HEAVY_TANKS_0,HEAVY_TANKS_1,
 
 #define MAX_HYPER_COUNTER 200
 
-// #if YSize>=20
-    // #define HEIGHT_SHOOT_THRESHOLD YSize-10
-// #else
-    // #define HEIGHT_SHOOT_THRESHOLD YSize-11
-// #endif
 
 
 #if YSize>=20
     #define HEIGHT_SHOOT_THRESHOLD YSize-10
 #elif YSize>=16
     #define HEIGHT_SHOOT_THRESHOLD YSize-9
-#else
+#elif YSize>10
     #define HEIGHT_SHOOT_THRESHOLD YSize-8
+#else
+    #define HEIGHT_SHOOT_THRESHOLD 3
 #endif
 
 #define VERY_FAST_TANK_SHOOT_MASK 1
@@ -611,7 +626,9 @@ void display_score(void)
 
 #define LIVES_X (XSize-3)
 
-#if !defined(_XL_NO_TEXT_COLOR)
+#if YSize<=10
+    #define display_lives(color)
+#elif !defined(_XL_NO_TEXT_COLOR)
     void display_lives(uint8_t color)
     {
         _XL_DRAW(LIVES_X,POWER_UPS_Y,stinger_tile[4+0+stinger_shape_tile],_XL_CYAN);
@@ -788,13 +805,13 @@ void increase_score(uint8_t value)
     handle_extra_life();
 }
 
-
 void recharge_effect(void)
 {
     recharge_rockets(ROCKET_RECHARGE);
     increase_score(RECHARGE_POINTS);
-    PRINT_CENTERED_ON_ROW(2,"        "); \
-
+    #if YSize>10
+    PRINT_CENTERED_ON_ROW(2,"        ");
+    #endif
 }
 
 
@@ -845,8 +862,9 @@ uint8_t find_inactive(Item* itemArray)
     return MAX_NUMBER_OF_MISSILES;
 }
 
-
-#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
+#if YSize<=10
+    #define display_power_ups()
+#elif !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
 void display_power_ups(void)
 {
     uint8_t speed_color;
@@ -907,6 +925,8 @@ void display_power_ups(void)
 #else
 	#define STR_LEN 5
 #endif
+
+#if YSize>10
 void display_power_ups(void)
 {
     uint8_t color;
@@ -957,6 +977,7 @@ void display_power_ups(void)
         _XL_DRAW(ROCKETS_X+i,POWER_UPS_Y,ROCKET_TILE_0,color);
     }
 }
+#endif
 #else // NO COLOR and NO TEXT COLOR
 #if XSize<=20
 	#define STR_LEN 3
@@ -1011,26 +1032,44 @@ void display_power_ups(void)
 }
 #endif
 
-
-#define activate_hyper() \
-{ \
-    _XL_ZAP_SOUND(); \
-    recharge_rockets(HYPER_RECHARGE); \
-    hyper_counter = MAX_HYPER_COUNTER; \
-    stinger_color = level_color[(level+1)&1]; \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    if(powerUp>5) \
+#if YSize>10
+    #define activate_hyper() \
+    do \
     { \
-        number_of_rockets_per_shot=3; \
-        PRINT_CENTERED_ON_ROW(1,"TRIPLE"); \
-    } \
-    else \
+        _XL_ZAP_SOUND(); \
+        recharge_rockets(HYPER_RECHARGE); \
+        hyper_counter = MAX_HYPER_COUNTER; \
+        stinger_color = level_color[(level+1)&1]; \
+        _XL_SET_TEXT_COLOR(_XL_CYAN); \
+        if(powerUp>5) \
+        { \
+            number_of_rockets_per_shot=3; \
+            PRINT_CENTERED_ON_ROW(1,"TRIPLE"); \
+        } \
+        else \
+        { \
+            number_of_rockets_per_shot=2; \
+            PRINT_CENTERED_ON_ROW(1,"DOUBLE"); \
+        } \
+    } while(0)
+#else
+    #define activate_hyper() \
+    do \
     { \
-        number_of_rockets_per_shot=2; \
-        PRINT_CENTERED_ON_ROW(1,"DOUBLE"); \
-    } \
-}
-
+        _XL_ZAP_SOUND(); \
+        recharge_rockets(HYPER_RECHARGE); \
+        hyper_counter = MAX_HYPER_COUNTER; \
+        stinger_color = level_color[(level+1)&1]; \
+        if(powerUp>5) \
+        { \
+            number_of_rockets_per_shot=3; \
+        } \
+        else \
+        { \
+            number_of_rockets_per_shot=2; \
+        } \
+    } while(0)
+#endif
 
 void power_up_effect(void)
 {    
@@ -1082,7 +1121,9 @@ void power_up_effect(void)
         default:
         break;
     }
+    #if YSize>10
     display_power_ups();
+    #endif
 }
 
 
@@ -1601,17 +1642,19 @@ void update_tank_move_speed_mask(void)
 	// _XL_PRINTD(0,YSize-1,1,tank_move_speed_mask);
 }
 
-
-void display_wall(uint8_t y)
-{
-    uint8_t i;
-    
-    for(i=0; i<XSize; ++i)
-    {   
-        _XL_DRAW(i,y,WALL_TILE,wall_color); 
+#if YSize>10
+    void display_wall(uint8_t y)
+    {
+        uint8_t i;
+        
+        for(i=0; i<XSize; ++i)
+        {   
+            _XL_DRAW(i,y,WALL_TILE,wall_color); 
+        }
     }
-}
-
+#else
+    #define display_wall(y)
+#endif
 
 #define _display_red_tank(tile) \
 { \
@@ -1753,7 +1796,7 @@ void tank_dies(void)
     _XL_DELETE(tank_x,y_pos);
     
     #if defined(NO_BOTTOM_WALL_REDRAW)
-    #else
+    #elif YSize>10
         display_wall(BOTTOM_WALL_Y);
     #endif
     
@@ -2635,6 +2678,10 @@ uint8_t fire_pressed_after_time(void)
         #define delete_instructions()
     // #endif
 #endif
+
+#if YSize<=10
+    #define display_items()
+#else
     #define display_items() \
     do \
     { \
@@ -2647,24 +2694,20 @@ uint8_t fire_pressed_after_time(void)
             _XL_PRINT(XSize/2-5+3,YSize/3+4+_NEXT_ROW, (char *)item_name[i]); \
         } \
     } while(0)
-        
-    void display_enemies(void)
+#endif
+
+void display_enemies(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<5;++i)
     {
-        uint8_t i;
-        
-        for(i=0;i<5;++i)
-        {
-            _XL_DRAW(XSize/2-5,YSize/3+1+_NEXT_ROW, enemy_tile[i][0], enemy_tile[i][1]);
-            _XL_SET_TEXT_COLOR(_XL_GREEN);
-            _XL_PRINT(XSize/2-5+3,YSize/3+1+_NEXT_ROW, (char *)enemy_name[i]);
-        }
+        _XL_DRAW(XSize/2-5,YSize/3+1+_NEXT_ROW, enemy_tile[i][0], enemy_tile[i][1]);
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(XSize/2-5+3,YSize/3+1+_NEXT_ROW, (char *)enemy_name[i]);
     }
-// #else
-    // #define display_items()
-    // #define display_enemies()
-    // #define control_instructions()
-    // #define delete_instructions()
-// #endif
+}
+
 
 
 #if !defined(NO_EXTRA_TITLE)
@@ -2980,7 +3023,7 @@ void tank_intro_animation(void)
 }
 
 
-#if !defined(NO_EXTRA_TITLE)
+#if !defined(NO_EXTRA_TITLE) && YSize>10
 void display_second_screen(void) 
 {
     _XL_CLEAR_SCREEN();
@@ -3078,7 +3121,9 @@ void handle_auto_recharge(void)
     if(!remaining_rockets)
     {
         _XL_SET_TEXT_COLOR(_XL_RED);
-        PRINT_CENTERED_ON_ROW(2,"RECHARGE"); \
+        #if YSize>10
+        PRINT_CENTERED_ON_ROW(2,"RECHARGE");
+        #endif
         if(auto_recharge_counter)
         {
             --auto_recharge_counter;
@@ -3105,6 +3150,7 @@ void handle_auto_recharge(void)
 }
 
 
+#if YSize>10
 void display_level_at_start_up(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
@@ -3118,7 +3164,6 @@ void display_level_at_start_up(void)
         _XL_PRINT(XSize/2-4, YSize/2,      "LEVEL " );
         _XL_PRINTD(XSize/2+2,YSize/2,1,level+1);
     }
-	// #if !defined(NO_EXTRA_TITLE)
     if(level<LAST_LEVEL)
     {
         uint8_t i;
@@ -3129,7 +3174,6 @@ void display_level_at_start_up(void)
             _XL_DRAW(XSize/2+1-level+i*2, YSize/2+2, enemy_tile[i][0], enemy_tile[i][1]);
         }
     }
-    // #endif
     one_second();
     control_instructions();
     sleep_and_wait_for_input();
@@ -3142,10 +3186,10 @@ void display_level_at_start_up(void)
         }
     }
     display_wall(CONTROLS_Y);
-    // _XL_PRINT(XSize/2-2-level, YSize/2+2,_XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE);
-
 }
-
+#else
+    #define display_level_at_start_up()
+#endif
 
 void handle_tank_movement(void)
 {
@@ -3312,7 +3356,6 @@ void victory_animation(void)
     sleep_and_wait_for_input();
     _XL_CLEAR_SCREEN();
 }
-
 
 #define display_level_screen() \
 do \

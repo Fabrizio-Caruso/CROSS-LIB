@@ -37,11 +37,20 @@
 
 #define NEXT_EXTRA_LIFE 5000U
 
-#define BOW_Y ((YSize)-3)
+#if YSize>10
+    #define BOW_Y ((YSize)-3)
+    #define POWER_UPS_Y ((BOW_Y)+2)
+    #define BOTTOM_WALL_Y ((BOW_Y)+1)
+#else
+    #define BOW_Y ((YSize)-1)
+    // #define POWER_UPS_Y (BOW_Y)
+    // #define BOTTOM_WALL_Y (BOW_Y)
+#endif
 #define MAX_BOW_X ((XSize)*2-3)
-#define POWER_UPS_Y ((BOW_Y)+2)
 
-#if YSize<=16
+#if YSize<=10
+    #define WALL_Y ((YSize)/2)
+#elif YSize<=16
     #define WALL_Y ((YSize)-8)
 #else
     #define WALL_Y ((YSize)-6)
@@ -49,19 +58,22 @@
 
 #if YSize>=16
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-2)
-#else
+#elif YSize>10
     #define INITIAL_ZOMBIE_Y (((YSize)/2)-1)
+#else
+    #define INITIAL_ZOMBIE_Y 2
 #endif
 
 #if YSize>=18
     #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-4
 #elif YSize>=16
     #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-3
-#else 
+#elif YSize>10
     #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)-2
+#else
+    #define INITIAL_RESPAWN_ZOMBIE_Y (INITIAL_ZOMBIE_Y)
 #endif
 
-#define BOTTOM_WALL_Y ((BOW_Y)+1)
 
 #define POWER_THRESHOLD 4
 
@@ -195,11 +207,11 @@ static uint8_t auto_recharge_counter;
     #define arrow_display_color _DUMMY_
 #endif
 
-#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
+#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR) && YSize>10
 static const uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 #endif
 
-#if !defined(_XL_NO_COLOR)
+#if !defined(_XL_NO_COLOR) && YSize>10
 static const uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_WHITE};
 #endif
 
@@ -314,7 +326,7 @@ static Item powerUpItem;
 static Item wallItem;
 static Item zombieItem;
 
-#if !defined(NO_EXTRA_TITLE)
+#if !defined(NO_EXTRA_TITLE) && YSize>10
 static const uint8_t item_tile[5][2] = 
 {
     { POWER_UP_TILE, _XL_WHITE },
@@ -428,7 +440,9 @@ void display_score(void)
 
 #define LIVES_X (XSize-3)
 
-#if !defined(_XL_NO_TEXT_COLOR)
+#if YSize<=10
+    #define display_lives(color) 
+#elif !defined(_XL_NO_TEXT_COLOR)
     void display_lives(uint8_t color)
     {
         _XL_DRAW(LIVES_X,POWER_UPS_Y,bow_tile[4+0+bow_shape_tile],_XL_CYAN);
@@ -726,8 +740,9 @@ uint8_t find_inactive(Item* itemArray)
     return i;
 }
 
-
-#if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
+#if YSize<=10
+    #define display_power_ups()
+#elif !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
 void display_power_ups(void)
 {
     uint8_t range_color;
@@ -922,18 +937,27 @@ void display_power_ups(void)
 }
 #endif
 
-
-#define activate_hyper() \
-{ \
-    _XL_ZAP_SOUND(); \
-    bow_reload_loops=HYPER_SPEED_VALUE; \
-    recharge_arrows(HYPER_RECHARGE); \
-    hyper_counter = MAX_HYPER_COUNTER; \
-    bow_color = _XL_RED; \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(1," HYPER "); \
-}
-
+#if YSize>10
+    #define activate_hyper() \
+    { \
+        _XL_ZAP_SOUND(); \
+        bow_reload_loops=HYPER_SPEED_VALUE; \
+        recharge_arrows(HYPER_RECHARGE); \
+        hyper_counter = MAX_HYPER_COUNTER; \
+        bow_color = _XL_RED; \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
+        PRINT_CENTERED_ON_ROW(1," HYPER "); \
+    }
+#else
+    #define activate_hyper() \
+    { \
+        _XL_ZAP_SOUND(); \
+        bow_reload_loops=HYPER_SPEED_VALUE; \
+        recharge_arrows(HYPER_RECHARGE); \
+        hyper_counter = MAX_HYPER_COUNTER; \
+        bow_color = _XL_RED; \
+    }
+#endif
 
 void power_up_effect(void)
 {
@@ -1554,7 +1578,7 @@ void zombie_dies(void)
     _XL_DELETE(zombie_x,y_pos);
     
     #if defined(NO_BOTTOM_WALL_REDRAW)
-    #else
+    #elif YSize>10
         display_wall(BOTTOM_WALL_Y);
     #endif
     
@@ -2280,30 +2304,51 @@ do \
 
 #define _HORDE_STRING "HORDE"
 
-#define display_initial_screen() \
-{ \
-    _XL_CLEAR_SCREEN(); \
-    \
-    display_wall(0); \
-    display_wall(BOTTOM_WALL_Y+1); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_CYAN); \
-    PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/3-2,_HORDE_STRING); \
-    \
-    _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
-    \
-    display_items(); \
-    sleep_and_wait_for_input(); \
-    _XL_CLEAR_SCREEN(); \
-}
-
+#if YSize>10
+    #define display_initial_screen() \
+    { \
+        _XL_CLEAR_SCREEN(); \
+        \
+        display_wall(0); \
+        display_wall(BOTTOM_WALL_Y+1); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_CYAN); \
+        PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
+        PRINT_CENTERED_ON_ROW(YSize/3-2,_HORDE_STRING); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
+        \
+        display_items(); \
+        sleep_and_wait_for_input(); \
+        _XL_CLEAR_SCREEN(); \
+    }
+#else
+    #define display_initial_screen() \
+    { \
+        _XL_CLEAR_SCREEN(); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_CYAN); \
+        PRINT_CENTERED_ON_ROW(_HISCORE_Y, "HISCORE"); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        _XL_PRINTD(XSize/2-3,_HISCORE_Y+1,5,hiscore); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
+        PRINT_CENTERED_ON_ROW(YSize/3-2,_HORDE_STRING); \
+        \
+        _XL_SET_TEXT_COLOR(_XL_WHITE); \
+        PRINT_CENTERED_ON_ROW(YSize/3, "FABRIZIO CARUSO"); \
+        \
+        sleep_and_wait_for_input(); \
+        _XL_CLEAR_SCREEN(); \
+    }
+#endif
 
 #if XSize>=23
     #define HI_X ((XSize-9))
@@ -2358,11 +2403,15 @@ do \
 #endif
 
 
+#if YSize>10
 void clear_top_border(void)
 {
 	PRINT_CENTERED_ON_ROW(1,"       ");
 	display_zombies();
 }
+#else
+    #define clear_top_border()
+#endif
 
 
 #define handle_auto_recharge() \
@@ -2489,15 +2538,18 @@ do \
 } while(0)
 
 
-#define display_level_screen() \
-do \
-{ \
-    display_wall(BOTTOM_WALL_Y); \
-    display_bow(); \
-    display_stats(); \
-    display_level_at_start_up(); \
-} while(0)
-
+#if YSize>10
+    #define display_level_screen() \
+    do \
+    { \
+        display_wall(BOTTOM_WALL_Y); \
+        display_bow(); \
+        display_stats(); \
+        display_level_at_start_up(); \
+    } while(0)
+#else
+    #define display_level_screen()
+#endif
 
 #define handle_hyper() \
 { \

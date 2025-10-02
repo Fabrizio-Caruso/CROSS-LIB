@@ -15,7 +15,7 @@ void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
 
 
 
-#if !defined(NO_DISPLAY_RINGS)
+#if !defined(NO_DISPLAY_RINGS) 
 void DISPLAY_RINGS(void)
 {
     _XL_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); 

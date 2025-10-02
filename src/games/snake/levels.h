@@ -10,13 +10,16 @@ const uint8_t map_walls[] =
     0,
 // map 1 (3) 
     2, 
-    #if YSize<20
+
+    #if YSize<=17
+        XSize/3,       YSize/3+1,     3,
+    #elif YSize<=20
         XSize/3,       YSize/3+1,     XSize/3,
     #else
         XSize/3,       YSize/3,     XSize/3,
     #endif
     #if YSize<=17
-        XSize/3,     2*YSize/3-1,     XSize/3,
+        XSize/3+6,     YSize/3+3,     3,
     #else
         XSize/3,     2*YSize/3,     XSize/3,
     #endif
@@ -114,15 +117,28 @@ const uint8_t map_walls[] =
 // map 8
     0,
     4, 
+    #if YSize>=12
         XSize/6, 3, YSize-1-6,
         2*XSize/6, 3, YSize-1-6,
         XSize-1-2*XSize/6, 3, YSize-1-6,
         XSize-1-XSize/6, 3, YSize-1-6,
+    #else
+        XSize/6, 3, 2,
+        2*XSize/6, 3, 2,
+        XSize-1-2*XSize/6, 3, 2,
+        XSize-1-XSize/6, 3, 2,
+    #endif
     0,
 // map 9 (143)
     0,
     0,
-    #if YSize<20
+    #if YSize<12
+    4,
+        2,2,XSize/4,1,WALL,
+        2,YSize-2-YSize/4,XSize/4,1,WALL,
+        XSize-2-XSize/4,YSize-2-YSize/4,XSize/4,1,WALL,
+        XSize-2-XSize/4,2,XSize/4,1,WALL,
+    #elif YSize<20
     4,
         2,2,XSize/4,YSize/4,WALL,
         2,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
@@ -144,8 +160,8 @@ const uint8_t map_walls[] =
 // map 11
     #if YSize<12
     2,
-        XSize/4, YSize/2-2,XSize/2,
-        XSize/4, YSize-3,XSize/2,
+        XSize/4, YSize/2-2,2,
+        XSize/4, YSize-3,2,
     0,
     #else
     2,
@@ -181,7 +197,11 @@ const uint8_t map_walls[] =
     0,
 // map 13 (213)
     1,
+    #if YSize>=12
         2,YSize/2-2,XSize-4,
+    #else
+        XSize/2-2,YSize/2-2,4,
+    #endif
     0,
     0,
 
@@ -252,8 +272,13 @@ const uint8_t horizontal_mines_on_level[] =
         0, // 1  (3)
         0, // 2  (4)
         2, // 3  (5)
+        #if YSize>10
             YSize/2 - 3,
             YSize/2 + 3,
+        #else
+            1,
+            YSize-2,
+        #endif
         2, // 4 (8)
             2,
             YSize-3,
@@ -278,22 +303,40 @@ const uint8_t horizontal_mines_on_level[] =
             2,
             YSize-3,
         3, // 13 (31)
+        #if YSize>=12
             YSize/2 - 5,
             YSize/2 + 3,
             YSize/2 + 6,
+        #else
+            1,
+            YSize-4,
+            YSize-3,
+        #endif
         4, // 14 (35)
             YSize/2 - 2,
             YSize/2 + 2,
             YSize/2 - 4,
             YSize/2 + 4,
         3, // 15 (40)
+        #if YSize>=12
             YSize/2 - 3,
             YSize/2 - 4,
             YSize/2 - 5,
+        #else
+            1,
+            2,
+            3,
+        #endif
         3, // 16 (44)
+        #if YSize>=12
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 - 6,
+        #else
+            1,
+            2,
+            3,
+        #endif
         2, // 17 (48)
             YSize/2 - 3,
             YSize/2 + 3,

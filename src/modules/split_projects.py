@@ -12,6 +12,7 @@ def create_main(game_dir, project_type):
 def delete_main(option_config, game_dir, project_type):
     parent_dir_path = "./" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
+    # TODO: Implement flag to keep main.c
     run_command(option_config, "rm -rf " + project_dir_path + "main.c")
 
 def is_project_split(game_dir):

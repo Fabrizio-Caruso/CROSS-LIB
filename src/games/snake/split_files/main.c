@@ -1018,13 +1018,19 @@ void magic_wall(void)
         break; \
     }
 
+#if YSize>=12
+    #define BONUS_Y YSize/2
+#else
+    #define BONUS_Y YSize/6
+#endif
+
 #define handle_level_cleared() \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    PRINT_CENTERED_ON_ROW(YSize/2, _CLEARED_STRING); \
+    PRINT_CENTERED_ON_ROW(BONUS_Y, _CLEARED_STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    PRINT_CENTERED_ON_ROW(YSize/2+2, _BONUS_STRING); \
-    _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus); \
+    PRINT_CENTERED_ON_ROW(BONUS_Y+2, _BONUS_STRING); \
+    _XL_PRINTD(XSize/2-3,BONUS_Y+4,5,level_bonus); \
     rings+=coin_count;
 
 
@@ -1086,7 +1092,10 @@ void increase_points(uint16_t value)
 #define handle_lost_life() \
     --lives; \
     _XL_EXPLOSION_SOUND(); \
+    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*4U); \
     PRESS_KEY();
+
+
 
 #if XSize<32
     #define ANIMATION_SLOW_FACTOR 4
@@ -1244,7 +1253,6 @@ void display_stats(void)
 int main(void)
 {
     INITIALIZE();
-    
     while(1)
     {
         title();
@@ -1258,7 +1266,7 @@ int main(void)
             
             DISPLAY_LEVEL_SCREEN();
             
-            #if !defined(NO_DISPLAY_LEVEL_ANIMATION)
+            #if !defined(NO_DISPLAY_LEVEL_ANIMATION) && YSize>=12
                 DISPLAY_LEVEL_ANIMATION();
             #else
                 active_mines = 1;

@@ -393,8 +393,14 @@ void build_level(void)
                        map_walls[4u+index]);
     }
     
-    build_horizontal_mines(level);
-    build_vertical_mines(level);
+    #if YSize<12
+    if(level>16)
+    {
+        level-=16;
+    }
+    #endif
+    build_horizontal_mines(level%16);
+    build_vertical_mines(level%16);
     
 }
 

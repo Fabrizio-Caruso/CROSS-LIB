@@ -337,6 +337,7 @@ const uint8_t horizontal_mines_on_level[] =
             2,
             3,
         #endif
+        
         2, // 17 (48)
             YSize/2 - 3,
             YSize/2 + 3,

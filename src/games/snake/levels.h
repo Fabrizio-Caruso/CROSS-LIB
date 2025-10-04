@@ -43,7 +43,7 @@ const uint8_t map_walls[] =
     0,
 
 // map 3 (27)
-    #if YSize>=12
+    #if YSize>=13
     4,
         0,                      YSize/4,      XSize/4,
        3*XSize/4,               YSize/4,      XSize/4,
@@ -77,7 +77,7 @@ const uint8_t map_walls[] =
         XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
 
 // map 5 (67)
-    #if YSize>=12
+    #if YSize>=16
     4,
              0,                 YSize/5,      XSize/2,
        XSize-1-XSize/2,       2*YSize/5,      XSize/2,
@@ -185,7 +185,7 @@ const uint8_t map_walls[] =
     #endif
 // map 12(204)
     0,
-    #if YSize<12
+    #if YSize<16
     2,
          XSize/5,                      1,   3,
        4*XSize/5,                      YSize-4,   3,
@@ -206,7 +206,7 @@ const uint8_t map_walls[] =
     0,
 
 // map 14 (219)
-    #if YSize<12
+    #if YSize<16
     4,
         2,                      2,      3,
        XSize-1-5,               2,      3,
@@ -225,7 +225,11 @@ const uint8_t map_walls[] =
     1,
         5,YSize/2+1,XSize-10,
     0,
-    #if YSize<20
+    
+    #if YSize<16
+    1,
+        XSize/2-1,YSize/2+3,2,2,DEADLY,
+    #elif YSize<20
     1,
         XSize/2-1,YSize/2+3,3,3,DEADLY,
     #else

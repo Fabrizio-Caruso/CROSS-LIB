@@ -8,7 +8,7 @@
 #if XSize>40
     #define LV_CROSS_WIDTH XSize/7
 
-#elif XSize>=20
+#elif XSize>=20 && YSize>=16
     #define LV_CROSS_WIDTH XSize/5
     
 #else
@@ -23,7 +23,7 @@
 #endif
 
 
-#if XSize>=20
+#if XSize>=20 && YSize>=17
 
     #define LV_CROSS_NO_OF_OBJECTS 30
 

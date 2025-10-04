@@ -1,6 +1,10 @@
 #include "cross_lib.h"
 #include "screen_types.h"
 
+#if !defined(FEWER_SHURIKENS) && (YSize<=16 || XSize<=16)
+    #define FEWER_SHURIKENS
+#endif
+
 // ------------------------------------------------------------
 // Helper macros to compute sizes and offsets
 #define LV_OBJECTS_SIZE(no_of_rect) (1+(no_of_rect*5))

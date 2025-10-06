@@ -1,5 +1,5 @@
 
-// LEVEL 1
+// LEVEL 6 SHOWN AS 7
 
 #define LV_RAIN_NO_OF_OBJECTS 13
 

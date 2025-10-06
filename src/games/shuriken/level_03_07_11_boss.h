@@ -1,3 +1,5 @@
+// BOSS LEVELS: 3, 7, 11 SHOWN AS 4, 8, 12
+
 
 #if YSize>=20
 	#define LV_CHALLENGE_OBJECTS \

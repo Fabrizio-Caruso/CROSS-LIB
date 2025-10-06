@@ -1,4 +1,6 @@
 
+// LEVEL 10 SHOWN AS 11
+
 
 #if XSize>=20
     #define _MINI_WALL_OFFSET 0

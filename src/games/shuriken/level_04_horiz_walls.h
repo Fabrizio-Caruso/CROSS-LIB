@@ -1,6 +1,6 @@
 
 
-// LEVEL 2
+// LEVEL 4 SHOWN AS 5
 
 #if YSize>24
     #define LV_HORIZ_WALLS_WIDTH ((XSize)/2+2)

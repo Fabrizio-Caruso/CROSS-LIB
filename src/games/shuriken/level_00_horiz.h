@@ -1,4 +1,5 @@
 
+// LEVEL 0 SHOWN AS 1
 
 #if XSize>=20
     #define MINI_WALL_SIZE 4

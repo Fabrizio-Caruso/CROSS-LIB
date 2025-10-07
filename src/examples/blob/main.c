@@ -70,7 +70,7 @@ uint8_t y;
 #define CENTER_MINE             _TILE_25
 #define PILL                    _TILE_26
 
-#define MAX_X                   XSize-2
+#define MAX_X                   (XSize-2)
 #define MIN_X                   2
 
 
@@ -132,6 +132,16 @@ void display_player(void)
         display_player_left();
     }
 }
+
+void draw_level(void)
+{
+    uint8_t i;
+    for(i=MIN_X; i<=MAX_X/2;  ++i)
+    {
+        _XL_DRAW(i,YSize/2+1,TERRAIN, _XL_WHITE);
+    }
+}
+
 
 int main(void)
 {        
@@ -196,6 +206,7 @@ int main(void)
             _XL_PRINTD(7,0,5,score);
             _XL_PRINTD(XSize-6,YSize-1,5,0);
             display_player();
+            draw_level();
 
             // LEVEL LOOP
             while(!level_completed && alive)

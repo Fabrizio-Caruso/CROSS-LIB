@@ -1,4 +1,4 @@
 _XL_DRAW(X, Y, T, C)
 
 It displays tile T at position (X,Y) with color C if color C is available or its "closest" match when C is not supported by a target.
-For targets with no colors (i.e., with _XL_NO_COLOR) you may assume that _XL_DRAW is macro a that disregards the C parameter.
+For targets with no colors (i.e., with _XL_NO_COLOR) you may assume that _XL_DRAW is macro that disregards the C parameter.

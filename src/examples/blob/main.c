@@ -143,6 +143,25 @@ void draw_level(void)
 }
 
 
+void handle_player(void)
+{
+    input = _XL_INPUT();
+
+    if (_XL_RIGHT(input) && x<MAX_X)
+    {
+        direction = 1;
+        ++x;
+        display_player();
+    } 
+    else if (_XL_LEFT(input) && x>MIN_X)
+    {
+        direction = 0;
+        --x;
+        display_player();
+    } 
+}
+
+
 int main(void)
 {        
 
@@ -211,23 +230,9 @@ int main(void)
             // LEVEL LOOP
             while(!level_completed && alive)
             {
-                input = _XL_INPUT();
                 
-                if (_XL_RIGHT(input) && x<MAX_X)
-                {
-                    // _XL_DELETE(x,y);
-                    direction = 1;
-                    ++x;
-                    display_player();
-                } 
-                else if (_XL_LEFT(input) && x>MIN_X)
-                {
-                    // _XL_DELETE(x+1  ,y);
-                    direction = 0;
-                    --x;
-                    display_player();
-                } 
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                handle_player();
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
 
             }
                         

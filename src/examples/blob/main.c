@@ -42,6 +42,9 @@ uint8_t x;
 uint8_t y;
 
 
+uint8_t enemy_x;
+uint8_t enemy_y;
+
 #define RIGHT_TAIL              _TILE_0
 #define LEFT_TAIL               _TILE_1
 #define RIGHT_PART              _TILE_2
@@ -72,6 +75,19 @@ uint8_t y;
 
 #define MAX_X                   (XSize-2)
 #define MIN_X                   2
+
+struct BlobStruct
+{
+    uint8_t x;
+    uint8_t y;
+    uint8_t direction;
+    uint8_t left_head;
+    uint8_t left_head_part;
+    uint8_t right_head;
+    uint8_t right_head_part;   
+};
+
+typedef struct BlobStruct Blob;
 
 
 void PRINT_CENTERED_ON_ROW(uint8_t row, char *Text)
@@ -121,6 +137,85 @@ void display_player_left(void)
     }
 }
 
+
+void display_enemy_right(void)
+{
+    uint8_t rx;
+    if((x&1))
+    {
+        rx = (x+1)>>1;
+        _XL_DELETE(rx-1,y); 
+        _XL_DRAW(rx,y,RIGHT_PART,_XL_GREEN);
+        _XL_DRAW(rx+1,y,RIGHT_ENEMY_HEAD_PART,_XL_GREEN);
+    }
+    else
+    {
+        rx = x>>1;
+        _XL_DELETE(rx-1,y);
+        _XL_DRAW(rx,y,RIGHT_TAIL,_XL_GREEN);
+        _XL_DRAW(rx+1,y,RIGHT_ENEMY_HEAD,_XL_GREEN);
+    }
+}
+
+void display_enemy_left(void)
+{
+    uint8_t rx;
+    if((x&1))
+    {
+        rx = (x-1)>>1;
+        _XL_DELETE(rx+2,y);
+        _XL_DRAW(rx,y,LEFT_ENEMY_HEAD_PART,_XL_GREEN);
+        _XL_DRAW(rx+1,y,LEFT_PART,_XL_GREEN);
+    }
+    else
+    {
+        rx = x>>1;
+        _XL_DELETE(rx+2,y);
+        _XL_DRAW(rx,y,LEFT_ENEMY_HEAD,_XL_GREEN);
+        _XL_DRAW(rx+1,y,LEFT_TAIL,_XL_GREEN);
+    }
+}
+
+
+void display_boss_right(void)
+{
+    uint8_t rx;
+    if((x&1))
+    {
+        rx = (x+1)>>1;
+        _XL_DELETE(rx-1,y); 
+        _XL_DRAW(rx,y,RIGHT_PART,_XL_GREEN);
+        _XL_DRAW(rx+1,y,RIGHT_BOSS_HEAD_PART,_XL_GREEN);
+    }
+    else
+    {
+        rx = x>>1;
+        _XL_DELETE(rx-1,y);
+        _XL_DRAW(rx,y,RIGHT_TAIL,_XL_GREEN);
+        _XL_DRAW(rx+1,y,RIGHT_BOSS_HEAD,_XL_GREEN);
+    }
+}
+
+void display_boss_left(void)
+{
+    uint8_t rx;
+    if((x&1))
+    {
+        rx = (x-1)>>1;
+        _XL_DELETE(rx+2,y);
+        _XL_DRAW(rx,y,LEFT_BOSS_HEAD_PART,_XL_GREEN);
+        _XL_DRAW(rx+1,y,LEFT_PART,_XL_GREEN);
+    }
+    else
+    {
+        rx = x>>1;
+        _XL_DELETE(rx+2,y);
+        _XL_DRAW(rx,y,LEFT_BOSS_HEAD,_XL_GREEN);
+        _XL_DRAW(rx+1,y,LEFT_TAIL,_XL_GREEN);
+    }
+}
+
+
 void display_player(void)
 {
     if(direction)
@@ -132,6 +227,34 @@ void display_player(void)
         display_player_left();
     }
 }
+
+
+
+void display_enemy(void)
+{
+    if(direction)
+    {
+        display_enemy_right();
+    }
+    else
+    {
+        display_enemy_left();
+    }
+}
+
+
+void display_boss(void)
+{
+    if(direction)
+    {
+        display_boss_right();
+    }
+    else
+    {
+        display_boss_left();
+    }
+}
+
 
 void draw_level(void)
 {

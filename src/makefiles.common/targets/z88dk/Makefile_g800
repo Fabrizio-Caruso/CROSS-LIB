@@ -52,12 +52,11 @@ g850_8:
 	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
 
 
-g850: g850_8
+g850_12: g850
 
-g850_12:
+g850:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850c $(INCLUDE_OPTS) \
 	-D__G800__ \
-	-pragma-export:ansirows=28 -pragma-export:ansicolumns=12 -pragma-redirect:ansi_CHAR=__ansichar_4x4 \
 	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
 	-DXSize=28 -DYSize=12 -DX_OFFSET=4 \
 	-vn \

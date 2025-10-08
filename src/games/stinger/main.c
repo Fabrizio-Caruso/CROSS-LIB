@@ -118,7 +118,7 @@
 #elif YSize>=16
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-4)
 #elif YSize>10
-    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
+    #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-3)
 #else 
     #define INITIAL_RESPAWN_TANK_Y (((YSize)/2)-2)
 #endif

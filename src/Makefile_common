@@ -3253,6 +3253,7 @@ include makefiles.common/targets/z88dk/Makefile_bic
 include makefiles.common/targets/z88dk/Makefile_bit90
 include makefiles.common/targets/z88dk/Makefile_bondwell
 include makefiles.common/targets/z88dk/Makefile_bondwell2
+include makefiles.common/targets/z88dk/Makefile_c7420
 include makefiles.common/targets/z88dk/Makefile_coleco_adam
 include makefiles.common/targets/z88dk/Makefile_corvette
 include makefiles.common/targets/z88dk/Makefile_dai
@@ -3296,6 +3297,7 @@ include makefiles.common/targets/z88dk/Makefile_pc6001
 include makefiles.common/targets/z88dk/Makefile_pcw40
 include makefiles.common/targets/z88dk/Makefile_pcw80
 include makefiles.common/targets/z88dk/Makefile_pencil2
+include makefiles.common/targets/z88dk/Makefile_phc25
 include makefiles.common/targets/z88dk/Makefile_pmd85
 include makefiles.common/targets/z88dk/Makefile_pps
 include makefiles.common/targets/z88dk/Makefile_primo
@@ -3328,6 +3330,7 @@ include makefiles.common/targets/z88dk/Makefile_ts2068
 include makefiles.common/targets/z88dk/Makefile_tvc
 include makefiles.common/targets/z88dk/Makefile_v1050
 include makefiles.common/targets/z88dk/Makefile_vector06c
+include makefiles.common/targets/z88dk/Makefile_x07
 include makefiles.common/targets/z88dk/Makefile_x1
 include makefiles.common/targets/z88dk/Makefile_x820
 include makefiles.common/targets/z88dk/Makefile_z80tvgame

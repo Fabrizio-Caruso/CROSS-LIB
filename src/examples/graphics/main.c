@@ -70,7 +70,7 @@ const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = {
                                 };
 
 
-#define COL_OFFSET ((XSize-16)/2-1)
+#define COL_OFFSET ((XSize/2)-3)
 #define ROW_OFFSET 3
 
 #if YSize<=15

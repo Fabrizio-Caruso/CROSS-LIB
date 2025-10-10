@@ -523,14 +523,23 @@
 
 #else // Z88DK
     #define _XL_BLACK BLACK
-    #if defined(__PC6001__) || defined(__SPC1000__)
-        #define _XL_WHITE 7
+    
+    
+    #if defined(__PC6001__) || defined(__SPC1000__) || defined(__PHC25__)
+        #undef _XL_WHITE
+        #if defined(__PHC25__)
+            #define _XL_WHITE 3
+        #else
+            #define _XL_WHITE 7
+        #endif
     #else
         #define _XL_WHITE WHITE
     #endif
 
     #if defined(__CPC__) || defined(__LASER500__)
         #define _XL_CYAN LIGHTCYAN
+    #elif defined(__PHC25__)
+        #define _XL_CYAN 5 
     #else
         #define _XL_CYAN CYAN
     #endif
@@ -551,12 +560,26 @@
         #if defined(__SMS__) || defined(__GAME_GEAR__)
             #define _XL_RED LIGHTRED
             #define _XL_GREEN LIGHTGREEN
+        #elif defined(__PHC25__)
+            #define _XL_RED RED
+            #define _XL_GREEN YELLOW
         #else
             #define _XL_RED RED
             #define _XL_GREEN GREEN
         #endif
-        #define _XL_MAGENTA MAGENTA
-        #define _XL_BLUE BLUE
+        #if defined(__PHC25__)
+            #define _XL_MAGENTA RED
+
+        #else
+            #define _XL_MAGENTA MAGENTA
+        #endif
+        
+        
+        #if defined(__PHC25__)
+            #define _XL_BLUE 5
+        #else
+            #define _XL_BLUE BLUE
+        #endif
     #endif
 
    

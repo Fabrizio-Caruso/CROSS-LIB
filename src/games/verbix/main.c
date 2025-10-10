@@ -853,6 +853,7 @@ do \
 #endif
 
 
+#if !defined(NO_DISPLAY_BORDERS)
 void display_borders(uint8_t offset, uint8_t tile)
 {
     uint8_t i;
@@ -863,7 +864,9 @@ void display_borders(uint8_t offset, uint8_t tile)
         _XL_DRAW(XSize-1-offset,i,tile, _XL_CYAN);  
     }        
 }
-
+#else
+    #define display_borders(offset,tile)
+#endif
 #if XSize<=20
     #define BORDER_OFFSET 0
 #elif XSize<=22

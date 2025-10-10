@@ -2679,7 +2679,7 @@ uint8_t fire_pressed_after_time(void)
     // #endif
 #endif
 
-#if YSize<=10
+#if YSize<=10 || defined(NO_DISPLAY_ITEMS)
     #define display_items()
 #else
     #define display_items() \
@@ -2893,6 +2893,9 @@ void mortar_intro_animation(void)
 	} while(0)	
 #endif
 
+#if defined(NO_TANK_INTRO)
+    #define tank_intro_animation()
+#else
 void tank_intro_animation(void)
 {
     uint8_t i;
@@ -3021,7 +3024,7 @@ void tank_intro_animation(void)
     }
     while(!fire_pressed);    
 }
-
+#endif
 
 #if !defined(NO_EXTRA_TITLE) && YSize>10
 void display_second_screen(void) 
@@ -3150,7 +3153,7 @@ void handle_auto_recharge(void)
 }
 
 
-#if YSize>10
+#if YSize>10 && !defined(NO_DISPLAY_LEVEL_AT_START_UP)
 void display_level_at_start_up(void)
 {
     _XL_SET_TEXT_COLOR(_XL_CYAN);
@@ -3537,7 +3540,7 @@ int main(void)
             
             while(alive && level_count_down) // Inner game loop
             {            
-				INIT_BENCHMARK_CODE();
+                INIT_BENCHMARK_CODE();
             
                 // _XL_PRINTD(0,YSize-4,2,MAX_ROCKETS_ON_SCREEN);
                 // _XL_PRINTD(4,YSize-4,2,MAX_NUMBER_OF_MISSILES);

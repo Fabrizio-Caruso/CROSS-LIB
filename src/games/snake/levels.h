@@ -1,6 +1,11 @@
 #ifndef _LEVELS_H
 #define _LEVELS_H
 
+#if YSize<12
+    #define REPEAT_MINES
+#endif
+
+
 // MAP WALLS
 const uint8_t map_walls[] = 
 {
@@ -342,6 +347,8 @@ const uint8_t horizontal_mines_on_level[] =
             3,
         #endif
         
+        
+        #if !defined(REPEAT_MINES)
         2, // 17 (48)
             YSize/2 - 3,
             YSize/2 + 3,
@@ -409,6 +416,7 @@ const uint8_t horizontal_mines_on_level[] =
             YSize/2 - 6,
             YSize/2 - 7,
             YSize/2 - 8,
+        #endif
     };
 
 
@@ -431,6 +439,7 @@ const uint8_t horizontal_mines_on_level_index[] =
         35, // 14
         40, // 15
         44, // 16
+        #if !defined(REPEAT_MINES)
         48, // 17
         51, // 18
         54, // 19
@@ -447,6 +456,7 @@ const uint8_t horizontal_mines_on_level_index[] =
        100, // 30
        105, // 31
        110  // 32
+       #endif
     };
 
 
@@ -486,6 +496,7 @@ const uint8_t vertical_mines_on_level[] =
             XSize/2-1,
         1, // 16 (31),
             XSize/2-1,
+        #if !defined(REPEAT_MINES)
         1, // 17 (33)
             XSize/2-1,
         1, // 18 (35)
@@ -521,6 +532,7 @@ const uint8_t vertical_mines_on_level[] =
         2, // 32 (65),
             XSize/6,
             XSize-1-XSize/6
+        #endif
     };
 
 
@@ -543,6 +555,8 @@ const uint8_t vertical_mines_on_level_index[] =
         28, // 14
         29, // 15
         31, // 16
+        #if !defined(REPEAT_MINES)
+
         33, // 17
         35, // 18
         37, // 19
@@ -559,6 +573,7 @@ const uint8_t vertical_mines_on_level_index[] =
         61, // 30
         63, // 31
         65  // 32
+        #endif
     };
 
 

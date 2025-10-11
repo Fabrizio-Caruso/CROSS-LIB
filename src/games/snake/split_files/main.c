@@ -49,6 +49,7 @@
 
 */
 
+
 #if XSize<22
     #define SECRET_X 3
 #else
@@ -397,7 +398,7 @@ void build_level(void)
                        map_walls[4u+index]);
     }
     
-    #if YSize<12
+    #if defined(REPEAT_MINES)
     if(level>16)
     {
         level-=16;

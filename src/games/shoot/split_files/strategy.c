@@ -259,138 +259,143 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr)
 }
 #endif
 
-uint8_t inVerticalCorridor(Character *hunterPtr)
-{
-    return (hunterPtr->_x<innerHorizontalWallX-1) || (hunterPtr->_x>XSize-innerHorizontalWallX+1); // TODO: To check this
-}
 
-uint8_t topSide(Character *characterPtr)
-{
-    return characterPtr->_y < (YSize/2);
-}    
+#if !defined(NO_HORIZONTAL_LEVEL)
 
-uint8_t bottomSide(Character *characterPtr)
-{
-    return characterPtr->_y > (YSize/2);
-}
-
-uint8_t sameHorizontalSide(Character *hunterPtr)
-{
-    return ((topSide(&player) && topSide(hunterPtr)) || (bottomSide(&player) && bottomSide(hunterPtr)));
-}
-
-
-#if !defined(SIMPLE_STRATEGY)
-void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
-{
-    if(sameHorizontalSide(hunterPtr))
+    uint8_t inVerticalCorridor(Character *hunterPtr)
     {
-        #if defined(DEBUG_STRATEGY)
-        gotoxy(4,1);cprintf("same horizontal side  ");   
-        #endif
-        if((_XL_RAND()&7) > strategy) // Select blind chase strategy
-            { // 0 - 4
-                blindChaseCharacterXStrategy(hunterPtr);    
-            }
-            else
-            { // 5 - 9
-                blindChaseCharacterYStrategy(hunterPtr);
-            }            
+        return (hunterPtr->_x<innerHorizontalWallX-1) || (hunterPtr->_x>XSize-innerHorizontalWallX+1); // TODO: To check this
     }
-    else if(inVerticalCorridor(hunterPtr))
+
+    uint8_t topSide(Character *characterPtr)
     {
-        #if defined(DEBUG_STRATEGY) 
-        gotoxy(4,1);cprintf("in vertical corridor  ");        
-        #endif
-        blindChaseCharacterYStrategy(hunterPtr);            
+        return characterPtr->_y < (YSize/2);
+    }    
+
+    uint8_t bottomSide(Character *characterPtr)
+    {
+        return characterPtr->_y > (YSize/2);
     }
-    else if((player._y)!=(YSize/2))
+
+    uint8_t sameHorizontalSide(Character *hunterPtr)
     {
-        #if defined(DEBUG_STRATEGY)        
-        gotoxy(4,1);cprintf("behind the wall       ");          
-        #endif
-        deleteGhost(hunterPtr);
-        if(hunterPtr->_x>(XSize/2))
-        {
-            ++(hunterPtr->_x);
-        } 
-        else 
-        {
-            --(hunterPtr->_x);
-        }                
+        return ((topSide(&player) && topSide(hunterPtr)) || (bottomSide(&player) && bottomSide(hunterPtr)));
     }
-    else
+
+
+    #if !defined(SIMPLE_STRATEGY)
+    void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
     {
-        #if defined(DEBUG_STRATEGY)        
-        gotoxy(4,1);cprintf("aligned with the wall ");         
-        #endif
-        if(hunterPtr->_y==YSize/2)
+        if(sameHorizontalSide(hunterPtr))
         {
+            #if defined(DEBUG_STRATEGY)
+            gotoxy(4,1);cprintf("same horizontal side  ");   
+            #endif
+            if((_XL_RAND()&7) > strategy) // Select blind chase strategy
+                { // 0 - 4
+                    blindChaseCharacterXStrategy(hunterPtr);    
+                }
+                else
+                { // 5 - 9
+                    blindChaseCharacterYStrategy(hunterPtr);
+                }            
+        }
+        else if(inVerticalCorridor(hunterPtr))
+        {
+            #if defined(DEBUG_STRATEGY) 
+            gotoxy(4,1);cprintf("in vertical corridor  ");        
+            #endif
+            blindChaseCharacterYStrategy(hunterPtr);            
+        }
+        else if((player._y)!=(YSize/2))
+        {
+            #if defined(DEBUG_STRATEGY)        
+            gotoxy(4,1);cprintf("behind the wall       ");          
+            #endif
             deleteGhost(hunterPtr);
-            ++(hunterPtr->_y);
+            if(hunterPtr->_x>(XSize/2))
+            {
+                ++(hunterPtr->_x);
+            } 
+            else 
+            {
+                --(hunterPtr->_x);
+            }                
         }
         else
         {
-            blindChaseCharacterXStrategy(hunterPtr);
-        }            
-    }
-}
-#else
-void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
-{
-    if(sameHorizontalSide(hunterPtr))
-    {
-        #if defined(DEBUG_STRATEGY)
-        gotoxy(4,1);cprintf("same horizontal side  ");   
-        #endif
-        if((_XL_RAND()&7) > 3) // Select blind chase strategy
-            { // 0 - 4
-                blindChaseCharacterXStrategy(hunterPtr);    
+            #if defined(DEBUG_STRATEGY)        
+            gotoxy(4,1);cprintf("aligned with the wall ");         
+            #endif
+            if(hunterPtr->_y==YSize/2)
+            {
+                deleteGhost(hunterPtr);
+                ++(hunterPtr->_y);
             }
             else
-            { // 5 - 9
-                blindChaseCharacterYStrategy(hunterPtr);
+            {
+                blindChaseCharacterXStrategy(hunterPtr);
             }            
+        }
     }
-    else if(inVerticalCorridor(hunterPtr))
+    #else
+    void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
     {
-        #if defined(DEBUG_STRATEGY) 
-        gotoxy(4,1);cprintf("in vertical corridor  ");        
-        #endif
-        blindChaseCharacterYStrategy(hunterPtr);            
-    }
-    else if((player._y)!=(YSize/2))
-    {
-        #if defined(DEBUG_STRATEGY)        
-        gotoxy(4,1);cprintf("behind the wall       ");          
-        #endif
-        deleteGhost(hunterPtr);
-        if(hunterPtr->_x>(XSize/2))
+        if(sameHorizontalSide(hunterPtr))
         {
-            ++(hunterPtr->_x);
-        } 
-        else 
+            #if defined(DEBUG_STRATEGY)
+            gotoxy(4,1);cprintf("same horizontal side  ");   
+            #endif
+            if((_XL_RAND()&7) > 3) // Select blind chase strategy
+                { // 0 - 4
+                    blindChaseCharacterXStrategy(hunterPtr);    
+                }
+                else
+                { // 5 - 9
+                    blindChaseCharacterYStrategy(hunterPtr);
+                }            
+        }
+        else if(inVerticalCorridor(hunterPtr))
         {
-            --(hunterPtr->_x);
-        }                
-    }
-    else
-    {
-        #if defined(DEBUG_STRATEGY)        
-        gotoxy(4,1);cprintf("aligned with the wall ");         
-        #endif
-        if(hunterPtr->_y==YSize/2)
+            #if defined(DEBUG_STRATEGY) 
+            gotoxy(4,1);cprintf("in vertical corridor  ");        
+            #endif
+            blindChaseCharacterYStrategy(hunterPtr);            
+        }
+        else if((player._y)!=(YSize/2))
         {
+            #if defined(DEBUG_STRATEGY)        
+            gotoxy(4,1);cprintf("behind the wall       ");          
+            #endif
             deleteGhost(hunterPtr);
-            ++(hunterPtr->_y);
+            if(hunterPtr->_x>(XSize/2))
+            {
+                ++(hunterPtr->_x);
+            } 
+            else 
+            {
+                --(hunterPtr->_x);
+            }                
         }
         else
         {
-            blindChaseCharacterXStrategy(hunterPtr);
-        }            
+            #if defined(DEBUG_STRATEGY)        
+            gotoxy(4,1);cprintf("aligned with the wall ");         
+            #endif
+            if(hunterPtr->_y==YSize/2)
+            {
+                deleteGhost(hunterPtr);
+                ++(hunterPtr->_y);
+            }
+            else
+            {
+                blindChaseCharacterXStrategy(hunterPtr);
+            }            
+        }
     }
-}
+    #endif
 #endif
+
 
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
 {
@@ -440,6 +445,7 @@ void chaseCharacter(void)
         {
             if(((ghosts[i]._imagePtr==&FAST_GHOST_IMAGE)&&(fast_ghost_move_condition())) || ghost_move_condition())
             {
+                #if !defined(NO_HORIZONTAL_LEVEL)
                 if(isInnerVerticalWallLevel)
                 {
                     #if !defined(SIMPLE_STRATEGY)
@@ -456,6 +462,13 @@ void chaseCharacter(void)
                         horizontalWallMoveTowardCharacter((Character *)&ghosts[i]);        
                     #endif
                 }
+                #else
+                    #if !defined(SIMPLE_STRATEGY)
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    #else
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i]);        
+                    #endif
+                #endif
             }
             displayGhost(&ghosts[i]);
         }

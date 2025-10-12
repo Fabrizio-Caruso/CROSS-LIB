@@ -24,6 +24,8 @@
 
 // PSG code for AY-3-8910
 
+#if !defined(_XL_NO_SOUND)
+
 #include "psg_sounds.h"
 #include <psg.h>
 
@@ -137,3 +139,6 @@ void _explosion_sound(uint8_t freq)
     psg_volume(0,0);
 }
 
+
+
+#endif

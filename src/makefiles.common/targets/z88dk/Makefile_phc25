@@ -37,41 +37,43 @@
 phc25_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE2=1 -D__SCREEN_MODE=1 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DXSize=32 \
 	-DYSize=24 \
-	-D_XL_NO_JOYSTICK -D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS $(PHC25_GAME_OPTS) \
+	-D_XL_NO_JOYSTICK -D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS $(PHC25_MONO_GAME_OPTS)  -D__PSG_SOUND \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app 
-	mv $(SOURCE_PATH)/../../a.phc $(BUILD_PATH)/X$(GAME_NAME)_$@.phc
-	rm $(SOURCE_PATH)/../../a.bin
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
+
 
 
 phc25: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE1=1 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DXSize=16 \
 	-DYSize=24 \
-	-D_XL_NO_JOYSTICK -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS $(PHC25_GAME_OPTS) \
+	-D_XL_NO_JOYSTICK -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS $(PHC25_GAME_OPTS)  -D__PSG_SOUND \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	-create-app 
-	mv $(SOURCE_PATH)/../../a.phc $(BUILD_PATH)/X$(GAME_NAME)_$@.phc
-	rm $(SOURCE_PATH)/../../a.bin
-    
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
+
+
 phc25_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
-	-D__PHC25__  -pragma-define:CLIB_DISABLE_MODE1=1 -pragma-define:CLIB_DISABLE_MODE2=1 \
+	-D__PHC25__  -pragma-define:CLIB_DISABLE_MODE1=1 -pragma-define:CLIB_DISABLE_MODE2=1 -D__PSG_SOUND \
 	-DXSize=32 \
 	-DYSize=16 \
-	-D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS -D_XL_NO_UDG  $(PHC25_GAME_OPTS) \
+	-D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS -D_XL_NO_UDG  $(PHC25_NO_GFX_GAME_OPTS) \
 	-D_XL_NO_JOYSTICK -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
-	-create-app 
-	mv $(SOURCE_PATH)/../../a.phc $(BUILD_PATH)/X$(GAME_NAME)_$@.phc
-	rm $(SOURCE_PATH)/../../a.bin
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
+

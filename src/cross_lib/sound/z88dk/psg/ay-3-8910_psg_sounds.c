@@ -23,6 +23,8 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 
+#if !defined(_XL_NO_SOUND)
+
 #include "psg_sounds.h"
 #include <psg.h>
 
@@ -173,3 +175,6 @@ void _explosion_sound(uint8_t freq)
 	// set_psg(A_VOLUME,0);		
 }
 
+
+
+#endif

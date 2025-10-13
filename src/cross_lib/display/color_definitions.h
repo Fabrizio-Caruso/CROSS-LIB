@@ -562,7 +562,7 @@
             #define _XL_GREEN LIGHTGREEN
         #elif defined(__PHC25__)
             #define _XL_RED RED
-            #define _XL_GREEN YELLOW
+            #define _XL_GREEN 5
         #else
             #define _XL_RED RED
             #define _XL_GREEN GREEN

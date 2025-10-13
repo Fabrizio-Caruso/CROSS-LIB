@@ -720,7 +720,7 @@ vic20: vic20_exp_16k
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS)  -t vic20    \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_V2.cfg \
-	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K $(VIC_20_EXP_16K_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	 \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
@@ -734,7 +734,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 vic20_exp_8k_conio: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS)  -t vic20    \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX_V2.cfg \
-	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K  \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_8K $(VIC_20_EXP_16K_GAME_OPTS)  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	$(FULL_FILES) \
 	--code-name CODE2 \
@@ -747,7 +747,7 @@ vic20_exp_8k_conio: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
-	-D__ALT_SLEEP \
+	-D__ALT_SLEEP $(VIC_20_EXP_16K_GAME_OPTS) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
 	-D__MEMORY_MAPPED_GRAPHICS  -D__VIC20__ -D__VIC20_EXP_8K \
 	-D__ALT_PRINT \

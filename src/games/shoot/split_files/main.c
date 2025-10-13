@@ -490,11 +490,9 @@ int main(void)
             
             updateInnerVerticalWall();    
             
-            updateInnerHorizontalWall();                
-            
-            // printPressKeyToStart();
-            // _XL_WAIT_FOR_INPUT();
-            // _XL_CLEAR_SCREEN();
+            #if !defined(NO_HORIZONTAL_LEVEL)
+            updateInnerHorizontalWall();
+            #endif
             
             playerFire = 0;
 
@@ -687,6 +685,7 @@ int main(void)
                 {
                     ghostSlowDown = computeGhostSlowDown();
                     
+                    #if !defined(NO_HORIZONTAL_LEVEL)
                     if(isInnerVerticalWallLevel)
                     {
                         DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
@@ -695,6 +694,13 @@ int main(void)
                     {
                         DRAW_HORIZONTAL_LINE((XSize>>1)-(innerHorizontalWallLength>>1), YSize/2, innerHorizontalWallLength);
                     }
+                    #else
+                    if(isInnerVerticalWallLevel)
+                    {
+                        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
+                    }
+                    #endif
+                    
                     displayBombs();                                                        
                 }
                 

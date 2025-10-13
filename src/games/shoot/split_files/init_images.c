@@ -81,8 +81,9 @@ void INIT_IMAGES(void)
         RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
         LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
         
+        #if !defined(NO_ROCKETS)
         ROCKET_IMAGE._color = _ROCKET_COLOR;
-
+        #endif
         FREEZE_IMAGE._color = _FREEZE_COLOR;
         EXTRA_LIFE_IMAGE._color = _EXTRA_LIFE_COLOR;
         
@@ -130,7 +131,9 @@ void INIT_IMAGES(void)
     
     RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE_TILE;
     
+    #if !defined(NO_ROCKETS)
     ROCKET_IMAGE._imageData = _ROCKET_TILE;
+    #endif
     
     FREEZE_IMAGE._imageData = _FREEZE_TILE;
     SUPER_IMAGE._imageData = _SUPER_TILE;

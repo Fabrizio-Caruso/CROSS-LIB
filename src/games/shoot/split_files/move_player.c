@@ -50,7 +50,11 @@ extern uint8_t playerBlink;
 
 uint8_t innerWallReached(uint8_t x, uint8_t y)
 {
+    #if !defined(NO_HORIZONTAL_LEVEL)
     return innerVerticalWallReached(x,y) || innerHorizontalWallReached(x,y);
+    #else
+    return innerVerticalWallReached(x,y);
+    #endif
 }
 
 

@@ -241,12 +241,12 @@ uint8_t innerVerticalWallReached(uint8_t x, uint8_t y)
 // }
 
 
-
+#if !defined(NO_HORIZONTAL_LEVEL)
 uint8_t innerHorizontalWallReached(uint8_t x, uint8_t y)
 {
     return (y==(YSize/2)) && (x >= innerHorizontalWallX) && (x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
 }
-
+#endif
 
 // uint8_t nearInnerHorizontalWall(register Character *characterPtr)
 // {

@@ -130,7 +130,12 @@ void relocateAwayFromWalls(Character * itemPtr)
     do
     {
         relocateNearBy(itemPtr);
+    #if !defined(NO_HORIZONTAL_LEVEL)
     } while(innerVerticalWallReached(itemPtr->_x, itemPtr->_y)||innerHorizontalWallReached(itemPtr->_x,itemPtr->_y));        
+    #else
+    } while(innerVerticalWallReached(itemPtr->_x, itemPtr->_y));        
+
+    #endif
 }    
 
 

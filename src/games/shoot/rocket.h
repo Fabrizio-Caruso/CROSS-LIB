@@ -25,6 +25,10 @@
 #ifndef ROCKETS_HEADER
 #define ROCKETS_HEADER
 
-    void handle_rockets(void);
+    #if !defined(NO_ROCKETS)
+        void handle_rockets(void);
+    #else
+        #define handle_rockets()
+    #endif
 
 #endif // ROCKETS_HEADER

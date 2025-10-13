@@ -280,6 +280,7 @@ void initializeBombs(void)
 
 void setNumberOfRocketsOnScreen(void)
 {
+    #if MAX_ROCKETS_NUMBER>0
     if(!level)
     {
         #if MAX_ROCKETS_NUMBER<4
@@ -308,6 +309,7 @@ void setNumberOfRocketsOnScreen(void)
     {
         rocketsOnScreen = MAX_ROCKETS_NUMBER;
     }    
+    #endif
 }
 
 // #define DEBUG_LEVEL

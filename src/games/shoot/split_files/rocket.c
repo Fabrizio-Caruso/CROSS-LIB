@@ -22,7 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-
+#if !defined(NO_ROCKETS)
 #include "../cross_lib/display/display_macros.h"
 
 #include "settings.h"
@@ -78,3 +78,4 @@ extern uint8_t isBossLevel;
 
 
 
+#endif

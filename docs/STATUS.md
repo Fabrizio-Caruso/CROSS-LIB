@@ -64,6 +64,8 @@ target name         | long target name                            | working  |  
 *gamegear*          | Game Gear                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  | PSG SN76489 Mednafen OK 
 *gb*                | Game Boy                                    |   YES    |   GBZ80       |  Z88DK  |      OK         |       OK       |   OK    | grey levels
 *gemini*            | Gemini                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
+*gl4000*            | VTech Genius Leader 4000                    |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
+*gl6000sl*          | VTech Genius Leader 6000sl                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *hector 1*          | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |  missing       | missing |
 *hector HR2+*       | Hector HR2+                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
@@ -123,6 +125,8 @@ target name         | long target name                            | working  |  
 *pecom*             | Pecom 32/64                                 |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *pencil2*           | Hanimex Pencil II                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                               |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
+*phc25              | Sanyo PHC-25                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*map1010            | Seyko MAP-1010                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *pmd85*             | PMD85                                       |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
@@ -166,8 +170,6 @@ target name         | long target name                            | working  |  
 *tvc*               | Videoton TV Computer                        |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |     
 *vector06c*         | Вектор-06Ц Vector06c                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *vg5k*              | VG-5000                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*gl4000*            | VTech Genius Leader 4000                    |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
-*gl6000sl*          | VTech Genius Leader 6000sl                  |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *v1050*             | V1050                                       |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
 *vic20*             | Commodore Vic 20                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
 *vz200*             | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
@@ -182,9 +184,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 171
+TOTAL    : 173
 
-OK       : 168
+OK       : 170
 
 KO       :   1
 
@@ -197,7 +199,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 130
+  Z88DK | 132
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -299,12 +301,13 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 190
+TOTAL    : 192
 
-OK       : 178
+OK       : 180
 
 KO       :   3
 
 UNKNOWN  :   9
+
 
 

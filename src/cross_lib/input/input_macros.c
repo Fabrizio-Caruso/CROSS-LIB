@@ -87,7 +87,7 @@
 #endif
 
 
-#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO)
+#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO) && !defined(__NO_INPUT)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
 		#include <devkit/input/keyboard.h>
     #endif 

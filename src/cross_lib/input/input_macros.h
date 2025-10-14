@@ -253,6 +253,8 @@ window.addEventListener("keydown", function (event) {
         #else
             char GET_CHAR(void);
         #endif
+    #else
+        #define GET_CHAR()
     #endif // !defined(__NO_PRINT)
 
 

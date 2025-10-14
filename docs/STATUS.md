@@ -184,9 +184,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 173
+TOTAL    : 176
 
-OK       : 170
+OK       : 173
 
 KO       :   1
 
@@ -301,13 +301,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 192
+TOTAL    : 195
 
-OK       : 180
+OK       : 183
 
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

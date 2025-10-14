@@ -199,7 +199,7 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 132
+  Z88DK | 138
    CC65 |  22
 LCC1802 |   7 
    CMOC |   5
@@ -211,12 +211,14 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 118                |
-MOS 6502      |  24                |
-Intel 8080    |  12                |
+Zilog 80      | 124                |
+MOS 6502      |  25                |
 RCA 1802      |   7                |
-Motorola 6803 |   1                |
+Intel 8085    |   7                |
+Intel 8080    |   5                |
 Motorola 6809 |   5                |
+GBZ80         |   1                |
+Motorola 6803 |   1                |
 GBZ80         |   1                |
 
 
@@ -227,12 +229,6 @@ GBZ80         |   1                |
 target name         | long target name                                     |  working   | CPU family    |      dev-kit    |real-time input | hires graphics |  sound  | notes 
 --------------------|------------------------------------------------------|------------|---------------|-----------------|----------------|----------------|---------|--------
 *rex*               | Xircom Rex 6000                                      |     ?      |   Zilog 80    |          Z88DK  |    missing     |    missing     | missing | 
-
-
-
-
-
-
 
 
 -----------------------------------------------------------------------------------------
@@ -308,6 +304,7 @@ OK       : 183
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

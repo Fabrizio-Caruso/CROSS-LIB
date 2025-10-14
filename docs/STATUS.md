@@ -86,11 +86,12 @@ target name         | long target name                            | working  |  
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
+*map1010            | Seiko MAP-1010                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
-*micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
-*mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *microboard*        | Microboard Computer Development System      |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *mikro80*           | Mikro 80                                    |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |   N/A   |
@@ -126,7 +127,6 @@ target name         | long target name                            | working  |  
 *pencil2*           | Hanimex Pencil II                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                               |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
 *phc25              | Sanyo PHC-25                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*map1010            | Seyko MAP-1010                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *pmd85*             | PMD85                                       |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
@@ -308,6 +308,7 @@ OK       : 180
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

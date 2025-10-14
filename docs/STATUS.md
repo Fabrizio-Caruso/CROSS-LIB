@@ -86,7 +86,7 @@ target name         | long target name                            | working  |  
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
-*map1010            | Seiko MAP-1010                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*map1010*           | Seiko MAP-1010                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -304,6 +304,7 @@ OK       : 183
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

@@ -184,6 +184,7 @@ PARALLEL_TARGETS = \
     't200',
     'trs80',
     'vg5k',
+    'vz',
     'vz200',
     'x1',
     'zx81',

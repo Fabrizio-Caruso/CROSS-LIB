@@ -18,6 +18,11 @@ void _XL_INIT_GRAPHICS(void)
 	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
 	
 
+    // Necessary to have .vz file correctly started on several emulators that do not load .vz as they should
+    #if defined(__VZ__)
+        *((unsigned char *)0x7839) |= 1;
+    #endif
+
 	#if !defined(__SCREEN_MODE)
 		#define __SCREEN_MODE 2
 	#endif

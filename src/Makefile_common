@@ -1836,9 +1836,11 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 #################################################################
-vz200: vz200_24k
+vz200_no_gfx: vz200_no_gfx_24k
 
-vz200_24k: 	
+vz_no_gfx: vz200_no_gfx_24k
+
+vz200_no_gfx_24k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
 	$(INCLUDE_OPTS) -D__TARGET_SPECIFIC_ASCII \
@@ -1851,6 +1853,25 @@ vz200_24k:
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
+vz200: vz200_24k
+
+vz: vz200_24k
+
+vz200_24k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	--hardware-keyboard  --generic-console -D__HARDWARE_KEYBOARD \
+	$(INCLUDE_OPTS) -D__TARGET_SPECIFIC_ASCII \
+	-D__VZ__ -D_XL_NO_JOYSTICK \
+	-DXSize=16 -DYSize=8 \
+	-D__SCREEN_MODE=1 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VZ200_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 vz200_target_specific:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \

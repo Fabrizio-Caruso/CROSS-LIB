@@ -13,7 +13,7 @@
     || defined(__WINCMOC__) || (defined(__COCO3__)&&!defined(__BIT_MAPPED_16_GRAPHICS)) || (defined(__COCO__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || (defined(__DRAGON__)&&!defined(__BIT_MAPPED_4_GRAPHICS)) || defined(__OSIC1P__) \
     || (defined(__MC1000__)  && !(__SCREEN_MODE==2)) \
     || defined(__LAMBDA__) || (defined(__MSX__) && defined(__MEMORY_MAPPED_GRAPHICS)) \
-    || defined(__VZ__) \
+    || (defined(__VZ__) && defined(_XL_NO_UDG)) \
     || (defined(__ATARI__) && !defined(__ANTIC_MODE6_GRAPHICS)) \
     || defined(__PET__) || defined(__CBM610__) || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && !defined(__APPLE2_HGR_GRAPHICS)) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \

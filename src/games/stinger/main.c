@@ -2389,6 +2389,12 @@ do \
     next_threshold = NEXT_EXTRA_LIFE; \
 } while(0)
 
+#if YSize>10
+    #define init_rocket_display_color()
+#else
+    #define init_rocket_display_color() \
+        rocket_display_color = _XL_CYAN;
+#endif
 
 
 #define level_initialization() \
@@ -2445,6 +2451,7 @@ do \
     display_wall(BOTTOM_WALL_Y); \
     _XL_DRAW(0,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
     _XL_DRAW(XSize-1,HEIGHT_SHOOT_THRESHOLD,WALL_TILE,_XL_CYAN); \
+    init_rocket_display_color(); \
 } while(0)
 
 

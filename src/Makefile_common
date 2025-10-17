@@ -1468,6 +1468,7 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 interact:
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn   -D__INTERACT__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DXSize=28 -DYSize=9 -m8080 -pragma-define:CRT_ORG_CODE=19500 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic -D_XL_NO_COLOR \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
@@ -1479,7 +1480,7 @@ interact:
 hector1: 
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn   -D__HECTOR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
-	-DXSize=28 -DYSize=9 -pragma-define:CRT_ORG_CODE=19500 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:fputc_cons=fputc_cons_generic -D_XL_NO_COLOR \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \

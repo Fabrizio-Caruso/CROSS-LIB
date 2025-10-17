@@ -128,6 +128,7 @@ PARALLEL_TARGETS = \
     'coleco',
     'eg2k',
     'einstein',
+    'fp1100',
     'g850',
     
     'g815',

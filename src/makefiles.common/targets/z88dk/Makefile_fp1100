@@ -4,12 +4,12 @@
 fp1100:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
-	-D__VT52 -DYSize=23 -D_XL_NO_UDG \
+	-D__VT52 -DYSize=24 -DXSize=39 -D_XL_NO_UDG \
 	-lndos \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_FP1100_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) -D_XL_NO_JOYSTICK \
-	-create-app -o fp1100.bin
-	mv fp1100.d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
-	rm fp1100.bin
-	rm fp1100_BOOTSTRAP.bin
+	-create-app -o fp1100_X$(GAME_NAME).bin
+	mv fp1100_X$(GAME_NAME).d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm -rf fp1100_X$(GAME_NAME).bin
+	rm -rf fp1100_X$(GAME_NAME)_BOOTSTRAP.bin

@@ -314,7 +314,11 @@ int main(void)
         PRINT_CENTERED_ON_ROW(0, "HISCORE");
         _XL_PRINTD(XSize/2-3,1,5,hiscore);
         
+        #if !defined(_XL_NO_JOYSTICK)
         PRINT_CENTERED_ON_ROW(YSize-1, "PRESS FIRE");
+        #else
+        PRINT_CENTERED_ON_ROW(YSize-1, "PRESS A KEY");
+        #endif
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();

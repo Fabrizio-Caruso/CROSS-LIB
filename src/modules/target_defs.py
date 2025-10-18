@@ -179,6 +179,7 @@ PARALLEL_TARGETS = \
     'sc3000',
     'sc3000_rom',
     'sg1000',
+    'smc777',
     'sms',
     'spectrum',
     'svi',

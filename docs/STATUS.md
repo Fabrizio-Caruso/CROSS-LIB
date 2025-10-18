@@ -143,7 +143,7 @@ target name         | long target name                            | working  |  
 *samcoupe*          | Sam Coupe                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |     
 *sc3000*            | Sega SC 3000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |         
 *sg1000*            | Sega SG 1000                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
-*smc777*            | Sony SMC-70 / SMC-777                       |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing | PSG SN76489
+*smc777*            | Sony SMC-70 / SMC-777                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
 *sms*               | Sega Master System                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK?   | PSG SN76489 Mednafen OK 
 *sol20*             | Sol 20                                      |   YES?   |  Intel 8085   |  Z88DK  |      OK?        |    missing     | missing |
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
@@ -305,6 +305,7 @@ OK       : 184
 KO       :   4
 
 UNKNOWN  :   9
+
 
 
 

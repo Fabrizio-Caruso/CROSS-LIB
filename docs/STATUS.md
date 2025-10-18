@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2024/11/13
+Last update: 2025/10/18
 
 ### 8-BIT targets with known working existing emulators
 
@@ -306,6 +306,7 @@ OK       : 185
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

@@ -9,6 +9,7 @@ target name         | long target name                            | working  |  
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*agat*              | Agat-7                                      |   YES?   |   MOS 6502    |   CC65  |      OK         |       OK(*)    |   OK    | Some gfx glitches
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |     N/A         |      N/A       |  N/A    |
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -55,7 +56,7 @@ target name         | long target name                            | working  |  
 *einstein*          | Tatung Einstein                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
-*fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
+*fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *g815*              | Sharp PC-G815                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *g850*              | Sharp PC-G850                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *gal*               | Galaksija                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A   |
@@ -67,7 +68,7 @@ target name         | long target name                            | working  |  
 *gl4000*            | VTech Genius Leader 4000                    |   YES    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *gl6000sl*          | VTech Genius Leader 6000sl                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*hector 1*          | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |  missing       | missing |
+*hector 1*          | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK?        |  missing       | missing | extremely low memory
 *hector HR2+*       | Hector HR2+                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *hector HRX*        | Hector HRX                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
@@ -76,6 +77,7 @@ target name         | long target name                            | working  |  
 *homelab2*          | Homelab 2                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kaypro83*          | Kaypro 83                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *kaypro*            | Kaypro 2X                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*interact*          | Interact                                    |   YES    |  Intel 8080   |  Z88DK  |      OK?        |  missing       | missing | extremely low memory
 *kc*                | Robotron KC-85/2/3/4                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *kc85*              | Kyocera 85                                  |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *kramermc*          | Kramer-MC                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
@@ -184,9 +186,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 176
+TOTAL    : 178
 
-OK       : 173
+OK       : 175
 
 KO       :   1
 
@@ -199,8 +201,8 @@ UNKNOWN  :   2
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 138
-   CC65 |  22
+  Z88DK | 139
+   CC65 |  23
 LCC1802 |   7 
    CMOC |   5
    VBCC |   3
@@ -212,10 +214,10 @@ LCC1802 |   7
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
 Zilog 80      | 124                |
-MOS 6502      |  25                |
+MOS 6502      |  26                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
-Intel 8080    |   5                |
+Intel 8080    |   6                |
 Motorola 6809 |   5                |
 GBZ80         |   1                |
 Motorola 6803 |   1                |
@@ -297,13 +299,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 195
+TOTAL    : 197
 
-OK       : 183
+OK       : 185
 
 KO       :   3
 
 UNKNOWN  :   9
+
 
 
 

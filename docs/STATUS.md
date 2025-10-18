@@ -9,7 +9,7 @@ target name         | long target name                            | working  |  
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*agat*              | Agat-7                                      |   YES?   |   MOS 6502    |   CC65  |      OK         |       OK(*)    |   OK    | Some gfx glitches
+*agat*              | Agat-7                                      |    ?     |   MOS 6502    |   CC65  |      OK         |       OK(*)    |   OK    | Some gfx glitches
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |     N/A         |      N/A       |  N/A    |
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -186,11 +186,11 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 178
+TOTAL    : 177
 
 OK       : 175
 
-KO       :   1
+KO       :   2
 
 UNKNOWN  :   2
 
@@ -301,11 +301,12 @@ OK       :   2
 
 TOTAL    : 197
 
-OK       : 185
+OK       : 184
 
-KO       :   3
+KO       :   4
 
 UNKNOWN  :   9
+
 
 
 

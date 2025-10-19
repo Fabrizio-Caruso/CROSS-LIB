@@ -893,8 +893,10 @@ void initialize_enemies(void)
 
 #if YSize>=10
     #define ABOVE_DINO 8
-#else
+#elif YSize>=8
     #define ABOVE_DINO 6
+#else
+    #define ABOVE_DINO 3
 #endif
 
 void handle_game_over(void)

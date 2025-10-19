@@ -70,7 +70,7 @@
 #if YSize>17 && XSize>=20
     #define LEVEL_Y 5
 #else
-    #define LEVEL_Y 2
+    #define LEVEL_Y 3
 #endif
 
 #if YSize<=10
@@ -874,14 +874,14 @@ void initialize_enemies(void)
             #define GAME_OVER_X XSize/2-9
         
         #else
-            #define GAME_OVER_X XSize/2-4
+            #define GAME_OVER_X XSize/2-9
         #endif
     #else
         #define GAME_OVER_X 0
     #endif 
 
 
-#define GAME_OVER_Y 3
+#define GAME_OVER_Y 4
 
 
 #if XSize>=20

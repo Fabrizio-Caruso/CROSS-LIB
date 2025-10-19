@@ -1495,12 +1495,12 @@ interact:
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn   -D__INTERACT__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -pragma-define:CRT_ORG_CODE=0x4B00 \
-	-DXSize=28 -DYSize=9 -m8080 \
+	-DXSize=28 -DYSize=9 -m8080 $(HECTOR1_GAME_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR1_SLOWDOWN) \
 	$(FULL_FILES)
 
 hector1: 
@@ -1508,11 +1508,11 @@ hector1:
 	-vn   -D__HECTOR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -pragma-define:CRT_ORG_CODE=0x4B00 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
-	-DXSize=28 -DYSize=9 \
+	-DXSize=28 -DYSize=9 $(HECTOR1_GAME_OPTS) \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR1_SLOWDOWN) \
 	$(FULL_FILES)
 
 
@@ -1520,24 +1520,24 @@ interact_mono:
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn   -D__INTERACT__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -pragma-define:CRT_ORG_CODE=0x4B00 \
-	-DXSize=28 -DYSize=9 -m8080 -D_XL_NO_COLOR \
+	-DXSize=28 -DYSize=9 -m8080 -D_XL_NO_COLOR $(HECTOR1_GAME_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic  \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR1_SLOWDOWN) \
 	$(FULL_FILES)
 
 hector1_mono: 
 	$(Z88DK_PATH)$(MYZ88DK) +hector $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-vn   -D__HECTOR__ -D_XL_NO_SOUND -D_XL_NO_JOYSTICK $(HECTOR1_GAME_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc -pragma-define:CRT_ORG_CODE=0x4B00 \
-	-pragma-redirect:fputc_cons=fputc_cons_generic  -D_XL_NO_COLOR \
+	-pragma-redirect:fputc_cons=fputc_cons_generic  -D_XL_NO_COLOR $(HECTOR1_GAME_OPTS) \
 	-DXSize=28 -DYSize=9 \
 	-lndos -pragma-redirect:CRT_FONT_64=_font_4x8_default \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HECTOR1_SLOWDOWN) \
 	$(FULL_FILES)
 
 

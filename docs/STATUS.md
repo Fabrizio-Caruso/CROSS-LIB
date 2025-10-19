@@ -176,6 +176,7 @@ target name         | long target name                            | working  |  
 *vic20*             | Commodore Vic 20                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
 *vz*                | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *x1*                | Sharp X1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
+*x07*               | Casio X-07                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       ?        |    ?    |
 *x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
 *z80tvgame*         | ZX80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
@@ -186,13 +187,13 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 177
+TOTAL    : 179
 
 OK       : 175
 
-KO       :   2
+KO       :   1
 
-UNKNOWN  :   2
+UNKNOWN  :   3
 
 
 -----------------------------------------------
@@ -298,13 +299,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 197
+TOTAL    : 198
 
-OK       : 184
+OK       : 186
 
-KO       :   4
+KO       :   1
 
-UNKNOWN  :   9
+UNKNOWN  :  11
+
 
 
 

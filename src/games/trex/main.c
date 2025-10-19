@@ -252,6 +252,37 @@ void handle_state_behavior(void)
             draw_jump_dino_1(4+1);
         break;
 
+#if YSize<10
+        case JUMP+6:
+            // delete_feet(5);
+            // draw_jump_dino_0(5+1);
+        break;
+        
+        case JUMP+7:
+            // delete_feet(5);
+            // draw_jump_dino_1(5+1);
+        break;
+
+        case JUMP+8:
+
+        break;
+        
+        case JUMP+9:
+        break;
+
+        case JUMP+10: // 7
+            // draw_jump_dino_1(5+1);
+        break;
+        
+        case JUMP+11: // 6
+            // delete_top(6);
+            // draw_jump_dino_0(5+1);
+        break;
+
+        case JUMP+12: // 5
+            // draw_jump_dino_1(4+1);
+        break;
+#else
         case JUMP+6:
             delete_feet(5);
             draw_jump_dino_0(5+1);
@@ -277,11 +308,11 @@ void handle_state_behavior(void)
             delete_top(6);
             draw_jump_dino_0(5+1);
         break;
-        
+
         case JUMP+12: // 5
             draw_jump_dino_1(4+1);
         break;
-        
+#endif
         case JUMP+13: // 4
             delete_top(5);
             draw_jump_dino_0(4+1);
@@ -379,10 +410,16 @@ void handle_state_transition(void)
 }
 
 
+#if YSize<10
+    #define SCORE_X ((LEVEL_X)+1)
+#else
+    #define SCORE_X 0
+#endif
+
 void display_score(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(0,0,4,score);
+    _XL_PRINTD(SCORE_X,0,4,score);
 }
 
 
@@ -832,17 +869,33 @@ void initialize_enemies(void)
 }
 
 
-    #if XSize>16
+    #if XSize>18
         #if !defined(TINY_GAME)
-            #define GAME_OVER_Y XSize/2-9
+            #define GAME_OVER_X XSize/2-9
         
         #else
-            #define GAME_OVER_Y XSize/2-4
+            #define GAME_OVER_X XSize/2-4
         #endif
     #else
-        #define GAME_OVER_Y 0
+        #define GAME_OVER_X 0
     #endif 
 
+
+#define GAME_OVER_Y 3
+
+
+#if XSize>=20
+    #define GAME_OVER_STRING "G A M E  O V E R"
+#else
+    #define GAME_OVER_STRING "GAME OVER"
+#endif
+
+
+#if YSize>=10
+    #define ABOVE_DINO 8
+#else
+    #define ABOVE_DINO 6
+#endif
 
 void handle_game_over(void)
 {
@@ -851,7 +904,7 @@ void handle_game_over(void)
     
     // _XL_DELETE(X_DINO,Y_DINO);
 
-    for(i=1;i<8;++i)
+    for(i=1;i<ABOVE_DINO;++i)
     {
         for(j=1;j<3;++j)
         {
@@ -865,13 +918,13 @@ void handle_game_over(void)
     _XL_SHOOT_SOUND();
     _XL_SLEEP(1);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(GAME_OVER_Y, 7, "G A M E  O V E R");
+    _XL_PRINT(GAME_OVER_X, GAME_OVER_Y, GAME_OVER_STRING);
     _XL_REFRESH();
     _XL_SLEEP(1);
     _XL_WAIT_FOR_INPUT();
     #else
     _XL_SHOOT_SOUND();
-    _XL_PRINT(GAME_OVER_Y, 7, "GAME OVER");
+    _XL_PRINT(GAME_OVER_X, GAME_OVER_Y, GAME_OVER_STRING);
     _XL_REFRESH();
     _XL_WAIT_FOR_INPUT();
     #endif
@@ -915,7 +968,9 @@ void handle_game_start(void)
     
     display_score();
     display_hiscore();
+    #if YSize>=10
     draw_terrain();
+    #endif
     
     draw_cacti();
     
@@ -1251,6 +1306,7 @@ int main(void)
             
         }
         _XL_REFRESH();
+        // while(1){};
         handle_game_over();
     }
 

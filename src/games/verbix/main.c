@@ -328,7 +328,7 @@ void display_rings(void)
     
     for(i=0;i<WORD_SIZE;++i)
     {
-        _XL_DRAW(x_slot(i),START_Y,RING_TILE,_XL_WHITE);
+        _XL_DRAW(x_slot(i),START_Y+LOWER_SPACING,RING_TILE,_XL_WHITE);
         short_pause();
         _XL_PING_SOUND();
     }

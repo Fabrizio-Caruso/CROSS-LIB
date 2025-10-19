@@ -128,7 +128,7 @@ target name         | long target name                            | working  |  
 *pecom*             | Pecom 32/64                                 |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *pencil2*           | Hanimex Pencil II                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                               |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
-*phc25              | Sanyo PHC-25                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*phc25*             | Sanyo PHC-25                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *pmd85*             | PMD85                                       |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
@@ -174,7 +174,7 @@ target name         | long target name                            | working  |  
 *vg5k*              | VG-5000                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *v1050*             | V1050                                       |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
 *vic20*             | Commodore Vic 20                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
-*vz200*             | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
+*vz*                | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *x1*                | Sharp X1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
 *x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
@@ -305,6 +305,7 @@ OK       : 184
 KO       :   4
 
 UNKNOWN  :   9
+
 
 
 

@@ -327,8 +327,6 @@ const uint8_t tank_points[] =
 
 #if !defined(_XL_NO_COLOR)
      uint8_t rocket_display_color;
-#else
-    #define rocket_display_color _DUMMY_
 #endif
 
 #if !defined(_XL_NO_COLOR) && !defined(_XL_NO_TEXT_COLOR)
@@ -2389,7 +2387,7 @@ do \
     next_threshold = NEXT_EXTRA_LIFE; \
 } while(0)
 
-#if YSize>10
+#if defined(_XL_NO_COLOR)
     #define init_rocket_display_color()
 #else
     #define init_rocket_display_color() \

@@ -74,14 +74,10 @@
         #define clrscr() printf("\033E")
 
     #elif defined(__VT100)
-        // #include <stdio.h>
-        #undef gotoxy
-
         #undef gotoxy
         #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
-        
-        #undef clrscr
 
+        #undef clrscr
         #define clrscr() printf("\033[2J\033[H")
 
     #elif defined(__PDP)
@@ -138,6 +134,8 @@
         #undef gotoxy
         
         #if defined(__ZX80__) && defined(ZX80_GEN_TV_FIELD)
+            #undef gotoxy
+            #undef cputc
             #define gotoxy(x,y) do {gen_tv_field(); zx_setcursorpos(y,x); gen_tv_field();} while(0)
             #define cputc(c) do { gen_tv_field(); fputc_cons(c); gen_tv_field(); } while(0)
         #else

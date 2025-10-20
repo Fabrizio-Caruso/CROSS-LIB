@@ -101,6 +101,10 @@
     #define _XL_REFRESH()
 #elif defined(__DOUBLE_BUFFER) && !defined(__BUFFERED_GRAPHICS)
     void _XL_REFRESH(void);
+#elif defined(ZX80_GEN_TV_FIELD)
+
+    #define _XL_REFRESH() gen_tv_field()
+    
 #else
     void __display_all(void);
 

@@ -74,9 +74,14 @@
         #define clrscr() printf("\033E")
 
     #elif defined(__VT100)
-        #include <stdio.h>
+        // #include <stdio.h>
+        #undef gotoxy
 
+        #undef gotoxy
         #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
+        
+        #undef clrscr
+
         #define clrscr() printf("\033[2J\033[H")
 
     #elif defined(__PDP)

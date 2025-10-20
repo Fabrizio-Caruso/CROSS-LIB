@@ -11,7 +11,7 @@ target name         | long target name                            | working  |  
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *agat*              | Agat-7                                      |    ?     |   MOS 6502    |   CC65  |      OK         |       OK(*)    |   OK    | Some gfx glitches
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
-*altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |     N/A         |      N/A       |  N/A    |
+*altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *apple2enh*         | Apple //e                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
@@ -121,7 +121,7 @@ target name         | long target name                            | working  |  
 *pacman*            | Pacman Namco arcade board                   |    NO    |   Zilog 80    |  Z88DK  |    missing      |    missing     | missing |
 *pasaopia7*         | Toshiba Pasopia 7                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing | PSG SN76489 
 *pc6001*            | NEC PC 6001                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |    
-*pc8201*            | NEC PC 8201                                 |   YES    |  Intel 8085   |  Z88DK |      OK        |    missing     | missing |
+*pc8201*            | NEC PC 8201                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *pc88*              | NEC PC 8801                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *pce*               | PCEngine                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *pcw*               | Amstrad PCW                                 |    ?     |   Zilog 80    |  Z88DK  |       ?         |    missing     | missing | 
@@ -306,6 +306,7 @@ OK       : 186
 KO       :   1
 
 UNKNOWN  :  11
+
 
 
 

@@ -154,6 +154,17 @@ mame64.exe bit90 -window -uimodekey DEL
 
 Attach the .rom as a cartridge to load and run the game
 
+-----------------------------------------------------------
+
+### BONDWELL 2
+
+Use Mame
+- Start bw2
+- May need to use ScrollLock (FN+`[` on some keyboards) 
+  in order to enable TAB to enter the disk selection menu
+- Select the CP/M 2.2 boot disk
+- Use natural keyboard to type CTRL-C to leave the menu
+- Switch to the game disk
 
 -----------------------------------------------------------
 ### CAMPUTERS LYNX

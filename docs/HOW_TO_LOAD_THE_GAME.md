@@ -961,6 +961,7 @@ Alternatively Use mednafen and run the following command:
 
 mednafen.exe -fs  1 FULL_nes.nes
 
+
 ---------------------------------------------------------
 
 ### Ohio Scientific C1P
@@ -1010,6 +1011,29 @@ At the prompt run with
 
 aout.cmd
 
+
+---------------------------------------------------------
+
+
+### Sanyo PHC-25
+
+Use https://github.com/hitchhikr/phc25
+Screen -> 1 (to get more available memory)
+cload
+File->Read tape options->Read tape file->(select file)
+run
+
+----------------------------------------------------------
+
+### Senio MAP-1010
+You need to convert the phc file to a wav file.
+In order to do this you can use castool:
+castool convert phc [phc file] [wav output file]
+
+Use TAKEDA emulator
+CLOAD
+CMT->Play->select file
+run
 
 
 ------------------------------------------------------------

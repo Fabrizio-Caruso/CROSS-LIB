@@ -27,8 +27,8 @@ target name         | long target name                            | working  |  
 *bit90*             | Bit Corporation BIT 90                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
 *bondwell*          | Bondwell                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *bondwell2*         | Bondwell 2                                  |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK       |    ?    |
-*c128_8502*         | Commodore 128 [8502 CPU]                    |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     |   OK    |
-*c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*c128_8502*         | Commodore 128 [8502 CPU]                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | GFX in VDC mode
+*c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | GFX with VIC (OK) and VDC (slow)
 *c16*               | Commodore 264 series (16/116/+4)            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *c64*               | Commodore 64                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *cbm510*            | Commodore CBM 510                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
@@ -306,6 +306,7 @@ OK       : 186
 KO       :   1
 
 UNKNOWN  :  11
+
 
 
 

@@ -312,7 +312,6 @@
 #if defined(__Z88DK_SPRITES_GRAPHICS) || defined(__MO5__)||defined(__TO7__) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__)
 	#define _Z88DK_SPRITE_OFFSET (0x20)
 #else
-
 	#define _Z88DK_SPRITE_OFFSET 0x00
 #endif
 
@@ -350,6 +349,8 @@
 // CLEAR SCREEN
 #  if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
+#elif defined(__NO_CLEAR_SCREEN)
+    #define _XL_CLEAR_SCREEN()
 #elif defined(__TI99__)
     #include <vdp.h>
     #define _XL_CLEAR_SCREEN() vdpmemset(gImage, 32, 768)

@@ -12,7 +12,7 @@
             gotoxy((X_OFFSET+(x)),(Y_OFFSET+(y))); \
             _XL_SET_TEXT_COLOR(color); \
             cputc(tile); \
-            gotoxy((X_OFFSET+((XSize)-1)),(Y_OFFSET+((YSize)-1))); \
+            gotoxy((X_OFFSET+((XSize)-1)),(Y_OFFSET+((YSize)))); \
             cputc(' '); \
         } \
         while(0)

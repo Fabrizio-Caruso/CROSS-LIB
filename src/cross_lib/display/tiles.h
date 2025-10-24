@@ -9,6 +9,9 @@
     #include "pv1000_settings.h"
 #elif defined(__C64__) && defined(__CONIO_GRAPHICS)
 	#include "c64_conio_settings.h"
+#elif defined(__C128__) && defined(__80COL_UDG)
+	// #include "c264_redefined_chars_settings.h" 23 24
+	#include "c128_settings.h"
 #elif defined(__ATARI7800_COLOR_GRAPHICS)
 	#include "atari7800_settings.h"
 #elif defined(__BBC_GRAPHICS) && !defined(_XL_NO_UDG)

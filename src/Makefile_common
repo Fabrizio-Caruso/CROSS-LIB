@@ -971,6 +971,17 @@ aquarius_exp_4k:
 
 c128: c128_40col
 
+c128_8502_80col: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128   \
+	-DXSize=80 \
+	-D__CONIO_GRAPHICS -D__80COL_UDG -D_XL_NO_SMALL_LETTERS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_8502_80COL_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
 c128_zsdcc: c128_z80_40col_zsdcc
 c128_40col_zsdcc: c128_z80_40col_zsdcc
 
@@ -1002,7 +1013,7 @@ endif
 	rm a40.ldr
 	rm a40
 
-c128_80col: c128_z80_80col
+c128_80col: c128_8502_80col
 
 c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \

@@ -613,8 +613,12 @@ void handle_plane_movement(void)
         deleteAnimatedPlaneCenter();
         ++y;
     }
+    _XL_WAIT_VSYNC();
 
     drawAnimatedPlane();
+    _XL_REFRESH();
+
+    // _XL_SLEEP(1);
     _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/2-level*LEVEL_SPEED_UP);
     
     handle_bomb();
@@ -623,6 +627,8 @@ void handle_plane_movement(void)
 
     deleteAnimatedPlaneBack();
     drawPlane();
+    _XL_REFRESH();
+
     #if defined(DEBUG_GHOST_DISPLAY)
         UNSET_DEBUG_BORDER();
     #endif
@@ -650,7 +656,6 @@ void handle_plane_movement(void)
     deleteAnimatedPlaneBack();
     #endif
     
-    _XL_REFRESH();
 }
 
 

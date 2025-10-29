@@ -179,7 +179,7 @@ target name         | long target name                            | working  |  
 *x07*               | Casio X-07                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       ?        |    ?    |
 *x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
-*z80tvgame*         | ZX80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*z80tvgame*         | Z80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *z88*               | Cambridge Z88                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *z9001*             | Robotron Z9001, KC 85/1, KC 87              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *zx80*              | Sinclair ZX80                               |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |    missing     |  N/A    |
@@ -306,6 +306,7 @@ OK       : 186
 KO       :   1
 
 UNKNOWN  :  11
+
 
 
 

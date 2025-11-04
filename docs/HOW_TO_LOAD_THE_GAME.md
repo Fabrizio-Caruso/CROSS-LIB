@@ -5,6 +5,29 @@ on some emulators (similar procedures can be followed on the real machines):
 
 -----------------------------------------------------------
 
+### AGAT 7 and 9
+
+Use the Agat emulator 1.29 (the one not detected as a virus):
+https://sourceforge.net/projects/agatemulator/
+
+Select "(2) IKP-9"
+
+Chose second option from below
+
+Right click top of the window
+
+Go to 140k drive
+
+Select game disk image
+
+Type:
+"
+CATALOG,S6
+BRUN XL
+"
+
+-----------------------------------------------------------
+
 ### AGON LIGHT
 
 Use https://github.com/astralaster/agon-light-emulator

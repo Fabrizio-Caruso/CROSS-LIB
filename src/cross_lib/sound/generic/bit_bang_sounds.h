@@ -1,7 +1,7 @@
 #ifndef  __BIT_BANG_SOUNDS
 #define  __BIT_BANG_SOUNDS
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__AGAT__)
     #define BIT_BANG_ADDR 0xC030
     #define ROM_ADDR 0xD000
 #endif
@@ -18,8 +18,6 @@ void NOISE(uint16_t duration, uint8_t period);
 void _XL_ZAP_SOUND(void);
 
 #define _XL_EXPLOSION_SOUND() NOISE(75,6)
-
-// #define _XL_ZAP_SOUND() CLICK(150,2)
 
 #define _XL_SHOOT_SOUND() NOISE(100,3)
 

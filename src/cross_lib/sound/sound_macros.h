@@ -96,7 +96,7 @@
             #include "creativision_sounds.h"
         #elif defined(__GB__) 
             #include "gb_sounds.h"
-        #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+        #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) || defined(__AGAT__)
             #include "bit_bang_sounds.h"
         #elif defined(__PET__) 
             #include "pet_sounds.h"

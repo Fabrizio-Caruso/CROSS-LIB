@@ -89,8 +89,8 @@ PARALLEL_TARGETS = \
     [
     'stdio',
 
-    'apple2',
-    'apple2enh',
+    # 'apple2',
+    # 'apple2enh',
     'atari',
     'atari_lynx',
     'atari5200',

@@ -9,7 +9,7 @@ target name         | long target name                            | working  |  
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*agat*              | Agat-7/9                                    |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*agat*              | Agat-7/9                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -306,6 +306,7 @@ OK       : 187
 KO       :   1
 
 UNKNOWN  :  10
+
 
 
 

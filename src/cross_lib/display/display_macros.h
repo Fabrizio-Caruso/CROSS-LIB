@@ -254,7 +254,7 @@
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)
 #elif defined(__MO5__) || defined(__TO7__)
     void _XL_SET_TEXT_COLOR(uint8_t c);
-#elif (defined(__COCO3__)&&defined(__BIT_MAPPED_16_GRAPHICS))
+#elif defined(__BIT_MAPPED_16_GRAPHICS))
     extern uint8_t _bitmap16_text_color;
     #define _XL_SET_TEXT_COLOR(c) _bitmap16_text_color = (c)
 #elif defined(__SUPERVISION__) || (defined(__COCO__)&&defined(__BIT_MAPPED_4_GRAPHICS))

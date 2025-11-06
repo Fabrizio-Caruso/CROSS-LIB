@@ -288,15 +288,16 @@ else
 endif
 
 
-AGAT_GFX_OPTS         ?= -D__BIT_MAPPED_GRAPHICS -D__BIT_MAPPED_16_GRAPHICS
+AGAT_GFX_OPTS         ?= -D__BIT_MAPPED_GRAPHICS -D__BIT_MAPPED_16_GRAPHICS -D_XL_NO_SMALL_LETTERS
 
 agat: $(ASSETS_PATH)/cc65_agat.s 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t agat \
-	-D__AGAT__ -D_XL_NO_JOYSTICK -D__ALT_SLEEP -D__NO_PRINT -D__DEFAULT_CLEAR_SCREEN  \
+	-D__AGAT__ -D_XL_NO_JOYSTICK -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
 	$(AGAT_GFX_OPTS) \
 	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
 ifdef USE_TOOLS

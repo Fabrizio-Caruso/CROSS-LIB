@@ -294,7 +294,7 @@
     #include "cross_lib.h"
     
     #if defined(__COCO__) || defined(__DRAGON__)
-        #define _CHAR_OFFSET 13
+        #define _CHAR_OFFSET (-13)
     #else
         #define _CHAR_OFFSET 0
     #endif
@@ -303,21 +303,44 @@
 
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {
-            _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap4_text_color);
+            _color_draw(x,y,ch+_CHAR_OFFSET,_bitmap4_text_color);
         }
 
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
     #include "bit_mapped_16_graphics.h"
     #include "cross_lib.h"
     
-	#define _CHAR_OFFSET 13
- 
+    #if defined(__COCO3__)
+        #define _CHAR_OFFSET (-13)
+    #elif defined(__AGAT__)
+        #define _CHAR_OFFSET (_XL_NUMBER_OF_TILES)
+    #endif
+    
     extern uint8_t _bitmap16_text_color;
 
+    #if defined(__COCO3__)
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {
-        _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap16_text_color);
+        _color_draw(x,y,ch+_CHAR_OFFSET,_bitmap16_text_color);
         }
+    #else
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            if(ch==' ')
+            {
+                ch = 27;
+            }
+            else if (ch<65)
+            {
+                ch+= 27+26+1-48;
+            }
+            else
+            {
+                ch = 27+1+ch-'A';
+            }
+        _color_draw(x,y,ch,_bitmap16_text_color);
+        }
+    #endif
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"

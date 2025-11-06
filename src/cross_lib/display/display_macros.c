@@ -123,10 +123,10 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
             SV_VIDEO[++base]  = second_map_one_to_four(udg)&color;
             SV_VIDEO[++base]  = third_map_one_to_four(udg)&color;
             SV_VIDEO[++base]  = fourth_map_one_to_four(udg)&color;
-            // SV_VIDEO[base+delta]    = 0xFF;
-            // SV_VIDEO[base+delta+1]  = 0xFF;
-            // SV_VIDEO[base+delta+2]  = 0xFF;
-            // SV_VIDEO[base+delta+3]  = 0xFF;			
+            // SV_VIDEO[base]    = 0xFF;
+            // SV_VIDEO[++base]  = 0xFF;
+            // SV_VIDEO[++base]  = 0xFF;
+            // SV_VIDEO[++base]  = 0xFF;	
             base+=BYTES_PER_LINE-3;
         }
     }

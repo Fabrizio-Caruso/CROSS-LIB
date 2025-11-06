@@ -22,6 +22,9 @@ game_assets:
 $(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_agat.s: $(wildcard $(8X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cc65_udc_atari7800_160A.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 

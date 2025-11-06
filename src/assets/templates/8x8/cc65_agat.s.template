@@ -1,0 +1,58 @@
+		.export _udgs
+
+_udgs:
+
+.byte <tile_0>
+
+.byte <tile_1>
+
+.byte <tile_2>
+
+.byte <tile_3>
+
+.byte <tile_4>
+
+.byte <tile_5>
+
+.byte <tile_6>
+
+.byte <tile_7>
+
+.byte <tile_8>
+
+.byte <tile_9>
+
+.byte <tile_10>
+
+.byte <tile_11>
+
+.byte <tile_12>
+
+.byte <tile_13>
+
+.byte <tile_14>
+
+.byte <tile_15>
+
+.byte <tile_16>
+
+.byte <tile_17>
+
+.byte <tile_18>
+
+.byte <tile_19>
+
+.byte <tile_20>
+
+.byte <tile_21>
+
+.byte <tile_22>
+
+.byte <tile_23>
+
+.byte <tile_24>
+
+.byte <tile_25>
+
+.byte <tile_26>
+

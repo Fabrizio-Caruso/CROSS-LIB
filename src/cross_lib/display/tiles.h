@@ -5,6 +5,8 @@
 
 #  if defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "c64_memory_mapped_settings.h"
+#elif defined(__AGAT__) && defined(__BIT_MAPPED_GRAPHICS)
+    #include "agat_settings.h"
 #elif defined(__PV1000__) && defined(__PV1000_GRAPHICS)
     #include "pv1000_settings.h"
 #elif defined(__C64__) && defined(__CONIO_GRAPHICS)

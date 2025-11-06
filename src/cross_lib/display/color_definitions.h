@@ -383,22 +383,46 @@
     
     #define _XL_MAGENTA _XL_RED
 
-#elif (defined(__COCO3__)) && defined(__BIT_MAPPED_16_GRAPHICS)
+#elif defined(__BIT_MAPPED_16_GRAPHICS)
 
-	// TODO: BOGUS
+    #if defined(__COCO3__)
+        // TODO: BOGUS
 
-    #define _XL_BLACK 0
-	
-    #define _XL_WHITE 0x11
-    #define _XL_GREEN 0x33
-	#define _XL_CYAN 0x44
-	
-    #define _XL_YELLOW 0x55	
-    #define _XL_RED 0xAA	
-    #define _XL_BLUE 0xFF
+        #define _XL_BLACK 0
+        
+        #define _XL_WHITE 0x11
+        #define _XL_GREEN 0x33
+        #define _XL_CYAN 0x44
+        
+        #define _XL_YELLOW 0x55
+        #define _XL_RED 0xAA
+        #define _XL_BLUE 0xFF
+        
+        // TODO: Use correct definition
+        #define _XL_MAGENTA 0xAA
     
-    // TODO: Use correct definition
-    #define _XL_MAGENTA 0xAA
+    #elif defined(__AGAT__)
+        #define _XL_BLACK 0
+        
+        // OK
+        #define _XL_WHITE 0xFF
+        
+        // OK
+        #define _XL_GREEN 0x22 
+        
+        #define _XL_CYAN 0x66
+        
+        #define _XL_YELLOW 0x33
+        
+        // OK
+        #define _XL_RED 0x11
+        
+        #define _XL_BLUE 0xCC
+        
+        #define _XL_MAGENTA 0xDD
+
+    #endif
+    
 
 #elif defined(__BBC__) && defined(__BBC_GRAPHICS)
 // COLORS

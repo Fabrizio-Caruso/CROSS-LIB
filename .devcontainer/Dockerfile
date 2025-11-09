@@ -36,15 +36,15 @@ RUN make install PREFIX=/usr prefix=/usr
 
 WORKDIR /sdk
 
-RUN wget http://www.lwtools.ca/releases/lwtools/lwtools-4.22.tar.gz
-RUN tar -xvf lwtools-4.22.tar.gz
-WORKDIR /sdk/lwtools-4.22
-RUN make && make install
+#RUN wget http://www.lwtools.ca/releases/lwtools/lwtools-4.22.tar.gz
+#RUN tar -xvf lwtools-4.22.tar.gz
+#WORKDIR /sdk/lwtools-4.22
+#RUN make && make install
 
-WORKDIR /sdk
-RUN wget http://perso.b2b2c.ca/~sarrazip/dev/cmoc-0.1.88.tar.gz
-RUN tar -xvf cmoc-0.1.88.tar.gz
-WORKDIR /sdk/cmoc-0.1.88
-RUN ./configure && make && make install
+#WORKDIR /sdk
+#RUN wget http://perso.b2b2c.ca/~sarrazip/dev/cmoc-0.1.88.tar.gz
+#RUN tar -xvf cmoc-0.1.88.tar.gz
+#WORKDIR /sdk/cmoc-0.1.88
+#RUN ./configure && make && make install
 
-WORKDIR /sdk
+#WORKDIR /sdk

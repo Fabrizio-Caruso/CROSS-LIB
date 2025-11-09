@@ -1,5 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+
+//"./local-features/cmoc": {},
+
 {
 	"name": "Cross-Lib",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
@@ -9,7 +12,6 @@
 	"features": {
 		"./local-features/cc65": {},
 		"./local-features/z88dk": {},
-		"./local-features/cmoc": {},
 		"ghcr.io/devcontainers/features/python:1": {
 			"installTools": true,
 			"version": "os-provided"

@@ -2243,8 +2243,11 @@ do \
     #define _NEXT_ROW ((i)<<1)
 #endif
 
-#if defined(_XL_NO_JOYSTICK)
-    #define CONTROLS_STRING "USE J L SPACE"
+#if defined(_XL_ARROW_KEYS)
+    #define CONTROLS_STRING "USE ARROWS"
+	#define CONTROLS_LEN 10
+#elif defined(_XL_NO_JOYSTICK)
+    #define CONTROLS_STRING "USE " _XL_LEFT_KEY " " _XL_RIGHT_KEY " SPACE"
 	#define CONTROLS_LEN 13
 #else
     #if defined(_XL_CURSORS)

@@ -819,12 +819,17 @@ void handle_input(void)
 }
 
 
-
-#if defined(_XL_NO_JOYSTICK)
+#if defined(_XL_ARROW_KEYS)
     #define control_instructions() \
     do \
     { \
-        _XL_PRINT(XSize/2-6, YSize/2+6, "USE IJKL SPACE"); \
+        _XL_PRINT(XSize/2-6+2, YSize/2+6, "USE ARROWS"); \
+    } while(0)
+#elif defined(_XL_NO_JOYSTICK)
+    #define control_instructions() \
+    do \
+    { \
+        _XL_PRINT(XSize/2-6, YSize/2+6, "USE " _XL_UP_KEY _XL_LEFT_KEY _XL_DOWN_KEY _XL_RIGHT_KEY " SPACE"); \
     } while(0)
 #else
     #define control_instructions() \

@@ -115,6 +115,19 @@
 				foo=42+i;
 			}
 		}
+    #elif defined(__CX16__)
+		void _XL_SLOW_DOWN(uint16_t t)
+		{
+			uint16_t i;
+            uint8_t j;
+
+			for(i=0;i<(t);++i)
+			{
+                for(j=0;j<9;++j)
+                {
+                }
+			}       
+		}
 	#else
 		void _XL_SLOW_DOWN(uint16_t t)
 		{

@@ -55,5 +55,14 @@ void SET_UDG_IMAGES(void)
 void _XL_INIT_GRAPHICS(void)
 {
     videomode(VIDEOMODE_20x30);
+    printf("%c%c%c%c",0x90,0x01,0x05,147);
+    // printf("%c",0x09);
+    // printf("%c",0x01);
+    // printf("%c",0x01);
+
+    // printf("%c",0x10);
+    // printf("%c",0x01);
+    cputc(0x10);
+    cputc(0x01);
 	SET_UDG_IMAGES();
 }

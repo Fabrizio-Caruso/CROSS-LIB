@@ -3372,6 +3372,7 @@ stdio_sized:
 # CC65
 include makefiles.common/targets/cc65/Makefile_c128_8502
 include makefiles.common/targets/cc65/Makefile_cx16
+include makefiles.common/targets/cc65/Makefile_c65
 include makefiles.common/targets/cc65/Makefile_osic1p
 include makefiles.common/targets/cc65/Makefile_telestrat
 

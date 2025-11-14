@@ -31,7 +31,8 @@ target name         | long target name                            | working  |  
 *c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | GFX with VIC (OK) and VDC (slow)
 *c16*               | Commodore 264 series (16/116/+4)            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *c64*               | Commodore 64                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
-*cbm510*            | Commodore CBM 510                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
+*c65*               | Commodore 65                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*cbm510*            | Commodore CBM 510                           |   YES    |   MOS 6502    |   CC65  |       ?         |    missing     | missing |
 *cbm610*            | Commodore CBM 610                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing | 
 *camputers_lynx*    | Camputers Lynx 48k/96k/128k                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *cidelsa_altair*    | Cidelsa Altair arcade board                 |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
@@ -187,13 +188,13 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 179
+TOTAL    : 180
 
 OK       : 177
 
 KO       :   1
 
-UNKNOWN  :   1
+UNKNOWN  :   2
 
 
 -----------------------------------------------
@@ -299,13 +300,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 198
+TOTAL    : 199
 
 OK       : 188
 
 KO       :   1
 
-UNKNOWN  :   9
+UNKNOWN  :  10
+
 
 
 

@@ -215,7 +215,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 125                |
+Zilog 80      | 126                |
 MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
@@ -299,6 +299,7 @@ OK       : 188
 KO       :   1
 
 UNKNOWN  :  10
+
 
 
 

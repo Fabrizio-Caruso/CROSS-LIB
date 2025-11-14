@@ -1,8 +1,7 @@
 ## STATUS
-Last update: 2025/10/18
+Last update: 2025/11/15
 
-### 8-BIT targets with known working existing emulators
-
+### 8-BIT targets
 
 target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
@@ -31,6 +30,7 @@ target name         | long target name                            | working  |  
 *c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | GFX with VIC (OK) and VDC (slow)
 *c16*               | Commodore 264 series (16/116/+4)            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *c64*               | Commodore 64                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*c65*               | Commodore 65                                |    ?     |   MOS 6502    |   CC65  |      OK?        |    missing     | missing |
 *cbm510*            | Commodore CBM 510                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing |
 *cbm610*            | Commodore CBM 610                           |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     | missing | 
 *camputers_lynx*    | Camputers Lynx 48k/96k/128k                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
@@ -47,7 +47,7 @@ target name         | long target name                            | working  |  
 *cpm_8080*          | CP/M Intel 8080                             |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A    | 
 *creativision*      | VTech Creativision                          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
-*cx16*              | Commander X16                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       | missing |
+*cx16*              | Commander X16                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *dai*               | DAI                                         |   YES    |  Intel 8080   |  Z88DK  |   missing       |      N/A ?     |  N/A ?  |
 *dmv*               | Decision Mate V                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *dragon*            | Dragon 32/64                                |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
@@ -92,7 +92,7 @@ target name         | long target name                            | working  |  
 *mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*mega65*            | Mega 65 / Commodore 65                      |    ?     |   MOS 6502    |   VBCC  |    missing      |    missing     | missing |
+*mega65*            | Mega 65 / Commodore 65                      |   YES    |   MOS 6502    |  CC65   |      OK         |    missing     | missing |
 *micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *microboard*        | Microboard Computer Development System      |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -138,6 +138,7 @@ target name         | long target name                            | working  |  
 *px8*               | Epson PX-8/HC-80                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
 *qc10*              | Epson QX-10/QC-10                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *radio86*           | Radio 86                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK?      | missing |
+*rex*               | Xircom Rex 6000                             |    ?     |   Zilog 80    |  Z88DK  |    missing      |    missing      | missing | 
 *rc700*             | Regnecentralen RC700                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *rx78*              | Bandai RX-78                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489
 *samcoupe*          | Sam Coupe                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |     
@@ -179,7 +180,7 @@ target name         | long target name                            | working  |  
 *x07*               | Casio X-07                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       ?        |    ?    |
 *x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
-*z80tvgame*         | Z80 TV Game                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
+*z80tvgame*         | Z80 TV Game                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *z88*               | Cambridge Z88                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *z9001*             | Robotron Z9001, KC 85/1, KC 87              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *zx80*              | Sinclair ZX80                               |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |    missing     |  N/A    |
@@ -187,9 +188,9 @@ target name         | long target name                            | working  |  
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
 
-TOTAL    : 179
+TOTAL    : 181
 
-OK       : 176
+OK       : 178
 
 KO       :   1
 
@@ -198,15 +199,15 @@ UNKNOWN  :   2
 
 -----------------------------------------------
 
-#### Statistics on 8-bit targets with known existing emulators
+#### Statistics on 8-bit targets
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 139
-   CC65 |  23
+  Z88DK | 141
+   CC65 |  25
 LCC1802 |   7 
    CMOC |   5
-   VBCC |   3
+   VBCC |   2
  CC6303 |   1
 
 
@@ -214,23 +215,15 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 124                |
-MOS 6502      |  26                |
+Zilog 80      | 126                |
+MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
-Intel 8080    |   6                |
+Intel 8080    |   7                |
 Motorola 6809 |   5                |
 GBZ80         |   1                |
 Motorola 6803 |   1                |
 
-
------------------------------------------------------------------------------------------
-### 8-BIT vintage targets with no known working emulators
-
-
-target name         | long target name                                     |  working   | CPU family    |      dev-kit    |real-time input | hires graphics |  sound  | notes 
---------------------|------------------------------------------------------|------------|---------------|-----------------|----------------|----------------|---------|--------
-*rex*               | Xircom Rex 6000                                      |     ?      |   Zilog 80    |          Z88DK  |    missing     |    missing     | missing | 
 
 
 -----------------------------------------------------------------------------------------
@@ -299,13 +292,18 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 198
+TOTAL    : 199
 
-OK       : 187
+OK       : 188
 
 KO       :   1
 
 UNKNOWN  :  10
+
+
+
+
+
 
 
 

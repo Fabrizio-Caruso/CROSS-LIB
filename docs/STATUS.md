@@ -47,7 +47,7 @@ target name         | long target name                            | working  |  
 *cpm_8080*          | CP/M Intel 8080                             |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A    | 
 *creativision*      | VTech Creativision                          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
-*cx16*              | Commander X16                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       | missing |
+*cx16*              | Commander X16                               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *dai*               | DAI                                         |   YES    |  Intel 8080   |  Z88DK  |   missing       |      N/A ?     |  N/A ?  |
 *dmv*               | Decision Mate V                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *dragon*            | Dragon 32/64                                |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
@@ -306,6 +306,7 @@ OK       : 187
 KO       :   1
 
 UNKNOWN  :  10
+
 
 
 

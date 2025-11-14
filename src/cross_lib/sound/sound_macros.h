@@ -29,6 +29,8 @@
             #include "z88dk_bit_bang_sounds.h"
         #elif defined(__PSG_SOUND)
             #include "psg_sounds.h"
+        #elif defined(__CX16__)
+            #include "cx16_sounds.h"
         #elif defined(ASCII_SOUNDS)
             #define _XL_INIT_SOUND()
             #include "ascii_sounds.h"

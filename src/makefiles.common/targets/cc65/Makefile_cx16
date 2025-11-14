@@ -11,6 +11,7 @@ cx16: $(ASSETS_PATH)/8x8_chars.h
 	-D__CX16__ -DXSize=20 -DYSize=30 -D_XL_NO_SMALL_LETTERS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CX16_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/cx16/cx16_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/cx16/cx16_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

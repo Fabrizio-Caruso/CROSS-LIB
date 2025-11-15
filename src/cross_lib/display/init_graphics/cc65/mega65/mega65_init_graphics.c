@@ -1,9 +1,42 @@
 
 #include <peekpoke.h>
+#include <conio.h>
 
+#define CRAM2K 0xD030
+    // lda #%00000001  ; Enable CRAM2K
+    // tsb cram2k
+    
 void _XL_INIT_GRAPHICS(void)
 {
     // __asm__("SEI");
-    POKE(53281,0);
-    POKE(53280,0);
+    
+    // BLACK background and border
+    POKE(53281U,0U);
+    POKE(53280U,0U);
+    
+    #if defined(__CRAM2K)
+        POKE(CRAM2K,PEEK(CRAM2K)|(0x01));
+    #endif
+        
+    #if defined(__MEGA65_40COL)
+        // gotoxy(0,0);
+        // cputc(27);
+        // cputc('4');
+        
+// lda #27
+// jsr $ffd2
+// lda #52
+// jsr $ffd2
+        __asm__("lda #27");
+        __asm__("jsr $ffd2");
+        __asm__("lda #52");
+        __asm__("jsr $ffd2");
+
+        
+        // 40 column mode
+        // POKE(0xD031,PEEK(0xD031)&(0x7F));
+        
+        // CRAM2K
+
+    #endif
 }

@@ -2,13 +2,21 @@
 #include "sid_sounds.h"
 #include <stdint.h>
 
+#if defined(__MEGA65__)
+    #define SID SID1
+    #define _SOUND_DELAY 8
+#else
+    #define _SOUND_DELAY 1
+#endif
+
+#if !defined(_XL_NO_SOUND)
 void _set_noise(void)
 {
 	SID.v3.ad    = 0x00; 
 	SID.v3.sr    = 0xA8; 
 	SID.flt_ctrl = 0x44; 
 	SID.amp      = 0x1F; 
-	SID.v3.ctrl  = 0x81; 	
+	SID.v3.ctrl  = 0x81;
 }
 
 void _short_sound(void)
@@ -22,7 +30,7 @@ void _short_sound(void)
 	SID.amp      = 0x1F; 
 	SID.v3.ctrl  = 0x21; 	
 
-	for(i=0;i<200;++i) {} 
+	for(i=0;i<200*_SOUND_DELAY;++i) {} 
 	SID.amp      = 0x00; 
 	SID.v3.ctrl  = 0x08; 	
 }
@@ -36,7 +44,7 @@ void _XL_SHOOT_SOUND(void)
 
 	_set_noise();
 	
-	for(i=0;i<800;++i) {} 
+	for(i=0;i<800*_SOUND_DELAY;++i) {} 
 	SID.amp      = 0x00; 
 	SID.v3.ctrl  = 0x08; 
 };	
@@ -52,13 +60,13 @@ void _XL_EXPLOSION_SOUND(void)
 
 	_set_noise();
 	
-	for(i=0;i<300;++i) 
+	for(i=0;i<300*_SOUND_DELAY;++i) 
 		{ 
 		} 
 	for(j=0;j<15;++j) 
 	{ 
 		SID.amp      = 0x1F - j; 
-		for(i=0;i<100;++i) 
+		for(i=0;i<100*_SOUND_DELAY;++i) 
 		{ 
 		} 
 	} 
@@ -88,7 +96,7 @@ void _XL_TOCK_SOUND(void)
 
 void _XL_ZAP_SOUND(void) 
 { 
-	uint8_t i;
+	uint16_t i;
 	uint8_t j;
 	
 	SID.v3.freq  = 0x6800; 
@@ -99,7 +107,7 @@ void _XL_ZAP_SOUND(void)
 	SID.amp      = 0x1F; 
 	SID.v3.ctrl  = 0x21; 
 	
-	for(i=0;i<253;++i) 
+	for(i=0;i<253*_SOUND_DELAY;++i) 
 	{ 
 		SID.v3.freq+=8;
 		for(j=0;j<25;++j){};
@@ -109,3 +117,4 @@ void _XL_ZAP_SOUND(void)
 	SID.v3.ctrl  = 0x08; 
 };
 
+#endif // _XL_NO_SOUND

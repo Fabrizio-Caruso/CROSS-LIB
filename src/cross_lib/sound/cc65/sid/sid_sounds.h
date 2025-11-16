@@ -29,11 +29,14 @@
 		#include <c64.h>
 	#elif defined(__C128__)
 		#include <c128.h>
+    #elif defined(__MEGA65__)
+        #include <mega65.h>
 	#else
 		// TODO: USE pokebsys and pokewsys for the CBM510
 		#include <cbm510.h>
 	#endif
 	
+    #if !defined(__XL_NO_SOUND)
 	void _XL_EXPLOSION_SOUND(void);
 	
 	void _XL_PING_SOUND(void);
@@ -45,6 +48,6 @@
 	void _XL_TOCK_SOUND(void);
 	
 	void _XL_ZAP_SOUND(void);
-
+    #endif
 #endif // SID_SOUNDS
 

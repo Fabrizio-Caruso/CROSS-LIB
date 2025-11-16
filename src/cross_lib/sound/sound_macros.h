@@ -52,6 +52,8 @@
             #include "c264_sounds.h"
         #elif defined(__C64__) 
             #include "sid_sounds.h"
+        #elif defined(__MEGA65__) 
+            #include "sid_sounds.h"
         #elif defined(__C128__) 
             #include "sid_sounds.h"
         #elif defined(__CBM510__) 

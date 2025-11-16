@@ -1,4 +1,4 @@
-c65: c65_no_gfx
+c65: c65_40_col_no_gfx
 
 # c65_no_gfx: 
 	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c65 \
@@ -9,16 +9,25 @@ c65: c65_no_gfx
 	# $(FULL_FILES) \
 	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-c65_no_gfx:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t mega65 \
+c65_80_col_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c65 \
 	-D__MEGA16__ -DXSize=80 -DYSize=25 -D__CRAM2K \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MEGA65_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__ALT_SLEEP -D__NO_SLEEP_SEC -D_XL_NO_JOYSTICK \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/mega65/mega65_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c65/c65_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-mega65: mega65_test
+
+c65_40_col_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c65 \
+	-D__MEGA16__ -DXSize=40 -DYSize=25 -D__MEGA65_40COL \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MEGA65_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__ALT_SLEEP -D__NO_SLEEP_SEC -D_XL_NO_JOYSTICK \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c65/c65_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
 # mega65: mega65_no_gfx
 mega65: mega65_40col_no_gfx
 
@@ -32,29 +41,24 @@ mega65_80col: mega65_80col_no_gfx
 # -D__NO_SLEEP -D_XL_NO_SLEEP -D__NO_WAIT -D__NO_INPUT -D_XL_NO_COLOR
 # -D_XL_NO_JOYSTICK   \
 
-mega65_test: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t mega65 \
-	-D__MEGA16__ -DXSize=80 -DYSize=12 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MEGA65_SLOWDOWN) \
-	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__ALT_SLEEP -D__NO_SLEEP_SEC \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/mega65/mega65_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
+# -D_XL_NO_SOUND
 mega65_80col_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t mega65 \
 	-D__MEGA16__ -DXSize=80 -DYSize=25 -D__CRAM2K \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MEGA65_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__ALT_SLEEP -D__NO_SLEEP_SEC -D_XL_NO_JOYSTICK \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/mega65/mega65_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+# -D_XL_NO_SOUND
 mega65_40col_no_gfx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t mega65 \
-	-D__MEGA16__ -DXSize=40 -DYSize=25 -D__MEGA65_40COL \
+	-D__MEGA16__ -DXSize=40 -DYSize=25  -D__MEGA65_40COL \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MEGA65_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -D_XL_NO_UDG -D__ALT_SLEEP -D__NO_SLEEP_SEC  \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/mega65/mega65_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

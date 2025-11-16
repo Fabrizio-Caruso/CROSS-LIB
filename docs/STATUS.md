@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2025/11/15
+Last update: 2025/11/16
 
 ### 8-BIT targets
 
@@ -92,7 +92,7 @@ target name         | long target name                            | working  |  
 *mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*mega65*            | Mega 65 / Commodore 65                      |   YES    |   MOS 6502    |  CC65   |      OK         |    missing     | missing |
+*mega65*            | Mega 65 / Commodore 65                      |   YES    |   MOS 6502    |  CC65   |      OK         |    missing     |   OK    |
 *micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *microboard*        | Microboard Computer Development System      |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -299,6 +299,7 @@ OK       : 188
 KO       :   1
 
 UNKNOWN  :  10
+
 
 
 

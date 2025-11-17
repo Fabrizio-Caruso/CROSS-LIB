@@ -4,7 +4,7 @@
 
 #if defined(__MEGA65__)
     #define SID SID1
-    #define _SOUND_DELAY 8
+    #define _SOUND_DELAY 16
 #else
     #define _SOUND_DELAY 1
 #endif
@@ -22,26 +22,44 @@ void _set_noise(void)
 void _short_sound(void)
 {
 	uint16_t i;
-	
+
+    #if defined(__MEGA65__)
+	SID.v3.freq  = 0x1800; 
+	SID.v3.ad    = 0x00; 
+	SID.v3.sr    = 0xC8; 
+	SID.flt_ctrl = 0x44; 
+	SID.amp      = 0x1F; 
+	SID.v3.ctrl  = 0x21;
+    
+    for(i=0;i<253*_SOUND_DELAY;++i) 
+	{ 
+		SID.v3.freq+=8;
+	}; 
+    #else
 	SID.v3.freq  = 0x2000; 
 	SID.v3.ad    = 0x00; 
 	SID.v3.sr    = 0xC8; 
 	SID.flt_ctrl = 0x44; 
 	SID.amp      = 0x1F; 
-	SID.v3.ctrl  = 0x21; 	
+	SID.v3.ctrl  = 0x21; 
+    #endif
 
-	for(i=0;i<200*_SOUND_DELAY;++i) {} 
+	for(i=0;i<200*_SOUND_DELAY;++i) {};
 	SID.amp      = 0x00; 
-	SID.v3.ctrl  = 0x08; 	
+	SID.v3.ctrl  = 0x08;
 }
 
 void _XL_SHOOT_SOUND(void) 
 { 
 	uint16_t i; 
 	
+    #if defined(__MEGA65__)
+	SID.v3.freq  = 0x1800; 
+	SID.flt_freq = 0x3000; 
+    #else
 	SID.v3.freq  = 0x3000; 
 	SID.flt_freq = 0x9000; 
-
+    #endif
 	_set_noise();
 	
 	for(i=0;i<800*_SOUND_DELAY;++i) {} 

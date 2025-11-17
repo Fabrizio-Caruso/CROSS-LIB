@@ -3375,6 +3375,8 @@ include makefiles.common/targets/cc65/Makefile_cx16
 include makefiles.common/targets/cc65/Makefile_c65
 include makefiles.common/targets/cc65/Makefile_osic1p
 include makefiles.common/targets/cc65/Makefile_telestrat
+include makefiles.common/targets/cc65/Makefile_kim1
+include makefiles.common/targets/cc65/Makefile_sym1
 
 
 

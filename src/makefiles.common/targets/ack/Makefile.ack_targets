@@ -72,7 +72,7 @@ cpm_8080_adm3a_ack:
 	-D__NO_WAIT \
 	-D_XL_NO_SLEEP \
 	$(FULL_FILES)
-	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_cpm8080_adm3a.com
+	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
 	rm $(SOURCE_PATH)/../../*.o
 
 cpm_8080_ack_targets: \
@@ -93,10 +93,8 @@ msdos86:
 	-D__ALT_PRINT -D_XL_NO_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	cross_lib/display/alt_print/memory_mapped_alt_print.c \
-	cross_lib/display/display_macros.c cross_lib/input/input_macros.c cross_lib/sleep/sleep_macros.c games/chase/main.c \
 	$(FULL_FILES) \
-	-o ../build/Xchase_stdio.exe
-	mv msdos86.exe $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.exe
+	-o ../build/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o
 
 
@@ -141,7 +139,7 @@ pc8086:
 	-D__ALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv pc86.img $(BUILD_PATH)/X$(GAME_NAME)_pc8086_turn_based.img
+	mv pc86.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
 	rm $(SOURCE_PATH)/../../*.o
 
 pc8086_targets: \

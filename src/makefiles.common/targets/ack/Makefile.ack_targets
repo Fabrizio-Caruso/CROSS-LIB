@@ -42,7 +42,7 @@ cpm_8080_buffered_ack:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__STDIO \
@@ -65,7 +65,7 @@ cpm_8080_adm3a_ack:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__CPM8080__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
@@ -76,9 +76,9 @@ cpm_8080_adm3a_ack:
 	rm $(SOURCE_PATH)/../../*.o
 
 cpm_8080_ack_targets: \
-	cpm_8080_ack_buffered
+	cpm_8080_buffered_ack
 
-
+msdos: msdos86
 # buffered
 msdos86:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
@@ -108,7 +108,7 @@ msdos86_test:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__MSDOS86__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_WAIT \
@@ -157,7 +157,7 @@ linuxppc:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
@@ -183,7 +183,7 @@ linux68k:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX68K__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
@@ -209,7 +209,7 @@ linux386:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUX386__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
@@ -235,7 +235,7 @@ linuxmips:
 	-D_XL_NO_COLOR \
 	-DACK \
 	-D__LINUXPPC__ \
-	 \
+	-D_XL_NO_JOYSTICK \
 	-DTURN_BASED \
 	-D__BUFFERED_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
@@ -257,7 +257,7 @@ dos:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
 	-D__DOS__ \
 	 \
-	  \
+	-D_XL_NO_JOYSTICK  \
 	-DTURN_BASED \
 	-D__CONIO_GRAPHICS  \
 	-D__ALT_PRINT \

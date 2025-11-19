@@ -141,7 +141,8 @@
 
     #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
     || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__) \
-    || defined(__CX16__) || defined(__AGAT__) || defined(__MEGA65__) || defined(__C65__)
+    || defined(__CX16__) || defined(__AGAT__) || defined(__MEGA65__) || defined(__C65__) \
+    || defined(__KIM1__) || defined(__SYM1__)
     
         if(kbhit())
             return cgetc();

@@ -116,8 +116,8 @@ msdos86_test:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv msdos86.exe $(BUILD_PATH)/X$(GAME_NAME)_$@_turn_based.exe
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o ../build/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o
 
 # buffered	

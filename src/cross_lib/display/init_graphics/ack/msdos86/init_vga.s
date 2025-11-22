@@ -5,13 +5,37 @@
 
 .sect .text
 
+.define _cls
+_cls:
+    push es
+    mov ax,0xA000
+    mov es,ax
+    mov di,0x00FF
+    sub ax,ax
+    mov cx,32000
+    rep stosw
+    pop es
+    ret
 
 .define _init_vga
 _init_vga:
-    mov ax, 0x0013
+    mov ax, 0x13
     int 0x10
     ret
     
+.define _video_mode
+_video_mode:
+    mov ax, 19
+    int 16
+    ret
+
+
+.define _text_mode
+_text_mode:
+    mov ax, 3
+    int 16
+    ret
+
 
 .define _write_tile
 _write_tile:

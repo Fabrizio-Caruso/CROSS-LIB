@@ -12,15 +12,15 @@
 
 extern void init_vga(void);
 extern void video_mode(void);
-extern void text_mode(void);
+// extern void text_mode(void);
 extern void cls(void);
 
 // extern void write_tile(uint16_t tiles[][], uint8_t color, uint8_t index, uint16_t x, uint16_t  y);
-extern void write_tile(uint16_t x, uint16_t y, uint16_t index, uint16_t color, uint16_t tile[][]);
+// extern void write_tile(uint16_t x, uint16_t y, uint16_t index, uint16_t color, uint16_t tile[][]);
 
 extern void plot(uint16_t x, uint16_t y, uint8_t color);
 
-uint16_t  my_tile[] = {255,255,255,255,255,255,255,255};
+// uint16_t  my_tile[] = {255,255,255,255,255,255,255,255};
 
 uint16_t _i86_tiles[][8] = 
     {
@@ -63,7 +63,7 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     {
         for(col=0;col<8;++col)
         {
-            if(_i86_tiles[tile][row]&(1<<col))
+            if(_i86_tiles[tile][row]&(128>>col))
             {
                 plot(x*8+col,8*y+row,color);
             }
@@ -83,10 +83,10 @@ void _XL_INIT_GRAPHICS(void)
 
     init_vga();
     video_mode();
-    for(i=0;i<20;++i)
-    {
-        _display_tile(10,i,i,100);
-    }
+    // for(i=0;i<20;++i)
+    // {
+        // _display_tile(10,i,i,100);
+    // }
     
     // for(i=0;i<100;i+=4)
     // {
@@ -109,6 +109,6 @@ void _XL_INIT_GRAPHICS(void)
     // {
         // write_tile(4+i,4+i,0,100+i,tiles);
     // }
-    getchar();
-    exit(0);
+    // getchar();
+    // exit(0);
 }

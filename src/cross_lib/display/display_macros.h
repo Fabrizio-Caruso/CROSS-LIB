@@ -57,6 +57,10 @@
     void __draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
+#if defined(__VGA_GRAPHICS)
+    void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+#endif
+
 
 #if defined(__VIC20__)
     #define SET_DEBUG_BORDER()     POKE(36879u, 12)

@@ -545,6 +545,16 @@
         #define _XL_BLACK 0
         #define _XL_MAGENTA 3
 
+#elif defined(__VGA_GRAPHICS)
+        #define _XL_WHITE 100
+        #define _XL_CYAN 110
+        #define _XL_YELLOW 120
+        #define _XL_GREEN 130
+        #define _XL_RED 140
+        #define _XL_BLUE 150
+        #define _XL_BLACK 0
+        #define _XL_MAGENTA 160
+
 #else // Z88DK
     #define _XL_BLACK BLACK
     

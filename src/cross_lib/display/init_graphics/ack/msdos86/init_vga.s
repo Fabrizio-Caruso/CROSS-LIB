@@ -79,7 +79,7 @@ _plot:
     add     ax, cx       ! AX = y*320 + x
     mov     di, ax       ! DI = offset
 
-    movb al, 8(bp)
+    movb al, 8(bp)       ! color
 
     ! AL already contains color
     ! Write pixel using STOSB
@@ -96,10 +96,10 @@ _plot:
 
 .define _write_tile
 _write_tile:
-    mov bx, sp
+    mov bp, sp
     push es
     xor ax, ax
-    movb al, 8(bx)      ! y
+    movb al, 6(bp)      ! y
     mov di, ax
     shl ax, 1
     shl ax, 1
@@ -108,21 +108,21 @@ _write_tile:
     shl ax, cl          ! ax = y*320
     mov di, ax
     xor ax, ax
-    movb al, 10(bx)     ! ax = x
+    movb al, 4(bp)     ! ax = x
     add ax, di          ! ax = y*320+x
     movb cl, 3
     shl ax, cl          ! ax = (y*8)*320 + x*8
     mov di, ax
-    mov si, 2(bx)       ! tile base pointer
+    mov si, 12(bp)       ! tile base pointer
     xor ax, ax
-    movb al, 6(bx)      ! tile index
+    movb al, 8(bp)      ! tile index
     shl ax, cl          ! cl was still 3, ax = idx*8 - 8 bytes per tile
     mov si, ax
     mov ax, 0xa000
     push ax
     pop es
     xor ax, ax
-    movb al, 4(bx)      ! ah = 0, al = color
+    movb al, 10(bp)      ! ah = 0, al = color
     mov cx, 8           ! vertical loop
   outer_loop:
     push cx

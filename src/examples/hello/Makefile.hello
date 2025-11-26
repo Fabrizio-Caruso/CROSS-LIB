@@ -4,7 +4,7 @@ FULL_FILES ?= \
     $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c 
 
-GAME_NAME := helloworld
+GAME_NAME := hello
 
 PARENT_DIR = examples
 

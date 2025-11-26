@@ -94,57 +94,28 @@ _plot:
     ret
 
 
-.define _write_tile
-_write_tile:
-    mov bp, sp
-    push es
-    xor ax, ax
-    movb al, 6(bp)      ! y
-    mov di, ax
-    shl ax, 1
-    shl ax, 1
-    add ax, di          ! ax = y*5
-    movb cl, 6
-    shl ax, cl          ! ax = y*320
-    mov di, ax
-    xor ax, ax
-    movb al, 4(bp)     ! ax = x
-    add ax, di          ! ax = y*320+x
-    movb cl, 3
-    shl ax, cl          ! ax = (y*8)*320 + x*8
-    mov di, ax
-    mov si, 12(bp)       ! tile base pointer
-    xor ax, ax
-    movb al, 8(bp)      ! tile index
-    shl ax, cl          ! cl was still 3, ax = idx*8 - 8 bytes per tile
-    mov si, ax
-    mov ax, 0xa000
-    push ax
-    pop es
-    xor ax, ax
-    movb al, 10(bp)      ! ah = 0, al = color
-    mov cx, 8           ! vertical loop
-  outer_loop:
-    push cx
-    mov cx, 8           ! horizontal loop
-    movb bl, (si)
-  inner_loop:
-    shlb bl, 1
-    jc write_label
-    eseg movb (di), ah  ! write 0
-    inc di
-    loop inner_loop     ! loop until cx = 0
-    jmp out_inner_loop
-  write_label:
-    ! movb al, 0x1F
-    ! eseg movb (es), ah
-    ! eseg movb (si), al
-    stosb               ! write color and increment di
-    loop inner_loop     ! loop until cx = 0
-  out_inner_loop:
-    pop cx
-    add di, 312         ! next line
-    inc si              ! next byte in input
-    loop outer_loop
-    pop es
+! int kb_poll() returns ASCII code or 0 if none
+.define _kb_poll
+_kb_poll:
+
+    push bp
+    mov  bp, sp
+
+    movb  ah, 0x01      ! check for key
+    int  0x16
+    jz   no_key         ! ZF=1  no key
+
+    movb  ah, 0x00      ! read key (returns ASCII in AL)
+    int  0x16
+    movb  ah, 0         ! zero-extend
+    jmp  done
+
+no_key:
+    xor  ax, ax         ! return 0
+
+done:
+    pop  bp
     ret
+
+
+

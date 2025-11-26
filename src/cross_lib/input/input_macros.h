@@ -248,6 +248,10 @@ window.addEventListener("keydown", function (event) {
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
+        #elif defined(__MSDOS86__)
+            unsigned char kb_poll(void);
+            #define GET_CHAR() kb_poll()
+
         #elif defined(ACK) || defined(__STDIO)
             #define GET_CHAR() getchar()
         #else

@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2025/11/16
+Last update: 2025/11/27
 
 ### 8-BIT targets
 
@@ -248,15 +248,15 @@ target name         | long target name                                     |   w
 *amiga*             | Commodore Amiga                                      |    YES       |    missing      |    missing     | missing |
 *atari_st*          | Atari ST                                             |    YES       |    missing      |    missing     | missing |
 *olivetti_m20*      | Olivetti M20                                         |    YES       |    missing      |    missing     | missing |
-*pc8086*            | PC 8088/86                                           |    YES       |    missing      |    missing     | missing |
+*pc86*              | PC 8088/86                                           |    YES       |      OK         |      OK        | missing |
+*msdos86*           | MS-DOS 8086                                          |    YES       |      OK         |      OK        | missing |
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
 *sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
 *ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        |   OK    |
 
 
-OK       :   5
-
-UNKNOWN  :   2
+OK       :   7
+UNKNOWN  :   1
 
 
 -----------------------------------------------------------------------------------------
@@ -269,10 +269,11 @@ target name         | long target name                                     |   w
 *linux68k*          | ELF linux for Motorola 68020                         |    YES       |    missing      |    missing     | missing | 
 *linuxppc*          | ELF linux for PPC                                    |    YES       |    missing      |    missing     | missing |
 *linuxmips*         | ELF linux for little endian MIPS32r2                 |     ?        |    missing      |    missing     | missing | 
+*msdos386*          | PC 8088/86                                           |    NO        |    missing      |    missing     | missing |
 
 
 OK       :   3
-
+KO       :   1
 UNKNOWN  :   1
 
 -----------------------------------------------------------------------------------------
@@ -292,13 +293,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 199
+TOTAL    : 201
 
-OK       : 188
+OK       : 189
 
-KO       :   1
+KO       :   2
 
 UNKNOWN  :  10
+
 
 
 

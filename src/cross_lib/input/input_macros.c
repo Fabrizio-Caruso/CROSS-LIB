@@ -377,6 +377,13 @@ out         stb res
             {
                 getchar();
             }
+        #elif defined(__MSDOS86__)
+            extern void _wait_for_key(void);
+
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                _wait_for_key();
+            }
         #elif defined(__MC10__)
             void _XL_WAIT_FOR_INPUT(void)
             {

@@ -5,16 +5,10 @@
 
 .sect .text
 
-.define _cls
-_cls:
-    push es
-    mov ax,0xA000
-    mov es,ax
-    mov di,0x0000
-    sub ax,ax
-    mov cx,32000
-    rep stosw
-    pop es
+.define __cls
+__cls:
+    mov ax, 0x0013   ! VGA 320x200x256
+    int 0x10          ! BIOS sets the mode and clears the screen
     ret
 
 .define _init_vga
@@ -36,15 +30,12 @@ _text_mode:
     int 16
     ret
 
-.define _test
-_test:
-    mov ax, 0x0b800
-    mov ds, ax         
-    movb cl, 65        
-    movb ch, 223        
-    mov bx, 0x15E      
-    mov (bx), cx       
-    ret                
+.define __wait_for_key
+__wait_for_key:
+    movb ah, 0x00    ! function: wait for key
+    int 0x16         ! returns key in AX
+    ret
+   
 
 ! PlotPixel_STOSB:
 !   CX = x (0..319)
@@ -94,9 +85,14 @@ _plot:
     ret
 
 
-! int kb_poll() returns ASCII code or 0 if none
 .define _kb_poll
 _kb_poll:
+    inb 0x60
+    ret
+
+! int kb_poll_buffer() returns ASCII code or 0 if none
+.define _kb_poll_buffer
+_kb_poll_buffer:
 
     push bp
     mov  bp, sp
@@ -109,6 +105,7 @@ _kb_poll:
     int  0x16
     movb  ah, 0         ! zero-extend
     jmp  done
+
 
 no_key:
     xor  ax, ax         ! return 0

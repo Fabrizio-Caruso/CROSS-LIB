@@ -26,6 +26,13 @@
         #define _MOVE_DOWN 0x1A
         #define _MOVE_LEFT 0x08
         #define _MOVE_RIGHT 0x15
+    #elif defined(__MSDOS__)
+    
+        #define _MOVE_UP     0x17
+        #define _MOVE_DOWN   0x25
+        #define _MOVE_LEFT   0x24
+        #define _MOVE_RIGHT  0x26
+    
     #elif defined(__BBC__)
     // 'b' <-> SPACE
     // '%' <-> 'I'
@@ -47,6 +54,8 @@
 #if !defined(_FIRE)
     #if defined(__COMX__)
         #define _FIRE 0x5f 
+    #elif defined(__MSDOS__)
+        #define _FIRE 0x39
     #elif defined(__BBC__)
         #define _FIRE ('b'+1)
     #else

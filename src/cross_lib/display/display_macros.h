@@ -58,7 +58,9 @@
 #endif
 
 #if defined(__VGA_GRAPHICS)
+    void _cls(void);
     void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+    void _delete_tile(uint8_t x, uint8_t y);
 #endif
 
 
@@ -256,6 +258,9 @@
 #elif defined(__APPLE2__) && (defined(__APPLE2_HGR_GRAPHICS))
     extern uint8_t _apple2_text_color;
     #define _XL_SET_TEXT_COLOR(c) _apple2_text_color = (c)
+#elif defined(__VGA_GRAPHICS)
+    extern uint8_t _vga_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _vga_text_color = (c)
 #elif defined(__MO5__) || defined(__TO7__)
     void _XL_SET_TEXT_COLOR(uint8_t c);
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
@@ -353,6 +358,8 @@
 // CLEAR SCREEN
 #  if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
+#elif defined(__MSDOS86__)
+    #define _XL_CLEAR_SCREEN() _cls()
 #elif defined(__NO_CLEAR_SCREEN)
     #define _XL_CLEAR_SCREEN()
 #elif defined(__TI99__)

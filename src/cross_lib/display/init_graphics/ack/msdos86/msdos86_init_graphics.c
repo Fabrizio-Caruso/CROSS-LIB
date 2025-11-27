@@ -13,14 +13,11 @@
 extern void init_vga(void);
 extern void video_mode(void);
 // extern void text_mode(void);
-extern void cls(void);
-
-// extern void write_tile(uint16_t tiles[][], uint8_t color, uint8_t index, uint16_t x, uint16_t  y);
-// extern void write_tile(uint16_t x, uint16_t y, uint16_t index, uint16_t color, uint16_t tile[][]);
+// extern void _cls(void);
 
 extern void plot(uint16_t x, uint16_t y, uint8_t color);
 
-// uint16_t  my_tile[] = {255,255,255,255,255,255,255,255};
+uint8_t _vga_text_color;
 
 uint16_t _i86_tiles[][8] = 
     {
@@ -51,6 +48,43 @@ uint16_t _i86_tiles[][8] =
         _TILE_24_UDG,
         _TILE_25_UDG,
         _TILE_26_UDG,
+        _TILE_A,
+        _TILE_B,
+        _TILE_C,
+        _TILE_D,
+        _TILE_E,
+        _TILE_F,
+        _TILE_G,
+        _TILE_H,
+        _TILE_I,
+        _TILE_J,
+        _TILE_K,
+        _TILE_L,
+        _TILE_M,
+        _TILE_N,
+        _TILE_O,
+        _TILE_P,
+        _TILE_Q,
+        _TILE_R,
+        _TILE_S,
+        _TILE_T,
+        _TILE_U,
+        _TILE_V,
+        _TILE_W,
+        _TILE_X,
+        _TILE_Y,
+        _TILE_Z,
+        _TILE_DIGIT_0,
+        _TILE_DIGIT_1,
+        _TILE_DIGIT_2,
+        _TILE_DIGIT_3,
+        _TILE_DIGIT_4,
+        _TILE_DIGIT_5,
+        _TILE_DIGIT_6,
+        _TILE_DIGIT_7,
+        _TILE_DIGIT_8,
+        _TILE_DIGIT_9,
+        _SPACE_TILE,
     };
 
 
@@ -74,6 +108,22 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         }
     }
 }
+
+
+void _delete_tile(uint8_t x, uint8_t y)
+{
+    uint8_t row;
+    uint8_t col;
+    
+    for(row=0;row<8;++row)
+    {
+        for(col=0;col<8;++col)
+        {
+            plot(x*8+col,8*y+row,0);
+        }
+    }
+}
+
 
 
 void _XL_INIT_GRAPHICS(void)

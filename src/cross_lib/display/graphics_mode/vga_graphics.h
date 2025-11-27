@@ -9,4 +9,4 @@
     _display_tile(x,y,tile,color);
 
 #define _XL_DELETE(x,y) \
-    _display_tile(x,y,0,0);
+    _delete_tile(x,y);

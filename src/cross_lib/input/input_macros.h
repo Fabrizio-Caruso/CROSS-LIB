@@ -261,7 +261,9 @@ window.addEventListener("keydown", function (event) {
         #define GET_CHAR()
     #endif // !defined(__NO_PRINT)
 
-
+    #if defined(__MSDOS86__)
+        void _wait_for_key(void);
+    #endif
     #if !defined(__NO_INPUT)
         // _XL_WAIT_FOR_INPUT
         #if !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)

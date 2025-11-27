@@ -803,12 +803,6 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
         cprintf(str);
     }
 
-    // void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
-    // {
-        // gotoxy(x+X_OFFSET,Y_OFFSET+y);
-        // cprintf("%0" #length "u", val);
-    // }
-
     void _XL_CHAR(uint8_t x, uint8_t y, char ch)
     {
         gotoxy(x+X_OFFSET,Y_OFFSET+y);

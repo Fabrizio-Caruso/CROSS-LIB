@@ -86,8 +86,8 @@
     }
 #endif
 
-
-#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO) && !defined(__NO_INPUT)
+// !defined(ACK)
+#if defined(_XL_NO_JOYSTICK) && !defined(__STDIO) && !defined(__NO_INPUT)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
 		#include <devkit/input/keyboard.h>
     #endif 
@@ -109,6 +109,18 @@
             // return 9;
         // }
     
+    #elif defined(__MSDOS86__) && defined(__KEY_POLL_FROM_BUFFER)
+            #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
+            #define PEEK(addr)         (*(uint8_t*) (addr))
+            
+            unsigned char _kb_poll_buffer(void);
+            // void GET_CHAR(void)
+            // {
+            unsigned char volatile input = _kb_poll_buffer();
+            // POKE(1050,PEEK(1052));
+            return input;
+            // }
+                        
 
     #elif defined(__MC10__)
     

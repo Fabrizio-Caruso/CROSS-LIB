@@ -109,26 +109,49 @@ __kb_poll:
 ! int kb_poll_buffer() returns ASCII code or 0 if none
 .define __kb_poll_buffer
 __kb_poll_buffer:
-
     push bp
-    mov  bp, sp
+    push di
+    push bx
 
-    movb  ah, 0x01      ! check for key
-    int  0x16
-    jz   no_key         ! ZF=1  no key
-
-    movb  ah, 0x00      ! read key (returns ASCII in AL)
-    int  0x16
-    movb  ah, 0         ! zero-extend
-    jmp  done
-
-
-no_key:
-    xor  ax, ax         ! return 0
-
-done:
-    pop  bp
+    movb bl, 0
+CheckLoop:
+    movb ah, 0x01
+    int 0x16
+    jz Done
+    
+    movb ah, 0x00
+    int 0x16
+    movb bl, al
+    jmp CheckLoop
+Done:
+    movb ah, 0
+    movb al, bl
+    pop bx
+    pop di
+    pop bp
     ret
+
+
+
+
+!    push bp
+
+!    movb  ah, 0x01      ! check for key
+!    int  0x16
+!    jz   no_key         ! ZF=1  no key
+
+!    movb  ah, 0x00      ! read key (returns ASCII in AL)
+!    int  0x16
+!    movb  ah, 0         ! zero-extend
+!    jmp  done
+
+
+!no_key:
+!    xor  ax, ax         ! return 0
+
+!done:
+!    pop  bp
+!    ret
 
 
 .define __speaker_beep

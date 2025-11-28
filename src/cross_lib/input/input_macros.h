@@ -250,9 +250,9 @@ window.addEventListener("keydown", function (event) {
             #define GET_CHAR() cgetc()
         #elif defined(__MSDOS86__)
             #if defined(__KEY_POLL_FROM_BUFFER)
-                unsigned char _kb_poll_buffer(void);
-                #define GET_CHAR() _kb_poll_buffer()
-
+                // unsigned char _kb_poll_buffer(void);
+                // #define GET_CHAR() _kb_poll_buffer()
+                char GET_CHAR(void);
 
             #else // Direct poll
                 unsigned char _kb_poll(void);

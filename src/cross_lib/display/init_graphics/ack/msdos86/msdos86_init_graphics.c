@@ -12,8 +12,6 @@
 
 extern void init_vga(void);
 extern void video_mode(void);
-// extern void text_mode(void);
-// extern void _cls(void);
 
 extern void plot(uint16_t x, uint16_t y, uint8_t color);
 

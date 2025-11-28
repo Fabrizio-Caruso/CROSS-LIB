@@ -26,7 +26,7 @@
         #define _MOVE_DOWN 0x1A
         #define _MOVE_LEFT 0x08
         #define _MOVE_RIGHT 0x15
-    #elif defined(__MSDOS__)
+    #elif defined(__MSDOS__) && !defined(__KEY_POLL_FROM_BUFFER)
     
         #define _MOVE_UP     0x17
         #define _MOVE_DOWN   0x25
@@ -54,7 +54,7 @@
 #if !defined(_FIRE)
     #if defined(__COMX__)
         #define _FIRE 0x5f 
-    #elif defined(__MSDOS__)
+    #elif defined(__MSDOS__) && !defined(__KEY_POLL_FROM_BUFFER)
         #define _FIRE 0x39
     #elif defined(__BBC__)
         #define _FIRE ('b'+1)

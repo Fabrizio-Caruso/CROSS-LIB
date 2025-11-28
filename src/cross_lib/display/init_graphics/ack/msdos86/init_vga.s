@@ -47,10 +47,10 @@ __wait_for_key:
 _plot:
     push    bp
     mov     bp, sp
-    push    ax
-    push    bx
-    push    cx
-    push    dx
+!    push    ax
+!    push    bx
+!    push    cx
+!    push    dx
     push    di
     
     ! mov bx, sp
@@ -77,22 +77,22 @@ _plot:
     stosb                 ! [ES:DI] = AL, increments DI
 
     pop     di
-    pop     dx
-    pop     cx
-    pop     bx
-    pop     ax
+!    pop     dx
+!    pop     cx
+!    pop     bx
+!    pop     ax
     pop     bp
     ret
 
 
-.define _kb_poll
-_kb_poll:
+.define __kb_poll
+__kb_poll:
     inb 0x60
     ret
 
 ! int kb_poll_buffer() returns ASCII code or 0 if none
-.define _kb_poll_buffer
-_kb_poll_buffer:
+.define __kb_poll_buffer
+__kb_poll_buffer:
 
     push bp
     mov  bp, sp

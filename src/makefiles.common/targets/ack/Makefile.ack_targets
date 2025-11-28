@@ -91,6 +91,7 @@ msdos86:   $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
 	-D__ALT_PRINT \
 	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
@@ -112,6 +113,7 @@ msdos386:  $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
 	-D__ALT_PRINT \
 	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
@@ -136,6 +138,7 @@ pc86:  $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
 	-D__ALT_PRINT \
 	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \

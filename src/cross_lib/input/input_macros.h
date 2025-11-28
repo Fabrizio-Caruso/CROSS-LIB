@@ -249,8 +249,16 @@ window.addEventListener("keydown", function (event) {
             #include<conio.h>
             #define GET_CHAR() cgetc()
         #elif defined(__MSDOS86__)
-            unsigned char kb_poll(void);
-            #define GET_CHAR() kb_poll()
+            #if defined(__KEY_POLL_FROM_BUFFER)
+                unsigned char _kb_poll_buffer(void);
+                #define GET_CHAR() _kb_poll_buffer()
+
+
+            #else // Direct poll
+                unsigned char _kb_poll(void);
+                #define GET_CHAR() _kb_poll()
+
+            #endif
 
         #elif defined(ACK) || defined(__STDIO)
             #define GET_CHAR() getchar()

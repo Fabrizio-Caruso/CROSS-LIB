@@ -69,6 +69,7 @@ class BuildConfig():
         lcc1802_compiler_opts = "",
         gcc4ti99_compiler_opts = "",
         vbcc_compiler_opts = "",
+        ack_compiler_opts = "",
         native_compiler_opts = "",
         native_compiler = "gcc",
         tool_compiler = "gcc",
@@ -89,6 +90,7 @@ class BuildConfig():
         self.lcc1802_compiler_opts      = lcc1802_compiler_opts
         self.gcc4ti99_compiler_opts     = gcc4ti99_compiler_opts
         self.vbcc_compiler_opts         = vbcc_compiler_opts
+        self.ack_compiler_opts          = ack_compiler_opts
         self.native_compiler_opts       = native_compiler_opts
         self.native_compiler            = native_compiler
         self.tool_compiler              = tool_compiler
@@ -109,6 +111,7 @@ class BuildConfig():
             self.lcc1802_compiler_opts, \
             self.gcc4ti99_compiler_opts, \
             self.vbcc_compiler_opts, \
+            self.ack_compiler_opts, \
             self.native_compiler_opts, \
             self.native_compiler, \
             self.tool_compiler, \
@@ -151,6 +154,7 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
     lcc1802_compiler_opts, \
     gcc4ti99_compiler_opts, \
     vbcc_compiler_opts, \
+    ack_compiler_opts, \
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
@@ -173,6 +177,7 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
                                                   compiler_selection + "'" + \
            " GCC4TI99_MAKEFILE_COMPILATION_OPTS='" + gcc4ti99_compiler_opts + "'" + \
            " VBCC_MAKEFILE_COMPILATION_OPTS='" + vbcc_compiler_opts + "'" + \
+           " ACK_MAKEFILE_COMPILATION_OPTS='" + ack_compiler_opts + "'" + \
            " NATIVE_MAKEFILE_COMPILATION_OPTS='" + native_compiler_opts + "'" + \
            " CMOC_MAKEFILE_COMPILATION_OPTS='" + cmoc_compiler_opts + "'" + \
            " CC65_MAKEFILE_COMPILATION_OPTS='" + cc65_compiler_opts + "'" + \
@@ -208,6 +213,7 @@ def config(option_config):
     lcc1802_compiler_opts, \
     gcc4ti99_compiler_opts, \
     vbcc_compiler_opts, \
+    ack_compiler_opts, \
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
@@ -225,32 +231,33 @@ def config(option_config):
     print("parallelize_multi_build: " + str(parallelize_multi_build))
 
     print("z88dk_compiler:          " + z88dk_compiler)
-    print("z88dk_compiler_opts:     " +  z88dk_compiler_opts)
+    print("z88dk_compiler_opts:     " + z88dk_compiler_opts)
     print("sccz80_compiler_opts:    " + sccz80_compiler_opts)
-    print("zsdcc_compiler_opts:     " +  zsdcc_compiler_opts)
-    print("cmoc_compiler_opts:      " +  cmoc_compiler_opts)
-    print("cc65_compiler_opts:      " +  cc65_compiler_opts)
-    print("lcc1802_compiler_opts:   " +  lcc1802_compiler_opts)
-    print("gcc4ti99_compiler_opts:  " +  gcc4ti99_compiler_opts)
-    print("vbcc_compiler_opts:      " +  vbcc_compiler_opts)
-    print("native_compiler_opts:    " +  native_compiler_opts)
+    print("zsdcc_compiler_opts:     " + zsdcc_compiler_opts)
+    print("cmoc_compiler_opts:      " + cmoc_compiler_opts)
+    print("cc65_compiler_opts:      " + cc65_compiler_opts)
+    print("lcc1802_compiler_opts:   " + lcc1802_compiler_opts)
+    print("gcc4ti99_compiler_opts:  " + gcc4ti99_compiler_opts)
+    print("vbcc_compiler_opts:      " + vbcc_compiler_opts)
+    print("ack_compiler_opts:       " + ack_compiler_opts)
+    print("native_compiler_opts:    " + native_compiler_opts)
 
-    print("native_compiler:         " +  native_compiler)
+    print("native_compiler:         " + native_compiler)
     print("use_tools:               " + str(use_tools))
 
-    print("tool_compiler:           " +  tool_compiler)
+    print("tool_compiler:           " + tool_compiler)
 
     print("")
     printc(option_config, bcolors.BOLD,"[run]\n")
-    print("vice_path:               " +  option_config.rom_config.vice_path)
-    print("vice_rom_path:           " +  option_config.rom_config.vice_rom_path)
-    print("mame_path:               " +  option_config.rom_config.mame_path)
-    print("mame_rom_path:           " +  option_config.rom_config.mame_rom_path)
+    print("vice_path:               " + option_config.rom_config.vice_path)
+    print("vice_rom_path:           " + option_config.rom_config.vice_rom_path)
+    print("mame_path:               " + option_config.rom_config.mame_path)
+    print("mame_rom_path:           " + option_config.rom_config.mame_rom_path)
 
     print("")
     printc(option_config, bcolors.BOLD,"[extend]\n")
-    print("extend_algorithm:        " +  option_config.extend_config.extend_algorithm)
-    print("replace_shapes:          " +  str(option_config.extend_config.replace_shapes))
+    print("extend_algorithm:        " + option_config.extend_config.extend_algorithm)
+    print("replace_shapes:          " + str(option_config.extend_config.replace_shapes))
     
     
 # ---------------------------------------------
@@ -357,35 +364,35 @@ def read_config(config_file="./config.ini"):
         else:
             parallelize_multi_build=0
 
-        z88dk_compiler_opts = read_config_option(config,"build","z88dk_compiler_opts")
-        z88dk_compiler = read_config_option(config,"build","z88dk_compiler")
-        sccz80_compiler_opts = read_config_option(config,"build","sccz80_compiler_opts")
-        zsdcc_compiler_opts = read_config_option(config,"build","zsdcc_compiler_opts")
-        cmoc_compiler_opts = read_config_option(config,"build","cmoc_compiler_opts")
-        cc65_compiler_opts = read_config_option(config,"build","cc65_compiler_opts")
-        lcc1802_compiler_opts = read_config_option(config,"build","lcc1802_compiler_opts")
-        gcc4ti99_compiler_opts = read_config_option(config,"build","gcc4ti99_compiler_opts")
-        vbcc_compiler_opts = read_config_option(config,"build","vbcc_compiler_opts")
-        native_compiler_opts = read_config_option(config,"build","native_compiler_opts")
+        z88dk_compiler_opts     = read_config_option(config,"build","z88dk_compiler_opts")
+        z88dk_compiler          = read_config_option(config,"build","z88dk_compiler")
+        sccz80_compiler_opts    = read_config_option(config,"build","sccz80_compiler_opts")
+        zsdcc_compiler_opts     = read_config_option(config,"build","zsdcc_compiler_opts")
+        cmoc_compiler_opts      = read_config_option(config,"build","cmoc_compiler_opts")
+        cc65_compiler_opts      = read_config_option(config,"build","cc65_compiler_opts")
+        lcc1802_compiler_opts   = read_config_option(config,"build","lcc1802_compiler_opts")
+        gcc4ti99_compiler_opts  = read_config_option(config,"build","gcc4ti99_compiler_opts")
+        vbcc_compiler_opts      = read_config_option(config,"build","vbcc_compiler_opts")
+        ack_compiler_opts       = read_config_option(config,"build","ack_compiler_opts")
+        native_compiler_opts    = read_config_option(config,"build","native_compiler_opts")
+        native_compiler         = read_config_option(config,"build", "native_compiler")
+        
+        tool_compiler           = read_config_option(config,"build", "tool_compiler")
 
-        native_compiler = read_config_option(config,"build", "native_compiler")
+        vice_path               = read_config_option(config,"run", "vice_path")
+        vice_rom_path           = read_config_option(config,"run", "vice_rom_path")
 
-        tool_compiler = read_config_option(config,"build", "tool_compiler")
-
-        vice_path = read_config_option(config,"run", "vice_path")
-        vice_rom_path = read_config_option(config,"run", "vice_rom_path")
-
-        mame_path = read_config_option(config,"run", "mame_path")
-        mame_rom_path = read_config_option(config,"run", "mame_rom_path")
+        mame_path               = read_config_option(config,"run", "mame_path")
+        mame_rom_path           = read_config_option(config,"run", "mame_rom_path")
 
 
         rom_config = RomConfig(vice_path=vice_path, vice_rom_path=vice_rom_path, mame_path=mame_path, mame_rom_path=mame_rom_path)
         
-        extend_algorithm = read_config_option(config,"extend", "extend_algorithm")
-        replace_shapes = read_config_option(config,"extend", "replace_shapes")
+        extend_algorithm        = read_config_option(config,"extend", "extend_algorithm")
+        replace_shapes          = read_config_option(config,"extend", "replace_shapes")
         
 
-        use_tools = read_config_option(config,"build", "use_tools")
+        use_tools               = read_config_option(config,"build", "use_tools")
 
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
@@ -410,6 +417,7 @@ def read_config(config_file="./config.ini"):
             lcc1802_compiler_opts,
             gcc4ti99_compiler_opts,
             vbcc_compiler_opts,
+            ack_compiler_opts,
             native_compiler_opts,
             native_compiler,
             tool_compiler,
@@ -473,6 +481,7 @@ def default_config():
             lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"',
             gcc4ti99_compiler_opts = "-O2 -fno-peephole2 -fno-function-cse",
             vbcc_compiler_opts = "",
+            ack_compilers_opts = "",
             native_compiler_opts = "",
             native_compiler = "gcc",
             tool_compiler = "gcc",

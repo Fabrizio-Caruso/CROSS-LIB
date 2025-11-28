@@ -68,6 +68,7 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     lcc1802_compiler_opts, \
     gcc4ti99_compiler_opts, \
     vbcc_compiler_opts, \
+    ack_compiler_opts, \
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
@@ -165,6 +166,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
     lcc1802_compiler_opts, \
     gcc4ti99_compiler_opts, \
     vbcc_compiler_opts, \
+    ack_compiler_opts, \
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
@@ -371,6 +373,7 @@ def build(option_config, params, reset_flag = False):
         lcc1802_compiler_opts, \
         gcc4ti99_compiler_opts, \
         vbcc_compiler_opts, \
+        ack_compiler_opts, \
         native_compiler_opts, \
         native_compiler, \
         tool_compiler, \
@@ -421,6 +424,7 @@ def build(option_config, params, reset_flag = False):
             print("lcc1802_compiler_opts   : " + lcc1802_compiler_opts)
             print("gcc4ti99_compiler_opts  : " + gcc4ti99_compiler_opts)
             print("vbcc_compiler_opts      : " + vbcc_compiler_opts)
+            print("ack_compiler_opts       : " + ack_compiler_opts)
             print("native_compiler_opts    : " + native_compiler_opts)
 
             print("")

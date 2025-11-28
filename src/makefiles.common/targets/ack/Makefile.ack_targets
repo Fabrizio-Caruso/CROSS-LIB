@@ -14,28 +14,9 @@ ack_targets: \
 ############################################################################################
 
 
-# pc8086: pc8086_tiny_buffered
-pc8086_tiny_buffered:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
-	-DXSize=20 \
-	-DYSize=20 \
-	-D__ADM3A \
-	-D_XL_NO_COLOR \
-	-DACK -D_XL_NO_JOYSTICK \
-	-D__PC8086__ \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-D__BUFFERED_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__NO_PRINT \
-	-D__NO_WAIT \
-	-D_XL_NO_SLEEP \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(TINY_FILES)
-	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
 cpm_8080_buffered_ack:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DXSize=39 \
 	-DYSize=23 \
 	-D__ADM3A \
@@ -58,7 +39,7 @@ cpm_8080_buffered_ack:
 
 	
 cpm_8080_adm3a_ack:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DXSize=78 \
 	-DYSize=22 \
 	-D__ADM3A \
@@ -78,9 +59,11 @@ cpm_8080_adm3a_ack:
 cpm_8080_ack_targets: \
 	cpm_8080_buffered_ack
 
+
+# $(ACK_MAKEFILE_COMPILATION_OPTS)
 msdos: msdos86
 msdos86:   $(ASSETS_PATH)/8x8_chars.h
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos86 \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS)  -mmsdos86 \
 	-DXSize=40 \
 	-DYSize=25 \
 	-DACK \
@@ -102,7 +85,7 @@ msdos86:   $(ASSETS_PATH)/8x8_chars.h
 
 # BROKEN
 msdos386:  $(ASSETS_PATH)/8x8_chars.h
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mmsdos386 \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mmsdos386 \
 	-DXSize=40 \
 	-DYSize=25 \
 	-DACK \
@@ -127,7 +110,7 @@ pc8088: pc86
 pc8086: pc86
 
 pc86:  $(ASSETS_PATH)/8x8_chars.h
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DXSize=40 \
 	-DYSize=25 \
 	-DACK \
@@ -147,36 +130,13 @@ pc86:  $(ASSETS_PATH)/8x8_chars.h
 	rm $(SOURCE_PATH)/../../*.o
 
 
-
-# buffered	
-# pc8086_buffered:
-	# $(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
-	# -DXSize=78 \
-	# -DYSize=22 \
-	# -D__ADM3A \
-	# -D_XL_NO_COLOR \
-	# -DACK \
-	# -D__PC8086__ \
-	# -D_XL_NO_JOYSTICK \
-	# -DTURN_BASED \
-	# -D__BUFFERED_GRAPHICS \
-	# -D__NO_INIT_GRAPHICS \
-	# -D__NO_WAIT \
-	# -D_XL_NO_SLEEP \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -D__ALT_PRINT \
-	# $(FULL_FILES) \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	# mv pc86.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
-	# rm $(SOURCE_PATH)/../../*.o
-
 pc8086_targets: \
 	pc8086
 
 	
 # buffered
 linuxppc:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
 	-DXSize=78 \
 	-DYSize=21 \
 	-D__ADM3A \
@@ -202,7 +162,7 @@ linuxppc_targets: \
 
 #buffered
 linux68k:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux68k \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinux68k \
 	-DXSize=78 \
 	-DYSize=21 \
 	-D__ADM3A \
@@ -228,7 +188,7 @@ linux68k_targets: \
 
 # buffered
 linux386:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux386 \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinux386 \
 	-DXSize=78 \
 	-DYSize=21 \
 	-D__ADM3A \
@@ -254,7 +214,7 @@ linux386_targets: \
 
 # buffered
 linuxmips:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
 	-DXSize=78 \
 	-DYSize=21 \
 	-D__ADM3A \
@@ -280,7 +240,7 @@ linuxmips_targets: \
 
 # no ncurses in ACK
 dos:
-	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -pc86 \
 	-D__DOS__ \
 	 \
 	-D_XL_NO_JOYSTICK  \

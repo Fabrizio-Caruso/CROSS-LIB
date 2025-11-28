@@ -10,8 +10,8 @@
 
 #include "8x8_chars.h"
 
-extern void init_vga(void);
-extern void video_mode(void);
+extern void _init_vga(void);
+extern void _video_mode(void);
 
 extern void plot(uint16_t x, uint16_t y, uint8_t color);
 
@@ -129,8 +129,8 @@ void _XL_INIT_GRAPHICS(void)
     uint16_t i;
     uint16_t j;
 
-    init_vga();
-    video_mode();
+    _init_vga();
+    _video_mode();
     // for(i=0;i<20;++i)
     // {
         // _display_tile(10,i,i,100);

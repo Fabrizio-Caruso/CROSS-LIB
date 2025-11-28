@@ -60,8 +60,9 @@ cpm_8080_ack_targets: \
 	cpm_8080_buffered_ack
 
 
-# $(ACK_MAKEFILE_COMPILATION_OPTS)
+# 	-D__KEY_POLL_FROM_BUFFER 
 msdos: msdos86
+
 msdos86:   $(ASSETS_PATH)/8x8_chars.h
 	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS)  -mmsdos86 \
 	-DXSize=40 \
@@ -75,35 +76,13 @@ msdos86:   $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_PRINT \
 	-D_XL_NO_SMALL_LETTERS \
 	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o ../build/X$(GAME_NAME)_$@.com
 	rm $(SOURCE_PATH)/../../*.o
-
-
-# BROKEN
-msdos386:  $(ASSETS_PATH)/8x8_chars.h
-	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mmsdos386 \
-	-DXSize=40 \
-	-DYSize=25 \
-	-DACK \
-	-D__MSDOS86__ \
-	-D_XL_NO_JOYSTICK \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSDOS86_SLOWDOWN) \
-	-D__VGA_GRAPHICS \
-	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
-	-D__ALT_PRINT \
-	-D_XL_NO_SMALL_LETTERS \
-	-D__KEY_POLL_FROM_BUFFER \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-o ../build/X$(GAME_NAME)_$@.exe
-	rm $(SOURCE_PATH)/../../*.o
-
 
 pc8088: pc86
 
@@ -122,12 +101,38 @@ pc86:  $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_PRINT \
 	-D_XL_NO_SMALL_LETTERS \
 	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o ../build/X$(GAME_NAME)_$@.img
 	rm $(SOURCE_PATH)/../../*.o
+
+
+# BROKEN
+msdos386:  $(ASSETS_PATH)/8x8_chars.h
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mmsdos386 \
+	-DXSize=40 \
+	-DYSize=25 \
+	-DACK \
+	-D__MSDOS86__ \
+	-D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSDOS86_SLOWDOWN) \
+	-D__VGA_GRAPHICS \
+	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
+	-D__ALT_PRINT \
+	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o ../build/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
 
 
 pc8086_targets: \

@@ -961,6 +961,7 @@ void display_level(void)
 void handle_game_start(void)
 {
     uint8_t start;
+    // uint8_t input;
     
     start = 0;
     counter = 0;
@@ -995,6 +996,8 @@ void handle_game_start(void)
     while(!start || x_bird>LEFT_END_OF_TERRAIN)
     {
         ++counter;
+        // input = _XL_INPUT();
+        // if(_XL_FIRE(input))
         if(_XL_FIRE(_XL_INPUT()))
         {
             start = 1;

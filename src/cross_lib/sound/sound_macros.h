@@ -27,6 +27,8 @@
     #if !defined(_XL_NO_SOUND)
         #  if defined(__BIT_BANG_SOUND)
             #include "z88dk_bit_bang_sounds.h"
+        #elif defined(__MSDOS86__) && defined(__SPEAKER_SOUNDS)
+            #include "msdos86_sounds.h"
         #elif defined(__PSG_SOUND)
             #include "psg_sounds.h"
         #elif defined(__CX16__)

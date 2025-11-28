@@ -5,35 +5,51 @@
 
 .sect .text
 
-.define __cls
-__cls:
-    mov ax, 0x0013   ! VGA 320x200x256
-    int 0x10          ! BIOS sets the mode and clears the screen
-    ret
+!.define __cls
+!__cls:
+!    push bp
+!    push di
+!    mov ax, 0x0013   ! VGA 320x200x256
+!    int 0x10          ! BIOS sets the mode and clears the screen
+!    pop di
+!    pop bp
+!    ret
 
-.define _init_vga
-_init_vga:
+.define __init_vga
+__init_vga:
+    push bp
+    push di
     mov ax, 0x13
     int 0x10
+    pop di
+    pop bp
     ret
     
-.define _video_mode
-_video_mode:
+.define __video_mode
+__video_mode:
+    push bp
+    push di
     mov ax, 19
     int 16
+    pop di
+    pop bp
     ret
 
 
-.define _text_mode
-_text_mode:
-    mov ax, 3
-    int 16
-    ret
+!.define _text_mode
+!_text_mode:
+!    mov ax, 3
+!    int 16
+!    ret
 
 .define __wait_for_key
 __wait_for_key:
+    push bp
+    push di
     movb ah, 0x00    ! function: wait for key
     int 0x16         ! returns key in AX
+    pop di
+    pop bp
     ret
    
 
@@ -115,4 +131,28 @@ done:
     ret
 
 
+.define __speaker_beep
+__speaker_beep:
+    movb     al, 0xB6       ! Channel 2, lobyte/hibyte, mode 3 (square wave)
+    outb     0x43
 
+    mov      ax, 1193
+    outb     0x42        ! Low byte
+    movb     al, ah
+    outb     0x42        ! High byte
+
+    ! Enable speaker (bits 0 and 1 of port 61h)
+    inb      0x61
+    orb      al, 0x03
+    outb     0x61
+
+    ! ---- Delay loop ----
+    mov cx,  0xFFFF
+.delay:
+    loop .delay
+
+    ! Disable speaker
+    inb      0x61
+    andb     al, 0xFC       ! clear bits 0 and 1
+    outb     0x61
+    ret

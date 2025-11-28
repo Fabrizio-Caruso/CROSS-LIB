@@ -58,7 +58,7 @@
 #endif
 
 #if defined(__VGA_GRAPHICS)
-    void _cls(void);
+    void _init_vga(void);
     void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
     void _delete_tile(uint8_t x, uint8_t y);
 #endif
@@ -359,7 +359,7 @@
 #  if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
 #elif defined(__MSDOS86__)
-    #define _XL_CLEAR_SCREEN() _cls()
+    #define _XL_CLEAR_SCREEN() _init_vga()
 #elif defined(__NO_CLEAR_SCREEN)
     #define _XL_CLEAR_SCREEN()
 #elif defined(__TI99__)

@@ -89,22 +89,29 @@ uint16_t _i86_tiles[][8] =
     };
 
 
+
 // void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 // {
     // uint8_t row;
     // uint8_t col;
+    // uint16_t row_pos;
+    // uint16_t col_pos;
+    // uint8_t tile_row;
     
     // for(row=0;row<8;++row)
     // {
+        // row_pos = 8*(uint16_t)y+row;
+        // tile_row = _i86_tiles[tile][row];
         // for(col=0;col<8;++col)
         // {
-            // if(_i86_tiles[tile][row]&(128>>col))
+            // col_pos = 8*(uint16_t)x+col;
+            // if(tile_row&(128>>col))
             // {
-                // _plot_vga(x*8+col,8*y+row,color);
+                // _plot_vga(col_pos,row_pos,color);
             // }
             // else
             // {
-                // _plot_vga(x*8+col,8*y+row,0);
+                // _delete_vga_pixel(col_pos,row_pos);
             // }
         // }
     // }
@@ -119,13 +126,13 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
     uint16_t col_pos;
     uint8_t tile_row;
     
+    row_pos = 8*(uint16_t)y;
     for(row=0;row<8;++row)
     {
-        row_pos = 8*(uint16_t)y+row;
         tile_row = _i86_tiles[tile][row];
+        col_pos = 8*(uint16_t)x;
         for(col=0;col<8;++col)
         {
-            col_pos = 8*(uint16_t)x+col;
             if(tile_row&(128>>col))
             {
                 _plot_vga(col_pos,row_pos,color);
@@ -134,11 +141,12 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
             {
                 _delete_vga_pixel(col_pos,row_pos);
             }
+            ++col_pos;
         }
+        ++row_pos;
     }
 }
 
-// _delete_vga_tile is a bit broken
 
 void _delete_tile(uint8_t x, uint8_t y)
 {
@@ -146,15 +154,6 @@ void _delete_tile(uint8_t x, uint8_t y)
 }
 
 
-// void _delete_tile(uint8_t x, uint8_t y)
-// {
-    // uint8_t row;
-    
-    // for(row=0;row<8;++row)
-    // {
-        // _delete_vga_segment(8*(uint16_t)x,8*(uint16_t)y+row);
-    // }
-// }
 
 void _XL_INIT_GRAPHICS(void)
 {

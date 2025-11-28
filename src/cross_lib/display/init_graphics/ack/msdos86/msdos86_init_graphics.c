@@ -12,6 +12,7 @@
 
 extern void _init_vga(void);
 extern void _video_mode(void);
+extern void _delete_vga_tile(uint16_t x, uint16_t y);
 extern void _delete_vga_segment(uint16_t x, uint16_t y);
 extern void _delete_vga_pixel(uint16_t x, uint16_t y);
 
@@ -123,15 +124,18 @@ void _delete_tile(uint8_t x, uint8_t y)
         // }
     // }
     // uint16_t row;
-    uint16_t col;
+    // uint16_t col;
     
     // for(row=0;row<8;++row)
     // {
-        for(col=0;col<8;++col)
-        {
-            _delete_vga_segment(8*x,8*(y)+col);
-        }
+        // for(col=0;col<8;++col)
+        // {
+            // _delete_vga_segment(8*x,8*(y)+col);
+        // }
     // }
+    
+    
+    _delete_vga_tile(8*(uint16_t)x,8*(uint16_t)y);
 }
 
 

@@ -200,6 +200,109 @@ __delete_vga_segment:
     ret
 
 
+.define __delete_vga_tile
+__delete_vga_tile:
+    push    bp
+    mov     bp, sp
+!    push    ax
+!    push    bx
+    push    cx
+!    push    dx
+    push    di
+    
+    ! mov bx, sp
+    mov cx, 4(bp)
+    mov dx, 6(bp)
+
+
+    ! Set ES = A000h (VGA memory)
+    mov     ax, 0xA000
+    mov     es, ax
+
+
+    ! Compute offset = y*320 + x
+    mov     ax, dx       ! AX = y
+    mov     bx, 320
+    mul     bx           ! AX = y*320   (fits in 16 bits)
+    add     ax, cx       ! AX = y*320 + x
+    mov     di, ax       ! DI = offset
+
+    movb al, 0       ! color
+
+    ! AL already contains color
+    ! Write pixel using STOSB
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+   
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    mov ax, di
+    add ax, 312
+    mov di, ax
+    movb al, 0
+    mov cx, 8
+    rep stosb                 ! [ES:DI] = AL, increments DI
+
+    
+    stosb
+    stosb
+    stosb
+    stosb
+    stosb
+    stosb
+    stosb
+
+    
+    
+    pop     di
+!    pop     dx
+    pop     cx
+!    pop     bx
+!    pop     ax
+    pop     bp
+    ret
+
+
 ! PlotPixel_STOSB:
 !   CX = x (0..319)
 !   DX = y (0..199)

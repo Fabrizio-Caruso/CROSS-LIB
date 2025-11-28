@@ -148,10 +148,10 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 }
 
 
-void _delete_tile(uint8_t x, uint8_t y)
-{
-    _delete_vga_tile(8*(uint16_t)x,8*(uint16_t)y);
-}
+// void _delete_tile(uint8_t x, uint8_t y)
+// {
+    // _delete_vga_tile(8*(uint16_t)x,8*(uint16_t)y);
+// }
 
 
 

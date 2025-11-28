@@ -60,6 +60,7 @@
 #if defined(__VGA_GRAPHICS)
     void _init_vga(void);
     void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+    void _delete_vga_segment(uint8_t x, uint8_t y);
     void _delete_tile(uint8_t x, uint8_t y);
 #endif
 

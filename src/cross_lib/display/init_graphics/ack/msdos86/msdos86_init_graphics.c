@@ -12,8 +12,10 @@
 
 extern void _init_vga(void);
 extern void _video_mode(void);
+extern void _delete_vga_segment(uint16_t x, uint16_t y);
+extern void _delete_vga_pixel(uint16_t x, uint16_t y);
 
-extern void plot(uint16_t x, uint16_t y, uint8_t color);
+extern void _plot_vga(uint16_t x, uint16_t y, uint8_t color);
 
 uint8_t _vga_text_color;
 
@@ -97,11 +99,11 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {
             if(_i86_tiles[tile][row]&(128>>col))
             {
-                plot(x*8+col,8*y+row,color);
+                _plot_vga(x*8+col,8*y+row,color);
             }
             else
             {
-                plot(x*8+col,8*y+row,0);
+                _plot_vga(x*8+col,8*y+row,0);
             }
         }
     }
@@ -110,16 +112,26 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 
 void _delete_tile(uint8_t x, uint8_t y)
 {
-    uint8_t row;
-    uint8_t col;
+    // uint16_t row;
+    // uint16_t col;
     
-    for(row=0;row<8;++row)
-    {
+    // for(row=0;row<8;++row)
+    // {
+        // for(col=0;col<8;++col)
+        // {
+            // _delete_vga_pixel(8*x+row,8*(y)+col);
+        // }
+    // }
+    // uint16_t row;
+    uint16_t col;
+    
+    // for(row=0;row<8;++row)
+    // {
         for(col=0;col<8;++col)
         {
-            plot(x*8+col,8*y+row,0);
+            _delete_vga_segment(8*x,8*(y)+col);
         }
-    }
+    // }
 }
 
 

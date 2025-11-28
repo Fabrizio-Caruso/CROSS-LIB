@@ -200,6 +200,7 @@ __delete_vga_segment:
     ret
 
 
+! TODO: Fix this because it is still broken
 .define __delete_vga_tile
 __delete_vga_tile:
     push    bp
@@ -282,15 +283,6 @@ __delete_vga_tile:
     movb al, 0
     mov cx, 8
     rep stosb                 ! [ES:DI] = AL, increments DI
-
-    
-    stosb
-    stosb
-    stosb
-    stosb
-    stosb
-    stosb
-    stosb
 
     
     

@@ -89,56 +89,72 @@ uint16_t _i86_tiles[][8] =
     };
 
 
+// void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+// {
+    // uint8_t row;
+    // uint8_t col;
+    
+    // for(row=0;row<8;++row)
+    // {
+        // for(col=0;col<8;++col)
+        // {
+            // if(_i86_tiles[tile][row]&(128>>col))
+            // {
+                // _plot_vga(x*8+col,8*y+row,color);
+            // }
+            // else
+            // {
+                // _plot_vga(x*8+col,8*y+row,0);
+            // }
+        // }
+    // }
+// }
+
+
 void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 {
     uint8_t row;
     uint8_t col;
+    uint16_t row_pos;
+    uint16_t col_pos;
+    uint8_t tile_row;
     
     for(row=0;row<8;++row)
     {
+        row_pos = 8*(uint16_t)y+row;
+        tile_row = _i86_tiles[tile][row];
         for(col=0;col<8;++col)
         {
-            if(_i86_tiles[tile][row]&(128>>col))
+            col_pos = 8*(uint16_t)x+col;
+            if(tile_row&(128>>col))
             {
-                _plot_vga(x*8+col,8*y+row,color);
+                _plot_vga(col_pos,row_pos,color);
             }
             else
             {
-                _plot_vga(x*8+col,8*y+row,0);
+                _delete_vga_pixel(col_pos,row_pos);
             }
         }
     }
 }
 
+// _delete_vga_tile is a bit broken
 
 void _delete_tile(uint8_t x, uint8_t y)
 {
-    // uint16_t row;
-    // uint16_t col;
-    
-    // for(row=0;row<8;++row)
-    // {
-        // for(col=0;col<8;++col)
-        // {
-            // _delete_vga_pixel(8*x+row,8*(y)+col);
-        // }
-    // }
-    // uint16_t row;
-    // uint16_t col;
-    
-    // for(row=0;row<8;++row)
-    // {
-        // for(col=0;col<8;++col)
-        // {
-            // _delete_vga_segment(8*x,8*(y)+col);
-        // }
-    // }
-    
-    
     _delete_vga_tile(8*(uint16_t)x,8*(uint16_t)y);
 }
 
 
+// void _delete_tile(uint8_t x, uint8_t y)
+// {
+    // uint8_t row;
+    
+    // for(row=0;row<8;++row)
+    // {
+        // _delete_vga_segment(8*(uint16_t)x,8*(uint16_t)y+row);
+    // }
+// }
 
 void _XL_INIT_GRAPHICS(void)
 {
@@ -147,32 +163,4 @@ void _XL_INIT_GRAPHICS(void)
 
     _init_vga();
     _video_mode();
-    // for(i=0;i<20;++i)
-    // {
-        // _display_tile(10,i,i,100);
-    // }
-    
-    // for(i=0;i<100;i+=4)
-    // {
-        // plot(20,i,120);
-    // }
-    
-    // for(i=0;i<100;i+=4)
-    // {
-        // plot(i,20,140);
-    // }
-    // write_tile(tiles, 120, 0, 28, 20);
-    // write_tile(tiles, 140, 0, 36, 20);
-    // write_tile(tiles, 140, 0, 120, 100);
-    // write_tile(tiles, 140, 0, 310, 100);
-    // write_tile(tiles,  80, 0, 10, 10);
-
-    // write_tile(tiles, 120, 0, 28, 28);
-    // write_tile(tiles, 140, 0, 36, 28);
-    // for(i=0;i<12;++i)
-    // {
-        // write_tile(4+i,4+i,0,100+i,tiles);
-    // }
-    // getchar();
-    // exit(0);
 }

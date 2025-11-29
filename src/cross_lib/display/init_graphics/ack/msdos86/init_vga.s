@@ -333,10 +333,16 @@ Done:
 
 .define __speaker_beep
 __speaker_beep:
+    push bp
+    
+    mov     bp, sp
+    
+    push di
     movb     al, 0xB6       ! Channel 2, lobyte/hibyte, mode 3 (square wave)
     outb     0x43
 
-    mov      ax, 1193
+    mov ax, 4(bp)
+    !mov      ax, 1193
     outb     0x42        ! Low byte
     movb     al, ah
     outb     0x42        ! High byte
@@ -355,4 +361,7 @@ __speaker_beep:
     inb      0x61
     andb     al, 0xFC       ! clear bits 0 and 1
     outb     0x61
+    pop di
+    pop bp
+    
     ret

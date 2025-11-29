@@ -353,7 +353,7 @@ __speaker_beep:
     outb     0x61
 
     ! ---- Delay loop ----
-    mov cx,  0x3FFF
+    mov cx,  6(bp)
 .delay:
     loop .delay
 

@@ -35,6 +35,19 @@ __video_mode:
     pop bp
     ret
 
+.define __keyboard_init
+__keyboard_init:
+    push bp
+    push di
+    movb ah, 0x03 
+    movb al, 0x05 !set typematic rate/delay
+    movb bh, 0x00 !repeat delay: 250ms <-- this has to be 0
+    movb bl, 0x00 !typematic rate: 30
+    int 0x16
+    pop di
+    pop bp
+    ret
+
 
 !.define _text_mode
 !_text_mode:
@@ -130,65 +143,6 @@ __delete_vga_segment:
     ! Write pixel using STOSB
     mov cx, 8
     rep stosb                 ! [ES:DI] = AL, increments DI
-    
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-!    mov ax, di
-!    add ax, 312
-!    mov di, ax
-!    movb al, 0
-!    mov cx, 8
-!    rep stosb                 ! [ES:DI] = AL, increments DI
-
-    
-!    stosb
-!    stosb
-!    stosb
-!    stosb
-!    stosb
-!    stosb
-!    stosb
-
     
     
     pop     di
@@ -349,6 +303,7 @@ __kb_poll:
     ret
 
 ! int kb_poll_buffer() returns ASCII code or 0 if none
+! it also flushes the buffer (so the buffer behaves as a 1 byte buffer)
 .define __kb_poll_buffer
 __kb_poll_buffer:
     push bp
@@ -374,26 +329,6 @@ Done:
     ret
 
 
-
-
-!    push bp
-
-!    movb  ah, 0x01      ! check for key
-!    int  0x16
-!    jz   no_key         ! ZF=1  no key
-
-!    movb  ah, 0x00      ! read key (returns ASCII in AL)
-!    int  0x16
-!    movb  ah, 0         ! zero-extend
-!    jmp  done
-
-
-!no_key:
-!    xor  ax, ax         ! return 0
-
-!done:
-!    pop  bp
-!    ret
 
 
 .define __speaker_beep

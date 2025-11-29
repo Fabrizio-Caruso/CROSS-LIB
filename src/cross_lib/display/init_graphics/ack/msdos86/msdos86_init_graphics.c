@@ -16,6 +16,8 @@ extern void _delete_vga_tile(uint16_t x, uint16_t y);
 extern void _delete_vga_segment(uint16_t x, uint16_t y);
 extern void _delete_vga_pixel(uint16_t x, uint16_t y);
 
+extern void _keyboard_init(void);
+
 extern void _plot_vga(uint16_t x, uint16_t y, uint8_t color);
 
 uint8_t _vga_text_color;
@@ -162,4 +164,5 @@ void _XL_INIT_GRAPHICS(void)
 
     _init_vga();
     _video_mode();
+    _keyboard_init();
 }

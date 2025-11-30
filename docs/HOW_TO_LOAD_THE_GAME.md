@@ -1082,7 +1082,7 @@ Type the name of the .COM file
 
 ### MS-DOS 386
 Use DOSBOX.
-Map the directory with the .COM binaries to a drive (e.g., C:)
+Map the directory with the .EXE binaries to a drive (e.g., C:)
 Move to C:
 
 You need CWSDPMI

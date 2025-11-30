@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2025/11/28
+Last update: 2025/11/30
 
 ### 8-BIT targets
 
@@ -245,10 +245,11 @@ target name         | long target name                                     |   w
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
 *sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
 *ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        |   OK    |
+*minix68k           | Minix 68K                                            |     ?        |    missing      |    missing     | missing |
 
 
 OK       :   7
-UNKNOWN  :   1
+UNKNOWN  :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -262,10 +263,12 @@ target name         | long target name                                     |   w
 *linuxppc*          | ELF linux for PPC                                    |    YES       |    missing      |    missing     | missing |
 *linuxmips*         | ELF linux for little endian MIPS32r2                 |     ?        |    missing      |    missing     | missing | 
 *msdos386*          | MS-DOS 386 DPMI                                      |     NO       |    missing      |    missing     | missing |
-
+*osx386*            | OSX X Mach0 for i386                                 |     ?        |    missing      |    missing     | missing |
+*osxppcppc*         | OSX X Mach0 for PPC                                  |     ?        |    missing      |    missing     | missing |
+*rpi*               | RPI GPU                                              |     ?        |    missing      |    missing     | missing |
 
 OK       :   3
-KO       :   1
+KO       :   3
 UNKNOWN  :   1
 
 -----------------------------------------------------------------------------------------
@@ -285,13 +288,14 @@ OK       :   2
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 201
+TOTAL    : 204
 
 OK       : 189
 
 KO       :   2
 
-UNKNOWN  :  10
+UNKNOWN  :  13
+
 
 
 

@@ -41,7 +41,7 @@ cpm_8080_buffered_ack:
 	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_cpm8080_buffered.com
 	rm $(SOURCE_PATH)/../../*.o
 
-	
+
 cpm_8080_adm3a_ack:
 	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DXSize=78 \
@@ -130,8 +130,8 @@ msdos386:  $(ASSETS_PATH)/8x8_chars.h
 	-D__KEY_POLL_FROM_BUFFER \
 	-D__SPEAKER_SOUNDS \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/msdos386_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/init_vga.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o ../build/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o
@@ -140,7 +140,7 @@ msdos386:  $(ASSETS_PATH)/8x8_chars.h
 pc8086_targets: \
 	pc8086
 
-	
+
 # buffered
 linuxppc:
 	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
@@ -288,8 +288,9 @@ osxppc:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o
-    
-    
+
+
+
 pdpv7:
 	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
 	-DXSize=78 \
@@ -336,3 +337,25 @@ minix68k:
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o
 
+rpi:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mrpi \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o

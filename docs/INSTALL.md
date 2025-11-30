@@ -18,12 +18,14 @@ and follow the same instructions as for docker image built from a dockerfile.
 ## LOCAL DOCKER WITH THE DOCKERFILE
 
 The dockerized version of Cross-Lib can used by 
-- by cloning this repository into a directory (let us refer to it as `<local_cross-lib>`);
-- by building the docker image that contains the dependencies with 
+- cloning this repository into a directory (let us refer to it as `<local_cross-lib>`);
+- building the docker image that contains the dependencies by running the command 
 
 ```docker build . -t crosslib:<version>```;
 
-- by running the docker container and mapping the cloned repository into a directory (e.g. `/workspaces/crosslib`) in the container with
+from the `/CROSS-LIB/.devcontainer` directory.
+
+- running the docker container and mapping the cloned repository into a directory (e.g. `/workspaces/crosslib`) in the container with
 
 ```docker run -it -v <local_cross-lib>:/workspaces/crosslib --env-file <local_cross-lib>/.devcontainer/container.env crosslib:<version> bash```
 - (once in the docker container) by entering `workspaces/crosslib/src` and running `xl` commands.
@@ -90,3 +92,4 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
 
 
 Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
+

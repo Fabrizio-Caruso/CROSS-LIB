@@ -63,9 +63,9 @@ An almost complete list of the supported systems with their status is in: <a hre
 
 Some supported vintage CPU architectures are:
 
+- GBZ80
 - Intel 8080/85
 - Intel 8086
-- GBZ80
 - MOS 6502 
 - Motorola 6803 
 - Motorola 6809

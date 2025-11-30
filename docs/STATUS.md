@@ -249,6 +249,7 @@ target name         | long target name                                     |   w
 
 
 OK       :   7
+
 UNKNOWN  :   2
 
 
@@ -268,7 +269,9 @@ target name         | long target name                                     |   w
 *rpi*               | RPI GPU                                              |     ?        |    missing      |    missing     | missing |
 
 OK       :   3
+
 KO       :   3
+
 UNKNOWN  :   1
 
 -----------------------------------------------------------------------------------------
@@ -295,6 +298,7 @@ OK       : 189
 KO       :   2
 
 UNKNOWN  :  13
+
 
 
 

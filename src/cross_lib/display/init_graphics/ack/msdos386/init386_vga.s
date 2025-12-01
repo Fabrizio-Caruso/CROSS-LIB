@@ -5,6 +5,29 @@
 
 .sect .text
 
+
+
+; Protected mode code
+; Set VGA mode 13h through DPMI
+
+mov ax, 0x0000        ; AL=00: set video mode
+mov bx, 0x0013        ; mode 13h
+mov cx, 0             ; not used
+
+; Build the real-mode register structure somewhere in memory:
+; DPMI real-mode call uses a 16-byte structure.
+
+; ES:DI points to the structure
+
+mov ax, 0x0300        ; DPMI: simulate real-mode interrupt
+mov bl, 0x10          ; BIOS interrupt 10h
+int 0x31              ; run it
+
+
+
+
+
+
 !.define __cls
 !__cls:
 !    push bp
@@ -15,25 +38,25 @@
 !    pop bp
 !    ret
 
-.define __init_vga
-__init_vga:
-    push bp
-    push di
-    mov ax, 0x13
-    int 0x10
-    pop di
-    pop bp
-    ret
+!.define __init_vga
+!__init_vga:
+!    push bp
+!    push di
+!    mov ax, 0x13
+!    int 0x10
+!    pop di
+!    pop bp
+!    ret
     
-.define __video_mode
-__video_mode:
-    push bp
-    push di
-    mov ax, 19
-    int 16
-    pop di
-    pop bp
-    ret
+!.define __video_mode
+!__video_mode:
+!    push bp
+!    push di
+!    mov ax, 19
+!    int 16
+!    pop di
+!    pop bp
+!    ret
 
 .define __keyboard_init
 __keyboard_init:
@@ -257,43 +280,33 @@ __delete_vga_tile:
 ! Registers preserved.
 .define __plot_vga
 __plot_vga:
-    push    bp
-    mov     bp, sp
-!    push    ax
-!    push    bx
-!    push    cx
-!    push    dx
-    push    di
-    
-    ! mov bx, sp
-    mov cx, 4(bp)
-    mov dx, 6(bp)
+    ! Stack layout (cdecl):
+    ! esp+4  -> x   (32-bit int)
+    ! esp+8  -> y   (32-bit int)
+    ! esp+12 -> color (8-bit, but passed as 32-bit)
 
+    !mov eax, [esp+4]      ! eax = x
+    !mov ebx, [esp+8]      ! ebx = y
+    !mov ecx, [esp+12]     ! ecx = color (lower byte used)
 
-    ! Set ES = A000h (VGA memory)
-    mov     ax, 0xA000
-    mov     es, ax
+    mov eax, 4(esp)      ! eax = x
+    mov ebx, 8(esp)     ! ebx = y
+    mov ecx, 12(esp)     ! ecx = color (lower byte used)
 
+    ! offset = y * 320 + x
+    imul ebx, ebx, 320     ! ebx = y*320
+    add ebx, eax           ! ebx = y*320 + x
 
-    ! Compute offset = y*320 + x
-    mov     ax, dx       ! AX = y
-    mov     bx, 320
-    mul     bx           ! AX = y*320   (fits in 16 bits)
-    add     ax, cx       ! AX = y*320 + x
-    mov     di, ax       ! DI = offset
+    ! edi = A0000h + offset
+    mov edi, 0xA0000
+    add edi, ebx
 
-    movb al, 8(bp)       ! color
+! eseg mov (esi), al
 
-    ! AL already contains color
-    ! Write pixel using STOSB
-    stosb                 ! [ES:DI] = AL, increments DI
+    ! Write pixel
+    !mov [edi], cl          ! store color byte
+    eseg movb (esi), cl          ! store color byte
 
-    pop     di
-!    pop     dx
-!    pop     cx
-!    pop     bx
-!    pop     ax
-    pop     bp
     ret
 
 

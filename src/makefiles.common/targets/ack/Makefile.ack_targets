@@ -131,7 +131,7 @@ msdos386:  $(ASSETS_PATH)/8x8_chars.h
 	-D__SPEAKER_SOUNDS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/msdos386_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/init_vga.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/init386_vga.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o ../build/X$(GAME_NAME)_$@.exe
 	rm $(SOURCE_PATH)/../../*.o

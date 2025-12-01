@@ -159,12 +159,15 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 
 void _XL_INIT_GRAPHICS(void)
 {
-    // uint16_t i;
-    // uint16_t j;
 
     _init_vga();
     _video_mode();
     _keyboard_init();
     
+    // _plot_vga(10,10,100);
+    // _plot_vga(20,10,110);
+    // _plot_vga(30,20,120);
+    // _plot_vga(40,20,130);
+
     // while(1){};
 }

@@ -25,15 +25,15 @@ __init_vga:
     pop bp
     ret
     
-.define __video_mode
-__video_mode:
-    push bp
-    push di
-    mov ax, 19
-    int 16
-    pop di
-    pop bp
-    ret
+!.define __video_mode
+!__video_mode:
+!    push bp
+!    push di
+!    mov ax, 19
+!    int 16
+!    pop di
+!    pop bp
+!    ret
 
 .define __keyboard_init
 __keyboard_init:

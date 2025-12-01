@@ -1,0 +1,146 @@
+vga_mode13.s (ACK / Minix-386 assembly)
+        .globl  set_mode13h
+        .globl  set_textmode
+        .globl  init_vga_memory
+        .globl  A000
+
+        .data
+
+! -------------------------------------------------------
+! DPMI Real-Mode Register Structure (44 bytes)
+! Layout (ACK labels below). This block is zeroed before use.
+! -------------------------------------------------------
+RMRegs:
+RM_Edi:        .long 0      ! offset 0
+RM_Esi:        .long 0      ! offset 4
+RM_Ebp:        .long 0      ! offset 8
+RM_Res:        .long 0      ! offset 12 (reserved)
+RM_Ebx:        .long 0      ! offset 16
+RM_Edx:        .long 0      ! offset 20
+RM_Ecx:        .long 0      ! offset 24
+RM_Eax:        .long 0      ! offset 28
+RM_Flags:      .word 0      ! offset 32
+RM_ES:         .word 0      ! offset 34
+RM_DS:         .word 0      ! offset 36
+RM_FS:         .word 0      ! offset 38
+RM_GS:         .word 0      ! offset 40
+RM_IP:         .word 0      ! offset 42
+RM_CS:         .word 0      ! offset 44 (note: some hosts expect 44+; we keep labels for compatibility)
+RM_SP:         .word 0
+RM_SS:         .word 0
+
+RMRegs_end:
+
+! -------------------------------------------------------
+! Storage for protected-mode pointer/selector for A0000h
+! The C side expects 'unsigned char *A000' symbol.
+! -------------------------------------------------------
+A000:          .long 0
+
+        .text
+
+! =======================================================
+! void set_mode13h(void)
+! - zero RM register block
+! - set EAX = 0x0013 (BIOS: AH=0 AL=13h)
+! - call DPMI: AX=0x0300, BL=0x10 (simulate int 10h)
+! =======================================================
+set_mode13h:
+
+        ! Clear RM register structure bytewise
+        leal    RMRegs, %edi
+        movl    $0, %eax
+        movl    $((RMRegs_end - RMRegs)), %ecx
+1:
+        movb    %al, (%edi)
+        incl    %edi
+        loop    1b
+
+        ! Set EAX = 0x00000013 for BIOS int 10h (set video mode)
+        movl    $0x00000013, RM_Eax
+
+        ! Prepare DPMI simulate real-mode int:
+        ! AX = 0x0300, BL = int number (0x10)
+        movw    $0x0300, %ax
+        movb    $0x10, %bl
+        movb    $0x00, %bh
+
+        ! ES:DI -> pointer to RMRegs (DPMI expects a far pointer here)
+        leal    RMRegs, %edi
+        int     $0x31
+
+        ret
+
+
+! =======================================================
+! void set_textmode(void)
+! - same as above but AX = 0x0003 (text mode 03h)
+! =======================================================
+set_textmode:
+
+        ! Clear RM register structure
+        leal    RMRegs, %edi
+        movl    $0, %eax
+        movl    $((RMRegs_end - RMRegs)), %ecx
+2:
+        movb    %al, (%edi)
+        incl    %edi
+        loop    2b
+
+        ! AX = 0x0003 (text mode)
+        movl    $0x00000003, RM_Eax
+
+        movw    $0x0300, %ax
+        movb    $0x10, %bl
+        movb    $0x00, %bh
+        leal    RMRegs, %edi
+        int     $0x31
+
+        ret
+
+
+! =======================================================
+! void init_vga_memory(void)
+! - map physical A0000h (0xA0000) into protected-mode pointer
+! - uses DPMI function 0x0800 (service varies by host),
+!   many hosts return selector:offset in EAX/Ebx — this is
+!   somewhat host-dependent; the simple approach below
+!   uses INT 31h with AX=0x0800 (allocate/ map) which on
+!   many DPMI hosts returns linear pointer in EAX.
+! - After call we store EAX into A000 (caller reads it as pointer)
+! =======================================================
+init_vga_memory:
+
+        ! physical base = 0x000A0000
+        movl    $0x000A0000, %ebx
+        ! size = 0x10000 (64K)
+        movl    $0x00010000, %ecx
+        ! access flags: 1 = read/write (host-specific)
+        movl    $0x00000001, %edx
+
+        ! DPMI function to map physical memory -> AX = 0x0800
+        movw    $0x0800, %ax
+        int     $0x31
+
+        ! store returned pointer/selector (EAX) into A000
+        movl    %eax, A000
+        ret
+
+vga.h (C header)
+/* vga.h */
+#ifndef VGA_H
+#define VGA_H
+
+/* switch to VGA 320x200x256 */
+void set_mode13h(void);
+
+/* restore text mode 80x25 */
+void set_textmode(void);
+
+/* map VGA memory A0000 -> returns pointer in global A000 (extern) */
+void init_vga_memory(void);
+
+/* extern pointer to VGA linear memory (set by init_vga_memory) */
+extern unsigned char *A000;
+
+#endif

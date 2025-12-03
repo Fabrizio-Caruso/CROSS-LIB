@@ -7,24 +7,26 @@
 
 
 
-; Protected mode code
-; Set VGA mode 13h through DPMI
+! Protected mode code
+! Set VGA mode 13h through DPMI
 
-mov ax, 0x0000        ; AL=00: set video mode
-mov bx, 0x0013        ; mode 13h
-mov cx, 0             ; not used
+!mov ax, 0x0000        ; AL=00: set video mode
+!mov bx, 0x0013        ; mode 13h
+!mov cx, 0             ; not used
 
-; Build the real-mode register structure somewhere in memory:
-; DPMI real-mode call uses a 16-byte structure.
+!; Build the real-mode register structure somewhere in memory:
+!; DPMI real-mode call uses a 16-byte structure.
 
-; ES:DI points to the structure
+!; ES:DI points to the structure
 
-mov ax, 0x0300        ; DPMI: simulate real-mode interrupt
-mov bl, 0x10          ; BIOS interrupt 10h
-int 0x31              ; run it
+!mov ax, 0x0300        ; DPMI: simulate real-mode interrupt
+!mov bl, 0x10          ; BIOS interrupt 10h
+!int 0x31              ; run it
 
 
-
+.define __init_vga
+__init_vga:
+ret
 
 
 

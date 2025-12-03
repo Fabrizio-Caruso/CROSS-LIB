@@ -1,10 +1,4 @@
 
-// #define POKE(addr,val)     (*(unsigned char *) (addr) = (val))
-// #define POKEW(addr,val)    (*(unsigned int *) (addr) = (val))
-
-// #define SCREEN_BASE (0x0000A000UL)
-// #define TEXT_BASE   (0x0000B800UL)
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -15,6 +9,7 @@ extern void _video_mode(void);
 extern void _delete_vga_tile(uint16_t x, uint16_t y);
 extern void _delete_vga_segment(uint16_t x, uint16_t y);
 extern void _delete_vga_pixel(uint16_t x, uint16_t y);
+extern void _speaker_beep(uint16_t freq, uint16_t length);
 
 extern void _keyboard_init(void);
 
@@ -91,35 +86,6 @@ uint16_t _i86_tiles[][8] =
     };
 
 
-
-// void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
-// {
-    // uint8_t row;
-    // uint8_t col;
-    // uint16_t row_pos;
-    // uint16_t col_pos;
-    // uint8_t tile_row;
-    
-    // for(row=0;row<8;++row)
-    // {
-        // row_pos = 8*(uint16_t)y+row;
-        // tile_row = _i86_tiles[tile][row];
-        // for(col=0;col<8;++col)
-        // {
-            // col_pos = 8*(uint16_t)x+col;
-            // if(tile_row&(128>>col))
-            // {
-                // _plot_vga(col_pos,row_pos,color);
-            // }
-            // else
-            // {
-                // _delete_vga_pixel(col_pos,row_pos);
-            // }
-        // }
-    // }
-// }
-
-
 void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 {
     uint8_t row;
@@ -150,16 +116,9 @@ void _display_tile(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
 }
 
 
-// void _delete_tile(uint8_t x, uint8_t y)
-// {
-    // _delete_vga_tile(8*(uint16_t)x,8*(uint16_t)y);
-// }
-
-
-
 void _XL_INIT_GRAPHICS(void)
 {
     _init_vga();
-    // _video_mode();
     _keyboard_init();
+    _speaker_beep(100,100);
 }

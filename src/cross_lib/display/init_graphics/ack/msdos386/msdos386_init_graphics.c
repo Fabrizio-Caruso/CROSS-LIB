@@ -161,7 +161,7 @@ void _XL_INIT_GRAPHICS(void)
 {
 
     _init_vga();
-    _video_mode();
+
     _keyboard_init();
     
     // _plot_vga(10,10,100);

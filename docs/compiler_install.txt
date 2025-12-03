@@ -1,0 +1,35 @@
+(1) TMS9900-GCC
+https://github.com/mburkley/tms9900-gcc
+
+Very simple instructions are here: https://github.com/mburkley/tms9900-gcc?tab=readme-ov-file#user-download-and-install
+
+-------------------------------------
+
+(2) ACK
+https://github.com/davidgiven/ack
+
+Very simple but *time consuming* compilation explained in the main README file.
+
+-------------------------------------
+
+(3) CC6303 for the Motorola 6803-based targets 
+https://github.com/zu2/CC6303 (maintained and more recent but not tested yet)
+I need to check and see if it works fine.
+
+If the first link fails to build and/or fails to build correct binaries we have this:
+https://github.com/EtchedPixels/CC6303 (obsolete and not maintained)
+
+No instructions found but there is a simple Makefile.
+So "make all" and probably "make install" (it just copies files to hard-coded locations)
+
+-------------------------------------
+
+(4) VBCC
+http://www.compilers.de/vbcc.html
+
+Remark: We need a *multi-target* version. The *multi-target* versions support several targets across different architectures.
+
+I have never built it from source myself. I have always used a pre-built multi-target.
+I need to check if it can be easily built.
+
+Source code of the multi-target version is here: http://www.ibaug.de/vbcc/vbcc.tar.gz

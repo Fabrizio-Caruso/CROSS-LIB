@@ -11,10 +11,10 @@ The program is written in ANSI C and currently compiled with
 - XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68),
 - VBCC for BBC Micro, BBC Master and other systems (http://www.compilers.de/vbcc.html)
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
-- CC6303 for the Motorola 6803-based targets (https://github.com/EtchedPixels/CC6303),
+- CC6303 for the Motorola 6803-based targets (https://github.com/EtchedPixels/CC6303 or https://github.com/zu2/CC6303),
 - "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
 - "GCC for Amiga" (https://github.com/bebbo/amiga-gcc),
-- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
+- "GCC for TI" for the Texas TI99/4a (https://github.com/mburkley/tms9900-gcc),
 - GCC for modern 32/64-bit PC under any operating systems 
 
 Previous versions used 
@@ -31,3 +31,4 @@ For other targets, the following compilers and dev-kits may be included in futur
 
 The tool-chain also uses some third-party target-specific tools to create usable cassette/disk/rom images.
 This is documented in https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/tools/README.txt
+

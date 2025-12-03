@@ -1932,7 +1932,7 @@ void move_zombies(void)
     display_zombie();
 
     
-    if((zombie_y[zombie_x]==BOW_Y))
+    if(zombie_y[zombie_x]==BOW_Y)
     {
         alive = 0;
         display_red_zombie();

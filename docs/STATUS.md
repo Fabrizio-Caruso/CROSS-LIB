@@ -245,7 +245,7 @@ target name         | long target name                                     |   w
 *pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
 *sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
 *ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        |   OK    |
-*minix68k           | Minix 68K                                            |     ?        |    missing      |    missing     | missing |
+*minix68k*          | Minix 68K                                            |     ?        |    missing      |    missing     | missing |
 
 
 OK       :   7
@@ -298,6 +298,7 @@ OK       : 189
 KO       :   2
 
 UNKNOWN  :  13
+
 
 
 

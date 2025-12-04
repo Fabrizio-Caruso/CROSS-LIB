@@ -6,6 +6,7 @@
 
 extern void _speaker_beep(uint16_t freq, uint16_t length);
 
+#define __NOISE 
 
 #if defined(__NOISE)
 
@@ -16,13 +17,13 @@ extern void _speaker_beep(uint16_t freq, uint16_t length);
             \
             for(i=0;i<length;++i) \
             { \
-                _speaker_beep(*(unsigned char *)(0XF0000+i),0x00FF); \
+                _speaker_beep((rand()+0x0B00)&0x0FFF,0x007F); \
             } \
         } while(0)
 
-    #define _XL_EXPLOSION_SOUND() _speaker_noise(0x01FF)
+    #define _XL_EXPLOSION_SOUND() _speaker_noise(0x03FF)
 
-    #define _XL_SHOOT_SOUND()     _speaker_noise(0x007F)
+    #define _XL_SHOOT_SOUND()     _speaker_noise(0x017F)
 
 #else
     #define _XL_EXPLOSION_SOUND() _speaker_beep(893, 0x3FFF)

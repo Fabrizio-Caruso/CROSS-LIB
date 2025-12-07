@@ -98,6 +98,7 @@ src/assets/*.pyc
 src/debug/gamate_conio_test
 src/debug/gamate_conio_test2
 tools/cc65/gamate/gamate-fixcart.exe
+tools/cc65/osic1p/srecord-1.64/config.log
 tools/cmoc/mo5/f2k5.exe
 tools/cc65/gamate/gamate-fixcart.out
 tools/cmoc/mo5/f2k5.out

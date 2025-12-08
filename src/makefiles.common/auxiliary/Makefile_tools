@@ -64,8 +64,8 @@ $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
 $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
 	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
 
-
-
+$(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT):
+	cd	$(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) exomizer && mv exomizer$(COMPILEDEXT) ..
 
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
@@ -77,9 +77,12 @@ tools: \
     $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
+    $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
 
 
+
+# TODO: $(GNU_MAKE) here seems not to be defined
 
 clean_tools:
 	rm -rf $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
@@ -98,7 +101,8 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/ti99/crt0.o
 	rm -rf $(TOOLS_PATH)/ti99/crt0_ea5.o
 	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
-
+	cd	$(TOOLS_PATH)/generic/exomizer/src && make clean
+	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
 
 clean_logs:
 	rm -rf ../logs/*.log

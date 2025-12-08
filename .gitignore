@@ -104,6 +104,8 @@ tools/cc65/gamate/gamate-fixcart.out
 tools/cmoc/mo5/f2k5.out
 tools/bbc/bbcim.exe
 tools/bbc/bbcim.out
+tools/generic/CC1541/cc1541.exe
+tools/generic/exomizer/exomizer.exe
 tools/z88dk/oz/makewzd.exe
 tools/z88dk/oz/makewzd.out
 tools/cmoc/coco/file2dsk/file2dsk.exe

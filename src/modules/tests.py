@@ -64,6 +64,7 @@ TOOL_COMMAND = \
     'm20'      : '../tools/olivetti_m20/m20.' + NATIVE_EXTENSION + ' -h',
     'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
     'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
+    'exomizer' : '../tools/generic/exomizer/exomizer.' + NATIVE_EXTENSION + ' -h',
     }
 
 TOOL_COMMAND_EXPECTED = \
@@ -78,6 +79,7 @@ TOOL_COMMAND_EXPECTED = \
     'm20'      : 256,
     'elf2ea5'  : 256,
     'ea5split' : 256,
+    'exomizer' : 256,
     }
 
 
@@ -116,6 +118,7 @@ BUILDABLE_TOOLS = \
     'm20',
     'elf2ea5',
     'ea5split',
+    'exomizer',
 }
 
 

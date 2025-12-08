@@ -1090,6 +1090,35 @@ endif
 	rm a80.ldr
 	rm a80
 
+c128_z80_80col_alt: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
+	$(INCLUDE_OPTS)  \
+	-lndos  \
+	-D__C128_Z80__ -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -D__NO_SPRITE_TRANSPARENCY \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_80COL_SLOWDOWN) \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-D__BIT_BANG_SOUND $(C128_Z80_80COL_GAME_OPTS)  \
+	-D__ALT_PRINT \
+	-D_XL_NO_COLOR \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(FULL_FILES) \
+	-o"a80.bin"
+# ifdef USE_TOOLS
+	# $(C1541) -format "crosschase,0" d64 X$(GAME_NAME)_$@.d64
+	# $(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80.ldr
+	# $(C1541) -attach X$(GAME_NAME)_$@.d64 -write a80
+	# mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
+	# rm a80.bin
+# else
+	# mv a80.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+# endif
+	# rm a80.ldr
+	# rm a80
+	../tools/generic/add_BASIC_header.py a80.bin a80.prg
+	../tools/generic/CC1541/cc1541.exe -f xl -w a80.prg X$(GAME_NAME)_$@.d64
+
+
 c128_8x6: c128_8x6_80col
 c128_8x6_80col: c128_z80_8x6_80col
 c128_z80_8x6_80col: $(ASSETS_PATH)/z88dk_8x6_sprites_definitions.h

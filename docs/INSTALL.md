@@ -41,7 +41,8 @@ In order to be able to build the games and tests on all `default targets` you ne
 - `python` (2.x or 3.x)
 - `gcc` and `ncurses` (necessary only for native builds)
 - cross-compilers (necessary to build for vintage targets)
-- `java` only to build disk images for the Apple//e and Apple\]\[ targets 
+- `java` only to build disk images for the Apple//e, Apple\]\[ and the Agat 7/9 targets
+- `perl` only for the CoCo 1/2 and Dragon 32/64 targets
 
 For the compilers to work, you may need to add the location of their binaries to the `$PATH` environment variable and to add the execution rights to those binaries.
 If the compiler's binary cannot be found, you may have to set their paths in: `src\makefiles.common\auxiliary/Makefile_compilers`, e.g., `Z88DK_PATH`, `LCC1802_PATH`, etc..
@@ -92,4 +93,5 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
 
 
 Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
+
 

@@ -58,11 +58,13 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 The tool-chain Cross-Lib can be installed on different POSIX-compliant environments.
 It has been tested on:
 - Windows (7, 10) + `Cygwin`
+- Windows Subsystem for Linux
+- MacOS X
 - Linux Ubuntu 18.04 under the Windows Subsystem
 - Linux (KUbuntu 18.04, Lubuntu 21.10) 
 - FreeBSD 13.0
 
-Cross-Lib itself does not require any installation. It is just a source library and scripts that is ready to use as is, by just downloading or cloning the content of this repository.
+Cross-Lib itself does not require any installation. It is just a source library and scripts that is ready to be used as is, by just downloading or cloning the content of this repository.
 For example you can do it by:
 
 ```
@@ -93,6 +95,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
 
 
 Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
+
 
 
 

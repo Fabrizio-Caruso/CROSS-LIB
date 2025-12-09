@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     FILE *f = stdin;
     FILE *out = stdout;
     char buf[253], *p;
-    int n, i;
+    int n;
     char lastbyte;
     int (*fput_char)(int, FILE *) = fputc;
     char * const *arg = &argv[1];
@@ -99,28 +99,32 @@ int main(int argc, char *argv[])
 
         p = buf;
         while (n--) {
+	    unsigned char c = *p++;
             if (lastbyte == '\t') {
                 /* TAB + count is used for compressed spaces */
-                i = *p;
-                while (i--)
+                while (c--)
                     fput_char(' ', out);
             } else {
-                switch (*p) {
+                switch (c) {
                 case '\t':
                     break;	/* Skip for now, process on next iteration */
                 case '\3':
                     n = 0;      /* ETX, jump to next block */
                     break;
-		case '\n':
-		  if (lastbyte != '\r')
+		case '\r':
 		    fput_char('\n', out);
-		  break;
+		    break;
+		case '\n':
+		    if (lastbyte != '\r')
+			fput_char('\n', out);
+		    break;
                 default:
-                    fput_char(*p, out);
+                    fput_char(c, out);
                     break;
                 }
             }
-            lastbyte = *p++;
+	    if (c != '\3')
+		lastbyte = c;
         }
     }
 

@@ -243,6 +243,7 @@ static void cas_format_block(struct cas_block_info *cbi)
     int i;
 
     memset(cbi->blk.leadin, 0, sizeof cbi->blk.leadin);
+    memset(cbi->blk.leadout, 0, sizeof cbi->blk.leadout);
     memset(cbi->blk.sync, 0x16, sizeof cbi->blk.sync);
     cbi->blk.stx      = 0x02;
     cbi->blk.blktype  = -(cbi->block_nr < 0);
@@ -433,20 +434,18 @@ static int modulate(SNDFILE *sf, SF_INFO *sfinfo, struct cas_block_info *cbi)
 	}
     }
 
-    return 0;
-}
+    /* Anything left over, or silence */
+    write_samples(sf, sfinfo, (int64_t)cbi->ms.fraction * cbi->ms.parity, 1);
 
-/* Write out any remaining stuff to round out the file */
-static int encode_remains(SNDFILE *sf, SF_INFO *sfinfo, struct cas_block_info *cbi)
-{
-    if (is_sndformat(sfinfo->format) && cbi->ms.fraction)
-	write_samples(sf, sfinfo, (int64_t)cbi->ms.fraction * cbi->ms.parity, 1);
+    /* Post-block gap: 1.5 s after title block, 0.5 s after data blocks */
+    write_samples(sf, sfinfo, 0,
+		  (((cbi->block_nr == -1) ? 3 : 1) * sfinfo->samplerate) >> 1);
 
     return 0;
 }
 
 /* Encode or write a block */
-static int encode_block(SNDFILE *sf, SF_INFO *sfinfo, struct cas_block_info *cbi)
+static bool encode_block(SNDFILE *sf, SF_INFO *sfinfo, struct cas_block_info *cbi)
 {
     if (!is_sndformat(sfinfo->format)) {
 	FILE *f = (FILE *)sf;
@@ -465,7 +464,17 @@ static int encode_block(SNDFILE *sf, SF_INFO *sfinfo, struct cas_block_info *cbi
 	default:
 	    break;
 	}
-	return fwrite(data, 1, bytes, f) != bytes || ferror(f);
+	if (fwrite(data, 1, bytes, f) != bytes)
+		return true;
+	if (sfinfo->format == FORMAT_BINARY) {
+	    /* Post-block gap; encode as ones in lieu of silence */
+	    unsigned int postgap = (((cbi->block_nr == -1) ? 3 : 1)
+				    * cbi->baudrate) >> 4;
+	    while (postgap--)
+		fputc(0xff, f);
+	}
+	fflush(f);
+	return !!ferror(f);
     } else {
 	return modulate(sf, sfinfo, cbi);
     }
@@ -533,8 +542,6 @@ static int process_input_file(SNDFILE *sf, SF_INFO *sfinfo, char *filename,
 
 	cbi.offset += 253;
     }
-
-    encode_remains(sf, sfinfo, &cbi);
     return 0;
 }
 

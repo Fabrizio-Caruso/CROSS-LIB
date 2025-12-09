@@ -83,7 +83,7 @@ casencode$(X): casencode.$(O) mangle.$(O) unmangle.$(O) abcfile.$(O) util.$(O)
 
 bac80.$(O): asmsrc/bac80.h asmsrc/bac80r.h
 
-bac800.$(O): asmsrc/bac800.h asmsrc/bac800d.h
+bac800.$(O): asmsrc/bac800.h asmsrc/bac800d.h asmsrc/bac800a.h
 
 bin2abc$(X): bin2abc.$(O) ihex.$(O) abs.$(O) bas.$(O) relocs.$(O) \
 		bac80.$(O) bac800.$(O) mangle.$(O) $(ASMO)

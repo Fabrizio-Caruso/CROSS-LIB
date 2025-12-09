@@ -1,0 +1,103 @@
+#!/bin/bash -xe
+
+project=abcdisk
+windll=''
+winlib="$HOME/winlib"
+reldir=../rel
+here="$(pwd)"
+outfile=casdecode	# More or less any executable
+xlibs="$HOME/xlibs"	# Local install for cross-platform library packages
+
+pv="$(git describe --abbrev=4)"
+
+if [ -z "$pv" ]; then
+    set +x
+    echo "$0: no version number obtained!" 1>&2
+    exit 1
+fi
+
+
+rm -rf "$reldir"/"$pv"
+mkdir -p "$reldir"/"$pv"
+cd "$reldir"/"$pv"
+
+( cd "$here" && git archive --format=tar --prefix="$pv"/ HEAD ) | \
+    tar xvvf -
+cd "$pv"
+./autogen.sh
+./configure
+make asmsrc
+make clean confclean
+cd ..
+tar cvvf "$pv".tar "$pv"
+rm -f "$pv".tar.xz "$pv".tar.gz
+xz -9ek "$pv".tar
+gzip -9 "$pv".tar
+
+# Do a native build to make sure we checked in what we were support to...
+native=$(sh "$pv"/autoconf/helpers/config.guess)
+# Other targets
+targets='x86_64-w64-mingw32'
+
+# Search for Windows DLLs. This tries to get the transitive closure
+# of all DLLs that we use that are actually present in $dlldir.
+get_dlls () {
+    local x
+    local f
+    for x; do
+	for f in $("$target"-strings $x | egrep -i '^[^[:space:]]+\.dll$'); do
+	    if [ ! -f "$f" ]; then
+		# -maxdepth 4 is just a safety valve...
+		dllfile=$(find -L $dllsearchdirs -maxdepth 4 \
+			       -type f -iname "$f" -print -quit)
+		if [ -f "$dllfile" ]; then
+		    cp "$dllfile" "$f"
+		    get_dlls "$f"
+		fi
+	    fi
+	done
+    done
+}
+
+for target in $native $targets; do
+    (
+	sndfilepath="$xlibs/$target/libsndfile"
+	if [ -d "$sndfilepath"  ]; then
+	    sndfileopt="--with-libsndfile=$sndfilepath"
+	else
+	    sndfileopt=''
+	    sndfilepath=''
+	fi
+
+	mkdir "$target"
+	cd "$target"
+	tar xf ../"$pv".tar.xz
+	(
+	    cd "$pv"
+	    ./configure --host="$target" "$sndfileopt"
+	    make clean
+	    make -j
+	)
+	# Windows?
+	if [ -f "$pv"/"$outfile".exe ]; then
+	    cc=$(sed -ne 's/^CC[[:space:]]*=[[:space:]]*//p' "$pv"/Makefile)
+	    sysroot=$("$cc" -print-sysroot)
+	    if [ -d "$sysroot" ]; then
+		dllsearchdirs="$sysroot $sndfilepath"
+		( cd "$pv" && get_dlls *.exe )
+	    fi
+	    mv "$pv" _build
+	    mkdir "$pv"
+	    cp $(find _build -type f \( -iname '*.exe' -o -iname '*.dll' \)) \
+	       "$pv"/
+	    rm -f _build/stdout.txt _build/stderr.txt || true
+	    for f in $(find _build -type f -iname '*.txt'); do
+		todos < "$f" > "$pv"/"$(basename "$f")"
+	    done
+	    zip -9r -o "$pv".zip "$pv"
+	fi
+    )
+done
+
+ln x86_64-w64-mingw32/"$pv".zip "$pv"-win64.zip
+#ln i686-w64-mingw32/"$pv".zip   "$pv"-win32.zip

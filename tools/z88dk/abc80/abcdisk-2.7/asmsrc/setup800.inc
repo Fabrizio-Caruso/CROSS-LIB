@@ -9,6 +9,7 @@
 	defc TOPM=65294
 	defc TOPP=65296
 
+	defc SOFTNOCO=0012h	; Error routine (A = error number)
 	defc HLBOFA=003Bh	; LD HL,BOFA
 	defc IXBOFA=003Fh	; LD IX,BOFA
 	defc HLPROG=0044h	; LD HL,BOFA+20 (after header)

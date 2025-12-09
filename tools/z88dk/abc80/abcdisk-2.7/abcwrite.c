@@ -288,7 +288,12 @@ static int get_files(struct directory *ufd, const char *dirpath)
     return 0;
 }
 
-#define FORMAT_BYTE	0x40	/* What DOSGEN uses */
+/*
+ * DOSGEN uses 0x40, CP/M uses 0xe5; in either case it doesn't seem to
+ * matter. Use 0xff because it stands out and it is friendly for flash-
+ * based media.
+ */
+#define FORMAT_BYTE	0xff
 
 /* Create an empty filesystem; disk->fmt must be valid */
 static void dosgen(struct disk *disk)

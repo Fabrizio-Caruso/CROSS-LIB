@@ -12,11 +12,10 @@ static const struct diskfmt formats[] = {
     { "dd82",	    F( 40,1,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
     { "abc830",     F( 40,1,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
     { "mo",         F( 40,1,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
-    { "abc830-ufd", F( 40,1,16), 0,  6, { 16, 0 }, 16, 1, 0, 0, false },
     { "fd4d",       F( 40,2,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
     { "dd84",       F( 40,2,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
     { "abc832",     F( 80,2,16), 2, 14, { 16, 0 }, 16, 1, 0, 0, false },
-    { "abc832-ufd", F( 80,2,16), 2, 14, { 8, 16 },  8, 1, 0, 0, false },
+    { "abc832-old", F( 80,2,16), 2, 14, { 8, 16 },  8, 1, 0, 0, false },
     { "abc834",     F( 80,2,16), 2, 14, { 16, 0 }, 16, 1, 0, 0, false },
     { "mf",         F( 80,2,16), 2, 14, { 16, 0 }, 16, 1, 0, 0, false },
     /*
@@ -29,6 +28,9 @@ static const struct diskfmt formats[] = {
     { "abc838-ufd", 77, 2, 26, 3978, 2, 14, { 16, 0 }, 16, 1, 0, 0, false },
     { "sf",         77, 2, 26, 3978, 2, 14, { 16, 0 }, 16, 1, 0, 0, false },
     { "hd",         F(238,8,32),     5, 14, { 16, 0 }, 16, 1, 0, 0, false },
+
+    /* MEG80 ROM-disk: extended MO drive with 48 tracks */
+    { "rom",        F( 48,1,16), 0,  6, { 8, 16 },  8, 1, 0, 0, false },
 };
 
 static const int nformats = (sizeof(formats)/sizeof(formats[0]));

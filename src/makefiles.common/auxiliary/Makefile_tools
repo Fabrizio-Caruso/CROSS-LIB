@@ -73,6 +73,11 @@ $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT):
 $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT):
 	cd	$(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
 
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT):
+	cd	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
+
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT):
+	cd	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(COMPILEDEXT)
 
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
@@ -87,7 +92,7 @@ tools: \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT) \
-
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT) \
 
 # TODO: $(GNU_MAKE) here seems not to be defined
 
@@ -111,6 +116,11 @@ clean_tools:
 	cd	$(TOOLS_PATH)/generic/exomizer/src && make clean
 	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/*.o
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT)
+
 
 clean_logs:
 	rm -rf ../logs/*.log

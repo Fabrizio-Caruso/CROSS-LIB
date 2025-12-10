@@ -69,7 +69,7 @@
 # else
 /* This is sort of dangerous, since casts will behave different than
    casting to the standard boolean type.  Always use !!, not (bool). */
-typedef enum bool { false, true } bool;
+//typedef enum bool { false, true } bool;
 # endif
 #endif
 

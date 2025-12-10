@@ -6,7 +6,7 @@ abc80:
 	-D__ABC80__ -clib=ansi -vn  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
-	-D__NO_SCREEN_COLOR_INIT \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	-lndos -create-app -o abc80.bin \
 	$(FULL_FILES)
 	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200

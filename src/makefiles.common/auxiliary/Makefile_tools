@@ -93,6 +93,7 @@ tools: \
     $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT) \
 
 # TODO: $(GNU_MAKE) here seems not to be defined
 

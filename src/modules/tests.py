@@ -54,7 +54,9 @@ NATIVE_COMPILER_COMMAND_EXPECTED = \
 
 TOOL_COMMAND = \
     {
+    'abcwrite' : '../tools/z88dk/abc80/abcdisk-2.7/abcwrite.' + NATIVE_EXTENSION + ' -h',
     'bbcim'    : '../tools/bbc/bbcim.' + NATIVE_EXTENSION + ' -h',
+    'bin2abc'  : '../tools/z88dk/abc80/abcdisk-2.7/bin2abc.' + NATIVE_EXTENSION + ' -h',
     'cc1541'   : '../tools/generic/CC1541/cc1541.' + NATIVE_EXTENSION + ' -h',
     'f2k5'     : '../tools/cmoc/mo5/f2k5.' + NATIVE_EXTENSION + '',
     'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
@@ -71,6 +73,8 @@ TOOL_COMMAND = \
 
 TOOL_COMMAND_EXPECTED = \
     {
+    'abcwrite' : 256,
+    'bin2abc'  : 0,
     'cc1541'   : 65280,
     'f2k5'     : 0,
     'sapfs'    : 256,
@@ -111,6 +115,8 @@ EMULATOR_COMMAND_EXPECTED = \
 
 BUILDABLE_TOOLS = \
 {
+    'abcwrite',
+    'bin2abc',
     'cc1541',
     'f2k5',
     'sapfs',

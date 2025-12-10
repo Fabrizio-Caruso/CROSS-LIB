@@ -62,22 +62,26 @@ $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
 	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GNU_MAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
 
 $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/ti99/elf2ea5/ && $(GNU_MAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/ti99/elf2ea5/ && $(GNU_MAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
 
 $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
 
 $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) -j$(MAKE_THREADS) exomizer && mv exomizer$(COMPILEDEXT) ..
+	cd $(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) -j$(MAKE_THREADS) exomizer && mv exomizer$(COMPILEDEXT) ..
 
 $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
+	cd $(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT):
-	cd	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(COMPILEDEXT)
+
+$(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT):
+	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) -j$(MAKE_THREADS)
+
 
 tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
@@ -94,6 +98,7 @@ tools: \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT)
 
 # TODO: $(GNU_MAKE) here seems not to be defined
 
@@ -121,7 +126,8 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT)
-
+	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && make clean
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.exe
 
 clean_logs:
 	rm -rf ../logs/*.log

@@ -374,7 +374,7 @@ endif
 
 #################################################################
 
-atari: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari \
 	 \
 	$(5COLOR_PALETTE)  \
@@ -389,7 +389,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
-
+	$(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@.atr -b $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 #################################################################
 

@@ -33,5 +33,6 @@ bin2abc
 /config
 /config.log
 /config.status
+/configure
 /Makefile
 /rel

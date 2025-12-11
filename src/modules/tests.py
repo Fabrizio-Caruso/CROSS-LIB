@@ -67,7 +67,7 @@ TOOL_COMMAND = \
     'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
     'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
     'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
-    'exomizer' : '../tools/generic/exomizer/exomizer.' + NATIVE_EXTENSION + ' -h',
+    'exomizer' : '../tools/generic/exomizer/exomizer -h',
     'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
 
     }

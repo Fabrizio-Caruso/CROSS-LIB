@@ -111,7 +111,8 @@ tools/generic/cc1541.out
 tools/generic/exomizer/exomizer.exe
 tools/generic/exomizer/exomizer.out
 tools/generic/exomizer.exe
-tools/generic/exomizer.out
+tools/generic/exomizer
+tools/generic/CC1541/cc1541
 tools/z88dk/oz/makewzd.exe
 tools/z88dk/oz/makewzd.out
 tools/cmoc/coco/file2dsk/file2dsk.exe
@@ -124,7 +125,7 @@ tools/cmoc/mo5/sap/sap2
 tools/cc65/atari/mkatr-master/lsatr.exe
 tools/cc65/atari/mkatr-master/mkatr.exe
 tools/cc65/atari/mkatr-master/lsatr.out
-tools/cc65/atari/mkatr-master/lsatr.out
+tools/cc65/atari/mkatr-master/mkatr.out
 tools/z88dk/cpc/nocart/nocart.exe
 tools/z88dk/cpc/nocart/nocart.out
 tools/olivetti_m20/m20.exe

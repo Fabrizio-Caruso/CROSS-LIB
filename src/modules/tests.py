@@ -62,7 +62,7 @@ TOOL_COMMAND = \
     'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
     'fixcart'  : '../tools/cc65/gamate/gamate-fixcart.' + NATIVE_EXTENSION + '',
     'm20'      : '../tools/olivetti_m20/m20.' + NATIVE_EXTENSION + ' -h',
-    'mkatr'    : '../tools/cc65/atari/mkatr-master/mkatr.' + NATIVE_EXTENSION + ' -h',
+    'mkatr'    : '../tools/cc65/atari/mkatr-master/mkatr -h',
     'makewzd'  : '../tools/z88dk/oz/makewzd.' + NATIVE_EXTENSION + ' -h',
     'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
     'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',

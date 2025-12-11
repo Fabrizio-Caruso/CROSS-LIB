@@ -121,13 +121,20 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
 	cd	$(TOOLS_PATH)/generic/exomizer/src && make clean
 	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer
 	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/*.o
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc
 	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && make clean
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.exe
-
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.out
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr
+    
 clean_logs:
 	rm -rf ../logs/*.log

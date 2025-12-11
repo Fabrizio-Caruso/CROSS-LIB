@@ -31,5 +31,6 @@ bin2abc
 /autoconf/aclocal.m4
 /config.log
 /config.status
+/config/config.h
 /Makefile
 /rel

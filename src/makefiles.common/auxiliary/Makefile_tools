@@ -67,7 +67,7 @@ $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
 $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
 	cd $(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
 
-$(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT):
+$(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT):
 	cd $(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) -j$(MAKE_THREADS) exomizer && mv exomizer$(EXEEXT) ..
 
 $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT):

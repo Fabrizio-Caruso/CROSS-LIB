@@ -5,11 +5,11 @@
 #ifndef COMPILER_H
 #define COMPILER_H
 
-#ifdef HAVE_CONFIG_H
+//#ifdef HAVE_CONFIG_H
 # include "config/config.h"
-#else
-# error "Need compiler-specific hacks here"
-#endif
+//#else
+//# error "Need compiler-specific hacks here"
+//#endif
 
 /* On Microsoft platforms we support multibyte character sets in filenames */
 #define _MBCS 1

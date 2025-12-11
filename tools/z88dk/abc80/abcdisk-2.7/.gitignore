@@ -29,8 +29,6 @@ casdecode
 casencode
 bin2abc
 /autoconf/aclocal.m4
-/autoconf/helpers
-/config
 /config.log
 /config.status
 /Makefile

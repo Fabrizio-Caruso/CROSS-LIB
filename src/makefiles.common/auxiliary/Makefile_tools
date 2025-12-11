@@ -73,10 +73,10 @@ $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT):
 $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT):
 	cd $(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
 
-$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT):
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT):
 	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
 
-$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT):
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT):
 	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(COMPILEDEXT)
 
 $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT):

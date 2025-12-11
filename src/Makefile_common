@@ -611,7 +611,7 @@ c64_conio: $(ASSETS_PATH)/cc65_udc_arcade_conio.s
 
 ifdef USE_TOOLS
 c64_exomized: c64 $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
-	$(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT) sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt

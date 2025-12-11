@@ -1076,8 +1076,8 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm  $(TOOLS_PATH)/generic/CC1541/cc
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -o"a40.bin"
-	../tools/generic/CC1541/cc1541.exe -f a40.ldr -w a40.ldr X$(GAME_NAME)_$@.d64
-	../tools/generic/CC1541/cc1541.exe -f a40 -w a40 X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a40.ldr -w a40.ldr X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a40 -w a40 X$(GAME_NAME)_$@.d64
 	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
 	rm -rf a40.bin
 	rm -rf a40.ldr
@@ -1126,8 +1126,8 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h $(TOOLS_PATH)/generic
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(FULL_FILES) \
 	-create-app -o"a80.bin"
-	../tools/generic/CC1541/cc1541.exe -f a80.ldr -w a80.ldr X$(GAME_NAME)_$@.d64
-	../tools/generic/CC1541/cc1541.exe -f a80 -w a80 X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a80.ldr -w a80.ldr X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a80 -w a80 X$(GAME_NAME)_$@.d64
 	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
 	rm -rf a80.bin
 	rm -rf a80.ldr

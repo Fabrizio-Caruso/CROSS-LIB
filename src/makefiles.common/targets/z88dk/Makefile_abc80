@@ -50,10 +50,10 @@ abc80: $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) $(TOOLS_PATH)/z88
 	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	-lndos -create-app -o mo0 \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) --bac80 -o $(BUILD_PATH)/xl.bac -s 49200 mo0
+	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc --bac80 -o $(BUILD_PATH)/xl.bac -s 49200 mo0
 	rm -rf mo0
 	rm -rf mo0.ihx
 	mkdir $(BUILD_PATH)/tmp
 	mv $(BUILD_PATH)/xl.bac $(BUILD_PATH)/tmp
-	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) abc830 $(BUILD_PATH)/tmp $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk
+	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite abc830 $(BUILD_PATH)/tmp $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk
 	rm -rf $(BUILD_PATH)/tmp

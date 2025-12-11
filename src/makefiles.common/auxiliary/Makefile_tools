@@ -77,7 +77,7 @@ $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT):
 	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT):
-	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(COMPILEDEXT)
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(EXEEXT)
 
 $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT):
 	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) -j$(MAKE_THREADS)

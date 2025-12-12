@@ -86,8 +86,8 @@
     }
 #endif
 
-
-#if defined(_XL_NO_JOYSTICK) && !defined(ACK) && !defined(__STDIO) && !defined(__NO_INPUT)
+// !defined(ACK)
+#if defined(_XL_NO_JOYSTICK) && !defined(__STDIO) && !defined(__NO_INPUT)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
 		#include <devkit/input/keyboard.h>
     #endif 
@@ -109,6 +109,18 @@
             // return 9;
         // }
     
+    #elif defined(__MSDOS86__) && defined(__KEY_POLL_FROM_BUFFER)
+            #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
+            #define PEEK(addr)         (*(uint8_t*) (addr))
+            
+            unsigned char _kb_poll_buffer(void);
+            // void GET_CHAR(void)
+            // {
+            unsigned char volatile input = _kb_poll_buffer();
+            // POKE(1050,PEEK(1052));
+            return input;
+            // }
+                        
 
     #elif defined(__MC10__)
     
@@ -140,12 +152,14 @@
         return 0;
 
     #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
-    || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__) || defined(__CX16__) || defined(__AGAT__)
+    || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__) \
+    || defined(__CX16__) || defined(__AGAT__) || defined(__MEGA65__) || defined(__C65__) \
+    || defined(__KIM1__) || defined(__SYM1__)
+    
         if(kbhit())
             return cgetc();
         else
             return 0;
-
     // Code by Marcel van Tongeren
     #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
         return get_stick();
@@ -374,6 +388,13 @@ out         stb res
             void _XL_WAIT_FOR_INPUT(void)
             {
                 getchar();
+            }
+        #elif defined(__MSDOS86__)
+            extern void _wait_for_key(void);
+
+            void _XL_WAIT_FOR_INPUT(void)
+            {
+                _wait_for_key();
             }
         #elif defined(__MC10__)
             void _XL_WAIT_FOR_INPUT(void)

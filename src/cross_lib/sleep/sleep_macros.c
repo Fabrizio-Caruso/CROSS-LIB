@@ -84,7 +84,7 @@
     #endif
 #endif
 
-#if !defined(_XL_NO_SLEEP)
+#if !defined(_XL_NO_SLEEP) && !defined(__NO_SLEEP)
 	#if defined(__NCURSES__) || defined(__TERMINAL__)
 		#include <stdint.h>
 		#include <time.h>
@@ -114,6 +114,45 @@
                 // foo=42*PEEK(0xF000);
 				foo=42+i;
 			}
+		}
+    #elif defined(__CX16__)
+		void _XL_SLOW_DOWN(uint16_t t)
+		{
+			uint16_t i;
+            uint8_t j;
+
+			for(i=0;i<(t);++i)
+			{
+                for(j=0;j<9;++j)
+                {
+                }
+			}       
+		}
+    #elif defined(__MEGA65__)
+		void _XL_SLOW_DOWN(uint16_t t)
+		{
+			uint16_t i;
+            uint8_t j;
+
+			for(i=0;i<(t);++i)
+			{
+                for(j=0;j<9;++j)
+                {
+                }
+			}       
+		}
+    #elif defined(__MSDOS86__)
+		void _XL_SLOW_DOWN(uint16_t t)
+		{
+			uint16_t i;
+            uint8_t j;
+
+			for(i=0;i<(t);++i)
+			{
+                for(j=0;j<9;++j)
+                {
+                }
+			}       
 		}
 	#else
 		void _XL_SLOW_DOWN(uint16_t t)

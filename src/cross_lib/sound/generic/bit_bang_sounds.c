@@ -7,7 +7,7 @@
         // __asm__("LDA $C030")
 // #else
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__AGAT__)
     void _click(void)
     {
         uint8_t k;

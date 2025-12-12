@@ -5,7 +5,7 @@
 ###########################
 # ACK
 _ACK ?= ack $(GLOBAL_OPTS)
-_ACK_OPTS ?= -O6 
+_ACK_OPTS ?=  
 
 
 

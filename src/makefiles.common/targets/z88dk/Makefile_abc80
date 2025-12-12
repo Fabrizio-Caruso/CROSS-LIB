@@ -1,20 +1,59 @@
 
-abc80:
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
+
+
+# abc80_old:
+	# $(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	# $(INCLUDE_OPTS) \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# -D__ABC80__ -clib=ansi -vn  \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
+	# -D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
+	# -lndos -create-app -o abc80.bin \
+	# $(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin
+	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk 
+	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	# rm abc80.bin 
+	# mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/X$(GAME_NAME)_abc80.bac
+	# mv abc80.ihx $(BUILD_PATH)/X$(GAME_NAME)_abc80.ihx
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80.bin
+    
+    
+# abc80_test0: $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT)
+	# $(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	# $(INCLUDE_OPTS) \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# -D__ABC80__ -clib=ansi -vn  \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
+	# -D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
+	# -lndos -create-app -o mo0 \
+	# $(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 mo0
+	# rm -rf mo0
+	# rm -rf mo0.ihx
+	# $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT) abc830 $(BUILD_PATH) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk
+	# rm -rf $(BUILD_PATH)/xchase.bac
+
+
+# TODO: Use a temp directory to create disk images
+abc80: $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT)
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__ABC80__ -clib=ansi -vn  \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
-	-D__NO_SCREEN_COLOR_INIT \
-	-lndos -create-app -o abc80.bin \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
+	-lndos -create-app -o mo0 \
 	$(FULL_FILES)
-	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
-	$(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin	
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk -b $(BUILD_PATH)/xchase.bac
-	rm abc80.bin 
-	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/X$(GAME_NAME)_abc80.bac
-	mv abc80.ihx $(BUILD_PATH)/X$(GAME_NAME)_abc80.ihx
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80.bin
+	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc --bac80 -o $(BUILD_PATH)/xl.bac -s 49200 mo0
+	rm -rf mo0
+	rm -rf mo0.ihx
+	mkdir $(BUILD_PATH)/tmp
+	mv $(BUILD_PATH)/xl.bac $(BUILD_PATH)/tmp
+	$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite abc830 $(BUILD_PATH)/tmp $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk
+	rm -rf $(BUILD_PATH)/tmp

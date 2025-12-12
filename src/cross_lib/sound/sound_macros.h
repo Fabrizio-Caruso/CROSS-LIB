@@ -27,8 +27,12 @@
     #if !defined(_XL_NO_SOUND)
         #  if defined(__BIT_BANG_SOUND)
             #include "z88dk_bit_bang_sounds.h"
+        #elif defined(__MSDOS86__) && defined(__SPEAKER_SOUNDS)
+            #include "msdos86_sounds.h"
         #elif defined(__PSG_SOUND)
             #include "psg_sounds.h"
+        #elif defined(__CX16__)
+            #include "cx16_sounds.h"
         #elif defined(ASCII_SOUNDS)
             #define _XL_INIT_SOUND()
             #include "ascii_sounds.h"
@@ -49,6 +53,8 @@
         #elif defined(__C16__) 
             #include "c264_sounds.h"
         #elif defined(__C64__) 
+            #include "sid_sounds.h"
+        #elif defined(__MEGA65__) 
             #include "sid_sounds.h"
         #elif defined(__C128__) 
             #include "sid_sounds.h"
@@ -96,7 +102,7 @@
             #include "creativision_sounds.h"
         #elif defined(__GB__) 
             #include "gb_sounds.h"
-        #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+        #elif (defined(__APPLE2__) || defined(__APPLE2ENH__)) || defined(__AGAT__)
             #include "bit_bang_sounds.h"
         #elif defined(__PET__) 
             #include "pet_sounds.h"

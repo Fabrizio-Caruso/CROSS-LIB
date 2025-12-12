@@ -1,0 +1,27 @@
+!ifndef DECRUNCH_FORWARDS {
+DECRUNCH_FORWARDS = 0
+}
+; -------------------------------------------------------------------
+* = $8000
+LOAD_ADDR = $8000
+baseLoad:
+!if DECRUNCH_FORWARDS != 0 {
+	!word tablestart + LOAD_ADDR - baseLoad
+	!word part0start + LOAD_ADDR - baseLoad
+	!word part1start + LOAD_ADDR - baseLoad
+	!word 0
+} else {
+	!word tableend + LOAD_ADDR - baseLoad
+	!word part0end + LOAD_ADDR - baseLoad
+	!word part1end + LOAD_ADDR - baseLoad
+	!word 0
+}
+tablestart:
+!binary "PLACEHOLDER"
+tableend:
+part0start:
+!binary "PLACEHOLDER.00"
+part0end:
+part1start:
+!binary "PLACEHOLDER.01"
+part1end:

@@ -1,0 +1,129 @@
+Skip to content
+Chat history
+You said:
+How can I produce sounds with the speaker by big banging in msdos 8086?
+ChatGPT said:
+
+On an 8086 under MS-DOS you can produce sound with the PC speaker in two different ways:
+
+    Correct way (using the PIT timer, channel 2) – stable tone
+
+    True “bit banging” – manually toggling the speaker line for crude square waves
+
+Below are both methods with full explanations and sample 8086 code.
+✅ 1. REAL MODE / MS-DOS PC SPEAKER USING PIT (recommended)
+
+The PC speaker is controlled by:
+Function	Port
+PIT channel 2 control	43h
+PIT channel 2 data	42h
+Speaker gate + data enable	61h
+→ Steps to play a tone:
+
+    Program PIT channel 2 for square-wave mode.
+
+    Load divisor into port 42h (frequency = 1,193,180 / divisor).
+
+    Enable speaker bit 0 and 1 in port 61h.
+
+    Delay.
+
+    Turn off speaker.
+
+Example: 1 kHz tone
+
+; ====== Play 1 kHz tone ======
+; PIT clock = 1,193,180 Hz
+; divisor = 1193180 / 1000 ≈ 1193 = 04A9h
+
+    mov     al, 0B6h       ; Channel 2, lobyte/hibyte, mode 3 (square wave)
+    out     43h, al
+
+    mov     ax, 1193
+    out     42h, al        ; Low byte
+    mov     al, ah
+    out     42h, al        ; High byte
+
+    ; Enable speaker (bits 0 and 1 of port 61h)
+    in      al, 61h
+    or      al, 03h
+    out     61h, al
+
+    ; ---- Delay loop ----
+    mov cx, 0FFFFh
+.delay:
+    loop .delay
+
+    ; Disable speaker
+    in      al, 61h
+    and     al, 0FCh       ; clear bits 0 and 1
+    out     61h, al
+
+This produces a clean, stable square wave.
+✅ 2. TRUE “BIT BANGING” (no PIT)
+
+This is closer to the literal meaning of bit-banging: you manually drive the speaker by flipping bit 1 of port 61h at the desired rate.
+
+The PC speaker is connected to bit 1 (value 2) of port 61h.
+→ Principle
+
+Flip bit 1 rapidly:
+
+0 → 1 → 0 → 1 → 0 → …
+
+The switching speed = frequency × 2.
+
+So for a 1 kHz tone, toggle 2000 times per second.
+Example: crude software-generated square wave
+
+; ====== Bit-banged speaker tone ======
+
+    in      al, 61h
+    or      al, 01h      ; enable speaker gate
+    out     61h, al
+
+    mov     bx, 2000     ; number of toggles (duration)
+
+bitloop:
+    in      al, 61h
+    xor     al, 02h      ; toggle speaker data bit (bit 1)
+    out     61h, al
+
+    ; small delay to control pitch
+    mov     cx, 80
+delay:
+    loop    delay
+
+    dec     bx
+    jnz     bitloop
+
+    ; turn off speaker
+    in      al, 61h
+    and     al, 0FCh
+    out     61h, al
+
+This method:
+
+    gives you full control
+
+    but tone quality is rough
+
+    pitch depends on CPU speed (so unstable on fast machines or emulators)
+
+Choosing a method
+Method	Pros	Cons
+PIT (hardware)	stable, accurate, classic PC speaker tone	slightly more code
+Bit banging	unlimited waveforms, educational, works without PIT	crude, speed-dependent
+
+If you want, I can also provide:
+
+    A macro-based sound library
+
+    C-callable 8086 routines
+
+    A bit-banged melody player
+
+    A PIT-based music routine using int 08h (timer interrupts)
+
+
+ChatGPT can make mistakes. Check important info. See Cookie Preferences.

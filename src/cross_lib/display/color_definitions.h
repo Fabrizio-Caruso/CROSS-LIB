@@ -383,22 +383,33 @@
     
     #define _XL_MAGENTA _XL_RED
 
-#elif (defined(__COCO3__)) && defined(__BIT_MAPPED_16_GRAPHICS)
+#elif defined(__BIT_MAPPED_16_GRAPHICS)
 
-	// TODO: BOGUS
+    #if defined(__COCO3__)
+        // TODO: BOGUS
 
-    #define _XL_BLACK 0
-	
-    #define _XL_WHITE 0x11
-    #define _XL_GREEN 0x33
-	#define _XL_CYAN 0x44
-	
-    #define _XL_YELLOW 0x55	
-    #define _XL_RED 0xAA	
-    #define _XL_BLUE 0xFF
+        #define _XL_BLACK   0x00
+        #define _XL_WHITE   0x11
+        #define _XL_GREEN   0x33
+        #define _XL_CYAN    0x44
+        #define _XL_YELLOW  0x55
+        #define _XL_RED     0xAA
+        #define _XL_BLUE    0xFF
+        // TODO: Use correct definition
+        #define _XL_MAGENTA 0xAA
     
-    // TODO: Use correct definition
-    #define _XL_MAGENTA 0xAA
+    #elif defined(__AGAT__)
+        #define _XL_BLACK   0x00
+        #define _XL_WHITE   0xFF
+        #define _XL_GREEN   0x22 
+        #define _XL_CYAN    0x66
+        #define _XL_YELLOW  0x33
+        #define _XL_RED     0x11
+        #define _XL_BLUE    0xCC
+        #define _XL_MAGENTA 0xDD
+
+    #endif
+    
 
 #elif defined(__BBC__) && defined(__BBC_GRAPHICS)
 // COLORS
@@ -413,23 +424,23 @@
 
     #if __BBC_MODE==130
     
-        #define _XL_BLACK 0
-        #define _XL_RED 1
-        #define _XL_GREEN 2
-        #define _XL_YELLOW 3
+        #define _XL_BLACK   0
+        #define _XL_RED     1
+        #define _XL_GREEN   2
+        #define _XL_YELLOW  3
         #define _XL_MAGENTA 5
-        #define _XL_BLUE 4
-        #define _XL_CYAN 6
-        #define _XL_WHITE 7
+        #define _XL_BLUE    4
+        #define _XL_CYAN    6
+        #define _XL_WHITE   7
     #else
-        #define _XL_BLACK 0
-        #define _XL_RED 1
-        #define _XL_GREEN 2
-        #define _XL_YELLOW 3
+        #define _XL_BLACK   0
+        #define _XL_RED     1
+        #define _XL_GREEN   2
+        #define _XL_YELLOW  3
         #define _XL_MAGENTA 5
-        #define _XL_BLUE 2
-        #define _XL_CYAN 2
-        #define _XL_WHITE 3
+        #define _XL_BLUE    2
+        #define _XL_CYAN    2
+        #define _XL_WHITE   3
     #endif
 
 #elif (defined(__COCO__) || defined(__DRAGON__) || defined(__MC10__)) && defined(__BIT_MAPPED_4_GRAPHICS)
@@ -481,14 +492,14 @@
 
 
 #elif defined(__NCURSES__) || defined(__TERMINAL__)
-    #define _XL_YELLOW 1
-    #define _XL_CYAN 2
-    #define _XL_RED 3
-    #define _XL_GREEN 4
-    #define _XL_BLUE 5
-    #define _XL_WHITE 6
+    #define _XL_YELLOW  1
+    #define _XL_CYAN    2
+    #define _XL_RED     3
+    #define _XL_GREEN   4
+    #define _XL_BLUE    5
+    #define _XL_WHITE   6
     #define _XL_MAGENTA 7
-    #define _XL_BLACK 8
+    #define _XL_BLACK   8
     
 #elif defined(__MC1000__)
     #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
@@ -512,15 +523,24 @@
 
 #elif defined(__HECTORHR__)
 
-        #define _XL_WHITE 1
-        #define _XL_CYAN 2
-        #define _XL_YELLOW 1
-        #define _XL_GREEN 2
-        #define _XL_RED 3
-        #define _XL_BLUE 2
-        #define _XL_BLACK 0
+        #define _XL_WHITE   1
+        #define _XL_CYAN    2
+        #define _XL_YELLOW  1
+        #define _XL_GREEN   2
+        #define _XL_RED     3
+        #define _XL_BLUE    2
+        #define _XL_BLACK   0
         #define _XL_MAGENTA 3
 
+#elif defined(__VGA_GRAPHICS)
+        #define _XL_WHITE   0x0F
+        #define _XL_CYAN    0x0B
+        #define _XL_YELLOW  0x2C
+        #define _XL_GREEN   0x2F
+        #define _XL_RED     0x28
+        #define _XL_BLUE    0x20
+        #define _XL_BLACK   0x00
+        #define _XL_MAGENTA 0x23
 #else // Z88DK
     #define _XL_BLACK BLACK
     

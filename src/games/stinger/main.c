@@ -2138,7 +2138,7 @@ void move_tanks(void)
 
     move_display_tank();
 
-    if((tank_y_array[tank_x]==STINGER_Y))
+    if(tank_y_array[tank_x]==STINGER_Y)
     {
         alive = 0;
         display_red_tank();

@@ -248,6 +248,18 @@ window.addEventListener("keydown", function (event) {
         #if defined(__TELESTRAT__)
             #include<conio.h>
             #define GET_CHAR() cgetc()
+        #elif defined(__MSDOS86__)
+            #if defined(__KEY_POLL_FROM_BUFFER)
+                // unsigned char _kb_poll_buffer(void);
+                // #define GET_CHAR() _kb_poll_buffer()
+                char GET_CHAR(void);
+
+            #else // Direct poll
+                unsigned char _kb_poll(void);
+                #define GET_CHAR() _kb_poll()
+
+            #endif
+
         #elif defined(ACK) || defined(__STDIO)
             #define GET_CHAR() getchar()
         #else
@@ -257,7 +269,9 @@ window.addEventListener("keydown", function (event) {
         #define GET_CHAR()
     #endif // !defined(__NO_PRINT)
 
-
+    #if defined(__MSDOS86__)
+        void _wait_for_key(void);
+    #endif
     #if !defined(__NO_INPUT)
         // _XL_WAIT_FOR_INPUT
         #if !defined(__NO_WAIT) || !defined(_XL_NO_SLEEP)

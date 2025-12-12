@@ -1,7 +1,6 @@
 #ifndef _CONIO_GRAPHICS_H
 #define _CONIO_GRAPHICS_H
 
-
 #if !defined(_XL_NO_COLOR)
 
     #if defined(__FP1100__)
@@ -43,7 +42,15 @@
         #endif
     #endif
 
+#elif defined(__KIM1__) || defined(__SYM1__)
 
+		#define _XL_DRAW(x,y,tile,color) \
+		do \
+		{ \
+			gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
+			putchar(tile); \
+		} \
+		while(0)
 #else
 
 	#if defined(__NO_BOTTOM)
@@ -79,6 +86,14 @@
 				gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
 				cputc(_SPACE); \
 			} \
+		} \
+		while(0)
+#elif defined(__KIM1__) || defined(__SYM1__)
+	#define _XL_DELETE(x,y) \
+		do \
+		{ \
+			gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
+			putchar(_SPACE); \
 		} \
 		while(0)
 #else

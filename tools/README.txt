@@ -29,7 +29,7 @@ sapfs.exe https://sourceforge.net/p/teoemulator/code/ci/default/tree/tools/sap/ 
 libncurses https://www.gnu.org/software/ncurses/
 
 - generic
-exomizer.exe https://bitbucket.org/magli143/exomizer/wiki/Home
+exomizer.exe (my Magnus Lind) https://bitbucket.org/magli143/exomizer/wiki/Home
 c1541.exe http://vice-emu.sourceforge.net/
 
 - olivetti_m20
@@ -53,4 +53,5 @@ makewzd.exe https://github.com/z88dk/z88dk/blob/master/support/oz/makewzd.c
 pyz80.py https://github.com/simonowen/pyz80
 
 - ea5tocart
+
 ea5tocart by Asmusr (from AtariAge)

@@ -4,6 +4,8 @@
 
 #if defined(__COCO3__)
 	#define SV_VIDEO ((uint8_t*)0x8000)
+#elif defined(__AGAT__)
+    #define SV_VIDEO ((uint8_t*)0x6000)
 #endif
 
 extern uint8_t udgs[];

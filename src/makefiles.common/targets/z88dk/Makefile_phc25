@@ -1,39 +1,5 @@
 
 
-
-# phc25: $(ASSETS_PATH)/z88dk_xchase.asm
-	# $(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
-	# -D__PHC25__ \
-	# -DXSize=32 \
-	# -DYSize=24 \
-	# -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS \
-	# -D_XL_NO_COLOR \
-	# $(FULL_FILES) \
-	# $(ASSETS_PATH)/z88dk_xchase.asm \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GL6000SL_SLOWDOWN) \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-    
-    
-# phc25_no_gfx:
-	# $(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
-	# -D__PHC25__ \
-	# -DXSize=32 \
-	# -DYSize=24 \
-	# -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS -D_XL_NO_UDG \
-	# -D_XL_NO_COLOR 	-D__NO_INIT_GRAPHICS \
-	# $(FULL_FILES) \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GL6000SL_SLOWDOWN) \
-	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-    
-
-
 phc25_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE2=1 -D__SCREEN_MODE=1 \
@@ -47,7 +13,6 @@ phc25_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
-
 
 
 phc25: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -79,7 +44,6 @@ phc25_no_gfx:
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
-
 map1010_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 -clib=map1010 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE2=1 -D__SCREEN_MODE=1 \
@@ -95,7 +59,6 @@ map1010_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
-
 map1010: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 -clib=map1010 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE1=1 \
@@ -109,6 +72,7 @@ map1010: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
+
 
 map1010_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +phc25 -clib=map1010 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \

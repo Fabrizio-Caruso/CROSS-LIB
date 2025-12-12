@@ -1,0 +1,79 @@
+; ==========================================================
+; CGA Mode 04h pixel plot
+; void plot_pixel(int x, int y, unsigned char color);
+; ==========================================================
+
+        public _plot_pixel
+_plot_pixel proc near
+        push bp
+        mov  bp, sp
+
+        push ax
+        push bx
+        push cx
+        push dx
+        push si
+
+        mov bx, [bp+4]       ; x
+        mov cx, [bp+6]       ; y
+        mov dl, [bp+8]       ; color (0–3)
+
+        ;------------------------------------------
+        ; Compute base address:
+        ; B800:0000 = even scanlines
+        ; B800:2000 = odd scanlines
+        ;------------------------------------------
+
+        mov ax, 0B800h
+        mov es, ax
+
+        mov ax, cx
+        shr ax, 1            ; ax = y/2
+        mov si, ax
+        mov ax, 80
+        mul si               ; ax = (y/2)*80
+
+        mov si, ax           ; SI = line base
+
+        test cx, 1
+        jz LineEven
+        add si, 2000h        ; odd lines start at offset 0x2000
+LineEven:
+
+        ; --- byte offset += x/2 ---
+        mov ax, bx
+        shr ax, 1            ; ax = x/2
+        add si, ax
+
+        ;------------------------------------------
+        ; Determine which half-byte to modify
+        ;------------------------------------------
+
+        mov al, es:[si]      ; read old byte
+
+        test bx, 1
+        jz PixelLeft
+
+        ; Right pixel (low 4 bits)
+        and al, 0F0h         ; clear low nibble
+        or  al, dl           ; insert color 0..3
+        jmp Store
+
+PixelLeft:
+        ; Left pixel (high 4 bits)
+        and al, 0Fh          ; clear high nibble
+        mov ah, dl
+        shl ah, 4            ; move into high nibble
+        or  al, ah
+
+Store:
+        mov es:[si], al      ; write pixel
+
+        pop si
+        pop dx
+        pop cx
+        pop bx
+        pop ax
+        pop bp
+        ret 6
+_plot_pixel endp

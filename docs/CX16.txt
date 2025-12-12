@@ -1,0 +1,30 @@
+
+VERA ports:
+In a nutshell the values at $9F20, $9F21 & $9F22 specify a starting VRAM address and an auto-increment value (in $9F22).   Reading $9F23 reads the next VRAM byte.
+Writing $9F23 writes the next VRAM byte.
+
+----
+
+For example:
+   $9F20 = 0
+   $9F21 = 0
+   $9F22 = %00010001 
+
+This points at VRAM address 65536 with Auto Increment value of 1
+
+----
+
+Bit 0 of $9F22 is considered the bank  the rest of the bits in 22 set the auto increment mode   
+The address is Little Endian from $9F20 to the bank bit in $22
+
+----
+
+HSCALE = ( DESIRED RES/640 ) * 128
+VSCALE = (DESIREDRES/480) * 128
+
+----
+
+VRAM: 
+The FONT resides at 1:$F000
+The text screen memory is at $1:BOOO layed out as  
+    ATTR, CHAR, ATTR, CHAR.....

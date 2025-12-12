@@ -67,9 +67,11 @@ void PRESS_KEY(void)
     _XL_WAIT_FOR_INPUT();
 }
 
-
-#if defined(_XL_NO_JOYSTICK)
-    #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_I _XL_J _XL_K _XL_L _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E
+#if defined(_XL_ARROW_KEYS)
+    #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE "ARROWS"
+	#define CONTROLS_LEN 10
+#elif defined(_XL_NO_JOYSTICK)
+    #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_UP_KEY _XL_LEFT_KEY _XL_DOWN_KEY _XL_RIGHT_KEY _XL_SPACE _XL_S _XL_P _XL_A _XL_C _XL_E
 	#define CONTROLS_LEN 14
 #else
     #define CONTROLS_STRING _XL_U _XL_S _XL_E _XL_SPACE _XL_J _XL_O _XL_Y _XL_S _XL_T _XL_I _XL_C _XL_K

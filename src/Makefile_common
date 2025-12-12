@@ -262,7 +262,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	-o $(BUILD_PATH)/$@.bin
 ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk xl < $(BUILD_PATH)/$@.bin
 	rm -rf $(BUILD_PATH)/$@.bin
 else
 	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -270,21 +270,79 @@ endif
 
 #################################################################
 
-agat: $(ASSETS_PATH)/7x8_chars.h
+
+# agat_no_gfx:
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t agat \
+	# -D__AGAT__ -D_XL_NO_JOYSTICK -D_XL_JCUKEN_KEYBOARD -D__ALT_SLEEP \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=32 -DYSize=32 \
+	# -D__CONIO_GRAPHICS -D__XL_NO_UDG -D__NO_INIT_GRAPHICS \
+	# $(FULL_FILES)  \
+	# $(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	# -o $(BUILD_PATH)/$@.bin
+# ifdef USE_TOOLS
+	# cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	# java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk xl < $(BUILD_PATH)/$@.bin
+	# rm -rf $(BUILD_PATH)/$@.bin
+# else
+	# mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+# endif
+
+
+AGAT_GFX_OPTS         ?= -D__BIT_MAPPED_GRAPHICS -D__BIT_MAPPED_16_GRAPHICS -D_XL_NO_SMALL_LETTERS
+
+agat: $(ASSETS_PATH)/cc65_agat.s 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t agat \
-	-D__AGAT__ -D_XL_NO_JOYSTICK -D__ALT_SLEEP \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_APPLE2_HGR_SLOWDOWN) -DXSize=32 -DYSize=32 \
-	-D__CONIO_GRAPHICS -D__XL_NO_UDG -D__NO_INIT_GRAPHICS \
-	$(FULL_FILES)  \
+	-D__AGAT__ -D_XL_NO_JOYSTICK -D_XL_JCUKEN_KEYBOARD -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
+	$(AGAT_GFX_OPTS) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
 	-o $(BUILD_PATH)/$@.bin
 ifdef USE_TOOLS
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk xl < $(BUILD_PATH)/$@.bin
 	rm -rf $(BUILD_PATH)/$@.bin
 else
 	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 endif
 
+agat_ijkl: $(ASSETS_PATH)/cc65_agat.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t agat \
+	-D__AGAT__ -D_XL_NO_JOYSTICK -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
+	$(AGAT_GFX_OPTS) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+ifdef USE_TOOLS
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk xl < $(BUILD_PATH)/$@.bin
+	rm -rf $(BUILD_PATH)/$@.bin
+else
+	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
+
+agat_cursors: $(ASSETS_PATH)/cc65_agat.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t agat \
+	-D__AGAT__ -D_XL_NO_JOYSTICK -D_XL_ARROW_KEYS -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
+	$(AGAT_GFX_OPTS) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+ifdef USE_TOOLS
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk xl < $(BUILD_PATH)/$@.bin
+	rm -rf $(BUILD_PATH)/$@.bin
+else
+	mv $(BUILD_PATH)/$@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif
 
 #################################################################
 
@@ -316,7 +374,7 @@ endif
 
 #################################################################
 
-atari: $(ASSETS_PATH)/8x8_chars.h
+atari: $(ASSETS_PATH)/8x8_chars.h $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(COMPILEDEXT)
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari \
 	 \
 	$(5COLOR_PALETTE)  \
@@ -331,7 +389,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
-
+	$(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr $(BUILD_PATH)/X$(GAME_NAME)_$@.atr -b $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 #################################################################
 
@@ -552,8 +610,8 @@ c64_conio: $(ASSETS_PATH)/cc65_udc_arcade_conio.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg 
 
 ifdef USE_TOOLS
-c64_exomized: c64
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+c64_exomized: c64 $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
+	$(TOOLS_PATH)/generic/exomizer/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$<.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$<.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@.crt
@@ -979,7 +1037,7 @@ c128_40col_zsdcc: c128_z80_40col_zsdcc
 
 c128_40col: c128_z80_40col
 
-c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
+c128_z80_40col_alt: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk -clib=gencon \
@@ -1004,9 +1062,31 @@ endif
 	rm a40.ldr
 	rm a40
 
+
+c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm  $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-lndos -subtype=disk -clib=gencon \
+	-D__C128_Z80__ -DXSize=40 \
+	 \
+	-D__BIT_BANG_SOUND   \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_40COL_SLOWDOWN) \
+	-D__CONIO_GRAPHICS  \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o"a40.bin"
+	../tools/generic/CC1541/cc1541 -f a40.ldr -w a40.ldr X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a40 -w a40 X$(GAME_NAME)_$@.d64
+	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
+	rm -rf a40.bin
+	rm -rf a40.ldr
+	rm -rf a40
+
+
 c128_80col: c128_8502_80col
 
-c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+c128_z80_80col_alt: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS)  \
 	-lndos -subtype=disk \
@@ -1031,6 +1111,28 @@ else
 endif
 	rm a80.ldr
 	rm a80
+
+c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
+	$(INCLUDE_OPTS)  \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -D__NO_SPRITE_TRANSPARENCY \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_Z80_80COL_SLOWDOWN) \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-D__BIT_BANG_SOUND $(C128_Z80_80COL_GAME_OPTS)  \
+	-D__ALT_PRINT \
+	-D_XL_NO_COLOR \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(FULL_FILES) \
+	-create-app -o"a80.bin"
+	../tools/generic/CC1541/cc1541 -f a80.ldr -w a80.ldr X$(GAME_NAME)_$@.d64
+	../tools/generic/CC1541/cc1541 -f a80 -w a80 X$(GAME_NAME)_$@.d64
+	mv X$(GAME_NAME)_$@.d64 $(BUILD_PATH)/
+	rm -rf a80.bin
+	rm -rf a80.ldr
+	rm -rf a80
+
 
 c128_8x6: c128_8x6_80col
 c128_8x6_80col: c128_z80_8x6_80col
@@ -3314,8 +3416,11 @@ stdio_sized:
 # CC65
 include makefiles.common/targets/cc65/Makefile_c128_8502
 include makefiles.common/targets/cc65/Makefile_cx16
+include makefiles.common/targets/cc65/Makefile_c65
 include makefiles.common/targets/cc65/Makefile_osic1p
 include makefiles.common/targets/cc65/Makefile_telestrat
+include makefiles.common/targets/cc65/Makefile_kim1
+include makefiles.common/targets/cc65/Makefile_sym1
 
 
 

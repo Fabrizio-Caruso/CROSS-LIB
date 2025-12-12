@@ -289,12 +289,33 @@
         DISPLAY_POKE((loc(x,y)), ch);
         DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286));
         } 
+#elif defined(__VGA_GRAPHICS)
+    extern uint8_t _vga_text_color;
+
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            uint8_t tile_index;
+            
+            if((ch>=65) && (ch<=65+25))
+            {
+                tile_index = _XL_NUMBER_OF_TILES+ch-'A';
+            }
+            else if ((ch>=48) && (ch<=48+9))
+            {
+                tile_index = _XL_NUMBER_OF_TILES+26+ch-'0';
+            }
+            else
+            {
+                tile_index = _XL_NUMBER_OF_TILES+26+10;
+            }
+            _display_tile(x, y, tile_index, _vga_text_color);
+        } 
 #elif defined(__BIT_MAPPED_4_GRAPHICS)
     #include "bit_mapped_4_graphics.h"
     #include "cross_lib.h"
     
     #if defined(__COCO__) || defined(__DRAGON__)
-        #define _CHAR_OFFSET 13
+        #define _CHAR_OFFSET (-13)
     #else
         #define _CHAR_OFFSET 0
     #endif
@@ -303,21 +324,44 @@
 
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {
-            _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap4_text_color);
+            _color_draw(x,y,ch+_CHAR_OFFSET,_bitmap4_text_color);
         }
 
 #elif defined(__BIT_MAPPED_16_GRAPHICS)
     #include "bit_mapped_16_graphics.h"
     #include "cross_lib.h"
     
-	#define _CHAR_OFFSET 13
- 
+    #if defined(__COCO3__)
+        #define _CHAR_OFFSET (-13)
+    #elif defined(__AGAT__)
+        #define _CHAR_OFFSET (_XL_NUMBER_OF_TILES)
+    #endif
+    
     extern uint8_t _bitmap16_text_color;
 
+    #if defined(__COCO3__)
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {
-        _color_draw(x,y,ch-_CHAR_OFFSET,_bitmap16_text_color);
+        _color_draw(x,y,ch+_CHAR_OFFSET,_bitmap16_text_color);
         }
+    #else
+    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
+        {
+            if(ch==' ')
+            {
+                ch = 27;
+            }
+            else if (ch<65)
+            {
+                ch+= 27+26+1-48;
+            }
+            else
+            {
+                ch = 27+1+ch-'A';
+            }
+        _color_draw(x,y,ch,_bitmap16_text_color);
+        }
+    #endif
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(__BIT_MAPPED_GRAPHICS)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"

@@ -98,9 +98,9 @@ tools: \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
-    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
 
 # TODO: $(GNU_MAKE) here seems not to be defined
 

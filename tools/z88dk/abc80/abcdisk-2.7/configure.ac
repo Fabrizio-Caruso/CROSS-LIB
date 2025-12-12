@@ -153,7 +153,7 @@ AC_CACHE_CHECK([for z80asm from zd88k],
     [ac_cv_path_Z80ASM='not found'],
     [$_pa_search_path_Z80ASM])])
 
-Z80ASM=z80asm
+Z80ASM=z88dk-z80asm
 AS_IF([test x"$ac_cv_path_Z80ASM" != x'not found'],
       [
         Z80ASM="$ac_cv_path_Z80ASM"

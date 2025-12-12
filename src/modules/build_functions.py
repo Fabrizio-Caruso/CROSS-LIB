@@ -315,16 +315,26 @@ def rebuild(option_config, params):
     build(option_config, params, reset_flag=True)
 
 
+BUILD_TOOLS_THREADS = str(1)
+
 # Generate tools from source code
 def tools(option_config):
     GNU_MAKE = option_config.build_config.gnu_make
-    compilation_threads = option_config.build_config.compilation_threads
+    # compilation_threads = option_config.build_config.compilation_threads
     tool_compiler = option_config.build_config.tool_compiler
     make_command = \
-        GNU_MAKE + " -j " + compilation_threads + " tools TOOL_CC=" + tool_compiler + \
+        GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " tools TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
+def partial_tools(option_config, tools_to_build):
+    GNU_MAKE = option_config.build_config.gnu_make
+    # compilation_threads = option_config.build_config.compilation_threads
+    tool_compiler = option_config.build_config.tool_compiler
+    make_command = \
+        GNU_MAKE + " " + tools_to_build + " -j " + BUILD_TOOLS_THREADS + " TOOL_CC=" + tool_compiler + \
+        " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+    run_command(option_config, make_command)
 
 # Build a project (for a target or multiple targets)
 def build(option_config, params, reset_flag = False):
@@ -345,6 +355,9 @@ def build(option_config, params, reset_flag = False):
 
     if len(params)>=1 and game_dir=="tools":
         tools(option_config)
+    elif len(params)>=1 and game_dir.endswith("_tools"):
+        partial_tools(option_config, game_dir)
+
     else:
 
         files_before = len(files_in_path("../build"))-1

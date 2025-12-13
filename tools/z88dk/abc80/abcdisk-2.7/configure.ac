@@ -127,7 +127,7 @@ AC_PROG_MKDIR_P
 AC_PROG_INSTALL
 
 dnl To build the assembly sources, we need z80asm from z88dk
-_pa_check_z80asm='z88dk/z80asm z88dk-z80asm z80asm'
+_pa_check_z80asm='z88dk-z80asm'
 AC_ARG_WITH([z80asm],
     AS_HELP_STRING([--with-z80asm=name],
     [name of z88dk z80asm assembler with --reloc-info support]),

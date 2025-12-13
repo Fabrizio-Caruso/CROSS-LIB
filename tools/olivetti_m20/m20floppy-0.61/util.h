@@ -32,7 +32,9 @@ extern int get_free_blocks(struct disk_header *,int *,int *);
 extern int rm_file(FILE *,struct m20dir_entry *,struct disk_header *,int);
 extern int find_dir_name(FILE *,struct m20dir_entry *,int *,int *,cpg_u32_t *,struct dir_sector *);
 extern int find_empty_dirent(FILE *,int *,int *,cpg_u32_t *,struct dir_sector *);
-extern void CPG_INLINE set_blk_bits(struct disk_header *,cpg_u32_t,cpg_u16_t);
+// extern void CPG_INLINE set_blk_bits(struct disk_header *,cpg_u32_t,cpg_u16_t);
+extern void set_blk_bits(struct disk_header *,cpg_u32_t,cpg_u16_t);
+
 #ifdef DEBUG
 extern void dumpbuf(cpg_u8_t *,int);
 #endif

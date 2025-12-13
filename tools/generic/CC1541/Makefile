@@ -1,5 +1,6 @@
-CC1541_CFLAGS = -std=c99 -pipe -O2 -Wall -Wextra -pedantic
-
+# CC1541_CFLAGS = -std=c99 -pipe -O2 -Wall -Wextra -pedantic
+CC1541_CFLAGS = -std=c99 -pipe -O2 -Wno-error="format-truncation"
+# CC1541_CFLAGS = -std=c99 -pipe -O2
 ALL_TARGETS = cc1541
 
 ifneq ($(ENABLE_MAN),)

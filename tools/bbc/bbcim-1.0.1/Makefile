@@ -4,8 +4,8 @@ SHELL=/bin/sh
 #
 # This file is public domain, by W.H.Scholten 1996 - 2001, 2014, 2017
 #
-
-ALL_CFLAGS=-O2 -Wall -Wfatal-errors -Wstrict-prototypes -Wmissing-prototypes -g
+# -Wall -Wfatal-errors -Wstrict-prototypes -Wmissing-prototypes
+ALL_CFLAGS=-O2  -g
 
 INSTALL=$(HOME)
 

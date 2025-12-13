@@ -24,7 +24,11 @@ CC = cc
 #E = .exe
 # currently, the -DLINUX, -DNETBSD, etc. defines aren't really used in the code
 # these switches are for Linux/x86
-CFLAGS = -O2 -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN -Wall -Wstrict-prototypes # -DDEBUG
+# CFLAGS = -O2 -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN -Wall -Wstrict-prototypes # -DDEBUG
+
+CFLAGS = -O2 -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN
+
+
 # these switches are for Linux/ia64 or Linux/alpha
 #CFLAGS = -O2 -DUNIX -DLINUX -D__64BIT__ -DCPG_LITTLE_ENDIAN -Wall -Wstrict-prototypes
 # these switches are for Linux/ppc

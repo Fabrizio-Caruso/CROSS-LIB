@@ -105,9 +105,10 @@ char *randname()
     return name;
 }
 
-int main(argc,OrigArgv)
-int argc;
-char **OrigArgv;
+// int main(argc,OrigArgv)
+int main(int argc, char *OrigArgv[]) 
+// int argc;
+// char **OrigArgv;
 {
 	FILE *in, *out;
     int c;

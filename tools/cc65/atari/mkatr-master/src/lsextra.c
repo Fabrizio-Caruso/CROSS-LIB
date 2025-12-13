@@ -217,7 +217,7 @@ static void extract_kboot(struct atr_image *atr, const char *atr_name, int atari
     if( extract_files )
     {
         char *path;
-        asprintf(&path, "kboot-%08x.xex", crc);
+        (void)asprintf(&path, "kboot-%08x.xex", crc);
         struct stat st;
         fprintf(stderr, "%s\n", path);
         // Check if file already exists:

@@ -183,7 +183,7 @@ static void read_dir(struct lsdos *ls, unsigned dir, const char *name)
             continue;
         }
         char *new_name;
-        asprintf(&new_name, "%s/%s", name, fname);
+        (void)asprintf(&new_name, "%s/%s", name, fname);
 
         if( flags == 0x10 )
         {
@@ -278,7 +278,7 @@ static void read_dir(struct lsdos *ls, unsigned dir, const char *name)
             if( !get_name(fname, aname, entry + 5, 11, ls->lower_case) || !*fname )
                 continue;
             char *new_name;
-            asprintf(&new_name, "%s/%s", name, fname);
+            (void)asprintf(&new_name, "%s/%s", name, fname);
             read_dir(ls, sect, new_name);
             free(new_name);
         }

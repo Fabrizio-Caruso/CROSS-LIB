@@ -1,12 +1,12 @@
 ## STATUS
-Last update: 2025/11/30
+Last update: 2025/12/13
 
 ### 8-BIT targets
 
 target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
-*abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
+*abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK?         |    missing     | missing |
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *agat*              | Agat-7/9                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
@@ -194,7 +194,7 @@ target name         | long target name                            | working  |  
 
 TOTAL    : 186
 
-OK       : 178
+OK       : 178 (169 with real-time input)
 
 KO       :   1
 
@@ -248,14 +248,14 @@ target name         | long target name                                     |   w
 *minix68k*          | Minix 68K                                            |     ?        |    missing      |    missing     | missing |
 
 
-OK       :   7
+OK       :   7 (3 with real-time input)
 
 UNKNOWN  :   2
 
 
 -----------------------------------------------------------------------------------------
 
-### 32-BIT targets
+### 32-BIT targets (excluding modern PCs)
 
 target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes 
 --------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
@@ -268,7 +268,7 @@ target name         | long target name                                     |   w
 *osxppcppc*         | OSX X Mach0 for PPC                                  |     ?        |    missing      |    missing     | missing |
 *rpi*               | RPI GPU                                              |     ?        |    missing      |    missing     | missing |
 
-OK       :   3
+OK       :   3 
 
 KO       :   3
 
@@ -276,15 +276,15 @@ UNKNOWN  :   1
 
 -----------------------------------------------------------------------------------------
 
-### 32-BIT and 64-BIT targets on modern systems
+### 32-BIT and 64-BIT targets on modern PC systems
 
 target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes  
 --------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
-*gcc*               | Native Console version (with or without ncurses)     |    YES       |    missing      |    missing     | missing | 
+*gcc*               | Native Console version (with or without ncurses)     |    YES       |       OK        |    missing     | missing | 
 *emcc*              | Emscripten (WebAssembly version)                     |    YES       |    missing      |    missing     | missing | input
 
 
-OK       :   2
+OK       :   2 (1 wiith real-time input)
 
 -----------------------------------------------------------------------------------------
 
@@ -293,11 +293,12 @@ OK       :   2
 
 TOTAL    : 204
 
-OK       : 189
+OK       : 189 (173 with real-time input)
 
 KO       :   2
 
 UNKNOWN  :  13
+
 
 
 

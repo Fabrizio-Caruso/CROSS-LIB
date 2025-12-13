@@ -29,12 +29,12 @@
 
 static struct chunkpool s_expr_pool;
 
-void expr_init()
+void expr_init(void)
 {
     chunkpool_init(&s_expr_pool, sizeof(struct expr));
 }
 
-void expr_free()
+void expr_free(void)
 {
     chunkpool_free(&s_expr_pool);
 }

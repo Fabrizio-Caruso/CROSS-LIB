@@ -26,7 +26,7 @@ CC = cc
 # these switches are for Linux/x86
 # CFLAGS = -O2 -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN -Wall -Wstrict-prototypes # -DDEBUG
 
-CFLAGS = -O2 -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN
+CFLAGS = -O2 -w -DUNIX -DLINUX -D__32BIT__ -DCPG_LITTLE_ENDIAN
 
 
 # these switches are for Linux/ia64 or Linux/alpha

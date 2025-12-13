@@ -94,10 +94,10 @@ all_tools: \
     $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
     $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
     $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
@@ -114,10 +114,10 @@ tools: \
     $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
     $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
-    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
 
 
 easy_tools: \

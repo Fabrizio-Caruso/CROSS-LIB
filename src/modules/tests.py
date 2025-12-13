@@ -65,11 +65,12 @@ TOOL_COMMAND = \
     'mkatr'    : '../tools/cc65/atari/mkatr-master/mkatr -h',
     'makewzd'  : '../tools/z88dk/oz/makewzd.' + NATIVE_EXTENSION + ' -h',
     'nocart'   : '../tools/z88dk/cpc/nocart/nocart.' + NATIVE_EXTENSION + ' -h',
+    'old2mfm'  : '../tools/cc65/telestrat/old2mfm',
     'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
     'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
     'exomizer' : '../tools/generic/exomizer/exomizer -h',
     'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
-
+    'tap2dsk'  : '../tools/cc65/telestrat/tap2dsk',
     }
 
 TOOL_COMMAND_EXPECTED = \
@@ -89,6 +90,8 @@ TOOL_COMMAND_EXPECTED = \
     'elf2ea5'  : 256,
     'ea5split' : 256,
     'exomizer' : 256,
+    'tap2dsk'  : 256,
+    'old2mfm'  : 256,
     }
 
 
@@ -132,6 +135,8 @@ BUILDABLE_TOOLS = \
     'elf2ea5',
     'ea5split',
     'exomizer',
+    'tap2dsk',
+    'old2mfm',
 }
 
 

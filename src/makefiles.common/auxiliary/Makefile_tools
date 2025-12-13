@@ -84,6 +84,12 @@ $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT): $(TOOLS_PATH)/z88dk/abc8
 $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT):
 	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) 
 
+$(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT):
+	cd $(TOOLS_PATH)/cc65/telestrat/ && gcc tap2dsk.c -o tap2dsk$(EXEEXT)
+
+$(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT):
+	cd $(TOOLS_PATH)/cc65/telestrat/ && gcc old2mfm.c -o old2mfm$(EXEEXT)
+
 
 all_tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
@@ -94,6 +100,8 @@ all_tools: \
     $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
     $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
@@ -114,25 +122,17 @@ tools: \
     $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
     $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
     $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
     $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
 
 
-easy_tools: \
-    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
-    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
-    $(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT) \
-    $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+oric_tools: \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
 
 
 atari_tools: \
@@ -182,6 +182,8 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc
+	rm -rf $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT)
+	rm -rf $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT)
 	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && make clean
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.exe
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.out

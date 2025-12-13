@@ -101,6 +101,12 @@ tools/cc65/gamate/gamate-fixcart.exe
 tools/cc65/osic1p/srecord-1.64/config.log
 tools/cmoc/mo5/f2k5.exe
 tools/cc65/gamate/gamate-fixcart.out
+tools/cc65/telestrat/tap2dsk.exe
+tools/cc65/telestrat/tap2disk
+tools/cc65/telestrat/tap2disk.out
+tools/cc65/telestrat/old2mfm.exe
+tools/cc65/telestrat/old2mfm
+tools/cc65/telestrat/old2mfm.out
 tools/cmoc/mo5/f2k5.out
 tools/bbc/bbcim.exe
 tools/bbc/bbcim.out

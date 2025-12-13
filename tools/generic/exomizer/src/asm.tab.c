@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.7.2.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -45,11 +45,11 @@
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
 
-/* Identify Bison output.  */
-#define YYBISON 1
+/* Identify Bison output, and Bison version.  */
+#define YYBISON 30802
 
-/* Bison version.  */
-#define YYBISON_VERSION "3.7.2"
+/* Bison version string.  */
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 28 "asm.y"
+#line 24 "asm.y"
 
 #include "int.h"
 #include "parse.h"
@@ -270,6 +270,18 @@ typedef int_least16_t yytype_int16;
 typedef short yytype_int16;
 #endif
 
+/* Work around bug in HP-UX 11.23, which defines these macros
+   incorrectly for preprocessor constants.  This workaround can likely
+   be removed in 2023, as HPE has promised support for HP-UX 11.23
+   (aka HP-UX 11i v2) only through the end of 2022; see Table 2 of
+   <https://h20195.www2.hpe.com/V2/getpdf.aspx/4AA4-7673ENW.pdf>.  */
+#ifdef __hpux
+# undef UINT_LEAST8_MAX
+# undef UINT_LEAST16_MAX
+# define UINT_LEAST8_MAX 255
+# define UINT_LEAST16_MAX 65535
+#endif
+
 #if defined __UINT_LEAST8_MAX__ && __UINT_LEAST8_MAX__ <= __INT_MAX__
 typedef __UINT_LEAST8_TYPE__ yytype_uint8;
 #elif (!defined __UINT_LEAST8_MAX__ && defined YY_STDINT_H \
@@ -367,17 +379,23 @@ typedef int yy_state_fast_t;
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(E) ((void) (E))
+# define YY_USE(E) ((void) (E))
 #else
-# define YYUSE(E) /* empty */
+# define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                            \
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
     _Pragma ("GCC diagnostic push")                                     \
     _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
@@ -601,30 +619,30 @@ static const yytype_int8 yytranslate[] =
 };
 
 #if YYDEBUG
-  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
+/* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   186,   186,   186,   187,   188,   189,   190,   191,   192,
-     193,   194,   195,   196,   197,   198,   200,   201,   202,   203,
-     204,   205,   207,   209,   212,   213,   215,   216,   217,   218,
-     219,   220,   221,   222,   224,   225,   226,   227,   228,   230,
-     231,   232,   233,   234,   236,   237,   238,   239,   240,   241,
-     242,   244,   245,   246,   248,   249,   250,   252,   253,   254,
-     255,   256,   257,   258,   259,   261,   262,   263,   264,   265,
-     266,   267,   268,   270,   271,   272,   273,   274,   275,   276,
-     277,   279,   280,   281,   282,   283,   284,   285,   286,   288,
-     289,   290,   291,   292,   293,   294,   295,   297,   298,   299,
-     300,   301,   302,   303,   304,   306,   307,   308,   309,   310,
-     311,   313,   314,   315,   316,   317,   318,   319,   320,   321,
-     322,   323,   324,   325,   326,   327,   328,   329,   330,   331,
-     333,   334,   335,   336,   337,   338,   339,   340,   341,   342,
-     344,   345,   346,   347,   349,   350,   351,   352,   354,   355,
-     356,   357,   359,   360,   361,   362,   363,   365,   366,   367,
-     368,   369,   371,   372,   373,   374,   375,   377,   378,   379,
-     380,   381,   383,   384,   386,   387,   388,   389,   390,   391,
-     392,   393,   394,   396,   397,   398,   399,   400,   401,   402,
-     403,   404,   406,   407,   409,   410,   411,   412,   413,   414,
-     415,   416,   418
+       0,   182,   182,   182,   183,   184,   185,   186,   187,   188,
+     189,   190,   191,   192,   193,   194,   196,   197,   198,   199,
+     200,   201,   203,   205,   208,   209,   211,   212,   213,   214,
+     215,   216,   217,   218,   220,   221,   222,   223,   224,   226,
+     227,   228,   229,   230,   232,   233,   234,   235,   236,   237,
+     238,   240,   241,   242,   244,   245,   246,   248,   249,   250,
+     251,   252,   253,   254,   255,   257,   258,   259,   260,   261,
+     262,   263,   264,   266,   267,   268,   269,   270,   271,   272,
+     273,   275,   276,   277,   278,   279,   280,   281,   282,   284,
+     285,   286,   287,   288,   289,   290,   291,   293,   294,   295,
+     296,   297,   298,   299,   300,   302,   303,   304,   305,   306,
+     307,   309,   310,   311,   312,   313,   314,   315,   316,   317,
+     318,   319,   320,   321,   322,   323,   324,   325,   326,   327,
+     329,   330,   331,   332,   333,   334,   335,   336,   337,   338,
+     340,   341,   342,   343,   345,   346,   347,   348,   350,   351,
+     352,   353,   355,   356,   357,   358,   359,   361,   362,   363,
+     364,   365,   367,   368,   369,   370,   371,   373,   374,   375,
+     376,   377,   379,   380,   382,   383,   384,   385,   386,   387,
+     388,   389,   390,   392,   393,   394,   395,   396,   397,   398,
+     399,   400,   402,   403,   405,   406,   407,   408,   409,   410,
+     411,   412,   414
 };
 #endif
 
@@ -663,24 +681,6 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#ifdef YYPRINT
-/* YYTOKNUM[NUM] -- (External) token number corresponding to the
-   (internal) symbol number NUM (which must be that of a token).  */
-static const yytype_int16 yytoknum[] =
-{
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308,   309,   310,   311,   312,   313,   314,
-     315,   316,   317,   318,   319,   320,   321,   322,   323,   324,
-     325,   326,   327,   328,   329,   330,   331,   332,   333,   334,
-     335,   336,   337,   338,   339,   340,   341,   342,   343,   344,
-     345,   346,   347,   348,   349,   350,   351,   352
-};
-#endif
-
 #define YYPACT_NINF (-216)
 
 #define yypact_value_is_default(Yyn) \
@@ -691,8 +691,8 @@ static const yytype_int16 yytoknum[] =
 #define yytable_value_is_error(Yyn) \
   0
 
-  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-     STATE-NUM.  */
+/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+   STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
      293,   -72,   -24,   -11,  -216,    15,    86,    92,   104,   106,
@@ -730,9 +730,9 @@ static const yytype_int16 yypact[] =
     -216,   486,  -216,  -216,   497,  -216,  -216
 };
 
-  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
-     Performed when YYTABLE does not specify something else to do.  Zero
-     means the default is an error.  */
+/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+   Performed when YYTABLE does not specify something else to do.  Zero
+   means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     0,    15,     0,     0,     0,     0,     0,
@@ -770,23 +770,23 @@ static const yytype_uint8 yydefact[] =
       17,     0,   182,   181,     0,   191,    23
 };
 
-  /* YYPGOTO[NTERM-NUM].  */
+/* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
     -216,  -216,   191,  -216,   -78,  -216,   151,   480,   492,   166,
       18,   356,   244,   630,   639,   -13,  -215
 };
 
-  /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int16 yydefgoto[] =
+/* YYDEFGOTO[NTERM-NUM].  */
+static const yytype_uint8 yydefgoto[] =
 {
-      -1,    69,    70,    71,   237,    72,    92,    93,    94,    95,
+       0,    69,    70,    71,   237,    72,    92,    93,    94,    95,
       96,    97,   107,    98,    99,   125,   230
 };
 
-  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
-     positive, shift that token.  If negative, reduce the rule whose
-     number is the opposite.  If YYTABLE_NINF, syntax error.  */
+/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+   positive, shift that token.  If negative, reduce the rule whose
+   number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
      100,   108,   114,   100,   239,    73,   100,   100,   100,   100,
@@ -929,8 +929,8 @@ static const yytype_int16 yycheck[] =
       21,    22,    23,    24
 };
 
-  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-     symbol of state STATE-NUM.  */
+/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+   state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,     6,     7,     8,     9,    10,    11,    14,
@@ -968,7 +968,7 @@ static const yytype_int8 yystos[] =
       78,   113,    82,    78,   113,    78,    78
 };
 
-  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
+/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    98,    99,    99,   100,   100,   100,   100,   100,   100,
@@ -994,7 +994,7 @@ static const yytype_int8 yyr1[] =
      114,   114,   114
 };
 
-  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
+/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     1,     2,     3,     3,     4,     4,     4,
@@ -1029,6 +1029,7 @@ enum { YYENOMEM = -2 };
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
 #define YYERROR         goto yyerrorlab
+#define YYNOMEM         goto yyexhaustedlab
 
 
 #define YYRECOVERING()  (!!yyerrstatus)
@@ -1069,10 +1070,7 @@ do {                                            \
     YYFPRINTF Args;                             \
 } while (0)
 
-/* This macro is provided for backward compatibility. */
-# ifndef YY_LOCATION_PRINT
-#  define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-# endif
+
 
 
 # define YY_SYMBOL_PRINT(Title, Kind, Value, Location)                    \
@@ -1096,15 +1094,11 @@ yy_symbol_value_print (FILE *yyo,
                        yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
   FILE *yyoutput = yyo;
-  YYUSE (yyoutput);
+  YY_USE (yyoutput);
   if (!yyvaluep)
     return;
-# ifdef YYPRINT
-  if (yykind < YYNTOKENS)
-    YYPRINT (yyo, yytoknum[yykind], *yyvaluep);
-# endif
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-  YYUSE (yykind);
+  YY_USE (yykind);
   YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
@@ -1218,13 +1212,13 @@ static void
 yydestruct (const char *yymsg,
             yysymbol_kind_t yykind, YYSTYPE *yyvaluep)
 {
-  YYUSE (yyvaluep);
+  YY_USE (yyvaluep);
   if (!yymsg)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yykind, yyvaluep, yylocationp);
 
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-  YYUSE (yykind);
+  YY_USE (yykind);
   YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
@@ -1287,6 +1281,7 @@ yyparse (void)
   YYDPRINTF ((stderr, "Starting parse\n"));
 
   yychar = YYEMPTY; /* Cause a token to be read.  */
+
   goto yysetstate;
 
 
@@ -1312,7 +1307,7 @@ yysetstate:
 
   if (yyss + yystacksize - 1 <= yyssp)
 #if !defined yyoverflow && !defined YYSTACK_RELOCATE
-    goto yyexhaustedlab;
+    YYNOMEM;
 #else
     {
       /* Get the current used size of the three stacks, in elements.  */
@@ -1340,7 +1335,7 @@ yysetstate:
 # else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-        goto yyexhaustedlab;
+        YYNOMEM;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
         yystacksize = YYMAXDEPTH;
@@ -1351,7 +1346,7 @@ yysetstate:
           YY_CAST (union yyalloc *,
                    YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
         if (! yyptr)
-          goto yyexhaustedlab;
+          YYNOMEM;
         YYSTACK_RELOCATE (yyss_alloc, yyss);
         YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
@@ -1372,6 +1367,7 @@ yysetstate:
         YYABORT;
     }
 #endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
+
 
   if (yystate == YYFINAL)
     YYACCEPT;
@@ -1485,1205 +1481,1205 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* stmt: LABEL COLON  */
-#line 187 "asm.y"
+#line 183 "asm.y"
                     { new_label((yyvsp[-1].str)); }
-#line 1491 "asm.tab.c"
+#line 1487 "asm.tab.c"
     break;
 
   case 5: /* stmt: SYMBOL ASSIGN expr  */
-#line 188 "asm.y"
+#line 184 "asm.y"
                            { new_symbol_expr((yyvsp[-2].str), (yyvsp[0].expr)); }
-#line 1497 "asm.tab.c"
+#line 1493 "asm.tab.c"
     break;
 
   case 6: /* stmt: SYMBOL GUESS expr  */
-#line 189 "asm.y"
+#line 185 "asm.y"
                           { new_symbol_expr_guess((yyvsp[-2].str), (yyvsp[0].expr)); }
-#line 1503 "asm.tab.c"
+#line 1499 "asm.tab.c"
     break;
 
   case 7: /* stmt: IF LPAREN lexpr RPAREN  */
-#line 190 "asm.y"
+#line 186 "asm.y"
                                { push_if_state((yyvsp[-1].expr)); }
-#line 1509 "asm.tab.c"
+#line 1505 "asm.tab.c"
     break;
 
   case 8: /* stmt: ORG LPAREN expr RPAREN  */
-#line 191 "asm.y"
+#line 187 "asm.y"
                                { set_org((yyvsp[-1].expr)); }
-#line 1515 "asm.tab.c"
+#line 1511 "asm.tab.c"
     break;
 
   case 9: /* stmt: ERROR LPAREN STRING RPAREN  */
-#line 192 "asm.y"
+#line 188 "asm.y"
                                    { asm_error((yyvsp[-1].str)); }
-#line 1521 "asm.tab.c"
+#line 1517 "asm.tab.c"
     break;
 
   case 10: /* stmt: ECHO1 LPAREN STRING RPAREN  */
-#line 193 "asm.y"
+#line 189 "asm.y"
                                    { asm_echo((yyvsp[-1].str), NULL); }
-#line 1527 "asm.tab.c"
+#line 1523 "asm.tab.c"
     break;
 
   case 11: /* stmt: ECHO1 LPAREN STRING COMMA exprs RPAREN  */
-#line 194 "asm.y"
+#line 190 "asm.y"
                                                { asm_echo((yyvsp[-3].str), (yyvsp[-1].atom)); }
-#line 1533 "asm.tab.c"
+#line 1529 "asm.tab.c"
     break;
 
   case 12: /* stmt: INCLUDE LPAREN STRING RPAREN  */
-#line 195 "asm.y"
+#line 191 "asm.y"
                                      { asm_include((yyvsp[-1].str)); }
-#line 1539 "asm.tab.c"
+#line 1535 "asm.tab.c"
     break;
 
   case 13: /* stmt: MACRO LPAREN STRING RPAREN  */
-#line 196 "asm.y"
+#line 192 "asm.y"
                                    { push_macro_state((yyvsp[-1].str)); }
-#line 1545 "asm.tab.c"
+#line 1541 "asm.tab.c"
     break;
 
   case 14: /* stmt: atom  */
-#line 197 "asm.y"
+#line 193 "asm.y"
              { vec_push(asm_atoms, &(yyvsp[0].atom)); }
-#line 1551 "asm.tab.c"
+#line 1547 "asm.tab.c"
     break;
 
   case 15: /* stmt: MACRO_STRING  */
-#line 198 "asm.y"
+#line 194 "asm.y"
                      { macro_append((yyvsp[0].str)); }
-#line 1557 "asm.tab.c"
+#line 1553 "asm.tab.c"
     break;
 
   case 16: /* atom: op  */
-#line 200 "asm.y"
+#line 196 "asm.y"
            { (yyval.atom) = (yyvsp[0].atom); }
-#line 1563 "asm.tab.c"
+#line 1559 "asm.tab.c"
     break;
 
   case 17: /* atom: RES LPAREN expr COMMA expr RPAREN  */
-#line 201 "asm.y"
+#line 197 "asm.y"
                                           { (yyval.atom) = new_res((yyvsp[-3].expr), (yyvsp[-1].expr)); }
-#line 1569 "asm.tab.c"
+#line 1565 "asm.tab.c"
     break;
 
   case 18: /* atom: WORD LPAREN exprs RPAREN  */
-#line 202 "asm.y"
+#line 198 "asm.y"
                                  { (yyval.atom) = exprs_to_word_exprs((yyvsp[-1].atom)); }
-#line 1575 "asm.tab.c"
+#line 1571 "asm.tab.c"
     break;
 
   case 19: /* atom: BYTE LPAREN exprs RPAREN  */
-#line 203 "asm.y"
+#line 199 "asm.y"
                                  { (yyval.atom) = exprs_to_byte_exprs((yyvsp[-1].atom)); }
-#line 1581 "asm.tab.c"
+#line 1577 "asm.tab.c"
     break;
 
   case 20: /* atom: TEXT LPAREN STRING RPAREN  */
-#line 204 "asm.y"
+#line 200 "asm.y"
                                   { (yyval.atom) = text_to_byte_exprs((yyvsp[-1].str)); }
-#line 1587 "asm.tab.c"
+#line 1583 "asm.tab.c"
     break;
 
   case 21: /* atom: INCBIN LPAREN STRING RPAREN  */
-#line 205 "asm.y"
+#line 201 "asm.y"
                                     {
             (yyval.atom) = new_incbin((yyvsp[-1].str), NULL, NULL); }
-#line 1594 "asm.tab.c"
+#line 1590 "asm.tab.c"
     break;
 
   case 22: /* atom: INCBIN LPAREN STRING COMMA expr RPAREN  */
-#line 207 "asm.y"
+#line 203 "asm.y"
                                                {
             (yyval.atom) = new_incbin((yyvsp[-3].str), (yyvsp[-1].expr), NULL); }
-#line 1601 "asm.tab.c"
+#line 1597 "asm.tab.c"
     break;
 
   case 23: /* atom: INCBIN LPAREN STRING COMMA expr COMMA expr RPAREN  */
-#line 209 "asm.y"
+#line 205 "asm.y"
                                                           {
             (yyval.atom) = new_incbin((yyvsp[-5].str), (yyvsp[-3].expr), (yyvsp[-1].expr)); }
-#line 1608 "asm.tab.c"
+#line 1604 "asm.tab.c"
     break;
 
   case 24: /* exprs: exprs COMMA expr  */
-#line 212 "asm.y"
+#line 208 "asm.y"
                          { (yyval.atom) = exprs_add((yyvsp[-2].atom), (yyvsp[0].expr)); }
-#line 1614 "asm.tab.c"
+#line 1610 "asm.tab.c"
     break;
 
   case 25: /* exprs: expr  */
-#line 213 "asm.y"
+#line 209 "asm.y"
              { (yyval.atom) = new_exprs((yyvsp[0].expr)); }
-#line 1620 "asm.tab.c"
+#line 1616 "asm.tab.c"
     break;
 
   case 26: /* op: LDA am_im  */
-#line 215 "asm.y"
+#line 211 "asm.y"
                    { (yyval.atom) = new_op(0xA9, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1626 "asm.tab.c"
+#line 1622 "asm.tab.c"
     break;
 
   case 27: /* op: LDA am_zp  */
-#line 216 "asm.y"
+#line 212 "asm.y"
                    { (yyval.atom) = new_op(0xA5, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1632 "asm.tab.c"
+#line 1628 "asm.tab.c"
     break;
 
   case 28: /* op: LDA am_zpx  */
-#line 217 "asm.y"
+#line 213 "asm.y"
                    { (yyval.atom) = new_op(0xB5, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1638 "asm.tab.c"
+#line 1634 "asm.tab.c"
     break;
 
   case 29: /* op: LDA am_a  */
-#line 218 "asm.y"
+#line 214 "asm.y"
                    { (yyval.atom) = new_op(0xAD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1644 "asm.tab.c"
+#line 1640 "asm.tab.c"
     break;
 
   case 30: /* op: LDA am_ax  */
-#line 219 "asm.y"
+#line 215 "asm.y"
                    { (yyval.atom) = new_op(0xBD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1650 "asm.tab.c"
+#line 1646 "asm.tab.c"
     break;
 
   case 31: /* op: LDA am_ay  */
-#line 220 "asm.y"
+#line 216 "asm.y"
                    { (yyval.atom) = new_op(0xB9, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1656 "asm.tab.c"
+#line 1652 "asm.tab.c"
     break;
 
   case 32: /* op: LDA am_ix  */
-#line 221 "asm.y"
+#line 217 "asm.y"
                    { (yyval.atom) = new_op(0xA1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1662 "asm.tab.c"
+#line 1658 "asm.tab.c"
     break;
 
   case 33: /* op: LDA am_iy  */
-#line 222 "asm.y"
+#line 218 "asm.y"
                    { (yyval.atom) = new_op(0xB1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1668 "asm.tab.c"
+#line 1664 "asm.tab.c"
     break;
 
   case 34: /* op: LDX am_im  */
-#line 224 "asm.y"
+#line 220 "asm.y"
                    { (yyval.atom) = new_op(0xA2, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1674 "asm.tab.c"
+#line 1670 "asm.tab.c"
     break;
 
   case 35: /* op: LDX am_zp  */
-#line 225 "asm.y"
+#line 221 "asm.y"
                    { (yyval.atom) = new_op(0xA6, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1680 "asm.tab.c"
+#line 1676 "asm.tab.c"
     break;
 
   case 36: /* op: LDX am_zpy  */
-#line 226 "asm.y"
+#line 222 "asm.y"
                    { (yyval.atom) = new_op(0xB6, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1686 "asm.tab.c"
+#line 1682 "asm.tab.c"
     break;
 
   case 37: /* op: LDX am_a  */
-#line 227 "asm.y"
+#line 223 "asm.y"
                    { (yyval.atom) = new_op(0xAE, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1692 "asm.tab.c"
+#line 1688 "asm.tab.c"
     break;
 
   case 38: /* op: LDX am_ay  */
-#line 228 "asm.y"
+#line 224 "asm.y"
                    { (yyval.atom) = new_op(0xBE, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1698 "asm.tab.c"
+#line 1694 "asm.tab.c"
     break;
 
   case 39: /* op: LDY am_im  */
-#line 230 "asm.y"
+#line 226 "asm.y"
                    { (yyval.atom) = new_op(0xA0, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1704 "asm.tab.c"
+#line 1700 "asm.tab.c"
     break;
 
   case 40: /* op: LDY am_zp  */
-#line 231 "asm.y"
+#line 227 "asm.y"
                    { (yyval.atom) = new_op(0xA4, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1710 "asm.tab.c"
+#line 1706 "asm.tab.c"
     break;
 
   case 41: /* op: LDY am_zpx  */
-#line 232 "asm.y"
+#line 228 "asm.y"
                    { (yyval.atom) = new_op(0xB4, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1716 "asm.tab.c"
+#line 1712 "asm.tab.c"
     break;
 
   case 42: /* op: LDY am_a  */
-#line 233 "asm.y"
+#line 229 "asm.y"
                    { (yyval.atom) = new_op(0xAC, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1722 "asm.tab.c"
+#line 1718 "asm.tab.c"
     break;
 
   case 43: /* op: LDY am_ax  */
-#line 234 "asm.y"
+#line 230 "asm.y"
                    { (yyval.atom) = new_op(0xBC, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1728 "asm.tab.c"
+#line 1724 "asm.tab.c"
     break;
 
   case 44: /* op: STA am_zp  */
-#line 236 "asm.y"
+#line 232 "asm.y"
                    { (yyval.atom) = new_op(0x85, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1734 "asm.tab.c"
+#line 1730 "asm.tab.c"
     break;
 
   case 45: /* op: STA am_zpx  */
-#line 237 "asm.y"
+#line 233 "asm.y"
                    { (yyval.atom) = new_op(0x95, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1740 "asm.tab.c"
+#line 1736 "asm.tab.c"
     break;
 
   case 46: /* op: STA am_a  */
-#line 238 "asm.y"
+#line 234 "asm.y"
                    { (yyval.atom) = new_op(0x8D, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1746 "asm.tab.c"
+#line 1742 "asm.tab.c"
     break;
 
   case 47: /* op: STA am_ax  */
-#line 239 "asm.y"
+#line 235 "asm.y"
                    { (yyval.atom) = new_op(0x9D, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1752 "asm.tab.c"
+#line 1748 "asm.tab.c"
     break;
 
   case 48: /* op: STA am_ay  */
-#line 240 "asm.y"
+#line 236 "asm.y"
                    { (yyval.atom) = new_op(0x99, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1758 "asm.tab.c"
+#line 1754 "asm.tab.c"
     break;
 
   case 49: /* op: STA am_ix  */
-#line 241 "asm.y"
+#line 237 "asm.y"
                    { (yyval.atom) = new_op(0x81, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1764 "asm.tab.c"
+#line 1760 "asm.tab.c"
     break;
 
   case 50: /* op: STA am_iy  */
-#line 242 "asm.y"
+#line 238 "asm.y"
                    { (yyval.atom) = new_op(0x91, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1770 "asm.tab.c"
+#line 1766 "asm.tab.c"
     break;
 
   case 51: /* op: STX am_zp  */
-#line 244 "asm.y"
+#line 240 "asm.y"
                    { (yyval.atom) = new_op(0x86, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1776 "asm.tab.c"
+#line 1772 "asm.tab.c"
     break;
 
   case 52: /* op: STX am_zpy  */
-#line 245 "asm.y"
+#line 241 "asm.y"
                    { (yyval.atom) = new_op(0x96, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1782 "asm.tab.c"
+#line 1778 "asm.tab.c"
     break;
 
   case 53: /* op: STX am_a  */
-#line 246 "asm.y"
+#line 242 "asm.y"
                    { (yyval.atom) = new_op(0x8e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1788 "asm.tab.c"
+#line 1784 "asm.tab.c"
     break;
 
   case 54: /* op: STY am_zp  */
-#line 248 "asm.y"
+#line 244 "asm.y"
                    { (yyval.atom) = new_op(0x84, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1794 "asm.tab.c"
+#line 1790 "asm.tab.c"
     break;
 
   case 55: /* op: STY am_zpx  */
-#line 249 "asm.y"
+#line 245 "asm.y"
                    { (yyval.atom) = new_op(0x94, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1800 "asm.tab.c"
+#line 1796 "asm.tab.c"
     break;
 
   case 56: /* op: STY am_a  */
-#line 250 "asm.y"
+#line 246 "asm.y"
                    { (yyval.atom) = new_op(0x8c, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1806 "asm.tab.c"
+#line 1802 "asm.tab.c"
     break;
 
   case 57: /* op: AND am_im  */
-#line 252 "asm.y"
+#line 248 "asm.y"
                    { (yyval.atom) = new_op(0x29, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1812 "asm.tab.c"
+#line 1808 "asm.tab.c"
     break;
 
   case 58: /* op: AND am_zp  */
-#line 253 "asm.y"
+#line 249 "asm.y"
                    { (yyval.atom) = new_op(0x25, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1818 "asm.tab.c"
+#line 1814 "asm.tab.c"
     break;
 
   case 59: /* op: AND am_zpx  */
-#line 254 "asm.y"
+#line 250 "asm.y"
                    { (yyval.atom) = new_op(0x35, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1824 "asm.tab.c"
+#line 1820 "asm.tab.c"
     break;
 
   case 60: /* op: AND am_a  */
-#line 255 "asm.y"
+#line 251 "asm.y"
                    { (yyval.atom) = new_op(0x2d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1830 "asm.tab.c"
+#line 1826 "asm.tab.c"
     break;
 
   case 61: /* op: AND am_ax  */
-#line 256 "asm.y"
+#line 252 "asm.y"
                    { (yyval.atom) = new_op(0x3d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1836 "asm.tab.c"
+#line 1832 "asm.tab.c"
     break;
 
   case 62: /* op: AND am_ay  */
-#line 257 "asm.y"
+#line 253 "asm.y"
                    { (yyval.atom) = new_op(0x39, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1842 "asm.tab.c"
+#line 1838 "asm.tab.c"
     break;
 
   case 63: /* op: AND am_ix  */
-#line 258 "asm.y"
+#line 254 "asm.y"
                    { (yyval.atom) = new_op(0x21, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1848 "asm.tab.c"
+#line 1844 "asm.tab.c"
     break;
 
   case 64: /* op: AND am_iy  */
-#line 259 "asm.y"
+#line 255 "asm.y"
                    { (yyval.atom) = new_op(0x31, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1854 "asm.tab.c"
+#line 1850 "asm.tab.c"
     break;
 
   case 65: /* op: ORA am_im  */
-#line 261 "asm.y"
+#line 257 "asm.y"
                    { (yyval.atom) = new_op(0x09, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1860 "asm.tab.c"
+#line 1856 "asm.tab.c"
     break;
 
   case 66: /* op: ORA am_zp  */
-#line 262 "asm.y"
+#line 258 "asm.y"
                    { (yyval.atom) = new_op(0x05, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1866 "asm.tab.c"
+#line 1862 "asm.tab.c"
     break;
 
   case 67: /* op: ORA am_zpx  */
-#line 263 "asm.y"
+#line 259 "asm.y"
                    { (yyval.atom) = new_op(0x15, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1872 "asm.tab.c"
+#line 1868 "asm.tab.c"
     break;
 
   case 68: /* op: ORA am_a  */
-#line 264 "asm.y"
+#line 260 "asm.y"
                    { (yyval.atom) = new_op(0x0d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1878 "asm.tab.c"
+#line 1874 "asm.tab.c"
     break;
 
   case 69: /* op: ORA am_ax  */
-#line 265 "asm.y"
+#line 261 "asm.y"
                    { (yyval.atom) = new_op(0x1d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1884 "asm.tab.c"
+#line 1880 "asm.tab.c"
     break;
 
   case 70: /* op: ORA am_ay  */
-#line 266 "asm.y"
+#line 262 "asm.y"
                    { (yyval.atom) = new_op(0x19, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1890 "asm.tab.c"
+#line 1886 "asm.tab.c"
     break;
 
   case 71: /* op: ORA am_ix  */
-#line 267 "asm.y"
+#line 263 "asm.y"
                    { (yyval.atom) = new_op(0x01, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1896 "asm.tab.c"
+#line 1892 "asm.tab.c"
     break;
 
   case 72: /* op: ORA am_iy  */
-#line 268 "asm.y"
+#line 264 "asm.y"
                    { (yyval.atom) = new_op(0x11, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1902 "asm.tab.c"
+#line 1898 "asm.tab.c"
     break;
 
   case 73: /* op: EOR am_im  */
-#line 270 "asm.y"
+#line 266 "asm.y"
                    { (yyval.atom) = new_op(0x49, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1908 "asm.tab.c"
+#line 1904 "asm.tab.c"
     break;
 
   case 74: /* op: EOR am_zp  */
-#line 271 "asm.y"
+#line 267 "asm.y"
                    { (yyval.atom) = new_op(0x45, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1914 "asm.tab.c"
+#line 1910 "asm.tab.c"
     break;
 
   case 75: /* op: EOR am_zpx  */
-#line 272 "asm.y"
+#line 268 "asm.y"
                    { (yyval.atom) = new_op(0x55, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1920 "asm.tab.c"
+#line 1916 "asm.tab.c"
     break;
 
   case 76: /* op: EOR am_a  */
-#line 273 "asm.y"
+#line 269 "asm.y"
                    { (yyval.atom) = new_op(0x4d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1926 "asm.tab.c"
+#line 1922 "asm.tab.c"
     break;
 
   case 77: /* op: EOR am_ax  */
-#line 274 "asm.y"
+#line 270 "asm.y"
                    { (yyval.atom) = new_op(0x5d, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1932 "asm.tab.c"
+#line 1928 "asm.tab.c"
     break;
 
   case 78: /* op: EOR am_ay  */
-#line 275 "asm.y"
+#line 271 "asm.y"
                    { (yyval.atom) = new_op(0x59, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1938 "asm.tab.c"
+#line 1934 "asm.tab.c"
     break;
 
   case 79: /* op: EOR am_ix  */
-#line 276 "asm.y"
+#line 272 "asm.y"
                    { (yyval.atom) = new_op(0x41, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1944 "asm.tab.c"
+#line 1940 "asm.tab.c"
     break;
 
   case 80: /* op: EOR am_iy  */
-#line 277 "asm.y"
+#line 273 "asm.y"
                    { (yyval.atom) = new_op(0x51, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1950 "asm.tab.c"
+#line 1946 "asm.tab.c"
     break;
 
   case 81: /* op: ADC am_im  */
-#line 279 "asm.y"
+#line 275 "asm.y"
                    { (yyval.atom) = new_op(0x69, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 1956 "asm.tab.c"
+#line 1952 "asm.tab.c"
     break;
 
   case 82: /* op: ADC am_zp  */
-#line 280 "asm.y"
+#line 276 "asm.y"
                    { (yyval.atom) = new_op(0x65, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 1962 "asm.tab.c"
+#line 1958 "asm.tab.c"
     break;
 
   case 83: /* op: ADC am_zpx  */
-#line 281 "asm.y"
+#line 277 "asm.y"
                    { (yyval.atom) = new_op(0x75, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1968 "asm.tab.c"
+#line 1964 "asm.tab.c"
     break;
 
   case 84: /* op: ADC am_a  */
-#line 282 "asm.y"
+#line 278 "asm.y"
                    { (yyval.atom) = new_op(0x6D, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1974 "asm.tab.c"
+#line 1970 "asm.tab.c"
     break;
 
   case 85: /* op: ADC am_ax  */
-#line 283 "asm.y"
+#line 279 "asm.y"
                    { (yyval.atom) = new_op(0x7D, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1980 "asm.tab.c"
+#line 1976 "asm.tab.c"
     break;
 
   case 86: /* op: ADC am_ay  */
-#line 284 "asm.y"
+#line 280 "asm.y"
                    { (yyval.atom) = new_op(0x79, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 1986 "asm.tab.c"
+#line 1982 "asm.tab.c"
     break;
 
   case 87: /* op: ADC am_ix  */
-#line 285 "asm.y"
+#line 281 "asm.y"
                    { (yyval.atom) = new_op(0x61, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1992 "asm.tab.c"
+#line 1988 "asm.tab.c"
     break;
 
   case 88: /* op: ADC am_iy  */
-#line 286 "asm.y"
+#line 282 "asm.y"
                    { (yyval.atom) = new_op(0x71, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 1998 "asm.tab.c"
+#line 1994 "asm.tab.c"
     break;
 
   case 89: /* op: SBC am_im  */
-#line 288 "asm.y"
+#line 284 "asm.y"
                    { (yyval.atom) = new_op(0xe9, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 2004 "asm.tab.c"
+#line 2000 "asm.tab.c"
     break;
 
   case 90: /* op: SBC am_zp  */
-#line 289 "asm.y"
+#line 285 "asm.y"
                    { (yyval.atom) = new_op(0xe5, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 2010 "asm.tab.c"
+#line 2006 "asm.tab.c"
     break;
 
   case 91: /* op: SBC am_zpx  */
-#line 290 "asm.y"
+#line 286 "asm.y"
                    { (yyval.atom) = new_op(0xf5, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2016 "asm.tab.c"
+#line 2012 "asm.tab.c"
     break;
 
   case 92: /* op: SBC am_a  */
-#line 291 "asm.y"
+#line 287 "asm.y"
                    { (yyval.atom) = new_op(0xeD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2022 "asm.tab.c"
+#line 2018 "asm.tab.c"
     break;
 
   case 93: /* op: SBC am_ax  */
-#line 292 "asm.y"
+#line 288 "asm.y"
                    { (yyval.atom) = new_op(0xfD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2028 "asm.tab.c"
+#line 2024 "asm.tab.c"
     break;
 
   case 94: /* op: SBC am_ay  */
-#line 293 "asm.y"
+#line 289 "asm.y"
                    { (yyval.atom) = new_op(0xf9, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2034 "asm.tab.c"
+#line 2030 "asm.tab.c"
     break;
 
   case 95: /* op: SBC am_ix  */
-#line 294 "asm.y"
+#line 290 "asm.y"
                    { (yyval.atom) = new_op(0xe1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2040 "asm.tab.c"
+#line 2036 "asm.tab.c"
     break;
 
   case 96: /* op: SBC am_iy  */
-#line 295 "asm.y"
+#line 291 "asm.y"
                    { (yyval.atom) = new_op(0xf1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2046 "asm.tab.c"
+#line 2042 "asm.tab.c"
     break;
 
   case 97: /* op: CMP am_im  */
-#line 297 "asm.y"
+#line 293 "asm.y"
                    { (yyval.atom) = new_op(0xc9, ATOM_TYPE_OP_ARG_UI8, (yyvsp[0].expr)); }
-#line 2052 "asm.tab.c"
+#line 2048 "asm.tab.c"
     break;
 
   case 98: /* op: CMP am_zp  */
-#line 298 "asm.y"
+#line 294 "asm.y"
                    { (yyval.atom) = new_op(0xc5, ATOM_TYPE_OP_ARG_U8,  (yyvsp[0].expr)); }
-#line 2058 "asm.tab.c"
+#line 2054 "asm.tab.c"
     break;
 
   case 99: /* op: CMP am_zpx  */
-#line 299 "asm.y"
+#line 295 "asm.y"
                    { (yyval.atom) = new_op(0xd5, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2064 "asm.tab.c"
+#line 2060 "asm.tab.c"
     break;
 
   case 100: /* op: CMP am_a  */
-#line 300 "asm.y"
+#line 296 "asm.y"
                    { (yyval.atom) = new_op(0xcD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2070 "asm.tab.c"
+#line 2066 "asm.tab.c"
     break;
 
   case 101: /* op: CMP am_ax  */
-#line 301 "asm.y"
+#line 297 "asm.y"
                    { (yyval.atom) = new_op(0xdD, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2076 "asm.tab.c"
+#line 2072 "asm.tab.c"
     break;
 
   case 102: /* op: CMP am_ay  */
-#line 302 "asm.y"
+#line 298 "asm.y"
                    { (yyval.atom) = new_op(0xd9, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2082 "asm.tab.c"
+#line 2078 "asm.tab.c"
     break;
 
   case 103: /* op: CMP am_ix  */
-#line 303 "asm.y"
+#line 299 "asm.y"
                    { (yyval.atom) = new_op(0xc1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2088 "asm.tab.c"
+#line 2084 "asm.tab.c"
     break;
 
   case 104: /* op: CMP am_iy  */
-#line 304 "asm.y"
+#line 300 "asm.y"
                    { (yyval.atom) = new_op(0xd1, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2094 "asm.tab.c"
+#line 2090 "asm.tab.c"
     break;
 
   case 105: /* op: CPX am_im  */
-#line 306 "asm.y"
+#line 302 "asm.y"
                   { (yyval.atom) = new_op(0xe0, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2100 "asm.tab.c"
+#line 2096 "asm.tab.c"
     break;
 
   case 106: /* op: CPX am_zp  */
-#line 307 "asm.y"
+#line 303 "asm.y"
                   { (yyval.atom) = new_op(0xe4, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2106 "asm.tab.c"
+#line 2102 "asm.tab.c"
     break;
 
   case 107: /* op: CPX am_a  */
-#line 308 "asm.y"
+#line 304 "asm.y"
                   { (yyval.atom) = new_op(0xec, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2112 "asm.tab.c"
+#line 2108 "asm.tab.c"
     break;
 
   case 108: /* op: CPY am_im  */
-#line 309 "asm.y"
+#line 305 "asm.y"
                   { (yyval.atom) = new_op(0xc0, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2118 "asm.tab.c"
+#line 2114 "asm.tab.c"
     break;
 
   case 109: /* op: CPY am_zp  */
-#line 310 "asm.y"
+#line 306 "asm.y"
                   { (yyval.atom) = new_op(0xc4, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2124 "asm.tab.c"
+#line 2120 "asm.tab.c"
     break;
 
   case 110: /* op: CPY am_a  */
-#line 311 "asm.y"
+#line 307 "asm.y"
                   { (yyval.atom) = new_op(0xcc, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2130 "asm.tab.c"
+#line 2126 "asm.tab.c"
     break;
 
   case 111: /* op: TXS  */
-#line 313 "asm.y"
+#line 309 "asm.y"
             { (yyval.atom) = new_op0(0x9A); }
-#line 2136 "asm.tab.c"
+#line 2132 "asm.tab.c"
     break;
 
   case 112: /* op: TSX  */
-#line 314 "asm.y"
+#line 310 "asm.y"
             { (yyval.atom) = new_op0(0xBA); }
-#line 2142 "asm.tab.c"
+#line 2138 "asm.tab.c"
     break;
 
   case 113: /* op: PHA  */
-#line 315 "asm.y"
+#line 311 "asm.y"
             { (yyval.atom) = new_op0(0x48); }
-#line 2148 "asm.tab.c"
+#line 2144 "asm.tab.c"
     break;
 
   case 114: /* op: PLA  */
-#line 316 "asm.y"
+#line 312 "asm.y"
             { (yyval.atom) = new_op0(0x68); }
-#line 2154 "asm.tab.c"
+#line 2150 "asm.tab.c"
     break;
 
   case 115: /* op: PHP  */
-#line 317 "asm.y"
+#line 313 "asm.y"
             { (yyval.atom) = new_op0(0x08); }
-#line 2160 "asm.tab.c"
+#line 2156 "asm.tab.c"
     break;
 
   case 116: /* op: PLP  */
-#line 318 "asm.y"
+#line 314 "asm.y"
             { (yyval.atom) = new_op0(0x28); }
-#line 2166 "asm.tab.c"
+#line 2162 "asm.tab.c"
     break;
 
   case 117: /* op: SEI  */
-#line 319 "asm.y"
+#line 315 "asm.y"
             { (yyval.atom) = new_op0(0x78); }
-#line 2172 "asm.tab.c"
+#line 2168 "asm.tab.c"
     break;
 
   case 118: /* op: CLI  */
-#line 320 "asm.y"
+#line 316 "asm.y"
             { (yyval.atom) = new_op0(0x58); }
-#line 2178 "asm.tab.c"
+#line 2174 "asm.tab.c"
     break;
 
   case 119: /* op: NOP  */
-#line 321 "asm.y"
+#line 317 "asm.y"
             { (yyval.atom) = new_op0(0xea); }
-#line 2184 "asm.tab.c"
+#line 2180 "asm.tab.c"
     break;
 
   case 120: /* op: TYA  */
-#line 322 "asm.y"
+#line 318 "asm.y"
             { (yyval.atom) = new_op0(0x98); }
-#line 2190 "asm.tab.c"
+#line 2186 "asm.tab.c"
     break;
 
   case 121: /* op: TAY  */
-#line 323 "asm.y"
+#line 319 "asm.y"
             { (yyval.atom) = new_op0(0xa8); }
-#line 2196 "asm.tab.c"
+#line 2192 "asm.tab.c"
     break;
 
   case 122: /* op: TXA  */
-#line 324 "asm.y"
+#line 320 "asm.y"
             { (yyval.atom) = new_op0(0x8a); }
-#line 2202 "asm.tab.c"
+#line 2198 "asm.tab.c"
     break;
 
   case 123: /* op: TAX  */
-#line 325 "asm.y"
+#line 321 "asm.y"
             { (yyval.atom) = new_op0(0xaa); }
-#line 2208 "asm.tab.c"
+#line 2204 "asm.tab.c"
     break;
 
   case 124: /* op: CLC  */
-#line 326 "asm.y"
+#line 322 "asm.y"
             { (yyval.atom) = new_op0(0x18); }
-#line 2214 "asm.tab.c"
+#line 2210 "asm.tab.c"
     break;
 
   case 125: /* op: SEC  */
-#line 327 "asm.y"
+#line 323 "asm.y"
             { (yyval.atom) = new_op0(0x38); }
-#line 2220 "asm.tab.c"
+#line 2216 "asm.tab.c"
     break;
 
   case 126: /* op: RTS  */
-#line 328 "asm.y"
+#line 324 "asm.y"
             { (yyval.atom) = new_op0(0x60); }
-#line 2226 "asm.tab.c"
+#line 2222 "asm.tab.c"
     break;
 
   case 127: /* op: CLV  */
-#line 329 "asm.y"
+#line 325 "asm.y"
             { (yyval.atom) = new_op0(0xb8); }
-#line 2232 "asm.tab.c"
+#line 2228 "asm.tab.c"
     break;
 
   case 128: /* op: CLD  */
-#line 330 "asm.y"
+#line 326 "asm.y"
             { (yyval.atom) = new_op0(0xd8); }
-#line 2238 "asm.tab.c"
+#line 2234 "asm.tab.c"
     break;
 
   case 129: /* op: SED  */
-#line 331 "asm.y"
+#line 327 "asm.y"
             { (yyval.atom) = new_op0(0xf0); }
-#line 2244 "asm.tab.c"
+#line 2240 "asm.tab.c"
     break;
 
   case 130: /* op: JSR am_a  */
-#line 333 "asm.y"
+#line 329 "asm.y"
                    { (yyval.atom) = new_op(0x20, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2250 "asm.tab.c"
+#line 2246 "asm.tab.c"
     break;
 
   case 131: /* op: JMP am_a  */
-#line 334 "asm.y"
+#line 330 "asm.y"
                    { (yyval.atom) = new_op(0x4c, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2256 "asm.tab.c"
+#line 2252 "asm.tab.c"
     break;
 
   case 132: /* op: BEQ am_a  */
-#line 335 "asm.y"
+#line 331 "asm.y"
                    { (yyval.atom) = new_op(0xf0, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2262 "asm.tab.c"
+#line 2258 "asm.tab.c"
     break;
 
   case 133: /* op: BNE am_a  */
-#line 336 "asm.y"
+#line 332 "asm.y"
                    { (yyval.atom) = new_op(0xd0, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2268 "asm.tab.c"
+#line 2264 "asm.tab.c"
     break;
 
   case 134: /* op: BCC am_a  */
-#line 337 "asm.y"
+#line 333 "asm.y"
                    { (yyval.atom) = new_op(0x90, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2274 "asm.tab.c"
+#line 2270 "asm.tab.c"
     break;
 
   case 135: /* op: BCS am_a  */
-#line 338 "asm.y"
+#line 334 "asm.y"
                    { (yyval.atom) = new_op(0xb0, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2280 "asm.tab.c"
+#line 2276 "asm.tab.c"
     break;
 
   case 136: /* op: BPL am_a  */
-#line 339 "asm.y"
+#line 335 "asm.y"
                    { (yyval.atom) = new_op(0x10, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2286 "asm.tab.c"
+#line 2282 "asm.tab.c"
     break;
 
   case 137: /* op: BMI am_a  */
-#line 340 "asm.y"
+#line 336 "asm.y"
                    { (yyval.atom) = new_op(0x30, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2292 "asm.tab.c"
+#line 2288 "asm.tab.c"
     break;
 
   case 138: /* op: BVC am_a  */
-#line 341 "asm.y"
+#line 337 "asm.y"
                    { (yyval.atom) = new_op(0x50, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2298 "asm.tab.c"
+#line 2294 "asm.tab.c"
     break;
 
   case 139: /* op: BVS am_a  */
-#line 342 "asm.y"
+#line 338 "asm.y"
                    { (yyval.atom) = new_op(0x70, ATOM_TYPE_OP_ARG_I8,  (yyvsp[0].expr)); }
-#line 2304 "asm.tab.c"
+#line 2300 "asm.tab.c"
     break;
 
   case 140: /* op: INX  */
-#line 344 "asm.y"
+#line 340 "asm.y"
             { (yyval.atom) = new_op0(0xe8); }
-#line 2310 "asm.tab.c"
+#line 2306 "asm.tab.c"
     break;
 
   case 141: /* op: DEX  */
-#line 345 "asm.y"
+#line 341 "asm.y"
             { (yyval.atom) = new_op0(0xca); }
-#line 2316 "asm.tab.c"
+#line 2312 "asm.tab.c"
     break;
 
   case 142: /* op: INY  */
-#line 346 "asm.y"
+#line 342 "asm.y"
             { (yyval.atom) = new_op0(0xc8); }
-#line 2322 "asm.tab.c"
+#line 2318 "asm.tab.c"
     break;
 
   case 143: /* op: DEY  */
-#line 347 "asm.y"
+#line 343 "asm.y"
             { (yyval.atom) = new_op0(0x88); }
-#line 2328 "asm.tab.c"
+#line 2324 "asm.tab.c"
     break;
 
   case 144: /* op: INC am_zp  */
-#line 349 "asm.y"
+#line 345 "asm.y"
                    { (yyval.atom) = new_op(0xe6, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2334 "asm.tab.c"
+#line 2330 "asm.tab.c"
     break;
 
   case 145: /* op: INC am_zpx  */
-#line 350 "asm.y"
+#line 346 "asm.y"
                    { (yyval.atom) = new_op(0xf6, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2340 "asm.tab.c"
+#line 2336 "asm.tab.c"
     break;
 
   case 146: /* op: INC am_a  */
-#line 351 "asm.y"
+#line 347 "asm.y"
                    { (yyval.atom) = new_op(0xee, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2346 "asm.tab.c"
+#line 2342 "asm.tab.c"
     break;
 
   case 147: /* op: INC am_ax  */
-#line 352 "asm.y"
+#line 348 "asm.y"
                    { (yyval.atom) = new_op(0xfe, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2352 "asm.tab.c"
+#line 2348 "asm.tab.c"
     break;
 
   case 148: /* op: DEC am_zp  */
-#line 354 "asm.y"
+#line 350 "asm.y"
                    { (yyval.atom) = new_op(0xc6, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2358 "asm.tab.c"
+#line 2354 "asm.tab.c"
     break;
 
   case 149: /* op: DEC am_zpx  */
-#line 355 "asm.y"
+#line 351 "asm.y"
                    { (yyval.atom) = new_op(0xd6, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2364 "asm.tab.c"
+#line 2360 "asm.tab.c"
     break;
 
   case 150: /* op: DEC am_a  */
-#line 356 "asm.y"
+#line 352 "asm.y"
                    { (yyval.atom) = new_op(0xce, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2370 "asm.tab.c"
+#line 2366 "asm.tab.c"
     break;
 
   case 151: /* op: DEC am_ax  */
-#line 357 "asm.y"
+#line 353 "asm.y"
                    { (yyval.atom) = new_op(0xde, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2376 "asm.tab.c"
+#line 2372 "asm.tab.c"
     break;
 
   case 152: /* op: LSR  */
-#line 359 "asm.y"
+#line 355 "asm.y"
                    { (yyval.atom) = new_op0(0x4a); }
-#line 2382 "asm.tab.c"
+#line 2378 "asm.tab.c"
     break;
 
   case 153: /* op: LSR am_zp  */
-#line 360 "asm.y"
+#line 356 "asm.y"
                    { (yyval.atom) = new_op(0x46, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2388 "asm.tab.c"
+#line 2384 "asm.tab.c"
     break;
 
   case 154: /* op: LSR am_zpx  */
-#line 361 "asm.y"
+#line 357 "asm.y"
                    { (yyval.atom) = new_op(0x56, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2394 "asm.tab.c"
+#line 2390 "asm.tab.c"
     break;
 
   case 155: /* op: LSR am_a  */
-#line 362 "asm.y"
+#line 358 "asm.y"
                    { (yyval.atom) = new_op(0x4e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2400 "asm.tab.c"
+#line 2396 "asm.tab.c"
     break;
 
   case 156: /* op: LSR am_ax  */
-#line 363 "asm.y"
+#line 359 "asm.y"
                    { (yyval.atom) = new_op(0x5e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2406 "asm.tab.c"
+#line 2402 "asm.tab.c"
     break;
 
   case 157: /* op: ASL  */
-#line 365 "asm.y"
+#line 361 "asm.y"
                    { (yyval.atom) = new_op0(0x0a); }
-#line 2412 "asm.tab.c"
+#line 2408 "asm.tab.c"
     break;
 
   case 158: /* op: ASL am_zp  */
-#line 366 "asm.y"
+#line 362 "asm.y"
                    { (yyval.atom) = new_op(0x06, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2418 "asm.tab.c"
+#line 2414 "asm.tab.c"
     break;
 
   case 159: /* op: ASL am_zpx  */
-#line 367 "asm.y"
+#line 363 "asm.y"
                    { (yyval.atom) = new_op(0x16, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2424 "asm.tab.c"
+#line 2420 "asm.tab.c"
     break;
 
   case 160: /* op: ASL am_a  */
-#line 368 "asm.y"
+#line 364 "asm.y"
                    { (yyval.atom) = new_op(0x0e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2430 "asm.tab.c"
+#line 2426 "asm.tab.c"
     break;
 
   case 161: /* op: ASL am_ax  */
-#line 369 "asm.y"
+#line 365 "asm.y"
                    { (yyval.atom) = new_op(0x1e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2436 "asm.tab.c"
+#line 2432 "asm.tab.c"
     break;
 
   case 162: /* op: ROR  */
-#line 371 "asm.y"
+#line 367 "asm.y"
                    { (yyval.atom) = new_op0(0x6a); }
-#line 2442 "asm.tab.c"
+#line 2438 "asm.tab.c"
     break;
 
   case 163: /* op: ROR am_zp  */
-#line 372 "asm.y"
+#line 368 "asm.y"
                    { (yyval.atom) = new_op(0x66, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2448 "asm.tab.c"
+#line 2444 "asm.tab.c"
     break;
 
   case 164: /* op: ROR am_zpx  */
-#line 373 "asm.y"
+#line 369 "asm.y"
                    { (yyval.atom) = new_op(0x76, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2454 "asm.tab.c"
+#line 2450 "asm.tab.c"
     break;
 
   case 165: /* op: ROR am_a  */
-#line 374 "asm.y"
+#line 370 "asm.y"
                    { (yyval.atom) = new_op(0x6e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2460 "asm.tab.c"
+#line 2456 "asm.tab.c"
     break;
 
   case 166: /* op: ROR am_ax  */
-#line 375 "asm.y"
+#line 371 "asm.y"
                    { (yyval.atom) = new_op(0x7e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2466 "asm.tab.c"
+#line 2462 "asm.tab.c"
     break;
 
   case 167: /* op: ROL  */
-#line 377 "asm.y"
+#line 373 "asm.y"
                    { (yyval.atom) = new_op0(0x2a); }
-#line 2472 "asm.tab.c"
+#line 2468 "asm.tab.c"
     break;
 
   case 168: /* op: ROL am_zp  */
-#line 378 "asm.y"
+#line 374 "asm.y"
                    { (yyval.atom) = new_op(0x26, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2478 "asm.tab.c"
+#line 2474 "asm.tab.c"
     break;
 
   case 169: /* op: ROL am_zpx  */
-#line 379 "asm.y"
+#line 375 "asm.y"
                    { (yyval.atom) = new_op(0x36, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2484 "asm.tab.c"
+#line 2480 "asm.tab.c"
     break;
 
   case 170: /* op: ROL am_a  */
-#line 380 "asm.y"
+#line 376 "asm.y"
                    { (yyval.atom) = new_op(0x2e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2490 "asm.tab.c"
+#line 2486 "asm.tab.c"
     break;
 
   case 171: /* op: ROL am_ax  */
-#line 381 "asm.y"
+#line 377 "asm.y"
                    { (yyval.atom) = new_op(0x3e, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2496 "asm.tab.c"
+#line 2492 "asm.tab.c"
     break;
 
   case 172: /* op: BIT am_zp  */
-#line 383 "asm.y"
+#line 379 "asm.y"
                    { (yyval.atom) = new_op(0x24, ATOM_TYPE_OP_ARG_U8, (yyvsp[0].expr)); }
-#line 2502 "asm.tab.c"
+#line 2498 "asm.tab.c"
     break;
 
   case 173: /* op: BIT am_a  */
-#line 384 "asm.y"
+#line 380 "asm.y"
                    { (yyval.atom) = new_op(0x2c, ATOM_TYPE_OP_ARG_U16, (yyvsp[0].expr)); }
-#line 2508 "asm.tab.c"
+#line 2504 "asm.tab.c"
     break;
 
   case 174: /* am_im: HASH expr  */
-#line 386 "asm.y"
+#line 382 "asm.y"
                   { (yyval.expr) = (yyvsp[0].expr); }
-#line 2514 "asm.tab.c"
+#line 2510 "asm.tab.c"
     break;
 
   case 175: /* am_a: expr  */
-#line 387 "asm.y"
+#line 383 "asm.y"
              { (yyval.expr) = (yyvsp[0].expr); }
-#line 2520 "asm.tab.c"
+#line 2516 "asm.tab.c"
     break;
 
   case 176: /* am_ax: expr COMMA X  */
-#line 388 "asm.y"
+#line 384 "asm.y"
                      { (yyval.expr) = (yyvsp[-2].expr); }
-#line 2526 "asm.tab.c"
+#line 2522 "asm.tab.c"
     break;
 
   case 177: /* am_ay: expr COMMA Y  */
-#line 389 "asm.y"
+#line 385 "asm.y"
                      { (yyval.expr) = (yyvsp[-2].expr); }
-#line 2532 "asm.tab.c"
+#line 2528 "asm.tab.c"
     break;
 
   case 178: /* am_zp: LT expr  */
-#line 390 "asm.y"
+#line 386 "asm.y"
                 { (yyval.expr) = (yyvsp[0].expr); }
-#line 2538 "asm.tab.c"
+#line 2534 "asm.tab.c"
     break;
 
   case 179: /* am_zpx: LT expr COMMA X  */
-#line 391 "asm.y"
+#line 387 "asm.y"
                         { (yyval.expr) = (yyvsp[-2].expr); }
-#line 2544 "asm.tab.c"
+#line 2540 "asm.tab.c"
     break;
 
   case 180: /* am_zpy: LT expr COMMA Y  */
-#line 392 "asm.y"
+#line 388 "asm.y"
                         { (yyval.expr) = (yyvsp[-2].expr); }
-#line 2550 "asm.tab.c"
+#line 2546 "asm.tab.c"
     break;
 
   case 181: /* am_ix: LPAREN expr COMMA X RPAREN  */
-#line 393 "asm.y"
+#line 389 "asm.y"
                                    { (yyval.expr) = (yyvsp[-3].expr); }
-#line 2556 "asm.tab.c"
+#line 2552 "asm.tab.c"
     break;
 
   case 182: /* am_iy: LPAREN expr RPAREN COMMA Y  */
-#line 394 "asm.y"
+#line 390 "asm.y"
                                    { (yyval.expr) = (yyvsp[-3].expr); }
-#line 2562 "asm.tab.c"
+#line 2558 "asm.tab.c"
     break;
 
   case 183: /* expr: expr PLUS expr  */
-#line 396 "asm.y"
+#line 392 "asm.y"
                               { (yyval.expr) = new_expr_op2(PLUS, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2568 "asm.tab.c"
+#line 2564 "asm.tab.c"
     break;
 
   case 184: /* expr: expr MINUS expr  */
-#line 397 "asm.y"
+#line 393 "asm.y"
                               { (yyval.expr) = new_expr_op2(MINUS, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2574 "asm.tab.c"
+#line 2570 "asm.tab.c"
     break;
 
   case 185: /* expr: expr MULT expr  */
-#line 398 "asm.y"
+#line 394 "asm.y"
                               { (yyval.expr) = new_expr_op2(MULT, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2580 "asm.tab.c"
+#line 2576 "asm.tab.c"
     break;
 
   case 186: /* expr: expr DIV expr  */
-#line 399 "asm.y"
+#line 395 "asm.y"
                               { (yyval.expr) = new_expr_op2(DIV, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2586 "asm.tab.c"
+#line 2582 "asm.tab.c"
     break;
 
   case 187: /* expr: expr MOD expr  */
-#line 400 "asm.y"
+#line 396 "asm.y"
                               { (yyval.expr) = new_expr_op2(MOD, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2592 "asm.tab.c"
+#line 2588 "asm.tab.c"
     break;
 
   case 188: /* expr: MINUS expr  */
-#line 401 "asm.y"
+#line 397 "asm.y"
                               { (yyval.expr) = new_expr_op1(vNEG, (yyvsp[0].expr)); }
-#line 2598 "asm.tab.c"
+#line 2594 "asm.tab.c"
     break;
 
   case 189: /* expr: LPAREN expr RPAREN  */
-#line 402 "asm.y"
+#line 398 "asm.y"
                            { (yyval.expr) = (yyvsp[-1].expr); }
-#line 2604 "asm.tab.c"
+#line 2600 "asm.tab.c"
     break;
 
   case 190: /* expr: INCLEN LPAREN STRING RPAREN  */
-#line 403 "asm.y"
+#line 399 "asm.y"
                                     { (yyval.expr) = new_expr_inclen((yyvsp[-1].str)); }
-#line 2610 "asm.tab.c"
+#line 2606 "asm.tab.c"
     break;
 
   case 191: /* expr: INCWORD LPAREN STRING COMMA expr RPAREN  */
-#line 404 "asm.y"
+#line 400 "asm.y"
                                                 {
             (yyval.expr) = new_expr_incword((yyvsp[-3].str), (yyvsp[-1].expr)); }
-#line 2617 "asm.tab.c"
+#line 2613 "asm.tab.c"
     break;
 
   case 192: /* expr: NUMBER  */
-#line 406 "asm.y"
+#line 402 "asm.y"
                { (yyval.expr) = new_expr_number((yyvsp[0].num)); }
-#line 2623 "asm.tab.c"
+#line 2619 "asm.tab.c"
     break;
 
   case 193: /* expr: SYMBOL  */
-#line 407 "asm.y"
+#line 403 "asm.y"
                { (yyval.expr) = new_expr_symref((yyvsp[0].str)); }
-#line 2629 "asm.tab.c"
+#line 2625 "asm.tab.c"
     break;
 
   case 194: /* lexpr: lexpr LOR lexpr  */
-#line 409 "asm.y"
+#line 405 "asm.y"
                             { (yyval.expr) = new_expr_op2(LOR, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2635 "asm.tab.c"
+#line 2631 "asm.tab.c"
     break;
 
   case 195: /* lexpr: lexpr LAND lexpr  */
-#line 410 "asm.y"
+#line 406 "asm.y"
                             { (yyval.expr) = new_expr_op2(LAND, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2641 "asm.tab.c"
+#line 2637 "asm.tab.c"
     break;
 
   case 196: /* lexpr: LNOT lexpr  */
-#line 411 "asm.y"
+#line 407 "asm.y"
                             { (yyval.expr) = new_expr_op1(LNOT, (yyvsp[0].expr)); }
-#line 2647 "asm.tab.c"
+#line 2643 "asm.tab.c"
     break;
 
   case 197: /* lexpr: LPAREN lexpr RPAREN  */
-#line 412 "asm.y"
+#line 408 "asm.y"
                             { (yyval.expr) = (yyvsp[-1].expr); }
-#line 2653 "asm.tab.c"
+#line 2649 "asm.tab.c"
     break;
 
   case 198: /* lexpr: expr LT expr  */
-#line 413 "asm.y"
+#line 409 "asm.y"
                             { (yyval.expr) = new_expr_op2(LT, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2659 "asm.tab.c"
+#line 2655 "asm.tab.c"
     break;
 
   case 199: /* lexpr: expr GT expr  */
-#line 414 "asm.y"
+#line 410 "asm.y"
                             { (yyval.expr) = new_expr_op2(GT, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2665 "asm.tab.c"
+#line 2661 "asm.tab.c"
     break;
 
   case 200: /* lexpr: expr EQ expr  */
-#line 415 "asm.y"
+#line 411 "asm.y"
                             { (yyval.expr) = new_expr_op2(EQ, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2671 "asm.tab.c"
+#line 2667 "asm.tab.c"
     break;
 
   case 201: /* lexpr: expr NEQ expr  */
-#line 416 "asm.y"
+#line 412 "asm.y"
                             { (yyval.expr) = new_expr_op2(NEQ, (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 2677 "asm.tab.c"
+#line 2673 "asm.tab.c"
     break;
 
   case 202: /* lexpr: DEFINED LPAREN SYMBOL RPAREN  */
-#line 418 "asm.y"
+#line 414 "asm.y"
                                             { (yyval.expr) = new_is_defined((yyvsp[-1].str)); }
-#line 2683 "asm.tab.c"
+#line 2679 "asm.tab.c"
     break;
 
 
-#line 2687 "asm.tab.c"
+#line 2683 "asm.tab.c"
 
       default: break;
     }
@@ -2765,6 +2761,7 @@ yyerrorlab:
      label yyerrorlab therefore never appears in user code.  */
   if (0)
     YYERROR;
+  ++yynerrs;
 
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
@@ -2825,7 +2822,7 @@ yyerrlab1:
 `-------------------------------------*/
 yyacceptlab:
   yyresult = 0;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
 /*-----------------------------------.
@@ -2833,24 +2830,22 @@ yyacceptlab:
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
-#if !defined yyoverflow
-/*-------------------------------------------------.
-| yyexhaustedlab -- memory exhaustion comes here.  |
-`-------------------------------------------------*/
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
   yyerror (YY_("memory exhausted"));
   yyresult = 2;
-  goto yyreturn;
-#endif
+  goto yyreturnlab;
 
 
-/*-------------------------------------------------------.
-| yyreturn -- parsing is finished, clean up and return.  |
-`-------------------------------------------------------*/
-yyreturn:
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
+yyreturnlab:
   if (yychar != YYEMPTY)
     {
       /* Make sure we have latest lookahead translation.  See comments at
@@ -2877,7 +2872,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 420 "asm.y"
+#line 416 "asm.y"
 
 
 void yyerror (const char *s)

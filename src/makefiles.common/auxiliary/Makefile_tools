@@ -75,7 +75,7 @@ $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT):
 	cd $(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT):
-	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) CFLAGS=-Wno-error=implicit-function-declaration
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure --with-z88dk=z88dk-z80asm && $(GNU_MAKE) CFLAGS=-Wno-error=implicit-function-declaration
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT): $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT)
 	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(EXEEXT)
@@ -85,7 +85,7 @@ $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT):
 	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) 
 
 
-tools: \
+all_tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
     $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
@@ -101,6 +101,23 @@ tools: \
     $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
+
+
+# exomizer has several deps
+# abc80 tools have several deps
+tools: \
+    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
+    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
+    $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
 
 
 easy_tools: \

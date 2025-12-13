@@ -112,6 +112,8 @@ tools/generic/exomizer/exomizer.exe
 tools/generic/exomizer/exomizer.out
 tools/generic/exomizer.exe
 tools/generic/exomizer
+tools/generic/exomizer/src/asm.tab.h
+tools/generic/exomizer/src/asm.tab.c
 tools/generic/CC1541/cc1541
 tools/z88dk/oz/makewzd.exe
 tools/z88dk/oz/makewzd.out

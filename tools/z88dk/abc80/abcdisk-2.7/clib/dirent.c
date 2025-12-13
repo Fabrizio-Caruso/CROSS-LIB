@@ -8,7 +8,7 @@
 
 */
 
-#include "abcdisk.h"
+#include "../abcdisk.h"
 
 #ifndef HAVE_DIRENT_H
 

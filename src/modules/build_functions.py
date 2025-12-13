@@ -345,6 +345,8 @@ def build(option_config, params, reset_flag = False):
     # sized terminal
     if len(params)>=4 and params[2].startswith("terminal") and params[3].isnumeric() \
                       and params[4].isnumeric():
+        if reset_flag:
+            reset(option_config, params)
         size(option_config, ["size"] + params[1:],0)
         return
 

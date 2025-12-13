@@ -29,6 +29,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+
+
 static unsigned get_name(char *name, char *aname, const uint8_t *data, int max,
                          int lower_case)
 {
@@ -217,7 +219,7 @@ static void extract_kboot(struct atr_image *atr, const char *atr_name, int atari
     if( extract_files )
     {
         char *path;
-        (void)asprintf(&path, "kboot-%08x.xex", crc);
+        asprintf(&path, "kboot-%08x.xex", crc);
         struct stat st;
         fprintf(stderr, "%s\n", path);
         // Check if file already exists:

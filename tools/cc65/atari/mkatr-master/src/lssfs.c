@@ -211,7 +211,7 @@ static void read_dir(struct lssfs *ls, unsigned map, const char *name)
             continue;
         }
         char *new_name;
-        (void)asprintf(&new_name, "%s/%s", name, fname);
+        asprintf(&new_name, "%s/%s", name, fname);
         if( is_dir )
         {
             if( ls->extract_files )
@@ -301,7 +301,7 @@ static void read_dir(struct lssfs *ls, unsigned map, const char *name)
             if( !get_name(fname, aname, data + i + 6, 11, ls->lower_case) )
                 continue;
             char *new_name;
-            (void)asprintf(&new_name, "%s/%s", name, fname);
+            asprintf(&new_name, "%s/%s", name, fname);
             read_dir(ls, fmap, new_name);
             free(new_name);
         }

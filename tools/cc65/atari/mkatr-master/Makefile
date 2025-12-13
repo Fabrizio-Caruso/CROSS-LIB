@@ -46,7 +46,8 @@ SOURCES_lsatr=\
  lshowfen.c\
  msg.c\
 
-CFLAGS=-O2 -Wall
+CFLAGS=-O2
+# -Wall
 LDFLAGS=
 
 # Default rule

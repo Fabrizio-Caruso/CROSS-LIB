@@ -48,7 +48,7 @@ int main(int argc,char **argv)
     if (argc <=2) {
         if (argc == 2 && !strcmp(*(argv+1),"version")) goto version;
       errline:
-        fprintf(stderr,issue);
+        fprintf(stderr,VERSION_ASCII);
         fprintf(stderr,"usage: %s <image file> <option>\n",*argv);
         fprintf(stderr,"       option can be one of\n");
         fprintf(stderr,"          ls      - list files on image\n");

@@ -24,7 +24,7 @@ ifeq (default,$(origin CC))
   CC = gcc
 endif
 
-WFLAGS = 
+WFLAGS = -w
 #-Wall -W -Werror
 #WFLAGS = -Wall -W
 
@@ -49,11 +49,11 @@ clean:
 	rm -f sap2 sapfs $(OBJ_DIR)*.o
 
 sap2: $(OBJ_SAP) 
-	$(CC) -s -o sap2 $(OBJ_SAP)
+	$(CC) -s -w -o sap2 $(OBJ_SAP)
 
 sapfs: $(OBJ_SAPFS)
-	$(CC) -s -o sapfs $(OBJ_SAPFS)
+	$(CC) -s -w -o sapfs $(OBJ_SAPFS)
 
 $(OBJ_DIR)%.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -w -o $@ $<
 

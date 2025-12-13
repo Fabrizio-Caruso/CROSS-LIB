@@ -930,7 +930,7 @@ UsesExtendedFormat = 0;
 								fseek(fhBinary, 0, SEEK_END);
 								BinaryFileLength = ftell(fhBinary);
 								fseek(fhBinary, 0, SEEK_SET);
-								printf("Using Binary File '%s' length %d\n", pBinaryFilename, BinaryFileLength);
+								printf("Using Binary File '%s' length %d\n", pBinaryFilename, (int) BinaryFileLength);
 							}
 						}
 
@@ -1088,7 +1088,7 @@ UsesExtendedFormat = 0;
 						// report if binary file is too long
 						if (fhBinary && BinaryFileLength != 0)
 						{
-							fprintf(stderr, "Binary file is too large to write to cartridge. %d bytes remaining\n", BinaryFileLength);
+							fprintf(stderr, "Binary file is too large to write to cartridge. %d bytes remaining\n", (int) BinaryFileLength);
 							nResultCode = 1;
 						}
 

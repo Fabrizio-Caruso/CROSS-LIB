@@ -55,18 +55,18 @@ clean:
 
 sap2.exe: $(OBJ_SAP)
 ifdef DEBUGMODE
-	$(CC) -o sap2.exe $(OBJ_SAP)
+	$(CC) -o sap2.exe -w $(OBJ_SAP)
 else
-	$(CC) -s -o sap2.exe $(OBJ_SAP)
+	$(CC) -s -o sap2.exe -w $(OBJ_SAP)
 endif
 
 sapfs.exe: $(OBJ_SAPFS)
 ifdef DEBUGMODE
-	$(CC) -o sapfs.exe $(OBJ_SAPFS)
+	$(CC) -o sapfs.exe -w $(OBJ_SAPFS)
 else
-	$(CC) -s -o sapfs.exe $(OBJ_SAPFS)
+	$(CC) -s -o sapfs.exe -w $(OBJ_SAPFS)
 endif
 
 $(OBJ_DIR)%.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -w -o $@ $<
 

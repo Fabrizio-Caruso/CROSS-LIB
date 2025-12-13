@@ -75,7 +75,7 @@ $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT):
 	cd $(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT):
-	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) 
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure && $(GNU_MAKE) CFLAGS=-Wno-error=implicit-function-declaration
 
 $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT): $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT)
 	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(EXEEXT)
@@ -124,6 +124,13 @@ atari_tools: \
 
 abc80_tools: \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
+
+
+abcwrite_tools: \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT)
+
+bin2abc_tools: \
     $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
 
 # TODO: $(GNU_MAKE) here seems not to be defined

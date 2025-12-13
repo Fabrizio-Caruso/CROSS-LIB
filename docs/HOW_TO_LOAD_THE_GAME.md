@@ -197,6 +197,18 @@ Use Jinx emulator: https://jynxemulator.wordpress.com/download/
 GitHub project: https://github.com/jonathan-markland/Jynx/releases
 
 
+
+-----------------------------------------------------------
+
+### CANON X-07
+
+Use Takeda emulator
+
+Insert the .CAS file with PLAY->select file
+Use the CAS file with the following commands
+CLOAD
+RUN
+
 -----------------------------------------------------------
 
 ### CASIO FP-1100

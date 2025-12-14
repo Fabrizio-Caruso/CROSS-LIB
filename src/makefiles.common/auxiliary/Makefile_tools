@@ -113,6 +113,8 @@ tools: \
 
 # exomizer has several deps
 # abc80write and bin2abc have several deps
+# nocart (cpc) requires g++
+
 easy_tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
@@ -127,6 +129,8 @@ easy_tools: \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
     $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
+
+cpc_tools: \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
 
 

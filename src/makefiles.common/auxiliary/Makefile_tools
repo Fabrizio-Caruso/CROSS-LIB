@@ -91,7 +91,7 @@ $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT):
 	cd $(TOOLS_PATH)/cc65/telestrat/ && gcc old2mfm.c -o old2mfm$(EXEEXT)
 
 
-all_tools: \
+tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
     $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
@@ -112,8 +112,8 @@ all_tools: \
 
 
 # exomizer has several deps
-# abc80 tools have several deps
-tools: \
+# abc80write and bin2abc have several deps
+easy_tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
     $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \

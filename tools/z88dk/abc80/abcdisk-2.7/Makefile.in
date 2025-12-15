@@ -41,7 +41,9 @@ ASMC   = $(ASM:.asm=.c)
 ASMH   = $(ASM:.asm=.h)
 ASMO   = $(ASM:.asm=.$(O))
 
-PROGS  = abcwrite abcread deinter abctext $(EXTRA_PROGS)
+#PROGS  = abcwrite abcread deinter abctext $(EXTRA_PROGS)
+
+PROGS  = abcwrite $(EXTRA_PROGS)
 EXE    = $(patsubst %,%$(X),$(PROGS))
 HDRS   = $(wildcard *.h)
 

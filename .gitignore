@@ -146,3 +146,5 @@ logs/*.log
 tools/z88dk/abc80/abcdisk-2.7/conftest.c
 tools/z88dk/abc80/abcdisk-2.7/confdefs.h
 **/*.sym
+**/*.dSYM
+**/*.DS_Store

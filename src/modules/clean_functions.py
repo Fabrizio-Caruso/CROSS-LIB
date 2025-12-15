@@ -26,12 +26,12 @@ def clean(option_config, params):
 
     if len(params)>=2:
         if params[1]=="tools":
-            make_command = GNU_MAKE + " clean_tools -f makefiles.common/auxiliary/Makefile_tools"
+            make_command = GNU_MAKE + " clean_tools GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
 
             run_command(option_config, make_command)
             return
         if params[1]=="log" or params[1]=="logs":
-            make_command = GNU_MAKE + " clean_logs -f makefiles.common/auxiliary/Makefile_tools"
+            make_command = GNU_MAKE + " clean_logs GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
 
             run_command(option_config, make_command)
             return

@@ -173,7 +173,7 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/ti99/crt0.o
 	rm -rf $(TOOLS_PATH)/ti99/crt0_ea5.o
 	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
-	cd	$(TOOLS_PATH)/generic/exomizer/src && make clean
+	cd $(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) clean
 	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
 	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer
 	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
@@ -188,7 +188,7 @@ clean_tools:
 	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc
 	rm -rf $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT)
 	rm -rf $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT)
-	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && make clean
+	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) clean
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.exe
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.out
 	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr

@@ -279,7 +279,9 @@ int main(int argc, char *argv[])
     program_name = argv[0];
     (void)argc;
 
-    in = calloc(sizeof *in, 1);
+    // in = calloc(sizeof *in, 1);
+    in = calloc(1,sizeof *in);
+
     in->entrypoint = -1;
     in->firstline = 1;
     in->subroutine = false;

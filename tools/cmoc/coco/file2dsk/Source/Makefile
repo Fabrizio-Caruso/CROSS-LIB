@@ -18,7 +18,7 @@ endif
 AS = gcc
 
 file2dsk:	file2dsk.c
-	$(AS) -Wno-error=unsequenced $< -o$@$(COMPILEDEXT)
+	$(AS) -w $< -o$@$(COMPILEDEXT)
 
 file2dsk40:	file2dsk.c
 	$(AS) $< -o$@$(COMPILEDEXT) -DTRACKS40

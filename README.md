@@ -77,12 +77,33 @@ Cross-Lib has also some experimental support for vintage 16-bit and 32-bit syste
 
 For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Architectures</b></a>
 
+-------------------------------------------
+
+## SUPPORTED HOST PLATFORMS
+Cross-Lib only assumes it is running in a *POSIX* environment with at least 
+- *Python*
+- *GNU make*
+- *gcc* (or any other ANSI C compiler, e.g., *clang*)
+
+Additionally *ncurses* or *ncursesw* are necessary to produce native terminal binaries.
+
+In order to code for a supported vintage system, the corresponding cross-compiler has to be installed.
+
+So in principle it runs under any POSIX envirnoment. 
+
+It is tested on:
+- *Linux*
+- *Windows/Cygwin*
+- *Windows/MSYS2 MINGW*
+- *MacOS ARM*
+- *Windows Subsystem for Linux*
+- *FreeBSD*
 
 -------------------------------------------
 
 ## INSTALLATION
 
-An installation is not strictly necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
+An installation is not necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
 For an actual installation you can use
 - the pre-built docker image, 
 - the dockerfile to build an image or 

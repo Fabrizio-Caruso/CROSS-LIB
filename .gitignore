@@ -144,6 +144,8 @@ tools/ti99/ea5split.exe
 tools/ti99/ea5split.out
 logs/*.log
 tools/z88dk/abc80/abcdisk-2.7/conftest.c
+tools/z88dk/abc80/abcdisk-2.7/abcwrite
+tools/z88dk/abc80/abcdisk-2.7/bin2abc
 tools/z88dk/abc80/abcdisk-2.7/confdefs.h
 **/*.sym
 **/*.dSYM

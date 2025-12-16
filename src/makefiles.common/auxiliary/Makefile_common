@@ -17,10 +17,10 @@ endif
 
 ifeq ($(DO_WIN),1)
 COMPILEDEXT = .exe
-NCURSES     = NCURSESW
+NCURSES     = ncursesw
 else
 COMPILEDEXT = .out
-NCURSES     = NCURSES
+NCURSES     = ncurses
 endif
 
 CROSS_LIB_PATH := cross_lib

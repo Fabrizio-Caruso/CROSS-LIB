@@ -87,9 +87,9 @@ Cross-Lib only assumes it is running in a *POSIX* environment with at least
 
 Additionally *ncurses* or *ncursesw* are necessary to produce native terminal binaries.
 
-In order to code for a supported vintage system, the corresponding cross-compiler has to be installed.
+In order to build binaries for a supported vintage system, the corresponding cross-compiler has to be installed.
 
-So in principle it runs under any POSIX envirnoment. 
+So in principle it runs under __any POSIX__ envirnoment. 
 
 It is tested on:
 - *Linux*
@@ -103,8 +103,11 @@ It is tested on:
 
 ## INSTALLATION
 
-An installation is not necessary because Cross-Lib can be used through GitHub Codespaces on any browser.
-For an actual installation you can use
+An actual installation is not necessary because Cross-Lib is a collection of scripts and C *source library*, which is compiled on the fly when building binaries for target systems.
+
+Moreover it can be used through GitHub Codespaces on any browser.
+
+You can also use it with
 - the pre-built docker image, 
 - the dockerfile to build an image or 
 - a clone of this repository, which requires some dependencies (compilers and a few tools).

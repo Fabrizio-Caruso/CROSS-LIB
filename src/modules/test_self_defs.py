@@ -59,8 +59,6 @@ COMPLEX_TEST = \
     [ \
         "xl delete _foo_test -y", \
         "xl clean tools", \
-        "xl build easy_tools", \
-        "xl clean tools", \
         "xl delete _test_project -y", \
         "xl clean", \
         "xl create _foo_test", \
@@ -109,7 +107,7 @@ CLEANUP_RENAME_TEST = \
 MAKE_TEST = \
     [ \
         "xl create _foo_test", \
-        "xl make _foo_test", \
+        "xl make _foo_test __target__", \
         "xl reset _foo_test", \
         "xl rebuild _foo_test __target__", \
         "xl show _foo_test", \

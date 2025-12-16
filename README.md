@@ -101,7 +101,7 @@ It is tested on:
 
 -------------------------------------------
 
-## INSTALLATION
+## NO INSTALLATION
 
 An actual installation is not necessary because Cross-Lib is made of scripts and a C *source library*, which is compiled on the fly when building binaries for target systems.
 

@@ -11,9 +11,9 @@ ifeq ($(DO_WIN),1)
 EXEEXT = .exe
 endif
 
-# MacOS only has NCURSES
-# MSYS2 only has NCURSESW
-# Linux, Cygwin, FreeBSD, WSL have both
+# MacOS only has "ncurses"
+# MSYS2 only has "ncursesw"
+# Linux, Cygwin, FreeBSD, WSL have both "ncurses" and "ncursesw"
 
 ifeq ($(DO_WIN),1)
 COMPILEDEXT = .exe

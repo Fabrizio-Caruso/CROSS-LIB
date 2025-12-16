@@ -11,10 +11,16 @@ ifeq ($(DO_WIN),1)
 EXEEXT = .exe
 endif
 
+# MacOS only has NCURSES
+# MSYS2 only has NCURSESW
+# Linux, Cygwin, FreeBSD, WSL have both
+
 ifeq ($(DO_WIN),1)
 COMPILEDEXT = .exe
+NCURSES     = NCURSESW
 else
 COMPILEDEXT = .out
+NCURSES     = NCURSES
 endif
 
 CROSS_LIB_PATH := cross_lib

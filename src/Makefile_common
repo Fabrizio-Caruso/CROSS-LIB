@@ -12,7 +12,7 @@ GLOBAL_OPTS ?= $(DEFAULT_ASCII)  $(COMPILER_OPTS) $(PROJECT_OPTS) -D__FORCE_SLOW
 # 
 #-D_BACKGROUND_COLOR=1
 
-NCURSES ?= ncursesw
+# NCURSES ?= ncursesw
 
 #######################################################################
 # Use parameters (env variables) to modify compilation parameters

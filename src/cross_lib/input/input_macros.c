@@ -249,7 +249,11 @@
     #elif defined(__NCURSES__) || defined(__TERMINAL__)
 
         #if defined(__TERMINAL__)
-            #include <ncurses.h>
+            #if defined(WIN32)
+                #include <ncurses/curses.h>
+            #else
+                #include <ncurses.h>
+            #endif
         #endif
         
         #define INPUT_LOOPS 10
@@ -402,11 +406,11 @@ out         stb res
                 getchar();
             }
         #elif defined(__NCURSES__) || defined(__TERMINAL__)
-            // #if defined(__ATARI_ST__)
-                // #include <ncurses/curses.h>
-            // #else
+            #if defined(WIN32)
+                #include <ncurses/curses.h>
+            #else
                 #include <ncurses.h>
-            // #endif
+            #endif
             
             void _XL_WAIT_FOR_INPUT(void)
             {

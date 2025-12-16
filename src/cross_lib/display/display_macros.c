@@ -656,8 +656,12 @@ lda $a7c0
     #define _gotoxy(x,y) do { move(y,x); } while(0)
     #define _cputc(c) do { addch(c);  } while(0)
 
-    #include <ncurses.h>
-    
+    #if defined(WIN32)
+        #include <ncurses/curses.h>
+    #else
+        #include <ncurses.h>
+    #endif    
+
     extern uint8_t _tiles[_XL_NUMBER_OF_TILES][_XL_TILE_Y_SIZE];
     
     void _terminal_draw(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)

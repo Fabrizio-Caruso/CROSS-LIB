@@ -1,8 +1,8 @@
-// #if defined(__ATARI_ST__)
-    // #include <ncurses/curses.h>
-// #else
+#if defined(WIN32)
+    #include <ncurses/curses.h>
+#else
     #include <ncurses.h>
-// #endif
+#endif
 
 #include "display_macros.h"
 

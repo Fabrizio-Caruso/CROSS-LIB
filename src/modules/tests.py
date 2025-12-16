@@ -359,13 +359,13 @@ def _unit_tests(option_config, path="./"):
 
 # TODO: Handle Windows vs Linux and targets with 3 binaries
 if platform in ["cygwin", "msys"]:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
+    TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
                                'mtx512', 'laser500']
-    TARGETS_WITH_3_BINARIES = ['coco','abc80']
+    TARGETS_WITH_3_BINARIES = ['coco']
 else:
-    TARGETS_WITH_2_BINARIES = ['aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
-                               'mtx512', 'laser500','coco']
-    TARGETS_WITH_3_BINARIES = ['abc80']
+    TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
+                               'mtx512', 'laser500', 'coco']
+    TARGETS_WITH_3_BINARIES = []
 
 
 # LoggerSingleton.initLogger(__name__)
@@ -600,8 +600,9 @@ def test_all(option_config, params):
     _unit_tests(option_config)
     return test_self(option_config, params)
 
+
 expected_files = {
-    "cc65": 8,
+    "cc65": 9,
     "z88dk": 5,
     "cmoc": 3,
     "lcc1802": 1,
@@ -665,8 +666,6 @@ def targets_test(option_config, params):
         else:
             printc(option_config, bcolors.OKGREEN, "binaries OK\n")
 
-    # if clean_test()==0:
-        # success=0
     return success
 
 

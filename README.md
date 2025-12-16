@@ -103,7 +103,7 @@ It is tested on:
 
 ## INSTALLATION
 
-An actual installation is not necessary because Cross-Lib is a collection of scripts and C *source library*, which is compiled on the fly when building binaries for target systems.
+An actual installation is not necessary because Cross-Lib is made of scripts and a C *source library*, which is compiled on the fly when building binaries for target systems.
 
 Moreover it can be used through GitHub Codespaces on any browser.
 

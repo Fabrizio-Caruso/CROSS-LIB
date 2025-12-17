@@ -91,13 +91,15 @@ In order to build binaries for a supported vintage system, the corresponding cro
 
 So in principle it runs under __any POSIX__ envirnoment. 
 
-It is tested on:
+It has been tested on:
 - *Linux*
 - *Windows/Cygwin*
-- *Windows/MSYS2 MINGW*
+- *Windows Subsystem for Linux* 
 - *MacOS ARM*
-- *Windows Subsystem for Linux*
+
+Partial support for
 - *FreeBSD*
+- *Windows/MSYS2 MINGW*
 
 -------------------------------------------
 

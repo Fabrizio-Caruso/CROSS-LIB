@@ -81,25 +81,21 @@ For a more complete list of architectures you can look at: <a href="https://gith
 
 ## SUPPORTED HOST PLATFORMS
 Cross-Lib only assumes it is running in a *POSIX* environment with at least 
-- *Python*
+- *Python* (2.7 is the bare minimum but 3.x provides more features)
 - *GNU make*
 - *gcc* (or any other ANSI C compiler, e.g., *clang*)
 
-Additionally *ncurses* or *ncursesw* are necessary to produce native terminal binaries.
+If you want to produce interactive binaries for the native terminal you also need *ncurses* or *ncursesw*.
 
 In order to build binaries for a supported vintage system, the corresponding cross-compiler has to be installed.
 
-So in principle it runs under __any POSIX__ envirnoment. 
-
-It has been tested on:
+It runs under __any POSIX__-like envirnoment such as
 - *Linux*
 - *Windows/Cygwin*
 - *Windows Subsystem for Linux* 
 - *MacOS ARM*
-
-Partial support for
 - *FreeBSD*
-- *Windows/MSYS2 MINGW*
+- *Windows/MSYS2* (UCRT64 and MINGW)
 
 -------------------------------------------
 

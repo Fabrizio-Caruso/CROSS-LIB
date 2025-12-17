@@ -1,9 +1,13 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/alpine
 {
-	"name": "Cross-Lib",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/cross-lib/devcontainers/base:1.0.0",
+    "name": "Cross-Lib",
+        // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+        "image": "ghcr.io/cross-lib/devcontainers/base:1.0.5-ubuntu",
+        "containerEnv": {
+            "PATH": ".:${PATH}"
+        },
+
 
 	"customizations": {
 		// Configure properties specific to VS Code.

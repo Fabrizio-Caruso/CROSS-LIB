@@ -55,25 +55,25 @@ Click on the links below to play the games on your browser.
 -------------------------------------------
 
 
-## CURRENTLY SUPPORTED TARGET SYSTEMS AND ARCHITECTURES
+## MORE THAN 200 SUPPORTED TARGETS SYSTEMS
 
-Cross-Lib can be used to build games for about 200 different vintage systems (computers, consoles, arcade boards, pocket calculators, etc.). 
+Cross-Lib can be used to build games for <ins>more than 200 different vintage systems</ins> (computers, consoles, arcade boards, pocket calculators, etc.). 
 An almost complete list of the supported systems with their status is in: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md"><b>Supported Systems</b></a>
 
 
 Some supported vintage CPU architectures are:
 
-- GBZ80
-- Intel 8080/85
-- Intel 8086
-- MOS 6502 
-- Motorola 6803 
-- Motorola 6809
-- RCA 1802
-- TMS 9900
-- Zilog 80 
+- `GBZ80`
+- `Intel 8080/85`
+- `Intel 8086`
+- `MOS 6502` 
+- `Motorola 6803` 
+- `Motorola 6809`
+- `RCA 1802`
+- `TMS 9900`
+- `Zilog 80` 
 
-Cross-Lib has also some experimental support for vintage 16-bit and 32-bit systems and for the native PC.
+Cross-Lib has also some support for vintage 16-bit and 32-bit systems and the native host PC.
 
 For a more complete list of architectures you can look at: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/ARCHITECTURES.md"><b>Architectures</b></a>
 
@@ -81,21 +81,21 @@ For a more complete list of architectures you can look at: <a href="https://gith
 
 ## SUPPORTED HOST PLATFORMS
 Cross-Lib only assumes it is running in a *POSIX* environment with at least 
-- *Python* (2.7 is the bare minimum but 3.x provides more features)
-- *GNU make*
-- *gcc* (or any other ANSI C compiler, e.g., *clang*)
+- **Python** (2.7 is the bare minimum but 3.x provides more features)
+- **make** (GNU make)
+- **gcc** (or any other ANSI C compiler, e.g., *clang*)
 
 If you want to produce interactive binaries for the native terminal you also need *ncurses* or *ncursesw*.
 
-In order to build binaries for a supported vintage system, the corresponding cross-compiler has to be installed.
+In order to build binaries for a supported vintage system, the corresponding cross-compiler has to be installed (see the list of supported targets to see which compiler is required).
 
 It runs under __any POSIX__-like envirnoment such as
-- *Linux*
-- *Windows/Cygwin*
-- *Windows Subsystem for Linux* 
-- *MacOS ARM*
-- *FreeBSD*
-- *Windows/MSYS2* (UCRT64 and MINGW)
+- ***Linux***
+- ***Windows/Cygwin***
+- ***Windows Subsystem for Linux***
+- ***Windows/MSYS2*** (UCRT64 and MINGW)
+- ***MacOS*** (ARM)
+- ***FreeBSD***
 
 -------------------------------------------
 

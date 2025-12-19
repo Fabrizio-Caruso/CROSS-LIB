@@ -100,7 +100,7 @@ If you want to produce interactive binaries for the *native terminal* you need a
 In order to build binaries for a supported vintage system, the corresponding **cross-compiler** has to be installed (see the list of supported targets to see which compiler is required).
 
 
-### Currently supported cross-compilers compilers
+### Currently supported cross-compilers
 
 The current set of supported cross-compilers is:
 - `CC65`,

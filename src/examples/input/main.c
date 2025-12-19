@@ -38,7 +38,6 @@ void UPDATE_STATE(char *Text)
 
 int main(void)
 {        
-    uint8_t counter;
     uint8_t input;
     
     _XL_INIT_GRAPHICS();
@@ -62,27 +61,22 @@ int main(void)
         if(_XL_FIRE(input))
         {
             UPDATE_STATE("FIRE ");
-            ++counter;
         }
         else if(_XL_LEFT(input))
         {
             UPDATE_STATE("LEFT ");
-            ++counter;
         }
         else if(_XL_RIGHT(input))
         {
             UPDATE_STATE("RIGHT");
-            ++counter;
         }
         else if(_XL_DOWN(input))
         {
             UPDATE_STATE("DOWN ");
-            ++counter;
         }
         else if(_XL_UP(input))
         {
             UPDATE_STATE("UP   ");
-            ++counter;
         }
 
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

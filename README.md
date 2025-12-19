@@ -100,7 +100,7 @@ If you want to produce interactive binaries for the *native terminal* you need a
 In order to build binaries for a supported vintage system, the corresponding **cross-compiler** has to be installed (see the list of supported targets to see which compiler is required).
 
 
-### Currently supported cross-compilers compilers
+### Currently supported cross-compilers
 
 The current set of supported cross-compilers is:
 - `CC65`,
@@ -123,9 +123,9 @@ For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/
 ### Tools to generate disk/tape/cartrige images
 Very few targets use special tools to generate tape/disk/cartrige images. Some of these tools are built from source on the fly the first time they are required.
 
-Apple// and derivative systems depend on a tool that requires **java** to generate a ready-to-use disk image. 
+In order to generate the disk images for the Apple][ and derivative targets Cross-Lib uses *ac.jar* for which **java** is necessary.
 
-CoCo 1/2 and Dragon 32/64 use a **perl** script to generate tape images.
+To generate tape images for the CoCo 1/2 and Dragon 32/64 targets Cross-Lib uses bin2cas.pl for which **perl** is required.
 
 -------------------------------------------
 

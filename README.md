@@ -84,8 +84,8 @@ Cross-Lib runs under __any POSIX__-like environment such as
 - ***Linux***
 - ***Windows/Cygwin***
 - ***Windows Subsystem for Linux***
-- ***Windows/MSYS2*** (UCRT64 and MINGW)
-- ***MacOS*** (ARM)
+- ***Windows/MSYS2***
+- ***MacOS***
 - ***FreeBSD***
 
 -------------------------------------------
@@ -124,7 +124,7 @@ For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/
 Very few targets use special tools to generate tape/disk/cartridge images. 
 Some of these tools are built from source on the fly the first time they are required. Most require *gcc* or *g++*.
 
-In order to generate the disk images for the *Apple][* and derivative targets Cross-Lib uses *ac.jar* for which **java** is necessary.
+In order to generate disk images for the *Apple][* and derivative targets Cross-Lib uses *ac.jar* for which **java** is necessary.
 
 To generate tape images for the *CoCo 1/2* and *Dragon 32/64* targets Cross-Lib uses bin2cas.pl for which **perl** is required.
 
@@ -134,12 +134,12 @@ To generate tape images for the *CoCo 1/2* and *Dragon 32/64* targets Cross-Lib 
 
 An actual installation is not necessary because Cross-Lib is made of scripts and a C *source library*, which is compiled on the fly when building binaries for target systems.
 
-Moreover it can be used through GitHub Codespaces on any browser.
+Moreover even installing the required compilers may not be necessary because Cross-Lib can be used through GitHub Codespaces (with <ins>preinstalled</ins> compilers) on any browser.
 
-You can also use it with
-- the pre-built docker image, 
-- the dockerfile to build an image or 
-- a clone of this repository, which requires the installation of the compilers.
+Additionally ou can also use it with
+- the pre-built docker image (compilers are <ins>preinstalled</ins>), 
+- the dockerfile to build an image or (compilers are <ins>preinstalled</ins>), 
+- a clone of this repository (which requires the installation of the compilers).
 
 For the details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md"><b>Installation</b></a>
 

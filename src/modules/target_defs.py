@@ -2,6 +2,7 @@ from __future__ import print_function
 
 
 import os
+import sys
 
 from default_values import default_tile_size, default_screen_size, default_terminal_size_string, get_terminal_target
 from file_functions import list_of_projects
@@ -10,6 +11,24 @@ from print_functions import bcolors, printc
 
 DEBUG_TARGET  = "ncurses_debug"
 NATIVE_TARGET = "ncurses"
+
+
+def binary_factor(target):
+    platform = sys.platform
+    if platform in ["cygwin", "msys"]:
+        TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'mo5', 'ace', 'mtx500', \
+                                   'mtx512', 'laser500']
+        TARGETS_WITH_3_BINARIES = ['coco']
+    else:
+        TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'mo5', 'ace', 'mtx500', \
+                                   'mtx512', 'laser500', 'coco']
+        TARGETS_WITH_3_BINARIES = []
+    if target in TARGETS_WITH_2_BINARIES:
+        return 2
+    elif target in TARGETS_WITH_3_BINARIES:
+        return 3
+    else:
+        return 1
 
 
 def info(option_config, params):
@@ -68,15 +87,17 @@ def info(option_config, params):
         else:
             parallel  = "not supported"
         
-        print("target      :         ", end=""); printc(option_config, bcolors.BOLD,target); print("")
+        print("target          :         ", end=""); printc(option_config, bcolors.BOLD,target); print("")
         print("")
-        print("x size      :         " + xsize)
-        print("y size      :         " + ysize)
+        print("x size          :         " + xsize)
+        print("y size          :         " + ysize)
         print("")
-        print("x tile      :         " + xtile)
-        print("y tile      :         " + ytile)
+        print("x tile          :         " + xtile)
+        print("y tile          :         " + ytile)
         print("")
-        print("parallelism :         " + parallel)
+        print("parallelism     :         " + parallel)
+        print("")
+        print("no. of binaries :         " + str(binary_factor(target)))
         
 
 #TODO: cc65 targets

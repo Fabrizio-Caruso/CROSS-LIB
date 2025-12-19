@@ -358,14 +358,7 @@ def _unit_tests(option_config, path="./"):
 # TODO: Handle aliases such as dragon->coco
 
 # TODO: Handle Windows vs Linux and targets with 3 binaries
-if platform in ["cygwin", "msys"]:
-    TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
-                               'mtx512', 'laser500']
-    TARGETS_WITH_3_BINARIES = ['coco']
-else:
-    TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'to5', 'ace', 'mtx500', \
-                               'mtx512', 'laser500', 'coco']
-    TARGETS_WITH_3_BINARIES = []
+
 
 
 # LoggerSingleton.initLogger(__name__)
@@ -376,6 +369,7 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 # console_logger.info('Console logger started')
 
 logger.info('Started')
+
 
 
 def test_projects(option_config, projects, target="stdio"):
@@ -404,12 +398,7 @@ def test_projects(option_config, projects, target="stdio"):
         if verbose:
             print("Test on the number of binaries for all these targets is not supported")
 
-    if target in TARGETS_WITH_3_BINARIES:
-        files_per_project = 3
-    elif target in TARGETS_WITH_2_BINARIES:
-        files_per_project = 2
-    else:
-        files_per_project = 1
+    files_per_project = binary_factor(target)
 
     if verbose:
         print("Expected binaries per project: " + str(files_per_project))
@@ -526,15 +515,6 @@ def test_execute(option_config, target, test_name, commands, check = no_check, c
     execute_commands(option_config, cleanup_commands, target, silent = True)
     return result
 
-
-def binary_factor(target):
-    if target in TARGETS_WITH_2_BINARIES:
-        return 2
-    elif target in TARGETS_WITH_3_BINARIES:
-        return 3
-    else:
-        return 1
-
 # ---------------------------------------------------------
 # DEFAULT SELF TESTS
 # ---------------------------------------------------------
@@ -601,13 +581,11 @@ def test_all(option_config, params):
     return test_self(option_config, params)
 
 
-expected_files = {
-    "cc65": 9,
-    "z88dk": 5,
-    "cmoc": 3,
-    "lcc1802": 1,
-    "z88dk_alt": 38,
-    "stdio_alt": 1
+TEST_FILES = {
+    "cc65"   : ["vic20", "supervision", "atari", "atari_lynx", "creativision", "pet", "c64", "oric"],
+    "z88dk"  : ["c128_z80_80col", "cpm_z80_adm3a", "spectrum_48k", "msx", "zx81_32k_wrx"],
+    "cmoc"   : ["coco", "coco3", "mo5"],
+    "lcc1802": ["comx", "tmc600"],
     }
 
 
@@ -630,15 +608,26 @@ def targets_test(option_config, params):
             printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
     if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802"):
-        make_command = GNU_MAKE + parallel + " test_" + params[1] + "_extra " + \
-                       " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
-                       all_compilers_opts(option_config, "","") + \
-                       " -f makefiles.other/chase/tests/Makefile.tests"
-        run_command(option_config, make_command)
+        devkit_test_files = TEST_FILES[params[1]]
+        print("Testing: " + str(devkit_test_files)[1:][:-1])
+        
+        expected_files = 0
+        for test_file in devkit_test_files:
+            # TODO: Parameters should be read from config.ini
+            _use_tools = option_config.build_config.use_tools
+            _tool_compiler = option_config.build_config.tool_compiler
+            make_command = GNU_MAKE + parallel + " " + test_file + \
+                           " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
+                           " USE_TOOLS=" + str(_use_tools) + " TOOL_CC=" + _tool_compiler + " " + \
+                           all_compilers_opts(option_config, "","") + \
+                           " -f makefiles.other/chase/tests/Makefile.tests"
+            expected_files += binary_factor(test_file)
+            run_command(option_config, make_command)
     elif params[1]=="z88dk_alt":
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
+        expected_files = 38 # TODO: Remove this hardcoded value
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
@@ -651,15 +640,14 @@ def targets_test(option_config, params):
             printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(option_config, game_dir, project_type)
 
-
     built_files = len(files_in_path("../build"))-1
     if verbose:
         print("Number of built files: " + str(built_files))
 
-    if params[1] in expected_files.keys():
+    if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params(1) in ("z88dk_alt"):
         printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
-        printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files[params[1]])+"\n")
-        if built_files != expected_files[params[1]]:
+        printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files)+"\n")
+        if built_files != expected_files:
             printc(option_config, bcolors.FAIL, "binaries KO\n")
             success=0
 

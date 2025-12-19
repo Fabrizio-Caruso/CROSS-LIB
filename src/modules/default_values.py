@@ -21,7 +21,7 @@ def default_tile_size(target):
 
         return xtile, ytile
 
-
+# TODO: mz
 def default_screen_size(target):
         if target in ("terminal", "terminal8x8", "terminal8x6", "atari_lynx"):
             xsize = 20
@@ -47,16 +47,16 @@ def default_screen_size(target):
         elif target in ["apple2", "apple2enh", "atari", "atari5200", "terminal7x8"]:
             xsize = 20
             ysize = 24
-        elif target in ['comx', 'pecom', 'micro', 'comc_ntsc', 'laser500', "terminal6x9", "terminal6x8", "aquarius"]:
+        elif target in ['comx', 'comx_ntsc', 'pecom', 'micro', 'comc_ntsc', 'laser500', "terminal6x9", "terminal6x8", "aquarius"]:
             xsize = 40
             ysize = 24
-        elif target in ["c64", "c16", "plus4", "c128", "vg5k", "cbm510"]:
+        elif target in ["c64", "c16", "plus4", "c128", "vg5k", "cbm510", "msdos", "bee"]:
             xsize = 40
             ysize = 25
         elif target in ["sam"]:
             xsize = 32
             ysize = 22
-        elif target in ["camputers"]:
+        elif target in ["camputers_lynx"]:
             xsize = 32
             ysize = 32
         elif target == "vic20":
@@ -70,7 +70,8 @@ def default_screen_size(target):
             ysize = 24
         elif target in ["sms", "spectrum", "creativision", "msx", "mtx", \
                         "zx81", "zx80", "mtx512", "mtx500", "svi", "sg1000", \
-                        "sc3000", "einstein", "m5", "ace", "coleco", "vz", "vz200"]:
+                        "sc3000", "einstein", "m5", "ace", "coleco", \
+                        "vz", "vz200", "coco3"]:
             xsize = 32
             ysize = 24
         elif target in ["nes"]:
@@ -79,7 +80,7 @@ def default_screen_size(target):
         elif target in ["pet", "cbm610"]:
             xsize = 80
             ysize = 25
-        elif target in ["ncurses"]:
+        elif target in ["ncurses", "cpm"]:
             xsize = 80
             ysize = 24
         elif target in ["pce"]:

@@ -33,7 +33,8 @@ BUILD_PATH ?= ../build
 #######################################################################
 # Cross Lib includes + game's graphics data
 
-INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
+INCLUDE_OPTS ?= \
+-I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
 -I$(CROSS_LIB_PATH)/display/graphics_mode \
 -I$(CROSS_LIB_PATH)/display/alt_print \

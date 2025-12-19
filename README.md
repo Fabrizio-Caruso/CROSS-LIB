@@ -80,7 +80,7 @@ For a more complete list of architectures you can look at: <a href="https://gith
 -------------------------------------------
 
 ## SUPPORTED HOSTS
-Cross-Lib runs under __any POSIX__-like envirnoment such as
+Cross-Lib runs under __any POSIX__-like environment such as
 - ***Linux***
 - ***Windows/Cygwin***
 - ***Windows Subsystem for Linux***
@@ -120,12 +120,13 @@ Partially supported cross-compilers:
 
 For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
 
-### Tools to generate disk/tape/cartrige images
-Very few targets use special tools to generate tape/disk/cartrige images. Some of these tools are built from source on the fly the first time they are required.
+### Tools to generate disk/tape/cartridge images
+Very few targets use special tools to generate tape/disk/cartridge images. 
+Some of these tools are built from source on the fly the first time they are required. Most require *gcc* or *g++*.
 
-In order to generate the disk images for the Apple][ and derivative targets Cross-Lib uses *ac.jar* for which **java** is necessary.
+In order to generate the disk images for the *Apple][* and derivative targets Cross-Lib uses *ac.jar* for which **java** is necessary.
 
-To generate tape images for the CoCo 1/2 and Dragon 32/64 targets Cross-Lib uses bin2cas.pl for which **perl** is required.
+To generate tape images for the *CoCo 1/2* and *Dragon 32/64* targets Cross-Lib uses bin2cas.pl for which **perl** is required.
 
 -------------------------------------------
 
@@ -191,14 +192,14 @@ Cross-Lib provides:
 ### The build process
 
 When a game is built for a specific target, the Cross-Lib tool-chain will automatically:
-1. if needed, convert the abstract graphics assets in graphics assets for the given target on the fly;
-2. compile the game code (and the target-specific game assets) by using the appropriate compiler;
-3. if needed, whenever possible, create a disk/cassette/cartridge image.
+1. if needed, **convert abstract graphics assets** into target specific assets on the fly;
+2. **compile and link** the game code (and the target-specific game assets) by using the appropriate compiler;
+3. if needed, whenever possible, **create disk/cassette/cartridge images**.
 
 The user has to
-- code the game in C with Cross-Lib APIs;
-- draw the graphics assets in the *tiles* directory;
-- run the `xl` script (see below).
+- **code** the game in C with Cross-Lib APIs;
+- **draw** the graphics assets and store them in the *tiles* or *shapes* directory;
+- **run** the `xl` script (see below).
 
 ![User](snapshots/User2.bmp)
 

@@ -1,25 +1,6 @@
 
-# bbc: bbc_buffered
-
-# _BBC_SLOWDOWN=500
-
 bbcmaster: bbcmaster130
 
-# bbcmaster133: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	# $(VBCC_COMPILER) +bbc7 -v -O1 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	# -D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
-	# -DXSize=20 -D__BBC_MODE=133 -D__BBC_GRAPHICS \
-	# -DYSize=31 \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	# -D__ALT_SLEEP $(4COLOR_PALETTE) \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# $(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	# $(FULL_FILES) -o $(GAME_NAME)
-	# $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
-	# mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	# mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 bbcmaster130: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7 -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
@@ -72,22 +53,6 @@ bbcmastertest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
-# KO
-bbctest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc5 -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
-	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
-	-DYSize=31 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	-D__ALT_SLEEP $(4COLOR_PALETTE) \
-	-D__DEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	$(FULL_FILES) -o $(GAME_NAME)
-	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
-	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
-	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 # OK
 bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
@@ -106,23 +71,6 @@ bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
 	mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
-
-# bbcmaster_broken: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	# $(VBCC_COMPILER) +bbcmaster -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
-	# -D__NORMALIZED_RAND -D__BBC__ \
-	# -DXSize=20 -D__BBC_MODE=2 -D__SHADOW_RAM -D__BBC_GRAPHICS \
-	# -DYSize=31 $(4COLOR_PALETTE) $(BBCMASTER_GAME_OPTS) \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BBC_SLOWDOWN) \
-	# -D__ALT_SLEEP \
-	# -D_XL_NO_JOYSTICK \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# $(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
-	# $(FULL_FILES) -o $(GAME_NAME)
-	# $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
-	# mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
-	# mv $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# mv X$(GAME_NAME)_$@.img $(BUILD_PATH)
 
 
 

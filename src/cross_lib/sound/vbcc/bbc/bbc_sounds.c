@@ -1,12 +1,5 @@
 #include "bbc.h"
 
-// typedef struct {
-  // int channel;
-  // int amplitude;
-  // int pitch;
-  // int duration;
-// } bbc_sound;
-
 bbc_sound ping_snd =      {1,-15,100,2};
 
 bbc_sound tick_snd =      {1,-15,50,1};

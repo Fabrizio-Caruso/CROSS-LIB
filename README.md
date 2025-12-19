@@ -79,17 +79,8 @@ For a more complete list of architectures you can look at: <a href="https://gith
 
 -------------------------------------------
 
-## SUPPORTED HOST PLATFORMS
-Cross-Lib only assumes it is running in a *POSIX* environment with at least 
-- **Python** (2.7 is the bare minimum but 3.x provides more features)
-- **make** (GNU make)
-- **gcc** (or any other ANSI C compiler, e.g., *clang*)
-
-If you want to produce interactive binaries for the native terminal you also need *ncurses* or *ncursesw*.
-
-In order to build binaries for a supported vintage system, the corresponding cross-compiler has to be installed (see the list of supported targets to see which compiler is required).
-
-It runs under __any POSIX__-like envirnoment such as
+## SUPPORTED HOSTS
+Cross-Lib runs under __any POSIX__-like envirnoment such as
 - ***Linux***
 - ***Windows/Cygwin***
 - ***Windows Subsystem for Linux***
@@ -98,8 +89,47 @@ It runs under __any POSIX__-like envirnoment such as
 - ***FreeBSD***
 
 -------------------------------------------
+## REQUIREMEMTS
+Cross-Lib requires a **POSIX** environment with at least 
+- **Python** (2.7 is the bare minimum but 3.x provides more features)
+- **make** (GNU make)
+- one or more **ANSI C compiler(s)** 
 
-## NO INSTALLATION
+If you want to produce interactive binaries for the *native terminal* you need a **native compiler** (*gcc* or any other compiler such as *clang*) with **ncurses** or **ncursesw**.
+
+In order to build binaries for a supported vintage system, the corresponding **cross-compiler** has to be installed (see the list of supported targets to see which compiler is required).
+
+
+### Currently supported cross-compilers compilers
+
+The current set of supported cross-compilers is:
+- `CC65`,
+- `Z88DK` (`SCCZ80` and `ZSDCC`),
+- `CMOC`,
+- `LCC1802`,
+- `TMS9900-GCC`
+- `ACK`, 
+- `VBCC`,
+- `CC6303`
+
+Partially supported cross-compilers:
+- `GCC-Z8K`,
+- `XTC68`
+- `GCC-ATARI-ST`,
+- `GCC-AMIGA`,
+
+For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
+
+### Tools to generate disk/tape/cartrige images
+Very few targets use special tools to generate tape/disk/cartrige images. Some of these tools are built from source on the fly the first time they are required.
+
+Apple// and derivative systems depend on a tool that requires **java** to generate a ready-to-use disk image. 
+
+CoCo 1/2 and Dragon 32/64 use a **perl** script to generate tape images.
+
+-------------------------------------------
+
+## NO ACTUAL INSTALLATION NECESSARY
 
 An actual installation is not necessary because Cross-Lib is made of scripts and a C *source library*, which is compiled on the fly when building binaries for target systems.
 
@@ -108,7 +138,7 @@ Moreover it can be used through GitHub Codespaces on any browser.
 You can also use it with
 - the pre-built docker image, 
 - the dockerfile to build an image or 
-- a clone of this repository, which requires some dependencies (compilers and a few tools).
+- a clone of this repository, which requires the installation of the compilers.
 
 For the details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/INSTALL.md"><b>Installation</b></a>
 
@@ -173,18 +203,6 @@ The user has to
 ![User](snapshots/User2.bmp)
 
 For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
-
-
-
-### The compilers
-
-Code written in C with Cross-Lib can be compiled by several different cross-compilers and natively on the PC.
-
-The tool-chain currently supports: `CC65`, `Z88DK` (`SCCZ80` and `ZSDCC`), `CMOC`, `LCC1802`, `ACK`, `XTC68`, `GCC`, `GCC-Z8K`, `GCC-ATARI-ST`, `GCC-AMIGA`, `GCC-TI`, `VBCC`, `CC6303`.
-
-For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md"><b>Compilers</b></a>
-
-
 
 
 

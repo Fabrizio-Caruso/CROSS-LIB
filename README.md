@@ -196,9 +196,11 @@ When a game is built for a specific target, the Cross-Lib tool-chain will automa
 2. **compile and link** the game code (and the target-specific game assets) by using the appropriate compiler;
 3. if needed, whenever possible, **create disk/cassette/cartridge images**.
 
-The user has to
-- **code** the game in C with Cross-Lib APIs;
-- **draw** the graphics assets and store them in the *tiles* or *shapes* directory;
+### The Workflow
+
+The user just has to:
+- **code** the game in C with Cross-Lib APIs in a hardware-agnostic way;
+- **draw** the abstract graphics assets and store them in the *tiles* or *shapes* directory;
 - **run** the `xl` script (see below).
 
 ![User](snapshots/User2.bmp)

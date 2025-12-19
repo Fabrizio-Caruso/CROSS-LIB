@@ -18,11 +18,11 @@ def binary_factor(target):
     if platform in ["cygwin", "msys"]:
         TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'mo5', 'ace', 'mtx500', \
                                    'mtx512', 'laser500']
-        TARGETS_WITH_3_BINARIES = ['coco']
+        TARGETS_WITH_3_BINARIES = ['bbc', 'bbcmaster', 'coco']
     else:
         TARGETS_WITH_2_BINARIES = ['atari', 'aquarius', 'cpc', 'coco3', 'mo5', 'ace', 'mtx500', \
                                    'mtx512', 'laser500', 'coco']
-        TARGETS_WITH_3_BINARIES = []
+        TARGETS_WITH_3_BINARIES = ['bbc', 'bbcmaster']
     if target in TARGETS_WITH_2_BINARIES:
         return 2
     elif target in TARGETS_WITH_3_BINARIES:

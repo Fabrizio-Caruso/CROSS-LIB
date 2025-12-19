@@ -400,8 +400,8 @@ def help_command(option_config, params):
             print("If <params> is 'libraries', then it checks the presence of the libraries used by xl.")
             print("If <params> is a game/example/project, it checks if a binary for <target> (native if no <target>), can be built for the project.")
             print('If <params> is "games" or "examples", it checks if binaries for <target> (native if no <target>) can be built for all games/examples.')
-            print("If 'cc65', 'z88dk, 'cmoc', or 'lcc1802' is passed to <params>, it compiles a test program using the corresponding compiler.")
-            print("If 'z88dk_alt' is passed to <params>, then it compiles a simplified test program using both Z88DK compilers.")
+            print("If 'cc65', 'z88dk, 'cmoc', 'ack', 'cc6303', 'vbcc', 'lcc1802' or 'native' is passed to <params>, it compiles a test program using the corresponding compiler.")
+            print("If 'z88dk_alt' is passed to <params>, then it compiles a different test program using both Z88DK compilers.")
             print("If 'unit-tests' is passed to <params>, then it runs unit-tests on the script code.")
         elif params[1]=="files" or params[1]=="f":
             printc(option_config, bcolors.BOLD,"xl files\n")

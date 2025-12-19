@@ -582,12 +582,19 @@ def test_all(option_config, params):
 
 
 TEST_FILES = {
-    "cc65"   : ["vic20", "supervision", "atari", "atari_lynx", "creativision", "pet", "c64", "oric"],
-    "z88dk"  : ["c128_z80_80col", "cpm_z80_adm3a", "spectrum_48k", "msx", "zx81_32k_wrx"],
-    "cmoc"   : ["coco", "coco3", "mo5"],
-    "lcc1802": ["comx", "tmc600"],
+    "native"      : ["stdio", "ncurses", "terminal"],
+    "cc65"        : ["vic20", "supervision", "atari", "atari_lynx", "creativision", "pet", "c64", "oric"],
+    "z88dk"       : ["c128_z80_80col", "cpm_z80_adm3a", "spectrum_48k", "msx", "zx81_32k_wrx"],
+    "cmoc"        : ["coco", "coco3", "mo5"],
+    "lcc1802"     : ["comx", "tmc600"],
+    "ack"         : ["msdos", "pc86"],
+    "cc6303"      : ["mc10"],
+    "vbcc"        : ["bbc", "bbcmaster"],
+    # "tms9900-gcc" : ["ti99"] # Variable number
     }
 
+
+Z88DK_ALT_EXPECTED_FILES = 38
 
 def targets_test(option_config, params):
 
@@ -596,7 +603,7 @@ def targets_test(option_config, params):
     compilation_threads = option_config.build_config.compilation_threads
     native_compiler = option_config.build_config.native_compiler
     GNU_MAKE = option_config.build_config.gnu_make
-    if params[1].startswith("z88dk") or params[1]=="cc65":
+    if params[1] == "z88dk_alt":
         parallel = " -j " + compilation_threads
     else:
         parallel = ""
@@ -607,7 +614,7 @@ def targets_test(option_config, params):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
-    if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802"):
+    if params[1] in TEST_FILES.keys():
         devkit_test_files = TEST_FILES[params[1]]
         print("Testing: " + str(devkit_test_files)[1:][:-1])
         
@@ -627,7 +634,7 @@ def targets_test(option_config, params):
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
-        expected_files = 38 # TODO: Remove this hardcoded value
+        expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
@@ -644,7 +651,7 @@ def targets_test(option_config, params):
     if verbose:
         print("Number of built files: " + str(built_files))
 
-    if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params(1) in ("z88dk_alt"):
+    if params[1] in TEST_FILES.keys() or params[1] in ("z88dk_alt"):
         printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
         printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files)+"\n")
         if built_files != expected_files:
@@ -690,7 +697,7 @@ def test(option_config, params):
         test_make(option_config, silent=False)
     elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
         _unit_tests(option_config)
-    elif params[1] in ("cc65", "z88dk", "cmoc", "lcc1802") or params[1].endswith('_alt'):
+    elif params[1] in TEST_FILES.keys() or params[1].endswith('_alt'):
         if targets_test(option_config, params):
             printc(option_config, bcolors.OKGREEN, "TEST OK\n")
         else:

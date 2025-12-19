@@ -8,8 +8,7 @@ Having a Dockerfile and a devcontainer configuration means that anyone with a Gi
 
 You can pull and run the latest pre-build image with
 ```
-docker run -it -v {cross-lib_location}:/usr/src/cross
--lib ghcr.io/cross-lib/devcontainers/base:1.0.5-ubuntu
+docker run -it -v {cross-lib_location}:/usr/src/cross-lib ghcr.io/cross-lib/devcontainers/base:1.0.5-ubuntu
 ```
 where {cross-lib_location} could be something like: *c:\sources\cross-lib*.
 
@@ -110,6 +109,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/LINUX_SETUP.md
 
 
 Thanks to Alex Thissen, a version of Cross-Lib with (Z88DK, CC65, CMOC and native compilers) is available as a Docker image (to be built by using the provided Dockerfile) with a devcontainer configuration.
+
 
 
 

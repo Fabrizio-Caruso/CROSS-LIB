@@ -198,7 +198,7 @@ When a game is built for a specific target, the Cross-Lib tool-chain will automa
 
 ### The Workflow
 
-The user just has to:
+The user has to:
 - **code** the game in C with Cross-Lib APIs in a hardware-agnostic way;
 - **draw** the abstract graphics assets and store them in the *tiles* or *shapes* directory;
 - **run** the `xl` script (see below).

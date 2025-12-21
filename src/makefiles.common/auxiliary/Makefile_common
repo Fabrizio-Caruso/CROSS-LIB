@@ -21,6 +21,7 @@ NCURSES     = ncursesw
 else
 COMPILEDEXT = .out
 NCURSES     = ncurses
+IF_POSIX    = _posix
 endif
 
 CROSS_LIB_PATH := cross_lib

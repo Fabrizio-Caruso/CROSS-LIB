@@ -1,8 +1,33 @@
 #############################
 # QC10
 
+# cpm_z80_adm3a:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	# $(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
-qc10: qc10_turn_based
+# cpm_8080_adm3a:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	# $(INCLUDE_OPTS) -clib=8080 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+# cpm_8085_adm3a:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	# $(INCLUDE_OPTS) -clib=8085 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 qc10_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
@@ -17,3 +42,111 @@ qc10_turn_based:
 	rm xcqc10.bin	
 	rm xcqc10.com
 	mv xcqc10.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+
+
+qc10:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_QC10_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+actrixss:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=actrixss \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ACTRIX_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+actrix:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=actrix \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ACTRIX_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+apple2_z80:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=apple2 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_APPLE2_Z80_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+alphatp2:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=alphatp2 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALPHATP2_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+altos5:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=altos5 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALTOS5_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+altos580:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=altos580 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALTOS580_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+ampro:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=ampro \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AMPRO_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+amust:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=amust \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AMUST_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+amustold:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=amustold \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AMUSTOLD_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+    
+
+archive:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=archive \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ARCHIVE_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

@@ -150,3 +150,126 @@ archive:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+beehive:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=beehive \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEEHIVE_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+    
+
+datamax:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=datamax \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_DATAMAX_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+eagle2:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=eagle2 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EAGLE2_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+    
+
+gnat10:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=gnat10 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GNAT10_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+    
+
+    # { "hp125",     "HP 125/120",            &hp125_spec, 0, NULL, 1 },
+    # { "idpfdd",    "Iskra Delta Partner",   &idpfdd_spec, 0, NULL, 1 },
+    # { "itt3030",   "ITT 3030",              &itt3030_spec, 0, NULL, 1 },
+
+    # { "lnw80",     "LNW80 TRS80 Clone",     &lnw80_spec, 0, NULL, 1 },
+    # { "g2sgs",     "Genie II GS CP/M",      &g2s_gscpm_spec, 0, NULL, 1 },
+    # { "g2skk",     "Genie II/III/IIIs KK",  &g2s_kkcpm_spec, 0, NULL, 1 },
+    # { "g2skkb",    "Genie II KK CP/M B:",   &g2s_kkcpmb_spec, 0, NULL, 1 },
+    # { "g3holte22", "Genie III Holte 2.2",   &g3_holte22_spec, 0, NULL, 1 },
+    # { "g3holte30", "Genie III Holte 3.0",   &g3_holte30_spec, 0, NULL, 1 },
+    # { "g3lowe22a", "Genie III Lowe 2.2a",   &g3_lowe22a_spec, 0, NULL, 1 },
+    # { "g3lowe22b", "Genie III Lowe 2.2b",   &g3_lowe22b_spec, 0, NULL, 1 },
+    # { "max80cpm3", "Lobo MAX-80 CPM3 SS",   &lobo_spec, 0, NULL, 1 },
+
+    # { "micromate", "PMC-101 MicroMate",     &pmc101_spec, 0, NULL, 1 },
+    # { "mikko-320", "Nokia Mikro Mikko 320kb", &nokiamikromikko320_spec, 0, NULL, 1},
+    # { "morrow2",   "Morrow MD 2 (SS)",      &md2_spec, 0, NULL, 1 },
+    # { "morrow3",   "Morrow MD 3 (DS)",      &md3_spec, 0, NULL, 1 },
+    # { "mbc1000",   "Sanyo MBC-1000/1150",   &mbc1000_spec, 0, NULL, 1 },
+    # { "mbc1200",   "Sanyo MBC-200/1250",    &mbc1200_spec, 0, NULL, 1 },
+    # { "mbc2000",   "Sanyo MBC-2000 SS80T",  &mbc2000_spec, 0, NULL, 1 },
+    # { "naburn",    "Nabu PC (8mb)",         &naburn_spec, 0, NULL, 1 },
+    # { "nabupc",    "Nabu PC",               &nabupc_spec, 0, NULL, 1 },
+    # { "nascomcpm", "Nascom CPM",            &nascom_spec, 0, NULL, 1 },
+    # { "nshd8",     "Northstar Virtual 8",   &nshd8_spec, 0, NULL, 1 },
+    # { "mz80",      "Sharp MZ80A/80B",       &mz80_spec, 0, NULL, 1 },
+    # { "mz800",     "Sharp MZ800",           &mz800_spec, 0, NULL, 1 },
+    # { "mz2000",    "Sharp MZ2000",          &mz2000_spec, 0, NULL, 1 },
+    # { "mz2500cpm", "Sharp MZ2500 - CPM",    &mz2500cpm_spec, 0, NULL, 1 },
+    # { "mz3500",    "Sharp MZ3500 (RAW)",    &mz3500_spec, 0, NULL, 1 },
+    # { "osborne1",  "Osborne 1 DD",          &osborne_spec, 0, NULL, 1 },
+    # { "osborne1sd", "Osborne 1 SD",         &osborne_sd_spec, 0, NULL, 1 },
+    # { "pasopia",   "Toshiba Pasopia/T100",  &pasopia_spec, 0, NULL, 1 },
+    # { "philips",   "Philips P2012/P2000C",  &philips_spec, 0, NULL, 1 },
+    # { "pc6001",    "NEC PC6001/6601,TA-P2", &pc6001_spec, 0, NULL, 1 },
+    # { "pc8001",    "NEC PC8001",            &pc8001_spec, 0, NULL, 1 },
+    # { "pc88",      "NEC PC8001/8801,FM7/8", &pc88_spec, 0, NULL, 1 },
+    # { "pcw80",     "Amstrad PCW, 80T",      &pcw80_spec, 16, "\x03\x81\x50\x09\x02\x01\x04\x04\x2A\x52\x00\x00\x00\x00\x00\x00", 1 },
+    # { "pcw40",     "Amstrad PCW, 40T",      &pcw40_spec, 16, "\x00\x00\x28\x09\x02\x01\x03\x02\x2A\x52\x00\x00\x00\x00\x00\x00", 1 },
+    # { "plus3",     "ZX Spectrum +3 173k",   &plus3_spec, 0, NULL, 1 },
+    # { "scorpion",  "ZX Scorpion, Profi",    &scoprpion_spec, 0, NULL, 1 },
+    # { "atmturbo",  "ZX MicroART ATM Turbo", &atmturbo_spec, 0, NULL, 1 },
+    # { "diskface",  "ZX Dataputer DISKFACE", &diskface_spec, 0, NULL, 1 },
+    # { "elwro",     "ZX Elwro 800 Junior",   &elwro_spec, 0, NULL, 1 },
+    # { "fdd3000",   "ZX Timex FDD-3000",     &fdd3000_spec, 0, NULL, 1 },
+    # { "hc91",      "ZX ICE Felix HC-91",    &hc91_spec, 0, NULL, 1 },
+    # { "hc2000",    "ZX HC-2000 / CoBra",    &hc2000_spec, 0, NULL, 1 },
+    # { "lec80t",    "ZX LEC Betadisk 80T",   &zxlec_spec, 0, NULL, 1 },
+    # { "quorum",    "ZX Quorum,Profi,Hobb.", &quorum_spec, 0, NULL, 1 },
+    # { "qc10",      "Epson QC-10, QX-10",    &qc10_spec, 0, NULL, 1 },
+    # { "qc10m1",    "Epson QC-10, QX-10",    &qc10m1_spec, 0, NULL, 1 },
+    # { "rainbow",   "DEC Rainbow/DECmate",   &rainbow_spec, 0, NULL, 1 },
+    # { "rc700",     "Regnecentralen RC-700", &rc700_spec, 0, NULL, 1 },
+    # { "sagafox",   "SAGA FOX OS",           &sagafox_spec, 0, NULL, 1 },
+    # { "seequa",    "Seequa Chameleon (SS)", &seequa_spec, 0, NULL, 1 },
+    # { "sharpx1",   "Sharp X1",              &sharpx1_spec, 0, NULL, 1 },
+    # { "smc777",    "Sony SMC-70/SMC-777",   &smc777_spec, 0, NULL, 1 },
+    # { "svi-40ss",  "SVI 40ss (174k)",       &svi40ss_spec, 0, NULL, 1 },
+    # { "teletekds", "Teletek Systemaster",   &teletek_spec, 0, NULL, 1 },
+    # { "teletekss", "Teletek (SS)",          &teletekss_spec, 0, NULL, 1 },
+    # { "televideo", "Televideo TS80x/TPC1",  &televideo_spec, 0, NULL, 1 },
+    # { "tiki100ss", "Tiki 100 (200k)",       &tiki100_ss_spec, 0, NULL, 1 },
+    # { "tiki100ds", "Tiki 100 (400k)",       &tiki100_ds_spec, 0, NULL, 1 },
+    # { "tim011",    "TIM011 (DSDD 3.5\")",   &tim011_spec, 0, NULL, 1 },
+    # { "omikron",   "TRS80 I Omikron",       &omikron_spec, 0, NULL, 1 },
+    # { "lifeboat",  "TRS80 II Lifeboat",     &lifeboat_spec, 0, NULL, 1 },
+    # { "fmgcpm",    "TRS80 II FMG CP/M",     &fmgcpm_spec, 0, NULL, 1 },
+    # { "ptcpm",     "TRS80 II P&T or Plus",  &ptcpm_spec, 0, NULL, 1 },
+    # { "holmes",    "TRS80 Holmes VID-80",   &holmes_spec, 0, NULL, 1 },
+    # { "merchant",  "TRS80 III MemMerchant", &merchant_spec, 0, NULL, 1 },
+    # { "compactor", "TRS80 III Hurricane C", &hurricane_spec, 0, NULL, 1 },
+    # { "montezuma", "TRS80 4 Montezuma",     &montezuma_spec, 0, NULL, 1 },
+    # { "m4cpm3",    "TRS80 4 CP/M Plus",     &trs80_cpm3_spec, 0, NULL, 1 },
+    # { "vector06c", "Vector 06c",            &vector06c_spec, 0, NULL, 1 },
+    # { "v1050",     "Visual 1050",           &v1050_spec, 0, NULL, 1 },
+    # { "cortex",    "Cortex CW/P",           &cortex_spec, 0, NULL, 1 },
+    # { "vt180",     "DEC VT-180",            &vt180_spec, 0, NULL, 1 },
+    # { "x820",      "Xerox 820",             &x820_spec, 0, NULL, 1 },
+    # { "hz89",      "Zenith Z89, Z17-SSSD",  &hz17_spec, 0, NULL, 1 },
+    # { "hz100",     "Zenith Z100, DSDD",     &z100_spec, 0, NULL, 1 },
+    # { "magnolia",  "Zenith Z89, magnolia",  &magnolia_spec, 0, NULL, 1 },
+    # { "z80pack",   "z80pack 8\" format",    &z80pack_spec, 0, NULL, 1 },

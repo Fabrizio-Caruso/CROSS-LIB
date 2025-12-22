@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2025/12/13
+Last update: 2025/12/22
 
 ### 8-BIT targets
 
@@ -235,17 +235,17 @@ Motorola 6803 |   1                |
 
 ### 16-BIT targets
 
-target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes
---------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|-----------
-*amiga*             | Commodore Amiga                                      |    YES       |    missing      |    missing     | missing |
-*atari_st*          | Atari ST                                             |    YES       |    missing      |    missing     | missing |
-*olivetti_m20*      | Olivetti M20                                         |    YES       |    missing      |    missing     | missing |
-*pc86*              | PC 8088/86                                           |    YES       |      OK         |      OK        |   OK    |
-*msdos86*           | MS-DOS 8086                                          |    YES       |      OK         |      OK        |   OK?   |
-*pdp11v7*           | PDP 11 V7                                            |     ?        |    missing      |    missing     | missing |
-*sinclair_ql*       | Sinclair QL                                          |    YES       |    missing      |    missing     | missing |
-*ti99*              | Texas Instruments TI99/4A                            |    YES       |      OK         |      OK        |   OK    |
-*minix68k*          | Minix 68K                                            |     ?        |    missing      |    missing     | missing |
+target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
+--------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
+*amiga*             | Commodore Amiga                             |   YES    |    68000      | modded GCC|     missing     |    missing     | missing |
+*atari_st*          | Atari ST                                    |   YES    |    68000      | modded GCC|     missing     |    missing     | missing |
+*olivetti_m20*      | Olivetti M20                                |   YES    |  Zilog 8001   | Z8K-GCC   |     missing     |    missing     | missing |
+*pc86*              | PC 8088/86                                  |   YES    | Intel 8088/86 |   ACK     |       OK        |      OK        |   OK?   |
+*msdos86*           | MS-DOS 8086                                 |   YES    | Intel 8088/86 |   ACK     |       OK        |      OK        |   OK    |
+*pdp11v7*           | PDP 11 V7                                   |    ?     |    PDP 11     |   ACK     |     missing     |    missing     | missing |
+*sinclair_ql*       | Sinclair QL                                 |   YES    |    68008      |  XTC68    |     missing     |    missing     | missing |
+*ti99*              | Texas Instruments TI99/4A                   |   YES    |   TMS 9900    |TMS9900-GCC|       OK        |      OK        |   OK    |
+*minix68k*          | Minix 68K                                   |    ?     |    68000      |   ACK     |     missing     |    missing     | missing |
 
 
 OK       :   7 (3 with real-time input)
@@ -257,20 +257,20 @@ UNKNOWN  :   2
 
 ### 32-BIT targets (excluding modern PCs)
 
-target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes 
---------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
-*linux386*          | ELF linux for Intel 386                              |    YES       |    missing      |    missing     | missing |
-*linux68k*          | ELF linux for Motorola 68020                         |    YES       |    missing      |    missing     | missing | 
-*linuxppc*          | ELF linux for PPC                                    |    YES       |    missing      |    missing     | missing |
-*linuxmips*         | ELF linux for little endian MIPS32r2                 |     ?        |    missing      |    missing     | missing | 
-*msdos386*          | MS-DOS 386 DPMI                                      |     NO       |    missing      |    missing     | missing |
-*osx386*            | OSX X Mach0 for i386                                 |     ?        |    missing      |    missing     | missing |
-*osxppcppc*         | OSX X Mach0 for PPC                                  |     ?        |    missing      |    missing     | missing |
-*rpi*               | RPI GPU                                              |     ?        |    missing      |    missing     | missing |
+target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
+--------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
+*linux386*          | ELF linux for Intel 386                     |    YES   |   Intel 386   |   ACK     |     missing     |    missing     | missing |
+*linux68k*          | ELF linux for Motorola 68020                |    YES   | Motorola 68020|   ACK     |     missing     |    missing     | missing |
+*linuxppc*          | ELF linux for PPC                           |    YES   |    PPC        |   ACK     |     missing     |    missing     | missing |
+*linuxmips*         | ELF linux for little endian MIPS32r2        |     ?    |   MIPS32r2    |   ACK     |     missing     |    missing     | missing |
+*msdos386*          | MS-DOS 386 DPMI                             |    NO    |   Intel 386   |   ACK     |     missing     |    missing     | missing |
+*osx386*            | OSX X Mach0 for i386                        |     ?    |   Intel 386   |   ACK     |     missing     |    missing     | missing |
+*osxppc*            | OSX X Mach0 for PPC                         |     ?    |    PPC        |   ACK     |     missing     |    missing     | missing |
+*rpi*               | RPI GPU                                     |     ?    |   RPI GPU     |   ACK     |     missing     |    missing     | missing |
 
 OK       :   3 
 
-KO       :   3
+KO       :   4
 
 UNKNOWN  :   1
 
@@ -278,10 +278,10 @@ UNKNOWN  :   1
 
 ### 32-BIT and 64-BIT targets on modern PC systems
 
-target name         | long target name                                     |   working    | real-time input | hires graphics |  sound  | notes  
---------------------|------------------------------------------------------|--------------|-----------------|----------------|---------|----------- 
-*gcc*               | Native Console version (with or without ncurses)     |    YES       |       OK        |    missing     | missing | 
-*emcc*              | Emscripten (WebAssembly version)                     |    YES       |    missing      |    missing     | missing | input
+target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
+--------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
+*gcc*               | Native Console version                      |    YES   |   host CPU    |  native   |      OK         |       OK       |   OK    | 
+*emcc*              | Emscripten                                  |    YES   |  Web Assembly | emscripten|    missing      |     missing    | input   |
 
 
 OK       :   2 (1 wiith real-time input)
@@ -291,11 +291,11 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 204
+TOTAL    : 205
 
 OK       : 189 (173 with real-time input)
 
-KO       :   2
+KO       :   3
 
 UNKNOWN  :  13
 

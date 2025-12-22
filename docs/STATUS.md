@@ -27,7 +27,7 @@ target name         | long target name                            | working  |  
 *bondwell*          | Bondwell                                    |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *bondwell2*         | Bondwell 2                                  |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK       |    ?    |
 *c128_8502*         | Commodore 128 [8502 CPU]                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | GFX in VDC mode
-*c128_z80*          | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | GFX with VIC (OK) and VDC (slow)
+*c128*              | Commodore 128 [Z80 CPU]                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | GFX with VIC (OK) and VDC (slow)
 *c16*               | Commodore 264 series (16/116/+4)            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *c64*               | Commodore 64                                |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *c65*               | Commodore 65                                |    ?     |   MOS 6502    |   CC65  |      OK?        |    missing     | missing |
@@ -38,7 +38,7 @@ target name         | long target name                            | working  |  
 *cidelsa_destroyer* | Cidelsa Destroyer arcade board              |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
 *cidelsa_draco*     | Cidelsa Draco arcade board                  |   YES    |   RCA 1802    | LCC1802 |      OK         |    missing     |   OK    |
 *coco*              | Color Computer 1/2                          |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
-*coco 3*            | Color Computer 3                            |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
+*coco3*             | Color Computer 3                            |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
 *coleco*            | Colecovision                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A
 *coleco_adam*       | Colecovision Adam                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing | PSG SN76489A 
 *comx*              | COMX-35                                     |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    | 
@@ -69,9 +69,8 @@ target name         | long target name                            | working  |  
 *gl6000sl*          | VTech Genius Leader 6000sl                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *gx4000*            | Amstrad GX-4000                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *hbios*             | HBIOS generic target                        |     ?    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing |
-*hector 1*          | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK?        |  missing       | missing | extremely low memory
-*hector HR2+*       | Hector HR2+                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
-*hector HRX*        | Hector HRX                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
+*hector1*           | Hector 1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK?        |  missing       | missing | extremely low memory
+*hectorhr*          | Hector HR2+ / Hector HRX                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       | missing |
 *hemc*              | Huebler/Evert-MC                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *hgmc*              | Huebler-Grafik-MC                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   N/A ? |
 *homelab*           | Homelab 4                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
@@ -93,7 +92,7 @@ target name         | long target name                            | working  |  
 *mbc200*            | Sanyo MBC 200                               |   YES?   |   Zilog 80    |  Z88DK  |      OK         |     missing    | missing |
 *mc10*              | TRS-80 MC-10 / Alice Matra 4k               |   YES    | Motorola 6803 | CC6303  |      OK         |    missing     |   OK    |
 *mc1000*            | CCE MC-1000                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*mega65*            | Mega 65 / Commodore 65                      |   YES    |   MOS 6502    |  CC65   |      OK         |    missing     |   OK    |
+*mega65*            | Mega 65 / Commodore 65                      |   YES    |   MOS 6502    |   CC65  |      OK         |    missing     |   OK    |
 *micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *microboard*        | Microboard Computer Development System      |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -154,14 +153,14 @@ target name         | long target name                            | working  |  
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *special*           | Specialist                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
-*spectrum*          | Sinclair Spectrum 16k/48k/128k              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*zx*                | Sinclair Spectrum 16k/48k/128k              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *srr*               | Exidy Sorcerer                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   |
 *super80*           | Dick Smith Super 80/80d/80e/80m             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *super80r*          | Dick Smith Super 80r/80v                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *supervision*       | Watara Supervision                          |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *sv8000*            | Bandai Supervision 8000                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK ?  | 4k rom limit
 *svi*               | Spectravideo 318/328                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
-*T200*              | TRS-80 T200                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
+*t200*              | TRS-80 T200                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *telestrat*         | Oric Telestrat                              |   YES    |   MOS 6502    |   CC65  |    missing      |    missing     | missing |
 *tmc600*            | Telmac TMC-600                              |   YES    |   RCA 1802    | LCC1802 |      OK         |      N/A       |   OK    | 
 *ti82*              | Texas Instruments TI 82                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   | 
@@ -192,9 +191,9 @@ target name         | long target name                            | working  |  
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
-TOTAL    : 186
+TOTAL    : 185
 
-OK       : 178 (169 with real-time input)
+OK       : 177 (168 with real-time input)
 
 KO       :   1
 
@@ -235,17 +234,17 @@ Motorola 6803 |   1                |
 
 ### 16-BIT targets
 
-target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
---------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
-*amiga*             | Commodore Amiga                             |   YES    |    68000      | modded GCC|     missing     |    missing     | missing |
-*atari_st*          | Atari ST                                    |   YES    |    68000      | modded GCC|     missing     |    missing     | missing |
-*olivetti_m20*      | Olivetti M20                                |   YES    |  Zilog 8001   | Z8K-GCC   |     missing     |    missing     | missing |
-*pc86*              | PC 8088/86                                  |   YES    | Intel 8088/86 |   ACK     |       OK        |      OK        |   OK?   |
-*msdos86*           | MS-DOS 8086                                 |   YES    | Intel 8088/86 |   ACK     |       OK        |      OK        |   OK    |
-*pdp11v7*           | PDP 11 V7                                   |    ?     |    PDP 11     |   ACK     |     missing     |    missing     | missing |
-*sinclair_ql*       | Sinclair QL                                 |   YES    |    68008      |  XTC68    |     missing     |    missing     | missing |
-*ti99*              | Texas Instruments TI99/4A                   |   YES    |   TMS 9900    |TMS9900-GCC|       OK        |      OK        |   OK    |
-*minix68k*          | Minix 68K                                   |    ?     |    68000      |   ACK     |     missing     |    missing     | missing |
+target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      
+--------------------|---------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
+*amiga*             | Commodore Amiga                             |   YES    |    68000      | GCC mod |    missing      |    missing     | missing |
+*atari_st*          | Atari ST                                    |   YES    |    68000      | GCC mod |    missing      |    missing     | missing |
+*olivetti_m20*      | Olivetti M20                                |   YES    |  Zilog 8001   | Z8K-GCC |    missing      |    missing     | missing |
+*pc86*              | PC 8088/86                                  |   YES    | Intel 8086    |   ACK   |      OK         |      OK        |   OK?   |
+*msdos86*           | MS-DOS 8086                                 |   YES    | Intel 8086    |   ACK   |      OK         |      OK        |   OK    |
+*pdp11v7*           | PDP 11 V7                                   |    ?     |    PDP 11     |   ACK   |    missing      |    missing     | missing |
+*sinclair_ql*       | Sinclair QL                                 |   YES    |    68000      |  XTC68  |    missing      |    missing     | missing |
+*ti99*              | Texas Instruments TI99/4A                   |   YES    |   TMS 9900    | GCC mod |      OK         |      OK        |   OK    |
+*minix68k*          | Minix 68K                                   |    ?     |    68000      |   ACK   |    missing      |    missing     | missing |
 
 
 OK       :   7 (3 with real-time input)
@@ -259,14 +258,14 @@ UNKNOWN  :   2
 
 target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
-*linux386*          | ELF linux for Intel 386                     |    YES   |   Intel 386   |   ACK     |     missing     |    missing     | missing |
-*linux68k*          | ELF linux for Motorola 68020                |    YES   | Motorola 68020|   ACK     |     missing     |    missing     | missing |
-*linuxppc*          | ELF linux for PPC                           |    YES   |    PPC        |   ACK     |     missing     |    missing     | missing |
-*linuxmips*         | ELF linux for little endian MIPS32r2        |     ?    |   MIPS32r2    |   ACK     |     missing     |    missing     | missing |
-*msdos386*          | MS-DOS 386 DPMI                             |    NO    |   Intel 386   |   ACK     |     missing     |    missing     | missing |
-*osx386*            | OSX X Mach0 for i386                        |     ?    |   Intel 386   |   ACK     |     missing     |    missing     | missing |
-*osxppc*            | OSX X Mach0 for PPC                         |     ?    |    PPC        |   ACK     |     missing     |    missing     | missing |
-*rpi*               | RPI GPU                                     |     ?    |   RPI GPU     |   ACK     |     missing     |    missing     | missing |
+*linux386*          | ELF linux for Intel 386                     |   YES    |   Intel 386   |   ACK     |  missing        |    missing     | missing |
+*linux68k*          | ELF linux for Motorola 68020                |   YES    | Motorola 68020|   ACK     |  missing        |    missing     | missing |
+*linuxppc*          | ELF linux for PPC                           |   YES    |    PPC        |   ACK     |  missing        |    missing     | missing |
+*linuxmips*         | ELF linux for little endian MIPS32r2        |    ?     |   MIPS32r2    |   ACK     |  missing        |    missing     | missing |
+*msdos386*          | MS-DOS 386 DPMI                             |   NO     |   Intel 386   |   ACK     |  missing        |    missing     | missing |
+*osx386*            | OSX X Mach0 for i386                        |    ?     |   Intel 386   |   ACK     |  missing        |    missing     | missing |
+*osxppc*            | OSX X Mach0 for PPC                         |    ?     |    PPC        |   ACK     |  missing        |    missing     | missing |
+*rpi*               | RPI GPU                                     |    ?     |   RPI GPU     |   ACK     |  missing        |    missing     | missing |
 
 OK       :   3 
 
@@ -280,8 +279,8 @@ UNKNOWN  :   1
 
 target name         | long target name                            | working  |   CPU family  | dev-kit   | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|-----------|-----------------|----------------|---------|-----------
-*gcc*               | Native Console version                      |    YES   |   host CPU    |  native   |      OK         |       OK       |   OK    | 
-*emcc*              | Emscripten                                  |    YES   |  Web Assembly | emscripten|    missing      |     missing    | input   |
+*gcc*               | Native Console version                      |   YES    |   host CPU    |  native   |    OK           |       OK       |   OK    | 
+*emcc*              | Emscripten                                  |   YES    |  Web Assembly | emscripten|  missing        |     missing    | input   |
 
 
 OK       :   2 (1 wiith real-time input)
@@ -291,9 +290,9 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 205
+TOTAL    : 204
 
-OK       : 189 (173 with real-time input)
+OK       : 188 (173 with real-time input)
 
 KO       :   3
 

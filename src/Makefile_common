@@ -1902,6 +1902,7 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
+zx: spectrum
 spectrum: spectrum_48k
 
 spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 

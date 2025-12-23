@@ -41,8 +41,7 @@ def retrieve_targets():
     return lines
 
 
-def display_targets(lines, compiler="", cpu="", working=""):
-    
+def filter_targets(lines, compiler="", cpu="", working=""):
     if compiler!='':
         lines = [line for line in lines if line[4].lower().strip()==compiler]
 
@@ -51,14 +50,30 @@ def display_targets(lines, compiler="", cpu="", working=""):
     
     if working!='':
         lines = [line for line in lines if working.lower() in line[2].lower().strip()]
+    return lines
 
-    
+
+def display_targets(lines):
     print("target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      ")
     for line in lines:
         print(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
 
     print("Targets found: " + str(len(lines)))
 
+
+def display_filtered_targets(lines, compiler="", cpu="", working=""):
+    
+    lines = filter_targets(lines, compiler, cpu, working)
+    
+    display_targets(lines)
+
+
+def get_targets(compiler="", cpu="", working=""):
+    lines = retrieve_targets()
+    filtered_lines=filter_targets(lines,compiler, cpu, working)
+    target_map = get_target_map(filtered_lines)
+    return target_map.keys()
+    
 
 def get_target_map(lines):
     target_map = {}
@@ -77,21 +92,21 @@ def info(option_config, params):
 
     # print(str(target_map))
     if len(params)==1 or params[1]=="targets":
-        display_targets(lines)
+        display_filtered_targets(lines)
         return
     
     if params[1] in ("cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "ack", "tms9900-gcc", "vbcc", "xtc68"):
-        display_targets(lines, params[1])
+        display_filtered_targets(lines, params[1])
         return
     
     if params[1] in ("6502", "z80", "6809", "1802", "6803", "8080", "8085", "8086", "8088", "386", "tms9900", "68000", "68020", "gbz80"):
         to_check = params[1].replace("z80", "Zilog 80").replace("8088","8086").replace("tms9900", "TMS 9900").replace("6502","MOS 6502")
-        display_targets(lines, "", cpu=to_check)
+        display_filtered_targets(lines, "", cpu=to_check)
         return
 
     if params[1] in("yes","ok","no","ko","?"):
         to_check = params[1].replace("ok", "yes").replace("ko","no")
-        display_targets(lines, "", cpu="", working=to_check)
+        display_filtered_targets(lines, "", cpu="", working=to_check)
         return
     
 

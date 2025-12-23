@@ -465,6 +465,13 @@ def build(option_config, params, reset_flag = False):
                 if verbose:
                     printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
+                
+                
+            # print("DEBUG: " + target)
+            # short_target = target.replace("_targets","")
+            # if short_target in ["cc65","z88dk","ncurses"]:
+                # print(get_targets("cc65"))
+                # print(len(get_targets("cc65")))
 
             make_command = \
                 GNU_MAKE + " " + target + \

@@ -55,7 +55,7 @@ Click on the links below to play the games on your browser.
 -------------------------------------------
 
 
-## MORE THAN 200 SUPPORTED TARGETS SYSTEMS
+## MORE THAN 200 SUPPORTED TARGETS
 
 Cross-Lib can be used to build games for <ins>more than 200 different vintage systems</ins> (computers, consoles, arcade boards, pocket calculators, etc.). 
 An almost complete list of the supported systems with their status is in: <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md"><b>Supported Systems</b></a>

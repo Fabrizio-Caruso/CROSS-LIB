@@ -1,6 +1,7 @@
 #ifndef _CONIO_GRAPHICS_H
 #define _CONIO_GRAPHICS_H
 
+
 #if !defined(_XL_NO_COLOR)
 
     #if defined(__FP1100__)

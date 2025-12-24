@@ -4,7 +4,7 @@
 #if !defined(_MOVE_UP) && !defined(_MOVE_LEFT) && !defined(_MOVE_RIGHT) && !defined(_MOVE_DOWN)
     #if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) \
         || defined(__WINCMOC__) || defined(__COCO3__) || defined(__COCO__) || defined(__DRAGON__) || defined(__TO7__) ||defined(__MO5__) \
-        ||  defined(__GAL__)  || defined(__Z9001__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
+        ||  defined(__GAL__)  || defined(__Z9001__) || (defined(__APPLE2__) && !defined(__APPLE2_CPM__)) || (defined(__APPLE2ENH__) && !defined(__APPLE2_CPM__)) \
         || (defined(__AGAT__) && !defined(_XL_JCUKEN_KEYBOARD) && defined(_XL_NO_JOYSTICK)) \
         || (defined(__VZ__) && !defined(__HARDWARE_KEYBOARD)) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
         || defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) || defined(__EINSTEIN__) || defined(__MULTI8__) \

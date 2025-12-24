@@ -59,8 +59,10 @@
 #if YSize>=20
 
     #define Y_DINO ((YSize/2)+4)
-#else
+#elif YSize>=8
     #define Y_DINO ((YSize/2)+2)
+#else
+    #define Y_DINO (YSize-3)
 #endif
 
 #define Y_TERRAIN ((Y_DINO)+2)

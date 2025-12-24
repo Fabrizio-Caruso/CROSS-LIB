@@ -21,11 +21,11 @@ x07_buffered:
 x07:
 	$(Z88DK_PATH)$(MYZ88DK) +x07  $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
 	-D__X07__ -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-DXSize=20 -D_XL_NO_LOWER_BORDER \
+	-DXSize=20 -D_XL_NO_LOWER_BORDER -D_XL_NO_UDG \
 	-DYSize=4 -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X07_SLOWDOWN) \
 	-D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS  \
-	-D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT  \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
@@ -36,15 +36,14 @@ x07:
 
 x07_test:
 	$(Z88DK_PATH)$(MYZ88DK) +x07  $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
-	-D__X07__ \
-	-DXSize=20 -D_XL_NO_LOWER_BORDER \
-	-DYSize=4 -D_XL_NO_JOYSTICK \
+	-D__X07__ -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DXSize=16 -D__NO_PRINT -D_XL_NO_LOWER_BORDER \
+	-DYSize=5 -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X07_SLOWDOWN) \
 	-D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS  \
-	-D_XL_NO_COLOR -D__ALT_PRINT -D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT  \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

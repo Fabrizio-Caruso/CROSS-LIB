@@ -254,6 +254,7 @@ PARALLEL_TARGETS = \
     'interact',
     'kaypro',
     'kaypro83',
+    'kc',
     'kc85',
     'lambda',
     'laser500',
@@ -307,7 +308,7 @@ PARALLEL_TARGETS = \
     'zx81_wrx128',
     'zx81_8x6_wrx128',
     'z9001',
-    'kc',
+    'x07',
     'z1013',
     'zx80',
     'zxn'

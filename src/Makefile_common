@@ -3528,7 +3528,6 @@ include makefiles.common/targets/z88dk/Makefile_pv1000
 include makefiles.common/targets/z88dk/Makefile_pv2000
 include makefiles.common/targets/z88dk/Makefile_px4
 include makefiles.common/targets/z88dk/Makefile_px8
-include makefiles.common/targets/z88dk/Makefile_qc10
 include makefiles.common/targets/z88dk/Makefile_radio86
 include makefiles.common/targets/z88dk/Makefile_rc700
 include makefiles.common/targets/z88dk/Makefile_rx78
@@ -3560,6 +3559,9 @@ include makefiles.common/targets/z88dk/Makefile_z80tvgame
 include makefiles.common/targets/z88dk/Makefile_z88
 include makefiles.common/targets/z88dk/Makefile_zx80
 include makefiles.common/targets/z88dk/Makefile_zxn
+
+include makefiles.common/targets/z88dk/Makefile_misc_cpm
+
 
 # GCC4TI
 include makefiles.common/targets/gcc4ti/Makefile_ti99

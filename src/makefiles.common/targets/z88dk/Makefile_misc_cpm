@@ -1,33 +1,7 @@
 #############################
-# QC10
+# QC10 and others
 
-# cpm_z80_adm3a:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
-	# $(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
-	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
-	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	# $(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-
-# cpm_8080_adm3a:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
-	# $(INCLUDE_OPTS) -clib=8080 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
-	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
-	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	# $(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-
-# cpm_8085_adm3a:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
-	# $(INCLUDE_OPTS) -clib=8085 --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPM_Z80_SLOWDOWN) \
-	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
-	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
-	# $(FULL_FILES)
-	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
-
+# https://github.com/z88dk/z88dk/blob/master/lib/config/cpm.cfg
 
 qc10_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \

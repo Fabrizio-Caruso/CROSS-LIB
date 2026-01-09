@@ -1,6 +1,6 @@
 # Z88DK Debugging Tests
 
-include ./games/chase/Makefile.chase
+# include ./games/chase/Makefile.chase
 
 TEST_PATH ?= $(SOURCE_PATH)/../../debug
 
@@ -126,7 +126,12 @@ getk_test:
 	-compiler=sdcc \
 	-create-app -o  $(BUILD_PATH)/getk_test.prg \
 	$(TEST_PATH)/getk_test.c
-	rm $(BUI
+
+getk_test_x07:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	-create-app -o  $(BUILD_PATH)/getk_test.prg \
+	$(TEST_PATH)/getk_test.c
 
 sms_libctest:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) \

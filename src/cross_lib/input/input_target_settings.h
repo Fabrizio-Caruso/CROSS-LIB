@@ -9,7 +9,7 @@
         || (defined(__VZ__) && !defined(__HARDWARE_KEYBOARD)) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
         || defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) || defined(__EINSTEIN__) || defined(__MULTI8__) \
         || defined(__G800__) || defined(__FP1100__) || defined(__TI99__) || defined(__HEMC__) || defined(__HGMC__) \
-        || defined(__HOMELAB__) || defined(__SPECIAL__) || defined(__KRAMERMC__) || defined(__DAI__) \
+        || defined(__HOMELAB__) || defined(__SPECIAL__) || defined(__KRAMERMC__) || defined(__DAI__) || defined(__X07__) \
         || (defined(__BBC__) && defined(TURN_BASED))|| defined(__BBCMASTER__) \
         || defined(__MC10__) || (defined(__ZX81__) && defined(__CONIO_GRAPHICS))
         #define _MOVE_UP 'I'

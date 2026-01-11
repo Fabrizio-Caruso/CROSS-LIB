@@ -3,8 +3,8 @@
 {
     "name": "Cross-Lib",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/cross-lib/devcontainers/base:1.0.5-ubuntu",
-	"postStartCommand": "bash .devcontainer/post-start.sh",
+	"image": "ghcr.io/cross-lib/devcontainers/base:1.0.6-ubuntu",
+	// "postStartCommand": "bash .devcontainer/post-start.sh",
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {

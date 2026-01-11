@@ -16,14 +16,18 @@ const uint8_t map_walls[] =
 // map 1 (3) 
     2, 
 
-    #if YSize<=17
+    #if YSize<=9
+        XSize/3-1,       YSize/3+1,     3,
+    #elif YSize<=17
         XSize/3,       YSize/3+1,     3,
     #elif YSize<=20
         XSize/3,       YSize/3+1,     XSize/3,
     #else
         XSize/3,       YSize/3,     XSize/3,
     #endif
-    #if YSize<=17
+    #if YSize<=9
+        XSize/3+8,   2*YSize/3,     3,
+    #elif YSize<=17
         XSize/3+6,   2*YSize/3-1,     3,
     #else
         XSize/3,     2*YSize/3,     XSize/3,

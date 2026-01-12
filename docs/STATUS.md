@@ -180,7 +180,7 @@ target name         | long target name                            | working  |  
 *vic20*             | Commodore Vic 20                            |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    | 
 *vz*                | VTech VZ200                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *x1*                | Sharp X1                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    | mode 0 has udg
-*x07*               | Casio X-07                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       ?        |    ?    |
+*x07*               | Canon X-07                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |       ?        |    ?    |
 *x820*              | Xerox 820                                   |   YES?   |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
 *yaz180*            | YAZ 180 board                               |     ?    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing |
 *z1013*             | Robotron Z1013                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |  N/A ?  |
@@ -297,6 +297,7 @@ OK       : 188 (173 with real-time input)
 KO       :   3
 
 UNKNOWN  :  13
+
 
 
 

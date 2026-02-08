@@ -1776,12 +1776,12 @@ samcoupe: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__CONIO_GRAPHICS  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SAMCOUPE_SLOWDOWN) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	-D__BIT_BANG_SOUND -o $(BUILD_PATH)/FULL_samcoupe_$(GAME_NAME).bin -lndos \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm
-	rm $(BUILD_PATH)/FULL_samcoupe.bin
-	mv $(BUILD_PATH)/FULL_samcoupe.mgt $(BUILD_PATH)/X$(GAME_NAME)_$@.mgt
+	rm $(BUILD_PATH)/FULL_samcoupe_$(GAME_NAME).bin
+	mv $(BUILD_PATH)/FULL_samcoupe_$(GAME_NAME).mgt $(BUILD_PATH)/X$(GAME_NAME)_$@.mgt
 
 
 #################################################################

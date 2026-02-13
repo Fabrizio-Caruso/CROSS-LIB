@@ -433,6 +433,9 @@
 #if defined(__CC65__) && !defined(__NES_CONIO_GRAPHICS) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && defined(__CONIO_GRAPHICS)
     #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define _SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
+#elif defined(__SAM__)
+    #define _SET_BORDER_COLOR(c) {}
+    #define _SET_BACKGROUND_COLOR(c) {}
 #elif (defined(__Z88DK__) && !defined(_XL_NO_UDG)) || defined(__AQUARIUS__)
     #define _SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define _SET_BACKGROUND_COLOR(c) (void) textbackground(c)

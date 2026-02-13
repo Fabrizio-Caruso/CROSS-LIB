@@ -7,11 +7,11 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
 	-subtype=eg2000disk \
-	-pragma-redirect:getk=getk_inkey \
+	-pragma-redirect:getk=getk_inkey  -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EG2K_SLOWDOWN) \
 	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
-	-D__VT52 \
+	-D__VT52 -D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS \
 	-lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \

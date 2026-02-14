@@ -1,21 +1,39 @@
 
-
-x820: $(ASSETS_PATH)/z88dk_xchase.asm
+# TODO: This target does not have graphics
+x820: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=x820 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X820__ \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
 	-D__VT52 -DXSize=80 -DYSize=24  \
-	-D__CONIO_GRAPHICS \
+	-D__CONIO_GRAPHICS -D_XL_NO_UDG \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
 	-lndos -D_XL_NO_JOYSTICK \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-D__NO_INIT_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
+
+
+# x820_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=x820 $(SCCZ80_OPTS) \
+	# $(INCLUDE_OPTS) \
+	# -D__X820__ \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
+	# -D__VT52 -DXSize=80 -DYSize=24  \
+	# -D__CONIO_GRAPHICS \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_X820_SLOWDOWN) \
+	# -lndos -D_XL_NO_JOYSTICK \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# $(FULL_FILES) \
+	# -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
 
 
 

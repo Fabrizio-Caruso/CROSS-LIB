@@ -18,7 +18,9 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 
 ## CROSS-LIB-HD
 
-Cross-Lib-HD is an equivalent backward-compatible framework, still work-in-progress: http://github.com/Fabrizio-Caruso/CROSS-LIB-HD
+Cross-Lib-HD is an equivalent backward-compatible framework, still work-in-progress: 
+
+http://github.com/Fabrizio-Caruso/CROSS-LIB-HD
 
 Its goal is to provide a **higher number of redefinable tiles**, while maintaining the **same API's** and possibly the same number of supported targets as Cross-Lib.
 

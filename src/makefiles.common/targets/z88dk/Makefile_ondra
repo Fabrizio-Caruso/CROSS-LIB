@@ -6,7 +6,7 @@ ondra: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__ONDRA__ -DXSize=40 -DYSize=30   \
 	-D__NO_SCREEN_COLOR_INIT \
 	 -DZ88DK_JOYSTICK \
-	-D__VT52  \
+	--generic-console -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ONDRA_SLOWDOWN) \
 	-D__CONIO_GRAPHICS  \
 	-lndos \
@@ -25,6 +25,7 @@ ondra_no_gfx:
 	-D__CONIO_GRAPHICS -D_XL_NO_COLOR -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ONDRA_SLOWDOWN) \
+	--generic-console -D_XL_NO_JOYSTICK \
 	-create-app \
 	-o FULL_$@
 	rm FULL_$@

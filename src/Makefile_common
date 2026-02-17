@@ -2353,15 +2353,26 @@ z1013:
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK -D_XL_NO_UDG \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	# mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/X$(GAME_NAME)_z1013.z80
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
+
+z1013_krt: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) --generic-console \
+	-vn -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_Z1013_SLOWDOWN) \
+	-D__Z1013__  -D__SCREEN_MODE=1    \
+	-D__CONIO_GRAPHICS  -D_XL_NO_JOYSTICK  \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 #############################
 # Z9001
 
 # --generic-console
-z9001_krt_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
+z9001_krt: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__Z9001__ -vn  -D__SCREEN_MODE=1 -D_XL_NO_JOYSTICK  \
 	-D__CONIO_GRAPHICS  -D__BIT_BANG_SOUND --generic-console \
@@ -3465,6 +3476,7 @@ include makefiles.common/targets/z88dk/Makefile_corvette
 include makefiles.common/targets/z88dk/Makefile_dai
 include makefiles.common/targets/z88dk/Makefile_dmv
 include makefiles.common/targets/z88dk/Makefile_eg2k
+include makefiles.common/targets/z88dk/Makefile_einstein
 include makefiles.common/targets/z88dk/Makefile_enterprise
 include makefiles.common/targets/z88dk/Makefile_excalibur64
 include makefiles.common/targets/z88dk/Makefile_fp1100
@@ -3482,6 +3494,7 @@ include makefiles.common/targets/z88dk/Makefile_kramermc
 include makefiles.common/targets/z88dk/Makefile_krokha
 include makefiles.common/targets/z88dk/Makefile_lambda
 include makefiles.common/targets/z88dk/Makefile_lm80c
+include makefiles.common/targets/z88dk/Makefile_lviv
 include makefiles.common/targets/z88dk/Makefile_m5
 include makefiles.common/targets/z88dk/Makefile_mbc200
 include makefiles.common/targets/z88dk/Makefile_micro8085

@@ -2,7 +2,7 @@
 #############################
 # NC200
 
-nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+nc200_sprites: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc200 \
 	$(INCLUDE_OPTS) \
 	-D__NC200__ \
@@ -16,3 +16,18 @@ nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+nc200: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc200 \
+	$(INCLUDE_OPTS) \
+	-D__NC200__ -DXSize=60 -DYSize=16 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NC100_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	--generic-console \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_HIMEM.bin

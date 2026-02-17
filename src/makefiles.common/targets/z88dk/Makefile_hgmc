@@ -1,14 +1,31 @@
 #############################
 # HGMC
 
-hgmc:
+hgmc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__HGMC__ \
 	-DXSize=32 \
 	-DYSize=30 \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HGMC_SLOWDOWN) \
-	-D__VT52 \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR \
+	-lndos \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+hgmc_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__HGMC__ \
+	-DXSize=32 \
+	-DYSize=30 \
+	-D_XL_NO_JOYSTICK \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HGMC_SLOWDOWN) \
+	-D__VT52 -D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS -D_XL_NO_COLOR \
 	-lndos \
 	-D__NO_INIT_GRAPHICS \

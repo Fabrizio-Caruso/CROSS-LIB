@@ -10,12 +10,28 @@ einstein: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__EINSTEIN__ \
 	-D__INCLUDE_CONIO_H \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EINSTEIN_SLOWDOWN) \
-	-clib=ansi \
+	--generic-console -D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS  \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_einstein.bin \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_einstein.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
+
+
+einstein256: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein -subtype=einstein256 \
+	-pragma-define:ansicolumns=32 -DXSize=32 -DYSize=24 \
+	$(INCLUDE_OPTS) \
+	-D__EINSTEIN__ \
+	-D__INCLUDE_CONIO_H \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EINSTEIN_SLOWDOWN) \
+	--generic-console -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS  \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

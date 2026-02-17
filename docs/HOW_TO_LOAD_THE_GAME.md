@@ -795,6 +795,13 @@ load"xchase"
 
 run
 
+
+---------------------------------------------------------
+### LVIV/LVOV
+
+Use https://web.archive.org/web/20201215185635/https://github.com/izhaks/PK01LvovEmulator/releases/tag/v1.4
+
+
 ---------------------------------------------------------
 ### M100 / Olivetti M10 / KC85 / PC8201
 

@@ -129,6 +129,7 @@ target name         | long target name                            | working  |  
 *pencil2*           | Hanimex Pencil II                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing | PSG SN76489
 *pet*               | Commodore Pet                               |   YES    |   MOS 6502    |   CC65  |      OK         |      N/A       |   OK    |
 *phc25*             | Sanyo PHC-25                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*lviv*              | PK-01 LVIV/LVOV                             |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK       | missing |
 *pmd85*             | PMD85                                       |   YES    |  Intel 8080   |  Z88DK  |      OK         |       OK ?     | missing |
 *pps*               | Peters Plus Sprinter                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     | missing |
 *primo*             | Microkey Primo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  |
@@ -191,9 +192,9 @@ target name         | long target name                            | working  |  
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
-TOTAL    : 185
+TOTAL    : 186
 
-OK       : 177 (168 with real-time input)
+OK       : 178 (168 with real-time input)
 
 KO       :   1
 
@@ -206,7 +207,7 @@ UNKNOWN  :   7
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 146
+  Z88DK | 147
    CC65 |  25
 LCC1802 |   7 
    CMOC |   5
@@ -222,7 +223,7 @@ Zilog 80      | 131                |
 MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
-Intel 8080    |   7                |
+Intel 8080    |   8                |
 Motorola 6809 |   5                |
 GBZ80         |   1                |
 Motorola 6803 |   1                |
@@ -290,13 +291,14 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 204
+TOTAL    : 205
 
-OK       : 188 (173 with real-time input)
+OK       : 189 (174 with real-time input)
 
 KO       :   3
 
 UNKNOWN  :  13
+
 
 
 

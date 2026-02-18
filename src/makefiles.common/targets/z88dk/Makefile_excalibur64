@@ -6,7 +6,7 @@ excalibur64_turn_bsed:
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-D__EXCALI64__ -DTURN_BASED \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EXCALIBUR64_SLOWDOWN) \
 	-create-app -oxcex64tb.bin \
 	$(FULL_FILES) 
@@ -16,13 +16,13 @@ excalibur64_turn_bsed:
 	rm -rf xcex64tb.bin
 
 
-excalibur64:
+excalibur64_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-D__EXCALI64__ \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EXCALIBUR64_SLOWDOWN) \
 	-create-app -oxcexca64.bin \
 	$(FULL_FILES) 
@@ -31,5 +31,24 @@ excalibur64:
 	rm -rf xcexca64_bss_himem.bin
 	rm -rf xcexca64.bin
 	rm -rf xcexca64.com    
-    
+
+
+excalibur64: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	$(INCLUDE_OPTS) \
+	-DXSize=80 -DYSize=24 \
+	-D__EXCALI64__ \
+	-D__CONIO_GRAPHICS -D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EXCALIBUR64_SLOWDOWN) \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -oxcexca64.bin
+	mv xcexca64.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
+	rm -rf xcexca64_HIMEM.bin
+	rm -rf xcexca64_bss_himem.bin
+	rm -rf xcexca64.bin
+	rm -rf xcexca64.com    
+
 #################

@@ -1,21 +1,80 @@
 #############################
 # TS2068
 
-ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+ts2068_sprites: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-D__TS2068__ \
-	-D_XL_NO_COLOR \
 	-vn \
-	 \
-	-D__BIT_BANG_SOUND \
 	-lndos \
+	-D_XL_NO_JOYSTICK  \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TS2068_SLOWDOWN) \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_ts2068.bin 
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_ts2068.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_ts2068_BANK_7.bin
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
+
+
+ts2068: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-D__TS2068__ \
+	-vn \
+	-D__BIT_BANG_SOUND \
+	-lndos \
+	--generic-console -DXSize=32 -DYSize=24 \
+	-D_XL_NO_JOYSTICK  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TS2068_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
+
+
+ts2068_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-D__TS2068__  -D__SCREEN_MODE=1 \
+	-vn \
+	-D__BIT_BANG_SOUND \
+	-lndos \
+	--generic-console -DXSize=32 -DYSize=24 \
+	-D_XL_NO_JOYSTICK  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TS2068_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
+
+
+
+ts2068_mode6: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-D__TS2068__  -D__SCREEN_MODE=6 \
+	-vn -D_XL_NO_COLOR \
+	-D__BIT_BANG_SOUND \
+	-lndos \
+	--generic-console -DXSize=64 -DYSize=24 \
+	-D_XL_NO_JOYSTICK  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TS2068_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin

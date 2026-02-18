@@ -1,0 +1,13 @@
+nabu: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=nabu $(SCCZ80_ROM_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__NABU__ -DXSize=60 -DYSize=8 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NABU_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	--generic-console \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)

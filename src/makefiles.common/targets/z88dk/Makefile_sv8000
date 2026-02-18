@@ -1,7 +1,7 @@
 #############################
 # SV8000
 
-sv8000: sv8000_32k
+sv8000: sv8000_mode1
 
 sv8000_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -O3 -pragma-define:CLIB_DISABLE_MODE0=1 \
@@ -20,7 +20,7 @@ sv8000_tiny:
 
 
 
-sv8000_32k:
+sv8000_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -subtype=32k \
 	$(INCLUDE_OPTS) \
 	-DZ88DK_JOYSTICK \
@@ -30,6 +30,78 @@ sv8000_32k:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+sv8000_mode0: sv8000_32k_mode0
+
+sv8000_32k_mode0:
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -subtype=32k \
+	$(INCLUDE_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-D__SCREEN_MODE=0 -D__NO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SV8000_SLOWDOWN) \
+	-D__CONIO_GRAPHICS  \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+sv8000_mode1: sv8000_32k_mode1
+
+sv8000_32k_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -compiler=sdcc -SO3  --max-allocs-per-node200000 -subtype=32k -pragma-define:CLIB_DISABLE_MODE0=1 \
+	$(INCLUDE_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-D__SCREEN_MODE=1 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SV8000_SLOWDOWN) \
+	-D__CONIO_GRAPHICS  \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	-pragma-redirect:CRT_FONT=_font_8x8_zx_system \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+sv8000_4k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -compiler=sdcc -SO3  --max-allocs-per-node200000 -pragma-define:CLIB_DISABLE_MODE0=1 \
+	$(INCLUDE_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-D__SCREEN_MODE=1 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SV8000_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_SOUND \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+sv8000_4k_mode0:
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -compiler=sdcc -SO3  --max-allocs-per-node200000 -pragma-define:CLIB_DISABLE_MODE1=1 \
+	$(INCLUDE_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SV8000_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_SOUND \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES) \
+	-D__NO_INIT_GRAPHICS
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

@@ -1577,28 +1577,6 @@ mc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
-#############################
-# MICROBEE
-
-bee: bee_no_gfx
-
-bee_no_gfx: bee_40col_no_gfx
-
-bee_no_gfx_wav: bee_40col_no_gfx_wav
-
-
-bee_40col: bee_40col_no_gfx
-
-bee_40col_no_gfx:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ -clib=ansi40  -vn  -DXSize=40 -DYSize=25 \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_UDG -D_XL_NO_JOYSTICK \
-	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg  \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BEE_SLOWDOWN) \
-	$(FULL_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
-
  
 #################################################################
 
@@ -3511,6 +3489,7 @@ include makefiles.common/targets/z88dk/Makefile_alphatro
 include makefiles.common/targets/z88dk/Makefile_altair8800
 include makefiles.common/targets/z88dk/Makefile_attache
 include makefiles.common/targets/z88dk/Makefile_aussie
+include makefiles.common/targets/z88dk/Makefile_bee
 include makefiles.common/targets/z88dk/Makefile_bic
 include makefiles.common/targets/z88dk/Makefile_bit90
 include makefiles.common/targets/z88dk/Makefile_bondwell
@@ -3630,7 +3609,6 @@ include makefiles.common/targets/ack/Makefile.ack_targets
 
 # Z88DK Extras
 include makefiles.common/targets/z88dk/extras/Makefile_agon
-include makefiles.common/targets/z88dk/extras/Makefile_bee
 include makefiles.common/targets/z88dk/extras/Makefile_camputers_lynx
 include makefiles.common/targets/z88dk/extras/Makefile_gal
 include makefiles.common/targets/z88dk/extras/Makefile_gal_plus

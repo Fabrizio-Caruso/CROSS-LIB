@@ -2,7 +2,7 @@
 # BIT90
 
 
-bit90: $(ASSETS_PATH)/z88dk_xchase.asm
+bit90_joystick: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=bit90 \
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
@@ -20,7 +20,7 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	
 	
-bit90_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
+bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=bit90 \
 	-D__COLECO__ \
 	-D_XL_NO_JOYSTICK \

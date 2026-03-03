@@ -1,13 +1,46 @@
 nabu: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=nabu $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
-	-D__NABU__ -DXSize=60 -DYSize=8 \
+	-D__NABU__ -DXSize=32 -DYSize=24 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NABU_SLOWDOWN) \
 	-D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS \
-	-lndos \
+	-lndos -lnabu_int \
 	--generic-console \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+nabu_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +nabu $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__NABU__  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M100_SLOWDOWN) \
+	-DXSize=32 \
+	-DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+# nabu: $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +nabu $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
+	 # -D__NABU__    \
+	# -lndos -DXSize=32 -DYSize=24 -D_XL_NO_JOYSTICK \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# -D__CONIO_GRAPHICS -D_XL_NO_SOUND -D__DEFAULT_CLEAR_SCREEN \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M100_SLOWDOWN) \
+	# $(FULL_FILES) \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

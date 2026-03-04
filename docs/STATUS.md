@@ -1,12 +1,12 @@
 ## STATUS
-Last update: 2025/12/22
+Last update: 2026/03/04
 
 ### 8-BIT targets
 
 target name         | long target name                            | working  |   CPU family  | dev-kit | real-time input |    graphics    |  sound  | notes      
 --------------------|---------------------------------------------|----------|---------------|---------|-----------------|----------------|---------|-----------
 *abc80*             | Luxor ABC 80                                |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
-*abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK?         |    missing     | missing |
+*abc800*            | Luxor ABC 800                               |   YES    |   Zilog 80    |  Z88DK  |      OK?        |    missing     | missing |
 *ace*               | Jupiter Ace                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *agat*              | Agat-7/9                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
@@ -14,6 +14,7 @@ target name         | long target name                            | working  |  
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *apple2enh*         | Apple //e                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
+*aquarius plus*     | Aquarius Plus                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *atari5200*         | Atari 5200                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *atari7800*         | Atari 7800                                  |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *atari*             | Atari 8-bit (e.g., Atari 800)               |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
@@ -96,9 +97,11 @@ target name         | long target name                            | working  |  
 *micro8085*         | Micro 8085                                  |   YES?   |  Intel 8085   |  Z88DK  |     N/A?        |      N/A?      |  N/A?   |
 *microboard*        | Microboard Computer Development System      |   YES    |   RCA 1802    | LCC1802 |      OK         |       OK       |   OK    |
 *microbee*          | Microobee                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*microbee_premium*  | Microobee Premium                           |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *mikro80*           | Mikro 80                                    |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |   N/A   |
 *mo5*               | Thomson Mo series / Olivetti Prodest PC 128 |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
-*msx*               | MSX 1/MSX 2/2+/Turbo                        |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*msx*               | MSX 1                                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
+*msx 2*             | MSX 2/2+/Turbo                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 *mtx*               | Memotech MTX 512                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *mtx500*            | Memotech MTX 500                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *multi8*            | Mitsubishi Multi 8                          |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -153,7 +156,7 @@ target name         | long target name                            | working  |  
 *sol20*             | Sol 20                                      |   YES?   |  Intel 8085   |  Z88DK  |      OK?        |    missing     | missing |
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
-*special*           | Specialist                                  |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
+*special*           | Specialist                                  |   NO     |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *zx*                | Sinclair Spectrum 16k/48k/128k              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *srr*               | Exidy Sorcerer                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   |
 *super80*           | Dick Smith Super 80/80d/80e/80m             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
@@ -192,11 +195,11 @@ target name         | long target name                            | working  |  
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
-TOTAL    : 186
+TOTAL    : 189
 
-OK       : 178 (168 with real-time input)
+OK       : 180 (170 with real-time input)
 
-KO       :   1
+KO       :   2
 
 UNKNOWN  :   7
 
@@ -207,7 +210,7 @@ UNKNOWN  :   7
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 147
+  Z88DK | 149
    CC65 |  25
 LCC1802 |   7 
    CMOC |   5
@@ -219,7 +222,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 131                |
+Zilog 80      | 134                |
 MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
@@ -291,13 +294,14 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 205
+TOTAL    : 208
 
-OK       : 189 (174 with real-time input)
+OK       : 191 (176 with real-time input)
 
-KO       :   3
+KO       :   4
 
 UNKNOWN  :  13
+
 
 
 

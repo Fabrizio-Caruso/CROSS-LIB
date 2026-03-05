@@ -1615,6 +1615,57 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 
+# TODO: BROKEN with only green
+msx2_color: msx2_mode6
+
+msx2: msx2_mono
+
+msx2_mono: $(ASSETS_PATH)/z88dk_xchase.asm   
+	$(Z88DK_PATH)$(MYZ88DK) +msx -lmsx2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic -D_XL_NO_COLOR \
+	-vn   -D__MSX__ -D__SCREEN_MODE=6 \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
+	-D__CONIO_GRAPHICS   -DXSize=64 -DYSize=24 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+
+msx2_mode6: $(ASSETS_PATH)/z88dk_xchase.asm   
+	$(Z88DK_PATH)$(MYZ88DK) +msx -lmsx2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-vn   -D__MSX__ -D__SCREEN_MODE=6 \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
+	-D__CONIO_GRAPHICS   -DXSize=64 -DYSize=24 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+msx2_mode7: $(ASSETS_PATH)/z88dk_xchase.asm   
+	$(Z88DK_PATH)$(MYZ88DK) +msx -lmsx2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-vn   -D__MSX__ -D__SCREEN_MODE=7 \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
+	-D__CONIO_GRAPHICS   -DXSize=64 -DYSize=24 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
 #################################################################
 
 interact:

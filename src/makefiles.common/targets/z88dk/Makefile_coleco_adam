@@ -1,14 +1,30 @@
 #############################
 # COLECO_ADAM
 
-coleco_adam:
+coleco_adam_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=adam \
 	-D__COLECO_ADAM__ \
-	-D__VT52 \
+	--generic-console -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COLECO_ADAM_SLOWDOWN) \
 	-D__CONIO_GRAPHICS -DXSize=29 -DYSize=20 \
 	-D__NO_INIT_GRAPHICS \
 	-lndos \
+	$(FULL_FILES) \
+	-create-app -oxcadam.bin
+	rm xcadam.bin
+	rm xcadam.com    
+	mv xcadam.img $(BUILD_PATH)/X$(GAME_NAME)_$@.img
+
+
+coleco_adam: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=adam \
+	-D__COLECO_ADAM__ \
+	--generic-console -D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_COLECO_ADAM_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -DXSize=29 -DYSize=20 \
+	-lndos \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-create-app -oxcadam.bin
 	rm xcadam.bin

@@ -54,7 +54,8 @@ target name         | long target name                            | working  |  
 *dragon*            | Dragon 32/64                                |   YES    | Motorola 6809 |   CMOC  |      OK         |       OK       |   OK    |
 *e200*              | Sharp PC-E200                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *eg2k*              | EACA EG2000 Color Genie                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
-*einstein*          | Tatung Einstein                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
+*einstein*          | Tatung Einstein TC-01                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
+*einstein256*       | Tatung Einstein TC-01                       |     ?    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
@@ -195,13 +196,13 @@ target name         | long target name                            | working  |  
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
 
-TOTAL    : 189
+TOTAL    : 190
 
 OK       : 180 (170 with real-time input)
 
 KO       :   2
 
-UNKNOWN  :   7
+UNKNOWN  :   8
 
 
 -----------------------------------------------
@@ -210,7 +211,7 @@ UNKNOWN  :   7
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 149
+  Z88DK | 150
    CC65 |  25
 LCC1802 |   7 
    CMOC |   5
@@ -222,7 +223,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 134                |
+Zilog 80      | 135                |
 MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
@@ -294,13 +295,14 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 208
+TOTAL    : 209
 
 OK       : 191 (176 with real-time input)
 
 KO       :   4
 
-UNKNOWN  :  13
+UNKNOWN  :  14
+
 
 
 

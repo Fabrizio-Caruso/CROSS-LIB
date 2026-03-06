@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2026/03/04
+Last update: 2026/03/05
 
 ### 8-BIT targets
 
@@ -85,7 +85,7 @@ target name         | long target name                            | working  |  
 *krokha*            | Krokha                                      |   YES?   |   Zilog 80    |  Z88DK  |      OK         |        ?       |    ?    |
 *lambda*            | Lambda 8300                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   N/A ? |
 *laser500*          | Laser 500                                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
-*lm80c*             | LM80C                                       |   YES?   |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
+*lm80c*             | LM80C                                       |   YES    |   Zilog 80    |  Z88DK  |      OK?        |       OK       | missing |
 *m10*               | Olivetti M10                                |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m100*              | TRS-80 M100                                 |   YES    |  Intel 8085   |  Z88DK  |      OK         |    missing     | missing |
 *m5*                | Sord M5                                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |

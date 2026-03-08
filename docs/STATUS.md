@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2026/03/05
+Last update: 2026/03/08
 
 ### 8-BIT targets
 
@@ -55,7 +55,7 @@ target name         | long target name                            | working  |  
 *e200*              | Sharp PC-E200                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *eg2k*              | EACA EG2000 Color Genie                     |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK ?  |
 *einstein*          | Tatung Einstein TC-01                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
-*einstein256*       | Tatung Einstein TC-01                       |     ?    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
+*einstein256*       | Tatung Einstein TC-01                       |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK ?  | PSG AY-3-8910
 *enterprise*        | Enterprise 64/128                           |   YES    |   Zilog 80    |  Z88DK  |   missing       |    missing     | missing | 
 *excalibur64*       | Excalibur64                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
 *fp1100*            | Casio FP-1100                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A ? |
@@ -198,11 +198,11 @@ target name         | long target name                            | working  |  
 
 TOTAL    : 190
 
-OK       : 180 (170 with real-time input)
+OK       : 181 (170 with real-time input)
 
 KO       :   2
 
-UNKNOWN  :   8
+UNKNOWN  :   7
 
 
 -----------------------------------------------
@@ -297,11 +297,12 @@ OK       :   2 (1 wiith real-time input)
 
 TOTAL    : 209
 
-OK       : 191 (176 with real-time input)
+OK       : 192 (177 with real-time input)
 
 KO       :   4
 
-UNKNOWN  :  14
+UNKNOWN  :  13
+
 
 
 

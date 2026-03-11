@@ -2,19 +2,21 @@
 
 ##############################################################################
 
+
 eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
 	-subtype=eg2000disk \
-	-pragma-redirect:getk=getk_inkey  -D_XL_NO_JOYSTICK \
+	-pragma-redirect:getk=getk_inkey \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EG2K_SLOWDOWN) \
 	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
 	-D__EG2K__ \
-	-D__VT52 -D_XL_NO_JOYSTICK \
+	-D__SCREEN_MODE=0 \
+	-D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS \
 	-lndos \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	--generic-console -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
@@ -22,3 +24,23 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+eg2k_mono: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__EG2K__ \
+	-subtype=eg2000disk \
+	-pragma-redirect:getk=getk_inkey \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_EG2K_SLOWDOWN) \
+	$(INCLUDE_OPTS) -D__BIT_BANG_SOUND \
+	-D__EG2K__ \
+	-D__SCREEN_MODE=0 \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR \
+	-lndos \
+	--generic-console -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

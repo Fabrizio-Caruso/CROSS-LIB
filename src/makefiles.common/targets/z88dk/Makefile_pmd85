@@ -1,4 +1,3 @@
-
 #############################
 # PMD85
 
@@ -10,7 +9,6 @@ pmd85_no_gfx:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PMD85_SLOWDOWN) \
-	-D__VT52 \
 	-D__CONIO_GRAPHICS \
 	-lndos -D_XL_NO_JOYSTICK \
 	-D__NO_INIT_GRAPHICS \
@@ -19,19 +17,36 @@ pmd85_no_gfx:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_pmd85_no_gfx.bin
 
 
-pmd85: $(ASSETS_PATH)/z88dk_xchase.asm
+pmd85: $(ASSETS_PATH)/z88dk_6x8_pmd85.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PMD85__ \
-	-DXSize=36 \
+	-DXSize=48 \
+	-DYSize=32 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PMD85_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_6x8_pmd85.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+pmd85_mono: $(ASSETS_PATH)/z88dk_6x8_pmd85.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PMD85__ \
+	-DXSize=48 \
 	-DYSize=32 \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PMD85_SLOWDOWN) \
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_NO_COLOR \
-	-D__VT52 -D_XL_NO_JOYSTICK \
+	-D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS \
 	-lndos \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(ASSETS_PATH)/z88dk_6x8_pmd85.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

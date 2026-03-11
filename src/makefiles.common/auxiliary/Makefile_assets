@@ -22,9 +22,6 @@ game_assets:
 $(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_agat.s: $(wildcard $(8X8_TILES)/*.txt)
-	$(CREATE_ASSET)
-
 $(ASSETS_PATH)/cc65_udc_atari7800_160A.s: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
@@ -32,6 +29,13 @@ $(ASSETS_PATH)/z88dk_gameboy.asm: $(wildcard $(8X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/6x8_chars.h: $(wildcard $(6X8_TILES)/*.txt)
+	$(CREATE_ASSET)
+
+# $(ASSETS_PATH)/z88dk_6x8.asm: $(wildcard $(6X8_TILES)/*.txt)
+	# $(CREATE_ASSET)
+
+
+$(ASSETS_PATH)/z88dk_6x8_pmd85.asm: $(wildcard $(6X8_TILES)/*.txt)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/6x9_chars.h: $(wildcard $(6X9_TILES)/*.txt)

@@ -20,3 +20,73 @@ zxn:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_zxn_UNASSIGNED.bin
 
 
+zxn_mode64: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
+	-D__ZXN__ --generic-console \
+	-DXSize=32 \
+	-DYSize=24 -D__SCREEN_MODE=64 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZXN_SLOWDOWN) \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_UNASSIGNED.bin
+
+
+zxn_mode65: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
+	-D__ZXN__ --generic-console \
+	-DXSize=32 \
+	-DYSize=24 -D__SCREEN_MODE=65 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZXN_SLOWDOWN) \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_UNASSIGNED.bin
+
+
+zxn_mode66: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
+	-D__ZXN__ --generic-console \
+	-DXSize=32 \
+	-DYSize=24 -D__SCREEN_MODE=66 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZXN_SLOWDOWN) \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_UNASSIGNED.bin
+
+
+zxn_mode67: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
+	-D__ZXN__ --generic-console \
+	-DXSize=32 \
+	-DYSize=24 -D__SCREEN_MODE=67 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS  -D__PSG_SOUND \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZXN_SLOWDOWN) \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_UNASSIGNED.bin

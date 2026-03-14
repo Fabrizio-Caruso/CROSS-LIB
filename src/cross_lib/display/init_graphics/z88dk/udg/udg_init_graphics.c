@@ -15,7 +15,6 @@ extern uint8_t udgs[];
 void _XL_INIT_GRAPHICS(void)
 {
 	void *param = &udgs;
-	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
 	
 
     // Necessary to have .vz file correctly started on several emulators that do not load .vz as they should
@@ -34,7 +33,8 @@ void _XL_INIT_GRAPHICS(void)
 	#endif
 		
 	console_ioctl(IOCTL_GENCON_SET_MODE, &mode); 
-    
+	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
+
     // TODO: remove the Spectrum special case
 	#if defined(__SPECTRUM__)
         printf("\x01\x20");

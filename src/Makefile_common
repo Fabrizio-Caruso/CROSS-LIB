@@ -1250,6 +1250,8 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
+gx4000: cpc
+
 cpc: cpc_mode0
 
 ifdef USE_TOOLS

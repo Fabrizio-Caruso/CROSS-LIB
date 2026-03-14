@@ -2009,11 +2009,15 @@ sms: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 #################################################################
+zx : spectrum
 
-zx: spectrum
-spectrum: spectrum_48k
+spectrum_48k : spectrum
 
-spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
+spectrum: spectrum_48k_keyboard
+
+spectrum_keyboard: spectrum_48k_keyboard
+
+spectrum_48k_joystick: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -2030,9 +2034,6 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
 
 
-spectrum_keyboard: spectrum_48k_keyboard
-
-
 spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -2042,6 +2043,26 @@ spectrum_48k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_7.bin
+
+
+spectrum_128k: spectrum_128k_keyboard
+
+spectrum_128k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECTRUM_SLOWDOWN) \
+	-D__SPECTRUM__ -D_XL_NO_JOYSTICK -D__PSG_SOUND \
+	-lndos -create-app \
+	-D__CONIO_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \

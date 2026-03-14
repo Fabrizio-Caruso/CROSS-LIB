@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2026/03/08
+Last update: 2026/03/14
 
 ### 8-BIT targets
 
@@ -12,6 +12,7 @@ target name         | long target name                            | working  |  
 *alphatro*          | Alphatronic                                 |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       | missing |
 *altair8800*        | MITS Altair 8800                            |   YES    |  Intel 8080   |  Z88DK  |      OK         |      N/A       |  N/A    |
 *apple2*            | Apple II                                    |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
+*apple2_z80*        | Apple II                                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     | missing |
 *apple2enh*         | Apple //e                                   |   YES    |   MOS 6502    |   CC65  |      OK         |       OK       |   OK    |
 *aquarius*          | Mattel Aquarius                             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *aquarius plus*     | Aquarius Plus                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
@@ -194,11 +195,11 @@ target name         | long target name                            | working  |  
 *z9001*             | Robotron Z9001, KC 85/1, KC 87              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     | missing |
 *zx80*              | Sinclair ZX80                               |   YES    |   Zilog 80    |  Z88DK  |      OK ?       |    missing     |  N/A    |
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
-*zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |    missing     |   OK    |
+*zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 
-TOTAL    : 190
+TOTAL    : 191
 
-OK       : 181 (170 with real-time input)
+OK       : 182 (170 with real-time input)
 
 KO       :   2
 
@@ -211,7 +212,7 @@ UNKNOWN  :   7
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 150
+  Z88DK | 151
    CC65 |  25
 LCC1802 |   7 
    CMOC |   5
@@ -223,7 +224,7 @@ LCC1802 |   7
 
 CPU family    | no. 8-bit targets  |
 --------------|--------------------|
-Zilog 80      | 135                |
+Zilog 80      | 136                |
 MOS 6502      |  27                |
 RCA 1802      |   7                |
 Intel 8085    |   7                |
@@ -295,9 +296,9 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 209
+TOTAL    : 210
 
-OK       : 192 (177 with real-time input)
+OK       : 193 (178 with real-time input)
 
 KO       :   4
 

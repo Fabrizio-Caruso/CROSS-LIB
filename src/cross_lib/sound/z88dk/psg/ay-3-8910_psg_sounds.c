@@ -90,12 +90,14 @@ Sel	Pulse
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
-#if defined(__MSX__)
 void _XL_INIT_SOUND(void)
 {
+    #if defined(__MSX__)
     POKE(0xF3DB,0);
+    #endif
+    psg_init();
 }
-#endif
+
 
 
 #if defined(__CPC__)

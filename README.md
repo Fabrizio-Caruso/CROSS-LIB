@@ -24,8 +24,8 @@ http://github.com/Fabrizio-Caruso/CROSS-LIB-HD
 
 Its goal is to provide a **higher number of redefinable tiles**, while maintaining the **same API's** and possibly the same number of supported targets as Cross-Lib.
 
-Cross-Lib-HD is not meant to replace Cross-Lib because latter can provide a higher number of colors and a higher number of targets with real graphics.
-A game with the need for a higher number of tiles will require Cross-Lib-HD, whereas games with a lower number of tiles will work on both but on Cross-Lib may get a better color pallette and/or graphics on some very limited targets.
+Cross-Lib-HD is not meant to replace Cross-Lib because the latter can provide slightly smaller binaries, a higher number of colors and a higher number of targets with real graphics.
+A game with the need for a higher number of tiles may require Cross-Lib-HD, whereas games with a lower number of tiles will work on both but on Cross-Lib may get a better color pallette and/or graphics on some very limited targets.
 
 -------------------------------------------
 

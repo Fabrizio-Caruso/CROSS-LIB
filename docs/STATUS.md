@@ -1,5 +1,5 @@
 ## STATUS
-Last update: 2026/03/14
+Last update: 2026/03/16
 
 ### 8-BIT targets
 
@@ -159,7 +159,8 @@ target name         | long target name                            | working  |  
 *sos*               | S-OS                                        |   YES    |   Zilog 80    |  Z88DK  |     N/A         |      N/A       |   N/A   |
 *spc1000*           | Samsung SPC 1000                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
 *special*           | Specialist                                  |   NO     |   Zilog 80    |  Z88DK  |      OK         |      N/A ?     |   N/A ? |
-*zx*                | Sinclair Spectrum 16k/48k/128k              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*zx*                | Sinclair Spectrum 16k/48k                   |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | 
+*zx*                | Sinclair Spectrum 128k                      |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    | PSG sounds could be improved
 *srr*               | Exidy Sorcerer                              |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   N/A   |
 *super80*           | Dick Smith Super 80/80d/80e/80m             |   YES    |   Zilog 80    |  Z88DK  |      OK         |      N/A       |   OK    |
 *super80r*          | Dick Smith Super 80r/80v                    |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK ?     |   OK    |
@@ -197,9 +198,9 @@ target name         | long target name                            | working  |  
 *zx81*              | Sinclair ZX81                               |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |  N/A    |
 *zxn*               | ZX Spectrum Next                            |   YES    |   Zilog 80    |  Z88DK  |      OK         |       OK       |   OK    |
 
-TOTAL    : 191
+TOTAL    : 192
 
-OK       : 182 (170 with real-time input)
+OK       : 183 (170 with real-time input)
 
 KO       :   2
 
@@ -212,7 +213,7 @@ UNKNOWN  :   7
 
 Dev-kit | no. 8-bit targets
 --------|--------------------
-  Z88DK | 151
+  Z88DK | 152
    CC65 |  25
 LCC1802 |   7 
    CMOC |   5
@@ -296,9 +297,9 @@ OK       :   2 (1 wiith real-time input)
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 210
+TOTAL    : 211
 
-OK       : 193 (178 with real-time input)
+OK       : 194 (179 with real-time input)
 
 KO       :   4
 

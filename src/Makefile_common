@@ -446,15 +446,23 @@ atari7800: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s $(ASSETS_PATH)/formatted_cc6
 
 atari7800_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
 	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg   -D_XL_NO_UDG -D_XL_NO_COLOR -D__TARGET_SPECIFIC_ASCII \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP -D_XL_NO_SOUND \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_NO_COLOR_SLOWDOWN) -DXSize=34 -DX_OFFSET=3 -DYSize=28 \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
-    
 
 
+atari7800_mono: $(ASSETS_PATH)/cc65_udc_atari7800_160A.s $(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg  -D_XL_NO_COLOR -D__TARGET_SPECIFIC_ASCII \
+	-D__ATARI7800_COLOR_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-D__CONIO_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D__ALT_SLEEP  -D_XL_NO_SOUND  \
+	$(ASSETS_PATH)/formatted_cc65_udc_atari7800_160A.s  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI7800_NO_COLOR_SLOWDOWN) -DXSize=34 -DX_OFFSET=3 -DYSize=28 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari7800/atari7800_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
 
 #################################################################
 
@@ -3408,18 +3416,6 @@ mc10:
 	mv xbin.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
 
 
-
-# ------------------------------------------------------------------------------------------
-# VBCC
-#
-
-
-
-vbcc_targets: \
-	bbc_buffered
-
-
-
 ###############################################################################################
 # GCC
 #
@@ -3758,7 +3754,6 @@ include makefiles.common/targets/gcc4ti/Makefile_ti99
 include makefiles.common/targets/vbcc/Makefile_amiga
 include makefiles.common/targets/vbcc/Makefile_atari_jaguar
 include makefiles.common/targets/vbcc/Makefile_bbc
-include makefiles.common/targets/vbcc/Makefile_bbcmaster
 include makefiles.common/targets/vbcc/Makefile_m65
 
 # ATARI_MINT_GCC

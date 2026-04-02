@@ -5,9 +5,10 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \
+	-D__NO_SPRITE_TRANSPARENCY \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PX8_SLOWDOWN) \
 	-subtype=px8 \
-	-create-app -o $@ \
+	-create-app -o $@  -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -DYSize=8 \
 	-vn -lndos \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
@@ -16,4 +17,20 @@ px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm $@
 	mv $@.ROM $(BUILD_PATH)/X$(GAME_NAME)_$@.ROM
 
+
+px8k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__PX8__ -D_XL_NO_JOYSTICK \
+	-D__NO_SPRITE_TRANSPARENCY \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PX8_SLOWDOWN) \
+	-subtype=px8 \
+	-create-app -o $@  -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -DYSize=8 \
+	-vn -lndos \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $@
+	mv $@.ROM $(BUILD_PATH)/X$(GAME_NAME)_$@.ROM
 

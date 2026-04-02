@@ -930,6 +930,16 @@ Type LOAD
 Right click to select TAPE to start loading the tape
 Type RUN
 
+-----------------------------------------------------------
+
+###  MICRO (MICROBOARD SYSTEM)
+
+Use Emma 02 emulator.
+Select RCA -> Microboard System
+CARD2 -> 128 6x8 characters
+CARD1 ->  RAM U20 -> binary
+START
+
 
 -----------------   
 

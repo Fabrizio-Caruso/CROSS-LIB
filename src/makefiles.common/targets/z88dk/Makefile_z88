@@ -1,7 +1,7 @@
 #############################
 # Z88
 
-z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+z88_sprites: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \
@@ -9,9 +9,7 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS \
-	 -D__BIT_BANG_SOUND \
-	-D__NO_WAIT \
-	-D_XL_NO_SLEEP \
+	-D__BIT_BANG_SOUND \
 	-D_XL_NO_COLOR \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -22,5 +20,73 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm z88_BSS.bin
 	rm z88_DATA.bin
 	rm z88_bss_fardata.bin
-	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_z88.63
-	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_z88.epr
+	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_$@.63
+	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_$@.epr
+
+
+z88: z88_mode0
+
+z88_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_ROM_OPTS) -subtype=app \
+	$(INCLUDE_OPTS) \
+	-D__Z88__ -DXSize=80 -DYSize=8 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_Z88_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK -D__SCREEN_MODE=0 \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos \
+	--generic-console \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o z88
+	rm z88
+	rm z88.ap0
+	rm z88_BSS.bin
+	rm z88_DATA.bin
+	rm z88_bss_fardata.bin
+	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_$@.63
+	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_$@.epr
+
+
+z88_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_ROM_OPTS) -subtype=app \
+	$(INCLUDE_OPTS) \
+	-D__Z88__ -DXSize=80 -DYSize=8 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_Z88_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK -D__SCREEN_MODE=1 \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos \
+	--generic-console \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o z88
+	rm z88
+	rm z88.ap0
+	rm z88_BSS.bin
+	rm z88_DATA.bin
+	rm z88_bss_fardata.bin
+	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_$@.63
+	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_$@.epr
+
+
+z88_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_ROM_OPTS) -subtype=app \
+	$(INCLUDE_OPTS) \
+	-D__Z88__ -DXSize=80 -DYSize=8 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_Z88_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK -D__SCREEN_MODE=2 \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos \
+	--generic-console \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o z88
+	rm z88
+	rm z88.ap0
+	rm z88_BSS.bin
+	rm z88_DATA.bin
+	rm z88_bss_fardata.bin
+	mv z88.63 $(BUILD_PATH)/X$(GAME_NAME)_$@.63
+	mv z88.epr $(BUILD_PATH)/X$(GAME_NAME)_$@.epr

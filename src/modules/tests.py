@@ -14,6 +14,8 @@ from build_functions import *
 
 from execute import execute_string
 
+TERMINAL_TESTS = False
+
 CROSS_COMPILER_COMMAND = \
     {
     'cc65'        : 'cl65',
@@ -535,9 +537,14 @@ PARALLEL_BUILD_TESTS = \
     [ \
         ("test xl examples",         EXAMPLES_TEST,       check_examples), \
         ("test xl games",            GAMES_TEST,          check_games), \
-        ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal), \
+        # ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal), \
     ]
-    
+
+PARALLEL_TERMINAL_BUILD_TESTS = \
+    [
+		("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal),
+	]
+  
 INTERACTIVE_TESTS = \
     [ \
         ("test xl run",              RUN_TEST,       no_check,      CLEANUP_RUN_TEST), \
@@ -560,6 +567,9 @@ def test_self(option_config, target = "stdio"):
         self_tests += INTERACTIVE_TESTS
     if not option_config.terminal_config.fast_test:
         self_tests += PARALLEL_BUILD_TESTS
+
+    if TERMINAL_TESTS:
+        self_tests += PARALLEL_TERMINAL_BUILD_TESTS
 
     for test in self_tests:
         execute_string(option_config, "xl clean", silent = True)

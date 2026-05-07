@@ -16,11 +16,11 @@
 
 
 #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-    #define ORIC_BACKGROUND_COLOR 23
+    // #define ORIC_BACKGROUND_COLOR 23
     #define ORIC_INK_COLOR 0
 #else
-    #define ORIC_BACKGROUND_COLOR 16
-    #define ORIC_INK_COLOR 3
+    // #define ORIC_BACKGROUND_COLOR 16
+    #define ORIC_INK_COLOR 7
 #endif
 
 void init_colors(void)
@@ -31,8 +31,8 @@ void init_colors(void)
 	for(i=0;i<28;++i)
 	{
 		// yellow on black (inverted: blue on white)
-		POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
-		POKE(0xBB81+i*40,ORIC_INK_COLOR); 
+		// POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
+		POKE(0xBB80+i*40,ORIC_INK_COLOR); 
 	}
 }
 

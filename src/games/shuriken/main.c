@@ -462,6 +462,37 @@ void delete_player_cells(void)
     map[screen_x+1][screen_y+1]=EMPTY;
 }
 
+#if defined(_XL_NO_COLOR)
+char GOD_MODE[] = " GOD MODE ";
+
+#if YSize>=16
+    #define GOD_Y YSize/3
+#elif YSize>=13
+    #define GOD_Y 3
+#else
+    #define GOD_Y 2
+#endif
+void display_invincible(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<10;++i)
+    {
+        _XL_CHAR(XSize-1,GOD_Y+i,GOD_MODE[i]);
+    }
+}
+
+void delete_invincible(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<10;++i)
+    {
+        _XL_DRAW(XSize-1,GOD_Y+i,WALL_TILE,_XL_WHITE);
+    }
+}
+
+#endif
 
 void handle_collisions(void)
 {
@@ -500,7 +531,9 @@ void handle_collisions(void)
                 score+=RING_POINTS;
                 ++ring_counter;
                 #if !defined(_XL_NO_COLOR)
-                player_color = _XL_CYAN;
+                    player_color = _XL_CYAN;
+                #else
+                    display_invincible();
                 #endif
                 ring_active=BASE_RING_EFFECT+(ring_counter<<4);
                 increase_time_counter_if_not_max();
@@ -1568,6 +1601,7 @@ void handle_freeze_and_shurikens(void)
             if(!ring_active) \
             { \
                 display_player(); \
+                delete_invincible(); \
             } \
         } \
     } while(0)

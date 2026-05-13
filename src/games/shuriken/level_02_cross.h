@@ -77,7 +77,7 @@
         XSize-1-LV_CROSS_OFFSET-1,YSize-4-LV_CROSS_HEIGHT,1,LV_CROSS_HEIGHT+1,DIAMOND \
         \
 
-#else
+#elif XSize>=16 && YSize>=16
 
     #define LV_CROSS_NO_OF_OBJECTS 28
 
@@ -130,6 +130,47 @@
         \
     
 
+
+#else
+    #define LV_CROSS_NO_OF_OBJECTS 20
+
+    #define LV_CROSS_OBJECTS \
+        LV_CROSS_NO_OF_OBJECTS, \
+        \
+        LV_CROSS_OFFSET,4,1,LV_CROSS_HEIGHT,WALL, \
+        XSize-1-LV_CROSS_OFFSET,4,1,LV_CROSS_HEIGHT,WALL, \
+        \
+        LV_CROSS_OFFSET,YSize-4-LV_CROSS_HEIGHT,1,LV_CROSS_HEIGHT+1,WALL, \
+        XSize-1-LV_CROSS_OFFSET,YSize-4-LV_CROSS_HEIGHT+1,1,LV_CROSS_HEIGHT,WALL, \
+        \
+        LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,4+LV_CROSS_HEIGHT,LV_CROSS_WIDTH,1,WALL, \
+        XSize-1-LV_CROSS_OFFSET,4+LV_CROSS_HEIGHT,LV_CROSS_WIDTH,1,WALL, \
+        \
+        LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,YSize-4-LV_CROSS_HEIGHT,LV_CROSS_WIDTH,1,WALL, \
+        XSize-1-LV_CROSS_OFFSET,YSize-4-LV_CROSS_HEIGHT,LV_CROSS_WIDTH,1,WALL, \
+        \
+        \
+        LV_CROSS_OFFSET+1+1,YSize-4-LV_CROSS_HEIGHT+1+2,2,1,BLOCK, \
+        LV_CROSS_OFFSET+1+1,4+LV_CROSS_HEIGHT-1-2   ,2,1,BLOCK, \
+        LV_CROSS_OFFSET+1+1+XSize-2*(LV_CROSS_OFFSET)-6,YSize-4-LV_CROSS_HEIGHT+1+2,2,1,BLOCK, \
+        LV_CROSS_OFFSET+1+1+XSize-2*(LV_CROSS_OFFSET)-6,4+LV_CROSS_HEIGHT-1-2   ,2,1,BLOCK, \
+        \
+        \
+        \
+        XSize-2,2,1,1,FREEZE, \
+        XSize-2,YSize-2,1,1,RING, \
+        \
+        1,2,1,1,RING, \
+        1,YSize-2,1,1,FREEZE, \
+        \
+        LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,4+LV_CROSS_HEIGHT-1,LV_CROSS_WIDTH-2,1,DIAMOND, \
+        XSize-1-LV_CROSS_OFFSET+2,4+LV_CROSS_HEIGHT-1,LV_CROSS_WIDTH-2,1,DIAMOND, \
+        \
+        LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,YSize-4-LV_CROSS_HEIGHT+1,LV_CROSS_WIDTH-2,1,DIAMOND, \
+        XSize-1-LV_CROSS_OFFSET+2,YSize-4-LV_CROSS_HEIGHT+1,LV_CROSS_WIDTH-2,1,DIAMOND \
+        \
+        \
+    
 #endif
 
 
@@ -158,37 +199,45 @@
 
 #else
     #define LV_CROSS_SHURIKENS \
-        2,2,2, \
+        2,2,0, \
         2,2,\
         XSize-3,YSize-3, \
         \
         LV_CROSS_OFFSET-3,2, \
-        XSize-1-LV_CROSS_OFFSET+3,YSize-2, \
-        \
-        2, \
-        XSize-3
-    #define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,2,2)
+        XSize-1-LV_CROSS_OFFSET+3,YSize-2 \
+
+    #define LV_CROSS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,2,0)
 
 #endif    
 
 
 
 
-#define LV_CROSS_NO_OF_WALLS 4
+#if XSize<16 || YSize<16
 
-#define LV_CROSS_WALLS \
-    LV_CROSS_NO_OF_WALLS, \
-    LV_CROSS_OFFSET+1+1,YSize-4-YSize/4+1, \
-    XSize-2*(LV_CROSS_OFFSET)-4,1,\
-    \
-    LV_CROSS_OFFSET+1+1,4+YSize/4-1,\
-    XSize-2*(LV_CROSS_OFFSET)-4,1,\
-    \
-    LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,4+YSize/4+1,\
-    1,YSize-9-2*(YSize/4),\
-    \
-    XSize-1-LV_CROSS_OFFSET+LV_CROSS_WIDTH-1,4+YSize/4+1,\
-    1,YSize-9-2*(YSize/4)
+    #define LV_CROSS_NO_OF_WALLS 0
+
+    #define LV_CROSS_WALLS \
+        LV_CROSS_NO_OF_WALLS
+
+#else
+    
+    #define LV_CROSS_NO_OF_WALLS 4
+
+    #define LV_CROSS_WALLS \
+        LV_CROSS_NO_OF_WALLS, \
+        LV_CROSS_OFFSET+1+1,YSize-4-YSize/4+1, \
+        XSize-2*(LV_CROSS_OFFSET)-4,1,\
+        \
+        LV_CROSS_OFFSET+1+1,4+YSize/4-1,\
+        XSize-2*(LV_CROSS_OFFSET)-4,1,\
+        \
+        LV_CROSS_OFFSET-LV_CROSS_WIDTH+1,4+YSize/4+1,\
+        1,YSize-9-2*(YSize/4),\
+        \
+        XSize-1-LV_CROSS_OFFSET+LV_CROSS_WIDTH-1,4+YSize/4+1,\
+        1,YSize-9-2*(YSize/4)
+#endif
 
 #define LV_CROSS_WALLS_SIZE LC_WALLS_SIZE(LV_CROSS_NO_OF_WALLS)
 

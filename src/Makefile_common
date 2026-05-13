@@ -730,23 +730,27 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
-oric: oric_atmos
 
-atmos: oric_atmos
+# TODO: Insert color version
+oric: oric_mono
 
-oric1: oric_atmos
+oric_atmos: oric
 
-oric1_48k: oric_atmos
+atmos: oric
 
-oric_atmos: $(ASSETS_PATH)/6x8_chars.h
+oric1: oric
+
+oric1_48k: oric
+
+oric_mono: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS)  \
 	-t atmos -D_XL_NO_JOYSTICK $(ORIC_COLORS) -DX_OFFSET=1 -DXSize=39 \
-	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ORIC_SLOWDOWN) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ORIC_SLOWDOWN) -D_XL_NO_COLOR \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-D__ORIC_COLOR_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 
 
 #################################################################

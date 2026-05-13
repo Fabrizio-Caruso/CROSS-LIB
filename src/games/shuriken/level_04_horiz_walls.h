@@ -39,7 +39,7 @@
         2,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST-1,LV_HORIZ_WALLS_WIDTH/3,1,DIAMOND, \
         XSize-1-LV_HORIZ_WALLS_WIDTH/3-1,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-1,LV_HORIZ_WALLS_WIDTH/3,1,DIAMOND
 
-#else
+#elif YSize>=16
     
     #define LV_HORIZ_WALLS_NO_OF_OBJECTS 13
 
@@ -63,6 +63,26 @@
         XSize-2,2,1,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-2,DIAMOND, \
         XSize-1-LV_HORIZ_WALLS_WIDTH/3-1,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-1,LV_HORIZ_WALLS_WIDTH/3,1,DIAMOND
 
+#else
+    #define LV_HORIZ_WALLS_NO_OF_OBJECTS 11
+
+    #define LV_HORIZ_WALLS_OBJECTS \
+        LV_HORIZ_WALLS_NO_OF_OBJECTS, \
+        \
+        XSize-1-LV_HORIZ_WALLS_WIDTH,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST,LV_HORIZ_WALLS_WIDTH,1,WALL, \
+        \
+        1,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST,LV_HORIZ_WALLS_WIDTH,1,WALL, \
+        \
+        2,YSize-2,1,1,RING, \
+        XSize-3,2,1,1,FREEZE, \
+        \
+        1,2,1,YSize/5-1,DIAMOND, \
+        XSize-2,YSize-YSize/5,1,YSize/5-1,DIAMOND, \
+        1,2+YSize/5,1,YSize-3*(YSize/5)-3+LV_HORIZ_WALLS_ADJUST,DIAMOND, \
+        XSize-2,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST+1,1,YSize-3*(YSize/5)-3+LV_HORIZ_WALLS_ADJUST,DIAMOND, \
+        1,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST+1,1,2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-1,DIAMOND, \
+        XSize-2,2,1,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-2,DIAMOND, \
+        XSize-1-LV_HORIZ_WALLS_WIDTH/3-1,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST-1,LV_HORIZ_WALLS_WIDTH/3,1,DIAMOND
 #endif
 
 #define LV_HORIZ_WALLS_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_HORIZ_WALLS_NO_OF_OBJECTS)
@@ -70,22 +90,35 @@
 
 //
 
-#define LV_HORIZ_WALLS_SHURIKENS \
-    4,4,0, \
-    \
-    XSize-3,1+YSize/5,\
-    2,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST+1, \
-    2,YSize-1-YSize/5, \
-    XSize-3,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST-1, \
-    \
-    1+LV_HORIZ_WALLS_WIDTH,2, \
-    XSize-LV_HORIZ_WALLS_WIDTH-2,YSize-2, \
-    1+LV_HORIZ_WALLS_WIDTH/2,1+YSize/5+1, \
-    XSize-1-1-LV_HORIZ_WALLS_WIDTH/2-LV_HORIZ_WALLS_ADJUST,YSize-1-YSize/5-1
+#if !defined(FEWER_SHURIKENS)
+    #define LV_HORIZ_WALLS_SHURIKENS \
+        4,4,0, \
+        \
+        XSize-3,1+YSize/5,\
+        2,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST+1, \
+        2,YSize-1-YSize/5, \
+        XSize-3,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST-1, \
+        \
+        1+LV_HORIZ_WALLS_WIDTH,2, \
+        XSize-LV_HORIZ_WALLS_WIDTH-2,YSize-2, \
+        1+LV_HORIZ_WALLS_WIDTH/2,1+YSize/5+1, \
+        XSize-1-1-LV_HORIZ_WALLS_WIDTH/2-LV_HORIZ_WALLS_ADJUST,YSize-1-YSize/5-1
 
 
-#define LV_HORIZ_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,4,0)
+    #define LV_HORIZ_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(4,4,0)
+#else
+    #define LV_HORIZ_WALLS_SHURIKENS \
+        2,2,0, \
+        \
+        2,1+2*(YSize/5)-LV_HORIZ_WALLS_ADJUST+1, \
+        XSize-3,YSize-1-2*(YSize/5)+LV_HORIZ_WALLS_ADJUST-1, \
+        \
+        XSize-LV_HORIZ_WALLS_WIDTH-2,YSize-2, \
+        1+LV_HORIZ_WALLS_WIDTH/2,1+YSize/5+1 \
 
+
+    #define LV_HORIZ_WALLS_SHURIKENS_SIZE LV_SHURIKENS_SIZE(2,2,0)
+#endif
 
 
 #define LV_HORIZ_WALLS_NO_OF_WALLS 0

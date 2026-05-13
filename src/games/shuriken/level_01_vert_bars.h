@@ -150,9 +150,10 @@
 
 
 
-#define LV_VERT_BARS_NO_OF_WALLS 2
 
-#if XSize>=20
+#if XSize>=20 && YSize>=16
+    #define LV_VERT_BARS_NO_OF_WALLS 2
+
     #define LV_VERT_BARS_WALLS \
         LV_VERT_BARS_NO_OF_WALLS, \
         \
@@ -162,12 +163,22 @@
         6+LV_VERT_BARS_WIDTH,YSize-5, \
         XSize-12-2*LV_VERT_BARS_WIDTH,1
 
-#else
+#elif YSize>=16
+    #define LV_VERT_BARS_NO_OF_WALLS 2
+
     #define LV_VERT_BARS_WALLS \
         LV_VERT_BARS_NO_OF_WALLS, \
         \
         5,5, \
         XSize-8-2*1, 1, \
+        \
+        5,YSize-5, \
+        XSize-8-2*1,1
+#else
+    #define LV_VERT_BARS_NO_OF_WALLS 1
+
+    #define LV_VERT_BARS_WALLS \
+        LV_VERT_BARS_NO_OF_WALLS, \
         \
         5,YSize-5, \
         XSize-8-2*1,1

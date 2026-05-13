@@ -11,37 +11,70 @@
 #endif
 
 
-#define LV_MANY_NO_OF_OBJECTS 18
+#if YSize>=16 
+    #define LV_MANY_NO_OF_OBJECTS 18
 
-#define LV_MANY_OBJECTS \
-    LV_MANY_NO_OF_OBJECTS, \
-	\
-	XSize/2-6+_MINI_WALL_OFFSET,YSize-3,_MINI_WALL_SIZE,2,WALL, \
-	XSize/2-6+_MINI_WALL_OFFSET,2,_MINI_WALL_SIZE,2,WALL, \
-	\
-	XSize/2+2,YSize-3,_MINI_WALL_SIZE,2,WALL, \
-	XSize/2+2,2,_MINI_WALL_SIZE,2,WALL, \
-	\
-    XSize/2-5,YSize/2,2,2,WALL, \
-    XSize/2+3,YSize/2,2,2,WALL, \
-    \
-    XSize/2-4,YSize/2-2,2,1,BLOCK, \
-    XSize/2+2,YSize/2-2,2,1,BLOCK, \
-    \
-    XSize/2-5+1,YSize/2+3,2,1,BLOCK, \
-    XSize/2+2,YSize/2+3,2,1,BLOCK, \
-	\
-	XSize-2,2,1,1,FREEZE, \
-	XSize-2,YSize-2,1,1,RING, \
-    \
-	1,2,1,1,FREEZE, \
-	1,YSize-2,1,1,RING, \
-    \
-    XSize-2,4,1,YSize-1-2-4,DIAMOND, \
-    1,4,1,YSize-1-2-4,DIAMOND, \
-	\
-	XSize/2-2,YSize-3,4,2,DIAMOND, \
-	XSize/2-2,2,4,2,DIAMOND
+    #define LV_MANY_OBJECTS \
+        LV_MANY_NO_OF_OBJECTS, \
+        \
+        XSize/2-6+_MINI_WALL_OFFSET,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+        XSize/2-6+_MINI_WALL_OFFSET,2,_MINI_WALL_SIZE,2,WALL, \
+        \
+        XSize/2+2,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+        XSize/2+2,2,_MINI_WALL_SIZE,2,WALL, \
+        \
+        XSize/2-5,YSize/2,2,2,WALL, \
+        XSize/2+3,YSize/2,2,2,WALL, \
+        \
+        XSize/2-4,YSize/2-2,2,1,BLOCK, \
+        XSize/2+2,YSize/2-2,2,1,BLOCK, \
+        \
+        XSize/2-5+1,YSize/2+3,2,1,BLOCK, \
+        XSize/2+2,YSize/2+3,2,1,BLOCK, \
+        \
+        XSize-2,2,1,1,FREEZE, \
+        XSize-2,YSize-2,1,1,RING, \
+        \
+        1,2,1,1,FREEZE, \
+        1,YSize-2,1,1,RING, \
+        \
+        XSize-2,4,1,YSize-1-2-4,DIAMOND, \
+        1,4,1,YSize-1-2-4,DIAMOND, \
+        \
+        XSize/2-2,YSize-3,4,2,DIAMOND, \
+        XSize/2-2,2,4,2,DIAMOND
+
+#else
+    #define LV_MANY_NO_OF_OBJECTS 16
+
+    #define LV_MANY_OBJECTS \
+        LV_MANY_NO_OF_OBJECTS, \
+        \
+        XSize/2-6+_MINI_WALL_OFFSET,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+        XSize/2-6+_MINI_WALL_OFFSET,2,_MINI_WALL_SIZE,2,WALL, \
+        \
+        XSize/2+2,YSize-3,_MINI_WALL_SIZE,2,WALL, \
+        XSize/2+2,2,_MINI_WALL_SIZE,2,WALL, \
+        \
+        \
+        XSize/2-4,YSize/2-2,2,1,BLOCK, \
+        XSize/2+2,YSize/2-2,2,1,BLOCK, \
+        \
+        XSize/2-5+1,YSize/2+3,2,1,BLOCK, \
+        XSize/2+2,YSize/2+3,2,1,BLOCK, \
+        \
+        XSize-2,2,1,1,FREEZE, \
+        XSize-2,YSize-2,1,1,RING, \
+        \
+        1,2,1,1,FREEZE, \
+        1,YSize-2,1,1,RING, \
+        \
+        XSize-2,4,1,YSize-1-2-4,DIAMOND, \
+        1,4,1,YSize-1-2-4,DIAMOND, \
+        \
+        XSize/2-2,YSize-3,4,2,DIAMOND, \
+        XSize/2-2,2,4,2,DIAMOND
+#endif
 
 #define LV_MANY_OBJECTS_SIZE LV_OBJECTS_SIZE(LV_MANY_NO_OF_OBJECTS)
 

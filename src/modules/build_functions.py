@@ -323,7 +323,8 @@ def tools(option_config):
     # compilation_threads = option_config.build_config.compilation_threads
     tool_compiler = option_config.build_config.tool_compiler
     
-    tool_string = "easy_tools" if option_config.terminal_config.fast_test else "tools"
+    # tool_string = "easy_tools" if option_config.terminal_config.fast_test else "tools"
+    tool_string = "tools"
     
     make_command = \
         GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " " + tool_string + " TOOL_CC=" + tool_compiler + \

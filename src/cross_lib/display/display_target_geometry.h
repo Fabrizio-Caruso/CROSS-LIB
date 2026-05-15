@@ -47,6 +47,11 @@
 #endif
 
 
+#if defined(Force_YSize)
+    #undef YSize
+    #define YSize Force_YSize
+#endif
+
 #if !defined(YSize)
 	#  if defined(__NCURSES__)
 		#define YSize (24-Y_OFFSET)
@@ -274,11 +279,7 @@
 #endif
 
 #if !defined(X_OFFSET)
-    #if defined(__ATMOS__)
-        #define X_OFFSET 2
-    #else
-        #define X_OFFSET 0
-    #endif
+    #define X_OFFSET 0
 #endif
 
 #endif // _DISPLAY_TARGET_GEOMETRY_H 

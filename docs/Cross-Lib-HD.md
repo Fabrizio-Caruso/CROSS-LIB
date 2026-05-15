@@ -21,8 +21,9 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md.
 
 Cross-Lib-HD (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is just Cross-Lib with more graphics tiles at the cost in some rare cases to produce slightly bigger binaries and in some very rare cases to support fewer colors.
 Cross-Lib-HD is fully backwards compatible with Cross-Lib, i.e., any project written for Cross-Lib will be compatible with Cross-Lib-HD. So any Cross-Lib project can be easily extended in Cross-Lib-HD with no need to rewrite the whole code.
-Therefore Cross-Lib-HD is not a complete replacement for Cross-Lib as it can produce worse results for small games for very memory-limited targets with limited tiles and/or color palettes.
+Currently Cross-Lib-HD is not a complete replacement for Cross-Lib as it can produce worse results for small games for very memory-limited targets with limited tiles and/or color palettes.
 Depending on memory and color constraints, the user may choose one or the other or both if they want to build a standard version of a game together with an enhanced version (that may only worked on targets with expanded memory and maybe with fewer colors in some cases).
+In the future the two versions may be merged in one single repository in which the user can pass a parameter to define which version is supposed to be used to build their game.
 
 There are currently no other differences other than the number of tiles between the two frameworks. For this reason from now on in this article we will refer collectivelly to both as Cross-Lib.
 
@@ -654,156 +655,6 @@ int main(void)
     return EXIT_SUCCESS;
 }
 ```
-
-
-## ORIC SUPPORT
-I have recently greatly improved the support for the Oric 1 and Oric Atmos machines with 3 new video modes:
-- `oric_mono` target: high resolution monochrome mode with 6x8 tiles in a 40x25 screen
-- `oric` target: quad pixel resolution with color 6x8 tiles in a 19x12 or 19x13 screen (depending on game configuration)
-- `oric_39x25` target: high resolution mode with limited color support  
-
-### Monochrome mode support
-The `oric_mono` target will use hardware text mode in Cross-Lib and hardware high resolution mode in Cross-Lib-HD (in order to provide 128 total tiles).
-
-### Standard color mode
-The `oric` target uses hardware high resolution mode and provides 64 or 128 total tiles with colors.
-Colors are currently produced by having alternating cyan and yellow attributes.
-Inversion is performed on fonts to render red and white colors.
-Inversion on redefinable tiles is possible if the `__INVERSE_TILES` is set in the `ORIC_COLOR_OPTS` variable in `project_config.mk`.
-Pixels have quadruple size compared to hardware high resolution and only 19x12 tiles are displayed on the screen.
-If `Force_YSize=13` is set in `ORIC_COLOR_OPTS` then an extra monochromatic half-height line is displayed on the bottom of the screen.
-
-### High-resolution mode with limited color support
-Thr `oric_39x25` (alias `oric_alt`) uses the high resolution mode and provides 64 or 128 total tiles with limited colors.
-We do define alternating cyan and yellow attributes but each line of each tile is either on a cyan line or a yellow line. We cannot just display even or odd lines without losing half the details of our tiles.
-So we are forced to use color inversion more heavily if we want to get more colors. 
-
-Colors are enabled by default on fonts. They be disabled if `__MONO_TEXT` is set in `ORIC_39x25_COLOR_OPTS`.
-Colors can be enabled on redefinable tiles if the `__INVERSE_TILES` is set in the `ORIC_39x25_COLOR_OPTS` variable in `project_config.mk`.
-Colors on such small fonts and tiles may not look great because they rely on color inversion. This is why Cross-Lib provides ways to disable colors. 
-
-
-
-
-
-## THE GAMES
-
-Cross-Lib comes with some games I have written with it. As for May 2026, it includes nine games:
-
-- **Trex**: jump to avoid cacti and birds
-
-- **Stinger**: tank-themed shoot'em-up
-
-- **Shuriken**: Pacman meets Pengo sort of game
-
-- **Verbix**: Scrabble meets Tetris sort of game
-
-- **Horde**: zombie-themed shoot'em-up
-
-- **Snake**: Nibbler meets Nokia Snake
-
-- **Bomber**: clone of Air Attack
-
-- **Shoot**: Robotron-like shooter
-
-- **Chase**: real-time Robots/Daleks
-
-
-All current games have an ending. For some games it is reasonably difficult to complete the game. For some other games, it is much harder.
-
-
-### TREX
-TREX is an obvious clone of Google Chrome's Easter egg mini-game. 
-Just use SPACE or the fire button to jump to avoid cacti and birds.
-TREX has 99 (!!!) levels.
-
-### STINGER
-Stinger a tank-theme shooter with several power-us and different enemies, levels and items to pick, some of which are secret items.
-
-You control a stinger with a limited number of missiles. You can get more missiles as a possible reward for destroying some tanks.
-
-More numerous and harder tank types appear as you progress to higher levels.
-The game has 6 levels.
-
-
-### SHURIKEN
-Shuriken is somehow similar to PAC-MAN in that you need to collect all diamonds to complete non-boss levels while you need to avoid being hit by the shurikens.
-In boss levels you have to additionally kill all the shurikens by using the movable blocks that are deadly for them.
-You can also collect special items that make you temporarily invincible (white ring) or that slow down the shurikens (blue large diamond).
-The game has 12 levels with 3 boss levels.
-
-
-
-### VERBIX
-Verbix is a Scrabble-like game that looks also a bit like Tetris.
-In this game you have to form valid 5-letter English words on the bottom row before the tower of letters reaches the top level.
-You can rotate the bottom row or any of the columns by moving in the 4 directions. You press fire to confirm the word.
-The game has 9 levels.
-
-
-### HORDE
-Horde is a zombie-themed shooter with many power-ups and several different enemies, levels and special items to pick.
-
-You control a bow with a limited number of arrows. You get more arrows as a possible reward for killing some zombies.
-If you run out of arrows, you will get a few arrows after a short period.
-In each level you are confronted with a horde of zombies that become harder as you progress.
-The game has 9 levels.
-
-
-### SNAKE
-Snake is my personal interpretation of a hybrid game between the arcade game Nibbler and the Nokia cell phone game Snake to which I have added more game elements. 
-As in Nibbler the walls do not kill you and can be used to stop you and let you better control your movements.
-As in Nokia Snake the main goal is to eat apples. If you do not eat any apple for too long, the snake becomes faster and harder to control, consumes its energy and eventually dies.
-In each level you are also confronted with mines that kill you if the snake's head touches them.
-As a secondary goal you can collect rings. If you manage to get 3 or more rings without dying on a level, you will be rewarded with bonus items.
-The game has many secretes to discover. 
-It has a secret level and 32 normal levels including 8 bonus levels.
-
-
-
-### BOMBER
-Bomber is a mini-game and clone of Air Attack (aka Blitz) that first appeared on the Commodore Pet. 
-The game concept is horrible (not my own concept) but it can be addictive nevertheless.
-Your plane has to carpet-bomb an entire city in order to safely land on the road. Let us assume the city has no inhabitants.
-You do not control the plane and can only press fire to drop a bomb at a time.
-The game has 9 levels.
-
-
-### SHOOT
-Shoot is a shooter somehow similar to Robotron. You have to kill a horde of ghosts on each level.
-You can kill them by hitting them many times or by hitting them enough times to push them against the walls (mortal only for them).
-You can also kill them by placing mines but you need to get the mine item (with 3 mines). A mine kills instantly common enemies.
-At the end of each level when only few ghosts are left or if you survive without killing enemies long enough or in boss levels, you are confronted by some hard-to-kill skull-shaped enemies.
-As a secondary goal you can complete the level by killing the skulls before the last ghosts and by doing so you unlock extra items and secrets in the next levels.
-Destroying the missile bases can also unlock items.
-The game has many secrets to discover.
-It has a secret level, 16 normal levels including 2 boss levels.
-
-
-### CHASE
-Cross Chase is somehow similar to Daleks / Gnome Robots. You need to lure your pursuers into the mines.
-The main difference is that it is a real-time game and that it has several secrets items and power-ups to pick.
-Similarly to Shoot, at the end of each level or in boss levels, you are confronted by a boss (a skull), which can only be killed by several bullets fired by the gun item.
-You can complete the level by killing the skull before the last enemy and by doing so you unlock extra items and secrets in the next levels.
-Destroying the missile bases can also unlock items.
-The game has many secrets to discover.
-It has 20 normal levels including 4 boss levels.
-
-
-
-## FUTURE DEVELOPMENT
-
-Cross-Lib is actively developed. Planned future developments are: 
-
-- support for more targets and architectures (e.g., Apple ||gs, Apple 1, etc.);
-- improved targets (e.g, DHGR mode for the 80-column capable Apple // models);
-- improved APIs (more redefinable tiles, improved sounds, etc.);
-- simplified setup (docker file with all compilers, tools and dependencies);
-- improved support for the native target; 
-- more games.
-
-
-
 
 
 

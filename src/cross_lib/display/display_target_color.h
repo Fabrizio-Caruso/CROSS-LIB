@@ -19,7 +19,7 @@
     || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
     || defined(__TRS80__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
-    || defined(__KC__) || (defined(__ATMOS__) && !defined(__ORIC_COLOR_GRAPHICS)) \
+    || defined(__KC__) \
     || defined(__VECTREX__) || defined(__GB__) \
     || defined(__NC100__) || defined(__NC200__)
     #if !defined(_XL_NO_COLOR)
@@ -29,7 +29,7 @@
 
 //  defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
 #if defined(_XL_NO_COLOR) || defined(__PV1000_GRAPHICS) || defined(__NES__) \
-    || defined(__CREATIVISION__) || defined(__ORIC__) || defined(__ATMOS__) || defined(__TI99__) \
+    || defined(__CREATIVISION__) || defined(__TI99__) \
 	|| defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__) \
 	|| defined(__ATARI7800_COLOR_GRAPHICS)
     #define _XL_NO_TEXT_COLOR

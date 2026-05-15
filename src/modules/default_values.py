@@ -36,8 +36,14 @@ def default_screen_size(target):
             xsize = 16
             ysize = 8
         elif target in ("oric1", "oric", "atmos"):
-            xsize = 38
+            xsize = 19
+            ysize = 12
+        elif target in ("oric_mono"):
+            xsize = 40
             ysize = 28
+        elif target in ("oric_alt", "oric_39x25"):
+            xsize = 39
+            ysize = 25
         elif target == "supervision":
             xsize = 20
             ysize = 20

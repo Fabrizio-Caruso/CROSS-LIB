@@ -2,10 +2,11 @@
 #define _TILES_H
 
 #include "cross_lib.h"
-
 #  if defined(__C64__) && defined(__MEMORY_MAPPED_GRAPHICS)
 	#include "c64_memory_mapped_settings.h"
-#elif (defined(__AGAT__) && defined(__BIT_MAPPED_GRAPHICS)) || defined(__VGA_GRAPHICS)
+#elif defined(__VGA_GRAPHICS)
+    #include "vga_settings.h"
+#elif (defined(__AGAT__) && defined(__BIT_MAPPED_GRAPHICS)) 
     #include "agat_settings.h"
 #elif  (defined(__CX16__) && !defined(_XL_NO_UDG))
     // #include "agat_settings.h"
@@ -56,7 +57,9 @@
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATARI5200__)
 	#include "atari_mode1_redefined_chars_settings.h"
-#elif defined(__ATMOS__) && !defined(NO_UDG)
+#elif defined(__ATMOS__) && defined(__ORIC_HIRES_GRAPHICS)
+    #include "vga_settings.h"
+#elif defined(__ATMOS__) && !defined(__ORIC_HIRES_GRAPHICS)
 	#include "atmos_redefined_characters_settings.h"
 #elif defined(__Z88DK_SPRITES_GRAPHICS) 
 	#include "udg_settings.h"

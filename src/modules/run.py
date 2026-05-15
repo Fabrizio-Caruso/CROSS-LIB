@@ -66,7 +66,7 @@ def run(option_config, params):
 
         if target=="stdio":
             run_stdio(option_config, params)
-        elif target=="ncurses":
+        elif target in ("ncurses", "ascii"):
             run_native(option_config, params[0:2]+params[3:], "ncurses")
         elif target=="terminal":
             run_native(option_config, params[0:2]+params[3:], "terminal8x8")

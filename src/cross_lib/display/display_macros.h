@@ -215,7 +215,6 @@
 #elif !defined(__NO_PRINT)
     
     #define __CONIO_PRINT
-
     
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
@@ -244,7 +243,13 @@
 
 
 // COLORS
-#if defined(__ATARI5200__)
+
+#if defined(__NO_GRAPHICS)
+    #define _XL_SET_TEXT_COLOR(c)
+#elif defined(__ORIC_HIRES_GRAPHICS) && !defined(_XL_NO_TEXT_COLOR) && !defined(_XL_NO_COLOR)
+    extern uint8_t _oric_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _oric_text_color = (c)
+#elif defined(__ATARI5200__)
     #define _XL_SET_TEXT_COLOR(c) textcolor(c>>6)
 #elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS))
     extern uint8_t _atari_text_color;
@@ -350,6 +355,8 @@
 #else
     #define _SPACE ' '
 #endif
+
+
 
 
 // CLEAR SCREEN

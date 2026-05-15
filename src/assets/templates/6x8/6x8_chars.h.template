@@ -41,6 +41,8 @@
 	#define _TILE_DIGIT_8 { 0x1C, 0x22, 0x22, 0x1C, 0x22, 0x22, 0x1C, 0x00 }
 	#define _TILE_DIGIT_9 { 0x1C, 0x22, 0x22, 0x1E, 0x02, 0x04, 0x08, 0x00 }
 
+    #define _SPACE_TILE   {0,0,0,0,0,0,0,0}
+
 	#define _TILE_0_UDG     {<tile_0>}
 	#define _TILE_1_UDG     {<tile_1>}
 	#define _TILE_2_UDG     {<tile_2>}

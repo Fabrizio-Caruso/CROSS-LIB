@@ -7,7 +7,9 @@
     #define cputc(c) putchar(c)
 #endif
 
-#if defined(__NO_PRINT) || defined(__NO_GRAPHICS)
+// #if defined(__NO_PRINT) || defined(__NO_GRAPHICS)
+#if defined(__NO_GRAPHICS)
+
     #ifndef gotoxy
         #define gotoxy(x,y)
     #endif

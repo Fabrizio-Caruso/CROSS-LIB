@@ -322,8 +322,11 @@ def tools(option_config):
     GNU_MAKE = option_config.build_config.gnu_make
     # compilation_threads = option_config.build_config.compilation_threads
     tool_compiler = option_config.build_config.tool_compiler
+    
+    tool_string = "easy_tools" if option_config.terminal_config.fast_test else "tools"
+    
     make_command = \
-        GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " tools TOOL_CC=" + tool_compiler + \
+        GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " " + tool_string + " TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
@@ -371,6 +374,14 @@ def build(option_config, params, reset_flag = False):
             target = "ncurses"
         else:
             target = params[2]
+            if target == "ascii":
+                new_params = params
+                new_params[2] = "ncurses"
+                if(len(params)>3):
+                    size(option_config, new_params)
+                    sys.exit(0)
+                else:
+                    target = "ncurses"
 
         if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc"]:
             target = target + "_targets"

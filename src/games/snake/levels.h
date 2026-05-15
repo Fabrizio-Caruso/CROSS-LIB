@@ -19,7 +19,7 @@ const uint8_t map_walls[] =
     #if YSize<=9
         XSize/3-1,       YSize/3+1,     3,
     #elif YSize<=17
-        XSize/3,       YSize/3+1,     3,
+        XSize/3-1,       YSize/3+1,     3,
     #elif YSize<=20
         XSize/3,       YSize/3+1,     XSize/3,
     #else
@@ -52,18 +52,24 @@ const uint8_t map_walls[] =
     0,
 
 // map 3 (27)
-    #if YSize>=13
+    #if YSize>=13 && XSize>=12
     4,
         0,                      YSize/4,      XSize/4,
        3*XSize/4,               YSize/4,      XSize/4,
         0,                    3*YSize/4,      XSize/4,
        3*XSize/4,             3*YSize/4,      XSize/4,
-    #else
+    #elif XSize>=20
     4,
         2,                      YSize/2-1,      XSize/4-2,
        3*XSize/4,               YSize/2-1,      XSize/4-2,
         2,                      (YSize/2)+1,    XSize/4-2,
        3*XSize/4,               (YSize/2)+1,    XSize/4-2,
+    #else
+    4,
+        2,                      YSize/2-1,      3,
+       3*XSize/4,               YSize/2-1,      3,
+        2,                      (YSize/2)+1,    3,
+       3*XSize/4,               (YSize/2)+1,    3,
     #endif
     2,
         XSize/2,                      1,      YSize/4,
@@ -316,7 +322,7 @@ const uint8_t horizontal_mines_on_level[] =
             2,
             YSize-3,
         3, // 13 (31)
-        #if YSize>=12
+        #if YSize>=14
             YSize/2 - 5,
             YSize/2 + 3,
             YSize/2 + 6,

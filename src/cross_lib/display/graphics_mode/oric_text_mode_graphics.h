@@ -1,5 +1,5 @@
-#ifndef _MEMORY_MAPPED_GRAPHICS
-#define _MEMORY_MAPPED_GRAPHICS
+#ifndef _ORIC_TEXT_MODE_GRAPHICS
+#define _ORIC_TEXT_MODE_GRAPHICS
 
 #include "standard_libs.h"
 
@@ -13,15 +13,14 @@
         DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile));
 #else
     #define _XL_DRAW(x,y,tile,color) \
-            DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)+(color)); 
+            DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)); 
 #endif
 
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x+X_OFFSET,y), _SPACE)
 
-
 uint16_t loc(uint8_t x, uint8_t y);
 
-#endif // _MEMORY_MAPPED_GRAPHICS
+#endif // _ORIC_TEXT_MODE_GRAPHICS
 
 
 

@@ -19,7 +19,8 @@ class TerminalConfig():
         test = "0",
         native_console = "",
         fast_test = "1",
-        interactive_test = "0"
+        interactive_test = "0",
+        terminal_test = "0"
         ):
         # terminal
         self.verbose = verbose
@@ -28,6 +29,7 @@ class TerminalConfig():
         self.native_console = native_console
         self.fast_test = fast_test
         self.interactive_test = interactive_test
+        self.terminal_test = terminal_test
 
 
 class RomConfig():
@@ -73,7 +75,8 @@ class BuildConfig():
         native_compiler_opts = "",
         native_compiler = "gcc",
         tool_compiler = "gcc",
-        use_tools = "1"
+        use_tools = "1",
+        default_target = "stdio"
         ):
 
         # build
@@ -95,6 +98,7 @@ class BuildConfig():
         self.native_compiler            = native_compiler
         self.tool_compiler              = tool_compiler
         self.use_tools                  = use_tools
+        self.default_target             = default_target
 
     def get_opts(self):
         return \
@@ -115,7 +119,8 @@ class BuildConfig():
             self.native_compiler_opts, \
             self.native_compiler, \
             self.tool_compiler, \
-            self.use_tools
+            self.use_tools, \
+            self.default_target
 
 
 class OptionConfig:
@@ -158,7 +163,8 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
-    use_tools \
+    use_tools, \
+    default_target, \
     = option_config.build_config.get_opts()
     
     if z88dk_compiler in ('zsdcc','sdcc'):
@@ -192,11 +198,13 @@ def config(option_config):
     color_terminal = option_config.terminal_config.color_terminal
     fast_test = option_config.terminal_config.fast_test
     interactive_test = option_config.terminal_config.interactive_test
+    terminal_test = option_config.terminal_config.terminal_test
     
     print("verbose:                 " + str(verbose))
     print("color_terminal:          " + str(color_terminal))
     print("fast_test:               " + str(fast_test))
     print("interactive_test:        " + str(interactive_test))
+    print("terminal test:           " + str(terminal_test))
 
     print("")
 
@@ -217,7 +225,8 @@ def config(option_config):
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
-    use_tools \
+    use_tools, \
+    default_target, \
     = option_config.build_config.get_opts()
 
     compilation_threads = option_config.build_config.compilation_threads
@@ -231,33 +240,35 @@ def config(option_config):
     print("parallelize_multi_build: " + str(parallelize_multi_build))
 
     print("z88dk_compiler:          " + z88dk_compiler)
-    print("z88dk_compiler_opts:     " + z88dk_compiler_opts)
+    print("z88dk_compiler_opts:     " +  z88dk_compiler_opts)
     print("sccz80_compiler_opts:    " + sccz80_compiler_opts)
-    print("zsdcc_compiler_opts:     " + zsdcc_compiler_opts)
-    print("cmoc_compiler_opts:      " + cmoc_compiler_opts)
-    print("cc65_compiler_opts:      " + cc65_compiler_opts)
-    print("lcc1802_compiler_opts:   " + lcc1802_compiler_opts)
-    print("gcc4ti99_compiler_opts:  " + gcc4ti99_compiler_opts)
-    print("vbcc_compiler_opts:      " + vbcc_compiler_opts)
-    print("ack_compiler_opts:       " + ack_compiler_opts)
-    print("native_compiler_opts:    " + native_compiler_opts)
+    print("zsdcc_compiler_opts:     " +  zsdcc_compiler_opts)
+    print("cmoc_compiler_opts:      " +  cmoc_compiler_opts)
+    print("cc65_compiler_opts:      " +  cc65_compiler_opts)
+    print("lcc1802_compiler_opts:   " +  lcc1802_compiler_opts)
+    print("gcc4ti99_compiler_opts:  " +  gcc4ti99_compiler_opts)
+    print("vbcc_compiler_opts:      " +  vbcc_compiler_opts)
+    print("ack_compiler_opts:       " +  ack_compiler_opts)
+    print("native_compiler_opts:    " +  native_compiler_opts)
 
-    print("native_compiler:         " + native_compiler)
+    print("native_compiler:         " +  native_compiler)
     print("use_tools:               " + str(use_tools))
 
-    print("tool_compiler:           " + tool_compiler)
+    print("tool_compiler:           " +  tool_compiler)
+    
+    print("default_target           " + default_target)
 
     print("")
     printc(option_config, bcolors.BOLD,"[run]\n")
-    print("vice_path:               " + option_config.rom_config.vice_path)
-    print("vice_rom_path:           " + option_config.rom_config.vice_rom_path)
-    print("mame_path:               " + option_config.rom_config.mame_path)
-    print("mame_rom_path:           " + option_config.rom_config.mame_rom_path)
+    print("vice_path:               " +  option_config.rom_config.vice_path)
+    print("vice_rom_path:           " +  option_config.rom_config.vice_rom_path)
+    print("mame_path:               " +  option_config.rom_config.mame_path)
+    print("mame_rom_path:           " +  option_config.rom_config.mame_rom_path)
 
     print("")
     printc(option_config, bcolors.BOLD,"[extend]\n")
-    print("extend_algorithm:        " + option_config.extend_config.extend_algorithm)
-    print("replace_shapes:          " + str(option_config.extend_config.replace_shapes))
+    print("extend_algorithm:        " +  option_config.extend_config.extend_algorithm)
+    print("replace_shapes:          " +  str(option_config.extend_config.replace_shapes))
     
     
 # ---------------------------------------------
@@ -332,7 +343,13 @@ def read_config(config_file="./config.ini"):
         else:
             interactive_test=0
 
-        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test, interactive_test=interactive_test)
+        terminal_test = read_config_option(config,"terminal","terminal_test")
+        if terminal_test!="":
+            terminal_test=int(terminal_test)
+        else:
+            terminal_test=0
+
+        terminal_config = TerminalConfig(verbose=verbose, color_terminal=color_terminal, test=0, native_console=0, fast_test=fast_test, interactive_test=interactive_test, terminal_test=terminal_test)
 
         if verbose:
             print("Config file found with: " + str(config.sections()))
@@ -364,35 +381,39 @@ def read_config(config_file="./config.ini"):
         else:
             parallelize_multi_build=0
 
-        z88dk_compiler_opts     = read_config_option(config,"build","z88dk_compiler_opts")
-        z88dk_compiler          = read_config_option(config,"build","z88dk_compiler")
-        sccz80_compiler_opts    = read_config_option(config,"build","sccz80_compiler_opts")
-        zsdcc_compiler_opts     = read_config_option(config,"build","zsdcc_compiler_opts")
-        cmoc_compiler_opts      = read_config_option(config,"build","cmoc_compiler_opts")
-        cc65_compiler_opts      = read_config_option(config,"build","cc65_compiler_opts")
-        lcc1802_compiler_opts   = read_config_option(config,"build","lcc1802_compiler_opts")
-        gcc4ti99_compiler_opts  = read_config_option(config,"build","gcc4ti99_compiler_opts")
-        vbcc_compiler_opts      = read_config_option(config,"build","vbcc_compiler_opts")
-        ack_compiler_opts       = read_config_option(config,"build","ack_compiler_opts")
-        native_compiler_opts    = read_config_option(config,"build","native_compiler_opts")
-        native_compiler         = read_config_option(config,"build", "native_compiler")
+        z88dk_compiler_opts = read_config_option(config,"build","z88dk_compiler_opts")
+        z88dk_compiler = read_config_option(config,"build","z88dk_compiler")
+        sccz80_compiler_opts = read_config_option(config,"build","sccz80_compiler_opts")
+        zsdcc_compiler_opts = read_config_option(config,"build","zsdcc_compiler_opts")
+        cmoc_compiler_opts = read_config_option(config,"build","cmoc_compiler_opts")
+        cc65_compiler_opts = read_config_option(config,"build","cc65_compiler_opts")
+        lcc1802_compiler_opts = read_config_option(config,"build","lcc1802_compiler_opts")
+        gcc4ti99_compiler_opts = read_config_option(config,"build","gcc4ti99_compiler_opts")
+        vbcc_compiler_opts = read_config_option(config,"build","vbcc_compiler_opts")
+        ack_compiler_opts = read_config_option(config,"build","ack_compiler_opts")
         
-        tool_compiler           = read_config_option(config,"build", "tool_compiler")
+        native_compiler_opts = read_config_option(config,"build","native_compiler_opts")
 
-        vice_path               = read_config_option(config,"run", "vice_path")
-        vice_rom_path           = read_config_option(config,"run", "vice_rom_path")
+        native_compiler = read_config_option(config,"build", "native_compiler")
 
-        mame_path               = read_config_option(config,"run", "mame_path")
-        mame_rom_path           = read_config_option(config,"run", "mame_rom_path")
+        tool_compiler = read_config_option(config,"build", "tool_compiler")
+
+        vice_path = read_config_option(config,"run", "vice_path")
+        vice_rom_path = read_config_option(config,"run", "vice_rom_path")
+
+        mame_path = read_config_option(config,"run", "mame_path")
+        mame_rom_path = read_config_option(config,"run", "mame_rom_path")
 
 
         rom_config = RomConfig(vice_path=vice_path, vice_rom_path=vice_rom_path, mame_path=mame_path, mame_rom_path=mame_rom_path)
         
-        extend_algorithm        = read_config_option(config,"extend", "extend_algorithm")
-        replace_shapes          = read_config_option(config,"extend", "replace_shapes")
+        extend_algorithm = read_config_option(config,"extend", "extend_algorithm")
+        replace_shapes = read_config_option(config,"extend", "replace_shapes")
         
 
-        use_tools               = read_config_option(config,"build", "use_tools")
+        use_tools = read_config_option(config,"build", "use_tools")
+        
+        default_target = read_config_option(config,"build", "default_target")
 
         if replace_shapes!="":
             replace_shapes = int(replace_shapes)
@@ -421,7 +442,8 @@ def read_config(config_file="./config.ini"):
             native_compiler_opts,
             native_compiler,
             tool_compiler,
-            use_tools
+            use_tools,
+            default_target
             )
 
         option_config = OptionConfig(terminal_config, build_config, rom_config, extend_config)
@@ -452,7 +474,8 @@ def default_config():
             test=0, 
             native_console=0, 
             fast_test=1, 
-            interactive_test=0
+            interactive_test=0,
+            terminal_test=0
         )
 
         rom_config = RomConfig( \
@@ -481,7 +504,7 @@ def default_config():
             lcc1802_compiler_opts = '"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"',
             gcc4ti99_compiler_opts = "-O2 -fno-peephole2 -fno-function-cse",
             vbcc_compiler_opts = "",
-            ack_compilers_opts = "",
+            ack_compiler_opts = "",
             native_compiler_opts = "",
             native_compiler = "gcc",
             tool_compiler = "gcc",

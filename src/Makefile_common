@@ -3484,8 +3484,8 @@ ncurses_sized:
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
-	-l$(NCURSES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+	-l$(NCURSES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
 ncurses:

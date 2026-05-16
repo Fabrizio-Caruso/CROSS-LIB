@@ -35,6 +35,8 @@ from modules.clean_functions import clean, clean_test
 
 DEFAULT_COMPILATION_THREADS = 4
 
+DEFAULT_PROJECT = "hello"
+
 logger = LoggerSingleton.initLogger('xl', '../logs')
 
 logger.info('Started')
@@ -72,7 +74,8 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
-    use_tools \
+    use_tools, \
+    default_target, \
     = option_config.build_config.get_opts()
     
     if option_config.build_config.parallelize_multi_build:
@@ -170,7 +173,8 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
     native_compiler_opts, \
     native_compiler, \
     tool_compiler, \
-    use_tools \
+    use_tools, \
+    default_target, \
     = option_config.build_config.get_opts()
 
     if use_tools:
@@ -240,12 +244,13 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
 
 
 # Run a project natively (terminal with ncurses) with a given XSize and YSize
+# size can handle both ascii and terminal
 def size(option_config, params, debug = False):
     GNU_MAKE = option_config.build_config.gnu_make
 
     verbose = option_config.terminal_config.verbose
     if len(params)<2:
-        game_dir = "helloworld"
+        game_dir = DEFAULT_PROJECT
     else:
         game_dir = params[1]
 
@@ -317,24 +322,23 @@ def rebuild(option_config, params):
 
 BUILD_TOOLS_THREADS = str(1)
 
+
 # Generate tools from source code
-def _tools(option_config, tool_string="tools"):
+def _tools(option_config, tools_string="tools"):
     GNU_MAKE = option_config.build_config.gnu_make
-    # compilation_threads = option_config.build_config.compilation_threads
+    compilation_threads = option_config.build_config.compilation_threads
     tool_compiler = option_config.build_config.tool_compiler
     
     make_command = \
-        GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " " + tool_string + " TOOL_CC=" + tool_compiler + \
+        GNU_MAKE + " -j " + compilation_threads + " " + tools_string + " TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
-
 def tools(option_config):
     _tools(option_config)
-
+    
 def light_tools(option_config):
-    _tools(option_config, "light_tools")
-
+    _tools(option_config,"light_tools")
 
 def partial_tools(option_config, tools_to_build):
     GNU_MAKE = option_config.build_config.gnu_make
@@ -360,7 +364,7 @@ def build(option_config, params, reset_flag = False):
         return
 
     if len(params)<2:
-        game_dir = "helloworld"
+        game_dir = DEFAULT_PROJECT
     else:
         game_dir = params[1]
 
@@ -368,16 +372,17 @@ def build(option_config, params, reset_flag = False):
         tools(option_config)
     elif len(params)>=1 and game_dir.endswith("_tools"):
         partial_tools(option_config, game_dir)
-
     else:
-
         files_before = len(files_in_path("../build"))-1
 
         project_type = project_category(game_dir)
         parent_dir = project_type + "s"
 
         if len(params)<3:
-            target = "ncurses"
+            if option_config.build_config.default_target is not None:
+                target = option_config.build_config.default_target
+            else:
+                target = "stdio"
         else:
             target = params[2]
             if target == "ascii":
@@ -389,7 +394,7 @@ def build(option_config, params, reset_flag = False):
                 else:
                     target = "ncurses"
 
-        if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc"]:
+        if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc", "ack"]:
             target = target + "_targets"
 
         gnu_make, \
@@ -409,7 +414,8 @@ def build(option_config, params, reset_flag = False):
         native_compiler_opts, \
         native_compiler, \
         tool_compiler, \
-        use_tools \
+        use_tools, \
+        default_target, \
         = option_config.build_config.get_opts()
 
 
@@ -482,13 +488,6 @@ def build(option_config, params, reset_flag = False):
                 if verbose:
                     printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
-                
-                
-            # print("DEBUG: " + target)
-            # short_target = target.replace("_targets","")
-            # if short_target in ["cc65","z88dk","ncurses"]:
-                # print(get_targets("cc65"))
-                # print(len(get_targets("cc65")))
 
             make_command = \
                 GNU_MAKE + " " + target + \
@@ -540,7 +539,10 @@ def slow(option_config, params):
         target = params[2]
         slowdown = params[3]
     elif len(params)==3:
-        target = NATIVE_TARGET
+        if option_config.build_config.default_target is not None:
+            target = option_config.build_config.default_target
+        else:
+            target = "ncurses"
         slowdown = params[2]
     else:
         printc(option_config, bcolors.FAIL, "Wrong number of arguments")

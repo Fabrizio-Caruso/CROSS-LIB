@@ -27,7 +27,7 @@ class testParams(unittest.TestCase):
         params = ("size", "helloworld", "25", "32")
         result = get_size_params(params)
         
-        self.assertEqual(result,("ncurses_sized", "25", "32"))
+        self.assertEqual(result,("stdio_sized", "25", "32"))
 
     def test_get_size_params_2(self):
         params = ['size', 'helloworld', 'terminal', '20', '40']

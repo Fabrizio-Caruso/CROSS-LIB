@@ -21,7 +21,7 @@ def default_tile_size(target):
 
         return xtile, ytile
 
-# TODO: mz
+
 def default_screen_size(target):
         if target in ("terminal", "terminal8x8", "terminal8x6", "atari_lynx"):
             xsize = 20
@@ -86,7 +86,7 @@ def default_screen_size(target):
         elif target in ["pet", "cbm610"]:
             xsize = 80
             ysize = 25
-        elif target in ["ncurses", "cpm"]:
+        elif target in ["ncurses", "ascii", "cpm"]:
             xsize = 80
             ysize = 24
         elif target in ["pce"]:

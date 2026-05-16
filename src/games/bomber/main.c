@@ -299,7 +299,7 @@ void displayGameOverMessage(void)
         #define LEVEL_FACTOR_SPEED_UP 5
     #elif YSize<=16
         #define LEVEL_FACTOR_SPEED_UP 4
-    #elif YSize<=20
+    #else
         #define LEVEL_FACTOR_SPEED_UP 3
     #endif
 #else

@@ -14,8 +14,6 @@ from build_functions import *
 
 from execute import execute_string
 
-TERMINAL_TESTS = False
-
 CROSS_COMPILER_COMMAND = \
     {
     'cc65'        : 'cl65',
@@ -157,6 +155,7 @@ BUILDABLE_TOOLS = \
 }
 
 
+
 INTERPRETER_COMMAND = \
     {
     'java'     : 'java -h',
@@ -283,9 +282,7 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
     max_len = 28
 
     for command in command_list.keys():
-        # print("Executing: " + command_list[command])
         result = os.system(command_list[command] + " > /dev/null 2>&1")
-        # print("result: " + str(result))
         spaces = " " * (max_len+1-len(command))
         if result==expected_list[command]:
             # print("[" + command + "] found")
@@ -323,10 +320,10 @@ def test_make(option_config, silent):
     return check_programs(option_config, "MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, silent)
 
 def test_light_tools(option_config, silent=False):
-    return check_programs(option_config, "LIGHT_TOOLS", LIGHT_TOOL_COMMAND, TOOL_COMMAND_EXPECTED, silent)
+    return check_programs(option_config, "LIGHT_TOOLS", LIGHT_TOOL_COMMAND,TOOL_COMMAND_EXPECTED, silent)
 
 def test_tools(option_config, silent=False):
-    return check_programs(option_config, "TOOLS", TOOL_COMMAND, TOOL_COMMAND_EXPECTED, silent)
+    return check_programs(option_config, "TOOLS", TOOL_COMMAND,TOOL_COMMAND_EXPECTED, silent)
 
 def test_emulators(option_config):
     return check_programs(option_config, "EMULATORS", EMULATOR_COMMAND,EMULATOR_COMMAND_EXPECTED)
@@ -373,13 +370,7 @@ def _unit_tests(option_config, path="./"):
         run_single_unit_test(option_config, test)
 
 
-
-
 # TODO: Handle aliases such as dragon->coco
-
-# TODO: Handle Windows vs Linux and targets with 3 binaries
-
-
 
 # LoggerSingleton.initLogger(__name__)
 logger = LoggerSingleton.initLogger('xl', '../logs')
@@ -389,7 +380,6 @@ logger = LoggerSingleton.initLogger('xl', '../logs')
 # console_logger.info('Console logger started')
 
 logger.info('Started')
-
 
 
 def test_projects(option_config, projects, target="stdio"):
@@ -459,11 +449,12 @@ def check_clean(option_config, target):
     return not(len(files)-1)
 
 def check_tools(option_config, target):
-    
+    # tools_result_map=test_tools(option_config, silent=True)
     if option_config.terminal_config.fast_test:
         tools_result_map=test_light_tools(option_config, silent=True)
     else:
         tools_result_map=test_tools(option_config, silent=True)
+
     number_of_tools = len(tools_result_map.keys())
 
     built_tools = 0
@@ -539,41 +530,48 @@ def test_execute(option_config, target, test_name, commands, check = no_check, c
     execute_commands(option_config, cleanup_commands, target, silent = True)
     return result
 
+
 # ---------------------------------------------------------
 # DEFAULT SELF TESTS
 # ---------------------------------------------------------
 
 STANDARD_SELF_TESTS = \
     [ \
-        ("test xl clean",            CLEAN_TEST,          check_clean), \
-        ("test several xl commands", COMPLEX_TEST,        check_complex, CLEANUP_COMPLEX_TEST), \
-        ("test xl dev tools",        DEV_TOOLS_TEST), \
-        ("test xl create",           CREATE_TEST,         check_create,  CLEANUP_CREATE_TEST), \
-        ("test xl make",             MAKE_TEST,           check_make), \
-        ("test xl rename",           RENAME_TEST,         check_rename,  CLEANUP_RENAME_TEST) \
+        ("xl clean",            CLEAN_TEST,          check_clean), \
+        ("xl dev tools",        DEV_TOOLS_TEST), \
+        ("xl create",           CREATE_TEST,         check_create,  CLEANUP_CREATE_TEST), \
+        ("xl rename",           RENAME_TEST,         check_rename,  CLEANUP_RENAME_TEST) \
     ]
 
-TOOLS_TESTS = \
+MAKE_SELF_TESTS = \
+    [ \
+        ("xl make",             MAKE_TEST,           check_make), \
+    ]
+
+COMPLEX_SELF_TESTS = \
     [
-        ("test xl tools",            TOOLS_TEST,          check_tools,   CLEANUP_TOOLS_TEST), \
+        ("several xl commands", COMPLEX_TEST,        check_complex, CLEANUP_COMPLEX_TEST), \
     ]
 
+TOOLS_SELF_TESTS = \
+    [
+        ("build some tools",    TOOLS_TEST,          check_tools,   CLEANUP_TOOLS_TEST),
+    ]
 
 PARALLEL_BUILD_TESTS = \
     [ \
-        ("test xl examples",         EXAMPLES_TEST,       check_examples), \
-        ("test xl games",            GAMES_TEST,          check_games), \
-        # ("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal), \
+        ("xl examples",         EXAMPLES_TEST,       check_examples), \
+        ("xl games",            GAMES_TEST,          check_games), \
     ]
 
-PARALLEL_TERMINAL_BUILD_TESTS = \
-    [
-		("test xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal),
-	]
-  
+TERMINAL_BUILD_TESTS =  \
+    [ \
+        ("xl games terminal",   GAMES_TERMINAL_TEST, check_games_terminal), \
+    ]
+
 INTERACTIVE_TESTS = \
     [ \
-        ("test xl run",              RUN_TEST,       no_check,      CLEANUP_RUN_TEST), \
+        ("xl run",              RUN_TEST,       no_check,      CLEANUP_RUN_TEST), \
     ]
     
 
@@ -583,38 +581,57 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
     printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
-    success = 1
+    total_success = 1
+    success_map = {}
     printc(option_config, bcolors.BOLD,  "target: ")
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
-    self_tests = STANDARD_SELF_TESTS
-    self_tests += TOOLS_TESTS
+    max_len = 0
+    self_tests = STANDARD_SELF_TESTS 
+    self_tests += MAKE_SELF_TESTS
+    self_tests += TOOLS_SELF_TESTS
+
     if option_config.terminal_config.interactive_test:
         self_tests += INTERACTIVE_TESTS
+    if option_config.terminal_config.terminal_test:
+        self_tests += TERMINAL_BUILD_TESTS
     if not option_config.terminal_config.fast_test:
+        self_tests += COMPLEX_SELF_TESTS
         self_tests += PARALLEL_BUILD_TESTS
-
-    if TERMINAL_TESTS:
-        self_tests += PARALLEL_TERMINAL_BUILD_TESTS
 
     for test in self_tests:
         execute_string(option_config, "xl clean", silent = True)
-        success *= test_execute(option_config, target, *test)
-
+        if len(test[0][0:])>max_len:
+            max_len = len(test[0][0:])
+        success_map[test[0][0:]] = test_execute(option_config, target, *test)
+        total_success*=success_map[test[0][0:]]
     execute_string(option_config, "xl clean", silent = True)
+    
+    print("")
+    print("-------------------------------")
+    printc(option_config, bcolors.OKBLUE, "SUMMARY TEST RESULTS\n")
+    print("-------------------------------")
+
+    for test in self_tests:
+        success = success_map[test[0][0:]]
+        (success_color, success_string) = (bcolors.OKGREEN, "OK") if success else  (bcolors.FAIL, "KO")
+        
+        
+        spaces = " " * (max_len+5-len(test[0][0:])) 
+        printc(option_config, bcolors.OKCYAN,f"{test[0][0:]} " + spaces)
+        
+        printc(option_config, success_color, success_string + "\n")
+        print("-------------------------------")
 
     option_config.terminal_config.test = 0
-    return success
+    return total_success
 
 
 def test_all(option_config, params):
 
     test_compilers(option_config)
-    if option_config.terminal_config.fast_test:
-        test_tools(option_config,"light_tools")
-    else:
-        test_tools(option_config)
+    test_tools(option_config)
     test_libraries(option_config)
     test_interpreters(option_config)
     _unit_tests(option_config)
@@ -632,7 +649,6 @@ TEST_FILES = {
     "vbcc"        : ["bbc", "bbcmaster"],
     # "tms9900-gcc" : ["ti99"] # Variable number
     }
-
 
 Z88DK_ALT_EXPECTED_FILES = 38
 
@@ -708,9 +724,9 @@ def targets_test(option_config, params):
 def test(option_config, params):
     if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
         if test_all(option_config, "stdio"):
-            printc(option_config, bcolors.OKGREEN, "TEST OK\n")
+            printc(option_config, bcolors.OKGREEN, "\nTEST OK\n")
         else:
-            printc(option_config, bcolors.FAIL, "TEST KO\n")
+            printc(option_config, bcolors.FAIL, "\nTEST KO\n")
         return
     if params[1]=="self":
         if len(params)<3:
@@ -721,8 +737,6 @@ def test(option_config, params):
         test_compilers(option_config)
     elif params[1]=="tools":
         test_tools(option_config)
-    elif params[1]=="light_tools":
-        test_light_tools(option_config)
     elif params[1]=="emulators":
         test_emulators(option_config)
     elif params[1]=="cross-compilers" or params[1]=="cross_compilers":

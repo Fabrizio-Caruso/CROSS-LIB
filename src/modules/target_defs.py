@@ -9,9 +9,6 @@ from file_functions import list_of_projects
 from project_functions import project_category
 from print_functions import bcolors, printc
 
-DEBUG_TARGET  = "ncurses_debug"
-NATIVE_TARGET = "ncurses"
-
 
 def binary_factor(target):
     platform = sys.platform

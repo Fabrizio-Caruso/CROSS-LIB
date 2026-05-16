@@ -23,7 +23,7 @@ CLEAN_TEST = \
 TOOLS_TEST = \
     [ \
         "xl clean tools", \
-        "xl build easy_tools", \
+        "xl build light_tools", \
     ]
 
 

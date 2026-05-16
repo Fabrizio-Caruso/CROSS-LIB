@@ -318,18 +318,23 @@ def rebuild(option_config, params):
 BUILD_TOOLS_THREADS = str(1)
 
 # Generate tools from source code
-def tools(option_config):
+def _tools(option_config, tool_string="tools"):
     GNU_MAKE = option_config.build_config.gnu_make
     # compilation_threads = option_config.build_config.compilation_threads
     tool_compiler = option_config.build_config.tool_compiler
-    
-    # tool_string = "easy_tools" if option_config.terminal_config.fast_test else "tools"
-    tool_string = "tools"
     
     make_command = \
         GNU_MAKE + " -j " + BUILD_TOOLS_THREADS + " " + tool_string + " TOOL_CC=" + tool_compiler + \
         " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
+
+
+def tools(option_config):
+    _tools(option_config)
+
+def light_tools(option_config):
+    _tools(option_config, "light_tools")
+
 
 def partial_tools(option_config, tools_to_build):
     GNU_MAKE = option_config.build_config.gnu_make

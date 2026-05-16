@@ -75,6 +75,21 @@ TOOL_COMMAND = \
     'tap2dsk'  : '../tools/cc65/telestrat/tap2dsk',
     }
 
+
+LIGHT_TOOL_COMMAND = \
+    {
+    'bbcim'    : '../tools/bbc/bbcim.' + NATIVE_EXTENSION + ' -h',
+    'f2k5'     : '../tools/cmoc/mo5/f2k5.' + NATIVE_EXTENSION + '',
+    'file2dsk' : '../tools/cmoc/coco/file2dsk/file2dsk.' + NATIVE_EXTENSION + ' -h',
+    'fixcart'  : '../tools/cc65/gamate/gamate-fixcart.' + NATIVE_EXTENSION + '',
+    'mkatr'    : '../tools/cc65/atari/mkatr-master/mkatr -h',
+    'makewzd'  : '../tools/z88dk/oz/makewzd.' + NATIVE_EXTENSION + ' -h',
+    'ea5split' : '../tools/ti99/ea5split.' + NATIVE_EXTENSION + ' -h',
+    'elf2ea5'  : '../tools/ti99/elf2ea5.' + NATIVE_EXTENSION + ' -h',
+    'sapfs'    : '../tools/cmoc/mo5/sapfs.' + NATIVE_EXTENSION + '',
+    }
+    
+
 TOOL_COMMAND_EXPECTED = \
     {
     'abcwrite' : 256,
@@ -262,26 +277,26 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
     total_result = {}
 
     max_len = 0
-    for compiler in command_list.keys():
-        if len(compiler)>max_len:
-            max_len = len(compiler)
+    for command in command_list.keys():
+        if len(command)>max_len:
+            max_len = len(command)
     max_len = 28
 
-    for compiler in command_list.keys():
-        # print("Executing: " + command_list[compiler])
-        result = os.system(command_list[compiler] + " > /dev/null 2>&1")
+    for command in command_list.keys():
+        # print("Executing: " + command_list[command])
+        result = os.system(command_list[command] + " > /dev/null 2>&1")
         # print("result: " + str(result))
-        spaces = " " * (max_len+1-len(compiler))
-        if result==expected_list[compiler]:
-            # print("[" + compiler + "] found")
+        spaces = " " * (max_len+1-len(command))
+        if result==expected_list[command]:
+            # print("[" + command + "] found")
             res = "found\n"
             res_color = bcolors.OKGREEN
             res_color2 = bcolors.OKGREEN
-            total_result[compiler]=True
+            total_result[command]=True
         else:
 
-            total_result[compiler]=False
-            if compiler in BUILDABLE_TOOLS:
+            total_result[command]=False
+            if command in BUILDABLE_TOOLS:
                 res = "NOT built\n"
                 res_color = bcolors.OKBLUE
                 res_color2 = bcolors.OKCYAN
@@ -290,7 +305,7 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
                 res_color = bcolors.WARNING
                 res_color2 = bcolors.WARNING
         if not silent:
-            printc(option_config, res_color,"[" + compiler + "]")
+            printc(option_config, res_color,"[" + command + "]")
             printc(option_config, res_color2, spaces + res)
     return total_result
 
@@ -306,6 +321,9 @@ def test_native_compilers(option_config):
 
 def test_make(option_config, silent):
     return check_programs(option_config, "MAKE", MAKE_COMMAND,MAKE_COMMAND_EXPECTED, silent)
+
+def test_light_tools(option_config, silent=False):
+    return check_programs(option_config, "LIGHT_TOOLS", LIGHT_TOOL_COMMAND, TOOL_COMMAND_EXPECTED, silent)
 
 def test_tools(option_config, silent=False):
     return check_programs(option_config, "TOOLS", TOOL_COMMAND, TOOL_COMMAND_EXPECTED, silent)
@@ -441,7 +459,11 @@ def check_clean(option_config, target):
     return not(len(files)-1)
 
 def check_tools(option_config, target):
-    tools_result_map=test_tools(option_config, silent=True)
+    
+    if option_config.terminal_config.fast_test:
+        tools_result_map=test_light_tools(option_config, silent=True)
+    else:
+        tools_result_map=test_tools(option_config, silent=True)
     number_of_tools = len(tools_result_map.keys())
 
     built_tools = 0
@@ -524,12 +546,16 @@ def test_execute(option_config, target, test_name, commands, check = no_check, c
 STANDARD_SELF_TESTS = \
     [ \
         ("test xl clean",            CLEAN_TEST,          check_clean), \
-        ("test xl tools",            TOOLS_TEST,          check_tools,   CLEANUP_TOOLS_TEST), \
         ("test several xl commands", COMPLEX_TEST,        check_complex, CLEANUP_COMPLEX_TEST), \
         ("test xl dev tools",        DEV_TOOLS_TEST), \
         ("test xl create",           CREATE_TEST,         check_create,  CLEANUP_CREATE_TEST), \
         ("test xl make",             MAKE_TEST,           check_make), \
         ("test xl rename",           RENAME_TEST,         check_rename,  CLEANUP_RENAME_TEST) \
+    ]
+
+TOOLS_TESTS = \
+    [
+        ("test xl tools",            TOOLS_TEST,          check_tools,   CLEANUP_TOOLS_TEST), \
     ]
 
 
@@ -563,6 +589,7 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
     self_tests = STANDARD_SELF_TESTS
+    self_tests += TOOLS_TESTS
     if option_config.terminal_config.interactive_test:
         self_tests += INTERACTIVE_TESTS
     if not option_config.terminal_config.fast_test:
@@ -584,7 +611,10 @@ def test_self(option_config, target = "stdio"):
 def test_all(option_config, params):
 
     test_compilers(option_config)
-    test_tools(option_config)
+    if option_config.terminal_config.fast_test:
+        test_tools(option_config,"light_tools")
+    else:
+        test_tools(option_config)
     test_libraries(option_config)
     test_interpreters(option_config)
     _unit_tests(option_config)
@@ -691,6 +721,8 @@ def test(option_config, params):
         test_compilers(option_config)
     elif params[1]=="tools":
         test_tools(option_config)
+    elif params[1]=="light_tools":
+        test_light_tools(option_config)
     elif params[1]=="emulators":
         test_emulators(option_config)
     elif params[1]=="cross-compilers" or params[1]=="cross_compilers":

@@ -286,8 +286,8 @@
 	#define TWO_BOMBS() \
 		do \
 		{ \
-			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+_XL_RAND()%3,0,&BOMB_IMAGE); \
-			initializeCharacter(&bombs[1],(XSize>>1)-1+_XL_RAND()%3, ((YSize/3)*2)-1+_XL_RAND()%3,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[0],(XSize>>1)+3-((_XL_RAND())&1), ((YSize/3))+((_XL_RAND())&1),0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],(XSize>>1)-3+((_XL_RAND())&1), ((YSize/3)*2)-1+((_XL_RAND())&1),0,&BOMB_IMAGE); \
 		} \
 		while(0)
 #endif	

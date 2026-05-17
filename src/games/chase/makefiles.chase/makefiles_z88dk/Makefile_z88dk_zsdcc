@@ -127,16 +127,6 @@ aquarius_alt_memory_mapped:
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 
 
-aquarius_quad: 
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	 -D__AQUARIUS__ \
-	-lndos -D_XL_SLOW_DOWN_FACTOR=1500 -DNO_UDG -DNO_PRINT \
-	-D__QUAD_MEMORY_MAPPED_GRAPHICS -DXSize=20 -DYSize=12 -D__NO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app	\
-	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
-
 #############################
 # GAL
 

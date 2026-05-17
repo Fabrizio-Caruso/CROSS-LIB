@@ -391,7 +391,7 @@ void fillLevelWithCharacters(void)
         initializeCharacter(&bullet, 0, 0,0,&BULLET_IMAGE);
 
         #if defined(FULL_GAME)
-            initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS + (isBossLevel<<3), &SKULL_IMAGE);        
+            initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS+(isBossLevel<<2), &SKULL_IMAGE);        
         #else
             initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS, &SKULL_IMAGE);                    
         #endif

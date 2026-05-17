@@ -485,10 +485,24 @@ int main(void)
                             #if BOMBS_NUMBER==4
                                 if(isBossLevel && ghostCount<=2)
                                 {
-                                    #if defined(SIMPLE_STRATEGY)
-                                        moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
+                                    #if defined(WIDE)
+                                        #if defined(SIMPLE_STRATEGY)
+                                            moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
+                                        #else
+                                            moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (uint8_t) (1+(uint8_t)(loop&3))<<1);
+                                        #endif
                                     #else
-                                        moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (uint8_t) (1+(uint8_t)(loop&3))<<1);
+                                        if(level>10)
+                                        {
+                                        #if defined(SIMPLE_STRATEGY)
+                                            moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
+                                        #else
+                                            if(_XL_RAND()&1)
+                                            {
+                                                moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (uint8_t) (1+(uint8_t)(loop&3))<<1);
+                                            }
+                                        #endif
+                                        }
                                     #endif
                                 }
                             #endif                            

@@ -43,7 +43,7 @@
 #define MAX_TURN_BASES_LOOP 400
 
 #if !defined(BOMBS_NUMBER)
-	#define BOMBS_NUMBER 4
+    #define BOMBS_NUMBER 4
 #endif
 
 #if !defined(GHOSTS_NUMBER)
@@ -65,7 +65,11 @@
 #endif
 
 #if !defined(ROCKETS_NUMBER)
-    #define ROCKETS_NUMBER 4
+    #if defined(WIDE)
+        #define ROCKETS_NUMBER 4
+    #else
+        #define ROCKETS_NUMBER 2
+    #endif
 #endif
 
 #define GUNS_NUMBER 3
@@ -104,8 +108,11 @@
 	#define NON_BOSS_SKULL_HITS 3
 #endif	
 
-#define BOSS_SKULL_HITS (NON_BOSS_SKULL_HITS + 4)
-
+#if defined(WIDE)
+    #define BOSS_SKULL_HITS (NON_BOSS_SKULL_HITS + 8)
+#else
+    #define BOSS_SKULL_HITS (NON_BOSS_SKULL_HITS + 3)
+#endif
 
 #if defined(_XL_TURN_BASED)
 	#define INITIAL_GHOST_SLOWDOWN 16000
@@ -170,7 +177,14 @@
 
 #define FREEZE_COOL_DOWN (700/WAIT_SCALE)
 
-#define GUN_COOL_DOWN (200/WAIT_SCALE)	
+#if defined(WIDE)
+
+    #define GUN_COOL_DOWN (190/WAIT_SCALE)	
+#else
+    #define GUN_COOL_DOWN (90/WAIT_SCALE)	
+
+#endif
+
 
 #define SUPER_COOL_DOWN (150/WAIT_SCALE)
 

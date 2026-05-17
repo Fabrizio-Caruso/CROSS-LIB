@@ -200,10 +200,12 @@ do { \
 
 
 #define drawExplosion() \
-    _XL_DRAW(bomb_x,bomb_y,EXPLOSION_TILE,_XL_RED);
+    _XL_DRAW(bomb_x,MAX_Y-2,EXPLOSION_TILE,_XL_RED);
 
 #define deleteExplosion() \
-    _XL_DELETE(bomb_x,bomb_y);
+    do { \
+    _XL_DELETE(bomb_x,MAX_Y-2); \
+    } while(0)
 
 #define displayScore() \
 do { \
@@ -573,7 +575,8 @@ void handle_active_bomb(void)
         deleteAnimatedBombUp();
 
         drawExplosion();
-
+        _XL_DRAW(bomb_x,MAX_Y-1,ROAD_TILE,_XL_CYAN);
+        
         _XL_SLOW_DOWN(5+_XL_SLOW_DOWN_FACTOR/4);
     }
 }

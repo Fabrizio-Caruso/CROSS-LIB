@@ -28,7 +28,11 @@
 
 #define INITIAL_LEVEL 1
 
-#if XSize<=21
+#if XSize<=19
+    #define LEFT_END_OF_TERRAIN 1
+
+    #define SIZE_OF_TERRAIN ((XSize)-3)
+#elif XSize<=21
     #define LEFT_END_OF_TERRAIN 1
 
     #define SIZE_OF_TERRAIN ((XSize)-2)
@@ -59,10 +63,8 @@
 #if YSize>=20
 
     #define Y_DINO ((YSize/2)+4)
-#elif YSize>=8
-    #define Y_DINO ((YSize/2)+2)
 #else
-    #define Y_DINO (YSize-3)
+    #define Y_DINO ((YSize/2)+2)
 #endif
 
 #define Y_TERRAIN ((Y_DINO)+2)
@@ -963,7 +965,6 @@ void display_level(void)
 void handle_game_start(void)
 {
     uint8_t start;
-    // uint8_t input;
     
     start = 0;
     counter = 0;
@@ -998,8 +999,6 @@ void handle_game_start(void)
     while(!start || x_bird>LEFT_END_OF_TERRAIN)
     {
         ++counter;
-        // input = _XL_INPUT();
-        // if(_XL_FIRE(input))
         if(_XL_FIRE(_XL_INPUT()))
         {
             start = 1;

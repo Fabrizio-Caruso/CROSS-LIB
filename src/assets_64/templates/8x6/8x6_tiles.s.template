@@ -1,0 +1,85 @@
+		.export __compressed_tile_data
+
+__compressed_tile_data:
+
+; tile 0
+.byte    <tile_0>
+
+; tile 1
+.byte    <tile_1>
+
+; tile 2
+.byte    <tile_2>
+
+; tile 3
+.byte    <tile_3>
+
+; tile 4
+.byte    <tile_4>
+
+; tile 5
+.byte    <tile_5>
+
+; tile 6
+.byte    <tile_6>
+
+; tile 7
+.byte    <tile_7>
+
+; tile 8
+.byte    <tile_8>
+
+; tile 9
+.byte    <tile_9>
+
+; tile 10
+.byte    <tile_10>
+
+; tile 11
+.byte    <tile_11>
+
+; tile 12
+.byte    <tile_12>
+
+; tile 13
+.byte    <tile_13>
+
+; tile 14
+.byte    <tile_14>
+
+; tile 15
+.byte    <tile_15>
+
+; tile 16
+.byte    <tile_16>
+
+; tile 17
+.byte    <tile_17>
+
+; tile 18
+.byte    <tile_18>
+
+; tile 19
+.byte    <tile_19>
+
+; tile 20
+.byte    <tile_20>
+
+; tile 21
+.byte    <tile_21>
+
+; tile 22
+.byte    <tile_22>
+
+; tile 23
+.byte    <tile_23>
+
+; tile 24
+.byte    <tile_24>
+
+; tile 25
+.byte    <tile_25>
+
+; tile 26
+.byte    <tile_26>
+

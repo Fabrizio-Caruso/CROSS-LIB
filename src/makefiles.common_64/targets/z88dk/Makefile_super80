@@ -1,0 +1,19 @@
+#############################
+# SUPER80
+
+super80: super80_no_col
+
+super80_no_col:
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__SUPER80__ \
+	-DXSize=32 \
+	-DYSize=16 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SUPER80_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR \
+	-D__VT52 \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	$(FULL_FILES) \
+	-create-app -o super80
+	mv super80.ql $(BUILD_PATH)/X$(GAME_NAME)_super80.ql
+	rm super80

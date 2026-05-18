@@ -1,0 +1,132 @@
+
+
+###########################
+
+###########################
+# ACK
+_ACK ?= ack $(GLOBAL_OPTS)
+_ACK_OPTS ?=  
+
+
+
+###########################
+# CC65
+CC65_PATH ?= 
+#/home/fabri/CC65_FIX/cc65/bin/
+
+MYCC65 ?= cl65$(EXEEXT) $(GLOBAL_OPTS)
+AR65   ?= ar65$(EXEEXT)
+CA65   ?= ca65$(EXEEXT)
+
+
+###########################
+# CMOC
+CMOC ?= cmoc $(GLOBAL_OPTS)
+
+
+
+###########################
+# GCC AMIGA
+AMIGA_CC ?= m68k-amigaos-gcc $(GLOBAL_OPTS)
+AMIGA_OPTS ?= 
+
+
+
+###########################
+# GCC ATARI ST
+ATARI_ST_CC ?= m68k-atari-mint-gcc $(GLOBAL_OPTS)
+ATARI_ST_OPTS ?=
+
+
+###########################
+# GCC 
+
+# For cygwin build use gcc
+# For windows build use mingw, e.g., x86_64-w64-mingw32-gcc
+_CC ?= gcc $(GLOBAL_OPTS)
+_CC_OPTS ?= 
+
+#############
+
+
+# GCC ?= gcc $(GLOBAL_OPTS)
+# GCC_OPTS ?= -Wpedantic -Wall
+
+NATIVE_CC ?= $(_NATIVE_CC) $(GLOBAL_OPTS)
+
+# TOOL_CC ?= $(GCC)
+
+#############
+
+
+CC6303_COMPILER ?= cc68  $(GLOBAL_OPTS) 
+CC6303_MC10_OPTS ?=
+
+#############
+
+
+VBCC_COMPILER ?= vc  $(GLOBAL_OPTS) 
+VBCC_OPTS ?= +bbc
+
+
+###########################
+# GCC TMS9900 
+TMS9900-GCC_PATH ?= /opt/gcc4ti/bin
+LIB_TI99_PATH=/opt/gcc4ti/lib
+
+
+
+###########################
+# GCC Z8K_PCOS 
+Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc $(GLOBAL_OPTS)
+Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
+
+
+
+###########################
+# LCC1802 
+# LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
+LCC1802_PATH ?= 
+LCC1802_EXE ?= lcc$(EXEEXT) $(GLOBAL_OPTS)
+LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
+
+
+
+###########################
+# XTC68 
+XTC68 ?= qcc $(GLOBAL_OPTS)
+
+
+###########################
+# Z88DK
+# Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
+Z88DK_PATH ?=
+# Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include  
+Z88DK_INCLUDE ?= 
+
+
+SCCZ80_OPTS ?= $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+SCCZ80_ROM_OPTS ?= -O2 $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+ZSDCC_OPTS ?= -SO3 $(GLOBAL_OPTS)
+#-SO0
+# -SO3 --max-allocs-per-node200000
+
+ZSDCC_ROM_OPTS ?= -SO3 $(GLOBAL_OPTS)
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
+
+Z88DK_MAKE_OPTS ?= -j 8
+
+
+MYZ88DK ?= zcc$(EXEEXT)
+MYZ88DKASM ?= z80asm$(EXEEXT)
+# MYZ88DK ?= zcc.exe
+# MYZ88DKASM ?= z80asm.exe
+

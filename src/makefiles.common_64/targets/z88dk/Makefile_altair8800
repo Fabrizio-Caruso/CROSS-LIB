@@ -1,0 +1,66 @@
+#############################
+# ALTAIR 8800
+
+# altair8800: altair8800_buffered
+
+altair8800_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DXSize=79 \
+	-DYSize=23 \
+	-D__ALTAIR8800__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALTAIR8800_SLOWDOWN) \
+	-vn -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	-D__NO_SCREEN_COLOR_INIT \
+	-lndos \
+	-D__BUFFERED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__STDIO \
+	-DTURN_BASED \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$@.rom
+	rm -rf $@_DATA.bin 
+	rm -rf $@_BSS.bin 
+	mv $@.rom $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
+	mv $@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+# pet_16k: 
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t pet -m mapfile.txt \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
+	# -D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS -D_XL_NO_UDG  \
+	# $(FULL_FILES) \
+	# $(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
+
+# altair8800:
+	# $(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) -v \
+	# $(INCLUDE_OPTS) \
+	# -DXSize=79 \
+	# -DYSize=23 \
+	# -D__ALTAIR8800__ \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALTAIR8800_SLOWDOWN) \
+	# -vn -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	# -D__NO_SCREEN_COLOR_INIT -D_XL_NO_UDG \
+	# -lndos __VT100 -D__INCLUDE_CONIO \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	# -D__INCLUDE_STDIO \
+	# $(FULL_FILES) \
+	# -create-app -o$@.rom
+	# rm -rf $@_DATA.bin 
+	# rm -rf $@_BSS.bin 
+	# mv $@.rom $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
+	# mv $@.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+    
+    
+altair8800:
+	$(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -D__VT100 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ALTAIR8800_SLOWDOWN) \
+	-DXSize=79 -DYSize=23 \
+	-D_XL_NO_JOYSTICK -D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)

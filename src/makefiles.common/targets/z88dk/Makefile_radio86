@@ -1,7 +1,21 @@
 #TODO: generic console
-
+# UDG??
 
 radio86: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +radio86 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__RADIO86__ \
+	-D__VT52 -DXSize=64 -DYSize=25  \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_RADIO86_SLOWDOWN) \
+	-lndos -D_XL_NO_JOYSTICK -D__NO_INIT_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+radio86_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +radio86 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__RADIO86__ \

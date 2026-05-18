@@ -14,5 +14,5 @@ ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/X$(GAME_NAME)_ti82.82p
+	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/X$(GAME_NAME)_$@.82p
 	rm -rf $(SOURCE_PATH)/../../ti82

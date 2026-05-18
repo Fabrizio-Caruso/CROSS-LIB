@@ -1,7 +1,10 @@
 #############################
 # SPECIALIST
 
-special:
+special:  special_no_gfx
+
+# TODO: BROKEN
+special_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SPECIAL__ \
@@ -16,6 +19,40 @@ special:
 	-lndos \
 	-D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_special.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_special.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
+
+# special:  $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	# -D__SPECIAL__ \
+	# -DXSize=48 \
+	# -DYSize=30 \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECIAL_SLOWDOWN) \
+	# -D__NO_SCREEN_COLOR_INIT \
+	# -D_XL_NO_COLOR \
+	# -D__CONIO_GRAPHICS \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# -lndos \
+	# $(FULL_FILES) \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+# special_keyboard:  $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	# -D__SPECIAL__ --generic-console \
+	# -DXSize=48 \
+	# -DYSize=30 \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECIAL_SLOWDOWN) \
+	# -D__NO_SCREEN_COLOR_INIT \
+	# -D_XL_NO_COLOR \
+	# -D_XL_NO_JOYSTICK \
+	# -D__CONIO_GRAPHICS \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# -lndos \
+	# $(FULL_FILES) \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

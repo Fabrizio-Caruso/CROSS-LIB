@@ -1,0 +1,40 @@
+#TODO: generic console
+
+
+radio86: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +radio86 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__RADIO86__ \
+	-D__VT52 -DXSize=64 -DYSize=25  \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_RADIO86_SLOWDOWN) \
+	-lndos -D_XL_NO_JOYSTICK \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# cat bootstrap.cas $@.cas > $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
+	# rm bootstrap.cas
+	# rm $@.cas
+	# rm $@_BOOTSTRAP.bin
+
+
+
+radio86_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +radio86 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__STDIO $(STDIO_GAME_OPTS) -D_XL_TURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -D_XL_TURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	-D_XL_TURN_BASED_EFFECT_SCALE=1 -D_XL_TURN_BASED_WAIT_SCALE=1 -D_XL_NO_JOYSTICK \
+	-DXSize=64 -DYSize=25 -create-app \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_RADIO86_SLOWDOWN) \
+	-D_XL_TURN_BASED -D__NO_SCREEN_COLOR_INIT \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@

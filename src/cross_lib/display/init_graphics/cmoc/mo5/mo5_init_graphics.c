@@ -1,4 +1,3 @@
-#include "conio_patch.h"
 #include "display_macros.h"
 
 

@@ -1,7 +1,7 @@
 #############################
 # TIKI100
 
-tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+tiki100_sprites: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
 	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
@@ -18,3 +18,42 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
+
+
+tiki100: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100  \
+	$(INCLUDE_OPTS) \
+	-D__TIKI100__ -DXSize=64 -DYSize=32 \
+	-D_XL_NO_JOYSTICK  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TIKI100_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__PSG_SOUND --generic-console \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_HIMEM.bin
+
+
+
+tiki100_400k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS)     -subtype=tiki100_400k  \
+	$(INCLUDE_OPTS) \
+	-D__TIKI100__ -DXSize=64 -DYSize=32 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TIKI100_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK  \
+	-D__CONIO_GRAPHICS \
+	-D__PSG_SOUND --generic-console \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_HIMEM.bin

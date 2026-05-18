@@ -1,0 +1,20 @@
+#############################
+# KAYPRO
+
+kaypro: kaypro2x
+
+kaypro84: kaypro2x
+
+# kaypro84 (-subtype=kaypro84)
+kaypro2x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=kaypro84 -lgfxkp \
+	$(INCLUDE_OPTS)  \
+	-D__KAYPRO__ \
+	-D__ALT_PRINT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_KAYPRO_SLOWDOWN) \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

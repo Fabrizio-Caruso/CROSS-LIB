@@ -96,41 +96,68 @@ fontdata:
 .byte   $C6, $C6, $6C, $38, $38, $6C, $C6, $00
 .byte   $CC, $CC, $CC, $78, $30, $30, $78, $00
 .byte   $FE, $06, $0C, $18, $30, $60, $FE, $00
-.byte   $78, $60, $60, $60, $60, $60, $78, $00
-.byte   $C0, $60, $30, $18, $0C, $06, $02, $00
-.byte   $78, $18, $18, $18, $18, $18, $78, $00
-.byte   $10, $38, $6C, $C6, $00, $00, $00, $00
-.byte   $00, $00, $00, $00, $00, $00, $00, $FF
-.byte   $30, $30, $18, $00, $00, $00, $00, $00
-.byte   $00, $00, $78, $0C, $7C, $CC, $76, $00
-.byte   $E0, $60, $60, $7C, $66, $66, $DC, $00
-.byte   $00, $00, $78, $CC, $C0, $CC, $78, $00
-.byte   $1C, $0C, $0C, $7C, $CC, $CC, $76, $00
-.byte   $00, $00, $78, $CC, $FC, $C0, $78, $00
-.byte   $38, $6C, $60, $F0, $60, $60, $F0, $00
-.byte   $00, $00, $76, $CC, $CC, $7C, $0C, $F8
-.byte   $E0, $60, $6C, $76, $66, $66, $E6, $00
-.byte   $30, $00, $70, $30, $30, $30, $78, $00
-.byte   $0C, $00, $0C, $0C, $0C, $CC, $CC, $78
-.byte   $E0, $60, $66, $6C, $78, $6C, $E6, $00
-.byte   $70, $30, $30, $30, $30, $30, $78, $00
-.byte   $00, $00, $CC, $FE, $FE, $D6, $C6, $00
-.byte   $00, $00, $F8, $CC, $CC, $CC, $CC, $00
-.byte   $00, $00, $78, $CC, $CC, $CC, $78, $00
-.byte   $00, $00, $DC, $66, $66, $7C, $60, $F0
-.byte   $00, $00, $76, $CC, $CC, $7C, $0C, $1E
-.byte   $00, $00, $DC, $76, $66, $60, $F0, $00
-.byte   $00, $00, $7C, $C0, $78, $0C, $F8, $00
-.byte   $10, $30, $7C, $30, $30, $34, $18, $00
-.byte   $00, $00, $CC, $CC, $CC, $CC, $76, $00
-.byte   $00, $00, $CC, $CC, $CC, $78, $30, $00
-.byte   $00, $00, $C6, $D6, $FE, $FE, $6C, $00
-.byte   $00, $00, $C6, $6C, $38, $6C, $C6, $00
-.byte   $00, $00, $CC, $CC, $CC, $7C, $0C, $F8
-.byte   $00, $00, $FC, $98, $30, $64, $FC, $00
-.byte   $1C, $30, $30, $E0, $30, $30, $1C, $00
-.byte   $18, $18, $18, $00, $18, $18, $18, $00
-.byte   $E0, $30, $30, $1C, $30, $30, $E0, $00
-.byte   $76, $DC, $00, $00, $00, $00, $00, $00
-.byte   $00, $10, $38, $6C, $C6, $C6, $FE, $00
 
+.byte <tile_27>
+.byte <tile_28>
+.byte <tile_29>
+.byte <tile_30>
+.byte <tile_31>
+.byte <tile_32>
+.byte <tile_33>
+.byte <tile_34>
+.byte <tile_35>
+.byte <tile_36>
+.byte <tile_37>
+.byte <tile_38>
+.byte <tile_39>
+.byte <tile_40>
+.byte <tile_41>
+.byte <tile_42>
+.byte <tile_43>
+.byte <tile_44>
+.byte <tile_45>
+.byte <tile_46>
+.byte <tile_47>
+.byte <tile_48>
+.byte <tile_49>
+.byte <tile_50>
+.byte <tile_51>
+.byte <tile_52>
+.byte <tile_53>
+.byte <tile_54>
+.byte <tile_55>
+.byte <tile_56>
+.byte <tile_57>
+.byte <tile_58>
+.byte <tile_59>
+.byte <tile_60>
+.byte <tile_61>
+.byte <tile_62>
+.byte <tile_63>
+.byte <tile_64>
+.byte <tile_65>
+.byte <tile_66>
+.byte <tile_67>
+.byte <tile_68>
+.byte <tile_69>
+.byte <tile_70>
+.byte <tile_71>
+.byte <tile_72>
+.byte <tile_73>
+.byte <tile_74>
+.byte <tile_75>
+.byte <tile_76>
+.byte <tile_77>
+.byte <tile_78>
+.byte <tile_79>
+.byte <tile_80>
+.byte <tile_81>
+.byte <tile_82>
+.byte <tile_83>
+.byte <tile_84>
+.byte <tile_85>
+.byte <tile_86>
+.byte <tile_87>
+.byte <tile_88>
+.byte <tile_89>
+.byte <tile_90>

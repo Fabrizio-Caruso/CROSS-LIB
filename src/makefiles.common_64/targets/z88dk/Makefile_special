@@ -1,0 +1,21 @@
+#############################
+# SPECIALIST
+
+special:
+	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SPECIAL__ \
+	-DXSize=48 \
+	-DYSize=30 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SPECIAL_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR -D_XL_NO_SLEEP -DTURN_BASED -D__STDIO -D__NO_WAIT \
+	-D_XL_NO_JOYSTICK \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_special.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_special.bin
+

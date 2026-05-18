@@ -1,0 +1,27 @@
+# --opt-code-size 
+gal_6k:
+	$(Z88DK_PATH)$(MYZ88DK) +gal $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
+	-D_XL_NO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DBOMBS_NUMBER=4 \
+	-DGHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-D__NO_INIT_GRAPHICS \
+	-DFLAT_ENEMIES \
+	-D__ALT_HIGHSCORE \
+	-D__CONIO_GRAPHICS \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_SLOWDOWN) \
+	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/X$(GAME_NAME)_TINY_galaksija_6k.prg \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/memory/gal_memory.asm
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
+

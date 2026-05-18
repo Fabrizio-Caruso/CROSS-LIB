@@ -1,0 +1,12 @@
+# -pragma-define:CRT_ENABLE_STDIO=0
+
+krokha:
+	$(Z88DK_PATH)$(MYZ88DK) +krokha $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) --generic-console -DXSize=48 -DYSize=32 -lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_KROKHA_SLOWDOWN) \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

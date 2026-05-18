@@ -1,0 +1,16 @@
+-cc=vbcc6502 -I"%%VBCC%%"/targets/6502-bbc/include -quiet %s -o= %s %s -O=%ld
+-ccv=vbcc6502 -I"%%VBCC%%"/targets/6502-bbc/include %s -o= %s %s -O=%ld
+-unsigned-char
+-mainargs
+-mask-opt
+-as=vasm6502_oldstyle -quiet -nowarn=62 -opt-branch -ldots -Fvobj %s -o %s
+-asv=vasm6502_oldstyle -nowarn=62 -Fvobj -opt-branch -ldots %s -o %s
+-rm=del %s
+-rmv=del %s
+-cpr=vcpr6502 -quiet %s %s
+-cprv=vcpr6502 %s %s
+-ld=vlink -m -b bbc -Cvbcc -T./cross_lib/cfg/vbcc/bbc/vlink7.cmd -L"%%VBCC%%"/targets/6502-bbc/lib "%%VBCC%%"/targets/6502-bbc/lib/startup.o %s %s -o %s -lvc
+-ldv=vlink -m -b bbc -Cvbcc -T./cross_lib/cfg/vbcc/bbc/vlink7.cmd -L"%%VBCC%%"/targets/6502-bbc/lib "%%VBCC%%"/targets/6502-bbc/lib/startup.o %s %s  -o %s -lvc -Mmapfile
+-l2=vlink -m -b bbc -Cvbcc -T./cross_lib/cfg/vbcc/bbc/vlink7.cmd -L"%%VBCC%%"/targets/6502-bbc/lib %s %s -o %s
+-l2v=vlink -m -b bbc -Cvbcc -T./cross_lib/cfg/vbcc/bbc/vlink7.cmd -L"%%VBCC%%"/targets/6502-bbc/lib %s %s -o %s -Mmapfile
+

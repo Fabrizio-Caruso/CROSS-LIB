@@ -1,0 +1,39 @@
+# CC6303 debugging
+
+mc10_test:
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test1.c -o $(BUILD_PATH)/$@
+
+
+vic20_test: 
+	cl65 -tvic20 -D__VIC20__ $(SOURCE_PATH)/../../test/mc10_test1.c -o$(BUILD_PATH)/$@.prg
+
+
+c64_test: 
+	cl65  -D__C64__ $(SOURCE_PATH)/../../test/mc10_test1.c -o$(BUILD_PATH)/$@.prg
+    
+    
+mc10_test2:
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test2.c -o $(BUILD_PATH)/$@
+    
+vic20_test2: 
+	cl65 -tvic20 -D__VIC20__ $(SOURCE_PATH)/../../test/mc10_test2.c -o$(BUILD_PATH)/$@.prg
+
+
+c64_test2: 
+	cl65  -D__C64__ $(SOURCE_PATH)/../../test/mc10_test2.c -o$(BUILD_PATH)/$@.prg
+    
+
+mc10_test3:
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test3.c -o $(BUILD_PATH)/$@
+    
+vic20_test3: 
+	cl65 -tvic20 -D__VIC20__ $(SOURCE_PATH)/../../test/mc10_test3.c -o$(BUILD_PATH)/$@.prg
+
+
+c64_test3: 
+	cl65  -D__C64__ $(SOURCE_PATH)/../../test/mc10_test3.c -o$(BUILD_PATH)/$@.prg
+
+
+mc10_test4:
+	cc68 -tmc10 -D__MC10__ $(SOURCE_PATH)/../../test/mc10_test4.c $(SOURCE_PATH)/../../test/mc10_getk.s -o $(BUILD_PATH)/$@
+

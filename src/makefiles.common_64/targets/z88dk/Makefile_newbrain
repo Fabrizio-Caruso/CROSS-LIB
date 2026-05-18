@@ -1,0 +1,39 @@
+#############################
+# NEWBRAIN
+
+newbrain:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__NEWBRAIN__ \
+	-DXSize=20 \
+	-DYSize=11 \
+	-DGHOSTS_NUMBER=8 \
+	-DBOMBS_NUMBER=4 \
+	-vn \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NEWBRAIN_SLOWDOWN) \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-D_XL_NO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-D__NO_SCREEN_COLOR_INIT \
+	-lndos \
+	-D__BUFFERED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 \
+	-DNO_STATS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__STDIO \
+	-D__NO_WAIT \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# tar czvf FULL_newbrain.tar.zip _dir.txt newbrain.bas newbrain.dat
+	# mv FULL_newbrain.tar.zip $(BUILD_PATH)/X$(GAME_NAME)_newbrain.tar.zip
+	rm -rf _dir.txt
+	# rm newbrain.bas
+	# rm newbrain.dat
+	# rm newbrain
+

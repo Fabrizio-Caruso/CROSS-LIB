@@ -18,8 +18,9 @@ _udgs:
 .byte $c6,$c6,$c6,$c6,$6c,$38,$10,$00,$c6,$c6,$d6,$fe,$fe,$ee,$c6,$00
 .byte $c6,$ee,$7c,$38,$7c,$ee,$c6,$00,$cc,$cc,$cc,$78,$30,$30,$30,$00
 .byte $fe,$0e,$1c,$38,$70,$e0,$fe,$00 ; z
-.byte $00,$00,$00,$ff,$ff,$00,$00,$00 ; // unused
-.byte <tile_19>, <tile_20> ; 28 29
+.byte <tile_88>
+.byte <tile_89>
+.byte <tile_90>
 .byte <tile_16> ; 30
 .byte <tile_6>; 31
 .byte $00,$00,$00,$00,$00,$00,$00,$00 ; 32
@@ -28,7 +29,6 @@ _udgs:
 .byte <tile_5>
 .byte <tile_17>
 
-;.byte $18,$3e,$60,$3c,$06,$7c,$18,$00 ; 36
 .byte <tile_25>
 
 .byte <tile_21> ; 
@@ -65,6 +65,68 @@ _udgs:
 .byte <tile_18>
 
 .byte <tile_4>
+
+.byte <tile_27>
+.byte <tile_28>
+.byte <tile_29>
+.byte <tile_30>
+.byte <tile_31>
+.byte <tile_32>
+.byte <tile_33>
+.byte <tile_34>
+.byte <tile_35>
+.byte <tile_36>
+.byte <tile_37>
+.byte <tile_38>
+.byte <tile_39>
+.byte <tile_40>
+.byte <tile_41>
+.byte <tile_42>
+.byte <tile_43>
+.byte <tile_44>
+.byte <tile_45>
+.byte <tile_46>
+.byte <tile_47>
+.byte <tile_48>
+.byte <tile_49>
+.byte <tile_50>
+.byte <tile_51>
+.byte <tile_52>
+.byte <tile_53>
+.byte <tile_54>
+.byte <tile_55>
+.byte <tile_56>
+.byte <tile_57>
+.byte <tile_58>
+.byte <tile_59>
+.byte <tile_60>
+.byte <tile_61>
+.byte <tile_62>
+.byte <tile_63>
+.byte <tile_64>
+.byte <tile_65>
+.byte <tile_66>
+.byte <tile_67>
+.byte <tile_68>
+.byte <tile_69>
+.byte <tile_70>
+.byte <tile_71>
+.byte <tile_72>
+.byte <tile_73>
+.byte <tile_74>
+.byte <tile_75>
+.byte <tile_76>
+.byte <tile_77>
+.byte <tile_78>
+.byte <tile_79>
+.byte <tile_80>
+.byte <tile_81>
+.byte <tile_82>
+.byte <tile_83>
+.byte <tile_84>
+.byte <tile_85>
+.byte <tile_86>
+.byte <tile_87>
 
 
 

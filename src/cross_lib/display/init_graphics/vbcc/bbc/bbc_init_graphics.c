@@ -38,6 +38,7 @@
 127 	Backspace and delete.
 */
 
+#include "bbc.h"
 // char OSBYTE0(__reg("a") char)="\tjsr\t$fff4\n\ttxa";
 // char OSBYTE1(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa";
 // char OSBYTE1RI(__reg("a") char,__reg("r0") char)="\tldx\tr0\n\tjsr\t$fff4\n\ttxa\n\tpha\n\ttya\n\ttax\n\tpla";
@@ -82,8 +83,37 @@
 #include "udg_map.h"
 
 #include <stdint.h>
+// #include <stdio.h>
 
 void osputc(__reg("a") char)="\tjsr\t0xffee";
+
+// static uint8_t stripes[] = {255,0,255,0,255,0,255,0};
+
+// static uint8_t player[] = {24, 36, 24,102,153, 24, 36, 102};
+
+
+// Lda #20
+// Ldx # x
+// Jsr $FFF4
+// "\tlda\t#20;\tldx\t#6\tjsr\t0xfff4";
+
+
+void set_udg_memory()="\tlda\t#20\n\tldx\t#06\n\tjsr\t0xfff4";
+
+// void redefine(const uint8_t ch, const uint8_t* image) 
+// { 
+    // uint8_t i; 
+    
+    // for(i=0;i<8;++i) 
+    // { 
+        // DISPLAY_POKE(CHAR_BASE +(uint16_t)(ch<<3)+i,image[i]); 
+    // } 
+// } 
+
+
+
+
+
 
 
 
@@ -97,12 +127,14 @@ void redefine(const uint8_t ch, const uint8_t *data)
     {
         osputc(data[i]);
     }
+    // osputc('\n');
 }
 
 
 void SET_UDG_IMAGES(void) 
 { 
     uint8_t i;
+    // uint8_t j;
 
     for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
     {
@@ -111,6 +143,12 @@ void SET_UDG_IMAGES(void)
 }
 
 
+// void _gotoxy(uint8_t x, uint8_t y)
+// {
+    // osputc(31);
+    // osputc(x);
+    // osputc(y);
+// }
 // COLORS
 // 0 -> black
 // 1 -> red
@@ -136,6 +174,7 @@ void SET_UDG_IMAGES(void)
 
 void _XL_INIT_GRAPHICS(void)
 {
+    // uint8_t res;
     #if __BBC_MODE!=7
         osputc(22);
         #if defined(__SHADOW_RAM)
@@ -177,8 +216,18 @@ void _XL_INIT_GRAPHICS(void)
     osputc(0);
     osputc(0);
 
+    // Delete graphics screen data
+    // osputc(16);
+    // osputc(12);
+
+    set_udg_memory();
+
+    // Redefine characters
+    // TODO: This is wrong
 #if !(__BBC_MODE==7) 
     SET_UDG_IMAGES();
 #endif
+
+
 
 }

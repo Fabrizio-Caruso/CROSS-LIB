@@ -3,11 +3,10 @@
 
 srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-D__NO_WAIT -D__NO_SCREEN_COLOR_INIT \
-	-D__VT52 \
-	-D__CONIO_GRAPHICS \
-	-lndos \
+	-D__SRR__ -vn --generic-console \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__CONIO_GRAPHICS -D__INCLUDE_CONIO_H \
+	-lndos -D_XL_NO_JOYSTICK \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SRR_SLOWDOWN) \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -15,5 +14,5 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	-create-app -o srr \
 	$(FULL_FILES)
 	rm srr
-	rm srr.srr
+	mv srr.srr $(BUILD_PATH)/X$(GAME_NAME)_srr.srr
 	mv srr.wav $(BUILD_PATH)/X$(GAME_NAME)_srr.wav

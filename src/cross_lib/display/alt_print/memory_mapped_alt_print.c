@@ -1,12 +1,6 @@
 
 #if !defined(__Z88DK_SPRITES_GRAPHICS)
-    #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-        #include "quad_memory_mapped_graphics.h"
-    #elif defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
-        #include "dual_memory_mapped_graphics.h"
-    #else
-        #include "memory_mapped_graphics.h"
-    #endif
+    #include "memory_mapped_graphics.h"
 #endif
 
 
@@ -37,11 +31,6 @@
         }
 	}
     
-#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-	char screenCode(char ch)
-	{
-        return ch-(uint8_t) 32u;
-	}  
 #elif defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
 	char screenCode(char ch)
 	{
@@ -192,17 +181,17 @@
 	{
 		if(ch&0x80)
         {
-			return ch&0x7F;
+			return ch&(0x7F+0x80);
 		}
         else
 		{
             if(ch<58) // TODO: Use bitwise operator <64?
             {
-                return ch|64;
+                return (ch)|(64+128);
             }
             else
             {
-                return ch;
+                return (ch+0x80);
             }
 		}
 	}  
@@ -288,7 +277,7 @@
         {
         DISPLAY_POKE((loc(x,y)), ch);
         DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286));
-        }
+        } 
 #elif defined(__ORIC_HIRES_GRAPHICS)
     extern void _oric_hires_delete(uint8_t x, uint8_t y);
 
@@ -327,6 +316,7 @@
                 _oric_hires_draw(x,y,tile_index,_oric_text_color,1); // TODO: Implement color
             #elif defined(__MONO_TEXT)
                 _oric_hires_draw(x,y,tile_index,_XL_GREEN);
+
             #else
                 _oric_hires_draw(x,y,tile_index,_oric_text_color);
             #endif
@@ -430,12 +420,6 @@
                 _XL_DRAW(x,y,ch,_XL_WHITE);
             }
         }
-#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
-    void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
-        {
-            _XL_DRAW(x,y,ch-32,_XL_WHITE);
-        }
-
 #elif defined(__ATARI7800__)
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
         {
@@ -457,7 +441,7 @@
         }
 #else
     void _DISPLAY(uint8_t x, uint8_t y, uint8_t ch)
-        {		
+        {
         DISPLAY_POKE((loc(x,y)), (ch));
         }
 #endif
@@ -473,7 +457,7 @@ void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
             || ((defined(__APPLE2__) || defined(__APPLE2ENH__)) && defined(__APPLE2_HGR_GRAPHICS)) \
             || defined(__C64__) \
             || (defined(__VIC20__) && !defined(__VIC20_UNEXPANDED)) \
-            || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__TERMINAL__)
+            || defined(__TERMINAL__)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);
@@ -499,10 +483,6 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 1u));
         #elif ((defined(__COCO__) || defined(__DRAGON__))&&!defined(__BIT_MAPPED_GRAPHICS))
         _DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u + 64u));
-        // #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-        // DRAW_QUAD_CHAR(x+length-1-i,y,(digit+(uint8_t) 48u),_XL_WHITE);
-        #elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u-32u));
         #else
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digit+(uint8_t) 48u));
         #endif

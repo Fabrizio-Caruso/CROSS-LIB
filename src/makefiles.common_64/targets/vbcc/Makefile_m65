@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------
+
+m65: m65_buffered
+
+m65_buffered:
+	$(VBCC_COMPILER) +m65 $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND  -DVBCC -D__MEGA65__ \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M65_SLOWDOWN) \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) -o xchase
+	mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+	# mv xchase $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered
+	# mv xchase.inf $(BUILD_PATH)/X$(GAME_NAME)_bbc_buffered.inf

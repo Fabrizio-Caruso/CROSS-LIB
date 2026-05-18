@@ -1,0 +1,361 @@
+
+# ------------------------------------------------------------------------------------------
+# ACK
+#
+
+# TODO:     minix68k  may required a recent ack version
+ack_targets: \
+    pc8086 \
+    linux386 \
+    linux68k \
+    linuxppc \
+    linuxmips \
+    msdos86 \
+    msdos386 \
+    osx386 \
+    osxppc
+    
+############################################################################################
+
+
+
+cpm_8080_buffered_ack:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mcpm \
+	-DXSize=39 \
+	-DYSize=23 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-DACK \
+	-D__CPM8080__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__STDIO \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_cpm8080_buffered.com
+	rm $(SOURCE_PATH)/../../*.o
+
+
+cpm_8080_adm3a_ack:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mcpm \
+	-DXSize=78 \
+	-DYSize=22 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-DACK \
+	-D__CPM8080__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	$(FULL_FILES)
+	mv cpm.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+	rm $(SOURCE_PATH)/../../*.o
+
+cpm_8080_ack_targets: \
+	cpm_8080_buffered_ack
+
+
+# 	-D__KEY_POLL_FROM_BUFFER 
+msdos: msdos86
+
+msdos86:   $(ASSETS_PATH)/8x8_chars.h
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS)  -mmsdos86 \
+	-DXSize=40 \
+	-DYSize=25 \
+	-DACK \
+	-D__MSDOS86__ \
+	-D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSDOS86_SLOWDOWN) \
+	-D__VGA_GRAPHICS \
+	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
+	-D__ALT_PRINT \
+	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o ../build/X$(GAME_NAME)_$@.com
+	rm $(SOURCE_PATH)/../../*.o
+
+pc8088: pc86
+
+pc8086: pc86
+
+pc86:  $(ASSETS_PATH)/8x8_chars.h
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mpc86 \
+	-DXSize=40 \
+	-DYSize=25 \
+	-DACK \
+	-D__MSDOS86__ \
+	-D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSDOS86_SLOWDOWN) \
+	-D__VGA_GRAPHICS \
+	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
+	-D__ALT_PRINT \
+	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/msdos86_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos86/init_vga.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o ../build/X$(GAME_NAME)_$@.img
+	rm $(SOURCE_PATH)/../../*.o
+
+
+# BROKEN
+msdos386:  $(ASSETS_PATH)/8x8_chars.h
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mmsdos386 \
+	-DXSize=40 \
+	-DYSize=25 \
+	-DACK \
+	-D__MSDOS86__ \
+	-D_XL_NO_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSDOS86_SLOWDOWN) \
+	-D__VGA_GRAPHICS \
+	-D__ALT_SLEEP -D__NO_SLEEP_SEC \
+	-D__ALT_PRINT \
+	-D_XL_NO_SMALL_LETTERS \
+	-D__KEY_POLL_FROM_BUFFER \
+	-D__SPEAKER_SOUNDS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/msdos386_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ack/msdos386/init386_vga.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o ../build/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+pc8086_targets: \
+	pc8086
+
+
+# buffered
+linuxppc:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+
+#buffered
+linux68k:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinux68k \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+
+# buffered
+linux386:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinux386 \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+linuxmips:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+osx386:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mosx386 \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+osxppc:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mosxppc \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+
+
+pdpv7:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+minix68k:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mminix68k \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o
+
+rpi:
+	$(_ACK) $(_ACK_OPTS) $(ACK_MAKEFILE_COMPILATION_OPTS) $(INCLUDE_OPTS) -mrpi \
+	-DXSize=78 \
+	-DYSize=21 \
+	-D__ADM3A \
+	-D_XL_NO_COLOR \
+	-D_XL_TURNED_BASED \
+	-DACK \
+	-D__STDIO \
+	-D__LINUXPPC__ \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.exe
+	rm $(SOURCE_PATH)/../../*.o

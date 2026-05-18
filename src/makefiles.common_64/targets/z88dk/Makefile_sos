@@ -1,0 +1,39 @@
+# SOS
+
+sos: sos_buffered
+
+sos_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sos $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SOS_SLOWDOWN) \
+	-D__STDIO -D__INCLUDE_CONIO_H \
+	-D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT \
+	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \
+	-DTURN_BASED -D_XL_NO_JOYSTICK \
+	-D_XL_NO_SLEEP -D__NO_WAIT \
+	-D__NO_INIT_GRAPHICS \
+	-create-app -o sos_buffered \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm sos_buffered
+	mv sos_buffered.obj $(BUILD_PATH)/X$(GAME_NAME)_sos_buffered.obj
+
+
+sos_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sos $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SOS_SLOWDOWN) \
+	-D__STDIO -D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \
+	-DTURN_BASED \
+	-DTINY_GAME -D_XL_NO_SLEEP -D__NO_WAIT \
+	-D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
+	-create-app -o sos_tiny_buffered \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm sos_tiny_buffered
+	mv sos_tiny_buffered.obj $(BUILD_PATH)/X$(GAME_NAME)_TINY_sos_buffered.obj
+

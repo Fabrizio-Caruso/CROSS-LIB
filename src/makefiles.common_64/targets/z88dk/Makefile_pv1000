@@ -1,0 +1,41 @@
+
+#############################
+# PV1000
+
+# UDG can be done but differently
+# -SO3 necessary to build a 16K rom
+pv1000_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK -DYSize=23 \
+	-D__VT52 -D_XL_NO_COLOR -D_XL_NO_UDG \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PV1000_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+
+pv1000: $(ASSETS_PATH)/z88dk_pv1000.asm
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) $(PV1000_GAME_OPTS) -pragma-define:PV1000_CUSTOM_TILESET=2 -s $(ASSETS_PATH)/z88dk_pv1000.asm -subtype=32k \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK -DYSize=23 \
+	-D__VT52 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PV1000_SLOWDOWN) \
+	-D__PV1000_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.sym
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin

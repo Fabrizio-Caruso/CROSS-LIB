@@ -26,6 +26,10 @@
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #endif
 
+#ifndef PEEK
+    #define PEEK(addr)         (*(uint8_t*)addr)
+#endif
+
 #if defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS) ) 
 extern uint16_t BASE_ADDR;
 #endif
@@ -148,84 +152,6 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif 
 
-
-#if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-// TODO: MOVE THIS TO GRAPHICS INIT?
-    uint8_t quad_tile[1+27+10+26][4] = {
-        {      ' ',      ' ',      ' ',      ' '},     // 32 [SPACE]
-        
-        {_TILE_0_0,_TILE_0_1,_TILE_0_2,_TILE_0_3},     // 33
-        {_TILE_1_0,_TILE_1_1,_TILE_1_2,_TILE_1_3},     // 34
-        {_TILE_2_0,_TILE_2_1,_TILE_2_2,_TILE_2_3},     // 35
-        {_TILE_3_0,_TILE_3_1,_TILE_3_2,_TILE_3_3},     // 36
-        {_TILE_4_0,_TILE_4_1,_TILE_4_2,_TILE_4_3},     // 37
-        {_TILE_5_0,_TILE_5_1,_TILE_5_2,_TILE_5_3},     // 38
-        {_TILE_6_0,_TILE_6_1,_TILE_6_2,_TILE_6_3},     // 39
-        {_TILE_7_0,_TILE_7_1,_TILE_7_2,_TILE_7_3},     // 40
-        {_TILE_8_0,_TILE_8_1,_TILE_8_2,_TILE_8_3},     // 41
-        {_TILE_9_0,_TILE_9_1,_TILE_9_2,_TILE_9_3},     // 42
-        {_TILE_10_0,_TILE_10_1,_TILE_10_2,_TILE_10_3}, // 43
-        {_TILE_11_0,_TILE_11_1,_TILE_11_2,_TILE_11_3}, // 44
-        {_TILE_12_0,_TILE_12_1,_TILE_12_2,_TILE_12_3}, // 45
-        {_TILE_13_0,_TILE_13_1,_TILE_13_2,_TILE_13_3}, // 48
-        {_TILE_14_0,_TILE_14_1,_TILE_14_2,_TILE_14_3}, // 47
-
-        {      '0',      ' ',      ' ',      ' '},     // 48 [0]
-        {      '1',      ' ',      ' ',      ' '},     // 49
-        {      '2',      ' ',      ' ',      ' '},     // 50
-        {      '3',      ' ',      ' ',      ' '},     // 51
-        {      '4',      ' ',      ' ',      ' '},     // 52
-        {      '5',      ' ',      ' ',      ' '},     // 53
-        {      '6',      ' ',      ' ',      ' '},     // 54
-        {      '7',      ' ',      ' ',      ' '},     // 55
-        {      '8',      ' ',      ' ',      ' '},     // 56
-        {      '9',      ' ',      ' ',      ' '},     // 57 [9]        
-        
-        {_TILE_15_0,_TILE_15_1,_TILE_15_2,_TILE_15_3}, // 58
-        {_TILE_16_0,_TILE_16_1,_TILE_16_2,_TILE_16_3}, // 59
-        {_TILE_17_0,_TILE_17_1,_TILE_17_2,_TILE_17_3}, // 60
-        {_TILE_18_0,_TILE_18_1,_TILE_18_2,_TILE_18_3}, // 61
-        {_TILE_19_0,_TILE_19_1,_TILE_19_2,_TILE_19_3}, // 62
-        {_TILE_20_0,_TILE_20_1,_TILE_20_2,_TILE_20_3}, // 63
-        {_TILE_21_0,_TILE_21_1,_TILE_21_2,_TILE_21_3}, // 64
-                
-        {      'A',      ' ',      ' ',      ' '},     // 65 [A]
-        {      'B',      ' ',      ' ',      ' '},     // 66
-        {      'C',      ' ',      ' ',      ' '},     // 67
-        {      'D',      ' ',      ' ',      ' '},     // 68
-        {      'E',      ' ',      ' ',      ' '},     // 69
-        {      'F',      ' ',      ' ',      ' '},     // 70
-        {      'G',      ' ',      ' ',      ' '},     // 71
-        {      'H',      ' ',      ' ',      ' '},     // 72
-        {      'I',      ' ',      ' ',      ' '},     // 73
-        {      'J',      ' ',      ' ',      ' '},     // 74
-        {      'K',      ' ',      ' ',      ' '},     // 75
-        {      'L',      ' ',      ' ',      ' '},     // 76
-        {      'M',      ' ',      ' ',      ' '},     // 77
-        {      'N',      ' ',      ' ',      ' '},     // 78
-        {      'O',      ' ',      ' ',      ' '},     // 79
-        {      'P',      ' ',      ' ',      ' '},     // 80
-        {      'Q',      ' ',      ' ',      ' '},     // 81
-        {      'R',      ' ',      ' ',      ' '},     // 82
-        {      'S',      ' ',      ' ',      ' '},     // 83
-        {      'T',      ' ',      ' ',      ' '},     // 84
-        {      'U',      ' ',      ' ',      ' '},     // 85
-        {      'V',      ' ',      ' ',      ' '},     // 86
-        {      'W',      ' ',      ' ',      ' '},     // 87
-        {      'X',      ' ',      ' ',      ' '},     // 88
-        {      'Y',      ' ',      ' ',      ' '},     // 89
-        {      'Z',      ' ',      ' ',      ' '},     // 90 [Z]
-
-        {_TILE_22_0,_TILE_22_1,_TILE_22_2,_TILE_22_3}, // 91
-        {_TILE_23_0,_TILE_23_1,_TILE_23_2,_TILE_23_3}, // 92
-        {_TILE_24_0,_TILE_24_1,_TILE_24_2,_TILE_24_3}, // 93
-        {_TILE_25_0,_TILE_25_1,_TILE_25_2,_TILE_25_3}, // 94
-        {_TILE_26_0,_TILE_26_1,_TILE_26_2,_TILE_26_3}, // 95
-    };   
-// -------------------------
-
-#endif
-
 #if defined(__MC10__)
     void mc10_display_poke(uint16_t addr, uint8_t val)
     {
@@ -254,16 +180,12 @@ void _XL_SET_TEXT_COLOR(uint8_t c)
     }
 #endif
 
-#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(__QUAD_MEMORY_MAPPED_GRAPHICS) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI7800_COLOR_GRAPHICS))
+#if (defined(__VDP_MODE1_GRAPHICS) || defined(__MEMORY_MAPPED_GRAPHICS) || defined(__ORIC_COLOR_GRAPHICS) || defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI7800_COLOR_GRAPHICS))
     
 	
-    #if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-        #define X_MULT 2
-        #define Y_MULT 2
-    #else
-        #define X_MULT 1
-        #define Y_MULT 1
-    #endif
+
+    #define X_MULT 1
+    #define Y_MULT 1
 
     uint16_t loc(uint8_t x, uint8_t y)
     {
@@ -549,14 +471,22 @@ lda $a7c0
                 _XL_DELETE(i,j);
             }
         }
+        // {
+            // uint8_t c;
+            // uint16_t i;
+            // for(c=0,i=0;i<40*200;i+=40,++c)
+            // {
+               // POKE(0xA000+i,3+3*(c&1));
+            // }
+        // }
     }
     
 #endif
 
 
-
 #if defined(__MEMORY_MAPPED_GRAPHICS)
     #if !defined(_XL_NO_COLOR)
+    
         void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
         {
             COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color));
@@ -623,30 +553,30 @@ lda $a7c0
 
 #if defined(__TERMINAL__)
 
-#if _XL_TILE_X_SIZE==8
-    #define _MAX_BIT_VALUE 128
+    #if _XL_TILE_X_SIZE==8
+        #define _MAX_BIT_VALUE 128
 
-    #if _XL_TILE_Y_SIZE==8
-        #include "8x8_chars.h"
+        #if _XL_TILE_Y_SIZE==8
+            #include "8x8_chars.h"
 
-    #elif _XL_TILE_Y_SIZE==6
-        #include "8x6_chars.h"
+        #elif _XL_TILE_Y_SIZE==6
+            #include "8x6_chars.h"
+        #endif
+    #elif _XL_TILE_X_SIZE==7
+        #define _MAX_BIT_VALUE 64
+
+        #include "7x8_chars.h"
+
+    #elif _XL_TILE_X_SIZE==6
+        #define _MAX_BIT_VALUE 32
+
+        #if _XL_TILE_Y_SIZE==8
+            #include "6x8_chars.h"
+            
+        #elif _XL_TILE_Y_SIZE==9
+            #include "6x9_chars.h"
+        #endif
     #endif
-#elif _XL_TILE_X_SIZE==7
-    #define _MAX_BIT_VALUE 64
-
-    #include "7x8_chars.h"
-
-#elif _XL_TILE_X_SIZE==6
-    #define _MAX_BIT_VALUE 32
-
-    #if _XL_TILE_Y_SIZE==8
-        #include "6x8_chars.h"
-        
-    #elif _XL_TILE_Y_SIZE==9
-        #include "6x9_chars.h"
-    #endif
-#endif
 
 
 
@@ -744,6 +674,39 @@ lda $a7c0
 #endif
 
 
+#if defined(__ATARI_ANTIC_15)
+    #include <stdint.h>
+
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str)
+    {
+        set_position(x,y);
+        set_fore_color(1);
+        output_str(str);
+    }
+    
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch)
+    {
+        set_position(x,y);
+        output_char(ch);
+    }
+    
+void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+{
+	uint8_t i;
+	uint8_t digit;
+
+	for(i=0;i<length;++i)
+	{
+		digit = (uint8_t) ((val)%10);
+		val-= digit;
+		val/=10;
+        set_position(x+length-1-i,y);
+        output_char((uint8_t) (digit+(uint8_t) 48u));
+	}
+}
+
+#endif
+
 
 #if defined(__BBC__)
 
@@ -813,3 +776,88 @@ void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
         cputc(ch);
     }
 #endif
+
+
+#if defined(__C128__) && defined(__80COL_UDG)
+
+    void vdc_write(uint8_t vdc_register, uint8_t value)
+    {
+        POKE(ADDRESS_PORT,vdc_register);
+        while(!(PEEK(ADDRESS_PORT)&(0x80))){};
+        POKE(DATA_PORT,value);
+    }
+
+
+    uint8_t vdc_color_map(uint8_t color)
+    {
+        if(color == _XL_WHITE)
+        {
+            return 0x8F;
+        }
+        else if(color == _XL_RED)
+        {
+            return 0x88;
+        }
+        else if(color == _XL_CYAN)
+        {
+            return 0x87;
+        }
+        else if(color == _XL_GREEN)
+        {
+            return 0x84;
+        }
+        else if(color == _XL_YELLOW) 
+        {
+            return 0x8D;
+        }
+        else if(color == _XL_MAGENTA) // too dark?
+        {
+            return 0x8B;
+        }
+        else if(color == _XL_BLUE)
+        {
+            return 0x82;
+        }
+        return 0x80;
+    }
+
+    void vdc_tile_write(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+    {
+        uint16_t address;
+        
+        address = 0x0800 + y*80U+x;
+
+        vdc_write(HIGH_ADDRESS_REGISTER,(uint8_t)(address>>8));
+        vdc_write(LOW_ADDRESS_REGISTER,(uint8_t)(address&0xFF));
+        // vdc_write(VDC_DATA_REGISTER,0x80+(color&0xF));
+        vdc_write(VDC_DATA_REGISTER,vdc_color_map(color));
+
+        address = y*80U+x;
+
+
+        vdc_write(HIGH_ADDRESS_REGISTER,(uint8_t)(address>>8));
+        vdc_write(LOW_ADDRESS_REGISTER,(uint8_t)(address&0xFF));
+        vdc_write(VDC_DATA_REGISTER,tile);
+    }
+
+#endif
+
+
+#if defined(__VIC20__) && defined(__CONIO_GRAPHICS) && defined(__VIC20_EXP_8K)
+    #define BASE_ADDR 0x1000
+    #define COLOR_ADDR 0x9400
+    
+    void vic20_tile_write(uint8_t x, uint8_t y, uint8_t tile, uint8_t color)
+    {
+        uint16_t address;
+        
+        address = 0x9400+x+y*XSize;
+        POKE(address,color);
+        
+        address = 0x1000+x+y*XSize;
+        POKE(address,tile);
+        
+    }
+
+#endif
+

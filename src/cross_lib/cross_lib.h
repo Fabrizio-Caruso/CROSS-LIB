@@ -51,7 +51,8 @@
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \
-	&& !defined(__STDIO) && !defined(__BBC_GRAPHICS)
+	&& !defined(__STDIO) && !defined(__BBC_GRAPHICS) \
+    && !defined(__ATARI_ANTIC_15)
 	#define __INCLUDE_CONIO_H
 #endif
 
@@ -62,7 +63,7 @@
 
 // This may be different on each target
 #if !defined(_XL_NUMBER_OF_TILES)
-    #define _XL_NUMBER_OF_TILES 27
+    #define _XL_NUMBER_OF_TILES 91  
 #endif
 
 

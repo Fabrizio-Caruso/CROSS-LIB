@@ -1,0 +1,14 @@
+
+sol20:
+	$(Z88DK_PATH)$(MYZ88DK) +sol20  $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	 -D__SOL20__    \
+	-lndos -DXSize=64 -DYSize=16 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SOL20_SLOWDOWN) \
+	$(FULL_FILES) \
+	-create-app \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+

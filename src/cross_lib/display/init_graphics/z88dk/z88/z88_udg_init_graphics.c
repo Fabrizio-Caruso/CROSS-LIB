@@ -22,10 +22,10 @@ void _XL_INIT_GRAPHICS(void)
 		#define __SCREEN_MODE 2
 	#endif
     int mode = __SCREEN_MODE;
-	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
+	console_ioctl(IOCTL_GENCON_SET_UDGS, &param);
         
 	console_ioctl(IOCTL_GENCON_SET_MODE, &mode); 
-
+    clg();
     z88_disable_cursor();
     _setScreenColors();
 }

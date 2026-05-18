@@ -36,8 +36,6 @@
     #endif
 #endif
 
-#include "conio_patch.h"
-
 #include "standard_libs.h"
 
 
@@ -144,8 +142,12 @@
     #define _XL_PRINT(x,y,str)
     #define _XL_PRINTD(x,y,length, val)
     #define _XL_CHAR(x,y,ch)
-#elif defined(__ATARI__) && defined(__ANTIC_MODE6_GRAPHICS)
-    void _GOTOXY(uint8_t x, uint8_t y);
+#elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI_ANTIC_15))
+    void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
+    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_CHAR(uint8_t x, uint8_t y, char ch);
+
+#elif defined(__ATARI5200__) && defined(__ATARI_ANTIC_15)
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
@@ -212,9 +214,13 @@
 
     void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 
-#elif !defined(__NO_PRINT)
+#elif defined(__NO_GRAPHICS)
+    
+
+#else
     
     #define __CONIO_PRINT
+
     
     void _XL_PRINT(uint8_t x, uint8_t y, const char * str);
     void _XL_CHAR(uint8_t x, uint8_t y, char ch);
@@ -241,16 +247,30 @@
     } while(0)
 #endif
 
+#if defined(__ATARI_ANTIC_15)
+void output_code(char c);
+
+void output_char(char c);
+
+void output_str(const char *s);
+
+void set_position(char x, char y);
+
+void set_fore_color(char c);
+#endif
+
 
 // COLORS
-
 #if defined(__NO_GRAPHICS)
     #define _XL_SET_TEXT_COLOR(c)
 #elif defined(__ORIC_HIRES_GRAPHICS) && !defined(_XL_NO_TEXT_COLOR) && !defined(_XL_NO_COLOR)
     extern uint8_t _oric_text_color;
     #define _XL_SET_TEXT_COLOR(c) _oric_text_color = (c)
-#elif defined(__ATARI5200__)
+#elif defined(__ATARI5200__) && !defined(__ATARI_ANTIC_15)
     #define _XL_SET_TEXT_COLOR(c) textcolor(c>>6)
+#elif defined(__ATARI_ANTIC_15) 
+    extern uint8_t _atari_text_color;
+    #define _XL_SET_TEXT_COLOR(c) _atari_text_color = (c)
 #elif defined(__ATARI__) && (defined(__ANTIC_MODE6_GRAPHICS))
     extern uint8_t _atari_text_color;
     #define _XL_SET_TEXT_COLOR(c) _atari_text_color = (c)
@@ -357,8 +377,6 @@
 #endif
 
 
-
-
 // CLEAR SCREEN
 #  if defined(__DEFAULT_CLEAR_SCREEN)
     void _XL_CLEAR_SCREEN(void);
@@ -457,6 +475,32 @@
     void _XL_INIT_GRAPHICS(void);
 #else
     #define _XL_INIT_GRAPHICS() _setScreenColors()
+#endif
+
+#if defined(__C128__) && defined(__80COL_UDG)
+    #define ADDRESS_PORT 0xD600
+    #define DATA_PORT    0xD601
+
+    #define HIGH_ADDRESS_REGISTER   0x12
+    #define LOW_ADDRESS_REGISTER    0x13
+    #define VDC_DATA_REGISTER       0x1F
+    #define VDC_COLOR_REGISTER      0x1A
+    #define HIGH_ATTRIBUTE_REGISTER 0x14
+    #define LOW_ATTRIBUTE_REGISTER  0x15
+
+
+    #define CHAR_BASE    0x3000
+
+    void vdc_tile_write(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+    void vdc_write(uint8_t vdc_register, uint8_t value);
+
+#endif
+
+
+
+#if defined(__VIC20__) && defined(__CONIO_GRAPHICS) && defined(__VIC20_EXP_8K)
+    void vic20_tile_write(uint8_t x, uint8_t y, uint8_t tile, uint8_t color);
+
 #endif
 
 #endif // _DISPLAY_MACROS

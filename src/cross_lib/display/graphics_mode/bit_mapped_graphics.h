@@ -38,14 +38,13 @@ extern uint8_t udgs[];
     SV_VIDEO[__base+(_BITMAP_XSize)*(uint16_t)7] = 0; \
 
 #if defined(__MO5__) || defined(__TO7__) 
-	#include "conio_patch.h"
     
 	#define _XL_DRAW(x,y,tile,color) \
 	{ \
 		uint8_t __i; \
 		uint16_t __base = (x)+(_BITMAP_XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8U*(uint8_t)(tile)) ; \
+		uint16_t __offset = (8U*(uint16_t)(tile)) ; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
 		BIT_MAP_DRAW(); \

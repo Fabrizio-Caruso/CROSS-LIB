@@ -1,0 +1,34 @@
+agon_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__AGON__ -D_XL_NO_JOYSTICK \
+	-D__SCREEN_MODE=0 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
+	-D__CONIO_GRAPHICS -DXSize=128 -DYSize=97 -D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+agon_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__AGON__ -D_XL_NO_JOYSTICK \
+	-D__SCREEN_MODE=1 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
+	-D__CONIO_GRAPHICS -DXSize=64 -DYSize=47  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+agon_mode3: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +agon $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__AGON__ -D_XL_NO_JOYSTICK -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SCREEN_MODE=3 -pragma-define:CRT_ENABLE_COMMANDLINE=0 \
+	-D__CONIO_GRAPHICS -DXSize=80 -DXSize=59 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGON_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@

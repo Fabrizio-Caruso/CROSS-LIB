@@ -1,0 +1,18 @@
+#############################
+# PCW
+
+pcw40:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=pcw40 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PCW40__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PCW40_SLOWDOWN) \
+	-lndos -DXSize=90 -DYSize=32 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	-create-app \
+	-o FULL_$@
+	rm FULL_$@
+	rm -rf FULL_$@_HIMEM.bin
+	mv FULL_$@.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	mv FULL_$@.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+

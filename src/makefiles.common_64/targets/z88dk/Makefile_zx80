@@ -1,0 +1,18 @@
+#############################
+# ZX80
+
+zx80: zx80_16k_turn_based
+
+
+zx80_16k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DZX80_GEN_TV_FIELD -DTURN_BASED -DTURN_BASED \
+	--opt-code-size -pragma-define:ZX_CHAR_XLATE_MODE=1 \
+	-vn  \
+	-D__ZX80__  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ZX81_SLOWDOWN) $(ZX81_NO_GFX_GAME_OPTS) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

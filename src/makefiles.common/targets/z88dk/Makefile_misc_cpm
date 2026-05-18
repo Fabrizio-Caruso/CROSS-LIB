@@ -18,6 +18,23 @@ qc10_turn_based:
 	mv xcqc10.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 
 
+# qc10: qc10_turn_based
+
+# qc10_turn_based:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
+	# $(INCLUDE_OPTS) \
+	# -D__CPM_80X24__ \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_QC10_SLOWDOWN) \
+	# -D__ADM3A_WITH_UNDEF -DTURN_BASED \
+	# -D__QC10__ \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	# -create-app -oxcqc10.bin \
+	# $(FULL_FILES)
+	# rm xcqc10.bin	
+	# rm xcqc10.com
+	# mv xcqc10.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+
+
 qc10:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
 	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \

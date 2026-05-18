@@ -115,6 +115,19 @@ tools: \
 # abc80write and bin2abc have several deps
 # nocart (cpc) requires g++
 
+
+light_tools: \
+    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
+    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
+
+
 easy_tools: \
     $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
     $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
@@ -129,19 +142,6 @@ easy_tools: \
     $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
     $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
     $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
-
-
-light_tools: \
-    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
-    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
-    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
-    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
-    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
-
 
 cpc_tools: \
     $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \

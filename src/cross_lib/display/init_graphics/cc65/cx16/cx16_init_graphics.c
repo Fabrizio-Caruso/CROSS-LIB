@@ -15,14 +15,14 @@ void redefine(const uint8_t ch, const uint8_t* image)
     
     for(i=0;i<8;++i) 
     {
-        if(ch>63)
-        {
-            vpoke(image[i], CHAR_BASE +(unsigned long)((((unsigned long) ch-64U)<<3)+i)); 
-        }
-        else
-        {
+        // if(ch>63)
+        // {
+            // vpoke(image[i], CHAR_BASE +(unsigned long)((((unsigned long) ch-64U)<<3)+i)); 
+        // }
+        // else
+        // {
             vpoke(image[i], CHAR_BASE +(unsigned long)((((unsigned long) ch)<<3)+i)); 
-        }
+        // }
     } 
 } 
 
@@ -52,6 +52,10 @@ void SET_UDG_IMAGES(void)
 // ; #define VIDEOMODE_80COL         VIDEOMODE_80x60
 // ; #define VIDEOMODE_40COL         VIDEOMODE_40x30
 // ; #define VIDEOMODE_320x240       0x80
+
+// vpoke(screen_code, 0x1b000 + 256 * y + 2 * x)
+// vpoke(color, 0x1b001 + 256 * y + 2 * x)
+
 void _XL_INIT_GRAPHICS(void)
 {
     videomode(VIDEOMODE_20x30);
@@ -62,7 +66,17 @@ void _XL_INIT_GRAPHICS(void)
 
     // printf("%c",0x10);
     // printf("%c",0x01);
-    cputc(0x10);
-    cputc(0x01);
+    // cputc(0x10);
+    // cputc(0x01);
 	SET_UDG_IMAGES();
+    
+    // cputc(147);
+    
+    // vpoke(65, 0x1b000 + 256U * 0 + 2U * 0);
+    // vpoke(2, 0x1b001 + 256U * 0 + 2U *0);
+    
+    // vpoke(66, 0x1b000 + 256 * 1 + 2 * 1);
+    // vpoke(2, 0x1b001 + 256 * 1 + 2 *1);
+    
+    // while(1){}
 }

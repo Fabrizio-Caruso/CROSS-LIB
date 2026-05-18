@@ -1,0 +1,17 @@
+#############################
+# FP1100
+
+fp1100: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1100__ -vn \
+	-D__VT52 -DYSize=24 -DXSize=39 \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_FP1100_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES) -D_XL_NO_JOYSTICK \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app -o fp1100_X$(GAME_NAME).bin
+	mv fp1100_X$(GAME_NAME).d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm -rf fp1100_X$(GAME_NAME).bin
+	rm -rf fp1100_X$(GAME_NAME)_BOOTSTRAP.bin

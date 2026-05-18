@@ -1,0 +1,74 @@
+; ==========================================================
+; void plot_pixel(int x, int y, unsigned char color);
+; ==========================================================
+
+        public _plot_pixel
+_plot_pixel proc near
+        push bp
+        mov  bp, sp
+
+        push ax
+        push bx
+        push cx
+        push dx
+        push si
+
+        mov bx, [bp+4]        ; x
+        mov cx, [bp+6]        ; y
+        mov dl, [bp+8]        ; color
+
+        ; offset = y * 40 + (x >> 3)
+        mov ax, cx
+        mov si, 40
+        mul si                ; ax = y*40
+        mov si, ax
+        mov ax, bx
+        shr ax, 3             ; ax = x/8
+        add si, ax
+
+        ; mask = 80h >> (x & 7)
+        mov dx, bx
+        and dx, 7
+        mov ah, 80h
+        mov cl, dl            ; save color
+        shr ah, cl            ; mask in AH
+
+        ; Now write color bit-by-bit into 4 planes
+        mov ax, 0A000h
+        mov es, ax
+
+        mov al, dl            ; al = color
+        mov cx, 4
+
+WritePlane:
+        push ax
+        push cx
+
+        ; Select plane = (1 << plane)
+        mov dx, 3C4h
+        mov al, 02h           ; index = 2 (Map Mask Register)
+        mov ah, 1
+        shl ah, cl            ; mask = 1 << plane
+        out dx, ax
+
+        ; Write bit if this plane's color bit = 1
+        pop cx
+        pop ax
+
+        test al, 1
+        jz SkipWrite
+        mov es:[si], ah       ; write mask bit
+
+SkipWrite:
+        shr al, 1             ; next color bit (next plane)
+        loop WritePlane
+
+        pop si
+        pop dx
+        pop cx
+        pop bx
+        pop ax
+        pop bp
+        ret 6
+
+_plot_pixel endp

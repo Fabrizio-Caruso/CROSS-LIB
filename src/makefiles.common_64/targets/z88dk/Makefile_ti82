@@ -1,0 +1,18 @@
+#############################
+# TI82
+
+ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__TI82__ \
+	-DZ88DK_JOYSTICK \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TI82_SLOWDOWN) \
+	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__BIT_BANG_SOUND \
+	-create-app -o ti82 \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/X$(GAME_NAME)_ti82.82p
+	rm -rf $(SOURCE_PATH)/../../ti82

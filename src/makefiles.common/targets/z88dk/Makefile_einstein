@@ -20,7 +20,6 @@ einstein: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 
-
 einstein256: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein -subtype=einstein256 \
 	-pragma-define:ansicolumns=32 -DXSize=32 -DYSize=24 \

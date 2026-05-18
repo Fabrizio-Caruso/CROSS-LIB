@@ -1,0 +1,33 @@
+
+#############################
+# BIC
+
+
+bic_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
+	$(INCLUDE_OPTS) \
+	-DXSize=79 \
+	-DYSize=21 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BIC_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTURN_BASED -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	-D__BUFFERED_GRAPHICS \
+	-D__STDIO \
+	-D__NO_INIT_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_PRINT \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+bic:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
+	-DXSize=79 \
+	-DYSize=21 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BIC_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

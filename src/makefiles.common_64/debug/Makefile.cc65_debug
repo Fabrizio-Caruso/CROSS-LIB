@@ -1,0 +1,156 @@
+# CC65 Debugging Tests
+
+
+
+TEST_PATH ?= $(SOURCE_PATH)/../../test
+
+
+creativision_hello:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-o $(BUILD_PATH)/creativision_hello.bin
+
+pointerToFunction:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t pce \
+	$(SOURCE_PATH)/../experiments/pointerToFunction.c \
+	-o $(BUILD_PATH)/pointerToFunctions.pce
+	
+
+
+conio:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
+	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
+
+c64_joy-test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
+	
+	
+joy-test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
+	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
+
+
+
+
+none_no_graphics:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t none -c \
+	-D__BBC__ \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR \
+	-D__NO_PRINT \
+	-DTINY_GAME \
+	-D__NO_WAIT \
+	-DTURN_BASED \
+	-D__NO_GRAPHICS \
+	-D__NO_PRINT \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	$(CC65_PATH)/ld65$(EXE) -t none \
+	--obj-path $(SOURCE_PATH) \
+	-m $(BUILD_PATH)/none_no_graphics.map \
+	-o $(BUILD_PATH)/none_no_graphics.bin \
+	$(TINY_OBJ)
+
+supervision_dummy:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	-D__NO_PRINT -D_XL_NO_SLEEP \
+	-D__BIT_MAPPED_4_GRAPHICS_DUMMY -D__NO_INIT_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_supervision_dummy.sv
+	
+
+atari_lynx_hello_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../debug/tgi_lynx_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
+    
+atari_lynx_black_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_BLACK_TEST.lnx
+
+atari_lynx_cgetc_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_cgetc_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_CGETC_TEST.lnx
+
+
+error_cc65:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
+
+
+supervision_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
+	$(SOURCE_PATH)/../test/supervision_test.c \
+	-o $(BUILD_PATH)/TEST_supervision.sv
+
+
+supervision_cc65_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	/home/fabri/CC65_FIX/cc65/samples/supervisionhello.c \
+	-o $(BUILD_PATH)/TEST_hellosupervision.sv
+
+
+bbc_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
+	-o $(BUILD_PATH)/bbc_test.o \
+	-D__BBC__ \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR \
+	-D__NO_PRINT \
+	-DTINY_GAME \
+	-D__NO_WAIT \
+	-DTURN_BASED \
+	-D__NO_GRAPHICS \
+	-D__NO_PRINT \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(SOURCE_PATH)/main.c
+
+gamate_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	$(SOURCE_PATH)/../test/gamate_test.c \
+	-o $(BUILD_PATH)/gamate_test.bin 
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/gamate_test.bin
+
+
+c64_hello_test:
+	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(TEST_PATH)/helloworld_getchar.c -o $(BUILD_PATH)/$@.prg
+
+
+telestrat_hello_test:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/helloworld_getchar.c -o $(BUILD_PATH)/$@
+
+telestrat_hello_cgetc_test:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/hello_cgetc.c -o $(BUILD_PATH)/$@
+
+
+telestrat_hello_test0:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/helloworld.c -o $(BUILD_PATH)/$@
+
+telestrat_conio:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/conio.c -o $(BUILD_PATH)/$@
+
+telestrat_conio0:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/conio0.c -o $(BUILD_PATH)/$@
+
+c64_conio:
+	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(TEST_PATH)/conio.c -o $(BUILD_PATH)/$@

@@ -1,0 +1,18 @@
+#############################
+# TI83P
+
+ti83p: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +ti83p $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
+	$(INCLUDE_OPTS) \
+	-D__TI83P__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TI83P_SLOWDOWN) \
+	-DZ88DK_JOYSTICK \
+	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__BIT_BANG_SOUND \
+	-create-app -oxchase8x \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/X$(GAME_NAME)_$@.8xp	
+	rm $(SOURCE_PATH)/../../xchase8x

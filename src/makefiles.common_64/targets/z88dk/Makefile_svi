@@ -1,0 +1,42 @@
+#############################
+# SVI
+
+svi_light:
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-D__INCLUDE_CONIO_H \
+	-zorg=49152 \
+	-clib=ansi \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SVI_SLOWDOWN) \
+	-pragma-define:ansicolumns=32 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-vn -lndos \
+	-D__SVI__ \
+	 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+
+svi: svi_328
+
+svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
+	-vn -lndos \
+	-D__SVI__   \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SVI_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	-D__INCLUDE_CONIO_H \
+	-pragma-define:ansicolumns=32 \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+

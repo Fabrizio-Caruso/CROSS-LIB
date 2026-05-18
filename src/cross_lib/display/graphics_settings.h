@@ -8,15 +8,14 @@
     #include "pv1000_graphics.h"
 #elif defined(__VGA_GRAPHICS)
     #include "vga_graphics.h"
-
-#elif defined(__BBC__) && defined(__BBC_GRAPHICS)
-    #include "bbc_graphics.h"
 #elif defined(__TERMINAL__) 
     #include "terminal_graphics.h"
-#elif defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-	#include "quad_memory_mapped_graphics.h"
-#elif defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
-	#include "dual_memory_mapped_graphics.h" 
+#elif defined(__NCURSES_GRAPHICS)
+    #include "ncurses_graphics.h"
+#elif defined(__BBC__) && defined(__BBC_GRAPHICS)
+    #include "bbc_graphics.h"
+#elif defined(__ATARI_ANTIC_15)
+    #include "antic_mode15_graphics.h"
 #elif defined(__ATARI7800_COLOR_GRAPHICS)
 	#include "atari7800_color_graphics.h"
 #elif defined(__APPLE2_HGR_GRAPHICS)
@@ -27,8 +26,6 @@
 	#include "nes_conio_graphics.h"
 #elif defined(__COMX_COLOR_GRAPHICS)
 	#include "lcc1802_color_graphics.h"
-#elif defined(__ORIC_COLOR_GRAPHICS)
-	#include "oric_text_mode_graphics.h"
 #elif defined(__ORIC_HIRES_GRAPHICS)
 	#include "oric_hires_graphics.h"
 #elif defined(__CONIO_GRAPHICS)

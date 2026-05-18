@@ -43,14 +43,6 @@
 
 uint16_t loc(uint8_t x, uint8_t y);
 
-#if defined(__QUAD_MEMORY_MAPPED_GRAPHICS)
-    #define X_MULT 2
-    #define Y_MULT 2
-#else
-    #define X_MULT 1
-    #define Y_MULT 1
-#endif
-
 // TODO: Isolate the bug when _XL_DRAW uses loc(x,y)
 // loc(x,y) -> 
 // no string displayed after _XL_DRAW in title screen of Snake
@@ -72,7 +64,7 @@ uint16_t loc(uint8_t x, uint8_t y);
 
 // #define _XL_DELETE(x,y) DISPLAY_POKE(locti99(x,y), _SPACE)
 
-
+//     DISPLAY_POKE(loc(x,y), (__tile)+(__color));
 #define _XL_DRAW(x,y,__tile,__color) \
 do \
 { \

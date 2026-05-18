@@ -74,6 +74,152 @@
 	#define _TILE_24_UDG    {<tile_24>}
 	#define _TILE_25_UDG    {<tile_25>}
     #define _TILE_26_UDG    {<tile_26>}
-    
+
+
+    #define _TILE_27_UDG    { <tile_27> }
+
+    #define _TILE_28_UDG    { <tile_28> }
+
+    #define _TILE_29_UDG    { <tile_29> }
+
+    #define _TILE_30_UDG    { <tile_30> }
+
+    #define _TILE_31_UDG    { <tile_31> }
+
+    #define _TILE_32_UDG    { <tile_32> }
+
+    #define _TILE_33_UDG    { <tile_33> }
+
+    #define _TILE_34_UDG    { <tile_34> }
+
+    #define _TILE_35_UDG    { <tile_35> }
+
+    #define _TILE_36_UDG    { <tile_36> }
+
+    #define _TILE_37_UDG    { <tile_37> }
+
+    #define _TILE_38_UDG    { <tile_38> }
+
+    #define _TILE_39_UDG    { <tile_39> }
+
+    #define _TILE_40_UDG    { <tile_40> }
+
+    #define _TILE_41_UDG    { <tile_41> }
+
+    #define _TILE_42_UDG    { <tile_42> }
+
+    #define _TILE_43_UDG    { <tile_43> }
+
+    #define _TILE_44_UDG    { <tile_44> }
+
+    #define _TILE_45_UDG    { <tile_45> }
+
+    #define _TILE_46_UDG    { <tile_46> }
+
+    #define _TILE_47_UDG    { <tile_47> }
+
+    #define _TILE_48_UDG    { <tile_48> }
+
+    #define _TILE_49_UDG    { <tile_49> }
+
+    #define _TILE_50_UDG    { <tile_50> }
+
+    #define _TILE_51_UDG    { <tile_51> }
+
+    #define _TILE_52_UDG    { <tile_52> }
+
+    #define _TILE_53_UDG    { <tile_53> }
+
+    #define _TILE_54_UDG    { <tile_54> }
+
+    #define _TILE_55_UDG    { <tile_55> }
+
+    #define _TILE_56_UDG    { <tile_56> }
+
+    #define _TILE_57_UDG    { <tile_57> }
+
+    #define _TILE_58_UDG    { <tile_58> }
+
+    #define _TILE_59_UDG    { <tile_59> }
+
+    #define _TILE_60_UDG    { <tile_60> }
+
+    #define _TILE_61_UDG    { <tile_61> }
+
+    #define _TILE_62_UDG    { <tile_62> }
+
+    #define _TILE_63_UDG    { <tile_63> }
+
+    #define _TILE_64_UDG    { <tile_64> }
+
+    #define _TILE_65_UDG    { <tile_65> }
+
+    #define _TILE_66_UDG    { <tile_66> }
+
+    #define _TILE_67_UDG    { <tile_67> }
+
+    #define _TILE_68_UDG    { <tile_68> }
+
+    #define _TILE_69_UDG    { <tile_69> }
+
+    #define _TILE_70_UDG    { <tile_70> }
+
+    #define _TILE_71_UDG    { <tile_71> }
+
+    #define _TILE_72_UDG    { <tile_72> }
+
+    #define _TILE_73_UDG    { <tile_73> }
+
+    #define _TILE_74_UDG    { <tile_74> }
+
+    #define _TILE_75_UDG    { <tile_75> }
+
+    #define _TILE_76_UDG    { <tile_76> }
+
+    #define _TILE_77_UDG    { <tile_77> }
+
+    #define _TILE_78_UDG    { <tile_78> }
+
+    #define _TILE_79_UDG    { <tile_79> }
+
+    #define _TILE_80_UDG    { <tile_80> }
+
+    #define _TILE_81_UDG    { <tile_81> }
+
+    #define _TILE_82_UDG    { <tile_82> }
+
+    #define _TILE_83_UDG    { <tile_83> }
+
+    #define _TILE_84_UDG    { <tile_84> }
+
+    #define _TILE_85_UDG    { <tile_85> }
+
+    #define _TILE_86_UDG    { <tile_86> }
+
+    #define _TILE_87_UDG    { <tile_87> }
+
+    #define _TILE_88_UDG    { <tile_88> }
+
+    #define _TILE_89_UDG    { <tile_89> }
+
+    #define _TILE_90_UDG    { <tile_90> }
+
+    #define _TILE_91_UDG    { <tile_91> }
+
+    #define _TILE_92_UDG    { <tile_92> }
+
+    #define _TILE_93_UDG    { <tile_93> }
+
+    #define _TILE_94_UDG    { <tile_94> }
+
+    #define _TILE_95_UDG    { <tile_95> }
+
+    #define _TILE_96_UDG    { <tile_96> }
+
+    #define _TILE_97_UDG    { <tile_97> }
+
+    #define _TILE_98_UDG    { <tile_98> }
+
+    #define _TILE_99_UDG    { <tile_99> }
 #endif // _6x9_CHARS
 

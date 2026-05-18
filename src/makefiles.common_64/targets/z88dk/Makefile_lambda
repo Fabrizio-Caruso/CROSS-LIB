@@ -1,0 +1,14 @@
+
+#############################
+# LAMBDA
+
+lambda: lambda_16k
+
+lambda_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-vn -D__LAMBDA__  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_LAMBDA_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

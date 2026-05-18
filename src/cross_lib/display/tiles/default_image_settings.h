@@ -267,5 +267,7 @@
 	#endif
 #endif
 
+
+
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

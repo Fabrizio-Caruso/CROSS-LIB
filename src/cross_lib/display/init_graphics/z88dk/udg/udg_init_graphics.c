@@ -9,18 +9,17 @@
         #include <arch/hector.h>
 #endif 
 
+#if defined(__MSX2_COLOR)
+    #include<video/v9938.h>
+#endif
+
 extern uint8_t udgs[];
 
 
 void _XL_INIT_GRAPHICS(void)
 {
 	void *param = &udgs;
-	
 
-    // Necessary to have .vz file correctly started on several emulators that do not load .vz as they should
-    #if defined(__VZ__)
-        *((unsigned char *)0x7839) |= 1;
-    #endif
 
 	#if !defined(__SCREEN_MODE)
 		#define __SCREEN_MODE 2
@@ -33,8 +32,21 @@ void _XL_INIT_GRAPHICS(void)
 	#endif
 		
 	console_ioctl(IOCTL_GENCON_SET_MODE, &mode); 
-	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
 
+	console_ioctl(IOCTL_GENCON_SET_UDGS, &param);
+	
+
+    // Necessary to have .vz file correctly started on several emulators that do not load .vz as they should
+    #if defined(__VZ__)
+        *((unsigned char *)0x7839) |= 1;
+    #endif
+
+    #if defined(__MSX2_COLOR)
+    vdp_set_palette_entry(1, PAL_MSX1_DARK_BLUE);
+    vdp_set_palette_entry(2, PAL_MSX1_MEDIUM_RED);
+    vdp_set_palette_entry(3, PAL_MSX1_LIGHT_YELLOW);
+    #endif
+    
     // TODO: remove the Spectrum special case
 	#if defined(__SPECTRUM__)
         printf("\x01\x20");

@@ -19,6 +19,8 @@ void _XL_ZAP_SOUND(void);
 
 #define _XL_EXPLOSION_SOUND() NOISE(75,6)
 
+// #define _XL_ZAP_SOUND() CLICK(150,2)
+
 #define _XL_SHOOT_SOUND() NOISE(100,3)
 
 #define _XL_PING_SOUND() CLICK(25,5)

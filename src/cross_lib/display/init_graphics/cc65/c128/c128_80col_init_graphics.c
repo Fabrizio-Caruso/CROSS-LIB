@@ -6,21 +6,9 @@
 
 #include "udg_map.h"
 
-#define ADDRESS_PORT 0xD600
-#define DATA_PORT    0xD601
 
-#define HIGH_ADDRESS_REGISTER 0x12
-#define LOW_ADDRESS_REGISTER  0x13
-#define VDC_DATA_REGISTER     0x1F
+void vdc_write(uint8_t vdc_register, uint8_t value);
 
-#define CHAR_BASE    0x3000
-
-void vdc_write(uint8_t vdc_register, uint8_t value)
-{
-    POKE(ADDRESS_PORT,vdc_register);
-    while(!(PEEK(ADDRESS_PORT)&(0x80))){};
-    POKE(DATA_PORT,value);
-}
 
 void redefine(uint8_t tile, const uint8_t definition[])
 {
@@ -39,6 +27,7 @@ void set_udg(void)
     uint8_t i;
     
     for (i = 0; i < (sizeof(redefine_map)/sizeof(*redefine_map)); ++i)
+    // for (i = 0; i<_XL_NUMBER_OF_TILES; ++i)
     {
         redefine(redefine_map[i].ascii,redefine_map[i].bitmap);
     }

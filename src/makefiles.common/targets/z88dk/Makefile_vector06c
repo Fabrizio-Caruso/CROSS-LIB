@@ -1,7 +1,43 @@
 #############################
 # VECTOR06C
 
-vector06c:
+vector06c_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__VECTOR06C__ \
+	-DXSize=32 \
+	-DYSize=30 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VECTOR06C_SLOWDOWN) \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+vector06c: vector06c_disk
+
+vector06c_disk: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__VECTOR06C__ -subtype=disk \
+	-DXSize=32 \
+	-DYSize=30 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VECTOR06C_SLOWDOWN) \
+	-D__VT52 \
+	-D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+vector06c_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__VECTOR06C__ \
 	-DXSize=32 \
@@ -9,9 +45,11 @@ vector06c:
 	-D__NO_SCREEN_COLOR_INIT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VECTOR06C_SLOWDOWN) \
 	-D__VT52 \
+	-D_XL_NO_JOYSTICK \
 	-D__CONIO_GRAPHICS \
 	-lndos \
-	-D__NO_INIT_GRAPHICS \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_vector06c.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_vector06c.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

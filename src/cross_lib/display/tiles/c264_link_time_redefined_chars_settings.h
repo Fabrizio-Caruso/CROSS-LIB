@@ -1,62 +1,98 @@
 
+#define _TILE_0 128
+#define _TILE_1 129
+#define _TILE_2 130
+#define _TILE_3 131
+#define _TILE_4 132
+#define _TILE_5 133
+#define _TILE_6 134
+#define _TILE_7 135
+#define _TILE_8 136
+#define _TILE_9 137
+#define _TILE_10 138
+#define _TILE_11 139
+#define _TILE_12 140
+#define _TILE_13 141
+#define _TILE_14 142
+#define _TILE_15 143
+#define _TILE_16 144
+#define _TILE_17 145
+#define _TILE_18 146
+#define _TILE_19 147
+#define _TILE_20 148
+#define _TILE_21 149
+#define _TILE_22 150
+#define _TILE_23 151
+#define _TILE_24 152
+#define _TILE_25 153
+#define _TILE_26 154
+#define _TILE_27 155
+#define _TILE_28 156
+#define _TILE_29 157
+#define _TILE_30 158
+#define _TILE_31 159
+#define _TILE_32 160
+#define _TILE_33 161
+#define _TILE_34 162
+#define _TILE_35 163
+#define _TILE_36 164
+#define _TILE_37 165
+#define _TILE_38 166
+#define _TILE_39 167
+#define _TILE_40 168
+#define _TILE_41 169
+#define _TILE_42 170
+#define _TILE_43 171
+#define _TILE_44 172
+#define _TILE_45 173
+#define _TILE_46 174
+#define _TILE_47 175
+#define _TILE_48 176
+#define _TILE_49 177
+#define _TILE_50 178
+#define _TILE_51 179
+#define _TILE_52 180
+#define _TILE_53 181
+#define _TILE_54 182
+#define _TILE_55 183
+#define _TILE_56 184
+#define _TILE_57 185
+#define _TILE_58 186
+#define _TILE_59 187
+#define _TILE_60 188
+#define _TILE_61 189
+#define _TILE_62 190
+#define _TILE_63 191
+#define _TILE_64 192
 
 
-// #define _TILE_15 0x7A
-// #define _TILE_24 0x7B
+#define _TILE_65 219
+#define _TILE_66 220
+#define _TILE_67 221
+#define _TILE_68 222
+#define _TILE_69 223
 
-#define _TILE_15 0x3A
-#define _TILE_24 0x3B
+#define _TILE_70 225
+#define _TILE_71 226
+#define _TILE_72 227
+#define _TILE_73 228
+#define _TILE_74 229
+#define _TILE_75 230
+#define _TILE_76 231
+#define _TILE_77 232
+#define _TILE_78 233
+#define _TILE_79 234
+#define _TILE_80 235
+#define _TILE_81 236
+#define _TILE_82 237
+#define _TILE_83 238
+#define _TILE_84 239
 
-#define _TILE_18 0x3C
+#define _TILE_85 122
+#define _TILE_86 123
+#define _TILE_87 124
+#define _TILE_88 125
+#define _TILE_89 126
+#define _TILE_90 127
 
-#define _TILE_21 0x3D
-#define _TILE_22 0x3E
-#define _TILE_23 0x3F
-// TO FIX
-// #define _TILE_24 0x40
-
-// TODO: Move this to 0x3A or 0x3B
-
-// BLUE
-#define _TILE_0 0x67
-#define _TILE_1 0x6B
-#define _TILE_2 0x69
-#define _TILE_3 0x68
-
-#define _TILE_9 0x5B
-
-// YELLOW
-#define _TILE_7 0x65
-#define _TILE_12 0x62
-#define _TILE_13 0x63
-#define _TILE_25 0x6A
-
-// GREEN
-#define _TILE_8  0x5D
-
-// RED
-#define _TILE_5 0x66
-
-// CYAN
-#define _TILE_10 0x5C
-#define _TILE_11 0x61
-
-// WHITE
-#define _TILE_4 0x64
-
-#define _TILE_6 0x6C
-
-#define _TILE_14 0x5F
-
-
-#define _TILE_16 0x5E
-
-// #define _TILE_17 0x7B
-#define _TILE_17 0x40
-
-
-#define _TILE_19 0x6E
-#define _TILE_20 0x6F
-
-#define _TILE_26 0x6D
 

@@ -1,0 +1,28 @@
+# UDG may be possible
+
+bondwell2_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bondwell2 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BONDWELL2_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin
+
+
+bondwell2: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bondwell2 \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_BONDWELL2_SLOWDOWN) \
+	-DXSize=80 -DYSize=24 \
+	-D__CONIO_GRAPHICS  -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR -D_XL_NO_JOYSTICK \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o$(BUILD_PATH)/a.bin \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/a.bin
+	rm -rf $(BUILD_PATH)/a_HIMEM.bin
+	mv $(BUILD_PATH)/a.com $(BUILD_PATH)/X$(GAME_NAME)_$@.com
+	mv $(BUILD_PATH)/a.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+

@@ -1,0 +1,31 @@
+#############################
+# ENTERPRISE
+
+enterprise: enterprise_buffered
+
+# TODO: Try -subtype=com
+enterprise_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +enterprise $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ENTERPRISE__ \
+	-DXSize=20 \
+	-DYSize=16 \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ENTERPRISE_SLOWDOWN) \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN -D__NO_SCREEN_COLOR_INIT \
+	-D__STDIO  -D__BIT_BANG_SOUND \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	# -create-app -o enterprise.bin
+	# mv enterprise.app FULL_enterprise.app
+	# rm enterprise.bin
+	# tar czvf FULL_enterprise.tar.zip FULL_enterprise.app
+	# rm FULL_enterprise.app
+	# mv FULL_enterprise.tar.zip $(BUILD_PATH)/X$(GAME_NAME)_$@.tar.zip

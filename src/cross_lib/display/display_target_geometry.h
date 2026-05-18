@@ -37,15 +37,14 @@
 #endif
 
 		
-	#ifndef __SPRITE_X_STEP
-		#define __SPRITE_X_STEP SPRITE_X_SIZE
-	#endif
-	
-	#ifndef __SPRITE_Y_STEP
-		#define __SPRITE_Y_STEP SPRITE_Y_SIZE
-	#endif
+#ifndef __SPRITE_X_STEP
+    #define __SPRITE_X_STEP SPRITE_X_SIZE
 #endif
 
+#ifndef __SPRITE_Y_STEP
+    #define __SPRITE_Y_STEP SPRITE_Y_SIZE
+#endif
+#endif
 
 #if defined(Force_YSize)
     #undef YSize
@@ -92,7 +91,7 @@
 		|| defined(__OSIC1P__) \
 		|| defined(__MC1000__) \
 		|| defined(__M5__) \
-		|| (defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAP)) \
+		|| defined(__AQUARIUS__) \
 		|| defined(__COLECO__) \
 		|| defined(__PV2000__) \
 		|| defined(__PV1000__) \
@@ -137,7 +136,7 @@
 		#define YSize ((64/__SPRITE_Y_STEP)+1)
 	#elif (defined(__OSBORNE1__) && defined(__Z88DK_SPRITES_GRAPHICS))
 		#define YSize ((48/__SPRITE_Y_STEP)-1)
-	#elif defined(__TIKI100__)
+	#elif defined(__TIKI100__) && defined(__Z88DK_SPRITES_GRAPHICS)
 		#define YSize ((256/__SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(__Z88DK_SPRITES_GRAPHICS)) 
 		#define YSize ((64/__SPRITE_Y_STEP)+1)
@@ -177,7 +176,7 @@
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		 #define XSize 60
-	#elif defined(__TIKI100__)
+	#elif defined(__TIKI100__) && defined(__Z88DK_SPRITES_GRAPHICS)
 		#define XSize (1024/__SPRITE_X_STEP)
 	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(__Z88DK_SPRITES_GRAPHICS))
 		#define XSize (480/__SPRITE_X_STEP)
@@ -200,13 +199,13 @@
 		  || defined(__X1__) || defined(__ATMOS__) \
 		  || (defined(__CPC__) && defined(__CPCRSLIB_GRAPHICS)) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || (defined(__C128__) && !defined(__Z88DK_SPRITES_GRAPHICS) && !defined(C128_80COL_VIDEO_MODE)) \
-		  || (defined(__AQUARIUS__) && !defined(QUAD_MEMORY_MAP)) || (defined(__SVI__) && defined(MSX_MODE0)) \
+		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
 		  || (defined(__ATARI__) && !defined(__ANTIC_MODE6_GRAPHICS)) \
 		  || defined(__CBM510__) \
 		  || defined(__FP1100__) \
 		  || (defined(__EG2K__) && !defined(_XL_NO_UDG)) \
-		  || (defined(__EG2K__) && !!defined(_XL_NO_UDG)) \
+		  || (defined(__EG2K__) && defined(_XL_NO_UDG)) \
 		  || defined(__ALPHATRO__) \
 		  || defined(__LASER500__) \
 		  || (defined(__OSCA__) && !defined(__Z88DK_SPRITES_GRAPHICS)) \
@@ -279,6 +278,11 @@
 #endif
 
 #if !defined(X_OFFSET)
+    // #if defined(__ATMOS__)
+        // #define X_OFFSET 2
+    // #else
+        // #define X_OFFSET 0
+    // #endif
     #define X_OFFSET 0
 #endif
 

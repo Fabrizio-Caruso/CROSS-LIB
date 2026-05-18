@@ -106,32 +106,9 @@ _udgs	EQU	*		udgs: uint8_t[]
     FCB <tile_23>
     FCB <tile_24>
 
-	FCB %00000000
-	FCB %01111110
-	FCB %00000010
-	FCB %00000100
-	FCB %00001000
-	FCB %00010000
-	FCB %00010000
-	FCB %00000000
-
-	FCB %00000000
-	FCB %00111100
-	FCB %01000010
-	FCB %00111100
-	FCB %01000010
-	FCB %01000010
-	FCB %00111100
-	FCB %00000000
-
-	FCB %00000000
-	FCB %00111100
-	FCB %01000010
-	FCB %01000010
-	FCB %00111110
-	FCB %00000010
-	FCB %00111100
-	FCB %00000000
+    FCB <tile_27>
+    FCB <tile_28>
+    FCB <tile_29>
 
 ; dead ghost
     FCB <tile_6>
@@ -151,10 +128,69 @@ _udgs	EQU	*		udgs: uint8_t[]
 ; gun
     FCB <tile_9>
 
+	FCB <tile_30>
+	FCB <tile_31>
+	FCB <tile_32>
 
+	FCB <tile_33>
+	FCB <tile_34>
+	FCB <tile_35>
+	FCB <tile_36>
+	FCB <tile_37>
+	FCB <tile_38>
+	FCB <tile_39>
 
-
-
+    FCB <tile_40>
+    FCB <tile_41>
+    FCB <tile_42>
+    FCB <tile_43>
+    FCB <tile_44>
+    FCB <tile_45>
+    FCB <tile_46>
+    FCB <tile_47>
+    FCB <tile_48>
+    FCB <tile_49>
+    FCB <tile_50>
+    FCB <tile_51>
+    FCB <tile_52>
+    FCB <tile_53>
+    FCB <tile_54>
+    FCB <tile_55>
+    FCB <tile_56>
+    FCB <tile_57>
+    FCB <tile_58>
+    FCB <tile_59>
+    FCB <tile_60>
+    FCB <tile_61>
+    FCB <tile_62>
+    FCB <tile_63>
+    FCB <tile_64>
+    FCB <tile_65>
+    FCB <tile_66>
+    FCB <tile_67>
+    FCB <tile_68>
+    FCB <tile_69>
+    FCB <tile_70>
+    FCB <tile_71>
+    FCB <tile_72>
+    FCB <tile_73>
+    FCB <tile_74>
+    FCB <tile_75>
+    FCB <tile_76>
+    FCB <tile_77>
+    FCB <tile_78>
+    FCB <tile_79>
+    FCB <tile_80>
+    FCB <tile_81>
+    FCB <tile_82>
+    FCB <tile_83>
+    FCB <tile_84>
+    FCB <tile_85>
+    FCB <tile_86>
+    FCB <tile_87>
+    FCB <tile_88>
+    FCB <tile_89>
+    FCB <tile_90>
 	ENDSECTION
 
 

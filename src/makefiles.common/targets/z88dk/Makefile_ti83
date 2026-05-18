@@ -6,7 +6,7 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(INCLUDE_OPTS) \
 	-D__TI83__ \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TI83_SLOWDOWN) \
-	-DZ88DK_JOYSTICK \
+	-DZ88DK_JOYSTICK -D__SPRITE_X_STEP=8 -D__SPRITE_Y_STEP=8 -DYSize=8 \
 	-vn -lndos -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
 	-D__ALT_PRINT \
 	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
@@ -14,6 +14,6 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oxchase \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../xchase.83p $(BUILD_PATH)/X$(GAME_NAME)_ti83.83p
+	mv $(SOURCE_PATH)/../../xchase.83p $(BUILD_PATH)/X$(GAME_NAME)_$@.83p
 	rm -rf $(SOURCE_PATH)/../../xchase
 

@@ -26,10 +26,10 @@
     #define _XL_MAGENTA _XL_RED
 #elif defined(__PV1000_GRAPHICS)
     #define __PV1000_WHITE  0
-    #define __PV1000_CYAN   1
-    #define __PV1000_GREEN  2
-    #define __PV1000_YELLOW 3
-    #define __PV1000_RED    4
+    #define __PV1000_CYAN   0
+    #define __PV1000_GREEN  0
+    #define __PV1000_YELLOW 0
+    #define __PV1000_RED    1
 
     
     #define _XL_WHITE   __PV1000_WHITE
@@ -90,6 +90,22 @@
     #define _XL_YELLOW CPC_YELLOW
     #define _XL_MAGENTA CPC_YELLOW
     #define _XL_GREEN CPC_YELLOW
+    
+#elif defined(__ATARI_ANTIC_15)
+        #define _ATARI_MODE15_WHITE 1
+        #define _ATARI_MODE15_GREEN 2
+        #define _ATARI_MODE15_BLACK 0
+        #define _ATARI_MODE15_CYAN 3
+
+        #define _XL_RED _ATARI_MODE15_WHITE
+        #define _XL_WHITE _ATARI_MODE15_WHITE
+        #define _XL_BLACK _ATARI_MODE15_BLACK
+        #define _XL_YELLOW _ATARI_MODE15_WHITE
+        #define _XL_GREEN _ATARI_MODE15_GREEN
+        #define _XL_CYAN _ATARI_MODE15_CYAN
+        #define _XL_BLUE _XL_CYAN
+        #define _XL_MAGENTA _XL_RED
+
 #elif defined(__ANTIC_MODE6_GRAPHICS) || defined(__ATARI5200__)
 
     #if defined(__USE_CYAN_YELLOW)
@@ -148,13 +164,13 @@
 
     #define _NES_RED 0
     #define _NES_CYAN 1
-    #define _NES_WHITE 2
+    // #define _NES_WHITE 2
 
     #define _XL_BLACK COLOR_BLACK
     #define _XL_RED _NES_RED
-    #define _XL_WHITE _NES_WHITE
+    #define _XL_WHITE _NES_CYAN
     #define _XL_BLUE _NES_CYAN
-    #define _XL_YELLOW _NES_WHITE
+    #define _XL_YELLOW _NES_CYAN
     #define _XL_GREEN _NES_CYAN
     #define _XL_CYAN _NES_CYAN
     
@@ -221,11 +237,11 @@
         
     #else
         #define _COMX_BLUE 0
-        #define _COMX_GREEN 1
-        #define _COMX_CYAN 2
+        #define _COMX_GREEN 0
+        #define _COMX_CYAN 0
         #define _COMX_PURPLE (0+128)
-        #define _COMX_YELLOW (1+128)
-        #define _COMX_WHITE  (2+128) 
+        #define _COMX_YELLOW (0+128)
+        #define _COMX_WHITE  (0+128) 
 
         #define _XL_RED _COMX_PURPLE
         #define _XL_WHITE _COMX_WHITE
@@ -273,23 +289,12 @@
 
 #elif defined(__VDP_MODE1_GRAPHICS)
 
-    #if defined(__TI99__)
-        #define _COLOR_OFFSET -64
-    #else
-        #define _COLOR_OFFSET 0
-    #endif
-        
-    #if defined(__TI99__)
-        #define _CREAT_YELLOW (192+_COLOR_OFFSET)
-        #define _CREAT_GREEN  (160+_COLOR_OFFSET)
-    #else
-        #define _CREAT_YELLOW (32 +_COLOR_OFFSET)
-        #define _CREAT_GREEN  (0 +_COLOR_OFFSET)
-    #endif
-    #define _CREAT_WHITE  (64 +_COLOR_OFFSET)
-    #define _CREAT_CYAN   (96 +_COLOR_OFFSET)
-    #define _CREAT_RED    (128+_COLOR_OFFSET)
-    #define _CREAT_BLUE _CREAT_CYAN
+    #define _CREAT_YELLOW 0
+    #define _CREAT_GREEN  128
+    #define _CREAT_WHITE  0
+    #define _CREAT_CYAN   128
+    #define _CREAT_RED    0
+    #define _CREAT_BLUE   128
 
     #define _XL_RED _CREAT_RED
     #define _XL_WHITE _CREAT_WHITE

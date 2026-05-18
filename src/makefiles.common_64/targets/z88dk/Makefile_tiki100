@@ -1,0 +1,20 @@
+#############################
+# TIKI100
+
+tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
+	$(INCLUDE_OPTS) \
+	-D__TIKI100__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TIKI100_SLOWDOWN) \
+	-D__ALT_PRINT \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-D_XL_NO_COLOR \
+	-D__PSG_SOUND \
+	-D__NO_SCREEN_COLOR_INIT \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_bss_himem.bin

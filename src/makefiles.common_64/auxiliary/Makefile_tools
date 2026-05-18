@@ -1,0 +1,210 @@
+
+
+# GCC ?= gcc $(GLOBAL_OPTS)
+# GCC_OPTS ?= -Wpedantic -Wall
+
+# NATIVE_CC ?= $(GCC)
+# include ./games/chase/Makefile.chase
+# include ./makefiles.common/auxiliary/Makefile_ALL
+
+# include ./makefiles.common/auxiliary/Makefile_common
+
+ifneq ($(COMSPEC),)
+DO_WIN:=1
+endif
+ifneq ($(ComSpec),)
+DO_WIN:=1
+endif 
+
+ifeq ($(DO_WIN),1)
+EXEEXT = .exe
+endif
+
+ifeq ($(DO_WIN),1)
+COMPILEDEXT = .exe
+else
+COMPILEDEXT = .out
+endif
+
+TOOLS_PATH ?= ../tools
+
+# GNU_MAKE=make
+
+# Number of threads used by make
+MAKE_THREADS = 8
+
+
+$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT): $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c
+	$(TOOL_CC) $(TOOLS_PATH)/cc65/gamate/gamate-fixcart.c -o $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+    
+$(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/f2k5.c
+	$(TOOL_CC) $(TOOLS_PATH)/cmoc/mo5/f2k5.c  -o $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
+
+$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT): $(TOOLS_PATH)/bbc/bbcim-1.0.1/src/bbcim.c
+	cd $(TOOLS_PATH)/bbc/bbcim-1.0.1/ && $(GNU_MAKE)
+	mv $(TOOLS_PATH)/bbc/bbcim-1.0.1/bbcim$(EXT) $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+
+$(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/oz/makewzd.c
+	$(TOOL_CC) $(TOOLS_PATH)/z88dk/oz/makewzd.c -o $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+
+$(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk.c
+	cd $(TOOLS_PATH)/cmoc/coco/file2dsk/Source && $(GNU_MAKE)
+	mv $(TOOLS_PATH)/cmoc/coco/file2dsk/Source/file2dsk$(COMPILEDEXT) $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+
+$(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT): $(TOOLS_PATH)/cmoc/mo5/sap/sapfs.c
+	cd $(TOOLS_PATH)/cmoc/mo5/sap/ && $(GNU_MAKE)
+	mv $(TOOLS_PATH)/cmoc/mo5/sap/sapfs $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+
+$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT): $(TOOLS_PATH)/z88dk/cpc/nocart/src/main.cpp
+	cd $(TOOLS_PATH)/z88dk/cpc/nocart/src/ && $(GNU_MAKE) && mv nocart ../nocart$(COMPILEDEXT)
+
+$(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT):
+	cd $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/ && $(GNU_MAKE) && mv m20$(EXEEXT) ../m20$(COMPILEDEXT)
+
+$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT):
+	cd $(TOOLS_PATH)/ti99/elf2ea5/ && $(GNU_MAKE) && mv elf2ea5$(EXEEXT) ../elf2ea5$(COMPILEDEXT)
+
+$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT):
+	cd $(TOOLS_PATH)/ti99/ea5split/ && $(GNU_MAKE) && mv ea5split$(EXEEXT) ../ea5split$(COMPILEDEXT)
+
+#  -j$(MAKE_THREADS)
+$(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT):
+	cd $(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) exomizer && mv exomizer$(EXEEXT) ..
+
+$(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT):
+	cd $(TOOLS_PATH)/generic/CC1541 && $(GNU_MAKE)
+
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT):
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && ./configure --with-z88dk=z88dk-z80asm && $(GNU_MAKE) CFLAGS=-Wno-error=implicit-function-declaration
+
+$(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT): $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT)
+	cd $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/ && $(GNU_MAKE) bin2abc$(EXEEXT)
+
+# -j$(MAKE_THREADS)
+$(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT):
+	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) 
+
+$(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT):
+	cd $(TOOLS_PATH)/cc65/telestrat/ && gcc tap2dsk.c -o tap2dsk$(EXEEXT)
+
+$(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT):
+	cd $(TOOLS_PATH)/cc65/telestrat/ && gcc old2mfm.c -o old2mfm$(EXEEXT)
+
+
+tools: \
+    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
+    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
+    $(TOOLS_PATH)/generic/exomizer/exomizer$(EXEEXT) \
+    $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
+
+
+# exomizer has several deps
+# abc80write and bin2abc have several deps
+# nocart (cpc) requires g++
+
+easy_tools: \
+    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
+    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
+    $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT) \
+    $(TOOLS_PATH)/generic/CC1541/cc1541$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
+
+
+light_tools: \
+    $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT) \
+    $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) \
+    $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT) \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT)
+
+
+cpc_tools: \
+    $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) \
+
+
+oric_tools: \
+    $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT) \
+    $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT) \
+
+
+atari_tools: \
+    $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(EXEEXT) \
+
+
+abc80_tools: \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT) \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
+
+
+abcwrite_tools: \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(EXEEXT)
+
+bin2abc_tools: \
+    $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(EXEEXT) \
+
+# TODO: $(GNU_MAKE) here seems not to be defined
+
+clean_tools:
+	rm -rf $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/mo5/f2k5$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/mo5/sapfs$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/cmoc/mo5/sap/*.o
+	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/cpc/nocart/src/*.o
+	rm -rf $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/olivetti_m20/m20floppy-0.61/*.o
+	rm -rf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/ti99/crt0.o
+	rm -rf $(TOOLS_PATH)/ti99/crt0_ea5.o
+	rm -rf $(TOOLS_PATH)/ti99/cart_header.o
+	cd $(TOOLS_PATH)/generic/exomizer/src && $(GNU_MAKE) clean
+	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/generic/exomizer/exomizer
+	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541
+	rm -rf $(TOOLS_PATH)/generic/CC1541/cc1541.out
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/*.o
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc$(COMPILEDEXT)
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcwrite
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/abcread
+	rm -rf $(TOOLS_PATH)/z88dk/abc80/abcdisk-2.7/bin2abc
+	rm -rf $(TOOLS_PATH)/cc65/telestrat/tap2dsk$(EXEEXT)
+	rm -rf $(TOOLS_PATH)/cc65/telestrat/old2mfm$(EXEEXT)
+	cd $(TOOLS_PATH)/cc65/atari/mkatr-master && $(GNU_MAKE) clean
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.exe
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/*.out
+	rm -rf $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr
+    
+clean_logs:
+	rm -rf ../logs/*.log

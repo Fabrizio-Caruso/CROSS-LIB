@@ -76,7 +76,8 @@ class BuildConfig():
         native_compiler = "gcc",
         tool_compiler = "gcc",
         use_tools = "1",
-        default_target = "stdio"
+        default_target = "stdio",
+        extra_tiles = False
         ):
 
         # build
@@ -99,6 +100,7 @@ class BuildConfig():
         self.tool_compiler              = tool_compiler
         self.use_tools                  = use_tools
         self.default_target             = default_target
+        self.extra_tiles                = extra_tiles
 
     def get_opts(self):
         return \
@@ -120,7 +122,8 @@ class BuildConfig():
             self.native_compiler, \
             self.tool_compiler, \
             self.use_tools, \
-            self.default_target
+            self.default_target, \
+            self.extra_tiles
 
 
 class OptionConfig:
@@ -165,6 +168,7 @@ def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
     tool_compiler, \
     use_tools, \
     default_target, \
+    extra_tiles, \
     = option_config.build_config.get_opts()
     
     if z88dk_compiler in ('zsdcc','sdcc'):
@@ -227,6 +231,7 @@ def config(option_config):
     tool_compiler, \
     use_tools, \
     default_target, \
+    extra_tiles, \
     = option_config.build_config.get_opts()
 
     compilation_threads = option_config.build_config.compilation_threads

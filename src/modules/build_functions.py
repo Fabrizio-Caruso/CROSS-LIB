@@ -76,6 +76,7 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     tool_compiler, \
     use_tools, \
     default_target, \
+    extra_tiles, \
     = option_config.build_config.get_opts()
     
     if option_config.build_config.parallelize_multi_build:
@@ -175,6 +176,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
     tool_compiler, \
     use_tools, \
     default_target, \
+    extra_tiles, \
     = option_config.build_config.get_opts()
 
     if use_tools:
@@ -416,6 +418,7 @@ def build(option_config, params, reset_flag = False):
         tool_compiler, \
         use_tools, \
         default_target, \
+        extra_tiles, \
         = option_config.build_config.get_opts()
 
 

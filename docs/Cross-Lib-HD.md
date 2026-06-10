@@ -21,9 +21,9 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md.
 
 Cross-Lib-HD (https://github.com/Fabrizio-Caruso/CROSS-LIB/) is just Cross-Lib with more graphics tiles at the cost in some rare cases to produce slightly bigger binaries and in some very rare cases to support fewer colors.
 Cross-Lib-HD is fully backwards compatible with Cross-Lib, i.e., any project written for Cross-Lib will be compatible with Cross-Lib-HD. So any Cross-Lib project can be easily extended in Cross-Lib-HD with no need to rewrite the whole code.
-Currently Cross-Lib-HD is not a complete replacement for Cross-Lib as it can produce worse results for small games for very memory-limited targets with limited tiles and/or color palettes.
+Cross-Lib-HD is not a complete replacement for Cross-Lib as it can produce worse results for small games for very memory-limited targets with limited tiles and/or color palettes.
 Depending on memory and color constraints, the user may choose one or the other or both if they want to build a standard version of a game together with an enhanced version (that may only worked on targets with expanded memory and maybe with fewer colors in some cases).
-In the future the two versions may be merged in one single repository in which the user can pass a parameter to define which version is supposed to be used to build their game.
+In the future Cross-Lib-HD will be integrated in Cross-Lib so that a user could decide by passing a parameter which one to use for its game. The game code may use conditional macros and have extra tiles when compiled with Cross-Lib-HD, yet, may also work with Cross-Lib. 
 
 There are currently no other differences other than the number of tiles between the two frameworks. For this reason from now on in this article we will refer collectivelly to both as Cross-Lib.
 
@@ -375,21 +375,25 @@ We can do this by using the native terminal targets:
 
 Both such targets produce binaries that can be run on the host terminal.
 
-### NCURSES
+### THE ASCII TARGET
 This is the default target that is used when no target is given as parameter.
 This target can **mimick any ASCII target**.
 
 It represents an ASCII-only version for host terminal with default size 80x24.
 For example:
 ```
-xl verbix 
+xl verbix ascii
 ```
 builds `verbix` for the host terminal and tiles are just ASCII characters.
 
-Different screen sizes are possible with the `xl size` command. Run `xl help size` for the documentation.
+Different screen sizes are possible by passing the x and y size of the screen in terms of number of tiles:
 
+```
+xl horde ascii 20 18
+```
+builds `horde` with a 20x18 screen.
 
-### TERMINAL
+### THE TERMINAL TARGET
 This target is a graphics version for the host terminal, which can **mimick any target with graphics**. 
 
 By default it produces binaries with 20x17 as default screen size and 8x8 tile size.

@@ -8,7 +8,12 @@ Having a Dockerfile and a devcontainer configuration means that anyone with a Gi
 
 You can pull and run the latest pre-build image with
 ```
-docker run -it -v {cross-lib_location}:/usr/src/cross-lib ghcr.io/cross-lib/devcontainers/base:1.0.5-ubuntu
+docker run -it -v {cross-lib_location}:/usr/src/cross-lib ghcr.io/cross-lib/devcontainers/base:trixie-1.1.0
+```
+
+For example if you are in the main cross-lib directory you can run:
+```
+docker run -it -v .:/usr/src/cross-lib ghcr.io/cross-lib/devcontainers/base:trixie-1.1.0
 ```
 where {cross-lib_location} could be something like: *c:\sources\cross-lib*.
 

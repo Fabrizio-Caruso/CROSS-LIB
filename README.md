@@ -147,7 +147,7 @@ An actual installation is not necessary because Cross-Lib is made of scripts and
 
 Moreover even installing the required compilers may not be necessary because Cross-Lib can be used through GitHub Codespaces (with <ins>preinstalled</ins> compilers) on any browser.
 
-Additionally ou can also use it with
+Additionally you can also use it with
 - the pre-built docker image (compilers are <ins>preinstalled</ins>), 
 - the dockerfile to build an image or (compilers are <ins>preinstalled</ins>), 
 - a clone of this repository (which requires the installation of the compilers).

@@ -7,7 +7,6 @@ extern bbc_sound explosion_snd;
 extern bbc_sound shoot_snd;
 
 
-
 #define _XL_EXPLOSION_SOUND() OSSOUND(&explosion_snd)
 
 #define _XL_PING_SOUND() OSSOUND(&ping_snd)

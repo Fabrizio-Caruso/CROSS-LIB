@@ -108,7 +108,7 @@ int main(void)
         }
         
         _XL_SLOW_DOWN(4*_XL_SLOW_DOWN_FACTOR);
-        
+        _XL_REFRESH();
     }
     
     return EXIT_SUCCESS;

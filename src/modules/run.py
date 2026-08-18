@@ -34,12 +34,18 @@ def run_command(option_config, command_string):
 def run_native(option_config, params, target):
     command_prefix = "../build/X" + params[1] + "_" + target
 
+    if option_config.terminal_config.test and not option_config.terminal_config.interactive_test and (target in ["stdio", "ascii"] or target.startswith("terminal")):
+        capture = " | tee ../logs/output.txt"
+
+    else:
+        capture = ""
+
     if len(params)>=4:
         xsize = params[2]
         ysize = params[3]
-        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION
+        command_string = command_prefix + "_" + xsize + "X" + ysize + "." + NATIVE_EXTENSION + capture
     else:
-        command_string = command_prefix + "." + NATIVE_EXTENSION
+        command_string = command_prefix + "." + NATIVE_EXTENSION + capture
     option_config.terminal_config.native_console = 1
     run_command(option_config, command_string)
     option_config.terminal_config.native_console = 0
@@ -53,7 +59,7 @@ def run_stdio(option_config, params):
 def run(option_config, params):
 
     if len(params)==2:
-        run_native(option_config, params, "ncurses")
+        run_native(option_config, params, option_config.build_config.default_target)
 
     if len(params)>=3:
         params = insert_default_sizes(option_config, params)

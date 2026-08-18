@@ -135,18 +135,8 @@ GAMES_TEST = \
 
 RUN_TEST = \
     [ \
-        "xl create _test_project", \
-        "xl build _test_project __target__", \
-        "xl run _test_project __target__", \
-        "xl clone _test_project _cloned_test_project", \
-        "xl build _cloned_test_project __target__", \
-        "xl run _cloned_test_project __target__", \
-    ]
-
-CLEANUP_RUN_TEST = \
-    [ \
-            "xl delete _test_project -y", \
-            "xl delete _cloned_test_project -y", \
+        "xl build animate __target__", \
+        "xl run animate __target__", \
     ]
 
 

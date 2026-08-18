@@ -50,7 +50,7 @@
             #include "c264_sounds.h"
         #elif defined(__C64__) 
             #include "sid_sounds.h"
-        #elif defined(__C128__) 
+        #elif defined(__C128__) && !defined(__C128_Z80__)
             #include "sid_sounds.h"
         #elif defined(__CBM510__) 
             #include "sid_sounds.h"

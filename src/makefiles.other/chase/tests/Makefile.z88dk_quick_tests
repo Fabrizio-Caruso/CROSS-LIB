@@ -48,22 +48,14 @@ zsdcc_quick_test: \
 	vg5k_zsdcc_quick_test \
 	zx81_zsdcc_quick_test 
 
-# TODO: Fix
-# 	c128_z80_quick_test 
-#	msx_quick_test 
-#   	nc100_quick_test 
-# 	cpm_quick_test 
-# 	x1_quick_test 
-# 	cpc_quick_test (Unix)
-
-
-
-
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
 	aquarius_quick_test \
- 	eg2k_quick_test \
+	c128_z80_quick_test \
+	cpc_quick_test \
+	cpm_quick_test \
+	eg2k_quick_test \
 	einstein_quick_test \
 	gal_quick_test \
 	kc_quick_test \
@@ -71,27 +63,31 @@ sccz80_quick_test: \
 	m5_quick_test \
 	mc1000_quick_test \
 	microbee_quick_test \
+	msx_quick_test \
 	mtx_quick_test \
 	mz_quick_test \
+	nc100_quick_test \
 	nascom_quick_test \
 	p2000_quick_test \
 	pc6001_quick_test \
 	pps_quick_test \
-	pv2000_quick_test \
 	px4_quick_test \
 	px8_quick_test \
 	samcoupe_quick_test \
 	sc3000_quick_test \
 	sg1000_quick_test \
 	spectrum_quick_test \
+	pv2000_quick_test \
 	srr_quick_test \
 	svi_quick_test \
 	ti82_quick_test \
 	ti83_quick_test \
 	ti85_quick_test \
 	trs80_quick_test \
+	ts2068_quick_test \
 	vg5k_quick_test \
 	vz200_quick_test \
+	x1_quick_test \
 	z1013_quick_test \
 	z9001_quick_test \
 	zx80_quick_test \
@@ -102,7 +98,7 @@ sccz80_quick_test: \
 
 z88dk_quick_test: \
 	sccz80_quick_test
-	
+
 
 ####################################################################################################################
 
@@ -150,54 +146,40 @@ aquarius_quick_test:
 	mv _TEST_aquarius.caq $(BUILD_PATH)	
 
 
-c128_z80_quick_test:	
+c128_z80_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DXSize=40 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-D__INCLUDE_CONIO_H \
 	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	$(TEST_FILES) \
-	-create-app -o c128t.bin
-	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 TEST_c128_z80.d64
-	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80.d64 -write c128t.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80.d64 -write c128t
-	mv TEST_c128_z80.d64 $(BUILD_PATH)/
-	rm C128T.LDR
-	rm C128T
-	rm c128t.bin
+	-create-app -o $(BUILD_PATH)/TEST_c128.bin
+	rm -rf $(BUILD_PATH)/TEST_c128
+	rm -rf $(BUILD_PATH)/TEST_c128.ldr
+	rm -rf $(BUILD_PATH)/test_c128
+	rm -rf $(BUILD_PATH)/test_c128.ldr
 
-
-cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-	$(Z88DK_PATH)$(MYZ88DK) +cpc  -vn  -clib=ansi \
-	-D__CPC__  \
+cpc_quick_test:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__CPC____ \
+	-D_XL_NO_SLEEP -D__NO_WAIT \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-D__CPCRSLIB_GRAPHICS \
-	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(TEST_FILES) $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
-	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p $(BUILD_PATH)/TEST_cpc.cpc xchase
-	# mv TEST_cpc.dsk $(BUILD_PATH)/
-	rm $(BUILD_PATH)/TEST_cpc.cpc 
-	rm $(BUILD_PATH)/TEST_cpc.prg	
+	-create-app -o$(BUILD_PATH)/TEST_cpc.prg \
+	$(TEST_FILES)
+	rm -rf $(BUILD_PATH)/TEST_cpc.cpc
 
 
 cpm_quick_test:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__ADM3A \
-	-D__CONIO_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	-D__CPM_80X24__ \
-	-D_XL_NO_SLEEP -D__NO_WAIT \
-	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(FAST_SCCZ80_TEST_OPTS) \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_cpm.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 
 
 eg2k_quick_test:
@@ -310,22 +292,18 @@ microbee_quick_test:
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_microbee.prg
 
-
-msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
-	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
-	  -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
-	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-D__MEMORY_MAPPED_GRAPHICS -D__INCLUDE_CONIO_H \
-	-DUSE_MSX_BIOS \
-	 \
-	-vn \
-	-lndos \
-	-DZ88DK_JOYSTICK \
-	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
-	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_msx.prg 	
+msx_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm   
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-vn   -D__MSX__ \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
+	-D__CONIO_GRAPHICS   -DXSize=32 -DYSize=24 \
+	-D__NO_INIT_GRAPHICS \
+	$(TEST_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 
 
 mtx_quick_test:
@@ -373,10 +351,10 @@ nc100_quick_test:
 	-D__NC100__ \
 	-D__NO_PRINT  \
 	-D__Z88DK_SPRITES_GRAPHICS \
-	-DLESS_TEXT \
 	-D_XL_NO_SLEEP \
 	-D__NO_WAIT \
-	 \
+	-D__ALT_PRINT \
+	-vn -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
 	$(TEST_FILES)
@@ -420,24 +398,21 @@ pps_quick_test:
 	$(TEST_FILES) 
 	mv ppst.bin $(BUILD_PATH)/TEST_pps.exe		
 
-
 pv2000_quick_test:
-	$(Z88DK_PATH)$(MYZ88DK) +pv2000 -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-D__CONIO_GRAPHICS \
+	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_ROM_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__PV2000__ \
+	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS)  \
 	-D__NO_INIT_GRAPHICS \
-	 \
-	-D__NO_WAIT \
-	-D__VT52 \
+	-D__VT52 -D_XL_NO_JOYSTICK \
+	-D__CONIO_GRAPHICS \
 	-lndos \
-	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-create-app -o pv2kt.bin \
-	$(TEST_FILES)
-	mv pv2kt.rom $(BUILD_PATH)/TEST_pv2000.rom
-	rm pv2kt.bin
-	rm pv2kt_BSS.bin
-	rm pv2kt_DATA.bin
-
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(TEST_FILES) \
+	-create-app -o$(BUILD_PATH)/TEST_pv2000.bin
+	rm -rf $(BUILD_PATH)/TEST_pv2000.bin
+	rm -rf $(BUILD_PATH)/TEST_pv2000_DATA.bin
+	rm -rf $(BUILD_PATH)/TEST_pv2000_BSS.bin
 
 px4_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -475,12 +450,9 @@ samcoupe_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	-o $(BUILD_PATH)/TEST_samcoupe.bin -lndos \
 	$(TEST_FILES)
 	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
-	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
-	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/TEST_samcoupe.dsk
-	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
 
 sc3000_quick_test:
@@ -526,20 +498,19 @@ spectrum_quick_test:
 
 
 srr_quick_test:
-	$(Z88DK_PATH)$(MYZ88DK) +srr -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-D__CONIO_GRAPHICS \
-	-D__NO_INIT_GRAPHICS \
-	 \
-	-D__NO_WAIT \
-	-D__VT52 \
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn --generic-console \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__CONIO_GRAPHICS -D__INCLUDE_CONIO_H \
+	-lndos -D_XL_NO_JOYSTICK \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-lndos \
-	-create-app -o srrt.bin \
+	-D__NO_INIT_GRAPHICS \
+	-create-app -o srr \
 	$(TEST_FILES)
-	rm srrt.srr
-	rm srrt.bin
-	mv srrt.wav $(BUILD_PATH)/TEST_srr.wav
+	rm -rf srr
+	rm -rf srr.wav
+	mv srr.srr $(BUILD_PATH)/TEST_srr.srr
 
 
 svi_quick_test:
@@ -620,6 +591,18 @@ trs80_quick_test:
 	-o$(BUILD_PATH)/TEST_trs80.bin \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	
+
+
+ts2068_quick_test: 
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 -lm \
+	-D__ABC80__ -clib=ansi -vn   -lndos \
+	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/TEST_ts2068 \
+	-lndos \
+	$(TEST_FILES)
+	rm -rf $(BUILD_PATH)/TEST_ts2068
 
 
 vg5k_quick_test:

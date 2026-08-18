@@ -116,7 +116,11 @@ int main(void)
         _XL_PRINT(ON_OFF_POS,8*LINE_SKIP,"OFF");
     #endif
     
+    _XL_REFRESH();
+    
+    #if !defined(__EXIT_TO_OS)
     while(1){};
+    #endif
     
     return EXIT_SUCCESS;
 }

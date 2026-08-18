@@ -483,7 +483,10 @@ def build(option_config, params, reset_flag = False):
                 use_tools_str = " USE_TOOLS=1 "
             else:
                 use_tools_str = ""
-
+            
+            if target=="stdio":
+                option_config.build_config.native_compiler_opts+= " -D__EXIT_TO_OS"
+                
             if is_project_split(game_dir):
                 if verbose:
                     printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")

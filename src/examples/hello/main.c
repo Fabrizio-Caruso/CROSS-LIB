@@ -36,7 +36,9 @@ int main(void)
 
     _XL_REFRESH();
 
+    #if !defined(__EXIT_TO_OS)
     while(1){};
+    #endif
     
     return EXIT_SUCCESS;
 }

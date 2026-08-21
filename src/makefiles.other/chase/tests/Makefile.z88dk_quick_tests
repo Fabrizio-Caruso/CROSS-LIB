@@ -48,6 +48,11 @@ zsdcc_quick_test: \
 	vg5k_zsdcc_quick_test \
 	zx81_zsdcc_quick_test 
 
+# TODO: Fix
+# cpm_quick_test
+# msx_quick_test
+
+
 sccz80_quick_test: \
 	abc80_quick_test \
 	ace_quick_test \
@@ -160,6 +165,7 @@ c128_z80_quick_test:
 	rm -rf $(BUILD_PATH)/test_c128
 	rm -rf $(BUILD_PATH)/test_c128.ldr
 
+
 cpc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc \
 	-D__CONIO_GRAPHICS \
@@ -174,12 +180,15 @@ cpc_quick_test:
 
 
 cpm_quick_test:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(FAST_SCCZ80_TEST_OPTS) \
-	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
-	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
-	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__CPM_80X24__ \
+	-D_XL_NO_SLEEP -D__NO_WAIT \
+	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
+	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
 	$(TEST_FILES)
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/TEST_cpm.bin
 
 
 eg2k_quick_test:
@@ -292,18 +301,18 @@ microbee_quick_test:
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_microbee.prg
 
-msx_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm   
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-vn   -D__MSX__ \
-	-lndos -subtype=rom \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom \
-	-D__CONIO_GRAPHICS   -DXSize=32 -DYSize=24 \
+msx_quick_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
+	-D__MSX__ -create-app -o $(BUILD_PATH)/TEST_msx.cas -vn \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
-	$(TEST_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
+	-lndos \
+	$(TEST_FILES)
+	# rm $(BUILD_PATH)/TEST_msx.bin
+	# mv TEST_msx.wav $(BUILD_PATH)/TEST_msx.wav
+	# mv .mtx $(BUILD_PATH)/TEST_msx.mtx
 
 
 mtx_quick_test:
@@ -775,7 +784,6 @@ spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D__CONIO_GRAPHICS \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
-	# rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
 
 
 svi_zsdcc_quick_test:
@@ -790,7 +798,6 @@ svi_zsdcc_quick_test:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -lndos -o svizt.bin \
 	-D__SVI__ \
-	 \
 	-D__BIT_BANG_SOUND \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app \
@@ -805,10 +812,8 @@ vg5k_zsdcc_quick_test:
 	-compiler=sdcc \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	 \
 	-vn -D__VG5K__ \
 	-DLESS_TEXT \
-	 \
 	-D__CONIO_GRAPHICS \
 	-D__NO_INIT_GRAPHICS \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \

@@ -344,7 +344,8 @@ def test_compilers(option_config):
 
 
 def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
-    command_string = "python -t " + path + "/" + test_file_name
+    log_file_path  = "../logs/" + test_file_name + "_unit_test.log"
+    command_string = "python -t " + path + "/" + test_file_name + " > " + log_file_path + " 2>&1"
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
@@ -352,6 +353,13 @@ def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     option_config.terminal_config.verbose = 1
     run_command(option_config, command_string)
     option_config.terminal_config.verbose = verbosity
+    with open(log_file_path) as log_file:
+        log_content = log_file.read()
+        print("--start of log content--", flush=True)
+        print(log_content, flush=True)
+        print("--end of log content--", flush=True)
+        
+    return log_content
 
 
 def _unit_tests(option_config, path="./"):
@@ -359,16 +367,18 @@ def _unit_tests(option_config, path="./"):
     printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
     printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
 
+    result_map = {}
+
     assets_tests = files_in_path("assets/unit_tests")
     
     for test in assets_tests:
-        run_single_unit_test(option_config, test, "assets/unit_tests")
+        result_map[test] = run_single_unit_test(option_config, test, "assets/unit_tests")
     
     main_tests = files_in_path("./unit_tests")
 
     for test in main_tests:
-        run_single_unit_test(option_config, test)
-
+        result_map[test] = run_single_unit_test(option_config, test)
+    return result_map
 
 # TODO: Handle aliases such as dragon->coco
 
@@ -575,7 +585,7 @@ INTERACTIVE_TESTS = \
     ]
     
 
-def test_self(option_config, target = "stdio"):
+def _test_self(option_config, target = "stdio"):
     option_config.terminal_config.test = 1
 
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
@@ -587,7 +597,6 @@ def test_self(option_config, target = "stdio"):
     printc(option_config, bcolors.OKBLUE,target+"\n")
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
 
-    max_len = 0
     self_tests = STANDARD_SELF_TESTS 
     self_tests += MAKE_SELF_TESTS
     self_tests += TOOLS_SELF_TESTS
@@ -602,16 +611,24 @@ def test_self(option_config, target = "stdio"):
 
     for test in self_tests:
         execute_string(option_config, "xl clean", silent = True)
-        if len(test[0][0:])>max_len:
-            max_len = len(test[0][0:])
         success_map[test[0][0:]] = test_execute(option_config, target, *test)
         total_success*=success_map[test[0][0:]]
     execute_string(option_config, "xl clean", silent = True)
-    
+    option_config.terminal_config.test = 0
+    return self_tests, success_map, total_success
+
+
+def display_self_result(option_config, self_tests, success_map, total_success):
+    print("")
     print("")
     print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "SUMMARY SELF TEST RESULTS\n")
+    printc(option_config, bcolors.OKBLUE, "SELF TEST RESULTS\n")
     print("-------------------------------")
+
+    max_len = 0
+    for test in self_tests:
+        if len(test[0][0:])>max_len:
+            max_len = len(test[0][0:])
 
     for test in self_tests:
         success = success_map[test[0][0:]]
@@ -619,13 +636,82 @@ def test_self(option_config, target = "stdio"):
         
         
         spaces = " " * (max_len+5-len(test[0][0:])) 
-        printc(option_config, bcolors.OKCYAN,f"{test[0][0:]} " + spaces)
+        printc(option_config, bcolors.OKCYAN,test[0][0:] + " " + spaces)
         
         printc(option_config, success_color, success_string + "\n")
         print("-------------------------------")
 
-    option_config.terminal_config.test = 0
-    return total_success
+    return self_tests, success_map, total_success
+
+
+def test_self(option_config, target = "stdio"):
+    self_tests, success_map, total_success = _test_self(option_config, target)
+    return display_self_result(option_config, self_tests, success_map, total_success)
+
+
+def _test_components(option_config):
+    cross_compilers_result = test_cross_compilers(option_config)
+    test_tools(option_config)
+    libraries_result = test_libraries(option_config)
+    interpreters_result = test_interpreters(option_config)
+
+    test_emulators(option_config)
+    native_compilers_result = test_native_compilers(option_config)
+    test_roms(option_config)
+    make_result = test_make(option_config, silent=False)
+    return make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result
+
+
+def test_components(option_config):
+    
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result = _test_components(option_config)
+    
+    display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result)
+
+
+def _display_component_and_result(option_config, component, result, color):
+    printc(option_config, bcolors.OKCYAN, component)
+    printc(option_config, color, result+"\n")
+    print("-------------------------------")
+
+
+def display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result):
+    
+    print("")
+    print("")
+    print("-------------------------------")
+    printc(option_config, bcolors.OKBLUE, "COMPONENTS TEST RESULTS\n")
+    print("-------------------------------")
+    
+    python_version = sys.version_info[0]
+    python_subversion = sys.version_info[1]
+    
+    if python_version>=3:
+        python_bool = "OK"
+        python_color = bcolors.OKGREEN
+    elif python_version>=2 and python_subversion>=7:
+        python_bool = "WARNING"
+        python_color = bcolors.WARNING
+    else:
+        python_bool = "KO"
+        python_color = bcolors.FAIL
+    
+    make_bool, make_color =                       ("OK", bcolors.OKGREEN) if bool(len(make_result.keys())) else            ("KO", bcolors.FAIL)
+    cross_compilers_bool, cross_compilers_color = ("OK", bcolors.OKGREEN) if bool(len(cross_compilers_result.keys())) else ("WARNING", bcolors.WARNING)
+    ncurses_bool, ncurses_color =                 ("OK", bcolors.OKGREEN) if 'ncurses' in libraries_result else            ("WARNING", bcolors.WARNING)
+    java_bool, java_color =                       ("OK", bcolors.OKGREEN) if 'java' in interpreters_result else            ("WARNING", bcolors.WARNING)
+    perl_bool, perl_color =                       ("OK", bcolors.OKGREEN) if 'perl' in interpreters_result else            ("WARNING", bcolors.WARNING)
+    gcc_bool, gcc_color =                         ("OK", bcolors.OKGREEN) if 'gcc' in native_compilers_result else         ("WARNING", bcolors.WARNING)
+    gpp_bool, gpp_color =                         ("OK", bcolors.OKGREEN) if 'g++' in native_compilers_result else         ("WARNING", bcolors.WARNING)
+    
+    _display_component_and_result(option_config, "python version    ", python_bool, python_color)
+    _display_component_and_result(option_config, "make              ", make_bool, make_color)
+    _display_component_and_result(option_config, "gcc               ", gcc_bool, gcc_color)
+    _display_component_and_result(option_config, "ncurses           ", ncurses_bool, ncurses_color)
+    _display_component_and_result(option_config, "cross-compilers   ", cross_compilers_bool, cross_compilers_color)
+    _display_component_and_result(option_config, "java              ", java_bool, java_color)
+    _display_component_and_result(option_config, "perl              ", perl_bool, perl_color)
+    _display_component_and_result(option_config, "g++               ", gpp_bool, gpp_color)
 
 
 # These tests include:
@@ -633,42 +719,129 @@ def test_self(option_config, target = "stdio"):
 # - Unit-tests for Python script 
 # - Tests the output for the stdio target
 # - Tests of the `xl` script commands 
-def test_standard_cases(option_config, params):
+def _test_standard_cases(option_config, params):
 
-    test_compilers(option_config)
-    test_tools(option_config)
-    test_libraries(option_config)
-    test_interpreters(option_config)
-    _unit_tests(option_config)
-    test_output(option_config)
-    return test_self(option_config, params)
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result = _test_components(option_config)
+    
+    unit_tests_result = _unit_tests(option_config)
+    
+    if params=="stdio":
+        output_result = _test_output(option_config)
+    else:
+        output_result = None
+        
+    self_tests, success_map, total_success = _test_self(option_config, params)
+    
+    return make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success
+
+
+def display_unit_test_result(option_config, unit_tests_result):
+
+    print("")
+    print("")
+    print("-------------------------------")
+    printc(option_config, bcolors.OKBLUE, "UNIT TESTS RESULTS\n")
+    print("-------------------------------")
+
+    max_len = 0
+    for test in unit_tests_result.keys():
+        if len(test)>max_len:
+            max_len = len(test)
+
+    for test in unit_tests_result.keys():
+        (success_color, success_string) = (bcolors.OKGREEN, "OK") if unit_tests_result[test].endswith("OK\n") else  (bcolors.FAIL, "KO")
+        
+        spaces = " " * (max_len+5-len(test)) 
+        printc(option_config, bcolors.OKCYAN,test + " " + spaces)
+        
+        printc(option_config, success_color, success_string + "\n")
+        print("-------------------------------")
+
+
+def test_standard_cases(option_config, params):
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success = _test_standard_cases(option_config, params)
+
+    display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result)
+    display_unit_test_result(option_config, unit_tests_result)
+    if output_result:
+        display_output_result(option_config, output_result)
+    display_self_result(option_config, self_tests, success_map, total_success)
+    return total_success
 
 
 # ["native", "cc65", "z88dk", "z88dk_alt", "cmoc", "lcc1802", "ack", "cc6303", "vbcc"]:\
-def test_compilation(option_config):
+def _test_compilation(option_config):
     compilers_check = test_compilers(option_config)
-    test_targets(option_config,["", "native"])
+    result_map = {}
+    success, built_binaries, expected_binaries = test_targets(option_config,["", "native"])
+    result_map["native"] = (success, built_binaries, expected_binaries)
     for compiler in compilers_check.keys():
         if compilers_check[compiler]:
-            print(compiler)
-            test_targets(option_config, ["", compiler])
-    test_targets(option_config,["", "z88dk_alt"])
+            success, built_binaries, expected_binaries = test_targets(option_config, ["", compiler])
+            result_map[compiler] = success, built_binaries, expected_binaries
+    if compilers_check["z88dk"]:
+        success, built_binaries, expected_binaries = test_targets(option_config,["", "z88dk_alt"])
+        result_map["z88dk_alt"] = success, built_binaries, expected_binaries
+    clean(option_config, [])
+    return result_map
+
+
+def display_compilation_result(option_config, result_map):
+    print("")
+    print("")
+    
+    print("----------------------------------------")
+    printc(option_config, bcolors.OKBLUE, "COMPILATION TEST RESULTS\n")
+    print("----------------------------------------")
+    max_len = 0
+    for test in result_map.keys():
+        if len(test)>max_len:
+            max_len = len(test)
+    for test in result_map.keys():
+        success, built_binaries, expected_binaries = result_map[test]
+        (success_color, success_string) = (bcolors.OKGREEN, "OK") if success else  (bcolors.FAIL, "KO")
+        
+        spaces = " " * (max_len+5-len(test)) 
+        printc(option_config, bcolors.OKCYAN,test + " " + spaces)
+        
+        built_space = " " * (2-len(str(built_binaries))+1)
+        expected_space = " " * (2-len(str(expected_binaries))+1)
+        
+        variable_binaries = " *" if test=="tms9900-gcc" else ""
+        
+        comparison = "       " + built_space + str(built_binaries) + "    " + expected_space + str(expected_binaries) + variable_binaries
+        
+        printc(option_config, success_color, success_string)
+        printc(option_config, bcolors.OKCYAN, comparison + "\n")
+        print("----------------------------------------")
+
+
+def test_compilation(option_config):
+    result_map = _test_compilation(option_config)
+    display_compilation_result(option_config, result_map)
+
 
 # These tests include
 # - Some more dependencies (emulators, cross-compilers, native compilers, roms, make)
-# - Tests in "test_standard_cases" including terminal target
+# - Tests in "test_standard_cases" with forced terminal target
 # - Compilation tests for most installed compilers
-def test_everything(option_config):
-    test_emulators(option_config)
-    test_cross_compilers(option_config)
-    test_native_compilers(option_config)
-    test_roms(option_config)
-    test_make(option_config, silent=False)
-    
+def test_everything(option_config, params): # TODO: Do something with params    
     # Also check terminal target
     option_config.terminal_config.terminal_test = 1
-    test_standard_cases(option_config, "stdio")
-    test_compilation(option_config)
+    print("-------------------------------------------------")
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success = _test_standard_cases(option_config, params)
+
+    compilation_result = _test_compilation(option_config)
+    
+    display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result)
+    
+    display_unit_test_result(option_config, unit_tests_result)
+    
+    display_output_result(option_config, output_result)
+    
+    display_self_result(option_config, self_tests, success_map, total_success)
+    
+    display_compilation_result(option_config, compilation_result)
 
 
 TEST_FILES = {
@@ -682,13 +855,12 @@ TEST_FILES = {
     # "vbcc"        : ["bbc", "bbcmaster"], # Not enough memory for XL HD
     "vbcc"        : ["bbcmaster"],
     "tms9900-gcc"      : ["ti99"],
-    # "tms9900-gcc" : ["ti99"] # Variable number
     }
 
 # TODO: This should not be hard-coded.
 Z88DK_ALT_EXPECTED_FILES = 45
 
-def test_targets(option_config, params):
+def _test_targets(option_config, params):
 
     verbose = option_config.terminal_config.verbose
     success = clean_test(option_config)
@@ -711,7 +883,7 @@ def test_targets(option_config, params):
         print("Testing: " + str(devkit_test_files)[1:][:-1])
         print("Targets: " + str(devkit_test_files))
         
-        expected_files = 0
+        # expected_files = 0
         for test_file in devkit_test_files:
             # TODO: Parameters should be read from config.ini
             _use_tools = option_config.build_config.use_tools
@@ -721,13 +893,13 @@ def test_targets(option_config, params):
                            " USE_TOOLS=" + str(_use_tools) + " TOOL_CC=" + _tool_compiler + " " + \
                            all_compilers_opts(option_config, "","") + \
                            " -f makefiles.other/chase/tests/Makefile.tests"
-            expected_files += binary_factor(test_file)
+            # expected_files += binary_factor(test_file)
             run_command(option_config, make_command)
     elif params[1]=="z88dk_alt":
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
-        expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
+        # expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):
@@ -739,8 +911,27 @@ def test_targets(option_config, params):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(option_config, game_dir, project_type)
+    return success
 
+def test_targets(option_config, params):
+    _test_targets(option_config, params)
+    return process_test_targets_result(option_config, params)
+
+def process_test_targets_result(option_config, params):
     built_files = len(files_in_path("../build"))-1
+    verbose = option_config.terminal_config.verbose
+    if params[1] in TEST_FILES.keys():
+        devkit_test_files = TEST_FILES[params[1]]
+        if verbose:
+            print("Testing: " + str(devkit_test_files)[1:][:-1])
+            print("Targets: " + str(devkit_test_files))
+        
+        expected_files = 0
+        for test_file in devkit_test_files:
+            expected_files += binary_factor(test_file)
+    elif params[1]=="z88dk_alt":
+        expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
+    
     if verbose:
         print("Number of built files: " + str(built_files))
 
@@ -756,29 +947,43 @@ def test_targets(option_config, params):
 
             else:
                 printc(option_config, bcolors.OKGREEN, "Number of binaries OK\n")
+            success=1
+    return success, built_files, expected_files
 
-    return success
 
+EXPECTED_HD_OUTPUT = \
+{
+    "clear":      ['\n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
+    "hello":      ['\n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '           HELLO WORLD          \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
+    "target":     ['\n', 'TARGET INFORMATION              \n', '                                \n', 'XSIZE 32  YSIZE 24              \n', '                                \n', 'TILES 91  8X8                   \n', '                                \n', 'GRAPHICS      ON                \n', '                                \n', 'COLOR         OFF               \n', '                                \n', 'TEXT COLOR    OFF               \n', '                                \n', 'JOYSTICK      OFF               \n', '                                \n', 'SOUND         OFF               \n', '                                \n', 'SMALL CHARS   ON                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
+    "display":    ['\n', '                                \n', '                                \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0 1 2 3 4 5               \n', '  6 7 8 9 0 1 2 3               \n', '  4 5 6 7 8 9 0 1               \n', '  2 3 4 5 6 7 8 9               \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0 1 2 3 4 5               \n', '  6 7 8 9 0 1 2 3               \n', '  4 5 6 7 8 9 0 1               \n', '  2 3 4 5 6 7 8 9               \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0                         \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '  END OF DEMO                   \n', '                                \n', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ      \n', '0123456789                      \n', '                                \n'],
+    "boundary":   ['\n', '00000000000000000000000000HI1234\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0         HELLO WORLD          0\n', '00000000000000000000000000000000\n'],
+    "numbers":    ['\n', '                                \n', '                                \n', '             9                  \n', '                                \n', '             99                 \n', '                                \n', '             999                \n', '                                \n', '             5000               \n', '                                \n', '             20000              \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
+    "characters": ['\n', '                    01234567890 \n', '       PRINTD                   \n', '       0123456789               \n', '                                \n', '       BLUE                     \n', '                                \n', '                                \n', '        ABCDEFG HIJKLM          \n', '                                \n', '        NOPQRST UVWXYZ          \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', 'A B C D E F G H I J K L M N O P \n', '                                \n', 'Q R S T U V W X Y Z             \n', '                                \n', '                                \n', '                                \n', '       END OF DEMO              \n'],
+}
 
-EXPECTED_OUTPUT = \
+EXPECTED_LD_OUTPUT = \
 {
     "clear":      ['\n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
     "hello":      ['\n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '           HELLO WORLD          \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
     "target":     ['\n', 'TARGET INFORMATION              \n', '                                \n', 'XSIZE 32  YSIZE 24              \n', '                                \n', 'TILES 27  8X8                   \n', '                                \n', 'GRAPHICS      ON                \n', '                                \n', 'COLOR         OFF               \n', '                                \n', 'TEXT COLOR    OFF               \n', '                                \n', 'JOYSTICK      OFF               \n', '                                \n', 'SOUND         OFF               \n', '                                \n', 'SMALL CHARS   ON                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
-        #['\n', 'TARGET INFORMATION              \n', '                                \n', 'XSIZE 32  YSIZE 24              \n', '                                \n', 'TILES 91  8X8                   \n', '                                \n', 'GRAPHICS      ON                \n', '                                \n', 'COLOR         OFF               \n', '                                \n', 'TEXT COLOR    OFF               \n', '                                \n', 'JOYSTICK      OFF               \n', '                                \n', 'SOUND         OFF               \n', '                                \n', 'SMALL CHARS   ON                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
     "display":    ['\n', '                                \n', '                                \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0 1 2 3 4 5               \n', '  6 7 8 9 0 1 2 3               \n', '  4 5 6                         \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '  END OF DEMO                   \n', '                                \n', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ      \n', '0123456789                      \n', '                                \n'],
-        #['\n', '                                \n', '                                \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0 1 2 3 4 5               \n', '  6 7 8 9 0 1 2 3               \n', '  4 5 6 7 8 9 0 1               \n', '  2 3 4 5 6 7 8 9               \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0 1 2 3 4 5               \n', '  6 7 8 9 0 1 2 3               \n', '  4 5 6 7 8 9 0 1               \n', '  2 3 4 5 6 7 8 9               \n', '  0 1 2 3 4 5 6 7               \n', '  8 9 0                         \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '  END OF DEMO                   \n', '                                \n', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ      \n', '0123456789                      \n', '                                \n'],
     "boundary":   ['\n', '00000000000000000000000000HI1234\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0                              0\n', '0         HELLO WORLD          0\n', '00000000000000000000000000000000\n'],
     "numbers":    ['\n', '                                \n', '                                \n', '             9                  \n', '                                \n', '             99                 \n', '                                \n', '             999                \n', '                                \n', '             5000               \n', '                                \n', '             20000              \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n'],
     "characters": ['\n', '                    01234567890 \n', '       PRINTD                   \n', '       0123456789               \n', '                                \n', '       BLUE                     \n', '                                \n', '                                \n', '        ABCDEFG HIJKLM          \n', '                                \n', '        NOPQRST UVWXYZ          \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', '                                \n', 'A B C D E F G H I J K L M N O P \n', '                                \n', 'Q R S T U V W X Y Z             \n', '                                \n', '                                \n', '                                \n', '       END OF DEMO              \n'],
 }
 
 
-def test_project_output(option_config, project_name, expected_output):
+def test_project_output(option_config, project_name):
     clean(option_config, [])
     build(option_config, ["", project_name])
     run(option_config,["",project_name, "stdio"])
-    with open("../logs/output.txt","r") as output_file:
+    if option_config.build_config.hd:
+        expected_output = EXPECTED_HD_OUTPUT[project_name]
+    else:
+        expected_output = EXPECTED_LD_OUTPUT[project_name]
+    
+    with open("../logs/output_" + project_name + ".log","r") as output_file:
         text_content = output_file.readlines()
     if text_content==expected_output:
         print("OUTPUT OK for " + project_name)
@@ -788,22 +993,34 @@ def test_project_output(option_config, project_name, expected_output):
         print(str(text_content))
         return False
 
-OUTPUT_TEST_PROJECTS = ["clear", "hello", "target", "display", "boundary", "numbers", "characters"]
-# OUTPUT_TEST_PROJECTS = ["text"]
 
-def test_output(option_config):
+OUTPUT_TEST_PROJECTS = ["clear", "hello", "target", "display", "boundary", "numbers", "characters"]
+
+def _test_output(option_config):
     prev_interactive_config = option_config.terminal_config.interactive_test
     option_config.terminal_config.interactive_test = 0
     result = {}
     option_config.terminal_config.test = 1
     for project_name in OUTPUT_TEST_PROJECTS:
-        result[project_name] = test_project_output(option_config, project_name, EXPECTED_OUTPUT[project_name])
+        result[project_name] = test_project_output(option_config, project_name)
     option_config.terminal_config.test = 0
+    option_config.terminal_config.interactive_test = prev_interactive_config
+    return result
 
+
+def test_output(option_config):
+    result = _test_output(option_config)
+    display_output_result(option_config, result)
+    return result
+
+
+def display_output_result(option_config, result):
+    
+    print("")
     print("")
     
     print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "SUMMARY OUTPUT TEST RESULTS\n")
+    printc(option_config, bcolors.OKBLUE, "OUTPUT TEST RESULTS\n")
     print("-------------------------------")
     max_len = 0
     for project_name in OUTPUT_TEST_PROJECTS:
@@ -815,15 +1032,15 @@ def test_output(option_config):
         
         
         spaces = " " * (max_len+5-len(project_name)) 
-        printc(option_config, bcolors.OKCYAN,f"{project_name} " + spaces)
+        printc(option_config, bcolors.OKCYAN, project_name + " " + spaces)
         
         printc(option_config, success_color, success_string + "\n")
         print("-------------------------------")
-    option_config.terminal_config.interactive_test = prev_interactive_config
+
 
 # Self-test xl and native build
 def test(option_config, params):
-    if (len(params)<=1) or ((len(params)==2) and (params[1]=="check")):
+    if (len(params)<=1) or ((len(params)==2) and (params[1]=="standard")):
         if test_standard_cases(option_config, "stdio"):
             printc(option_config, bcolors.OKGREEN, "\nTEST OK\n")
         else:
@@ -834,12 +1051,14 @@ def test(option_config, params):
             test_self(option_config)
         else:
             test_self(option_config, params[2])
+    elif params[1]=="components":
+        test_components(option_config)
     elif params[1]=="output":
         test_output(option_config)
     elif params[1] in ["targets", "compilation"]:
         test_compilation(option_config)
     elif params[1] in ["everything", "every", "complete", "e", "all", "a"]:
-        test_everything(option_config)
+        test_everything(option_config, "stdio")
     elif params[1]=="compilers":
         test_compilers(option_config)
     elif params[1]=="tools":
@@ -859,7 +1078,7 @@ def test(option_config, params):
     elif params[1]=="make":
         test_make(option_config, silent=False)
     elif params[1] in ("unit-tests", "unit_tests", "unit-test", "unit_test", "u"):
-        _unit_tests(option_config)
+        unit_tests(option_config)
     elif params[1] in TEST_FILES.keys() or params[1].endswith('_alt'):
         if test_targets(option_config, params):
             printc(option_config, bcolors.OKGREEN, "TEST OK\n")
@@ -987,8 +1206,8 @@ def compilers(option_config):
     test(option_config, ["test","compilers"])
     
 def unit_tests(option_config):
-    # test(option_config, ["test","unit-tests"])
-    _unit_tests(option_config)
+    unit_test_result = _unit_tests(option_config)
+    display_unit_test_result(option_config, unit_test_result)
     
 
 def self(option_config, params):

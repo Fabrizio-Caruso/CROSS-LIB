@@ -58,6 +58,7 @@ class ExtendConfig():
 class BuildConfig():
     def __init__(
         self,
+        hd = "1",
         gnu_make = "make",
         compilation_threads = "4",
         compilation_threads_string = "",
@@ -80,6 +81,7 @@ class BuildConfig():
         ):
 
         # build
+        self.hd                         = hd
         self.gnu_make                   = gnu_make
         self.compilation_threads        = compilation_threads
         self.compilation_threads_string = compilation_threads_string
@@ -102,6 +104,7 @@ class BuildConfig():
 
     def get_opts(self):
         return \
+            self.hd, \
             self.gnu_make, \
             self.compilation_threads, \
             self.compilation_threads_string, \
@@ -146,6 +149,7 @@ class OptionConfig:
 
 def all_compilers_opts(option_config, zsdcc_extra_optimization, compiler_opts):
 
+    hd, \
     gnu_make, \
     compilation_threads, \
     compilation_threads_string, \
@@ -208,6 +212,7 @@ def config(option_config):
 
     print("")
 
+    hd, \
     gnu_make, \
     compilation_threads, \
     compilation_threads_string, \
@@ -313,6 +318,12 @@ def read_config(config_file="./config.ini"):
 
         config.read(config_file)
 
+        hd = read_config_option(config,"build","hd")
+        if hd!="":
+            hd=int(hd)
+        else:
+            hd=0
+        
         verbose = read_config_option(config,"terminal","verbose")
 
         if verbose!="":
@@ -425,6 +436,7 @@ def read_config(config_file="./config.ini"):
             use_tools = int(use_tools)
 
         build_config = BuildConfig( \
+            hd, 
             gnu_make,
             compilation_threads,
             compilation_threads_string,
@@ -491,6 +503,7 @@ def default_config():
         )
 
         build_config = BuildConfig( \
+            hd = "1",
             gnu_make = "make",
             compilation_threads = str(DEFAULT_COMPILATION_THREADS),
             compilation_threads_string = "default",

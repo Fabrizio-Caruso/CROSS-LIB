@@ -57,6 +57,7 @@ def multiple_project_reset(option_config, mypath):
 
 def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
 
+    hd, \
     GNU_MAKE, \
     compilation_threads, \
     compilation_threads_string, \
@@ -156,6 +157,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
 
     verbose = option_config.terminal_config.verbose
 
+    hd, \
     gnu_make, \
     compilation_threads, \
     compilation_threads_string, \
@@ -397,6 +399,7 @@ def build(option_config, params, reset_flag = False):
         if target in ["cc65", "z88dk", "cmoc", "lcc1802", "cc6303", "gcc4ti", "vbcc", "ack"]:
             target = target + "_targets"
 
+        hd, \
         gnu_make, \
         compilation_threads, \
         compilation_threads_string, \

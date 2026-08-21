@@ -33,7 +33,6 @@
 int main(void)
 {        
     uint16_t i;
-    uint8_t j;
     
     _XL_INIT_GRAPHICS();
     

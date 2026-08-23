@@ -694,13 +694,13 @@ def display_components_result(option_config, make_result, native_compilers_resul
         python_bool = "KO"
         python_color = bcolors.FAIL
     
-    make_bool, make_color =                       ("OK", bcolors.OKGREEN) if bool(len(make_result.keys())) else            ("KO", bcolors.FAIL)
-    cross_compilers_bool, cross_compilers_color = ("OK", bcolors.OKGREEN) if bool(len(cross_compilers_result.keys())) else ("WARNING", bcolors.WARNING)
-    ncurses_bool, ncurses_color =                 ("OK", bcolors.OKGREEN) if 'ncurses' in libraries_result else            ("WARNING", bcolors.WARNING)
-    java_bool, java_color =                       ("OK", bcolors.OKGREEN) if 'java' in interpreters_result else            ("WARNING", bcolors.WARNING)
-    perl_bool, perl_color =                       ("OK", bcolors.OKGREEN) if 'perl' in interpreters_result else            ("WARNING", bcolors.WARNING)
-    gcc_bool, gcc_color =                         ("OK", bcolors.OKGREEN) if 'gcc' in native_compilers_result else         ("WARNING", bcolors.WARNING)
-    gpp_bool, gpp_color =                         ("OK", bcolors.OKGREEN) if 'g++' in native_compilers_result else         ("WARNING", bcolors.WARNING)
+    make_bool, make_color =                       ("OK", bcolors.OKGREEN) if bool(len([value for value in make_result if make_result[value]==True] )) else            ("KO", bcolors.FAIL)
+    cross_compilers_bool, cross_compilers_color = ("OK", bcolors.OKGREEN) if bool(len([value for value in cross_compilers_result if cross_compilers_result[value]==True] )) else ("WARNING", bcolors.WARNING)
+    ncurses_bool, ncurses_color =                 ("OK", bcolors.OKGREEN) if libraries_result['ncurses'] else            ("WARNING", bcolors.WARNING)
+    java_bool, java_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['java'] else            ("WARNING", bcolors.WARNING)
+    perl_bool, perl_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['perl'] else            ("WARNING", bcolors.WARNING)
+    gcc_bool, gcc_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['gcc'] else         ("WARNING", bcolors.WARNING)
+    gpp_bool, gpp_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['g++'] else         ("WARNING", bcolors.WARNING)
     
     _display_component_and_result(option_config, "python version    ", python_bool, python_color)
     _display_component_and_result(option_config, "make              ", make_bool, make_color)

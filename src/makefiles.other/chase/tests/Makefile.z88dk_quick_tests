@@ -30,9 +30,14 @@ NO_CHASE_FILES ?= \
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
 
 #
-TEST_FILES ?= $(NO_CHASE_FILES)
+# TEST_FILES ?= $(NO_CHASE_FILES)
+TEST_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/main.c
 
-include ./games/chase/Makefile.chase
+
+# include ./games/chase/Makefile.chase
+include ./examples/hello/Makefile.hello
 
 # include Makefile
 

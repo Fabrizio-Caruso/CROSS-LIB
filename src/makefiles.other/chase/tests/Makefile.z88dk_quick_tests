@@ -238,8 +238,7 @@ gal_quick_test:
 	rm $(BUILD_PATH)/TEST_galaksija.prg	
 	rm $(BUILD_PATH)/TEST_galaksija.wav
 
-
-kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm 
+kc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
 	-D__NO_INIT_GRAPHICS \
@@ -250,9 +249,24 @@ kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_SLEEP \
 	-D__NO_WAIT \
 	 \
-	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
-	$(TEST_FILES) $(ASSETS_PATH)/z88dk_xchase.asm 
-	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
+	-create-app -o$(BUILD_PATH)/TEST_kc.bin \
+	 $(TEST_FILES)
+	rm $(BUILD_PATH)/TEST_kc.bin
+
+# kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm 
+	# $(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	# -D__KC__ \
+	# -D__NO_INIT_GRAPHICS \
+	# $(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
+	 # \
+	# -D__VT52 \
+	# -D__CONIO_GRAPHICS \
+	# -D_XL_NO_SLEEP \
+	# -D__NO_WAIT \
+	 # \
+	# -create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
+	# $(TEST_FILES) $(ASSETS_PATH)/z88dk_xchase.asm 
+	# rm $(BUILD_PATH)/TEST_kc_sprites.bin
 
 
 lambda_quick_test:
@@ -765,27 +779,27 @@ vz200_zsdcc_quick_test:
 	rm $(BUILD_PATH)/TEST_ZSDCC_vz200.cas
 
 
-spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +zx  -zorg=24055 \
-	-compiler=sdcc \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-pragma-redirect:getk=getk_inkey \
-	-DZ88DK_JOYSTICK \
-	-DTINY_GAME \
-	 \
-	 \
-	-D__SPECTRUM__ \
-	 -create-app \
-	-D__CONIO_GRAPHICS \
-	 \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
-	-D__CONIO_GRAPHICS \
-	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
+# spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +zx  -zorg=24055 \
+	# -compiler=sdcc \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# -pragma-redirect:getk=getk_inkey \
+	# -DZ88DK_JOYSTICK \
+	# -DTINY_GAME \
+	 # \
+	 # \
+	# -D__SPECTRUM__ \
+	 # -create-app \
+	# -D__CONIO_GRAPHICS \
+	 # \
+	# -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# -create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# $(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
+	# -D__CONIO_GRAPHICS \
+	# $(TEST_FILES)
+	# rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
 
 
 svi_zsdcc_quick_test:

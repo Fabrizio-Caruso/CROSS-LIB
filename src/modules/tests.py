@@ -475,14 +475,12 @@ def check_tools(option_config, target):
 
 def check_complex(option_config, target):
     number_files = len(files_in_path("../build"))-1
-    # print(str(files_in_path("../build")))
     return number_files==2
 
 
 def check_examples(option_config, target):
     number_files = len(files_in_path("../build"))-1
     number_of_examples = len(dirs_in_path("./examples"))
-
     return number_files == number_of_examples*binary_factor(target)
 
 
@@ -609,8 +607,8 @@ def _test_self(option_config, target = "stdio"):
         self_tests += COMPLEX_SELF_TESTS
         self_tests += PARALLEL_BUILD_TESTS
 
+    execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
     for test in self_tests:
-        execute_string(option_config, "xl clean", silent = True)
         success_map[test[0][0:]] = test_execute(option_config, target, *test)
         total_success*=success_map[test[0][0:]]
     execute_string(option_config, "xl clean", silent = True)

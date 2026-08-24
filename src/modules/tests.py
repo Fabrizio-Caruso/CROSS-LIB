@@ -936,7 +936,7 @@ def process_test_targets_result(option_config, params):
     if params[1] in TEST_FILES.keys() or params[1] in ("z88dk_alt"):
         printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
         printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files)+"\n")
-        if params[1] != "tms9900-gcc" and built_files != expected_files:
+        if (params[1] != "tms9900-gcc" and built_files != expected_files) or (params[1] == "tms9900-gcc" and not built_files):
             printc(option_config, bcolors.FAIL, "Number of binaries KO\n")
             success=0
         else:
@@ -1053,7 +1053,7 @@ def test(option_config, params):
         test_components(option_config)
     elif params[1]=="output":
         test_output(option_config)
-    elif params[1] in ["targets", "compilation"]:
+    elif params[1] in ["targets", "compilation", "compile"]:
         test_compilation(option_config)
     elif params[1] in ["everything", "every", "complete", "e", "all", "a"]:
         test_everything(option_config, "stdio")

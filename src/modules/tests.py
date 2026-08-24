@@ -455,8 +455,8 @@ def display_ok_ko(option_config, result):
 
 
 def check_clean(option_config, target):    
-    files = files_in_path("../build")
-    return not(len(files)-1)
+    files = built_files_in_path("../build")
+    return not(len(files))
 
 def check_tools(option_config, target):
     # tools_result_map=test_tools(option_config, silent=True)
@@ -474,36 +474,36 @@ def check_tools(option_config, target):
     return built_tools
 
 def check_complex(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     return number_files==2
 
 
 def check_examples(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     number_of_examples = len(dirs_in_path("./examples"))
     return number_files == number_of_examples*binary_factor(target)
 
 
 def check_games(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     number_of_games = len(dirs_in_path("./games"))
 
     return number_files == number_of_games*binary_factor(target)
 
 
 def check_games_terminal(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     number_of_games = len(dirs_in_path("./games"))
     return number_files == number_of_games*binary_factor("terminal")
 
 
 def check_rename(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     return number_files==2*binary_factor(target)
 
 
 def check_create(option_config, target):
-    number_files = len(files_in_path("../build"))-1
+    number_files = len(built_files_in_path("../build"))
     return number_files==4*binary_factor(target)
 
 def check_make(option_config, target):
@@ -916,7 +916,7 @@ def test_targets(option_config, params):
     return process_test_targets_result(option_config, params)
 
 def process_test_targets_result(option_config, params):
-    built_files = len(files_in_path("../build"))-1
+    built_files = len(built_files_in_path("../build"))
     verbose = option_config.terminal_config.verbose
     if params[1] in TEST_FILES.keys():
         devkit_test_files = TEST_FILES[params[1]]

@@ -375,7 +375,7 @@ nc100_quick_test:
 	-D__NO_INIT_GRAPHICS \
 	-D__NC100__ \
 	-D__NO_PRINT  \
-	-D__Z88DK_SPRITES_GRAPHICS \
+	-D__CONIO_GRAPHICS \
 	-D_XL_NO_SLEEP \
 	-D__NO_WAIT \
 	-D__ALT_PRINT \
@@ -446,9 +446,7 @@ px4_quick_test:
 	-subtype=px4 -Cz--32k \
 	-create-app \
 	-vn  -o px4.bin \
-	-D__ALT_PRINT \
-	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	$(TEST_FILES)
 	rm px4.bin
 	mv PX4.ROM $(BUILD_PATH)/TEST_px4.ROM
@@ -460,10 +458,8 @@ px8_quick_test:
 	-D__PX8__ \
 	-create-app \
 	-vn  -o px8.bin \
-	-D__ALT_PRINT \
-	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
-	$(TEST_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c 
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(TEST_FILES)
 	rm px8.bin
 	mv PX8.ROM $(BUILD_PATH)/TEST_px8.ROM
 

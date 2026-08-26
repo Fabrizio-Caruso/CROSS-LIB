@@ -8,6 +8,7 @@ from file_functions import files_in_path
 from run import run_command
 from print_functions import printc, bcolors
 from test_self_defs import *
+from clean_functions import clean_output
 
 
 from build_functions import *
@@ -911,9 +912,11 @@ def _test_targets(option_config, params):
         delete_main(option_config, game_dir, project_type)
     return success
 
+
 def test_targets(option_config, params):
     _test_targets(option_config, params)
     return process_test_targets_result(option_config, params)
+
 
 def process_test_targets_result(option_config, params):
     built_files = len(built_files_in_path("../build"))
@@ -972,42 +975,47 @@ EXPECTED_LD_OUTPUT = \
 }
 
 
-def test_project_output(option_config, project_name):
+def test_project_output(option_config, project_name, target = "stdio"):
     clean(option_config, [])
-    build(option_config, ["", project_name])
-    run(option_config,["",project_name, "stdio"])
+    build(option_config, ["", project_name, target])
+    run(option_config,["",project_name, target])
     if option_config.build_config.hd:
         expected_output = EXPECTED_HD_OUTPUT[project_name]
     else:
         expected_output = EXPECTED_LD_OUTPUT[project_name]
     
-    with open("../logs/output_" + project_name + ".log","r") as output_file:
-        text_content = output_file.readlines()
-    if text_content==expected_output:
-        print("OUTPUT OK for " + project_name)
-        return True
-    else:
-        print("OUTPUT KO for " + project_name)
-        print(str(text_content))
-        return False
+    if target == "stdio":
+        with open("../logs/output_" + project_name + ".log","r") as output_file:
+            text_content = output_file.readlines()
+        if text_content==expected_output:
+            print("OUTPUT OK for " + project_name)
+            return True
+        else:
+            print("OUTPUT KO for " + project_name)
+            print(str(text_content))
+            return False
+    return True
 
 
 OUTPUT_TEST_PROJECTS = ["clear", "hello", "target", "display", "boundary", "numbers", "characters"]
 
-def _test_output(option_config):
+def _test_output(option_config, target):
     prev_interactive_config = option_config.terminal_config.interactive_test
     option_config.terminal_config.interactive_test = 0
+    clean_output(option_config)
+    if not target in ["stdio", "ascii"] and not target.startswith("terminal"):
+        target = "stdio"
     result = {}
     option_config.terminal_config.test = 1
     for project_name in OUTPUT_TEST_PROJECTS:
-        result[project_name] = test_project_output(option_config, project_name)
+        result[project_name] = test_project_output(option_config, project_name, target)
     option_config.terminal_config.test = 0
     option_config.terminal_config.interactive_test = prev_interactive_config
     return result
 
 
-def test_output(option_config):
-    result = _test_output(option_config)
+def test_output(option_config, target = "stdio"):
+    result = _test_output(option_config, target)
     display_output_result(option_config, result)
     return result
 
@@ -1052,7 +1060,11 @@ def test(option_config, params):
     elif params[1]=="components":
         test_components(option_config)
     elif params[1]=="output":
-        test_output(option_config)
+        if len(params)>2:
+            target = params[2]
+        else:
+            target = "stdio"
+        test_output(option_config, target)
     elif params[1] in ["targets", "compilation", "compile"]:
         test_compilation(option_config)
     elif params[1] in ["everything", "every", "complete", "e", "all", "a"]:

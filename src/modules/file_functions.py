@@ -119,3 +119,7 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
 def files(option_config):
     make_command = "ls -ls ../build"
     os.system(make_command)
+
+def logs(option_config):
+    make_command = "ls -ls ../logs"
+    os.system(make_command)

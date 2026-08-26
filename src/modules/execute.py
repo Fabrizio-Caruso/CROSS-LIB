@@ -26,7 +26,7 @@ from modules.LoggerSingleton import LoggerSingleton
 from modules.init import *
 from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params
 from modules.help_functions import help_command, manual
-from modules.file_functions import files, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
+from modules.file_functions import files, logs, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects
 from modules.tests import *
 from modules.split_projects import *
 from modules.run import run_command, run

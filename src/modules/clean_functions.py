@@ -17,6 +17,18 @@ def clean_test(option_config):
     
     
 
+def clean_logs(option_config):
+    GNU_MAKE = option_config.build_config.gnu_make
+    make_command = GNU_MAKE + " clean_logs GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+    run_command(option_config, make_command)
+
+
+def clean_output(option_config):
+    GNU_MAKE = option_config.build_config.gnu_make
+    make_command = GNU_MAKE + " clean_output GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+    run_command(option_config, make_command)
+
+
 # Clean project data
 def clean(option_config, params):
 
@@ -31,9 +43,10 @@ def clean(option_config, params):
             run_command(option_config, make_command)
             return
         if params[1]=="log" or params[1]=="logs":
-            make_command = GNU_MAKE + " clean_logs GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
-
-            run_command(option_config, make_command)
+            clean_logs(option_config)
+            return
+        if params[1]=="test" or params[1]=="output":
+            clean_output(option_config)
             return
 
     if len(params)<2:

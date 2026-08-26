@@ -77,7 +77,7 @@ def default_screen_size(target):
         elif target in ["sms", "spectrum", "creativision", "msx", "mtx", \
                         "zx81", "zx80", "mtx512", "mtx500", "svi", "sg1000", \
                         "sc3000", "einstein", "m5", "ace", "coleco", \
-                        "vz", "vz200", "coco3"]:
+                        "vz", "vz200", "coco3", "zx"]:
             xsize = 32
             ysize = 24
         elif target in ["nes"]:

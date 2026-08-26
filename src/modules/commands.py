@@ -23,6 +23,7 @@ COMMANDS_DESCRIPTIONS = OrderedDict( \
     "import": "imports tiles from (Assembly/BASIC) files", \
     "info": "displays some target info", \
     "list": "lists all projects", \
+    "logs": "lists all logs", \
     "make": "build project using shape files", \
     "manual": "prints the manual", \
     "rebuild": "generates assets and builds a project", \

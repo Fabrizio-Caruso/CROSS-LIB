@@ -34,7 +34,7 @@ def run_command(option_config, command_string):
 def run_native(option_config, params, target):
     command_prefix = "../build/X" + params[1] + "_" + target
 
-    if option_config.terminal_config.test and not option_config.terminal_config.interactive_test and (target in ["stdio", "ascii"] or target.startswith("terminal")):
+    if option_config.terminal_config.test and not option_config.terminal_config.interactive_test and (target in ["stdio", "ascii", "ncurses"] or target.startswith("terminal")):
         capture = " | tee ../logs/output_" + params[1] + ".log"
 
     else:

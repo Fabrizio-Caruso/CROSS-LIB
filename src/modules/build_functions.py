@@ -487,7 +487,7 @@ def build(option_config, params, reset_flag = False):
             else:
                 use_tools_str = ""
             
-            if target=="stdio":
+            if target=="stdio" and option_config.terminal_config.test:
                 option_config.build_config.native_compiler_opts+= " -D__EXIT_TO_OS"
                 
             if is_project_split(game_dir):

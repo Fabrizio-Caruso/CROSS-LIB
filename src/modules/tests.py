@@ -999,7 +999,7 @@ def test_project_output(option_config, project_name, target = "stdio"):
 
 OUTPUT_TEST_PROJECTS = ["clear", "hello", "target", "display", "boundary", "numbers", "characters"]
 
-def _test_output(option_config, target):
+def _test_output(option_config, target = "stdio"):
     prev_interactive_config = option_config.terminal_config.interactive_test
     option_config.terminal_config.interactive_test = 0
     clean_output(option_config)

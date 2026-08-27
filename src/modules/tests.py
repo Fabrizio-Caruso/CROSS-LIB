@@ -379,7 +379,12 @@ def _unit_tests(option_config, path="./"):
 
     for test in main_tests:
         result_map[test] = run_single_unit_test(option_config, test)
-    return result_map
+        
+    normalized_unit_tests_result = {}
+    for test in result_map:
+        normalized_unit_tests_result[test] = "OK" if result_map[test].endswith("OK\n") else "KO"
+    
+    return normalized_unit_tests_result
 
 # TODO: Handle aliases such as dragon->coco
 
@@ -584,13 +589,16 @@ INTERACTIVE_TESTS = \
     ]
     
 
+# TODO: Maybe this should be in config.ini
+INITIAL_TEST_CLEAN_UP = True
+
 def _test_self(option_config, target = "stdio"):
     option_config.terminal_config.test = 1
 
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
     printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
-    total_success = 1
+    # total_success = 1
     success_map = {}
     printc(option_config, bcolors.BOLD,  "target: ")
     printc(option_config, bcolors.OKBLUE,target+"\n")
@@ -608,44 +616,22 @@ def _test_self(option_config, target = "stdio"):
         self_tests += COMPLEX_SELF_TESTS
         self_tests += PARALLEL_BUILD_TESTS
 
-    execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
+    if INITIAL_TEST_CLEAN_UP:
+        execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
+    print(str(self_tests))
+    # sys.exit(0)
     for test in self_tests:
-        success_map[test[0][0:]] = test_execute(option_config, target, *test)
-        total_success*=success_map[test[0][0:]]
+        print(str(test))
+        success_map[test[0][0:]] = "OK" if test_execute(option_config, target, *test) else "KO"
+        # total_success*=success_map[test[0][0:]]
     execute_string(option_config, "xl clean", silent = True)
     option_config.terminal_config.test = 0
-    return self_tests, success_map, total_success
-
-
-def display_self_result(option_config, self_tests, success_map, total_success):
-    print("")
-    print("")
-    print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "SELF TEST RESULTS\n")
-    print("-------------------------------")
-
-    max_len = 0
-    for test in self_tests:
-        if len(test[0][0:])>max_len:
-            max_len = len(test[0][0:])
-
-    for test in self_tests:
-        success = success_map[test[0][0:]]
-        (success_color, success_string) = (bcolors.OKGREEN, "OK") if success else  (bcolors.FAIL, "KO")
-        
-        
-        spaces = " " * (max_len+5-len(test[0][0:])) 
-        printc(option_config, bcolors.OKCYAN,test[0][0:] + " " + spaces)
-        
-        printc(option_config, success_color, success_string + "\n")
-        print("-------------------------------")
-
-    return self_tests, success_map, total_success
+    return success_map
 
 
 def test_self(option_config, target = "stdio"):
-    self_tests, success_map, total_success = _test_self(option_config, target)
-    return display_self_result(option_config, self_tests, success_map, total_success)
+    success_map = _test_self(option_config, target)
+    return display_test_results(option_config, "XL SCRIPTS", success_map)
 
 
 def _test_components(option_config):
@@ -672,6 +658,7 @@ def _display_component_and_result(option_config, component, result, color):
     printc(option_config, bcolors.OKCYAN, component)
     printc(option_config, color, result+"\n")
     print("-------------------------------")
+    return False if result=="KO" else True
 
 
 def display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result):
@@ -686,31 +673,37 @@ def display_components_result(option_config, make_result, native_compilers_resul
     python_subversion = sys.version_info[1]
     
     if python_version>=3:
-        python_bool = "OK"
+        python_bool = True
+        python_str = "OK"
         python_color = bcolors.OKGREEN
     elif python_version>=2 and python_subversion>=7:
-        python_bool = "WARNING"
+        python_bool = False
+        python_str = "WARNING"
         python_color = bcolors.WARNING
     else:
-        python_bool = "KO"
+        python_bool = False
+        python_str = "KO"
         python_color = bcolors.FAIL
     
-    make_bool, make_color =                       ("OK", bcolors.OKGREEN) if bool(len([value for value in make_result if make_result[value]==True] )) else            ("KO", bcolors.FAIL)
-    cross_compilers_bool, cross_compilers_color = ("OK", bcolors.OKGREEN) if bool(len([value for value in cross_compilers_result if cross_compilers_result[value]==True] )) else ("WARNING", bcolors.WARNING)
-    ncurses_bool, ncurses_color =                 ("OK", bcolors.OKGREEN) if libraries_result['ncurses'] else            ("WARNING", bcolors.WARNING)
-    java_bool, java_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['java'] else            ("WARNING", bcolors.WARNING)
-    perl_bool, perl_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['perl'] else            ("WARNING", bcolors.WARNING)
-    gcc_bool, gcc_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['gcc'] else         ("WARNING", bcolors.WARNING)
-    gpp_bool, gpp_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['g++'] else         ("WARNING", bcolors.WARNING)
+    make_str, make_color =                       ("OK", bcolors.OKGREEN) if bool(len([value for value in make_result if make_result[value]==True] )) else            ("KO", bcolors.FAIL)
+    cross_compilers_str, cross_compilers_color = ("OK", bcolors.OKGREEN) if bool(len([value for value in cross_compilers_result if cross_compilers_result[value]==True] )) else ("WARNING", bcolors.WARNING)
+    ncurses_str, ncurses_color =                 ("OK", bcolors.OKGREEN) if libraries_result['ncurses'] else            ("WARNING", bcolors.WARNING)
+    java_str, java_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['java'] else            ("WARNING", bcolors.WARNING)
+    perl_str, perl_color =                       ("OK", bcolors.OKGREEN) if interpreters_result['perl'] else            ("WARNING", bcolors.WARNING)
+    gcc_str, gcc_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['gcc'] else         ("WARNING", bcolors.WARNING)
+    gpp_str, gpp_color =                         ("OK", bcolors.OKGREEN) if native_compilers_result['g++'] else         ("WARNING", bcolors.WARNING)
     
-    _display_component_and_result(option_config, "python version    ", python_bool, python_color)
-    _display_component_and_result(option_config, "make              ", make_bool, make_color)
-    _display_component_and_result(option_config, "gcc               ", gcc_bool, gcc_color)
-    _display_component_and_result(option_config, "ncurses           ", ncurses_bool, ncurses_color)
-    _display_component_and_result(option_config, "cross-compilers   ", cross_compilers_bool, cross_compilers_color)
-    _display_component_and_result(option_config, "java              ", java_bool, java_color)
-    _display_component_and_result(option_config, "perl              ", perl_bool, perl_color)
-    _display_component_and_result(option_config, "g++               ", gpp_bool, gpp_color)
+    global_result = 1
+    global_result *= _display_component_and_result(option_config, "python version    ", python_str, python_color)
+    global_result *= _display_component_and_result(option_config, "make              ", make_str, make_color)
+    global_result *= _display_component_and_result(option_config, "gcc               ", gcc_str, gcc_color)
+    global_result *= _display_component_and_result(option_config, "ncurses           ", ncurses_str, ncurses_color)
+    global_result *= _display_component_and_result(option_config, "cross-compilers   ", cross_compilers_str, cross_compilers_color)
+    global_result *= _display_component_and_result(option_config, "java              ", java_str, java_color)
+    global_result *= _display_component_and_result(option_config, "perl              ", perl_str, perl_color)
+    global_result *= _display_component_and_result(option_config, "g++               ", gpp_str, gpp_color)
+
+    return global_result
 
 
 # These tests include:
@@ -729,43 +722,49 @@ def _test_standard_cases(option_config, params):
     else:
         output_result = None
         
-    self_tests, success_map, total_success = _test_self(option_config, params)
+    success_map = _test_self(option_config, params)
     
-    return make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success
+    return make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map
 
 
-def display_unit_test_result(option_config, unit_tests_result):
-
+def display_test_results(option_config, test_name, results):
     print("")
     print("")
     print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "UNIT TESTS RESULTS\n")
+    printc(option_config, bcolors.OKBLUE, test_name + " TEST RESULTS\n")
     print("-------------------------------")
-
     max_len = 0
-    for test in unit_tests_result.keys():
+    for test in results.keys():
         if len(test)>max_len:
             max_len = len(test)
 
-    for test in unit_tests_result.keys():
-        (success_color, success_string) = (bcolors.OKGREEN, "OK") if unit_tests_result[test].endswith("OK\n") else  (bcolors.FAIL, "KO")
+    global_result = 1
+    for test in results.keys():
+        if results[test]:
+            (success_color, success_string, result) = (bcolors.OKGREEN, results[test], 1) if results[test].endswith("OK") else  (bcolors.FAIL, results[test], 0)
+            global_result *= result
+            spaces = " " * (max_len+5-len(test)) 
+            printc(option_config, bcolors.OKCYAN,test + " " + spaces)
         
-        spaces = " " * (max_len+5-len(test)) 
-        printc(option_config, bcolors.OKCYAN,test + " " + spaces)
-        
-        printc(option_config, success_color, success_string + "\n")
-        print("-------------------------------")
+            printc(option_config, success_color, success_string + "\n")
+            print("-------------------------------")
+    return global_result
 
 
 def test_standard_cases(option_config, params):
-    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success = _test_standard_cases(option_config, params)
-
-    display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result)
-    display_unit_test_result(option_config, unit_tests_result)
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, params)
+    global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
+    global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
     if output_result:
-        display_output_result(option_config, output_result)
-    display_self_result(option_config, self_tests, success_map, total_success)
-    return total_success
+        global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
+    else:
+        global_output_test_result = None
+    self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
+    
+    global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success}
+    
+    display_test_results(option_config, "STANDARD",  global_results)
+    return global_results
 
 
 # ["native", "cc65", "z88dk", "z88dk_alt", "cmoc", "lcc1802", "ack", "cc6303", "vbcc"]:\
@@ -796,10 +795,11 @@ def display_compilation_result(option_config, result_map):
     for test in result_map.keys():
         if len(test)>max_len:
             max_len = len(test)
+    global_result = 1
     for test in result_map.keys():
         success, built_binaries, expected_binaries = result_map[test]
-        (success_color, success_string) = (bcolors.OKGREEN, "OK") if success else  (bcolors.FAIL, "KO")
-        
+        (success_color, success_string, result) = (bcolors.OKGREEN, "OK", 1) if success else  (bcolors.FAIL, "KO", 0)
+        global_result*=result
         spaces = " " * (max_len+5-len(test)) 
         printc(option_config, bcolors.OKCYAN,test + " " + spaces)
         
@@ -813,6 +813,7 @@ def display_compilation_result(option_config, result_map):
         printc(option_config, success_color, success_string)
         printc(option_config, bcolors.OKCYAN, comparison + "\n")
         print("----------------------------------------")
+    return global_result
 
 
 def test_compilation(option_config):
@@ -828,19 +829,25 @@ def test_everything(option_config, params): # TODO: Do something with params
     # Also check terminal target
     option_config.terminal_config.terminal_test = 1
     print("-------------------------------------------------")
-    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, self_tests, success_map, total_success = _test_standard_cases(option_config, params)
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
 
     compilation_result = _test_compilation(option_config)
     
-    display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result)
+    global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
+    global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
+    if output_result:
+        global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
+    else:
+        global_output_test_result = None
     
-    display_unit_test_result(option_config, unit_tests_result)
+    self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
     
-    display_output_result(option_config, output_result)
+    global_compilation_result = "OK" if display_compilation_result(option_config, compilation_result) else "KO"
     
-    display_self_result(option_config, self_tests, success_map, total_success)
-    
-    display_compilation_result(option_config, compilation_result)
+    global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success, "compilation tests": global_compilation_result}
+        
+    display_test_results(option_config, "GLOBAL", global_results)
+
 
 
 TEST_FILES = {
@@ -989,12 +996,12 @@ def test_project_output(option_config, project_name, target = "stdio"):
             text_content = output_file.readlines()
         if text_content==expected_output:
             print("OUTPUT OK for " + project_name)
-            return True
+            return "OK"
         else:
             print("OUTPUT KO for " + project_name)
             print(str(text_content))
-            return False
-    return True
+            return "KO"
+    return "OK"
 
 
 OUTPUT_TEST_PROJECTS = ["clear", "hello", "target", "display", "boundary", "numbers", "characters"]
@@ -1016,32 +1023,34 @@ def _test_output(option_config, target = "stdio"):
 
 def test_output(option_config, target = "stdio"):
     result = _test_output(option_config, target)
-    display_output_result(option_config, result)
+    display_test_results(option_config, "OUTPUT", result)
     return result
 
 
-def display_output_result(option_config, result):
+# def display_output_result(option_config, result):
     
-    print("")
-    print("")
+    # print("")
+    # print("")
     
-    print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "OUTPUT TEST RESULTS\n")
-    print("-------------------------------")
-    max_len = 0
-    for project_name in OUTPUT_TEST_PROJECTS:
-        if len(project_name)>max_len:
-            max_len = len(project_name)
-    for project_name in OUTPUT_TEST_PROJECTS:
-        success = result[project_name]
-        (success_color, success_string) = (bcolors.OKGREEN, "OK") if success else  (bcolors.FAIL, "KO")
+    # print("-------------------------------")
+    # printc(option_config, bcolors.OKBLUE, "OUTPUT TEST RESULTS\n")
+    # print("-------------------------------")
+    # max_len = 0
+    # for project_name in OUTPUT_TEST_PROJECTS:
+        # if len(project_name)>max_len:
+            # max_len = len(project_name)
+    # global_result = 1
+    # for project_name in OUTPUT_TEST_PROJECTS:
+        # success = result[project_name]
+        # (success_color, success_string, bool_result) = (bcolors.OKGREEN, "OK", 1) if success else  (bcolors.FAIL, "KO", 0)
+        # global_result*=bool_result
         
+        # spaces = " " * (max_len+5-len(project_name)) 
+        # printc(option_config, bcolors.OKCYAN, project_name + " " + spaces)
         
-        spaces = " " * (max_len+5-len(project_name)) 
-        printc(option_config, bcolors.OKCYAN, project_name + " " + spaces)
-        
-        printc(option_config, success_color, success_string + "\n")
-        print("-------------------------------")
+        # printc(option_config, success_color, success_string + "\n")
+        # print("-------------------------------")
+    # return global_result
 
 
 # Self-test xl and native build
@@ -1217,7 +1226,7 @@ def compilers(option_config):
     
 def unit_tests(option_config):
     unit_test_result = _unit_tests(option_config)
-    display_unit_test_result(option_config, unit_test_result)
+    display_test_results(option_config, "UNITARY", unit_test_result)
     
 
 def self(option_config, params):

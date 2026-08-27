@@ -889,7 +889,6 @@ def _test_targets(option_config, params):
         print("Testing: " + str(devkit_test_files)[1:][:-1])
         print("Targets: " + str(devkit_test_files))
         
-        # expected_files = 0
         for test_file in devkit_test_files:
             # TODO: Parameters should be read from config.ini
             _use_tools = option_config.build_config.use_tools
@@ -899,13 +898,11 @@ def _test_targets(option_config, params):
                            " USE_TOOLS=" + str(_use_tools) + " TOOL_CC=" + _tool_compiler + " " + \
                            all_compilers_opts(option_config, "","") + \
                            " -f makefiles.other/chase/tests/Makefile.tests"
-            # expected_files += binary_factor(test_file)
             run_command(option_config, make_command)
     elif params[1]=="z88dk_alt":
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
                        " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
-        # expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
         if is_project_split(game_dir):

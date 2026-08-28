@@ -26,123 +26,113 @@
 
 #include "images.h"
 
-const uint8_t tiles[] = {
-		_TILE_0, _TILE_1, _TILE_2, _TILE_3, 
-		_TILE_4, _TILE_5, _TILE_6, _TILE_7, 
-		_TILE_8, _TILE_9, _TILE_10, _TILE_11, 
-		_TILE_12, _TILE_13, _TILE_14, _TILE_15, 
-		_TILE_16, _TILE_17, _TILE_18, _TILE_19,
-		_TILE_20, _TILE_21, _TILE_22, _TILE_23, 
-        _TILE_24, _TILE_25,
-        _TILE_26
-		};
-
-#define NUMBER_OF_COLORS 7
-#define MAX_STRING_SIZE 10
-
-#if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-    #define FIRST_COLOR _XL_BLACK
-#else
-    #define FIRST_COLOR _XL_WHITE
-#endif
-
-// TODO: This requires _XL_DRAW to be a macro 
-// that suppresses the last the color argument when _XL_NO_COLOR is set
-#if !defined(_XL_NO_COLOR)
-static const uint8_t tile_color[NUMBER_OF_COLORS] = {
-    FIRST_COLOR,
-    _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE, _XL_MAGENTA};
-#endif
 
 
-const char color_name[NUMBER_OF_COLORS][MAX_STRING_SIZE] = { 
-    #if defined(__BACKGROUND_COLOR) && __BACKGROUND_COLOR==1
-                                "BLACK",
-    #else
-                                "WHITE",
-    #endif
-                                "RED", 
-                                "CYAN", 
-                                "GREEN", 
-                                "YELLOW", 
-                                "BLUE", 
-                                "MAGENTA",
-                                };
+void draw_castle(void)
+{
+    _XL_DRAW(XSize/2-1,YSize/2,  CASTLE_NW_TILE,_XL_WHITE);
+    _XL_DRAW(XSize/2,  YSize/2,  CASTLE_NE_TILE,_XL_WHITE);
+    _XL_DRAW(XSize/2-1,YSize/2+1,CASTLE_SW_TILE,_XL_WHITE);
+    _XL_DRAW(XSize/2,YSize/2+1,  CASTLE_SE_TILE,_XL_WHITE);
+    _XL_DRAW(XSize/2-2,YSize/2+1, BRIDGE_DOWN_TILE,_XL_WHITE);
+}
 
 
-#if XSize<20
-    #define COL_OFFSET 0
-#else
-    #define COL_OFFSET ((XSize/3)-3)
-#endif
+void draw_left_dragon(uint8_t x, uint8_t y, uint8_t color)
+{
+    _XL_DRAW(x-1,y,  LEFT_NW_TILE,color);
+    _XL_DRAW(x,  y,  LEFT_NE_TILE,color);
+    _XL_DRAW(x-1,y+1,LEFT_SW_TILE,color);
+    _XL_DRAW(x,y+1,  LEFT_SE_TILE,color);
+}
 
-#if YSize<12
-    #define  ROW_OFFSET 1
-#else
+
+void draw_right_dragon(uint8_t x, uint8_t y, uint8_t color)
+{
+    _XL_DRAW(x-1,y,  RIGHT_NW_TILE,color);
+    _XL_DRAW(x,  y,  RIGHT_NE_TILE,color);
+    _XL_DRAW(x-1,y+1,RIGHT_SW_TILE,color);
+    _XL_DRAW(x,y+1,  RIGHT_SE_TILE,color);
+}
+
+#define DRAGONS ((XSize)/5 * ((YSize)/10))
+
+
+void draw_dragons(void)
+{
+    uint8_t i;
     
-    #define ROW_OFFSET (YSize/7)
-#endif
+    for(i=0;i<DRAGONS;++i)
+    {
+        draw_left_dragon(2+_XL_RAND()%(XSize-4),2+_XL_RAND()%(YSize-4),_XL_RED);
+        draw_right_dragon(2+_XL_RAND()%(XSize-4),2+_XL_RAND()%(YSize-4),_XL_WHITE);
+    }
+}
 
-#if YSize<=15
-    #define CHAR_SKIP 1
-    #define LINE_SKIP 1
-#else
-    #define CHAR_SKIP 2
-    #define LINE_SKIP 2
-#endif    
+void draw_wall(void)
+{
+    uint8_t i;
+    for(i=0;i<XSize;++i)
+    {
+        _XL_DRAW(i,0,WALL_TILE, _XL_WHITE);
+        _XL_DRAW(i,YSize-1,WALL_TILE, _XL_WHITE);
+    }
+    for(i=0;i<YSize;++i)
+    {
+        _XL_DRAW(0,i,WALL_TILE, _XL_WHITE);
+        _XL_DRAW(XSize-1,i,WALL_TILE, _XL_WHITE);
+    }
+}
 
-#if defined(_XL_NO_JOYSTICK)
-    #define _PRESS "PRESS A KEY"
-#else
-    #define _PRESS "PRESS FIRE"
-#endif
+void draw_player(uint8_t x, uint8_t y)
+{
+    _XL_DRAW(x,y,PLAYER_TILE, _XL_WHITE);
+}
 
+
+void draw_chase(uint8_t x, uint8_t y)
+{
+    _XL_DRAW(x,y,CHASE_TILE, _XL_WHITE);
+}
+
+void spawn_chase(void)
+{
+    uint8_t x;
+    uint8_t y;
+    
+    x = 1+(_XL_RAND()&1)*(XSize-3);
+    y = 1+(_XL_RAND()&1)*(YSize-3);
+    draw_chase(x,y);
+}
 
 int main(void)
 {        
 
-    uint8_t i;
-    uint8_t j;
-    
+
     _XL_INIT_GRAPHICS();
     
     _XL_INIT_SOUND();
 
     _XL_INIT_INPUT();
 
+    // _XL_CLEAR_SCREEN();
 
-    for(;;)
+
+    while(1)
     {
-        for(j=0;j<NUMBER_OF_COLORS;++j)
-        {
-            _XL_CLEAR_SCREEN();
-            
-            _XL_SET_TEXT_COLOR(tile_color[j]);
-            
-            _XL_PRINT(COL_OFFSET, 0, (char *) color_name[j]);
-            
-            _XL_WAIT_FOR_INPUT();
+        _XL_CLEAR_SCREEN();
+        draw_wall();
+        draw_castle();
 
-            #if YSize>=16
-            _XL_SET_TEXT_COLOR(FIRST_COLOR);
-            _XL_PRINT(COL_OFFSET,YSize-4, _PRESS);
-            #endif
-
-            for(i=0;i<_XL_NUMBER_OF_TILES;++i)
-            {
-                _XL_DRAW((i&7)*CHAR_SKIP+COL_OFFSET,(i/8)*LINE_SKIP+ROW_OFFSET,tiles[i],tile_color[j]);
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            }
-            
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-            
-            _XL_WAIT_FOR_INPUT();
-        }
+        draw_dragons();
+        
+        draw_player(XSize/2-1,2);
+        
+        spawn_chase();
+        
+        _XL_WAIT_FOR_INPUT();
     }
-    _XL_PRINT(COL_OFFSET,YSize-5, "END OF DEMO");
-
-    while(1){};
-    
+     
     return EXIT_SUCCESS;
 }
 

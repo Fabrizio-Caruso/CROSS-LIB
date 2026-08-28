@@ -6,7 +6,7 @@ FULL_FILES ?= \
 
 GAME_NAME := dragonmaster
 
-PARENT_DIR = projects
+PARENT_DIR = examples
 
 include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
 

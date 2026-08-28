@@ -751,18 +751,38 @@ def display_test_results(option_config, test_name, results):
     return global_result
 
 
+def global_test_result(results):
+    # print(str(results))
+    # sys.exit(0)
+    for test in results.keys():
+        if results[test]!="OK":
+            return "KO"
+    return "OK"
+
+# def global_components_result(make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result):
+    
+
+
 def test_standard_cases(option_config, params):
     make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, params)
+    
+    
     global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
-    global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
+    
+    global_unit_tests_result = "OK" if global_test_result(unit_tests_result) else "KO"
     if output_result:
-        global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
+        global_output_test_result = "OK" if global_test_result(output_result) else "KO"
     else:
         global_output_test_result = None
-    self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
+    self_total_success = "OK" if global_test_result(success_map) else "KO"
+    
+    
+    display_test_results(option_config, "UNITARY", unit_tests_result)
+    if output_result:
+        display_test_results(option_config, "OUTPUT", output_result)
+    display_test_results(option_config, "XL SCRIPTS", success_map)
     
     global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success}
-    
     display_test_results(option_config, "STANDARD",  global_results)
     return global_results
 
@@ -819,7 +839,7 @@ def display_compilation_result(option_config, result_map):
 def test_compilation(option_config):
     result_map = _test_compilation(option_config)
     display_compilation_result(option_config, result_map)
-
+    return result_map
 
 # These tests include
 # - Some more dependencies (emulators, cross-compilers, native compilers, roms, make)
@@ -829,24 +849,47 @@ def test_everything(option_config, params): # TODO: Do something with params
     # Also check terminal target
     option_config.terminal_config.terminal_test = 1
     print("-------------------------------------------------")
-    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
+    # make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
 
     compilation_result = _test_compilation(option_config)
     
+    # global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
+    # global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
+    # if output_result:
+        # global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
+    # else:
+        # global_output_test_result = None
+    
+    # self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
+    
+    # global_compilation_result = "OK" if display_compilation_result(option_config, compilation_result) else "KO"
+    
+    # global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success, "compilation tests": global_compilation_result}
+        
+    # display_test_results(option_config, "GLOBAL", global_results)
+
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, params)
+    
     global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
-    global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
+    
+    global_unit_tests_result = "OK" if global_test_result(unit_tests_result) else "KO"
     if output_result:
-        global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
+        global_output_test_result = "OK" if global_test_result(output_result) else "KO"
     else:
         global_output_test_result = None
+    self_total_success = "OK" if global_test_result(success_map) else "KO"
     
-    self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
+    global_compilation_result = "OK" if global_test_result(compilation_result) else "KO"
+
     
-    global_compilation_result = "OK" if display_compilation_result(option_config, compilation_result) else "KO"
+    display_test_results(option_config, "UNITARY", unit_tests_result)
+    if output_result:
+        display_test_results(option_config, "OUTPUT", output_result)
+    display_test_results(option_config, "XL SCRIPTS", success_map)
+    display_compilation_result(option_config, compilation_result);
     
     global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success, "compilation tests": global_compilation_result}
-        
-    display_test_results(option_config, "GLOBAL", global_results)
+    display_test_results(option_config, "GLOBAL",  global_results)
 
 
 
@@ -1022,32 +1065,6 @@ def test_output(option_config, target = "stdio"):
     result = _test_output(option_config, target)
     display_test_results(option_config, "OUTPUT", result)
     return result
-
-
-# def display_output_result(option_config, result):
-    
-    # print("")
-    # print("")
-    
-    # print("-------------------------------")
-    # printc(option_config, bcolors.OKBLUE, "OUTPUT TEST RESULTS\n")
-    # print("-------------------------------")
-    # max_len = 0
-    # for project_name in OUTPUT_TEST_PROJECTS:
-        # if len(project_name)>max_len:
-            # max_len = len(project_name)
-    # global_result = 1
-    # for project_name in OUTPUT_TEST_PROJECTS:
-        # success = result[project_name]
-        # (success_color, success_string, bool_result) = (bcolors.OKGREEN, "OK", 1) if success else  (bcolors.FAIL, "KO", 0)
-        # global_result*=bool_result
-        
-        # spaces = " " * (max_len+5-len(project_name)) 
-        # printc(option_config, bcolors.OKCYAN, project_name + " " + spaces)
-        
-        # printc(option_config, success_color, success_string + "\n")
-        # print("-------------------------------")
-    # return global_result
 
 
 # Self-test xl and native build

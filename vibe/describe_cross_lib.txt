@@ -28,7 +28,7 @@ _XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE, _XL_MAGENTA
 In order to change text color before _XL_PRINTD or _XL_PRINT use
 void _XL_SET_TEXT_COLOR(uint8_t color);
 
-void _XL_PRINTD(uint8_t x, uint8_t y,  uint8_t size, uint16_t number);
+void _XL_PRINTD(uint8_t x, uint8_t y,  uint8_t size, uint16_t size);
 void _XL_PRINT(uint8_t x, uint8_t y, char * string);
 
 With _XL_PRINT only use capital letters, digits and the space characters.
@@ -60,3 +60,20 @@ which waits for a number of loops.
 The parameter slowdown should be used with a multiple of _XL_SLOW_DOWN_FACTOR macro.
 For example:
 _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+
+
+For short  sounds only use:
+void _XL_PING_SOUND(void);
+void _XL_TOCK_SOUND(void);
+void _XL_TICK_SOUND(void);
+void _XL_SHOOT_SOUND(void);
+
+For long blocking sounds only use:
+void _XL_EXPLOSION_SOUND(void);
+void _XL_ZAP_SOUND(void);
+
+
+In order to generate random numbers use:
+uint16_t _XL_RAND(void);
+
+which produces a non-negative integer number in the range [0, 32767]

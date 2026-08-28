@@ -1,0 +1,1 @@
+In plain ANSI C, with no heap, with just uint8_t and uint16_t types for integers, with only Cross-Lib APIs for input and output as described in the attachment,

@@ -1,0 +1,62 @@
+At the start of your main.c include "cross_lib.h"
+#include "cross_lib.h"
+
+Use the following commands to initialize any program:
+void _XL_INIT_GRAPHICS(void);
+void _XL_INIT_INPUT(void);
+void _XL_INIT_SOUND(void);
+
+Coordinates have to respect the following limits with 
+0<=x<=XSize
+0<=y<=YSize
+
+where XSize and YSize are macros.
+
+For screen output only use:
+void _XL_DRAW(uint8_t x, uint8_t y, uint8_t tile_id, uint8_t color_id);
+which draws the tile tile_id at (x,y) with color color_id
+
+void _XL_DELETE(uint8_t,x, uint8_t y);
+which deletes the tile position (x,y)
+
+void _XL_CLEAR_SCREEN(void);
+which clears the whole screen
+
+For colors only use:
+_XL_WHITE, _XL_RED, _XL_CYAN, _XL_GREEN, _XL_YELLOW, _XL_BLUE, _XL_MAGENTA
+
+In order to change text color before _XL_PRINTD or _XL_PRINT use
+void _XL_SET_TEXT_COLOR(uint8_t color);
+
+void _XL_PRINTD(uint8_t x, uint8_t y,  uint8_t size, uint16_t number);
+void _XL_PRINT(uint8_t x, uint8_t y, char * string);
+
+With _XL_PRINT only use capital letters, digits and the space characters.
+
+To poll the input device only use:
+
+uint8_t _XL_INPUT(void);
+which polls the input device and returns a value that can be checked with:
+
+uint8_t _XL_LEFT(uint8_t input);
+uint8_t _XL_RIGHT(uint8_t input);
+uint8_t _XL_UP(uint8_t input);
+uint8_t _XL_DOWN(uint8_t input);
+uint8_t _XL_FIRE(uint8_t input);
+
+To wait for a key press use:
+void _XL_WAIT_FOR_INPUT(void);
+
+Example:
+uint8_t _XL_INPUT(_XL_LEFT()) return 1 if LEFT key was pressed and 0 otherwise
+
+In order to have your code wait use:
+void _XL_SLEEP(uint8_t sec);
+which waits a given number of seconds
+
+or use
+void _XL_SLOW_DOWN(uint16_t slowdown);
+which waits for a number of loops.
+The parameter slowdown should be used with a multiple of _XL_SLOW_DOWN_FACTOR macro.
+For example:
+_XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

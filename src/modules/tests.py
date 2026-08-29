@@ -763,8 +763,8 @@ def global_test_result(results):
     
 
 
-def test_standard_cases(option_config, params):
-    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, params)
+def test_standard_cases(option_config, target = "stdio"):
+    make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, target)
     
     
     global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
@@ -1069,13 +1069,14 @@ def test_output(option_config, target = "stdio"):
 
 # Self-test xl and native build
 def test(option_config, params):
-    if (len(params)<=1) or ((len(params)==2) and (params[1]=="standard")):
-        if test_standard_cases(option_config, "stdio"):
-            printc(option_config, bcolors.OKGREEN, "\nTEST OK\n")
+    if len(params)==1 or (len(params)==2 and params[1] in ["everything", "every", "complete", "e", "all", "a"]):
+        test_everything(option_config, "stdio")
+    elif params[1] in ["standard", "fast"]:
+        if len(params)<3:
+            test_standard_cases(option_config)
         else:
-            printc(option_config, bcolors.FAIL, "\nTEST KO\n")
-        return
-    if params[1] in ["self", "xl", "script", "scripts"]:
+            test_standard_cases(option_config, params[2])
+    elif params[1] in ["self", "xl", "script", "scripts"]:
         if len(params)<3:
             test_self(option_config)
         else:
@@ -1083,15 +1084,12 @@ def test(option_config, params):
     elif params[1]=="components":
         test_components(option_config)
     elif params[1]=="output":
-        if len(params)>2:
-            target = params[2]
+        if len(params)<3:
+            test_output(option_config)
         else:
-            target = "stdio"
-        test_output(option_config, target)
+            test_output(option_config, params[2])
     elif params[1] in ["targets", "compilation", "compile"]:
         test_compilation(option_config)
-    elif params[1] in ["everything", "every", "complete", "e", "all", "a"]:
-        test_everything(option_config, "stdio")
     elif params[1]=="compilers":
         test_compilers(option_config)
     elif params[1]=="tools":
@@ -1147,7 +1145,7 @@ def test(option_config, params):
             else:
                 printc(option_config, bcolors.FAIL, "TEST KO\n")
         else:
-            test_standard_cases(option_config, params[1])
+            test_everything(option_config, params[1])
         return
 
 

@@ -21,11 +21,18 @@
 
 #define NGHOSTS 4
 
-#define PACMAN_TILE _TILE_0
-#define GHOST_TILE  _TILE_1
-#define DOT_TILE    _TILE_2
-#define PELLET_TILE _TILE_3
-#define WALL_TILE   _TILE_4
+#define PACMAN_TILE_RIGHT _TILE_0
+#define PACMAN_TILE_LEFT  _TILE_1
+#define PACMAN_TILE_UP    _TILE_2
+#define PACMAN_TILE_DOWN  _TILE_3
+#define GHOST_TILE_0      _TILE_4
+#define GHOST_TILE_1      _TILE_5
+#define DOT_TILE          _TILE_6
+#define PELLET_TILE       _TILE_7
+#define WALL_TILE         _TILE_8
+
+ 
+
 
 #define PACMAN_COLOR _XL_YELLOW
 
@@ -75,6 +82,10 @@ static uint16_t score;
 static uint16_t dots_left;
 static uint8_t fright_tick;
 
+static uint8_t pacman_tile;
+static uint8_t ghost_tile;
+
+static uint8_t counter;
 
 /* ---- helpers ---- */
 
@@ -105,22 +116,24 @@ static void render_full(void)
     uint8_t r, c, i;
     for (r = 0; r < MH; r++) {
         for (c = 0; c < MW; c++) {
-            _XL_DELETE(c, r);
             if (g_maze[r][c] == T_WALL) {
                 _XL_DRAW(c, r, WALL_TILE, _XL_BLUE);
             } else if (g_maze[r][c] == T_DOT) {
                 _XL_DRAW(c, r, DOT_TILE, _XL_YELLOW);
             } else if (g_maze[r][c] == T_PELLET) {
                 _XL_DRAW(c, r, PELLET_TILE, _XL_MAGENTA);
+            } else //if (g_maze[r][c] == T_EMPTY) 
+            {
+                _XL_DELETE(c, r);
             }
         }
     }
-    _XL_DRAW(px, py, PACMAN_TILE, PACMAN_COLOR);
+    _XL_DRAW(px, py, pacman_tile, PACMAN_COLOR);
     for (i = 0; i < NGHOSTS; i++) {
         if (fright[i]) {
-            _XL_DRAW(gx[i], gy[i], GHOST_TILE, _XL_CYAN);
+            _XL_DRAW(gx[i], gy[i], ghost_tile, _XL_CYAN);
         } else {
-            _XL_DRAW(gx[i], gy[i], GHOST_TILE, ghost_clr[i]);
+            _XL_DRAW(gx[i], gy[i], ghost_tile, ghost_clr[i]);
         }
     }
 }
@@ -138,16 +151,26 @@ static void render_delta(void)
 
     /* Player: delete old position only if no dot exists there anymore */
     if (prev_px != px || prev_py != py) {
-        _XL_DELETE(prev_px, prev_py);
         /* If a dot is still in g_maze at the player's old cell, redraw it */
         if (g_maze[prev_py][prev_px] == T_DOT) {
             _XL_DRAW(prev_px, prev_py, DOT_TILE, _XL_YELLOW);
         } else if (g_maze[prev_py][prev_px] == T_PELLET) {
             _XL_DRAW(prev_px, prev_py, PELLET_TILE, _XL_MAGENTA);
+        } else
+        {
+            _XL_DELETE(prev_px, prev_py);
         }
     }
 
     /* Ghosts */
+    if(counter&1)
+    {
+        ghost_tile = GHOST_TILE_0;
+    }
+    else
+    {
+        ghost_tile = GHOST_TILE_1;
+    }
     for (i = 0; i < NGHOSTS; i++) {
         if (prev_gx[i] != gx[i] || prev_gy[i] != gy[i]) {
             /* Delete the ghost's old position */
@@ -162,16 +185,16 @@ static void render_delta(void)
 
             /* Draw the ghost at its new position */
             if (fright[i]) {
-                _XL_DRAW(gx[i], gy[i], GHOST_TILE, _XL_CYAN);
+                _XL_DRAW(gx[i], gy[i], ghost_tile, _XL_CYAN);
             } else {
-                _XL_DRAW(gx[i], gy[i], GHOST_TILE, ghost_clr[i]);
+                _XL_DRAW(gx[i], gy[i], ghost_tile, ghost_clr[i]);
             }
         } else {
             /* Ghost didn't move: just redraw (colour may have changed) */
             if (fright[i]) {
-                _XL_DRAW(gx[i], gy[i], GHOST_TILE, _XL_CYAN);
+                _XL_DRAW(gx[i], gy[i], ghost_tile, _XL_CYAN);
             } else {
-                _XL_DRAW(gx[i], gy[i], GHOST_TILE, ghost_clr[i]);
+                _XL_DRAW(gx[i], gy[i], ghost_tile, ghost_clr[i]);
             }
         }
     }
@@ -224,12 +247,16 @@ static void read_input(uint8_t *dir)
     uint8_t inp = _XL_INPUT();
     if (_XL_LEFT(inp)) {
         *dir = DIR_LEFT;
+        pacman_tile = PACMAN_TILE_LEFT;
     } else if (_XL_RIGHT(inp)) {
         *dir = DIR_RIGHT;
+        pacman_tile = PACMAN_TILE_RIGHT;
     } else if (_XL_UP(inp)) {
         *dir = DIR_UP;
+        pacman_tile = PACMAN_TILE_UP;
     } else if (_XL_DOWN(inp)) {
         *dir = DIR_DOWN;
+        pacman_tile = PACMAN_TILE_DOWN;
     } else {
         *dir = DIR_NONE;
     }
@@ -488,8 +515,8 @@ static void reset_positions(void)
 
     gx[0] = 9;  gy[0] = 2; gdir[0] = DIR_LEFT;
     gx[1] = 10; gy[1] = 2; gdir[1] = DIR_RIGHT;
-    gx[2] = 8;  gy[2] = 7; gdir[2] = DIR_UP;
-    gx[3] = 11; gy[3] = 7; gdir[3] = DIR_DOWN;
+    gx[2] = 8;  gy[2] = 11; gdir[2] = DIR_UP;
+    gx[3] = 11; gy[3] = 11; gdir[3] = DIR_DOWN;
 
     { uint8_t i; for (i = 0; i < NGHOSTS; i++) fright[i] = 0; }
     fright_tick = 0;
@@ -501,7 +528,6 @@ static void reset_positions(void)
 
 int main(void)
 {
-    uint8_t counter;
     
     _XL_INIT_GRAPHICS();
     _XL_INIT_INPUT();
@@ -521,6 +547,10 @@ int main(void)
 
         prev_px = px;
         prev_py = py;
+        
+        pacman_tile = PACMAN_TILE_RIGHT;
+        ghost_tile = GHOST_TILE_0;
+        
         { uint8_t i; for (i = 0; i < NGHOSTS; i++) { prev_gx[i] = gx[i]; prev_gy[i] = gy[i]; } }
 
         first_draw = 0;
@@ -569,7 +599,7 @@ int main(void)
             } else {
                 render_delta();
             }
-            _XL_DRAW(px,py,PACMAN_TILE,PACMAN_COLOR);
+            _XL_DRAW(px,py,pacman_tile,PACMAN_COLOR);
 
             draw_score();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

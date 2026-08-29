@@ -286,7 +286,7 @@ static void try_move_player(uint8_t dir)
     } else {
         return;
     }
-
+    _XL_DELETE(px,py);
     if (!is_wall(nx, ny)) {
         /* Only Pac-Man deletes dots */
         if (g_maze[ny][nx] == T_DOT || g_maze[ny][nx] == T_PELLET) {
@@ -557,8 +557,29 @@ int main(void)
         counter = 0;
         for (;;) {
             update_player();
+            _XL_DRAW(px,py,pacman_tile,PACMAN_COLOR);
+
+            if (ghost_hit_player()) {
+                if (fright[0]) {
+                    score += 50;
+                    _XL_EXPLOSION_SOUND();
+                    gx[0] = 10; gy[0] = 2; gdir[0] = DIR_LEFT;
+                    first_draw = 1;
+                } else {
+                    lives--;
+                    _XL_EXPLOSION_SOUND();
+                    if (lives == 0) {
+                        _XL_SET_TEXT_COLOR(_XL_RED);
+                        _XL_PRINT(5, MH + 3, "GAME OVER");
+                        _XL_SLEEP(3);
+                        break;
+                    }
+                    reset_positions();
+                }
+            }
             tick_fright();
             ++counter;
+
             if(!(counter&3))
             {
                 update_ghosts();
@@ -599,7 +620,6 @@ int main(void)
             } else {
                 render_delta();
             }
-            _XL_DRAW(px,py,pacman_tile,PACMAN_COLOR);
 
             draw_score();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);

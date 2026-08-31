@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include "cross_lib.h"
 
-#define GRID_W 10
-#define GRID_H 20
+#define GRID_W 8
+#define GRID_H 18
 #define BLOCK_TILE _TILE_8
 
 /* Piece cell offsets: [type][rotation][cell] = {dx, dy} */
@@ -123,6 +123,15 @@ static void lock_piece(void)
     }
 }
 
+
+/* score text (below the grid) */
+static void display_score(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(0, GRID_H + 1, "SCORE");
+    _XL_PRINTD(6, GRID_H + 1, 1, score);
+}
+
 static void clear_lines(void)
 {
     uint8_t y, x, ny;
@@ -142,6 +151,7 @@ static void clear_lines(void)
                 grid[0][x] = 0;
             }
             score += 10;
+            display_score();
         } else {
             y++;
         }
@@ -152,7 +162,10 @@ static void clear_lines(void)
 static void update_display(void)
 {
     uint8_t x, y, i;
-
+    uint8_t cx;
+    uint8_t cy;
+    uint8_t color;
+    
     for (y = 0; y < GRID_H; y++) {
         for (x = 0; x < GRID_W; x++) {
             uint8_t should_show = grid[y][x];
@@ -160,8 +173,8 @@ static void update_display(void)
             /* overlay current piece */
             if (!game_over_flag) {
                 for (i = 0; i < 4; i++) {
-                    uint8_t cx = cur_x + PIECE_CELLS[cur_piece][cur_rot][i][0];
-                    uint8_t cy = cur_y + PIECE_CELLS[cur_piece][cur_rot][i][1];
+                    cx = cur_x + PIECE_CELLS[cur_piece][cur_rot][i][0];
+                    cy = cur_y + PIECE_CELLS[cur_piece][cur_rot][i][1];
                     if (cx == x && cy == y) {
                         should_show = cur_piece + 1;
                         break;
@@ -173,7 +186,7 @@ static void update_display(void)
                 if (should_show == 0) {
                     _XL_DELETE(x, y);
                 } else {
-                    uint8_t color = PIECE_COLORS[should_show - 1];
+                    color = PIECE_COLORS[should_show - 1];
                     _XL_DRAW(x, y, BLOCK_TILE, color);
                 }
                 screen_state[y][x] = should_show;
@@ -206,6 +219,7 @@ int main(void)
         score = 0;
         game_over_flag = 0;
         spawn_piece();
+        display_score();
 
         while (!game_over_flag) {
             uint8_t input = _XL_INPUT();
@@ -249,11 +263,6 @@ int main(void)
             }
 
             update_display();
-
-            /* score text (below the grid) */
-            _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINT(0, GRID_H + 1, "SCORE");
-            _XL_PRINTD(6, GRID_H + 1, 1, score);
 
             if (game_over_flag) {
                 _XL_SET_TEXT_COLOR(_XL_RED);

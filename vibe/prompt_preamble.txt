@@ -2,4 +2,4 @@ In plain ANSI C, with no heap, with just uint8_t and uint16_t types for integers
 
 ...
 
-Do not redraw tiles that have not changed.
+Do not use _XL_DRAW or _XL_DELETE on tiles that have not changed.

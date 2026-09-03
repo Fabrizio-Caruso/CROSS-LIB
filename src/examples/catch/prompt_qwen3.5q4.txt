@@ -1,0 +1,2 @@
+n plain ANSI C, with no heap, with a preference for uint8_t and uint16_t types for integers, with only Cross-Lib APIs for input and output as described in the attachment, assume XSize-1 as maximum x coordinate and YSize-1 as maximum y coordinate. Write a very simple game.
+

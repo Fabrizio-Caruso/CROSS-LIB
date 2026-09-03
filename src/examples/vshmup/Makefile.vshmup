@@ -1,12 +1,12 @@
 ######################################################################
-# Makefile for CROSS-VSHUMP
+# Makefile for CROSS-VSHMUP
 
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c 
 
-GAME_NAME := vshump
+GAME_NAME := vshmup
 
 PARENT_DIR = examples
 

@@ -417,7 +417,7 @@ static void draw_hud_full(void)
         }
 
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINTD(score_x(), 0, 1, score);
+        _XL_PRINTD(score_x(), 0, 5, score);
     }
 
     if ((uint16_t)XSize >= 24) {
@@ -439,7 +439,7 @@ static void update_hud(void)
     if (score != last_score) {
         if (can_show_score()) {
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            _XL_PRINTD(score_x(), 0, 1, score);
+            _XL_PRINTD(score_x(), 0, 5, score);
         }
 
         last_score = score;

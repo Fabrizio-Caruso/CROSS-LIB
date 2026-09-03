@@ -400,6 +400,50 @@ static void update_game(uint8_t input)
         }
     }
 
+    /* Bullet/enemy collisions, including one-step crossing cases. */
+    for (i = 0; i < (uint16_t)MAX_BULLETS; ++i) {
+        if (!bullets[i].alive) {
+            continue;
+        }
+
+        for (j = 0; j < (uint16_t)MAX_ENEMIES; ++j) {
+            if (!enemies[j].alive) {
+                continue;
+            }
+
+            if (bullets[i].y != enemies[j].y) {
+                continue;
+            }
+
+            a_new = bullets[i].x;
+            b_new = enemies[j].x;
+            a_old = old_bullet_x[i];
+            b_old = old_enemy_x[j];
+
+            if ((a_new == b_new) ||
+                (old_bullet_alive[i] &&
+                 old_enemy_alive[j] &&
+                 (((a_old < b_new) && (a_new > b_old)) ||
+                  ((b_old < a_new) && (b_new > a_old))))) {
+
+                bullets[i].alive = 0;
+                enemies[j].alive = 0;
+
+                if (score < (uint16_t)50000) {
+                    score += 10;
+
+                    if (score > (uint16_t)50000) {
+                        score = (uint16_t)50000;
+                    }
+                }
+
+                _XL_PING_SOUND();
+                break;
+            }
+        }
+    }
+
+
     /* Move enemies to the left. */
     for (i = 0; i < (uint16_t)MAX_ENEMIES; ++i) {
         if (!enemies[i].alive) {
@@ -446,11 +490,11 @@ static void update_game(uint8_t input)
                 bullets[i].alive = 0;
                 enemies[j].alive = 0;
 
-                if (score < (uint16_t)65535) {
+                if (score < (uint16_t)50000) {
                     score += 10;
 
-                    if (score > (uint16_t)65535) {
-                        score = (uint16_t)65535;
+                    if (score > (uint16_t)50000) {
+                        score = (uint16_t)50000;
                     }
                 }
 

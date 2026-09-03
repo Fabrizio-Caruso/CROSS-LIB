@@ -1,11 +1,11 @@
 #include "cross_lib.h"
 
-    uint8_t m_left = 3;
-    uint8_t c_left = 3;
-    uint8_t boat_left = 1; /* 1 = left bank, 0 = right bank */
-    uint8_t m_boat = 0;
-    uint8_t c_boat = 0;
-    uint8_t game_over = 0; /* 0 = playing, 1 = win, 2 = lose */
+uint8_t m_left;
+uint8_t c_left;
+uint8_t boat_left; /* 1 = left bank, 0 = right bank */
+uint8_t m_boat;
+uint8_t c_boat;
+uint8_t game_over; /* 0 = playing, 1 = win, 2 = lose */
 
 /* Game State */
 void init_game(void)
@@ -28,16 +28,20 @@ void draw_game(void) {
     /* Draw Left Bank */
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(2, 6, "M:");
-    _XL_PRINTD(4, 6, 1, m_left);
+    _XL_PRINTD(4, 6, 1, m_left );
     _XL_PRINT(6, 6, " C:");
-    _XL_PRINTD(8, 6, 1, c_left);
+    _XL_PRINTD(8, 6, 1, c_left );
 
     /* Draw Boat Position */
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
     if (boat_left) {
-        _XL_PRINT(15, 6, "[BOAT]");
+        _XL_PRINTD(16, 5, 1, m_boat);
+        _XL_PRINTD(18, 5, 1, c_boat);
+        _XL_PRINT( 15, 6, "[BOAT]");
     } else {
-        _XL_PRINT(25, 6, "[BOAT]");
+        _XL_PRINTD(26, 5, 1, m_boat);
+        _XL_PRINTD(28, 5, 1, c_boat);
+        _XL_PRINT( 25, 6, "[BOAT]");
     }
 
     /* Draw Right Bank */

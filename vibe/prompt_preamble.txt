@@ -1,5 +1,13 @@
-In plain ANSI C, with no heap, with just uint8_t and uint16_t types for integers, with only Cross-Lib APIs for input and output as described in the attachment,
+In plain ANSI C89, with no heap, when possible with just uint8_t and uint16_t types for integers, 
+with only Cross-Lib APIs for input and output as described in the attachment
 
-...
+.............
 
+No need to include stdint.h. You have to include cross_lib.h.
+All variable declarations are at the beginning of their enclosing functions.
+For signed integer variables use short.
+
+
+Write an infinite main loop so that the game restarts after the game is over.
 Do not use _XL_DRAW or _XL_DELETE on tiles that have not changed.
+

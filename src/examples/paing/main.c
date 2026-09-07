@@ -194,7 +194,7 @@ void update_game(void) {
     }
 }
 
-void main(void) {
+int main(void) {
     while (1) {
         _XL_INIT_GRAPHICS();
         _XL_INIT_INPUT();

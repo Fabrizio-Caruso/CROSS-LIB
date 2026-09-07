@@ -156,7 +156,7 @@ static void init_game(void)
     }
 }
 
-void main(void)
+int main(void)
 {
     uint8_t input;
     uint8_t i;

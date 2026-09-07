@@ -991,7 +991,7 @@ static uint8_t get_paddle_width(void)
 /* Main game loop                                                     */
 /* ------------------------------------------------------------------ */
 
-uint8_t main(void)
+int main(void)
 {
     uint8_t input;
     uint8_t result;

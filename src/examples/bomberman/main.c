@@ -113,17 +113,29 @@ void draw_game(void)
                     _XL_DELETE(j, i);
                 } else {
                     if (grid[i][j] == G_WALL)
+                    {
                         _XL_DRAW(j, i, _TILE_0, _XL_WHITE);
+                    }
                     else if (grid[i][j] == G_BLOCK)
+                    {
                         _XL_DRAW(j, i, _TILE_1, _XL_YELLOW);
+                    }
                     else if (grid[i][j] == G_BOMB)
+                    {
                         _XL_DRAW(j, i, _TILE_2, _XL_RED);
+                    }
                     else if (grid[i][j] == G_EXPLODE)
+                    {
                         _XL_DRAW(j, i, _TILE_3, _XL_MAGENTA);
+                    }
                     else if (grid[i][j] == G_PLAYER)
+                    {
                         _XL_DRAW(j, i, _TILE_4, _XL_GREEN);
+                    }
                     else if (grid[i][j] == G_ENEMY)
+                    {
                         _XL_DRAW(j, i, _TILE_5, _XL_BLUE);
+                    }
                 }
                 prev_grid[i][j] = grid[i][j];
             }

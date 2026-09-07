@@ -8,7 +8,7 @@ FULL_FILES ?= \
 
 GAME_NAME := catch
 
-PARENT_DIR = projects
+PARENT_DIR = examples
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

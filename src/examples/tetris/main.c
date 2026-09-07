@@ -120,7 +120,6 @@ static void update_display(void)
     uint8_t x, y, i;
     uint8_t cx;
     uint8_t cy;
-    uint8_t color;
     
     // uint8_t start_y;
     uint8_t start_x;
@@ -169,8 +168,8 @@ static void update_display(void)
                 if (should_show == 0) {
                     _XL_DELETE(x, y);
                 } else {
-                    color = PIECE_COLORS[should_show - 1];
-                    _XL_DRAW(x, y, BLOCK_TILE, color);
+                    // uint8_t color = PIECE_COLORS[should_show - 1];
+                    _XL_DRAW(x, y, BLOCK_TILE, PIECE_COLORS[should_show - 1]);
                 }
                 screen_state[y][x] = should_show;
             }

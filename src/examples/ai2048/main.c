@@ -117,7 +117,7 @@ static void move_left(void) {
 }
 
 static void move_right(void) {
-    uint8_t r, c, i;
+    uint8_t r, i;
     for (r = 0; r < N; r++) {
         /* reverse row */
         for (i = 0; i < N / 2; i++) {
@@ -142,7 +142,7 @@ static void move_up(void) {
 }
 
 static void move_down(void) {
-    uint8_t r, c, i;
+    uint8_t c, i;
     /* reverse each column */
     for (c = 0; c < N; c++) {
         for (i = 0; i < N / 2; i++) {

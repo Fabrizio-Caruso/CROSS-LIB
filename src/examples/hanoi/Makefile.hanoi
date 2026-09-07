@@ -27,4 +27,3 @@ include ./Makefile_common
 
 
 include ./makefiles.common/auxiliary/Makefile_default_values
-cd .

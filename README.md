@@ -100,7 +100,7 @@ Cross-Lib runs under __any POSIX__-like environment such as
 - ***FreeBSD***
 
 -------------------------------------------
-## REQUIREMEMTS
+## REQUIREMENTS
 Cross-Lib requires a **POSIX** environment with at least 
 - **Python** (2.7 is the bare minimum but 3.x provides more features)
 - **make** (GNU make)
@@ -248,7 +248,7 @@ A partial list of the people who have helped in found in <a href="https://github
 
 -------------------------------------------
 
-## LICENCE
+## LICENSE
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from

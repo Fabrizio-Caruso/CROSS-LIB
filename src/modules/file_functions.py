@@ -61,25 +61,32 @@ def list_projects(option_config, params):
         return
 
     count = 0
+    total_count = 0
 
-    for mypath in project_dirs:
-        if not option_config.terminal_config.test:
-            printc(option_config, bcolors.BOLD, "["+mypath+"]\n")
+    for mypath in project_dirs:        
+        count = 0
+        for (_, dirnames, _) in walk(mypath):
+            # projects.extend(dirnames)
+            for project in dirnames:
+                count+=1
+            break
+        printc(option_config, bcolors.BOLD, "["+mypath+":" + str(count)+  "]\n")
+        total_count+=count
+        # print(total_count)
         for (_, dirnames, _) in walk(mypath):
             # projects.extend(dirnames)
             for project in dirnames:
                 if not option_config.terminal_config.test:
                     print("  "+str(project))
-                count+=1
             break
         if not option_config.terminal_config.test:
             print("")
 
     if option_config.terminal_config.verbose:
-        print("Projects found: " + str(count))
+        print("Projects found: " + str(total_count))
         print("")
 
-    return count
+    return total_count
 
 
 

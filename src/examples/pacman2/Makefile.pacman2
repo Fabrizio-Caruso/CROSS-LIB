@@ -6,9 +6,9 @@ FULL_FILES ?= \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c 
 
-GAME_NAME := examples
+GAME_NAME := pacman2
 
-PARENT_DIR = projects
+PARENT_DIR = examples
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

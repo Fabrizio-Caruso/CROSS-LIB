@@ -1,0 +1,1756 @@
+Thinking...
+We need respond to user: "Given the following code for a text adventure, extend it to at least 100 rooms: [code]"
+They likely want extended code. Need provide a revised C file with NUM_ROOMS at least 100, tables for exits,
+enemies, items, damage, score, names, descriptions, victory rooms updated. Must think through code. Need likely
+produce complete code? The request: extend it to at least 100 rooms. We need provide enough to compile?
+cross_lib.h unknown. Need adapt. Could provide full modified code with 100 rooms. But 100 rooms of
+names/descriptions is large. We can make programmatic generation? Need be practical: Provide code with at least
+100 rooms, maybe generate names/descriptions via functions for beyond 21? We need maintain style. We can extend
+tables to 100 rooms. Need ensure exits valid, symmetric? Original has some asymmetries? Need maintain. Could
+create 100-room dungeon with linear corridors and branches. Need update victory rooms. Need update start screen 22
+rooms to 100 rooms. Need ensure all 100 tables have entries. We can write C code with array initializers 100
+entries. Need avoid extremely long? Final answer can be long. But token budget maybe 32k. Need be careful. Could
+use helper initializer functions? In C, static const arrays of 100 can be generated with macros? Since we need
+valid C. Could define NUM_ROOMS 100 and use procedural functions for exits? But original uses arrays. We can
+implement room data via functions to avoid huge table? Need "extend it" likely accept modifications. We can
+replace static const exit tables with computed functions or still provide arrays. Need at least 100 rooms. We can
+design dungeon algorithmically to avoid listing all 100 manually. But user gave code; they might expect full code.
+Could provide drop-in replacement that generates room data on the fly and arrays remain? For C89? cross_lib likely
+uses uint8_t etc. We can use static functions returning exits based on room id. But the game code uses
+room_north[room] arrays; can keep them as static const but fill at runtime? const arrays cannot be filled. Could
+make non-const arrays and initialize in play_game or init_room_data. That's okay. Or use functions and change
+movement code to use get_exit(dir, room). But user may want simple extension. We can produce code with static
+uint8_t arrays (not const) and an init function that fills 100 rooms procedurally. That satisfies at least 100
+rooms and avoids huge literals. But the original had static const; we can change to static. Need include all
+mutable arrays size 100.
+
+Need design dungeon 100 rooms. Need at least 100 rooms accessible? "extend to at least 100 rooms" likely number of
+rooms 100. Could make all rooms accessible. Need ensure no NO_EXIT dead ends? It can have dead ends. Need victory
+at 98/99 or keep 19/21? For 100 rooms, set victory at 98 and 99 maybe. Need update code: if (room ==
+VICTORY_ROOM_1 || room == VICTORY_ROOM_2). Could define VICTORY_ROOM_A 98, VICTORY_ROOM_B 99.
+
+Need names/descriptions. Could have print_room_name handle <22 original names, then generate generic names for
+22-99: e.g. "DUNGEON ROOM NN" or more varied via arrays. print_room_desc similarly generic. That's acceptable?
+They asked extend to at least 100 rooms, likely need more content. Could include 100 unique names? Maybe not
+necessary, but better: provide unique names for all 100? Large but possible with compact arrays? We can define
+const char* room_names[100] and room_desc1[100], room_desc2[100]. But 100 strings for names and 200 desc lines
+huge. Could still within answer? Maybe 100 names * ~20 chars + 200 desc * ~30 = 10k chars, okay. But code with
+arrays of strings maybe okay. Need compile. Could use switch? 100 cases. But easier: string arrays. However
+original uses _XL_PRINT per case. We can refactor print_room_name to use room_names[room] and print_room_desc to
+use desc lines. Need ensure strings length <=? screen 40 columns? We can keep uppercase short. Use static const
+char * const. But if we want 100 unique rooms, can provide arrays. But generating 100 desc lines in final answer
+is lengthy but doable. Need balance.
+
+Need also enemy/item/damage/score tables. Could use initializer lists with 100 values. We can design using macros
+for default zeros. Need ensure valid C: array initializers with commas. Could set many zeros. To avoid long, use
+runtime init: static uint8_t room_enemy[NUM_ROOMS]; etc, fill zeros then set specific rooms. That's compact. For
+exits, fill via init function based on layout. That may be best.
+
+Need think about original code details:
+- Includes cross_lib.h.
+- NO_EXIT 255, NUM_ROOMS 22.
+- Enemy types etc.
+- Static const uint8_t room_north/south/east/west arrays.
+- enemy_alive, item_remaining, score_remaining.
+- enemy_max_hp array size NUM_ROOMS but originally only values for rooms with enemies? It sets 0 for non-enemies.
+- room_damage, room_score.
+- print_room_name/desc switch.
+- print_exits uses arrays.
+- play_game seeds mutable state from const tables. If tables non-const and initialized at start, okay. Need call
+init_room_data before loop? In play_game currently loops for i to NUM_ROOMS: enemy_alive[i] = room_enemy[i];
+item_remaining[i] = room_item[i]; score_remaining[i] = room_score[i]; If room_enemy is mutable but set in init,
+okay.
+- It doesn't reset enemy_max_hp because const. If we make non-const but only init once, okay.
+
+Potential issue original movement: when in combat, it only processes fire; cannot move. Fine.
+
+Need extend to 100 rooms. Need ensure health uint8 max 255, score uint16. Score can exceed? 100 rooms maybe enemy
+kills 100*100=10000 + room scores; uint16 max 65535 okay. Need maybe room_score uint8 max 255. Good.
+
+Need decide dungeon layout. Need simple 10x10 grid? 100 rooms. Exits between adjacent cells. That is easy. But
+original has weird corridors. We can make 10x10 grid with some missing exits to make maze. Room index = y*10 + x
+(y 0..9, x 0..9). Start room 0 top-left? Need maybe start room 4? Use room 0. Victory at 99 bottom-right. Exits:
+north if y>0, south if y<9, west if x>0, east if x<9. But too open? Could add walls to make maze. But any valid.
+To make adventure, maybe linear path with branches. Simpler: all adjacent connected in 10x10 grid. Then player can
+wander. Need place enemies, items, traps, scores. We can procedurally assign based on coordinates/distance from
+start. But deterministic. Need ensure key maybe needed? Original has key but no lock. We can ignore or add locked
+door? Not necessary. But has_key used. Could place keys. Need at least 100 rooms. Need update start screen to "A
+TEXT ADVENTURE OF 100 ROOMS".
+
+If all 10x10 connected, no dead ends. Could be too easy but okay. Could add walls: Use a fixed pattern to make
+labyrinth: exit east if (x+1)%?; But ensure connected. A simple maze: all north/south and east/west connected
+except some walls based on (x+y) pattern? Need ensure reachable. A 10x10 grid with walls on some edges but still
+connected if we keep at least a Hamiltonian path. Could use a boustrophedon corridor: snake through grid:
+0->1->2...->9, down, 19->18...10, down, etc. That yields 100 rooms in a single path. Then all rooms accessible.
+This is very easy and maze-like. Exits:
+For row y (0-based top to bottom), row_start = y*10. If y even: left-to-right: for x 0..9, connect east if x<9,
+west if x>0? In a corridor, connect to previous and next, not both? Actually snake path: room y*10+x. For y even,
+next is x+1 (if x<9), previous x-1. So east if x<9, west if x>0. For y odd, direction right-to-left: row indices
+row_start+9 down to row_start. Room at x: previous? If y odd, sequence from x=9 to x=0. For a room x: if x>0, next
+is x-1 (west), if x<9 previous is x+1 (east). So exits: west if x>0, east if x<9. Same as full row. At row
+transitions: at x=9 for even y (last in row) connect south to (y+1)*10+9. At x=0 for odd y (last in row) connect
+south to (y+1)*10+0. For rooms, add north to previous row if applicable: if y>0 and (if y even? previous row odd
+ended at x=0? Need think snake path: row0 even: 0->...->9, down to 19. row1 odd: 19->18->...->10, down to 20. row2
+even: 20->...->29. So vertical connections: at x=9 between row0 and row1 (rooms 9 and 19), at x=0 between row1 and
+row2 (10 and 20), etc. General: if y even (row above is odd? for y even >0, connection from row y-1 odd at x=0 to
+room y*10+0): room 0 in even row has north? Actually room 20 (y=2 x=0) connects north to 10 (y=1 x=0). So for even
+y>0, x=0 has north. For odd y>0, x=9 has north (room 19 north to 9). And south: even y<9, x=9 has south; odd y<9,
+x=0 has south. Horizontal: every room in row connects east/west along row? In a snake corridor, yes each room
+connects to both neighbors within row (except ends). So row full east-west. That gives a 10x10 grid with only one
+vertical connection per row pair, but row horizontal full. All reachable. It's like 10 corridors of 10 rooms
+connected at alternating ends. Very simple. Exits per room:
+- west if x > 0
+- east if x < 9
+- north if (y > 0 && (y%2==0 ? x==0 : x==9))
+- south if (y < 9 && (y%2==0 ? x==9 : x==0))
+But wait for y odd (row 1) x=9: north to row0 x=9 yes. y odd x=0: south to row2 x=0 yes. For y even >0 x=0: north
+to row1 x=0; x=9: south to row3 x=9. Good.
+This layout has no extra branches, but 100 rooms.
+
+Could make more interesting by adding some cross corridors: e.g. every 5th row connect vertical at middle? But
+need ensure not break. Could leave as is. Need assign enemies/items based on room path distance. The path order
+can be computed: path_index for room: if y even: y*10 + x; if y odd: y*10 + (9-x). Start path 0 room0. Victory
+path 99 room99 (y=9 odd x=0? Wait y=9 odd, sequence row9 from x=9 to x=0, path 99 at x=0, room index 90. But our
+index numbering not path. We want victory room at end of path: y=9 odd, x=0 (room 90) because row9: 99 (path 90)
+-> 98? Let's compute: row9 index y*10+x = 90+x. Sequence y odd: x=9 path 90, x=8 path 91, ..., x=0 path 99. So
+final room is 90, not 99. If we want victory at room 99, layout final path at room 90. Could set victory room to
+90. But user might expect NUM_ROOMS 100, victory anywhere. Better to keep room numbers 0..99, but victory at 90?
+Could also reverse row odd/even? If start row0 and snake to bottom row x? Let's see if we want final room index
+99: Need row9 even direction left-to-right? If number of rows 10, starting row0 even, row9 odd, final x=0. If we
+wanted row9 even, number of rows odd. Not possible with 10. Could define room numbering row-major but path end 90.
+That's okay. Or design a 10x10 with final room 99 using a spiral? More complex. Or set victory room constant 90.
+But room 99 can be exit? Need all 100 rooms used. Could set victory at 90 (UNDERGROUND RIVER? whatever). But
+original victory rooms 19,21. For 100, maybe victory at 98/99 more natural. Could make layout path end at 99 by
+using 10x10 but snake starting top-left and final top? Let's find simple layout ending at 99: Use row-major
+serpentine but with row9 direction left-to-right: that would require vertical connection at x=9 between row8 and
+row9, and row9 index 99 final. Row8 even? y=8 even, sequence left-to-right ends at x=9 room89, down to row9 x=9
+room99, row9 goes? If row9 then right-to-left would end at x=0 room90. If row9 left-to-right cannot connect from
+x=9 and proceed to x=8 (backtrack) not a path? Could have row9 connected horizontally both ways, final x=9?
+Starting at x=9, can go west to x=0, final x=0. To end at x=9, start row9 at x=0. Need vertical connection from
+row8 to x=0. Row8 sequence? If row8 odd (right-to-left) ends at x=0 room80, down to row9 x=0 room90, row9
+left-to-right ends at x=9 room99. So pattern: row0 left-to-right, row1 right-to-left, row2 left-to-right... row8?
+row0 even LTR, row1 odd RTL, row2 LTR, row3 RTL, row4 LTR, row5 RTL, row6 LTR, row7 RTL, row8? y=8 even by formula
+LTR, ends x=9, not x=0. To have row8 RTL, y parity would need y odd? For 10 rows, row8 even. Could choose
+alternate pattern starting row0? If row0 RTL? Start x=9 not room0. Could renumber. Not worth.
+
+Could use a 10x10 spiral path ending at center? But need 100. Could use Hilbert? No.
+
+Could set victory at room 90 and name it EXIT. Room 99 can be a secret room adjacent to row9? In snake layout,
+row9 x=9 is start of final row, not final. Actually path: row8 x=9 (89) down to row9 x=9 (99), then west through
+98...90. So room99 is before final stretch, can be a chamber. Victory at 90. That's fine. Need update code:
+#define VICTORY_ROOM_A 90 and maybe VICTORY_ROOM_B 90? Could have only one. But original had two victory rooms.
+Could set room 90 victory, room 89? No. Could make room 99 also victory? If player reaches 99, they are 9 rooms
+from end, maybe too early. Could set VICTORY_ROOM_A 90, VICTORY_ROOM_B 99? If 99 victory too, then player could
+finish at start of last row, not bad but skips 9 rooms. Better only 90. Or make 99 a fake exit leading to victory?
+Hmm.
+
+Alternative layout: 10x10 full grid and victory at 99. Simpler: all adjacent grid exits, victory at 99. Then no
+snake. All rooms accessible. Need place content by coordinates. That's easiest. Let's do full grid? Exits: if x>0
+west, x<9 east, y>0 north, y<9 south. Then room 99 bottom-right victory. That's 100 rooms. It's open but okay.
+Could add some walls with pattern but ensure connected. Full grid connected. To make more adventure, can place
+enemies increasing with distance. Full grid allows many routes. Good.
+
+Could make a maze using full grid minus walls but keep connected: For each cell, connect to all adjacent except
+some pattern; but not necessary. The user only asked extend to at least 100 rooms. A 10x10 grid is acceptable.
+
+Need assign room data. Could use init functions:
+void init_room_data(void) {
+  for y 0..9 for x 0..9 { r = y*10+x; set exits based on grid; set enemy, item, damage, score, hp based on r and
+maybe (x+y). }
+}
+Need arrays non-const. But original code uses room_north etc as static const. We can change to static uint8_t.
+Need ensure no other const. In print_exits, access okay. In movement, okay.
+
+Need maybe preserve original first 22 rooms? The request "extend it" could mean keep existing rooms and add 78. If
+we replace with 10x10 grid, original layout changes. Is that okay? Maybe they want at least 100 rooms, not
+necessarily preserve. But likely they'd like original 22 plus additions. Could extend original by adding 78 new
+rooms, preserving original 22 and connecting. More complex. But we can keep original 22 and add a new 10x8 area?
+Need 100. But the original arrays are specific. We could preserve by initializing first 22 as original, and rooms
+22..99 procedurally connected from room 0 or room 21? But original room 21 is exit victory; need change victory.
+Could modify. But preserving might be expected. However providing a coherent 100-room extension easier with
+procedural generation and new names. The code's print_room_name for 0..21 original, for 22+ generic. That
+preserves flavor somewhat if first 22 original names. But if exits are new grid, original names not matching
+layout. Could still use original names for first 22 but exits differ from original, breaking intended flow. Not
+ideal.
+
+Maybe design a 10x10 grid and give all 100 unique names/descriptions. That's clean.
+
+Need consider cross_lib screen size: _XL_PRINT coords, max x maybe 39? Original uses x up to 34. We'll keep. Need
+strings <= 38 chars maybe. We'll ensure.
+
+Potential compile issues:
+- Using uint8_t, uint16_t requires stdint.h; cross_lib.h likely includes. Fine.
+- Static functions.
+- If we use string arrays, ensure const char * room_names[NUM_ROOMS]; Need define 100 entries. Could do:
+static const char * const room_names[NUM_ROOMS] = {
+"THE ENTRANCE HALL", ...
+};
+static const char * const room_desc1[NUM_ROOMS] = { ... };
+static const char * const room_desc2[NUM_ROOMS] = { ... };
+Then print_room_name: _XL_PRINT(2,0,room_names[room]); print_room_desc: _XL_PRINT(2,2,room_desc1[room]);
+_XL_PRINT(2,3,room_desc2[room]);
+This is concise.
+Need 100 names and 200 desc lines. Could generate names programmatically to reduce. But unique strings nice. Could
+use arrays of 100 names but generate desc via categories. For answer length, maybe 100 names + 100 generic desc?
+Let's estimate: 100 names lines ~2000 chars. 200 desc lines ~8000 chars. Fine. But final answer may be huge with
+full code. Need manage token budget. We can be more compact: print_room_desc: if room < 22 use original cases;
+else use generated descriptions based on room % patterns. That reduces. But user may not care about unique. Could
+do hybrid: first 22 original names/desc, then for 22-99 generate from arrays of prefixes/suffixes. That is code
+and shorter.
+
+Maybe best: Provide full code with procedural room generation for exits and data, and name/desc functions that
+handle 0-21 original then 22-99 via a list of themed names and generated descriptions. Need at least 100 rooms. We
+don't have to list 100 full descriptions if using loops. But for "text adventure" more content desirable. Could
+define 78 additional names in an array and two desc arrays for additional rooms, or generate desc based on
+(room-22) from small pools. Let's design robust and not too huge.
+
+Need ensure arrays for room data are initialized. Could do:
+static uint8_t room_north[NUM_ROOMS] etc.
+static uint8_t room_enemy[NUM_ROOMS], room_item[NUM_ROOMS], room_damage[NUM_ROOMS], room_score[NUM_ROOMS],
+enemy_max_hp[NUM_ROOMS];
+
+static void init_room_grid(void) {
+  uint8_t x, y, r;
+  for (y=0; y<10; y++) for (x=0; x<10; x++) {
+    r = y*10+x;
+    room_north[r] = (y>0) ? r-10 : NO_EXIT;
+    room_south[r] = (y<9) ? r+10 : NO_EXIT;
+    room_east[r] = (x<9) ? r+1 : NO_EXIT;
+    room_west[r] = (x>0) ? r-1 : NO_EXIT;
+    room_enemy[r] = ENEMY_NONE;
+    room_item[r] = ITEM_NONE;
+    room_damage[r] = 0;
+    room_score[r] = 0;
+    enemy_max_hp[r] = 0;
+  }
+  // place original content maybe based on coordinates.
+}
+
+But if we want full grid, room 0 top-left has exits south/east. Original room 0 only east. Fine.
+
+Need place enemies/items/traps/scores. We can deterministic based on distance from start. For each room r (y,x),
+manhattan distance d = x+y. Maybe place enemies every 4 rooms? Need ensure final boss at victory? Original
+darklord at room 18. We can place boss at room 89 (near exit) or room 99? If room 99 is victory, can't have enemy?
+In original room 18 darklord, then 19 victory, 21 exit. We can place boss in room 89 (one before final) or 98.
+Need key? Let's design:
+- Start room 0.
+- Item sword at (1,1) room 11? Potion etc.
+- Enemies in grid based on (x+y) distance: guard, skeleton, wraith, dragon. Boss at room 89 (x=9,y=8) before final
+row? Victory room 99. Or boss at 98 (x=8,y=9) then 99 victory. Could place DARKLORD at 98, victory at 99. Need
+enemy_max_hp[98]=50. If room 99 victory, after defeating boss in 98, move east to 99 victory. Good.
+- Place keys/amulets/potions in safe rooms.
+- Trap damage in certain rooms.
+- Score bonuses.
+
+Need ensure not too hard: health 50, potions +20. Enemy HP maybe 15-50. With sword/amulet. 100 rooms, many enemies
+can kill. Could place only ~20 enemies. Since 10x10 full grid, can choose fixed list. We can place enemies at
+coordinates: (2,1)? Let's map.
+Need maybe original enemy positions? Could ignore.
+Let's create deterministic content with loops:
+For each room r from 0 to 99:
+  x=r%10, y=r/10; depth = x+y; // 0..18
+  // enemies: if (r % 7 == 3 && r > 5 && r < 98) choose type by depth
+But this may place enemies on start path and final. Need avoid victory room 99. Maybe:
+if (r > 4 && r < 98 && (r % 7 == 2)) { enemy = ...; hp = ... }
+This yields ~13 enemies. Need types: if depth < 5 guard, <10 skeleton, <15 wraith, else dragon. Boss at 98
+darklord.
+Items:
+- potion at rooms: 5, 24, 45, 68, 82? Use list.
+- sword at 9? amulet at 31? key at 76? Need key not used but display.
+Could place items in loops:
+if (r == 9) sword; else if (r == 18) potion; else if (r == 33) amulet; else if (r == 56) potion; else if (r == 72)
+key; else if (r == 88) potion;
+Traps:
+if (r == 27 || r == 49 || r == 70) damage 10/15.
+Scores:
+if (r % 10 == 9) score 100? or special rooms 500.
+Need enemy_max_hp list with loop values.
+But if enemy placement r%7, some rooms also item/trap; okay.
+
+Could preserve original key? Not necessary.
+
+Need ensure if enemy in room, enemy_max_hp set. get_enemy_hp returns enemy_max_hp[room].
+
+Need update victory check: if (room == 99) victory. Could keep if (room == 99). Maybe also room 98? No.
+
+Need start screen: "A TEXT ADVENTURE OF 100 ROOMS".
+
+Need print_room_name and desc for 100 rooms. Could make 100 names. Need names for all 0-99. If we use grid layout,
+names should match coordinates maybe:
+- 0: THE ENTRANCE HALL
+- 99: THE EXIT
+- 98: THE DARK LORD S THRONE
+- Others generic: "DUNGEON HALL " + number? But _XL_PRINT can't concat. Could use arrays.
+
+Maybe generate names using a function:
+static const char * const base_names[100] = { ... 100 entries ... };
+This is straightforward. Need 100 names. Let's create themed names. Could use row/column themes:
+Row 0: Entrance, Guard, Corridor, Chapel, Fountain, Trap, Armory, Dragon? But 100 unique? Let's list 100 names?
+Could be time-consuming but doable. Maybe generate with small arrays:
+static const char *room_type_name[100] via function:
+- if room == 0 return "THE ENTRANCE HALL"
+- if room == 98 return "DARK LORD S THRONE"
+- if room == 99 return "THE BRIGHT EXIT"
+- else:
+   const char *area[10] = {"OUTER VAULTS", "GUARD GATE", ...};
+   const char *feature[10] = {"HALL", "CORRIDOR", "CHAMBER", ...};
+   But can't concatenate. Could have an array of 100 generated strings? Could compute name in local buffer?
+cross_lib may not have sprintf. Could use static buffer and custom put digits? Too much.
+
+Could use switch with 100 cases? Long.
+
+Could use name arrays for 100. Let's generate 100 names in final code. Need ensure no apostrophes? Use S instead
+of ' as original. Fine.
+Names list 0-99. Could be less unique but acceptable. Let's produce 100 names with pattern. Need also
+descriptions. Could use 100 desc1/desc2 arrays? That is 200 strings. Might be too long. Instead use generic desc
+based on room name? For print_room_desc, can output two lines from arrays of 100? We can generate desc1/desc2 by
+pools:
+static const char * const room_desc_a[NUM_ROOMS] = { ... 100 ... };
+static const char * const room_desc_b[NUM_ROOMS] = { ... 100 ... };
+This is big but manageable if each line short. Could also use 20 desc1 and 20 desc2 repeated? But unique not
+required. Could make 100 names and use desc based on name? Hmm.
+
+Maybe use a single 100-element array of room descriptions? The screen has two lines. Could store one line and a
+second generic line based on exits/enemies? But original prints two lines. We can store 100 desc1 and 100 desc2.
+
+Alternative: Keep original switch for 0-21, and for 22-99 use procedural messages:
+if (room < 22) original cases.
+else {
+  uint8_t i = room - 22;
+  const char *const extra_names[78] = { ... 78 names ... };
+  const char *const extra_desc1[78] = { ... 78 ... };
+  const char *const extra_desc2[78] = { ... 78 ... };
+}
+Still 78*3=234 strings. But maybe okay. But final code huge.
+
+Could produce 100 names and use desc from arrays of 100 short phrases. Let's estimate tokens: 100 names lines
+maybe 100* (name ~15 + comma newline) ~2000 chars; 200 desc lines ~200*35=7000 chars. Total code maybe 12k plus
+original. Fine within 32k.
+
+Need ensure C string arrays of length 100 compile. Could be many lines. Need be accurate. Let's create
+names/descriptions. But perhaps we can do better: Use a macro to generate 100 names/descriptions programmatically
+at compile time? Not in C. Could use #pragma? No.
+
+Need think about final answer: likely user expects code, not explanation. We can say "Here is a drop-in
+replacement with NUM_ROOMS 100". Then code block. Need maybe note changes. The final should be mostly code.
+
+Need ensure code compiles under C89? Original uses uint8_t, static functions. Need declarations before use. If we
+add arrays of strings, okay.
+
+Let's design full code:
+#include "cross_lib.h"
+
+#define NO_EXIT 255
+#define NUM_ROOMS 100
+#define GRID_W 10
+#define GRID_H 10
+#define BOSS_ROOM 98
+#define VICTORY_ROOM 99
+
+/* Enemy types ... same */
+/* Item types ... same */
+
+static uint8_t room_north[NUM_ROOMS]; ... etc (not const because init runtime)
+static uint8_t enemy_alive[NUM_ROOMS];
+static uint8_t item_remaining[NUM_ROOMS];
+static uint8_t score_remaining[NUM_ROOMS];
+
+/* names */
+static const char * const room_names[NUM_ROOMS] = { ...100... };
+static const char * const room_desc1[NUM_ROOMS] = { ...100... };
+static const char * const room_desc2[NUM_ROOMS] = { ...100... };
+
+static void init_room_data(void) { ... set exits and content ... }
+
+But if room_enemy, room_item, etc are non-const and zero-initialized by default; init sets. Need call
+init_room_data before start_screen? In main before while? Could call in play_game before loop? But if call in
+play_game, it resets each game, good. But also mutable enemy_alive etc seeded. Could combine:
+static void reset_game_state(void) { init_room_data(); for i... }
+In play_game call init_room_data(); then seed.
+
+Need be careful: room_north etc are static non-const, initialized by init. If main loops restart, init resets.
+
+Need init_room_data content:
+static void init_room_data(void) {
+    uint8_t x, y, r;
+    for (y=0; y<GRID_H; y++) {
+      for (x=0; x<GRID_W; x++) {
+        r = y*GRID_W + x;
+        room_north[r] = (y > 0) ? r - GRID_W : NO_EXIT;
+        room_south[r] = (y < GRID_H-1) ? r + GRID_W : NO_EXIT;
+        room_east[r] = (x < GRID_W-1) ? r + 1 : NO_EXIT;
+        room_west[r] = (x > 0) ? r - 1 : NO_EXIT;
+        room_enemy[r] = ENEMY_NONE;
+        room_item[r] = ITEM_NONE;
+        room_damage[r] = 0;
+        room_score[r] = 0;
+        enemy_max_hp[r] = 0;
+      }
+    }
+    // Items
+    room_item[9] = ITEM_SWORD;
+    room_item[18] = ITEM_POTION;
+    room_item[33] = ITEM_AMULET;
+    room_item[56] = ITEM_POTION;
+    room_item[72] = ITEM_KEY;
+    room_item[88] = ITEM_POTION;
+    // Maybe key not used; could unlock boss? Could add locked door? Not necessary.
+    // Traps
+    room_damage[27] = 10;
+    room_damage[49] = 15;
+    room_damage[70] = 10;
+    // Score bonuses
+    room_score[22] = 200;
+    room_score[45] = 300;
+    room_score[66] = 400;
+    room_score[90] = 500;
+    // Enemies: deterministic
+    // Avoid start 0, boss 98, victory 99, maybe item rooms can have no enemy? Could have but okay.
+    // Let's list fixed enemies to control difficulty:
+    room_enemy[4] = ENEMY_GUARD; enemy_max_hp[4]=20;
+    room_enemy[14] = ENEMY_GUARD; hp=20;
+    room_enemy[24] = ENEMY_SKELETON; 25;
+    room_enemy[34] = ENEMY_SKELETON; 25;
+    room_enemy[44] = ENEMY_SKELETON; 30;
+    room_enemy[54] = ENEMY_WRAITH; 30;
+    room_enemy[64] = ENEMY_WRAITH; 35;
+    room_enemy[74] = ENEMY_DRAGON; 40;
+    room_enemy[84] = ENEMY_DRAGON; 45;
+    room_enemy[94] = ENEMY_DRAGON; 45;
+    room_enemy[BOSS_ROOM] = ENEMY_DARKLORD; hp=60; // uint8 ok
+    // Maybe extra enemies in side rooms:
+    // Could use loop: for r=0..97 if (r % 11 == 7) enemy... But fixed is easier. Need enough challenge for 100
+rooms? 10 enemies + boss. Good.
+}
+
+But if full grid, a player can bypass enemies by going around. That's okay. Could place walls? Not needed. But if
+they can bypass boss by not going to 99? To reach 99, must pass through adjacent 89 or 98. If boss at 98, but 99
+adjacent to 89 (north) and 98 (west). Player could go from 89 south to 99 bypass boss! In full grid, room 99 has
+north 89 and west 98. If boss at 98 only, bypass via 89. Need make victory room guarded by boss? Could place
+darklord in 89 too? Or make 99 victory only accessible from 98 by removing north exit from 89? If full grid, no.
+Could set room 99 victory but require key? Or set boss in both 89 and 98? Or place boss in 89 (north of victory)
+and 98? Hmm.
+
+Better: Modify exits for final area to force through boss. For full grid, we can remove room_north[99] = NO_EXIT
+so 99 only from 98. Also maybe remove room_west[99]? No keep west to 98. If boss at 98, must fight. Room 89 can
+lead east to 98? 89 east is 98, south to 99. Remove south from 89: room_south[89] = NO_EXIT. Also maybe remove
+east from 98? no. Then 99 only from 98. Good. Need ensure rest connected. We can set after grid init:
+room_south[89] = NO_EXIT;
+room_north[99] = NO_EXIT;
+// maybe room_west[99] = 98, room_east[98]=99.
+This creates final door. Could also add key requirement? No.
+
+If player wants victory, must go 98 fight boss then 99. Good.
+
+Could also place a dragon at 89 to guard alternative? Not needed.
+
+Need ensure full grid still has all rooms reachable: yes.
+
+Need consider enemy combat blocks movement. If room 98 has boss, after defeat, can move east to 99. Good.
+
+Could place a lock requiring key to enter 98? We have has_key but unused except display. Could implement locked
+door: If moving west from 98? Actually from 98 to 99 east, require has_key? Original key unused. Could add:
+#if USE_KEY_LOCK
+if (room == 98 && direction east && !has_key) message "NEED MYSTIC KEY" ; else move.
+#endif
+But key at 72. Could make final door locked. That adds gameplay. Need modify movement code to support locked exit.
+Could do after input, for right from 98, if !has_key, print message and sleep. But then boss room still accessible
+from west 97 and north 88? If door locked to victory, not boss. Could lock room 98 itself from 97? Need key. Maybe
+key opens final chamber (room 98). Movement into 98 from 97 or 88/99? Could require key to enter 98 from
+west/north. But then if in 98? Let's add a simple locked exit from 98 to 99: need key. Key at 72. This gives key
+purpose. But if player defeats boss but no key, can't finish. Good.
+
+Need implement locked movement. The original movement uses room_east[room] != NO_EXIT. We can add:
+if (_XL_RIGHT(input)) {
+  if (room_east[room] != NO_EXIT) {
+    if (room == 98 && !has_key) { message; }
+    else { room = room_east[room]; }
+  }
+}
+Could also if (room == 89 && right? 89 east to 98) maybe no. Good.
+Need message area: print at row 15, then sleep. But if in movement input, after message and sleep, should not
+move; continue while loop. Need avoid falling through? Use flag moved. Simpler:
+if (_XL_RIGHT(input)) {
+  if (room_east[room] != NO_EXIT) {
+    if (room == FINAL_DOOR_ROOM && !has_key) {
+       _XL_SET_TEXT_COLOR(_XL_RED); _XL_PRINT(2,15,"YOU NEED THE MYSTIC KEY."); _XL_SLEEP(1);
+    } else {
+       room = room_east[room]; _XL_TICK_SOUND();
+    }
+  }
+} else ...
+But after message, while loop repeats and clears screen, losing message? In original, after movement, loop clears
+screen; messages for items/traps sleep then clear. For locked door, if sleep then loop clears. That's okay but
+player may not see? Could print message and sleep before loop top, but at loop top clear. Actually movement occurs
+near bottom of while, after message we can sleep, then while repeats and clears; the message is visible during
+sleep because screen still has previous room. Good.
+
+Need update has_key usage. Could also require key for 99.
+
+Need maybe if player has key, exit opens. Good.
+
+Need update print_room_desc for room 98 maybe mentions locked door. But desc arrays static. Could have 98: "THE
+DARK LORD WAITS AT HIS THRONE." and "A MAGIC SEAL BARS THE EAST DOOR." Need key.
+
+Need design 100 names/descs. Let's plan. Since final answer long, maybe not 100 full descriptions; can use
+functions with categories to reduce. But if we already write 100 names, descriptions can be 100 generic from
+pools. Need code compile.
+
+Option: Use 100 names array and a function to select desc based on room number using small pools:
+static const char * const desc_a[20] = {...}; static const char * const desc_b[20] = {...}; print desc1 =
+desc_a[room % 20], desc2 = desc_b[room % 20]; But that repeats and less unique. Could be acceptable. But to show
+extension, maybe enough.
+
+Could create 100 names and 100 desc lines with a compact macro? For example:
+#define D(name, a, b) name, #a, #b? No, strings.
+Could use X macro to generate? Not needed.
+
+Need ensure final code not too long. Let's consider providing a script to generate? But user wants code.
+
+Maybe produce code with 100 rooms but names/desc generated algorithmically via switch on room < 22 original and
+else "DUNGEON ROOM %d"? But no integer print to string. Could use _XL_PRINT plus
+
+>>> Generate the full code witrh 100 rooms with all names and description
+Thinking...
+We need answer user's request: "Generate the full code witrh 100 rooms with all names and description". We need
+produce code extension. Need think in same language as user's request: English. Need provide full C code? User
+asks generate full code with 100 rooms with all names and description. Original code is for some cross_lib game
+(probably Gamebuino? Actually _XL_ prefix? Could be XBox? Need generate full code. Need consider constraints: We
+need at least 100 rooms. Need all names and descriptions. Need likely maintain arrays size NUM_ROOMS=100, room
+exits, enemy, items, damage, score, enemy_max_hp, names/desc. Need generate a coherent dungeon. Need ensure code
+compiles? Need no missing braces. Need maybe use const tables 100. Need avoid too much text? The user wants full
+code. We need output only code? likely yes. But must be careful: full code with 100 rooms names and descriptions.
+Could produce C code with #include "cross_lib.h", NUM_ROOMS 100, arrays. Need maybe include all 100 names and
+descriptions in switch statements. Could be lengthy but manageable. Need ensure consistency: exits arrays 100
+each. Need design map. Need maybe original 22 rooms kept? Could extend. Need victory rooms maybe 98/99? Need all
+names and descriptions. Need code with functions updated. Need maybe use static const uint8_t for exits 100. Need
+ensure no exit points to out of range. Need ensure symmetric? Original not fully symmetric: e.g room1 east 2,
+room2 west 1 etc. We can design simple grid-like map of 100 rooms: 10x10 grid. Room id = x + 10*y? Exits: east if
+x<9, west if x>0, north if y>0? Let's choose coordinate: row 0 top? For simplicity, room i, x=i%10, y=i/10. Use
+east = i+1 if x<9 else NO_EXIT, west=i-1 if x>0 else NO_EXIT, north = i+10 if y<9? or i-10? Need consistent with
+player controls. In original room 0 east to 1, so x increases east. Original room 0 north? none. room 4 north 1?
+weird. We can build 10x10 grid: row 0 top (north), y 0..9, north = i-10 if y>0, south = i+10 if y<9, east i+1 if
+x<9, west i-1 if x>0. Start room 0 (top-left). But original start at 0 entrance; victory at 99? We can make
+victory at 99. Need include all names/desc. Could generate manually? Need output 100 names and descriptions. Need
+not be perfect but full. Need include arrays for enemies/items etc. Need likely no need to list 100 descriptions
+if using arrays of strings? Could make static const char *room_names[100] = { ... }; static const char
+*room_desc1[100], room_desc2[100]? But user said full code with all names and description. Using arrays of string
+literals is easier and less duplicate. But original used switch with _XL_PRINT. We can modify print_room_name and
+print_room_desc to use string arrays. Need ensure cross_lib print can take const char* at (2,0) and (2,2)/(2,3).
+Use _XL_PRINT(2,0, room_names[room]); etc. That is valid. Could be more compact. Need produce full code. Need
+ensure 100 names/desc strings. Need maybe include 100 exits arrays. Generating 100 arrays manually is lengthy but
+possible. Could instead compute exits programmatically from grid in functions? But original uses arrays. User
+likely expects code. To reduce length and avoid mistakes, we can keep arrays but generate with macros? For static
+const arrays of 100 elements, can list. Or compute exit functions using modulo and not store arrays. The prompt:
+"Given the following code ... extend it to at least 100 rooms". It might be okay to replace arrays with functions
+that compute exits for 10x10 grid. But if they expect arrays, we can use arrays or functions. The full code with
+100 rooms: if we use functions: static uint8_t room_north(uint8_t room) { return (room>=10)? room-10 : NO_EXIT; }
+etc. That eliminates 4 arrays of 100 entries. Need update print_exits and movement to call functions. But original
+arrays are const; maybe better. However user asked generate full code with 100 rooms with all names and
+descriptions, not necessarily arrays. We can present improved code with computed grid exits. Need include all
+names/desc as arrays. Need ensure item/enemy arrays of 100. Could also compute some? But user likely wants all
+data. We can list arrays with 100 values. Need make values plausible.
+
+Need think about code compatibility: cross_lib.h may have _XL_PRINTD etc. Use uint8_t etc. Need include stdint?
+cross_lib likely includes. Need maintain functions.
+
+Need ensure all 100 room names/descriptions exist. Could use string arrays:
+static const char *room_name[NUM_ROOMS] = {
+"THE ENTRANCE HALL", ... 100 entries
+};
+static const char *room_desc_line1[NUM_ROOMS] = { ... 100 };
+static const char *room_desc_line2[NUM_ROOMS] = { ... 100 };
+
+Then print_room_name: if (room < NUM_ROOMS) _XL_PRINT(2,0, room_name[room]);
+print_room_desc: _XL_PRINT(2,2, room_desc_line1[room]); _XL_PRINT(2,3, room_desc_line2[room]);
+
+This is clean. Need ensure string lengths not too long? Display maybe 40 columns? original strings around 30. Use
+<=30 chars. 100 names can be generic. Need all distinct? Could be. Need generate 100 names/desc manually. Need
+likely doable. Need create map 10x10 with rooms 0-99. Need enemies/items arrays 100. Could generate arrays in code
+with comments. Need ensure values within 0-255. NO_EXIT=255. For grid computed, no arrays needed for exits. But if
+using functions, movement uses get_north etc. Need update print_exits. Need still have static const arrays for
+enemy/item/damage/score/enemy_max_hp of size 100. Need generate 100 values for each. Could generate via
+initializer lists. Need ensure enemy_max_hp for enemy_NONE can be 0. For enemies: use original types. Need maybe
+place boss at 98? Victory at 99? Or dark lord at 98, victory at 99? Original victory rooms 19,21. We can have
+final dark lord at 98, victory at 99, maybe start 0. Need key item maybe at 85. Need sword at 20, amulet 40,
+potion 10 etc.
+
+Could use arrays with 10 per line for readability:
+static const uint8_t room_enemy[NUM_ROOMS] = {
+ ENEMY_NONE, ENEMY_NONE, ENEMY_GUARD, ...
+};
+Need 100 entries. Need ensure enemy_max_hp aligned. For each enemy, set HP. For no enemy 0.
+Item array: ITEM_NONE mostly, some potions/sword/amulet/key.
+Damage array: traps maybe some 10.
+Score array: bonuses maybe some rooms 50,100, etc. uint8_t max 255; score can be 100.
+
+Need full code maybe 500+ lines. Final answer can be large. Need not explain. But maybe include note? User wants
+code. Could output just code block. Need be careful not to omit closing braces. Need compile? Let's design
+systematically.
+
+Potential code:
+
+#include "cross_lib.h"
+
+#define NO_EXIT 255
+#define NUM_ROOMS 100
+#define GRID_W 10
+#define GRID_H 10
+
+enemy/item defines same.
+
+static uint8_t enemy_alive[NUM_ROOMS];
+static uint8_t item_remaining[NUM_ROOMS];
+static uint8_t score_remaining[NUM_ROOMS];
+
+// const data
+static const uint8_t room_enemy[NUM_ROOMS] = { ... 100 };
+static const uint8_t room_item[NUM_ROOMS] = { ... };
+static const uint8_t room_damage[NUM_ROOMS] = { ... };
+static const uint8_t room_score[NUM_ROOMS] = { ... };
+static const uint8_t enemy_max_hp[NUM_ROOMS] = { ... };
+
+// names and desc arrays.
+
+static inline uint8_t grid_x(uint8_t room) { return (uint8_t)(room % GRID_W); }
+static inline uint8_t grid_y(uint8_t room) { return (uint8_t)(room / GRID_W); }
+
+static uint8_t exit_north(uint8_t room) { return (grid_y(room) > 0) ? (uint8_t)(room - GRID_W) : NO_EXIT; }
+static uint8_t exit_south(uint8_t room) { return (grid_y(room) < GRID_H - 1) ? (uint8_t)(room + GRID_W) : NO_EXIT;
+}
+static uint8_t exit_east(uint8_t room) { return (grid_x(room) < GRID_W - 1) ? (uint8_t)(room + 1) : NO_EXIT; }
+static uint8_t exit_west(uint8_t room) { return (grid_x(room) > 0) ? (uint8_t)(room - 1) : NO_EXIT; }
+
+Need if using inline static functions before print_exits.
+
+But original used room_north array; we can remove. Need update code accordingly.
+
+Need victory condition: if (room == 99) { game_active=0; break; } maybe also if 98? But dark lord at 98, must
+fight then go east to 99. If room 99 no enemy. Victory screen. If health <=0 game over.
+
+Need item pickup: has_potion logic original sets has_potion=1 and heals immediately. Maybe if already has potion?
+We can make multiple potions? Original uses flag. Keep. But if room item is potion and has_potion already, still
+heal? We can implement if item ITEM_POTION: if (has_potion) { heal } else has_potion=1? Original: has_potion=1; if
+health<50 heal. If multiple potion rooms and already has, still heals? It sets has_potion=1 and heals if
+health<50. Fine. But display shows POTION if has_potion. If no item? OK.
+
+Need fight function: uses enemy room param not used. OK.
+
+Need input loop: original only handles one input at a time; after enemy defeated, waits for movement input. OK.
+
+Need _XL_INPUT returns uint8_t. _XL_FIRE etc. OK.
+
+Need _XL_SLOW_DOWN. OK.
+
+Potential problem: static const uint8_t arrays with initializer >127? NO_EXIT only in arrays if using arrays. But
+we compute exits. No issue.
+
+Need generate 100 names/desc. Let's craft names 0-99. Need consistent themes. 10x10 grid: rows y=0..9, x=0..9.
+Maybe theme per row:
+0: outer entrance/courtyard
+1: guard corridors
+2: library/armory
+3: traps/cells
+4: garden/river
+5: shadows
+6: vaults
+7: underworld
+8: dark lord antechamber
+9: victory
+But room id 0..99 by row major: row0 0-9 top, row9 90-99 bottom. Start 0. Victory 99.
+Could make names row by row.
+Need descriptions two lines each. Could be generic but all 100. Need maybe avoid too repetitive? But acceptable.
+
+Let's create 100 room names and desc. Need ensure string lengths not too long for 40 columns? _XL_PRINT may
+support up to maybe 32? Use <=30. Original line at x=2, so max 38 maybe. Use <=30.
+
+I'll draft names:
+0 THE ENTRANCE HALL
+1 COLD CORRIDOR
+2 GUARD ROOM
+3 ANCIENT LIBRARY
+4 FOUNTAIN COURT
+5 SPIKE PASSAGE
+6 ARMORY
+7 DRAGON S LAIR
+8 OLD CELLAR
+9 CHAPEL
+10 STONE BRIDGE
+11 SPIKE PIT
+12 THRONE ROOM
+13 GLOWING GARDEN
+14 ENDLESS MAZE
+15 TREASURE VAULT
+16 SHADOW CORRIDOR
+17 UNDERGROUND RIVER
+18 DARK LORD S THRONE
+19 VICTORY HALL
+But if we only keep first 20 original and then need 80 new. But final dark lord should not be at 18 if victory 99?
+Could keep old names for 0-21 but they reference victory at 19. In 100 rooms, we can remap. Better to create fresh
+100. But user might expect extend original, could keep first 22 and add 78. But if original victory at 19, in
+extended we can change victory to 99. Need not preserve exact.
+
+Need all names and desc. I can produce row-based list.
+
+Let's design 100 names with coordinates:
+Row 0 (0-9) entrance:
+0 THE ENTRANCE HALL
+1 COLD CORRIDOR
+2 GUARD POST
+3 ANCIENT LIBRARY
+4 FOUNTAIN COURT
+5 SPIKE PASSAGE
+6 ARMORY
+7 DRAGON LAIR
+8 OLD CELLAR
+9 CHAPEL
+Row 1 (10-19) outer ruins:
+10 STONE BRIDGE
+11 SPIKE PIT
+12 OLD THRONE ROOM
+13 GLOWING GARDEN
+14 TWISTED MAZE
+15 TREASURE VAULT
+16 SHADOW CORRIDOR
+17 UNDERGROUND RIVER
+18 DARK SANCTUM
+19 HALL OF ECHOES
+Row 2 (20-29) deeper:
+20 KNIGHT S QUARTERS
+21 BURNING TUNNEL
+22 WITCH S CAVE
+23 MAP ROOM
+24 ICEFALL
+25 GUARDIAN GATE
+26 CLOCKWORK HALL
+27 POISON PUDDLE
+28 SKELETON PIT
+29 CRYSTAL GROTTO
+Row 3 (30-39):
+30 WRAITH PASSAGE
+31 MOSSY CELLARS
+32 BLOOD ALTAR
+33 LOST CRYPT
+34 STONE JAIL
+35 MURDER MIRROR
+36 RAVEN NEST
+37 HOLLOW SPIRE
+38 STORM CAVERN
+39 DROWNED HALL
+Row 4 (40-49):
+40 AMULET SHRINE
+41 FRACTURED BRIDGE
+42 ECHOING HALL
+43 BURIED TEMPLE
+44 FROZEN LAKE
+45 TRAP GALLERY
+46 MAGE S STUDY
+47 CURSED BAZAAR
+48 WOLF DEN
+49 LANTERN ROOM
+Row 5 (50-59):
+50 KEY VAULT
+51 SHATTERED DOOR
+52 WHISPERING TUNNEL
+53 GOLEM COURT
+54 ASHEN GARDEN
+55 SNAKE PASSAGE
+56 RUNIC WALL
+57 BOULDER CHAMBER
+58 GHOST GALLERY
+59 MOON WELL
+Row 6 (60-69):
+60 SERPENT SHRINE
+61 MIRROR MAZE
+62 FIRE PIT
+63 FATHOM DEPTH
+64 GRIM HARBOR
+65 SPORE CAVES
+66 RING OF BONES
+67 THUNDER HALL
+68 LOST FORGE
+69 STAR FALL CHAMBER
+Row 7 (70-79):
+70 OBELISK COURT
+71 SHRIEKING CLOISTER
+72 MOLTEN GATE
+73 DRY SEA
+74 VEIL ROOM
+75 RAVEN WATCHTOWER
+76 CHARNEL HOUSE
+77 LAVA RIVER
+78 WAILING SPIRE
+79 BLACK MARBLE HALL
+Row 8 (80-89):
+80 DARK LORD S GATE
+81 HARBINGER CORRIDOR
+82 SOUL CAGE
+83 VOID ALTAR
+84 CARRION COURT
+85 MYSTIC KEY ROOM
+86 SHATTERED MIRROR
+87 ECLIPSE CHAMBER
+88 WARRIOR S REST
+89 FINAL GUARD HALL
+Row 9 (90-99):
+90 LAST STEP
+91 DARK LORD S THRONE
+92 VICTORY GALLERY
+93 HALL OF LIGHT
+94 SUNRISE BRIDGE
+95 DAWN COURT
+96 RESTING PLACE
+97 CROWN VAULT
+98 GUARDIAN CHAMPION
+99 EXIT TO FREEDOM
+
+But original boss dark lord at 98, victory 99. Maybe room 91 dark lord throne, 98 guardian champion? Need one
+final boss. Let's choose enemy_DARKLORD at 91 maybe, enemy_GUARD or ENEMY_DARKLORD? Need maybe final boss at 98
+"GUARDIAN CHAMPION" could be dark lord? But name mismatch. We can name 98 DARK LORD S THRONE and 99 EXIT. But we
+already have 91. Need consistency.
+Maybe final row:
+90 LAST STEP
+91 DARK LORD S THRONE
+92 VICTORY GALLERY
+93 HALL OF LIGHT
+94 SUNRISE BRIDGE
+95 DAWN COURT
+96 RESTING PLACE
+97 CROWN VAULT
+98 GUARDIAN CHAMPION
+99 EXIT TO FREEDOM
+If boss at 91, then after defeating, you can move to 92...99. But if you can bypass boss? Grid open: from 90 can
+go east to 91 then 92. Could go north from 90 to 80, etc. To reach 99, you can path around 91? In grid, 99 is
+bottom-right; can enter from west 98 or north 89. If boss at 91 not blocking. Maybe better boss at 98, victory 99.
+Name 98 DARK LORD S THRONE. Then final row:
+90 LAST STEP
+91 SHADOW ANTICHAMBER
+92 VICTORY GALLERY
+93 HALL OF LIGHT
+94 SUNRISE BRIDGE
+95 DAWN COURT
+96 RESTING PLACE
+97 CROWN VAULT
+98 DARK LORD S THRONE
+99 EXIT TO FREEDOM
+Then to reach 99 from 98 east; but from 89 can go south to 99 bypassing 98? In grid, 89 south to 99? If y=8, room
+89, south room 99 (id 99). That bypasses 98. Could make final boss at 98 and require key? Original no locked
+doors. To force? Could place dark lord at 99? But victory room 99. Maybe set victory at 99 but also enemy at 99?
+If fight boss in victory room then victory? Original if enemy then victory check after combat, could work: room 99
+enemy_darklord, after defeated then victory. But name EXIT? Could be DARK LORD S EXIT. However original victory
+check at 19/21. We can set if (room == 99) after combat, so boss in 99, defeat triggers victory. Good. Name 99
+DARK LORD S THRONE? Then victory screen. But user might expect exit. Could set 98 EXIT? Let's design final: 98
+GUARDIAN CHAMPION (sub-boss), 99 DARK LORD S THRONE (final boss, victory after). But victory screen says
+vanquished dark lord. OK. Then no need key. But name 99 DARK LORD S THRONE. Good.
+Final row:
+90 LAST STEP
+91 SHADOW ANTICHAMBER
+92 VICTORY GALLERY
+93 HALL OF LIGHT
+94 SUNRISE BRIDGE
+95 DAWN COURT
+96 RESTING PLACE
+97 CROWN VAULT
+98 GUARDIAN CHAMPION
+99 DARK LORD S THRONE
+Then victory condition room == 99. Enemy dark lord at 99. After defeated, victory. Good. But if player enters 99
+and loses, game over. Fine.
+Need adjust names above row 8 maybe 80 DARK LORD S GATE, 89 FINAL GUARD HALL. OK.
+
+Need descriptions for each. Could create generic desc line1 and line2 for each. Need 200 strings. Need manageable.
+We can make many similar but all distinct enough. Need not be literary. Could use pattern? The user says all names
+and description. We can provide arrays. Need ensure code not too huge? 100 names + 100 desc1 + 100 desc2 = 300
+strings, each line. Plus data arrays 5*100 values = 500 values. Final code ~1000 lines. Accept? The desired
+oververbosity high, but user wants full code. We can generate. Need maybe reduce by using one desc line? Original
+prints two lines. Could print only one line? The request all names and description singular. We could use
+room_desc[100] one line. But original print_room_desc prints 2 lines. To keep, use two lines. Could use 100 desc
+strings each two lines with
+? _XL_PRINT likely doesn't support newline. Use two arrays. OK.
+
+Could use a single macro to define names/desc? For code length, maybe define with X-macro? But final code should
+be straightforward. Could make arrays of structs? static const char *const room_desc1[NUM_ROOMS] = { ... };
+Need compile in C89? The original uses uint8_t, static const. Could use const char * arrays. OK.
+
+Need generate data arrays. Let's plan 100 data values.
+
+Enemies: place every few rooms. Need enemy_max_hp. We can create table:
+Index: enemy, hp
+0 none
+1 none
+2 guard 20
+3 none
+4 none
+5 skeleton 25?
+6 none
+7 dragon 40
+8 skeleton 25
+9 none
+10 none
+11 none
+12 wraith 30
+13 none
+14 none
+15 none
+16 none
+17 skeleton 25
+18 darklord? no, maybe guard 30
+19 none
+20 guard 25
+21 skeleton 25
+22 wraith 30
+23 none
+24 skeleton 25
+25 guard 30
+26 none
+27 wraith 30
+28 skeleton 30
+29 none
+30 wraith 35
+31 skeleton 25
+32 wraith 35
+33 skeleton 30
+34 guard 30
+35 wraith 35
+36 skeleton 30
+37 dragon 50
+38 wraith 40
+39 skeleton 30
+40 none
+41 guard 35
+42 wraith 40
+43 skeleton 35
+44 none
+45 wraith 40
+46 none
+47 guard 40
+48 skeleton 35
+49 none
+50 none
+51 wraith 45
+52 guard 45
+53 dragon 60
+54 wraith 45
+55 skeleton 40
+56 none
+57 guard 50
+58 wraith 50
+59 none
+60 wraith 50
+61 guard 50
+62 dragon 60
+63 skeleton 45
+64 guard 55
+65 wraith 55
+66 skeleton 50
+67 dragon 65
+68 guard 55
+69 none
+70 guard 60
+71 wraith 60
+72 dragon 70
+73 skeleton 55
+74 wraith 65
+75 guard 65
+76 skeleton 60
+77 dragon 75
+78 wraith 70
+79 guard 70
+80 wraith 75
+81 guard 80
+82 wraith 80
+83 dragon 80
+84 guard 80
+85 none (key)
+86 wraith 85
+87 guard 85
+88 wraith 90
+89 guard 90
+90 guard 95
+91 wraith 90
+92 none
+93 none
+94 none
+95 none
+96 none
+97 none
+98 guard? Guardian champion maybe darklord? Could be ENEMY_DARKLORD 120? But final boss at 99. Maybe 98 GUARDIAN
+CHAMPION is a tough guard (or dragon). Let's set 98 ENEMY_DARKLORD? But final boss at 99 also? No. Use
+ENEMY_DRAGON 100 for guardian? But enemy type names print DRAGON; room name Guardian Champion not match but OK?
+Better use ENEMY_DARKLORD at 98? Then 99 final? Could be two dark lords? No.
+Maybe 98 ENEMY_GUARD with 100, 99 ENEMY_DARKLORD 150.
+Need max HP uint8_t max 255. OK.
+99 darklord 150.
+Need player can beat? Without sword? Need sword earlier. OK.
+
+Items:
+Potions at 3? 13? 23? 33? 43? 53? 63? 73? 83? 93? But original potion at 3, sword at 6, amulet at 9, key at 15. We
+can place:
+0 none
+1 none
+2 none
+3 potion
+4 none
+5 none
+6 sword
+7 none
+8 none
+9 amulet
+10 potion
+11 none
+12 key? But key not used except display. Could place key at 85 maybe.
+13 none
+14 none
+15 none
+16 none
+17 potion
+18 none
+19 none
+20 potion
+21 none
+22 none
+23 potion
+24 none
+25 none
+26 sword? multiple swords? flag so no need. Could place none.
+27 potion
+28 none
+29 none
+30 potion
+31 none
+32 none
+33 potion
+34 none
+35 none
+36 potion
+37 none
+38 none
+39 potion
+40 amulet? Already 9. Could none.
+41 none
+42 none
+43 potion
+44 none
+45 none
+46 none
+47 potion
+48 none
+49 none
+50 key? If key at 50.
+51 none
+52 none
+53 potion
+54 none
+55 none
+56 none
+57 potion
+58 none
+59 none
+60 potion
+61 none
+62 none
+63 potion
+64 none
+65 none
+66 potion
+67 none
+68 none
+69 potion
+70 none
+71 none
+72 potion
+73 none
+74 none
+75 potion
+76 none
+77 none
+78 potion
+79 none
+80 none
+81 potion
+82 none
+83 potion
+84 none
+85 key (mythic) maybe if no key earlier. Actually key flag can be from 50. Let's place key at 50 and 85? Item
+array single item per room; multiple keys OK. Could 85 none.
+86 potion
+87 none
+88 potion
+89 none
+90 potion
+91 none
+92 none
+93 potion
+94 none
+95 none
+96 potion
+97 none
+98 none
+99 none
+But if has_sword/amulet flags only one each, later no effect. OK.
+Need ensure potion count enough. Maybe 30. Fine.
+Could place amulet at 40 if not 9? But 9 is chapel. OK.
+Key at 50 "KEY VAULT". Good.
+
+Damage traps: place some rooms: 5 (spike passage) 10, 11 spike pit 15, 24 icefall 10, 27 poison 10, 44 frozen lake
+10, 45 trap gallery 15, 56 boulder 10, 62 fire pit 15, 77 lava river 20, 83 void altar 15. uint8_t. Need not too
+high. Score bonuses: 12 100, 15 200? uint8 max 255. 32 blood altar 100, 50 key vault 150, 79 black marble 200, 97
+crown vault 255? uint8 max 255. Score can be 255. OK. Need align with enemy HP. We can list 100 values with zeros
+and exceptions.
+
+Need ensure arrays initializer exactly 100. Need count carefully. Could create by row 10 values each, 10 rows.
+We'll write 10 values per line for each array. Need count.
+
+Let's create a table with 100 rows? Could make arrays by row comments. Need ensure values count. We'll design a
+consolidated table for each index with enemy, item, damage, score, hp. Could list 10 per line.
+
+Let's make a table in analysis for indices 0-99:
+I'll use columns: idx, enemy, hp, item, damage, score.
+0 none 0 none 0 0
+1 none 0 none 0 0
+2 guard 20 none 0 0
+3 none 0 potion 0 0
+4 none 0 none 0 0
+5 skeleton 25 none 10 0
+6 none 0 sword 0 0
+7 dragon 40 none 0 0
+8 skeleton 25 none 0 0
+9 none 0 amulet 0 0
+10 none 0 potion 0 0
+11 none 0 none 0 0
+12 wraith 30 none 0 100
+13 none 0 none 0 0
+14 none 0 none 0 0
+15 none 0 none 0 0
+16 none 0 none 0 0
+17 skeleton 25 none 0 0
+18 guard 30 none 0 0
+19 none 0 none 0 0
+20 guard 25 potion 0 0
+21 skeleton 25 none 0 0
+22 wraith 30 none 0 0
+23 none 0 potion 0 0
+24 skeleton 25 none 10 0
+25 guard 30 none 0 0
+26 none 0 none 0 0
+27 wraith 30 none 10 0
+28 skeleton 30 none 0 0
+29 none 0 none 0 0
+30 wraith 35 potion 0 0
+31 skeleton 25 none 0 0
+32 wraith 35 none 0 100
+33 skeleton 30 potion 0 0
+34 guard 30 none 0 0
+35 wraith 35 none 0 0
+36 skeleton 30 potion 0 0
+37 dragon 50 none 0 0
+38 wraith 40 none 0 0
+39 skeleton 30 potion 0 0
+40 none 0 none 0 0
+41 guard 35 none 0 0
+42 wraith 40 none 0 0
+43 skeleton 35 potion 0 0
+44 none 0 none 10 0
+45 wraith 40 none 15 0
+46 none 0 none 0 0
+47 guard 40 potion 0 0
+48 skeleton 35 none 0 0
+49 none 0 none 0 0
+50 none 0 key 0 150
+51 wraith 45 none 0 0
+52 guard 45 potion 0 0
+53 dragon 60 none 0 0
+54 wraith 45 none 0 0
+55 skeleton 40 none 0 0
+56 none 0 potion 0 0
+57 guard 50 none 10 0
+58 wraith 50 none 0 0
+59 none 0 none 0 0
+60 wraith 50 potion 0 0
+61 guard 50 none 0 0
+62 dragon 60 none 15 0
+63 skeleton 45 potion 0 0
+64 guard 55 none 0 0
+65 wraith 55 none 0 0
+66 skeleton 50 potion 0 0
+67 dragon 65 none 0 0
+68 guard 55 none 0 0
+69 none 0 potion 0 0
+70 guard 60 none 0 0
+71 wraith 60 none 0 0
+72 dragon 70 potion 0 0
+73 skeleton 55 none 0 0
+74 wraith 65 none 0 0
+75 guard 65 potion 0 0
+76 skeleton 60 none 0 0
+77 dragon 75 none 20 0
+78 wraith 70 potion 0 0
+79 guard 70 none 0 200
+80 wraith 75 none 0 0
+81 guard 80 potion 0 0
+82 wraith 80 none 0 0
+83 dragon 80 none 15 100
+84 guard 80 none 0 0
+85 none 0 key 0 0 (maybe score? no)
+86 wraith 85 potion 0 0
+87 guard 85 none 0 0
+88 wraith 90 potion 0 0
+89 guard 90 none 0 0
+90 guard 95 potion 0 0
+91 wraith 90 none 0 0
+92 none 0 none 0 0
+93 none 0 potion 0 0
+94 none 0 none 0 0
+95 none 0 none 0 0
+96 none 0 potion 0 0
+97 none 0 none 0 255
+98 guard 100 none 0 0
+99 darklord 150 none 0 0
+
+Need item array with two keys (50,85). OK.
+Enemy max HP array aligns. For no enemy 0.
+Need ensure enemy_max_hp for 7 dragon 40, 12 wraith 30, etc.
+
+Now names/desc arrays. Need 100. Let's create consistent with table. We can use the names listed, adjust 99. Need
+descriptions two lines each. Need maybe align with enemy/item/trap. Could make generic per index.
+Let's draft 100 entries:
+0: THE ENTRANCE HALL / "A COLD STONE HALL STRETCHES AHEAD." / "THE DUNGEON WELCOMES YOU WITH COLD AIR."
+1: COLD CORRIDOR / "A NARROW CORRIDOR STRETCHES EAST." / "PASSAGES LEAD SOUTH AND WEST."
+2: GUARD POST / "A HEAVY GUARD BLOCKS THE WAY." / "HE GRINS AND DRAWS HIS BLADE."
+3: ANCIENT LIBRARY / "ANCIENT TOMES LINE THE SHELVES." / "A GLOWING POTION SITS ON A TABLE."
+4: FOUNTAIN COURT / "A CRYSTAL FOUNTAIN SHIMMERS HERE." / "WATER FLOWS OVER POLISHED STONE."
+5: SPIKE PASSAGE / "THE FLOOR SHAKES! SPIKES RISE!" / "YOU JUMP AND ESCAPE, BARELY."
+6: ARMORY / "RUSTED WEAPONS HANG ON THE WALLS." / "A STEEL SWORD CATCHES YOUR EYE."
+7: DRAGON LAIR / "A MIGHTY DRAGON COILS AROUND GOLD." / "ITS EYES BURN LIKE MOLTEN FIRE."
+8: OLD CELLAR / "BONES RATTLE IN THE DARK CELLS." / "A SKELETON RAISES ITS RUSTED SWORD."
+9: CHAPEL / "CANDLELIGHT FLECKS THE QUIET CHAPEL." / "A SILVER AMULET RESTS ON THE ALTAR."
+10: STONE BRIDGE / "A RICKETY BRIDGE SPANS A DEEP PIT." / "WIND HOWLS FROM BELOW."
+11: SPIKE PIT / "THE FLOOR CRUMBLES! SPIKES BELOW!" / "YOU GRAB A ROPE AND CLING ON!"
+12: OLD THRONE ROOM / "AN EMPTY THRONE SIT IN THE DARKNESS." / "DUST COVERS EVERY SURFACE."
+13: GLOWING GARDEN / "BIOLUMINESCENT PLANTS GLOW SOFT BLUE." / "THE AIR IS SWEET AND CALM."
+14: TWISTED MAZE / "ENDLESS CORRIDORS TWIST AND TURN." / "ECHOES BOUNCE OFF COLD WALLS."
+15: TREASURE VAULT / "GOLD AND GEMS PILE HIGH ON THE FLOOR!" / "YOU POCKET A HANDFUL OF COINS."
+16: SHADOW CORRIDOR / "SHADOWS DANCE ON THE WALLS." / "A CHILL WHISPER SLIDES PAST YOUR EAR."
+17: UNDERGROUND RIVER / "UNDERGROUND RIVERS FLOW THROUGH HERE." / "MOSS COVERS THE WET STONES."
+18: DARK SANCTUM / "BLACK STATUES WATCH EVERY STEP." / "THE AIR TASTES OF OLD MAGIC."
+19: HALL OF ECHOES / "ECHOES ANSWER EVERY FOOTSTEP." / "SOMETHING OLD STILL BREATHES HERE."
+20: KNIGHT S QUARTERS / "BANNERS FADE ABOVE EMPTY BEDS." / "A POTION SITS AMONG BROKEN CUPS."
+21: BURNING TUNNEL / "EMBERED WALLS GLOW WITH HEAT." / "THE SMELL OF ASH THICKENS THE AIR."
+22: WITCH S CAVE / "MURKYGROVES DANGLE FROM THE CEILING." maybe weird. "MURKY MUSHROOMS GLOW IN THE DARK." / "A
+WRAITH CIRCLES THE CIRCLE."
+23: MAP ROOM / "A ROTTEN MAP LIES ON A STONE TABLE." / "A POTION MARKS A FORGOTEN PATH."
+24: ICEFALL / "FROST SPARKLES ON CRACKED STONE." / "THE COLD BITES THROUGH YOUR ARMOR."
+25: GUARDIAN GATE / "A STONE GUARD STANDS FOREVER." / "ITS EYES ARE EMPTY AND WATCHFUL."
+26: CLOCKWORK HALL / "GIGGEAN GEARS TURN SLOWLY ABOVE." / "BRASS DROPLETS TICK ON THE FLOOR."
+27: POISON PUDDLE / "GREEN LIQUID FUMES BETWEEN CRACKS." / "A WRAITH HUNGERS NEAR THE EDGE."
+28: SKELETON PIT / "BONES OF A GIANT SKELETON FILL THE HALL." / "SMALLER BONES RATTLE ALIVE."
+29: CRYSTAL GROTTO / "SHARP CRYSTALS WHISPER IN THE DARK." / "THE AIR SHIMMERS WITH WEAK LIGHT."
+30: WRAITH PASSAGE / "COLD SHADOWS DRIFT BETWEEN ARCHES." / "A WRAITH REACHES THROUGH THE DARK."
+31: MOSSY CELLARS / "MOSS SOFTENS OLD MURDER STONES." / "SKELETONS HIDE IN THE CORNERS."
+32: BLOOD ALTAR / "A BLACK ALTAR DRIPS FRESH RED." / "RUNES PULSE WITH ANGRY LIGHT."
+33: LOST CRYPT / "COFFINS STAND OPEN IN THE DUST." / "A SKELETON GUARDS THE PASSED."
+34: STONE JAIL / "EMPTY CELLS LINE THE WALLS." / "A GUARD STILL DRAGS HIS CHAIN."
+35: MURDER MIRROR / "A SHATTERED MIRROR SHOWS YOUR DEATH." / "A WRAITH REACHES FROM THE GLASS."
+36: RAVEN NEST / "RAVENS CRY FROM BEAM TO BEAM." / "A POTION HANGS IN A FEATHER CAGE."
+37: HOLLOW SPIRE / "A TWISTED SPIRE RINGS WITH ECHO." / "A DRAGON SLEEPS ON BROKEN WINGS."
+38: STORM CAVERN / "LIGHTNING TRAPS INSIDE THE CAVE." / "A WRAITH DANCES THROUGH THE GLOW."
+39: DROWNED HALL / "BLACK WATER FILLS THE FLOOR." / "SKELETONS SLEEP BENEATH THE SURFACE."
+40: AMULET SHRINE / "A FADED SHRINE HOLDS AN EMPTY PEDESTAL." / "THE AIR HUMS WITH OLD BLESSING."
+41: FRACTURED BRIDGE / "A BROKEN BRIDGE HANGS OVER DARK." / "A GUARD HOLDS THE LAST SUPPORT."
+42: ECHOING HALL / "SILENCE STRETCHES LIKE THIN ICE." / "A WRAITH ANSWERS EVERY BREATH."
+43: BURIED TEMPLE / "STATUES HALF SWALLOWED BY EARTH." / "A SKELETON KNEELS IN PRAYER."
+44: FROZEN LAKE / "A THIN ICE LAKE REFLECTS THE STARS." / "CRACKS SPREAD BENEATH YOUR FEET."
+45:
+
+>>> complete the list starting from room 45
+Thinking...
+The user wants me to complete the list starting from room 45. They previously asked me to generate full code with
+100 rooms, and I started generating it but the response was cut off. Now they want me to continue from room 45.
+
+Let me think about what I need to provide. They want the continuation of the room data tables and the print
+functions starting from room 45. I need to continue the pattern established in the first 44 rooms.
+
+Let me design a cohesive 100-room dungeon. I'll organize it into zones:
+- Rooms 0-9: Entrance area (already done in original)
+- Rooms 10-19: Underground corridors
+- Rooms 20-29: Ancient halls
+- Rooms 30-39: Crystal caves
+- Rooms 40-49: Fire/Ember zone
+- Rooms 50-59: Frozen chambers
+- Rooms 60-69: Poison swamps
+- Rooms 70-79: Bone pits
+- Rooms 80-89: Void/labyrinth
+- Rooms 90-99: Final approach to Dark Lord
+
+I need to provide:
+1. Room name entries (45-99)
+2. Room description entries (45-99)
+3. The exit tables for all 100 rooms
+4. Enemy, item, damage, score, and max_hp tables for all 100 rooms
+
+Actually, re-reading the conversation, the user originally asked for full code with 100 rooms. I generated it but
+it was cut off. Now they want me to "complete the list starting from room 45." This likely means they want me to
+provide the continuation of the code - specifically the room names, descriptions, and all the data arrays from
+room 45 to room 99.
+
+Let me provide a complete, self-contained continuation. I'll give them the rest of the print_room_name function
+cases, the print_room_desc function cases, and all the data arrays (exits, enemies, items, damage, score,
+enemy_max_hp) for rooms 45-99, plus the complete arrays for all 100 rooms.
+
+Actually, let me reconsider. The most useful thing would be to provide the COMPLETE file since it's 100 rooms and
+the previous attempt was cut off. But the user specifically said "complete the list starting from room 45" - so
+they want the continuation.
+
+Let me provide the continuation from room 45 onwards for all the tables and functions. I'll make it a clean
+continuation that can be appended to the first part.
+
+Let me design the remaining 55 rooms (45-99):
+
+Zones:
+- 45-49: Ember Halls (fire theme)
+- 50-54: Frozen Caverns (ice theme)
+- 55-59: Poison Marshes (swamp theme)
+- 60-64: Bone Pits (skeleton theme)
+- 65-69: Crystal Depths (crystal/magic theme)
+- 70-74: Shadow Labyrinth (dark maze)
+- 75-79: The Abyss (void/darkness)
+- 80-84: The War Room (guard barracks)
+- 85-89: The Ritual Chamber (dark magic)
+- 90-94: The Final Staircase
+- 95-99: Dark Lord's Throne / Victory
+
+Let me lay out the exit map. I'll create a mostly linear dungeon with some branching. Let me think of a path:
+
+0-1-2-3-4-5-6-7-8-9 (original)
+9-10-11-12-13-14-15-16-17-18
+18-19-20-21-22-23-24-25-26-27
+27-28-29-30-31-32-33-34-35-36
+36-37-38-39-40-41-42-43-44-45
+45-46-47-48-49-50-51-52-53-54
+54-55-56-57-58-59-60-61-62-63
+63-64-65-66-67-68-69-70-71-72
+72-73-74-75-76-77-78-79-80-81
+81-82-83-84-85-86-87-88-89-90
+90-91-92-93-94-95-96-97-98-99
+
+But I also want some branching and loops. Let me make it more interesting with some N/S connections.
+
+Actually, let me just provide the continuation cleanly. I'll structure it as the continuation of the code file.
+
+Let me write out all the data for rooms 45-99:
+
+Room 45: THE EMBER GATE - North:46, South:44, East:NO, West:NO - Enemy: SKELETON, Item: POTION
+Room 46: THE MOLTEN CORRIDOR - North:47, South:45, East:NO, West:NO - Enemy: NONE, Item: NONE, Damage: 5
+Room 47: THE LAVA CHAMBER - North:NO, South:46, East:48, West:NO - Enemy: DRAGON, Item: NONE
+Room 48: THE FORGE OF GLASS - North:NO, South:NO, East:49, West:47 - Enemy: NONE, Item: SWORD
+Room 49: THE OBSIDIAN BRIDGE - North:50, South:NO, East:NO, West:48 - Enemy: WRAITH, Item: NONE
+Room 50: THE FROZEN ENTRANCE - North:51, South:49, East:NO, West:NO - Enemy: NONE, Item: POTION
+Room 51: THE ICE CAVE - North:52, South:50, East:NO, West:NO - Enemy: SKELETON, Item: NONE, Damage: 10
+Room 52: THE GLACIER DEPTH - North:53, South:51, East:NO, West:NO - Enemy: WRAITH, Item: NONE
+Room 53: THE FROST THROAT - North:54, South:52, East:NO, West:NO - Enemy: DRAGON, Item: AMULET
+Room 54: THE PERMAFROST HALL - North:NO, South:53, East:55, West:NO - Enemy: NONE, Item: NONE, Score: 200
+Room 55: THE POISON GATEWAY - North:NO, South:NO, East:NO, West:54 - Enemy: GUARD, Item: POTION
+Room 56: THE MARSH CROSSING - North:57, South:55, East:NO, West:NO - Enemy: NONE, Item: NONE, Damage: 15
+Room 57: THE TOXIC PITS - North:58, South:56, East:NO, West:NO - Enemy: SKELETON, Item: NONE
+Room 58: THE CORRUPTED POND - North:59, South:57, East:NO, West:NO - Enemy: WRAITH, Item: POTION
+Room 59: THE SWAMP HEART - North:NO, South:58, East:60, West:NO - Enemy: DRAGON, Item: NONE
+Room 60: THE BONE GATEWAY - North:NO, South:NO, East:NO, West:59 - Enemy: GUARD, Item: NONE
+Room 61: THE SKULL FIELDS - North:62, South:60, East:NO, West:NO - Enemy: SKELETON, Item: NONE
+Room 62: THE CARNIVAL OF BONES - North:63, South:61, East:NO, West:NO - Enemy: SKELETON, Item: SWORD, Damage: 5
+Room 63: THE NECROPOLIS - North:64, South:62, East:NO, West:NO - Enemy: WRAITH, Item: NONE
+Room 64: THE BONE ORGAN - North:NO, South:63, East:65, West:NO - Enemy: NONE, Item: NONE, Score: 300
+Room 65: THE CRYSTAL PORTAL - North:NO, South:NO, East:NO, West:64 - Enemy: GUARD, Item: AMULET
+Room 66: THE PRISM HALL - North:67, South:65, East:NO, West:NO - Enemy: NONE, Item: POTION
+Room 67: THE LIGHT REFRACT - North:68, South:66, East:NO, West:NO - Enemy: DRAGON, Item: NONE
+Room 68: THE SHATTERED MIRROR - North:69, South:67, East:NO, West:NO - Enemy: WRAITH, Item: NONE
+Room 69: THE CRYSTAL HEART - North:NO, South:68, East:70, West:NO - Enemy: NONE, Item: KEY, Score: 500
+Room 70: THE SHADOW GATE - North:NO, South:NO, East:NO, West:69 - Enemy: GUARD, Item: NONE
+Room 71: THE TWISTED MAZE - North:72, South:70, East:NO, West:NO - Enemy: WRAITH, Item: NONE
+Room 72: THE ECHO CHAMBER - North:73, South:71, East:NO, West:NO - Enemy: NONE, Item: POTION
+Room 73: THE MIRROR LABYRINTH - North:74, South:72, East:NO, West:NO - Enemy: SKELETON, Item: NONE, Damage: 10
+Room 74: THE DEEP DARK - North:NO, South:73, East:75, West:NO - Enemy: WRAITH, Item: NONE
+Room 75: THE ABYSS MOUTH - North:NO, South:NO, East:NO, West:74 - Enemy: DRAGON, Item: NONE
+Room 76: THE VOID WELLS - North:77, South:75, East:NO, West:NO - Enemy: WRAITH, Item: POTION
+Room 77: THE STARS BELOW - North:78, South:76, East:NO, West:NO - Enemy: NONE, Item: NONE, Score: 400
+Room 78: THE GRAVITY WELL - North:79, South:77, East:NO, West:NO - Enemy: SKELETON, Item: NONE, Damage: 20
+Room 79: THE EVENT HORIZON - North:NO, South:78, East:80, West:NO - Enemy: DRAGON, Item: AMULET
+Room 80: THE WAR GATE - North:NO, South:NO, East:NO, West:79 - Enemy: GUARD, Item: SWORD
+Room 81: THE BARRACKS - North:82, South:80, East:NO, West:NO - Enemy: GUARD, Item: POTION
+Room 82: THE ARMORY DEEP - North:83, South:81, East:NO, West:NO - Enemy: GUARD, Item: SWORD
+Room 83: THE WAR TABLE - North:84, South:82, East:NO, West:NO - Enemy: NONE, Item: NONE, Score: 300
+Room 84: THE LAST STAND - North:NO, South:83, East:85, West:NO - Enemy: GUARD, Item: NONE
+Room 85: THE RITUAL GATE - North:NO, South:NO, East:NO, West:84 - Enemy: WRAITH, Item: NONE
+Room 86: THE CANDLE CIRCLE - North:87, South:85, East:NO, West:NO - Enemy: WRAITH, Item: POTION
+Room 87: THE BLOOD ALTAR - North:88, South:86, East:NO, West:NO - Enemy: DRAGON, Item: NONE, Damage: 10
+Room 88: THE SOUL CAGE - North:89, South:87, East:NO, West:NO - Enemy: WRAITH, Item: NONE
+Room 89: THE RITUAL CORE - North:NO, South:88, East:90, West:NO - Enemy: NONE, Item: KEY, Score: 500
+Room 90: THE STAIRHEAD - North:NO, South:NO, East:NO, West:89 - Enemy: GUARD, Item: NONE
+Room 91: THE FIRST SPIRAL - North:92, South:90, East:NO, West:NO - Enemy: SKELETON, Item: NONE
+Room 92: THE SECOND SPIRAL - North:93, South:91, East:NO, West:NO - Enemy: DRAGON, Item: NONE
+Room 93: THE THIRD SPIRAL - North:94, South:92, East:NO, West:NO - Enemy: WRAITH, Item: POTION
+Room 94: THE CROWNING STAIR - North:NO, South:93, East:95, West:NO - Enemy: NONE, Item: AMULET
+Room 95: THE THRONE VESTIBULE - North:NO, South:NO, East:NO, West:94 - Enemy: GUARD, Item: NONE
+Room 96: THE GUARDIAN HALL - North:97, South:95, East:NO, West:NO - Enemy: DRAGON, Item: NONE
+Room 97: THE FINAL SENTINEL - North:98, South:96, East:NO, West:NO - Enemy: DARKLORD, Item: NONE
+Room 98: THE DARK THRONE - North:99, South:97, East:NO, West:NO - Enemy: DARKLORD, Item: NONE
+Room 99: THE DAWN GATE - North:NO, South:98, East:NO, West:NO - Enemy: NONE, Item: NONE, Score: 1000
+
+Wait, I need to make sure the exit map is consistent and forms a valid path from 0 to 99. Let me trace the main
+path:
+
+0->1 (E), 1->2 (E), 2->3 (E), 3->4 (E), 4->5 (E), 5->6 (E), 6->7 (E), 7->8 (E), 8->9 (E)
+9->10 (S), 10->11 (N? no...), let me re-check the original.
+
+Looking at the original:
+- Room 9: East=10
+- Room 10: South=NO_EXIT, North=NO_EXIT... wait let me re-read.
+
+Original exits:
+room_north: {NO, NO, NO, NO, 1, NO, 4, 6, NO, NO, 1, 6, 11, NO, NO, NO, 14, 16, NO, NO, NO, NO}
+room_south: {NO, 10, NO, NO, NO, NO, 11, NO, NO, NO, NO, 12, NO, NO, 16, NO, 17, NO, NO, NO, NO, NO}
+room_east: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, NO, 13, 14, 15, 17, 18, 19, 20, 21, NO, NO}
+room_west: {NO, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, NO, 12, 13, 14, NO, 15, 17, NO, 18, 19, 20}
+
+Wait, the east array has 21 entries but NUM_ROOMS is 22. Let me recount... Actually looking more carefully:
+
+room_east: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, NO, 13, 14, 15, 17, 18, 19, 20, 21, NO, NO}
+That's 22 entries. OK.
+
+So the original path is roughly:
+0→1→2→3→4 (E chain)
+4→5→6→7→8→9 (E chain)
+9→10 (E), 10→12 (E), 12→13→14→15 (E chain)
+15→17 (E), 17→18 (E), 18→19→20→21 (E chain)
+
+And some N/S connections:
+Room 4 North=1, Room 1 South=10
+Room 6 North=4, Room 11 North=6, Room 6 South=11
+Room 10 North=1
+Room 11 South=12
+Room 14 North=14? No... room_north[16]=14, so room 16 goes north to 14
+Room 14 South=16, Room 16 South=17
+Room 16 North=14
+
+OK so the original is a winding path. For my 100-room version, I'll make a similar winding path.
+
+Let me just design a clean path. I'll make it mostly a snake pattern:
+- 0→1→2→3→4→5→6→7→8→9 (E)
+- 9→10 (S), 10→11→12→13→14→15→16→17→18→19 (E... wait that's going east from 10)
+
+Actually, let me just make a simpler snake:
+Row 0: 0→1→2→3→4→5→6→7→8→9 (all east)
+Then 9 goes south to 10
+Row 1: 9→10 (S), then 10→11 (W), 11→12 (W), ... 19 (W) [going west]
+Then 19 goes south to 20
+Row 2: 20→21 (E), 21→22 (E), ... 29 (E) [going east]
+Then 29 goes south to 30
+Row 3: 30→31 (W), 31→32 (W), ... 39 (W) [going west]
+Then 39 goes south to 40
+Row 4: 40→41 (E), 41→42 (E), ... 49 (E) [going east]
+Then 49 goes south to 50
+Row 5: 50→51 (W), 51→52 (W), ... 59 (W) [going west]
+Then 59 goes south to 60
+Row 6: 60→61 (E), 61→62 (E), ... 69 (E) [going east]
+Then 69 goes south to 70
+Row 7: 70→71 (W), 71→72 (W), ... 79 (W) [going west]
+Then 79 goes south to 80
+Row 8: 80→81 (E), 81→82 (E), ... 89 (E) [going east]
+Then 89 goes south to 90
+Row 9: 90→91 (W), 91→92 (W), ... 99 (W) [going west]
+
+So the pattern is:
+- Even rows (0,2,4,6,8): go East
+- Odd rows (1,3,5,7,9): go West
+- Between rows: South connection
+
+Let me write out the exits:
+
+Row 0 (rooms 0-9, going E):
+0: E=1
+1: W=0, E=2
+2: W=1, E=3
+3: W=2, E=4
+4: W=3, E=5
+5: W=4, E=6
+6: W=5, E=7
+7: W=6, E=8
+8: W=7, E=9
+9: W=8, S=10
+
+Row 1 (rooms 10-19, going W):
+10: N=9, E=11
+11: W=10, E=12
+12: W=11, E=13
+13: W=12, E=14
+14: W=13, E=15
+15: W=14, E=16
+16: W=15, E=17
+17: W=16, E=18
+18: W=17, E=19
+19: W=18, S=20
+
+Row 2 (rooms 20-29, going E):
+20: N=19, E=21
+21: W=20, E=22
+22: W=21, E=23
+23: W=22, E=24
+24: W=23, E=25
+25: W=24, E=26
+26: W=25, E=27
+27: W=26, E=28
+28: W=27, E=29
+29: W=28, S=30
+
+Row 3 (rooms 30-39, going W):
+30: N=29, E=31
+31: W=30, E=32
+32: W=31, E=33
+33: W=32, E=34
+34: W=33, E=35
+35: W=34, E=36
+36: W=35, E=37
+37: W=36, E=38
+38: W=37, E=39
+39: W=38, S=40
+
+Row 4 (rooms 40-49, going E):
+40: N=39, E=41
+41: W=40, E=42
+42: W=41, E=43
+43: W=42, E=44
+44: W=43, E=45
+45: W=44, E=46
+46: W=45, E=47
+47: W=46, E=48
+48: W=47, E=49
+49: W=48, S=50
+
+Row 5 (rooms 50-59, going W):
+50: N=49, E=51
+51: W=50, E=52
+52: W=51, E=53
+53: W=52, E=54
+54: W=53, E=55
+55: W=54, E=56
+56: W=55, E=57
+57: W=56, E=58
+58: W=57, E=59
+59: W=58, S=60
+
+Row 6 (rooms 60-69, going E):
+60: N=59, E=61
+61: W=60, E=62
+62: W=61, E=63
+63: W=62, E=64
+64: W=63, E=65
+65: W=64, E=66
+66: W=65, E=67
+67: W=66, E=68
+68: W=67, E=69
+69: W=68, S=70
+
+Row 7 (rooms 70-79, going W):
+70: N=69, E=71
+71: W=70, E=72
+72: W=71, E=73
+73: W=72, E=74
+74: W=73, E=75
+75: W=74, E=76
+76: W=75, E=77
+77: W=76, E=78
+78: W=77, E=79
+79: W=78, S=80
+
+Row 8 (rooms 80-89, going E):
+80: N=79, E=81
+81: W=80, E=82
+82: W=81, E=83
+83: W=82, E=84
+84: W=83, E=85
+85: W=84, E=86
+86: W=85, E=87
+87: W=86, E=88
+88: W=87, E=89
+89: W=88, S=90
+
+Row 9 (rooms 90-99, going W):
+90: N=89, E=91
+91: W=90, E=92
+92: W=91, E=93
+93: W=92, E=94
+94: W=93, E=95
+95: W=94, E=96
+96: W=95, E=97
+97: W=96, E=98
+98: W=97, E=99
+99: W=98 (victory room)
+
+Wait, I need to double-check the direction logic. In a snake pattern:
+- Row 0: rooms 0-9, player goes EAST (each room's east exit points to next)
+- At room 9, player goes SOUTH to room 10
+- Row 1: rooms 10-19, player goes WEST (each room's west exit points to next)
+- At room 19, player goes SOUTH to room 20
+- etc.
+
+Let me re-examine:
+- Row 0 (E): room 0 E→1, room 1 E→2, ..., room 8 E→9, room 9 S→10
+  - So room 0: E=1
+  - Room 1: W=0, E=2
+  - Room 2: W=1, E=3
+  - ...
+  - Room 9: W=8, S=10
+
+- Row 1 (W): room 10 W→... wait no. If the player enters from the north (from room 9 going south), they arrive at
+room 10. Then they need to go WEST to room 11, 12, etc.
+  - Room 10: N=9, W=11
+  - Room 11: E=10, W=12
+  - Room 12: E=11, W=13
+  - ...
+  - Room 19: E=18, S=20
+
+Wait, that means going west from 10 leads to 11. So:
+- Room 10: N=9, W=11
+- Room 11: E=10, W=12
+- Room 12: E=11, W=13
+- Room 13: E=12, W=14
+- Room 14: E=13, W=15
+- Room 15: E=14, W=16
+- Room 16: E=15, W=17
+- Room 17: E=16, W=18
+- Room 18: E=17, W=19
+- Room 19: E=18, S=20
+
+- Row 2 (E): room 20 E→21, etc.
+  - Room 20: N=19, E=21
+  - Room 21: W=20, E=22
+  - ...
+  - Room 29: W=28, S=30
+
+OK this is getting complex. Let me just carefully build the arrays.
+
+For the NORTH array (100 entries):
+- Room 9: N=... no. Room 9 has S=10, not N. Room 10 has N=9.
+- Room 10: N=9
+- Room 20: N=19
+- Room 30: N=29
+- Room 40: N=39
+- Room 50: N=49
+- Room 60: N=59
+- Room 70: N=69
+- Room 80: N=79
+- Room 90: N=89
+- All others: NO_EXIT
+
+For the SOUTH array:
+- Room 9: S=10
+- Room 19: S=20
+- Room 29: S=30
+- Room 39: S=40
+- Room 49: S=50
+- Room 59: S=60
+- Room 69: S=70
+- Room 79: S=80
+- Room 89: S=90
+- All others: NO_EXIT
+
+For the EAST array:
+Row 0 (0-9): 0→1, 1→2, 2→3, 3→4, 4→5, 5→6, 6→7, 7→8, 8→9
+  - E[0]=1, E[1]=2, E[2]=3, E[3]=4, E[4]=5, E[5]=6, E[6]=7, E[7]=8, E[8]=9, E[9]=NO
+
+Row 1 (10-19, going west): No east connections within row, but...
+  Actually wait. In row 1, the player goes WEST. So:
+  - Room 10: W=11 (west exit goes to 11)
+  - Room 11: E=10, W=12
+  - Room 12: E=11, W=13
+  - etc.
+
+  So for the EAST array in row 1:
+  - E[10]=NO (room 10 has no east exit, it has N=9 and W=11)
+  - E[11]=10
+  - E[12]=11
+  - E[13]=12
+  - E[14]=13
+  - E[15]=14
+  - E[16]=15
+  - E[17]=16
+  - E[18]=17
+  - E[19]=18
+
+Row 2 (20-29, going east):
+  - E[20]=21, E[21]=22, E[22]=23, E[23]=24, E[24]=25, E[25]=26, E[26]=27, E[27]=28, E[28]=29, E[29]=NO
+
+Row 3 (30-39, going west):
+  - E[30]=NO, E[31]=30, E[32]=31, E[33]=32, E[34]=33, E[35]=34, E[36]=35, E[37]=36, E[38]=37, E[39]=38
+
+Row 4 (40-49, going east):
+  - E[40]=41, E[41]=42, E[42]=43, E[43]=44, E[44]=45, E[45]=46, E[46]=47, E[47]=48, E[48]=49, E[49]=NO
+
+Row 5 (50-59, going west):
+  - E[50]=NO, E[51]=50, E[52]=51, E[53]=52, E[54]=53, E[55]=54, E[56]=55, E[57]=56, E[58]=57, E[59]=58
+
+Row 6 (60-69, going east):
+  - E[60]=61, E[61]=62, E[62]=63, E[63]=64, E[64]=65, E[65]=66, E[66]=67, E[67]=68, E[68]=69, E[69]=NO
+
+Row 7 (70-79, going west):
+  - E[70]=NO, E[71]=70, E[72]=71, E[73]=72, E[74]=73, E[75]=74, E[76]=75, E[77]=76, E[78]=77, E[79]=78
+
+Row 8 (80-89, going east):
+  - E[80]=81, E[81]=82, E[82]=83, E[83]=84, E[84]=85, E[85]=86, E[86]=87, E[87]=88, E[88]=89, E[89]=NO
+
+Row 9 (90-99, going west):
+  - E[90]=NO, E[91]=90, E[92]=91, E[93]=92, E[94]=93, E[95]=94, E[96]=95, E[97]=96, E[98]=97, E[99]=98
+
+For the WEST array:
+Row 0 (0-9, going east):
+  - W[0]=NO, W[1]=0, W[2]=1, W[3]=2, W[4]=3, W[5]=4, W[6]=5, W[7]=6, W[8]=7, W[9]=8
+
+Row 1 (10-19, going west):
+  - W[10]=NO (room 10 has N=9 and W=11, no west... wait)
+
+  Hmm wait. Let me reconsider. In row 1, the player goes WEST. Room 10 is the first room in row 1. The player
+enters from the north (room 9 → south → room 10). Then from room 10, the player goes WEST to room 11.
+
+  So room 10: N=9, W=11 (west exit leads to room 11)
+  Room 11: E=10, W=12
+  Room 12: E=11, W=13
+  ...
+  Room 19: E=18, S=20
+
+So for WEST array:
+Row 1: W[10]=11, W[11]=12, W[12]=13, W[13]=14, W[14]=15, W[15]=16, W[16]=17, W[17]=18, W[18]=19, W[19]=NO
+
+Row 2 (20-29, going east):
+  - W[20]=NO, W[21]=20, W[22]=21, W[23]=22, W[24]=23, W[25]=24, W[26]=25, W[27]=26, W[28]=27, W[29]=28
+
+Row 3 (30-39, going west):
+  - W[30]=31, W[31]=32, W[32]=33, W[33]=34, W[34]=35, W[35]=36, W[36]=37, W[37]=38, W[38]=39, W[39]=NO
+
+Row 4 (40-49, going east):
+  - W[40]=NO, W[41]=40, W[42]=41, W[43]=42, W[44]=43, W[45]=44, W[46]=45, W[47]=46, W[48]=47, W[49]=48
+
+Row 5 (50-59, going west):
+  - W[50]=51, W[51]=52, W[52]=53, W[53]=54, W[54]=55, W[55]=56, W[56]=57, W[57]=58, W[58]=59, W[59]=NO
+
+Row 6 (60-69, going east):
+  - W[60]=NO, W[61]=60, W[62]=61, W[63]=62, W[64]=63, W[65]=64, W[66]=65, W[67]=66, W[68]=67, W[69]=68
+
+Row 7 (70-79, going west):
+  - W[70]=71, W[71]=72, W[72]=73, W[73]=74, W[74]=75, W[75]=76, W[76]=77, W[77]=78, W[78]=79, W[79]=NO
+
+Row 8 (80-89, going east):
+  - W[80]=NO, W[81]=80, W[82]=81, W[83]=82, W[84]=83, W[85]=84, W[86]=85, W[87]=86, W[88]=87, W[89]=88
+
+Row 9 (90-99, going west):
+  - W[90]=91, W[91]=92, W[92]=93, W[93]=94, W[94]=95, W[95]=96, W[96]=97, W[97]=98, W[98]=99, W[99]=NO
+
+Now let me compile all arrays:
+
+NORTH (100):
+0: NO, 1: NO, 2: NO, 3: NO, 4: NO, 5: NO, 6: NO, 7: NO, 8: NO, 9: NO,
+10: 9, 11: NO, 12: NO, 13: NO, 14: NO, 15: NO, 16: NO, 17: NO, 18: NO, 19: NO,
+20: 19, 21: NO, 22: NO, 23: NO, 24: NO, 25: NO, 26: NO, 27: NO, 28: NO, 29: NO,
+30: 29, 31: NO, 32: NO, 33: NO, 34: NO, 35: NO, 36: NO, 37: NO, 38: NO, 39: NO,
+40: 39, 41: NO, 42: NO, 43: NO, 44: NO, 45: NO, 46: NO, 47: NO, 48: NO, 49: NO,
+50: 49, 51: NO, 52: NO, 53: NO, 54: NO, 55: NO, 56: NO, 57: NO, 58: NO, 59: NO,
+60: 59, 61: NO, 62: NO, 63: NO, 64: NO, 65: NO, 66: NO, 67: NO, 68: NO, 69: NO,
+70: 69, 71: NO, 72: NO, 73: NO, 74: NO, 75: NO, 76: NO, 77: NO, 78: NO, 79: NO,
+80: 79, 81: NO, 82: NO, 83: NO, 84: NO, 85: NO, 86: NO,

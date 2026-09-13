@@ -1,12 +1,8 @@
 #include "cross_lib.h"
-#include <stdint.h>
 
-/* Dungeon size */
-#define GRID_SIZE 10
-#define NUM_ROOMS 100
-
-/* Exit codes */
+/* Room exit codes: 255 = no exit */
 #define NO_EXIT 255
+#define NUM_ROOMS 22
 
 /* Enemy types */
 #define ENEMY_NONE 0
@@ -23,547 +19,566 @@
 #define ITEM_AMULET 3
 #define ITEM_KEY 4
 
-/*
- * Room data.
- *
- * These are generated at runtime by generate_random_dungeon().
- * If your previous code declared these as `const`, remove `const`.
- */
-static uint8_t room_north[NUM_ROOMS];
-static uint8_t room_south[NUM_ROOMS];
-static uint8_t room_east[NUM_ROOMS];
-static uint8_t room_west[NUM_ROOMS];
+/* Room data */
+static const uint8_t room_north[NUM_ROOMS] = {
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 1, NO_EXIT, 4, 6,
+    NO_EXIT, NO_EXIT, 1, 6, 11, NO_EXIT, NO_EXIT, NO_EXIT,
+    14, 16, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT
+};
+static const uint8_t room_south[NUM_ROOMS] = {
+    NO_EXIT, 10, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 11, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, 12, NO_EXIT, NO_EXIT, 16, NO_EXIT,
+    17, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT
+};
+static const uint8_t room_east[NUM_ROOMS] = {
+    1, 2, 3, 4, 5, 6, 7, 8,
+    9, 10, 12, NO_EXIT, 13, 14, 15, 17,
+    18, 19, 20, 21, NO_EXIT
+};
+static const uint8_t room_west[NUM_ROOMS] = {
+    NO_EXIT, 0, 1, 2, 3, 4, 5, 6,
+    7, 8, 9, NO_EXIT, 12, 13, 14, NO_EXIT,
+    15, 17, NO_EXIT, 18, 19, 20
+};
 
-static uint8_t room_enemy[NUM_ROOMS];
-static uint8_t room_item[NUM_ROOMS];
-static uint8_t room_damage[NUM_ROOMS];
+static const uint8_t room_enemy[NUM_ROOMS] = {
+    ENEMY_NONE, ENEMY_NONE, ENEMY_GUARD, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_SKELETON, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_NONE, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_DARKLORD, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE
+};
 
-/*
- * Score can now be > 255, so use uint16_t.
- * If you keep everything under 255, uint8_t is also okay.
- */
-static uint16_t room_score[NUM_ROOMS];
-
-static uint8_t enemy_max_hp[NUM_ROOMS];
-
-/* Mutable per-run state */
+/* FIX 1: mutable enemy state – defeated enemies stay dead */
 static uint8_t enemy_alive[NUM_ROOMS];
+
+static const uint8_t room_item[NUM_ROOMS] = {
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_POTION, ITEM_NONE,
+    ITEM_NONE, ITEM_SWORD, ITEM_NONE, ITEM_NONE, ITEM_AMULET,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_KEY, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE
+};
+
+/* FIX 3: mutable item state – collected items stay gone */
 static uint8_t item_remaining[NUM_ROOMS];
-static uint16_t score_remaining[NUM_ROOMS];
 
-/*
- * Tiny deterministic RNG.
- * This avoids depending on libc rand() in your target environment.
- */
-static uint32_t rng_state;
+static const uint8_t room_damage[NUM_ROOMS] = {
+    0, 0, 0, 0, 0, 10, 0, 0,
+    0, 0, 0, 15, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0
+};
 
-static void rng_seed(uint32_t seed)
+static const uint8_t room_score[NUM_ROOMS] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 500, 0,
+    0, 0, 0, 0, 0, 0
+};
+
+/* FIX 4: mutable score bonus – each room's bonus is collected once */
+static uint8_t score_remaining[NUM_ROOMS];
+
+static const uint8_t enemy_max_hp[NUM_ROOMS] = {
+    0, 0, 20, 0, 0, 0, 0, 40,
+    25, 0, 0, 0, 0, 0, 0, 0,
+    30, 0, 50, 0, 0, 0
+};
+
+/* Room names */
+static void print_room_name(uint8_t room)
 {
-    if (seed == 0u)
-        seed = 1u;
-
-    rng_state = seed;
-}
-
-static uint32_t rng_next(void)
-{
-    uint32_t x = rng_state;
-
-    x ^= (x << 13);
-    x ^= (x >> 17);
-    x ^= (x << 5);
-
-    rng_state = x;
-    return x;
-}
-
-static uint8_t rng_range(uint8_t max)
-{
-    if (max <= 1u)
-        return 0;
-
-    return (uint8_t)(rng_next() % (uint32_t)max);
-}
-
-/*
- * Open a two-way wall between adjacent rooms a and b.
- */
-static void open_wall(uint8_t a, uint8_t b)
-{
-    int ar, ac, br, bc;
-
-    ar = (int)a / GRID_SIZE;
-    ac = (int)a % GRID_SIZE;
-
-    br = (int)b / GRID_SIZE;
-    bc = (int)b % GRID_SIZE;
-
-    if (br == ar - 1) {
-        /* b is north of a */
-        room_south[a] = b;
-        room_north[b] = a;
-    } else if (br == ar + 1) {
-        /* b is south of a */
-        room_north[a] = b;
-        room_south[b] = a;
-    } else if (bc == ac + 1) {
-        /* b is east of a */
-        room_east[a] = b;
-        room_west[b] = a;
-    } else if (bc == ac - 1) {
-        /* b is west of a */
-        room_west[a] = b;
-        room_east[b] = a;
+    switch (room) {
+        case 0:  _XL_PRINT(2, 0, "THE ENTRANCE HALL"); break;
+        case 1:  _XL_PRINT(2, 0, "A DARK CORRIDOR"); break;
+        case 2:  _XL_PRINT(2, 0, "THE GUARD ROOM"); break;
+        case 3:  _XL_PRINT(2, 0, "THE ANCIENT LIBRARY"); break;
+        case 4:  _XL_PRINT(2, 0, "THE FOUNTAIN CHAMBER"); break;
+        case 5:  _XL_PRINT(2, 0, "THE TRAP ROOM"); break;
+        case 6:  _XL_PRINT(2, 0, "THE ARMORY"); break;
+        case 7:  _XL_PRINT(2, 0, "THE DRAGON S LAIR"); break;
+        case 8:  _XL_PRINT(2, 0, "THE OLD CELLAR"); break;
+        case 9:  _XL_PRINT(2, 0, "THE CHAPEL"); break;
+        case 10: _XL_PRINT(2, 0, "THE STONE BRIDGE"); break;
+        case 11: _XL_PRINT(2, 0, "THE SPIKE PIT"); break;
+        case 12: _XL_PRINT(2, 0, "THE THRONE ROOM"); break;
+        case 13: _XL_PRINT(2, 0, "THE GLOWING GARDEN"); break;
+        case 14: _XL_PRINT(2, 0, "THE ENDLESS MAZE"); break;
+        case 15: _XL_PRINT(2, 0, "THE TREASURE VAULT"); break;
+        case 16: _XL_PRINT(2, 0, "THE SHADOW CORRIDOR"); break;
+        case 17: _XL_PRINT(2, 0, "THE UNDERGROUND RIVER"); break;
+        case 18: _XL_PRINT(2, 0, "THE DARK LORD S THRONE"); break;
+        case 19: _XL_PRINT(2, 0, "VICTORY HALL"); break;
+        case 20: _XL_PRINT(2, 0, "THE SECRET ROOM"); break;
+        case 21: _XL_PRINT(2, 0, "THE EXIT"); break;
+        default: break;
     }
 }
 
-static void clear_dungeon(void)
+static void print_room_desc(uint8_t room)
 {
-    int i;
-
-    for (i = 0; i < NUM_ROOMS; i++) {
-        room_north[i] = NO_EXIT;
-        room_south[i] = NO_EXIT;
-        room_east[i] = NO_EXIT;
-        room_west[i] = NO_EXIT;
-
-        room_enemy[i] = ENEMY_NONE;
-        room_item[i] = ITEM_NONE;
-        room_damage[i] = 0;
-        room_score[i] = 0;
-        enemy_max_hp[i] = 0;
-
-        enemy_alive[i] = ENEMY_NONE;
-        item_remaining[i] = ITEM_NONE;
-        score_remaining[i] = 0;
+    switch (room) {
+        case 0:
+            _XL_PRINT(2, 2, "YOU STAND IN A COLD STONE HALL.");
+            _XL_PRINT(2, 3, "A DOOR LEADS EAST.");
+            break;
+        case 1:
+            _XL_PRINT(2, 2, "A NARROW CORRIDOR STRETCHES EAST.");
+            _XL_PRINT(2, 3, "PASSAGES LEAD SOUTH AND WEST.");
+            break;
+        case 2:
+            _XL_PRINT(2, 2, "A HEAVY GUARD BLOCKS THE WAY.");
+            _XL_PRINT(2, 3, "HE GRINS AND DRAWS HIS BLADE.");
+            break;
+        case 3:
+            _XL_PRINT(2, 2, "ANCIENT TOMES LINES THE SHELVES.");
+            _XL_PRINT(2, 3, "A GLOWING POTION SITS ON A TABLE.");
+            break;
+        case 4:
+            _XL_PRINT(2, 2, "A CRYSTAL FOUNTAIN SHIMMERS HERE.");
+            _XL_PRINT(2, 3, "WATER FLOWS OVER POLISHED STONE.");
+            break;
+        case 5:
+            _XL_PRINT(2, 2, "THE FLOOR SHAKES! SPIKES RISE!");
+            _XL_PRINT(2, 3, "YOU JUMP AND ESCAPE, BARELY.");
+            break;
+        case 6:
+            _XL_PRINT(2, 2, "RUSTED WEAPONS HANG ON THE WALLS.");
+            _XL_PRINT(2, 3, "A STEEL SWORD CATCHES YOUR EYE.");
+            break;
+        case 7:
+            _XL_PRINT(2, 2, "A MIGHTY DRAGON COILS AROUND GOLD.");
+            _XL_PRINT(2, 3, "ITS EYES BURN LIKE MOLTEN FIRE.");
+            break;
+        case 8:
+            _XL_PRINT(2, 2, "BONES RATTLE IN THE DARK CELLS.");
+            _XL_PRINT(2, 3, "A SKELETON RAISES ITS RUSTED SWORD.");
+            break;
+        case 9:
+            _XL_PRINT(2, 2, "CANDLELIGHT FLECKS THE QUIET CHAPEL.");
+            _XL_PRINT(2, 3, "A SILVER AMULET RESTS ON THE ALTAR.");
+            break;
+        case 10:
+            _XL_PRINT(2, 2, "A RICKETY BRIDGE SPANS A DEEP PIT.");
+            _XL_PRINT(2, 3, "WIND HOWLS FROM BELOW.");
+            break;
+        case 11:
+            _XL_PRINT(2, 2, "THE FLOOR CRUMBLES! SPIKES BELOW!");
+            _XL_PRINT(2, 3, "YOU GRAB A ROPE AND CLING ON!");
+            break;
+        case 12:
+            _XL_PRINT(2, 2, "AN EMPTY THRONE SIT IN THE DARKNESS.");
+            _XL_PRINT(2, 3, "DUST COVERS EVERY SURFACE.");
+            break;
+        case 13:
+            _XL_PRINT(2, 2, "BIOLUMINESCENT PLANTS GLOW SOFT BLUE.");
+            _XL_PRINT(2, 3, "THE AIR IS SWEET AND CALM.");
+            break;
+        case 14:
+            _XL_PRINT(2, 2, "ENDLESS CORRIDORS TWIST AND TURN.");
+            _XL_PRINT(2, 3, "ECHOES BOUNCE OFF COLD WALLS.");
+            break;
+        case 15:
+            _XL_PRINT(2, 2, "GOLD AND GEMS PILE HIGH ON THE FLOOR!");
+            _XL_PRINT(2, 3, "YOU POCKET A HANDFUL OF COINS.");
+            break;
+        case 16:
+            _XL_PRINT(2, 2, "SHADOWS DANCE ON THE WALLS.");
+            _XL_PRINT(2, 3, "A WRAITH MATERIALIZES BEFORE YOU!");
+            break;
+        case 17:
+            _XL_PRINT(2, 2, "UNDERGROUND RIVERS FLOW THROUGH HERE.");
+            _XL_PRINT(2, 3, "MOSS COVERS THE WET STONES.");
+            break;
+        case 18:
+            _XL_PRINT(2, 2, "THE DARK LORD AWAKENS FROM HIS THRONE!");
+            _XL_PRINT(2, 3, "DARKNESS COILS AROUND HIS FISTS!");
+            break;
+        case 19:
+            _XL_PRINT(2, 2, "YOU STAND IN THE VICTORY HALL.");
+            _XL_PRINT(2, 3, "THE DARKNESS HAS LIFTED. WELL DONE!");
+            break;
+        case 20:
+            _XL_PRINT(2, 2, "A HIDDEN ROOM BEHIND THE WALL.");
+            _XL_PRINT(2, 3, "A MYSTIC KEY SHINES ON A PEDASTAL.");
+            break;
+        case 21:
+            _XL_PRINT(2, 2, "A BRIGHT DOOR LEADS TO FREEDOM.");
+            _XL_PRINT(2, 3, "YOU STEP INTO THE SUNLIGHT. YOU ESCAPE!");
+            break;
+        default:
+            break;
     }
 }
 
-/*
- * Pick a random room with:
- *   - not start room 0
- *   - not final room 99
- *   - Manhattan distance from start between min_dist and max_dist
- *   - optionally avoid rooms that already have an item
- *   - optionally avoid rooms that already have an enemy
- */
-static int random_room_excluding(int min_dist,
-                                 int max_dist,
-                                 int avoid_item,
-                                 int avoid_enemy)
+static void print_exits(uint8_t room)
 {
-    int tries;
-    int r;
-    int d;
+    uint8_t n = room_north[room];
+    uint8_t s = room_south[room];
+    uint8_t e = room_east[room];
+    uint8_t w = room_west[room];
 
-    /* Random try first */
-    for (tries = 0; tries < 2000; tries++) {
-        r = (int)rng_range(NUM_ROOMS);
-
-        if (r == 0 || r == 99)
-            continue;
-
-        d = (r / GRID_SIZE) + (r % GRID_SIZE);
-
-        if (d < min_dist || d > max_dist)
-            continue;
-
-        if (avoid_item && room_item[r] != ITEM_NONE)
-            continue;
-
-        if (avoid_enemy && room_enemy[r] != ENEMY_NONE)
-            continue;
-
-        return r;
-    }
-
-    /* Fallback: scan deterministically */
-    for (r = 1; r < 99; r++) {
-        d = (r / GRID_SIZE) + (r % GRID_SIZE);
-
-        if (d < min_dist || d > max_dist)
-            continue;
-
-        if (avoid_item && room_item[r] != ITEM_NONE)
-            continue;
-
-        if (avoid_enemy && room_enemy[r] != ENEMY_NONE)
-            continue;
-
-        return r;
-    }
-
-    return -1;
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(2, 5, "EXITS: ");
+    if (n != NO_EXIT) _XL_PRINT(10, 5, "N ");
+    if (s != NO_EXIT) _XL_PRINT(13, 5, "S ");
+    if (e != NO_EXIT) _XL_PRINT(16, 5, "E ");
+    if (w != NO_EXIT) _XL_PRINT(19, 5, "W ");
 }
 
-static uint8_t make_enemy_hp(uint8_t enemy_type, uint8_t dist)
+static void print_player_status(uint8_t health, uint16_t score,
+                                uint8_t has_sword, uint8_t has_potion,
+                                uint8_t has_amulet, uint8_t has_key)
 {
-    uint8_t hp;
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(2, 7, "HP: ");
+    _XL_PRINTD(7, 7, 1, health);
+    _XL_PRINT(12, 7, " SCORE: ");
+    _XL_PRINTD(21, 7, 1, score);
 
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(2, 9, "ITEMS: ");
+    if (has_sword)  _XL_PRINT(11, 9, "SWORD ");
+    if (has_potion) _XL_PRINT(18, 9, "POTION ");
+    if (has_amulet) _XL_PRINT(26, 9, "AMULET ");
+    if (has_key)    _XL_PRINT(34, 9, "KEY ");
+}
+
+static void print_instructions(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(2, 11, "ARROWS:MOVE  FIRE:FIGHT/ATTACK");
+}
+
+static void print_enemy_info(uint8_t enemy_type, uint8_t enemy_hp,
+                             uint8_t enemy_max)
+{
+    _XL_SET_TEXT_COLOR(_XL_RED);
     switch (enemy_type) {
         case ENEMY_GUARD:
-            hp = (uint8_t)(12 + dist * 2);
+            _XL_PRINT(2, 13, "ENEMY: GUARD ");
             break;
-
-        case ENEMY_SKELETON:
-            hp = (uint8_t)(16 + dist * 2);
-            break;
-
-        case ENEMY_WRAITH:
-            hp = (uint8_t)(20 + dist * 3);
-            break;
-
         case ENEMY_DRAGON:
-            hp = (uint8_t)(30 + dist * 3);
+            _XL_PRINT(2, 13, "ENEMY: DRAGON ");
             break;
-
+        case ENEMY_SKELETON:
+            _XL_PRINT(2, 13, "ENEMY: SKELETON ");
+            break;
+        case ENEMY_WRAITH:
+            _XL_PRINT(2, 13, "ENEMY: WRAITH ");
+            break;
         case ENEMY_DARKLORD:
-            return 100;
-
+            _XL_PRINT(2, 13, "ENEMY: DARK LORD ");
+            break;
         default:
-            hp = 0;
             break;
     }
-
-    if (hp > 90)
-        hp = 90;
-
-    return hp;
+    _XL_PRINT(16, 13, "HP: ");
+    _XL_PRINTD(21, 13, 1, enemy_hp);
+    _XL_PRINT(25, 13, "/");
+    _XL_PRINTD(27, 13, 1, enemy_max);
 }
 
-static void place_enemy(uint8_t room, uint8_t enemy_type)
+static void print_message(uint8_t y, const char *msg, uint8_t color)
 {
-    uint8_t dist;
-
-    room_enemy[room] = enemy_type;
-
-    dist = (uint8_t)((room / GRID_SIZE) + (room % GRID_SIZE));
-    enemy_max_hp[room] = make_enemy_hp(enemy_type, dist);
+    _XL_SET_TEXT_COLOR(color);
+    _XL_PRINT(2, y, msg);
 }
 
-/*
- * Generate a new random dungeon.
- *
- * Start room: 0
- * Final room: 99
- *
- * Guarantees:
- *   - every room is connected to start
- *   - therefore every enemy/trap/boss/item is reachable
- */
-void generate_random_dungeon(uint32_t seed)
+static uint8_t get_enemy_hp(uint8_t room)
 {
-    uint8_t visited[NUM_ROOMS];
-    uint8_t stack[NUM_ROOMS];
+    return enemy_max_hp[room];
+}
 
-    int sp = 0;
-    int i, r, c;
-    int top, next;
-    int optc, n;
+static void do_fight(uint8_t *health, uint8_t *enemy_hp, uint8_t room,
+                     uint8_t has_sword, uint8_t has_amulet)
+{
+    uint8_t player_dmg;
+    uint8_t enemy_dmg;
+    uint8_t rand_val;
 
-    int a, dir, nr, nc, b2;
-    int b;
-    int item_room;
-    int trap_room;
-    int d;
-    int chance;
-    int roll;
-    int placed;
-    int tries;
+    /* Player attack */
+    rand_val = (uint8_t)(_XL_RAND() % 6);
+    player_dmg = 5 + rand_val;
+    if (has_sword) player_dmg += 5;
+    if (player_dmg > *enemy_hp) player_dmg = *enemy_hp;
+    *enemy_hp -= player_dmg;
 
-    uint8_t enemy_type;
+    _XL_SHOOT_SOUND();
 
-    int options[4];
-
-    rng_seed(seed);
-    clear_dungeon();
-
-    /*
-     * Generate a random DFS spanning tree maze.
-     *
-     * This creates exactly enough walls to make all 100 rooms reachable
-     * from room 0.
-     */
-    for (i = 0; i < NUM_ROOMS; i++)
-        visited[i] = 0;
-
-    visited[0] = 1;
-    stack[sp++] = 0;
-
-    while (sp > 0) {
-        top = stack[sp - 1];
-        r = top / GRID_SIZE;
-        c = top % GRID_SIZE;
-
-        optc = 0;
-
-        if (r > 0) {
-            n = top - GRID_SIZE;
-            if (!visited[n])
-                options[optc++] = n;
-        }
-
-        if (r + 1 < GRID_SIZE) {
-            n = top + GRID_SIZE;
-            if (!visited[n])
-                options[optc++] = n;
-        }
-
-        if (c + 1 < GRID_SIZE) {
-            n = top + 1;
-            if (!visited[n])
-                options[optc++] = n;
-        }
-
-        if (c > 0) {
-            n = top - 1;
-            if (!visited[n])
-                options[optc++] = n;
-        }
-
-        if (optc == 0) {
-            sp--;
-            continue;
-        }
-
-        next = options[(int)rng_range((uint8_t)optc)];
-
-        open_wall((uint8_t)top, (uint8_t)next);
-
-        visited[next] = 1;
-        stack[sp++] = (uint8_t)next;
+    if (*enemy_hp <= 0) {
+        _XL_EXPLOSION_SOUND();
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        _XL_PRINT(2, 15, "ENEMY DEFEATED! YOU ADVANCE.");
+        _XL_SLEEP(1);
+        return;
     }
 
-    /*
-     * Optional: add a few extra passages so the dungeon feels less like
-     * a pure perfect maze.
-     *
-     * Removing more walls never breaks reachability.
-     */
-    for (i = 0; i < 10; i++) {
-        a = (int)rng_range(NUM_ROOMS);
-        r = a / GRID_SIZE;
-        c = a % GRID_SIZE;
+    /* Enemy attack */
+    rand_val = (uint8_t)(_XL_RAND() % 6);
+    enemy_dmg = 3 + rand_val;
+    if (has_amulet && enemy_dmg > 3) enemy_dmg -= 3;
+    if (enemy_dmg > *health) enemy_dmg = *health;
+    *health -= enemy_dmg;
 
-        dir = (int)rng_range(4);
+    _XL_PING_SOUND();
 
-        nr = r;
-        nc = c;
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT(2, 15, "YOU HIT FOR ");
+    _XL_PRINTD(14, 15, 1, player_dmg);
+    _XL_PRINT(19, 15, " ENEMY HITS FOR ");
+    _XL_PRINTD(33, 15, 1, enemy_dmg);
+}
 
-        if (dir == 0)
-            nr--;
-        else if (dir == 1)
-            nr++;
-        else if (dir == 2)
-            nc++;
-        else
-            nc--;
+static void game_over_screen(void)
+{
+    _XL_CLEAR_SCREEN();
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT(5, 5, "GAME OVER");
+    _XL_PRINT(3, 8, "THE DARKNESS CLAIMS ANOTHER SOUL...");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(3, 12, "WAITING FOR RESTART...");
+    _XL_ZAP_SOUND();
+    _XL_SLEEP(2);
+}
 
-        if (nr >= 0 && nc >= 0 && nr < GRID_SIZE && nc < GRID_SIZE) {
-            b2 = nr * GRID_SIZE + nc;
-            open_wall((uint8_t)a, (uint8_t)b2);
-        }
-    }
+static void victory_screen(uint16_t score)
+{
+    _XL_CLEAR_SCREEN();
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(5, 3, "CONGRATULATIONS!");
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(3, 6, "YOU VANQUISHED THE DARK LORD");
+    _XL_PRINT(3, 7, "AND ESCAPED THE DUNGEON!");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(3, 10, "FINAL SCORE: ");
+    _XL_PRINTD(17, 10, 1, score);
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(3, 14, "WAITING FOR RESTART...");
+    _XL_EXPLOSION_SOUND();
+    _XL_SLEEP(2);
+}
 
-    /*
-     * Base score for rooms.
-     * Farther rooms give more score.
-     */
+static void start_screen(void)
+{
+    _XL_CLEAR_SCREEN();
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(3, 2, "THE CURSED DUNGEON");
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(2, 5, "A TEXT ADVENTURE OF 22 ROOMS");
+    _XL_PRINT(2, 7, "FIND THE DARK LORD AND ESCAPE!");
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
+    _XL_PRINT(2, 10, "ARROWS: MOVE N/S/E/W");
+    _XL_PRINT(2, 11, "FIRE: ATTACK ENEMY");
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(2, 14, "COLLECT ITEMS TO SURVIVE.");
+    _XL_SET_TEXT_COLOR(_XL_RED);
+    _XL_PRINT(2, 17, "PRESS ANY KEY TO BEGIN...");
+    _XL_WAIT_FOR_INPUT();
+}
+
+static void play_game(void)
+{
+    uint8_t room;
+    uint8_t health;
+    uint16_t score;
+    uint8_t has_sword;
+    uint8_t has_potion;
+    uint8_t has_amulet;
+    uint8_t has_key;
+    uint8_t enemy_hp;
+    uint8_t enemy_max;
+    uint8_t input;
+    uint8_t game_active;
+    uint8_t trap_hit;
+    uint8_t i;
+
+    room = 0;
+    health = 50;
+    score = 0;
+    has_sword = 0;
+    has_potion = 0;
+    has_amulet = 0;
+    has_key = 0;
+    game_active = 1;
+    trap_hit = 0;
+
+    /* Seed all mutable state from the const tables */
     for (i = 0; i < NUM_ROOMS; i++) {
-        r = i / GRID_SIZE;
-        c = i % GRID_SIZE;
-
-        if (i == 0) {
-            room_score[i] = 0;
-        } else if (i == 99) {
-            room_score[i] = 1000;
-        } else {
-            room_score[i] = (uint16_t)(5 + (r + c) * 5);
-        }
+        enemy_alive[i]   = room_enemy[i];
+        item_remaining[i] = room_item[i];
+        score_remaining[i] = room_score[i];
     }
 
-    /*
-     * Final boss in bottom-right room.
-     */
-    room_enemy[99] = ENEMY_DARKLORD;
-    enemy_max_hp[99] = 100;
-    room_score[99] = 1000;
+    /* Enter room loop */
+    while (game_active) {
+        _XL_CLEAR_SCREEN();
 
-    /*
-     * A few mini-bosses deeper into the dungeon.
-     */
-    b = random_room_excluding(7, 10, 1, 1);
-    if (b >= 0) {
-        place_enemy((uint8_t)b, ENEMY_DRAGON);
-        room_score[b] = 200;
-    }
-
-    b = random_room_excluding(10, 14, 1, 1);
-    if (b >= 0) {
-        place_enemy((uint8_t)b, ENEMY_WRAITH);
-        room_score[b] = 250;
-    }
-
-    b = random_room_excluding(13, 17, 1, 1);
-    if (b >= 0) {
-        place_enemy((uint8_t)b, ENEMY_DRAGON);
-        room_score[b] = 300;
-    }
-
-    /*
-     * Random enemies, scaled by distance from start.
-     */
-    for (r = 1; r < 99; r++) {
-        if (room_enemy[r] != ENEMY_NONE)
-            continue;
-
-        d = (r / GRID_SIZE) + (r % GRID_SIZE);
-
-        /* Keep the very start mostly safe */
-        if (d <= 2)
-            continue;
-
-        chance = 25 + d * 3;
-        if (chance > 85)
-            chance = 85;
-
-        if ((int)rng_range(100) < chance) {
-            roll = (int)rng_range(100);
-
-            if (d < 6) {
-                if (roll < 70)
-                    enemy_type = ENEMY_GUARD;
-                else
-                    enemy_type = ENEMY_SKELETON;
-            } else if (d < 10) {
-                if (roll < 60)
-                    enemy_type = ENEMY_SKELETON;
-                else
-                    enemy_type = ENEMY_WRAITH;
-            } else if (d < 14) {
-                if (roll < 55)
-                    enemy_type = ENEMY_WRAITH;
-                else
-                    enemy_type = ENEMY_DRAGON;
+        /* Check for trap damage on entry */
+        if (room_damage[room] > 0 && !trap_hit) {
+            health -= room_damage[room];
+            trap_hit = 1;
+            _XL_TOCK_SOUND();
+            if (health > 0) {
+                _XL_SET_TEXT_COLOR(_XL_RED);
+                _XL_PRINT(2, 15, "THE TRAP HITS YOU FOR ");
+                _XL_PRINTD(24, 15, 1, room_damage[room]);
+                _XL_PRINT(28, 15, " HP!");
+                _XL_SLEEP(1);
+                _XL_CLEAR_SCREEN();
             } else {
-                if (roll < 45)
-                    enemy_type = ENEMY_DRAGON;
-                else
-                    enemy_type = ENEMY_WRAITH;
+                health = 0;
+            }
+        } else {
+            trap_hit = 0;
+        }
+
+        /* FIX 3: Check mutable item state; remove item on pickup */
+        if (item_remaining[room] != ITEM_NONE) {
+            uint8_t item = item_remaining[room];
+            item_remaining[room] = ITEM_NONE;   /* gone forever */
+            _XL_TICK_SOUND();
+            switch (item) {
+                case ITEM_POTION:
+                    has_potion = 1;
+                    if (health < 50) {
+                        health += 20;
+                        if (health > 50) health = 50;
+                    }
+                    _XL_SET_TEXT_COLOR(_XL_GREEN);
+                    _XL_PRINT(2, 15, "YOU DRINK A POTION! +20 HP");
+                    break;
+                case ITEM_SWORD:
+                    has_sword = 1;
+                    _XL_SET_TEXT_COLOR(_XL_GREEN);
+                    _XL_PRINT(2, 15, "YOU TAKE THE STEEL SWORD!");
+                    break;
+                case ITEM_AMULET:
+                    has_amulet = 1;
+                    _XL_SET_TEXT_COLOR(_XL_GREEN);
+                    _XL_PRINT(2, 15, "YOU TAKE THE SILVER AMULET!");
+                    break;
+                case ITEM_KEY:
+                    has_key = 1;
+                    _XL_SET_TEXT_COLOR(_XL_GREEN);
+                    _XL_PRINT(2, 15, "YOU TAKE THE MYSTIC KEY!");
+                    break;
+                default:
+                    break;
+            }
+            _XL_SLEEP(1);
+        }
+
+        /* FIX 4: Check mutable score bonus; zero it after one collection */
+        if (score_remaining[room] > 0) {
+            score += score_remaining[room];
+            score_remaining[room] = 0;   /* collected once */
+            _XL_PING_SOUND();
+        }
+
+        /* Draw room */
+        _XL_CLEAR_SCREEN();
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        print_room_name(room);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        print_room_desc(room);
+        print_exits(room);
+        print_player_status(health, score, has_sword, has_potion,
+                            has_amulet, has_key);
+        print_instructions();
+
+        /* Check for enemy (mutable state) */
+        if (enemy_alive[room] != ENEMY_NONE) {
+            enemy_max = get_enemy_hp(room);
+            enemy_hp = enemy_max;
+            print_enemy_info(enemy_alive[room], enemy_hp, enemy_max);
+
+            /* Combat loop */
+            while (enemy_hp > 0 && health > 0) {
+                input = _XL_INPUT();
+                if (_XL_FIRE(input)) {
+                    do_fight(&health, &enemy_hp, room,
+                             has_sword, has_amulet);
+                    if (enemy_hp > 0 && health > 0) {
+                        _XL_SET_TEXT_COLOR(_XL_RED);
+                        _XL_PRINT(2, 13, "ENEMY: ");
+                        _XL_PRINT(9, 13, "HP: ");
+                        _XL_PRINTD(14, 13, 1, enemy_hp);
+                        _XL_PRINT(18, 13, "/");
+                        _XL_PRINTD(20, 13, 1, enemy_max);
+                        _XL_SET_TEXT_COLOR(_XL_GREEN);
+                        _XL_PRINT(2, 7, "HP: ");
+                        _XL_PRINTD(7, 7, 1, health);
+                    }
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                } else {
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                }
             }
 
-            place_enemy((uint8_t)r, enemy_type);
+            if (health <= 0) {
+                game_active = 0;
+                break;
+            }
+            if (enemy_hp <= 0) {
+                enemy_alive[room] = ENEMY_NONE;   /* dead for good */
+                score += 100;
+                _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                _XL_PRINT(2, 15, "ENEMY SLAIN! +100 SCORE");
+                _XL_SLEEP(1);
+            }
+        }
+
+        /* Check for victory rooms */
+        if (room == 19 || room == 21) {
+            game_active = 0;
+            break;
+        }
+
+        /* Wait for movement input */
+        input = _XL_INPUT();
+        if (_XL_UP(input)) {
+            if (room_north[room] != NO_EXIT) {
+                room = room_north[room];
+                _XL_TICK_SOUND();
+            }
+        } else if (_XL_DOWN(input)) {
+            if (room_south[room] != NO_EXIT) {
+                room = room_south[room];
+                _XL_TICK_SOUND();
+            }
+        } else if (_XL_LEFT(input)) {
+            if (room_west[room] != NO_EXIT) {
+                room = room_west[room];
+                _XL_TICK_SOUND();
+            }
+        } else if (_XL_RIGHT(input)) {
+            if (room_east[room] != NO_EXIT) {
+                room = room_east[room];
+                _XL_TICK_SOUND();
+            }
+        } else {
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
     }
 
-    /*
-     * Items.
-     *
-     * These are all placed in normal rooms, not the start or final room.
-     */
-    item_room = random_room_excluding(2, 6, 1, 0);
-    if (item_room >= 0)
-        room_item[item_room] = ITEM_SWORD;
-
-    item_room = random_room_excluding(4, 12, 1, 0);
-    if (item_room >= 0)
-        room_item[item_room] = ITEM_AMULET;
-
-    item_room = random_room_excluding(6, 16, 1, 0);
-    if (item_room >= 0)
-        room_item[item_room] = ITEM_KEY;
-
-    for (i = 0; i < 16; i++) {
-        item_room = random_room_excluding(1, 18, 1, 0);
-        if (item_room >= 0)
-            room_item[item_room] = ITEM_POTION;
-    }
-
-    /*
-     * Traps.
-     *
-     * Damage increases with distance from start.
-     */
-    for (i = 0; i < 25; i++) {
-        placed = 0;
-
-        for (tries = 0; tries < 1000 && !placed; tries++) {
-            trap_room = (int)rng_range(NUM_ROOMS);
-
-            if (trap_room == 0 || trap_room == 99)
-                continue;
-
-            if (room_damage[trap_room] != 0)
-                continue;
-
-            d = (trap_room / GRID_SIZE) + (trap_room % GRID_SIZE);
-
-            room_damage[trap_room] =
-                (uint8_t)(3 + (d * 3) / 2 + (int)rng_range(3));
-
-            if (room_damage[trap_room] > 30)
-                room_damage[trap_room] = 30;
-
-            placed = 1;
-        }
+    /* End of game */
+    if (health <= 0) {
+        game_over_screen();
+    } else {
+        victory_screen(score);
     }
 }
 
-/*
- * Optional validation helper.
- *
- * Returns 1 if every room is reachable from room 0.
- * The generator above should always pass this.
- */
-int dungeon_is_reachable_from_start(void)
+int main(void)
 {
-    uint8_t seen[NUM_ROOMS];
-    uint8_t stack[NUM_ROOMS];
+    _XL_INIT_GRAPHICS();
+    _XL_INIT_INPUT();
+    _XL_INIT_SOUND();
 
-    int sp = 0;
-    int i, top;
-    uint8_t n, s, e, w;
-
-    for (i = 0; i < NUM_ROOMS; i++)
-        seen[i] = 0;
-
-    seen[0] = 1;
-    stack[sp++] = 0;
-
-    while (sp > 0) {
-        top = stack[sp - 1];
-        sp--;
-
-        n = room_north[top];
-        s = room_south[top];
-        e = room_east[top];
-        w = room_west[top];
-
-        if (n != NO_EXIT && !seen[n]) {
-            seen[n] = 1;
-            stack[sp++] = n;
-        }
-
-        if (s != NO_EXIT && !seen[s]) {
-            seen[s] = 1;
-            stack[sp++] = s;
-        }
-
-        if (e != NO_EXIT && !seen[e]) {
-            seen[e] = 1;
-            stack[sp++] = e;
-        }
-
-        if (w != NO_EXIT && !seen[w]) {
-            seen[w] = 1;
-            stack[sp++] = w;
-        }
+    while (1) {
+        start_screen();
+        play_game();
     }
 
-    for (i = 0; i < NUM_ROOMS; i++) {
-        if (!seen[i])
-            return 0;
-    }
-
-    return 1;
+    return 0;
 }

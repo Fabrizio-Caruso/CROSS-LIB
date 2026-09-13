@@ -7,6 +7,8 @@ from strings import only_upper_digits_and_space, no_space
 from commands import COMMANDS_LIST
 from input_functions import are_you_sure
 
+RENAME_ONLY_PROJECT = False
+
 # It computes the type of project
 def project_category(game_dir):
     if(game_dir in example_projects):
@@ -32,11 +34,11 @@ def rename(option_config, params):
 
     source_project_type = project_category(source_game_dir)
 
-    if source_project_type != "project":
+    if source_project_type != "project" and RENAME_ONLY_PROJECT:
         print("This is a built-in project.")
         return
 
-    target_project_type = "project"
+    target_project_type = source_project_type
     target_parent_dir = target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 

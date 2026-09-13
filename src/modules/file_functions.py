@@ -93,11 +93,11 @@ def list_projects(option_config, params):
 
 def convert_makefile(option_config, dir,old_type,old_name,new_name):
 
-    dest_path = "projects/"+dir
+    dest_path = old_type+"s/"+dir
     source_game_dir = old_name
     target_game_dir = new_name
     source_parent_dir = old_type
-    target_parent_dir = "projects"
+    target_parent_dir = old_type+"s"
 
     if option_config.terminal_config.verbose:
         print("- dir: " + dir)
@@ -113,7 +113,7 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
            'PARENT_DIR = ' + target_parent_dir)
 
     data = data.replace('include ./' + old_type + "s/" + source_game_dir, \
-           'include ./projects/' + target_game_dir)
+           'include ./"+ old_type+ "s/' + target_game_dir)
     fin.close()
     fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
     fin.write(data)

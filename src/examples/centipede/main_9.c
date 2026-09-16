@@ -8,7 +8,6 @@
 #define PLAYER_MIN_Y ((uint8_t)(YSize - 4))
 #define PLAYER_MAX_Y ((uint8_t)(YSize - 1))
 #define RESPAWN_WAIT 60
-#define CENTI_MIN_Y  1
 
 static uint8_t mush_hp[YSize][XSize];
 static uint8_t mush_poison[YSize][XSize];
@@ -41,7 +40,6 @@ static uint8_t fl_x, fl_y, fl_hp, fl_active;
 static uint8_t sp_x, sp_y, sp_dir, sp_zig, sp_jumps, sp_active;
 static uint8_t sp_state;
 static uint8_t sp_target_y;
-static uint8_t sp_body_x, sp_body_y;
 static uint8_t sc_x, sc_y, sc_dir, sc_active;
 
 static uint16_t score;
@@ -78,17 +76,12 @@ static void check_all_dead(void);
 static void draw_hud(void);
 static void check_player_collision(void);
 static uint8_t player_blocked(uint8_t x, uint8_t y);
-static uint8_t centi_tile(uint8_t idx);
-static void draw_spider(void);
-static void erase_spider(void);
-static void update_spider_body(void);
 
 /* ===== mushroom helpers ===== */
 
 static void place_mushroom(uint8_t x, uint8_t y, uint8_t hp, uint8_t poison)
 {
     if (x >= XSize || y >= YSize) return;
-    if (y < CENTI_MIN_Y) return;
     mush_hp[y][x] = hp;
     mush_poison[y][x] = poison;
     _XL_DRAW(x, y, (uint8_t)(poison ? _TILE_2 : _TILE_1),
@@ -106,7 +99,7 @@ static void remove_mushroom(uint8_t x, uint8_t y)
 static void clear_mushrooms(void)
 {
     uint8_t x, y;
-    for (y = CENTI_MIN_Y; y < YSize; y++) {
+    for (y = 0; y < YSize; y++) {
         for (x = 0; x < XSize; x++) {
             if (mush_hp[y][x] != 0) {
                 _XL_DELETE(x, y);
@@ -121,26 +114,13 @@ static void seed_mushrooms(uint8_t n)
 {
     uint8_t i;
     uint16_t rx, ry;
-    uint16_t range;
-    range = (uint16_t)(PLAYER_MIN_Y - CENTI_MIN_Y);
-    if (range == 0) return;
     for (i = 0; i < n; i++) {
         rx = (uint16_t)(_XL_RAND() % (uint16_t)XSize);
-        ry = (uint16_t)(CENTI_MIN_Y + (_XL_RAND() % range));
+        ry = (uint16_t)(_XL_RAND() % (uint16_t)PLAYER_MIN_Y);
         if (mush_hp[ry][rx] == 0) {
             place_mushroom((uint8_t)rx, (uint8_t)ry, 4, 0);
         }
     }
-}
-
-/* ===== centipede tile helper: head vs body (body includes tail) ===== */
-
-static uint8_t centi_tile(uint8_t idx)
-{
-    if (seg_is_head[idx]) {
-        return seg_poison[idx] ? _TILE_10 : _TILE_4;
-    }
-    return seg_poison[idx] ? _TILE_11 : _TILE_5;
 }
 
 /* ===== centipede ===== */
@@ -159,12 +139,12 @@ static void spawn_centipede(uint8_t len)
 
     for (i = 0; i < len; i++) {
         seg_x[i] = (uint8_t)(start_x + i);
-        seg_y[i] = CENTI_MIN_Y;
+        seg_y[i] = 0;
         seg_next[i] = (uint8_t)(i + 1 < len ? i + 1 : 0xFF);
         seg_is_head[i] = (i == 0) ? 1 : 0;
         seg_poison[i] = 0;
         seg_alive[i] = 1;
-        _XL_DRAW(seg_x[i], CENTI_MIN_Y, centi_tile(i), _XL_RED);
+        _XL_DRAW(seg_x[i], 0, (i == 0) ? _TILE_4 : _TILE_5, _XL_RED);
     }
 
     piece_head[0] = 0;
@@ -232,7 +212,6 @@ static void move_piece(uint8_t pi)
             piece_dir[pi] = (uint8_t)(1 - piece_dir[pi]);
             if (ny < PLAYER_MIN_Y) {
                 ny = PLAYER_MIN_Y;
-                if (ny < CENTI_MIN_Y) ny = CENTI_MIN_Y;
                 piece_in_area[pi] = 0;
             }
         }
@@ -261,8 +240,6 @@ static void move_piece(uint8_t pi)
         }
     }
 
-    if (ny < CENTI_MIN_Y) ny = CENTI_MIN_Y;
-
     si = hi;
     {
         uint8_t cur_x = nx;
@@ -274,7 +251,8 @@ static void move_piece(uint8_t pi)
             seg_x[si] = cur_x;
             seg_y[si] = cur_y;
             if (ox != seg_x[si] || oy != seg_y[si]) {
-                tile = centi_tile(si);
+                if (seg_is_head[si]) tile = seg_poison[si] ? _TILE_10 : _TILE_4;
+                else tile = seg_poison[si] ? _TILE_11 : _TILE_5;
                 _XL_DELETE(ox, oy);
                 _XL_DRAW(seg_x[si], seg_y[si], tile, _XL_RED);
             }
@@ -322,7 +300,7 @@ static void hit_segment(uint8_t idx)
         if (nsi != 0xFF && seg_alive[nsi]) {
             seg_is_head[nsi] = 1;
             piece_head[pi] = nsi;
-            tile = centi_tile(nsi);
+            tile = seg_poison[nsi] ? _TILE_10 : _TILE_4;
             _XL_DRAW(seg_x[nsi], seg_y[nsi], tile, _XL_RED);
         } else {
             piece_active[pi] = 0;
@@ -358,7 +336,7 @@ static void hit_segment(uint8_t idx)
                 piece_active[new_pi] = 1;
                 piece_in_area[new_pi] = piece_in_area[pi];
                 num_pieces++;
-                tile = centi_tile(nsi);
+                tile = seg_poison[nsi] ? _TILE_10 : _TILE_4;
                 _XL_DRAW(seg_x[nsi], seg_y[nsi], tile, _XL_RED);
             }
         }
@@ -394,13 +372,6 @@ static void check_player_collision(void)
     }
     if (sp_active && sp_x == pl_x && sp_y == pl_y) {
         kill_player();
-        erase_spider();
-        sp_active = 0;
-        return;
-    }
-    if (sp_active && sp_body_x == pl_x && sp_body_y == pl_y) {
-        kill_player();
-        erase_spider();
         sp_active = 0;
         return;
     }
@@ -431,7 +402,7 @@ static void kill_player(void)
     last_dir = 0;
     accel_steps = 0;
     _XL_EXPLOSION_SOUND();
-    for (y = CENTI_MIN_Y; y < YSize; y++) {
+    for (y = 0; y < YSize; y++) {
         for (x = 0; x < XSize; x++) {
             if (mush_hp[y][x] != 0) {
                 if (mush_poison[y][x] != 0) {
@@ -451,7 +422,7 @@ static void fire_bullet(void)
 {
     uint8_t i, by;
     by = (uint8_t)(pl_y - 1);
-    if (by < CENTI_MIN_Y) return;
+    if (by < 0) return;
     for (i = 0; i < MAX_BULLETS; i++) {
         if (!bul_active[i]) {
             bul_x[i] = pl_x;
@@ -473,15 +444,15 @@ static void update_bullets(void)
 
         old_y = bul_y[i];
 
-        if (old_y <= CENTI_MIN_Y) {
+        if (old_y == 0) {
             _XL_DELETE(bul_x[i], old_y);
             bul_active[i] = 0;
             continue;
         }
 
-        if (old_y <= (uint8_t)(CENTI_MIN_Y + 1)) {
-            mid_y = CENTI_MIN_Y;
-            new_y = CENTI_MIN_Y;
+        if (old_y < 2) {
+            mid_y = 0;
+            new_y = 0;
         } else {
             mid_y = (uint8_t)(old_y - 1);
             new_y = (uint8_t)(old_y - 2);
@@ -513,20 +484,7 @@ static void update_bullets(void)
             if (range <= 3) score += 300;
             else if (range <= 6) score += 600;
             else score += 900;
-            erase_spider();
-            sp_active = 0;
-            _XL_PING_SOUND();
-            _XL_DELETE(bul_x[i], old_y);
-            bul_active[i] = 0;
-            goto done_bullet;
-        }
-        if (sp_active && sp_body_x == bul_x[i] && sp_body_y == old_y) {
-            uint8_t range;
-            range = (uint8_t)(pl_y - sp_y);
-            if (range <= 3) score += 300;
-            else if (range <= 6) score += 600;
-            else score += 900;
-            erase_spider();
+            _XL_DELETE(sp_x, sp_y);
             sp_active = 0;
             _XL_PING_SOUND();
             _XL_DELETE(bul_x[i], old_y);
@@ -580,20 +538,7 @@ static void update_bullets(void)
             if (range <= 3) score += 300;
             else if (range <= 6) score += 600;
             else score += 900;
-            erase_spider();
-            sp_active = 0;
-            _XL_PING_SOUND();
-            _XL_DELETE(bul_x[i], old_y);
-            bul_active[i] = 0;
-            goto done_bullet;
-        }
-        if (sp_active && sp_body_x == bul_x[i] && sp_body_y == mid_y) {
-            uint8_t range;
-            range = (uint8_t)(pl_y - sp_y);
-            if (range <= 3) score += 300;
-            else if (range <= 6) score += 600;
-            else score += 900;
-            erase_spider();
+            _XL_DELETE(sp_x, sp_y);
             sp_active = 0;
             _XL_PING_SOUND();
             _XL_DELETE(bul_x[i], old_y);
@@ -647,20 +592,7 @@ static void update_bullets(void)
             if (range <= 3) score += 300;
             else if (range <= 6) score += 600;
             else score += 900;
-            erase_spider();
-            sp_active = 0;
-            _XL_PING_SOUND();
-            _XL_DELETE(bul_x[i], old_y);
-            bul_active[i] = 0;
-            goto done_bullet;
-        }
-        if (sp_active && sp_body_x == bul_x[i] && sp_body_y == new_y) {
-            uint8_t range;
-            range = (uint8_t)(pl_y - sp_y);
-            if (range <= 3) score += 300;
-            else if (range <= 6) score += 600;
-            else score += 900;
-            erase_spider();
+            _XL_DELETE(sp_x, sp_y);
             sp_active = 0;
             _XL_PING_SOUND();
             _XL_DELETE(bul_x[i], old_y);
@@ -692,10 +624,10 @@ static void spawn_flea(void)
 {
     if (fl_active) return;
     fl_x = (uint8_t)(_XL_RAND() % (uint16_t)XSize);
-    fl_y = CENTI_MIN_Y;
+    fl_y = 0;
     fl_hp = 2;
     fl_active = 1;
-    _XL_DRAW(fl_x, CENTI_MIN_Y, _TILE_6, _XL_CYAN);
+    _XL_DRAW(fl_x, 0, _TILE_6, _XL_CYAN);
 }
 
 static void update_flea(void)
@@ -734,32 +666,6 @@ static void update_flea(void)
 
 /* ===== spider ===== */
 
-static void update_spider_body(void)
-{
-    if (sp_dir) {
-        sp_body_x = (sp_x == 0) ? (uint8_t)(XSize - 1) : (uint8_t)(sp_x - 1);
-    } else {
-        sp_body_x = (sp_x == (uint8_t)(XSize - 1)) ? 0 : (uint8_t)(sp_x + 1);
-    }
-    sp_body_y = sp_y;
-}
-
-static void draw_spider(void)
-{
-    if (sp_active) {
-        _XL_DRAW(sp_x, sp_y, _TILE_7, _XL_YELLOW);
-        _XL_DRAW(sp_body_x, sp_body_y, _TILE_14, _XL_YELLOW);
-    }
-}
-
-static void erase_spider(void)
-{
-    if (sp_active) {
-        _XL_DELETE(sp_x, sp_y);
-        _XL_DELETE(sp_body_x, sp_body_y);
-    }
-}
-
 static void spawn_spider(void)
 {
     uint8_t from_left;
@@ -774,19 +680,16 @@ static void spawn_spider(void)
     sp_state = 0;
     sp_target_y = PLAYER_MIN_Y;
     sp_active = 1;
-    update_spider_body();
-    draw_spider();
+    _XL_DRAW(sp_x, sp_y, _TILE_7, _XL_YELLOW);
 }
 
 static void update_spider(void)
 {
-    uint8_t old_x, old_y, old_bx, old_by, nx;
+    uint8_t old_x, old_y, nx;
     if (!sp_active) return;
 
     old_x = sp_x;
     old_y = sp_y;
-    old_bx = sp_body_x;
-    old_by = sp_body_y;
 
     if (sp_state == 0) {
         nx = sp_x;
@@ -805,7 +708,7 @@ static void update_spider(void)
             }
         }
     } else if (sp_state == 1) {
-        if (sp_y > (uint8_t)(CENTI_MIN_Y + 1)) sp_y--;
+        if (sp_y > 0) sp_y--;
         if (sp_y <= sp_target_y) {
             sp_state = 2;
             sp_jumps++;
@@ -815,28 +718,19 @@ static void update_spider(void)
             }
         }
     } else {
-        if (sp_y < (uint8_t)(YSize - 1)) sp_y++;
+        if (sp_y < YSize - 1) sp_y++;
         if (sp_y >= (uint8_t)(PLAYER_MIN_Y + 3)) {
             sp_state = 0;
         }
     }
 
-    update_spider_body();
-
     if (sp_x < XSize && sp_y < YSize && mush_hp[sp_y][sp_x] != 0) {
         remove_mushroom(sp_x, sp_y);
-    }
-    if (sp_body_x < XSize && sp_body_y < YSize && mush_hp[sp_body_y][sp_body_x] != 0) {
-        remove_mushroom(sp_body_x, sp_body_y);
     }
 
     if (old_x != sp_x || old_y != sp_y) {
         _XL_DELETE(old_x, old_y);
         _XL_DRAW(sp_x, sp_y, _TILE_7, _XL_YELLOW);
-    }
-    if (old_bx != sp_body_x || old_by != sp_body_y) {
-        _XL_DELETE(old_bx, old_by);
-        _XL_DRAW(sp_body_x, sp_body_y, _TILE_14, _XL_YELLOW);
     }
 }
 
@@ -957,8 +851,8 @@ static void draw_hud(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(0, 0, "SCORE");
     _XL_PRINTD(6, 0, 5, score);
-    _XL_PRINT(12, 0, "LIVES");
-    _XL_PRINTD(18, 0, 1, lives);
+    _XL_PRINT(0, 1, "LIVES");
+    _XL_PRINTD(5, 1, 1, lives);
 }
 
 /* ===== main ===== */
@@ -1149,7 +1043,7 @@ int main(void)
 
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINTD(6, 0, 5, score);
-        _XL_PRINTD(18, 0, 1, lives);
+        _XL_PRINTD(5, 1, 1, lives);
 
         _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
     }

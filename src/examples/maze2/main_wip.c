@@ -4,7 +4,7 @@
 #define MAX_LEVELS 20
 #define MAX_MONSTERS 20
 #define VISION_INITIAL 2
-#define VISION_TORCH 6
+#define VISION_TORCH 3
 #define MONSTER_MOVE_INTERVAL 15
 #define ROOMS 10
 #define DRAW_Y_OFFSET 2
@@ -42,18 +42,18 @@ uint8_t dfs_stack_top;
 void draw_hud(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize-1-8, 0, "LV");
-    _XL_PRINTD(XSize-1-8+3, 0, 5, level);
-    _XL_PRINT(0, 0, "SCORE");
-    _XL_PRINTD(6, 0, 5, score);
+    _XL_PRINT(0, 0, "LVL ");
+    _XL_PRINTD(4, 0, 1, level);
+    _XL_PRINT(8, 0, "SCORE ");
+    _XL_PRINTD(14, 0, 1, score);
 
     if (_has_key) {
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT(XSize/2-4, 1, "KEY");
+        _XL_PRINT(0, 1, "KEY");
     }
     if (has_torch) {
         _XL_SET_TEXT_COLOR(_XL_MAGENTA);
-        _XL_PRINT(XSize/2+5, 1, "TORCH");
+        _XL_PRINT(4, 1, "TORCH");
     }
 }
 
@@ -331,9 +331,6 @@ void move_bullet(void)
     uint8_t nx, ny;
     uint8_t i;
 
-    _XL_PRINTD(0,1,1,bullet_active);
-    _XL_PRINTD(4,1,1,bullet_dir);
-
     if (!bullet_active) return;
 
     /* Check if a monster is on the bullet's current position */
@@ -360,16 +357,13 @@ void move_bullet(void)
         nx = bullet_x;
         if (bullet_y < MAZE_SIZE - 1) ny = bullet_y + 1;
         else ny = 0;
-    } else { // 3
+    } else {
         if (bullet_x > 0) nx = bullet_x - 1;
         else nx = 0;
         ny = bullet_y;
     }
 
-    _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
-
-
-    if (!nx || !ny || nx >= MAZE_SIZE || ny >= MAZE_SIZE || !is_path(nx, ny)) {
+    if (nx >= MAZE_SIZE || ny >= MAZE_SIZE || !is_path(nx, ny)) {
         bullet_active = 0;
         return;
     }
@@ -385,6 +379,7 @@ void move_bullet(void)
         }
     }
 
+    _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
     
     bullet_x = nx;
     bullet_y = ny;
@@ -434,17 +429,14 @@ void draw_screen(void)
         }
     }
 
-    // The key
     if (!_has_key && manhattan_dist(key_x, key_y, player_x, player_y) <= vision_radius) {
         _XL_DRAW(key_x, key_y + DRAW_Y_OFFSET, _TILE_3, _XL_YELLOW);
     }
 
-    // The torch
     if (!has_torch && manhattan_dist(torch_x, torch_y, player_x, player_y) <= vision_radius) {
         _XL_DRAW(torch_x, torch_y + DRAW_Y_OFFSET, _TILE_4, _XL_MAGENTA);
     }
 
-    // The exit
     if (manhattan_dist(exit_x, exit_y, player_x, player_y) <= vision_radius) {
         if (_has_key) {
             _XL_DRAW(exit_x, exit_y + DRAW_Y_OFFSET, _TILE_6, _XL_GREEN);
@@ -453,7 +445,6 @@ void draw_screen(void)
         }
     }
 
-    // The gems
     for (i = 0; i < NUM_GEMS; i++) {
         if (gem_alive[i] && manhattan_dist(gem_x[i], gem_y[i], player_x, player_y) <= vision_radius) {
             _XL_DRAW(gem_x[i], gem_y[i] + DRAW_Y_OFFSET, _TILE_9, _XL_GREEN);
@@ -640,17 +631,12 @@ int main(void)
                             level_bonus = 0;
                         }
                         score += level_bonus;
-                        draw_hud();
                         _XL_ZAP_SOUND();
                         if (level >= MAX_LEVELS) {
                             game_state = 3;
                         } else {
                             game_state = 1;
                         }
-                        _XL_SLEEP(1);
-                        _XL_WAIT_FOR_INPUT();
-                        _XL_CLEAR_SCREEN();
-                        draw_hud();
                     }
                 }
             }
@@ -661,10 +647,7 @@ int main(void)
                 _XL_SET_TEXT_COLOR(_XL_GREEN);
                 _XL_PRINT(2, 10, "LEVEL COMPLETE");
                 _XL_SLEEP(2);
-                _XL_WAIT_FOR_INPUT();
                 init_level(level + 1);
-                _XL_CLEAR_SCREEN();
-                draw_hud();
             }
 
             if (game_state == 2) {

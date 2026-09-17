@@ -25,7 +25,7 @@ static uint8_t candy_tiles[NC][4] = {
     {_TILE_11, _TILE_12, _TILE_13, _TILE_14},
     {_TILE_15, _TILE_16, _TILE_17, _TILE_18},
     {_TILE_19, _TILE_20, _TILE_21, _TILE_22},
-    {_TILE_23, _TILE_24, _TILE_25, _TILE_27}
+    {_TILE_23, _TILE_24, _TILE_23, _TILE_24}
 };
 
 static uint8_t candy_color(uint8_t c)

@@ -7,8 +7,14 @@
 #else
     #define ROAD_W 11
 #endif
-#define ROAD_L ((XSize - ROAD_W) / 2)
-#define ROAD_R (ROAD_L + ROAD_W - 1)
+
+#if XSize<=24
+    #define ROAD_L (((XSize - ROAD_W) / 2)+2)
+    #define ROAD_R ((ROAD_L + ROAD_W - 1)+2)
+#else
+    #define ROAD_L ((XSize - ROAD_W) / 2)
+    #define ROAD_R (ROAD_L + ROAD_W - 1)
+#endif
 #define CENTER_X (ROAD_L + ROAD_W / 2)
 #define PLAYER_Y (YSize - 4)
 #define MAX_ENEMIES 8
@@ -142,6 +148,12 @@ static uint8_t cars_overlap(uint8_t ax, uint8_t ay, uint8_t aw, uint8_t ah,
     return 0;
 }
 
+#if XSize<31
+    #define SCORE_X ROAD_L-6
+#else
+    #define SCORE_X ROAD_L-7
+#endif
+
 static void game_loop(void)
 {
     Block blocks[MAX_BLOCKS];
@@ -181,7 +193,7 @@ static void game_loop(void)
         {
             score++;
             _XL_SET_TEXT_COLOR(_XL_WHITE);
-            _XL_PRINTD(ROAD_L, YSize - 1, 5, score);
+            _XL_PRINTD(SCORE_X, YSize/2, 4, score);
             if(slowdown>_XL_SLOW_DOWN_FACTOR/4)
             {
                 slowdown-= _XL_SLOW_DOWN_FACTOR/100;

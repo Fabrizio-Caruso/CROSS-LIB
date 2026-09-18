@@ -4,7 +4,7 @@
 #define MAP_H 14
 #define OX ((XSize - MAP_W) / 2)
 #define OY ((YSize - MAP_H) / 2 + 1)
-#define VIS_R 3
+#define VIS_R 4
 #define MAX_ENEMIES 5
 #define MAX_BULLETS 4
 #define ENEMY_INTERVAL 8
@@ -932,7 +932,53 @@ static void render(void)
     uint8_t x, y, sx, sy;
     uint8_t tile, color;
     uint8_t i;
-    for (y = 0; y < MAP_H; y++) {
+    uint8_t start_x;
+    uint8_t end_x;
+    uint8_t start_y;
+    uint8_t end_y;
+    short delta;
+    uint8_t radius = VIS_R+2*full_visible;
+    
+    delta = px - radius;
+    if(delta>=0)
+    {
+        start_x = delta;
+    }
+    else
+    {
+        start_x = 0;
+    }
+    delta = py - radius;
+    if(delta>=0)
+    {
+        start_y = delta;
+    }
+    else
+    {
+        start_y = 0;
+    }
+    
+    delta = px + radius;
+    if(delta>=MAP_W-1)
+    {
+        end_x = MAP_W-1;
+    }
+    else
+    {
+        end_x = delta;
+    }
+    delta = py + radius;
+    if(delta>=MAP_H-1)
+    {
+        end_y = MAP_H-1;
+    }
+    else
+    {
+        end_y = delta;
+    }
+    
+    
+    for (y = start_y; y < end_y; y++) {
         for (x = 0; x < MAP_W; x++) {
             sx = OX + x;
             sy = OY + y;

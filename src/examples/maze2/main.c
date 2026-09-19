@@ -37,6 +37,7 @@ uint8_t visited[ROOMS][ROOMS];
 uint8_t dfs_stack_x[100];
 uint8_t dfs_stack_y[100];
 uint8_t dfs_stack_top;
+uint8_t collected_gems;
 
 
 void draw_hud(void)
@@ -491,6 +492,7 @@ void init_level(uint8_t lvl)
     bullet_active = 0;
     move_counter = 0;
     game_state = 0;
+    collected_gems = 0;
 
     for (i = 0; i < NUM_GEMS; i++) {
         gem_alive[i] = 0;
@@ -606,7 +608,7 @@ int main(void)
                 /* Collect key */
                 if (player_x == key_x && player_y == key_y) {
                     _has_key = 1;
-                    score += 50;
+                    score += 200;
                     draw_hud();
                     _XL_TOCK_SOUND();
                 }
@@ -615,7 +617,7 @@ int main(void)
                 if (player_x == torch_x && player_y == torch_y) {
                     has_torch = 1;
                     vision_radius = VISION_TORCH;
-                    score += 25;
+                    score += 300;
                     draw_hud();
                     _XL_TOCK_SOUND();
                 }
@@ -624,7 +626,8 @@ int main(void)
                 for (i = 0; i < NUM_GEMS; i++) {
                     if (gem_alive[i] && player_x == gem_x[i] && player_y == gem_y[i]) {
                         gem_alive[i] = 0;
-                        score += 50;
+                        ++collected_gems;
+                        score += 5*collected_gems;
                         draw_hud();
                         _XL_TOCK_SOUND();
                     }
@@ -635,9 +638,9 @@ int main(void)
                     if (_has_key) {
                         /* Level bonus: 100 - steps taken */
                         if (move_counter < 100) {
-                            level_bonus = (uint16_t)(100 - move_counter);
+                            level_bonus = (uint16_t)(100 - move_counter)*5U;
                         } else {
-                            level_bonus = 0;
+                            level_bonus = 50U;
                         }
                         score += level_bonus;
                         draw_hud();
@@ -676,7 +679,7 @@ int main(void)
 
             if (game_state == 3) {
                 _XL_SET_TEXT_COLOR(_XL_GREEN);
-                _XL_PRINT(2, 10, "YOU WIN!");
+                _XL_PRINT(2, 10, "VICTORY");
                 _XL_SLEEP(3);
                 break;
             }

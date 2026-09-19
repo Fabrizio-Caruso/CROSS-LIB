@@ -1,10 +1,10 @@
 #include "cross_lib.h"
 
-#define MAP_W 21
+#define MAP_W 22
 #define MAP_H 14
 #define OX ((XSize - MAP_W) / 2)
-#define OY ((YSize - MAP_H) / 2 + 3)
-#define VIS_R 3
+#define OY ((YSize - MAP_H) / 2 + 1)
+#define VIS_R 4
 #define MAX_ENEMIES 5
 #define MAX_BULLETS 4
 #define ENEMY_INTERVAL 8
@@ -35,6 +35,41 @@ static uint8_t by[MAX_BULLETS];
 static short bdx[MAX_BULLETS];
 static short bdy[MAX_BULLETS];
 static uint8_t bullet_count;
+
+
+static void render_ui(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT(0, 0, "SCORE");
+    _XL_PRINTD(5,0, 4, score);
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    // _XL_PRINT(9, 0, "LIVES");
+    _XL_DRAW(11,0,_TILE_5,_XL_CYAN);
+    _XL_PRINTD(12, 0, 1, lives);
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_PRINT(XSize-1-4, 0, "LV");
+    _XL_PRINTD(XSize-1-4+3, 0, 2, (uint16_t)current_level + 1);
+    if (has_gun) {
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_PRINT(2, 1, "GUN");
+    } else {
+        // _XL_SET_TEXT_COLOR(_XL_BLUE);
+        _XL_PRINT(2, 1, "   ");
+    }
+    if (full_visible) {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINT(XSize-1-5, 1, "TORCH");
+    }
+    if (invincible) {
+        _XL_SET_TEXT_COLOR(_XL_MAGENTA);
+        _XL_PRINT(XSize/2-4, 1, "SHIELD");
+    } 
+    else {
+        _XL_SET_TEXT_COLOR(_XL_BLUE);
+        _XL_PRINT(XSize/2-4, 1, "      ");
+    }
+}
+
 
 /* Level definitions: # = wall, . = floor, E = exit, G = gun, I = invincibility, V = visibility, e = enemy */
 static const char *level_data[NUM_LEVELS][MAP_H] = {
@@ -790,20 +825,20 @@ static void clear_prev(void)
     uint8_t x, y;
     for (y = 0; y < MAP_H; y++)
         for (x = 0; x < MAP_W; x++) {
-            prev_tile[x][y] = 255;
-            prev_color[x][y] = 255;
+            prev_tile[x][y] = 0;
+            prev_color[x][y] = _XL_WHITE;
         }
 }
 
 static uint8_t is_visible(uint8_t cx, uint8_t cy)
 {
     short dx, dy;
-    if (full_visible) return 1;
+    // if (full_visible) return 1;
     dx = (short)cx - (short)px;
     dy = (short)cy - (short)py;
     if (dx < 0) dx = -dx;
     if (dy < 0) dy = -dy;
-    return ((uint8_t)(dx + dy) <= VIS_R);
+    return ((uint8_t)(dx + dy) <= VIS_R+2*full_visible);
 }
 
 static uint8_t is_wall(uint8_t x, uint8_t y)
@@ -849,6 +884,7 @@ static void move_bullets(void)
                     for (; j<enemy_count-1; j++) { ex[j]=ex[j+1]; ey[j]=ey[j+1]; }
                     enemy_count--;
                     score += 50;
+                    render_ui();
                     _XL_PING_SOUND();
                     break;
                 }
@@ -876,12 +912,18 @@ static void check_items(void)
     if (item_map[px][py]==1 && !has_gun) {
         has_gun=1; item_map[px][py]=0;
         _XL_TICK_SOUND();
+        score+=100;
+        render_ui();
     } else if (item_map[px][py]==2) {
         invincible=INVINCIBILITY_DURATION; item_map[px][py]=0;
+        score+=200;
+        render_ui();
         _XL_TOCK_SOUND();
     } else if (item_map[px][py]==3 && !full_visible) {
         full_visible=1; item_map[px][py]=0;
         _XL_PING_SOUND();
+        score+=300;
+        render_ui();
     }
 }
 
@@ -890,12 +932,58 @@ static void render(void)
     uint8_t x, y, sx, sy;
     uint8_t tile, color;
     uint8_t i;
-    for (y = 0; y < MAP_H; y++) {
+    uint8_t start_x;
+    uint8_t end_x;
+    uint8_t start_y;
+    uint8_t end_y;
+    short delta;
+    uint8_t radius = VIS_R+2*full_visible;
+    
+    delta = px - radius;
+    if(delta>=0)
+    {
+        start_x = delta;
+    }
+    else
+    {
+        start_x = 0;
+    }
+    delta = py - radius;
+    if(delta>=0)
+    {
+        start_y = delta;
+    }
+    else
+    {
+        start_y = 0;
+    }
+    
+    delta = px + radius;
+    if(delta>=MAP_W-1)
+    {
+        end_x = MAP_W-1;
+    }
+    else
+    {
+        end_x = delta;
+    }
+    delta = py + radius;
+    if(delta>=MAP_H-1)
+    {
+        end_y = MAP_H-1;
+    }
+    else
+    {
+        end_y = delta;
+    }
+    
+    
+    for (y = start_y; y < end_y; y++) {
         for (x = 0; x < MAP_W; x++) {
             sx = OX + x;
             sy = OY + y;
             if (!is_visible(x, y)) {
-                tile = _TILE_1;
+                tile = _TILE_1; // fog?
                 color = _XL_BLUE;
             } else {
                 tile = 0; color = 0;
@@ -931,35 +1019,6 @@ static void render(void)
     }
 }
 
-static void render_ui(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(2, 1, "SCORE");
-    _XL_PRINTD(OX + MAP_W - 4, 1, 1, score);
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(2, 3, "LIVES");
-    _XL_PRINTD(OX + MAP_W - 4, 3, 1, lives);
-    _XL_SET_TEXT_COLOR(_XL_YELLOW);
-    _XL_PRINT(2, 5, "LEVEL");
-    _XL_PRINTD(OX + MAP_W - 6, 5, 1, (uint16_t)current_level + 1);
-    if (has_gun) {
-        _XL_SET_TEXT_COLOR(_XL_CYAN);
-        _XL_PRINT(2, 7, "GUN: YES");
-    } else {
-        _XL_SET_TEXT_COLOR(_XL_BLUE);
-        _XL_PRINT(2, 7, "GUN: NO ");
-    }
-    if (full_visible) {
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT(OX + MAP_W - 8, 7, "FULL VIEW");
-    } else if (invincible) {
-        _XL_SET_TEXT_COLOR(_XL_MAGENTA);
-        _XL_PRINT(OX + MAP_W - 8, 7, "INVINCIBLE");
-    } else {
-        _XL_SET_TEXT_COLOR(_XL_BLUE);
-        _XL_PRINT(OX + MAP_W - 8, 7, "          ");
-    }
-}
 
 int main(void)
 {
@@ -977,6 +1036,7 @@ int main(void)
     current_level = 0;
 
     while (1) {
+        _XL_CLEAR_SCREEN();
         load_level(current_level);
         clear_prev();
         frame_count = 0;
@@ -1028,7 +1088,10 @@ int main(void)
             if (map_data[px][py] == 2) {
                 level_complete = 1;
                 score += 100;
+                render_ui();
                 _XL_ZAP_SOUND();
+                _XL_SLEEP(1);
+                // _XL_WAIT_FOR_INPUT();
             }
             if (lives == 0) {
                 game_over = 1;
@@ -1036,7 +1099,7 @@ int main(void)
             }
 
             render();
-            render_ui();
+            // render_ui();
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
 
@@ -1052,7 +1115,7 @@ int main(void)
                 current_level++;
             } else {
                 _XL_SET_TEXT_COLOR(_XL_YELLOW);
-                _XL_PRINT((XSize-20)/2, YSize/2, "YOU WIN!");
+                _XL_PRINT((XSize-20)/2, YSize/2, "YOU WIN");
                 _XL_WAIT_FOR_INPUT();
                 score = 0;
                 lives = 3;

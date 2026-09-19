@@ -1,11 +1,11 @@
 #include "cross_lib.h"
 
 #if XSize >= 38
-    #define ROAD_W 17
-#elif XSize >= 32
     #define ROAD_W 15
-#else
+#elif XSize >= 32
     #define ROAD_W 13
+#else
+    #define ROAD_W 11
 #endif
 
 #if XSize <= 24
@@ -20,33 +20,29 @@
 #define PLAYER_Y (YSize - 4)
 
 /*
- * The player moves in half-tile units.
+ * The player now moves in half-tile units.
  *
- * player_x = 2k      -> normal tile position k, but now drawn as a 2x2 car:
- *                         columns k and k+1
- * player_x = 2k + 1  -> half tile between k and k+1, drawn as a 3x2 car:
- *                         columns k, k+1, and k+2
+ * player_x = 2k      -> normal tile position k
+ * player_x = 2k + 1  -> half tile between k and k+1, drawn as two columns:
+ *                         column k and column k+1
  */
 
+/* Maximum even logical x is ROAD_R*2. */
 #define PLAYER_MIN_X ((uint16_t)ROAD_L * 2)
 
 /*
- * Even logical x = 2k occupies columns [k, k+1].
- * Therefore k + 1 <= ROAD_R, so:
- *   max even player_x = 2 * (ROAD_R - 1) = 2*ROAD_R - 2
+ * If the player is at an odd half-tile position 2k+1, it occupies columns
+ * k and k+1. Therefore the highest legal odd position is limited so that
+ * k+1 does not exceed ROAD_R.
  *
- * Odd logical x = 2k+1 occupies columns [k, k+1, k+2].
- * Therefore k + 2 <= ROAD_R, so:
- *   max odd player_x = 2*(ROAD_R - 2) + 1 = 2*ROAD_R - 3
+ * Highest legal logical x:
+ *   even: ROAD_R * 2
+ *   odd : ROAD_R * 2 - 1
  */
+#define PLAYER_MAX_X ((uint16_t)ROAD_R * 2)
 
-#define PLAYER_MAX_EVEN_X ((uint16_t)(2 * ROAD_R - 2))
-#define PLAYER_MAX_ODD_X ((uint16_t)(2 * ROAD_R - 3))
-
-/* Convenience: maximum legal even position. */
-#ifndef PLAYER_MAX_X
-    #define PLAYER_MAX_X PLAYER_MAX_EVEN_X
-#endif
+/* Highest position where an odd half-tile draw is still safe. */
+#define PLAYER_MAX_ODD_X ((uint16_t)ROAD_R * 2 - 1)
 
 #define MAX_ENEMIES 8
 #define MAX_BLOCKS 16
@@ -134,76 +130,122 @@ static uint8_t get_left_col(uint16_t px)
 }
 
 /*
- * Returns the rightmost column occupied by the new wider player car.
+ * Returns the rightmost column occupied by the player.
  *
- * Even px = 2k:      columns k and k+1        -> right = k + 1
- * Odd  px = 2k + 1:  columns k, k+1, k+2      -> right = k + 2
+ * Even px: one tile only, left == right.
+ * Odd px : two tiles, left = px/2, right = left + 1.
  */
 static uint8_t get_right_col(uint16_t px)
 {
     if (px & 1u) {
-        return (uint8_t)(px / 2 + 2);
+        return (uint8_t)(px / 2 + 1);
     }
 
-    return (uint8_t)(px / 2 + 1);
+    return (uint8_t)(px / 2);
 }
 
 /*
- * Returns the number of columns occupied by the player.
+ * Draws the player according to its half-tile position.
  */
-static uint8_t get_player_width(uint16_t px)
-{
-    if (px & 1u) {
-        return 3;
-    }
 
-    return 2;
-}
+/* Final clean player drawing/erasing helpers. */
+// static void draw_player(uint16_t px)
+// {
+    // uint8_t left;
+    // uint8_t right;
+    // uint8_t y;
 
-/*
- * Draws the new wider player car.
- *
- * even: 2 columns x 2 rows
- * odd : 3 columns x 2 rows
- */
+    // left = get_left_col(px);
+    // right = get_right_col(px);
+
+    // for (y = PLAYER_Y; y <= (uint8_t)(PLAYER_Y + 1); y++) {
+        // if (left == right) {
+            // _XL_DRAW(left, y, PLAYER_TOP, _XL_GREEN);
+        // } else {
+            // _XL_DRAW(left, y, PLAYER_TOP, _XL_GREEN);
+            // _XL_DRAW(right, y, PLAYER_TOP, _XL_GREEN);
+        // }
+    // }
+
+    // /* Bottom tile */
+    // for (y = (uint8_t)(PLAYER_Y + 1); y <= (uint8_t)(PLAYER_Y + 1); y++) {
+        // if (left == right) {
+            // _XL_DRAW(left, y, PLAYER_BOT, _XL_GREEN);
+        // } else {
+            // _XL_DRAW(left, y, PLAYER_BOT, _XL_GREEN);
+            // _XL_DRAW(right, y, PLAYER_BOT, _XL_GREEN);
+        // }
+    // }
+// }
 static void draw_player(uint16_t px)
 {
     uint8_t left;
     uint8_t right;
-    uint8_t col;
     uint8_t y;
 
     left = get_left_col(px);
     right = get_right_col(px);
 
     /* Top row */
-    for (col = left; col <= right; col++) {
-        _XL_DRAW(col, PLAYER_Y, PLAYER_TOP, _XL_GREEN);
+    for (y = PLAYER_Y; y <= PLAYER_Y; y++) {
+        if (left == right) {
+            _XL_DRAW(left, y, PLAYER_TOP, _XL_GREEN);
+        } else {
+            _XL_DRAW(left, y, PLAYER_TOP, _XL_GREEN);
+            _XL_DRAW(right, y, PLAYER_TOP, _XL_GREEN);
+        }
     }
 
     /* Bottom row */
-    y = (uint8_t)(PLAYER_Y + 1);
-    for (col = left; col <= right; col++) {
-        _XL_DRAW(col, y, PLAYER_BOT, _XL_GREEN);
+    for (y = (uint8_t)(PLAYER_Y + 1); y <= (uint8_t)(PLAYER_Y + 1); y++) {
+        if (left == right) {
+            _XL_DRAW(left, y, PLAYER_BOT, _XL_GREEN);
+        } else {
+            _XL_DRAW(left, y, PLAYER_BOT, _XL_GREEN);
+            _XL_DRAW(right, y, PLAYER_BOT, _XL_GREEN);
+        }
     }
 }
 
+
+// static void erase_player(uint16_t px)
+// {
+    // uint8_t left;
+    // uint8_t right;
+    // uint8_t y;
+
+    // left = get_left_col(px);
+    // right = get_right_col(px);
+
+    // for (y = PLAYER_Y; y <= (uint8_t)(PLAYER_Y + 1); y++) {
+        // if (left == right) {
+            // _XL_DELETE(left, y);
+        // } else {
+            // _XL_DELETE(left, y);
+            // _XL_DELETE(right, y);
+        // }
+    // }
+// }
 static void erase_player(uint16_t px)
 {
     uint8_t left;
     uint8_t right;
-    uint8_t col;
     uint8_t y;
 
     left = get_left_col(px);
     right = get_right_col(px);
 
     for (y = PLAYER_Y; y <= (uint8_t)(PLAYER_Y + 1); y++) {
-        for (col = left; col <= right; col++) {
-            _XL_DELETE(col, y);
+        if (left == right) {
+            _XL_DELETE(left, y);
+        } else {
+            _XL_DELETE(left, y);
+            _XL_DELETE(right, y);
         }
     }
 }
+
+
 
 static uint8_t is_blocked(uint8_t x, uint8_t y, Block *blocks, uint8_t block_count)
 {
@@ -244,7 +286,7 @@ static void spawn_lateral_pair(Block *blocks, uint8_t *block_count)
     if (*block_count + 2 > MAX_BLOCKS) return;
     if (has_active_at(blocks, *block_count, ROAD_L)) return;
 
-    h = (uint16_t)(10 + _XL_RAND() % 16);
+    h = (uint8_t)(10 + _XL_RAND() % 16);
 
     blocks[*block_count].x = ROAD_L;
     blocks[*block_count].height = h;
@@ -266,7 +308,7 @@ static void spawn_central(Block *blocks, uint8_t *block_count)
     if (*block_count + 1 > MAX_BLOCKS) return;
     if (has_active_at(blocks, *block_count, CENTER_X)) return;
 
-    h = (uint16_t)(10 + _XL_RAND() % 16);
+    h = (uint8_t)(10 + _XL_RAND() % 16);
 
     blocks[*block_count].x = CENTER_X;
     blocks[*block_count].height = h;
@@ -279,72 +321,6 @@ static uint8_t cars_overlap(uint8_t ax, uint8_t ay, uint8_t aw, uint8_t ah,
                             uint8_t bx, uint8_t by, uint8_t bw, uint8_t bh)
 {
     if (ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by) {
-        return 1;
-    }
-
-    return 0;
-}
-
-/*
- * Checks whether a player footprint would overlap any enemy.
- */
-static uint8_t player_overlaps_enemy(uint8_t px_col,
-                                     uint8_t py,
-                                     Car *enemies,
-                                     uint8_t enemy_count)
-{
-    uint8_t i;
-    uint8_t pw = get_player_width(px_col);
-
-    for (i = 0; i < enemy_count; i++) {
-        if (cars_overlap(px_col, py, pw, 2,
-                         enemies[i].x, enemies[i].y,
-                         enemies[i].w, enemies[i].h)) {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-/*
- * Checks whether a player footprint would overlap any obstacle block.
- */
-static uint8_t player_overlaps_block(uint8_t px_col,
-                                     uint8_t py,
-                                     Block *blocks,
-                                     uint8_t block_count)
-{
-    uint8_t i;
-    uint8_t pw = get_player_width(px_col);
-
-    for (i = 0; i < pw; i++) {
-        if (is_blocked((uint8_t)(px_col + i), py, blocks, block_count)) {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-/*
- * Checks whether a player footprint would overlap enemies or blocks.
- */
-static uint8_t player_collision(uint8_t px_col,
-                                Car *enemies,
-                                uint8_t enemy_count,
-                                Block *blocks,
-                                uint8_t block_count)
-{
-    if (player_overlaps_enemy(px_col, PLAYER_Y, enemies, enemy_count)) {
-        return 1;
-    }
-
-    if (player_overlaps_block(px_col, PLAYER_Y, blocks, block_count)) {
-        return 1;
-    }
-
-    if (player_overlaps_block(px_col, (uint8_t)(PLAYER_Y + 1), blocks, block_count)) {
         return 1;
     }
 
@@ -400,6 +376,8 @@ static void game_loop(void)
     while (!game_over) {
         uint16_t new_player_x;
         uint8_t player_left_col;
+        uint8_t player_right_col;
+        uint8_t py;
         uint8_t ok;
 
         frame++;
@@ -409,12 +387,14 @@ static void game_loop(void)
             _XL_SET_TEXT_COLOR(_XL_WHITE);
             _XL_PRINTD(SCORE_X, YSize / 2, 4, score);
 
-            /* Short non-blocking sound for scoring. */
-            _XL_TICK_SOUND();
-
             if (slowdown > _XL_SLOW_DOWN_FACTOR / 4) {
                 slowdown -= _XL_SLOW_DOWN_FACTOR / 100;
             }
+#if !defined(_XL_SLOW_DOWN_FACTOR)
+            else if (slowdown > _XL_SLOW_DOWN / 8) {
+                --slowdown;
+            }
+#endif
         }
 
         /* Move obstacle blocks. */
@@ -465,7 +445,6 @@ static void game_loop(void)
         if (frame % 8 == 0 && enemy_count < MAX_ENEMIES) {
             uint16_t r;
             uint8_t w, h, x, max_x, ok_spawn;
-            uint8_t m, n;
 
             r = _XL_RAND();
 
@@ -481,10 +460,13 @@ static void game_loop(void)
             x = (uint8_t)(ROAD_L + _XL_RAND() % (max_x - ROAD_L + 1));
 
             ok_spawn = 1;
-            for (n = 0; n < h && ok_spawn; n++) {
-                for (m = 0; m < w && ok_spawn; m++) {
-                    if (is_blocked((uint8_t)(x + m), n, blocks, block_count)) {
-                        ok_spawn = 0;
+            {
+                uint8_t m, n;
+                for (n = 0; n < h && ok_spawn; n++) {
+                    for (m = 0; m < w && ok_spawn; m++) {
+                        if (is_blocked((uint8_t)(x + m), n, blocks, block_count)) {
+                            ok_spawn = 0;
+                        }
                     }
                 }
             }
@@ -495,9 +477,6 @@ static void game_loop(void)
                 enemies[enemy_count].w = w;
                 enemies[enemy_count].h = h;
                 enemy_count++;
-
-                /* Short non-blocking sound when a new car appears. */
-                _XL_PING_SOUND();
             }
         }
 
@@ -510,7 +489,7 @@ static void game_loop(void)
             uint8_t can_move_diag;
             uint8_t do_diag;
             uint8_t dir;
-            uint8_t m2, k2, e2;
+            uint8_t m2, k2;
 
             idx = i - 1;
 
@@ -518,9 +497,6 @@ static void game_loop(void)
                 erase_car(&enemies[idx]);
                 enemies[idx] = enemies[enemy_count - 1];
                 enemy_count--;
-
-                /* Short non-blocking sound when a car leaves the screen. */
-                _XL_TOCK_SOUND();
                 continue;
             }
 
@@ -594,7 +570,7 @@ static void game_loop(void)
                 uint8_t escaped;
                 uint8_t esc_dir;
                 uint8_t esc_x;
-                uint8_t m3, k3;
+                uint8_t m3, k3, e2;
 
                 escaped = 0;
                 esc_dir = (uint8_t)(_XL_RAND() % 2);
@@ -728,10 +704,43 @@ static void game_loop(void)
             ok = 1;
 
             player_left_col = get_left_col(new_player_x);
+            player_right_col = get_right_col(new_player_x);
 
-            /* Check collision using the new wider footprint. */
-            if (player_collision(player_left_col, enemies, enemy_count, blocks, block_count)) {
-                ok = 0;
+            /* Check enemy collision for all columns the player would occupy. */
+            for (k = 0; k < enemy_count && ok; k++) {
+                if (player_left_col == player_right_col) {
+                    if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                     enemies[k].x, enemies[k].y,
+                                     enemies[k].w, enemies[k].h)) {
+                        ok = 0;
+                    }
+                } else {
+                    if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                     enemies[k].x, enemies[k].y,
+                                     enemies[k].w, enemies[k].h) ||
+                        cars_overlap(player_right_col, PLAYER_Y, 1, 2,
+                                     enemies[k].x, enemies[k].y,
+                                     enemies[k].w, enemies[k].h)) {
+                        ok = 0;
+                    }
+                }
+            }
+
+            /* Check block collision for all columns the player would occupy. */
+            if (ok) {
+                py = PLAYER_Y;
+                if (player_left_col == player_right_col) {
+                    if (is_blocked(player_left_col, py, blocks, block_count)) ok = 0;
+                    else if (is_blocked(player_left_col, (uint8_t)(py + 1), blocks, block_count)) ok = 0;
+                } else {
+                    if (is_blocked(player_left_col, py, blocks, block_count) ||
+                        is_blocked(player_right_col, py, blocks, block_count)) {
+                        ok = 0;
+                    } else if (is_blocked(player_left_col, (uint8_t)(py + 1), blocks, block_count) ||
+                               is_blocked(player_right_col, (uint8_t)(py + 1), blocks, block_count)) {
+                        ok = 0;
+                    }
+                }
             }
 
             if (ok) {
@@ -739,20 +748,52 @@ static void game_loop(void)
                 player_x = new_player_x;
                 draw_player(player_x);
             }
-        } else if (_XL_RIGHT(input) && player_x < PLAYER_MAX_EVEN_X) {
+        } else if (_XL_RIGHT(input) && player_x < PLAYER_MAX_X) {
             /*
-             * If moving right would make the position odd, enforce the stricter
-             * odd maximum so the 3-column car stays inside ROAD_R.
+             * Prevent an odd half-tile from drawing past the old right limit.
              */
             if (player_x + 1 <= PLAYER_MAX_ODD_X || ((player_x + 1) & 1u) == 0u) {
                 new_player_x = player_x + 1;
                 ok = 1;
 
                 player_left_col = get_left_col(new_player_x);
+                player_right_col = get_right_col(new_player_x);
 
-                /* Check collision using the new wider footprint. */
-                if (player_collision(player_left_col, enemies, enemy_count, blocks, block_count)) {
-                    ok = 0;
+                /* Check enemy collision for all columns the player would occupy. */
+                for (k = 0; k < enemy_count && ok; k++) {
+                    if (player_left_col == player_right_col) {
+                        if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                         enemies[k].x, enemies[k].y,
+                                         enemies[k].w, enemies[k].h)) {
+                            ok = 0;
+                        }
+                    } else {
+                        if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                         enemies[k].x, enemies[k].y,
+                                         enemies[k].w, enemies[k].h) ||
+                            cars_overlap(player_right_col, PLAYER_Y, 1, 2,
+                                         enemies[k].x, enemies[k].y,
+                                         enemies[k].w, enemies[k].h)) {
+                            ok = 0;
+                        }
+                    }
+                }
+
+                /* Check block collision for all columns the player would occupy. */
+                if (ok) {
+                    py = PLAYER_Y;
+                    if (player_left_col == player_right_col) {
+                        if (is_blocked(player_left_col, py, blocks, block_count)) ok = 0;
+                        else if (is_blocked(player_left_col, (uint8_t)(py + 1), blocks, block_count)) ok = 0;
+                    } else {
+                        if (is_blocked(player_left_col, py, blocks, block_count) ||
+                            is_blocked(player_right_col, py, blocks, block_count)) {
+                            ok = 0;
+                        } else if (is_blocked(player_left_col, (uint8_t)(py + 1), blocks, block_count) ||
+                                   is_blocked(player_right_col, (uint8_t)(py + 1), blocks, block_count)) {
+                            ok = 0;
+                        }
+                    }
                 }
 
                 if (ok) {
@@ -766,18 +807,42 @@ static void game_loop(void)
         /* Player collision with enemies. */
         for (i = 0; i < enemy_count && !game_over; i++) {
             player_left_col = get_left_col(player_x);
+            player_right_col = get_right_col(player_x);
 
-            if (player_overlaps_enemy(player_left_col, PLAYER_Y, enemies, enemy_count)) {
-                game_over = 1;
+            if (player_left_col == player_right_col) {
+                if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                 enemies[i].x, enemies[i].y,
+                                 enemies[i].w, enemies[i].h)) {
+                    game_over = 1;
+                }
+            } else {
+                if (cars_overlap(player_left_col, PLAYER_Y, 1, 2,
+                                 enemies[i].x, enemies[i].y,
+                                 enemies[i].w, enemies[i].h) ||
+                    cars_overlap(player_right_col, PLAYER_Y, 1, 2,
+                                 enemies[i].x, enemies[i].y,
+                                 enemies[i].w, enemies[i].h)) {
+                    game_over = 1;
+                }
             }
         }
 
         /* Player collision with blocks. */
         for (k = 0; k < 2 && !game_over; k++) {
             player_left_col = get_left_col(player_x);
+            player_right_col = get_right_col(player_x);
 
-            if (player_overlaps_block(player_left_col, (uint8_t)(PLAYER_Y + k), blocks, block_count)) {
-                game_over = 1;
+            py = (uint8_t)(PLAYER_Y + k);
+
+            if (player_left_col == player_right_col) {
+                if (is_blocked(player_left_col, py, blocks, block_count)) {
+                    game_over = 1;
+                }
+            } else {
+                if (is_blocked(player_left_col, py, blocks, block_count) ||
+                    is_blocked(player_right_col, py, blocks, block_count)) {
+                    game_over = 1;
+                }
             }
         }
 
@@ -792,10 +857,6 @@ static void game_loop(void)
 
             _XL_SET_TEXT_COLOR(_XL_RED);
             _XL_PRINT(ROAD_L, YSize / 2, "GAME OVER");
-
-            /* Long blocking sound for game over. */
-            _XL_EXPLOSION_SOUND();
-
             _XL_SLEEP(2);
 
             for (i = 0; i < ROAD_W; i++) {

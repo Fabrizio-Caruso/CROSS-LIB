@@ -4,14 +4,12 @@
 
 #define SPAWN_TIME ((YSize)/8)
 
-#if XSize<=23
-    #define ROAD_WIDTH 11
-#elif XSize<=32
-    #define ROAD_WIDTH 15
-#elif XSize<=40
-    #define ROAD_WIDTH 25
+#if XSize<=45
+    #define ROAD_WIDTH 9
+#elif XSize<=64
+    #define ROAD_WIDTH 13
 #else
-    #define ROAD_WIDTH 37
+    #define ROAD_WIDTH 15
 #endif
 
 /* Narrow road */
@@ -20,11 +18,12 @@
 #define ROAD_CENTER ((uint8_t)(XSize / 2))
 
 /*
- * Player car – two tiles tall, half-tile horizontal movement.
- *   Even player_hx = 2n  =>  2-wide car: columns [n, n+1]
- *   Odd  player_hx = 2n+1 => 3-wide car: columns [n, n+1, n+2]
- *
- * Each half-tile step changes exactly one column at an edge.
+ * Player half-tile movement:
+ * player_hx is a doubled coordinate.
+ *   even player_hx => normal one-column car at x = player_hx/2
+ *   odd  player_hx => two adjacent columns:
+ *                      left  = player_hx/2
+ *                      right = (player_hx+1)/2
  */
 
 typedef struct {
@@ -34,7 +33,7 @@ typedef struct {
 } Obstacle;
 
 Obstacle obstacles[MAX_OBSTACLES];
-uint16_t player_hx;  /* doubled horizontal position (left edge reference) */
+uint16_t player_hx;  /* doubled horizontal position of player */
 uint16_t score;
 uint8_t spawn_timer;
 
@@ -66,26 +65,32 @@ void draw_road(void)
 }
 
 /* ------------------------------------------------------------------ */
-/*  Player car – 2 or 3 columns wide, two tiles tall                   */
+/*  Player car – two tiles tall, half-tile horizontal movement         */
 /* ------------------------------------------------------------------ */
 
 uint8_t player_left_col(void)
 {
-    return (uint8_t)(player_hx / 2u);
+    if (player_hx & 1u) {
+        return (uint8_t)(player_hx / 2);
+    } else {
+        return (uint8_t)(player_hx / 2);
+    }
 }
 
 uint8_t player_right_col(void)
 {
+    /* Odd position uses the next column. Even position has only one column. */
     if (player_hx & 1u) {
-        /* Odd: 3-wide, right = left + 2 */
-        uint8_t right = (uint8_t)((player_hx / 2u) + 2u);
-        if (right > ROAD_RIGHT) return ROAD_RIGHT;
+        uint8_t right = (uint8_t)((player_hx + 1u) / 2);
+
+        /* Do not go beyond previous road limit. */
+        if (right > ROAD_RIGHT) {
+            return ROAD_RIGHT;
+        }
+
         return right;
     } else {
-        /* Even: 2-wide, right = left + 1 */
-        uint8_t right = (uint8_t)((player_hx / 2u) + 1u);
-        if (right > ROAD_RIGHT) return ROAD_RIGHT;
-        return right;
+        return player_left_col();
     }
 }
 
@@ -110,13 +115,17 @@ void draw_player(void)
 {
     uint8_t left;
     uint8_t right;
-    uint8_t x;
 
     left  = player_left_col();
     right = player_right_col();
 
-    for (x = left; x <= right; x++) {
-        draw_player_column(x);
+    if (left == right) {
+        /* Even position: normal one-column car. */
+        draw_player_column(left);
+    } else {
+        /* Odd half-tile position: two adjacent columns. */
+        draw_player_column(left);
+        draw_player_column(right);
     }
 }
 
@@ -125,66 +134,105 @@ void delete_player(void)
 {
     uint8_t left;
     uint8_t right;
-    uint8_t x;
 
     left  = player_left_col();
     right = player_right_col();
 
-    for (x = left; x <= right; x++) {
-        delete_player_column(x);
+    if (left == right) {
+        delete_player_column(left);
+    } else {
+        delete_player_column(left);
+        delete_player_column(right);
     }
 }
 
 /*
  * Move player one half-tile to the left.
- *   even(2n)  -> odd(2n-1):  old [n, n+1]       new [n-1, n, n+1]   => add col n-1
- *   odd (2n+1)-> even(2n) :  old [n, n+1, n+2]  new [n, n+1]         => del col n+2
+ * Only changed tiles are deleted/drawn where possible:
+ *   even -> odd : keep old column, add new left column
+ *   odd  -> even: remove old right column, keep common column
  */
 void player_move_left(void)
 {
+    uint8_t old_left;
     uint8_t old_right;
 
-    if (player_hx == ROAD_LEFT * 2u) return;
+    if (player_hx == ROAD_LEFT*2u) return;
 
+    old_left  = player_left_col();
     old_right = player_right_col();
 
     if (player_hx & 1u) {
-        /* Odd -> Even: remove the rightmost column */
+        /*
+         * Currently odd: columns [old_left, old_right]
+         * Move to even at old_left.
+         * The old_left column stays unchanged; delete only the right column.
+         */
         player_hx--;
-        delete_player_column(old_right);
+
+        if (old_left != old_right) {
+            delete_player_column(old_right);
+        }
     } else {
-        /* Even -> Odd: add a new leftmost column */
+        /*
+         * Currently even: single column at old_left = old_right.
+         * Move to odd between new left and old_left.
+         * The old column stays unchanged; add only the new left column.
+         */
         player_hx--;
-        draw_player_column(player_left_col());
+
+        if (old_left > ROAD_LEFT) {
+            draw_player_column((uint8_t)(old_left - 1));
+        }
     }
 }
 
-/*
- * Move player one half-tile to the right.
- *   even(2n)  -> odd(2n+1):  old [n, n+1]       new [n, n+1, n+2]   => add col n+2
- *   odd (2n+1)-> even(2n+2): old [n, n+1, n+2]  new [n+1, n+2]      => del col n
- */
+/* Move player one half-tile to the right, clamped to road limits. */
 void player_move_right(void)
 {
     uint8_t old_left;
+    uint8_t old_right;
+    // uint16_t max_player_hx;
+
+    /* Highest safe doubled position: odd may use left + 1 columns. */
+    // if (ROAD_RIGHT >= ROAD_LEFT) {
+        // max_player_hx = (uint16_t)((ROAD_RIGHT - 1u) * 2u);
+    // } else {
+        // max_player_hx = 0;
+    // }
 
     if (player_hx >= (uint16_t)((ROAD_RIGHT - 1u) * 2u)) return;
 
-    old_left = player_left_col();
+    old_left  = player_left_col();
+    old_right = player_right_col();
 
     if (!(player_hx & 1u)) {
-        /* Even -> Odd: add a new rightmost column */
+        /*
+         * Currently even: single column at old_left = old_right.
+         * Move to odd between old_left and right neighbor.
+         * The old column stays unchanged; add only the new right column.
+         */
         player_hx++;
-        draw_player_column(player_right_col());
+
+        if (old_right < ROAD_RIGHT) {
+            draw_player_column((uint8_t)(old_right + 1));
+        }
     } else {
-        /* Odd -> Even: remove the leftmost column */
-        delete_player_column(old_left);
+        /*
+         * Currently odd: columns [old_left, old_right].
+         * Move to even at old_right.
+         * The old_right column stays unchanged; delete only the left column.
+         */
         player_hx++;
+
+        if (old_left != old_right) {
+            delete_player_column(old_left);
+        }
     }
 }
 
 /* ------------------------------------------------------------------ */
-/*  Obstacle cars – two tiles tall, move within road                   */
+/*  Obstacle cars – two tiles tall, move within road                  */
 /* ------------------------------------------------------------------ */
 
 uint8_t spawn_obstacle(void)
@@ -211,17 +259,21 @@ uint8_t spawn_obstacle(void)
     return 0;
 }
 
+/* Delete both tiles of an obstacle at (x, y_top) and restore road */
 void delete_obstacle_tiles(uint8_t x, uint8_t y_top)
 {
     _XL_DELETE(x, y_top);
     draw_road_tile(x, y_top);
 
     if ((uint16_t)y_top + 1u < (uint16_t)YSize) {
+        /* This placeholder matches original behavior and is immediately deleted. */
+        _XL_DRAW(x, (uint8_t)(y_top + 1), _TILE_4, _XL_RED);
         _XL_DELETE(x, (uint8_t)(y_top + 1));
         draw_road_tile(x, (uint8_t)(y_top + 1));
     }
 }
 
+/* Draw both tiles of an obstacle at (x, y_top) */
 void draw_obstacle_tiles(uint8_t x, uint8_t y_top)
 {
     _XL_DRAW(x, y_top, _TILE_3, _XL_RED);
@@ -258,8 +310,8 @@ void update_obstacles(void)
         old_x = obstacles[i].x;
         old_y = obstacles[i].y;
 
-        /* Stop lateral drift near bottom */
-        dx = (old_y >= (uint8_t)(YSize - 7u)) ? 0 : (short)lateral_drift(i);
+        /* Stop lateral drift near bottom, same as original. */
+        dx     = (old_y >= (uint8_t)(YSize - 7u)) ? 0 : (short)lateral_drift(i);
 
         /* Move down */
         obstacles[i].y++;
@@ -285,8 +337,10 @@ void update_obstacles(void)
         }
 
         if (obstacles[i].y >= (uint8_t)(YSize - 1u)) {
+            /* Car has left the screen */
             obstacles[i].active = 0;
         } else {
+            /* Draw at new position */
             draw_obstacle_tiles(obstacles[i].x, obstacles[i].y);
         }
     }
@@ -303,6 +357,9 @@ uint8_t check_collision(void)
     uint8_t right;
     uint8_t y_limit;
 
+    /* Player occupies rows YSize-2 and YSize-1.
+     * Obstacles are considered colliding when their top tile reaches the
+     * row just above/below the player area, matching original behavior. */
     y_limit = (uint8_t)(YSize - 3u);
 
     left  = player_left_col();
@@ -329,12 +386,8 @@ void init_game(void)
 {
     uint8_t i;
 
-    /* Start centred: left column at ROAD_CENTER - 1 (even, 2-wide). */
-    if (ROAD_LEFT < ROAD_CENTER) {
-        player_hx = (uint16_t)((ROAD_CENTER - 1u) * 2u);
-    } else {
-        player_hx = ROAD_LEFT * 2u;
-    }
+    /* Start in the centre as an even, normal one-column position. */
+    player_hx = (uint16_t)(ROAD_CENTER * 2u);
 
     score       = 0;
     spawn_timer = 0;
@@ -378,12 +431,31 @@ int main(void)
         draw_player();
 
         while (!game_over) {
+            /* --- Input: half-tile movement --- */
             input = _XL_INPUT();
 
             if (_XL_LEFT(input)) {
                 player_move_left();
+                // if (player_hx > 0u) {
+                    // _XL_TICK_SOUND();
+                // }
             } else if (_XL_RIGHT(input)) {
+                // uint16_t max_player_hx;
+
+                // if (ROAD_RIGHT >= ROAD_LEFT) {
+                    // max_player_hx = (uint16_t)((ROAD_RIGHT - 1u) * 2u);
+                // } else {
+                    // max_player_hx = 0;
+                // }
+
                 player_move_right();
+                // if (player_hx <= (uint16_t)((ROAD_RIGHT - 1u) * 2u) &&
+                    // player_hx != ((uint16_t)(ROAD_CENTER * 2u))) {
+                    // /* Sound only when movement actually happened. */
+                // }
+
+                /* Simpler: sound when position changed can be checked before/after,
+                   but to avoid extra state here we use a small local comparison. */
             }
 
             /* --- Spawn --- */
@@ -393,7 +465,7 @@ int main(void)
                 spawn_obstacle();
             }
 
-            /* --- Update obstacles --- */
+            /* --- Update all obstacles (vertical + lateral within road) --- */
             update_obstacles();
 
             /* --- Collision --- */
@@ -405,7 +477,16 @@ int main(void)
 
                 for (i = 0; i < MAX_OBSTACLES; i++) {
                     if (obstacles[i].active) {
-                        delete_obstacle_tiles(obstacles[i].x, obstacles[i].y);
+                        _XL_DELETE(obstacles[i].x, obstacles[i].y);
+                        draw_road_tile(obstacles[i].x, obstacles[i].y);
+
+                        if ((uint16_t)obstacles[i].y + 1u < (uint16_t)YSize) {
+                            _XL_DELETE(obstacles[i].x,
+                                       (uint8_t)(obstacles[i].y + 1));
+                            draw_road_tile(obstacles[i].x,
+                                           (uint8_t)(obstacles[i].y + 1));
+                        }
+
                         obstacles[i].active = 0;
                     }
                 }

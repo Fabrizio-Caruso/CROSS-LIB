@@ -15,7 +15,7 @@ static uint8_t pdir, cdir;
 static uint16_t score;
 static uint16_t dotsLeft;
 static uint16_t shownScore;
-// static uint16_t shownDots;
+static uint16_t shownDots;
 
 static uint8_t gameOver;
 static uint8_t win;
@@ -153,26 +153,25 @@ void generateMaze(void)
         for (y = OY; y < YSize && (uint16_t)(y - OY) < MAZE_H; y++) {
             if (maze[x][y]) {
                 dots[x][y] = 1;
-                // ++dotsLeft;
             }
         }
     }
 
     /* Use Cross-API random numbers to create a little variation in dot placement */
-    // {
-        // uint16_t r;
-        // uint8_t i;
+    {
+        uint16_t r;
+        uint8_t i;
 
-        // for (i = 0; i < 24; i++) {
-            // r = _XL_RAND();
-            // rx = (uint8_t)(OX + (r % MAZE_W));
-            // ry = (uint8_t)(OY + ((r / 137) % MAZE_H));
+        for (i = 0; i < 24; i++) {
+            r = _XL_RAND();
+            rx = (uint8_t)(OX + (r % MAZE_W));
+            ry = (uint8_t)(OY + ((r / 137) % MAZE_H));
 
-            // if (rx < XSize && ry < YSize && maze[rx][ry]) {
-                // dots[rx][ry] = 0;
-            // }
-        // }
-    // }
+            if (rx < XSize && ry < YSize && maze[rx][ry]) {
+                dots[rx][ry] = 0;
+            }
+        }
+    }
 }
 
 void setStarts(void)
@@ -209,52 +208,40 @@ void updateHud(void)
 
     hx = (XSize > 5) ? 5 : 0;
 
-    // if (score != shownScore) {
-        // _XL_SET_TEXT_COLOR(_XL_WHITE);
-        // _XL_PRINTD(hx, 0, 1, score);
-        // shownScore = score;
-    // }
+    if (score != shownScore) {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(hx, 0, 1, score);
+        shownScore = score;
+    }
 
-    // if (dotsLeft != shownDots) {
-        // _XL_SET_TEXT_COLOR(_XL_WHITE);
-        // _XL_PRINTD(hx, 1, 1, dotsLeft);
-        // shownDots = dotsLeft;
-    // }
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(0, 0, "SCORE");
-    _XL_PRINTD(6, 0, 5, score);
-    _XL_PRINT(XSize-1-8, 0, "DOTS");
-    _XL_PRINTD(XSize-1-3, 0, 3, dotsLeft);
+    if (dotsLeft != shownDots) {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(hx, 1, 1, dotsLeft);
+        shownDots = dotsLeft;
+    }
 }
 
 void drawBoard(void)
 {
     uint8_t x, y;
 
-    dotsLeft = 0;
     for (x = OX; x < XSize && (uint16_t)(x - OX) < MAZE_W; x++) {
         for (y = OY; y < YSize && (uint16_t)(y - OY) < MAZE_H; y++) {
             if (!maze[x][y]) {
                 /* Background / wall area */
                 _XL_DRAW(x, y, _TILE_0, _XL_CYAN);
-            } else if (dots[x][y]) 
-            {
+            } else if (dots[x][y]) {
                 /* Walkable path with a dot */
                 _XL_DRAW(x, y, _TILE_1, _XL_YELLOW);
-                ++dotsLeft;
-                // _XL_PRINT(XSize-1-8, 0, "DOTS");
-                // _XL_PRINTD(XSize-1-3, 0, 3, dotsLeft);
-                // _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
             }
         }
     }
-    _XL_SLEEP(2);
 }
 
 void newGame(void)
 {
     uint8_t x, y;
-    // uint8_t hx;
+    uint8_t hx;
 
     generateMaze();
     setStarts();
@@ -264,17 +251,17 @@ void newGame(void)
 
     score = 0;
     shownScore = 0;
-    // dotsLeft = 0;
+    dotsLeft = 0;
 
-    // for (x = OX; x < XSize && (uint16_t)(x - OX) < MAZE_W; x++) {
-        // for (y = OY; y < YSize && (uint16_t)(y - OY) < MAZE_H; y++) {
-            // if (dots[x][y]) {
-                // dotsLeft++;
-            // }
-        // }
-    // }
+    for (x = OX; x < XSize && (uint16_t)(x - OX) < MAZE_W; x++) {
+        for (y = OY; y < YSize && (uint16_t)(y - OY) < MAZE_H; y++) {
+            if (dots[x][y]) {
+                dotsLeft++;
+            }
+        }
+    }
 
-    // shownDots = dotsLeft;
+    shownDots = dotsLeft;
     gameOver = 0;
     win = 0;
 
@@ -284,12 +271,18 @@ void newGame(void)
     _XL_DRAW(px, py, _TILE_2, _XL_GREEN);
     _XL_DRAW(cx, cy, _TILE_3, _XL_RED);
 
+    hx = (XSize > 5) ? 5 : 0;
+
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(0, 0, "SCORE");
-    _XL_PRINTD(6, 0, 5, score);
-    _XL_PRINT(XSize-1-8, 0, "DOTS");
-    _XL_PRINTD(XSize-1-3, 0, 3, dotsLeft);
+    _XL_PRINTD(hx, 0, 1, score);
+    _XL_PRINT(0, 1, "DOTS");
+    _XL_PRINTD(hx, 1, 1, dotsLeft);
 
+    if (dotsLeft == 0) {
+        gameOver = 1;
+        win = 1;
+    }
 }
 
 void moveCars(uint8_t input)
@@ -441,7 +434,7 @@ void moveCars(uint8_t input)
 
         dots[newPx][newPy] = 0;
         score++;
-        --dotsLeft;
+        dotsLeft--;
         _XL_PING_SOUND();
 
         if (dotsLeft == 0) {
@@ -464,7 +457,6 @@ void moveCars(uint8_t input)
         }
 
         dots[newCx][newCy] = 0;
-        --dotsLeft;
     }
 
     _XL_DRAW(newPx, newPy, _TILE_2, _XL_GREEN);
@@ -538,7 +530,7 @@ int main(void)
             if (_XL_FIRE(input)) {
                 break;
             }
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*10);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         } while (1);
 
         newGame();

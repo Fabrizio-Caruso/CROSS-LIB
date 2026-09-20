@@ -228,23 +228,6 @@ void draw_border(void) {
     }
 }
 
-// void update_paddle_height(void) {
-    // short usable;
-
-    // paddle_h = PADDLE_HEIGHT;
-
-    // /* Make sure the paddle fits inside the bordered playfield. */
-    // if (MAX_PLAY_Y >= MIN_PLAY_Y) {
-    // usable = MAX_PLAY_Y - MIN_PLAY_Y + 1;
-    // if ((short)paddle_h > usable && usable > 0) {
-        // paddle_h = (uint8_t)usable;
-    // }
-    // }
-
-    // if (paddle_h == 0) {
-        // paddle_h = 1;
-    // }
-// }
 
 void init_game(void) {
     short mid_y;
@@ -399,56 +382,6 @@ void update_game(void) {
     } else if (computer_y + 1 > ball_y + 1) {
         new_computer_y--;
     }
-
-    // /*
-     // * The computer paddle is on the right side.
-     // * ball_dx == 1 means that the ball is moving toward it.
-     // *
-     // * While the ball is still far away, use prediction.
-     // * When the ball gets closer and enters the right half of the court,
-     // * directly follow the current ball row.
-     // */
-    // if (ball_dx == 1) {
-        // if (ball_x >= CPU_FOLLOW_X) {
-            // /* Ball is close: follow its actual position. */
-            // follow_y = ball_y;
-            // dead_zone = 0;
-        // } else {
-            // /* Ball is far away: predict the hit row. */
-            // follow_y = predict_right_paddle_hit_y();
-            // dead_zone = CPU_DEAD_ZONE_FAR;
-        // }
-
-        // target_top = (short)follow_y - paddle_h / 2;
-
-        // if (target_top < MIN_PLAY_Y) {
-            // target_top = MIN_PLAY_Y;
-        // }
-
-        // if (target_top > max_paddle_y) {
-            // target_top = max_paddle_y;
-        // }
-
-        // /* Move at most one row toward the target. */
-        // if ((short)new_computer_y < (short)target_top - dead_zone &&
-            // new_computer_y > MIN_PLAY_Y) {
-            // new_computer_y++;
-        // } else if ((short)new_computer_y > (short)target_top + dead_zone &&
-                   // (short)new_computer_y < max_paddle_y) {
-            // new_computer_y--;
-        // }
-    // } else {
-        // /* Ball is moving away: slowly return to center. */
-        // target_top = center_top;
-
-        // if ((short)new_computer_y < (short)target_top - 3 &&
-            // new_computer_y > MIN_PLAY_Y) {
-            // new_computer_y++;
-        // } else if ((short)new_computer_y > (short)target_top + 3 &&
-                   // (short)new_computer_y < max_paddle_y) {
-            // new_computer_y--;
-        // }
-    // }
 
     /* Keep the computer paddle fully inside the playfield. */
     if ((short)new_computer_y < MIN_PLAY_Y) {
@@ -638,7 +571,6 @@ int main(void) {
         /* Pause before showing the winner. */
         _XL_SLEEP(1);
 
-        // _XL_CLEAR_SCREEN();
         _XL_SET_TEXT_COLOR(_XL_WHITE);
 
         if (player_score >= 7) {

@@ -316,11 +316,8 @@ static void gen_level(void) {
     uint8_t below_l, below_r;
     uint8_t new_l, new_r;
     uint8_t ol, orr;
-    uint8_t ex, max_ex;
-    uint8_t center;
+    uint8_t ex;
     uint8_t cnt;
-    uint8_t ix, sx, exx;
-    uint8_t tries;
 
     min_w = (uint8_t)(XSize / 4);
     if (min_w < 8) min_w = 8;
@@ -332,17 +329,6 @@ static void gen_level(void) {
     item_count = 0;
     total_items = 0;
     items_collected = 0;
-
-    /* Clear dynamic objects from previous levels. */
-    for (i = 0; i < MAX_ENEMIES; i++) {
-        enemies[i].active = 0;
-    }
-    for (i = 0; i < MAX_ITEMS; i++) {
-        items[i].active = 0;
-    }
-    for (i = 0; i < MAX_BULLETS; i++) {
-        bullets[i].active = 0;
-    }
 
     /* Bottom platform. */
     plats[0].x = 0;
@@ -408,57 +394,14 @@ static void gen_level(void) {
         plats[i].width = w;
         plat_count++;
 
-        /*
-         * Place one centered ladder/elevator for this platform.
-         *
-         * The preferred position is the horizontal center of the new
-         * upper platform. If that does not overlap the lower platform,
-         * clamp it to the overlapping region so both platforms remain
-         * connected.
-         */
+        /* Place elevator in the overlapping region. */
         {
             ol = (new_l > below_l) ? new_l : below_l;
             orr = (new_r < below_r) ? new_r : below_r;
 
-            if (orr >= ol && (orr - ol) >= 1) {
-                /*
-                 * The elevator is two cells wide.
-                 * Use the center of this platform as the preferred start.
-                 */
-                center = (uint8_t)(nx + w / 2);
-
-                /*
-                 * Try to keep the two-cell-wide ladder centered.
-                 * If width is odd, put the left edge one cell before
-                 * the exact center when possible.
-                 */
-                if ((uint8_t)(center - 1) >= nx) {
-                    ex = (uint8_t)(center - 1);
-                } else {
-                    ex = nx;
-                }
-
-                /* Clamp into the upper platform bounds. */
-                if (ex < nx) {
-                    ex = nx;
-                }
-
-                max_ex = (uint8_t)(nx + w - 2);
-                if ((uint8_t)(ex + 1) > max_ex) {
-                    ex = max_ex;
-                }
-
-                /* Clamp into the overlap with the lower platform. */
-                if (ex < ol) {
-                    ex = ol;
-                }
-
-                max_ex = (uint8_t)(orr - 1);
-                if ((uint8_t)(ex + 1) > max_ex) {
-                    ex = max_ex;
-                }
+            if (orr >= ol && (orr - ol) >= 4) {
+                ex = rnd(ol, (uint8_t)(orr - 2));
             } else {
-                /* Fallback, should rarely be needed. */
                 ex = ol;
             }
 
@@ -485,26 +428,6 @@ static void gen_level(void) {
         plats[plat_count].width = plats[0].width;
         plats[plat_count].y = new_y;
         plat_count++;
-
-        /*
-         * For guaranteed extra full-width platforms, put the ladder
-         * near the center of the screen/platform.
-         */
-        if (elev_count < MAX_ELEVATORS) {
-            uint8_t ex_extra;
-
-            ex_extra = (uint8_t)(XSize / 2);
-
-            /* Make room for two columns. */
-            if ((uint8_t)(ex_extra + 1) >= XSize) {
-                ex_extra = (uint8_t)(XSize - 2);
-            }
-
-            elevs[elev_count].x = ex_extra;
-            elevs[elev_count].y_top = plats[plat_count].y;
-            elevs[elev_count].y_bot = plats[plat_count - 1].y;
-            elev_count++;
-        }
     }
 
     /* Draw platforms. */
@@ -527,14 +450,15 @@ static void gen_level(void) {
         cnt = (i == 0) ? 1 : rnd(1, 2);
 
         for (j = 0; j < cnt; j++) {
-            tries = 0;
-            ix = plats[i].x;
+            uint8_t ix;
+            uint8_t tries;
 
             /* Prefer positions not inside elevator columns. */
-            while (tries < 8 && in_elevator_x(ix)) {
+            for (tries = 0; tries < 8; tries++) {
                 ix = rnd(plats[i].x,
                          (uint8_t)(plats[i].x + plats[i].width - 1));
-                tries++;
+
+                if (!in_elevator_x(ix)) break;
             }
 
             items[item_count].x = ix;
@@ -551,16 +475,16 @@ static void gen_level(void) {
     /* Place one special invincibility item on an upper platform. */
     if (plat_count > 1) {
         uint8_t sp;
+        uint8_t sx;
+        uint8_t tries;
 
         sp = rnd(1, (uint8_t)(plat_count - 1));
 
-        tries = 0;
-        sx = plats[sp].x;
-
-        while (tries < 8 && in_elevator_x(sx)) {
+        for (tries = 0; tries < 8; tries++) {
             sx = rnd(plats[sp].x,
                      (uint8_t)(plats[sp].x + plats[sp].width - 1));
-            tries++;
+
+            if (!in_elevator_x(sx)) break;
         }
 
         items[item_count].x = sx;
@@ -573,41 +497,41 @@ static void gen_level(void) {
         total_items++;
     }
 
-    /*
-     * Place exactly one enemy on every platform except the bottom one.
-     */
+    /* Place enemies on all platforms except the bottom one. */
     for (i = 1; i < plat_count; i++) {
-        tries = 0;
+        cnt = rnd(1, 2);
 
-        if (plats[i].width < 4) {
-            exx = plats[i].x;
-        } else {
-            exx = rnd(plats[i].x,
-                      (uint8_t)(plats[i].x + plats[i].width - 2));
+        for (j = 0; j < cnt; j++) {
+            uint8_t exx;
+            uint8_t tries;
 
             /* Prefer positions not inside elevator columns. */
-            while (tries < 8 && in_elevator_x(exx)) {
-                exx = rnd(plats[i].x,
-                          (uint8_t)(plats[i].x + plats[i].width - 2));
-                tries++;
+            if (plats[i].width < 4) {
+                exx = plats[i].x;
+            } else {
+                for (tries = 0; tries < 8; tries++) {
+                    exx = rnd(plats[i].x,
+                              (uint8_t)(plats[i].x + plats[i].width - 2));
+
+                    if (!in_elevator_x(exx)) break;
+                }
             }
+
+            enemies[enemy_count].x = exx;
+            enemies[enemy_count].y = (uint8_t)(plats[i].y - 2);
+            enemies[enemy_count].dir = (uint8_t)(_XL_RAND() & 1U);
+            enemies[enemy_count].plat = i;
+
+            /* Enemies not on a platform should not be active. */
+            if (enemy_on_platform(enemy_count)) {
+                enemies[enemy_count].active = 1;
+                draw_2x2(exx, enemies[enemy_count].y, CELL_ENEMY);
+            } else {
+                enemies[enemy_count].active = 0;
+            }
+
+            enemy_count++;
         }
-
-        enemies[enemy_count].x = exx;
-        enemies[enemy_count].y = (uint8_t)(plats[i].y - 2);
-        enemies[enemy_count].dir = (uint8_t)(_XL_RAND() & 1U);
-        enemies[enemy_count].plat = i;
-
-        /* Mark active before validating the position. */
-        enemies[enemy_count].active = 1;
-
-        if (enemy_on_platform(enemy_count)) {
-            draw_2x2(exx, enemies[enemy_count].y, CELL_ENEMY);
-        } else {
-            enemies[enemy_count].active = 0;
-        }
-
-        enemy_count++;
     }
 }
 
@@ -852,9 +776,6 @@ static void game_loop(void) {
     uint8_t grounded;
     uint8_t elev;
 
-    /* Player starts on the bottom platform. */
-    grounded = 1;
-
     while (game_state == 0) {
         input = _XL_INPUT();
 
@@ -947,9 +868,7 @@ static void game_loop(void) {
 
                     reset_player();
                     draw_hud();
-
-                    /* Stay in this level after losing a life. */
-                    continue;
+                    return;
                 }
             }
         }
@@ -980,9 +899,7 @@ static void game_loop(void) {
 
             reset_player();
             draw_hud();
-
-            /* Stay in this level after losing a life. */
-            continue;
+            return;
         }
 
         /* Win check. */
@@ -1000,7 +917,9 @@ static void game_loop(void) {
 /* ---------- main ---------- */
 
 int main(void) {
-    (void)_XL_INPUT();
+    uint8_t input;
+
+    (void)input;
 
     _XL_INIT_GRAPHICS();
     _XL_INIT_INPUT();

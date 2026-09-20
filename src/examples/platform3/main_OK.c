@@ -316,8 +316,7 @@ static void gen_level(void) {
     uint8_t below_l, below_r;
     uint8_t new_l, new_r;
     uint8_t ol, orr;
-    uint8_t ex, max_ex;
-    uint8_t center;
+    uint8_t ex;
     uint8_t cnt;
     uint8_t ix, sx, exx;
     uint8_t tries;
@@ -408,57 +407,14 @@ static void gen_level(void) {
         plats[i].width = w;
         plat_count++;
 
-        /*
-         * Place one centered ladder/elevator for this platform.
-         *
-         * The preferred position is the horizontal center of the new
-         * upper platform. If that does not overlap the lower platform,
-         * clamp it to the overlapping region so both platforms remain
-         * connected.
-         */
+        /* Place elevator in the overlapping region. */
         {
             ol = (new_l > below_l) ? new_l : below_l;
             orr = (new_r < below_r) ? new_r : below_r;
 
-            if (orr >= ol && (orr - ol) >= 1) {
-                /*
-                 * The elevator is two cells wide.
-                 * Use the center of this platform as the preferred start.
-                 */
-                center = (uint8_t)(nx + w / 2);
-
-                /*
-                 * Try to keep the two-cell-wide ladder centered.
-                 * If width is odd, put the left edge one cell before
-                 * the exact center when possible.
-                 */
-                if ((uint8_t)(center - 1) >= nx) {
-                    ex = (uint8_t)(center - 1);
-                } else {
-                    ex = nx;
-                }
-
-                /* Clamp into the upper platform bounds. */
-                if (ex < nx) {
-                    ex = nx;
-                }
-
-                max_ex = (uint8_t)(nx + w - 2);
-                if ((uint8_t)(ex + 1) > max_ex) {
-                    ex = max_ex;
-                }
-
-                /* Clamp into the overlap with the lower platform. */
-                if (ex < ol) {
-                    ex = ol;
-                }
-
-                max_ex = (uint8_t)(orr - 1);
-                if ((uint8_t)(ex + 1) > max_ex) {
-                    ex = max_ex;
-                }
+            if (orr >= ol && (orr - ol) >= 4) {
+                ex = rnd(ol, (uint8_t)(orr - 2));
             } else {
-                /* Fallback, should rarely be needed. */
                 ex = ol;
             }
 
@@ -485,26 +441,6 @@ static void gen_level(void) {
         plats[plat_count].width = plats[0].width;
         plats[plat_count].y = new_y;
         plat_count++;
-
-        /*
-         * For guaranteed extra full-width platforms, put the ladder
-         * near the center of the screen/platform.
-         */
-        if (elev_count < MAX_ELEVATORS) {
-            uint8_t ex_extra;
-
-            ex_extra = (uint8_t)(XSize / 2);
-
-            /* Make room for two columns. */
-            if ((uint8_t)(ex_extra + 1) >= XSize) {
-                ex_extra = (uint8_t)(XSize - 2);
-            }
-
-            elevs[elev_count].x = ex_extra;
-            elevs[elev_count].y_top = plats[plat_count].y;
-            elevs[elev_count].y_bot = plats[plat_count - 1].y;
-            elev_count++;
-        }
     }
 
     /* Draw platforms. */
@@ -575,6 +511,10 @@ static void gen_level(void) {
 
     /*
      * Place exactly one enemy on every platform except the bottom one.
+     *
+     * The important fix is that enemies[enemy_count].active must be set
+     * to 1 before calling enemy_on_platform(), because that helper first
+     * checks whether the enemy is active.
      */
     for (i = 1; i < plat_count; i++) {
         tries = 0;

@@ -1,19 +1,15 @@
 #include "cross_lib.h"
 
 /* Ball moves once every BALL_STEP frames at the start of a match. */
-#define BALL_STEP 2
-#define MIN_BALL_STEP 1
-#define MAX_SPEEDUP_STEPS 4
+#define BALL_STEP 8
+#define MIN_BALL_STEP 2
+#define MAX_SPEEDUP_STEPS 12
 
 /* Pause shown after each point, before waiting for input. */
 #define POINT_PAUSE_SECONDS 1
 
 /* Paddle size in tiles. Change this value to make paddles bigger or smaller. */
 #define PADDLE_HEIGHT 5
-
-/* CPU AI tuning. */
-#define CPU_DEAD_ZONE_FAR 1       /* Small dead zone while the ball is far away. */
-#define CPU_FOLLOW_X (XSize / 2)  /* Start following the actual ball from here. */
 
 /* Playfield boundaries. */
 #define LEFT_BORDER_X    0
@@ -152,57 +148,6 @@ void serve_ball(void) {
     }
 }
 
-/*
- * Predict the row where the ball will be when it reaches the right paddle.
- * The CPU is on the right side, so this prediction is only useful while
- * ball_dx == 1, meaning that the ball is moving toward the CPU.
- */
-uint8_t predict_right_paddle_hit_y(void) {
-    short px;
-    short py;
-    uint8_t dy;
-
-    /* Moving left means moving away from the right paddle. */
-    if (ball_dx == 0) {
-        return ball_y;
-    }
-
-    px = ball_x;
-    py = ball_y;
-    dy = ball_dy;
-
-    while (px < XSize - 2) {
-        if (dy == 1) {
-            py++;
-        } else {
-            py--;
-        }
-
-        /* Top border bounce. */
-        if (py <= TOP_BORDER_Y) {
-            py = MIN_PLAY_Y;
-            dy = 1;
-        }
-        /* Bottom border bounce. */
-        else if (py >= BOTTOM_BORDER_Y) {
-            py = MAX_PLAY_Y;
-            dy = 0;
-        }
-
-        px++;
-    }
-
-    if (py < MIN_PLAY_Y) {
-        py = MIN_PLAY_Y;
-    }
-
-    if (py > MAX_PLAY_Y) {
-        py = MAX_PLAY_Y;
-    }
-
-    return (uint8_t)py;
-}
-
 void draw_border(void) {
     uint8_t x;
     uint8_t y;
@@ -228,29 +173,29 @@ void draw_border(void) {
     }
 }
 
-// void update_paddle_height(void) {
-    // short usable;
+void update_paddle_height(void) {
+    short usable;
 
-    // paddle_h = PADDLE_HEIGHT;
+    paddle_h = PADDLE_HEIGHT;
 
-    // /* Make sure the paddle fits inside the bordered playfield. */
-    // if (MAX_PLAY_Y >= MIN_PLAY_Y) {
-    // usable = MAX_PLAY_Y - MIN_PLAY_Y + 1;
-    // if ((short)paddle_h > usable && usable > 0) {
-        // paddle_h = (uint8_t)usable;
-    // }
-    // }
+    /* Make sure the paddle fits inside the bordered playfield. */
+    if (MAX_PLAY_Y >= MIN_PLAY_Y) {
+        usable = MAX_PLAY_Y - MIN_PLAY_Y + 1;
+        if ((short)paddle_h > usable && usable > 0) {
+            paddle_h = (uint8_t)usable;
+        }
+    }
 
-    // if (paddle_h == 0) {
-        // paddle_h = 1;
-    // }
-// }
+    if (paddle_h == 0) {
+        paddle_h = 1;
+    }
+}
 
 void init_game(void) {
     short mid_y;
     short max_paddle_y;
-    paddle_h = PADDLE_HEIGHT;
-    // update_paddle_height();
+
+    update_paddle_height();
 
     /* Center the paddles inside the bordered playfield. */
     mid_y = (MIN_PLAY_Y + MAX_PLAY_Y) / 2;
@@ -346,12 +291,9 @@ void update_game(void) {
     uint8_t nx;
     uint8_t ny;
     uint8_t hit_paddle;
+    uint8_t top_hit;
     uint8_t score_changed;
-    uint8_t follow_y;
-    uint8_t dead_zone;
     short max_paddle_y;
-    short center_top;
-    short target_top;
 
     /* Only the playing state is updated here. */
     if (game_state != STATE_PLAYING) {
@@ -380,75 +322,12 @@ void update_game(void) {
         }
     }
 
-    /* --------------------------------------------------------------- */
-    /* CPU AI                                                          */
-    /* --------------------------------------------------------------- */
-
-    center_top = (MIN_PLAY_Y + MAX_PLAY_Y - paddle_h + 1) / 2;
-    if (center_top < MIN_PLAY_Y) {
-        center_top = MIN_PLAY_Y;
-    }
-
-    if (center_top > max_paddle_y) {
-        center_top = max_paddle_y;
-    }
-
     /* Simple computer AI. */
     if (computer_y + 1 < ball_y - 1) {
         new_computer_y++;
     } else if (computer_y + 1 > ball_y + 1) {
         new_computer_y--;
     }
-
-    // /*
-     // * The computer paddle is on the right side.
-     // * ball_dx == 1 means that the ball is moving toward it.
-     // *
-     // * While the ball is still far away, use prediction.
-     // * When the ball gets closer and enters the right half of the court,
-     // * directly follow the current ball row.
-     // */
-    // if (ball_dx == 1) {
-        // if (ball_x >= CPU_FOLLOW_X) {
-            // /* Ball is close: follow its actual position. */
-            // follow_y = ball_y;
-            // dead_zone = 0;
-        // } else {
-            // /* Ball is far away: predict the hit row. */
-            // follow_y = predict_right_paddle_hit_y();
-            // dead_zone = CPU_DEAD_ZONE_FAR;
-        // }
-
-        // target_top = (short)follow_y - paddle_h / 2;
-
-        // if (target_top < MIN_PLAY_Y) {
-            // target_top = MIN_PLAY_Y;
-        // }
-
-        // if (target_top > max_paddle_y) {
-            // target_top = max_paddle_y;
-        // }
-
-        // /* Move at most one row toward the target. */
-        // if ((short)new_computer_y < (short)target_top - dead_zone &&
-            // new_computer_y > MIN_PLAY_Y) {
-            // new_computer_y++;
-        // } else if ((short)new_computer_y > (short)target_top + dead_zone &&
-                   // (short)new_computer_y < max_paddle_y) {
-            // new_computer_y--;
-        // }
-    // } else {
-        // /* Ball is moving away: slowly return to center. */
-        // target_top = center_top;
-
-        // if ((short)new_computer_y < (short)target_top - 3 &&
-            // new_computer_y > MIN_PLAY_Y) {
-            // new_computer_y++;
-        // } else if ((short)new_computer_y > (short)target_top + 3 &&
-                   // (short)new_computer_y < max_paddle_y) {
-            // new_computer_y--;
-        // }
-    // }
 
     /* Keep the computer paddle fully inside the playfield. */
     if ((short)new_computer_y < MIN_PLAY_Y) {
@@ -457,17 +336,6 @@ void update_game(void) {
 
     if (new_computer_y > max_paddle_y) {
         new_computer_y = (uint8_t)max_paddle_y;
-    }
-
-    /*
-     * Ensure that the CPU never moves more than one tile in a single update.
-     */
-    if ((short)new_computer_y > (short)computer_y + 1) {
-        new_computer_y = (uint8_t)(computer_y + 1);
-    }
-
-    if ((short)new_computer_y < (short)computer_y - 1) {
-        new_computer_y = (uint8_t)(computer_y - 1);
     }
 
     /*
@@ -509,6 +377,7 @@ void update_game(void) {
         }
 
         hit_paddle = 0;
+        top_hit = 0;
 
         /* Left side: paddle or score. */
         if (!hit_paddle && game_state == STATE_PLAYING) {
@@ -549,6 +418,7 @@ void update_game(void) {
             if (ny <= TOP_BORDER_Y && ball_dy == 0) {
                 ny = MIN_PLAY_Y;
                 ball_dy = 1;
+                top_hit = 1;
             } else if (ny >= BOTTOM_BORDER_Y && ball_dy == 1) {
                 ny = MAX_PLAY_Y;
                 ball_dy = 0;
@@ -611,7 +481,7 @@ int main(void) {
         _XL_INIT_GRAPHICS();
         _XL_INIT_INPUT();
         _XL_INIT_SOUND();
-        _XL_CLEAR_SCREEN();
+
         init_game();
 
         while (game_state != STATE_GAME_OVER) {
@@ -638,13 +508,13 @@ int main(void) {
         /* Pause before showing the winner. */
         _XL_SLEEP(1);
 
-        // _XL_CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         _XL_SET_TEXT_COLOR(_XL_WHITE);
 
         if (player_score >= 7) {
-            _XL_PRINT(XSize/2-6, 1, "PLAYER WINS");
+            _XL_PRINT(10, YSize / 2, "PLAYER WINS");
         } else {
-            _XL_PRINT(XSize/2-4, 1, "CPU WINS");
+            _XL_PRINT(10, YSize / 2, "CPU WINS");
         }
 
         /* Pause after the winner text. */

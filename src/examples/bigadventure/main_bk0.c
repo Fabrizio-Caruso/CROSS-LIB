@@ -62,35 +62,6 @@
 #define NO_DEST 0xFFFF
 
 
-/* --- New globals and lookup table --- */
-
-uint8_t visited[NUM_ROOMS];
-
-/*
- * room_tile[] is indexed by the exits bitmask of a room.
- *   DIR_N=1, DIR_S=2, DIR_E=4, DIR_W=8  ->  exits value 0..15
- * Each entry maps to a tile that shows which directions are open.
- */
-const uint16_t room_tile[16] = {
-    _TILE_15,   /* 0x0: no exits                    */
-    _TILE_14,   /* 0x1: N                           */
-    _TILE_13,   /* 0x2: S                           */
-    _TILE_12,   /* 0x3: N+S                         */
-    _TILE_11,   /* 0x4: E                           */
-    _TILE_10,   /* 0x5: N+E                         */
-    _TILE_9,    /* 0x6: S+E                         */
-    _TILE_8,    /* 0x7: N+S+E                       */
-    _TILE_7,    /* 0x8: W                           */
-    _TILE_6,    /* 0x9: N+W                         */
-    _TILE_5,    /* 0xA: S+W                         */
-    _TILE_4,    /* 0xB: N+S+W                       */
-    _TILE_3,    /* 0xC: E+W                         */
-    _TILE_2,    /* 0xD: N+E+W                       */
-    _TILE_1,    /* 0xE: S+E+W  (missing N)          */
-    _TILE_0     /* 0xF: N+S+E+W (all directions)    */
-};
-
-
 typedef struct {
     uint8_t region;
     uint8_t exits;
@@ -908,8 +879,33 @@ void place_items_and_monsters(void) {
     }
 }
 
+void init_game(void) {
+    uint16_t i;
 
-/* --- Modified display_map --- */
+    player_room = 0;
+    player_hp = 100;
+    player_max_hp = 100;
+    player_weapon = ITEM_DAGGER;
+    player_shield = 0;
+    player_potions = 0;
+    player_score = 0;
+    dragon_defeated = 0;
+    game_over = 0;
+    map_radius = MAP_RADIUS_INITIAL;
+
+    for (i = 0; i < NUM_ROOMS; i++) {
+        rooms[i].region = get_region(i);
+        rooms[i].item = ITEM_NONE;
+        rooms[i].monster = MONSTER_NONE;
+        rooms[i].monster_hp = 0;
+    }
+
+    generate_spanning_tree();
+    add_extra_edges();
+    place_items_and_monsters();
+}
+
+
 void display_map(void) {
     uint8_t pr, pc;
     int16_t dx, dy;
@@ -917,17 +913,18 @@ void display_map(void) {
     int16_t grid_r, grid_c;
     int16_t dist_sq;
     uint8_t radius;
-    uint16_t room_idx;
     uint16_t tile;
+    uint16_t room_idx;
+    uint8_t connected;
 
     pr = player_room / GRID_W;
     pc = player_room % GRID_W;
 
-    /* Fixed screen anchor for the player */
-    screen_x = XSize - 8;
-    screen_y = YSize - 8;
+    /* Fixed screen position for the player */
+    screen_x = XSize -7;
+    screen_y = YSize - 7;
 
-    /* Visibility radius: 2 without torch, 5 with torch */
+    /* Visibility radius: 2 without torch, 5 with torcƒh */
     radius = (map_radius == MAP_RADIUS_EXTENDED) ? MAP_RADIUS_EXTENDED : MAP_RADIUS_INITIAL;
 
     for (dy = -radius; dy <= radius; dy++) {
@@ -936,6 +933,8 @@ void display_map(void) {
             if (dist_sq > radius * radius) continue;
 
             /* Map screen offset to grid position */
+            /* dy < 0 is north (row decreases), dy > 0 is south (row increases) */
+            /* dx > 0 is east (col increases),  dx < 0 is west (col decreases) */
             grid_r = (int16_t)pr + dy;
             grid_c = (int16_t)pc + dx;
 
@@ -944,21 +943,25 @@ void display_map(void) {
             room_idx = (uint16_t)(grid_r * GRID_W + grid_c);
 
             if (dx == 0 && dy == 0) {
-                /* Player position */
-                tile = _TILE_26;
-            } else if (visited[room_idx]) {
-                /* Visited room: tile determined by exits */
-                tile = room_tile[rooms[room_idx].exits];
+                /* Player tile */
+                tile = _TILE_0;
+            } else if ((dx == 0 && (dy == -1 || dy == 1)) || (dy == 0 && (dx == -1 || dx == 1))) {
+                /* Directly adjacent tile: show exit or wall */
+                connected = 0;
+                if (dy < 0 && (rooms[player_room].exits & DIR_N)) connected = 1;
+                if (dy > 0 && (rooms[player_room].exits & DIR_S)) connected = 1;
+                if (dx > 0 && (rooms[player_room].exits & DIR_E)) connected = 1;
+                if (dx < 0 && (rooms[player_room].exits & DIR_W)) connected = 1;
+                tile = connected ? _TILE_1 : _TILE_2;
             } else {
-                /* Unvisited room within view */
-                tile = _TILE_27;
+                /* Further visible rooms: walkable path */
+                tile = _TILE_1;
             }
 
             _XL_DRAW(screen_x + dx, screen_y + dy, tile, _XL_WHITE);
         }
     }
 }
-
 
 void display_room_info(void) {
     const char *desc;
@@ -1292,6 +1295,30 @@ uint8_t use_potion(void) {
     return 0;
 }
 
+void move_player(uint8_t dir) {
+    uint16_t dest;
+
+    dest = NO_DEST;
+    if (dir == 0 && (rooms[player_room].exits & DIR_N)) {
+        dest = rooms[player_room].dest_n;
+    } else if (dir == 1 && (rooms[player_room].exits & DIR_S)) {
+        dest = rooms[player_room].dest_s;
+    } else if (dir == 2 && (rooms[player_room].exits & DIR_E)) {
+        dest = rooms[player_room].dest_e;
+    } else if (dir == 3 && (rooms[player_room].exits & DIR_W)) {
+        dest = rooms[player_room].dest_w;
+    }
+
+    if (dest != NO_DEST) {
+        player_room = dest;
+        if (rooms[player_room].item != ITEM_NONE) {
+            collect_item(player_room);
+        }
+        if (rooms[player_room].monster != MONSTER_NONE) {
+            do_combat(player_room);
+        }
+    }
+}
 
 void show_title(void) {
     _XL_CLEAR_SCREEN();
@@ -1329,35 +1356,6 @@ void show_game_over(void) {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(2, 13, "PRESS ANY KEY TO RESTART");
     _XL_WAIT_FOR_INPUT();
-}
-
-
-/* --- Mark rooms as visited when the player moves --- */
-
-void move_player(uint8_t dir) {
-    uint16_t dest;
-
-    dest = NO_DEST;
-    if (dir == 0 && (rooms[player_room].exits & DIR_N)) {
-        dest = rooms[player_room].dest_n;
-    } else if (dir == 1 && (rooms[player_room].exits & DIR_S)) {
-        dest = rooms[player_room].dest_s;
-    } else if (dir == 2 && (rooms[player_room].exits & DIR_E)) {
-        dest = rooms[player_room].dest_e;
-    } else if (dir == 3 && (rooms[player_room].exits & DIR_W)) {
-        dest = rooms[player_room].dest_w;
-    }
-
-    if (dest != NO_DEST) {
-        player_room = dest;
-        visited[player_room] = 1;          /* mark new room as visited */
-        if (rooms[player_room].item != ITEM_NONE) {
-            collect_item(player_room);
-        }
-        if (rooms[player_room].monster != MONSTER_NONE) {
-            do_combat(player_room);
-        }
-    }
 }
 
 void play_game(void) {
@@ -1415,6 +1413,113 @@ void play_game(void) {
     }
 }
 
+
+/* --- New globals and lookup table --- */
+
+uint8_t visited[NUM_ROOMS];
+
+/*
+ * room_tile[] is indexed by the exits bitmask of a room.
+ *   DIR_N=1, DIR_S=2, DIR_E=4, DIR_W=8  ->  exits value 0..15
+ * Each entry maps to a tile that shows which directions are open.
+ */
+const uint16_t room_tile[16] = {
+    _TILE_15,   /* 0x0: no exits                    */
+    _TILE_14,   /* 0x1: N                           */
+    _TILE_13,   /* 0x2: S                           */
+    _TILE_12,   /* 0x3: N+S                         */
+    _TILE_11,   /* 0x4: E                           */
+    _TILE_10,   /* 0x5: N+E                         */
+    _TILE_9,    /* 0x6: S+E                         */
+    _TILE_8,    /* 0x7: N+S+E                       */
+    _TILE_7,    /* 0x8: W                           */
+    _TILE_6,    /* 0x9: N+W                         */
+    _TILE_5,    /* 0xA: S+W                         */
+    _TILE_4,    /* 0xB: N+S+W                       */
+    _TILE_3,    /* 0xC: E+W                         */
+    _TILE_2,    /* 0xD: N+E+W                       */
+    _TILE_1,    /* 0xE: S+E+W  (missing N)          */
+    _TILE_0     /* 0xF: N+S+E+W (all directions)    */
+};
+
+/* --- Modified display_map --- */
+
+void display_map(void) {
+    uint8_t pr, pc;
+    int16_t dx, dy;
+    uint16_t screen_x, screen_y;
+    int16_t grid_r, grid_c;
+    int16_t dist_sq;
+    uint8_t radius;
+    uint16_t room_idx;
+    uint16_t tile;
+
+    pr = player_room / GRID_W;
+    pc = player_room % GRID_W;
+
+    /* Fixed screen anchor for the player */
+    screen_x = XSize / 4;
+    screen_y = YSize - 8;
+
+    /* Visibility radius: 2 without torch, 5 with torch */
+    radius = (map_radius == MAP_RADIUS_EXTENDED) ? MAP_RADIUS_EXTENDED : MAP_RADIUS_INITIAL;
+
+    for (dy = -radius; dy <= radius; dy++) {
+        for (dx = -radius; dx <= radius; dx++) {
+            dist_sq = dx * dx + dy * dy;
+            if (dist_sq > radius * radius) continue;
+
+            /* Map screen offset to grid position */
+            grid_r = (int16_t)pr + dy;
+            grid_c = (int16_t)pc + dx;
+
+            if (grid_r < 0 || grid_r >= GRID_H || grid_c < 0 || grid_c >= GRID_W) continue;
+
+            room_idx = (uint16_t)(grid_r * GRID_W + grid_c);
+
+            if (dx == 0 && dy == 0) {
+                /* Player position */
+                tile = _TILE_26;
+            } else if (visited[room_idx]) {
+                /* Visited room: tile determined by exits */
+                tile = room_tile[rooms[room_idx].exits];
+            } else {
+                /* Unvisited room within view */
+                tile = _TILE_27;
+            }
+
+            _XL_DRAW(screen_x + dx, screen_y + dy, tile, _XL_WHITE);
+        }
+    }
+}
+
+/* --- Mark rooms as visited when the player moves --- */
+
+void move_player(uint8_t dir) {
+    uint16_t dest;
+
+    dest = NO_DEST;
+    if (dir == 0 && (rooms[player_room].exits & DIR_N)) {
+        dest = rooms[player_room].dest_n;
+    } else if (dir == 1 && (rooms[player_room].exits & DIR_S)) {
+        dest = rooms[player_room].dest_s;
+    } else if (dir == 2 && (rooms[player_room].exits & DIR_E)) {
+        dest = rooms[player_room].dest_e;
+    } else if (dir == 3 && (rooms[player_room].exits & DIR_W)) {
+        dest = rooms[player_room].dest_w;
+    }
+
+    if (dest != NO_DEST) {
+        player_room = dest;
+        visited[player_room] = 1;          /* mark new room as visited */
+        if (rooms[player_room].item != ITEM_NONE) {
+            collect_item(player_room);
+        }
+        if (rooms[player_room].monster != MONSTER_NONE) {
+            do_combat(player_room);
+        }
+    }
+}
 
 /* --- In init_game, mark starting room as visited --- */
 

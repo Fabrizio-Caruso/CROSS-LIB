@@ -138,7 +138,10 @@ static void set_cell(uint8_t x, uint8_t y, uint8_t what) {
     }
 
     if (what != CELL_EMPTY) {
-        uint8_t tile, color;
+        uint8_t tile; 
+        
+        #if !defined(_XL_NO_COLOR)
+        uint8_t color;
 
         switch (what) {
             case CELL_PLATFORM:
@@ -174,6 +177,34 @@ static void set_cell(uint8_t x, uint8_t y, uint8_t what) {
                 color = _XL_WHITE;
                 break;
         }
+        #else
+        switch (what) {
+            case CELL_PLATFORM:
+                tile = _TILE_0;
+                break;
+            case CELL_ELEVATOR:
+                tile = _TILE_0;
+                break;
+            case CELL_PLAYER:
+                tile = _TILE_5;
+                break;
+            case CELL_ENEMY:
+                tile = _TILE_4;
+                break;
+            case CELL_ITEM:
+                tile = _TILE_1;
+                break;
+            case CELL_SPECIAL:
+                tile = _TILE_1;
+                break;
+            case CELL_BULLET:
+                tile = _TILE_6;
+                break;
+            default:
+                tile = _TILE_0;
+                break;
+        }
+        #endif
 
         _XL_DRAW(x, y, tile, color);
     }

@@ -76,7 +76,9 @@ static uint8_t prev_gx[NGHOSTS];
 static uint8_t prev_gy[NGHOSTS];
 static uint8_t first_draw = 1;
 
+#if !defined(_XL_NO_COLOR)
 static uint8_t ghost_clr[NGHOSTS] = { _XL_RED, _XL_GREEN, _XL_MAGENTA, _XL_WHITE };
+#endif
 
 static uint16_t score;
 static uint16_t dots_left;

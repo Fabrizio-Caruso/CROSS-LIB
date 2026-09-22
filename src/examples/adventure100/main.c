@@ -263,7 +263,7 @@ const char *enemy_name(uint8_t type)
 void do_fight(uint8_t room)
 {
     uint8_t e_atk, e_def, dmg, e_atk_dmg;
-    uint8_t old_energy;
+    // uint8_t old_energy;
 
     if (room_enemy[room] == ENEMY_NONE) {
         msg = "NO ENEMY TO FIGHT.";
@@ -282,7 +282,7 @@ void do_fight(uint8_t room)
         /* Enemy counter-attacks */
         e_atk_dmg = e_atk - player_defense;
         if (e_atk_dmg < 1) e_atk_dmg = 1;
-        old_energy = player_energy;
+        // old_energy = player_energy;
         player_energy -= e_atk_dmg;
         if (player_energy > player_max_energy) player_energy = player_max_energy;
         if (player_energy == 0) {
@@ -359,7 +359,7 @@ void do_pickup(uint8_t room)
 void display(void)
 {
     uint8_t room;
-    uint8_t nx, ny;
+    // uint8_t nx, ny;
 
     room = player_y * GRID_W + player_x;
 
@@ -481,7 +481,7 @@ void display(void)
 
 void init_game(void)
 {
-    uint8_t i;
+    // uint8_t i;
     player_x = 0;
     player_y = 0;
     player_energy = 50;

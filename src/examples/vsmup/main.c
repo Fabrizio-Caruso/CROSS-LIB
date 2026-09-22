@@ -194,11 +194,12 @@ void update(void) {
 
                 /* Draw new tile with appropriate color */
                 if(curr[x][y] != TILE_EMPTY) {
+                    #if !defined(_XL_NO_COLOR)
                     uint8_t col = _XL_WHITE;
                     if(curr[x][y] == TILE_ENEMY) col = _XL_RED;
                     else if(curr[x][y] == TILE_PLAYER) col = _XL_CYAN;
                     else if(curr[x][y] == TILE_BULLET) col = _XL_YELLOW;
-
+                    #endif
                     _XL_DRAW(x, y, curr[x][y], col);
                 }
             }

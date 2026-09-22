@@ -18,6 +18,7 @@ uint16_t score;
 
 /* ---- helpers ---- */
 
+#if !defined(_XL_NO_COLOR)
 static uint8_t val_to_color(uint8_t v) {
     switch (v) {
         case 1:  return _XL_WHITE;
@@ -29,6 +30,7 @@ static uint8_t val_to_color(uint8_t v) {
         default: return _XL_BLUE;   /* 128 and above */
     }
 }
+#endif
 
 static void fill_cell(uint8_t r, uint8_t c) {
     uint8_t x0 = CX(c), y0 = CY(r);

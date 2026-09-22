@@ -160,9 +160,12 @@ void draw_screen(void) {
     uint8_t screen_off_x, screen_off_y;
     uint8_t sx, sy;
     uint8_t dist;
-    uint8_t tile, color;
+    uint8_t tile;
     uint8_t m;
-
+    
+    #if !defined(_XL_NO_COLOR)
+    uint8_t color;
+    #endif
 //    _XL_CLEAR_SCREEN();
 
     screen_off_x = XSize / 2 - VIEW_DIST;
@@ -173,6 +176,7 @@ void draw_screen(void) {
     view_min_y = (player_y > VIEW_DIST) ? (player_y - VIEW_DIST) : 0;
     view_max_y = (player_y + VIEW_DIST < MAZE_SIZE - 1) ? (player_y + VIEW_DIST) : (MAZE_SIZE - 1);
 
+    // TODO: This should be improved by avoiding clearing the screen and just deleting left over cells
     if((view_min_x==0)||(view_min_y==0)||(view_max_x==MAZE_SIZE-1)||(view_max_y==MAZE_SIZE-1))
     {
         _XL_CLEAR_SCREEN();
@@ -199,6 +203,7 @@ void draw_screen(void) {
             }
 
             // Determine what to draw
+            #if !defined(_XL_NO_COLOR)
             tile = T_FLOOR;
             color = C_FLOOR;
 
@@ -232,7 +237,36 @@ void draw_screen(void) {
                 tile = T_PLAYER;
                 color = C_PLAYER;
             }
+            #else
+            tile = T_FLOOR;
 
+            if (maze[i][j] == 1) {
+                tile = T_WALL;
+            }
+
+            // Exit
+            if (i == MAZE_SIZE - 1 && j == MAZE_SIZE - 1) {
+                tile = T_EXIT;
+            }
+
+            // Monsters
+            for (m = 0; m < num_monsters; m++) {
+                if (monster_x[m] == i && monster_y[m] == j) {
+                    tile = T_MONSTER;
+
+                }
+            }
+
+            // Bullet
+            if (bullet_active && bullet_x == i && bullet_y == j) {
+                tile = T_BULLET;
+            }
+
+            // Player (drawn last so it's on top)
+            if (i == player_x && j == player_y) {
+                tile = T_PLAYER;
+            }
+            #endif
             _XL_DRAW(sx, sy, tile, color);
         }
     }

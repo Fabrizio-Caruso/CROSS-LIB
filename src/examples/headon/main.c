@@ -205,9 +205,9 @@ uint8_t passable(uint8_t x, uint8_t y)
 
 void updateHud(void)
 {
-    uint8_t hx;
+    // uint8_t hx;
 
-    hx = (XSize > 5) ? 5 : 0;
+    // hx = (XSize > 5) ? 5 : 0;
 
     // if (score != shownScore) {
         // _XL_SET_TEXT_COLOR(_XL_WHITE);
@@ -253,7 +253,7 @@ void drawBoard(void)
 
 void newGame(void)
 {
-    uint8_t x, y;
+    // uint8_t x, y;
     // uint8_t hx;
 
     generateMaze();

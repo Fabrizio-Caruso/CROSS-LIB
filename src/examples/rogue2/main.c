@@ -979,7 +979,7 @@ static void render(void)
     
     
     for (y = start_y; y < end_y; y++) {
-        for (x = 0; x < MAP_W; x++) {
+        for (x = start_x; x < end_x; x++) {
             sx = OX + x;
             sy = OY + y;
             if (!is_visible(x, y)) {

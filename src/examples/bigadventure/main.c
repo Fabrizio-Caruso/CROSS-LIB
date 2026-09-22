@@ -951,7 +951,7 @@ void display_map(void) {
                 tile = room_tile[rooms[room_idx].exits];
             } else {
                 /* Unvisited room within view */
-                tile = _TILE_27;
+                tile = _TILE_26;
             }
 
             _XL_DRAW(screen_x + dx, screen_y + dy, tile, _XL_WHITE);

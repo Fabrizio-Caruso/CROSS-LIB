@@ -196,7 +196,7 @@ void update_display(void)
     draw_food();
 }
 
-void main(void)
+int main(void)
 {
     uint8_t input;
 

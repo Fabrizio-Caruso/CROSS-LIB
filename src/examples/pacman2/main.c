@@ -51,7 +51,7 @@ int main(void)
     uint8_t score;
     uint8_t lives;
     uint16_t pcount;
-    short i, j, k, t;
+    short i, j;
     uint8_t input;
     short game_over;
     short level_done;
@@ -127,16 +127,22 @@ int main(void)
             if (_XL_RIGHT(input)) px += 1;
             if (_XL_UP(input))    py -= 1;
             if (_XL_DOWN(input))  py += 1;
-            if (px < 2) px = 2; if (py < PLAY_TOP+1) py = PLAY_TOP+1;
-            if (px > XSize-3) px = XSize-3; if (py > YSize-3) py = YSize-3;
+            if (px < 2) px = 2; 
+            if (py < PLAY_TOP+1) py = PLAY_TOP+1;
+            if (px > XSize-3) px = XSize-3; 
+            if (py > YSize-3) py = YSize-3;
 
             for (i = 0; i < ENEMIES; i++) {
                 short nx, ny; short d = _XL_RAND() & 3;
                 nx = ex[i]; ny = ey[i];
-                if (d == 0) nx -= 1; if (d == 1) nx += 1;
-                if (d == 2) ny -= 1; if (d == 3) ny += 1;
-                if (nx < 2) nx = 2; if (ny < PLAY_TOP+1) ny = PLAY_TOP+1;
-                if (nx > XSize-3) nx = XSize-3; if (ny > YSize-3) ny = YSize-3;
+                if (d == 0) nx -= 1; 
+                if (d == 1) nx += 1;
+                if (d == 2) ny -= 1; 
+                if (d == 3) ny += 1;
+                if (nx < 2) nx = 2; 
+                if (ny < PLAY_TOP+1) ny = PLAY_TOP+1;
+                if (nx > XSize-3) nx = XSize-3; 
+                if (ny > YSize-3) ny = YSize-3;
                 if (!block_hits_pellet(nx, ny, pellet_x, pellet_y,
                                        pellet_alive, pcount)) {
                     ex[i] = nx; ey[i] = ny;

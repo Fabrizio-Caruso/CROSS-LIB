@@ -71,10 +71,12 @@ static const uint8_t PIECE_CELLS[7][4][4][2] = {
     },
 };
 
+#if !defined(_XL_NO_COLOR)
 static const uint8_t PIECE_COLORS[7] = {
     _XL_CYAN, _XL_YELLOW, _XL_MAGENTA,
     _XL_GREEN, _XL_RED, _XL_WHITE, _XL_BLUE
 };
+#endif
 
 /* Game state */
 static uint8_t grid[GRID_H][GRID_W];         /* 0=empty, 1..7 = piece_type+1 */

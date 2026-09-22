@@ -330,11 +330,11 @@ void update_game(void) {
     uint8_t ny;
     uint8_t hit_paddle;
     uint8_t score_changed;
-    uint8_t follow_y;
-    uint8_t dead_zone;
+    // uint8_t follow_y;
+    // uint8_t dead_zone;
     short max_paddle_y;
     short center_top;
-    short target_top;
+    // short target_top;
 
     /* Only the playing state is updated here. */
     if (game_state != STATE_PLAYING) {

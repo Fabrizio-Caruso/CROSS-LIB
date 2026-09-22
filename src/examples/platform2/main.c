@@ -109,8 +109,10 @@ static void draw_door(void) {
 }
 
 static void draw_player(void) {
+    #if !defined(_XL_NO_COLOR)
     uint8_t c;
     if (invincible_timer > 0) c = _XL_YELLOW; else c = _XL_GREEN;
+    #endif
     _XL_DRAW(player_x, (uint8_t)(player_y - 2), _TILE_0, c);
     _XL_DRAW(player_x, (uint8_t)(player_y - 1), _TILE_1, c);
 }
@@ -124,8 +126,10 @@ static void draw_enemies(void) {
     uint8_t i;
     for (i = 0; i < enemy_count; i++) {
         if (!enemies[i].alive) continue;
+        #if !defined(_XL_NO_COLOR)
         uint8_t c;
         if (freeze_timer > 0) c = _XL_CYAN; else c = _XL_RED;
+        #endif
         _XL_DRAW(enemies[i].x, (uint8_t)(enemies[i].y - 2), _TILE_2, c);
         _XL_DRAW(enemies[i].x, (uint8_t)(enemies[i].y - 1), _TILE_3, c);
     }

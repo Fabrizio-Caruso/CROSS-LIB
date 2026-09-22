@@ -71,7 +71,7 @@ static const uint8_t room_damage[NUM_ROOMS] = {
 
 static const uint8_t room_score[NUM_ROOMS] = {
     0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 500, 0,
+    0, 0, 0, 0, 0, 0, 250, 0,
     0, 0, 0, 0, 0, 0
 };
 
@@ -278,11 +278,11 @@ static void print_enemy_info(uint8_t enemy_type, uint8_t enemy_hp,
     _XL_PRINTD(27, 13, 1, enemy_max);
 }
 
-static void print_message(uint8_t y, const char *msg, uint8_t color)
-{
-    _XL_SET_TEXT_COLOR(color);
-    _XL_PRINT(2, y, msg);
-}
+// static void print_message(uint8_t y, const char *msg, uint8_t color)
+// {
+    // _XL_SET_TEXT_COLOR(color);
+    // _XL_PRINT(2, y, msg);
+// }
 
 static uint8_t get_enemy_hp(uint8_t room)
 {

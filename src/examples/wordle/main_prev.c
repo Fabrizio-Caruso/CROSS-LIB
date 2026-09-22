@@ -83,15 +83,15 @@ uint8_t wordle_is_valid(const char *word)
 }
 
 
-// static uint8_t c2t(uint8_t ch)
-// {
-    // return (uint8_t)(ch - 'A' + 1);
-// }
+static uint8_t c2t(uint8_t ch)
+{
+    return (uint8_t)(ch - 'A' + 1);
+}
 
-// static uint8_t t2c(uint8_t t)
-// {
-    // return (uint8_t)(t - 1 + 'A');
-// }
+static uint8_t t2c(uint8_t t)
+{
+    return (uint8_t)(t - 1 + 'A');
+}
 
 static void draw_cell(uint8_t row, uint8_t col, uint8_t tile_id, uint8_t color)
 {
@@ -332,8 +332,8 @@ int main(void)
     uint8_t all_set;
     uint8_t i;
     char word[6];
-    // uint8_t prev_cursor;
-    // uint8_t prev_letter;
+    uint8_t prev_cursor;
+    uint8_t prev_letter;
 
     _XL_INIT_GRAPHICS();
     _XL_INIT_INPUT();
@@ -349,7 +349,7 @@ int main(void)
 
             if (_XL_LEFT(input))
             {
-                // prev_cursor = cursor;
+                prev_cursor = cursor;
                 if (cursor > 0)
                 {
                     cursor--;
@@ -359,7 +359,7 @@ int main(void)
             }
             else if (_XL_RIGHT(input))
             {
-                // prev_cursor = cursor;
+                prev_cursor = cursor;
                 if (cursor < GRID_COLS - 1)
                 {
                     cursor++;
@@ -369,7 +369,7 @@ int main(void)
             }
             else if (_XL_UP(input))
             {
-                // prev_letter = guess[cursor];
+                prev_letter = guess[cursor];
                 if (guess[cursor] == 0)
                 {
                     guess[cursor] = 'A';
@@ -387,7 +387,7 @@ int main(void)
             }
             else if (_XL_DOWN(input))
             {
-                // prev_letter = guess[cursor];
+                prev_letter = guess[cursor];
                 if (guess[cursor] == 0)
                 {
                     guess[cursor] = 'Z';

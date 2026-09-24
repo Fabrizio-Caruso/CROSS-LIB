@@ -1,8 +1,9 @@
 #include "cross_lib.h"
 
-#define MAX_ENEMIES 64
-#define MAX_BULLETS 32
-#define MAX_ITEMS   8
+#define MAX_ENEMIES 18
+#define MAX_BULLETS 16
+#define MIN_BULLETS  4
+#define MAX_ITEMS   4
 #define ENEMY_MOVE_CHANCE 20
 #define UI_ROW 0
 #define PLAY_TOP 2
@@ -31,9 +32,7 @@ uint8_t fire_tick;
 
 static void draw_player(uint8_t x, uint8_t y, uint8_t dir)
 {
-    uint8_t col;
-    uint8_t t0;
-    uint8_t t1;
+    uint8_t col,t0,t1;
     col = invincible_timer ? _XL_YELLOW : _XL_CYAN;
     if (dir==0){t0=_TILE_10; t1=_TILE_11;} else {t0=_TILE_12; t1=_TILE_13;}
     _XL_DRAW(x,y,t0,col); _XL_DRAW(x,y+1,t1,col);
@@ -41,8 +40,7 @@ static void draw_player(uint8_t x, uint8_t y, uint8_t dir)
 static void del_player(uint8_t x,uint8_t y){_XL_DELETE(x,y);_XL_DELETE(x,y+1);}
 static void draw_enemy(uint8_t x,uint8_t y,uint8_t dir)
 {
-    uint8_t t0;
-    uint8_t t1;
+    uint8_t t0,t1;
     if (dir==0){t0=_TILE_20; t1=_TILE_21;} else {t0=_TILE_23; t1=_TILE_24;}
     _XL_DRAW(x,y,t0,_XL_RED); _XL_DRAW(x,y+1,t1,_XL_RED);
 }
@@ -69,42 +67,22 @@ static uint8_t bullet_hits_enemy(uint8_t bx, uint8_t by, uint8_t ex, uint8_t ey)
     if (by==ey || by==ey+1) return 1;
     return 0;
 }
-static void check_player_enemy_collision(void)
+
+
+
+void restart_gameplay(void)
 {
-    uint8_t i;
-    uint8_t e_top;
-    uint8_t e_bottom;
-    uint8_t p_top;
-    uint8_t p_bottom;
-    for (i=0;i<MAX_ENEMIES;i++){
-        if (!enemy_active[i]) continue;
-        if (enemy_x[i]!=player_x) continue;
-        e_top = enemy_y[i];
-        e_bottom = enemy_y[i]+1;
-        p_top = player_y;
-        p_bottom = player_y+1;
-        if (e_bottom < p_top || e_top > p_bottom) continue;
-        if (invincible_timer){
-            del_enemy(enemy_x[i],enemy_y[i]); enemy_active[i]=0; score+=20;
-        }else{
-            lives--; del_enemy(enemy_x[i],enemy_y[i]); enemy_active[i]=0; _XL_EXPLOSION_SOUND();
-        }
-    }
-}
-void init_game(void)
-{
-    uint8_t i;
-    uint8_t side;
+    uint8_t i,side;
     _XL_CLEAR_SCREEN();
     player_x = XSize/2; player_y = PLAY_TOP + (YSize-PLAY_TOP-2)/2;
-    player_dir = 1; last_move_dir = 3; lives = 3; score = 0; score_last = 0xFFFF;
-    fire_mode = 0; fire_upgrade_cnt = 0; max_bullets_allowed = 4;
+    player_dir = 1; last_move_dir = 3; 
+    fire_mode = 0; fire_upgrade_cnt = 0; max_bullets_allowed = MIN_BULLETS;
     invincible_timer = 0; fire_tick = 0;
     player_prev_x = player_x; player_prev_y = player_y; player_prev_dir = player_dir;
     for (i=0;i<MAX_ENEMIES;i++){enemy_active[i]=0;enemy_prev_active[i]=0;enemy_dir[i]=1;}
     for (i=0;i<MAX_BULLETS;i++) bullet_active[i]=0;
     for (i=0;i<MAX_ITEMS;i++) item_active[i]=0;
-    for (i=0;i<32;i++){
+    for (i=0;i<MAX_ENEMIES;i++){
         enemy_active[i]=1;
         side=_XL_RAND()%4;
         if (side==0){enemy_x[i]=0; enemy_y[i]=PLAY_TOP+(uint8_t)(_XL_RAND()%(YSize-PLAY_TOP-1));}
@@ -117,16 +95,56 @@ void init_game(void)
     }
     draw_player(player_x,player_y,player_dir);
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(UI_ROW,0,"SCORE"); _XL_PRINTD(6,UI_ROW,4,score);
+    _XL_PRINT(UI_ROW,0,"SCORE"); 
+    _XL_PRINTD(6,UI_ROW,4,score);
+    _XL_PRINT(XSize-1-6,0,"LIVES");
+    _XL_PRINTD(XSize-1,0,1,lives);
 }
-static uint8_t count_active_bullets(void)
+
+static void check_player_enemy_collision(void)
 {
     uint8_t i;
-    uint8_t c;
+    uint8_t e_top,e_bottom,p_top,p_bottom;
+    for (i=0;i<MAX_ENEMIES;i++){
+        if (!enemy_active[i]) continue;
+        if (enemy_x[i]!=player_x) continue;
+        e_top = enemy_y[i];
+        e_bottom = enemy_y[i]+1;
+        p_top = player_y;
+        p_bottom = player_y+1;
+        if (e_bottom < p_top || e_top > p_bottom) continue;
+        if (invincible_timer){
+            del_enemy(enemy_x[i],enemy_y[i]); enemy_active[i]=0; score+=20;
+        }else{
+            lives--; del_enemy(enemy_x[i],enemy_y[i]); enemy_active[i]=0; 
+            draw_player(player_x,player_y,player_dir);
+            _XL_EXPLOSION_SOUND();
+            _XL_SLEEP(1);
+            _XL_WAIT_FOR_INPUT();
+            restart_gameplay();
+        }
+    }
+}
+
+
+void init_game(void)
+{
+    score = 0;
+    lives = 3;
+    restart_gameplay();
+    lives = 3; score = 0; score_last = 0xFFFF;
+}
+
+
+static uint8_t count_active_bullets(void)
+{
+    uint8_t i,c;
     c=0;
     for(i=0;i<MAX_BULLETS;i++) if(bullet_active[i]) c++;
     return c;
 }
+
+
 void update_game(void)
 {
     uint8_t inp,i,j,k;
@@ -250,8 +268,6 @@ void update_game(void)
         if (!occupied){if (dx<0) enemy_dir[i]=0; else if (dx>0) enemy_dir[i]=1; enemy_x[i]=nx; enemy_y[i]=ny;}
     }
 
-    check_player_enemy_collision();
-
     for (i=0;i<MAX_ENEMIES;i++){
         if (enemy_active[i]!=enemy_prev_active[i]){
             if (enemy_prev_active[i]) del_enemy(enemy_prev_x[i],enemy_prev_y[i]);
@@ -265,6 +281,8 @@ void update_game(void)
             }
         }
     }
+    
+    check_player_enemy_collision();
 
     for (i=0;i<MAX_ITEMS;i++) if (item_active[i]){
         if (!enemy_occupies(item_x[i],item_y[i])) draw_item(item_x[i],item_y[i],item_type[i]);
@@ -284,9 +302,9 @@ void update_game(void)
                 }
             }else{
                 fire_upgrade_cnt++;
-                if (fire_upgrade_cnt==1) max_bullets_allowed=8;
-                else if (fire_upgrade_cnt==2) max_bullets_allowed=16;
-                else if (fire_upgrade_cnt==3){max_bullets_allowed=32; fire_mode=1;}
+                if (fire_upgrade_cnt==1) max_bullets_allowed=MIN_BULLETS+MIN_BULLETS/2;
+                else if (fire_upgrade_cnt==2) max_bullets_allowed=MIN_BULLETS*2;
+                else if (fire_upgrade_cnt==3){max_bullets_allowed=MAX_BULLETS; fire_mode=1;}
                 else score+=500;
             }
             item_active[i]=0;
@@ -307,13 +325,27 @@ void update_game(void)
         }
     }
 }
+
+
 int main(void)
 {
-    _XL_INIT_GRAPHICS(); _XL_INIT_INPUT(); _XL_INIT_SOUND();
+    _XL_INIT_GRAPHICS(); 
+    _XL_INIT_INPUT(); 
+    _XL_INIT_SOUND();
+    
     init_game();
+    
     while (1){
-        update_game(); _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
-        if (lives<=0){_XL_SET_TEXT_COLOR(_XL_WHITE);_XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");_XL_WAIT_FOR_INPUT();init_game();}
+        update_game(); 
+        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+        if (lives<=0)
+        {
+            _XL_SET_TEXT_COLOR(_XL_WHITE);
+            _XL_PRINT(XSize/2-4,YSize/2,"GAME OVER");
+            _XL_SLEEP(1);
+            _XL_WAIT_FOR_INPUT();
+            init_game();
+        }
     }
     return 0;
 }

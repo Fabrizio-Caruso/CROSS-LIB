@@ -901,6 +901,9 @@ static void check_collisions(void)
             if (!invincible) {
                 lives--;
                 _XL_EXPLOSION_SOUND();
+                _XL_SLEEP(1);
+                _XL_WAIT_FOR_INPUT();
+                _XL_CLEAR_SCREEN(); 
                 if (lives > 0) { px=1; py=1; }
             }
         }
@@ -937,21 +940,30 @@ static void render(void)
     uint8_t start_y;
     uint8_t end_y;
     short delta;
+    short del;
     uint8_t radius = VIS_R+2*full_visible;
     
     delta = px - radius;
-    if(delta>=0)
+    if(delta>0)
     {
         start_x = delta;
+        for(del=py-2;del<=py+2;++del)
+        {
+            _XL_DELETE(start_x-1, del);
+        }
     }
     else
     {
         start_x = 0;
     }
     delta = py - radius;
-    if(delta>=0)
+    if(delta>0)
     {
         start_y = delta;
+        for(del=px-2;del<=px+2;++del)
+        {
+            _XL_DELETE(del, start_y-1);
+        }
     }
     else
     {
@@ -966,6 +978,10 @@ static void render(void)
     else
     {
         end_x = delta;
+        for(del=py-2;del<=py+2;++del)
+        {
+            _XL_DELETE(delta+1,del);
+        }
     }
     delta = py + radius;
     if(delta>=MAP_H-1)
@@ -975,6 +991,10 @@ static void render(void)
     else
     {
         end_y = delta;
+        for(del=px-2;del<=px+2;++del)
+        {
+            _XL_DELETE(del,delta+1);
+        }
     }
     
     

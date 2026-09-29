@@ -40,7 +40,7 @@ Article [in French], first published in the French magazine "Programmez! Hors s√
 -------------------------------------------
 
 
-## THE GAMES
+## SOME GAMES
 
 <p float="left">
   <img src="snapshots/XSnake_MSX2.png" width="100" />
@@ -52,7 +52,6 @@ Article [in French], first published in the French magazine "Programmez! Hors s√
 
 Click on the links below to play the games on your browser. 
 
-
 1. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#trex"><b>Trex</b></a> is a mini-game and an obvious clone of off-line Chrome T-Rex game.
 2. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#stinger"><b>Stinger</b></a> is a tank-shooter with several enemies, levels, power-ups and items to pick.
 3. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#shuriken"><b>Shuriken</b></a> is somehow inspired by Pac-man and Pengo.
@@ -62,6 +61,8 @@ Click on the links below to play the games on your browser.
 7. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#bomber"><b>Bomber</b></a> is a mini-game and clone of Air Attack (aka Blitz).
 8. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#shoot"><b>Shoot</b></a> is a shooter somehow similar to Robotron. It has many items and secrets to discover.
 9. <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/GAMES.md#chase"><b>Chase</b></a> is somehow similar to *Gnome Robots* but in real-time game and with several items and power-ups.
+
+More games are found among the examples in `src\examples`. 
 
 -------------------------------------------
 

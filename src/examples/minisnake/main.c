@@ -4,8 +4,8 @@
 #define SNAKE_MAX_LENGTH (((XSize)-2)*((YSize)-2)/2)
 #define INITIAL_SNAKE_LENGTH 3
 #define TILE_SNAKE_BODY _TILE_2
-#define TILE_FOOD _TILE_3
-#define TILE_BORDER _TILE_26
+#define TILE_FOOD       _TILE_3
+#define TILE_BORDER     _TILE_26
 #define TILE_HEAD_UP    _TILE_1
 #define TILE_HEAD_RIGHT _TILE_4
 #define TILE_HEAD_DOWN  _TILE_5
@@ -14,6 +14,10 @@
 #define TILE_TAIL_RIGHT _TILE_8
 #define TILE_TAIL_DOWN  _TILE_9
 #define TILE_TAIL_LEFT  _TILE_10
+
+#define SCORE_X 6
+#define HISCORE_X (XSize-1-4)
+
 
 /* Game state variables */
 uint8_t snake_x[SNAKE_MAX_LENGTH];
@@ -24,6 +28,9 @@ uint8_t food_x, food_y;
 uint16_t score;
 uint8_t game_over;
 uint16_t apples_spawned;
+uint8_t slowdown;
+uint16_t hiscore;
+
 
 /* Function declarations */
 void init_game(void);
@@ -42,6 +49,7 @@ void init_game(void)
     direction = 1;
     score = 0;
     game_over = 0;
+    slowdown = 5;
     apples_spawned = 0;
     for (i = 0; i < snake_length; i++)
     {
@@ -107,9 +115,21 @@ void move_snake(void)
     if (new_head_x == food_x && new_head_y == food_y)
     {
         snake_length++;
-        score += 10;
+        ++score;
         _XL_PING_SOUND();
         spawn_food();
+        if(score==10)
+        {
+            slowdown = 4;
+        }
+        else if(score==50)
+        {
+            slowdown = 3;
+        }
+        else if(score==100)
+        {
+            slowdown = 2;
+        }
     }
     for (i = snake_length - 1; i > 0; i--)
     {
@@ -214,6 +234,7 @@ void handle_input(uint8_t input)
         direction = 3;
 }
 
+
 int main(void)
 {
     uint8_t input;
@@ -228,16 +249,24 @@ int main(void)
     _XL_INIT_INPUT();
     _XL_INIT_SOUND();
 
+    hiscore = 0;
+    score = 0;
     while (1)
     {
         init_game();
         _XL_CLEAR_SCREEN();
         draw_border();
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(HISCORE_X-2,0,"HI");
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_PRINT(SCORE_X-5, 0, "SCORE");
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINT(1, 0, "SCORE");
-        _XL_PRINTD(7, 0, 3, score);
+        _XL_PRINTD(SCORE_X, 0, 4, 0);
+        _XL_PRINTD(HISCORE_X,0,4, hiscore);
         draw_snake_initial();
         draw_food();
+        _XL_SLEEP(1);
+        _XL_WAIT_FOR_INPUT();
 
         while (!game_over)
         {
@@ -254,18 +283,29 @@ int main(void)
             old_food_y = food_y;
 
             move_snake();
+            
+            
 
             if (check_collision())
             {
                 game_over = 1;
                 _XL_EXPLOSION_SOUND();
-                _XL_CLEAR_SCREEN();
+                _XL_SLEEP(1);
+                
                 _XL_SET_TEXT_COLOR(_XL_RED);
                 _XL_PRINT(XSize / 2 - 4, YSize / 2 - 1, "GAME OVER");
-                _XL_SET_TEXT_COLOR(_XL_WHITE);
-                _XL_PRINT(XSize / 2 - 5, YSize / 2 + 1, "SCORE");
-                _XL_PRINTD(XSize / 2 + 1, YSize / 2 + 1, 3, score);
+                
+                _XL_SLEEP(1);
+                
+                if(score>hiscore)
+                {
+                    hiscore=score;
+                    _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                    _XL_PRINT(XSize / 2 - 6, YSize / 2 + 1, "NEW HIGH SCORE");
+                    _XL_SLEEP(1);
+                }
                 _XL_WAIT_FOR_INPUT();
+
             }
             else
             {
@@ -290,7 +330,7 @@ int main(void)
                     _XL_DRAW(snake_x[snake_length - 1], snake_y[snake_length - 1], tail_tile, _XL_GREEN);
                     draw_food();
                     _XL_SET_TEXT_COLOR(_XL_WHITE);
-                    _XL_PRINTD(7, 0, 3, score);
+                    _XL_PRINTD(SCORE_X, 0, 4, score);
                 }
                 else
                 {
@@ -299,7 +339,7 @@ int main(void)
                     _XL_DRAW(snake_x[0], snake_y[0], head_tile, _XL_GREEN);
                     _XL_DRAW(snake_x[snake_length - 1], snake_y[snake_length - 1], tail_tile, _XL_GREEN);
                 }
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR * 5);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR * slowdown);
             }
         }
     }

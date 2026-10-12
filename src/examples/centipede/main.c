@@ -133,7 +133,7 @@ static void seed_mushrooms(uint8_t n)
     }
 }
 
-/* ===== centipede tile helper: head vs body (body includes tail) ===== */
+/* ===== centipede tile helper ===== */
 
 static uint8_t centi_tile(uint8_t idx)
 {
@@ -210,16 +210,33 @@ static void move_piece(uint8_t pi)
 {
     uint8_t hi, si, nsi, nx, ny, ox, oy, tile;
     uint8_t descend;
+    uint8_t tail_idx, tail_ox, tail_oy;
+    uint8_t has_next;
 
     if (!piece_active[pi]) return;
     hi = piece_head[pi];
     if (!seg_alive[hi]) { piece_active[pi] = 0; return; }
 
-    nx = seg_x[hi];
-    ny = seg_y[hi];
+    /* find tail */
+    tail_idx = hi;
+    nsi = seg_next[hi];
+    has_next = (nsi != 0xFF);
+    while (has_next && seg_alive[nsi]) {
+        tail_idx = nsi;
+        nsi = seg_next[nsi];
+        has_next = (nsi != 0xFF);
+    }
+    tail_ox = seg_x[tail_idx];
+    tail_oy = seg_y[tail_idx];
+
+    ox = seg_x[hi];
+    oy = seg_y[hi];
+    nx = ox;
+    ny = oy;
     descend = 0;
 
     if (piece_in_area[pi]) {
+        /* --- player area: bounce off walls, go up at bottom --- */
         if (piece_dir[pi]) {
             nx++;
             if (nx >= XSize) nx = 0;
@@ -237,52 +254,98 @@ static void move_piece(uint8_t pi)
             }
         }
     } else {
+        /* --- centipede area --- */
         if (piece_dir[pi]) {
             nx++;
-            if (nx >= XSize) { descend = 1; nx = seg_x[hi]; }
+            if (nx >= XSize) {
+                if (ny >= (uint8_t)(YSize - 1)) {
+                    /* last row + border: go up one row */
+                    ny--;
+                    piece_dir[pi] = (uint8_t)(1 - piece_dir[pi]);
+                    nx = ox;
+                } else {
+                    descend = 1;
+                    nx = ox;
+                }
+            }
         } else {
-            if (nx == 0) { descend = 1; }
-            else nx--;
+            if (nx == 0) {
+                if (ny >= (uint8_t)(YSize - 1)) {
+                    ny--;
+                    piece_dir[pi] = (uint8_t)(1 - piece_dir[pi]);
+                    nx = ox;
+                } else {
+                    descend = 1;
+                }
+            } else {
+                nx--;
+            }
         }
+
+        /* mushroom collision in centipede area */
         if (!descend && nx < XSize && ny < YSize && mush_hp[ny][nx] != 0) {
-            descend = 1;
-            nx = seg_x[hi];
+            if (mush_poison[ny][nx] != 0) {
+                /* poisoned: drop straight to last row */
+                ny = (uint8_t)(YSize - 1);
+                nx = ox;
+                piece_dir[pi] = (uint8_t)(1 - piece_dir[pi]);
+                if (ny >= PLAYER_MIN_Y) piece_in_area[pi] = 1;
+            } else {
+                descend = 1;
+                nx = ox;
+            }
         }
+
         if (descend) {
             ny++;
             piece_dir[pi] = (uint8_t)(1 - piece_dir[pi]);
             if (ny >= YSize) ny = (uint8_t)(YSize - 1);
             if (ny >= PLAYER_MIN_Y) piece_in_area[pi] = 1;
             if (nx < XSize && ny < YSize && mush_hp[ny][nx] != 0) {
-                ny++;
-                if (ny >= YSize) ny = (uint8_t)(YSize - 1);
-                if (ny >= PLAYER_MIN_Y) piece_in_area[pi] = 1;
+                if (mush_poison[ny][nx] != 0) {
+                    ny = (uint8_t)(YSize - 1);
+                    if (ny >= PLAYER_MIN_Y) piece_in_area[pi] = 1;
+                } else {
+                    ny++;
+                    if (ny >= YSize) ny = (uint8_t)(YSize - 1);
+                    if (ny >= PLAYER_MIN_Y) piece_in_area[pi] = 1;
+                }
             }
         }
     }
 
     if (ny < CENTI_MIN_Y) ny = CENTI_MIN_Y;
 
+    /* shift positions along the chain */
     si = hi;
     {
         uint8_t cur_x = nx;
         uint8_t cur_y = ny;
         while (si != 0xFF && seg_alive[si]) {
             nsi = seg_next[si];
-            ox = seg_x[si];
-            oy = seg_y[si];
-            seg_x[si] = cur_x;
-            seg_y[si] = cur_y;
-            if (ox != seg_x[si] || oy != seg_y[si]) {
-                tile = centi_tile(si);
-                _XL_DELETE(ox, oy);
-                _XL_DRAW(seg_x[si], seg_y[si], tile, _XL_RED);
+            {
+                uint8_t save_x = seg_x[si];
+                uint8_t save_y = seg_y[si];
+                seg_x[si] = cur_x;
+                seg_y[si] = cur_y;
+                cur_x = save_x;
+                cur_y = save_y;
             }
-            cur_x = ox;
-            cur_y = oy;
             si = nsi;
         }
     }
+
+    /* minimal redraw: delete tail, old head -> body, new head */
+    _XL_DELETE(tail_ox, tail_oy);
+
+    if (seg_next[hi] != 0xFF && seg_alive[seg_next[hi]]) {
+        /* old head position now holds a body segment */
+        tile = centi_tile(seg_next[hi]);
+        _XL_DRAW(ox, oy, tile, _XL_RED);
+    }
+
+    /* draw new head */
+    _XL_DRAW(nx, ny, centi_tile(hi), _XL_RED);
 }
 
 static void update_centipede(void)
@@ -844,10 +907,12 @@ static void update_spider(void)
 
 static void spawn_scorpion(void)
 {
+    uint16_t range;
     if (sc_active) return;
     sc_x = (uint8_t)(_XL_RAND() % (uint16_t)XSize);
-    sc_y = (uint8_t)(PLAYER_MIN_Y + (_XL_RAND() % (uint16_t)(YSize - PLAYER_MIN_Y)));
-    if (sc_y >= YSize) sc_y = (uint8_t)(YSize - 1);
+    range = (uint16_t)(PLAYER_MIN_Y - CENTI_MIN_Y);
+    if (range == 0) range = 1;
+    sc_y = (uint8_t)(CENTI_MIN_Y + (_XL_RAND() % range));
     sc_dir = (uint8_t)(_XL_RAND() & 1);
     sc_active = 1;
     _XL_DRAW(sc_x, sc_y, _TILE_8, _XL_BLUE);
@@ -862,7 +927,8 @@ static void update_scorpion(void)
     if (sc_dir) { nx++; if (nx >= XSize) nx = 0; }
     else { if (nx == 0) nx = (uint8_t)(XSize - 1); else nx--; }
 
-    if (mush_hp[sc_y][nx] != 0 && mush_poison[sc_y][nx] == 0) {
+    /* infect mushrooms the scorpion encounters */
+    if (sc_y < YSize && nx < XSize && mush_hp[sc_y][nx] != 0 && mush_poison[sc_y][nx] == 0) {
         mush_poison[sc_y][nx] = 1;
         _XL_DELETE(nx, sc_y);
         _XL_DRAW(nx, sc_y, _TILE_2, _XL_MAGENTA);

@@ -10,6 +10,21 @@
 #define DRAW_Y_OFFSET 2
 #define NUM_GEMS 10
 
+// Tiles
+#define T_PLAYER  _TILE_0
+//
+//
+//
+#define T_FLOOR       _TILE_4
+#define T_WALL        _TILE_5
+#define T_CLOSED_EXIT _TILE_6
+#define T_BULLET      _TILE_7
+#define T_MONSTER     _TILE_8
+#define T_OPEN_EXIT   _TILE_9
+#define T_GEM         _TILE_10
+#define T_KEY         _TILE_11
+#define T_TORCH       _TILE_12
+
 uint8_t maze[MAZE_SIZE][MAZE_SIZE];
 uint8_t player_x, player_y;
 uint8_t player_dir;
@@ -42,19 +57,23 @@ uint8_t collected_gems;
 
 void draw_hud(void)
 {
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINT(XSize-1-8, 0, "LV");
-    _XL_PRINTD(XSize-1-8+3, 0, 5, level);
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(XSize-1-4, 0, "LV");
+    _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(0, 0, "SCORE");
-    _XL_PRINTD(6, 0, 5, score);
+
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+
+    _XL_PRINTD(XSize-1-4+2, 0, 2, level);
+    _XL_PRINTD(5, 0, 5, score);
 
     if (_has_key) {
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        _XL_PRINT(XSize/2-4, 1, "KEY");
+        _XL_PRINT(2, 1, "KEY");
     }
     if (has_torch) {
         _XL_SET_TEXT_COLOR(_XL_MAGENTA);
-        _XL_PRINT(XSize/2+5, 1, "TORCH");
+        _XL_PRINT(XSize-8, 1, "TORCH");
     }
 }
 
@@ -267,7 +286,7 @@ void move_monsters(void)
                 else nx = monster_x[i] - 1;
                 ny = monster_y[i];
                 if (nx < MAZE_SIZE && is_path(nx, ny)) {
-                    _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                    _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                     monster_x[i] = nx;
                     moved = 1;
                 }
@@ -277,7 +296,7 @@ void move_monsters(void)
                 if (dy == 1) ny = monster_y[i] + 1;
                 else ny = monster_y[i] - 1;
                 if (ny < MAZE_SIZE && is_path(nx, ny)) {
-                    _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                    _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                     monster_y[i] = ny;
                     moved = 1;
                 }
@@ -290,7 +309,7 @@ void move_monsters(void)
                     else ny = 0;
                     if (ny < MAZE_SIZE && is_path(nx, ny)) 
                     {   
-                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                         monster_y[i] = ny;
                     }
                 } else if (d == 1) {
@@ -299,7 +318,7 @@ void move_monsters(void)
                     ny = monster_y[i];
                     if (nx < MAZE_SIZE && is_path(nx, ny)) 
                     {
-                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                         monster_x[i] = nx;
                     }
                 } else if (d == 2) {
@@ -308,7 +327,7 @@ void move_monsters(void)
                     else ny = 0;
                     if (ny < MAZE_SIZE && is_path(nx, ny)) 
                     {
-                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                         monster_y[i] = ny;
                     }
                 } else {
@@ -317,13 +336,13 @@ void move_monsters(void)
                     ny = monster_y[i];
                     if (nx < MAZE_SIZE && is_path(nx, ny)) 
                     {
-                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, _TILE_1, _XL_BLUE);
+                        _XL_DRAW(monster_x[i], monster_y[i]+DRAW_Y_OFFSET, T_FLOOR, _XL_BLUE);
                         monster_x[i] = nx;
                     }
                 }
             }
         }
-        _XL_DRAW(monster_x[i], monster_y[i]+ DRAW_Y_OFFSET, _TILE_7, _XL_RED);
+        _XL_DRAW(monster_x[i], monster_y[i]+ DRAW_Y_OFFSET, T_MONSTER, _XL_RED);
     }
 }
 
@@ -332,8 +351,8 @@ void move_bullet(void)
     uint8_t nx, ny;
     uint8_t i;
 
-    _XL_PRINTD(0,1,1,bullet_active);
-    _XL_PRINTD(4,1,1,bullet_dir);
+    // _XL_PRINTD(0,1,1,bullet_active);
+    // _XL_PRINTD(4,1,1,bullet_dir);
 
     if (!bullet_active) return;
 
@@ -367,7 +386,7 @@ void move_bullet(void)
         ny = bullet_y;
     }
 
-    _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
+    // _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
 
 
     if (!nx || !ny || nx >= MAZE_SIZE || ny >= MAZE_SIZE || !is_path(nx, ny)) {
@@ -390,12 +409,12 @@ void move_bullet(void)
     bullet_x = nx;
     bullet_y = ny;
     if (bullet_active) {
-        _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_8, _XL_CYAN);
+        _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, T_BULLET, _XL_CYAN);
     }
-    else
-    {
-        _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
-    }
+    // else
+    // {
+        // _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_0, _XL_BLUE);
+    // }
 }
 
 
@@ -405,22 +424,6 @@ void draw_screen(void)
     uint8_t dist;
     uint8_t i;
     uint8_t dy;
-    // uint8_t partial_diamond;
-    
-    // _XL_CLEAR_SCREEN();
-    // partial_diamond = 0;
-    // for (y = 0; y < MAZE_SIZE; y++) {
-        // dy = y + DRAW_Y_OFFSET;
-        // for (x = 0; x < MAZE_SIZE; x++) {
-            // dist = manhattan_dist(x, y, player_x, player_y);
-            // if (dist > vision_radius) partial_diamond = 1;
-        // }
-    // }
-    // if(partial_diamond)
-    // {
-        // _XL_CLEAR_SCREEN();
-        // draw_hud();
-    // }
 
     for (y = 0; y < MAZE_SIZE; y++) {
         dy = y + DRAW_Y_OFFSET;
@@ -428,36 +431,36 @@ void draw_screen(void)
             dist = manhattan_dist(x, y, player_x, player_y);
             if (dist > vision_radius) continue;
             if (maze[x][y] == 0) {
-                _XL_DRAW(x, dy, _TILE_0, _XL_WHITE);
+                _XL_DRAW(x, dy, T_WALL, _XL_WHITE);
             } else {
-                _XL_DRAW(x, dy, _TILE_1, _XL_BLUE);
+                _XL_DRAW(x, dy, T_FLOOR, _XL_BLUE);
             }
         }
     }
 
     // The key
     if (!_has_key && manhattan_dist(key_x, key_y, player_x, player_y) <= vision_radius) {
-        _XL_DRAW(key_x, key_y + DRAW_Y_OFFSET, _TILE_3, _XL_YELLOW);
+        _XL_DRAW(key_x, key_y + DRAW_Y_OFFSET, T_KEY, _XL_YELLOW);
     }
 
     // The torch
     if (!has_torch && manhattan_dist(torch_x, torch_y, player_x, player_y) <= vision_radius) {
-        _XL_DRAW(torch_x, torch_y + DRAW_Y_OFFSET, _TILE_4, _XL_MAGENTA);
+        _XL_DRAW(torch_x, torch_y + DRAW_Y_OFFSET, T_TORCH, _XL_MAGENTA);
     }
 
     // The exit
     if (manhattan_dist(exit_x, exit_y, player_x, player_y) <= vision_radius) {
         if (_has_key) {
-            _XL_DRAW(exit_x, exit_y + DRAW_Y_OFFSET, _TILE_6, _XL_GREEN);
+            _XL_DRAW(exit_x, exit_y + DRAW_Y_OFFSET, T_OPEN_EXIT, _XL_GREEN);
         } else {
-            _XL_DRAW(exit_x, exit_y + DRAW_Y_OFFSET, _TILE_5, _XL_RED);
+            _XL_DRAW(exit_x, exit_y + DRAW_Y_OFFSET, T_CLOSED_EXIT, _XL_RED);
         }
     }
 
     // The gems
     for (i = 0; i < NUM_GEMS; i++) {
         if (gem_alive[i] && manhattan_dist(gem_x[i], gem_y[i], player_x, player_y) <= vision_radius) {
-            _XL_DRAW(gem_x[i], gem_y[i] + DRAW_Y_OFFSET, _TILE_9, _XL_GREEN);
+            _XL_DRAW(gem_x[i], gem_y[i] + DRAW_Y_OFFSET, T_GEM, _XL_GREEN);
         }
     }
 
@@ -471,7 +474,7 @@ void draw_screen(void)
         // _XL_DRAW(bullet_x, bullet_y + DRAW_Y_OFFSET, _TILE_8, _XL_CYAN);
     // }
 
-    _XL_DRAW(player_x, player_y + DRAW_Y_OFFSET, _TILE_2, _XL_GREEN);
+    _XL_DRAW(player_x, player_y + DRAW_Y_OFFSET, T_PLAYER, _XL_GREEN);
 
 }
 

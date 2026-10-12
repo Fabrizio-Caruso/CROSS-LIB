@@ -1,6 +1,6 @@
 #include "cross_lib.h"
 
-#define MAP_SIZE 100
+#define MAP_SIZE 70
 #define NUM_EASY 8
 #define NUM_HARD 5
 #define NUM_VERY_HARD 3

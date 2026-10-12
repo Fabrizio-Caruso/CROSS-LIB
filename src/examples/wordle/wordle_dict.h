@@ -1,3 +1,5 @@
+
+
 // static const uint16_t wordle_words_count = 5757;
 
 const char *const wordle_words[]  = {

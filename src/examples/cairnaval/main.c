@@ -301,11 +301,14 @@ static void game_loop(void)
         }
 
         /* HUD */
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
         _XL_PRINT(0, 0, "SCORE");
-        _XL_PRINTD(5, 0, 1, score);
-        _XL_PRINT(XSize - 8, 0, "AMMO");
-        _XL_PRINTD(XSize - 2, 0, 1, ammo);
+        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+        _XL_PRINT(XSize - 7, 0, "AMMO");
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+
+        _XL_PRINTD(5, 0, 5, score);
+        _XL_PRINTD(XSize - 7 + 4, 0, 3, ammo);
 
         /* Game over check */
         if (ammo == 0) {
@@ -327,8 +330,8 @@ static void game_loop(void)
     _XL_PRINT(XSize / 4, YSize / 3, "GAME OVER");
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_SLEEP(1);
-    _XL_PRINT(2, YSize / 2 - 1, "FINAL SCORE");
-    _XL_PRINTD(10, YSize / 2 - 1, 1, score);
+    // _XL_PRINT(2, YSize / 2 - 1, "FINAL SCORE");
+    // _XL_PRINTD(10, YSize / 2 - 1, 1, score);
     _XL_PRINT(2, YSize / 2 + 2, "PRESS ANY KEY");
 
     _XL_WAIT_FOR_INPUT();

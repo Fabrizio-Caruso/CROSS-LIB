@@ -1,11 +1,6 @@
 #include "cross_lib.h"
 #include "wordle_dict.h"
 
-/* wordle_dict.h is expected to provide:
-   const char *wordle_get_word(uint16_t index);
-   uint16_t wordle_word_count(void);
-   uint8_t  wordle_is_valid(const char *word);
-*/
 
 #define GRID_COLS   5
 #define GRID_ROWS   6
@@ -24,16 +19,6 @@
 #define T_GREEN     0
 #define T_YELLOW    1
 #define T_GRAY      2
-
-// static const char *const wordle_words[] =
-// {
-    // "WORDLE",
-    // "APPLE",
-    // "BRAVE",
-    // "CRAFT",
-    // "DREAM",
-    // /* ... your existing words ... */
-// };
 
 static const uint16_t wordle_words_count =
     (uint16_t)(sizeof(wordle_words) / sizeof(wordle_words[0]));
@@ -70,28 +55,15 @@ uint8_t wordle_is_valid(const char *word)
     uint16_t i;
     if (word == 0)
         return 0;
-    // _XL_PRINT(0,14,word);
     
     for (i = 0; i < wordle_words_count; i++)
     {
-        // _XL_PRINT(0,15,wordle_words[i]);
-        // _XL_WAIT_FOR_INPUT();
         if (wordle_word_eq(word, wordle_words[i]))
             return 1;
     }
     return 0;
 }
 
-
-// static uint8_t c2t(uint8_t ch)
-// {
-    // return (uint8_t)(ch - 'A' + 1);
-// }
-
-// static uint8_t t2c(uint8_t t)
-// {
-    // return (uint8_t)(t - 1 + 'A');
-// }
 
 static void draw_cell(uint8_t row, uint8_t col, uint8_t tile_id, uint8_t color)
 {
@@ -107,12 +79,9 @@ static void draw_empty_cell(uint8_t row, uint8_t col)
 
 static void draw_letter_cell(uint8_t row, uint8_t col, uint8_t letter, uint8_t color)
 {
-    // draw_cell(row, col, c2t(letter), color);
     uint8_t x = (uint8_t)(GRID_X + col * TILE_SP);
     uint8_t y = (uint8_t)(GRID_Y + row * TILE_SP);
     _XL_SET_TEXT_COLOR(color);
-    // _XL_CHAR(x,y,c2t(letter));
-    // _XL_DRAW(x, y, c2t(letter), color);
     _XL_CHAR(x, y, 'A'+letter-1);
 
 }
@@ -332,9 +301,7 @@ int main(void)
     uint8_t all_set;
     uint8_t i;
     char word[6];
-    // uint8_t prev_cursor;
-    // uint8_t prev_letter;
-
+    
     _XL_INIT_GRAPHICS();
     _XL_INIT_INPUT();
     _XL_INIT_SOUND();

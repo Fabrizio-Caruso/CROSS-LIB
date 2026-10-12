@@ -19,6 +19,11 @@
 #define ROAD_RIGHT  ((uint8_t)(XSize / 2 + (ROAD_WIDTH/2)))
 #define ROAD_CENTER ((uint8_t)(XSize / 2))
 
+#define BIG_ENEMY_TL _TILE_5
+#define BIG_ENEMY_TR _TILE_6
+#define BIG_ENEMY_BL _TILE_7
+#define BIG_ENEMY_BR _TILE_8
+
 /*
  * Player car – two tiles tall, half-tile horizontal movement.
  *   Even player_hx = 2n  =>  2-wide car: columns [n, n+1]
@@ -28,8 +33,8 @@
  */
 
 typedef struct {
-    uint8_t x;
-    uint8_t y;       /* top tile of the car */
+    uint8_t x;       /* top-left tile of the enemy car */
+    uint8_t y;       /* top tile of the enemy car      */
     uint8_t active;
 } Obstacle;
 
@@ -79,21 +84,92 @@ uint8_t player_right_col(void)
     if (player_hx & 1u) {
         /* Odd: 3-wide, right = left + 2 */
         uint8_t right = (uint8_t)((player_hx / 2u) + 2u);
+
         if (right > ROAD_RIGHT) return ROAD_RIGHT;
         return right;
     } else {
         /* Even: 2-wide, right = left + 1 */
         uint8_t right = (uint8_t)((player_hx / 2u) + 1u);
+
         if (right > ROAD_RIGHT) return ROAD_RIGHT;
         return right;
     }
 }
 
-/* Draw one vertical car column at x: top and bottom tile. */
+/*
+ * Determine the specific tile ID for a player cell based on:
+ * 1. Parity (Even = 2-wide, Odd = 3-wide)
+ * 2. Position within that shape (Left/Middle/Right column, Top/Bottom row)
+ */
+uint8_t get_player_tile_id(uint8_t x, uint8_t y)
+{
+    uint8_t left_col;
+    uint8_t col_offset;
+    uint16_t top_y;
+    uint16_t bottom_y;
+
+    left_col = player_left_col();
+
+    /* Calculate relative column index (0 for leftmost, 1 for next, etc.) */
+    if (x < left_col) return _TILE_5; /* Fallback, shouldn't happen */
+    col_offset = (uint8_t)(x - left_col);
+
+    top_y = (uint16_t)(YSize - 2u);
+    bottom_y = (uint16_t)(YSize - 1u);
+
+    if (!(player_hx & 1u)) {
+        /* --- EVEN POSITION: 2 Columns Wide --- */
+        /* Uses _TILE_5, _TILE_6, _TILE_7, _TILE_8 */
+
+        if (y == top_y) {
+            /* Top Row */
+            if (col_offset == 0u) return _TILE_5; /* Top-Left */
+            else                  return _TILE_6; /* Top-Right */
+        }
+        else if (y == bottom_y) {
+            /* Bottom Row */
+            if (col_offset == 0u) return _TILE_7; /* Bottom-Left */
+            else                  return _TILE_8; /* Bottom-Right */
+        }
+    }
+    else {
+        /* --- ODD POSITION: 3 Columns Wide --- */
+        /* Uses _TILE_9, _TILE_10, _TILE_11, _TILE_12, _TILE_13, _TILE_14 */
+
+        if (y == top_y) {
+            /* Top Row */
+            if (col_offset == 0u)      return _TILE_9;  /* Top-Left */
+            else if (col_offset == 1u) return _TILE_10; /* Top-Middle */
+            else                       return _TILE_11; /* Top-Right */
+        }
+        else if (y == bottom_y) {
+            /* Bottom Row */
+            if (col_offset == 0u)      return _TILE_12; /* Bottom-Left */
+            else if (col_offset == 1u) return _TILE_13; /* Bottom-Middle */
+            else                       return _TILE_14; /* Bottom-Right */
+        }
+    }
+
+    return _TILE_5; /* Fallback */
+}
+
+/* Draw one vertical car column at x. */
 void draw_player_column(uint8_t x)
 {
-    _XL_DRAW(x, (uint8_t)(YSize - 2), _TILE_6, _XL_CYAN); /* top tile   */
-    _XL_DRAW(x, (uint8_t)(YSize - 1), _TILE_5, _XL_CYAN); /* bottom tile*/
+    uint8_t y_top;
+    uint8_t y_bottom;
+    uint8_t tile_id_top;
+    uint8_t tile_id_bottom;
+
+    y_top = (uint8_t)(YSize - 2);
+    y_bottom = (uint8_t)(YSize - 1);
+
+    /* Get the specific unique tiles for this exact cell */
+    tile_id_top = get_player_tile_id(x, y_top);
+    tile_id_bottom = get_player_tile_id(x, y_bottom);
+
+    _XL_DRAW(x, y_top, tile_id_top, _XL_CYAN);     /* top tile   */
+    _XL_DRAW(x, y_bottom, tile_id_bottom, _XL_CYAN);/* bottom tile*/
 }
 
 /* Delete one vertical car column at x and restore road underneath. */
@@ -101,6 +177,7 @@ void delete_player_column(uint8_t x)
 {
     _XL_DELETE(x, (uint8_t)(YSize - 2));
     draw_road_tile(x, (uint8_t)(YSize - 2));
+
     _XL_DELETE(x, (uint8_t)(YSize - 1));
     draw_road_tile(x, (uint8_t)(YSize - 1));
 }
@@ -137,54 +214,30 @@ void delete_player(void)
 
 /*
  * Move player one half-tile to the left.
- *   even(2n)  -> odd(2n-1):  old [n, n+1]       new [n-1, n, n+1]   => add col n-1
- *   odd (2n+1)-> even(2n) :  old [n, n+1, n+2]  new [n, n+1]         => del col n+2
  */
 void player_move_left(void)
 {
-    uint8_t old_right;
-
     if (player_hx == ROAD_LEFT * 2u) return;
 
-    old_right = player_right_col();
-
-    if (player_hx & 1u) {
-        /* Odd -> Even: remove the rightmost column */
-        player_hx--;
-        delete_player_column(old_right);
-    } else {
-        /* Even -> Odd: add a new leftmost column */
-        player_hx--;
-        draw_player_column(player_left_col());
-    }
+    delete_player();
+    player_hx--;
+    draw_player();
 }
 
 /*
  * Move player one half-tile to the right.
- *   even(2n)  -> odd(2n+1):  old [n, n+1]       new [n, n+1, n+2]   => add col n+2
- *   odd (2n+1)-> even(2n+2): old [n, n+1, n+2]  new [n+1, n+2]      => del col n
  */
 void player_move_right(void)
 {
-    uint8_t old_left;
-
     if (player_hx >= (uint16_t)((ROAD_RIGHT - 1u) * 2u)) return;
 
-    old_left = player_left_col();
-
-    if (!(player_hx & 1u)) {
-        /* Even -> Odd: add a new rightmost column */
-        player_hx++;
-        draw_player_column(player_right_col());
-    } else {
-        /* Odd -> Even: remove the leftmost column */
-        delete_player_column(old_left);
-        player_hx++;
-    }
+    delete_player();
+    player_hx++;
+    draw_player();
 }
 
 /* ------------------------------------------------------------------ */
-/*  Obstacle cars – two tiles tall, move within road                   */
+/*  Obstacle cars – 2 tiles wide, 2 tiles tall                         */
 /* ------------------------------------------------------------------ */
 
 uint8_t spawn_obstacle(void)
@@ -195,15 +248,32 @@ uint8_t spawn_obstacle(void)
 
     for (i = 0; i < MAX_OBSTACLES; i++) {
         if (!obstacles[i].active) {
-            span = (uint16_t)(ROAD_RIGHT - ROAD_LEFT + 1u);
+            /*
+             * Enemy car is 2 tiles wide.
+             * x stores the top-left column, so valid range is:
+             * ROAD_LEFT ... ROAD_RIGHT - 1
+             */
+            span = (uint16_t)(ROAD_RIGHT - ROAD_LEFT);
             rx   = _XL_RAND() % span;
 
             obstacles[i].x      = (uint8_t)(ROAD_LEFT + rx);
             obstacles[i].y      = 0;
             obstacles[i].active = 1;
 
-            _XL_DRAW(obstacles[i].x, 0, _TILE_3, _XL_RED);   /* top    */
-            _XL_DRAW(obstacles[i].x, 1, _TILE_4, _XL_RED);   /* bottom */
+
+
+            /* Top row of the 2x2 enemy car */
+            _XL_DRAW(obstacles[i].x,        0, BIG_ENEMY_TL,  _XL_RED); /* top-left    */
+            _XL_DRAW((uint8_t)(obstacles[i].x + 1u),
+                     0, BIG_ENEMY_TR,  _XL_RED); /* top-right   */
+
+            /* Bottom row of the 2x2 enemy car */
+            if (1u < (uint8_t)YSize) {
+                _XL_DRAW(obstacles[i].x,        1, BIG_ENEMY_BL, _XL_RED); /* bottom-left  */
+                _XL_DRAW((uint8_t)(obstacles[i].x + 1u),
+                         1, BIG_ENEMY_BR, _XL_RED); /* bottom-right */
+            }
+
             return 1;
         }
     }
@@ -211,34 +281,68 @@ uint8_t spawn_obstacle(void)
     return 0;
 }
 
+/* Delete a full 2x2 enemy car whose top-left corner is (x, y_top). */
 void delete_obstacle_tiles(uint8_t x, uint8_t y_top)
 {
+    uint8_t right_x = (uint8_t)(x + 1u);
+    uint8_t bottom_y;
+
+    /* Top row */
     _XL_DELETE(x, y_top);
     draw_road_tile(x, y_top);
 
-    if ((uint16_t)y_top + 1u < (uint16_t)YSize) {
-        _XL_DELETE(x, (uint8_t)(y_top + 1));
-        draw_road_tile(x, (uint8_t)(y_top + 1));
+    if (right_x <= ROAD_RIGHT) {
+        _XL_DELETE(right_x, y_top);
+        draw_road_tile(right_x, y_top);
+    }
+
+    /* Bottom row */
+    bottom_y = (uint8_t)(y_top + 1u);
+
+    if (bottom_y < (uint8_t)YSize) {
+        _XL_DELETE(x, bottom_y);
+        draw_road_tile(x, bottom_y);
+
+        if (right_x <= ROAD_RIGHT) {
+            _XL_DELETE(right_x, bottom_y);
+            draw_road_tile(right_x, bottom_y);
+        }
     }
 }
 
+/* Draw a full 2x2 enemy car whose top-left corner is (x, y_top). */
 void draw_obstacle_tiles(uint8_t x, uint8_t y_top)
 {
-    _XL_DRAW(x, y_top, _TILE_3, _XL_RED);
+    uint8_t right_x = (uint8_t)(x + 1u);
+    uint8_t bottom_y;
 
-    if ((uint16_t)y_top + 1u < (uint16_t)YSize) {
-        _XL_DRAW(x, (uint8_t)(y_top + 1), _TILE_4, _XL_RED);
+    /* Top row */
+    _XL_DRAW(x, y_top, BIG_ENEMY_TL, _XL_RED);       /* top-left   */
+
+    if (right_x <= ROAD_RIGHT) {
+        _XL_DRAW(right_x, y_top, BIG_ENEMY_TR, _XL_RED); /* top-right  */
+    }
+
+    /* Bottom row */
+    bottom_y = (uint8_t)(y_top + 1u);
+
+    if (bottom_y < (uint8_t)YSize) {
+        _XL_DRAW(x, bottom_y, BIG_ENEMY_BL, _XL_RED);   /* bottom-left */
+
+        if (right_x <= ROAD_RIGHT) {
+            _XL_DRAW(right_x, bottom_y, BIG_ENEMY_BR, _XL_RED); /* bottom-right */
+        }
     }
 }
 
-/* Lateral drift: move obstacle left or right by 1, clamped to road */
+/* Lateral drift: move obstacle left or right by 1, clamped to road. */
 short lateral_drift(uint8_t i)
 {
     uint16_t r = _XL_RAND() & 0x0Fu;   /* 0=left, 1=stay, 2=right */
 
     if (r == 0u && obstacles[i].x > ROAD_LEFT) {
         return -1;
-    } else if (r == 2u && obstacles[i].x < ROAD_RIGHT) {
+    } else if (r == 2u && (uint8_t)(obstacles[i].x + 1u) < ROAD_RIGHT) {
         return 1;
     }
 
@@ -264,25 +368,19 @@ void update_obstacles(void)
         /* Move down */
         obstacles[i].y++;
 
-        /* Apply lateral movement, clamped to road */
+        /* Apply lateral movement, clamped so the full 2-wide car stays on road */
         if (dx < 0) {
             if (obstacles[i].x > ROAD_LEFT) {
                 obstacles[i].x--;
             }
         } else if (dx > 0) {
-            if (obstacles[i].x < ROAD_RIGHT) {
+            if ((uint8_t)(obstacles[i].x + 1u) < ROAD_RIGHT) {
                 obstacles[i].x++;
             }
         }
 
-        /* Delete old position tiles, restore road */
-        _XL_DELETE(old_x, old_y);
-        draw_road_tile(old_x, old_y);
-
-        if ((uint16_t)old_y + 1u < (uint16_t)YSize) {
-            _XL_DELETE(old_x, (uint8_t)(old_y + 1));
-            draw_road_tile(old_x, (uint8_t)(old_y + 1));
-        }
+        /* Delete old 2x2 position and restore road underneath */
+        delete_obstacle_tiles(old_x, old_y);
 
         if (obstacles[i].y >= (uint8_t)(YSize - 1u)) {
             obstacles[i].active = 0;
@@ -302,7 +400,13 @@ uint8_t check_collision(void)
     uint8_t left;
     uint8_t right;
     uint8_t y_limit;
+    uint16_t obstacle_right_x;
 
+    /*
+     * Player occupies rows: YSize - 2 and YSize - 1.
+     * Enemy car occupies rows: y and y + 1.
+     * Vertical overlap begins when enemy top row is at or below YSize - 3.
+     */
     y_limit = (uint8_t)(YSize - 3u);
 
     left  = player_left_col();
@@ -311,8 +415,11 @@ uint8_t check_collision(void)
     for (i = 0; i < MAX_OBSTACLES; i++) {
         if (!obstacles[i].active) continue;
 
+        /* Enemy car occupies x and x + 1 */
+        obstacle_right_x = (uint16_t)obstacles[i].x + 1u;
+
         if (obstacles[i].y >= y_limit &&
-            obstacles[i].x >= left &&
+            obstacle_right_x >= left &&
             obstacles[i].x <= right) {
             return 1;
         }

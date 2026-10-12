@@ -138,10 +138,8 @@ static void set_cell(uint8_t x, uint8_t y, uint8_t what) {
     }
 
     if (what != CELL_EMPTY) {
-        uint8_t tile; 
-        
-        #if !defined(_XL_NO_COLOR)
-        uint8_t color;
+        uint8_t tile;
+        uint8_t color = _XL_WHITE;
 
         switch (what) {
             case CELL_PLATFORM:
@@ -177,34 +175,6 @@ static void set_cell(uint8_t x, uint8_t y, uint8_t what) {
                 color = _XL_WHITE;
                 break;
         }
-        #else
-        switch (what) {
-            case CELL_PLATFORM:
-                tile = _TILE_0;
-                break;
-            case CELL_ELEVATOR:
-                tile = _TILE_0;
-                break;
-            case CELL_PLAYER:
-                tile = _TILE_5;
-                break;
-            case CELL_ENEMY:
-                tile = _TILE_4;
-                break;
-            case CELL_ITEM:
-                tile = _TILE_1;
-                break;
-            case CELL_SPECIAL:
-                tile = _TILE_1;
-                break;
-            case CELL_BULLET:
-                tile = _TILE_6;
-                break;
-            default:
-                tile = _TILE_0;
-                break;
-        }
-        #endif
 
         _XL_DRAW(x, y, tile, color);
     }
@@ -232,11 +202,7 @@ static void force_clear_cell(uint8_t x, uint8_t y) {
 }
 
 /*
- * erase_entity_2x2 - erase only cells that actually contain the given type.
- *
- * This is important so enemies do not erase items: if an item blocked
- * drawing of the enemy on a cell, that cell still contains CELL_ITEM and
- * must be left untouched.
+ * erase_entity_cell - erase only a cell if it currently holds the given type.
  */
 static void erase_entity_cell(uint8_t x, uint8_t y, uint8_t type) {
     if (x >= (uint8_t)XSize || y >= (uint8_t)YSize) return;
@@ -320,13 +286,35 @@ static void deactivate_enemy(uint8_t e) {
 
 /*
  * in_elevator_shaft - returns elevator index or 0xFF.
+ *
+ * The shaft is the area strictly between the top and bottom platforms.
+ * The top platform row is handled by at_elevator_top().
  */
 static uint8_t in_elevator_shaft(uint8_t cx, uint8_t cy) {
     uint8_t i;
 
     for (i = 0; i < elev_count; i++) {
         if ((cx == elevs[i].x || cx == (uint8_t)(elevs[i].x + 1)) &&
-            cy > elevs[i].y_top && cy <= elevs[i].y_bot) {
+            cy > elevs[i].y_top && cy < elevs[i].y_bot) {
+            return i;
+        }
+    }
+
+    return 0xFF;
+}
+
+/*
+ * at_elevator_top - returns elevator index or 0xFF.
+ *
+ * Used to allow the player to step down from the top platform into
+ * the elevator/stairs.
+ */
+static uint8_t at_elevator_top(uint8_t cx, uint8_t cy) {
+    uint8_t i;
+
+    for (i = 0; i < elev_count; i++) {
+        if ((cx == elevs[i].x || cx == (uint8_t)(elevs[i].x + 1)) &&
+            cy == elevs[i].y_top) {
             return i;
         }
     }
@@ -340,7 +328,6 @@ static void gen_level(void) {
     uint8_t i, j;
     uint8_t min_w;
     uint8_t gap;
-    uint8_t max_gap;
     uint8_t w;
     uint8_t max_x;
     uint8_t nx;
@@ -384,19 +371,18 @@ static void gen_level(void) {
     /*
      * Upper platforms.
      *
-     * Ladders are made shorter by using a smaller vertical gap between
-     * adjacent platforms:
-     *   old gaps were about 14..22 cells
-     *   new gaps are about 6..9 cells
+     * Keep the topmost platforms low enough that the player can stand
+     * on them without entering row 0.
      */
     for (i = 1; i < MAX_PLATFORMS; i++) {
-        max_gap = 9;
+        if (plats[i - 1].y < 3) break;
 
-        if ((uint8_t)(plats[i - 1].y - 5) > max_gap) {
-            gap = rnd(6, max_gap);
+        if (plats[i - 1].y > 14) {
+            gap = rnd(6, 9);
+        } else if (plats[i - 1].y > 5) {
+            gap = (uint8_t)(plats[i - 1].y - 3);
         } else {
-            gap = (uint8_t)(plats[i - 1].y - 4);
-            if (gap < 3) break;
+            break;
         }
 
         w = rnd(min_w, (uint8_t)(XSize / 2));
@@ -436,40 +422,31 @@ static void gen_level(void) {
 
         plats[i].x = nx;
         plats[i].y = (uint8_t)(plats[i - 1].y - gap);
+
+        /* Never allow a platform so high that the player would be in row 0. */
+        if (plats[i].y < 3) {
+            plats[i].y = 3;
+        }
+
         plats[i].width = w;
         plat_count++;
 
         /*
          * Place one centered ladder/elevator for this platform.
-         *
-         * The preferred position is the horizontal center of the new
-         * upper platform. If that does not overlap the lower platform,
-         * clamp it to the overlapping region so both platforms remain
-         * connected.
          */
         {
             ol = (new_l > below_l) ? new_l : below_l;
             orr = (new_r < below_r) ? new_r : below_r;
 
             if (orr >= ol && (orr - ol) >= 1) {
-                /*
-                 * The elevator is two cells wide.
-                 * Use the center of this platform as the preferred start.
-                 */
                 center = (uint8_t)(nx + w / 2);
 
-                /*
-                 * Try to keep the two-cell-wide ladder centered.
-                 * If width is odd, put the left edge one cell before
-                 * the exact center when possible.
-                 */
                 if ((uint8_t)(center - 1) >= nx) {
                     ex = (uint8_t)(center - 1);
                 } else {
                     ex = nx;
                 }
 
-                /* Clamp into the upper platform bounds. */
                 if (ex < nx) {
                     ex = nx;
                 }
@@ -479,7 +456,6 @@ static void gen_level(void) {
                     ex = max_ex;
                 }
 
-                /* Clamp into the overlap with the lower platform. */
                 if (ex < ol) {
                     ex = ol;
                 }
@@ -508,9 +484,12 @@ static void gen_level(void) {
 
     /* Guarantee at least three platforms when screen height allows it. */
     while (plat_count < MIN_PLATFORMS) {
-        uint8_t new_y = (uint8_t)(plats[plat_count - 1].y - 4);
+        uint8_t new_y;
 
-        if (new_y < 2) break;
+        if (plats[plat_count - 1].y < 7) break;
+
+        new_y = (uint8_t)(plats[plat_count - 1].y - 4);
+        if (new_y < 3) break;
 
         plats[plat_count].x = plats[0].x;
         plats[plat_count].width = plats[0].width;
@@ -834,6 +813,12 @@ static void reset_player(void) {
 
     px = (uint8_t)(XSize / 2);
     py = (uint8_t)(plats[0].y - 2);
+
+    /* Row 0 is a hard ceiling. */
+    if (py < 1) {
+        py = 1;
+    }
+
     pdir = 1;
     jumping = 0;
     jump_count = 0;
@@ -882,6 +867,9 @@ static void game_loop(void) {
     uint8_t input;
     uint8_t grounded;
     uint8_t elev;
+    uint8_t feet;
+    uint8_t elev_top;
+    uint8_t px1;
 
     /* Player starts on the bottom platform. */
     grounded = 1;
@@ -901,7 +889,7 @@ static void game_loop(void) {
                 draw_player();
             }
         } else if (_XL_RIGHT(input)) {
-            if ((uint8_t)(px + 1) < (uint8_t)(XSize - 1)) {
+            if ((uint8_t)(px + 1) < (uint8_t)XSize) {
                 erase_player();
                 px++;
                 pdir = 1;
@@ -920,22 +908,40 @@ static void game_loop(void) {
             fire_bullet();
         }
 
+        feet = (uint8_t)(py + 2);
+        px1 = (uint8_t)(px + 1);
+
         /* Elevator logic. */
         in_elev = 0;
-        elev = in_elevator_shaft(px, (uint8_t)(py + 2));
+        elev = in_elevator_shaft(px, feet);
+        if (elev == 0xFF && px1 < (uint8_t)XSize) {
+            elev = in_elevator_shaft(px1, feet);
+        }
+
+        elev_top = 0xFF;
+        if (elev == 0xFF) {
+            elev_top = at_elevator_top(px, feet);
+            if (elev_top == 0xFF && px1 < (uint8_t)XSize) {
+                elev_top = at_elevator_top(px1, feet);
+            }
+        }
 
         if (elev != 0xFF) {
             in_elev = 1;
             elev_idx = elev;
 
             if (_XL_UP(input)) {
-                if ((uint8_t)(py + 2) > elevs[elev_idx].y_top) {
+                /*
+                 * Row 0 is a hard ceiling.
+                 * The player's top-left row cannot become 0.
+                 */
+                if (feet > elevs[elev_idx].y_top && py > 1) {
                     erase_player();
                     py--;
                     draw_player();
                 }
             } else if (_XL_DOWN(input)) {
-                if ((uint8_t)(py + 2) < elevs[elev_idx].y_bot) {
+                if (feet < elevs[elev_idx].y_bot) {
                     erase_player();
                     py++;
                     draw_player();
@@ -944,43 +950,67 @@ static void game_loop(void) {
 
             jumping = 0;
         } else {
-            /* Gravity / jump. */
-            if (jumping) {
-                if (jump_count > 0) {
-                    erase_player();
-                    py--;
-                    jump_count--;
-                    draw_player();
-                } else {
-                    jumping = 0;
-                }
-            }
-
-            grounded = 0;
-            if (on_platform(px, (uint8_t)(py + 2)) ||
-                on_platform((uint8_t)(px + 1), (uint8_t)(py + 2))) {
-                grounded = 1;
-            }
-
-            if (!grounded && !jumping) {
+            /*
+             * Allow entering the elevator from the top platform.
+             * This is the “go down the stairs” case.
+             */
+            if (elev_top != 0xFF && _XL_DOWN(input) &&
+                feet < elevs[elev_top].y_bot) {
                 erase_player();
                 py++;
                 draw_player();
-
-                /* Fell off the bottom of the screen. */
-                if (py >= YSize) {
-                    lives--;
-
-                    if (lives == 0) {
-                        game_state = 2;
-                        return;
+                jumping = 0;
+                in_elev = 1;
+            } else {
+                /* Gravity / jump. */
+                if (jumping) {
+                    if (jump_count > 0) {
+                        /*
+                         * Block row 0.
+                         * The player may reach row 1, but not row 0.
+                         */
+                        if (py > 1) {
+                            erase_player();
+                            py--;
+                            jump_count--;
+                            draw_player();
+                        } else {
+                            /* Hit the ceiling; end the jump. */
+                            jumping = 0;
+                        }
+                    } else {
+                        jumping = 0;
                     }
+                }
 
-                    reset_player();
-                    draw_hud();
+                grounded = 0;
+                feet = (uint8_t)(py + 2);
+                if (on_platform(px, feet)) {
+                    grounded = 1;
+                } else if (px1 < (uint8_t)XSize && on_platform(px1, feet)) {
+                    grounded = 1;
+                }
 
-                    /* Stay in this level after losing a life. */
-                    continue;
+                if (!grounded && !jumping) {
+                    erase_player();
+                    py++;
+                    draw_player();
+
+                    /* Fell off the bottom of the screen. */
+                    if (py >= YSize) {
+                        lives--;
+
+                        if (lives == 0) {
+                            game_state = 2;
+                            return;
+                        }
+
+                        reset_player();
+                        draw_hud();
+
+                        /* Stay in this level after losing a life. */
+                        continue;
+                    }
                 }
             }
         }
@@ -988,8 +1018,10 @@ static void game_loop(void) {
         /* Recompute grounded for next frame. */
         if (!in_elev) {
             grounded = 0;
-            if (on_platform(px, (uint8_t)(py + 2)) ||
-                on_platform((uint8_t)(px + 1), (uint8_t)(py + 2))) {
+            feet = (uint8_t)(py + 2);
+            if (on_platform(px, feet)) {
+                grounded = 1;
+            } else if (px1 < (uint8_t)XSize && on_platform(px1, feet)) {
                 grounded = 1;
             }
         }

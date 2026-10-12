@@ -6,13 +6,17 @@
 #define MONSTER_MOVE_INTERVAL 6
 
 // Tiles
-#define T_FLOOR   _TILE_0
-#define T_WALL    _TILE_1
-#define T_PLAYER  _TILE_2
-#define T_MONSTER _TILE_3
-#define T_EXIT    _TILE_4
-#define T_BULLET  _TILE_5
-#define T_DARK    _TILE_6
+#define T_PLAYER  _TILE_0
+//
+//
+//
+#define T_FLOOR   _TILE_4
+#define T_WALL    _TILE_5
+#define T_EXIT    _TILE_6
+#define T_BULLET  _TILE_7
+#define T_MONSTER _TILE_8
+// #define T_DARK    _TILE_9
+
 
 // Colors
 #define C_FLOOR   _XL_BLUE
@@ -154,124 +158,124 @@ void display_hud(void)
 
 // --- Draw Screen ---
 void draw_screen(void) {
-    uint8_t i, j;
-    uint8_t view_min_x, view_max_x;
-    uint8_t view_min_y, view_max_y;
-    uint8_t screen_off_x, screen_off_y;
     uint8_t sx, sy;
+    uint8_t mz_x, mz_y;
     uint8_t dist;
     uint8_t tile;
     uint8_t m;
-    
-    #if !defined(_XL_NO_COLOR)
+    uint8_t vp_size;
+    uint8_t off_x, off_y;
+
+#if !defined(_XL_NO_COLOR)
     uint8_t color;
-    #endif
-//    _XL_CLEAR_SCREEN();
+#endif
 
-    screen_off_x = XSize / 2 - VIEW_DIST;
-    screen_off_y = YSize / 2 - VIEW_DIST;
+    vp_size = 2 * VIEW_DIST + 1;
+    off_x = XSize / 2 - VIEW_DIST;
+    off_y = YSize / 2 - VIEW_DIST;
 
-    view_min_x = (player_x > VIEW_DIST) ? (player_x - VIEW_DIST) : 0;
-    view_max_x = (player_x + VIEW_DIST < MAZE_SIZE - 1) ? (player_x + VIEW_DIST) : (MAZE_SIZE - 1);
-    view_min_y = (player_y > VIEW_DIST) ? (player_y - VIEW_DIST) : 0;
-    view_max_y = (player_y + VIEW_DIST < MAZE_SIZE - 1) ? (player_y + VIEW_DIST) : (MAZE_SIZE - 1);
-
-    // TODO: This should be improved by avoiding clearing the screen and just deleting left over cells
-    if((view_min_x==0)||(view_min_y==0)||(view_max_x==MAZE_SIZE-1)||(view_max_y==MAZE_SIZE-1))
-    {
-        _XL_CLEAR_SCREEN();
-        display_hud();
-    }
-
-    for (i = view_min_x; i <= view_max_x; i++) {
-        for (j = view_min_y; j <= view_max_y; j++) {
-            sx = screen_off_x + (i - view_min_x);
-            sy = screen_off_y + (j - view_min_y);
-
-            if (sx > XSize || sy > YSize) continue;
-
-            // Check distance for fog of war
-            dist = 0;
-            if (i > player_x) dist = i - player_x; else dist = player_x - i;
-            if (j > player_y) { if (j - player_y > dist) dist = j - player_y; }
-            else { if (player_y - j > dist) dist = player_y - j; }
-
-            if (dist > VIEW_DIST) {
-                // Outside visibility - draw dark
-                _XL_DRAW(sx, sy, T_DARK, C_DARK);
+    for (sy = 0; sy < vp_size; sy++) {
+        for (sx = 0; sx < vp_size; sx++) {
+            /*
+             * Map screen cell to maze coordinates.
+             * Guard against underflow: if the player is near the
+             * top/left border, some viewport cells have no valid
+             * maze tile behind them.
+             */
+            if (player_x < VIEW_DIST && sx < VIEW_DIST - player_x) {
+                _XL_DELETE(off_x + sx, off_y + sy);
+                continue;
+            }
+            if (player_y < VIEW_DIST && sy < VIEW_DIST - player_y) {
+                _XL_DELETE(off_x + sx, off_y + sy);
                 continue;
             }
 
-            // Determine what to draw
-            #if !defined(_XL_NO_COLOR)
-            tile = T_FLOOR;
+            mz_x = player_x - VIEW_DIST + sx;
+            mz_y = player_y - VIEW_DIST + sy;
+
+            /* Off the far edge of the maze? */
+            if (mz_x >= MAZE_SIZE || mz_y >= MAZE_SIZE) {
+                _XL_DELETE(off_x + sx, off_y + sy);
+                continue;
+            }
+
+            /* Fog of war – Manhattan distance */
+            dist = 0;
+            if (mz_x > player_x) dist = mz_x - player_x;
+            else                  dist = player_x - mz_x;
+            if (mz_y > player_y) {
+                if (mz_y - player_y > dist) dist = mz_y - player_y;
+            } else {
+                if (player_y - mz_y > dist) dist = player_y - mz_y;
+            }
+
+            if (dist > VIEW_DIST) {
+                _XL_DELETE(off_x + sx, off_y + sy);
+                continue;
+            }
+
+            /* Determine what to draw */
+#if !defined(_XL_NO_COLOR)
+            tile  = T_FLOOR;
             color = C_FLOOR;
 
-            if (maze[i][j] == 1) {
-                tile = T_WALL;
+            if (maze[mz_x][mz_y] == 1) {
+                tile  = T_WALL;
                 color = C_WALL;
             }
 
-            // Exit
-            if (i == MAZE_SIZE - 1 && j == MAZE_SIZE - 1) {
-                tile = T_EXIT;
+            if (mz_x == MAZE_SIZE - 1 && mz_y == MAZE_SIZE - 1) {
+                tile  = T_EXIT;
                 color = C_EXIT;
             }
 
-            // Monsters
             for (m = 0; m < num_monsters; m++) {
-                if (monster_x[m] == i && monster_y[m] == j) {
-                    tile = T_MONSTER;
+                if (monster_x[m] == mz_x && monster_y[m] == mz_y) {
+                    tile  = T_MONSTER;
                     color = C_MONSTER;
                 }
             }
 
-            // Bullet
-            if (bullet_active && bullet_x == i && bullet_y == j) {
-                tile = T_BULLET;
+            if (bullet_active && bullet_x == mz_x && bullet_y == mz_y) {
+                tile  = T_BULLET;
                 color = C_BULLET;
             }
 
-            // Player (drawn last so it's on top)
-            if (i == player_x && j == player_y) {
-                tile = T_PLAYER;
+            if (mz_x == player_x && mz_y == player_y) {
+                tile  = T_PLAYER;
                 color = C_PLAYER;
             }
-            #else
+#else
             tile = T_FLOOR;
 
-            if (maze[i][j] == 1) {
+            if (maze[mz_x][mz_y] == 1) {
                 tile = T_WALL;
             }
 
-            // Exit
-            if (i == MAZE_SIZE - 1 && j == MAZE_SIZE - 1) {
+            if (mz_x == MAZE_SIZE - 1 && mz_y == MAZE_SIZE - 1) {
                 tile = T_EXIT;
             }
 
-            // Monsters
             for (m = 0; m < num_monsters; m++) {
-                if (monster_x[m] == i && monster_y[m] == j) {
+                if (monster_x[m] == mz_x && monster_y[m] == mz_y) {
                     tile = T_MONSTER;
-
                 }
             }
 
-            // Bullet
-            if (bullet_active && bullet_x == i && bullet_y == j) {
+            if (bullet_active && bullet_x == mz_x && bullet_y == mz_y) {
                 tile = T_BULLET;
             }
 
-            // Player (drawn last so it's on top)
-            if (i == player_x && j == player_y) {
+            if (mz_x == player_x && mz_y == player_y) {
                 tile = T_PLAYER;
             }
-            #endif
-            _XL_DRAW(sx, sy, tile, color);
+#endif
+
+            _XL_DRAW(off_x + sx, off_y + sy, tile, color);
         }
     }
 }
-
 // --- Move Player ---
 void move_player(uint8_t input) {
     uint8_t nx, ny;
@@ -608,3 +612,4 @@ int main(void) {
 
     return 0;
 }
+

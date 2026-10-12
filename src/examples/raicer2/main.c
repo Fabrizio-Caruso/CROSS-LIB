@@ -17,7 +17,7 @@
 #endif
 
 #define CENTER_X (ROAD_L + ROAD_W / 2)
-#define PLAYER_Y (YSize - 4)
+#define PLAYER_Y (YSize - 3)
 
 /*
  * The player moves in half-tile units.
@@ -48,20 +48,46 @@
     #define PLAYER_MAX_X PLAYER_MAX_EVEN_X
 #endif
 
-#define MAX_ENEMIES 8
-#define MAX_BLOCKS 16
+#define MAX_ENEMIES 4
+#define MAX_BLOCKS 12
 
-#define OBSTACLE_TILE _TILE_6
-#define BORDER_TILE _TILE_5
 
-#define PLAYER_TOP _TILE_0
-#define PLAYER_BOT _TILE_1
+/*
+ * Player tiles.
+ *
+ * Even player position: 2 columns x 2 rows = 4 cells
+ *   top-left,   top-right
+ *   bottom-left,bottom-right
+ */
+#define P_EVEN_TL _TILE_5
+#define P_EVEN_TR _TILE_6
+#define P_EVEN_BL _TILE_7
+#define P_EVEN_BR _TILE_8
 
-#define ENEMY_TOP _TILE_2
-#define ENEMY_BOT _TILE_3
+/*
+ * Odd player position: 3 columns x 2 rows = 6 cells
+ *   top-left,     top-middle,    top-right
+ *   bottom-left,  bottom-mid,    bottom-right
+ */
+#define P_ODD_TL  _TILE_9
+#define P_ODD_TM  _TILE_10
+#define P_ODD_TR  _TILE_11
+#define P_ODD_BL  _TILE_12
+#define P_ODD_BM  _TILE_13
+#define P_ODD_BR  _TILE_14
 
-#define BIG_ENEMY_TOP _TILE_4
-#define BIG_ENEMY_BOT _TILE_7
+#define ENEMY_TOP _TILE_3
+#define ENEMY_BOT _TILE_4
+
+#define BIG_ENEMY_TL _TILE_5
+#define BIG_ENEMY_TR _TILE_6
+#define BIG_ENEMY_BL _TILE_7
+#define BIG_ENEMY_BR _TILE_8
+
+
+#define OBSTACLE_TILE _TILE_2
+#define BORDER_TILE _TILE_1
+
 
 typedef struct {
     uint8_t x;
@@ -69,6 +95,8 @@ typedef struct {
     uint8_t w;
     uint8_t h;
 } Car;
+
+
 
 typedef struct {
     uint8_t x;
@@ -81,7 +109,7 @@ static void draw_car(Car *c, uint8_t top_tile, uint8_t bot_tile)
 {
     uint8_t i, j;
 
-    for (i = 0; i < c->h; i++) {
+    for (i = 0; i < 2; i++) {
         if ((uint16_t)c->y + i >= YSize) break;
         for (j = 0; j < c->w; j++) {
             if (i == 0) {
@@ -92,6 +120,44 @@ static void draw_car(Car *c, uint8_t top_tile, uint8_t bot_tile)
         }
     }
 }
+
+static void draw_big_car(Car *c, uint8_t topl_tile, uint8_t topr_tile, uint8_t botl_tile, uint8_t botr_tile)
+{
+    uint8_t i, j;
+    uint8_t tile;
+
+    for (i = 0; i < 2; i++) {
+        if ((uint16_t)c->y + i >= YSize) break;
+        for (j = 0; j < c->w; j++) {
+            if (i == 0) 
+            {
+                if(j==0)
+                {
+                    tile = topl_tile;
+                }
+                else
+                {
+                    tile = topr_tile;
+                }
+                _XL_DRAW(c->x + j, c->y, tile, _XL_RED);
+            } 
+            else 
+            {
+                if(j==0)
+                {
+                    tile = botl_tile;
+                }
+                else
+                {
+                    tile = botr_tile;
+                }
+                _XL_DRAW(c->x + j, c->y + i, tile, _XL_CYAN);
+            }
+        }
+    }
+}
+
+
 
 static void erase_car(Car *c)
 {
@@ -163,28 +229,35 @@ static uint8_t get_player_width(uint16_t px)
 /*
  * Draws the new wider player car.
  *
- * even: 2 columns x 2 rows
- * odd : 3 columns x 2 rows
+ * even: 2 columns x 2 rows, using _TILE_5.._TILE_8
+ * odd : 3 columns x 2 rows, using _TILE_9.._TILE_14
  */
 static void draw_player(uint16_t px)
 {
     uint8_t left;
     uint8_t right;
-    uint8_t col;
-    uint8_t y;
+    uint8_t y_bottom;
 
     left = get_left_col(px);
     right = get_right_col(px);
+    y_bottom = (uint8_t)(PLAYER_Y + 1);
 
-    /* Top row */
-    for (col = left; col <= right; col++) {
-        _XL_DRAW(col, PLAYER_Y, PLAYER_TOP, _XL_GREEN);
-    }
+    if ((px & 1u) == 0u) {
+        /* Even position: normal tile position, width 2. */
+        _XL_DRAW(left, PLAYER_Y, P_EVEN_TL, _XL_GREEN);
+        _XL_DRAW(right, PLAYER_Y, P_EVEN_TR, _XL_GREEN);
 
-    /* Bottom row */
-    y = (uint8_t)(PLAYER_Y + 1);
-    for (col = left; col <= right; col++) {
-        _XL_DRAW(col, y, PLAYER_BOT, _XL_GREEN);
+        _XL_DRAW(left, y_bottom, P_EVEN_BL, _XL_GREEN);
+        _XL_DRAW(right, y_bottom, P_EVEN_BR, _XL_GREEN);
+    } else {
+        /* Odd position: half-tile between tiles, width 3. */
+        _XL_DRAW(left, PLAYER_Y, P_ODD_TL, _XL_GREEN);
+        _XL_DRAW((uint8_t)(left + 1), PLAYER_Y, P_ODD_TM, _XL_GREEN);
+        _XL_DRAW(right, PLAYER_Y, P_ODD_TR, _XL_GREEN);
+
+        _XL_DRAW(left, y_bottom, P_ODD_BL, _XL_GREEN);
+        _XL_DRAW((uint8_t)(left + 1), y_bottom, P_ODD_BM, _XL_GREEN);
+        _XL_DRAW(right, y_bottom, P_ODD_BR, _XL_GREEN);
     }
 }
 
@@ -418,7 +491,7 @@ static void game_loop(void)
         }
 
         /* Move obstacle blocks. */
-        if (frame % 4 == 0) {
+        // if (frame % 4 == 0) {
             for (i = block_count; i > 0; i--) {
                 uint8_t idx;
                 idx = i - 1;
@@ -447,7 +520,7 @@ static void game_loop(void)
                     block_count--;
                 }
             }
-        }
+        // }
 
         /* Spawn obstacle blocks. */
         if (frame % 60 == 0) {
@@ -713,9 +786,12 @@ static void game_loop(void)
                 }
             }
 
-            if (enemies[idx].w == 2) {
-                draw_car(&enemies[idx], BIG_ENEMY_TOP, BIG_ENEMY_BOT);
-            } else {
+            if (enemies[idx].w == 2) 
+            {
+                draw_big_car(&enemies[idx], BIG_ENEMY_TL, BIG_ENEMY_TR, BIG_ENEMY_BL, BIG_ENEMY_BR );
+            } 
+            else 
+            {
                 draw_car(&enemies[idx], ENEMY_TOP, ENEMY_BOT);
             }
         }

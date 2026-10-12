@@ -24,6 +24,8 @@
 
 #define BONUS_LIFE 1000
 
+#define BETA 1
+
 static uint8_t lives;
 static uint16_t record;
 static uint8_t bonus;
@@ -1185,6 +1187,7 @@ void intro_screen(void)
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
 
     _XL_PRINT(XSize/2-6, YSize/2-1, "AIDED BY AI");
+    
     #else
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(XSize/2-6, 3, "DRAGONMASTER");
@@ -1200,6 +1203,10 @@ void intro_screen(void)
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
 
     _XL_PRINT(XSize/2-6, 12, "AIDED BY AI");
+    #endif
+
+    #if defined(BETA)
+        _XL_PRINT(XSize-1-4,YSize-1,"BETA");
     #endif
 
     _draw_king_dragon(XSize/2+1,KING_Y);
@@ -1252,6 +1259,7 @@ int main(void)
 {
     uint8_t input;
     uint8_t fire;
+    uint8_t i;
     
     _XL_INIT_GRAPHICS();
     _XL_INIT_SOUND();
@@ -1332,6 +1340,27 @@ int main(void)
             }
             ++level;
         }
+        if(level>LAST_LEVEL)
+        {
+            
+            _XL_CLEAR_SCREEN();
+            _XL_SET_TEXT_COLOR(_XL_CYAN);
+
+            for(i=YSize-1-2;i>YSize/2-3;--i)
+            {
+                _XL_PRINT(XSize/2-7, i,      "AND THEY LIVED");
+                _XL_PRINT(XSize/2-9, i +2,   "HAPPILY EVER AFTER");
+                
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR*2);
+                
+                _XL_PRINT(XSize/2-7, i,      "              ");
+                _XL_PRINT(XSize/2-9, i +2,   "                  ");
+            }
+            _XL_SLEEP(1);
+            _XL_WAIT_FOR_INPUT();
+        }
+        
+        
         _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT(XSize/2-4,YSize/2-2,   "GAME OVER");

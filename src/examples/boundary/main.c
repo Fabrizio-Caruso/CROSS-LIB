@@ -49,6 +49,8 @@ int main(void)
 
     _XL_PRINT(XSize-4-2,0,"HI");
     _XL_PRINTD(XSize-4,0,4,1234);
+    _XL_PRINT(XSize-4,1,"ABCD");
+
 
     _XL_REFRESH();
 

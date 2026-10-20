@@ -1,0 +1,39 @@
+DRAGONMASTER (BETA)
+Cross-Lib version
+by Fabrizio Caruso
+
+Original game (for the unexpanded Commodore VIC-20) by David Berdan
+Published in "Compute!" magazine in 1983
+
+CROSS-LIB VERSION:
+This version is meant for 200+ systems.
+Its gameplay is similar to the original game but not identical.
+Graphics assets have been ripped from the original game for the most part. 
+The Cross-Lib version has 4 consecutive levels. It keeps track of points and records.
+The original game let you choose one level and the game was only on a single level. No points and no records.
+
+GAMEPLAY:
+- The goal
+Your knights must defeat 4 dragon kings to save the princess. 
+The game starts with 3 knights.
+In order to kill a dragon king no other dragon has to be present.
+If there are other dragons left, the dragon king is invincible.
+
+- The dragons 
+The chest of the dragons is the only vulnerable part.
+Dragons instantly kill you if you are directly in front of their mouth or above their heads.
+Dragons do not move but can randomly flip from one side to the other.
+Moreover new dragons are spawned randomly. So, you need to be fast.
+
+- The wizard
+As the game progresses an invincible wizard will chase you at an increasing speed.
+
+- Scoring
+25     points for a dragon
+0-150  as time bonus
+50-200 for the dragon king
+
+- Extra lives
+An extra life is awarded every 1000 points.
+
+

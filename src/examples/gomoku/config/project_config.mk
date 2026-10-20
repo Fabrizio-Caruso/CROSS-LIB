@@ -12,12 +12,15 @@
 #-D__USE_CYAN_YELLOW
 #-D__USE_GREEN_YELLOW
 
-ORIC_COLORS=
+# ORIC_COLORS=
 # -D__MONO_COLORS
 
 MC10_COLORS=
 # -D__REVERSE_LETTERS
 
+
+ORIC_39x25_COLOR_OPTS        ?= -D__INVERSE_TILES
+ORIC_COLOR_OPTS              ?= -D__INVERSE_TILES -DForce_YSize=13
 
 #####################################################################
 # SLOWDOWN VALUES

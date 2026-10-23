@@ -1,6 +1,8 @@
 # THE GAMES
 
 ## DRAGONMASTER
+![C64](/snapshots/Dragonmaster_gameplay.jpg)
+![C64](/snapshots/Dragonmaster_title.jpg)
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)
 
@@ -10,12 +12,12 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 
 -------------------------------------------
 ## GOMOKU
+![C64](/snapshots/Gomoku_gameplay.jpg)
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)
 
-
 1. Commodore 64: 
-https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/gomokuBETA/Xgomoku_c64.prg
+https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/dragonmasterBETA/Xdragonmaster_c64.prg
 
 
 -------------------------------------------

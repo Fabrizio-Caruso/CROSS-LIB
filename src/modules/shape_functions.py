@@ -234,9 +234,13 @@ def show(option_config, params):
 
 # It computes the shape from the tile file (not directly from the shapes if available)
 def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize, index):
-    dir = xsize+"x"+ysize
-    dest = "./" + parent_dir + "/" + project_name + "/tiles/" + dir + "/tile" + str(index) + ".txt"
+    size_dir = xsize+"x"+ysize
+    dest = "./" + parent_dir + "/" + project_name + "/tiles/" + size_dir + "/tile" + str(index) + ".txt"
     
+    if not os.path.exists(dest):
+        dest = "./" + parent_dir + "/" + project_name + "/tiles/" + size_dir + "/tile_" + format(int(index),"03d") + ".txt"
+
+    print("**************************")
     if option_config.terminal_config.verbose:
         print("Decoding file tile: " + dest)
         print("")
@@ -247,6 +251,7 @@ def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize,
             tile_data = fin.read()
             # computed_shape = compute_shape(tile_data,xsize)
             # print("computed shape: " + str(computed_shape))
+            print("dest: " + dest)
             print_shape(option_config, compute_shape(tile_data,xsize))
         else:
             print("NOT FOUND")

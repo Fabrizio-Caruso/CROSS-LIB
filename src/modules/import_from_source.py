@@ -362,17 +362,25 @@ def store_tile(option_config, project, tile, xsize, ysize, index):
     if verbose:
         print("(store tile) project    : " + project)
         print("tile index : " + str(index))
-    dir = str(xsize)+"x"+str(ysize)
+    size_dir = str(xsize)+"x"+str(ysize)
     
     if verbose:
-        print("directory: " + dir)
+        print("directory: " + size_dir)
 
     category = project_category(project)
 
     if verbose:
         print("project category : " + category)
 
-    dest = "./" + category + "s/" + project + "/tiles/" + dir + "/tile" + index + ".txt"
+    tile_path = "./" + category + "s/" + project + "/tiles/" + size_dir
+    if not os.path.exists(tile_path):
+        print(tile_path + " not found", flush = True)
+        os.mkdir(tile_path)
+    else:
+        print(tile_path + " exists", flush = True)
+
+    # sys.exit(0)
+    dest = tile_path + "/tile" + index + ".txt"
     
     if verbose:
         print("Copy/Overwrite : " + dest)

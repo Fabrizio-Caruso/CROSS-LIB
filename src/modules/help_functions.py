@@ -390,7 +390,7 @@ def help_command(option_config, params):
             printc(option_config, bcolors.BOLD,"xl test <[optional] params> <[optional] target>\n")
             print("It runs some tests.")
             print("We have the following types of tests:")
-            print("(1). `Component` tests and checks on the presence of a component (compiler, emulator, roms, tools, interpreter, library, etc.)")
+            print("(1). `Components`, which are tests and checks on the presence of a component (compiler, emulator, roms, tools, interpreter, library, etc.)")
             print("(2). `Unit-tests` on python scripts")
             print("(3). `Self` tests on `xl` itself")
             print("(4). `Output` tests for the output of a compiled program (for the `stdio` target)")

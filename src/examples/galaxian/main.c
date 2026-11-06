@@ -116,11 +116,13 @@ static uint8_t sprite_tile(uint8_t type, uint16_t vx, uint8_t side)
     return _TILE_0;
 }
 
+#if !defined(_XL_NO_COLOR)
 static uint8_t sprite_color(uint8_t type)
 {
     if (type == PLAYER_TYPE) return _XL_GREEN;
     return _XL_RED;
 }
+#endif
 
 static void sprite_draw(uint8_t type, uint16_t vx, uint8_t y)
 {
@@ -128,7 +130,9 @@ static void sprite_draw(uint8_t type, uint16_t vx, uint8_t y)
     uint8_t rx;
     uint8_t tl;
     uint8_t tr;
+    #if !defined(_XL_NO_COLOR)
     uint8_t color;
+    #endif
 
     if (y >= YSize) return;
 
@@ -136,7 +140,9 @@ static void sprite_draw(uint8_t type, uint16_t vx, uint8_t y)
     rx = sprite_right(vx);
     if (lx >= XSize || rx >= XSize) return;
 
+    #if !defined(_XL_NO_COLOR)
     color = sprite_color(type);
+    #endif
     tl = sprite_tile(type, vx, 0);
     tr = sprite_tile(type, vx, 1);
 

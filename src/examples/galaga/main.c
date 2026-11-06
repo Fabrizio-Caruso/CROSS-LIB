@@ -159,7 +159,7 @@ int main(void)
     uint8_t px, py, lives;
     uint16_t score;
     uint8_t wave;
-    uint8_t frame;
+    // uint8_t frame;
     uint8_t game_over;
     uint8_t input;
     uint8_t old_px;
@@ -171,10 +171,8 @@ int main(void)
     uint8_t old_lives;
     uint8_t old_ey;
     uint8_t old_ex;
-    uint8_t enemy_speed;
     uint8_t move_down;
     uint8_t fire_enemy;
-    uint8_t bi;
 
     Bullet p_bullets[MAX_P_BULLETS];
     Bullet e_bullets[MAX_E_BULLETS];
@@ -190,7 +188,7 @@ int main(void)
         lives = NUM_LIVES;
         score = 0;
         wave = 1;
-        frame = 0;
+        // frame = 0;
         game_over = 0;
         old_score_hi = 0;
         old_score_lo = 0;
@@ -226,7 +224,7 @@ int main(void)
         /* ==================== GAME LOOP ==================== */
         while (!game_over) {
 
-            frame++;
+            // frame++;
             input = _XL_INPUT();
             old_px = px;
 

@@ -4,6 +4,8 @@
 #if XSize>=60 && YSize >=12
     #define MAX_DRAGONS 36
 #elif XSize>=38 && YSize>=16
+    #define MAX_DRAGONS 30
+#elif XSize>=30 && YSize>=14
     #define MAX_DRAGONS 28
 #elif XSize>=20 && YSize>=12
     #define MAX_DRAGONS 26
@@ -12,8 +14,10 @@
 #endif
 
 #if XSize>=60 && YSize >=12
-    #define MIN_DRAGONS  20
+    #define MIN_DRAGONS  22
 #elif XSize>=38
+    #define MIN_DRAGONS  18
+#elif XSize>=30
     #define MIN_DRAGONS  16
 #elif XSize>= 20
     #define MIN_DRAGONS  14
@@ -23,9 +27,9 @@
 
 
 #define MIN_WIZARD_INTERVAL        7
-#define INITIAL_WIZARD_INTERVAL  230
+#define INITIAL_WIZARD_INTERVAL  200
 
-#define RESPAWN_TIME 240
+#define RESPAWN_TIME 230
 
 #define INITIAL_LIVES 3
 

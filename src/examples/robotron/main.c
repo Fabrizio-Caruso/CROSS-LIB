@@ -47,8 +47,21 @@ static void draw_enemy(uint8_t x,uint8_t y,uint8_t dir)
 static void del_enemy(uint8_t x,uint8_t y){_XL_DELETE(x,y);_XL_DELETE(x,y+1);}
 static void draw_item(uint8_t x,uint8_t y,uint8_t t)
 {
+    #if !defined(_XL_NO_COLOR)
     uint8_t col;
-    if (t==0) col = _XL_CYAN; else if (t==1) col = _XL_YELLOW; else col = _XL_GREEN;
+    if (t==0) 
+    {
+        col = _XL_CYAN;
+    }
+    else if (t==1)
+    {
+        col = _XL_YELLOW;
+    }
+    else
+    {
+        col = _XL_GREEN;
+    }
+    #endif
     _XL_DRAW(x,y,_TILE_22,col);
 }
 static uint8_t enemy_occupies(uint8_t x, uint8_t y)

@@ -242,8 +242,10 @@ static void draw_hud(void)
 
 static void draw_player(void)
 {
+    #if !defined(_XL_NO_COLOR)
     uint8_t col;
     col = (invincible_timer > 0) ? _XL_YELLOW : _XL_GREEN;
+    #endif
     if (player_dir == 0) {
         _XL_DRAW(px,     py,     _TILE_1, col);
         _XL_DRAW(px + 1, py,     _TILE_2, col);
@@ -299,10 +301,29 @@ static void draw_all_enemies(void)
 /* ---- Draw items (using proper tile ID constants) ---- */
 static void draw_item(uint8_t idx)
 {
-    uint8_t tile, col;
-    if (idx == 0) { tile = _TILE_17; col = _XL_YELLOW; }
-    else if (idx == 1) { tile = _TILE_18; col = _XL_CYAN; }
-    else { tile = _TILE_19; col = _XL_WHITE; }
+    uint8_t tile;
+    uint8_t col;
+    if (idx == 0) 
+    { 
+        tile = _TILE_17;
+        #if !defined(_XL_NO_COLOR)
+        col = _XL_YELLOW;
+        #endif
+    }
+    else if (idx == 1) \
+    { 
+        tile = _TILE_18;
+        #if !defined(_XL_NO_COLOR)
+        col = _XL_CYAN;
+        #endif
+    }
+    else 
+    { 
+        tile = _TILE_19; 
+        #if !defined(_XL_NO_COLOR)
+        col = _XL_WHITE
+        #endif
+    }
     _XL_DRAW(item_x[idx], item_y[idx], tile, col);
 }
 

@@ -2,8 +2,9 @@ DRAGONMASTER (BETA)
 Cross-Lib version
 by Fabrizio Caruso
 
-Original game (for the unexpanded Commodore VIC-20) by David Berdan
-Published in "Compute!" magazine in 1983
+Based on Dragonmaster by David Berdan, originally published in COMPUTE! magazine, Issue 41, October 1983. 
+COMPUTE! is a trademark of COMPUTE! Publications, Inc., used with permission. 
+This is an independent reimplementation and is not an official COMPUTE! product.
 
 CROSS-LIB VERSION:
 This version is meant for 200+ systems.

@@ -1165,8 +1165,10 @@ void intro_screen(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(XSize/2-1, YSize/2-5, "BY");
     _XL_PRINT(XSize/2-7, YSize/2-3, "FABRIZIO CARUSO");
-    _XL_PRINT(XSize/2-7, YSize/2+3, "ORIGINALLY BY");
-    _XL_PRINT(XSize/2-6, YSize/2+5, "DAVID BERDAN");
+    _XL_PRINT(XSize/2-7, YSize/2+2, "ORIGINALLY BY");
+    _XL_PRINT(XSize/2-6, YSize/2+4, "DAVID BERDAN");
+    _XL_PRINT(XSize/2-8, YSize/2+6, "COMPUTE MAGAZINE");
+
 
     #elif YSize>=14
     _XL_SET_TEXT_COLOR(_XL_CYAN);
@@ -1174,9 +1176,10 @@ void intro_screen(void)
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(XSize/2-7, 5, "FABRIZIO CARUSO");
-    _XL_PRINT(XSize/2-7, 10, "ORIGINALLY BY");
-    _XL_PRINT(XSize/2-6, 12, "DAVID BERDAN");
-    
+    _XL_PRINT(XSize/2-7, 7, "ORIGINALLY BY");
+    _XL_PRINT(XSize/2-6, 8, "DAVID BERDAN");
+    _XL_PRINT(XSize/2-8, 9, "COMPUTE MAGAZINE");
+
     #else
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(XSize/2-6, 3, "DRAGONMASTER");
@@ -1185,7 +1188,8 @@ void intro_screen(void)
     _XL_PRINT(XSize/2-7, 5, "FABRIZIO CARUSO");
     _XL_PRINT(XSize/2-7, 7, "ORIGINALLY BY");
     _XL_PRINT(XSize/2-6, 8, "DAVID BERDAN");
-    
+    _XL_PRINT(XSize/2-8, 9, "COMPUTE MAGAZINE");
+
     #endif
 
     #if defined(BETA)

@@ -3,7 +3,7 @@
 
 #include "cross_lib.h"
 
-#if defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__) && !defined(__QUAD_MEMORY_MAPPED_GRAPHICS) && !defined(__DUAL_MEMORY_MAPPED_GRAPHICS)
+#if defined(__TARGET_SPECIFIC_ASCII) && defined(__AQUARIUS__)
     #include "aquarius/aquarius_char_tiles.h"
 #else
     

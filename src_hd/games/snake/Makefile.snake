@@ -1,0 +1,40 @@
+
+FULL_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/main.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	# $(SOURCE_PATH)/control_player.c \
+	# $(SOURCE_PATH)/move_snake.c \
+	# $(SOURCE_PATH)/snake.c \
+	# $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/variables.c \
+
+
+# FULL_FILES ?= \
+	# $(BASIC_CROSS_LIB_FILES) \
+	# $(SOURCE_PATH)/main.c \
+	# $(SOURCE_PATH)/control_player.c \
+	# $(SOURCE_PATH)/move_snake.c \
+	# $(SOURCE_PATH)/snake.c \
+	# $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/variables.c \
+	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+
+
+GAME_NAME := snake
+
+PARENT_DIR = games
+
+GLOBAL_OPTS = -D_XL_NO_SMALL_LETTERS
+
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
+
+include ./Makefile_common
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
+
+include ./makefiles.common/auxiliary/Makefile_default_values
+

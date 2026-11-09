@@ -1,0 +1,91 @@
+
+#######################################
+
+
+creativision: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__CREATIVISION__ -DX_OFFSET=7  -DXSize=15 -DY_OFFSET=4 -DYSize=12  \
+	-D__ALT_SLEEP $(CREATIVISION_GAME_OPTS) \
+	-D__VDP_MODE1_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_SLOWDOWN) \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+#-DXSize=16 -DX_OFFSET=2 -DY_OFFSET=1  -DYSize=16 
+# YSize=17 maybe possible
+ifdef USE_TOOLS
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+else
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+endif
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate -m mapfile.txt  --config $(CFG_PATH)/cc65/gamate_reduced_stack_2.cfg \
+	-DXSize=16 -DX_OFFSET=2 -DY_OFFSET=1  -DYSize=16 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
+	 $(GAMATE_GAME_OPTS) -D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+endif    
+
+
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 -m mapfile.txt \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
+	-D__NO_SCREEN_COLOR_INIT  \
+	-D__ALT_PRINT -DSIMPLE_SLOWDOWN \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ASSEMBLY_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D__UDG_BASE_FACTOR=15 \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+    
+    
+
+#################################################################
+
+
+#############################
+# SG1000
+
+
+sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-D__SC3000__ \
+	-DZ88DK_JOYSTICK \
+	-DXSize=16 -DX_OFFSET=8 -DYSize=16 -DY_OFFSET=4 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
+	-D__BIT_BANG_SOUND \
+	  \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos -create-app \
+	 \
+	 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+
+

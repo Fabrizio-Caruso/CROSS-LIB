@@ -1,0 +1,482 @@
+#include "cross_lib.h"
+
+#define NO_EXIT 255
+#define NUM_ROOMS 100
+
+/* Enemy types */
+#define ENEMY_NONE 0
+#define ENEMY_GUARD 1
+#define ENEMY_DRAGON 2
+#define ENEMY_SKELETON 3
+#define ENEMY_WRAITH 4
+#define ENEMY_DARKLORD 5
+
+/* Item types */
+#define ITEM_NONE 0
+#define ITEM_POTION 1
+#define ITEM_SWORD 2
+#define ITEM_AMULET 3
+#define ITEM_KEY 4
+
+/* ---- Exit tables ---- */
+
+static const uint8_t room_north[NUM_ROOMS] = {
+    /* 0-81: main path, no north exits */
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    /* 82-97: side rooms, north leads back to main path */
+    4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64, 69, 74, 79,
+    /* 98, 99 */
+    NO_EXIT, NO_EXIT
+};
+
+static const uint8_t room_south[NUM_ROOMS] = {
+    /* Main path: south exits to side rooms at 4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79 */
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 82, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, 83, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 84, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, 85, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    86, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 87, NO_EXIT, NO_EXIT,
+    NO_EXIT, 88, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 89, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, 90, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    91, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 92, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, 93, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 94,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 95, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, 96, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, 97, NO_EXIT,
+    /* 82-97: side rooms, no south */
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    /* 98, 99 */
+    NO_EXIT, NO_EXIT
+};
+
+static const uint8_t room_east[NUM_ROOMS] = {
+    /* Main path 0-80: each leads to next */
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+    31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+    61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
+    71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+    /* 81 leads to boss */
+    98,
+    /* 82-97: side rooms, no east */
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT, NO_EXIT,
+    /* 98 leads to victory */
+    99,
+    /* 99: no east */
+    NO_EXIT
+};
+
+static const uint8_t room_west[NUM_ROOMS] = {
+    /* 0: no west */
+    NO_EXIT,
+    /* 1-80: each leads back */
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+    40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+    50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+    60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
+    70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+    /* 81: west to 80 */
+    80,
+    /* 82-97: side rooms, west to parent (same as north) */
+    4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64, 69, 74, 79,
+    /* 98: west to 81 */
+    81,
+    /* 99: west to 98 */
+    98
+};
+
+/* ---- Enemy table ---- */
+static const uint8_t room_enemy[NUM_ROOMS] = {
+    /* 0-19: Outer Halls */
+    ENEMY_NONE, ENEMY_NONE, ENEMY_GUARD, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_GUARD, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_SKELETON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_SKELETON, ENEMY_NONE, ENEMY_NONE,
+    /* 20-39: Deep Corridors */
+    ENEMY_NONE, ENEMY_NONE, ENEMY_SKELETON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_WRAITH,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_SKELETON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_NONE,
+    /* 40-59: Caverns */
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_NONE,
+    /* 60-79: Shadow Realm */
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_DRAGON, ENEMY_NONE, ENEMY_NONE,
+    ENEMY_NONE, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_NONE,
+    /* 80-97: Fortress + side rooms */
+    ENEMY_NONE, ENEMY_NONE, ENEMY_GUARD, ENEMY_NONE, ENEMY_GUARD,
+    ENEMY_NONE, ENEMY_SKELETON, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE,
+    ENEMY_DRAGON, ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE, ENEMY_DRAGON,
+    ENEMY_NONE, ENEMY_WRAITH, ENEMY_NONE,
+    /* 98-99 */
+    ENEMY_DARKLORD, ENEMY_NONE
+};
+
+/* Mutable shadow for enemy state */
+static uint8_t enemy_alive[NUM_ROOMS];
+
+/* ---- Item table ---- */
+static const uint8_t room_item[NUM_ROOMS] = {
+    /* 0-19 */
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_POTION, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_SWORD, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_AMULET, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    /* 20-39 */
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_KEY,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    /* 40-59 */
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    /* 60-79 */
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_POTION, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE,
+    /* 80-97: side rooms have items */
+    ITEM_POTION, ITEM_NONE, ITEM_SWORD, ITEM_POTION, ITEM_AMULET,
+    ITEM_POTION, ITEM_NONE, ITEM_POTION, ITEM_KEY, ITEM_NONE,
+    ITEM_POTION, ITEM_POTION, ITEM_NONE, ITEM_POTION, ITEM_NONE,
+    ITEM_POTION, ITEM_NONE, ITEM_POTION,
+    /* 98-99 */
+    ITEM_NONE, ITEM_NONE
+};
+
+/* Mutable shadow for item state */
+static uint8_t item_remaining[NUM_ROOMS];
+
+/* ---- Trap damage ---- */
+static const uint8_t room_damage[NUM_ROOMS] = {
+    /* 0-19 */
+    0, 0, 0, 0, 0, 5, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 8, 0, 0, 0,
+    /* 20-39 */
+    0, 0, 0, 0, 0, 0, 10, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 10, 0, 0, 0,
+    /* 40-59 */
+    0, 0, 0, 0, 0, 0, 12, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 12, 0, 0, 0,
+    /* 60-79 */
+    0, 0, 0, 0, 0, 0, 15, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 15, 0, 0, 0,
+    /* 80-97 */
+    0, 0, 0, 8, 0, 10, 0, 10, 0, 12,
+    0, 12, 0, 15, 0, 15, 0, 15,
+    /* 98-99 */
+    0, 0
+};
+
+/* ---- Score bonuses ---- */
+static const uint8_t room_score[NUM_ROOMS] = {
+    /* 0-19 */
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    100, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    /* 20-39 */
+    150, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    200, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    /* 40-59 */
+    250, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    300, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    /* 60-79 */
+    350, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    400, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    /* 80-97 */
+    500, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    500, 0, 0, 0, 0, 0, 0, 0,
+    /* 98-99 */
+    0, 0
+};
+
+/* Mutable shadow for score bonuses */
+static uint8_t score_remaining[NUM_ROOMS];
+
+/* ---- Enemy max HP ---- */
+static const uint8_t enemy_max_hp[NUM_ROOMS] = {
+    /* 0-19 */
+    0, 0, 20, 0, 0, 0, 0, 20, 0, 0,
+    0, 0, 30, 0, 0, 0, 0, 30, 0, 0,
+    /* 20-39 */
+    0, 0, 30, 0, 0, 0, 0, 50, 0, 40,
+    0, 0, 30, 0, 0, 0, 0, 50, 0, 0,
+    /* 40-59 */
+    0, 0, 50, 0, 0, 0, 0, 40, 0, 0,
+    0, 0, 50, 0, 0, 0, 0, 40, 0, 0,
+    /* 60-79 */
+    0, 0, 50, 0, 0, 0, 0, 40, 0, 0,
+    0, 0, 50, 0, 0, 0, 0, 40, 0, 0,
+    /* 80-97 */
+    0, 0, 20, 0, 20, 0, 30, 0, 40, 0,
+    50, 0, 40, 0, 50, 0, 40, 0,
+    /* 98-99 */
+    100, 0
+};
+
+/* ---- Room names ---- */
+static void print_room_name(uint8_t room)
+{
+    switch (room) {
+        case 0:  _XL_PRINT(2, 0, "THE ENTRANCE HALL"); break;
+        case 1:  _XL_PRINT(2, 0, "THE COLD CORRIDOR"); break;
+        case 2:  _XL_PRINT(2, 0, "THE GUARD POST"); break;
+        case 3:  _XL_PRINT(2, 0, "THE ANCIENT LIBRARY"); break;
+        case 4:  _XL_PRINT(2, 0, "THE FOUNTAIN CHAMBER"); break;
+        case 5:  _XL_PRINT(2, 0, "THE TRAP ROOM"); break;
+        case 6:  _XL_PRINT(2, 0, "THE ARMORY"); break;
+        case 7:  _XL_PRINT(2, 0, "THE DRAGON S LAIR"); break;
+        case 8:  _XL_PRINT(2, 0, "THE OLD CELLAR"); break;
+        case 9:  _XL_PRINT(2, 0, "THE CHAPEL"); break;
+        case 10: _XL_PRINT(2, 0, "THE STONE BRIDGE"); break;
+        case 11: _XL_PRINT(2, 0, "THE SPIKE PIT"); break;
+        case 12: _XL_PRINT(2, 0, "THE THRONE ROOM"); break;
+        case 13: _XL_PRINT(2, 0, "THE GLOWING GARDEN"); break;
+        case 14: _XL_PRINT(2, 0, "THE ENDLESS MAZE"); break;
+        case 15: _XL_PRINT(2, 0, "THE TREASURE VAULT"); break;
+        case 16: _XL_PRINT(2, 0, "THE SHADOW CORRIDOR"); break;
+        case 17: _XL_PRINT(2, 0, "THE UNDERGROUND RIVER"); break;
+        case 18: _XL_PRINT(2, 0, "THE BONE GALLERY"); break;
+        case 19: _XL_PRINT(2, 0, "THE FROZEN CHAMBER"); break;
+        case 20: _XL_PRINT(2, 0, "THE RICKETY PASSAGE"); break;
+        case 21: _XL_PRINT(2, 0, "THE ECHOING HALL"); break;
+        case 22: _XL_PRINT(2, 0, "THE SKELETON PIT"); break;
+        case 23: _XL_PRINT(2, 0, "THE MOSSY GROTTO"); break;
+        case 24: _XL_PRINT(2, 0, "THE CRUMBLING ARCH"); break;
+        case 25: _XL_PRINT(2, 0, "THE SECRET CHAMBER"); break;
+        case 26: _XL_PRINT(2, 0, "THE SPIKE CORRIDOR"); break;
+        case 27: _XL_PRINT(2, 0, "THE DRAGON S NEST"); break;
+        case 28: _XL_PRINT(2, 0, "THE DARK TUNNEL"); break;
+        case 29: _XL_PRINT(2, 0, "THE WRAITH S DEN"); break;
+        case 30: _XL_PRINT(2, 0, "THE FLOODING CAVERN"); break;
+        case 31: _XL_PRINT(2, 0, "THE STONE GALLERY"); break;
+        case 32: _XL_PRINT(2, 0, "THE SHADOW VAULT"); break;
+        case 33: _XL_PRINT(2, 0, "THE WHISPERING HALL"); break;
+        case 34: _XL_PRINT(2, 0, "THE BURNING CORRIDOR"); break;
+        case 35: _XL_PRINT(2, 0, "THE CRYSTAL CAVE"); break;
+        case 36: _XL_PRINT(2, 0, "THE THORN MAZE"); break;
+        case 37: _XL_PRINT(2, 0, "THE BONE PIT"); break;
+        case 38: _XL_PRINT(2, 0, "THE MISTY PASSAGE"); break;
+        case 39: _XL_PRINT(2, 0, "THE RAVEN S NEST"); break;
+        case 40: _XL_PRINT(2, 0, "THE UNDERGROUND LAKE"); break;
+        case 41: _XL_PRINT(2, 0, "THE STALACTITE HALL"); break;
+        case 42: _XL_PRINT(2, 0, "THE DRAGON S BATH"); break;
+        case 43: _XL_PRINT(2, 0, "THE GLOWING POOL"); break;
+        case 44: _XL_PRINT(2, 0, "THE CRACKED FLOOR"); break;
+        case 45: _XL_PRINT(2, 0, "THE ECHO CHAMBER"); break;
+        case 46: _XL_PRINT(2, 0, "THE SPIKE ARENA"); break;
+        case 47: _XL_PRINT(2, 0, "THE WRAITH S SHRINE"); break;
+        case 48: _XL_PRINT(2, 0, "THE FROZEN CAVERN"); break;
+        case 49: _XL_PRINT(2, 0, "THE LAVA FLOW"); break;
+        case 50: _XL_PRINT(2, 0, "THE DEEP POOL"); break;
+        case 51: _XL_PRINT(2, 0, "THE MINERAL GALLERY"); break;
+        case 52: _XL_PRINT(2, 0, "THE DRAGON S HOARD"); break;
+        case 53: _XL_PRINT(2, 0, "THE DARK FISSURE"); break;
+        case 54: _XL_PRINT(2, 0, "THE WIND TUNNEL"); break;
+        case 55: _XL_PRINT(2, 0, "THE STONE FORGE"); break;
+        case 56: _XL_PRINT(2, 0, "THE BURNING PIT"); break;
+        case 57: _XL_PRINT(2, 0, "THE WRAITH S CRYPT"); break;
+        case 58: _XL_PRINT(2, 0, "THE CRYSTAL GROTTO"); break;
+        case 59: _XL_PRINT(2, 0, "THE ENDLESS TUNNEL"); break;
+        case 60: _XL_PRINT(2, 0, "THE VOID CORRIDOR"); break;
+        case 61: _XL_PRINT(2, 0, "THE SHADOW GATE"); break;
+        case 62: _XL_PRINT(2, 0, "THE DRAGON S TOMB"); break;
+        case 63: _XL_PRINT(2, 0, "THE BONE ORCHARD"); break;
+        case 64: _XL_PRINT(2, 0, "THE FROZEN THRONE"); break;
+        case 65: _XL_PRINT(2, 0, "THE DARK WELL"); break;
+        case 66: _XL_PRINT(2, 0, "THE SPIKE FORTRESS"); break;
+        case 67: _XL_PRINT(2, 0, "THE WRAITH S PALACE"); break;
+        case 68: _XL_PRINT(2, 0, "THE BURNING GARDEN"); break;
+        case 69: _XL_PRINT(2, 0, "THE CRACKED BRIDGE"); break;
+        case 70: _XL_PRINT(2, 0, "THE ABYSS EDGE"); break;
+        case 71: _XL_PRINT(2, 0, "THE SHADOW FORGE"); break;
+        case 72: _XL_PRINT(2, 0, "THE DRAGON S MAW"); break;
+        case 73: _XL_PRINT(2, 0, "THE THORN CORRIDOR"); break;
+        case 74: _XL_PRINT(2, 0, "THE FROZEN RIVER"); break;
+        case 75: _XL_PRINT(2, 0, "THE DARK SANCTUM"); break;
+        case 76: _XL_PRINT(2, 0, "THE SPIKE CATHEDRAL"); break;
+        case 77: _XL_PRINT(2, 0, "THE WRAITH S HALL"); break;
+        case 78: _XL_PRINT(2, 0, "THE BONE GARDEN"); break;
+        case 79: _XL_PRINT(2, 0, "THE FINAL GATE"); break;
+        case 80: _XL_PRINT(2, 0, "THE OUTER BASTION"); break;
+        case 81: _XL_PRINT(2, 0, "THE INNER KEEP"); break;
+        case 82: _XL_PRINT(2, 0, "THE GUARD S REST"); break;
+        case 83: _XL_PRINT(2, 0, "THE TRAP GALLERY"); break;
+        case 84: _XL_PRINT(2, 0, "THE ARMORY ANNEX"); break;
+        case 85: _XL_PRINT(2, 0, "THE HEALING SPRING"); break;
+        case 86: _XL_PRINT(2, 0, "THE BONE STACK"); break;
+        case 87: _XL_PRINT(2, 0, "THE SHADOW POOL"); break;
+        case 88: _XL_PRINT(2, 0, "THE WRAITH S LOUNGE"); break;
+        case 89: _XL_PRINT(2, 0, "THE KEY VAULT"); break;
+        case 90: _XL_PRINT(2, 0, "THE DRAGON S CAGE"); break;
+        case 91: _XL_PRINT(2, 0, "THE POTION CELLAR"); break;
+        case 92: _XL_PRINT(2, 0, "THE SCORE CHAMBER"); break;
+        case 93: _XL_PRINT(2, 0, "THE TRAP ROOM II"); break;
+        case 94: _XL_PRINT(2, 0, "THE FINAL DRAGON"); break;
+        case 95: _XL_PRINT(2, 0, "THE WRAITH S LAST STAND"); break;
+        case 96: _XL_PRINT(2, 0, "THE SPIKE GALLERY"); break;
+        case 97: _XL_PRINT(2, 0, "THE PRE-THRONE HALL"); break;
+        case 98: _XL_PRINT(2, 0, "THE DARK LORD S THRONE"); break;
+        case 99: _XL_PRINT(2, 0, "VICTORY HALL"); break;
+        default: break;
+    }
+}
+
+/* ---- Room descriptions ---- */
+static void print_room_desc(uint8_t room)
+{
+    switch (room) {
+        case 0:
+            _XL_PRINT(2, 2, "YOU STAND IN A COLD STONE HALL.");
+            _XL_PRINT(2, 3, "A DOOR LEADS EAST INTO DARKNESS.");
+            break;
+        case 1:
+            _XL_PRINT(2, 2, "A NARROW CORRIDOR STRETCHES EAST.");
+            _XL_PRINT(2, 3, "DROPLETS ECHO ON BARE STONE.");
+            break;
+        case 2:
+            _XL_PRINT(2, 2, "A HEAVY GUARD BLOCKS THE WAY.");
+            _XL_PRINT(2, 3, "HE GRINS AND DRAWS HIS BLADE.");
+            break;
+        case 3:
+            _XL_PRINT(2, 2, "ANCIENT TOMES LINES THE SHELVES.");
+            _XL_PRINT(2, 3, "A GLOWING POTION SITS ON A TABLE.");
+            break;
+        case 4:
+            _XL_PRINT(2, 2, "A CRYSTAL FOUNTAIN SHIMMERS HERE.");
+            _XL_PRINT(2, 3, "A PASSAGE DROPS SOUTH INTO SHADOW.");
+            break;
+        case 5:
+            _XL_PRINT(2, 2, "THE FLOOR SHAKES! SPIKES RISE!");
+            _XL_PRINT(2, 3, "YOU JUMP AND ESCAPE, BARELY.");
+            break;
+        case 6:
+            _XL_PRINT(2, 2, "RUSTED WEAPONS HANG ON THE WALLS.");
+            _XL_PRINT(2, 3, "A STEEL SWORD CATCHES YOUR EYE.");
+            break;
+        case 7:
+            _XL_PRINT(2, 2, "A MIGHTY DRAGON COILS AROUND GOLD.");
+            _XL_PRINT(2, 3, "ITS EYES BURN LIKE MOLTEN FIRE.");
+            break;
+        case 8:
+            _XL_PRINT(2, 2, "BONES RATTLE IN THE DARK CELLS.");
+            _XL_PRINT(2, 3, "A SKELETON RAISES ITS RUSTED SWORD.");
+            break;
+        case 9:
+            _XL_PRINT(2, 2, "CANDLELIGHT FLECKS THE QUIET CHAPEL.");
+            _XL_PRINT(2, 3, "A SILVER AMULET RESTS ON THE ALTAR.");
+            break;
+        case 10:
+            _XL_PRINT(2, 2, "A RICKETY BRIDGE SPANS A DEEP PIT.");
+            _XL_PRINT(2, 3, "WIND HOWLS FROM BELOW.");
+            break;
+        case 11:
+            _XL_PRINT(2, 2, "THE FLOOR CRUMBLES! SPIKES BELOW!");
+            _XL_PRINT(2, 3, "YOU GRAB A ROPE AND CLING ON!");
+            break;
+        case 12:
+            _XL_PRINT(2, 2, "AN EMPTY THRONE SIT IN THE DARKNESS.");
+            _XL_PRINT(2, 3, "DUST COVERS EVERY SURFACE.");
+            break;
+        case 13:
+            _XL_PRINT(2, 2, "BIOLUMINESCENT PLANTS GLOW SOFT BLUE.");
+            _XL_PRINT(2, 3, "THE AIR IS SWEET AND CALM.");
+            break;
+        case 14:
+            _XL_PRINT(2, 2, "ENDLESS CORRIDORS TWIST AND TURN.");
+            _XL_PRINT(2, 3, "ECHOES BOUNCE OFF COLD WALLS.");
+            break;
+        case 15:
+            _XL_PRINT(2, 2, "GOLD AND GEMS PILE HIGH ON THE FLOOR!");
+            _XL_PRINT(2, 3, "YOU POCKET A HANDFUL OF COINS.");
+            break;
+        case 16:
+            _XL_PRINT(2, 2, "SHADOWS DANCE ON THE WALLS.");
+            _XL_PRINT(2, 3, "A WRAITH MATERIALIZES BEFORE YOU!");
+            break;
+        case 17:
+            _XL_PRINT(2, 2, "UNDERGROUND RIVERS FLOW THROUGH HERE.");
+            _XL_PRINT(2, 3, "MOSS COVERS THE WET STONES.");
+            break;
+        case 18:
+            _XL_PRINT(2, 2, "SKELETONS LINE THE WALLS LIKE TROPHIES.");
+            _XL_PRINT(2, 3, "A CHILL RUNS DOWN YOUR SPINE.");
+            break;
+        case 19:
+            _XL_PRINT(2, 2, "FROST CRACKLES ON THE CEILING.");
+            _XL_PRINT(2, 3, "THE AIR BITES WITH COLD.");
+            break;
+        case 20:
+            _XL_PRINT(2, 2, "PLANKS CREAK BENEATH YOUR FEET.");
+            _XL_PRINT(2, 3, "THE PASSAGE SLOPES DOWNWARD.");
+            break;
+        case 21:
+            _XL_PRINT(2, 2, "YOUR FOOTSTEPS ECHO FOR ETERNITY.");
+            _XL_PRINT(2, 3, "THE HALL STRETCHES INTO BLACKNESS.");
+            break;
+        case 22:
+            _XL_PRINT(2, 2, "BONES LITTER THE FLOOR IN HEAPS.");
+            _XL_PRINT(2, 3, "A SKELETON STIRS AMONG THE REMAINS.");
+            break;
+        case 23:
+            _XL_PRINT(2, 2, "GREEN MOSS SOFTENS THE STONE.");
+            _XL_PRINT(2, 3, "SOMETHING DROPS FROM THE CEILING.");
+            break;
+        case 24:
+            _XL_PRINT(2, 2, "THE ARCH ABOVE CRACKS AND SHUDDERS.");
+            _XL_PRINT(2, 3, "ROCKS FALL IN A RAIN OF DEBRIS.");
+            break;
+        case 25:
+            _XL_PRINT(2, 2, "A HIDDEN DOOR LEADS TO A SMALL ROOM.");
+            _XL_PRINT(2, 3, "A MYSTIC KEY SHINES ON A PEDASTAL.");
+            break;
+        case 26:
+            _XL_PRINT(2, 2, "SPIKES LINE THE FLOOR IN ROWS.");
+            _XL_PRINT(2, 3, "YOU MUST LEAP BETWEEN THEM.");
+            break;
+        case 27:
+            _XL_PRINT(2, 2, "EGGS LINED THE NEST. NOW ONLY ASH.");
+            _XL_PRINT(2, 3, "A DRAGON WAKES FROM ITS SLEEP.");
+            break;
+        case 28:
+            _XL_PRINT(2, 2, "DARKNESS SWALLOWS EVERYTHING AHEAD.");
+            _XL_PRINT(2, 3, "YOU FEEL YOUR WAY BY TOUCH ALONE.");
+            break;
+        case 29:
+            _XL_PRINT(2, 2, "GHOSTLY LIGHTS DRIFT IN THE CORNERS.");
+            _XL_PRINT(2, 3, "A WRAITH RISES FROM THE FLOOR.");
+            break;
+        case 30:
+            _XL_PRINT(2, 2, "WATER RISES SLOWLY FROM THE FLOOR.");
+            _XL_PRINT(2, 3, "YOU WADE THROUGH ICE-COLD CURRENTS.");
+            break;
+        case 31:
+            _XL_PRINT(2, 2, "CARVED STONES TELL AN OLD STORY.");
+            _XL_PRINT(2, 3, "THE GALLERY STRETCHES EAST.");
+            break;
+        case 32:
+            _XL_PRINT(2, 2, "SHADOWS POOL LIKE BLACK WATER.");
+            _XL_PRINT(2, 3, "SOMETHING WATCHES FROM THE DARK.");
+            break;
+        case 33:
+            _XL_PRINT(2, 2, "WHISPERS CARRY ON THE WIND.");
+            _XL_PRINT(2, 3, "THE WALLS SEEM TO BREATH

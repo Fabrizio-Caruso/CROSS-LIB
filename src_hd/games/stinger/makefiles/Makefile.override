@@ -1,0 +1,52 @@
+
+# c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t c16 -m mapfile.txt \
+	# --config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
+	# -D__NO_SCREEN_COLOR_INIT -DYSize=17 \
+	# -D__ALT_PRINT \
+	# -D__MEMORY_MAPPED_GRAPHICS \
+	# -D__ASSEMBLY_CLEAR_SCREEN \
+	# -D__ALT_SLEEP \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	# -D__UDG_BASE_FACTOR=15 \
+	# $(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(FULL_FILES) \
+	# $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+creativision: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision  \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__ -DMAX_NUMBER_OF_MISSILES=5 -DMAX_ROCKETS_ON_SCREEN=8  -DNO_BOTTOM_WALL_REDRAW \
+	-D__ALT_SLEEP -D__VDP_MODE1_GRAPHICS -DXSize=26 -DX_OFFSET=3  \
+	-D_XL_SLOW_DOWN_FACTOR=1800  \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+ifdef USE_TOOLS
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+else
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+endif
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) $(CC65_OPTS) -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAMATE_SLOWDOWN) \
+	 $(GAMATE_GAME_OPTS) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -DXSize=18 -DX_OFFSET=1 \
+	-D__NO_SCREEN_COLOR_INIT \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+endif    
+

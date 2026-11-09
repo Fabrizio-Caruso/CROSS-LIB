@@ -1,0 +1,94 @@
+# ------------------------------------------------------------------------------------------
+# CC6303
+#
+
+
+
+vbcc_targets: \
+	mc10
+    
+###############################################################################################
+
+# mc10: mc10_buffered
+
+# mc10_buffered:
+	# cc68 -tmc10 $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) \
+	# -D__NORMALIZED_RAND -D__MC10__ \
+	# -DXSize=31 \
+	# -DYSize=15 \
+	# -D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	#  -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	# -D_XL_NO_COLOR \
+	#  -D_XL_NO_SLEEP \
+	# -DTURN_BASED \
+	# -D__BUFFERED_GRAPHICS \
+	# -D__NO_INIT_GRAPHICS \
+	# -D__ALT_PRINT \
+	# -D__DEFAULT_CLEAR_SCREEN \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(FULL_FILES) -o xchase
+	# mv xchase $(BUILD_PATH)/
+	# mv xchase.inf $(BUILD_PATH)/
+
+
+# -S to produce Assembly 
+mc10:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	 \
+	-DXSize=32 \
+	-DYSize=16 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D_XL_NO_COLOR \
+	 -D__ALT_SLEEP \
+	-D__NO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=1500 \
+	-D__DEFAULT_CLEAR_SCREEN -D__ALT_PRINT  \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o xchase
+	rm xchase
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
+mc10_turn_based:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	 \
+	-DXSize=32 \
+	-DYSize=16 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D_XL_NO_COLOR \
+	 -D_XL_NO_SLEEP \
+	-D__NO_INIT_GRAPHICS \
+	-DNO_PRINT -D__NO_WAIT  \
+	-DTURN_BASED \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
+mc10_tiny: mc10_no_print_tiny
+
+mc10_no_print_tiny:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	 \
+	-DXSize=32 \
+	-DYSize=16 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D_XL_NO_COLOR \
+	-DTINY_GAME -D_XL_NO_SLEEP \
+	-D__NO_INIT_GRAPHICS \
+	-DNO_PRINT -D__NO_WAIT \
+	-DNO_INPUT -DNO_WALL \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	-o xchase
+	mv xchase $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@
+	mv xchase.c10 $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.c10

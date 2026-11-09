@@ -1,0 +1,6 @@
+# ------------------------------------------------------------------------------------------
+# Combine all .c source files into one for cross-compilers that only handle single files, e.g., LCC1802, WINCMOC
+
+	
+
+

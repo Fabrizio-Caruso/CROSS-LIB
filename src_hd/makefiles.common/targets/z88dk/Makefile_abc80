@@ -1,0 +1,20 @@
+
+abc80:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__ABC80__ -clib=ansi -vn  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC80_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT \
+	-lndos -create-app -o abc80.bin \
+	$(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin	
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	rm abc80.bin 
+	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/X$(GAME_NAME)_abc80.bac
+	mv abc80.ihx $(BUILD_PATH)/X$(GAME_NAME)_abc80.ihx
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_abc80.bin

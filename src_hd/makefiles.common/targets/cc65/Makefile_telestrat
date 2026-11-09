@@ -1,0 +1,32 @@
+#######################################################################################
+# TELESTRAT
+
+telestrat: telestrat_buffered
+
+telestrat_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TELESTRAT_SLOWDOWN) \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED -D__STDIO -DXSize=38 -DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__NO_WAIT -D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+# cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+
+
+telestrat_joy_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ -DCC65_JOYSTICK \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED -D__STDIO -DXSize=38 -DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_TELESTRAT_SLOWDOWN) \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+# cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase

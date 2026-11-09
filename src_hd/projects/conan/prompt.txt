@@ -1,0 +1,6 @@
+Use Cross-Lib APIs to convert the following game written in BASIC V2 for the Commodore 64 into a C game. 
+Cross-Lib APIs should be used for input, output, sound, timing and random numbers. 
+When the game has multiple choices, you must implement a moving arrow to select the option. 
+Fire should be used to confirm the selection.
+
+

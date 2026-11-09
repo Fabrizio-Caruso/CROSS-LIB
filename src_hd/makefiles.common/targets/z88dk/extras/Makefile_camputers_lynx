@@ -1,0 +1,32 @@
+camputers_lynx_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_UDG -D_XL_NO_JOYSTICK -D__BIT_BANG_SOUND \
+	-vn \
+	$(CAMPUTERS_LYNX_GAME_OPTS) \
+	-D__VT52 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CAMPUTERS_LYNX_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+camputers_lynx_zsdcc: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	-D__CAMPUTERS_LYNX__ -D_XL_NO_JOYSTICK  -D__BIT_BANG_SOUND \
+	-vn \
+	$(CAMPUTERS_LYNX_GAME_OPTS) \
+	-D__VT52 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CAMPUTERS_LYNX_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS  \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

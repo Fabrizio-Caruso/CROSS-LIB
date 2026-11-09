@@ -1,0 +1,127 @@
+#########################################################
+# (FAST) SIMPLE TESTS
+
+include ./makefiles.common/auxiliary/Makefile_compilers
+
+include ./games/chase/Makefile.chase
+
+
+#######################################################
+# (LONG) TESTS
+# Compilers and Dev-kits covered:
+# - gcc
+
+# TODO: gcc_buffered no longer available
+simple_test: gcc_buffered
+
+
+test_stdio_extra: gcc_full_tests
+
+#######################################################
+# TESTS EXCLUDING Z88DK
+# Compilers and Dev-kits covered:
+# - gcc
+# - cmoc
+# - cc65
+# - ack
+# - gcc_amiga
+# - gcc_atari_st
+# - xtc68
+# - lcc1802
+
+no_z88dk_test: \
+    gcc_full_tests \
+    cc65_full_tests \
+    cmoc_full_tests \
+    ack_full_tests \
+    lcc1802_full_tests \
+    mod_gcc_full_tests \
+    xtc68_full_tests 
+
+    
+
+mod_gcc_full_tests: \
+    gcc_amiga_extra \
+    gcc_atari_st_extra \
+
+test_xtc68_extra: \
+    xtc68_extra
+
+
+test_cmoc_extra: \
+    coco \
+    coco3 \
+    mo5
+
+# to fix
+#     oric_extra 
+#     gamate_extra 
+test_cc65_extra: \
+    vic20 \
+    supervision \
+    atari \
+    atari_lynx \
+    creativision \
+    pet \
+    c64 \
+    oric
+
+test_ack_extra: \
+    pc8086_extra \
+    cpm_8080_adm3a 
+    
+test_ncurses_extra: \
+	ncurses
+
+gcc_full_tests: \
+    ncurses
+
+test_lcc1802_extra: \
+    comx
+
+
+
+#######################################################
+# (LONG) TESTS
+# Compilers and Dev-kits covered:
+# - gcc
+# - cmoc
+# - cc65
+# - ack
+# - gcc_amiga
+# - gcc_atari_st
+# - xtc68
+# - lcc1802
+# - z88dk 
+
+.PHONY: test z88dk_test
+
+
+    # gal_6k 
+    # msx_32k_rom 
+    # spectrum_48k 
+    # zx81_32k_wrx_turn_based 
+
+#     tiki100 
+test_z88dk_extra: \
+    c128_z80_80col \
+    cpm_z80_adm3a \
+    spectrum_48k \
+    msx \
+    zx81_32k_wrx 
+
+test:
+	make z88dk_test
+	make no_z88dk_test 
+
+
+
+
+
+
+####################################################################################################################
+# Z88DK Compilation Tests with several minimal versions of the game
+# 
+# include makefiles.other/chase/tests/Makefile.z88dk_quick_tests
+
+

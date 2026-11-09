@@ -1,0 +1,273 @@
+# -----------------------------------------------------------------------
+# EXPERIMENTAL
+# Targets which are either impossible to test or that are known to be broken because of bugs in their respective dev-kit
+
+DEBUG_MACROS ?= \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_WAIT \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__NO_PRINT \
+	-D__NO_PRINT \
+	-D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-D__NO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN 
+
+
+# # No full support in Z88DK / Untestable
+abc800_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -zorg=40000 \
+	-D__ABC800__ \
+	-D__ADM3A \
+	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP \
+	-o$(BUILD_PATH)/TINY_abc800.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+
+# No full support in Z88DK / Untestable
+abc800_light:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
+	-zorg=49200 $(INCLUDE_OPTS) \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__VT100 \
+	-D__NO_WAIT \
+	-D__ABC80__ -vn  -lndos  \
+	$(LIGHT_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
+	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
+
+
+# No full support in Z88DK / Untestable
+hello_abc800:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	-lndos -create-app \
+	./test/helloworld_getchar.c
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/hello.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/HELLO_abc800.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/HELLO_abc800.dsk -b $(BUILD_PATH)/hello.bac
+    
+
+# hello_mtx512:
+	# $(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi -startup=2 $(SCCZ80_OPTS)  \
+	# -lndos -create-app \
+	# ./test/helloworld_getchar.c
+	# mv a $(BUILD_PATH)
+	# mv a.wav $(BUILD_PATH)
+	# rm a.bin
+# zcc +mtx world.c -startup=2 -create-app
+
+hello_mtx512:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS)  \
+	./test/helloworld.c \
+	-create-app
+	mv a $(BUILD_PATH)
+	mv a.wav $(BUILD_PATH)
+	rm a.bin
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/memu/tapes/HELLO512.MTX
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/mess0118b/A
+
+hello_mtx500:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS)  \
+	./test/helloworld.c \
+	-create-app
+	mv a $(BUILD_PATH)
+	mv a.wav $(BUILD_PATH)
+	rm a.bin
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/memu/tapes/HELLO500.MTX
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/mess0118b/A
+
+
+abc800_conio:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__INCLUDE_CONIO_H \
+	-D__ABC800__  -vn  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	 \
+	-DNO_HINTS \
+	-D__NO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_SLEEP \
+	-DFLAT_ENEMIES \
+	-lndos -create-app \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk -b $(BUILD_PATH)/xchase.bac
+	rm a.bin 
+	rm $(BUILD_PATH)/xchase.bac
+	mv a.ihx $(BUILD_PATH)/FULL_$@.ihx 	
+
+
+# No full support in Z88DK / Untestable
+abc800_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
+	-D__ABC80__ -vn \
+	-D__CONIO_GRAPHICS -D__INCLUDE_CONIO_H -D__NO_INIT_GRAPHICS \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+
+
+# No resl support in CC65
+atari2600_graphics_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(SOURCE_PATH)/../test/atari2600_graphics_test.c \
+	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
+
+# No resl support in CC65
+atari2600_tiny:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_atari2600.rom
+
+
+# Z88DK target is broken
+c7420:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \
+	 -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
+	-D__NO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
+
+
+# Z88DK target is broken
+c7420_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -D_XL_NO_SLEEP -D__NO_WAIT \
+	-D__NO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas
+
+
+# Z88DK target is broken
+m100:
+	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__M100__ \
+	-DXSize=32 \
+	-DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	  \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_m100.bin
+	rm $(BUILD_PATH)/FULL_m100.bin
+
+
+# No emulator exixts
+rex:
+	$(Z88DK_PATH)$(MYZ88DK) +rex -O0 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__REX__ \
+	-DTURN_BASED \
+	-v \
+	-D__REX_GRAPHICS \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	  \
+	-lndos \
+	-D__NO_PRINT \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__NO_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
+	-create-app -o $(BUILD_PATH)/FULL_rex.bin
+	rm $(BUILD_PATH)/FULL_rex_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex.bin
+
+
+# 'fputc_callee' not defined
+rex_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__REX__ \
+	-DTURN_BASED \
+	-vn \
+	-D__BUFFERED_GRAPHICS \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	  \
+	-lndos \
+	-D__NO_PRINT \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-D__NO_PRINT \
+	-D__NO_INIT_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
+	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
+	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex_buffered.bin
+
+
+
+# Z88DK target is broken
+x07: x07_tiny
+
+x07_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-Cz--audio \
+	-DBOMBS_NUMBER=2 \
+	-DGHOSTS_NUMBER=6 \
+	-DLESS_TEXT \
+	 \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__X07__ \
+	-vn \
+	-D__VT52 \
+	-D_XL_NO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o $(BUILD_PATH)/TINY_x07.bin
+	rm $(BUILD_PATH)/TINY_x07.bin
+
+

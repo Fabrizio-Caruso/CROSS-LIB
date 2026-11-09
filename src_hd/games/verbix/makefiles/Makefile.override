@@ -1,0 +1,40 @@
+
+#######################################
+
+mc10:
+	cc68 -tmc10  $(CC6303_MC10_OPTS) $(INCLUDE_OPTS) $(GLOBAL_OPTS) \
+	-D__MC10__ \
+	-D__REVERSE_LETTERS \
+	-DXSize=32 \
+	-DYSize=16 -D_XL_NO_JOYSTICK \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D_XL_NO_COLOR -D__TARGET_SPECIFIC_ASCII \
+	-D__ALT_SLEEP -D__ALT_RAND \
+	-D__NO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
+	-D__DEFAULT_CLEAR_SCREEN -D__ALT_PRINT  \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o xchase
+	rm xchase
+	mv xchase.c10 $(BUILD_PATH)/X$(GAME_NAME)_$@.c10
+
+
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16  \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30_less_hd_stack.cfg \
+	-D__NO_SCREEN_COLOR_INIT  \
+	-D__ALT_PRINT \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ASSEMBLY_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
+	-D__UDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

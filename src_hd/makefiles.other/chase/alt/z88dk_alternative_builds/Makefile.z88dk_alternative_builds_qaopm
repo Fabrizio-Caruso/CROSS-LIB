@@ -1,0 +1,159 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK QAOPM
+#
+
+z88dk_alt_targets_qaopm: \
+    zx80_alt_targets_qaopm \
+    zx81_alt_targets_qaopm
+
+# ------------------------------------------------------------------------------------------
+
+zx80_alt_targets_qaopm: \
+    zx80_16k_turn_based_qaopm
+
+zx81_alt_targets_qaopm: \
+    zx81_16k_qaopm \
+    zx81_16k_turn_based_qaopm \
+    zx81_16k_wrx_qaopm \
+    zx81_32k_wrx_qaopm \
+    zx81_32k_wrx_turn_based_qaopm
+
+
+
+###################################################################
+# ZX80 QAOPM
+
+zx80_16k_turn_based_qaopm:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
+	-D__ZX80__  \
+	-DZ88DK_JOYSTICK \
+	-DTURN_BASED \
+	-D__ALT_SLEEP \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx80_16k_turn_based_qaopm.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_zx80_16k_turn_based_qaopm.prg
+
+
+###################################################################
+# ZX81 QAOPM
+
+zx81_16k_turn_based_qaopm:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	\
+	-D__ZX81__  \
+	-DZ88DK_JOYSTICK \
+	-DTURN_BASED \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based_qaopm.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based_qaopm.prg
+
+
+zx81_16k_qaopm:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	--opt-code-size \
+	-vn \
+	-D__ZX81__  \
+	-DZ88DK_JOYSTICK \
+	-DQAOPM \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_qaopm.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_zx81_16k_qaopm.prg
+
+
+zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) -O3  \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-DZ88DK_JOYSTICK \
+	 \
+	-DGHOSTS_NUMBER=6 \
+	-DXSize=36 \
+	-DYSize=35 \
+	-vn \
+	-D__ZX81__ \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-DQAOPM \
+	-lndos \
+	-DLESS_TEXT \
+	-D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx_qaopm.prg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx_qaopm.prg
+
+
+zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) -O3  \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DGHOSTS_NUMBER=6 \
+	 \
+	-DXSize=36 \
+	-DYSize=35 \
+	-DZ88DK_JOYSTICK \
+	-DQAOPM \
+	-vn \
+	-D__ZX81__ \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-lndos \
+	-DLESS_TEXT \
+	-D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_qaopm.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_qaopm.prg
+
+
+zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) -O3 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DZ88DK_JOYSTICK \
+	-DQAOPM \
+	-DGHOSTS_NUMBER=9 \
+	-DTURN_BASED \
+	-DXSize=36 \
+	-DYSize=35 \
+	-vn \
+	-D__ZX81__ \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-lndos \
+	-DLESS_TEXT \
+	-D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_turn_based_qaopm.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_turn_based_qaopm.prg
+

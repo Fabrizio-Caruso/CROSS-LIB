@@ -1,0 +1,18 @@
+
+#############################
+# PASAPIA7
+
+pasopia7:
+	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PASOPIA__ \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DXSize=40 -DYSize=23 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PASOPIA7_SLOWDOWN) \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BOOTSTRAP.bin	

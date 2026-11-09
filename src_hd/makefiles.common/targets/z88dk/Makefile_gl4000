@@ -1,0 +1,19 @@
+#############################
+# V-TECH GENIUS LEADER
+gl4000: gl4000_buffered
+
+gl4000_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +gl -clib=gl4000 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__VGL__ \
+	-DXSize=20 -D_XL_NO_LOWER_BORDER \
+	-DYSize=6 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GL4000_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT -D__BUFFERED_GRAPHICS -DTURN_BASED \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__STDIO -D__NO_SCREEN_COLOR_INIT \
+	-D__NO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

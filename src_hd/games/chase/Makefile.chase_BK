@@ -1,0 +1,250 @@
+######################################################################
+# Makefile for CROSS-CHASE 
+
+GAME_NAME = chase
+
+include ./games/$(GAME_NAME)/project_config.mk
+
+PARENT_DIR = games
+
+SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
+
+GLOBAL_OPTS =  
+# -D_DEFAULT_ASCII
+# -D_BACKGROUND_COLOR=_XL_WHITE
+
+###################################
+
+SCCZ80_OPTS ?=  $(GLOBAL_OPTS) $(Z88DK_MAKEFILE_COMPILATION_OPTS)
+#-O0
+#-O3
+
+SCCZ80_ROM_OPTS ?= $(GLOBAL_OPTS) $(Z88DK_MAKEFILE_COMPILATION_OPTS)
+#-O0
+#-O3
+
+ZSDCC_OPTS ?=  $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+# -SO2
+#-SO0
+# -SO3 --max-allocs-per-node200000
+
+ZSDCC_ROM_OPTS ?= $(ZSDCC_MAKEFILE_COMPILATION_OPTS) $(GLOBAL_OPTS)
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
+Z88DK_MAKE_OPTS ?= $(ZSDCC_MAKEFILE_THREADS_OPTS)
+#-j 8
+
+####################################################################################################################
+# COMMON INCLUDES
+
+include makefiles.common/auxiliary/Makefile_ALL
+
+#####################################################################
+# Draw skip
+LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
+DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
+EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
+ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
+
+
+######################################################################
+# Cross-Shoot files
+#
+NO_CHASE_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c
+
+#
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
+
+#
+TEST_FILES ?= $(NO_CHASE_FILES)
+
+#
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
+
+#
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
+
+#
+LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
+
+#
+FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
+
+
+
+
+####################################################################################################################
+# COMMON INCLUDES
+
+# include makefiles.common/auxiliary/Makefile_ALL
+
+
+
+
+#############################################################################################################################################
+
+# All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
+all_more: \
+    cc65_targets \
+    cmoc_targets \
+    ack_targets \
+    lcc1802_targets \
+    xtc68_targets \
+    gcc_targets \
+    gcc_atari_st_targets \
+    gcc_amiga_targets \
+    gcc_ti99_targets \
+    z88dk_targets_more
+
+ifeq ($(DO_WIN),1)
+all: \
+    cc65_targets \
+    cmoc_targets \
+    lcc1802_targets \
+    z88dk_targets
+else
+all: \
+    cc65_targets \
+    cmoc_targets \
+    z88dk_targets
+endif
+
+
+####################################################################################################################
+# TARGETS PER DEV-KIT
+
+
+# ------------------------------------------------------------------------------------------
+# - CC65 
+
+include games/chase/makefiles.chase/Makefile.cc65_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - Z88DK 
+
+include games/chase/makefiles.chase/Makefile.z88dk_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - CMOC
+
+include games/chase/makefiles.chase/Makefile.cmoc_targets
+
+# ------------------------------------------------------------------------------------------
+# - ACK
+
+include games/chase/makefiles.chase/Makefile.ack_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - GCC
+
+include games/chase/makefiles.chase/Makefile.gcc_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - VBCC
+
+include games/chase/makefiles.chase/Makefile.vbcc_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - CC6303
+
+include games/chase/makefiles.chase/Makefile.cc6303_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - GCC AMIGA
+
+include games/chase/makefiles.chase/Makefile.gcc_amiga_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - GCC ATARI_ST
+
+include games/chase/makefiles.chase/Makefile.gcc_atari_st_targets
+
+# ------------------------------------------------------------------------------------------
+# - XTC68
+
+include games/chase/makefiles.chase/Makefile.xtc68_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - LCC1802
+
+include games/chase/makefiles.chase/Makefile.lcc1802_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - GCC Z8K PCOS
+
+include games/chase/makefiles.chase/Makefile.gcc_z8k_pcos_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - EMCC
+
+include games/chase/makefiles.chase/Makefile.emcc_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - GCC TMS9900
+
+include games/chase/makefiles.chase/Makefile.gcc_tms9900_targets
+
+#include games/chase/makefiles.chase/Makefile.gcc_tms9900_test
+
+# ------------------------------------------------------------------------------------------
+# - SDCC
+
+include games/chase/makefiles.chase/Makefile.sdcc_targets
+
+
+# ------------------------------------------------------------------------------------------
+# - WINCMOC
+#
+
+#include games/chase/makefiles.chase/Makefile.wincmoc_targets
+
+
+#############################################################################################################################################
+# Cross dev-kit 
+include games/chase/makefiles.chase/Makefile.cross-dev-kit_targets
+
+
+####################################################################################################################
+# Alternative builds	
+
+# - Z88DK
+include makefiles.other/chase/alt/Makefile.z88dk_alternative_builds
+
+# - CC65
+include makefiles.other/chase/alt/Makefile.cc65_alternative_builds
+
+####################################################################################################################
+# WIP
+
+# - Z88DK
+include makefiles.other/chase/wip/Makefile.z88dk_wip_targets
+
+# - CC65
+include makefiles.other/chase/wip/Makefile.cc65_wip_targets
+
+# - ACK
+include makefiles.other/chase/wip/Makefile.ack_wip_targets
+
+####################################################################################################################
+# EXPERIMENTAL
+
+include makefiles.other/chase/experimental/Makefile.z88dk_experimental_targets
+
+

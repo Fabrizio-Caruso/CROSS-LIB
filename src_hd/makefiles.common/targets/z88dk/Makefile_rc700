@@ -1,0 +1,19 @@
+#############################
+# RC700
+
+rc700:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=rc700 $(INCLUDE_OPTS) \
+	-D__RC700__ \
+	-DXSize=80 \
+	-DYSize=23 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_RC700_SLOWDOWN) \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_rc700.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_rc700.bin
+

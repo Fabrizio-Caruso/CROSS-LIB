@@ -1,0 +1,179 @@
+# ------------------------------------------------------------------------------------------
+# TMS9000-GCC
+#   
+
+
+# Paths to TMS9900 compilation tools 
+# ( Set in environment to override paths )
+TMS9900_DIR?=/opt/gcc4ti/bin
+ELF2EA5_DIR?=/home/fabri/Retro/GCC4TI/elf2ea5
+EA5_SPLIT_DIR?=/home/fabri/Retro/GCC4TI/ea5split
+CLASSIC99_DSK1?=/home/fabri/Retro/GCC4TI/DSK1
+
+
+# Full paths to the executables used
+GAS=$(TMS9900_DIR)/tms9900-as
+LD=$(TMS9900_DIR)/tms9900-ld
+CC=$(TMS9900_DIR)/tms9900-gcc
+AR=$(TMS9900_DIR)/tms9900-ar
+ELF2EA5=$(ELF2EA5_DIR)/elf2ea5
+EA5_SPLIT=$(EA5_SPLIT_DIR)/ea5split
+
+LDFLAGS_EA5=\
+  --section-start .text=a000 --section-start .data=2080 -M
+
+
+
+C_FLAGS=\
+  -O2 -std=c99 -s -I./ -fno-builtin
+
+
+
+TI99_CC ?= tms9900-gcc 
+
+
+TI99_TINY_OPTS ?= \
+	$(C_FLAGS) $(GLOBAL_OPTS) \
+	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
+	-DXSize=32   \
+	-DYSize=24 -DBUGGY_MOD5 \
+	-D__ALT_SLEEP  \
+	-DTINY_GAME -DNO_WALL  \
+	-D__VDP_MODE1_GRAPHICS \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_SLOW_DOWN_FACTOR=900
+
+
+TI99_OPTS ?= \
+	$(C_FLAGS) $(GLOBAL_OPTS) \
+	-D__TI99__ -nostdlib \
+	-DXSize=32   \
+	-DYSize=24 -DBUGGY_MOD5 -DBUGGY_VERTICAL_DRAW \
+	-D__ALT_SLEEP   -DEXTRA_TITLE \
+	-D__VDP_MODE1_GRAPHICS  \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_SLOW_DOWN_FACTOR=1200
+
+##################################################################################################
+
+# Paths to TMS9900 compilation tools
+GAS=tms9900-as
+LD=tms9900-ld
+TI99CC=tms9900-gcc
+CXX=tms9900-c++
+OBJCOPY=tms9900-objcopy
+
+LIB_TI99_PATH=$(TMS9900-GCC_PATH)/../lib
+
+# Flags used during linking
+# Refer to the linker rules in an external file
+LDFLAGS=\
+  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg 
+
+# List of compiled objects used in executable
+OBJECT_TINY_LIST= \
+  $(TOOLS_PATH)/ti99/crt0_ea5.o \
+  $(CROSS_LIB_PATH)/display/display_macros.o \
+  $(CROSS_LIB_PATH)/input/input_macros.o \
+  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(CROSS_LIB_PATH)/rand/rand.o \
+  $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
+  $(SOURCE_PATH)/init_images.o \
+  $(SOURCE_PATH)/move_player.o \
+  $(SOURCE_PATH)/strategy.o \
+  $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
+  $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
+  $(SOURCE_PATH)/main.o
+  
+
+OBJECT_LIST= \
+  $(TOOLS_PATH)/ti99/crt0_ea5.o \
+  $(CROSS_LIB_PATH)/display/display_macros.o \
+  $(CROSS_LIB_PATH)/input/input_macros.o \
+  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(CROSS_LIB_PATH)/rand/rand.o \
+  $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
+  $(SOURCE_PATH)/init_images.o \
+  $(SOURCE_PATH)/item.o \
+  $(SOURCE_PATH)/move_player.o \
+  $(SOURCE_PATH)/rocket.o $(SOURCE_PATH)/skull.o $(SOURCE_PATH)/end_screen.o \
+  $(SOURCE_PATH)/bullet.o $(SOURCE_PATH)/horizontal_missile.o \
+  $(SOURCE_PATH)/strategy.o \
+  $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
+  $(CROSS_LIB_PATH)/sound/gcc4ti99/ti99_sounds.o \
+  $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
+  $(SOURCE_PATH)/main.o
+
+
+TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
+
+# Recipes to compile individual files
+%.o: %.asm
+	$(GAS) $< -o $@
+%.o: %.c
+	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
+
+# 	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_FULL_OPTS) -c $< -o $@
+
+
+# List of all files needed in executable
+TINY_PREREQUISITES=\
+  $(OBJECT_LIST)
+
+PREREQUISITES=\
+  $(OBJECT_LIST)
+
+
+#####################################################################
+
+
+xchase.ea5.elf: $(PREREQUISITES)
+	$(LD) $(OBJECT_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.elf > xchase.map
+	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
+
+
+# Recipe to compile the executable
+ti99_tiny: xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf xchase.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) xchase.ea5.bin
+	rm -rf xchase.map
+	rm -rf ea5.map
+	rm -rf xchase.ea5.elf
+	# mv XCHASE $(BUILD_PATH)/X$(GAME_NAME)_TINY_ti994a
+	mv XCHAS* $(BUILD_PATH)/
+	rm -rf xchase.ea5.bin
+
+
+xchase_tiny.ea5.elf: $(TINY_PREREQUISITES)
+	$(LD) $(OBJECT_TINY_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase_tiny.ea5.elf > xchase.map
+	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
+
+
+ti99: $(ASSETS_PATH)/8x8_chars.h xchase.ea5.elf $(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) $(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT)
+	$(TOOLS_PATH)/ti99/elf2ea5$(COMPILEDEXT) xchase.ea5.elf x$(GAME_NAME)1.ea5.bin
+	$(TOOLS_PATH)/ti99/ea5split$(COMPILEDEXT) x$(GAME_NAME)1.ea5.bin
+	rm -rf xchase.map
+	rm -rf ea5.map
+	rm -rf xchase.ea5.elf
+	mv X$(GAME_NAME,lc)* $(BUILD_PATH)/
+	rm -rf x$(GAME_NAME)1.ea5.bin
+
+
+ti99_targets: \
+	ti99
+
+gcc_ti99_targets: \
+	ti99_targets
+
+	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
+	# mv ti99_cross_chase.cart $(BUILD_PATH)
+	# mv ti99_cross_chase.elf $(BUILD_PATH)
+
+
+# Recipe to clean all compiled objects
+.phony ti99clean:
+	rm -f *.o
+	rm -f *.elf
+	rm -f *.cart
+
+

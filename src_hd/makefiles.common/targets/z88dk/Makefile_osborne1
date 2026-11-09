@@ -1,0 +1,30 @@
+#############################
+# OSBORNE1
+
+osborne1_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxosborne1 -subtype=osborne1 \
+	$(INCLUDE_OPTS) \
+	-D__OSBORNE1__ \
+	-D_XL_NO_COLOR \
+	-D__INCLUDE_CONIO_H \
+	-D__ADM3A_WITH_UNDEF \
+	-D__CPM_80X24__ \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxosborne1 -subtype=osborne1 \
+	$(INCLUDE_OPTS) \
+	-D__OSBORNE1__ \
+	-D_XL_NO_COLOR \
+	-D__INCLUDE_CONIO_H \
+	-D__Z88DK_SPRITES_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+

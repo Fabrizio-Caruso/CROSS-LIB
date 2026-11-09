@@ -1,0 +1,21 @@
+#############################
+# KRAMER-MC
+
+kramermc:
+	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__KRAMERMC__ \
+	-DXSize=64 \
+	-DYSize=16 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_KRAMERMC_SLOWDOWN) \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_JOYSTICK \
+	-D__VT52 -D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS -D__STDIO -DTURN_BASED \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+

@@ -1,0 +1,16 @@
+#############################
+# MBC200
+
+mbc200:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=mbc200 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	 -D__PC88__    \
+	-lndos -DXSize=80 -DYSize=33 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MBC200_SLOWDOWN) \
+	-create-app \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+

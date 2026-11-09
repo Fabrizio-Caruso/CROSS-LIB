@@ -1,0 +1,111 @@
+#############################
+# M5
+
+m5_4k: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+m5: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+
+m5_4k_rom: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+m5_rom: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+
+
+
+m5_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ -D_XL_NO_JOYSTICK \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+    
+    
+m5_keyboard_rom: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-lm -create-app -Cz--audio \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ -D_XL_NO_JOYSTICK  \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-D__BIT_BANG_SOUND \
+	-D__CONIO_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_M5_SLOWDOWN) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin

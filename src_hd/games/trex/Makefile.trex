@@ -1,0 +1,16 @@
+
+FULL_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/main.c 
+
+GAME_NAME := trex
+
+PARENT_DIR = games
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
+
+include ./Makefile_common
+
+include ./makefiles.common/auxiliary/Makefile_default_values

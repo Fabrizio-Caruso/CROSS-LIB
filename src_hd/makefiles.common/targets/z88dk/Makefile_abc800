@@ -1,0 +1,29 @@
+##############################################################################
+
+# Can we do unbuffered/conio graphics?
+
+abc800: abc800_buffered
+
+abc800_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ABC800_SLOWDOWN) \
+	-D__STDIO -D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR -DNO_BLINKING -DXSize=39 -DYSize=22 \
+	-D__BUFFERED_GRAPHICS -D__ALT_PRINT \
+	-D_XL_NO_SLEEP -D__NO_WAIT -D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_INIT_GRAPHICS \
+	-lndos -create-app -o a800.bin \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a800.bin $(BUILD_PATH)/xc800.bac 49200
+	#$(TOOLS_PATH)/z88dk/abc80/bin2abc --bac800 -o $(BUILD_PATH)/xchase.bac abc80.bin
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac800 -o $(BUILD_PATH)/xc800.bac a800.bin
+	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk 
+	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk -b $(BUILD_PATH)/xc800.bac
+	rm a800.bin 
+	# rm -rf $(BUILD_PATH)/xc800.bac
+	mv a800.ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx 	
+

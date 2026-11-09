@@ -1,0 +1,53 @@
+#############################
+# SMC777
+
+
+smc777_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=smc777 $(INCLUDE_OPTS) \
+	-D__SMC777__ \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMC777_SLOWDOWN) \
+	-D__VT52 -DXSize=80 -DYSize=24 \
+	-D__CONIO_GRAPHICS -DTURN_BASED \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -oxcsmc777.bin
+	rm xcsmc777.bin
+	rm xcsmc777.com
+	mv xcsmc777.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+
+
+
+smc777_80: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +smc777 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMC777__ -vn \
+	-D__VT52 -DYSize=25 -DXSize=80 -D__SCREEN_MODE=4 \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMC777_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES) -D_XL_NO_JOYSTICK \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app -o fp1100_X$(GAME_NAME).bin
+	mv fp1100_X$(GAME_NAME).d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm -rf fp1100_X$(GAME_NAME).bin
+	rm -rf fp1100_X$(GAME_NAME)_BOOTSTRAP.bin
+
+
+smc777: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +smc777 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMC777__ -vn \
+	-D__VT52 -DYSize=25 -DXSize=40 -D__SCREEN_MODE=3 \
+	-lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SMC777_SLOWDOWN) \
+	-D__CONIO_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(FULL_FILES) -D_XL_NO_JOYSTICK \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-create-app -o fp1100_X$(GAME_NAME).bin
+	mv fp1100_X$(GAME_NAME).d88 $(BUILD_PATH)/X$(GAME_NAME)_$@.d88
+	rm -rf fp1100_X$(GAME_NAME).bin
+	rm -rf fp1100_X$(GAME_NAME)_BOOTSTRAP.bin

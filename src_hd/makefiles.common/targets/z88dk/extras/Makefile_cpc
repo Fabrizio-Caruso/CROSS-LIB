@@ -1,0 +1,108 @@
+
+ifdef USE_TOOLS
+cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+else
+cpc_cpcrslib_mode1: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+endif
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -vn  -clib=ansi \
+	-D__CPC__  \
+	-D__CPCRSLIB_GRAPHICS \
+	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_CPCRSLIB_MODE1_SLOWDOWN) \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg \
+	-D__CPCRSLIB_GRAPHICS \
+	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	$(FULL_FILES)
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME)XXX $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cdt
+	rm -rf X$(GAME_NAME)XXX_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)XXX_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)XXX_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc x$(GAME_NAME)XXX
+	mv X$(GAME_NAME)XXX_cpc.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)  $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)XXX_gx4000.cpr   -c 'run"x$(GAME_NAME)XXX'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.cpc 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg
+endif
+
+
+
+ifdef USE_TOOLS
+cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+else
+cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
+endif
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
+	-DYSize=25 -DXSize=80 -D__SCREEN_MODE=2 -D_XL_NO_COLOR \
+	 \
+	   \
+	$(CPC_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
+	-D__CPC__ \
+	-lndos -create-app \
+	-D__CONIO_GRAPHICS \
+	 \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o xbin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	mv xbin $(BUILD_PATH)/
+ifdef USE_TOOLS
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+endif
+	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	rm -rf xbin_BANK_7.bin
+	rm -rf xbin.cpc
+	rm -rf $(BUILD_PATH)/xbin
+	rm -rf xbin
+
+
+ifdef USE_TOOLS
+cpc_mode1: $(ASSETS_PATH)/z88dk_xchase.asm $(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT)
+else
+cpc_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
+endif
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -subtype=dsk $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc  \
+	-DYSize=25 -DXSize=40 -D__SCREEN_MODE=1 \
+	 \
+	   \
+	$(CPC_GAME_OPTS) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CPC_MODE0_SLOWDOWN) \
+	-D__CPC__ \
+	-lndos -create-app \
+	-D__CONIO_GRAPHICS \
+	 \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o xbin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	mv xbin $(BUILD_PATH)/
+ifdef USE_TOOLS
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart$(COMPILEDEXT) xbin.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"XBIN.CPC'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+endif
+	mv xbin.dsk $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	rm -rf xbin_BANK_7.bin
+	rm -rf xbin.cpc
+	rm -rf $(BUILD_PATH)/xbin
+	rm -rf xbin
+

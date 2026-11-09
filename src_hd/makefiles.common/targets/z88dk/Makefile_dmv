@@ -1,0 +1,27 @@
+#############################
+# DMV
+
+# dmv:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=dmv \
+	# $(INCLUDE_OPTS) \
+	# -D__CPM_80X24__ \
+	# -D__ADM3A_WITH_UNDEF \
+	# -D__INCLUDE_CONIO_H \
+	# -D__DMV__ \
+	# -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 # \
+	# -create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+# -D__BIT_BANG_SOUND 
+
+dmv:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=dmv \
+	$(INCLUDE_OPTS) --generic-console -pragma-define:CONSOLE_COLUMNS=80 -pragma-define:CONSOLE_ROWS=24 -lndos \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_DMV_SLOWDOWN) \
+	-D__DMV__ \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin

@@ -1,0 +1,20 @@
+###############################################################################################
+
+atari_st: atari_st_ncurses
+
+atari_st_ncurses:
+	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-D__ATARI_ST__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI_ST_SLOWDOWN) \
+	-DXSize=39 \
+	-DYSize=22 \
+	-D_XL_NO_JOYSTICK  \
+	-D__CONIO_GRAPHICS  \
+	-D__ALT_PRINT \
+	 \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_atari_st_ncurses.tos
+

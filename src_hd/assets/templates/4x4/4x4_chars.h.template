@@ -1,0 +1,59 @@
+#ifndef _4X4_CHARS
+#define _4X4_CHARS
+
+#define _TILE_0_UDG     { <tile_0>}
+#define _TILE_1_UDG     { <tile_1>}
+#define _TILE_3_UDG     { <tile_3>}
+#define _TILE_2_UDG     { <tile_2>}
+
+#define _TILE_4_UDG     {<tile_4>}
+
+#define _TILE_7_UDG     { <tile_7>}
+
+#define _TILE_9_UDG     {  <tile_9>}
+
+#define _TILE_8_UDG     {  <tile_8>}
+
+#define _TILE_11_UDG    {  <tile_11>}
+
+#define _TILE_5_UDG     { <tile_5>}
+
+#define _TILE_16_UDG    { <tile_16>}
+
+#define _TILE_15_UDG    {  <tile_15>}
+
+#define _TILE_14_UDG    { <tile_14>}
+
+#define _TILE_6_UDG     {<tile_6>}
+
+#define _TILE_12_UDG    { <tile_12> }
+
+#define _TILE_13_UDG    {  <tile_13> }
+
+#define _TILE_10_UDG    { <tile_10> }
+
+
+#define _TILE_17_UDG    { <tile_17> }
+
+#define _TILE_18_UDG    { <tile_18> }
+
+#define _TILE_19_UDG    { <tile_19> }
+
+#define _TILE_20_UDG    { <tile_20> }
+
+#define _TILE_21_UDG    { <tile_21> }
+
+#define _TILE_22_UDG    { <tile_22> }
+
+#define _TILE_23_UDG    { <tile_23> }
+
+#define _TILE_24_UDG    { <tile_24> }
+
+#define _TILE_25_UDG    { <tile_25> }
+
+#define _TILE_26_UDG    { <tile_26> }
+
+
+#endif // _4x4_CHARS
+
+

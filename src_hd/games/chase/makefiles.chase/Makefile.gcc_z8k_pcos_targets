@@ -1,0 +1,64 @@
+
+# ------------------------------------------------------------------------------------------
+# Z8K-PCOS-GCC
+#
+
+
+# Currently to be compiled in Linux (because the source code of the compiler won't easily compile)
+olivetti_m20_targets: \
+	olivetti_m20_buffered
+
+
+gcc_z8k_targets: \
+    olivetti_m20_targets
+
+
+###################################################################################################
+
+
+m20: olivetti_m20
+
+olivetti_m20: olivetti_m20_buffered
+
+
+m20_buffered: olivetti_m20_buffered
+
+olivetti_m20_buffered: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND \
+	-D__OLIVETTI_M20__ \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	cp $(TOOLS_PATH)/olivetti_m20/pcos20h_empty.img FULL_m20_buffered.img
+	$(TOOLS_PATH)/olivetti_m20/m20 X$(GAME_NAME)_m20_buffered.img put aout.cmd
+	rm aout.cmd
+	mv FULL_m20_buffered.img $(BUILD_PATH)
+	
+	
+olivetti_m20_no_graphics: $(TOOLS_PATH)/olivetti_m20/m20$(COMPILEDEXT)
+	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	 \
+	-DTURN_BASED \
+	-D__NO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)		
+

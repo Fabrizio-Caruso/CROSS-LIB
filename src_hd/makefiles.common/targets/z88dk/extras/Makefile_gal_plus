@@ -1,0 +1,12 @@
+
+gal_plus_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_GAL_SLOWDOWN) \
+	-D__GAL__ -D__GAL_PLUS__   \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-vn -lndos -create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_galaksija_plus.prg \
+	$(FULL_FILES) 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+

@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+'''
+Main script:
+- It initialize the configuration object.
+- It reads the parameters from either the command line or keyboard
+- It executes the received command
+'''
+
+import sys
+import datetime
+import os
+
+#pylint: disable=wrong-import-position
+sys.path.append("modules")
+
+from modules.LoggerSingleton import LoggerSingleton
+from modules.params import get_params
+from modules.commands import COMMANDS_LIST
+from modules.tests import test_make
+from modules.option_functions import get_config, handle_make
+from modules.init import handle_parallelism, show_python_version
+from modules.execute import execute_command
+from modules.file_functions import list_of_projects
+from modules.build_functions import build
+from modules.help_functions import manual
+#pylint: enable=wrong-import-position
+
+logger = LoggerSingleton.initLogger('xl', '../logs')
+logger.info('Started')
+
+
+def get_gnu_make(config):
+    '''
+    It determines which make command is available.
+    It modifies the config object.
+    It returns the name of the make executable
+    '''
+    make_test = test_make(config, silent=True)
+    handle_make(config, make_test)
+    return config.build_config.gnu_make
+
+
+if __name__ == "__main__":
+    option_config = get_config()
+    GNU_MAKE = get_gnu_make(option_config)
+    handle_parallelism(option_config)
+    show_python_version(option_config)
+
+    params = get_params(option_config)
+
+    execute_command(option_config, params)
+
+    logger.info('Finished')
+    os.system('mv ../logs/log.log ../logs/log_' + \
+              datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )

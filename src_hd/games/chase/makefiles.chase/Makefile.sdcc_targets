@@ -1,0 +1,24 @@
+# JUST A STUB
+
+# ------------------------------------------------------------------------------------------
+# SDCC
+#
+
+MACROS___NO_GRAPHICS ?= \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR \
+	-DNO_CHASE \
+	 \
+	-DTURN_BASED \
+	-D__NO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN
+
+sdcc_display_macros: 
+	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS___NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
+	

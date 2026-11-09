@@ -1,0 +1,20 @@
+
+#############################
+# MIKRO80
+
+mikro80:
+	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MIKRO80__ \
+	-DXSize=64 \
+	-DYSize=30 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MIKRO80_SLOWDOWN) \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+

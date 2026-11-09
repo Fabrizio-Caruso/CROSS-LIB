@@ -1,0 +1,116 @@
+Here are three example level files for the level-file loader.
+
+These examples assume a `160 x 160` screen, matching the original game code. Save each as a plain text file, for example:
+
+- `level1.txt`
+- `level2.txt`
+- `level3.txt`
+
+Then select one by changing:
+
+```c
+#define LEVEL_FILE "level1.txt"
+```
+
+No `END` line is required.
+
+---
+
+## `level1.txt`
+
+```text
+; Level 1: simple three-platform climb
+
+; Platforms
+PLATFORM 0 159 160
+PLATFORM 20 120 120
+PLATFORM 60 80 60
+
+; Stairs / elevators
+STAIRS 48 120 159
+STAIRS 88 80 120
+
+; Enemies
+ENEMY 30 118
+ENEMY 70 78
+
+; Items
+ITEM 20 158
+ITEM 30 119
+SPECIAL 70 79
+ITEM 100 79
+
+; Player start
+PLAYER 78 157
+```
+
+---
+
+## `level2.txt`
+
+```text
+; Level 2: zig-zag platforms
+
+; Platforms
+PLATFORM 0 159 160
+PLATFORM 10 130 70
+PLATFORM 60 100 80
+PLATFORM 90 70 60
+
+; Stairs / elevators
+STAIRS 30 130 159
+STAIRS 68 100 130
+STAIRS 110 70 100
+
+; Enemies
+ENEMY 20 128
+ENEMY 70 98
+ENEMY 100 68
+
+; Items
+ITEM 10 158
+ITEM 20 129
+SPECIAL 70 99
+ITEM 130 99
+ITEM 95 69
+
+; Player start
+PLAYER 8 157
+```
+
+---
+
+## `level3.txt`
+
+```text
+; Level 3: taller zig-zag level
+
+; Platforms
+PLATFORM 0 159 160
+PLATFORM 0 130 60
+PLATFORM 50 100 70
+PLATFORM 90 70 70
+PLATFORM 70 40 70
+
+; Stairs / elevators
+STAIRS 20 130 159
+STAIRS 52 100 130
+STAIRS 100 70 100
+STAIRS 92 40 70
+
+; Enemies
+ENEMY 10 128
+ENEMY 60 98
+ENEMY 100 68
+ENEMY 80 38
+
+; Items
+ITEM 0 158
+ITEM 10 129
+SPECIAL 60 99
+ITEM 120 99
+ITEM 100 69
+SPECIAL 80 39
+
+; Player start
+PLAYER 70 157

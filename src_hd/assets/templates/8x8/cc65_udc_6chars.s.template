@@ -1,0 +1,16 @@
+
+		.segment "UDCCHAR"
+		.export _Charset
+
+_Charset:
+
+.byte <tile_4>
+.byte <tile_5>
+.byte <tile_1>
+.byte <tile_0>
+.byte <tile_3>
+.byte <tile_2>
+
+
+
+

@@ -1,0 +1,456 @@
+# -----------------------------------------------
+# CC65
+
+#     oric1_alt_targets 
+cc65_alt_targets: \
+    atari_alt_targets \
+    atari_lynx_alt_targets \
+    c16_alt_targets \
+    creativision_alt_targets \
+    gamate_alt_targets \
+    nes_alt_targets \
+    pet_alt_targets \
+    vic20_alt_targets
+
+
+#############################
+# ATARI 8-bit
+
+atari_alt_targets: \
+    atari_no_color_16k_full \
+    atari_no_color_16k
+
+
+#############################
+# ATARI LYNX
+
+atari_lynx_alt_targets: \
+    atari_lynx_light 
+
+
+#############################
+# C16
+
+# All tested OK
+# except INIT overflow by 21 for    c16_16k_full_no_gfx 
+c16_alt_targets: \
+    c16_16k_light
+
+
+#############################
+# C64
+
+# Tested OK
+c64_alt_targets: \
+    c64_8k_cart
+
+#############################
+# CREATIVISION
+creativision_alt_targets: \
+    creativision_24k \
+    creativision_8k_tiny \
+    creativision_16k_no_gfx
+
+#############################
+# GAMATE
+
+gamate_alt_targets: \
+    gamate_tiny \
+    gamate_light
+
+
+#############################
+# CREATIVISION
+
+nes_alt_targets: \
+    nes_no_fx
+
+
+#############################
+# ORIC1
+# KO: undefined tiles 17 and 18 
+oric1_alt_targets: \
+    oric1_16k_light
+
+
+#############################
+# PET
+
+# All tested OK
+pet_alt_targets: \
+    pet_8k \
+
+
+#############################
+# VIC 20
+
+# All tested OK
+# vic20_unexpanded_turn_based
+vic20_alt_targets: \
+    vic20_exp_3k_tiny \
+    vic20_exp_3k_light_no_gfx \
+    vic20_exp_8k_full \
+    vic20_unexpanded_no_gfx 
+
+
+
+###############################################################
+
+
+#############################
+# ATARI 8-BIT
+
+atari_no_color_16k_full: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	 \
+	-DNO_HINTS \
+	 \
+	-DLESS_TEXT \
+	-DFLAT_ENEMIES \
+	-D__ALT_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_PRINT -D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_atari_no_color_16k.xex	
+
+
+atari_no_color_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DLESS_TEXT \
+	 \
+	-DNO_RANDOM_LEVEL \
+	-D__NO_PRINT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_atari_no_color_16k.xex
+
+
+
+#############################
+# C16
+
+c16_16k_full_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 -Cl \
+	--config $(CFG_PATH)/cc65/c16-16k.cfg \
+	 \
+	-D__NO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DUSE_MEMORY_BUFFERS \
+	-D_XL_NO_SLEEP \
+	 \
+	-D__MEMORY_MAPPED_GRAPHICS  \
+	 \
+	-DGHOSTS_NUMBER=8 \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_gfx.prg
+
+c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
+	--config $(CFG_PATH)/cc65/c16-32k.cfg \
+	   \
+	-DGHOSTS_NUMBER=8 \
+	 \
+	-D__CONIO_GRAPHICS \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
+	$(LIGHT_FILES) \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	-o $(BUILD_PATH)/ALT_LIGHT_c16_16k.prg
+
+
+#############################
+# C64
+
+c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
+	   \
+	-DLESS_TEXT \
+	-DGHOSTS_NUMBER=9 \
+	 \
+	-D__ALT_PRINT \
+	 \
+	-DROUND_ENEMIES \
+	-DCBM_SCREEN_CODES \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/ALT_FULL_c64_8k_cart.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic  $(BUILD_PATH)/ALT_FULL_c64_8k_cart.prg -o $(BUILD_PATH)/ALT_FULL_c64_8k_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/ALT_FULL_c64_8k_exomized.prg  $(BUILD_PATH)/ALT_FULL_c64_8k_exomized.crt
+	rm $(BUILD_PATH)/ALT_FULL_c64_8k_cart.prg
+	rm $(BUILD_PATH)/ALT_FULL_c64_8k_exomized.prg
+
+
+#############################
+# CREATIVISION
+
+creativision_16k_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__NO_SCREEN_COLOR_INIT \
+	   -D__ALT_SLEEP \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k.bin 
+	cat $(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin	
+
+creativision_18k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
+	   -D__ALT_SLEEP \
+	-D__MEMORY_MAPPED_GRAPHICS -DLESS_TEXT   \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_18k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_18k.bin bs=8k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_18k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_18k.bin bs=8k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_18k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_18k.bin
+
+creativision_24k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_24k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_24k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_24k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_24k.bin
+
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D_XL_NO_SLEEP -DLESS_TEXT    -D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_32k.bin bs=16k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_32k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_32k.bin bs=16k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_32k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+
+creativision_8k_tiny: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
+	-DTINY_GAME -D_XL_NO_SLEEP \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/ALT_TINY_creativision_8k.bin
+
+
+#############################
+# GAMATE
+
+gamate_light: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	-DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DGHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/ALT_LIGHT_gamate.bin
+	
+gamate_tiny: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DGHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/ALT_TINY_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/ALT_TINY_gamate.bin
+
+
+#############################
+# NES
+
+nes_no_fx: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
+	 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/ALT_FULL_nes_no_fx.nes	
+
+
+#############################
+# ORIC1
+
+oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__   \
+	-t atmos \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ALT_MOVE \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_oric1_16k.tap
+
+
+#############################
+# PET
+
+pet_8k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
+	-DTINY_GAME -D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/ALT_TINY_pet_8k.prg
+
+
+#############################
+# VIC 20
+
+vic20_exp_3k_light_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
+	 -DGHOSTS_NUMBER=8 \
+	 \
+	 \
+	-D__VIC20_EXP_3K \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-DCBM_SCREEN_CODES \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-D_XL_NO_TEXT_COLOR \
+	 \
+	-D__ALT_SLEEP \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(LIGHT_FILES) \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
+
+
+vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	 \
+	 -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DNO_DEAD_GHOSTS -DGHOSTS_NUMBER=8 \
+	-DROUND_ENEMIES \
+	-DTINY_GAME  \
+	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__VIC20_EXP_3K \
+	-D__ALT_PRINT \
+	-DCBM_SCREEN_CODES \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/ALT_TINY_vic20_exp_3k.prg
+
+
+vic20_exp_8k_full:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/alt/vic20-8k.cfg \
+	 \
+	-DGHOSTS_NUMBER=8 \
+	-DSIMPLE_STRATEGY \
+	-DLESS_TEXT	\
+	-D__ALT_PRINT \
+	-DNO_HINTS \
+	 \
+	-D__ALT_SLEEP \
+	 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__VIC20_EXP_8K \
+	 \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/ALT_FULL_vic20_exp_8k_no_gfx.prg
+
+
+vic20_unexpanded_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	 \
+	 \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-D_XL_NO_TEXT_COLOR \
+	-D__VIC20_UNEXPANDED \
+	-D_XL_NO_SLEEP \
+	-DLESS_TEXT \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTINY_GAME \
+	-DGHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DBOMBS_NUMBER=4 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
+	-DROUND_ENEMIES \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_no_gfx.prg
+
+
+vic20_unexpanded_turn_based:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	 \
+	-D_XL_NO_JOYSTICK \
+	-DTURN_BASED \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-D_XL_NO_TEXT_COLOR \
+	-D__VIC20_UNEXPANDED \
+	-D_XL_NO_SLEEP \
+	-DLESS_TEXT \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTINY_GAME \
+	-DNO_RANDOM_LEVEL \
+	-DNO_STATS \
+	-DGHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DBOMBS_NUMBER=4 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ALT_DISPLAY_STATS \
+	-DFLAT_ENEMIES \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
+	$(TINY_FILES) \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_turn_based.prg
+

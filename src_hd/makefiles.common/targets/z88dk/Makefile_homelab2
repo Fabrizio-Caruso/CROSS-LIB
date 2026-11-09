@@ -1,0 +1,20 @@
+
+#############################
+# HOMELAB2
+
+homelab2:
+	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__HOMELAB2__ \
+	-DXSize=40 \
+	-DYSize=23 \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D_XL_NO_COLOR \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_HOMELAB2_SLOWDOWN) \
+	-D__VT52 \
+	-D__CONIO_GRAPHICS \
+	-lndos \
+	-D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+

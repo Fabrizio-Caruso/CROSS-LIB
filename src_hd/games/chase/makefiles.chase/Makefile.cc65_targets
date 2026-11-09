@@ -1,0 +1,1217 @@
+# ------------------------------------------------------------------------------------------
+# CC65
+# 
+
+
+################################################################################################
+
+# KO:
+#  
+# OK: 
+#
+# No. of systems: 19
+# ------------
+
+ifeq ($(DO_WIN),1)
+cc65_targets: \
+	apple2_targets \
+	apple2enh_targets \
+	atari_targets \
+	atari5200_targets \
+	atari_lynx_targets \
+	c128_8502_targets \
+	c16_targets \
+	c64_targets \
+	cbm510_targets \
+	cbm610_targets \
+	creativision_targets \
+	cx16_targets \
+	gamate_targets	\
+	nes_targets \
+	pce_targets \
+	pet_targets \
+	oric_targets \
+	osic1p_targets \
+	supervision_targets \
+	telestrat_targets \
+	vic20_targets
+else
+cc65_targets: \
+	apple2_targets \
+	apple2enh_targets \
+	atari_targets \
+	atari5200_targets \
+	atari_lynx_targets \
+	c128_8502_targets \
+	c16_targets \
+	c64_targets \
+	cbm510_targets \
+	cbm610_targets \
+	creativision_targets \
+	cx16_targets \
+	nes_targets \
+	pce_targets \
+	pet_targets \
+	oric_targets \
+	telestrat_targets \
+	vic20_targets
+endif
+
+################################################################################################
+
+
+apple2_targets: \
+	apple2_no_gfx apple2_hgr
+
+
+apple2enh_targets: \
+	apple2enh_no_gfx apple2enh_80col apple2enh_hgr
+
+
+atari_targets: \
+	atari atari_no_color
+
+
+atari5200_targets: \
+	atari5200
+
+
+atari_lynx_targets: \
+	atari_lynx
+
+
+c128_8502_targets: \
+	c128_40col c128_80col
+
+
+c16_targets: \
+	c16_16k c16_32k
+
+
+c64_targets: \
+	c64
+
+
+cbm510_targets: \
+	cbm510
+
+
+cbm610_targets: \
+	cbm610
+
+
+creativision_targets: \
+	creativision_16k \
+	creativision_8k_light creativision_16k
+
+
+cx16_targets: \
+	cx16
+
+
+gamate_targets: \
+	gamate
+
+
+nes_targets: \
+	nes
+
+
+pce_targets: \
+	pce_8k pce_16k 
+
+
+pet_targets: \
+	pet_8k_light pet_16k
+
+
+oric_targets: \
+	oric_atmos oric1_16k
+
+
+osic1p_targets: \
+	osic1p_8k osic1p_32k osic1p_8k_turn_based osic1p_32k_turn_based
+
+
+supervision_targets: \
+	supervision
+
+
+telestrat_targets: \
+	telestrat
+
+ifeq ($(DO_WIN),1)
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
+else
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_16k
+endif
+
+#######################################################################################
+# APPLE2
+
+# -O breaks bit-banging
+apple2_no_gfx_v1:	 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
+	 -D__ALT_SLEEP \
+	\
+	   \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2.bin
+	rm $(BUILD_PATH)/apple2.bin
+
+apple2_no_gfx:	 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2 -DEXTRA_TITLE \
+	 -D__ALT_SLEEP \
+	\
+	   \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2.bin
+	rm $(BUILD_PATH)/apple2.bin
+
+apple2_v1: apple2_hgr_v1
+
+apple2_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	 -D__ALT_SLEEP  \
+	-DXSize=20 -DYSize=24 \
+	   -D__ALT_PRINT \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+
+apple2: apple2_hgr
+
+apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t apple2 -DEXTRA_TITLE -D_APPLE_YELLOW_IS_PURPLE \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	 -D__ALT_SLEEP  $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	-DXSize=20 -DYSize=24 \
+	   -D__ALT_PRINT \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+
+#######################################################################################
+# APPLE2ENH
+
+
+apple2enh_no_gfx: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
+	 -D__ALT_SLEEP \
+	\
+	  \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS  \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2enh.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/apple2enh.bin
+	rm $(BUILD_PATH)/apple2enh.bin
+
+
+apple2enh_v1: apple2enh_hgr_v1
+
+apple2enh_hgr_v1: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	 -D__ALT_SLEEP  \
+	-DXSize=20 -DYSize=24 \
+	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+
+apple2enh: apple2enh_hgr
+
+apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh -DEXTRA_TITLE  -D_APPLE_YELLOW_IS_PURPLE \
+	--config $(CFG_PATH)/cc65/apple2-hgr.cfg \
+	 -D__ALT_SLEEP   \
+	-DXSize=20 -DYSize=24 \
+	   -D__ALT_PRINT $(LIGHT_DRAW_SKIP) -D_XL_SLOW_DOWN_FACTOR=0 \
+	-DAPPLE2_HGR -D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/hgr.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+    --code-name LOWCODE \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
+	-o $(BUILD_PATH)/$@.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk aschase < $(BUILD_PATH)/$@.bin
+	rm $(BUILD_PATH)/$@.bin
+
+
+# -O breaks bit-banging
+apple2enh_80col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t apple2enh -DEXTRA_TITLE \
+	 -D__ALT_SLEEP \
+	\
+	  \
+	-D__CONIO_GRAPHICS  \
+	-DXSize=80 \
+	-DGHOSTS_NUMBER=9 \
+	-DAPPLE2ENH_80COL_VIDEO_MODE \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/apple2enh_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2enh_80col.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_apple2enh_80col.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/X$(GAME_NAME)_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
+	rm $(BUILD_PATH)/apple2enh_80col.bin	
+
+
+#######################################################################################
+# ATARI
+
+atari: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-D__ANTIC_MODE6_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
+
+atari_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari -DEXTRA_TITLE  \
+	-D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_no_color.xex
+
+
+#######################################################################################
+# ATARI5200
+
+atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
+	-D__ATARI5200__ \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+
+atari5200: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200  -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
+	-D__ATARI5200__ \
+	-D__ANTIC_MODE6_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=200 \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+
+
+
+#################################################################
+
+atari7800: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ \
+	  -D_XL_NO_UDG \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=20 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+
+
+atari7800_no_color: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari7800 --force-import __EXEHDR__ atari7800-mono.o \
+	--config $(CFG_PATH)/cc65/atari7800_more_ram.cfg    -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -DEXTRA_TITLE -D__NO_SCREEN_COLOR_INIT -D_XL_NO_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=1000 -DXSize=40 -DYSize=28 \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.a78
+    
+
+
+#######################################################################################
+# ATARI LYNX
+
+atari_lynx: atari_lynx_gfx
+
+
+atari_lynx_gfx: $(ASSETS_PATH)/8x6_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t lynx \
+	-D__ATARI_LYNX__  -D_XL_SLOW_DOWN_FACTOR=4000  -DEXTRA_TITLE \
+	-D__NO_SCREEN_COLOR_INIT  -DXSize=20 -DYSize=17 -D_XL_NUMBER_OF_TILES=27 \
+	-D__LYNX_TGI_GRAPHICS \
+	 \
+	-D__ALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/chibisound.asm \
+	$(ASSETS_PATH)/8x6_tiles.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.lnx
+
+#######################################################################################
+# C128
+
+c128: c128_8502
+
+c128_8502: c128_40col
+
+c128_40col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE \
+	  \
+	  \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c128_40col.prg
+
+c128_80col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE  \
+	  \
+	-DXSize=80 \
+	  \
+	-D__CONIO_GRAPHICS \
+	-DGHOSTS_NUMBER=9 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c128_80col.prg
+
+
+#######################################################################################
+# C16
+
+plus4: c16_32k
+
+
+c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16  \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
+	 -DEXTRA_TITLE \
+	 \
+	 \
+	 \
+	-D__ALT_PRINT \
+	 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=2000 \
+	-DDANCE  -D__UDG_BASE_FACTOR=23 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+c16_32k_included: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
+	   -DEXTRA_TITLE \
+	-DGHOSTS_NUMBER=8 -D_XL_SLOW_DOWN_FACTOR=2000 \
+	  \
+	 \
+	-D__CONIO_GRAPHICS \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+c16: c16_16k
+
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
+	 \
+	 -D_XL_SLOW_DOWN_FACTOR=2000 \
+	 \
+	-DGHOSTS_NUMBER=8 \
+	-DLESS_TEXT	\
+	 \
+	-DNO_HINTS \
+	-D__ALT_PRINT \
+	 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-DDANCE  \
+	-DUSE_MEMORY_BUFFERS \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg	
+
+
+#######################################################################################
+# C64
+
+# -DDEBUG_GHOST_DISPLAY
+c64_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 -DEXTRA_TITLE \
+	     \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES -DGHOSTS_NUMBER=8 \
+	-D__MEMORY_MAPPED_GRAPHICS -D__USE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_$@.prg -o $(BUILD_PATH)/X$(GAME_NAME)_$@_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_$@_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_$@_exomized.crt
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64: $(ASSETS_PATH)/cc65_udc_arcade.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 -DEXTRA_TITLE \
+	     \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES -D__ALT_PRINT \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+c64_exomized: $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+
+# prg2crt not compatible with Python 3
+c64_crt: $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+	# /usr/bin/python2 $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+
+
+
+
+
+#######################################################################################
+# CBM610
+
+cbm610: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
+	 \
+	\
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_cbm610.prg
+
+
+#######################################################################################
+# CBM510
+
+cbm510: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm510 -DEXTRA_TITLE \
+	 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_cbm510.prg
+
+
+#######################################################################################
+# CREATIVISION
+
+
+creativision: creativision_16k
+
+creativision_16k: creativision_16k_color
+
+creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
+	   -D__ALT_SLEEP \
+	-D__MEMORY_MAPPED_GRAPHICS -DLESS_TEXT   \
+	-D_XL_SLOW_DOWN_FACTOR=2000  \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+creativision_16k_color: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
+	   -D__ALT_SLEEP \
+	-DCREATIVISION_COLOR -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
+	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+creativision_test: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-D__NO_SCREEN_COLOR_INIT -D__CREATIVISION__  \
+	 -D__ALT_SLEEP \
+	-DCREATIVISION_COLOR -DLESS_TEXT   \
+	-D_XL_SLOW_DOWN_FACTOR=2000 \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+# dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_LOW.bin
+# dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_HIGH.bin
+# rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin 
+# cat $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+# rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_LOW.bin
+# rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_HIGH.bin
+
+
+creativision_8k_light: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DLESS_TEXT \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DFLAT_ENEMIES \
+	-DNO_RANDOM_LEVEL \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	 \
+	-D__ALT_SLEEP \
+	-DGHOSTS_NUMBER=8 \
+	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_creativision_8k_less_text.bin	
+
+
+#######################################################################################
+# CX16
+
+cx16: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 -DEXTRA_TITLE \
+	-D__CX16__ \
+	   \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_cx16.prg
+
+
+#######################################################################################
+# GAMATE
+
+#sound version is buggy (probably because of a memory issue)
+gamate: gamate_no_sound
+
+gamate_test: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
+	\
+	-DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+
+gamate_no_udg: $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 -D_XL_SLOW_DOWN_FACTOR=5000  \
+	\
+	-DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate_no_udg.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate_no_udg.bin
+
+gamate_no_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
+	\
+	-DLESS_TEXT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+
+gamate_sound: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 -D_XL_SLOW_DOWN_FACTOR=6000   \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_HINTS  -D_XL_NO_SLEEP -D__NO_WAIT    \
+	-DLESS_TEXT  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -D__NO_SCREEN_COLOR_INIT -D_XL_NO_COLOR \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+
+
+#######################################################################################
+# NES
+
+nes: $(ASSETS_PATH)/cc65_nes_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/nes_fx.cfg \
+	 \
+	  -D_XL_NO_COLOR \
+	-D__CONIO_GRAPHICS \
+	 \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
+	$(ASSETS_PATH)/cc65_nes_tiles.s \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_nes.nes
+
+
+#######################################################################################
+# PCE
+
+pce: pce_16k
+
+# -Or breaks the PCE target
+pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce -DEXTRA_TITLE \
+	 -D_XL_SLOW_DOWN_FACTOR=3500 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg   \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+
+
+# -Or breaks the PCE target
+pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING -D_XL_NO_COLOR \
+	 -D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
+	$(TINY_FILES) \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_PCE_8k.pce
+
+
+#######################################################################################
+# PET
+
+pet: pet_16k
+
+pet_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
+	 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  \
+	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
+
+
+pet_8k_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
+	--config $(CFG_PATH)/cc65/pet_8k.cfg \
+	-DLESS_TEXT  \
+	-DNO_BLINKING -D_XL_NO_COLOR \
+	-D__NO_SCREEN_COLOR_INIT  \
+	-DGHOSTS_NUMBER=8 \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__MEMORY_MAPPED_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pet_8k_less_text.prg
+
+
+#######################################################################################
+# ORIC1
+
+oric: oric1
+
+oric1: oric1_16k
+
+oric1_16k: $(ASSETS_PATH)/6x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -D__ORIC1__  \
+	  \
+	-DLESS_TEXT -D_XL_NO_SLEEP \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DGHOSTS_NUMBER=8 \
+	-DNO_BLINKING \
+	-t atmos \
+	-D__ORIC_COLOR_GRAPHICS \
+	-DUSE_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/memory/oric1_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_oric1_16k_less_text.tap
+
+atmos: oric_atmos
+
+oric_atmos: $(ASSETS_PATH)/6x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O       -DEXTRA_TITLE \
+	-t atmos \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-D__ORIC_COLOR_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
+
+
+#######################################################################################
+# OSIC1P
+
+osic1p: osic1p_32k
+
+osic1p_32k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
+	-D__ALT_SLEEP \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DGHOSTS_NUMBER=8 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.c1p $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k.lod
+
+
+osic1p_32k_turn_based: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  \
+	-D__ALT_SLEEP \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTURN_BASED \
+	-DGHOSTS_NUMBER=9 \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.c1p $(BUILD_PATH)/X$(GAME_NAME)_osic1p_32k_turn_based.lod
+
+
+osic1p_8k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
+	-DROUND_ENEMIES -D_XL_NO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
+	-DGHOSTS_NUMBER=8 \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod	
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.c1p $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k.lod
+
+
+osic1p_8k_turn_based: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
+	-DROUND_ENEMIES -D_XL_NO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -D__NO_SCREEN_COLOR_INIT -DTINY_GAME  -DNO_WALL -DNO_BLINKING \
+	-DTURN_BASED \
+	-DGHOSTS_NUMBER=9 \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod	
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod
+	mv $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.c1p $(BUILD_PATH)/X$(GAME_NAME)_TINY_osic1p_8k_turn_based.lod
+
+
+#######################################################################################
+# SUPERVISION
+
+supervision_reduced: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DNO_PRINT  -D_XL_NO_SLEEP \
+	-D__BIT_MAPPED_4_GRAPHICS $(LIGHT_DRAW_SKIP) \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
+
+supervision_no_print: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DNO_PRINT    -D_XL_NO_SLEEP \
+	-D__BIT_MAPPED_4_GRAPHICS $(LIGHT_DRAW_SKIP) \
+	-D__DEFAULT_CLEAR_SCREEN \
+	 \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
+
+
+supervision: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  -DEXTRA_TITLE \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-D__ALT_PRINT    -D__ALT_SLEEP \
+	-D__BIT_MAPPED_4_GRAPHICS $(LIGHT_DRAW_SKIP) \
+	-D__DEFAULT_CLEAR_SCREEN  -D_XL_SLOW_DOWN_FACTOR=300 \
+	 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
+
+#######################################################################################
+# TELESTRAT
+
+telestrat: telestrat_buffered
+
+telestrat_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED -D__STDIO -DXSize=38 -DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
+	 -D__NO_WAIT -D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
+	  \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	# cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+
+
+telestrat_joy_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ -DCC65_JOYSTICK \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED -D__STDIO -DXSize=38 -DYSize=24 \
+	-D__NO_SCREEN_COLOR_INIT -D_XL_SLOW_DOWN_FACTOR=800 \
+	 -D__NO_WAIT -D_XL_NO_SLEEP \
+	-D_XL_NO_COLOR -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN \
+	  \
+	-D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+
+telestrat_exp: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ -D__INCLUDE_CONIO_H \
+	-D__NO_WAIT -DCC65_JOYSTICK -DXSize=38 -DYSize=24  \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_SLEEP \
+	 \
+	-D_XL_NO_COLOR \
+	  \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@
+	cp $(BUILD_PATH)/X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+
+
+#######################################################################################
+# VIC20
+
+vic20_wait_vsync: vic20_exp_16k_wait_vsync
+
+# broken with VERSION=2
+vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20      \
+	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2600 -DEXTRA_TITLE \
+	 -D__USE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	\
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+vic20: vic20_exp_8k
+
+# broken with VERSION=2
+# vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20      \
+	# --config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg -DEXTRA_TITLE \
+	# -D__CONIO_GRAPHICS -D__VIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
+	#  \
+	# \
+	# $(ASSETS_PATH)/cc65_udc.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+# broken with VERSION=2
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20      \
+	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
+	-DEXTRA_TITLE \
+	-D__CONIO_GRAPHICS -D__VIC20_EXP_16K -D_XL_SLOW_DOWN_FACTOR=2800 \
+	 \
+	\
+	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+# vic20_test2: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t vic20    \
+	# --config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX_ALT_V2.cfg \
+	# -D__CONIO_GRAPHICS -D__VIC20_EXP_16K -DEXTRA_TITLE -D__ALT_SLEEP  \
+	# -D_XL_SLOW_DOWN_FACTOR=500  -DGHOSTS_NUMBER=8 \
+	#    -DTRANSITION_ANIMATION \
+	# $(ASSETS_PATH)/cc65_udc_arcade_v2.s \
+	# $(BASIC_CROSS_LIB_FILES) \
+	# $(SOURCE_PATH)/move_player.c \
+	# $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/main.c \
+	# $(SOURCE_PATH)/init_images.c \
+	# $(SOURCE_PATH)/strategy.c \
+	# $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  \
+	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	# --code-name CODE2 \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c  \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	# $(SOURCE_PATH)/end_screen.c $(SOURCE_PATH)/sleep.c \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+test_vsync:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 $(TEST_PATH)/test_vsync.c -o $(BUILD_PATH)/test_vsync.prg
+
+vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
+	 -DGHOSTS_NUMBER=8 \
+	\
+	  \
+	 \
+	 \
+	-D__VIC20_EXP_3K \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-D_XL_NO_TEXT_COLOR \
+	-DNO_BLINKING \
+	-D_XL_NO_SLEEP -DNO_STATS \
+	-D__ALT_DISPLAY_STATS \
+	-D__ALT_HIGHSCORE \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(LIGHT_FILES) \
+	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_$@.prg
+
+
+# OK with API version 2
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg  -DEXTRA_TITLE \
+	  \
+	\
+	 -D_XL_SLOW_DOWN_FACTOR=2800 \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -D__VIC20_EXP_8K \
+	 \
+	-DSIMPLE_STRATEGY \
+	 \
+	-D__ALT_PRINT \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	  \
+	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/skull.c \
+	$(SOURCE_PATH)/rocket.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/horizontal_missile.c \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/init_images.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+# OK with API version 2 ?
+vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
+	  \
+	\
+	 -D_XL_SLOW_DOWN_FACTOR=2300 -D__USE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -D__VIC20_EXP_8K \
+	 \
+	-DSIMPLE_STRATEGY \
+	 \
+	-D__ALT_PRINT \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	  \
+	/$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/skull.c \
+	$(SOURCE_PATH)/rocket.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/horizontal_missile.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/init_images.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+# broken with API version 2
+vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	\
+	 \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-D_XL_NO_TEXT_COLOR \
+	-D__VIC20_UNEXPANDED \
+	-D_XL_NO_SLEEP \
+	-DLESS_TEXT \
+	-D__NO_SCREEN_COLOR_INIT \
+	-DTINY_GAME  -DNO_WALL -DNO_BLINKING \
+	-DNO_STATS \
+	-DGHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DBOMBS_NUMBER=4 \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ALT_HIGHSCORE \
+	-D__ALT_DISPLAY_STATS \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	-DROUND_ENEMIES \
+	-DSIMPLE_RANDOM_LEVEL \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(ASSETS_PATH)/cc65_udc_6chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
+
+

@@ -1,0 +1,149 @@
+		.export __compressed_tile_data
+
+__compressed_tile_data:
+
+; tile 0
+.byte    <tile_0>
+
+; tile 1
+.byte    <tile_1>
+
+; tile 2
+.byte    <tile_2>
+
+; tile 3
+.byte    <tile_3>
+
+; tile 4
+.byte    <tile_4>
+
+; tile 5
+.byte    <tile_5>
+
+; tile 6
+.byte    <tile_6>
+
+; tile 7
+.byte    <tile_7>
+
+; tile 8
+.byte    <tile_8>
+
+; tile 9
+.byte    <tile_9>
+
+; tile 10
+.byte    <tile_10>
+
+; tile 11
+.byte    <tile_11>
+
+; tile 12
+.byte    <tile_12>
+
+; tile 13
+.byte    <tile_13>
+
+; tile 14
+.byte    <tile_14>
+
+; tile 15
+.byte    <tile_15>
+
+; tile 16
+.byte    <tile_16>
+
+; tile 17
+.byte    <tile_17>
+
+; tile 18
+.byte    <tile_18>
+
+; tile 19
+.byte    <tile_19>
+
+; tile 20
+.byte    <tile_20>
+
+; tile 21
+.byte    <tile_21>
+
+; tile 22
+.byte    <tile_22>
+
+; tile 23
+.byte    <tile_23>
+
+; tile 24
+.byte    <tile_24>
+
+; tile 25
+.byte    <tile_25>
+
+; tile 2
+.byte    <tile_26>
+
+.byte    <tile_27>
+.byte    <tile_28>
+.byte    <tile_29>
+.byte    <tile_30>
+.byte    <tile_31>
+.byte    <tile_32>
+.byte    <tile_33>
+.byte    <tile_34>
+.byte    <tile_35>
+.byte    <tile_36>
+.byte    <tile_37>
+.byte    <tile_38>
+.byte    <tile_39>
+.byte    <tile_40>
+.byte    <tile_41>
+.byte    <tile_42>
+.byte    <tile_43>
+.byte    <tile_44>
+.byte    <tile_45>
+.byte    <tile_46>
+.byte    <tile_47>
+.byte    <tile_48>
+.byte    <tile_49>
+.byte    <tile_50>
+.byte    <tile_51>
+.byte    <tile_52>
+.byte    <tile_53>
+.byte    <tile_54>
+.byte    <tile_55>
+.byte    <tile_56>
+.byte    <tile_57>
+.byte    <tile_58>
+.byte    <tile_59>
+.byte    <tile_60>
+.byte    <tile_61>
+.byte    <tile_62>
+.byte    <tile_63>
+.byte    <tile_64>
+.byte    <tile_65>
+.byte    <tile_66>
+.byte    <tile_67>
+.byte    <tile_68>
+.byte    <tile_69>
+.byte    <tile_70>
+.byte    <tile_71>
+.byte    <tile_72>
+.byte    <tile_73>
+.byte    <tile_74>
+.byte    <tile_75>
+.byte    <tile_76>
+.byte    <tile_77>
+.byte    <tile_78>
+.byte    <tile_79>
+.byte    <tile_80>
+.byte    <tile_81>
+.byte    <tile_82>
+.byte    <tile_83>
+.byte    <tile_84>
+.byte    <tile_85>
+.byte    <tile_86>
+.byte    <tile_87>
+.byte    <tile_88>
+.byte    <tile_89>
+.byte    <tile_90>

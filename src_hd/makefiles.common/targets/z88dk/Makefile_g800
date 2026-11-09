@@ -1,0 +1,109 @@
+#############################
+# G800
+
+g800: g850
+
+e200:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=e200 $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=24 -DYSize=4 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_E200_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+g815:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g815c $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=28 -DYSize=8 -DX_OFFSET=4 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G815_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+g850_8:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850 $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=28 -DYSize=8 -DX_OFFSET=4 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G850_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS  \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/g850/g850_init_graphics.c \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+g850_12: g850
+
+g850:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850c $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=28 -DYSize=12 -DX_OFFSET=4 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G850_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS  \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/g850/g850_init_graphics.c \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+g850_6:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g850b $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=36 -DYSize=6 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G850_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+
+g815_5:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_ROM_OPTS) -clib=g815 $(INCLUDE_OPTS) \
+	-D__G800__ \
+	-D_XL_NO_JOYSTICK -D_XL_NO_UDG -D_XL_NO_COLOR \
+	-DXSize=18 -DYSize=5 \
+	-vn \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_G815_SLOWDOWN) \
+	-lndos \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o g800$(GAME_NAME).bin
+	rm g800$(GAME_NAME).bin 
+	rm g800$(GAME_NAME).rom
+	mv g800$(GAME_NAME).ihx $(BUILD_PATH)/X$(GAME_NAME)_$@.ihx
+
+
+
+

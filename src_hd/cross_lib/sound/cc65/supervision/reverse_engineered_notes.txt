@@ -1,0 +1,885 @@
+
+Supervision Reverse Engineering Notes
+
+This is a copy of http://blog.kevtris.org/blogfiles/Supervision_Tech.txt just to preserve it.
+
+Supervision Reverse Engineering Notes
+-------------------------------------
+
+Kevin Horton
+12/20/2011
+V4.00
+
+
+
+
+The Supervision is a Gameboy wanna-be.  It was sold and marketed in many countries, under many different names.  Here in the US, it was simply sold as the "Supervision".  The branding on it is "Watara", and it has a vaguely Gameboy-like look, but the screen can be angled up or down via a hinge below the display proper.
+
+The top half contains the actual game hardware, a 160*160 LCD, the main PCB with a glop-top ASIC which is the "brains", and two 8K SRAMs.  The two 8K SRAMs are 6264's or equivelant, and are physically glop-tops on little tiny carrier boards.
+
+The cartridges seem to support up to 128K byte ROMs, but as far as I know, the games were only as large as 64K bytes.  There are a few 4 in 1 multicarts which might be 128K bytes, but contain games that were previously released on separate carts.
+
+To perform this reverse engineering, I made a special test system.  It is composed of a home made game cartridge, with a UART mapped into memory at 1FFE and 1FFF.  I cut the chip enable to the internal WRAM, and ran it through a circuit to pull out 1FFE/1FFF, which then ran the chip enable on the UART.  
+
+A simple "bios" was made that allowed me to read/write data to/from anywhere in memory.  This was then used to poke data into VRAM, poke registers, and all that fun stuff.  I used an HP 54645D mixed signal oscilloscope/logic analyzer.  I connected a test header to the VRAM and LCD control signals.  This was then used to poke at things on the system to figure out how it all works.
+
+So that's the background, now onto the juicy technical details.
+
+---
+
+System Overview
+---------------
+
+The device runs on a 4MHz resonator.  This resonator's not that great (mine was 1.35% off), so I replaced it with a 4MHz crystal.  I replaced to increase the accuracy which helped during reverse engineering on the logic analyzer.
+
+There are not many parts in this system:
+
+* 65C02 CPU running at 4MHz
+* 8K of VRAM which the CPU can access with 0 wait states
+* 8K of WRAM which is connected to the CPU
+* audio amplifier
+* 160*160 monochrome LCD (see the LCD section)
+* speaker
+* cartridge port that can accept a single ROM, up to 128Kbytes
+
+---
+
+The LCD system
+--------------
+
+The LCD on the Supervision is a simple 160*160 dot 2 bpp monochrome LCD.  The LCD uses some tricks to load the data into it.  A full frame is composed of two fields.  Each field is 1 bit per pixel, so to show a full frame it takes two fields.
+
+frame:  p0 p1 p2 p3
+-------------------
+1       0  0  1  1
+2       0  1  0  1
+3       0  0  1  1
+4       0  1  0  1
+
+p0 is an 'off' pixel.  It shows up as the lightest colour possible
+p1 1/3rd darkness
+p2 2/3rd darkness
+p3 an 'on' pixel which is as dark as possible
+
+The LCD is physically connected with 9 outputs from the ASIC.  
+In order, they are:
+
+1 - Data 0
+2 - Data 1
+3 - Data 2
+4 - Data 3
+5 - Pixel Clock
+6 - Line Latch
+7 - Frame Latch
+8 - Frame Polarity/bright control
+9 - Power Control
+
+A diagram of how the LCD hardware works is probably in order.  The LCD on this system is not much different from other similar displays available from Optrex and other manufacturers. 
+
+
+A block diagram of the LCD system looks like this:
+
+                   +---------------------------+
+      Pix clk(5)O--|Clock                      |
+       Data 0(1)O--|D0          CK LT PL       | 
+       Data 1(2)O--|D1    4*40 bit shift reg   |
+       Data 2(3)O--|D2                         |
+       Data 3(4)O--|D3 0...            ...159  |
+                   +---------------------------+
+                     |                        |
+                     |                        |
+                   +---------------------------+
+                   |                           |
+     Line Lat(6)O--|Latch  160 bit latch       |
+     Polarity(8)O--|Pol                        |
+                   +---------------------------+ 
+                     |                        |
+                     |       160 Columns      |
+                  +------------------------------+
+                  |                              |
+        +-----+   |                              |
+LL(6)O--|CK  0|---|                              |
+FL(7)O--|DT  .|   |                              |
+PL(8)O--|PL  .| 1 |                              |
+        |    .| 6 |          LCD Glass           |
+        |     | 0 |                              |
+        |     |   |                              |
+        |     | R |                              |
+        |     | o |                              |
+        |     | w |                              |
+        |     | s |                              |
+        |    .|   |                              |
+        |    .|   |                              |
+        |    .|   |                              |
+        |  159|---|                              |
+        +-----+   |                              |
+                  |                              |
+                  +------------------------------+
+
+There are two shift registers.  Data is shifted into the column shift register 4 bits at a time. This is done simply to increase the speed at which data can be shifted in.  The shift register is pretty simple, and bits are arranged on the 160 pin outputs in sequence like so:
+
+01230123012301230123....  (0,1,2,3 = data bits 0-3).
+
+After 40 clocks (160 pixels:  40*4 = 160), the line latch signal is pulsed, which latches all 160 pixels into the columns of the LCD glass at the same time.
+
+There is a second shift register that drives the rows of the LCD.  This shift register selects a single row to be enabled.  Its data input is connected to the frame latch signal:  It's pulsed high for 1 scanline, and on line latch's falling edge, it's clocked into the row shift register.
+
+This enables the topmost scanline, and when it is enabled, the first row's pixel signals are simultaniously latched into the column drivers.  This "lights up" the uppermost row of pixels.
+
+The next line latch signal then clocks the row shift register and simultaniously latches in new data into the columns to "light up" the second row of pixels, and so on.  This process repeats for all 160 scanlines, and repeats.
+
+The frame polarity/bright control signal is toggled every field.  This inverts all the driver signals.  It also darkens the display a bit so you can get a true 2 bits per pixel. The polarity toggling is done to prevent destruction of the LCD display glass via electrolytic plating action.  (Incidentally, this is why you should never turn the Gameboy LCD off during rendering and you must turn it off in VBLANK).
+
+Timing
+------
+
+A single frame is composed of two fields.  A field is a complete scanning of the LCD.  There's two fields in each frame to effect the grey scale.
+
+Each field takes exactly 39360 cycles.  A complete frame is thus 2x that, or 78720 cycles.
+There are 160 scanlines in each field, and each scanline takes 246 clocks to complete.  Thus, 246*160 = 39360, and 39360*2 = 78720.  With the 4MHz system clock, this means that there are 101.62 fields a second, or 50.81 frames a second.
+
+Each scanline is composed of 246 clocks.  There are 40 pixel writes to the LCD, and 1 latch write, for a total of 41 writes.  Each write period lasts 6 clock cycles, so 41*6 = 246 cycles.
+
+On the following diagram, a clock cycle is 1 character cell. The "clk cyc" is a count of the phase of the LCD write hardware, which performs 1 write to the LCD every 6 clocks.  I have arbitrarily placed the pixel clock (which writes 4 pixels into the LCD shift register) on clock cycle 0.
+
+I have shown a line latch pulse on the diagram, too.  These pulses only occur every 246 clocks, and are what latch data into the LCD's output buffers from the LCD's input shift register.
+
+clk cyc  012345012345012345012345012345012345012345012345012345012345012345012345
+pixclk   -_____-___________-_____-_____-_____-_____-_____-_____-_____-_____-_____
+data 0-3 ====x=====x=====x=====x=====x=====x=====x=====x=====x=====x=====x=====x=
+line lat _____________-__________________________________________________________
+
+_ - a low signal
+- - a high signal
+= - data (high or low)
+x - transition point (where this signal CAN (but doesn't have to) change
+
+scanline timing:
+
+                |       field N            |      field N+1         | field N+2 ...
+frame lat ______-______________/___________-____________/___________-________
+frame pol ______---------------/-----------_____________/___________---------
+
+Each character cell is 1 scanline (246 clocks).  There are 160 scanlines represented on the diagram, with a / to indicate that part of the diagram has been removed for clarity.
+
+That about wraps up LCD timing.  The LCD timing does not deviate from this set pattern, even when the CPU writes or reads from the VRAM.  
+
+
+---
+
+VRAM Timing
+-----------
+
+The VRAM timing is very rigid and does not deviate, even during CPU reads or writes.  The RAM is simply addressed by the video hardware and sent out to the LCD.
+
+Every 6 clocks, a new RAM location is accessed.  The address lines update every 6 cycles.  This corresponds neatly to the LCD output timing.  The way the data gets from the RAM to the LCD is very simple.  Data is read a byte at a time from the VRAM, and 4 bits of it are sent to the 4 LCD data lines.  Either D0/D2/D4/D6 or D1/D3/D5/D7 depending on which field it is.  The bits sent alternate this way every field to effect the 4 level greyscale.  Thus, every 2 bits of RAM correspond to a single pixel on the LCD.
+
+When the CPU reads or writes the VRAM, it simply inserts a single clock access.  This access can occur anywhere in the 6 cycle period.  The video controller seems to read the LCD data on all 6 clocks, and any clock where there is a CPU access, it simply doesn't read it.  This means that unless there's 6 writes or reads in a row from the CPU, it will always have valid display data.  During normal operation, there is no way there can be more than 1 write to VRAM at any one time. (An interrupt or JSR would do 3 or 2 respectively, but VRAM does not sit at 0100h so this can never occur). A fun test will be to execute code out of VRAM to see how the display reacts.
+
+---------------------------------------
+
+
+Cartridge pinout:
+
+(taken from svision.txt from the Mess emulator documentation, updated by me.)
+
+Cartridge connector (looking at the cartridge pins)
+            +-------+
+       /RD -| 1  40 |- +5v (picture side)
+        A0 -| 2  39 |- nc
+        A1 -| 3  38 |- nc
+        A2 -| 4  37 |- nc
+        A3 -| 5  36 |- nc
+        A4 -| 6  35 |- /WR
+        A5 -| 7  34 |- D0
+        A6 -| 8  33 |- D1 
+        A7 -| 9  32 |- D2
+        A8 -| 10 31 |- D3
+        A9 -| 11 30 |- D4
+       A10 -| 12 29 |- D5
+       A11 -| 13 28 |- D6
+       A12 -| 14 27 |- D7
+       A13 -| 15 26 |- nc
+       A14 -| 16 25 |- nc
+       A15 -| 17 24 |- nc
+       A16 -| 18 23 |- nc
+        nc -| 19 22 |- gnd
+        nc -| 20 21 |- power ground
+            +-------+
+
+* A0-A16 connect to A0-A16 on the ROM/EPROM
+* D0-D7 connect to D0-D7 on the ROM/EPROM
+* /RD connects to /CE or /OE (or both) on the EPROM
+* /WR is not used (but could be used to run a simple latch to effect more bankswitching)
+* power ground must be connected to gnd for the Supervision to turn on
+
+That power ground input connects from the power source to ground on the rest of the console. The system will not power up without a cartridge installed.
+
+
+---------------------------------------
+
+ASIC Pinout
+-----------
+
+
+ 1 - VRAM D5
+ 2 - VRAM D6
+ 3 - VRAM D7
+ 4 - VRAM /WR
+ 5 - Dpad Right
+ 6 - Dpad Left
+ 7 - Dpad Down
+ 8 - Dpad Up
+ 9 - B Button
+10 - A Button
+11 - Select Button
+12 - Start Button
+13 - +5V
+14 - Audio Left Out
+15 - Audio Right Out
+16 - GND
+17 - CLK Out?
+18 - CPU D7
+19 - CPU D6
+20 - CPU D5
+21 - CPU D4
+22 - CPU D3
+23 - CPU D2
+24 - CPU D1
+
+25 - CPU D0
+26 - CPU A16
+27 - CPU A15
+28 - CPU A14
+29 - CPU A13
+30 - CPU A12
+31 - CPU A11
+32 - CPU A10
+33 - CPU A9
+34 - CPU A8
+35 - CPU A7
+36 - CPU A6
+37 - CPU A5
+38 - CPU A4
+39 - CPU A3
+40 - CPU A2
+
+41 - CPU A1
+42 - CPU A0
+43 - WRAM /CE
+44 - CPU R/W
+45 - CART /CE
+46 - NC
+47 - Link Port D0
+48 - Link Port D1
+49 - Link Port D2
+50 - Link Port D3
+51 - LCD 9
+52 - LCD 8
+53 - LCD 7
+54 - LCD 6
+55 - LCD 5
+56 - LCD 4
+57 - LCD 3
+58 - LCD 2
+59 - LCD 1
+60 - Xtal 2
+61 - Xtal 1
+62 - GND
+63 - VRAM A0
+64 - VRAM A1
+
+65 - VRAM A2
+66 - VRAM A3
+67 - VRAM A4
+68 - VRAM A5
+69 - VRAM A6
+70 - VRAM A7
+71 - VRAM A8
+72 - VRAM A9
+73 - VRAM A10
+74 - VRAM A11
+75 - VRAM A12
+76 - VRAM D0
+77 - VRAM D1
+78 - VRAM D2
+79 - VRAM D3
+80 - VRAM D4
+
+
+---------------------------------------
+
+That's the basics of the hardware end.  Now for programming.
+
+
+
+2000 - LCD_X_Size
+2001 - LCD_Y_Size
+2002 - X_Scroll
+2003 - Y_Scroll
+2004 - Mirror of register 2000
+2005 - Mirror of register 2001
+2006 - Mirror of register 2002
+2007 - Mirror of register 2003
+2008 - DMA Source low
+2009 - DMA Source high
+200A - DMA Destination low
+200B - DMA Destination high
+200C - DMA Length
+200D - DMA Control
+200E
+200F
+2010 - CH1_Flow (Right only)
+2011 - CH1_Fhi
+2012 - CH1_Vol_Duty
+2013 - CH1_Length
+2014 - CH2_Flow (Left only)
+2015 - CH2_Fhi
+2016 - CH2_Vol_Duty
+2017 - CH2_Length
+2018 - CH3_Addrlow
+2019 - CH3_Addrhi
+201A - CH3_Length
+201B - CH3_Control
+201C - CH3_Trigger
+201D
+201E
+201F
+2020 - Controller
+2021 - Link port DDR
+2022 - Link port data
+2023 - IRQ Timer
+2024 - Reset IRQ timer flag
+2025 - Reset Sound DMA IRQ flag
+2026 - System Control
+2027 - IRQ Status
+2028 - CH4_Freq_Vol (Left and Right)
+2029 - CH4_Length
+202A - CH4_Control
+202B
+202C - Mirror of 2028
+202D - Mirror of 2029
+202E - Mirror of 202A
+202F
+
+----------------------------------------------------------
+
+Audio system
+------------
+
+2010, 2011, 2012, and 2013 correspond to channel 1 which is a square wave on right channel
+2014, 2015, 2016, and 2017 correspond to channel 2 which is a square wave on left channel
+2018, 2019, 201A, 201B, and 201C correspond to the DMA channel on both output channels
+2028, 2029, 202A correspond to channel 4 which is the noise wave on both output channels
+
+Square waves:
+-------------
+
+CHx_Flow:
+7       0
+---------
+FFFF FFFF  
+
+F: lower 8 bits of frequency
+
+CHx_Fhi:
+7       0
+---------
+???? ?FFF
+
+F: Upper 3 bits of frequency
+
+CHx_Vol_Duty:
+7       0
+---------
+?EDD VVVV
+
+E: Enable. 1 = channel always produces sound.  0 = only plays when length reg is written
+D: Duty cycle:
+  00 - 12.5%
+  01 - 25%
+  10 - 50%
+  11 - 75%
+V: Volume. 0 = silent, F = loudest.  Linear.
+
+CHx_Length:
+7       0
+---------
+LLLL LLLL
+
+L: Length.  Writing to this register triggers the sound to play for L counts if bit 6 of CHx_Vol_Duty is cleared.  If that E bit is set, the length counter still runs, but it has no effect unless the E bit is cleared before the timer expires.
+
+---
+
+Frequency is calculated using the following formula:
+
+          125000
+Fout =  ----------
+         (Freq+1)
+
+Freq is the concatenated value of the 8 lower bits and the 3 upper bits.
+
+Writing to EITHER frequency register resets the duty cycle prescaler, just like writing to Fhi does on the NES... only in this case, writing to either does it.
+
+---
+
+The length counter works in increments of 16.384ms.  This value is gotten by taking the 4000000Hz clock divided by 65536 via a 16 bit prescaler.  
+
+There is a 1 clock uncertainty in the length counter, because it's decremented each time the prescaler expires.  This prescaler is never reloaded or reset so the point where the length register is written determines the 1 count uncertainty.
+
+The length count is simply L+1 * 65536 cycles, with up to 65535 extra cycles added on.  i.e.:
+
+If L is loaded with 10,  then it will expire between (65536*11) counts and (65536*11+65535) counts.
+
+-------
+
+DMA Channel:
+------------
+
+CH3_Addrlow:
+CH3_Addrehi:
+7       0
+---------
+AAAA AAAA
+
+A: All 16 bits are the start address of the DMA audio channel.  Each register holds 8 bits.
+
+CH3_Length:
+7       0
+---------
+LLLL LLLL
+
+L: Length of the sample to play.  The sample length is L * 16 bytes.  For a length of 00h, 4096 samples will be played (100h * 16).
+
+CH3_Control:
+7       0
+---------
+?BBB LRFF
+
+B: ROM bank to use for pulling sample data
+   These bits determine what ROM bank will be mapped into 8000-BFFF for digi audio.
+   This overrides the bank bits on 2026, but only for digi audio.
+L: Output audio to left channel
+R: Output audio to right channel
+F: Playback frequency: (outputs a sample every...)
+   00 - 256 clocks
+   01 - 512 clocks
+   10 - 1024 clocks
+   11 - 2048 clocks
+
+The RAM is read at 1/2 the rate samples are outputted.  The memory is read first, then the upper 4 bits are output to the DAC, and then the lower 4 bits are output, then the next byte is read, and the upper 4 bits of the next sample are output, etc.
+
+
+CH3_Trigger:
+7       0
+---------
+T??? ????
+
+T: Trigger the channel. Writing a 1 here will start the sample playing.
+
+
+Notes:
+
+Writing to the length and address registers set them.   When the channel is triggered, via CH3_Trigger, The registers are modified.  Thus, if the channel is triggered again, the address is not updated and points to the last address that was accessed.  Additionally, the length counter is 00h, and the channel plays a maximum length sample (4096 bytes).
+
+-------
+
+Noise Channel:
+--------------
+
+CH4_Freq_Vol:
+7       0
+---------
+FFFF VVVV
+
+V: Volume, 0 = silence, F = maximum,  linear stepping.
+
+F: Frequency:     Divisor:
+   0 - 500KHz     8
+   1 - 125KHz     32
+   2 - 62.5KHz    64
+   3 - 31.25KHz   128
+   4 - 15.625KHz  256
+   5 - 7.8125KHz  512
+   6 - 3.90625KHz 1024
+   7 - 1.953KHz   2048
+   8 - 976.56Hz   4096
+   9 - 488.28Hz   8192
+   A - 244.14Hz   16384
+   B - 122.07Hz   32768
+   C - 61.035Hz   65536
+   D - 30.52Hz    131072
+   E - 61.035Hz   65536
+   F - 30.52Hz    131072
+
+     4000000
+F = ---------
+     divisor
+
+The frequency is how often (per second) that the noise LFSR is updated.  
+
+The LFSR is 15 bits long, and is tapped at bits 14 and 15 to generate a maximal length shift register that repeats after 32767 counts.  Bit 0 of CH4_Noise_Con controls the length of the register.  When the bit is clear, the shift register is cut down to just 7 bits, and repeats after 127 counts.  
+
+CH4_Length:
+7       0
+---------
+LLLL LLLL
+
+L: Length to play noise.  Works identically to the square wave length register.
+
+CH4_Control:
+7       0
+---------
+???N LREP
+
+N: Noise Enable
+L: Left output. 1 - mix audio with left channel
+R: Right output. 1 - mix audio with right channel
+E: Channel Enable. 1 - enable noise channel continuously.  0 - use the length register
+P: LFSR length. 1 - 15 bit LFSR, 0 = 7 bit LFSR.
+
+Writing to this register resets the LFSR to all 1's.  Writing to the other noise registers do not reset the LFSR.  
+
+
+Audio Mixing:
+-------------
+
+Audio is mixed in an interesting fashion.  Each of the outputs (left and right) are only 4 bit DACs.  But each channel can output up to 3 different things.  (Square, noise, DMA).
+
+The hardware simply adds all three together, and clips it at 0fh.  This means that if more than 1 channel is playing, they cannot be outputting the maximum level or else they can be clipped.  Kinda dumb and would result in weird things occuring as well as kinda poor audio output.
+
+----------------------------------------------------------
+
+Controller
+----------
+
+2020 - Controller
+
+
+Nothing too special here.
+
+Controller:
+7       0
+---------
+SLAB UDLR
+
+S: Start button
+L: Select button
+A: A button
+B: B button
+U: Up on D-pad
+D: Down on D-pad
+L: Left on D-pad
+R: Right on D-pad
+
+Pressing a button results in that bit going LOW.  Bits are high for buttons that are not pressed. (i.e. the register returns FFh when no buttons are pressed).
+
+----------------------------------------------------------
+
+Link Port
+---------
+
+2021 - Link port DDR
+2022 - Link port data
+
+
+Pinout:
+
+The link port is a male DB-9 connector.  The pinout is as follows (using standard DB-x pin notations as molded into the plugs/sockets)
+
+1 - D0
+2 - D1
+3 - D2
+4 - D3
+6 - ground
+8 - VCC
+
+All other pins are NC.
+
+
+Link Port DDR:
+7       0
+---------
+???? DDDD
+
+D: Data direction bits for the link port.
+   0 - this is an output bit
+   1 - this is an input bit
+
+Link Port data:
+7       0
+---------
+???? LLLL
+
+L: Link port bits.
+   0 - output a low on this link port line.
+   1 - output a high on this link port line.
+
+When the link port line(s) are set as inputs, they float high via 30uA current sources.  The upper 4 bits on the link port data register returns open bus.
+
+I thought there was a UART on here to communicate on the link port, but it does not appear there is.
+
+
+
+----------------------------------------------------------
+
+DMA
+---
+
+2008 - DMA Source low
+2009 - DMA Source high
+200A - DMA Destination low
+200B - DMA Destination high
+200C - DMA Length
+200D - DMA Control
+
+
+CAUTION:  This DMA can only be used to move data from WRAM/cartridge ROM to VRAM!  Attempting to move data to a non-VRAM address will cause serious problems to occur. See my findings at the bottom of the document in the DMA timing section.
+
+
+DMA Source low/high:
+7       0
+---------
+SSSS SSSS
+   
+   S: Source address
+ 
+DMA Destination low/high:
+7       0
+---------
+DDDD DDDD
+
+   D: Destination address
+
+These four registers select the source and destination addresses for the DMA unit.  
+
+DMA length:
+7       0
+---------
+LLLL LLLL
+
+   L: Length*16 (in bytes)
+
+This register selects how many bytes of data to move.  The actual number of bytes to move is (L * 16).  If the register is loaded with 0, a full 4096 bytes is moved. 
+
+After a DMA occurs, the registers are updated internally, and performing another DMA will cause a full 4096 bytes to be moved, because the length register now holds 00h.  The source/destination registers are incremented each transfer, and it will start transferring where it left off.
+
+DMA Control:
+7       0
+---------
+S??? ????
+
+   S: Start DMA when written with this bit set.
+
+
+
+
+
+----------------------------------------------------------
+
+Interrupts & Bankswitching & System Control
+-------------------------------------------
+
+2023 - IRQ Timer
+2024 - Reset IRQ timer flag
+2025 - Reset Sound DMA IRQ flag
+2026 - System Control
+2027 - IRQ Status
+
+
+NMI:
+
+The NMI occurs every 65536 clock cycles (61.04Hz) regardless of the rate that the LCD refreshes. I find this interesting, because the LCD refresh is totally divorced from the NMI timing.  In fact, there is no way to know what the LCD is doing from software.
+
+System Control:
+7       0
+---------
+BBBS D?IN
+
+   B: Bank select bits for 8000-BFFF.
+   N: Enable the NMI (1 = enable)
+   I: Enable the IRQ (1 = enable)
+   S: IRQ Timer prescaler.  1 = divide by 16384, 0 = divide by 256
+   D: Display enable. 1 = enable display, 0 = disable display  
+
+Writing to this register resets the LCD rendering system and makes it start rendering from the upper left corner, regardless of the bit pattern.
+
+IRQ Timer:
+7       0
+---------
+TTTT TTTT
+
+   T: IRQ Timer.  Readable and writable.  
+
+When a value is written to this register, the timer will start decrementing until it is 00h, then it will stay at 00h.  When the timer expires, it sets a flag which triggers an IRQ.  This timer is clocked by a prescaler, which is reset when the timer is written to.  This prescaler can divide the system clock by 256 or 16384.  
+
+Writing 00h to the IRQ Timer register results in an instant IRQ. It does not wrap to FFh and continue counting;  it just stays at 00h and fires off an IRQ.
+
+
+IRQ Status:
+7       0
+---------
+???? ??DT
+
+   D: DMA Audio system (1 = DMA audio finished)
+   T: IRQ Timer expired (1 = expired)
+
+Reset IRQ timer flag:
+7       0
+---------
+???? ????
+
+When this register is read, it resets the timer IRQ flag (clears the status reg bit too)
+
+Reset Sound DMA IRQ flag:
+7       0
+---------
+???? ????
+
+When this register is read, it resets the audio DMA IRQ flag (clears status reg bit too)
+
+
+Bankswitching
+-------------
+
+The bankswitching on this system is very simple.  8000-FFFF is the cartridge ROM.  C000-FFFF is fixed to the last 16K bank of the game ROM.  8000-BFFF is selectable using the 3 bits on the System Control register.  0 = first 16K, 1 = second 16K, etc.
+
+
+
+----------------------------------------------------------
+
+
+LCD System
+----------
+
+2000 - LCD_X_Size
+2001 - LCD_Y_Size
+2002 - X_Scroll
+2003 - Y_Scroll
+2004 - Mirror of register 2000
+2005 - Mirror of register 2001
+2006 - Mirror of register 2002
+2007 - Mirror of register 2003
+
+
+Frame Timing Registers
+----------------------
+
+2000: LCD X size
+2001: LCD Y size
+
+LCD X and Y size control LCD refreshing.  All games program A0h / A0h into them since the LCD is 160*160 pixels.
+
+Only the upper 6 bits of LCD_X_Size are usable, though.  The lower 2 bits are "don't care" bits, because the LCD size can only be changed in 4 pixel increments (due to the LCD loading 4 pixels at a time.  See the LCD hardware description above).
+
+Changing LCD_X_size simply changes how many pixclk pulses are output before line latch signal is output.  Frame timing changes of course, depending on how many clocks have been output.  Setting this to a value less than A0h results in some of the columns (in groups of four) NOT being refreshed.  On the system, the columns keep outputting what they were at the time the count was reduced.  So, if the LCD has a black square on it the width of the display and the rest is white, and if the count is reduced when the LCD is scanning the black rows, those columns on the right will be solid black.  If it was scanning the white area at the time, those columns will be solid white.  
+
+Increasing it past A0h but less than C4h does not do anything visually;  the extra bits just shift out and are not displayed.  It does slow LCD timing down, however.  Increasing it past C3h does do something cool:  the LCD data is shown twice on the screen.  The reason for this is pretty simple.  Every scanline, the VRAM start address is bumped 30h.  This corresponds to 192 pixels.  So setting the count past 192 (C0h) results in it changing the VRAM start address increment size from 30h to 60h.
+
+Changing LCD_Y_Size controls how many scanlines are shown in the frame.  After the requisite number of scanlines, the LCD frame latch signal is output and the frame polarity line is toggled.  Normally, this is A0h for 160 lines.  Making this number larger reduces the LCD duty cycle since each row is on for 1/LCD_Y_Size of the time.  i.e. normally when it's set to A0h, each row is on for 1/160th of the time.  Making it larger reduces the duty cycle further and the display gets dimmer which means you have to advance the contrast knob to see it.  The frame rate also drops because of this.  
+
+Decreasing it below A0h results in a higher duty cycle which means the contrast knob has to be backed off because the whole screen gets darker.  This also has the negative effect of repeating the data on the display.  This is because more than 1 row driver output is on at a time now, so by necessity the bottom scanline(s) will now reflect what's happening at the top of the display.  This also increases the frame rate of the display.
+
+So, to summerize.  Frame timing is calculated like this:   
+
+Scanlinelen = ((LCD_X_Size & 0xFC) + 4) * 6
+
+Xsize is anded with FCh because only the upper 6 bits are used, and +4 to account for the line latch pulse, and *6 due to each LCD clocking period taking 6 cycles.
+
+Framelen = Scanlinelen * LCD_Y_Size * 2
+
+Frame length is simply the number of scanlines * the Y_Size register.
+
+---
+
+Scrolling:
+----------
+
+2002: X_scroll
+2003: Y_scroll
+
+
+X_scroll and Y_scroll are used to (as you might've guessed) scroll the display information.  The upper 6 bits of X_scroll control the starting offset of the VRAM buffer, and the lower 2 bits delay the bits going to the LCD by 0, 1, 2, or 3 clocks.  The chip actually reads data during the line load pulse to the LCD which reads the first byte of VRAM data.  This data is mostly sent through a 1 deep by 4 bit shift register, which is then run through a multiplexer to choose the appropriate 4 bits to send to the LCD.
+
+Y_Scroll is another offset added to the VRAM pointer at the start of the frame.  It's Y_Scroll * 30h.  Since the chip adds 30h (and sometimes 60h, see below) each scanline, this makes sense.  The hardware also checks to make sure that you cannot display the last bit of VRAM, which would offset the pixels, because 48 byte scanlines do not exactly fill all 8K of VRAM.  The closest number is 170.  This leaves 20h bytes on the end which the hardware then skips. (most of the time.  You CAN make it display these.  see below)
+
+Testing:
+--------
+
+First, I am setting the LCD_Size registers both to A0h, which is how all games set them.
+
+
+X_scroll is set to 0, and Y_Scroll is set to AAh.  The display looks exactly like it does for a Y_Scroll value of 0, so this tells me the check occurs when the offset used to count through VRAM is updated (either loaded, or 30/60h are added).  Adjusting X_Scroll when Y_Scroll = AAh results in expected behaviour.  If X_Size is changed to a value greater than C3h, this test is still performed, but it might be skipped because of the hardware adding 60h each scanline instead of 30h.  The Y_Scroll still changes the inital offset the same way regardless of X_Size value.
+
+Going by how this works, I can generate some pseudocode to reproduce the behaviour:
+
+// inputs
+int8  X_Scroll;    // X scroll register
+int8  Y_Scroll;    // Y scroll register
+int8  LCD_X_Size;  // X size register
+int8  LCD_Y_Size;  // Y size register
+
+// internal variables
+int16 Vstart;      // starting VRAM address for the scanline
+int16 Vtemp;       // temporary VRAM address that is incremented in the scanline
+int8  oldpix;      // stores the last 4 pixels read from VRAM
+int16 pixels;      // the current 4 pixels read, and the last 4 pixels read
+int8  outpixels;   // the 4 output pixels
+int8  X;           // X count
+int8  Y;           // Y count
+
+
+Vstart = (Y_Scroll * 0x30) & 0x1FFF;      // initial V start value (limit to 8K size)
+if (Vstart == 0x1FE0) Vstart = 0;         // if it has wrapped, perform the wrap here
+
+for (Y = 1; Y < LCD_Y_Size; Y++)		// do Y_Size scanlines
+{
+    Vtemp = Vstart + (X_Scroll >> 2);	// start address for this scanline
+    oldpix = buffer[Vtemp];			// get the pipeline rolling
+    Vtemp++;
+    for (X = 1; X < (LCD_X_Size >> 2); X++)
+    {
+        pixels = (buffer[Vtemp] << 8) | oldpix;	         // mingle old pixels from last read with new ones
+        outpixels = pixels >> ((X_Scroll & 0x03) << 1);  // get the correct 4 pixels (see below)
+        plotpixels(outpixels);                           // display them
+        oldpix = pixels >> 8;                            // move current pixels into old pixels
+        Vtemp++;
+    }
+    Vstart += ((LCD_X_size > 0xC3) ? 0x60 : 0x30) & 0x1FFF;  // add 30/60 and keep in 8K range
+    if (Vstart == 0x1FE0) Vstart = 0;
+}
+
+"plotpixels" is the routine that would plot 4 pixels to the display buffer or LCD or what have you.  The format of the data is simply 4 pixels packed into a byte.  bits 0/1 are one pixel, bits 2/3 are the next, and so on.
+
+The above code does not take into account clearing/setting the unused pixels on the screen, but I don't think this has to be done for an emulator.
+
+----------------------------------------------------------
+
+DMA Timing
+----------
+
+A bunch of headers were soldered on and I connected up A0-A5 cart /CE, R/W, and my 1ffe/1fff decode output to the logic analyzer.
+
+channel setup:
+--------------
+0-5 = A0-A5
+6   = cart /CE
+7   = 1FFE/1FFF decode
+8   = R/W
+
+To test the DMA, I set the DMA start address to FFFF, destination address to 40FF, length to 1 and then started it up and recorded the results on the logic analyzer.
+
+Turns out that the DMA unit fails to operate properly, unless the destination is VRAM.  If the destination is not VRAM, the DMA fails, and ends up clobbering WRAM (if the read pointer is indexing it).  Attempting to DMA VRAM to VRAM causes corruption too, because the data is being overwritten.  
+
+The DMA is extremely fast.  It copies 5 bytes to the VRAM every 6 clocks;  the 6th clock is for the LCD system to read VRAM for display.
+
+Copying continues until all bytes are copied.  On the idle cycle (every 6 clocks) the CPU is allowed to run for that cycle.
+
+
+Audio DMA Timing
+----------------
+
+Nothing special here.   When the Audio DMA Trigger register is written to, a flag is set (I call it "ADMA playing").  The first 2 samples are fetched when the prescaler overflows.  The first sample (upper 4 bits of the byte) are then output.  After the prescaler expires again, the lower 4 bits of the byte are output.  After another prescaler expiration, the next byte is fetched, and so on until the complete sample is played.
+
+The DMA fetch only takes a single cycle to perform.
+

@@ -1,0 +1,62 @@
+# ------------------------------------------------------------------------------------------
+# EMCC
+
+
+EM_CC ?= emcc
+EM_OPTS = 
+
+##############################################################################################
+
+emcc_targets: \
+    emcc_buffered
+
+##############################################################################################
+
+emcc: emcc_buffered
+
+emcc_buffered:
+	$(EM_CC) $(INCLUDE_OPTS)  \
+	-D__EMCC__ \
+	-D__NORMALIZED_RAND \
+	-DXSize=48 \
+	-DYSize=9 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-D_XL_NO_SLEEP \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT -D__NO_WAIT  \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o FULL_emcc_buffered.html
+	mv FULL_emcc_buffered.js $(BUILD_PATH)
+	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
+	mv FULL_emcc_buffered.html $(BUILD_PATH)
+	cp $(BUILD_PATH)/X$(GAME_NAME)_emcc_buffered.* /home/fcaruso/build/emsdk
+
+emcc_exp:
+	$(EM_CC) $(INCLUDE_OPTS)  \
+	-D__EMCC__ \
+	-D__NORMALIZED_RAND \
+	-DXSize=80 \
+	-DYSize=24 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-D_XL_NO_SLEEP -DNO_INPUT -D__NO_WAIT \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o FULL_emcc_buffered.html
+	mv FULL_emcc_buffered.js $(BUILD_PATH)
+	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
+	mv FULL_emcc_buffered.html $(BUILD_PATH)
+	cp $(BUILD_PATH)/X$(GAME_NAME)_emcc_buffered.* /home/fcaruso/build/emsdk
+

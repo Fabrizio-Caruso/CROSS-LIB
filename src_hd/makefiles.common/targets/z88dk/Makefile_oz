@@ -1,0 +1,26 @@
+#############################
+# OZ
+
+oz: oz_buffered
+
+oz_buffered: $(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT)
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-o$@.bin \
+	-D__OZ__ \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_OZ_SLOWDOWN) \
+	-DXSize=59 \
+	-DYSize=9 \
+	-vn -lndos \
+	-D__BUFFERED_GRAPHICS -DTURN_BASED -D__NO_INIT_GRAPHICS \
+	-D_XL_NO_COLOR \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(TOOLS_PATH)/z88dk/oz/makewzd$(COMPILEDEXT) $(SOURCE_PATH)/../../$@
+	rm -rf $(SOURCE_PATH)/../../$@.bin
+	mv $@.wzd $(BUILD_PATH)/X$(GAME_NAME)_$@.wzd
+

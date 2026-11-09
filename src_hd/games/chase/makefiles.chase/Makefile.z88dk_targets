@@ -1,0 +1,67 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK
+#
+
+
+
+################################################################################
+
+# missing: abc800, xo7, c7420, rex
+# missing 8080: m100
+
+
+
+
+
+
+##################################################################
+
+include games/chase/makefiles.chase/makefiles_z88dk/Makefile_z88dk_a-k
+
+include games/chase/makefiles.chase/makefiles_z88dk/Makefile_z88dk_l-p
+
+include games/chase/makefiles.chase/makefiles_z88dk/Makefile_z88dk_q-z
+
+include games/chase/makefiles.chase/makefiles_z88dk/Makefile_z88dk_zsdcc
+
+# ----------------------------------------------------------------
+
+z88dk_targets_sccz80: \
+	z88dk_targets_a-k \
+	z88dk_targets_l-p \
+	z88dk_targets_q-z
+
+z88dk_targets_sccz80_more: \
+	z88dk_targets_a-k_more \
+	z88dk_targets_l-p_more \
+	z88dk_targets_q-z_more
+
+ifeq ($(DO_WIN),1)
+z88dk_targets: \
+	z88dk_targets_sccz80 \
+	z88dk_targets_zsdcc 
+
+z88dk_targets_more: \
+	z88dk_targets_sccz80_more \
+	z88dk_targets_zsdcc_more    
+
+else
+
+z88dk_targets: \
+	z88dk_targets_sccz80
+    
+z88dk_targets_more: \
+	z88dk_targets_sccz80_more
+endif
+
+
+
+# z88dk_targets_sccz80:
+	# make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k 
+	# make $(Z88DK_MAKE_OPTS) z88dk_targets_l-p 
+	# make $(Z88DK_MAKE_OPTS) z88dk_targets_q-z
+
+# z88dk_targets:
+	# make $(Z88DK_MAKE_OPTS) z88dk_targets_sccz80
+	# make $(Z88DK_MAKE_OPTS) z88dk_targets_zsdcc 
+    

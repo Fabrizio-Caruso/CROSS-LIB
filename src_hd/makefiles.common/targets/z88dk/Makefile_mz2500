@@ -1,0 +1,14 @@
+
+#############################
+# MZ2500
+
+
+mz2500:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__MZ2500__ -DXSize=40 -DFORXE_YSIZE=24  \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MZ2500_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_COLOR -D_XL_NO_JOYSTICK -D__NO_INIT_GRAPHICS -D__INCLUDE_CONIO_H \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg

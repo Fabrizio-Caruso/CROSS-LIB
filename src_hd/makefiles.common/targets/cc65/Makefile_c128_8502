@@ -1,0 +1,14 @@
+#######################################################################################
+# C128_8502
+
+c128_8502: c128_8502_40col
+
+c128_8502_40col: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 -DEXTRA_TITLE \
+	-D__CONIO_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_8502_40COL_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+

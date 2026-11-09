@@ -1,0 +1,179 @@
+# ------------------------------------------------------------------------------------------
+# GCC
+#
+
+
+
+gcc_targets: \
+	gcc_buffered ncurses_targets  
+    
+###############################################################################################
+
+
+GCC_386_OPTS ?= -std=gnu99 -O0 -nostdlib -m32 -march=i386 -ffreestanding
+
+gcc_386: gcc_386_buffered
+
+gcc_386_buffered:
+	$(NATIVE_CC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+
+
+stdio: stdio_buffered
+
+stdio_buffered:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO -DEVEN_LOOP_MOVE -DTURN_BASED_SKULL_MIN_SLOWDOWN_SCALE=1 -DTURN_BASED_GHOST_MIN_SLOWDOWN_SCALE=1 \
+	 -DTURN_BASED_EFFECT_SCALE=1 -DTURN_BASED_WAIT_SCALE=1 \
+	-D_XL_NO_COLOR \
+	 \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
+
+
+gcc: stdio
+
+gcc_buffered: stdio_buffered
+
+
+gcc_386_no_print:
+	$(NATIVE_CC) $(GCC_386_OPTS) $(INCLUDE_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO -DNO_CHASE -DNO_INPUT \
+	-D_XL_NO_COLOR -DNO_WALL -D__NO_GRAPHICS \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	$(TINY_FILES)	
+	
+gcc_no_print:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	$(TINY_FILES)	
+
+
+gcc_tiny_buffered:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__NORMALIZED_RAND \
+	-DXSize=79 \
+	-DYSize=22 \
+	-D__STDIO \
+	-D_XL_NO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-D__BUFFERED_GRAPHICS \
+	-D__NO_INIT_GRAPHICS \
+	-D__ALT_PRINT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__NO_WAIT \
+	-D_XL_NO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_X$(GAME_NAME)_gcc_buffered$(COMPILEDEXT)
+
+
+ncurses_turn_based:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	  \
+	  \
+	-DTURN_BASED \
+	-D__CONIO_GRAPHICS  \
+	-D__ALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_turn_based$(COMPILEDEXT)
+
+
+ncurses_debug:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	 \
+	-DXSize=$(XSIZE) -DYSize=$(YSIZE) -D_DEBUG_FLAG=$(_DEBUG_FLAG) \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
+	-D__CONIO_GRAPHICS -D_XL_NO_UDG \
+	-D__ALT_PRINT \
+	 \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+ifeq ($(_DEBUG_FLAG),1)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_debug_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+else
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
+endif
+
+
+ncurses:
+	$(NATIVE_CC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	  \
+	  \
+	-D__CONIO_GRAPHICS  \
+	-D__ALT_PRINT \
+	 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_NCURSES_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+    
+    
+
+##
+
+ncurses_targets: \
+	ncurses ncurses_turn_based
+

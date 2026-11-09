@@ -1,0 +1,17 @@
+
+PROJECT_OPTS = -D__BACKGROUND_COLOR=1
+
+FULL_FILES ?=  \
+	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/main.c 
+
+GAME_NAME := background
+
+PARENT_DIR = examples
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+
+include ./Makefile_common
+
+include ./makefiles.common/auxiliary/Makefile_default_values

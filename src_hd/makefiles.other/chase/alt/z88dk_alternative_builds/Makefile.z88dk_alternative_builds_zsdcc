@@ -1,0 +1,95 @@
+
+# ------------------------------------------------------------------------------------------
+# Z88DK ALT ZSDCC
+#
+
+z88dk_alt_targets_zsdcc: \
+    zx81_alt_targets
+
+# ------------------------------------------------------------------------------------------
+
+
+zx81_alt_targets: \
+    zx81_light \
+    zx81_8k \
+    zx81_16k_turn_based \
+    zx81_16k_wrx \
+    zx81_32k_wrx \
+
+
+###################################################################
+# ZX81
+
+zx81_16k_wrx:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS)  \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-D__ALT_MODE \
+	-DGHOSTS_NUMBER=6 \
+	-DXSize=36 \
+	-DYSize=35 \
+	-vn \
+	-D__ZX81__ \
+	-D__Z88DK_SPRITES_GRAPHICS \
+	-DLESS_PRINT \
+	-lndos \
+	 \
+	-DLESS_TEXT \
+	-D_XL_NO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-D__NO_SCREEN_COLOR_INIT \
+	-D__ALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx.prg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx.prg
+
+
+zx81_light:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DLIGHT_GAME \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D_XL_NO_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg
+
+
+zx81_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-D__ALT_SLEEP \
+	-D__ALT_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_TINY_zx81_8k.prg \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/ALT_TINY_zx81_8k.prg
+
+
+# ZX81_IJKL EXTRA
+
+zx81_16k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	\
+	-D__ZX81__  \
+	-DTURN_BASED \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based.prg
+
+

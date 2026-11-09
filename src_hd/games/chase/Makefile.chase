@@ -1,0 +1,62 @@
+######################################################################
+# Cross-Chase files
+#
+NO_CHASE_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/split_files/move_player.c \
+	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
+	$(SOURCE_PATH)/split_files/main.c \
+	$(SOURCE_PATH)/split_files/init_images.c
+
+#
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/split_files/strategy.c
+
+#
+TEST_FILES ?= $(NO_CHASE_FILES)
+
+#
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/split_files/item.c $(SOURCE_PATH)/split_files/skull.c $(SOURCE_PATH)/split_files/bullet.c 
+
+#
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/split_files/horizontal_missile.c $(SOURCE_PATH)/split_files/rocket.c 
+
+#
+LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
+
+#
+# FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES) $(SOURCE_PATH)/end_screen.c
+
+FULL_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/main.c
+
+GLOBAL_OPTS =   -D_XL_NO_SMALL_LETTERS
+
+
+GAME_NAME := chase
+
+PARENT_DIR = games
+
+
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
+
+include ./Makefile_common
+
+
+
+
+
+###########################################################################################
+
+include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
+
+
+
+
+
+include ./makefiles.common/auxiliary/Makefile_default_values

@@ -1,0 +1,167 @@
+
+
+
+creativision: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DNO_EXTRA_TITLE \
+	-D__NO_SCREEN_INIT -D__CREATIVISION__  -DNO_CONTROL_INSTRUCTIONS \
+	-D__ALT_SLEEP -DX_OFFSET=6  -DXSize=20 -DY_OFFSET=3 -DYSize=16 -DMAX_SNAKE_LENGTH=12 \
+	-D__VDP_MODE1_GRAPHICS -DLESS_TEXT   \
+	-DNO_SECRET_ANIMATION -DNO_EXTRA_LIFE_ANIMATION -DNO_BONUS_ANIMATION \
+	-D_XL_SLOW_DOWN_FACTOR=12000 -DNO_DISPLAY_LEVEL_ANIMATION \
+	--config $(CFG_PATH)/cc65/creativision-16k_less_stack.cfg \
+	-DUSE_MEMORY_BUFFERS  \
+	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(SOURCE_PATH)/memory/creativision_memory.s \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+ifdef USE_TOOLS
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT)
+else
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+endif	
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	 -D_XL_SLOW_DOWN_FACTOR=10000   \
+	-D__ALT_SLEEP  \
+	-DXSize=17 -DX_OFFSET=1 -DY_OFFSET=1 -DNO_DISPLAY_LEVEL_ANIMATION -DYSize=16 -DMAX_SNAKE_LENGTH=12 \
+	-DLESS_TEXT -DUSE_MEMORY_BUFFERS -D__NO_SCREEN_COLOR_INIT \
+	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS  \
+	$(SOURCE_PATH)/memory/gamate_memory.s \
+	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	-DNO_HINTS -DNO_SECRET_ANIMATION \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_EXTRA_TITLE -DNO_BONUS_ANIMATION \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+ifdef USE_TOOLS
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+endif 
+
+
+# TODO: FIX c16_16k
+c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars_stack_0x30.cfg \
+	-DNO_EXTRA_LIFE_ANIMATION  \
+	-DUSE_MEMORY_BUFFERS \
+	-DSOUNDS \
+	-D__ALT_PRINT \
+	-D__MEMORY_MAPPED_GRAPHICS \
+	-D__ASSEMBL_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=4000 \
+	-D__UDG_BASE_FACTOR=15 \
+	$(SOURCE_PATH)/memory/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_memory_mapped_GFX.cfg \
+	-DSOUNDS  -D__ALT_SLEEP \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN) \
+	-D__MEMORY_MAPPED_GRAPHICS -D__VIC20__ -D__VIC20_EXP_8K \
+	-DSIMPLE_STRATEGY \
+	 \
+	-D__ALT_PRINT \
+	-DLESS_TEXT \
+	-D__DEFAULT_CLEAR_SCREEN \
+	-D__ALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/split_files/main.c   \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/split_files/game_text.c  \
+	$(SOURCE_PATH)/split_files/variables.c \
+	$(SOURCE_PATH)/split_files/control_player.c \
+	$(SOURCE_PATH)/split_files/snake.c  \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
+	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
+	$(SOURCE_PATH)/split_files/move_snake.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+#############################
+# SC3000
+
+# sc3000: sc3000_32k
+
+# sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
+	# $(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -DEXTRA_TITLE \
+	# $(INCLUDE_OPTS) \
+	# -D__SC3000__ \
+	 # \
+	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
+	# -D__BIT_BANG_SOUND \
+	  # \
+	# -DZ88DK_JOYSTICK \
+	# -D__CONIO_GRAPHICS \
+	# -vn -lndos -create-app -Cz--audio \
+	 # \
+	 # \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(ASSETS_PATH)/z88dk_xchase.asm \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg \
+	# $(FULL_FILES)
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.prg
+	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sc3000_32k.tap
+
+
+#############################
+# SG1000
+
+sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
+	$(INCLUDE_OPTS) -DEXTRA_TITLE \
+	-D__SC3000__ \
+	-DZ88DK_JOYSTICK \
+	-DXSize=16 -DX_OFFSET=8 -DYSize=13 -DY_OFFSET=4 \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_SC3000_SLOWDOWN) \
+	-D__BIT_BANG_SOUND \
+	  \
+	-D__CONIO_GRAPHICS \
+	-vn -lndos -create-app \
+	 \
+	 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg \
+	$(FULL_FILES)
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000.prg
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000_BSS.bin
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_sg1000_DATA.bin
+
+
+
+
+
+phc25_mono: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +phc25 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__PHC25__ -pragma-define:CLIB_DISABLE_MODE2=1 -D__SCREEN_MODE=1 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DX_OFFSET=3 \
+	-DY_OFFSET=2 \
+	-DXSize=26 \
+	-DYSize=20 \
+	-D_XL_NO_JOYSTICK -D_XL_NO_COLOR -D__NO_SCREEN_COLOR_INIT -D__CONIO_GRAPHICS $(PHC25_MONO_GAME_OPTS)  -D__PSG_SOUND \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 

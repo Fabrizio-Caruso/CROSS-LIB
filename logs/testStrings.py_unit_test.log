@@ -1,4 +1,5 @@
-Traceback (most recent call last):
-  File "/cygdrive/c/Retro/CROSS-LIB/src_hd/unit_tests/testStrings.py", line 8, in <module>
-    from strings import *
-ModuleNotFoundError: No module named 'strings'
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.000s
+
+OK

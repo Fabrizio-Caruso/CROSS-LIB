@@ -1,9 +1,32 @@
 import unittest
 import sys
+import os
 
 
 
-sys.path.append("assets")
+# generate_assets is side-specific (src/assets/ or src_hd/assets/).
+# Resolve relative to this file so CWD is irrelevant.
+_repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+_side_assets = None
+for _side in ("src", "src_hd"):
+    _candidate = os.path.join(_repo_root, _side, "assets")
+    if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
+        _side_assets = _candidate
+        break
+if _side_assets is None:
+    raise ImportError("Cannot find generate_assets.py in src/assets or src_hd/assets")
+# generate_assets is side-specific (src/assets/ or src_hd/assets/).
+# Resolve relative to this file so CWD is irrelevant.
+_repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+_side_assets = None
+for _side in ("src", "src_hd"):
+    _candidate = os.path.join(_repo_root, _side, "assets")
+    if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
+        _side_assets = _candidate
+        break
+if _side_assets is None:
+    raise ImportError("Cannot find generate_assets.py in src/assets or src_hd/assets")
+sys.path.insert(0, _side_assets)
 
 from generate_assets import *
 

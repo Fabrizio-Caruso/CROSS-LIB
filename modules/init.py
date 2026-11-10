@@ -15,10 +15,10 @@ platform = sys.platform
 
 
 # games/ and examples/ are side-specific (src/ or src_hd/). xl is launched
-# from its own side directory, so CWD is the side root. Unit tests also import
-# this module from side/unit_tests, where CWD is one level deeper, so the
-# side root is located by walking up from CWD until a 'games' directory is
-# found. logs/ is shared at the repo root, which is the parent of the
+# from its own side directory, so CWD is the side root. Unit tests are shared
+# at the repo root (unit_tests/ and assets/unit_tests/); they import this
+# module and use relative sys.path entries resolved against their own
+# directory. logs/ is shared at the repo root, which is the parent of the
 # (shared) modules/ directory -- located independently of CWD via __file__.
 def _side_root():
     d = Path.cwd()

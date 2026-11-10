@@ -1,4 +1,5 @@
-Traceback (most recent call last):
-  File "/cygdrive/c/Retro/CROSS-LIB/src_hd/unit_tests/testDefaults.py", line 7, in <module>
-    from option_functions import OptionConfig
-ModuleNotFoundError: No module named 'option_functions'
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.000s
+
+OK

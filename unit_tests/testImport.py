@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-sys.path.append("../../"); sys.path.append("../../modules")
+sys.path.append("../"); sys.path.append("../modules")
 from option_functions import *
 
 from import_from_source import *

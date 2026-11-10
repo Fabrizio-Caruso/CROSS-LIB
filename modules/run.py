@@ -14,7 +14,7 @@ MAME_EMULATOR = "mame"
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 
-def run_command(option_config, command_string):
+def run_command(option_config, command_string, cwd=None):
     logger.info("Running command: %s", command_string)
     test = option_config.terminal_config.test           # run instde test_self makes test      = False
     verbose = option_config.terminal_config.verbose
@@ -23,14 +23,31 @@ def run_command(option_config, command_string):
     if verbose:
         printc(option_config, bcolors.BOLD, command_string+"\n")
     
-    res = os.system(command_string)
+    if cwd is not None and not _is_windows():
+        # os.system does not accept cwd; chdir for the duration of the call
+        old_cwd = os.getcwd()
+        os.chdir(cwd)
+        try:
+            res = os.system(command_string)
+        finally:
+            os.chdir(old_cwd)
+    else:
+        res = os.system(command_string)
 
     if not native_console:
         if (test or not verbose) and not _is_windows():
             # Re-run with Unix null redirect if not already present
             if ' > /dev/null' not in command_string:
                 command_string += " > /dev/null 2>&1"
-                res = os.system(command_string)
+                if cwd is not None:
+                    old_cwd = os.getcwd()
+                    os.chdir(cwd)
+                    try:
+                        res = os.system(command_string)
+                    finally:
+                        os.chdir(old_cwd)
+                else:
+                    res = os.system(command_string)
         if res:
             printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")
         

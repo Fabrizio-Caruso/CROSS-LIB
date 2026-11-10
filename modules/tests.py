@@ -293,9 +293,24 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
             else:
                 import subprocess
                 parts = cmd_str.split()
-                proc = subprocess.run(parts, stdout=subprocess.DEVNULL,
-                                     stderr=subprocess.DEVNULL)
-                result = proc.returncode
+                # Windows CreateProcess does not search PATH for extensionless
+                # names, and can fail (WinError 2) when a required DLL is not on
+                # PATH (e.g. Cygwin's make.exe needs cygwin64\bin). Resolve the
+                # executable and guard the spawn so a missing exe/DLL reports
+                # "not found" instead of crashing the whole run.
+                exe = shutil.which(parts[0])
+                if exe is None:
+                    result = 1
+                else:
+                    parts = [exe] + parts[1:]
+                    child_env = dict(os.environ)
+                    child_env['PATH'] = os.path.dirname(exe) + os.pathsep + child_env['PATH']
+                    try:
+                        proc = subprocess.run(parts, stdout=subprocess.DEVNULL,
+                                             stderr=subprocess.DEVNULL, env=child_env)
+                        result = proc.returncode
+                    except (OSError, ValueError):
+                        result = 1
         else:
             result = os.system(command_list[command] + " > /dev/null 2>&1")
         spaces = " " * (max_len+1-len(command))
@@ -361,30 +376,30 @@ def test_compilers(option_config):
 def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     import subprocess
     from init import _is_windows
-    log_file_path  = "../logs/" + test_file_name + "_unit_test.log"
-    command_string = "python -t " + path + "/" + test_file_name
+    # CWD for the test subprocess is the test directory (path).
+    cwd = path.rstrip("/")
+    # Log path is resolved relative to the repo root (absolute), so the
+    # shell redirect works regardless of CWD on both Windows and Unix.
+    repo_root = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), ".."
+    )
+    log_file_path  = os.path.join(repo_root, "logs", test_file_name + "_unit_test.log")
+    command_string = "python -t " + test_file_name
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
     verbosity = option_config.terminal_config.verbose
     option_config.terminal_config.verbose = 1
     if _is_windows():
-        # The test files use relative sys.path.append("../../") or
-        # sys.path.append("assets") resolved against the subprocess CWD.
-        #  - main unit_tests: CWD = <side>/unit_tests, script = bare name
-        #    ("../../modules" -> <side>/../modules)
-        #  - assets/unit_tests: CWD = <side> (side root),
-        #    script = assets/unit_tests/<name> ("assets" -> <side>/assets)
-        if path.startswith("assets"):
-            cmd_list = ["python", "-t", path + "/" + test_file_name]
-            cwd = "."
-        else:
-            cmd_list = ["python", "-t", test_file_name]
-            cwd = path.rstrip("/")
+        # The test files use relative sys.path.append("..") or
+        # sys.path.append("../modules") resolved against the subprocess CWD.
+        #  - main unit_tests: CWD = <repo>/unit_tests ("../modules" -> <repo>/modules)
+        #  - assets/unit_tests: CWD = <repo>/assets/unit_tests (".." -> <repo>)
+        cmd_list = ["python", "-t", test_file_name]
         with open(log_file_path, "w") as logf:
             subprocess.run(cmd_list, stdout=logf, stderr=subprocess.STDOUT, cwd=cwd)
     else:
-        run_command(option_config, command_string + " > " + log_file_path + " 2>&1")
+        run_command(option_config, command_string + " > " + log_file_path + " 2>&1", cwd=cwd)
     option_config.terminal_config.verbose = verbosity
     with open(log_file_path) as log_file:
         log_content = log_file.read()
@@ -402,15 +417,20 @@ def _unit_tests(option_config, path="./"):
 
     result_map = {}
 
-    assets_tests = files_in_path("assets/unit_tests")
+    # Unit tests are shared at the repo root (same for both sides).
+    repo_root = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), ".."
+    )
+
+    assets_tests = files_in_path(os.path.join(repo_root, "assets", "unit_tests"))
     
     for test in assets_tests:
-        result_map[test] = run_single_unit_test(option_config, test, "assets/unit_tests")
+        result_map[test] = run_single_unit_test(option_config, test, os.path.join(repo_root, "assets", "unit_tests"))
     
-    main_tests = files_in_path("./unit_tests")
+    main_tests = files_in_path(os.path.join(repo_root, "unit_tests"))
 
     for test in main_tests:
-        result_map[test] = run_single_unit_test(option_config, test)
+        result_map[test] = run_single_unit_test(option_config, test, os.path.join(repo_root, "unit_tests"))
         
     normalized_unit_tests_result = {}
     for test in result_map:

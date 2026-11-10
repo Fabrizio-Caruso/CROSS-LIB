@@ -14,6 +14,24 @@ from LoggerSingleton import LoggerSingleton
 platform = sys.platform
 
 
+# games/ and examples/ are side-specific (src/ or src_hd/). xl is launched
+# from its own side directory, so CWD is the side root. Unit tests also import
+# this module from side/unit_tests, where CWD is one level deeper, so the
+# side root is located by walking up from CWD until a 'games' directory is
+# found. logs/ is shared at the repo root, which is the parent of the
+# (shared) modules/ directory -- located independently of CWD via __file__.
+def _side_root():
+    d = Path.cwd()
+    for _ in range(3):
+        if (d / 'games').is_dir():
+            return d
+        d = d.parent
+    return Path.cwd()
+
+side = _side_root()
+repo_root = Path(__file__).resolve().parent.parent
+
+
 NUMBER_OF_TILES = 27
 
 
@@ -26,8 +44,8 @@ else:
 python_version = sys.version_info[0]
 python_subversion = sys.version_info[1]
 
-game_projects = dirs_in_path(str(Path(__file__).resolve().parent.parent / "games"))
-example_projects = dirs_in_path(str(Path(__file__).resolve().parent.parent / "examples"))
+game_projects = dirs_in_path(str(side / "games"))
+example_projects = dirs_in_path(str(side / "examples"))
 
     
 
@@ -43,7 +61,12 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-logger = LoggerSingleton.initLogger('xl', str(Path(__file__).resolve().parent.parent / 'logs'))
+logger = LoggerSingleton.initLogger('xl', str(repo_root / 'logs'))
+
+
+def _is_windows():
+    """Return True if running on a Windows platform."""
+    return platform.startswith("win")
 
 def handle_parallelism(option_config):
     if option_config.build_config.parallelize_multi_build:

@@ -3,6 +3,7 @@ import os
 
 
 from init import *
+from init import _is_windows
 from import_from_source import printc
 from file_functions import files_in_path
 from run import run_command
@@ -283,7 +284,20 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
     max_len = 28
 
     for command in command_list.keys():
-        result = os.system(command_list[command] + " > /dev/null 2>&1")
+        if _is_windows():
+            import shutil
+            cmd_str = command_list[command]
+            if cmd_str.startswith("which"):
+                tool_name = cmd_str.split()[1] if len(cmd_str.split()) > 1 else command
+                result = 0 if shutil.which(tool_name) else 1
+            else:
+                import subprocess
+                parts = cmd_str.split()
+                proc = subprocess.run(parts, stdout=subprocess.DEVNULL,
+                                     stderr=subprocess.DEVNULL)
+                result = proc.returncode
+        else:
+            result = os.system(command_list[command] + " > /dev/null 2>&1")
         spaces = " " * (max_len+1-len(command))
         if result==expected_list[command]:
             # print("[" + command + "] found")
@@ -345,14 +359,32 @@ def test_compilers(option_config):
 
 
 def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
+    import subprocess
+    from init import _is_windows
     log_file_path  = "../logs/" + test_file_name + "_unit_test.log"
-    command_string = "python -t " + path + "/" + test_file_name + " > " + log_file_path + " 2>&1"
+    command_string = "python -t " + path + "/" + test_file_name
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
     verbosity = option_config.terminal_config.verbose
     option_config.terminal_config.verbose = 1
-    run_command(option_config, command_string)
+    if _is_windows():
+        # The test files use relative sys.path.append("../../") or
+        # sys.path.append("assets") resolved against the subprocess CWD.
+        #  - main unit_tests: CWD = <side>/unit_tests, script = bare name
+        #    ("../../modules" -> <side>/../modules)
+        #  - assets/unit_tests: CWD = <side> (side root),
+        #    script = assets/unit_tests/<name> ("assets" -> <side>/assets)
+        if path.startswith("assets"):
+            cmd_list = ["python", "-t", path + "/" + test_file_name]
+            cwd = "."
+        else:
+            cmd_list = ["python", "-t", test_file_name]
+            cwd = path.rstrip("/")
+        with open(log_file_path, "w") as logf:
+            subprocess.run(cmd_list, stdout=logf, stderr=subprocess.STDOUT, cwd=cwd)
+    else:
+        run_command(option_config, command_string + " > " + log_file_path + " 2>&1")
     option_config.terminal_config.verbose = verbosity
     with open(log_file_path) as log_file:
         log_content = log_file.read()

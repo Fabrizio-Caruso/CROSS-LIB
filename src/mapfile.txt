@@ -1,17 +1,17 @@
 Modules list:
 -------------
-display_macros.c.10292.0.o:
+display_macros.c.13284.0.o:
     CODE              Offs=000000  Size=000037  Align=00001  Fill=0000
-input_macros.c.10292.1.o:
+input_macros.c.13284.1.o:
     CODE              Offs=000037  Size=000011  Align=00001  Fill=0000
-sleep_macros.c.10292.2.o:
+sleep_macros.c.13284.2.o:
     CODE              Offs=000048  Size=000028  Align=00001  Fill=0000
     BSS               Offs=000000  Size=000002  Align=00001  Fill=0000
-main.c.10292.3.o:
+main.c.13284.3.o:
     CODE              Offs=000070  Size=002191  Align=00001  Fill=0000
     RODATA            Offs=000000  Size=000125  Align=00001  Fill=0000
     BSS               Offs=000002  Size=00014D  Align=00001  Fill=0000
-pet_sounds.c.10292.4.o:
+pet_sounds.c.13284.4.o:
     CODE              Offs=002201  Size=00008C  Align=00001  Fill=0000
     BSS               Offs=00014F  Size=000004  Align=00001  Fill=0000
 C:\cc65-snapshot-win32\lib/pet.lib(_hextab.o):
@@ -388,15 +388,15 @@ __LOADADDR__ (loadaddr.o):
 __STACKSIZE__ ([linker generated]):
     [linker generated]        C:\cc65-snapshot-win32\cfg/pet.cfg:10
 __STARTUP__ (crt0.o):
-    main.c.10292.3.o          main.c.10292.3.s:13
-__XL_PRINT (display_macros.c.10292.0.o):
-    main.c.10292.3.o          main.c.10292.3.s:29
-__XL_SLOW_DOWN (sleep_macros.c.10292.2.o):
-    main.c.10292.3.o          main.c.10292.3.s:24
-__XL_WAIT_FOR_INPUT (input_macros.c.10292.1.o):
-    main.c.10292.3.o          main.c.10292.3.s:19
-__XL_ZAP_SOUND (pet_sounds.c.10292.4.o):
-    main.c.10292.3.o          main.c.10292.3.s:22
+    main.c.13284.3.o          main.c.13284.3.s:13
+__XL_PRINT (display_macros.c.13284.0.o):
+    main.c.13284.3.o          main.c.13284.3.s:29
+__XL_SLOW_DOWN (sleep_macros.c.13284.2.o):
+    main.c.13284.3.o          main.c.13284.3.s:24
+__XL_WAIT_FOR_INPUT (input_macros.c.13284.1.o):
+    main.c.13284.3.o          main.c.13284.3.s:19
+__XL_ZAP_SOUND (pet_sounds.c.13284.4.o):
+    main.c.13284.3.o          main.c.13284.3.s:22
 __ctype (ctype.o):
     ctypemask.o               common/ctypemask.s:23
 __ctypeidx (ctype.o):
@@ -407,47 +407,47 @@ __longminstr (_longminstr.o):
     ltoa.o                    common/ltoa.s:10
 __printf (_printf.o):
     vcprintf.o                conio/vcprintf.s:9
-_beep (pet_sounds.c.10292.4.o):
-    main.c.10292.3.o          main.c.10292.3.s:20
+_beep (pet_sounds.c.13284.4.o):
+    main.c.13284.3.o          main.c.13284.3.s:20
 _clock (clock.o):
     sleep.o                   ../libwrk/pet/sleep.s:16
 _clrscr (clrscr.o):
-    main.c.10292.3.o          main.c.10292.3.s:25
+    main.c.13284.3.o          main.c.13284.3.s:25
 _cprintf (cprintf.o):
-    main.c.10292.3.o          main.c.10292.3.s:28
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:15
+    main.c.13284.3.o          main.c.13284.3.s:28
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:15
 _cputc (cputc.o):
     vcprintf.o                conio/vcprintf.s:9
-    main.c.10292.3.o          main.c.10292.3.s:27
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:14
+    main.c.13284.3.o          main.c.13284.3.s:27
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:14
 _exit (crt0.o):
     libref.o                  pet/libref.s:6
 _gotoxy (gotoxy.o):
-    main.c.10292.3.o          main.c.10292.3.s:26
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:13
+    main.c.13284.3.o          main.c.13284.3.s:26
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:13
 _joy_install (joy-kernel.o):
-    main.c.10292.3.o          main.c.10292.3.s:17
+    main.c.13284.3.o          main.c.13284.3.s:17
 _joy_read (joy_read.o):
-    main.c.10292.3.o          main.c.10292.3.s:18
-    input_macros.c.10292.1.o  input_macros.c.10292.1.s:13
+    main.c.13284.3.o          main.c.13284.3.s:18
+    input_macros.c.13284.1.o  input_macros.c.13284.1.s:13
 _joy_static_stddrv (joy_stat_stddrv.o):
-    main.c.10292.3.o          main.c.10292.3.s:16
+    main.c.13284.3.o          main.c.13284.3.s:16
 _ltoa (ltoa.o):
     _printf.o                 common/_printf.s:12
-_main (main.c.10292.3.o):
+_main (main.c.13284.3.o):
     callmain.o                runtime/callmain.s:11
-_noise (pet_sounds.c.10292.4.o):
-    main.c.10292.3.o          main.c.10292.3.s:21
+_noise (pet_sounds.c.13284.4.o):
+    main.c.13284.3.o          main.c.13284.3.s:21
 _pet_stdjoy_joy (pet-stdjoy-joy.o):
     joy_stat_stddrv.o         pet/joy_stat_stddrv.s:10
 _rand (rand.o):
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:13
-    main.c.10292.3.o          main.c.10292.3.s:14
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:13
+    main.c.13284.3.o          main.c.13284.3.s:14
 _sleep (sleep.o):
-    main.c.10292.3.o          main.c.10292.3.s:23
+    main.c.13284.3.o          main.c.13284.3.s:23
 _strlen (strlen.o):
     _printf.o                 common/_printf.s:13
-    main.c.10292.3.o          main.c.10292.3.s:15
+    main.c.13284.3.o          main.c.13284.3.s:15
 _strlower (strlower.o):
     _printf.o                 common/_printf.s:13
 _ultoa (ltoa.o):
@@ -467,20 +467,20 @@ addysp1 (addysp.o):
     ladd.o                    runtime/ladd.s:8
     sub.o                     runtime/sub.s:8
 aslax1 (aslax1.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 aslax2 (aslax2.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 axlong (axlong.o):
     _printf.o                 common/_printf.s:11
 axulong (axlong.o):
     _printf.o                 common/_printf.s:11
     sleep.o                   ../libwrk/pet/sleep.s:68
 bnega (bneg.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 bnegax (bneg.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 booleq (makebool.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 boolge (makebool.o):
     lge.o                     runtime/lge.s:8
 c_sp (zeropage.o):
@@ -511,12 +511,12 @@ c_sp (zeropage.o):
     crt0.o                    /home/runner/work/cc65/cc65/asminc/zeropage.inc:11
     cprintf.o                 conio/cprintf.s:9
     add.o                     runtime/add.s:12
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:10
-    main.c.10292.3.o          main.c.10292.3.s:10
-    sleep_macros.c.10292.2.o  sleep_macros.c.10292.2.s:10
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:10
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:10
+    main.c.13284.3.o          main.c.13284.3.s:10
+    sleep_macros.c.13284.2.o  sleep_macros.c.13284.2.s:10
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:10
 callax (call.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 callmain (callmain.o):
     crt0.o                    pet/crt0.s:9
 checkst (checkst.o):
@@ -524,10 +524,10 @@ checkst (checkst.o):
 ctypemaskdirect (ctypemask.o):
     strlower.o                common/strlower.s:14
 decax1 (decax1.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 decax2 (decax2.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 decsp4 (decsp4.o):
     lpush.o                   runtime/lpush.s:12
 decsp6 (decsp6.o):
@@ -537,70 +537,70 @@ donelib (condes.o):
 gotoxy (gotoxy.o):
     cputc.o                   pet/cputc.s:12
 incax1 (incax1.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 incax2 (incax2.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 incaxy (incaxy.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 incsp1 (incsp1.o):
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:127
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:127
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:127
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:127
 incsp2 (incsp2.o):
     staspidx.o                runtime/staspidx.s:8
     popptr1.o                 runtime/popptr1.s:8
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    sleep_macros.c.10292.2.o  sleep_macros.c.10292.2.s:48
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    sleep_macros.c.13284.2.o  sleep_macros.c.13284.2.s:48
 incsp3 (incsp3.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
 incsp4 (incsp4.o):
     lcmp.o                    runtime/lcmp.s:9
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
 incsp5 (incsp5.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 incsp6 (incsp6.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 incsp7 (incsp7.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 initlib (condes.o):
     crt0.o                    pet/crt0.s:7
 joy_libref (libref.o):
@@ -608,65 +608,65 @@ joy_libref (libref.o):
 joy_read (joy-kernel.o):
     joy_read.o                /home/runner/work/cc65/cc65/asminc/joy-kernel.inc:71
 ldax0sp (ldaxsp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 ldaxysp (ldaxsp.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 ldeax0sp (ldeaxysp.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
 ldptr10sp (ldptr1sp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 ldptr1ysp (ldptr1sp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 mul8x16 (mul8.o):
     mul.o                     runtime/mul.s:8
 mul8x16a (mul8.o):
     mul.o                     runtime/mul.s:8
 mulax5 (mulax5.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 mulax7 (mulax7.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 negax (negabs.o):
     shelp.o                   runtime/shelp.s:11
     mod.o                     runtime/mod.s:11
@@ -715,7 +715,7 @@ ptr1 (zeropage.o):
     cprintf.o                 conio/cprintf.s:9
     clrscr.o                  pet/clrscr.s:9
     call.o                    runtime/call.s:8
-    main.c.10292.3.o          main.c.10292.3.s:11
+    main.c.13284.3.o          main.c.13284.3.s:11
 ptr2 (zeropage.o):
     strlower.o                common/strlower.s:13
     ltoa.o                    common/ltoa.s:11
@@ -736,161 +736,161 @@ ptr4 (zeropage.o):
 push1 (push1.o):
     _printf.o                 common/_printf.s:11
 pusha (pusha.o):
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:127
-    pet_sounds.c.10292.4.o    pet_sounds.c.10292.4.s:127
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:127
+    pet_sounds.c.13284.4.o    pet_sounds.c.13284.4.s:127
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
 pusha0 (pushax.o):
     push1.o                   runtime/push1.s:8
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 pushax (pushax.o):
     callmain.o                runtime/callmain.s:11
     _printf.o                 common/_printf.s:11
     vcprintf.o                conio/vcprintf.s:8
     sleep.o                   ../libwrk/pet/sleep.s:68
     cprintf.o                 conio/cprintf.s:8
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    sleep_macros.c.10292.2.o  sleep_macros.c.10292.2.s:48
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    sleep_macros.c.13284.2.o  sleep_macros.c.13284.2.s:48
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
 pusheax (lpush.o):
     _printf.o                 common/_printf.s:11
     sleep.o                   ../libwrk/pet/sleep.s:68
 pushw0sp (pushwsp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    display_macros.c.10292.0.o display_macros.c.10292.0.s:66
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    display_macros.c.13284.0.o display_macros.c.13284.0.s:66
 pushwysp (pushwsp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 regbank (zeropage.o):
     _printf.o                 /home/runner/work/cc65/cc65/asminc/zeropage.inc:14
     regswap2.o                runtime/regswap2.s:8
-    main.c.10292.3.o          main.c.10292.3.s:10
+    main.c.13284.3.o          main.c.13284.3.s:10
 regswap2 (regswap2.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 shlax3 (aslax3.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 shlax4 (aslax4.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 shrax1 (shrax1.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 sreg (zeropage.o):
     lneg.o                    runtime/lneg.s:11
     lcmp.o                    runtime/lcmp.s:10
@@ -909,8 +909,8 @@ sreg (zeropage.o):
     mod.o                     runtime/mod.s:12
     icmp.o                    runtime/icmp.s:9
 staspidx (staspidx.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tmp1 (zeropage.o):
     ltoa.o                    common/ltoa.s:11
     ladd.o                    runtime/ladd.s:9
@@ -928,7 +928,7 @@ tmp1 (zeropage.o):
     aslax2.o                  runtime/aslax2.s:8
     aslax1.o                  runtime/aslax1.s:8
     add.o                     runtime/add.s:12
-    main.c.10292.3.o          main.c.10292.3.s:11
+    main.c.13284.3.o          main.c.13284.3.s:11
 tmp2 (zeropage.o):
     lmul.o                    runtime/lmul.s:10
     shelp.o                   runtime/shelp.s:12
@@ -938,54 +938,54 @@ tmp3 (zeropage.o):
 tmp4 (zeropage.o):
     lmul.o                    runtime/lmul.s:10
 tosadda0 (add.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosaddeax (ladd.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
 tosdiva0 (div.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosgeeax (lge.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
 tosicmp (icmp.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 toslcmp (lcmp.o):
     lge.o                     runtime/lge.s:8
 tosmoda0 (mod.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosmula0 (mul8.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosmulax (mul.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tossuba0 (sub.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tossubax (sub.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tossubeax (lsub.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
 tosudivax (udiv.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosumoda0 (umod.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 tosumul0ax (lmul.o):
     sleep.o                   ../libwrk/pet/sleep.s:68
 tosumula0 (mul8.o):
-    main.c.10292.3.o          main.c.10292.3.s:5583
+    main.c.13284.3.o          main.c.13284.3.s:5583
 udiv16 (udiv.o):
     umod.o                    runtime/umod.s:8
     shelp.o                   runtime/shelp.s:11

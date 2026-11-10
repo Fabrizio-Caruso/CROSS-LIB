@@ -3,7 +3,7 @@ from import_from_source import printc, bcolors
 from LoggerSingleton import LoggerSingleton
 from default_values import insert_default_sizes
 from target_defs import *
-from init import NATIVE_EXTENSION
+from init import NATIVE_EXTENSION, _is_windows
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -22,13 +22,17 @@ def run_command(option_config, command_string):
     
     if verbose:
         printc(option_config, bcolors.BOLD, command_string+"\n")
-    if not native_console and (test or not verbose):
-        command_string+= " > /dev/null 2>&1"
-
+    
     res = os.system(command_string)
 
-    if not native_console and res:
-        printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")
+    if not native_console:
+        if (test or not verbose) and not _is_windows():
+            # Re-run with Unix null redirect if not already present
+            if ' > /dev/null' not in command_string:
+                command_string += " > /dev/null 2>&1"
+                res = os.system(command_string)
+        if res:
+            printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")
         
 
 def run_native(option_config, params, target):

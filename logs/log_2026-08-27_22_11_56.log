@@ -1,0 +1,13 @@
+2026-08-27 22:11:11,791 - build_functions.py:42 - Started
+2026-08-27 22:11:11,796 - build_functions.py:42 - Started
+2026-08-27 22:11:11,796 - tests.py:398 - Started
+2026-08-27 22:11:11,797 - xl:30 - Started
+2026-08-27 22:11:11,798 - option_functions.py:343 - Color terminal: 1
+2026-08-27 22:11:11,807 - option_functions.py:386 - Compilation threads: 16
+2026-08-27 22:11:11,807 - option_functions.py:543 - (read_config) Configuration file read
+2026-08-27 22:11:11,848 - init.py:51 - Parallelize_multi_build is ON
+2026-08-27 22:11:11,848 - init.py:59 - Verbose mode ON
+2026-08-27 22:11:11,848 - init.py:64 - Using Python version 3.9
+2026-08-27 22:11:11,848 - params.py:84 - Interactive mode OFF
+2026-08-27 22:11:11,848 - run.py:18 - Running command: ../build/Xbar_ncurses.exe
+2026-08-27 22:11:56,230 - xl:54 - Finished

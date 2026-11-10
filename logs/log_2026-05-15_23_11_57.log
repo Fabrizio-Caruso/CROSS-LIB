@@ -1,0 +1,62 @@
+2026-05-15 23:05:09,338 - build_functions.py:40 - Started
+2026-05-15 23:05:09,343 - build_functions.py:40 - Started
+2026-05-15 23:05:09,343 - tests.py:391 - Started
+2026-05-15 23:05:09,344 - xl:30 - Started
+2026-05-15 23:05:09,345 - option_functions.py:321 - Color terminal: 1
+2026-05-15 23:05:09,353 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 23:05:09,353 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 23:05:09,398 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 23:05:09,398 - init.py:59 - Verbose mode ON
+2026-05-15 23:05:09,398 - init.py:64 - Using Python version 3.9
+2026-05-15 23:05:09,398 - params.py:81 - Interactive mode OFF
+2026-05-15 23:05:10,246 - run.py:18 - Running command: python -t assets/unit_tests/testAssets.py
+2026-05-15 23:05:10,311 - run.py:18 - Running command: python -t unit_tests/testDefaults.py
+2026-05-15 23:05:10,383 - run.py:18 - Running command: python -t unit_tests/testImport.py
+2026-05-15 23:05:10,464 - run.py:18 - Running command: python -t unit_tests/testParams.py
+2026-05-15 23:05:10,537 - run.py:18 - Running command: python -t unit_tests/testShapes.py
+2026-05-15 23:05:10,611 - run.py:18 - Running command: python -t unit_tests/testStrings.py
+2026-05-15 23:05:10,670 - run.py:18 - Running command: python -t unit_tests/testTiles.py
+2026-05-15 23:05:10,745 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:05:11,128 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:05:11,499 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:05:13,286 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:05:13,659 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:05:14,036 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:05:15,766 - run.py:18 - Running command: make easy_tools -j 1 TOOL_CC=gcc GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:07:02,815 - build_functions.py:40 - Started
+2026-05-15 23:07:02,820 - build_functions.py:40 - Started
+2026-05-15 23:07:02,820 - tests.py:391 - Started
+2026-05-15 23:07:02,820 - xl:30 - Started
+2026-05-15 23:07:02,822 - option_functions.py:321 - Color terminal: 1
+2026-05-15 23:07:02,830 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 23:07:02,830 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 23:07:02,875 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 23:07:02,875 - init.py:59 - Verbose mode ON
+2026-05-15 23:07:02,875 - init.py:64 - Using Python version 3.9
+2026-05-15 23:07:02,875 - params.py:81 - Interactive mode OFF
+2026-05-15 23:07:03,891 - run.py:18 - Running command: python -t assets/unit_tests/testAssets.py
+2026-05-15 23:07:03,958 - run.py:18 - Running command: python -t unit_tests/testDefaults.py
+2026-05-15 23:07:04,032 - run.py:18 - Running command: python -t unit_tests/testImport.py
+2026-05-15 23:07:04,115 - run.py:18 - Running command: python -t unit_tests/testParams.py
+2026-05-15 23:07:04,190 - run.py:18 - Running command: python -t unit_tests/testShapes.py
+2026-05-15 23:07:04,267 - run.py:18 - Running command: python -t unit_tests/testStrings.py
+2026-05-15 23:07:04,327 - run.py:18 - Running command: python -t unit_tests/testTiles.py
+2026-05-15 23:07:04,403 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:07:04,839 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:07:05,292 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:07:07,065 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:07:07,472 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:07:07,892 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:07:09,629 - run.py:18 - Running command: make easy_tools -j 1 TOOL_CC=gcc GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:11:57,197 - build_functions.py:40 - Started
+2026-05-15 23:11:57,201 - build_functions.py:40 - Started
+2026-05-15 23:11:57,202 - tests.py:391 - Started
+2026-05-15 23:11:57,202 - xl:30 - Started
+2026-05-15 23:11:57,204 - option_functions.py:321 - Color terminal: 1
+2026-05-15 23:11:57,212 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 23:11:57,212 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 23:11:57,257 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 23:11:57,257 - init.py:59 - Verbose mode ON
+2026-05-15 23:11:57,257 - init.py:64 - Using Python version 3.9
+2026-05-15 23:11:57,257 - params.py:81 - Interactive mode OFF
+2026-05-15 23:11:57,276 - xl:54 - Finished

@@ -1,0 +1,13 @@
+2026-09-13 21:32:00,285 - build_functions.py:42 - Started
+2026-09-13 21:32:00,290 - build_functions.py:42 - Started
+2026-09-13 21:32:00,290 - tests.py:398 - Started
+2026-09-13 21:32:00,290 - xl:30 - Started
+2026-09-13 21:32:00,292 - option_functions.py:343 - Color terminal: 1
+2026-09-13 21:32:00,300 - option_functions.py:386 - Compilation threads: 16
+2026-09-13 21:32:00,300 - option_functions.py:543 - (read_config) Configuration file read
+2026-09-13 21:32:00,372 - init.py:51 - Parallelize_multi_build is ON
+2026-09-13 21:32:00,373 - init.py:59 - Verbose mode ON
+2026-09-13 21:32:00,373 - init.py:64 - Using Python version 3.9
+2026-09-13 21:32:00,373 - params.py:84 - Interactive mode OFF
+2026-09-13 21:32:00,373 - run.py:18 - Running command: ../build/Xfruzzle_ncurses.exe
+2026-09-13 21:32:38,135 - xl:54 - Finished

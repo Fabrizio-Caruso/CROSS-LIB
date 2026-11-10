@@ -1,0 +1,14 @@
+2026-08-22 20:43:53,713 - build_functions.py:42 - Started
+2026-08-22 20:43:53,718 - build_functions.py:42 - Started
+2026-08-22 20:43:53,718 - tests.py:392 - Started
+2026-08-22 20:43:53,719 - xl:30 - Started
+2026-08-22 20:43:53,720 - option_functions.py:343 - Color terminal: 1
+2026-08-22 20:43:53,728 - option_functions.py:386 - Compilation threads: 16
+2026-08-22 20:43:53,728 - option_functions.py:543 - (read_config) Configuration file read
+2026-08-22 20:43:53,765 - init.py:51 - Parallelize_multi_build is ON
+2026-08-22 20:43:53,765 - init.py:59 - Verbose mode ON
+2026-08-22 20:43:53,765 - init.py:64 - Using Python version 3.9
+2026-08-22 20:43:53,765 - params.py:84 - Interactive mode OFF
+2026-08-22 20:43:53,786 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f games/shoot/Makefile.shoot
+2026-08-22 20:43:54,696 - run.py:18 - Running command: rm -rf ./games/shoot/main.c
+2026-08-22 20:43:54,710 - xl:54 - Finished

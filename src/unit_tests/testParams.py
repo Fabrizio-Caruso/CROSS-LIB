@@ -3,7 +3,7 @@ import sys
 
 
 
-sys.path.append("modules")
+sys.path.append("../../"); sys.path.append("../../modules")
 
 from params import *
 
@@ -41,3 +41,5 @@ class testParams(unittest.TestCase):
 if __name__ == '__main__':
     
     unittest.main()
+
+

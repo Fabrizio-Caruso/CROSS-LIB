@@ -1,0 +1,15 @@
+2026-08-18 22:28:59,663 - build_functions.py:42 - Started
+2026-08-18 22:28:59,668 - build_functions.py:42 - Started
+2026-08-18 22:28:59,668 - tests.py:382 - Started
+2026-08-18 22:28:59,669 - xl:30 - Started
+2026-08-18 22:28:59,670 - option_functions.py:332 - Color terminal: 1
+2026-08-18 22:28:59,671 - option_functions.py:375 - Compilation threads: 1
+2026-08-18 22:28:59,671 - option_functions.py:530 - (read_config) Configuration file read
+2026-08-18 22:28:59,711 - init.py:51 - Parallelize_multi_build is ON
+2026-08-18 22:28:59,719 - init.py:59 - Verbose mode ON
+2026-08-18 22:28:59,719 - init.py:64 - Using Python version 3.9
+2026-08-18 22:28:59,719 - params.py:84 - Interactive mode OFF
+2026-08-18 22:28:59,720 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-08-18 22:29:00,144 - run.py:18 - Running command: make -j 1 GNU_MAKE=make z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests
+2026-08-18 22:29:02,627 - run.py:18 - Running command: rm -rf ./games/chase/main.c
+2026-08-18 22:29:02,642 - xl:54 - Finished

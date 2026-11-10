@@ -1,0 +1,13 @@
+2026-05-15 15:39:24,702 - build_functions.py:40 - Started
+2026-05-15 15:39:24,706 - build_functions.py:40 - Started
+2026-05-15 15:39:24,706 - tests.py:373 - Started
+2026-05-15 15:39:24,707 - xl:30 - Started
+2026-05-15 15:39:24,709 - option_functions.py:321 - Color terminal: 1
+2026-05-15 15:39:24,716 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 15:39:24,716 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 15:39:24,763 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 15:39:24,763 - init.py:59 - Verbose mode ON
+2026-05-15 15:39:24,763 - init.py:64 - Using Python version 3.9
+2026-05-15 15:39:24,763 - params.py:81 - Interactive mode OFF
+2026-05-15 15:39:24,764 - run.py:18 - Running command: ../build/Xbomber_ncurses_40X30.exe
+2026-05-15 15:39:25,853 - xl:54 - Finished

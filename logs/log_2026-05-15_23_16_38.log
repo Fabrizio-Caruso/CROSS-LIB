@@ -1,0 +1,67 @@
+2026-05-15 23:14:03,342 - build_functions.py:40 - Started
+2026-05-15 23:14:03,347 - build_functions.py:40 - Started
+2026-05-15 23:14:03,347 - tests.py:391 - Started
+2026-05-15 23:14:03,347 - xl:30 - Started
+2026-05-15 23:14:03,349 - option_functions.py:321 - Color terminal: 1
+2026-05-15 23:14:03,356 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 23:14:03,357 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 23:14:03,403 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 23:14:03,403 - init.py:59 - Verbose mode ON
+2026-05-15 23:14:03,403 - init.py:64 - Using Python version 3.9
+2026-05-15 23:14:03,403 - params.py:81 - Interactive mode OFF
+2026-05-15 23:14:04,241 - run.py:18 - Running command: python -t assets/unit_tests/testAssets.py
+2026-05-15 23:14:04,306 - run.py:18 - Running command: python -t unit_tests/testDefaults.py
+2026-05-15 23:14:04,379 - run.py:18 - Running command: python -t unit_tests/testImport.py
+2026-05-15 23:14:04,458 - run.py:18 - Running command: python -t unit_tests/testParams.py
+2026-05-15 23:14:04,533 - run.py:18 - Running command: python -t unit_tests/testShapes.py
+2026-05-15 23:14:04,607 - run.py:18 - Running command: python -t unit_tests/testStrings.py
+2026-05-15 23:14:04,666 - run.py:18 - Running command: python -t unit_tests/testTiles.py
+2026-05-15 23:14:04,740 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:05,114 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:05,487 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:14:07,220 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:07,610 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:07,984 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:14:09,731 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:10,345 - run.py:18 - Running command: make stdio SLOWDOWN=42 ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:10,425 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:10,848 - run.py:18 - Running command: make stdio_sized XSIZE=12 YSIZE=12 _DEBUG_FLAG=False  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:11,851 - run.py:18 - Running command: make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:12,212 - run.py:18 - Running command: make stdio_sized XSIZE=32 YSIZE=24 _DEBUG_FLAG=False  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:13,196 - run.py:18 - Running command: make clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:13,615 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:13,992 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:14:15,736 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:16,127 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:17,242 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_test_project1/Makefile._test_project1
+2026-05-15 23:14:18,241 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_test_project2/Makefile._test_project2
+2026-05-15 23:14:19,223 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_test_project3/Makefile._test_project3
+2026-05-15 23:14:20,210 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_test_project4/Makefile._test_project4
+2026-05-15 23:14:21,258 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:21,841 - run.py:18 - Running command: make clean_no_built_in -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:22,562 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:23,530 - run.py:18 - Running command: make clean_no_built_in -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:24,284 - run.py:18 - Running command: make clean_no_built_in -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:25,001 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:25,987 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:14:27,721 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:28,094 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:28,605 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:29,001 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_test_project/Makefile._test_project
+2026-05-15 23:14:30,057 - run.py:18 - Running command: make stdio USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f projects/_foo_test/Makefile._foo_test
+2026-05-15 23:14:31,046 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-15 23:14:31,462 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:14:33,290 - run.py:18 - Running command: make easy_tools -j 1 TOOL_CC=gcc GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:16:36,405 - build_functions.py:40 - Started
+2026-05-15 23:16:36,409 - build_functions.py:40 - Started
+2026-05-15 23:16:36,410 - tests.py:391 - Started
+2026-05-15 23:16:36,410 - xl:30 - Started
+2026-05-15 23:16:36,412 - option_functions.py:321 - Color terminal: 1
+2026-05-15 23:16:36,419 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 23:16:36,420 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 23:16:36,465 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 23:16:36,465 - init.py:59 - Verbose mode ON
+2026-05-15 23:16:36,465 - init.py:64 - Using Python version 3.9
+2026-05-15 23:16:36,465 - params.py:81 - Interactive mode OFF
+2026-05-15 23:16:36,466 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 23:16:38,248 - xl:54 - Finished

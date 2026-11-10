@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-sys.path.append("modules")
+sys.path.append("../../"); sys.path.append("../../modules")
 from option_functions import *
 
 from import_from_source import *
@@ -960,3 +960,5 @@ class testImport(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+

@@ -1,0 +1,13 @@
+2026-08-28 11:08:11,742 - build_functions.py:42 - Started
+2026-08-28 11:08:11,747 - build_functions.py:42 - Started
+2026-08-28 11:08:11,748 - tests.py:398 - Started
+2026-08-28 11:08:11,748 - xl:30 - Started
+2026-08-28 11:08:11,750 - option_functions.py:343 - Color terminal: 1
+2026-08-28 11:08:11,758 - option_functions.py:386 - Compilation threads: 16
+2026-08-28 11:08:11,758 - option_functions.py:543 - (read_config) Configuration file read
+2026-08-28 11:08:11,796 - init.py:51 - Parallelize_multi_build is ON
+2026-08-28 11:08:11,796 - init.py:59 - Verbose mode ON
+2026-08-28 11:08:11,796 - init.py:64 - Using Python version 3.9
+2026-08-28 11:08:11,796 - params.py:84 - Interactive mode OFF
+2026-08-28 11:08:11,797 - run.py:18 - Running command: ../build/Xdragonmaster_terminal8x8_20X17.exe
+2026-08-28 11:08:36,690 - xl:54 - Finished

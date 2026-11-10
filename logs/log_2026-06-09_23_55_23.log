@@ -1,0 +1,12 @@
+2026-06-09 23:55:23,419 - build_functions.py:42 - Started
+2026-06-09 23:55:23,424 - build_functions.py:42 - Started
+2026-06-09 23:55:23,424 - tests.py:382 - Started
+2026-06-09 23:55:23,425 - xl:30 - Started
+2026-06-09 23:55:23,426 - option_functions.py:332 - Color terminal: 1
+2026-06-09 23:55:23,434 - option_functions.py:375 - Compilation threads: 16
+2026-06-09 23:55:23,434 - option_functions.py:530 - (read_config) Configuration file read
+2026-06-09 23:55:23,484 - init.py:51 - Parallelize_multi_build is ON
+2026-06-09 23:55:23,484 - init.py:59 - Verbose mode ON
+2026-06-09 23:55:23,484 - init.py:64 - Using Python version 3.9
+2026-06-09 23:55:23,484 - params.py:84 - Interactive mode OFF
+2026-06-09 23:55:23,485 - xl:54 - Finished

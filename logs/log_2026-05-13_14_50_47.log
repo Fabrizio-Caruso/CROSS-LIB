@@ -1,0 +1,21 @@
+2026-05-13 14:50:45,393 - build_functions.py:40 - Started
+2026-05-13 14:50:45,398 - build_functions.py:40 - Started
+2026-05-13 14:50:45,398 - tests.py:373 - Started
+2026-05-13 14:50:45,399 - xl:30 - Started
+2026-05-13 14:50:45,400 - option_functions.py:321 - Color terminal: 1
+2026-05-13 14:50:45,408 - option_functions.py:358 - Compilation threads: 16
+2026-05-13 14:50:45,408 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-13 14:50:45,453 - init.py:51 - Parallelize_multi_build is ON
+2026-05-13 14:50:45,453 - init.py:59 - Verbose mode ON
+2026-05-13 14:50:45,453 - init.py:64 - Using Python version 3.9
+2026-05-13 14:50:45,453 - params.py:81 - Interactive mode OFF
+2026-05-13 14:50:45,454 - run.py:18 - Running command: make clean_no_built_in -f games/shuriken/Makefile.shuriken
+2026-05-13 14:50:46,189 - run.py:18 - Running command: make comx USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f games/shuriken/Makefile.shuriken
+2026-05-13 14:50:46,395 - generate_assets.py:341 - Started generate_assets
+2026-05-13 14:50:46,396 - generate_assets.py:43 - read_tiles_from_dir
+2026-05-13 14:50:47,064 - generate_assets.py:43 - read_tiles_from_dir
+2026-05-13 14:50:47,076 - generate_assets.py:43 - read_tiles_from_dir
+2026-05-13 14:50:47,182 - generate_assets.py:43 - read_tiles_from_dir
+2026-05-13 14:50:47,193 - generate_assets.py:43 - read_tiles_from_dir
+2026-05-13 14:50:47,238 - generate_assets.py:343 - Finished generate_assets
+2026-05-13 14:50:47,689 - xl:54 - Finished

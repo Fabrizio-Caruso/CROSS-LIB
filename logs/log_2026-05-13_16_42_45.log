@@ -1,0 +1,14 @@
+2026-05-13 16:42:44,520 - build_functions.py:40 - Started
+2026-05-13 16:42:44,524 - build_functions.py:40 - Started
+2026-05-13 16:42:44,525 - tests.py:373 - Started
+2026-05-13 16:42:44,525 - xl:30 - Started
+2026-05-13 16:42:44,527 - option_functions.py:321 - Color terminal: 1
+2026-05-13 16:42:44,534 - option_functions.py:358 - Compilation threads: 16
+2026-05-13 16:42:44,534 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-13 16:42:44,579 - init.py:51 - Parallelize_multi_build is ON
+2026-05-13 16:42:44,579 - init.py:59 - Verbose mode ON
+2026-05-13 16:42:44,580 - init.py:64 - Using Python version 3.9
+2026-05-13 16:42:44,580 - params.py:81 - Interactive mode OFF
+2026-05-13 16:42:44,580 - run.py:18 - Running command: make clean_no_built_in -f games/shuriken/Makefile.shuriken
+2026-05-13 16:42:45,343 - run.py:18 - Running command: make 6 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 9'  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f games/shuriken/Makefile.shuriken
+2026-05-13 16:42:45,414 - xl:54 - Finished

@@ -1,0 +1,13 @@
+2026-05-17 01:09:09,233 - build_functions.py:40 - Started
+2026-05-17 01:09:09,238 - build_functions.py:40 - Started
+2026-05-17 01:09:09,238 - tests.py:382 - Started
+2026-05-17 01:09:09,239 - xl:30 - Started
+2026-05-17 01:09:09,240 - option_functions.py:332 - Color terminal: 1
+2026-05-17 01:09:09,248 - option_functions.py:375 - Compilation threads: 16
+2026-05-17 01:09:09,248 - option_functions.py:530 - (read_config) Configuration file read
+2026-05-17 01:09:09,292 - init.py:51 - Parallelize_multi_build is ON
+2026-05-17 01:09:09,292 - init.py:59 - Verbose mode ON
+2026-05-17 01:09:09,292 - init.py:64 - Using Python version 3.9
+2026-05-17 01:09:09,292 - params.py:80 - Interactive mode OFF
+2026-05-17 01:09:09,292 - run.py:18 - Running command: make clean_tools GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-17 01:09:11,043 - xl:54 - Finished

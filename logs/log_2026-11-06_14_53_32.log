@@ -1,0 +1,99 @@
+2026-11-06 14:51:52,556 - build_functions.py:42 - Started
+2026-11-06 14:51:52,560 - build_functions.py:42 - Started
+2026-11-06 14:51:52,561 - tests.py:398 - Started
+2026-11-06 14:51:52,561 - xl:30 - Started
+2026-11-06 14:51:52,563 - option_functions.py:343 - Color terminal: 1
+2026-11-06 14:51:52,563 - option_functions.py:386 - Compilation threads: 1
+2026-11-06 14:51:52,563 - option_functions.py:543 - (read_config) Configuration file read
+2026-11-06 14:51:52,612 - init.py:51 - Parallelize_multi_build is ON
+2026-11-06 14:51:52,621 - init.py:59 - Verbose mode ON
+2026-11-06 14:51:52,621 - init.py:64 - Using Python version 3.9
+2026-11-06 14:51:52,621 - params.py:84 - Interactive mode OFF
+2026-11-06 14:51:52,621 - run.py:18 - Running command: make clean_no_built_in -f games/bomber/Makefile.bomber
+2026-11-06 14:51:53,703 - run.py:18 - Running command: make clean_no_built_in -f games/chase/Makefile.chase
+2026-11-06 14:51:54,804 - run.py:18 - Running command: make clean_no_built_in -f games/dragonmaster/Makefile.dragonmaster
+2026-11-06 14:51:55,882 - run.py:18 - Running command: make clean_no_built_in -f games/gomoku/Makefile.gomoku
+2026-11-06 14:51:56,993 - run.py:18 - Running command: make clean_no_built_in -f games/horde/Makefile.horde
+2026-11-06 14:51:58,103 - run.py:18 - Running command: make clean_no_built_in -f games/shoot/Makefile.shoot
+2026-11-06 14:51:59,197 - run.py:18 - Running command: make clean_no_built_in -f games/shuriken/Makefile.shuriken
+2026-11-06 14:52:00,297 - run.py:18 - Running command: make clean_no_built_in -f games/snake/Makefile.snake
+2026-11-06 14:52:01,383 - run.py:18 - Running command: make clean_no_built_in -f games/stinger/Makefile.stinger
+2026-11-06 14:52:02,538 - run.py:18 - Running command: make clean_no_built_in -f games/trex/Makefile.trex
+2026-11-06 14:52:03,695 - run.py:18 - Running command: make clean_no_built_in -f games/verbix/Makefile.verbix
+2026-11-06 14:52:04,788 - run.py:18 - Running command: make clean_no_built_in -f examples/15puzzle/Makefile.15puzzle
+2026-11-06 14:52:05,816 - run.py:18 - Running command: make clean_no_built_in -f examples/4inarow/Makefile.4inarow
+2026-11-06 14:52:06,900 - run.py:18 - Running command: make clean_no_built_in -f examples/adventure/Makefile.adventure
+2026-11-06 14:52:08,029 - run.py:18 - Running command: make clean_no_built_in -f examples/adventure100/Makefile.adventure100
+2026-11-06 14:52:09,346 - run.py:18 - Running command: make clean_no_built_in -f examples/ai2048/Makefile.ai2048
+2026-11-06 14:52:10,662 - run.py:18 - Running command: make clean_no_built_in -f examples/ainvaders/Makefile.ainvaders
+2026-11-06 14:52:11,921 - run.py:18 - Running command: make clean_no_built_in -f examples/aiwari/Makefile.aiwari
+2026-11-06 14:52:13,193 - run.py:18 - Running command: make clean_no_built_in -f examples/animate/Makefile.animate
+2026-11-06 14:52:14,638 - run.py:18 - Running command: make clean_no_built_in -f examples/arkanoid/Makefile.arkanoid
+2026-11-06 14:52:15,978 - run.py:18 - Running command: make clean_no_built_in -f examples/asteroids/Makefile.asteroids
+2026-11-06 14:52:17,276 - run.py:18 - Running command: make clean_no_built_in -f examples/background/Makefile.background
+2026-11-06 14:52:18,597 - run.py:18 - Running command: make clean_no_built_in -f examples/bezerk/Makefile.bezerk
+2026-11-06 14:52:19,798 - run.py:18 - Running command: make clean_no_built_in -f examples/bigadventure/Makefile.bigadventure
+2026-11-06 14:52:20,934 - run.py:18 - Running command: make clean_no_built_in -f examples/bigmaze/Makefile.bigmaze
+2026-11-06 14:52:22,075 - run.py:18 - Running command: make clean_no_built_in -f examples/blob/Makefile.blob
+2026-11-06 14:52:23,223 - run.py:18 - Running command: make clean_no_built_in -f examples/bomberman/Makefile.bomberman
+2026-11-06 14:52:24,429 - run.py:18 - Running command: make clean_no_built_in -f examples/boundary/Makefile.boundary
+2026-11-06 14:52:25,572 - run.py:18 - Running command: make clean_no_built_in -f examples/cairnaval/Makefile.cairnaval
+2026-11-06 14:52:26,741 - run.py:18 - Running command: make clean_no_built_in -f examples/candycrush/Makefile.candycrush
+2026-11-06 14:52:27,921 - run.py:18 - Running command: make clean_no_built_in -f examples/cannibals/Makefile.cannibals
+2026-11-06 14:52:29,008 - run.py:18 - Running command: make clean_no_built_in -f examples/catch/Makefile.catch
+2026-11-06 14:52:30,069 - run.py:18 - Running command: make clean_no_built_in -f examples/centipede/Makefile.centipede
+2026-11-06 14:52:31,236 - run.py:18 - Running command: make clean_no_built_in -f examples/characters/Makefile.characters
+2026-11-06 14:52:32,360 - run.py:18 - Running command: make clean_no_built_in -f examples/clear/Makefile.clear
+2026-11-06 14:52:33,508 - run.py:18 - Running command: make clean_no_built_in -f examples/color/Makefile.color
+2026-11-06 14:52:34,614 - run.py:18 - Running command: make clean_no_built_in -f examples/columns/Makefile.columns
+2026-11-06 14:52:35,797 - run.py:18 - Running command: make clean_no_built_in -f examples/display/Makefile.display
+2026-11-06 14:52:36,988 - run.py:18 - Running command: make clean_no_built_in -f examples/dodge/Makefile.dodge
+2026-11-06 14:52:38,089 - run.py:18 - Running command: make clean_no_built_in -f examples/dungeon/Makefile.dungeon
+2026-11-06 14:52:39,232 - run.py:18 - Running command: make clean_no_built_in -f examples/frogger/Makefile.frogger
+2026-11-06 14:52:40,309 - run.py:18 - Running command: make clean_no_built_in -f examples/fruzzle/Makefile.fruzzle
+2026-11-06 14:52:41,427 - run.py:18 - Running command: make clean_no_built_in -f examples/galaga/Makefile.galaga
+2026-11-06 14:52:42,576 - run.py:18 - Running command: make clean_no_built_in -f examples/galaxian/Makefile.galaxian
+2026-11-06 14:52:43,698 - run.py:18 - Running command: make clean_no_built_in -f examples/gems/Makefile.gems
+2026-11-06 14:52:44,754 - run.py:18 - Running command: make clean_no_built_in -f examples/graphics/Makefile.graphics
+2026-11-06 14:52:45,941 - run.py:18 - Running command: make clean_no_built_in -f examples/hanoi/Makefile.hanoi
+2026-11-06 14:52:47,057 - run.py:18 - Running command: make clean_no_built_in -f examples/headon/Makefile.headon
+2026-11-06 14:52:48,176 - run.py:18 - Running command: make clean_no_built_in -f examples/hello/Makefile.hello
+2026-11-06 14:52:49,322 - run.py:18 - Running command: make clean_no_built_in -f examples/hsmup/Makefile.hsmup
+2026-11-06 14:52:50,447 - run.py:18 - Running command: make clean_no_built_in -f examples/hsmup2/Makefile.hsmup2
+2026-11-06 14:52:51,590 - run.py:18 - Running command: make clean_no_built_in -f examples/input/Makefile.input
+2026-11-06 14:52:52,835 - run.py:18 - Running command: make clean_no_built_in -f examples/invaders/Makefile.invaders
+2026-11-06 14:52:53,979 - run.py:18 - Running command: make clean_no_built_in -f examples/jump/Makefile.jump
+2026-11-06 14:52:55,105 - run.py:18 - Running command: make clean_no_built_in -f examples/lumines/Makefile.lumines
+2026-11-06 14:52:56,236 - run.py:18 - Running command: make clean_no_built_in -f examples/mastermind/Makefile.mastermind
+2026-11-06 14:52:57,366 - run.py:18 - Running command: make clean_no_built_in -f examples/matrix/Makefile.matrix
+2026-11-06 14:52:58,540 - run.py:18 - Running command: make clean_no_built_in -f examples/maze/Makefile.maze
+2026-11-06 14:52:59,759 - run.py:18 - Running command: make clean_no_built_in -f examples/maze2/Makefile.maze2
+2026-11-06 14:53:00,988 - run.py:18 - Running command: make clean_no_built_in -f examples/memory/Makefile.memory
+2026-11-06 14:53:02,134 - run.py:18 - Running command: make clean_no_built_in -f examples/minesweeper/Makefile.minesweeper
+2026-11-06 14:53:03,376 - run.py:18 - Running command: make clean_no_built_in -f examples/minisnake/Makefile.minisnake
+2026-11-06 14:53:04,560 - run.py:18 - Running command: make clean_no_built_in -f examples/none/Makefile.none
+2026-11-06 14:53:05,759 - run.py:18 - Running command: make clean_no_built_in -f examples/numbers/Makefile.numbers
+2026-11-06 14:53:06,871 - run.py:18 - Running command: make clean_no_built_in -f examples/openworld/Makefile.openworld
+2026-11-06 14:53:08,126 - run.py:18 - Running command: make clean_no_built_in -f examples/pacman/Makefile.pacman
+2026-11-06 14:53:09,289 - run.py:18 - Running command: make clean_no_built_in -f examples/palette/Makefile.palette
+2026-11-06 14:53:10,461 - run.py:18 - Running command: make clean_no_built_in -f examples/platform/Makefile.platform
+2026-11-06 14:53:11,660 - run.py:18 - Running command: make clean_no_built_in -f examples/platform2/Makefile.platform2
+2026-11-06 14:53:12,829 - run.py:18 - Running command: make clean_no_built_in -f examples/platform3/Makefile.platform3
+2026-11-06 14:53:13,930 - run.py:18 - Running command: make clean_no_built_in -f examples/pong/Makefile.pong
+2026-11-06 14:53:15,099 - run.py:18 - Running command: make clean_no_built_in -f examples/raicer/Makefile.raicer
+2026-11-06 14:53:16,250 - run.py:18 - Running command: make clean_no_built_in -f examples/raicer2/Makefile.raicer2
+2026-11-06 14:53:17,353 - run.py:18 - Running command: make clean_no_built_in -f examples/random/Makefile.random
+2026-11-06 14:53:18,480 - run.py:18 - Running command: make clean_no_built_in -f examples/robotron/Makefile.robotron
+2026-11-06 14:53:19,629 - run.py:18 - Running command: make clean_no_built_in -f examples/rogue/Makefile.rogue
+2026-11-06 14:53:20,775 - run.py:18 - Running command: make clean_no_built_in -f examples/rogue2/Makefile.rogue2
+2026-11-06 14:53:21,879 - run.py:18 - Running command: make clean_no_built_in -f examples/sleep/Makefile.sleep
+2026-11-06 14:53:23,035 - run.py:18 - Running command: make clean_no_built_in -f examples/sounds/Makefile.sounds
+2026-11-06 14:53:24,149 - run.py:18 - Running command: make clean_no_built_in -f examples/tapper/Makefile.tapper
+2026-11-06 14:53:25,296 - run.py:18 - Running command: make clean_no_built_in -f examples/target/Makefile.target
+2026-11-06 14:53:26,404 - run.py:18 - Running command: make clean_no_built_in -f examples/tetris/Makefile.tetris
+2026-11-06 14:53:27,507 - run.py:18 - Running command: make clean_no_built_in -f examples/text/Makefile.text
+2026-11-06 14:53:28,655 - run.py:18 - Running command: make clean_no_built_in -f examples/vsmup/Makefile.vsmup
+2026-11-06 14:53:29,714 - run.py:18 - Running command: make clean_no_built_in -f examples/vsmup2/Makefile.vsmup2
+2026-11-06 14:53:30,812 - run.py:18 - Running command: make clean_no_built_in -f examples/wordle/Makefile.wordle
+2026-11-06 14:53:31,892 - run.py:18 - Running command: make clean_no_built_in -f examples/zombies/Makefile.zombies
+2026-11-06 14:53:32,994 - xl:54 - Finished

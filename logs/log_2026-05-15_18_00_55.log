@@ -1,0 +1,24 @@
+2026-05-15 17:57:58,323 - build_functions.py:40 - Started
+2026-05-15 17:57:58,328 - build_functions.py:40 - Started
+2026-05-15 17:57:58,328 - tests.py:373 - Started
+2026-05-15 17:57:58,329 - xl:30 - Started
+2026-05-15 17:57:58,330 - option_functions.py:321 - Color terminal: 1
+2026-05-15 17:57:58,338 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 17:57:58,338 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 17:57:58,384 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 17:57:58,384 - init.py:59 - Verbose mode ON
+2026-05-15 17:57:58,384 - init.py:64 - Using Python version 3.9
+2026-05-15 17:57:58,384 - params.py:81 - Interactive mode OFF
+2026-05-15 17:58:17,593 - build_functions.py:40 - Started
+2026-05-15 17:58:17,597 - build_functions.py:40 - Started
+2026-05-15 17:58:17,597 - tests.py:373 - Started
+2026-05-15 17:58:17,598 - xl:30 - Started
+2026-05-15 17:58:17,599 - option_functions.py:321 - Color terminal: 1
+2026-05-15 17:58:17,607 - option_functions.py:358 - Compilation threads: 16
+2026-05-15 17:58:17,608 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-15 17:58:17,655 - init.py:51 - Parallelize_multi_build is ON
+2026-05-15 17:58:17,656 - init.py:59 - Verbose mode ON
+2026-05-15 17:58:17,656 - init.py:64 - Using Python version 3.9
+2026-05-15 17:58:17,656 - params.py:81 - Interactive mode OFF
+2026-05-15 17:58:17,656 - run.py:18 - Running command: make -j 1 tools TOOL_CC=gcc GNU_MAKE=make -f makefiles.common/auxiliary/Makefile_tools
+2026-05-15 18:00:55,197 - xl:54 - Finished

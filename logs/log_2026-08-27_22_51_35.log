@@ -1,0 +1,192 @@
+2026-08-27 22:51:30,415 - build_functions.py:42 - Started
+2026-08-27 22:51:30,419 - build_functions.py:42 - Started
+2026-08-27 22:51:30,420 - tests.py:398 - Started
+2026-08-27 22:51:30,420 - xl:30 - Started
+2026-08-27 22:51:30,422 - option_functions.py:343 - Color terminal: 1
+2026-08-27 22:51:30,429 - option_functions.py:386 - Compilation threads: 16
+2026-08-27 22:51:30,429 - option_functions.py:543 - (read_config) Configuration file read
+2026-08-27 22:51:30,466 - init.py:51 - Parallelize_multi_build is ON
+2026-08-27 22:51:30,466 - init.py:59 - Verbose mode ON
+2026-08-27 22:51:30,466 - init.py:64 - Using Python version 3.9
+2026-08-27 22:51:30,467 - params.py:84 - Interactive mode OFF
+2026-08-27 22:51:30,467 - build_functions.py:151 - Parallelize_multi_build is ON
+2026-08-27 22:51:30,467 - build_functions.py:200 - Parallelize multi build with 16
+2026-08-27 22:51:30,691 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/animate/Makefile.animate
+2026-08-27 22:51:30,691 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/boundary/Makefile.boundary
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/characters/Makefile.characters
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/clear/Makefile.clear
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/background/Makefile.background
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/blob/Makefile.blob
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/color/Makefile.color
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/display/Makefile.display
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/dragonmaster/Makefile.dragonmaster
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/dodge/Makefile.dodge
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/hello/Makefile.hello
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/graphics/Makefile.graphics
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/invaders/Makefile.invaders
+2026-08-27 22:51:30,692 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/input/Makefile.input
+2026-08-27 22:51:30,693 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/matrix/Makefile.matrix
+2026-08-27 22:51:30,693 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/none/Makefile.none
+2026-08-27 22:51:30,932 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,932 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,932 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,932 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,950 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,950 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,950 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,950 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,957 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,957 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,957 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,971 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,973 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,973 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,973 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,973 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,981 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,981 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,981 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,981 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:30,981 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:30,981 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,003 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:31,003 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:31,003 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,003 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,067 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:31,067 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,738 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/numbers/Makefile.numbers
+2026-08-27 22:51:31,778 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/palette/Makefile.palette
+2026-08-27 22:51:31,936 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,940 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,943 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:31,943 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,947 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,949 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,971 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,982 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:31,996 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,011 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,011 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:32,011 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,036 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,043 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,044 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,049 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,049 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,049 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,066 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,080 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,088 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,091 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,100 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,114 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,123 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,130 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,164 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,177 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,192 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,205 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,208 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,231 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,232 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,234 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,235 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,238 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,252 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,259 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,271 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,272 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,280 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,280 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,295 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,300 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,306 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,328 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,337 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,339 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,340 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,341 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,341 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,342 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,359 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,362 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,365 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,388 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,404 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,411 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,413 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,415 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,418 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,418 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,421 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,422 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,447 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,468 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,580 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,628 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:32,869 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:32,871 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,016 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/random/Makefile.random
+2026-08-27 22:51:33,032 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/sleep/Makefile.sleep
+2026-08-27 22:51:33,057 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,137 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,156 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/sounds/Makefile.sounds
+2026-08-27 22:51:33,165 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/target/Makefile.target
+2026-08-27 22:51:33,267 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,267 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,267 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,267 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,291 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,296 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,316 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/text/Makefile.text
+2026-08-27 22:51:33,318 - run.py:18 - Running command: make vic20 USE_TOOLS=1  ZSDCC_MAKEFILE_THREADS_OPTS='-j 16' ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O3' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='"-Wf-volatile" -O "-Wp-D nofloats" "-Wf-mulcall"' _NATIVE_CC=gcc TOOL_CC=gcc GNU_MAKE=make -f examples/zombies/Makefile.zombies
+2026-08-27 22:51:33,351 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,385 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,385 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,385 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,385 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,403 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,417 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,465 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,479 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:33,518 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,518 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,527 - generate_assets.py:341 - Started generate_assets
+2026-08-27 22:51:33,527 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,609 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,617 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:33,621 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:33,654 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:33,705 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,083 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,096 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,118 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,124 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,175 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,201 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,201 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,226 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,239 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,244 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,267 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,269 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,309 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,311 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,313 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,320 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,320 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,346 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,350 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,353 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,360 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,379 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,397 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,427 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,488 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,503 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,527 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,551 - generate_assets.py:43 - read_tiles_from_dir
+2026-08-27 22:51:34,633 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:34,652 - generate_assets.py:343 - Finished generate_assets
+2026-08-27 22:51:35,028 - xl:54 - Finished

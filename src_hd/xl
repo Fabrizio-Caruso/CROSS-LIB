@@ -12,7 +12,7 @@ import datetime
 import os
 
 #pylint: disable=wrong-import-position
-sys.path.append("modules")
+sys.path.append(".."); sys.path.append("../modules")
 
 from modules.LoggerSingleton import LoggerSingleton
 from modules.params import get_params
@@ -54,3 +54,5 @@ if __name__ == "__main__":
     logger.info('Finished')
     os.system('mv ../logs/log.log ../logs/log_' + \
               datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")+'.log 2>/dev/null' )
+
+

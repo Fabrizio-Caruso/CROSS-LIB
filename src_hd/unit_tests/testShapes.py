@@ -2,7 +2,7 @@ import unittest
 import sys
 
 
-sys.path.append("modules")
+sys.path.append("../../"); sys.path.append("../../modules")
 
 from shape_functions import *
 
@@ -336,3 +336,5 @@ class testShapes(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
+
+

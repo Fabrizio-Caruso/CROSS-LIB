@@ -1,0 +1,13 @@
+2026-05-18 23:45:42,979 - build_functions.py:42 - Started
+2026-05-18 23:45:42,984 - build_functions.py:42 - Started
+2026-05-18 23:45:42,984 - tests.py:382 - Started
+2026-05-18 23:45:42,984 - xl:30 - Started
+2026-05-18 23:45:42,986 - option_functions.py:337 - Color terminal: 1
+2026-05-18 23:45:42,995 - option_functions.py:380 - Compilation threads: 16
+2026-05-18 23:45:42,995 - option_functions.py:535 - (read_config) Configuration file read
+2026-05-18 23:45:43,042 - init.py:51 - Parallelize_multi_build is ON
+2026-05-18 23:45:43,042 - init.py:59 - Verbose mode ON
+2026-05-18 23:45:43,042 - init.py:64 - Using Python version 3.9
+2026-05-18 23:45:43,042 - params.py:84 - Interactive mode OFF
+2026-05-18 23:45:43,043 - run.py:18 - Running command: ../build/Xgraphics_terminal8x8_20X17.exe
+2026-05-18 23:45:58,533 - xl:54 - Finished

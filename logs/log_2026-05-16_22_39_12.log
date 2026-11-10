@@ -1,0 +1,17 @@
+2026-05-16 22:39:00,152 - build_functions.py:40 - Started
+2026-05-16 22:39:00,156 - build_functions.py:40 - Started
+2026-05-16 22:39:00,157 - tests.py:391 - Started
+2026-05-16 22:39:00,157 - xl:30 - Started
+2026-05-16 22:39:00,159 - option_functions.py:321 - Color terminal: 1
+2026-05-16 22:39:00,167 - option_functions.py:358 - Compilation threads: 16
+2026-05-16 22:39:00,167 - option_functions.py:507 - (read_config) Configuration file read
+2026-05-16 22:39:00,213 - init.py:51 - Parallelize_multi_build is ON
+2026-05-16 22:39:00,213 - init.py:59 - Verbose mode ON
+2026-05-16 22:39:00,213 - init.py:64 - Using Python version 3.9
+2026-05-16 22:39:00,213 - params.py:81 - Interactive mode OFF
+2026-05-16 22:39:00,213 - run.py:18 - Running command: make clean_generic -f makefiles.common/auxiliary/Makefile_common
+2026-05-16 22:39:00,676 - run.py:18 - Running command: make coco GNU_MAKE=make _NATIVE_CC=gcc  USE_TOOLS=1 TOOL_CC=gcc  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' -f makefiles.other/chase/tests/Makefile.tests
+2026-05-16 22:39:03,389 - run.py:18 - Running command: make coco3 GNU_MAKE=make _NATIVE_CC=gcc  USE_TOOLS=1 TOOL_CC=gcc  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' -f makefiles.other/chase/tests/Makefile.tests
+2026-05-16 22:39:05,466 - run.py:18 - Running command: make mo5 GNU_MAKE=make _NATIVE_CC=gcc  USE_TOOLS=1 TOOL_CC=gcc  ZSDCC_MAKEFILE_COMPILATION_OPTS='-SO3 --max-allocs-per-node200000 ' Z88DK_MAKEFILE_COMPILATION_OPTS=' -O3' GCC4TI99_MAKEFILE_COMPILATION_OPTS='-O2 -fno-peephole2 -fno-function-cse' VBCC_MAKEFILE_COMPILATION_OPTS='-O1' ACK_MAKEFILE_COMPILATION_OPTS='-O6' NATIVE_MAKEFILE_COMPILATION_OPTS='-Wpedantic -Wall' CMOC_MAKEFILE_COMPILATION_OPTS='-O2' CC65_MAKEFILE_COMPILATION_OPTS='-Or -Cl' LCC1802_MAKEFILE_COMPILATION_OPTS='-v -O "-Wf-volatile" "-Wp-D nofloats" "-Wf-mulcall"' -f makefiles.other/chase/tests/Makefile.tests
+2026-05-16 22:39:12,007 - run.py:18 - Running command: rm -rf ./games/chase/main.c
+2026-05-16 22:39:12,026 - xl:54 - Finished

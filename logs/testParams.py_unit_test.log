@@ -1,5 +1,4 @@
-....
-----------------------------------------------------------------------
-Ran 4 tests in 0.000s
-
-OK
+Traceback (most recent call last):
+  File "/cygdrive/c/Retro/CROSS-LIB/src_hd/unit_tests/testParams.py", line 8, in <module>
+    from params import *
+ModuleNotFoundError: No module named 'params'

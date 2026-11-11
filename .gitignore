@@ -150,3 +150,8 @@ tools/z88dk/abc80/abcdisk-2.7/confdefs.h
 **/*.DS_Store
 **.pyc
 logs/log_*.log
+**/*.o
+**/*.exe
+**/*.out
+**/*.log
+

@@ -6,7 +6,7 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	-D__VDP_MODE1_GRAPHICS -DGHOSTS_NUMBER=8 -DLESS_TEXT   \
 	-D_XL_SLOW_DOWN_FACTOR=2000  -DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(SOURCE_PATH)/memory/creativision_memory.s \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
@@ -24,7 +24,7 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s $(TOOLS_PATH)/cc65/gamate/gamate-fixc
 	$(GAMATE_GAME_OPTS) -D__NO_COLOR_INIT -D_XL_NO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
-	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/gamate/gamate_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 
@@ -48,7 +48,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(LIGHT_FILES) \
 	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
@@ -85,7 +85,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/split_files/init_images.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/split_files/main.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
@@ -93,29 +93,6 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-# vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# -D_XL_NO_TEXT_COLOR \
-	# -D__VIC20_UNEXPANDED \
-	# -D_XL_NO_SLEEP \
-	# -D__NO_COLOR_INIT \
-	# -DTINY_GAME  -DNO_WALL \
-	# -D__MEMORY_MAPPED_GRAPHICS \
-	# -D__ALT_HIGHSCORE \
-	# -D__ALT_DISPLAY_STATS \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -DUSE_TINY_MEMORY_BUFFERS \
-    # $(VIC20_UNEXPANDED_GAME_OPTS) \
-	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
-	# $(TINY_FILES) \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	# $(ASSETS_PATH)/cc65_udc_6chars.s \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
-
-# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -m mapfile.txt \
 	-D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
@@ -131,34 +108,13 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx_low_stack.cfg  \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 
-# vic20_test: $(ASSETS_PATH)/cc65_udc_6chars.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -m mapfile.txt \
-	# -D_XL_NO_TEXT_COLOR -D_XL_NUMBER_OF_TILES=6 \
-	# -D__VIC20_UNEXPANDED \
-	# -D_ALT_SLEEP -D__NO_SLEEP_SEC \
-	# -D__NO_COLOR_INIT -DNO_RANDOM_LEVEL \
-	# -DTINY_GAME  -DNO_WALL -DGHOSTS_NUMBER=6 \
-	# -D__MEMORY_MAPPED_GRAPHICS \
-	# -D__ALT_DISPLAY_STATS \
-	# -D__DEFAULT_CLEAR_SCREEN \
-	# -DUSE_TINY_MEMORY_BUFFERS \
-	# $(VIC20_UNEXPANDED_GAME_OPTS) \
-	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
-	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
-	# $(TINY_FILES) \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	# $(ASSETS_PATH)/cc65_udc_6chars.s \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_TINY_$@.prg
 
 vic20_targets: vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
@@ -182,7 +138,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DUSE_MEMORY_BUFFERS \
 	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \

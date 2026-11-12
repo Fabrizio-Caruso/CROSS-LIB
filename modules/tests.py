@@ -842,7 +842,6 @@ def _test_compilation(option_config):
     result_map = {}
     success, built_binaries, expected_binaries = test_targets(option_config,["", "native"])
     
-    success = "OK" if success else "KO"
     result_map["native"] = (success, built_binaries, expected_binaries)
     for compiler in compilers_check.keys():
         if compilers_check[compiler]:
@@ -1014,7 +1013,7 @@ def _test_targets(option_config, params):
                 printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)
         sys.exit(-1)
-    if is_project_split("chase"):
+    if is_project_split(game_dir):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(option_config, game_dir, project_type)

@@ -26,6 +26,8 @@ endif
 
 CROSS_LIB_PATH := cross_lib
 
+CROSS_LIB_SHARED_PATH := ../cross_lib
+
 BUILD_PATH ?= ../build
 
 ######################################
@@ -35,36 +37,38 @@ BUILD_PATH ?= ../build
 # Cross Lib includes + game's graphics data
 
 INCLUDE_OPTS ?= \
--I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
+-I$(CROSS_LIB_PATH) \
+-I$(CROSS_LIB_SHARED_PATH) \
+-I$(CROSS_LIB_SHARED_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
 -I$(CROSS_LIB_PATH)/display/graphics_mode \
 -I$(CROSS_LIB_PATH)/display/alt_print \
--I$(CROSS_LIB_PATH)/include \
--I$(CROSS_LIB_PATH)/sound \
--I$(CROSS_LIB_PATH)/sound/cc65/atmos \
--I$(CROSS_LIB_PATH)/sound/cc65/c264 \
--I$(CROSS_LIB_PATH)/sound/cc65/pokey \
--I$(CROSS_LIB_PATH)/sound/cc65/sid \
--I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
--I$(CROSS_LIB_PATH)/sound/cc65/gamate \
--I$(CROSS_LIB_PATH)/sound/cc65/creativision \
--I$(CROSS_LIB_PATH)/sound/cc65/atari_lynx \
--I$(CROSS_LIB_PATH)/sound/cc65/atari7800 \
--I$(CROSS_LIB_PATH)/sound/cc65/pet \
--I$(CROSS_LIB_PATH)/sound/cc65/supervision \
--I$(CROSS_LIB_PATH)/sound/cc65/cx16 \
--I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
--I$(CROSS_LIB_PATH)/sound/z88dk/gb \
--I$(CROSS_LIB_PATH)/sound/z88dk/psg \
--I$(CROSS_LIB_PATH)/sound/lcc1802/comx   \
--I$(CROSS_LIB_PATH)/sound/cmoc/mo5 \
--I$(CROSS_LIB_PATH)/sound/generic \
--I$(CROSS_LIB_PATH)/sound/gcc4ti99 \
--I$(CROSS_LIB_PATH)/sound/vbcc/bbc \
--I$(CROSS_LIB_PATH)/sound/ack/msdos86 \
--I$(CROSS_LIB_PATH)/text \
--I$(CROSS_LIB_PATH)/input \
--I$(CROSS_LIB_PATH)/rand \
+-I$(CROSS_LIB_SHARED_PATH)/include \
+-I$(CROSS_LIB_SHARED_PATH)/sound \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/atmos \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/pokey \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/sid \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/gamate \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/creativision \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/atari_lynx \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/atari7800 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/pet \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/supervision \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cc65/cx16 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/z88dk/bit_bang \
+-I$(CROSS_LIB_SHARED_PATH)/sound/z88dk/gb \
+-I$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg \
+-I$(CROSS_LIB_SHARED_PATH)/sound/lcc1802/comx   \
+-I$(CROSS_LIB_SHARED_PATH)/sound/cmoc/mo5 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/generic \
+-I$(CROSS_LIB_SHARED_PATH)/sound/gcc4ti99 \
+-I$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc \
+-I$(CROSS_LIB_SHARED_PATH)/sound/ack/msdos86 \
+-I$(CROSS_LIB_SHARED_PATH)/text \
+-I$(CROSS_LIB_SHARED_PATH)/input \
+-I$(CROSS_LIB_SHARED_PATH)/rand \
 -I$(CROSS_LIB_PATH)/display/redefine_characters \
 -I$(CROSS_LIB_PATH)/display/tiles \
 -I$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc \
@@ -80,12 +84,12 @@ CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 # CrossLib files
 # BASIC_CROSS_LIB_FILES ?= \
 	# $(CROSS_LIB_PATH)/display/display_macros.c \
-	# $(CROSS_LIB_PATH)/input/input_macros.c \
-	# $(CROSS_LIB_PATH)/text/text_macros.c
+	# $(CROSS_LIB_SHARED_PATH)/input/input_macros.c \
+	# $(CROSS_LIB_SHARED_PATH)/text/text_macros.c
 
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
-	$(CROSS_LIB_PATH)/input/input_macros.c
+	$(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	
 #################################################################
 # Clean targets

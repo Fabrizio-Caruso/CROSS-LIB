@@ -1,4 +1,0 @@
-__XL_SLOW_DOWN                  = $0000 ; addr, global, , , code_compiler, cross_lib/sleep/sleep_macros.c::_XL_SLOW_DOWN::0::0:120
-i_2                             = $0007 ; addr, local, , , code_compiler, cross_lib/sleep/sleep_macros.c::_XL_SLOW_DOWN::0::0:120
-i_3                             = $001B ; addr, local, , , code_compiler, cross_lib/sleep/sleep_macros.c::_XL_SLOW_DOWN::0::0:120
-i_4                             = $000A ; addr, local, , , code_compiler, cross_lib/sleep/sleep_macros.c::_XL_SLOW_DOWN::0::0:120

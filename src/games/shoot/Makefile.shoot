@@ -1,7 +1,7 @@
 
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/split_files/move_player.c \
 	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
 	$(SOURCE_PATH)/split_files/main.c \
@@ -37,7 +37,7 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-    $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c
 
 

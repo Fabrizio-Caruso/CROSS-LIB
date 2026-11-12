@@ -3,7 +3,7 @@ bbcmaster: bbcmaster130
 
 
 bbcmaster130: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
@@ -11,7 +11,7 @@ bbcmaster130: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP $(4COLOR_PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -20,7 +20,7 @@ bbcmaster130: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 
 # KO
 bbcmastertest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
@@ -28,7 +28,7 @@ bbcmastertest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP $(4COLOR_PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -37,7 +37,7 @@ bbcmastertest: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 
 # OK
 bbcmastertest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -O1 -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -O1 -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=130 -D__BBC_GRAPHICS \
 	-DYSize=31 \
@@ -45,7 +45,7 @@ bbcmastertest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP $(4COLOR_PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -56,7 +56,7 @@ bbcmastertest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 
 # OK
 bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc5$(IF_POSIX) -O1 -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc5$(IF_POSIX) -O1 -v $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS \
 	-DYSize=31 \
@@ -64,7 +64,7 @@ bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP $(4COLOR_PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics_test.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -77,7 +77,7 @@ bbctest1: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 bbc: bbc5
 
 bbc7: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc7$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ \
 	-DXSize=40 -D__BBC_MODE=7 -D__BBC_GRAPHICS -D_XL_NO_UDG \
 	-DYSize=24 $(4COLOR_PALETTE) $(BBC7_GAME_OPTS) \
@@ -87,7 +87,7 @@ bbc7: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 	-D_XL_NO_JOYSTICK \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -96,7 +96,7 @@ bbc7: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT)
 
 
 bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc2$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc2$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=2 -D__BBC_GRAPHICS \
 	-DYSize=31 $(4COLOR_PALETTE) \
@@ -104,7 +104,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf
@@ -114,7 +114,7 @@ bbc2: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 
 #-D_XL_NUMBER_OF_TILES=32
 bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
-	$(VBCC_COMPILER) +$(CROSS_LIB_PATH)/cfg/vbcc/bbc/bbc5$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
+	$(VBCC_COMPILER) +$(CROSS_LIB_SHARED_PATH)/cfg/vbcc/bbc/bbc5$(IF_POSIX) -v $(VBCC_MAKEFILE_COMPILATION_OPTS) $(VBCC_BBC_OPTS) $(INCLUDE_OPTS) \
 	-D__NORMALIZED_RAND -D__BBC__ -D_XL_NO_JOYSTICK \
 	-DXSize=20 -D__BBC_MODE=5 -D__BBC_GRAPHICS  \
 	-DYSize=31 \
@@ -122,7 +122,7 @@ bbc5: $(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) $(ASSETS_PATH)/8x8_chars.h
 	-D__ALT_SLEEP $(4COLOR_PALETTE) \
 	-D__DEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/vbcc/bbc/bbc_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/vbcc/bbc/bbc_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/vbcc/bbc/bbc_sounds.c \
 	$(FULL_FILES) -o $(GAME_NAME)
 	$(TOOLS_PATH)/bbc/bbcim$(COMPILEDEXT) -a X$(GAME_NAME)_$@.img $(GAME_NAME)
 	mv $(GAME_NAME).inf $(BUILD_PATH)/X$(GAME_NAME)_$@.inf

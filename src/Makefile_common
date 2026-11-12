@@ -259,7 +259,7 @@ apple2_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	--code-name LOWCODE \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/aschase.bin
 ifdef USE_TOOLS
@@ -278,7 +278,7 @@ agat: $(ASSETS_PATH)/cc65_agat.s
 	-D__AGAT__ -D_XL_NO_JOYSTICK -D_XL_JCUKEN_KEYBOARD -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
 	$(AGAT_GFX_OPTS) \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
@@ -296,7 +296,7 @@ agat_ijkl: $(ASSETS_PATH)/cc65_agat.s
 	-D__AGAT__ -D_XL_NO_JOYSTICK -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
 	$(AGAT_GFX_OPTS) \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
@@ -315,7 +315,7 @@ agat_cursors: $(ASSETS_PATH)/cc65_agat.s
 	-D__AGAT__ -D_XL_NO_JOYSTICK -D_XL_ARROW_KEYS -D__ALT_SLEEP -D__ALT_PRINT -D__DEFAULT_CLEAR_SCREEN  \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_AGAT_SLOWDOWN) -DXSize=16 -DYSize=16 \
 	$(AGAT_GFX_OPTS) \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) $(ASSETS_PATH)/cc65_agat.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/agat/agat_init_graphics.c \
@@ -345,7 +345,7 @@ apple2enh_hgr: $(ASSETS_PATH)/7x8_chars.h
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	--code-name LOWCODE \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2/apple2_hgr_init_graphics.c \
 	-o $(BUILD_PATH)/aschase.bin
 ifdef USE_TOOLS
@@ -370,7 +370,7 @@ atari: $(ASSETS_PATH)/8x8_chars.h $(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr$(C
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 	$(TOOLS_PATH)/cc65/atari/mkatr-master/mkatr $(BUILD_PATH)/X$(GAME_NAME)_$@.atr -b $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
@@ -383,7 +383,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-D__ATARI5200__  $(5COLOR_PALETTE) \
 	-D__ANTIC_MODE6_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_ATARI5200_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
@@ -398,8 +398,8 @@ atari_lynx: $(ASSETS_PATH)/8x6_tiles.s
 	-D__LYNX_TGI_GRAPHICS \
 	-D__ALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_gfx_print.c \
-	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
-	$(CROSS_LIB_PATH)/sound/cc65/atari_lynx/chibisound.asm \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/atari_lynx/atari_lynx_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/atari_lynx/chibisound.asm \
 	$(ASSETS_PATH)/8x6_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_gfx_init_graphics.c \
 	$(FULL_FILES) \
@@ -483,7 +483,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-D__UDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
@@ -501,7 +501,7 @@ c16_16k_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_DOUBLE_BUFFER_SLOWDOWN) \
 	-D__UDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
@@ -518,7 +518,7 @@ c16_16k_low_stack: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-D__ALT_SLEEP \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-D__UDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
@@ -533,7 +533,7 @@ c16_16k_conio: $(ASSETS_PATH)/8x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_CONIO_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -544,7 +544,7 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C16_SLOWDOWN) \
 	-D__CONIO_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -556,7 +556,7 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	# -D__MEMORY_MAPPED_GRAPHICS -D__ALT_PRINT \
 	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	# $(CROSS_LIB_SHARED_PATH)/sound/cc65/sid/sid_sounds.c \
 	# $(ASSETS_PATH)/cc65_udc_arcade.s \
 	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -569,7 +569,7 @@ c64: $(ASSETS_PATH)/cc65_udc_arcade.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-D__MEMORY_MAPPED_GRAPHICS -D__ALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -582,7 +582,7 @@ c64_double_buffer: $(ASSETS_PATH)/cc65_udc_arcade.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-D__MEMORY_MAPPED_GRAPHICS -D__DOUBLE_BUFFER -D__ALT_PRINT \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -595,7 +595,7 @@ c64_conio: $(ASSETS_PATH)/cc65_udc_arcade_conio.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-D__CONIO_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C64_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade_conio.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(FULL_FILES) \
@@ -650,7 +650,7 @@ endif
 	-D__NO_SCREEN_COLOR_INIT \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
-	$(CROSS_LIB_PATH)/sound/cc65/gamate/gamate_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/gamate/gamate_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
 ifdef USE_TOOLS
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
@@ -719,7 +719,7 @@ creativision: $(ASSETS_PATH)/8x8_chars.h
 	-D__VDP_MODE1_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CREATIVISION_SLOWDOWN) \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sound/cc65/creativision/creativision_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/creativision/creativision_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_color_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
@@ -803,7 +803,7 @@ pet_16k:
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
 	-D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS -D_XL_NO_UDG  \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/pet/pet_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 
 
@@ -837,7 +837,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	$(FULL_FILES) \
 	--code-name CODE2 \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -850,7 +850,7 @@ vic20_exp_8k_conio: $(ASSETS_PATH)/cc65_udc_arcade_v2.s
 	$(FULL_FILES) \
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(ASSETS_PATH)/cc65_udc_arcade_v2.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -868,7 +868,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s
 	$(ASSETS_PATH)/cc65_udc_vic20_27_tiles.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
@@ -882,7 +882,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_VIC20_SLOWDOWN)  \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -903,7 +903,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	# $(VIC20_UNEXPANDED_GAME_OPTS) \
 	# --config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	# $(FULL_FILES) \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	# $(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	# $(ASSETS_PATH)/cc65_udc_6chars.s \
@@ -924,7 +924,7 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(VIC20_UNEXPANDED_GAME_OPTS) \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
@@ -943,7 +943,7 @@ vic20_unexpanded2: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(VIC20_UNEXPANDED_GAME_OPTS) \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx_low_stack.cfg  \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
@@ -962,7 +962,7 @@ vic20_unexpanded_no_gfx:
 	-D__ALT_PRINT \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -1124,7 +1124,7 @@ c128_8502_80col: $(ASSETS_PATH)/8x8_chars.h
 	-D__CONIO_GRAPHICS -D__80COL_UDG -D_XL_NO_SMALL_LETTERS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_C128_8502_80COL_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
@@ -1322,7 +1322,7 @@ endif
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/XBIN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 ifdef USE_TOOLS
@@ -1421,7 +1421,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	 $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/gb/gb_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/gb/gb_sounds.c \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
@@ -1663,7 +1663,7 @@ msx_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1686,7 +1686,7 @@ msx2: msx2_color
 	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
 	# $(ASSETS_PATH)/z88dk_xchase.asm \
 	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	# $(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	# $(FULL_FILES)
 	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	# rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1701,7 +1701,7 @@ msx2_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1718,7 +1718,7 @@ msx2_mode7: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1734,7 +1734,7 @@ msx2_mode6: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1749,7 +1749,7 @@ msx2_mode7: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MSX_SLOWDOWN)*4 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(FULL_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -1826,7 +1826,7 @@ hectorhr: $(ASSETS_PATH)/z88dk_xchase.asm
 
 mtx: mtx512
 
-# $(CROSS_LIB_PATH)/sound/z88dk/psg/sn76489a_psg_sounds.c
+# $(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/sn76489a_psg_sounds.c
 # -D__PSG_SOUND
 mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
@@ -2114,7 +2114,7 @@ spectrum_128k_keyboard: $(ASSETS_PATH)/z88dk_xchase.asm
 	-lndos -create-app \
 	-D__CONIO_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
@@ -2721,7 +2721,7 @@ coco_mono: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 endif
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	-c $(CROSS_LIB_SHARED_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -2736,10 +2736,10 @@ endif
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
@@ -2788,7 +2788,7 @@ coco: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 endif
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	-c $(CROSS_LIB_SHARED_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -2803,10 +2803,10 @@ endif
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_COLOR_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/main.c
@@ -2847,7 +2847,7 @@ endif
 coco3: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2dsk/file2dsk$(COMPILEDEXT)
 	$(CMOC) \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	-c $(CROSS_LIB_SHARED_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s
@@ -2862,10 +2862,10 @@ coco3: $(ASSETS_PATH)/cmoc_udc_tiles_and_fonts.s $(TOOLS_PATH)/cmoc/coco/file2ds
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xbin.bin \
 	$(COCO3_COLOR_GFX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
@@ -2904,13 +2904,13 @@ mo5: $(ASSETS_PATH)/cmoc_udc_tiles.s
 endif
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
+	-c $(CROSS_LIB_SHARED_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	$(CMOC) \
 	$(MO5_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
@@ -2919,7 +2919,7 @@ endif
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(MO5_OPTS)  $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
@@ -2962,7 +2962,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_tiles.s
 endif
 	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c	
+	-c $(CROSS_LIB_SHARED_PATH)/sound/generic/dac_sounds.c	
 	$(CMOC) \
 	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -2974,10 +2974,10 @@ endif
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
 	$(TO7_OPTS)  $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	-c $(CROSS_LIB_SHARED_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_OPTS)  $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_udc_tiles.s	
@@ -3122,12 +3122,12 @@ COMX_COLOR_GRAPHICS_REDUCED_EXTRA_FILES ?= \
 
 COMX_EXTRA_FILES ?= \
 	$(COMX_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/rand/rand.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 COMX_COLOR_GRAPHICS_EXTRA_FILES ?= \
 	$(COMX_COLOR_GRAPHICS_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
 	$(COMX_EXTRA_FILES) 
@@ -3138,24 +3138,24 @@ COMX_COLOR_GRAPHICS_EXTRA_FILES_WTIH_END_SCREEN ?= \
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_SHARED_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 
 reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_COLOR_GRAPHICS_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	$(COMX_COLOR_GRAPHICS_EXTRA_FILES) $(CROSS_LIB_SHARED_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	$(CROSS_LIB_SHARED_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
 
 
 reduced_full_lcc1802_micro_combo.c: full_combo_rand.c
 	cat \
-	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand_lcc1802_devkit_include.c \
+	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_SHARED_PATH)/rand/rand_lcc1802_devkit_include.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 
 
@@ -3219,7 +3219,7 @@ MICRO_COLOR_REDUCED_EXTRA_FILES ?= \
 
 MICRO_COLOR_EXTRA_FILES ?= \
 	$(MICRO_COLOR_REDUCED_EXTRA_FILES) \
-	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/lcc1802/comx/comx_sounds.c
 
 MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
 	$(MICRO_COLOR_EXTRA_FILES) 
@@ -3451,9 +3451,9 @@ mc10:
 	-D__NO_INIT_GRAPHICS \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_MC10_SLOWDOWN) \
 	-D__DEFAULT_CLEAR_SCREEN -D__ALT_PRINT  \
-	$(CROSS_LIB_PATH)/sound/generic/bit_bang_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/generic/bit_bang_sounds.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(CROSS_LIB_SHARED_PATH)/rand/rand.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o xbin
 	rm xbin

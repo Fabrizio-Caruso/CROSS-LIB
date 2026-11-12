@@ -154,7 +154,7 @@ DEV_TOOLS_TEST = \
     [ \
         "xl tile ./assets/examples/single_tiles/tile_shape0.txt", \
         "xl string abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", \
-        "xl split games/shuriken/docs/16x12_multi_tile.txt", \
+        "xl split ../docs/shuriken/docs/16x12_multi_tile.txt", \
         "xl import ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
         "xl rip ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \
         "xl rotate ./assets/examples/tile_sets/asm/tile_8x6_shapeA.txt", \

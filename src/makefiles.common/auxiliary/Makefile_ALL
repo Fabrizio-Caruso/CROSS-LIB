@@ -5,17 +5,17 @@
 # Auxiliary targets
 
 # - Combine source files
-include makefiles.common/auxiliary/Makefile_combo
+include ../makefiles.common/auxiliary/Makefile_combo
 
 
 #####################################################################
 # Compilers variables
-include makefiles.common/auxiliary/Makefile_compilers
+include ../makefiles.common/auxiliary/Makefile_compilers
 
 
 #####################################################################
 # Common includes and targets
-include makefiles.common/auxiliary/Makefile_common
+include ../makefiles.common/auxiliary/Makefile_common
 
 
 #####################################################################
@@ -24,4 +24,4 @@ include makefiles.common/auxiliary/Makefile_assets
 
 
 # Tools
-include makefiles.common/auxiliary/Makefile_tools
+include ../makefiles.common/auxiliary/Makefile_tools

@@ -1,7 +1,7 @@
 #########################################################
 # (FAST) SIMPLE TESTS
 
-include ./makefiles.common/auxiliary/Makefile_compilers
+include ../makefiles.common/auxiliary/Makefile_compilers
 
 include ./games/chase/Makefile.chase
 

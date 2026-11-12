@@ -19,13 +19,13 @@ def clean_test(option_config):
 
 def clean_logs(option_config):
     GNU_MAKE = option_config.build_config.gnu_make
-    make_command = GNU_MAKE + " clean_logs GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+    make_command = GNU_MAKE + " clean_logs GNU_MAKE="  + GNU_MAKE + " -f ../makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
 
 def clean_output(option_config):
     GNU_MAKE = option_config.build_config.gnu_make
-    make_command = GNU_MAKE + " clean_output GNU_MAKE="  + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+    make_command = GNU_MAKE + " clean_output GNU_MAKE="  + GNU_MAKE + " -f ../makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
 
@@ -38,7 +38,7 @@ def clean(option_config, params):
 
     if len(params)>=2:
         if params[1]=="tools":
-            make_command = GNU_MAKE + " clean_tools GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+            make_command = GNU_MAKE + " clean_tools GNU_MAKE=" + GNU_MAKE + " -f ../makefiles.common/auxiliary/Makefile_tools"
 
             run_command(option_config, make_command)
             return
@@ -50,7 +50,7 @@ def clean(option_config, params):
             return
 
     if len(params)<2:
-        make_command = GNU_MAKE + " clean_generic -f makefiles.common/auxiliary/Makefile_common"
+        make_command = GNU_MAKE + " clean_generic -f ../makefiles.common/auxiliary/Makefile_common"
 
         if verbose:
             print("Delete all built binaries and non-project-specific temporary files")

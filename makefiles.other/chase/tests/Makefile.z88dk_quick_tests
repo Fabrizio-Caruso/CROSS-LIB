@@ -17,8 +17,6 @@ FAST_SCCZ80_TEST_OPTS ?= -O0 $(FAST_TEST_OPTS) -lndos
 
 FAST_ZSDCC_TEST_OPTS ?= -SO0 $(FAST_TEST_OPTS) -lndos
 
-# include makefiles.common/auxiliary/Makefile_ALL
-
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/split_files/move_player.c \

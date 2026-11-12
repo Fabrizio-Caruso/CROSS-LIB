@@ -23,9 +23,9 @@
     #define ORIC_INK_COLOR 7
 #endif
 
-void init_colors(void)
-{
-	uint8_t i;
+// void init_colors(void)
+// {
+	// uint8_t i;
 	
 	// Initialize colors 	
 	// for(i=0;i<28;++i)
@@ -34,13 +34,13 @@ void init_colors(void)
 		// POKE(0xBB80+i*40,ORIC_BACKGROUND_COLOR);
 		// POKE(0xBB80+i*40,ORIC_INK_COLOR); 
 	// }
-}
+// }
 
 void _XL_INIT_GRAPHICS(void)
 {
     REDEFINE_AT(((uint8_t *)UDG_BASE_ADDR));
     clrscr();
 
-    init_colors();
+    // init_colors();
     
 }

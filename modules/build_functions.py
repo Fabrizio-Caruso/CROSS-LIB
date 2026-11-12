@@ -333,7 +333,7 @@ def _tools(option_config, tools_string="tools"):
     
     make_command = \
         GNU_MAKE + " -j " + compilation_threads + " " + tools_string + " TOOL_CC=" + tool_compiler + \
-        " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+        " GNU_MAKE=" + GNU_MAKE + " -f ../makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
 def tools(option_config):
@@ -348,7 +348,7 @@ def partial_tools(option_config, tools_to_build):
     tool_compiler = option_config.build_config.tool_compiler
     make_command = \
         GNU_MAKE + " " + tools_to_build + " -j " + BUILD_TOOLS_THREADS + " TOOL_CC=" + tool_compiler + \
-        " GNU_MAKE=" + GNU_MAKE + " -f makefiles.common/auxiliary/Makefile_tools"
+        " GNU_MAKE=" + GNU_MAKE + " -f ../makefiles.common/auxiliary/Makefile_tools"
     run_command(option_config, make_command)
 
 # Build a project (for a target or multiple targets)
@@ -612,7 +612,7 @@ def reset(option_config, params):
 
     if len(params)<2:
         make_command = GNU_MAKE + \
-                       " clean_generic_no_built_in -f makefiles.common/auxiliary/Makefile_common"
+                       " clean_generic_no_built_in -f ../makefiles.common/auxiliary/Makefile_common"
         if verbose:
             print("Delete all non-project-specific temporary files")
         run_command(option_config, make_command)

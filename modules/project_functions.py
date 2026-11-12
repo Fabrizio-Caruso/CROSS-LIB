@@ -147,7 +147,7 @@ def create(option_config, params):
             print("Creating project dir...")
         os.makedirs(parent_and_game_dir)
 
-    source_path = "./template_projects/"+project_type+"_code.template"
+    source_path = "../template_projects/"+project_type+"_code.template"
     if verbose:
         print("source_path: " + source_path)
     dest_path = parent_and_game_dir
@@ -193,7 +193,7 @@ def create(option_config, params):
     #overrite the input file with the resulting data
     fin.write(data)
 
-    templated_makefile_path = "./template_projects"
+    templated_makefile_path = "../template_projects"
 
     shutil.copy(templated_makefile_path+"/"+"Makefile_game.template", \
                 "./"+dest_path+"/Makefile."+game_dir)

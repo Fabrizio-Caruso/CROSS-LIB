@@ -1000,11 +1000,11 @@ def _test_targets(option_config, params):
                            " GNU_MAKE=" + GNU_MAKE + " _NATIVE_CC="+ native_compiler + " " + \
                            " USE_TOOLS=" + str(_use_tools) + " TOOL_CC=" + _tool_compiler + " " + \
                            all_compilers_opts(option_config, "","") + \
-                           " -f makefiles.other/chase/tests/Makefile.tests"
+                           " -f ../makefiles.other/chase/tests/Makefile.tests"
             run_command(option_config, make_command)
     elif params[1]=="z88dk_alt":
         make_command = GNU_MAKE + parallel + " GNU_MAKE=" + GNU_MAKE + \
-                       " z88dk_quick_test -f makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
+                       " z88dk_quick_test -f ../makefiles.other/chase/tests/Makefile.z88dk_quick_tests"
         run_command(option_config, make_command)
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")

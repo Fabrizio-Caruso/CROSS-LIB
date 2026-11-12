@@ -155,3 +155,7 @@ logs/log_*.log
 **/*.out
 **/*.log
 **/__pycache__/*
+logs/*
+src/mapfile.txt
+src_hd/mapfile.txt
+

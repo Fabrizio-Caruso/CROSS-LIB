@@ -3344,7 +3344,7 @@ _pecom: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 pecom: \
     _pecom \
@@ -3365,7 +3365,7 @@ _tmc600_37k: full_lcc1802_combo.c
 	-D_XL_NO_UDG \
 	$(LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
 
 tmc600: \
     _tmc600 \
@@ -3386,7 +3386,7 @@ _cidelsa_draco_32k: reduced_full_lcc1802_color_combo.c
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_CIDELSA_SLOWDOWN) \
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 cidelsa: \
     _cidelsa \
@@ -3402,6 +3402,7 @@ pecom_targets: pecom
 tmc600_targets: tmc600_37k
 
 cidelsa_targets: $(MAKE) cidelsa_draco_32k
+
 
 
 

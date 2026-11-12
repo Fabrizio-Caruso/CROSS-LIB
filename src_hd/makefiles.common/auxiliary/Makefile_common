@@ -120,19 +120,21 @@ clean_chase_temp:
 
 clean_lib_obj:
 	find . -type f -name '*.o' -delete
+	find ../cross_lib -type f -name '*.o' -delete
 
 clean_i_files:
 	find . -type f -name '*.i' -delete
-    
+	find ../cross_lib -type f -name '*.i' -delete
+
 clean_lis:
 	find . -type f -name '*.lis' -delete
-
+	find ../cross_lib -type f -name '*.lis' -delete
 
 clean_obj: \
 	clean_chase_obj \
 	clean_chase_temp \
 	clean_lib_obj \
-    clean_lis
+	clean_lis
 
 clean_build:
 	rm -rf $(BUILD_PATH)/*

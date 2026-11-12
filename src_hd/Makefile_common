@@ -69,6 +69,7 @@ all: \
     z88dk_targets
 	
 C1541 = ../tools/generic/c1541.exe
+LCC1802_HEX=hex
 else
 all: \
     gcc_targets \
@@ -77,6 +78,7 @@ all: \
     z88dk_targets
 	
 C1541 = c1541
+LCC1802_HEX=out
 endif
 
 gcc_targets: \
@@ -3206,7 +3208,7 @@ _comx_buffered: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 comx_buffered: \
     _comx_buffered \
@@ -3220,7 +3222,7 @@ _comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 comx: \
     _comx \
@@ -3238,7 +3240,7 @@ _comx_int: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 comx_int: \
     _comx_int \
@@ -3252,12 +3254,11 @@ _comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
 	$(LCC1802_COLOR_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.$(LCC1802_HEX) $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 comx_ntsc: \
     _comx_ntsc \
     clean_combo_files
-
 # VIP 
 _vip: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/4x4_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PIXIE_4K_OPTS)  \

@@ -38,6 +38,7 @@ build/*
 src/projects/*
 src_hd/projects/*
 **generated_assets
+**/generated_assets/*
 **__pycache__src/assets/generated_assets/*
 **/generated_assets/*
 src/games/shoot/main.c

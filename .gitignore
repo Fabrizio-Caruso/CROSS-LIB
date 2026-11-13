@@ -34,13 +34,13 @@ src_hd/cfg/**
 *.img
 *.tap
 *.prg
+**/*.pyc
 build/*
 src/projects/*
 src_hd/projects/*
-**generated_assets
+**/generated_assets
 **/generated_assets/*
 **__pycache__src/assets/generated_assets/*
-**/generated_assets/*
 src/games/shoot/main.c
 src/games/chase/main.c
 src/games/snake/main.c

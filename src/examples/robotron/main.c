@@ -32,10 +32,15 @@ uint8_t fire_tick;
 
 static void draw_player(uint8_t x, uint8_t y, uint8_t dir)
 {
-    uint8_t col,t0,t1;
+    uint8_t t0,t1;
+    
+    #if !defined(_XL_NO_COLOR)
+    uint8_t col;
     col = invincible_timer ? _XL_YELLOW : _XL_CYAN;
+    #endif
     if (dir==0){t0=_TILE_10; t1=_TILE_11;} else {t0=_TILE_12; t1=_TILE_13;}
-    _XL_DRAW(x,y,t0,col); _XL_DRAW(x,y+1,t1,col);
+    _XL_DRAW(x,y,t0,col);
+    _XL_DRAW(x,y+1,t1,col);
 }
 static void del_player(uint8_t x,uint8_t y){_XL_DELETE(x,y);_XL_DELETE(x,y+1);}
 static void draw_enemy(uint8_t x,uint8_t y,uint8_t dir)

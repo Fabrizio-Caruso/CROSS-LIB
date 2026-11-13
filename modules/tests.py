@@ -983,7 +983,7 @@ def _test_targets(option_config, params):
 
     game_dir = "chase"
     project_type = "game"
-    if is_project_split(game_dir):
+    if is_project_split(option_config, game_dir):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
@@ -1008,7 +1008,7 @@ def _test_targets(option_config, params):
         run_command(option_config, make_command)
     else:
         printc(option_config, bcolors.FAIL, "Parameter not recognized\n")
-        if is_project_split(game_dir):
+        if is_project_split(option_config, game_dir):
             if verbose:
                 printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)

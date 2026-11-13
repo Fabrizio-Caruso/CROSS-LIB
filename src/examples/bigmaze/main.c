@@ -302,7 +302,10 @@ static void draw_all_enemies(void)
 static void draw_item(uint8_t idx)
 {
     uint8_t tile;
+    
+    #if !defined(_XL_NO_COLOR)
     uint8_t col;
+    #endif
     if (idx == 0) 
     { 
         tile = _TILE_17;

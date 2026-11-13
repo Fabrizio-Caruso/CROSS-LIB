@@ -103,8 +103,8 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
         
         for project_name in projects:
 
-            if is_project_split(project_name):
-                project_type = project_category(project_name)
+            if is_project_split(option_config, project_name):
+                project_type = project_category(option_config, project_name)
                 create_main(project_name,project_type)
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
@@ -122,13 +122,13 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
         pool.close()
         pool.join()
         for project_name in projects:
-            if is_project_split(project_name):
+            if is_project_split(option_config, project_name):
                 delete_main(option_config, project_name,project_type)
     else:
         for project_name in projects:
 
-            if is_project_split(project_name):
-                project_type = project_category(project_name)
+            if is_project_split(option_config, project_name):
+                project_type = project_category(option_config, project_name)
                 create_main(project_name,project_type)
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + " XSIZE=" + xsize +  \
@@ -139,7 +139,7 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
             run_command(option_config, make_command)
-            if is_project_split(project_name):
+            if is_project_split(option_config, project_name):
                 delete_main(option_config, project_name,project_type)
 
 
@@ -205,8 +205,8 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
                 print("project name: " + project_name)
             if reset_flag:
                 reset(option_config, ["",project_name])
-            if is_project_split(project_name):
-                project_type = project_category(project_name)
+            if is_project_split(option_config, project_name):
+                project_type = project_category(option_config, project_name)
                 create_main(project_name,project_type)
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + \
@@ -221,7 +221,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
         pool.join()
 
         for project_name in projects:
-            if is_project_split(project_name):
+            if is_project_split(option_config, project_name):
                 delete_main(option_config, project_name,project_type)
     else:
         for project_name in projects:
@@ -229,8 +229,8 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
                 reset(option_config, ["",project_name])
             if verbose:
                 print("project name: " + project_name)
-            if is_project_split(project_name):
-                project_type = project_category(project_name)
+            if is_project_split(option_config, project_name):
+                project_type = project_category(option_config, project_name)
                 create_main(project_name,project_type)
             make_command = \
                 GNU_MAKE + " " + target + use_tools_str + \
@@ -241,7 +241,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
                     " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
             run_command(option_config, make_command)
-            if is_project_split(project_name):
+            if is_project_split(option_config, project_name):
                 delete_main(option_config, project_name,project_type)
 
 
@@ -256,7 +256,7 @@ def size(option_config, params, debug = False):
     else:
         game_dir = params[1]
 
-    project_type = project_category(game_dir)
+    project_type = project_category(option_config, game_dir)
 
     parent_dir = project_type + "s"
 
@@ -279,7 +279,7 @@ def size(option_config, params, debug = False):
             return
         native_compiler = option_config.build_config.native_compiler
         tool_compiler   = option_config.build_config.tool_compiler
-        if is_project_split(game_dir):
+        if is_project_split(option_config, game_dir):
             if verbose:
                 printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
             create_main(game_dir, project_type)
@@ -292,7 +292,7 @@ def size(option_config, params, debug = False):
                 " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
         run_command(option_config, make_command)
 
-        if is_project_split(game_dir):
+        if is_project_split(option_config, game_dir):
             if verbose:
                 printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)
@@ -377,8 +377,9 @@ def build(option_config, params, reset_flag = False):
     else:
         files_before = len(files_in_path("../build"))-1
 
-        project_type = project_category(game_dir)
-        parent_dir = project_type + "s"
+        project_type = project_category(option_config, game_dir)
+
+        parent_dir = os.getcwd() + "/" + project_type + "s"
 
         if len(params)<3:
             if option_config.build_config.default_target is not None:
@@ -490,7 +491,7 @@ def build(option_config, params, reset_flag = False):
             if target=="stdio" and option_config.terminal_config.test:
                 option_config.build_config.native_compiler_opts+= " -D__EXIT_TO_OS"
                 
-            if is_project_split(game_dir):
+            if is_project_split(option_config, game_dir):
                 if verbose:
                     printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
                 create_main(game_dir, project_type)
@@ -506,7 +507,7 @@ def build(option_config, params, reset_flag = False):
 
             run_command(option_config, make_command)
 
-            if is_project_split(game_dir):
+            if is_project_split(option_config, game_dir):
                 if verbose:
                     printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
                 delete_main(option_config, game_dir, project_type)
@@ -538,7 +539,7 @@ def slow(option_config, params):
     verbose = option_config.terminal_config.verbose
     game_dir = params[1]
 
-    project_type = project_category(game_dir)
+    project_type = project_category(option_config, game_dir)
     parent_dir = project_type + "s"
 
     if len(params)>=4:
@@ -563,7 +564,7 @@ def slow(option_config, params):
         print("Project not found!")
         return
 
-    if is_project_split(game_dir):
+    if is_project_split(option_config, game_dir):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Create main.c from split source files\n")
         create_main(game_dir, project_type)
@@ -576,7 +577,7 @@ def slow(option_config, params):
 
     run_command(option_config, make_command)
 
-    if is_project_split(game_dir):
+    if is_project_split(option_config, game_dir):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Delete main.c because of split source files\n")
         delete_main(option_config, game_dir, project_type)
@@ -620,7 +621,7 @@ def reset(option_config, params):
 
     game_dir = params[1]
 
-    project_type = project_category(game_dir)
+    project_type = project_category(option_config, game_dir)
 
     parent_dir = project_type + "s"
 

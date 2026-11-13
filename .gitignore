@@ -36,6 +36,7 @@ src_hd/cfg/**
 *.prg
 build/*
 src/projects/*
+src_hd/projects/*
 **generated_assets
 **__pycache__src/assets/generated_assets/*
 **/generated_assets/*

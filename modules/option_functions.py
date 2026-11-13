@@ -237,6 +237,13 @@ def config(option_config):
     compilation_threads = option_config.build_config.compilation_threads
 
     printc(option_config, bcolors.BOLD,"[build]\n")
+    
+    if hd:
+        print("custom tiles:            91")
+        print("total tiles:             128")
+    else:
+        print("custom tiles:            27")
+        print("total tiles:             64")
     if not compilation_threads_string.isnumeric():
         print("compilation_threads:     " + str(compilation_threads_string) + " (" + compilation_threads + ")" )
 

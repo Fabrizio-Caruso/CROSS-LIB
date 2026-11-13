@@ -1,16 +1,50 @@
 import os
 import shutil
+from pathlib import Path
 
-from file_functions import convert_makefile
-from init import game_projects, example_projects
+from file_functions import convert_makefile, dirs_in_path
+# from init import game_projects, example_projects
 from strings import only_upper_digits_and_space, no_space
 from commands import COMMANDS_LIST
 from input_functions import are_you_sure
 
 RENAME_ONLY_PROJECT = False
 
+# games/ and examples/ are side-specific (src/ or src_hd/). xl is launched
+# from its own side directory, so CWD is the side root. Unit tests are shared
+# at the repo root (unit_tests/ and assets/unit_tests/); they import this
+# module and use relative sys.path entries resolved against their own
+# directory. logs/ is shared at the repo root, which is the parent of the
+# (shared) modules/ directory -- located independently of CWD via __file__.
+def _side_root():
+    d = Path.cwd()
+    for _ in range(3):
+        if (d / 'games').is_dir():
+            return d
+        d = d.parent
+    return Path.cwd()
+
+side = _side_root()
+
+def cross_lib_type(option_config):
+    if option_config.build_config.hd:
+        return "src_hd"
+    else:
+        return "src"
+
+def project_category_dirs(option_config, category):
+    xl_type_dir = cross_lib_type(option_config)
+    project_dir = "./" + xl_type_dir + "/" + category
+    return dirs_in_path(str(side / project_dir))
+
+# game_projects = dirs_in_path(str(side / "./src_hd/games"))
+# example_projects = dirs_in_path(str(side / "./src_hd/examples"))
+
+
 # It computes the type of project
-def project_category(game_dir):
+def project_category(option_config, game_dir):
+    game_projects = project_category_dirs(option_config, "games")
+    example_projects = project_category_dirs(option_config, "examples")
     if(game_dir in example_projects):
         return "example"
     elif game_dir in game_projects:
@@ -32,7 +66,7 @@ def rename(option_config, params):
 
     target_game_dir = params[2]
 
-    source_project_type = project_category(source_game_dir)
+    source_project_type = project_category(option_config, source_game_dir)
 
     if source_project_type != "project" and RENAME_ONLY_PROJECT:
         print("This is a built-in project.")
@@ -63,7 +97,7 @@ def clone(option_config, params):
 
     target_game_dir = params[2]
 
-    source_project_type = project_category(source_game_dir)
+    source_project_type = project_category(option_config, source_game_dir)
     if verbose:
         print("source project category: " + source_project_type)
     source_parent_dir = source_project_type + "s"
@@ -114,7 +148,8 @@ def create(option_config, params):
         only_upper_digits_and_space(game_dir.upper().replace("-"," ").replace("_"," "))
 
     game_dir = no_space(game_dir)
-
+    game_projects = project_category_dirs(option_config, "games")
+    example_projects = project_category_dirs(option_config, "examples")
     if game_dir in example_projects or game_dir in game_projects or game_dir in COMMANDS_LIST:
         print("invalid name!")
         return
@@ -233,6 +268,8 @@ def delete(option_config, params):
         game_dir="helloworld"
     else:
         candidate_name = params[1]
+        game_projects = project_category_dirs(option_config, "games")
+        example_projects = project_category_dirs(option_config, "examples")
         if candidate_name in example_projects or candidate_name in game_projects or \
             candidate_name in COMMANDS_LIST:
             print("invalid name!")

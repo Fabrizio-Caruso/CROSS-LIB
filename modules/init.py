@@ -5,7 +5,7 @@ from os import walk
 from pathlib import Path
 
 import sys
-
+import os
 
 from file_functions import dirs_in_path
 from LoggerSingleton import LoggerSingleton
@@ -14,21 +14,7 @@ from LoggerSingleton import LoggerSingleton
 platform = sys.platform
 
 
-# games/ and examples/ are side-specific (src/ or src_hd/). xl is launched
-# from its own side directory, so CWD is the side root. Unit tests are shared
-# at the repo root (unit_tests/ and assets/unit_tests/); they import this
-# module and use relative sys.path entries resolved against their own
-# directory. logs/ is shared at the repo root, which is the parent of the
-# (shared) modules/ directory -- located independently of CWD via __file__.
-def _side_root():
-    d = Path.cwd()
-    for _ in range(3):
-        if (d / 'games').is_dir():
-            return d
-        d = d.parent
-    return Path.cwd()
 
-side = _side_root()
 repo_root = Path(__file__).resolve().parent.parent
 
 
@@ -44,10 +30,15 @@ else:
 python_version = sys.version_info[0]
 python_subversion = sys.version_info[1]
 
-game_projects = dirs_in_path(str(side / "games"))
-example_projects = dirs_in_path(str(side / "examples"))
 
-    
+
+
+
+# game_projects = dirs_in_path(os.getcwd() + "/games")
+# example_projects = dirs_in_path(os.getcwd() + "/examples")
+
+# print("os.getcwd() " + os.getcwd())
+# print("games_projects: " + str(game_projects))
 
 class bcolors:
     HEADER = '\033[95m'

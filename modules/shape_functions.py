@@ -66,9 +66,9 @@ def read_shape(file_name):
     return trimmed_lines
 
 # It returns the path to the shape directory for a given project and dimension
-def path_to_shapes(project, xsize, ysize):
+def path_to_shapes(option_config, project, xsize, ysize):
 
-    project_cat = project_category(project)
+    project_cat = project_category(option_config, project)
     # print(project_cat)
     return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
 
@@ -79,7 +79,7 @@ def path_to_shapes(project, xsize, ysize):
 def write_shapes(option_config, project, shapes, xsize,ysize):
     verbose = option_config.terminal_config.verbose
     replace_shapes = option_config.extend_config.replace_shapes
-    path = path_to_shapes(project,xsize,ysize)
+    path = path_to_shapes(option_config, project,xsize,ysize)
     if not replace_shapes:
         path = path.replace("shapes","_shapes")
     if verbose:
@@ -124,7 +124,7 @@ def extend(option_config, params):
     extend_algorithm = option_config.extend_config.extend_algorithm
     project = params[1]
 
-    path_to_8x8_files = path_to_shapes(project,8,8)
+    path_to_8x8_files = path_to_shapes(option_config, project,8,8)
     if verbose:
         print("Path to shape files: " + path_to_8x8_files)
         print("")
@@ -199,7 +199,7 @@ def extend(option_config, params):
 
 # Show tile shapes of a given project
 def show(option_config, params):
-    parent_dir = project_category(params[1])+"s"
+    parent_dir = project_category(option_config, params[1])+"s"
 
     if len(params)<3:
         xsize = "8"
@@ -240,7 +240,6 @@ def print_shape_from_file(option_config, parent_dir, project_name, xsize, ysize,
     if not os.path.exists(dest):
         dest = "./" + parent_dir + "/" + project_name + "/tiles/" + size_dir + "/tile_" + format(int(index),"03d") + ".txt"
 
-    print("**************************")
     if option_config.terminal_config.verbose:
         print("Decoding file tile: " + dest)
         print("")

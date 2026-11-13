@@ -62,7 +62,7 @@ def tiles(option_config, params):
     verbose = option_config.terminal_config.verbose
     project_name = params[1]
 
-    project_cat = project_category(project_name)
+    project_cat = project_category(option_config, project_name)
 
     if len(params)>3:   # xsize, ysize parameters
         xsize_str,ysize_str = params[2:]
@@ -117,7 +117,7 @@ def make_assets_from_tiles(option_config, params):
     GNU_MAKE = option_config.build_config.gnu_make
     game_dir = params[1]
 
-    project_type = project_category(game_dir)
+    project_type = project_category(option_config, game_dir)
     parent_dir = project_type + "s"
 
     run_command(option_config, GNU_MAKE+" GAME_NAME=" + game_dir + \

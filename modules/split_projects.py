@@ -20,8 +20,8 @@ def delete_main(option_config, game_dir, project_type):
     else:
         print("Keeping merged main.c")
 
-def is_project_split(game_dir):
-    project_type = project_category(game_dir)
+def is_project_split(option_config, game_dir):
+    project_type = project_category(option_config, game_dir)
     parent_dir_path = "./" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
     return os.path.isdir(project_dir_path+"split_files")

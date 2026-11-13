@@ -11,8 +11,9 @@ import sys
 import datetime
 import os
 
+
 #pylint: disable=wrong-import-position
-sys.path.append(".."); sys.path.append("../modules")
+sys.path.append("./modules")
 
 from modules.LoggerSingleton import LoggerSingleton
 from modules.params import get_params
@@ -26,8 +27,11 @@ from modules.build_functions import build
 from modules.help_functions import manual
 #pylint: enable=wrong-import-position
 
-logger = LoggerSingleton.initLogger('xl', '../logs')
+
+
+logger = LoggerSingleton.initLogger('xl', './logs')
 logger.info('Started')
+
 
 
 def get_gnu_make(config):
@@ -43,6 +47,12 @@ def get_gnu_make(config):
 
 if __name__ == "__main__":
     option_config = get_config()
+    if option_config.build_config.hd:
+        os.chdir("./src_hd")
+    else:
+        os.chdir("./src")
+    # from modules.init import handle_parallelism, show_python_version
+        
     GNU_MAKE = get_gnu_make(option_config)
     handle_parallelism(option_config)
     show_python_version(option_config)

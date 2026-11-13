@@ -346,7 +346,7 @@ def store_tiles(option_config, project, tiles, xsize, ysize):
 
     print("project          : " + project)
 
-    category = project_category(project)
+    category = project_category(option_config, project)
 
     main_path = "./" + category + "s/" + project + "/tiles/"+str(xsize)+"x"+str(ysize)+"/tile"
     print("main_path: " + main_path)
@@ -367,7 +367,7 @@ def store_tile(option_config, project, tile, xsize, ysize, index):
     if verbose:
         print("directory: " + size_dir)
 
-    category = project_category(project)
+    category = project_category(option_config, project)
 
     if verbose:
         print("project category : " + category)

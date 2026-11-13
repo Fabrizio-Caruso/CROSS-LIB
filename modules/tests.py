@@ -2,8 +2,8 @@ import sys
 import os
 
 
-from init import *
-from init import _is_windows
+from init_functions import *
+from init_functions import _is_windows
 from import_from_source import printc
 from file_functions import files_in_path
 from run import run_command
@@ -375,7 +375,7 @@ def test_compilers(option_config):
 
 def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
     import subprocess
-    from init import _is_windows
+    from init_functions import _is_windows
     # CWD for the test subprocess is the test directory (path).
     cwd = path.rstrip("/")
     # Log path is resolved relative to the repo root (absolute), so the

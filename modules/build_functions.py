@@ -16,7 +16,7 @@ from modules.strings import *
 from modules.import_from_source import *
 from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
-from modules.init import *
+from modules.init_functions import *
 from modules.default_values import insert_default_sizes
 from modules.params import \
     handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params

@@ -3,7 +3,6 @@ import shutil
 from pathlib import Path
 
 from file_functions import convert_makefile, dirs_in_path
-# from init import game_projects, example_projects
 from strings import only_upper_digits_and_space, no_space
 from commands import COMMANDS_LIST
 from input_functions import are_you_sure

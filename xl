@@ -20,7 +20,7 @@ from modules.params import get_params
 from modules.commands import COMMANDS_LIST
 from modules.tests import test_make
 from modules.option_functions import get_config, handle_make
-from modules.init import handle_parallelism, show_python_version
+from modules.init_functions import handle_parallelism, show_python_version
 from modules.execute import execute_command
 from modules.file_functions import list_of_projects
 from modules.build_functions import build

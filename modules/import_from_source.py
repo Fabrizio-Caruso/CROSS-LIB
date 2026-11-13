@@ -6,7 +6,7 @@ import os
 from print_functions import *
 from project_functions import project_category
 from shape_functions import read_shape, compute_shape, compute_rotated_shape
-from init import NUMBER_OF_TILES
+from init_functions import NUMBER_OF_TILES
 
 
 

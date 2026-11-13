@@ -1,6 +1,6 @@
 
 
-from init import *
+from init_functions import *
 from collections import OrderedDict
 from import_from_source import printc, bcolors
 from commands import *

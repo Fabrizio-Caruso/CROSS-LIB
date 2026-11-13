@@ -2,7 +2,7 @@ import os
 from print_functions import printc, bcolors
 from project_functions import project_category
 from file_functions import files_in_path
-from modules.init import *
+from modules.init_functions import *
 from run import run_command
 
 def clean_test(option_config):

@@ -3,7 +3,7 @@ from import_from_source import printc, bcolors
 from LoggerSingleton import LoggerSingleton
 from default_values import insert_default_sizes
 from target_defs import *
-from init import NATIVE_EXTENSION, _is_windows
+from init_functions import NATIVE_EXTENSION, _is_windows
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"

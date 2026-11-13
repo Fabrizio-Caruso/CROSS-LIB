@@ -4,7 +4,7 @@ import sys
 from project_functions import project_category
 from file_functions import files_in_path
 from print_functions import display_shape, print_shape
-from init import NUMBER_OF_TILES
+from init_functions import NUMBER_OF_TILES
 # from import_from_source import import_split_tiles
 
 

@@ -6,7 +6,7 @@ import os
 
 from print_functions import printc, bcolors
 from LoggerSingleton import LoggerSingleton
-from init import *
+from init_functions import *
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
 

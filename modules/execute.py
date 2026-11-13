@@ -23,7 +23,7 @@ from modules.strings import *
 from modules.import_from_source import *
 from modules.tiles import *
 from modules.LoggerSingleton import LoggerSingleton
-from modules.init import *
+from modules.init_functions import *
 from modules.params import handle_two_letter_params, full_params, COMMANDS_LIST, get_size_params, get_params
 from modules.help_functions import help_command, manual
 from modules.file_functions import files, logs, convert_makefile, files_in_path, dirs_in_path, built_files_in_path, list_of_projects, list_projects

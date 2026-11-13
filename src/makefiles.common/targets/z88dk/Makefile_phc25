@@ -11,7 +11,7 @@ phc25_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
@@ -26,7 +26,7 @@ phc25: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
@@ -40,7 +40,7 @@ phc25_no_gfx:
 	-D_XL_NO_JOYSTICK -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
@@ -55,7 +55,7 @@ map1010_mono: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
@@ -70,7 +70,7 @@ map1010: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 
@@ -84,7 +84,7 @@ map1010_no_gfx:
 	-D_XL_NO_JOYSTICK -D__NO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PHC25_SLOWDOWN) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-o$(BUILD_PATH)/X$(GAME_NAME)_$@.phc -create-app 
 
 

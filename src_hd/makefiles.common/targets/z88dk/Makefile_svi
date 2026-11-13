@@ -35,7 +35,7 @@ svi328: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_JOYSTICK \
 	-pragma-define:ansicolumns=32 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
@@ -54,7 +54,7 @@ svi318: $(ASSETS_PATH)/z88dk_xchase.asm
 	-D_XL_NO_JOYSTICK \
 	-pragma-define:ansicolumns=32 \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@ \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)

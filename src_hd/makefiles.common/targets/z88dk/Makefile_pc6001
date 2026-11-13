@@ -8,7 +8,7 @@ pc6001_16k:
 	-D__ALT_SLEEP \
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS -D_XL_NO_JOYSTICK \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg  \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_LIGHT_pc6001.wav
@@ -29,7 +29,7 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-pragma-redirect:CRT_FONT=_font_8x8_zx_system \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 	mv $(BUILD_PATH)/X$(GAME_NAME)_$@.cas $(BUILD_PATH)/X$(GAME_NAME)_$@.cp6

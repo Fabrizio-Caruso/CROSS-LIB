@@ -32,7 +32,7 @@ altair8800_buffered:
 	# -D_XL_SLOW_DOWN_FACTOR=$(_COMMON_SLOWDOWN_FACTOR)*$(_PET_SLOWDOWN) \
 	# -D__NO_INIT_GRAPHICS -D__CONIO_GRAPHICS -D_XL_NO_UDG  \
 	# $(FULL_FILES) \
-	# $(CROSS_LIB_PATH)/sound/cc65/pet/pet_sounds.c \
+	# $(CROSS_LIB_SHARED_PATH)/sound/cc65/pet/pet_sounds.c \
 	# -o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
 
 # altair8800:

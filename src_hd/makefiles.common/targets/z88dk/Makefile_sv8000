@@ -29,7 +29,7 @@ sv8000_32k_no_gfx:
 	-D__CONIO_GRAPHICS -D__NO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -48,7 +48,7 @@ sv8000_32k_mode0:
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
@@ -69,7 +69,7 @@ sv8000_32k_mode1: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin

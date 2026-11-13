@@ -13,7 +13,7 @@ endif
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)XXX_cpc.prg \
 	-D__CPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
 ifdef USE_TOOLS
@@ -52,7 +52,7 @@ endif
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o xbin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	mv xbin $(BUILD_PATH)/
@@ -89,7 +89,7 @@ endif
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o xbin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	mv xbin $(BUILD_PATH)/

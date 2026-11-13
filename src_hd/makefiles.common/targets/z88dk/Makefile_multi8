@@ -15,7 +15,7 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-pragma-redirect:CRT_FONT=_font_8x8_zx_system \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o $@
 	rm $@
 	mv $@.cas $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
@@ -34,7 +34,7 @@ multi8_64k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
 	-pragma-redirect:CRT_FONT=_font_8x8_zx_system \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
+	$(CROSS_LIB_SHARED_PATH)/sound/z88dk/psg/ay-3-8910_psg_sounds.c \
 	-create-app -o $@
 	rm $@
 	mv $@.cas $(BUILD_PATH)/X$(GAME_NAME)_$@.cas

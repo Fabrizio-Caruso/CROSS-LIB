@@ -1013,7 +1013,7 @@ def _test_targets(option_config, params):
                 printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
             delete_main(option_config, game_dir, project_type)
         sys.exit(-1)
-    if is_project_split(game_dir):
+    if is_project_split(option_config, game_dir):
         if verbose:
             printc(option_config, bcolors.OKBLUE,"Delete main.c (because of split source files)\n")
         delete_main(option_config, game_dir, project_type)

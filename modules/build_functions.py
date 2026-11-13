@@ -114,9 +114,6 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
                 " TOOL_CC=" + tool_compiler + \
                 " -f " + mypath+"/"+project_name+"/Makefile."+project_name
 
-            # run_command(option_config, make_command)
-            # if is_project_split(project_name):
-                # delete_main(option_config, project_name,project_type)
             pool.apply_async(run_command, [option_config, make_command])
 
         pool.close()

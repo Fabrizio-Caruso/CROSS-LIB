@@ -35,6 +35,7 @@ src_hd/cfg/**
 *.tap
 *.prg
 **/*.pyc
+./logs/output.txt
 build/*
 src/projects/*
 src_hd/projects/*

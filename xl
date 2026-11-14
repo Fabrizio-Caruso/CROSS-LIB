@@ -13,7 +13,8 @@ import os
 
 
 #pylint: disable=wrong-import-position
-sys.path.append("./modules")
+# sys.path.append("./modules")
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "modules"))
 
 from modules.LoggerSingleton import LoggerSingleton
 from modules.params import get_params

@@ -18,9 +18,6 @@ platform = sys.platform
 repo_root = Path(__file__).resolve().parent.parent
 
 
-NUMBER_OF_TILES = 27
-
-
 if(platform in ["cygwin", "msys"]):
     NATIVE_EXTENSION="exe"
 else:
@@ -31,7 +28,11 @@ python_version = sys.version_info[0]
 python_subversion = sys.version_info[1]
 
 
-
+def get_number_of_tiles(option_config):
+    if option_config.build_config.hd:
+        return 91, 128
+    else:
+        return 27,  64
 
 
 # game_projects = dirs_in_path(os.getcwd() + "/games")

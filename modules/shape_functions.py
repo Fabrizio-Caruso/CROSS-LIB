@@ -4,8 +4,7 @@ import sys
 from project_functions import project_category
 from file_functions import files_in_path
 from print_functions import display_shape, print_shape
-from init_functions import NUMBER_OF_TILES
-# from import_from_source import import_split_tiles
+from init_functions import get_number_of_tiles
 
 
 # General strategies:
@@ -226,6 +225,7 @@ def show(option_config, params):
         print_shape_from_file(option_config, parent_dir, params[1], xsize, ysize, index)
 
     else:
+        NUMBER_OF_TILES, _ = get_number_of_tiles(option_config)
         for i in range(NUMBER_OF_TILES):
             if not option_config.terminal_config.test:
                 print(i)

@@ -6,7 +6,7 @@ import os
 from print_functions import *
 from project_functions import project_category
 from shape_functions import read_shape, compute_shape, compute_rotated_shape
-from init_functions import NUMBER_OF_TILES
+from init_functions import get_number_of_tiles
 
 
 
@@ -293,6 +293,7 @@ def aux_rip_tiles(option_config, lines, assembly_extension, basic_extension, xsi
         if verbose:
             print("")
 
+        NUMBER_OF_TILES, _ = get_number_of_tiles(option_config)
         while tile_count<NUMBER_OF_TILES and line_index<len(filtered_lines):
             trimmed_line = trimmed_lines[line_index]
 

@@ -16,25 +16,11 @@ Read the <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/
 
 -------------------------------------------
 
-## CROSS-LIB-HD
-
-Cross-Lib-HD is an equivalent backward-compatible framework, still work-in-progress: 
-
-http://github.com/Fabrizio-Caruso/CROSS-LIB-HD
-
-Its goal is to provide a **higher number of redefinable tiles**, while maintaining the **same API's** and possibly the same number of supported targets as Cross-Lib.
-
-Cross-Lib-HD is not meant to replace Cross-Lib because the latter can provide slightly smaller binaries, a higher number of colors and a higher number of targets with real graphics.
-A game with the need for a higher number of tiles may require Cross-Lib-HD, whereas games with a lower number of tiles will work on both but on Cross-Lib may get a better color pallette and/or graphics on some very limited targets.
-
--------------------------------------------
-
 ## ARTICLES ABOUT CROSS-LIB
 Article [in English], first published in C.A.L.L. Apple Volume 3 Number 1 (January 2023): <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/EnglishArticle.md" download>C.A.L.L.-Apple</a>
 
 
 Article [in French], first published in the French magazine "Programmez! Hors série #6": <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/articles/CROSS_LIB_PUBLIC.pdf" download>Programmez!</a>
-
 
 
 -------------------------------------------

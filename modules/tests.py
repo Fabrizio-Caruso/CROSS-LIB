@@ -675,7 +675,6 @@ def _test_self(option_config, target = "stdio"):
             execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
 
     print(str(self_tests))
-    # sys.exit(0)
     for test in self_tests:
         print(str(test))
         success_map[test[0][0:]] = "OK" if test_execute(option_config, target, *test) else "KO"
@@ -808,7 +807,6 @@ def display_test_results(option_config, test_name, results):
 
 
 def global_test_result(results):
-    # sys.exit(0)
     for test in results.keys():
         if results[test]!="OK":
             return "KO"
@@ -910,7 +908,7 @@ def extract_global_compilation_result(compilation_result):
 # - Compilation tests for most installed compilers
 def test_everything(option_config, params): # TODO: Do something with params    
     # Also check terminal target
-    option_config.terminal_config.terminal_test = 1
+    # option_config.terminal_config.terminal_test = 1
     print("-------------------------------------------------")
     # make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
 

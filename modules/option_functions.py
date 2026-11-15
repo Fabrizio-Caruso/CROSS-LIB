@@ -137,7 +137,7 @@ class OptionConfig:
 
     ):
         self.terminal_config = terminal_config
-               
+
         self.build_config = build_config
                
         # rom

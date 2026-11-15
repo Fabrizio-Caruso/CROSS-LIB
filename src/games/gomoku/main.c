@@ -1,17 +1,5 @@
 #include "cross_lib.h"
 
-// #if YSize<=16
-    // #define BOARD_SIZE 7
-// #elif YSize<=21
-    // #define BOARD_SIZE 9
-// #elif YSize<=23
-    // #define BOARD_SIZE 10
-// #elif YSize<=25
-    // #define BOARD_SIZE 11
-// #else
-    // #define BOARD_SIZE 12
-// #endif
-
 #if XSize>=YSize
     #if YSize>=19
         #define BOARD_SIZE ((YSize-1)/2)
@@ -30,15 +18,10 @@
     #endif
 #endif
 
-#define EMPTY 0
+#define TIE    0
+#define EMPTY  0
 #define PLAYER 1
-#define AI 2
-
-// #if YSize<=20
-    // #define Y_BOARD_OFFSET 0
-// #elif YSize<=25
-    // #define Y_BOARD_OFFSET 1
-// #endif
+#define AI     2
 
 /* Empty board cell: 4 distinct tiles */
 #define T_EMPTY_1  _TILE_12
@@ -249,12 +232,27 @@ void show_win_line(void)
 {
     uint8_t k;
     uint8_t i;
+    uint8_t winning_x;
+    uint8_t winning_y;
     
+    if(winner==AI)
+    {
+        winning_x = ai_move_x;
+        winning_y = ai_move_y;
+    }
+    else
+    {
+        winning_x = cursor_x;
+        winning_y = cursor_y;
+    }
     for(i=0;i<30;++i)
     {
         for (k = 0; k < win_line_len; k++) {
-            draw_cell_player(win_line_x[k], win_line_y[k], _XL_GREEN);
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/8);
+            if(winning_x==win_line_x[k] && winning_y==win_line_y[k])
+            {
+                draw_cell_player(win_line_x[k], win_line_y[k], _XL_GREEN);
+                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
+            }
             draw_cell_player(win_line_x[k], win_line_y[k], _XL_RED);
             _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/10);
         }
@@ -325,17 +323,137 @@ uint8_t is_board_full(void)
     return 1;
 }
 
+
+/* --- Helper: find a 3-in-a-row for `player` with an open end,
+ *     return the best blocking cell.  Returns 1 on success. --- */
+uint8_t find_block_3(uint8_t player, uint8_t *bx_out, uint8_t *by_out)
+{
+    uint8_t i, j, d;
+    short dxs[4] = {0, 1, 1, 1};
+    short dys[4] = {1, 0, 1, -1};
+    short sx, sy, px, py;
+    uint8_t count, open;
+    uint8_t best_x, best_y;
+    uint16_t best_priority;
+    uint8_t found_any;
+
+    best_x = 0;
+    best_y = 0;
+    best_priority = 0;
+    found_any = 0;
+
+    for (i = 0; i < BOARD_SIZE; i++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] != player) continue;
+            for (d = 0; d < 4; d++) {
+                /* Only process from the start of a contiguous run */
+                px = (short)j - dxs[d];
+                py = (short)i - dys[d];
+                if (px >= 0 && px < BOARD_SIZE && py >= 0 && py < BOARD_SIZE &&
+                    board[py][px] == player)
+                    continue;
+
+                count = 0;
+                sx = (short)j;
+                sy = (short)i;
+                while (sx >= 0 && sx < BOARD_SIZE && sy >= 0 && sy < BOARD_SIZE &&
+                       board[sy][sx] == player) {
+                    count++;
+                    sx += dxs[d];
+                    sy += dys[d];
+                }
+                if (count < 3) continue;
+
+                /* Determine open ends */
+                open = 0;
+                /* forward end */
+                if (sx >= 0 && sx < BOARD_SIZE && sy >= 0 && sy < BOARD_SIZE &&
+                    board[sy][sx] == EMPTY)
+                    open++;
+                /* backward end */
+                px = (short)j - dxs[d];
+                py = (short)i - dys[d];
+                if (px >= 0 && px < BOARD_SIZE && py >= 0 && py < BOARD_SIZE &&
+                    board[py][px] == EMPTY)
+                    open++;
+
+                if (open == 0) continue;
+
+                /* Priority: open-3 (open==2) > closed-3 (open==1),
+                   longer run is more urgent */
+                {
+                    uint16_t prio = (uint16_t)(count * 10 + open);
+                    uint8_t bx, by;
+
+                    /* Prefer the forward open end; fall back to backward */
+                    if (sx >= 0 && sx < BOARD_SIZE && sy >= 0 && sy < BOARD_SIZE &&
+                        board[sy][sx] == EMPTY) {
+                        bx = (uint8_t)sx;
+                        by = (uint8_t)sy;
+                    } else {
+                        bx = (uint8_t)px;
+                        by = (uint8_t)py;
+                    }
+
+                    if (!found_any || prio > best_priority) {
+                        best_priority = prio;
+                        best_x = bx;
+                        best_y = by;
+                        found_any = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    if (found_any) {
+        *bx_out = best_x;
+        *by_out = best_y;
+        return 1;
+    }
+    return 0;
+}
+
+/* --- Helper: check whether `player` has a winning reply anywhere
+ *     on the current board (used for 1-ply lookahead). --- */
+uint8_t opponent_can_win_now(uint8_t player)
+{
+    uint8_t i, j;
+    for (i = 0; i < BOARD_SIZE; i++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == EMPTY) {
+                board[i][j] = player;
+                if (check_win(j, i, player)) {
+                    board[i][j] = EMPTY;
+                    return 1;
+                }
+                board[i][j] = EMPTY;
+            }
+        }
+    }
+    return 0;
+}
+
+
 /*
  * AI difficulty tiers:
- *   Level 1 – detects immediate wins/blocks, then plays a random
- *             move within 2 cells of an existing stone.
- *   Level 2 – detects immediate wins/blocks, then picks the highest-
- *             scoring cell using full-weight threat evaluation
- *             (AI score + PLAYER score).
- *   Level 3 – detects immediate wins/blocks, then picks the highest-
- *             scoring cell using weighted evaluation
- *             (AI score + PLAYER score / 2) plus a small random
- *             jitter to avoid predictability.
+ *
+ *   Level 1 – "Reactive"
+ *     Detects immediate wins and blocks immediate losses, then plays
+ *     a random cell within 2 of an existing stone.  No evaluation.
+ *
+ *   Level 2 – "Tactical"
+ *     Detects immediate wins, blocks immediate losses, blocks any
+ *     open 3-in-a-row, then evaluates cells *near existing stones*
+ *     (within 2) using equal-weight threat scoring.
+ *
+ *   Level 3 – "Strategic"
+ *     Detects immediate wins, blocks immediate losses, blocks any
+ *     open 3-in-a-row, evaluates *every* empty cell with equal-weight
+ *     scoring, keeps the top-3 candidates, performs a 1-ply lookahead
+ *     (simulates the move and checks whether the opponent can win in
+ *     reply, applying a heavy penalty), then adds a small random
+ *     jitter to break ties.
  */
 void ai_make_move(void)
 {
@@ -348,6 +466,12 @@ void ai_make_move(void)
     uint8_t close;
     uint8_t si, sj;
     short ddx, ddy;
+    uint8_t block_x, block_y;
+    uint8_t c;
+    uint8_t top_i[3], top_j[3];
+    uint16_t top_score[3];
+    uint8_t top_count;
+    uint8_t opp_can_win;
 
     best_i = BOARD_SIZE / 2;
     best_j = BOARD_SIZE / 2;
@@ -395,7 +519,9 @@ void ai_make_move(void)
         }
     }
 
-    /* --- Level 1: random move near existing stones --- */
+    /* ================================================================
+       LEVEL 1 – Reactive: random near stones, no evaluation
+       ================================================================ */
     if (difficulty == 1) {
         found = 0;
         for (attempts = 0; attempts < 200 && !found; attempts++) {
@@ -433,19 +559,45 @@ void ai_make_move(void)
         return;
     }
 
-    /* --- Level 2 & 3: evaluate every empty cell --- */
-    best_score = 0;
-    found = 0;
+    /* --- Level 2 & 3: block any open 3-in-a-row --- */
+    if (find_block_3(PLAYER, &block_x, &block_y)) {
+        if (board[block_y][block_x] == EMPTY) {
+            board[block_y][block_x] = AI;
+            ai_move_x = block_x;
+            ai_move_y = block_y;
+            return;
+        }
+    }
 
+    /* ================================================================
+       LEVEL 2 – Tactical: evaluate nearby cells only
+       ================================================================ */
     if (difficulty == 2) {
-        /* MEDIUM: equal weight on both sides, no randomness */
+        best_score = 0;
+        found = 0;
         for (i = 0; i < BOARD_SIZE; i++) {
             for (j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j] == EMPTY) {
+                    /* Only consider cells within 2 of an existing stone */
+                    close = 0;
+                    for (si = 0; si < BOARD_SIZE && !close; si++) {
+                        for (sj = 0; sj < BOARD_SIZE && !close; sj++) {
+                            if (board[si][sj] != EMPTY) {
+                                ddx = (short)i - (short)si;
+                                ddy = (short)j - (short)sj;
+                                if (ddx < 0) ddx = -ddx;
+                                if (ddy < 0) ddy = -ddy;
+                                if (ddx <= 2 && ddy <= 2) close = 1;
+                            }
+                        }
+                    }
+                    if (!close) continue;
+
                     score = score_position(j, i, AI);
                     board[i][j] = PLAYER;
                     score += score_position(j, i, PLAYER);
                     board[i][j] = EMPTY;
+
                     if (score > best_score || !found) {
                         best_score = score;
                         best_i = i;
@@ -455,36 +607,83 @@ void ai_make_move(void)
                 }
             }
         }
-    } else {
-        /* HARD: AI threats at full weight, player threats halved,
-                 small random jitter for unpredictability */
-        for (i = 0; i < BOARD_SIZE; i++) {
-            for (j = 0; j < BOARD_SIZE; j++) {
-                if (board[i][j] == EMPTY) {
-                    score = score_position(j, i, AI);
-                    board[i][j] = PLAYER;
-                    score += score_position(j, i, PLAYER) / 2;
-                    board[i][j] = EMPTY;
-                    score += _XL_RAND() % 200;
-                    if (score > best_score || !found) {
-                        best_score = score;
-                        best_i = i;
-                        best_j = j;
-                        found = 1;
-                    }
+        if (found) {
+            board[best_i][best_j] = AI;
+            ai_move_x = best_j;
+            ai_move_y = best_i;
+        } else {
+            game_over = 1;
+            winner = TIE;
+        }
+        return;
+    }
+
+    /* ================================================================
+       LEVEL 3 – Strategic: full-board eval + 1-ply lookahead
+       ================================================================ */
+    top_count = 0;
+    for (i = 0; i < BOARD_SIZE; i++) {
+        for (j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == EMPTY) {
+                score = score_position(j, i, AI);
+                board[i][j] = PLAYER;
+                score += score_position(j, i, PLAYER);
+                board[i][j] = EMPTY;
+
+                /* Maintain a top-3 list */
+                if (top_count < 3) {
+                    top_i[top_count] = i;
+                    top_j[top_count] = j;
+                    top_score[top_count] = score;
+                    top_count++;
+                } else if (score > top_score[2]) {
+                    top_i[2] = top_i[1];
+                    top_j[2] = top_j[1];
+                    top_score[2] = top_score[1];
+                    top_i[1] = top_i[0];
+                    top_j[1] = top_j[0];
+                    top_score[1] = top_score[0];
+                    top_i[0] = i;
+                    top_j[0] = j;
+                    top_score[0] = score;
                 }
             }
         }
     }
 
-    if (found) {
-        board[best_i][best_j] = AI;
-        ai_move_x = best_j;
-        ai_move_y = best_i;
-    } else {
+    if (top_count == 0) {
         game_over = 1;
-        winner = 0;
+        winner = TIE;
+        return;
     }
+
+    /* 1-ply lookahead: simulate each top candidate, check if the
+       opponent can win in reply.  If so, zero out the score. */
+    for (c = 0; c < top_count; c++) {
+        board[top_i[c]][top_j[c]] = AI;
+        opp_can_win = opponent_can_win_now(PLAYER);
+        board[top_i[c]][top_j[c]] = EMPTY;
+        if (opp_can_win) {
+            top_score[c] = 0;
+        }
+    }
+
+    /* Pick the best surviving candidate with a small random jitter */
+    best_score = 0;
+    found = 0;
+    for (c = 0; c < top_count; c++) {
+        score = top_score[c] + (uint16_t)(_XL_RAND() % 100);
+        if (score > best_score || !found) {
+            best_score = score;
+            best_i = top_i[c];
+            best_j = top_j[c];
+            found = 1;
+        }
+    }
+
+    board[best_i][best_j] = AI;
+    ai_move_x = best_j;
+    ai_move_y = best_i;
 }
 
 void show_game_over(void)
@@ -493,7 +692,6 @@ void show_game_over(void)
         show_win_line();
     }
     _XL_SET_TEXT_COLOR(_XL_CYAN);
-    // _XL_PRINT(0, YSize - 1, "                ");
     if (winner == PLAYER) {
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         _XL_PRINT(2, YSize - 1, "YOU WIN");
@@ -511,7 +709,6 @@ void show_game_over(void)
         _XL_TOCK_SOUND();
     }
     _XL_SLEEP(1);
-    // _XL_WAIT_FOR_INPUT();
 }
 
 
@@ -540,14 +737,14 @@ int main(void)
         _XL_PRINT((XSize - 12) / 2, 7, "1  EASY");
         _XL_PRINT((XSize - 12) / 2, 8, "2  MEDIUM");
         _XL_PRINT((XSize - 12) / 2, 9, "3  HARD");
-        _XL_SLEEP(1);
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
         _XL_PRINT(XSize/2-6, 13, "FIRE TO START");
         #if defined(BETA)
             _XL_PRINT(XSize-1-4,YSize-1,"BETA");
         #endif
-        
-        for(i=0;i<XSize/2-1;++i)
+        by = 0;
+        bx = 0;
+        for(i=0;i<YSize/2-1;++i)
         {
             if(i&1)
             {
@@ -560,14 +757,9 @@ int main(void)
                 draw_cell_player(0,i,_XL_WHITE);
                 draw_cell_player(XSize/2-1,i,_XL_CYAN);
             }
-            // draw_cell_player(XSize/2,i,i&1 == 0 ? _XL_CYAN : _XL_WHITE);
-
-            // draw_cell_opponent(0, i+1, _XL_WHITE);
-            
-            // draw_cell_opponent(XSize/2-1, i, _XL_WHITE);
-            // draw_cell_player(XSize/2-1,i+1,_XL_CYAN);
         }
-        
+        _XL_SLEEP(1);
+
         while (1) {
             input = _XL_INPUT();
             _XL_DRAW((XSize - 12) / 2 - 1, 6 + sel_level, T_ARROW, _XL_RED);
@@ -603,13 +795,12 @@ int main(void)
         cursor_y = BOARD_SIZE / 2;
         current_turn = PLAYER;
         game_over = 0;
-        winner = 0;
+        winner = TIE;
         win_line_len = 0;
         frame_parity = 0;
         init_board();
         draw_full_board();
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        // _XL_PRINT(PRINT_X, 0, "         ");
         _XL_PRINT(PRINT_X, 0, "YOUR TURN");
         _XL_PING_SOUND();
 
@@ -663,7 +854,7 @@ int main(void)
                         }
                         if (is_board_full()) {
                             game_over = 1;
-                            winner = 0;
+                            winner = TIE;
                             break;
                         }
                         current_turn = AI;
@@ -694,12 +885,11 @@ int main(void)
                         winner = AI;
                     } else if (is_board_full()) {
                         game_over = 1;
-                        winner = 0;
+                        winner = TIE;
                     } else {
                         current_turn = PLAYER;
                         _XL_SET_TEXT_COLOR(_XL_WHITE);
                         
-                        // _XL_PRINT(PRINT_X, 0, "         ");
                         _XL_PRINT(PRINT_X, 0, "YOUR TURN");
                     }
                 }
@@ -709,11 +899,9 @@ int main(void)
 
         /* --- Game Over Screen --- */
         show_game_over();
-        // _XL_SET_TEXT_COLOR(_XL_CYAN);
-        // _XL_PRINT(PRINT_X, 0, "         ");
-        // _XL_PRINT(2, 0, "PRESS FIRE");
         _XL_WAIT_FOR_INPUT();
     }
 
     return 0;
 }
+

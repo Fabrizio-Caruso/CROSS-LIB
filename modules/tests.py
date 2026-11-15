@@ -659,13 +659,13 @@ def _test_self(option_config, target = "stdio"):
     self_tests = STANDARD_SELF_TESTS 
     self_tests += MAKE_SELF_TESTS
     self_tests += TOOLS_SELF_TESTS
+    self_tests += COMPLEX_SELF_TESTS
 
     if option_config.terminal_config.interactive_test:
         self_tests += INTERACTIVE_TESTS
     if option_config.terminal_config.terminal_test:
         self_tests += TERMINAL_BUILD_TESTS
     if not option_config.terminal_config.fast_test:
-        self_tests += COMPLEX_SELF_TESTS
         self_tests += PARALLEL_BUILD_TESTS
 
     if INITIAL_TEST_CLEAN_UP:

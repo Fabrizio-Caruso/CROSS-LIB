@@ -55,6 +55,7 @@ src/*.asm
 src/chase/*.s
 src/nes/*.o
 src/nes/nes_graphics.s
+src/*.hex
 src_hd/games/shoot/main.c
 src_hd/games/chase/main.c
 src_hd/games/snake/main.c
@@ -68,6 +69,7 @@ src_hd/*.asm
 src_hd/chase/*.s
 src_hd/nes/*.o
 src_hd/nes/nes_graphics.s
+src_hd/*.hex
 *.swp*
 ./tools/cpcrslib/cpcrslib.lib./map.txt
 combo.c.pyc

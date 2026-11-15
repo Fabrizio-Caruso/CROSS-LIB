@@ -11,6 +11,13 @@ INITIAL_CLEANUP_COMMANDS = \
         "xl clean", \
     ]
 
+FAST_INITIAL_CLEANUP_COMMANDS = \
+    [ \
+        "xl reset projects", \
+        "xl clean tools", \
+        "xl clean", \
+    ]
+
 
 NO_CLEANUP = []
 

@@ -669,7 +669,11 @@ def _test_self(option_config, target = "stdio"):
         self_tests += PARALLEL_BUILD_TESTS
 
     if INITIAL_TEST_CLEAN_UP:
-        execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
+        if option_config.terminal_config.fast_test:
+            execute_commands(option_config, FAST_INITIAL_CLEANUP_COMMANDS, target, silent = True)
+        else:
+            execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
+
     print(str(self_tests))
     # sys.exit(0)
     for test in self_tests:

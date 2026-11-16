@@ -297,7 +297,7 @@ def size(option_config, params, debug = False):
                 + all_compilers_opts(option_config, "","") + \
                 " _NATIVE_CC=" + native_compiler + \
                 " TOOL_CC=" + tool_compiler + \
-                " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
+                " -f ../src/" + parent_dir+"/"+game_dir+"/Makefile."+game_dir
         run_command(option_config, make_command)
 
         if is_project_split(option_config, game_dir):
@@ -584,7 +584,7 @@ def slow(option_config, params):
         GNU_MAKE + " " + target + \
             " SLOWDOWN=" + slowdown + \
             all_compilers_opts(option_config, "", "") +  \
-            " -f " + parent_dir+"/"+game_dir+"/Makefile."+game_dir
+            " -f ../src/" + parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command(option_config, make_command)
 

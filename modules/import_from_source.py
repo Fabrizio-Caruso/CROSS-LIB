@@ -373,7 +373,7 @@ def store_tile(option_config, project, tile, xsize, ysize, index):
     if verbose:
         print("project category : " + category)
 
-    tile_path = "./" + category + "s/" + project + "/tiles/" + size_dir
+    tile_path = "./../src/" + category + "s/" + project + "/tiles/" + size_dir
     if not os.path.exists(tile_path):
         print(tile_path + " not found", flush = True)
         os.mkdir(tile_path)

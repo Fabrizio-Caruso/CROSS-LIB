@@ -123,7 +123,7 @@ def extend(option_config, params):
     extend_algorithm = option_config.extend_config.extend_algorithm
     project = params[1]
 
-    path_to_8x8_files = path_to_shapes(option_config, project,8,8)
+    path_to_8x8_files = "../src/" + path_to_shapes(option_config, project,8,8)
     if verbose:
         print("Path to shape files: " + path_to_8x8_files)
         print("")
@@ -198,7 +198,7 @@ def extend(option_config, params):
 
 # Show tile shapes of a given project
 def show(option_config, params):
-    parent_dir = project_category(option_config, params[1])+"s"
+    parent_dir = "../src/" + project_category(option_config, params[1])+"s"
 
     if len(params)<3:
         xsize = "8"

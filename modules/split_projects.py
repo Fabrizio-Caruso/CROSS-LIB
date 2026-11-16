@@ -6,7 +6,7 @@ from run import run_command
 DELETE_MERGED_MAIN = True
 
 def create_main(game_dir, project_type):
-    parent_dir_path = "./" + project_type + "s/"
+    parent_dir_path = "../src/" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
     split_dir_path = project_dir_path + "split_files/"
     os.system("cat " + split_dir_path + "*.c > " + project_dir_path + "main.c")
@@ -14,7 +14,7 @@ def create_main(game_dir, project_type):
 # TODO: Implement flag to keep main.c
 def delete_main(option_config, game_dir, project_type):
     if DELETE_MERGED_MAIN:
-        parent_dir_path = "./" + project_type + "s/"
+        parent_dir_path = "../src/" + project_type + "s/"
         project_dir_path = parent_dir_path + game_dir + "/"
         run_command(option_config, "rm -rf " + project_dir_path + "main.c")
     else:
@@ -22,6 +22,12 @@ def delete_main(option_config, game_dir, project_type):
 
 def is_project_split(option_config, game_dir):
     project_type = project_category(option_config, game_dir)
-    parent_dir_path = "./" + project_type + "s/"
+    parent_dir_path = "../src/" + project_type + "s/"
     project_dir_path = parent_dir_path + game_dir + "/"
+    print("**************************")
+    print(project_dir_path+"split_files")
+    if os.path.isdir(project_dir_path+"split_files"):
+        print("OK")
+    else:
+        print("KO")
     return os.path.isdir(project_dir_path+"split_files")

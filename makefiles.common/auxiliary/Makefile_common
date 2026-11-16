@@ -119,16 +119,22 @@ clean_chase_temp:
 	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.asm
 
 clean_lib_obj:
-	find . -type f -name '*.o' -delete
+	find ../src -type f -name '*.o' -delete
 	find ../cross_lib -type f -name '*.o' -delete
+	find ../cross_lib_ld -type f -name '*.o' -delete
+	find ../cross_lib_hd -type f -name '*.o' -delete
 
 clean_i_files:
-	find . -type f -name '*.i' -delete
+	find ../src -type f -name '*.i' -delete
 	find ../cross_lib -type f -name '*.i' -delete
+	find ../cross_lib_ld -type f -name '*.i' -delete
+	find ../cross_lib_hd -type f -name '*.i' -delete
 
 clean_lis:
-	find . -type f -name '*.lis' -delete
+	find ../src -type f -name '*.lis' -delete
 	find ../cross_lib -type f -name '*.lis' -delete
+	find ../cross_lib_ld -type f -name '*.lis' -delete
+	find ../cross_lib_hd -type f -name '*.lis' -delete
 
 clean_obj: \
 	clean_chase_obj \

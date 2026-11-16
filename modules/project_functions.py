@@ -9,7 +9,7 @@ from input_functions import are_you_sure
 
 RENAME_ONLY_PROJECT = False
 
-# games/ and examples/ are side-specific (src/ or src_hd/). xl is launched
+# games/ and examples/ are side-specific (cross_lib_ld/ or cross_lib_hd/). xl is launched
 # from its own side directory, so CWD is the side root. Unit tests are shared
 # at the repo root (unit_tests/ and assets/unit_tests/); they import this
 # module and use relative sys.path entries resolved against their own
@@ -25,20 +25,13 @@ def _side_root():
 
 side = _side_root()
 
-def cross_lib_type(option_config):
-    if option_config.build_config.hd:
-        return "src_hd"
-    else:
-        return "src"
+def game_src_dir(option_config):
+    return "src"
 
 def project_category_dirs(option_config, category):
-    xl_type_dir = cross_lib_type(option_config)
+    xl_type_dir = game_src_dir(option_config)
     project_dir = "./" + xl_type_dir + "/" + category
     return dirs_in_path(str(side / project_dir))
-
-# game_projects = dirs_in_path(str(side / "./src_hd/games"))
-# example_projects = dirs_in_path(str(side / "./src_hd/examples"))
-
 
 # It computes the type of project
 def project_category(option_config, game_dir):
@@ -72,12 +65,14 @@ def rename(option_config, params):
         return
 
     target_project_type = source_project_type
-    target_parent_dir = target_project_type + "s"
+    target_parent_dir = "../src/" + target_project_type + "s"
     target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
 
     if option_config.terminal_config.verbose:
         print("source_project_type: " + source_project_type)
 
+    print(target_parent_dir + "/" +source_game_dir)
+    print(target_parent_dir_and_game_dir)
     convert_makefile(option_config, source_game_dir, source_project_type, source_game_dir, target_game_dir)
 
     os.rename(target_parent_dir + "/" +source_game_dir, target_parent_dir_and_game_dir)
@@ -168,7 +163,7 @@ def create(option_config, params):
             else:
                 project_type = "helloworld"
 
-    parent_dir = "projects"
+    parent_dir = "../src/projects"
 
     if verbose:
         print("New project name: " + game_dir)
@@ -280,7 +275,7 @@ def delete(option_config, params):
     else:
         interactive = True
 
-    parent_dir = "projects"
+    parent_dir = "../src/projects"
     verbose = option_config.terminal_config.verbose
     if verbose:
         print("Project name: " + game_dir)

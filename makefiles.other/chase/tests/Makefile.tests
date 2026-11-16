@@ -3,7 +3,7 @@
 
 include ../makefiles.common/auxiliary/Makefile_compilers
 
-include ./games/chase/Makefile.chase
+include ../src/games/chase/Makefile.chase
 
 
 #######################################################

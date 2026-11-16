@@ -9,7 +9,7 @@ GAME_NAME := dragonmaster
 
 PARENT_DIR = games
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+include ../src/$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
 
 include ./Makefile_common
 

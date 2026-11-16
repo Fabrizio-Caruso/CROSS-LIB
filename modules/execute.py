@@ -46,28 +46,33 @@ def normalize_command(command_name):
 
 def execute_command(option_config, params):
     command_name = params[1]
+    
+    # print(str(list_of_projects("all")))
+    # sys.exit(0)
+    
     if command_name in COMMANDS_LIST:
         normalized_name = normalize_command(command_name)
         params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
         print(normalized_name+"(option_config" + params_string + ")")
         print(params[1:])
         eval(normalized_name+"(option_config" + params_string + ")")
+
     elif command_name in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
         build(option_config, params)
     else:
         manual(option_config, params)
 
 
-def execute_command(option_config, params):
-    command_name = params[1]
-    if command_name in COMMANDS_LIST:
-        normalized_name = normalize_command(command_name)
-        params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
-        eval(normalized_name+"(option_config" + params_string + ")")
-    elif command_name in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
-        build(option_config, params)
-    else:
-        manual(option_config, params)
+# def execute_command(option_config, params):
+    # command_name = params[1]
+    # if command_name in COMMANDS_LIST:
+        # normalized_name = normalize_command(command_name)
+        # params_string = ", params[1:]" if len(signature(eval(normalized_name)).parameters)>1 else ""
+        # eval(normalized_name+"(option_config" + params_string + ")")
+    # elif command_name in list_of_projects("all") + ["examples"] + ["games"] + ["projects"] + ["all"]:
+        # build(option_config, params)
+    # else:
+        # manual(option_config, params)
 
 
 def execute_string(option_config, command_line, silent = True):

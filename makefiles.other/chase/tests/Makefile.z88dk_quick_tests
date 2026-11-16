@@ -35,7 +35,7 @@ TEST_FILES ?= \
 
 
 # include ./games/chase/Makefile.chase
-include ./examples/hello/Makefile.hello
+include ../src/examples/hello/Makefile.hello
 
 # include Makefile
 

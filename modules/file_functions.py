@@ -38,9 +38,10 @@ def built_files_in_path(mypath):
 
 def list_of_projects(project_category):
     if project_category in ["examples", "projects", "games"]:
-        res = dirs_in_path("./"+project_category)
+        
+        res = dirs_in_path("../src/"+project_category)
     else:
-        res = dirs_in_path("./examples")+dirs_in_path("./games")+dirs_in_path("./projects")
+        res = dirs_in_path("../src/examples")+dirs_in_path("../src/games")+dirs_in_path("../src/projects")
     return res
 
 
@@ -65,15 +66,16 @@ def list_projects(option_config, params):
 
     for mypath in project_dirs:        
         count = 0
-        for (_, dirnames, _) in walk(mypath):
+        my_actual_path = "../src/" + mypath
+        for (_, dirnames, _) in walk(my_actual_path):
             # projects.extend(dirnames)
             for project in dirnames:
                 count+=1
             break
-        printc(option_config, bcolors.BOLD, "["+mypath+":" + str(count)+  "]\n")
+        printc(option_config, bcolors.BOLD, "["+my_actual_path+":" + str(count)+  "]\n")
         total_count+=count
         # print(total_count)
-        for (_, dirnames, _) in walk(mypath):
+        for (_, dirnames, _) in walk(my_actual_path):
             # projects.extend(dirnames)
             for project in dirnames:
                 if not option_config.terminal_config.test:
@@ -105,7 +107,8 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
         print("- old_name: " + old_name)
         print("- new_game: " + new_name)
 
-    fin = open("./"+dest_path+"/Makefile."+source_game_dir, "rt")
+    print("../src/"+dest_path+"/Makefile."+source_game_dir)
+    fin = open("../src/"+dest_path+"/Makefile."+source_game_dir, "rt")
     data = fin.read()
     data = data.replace('CROSS-' + source_game_dir.upper(),'CROSS-'+target_game_dir.upper())
     data = data.replace('GAME_NAME := ' + source_game_dir, 'GAME_NAME := '+target_game_dir)
@@ -115,11 +118,11 @@ def convert_makefile(option_config, dir,old_type,old_name,new_name):
     data = data.replace('include ./' + old_type + "s/" + source_game_dir, \
            'include ./"+ old_type+ "s/' + target_game_dir)
     fin.close()
-    fin = open("./"+dest_path+"/Makefile."+target_game_dir, "wt")
+    fin = open("../src/"+dest_path+"/Makefile."+target_game_dir, "wt")
     fin.write(data)
     fin.close()
 
-    os.remove("./"+dest_path+"/Makefile."+source_game_dir)
+    os.remove("../src/"+dest_path+"/Makefile."+source_game_dir)
 
 
 # Show all generated files

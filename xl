@@ -49,9 +49,9 @@ def get_gnu_make(config):
 if __name__ == "__main__":
     option_config = get_config()
     if option_config.build_config.hd:
-        os.chdir("./src_hd")
+        os.chdir("./cross_lib_hd")
     else:
-        os.chdir("./src")
+        os.chdir("./cross_lib_ld")
     # from modules.init import handle_parallelism, show_python_version
         
     GNU_MAKE = get_gnu_make(option_config)

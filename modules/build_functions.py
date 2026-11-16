@@ -45,10 +45,15 @@ logger.info('Started')
 
 def multiple_project_reset(option_config, mypath):
     projects = []
-    for (_, dirnames, _) in walk(mypath):
+    # print("*************** multiple project reset")
+    complete_mypath = "../src/" + mypath
+    # print(str(mypath))
+    
+
+    for (_, dirnames, _) in walk(complete_mypath):
         projects.extend(dirnames)
         break
-
+    # print(str(projects))
     for project_name in projects:
         print("PROJECT: " + project_name)
         reset(option_config, [mypath, project_name])
@@ -86,6 +91,8 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
     else:
         logger.info("Parallelize_multi_build is OFF")
 
+    mypath = "../src/" + mypath
+
     projects = []
     for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
@@ -104,6 +111,7 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
         for project_name in projects:
 
             if is_project_split(option_config, project_name):
+                print("**************SPLIT********************")
                 project_type = project_category(option_config, project_name)
                 create_main(project_name,project_type)
             make_command = \
@@ -143,6 +151,7 @@ def multiple_size_build(option_config, mypath,target,xsize,ysize,debug):
 def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization, reset_flag=False):
     GNU_MAKE = option_config.build_config.gnu_make
 
+    # print("************MULTI***********")
     if option_config.build_config.parallelize_multi_build:
         # print("Parallelize_multi_build is ON")
         logger.info("Parallelize_multi_build is ON")
@@ -180,6 +189,8 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
         use_tools_str = " USE_TOOLS=1 "
     else:
         use_tools_str = ""
+
+    mypath = "../src/" + mypath
 
     for (_, dirnames, _) in walk(mypath):
         projects.extend(dirnames)
@@ -372,11 +383,12 @@ def build(option_config, params, reset_flag = False):
     elif len(params)>=1 and game_dir.endswith("_tools"):
         partial_tools(option_config, game_dir)
     else:
+
         files_before = len(files_in_path("../build"))-1
 
         project_type = project_category(option_config, game_dir)
 
-        parent_dir = os.getcwd() + "/" + project_type + "s"
+        parent_dir = os.getcwd() + "/../src/" + project_type + "s"
 
         if len(params)<3:
             if option_config.build_config.default_target is not None:
@@ -475,6 +487,8 @@ def build(option_config, params, reset_flag = False):
             read_config(parent_and_game_dir + "/config.ini")
 
         if game_dir not in ["games", "examples", "projects", "all"]:
+            # print("***********************")
+            # sys.exit(0)
             if reset_flag:
                 reset(option_config, params)
             if not os.path.exists(parent_and_game_dir):
@@ -626,7 +640,7 @@ def reset(option_config, params):
 
         print("Project name: " + game_dir)
 
-    parent_and_game_dir = parent_dir + "/" + game_dir
+    parent_and_game_dir = "../src/" + parent_dir + "/" + game_dir
 
     if not os.path.exists(parent_and_game_dir):
         print("Project not found!")
@@ -635,7 +649,7 @@ def reset(option_config, params):
     if verbose:
         print("Delete all temporary files including generated assets for '"+game_dir+"'")
 
-    make_command = GNU_MAKE + " clean_no_built_in -f " + \
+    make_command = GNU_MAKE + " clean_no_built_in -f ../src/" + \
                    parent_dir+"/"+game_dir+"/Makefile."+game_dir
 
     run_command(option_config,make_command)

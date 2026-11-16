@@ -3,7 +3,7 @@
 #
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-    $(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_SHARED_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/split_files/move_player.c \
 	$(SOURCE_PATH)/split_files/ghost.c  $(SOURCE_PATH)/split_files/level.c $(SOURCE_PATH)/split_files/character.c $(SOURCE_PATH)/split_files/game_text.c \
 	$(SOURCE_PATH)/split_files/main.c \
@@ -41,9 +41,9 @@ PARENT_DIR = games
 
 
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
+include ../src/$(PARENT_DIR)/$(GAME_NAME)/config/project_config.mk
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
+include ../src/$(PARENT_DIR)/$(GAME_NAME)/config/game_config.mk
 
 include ./Makefile_common
 
@@ -53,7 +53,7 @@ include ./Makefile_common
 
 ###########################################################################################
 
-include ./$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
+include ../src/$(PARENT_DIR)/$(GAME_NAME)/makefiles/Makefile.override
 
 
 

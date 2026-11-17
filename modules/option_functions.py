@@ -241,11 +241,13 @@ def config(option_config):
     NUMBER_OF_TILES, TOTAL_NUMBER_OF_TILES = get_number_of_tiles(option_config)
     
     if hd:
-        print("mode:                    hd")
+        print("mode:                    hd (extra tiles)")
     else:
-        print("mode:                    ld")
+        print("mode:                    ld (extra colors, smaller binaries)")
+    
+    print("  font   tiles           " + str(TOTAL_NUMBER_OF_TILES-NUMBER_OF_TILES))
     print("  custom tiles:          " + str(NUMBER_OF_TILES))
-    print("  total tiles:           " + str(TOTAL_NUMBER_OF_TILES))
+    print("  total  tiles:          " + str(TOTAL_NUMBER_OF_TILES))
     if not compilation_threads_string.isnumeric():
         print("compilation_threads:     " + str(compilation_threads_string) + " (" + compilation_threads + ")" )
 

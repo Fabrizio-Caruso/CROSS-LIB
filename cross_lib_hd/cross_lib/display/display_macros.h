@@ -70,6 +70,18 @@
     #define UNSET_DEBUG_BORDER()
 #endif
 
+#if defined(__MO5__) || defined(__TO7__)
+    #include "coco.h" // uint8_t definition
+    void SWITCH_COLOR_BANK_OFF(void);
+    void SWITCH_COLOR_BANK_ON(void);
+    
+    void PUTCH(unsigned char ch);
+    
+    #define cputc(c) \
+        PUTCH(c)
+
+    void gotoxy(uint8_t x, uint8_t y);
+#endif
 
 #if defined(__USE_WAIT_V_SYNC)
 

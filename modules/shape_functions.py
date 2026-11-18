@@ -69,7 +69,7 @@ def path_to_shapes(option_config, project, xsize, ysize):
 
     project_cat = project_category(option_config, project)
     # print(project_cat)
-    return project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
+    return "../src/" + project_cat + "s/" + project + "/shapes/" + str(xsize) + "x" + str(ysize) + "/"
 
 
 # replace_shapes:

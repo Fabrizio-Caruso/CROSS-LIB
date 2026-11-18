@@ -3,7 +3,7 @@ from import_from_source import printc, bcolors
 from LoggerSingleton import LoggerSingleton
 from default_values import insert_default_sizes
 from target_defs import *
-from init_functions import NATIVE_EXTENSION, _is_windows
+from init_functions import NATIVE_EXTENSION
 
 C64_EMULATOR = "x64"
 VIC20_EMULATOR = "xvic"
@@ -13,8 +13,9 @@ PET_EMULATOR = "xpet"
 MAME_EMULATOR = "mame"
 
 logger = LoggerSingleton.initLogger('xl', '../logs')
+        
 
-def run_command(option_config, command_string, cwd=None):
+def run_command(option_config, command_string):
     logger.info("Running command: %s", command_string)
     test = option_config.terminal_config.test           # run instde test_self makes test      = False
     verbose = option_config.terminal_config.verbose
@@ -22,35 +23,13 @@ def run_command(option_config, command_string, cwd=None):
     
     if verbose:
         printc(option_config, bcolors.BOLD, command_string+"\n")
-    
-    if cwd is not None and not _is_windows():
-        # os.system does not accept cwd; chdir for the duration of the call
-        old_cwd = os.getcwd()
-        os.chdir(cwd)
-        try:
-            res = os.system(command_string)
-        finally:
-            os.chdir(old_cwd)
-    else:
-        res = os.system(command_string)
+    if not native_console and (test or not verbose):
+        command_string+= " > /dev/null 2>&1"
 
-    if not native_console:
-        if (test or not verbose) and not _is_windows():
-            # Re-run with Unix null redirect if not already present
-            if ' > /dev/null' not in command_string:
-                command_string += " > /dev/null 2>&1"
-                if cwd is not None:
-                    old_cwd = os.getcwd()
-                    os.chdir(cwd)
-                    try:
-                        res = os.system(command_string)
-                    finally:
-                        os.chdir(old_cwd)
-                else:
-                    res = os.system(command_string)
-        if res:
-            printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")
-        
+    res = os.system(command_string)
+
+    if not native_console and res:
+        printc(option_config, bcolors.FAIL, "return code: " + str(res)+"\n")
 
 def run_native(option_config, params, target):
     command_prefix = "../build/X" + params[1] + "_" + target

@@ -3,7 +3,7 @@ import os
 
 
 from init_functions import *
-from init_functions import _is_windows
+# from init_functions import _is_windows
 from import_from_source import printc
 from file_functions import files_in_path
 from run import run_command
@@ -284,35 +284,30 @@ def check_programs(option_config, title, command_list, expected_list, silent=Fal
     max_len = 28
 
     for command in command_list.keys():
-        if _is_windows():
-            import shutil
-            cmd_str = command_list[command]
-            if cmd_str.startswith("which"):
-                tool_name = cmd_str.split()[1] if len(cmd_str.split()) > 1 else command
-                result = 0 if shutil.which(tool_name) else 1
-            else:
-                import subprocess
-                parts = cmd_str.split()
-                # Windows CreateProcess does not search PATH for extensionless
-                # names, and can fail (WinError 2) when a required DLL is not on
-                # PATH (e.g. Cygwin's make.exe needs cygwin64\bin). Resolve the
-                # executable and guard the spawn so a missing exe/DLL reports
-                # "not found" instead of crashing the whole run.
-                exe = shutil.which(parts[0])
-                if exe is None:
-                    result = 1
-                else:
-                    parts = [exe] + parts[1:]
-                    child_env = dict(os.environ)
-                    child_env['PATH'] = os.path.dirname(exe) + os.pathsep + child_env['PATH']
-                    try:
-                        proc = subprocess.run(parts, stdout=subprocess.DEVNULL,
-                                             stderr=subprocess.DEVNULL, env=child_env)
-                        result = proc.returncode
-                    except (OSError, ValueError):
-                        result = 1
-        else:
-            result = os.system(command_list[command] + " > /dev/null 2>&1")
+        # if _is_windows():
+            # import shutil
+            # cmd_str = command_list[command]
+            # if cmd_str.startswith("which"):
+                # tool_name = cmd_str.split()[1] if len(cmd_str.split()) > 1 else command
+                # result = 0 if shutil.which(tool_name) else 1
+            # else:
+                # import subprocess
+                # parts = cmd_str.split()
+                # exe = shutil.which(parts[0])
+                # if exe is None:
+                    # result = 1
+                # else:
+                    # parts = [exe] + parts[1:]
+                    # child_env = dict(os.environ)
+                    # child_env['PATH'] = os.path.dirname(exe) + os.pathsep + child_env['PATH']
+                    # try:
+                        # proc = subprocess.run(parts, stdout=subprocess.DEVNULL,
+                                             # stderr=subprocess.DEVNULL, env=child_env)
+                        # result = proc.returncode
+                    # except (OSError, ValueError):
+                        # result = 1
+        # else:
+        result = os.system(command_list[command] + " > /dev/null 2>&1")
         spaces = " " * (max_len+1-len(command))
         if result==expected_list[command]:
             # print("[" + command + "] found")
@@ -373,33 +368,24 @@ def test_compilers(option_config):
     return test_cross_compilers(option_config)
 
 
-def run_single_unit_test(option_config, test_file_name, path="unit_tests"):
+def run_single_unit_test(option_config, test_file_name):
     import subprocess
-    from init_functions import _is_windows
     # CWD for the test subprocess is the test directory (path).
-    cwd = path.rstrip("/")
+    # cwd = path.rstrip("/")
     # Log path is resolved relative to the repo root (absolute), so the
     # shell redirect works regardless of CWD on both Windows and Unix.
     repo_root = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), ".."
     )
     log_file_path  = os.path.join(repo_root, "logs", test_file_name + "_unit_test.log")
-    command_string = "python -t " + test_file_name
+    command_string = "python -t " + "../unit_tests/" + test_file_name
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
     verbosity = option_config.terminal_config.verbose
     option_config.terminal_config.verbose = 1
-    if _is_windows():
-        # The test files use relative sys.path.append("..") or
-        # sys.path.append("../modules") resolved against the subprocess CWD.
-        #  - main unit_tests: CWD = <repo>/unit_tests ("../modules" -> <repo>/modules)
-        #  - assets/unit_tests: CWD = <repo>/assets/unit_tests (".." -> <repo>)
-        cmd_list = ["python", "-t", test_file_name]
-        with open(log_file_path, "w") as logf:
-            subprocess.run(cmd_list, stdout=logf, stderr=subprocess.STDOUT, cwd=cwd)
-    else:
-        run_command(option_config, command_string + " > " + log_file_path + " 2>&1", cwd=cwd)
+
+    run_command(option_config, command_string + " > " + log_file_path + " 2>&1")
     option_config.terminal_config.verbose = verbosity
     with open(log_file_path) as log_file:
         log_content = log_file.read()
@@ -425,12 +411,12 @@ def _unit_tests(option_config, path="./"):
     assets_tests = files_in_path(os.path.join(repo_root, "assets", "unit_tests"))
     
     for test in assets_tests:
-        result_map[test] = run_single_unit_test(option_config, test, os.path.join(repo_root, "assets", "unit_tests"))
+        result_map[test] = run_single_unit_test(option_config, test)
     
     main_tests = files_in_path(os.path.join(repo_root, "unit_tests"))
 
     for test in main_tests:
-        result_map[test] = run_single_unit_test(option_config, test, os.path.join(repo_root, "unit_tests"))
+        result_map[test] = run_single_unit_test(option_config, test)
         
     normalized_unit_tests_result = {}
     for test in result_map:

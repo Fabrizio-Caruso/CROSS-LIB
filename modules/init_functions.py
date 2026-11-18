@@ -56,9 +56,9 @@ class bcolors:
 logger = LoggerSingleton.initLogger('xl', str(repo_root / 'logs'))
 
 
-def _is_windows():
-    """Return True if running on a Windows platform."""
-    return platform.startswith("win")
+# def _is_windows():
+    # """Return True if running on a Windows platform."""
+    # return platform.startswith("win")
 
 def handle_parallelism(option_config):
     if option_config.build_config.parallelize_multi_build:

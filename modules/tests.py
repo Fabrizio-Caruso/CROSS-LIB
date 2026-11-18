@@ -721,7 +721,7 @@ def display_components_result(option_config, make_result, native_compilers_resul
     print("")
     print("")
     print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, "COMPONENTS TEST RESULTS\n")
+    printc(option_config, bcolors.OKBLUE, "COMPONENTS CHECKS RESULTS\n")
     print("-------------------------------")
     
     python_version = sys.version_info[0]

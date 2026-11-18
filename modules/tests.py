@@ -917,25 +917,7 @@ def test_everything(option_config, params): # TODO: Do something with params
         else:
             execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, option_config.build_config.default_target, silent = True)
     
-    # make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
-
-    #
     compilation_result = _test_compilation(option_config)
-    
-    # global_components_test_result = "OK" if display_components_result(option_config, make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result) else "KO"
-    # global_unit_tests_result = "OK" if display_test_results(option_config, "UNITARY", unit_tests_result) else "KO"
-    # if output_result:
-        # global_output_test_result = "OK" if display_test_results(option_config, "OUTPUT", output_result) else "KO"
-    # else:
-        # global_output_test_result = None
-    
-    # self_total_success = "OK" if display_test_results(option_config, "XL SCRIPTS", success_map) else "KO"
-    
-    # global_compilation_result = "OK" if display_compilation_result(option_config, compilation_result) else "KO"
-    
-    # global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success, "compilation tests": global_compilation_result}
-        
-    # display_test_results(option_config, "GLOBAL", global_results)
 
     make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map  = _test_standard_cases(option_config, params)
     
@@ -951,10 +933,10 @@ def test_everything(option_config, params): # TODO: Do something with params
     global_compilation_result = extract_global_compilation_result(compilation_result)
 
     
-    display_test_results(option_config, "UNITARY", unit_tests_result)
+    display_test_results(option_config, "XL UNIT-TESTS", unit_tests_result)
     if output_result:
-        display_test_results(option_config, "OUTPUT", output_result)
-    display_test_results(option_config, "XL SCRIPTS", success_map)
+        display_test_results(option_config, "OUTPUT TESTS", output_result)
+    display_test_results(option_config, "XL FUNCTIONAL TESTS", success_map)
     display_compilation_result(option_config, compilation_result);
     
     global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success, "compilation tests": global_compilation_result}

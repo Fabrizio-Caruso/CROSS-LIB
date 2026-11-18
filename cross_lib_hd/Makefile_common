@@ -3457,7 +3457,7 @@ ncurses_sized:
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_ncurses_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
@@ -3471,7 +3471,7 @@ ncurses:
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
 
 
@@ -3485,7 +3485,7 @@ terminal8x8_sized:  $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal8x8_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
@@ -3500,7 +3500,7 @@ terminal8x8:  $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
@@ -3514,7 +3514,7 @@ terminal8x6_sized:  $(ASSETS_PATH)/8x6_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal8x6_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
@@ -3527,7 +3527,7 @@ terminal8x6:  $(ASSETS_PATH)/8x6_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
@@ -3541,7 +3541,7 @@ terminal7x8_sized:  $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal7x8_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
@@ -3554,7 +3554,7 @@ terminal7x8:  $(ASSETS_PATH)/7x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
@@ -3568,7 +3568,7 @@ terminal6x8_sized:  $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal6x8_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 
@@ -3581,7 +3581,7 @@ terminal6x8:  $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 
@@ -3595,7 +3595,7 @@ terminal6x9_sized:  $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_terminal6x9_$(XSIZE)X$(YSIZE)$(COMPILEDEXT)
 
 terminal6x9:  $(ASSETS_PATH)/6x8_chars.h
@@ -3607,7 +3607,7 @@ terminal6x9:  $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/terminal_init_graphics.c \
 	$(FULL_FILES) \
-	-lncurses \
+	-l$(NCURSES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@$(COMPILEDEXT)
 
 ##

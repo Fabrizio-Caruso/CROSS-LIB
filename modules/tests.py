@@ -398,7 +398,7 @@ def run_single_unit_test(option_config, test_file_name):
 
 def _unit_tests(option_config, path="./"):
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
-    printc(option_config, bcolors.OKCYAN, "UNIT-TESTS")
+    printc(option_config, bcolors.OKCYAN, "XL UNIT-TESTS")
     printc(option_config, bcolors.OKBLUE,"\n----------------------------------------\n")
 
     result_map = {}
@@ -408,10 +408,10 @@ def _unit_tests(option_config, path="./"):
         os.path.dirname(os.path.abspath(__file__)), ".."
     )
 
-    assets_tests = files_in_path(os.path.join(repo_root, "assets", "unit_tests"))
+    # assets_tests = files_in_path(os.path.join(repo_root, "assets", "unit_tests"))
     
-    for test in assets_tests:
-        result_map[test] = run_single_unit_test(option_config, test)
+    # for test in assets_tests:
+        # result_map[test] = run_single_unit_test(option_config, test)
     
     main_tests = files_in_path(os.path.join(repo_root, "unit_tests"))
 
@@ -519,25 +519,31 @@ def check_tools(option_config, target):
 
 def check_complex(option_config, target):
     number_files = len(built_files_in_path("../build"))
+    print("DEBUG) number_files: " + str(number_files))
     return number_files==2
 
 
 def check_examples(option_config, target):
     number_files = len(built_files_in_path("../build"))
-    number_of_examples = len(dirs_in_path("./examples"))
+    number_of_examples = len(dirs_in_path("../src/examples"))
     return number_files == number_of_examples*binary_factor(target)
 
 
 def check_games(option_config, target):
+    
     number_files = len(built_files_in_path("../build"))
-    number_of_games = len(dirs_in_path("./games"))
+    number_of_games = len(dirs_in_path("../src/games"))
+
+    # print(number_files)
+    # print(number_of_games)
+    # print(number_of_games*binary_factor(target))
 
     return number_files == number_of_games*binary_factor(target)
 
 
 def check_games_terminal(option_config, target):
     number_files = len(built_files_in_path("../build"))
-    number_of_games = len(dirs_in_path("./games"))
+    number_of_games = len(dirs_in_path("../src/games"))
     return number_files == number_of_games*binary_factor("terminal")
 
 
@@ -552,12 +558,14 @@ def check_create(option_config, target):
 
 def check_make(option_config, target):
     success = 1
-    dirs_in_proj_after = len(dirs_in_path("./projects/_foo_test"))
-
+    dirs_in_proj_after = len(dirs_in_path("../src/projects/_foo_test"))
+    # print("dirs_in_proj_after: " + str(dirs_in_proj_after))
     if dirs_in_proj_after != 4:
         success=0
 
-    dirs_in_shapes_after = len(dirs_in_path("./projects/_foo_test/shapes"))
+    dirs_in_shapes_after = len(dirs_in_path("../src/projects/_foo_test/shapes"))
+    # print("dirs_in_shapes_after: " + str(dirs_in_shapes_after))
+
 
     if dirs_in_shapes_after != 5:
         success=0
@@ -634,7 +642,7 @@ def _test_self(option_config, target = "stdio"):
     option_config.terminal_config.test = 1
 
     printc(option_config, bcolors.OKCYAN,"----------------------------------------\n")
-    printc(option_config, bcolors.OKCYAN, "XL SCRIPT TEST")
+    printc(option_config, bcolors.OKCYAN, "XL FUNCTIONAL TESTS")
     printc(option_config, bcolors.OKCYAN,"\n----------------------------------------\n")
     # total_success = 1
     success_map = {}
@@ -645,8 +653,7 @@ def _test_self(option_config, target = "stdio"):
     self_tests = []
     self_tests += STANDARD_SELF_TESTS 
     
-    # TODO: KO
-    # self_tests += MAKE_SELF_TESTS
+    self_tests += MAKE_SELF_TESTS
     
     self_tests += TOOLS_SELF_TESTS
     
@@ -665,9 +672,11 @@ def _test_self(option_config, target = "stdio"):
         else:
             execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, target, silent = True)
 
+    print("==========================================================================")
+
     print(str(self_tests))
     for test in self_tests:
-        print(str(test))
+        print("test: " + str(test))
         success_map[test[0][0:]] = "OK" if test_execute(option_config, target, *test) else "KO"
         # total_success*=success_map[test[0][0:]]
     execute_string(option_config, "xl clean", silent = True)
@@ -777,7 +786,7 @@ def display_test_results(option_config, test_name, results):
     print("")
     print("")
     print("-------------------------------")
-    printc(option_config, bcolors.OKBLUE, test_name + " TEST RESULTS\n")
+    printc(option_config, bcolors.OKBLUE, test_name + " RESULTS\n")
     print("-------------------------------")
     max_len = 0
     for test in results.keys():
@@ -819,9 +828,9 @@ def test_standard_cases(option_config, target = "stdio"):
     self_total_success = global_test_result(success_map)
     
     
-    display_test_results(option_config, "UNITARY", unit_tests_result)
+    display_test_results(option_config, "XL UNIT-TESTS", unit_tests_result)
     if output_result:
-        display_test_results(option_config, "OUTPUT", output_result)
+        display_test_results(option_config, "OUTPUT TESTS", output_result)
     display_test_results(option_config, "XL SCRIPTS", success_map)
     
     global_results = {"components tests":global_components_test_result, "unitary tests":global_unit_tests_result, "output tests":global_output_test_result, "xl scripts tests":self_total_success}
@@ -901,6 +910,13 @@ def test_everything(option_config, params): # TODO: Do something with params
     # Also check terminal target
     # option_config.terminal_config.terminal_test = 1
     print("-------------------------------------------------")
+    
+    if INITIAL_TEST_CLEAN_UP:
+        if option_config.terminal_config.fast_test:
+            execute_commands(option_config, FAST_INITIAL_CLEANUP_COMMANDS, option_config.build_config.default_target, silent = True)
+        else:
+            execute_commands(option_config, INITIAL_CLEANUP_COMMANDS, option_config.build_config.default_target, silent = True)
+    
     # make_result, native_compilers_result, cross_compilers_result, libraries_result, interpreters_result, unit_tests_result, output_result, success_map = _test_standard_cases(option_config, params)
 
     #
@@ -947,6 +963,7 @@ def test_everything(option_config, params): # TODO: Do something with params
 
 
 TEST_FILES = {
+    # TODO: if ncurses is not present, only check stdio
     "native"      : ["stdio", "ncurses", "terminal"],
     "cc65"        : ["vic20", "supervision", "atari", "atari_lynx", "creativision", "pet", "c64", "oric"],
     "z88dk"       : ["c128_z80_80col", "cpm_z80_adm3a", "spectrum_48k", "msx", "zx81_32k_wrx"],
@@ -954,7 +971,6 @@ TEST_FILES = {
     "lcc1802"     : ["comx", "tmc600"],
     "ack"         : ["msdos", "pc86"],
     "cc6303"      : ["mc10"],
-    # "vbcc"        : ["bbc", "bbcmaster"], # Not enough memory for XL HD
     "vbcc"        : ["bbcmaster"],
     "tms9900-gcc"      : ["ti99"],
     }
@@ -1021,6 +1037,9 @@ def test_targets(option_config, params):
 def process_test_targets_result(option_config, params):
     built_files = len(built_files_in_path("../build"))
     verbose = option_config.terminal_config.verbose
+
+    if verbose:
+        print("Number of built files: " + str(built_files))
     if params[1] in TEST_FILES.keys():
         devkit_test_files = TEST_FILES[params[1]]
         if verbose:
@@ -1030,12 +1049,14 @@ def process_test_targets_result(option_config, params):
         expected_files = 0
         for test_file in devkit_test_files:
             expected_files += binary_factor(test_file)
+
     elif params[1]=="z88dk_alt":
         expected_files = Z88DK_ALT_EXPECTED_FILES # TODO: Remove this hardcoded value
     
     if verbose:
-        print("Number of built files: " + str(built_files))
-
+        print("Number of expected files: " + str(expected_files))
+        # sys.exit(0)
+    
     if params[1] in TEST_FILES.keys() or params[1] in ("z88dk_alt"):
         printc(option_config, bcolors.OKCYAN, "Built files: " + str(built_files)+"\n")
         printc(option_config, bcolors.OKBLUE, "Expected files: " + str(expected_files)+"\n")

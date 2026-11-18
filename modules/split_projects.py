@@ -26,8 +26,8 @@ def is_project_split(option_config, game_dir):
     project_dir_path = parent_dir_path + game_dir + "/"
     print("**************************")
     print(project_dir_path+"split_files")
-    if os.path.isdir(project_dir_path+"split_files"):
-        print("OK")
-    else:
-        print("KO")
+    # if os.path.isdir(project_dir_path+"split_files"):
+        # print("OK")
+    # else:
+        # print("KO")
     return os.path.isdir(project_dir_path+"split_files")

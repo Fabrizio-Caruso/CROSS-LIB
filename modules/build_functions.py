@@ -257,7 +257,7 @@ def multiple_build(option_config, mypath,target,threads,zsdcc_extra_optimization
 # size can handle both ascii and terminal
 def size(option_config, params, debug = False):
     GNU_MAKE = option_config.build_config.gnu_make
-
+    print("**************************size*****************")
     verbose = option_config.terminal_config.verbose
     if len(params)<2:
         game_dir = DEFAULT_PROJECT
@@ -277,7 +277,7 @@ def size(option_config, params, debug = False):
         print("YSize: " + ysize)
         print("target: " + target)
 
-    parent_and_game_dir = parent_dir + "/" + game_dir
+    parent_and_game_dir = "../src/" + parent_dir + "/" + game_dir
 
     files_before = len(files_in_path("../build"))-1
 

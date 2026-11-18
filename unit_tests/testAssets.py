@@ -4,30 +4,29 @@ import os
 
 
 
-# generate_assets is side-specific (cross_lib_ld/assets/ or cross_lib_hd/assets/).
-# Resolve relative to this file so CWD is irrelevant.
-_repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-_side_assets = None
-for _side in ("cross_lib_ld", "cross_lib_hd"):
-    _candidate = os.path.join(_repo_root, _side, "assets")
-    if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
-        _side_assets = _candidate
-        break
-if _side_assets is None:
-    raise ImportError("Cannot find generate_assets.py in src/assets or cross_lib_hd/assets")
-# generate_assets is side-specific (cross_lib_ld/assets/ or cross_lib_hd/assets/).
-# Resolve relative to this file so CWD is irrelevant.
-_repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-_side_assets = None
-for _side in ("cross_lib_ld", "cross_lib_hd"):
-    _candidate = os.path.join(_repo_root, _side, "assets")
-    if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
-        _side_assets = _candidate
-        break
-if _side_assets is None:
-    raise ImportError("Cannot find generate_assets.py in cross_lib_ld/assets or cross_lib_hd/assets")
-sys.path.insert(0, _side_assets)
 
+# _repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# _side_assets = None
+# for _side in ("cross_lib_ld", "cross_lib_hd"):
+    # _candidate = os.path.join(_repo_root, _side, "assets")
+    # if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
+        # _side_assets = _candidate
+        # break
+# if _side_assets is None:
+    # raise ImportError("Cannot find generate_assets.py in src/assets or cross_lib_hd/assets")
+
+# _repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# _side_assets = None
+# for _side in ("cross_lib_ld", "cross_lib_hd"):
+    # _candidate = os.path.join(_repo_root, _side, "assets")
+    # if os.path.exists(os.path.join(_candidate, "generate_assets.py")):
+        # _side_assets = _candidate
+        # break
+# if _side_assets is None:
+    # raise ImportError("Cannot find generate_assets.py in cross_lib_ld/assets or cross_lib_hd/assets")
+# sys.path.insert(0, _side_assets)
+
+sys.path.insert(0,"assets")
 from generate_assets import *
 
 

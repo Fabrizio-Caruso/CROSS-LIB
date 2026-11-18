@@ -4,6 +4,7 @@ DEFAULT_CLEANUP_COMMANDS = \
         "xl clean", \
     ]
 
+# TODO: implement a flag to skip these two clean-ups
 INITIAL_CLEANUP_COMMANDS = \
     [ \
         "xl reset all", \
@@ -14,10 +15,33 @@ INITIAL_CLEANUP_COMMANDS = \
 FAST_INITIAL_CLEANUP_COMMANDS = \
     [ \
         "xl reset projects", \
+        "xl reset chase", \
+        "xl reset animate", \
+        "xl reset clear", \
+        "xl reset hello", \
+        "xl reset target", \
+        "xl reset display", \
+        "xl reset boundary", \
+        "xl reset numbers", \
+        "xl reset characters", \
         "xl clean tools", \
         "xl clean", \
     ]
 
+# clear           OK
+# -------------------------------
+# hello           OK
+# -------------------------------
+# target          OK
+# -------------------------------
+# display         OK
+# -------------------------------
+# boundary        OK
+# -------------------------------
+# numbers         OK
+# -------------------------------
+# characters      OK
+# -------------------------------
 
 NO_CLEANUP = []
 

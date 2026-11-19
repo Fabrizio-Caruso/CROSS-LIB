@@ -378,7 +378,7 @@ def run_single_unit_test(option_config, test_file_name):
         os.path.dirname(os.path.abspath(__file__)), ".."
     )
     log_file_path  = os.path.join(repo_root, "logs", test_file_name + "_unit_test.log")
-    command_string = "python -t " + "../unit_tests/" + test_file_name
+    command_string = "python -t " + "../modules/unit_tests/" + test_file_name
     printc(option_config, bcolors.OKBLUE,"----------------------------------------\n")
     printc(option_config, bcolors.OKCYAN,test_file_name + "\n")
     printc(option_config, bcolors.OKBLUE,"--------------------------------\n")
@@ -413,7 +413,9 @@ def _unit_tests(option_config, path="./"):
     # for test in assets_tests:
         # result_map[test] = run_single_unit_test(option_config, test)
     
-    main_tests = files_in_path(os.path.join(repo_root, "unit_tests"))
+    main_tests = files_in_path("../modules/unit_tests")
+    
+    print(str(main_tests))
 
     for test in main_tests:
         result_map[test] = run_single_unit_test(option_config, test)

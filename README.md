@@ -1,7 +1,7 @@
 
 
 # CROSS LIB
-![LOGO](snapshots/CrossLibLogoByHamletShorter.jpg)
+![LOGO](docs/snapshots/CrossLibLogoByHamletShorter.jpg)
 
 *Cross-Lib* and games built with it (e.g., Chase, Shoot, Bomber, Snake, Horde, Verbix, Shuriken, Stinger, Trex)
 
@@ -29,11 +29,11 @@ Article [in French], first published in the French magazine "Programmez! Hors s√
 ## SOME GAMES
 
 <p float="left">
-  <img src="snapshots/XSnake_MSX2.png" width="100" />
-  <img src="snapshots/XStinger_Vic20.png" width="100" /> 
-  <img src="snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
-  <img src="snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
-  <img src="snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
+  <img src="docs/snapshots/XSnake_MSX2.png" width="100" />
+  <img src="docs/snapshots/XStinger_Vic20.png" width="100" /> 
+  <img src="docs/snapshots/XVerbix_Vic20_gameplay.jpg" width="100" />
+  <img src="docs/snapshots/XShoot_Level1_Skulls_VIC20.jpg" width="100" />
+  <img src="docs/snapshots/XShuriken_Vic20_gameplay.jpg" width="100" />
 </p>
 
 Click on the links below to play the games on your browser. 
@@ -203,7 +203,7 @@ The user has to:
 - **draw** the abstract graphics assets and store them in the *tiles* or *shapes* directory;
 - **run** the `xl` script (see below).
 
-![User](snapshots/User2.bmp)
+![User](docs/snapshots/User2.bmp)
 
 For more details click on <a href="https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD_PROCESS.md"><b>Build</b></a>
 

@@ -40,12 +40,12 @@ you either avoid code that depends on tile shapes or if you, you have to impleme
 
 For example for the game Cross Snake you can see how it is rendered on the MSX 1 (graphics, sounds, colors) and on the Game Boy (graphics, sounds but no colors):
 
-![MSX](snapshots/XSnake_MSX2.png)
-![GB](snapshots/XSnake_GB.png)
+![MSX](docs/snapshots/XSnake_MSX2.png)
+![GB](docs/snapshots/XSnake_GB.png)
 
 For more snapshots we refer to: 
 
-https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/docs/snapshots.md
 
 
 ### Colors, Sounds and Graphics

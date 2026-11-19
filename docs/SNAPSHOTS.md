@@ -1,10 +1,10 @@
-## Snapshots
+## docs/snapshots
 
-![MSX](../snapshots/XSnake_MSX2.png)
-![Atari](../snapshots/XChase_A8.png)
-![CPC](../snapshots/XHorde_CPC.png)
-![Atari](../snapshots/XBomber_A8.png)
-![SMS](../snapshots/XShoot_sms.png)
-![GB](../snapshots/XSnake_GB.png)
-![Atari](../snapshots/XHorde_A8.png)
-![SMS](../snapshots/XHorde_SMS.png)
+![MSX](../docs/snapshots/XSnake_MSX2.png)
+![Atari](../docs/snapshots/XChase_A8.png)
+![CPC](../docs/snapshots/XHorde_CPC.png)
+![Atari](../docs/snapshots/XBomber_A8.png)
+![SMS](../docs/snapshots/XShoot_sms.png)
+![GB](../docs/snapshots/XSnake_GB.png)
+![Atari](../docs/snapshots/XHorde_A8.png)
+![SMS](../docs/snapshots/XHorde_SMS.png)

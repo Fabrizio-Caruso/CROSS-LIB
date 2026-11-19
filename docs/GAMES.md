@@ -1,8 +1,8 @@
 # THE GAMES
 
 ## DRAGONMASTER
-![C64](/snapshots/Dragonmaster_gameplay_C64.jpg)
-![C64](/snapshots/Dragonmaster_title_C64.jpg)
+![C64](/docs/snapshots/Dragonmaster_gameplay_C64.jpg)
+![C64](/docs/snapshots/Dragonmaster_title_C64.jpg)
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)
 
@@ -11,7 +11,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 
 -------------------------------------------
 ## GOMOKU
-![C64](/snapshots/Gomoku_gameplay_C64.jpg)
+![C64](/docs/snapshots/Gomoku_gameplay_C64.jpg)
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)
 
@@ -21,7 +21,7 @@ https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso
 
 -------------------------------------------
 ## TREX
-![Vic20](/snapshots/vic20_trex.jpg)
+![Vic20](/docs/snapshots/vic20_trex.jpg)
 
 CONTROLS: either SPACE or FIRE.
 
@@ -40,8 +40,8 @@ https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/C
 
 -------------------------------------------
 ## STINGER
-![Vic20](/snapshots/XStinger_VIC20_gameplay.jpg)
-![Vic20](/snapshots/XStinger_VIC20_title.jpg)
+![Vic20](/docs/snapshots/XStinger_VIC20_gameplay.jpg)
+![Vic20](/docs/snapshots/XStinger_VIC20_title.jpg)
 
 
 CONTROLS: either the joystick or J (move lefte),  L(move right), SPACE (check word)
@@ -61,8 +61,8 @@ https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/C
 
 -------------------------------------------
 ## SHURIKEN
-![Vic20](/snapshots/XShuriken_Vic20_gameplay.jpg)
-![Vic20](/snapshots/XShuriken_Vic20_title.jpg)
+![Vic20](/docs/snapshots/XShuriken_Vic20_gameplay.jpg)
+![Vic20](/docs/snapshots/XShuriken_Vic20_title.jpg)
 
 
 CONTROLS: either the joystick or I (up rotate),  J (move left/left rotate), K (down rotate), L(move right, right rotate), SPACE (check word)
@@ -82,8 +82,8 @@ https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/C
 
 -------------------------------------------
 ## VERBIX
-![Vic20](/snapshots/XVerbix_Vic20_gameplay.jpg)
-![Vic20](/snapshots/XVerbix_Vic20_title.jpg)
+![Vic20](/docs/snapshots/XVerbix_Vic20_gameplay.jpg)
+![Vic20](/docs/snapshots/XVerbix_Vic20_title.jpg)
 
 Cross Verbix is a word game somehow similar to Scrabble and to a much lesser extent similar to Tetris: you must construct correct English words by rotating columns of letters or by rotating the bottom row before the letters reach the top level.
 You can get extra points if you complete the level earlier by lowering the stack of letters below the second row.
@@ -108,9 +108,9 @@ https://nippur72.github.io/laser310-emu/?load=http://github.com/Fabrizio-Caruso/
 
 ## HORDE
 
-![CPC](../snapshots/XHorde_CPC.png)
-![Atari](../snapshots/XHorde_A8.png)
-![SMS](../snapshots/XHorde_SMS.png)
+![CPC](../docs/snapshots/XHorde_CPC.png)
+![Atari](../docs/snapshots/XHorde_A8.png)
+![SMS](../docs/snapshots/XHorde_SMS.png)
 
 Cross Horde is a zombie shooter with several different enemies, levels and power-ups and items to pick.
 
@@ -158,9 +158,9 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XHorde1.0
 
 ## SNAKE
 
-![MSX](../snapshots/XSnake_MSX2.png)
-![GB](../snapshots/XSnake_GB.png)
-![C64](../snapshots/XSnake_C64_intro.png)
+![MSX](../docs/snapshots/XSnake_MSX2.png)
+![GB](../docs/snapshots/XSnake_GB.png)
+![C64](../docs/snapshots/XSnake_C64_intro.png)
 
 This my own re-interpretation of Nibbler (arcade) and Snake (primarily a cell phone game), to which I have added many more game elements.
 
@@ -214,7 +214,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XSnake2.0
 
 ## BOMBER
 
-![Atari](../snapshots/XBomber_A8.png)
+![Atari](../docs/snapshots/XBomber_A8.png)
  
 The game's goal is to destroy all buildings so that you can land on an empty road.
 The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
@@ -258,7 +258,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XBomber
 
 ## SHOOT 
 
-![SMS](../snapshots/XShoot_sms.png)
+![SMS](../docs/snapshots/XShoot_sms.png)
 
 The game's goal is to kill all common enemies or kill all 4 "skulls". 
 Common enemies can be killed quickly if pushed against the walls by shooting at them.
@@ -307,7 +307,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/releases/tag/XShootRebuild
 
 ## CHASE 
 
-![Atari](../snapshots/XChase_A8.png)
+![Atari](../docs/snapshots/XChase_A8.png)
 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.

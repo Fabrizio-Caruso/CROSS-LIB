@@ -234,7 +234,7 @@ void show_win_line(void)
     uint8_t i;
     uint8_t winning_x;
     uint8_t winning_y;
-    
+
     if(winner==AI)
     {
         winning_x = ai_move_x;
@@ -414,6 +414,63 @@ uint8_t find_block_3(uint8_t player, uint8_t *bx_out, uint8_t *by_out)
     return 0;
 }
 
+/* --- Helper: find a cell that would extend a 2-in-a-row of `player`
+ *     into a 3-in-a-row.  Returns 1 on success. --- */
+uint8_t find_extend_2(uint8_t player, uint8_t *x_out, uint8_t *y_out)
+{
+    uint8_t i, j, d;
+    short dxs[4] = {0, 1, 1, 1};
+    short dys[4] = {1, 0, 1, -1};
+    short sx, sy, px, py;
+    uint8_t count;
+    uint8_t found;
+
+    found = 0;
+    for (i = 0; i < BOARD_SIZE && !found; i++) {
+        for (j = 0; j < BOARD_SIZE && !found; j++) {
+            if (board[i][j] != player) continue;
+            for (d = 0; d < 4 && !found; d++) {
+                /* Only process from the start of a contiguous run */
+                px = (short)j - dxs[d];
+                py = (short)i - dys[d];
+                if (px >= 0 && px < BOARD_SIZE && py >= 0 && py < BOARD_SIZE &&
+                    board[py][px] == player)
+                    continue;
+
+                count = 0;
+                sx = (short)j;
+                sy = (short)i;
+                while (sx >= 0 && sx < BOARD_SIZE && sy >= 0 && sy < BOARD_SIZE &&
+                       board[sy][sx] == player) {
+                    count++;
+                    sx += dxs[d];
+                    sy += dys[d];
+                }
+                if (count != 2) continue;
+
+                /* Check forward end */
+                if (sx >= 0 && sx < BOARD_SIZE && sy >= 0 && sy < BOARD_SIZE &&
+                    board[sy][sx] == EMPTY) {
+                    *x_out = (uint8_t)sx;
+                    *y_out = (uint8_t)sy;
+                    found = 1;
+                    break;
+                }
+                /* Check backward end */
+                px = (short)j - dxs[d];
+                py = (short)i - dys[d];
+                if (px >= 0 && px < BOARD_SIZE && py >= 0 && py < BOARD_SIZE &&
+                    board[py][px] == EMPTY) {
+                    *x_out = (uint8_t)px;
+                    *y_out = (uint8_t)py;
+                    found = 1;
+                }
+            }
+        }
+    }
+    return found;
+}
+
 /* --- Helper: check whether `player` has a winning reply anywhere
  *     on the current board (used for 1-ply lookahead). --- */
 uint8_t opponent_can_win_now(uint8_t player)
@@ -438,9 +495,11 @@ uint8_t opponent_can_win_now(uint8_t player)
 /*
  * AI difficulty tiers:
  *
- *   Level 1 – "Reactive"
- *     Detects immediate wins and blocks immediate losses, then plays
- *     a random cell within 2 of an existing stone.  No evaluation.
+ *   Level 1 – "Reactive+"
+ *     Detects immediate wins, blocks immediate losses, blocks any
+ *     open 3-in-a-row, tries to extend its own 2-in-a-row into a
+ *     3-in-a-row, then plays a random cell within 2 of an existing
+ *     stone.  No positional evaluation.
  *
  *   Level 2 – "Tactical"
  *     Detects immediate wins, blocks immediate losses, blocks any
@@ -472,6 +531,7 @@ void ai_make_move(void)
     uint16_t top_score[3];
     uint8_t top_count;
     uint8_t opp_can_win;
+    uint8_t ext_x, ext_y;
 
     best_i = BOARD_SIZE / 2;
     best_j = BOARD_SIZE / 2;
@@ -520,9 +580,28 @@ void ai_make_move(void)
     }
 
     /* ================================================================
-       LEVEL 1 – Reactive: random near stones, no evaluation
+       LEVEL 1 – Reactive+: block 3s, extend own lines, random near stones
        ================================================================ */
     if (difficulty == 1) {
+        /* Block any open 3-in-a-row by the player */
+        if (find_block_3(PLAYER, &block_x, &block_y)) {
+            if (board[block_y][block_x] == EMPTY) {
+                board[block_y][block_x] = AI;
+                ai_move_x = block_x;
+                ai_move_y = block_y;
+                return;
+            }
+        }
+
+        /* Try to extend our own 2-in-a-row into a 3-in-a-row */
+        if (find_extend_2(AI, &ext_x, &ext_y)) {
+            board[ext_y][ext_x] = AI;
+            ai_move_x = ext_x;
+            ai_move_y = ext_y;
+            return;
+        }
+
+        /* Fallback: random cell within 2 of an existing stone */
         found = 0;
         for (attempts = 0; attempts < 200 && !found; attempts++) {
             rnd = _XL_RAND() % (BOARD_SIZE * BOARD_SIZE);
@@ -889,12 +968,12 @@ int main(void)
                     } else {
                         current_turn = PLAYER;
                         _XL_SET_TEXT_COLOR(_XL_WHITE);
-                        
+
                         _XL_PRINT(PRINT_X, 0, "YOUR TURN");
                     }
                 }
             }
-        _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
         }
 
         /* --- Game Over Screen --- */
@@ -904,4 +983,3 @@ int main(void)
 
     return 0;
 }
-

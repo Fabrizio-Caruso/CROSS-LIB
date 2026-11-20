@@ -47,6 +47,8 @@ cross_lib_ld/test/*.exe
 cross_lib_ld/*.asm
 src/examples/full_lcc1802_combo.c
 src/games/full_lcc1802_combo.c
+cross_lib_ld/cfg/*
+cross_lib_hd/cfg/*
 cross_lib_ld/experiments/*
 cross_lib_ld/wincmoc_main.c
 cross_lib_ld/*.asm

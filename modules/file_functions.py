@@ -38,7 +38,6 @@ def built_files_in_path(mypath):
 
 def list_of_projects(project_category):
     if project_category in ["examples", "projects", "games"]:
-        
         res = dirs_in_path("../src/"+project_category)
     else:
         res = dirs_in_path("../src/examples")+dirs_in_path("../src/games")+dirs_in_path("../src/projects")

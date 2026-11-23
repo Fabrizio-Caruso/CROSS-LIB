@@ -95,11 +95,11 @@ def clone(option_config, params):
     if verbose:
         print("source project category: " + source_project_type)
     source_parent_dir = source_project_type + "s"
-    source_parent_and_game_dir = source_parent_dir + "/" + source_game_dir
+    source_parent_and_game_dir = "../src/" + source_parent_dir + "/" + source_game_dir
 
     target_project_type = "project"
     target_parent_dir = target_project_type + "s"
-    target_parent_dir_and_game_dir = target_parent_dir + "/" + target_game_dir
+    target_parent_dir_and_game_dir = "../src/" + target_parent_dir + "/" + target_game_dir
 
     if verbose:
         print("Source project name    : " + source_game_dir)

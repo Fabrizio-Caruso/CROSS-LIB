@@ -84,10 +84,6 @@ def info(option_config, params):
     lines = retrieve_targets()
     target_map = get_target_map(lines)
     
-    # target= params[1].lstrip()
-    # print(target_map[target][0].lstrip())
-
-    # print(str(target_map))
     if len(params)==1 or params[1]=="targets":
         display_filtered_targets(lines)
         return
@@ -109,9 +105,9 @@ def info(option_config, params):
 
     if params[1] in list_of_projects("all"):
         project = params[1]
-        category = project_category(project)
+        category = project_category(option_config, project)
 
-        project_dir = category+"s/"+project
+        project_dir = "../src/" + category+"s/"+project
         split = os.path.exists(project_dir+"/split_files")
         shapes = os.path.exists(project_dir+"/shapes")
         if shapes:

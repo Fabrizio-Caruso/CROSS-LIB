@@ -565,7 +565,7 @@ def slow(option_config, params):
     else:
         printc(option_config, bcolors.FAIL, "Wrong number of arguments")
         sys.exit(-1)
-    parent_and_game_dir = parent_dir + "/" + game_dir
+    parent_and_game_dir = "../src/" + parent_dir + "/" + game_dir
 
     if os.path.exists(parent_and_game_dir + "/config.ini"):
         print("Local config.ini detected")

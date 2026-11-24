@@ -32,7 +32,7 @@ As the game progresses an invincible wizard will chase you at an increasing spee
 - Scoring
 25     points for a dragon
 0-150  as time bonus
-50-200 for the dragon king
+50-250 for the dragon king
 
 - Extra lives
 An extra life is awarded every 1000 points.

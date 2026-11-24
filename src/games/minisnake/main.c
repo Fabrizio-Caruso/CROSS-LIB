@@ -1169,6 +1169,37 @@ void handle_input(uint8_t input)
     #define SELECT_X (XSize/2-12)
 #endif
 
+#if XSize<=24
+    #define TITLE_HISCORE_X 9
+    char game_modes[9][9+1] = 
+    { 
+        "CLASSIC", 
+        "FRENZY",
+        "INSANE",
+        "CLASSIC 2",
+        "FRENZY  2",
+        "INSANE  2",
+        "DELUXE  1",
+        "DELUXE  2",
+        "DELUXE  3"
+    };
+#else
+    #define TITLE_HISCORE_X 14
+    char game_modes[9][13+1] = 
+    {
+        "CLASSIC",
+        "FRENZY",
+        "INSANE",
+        "CLASSIC WRAP",
+        "FRENZY  WRAP",
+        "INSANE  WRAP",
+        "DELUXE EASY",
+        "DELUXE MEDIUM",
+        "DELUXE HARD"
+    };
+#endif
+
+
 uint8_t show_title_screen(void)
 {
     uint8_t selected;
@@ -1181,15 +1212,10 @@ uint8_t show_title_screen(void)
     selected = MODE_CLASSIC;
     game_mode = MODE_CLASSIC;
     
-    y[0] = 5;
-    y[1] = 6;
-    y[2] = 7;
-    y[3] = 8;
-    y[4] = 9;
-    y[5] = 10;
-    y[6] = 11;
-    y[7] = 12;
-    y[8] = 13;
+    for(i=0;i<9;++i)
+    {
+        y[i] = i+5;
+    }
 
     _XL_CLEAR_SCREEN();
     draw_border();
@@ -1200,41 +1226,17 @@ uint8_t show_title_screen(void)
     _XL_SET_TEXT_COLOR(_XL_CYAN);
     _XL_PRINT(SELECT_X, 3, "SELECT MODE");
 
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    for(i=0;i<9;++i)
+    {
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(SELECT_X+2, y[i], 1, i+1);
+        
+        _XL_PRINTD(SELECT_X+4+TITLE_HISCORE_X, y[i], 4, hiscore[i]);
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
 
-    #if XSize<=24
-    _XL_PRINT(SELECT_X+3, y[0], "CLASSIC");
-    _XL_PRINT(SELECT_X+3, y[1], "FRENZY");
-    _XL_PRINT(SELECT_X+3, y[2], "INSANE");
-    _XL_PRINT(SELECT_X+3, y[3], "CLASSIC 2");
-    _XL_PRINT(SELECT_X+3, y[4], "FRENZY  2");
-    _XL_PRINT(SELECT_X+3, y[5], "INSANE  2");
-    _XL_PRINT(SELECT_X+3, y[6], "DELUXE  1");
-    _XL_PRINT(SELECT_X+3, y[7], "DELUXE  2");
-    _XL_PRINT(SELECT_X+3, y[8], "DELUXE  3");
-    for(i=0;i<9;++i)
-    {
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(SELECT_X+2, y[i], 1, i+1);
-        _XL_PRINTD(SELECT_X+4+9, y[i], 4, hiscore[i]);
+        _XL_PRINT(SELECT_X+3,y[i], game_modes[i]);
+
     }
-    #else
-    _XL_PRINT(SELECT_X+4, y[0], "CLASSIC");
-    _XL_PRINT(SELECT_X+4, y[1], "FRENZY");
-    _XL_PRINT(SELECT_X+4, y[2], "INSANE");
-    _XL_PRINT(SELECT_X+4, y[3], "CLASSIC WRAP");
-    _XL_PRINT(SELECT_X+4, y[4], "FRENZY  WRAP");
-    _XL_PRINT(SELECT_X+4, y[5], "INSANE  WRAP");
-    _XL_PRINT(SELECT_X+4, y[6], "DELUXE EASY");
-    _XL_PRINT(SELECT_X+4, y[7], "DELUXE MEDIUM");
-    _XL_PRINT(SELECT_X+4, y[8], "DELUXE HARD");
-    for(i=0;i<9;++i)
-    {
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(SELECT_X+2, y[i], 1, i+1);
-        _XL_PRINTD(SELECT_X+4+14, y[i], 4, hiscore[i]);
-    }
-    #endif
 
     _XL_SET_TEXT_COLOR(_XL_YELLOW);
     _XL_PRINT(SELECT_X, YSize - 2, "FIRE TO START");
@@ -1254,7 +1256,22 @@ uint8_t show_title_screen(void)
         if (input != 0)
         {
             if (_XL_FIRE(input))
+            {
+                for(i=0;i<70;++i)
+                {
+                    if(i&1)
+                    {
+                        _XL_SET_TEXT_COLOR(_XL_RED);
+                    }
+                    else
+                    {
+                        _XL_SET_TEXT_COLOR(_XL_YELLOW);
+                    }
+                    _XL_PRINT(SELECT_X+3,y[selected], game_modes[selected]);
+                    _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR);
+                }
                 return selected;
+            }
 
             if (_XL_UP(input))
             {

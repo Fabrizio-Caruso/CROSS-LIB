@@ -10,12 +10,12 @@ CROSS-LIB VERSION:
 This version is meant for 200+ systems.
 Its gameplay is similar to the original game but not identical.
 Graphics assets have been ripped from the original game for the most part. 
-The Cross-Lib version has 4 consecutive levels. It keeps track of points and records.
-The original game let you choose one level and the game was only on a single level. No points and no records.
+The Cross-Lib version has 5 consecutive levels. It keeps track of points and records.
+The original game let you choose one difficulty level out of 4 and the game was only on a single level. No points and no records.
 
 GAMEPLAY:
 - The goal
-Your knights must defeat 4 dragon kings to save the princess. 
+Your knights must defeat 5 dragon kings to save the princess. 
 The game starts with 3 knights.
 In order to kill a dragon king no other dragon has to be present.
 If there are other dragons left, the dragon king is invincible.

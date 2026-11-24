@@ -128,7 +128,7 @@ uint8_t head_colors[] = {_XL_GREEN, _XL_RED};
 #define STARVING_X (XSize/2-4)
 
 // BETA
-#define BETA 1
+// #define BETA 1
 
 uint8_t starving_threshold;
 

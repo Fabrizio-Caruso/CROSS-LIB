@@ -45,11 +45,11 @@
 #endif
 
 #define INITIAL_LEVEL 1
-#define LAST_LEVEL    4
+#define LAST_LEVEL    5
 
 #define BONUS_LIFE 1000
 
-#define BETA 1
+// #define BETA 1
 
 static uint8_t lives;
 static uint16_t record;
@@ -1055,20 +1055,6 @@ static void init_level(void)
     uint8_t i;
 
     _XL_CLEAR_SCREEN();
-    // if (scene_drawn)
-    // {
-        // _XL_DELETE(player_x, player_y);
-        // _XL_DELETE(wizard_x, wizard_y);
-
-        // for (i = 0; i < level_dragons; ++i)
-        // {
-            // if (dragons[i].alive)
-                // delete_dragon(i);
-        // }
-
-        // if (king_alive)
-            // delete_king_dragon();
-    // }
 
     frames = 0;
     steps = 0;
@@ -1091,12 +1077,15 @@ static void init_level(void)
             level_dragons = MIN_DRAGONS;
         break;
         case 2:
-            level_dragons = (MAX_DRAGONS-MIN_DRAGONS)/3 + MIN_DRAGONS;
+            level_dragons = (MAX_DRAGONS-MIN_DRAGONS)/4 + MIN_DRAGONS;
         break;
         case 3:
-            level_dragons = ((MAX_DRAGONS-MIN_DRAGONS)/3)*2 + MIN_DRAGONS;
+            level_dragons = ((MAX_DRAGONS-MIN_DRAGONS)/4)*2 + MIN_DRAGONS;
         break;
         case 4:
+            level_dragons = ((MAX_DRAGONS-MIN_DRAGONS)/4)*3 + MIN_DRAGONS;
+        break;
+        case 5:
             level_dragons = MAX_DRAGONS;
         break;
     }   

@@ -52,7 +52,7 @@
 
 #define PRINT_X 8
 
-#define BETA 1
+// #define BETA 1
 
 uint8_t board[BOARD_SIZE][BOARD_SIZE];
 uint8_t difficulty;

@@ -234,27 +234,49 @@ void show_win_line(void)
     uint8_t i;
     uint8_t winning_x;
     uint8_t winning_y;
-
+    uint8_t c;
+    
     if(winner==AI)
     {
         winning_x = ai_move_x;
         winning_y = ai_move_y;
+        c = _XL_WHITE;
     }
     else
     {
         winning_x = cursor_x;
         winning_y = cursor_y;
+        c = _XL_CYAN;
     }
     for(i=0;i<30;++i)
     {
-        for (k = 0; k < win_line_len; k++) {
+        for (k = 0; k < win_line_len; k++) 
+        {
             if(winning_x==win_line_x[k] && winning_y==win_line_y[k])
             {
-                draw_cell_player(win_line_x[k], win_line_y[k], _XL_GREEN);
-                _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
+                if((i&1))
+                {
+                    draw_cell_player(win_line_x[k], win_line_y[k], _XL_GREEN);
+                }
+                else
+                {
+                    draw_cell_player(win_line_x[k], win_line_y[k], _XL_RED);
+                }
             }
-            draw_cell_player(win_line_x[k], win_line_y[k], _XL_RED);
-            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/10);
+            else
+            {
+                if(i&1)
+                {
+                    draw_cell_player(win_line_x[k], win_line_y[k], _XL_RED);
+
+                }
+                else
+                {
+                    draw_cell_player(win_line_x[k], win_line_y[k], c);
+                }
+            }
+            
+            _XL_SLOW_DOWN(_XL_SLOW_DOWN_FACTOR/4);
         }
     }
 }

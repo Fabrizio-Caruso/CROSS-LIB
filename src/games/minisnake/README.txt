@@ -3,6 +3,10 @@ by Fabrizio Caruso
 Written with Cross-Lib for 200+ systems
 https://github.com/Fabrizio-Caruso/CROSS-LIB
 
+- Disclaimer
+The AI helped to code this game but most of the code is hand written.
+
+- Game play
 This is a Nokia Snake-inspired mini-game with 9 different modes:
 
 1. classic       : similar to the first Nokia Snake

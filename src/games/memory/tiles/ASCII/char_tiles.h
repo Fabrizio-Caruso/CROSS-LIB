@@ -4,53 +4,98 @@
 #include "cross_lib.h"
 
 
-#define _TILE_0 '*'
-#define _TILE_1 '*'
+#define _TILE_0 '0'
+#define _TILE_1 '1'
+#define _TILE_2 '2'
+#define _TILE_3 '3'
+#define _TILE_4 '4'
+#define _TILE_5 '5'
+#define _TILE_6 '6'
+#define _TILE_7 '7'
+#define _TILE_8 '8'
+#define _TILE_9 '9'
+#define _TILE_10 '0'
+#define _TILE_11 '1'
+#define _TILE_12 '2'
+#define _TILE_13 '3'
+#define _TILE_14 '4'
+#define _TILE_15 '5'
+#define _TILE_16 '6'
+#define _TILE_17 '7'
+#define _TILE_18 '8'
+#define _TILE_19 '9'
+#define _TILE_20 '0'
+#define _TILE_21 '1'
+#define _TILE_22 '2'
+#define _TILE_23 '3'
+#define _TILE_24 '4'
+#define _TILE_25 '5'
+#define _TILE_26 '6'
+#define _TILE_27 '7'
+#define _TILE_28 '8'
+#define _TILE_29 '9'
+#define _TILE_30 '0'
+#define _TILE_31 '1'
+#define _TILE_32 '2'
+#define _TILE_33 '3'
+#define _TILE_34 '4'
+#define _TILE_35 '5'
+#define _TILE_36 '6'
+#define _TILE_37 '7'
+#define _TILE_38 '8'
+#define _TILE_39 '9'
+#define _TILE_40 '0'
+#define _TILE_41 '1'
+#define _TILE_42 '2'
+#define _TILE_43 '3'
+#define _TILE_44 '4'
+#define _TILE_45 '5'
+#define _TILE_46 '6'
+#define _TILE_47 '7'
+#define _TILE_48 '8'
+#define _TILE_49 '9'
+#define _TILE_50 '0'
+#define _TILE_51 '1'
+#define _TILE_52 '2'
+#define _TILE_53 '3'
+#define _TILE_54 '4'
+#define _TILE_55 '5'
+#define _TILE_56 '6'
+#define _TILE_57 '7'
+#define _TILE_58 '8'
+#define _TILE_59 '9'
+#define _TILE_60 '0'
+#define _TILE_61 '1'
+#define _TILE_62 '2'
+#define _TILE_63 '3'
+#define _TILE_64 '4'
+#define _TILE_65 '5'
+#define _TILE_66 '6'
+#define _TILE_67 '7'
+#define _TILE_68 '8'
+#define _TILE_69 '9'
+#define _TILE_70 '0'
+#define _TILE_71 '1'
+#define _TILE_72 '2'
+#define _TILE_73 '3'
+#define _TILE_74 '4'
+#define _TILE_75 '5'
+#define _TILE_76 '6'
+#define _TILE_77 '7'
+#define _TILE_78 '8'
+#define _TILE_79 '9'
+#define _TILE_80 '0'
+#define _TILE_81 '1'
+#define _TILE_82 '2'
+#define _TILE_83 '3'
+#define _TILE_84 '4'
+#define _TILE_85 '5'
+#define _TILE_86 '6'
+#define _TILE_87 '7'
+#define _TILE_88 '8'
+#define _TILE_89 '9'
+#define _TILE_90 '0'
 
-#define _TILE_2 '-'
-
-#define _TILE_3 '-'
-
-// Apple
-#define _TILE_4 'O'
-
-// Body
-#define _TILE_5 'O'
-
-#define _TILE_6 'H'
-
-#define _TILE_7 '='
-
-#if defined(_XL_NO_COLOR)
-    #define _TILE_8 'R'
-#else
-    #define _TILE_8 'O'
-#endif
-
-#define _TILE_9 'L'
-
-#define _TILE_10 '='
-
-#define _TILE_11 'I'
-#define _TILE_12 'I'
-
-#define _TILE_13 '-'
-
-#define _TILE_14 'S'
-
-#define _TILE_15 'I'
-
-#define _TILE_16 'C'
-
-#define _TILE_17 'X'
-
-#if defined(_XL_NO_COLOR)
-    #define _TILE_18 'S'
-#else
-    #define _TILE_18 'O'
-#endif
-
-#define _TILE_26 'J'
 
 #endif // _CHAR_TILES_H
 

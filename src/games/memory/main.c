@@ -1,5 +1,24 @@
 #include "cross_lib.h"
 
+uint8_t card_tiles[] = 
+{
+    _TILE_1, _TILE_0, _TILE_3, _TILE_4, _TILE_5, _TILE_6,
+    _TILE_7, _TILE_8, _TILE_9, _TILE_10,_TILE_11,_TILE_12,
+    _TILE_13,_TILE_14,_TILE_15,_TILE_16,_TILE_17,_TILE_18,
+    _TILE_19,_TILE_20,_TILE_21,_TILE_22,_TILE_23,_TILE_24,
+#if _XL_NUMBER_OF_TILES>=91
+    _TILE_25,_TILE_26,_TILE_27,_TILE_28,_TILE_29,_TILE_30,
+    _TILE_31,_TILE_32,_TILE_33,_TILE_34,_TILE_35,_TILE_36,
+    _TILE_37,_TILE_38,_TILE_39,_TILE_40,_TILE_41,_TILE_42,
+    _TILE_43,_TILE_44,_TILE_45,_TILE_46,_TILE_47,_TILE_48
+#else
+    _TILE_1, _TILE_0, _TILE_3, _TILE_4, _TILE_5, _TILE_6,
+    _TILE_7, _TILE_8, _TILE_9, _TILE_10,_TILE_11,_TILE_12,
+    _TILE_13,_TILE_14,_TILE_15,_TILE_16,_TILE_17,_TILE_18,
+    _TILE_19,_TILE_20,_TILE_21,_TILE_22,_TILE_23,_TILE_24,
+#endif
+};
+
 int main(void)
 {
     uint8_t cards[16];
@@ -242,12 +261,12 @@ int main(void)
                     t5 = (uint8_t)(t0 + 5);
                     x = (uint8_t)(cursor_col * 3);
                     y = (uint8_t)(2 + cursor_row * 4);
-                    _XL_DRAW(x, y, t0, _XL_WHITE);
-                    _XL_DRAW((uint8_t)(x + 1), y, t1, _XL_WHITE);
-                    _XL_DRAW(x, (uint8_t)(y + 1), t2, _XL_WHITE);
-                    _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), t3, _XL_WHITE);
-                    _XL_DRAW(x, (uint8_t)(y + 2), t4, _XL_WHITE);
-                    _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), t5, _XL_WHITE);
+                    _XL_DRAW(x, y, card_tiles[t0], _XL_WHITE);
+                    _XL_DRAW((uint8_t)(x + 1), y, card_tiles[t1], _XL_WHITE);
+                    _XL_DRAW(x, (uint8_t)(y + 1), card_tiles[t2], _XL_WHITE);
+                    _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), card_tiles[t3], _XL_WHITE);
+                    _XL_DRAW(x, (uint8_t)(y + 2), card_tiles[t4], _XL_WHITE);
+                    _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), card_tiles[t5], _XL_WHITE);
                     _XL_PING_SOUND();
 
                     if(!first_valid)
@@ -279,12 +298,12 @@ int main(void)
                             t3 = (uint8_t)(t0 + 3);
                             t4 = (uint8_t)(t0 + 4);
                             t5 = (uint8_t)(t0 + 5);
-                            _XL_DRAW(x, y, t0, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), y, t1, _XL_GREEN);
-                            _XL_DRAW(x, (uint8_t)(y + 1), t2, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), t3, _XL_GREEN);
-                            _XL_DRAW(x, (uint8_t)(y + 2), t4, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), t5, _XL_GREEN);
+                            _XL_DRAW(x, y, card_tiles[t0], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), y, card_tiles[t1], _XL_GREEN);
+                            _XL_DRAW(x, (uint8_t)(y + 1), card_tiles[t2], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), card_tiles[t3], _XL_GREEN);
+                            _XL_DRAW(x, (uint8_t)(y + 2), card_tiles[t4], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), card_tiles[t5], _XL_GREEN);
 
                             /* Second card to green */
                             cc = (uint8_t)(card_idx % 4);
@@ -298,12 +317,12 @@ int main(void)
                             t3 = (uint8_t)(t0 + 3);
                             t4 = (uint8_t)(t0 + 4);
                             t5 = (uint8_t)(t0 + 5);
-                            _XL_DRAW(x, y, t0, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), y, t1, _XL_GREEN);
-                            _XL_DRAW(x, (uint8_t)(y + 1), t2, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), t3, _XL_GREEN);
-                            _XL_DRAW(x, (uint8_t)(y + 2), t4, _XL_GREEN);
-                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), t5, _XL_GREEN);
+                            _XL_DRAW(x, y, card_tiles[t0], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), y, card_tiles[t1], _XL_GREEN);
+                            _XL_DRAW(x, (uint8_t)(y + 1), card_tiles[t2], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 1), card_tiles[t3], _XL_GREEN);
+                            _XL_DRAW(x, (uint8_t)(y + 2), card_tiles[t4], _XL_GREEN);
+                            _XL_DRAW((uint8_t)(x + 1), (uint8_t)(y + 2), card_tiles[t5], _XL_GREEN);
 
                             /* Update score display */
                             _XL_SET_TEXT_COLOR(_XL_YELLOW);
